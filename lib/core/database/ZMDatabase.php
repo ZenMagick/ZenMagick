@@ -24,6 +24,11 @@ use zenmagick\base\Beans;
 use zenmagick\base\Runtime;
 use zenmagick\base\Toolbox;
 use zenmagick\base\ZMObject;
+use Doctrine\Common\EventManager;
+use Doctrine\DBAL\Connection;
+use Doctrine\DBAL\Configuration;
+use Doctrine\DBAL\Driver;
+use Doctrine\DBAL\Types\Type;
 
 /**
  * ZenMagick database abstractation.
@@ -82,12 +87,17 @@ class ZMDatabase extends ZMObject {
      * Create a new instance.
      *
      * @param array params Configuration properties.
+     * @todo Driver param should not be allowed null. change when we inherit from Connection
      */
-    public function __construct(array $params) {
+    public function __construct(array $params, Driver $driver = null, Configuration $config = null, EventManager $eventManager = null) {
         parent::__construct();
         $this->mapper_ = ZMDbTableMapper::instance();
+        $this->mapper_->setTablePrefix($params['prefix']);
 
-        $pdo = Doctrine\DBAL\DriverManager::getConnection($params);
+        Type::overrideType('datetime', 'zenmagick\base\database\doctrine\types\DateTimeType');
+        Type::overrideType('date', 'zenmagick\base\database\doctrine\types\DateType');
+
+        $pdo = Doctrine\DBAL\DriverManager::getConnection($params, $config, $eventManager);
 
         // @todo don't tie logging to the pageStats plugin
         // @todo look at doctrine.dbal.logging (boolean) and doctrine.dbal.logger_class
@@ -196,7 +206,7 @@ class ZMDatabase extends ZMObject {
      * @throws ZMDatabaseException
      */
     public function loadModel($table, $key, $modelClass, $mapping = null) {
-        $mapping = $this->mapper_->ensureMapping(null !== $mapping ? $mapping : $table, $this);
+        $mapping = $this->mapper_->ensureMapping(null !== $mapping ? $mapping : $table);
 
         // determine by looking at key and auto settings
         foreach ($mapping as $property => $field) {
@@ -208,28 +218,9 @@ class ZMDatabase extends ZMObject {
 
         $field = $mapping[$keyName];
         $sql = 'SELECT * from '.$table.' WHERE '.$field['column'].' = :'.$keyName;
-        $stmt = $this->prepareStatement($sql, array($keyName => $key), $mapping);
 
-
-        try {
-            $stmt->execute();
-            $rows = $stmt->fetchAll();
-            $stmt->closeCursor();
-        } catch (PDOException $pdoe) {
-            throw new ZMDatabaseException($pdoe->getMessage(), $pdoe->getCode(), $pdoe);
-        }
-        $results = array();
-        foreach ($rows as $result) {
-            if (null !== $mapping && ZMDatabase::MODEL_RAW != $modelClass) {
-                $result = $this->translateRow($result, $mapping);
-            }
-            if (null != $modelClass && ZMDatabase::MODEL_RAW != $modelClass) {
-                $result = Beans::map2obj($modelClass, $result);
-            }
-            $results[] = $result;
-        }
-
-        return 1 == count($results) ? $results[0] : null;
+        // @todo ensureMapping doesn't like being passed a completed mapping instance. so pass $table as $mapping
+        return $this->querySingle($sql, array($keyName => $key), $table, $modelClass);
     }
 
     /**
@@ -246,7 +237,7 @@ class ZMDatabase extends ZMObject {
             return null;
         }
 
-        $mapping = $this->mapper_->ensureMapping(null !== $mapping ? $mapping : $table, $this);
+        $mapping = $this->mapper_->ensureMapping(null !== $mapping ? $mapping : $table);
 
         // convert to array
         if (is_object($model)) {
@@ -306,7 +297,7 @@ class ZMDatabase extends ZMObject {
             return null;
         }
 
-        $mapping = $this->mapper_->ensureMapping(null !== $mapping ? $mapping : $table, $this);
+        $mapping = $this->mapper_->ensureMapping(null !== $mapping ? $mapping : $table);
 
         // convert to array
         if (is_object($model)) {
@@ -357,7 +348,7 @@ class ZMDatabase extends ZMObject {
             return;
         }
 
-        $mapping = $this->mapper_->ensureMapping(null !== $mapping ? $mapping : $table, $this);
+        $mapping = $this->mapper_->ensureMapping(null !== $mapping ? $mapping : $table);
 
         // convert to array
         if (is_object($model)) {
@@ -412,7 +403,7 @@ class ZMDatabase extends ZMObject {
      * @throws ZMDatabaseException
      */
     public function update($query, $params = array(), $mapping = null) {
-        $mapping = $this->mapper_->ensureMapping($mapping, $this);
+        $mapping = $this->mapper_->ensureMapping($mapping);
 
         // convert to array
         if (is_object($params)) {
@@ -465,7 +456,7 @@ class ZMDatabase extends ZMObject {
      * @throws ZMDatabaseException
      */
     public function query($sql, array $params = array(), $mapping = null, $modelClass = null) {
-        $mapping = $this->mapper_->ensureMapping($mapping, $this);
+        $mapping = $this->mapper_->ensureMapping($mapping);
 
         try {
             $stmt = $this->prepareStatement($sql, $params, $mapping);
@@ -478,10 +469,11 @@ class ZMDatabase extends ZMObject {
 
         $results = array();
         foreach ($rows as $result) {
-            if (null !== $mapping && ZMDatabase::MODEL_RAW != $modelClass) {
+            if (ZMDatabase::MODEL_RAW == $modelClass) continue;
+            if (null !== $mapping) {
                 $result = $this->translateRow($result, $mapping);
             }
-            if (null != $modelClass && ZMDatabase::MODEL_RAW != $modelClass) {
+            if (null != $modelClass) {
                 $result = Beans::map2obj($modelClass, $result);
             }
             $results[] = $result;
@@ -534,13 +526,6 @@ class ZMDatabase extends ZMObject {
             }
         }
 
-        // defaults - i think we only want to use this on create
-        /*foreach ($mapping as $field) {
-            if (!array_key_exists($field['property'], $args) && null != $field['default']) {
-                $args[$field['property']] = $field['default'];
-            }
-        }*/
-
         // create statement
         $stmt = $this->pdo_->prepare($sql);
         foreach ($params as $name => $value) {
@@ -555,9 +540,6 @@ class ZMDatabase extends ZMObject {
                 }
                 if ('date' == $type && null == $value) {
                    $value = ZMDatabase::NULL_DATE;
-                }
-                if(('date' == 'type' || 'datetime' == $type) && is_string($value)) {
-                    $value = new DateTime($value);
                 }
 
                 try {
@@ -630,7 +612,7 @@ class ZMDatabase extends ZMObject {
      *  <dd>The (case sensitive) column name.</dd>
      *  <dt>key</dt>
      *  <dd>A boolean indicating a primary key</dd>
-     *  <dt>autoIncrement</dt>
+     *  <dt>auto</dt>
      *  <dd>A boolean flag indication an auto increment column</dd>
      *  <dt>maxLen</dt>
      *  <dd>The max. field length; this value is context specific.</dd>
@@ -664,7 +646,7 @@ class ZMDatabase extends ZMObject {
                 'type' => $column->getType()->getName(),
                 'name' => $column->getName(),
                 'key' => in_array($column->getName(), $keys),
-                'autoIncrement' => $column->getAutoincrement(),
+                'auto' => $column->getAutoincrement(),
                 'maxLen' => $column->getLength(),/* TODO doesn't work for integers*/
                 'default' => $column->getDefault()
              );
