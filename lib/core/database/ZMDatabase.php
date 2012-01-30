@@ -86,6 +86,7 @@ class ZMDatabase extends ZMObject {
     public function __construct(array $params) {
         parent::__construct();
         $this->mapper_ = ZMDbTableMapper::instance();
+        $this->mapper_->setTablePrefix($params['prefix']);
 
         $pdo = Doctrine\DBAL\DriverManager::getConnection($params);
 
@@ -196,7 +197,7 @@ class ZMDatabase extends ZMObject {
      * @throws ZMDatabaseException
      */
     public function loadModel($table, $key, $modelClass, $mapping = null) {
-        $mapping = $this->mapper_->ensureMapping(null !== $mapping ? $mapping : $table, $this);
+        $mapping = $this->mapper_->ensureMapping(null !== $mapping ? $mapping : $table);
 
         // determine by looking at key and auto settings
         foreach ($mapping as $property => $field) {
@@ -246,7 +247,7 @@ class ZMDatabase extends ZMObject {
             return null;
         }
 
-        $mapping = $this->mapper_->ensureMapping(null !== $mapping ? $mapping : $table, $this);
+        $mapping = $this->mapper_->ensureMapping(null !== $mapping ? $mapping : $table);
 
         // convert to array
         if (is_object($model)) {
@@ -306,7 +307,7 @@ class ZMDatabase extends ZMObject {
             return null;
         }
 
-        $mapping = $this->mapper_->ensureMapping(null !== $mapping ? $mapping : $table, $this);
+        $mapping = $this->mapper_->ensureMapping(null !== $mapping ? $mapping : $table);
 
         // convert to array
         if (is_object($model)) {
@@ -357,7 +358,7 @@ class ZMDatabase extends ZMObject {
             return;
         }
 
-        $mapping = $this->mapper_->ensureMapping(null !== $mapping ? $mapping : $table, $this);
+        $mapping = $this->mapper_->ensureMapping(null !== $mapping ? $mapping : $table);
 
         // convert to array
         if (is_object($model)) {
@@ -412,7 +413,7 @@ class ZMDatabase extends ZMObject {
      * @throws ZMDatabaseException
      */
     public function update($query, $params = array(), $mapping = null) {
-        $mapping = $this->mapper_->ensureMapping($mapping, $this);
+        $mapping = $this->mapper_->ensureMapping($mapping);
 
         // convert to array
         if (is_object($params)) {
@@ -465,7 +466,7 @@ class ZMDatabase extends ZMObject {
      * @throws ZMDatabaseException
      */
     public function query($sql, array $params = array(), $mapping = null, $modelClass = null) {
-        $mapping = $this->mapper_->ensureMapping($mapping, $this);
+        $mapping = $this->mapper_->ensureMapping($mapping);
 
         try {
             $stmt = $this->prepareStatement($sql, $params, $mapping);
