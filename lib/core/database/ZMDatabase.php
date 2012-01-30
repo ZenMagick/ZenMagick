@@ -478,10 +478,11 @@ class ZMDatabase extends ZMObject {
 
         $results = array();
         foreach ($rows as $result) {
-            if (null !== $mapping && ZMDatabase::MODEL_RAW != $modelClass) {
+            if (ZMDatabase::MODEL_RAW == $modelClass) continue;
+            if (null !== $mapping) {
                 $result = $this->translateRow($result, $mapping);
             }
-            if (null != $modelClass && ZMDatabase::MODEL_RAW != $modelClass) {
+            if (null != $modelClass) {
                 $result = Beans::map2obj($modelClass, $result);
             }
             $results[] = $result;
@@ -533,13 +534,6 @@ class ZMDatabase extends ZMObject {
                 $sql = str_replace(':'.$name, ':'.implode(', :', array_keys($aargs)), $sql);
             }
         }
-
-        // defaults - i think we only want to use this on create
-        /*foreach ($mapping as $field) {
-            if (!array_key_exists($field['property'], $args) && null != $field['default']) {
-                $args[$field['property']] = $field['default'];
-            }
-        }*/
 
         // create statement
         $stmt = $this->pdo_->prepare($sql);
@@ -630,7 +624,7 @@ class ZMDatabase extends ZMObject {
      *  <dd>The (case sensitive) column name.</dd>
      *  <dt>key</dt>
      *  <dd>A boolean indicating a primary key</dd>
-     *  <dt>autoIncrement</dt>
+     *  <dt>auto</dt>
      *  <dd>A boolean flag indication an auto increment column</dd>
      *  <dt>maxLen</dt>
      *  <dd>The max. field length; this value is context specific.</dd>
@@ -664,7 +658,7 @@ class ZMDatabase extends ZMObject {
                 'type' => $column->getType()->getName(),
                 'name' => $column->getName(),
                 'key' => in_array($column->getName(), $keys),
-                'autoIncrement' => $column->getAutoincrement(),
+                'auto' => $column->getAutoincrement(),
                 'maxLen' => $column->getLength(),/* TODO doesn't work for integers*/
                 'default' => $column->getDefault()
              );

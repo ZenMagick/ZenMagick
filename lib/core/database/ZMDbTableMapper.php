@@ -136,18 +136,11 @@ class ZMDbTableMapper extends ZMObject {
      * @return array The mapping or <code>null</code>.
      */
     public function getMapping($tables) {
-        if (!is_array($tables)) {
-            $tables = array($tables);
-        }
-        foreach ($tables as $ii => $table) {
-            $tables[$ii] = str_replace($this->tablePrefix_, '', $table);
-        }
-
         $mappings = array();
-        foreach (array_reverse($tables) as $table) {
-            if (empty($table)) {
-                continue;
-            }
+        foreach (array_reverse((array)$tables) as $table) {
+            $table = str_replace($this->tablePrefix_, '', $table);
+            if (empty($table)) continue;
+
             if (!array_key_exists($table, $this->tableMap_)) {
                 Runtime::getLogging()->debug('creating dynamic mapping for table name: '.$table);
                 $rawMapping = $this->buildTableMapping($table);
@@ -182,7 +175,7 @@ class ZMDbTableMapper extends ZMObject {
             if ($column['key']) {
                 $line .= ';key=true';
             }
-            if ($column['autoIncrement']) {
+            if ($column['auto']) {
                 $line .= ';auto=true';
             }
             $mapping[$column['name']] = $line;
