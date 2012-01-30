@@ -94,6 +94,9 @@ class ZMDatabase extends ZMObject {
         $this->mapper_ = ZMDbTableMapper::instance();
         $this->mapper_->setTablePrefix($params['prefix']);
 
+        Type::overrideType('datetime', 'zenmagick\base\database\doctrine\types\DateTimeType');
+        Type::overrideType('date', 'zenmagick\base\database\doctrine\types\DateType');
+
         $pdo = Doctrine\DBAL\DriverManager::getConnection($params, $config, $eventManager);
 
         // @todo don't tie logging to the pageStats plugin
@@ -556,9 +559,6 @@ class ZMDatabase extends ZMObject {
                 }
                 if ('date' == $type && null == $value) {
                    $value = ZMDatabase::NULL_DATE;
-                }
-                if(('date' == 'type' || 'datetime' == $type) && is_string($value)) {
-                    $value = new DateTime($value);
                 }
 
                 try {
