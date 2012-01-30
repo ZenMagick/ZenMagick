@@ -24,6 +24,11 @@ use zenmagick\base\Beans;
 use zenmagick\base\Runtime;
 use zenmagick\base\Toolbox;
 use zenmagick\base\ZMObject;
+use Doctrine\Common\EventManager;
+use Doctrine\DBAL\Connection;
+use Doctrine\DBAL\Configuration;
+use Doctrine\DBAL\Driver;
+use Doctrine\DBAL\Types\Type;
 
 /**
  * ZenMagick database abstractation.
@@ -82,13 +87,14 @@ class ZMDatabase extends ZMObject {
      * Create a new instance.
      *
      * @param array params Configuration properties.
+     * @todo Driver param should not be allowed null. change when we inherit from Connection
      */
-    public function __construct(array $params) {
+    public function __construct(array $params, Driver $driver = null, Configuration $config = null, EventManager $eventManager = null) {
         parent::__construct();
         $this->mapper_ = ZMDbTableMapper::instance();
         $this->mapper_->setTablePrefix($params['prefix']);
 
-        $pdo = Doctrine\DBAL\DriverManager::getConnection($params);
+        $pdo = Doctrine\DBAL\DriverManager::getConnection($params, $config, $eventManager);
 
         // @todo don't tie logging to the pageStats plugin
         // @todo look at doctrine.dbal.logging (boolean) and doctrine.dbal.logger_class
