@@ -68,12 +68,6 @@ class ZMDatabase extends ZMObject {
     /** If used as modelClass parameter, the raw SQL data will be returned (no mapping, etc). */
     const MODEL_RAW = '@raw';
 
-    /** Internal date format. */
-    const DATE_FORMAT = 'Y-m-d';
-
-    /** Internal date-time format. */
-    const DATETIME_FORMAT = 'Y-m-d H:i:s';
-
     /** NULL date. */
     const NULL_DATE = '0001-01-01';
 

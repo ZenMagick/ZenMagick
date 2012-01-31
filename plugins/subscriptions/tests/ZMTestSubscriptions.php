@@ -49,7 +49,7 @@ class ZMTestSubscriptions extends ZMTestCase {
         $this->assertNotNull($order);
         if (null != $order) {
             $order->set('subscription', true);
-            $order->set('nextOrder', date(ZMDatabase::DATETIME_FORMAT));
+            $order->set('nextOrder', new \DateTime());
             $order->set('schedule', '1m');
             $orderService->updateOrder($order);
             $updated = $orderService->getOrderForId(1, 1);

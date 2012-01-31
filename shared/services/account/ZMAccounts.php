@@ -180,8 +180,9 @@ class ZMAccounts extends ZMObject {
      */
     public function createAccount($account) {
         $account = ZMRuntime::getDatabase()->createModel(TABLE_CUSTOMERS, $account);
-        $account->setAccountCreateDate(date(ZMDatabase::DATETIME_FORMAT));
-        $account->setLastModifiedDate(date(ZMDatabase::DATETIME_FORMAT));
+        $now = new \DateTime();
+        $account->setAccountCreateDate($now);
+        $account->setLastModifiedDate($now);
         ZMRuntime::getDatabase()->createModel(TABLE_CUSTOMERS_INFO, $account);
         return $account;
     }
@@ -200,7 +201,8 @@ class ZMAccounts extends ZMObject {
      */
     public function updateAccount($account) {
         ZMRuntime::getDatabase()->updateModel(TABLE_CUSTOMERS, $account);
-        $account->setLastModifiedDate(date(ZMDatabase::DATETIME_FORMAT));
+        $now = new \DateTime();
+        $account->setLastModifiedDate($now);
 
         // check for existence in case record does not exist...
         $sql = "SELECT COUNT(*) AS total FROM " . TABLE_CUSTOMERS_INFO . "
@@ -209,7 +211,7 @@ class ZMAccounts extends ZMObject {
         if ($result['total'] > 0) {
             ZMRuntime::getDatabase()->updateModel(TABLE_CUSTOMERS_INFO, $account);
         } else {
-            $account->setAccountCreateDate(date(ZMDatabase::DATETIME_FORMAT));
+            $account->setAccountCreateDate($now);
             $account = ZMRuntime::getDatabase()->createModel(TABLE_CUSTOMERS_INFO, $account);
         }
 

@@ -204,7 +204,7 @@ class ZMOrders extends ZMObject implements ZMSQLAware {
      */
     public function createOrderStatusHistory($orderStatus) {
         if (null == $orderStatus->getDateAdded()) {
-            $orderStatus->setDateAdded(date(ZMDatabase::DATETIME_FORMAT));
+            $orderStatus->setDateAdded(new \DateTime());
         }
         return ZMRuntime::getDatabase()->createModel(TABLE_ORDERS_STATUS_HISTORY, $orderStatus);
     }

@@ -77,8 +77,7 @@ class ZMShoppingCarts extends ZMObject {
                           (customers_id, products_id, customers_basket_quantity, customers_basket_date_added)
                         VALUES (:accountId, :skuId, :quantity, :dateAdded)";
                 $args = array('accountId' => $shoppingCart->getAccountId(), 'skuId' => $item->getId(), 'quantity' => $item->getQuantity(),
-                          'dateAdded' => date('Ymd'));
-                          //column is 8 char, not date! 'dateAdded' => date(ZMDatabase::DATE_FORMAT));
+                          'dateAdded' => date('Ymd')); //column is 8 char, not date!
                 ZMRuntime::getDatabase()->update($sql, $args, TABLE_CUSTOMERS_BASKET);
                 if ($item->hasAttributes()) {
                     foreach ($item->getAttributes() as $attribute) {

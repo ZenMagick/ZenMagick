@@ -172,7 +172,7 @@ class ZMCoupons extends ZMObject {
         $tracker->set('firstName', $account->getFirstName());
         $tracker->set('lastName', $account->getLastName());
         $tracker->set('emailTo', $gvreceiver->getEmail());
-        $tracker->set('dateSent', date(ZMDatabase::DATETIME_FORMAT));
+        $tracker->set('dateSent', new \DateTime());
         ZMRuntime::getDatabase()->createModel(TABLE_COUPON_EMAIL_TRACK, $tracker);
     }
 
@@ -214,7 +214,7 @@ class ZMCoupons extends ZMObject {
         $tracker = new ZMObject();
         $tracker->set('couponId', $couponId);
         $tracker->set('accountId', $accountId);
-        $tracker->set('redeemDate', date(ZMDatabase::DATETIME_FORMAT));
+        $tracker->set('redeemDate', new \DateTime());
         $tracker->set('redeemIp', $remoteIp);
         $tracker->set('orderId', 0);
         ZMRuntime::getDatabase()->createModel(TABLE_COUPON_REDEEM_TRACK, $tracker);
