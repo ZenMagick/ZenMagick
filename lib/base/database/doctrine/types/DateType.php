@@ -27,10 +27,20 @@ use Doctrine\DBAL\Platforms\AbstractPlatform;
  */
 class DateType extends DbalDateType {
     /**
-     * {@inheritDoc}
+     * Support this value stored by zencart for certain date fields as null
+     *
+     * @todo drop it when we handle all tables
      */
+    const NULL_VALUE = '0001-01-01';
+
     public function convertToDatabaseValue($value, AbstractPlatform $platform) {
         if (is_string($value)) $value = \DateTime::createFromFormat('!'.$platform->getDateFormatString(), $value);
         return parent::convertToDatabaseValue($value, $platform);
     }
+
+    public function convertToPHPValue($value, AbstractPlatform $platform) {
+        $value = self::NULL_VALUE == $value ? null : $value;
+        return parent::convertToPHPValue($value, $platform);
+    }
+
 }
