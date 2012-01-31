@@ -564,23 +564,8 @@ class ZMDatabase extends ZMObject {
         $mappedFields = array();
         foreach ($mapping as $field) {
             if (array_key_exists($field['column'], $row)) {
-                $mappedRow[$field['property']] = $row[$field['column']];
+                $mappedRow[$field['property']] = $this->pdo_->convertToPHPValue($row[$field['column']], $field['type']);
                 $mappedFields[$field['column']] = $field['column'];
-                if ('datetime' == $field['type']) {
-                    if (ZMDatabase::NULL_DATETIME == $mappedRow[$field['property']]) {
-                        $mappedRow[$field['property']] = null;
-                    } else {
-                        $mappedRow[$field['property']] = new DateTime($mappedRow[$field['property']]);
-                    }
-                } else if ('date' == $field['type']) {
-                    if (ZMDatabase::NULL_DATE == $mappedRow[$field['property']]) {
-                        $mappedRow[$field['property']] = null;
-                    } else {
-                        $mappedRow[$field['property']] = new DateTime($mappedRow[$field['property']]);
-                    }
-                } else if ('boolean' == $field['type']) {
-                    $mappedRow[$field['property']] = Toolbox::asBoolean($row[$field['column']]);
-                }
             }
         }
 
