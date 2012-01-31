@@ -461,9 +461,10 @@ class ZMDatabase extends ZMObject {
             throw new ZMDatabaseException($pdoe->getMessage(), $pdoe->getCode(), $pdoe);
         }
 
+        if (ZMDatabase::MODEL_RAW == $modelClass) return $rows;
+
         $results = array();
         foreach ($rows as $result) {
-            if (ZMDatabase::MODEL_RAW == $modelClass) continue;
             if (null !== $mapping) {
                 $result = $this->translateRow($result, $mapping);
             }
