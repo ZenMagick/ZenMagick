@@ -46,6 +46,12 @@
  */
 namespace FirePHPCore;
 
+use Error;
+use ErrorException;
+use Exception;
+use ReflectionClass;
+
+
 /**
  * @see http://code.google.com/p/firephp/issues/detail?id=112
  */
