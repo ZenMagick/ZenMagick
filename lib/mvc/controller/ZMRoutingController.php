@@ -72,7 +72,7 @@ class ZMRoutingController extends ZMController {
                         $value->populate($request);
                     } else if ('ZMRequest' == $hintClass->name || $hintClass->isSubclassOf('ZMRequest')) {
                         $value = $request;
-                    } else if ('ZMMessages' == $hintClass->name || $hintClass->isSubclassOf('ZMMessages')) {
+                    } else if ('zenmagick\http\messages\Messages' == $hintClass->name || $hintClass->isSubclassOf('zenmagick\http\messages\Messages')) {
                         $value = $this->container->get('messageService');
                     } else {
                         // last choice - assume a model class that does not extend/implement FormData
