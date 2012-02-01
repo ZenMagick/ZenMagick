@@ -47,7 +47,7 @@ class ZMSubscriptionAdminController extends ZMPluginAdmin2Controller {
         $sql = "SELECT orders_id FROM " . TABLE_ORDERS . "
                 WHERE  is_subscription = :subscription
                 ORDER BY subscription_next_order DESC";
-        $results = ZMRuntime::getDatabase()->query($sql, array('subscription' => true), TABLE_ORDERS);
+        $results = ZMRuntime::getDatabase()->fetchAll($sql, array('subscription' => true), TABLE_ORDERS);
         $orderIds = array();
         foreach ($results as $result) {
             if (null != ($order = $this->container->get('orderService')->getOrderForId($result['orderId'], $request->getSession()->getLanguageId()))) {

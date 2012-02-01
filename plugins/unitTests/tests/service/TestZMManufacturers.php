@@ -80,8 +80,8 @@ class TestZMManufacturers extends ZMTestCase {
         // create new manufacturer without info record
         $newManufacturer = Beans::getBean('ZMManufacturer');
         $newManufacturer->setName('Foo');
-        $newManufacturer->setDateAdded(ZMDatabase::NULL_DATETIME);
-        $newManufacturer->setLastModified(ZMDatabase::NULL_DATETIME);
+        $newManufacturer->setDateAdded(new \DateTime());
+        $newManufacturer->setLastModified(new \DateTime());
         $newManufacturer = ZMRuntime::getDatabase()->createModel(TABLE_MANUFACTURERS, $newManufacturer);
 
         $manufacturer = $this->container->get('manufacturerService')->getManufacturerForId($newManufacturer->getId(), 1);

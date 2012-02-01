@@ -317,7 +317,7 @@ class Themes extends ZMObject {
     public function getThemeConfigList() {
         $sql = "SELECT *
                 FROM " . TABLE_TEMPLATE_SELECT;
-        return \ZMRuntime::getDatabase()->query($sql, array(), 'template_select', 'zenmagick\base\ZMObject');
+        return \ZMRuntime::getDatabase()->fetchAll($sql, array(), 'template_select', 'zenmagick\base\ZMObject');
     }
 
     /**

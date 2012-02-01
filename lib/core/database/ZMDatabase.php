@@ -68,12 +68,6 @@ class ZMDatabase extends ZMObject {
     /** If used as modelClass parameter, the raw SQL data will be returned (no mapping, etc). */
     const MODEL_RAW = '@raw';
 
-    /** Internal date format. */
-    const DATE_FORMAT = 'Y-m-d';
-
-    /** Internal date-time format. */
-    const DATETIME_FORMAT = 'Y-m-d H:i:s';
-
     /** NULL date. */
     const NULL_DATE = '0001-01-01';
 
@@ -435,7 +429,7 @@ class ZMDatabase extends ZMObject {
      * @throws ZMDatabaseException
      */
     public function querySingle($sql, array $params = array(), $mapping = null, $modelClass = null) {
-        $results = $this->query($sql, $params, $mapping, $modelClass);
+        $results = $this->fetchAll($sql, $params, $mapping, $modelClass);
         return 0 < count($results) ? $results[0] : null;
     }
 
@@ -455,7 +449,7 @@ class ZMDatabase extends ZMObject {
      * @return array List of populated objects of class <code>$resultClass</code> or map if <em>modelClass</em> is <code>null</code>.
      * @throws ZMDatabaseException
      */
-    public function query($sql, array $params = array(), $mapping = null, $modelClass = null) {
+    public function fetchAll($sql, array $params = array(), $mapping = null, $modelClass = null) {
         $mapping = $this->mapper_->ensureMapping($mapping);
 
         try {
@@ -467,9 +461,10 @@ class ZMDatabase extends ZMObject {
             throw new ZMDatabaseException($pdoe->getMessage(), $pdoe->getCode(), $pdoe);
         }
 
+        if (ZMDatabase::MODEL_RAW == $modelClass) return $rows;
+
         $results = array();
         foreach ($rows as $result) {
-            if (ZMDatabase::MODEL_RAW == $modelClass) continue;
             if (null !== $mapping) {
                 $result = $this->translateRow($result, $mapping);
             }
@@ -569,23 +564,8 @@ class ZMDatabase extends ZMObject {
         $mappedFields = array();
         foreach ($mapping as $field) {
             if (array_key_exists($field['column'], $row)) {
-                $mappedRow[$field['property']] = $row[$field['column']];
+                $mappedRow[$field['property']] = $this->pdo_->convertToPHPValue($row[$field['column']], $field['type']);
                 $mappedFields[$field['column']] = $field['column'];
-                if ('datetime' == $field['type']) {
-                    if (ZMDatabase::NULL_DATETIME == $mappedRow[$field['property']]) {
-                        $mappedRow[$field['property']] = null;
-                    } else {
-                        $mappedRow[$field['property']] = new DateTime($mappedRow[$field['property']]);
-                    }
-                } else if ('date' == $field['type']) {
-                    if (ZMDatabase::NULL_DATE == $mappedRow[$field['property']]) {
-                        $mappedRow[$field['property']] = null;
-                    } else {
-                        $mappedRow[$field['property']] = new DateTime($mappedRow[$field['property']]);
-                    }
-                } else if ('boolean' == $field['type']) {
-                    $mappedRow[$field['property']] = Toolbox::asBoolean($row[$field['column']]);
-                }
             }
         }
 

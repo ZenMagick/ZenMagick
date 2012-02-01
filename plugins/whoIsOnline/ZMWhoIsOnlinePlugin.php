@@ -78,7 +78,7 @@ class ZMWhoIsOnlinePlugin extends Plugin {
         }
 
         $sql = "SELECT customer_id FROM " . TABLE_WHOS_ONLINE;
-        $results = ZMRuntime::getDatabase()->query($sql, array(), TABLE_WHOS_ONLINE, ZMDatabase::MODEL_RAW);
+        $results = ZMRuntime::getDatabase()->fetchAll($sql, array(), TABLE_WHOS_ONLINE, ZMDatabase::MODEL_RAW);
         $anonymous = 0;
         $registered = 0;
         foreach ($results as $result) {

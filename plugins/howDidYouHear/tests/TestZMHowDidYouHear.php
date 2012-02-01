@@ -95,7 +95,7 @@ class TestZMHowDidYouHear extends ZMTestCase {
      */
     public function tearDown() {
         $sql = 'SELECT customers_id FROM '.TABLE_CUSTOMERS.' WHERE customers_lastname = \'doe\'';
-        $results = ZMRuntime::getDatabase()->query($sql, array(), TABLE_CUSTOMERS);
+        $results = ZMRuntime::getDatabase()->fetchAll($sql, array(), TABLE_CUSTOMERS);
         $ids = array();
         foreach ($results as $result) {
             $ids[] = $result['accountId'];

@@ -69,9 +69,10 @@ class ZMTokens extends ZMObject {
         $token = Beans::getBean('ZMToken');
         $token->setHash($this->createToken());
         $token->setResource($resource);
-        $now = time();
-        $token->setIssued(date(ZMDatabase::DATETIME_FORMAT, $now));
-        $token->setExpires(date(ZMDatabase::DATETIME_FORMAT, $now+$lifetime));
+        $now = new \DateTime();
+        $later = clone $now;
+        $token->setIssued($now);
+        $token->setExpires($later->setTimestamp($now->getTimestamp() + $lifetime));
         return ZMRuntime::getDatabase()->createModel(DB_PREFIX.'token', $token);
     }
 
@@ -82,8 +83,8 @@ class ZMTokens extends ZMObject {
      * @param int lifetime The lifetime of the token (in seconds).
      */
     public function updateToken($token, $lifetime) {
-        $now = time();
-        $token->setExpires(date(ZMDatabase::DATETIME_FORMAT, $now+$lifetime));
+        $now = new \DateTime();
+        $token->setExpires($now->setTimestamp(time() + $lifetime));
         ZMRuntime::getDatabase()->updateModel(DB_PREFIX.'token', $token);
     }
 
@@ -116,7 +117,7 @@ class ZMTokens extends ZMObject {
     public function getTokenForResource($resource) {
         $sql = "SELECT * FROM " . DB_PREFIX.'token' . "
                 WHERE resource = :resource AND expires >= now()";
-        return ZMRuntime::getDatabase()->query($sql, array('resource' => $resource), DB_PREFIX.'token', 'ZMToken');
+        return ZMRuntime::getDatabase()->fetchAll($sql, array('resource' => $resource), DB_PREFIX.'token', 'ZMToken');
     }
 
     /**
@@ -128,7 +129,7 @@ class ZMTokens extends ZMObject {
     public function getTokenForHash($hash) {
         $sql = "SELECT * FROM " . DB_PREFIX.'token' . "
                 WHERE hash = :hash AND expires >= now()";
-        $results = ZMRuntime::getDatabase()->query($sql, array('hash' => $hash), DB_PREFIX.'token', 'ZMToken');
+        $results = ZMRuntime::getDatabase()->fetchAll($sql, array('hash' => $hash), DB_PREFIX.'token', 'ZMToken');
         if (1 < count($results)) {
             Runtime::getLogging()->warn('duplicate token for hash: '.$hash);
             // expire all

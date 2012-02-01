@@ -78,8 +78,8 @@ class ZMProductGroupPricings extends ZMObject {
                 WHERE products_id = :productId
                 AND group_id = :groupId".$dateLimit;
         $sql .= " ORDER BY start_date ASC";
-        $args = array('productId' => $productId, 'groupId' => $groupId, 'endDate' => ZMDatabase::NULL_DATETIME);
-        return ZMRuntime::getDatabase()->query($sql, $args, DB_PREFIX.'product_group_pricing', 'ZMProductGroupPricing');
+        $args = array('productId' => $productId, 'groupId' => $groupId, 'endDate' => null);
+        return ZMRuntime::getDatabase()->fetchAll($sql, $args, DB_PREFIX.'product_group_pricing', 'ZMProductGroupPricing');
     }
 
     /**

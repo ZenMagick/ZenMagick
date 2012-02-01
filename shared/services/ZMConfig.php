@@ -262,7 +262,7 @@ class ZMConfig extends ZMObject {
                 WHERE configuration_key like :key
                 ORDER BY sort_order, configuration_id";
         $args = array('key' => $pattern);
-        $values = ZMRuntime::getDatabase()->query($sql, $args, 'configuration');
+        $values = ZMRuntime::getDatabase()->fetchAll($sql, $args, 'configuration');
         return $this->buildObjects($values);
     }
 
@@ -278,7 +278,7 @@ class ZMConfig extends ZMObject {
                 WHERE configuration_group_id like :groupId
                 ORDER BY sort_order, configuration_id";
         $args = array('groupId' => $groupId);
-        $values = ZMRuntime::getDatabase()->query($sql, $args, 'configuration');
+        $values = ZMRuntime::getDatabase()->fetchAll($sql, $args, 'configuration');
         return $this->buildObjects($values);
     }
 
@@ -326,7 +326,7 @@ class ZMConfig extends ZMObject {
         $sql = "SELECT *
                 FROM " . DB_PREFIX . "configuration_group
                 ORDER BY sort_order";
-        return ZMRuntime::getDatabase()->query($sql, array(), 'configuration_group', 'ZMConfigGroup');
+        return ZMRuntime::getDatabase()->fetchAll($sql, array(), 'configuration_group', 'ZMConfigGroup');
     }
 
     /**
@@ -337,7 +337,7 @@ class ZMConfig extends ZMObject {
     public function loadAll() {
         $map = array();
         $sql = "SELECT configuration_key, configuration_value FROM " . DB_PREFIX . "configuration";
-        foreach (ZMRuntime::getDatabase()->query($sql) as $result) {
+        foreach (ZMRuntime::getDatabase()->fetchAll($sql) as $result) {
             $map[$result['configuration_key']] = $result['configuration_value'];
         }
 

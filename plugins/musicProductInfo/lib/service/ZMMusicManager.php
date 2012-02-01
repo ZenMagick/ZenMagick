@@ -129,17 +129,17 @@ class ZMMusicManager extends ZMObject {
     public function getMediaCollectionsForProductId($productId) {
         // get all media for the given product (id)
         $sql = "SELECT media_id FROM " . TABLE_MEDIA_TO_PRODUCTS . " WHERE product_id = :productId";
-        $productMediaIdList = ZMRuntime::getDatabase()->query($sql, array('productId' => $productId), TABLE_MEDIA_TO_PRODUCTS);
+        $productMediaIdList = ZMRuntime::getDatabase()->fetchAll($sql, array('productId' => $productId), TABLE_MEDIA_TO_PRODUCTS);
 
         $collections = array();
         foreach ($productMediaIdList as $mediaId) {
             // all media collections
             $sql = "SELECT * FROM " . TABLE_MEDIA_MANAGER . " WHERE media_id = :collectionId";
             $args = array('collectionId' => $mediaId['mediaId']);
-            foreach (ZMRuntime::getDatabase()->query($sql, $args, TABLE_MEDIA_MANAGER, 'ZMMediaCollection') as $collection) {
+            foreach (ZMRuntime::getDatabase()->fetchAll($sql, $args, TABLE_MEDIA_MANAGER, 'ZMMediaCollection') as $collection) {
                 // populate collection
                 $sql = "SELECT * FROM " . TABLE_MEDIA_CLIPS . " WHERE media_id = :mediaId";
-                foreach (ZMRuntime::getDatabase()->query($sql, array('mediaId' => $mediaId['mediaId']), TABLE_MEDIA_CLIPS, 'ZMMediaItem') as $mediaItem) {
+                foreach (ZMRuntime::getDatabase()->fetchAll($sql, array('mediaId' => $mediaId['mediaId']), TABLE_MEDIA_CLIPS, 'ZMMediaItem') as $mediaItem) {
                     // plus clip types
                     $sql = "SELECT * FROM " . TABLE_MEDIA_TYPES . " WHERE type_id = :mediaTypeId";
                     $args = array('mediaTypeId' => $mediaItem->getMediaTypeId());

@@ -126,7 +126,7 @@ class ZMHowDidYouHearPlugin extends Plugin {
             $sql = "SELECT sources_id, sources_name
                     FROM " . TABLE_SOURCES . "
                     ORDER BY sources_name";
-            foreach (ZMRuntime::getDatabase()->query($sql, array()) as $result) {
+            foreach (ZMRuntime::getDatabase()->fetchAll($sql, array()) as $result) {
                 $source = new ZMObject();
                 $source->setId($result['sources_id']);
                 $source->setName($result['sources_name']);

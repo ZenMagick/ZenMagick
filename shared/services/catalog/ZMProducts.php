@@ -127,7 +127,7 @@ class ZMProducts extends ZMObject implements ZMSQLAware {
         $sql .= " pd.products_id = p.products_id
                     AND pd.language_id = :languageId
                   ORDER BY p.products_sort_order, pd.products_name";
-        $results = ZMRuntime::getDatabase()->query($sql, array('languageId' => $languageId), array(TABLE_PRODUCTS, TABLE_PRODUCTS_DESCRIPTION));
+        $results = ZMRuntime::getDatabase()->fetchAll($sql, array('languageId' => $languageId), array(TABLE_PRODUCTS, TABLE_PRODUCTS_DESCRIPTION));
         $productIds = array();
         foreach ($results as $result) {
             $productIds[] = $result['productId'];
@@ -170,7 +170,7 @@ class ZMProducts extends ZMObject implements ZMSQLAware {
                         AND pd.language_id = :languageId
                       ORDER BY p.products_sort_order, pd.products_name";
             $args = array('languageId' => $languageId);
-            $results = ZMRuntime::getDatabase()->query($sql, $args, array(TABLE_PRODUCTS, TABLE_PRODUCTS_DESCRIPTION, TABLE_PRODUCTS_TO_CATEGORIES));
+            $results = ZMRuntime::getDatabase()->fetchAll($sql, $args, array(TABLE_PRODUCTS, TABLE_PRODUCTS_DESCRIPTION, TABLE_PRODUCTS_TO_CATEGORIES));
             foreach ($results as $result) {
                 $cId = $result['categoryId'];
                 if (!isset($this->categoryProductMap_[$mainKey][$cId])) {
@@ -247,7 +247,7 @@ class ZMProducts extends ZMObject implements ZMSQLAware {
                     AND p.manufacturers_id = m.manufacturers_id AND p.manufacturers_id = :manufacturerId
                   ORDER BY p.products_sort_order, pd.products_name";
         $args = array('manufacturerId' => $manufacturerId, 'languageId' => $languageId);
-        $results = ZMRuntime::getDatabase()->query($sql, $args, array(TABLE_PRODUCTS, TABLE_PRODUCTS_DESCRIPTION, TABLE_MANUFACTURERS));
+        $results = ZMRuntime::getDatabase()->fetchAll($sql, $args, array(TABLE_PRODUCTS, TABLE_PRODUCTS_DESCRIPTION, TABLE_MANUFACTURERS));
         $productIds = array();
         foreach ($results as $result) {
             $productIds[] = $result['productId'];
@@ -553,7 +553,7 @@ class ZMProducts extends ZMObject implements ZMSQLAware {
                 $sql .= " ORDER BY p.products_sort_order, pd.products_name";
             }
             $args = array('productId' => $needLoadIds, 'languageId' => $languageId);
-            $results = ZMRuntime::getDatabase()->query($sql, $args, array(TABLE_PRODUCTS, TABLE_PRODUCTS_DESCRIPTION, TABLE_SPECIALS), 'ZMProduct');
+            $results = ZMRuntime::getDatabase()->fetchAll($sql, $args, array(TABLE_PRODUCTS, TABLE_PRODUCTS_DESCRIPTION, TABLE_SPECIALS), 'ZMProduct');
             foreach ($results as $product) {
                 $products[] = $product;
                 // put in cache
@@ -617,7 +617,7 @@ class ZMProducts extends ZMObject implements ZMSQLAware {
      */
     private function getProductIds($sql, $args=array(), $tables=TABLE_PRODUCTS) {
         $productIds = array();
-        foreach (ZMRuntime::getDatabase()->query($sql, $args, $tables) as $result) {
+        foreach (ZMRuntime::getDatabase()->fetchAll($sql, $args, $tables) as $result) {
             $productId = $result['productId'];
             $productIds[] = $productId;
         }
@@ -637,7 +637,7 @@ class ZMProducts extends ZMObject implements ZMSQLAware {
      */
     private function getRandomProductIds($sql, $max=0, $args=array(), $tables=TABLE_PRODUCTS) {
         $productIds = array();
-        foreach (ZMRuntime::getDatabase()->query($sql, $args, $tables) as $result) {
+        foreach (ZMRuntime::getDatabase()->fetchAll($sql, $args, $tables) as $result) {
             $productId = $result['productId'];
             $productIds[$productId] = $productId;
         }

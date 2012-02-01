@@ -40,7 +40,7 @@ class ZMQueryDetails extends ZMObject {
     /**
      * Create new instance.
      *
-     * <p>The parameters here correspond to <code>ZMDatabase#query()</code>.</p>
+     * <p>The parameters here correspond to <code>ZMDatabase#fetchAll()</code>.</p>
      *
      * @param ZMDatabase database The database.
      * @param string sql The sql.
@@ -121,7 +121,7 @@ class ZMQueryDetails extends ZMObject {
      * @return mixed array Results.
      */
     public function query($sql=null) {
-        return $this->database_->query(null != $sql ? $sql : $this->sql_, $this->args_, $this->mapping_, $this->modelClass_);
+        return $this->database_->fetchAll(null != $sql ? $sql : $this->sql_, $this->args_, $this->mapping_, $this->modelClass_);
     }
 
 }

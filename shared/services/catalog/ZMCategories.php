@@ -137,7 +137,7 @@ class ZMCategories extends ZMObject {
                     AND c.parent_id = 0
                   ORDER BY c.parent_id, c.sort_order, cd.categories_name";
         $args = array('languageId' => $languageId);
-        foreach (ZMRuntime::getDatabase()->query($sql, $args, array(TABLE_CATEGORIES, TABLE_CATEGORIES_DESCRIPTION), 'ZMCategory') as $category) {
+        foreach (ZMRuntime::getDatabase()->fetchAll($sql, $args, array(TABLE_CATEGORIES, TABLE_CATEGORIES_DESCRIPTION), 'ZMCategory') as $category) {
             $rootCategories[$category->getId()] = $category;
         }
 
@@ -149,7 +149,7 @@ class ZMCategories extends ZMObject {
                         AND c.parent_id IN (:categoryId)
                       ORDER BY c.parent_id, c.sort_order, cd.categories_name";
             $args = array('categoryId' => array_keys($rootCategories), 'languageId' => $languageId);
-            foreach (ZMRuntime::getDatabase()->query($sql, $args, array(TABLE_CATEGORIES, TABLE_CATEGORIES_DESCRIPTION), 'ZMCategory') as $category) {
+            foreach (ZMRuntime::getDatabase()->fetchAll($sql, $args, array(TABLE_CATEGORIES, TABLE_CATEGORIES_DESCRIPTION), 'ZMCategory') as $category) {
                 $rootCategories[$category->getParentId()]->addChild($category);
             }
         }
@@ -380,7 +380,7 @@ class ZMCategories extends ZMObject {
         $productTypeIdMap = array();
         $sql = "SELECT * FROM " . TABLE_PRODUCT_TYPES_TO_CATEGORY ."
                 ORDER BY category_id";
-        foreach (ZMRuntime::getDatabase()->query($sql, array(), TABLE_PRODUCT_TYPES_TO_CATEGORY) as $result) {
+        foreach (ZMRuntime::getDatabase()->fetchAll($sql, array(), TABLE_PRODUCT_TYPES_TO_CATEGORY) as $result) {
             if (!array_key_exists($result['categoryId'],  $productTypeIdMap)) {
                 $productTypeIdMap[$result['categoryId']] = array();
             }
@@ -410,7 +410,7 @@ class ZMCategories extends ZMObject {
         $sql .= " ORDER BY c.parent_id, c.sort_order, cd.categories_name";
 
         $categories = array();
-        foreach (ZMRuntime::getDatabase()->query($sql, $args, array(TABLE_CATEGORIES, TABLE_CATEGORIES_DESCRIPTION), 'ZMCategory') as $category) {
+        foreach (ZMRuntime::getDatabase()->fetchAll($sql, $args, array(TABLE_CATEGORIES, TABLE_CATEGORIES_DESCRIPTION), 'ZMCategory') as $category) {
             $categories[$category->getId()] = $category;
         }
 

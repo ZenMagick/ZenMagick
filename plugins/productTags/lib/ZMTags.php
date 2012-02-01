@@ -57,7 +57,7 @@ class ZMTags extends ZMObject {
                 AND t.language_id = :language_id
                 ORDER BY name";
         $args = array('product_id' => $productId, 'language_id' => $languageId);
-        foreach (ZMRuntime::getDatabase()->query($sql, $args, array(TABLE_PRODUCT_TAGS, TABLE_TAGS)) as $result) {
+        foreach (ZMRuntime::getDatabase()->fetchAll($sql, $args, array(TABLE_PRODUCT_TAGS, TABLE_TAGS)) as $result) {
             $tags[$result['product_tag_id']] = $result['name'];
         }
 
@@ -78,7 +78,7 @@ class ZMTags extends ZMObject {
                 WHERE t.name in (:name) AND t.tag_id = pt.tag_id
                 AND t.language_id = :language_id";
         $args = array('name' => $tags, 'language_id' => $languageId);
-        foreach (ZMRuntime::getDatabase()->query($sql, $args, array(TABLE_PRODUCT_TAGS, TABLE_TAGS)) as $result) {
+        foreach (ZMRuntime::getDatabase()->fetchAll($sql, $args, array(TABLE_PRODUCT_TAGS, TABLE_TAGS)) as $result) {
             $ids[] = $result['product_id'];
         }
 
@@ -98,7 +98,7 @@ class ZMTags extends ZMObject {
                 WHERE t.language_id = :language_id
                 ORDER BY name";
         $args = array('language_id' => $languageId);
-        foreach (ZMRuntime::getDatabase()->query($sql, $args, array(TABLE_PRODUCT_TAGS, TABLE_TAGS)) as $result) {
+        foreach (ZMRuntime::getDatabase()->fetchAll($sql, $args, array(TABLE_PRODUCT_TAGS, TABLE_TAGS)) as $result) {
             $tags[$result['tag_id']] = $result['name'];
         }
 
@@ -163,7 +163,7 @@ class ZMTags extends ZMObject {
                 WHERE t.tag_id = pt.tag_id AND t.language_id = :language_id
                 GROUP BY name";
         $stats = array();
-        foreach (ZMRuntime::getDatabase()->query($sql, array('language_id' => $languageId), array(TABLE_PRODUCT_TAGS, TABLE_TAGS)) as $result) {
+        foreach (ZMRuntime::getDatabase()->fetchAll($sql, array('language_id' => $languageId), array(TABLE_PRODUCT_TAGS, TABLE_TAGS)) as $result) {
             //XXX: doh!
             $stats[$result['name']] = $result['tag_id'];
         }

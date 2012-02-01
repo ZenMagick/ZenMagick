@@ -50,7 +50,7 @@ class ZMBanners extends ZMObject {
     public function getBannerGroupIds() {
         $sql = "SELECT DISTINCT banners_group FROM " . TABLE_BANNERS;
         $ids = array();
-        foreach (ZMRuntime::getDatabase()->query($sql, array(), TABLE_BANNERS) as $result) {
+        foreach (ZMRuntime::getDatabase()->fetchAll($sql, array(), TABLE_BANNERS) as $result) {
             $ids[] = $result['group'];
         }
         return $ids;
@@ -90,7 +90,7 @@ class ZMBanners extends ZMObject {
         }
         $sql .= " ORDER BY banners_sort_order";
 
-        return ZMRuntime::getDatabase()->query($sql, array('ssl' => $secure, 'group' => $groupList), TABLE_BANNERS, 'ZMBanner');
+        return ZMRuntime::getDatabase()->fetchAll($sql, array('ssl' => $secure, 'group' => $groupList), TABLE_BANNERS, 'ZMBanner');
     }
 
     /**

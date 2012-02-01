@@ -109,7 +109,7 @@ class TestZMProducts extends ZMTestCase {
      */
     public function testNewProductsHome() {
         $sql = "UPDATE " . TABLE_PRODUCTS . " SET products_date_added = :dateAdded";
-        ZMRuntime::getDatabase()->update($sql, array('dateAdded' => date(ZMDatabase::DATETIME_FORMAT)), TABLE_PRODUCTS);
+        ZMRuntime::getDatabase()->update($sql, array('dateAdded' => new \DateTime()), TABLE_PRODUCTS);
 
         $products = $this->container->get('productService')->getNewProducts();
         $this->assertEqual(50, count($products));

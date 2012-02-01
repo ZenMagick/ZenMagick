@@ -104,7 +104,7 @@ class ZMOpenIDDatabaseStore extends Auth_OpenID_OpenIDStore {
             $sql = "SELECT server_url, handle, secret, issued, lifetime, assoc_type
                     FROM ".DB_PREFIX.'zm_openid_associations'."
                     WHERE server_url = :server_url";
-            $rows = ZMRuntime::getDatabase()->query($sql, array('server_url' => $server_url), DB_PREFIX.'zm_openid_associations');
+            $rows = ZMRuntime::getDatabase()->fetchAll($sql, array('server_url' => $server_url), DB_PREFIX.'zm_openid_associations');
             foreach ($rows as $row) {
                 $associations[] = new Auth_OpenID_Association($row['handle'], $row['secret'], $row['issued'], $row['lifetime'], $row['type']);
             }

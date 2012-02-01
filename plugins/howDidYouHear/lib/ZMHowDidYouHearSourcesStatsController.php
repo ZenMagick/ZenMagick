@@ -50,7 +50,7 @@ class ZMHowDidYouHearSourcesStatsController extends ZMController {
             $isOther = true;
         }
 
-        $sourceStats = ZMRuntime::getDatabase()->query($sql, array(), array(TABLE_SOURCES), 'zenmagick\base\ZMObject');
+        $sourceStats = ZMRuntime::getDatabase()->fetchAll($sql, array(), array(TABLE_SOURCES), 'zenmagick\base\ZMObject');
         $resultSource = new ZMArrayResultSource('zenmagick\base\ZMObject', $sourceStats);
         $resultList = Runtime::getContainer()->get('ZMResultList');
         $resultList->setResultSource($resultSource);

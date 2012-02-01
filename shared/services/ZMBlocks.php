@@ -50,7 +50,7 @@ class ZMBlocks extends ZMObject {
     public function getBlockGroups() {
         $sql = 'SELECT DISTINCT group_name FROM '.DB_PREFIX.'block_groups';
         $ids = array();
-        foreach (ZMRuntime::getDatabase()->query($sql, array(), DB_PREFIX.'block_groups') as $result) {
+        foreach (ZMRuntime::getDatabase()->fetchAll($sql, array(), DB_PREFIX.'block_groups') as $result) {
             $ids[] = $result['group_name'];
         }
         return $ids;
@@ -98,7 +98,7 @@ class ZMBlocks extends ZMObject {
         $result = ZMRuntime::getDatabase()->querySingle($sql, array('group_name' => $groupName), DB_PREFIX.'block_groups');
 
         $sql = "SELECT * FROM ".DB_PREFIX.'blocks_to_groups WHERE block_group_id = :block_group_id ORDER BY sort_order';
-        return ZMRuntime::getDatabase()->query($sql, array('block_group_id' => $result['block_group_id']), DB_PREFIX.'blocks_to_groups', 'ZMBlock');
+        return ZMRuntime::getDatabase()->fetchAll($sql, array('block_group_id' => $result['block_group_id']), DB_PREFIX.'blocks_to_groups', 'ZMBlock');
     }
 
     /**
