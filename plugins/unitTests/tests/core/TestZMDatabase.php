@@ -22,6 +22,8 @@
 
 use zenmagick\base\Beans;
 
+use zenmagick\apps\store\entities\location\Country;
+
 /**
  * Test database implementations.
  *
@@ -117,8 +119,8 @@ class TestZMDatabase extends ZMTestCase {
     public function testModelMethods() {
         // loadModel
         foreach (self::getProviders() as $provider => $database) {
-            $result = $database->loadModel(TABLE_COUNTRIES, 153, 'ZMCountry');
-            if ($this->assertTrue($result instanceof ZMCountry, '%s: '.$provider)) {
+            $result = $database->loadModel(TABLE_COUNTRIES, 153, 'zenmagick\apps\store\entities\location\Country');
+            if ($this->assertTrue($result instanceof Country, '%s: '.$provider)) {
                 $this->assertEqual('NZ', $result->getIsoCode2(), '%s: '.$provider);
             }
         }
@@ -130,7 +132,7 @@ class TestZMDatabase extends ZMTestCase {
             $database->update($deleteTestModelSql, array('isoCode3' => '@@@'), TABLE_COUNTRIES);
 
             // set up test data
-            $model = Beans::getBean('ZMCountry#name="test&isoCode2=@@&isoCode3=@@@&addressFormatId=1');
+            $model = Beans::getBean('zenmagick\apps\store\entities\location\Country#name="test&isoCode2=@@&isoCode3=@@@&addressFormatId=1');
             $result = $database->createModel(TABLE_COUNTRIES, $model);
             if ($this->assertNotNull($result, '%s: '.$provider)) {
                 $this->assertTrue(0 != $result->getId(), '%s: '.$provider);
@@ -143,12 +145,12 @@ class TestZMDatabase extends ZMTestCase {
         // updateModel
         $reset = "UPDATE " . TABLE_COUNTRIES . " SET countries_iso_code_3 = :isoCode3 WHERE countries_id = :countryId";
         foreach (self::getProviders() as $provider => $database) {
-            $country = $database->loadModel(TABLE_COUNTRIES, 153, 'ZMCountry');
+            $country = $database->loadModel(TABLE_COUNTRIES, 153, 'zenmagick\apps\store\entities\location\Country');
             if ($this->assertNotNull($country, '%s: '.$provider)) {
                 $isCode3 = $country->getIsoCode3();
                 $country->setIsoCode3('###');
                 $database->updateModel(TABLE_COUNTRIES, $country);
-                $updated = $database->loadModel(TABLE_COUNTRIES, 153, 'ZMCountry');
+                $updated = $database->loadModel(TABLE_COUNTRIES, 153, 'zenmagick\apps\store\entities\location\Country');
                 if ($this->assertNotNull($updated, '%s: '.$provider)) {
                     $this->assertEqual('###', $updated->getIsoCode3(), '%s: '.$provider);
                 }
@@ -165,11 +167,11 @@ class TestZMDatabase extends ZMTestCase {
             $database->update($deleteTestModelSql, array('isoCode3' => '%%%'), TABLE_COUNTRIES);
 
             // set up test data
-            $model = Beans::getBean('ZMCountry#name="test&isoCode2=%%&isoCode3=%%%&addressFormatId=1');
+            $model = Beans::getBean('zenmagick\apps\store\entities\location\Country#name="test&isoCode2=%%&isoCode3=%%%&addressFormatId=1');
             $result = $database->createModel(TABLE_COUNTRIES, $model);
             if ($this->assertNotNull($result, '%s: '.$provider)) {
                 $database->removeModel(TABLE_COUNTRIES, $result);
-                $this->assertNull($database->querySingle($findTestModelSql, array('isoCode3' => '%%%'), TABLE_COUNTRIES, 'ZMCountry'), '%s: '.$provider);
+                $this->assertNull($database->querySingle($findTestModelSql, array('isoCode3' => '%%%'), TABLE_COUNTRIES, 'zenmagick\apps\store\entities\location\Country'), '%s: '.$provider);
             }
 
             // clean up

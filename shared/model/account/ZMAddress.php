@@ -165,7 +165,7 @@ class ZMAddress extends ZMObject {
     /**
      * Get the country.
      *
-     * @return ZMCountry The country.
+     * @return Country The country.
      */
     public function getCountry() {
         if (null == $this->country_) {
@@ -314,7 +314,7 @@ class ZMAddress extends ZMObject {
     /**
      * Set the country.
      *
-     * @param ZMCountry country The country.
+     * @param Country country The country.
      */
     public function setCountry($country) { $this->country_ = $country; }
 

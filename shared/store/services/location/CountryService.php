@@ -22,6 +22,7 @@
  */
 ?>
 <?php
+namespace zenmagick\apps\store\services\location;
 
 use zenmagick\base\Runtime;
 use zenmagick\base\ZMObject;
@@ -30,10 +31,9 @@ use zenmagick\base\ZMObject;
  * Countries.
  *
  * @author DerManoMann
- * @package zenmagick.store.shared.services.account
  */
-class ZMCountries extends ZMObject {
-    private $countries_;
+class CountryService extends ZMObject {
+    private $countries;
 
 
     /**
@@ -41,7 +41,7 @@ class ZMCountries extends ZMObject {
      */
     public function __construct() {
         parent::__construct();
-        $this->countries_ = null;
+        $this->countries = null;
     }
 
 
@@ -57,11 +57,11 @@ class ZMCountries extends ZMObject {
      * Get country for the given name.
      *
      * @param string name The country name.
-     * @return ZMCountry The country or <code>null</code>.
+     * @return Country The country or <code>null</code>.
      */
     public function getCountryForName($name) {
         $this->getCountries();
-        foreach ($this->countries_ as $country) {
+        foreach ($this->countries as $country) {
             if ($name == $country->getName()) {
                 return $country;
             }
@@ -72,28 +72,28 @@ class ZMCountries extends ZMObject {
     /**
      * Get a list of all countries.
      *
-     * @return array A list of <code>ZMCountry</code> objects.
+     * @return array A list of <code>Country</code> objects.
      */
     public function getCountries() {
-        if (null !== $this->countries_)
-            return $this->countries_;
+        if (null !== $this->countries)
+            return $this->countries;
 
         $sql = "SELECT *
                 FROM " . TABLE_COUNTRIES . "
                 ORDER BY countries_name";
-        $this->countries_ = ZMRuntime::getDatabase()->fetchAll($sql, array(), TABLE_COUNTRIES, 'ZMCountry');
-        return $this->countries_;
+        $this->countries = \ZMRuntime::getDatabase()->fetchAll($sql, array(), TABLE_COUNTRIES, 'zenmagick\apps\store\entities\location\Country');
+        return $this->countries;
     }
 
     /**
      * Get country for the given id.
      *
      * @param int id The country id.
-     * @return ZMCountry The country or <code>null</code>.
+     * @return Country The country or <code>null</code>.
      */
     public function getCountryForId($id) {
         $this->getCountries();
-        foreach ($this->countries_ as $country) {
+        foreach ($this->countries as $country) {
             if ($id == $country->getId()) {
                 return $country;
             }
@@ -105,11 +105,11 @@ class ZMCountries extends ZMObject {
      * Get country for the given ISO code2.
      *
      * @param string code The country code.
-     * @return ZMCountry The country or <code>null</code>.
+     * @return Country The country or <code>null</code>.
      */
     public function getCountryForIsoCode2($code) {
         $this->getCountries();
-        foreach ($this->countries_ as $country) {
+        foreach ($this->countries as $country) {
             if ($code == $country->getIsoCode2()) {
                 return $country;
             }
@@ -131,7 +131,7 @@ class ZMCountries extends ZMObject {
                 FROM " . TABLE_ZONES . "
                 WHERE zone_country_id = :countryId
                  AND zone_id = :zoneId";
-        $zone = ZMRuntime::getDatabase()->querySingle($sql, array('zoneId' => $zoneId, 'countryId' => $countryId), TABLE_ZONES);
+        $zone = \ZMRuntime::getDatabase()->querySingle($sql, array('zoneId' => $zoneId, 'countryId' => $countryId), TABLE_ZONES);
         return null !== $zone ? $zone['code'] : $defaultZone;
     }
 
@@ -140,7 +140,7 @@ class ZMCountries extends ZMObject {
      * Get all zones for the given country id.
      *
      * @param int countryId The country id.
-     * @return array List of <code>ZMZone</code> objects.
+     * @return array List of <code>Zone</code> objects.
      */
     public function getZonesForCountryId($countryId) {
         if (empty($countryId)) {
@@ -151,7 +151,7 @@ class ZMCountries extends ZMObject {
                 FROM " . TABLE_ZONES . "
                 WHERE zone_country_id = :countryId
                 ORDER BY zone_name";
-        $zones = ZMRuntime::getDatabase()->fetchAll($sql, array('countryId' => $countryId), TABLE_ZONES, 'ZMZone');
+        $zones = \ZMRuntime::getDatabase()->fetchAll($sql, array('countryId' => $countryId), TABLE_ZONES, 'zenmagick\apps\store\entities\location\Zone');
         return $zones;
     }
 

@@ -22,6 +22,7 @@
  */
 ?>
 <?php
+namespace zenmagick\apps\store\entities\location;
 
 use zenmagick\base\ZMObject;
 
@@ -31,11 +32,10 @@ use Doctrine\ORM\Mapping AS ORM;
  * A address zone.
  *
  * @author DerManoMann
- * @package zenmagick.store.shared.model.account
  * @ORM\Table(name="zones")
  * @ORM\Entity
  */
-class ZMZone extends ZMObject {
+class Zone extends ZMObject {
     /**
      * @var integer $zoneId
      *
@@ -135,4 +135,5 @@ class ZMZone extends ZMObject {
      * @param string $name The name.
      */
     public function setName($name) { $this->name = $name; }
+
 }

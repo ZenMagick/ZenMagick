@@ -22,6 +22,7 @@
  */
 ?>
 <?php
+namespace zenmagick\apps\store\entities\location;
 
 use zenmagick\base\ZMObject;
 
@@ -31,11 +32,10 @@ use Doctrine\ORM\Mapping AS ORM;
  * A single country.
  *
  * @author DerManoMann
- * @package zenmagick.store.shared.model
  * @ORM\Table(name="countries")
  * @ORM\Entity
  */
-class ZMCountry extends ZMObject {
+class Country extends ZMObject {
     /**
      * @var integer $countryId
      *
@@ -159,4 +159,5 @@ class ZMCountry extends ZMObject {
      * @param int $addressFormatId The address format id.
      */
     public function setAddressFormatId($addressFormatId) { $this->addressFormatId = $addressFormatId; }
+
 }

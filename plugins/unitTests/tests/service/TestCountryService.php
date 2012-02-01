@@ -21,12 +21,12 @@
 <?php
 
 /**
- * Test countries service.
+ * Test country service.
  *
  * @package org.zenmagick.plugins.unitTests.tests
  * @author DerManoMann <mano@zenmagick.org>
  */
-class TestZMCountries extends ZMTestCase {
+class TestCountryService extends ZMTestCase {
 
     /**
      * Test load country.

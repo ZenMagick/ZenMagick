@@ -43,7 +43,7 @@
 
         <service id="addressService" class="ZMAddresses" scope="container" />
 
-        <service id="countryService" class="ZMCountries" scope="container" />
+        <service id="countryService" class="zenmagick\apps\store\services\location\CountryService" scope="container" />
 
         <service id="orderService" class="ZMOrders" scope="container" />
 
