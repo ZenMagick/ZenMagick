@@ -22,6 +22,7 @@
  */
 ?>
 <?php
+namespace zenmagick\apps\store\entities\catalog;
 
 use zenmagick\base\Runtime;
 use zenmagick\base\ZMObject;
@@ -31,12 +32,11 @@ use Doctrine\ORM\Mapping AS ORM;
 /**
  * Manufacturer.
  *
- * @author DerManoMann
- * @package zenmagick.store.shared.model.catalog
+ * @author DerManoMann <mano@zenmagick.org>
  * @ORM\Table(name="manufacturers")
  * @ORM\Entity
  */
-class ZMManufacturer extends ZMObject {
+class Manufacturer extends ZMObject {
     /**
      * @var integer $manufacturerId
      *

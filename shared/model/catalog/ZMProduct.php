@@ -472,7 +472,7 @@ class ZMProduct extends ZMObject {
     /**
      * Get the manufacturer.
      *
-     * @return ZMManufacturer The manufacturer.
+     * @return Manufacturer The manufacturer.
      */
     public function getManufacturer() {
         return $this->container->get('manufacturerService')->getManufacturerForProduct($this);

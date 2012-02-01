@@ -31,7 +31,7 @@ use Doctrine\ORM\Mapping AS ORM;
 /**
  * A single currency.
  *
- * @author DerManoMann
+ * @author DerManoMann <mano@zenmagick.org>
  * @ORM\Table(name="currencies")
  * @ORM\Entity
  */

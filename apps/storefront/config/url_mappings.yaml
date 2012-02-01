@@ -184,7 +184,7 @@ page:
       view: forward#requestId=index
   product_reviews_write: 
     formId: newReview
-    form: ZMReview
+    form: zenmagick\apps\store\entities\catalog\Review
     success: 
       view: redirect#requestId=product_reviews
   contact_us: 

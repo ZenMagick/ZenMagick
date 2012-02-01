@@ -22,7 +22,9 @@
  */
 ?>
 <?php
+namespace zenmagick\apps\store\entities\catalog;
 
+use DateTime;
 use zenmagick\base\ZMObject;
 
 use Doctrine\Common\Collections\ArrayCollection;
@@ -31,12 +33,11 @@ use Doctrine\ORM\Mapping AS ORM;
 /**
  * A single review.
  *
- * @author DerManoMann
- * @package zenmagick.store.shared.model.catalog
+ * @author DerManoMann <mano@zenmagick.org>
  * @ORM\Table(name="reviews")
  * @ORM\Entity
  */
-class ZMReview extends ZMObject {
+class Review extends ZMObject {
     /**
      * @var integer $id
      * @ORM\Column(name="reviews_id", type="integer", nullable=false)
@@ -58,7 +59,7 @@ class ZMReview extends ZMObject {
     private $accountId;
     /**
      * @var object $descriptions
-     * @ORM\OneToMany(targetEntity="ZMReviewDescriptions", mappedBy="review", cascade={"persist", "remove"})
+     * @ORM\OneToMany(targetEntity="ReviewDescriptions", mappedBy="review", cascade={"persist", "remove"})
      */
     private $descriptions;
     /**
@@ -116,7 +117,7 @@ class ZMReview extends ZMObject {
         $this->setActive(true);
         $this->setViewCount(0);
         $this->setDateAdded(null);
-        $this->setLastModified(new \DateTime());
+        $this->setLastModified(new DateTime());
         $this->descriptions = new ArrayCollection();
     }
 
@@ -182,7 +183,7 @@ class ZMReview extends ZMObject {
     /**
      * Get the review product image info.
      *
-     * @return ZMProductInfo The product image info.
+     * @return ZMImageInfo The product image info.
      */
     public function getProductImageInfo() {
         return $this->container->get('productService')->getProductForId($this->productId, $this->languageId)->getImageInfo();
@@ -202,7 +203,7 @@ class ZMReview extends ZMObject {
     /**
      * Get all available descriptions.
      *
-     * @return ArrayCollection List of <code>ZMReviewDescription</code> instances.
+     * @return ArrayCollection List of <code>ReviewDescription</code> instances.
      */
     public function getDescriptions() {
        return $this->descriptions;
@@ -310,7 +311,7 @@ class ZMReview extends ZMObject {
         // todo: remove
         $this->languageId = $languageId;
         if (!isset($this->descriptions[$languageId])) {
-            $this->descriptions[$languageId] = new ZMReviewDescriptions($this, $languageId, $text);
+            $this->descriptions[$languageId] = new ReviewDescriptions($this, $languageId, $text);
         } else {
             $this->descriptions[$languageId]->setText($text);
         }

@@ -20,6 +20,7 @@
 ?>
 <?php
 
+use zenmagick\apps\store\entities\catalog\Review;
 
 /**
  * Demo review.
@@ -27,7 +28,7 @@
  * @author DerManoMann
  * @package zenmagick.store.admin.model.demo
  */
-class ZMDemoReview extends ZMReview {
+class ZMDemoReview extends Review {
 
     /**
      * Create new instance.

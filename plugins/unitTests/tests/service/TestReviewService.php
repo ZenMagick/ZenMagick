@@ -23,19 +23,21 @@
 use zenmagick\base\Beans;
 use zenmagick\base\Runtime;
 
+use zenmagick\apps\store\entities\catalog\Review;
+
 /**
  * Test reviews service.
  *
  * @package org.zenmagick.plugins.unitTests.tests
  * @author DerManoMann <mano@zenmagick.org>
  */
-class TestZMReviews extends ZMTestCase {
+class TestReviewService extends ZMTestCase {
 
     /**
      * Validate the given review as the (single) demo review.
      */
     protected function assertReview($review) {
-        $this->assertTrue($review instanceof ZMReview);
+        $this->assertTrue($review instanceof Review);
         if ($this->assertNotNull($review)) {
             $this->assertEqual(1, $review->getId());
             $this->assertEqual(5, $review->getRating());
@@ -131,7 +133,7 @@ class TestZMReviews extends ZMTestCase {
         Runtime::getSettings()->set('isApproveReviews', false);
         $account = $this->container->get('accountService')->getAccountForId(1);
         if (null != $account) {
-            $review = Beans::getBean('ZMReview');
+            $review = Beans::getBean('zenmagick\apps\store\entities\catalog\Review');
             $review->setProductId(3);
             $review->setRating(4);
             $review->setDescription('some foo', 1);
@@ -164,7 +166,7 @@ class TestZMReviews extends ZMTestCase {
         $reviewService = $this->container->get('reviewService');
         $account = $this->container->get('accountService')->getAccountForId(1);
         if (null != $account) {
-            $review = Beans::getBean('ZMReview');
+            $review = Beans::getBean('zenmagick\apps\store\entities\catalog\Review');
             $review->setProductId(3);
             $review->setRating(4);
             $review->setLanguageId(1);

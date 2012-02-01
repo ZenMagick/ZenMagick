@@ -23,12 +23,12 @@
 use zenmagick\base\Beans;
 
 /**
- * Test manufacturres service.
+ * Test manufacturer service.
  *
  * @package org.zenmagick.plugins.unitTests.tests
  * @author DerManoMann <mano@zenmagick.org>
  */
-class TestZMManufacturers extends ZMTestCase {
+class TestManufacturerService extends ZMTestCase {
 
     /**
      * Test get for name.
@@ -78,7 +78,7 @@ class TestZMManufacturers extends ZMTestCase {
      */
     public function testNoInfo() {
         // create new manufacturer without info record
-        $newManufacturer = Beans::getBean('ZMManufacturer');
+        $newManufacturer = Beans::getBean('zenmagick\apps\store\entities\catalog\Manufacturer');
         $newManufacturer->setName('Foo');
         $newManufacturer->setDateAdded(new \DateTime());
         $newManufacturer->setLastModified(new \DateTime());

@@ -22,25 +22,17 @@
  */
 ?>
 <?php
+namespace zenmagick\apps\store\services\catalog;
 
 use zenmagick\base\Runtime;
 use zenmagick\base\ZMObject;
 
 /**
- * Reviews.
+ * Review service.
  *
- * @author DerManoMann
- * @package zenmagick.store.shared.services
+ * @author DerManoMann <mano@zenmagick.org>
  */
-class ZMReviews extends ZMObject {
-
-    /**
-     * Get instance.
-     */
-    public static function instance() {
-        return Runtime::getContainer()->get('reviewService');
-    }
-
+class ReviewService extends ZMObject {
 
     /**
      * Get the number of reviews for the given product (id).
@@ -57,7 +49,7 @@ class ZMReviews extends ZMObject {
                   AND rd.languages_id = :languageId
                   AND r.status = 1";
         $args = array('productId' => $productId, 'languageId' => $languageId);
-        $result = ZMRuntime::getDatabase()->querySingle($sql, $args, array(TABLE_REVIEWS, TABLE_REVIEWS_DESCRIPTION), ZMDatabase::MODEL_RAW);
+        $result = \ZMRuntime::getDatabase()->querySingle($sql, $args, array(TABLE_REVIEWS, TABLE_REVIEWS_DESCRIPTION), \ZMDatabase::MODEL_RAW);
         return null != $result ? $result['count'] : 0;
     }
 
@@ -67,10 +59,10 @@ class ZMReviews extends ZMObject {
      * @param int languageId Language id.
      * @param int productId Optional productId to limit reviews to one product; default is <code>null</code>.
      * @param int max Optional result limit; default is <code>null</code> to use the setting <em></em>.
-     * @return array List of <code>ZMReview</code> instances.
+     * @return array List of <code>Review</code> instances.
      */
     public function getRandomReviews($languageId, $productId=null, $max=null) {
-        $max = null === $max ? ZMSettings::get('maxRandomReviews') : $max;
+        $max = null === $max ? $this->container->get('settingsService')->get('maxRandomReviews') : $max;
 
         $sql = "SELECT r.reviews_id
                 FROM " . TABLE_REVIEWS . " r, " . TABLE_REVIEWS_DESCRIPTION . " rd, "
@@ -88,7 +80,7 @@ class ZMReviews extends ZMObject {
         $sql .= " ORDER BY date_added DESC";
         $args = array('productId' => $productId, 'languageId' => $languageId);
         $reviewIds = array();
-        foreach (ZMRuntime::getDatabase()->fetchAll($sql, $args, array(TABLE_REVIEWS, TABLE_REVIEWS_DESCRIPTION)) as $result) {
+        foreach (\ZMRuntime::getDatabase()->fetchAll($sql, $args, array(TABLE_REVIEWS, TABLE_REVIEWS_DESCRIPTION)) as $result) {
             $reviewIds[] = $result['reviewId'];
         }
 
@@ -115,7 +107,7 @@ class ZMReviews extends ZMObject {
                   AND r.reviews_id in (:reviewId)
                 ORDER BY date_added DESC";
         $args = array('productId' => $productId, 'languageId' => $languageId, 'reviewId' => $reviewIds);
-        return ZMRuntime::getDatabase()->fetchAll($sql, $args, array(TABLE_REVIEWS, TABLE_REVIEWS_DESCRIPTION, TABLE_PRODUCTS, TABLE_PRODUCTS_DESCRIPTION), 'ZMReview');
+        return \ZMRuntime::getDatabase()->fetchAll($sql, $args, array(TABLE_REVIEWS, TABLE_REVIEWS_DESCRIPTION, TABLE_PRODUCTS, TABLE_PRODUCTS_DESCRIPTION), 'zenmagick\apps\store\entities\catalog\Review');
     }
 
     /**
@@ -133,7 +125,7 @@ class ZMReviews extends ZMObject {
                   AND rd.languages_id = :languageId
                   AND r.status = 1";
         $args = array('productId' => $productId, 'languageId' => $languageId);
-        $result = ZMRuntime::getDatabase()->querySingle($sql, $args, array(TABLE_REVIEWS, TABLE_REVIEWS_DESCRIPTION), ZMDatabase::MODEL_RAW);
+        $result = \ZMRuntime::getDatabase()->querySingle($sql, $args, array(TABLE_REVIEWS, TABLE_REVIEWS_DESCRIPTION), \ZMDatabase::MODEL_RAW);
         return null != $result ? $result['average_rating'] : 0;
     }
 
@@ -142,7 +134,7 @@ class ZMReviews extends ZMObject {
      *
      * @param int productId The product id.
      * @param int languageId Language id.
-     * @return array List of <code>ZMReview</code> instances.
+     * @return array List of <code>Review</code> instances.
      */
     public function getReviewsForProductId($productId, $languageId) {
         $sql = "SELECT r.*, rd.*, p.products_image, pd.products_name
@@ -158,14 +150,14 @@ class ZMReviews extends ZMObject {
                   AND p.products_id = :productId
                 ORDER BY date_added DESC";
         $args = array('productId' => $productId, 'languageId' => $languageId);
-        return ZMRuntime::getDatabase()->fetchAll($sql, $args, array(TABLE_REVIEWS, TABLE_REVIEWS_DESCRIPTION, TABLE_PRODUCTS, TABLE_PRODUCTS_DESCRIPTION), 'ZMReview');
+        return \ZMRuntime::getDatabase()->fetchAll($sql, $args, array(TABLE_REVIEWS, TABLE_REVIEWS_DESCRIPTION, TABLE_PRODUCTS, TABLE_PRODUCTS_DESCRIPTION), 'zenmagick\apps\store\entities\catalog\Review');
     }
 
     /**
      * Get all published reviews.
      *
      * @param int languageId Language id.
-     * @return array List of <code>ZMReview</code> instances.
+     * @return array List of <code>Review</code> instances.
      */
     public function getAllReviews($languageId) {
         $sql = "SELECT r.*, rd.*, p.products_image, pd.products_name
@@ -180,7 +172,7 @@ class ZMReviews extends ZMObject {
                   AND r.status = 1
                 ORDER BY date_added DESC";
         $args = array('languageId' => $languageId);
-        return ZMRuntime::getDatabase()->fetchAll($sql, $args, array(TABLE_REVIEWS, TABLE_REVIEWS_DESCRIPTION, TABLE_PRODUCTS, TABLE_PRODUCTS_DESCRIPTION), 'ZMReview');
+        return \ZMRuntime::getDatabase()->fetchAll($sql, $args, array(TABLE_REVIEWS, TABLE_REVIEWS_DESCRIPTION, TABLE_PRODUCTS, TABLE_PRODUCTS_DESCRIPTION), 'zenmagick\apps\store\entities\catalog\Review');
     }
 
     /**
@@ -188,7 +180,7 @@ class ZMReviews extends ZMObject {
      *
      * @param int reviewId The id of the review to load.
      * @param int languageId Language id.
-     * @return ZMReview A <code>ZMReview</code> instance or <code>null</code>.
+     * @return Review A <code>Review</code> instance or <code>null</code>.
      */
     public function getReviewForId($reviewId, $languageId) {
         $sql = "SELECT r.*, rd.*, p.products_image, pd.products_name
@@ -203,7 +195,7 @@ class ZMReviews extends ZMObject {
                   AND r.status = 1
                   AND r.reviews_id = :reviewId";
         $args = array('reviewId' => $reviewId, 'languageId' => $languageId);
-        return ZMRuntime::getDatabase()->querySingle($sql, $args, array(TABLE_REVIEWS, TABLE_REVIEWS_DESCRIPTION, TABLE_PRODUCTS, TABLE_PRODUCTS_DESCRIPTION), 'ZMReview');
+        return \ZMRuntime::getDatabase()->querySingle($sql, $args, array(TABLE_REVIEWS, TABLE_REVIEWS_DESCRIPTION, TABLE_PRODUCTS, TABLE_PRODUCTS_DESCRIPTION), 'zenmagick\apps\store\entities\catalog\Review');
     }
 
     /**
@@ -215,7 +207,7 @@ class ZMReviews extends ZMObject {
         $sql = "UPDATE " . TABLE_REVIEWS . "
                 SET reviews_read = reviews_read+1
                 WHERE reviews_id = :reviewId";
-        ZMRuntime::getDatabase()->update($sql, array('reviewId' => $reviewId), TABLE_REVIEWS);
+        \ZMRuntime::getDatabase()->update($sql, array('reviewId' => $reviewId), TABLE_REVIEWS);
     }
 
     /**
@@ -231,10 +223,11 @@ class ZMReviews extends ZMObject {
         $review->setAccountId($account->getId());
         $review->setLastModified(new \DateTime());
         $review->setDateAdded(new \DateTime());
-        $review->setActive(ZMSettings::get('isApproveReviews') ? false : true);
+        $isApproveReviews = $this->container->get('settingsService')->get('isApproveReviews');
+        $review->setActive($isApproveReviews ? false : true);
 
-        $review = ZMRuntime::getDatabase()->createModel(TABLE_REVIEWS, $review);
-        ZMRuntime::getDatabase()->createModel(TABLE_REVIEWS_DESCRIPTION, $review);
+        $review = \ZMRuntime::getDatabase()->createModel(TABLE_REVIEWS, $review);
+        \ZMRuntime::getDatabase()->createModel(TABLE_REVIEWS_DESCRIPTION, $review);
         return $review;
     }
 

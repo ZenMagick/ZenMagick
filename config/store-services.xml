@@ -58,7 +58,7 @@
             </call>
         </service>
 
-        <service id="manufacturerService" class="ZMManufacturers" scope="container">
+        <service id="manufacturerService" class="zenmagick\apps\store\services\catalog\ManufacturerService" scope="container">
             <call method="setCache">
                 <argument type="service" id="servicesCache" />
             </call>
@@ -130,7 +130,7 @@
 
         <service id="validator" class="ZMValidator" scope="container" />
 
-        <service id="reviewService" class="ZMReviews" scope="container" />
+        <service id="reviewService" class="zenmagick\apps\store\services\catalog\ReviewService" scope="container" />
 
         <service id="taxRateService" class="ZMTaxRates" scope="container" />
 
