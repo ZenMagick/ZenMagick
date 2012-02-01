@@ -21,7 +21,7 @@
             <argument>sample.com</argument>
         </service>
 
-        <service id="defaultView" alias="view" />
+        <service id="defaultView" alias="templateView" />
 
         <service id="templateManager" class="ZMTemplateManager" scope="container" />
 

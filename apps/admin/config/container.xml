@@ -120,7 +120,7 @@
             <tag name="zenmagick.http.widgets.widget" />
         </service>
 
-        <service id="ZoneSelectFormWidget" class="zenmagick\apps\store\admin\widgets\ZoneSelectFormWidget" scope="prototype">
+        <service id="zoneSelectFormWidget" class="zenmagick\apps\store\admin\widgets\ZoneSelectFormWidget" scope="prototype">
             <tag name="zenmagick.http.widgets.widget" />
         </service>
 

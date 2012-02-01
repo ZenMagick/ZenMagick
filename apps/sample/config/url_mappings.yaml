@@ -5,14 +5,14 @@
 ## global mappings
 global:
   error:
-    template: views/error.tpl
+    template: views/error.php
   index:
-    template: views/index.tpl
+    template: views/index.php
 
 ## page mappings    
 page:
   index:
-    layout: default_layout.tpl
+    layout: default_layout.php
     ## name of the validation rules in validation.yaml
     formId: mynameForm
     ## form data container
@@ -22,4 +22,4 @@ page:
   ## explicit mapping - not required as all defaults
   ## NOTE: there is no default layout configured, so about is a full page, not just a view
   #about:
-  #  template: views/about.tpl
+  #  template: views/about.php

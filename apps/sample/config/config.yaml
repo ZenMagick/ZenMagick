@@ -13,11 +13,9 @@ zenmagick:
 
   mvc:
     view:
-      defaultLayout: default_layout.tpl
+      defaultLayout: default_layout.php
 
   http:
-    templates:
-      ext: .tpl
     request:
       urlType: realpath
 
