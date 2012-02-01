@@ -20,6 +20,8 @@
 ?>
 <?php
 
+use zenmagick\http\view\TemplateView;
+
 /**
  * Allow users to switch between themes.
  *
@@ -126,7 +128,7 @@ class ZMThemeSwitcherPlugin extends Plugin {
             }
         }
 
-        if (null != ($view = $event->get('view'))) {
+        if (null != ($view = $event->get('view')) && $view instanceof TemplateView) {
             $switcherMarkup = $view->fetch('theme-switcher.php', array('themeList' => $themeList));
             if (!empty($switcherMarkup)) {
                 $content =  preg_replace('/(<body[^>]*>)/', '\1'.$switcherMarkup, $content, 1);

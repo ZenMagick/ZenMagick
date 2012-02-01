@@ -27,6 +27,7 @@ namespace zenmagick\apps\store\storefront\utils;
 use zenmagick\base\Runtime;
 use zenmagick\base\ZMObject;
 use zenmagick\base\events\Event;
+use zenmagick\http\view\TemplateView;
 
 /**
  * Fixes and stuff that are (can be) event driven.
@@ -89,16 +90,18 @@ class EventFixes extends ZMObject {
     public function onViewStart($event) {
         $request = $event->get('request');
         $view = $event->get('view');
-        if (null !== $request->getParameter('showAll')) {
-            if (null != ($resultList = $view->getVariable('resultList'))) {
-                $resultList->setPagination(0);
+        if ($view instanceof TemplateView) {
+            if (null !== $request->getParameter('showAll')) {
+                if (null != ($resultList = $view->getVariable('resultList'))) {
+                    $resultList->setPagination(0);
+                }
             }
-        }
-        if ('login' == $request->getRequestId() && Runtime::getSettings()->get('isGuestCheckoutAskAddress')) {
-            if (null == $view->getVariable('guestCheckoutAddress')) {
-                $address = $this->container->get('ZMAddress');
-                $address->setPrimary(true);
-                $view->setVariable('guestCheckoutAddress', $address);
+            if ('login' == $request->getRequestId() && Runtime::getSettings()->get('isGuestCheckoutAskAddress')) {
+                if (null == $view->getVariable('guestCheckoutAddress')) {
+                    $address = $this->container->get('ZMAddress');
+                    $address->setPrimary(true);
+                    $view->setVariable('guestCheckoutAddress', $address);
+                }
             }
         }
     }

@@ -27,6 +27,7 @@ use zenmagick\base\ZMObject;
 use zenmagick\base\events\Event;
 use zenmagick\base\logging\Logging;
 use zenmagick\http\sacs\SacsManager;
+use zenmagick\http\view\TemplateView;
 
 /**
  * Request controller base class.
@@ -58,12 +59,6 @@ class ZMController extends ZMObject {
         $this->messageService = Runtime::getContainer()->get('messageService');
     }
 
-    /**
-     * Destruct instance.
-     */
-    function __destruct() {
-        parent::__destruct();
-    }
 
     /**
      * Init view vars.
@@ -73,6 +68,10 @@ class ZMController extends ZMObject {
      * @param mixed formData Optional form data; default is <code>null</code>.
      */
     public function initViewVars($view, $request, $formData=null) {
+        if (!($view instanceof TemplateView)) {
+            return;
+        }
+
         // safe data set via findView() in the controller to avoid losing that to getViewData()
         $initialVars = $view->getVariables();
 
