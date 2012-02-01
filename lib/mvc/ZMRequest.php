@@ -59,6 +59,7 @@ class ZMRequest extends ZMObject {
     private $parameter_;
     private $method_;
     private $router_;
+    private $routerMatch_;
 
 
     /**
@@ -93,6 +94,7 @@ class ZMRequest extends ZMObject {
         );
 
         $this->router_ = new Router(new YamlLoader(), '', $options, $requestContext);
+        $this->routerMatch_ = false;
     }
 
     /**
@@ -124,16 +126,20 @@ class ZMRequest extends ZMObject {
         if (!Runtime::getSettings()->get('zenmagick.http.routing.enabled', false)) {
             return null;
         }
-        // try router first
-        $routerMatch = null;
-        try {
-            // XXX: should this be handled by the router??
-            $uri = preg_replace('#^'.$this->getContext().'#', '', $this->getUri());
-            $routerMatch = $this->router_->match($uri);
-        } catch (Exception $e) {
-            Runtime::getLogging()->dump($e, 'no route found', Logging::TRACE);
+
+        if (false === $this->routerMatch_) {
+            // try router first
+            $this->routerMatch_ = null;
+            try {
+                // XXX: should this be handled by the router??
+                $uri = preg_replace('#^'.$this->getContext().'#', '', $this->getUri());
+                $this->routerMatch_ = $this->router_->match($uri);
+            } catch (Exception $e) {
+                Runtime::getLogging()->dump($e, 'no route found', Logging::TRACE);
+            }
         }
-        return $routerMatch;
+
+        return $this->routerMatch_;
     }
 
     /**
