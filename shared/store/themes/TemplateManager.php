@@ -57,14 +57,6 @@ class TemplateManager extends ZMObject {
 
 
     /**
-     * Get instance.
-     */
-    public static function instance() {
-        return Runtime::getContainer()->get('templateManager');
-    }
-
-
-    /**
      * Enable/disable the left column.
      *
      * @param boolean bool If <code>true</code> the left column will be displayed.

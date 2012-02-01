@@ -46,14 +46,6 @@ class CountryService extends ZMObject {
 
 
     /**
-     * Get instance.
-     */
-    public static function instance() {
-        return Runtime::getContainer()->get('countryService');
-    }
-
-
-    /**
      * Get country for the given name.
      *
      * @param string name The country name.
