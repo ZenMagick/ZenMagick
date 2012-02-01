@@ -185,7 +185,7 @@ class ZMCoupons extends ZMObject {
     public function isCouponRedeemable($couponId) {
         $sql = "SELECT coupon_id FROM ". TABLE_COUPON_REDEEM_TRACK . "
                 WHERE coupon_id = :couponId";
-        $results = ZMRuntime::getDatabase()->query($sql, array('couponId' => $couponId), TABLE_COUPON_REDEEM_TRACK, ZMDatabase::MODEL_RAW);
+        $results = ZMRuntime::getDatabase()->fetchAll($sql, array('couponId' => $couponId), TABLE_COUPON_REDEEM_TRACK, ZMDatabase::MODEL_RAW);
         return 0 == count($results);
     }
 
@@ -249,7 +249,7 @@ class ZMCoupons extends ZMObject {
         $sql = "SELECT *
                 FROM " . TABLE_COUPON_GV_QUEUE . "
                 WHERE release_flag = :released";
-        return ZMRuntime::getDatabase()->query($sql, array('released' => $flag), TABLE_COUPON_GV_QUEUE, 'ZMCouponQueue');
+        return ZMRuntime::getDatabase()->fetchAll($sql, array('released' => $flag), TABLE_COUPON_GV_QUEUE, 'ZMCouponQueue');
     }
 
     /**
@@ -289,7 +289,7 @@ class ZMCoupons extends ZMObject {
             $sql = "SELECT coupon_code
                     FROM " . TABLE_COUPONS . "
                     WHERE coupon_code = :code";
-            $results = ZMRuntime::getDatabase()->query($sql, array('code' => $code), TABLE_COUPONS, ZMDatabase::MODEL_RAW);
+            $results = ZMRuntime::getDatabase()->fetchAll($sql, array('code' => $code), TABLE_COUPONS, ZMDatabase::MODEL_RAW);
             if (0 == count($results)) {
                 return $code;
             }
@@ -307,7 +307,7 @@ class ZMCoupons extends ZMObject {
     public function getRestrictionsForCouponId($couponId) {
         $sql = "SELECT * FROM " . TABLE_COUPON_RESTRICT . "
                 WHERE coupon_id = :couponId";
-        $results = ZMRuntime::getDatabase()->query($sql, array('couponId' => $couponId), TABLE_COUPON_RESTRICT);
+        $results = ZMRuntime::getDatabase()->fetchAll($sql, array('couponId' => $couponId), TABLE_COUPON_RESTRICT);
 
         $restrictions = Beans::getBean("ZMCouponRestrictions");
         $products = array();
@@ -335,7 +335,7 @@ class ZMCoupons extends ZMObject {
     public function getCoupons($languageId, $active=true) {
         $sql = "SELECT * FROM " . TABLE_COUPONS ." c, ". TABLE_COUPONS_DESCRIPTION . " cd
                 WHERE cd.coupon_id = c.coupon_id AND cd.language_id = :languageId";
-        return ZMRuntime::getDatabase()->query($sql, array('languageId' => $languageId), array(TABLE_COUPONS, TABLE_COUPONS_DESCRIPTION), 'ZMCoupon');
+        return ZMRuntime::getDatabase()->fetchAll($sql, array('languageId' => $languageId), array(TABLE_COUPONS, TABLE_COUPONS_DESCRIPTION), 'ZMCoupon');
     }
 
 }

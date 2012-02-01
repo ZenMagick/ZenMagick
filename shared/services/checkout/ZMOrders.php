@@ -193,7 +193,7 @@ class ZMOrders extends ZMObject implements ZMSQLAware {
                   AND os.language_id = :languageId
                 ORDER BY osh.date_added";
         $args = array('orderId' => $orderId, 'languageId' => $languageId);
-        return ZMRuntime::getDatabase()->query($sql, $args, array(TABLE_ORDERS_STATUS_HISTORY, TABLE_ORDERS_STATUS), 'ZMOrderStatus');
+        return ZMRuntime::getDatabase()->fetchAll($sql, $args, array(TABLE_ORDERS_STATUS_HISTORY, TABLE_ORDERS_STATUS), 'ZMOrderStatus');
     }
 
     /**
@@ -222,14 +222,14 @@ class ZMOrders extends ZMObject implements ZMSQLAware {
                 ORDER BY orders_products_id";
         $items = array();
         $attributes = array();
-        foreach (ZMRuntime::getDatabase()->query($sql, array('orderId' => $orderId), TABLE_ORDERS_PRODUCTS, 'ZMOrderItem') as $item) {
+        foreach (ZMRuntime::getDatabase()->fetchAll($sql, array('orderId' => $orderId), TABLE_ORDERS_PRODUCTS, 'ZMOrderItem') as $item) {
             // lookup selected attributes as well
             $sql = "SELECT *
                     FROM " . TABLE_ORDERS_PRODUCTS_ATTRIBUTES . "
                     WHERE orders_id = :orderId
                       AND orders_products_id = :orderItemId";
             $args = array('orderId' => $orderId, 'orderItemId' => $item->getId());
-            foreach (ZMRuntime::getDatabase()->query($sql, $args, TABLE_ORDERS_PRODUCTS_ATTRIBUTES, 'ZMAttributeValue') as $value) {
+            foreach (ZMRuntime::getDatabase()->fetchAll($sql, $args, TABLE_ORDERS_PRODUCTS_ATTRIBUTES, 'ZMAttributeValue') as $value) {
                 if (!array_key_exists($value->getAttributeId(), $attributes)) {
                     $attribute = Beans::getBean("ZMAttribute");
                     $attribute->setName($value->getAttributeName());
@@ -257,7 +257,7 @@ class ZMOrders extends ZMObject implements ZMSQLAware {
                 WHERE orders_id = :orderId
                 ORDER BY sort_order";
         $totals = array();
-        foreach (ZMRuntime::getDatabase()->query($sql, array('orderId' => $orderId), TABLE_ORDERS_TOTAL, 'ZMOrderTotalLine') as $total) {
+        foreach (ZMRuntime::getDatabase()->fetchAll($sql, array('orderId' => $orderId), TABLE_ORDERS_TOTAL, 'ZMOrderTotalLine') as $total) {
             $totals[] = $total;
         }
 
@@ -299,7 +299,7 @@ class ZMOrders extends ZMObject implements ZMSQLAware {
         }
 
         $mapping = array(TABLE_ORDERS_PRODUCTS_DOWNLOAD, TABLE_ORDERS_PRODUCTS, TABLE_ORDERS);
-        return ZMRuntime::getDatabase()->query($sql, array('orderId' => $orderId, 'orderStatusId' => $orderStatusList), $mapping, 'ZMDownload');
+        return ZMRuntime::getDatabase()->fetchAll($sql, array('orderId' => $orderId, 'orderStatusId' => $orderStatusList), $mapping, 'ZMDownload');
     }
 
     /**
@@ -314,7 +314,7 @@ class ZMOrders extends ZMObject implements ZMSQLAware {
                 WHERE language_id = :languageId
                 ORDER BY orders_status_id";
 
-        return ZMRuntime::getDatabase()->query($sql, array('languageId' => $languageId), TABLE_ORDERS_STATUS, 'ZMOrderStatus');
+        return ZMRuntime::getDatabase()->fetchAll($sql, array('languageId' => $languageId), TABLE_ORDERS_STATUS, 'ZMOrderStatus');
     }
 
     /**

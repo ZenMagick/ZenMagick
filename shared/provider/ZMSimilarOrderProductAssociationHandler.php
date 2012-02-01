@@ -60,7 +60,7 @@ class ZMSimilarOrderProductAssociationHandler implements ZMProductAssociationHan
         $args = array('productId' => $productId);
 
         $assoc = array();
-        foreach (ZMRuntime::getDatabase()->query($sql, $args, TABLE_PRODUCTS) as $result) {
+        foreach (ZMRuntime::getDatabase()->fetchAll($sql, $args, TABLE_PRODUCTS) as $result) {
             $assoc[] = new ZMProductAssociation($result['productId']);
         }
 

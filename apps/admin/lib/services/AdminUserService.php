@@ -99,7 +99,7 @@ class AdminUserService extends ZMObject {
             $sql .= " WHERE admin_level = :live";
         }
         $users = array();
-        foreach (\ZMRuntime::getDatabase()->query($sql, array('live' => false), TABLE_ADMIN, 'zenmagick\apps\store\admin\entities\AdminUser') as $adminUser) {
+        foreach (\ZMRuntime::getDatabase()->fetchAll($sql, array('live' => false), TABLE_ADMIN, 'zenmagick\apps\store\admin\entities\AdminUser') as $adminUser) {
             $users[] = $this->finalizeUser($adminUser);
         }
 

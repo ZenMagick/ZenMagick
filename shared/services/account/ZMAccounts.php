@@ -101,7 +101,7 @@ class ZMAccounts extends ZMObject {
                 WHERE customers_email_address = :email";
         $args = array('email' => $emailAddress);
         $accounts = array();
-        foreach (ZMRuntime::getDatabase()->query($sql, $args, array(TABLE_CUSTOMERS, TABLE_CUSTOMERS_INFO), 'ZMAccount') as $account) {
+        foreach (ZMRuntime::getDatabase()->fetchAll($sql, $args, array(TABLE_CUSTOMERS, TABLE_CUSTOMERS_INFO), 'ZMAccount') as $account) {
             if (ZMLangUtils::isEmpty($account->getPassword())) {
                 $account->setType(ZMAccount::GUEST);
             }
@@ -132,7 +132,7 @@ class ZMAccounts extends ZMObject {
         }
 
         $accounts = array();
-        foreach (ZMRuntime::getDatabase()->query($sql, array(), array(TABLE_CUSTOMERS, TABLE_CUSTOMERS_INFO), 'ZMAccount') as $account) {
+        foreach (ZMRuntime::getDatabase()->fetchAll($sql, array(), array(TABLE_CUSTOMERS, TABLE_CUSTOMERS_INFO), 'ZMAccount') as $account) {
             if (ZMLangUtils::isEmpty($account->getPassword())) {
                 $account->setType(ZMAccount::GUEST);
             }
@@ -270,7 +270,7 @@ class ZMAccounts extends ZMObject {
                 FROM " . TABLE_PRODUCTS_NOTIFICATIONS . "
                 WHERE customers_id = :accountId";
         $productIds = array();
-        foreach (ZMRuntime::getDatabase()->query($sql, array('accountId' => $accountId), TABLE_PRODUCTS_NOTIFICATIONS) as $result) {
+        foreach (ZMRuntime::getDatabase()->fetchAll($sql, array('accountId' => $accountId), TABLE_PRODUCTS_NOTIFICATIONS) as $result) {
             $productIds[] = $result['productId'];
         }
         return $productIds;

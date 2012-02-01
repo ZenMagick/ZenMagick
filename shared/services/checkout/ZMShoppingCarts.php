@@ -59,7 +59,7 @@ class ZMShoppingCarts extends ZMObject {
         // get existing data to decide on whether to INSERT or UPDATE
         $sql = "SELECT products_id FROM " . TABLE_CUSTOMERS_BASKET . " WHERE customers_id = :accountId";
         $skuIds = array();
-        foreach (ZMRuntime::getDatabase()->query($sql, array('accountId' => $shoppingCart->getAccountId()), TABLE_CUSTOMERS_BASKET) as $result) {
+        foreach (ZMRuntime::getDatabase()->fetchAll($sql, array('accountId' => $shoppingCart->getAccountId()), TABLE_CUSTOMERS_BASKET) as $result) {
             $skuIds[] = $result['skuId'];
         }
 
@@ -124,7 +124,7 @@ class ZMShoppingCarts extends ZMObject {
         $sql = "SELECT * FROM " . TABLE_CUSTOMERS_BASKET_ATTRIBUTES . "
                 WHERE customers_id = :accountId
                 ORDER BY LPAD(products_options_sort_order, 11, '0')";
-        $attributeResults = ZMRuntime::getDatabase()->query($sql, array('accountId' => $accountId), TABLE_CUSTOMERS_BASKET_ATTRIBUTES);
+        $attributeResults = ZMRuntime::getDatabase()->fetchAll($sql, array('accountId' => $accountId), TABLE_CUSTOMERS_BASKET_ATTRIBUTES);
         // fix zc attributeId format (checkboxes)...
         foreach ($attributeResults as $ii => $attributeResult) {
             $attributeResults[$ii]['attributeId'] = preg_replace('/([0-9]*).*/', '\1', $attributeResult['attributeId']);
@@ -136,7 +136,7 @@ class ZMShoppingCarts extends ZMObject {
 
         $sql = "SELECT * FROM " . TABLE_CUSTOMERS_BASKET . "
                 WHERE customers_id = :accountId";
-        foreach (ZMRuntime::getDatabase()->query($sql, array('accountId' => $accountId), TABLE_CUSTOMERS_BASKET) as $productResult) {
+        foreach (ZMRuntime::getDatabase()->fetchAll($sql, array('accountId' => $accountId), TABLE_CUSTOMERS_BASKET) as $productResult) {
             $item = Beans::getBean('ZMShoppingCartItem');
             $item->setId($productResult['skuId']);
             $item->setQuantity($productResult['quantity']);

@@ -259,7 +259,7 @@ class ZMSubscriptionsPlugin extends Plugin {
                 FROM " . TABLE_ORDERS . "
                 WHERE subscription_order_id = :subscriptionOrderId";
         $results = array();
-        foreach (ZMRuntime::getDatabase()->query($sql, array('subscriptionOrderId' => $orderId), TABLE_ORDERS) as $result) {
+        foreach (ZMRuntime::getDatabase()->fetchAll($sql, array('subscriptionOrderId' => $orderId), TABLE_ORDERS) as $result) {
             $results[] = $result['orderId'];
         }
 

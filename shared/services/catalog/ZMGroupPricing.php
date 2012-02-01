@@ -50,7 +50,7 @@ class ZMGroupPricing extends ZMObject {
     function getPriceGroups() {
         $sql = "SELECT *
                 FROM " . TABLE_GROUP_PRICING;
-        return ZMRuntime::getDatabase()->query($sql, array(), TABLE_GROUP_PRICING, 'ZMPriceGroup');
+        return ZMRuntime::getDatabase()->fetchAll($sql, array(), TABLE_GROUP_PRICING, 'ZMPriceGroup');
     }
 
     /**

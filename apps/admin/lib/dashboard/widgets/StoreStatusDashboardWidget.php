@@ -110,7 +110,7 @@ class StoreStatusDashboardWidget extends DashboardWidget {
             }
         }
 
-        if (null != ($results = \ZMRuntime::getDatabase()->query('SELECT * FROM ' . TABLE_COUPON_GV_QUEUE . ' where release_flag = "N"')) && 0 < count($results)) {
+        if (null != ($results = \ZMRuntime::getDatabase()->fetchAll('SELECT * FROM ' . TABLE_COUPON_GV_QUEUE . ' where release_flag = "N"')) && 0 < count($results)) {
             $url = '<a href="'.$request->url('zc_admin', 'zpid=gv_queue').'">'._zm('gift queue').'</a>';
             $messages[] = array(self::STATUS_NOTICE, sprintf(_zm('%s item(s) in %s waiting for approval.'), count($results), $url));
         }

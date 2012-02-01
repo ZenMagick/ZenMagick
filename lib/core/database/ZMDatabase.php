@@ -429,7 +429,7 @@ class ZMDatabase extends ZMObject {
      * @throws ZMDatabaseException
      */
     public function querySingle($sql, array $params = array(), $mapping = null, $modelClass = null) {
-        $results = $this->query($sql, $params, $mapping, $modelClass);
+        $results = $this->fetchAll($sql, $params, $mapping, $modelClass);
         return 0 < count($results) ? $results[0] : null;
     }
 
@@ -449,7 +449,7 @@ class ZMDatabase extends ZMObject {
      * @return array List of populated objects of class <code>$resultClass</code> or map if <em>modelClass</em> is <code>null</code>.
      * @throws ZMDatabaseException
      */
-    public function query($sql, array $params = array(), $mapping = null, $modelClass = null) {
+    public function fetchAll($sql, array $params = array(), $mapping = null, $modelClass = null) {
         $mapping = $this->mapper_->ensureMapping($mapping);
 
         try {

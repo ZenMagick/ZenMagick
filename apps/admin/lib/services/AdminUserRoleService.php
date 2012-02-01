@@ -39,7 +39,7 @@ class AdminUserRoleService extends ZMObject {
     public function getAllRoles() {
         $sql = "SELECT admin_role_id, name from " . DB_PREFIX.'admin_roles';
         $roles = array();
-        foreach (\ZMRuntime::getDatabase()->query($sql, array(), DB_PREFIX.'admin_roles') as $result) {
+        foreach (\ZMRuntime::getDatabase()->fetchAll($sql, array(), DB_PREFIX.'admin_roles') as $result) {
             $roles[$result['admin_role_id']] = $result['name'];
         }
 
@@ -86,7 +86,7 @@ class AdminUserRoleService extends ZMObject {
                   AND atr.admin_id = :admin_id";
         $roles = array();
         $args = array('admin_id' => $id);
-        foreach (\ZMRuntime::getDatabase()->query($sql, $args, array(DB_PREFIX.'admin_roles', DB_PREFIX.'admins_to_roles')) as $result) {
+        foreach (\ZMRuntime::getDatabase()->fetchAll($sql, $args, array(DB_PREFIX.'admin_roles', DB_PREFIX.'admins_to_roles')) as $result) {
             $roles[$result['admin_role_id']] = $result['name'];
         }
 

@@ -76,7 +76,7 @@ class ZMAddresses extends ZMObject {
         $sql = "SELECT *
                 FROM " . TABLE_ADDRESS_BOOK . "
                 WHERE customers_id = :accountId";
-        $addresses = ZMRuntime::getDatabase()->query($sql, array('accountId' => $accountId), TABLE_ADDRESS_BOOK, 'ZMAddress');
+        $addresses = ZMRuntime::getDatabase()->fetchAll($sql, array('accountId' => $accountId), TABLE_ADDRESS_BOOK, 'ZMAddress');
 
         $defaultAddressId = $this->getDefaultAddressId($accountId);
         foreach ($addresses as $address) {

@@ -88,7 +88,7 @@ class ZMReviews extends ZMObject {
         $sql .= " ORDER BY date_added DESC";
         $args = array('productId' => $productId, 'languageId' => $languageId);
         $reviewIds = array();
-        foreach (ZMRuntime::getDatabase()->query($sql, $args, array(TABLE_REVIEWS, TABLE_REVIEWS_DESCRIPTION)) as $result) {
+        foreach (ZMRuntime::getDatabase()->fetchAll($sql, $args, array(TABLE_REVIEWS, TABLE_REVIEWS_DESCRIPTION)) as $result) {
             $reviewIds[] = $result['reviewId'];
         }
 
@@ -115,7 +115,7 @@ class ZMReviews extends ZMObject {
                   AND r.reviews_id in (:reviewId)
                 ORDER BY date_added DESC";
         $args = array('productId' => $productId, 'languageId' => $languageId, 'reviewId' => $reviewIds);
-        return ZMRuntime::getDatabase()->query($sql, $args, array(TABLE_REVIEWS, TABLE_REVIEWS_DESCRIPTION, TABLE_PRODUCTS, TABLE_PRODUCTS_DESCRIPTION), 'ZMReview');
+        return ZMRuntime::getDatabase()->fetchAll($sql, $args, array(TABLE_REVIEWS, TABLE_REVIEWS_DESCRIPTION, TABLE_PRODUCTS, TABLE_PRODUCTS_DESCRIPTION), 'ZMReview');
     }
 
     /**
@@ -158,7 +158,7 @@ class ZMReviews extends ZMObject {
                   AND p.products_id = :productId
                 ORDER BY date_added DESC";
         $args = array('productId' => $productId, 'languageId' => $languageId);
-        return ZMRuntime::getDatabase()->query($sql, $args, array(TABLE_REVIEWS, TABLE_REVIEWS_DESCRIPTION, TABLE_PRODUCTS, TABLE_PRODUCTS_DESCRIPTION), 'ZMReview');
+        return ZMRuntime::getDatabase()->fetchAll($sql, $args, array(TABLE_REVIEWS, TABLE_REVIEWS_DESCRIPTION, TABLE_PRODUCTS, TABLE_PRODUCTS_DESCRIPTION), 'ZMReview');
     }
 
     /**
@@ -180,7 +180,7 @@ class ZMReviews extends ZMObject {
                   AND r.status = 1
                 ORDER BY date_added DESC";
         $args = array('languageId' => $languageId);
-        return ZMRuntime::getDatabase()->query($sql, $args, array(TABLE_REVIEWS, TABLE_REVIEWS_DESCRIPTION, TABLE_PRODUCTS, TABLE_PRODUCTS_DESCRIPTION), 'ZMReview');
+        return ZMRuntime::getDatabase()->fetchAll($sql, $args, array(TABLE_REVIEWS, TABLE_REVIEWS_DESCRIPTION, TABLE_PRODUCTS, TABLE_PRODUCTS_DESCRIPTION), 'ZMReview');
     }
 
     /**

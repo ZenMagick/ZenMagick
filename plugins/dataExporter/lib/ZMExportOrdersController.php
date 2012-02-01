@@ -81,7 +81,7 @@ class ZMExportOrdersController extends ZMController {
                     ORDER BY orders_id DESC";
             $args = array('languageId' => 1, '1#orderDate' => $orderDateFrom, '2#orderDate' => $orderDateTo);
             // load as array to save memory
-            $results = ZMRuntime::getDatabase()->query($sql, $args, array(TABLE_ORDERS, TABLE_ORDERS_TOTAL, TABLE_ORDERS_STATUS));
+            $results = ZMRuntime::getDatabase()->fetchAll($sql, $args, array(TABLE_ORDERS, TABLE_ORDERS_TOTAL, TABLE_ORDERS_STATUS));
 
             // prepare data
             $header = array(

@@ -88,8 +88,8 @@ class TestZMDatabase extends ZMTestCase {
 
         foreach (self::getProviders() as $provider => $database) {
             // use simple country query to compare results
-            $results1 = $database->query($sql1, array('countryId' => 153), TABLE_COUNTRIES);
-            $results2 = $database->query($sql2, array('1#countryId' => 153), TABLE_COUNTRIES);
+            $results1 = $database->fetchAll($sql1, array('countryId' => 153), TABLE_COUNTRIES);
+            $results2 = $database->fetchAll($sql2, array('1#countryId' => 153), TABLE_COUNTRIES);
             $this->assertEqual($results1, $results2, '%s: '.$provider);
         }
     }
@@ -101,7 +101,7 @@ class TestZMDatabase extends ZMTestCase {
         $sql = "SELECT * FROM " . TABLE_COUNTRIES . " WHERE countries_id IN (:countryId)";
 
         foreach (self::getProviders() as $provider => $database) {
-            $results = $database->query($sql, array('countryId' => array(81, 153)), TABLE_COUNTRIES);
+            $results = $database->fetchAll($sql, array('countryId' => array(81, 153)), TABLE_COUNTRIES);
             if ($this->assertEqual(2, count($results), '%s: '.$provider)) {
                 $this->assertEqual(81, $results[0]['countryId'], '%s: '.$provider);
                 $this->assertEqual('DE', $results[0]['isoCode2'], '%s: '.$provider);

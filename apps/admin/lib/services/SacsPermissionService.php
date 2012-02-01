@@ -37,7 +37,7 @@ class SacsPermissionService extends ZMObject {
      * @return array List of permission details.
      */
     public function getAll() {
-        return \ZMRuntime::getDatabase()->query('SELECT * FROM '.DB_PREFIX.'sacs_permissions');
+        return \ZMRuntime::getDatabase()->fetchAll('SELECT * FROM '.DB_PREFIX.'sacs_permissions');
     }
 
     /**
@@ -47,7 +47,7 @@ class SacsPermissionService extends ZMObject {
      * @return array List of permission details.
      */
     public function getPermissionsForRole($role) {
-        return \ZMRuntime::getDatabase()->query('SELECT * FROM '.DB_PREFIX.'sacs_permissions'.' where type = "role" AND name = :name', array('name' => $role), DB_PREFIX.'sacs_permissions');
+        return \ZMRuntime::getDatabase()->fetchAll('SELECT * FROM '.DB_PREFIX.'sacs_permissions'.' where type = "role" AND name = :name', array('name' => $role), DB_PREFIX.'sacs_permissions');
     }
 
     /**

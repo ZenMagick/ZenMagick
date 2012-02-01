@@ -206,7 +206,7 @@ class ZMOffers extends ZMObject {
                 AND (sale_pricerange_from <= :priceFrom  OR sale_pricerange_from = '0')
                 AND (sale_pricerange_to >= :priceFrom OR sale_pricerange_to = '0')";
         $args = array('priceFrom' => $basePrice, 'categoriesAll' => '%,'.$this->product_->getMasterCategoryId().',%');
-        $results = ZMRuntime::getDatabase()->query($sql, $args, TABLE_SALEMAKER_SALES);
+        $results = ZMRuntime::getDatabase()->fetchAll($sql, $args, TABLE_SALEMAKER_SALES);
 
         if (0 == count($results)) {
             return $specialPrice;
@@ -404,7 +404,7 @@ class ZMOffers extends ZMObject {
                 ORDER BY discount_qty";
 
         $args = array('productId' => $this->product_->getId());
-        $discounts = ZMRuntime::getDatabase()->query($sql, $args, TABLE_PRODUCTS_DISCOUNT_QUANTITY, 'ZMQuantityDiscount');
+        $discounts = ZMRuntime::getDatabase()->fetchAll($sql, $args, TABLE_PRODUCTS_DISCOUNT_QUANTITY, 'ZMQuantityDiscount');
 
         if (0 < count($discounts)) {
             $product = $this->product_;

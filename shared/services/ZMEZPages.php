@@ -136,7 +136,7 @@ class ZMEZPages extends ZMObject implements ZMSQLAware {
                 AND alt_url_external = '' AND alt_url = ''";
         $sql .= " AND languages_id = :languageId";
         $sql .= " ORDER BY toc_sort_order, pages_title";
-        return ZMRuntime::getDatabase()->query($sql, array('tocChapter' => $chapterId, 'languageId' => $languageId), TABLE_EZPAGES, 'ZMEZPage');
+        return ZMRuntime::getDatabase()->fetchAll($sql, array('tocChapter' => $chapterId, 'languageId' => $languageId), TABLE_EZPAGES, 'ZMEZPage');
     }
 
     /**
@@ -152,7 +152,7 @@ class ZMEZPages extends ZMObject implements ZMSQLAware {
                   AND header_sort_order > 0";
         $sql .= " AND languages_id = :languageId";
         $sql .= " ORDER BY header_sort_order, pages_title";
-        return ZMRuntime::getDatabase()->query($sql, array('languageId' => $languageId), TABLE_EZPAGES, 'ZMEZPage');
+        return ZMRuntime::getDatabase()->fetchAll($sql, array('languageId' => $languageId), TABLE_EZPAGES, 'ZMEZPage');
     }
 
     /**
@@ -168,7 +168,7 @@ class ZMEZPages extends ZMObject implements ZMSQLAware {
                   AND sidebox_sort_order > 0";
         $sql .= " AND languages_id = :languageId";
         $sql .= " ORDER BY sidebox_sort_order, pages_title";
-        return ZMRuntime::getDatabase()->query($sql, array('languageId' => $languageId), TABLE_EZPAGES, 'ZMEZPage');
+        return ZMRuntime::getDatabase()->fetchAll($sql, array('languageId' => $languageId), TABLE_EZPAGES, 'ZMEZPage');
     }
 
     /**
@@ -184,7 +184,7 @@ class ZMEZPages extends ZMObject implements ZMSQLAware {
                   AND footer_sort_order > 0";
         $sql .= " AND languages_id = :languageId";
         $sql .= " ORDER BY footer_sort_order, pages_title";
-        return ZMRuntime::getDatabase()->query($sql, array('languageId' => $languageId), TABLE_EZPAGES, 'ZMEZPage');
+        return ZMRuntime::getDatabase()->fetchAll($sql, array('languageId' => $languageId), TABLE_EZPAGES, 'ZMEZPage');
     }
 
     /**
