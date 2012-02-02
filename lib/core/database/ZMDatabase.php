@@ -19,17 +19,16 @@
  */
 ?>
 <?php
-
 use zenmagick\base\Beans;
 use zenmagick\base\Runtime;
 use zenmagick\base\Toolbox;
 use zenmagick\base\ZMObject;
 use Doctrine\Common\EventManager;
 use Doctrine\DBAL\Connection;
+use Doctrine\DBAL\ConnectionException;
 use Doctrine\DBAL\Configuration;
 use Doctrine\DBAL\Driver;
 use Doctrine\DBAL\Types\Type;
-
 /**
  * ZenMagick database abstractation.
  *
@@ -64,7 +63,7 @@ use Doctrine\DBAL\Types\Type;
  * @author DerManoMann <mano@zenmagick.org> <mano@zenmagick.org>
  * @package org.zenmagick.core.database
  */
-class ZMDatabase extends ZMObject {
+class ZMDatabase extends Connection {
     /** If used as modelClass parameter, the raw SQL data will be returned (no mapping, etc). */
     const MODEL_RAW = '@raw';
 
@@ -74,39 +73,34 @@ class ZMDatabase extends ZMObject {
     /** NULL datetime. */
     const NULL_DATETIME = '0001-01-01 00:00:00';
 
-    protected $pdo_;
     protected $mapper_;
 
     /**
      * Create a new instance.
      *
      * @param array params Configuration properties.
-     * @todo Driver param should not be allowed null. change when we inherit from Connection
      */
-    public function __construct(array $params, Driver $driver = null, Configuration $config = null, EventManager $eventManager = null) {
-        parent::__construct();
+    public function __construct(array $params, Driver $driver, Configuration $config = null, EventManager $eventManager = null) {
+        parent::__construct($params, $driver, $config, $eventManager);
         $this->mapper_ = ZMDbTableMapper::instance();
         $this->mapper_->setTablePrefix($params['prefix']);
 
         Type::overrideType('datetime', 'zenmagick\base\database\doctrine\types\DateTimeType');
         Type::overrideType('date', 'zenmagick\base\database\doctrine\types\DateType');
 
-        $pdo = Doctrine\DBAL\DriverManager::getConnection($params, $config, $eventManager);
-
         // @todo don't tie logging to the pageStats plugin
         // @todo look at doctrine.dbal.logging (boolean) and doctrine.dbal.logger_class
-        $pdo->getConfiguration()->setSQLLogger(new Doctrine\DBAL\Logging\DebugStack);
+        $this->getConfiguration()->setSQLLogger(new Doctrine\DBAL\Logging\DebugStack);
 
-        $pdo->getEventManager()->addEventSubscriber(new Doctrine\DBAL\Event\Listeners\MysqlSessionInit($params['charset'], $params['collation']));
+        $this->getEventManager()->addEventSubscriber(new Doctrine\DBAL\Event\Listeners\MysqlSessionInit($params['charset'], $params['collation']));
 
         // @todo enum: remove or add doctrine mapping type
-        $pdo->getDatabasePlatform()->registerDoctrineTypeMapping('enum', 'string');
+        $this->getDatabasePlatform()->registerDoctrineTypeMapping('enum', 'string');
         // alias boolean to boolean so ZMDbTableMapper maps continue to work
-        $pdo->getDatabasePlatform()->registerDoctrineTypeMapping('boolean', 'boolean');
+        $this->getDatabasePlatform()->registerDoctrineTypeMapping('boolean', 'boolean');
 
         // @todo ask DBAL if the driver/db type supports nested transactions
-        $pdo->setNestTransactionsWithSavepoints(true);
-        $this->pdo_ = $pdo;
+        $this->setNestTransactionsWithSavepoints(true);
     }
 
    /**
@@ -121,15 +115,6 @@ class ZMDatabase extends ZMObject {
     }
 
     /**
-     * Get the configuration parameters for this instance.
-     *
-     * @return array Configuration settings as known by dbal.
-     */
-    public function getParams() {
-        return $this->pdo_->getParams();
-    }
-
-    /**
      * Start a transaction.
      *
      * <p>If the database provider (and database driver) allow, nested transaction are possible.</p>
@@ -138,9 +123,9 @@ class ZMDatabase extends ZMObject {
      */
     public function beginTransaction() {
         try {
-            $this->pdo_->beginTransaction();
-        } catch (PDOException $pdoe) {
-            throw new ZMDatabaseException($pdoe->getMessage(), $pdoe->getCode(), $pdoe);
+            parent::beginTransaction();
+        } catch (ConnectionException $e) {
+            throw new ZMDatabaseException($e->getMessage(), $e->getCode(), $e);
         }
     }
 
@@ -151,9 +136,9 @@ class ZMDatabase extends ZMObject {
      */
     public function commit() {
         try {
-            $this->pdo_->commit();
-        } catch (PDOException $pdoe) {
-            throw new ZMDatabaseException($pdoe->getMessage(), $pdoe->getCode(), $pdoe);
+            parent::commit();
+        } catch (ConnectionException $e) {
+            throw new ZMDatabaseException($e->getMessage(), $e->getCode(), $e);
         }
     }
 
@@ -164,9 +149,9 @@ class ZMDatabase extends ZMObject {
      */
     public function rollback() {
         try {
-            $this->pdo_->rollback();
-        } catch (PDOException $pdoe) {
-            throw new ZMDatabaseException($pdoe->getMessage(), $pdoe->getCode(), $pdoe);
+            parent::rollback();
+        } catch (ConnectionException $e) {
+            throw new ZMDatabaseException($e->getMessage(), $e->getCode(), $e);
         }
     }
 
@@ -178,7 +163,7 @@ class ZMDatabase extends ZMObject {
     public function getStats() {
         $stats = array();
         $time = 0;
-        $logger = $this->pdo_->getConfiguration()->getSQLLogger();
+        $logger = $this->getConfiguration()->getSQLLogger();
         foreach ($logger->queries as $key => $query) {
             $logger->queries[$key]['time'] = $query['executionMS'];
             $time += $query['executionMS'];
@@ -263,10 +248,10 @@ class ZMDatabase extends ZMObject {
         try {
             $stmt = $this->prepareStatement($sql, $modelData, $mapping);
             $stmt->execute();
-            $newId = $this->pdo_->lastInsertId();
+            $newId = $this->lastInsertId();
             $stmt->closeCursor();
-        } catch (PDOException $pdoe) {
-            throw new ZMDatabaseException($pdoe->getMessage(), $pdoe->getCode(), $pdoe);
+        } catch (PDOException $e) {
+            throw new ZMDatabaseException($e->getMessage(), $e->getCode(), $e);
         }
 
         foreach ($mapping as $property => $field) {
@@ -324,8 +309,8 @@ class ZMDatabase extends ZMObject {
             $stmt = $this->prepareStatement($sql, $modelData, $mapping);
             $stmt->execute();
             $stmt->closeCursor();
-        } catch (PDOException $pdoe) {
-            throw new ZMDatabaseException($pdoe->getMessage(), $pdoe->getCode(), $pdoe);
+        } catch (PDOException $e) {
+            throw new ZMDatabaseException($e->getMessage(), $e->getCode(), $e);
         }
     }
 
@@ -382,8 +367,8 @@ class ZMDatabase extends ZMObject {
             $stmt = $this->prepareStatement($sql, $model, $mapping);
             $stmt->execute();
             $stmt->closeCursor();
-        } catch (PDOException $pdoe) {
-            throw new ZMDatabaseException($pdoe->getMessage(), $pdoe->getCode(), $pdoe);
+        } catch (PDOException $e) {
+            throw new ZMDatabaseException($e->getMessage(), $e->getCode(), $e);
         }
     }
 
@@ -408,8 +393,8 @@ class ZMDatabase extends ZMObject {
             $stmt->execute();
             $rows = $stmt->rowCount();
             $stmt->closeCursor();
-        } catch (PDOException $pdoe) {
-            throw new ZMDatabaseException($pdoe->getMessage(), $pdoe->getCode(), $pdoe);
+        } catch (PDOException $e) {
+            throw new ZMDatabaseException($e->getMessage(), $e->getCode(), $e);
         }
 
         return $rows;
@@ -457,8 +442,8 @@ class ZMDatabase extends ZMObject {
             $stmt->execute();
             $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
             $stmt->closeCursor();
-        } catch (PDOException $pdoe) {
-            throw new ZMDatabaseException($pdoe->getMessage(), $pdoe->getCode(), $pdoe);
+        } catch (PDOException $e) {
+            throw new ZMDatabaseException($e->getMessage(), $e->getCode(), $e);
         }
 
         if (ZMDatabase::MODEL_RAW == $modelClass) return $rows;
@@ -522,7 +507,7 @@ class ZMDatabase extends ZMObject {
         }
 
         // create statement
-        $stmt = $this->pdo_->prepare($sql);
+        $stmt = $this->prepare($sql);
         foreach ($params as $name => $value) {
             $typeName = preg_replace('/[0-9]+'.$PDO_INDEX_SEP.'/', '', $name);
             if (false !== strpos($sql, ':'.$name) && array_key_exists($typeName, $mapping)) {
@@ -538,7 +523,7 @@ class ZMDatabase extends ZMObject {
                 }
 
                 try {
-                    $dbalType = $this->pdo_->getDatabasePlatform()->getDoctrineTypeMapping($type);
+                    $dbalType = $this->getDatabasePlatform()->getDoctrineTypeMapping($type);
                 } catch(\Doctrine\DBAL\DBALException $e) {
                     throw new ZMDatabaseException('unsupported data(prepare) type='.$type.' for name='.$name);
                 }
@@ -564,7 +549,7 @@ class ZMDatabase extends ZMObject {
         $mappedFields = array();
         foreach ($mapping as $field) {
             if (array_key_exists($field['column'], $row)) {
-                $mappedRow[$field['property']] = $this->pdo_->convertToPHPValue($row[$field['column']], $field['type']);
+                $mappedRow[$field['property']] = $this->convertToPHPValue($row[$field['column']], $field['type']);
                 $mappedFields[$field['column']] = $field['column'];
             }
         }
@@ -613,8 +598,8 @@ class ZMDatabase extends ZMObject {
 
         try {
             $tableDetails = $sm->listTableDetails($table);
-        } catch(Doctrine\DBAL\Schema\SchemaException $pdoe) {
-            throw new ZMDatabaseException($pdoe->getMessage(), $pdoe->getCode(), $pdoe);
+        } catch(Doctrine\DBAL\Schema\SchemaException $e) {
+            throw new ZMDatabaseException($e->getMessage(), $e->getCode(), $e);
         }
 
         // TODO: yes we have a table without a primary key :(
@@ -633,16 +618,4 @@ class ZMDatabase extends ZMObject {
         }
         return $meta;
     }
-
-    /**
-     * Get underlying PDO instance.
-
-     * @return object
-     */
-    public function getResource() {
-        return $this->pdo_;
-    }
-
-    // just like Doctrine\DBAL\Connection
-    public function getSchemaManager() { return $this->pdo_->getSchemaManager(); }
 }
