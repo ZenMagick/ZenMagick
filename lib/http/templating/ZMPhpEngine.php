@@ -42,6 +42,7 @@ use zenmagick\http\widgets\Widget;
  */
 class ZMPhpEngine extends ZMObject implements EngineInterface {
     protected $view;
+    protected $request;
     protected $templateCache;
     protected $properties;
 
@@ -51,6 +52,8 @@ class ZMPhpEngine extends ZMObject implements EngineInterface {
      */
     public function __construct() {
         parent::__construct();
+        $this->request = null;
+        $this->view = null;
         $this->templateCache = null;
         $this->properties = array();
     }
@@ -60,7 +63,8 @@ class ZMPhpEngine extends ZMObject implements EngineInterface {
      * {@inheritDoc}
      */
     public function render($template, array $parameters=array()) {
-        // requires the view
+        // required bits
+        $this->request = $parameters['request'];
         $this->view = $parameters['view'];
         // base properties
         $this->properties = array_merge($this->properties, $parameters);
