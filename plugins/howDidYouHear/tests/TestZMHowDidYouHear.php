@@ -107,10 +107,10 @@ class TestZMHowDidYouHear extends ZMTestCase {
         }
 
         $sql = 'DELETE FROM '.TABLE_CUSTOMERS_INFO.' WHERE customers_info_id IN (:accountId)';
-        $results = ZMRuntime::getDatabase()->update($sql, array('accountId' => $ids), TABLE_CUSTOMERS_INFO);
+        $results = ZMRuntime::getDatabase()->updateObj($sql, array('accountId' => $ids), TABLE_CUSTOMERS_INFO);
 
         $sql = 'DELETE FROM '.TABLE_CUSTOMERS.' WHERE customers_id IN (:accountId)';
-        $results = ZMRuntime::getDatabase()->update($sql, array('accountId' => $ids), TABLE_CUSTOMERS);
+        $results = ZMRuntime::getDatabase()->updateObj($sql, array('accountId' => $ids), TABLE_CUSTOMERS);
         parent::tearDown();
     }
 

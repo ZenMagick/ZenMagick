@@ -74,7 +74,7 @@ class ZMWhoIsOnlinePlugin extends Plugin {
             $timeAgo = (time() - 1200);
             $sql = "DELETE FROM " . TABLE_WHOS_ONLINE . "
                     WHERE time_last_click < :lastRequestTime";
-            ZMRuntime::getDatabase()->update($sql, array('lastRequestTime' => $timeAgo), TABLE_WHOS_ONLINE);
+            ZMRuntime::getDatabase()->updateObj($sql, array('lastRequestTime' => $timeAgo), TABLE_WHOS_ONLINE);
         }
 
         $sql = "SELECT customer_id FROM " . TABLE_WHOS_ONLINE;

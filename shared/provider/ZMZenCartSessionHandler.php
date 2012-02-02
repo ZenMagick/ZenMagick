@@ -74,7 +74,7 @@ class ZMZenCartSessionHandler implements SessionHandler {
         }
 
         $args = array('sesskey' => $id, 'value' => $data, 'expiry' => time() + $this->expiryTime_);
-        return ZMRuntime::getDatabase()->update($sql, $args, DB_PREFIX.'sessions');
+        return ZMRuntime::getDatabase()->updateObj($sql, $args, DB_PREFIX.'sessions');
     }
 
     /**
@@ -82,7 +82,7 @@ class ZMZenCartSessionHandler implements SessionHandler {
      */
     public function destroy($id) {
         $sql = "DELETE FROM " . DB_PREFIX . "sessions WHERE sesskey = :sesskey";
-        return ZMRuntime::getDatabase()->update($sql, array('sesskey' => $id), DB_PREFIX.'sessions');
+        return ZMRuntime::getDatabase()->updateObj($sql, array('sesskey' => $id), DB_PREFIX.'sessions');
     }
 
     /**
@@ -90,7 +90,7 @@ class ZMZenCartSessionHandler implements SessionHandler {
      */
     public function gc($lifetime) {
         $sql = "DELETE FROM " . DB_PREFIX . "sessions where expiry < :expiry";
-        return ZMRuntime::getDatabase()->update($sql, array('expiry' => time()), DB_PREFIX.'sessions');
+        return ZMRuntime::getDatabase()->updateObj($sql, array('expiry' => time()), DB_PREFIX.'sessions');
     }
 
     /**

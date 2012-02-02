@@ -141,7 +141,7 @@ class ZMCoupons extends ZMObject {
             $sql = "INSERT INTO " . TABLE_COUPON_GV_CUSTOMER . " (customer_id, amount)
                     VALUES (:accountId, :amount)";
         }
-        ZMRuntime::getDatabase()->update($sql, array('accountId' => $accountId, 'amount' => $amount), TABLE_COUPON_GV_CUSTOMER);
+        ZMRuntime::getDatabase()->updateObj($sql, array('accountId' => $accountId, 'amount' => $amount), TABLE_COUPON_GV_CUSTOMER);
     }
 
     /**
@@ -223,7 +223,7 @@ class ZMCoupons extends ZMObject {
                 SET coupon_active = :active
                 WHERE coupon_id = :id";
         $args = array('id' => $couponId, 'active' => 'N');
-        ZMRuntime::getDatabase()->update($sql, $args, TABLE_COUPONS);
+        ZMRuntime::getDatabase()->updateObj($sql, $args, TABLE_COUPONS);
     }
 
     /**

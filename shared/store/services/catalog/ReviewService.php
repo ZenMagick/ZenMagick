@@ -207,7 +207,7 @@ class ReviewService extends ZMObject {
         $sql = "UPDATE " . TABLE_REVIEWS . "
                 SET reviews_read = reviews_read+1
                 WHERE reviews_id = :reviewId";
-        \ZMRuntime::getDatabase()->update($sql, array('reviewId' => $reviewId), TABLE_REVIEWS);
+        \ZMRuntime::getDatabase()->updateObj($sql, array('reviewId' => $reviewId), TABLE_REVIEWS);
     }
 
     /**

@@ -80,7 +80,7 @@ class ZMCancelSubscriptionController extends ZMController {
         $sql = "UPDATE " . TABLE_ORDERS . "
                 SET is_subscription_canceled = :subscriptionCanceled
                 WHERE orders_id = :orderId";
-        ZMRuntime::getDatabase()->update($sql, array('orderId' => $orderId, 'subscriptionCanceled' => true), TABLE_ORDERS);
+        ZMRuntime::getDatabase()->updateObj($sql, array('orderId' => $orderId, 'subscriptionCanceled' => true), TABLE_ORDERS);
         $this->messageService->success(_zm("Subscription canceled!"));
 
         $emailTemplate = Runtime::getSettings()->get('plugins.subscriptions.email.templates.cancel', 'subscription_cancel');

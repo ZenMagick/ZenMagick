@@ -62,7 +62,7 @@ class TestZMCoupons extends ZMTestCase {
             $sql = "DELETE FROM " . $table . "
                     WHERE coupon_id = :".$idName;
             foreach ($this->createdCouponIds_ as $couponId) {
-                ZMRuntime::getDatabase()->update($sql, array($idName => $couponId), $table);
+                ZMRuntime::getDatabase()->updateObj($sql, array($idName => $couponId), $table);
             }
         }
 
@@ -70,7 +70,7 @@ class TestZMCoupons extends ZMTestCase {
             $sql = "DELETE FROM " . $table . "
                     WHERE customer_id = :accountId";
             foreach ($this->accountIds_ as $accountId) {
-                ZMRuntime::getDatabase()->update($sql, array('accountId' => $accountId), $table);
+                ZMRuntime::getDatabase()->updateObj($sql, array('accountId' => $accountId), $table);
             }
         }
         parent::tearDown();
@@ -259,7 +259,7 @@ class TestZMCoupons extends ZMTestCase {
         // delete balance record to test create
         $sql = "DELETE FROM " . TABLE_COUPON_GV_CUSTOMER . "
                 WHERE customer_id = :accountId";
-        ZMRuntime::getDatabase()->update($sql, array('accountId' => $this->getAccountId()), TABLE_COUPON_GV_CUSTOMER);
+        ZMRuntime::getDatabase()->updateObj($sql, array('accountId' => $this->getAccountId()), TABLE_COUPON_GV_CUSTOMER);
 
         // new coupon worth $5
         $couponCode = $couponService->createCouponCode('foo@bar.com');

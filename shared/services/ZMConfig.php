@@ -77,7 +77,7 @@ class ZMConfig extends ZMObject {
             "useFunction" => $useFunction,
             "setFunction" => $setFunction
         );
-        ZMRuntime::getDatabase()->update($sql, $args, 'configuration');
+        ZMRuntime::getDatabase()->updateObj($sql, $args, 'configuration');
     }
 
     /**
@@ -91,7 +91,7 @@ class ZMConfig extends ZMObject {
                 SET configuration_value = :value
                 WHERE configuration_key = :key";
         $args = array("key" => $key, "value" => $value);
-        ZMRuntime::getDatabase()->update($sql, $args, 'configuration');
+        ZMRuntime::getDatabase()->updateObj($sql, $args, 'configuration');
     }
 
     /**
@@ -290,7 +290,7 @@ class ZMConfig extends ZMObject {
     public function removeConfigValue($key) {
         $sql = "DELETE FROM " . DB_PREFIX . "configuration
                 WHERE configuration_key = :key";
-        ZMRuntime::getDatabase()->update($sql, array('key' => $key), 'configuration');
+        ZMRuntime::getDatabase()->updateObj($sql, array('key' => $key), 'configuration');
     }
 
     /**
@@ -301,7 +301,7 @@ class ZMConfig extends ZMObject {
     public function removeConfigValues($pattern) {
         $sql = "DELETE FROM " . DB_PREFIX . "configuration
                 WHERE configuration_key like :key";
-        ZMRuntime::getDatabase()->update($sql, array('key' => $pattern), 'configuration');
+        ZMRuntime::getDatabase()->updateObj($sql, array('key' => $pattern), 'configuration');
     }
 
     /**

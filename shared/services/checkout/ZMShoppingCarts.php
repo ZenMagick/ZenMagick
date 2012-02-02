@@ -70,7 +70,7 @@ class ZMShoppingCarts extends ZMObject {
                         SET customers_basket_quantity = :quantity
                         WHERE customers_id = :accountId and products_id = :skuId";
                 $args = array('accountId' => $shoppingCart->getAccountId(), 'skuId' => $item->getId(), 'quantity' => $item->getQuantity());
-                ZMRuntime::getDatabase()->update($sql, $args, TABLE_CUSTOMERS_BASKET);
+                ZMRuntime::getDatabase()->updateObj($sql, $args, TABLE_CUSTOMERS_BASKET);
             } else {
                 // insert
                 $sql = "INSERT INTO " . TABLE_CUSTOMERS_BASKET . "
@@ -78,7 +78,7 @@ class ZMShoppingCarts extends ZMObject {
                         VALUES (:accountId, :skuId, :quantity, :dateAdded)";
                 $args = array('accountId' => $shoppingCart->getAccountId(), 'skuId' => $item->getId(), 'quantity' => $item->getQuantity(),
                           'dateAdded' => date('Ymd')); //column is 8 char, not date!
-                ZMRuntime::getDatabase()->update($sql, $args, TABLE_CUSTOMERS_BASKET);
+                ZMRuntime::getDatabase()->updateObj($sql, $args, TABLE_CUSTOMERS_BASKET);
                 if ($item->hasAttributes()) {
                     foreach ($item->getAttributes() as $attribute) {
                         foreach ($attribute->getValues() as $value) {
@@ -89,7 +89,7 @@ class ZMShoppingCarts extends ZMObject {
                             $sortOrder = $attribute->getSortOrder() . '.' . str_pad($value->getSortOrder(), 5, '0', STR_PAD_LEFT);
                             $args = array('accountId' => $shoppingCart->getAccountId(), 'skuId' => $item->getId(), 'attributeId' => $attribute->getId(),
                                       'attributeValueId' => $value->getId(), 'attributeValueText' => $value->getName(), 'sortOrder' => $sortOrder);
-                            ZMRuntime::getDatabase()->update($sql, $args, TABLE_CUSTOMERS_BASKET_ATTRIBUTES);
+                            ZMRuntime::getDatabase()->updateObj($sql, $args, TABLE_CUSTOMERS_BASKET_ATTRIBUTES);
                         }
                     }
                 }
@@ -107,10 +107,10 @@ class ZMShoppingCarts extends ZMObject {
     public function clearCart($shoppingCart) {
         $sql = "DELETE FROM " . TABLE_CUSTOMERS_BASKET . "
                 WHERE customers_id = :accountId";
-        ZMRuntime::getDatabase()->update($sql, array('accountId' => $shoppingCart->getAccountId()), TABLE_CUSTOMERS_BASKET);
+        ZMRuntime::getDatabase()->updateObj($sql, array('accountId' => $shoppingCart->getAccountId()), TABLE_CUSTOMERS_BASKET);
         $sql = "DELETE FRMO " . TABLE_CUSTOMERS_BASKET_ATTRIBUTES . "
                 WHERE customers_id = :accountId";
-        ZMRuntime::getDatabase()->update($sql, array('accountId' => $shoppingCart->getAccountId()), TABLE_CUSTOMERS_BASKET_ATTRIBUTES);
+        ZMRuntime::getDatabase()->updateObj($sql, array('accountId' => $shoppingCart->getAccountId()), TABLE_CUSTOMERS_BASKET_ATTRIBUTES);
     }
 
     /**

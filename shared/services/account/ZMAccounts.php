@@ -153,7 +153,7 @@ class ZMAccounts extends ZMObject {
                     customers_info_number_of_logons = customers_info_number_of_logons+1
                 WHERE customers_info_id = :accountId";
         $args = array('accountId' => $accountId);
-        return ZMRuntime::getDatabase()->update($sql, $args, TABLE_CUSTOMERS_INFO);
+        return ZMRuntime::getDatabase()->updateObj($sql, $args, TABLE_CUSTOMERS_INFO);
     }
 
     /**
@@ -226,7 +226,7 @@ class ZMAccounts extends ZMObject {
         $sql = "UPDATE " . TABLE_CUSTOMERS . "
                 SET customers_password = :password
                 WHERE customers_id = :accountId";
-        ZMRuntime::getDatabase()->update($sql, array('accountId' => $accountId, 'password' => $password), TABLE_CUSTOMERS);
+        ZMRuntime::getDatabase()->updateObj($sql, array('accountId' => $accountId, 'password' => $password), TABLE_CUSTOMERS);
     }
 
 
@@ -256,7 +256,7 @@ class ZMAccounts extends ZMObject {
                 SET global_product_notifications = :globalProductSubscriber, customers_info_date_account_last_modified = now()
                 WHERE customers_info_id = :accountId";
         $args = array('accountId' => $accountId, 'globalProductSubscriber' => $globalProductSubscriber);
-        ZMRuntime::getDatabase()->update($sql, $args, TABLE_CUSTOMERS_INFO);
+        ZMRuntime::getDatabase()->updateObj($sql, $args, TABLE_CUSTOMERS_INFO);
     }
 
     /**
@@ -306,14 +306,14 @@ class ZMAccounts extends ZMObject {
             $sql = "DELETE FROM " . TABLE_PRODUCTS_NOTIFICATIONS . "
                     WHERE  customers_id = :accountId
                     AND products_id in (:productId)";
-            ZMRuntime::getDatabase()->update($sql, array('accountId' => $account->getId(), 'productId' => $remove), TABLE_PRODUCTS_NOTIFICATIONS);
+            ZMRuntime::getDatabase()->updateObj($sql, array('accountId' => $account->getId(), 'productId' => $remove), TABLE_PRODUCTS_NOTIFICATIONS);
         }
 
         if (0 < count($add)) {
             $sql = "INSERT INTO " . TABLE_PRODUCTS_NOTIFICATIONS . "
                     (products_id, customers_id) VALUES (:productId, :accountId)";
             foreach ($add as $id) {
-                ZMRuntime::getDatabase()->update($sql, array('accountId' => $account->getId(), 'productId' => $id), TABLE_PRODUCTS_NOTIFICATIONS);
+                ZMRuntime::getDatabase()->updateObj($sql, array('accountId' => $account->getId(), 'productId' => $id), TABLE_PRODUCTS_NOTIFICATIONS);
             }
         }
 

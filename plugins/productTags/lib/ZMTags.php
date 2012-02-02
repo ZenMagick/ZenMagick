@@ -119,7 +119,7 @@ class ZMTags extends ZMObject {
             if (!array_key_exists($tag, $allTags)) {
                 // add new tag for language
                 $sql = "INSERT INTO " . TABLE_TAGS . " (name, language_id) VALUES (:name, :language_id)";
-                ZMRuntime::getDatabase()->update($sql, array('name' => $tag, 'language_id' => $languageId), TABLE_TAGS);
+                ZMRuntime::getDatabase()->updateObj($sql, array('name' => $tag, 'language_id' => $languageId), TABLE_TAGS);
             }
         }
 
@@ -128,7 +128,7 @@ class ZMTags extends ZMObject {
         if (0 < count($tagIds)) {
             $sql = "DELETE FROM " . TABLE_PRODUCT_TAGS . "
                     WHERE product_tag_id in (:product_tag_id)";
-            ZMRuntime::getDatabase()->update($sql, array('product_tag_id' => $tagIds), TABLE_PRODUCT_TAGS);
+            ZMRuntime::getDatabase()->updateObj($sql, array('product_tag_id' => $tagIds), TABLE_PRODUCT_TAGS);
         }
 
         // reload to get all current tag_ids
@@ -138,7 +138,7 @@ class ZMTags extends ZMObject {
         foreach ($tags as $tag) {
             $tagId = $allTags[$tag];
             $sql = "INSERT INTO " . TABLE_PRODUCT_TAGS . " (product_id, tag_id) VALUES (:product_id, :tag_id)";
-            ZMRuntime::getDatabase()->update($sql, array('product_id' => $productId, 'tag_id' => $tagId), TABLE_PRODUCT_TAGS);
+            ZMRuntime::getDatabase()->updateObj($sql, array('product_id' => $productId, 'tag_id' => $tagId), TABLE_PRODUCT_TAGS);
         }
     }
 
@@ -148,7 +148,7 @@ class ZMTags extends ZMObject {
     public function cleanupTags() {
         $sql = "DELETE FROM " . TABLE_TAGS . "
                 WHERE NOT tag_id in (SELECT DISTINCT tag_id from " . TABLE_PRODUCT_TAGS . ")";
-        ZMRuntime::getDatabase()->update($sql);
+        ZMRuntime::getDatabase()->updateObj($sql);
     }
 
     /**

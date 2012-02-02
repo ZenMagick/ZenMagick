@@ -604,7 +604,7 @@ class ZMProducts extends ZMObject implements ZMSQLAware {
                 WHERE products_id = :productId
                 AND language_id = :languageId";
         $args = array('productId' => $productId, 'languageId' => $languageId);
-        return ZMRuntime::getDatabase()->update($sql, $args, TABLE_PRODUCTS_DESCRIPTION);
+        return ZMRuntime::getDatabase()->updateObj($sql, $args, TABLE_PRODUCTS_DESCRIPTION);
     }
 
     /**

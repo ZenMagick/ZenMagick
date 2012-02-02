@@ -75,7 +75,7 @@ class ZMSubscriptionAdminController extends ZMPluginAdmin2Controller {
             $sql = "UPDATE " . TABLE_ORDERS . "
                     SET is_subscription_canceled = :subscriptionCanceled, is_subscription = :subscription
                     WHERE orders_id = :orderId";
-            ZMRuntime::getDatabase()->update($sql, array('orderId' => $orderId, 'subscriptionCanceled' => true, 'subscription' => !$hard), TABLE_ORDERS);
+            ZMRuntime::getDatabase()->updateObj($sql, array('orderId' => $orderId, 'subscriptionCanceled' => true, 'subscription' => !$hard), TABLE_ORDERS);
             $this->messageService->success(_zm("Subscription canceled!"));
         }
 

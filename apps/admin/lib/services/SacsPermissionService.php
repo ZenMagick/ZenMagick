@@ -82,14 +82,14 @@ class SacsPermissionService extends ZMObject {
             $sql = "DELETE FROM " . DB_PREFIX.'sacs_permissions' . "
                     WHERE  type = 'role' AND name = :name
                       AND rid in (:rid)";
-            \ZMRuntime::getDatabase()->update($sql, array('name' => $role, 'rid' => $remove), DB_PREFIX.'sacs_permissions');
+            \ZMRuntime::getDatabase()->updateObj($sql, array('name' => $role, 'rid' => $remove), DB_PREFIX.'sacs_permissions');
         }
 
         if (0 < count($add)) {
             $sql = "INSERT INTO " . DB_PREFIX.'sacs_permissions' . "
                     (rid, type, name) VALUES (:rid, 'role', :name)";
             foreach ($add as $rid) {
-                \ZMRuntime::getDatabase()->update($sql, array('rid' => $rid, 'name' => $role), DB_PREFIX.'sacs_permissions');
+                \ZMRuntime::getDatabase()->updateObj($sql, array('rid' => $rid, 'name' => $role), DB_PREFIX.'sacs_permissions');
             }
         }
     }

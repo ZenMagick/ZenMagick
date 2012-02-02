@@ -184,7 +184,7 @@ class ManufacturerService extends ZMObject {
                 WHERE manufacturers_id = :manufacturerId
                 AND languages_id = :languageId";
         $args = array('manufacturerId' => $id, 'languageId' => $languageId);
-        return \ZMRuntime::getDatabase()->update($sql, $args, array(TABLE_MANUFACTURERS, TABLE_MANUFACTURERS_INFO));
+        return \ZMRuntime::getDatabase()->updateObj($sql, $args, array(TABLE_MANUFACTURERS, TABLE_MANUFACTURERS_INFO));
     }
 
 }

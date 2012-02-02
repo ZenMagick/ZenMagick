@@ -68,8 +68,8 @@ class TestZMDatabase extends ZMTestCase {
 
         foreach (self::getProviders() as $provider => $database) {
             // create test tabe
-            $database->update($drop_table);
-            $database->update($create_table);
+            $database->updateObj($drop_table);
+            $database->updateObj($create_table);
 
             $mapping = ZMDbTableMapper::instance()->buildTableMapping('db_test', $database, true);
             if ($this->assertTrue(is_array($mapping), '%s: '.$provider)) {
@@ -77,7 +77,7 @@ class TestZMDatabase extends ZMTestCase {
             }
 
             // drop again
-            $database->update($drop_table);
+            $database->updateObj($drop_table);
         }
     }
 
@@ -129,7 +129,7 @@ class TestZMDatabase extends ZMTestCase {
         $deleteTestModelSql = "DELETE from " . TABLE_COUNTRIES . " WHERE countries_iso_code_3 = :isoCode3";
         foreach (self::getProviders() as $provider => $database) {
             // first delete, just in case
-            $database->update($deleteTestModelSql, array('isoCode3' => '@@@'), TABLE_COUNTRIES);
+            $database->updateObj($deleteTestModelSql, array('isoCode3' => '@@@'), TABLE_COUNTRIES);
 
             // set up test data
             $model = Beans::getBean('zenmagick\apps\store\entities\location\Country#name="test&isoCode2=@@&isoCode3=@@@&addressFormatId=1');
@@ -139,7 +139,7 @@ class TestZMDatabase extends ZMTestCase {
             }
 
             // clean up
-            $database->update($deleteTestModelSql, array('isoCode3' => '@@@'), TABLE_COUNTRIES);
+            $database->updateObj($deleteTestModelSql, array('isoCode3' => '@@@'), TABLE_COUNTRIES);
         }
 
         // updateModel
@@ -155,7 +155,7 @@ class TestZMDatabase extends ZMTestCase {
                     $this->assertEqual('###', $updated->getIsoCode3(), '%s: '.$provider);
                 }
                 // clean up
-                $database->update($reset, array('countryId' => 153, 'isoCode3' => 'NZL'), TABLE_COUNTRIES);
+                $database->updateObj($reset, array('countryId' => 153, 'isoCode3' => 'NZL'), TABLE_COUNTRIES);
             }
         }
 
@@ -164,7 +164,7 @@ class TestZMDatabase extends ZMTestCase {
         $findTestModelSql = "SELECT * from " . TABLE_COUNTRIES . " WHERE countries_iso_code_3 = :isoCode3";
         foreach (self::getProviders() as $provider => $database) {
             // first delete, just in case
-            $database->update($deleteTestModelSql, array('isoCode3' => '%%%'), TABLE_COUNTRIES);
+            $database->updateObj($deleteTestModelSql, array('isoCode3' => '%%%'), TABLE_COUNTRIES);
 
             // set up test data
             $model = Beans::getBean('zenmagick\apps\store\entities\location\Country#name="test&isoCode2=%%&isoCode3=%%%&addressFormatId=1');
@@ -175,7 +175,7 @@ class TestZMDatabase extends ZMTestCase {
             }
 
             // clean up
-            $database->update($deleteTestModelSql, array('isoCode3' => '%%%'), TABLE_COUNTRIES);
+            $database->updateObj($deleteTestModelSql, array('isoCode3' => '%%%'), TABLE_COUNTRIES);
         }
     }
 
@@ -190,18 +190,18 @@ class TestZMDatabase extends ZMTestCase {
 
         foreach (self::getProviders() as $provider => $database) {
             // create test table
-            $database->update($drop_table);
-            $database->update($create_table);
+            $database->updateObj($drop_table);
+            $database->updateObj($create_table);
 
             try {
-                $database->update($insert, array('name' => 'foo'), $tname);
+                $database->updateObj($insert, array('name' => 'foo'), $tname);
             } catch (ZMDatabaseException $e) {
             } catch (Exception $e) {
                 $this->fail('unexpected exception: '.$e);
             }
 
             // drop again
-            $database->update($drop_table);
+            $database->updateObj($drop_table);
         }
     }
 
@@ -216,18 +216,18 @@ class TestZMDatabase extends ZMTestCase {
 
         foreach (self::getProviders() as $provider => $database) {
             // create test table
-            $database->update($drop_table);
-            $database->update($create_table);
+            $database->updateObj($drop_table);
+            $database->updateObj($create_table);
 
             try {
-                $database->update($insert, array('name' => 'foo'), $tname);
+                $database->updateObj($insert, array('name' => 'foo'), $tname);
             } catch (ZMDatabaseException $e) {
             } catch (Exception $e) {
                 $this->fail('unexpected exception: '.$e);
             }
 
             // drop again
-            $database->update($drop_table);
+            $database->updateObj($drop_table);
         }
     }
 

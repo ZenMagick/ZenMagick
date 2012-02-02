@@ -118,7 +118,7 @@ class ZMAddresses extends ZMObject {
     public function deleteAddressForId($addressId) {
         $sql = "DELETE FROM " . TABLE_ADDRESS_BOOK . "
                 WHERE  address_book_id = :id";
-        ZMRuntime::getDatabase()->update($sql, array('id' => $addressId), TABLE_ADDRESS_BOOK);
+        ZMRuntime::getDatabase()->updateObj($sql, array('id' => $addressId), TABLE_ADDRESS_BOOK);
         return true;
     }
 

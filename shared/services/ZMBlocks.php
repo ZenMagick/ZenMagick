@@ -66,7 +66,7 @@ class ZMBlocks extends ZMObject {
         $sql = 'INSERT INTO '.DB_PREFIX.'block_groups' . '(group_name, description) VALUES (:group_name, :description)';
         $args = array('group_name' => $blockGroup->getName(), 'description' => $blockGroup->getDescription());
         $conn = ZMRuntime::getDatabase();
-        $conn->update($sql, $args, DB_PREFIX.'block_groups');
+        $conn->updateObj($sql, $args, DB_PREFIX.'block_groups');
         $blockGroup->setId($conn->getResource()->lastInsertId());
         return $blockGroup;
         //return ZMRuntime::getDatabase()->createModel(DB_PREFIX.'block_groups', $blockGroup);
@@ -80,7 +80,7 @@ class ZMBlocks extends ZMObject {
     public function deleteGroupForName($groupName) {
         $sql = 'DELETE FROM '.DB_PREFIX.'block_groups' . ' WHERE group_name = :group_name';
         $args = array('group_name' => $groupName);
-        ZMRuntime::getDatabase()->update($sql, $args, DB_PREFIX.'block_groups');
+        ZMRuntime::getDatabase()->updateObj($sql, $args, DB_PREFIX.'block_groups');
 
         //TODO: delete group blocks
         //return ZMRuntime::getDatabase()->removeModel(DB_PREFIX.'block_groups', array('group_name' => $groupName));
