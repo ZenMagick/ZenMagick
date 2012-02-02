@@ -47,11 +47,8 @@ use Symfony\Component\DependencyInjection\Loader\XmlFileLoader;
         define('ZM_CLI_CALL', defined('STDIN'));
         // base installation directory
         define('ZM_BASE_PATH', dirname(__FILE__));
-        // app name
-        define('ZM_APP_NAME', defined('ZM_APP_PATH') ? basename(ZM_APP_PATH) : null);
         // set up the environment to run in
         defined('ZM_ENVIRONMENT') || define('ZM_ENVIRONMENT', isset($_SERVER['ZM_ENVIRONMENT']) ? $_SERVER['ZM_ENVIRONMENT'] : 'prod');
-
         // hide as to avoid filenames that contain account names, etc.
         ini_set('display_errors', false);
         // enable all reporting
@@ -100,7 +97,7 @@ if (TRACEBS) {echo 'post CL: '.Runtime::getExecutionTime()."<BR>";}
         // some base settings
         Runtime::getSettings()->set('zenmagick.environment', ZM_ENVIRONMENT);
         Runtime::getSettings()->set('zenmagick.installationPath', Runtime::getInstallationPath());
-        Runtime::getSettings()->set('zenmagick.base.context', ZM_APP_NAME);
+        Runtime::getSettings()->set('zenmagick.base.context', defined('ZM_APP_PATH') ? basename(ZM_APP_PATH) : null);
 
         // load app in separate loader
         if (null != Runtime::getApplicationPath()) {
@@ -152,7 +149,7 @@ if (TRACEBS) {echo 'post container.xml: '.Runtime::getExecutionTime()."<BR>";}
 
         if (null != Runtime::getApplicationPath()) {
             // always add an application event listener - if available
-            $eventListener = 'zenmagick\\apps\\'.ZM_APP_NAME.'\\EventListener';
+            $eventListener = 'zenmagick\\apps\\'.Runtime::getContext().'\\EventListener';
             if (ClassLoader::classExists($eventListener)) {
                 Runtime::getEventDispatcher()->listen(new $eventListener());
             }
