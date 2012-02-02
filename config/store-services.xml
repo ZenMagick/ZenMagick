@@ -239,16 +239,15 @@
             charset="%apps.store.database.default.charset%"
             unix_socket="%apps.store.database.default.unix_socket%"
             logging="true"
+            wrapper_class="ZMDatabase"
         >
            <!--
            <doctrine:connection>
-                <doctrine:mapping-type name="blob">blob</doctrine:mapping-type>
                 <doctrine:mapping-type name="boolean">boolean</doctrine:mapping-type>
                 <doctrine:mapping-type name="enum">string</doctrine:mapping-type>
-                <doctrine:mapping-type name="mediumblob">mediumblob</doctrine:mapping-type>
             </doctrine:connection>
-            <doctrine:type name="blob" class="zenmagick\base\database\doctrine\types\Blob" />
-            <doctrine:type name="mediumblob" class="zenmagick\base\database\doctrine\types\MediumBlob" />
+            <doctrine:type name="date" class="zenmagick\base\database\doctrine\types\DateType" />
+            <doctrine:type name="datetime" class="zenmagick\base\database\doctrine\types\DateTimeType" />
             -->
         </doctrine:dbal>
 
