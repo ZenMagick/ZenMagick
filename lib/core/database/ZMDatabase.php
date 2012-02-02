@@ -396,7 +396,7 @@ class ZMDatabase extends ZMObject {
      * @return int affected rows
      * @throws ZMDatabaseException
      */
-    public function update($query, $params = array(), $mapping = null) {
+    public function updateObj($query, $params = array(), $mapping = null) {
         $mapping = $this->mapper_->ensureMapping($mapping);
 
         // convert to array

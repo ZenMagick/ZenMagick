@@ -126,7 +126,7 @@ class ZMBanners extends ZMObject {
                       (banners_id, banners_shown, banners_history_date)
                     VALUES (:id, 1, now())";
         }
-        ZMRuntime::getDatabase()->update($sql, array('id' => $bannerId), TABLE_BANNERS_HISTORY);
+        ZMRuntime::getDatabase()->updateObj($sql, array('id' => $bannerId), TABLE_BANNERS_HISTORY);
     }
 
     /**
@@ -138,7 +138,7 @@ class ZMBanners extends ZMObject {
         $sql = "UPDATE " . TABLE_BANNERS_HISTORY . "
                 SET banners_clicked = banners_clicked + 1
                 WHERE banners_id = :id AND date_format(banners_history_date, '%%Y%%m%%d') = date_format(now(), '%%Y%%m%%d')";
-        ZMRuntime::getDatabase()->update($sql, array('id' => $bannerId), TABLE_BANNERS_HISTORY);
+        ZMRuntime::getDatabase()->updateObj($sql, array('id' => $bannerId), TABLE_BANNERS_HISTORY);
     }
 
 }

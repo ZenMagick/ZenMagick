@@ -69,7 +69,7 @@ class AdminUserRoleService extends ZMObject {
         // 1) delete mappings
         $sql = "DELETE FROM " . DB_PREFIX.'admins_to_roles' . "
                 WHERE admin_role_id = :admin_role_id";
-        \ZMRuntime::getDatabase()->update($sql, array('admin_role_id' => $roleId), DB_PREFIX.'admins_to_roles');
+        \ZMRuntime::getDatabase()->updateObj($sql, array('admin_role_id' => $roleId), DB_PREFIX.'admins_to_roles');
         \ZMRuntime::getDatabase()->removeModel(DB_PREFIX.'admins_to_roles', array('admin_role_id' => $roleId));
         return true;
     }
@@ -121,14 +121,14 @@ class AdminUserRoleService extends ZMObject {
             $sql = "DELETE FROM " . DB_PREFIX.'admins_to_roles' . "
                     WHERE  admin_id = :admin_id
                       AND admin_role_id in (:admin_role_id)";
-            \ZMRuntime::getDatabase()->update($sql, array('admin_id' => $id, 'admin_role_id' => $remove), DB_PREFIX.'admins_to_roles');
+            \ZMRuntime::getDatabase()->updateObj($sql, array('admin_id' => $id, 'admin_role_id' => $remove), DB_PREFIX.'admins_to_roles');
         }
 
         if (0 < count($add)) {
             $sql = "INSERT INTO " . DB_PREFIX.'admins_to_roles' . "
                     (admin_id, admin_role_id) VALUES (:admin_id, :admin_role_id)";
             foreach ($add as $addId) {
-                \ZMRuntime::getDatabase()->update($sql, array('admin_id' => $id, 'admin_role_id' => $addId), DB_PREFIX.'admins_to_roles');
+                \ZMRuntime::getDatabase()->updateObj($sql, array('admin_id' => $id, 'admin_role_id' => $addId), DB_PREFIX.'admins_to_roles');
             }
         }
 

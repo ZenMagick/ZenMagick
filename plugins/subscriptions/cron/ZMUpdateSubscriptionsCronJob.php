@@ -90,7 +90,7 @@ class ZMUpdateSubscriptionsCronJob implements ZMCronJob {
                     SET subscription_next_order = DATE_ADD(subscription_next_order, INTERVAL " . zm_subscriptions::schedule2SQL($order->get('schedule')) . ")
                     WHERE orders_id = :orderId";
             $args = array('orderId' => $scheduledOrderId);
-            ZMRuntime::getDatabase()->update($sql, $args, TABLE_ORDERS);
+            ZMRuntime::getDatabase()->updateObj($sql, $args, TABLE_ORDERS);
             if (!ZMLangUtils::isEmpty($scheduleEmailTemplate)) {
                 $this->sendOrderEmail($order, $scheduleEmailTemplate);
             }

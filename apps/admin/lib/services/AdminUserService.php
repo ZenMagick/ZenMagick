@@ -157,7 +157,7 @@ class AdminUserService extends ZMObject {
         $sql = "DELETE FROM " . TABLE_ADMIN . "
                 WHERE admin_id = :id";
         // delete user
-        \ZMRuntime::getDatabase()->update($sql, array('id' => $id), TABLE_ADMIN);
+        \ZMRuntime::getDatabase()->updateObj($sql, array('id' => $id), TABLE_ADMIN);
         return true;
     }
 

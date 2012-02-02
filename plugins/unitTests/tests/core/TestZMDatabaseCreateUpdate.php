@@ -39,7 +39,7 @@ class TestZMDatabaseCreateUpdate extends ZMTestCase {
         parent::setUp();
         // split as some implementations might not support multiple commands per call!
         $sql = "DROP TABLE IF EXISTS " . TABLE_CREATE_UPDATE_TESTS .";";
-        ZMRuntime::getDatabase()->update($sql, array());
+        ZMRuntime::getDatabase()->updateObj($sql, array());
         $sql = "CREATE TABLE " . TABLE_CREATE_UPDATE_TESTS . " (
                   row_id int(11) NOT NULL auto_increment,
                   name varchar(128) NOT NULL,
@@ -48,7 +48,7 @@ class TestZMDatabaseCreateUpdate extends ZMTestCase {
                   parameter_list varchar(511) NOT NULL DEFAULT '',
                   PRIMARY KEY (row_id)
                 ) ENGINE=InnoDB;";
-        ZMRuntime::getDatabase()->update($sql, array());
+        ZMRuntime::getDatabase()->updateObj($sql, array());
     }
 
     /**
@@ -56,7 +56,7 @@ class TestZMDatabaseCreateUpdate extends ZMTestCase {
      */
     public function tearDown() {
         parent::tearDown();
-        ZMRuntime::getDatabase()->update('DROP TABLE IF EXISTS ' . TABLE_CREATE_UPDATE_TESTS. ';', array());
+        ZMRuntime::getDatabase()->updateObj('DROP TABLE IF EXISTS ' . TABLE_CREATE_UPDATE_TESTS. ';', array());
     }
 
     /**
@@ -114,7 +114,7 @@ class TestZMDatabaseCreateUpdate extends ZMTestCase {
                 (name, class_name, method_name, parameter_list) VALUES
                 (:name, :class_name, :method_name, :parameter_list)";
         foreach (TestZMDatabase::getProviders() as $provider => $database) {
-            $database->update($sql, $map, TABLE_CREATE_UPDATE_TESTS);
+            $database->updateObj($sql, $map, TABLE_CREATE_UPDATE_TESTS);
         }
     }
 
@@ -134,7 +134,7 @@ class TestZMDatabaseCreateUpdate extends ZMTestCase {
                 (name, class_name, method_name, parameter_list) VALUES
                 (:name, :className, :methodName, :parameterList)";
         foreach (TestZMDatabase::getProviders() as $provider => $database) {
-            $database->update($sql, $obj, TABLE_CREATE_UPDATE_TESTS);
+            $database->updateObj($sql, $obj, TABLE_CREATE_UPDATE_TESTS);
         }
     }
 
@@ -154,7 +154,7 @@ class TestZMDatabaseCreateUpdate extends ZMTestCase {
                 (name, class_name, method_name, parameter_list) VALUES
                 (:name, :className, :methodName, :parameterList)";
         foreach (TestZMDatabase::getProviders() as $provider => $database) {
-            $database->update($sql, $map, TABLE_CREATE_UPDATE_TESTS);
+            $database->updateObj($sql, $map, TABLE_CREATE_UPDATE_TESTS);
         }
     }
 

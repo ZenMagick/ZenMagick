@@ -80,7 +80,7 @@ class AdminUserPrefService extends ZMObject {
                     (admin_id, name, value)
                     VALUES (:admin_id, :name, :value)";
         }
-        \ZMRuntime::getDatabase()->update($sql, $args, DB_PREFIX.'admin_prefs');
+        \ZMRuntime::getDatabase()->updateObj($sql, $args, DB_PREFIX.'admin_prefs');
     }
 
 }

@@ -103,7 +103,7 @@ class ZMTokens extends ZMObject {
         if ($expire && null !== $token) {
             $sql = "DELETE FROM " . DB_PREFIX.'token' . "
                     WHERE hash = :hash AND resource = :resource";
-            ZMRuntime::getDatabase()->update($sql, array('hash' => $hash, 'resource' => $resource), DB_PREFIX.'token');
+            ZMRuntime::getDatabase()->updateObj($sql, array('hash' => $hash, 'resource' => $resource), DB_PREFIX.'token');
         }
         return $token;
     }
@@ -153,7 +153,7 @@ class ZMTokens extends ZMObject {
             $sql = "DELETE FROM " . DB_PREFIX.'token' . "
                     WHERE expires < now()";
         }
-        ZMRuntime::getDatabase()->update($sql);
+        ZMRuntime::getDatabase()->updateObj($sql);
     }
 
 }

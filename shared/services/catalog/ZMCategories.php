@@ -356,9 +356,9 @@ class ZMCategories extends ZMObject {
 
         // remove all product/category mappings
         $sql = "DELETE FROM " . TABLE_PRODUCTS_TO_CATEGORIES ." WHERE categories_id = :categoryId";
-        ZMRuntime::getDatabase()->update($sql, array('categoryId' => $category->getId()), TABLE_PRODUCTS_TO_CATEGORIES);
+        ZMRuntime::getDatabase()->updateObj($sql, array('categoryId' => $category->getId()), TABLE_PRODUCTS_TO_CATEGORIES);
         $sql = "DELETE FROM " . TABLE_PRODUCT_TYPES_TO_CATEGORY ." WHERE category_id = :categoryId";
-        ZMRuntime::getDatabase()->update($sql, array('categoryId' => $category->getId()), TABLE_PRODUCT_TYPES_TO_CATEGORY);
+        ZMRuntime::getDatabase()->updateObj($sql, array('categoryId' => $category->getId()), TABLE_PRODUCT_TYPES_TO_CATEGORY);
     }
 
     /**

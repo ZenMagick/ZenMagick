@@ -83,10 +83,10 @@ class TestZMAccounts extends ZMTestCase {
         }
 
         $sql = 'DELETE FROM '.TABLE_CUSTOMERS_INFO.' WHERE customers_info_id IN (:accountId)';
-        $results = ZMRuntime::getDatabase()->update($sql, array('accountId' => $ids), TABLE_CUSTOMERS_INFO);
+        $results = ZMRuntime::getDatabase()->updateObj($sql, array('accountId' => $ids), TABLE_CUSTOMERS_INFO);
 
         $sql = 'DELETE FROM '.TABLE_CUSTOMERS.' WHERE customers_id IN (:accountId)';
-        $results = ZMRuntime::getDatabase()->update($sql, array('accountId' => $ids), TABLE_CUSTOMERS);
+        $results = ZMRuntime::getDatabase()->updateObj($sql, array('accountId' => $ids), TABLE_CUSTOMERS);
         parent::tearDown();
     }
 
@@ -163,14 +163,14 @@ class TestZMAccounts extends ZMTestCase {
         // delete previous subscriptions
         $sql = "DELETE from " . TABLE_PRODUCTS_NOTIFICATIONS . "
                 WHERE  customers_id = :accountId";
-        ZMRuntime::getDatabase()->update($sql, array('accountId' => 2), TABLE_PRODUCTS_NOTIFICATIONS);
+        ZMRuntime::getDatabase()->updateObj($sql, array('accountId' => 2), TABLE_PRODUCTS_NOTIFICATIONS);
 
         $testProductIds = array(1, 4, 7);
         // insert new
         $sql = "INSERT into " . TABLE_PRODUCTS_NOTIFICATIONS . "
                 (products_id, customers_id) VALUES(:productId, :accountId)";
         foreach ($testProductIds as $id) {
-            ZMRuntime::getDatabase()->update($sql, array('accountId' => 2, 'productId' => $id), TABLE_PRODUCTS_NOTIFICATIONS);
+            ZMRuntime::getDatabase()->updateObj($sql, array('accountId' => 2, 'productId' => $id), TABLE_PRODUCTS_NOTIFICATIONS);
         }
 
         $subscribedProductIds = $this->container->get('accountService')->getSubscribedProductIds(2);

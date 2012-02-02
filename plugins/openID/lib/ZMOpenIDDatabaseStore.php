@@ -80,7 +80,7 @@ class ZMOpenIDDatabaseStore extends Auth_OpenID_OpenIDStore {
             'lifetime' => $association->lifetime,
             'type' => $association->assoc_type
         );
-        ZMRuntime::getDatabase()->update($sql, $args, DB_PREFIX.'zm_openid_associations');
+        ZMRuntime::getDatabase()->updateObj($sql, $args, DB_PREFIX.'zm_openid_associations');
     }
 
     /**
@@ -141,7 +141,7 @@ class ZMOpenIDDatabaseStore extends Auth_OpenID_OpenIDStore {
         $sql = "DELETE FROM ".DB_PREFIX.'zm_openid_associations'."
                 WHERE server_url = :server_url AND handle = :handle";
         $args = array('server_url' => $server_url, 'handle' => $handle);
-        ZMRuntime::getDatabase()->update($sql, $args, DB_PREFIX.'zm_openid_associations');
+        ZMRuntime::getDatabase()->updateObj($sql, $args, DB_PREFIX.'zm_openid_associations');
         return true;
     }
 
@@ -157,7 +157,7 @@ class ZMOpenIDDatabaseStore extends Auth_OpenID_OpenIDStore {
                 (server_url, issued, salt)
                 VALUES (:server_url, :issued, :salt)";
         $args = array('server_url' => $server_url, 'issued' => $issued, 'salt' => $salt);
-        ZMRuntime::getDatabase()->update($sql, $args, DB_PREFIX.'zm_openid_nonces');
+        ZMRuntime::getDatabase()->updateObj($sql, $args, DB_PREFIX.'zm_openid_nonces');
         return true;
     }
 
@@ -170,7 +170,7 @@ class ZMOpenIDDatabaseStore extends Auth_OpenID_OpenIDStore {
         $sql = "DELETE FROM ".DB_PREFIX.'zm_openid_nonces'."
                 WHERE issued < :issued";
         $args = array('issued' => $timestamp);
-        return ZMRuntime::getDatabase()->update($sql, $args, DB_PREFIX.'zm_openid_nonces');
+        return ZMRuntime::getDatabase()->updateObj($sql, $args, DB_PREFIX.'zm_openid_nonces');
     }
 
     /**
@@ -181,15 +181,15 @@ class ZMOpenIDDatabaseStore extends Auth_OpenID_OpenIDStore {
                 WHERE (issued + lifetime) < :lifetime";
         // use lifetime mapping to compare times...
         $args = array('lifetime' => time());
-        return ZMRuntime::getDatabase()->update($sql, $args, DB_PREFIX.'zm_openid_associations');
+        return ZMRuntime::getDatabase()->updateObj($sql, $args, DB_PREFIX.'zm_openid_associations');
     }
 
     /**
      * Reset.
      */
     public function reset() {
-        ZMRuntime::getDatabase()->update("DELETE FROM ".DB_PREFIX.'zm_openid_associations', array(), DB_PREFIX.'zm_openid_associations');
-        ZMRuntime::getDatabase()->update("DELETE FROM ".DB_PREFIX.'zm_openid_nonces', array(), DB_PREFIX.'zm_openid_nonces');
+        ZMRuntime::getDatabase()->updateObj("DELETE FROM ".DB_PREFIX.'zm_openid_associations', array(), DB_PREFIX.'zm_openid_associations');
+        ZMRuntime::getDatabase()->updateObj("DELETE FROM ".DB_PREFIX.'zm_openid_nonces', array(), DB_PREFIX.'zm_openid_nonces');
     }
 
 }
