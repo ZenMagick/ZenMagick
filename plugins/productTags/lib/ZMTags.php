@@ -148,7 +148,7 @@ class ZMTags extends ZMObject {
     public function cleanupTags() {
         $sql = "DELETE FROM " . TABLE_TAGS . "
                 WHERE NOT tag_id in (SELECT DISTINCT tag_id from " . TABLE_PRODUCT_TAGS . ")";
-        ZMRuntime::getDatabase()->updateObj($sql);
+        ZMRuntime::getDatabase()->executeUpdate($sql);
     }
 
     /**

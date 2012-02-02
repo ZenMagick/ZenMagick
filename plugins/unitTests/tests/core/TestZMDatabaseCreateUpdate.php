@@ -39,7 +39,7 @@ class TestZMDatabaseCreateUpdate extends ZMTestCase {
         parent::setUp();
         // split as some implementations might not support multiple commands per call!
         $sql = "DROP TABLE IF EXISTS " . TABLE_CREATE_UPDATE_TESTS .";";
-        ZMRuntime::getDatabase()->updateObj($sql, array());
+        ZMRuntime::getDatabase()->executeUpdate($sql);
         $sql = "CREATE TABLE " . TABLE_CREATE_UPDATE_TESTS . " (
                   row_id int(11) NOT NULL auto_increment,
                   name varchar(128) NOT NULL,
@@ -48,7 +48,7 @@ class TestZMDatabaseCreateUpdate extends ZMTestCase {
                   parameter_list varchar(511) NOT NULL DEFAULT '',
                   PRIMARY KEY (row_id)
                 ) ENGINE=InnoDB;";
-        ZMRuntime::getDatabase()->updateObj($sql, array());
+        ZMRuntime::getDatabase()->executeUpdate($sql);
     }
 
     /**
@@ -56,7 +56,7 @@ class TestZMDatabaseCreateUpdate extends ZMTestCase {
      */
     public function tearDown() {
         parent::tearDown();
-        ZMRuntime::getDatabase()->updateObj('DROP TABLE IF EXISTS ' . TABLE_CREATE_UPDATE_TESTS. ';', array());
+        ZMRuntime::getDatabase()->executeUpdate('DROP TABLE IF EXISTS ' . TABLE_CREATE_UPDATE_TESTS. ';');
     }
 
     /**

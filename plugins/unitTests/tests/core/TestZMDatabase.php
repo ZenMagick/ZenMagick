@@ -68,8 +68,8 @@ class TestZMDatabase extends ZMTestCase {
 
         foreach (self::getProviders() as $provider => $database) {
             // create test tabe
-            $database->updateObj($drop_table);
-            $database->updateObj($create_table);
+            $database->executeUpdate($drop_table);
+            $database->executeUpdate($create_table);
 
             $mapping = ZMDbTableMapper::instance()->buildTableMapping('db_test', $database, true);
             if ($this->assertTrue(is_array($mapping), '%s: '.$provider)) {
@@ -77,7 +77,7 @@ class TestZMDatabase extends ZMTestCase {
             }
 
             // drop again
-            $database->updateObj($drop_table);
+            $database->executeUpdate($drop_table);
         }
     }
 
@@ -190,8 +190,8 @@ class TestZMDatabase extends ZMTestCase {
 
         foreach (self::getProviders() as $provider => $database) {
             // create test table
-            $database->updateObj($drop_table);
-            $database->updateObj($create_table);
+            $database->executeUpdate($drop_table);
+            $database->executeUpdate($create_table);
 
             try {
                 $database->updateObj($insert, array('name' => 'foo'), $tname);
@@ -201,7 +201,7 @@ class TestZMDatabase extends ZMTestCase {
             }
 
             // drop again
-            $database->updateObj($drop_table);
+            $database->executeUpdate($drop_table);
         }
     }
 
@@ -216,8 +216,8 @@ class TestZMDatabase extends ZMTestCase {
 
         foreach (self::getProviders() as $provider => $database) {
             // create test table
-            $database->updateObj($drop_table);
-            $database->updateObj($create_table);
+            $database->executeUpdate($drop_table);
+            $database->executeUpdate($create_table);
 
             try {
                 $database->updateObj($insert, array('name' => 'foo'), $tname);
@@ -227,7 +227,7 @@ class TestZMDatabase extends ZMTestCase {
             }
 
             // drop again
-            $database->updateObj($drop_table);
+            $database->executeUpdate($drop_table);
         }
     }
 

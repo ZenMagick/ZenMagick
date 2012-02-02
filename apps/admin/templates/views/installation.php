@@ -136,7 +136,7 @@ use zenmagick\base\Runtime;
         $sm = $database->getSchemaManager();
         foreach ($sm->listTables() as $table) {
             $sql = str_replace('[table]', $table->getName(), "LOCK TABLES [table] READ; CHECK TABLE [table]; UNLOCK TABLES; OPTIMIZE TABLE [table];");
-            $database->updateObj($sql);
+            $database->executeUpdate($sql);
         }
         $container->get('messageService')->success("All tables optimized");
         $needRefresh = true;
