@@ -78,16 +78,6 @@ class StoreEventListener extends ZMObject {
     }
 
     /**
-     * Keep up support for local.php.
-     */
-    public function onBootstrapDone($event) {
-        $local = Runtime::getInstallationPath().'/local.php';
-        if (file_exists($local)) {
-            include $local;
-        }
-    }
-
-    /**
      * Set up block manager.
      */
     public function onInitDone($event) {

@@ -26,6 +26,7 @@ use Symfony\Component\DependencyInjection\ContainerBuilder;
 
 use zenmagick\base\Beans;
 use zenmagick\base\Runtime;
+use zenmagick\apps\store\bundles\ZenCartBundle\utils\EmailEventHandler;
 
 /**
  * Zencart support bundle.
@@ -50,8 +51,8 @@ class ZenCartBundle extends Bundle {
 
         $eventDispatcher = Runtime::getEventDispatcher();
         $eventDispatcher->addListener('init_config_done', array($this, 'onInitConfigDone'), 5);
-        $eventDispatcher->addListener('init_request', array($this, 'onInitRequest'));
-        $eventDispatcher->addListener('generate_email', array(Beans::getBean('zenmagick\apps\store\bundles\ZenCartBundle\utils\EmailEventHandler'), 'onGenerateEmail'));
+        $eventDispatcher->addListener('init_done', array($this, 'onInitDone'));
+        $eventDispatcher->addListener('generate_email', array(new EmailEventHandler(), 'onGenerateEmail'));
         $eventDispatcher->addListener('create_account', array($this, 'onCreateAccount'));
         $eventDispatcher->addListener('login_success', array($this, 'onLoginSuccess'));
 
@@ -138,16 +139,19 @@ class ZenCartBundle extends Bundle {
     /**
      * Guess zc admin folder.
      *
+     * @param boolean useDb Flag to indicate whether we can use the db or not.
      * @return The dir name.
      */
-    protected function guessAdminFolder() {
-        try {
-            $configService = $this->container->get('configService');
-            if (null != ($value = $configService->getConfigValue(self::ZENCART_ADMIN_FOLDER)) && file_exists(realpath(Runtime::getInstallationPath().'/'.$value->getValue()))) {
-                return $value->getValue();
+    protected function guessAdminFolder($useDb) {
+        if ($useDb) {
+            try {
+                $configService = $this->container->get('configService');
+                if (null != ($value = $configService->getConfigValue(self::ZENCART_ADMIN_FOLDER)) && file_exists(realpath(Runtime::getInstallationPath().'/'.$value->getValue()))) {
+                    return $value->getValue();
+                }
+            } catch (\ZMDatabaseException $e) {
+                // might get that if no db access because no configure.php loaded yet...
             }
-        } catch (\ZMDatabaseException $e) {
-            // might get that if no db access because no configure.php loaded yet...
         }
 
         $basePath = dirname(Runtime::getInstallationPath());
@@ -165,17 +169,19 @@ class ZenCartBundle extends Bundle {
         }
 
         // save
-        try {
-            if (null != $folder && defined('ZENMAGICK_CONFIG_GROUP_ID')) {
-                if ($value) {
-                    // config option exists
-                    $configService->updateConfigValue(self::ZENCART_ADMIN_FOLDER, $folder);
-                } else {
-                    $configService->createConfigValue('zencart admin folder', self::ZENCART_ADMIN_FOLDER, $folder, ZENMAGICK_CONFIG_GROUP_ID);
+        if ($useDb) {
+            try {
+                if (null != $folder && defined('ZENMAGICK_CONFIG_GROUP_ID')) {
+                    if ($value) {
+                        // config option exists
+                        $configService->updateConfigValue(self::ZENCART_ADMIN_FOLDER, $folder);
+                    } else {
+                        $configService->createConfigValue('zencart admin folder', self::ZENCART_ADMIN_FOLDER, $folder, ZENMAGICK_CONFIG_GROUP_ID);
+                    }
                 }
+            } catch (\ZMDatabaseException $e) {
+                // might get that if no db access because no configure.php loaded yet...
             }
-        } catch (\ZMDatabaseException $e) {
-            // might get that if no db access because no configure.php loaded yet...
         }
 
         return $folder;
@@ -186,7 +192,7 @@ class ZenCartBundle extends Bundle {
      */
     public function onInitConfigDone($event) {
         if (Runtime::isContextMatch('admin') || (defined('IS_ADMIN_FLAG') && IS_ADMIN_FLAG)) {
-            if (null != ($folder = $this->guessAdminFolder())) {
+            if (null != ($folder = $this->guessAdminFolder(false))) {
                 $this->container->get('settingsService')->set('apps.store.zencart.admindir', $folder);
             }
         }
@@ -200,7 +206,7 @@ class ZenCartBundle extends Bundle {
     /**
      * Handle things that require a request.
      */
-    public function onInitRequest($event) {
+    public function onInitDone($event) {
         $request = $event->get('request');
         if (Runtime::isContextMatch('admin') || (defined('IS_ADMIN_FLAG') && IS_ADMIN_FLAG)) {
             $settingsService = $this->container->get('settingsService');
@@ -209,7 +215,7 @@ class ZenCartBundle extends Bundle {
             $folder = $settingsService->get('apps.store.zencart.admindir');
             if ($settingsService->get('apps.store.zencart.admindir')) {
                 // guess again, because we might not have had a db connection before
-                $folder = $this->guessAdminFolder();
+                $folder = $this->guessAdminFolder(true);
             }
 
             $settingsService->set('apps.store.oldAdminUrl', $settingsService->get('apps.store.baseUrl').$folder.'/index.php');

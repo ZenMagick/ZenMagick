@@ -21,6 +21,9 @@
 <?php
 namespace zenmagick\http;
 
+use Symfony\Component\Config\FileLocator;
+use Symfony\Component\Routing\Loader\XmlFileLoader;
+
 use zenmagick\base\Runtime;
 use zenmagick\base\ZMObject;
 use zenmagick\http\sacs\SacsManager;
@@ -36,9 +39,9 @@ use zenmagick\http\utils\ContextConfigLoader as HttpContextConfigLoader;
 class EventListener extends ZMObject {
 
     /**
-     * Listen to bootstrap.
+     * Additional config loading.
      */
-    public function onBootstrapDone($event) {
+    public function onInitConfigDone($event) {
         // mvc mappings
         \ZMUrlManager::instance()->load(file_get_contents(Runtime::getApplicationPath().'/config/url_mappings.yaml'), false);
         // sacs mappings
@@ -47,11 +50,19 @@ class EventListener extends ZMObject {
     }
 
     /**
-     * Listen to init_request.
+     * Init things that need a request.
      */
-    public function onInitRequest($event) {
+    public function onContainerReady($event) {
         $request = $event->get('request');
         $session = $request->getSession();
+
+        // load application routing
+        $appRoutingFile = Runtime::getApplicationPath().'/config/routing.xml';
+        if (file_exists($appRoutingFile)) {
+            $appRoutingLoader = new XmlFileLoader(new FileLocator());
+            $appRouterCollection = $appRoutingLoader->load($appRoutingFile);
+            $request->getRouter()->getRouteCollection()->addCollection($appRouterCollection);
+        }
 
         // adjust front controller parameter
         if ($request->getFrontController() != Runtime::getSettings()->get('zenmagick.http.request.handler')) {

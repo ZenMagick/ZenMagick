@@ -79,9 +79,12 @@ class ZMPhpBB3Plugin extends Plugin {
     }
 
     /**
-     * Handle init request.
+     * Init code that requires the request.
+     *
+     * <p>Setup additional validation rules; this is done here to avoid getting in the way of
+     * custom global/theme validation rule setups.</p>
      */
-    public function onInitRequest($event) {
+    public function onInitDone($event) {
         $request = $event->get('request');
         $this->page_ = $request->getRequestId();
         $this->prePostAccount_ = $request->getAccount();
@@ -96,15 +99,7 @@ class ZMPhpBB3Plugin extends Plugin {
 
         // enable nick name field
         ZMSettings::set('isAccountNickname', true);
-    }
 
-    /**
-     * Init done callback.
-     *
-     * <p>Setup additional validation rules; this is done here to avoid getting in the way of
-     * custom global/theme validation rule setups.</p>
-     */
-    public function onInitDone($event) {
         if ('create_account' == $this->page_) {
             $phpBB = $this->getAdapter();
             // add custom validation rules

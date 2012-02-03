@@ -62,6 +62,14 @@ class EventDispatcher extends SymfonyEventDispatcher {
         if (!$this->hasListeners($eventName)) {
             return;
         }
+if (false) {
+    echo $eventName.": ".count($this->getListeners($eventName))."<BR>";
+    foreach ($this->getListeners($eventName) as $listener) {
+        if (is_array($listener) && is_object($listener[0])) {
+            echo '- '.get_class($listener[0])."<BR>";
+        }
+    }
+}
 
         if (null === $event) {
             $event = new Event();

@@ -188,7 +188,6 @@ if (TRACEBS) {echo 'post timezone: '.Runtime::getExecutionTime()."<BR>";}
 if (TRACEBS) {echo 'post error handlers: '.Runtime::getExecutionTime()."<BR>";}
 
         Runtime::getLogging()->info('environment is: '.ZM_ENVIRONMENT);
-        Runtime::getEventDispatcher()->dispatch('bootstrap_done', new Event());
 if (TRACEBS) {echo 'post bootstrap_done: '.Runtime::getExecutionTime()."<BR>";}
     } catch (Exception $e) {
         echo '<pre>';
@@ -201,7 +200,6 @@ if (TRACEBS) {echo 'post bootstrap_done: '.Runtime::getExecutionTime()."<BR>";}
         // upset plugins if required
         if (Runtime::getSettings()->get('zenmagick.base.plugins.enabled', true)) {
             Runtime::getContainer()->get('pluginService')->initAllPlugins(Runtime::getSettings()->get('zenmagick.base.context'));
-            Runtime::getEventDispatcher()->dispatch('init_plugins_done', new Event());
         }
 if (TRACEBS) {echo 'post plugins: '.Runtime::getExecutionTime()."<BR>";}
     } catch (Exception $e) {

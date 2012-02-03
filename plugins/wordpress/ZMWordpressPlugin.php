@@ -32,7 +32,6 @@ use zenmagick\base\Runtime;
  * @author DerManoMann <mano@zenmagick.org>
  */
 class ZMWordpressPlugin extends Plugin {
-    private $requestId_;
     private $requestHandler_;
     private $adapter_;
 
@@ -43,7 +42,6 @@ class ZMWordpressPlugin extends Plugin {
     public function __construct() {
         parent::__construct('Wordpress', 'Allows to display Wordpress content in ZenMagick', '${plugin.version}');
         $this->setContext('storefront');
-        $this->requestId_ = '';
         $this->requestHandler_ = null;
         $this->adapter_ = null;
     }
@@ -83,12 +81,9 @@ class ZMWordpressPlugin extends Plugin {
     }
 
     /**
-     * Handle init request.
+     * Prepare WP.
      */
-    public function onInitRequest($event) {
-        $request = $event->get('request');
-        $this->requestId_ = $request->getRequestId();
-
+    protected function prepareWP() {
         // main define to get at things
         $wordpressDir = $this->get('wordpressDir');
         if (empty($wordpressDir)) {
@@ -150,6 +145,9 @@ class ZMWordpressPlugin extends Plugin {
      */
     public function onInitDone($event) {
         $request = $event->get('request');
+        $requestId = $request->getRequestId();
+
+        $this->prepareWP();
 
         // create single request handler
         $wordpressEnabledPages = $this->get('wordpressEnabledPages');
@@ -166,7 +164,7 @@ class ZMWordpressPlugin extends Plugin {
 
         if (Toolbox::asBoolean($this->get('syncUser'))) {
             // setup WP bridge hooks and additional validation rules
-            if ('create_account' == $this->requestId_) {
+            if ('create_account' == $requestId) {
                 $bridge = $this->getAdapter();
                 // add custom validation rules
                 $rules = array(
@@ -178,9 +176,9 @@ class ZMWordpressPlugin extends Plugin {
                     $rules[] = array('ZMRequiredRule', 'nickName', 'Please enter a nick name.');
                 }
                 $this->container->get('validator')->addRules('registration', $rules);
-            } else if ('account_password' == $this->requestId_) {
+            } else if ('account_password' == $requestId) {
                 // nothing
-            } else if ('account_edit' == $this->requestId_) {
+            } else if ('account_edit' == $requestId) {
                 $bridge = $this->getAdapter();
                 $rules = array(
                     array("ZMWrapperRule", 'nickName', 'The entered nick name is already taken (wordpress).', array($bridge, 'vDuplicateNickname')),

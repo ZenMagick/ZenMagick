@@ -80,9 +80,12 @@ class ZMVBulletinPlugin extends Plugin {
     }
 
     /**
-     * Handle init request.
+     * Handle init that requires the request.
+     *
+     * <p>Setup additional validation rules; this is done here to avoid getting in the way of
+     * custom global/theme validation rule setups.</p>
      */
-    public function onInitRequest($event) {
+    public function onInitDone($event) {
         $request = $event->get('request');
         $this->page_ = $request->getRequestId();
         $this->prePostAccount_ = $request->getAccount();
@@ -96,15 +99,7 @@ class ZMVBulletinPlugin extends Plugin {
 
         // enable nick name field
         ZMSettings::set('isAccountNickname', true);
-    }
 
-    /**
-     * Init done callback.
-     *
-     * <p>Setup additional validation rules; this is done here to avoid getting in the way of
-     * custom global/theme validation rule setups.</p>
-     */
-    public function onInitDone($event) {
         if ('create_account' == $this->page_) {
             $vBulletin = $this->getAdapter();
             // add custom validation rules

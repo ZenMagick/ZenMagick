@@ -67,9 +67,9 @@ class ZMExamplePluginPlugin extends Plugin {
     }
 
     /**
-     * Handle init request.
+     * Handle init done.
      */
-    public function onInitRequest($event) {
+    public function onInitDone($event) {
         $request = $event->get('request');
     }
 

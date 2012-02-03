@@ -150,7 +150,7 @@ class EventFixes extends ZMObject {
     /**
      * More store startup code.
      */
-    public function onInitRequest($event) {
+    public function onContainerReady($event) {
         $request = $event->get('request');
 
         if (!\ZMsettings::get('isEnableZMThemes', true)) {

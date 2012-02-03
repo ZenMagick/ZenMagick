@@ -51,9 +51,9 @@ class ZMThemeSwitcherPlugin extends Plugin {
     }
 
     /**
-     * Handle init request.
+     * Switch.
      */
-    public function onInitRequest($event) {
+    public function onInitDone($event) {
         $request = $event->get('request');
 
         $session = $request->getSession();

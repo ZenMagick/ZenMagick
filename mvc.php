@@ -20,28 +20,12 @@
 ?>
 <?php
 
-use Symfony\Component\Config\FileLocator;
-use Symfony\Component\Routing\Route;
-use Symfony\Component\Routing\Loader\XmlFileLoader;
 use zenmagick\base\Runtime;
 use zenmagick\base\events\Event;
 
     try {
         // create the main request instance
         $request = $_zm_request = Runtime::getContainer()->get('request');
-
-        // load application routing
-        $appRoutingFile = Runtime::getApplicationPath().'/config/routing.xml';
-        if (file_exists($appRoutingFile)) {
-            $appRoutingLoader = new XmlFileLoader(new FileLocator());
-            $appRouterCollection = $appRoutingLoader->load($appRoutingFile);
-            $request->getRouter()->getRouteCollection()->addCollection($appRouterCollection);
-        }
-if (TRACEBS) {echo 'post routing.xml: '.Runtime::getExecutionTime()."<BR>";}
-
-        // tell everyone interested that we have a request
-        Runtime::getEventDispatcher()->dispatch('init_request', new Event(null, array('request' => $_zm_request)));
-if (TRACEBS) {echo 'post init_request: '.Runtime::getExecutionTime()."<BR>";}
 
         // freeze container
         Runtime::getContainer()->compile();

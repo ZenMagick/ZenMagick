@@ -91,12 +91,21 @@ class AdminEventHandler extends ZMObject {
     /**
      * Init menu.
      */
-    public function onBootstrapDone($event) {
+    public function onInitConfigDone($event) {
         $adminMenu = $this->container->get('adminMenu');
 
         $menuLoader = new MenuLoader();
         $menuLoader->load(Runtime::getApplicationPath().'/config/menu.yaml', $adminMenu);
+    }
 
+    /**
+     * Final init.
+     */
+    public function onInitDone($event) {
+        $request = $event->get('request');
+
+        // need db for this, so only do now
+        $adminMenu = $this->container->get('adminMenu');
         $legacyConfig = $adminMenu->getElement('configuration-legacy');
         $configGroups = $this->container->get('configService')->getConfigGroups();
         foreach ($configGroups as $group) {
@@ -114,30 +123,10 @@ class AdminEventHandler extends ZMObject {
         if (null != ($timeLimit = $this->container->get('configService')->getConfigValue('GLOBAL_SET_TIME_LIMIT'))) {
             set_time_limit($timeLimit->getValue());
         }
-    }
 
-    /**
-     * Init locale.
-     */
-    public function onInitDone($event) {
-        $request = $event->get('request');
         $user = $request->getUser();
         if (null != $user && null != ($uiLocale = $this->container->get('adminUserPrefService')->getPrefForName($user->getId(), 'uiLocale'))) {
             $this->container->get('localeService')->getLocale(true, $uiLocale);
-        }
-    }
-
-    /**
-     * Load themes.
-     */
-    public function onInitRequest($event) {
-        $request = $event->get('request');
-        $themes = $request->getParameter('themes');
-        if (Toolbox::asBoolean($themes)) {
-            $language = $this->container->get('languageService')->getLanguageForCode(Runtime::getSettings()->get('defaultLanguageCode'));
-            $theme = $this->container->get('themeService')->initThemes($language);
-            $args = array_merge($event->all(), array('theme' => $theme, 'themeId' => $theme->getId()));
-            //Runtime::getEventDispatcher()->dispatch('theme_resolved', new Event($this, $args));
         }
     }
 

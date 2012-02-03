@@ -62,10 +62,6 @@ class SacsManager {
         $this->reset();
     }
 
-    //TODO: move to DI
-    public static function instance() {
-        return Runtime::getContainer()->get('sacsManager');
-    }
 
     /**
      * Reset all internal data structures.

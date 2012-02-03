@@ -95,7 +95,7 @@ class ZMHowDidYouHearPlugin extends Plugin {
     /**
      * Add validation rules.
      */
-    public function onInitRequest($event) {
+    public function onInitDone($event) {
         $request = $event->get('request');
         if ($this->handleRequest($request->getRequestId())) {
             if ($this->isRequired()) {
