@@ -20,13 +20,16 @@
 ?>
 <?php
 
+use zenmagick\apps\store\model\catalog\ProductAssociation;
+use zenmagick\apps\store\services\catalog\ProductAssociationHandler;
+
 /**
  * Simple <code>ZMProductAssociationHandler</code> implementation.
  *
  * @package org.zenmagick.plugins.unitTests.tests
  * @author DerManoMann <mano@zenmagick.org>
  */
-class SimpleProductAssociationHandler extends ZMTestCase implements ZMProductAssociationHandler {
+class SimpleProductAssociationHandler extends ZMTestCase implements ProductAssociationHandler {
 
     /**
      * {@inheritDoc}
@@ -46,7 +49,7 @@ class SimpleProductAssociationHandler extends ZMTestCase implements ZMProductAss
     public function getProductAssociationsForProductId($productId, $args=null, $all=false) {
         $assoc = array();
         if (13 == $productId) {
-            $assoc[] = new ZMProductAssociation(13);
+            $assoc[] = new ProductAssociation(13);
         }
 
         return $assoc;

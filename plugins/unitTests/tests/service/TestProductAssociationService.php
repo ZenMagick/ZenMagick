@@ -21,26 +21,26 @@
 <?php
 
 /**
- * Test <code>ZMProductAssociations</code>.
+ * Test <code>ProductAssociationService</code>.
  *
  * @package org.zenmagick.plugins.zm_token.tests
  * @author DerManoMann <mano@zenmagick.org>
  */
-class TestZMProductAssociations extends ZMTestCase {
+class TestProductAssociationService extends ZMTestCase {
 
     /**
      * Test simple handler.
      */
     public function testSimpleHandler() {
-        $productAssociations = $this->container->get('productAssociations');
+        $productAssociationService = $this->container->get('productAssociationService');
 
-        $assoc = $productAssociations->getProductAssociationsForProductId(12, 'simple');
+        $assoc = $productAssociationService->getProductAssociationsForProductId(12, 'simple');
         $this->assertEqual(array(), $assoc);
 
-        $assoc = $productAssociations->getProductAssociationsForProductId(13, 'foo');
+        $assoc = $productAssociationService->getProductAssociationsForProductId(13, 'foo');
         $this->assertEqual(array(), $assoc);
 
-        $assoc = $productAssociations->getProductAssociationsForProductId(13, 'simple');
+        $assoc = $productAssociationService->getProductAssociationsForProductId(13, 'simple');
         $this->assertEqual(1, count($assoc));
     }
 

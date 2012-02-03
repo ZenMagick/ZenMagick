@@ -111,7 +111,7 @@
 
         <service id="blockManager" class="zenmagick\http\blocks\BlockManager" scope="container" />
 
-        <service id="productAssociations" class="ZMProductAssociations" scope="container" />
+        <service id="productAssociationService" class="zenmagick\apps\store\services\catalog\ProductAssociationService" scope="container" />
 
         <service id="checkoutHelper" class="zenmagick\apps\store\utils\CheckoutHelper" scope="container" />
 

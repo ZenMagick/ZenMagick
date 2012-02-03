@@ -90,7 +90,7 @@
   <?php } ?>
 </form>
 
-<?php $similarOrder = $currentProduct->getProductAssociationsForType('similarOrder', array('limit' => 3)); if (0 < count($similarOrder)) { ?>
+<?php $similarOrder = $currentProduct->getProductAssociations('similarOrder', array('limit' => 3)); if (0 < count($similarOrder)) { ?>
   <h3>Customers that bought this product also bought:</h3>
   <?php foreach ($similarOrder as $assoc) { $aproduct = $container->get('productService')->getProductForId($assoc->getProductId(), $session->getLanguageId()); ?>
   <p><?php echo $aproduct->getName() ?></p>

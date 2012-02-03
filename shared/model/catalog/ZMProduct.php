@@ -966,19 +966,19 @@ class ZMProduct extends ZMObject {
     public function setLanguageId($id) { $this->languageId = $id; }
 
     /**
-     * Get product associations for the given type and parameter.
+     * Get product associations for the given type(s) and parameter.
      *
      * @param string type The association type.
      * @param array args Optional parameter that might be required by the used type; default is an empty array.
      * @param boolean all Optional flag to load all configured products, regardless of start/end date, etc; default is <code>false</code>.
      * @return array A list of <code>ZMProductAssociation</code> instances.
      */
-    public function getProductAssociationsForType($type, $args=array(), $all=false) {
+    public function getProductAssociations($type, $args=array(), $all=false) {
         // some defaults
         if (!array_key_exists('languageId', $args)) {
             $args['languageId'] = $this->getLanguageId();
         }
-        return $this->container->get('productAssociations')->getProductAssociationsForProductId($this->getId(), $type, $args, $all);
+        return $this->container->get('productAssociationService')->getProductAssociationsForProductId($this->getId(), $type, $args, $all);
     }
 
 

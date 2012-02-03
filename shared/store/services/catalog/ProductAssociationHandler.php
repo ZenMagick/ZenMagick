@@ -19,48 +19,29 @@
  */
 ?>
 <?php
-
-use zenmagick\base\ZMObject;
+namespace zenmagick\apps\store\services\catalog;
 
 /**
- * A product association base class.
- *
- * <p><code>ZMProductAssociationHandler</code> implementations are free to subclass.</p>
+ * Product association handler.
  *
  * @author DerManoMann
- * @package zenmagick.store.shared.model.catalog
  */
-class ZMProductAssociation extends ZMObject {
-    private $productId_;
-
+interface ProductAssociationHandler {
 
     /**
-     * Create new instance.
+     * Get the type this handler handles.
      *
-     * @param int productId Optional product id; default is <code>null</code>.
+     * @return string The type identifier.
      */
-    public function __construct($productId=null) {
-        parent::__construct();
-        $this->productId_ = $productId;
-    }
-
+    public function getType();
 
     /**
-     * Get the (source) product id of this association.
+     * Get product associations for the given product, type and parameter.
      *
-     * @return int A product id.
+     * @param int productId The source product id.
+     * @param array args Optional parameter that might be required by the used type; default is an empty array.
+     * @return array A list of <code>ProductAssociation</code> instances.
      */
-    public function getProductId() {
-        return $this->productId_;
-    }
-
-    /**
-     * Set the (source) product id of this association.
-     *
-     * @param int productId A product id.
-     */
-    public function setProductId($productId) {
-        $this->productId_ = $productId;
-    }
+    public function getProductAssociationsForProductId($productId, $args=array());
 
 }

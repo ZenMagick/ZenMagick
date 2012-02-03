@@ -23,6 +23,8 @@
 ?>
 <?php
 
+use zenmagick\apps\store\model\catalog\ProductAssociation;
+use zenmagick\apps\store\services\catalog\ProductAssociationHandler;
 
 /**
  * Product association handler for <em>also purchased</em> products.
@@ -32,7 +34,7 @@
  * @author DerManoMann
  * @package zenmagick.store.shared.provider
  */
-class ZMSimilarOrderProductAssociationHandler implements ZMProductAssociationHandler {
+class ZMSimilarOrderProductAssociationHandler implements ProductAssociationHandler {
 
     /**
      * {@inheritDoc}
@@ -44,7 +46,7 @@ class ZMSimilarOrderProductAssociationHandler implements ZMProductAssociationHan
     /**
      * {@inheritDoc}
      */
-    public function getProductAssociationsForProductId($productId, $args=array(), $all=false) {
+    public function getProductAssociationsForProductId($productId, $args=array()) {
         $limit = 6;
         if (is_array($args) && array_key_exists('limit', $args)) {
             $limit = (int)$args['limit'];
@@ -61,7 +63,7 @@ class ZMSimilarOrderProductAssociationHandler implements ZMProductAssociationHan
 
         $assoc = array();
         foreach (ZMRuntime::getDatabase()->fetchAll($sql, $args, TABLE_PRODUCTS) as $result) {
-            $assoc[] = new ZMProductAssociation($result['productId']);
+            $assoc[] = new ProductAssociation($result['productId']);
         }
 
         return $assoc;
