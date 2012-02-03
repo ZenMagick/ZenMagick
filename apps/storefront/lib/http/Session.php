@@ -294,11 +294,7 @@ class Session extends \zenmagick\http\session\Session {
     public function getLanguage() {
         $languageCode = $this->getValue('languages_code');
         $languageService = $this->container->get('languageService');
-        if (null == ($language = $languageService->getLanguageForCode($languageCode))) {
-            // fallback
-            $language = $languageService->getLanguageForId($this->getLanguageId());
-        }
-        return $language;
+        return $languageService->getLanguageForCode($languageCode);
     }
 
     /**
