@@ -70,7 +70,7 @@ use Symfony\Component\DependencyInjection\Loader\XmlFileLoader;
 if (TRACEBS) {$precl = microtime();}
         // load main packages
         $packageBase = 'zenmagick/';
-        $packages = array('vendor', 'vendor/local', 'lib/base', 'lib/core', 'lib/http', 'lib/mvc', 'shared');
+        $packages = array('vendor', 'lib/base', 'lib/core', 'lib/http', 'lib/mvc', 'shared', 'vendor/local');
         $zmLoader = new $CLASSLOADER();
         $zmLoader->register();
         // all folders to check
