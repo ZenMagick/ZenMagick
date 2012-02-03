@@ -148,16 +148,23 @@ class EventFixes extends ZMObject {
     }
 
     /**
-     * More store startup code.
+     * Need to load themes before the container freezes...
+     * @todo: what to do???
      */
-    public function onContainerReady($event) {
-        $request = $event->get('request');
-
+    public function onRequestReady($event) {
         if (!\ZMsettings::get('isEnableZMThemes', true)) {
+            $request = $event->get('request');
             // pass on already set args
             $args = array_merge($event->all(), array('themeId' => $this->container->get('themeService')->getActiveThemeId($request->getSession()->getLanguageId())));
             Runtime::getEventDispatcher()->dispatch('theme_resolved', new Event($this, $args));
         }
+    }
+
+    /**
+     * More store startup code.
+     */
+    public function onContainerReady($event) {
+        $request = $event->get('request');
 
         // if using ZMCheckoutPaymentController, we need 'conditions' in $POST to make zencarts checkout_confirmation header_php.php happy
         if (isset($_GET['conditions']) && 'checkout_confirmation' == $request->getRequestId()) { $_POST['conditions'] = 1; }

@@ -34,6 +34,9 @@ use zenmagick\base\events\Event;
         // create the main request instance
         $request = $_zm_request = Runtime::getContainer()->get('request');
 
+        // tell everyone interested that we have a request
+        Runtime::getEventDispatcher()->dispatch('request_ready', new Event(null, array('request' => $_zm_request)));
+
         // freeze container
         Runtime::getContainer()->compile();
 
