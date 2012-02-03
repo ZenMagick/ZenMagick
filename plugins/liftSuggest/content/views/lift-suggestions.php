@@ -52,7 +52,7 @@ if (isset($liftSuggest)) {
     /* added lifsuggest class to enable measure of recommendations performance by SP_TATVIC:20111009*/
     if (null != ($recommendations = $liftSuggest->getProductRecommendations($productId))) { ?>
         <div class="lift-recommend <?php echo $ls_rev_css ?>">
-            <h2><?php echo _zm(sprintf('%s%% of the customers who bought above product(s) also bought these1:', (int)$recommendations->getPopularity())) ?></h2>
+            <h2><?php echo sprintf(_zm('%s%% of the customers who bought above product(s) also bought these1:'), (int)$recommendations->getPopularity()) ?></h2>
             <?php foreach ($recommendations->getProductDetails() as $productDetails) { $product = $productDetails['product']; ?>
           <div class="lift-product lsrecommendations {act:'prodview', sku:'<?php echo $product->getId() ;?>', reco:'R'}">
                     <p><?php echo $html->productImageLink($product) ?></p>
