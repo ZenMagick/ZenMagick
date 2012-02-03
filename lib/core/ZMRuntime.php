@@ -71,6 +71,9 @@ class ZMRuntime {
      * @return ZMDatabase A <code>ZMDatabase</code> implementation.
      */
     public static function getDatabase($conf='default') {
+        if (!Runtime::getContainer()->isFrozen()) {
+            Runtime::getLogging()->trace('database access with container not yet frozen!');
+        }
         $settingsService = Runtime::getSettings();
         if (is_string($conf)) {
             $dbconf = Toolbox::toArray($settingsService->get('apps.store.database.'.$conf));
