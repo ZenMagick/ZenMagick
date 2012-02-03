@@ -152,11 +152,19 @@ class EventFixes extends ZMObject {
      * @todo: what to do???
      */
     public function onRequestReady($event) {
-        if (!\ZMsettings::get('isEnableZMThemes', true)) {
+        if (!ZM_CLI_CALL) {
             $request = $event->get('request');
-            // pass on already set args
-            $args = array_merge($event->all(), array('themeId' => $this->container->get('themeService')->getActiveThemeId($request->getSession()->getLanguageId())));
+            $language = $request->getSession()->getLanguage();
+            $theme = $this->container->get('themeService')->initThemes($language);
+            $args = array_merge($event->all(), array('theme' => $theme, 'themeId' => $theme->getId()));
             Runtime::getEventDispatcher()->dispatch('theme_resolved', new Event($this, $args));
+
+            // now we can check for a static homepage
+            if (!\ZMLangUtils::isEmpty(Runtime::getSettings()->get('staticHome')) && 'index' == $request->getRequestId()
+                && (0 == $request->getCategoryId() && 0 == $request->getManufacturerId())) {
+                require Runtime::getSettings()->get('staticHome');
+                exit;
+            }
         }
     }
 
@@ -165,6 +173,12 @@ class EventFixes extends ZMObject {
      */
     public function onContainerReady($event) {
         $request = $event->get('request');
+
+        if (!\ZMsettings::get('isEnableZMThemes', true)) {
+            // pass on already set args
+            $args = array_merge($event->all(), array('themeId' => $this->container->get('themeService')->getActiveThemeId($request->getSession()->getLanguageId())));
+            Runtime::getEventDispatcher()->dispatch('theme_resolved', new Event($this, $args));
+        }
 
         // if using ZMCheckoutPaymentController, we need 'conditions' in $POST to make zencarts checkout_confirmation header_php.php happy
         if (isset($_GET['conditions']) && 'checkout_confirmation' == $request->getRequestId()) { $_POST['conditions'] = 1; }
@@ -204,20 +218,6 @@ class EventFixes extends ZMObject {
         // do not check for valid product id
         $_SESSION['check_valid'] = 'false';
         // END: zc_fixes
-
-        if (!ZM_CLI_CALL) {
-            $language = $request->getSession()->getLanguage();
-            $theme = $this->container->get('themeService')->initThemes($language);
-            $args = array_merge($event->all(), array('theme' => $theme, 'themeId' => $theme->getId()));
-            Runtime::getEventDispatcher()->dispatch('theme_resolved', new Event($this, $args));
-
-            // now we can check for a static homepage
-            if (!\ZMLangUtils::isEmpty(Runtime::getSettings()->get('staticHome')) && 'index' == $request->getRequestId()
-                && (0 == $request->getCategoryId() && 0 == $request->getManufacturerId())) {
-                require Runtime::getSettings()->get('staticHome');
-                exit;
-            }
-        }
     }
 
     /**
