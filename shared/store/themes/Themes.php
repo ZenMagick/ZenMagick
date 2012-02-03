@@ -222,13 +222,6 @@ class Themes extends ZMObject {
             // custom theme.yaml settings
             $theme->loadSettings();
 
-            // theme container
-            $containerConfig = $theme->getBaseDir().'/container.yaml';
-            if (file_exists($containerConfig)) {
-                $containerYamlLoader = new YamlFileLoader(Runtime::getContainer(), new FileLocator(dirname($containerConfig)));
-                $containerYamlLoader->load($containerConfig);
-            }
-
             // always add an event listener in the theme's base namespace
             $eventListener = sprintf('zenmagick\apps\store\themes\%s\EventListener', $themeId);
             if (ClassLoader::classExists($eventListener)) {
