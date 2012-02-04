@@ -35,7 +35,7 @@
     function zm_get_default_settings() {
         $map = array(
             /*** security ***/
-            'zenmagick.core.authentication.minPasswordLength' => ENTRY_PASSWORD_MIN_LENGTH < 6 ? 6 : ENTRY_PASSWORD_MIN_LENGTH,
+            'zenmagick.base.authentication.minPasswordLength' => ENTRY_PASSWORD_MIN_LENGTH < 6 ? 6 : ENTRY_PASSWORD_MIN_LENGTH,
 
             // enable gift vouchers
             'isEnabledGV' => defined('MODULE_ORDER_TOTAL_GV_STATUS') && MODULE_ORDER_TOTAL_GV_STATUS == 'true',

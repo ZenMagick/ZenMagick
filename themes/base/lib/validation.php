@@ -62,7 +62,7 @@ if (Runtime::getSettings()->get('isEnableZMThemes')) {
     $validator->addRules('account_password', array(
         array('ZMRequiredRule' ,'password_current', 'Please enter you current password.'),
         array('ZMRequiredRule' ,'password_new', 'Please enter the new password.'),
-        array('ZMMinRule' ,'password_new', Runtime::getSettings()->get('zenmagick.core.authentication.minPasswordLength'), 'Your password must contain a minimum of %2$s characters.'),
+        array('ZMMinRule' ,'password_new', Runtime::getSettings()->get('zenmagick.base.authentication.minPasswordLength'), 'Your password must contain a minimum of %2$s characters.'),
         array('ZMRequiredRule' ,'password_confirmation', 'Please confirm the new password.'),
         array('ZMFieldMatchRule' ,'password_new', 'password_confirmation', 'The new password and confirm password must match.')
     ));
@@ -120,7 +120,7 @@ if (Runtime::getSettings()->get('isEnableZMThemes')) {
         array('ZMMaxFieldLengthRule' ,'email', TABLE_CUSTOMERS, 'customers_email_address'),
         array('ZMUniqueEmailRule' ,'email', 'The entered email address is already in use.'),
         array('ZMRequiredRule' ,'password', 'Please enter you password.'),
-        array('ZMMinRule' ,'password', Runtime::getSettings()->get('zenmagick.core.authentication.minPasswordLength'), 'Your password must contain a minimum of %2$s characters.'),
+        array('ZMMinRule' ,'password', Runtime::getSettings()->get('zenmagick.base.authentication.minPasswordLength'), 'Your password must contain a minimum of %2$s characters.'),
         array('ZMRequiredRule' ,'confirmation', 'Please confirm the password.'),
         array('ZMFieldMatchRule' ,'password', 'confirmation', 'The password and confirm password must match.'),
         array('ZMRequiredRule' ,'addressLine1', 'Please enter your address.'),

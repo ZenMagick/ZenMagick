@@ -46,7 +46,7 @@ use zenmagick\base\Runtime;
         array('ZMMaxFieldLengthRule' ,'email', TABLE_CUSTOMERS, 'customers_email_address'),
         array('ZMUniqueEmailRule' ,'email', 'The entered email address is already in use.'),
         array('ZMRequiredRule' ,'password', 'Please enter you password.'),
-        array('ZMMinRule' ,'password', Runtime::getSettings()->get('zenmagick.core.authentication.minPasswordLength'), 'Your password must contain a minimum of %2$s characters.'),
+        array('ZMMinRule' ,'password', Runtime::getSettings()->get('zenmagick.base.authentication.minPasswordLength'), 'Your password must contain a minimum of %2$s characters.'),
         array('ZMRequiredRule' ,'confirmation', 'Please confirm the password.'),
         array('ZMFieldMatchRule' ,'password', 'confirmation', 'The password and confirm password must match.'),
     ), true);

@@ -33,6 +33,13 @@
                         'desc' => 'List of configured logging handler.'
                     ),
                 ),
+                'authentication' => array(
+                    array(
+                        'key' => 'minPasswordLength',
+                        'type' => 'int',
+                        'desc' => 'Minimum password length.'
+                    )
+                ),
             ),
             'zenmagick.core' => array(
                 'cache' => array(
@@ -113,13 +120,6 @@
                         'key' => 'permissions.defaults.file',
                         'type' => 'octal',
                         'desc' => 'Default permissions to be set for files.'
-                    )
-                ),
-                'authentication' => array(
-                    array(
-                        'key' => 'minPasswordLength',
-                        'type' => 'int',
-                        'desc' => 'Minimum password length.'
                     )
                 ),
                 'date' => array(
