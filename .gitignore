@@ -4,7 +4,6 @@
 Thumbs.db
 local.properties
 local.xml
-local.php
 global.yaml
 /build
 /config/store-config.yaml
@@ -13,7 +12,6 @@ global.yaml
 /config/store/config_*.yaml
 /vendor/*
 !/vendor/classloader.ini
-!/vendor/Savant3-3.0.1
 !/vendor/openwall
 !/vendor/pear
 !/vendor/pomo
