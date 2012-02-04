@@ -42,6 +42,10 @@ zenmagick:
 
   ## mvc
   mvc:
+    # enable/disable transaction support in request processing
+    transactions:
+      enabled: false
+
     ## templates
     templates:
       ext: .php
@@ -89,11 +93,69 @@ zenmagick:
 
 apps:
   store:
+    #default access level; same as anonymous
+    defaultAccessLevel: null
+    # sanitize attributes when handling product submissions (add to cart, etc)
+    isSanitizeAttributes: true
+
     staticContent: true
     storefront:
       domain: null
     themes:
       default: base
+    # verify category path
+    verifyCategoryPath: false
+
+# enable/disable web stats; this does not include login counts, etc, but product views and such
+isLogPageStats: true
+
+## Layout
+# allow unsubscribe without logging in
+isAllowAnonymousUnsubscribe: true
+
+## Error pages, other global page settings
+# static homepage
+staticHome: null
+# use category page
+isUseCategoryPage: false
+
+## optional account data
+isAccountNickname: false
+
+## store info
+storeDefaultLanguageId: 1
+
+
+## guest checkout
+isGuestCheckout: false,
+isLogoffGuestAfterOrder: false,
+isGuestCheckoutAskAddress: true
+
+## formatting and other defaults
+
+# comma separated lists
+resultListProductFilter: 'ZMCategoryFilter,ZMManufacturerFilter'
+resultListProductSorter: 'ZMProductSorter'
+
+#  price calculation decimals for rounding
+calculationDecimals: 4
+
+# HTML generation / validation
+isJSTarget: true
+isAutoJSValidation: true
+
+## Meta tag options
+
+# keyword delimiter
+metaTagKeywordDelimiter: ', '
+# delimiter for meta tag crumbtrail content
+metaTagCrumbtrailDelimiter: ' - '
+# meta tag title delimiter
+metaTitleDelimiter: ' :: '
+# setting prefix to lookup custom meta tag data; example 'title_index'
+metaTitlePrefix: title_
+# add store name to title
+isStoreNameInTitle: true
 
 # database configuration settings
 # @todo allow symbolic names for the fully qualified classes mentioned here?

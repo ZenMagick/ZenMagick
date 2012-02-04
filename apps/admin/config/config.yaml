@@ -42,6 +42,10 @@ zenmagick:
 
   ## mvc
   mvc:
+    # enable/disable transaction support in request processing
+    transactions:
+      enabled: false
+
     ## templates
     templates:
       ext: .php
@@ -108,6 +112,16 @@ apps:
       skipLayout:
         - packingslip
         - invoice
+    verifyCategoryPath: false
+
+storeDefaultLanguageId: 1
+
+#  price calculation decimals for rounding
+calculationDecimals: 4
+
+# HTML generation / validation
+isJSTarget: true
+isAutoJSValidation: true
 
 # database configuration settings
 # @todo allow symbolic names for the fully qualified classes mentioned here?

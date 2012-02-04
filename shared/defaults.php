@@ -37,21 +37,6 @@
             /*** security ***/
             'zenmagick.core.authentication.minPasswordLength' => ENTRY_PASSWORD_MIN_LENGTH < 6 ? 6 : ENTRY_PASSWORD_MIN_LENGTH,
 
-            /**
-             * @todo drop this, it is deprecated
-             * @deprecated
-             */
-            'isAdmin' => zenmagick\base\Runtime::isContextMatch('admin'),
-
-            // default access level; same as anonymous
-            'apps.store.defaultAccessLevel' => null,
-
-            // sanitize attributes when handling product submissions (add to cart, etc)
-            'apps.store.isSanitizeAttributes' => true,
-
-            // verify category path
-            'apps.store.verifyCategoryPath' => false,
-
             // enable gift vouchers
             'isEnabledGV' => defined('MODULE_ORDER_TOTAL_GV_STATUS') && MODULE_ORDER_TOTAL_GV_STATUS == 'true',
 
@@ -66,12 +51,6 @@
 
             // customer approval default value
             'defaultCustomerApproval' => CUSTOMERS_APPROVAL_AUTHORIZATION,
-
-            // enable/disable web stats; this does not include login counts, etc, but product views and such
-            'isLogPageStats' => true,
-
-            // enable/disable transaction support in request processing
-            'zenmagick.mvc.transactions.enabled' => false,
 
             /**************************************
              * Stock handling
@@ -88,28 +67,11 @@
              * Error pages, other global page settings
              **************************************/
 
-            // static homepage
-            'staticHome' => null,
-
-            // use category page
-            'isUseCategoryPage' => false,
-
             // show category listing for single products or show product page instead?
             'isSkipSingleProductCategory' => SKIP_SINGLE_PRODUCT_CATEGORIES == 'True',
 
             // show cart after product added
             'isShowCartAfterAddProduct' => DISPLAY_CART == 'true',
-
-
-            /**************************************
-             * Guest checkout
-             **************************************/
-
-            // guest checkout
-            'isGuestCheckout' => false,
-            'isLogoffGuestAfterOrder' => false,
-            'isGuestCheckoutAskAddress' => true,
-
 
             /**************************************
              * formatting and other defaults
@@ -124,10 +86,6 @@
             // default language
             'defaultLanguageCode' => DEFAULT_LANGUAGE,
 
-            // comma separated lists
-            'resultListProductFilter' => 'ZMCategoryFilter,ZMManufacturerFilter',
-            'resultListProductSorter' => 'ZMProductSorter',
-
             // cart form constants
             'textOptionPrefix' => TEXT_PREFIX,
             'uploadOptionPrefix' => UPLOAD_PREFIX,
@@ -139,19 +97,11 @@
             // discount decimals
             'discountDecimals' => SHOW_SALE_DISCOUNT_DECIMALS,
 
-            // price calculation decimals for rounding
-            'calculationDecimals' => 4,
-
             // min length for coupon code generation
             'couponCodeLength' => SECURITY_CODE_LENGTH,
 
             // base attribute price factor on discounted or regular price
             'isDiscountAttributePriceFactor' => '1' == ATTRIBUTES_PRICE_FACTOR_FROM_SPECIAL,
-
-            // HTML generation / validation
-            'isJSTarget' => true,
-            'isAutoJSValidation' => true,
-
 
             /**************************************
              * Tax settings
@@ -236,9 +186,6 @@
             // t&c message during checkout
             'isConditionsMessage' => DISPLAY_CONDITIONS_ON_CHECKOUT == 'true',
 
-            // allow unsubscribe without logging in
-            'isAllowAnonymousUnsubscribe' => true,
-
             'apps.store.newAccountDiscountCouponId' => ((NEW_SIGNUP_DISCOUNT_COUPON != '' && NEW_SIGNUP_DISCOUNT_COUPON != '0') ? NEW_SIGNUP_DISCOUNT_COUPON : null),
             'apps.store.newAccountGVAmount' => NEW_SIGNUP_GIFT_VOUCHER_AMOUNT,
 
@@ -249,8 +196,6 @@
             'isAccountState' => ACCOUNT_STATE == 'true',
             'isAccountNewsletter' => ACCOUNT_NEWSLETTER_STATUS != 0,
             'isAccountReferral' => CUSTOMERS_REFERRAL_STATUS == 2,
-            'isAccountNickname' => false,
-
 
             /**************************************
              * Store info
@@ -263,8 +208,6 @@
             'storeZone' => STORE_ZONE,
             'storeEmail' => STORE_OWNER_EMAIL_ADDRESS,
             'storeEmailFrom' => EMAIL_FROM,
-            'storeDefaultLanguageId' => 1,
-
 
             /**************************************
              * TODO: These are free shipping ot options!
@@ -289,7 +232,6 @@
             'banners.box2' => SHOW_BANNERS_GROUP_SET8,
             'banners.all' => SHOW_BANNERS_GROUP_SET_ALL,
 
-
             /**************************************
              * Image settings
              **************************************/
@@ -305,26 +247,6 @@
 
             // suffix for large size images
             'imgSuffixLarge' => IMAGE_SUFFIX_LARGE,
-
-
-            /**************************************
-             * Meta tag options
-             **************************************/
-
-            // keyword delimiter
-            'metaTagKeywordDelimiter' => ', ',
-
-            // delimiter for meta tag crumbtrail content
-            'metaTagCrumbtrailDelimiter' => ' - ',
-
-            // meta tag title delimiter
-            'metaTitleDelimiter' => ' :: ',
-
-            // setting prefix to lookup custom meta tag data; example 'title_index'
-            'metaTitlePrefix' => 'title_',
-
-            // add store name to title
-            'isStoreNameInTitle' => true
         );
 
         return $map;
