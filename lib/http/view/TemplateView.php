@@ -215,9 +215,15 @@ class TemplateView extends ZMObject implements View {
     }
 
     /**
-     * {@inheritDoc}
+     * Init variables.
+     *
+     * @param ZMRequest request The current request.
      */
-    public function generate($request, $template=null, $variables=array()) {
+    protected function initVariables($request) {
+        if (array_key_exists('view', $this->variables)) {
+            return;
+        }
+
         $settingsService = Runtime::getSettings();
 
         // set some standard things
@@ -226,6 +232,9 @@ class TemplateView extends ZMObject implements View {
         $this->setVariable('resourceManager', $this->getResourceManager());
         $this->setVariable('resourceResolver', $this->getResourceResolver());
         $this->setVariable('view', $this);
+        if (null == $request) {
+            $request = $this->container->get('request');
+        }
         $this->setVariable('request', $request);
         $this->setVariable('session', $request->getSession());
         $this->setVariable('settingsService', $settingsService);
@@ -257,6 +266,14 @@ class TemplateView extends ZMObject implements View {
         foreach ($this->container->get('pluginService')->getAllPlugins($settingsService->get('zenmagick.base.context')) as $plugin) {
             $this->setVariable($plugin->getId(), $plugin);
         }
+
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function generate($request, $template=null, $variables=array()) {
+        $this->initVariables($request);
 
         // sort out the actual template and, if a layout is used, the viewTemplate
         $template = null;
@@ -294,6 +311,8 @@ class TemplateView extends ZMObject implements View {
      * @return string The template output.
      */
     public function fetch($template, $variables=array()) {
+        $this->initVariables(null);
+
         // render
         $engine = $this->getEngine();
         return $engine->render($template, array_merge($variables, $this->getVariables()));
