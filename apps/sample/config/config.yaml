@@ -18,31 +18,3 @@ zenmagick:
   http:
     request:
       urlType: realpath
-
-# database configuration settings
-# @todo allow symbolic names for the fully qualified classes mentioned here?
-doctrine:
-  dbal:
-    logging: true # @todo has to be true for pageStats plugin to work
-    logger_class: Doctrine\DBAL\Logging\DebugStack
-    connections:
-      default:
-        driver: pdo_mysql
-        dbname: zenmagick_sample
-        host: localhost
-        port: null
-        user: root
-        password: null
-        prefix:
-        #charset: null @todo default charset
-        #collation: null @todo mysql collation setting
-        unix_socket: null
-        initQuery: null # @todo what else will people use this for other than charset?
-  orm:
-    auto_generate_proxy_classes: true
-    proxy_dir: proxies # @todo inside cache dir, should  we specify that here?
-    proxy_namespace: apps\sample\proxies
-    metadata_cache_driver: Doctrine\Common\Cache\ArrayCache
-    query_cache_driver: Doctrine\Common\Cache\ArrayCache
-    result_cache_driver: Doctrine\Common\Cache\ArrayCache
-    mappings:
