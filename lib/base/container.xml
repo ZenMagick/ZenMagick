@@ -8,6 +8,12 @@
     <parameters>
         <parameter key="kernel.debug">false</parameter>
         <parameter key="zenmagick.base.logging.level">INFO</parameter>
+        <!-- some email defaults -->
+        <parameter key="zenmagick.base.email.transport">smtp</parameter>
+        <parameter key="zenmagick.base.email.user"></parameter>
+        <parameter key="zenmagick.base.email.password"></parameter>
+        <parameter key="zenmagick.base.email.host">localhost</parameter>
+        <parameter key="zenmagick.base.email.port">25</parameter>
     </parameters>
 
     <services>

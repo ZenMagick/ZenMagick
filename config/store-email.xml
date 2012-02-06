@@ -13,11 +13,11 @@
 
     <!-- set transport to @zencartTransport to use the zencart legacy email system -->
     <swiftmailer:config
-        transport="%zenmagick.core.email.transport%"
-        username="%zenmagick.core.email.smtp.user%"
-        password="your_password"
-        host="%zenmagick.core.email.smtp.host%"
-        port="%zenmagick.core.email.smtp.port%"
+        transport="%zenmagick.base.email.transport%"
+        username="%zenmagick.base.email.user%"
+        password="%zenmagick.base.email.password%"
+        host="%zenmagick.base.email.host%"
+        port="%zenmagick.base.email.port%"
         logging="true"
     >
         <!--

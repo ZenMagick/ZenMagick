@@ -52,7 +52,7 @@ class ZenCartBundle extends Bundle {
         $eventDispatcher = Runtime::getEventDispatcher();
         $eventDispatcher->addListener('init_config_done', array($this, 'onInitConfigDone'), 5);
         $eventDispatcher->addListener('init_done', array($this, 'onInitDone'));
-        $eventDispatcher->addListener('generate_email', array(new EmailEventHandler(), 'onGenerateEmail'));
+        $eventDispatcher->addListener('generate_email', array(Beans::getBean('zenmagick\apps\store\bundles\ZenCartBundle\utils\EmailEventHandler'), 'onGenerateEmail'));
         $eventDispatcher->addListener('create_account', array($this, 'onCreateAccount'));
         $eventDispatcher->addListener('login_success', array($this, 'onLoginSuccess'));
 
