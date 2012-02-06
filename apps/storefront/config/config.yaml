@@ -105,26 +105,83 @@ apps:
       default: base
     # verify category path
     verifyCategoryPath: false
+    newAccountDiscountCouponId: null
+    newAccountGVAmount: 0
 
 # enable/disable web stats; this does not include login counts, etc, but product views and such
 isLogPageStats: true
 
+# enable gift vouchers
+isEnabledGV: false
+# enable coupons
+isEnabledCoupons: false
+# allow anonymous tell a friend; good for spamming ;)
+isTellAFriendAnonymousAllow: false
+# do reviews need to be approved
+isApproveReviews: true
+# customer approval default value
+defaultCustomerApproval: 0
+
 ## Layout
 # allow unsubscribe without logging in
 isAllowAnonymousUnsubscribe: true
+# max
+maxBestSellers: 10
+maxSpecialProducts: 10
+maxNewProducts: 10
+maxRandomReviews: 10
+# range of enabled order stati to show downloads
+downloadOrderStatusRange: '2-4'
+# sort attributes by name rather than the sort order
+isSortAttributesByName: false
+# sort attribute values by name rather than sort order
+isSortAttributeValuesByPrice: false
+# base attribute price factor on discounted or regular price
+isDiscountAttributePriceFactor: false
+
+
+## Tax settings
+# tax decimal places
+taxDecimalPlaces: 0
+# tax inclusive/exclusive
+showPricesTaxIncluded: false
+# product tax base
+productTaxBase: shipping #shipping,billing,store
+# shipping tax base
+shippingTaxBase: shipping #shipping,billing,store
 
 ## Error pages, other global page settings
 # static homepage
 staticHome: null
 # use category page
 isUseCategoryPage: false
+# show category listing for single products or show product page instead?
+isSkipSingleProductCategory: false
+# show cart after product added
+isShowCartAfterAddProduct: true
+
+## Stock handling
+# enable stock tracking
+isEnableStock: true,
+# allow checkout of low stock products (low meaning 'out of stock')
+isAllowLowStockCheckout: false
 
 ## optional account data
 isAccountNickname: false
+isAccountGender: true
+isAccountDOB: true
+isAccountCompany: false
+isAccountState: true
+isAccountNewsletter: false
+isAccountReferral: false
+
+# show privacy message
+isPrivacyMessage: true
+# t&c message during checkout
+isConditionsMessage: true
 
 ## store info
 storeDefaultLanguageId: 1
-
 
 ## guest checkout
 isGuestCheckout: false,
@@ -132,10 +189,40 @@ isLogoffGuestAfterOrder: false,
 isGuestCheckoutAskAddress: true
 
 ## formatting and other defaults
-
 # comma separated lists
 resultListProductFilter: 'ZMCategoryFilter,ZMManufacturerFilter'
 resultListProductSorter: 'ZMProductSorter'
+# cart form constants
+textOptionPrefix: txt_
+uploadOptionPrefix: upload_
+
+## TODO: These are free shipping ot options!
+isOrderTotalFreeShipping: false
+freeShippingDestination:
+freeShippingOrderThreshold:
+
+## Banners
+banners:
+  # banner group names to apply to these banner positions
+  header1: ''
+  header2: ''
+  header3: ''
+  footer1: ''
+  footer2: ''
+  footer3: ''
+  box1: ''
+  box2: ''
+  all: ''
+
+## Image settings
+# show no image found image
+isShowNoPicture: false
+# the 'no image found' image
+imgNotFound: no_picture.gif
+# suffix for medium size images
+imgSuffixMedium: _MED
+# suffix for large size images
+imgSuffixLarge: _LRG
 
 #  price calculation decimals for rounding
 calculationDecimals: 4
