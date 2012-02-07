@@ -128,7 +128,9 @@
 
         <service id="shoppingCartService" class="ZMShoppingCarts" scope="container" />
 
-        <service id="validator" class="ZMValidator" scope="container" />
+        <service id="validator" class="ZMValidator" scope="container">
+            <tag name="zenmagick.http.view.variable" key="validator" />
+        </service>
 
         <service id="reviewService" class="zenmagick\apps\store\services\catalog\ReviewService" scope="container" />
 
