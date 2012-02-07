@@ -45,6 +45,8 @@ class TemplateView extends ZMObject implements View {
     private $layout;
     private $template;
     private $request;
+    private $contentType;
+    private $encoding;
 
 
     /**
@@ -56,8 +58,46 @@ class TemplateView extends ZMObject implements View {
         $this->layout = null;
         $this->template = null;
         $this->request = null;
+        $this->contentType = 'text/html';
+        $this->encoding = 'utf-8';
     }
 
+
+    /**
+     * Get the content type for this view.
+     *
+     * @return string The content type.
+     */
+    public function getContentType() {
+        return $this->contentType;
+    }
+
+    /**
+     * Set the content type for this view.
+     *
+     * @param string contentType The content type.
+     */
+    public function setContentType($contentType) {
+        $this->contentType = $contentType;
+    }
+
+    /**
+     * Get the encoding for this view.
+     *
+     * @return string The encoding.
+     */
+    public function getEncoding() {
+        return $this->encoding;
+    }
+
+    /**
+     * Set the encoding for this view.
+     *
+     * @param string encoding The encoding.
+     */
+    public function setEncoding($encoding) {
+        $this->encoding = $encoding;
+    }
 
     /**
      * Set the resource resolver.
