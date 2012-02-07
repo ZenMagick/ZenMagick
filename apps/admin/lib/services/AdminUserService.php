@@ -32,14 +32,6 @@ use zenmagick\base\ZMObject;
 class AdminUserService extends ZMObject {
 
     /**
-     * Get instance.
-     */
-    public static function instance() {
-        return Runtime::getContainer()->get('adminUserService');
-    }
-
-
-    /**
      * Add a few things.
      *
      * @param AdminUser user The user to finalize.

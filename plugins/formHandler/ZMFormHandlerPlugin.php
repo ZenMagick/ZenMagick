@@ -76,7 +76,7 @@ class ZMFormHandlerPlugin extends Plugin {
             if ($secure) {
                 // mark as secure
                 foreach ($pages as $page) {
-                    SacsManager::instance()->setMapping($page, ZMAccount::ANONYMOUS);
+                    $this->container->get('sacsManager')->setMapping($page, ZMAccount::ANONYMOUS);
                 }
             }
 

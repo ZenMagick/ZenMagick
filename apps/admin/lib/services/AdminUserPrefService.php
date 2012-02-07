@@ -32,14 +32,6 @@ use zenmagick\base\ZMObject;
 class AdminUserPrefService extends ZMObject {
 
     /**
-     * Get instance.
-     */
-    public static function instance() {
-        return Runtime::getContainer()->get('adminUserPrefService');
-    }
-
-
-    /**
      * Get pref for the given name.
      *
      * @param int adminId The adminId.

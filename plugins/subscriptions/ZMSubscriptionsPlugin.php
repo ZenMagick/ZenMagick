@@ -21,6 +21,7 @@
 <?php
 
 use zenmagick\base\Beans;
+use zenmagick\base\Runtime;
 use zenmagick\base\Toolbox;
 use zenmagick\http\sacs\SacsManager;
 
@@ -96,13 +97,15 @@ class ZMSubscriptionsPlugin extends Plugin {
     public function init() {
         parent::init();
 
-        zenmagick\base\Runtime::getEventDispatcher()->listen($this);
+        Runtime::getEventDispatcher()->listen($this);
+
+        $sacsManager = $this->container->get('sacsManager');
 
         // set mappings and permissions of custom pages
-        SacsManager::instance()->setMapping('cancel_subscription', ZMAccount::REGISTERED);
+        $sacsManager->setMapping('cancel_subscription', ZMAccount::REGISTERED);
         ZMUrlManager::instance()->setMapping('cancel_subscription', array('view' => 'redirect#requestId=account'));
 
-        SacsManager::instance()->setMapping('subscription_request', ZMAccount::REGISTERED);
+        $sacsManager->setMapping('subscription_request', ZMAccount::REGISTERED);
         ZMUrlManager::instance()->setMapping('subscription_request', array('success' => array('view' => 'redirect#requestId=subscription_request')));
 
         // set up request form validation
