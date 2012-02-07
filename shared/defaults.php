@@ -141,11 +141,11 @@
              **************************************/
 
             // transport
-            'zenmagick.core.email.transport' => ("PHP" == EMAIL_TRANSPORT ? "mail" : EMAIL_TRANSPORT),
-            'zenmagick.core.email.smtp.host' => EMAIL_SMTPAUTH_MAIL_SERVER,
-            'zenmagick.core.email.smtp.port' => EMAIL_SMTPAUTH_MAIL_SERVER_PORT,
-            'zenmagick.core.email.smtp.user' => EMAIL_SMTPAUTH_MAILBOX,
-            'zenmagick.core.email.smtp.password' => EMAIL_SMTPAUTH_PASSWORD,
+            'zenmagick.base.email.transport' => ("PHP" == EMAIL_TRANSPORT ? "mail" : ("smtpauth" == EMAIL_TRANSPORT ? "smtp" : EMAIL_TRANSPORT)),
+            'zenmagick.base.email.host' => EMAIL_SMTPAUTH_MAIL_SERVER,
+            'zenmagick.base.email.port' => EMAIL_SMTPAUTH_MAIL_SERVER_PORT,
+            'zenmagick.base.email.user' => EMAIL_SMTPAUTH_MAILBOX,
+            'zenmagick.base.email.password' => EMAIL_SMTPAUTH_PASSWORD,
 
 
             // email
