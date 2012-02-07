@@ -46,7 +46,7 @@ use zenmagick\http\sacs\SacsManager;
       $request->setParameter('main_page', 'index');
   }
 
-  $viewFile = 'content/views/'.$request->getRequestId().'.php';
+  $viewFile = 'content/views/installation.php';
 
   //XXX: buffer code, so redirects should still work...
   ob_start();
