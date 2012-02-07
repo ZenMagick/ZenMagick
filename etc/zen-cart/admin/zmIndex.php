@@ -26,6 +26,7 @@ use zenmagick\base\Runtime;
 use zenmagick\base\events\Event;
 use zenmagick\http\sacs\SacsManager;
 
+  define('ZM_APP_PATH', '/apps/admin');
   $view = null;
   require_once 'includes/application_top.php';
 

@@ -195,6 +195,7 @@ class ZenCartBundle extends Bundle {
             if (null != ($folder = $this->guessAdminFolder(false))) {
                 $this->container->get('settingsService')->set('apps.store.zencart.admindir', $folder);
             }
+            Runtime::getSettings()->set('zenmagick.base.context', 'admin');
         }
 
         $this->prepareConfig();
