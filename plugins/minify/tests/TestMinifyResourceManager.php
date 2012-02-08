@@ -32,12 +32,12 @@ use zenmagick\plugins\minify\view\MinifyResourceManager;
  */
 class TestMinifyResourceManager extends ZMTestCase {
     const MIN_BASE = '/zmdev/zenmagick/plugins/minify/min/f=';
-    const COMMON_JS = '/zmdev/zenmagick/themes/default/content/common.js';
+    const COMMON_JS = '/zmdev/zenmagick/themes/base/content/common.js';
     const JQUERY_JS = '/zmdev/zenmagick/plugins/unitTests/content/js/jquery-1.2.1.pack.js';
     const EXT_JQUERY_JS = '//ajax.googleapis.com/ajax/libs/jquery/1.6.1/jquery.min.js';
     const EXT_JQUERY_VAL_JS = '//ajax.aspnetcdn.com/ajax/jquery.validate/1.8.1/jquery.validate.min.js';
-    const SITE_CSS = '/zmdev/zenmagick/themes/default/content/site.css';
-    const POPUP_CSS = '/zmdev/zenmagick/themes/default/content/popup.css';
+    const SITE_CSS = '/zmdev/zenmagick/themes/base/content/site.css';
+    const POPUP_CSS = '/zmdev/zenmagick/themes/base/content/popup.css';
     const EXT_JQUERY_CSS1 = '//ajax.aspnetcdn.com/ajax/jquery.ui/1.8.9/themes/blitzer/jquery-ui.css';
     const EXT_JQUERY_CSS2 = 'http://ajax.aspnetcdn.com/ajax/jquery.ui/1.8.9/themes/ui-lightness/jquery-ui.css';
 
@@ -47,7 +47,7 @@ class TestMinifyResourceManager extends ZMTestCase {
      * @return MinifyResourceManager
      */
     protected function getMinifyResourceManager() {
-        $view = $this->container->get('view');
+        $view = $this->container->get('defaultView');
         $resourceManager = new MinifyResourceManager();
         $resourceManager->setContainer($this->container);
         $resourceManager->setResourcesAsTemplates(true);
