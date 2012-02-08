@@ -121,17 +121,6 @@
 
     <!-- Prepare build files -->
     <target name="prepare" depends="clean,init,ask-versions" description="Prepare build files.">
-        <!-- fail if admin/store database mappings are different -->
-        <checksum file="apps/admin/config/db_mappings.txt" property="admin.db.checksum" />
-        <checksum file="apps/storefront/config/db_mappings.txt" property="store.db.checksum" />
-        <fail message="Database mappings differ!">
-            <condition>
-                <not>
-                    <equals arg1="${admin.db.checksum}" arg2="${store.db.checksum}" />
-                </not>
-            </condition>
-        </fail>
-
         <!-- copy all files that go into zen-cart directories -->
         <copy todir="${build.dir}">
             <fileset dir="${zencart.src.dir}">
