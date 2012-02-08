@@ -26,7 +26,7 @@
  * @package org.zenmagick.plugins.unitTests.tests
  * @author DerManoMann <mano@zenmagick.org>
  */
-class TestZMCurrency extends ZMTestCase {
+class TestCurrency extends ZMTestCase {
 
     /**
      * Test currency parsing.
