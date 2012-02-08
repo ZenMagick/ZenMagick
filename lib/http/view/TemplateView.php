@@ -45,6 +45,8 @@ class TemplateView extends ZMObject implements View {
     private $layout;
     private $template;
     private $request;
+    private $contentType;
+    private $encoding;
 
 
     /**
@@ -56,8 +58,46 @@ class TemplateView extends ZMObject implements View {
         $this->layout = null;
         $this->template = null;
         $this->request = null;
+        $this->contentType = 'text/html';
+        $this->encoding = 'utf-8';
     }
 
+
+    /**
+     * Get the content type for this view.
+     *
+     * @return string The content type.
+     */
+    public function getContentType() {
+        return $this->contentType;
+    }
+
+    /**
+     * Set the content type for this view.
+     *
+     * @param string contentType The content type.
+     */
+    public function setContentType($contentType) {
+        $this->contentType = $contentType;
+    }
+
+    /**
+     * Get the encoding for this view.
+     *
+     * @return string The encoding.
+     */
+    public function getEncoding() {
+        return $this->encoding;
+    }
+
+    /**
+     * Set the encoding for this view.
+     *
+     * @param string encoding The encoding.
+     */
+    public function setEncoding($encoding) {
+        $this->encoding = $encoding;
+    }
 
     /**
      * Set the resource resolver.
@@ -215,9 +255,15 @@ class TemplateView extends ZMObject implements View {
     }
 
     /**
-     * {@inheritDoc}
+     * Init variables.
+     *
+     * @param ZMRequest request The current request.
      */
-    public function generate($request, $template=null, $variables=array()) {
+    protected function initVariables($request) {
+        if (array_key_exists('view', $this->variables)) {
+            return;
+        }
+
         $settingsService = Runtime::getSettings();
 
         // set some standard things
@@ -226,6 +272,9 @@ class TemplateView extends ZMObject implements View {
         $this->setVariable('resourceManager', $this->getResourceManager());
         $this->setVariable('resourceResolver', $this->getResourceResolver());
         $this->setVariable('view', $this);
+        if (null == $request) {
+            $request = $this->container->get('request');
+        }
         $this->setVariable('request', $request);
         $this->setVariable('session', $request->getSession());
         $this->setVariable('settingsService', $settingsService);
@@ -257,6 +306,14 @@ class TemplateView extends ZMObject implements View {
         foreach ($this->container->get('pluginService')->getAllPlugins($settingsService->get('zenmagick.base.context')) as $plugin) {
             $this->setVariable($plugin->getId(), $plugin);
         }
+
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function generate($request, $template=null, $variables=array()) {
+        $this->initVariables($request);
 
         // sort out the actual template and, if a layout is used, the viewTemplate
         $template = null;
@@ -294,6 +351,8 @@ class TemplateView extends ZMObject implements View {
      * @return string The template output.
      */
     public function fetch($template, $variables=array()) {
+        $this->initVariables(null);
+
         // render
         $engine = $this->getEngine();
         return $engine->render($template, array_merge($variables, $this->getVariables()));

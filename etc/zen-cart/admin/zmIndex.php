@@ -26,6 +26,7 @@ use zenmagick\base\Runtime;
 use zenmagick\base\events\Event;
 use zenmagick\http\sacs\SacsManager;
 
+  define('ZM_APP_PATH', '/apps/admin');
   $view = null;
   require_once 'includes/application_top.php';
 
@@ -37,14 +38,15 @@ use zenmagick\http\sacs\SacsManager;
 
   // set some admin specific things...
   ZMUrlManager::instance()->clear();
-  SacsManager::instance()->reset();
-  SacsManager::instance()->load(file_get_contents(Runtime::getInstallationPath().'/apps/admin/config/sacs_mappings.yaml'), false);
+  $sacsManager = $container->get('sacsManager');
+  $sacsManager->reset();
+  $sacsManager->load(file_get_contents(Runtime::getInstallationPath().'/apps/admin/config/sacs_mappings.yaml'), false);
 
   if (ZMLangUtils::isEmpty($request->getRequestId())) {
       $request->setParameter('main_page', 'index');
   }
 
-  $viewFile = 'content/views/'.$request->getRequestId().'.php';
+  $viewFile = 'content/views/installation.php';
 
   //XXX: buffer code, so redirects should still work...
   ob_start();

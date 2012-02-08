@@ -8,7 +8,7 @@ zenmagick:
   base:
     events:
       listeners:
-        - zenmagick\http\BootstrapListener
+        - zenmagick\http\EventListener
         - zenmagick\apps\sample\EventHandler
 
   mvc:

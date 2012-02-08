@@ -63,7 +63,7 @@ class StoreEventListener extends ZMObject {
 
         // load some static files that we still need
         $statics = array(
-            'storefront' => array('/shared/store/bundles/ZenCartBundle/utils/zencart_overrides.php')
+            'storefront,admin' => array('/shared/store/bundles/ZenCartBundle/utils/zencart_overrides.php')
         );
         foreach ($statics as $context => $files) {
             if (Runtime::isContextMatch($context)) {

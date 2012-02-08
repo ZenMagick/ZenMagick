@@ -29,7 +29,7 @@ use zenmagick\base\events\Event;
             define('ZM_APP_PATH', '/apps/storefront');
         }
 
-        include_once 'bootstrap.php';
+        include_once __DIR__.'/bootstrap.php';
 
         // create the main request instance
         $request = $_zm_request = Runtime::getContainer()->get('request');

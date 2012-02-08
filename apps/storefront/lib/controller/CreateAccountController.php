@@ -36,10 +36,6 @@ use zenmagick\base\events\Event;
  * to create a default address entry in the address book. Obviously, the validation rules
  * for the registration form need to be adjusted accordingly.</p>
  *
- * <p>The property may be set by specifying a controllerDefinition value in the <em>URL mapping</em>
- * like this:</p>
- * <p><code>ZMUrlManager::instance()->setMapping('create_account', array('controller' => 'CreateAccountController#createDefaultAddress=false'), false);</code></p>
- *
  * @author DerManoMann <mano@zenmagick.org>
  */
 class CreateAccountController extends \ZMController {
