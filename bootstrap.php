@@ -208,3 +208,13 @@ if (TRACEBS) {echo 'post plugins: '.Runtime::getExecutionTime()."<BR>";}
         echo '</pre>';
         die(sprintf('init plugins failed: %s', $e->getMessage()));
     }
+
+    try {
+        Runtime::getEventDispatcher()->dispatch('bootstrap_done', new Event());
+if (TRACEBS) {echo 'post bootstrap_done: '.Runtime::getExecutionTime()."<BR>";}
+    } catch (Exception $e) {
+        echo '<pre>';
+        echo $e->getTraceAsString();
+        echo '</pre>';
+        die(sprintf('init bootstrap_done failed: %s', $e->getMessage()));
+    }

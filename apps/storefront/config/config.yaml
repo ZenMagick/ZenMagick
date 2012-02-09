@@ -30,9 +30,9 @@ zenmagick:
     ## events
     events:
       listeners:
-        ## TODO: these should be swapped
-        - zenmagick\apps\store\StoreEventListener
+        - zenmagick\base\EventListener
         - zenmagick\http\EventListener
+        - zenmagick\apps\store\StoreEventListener
         - zenmagick\apps\store\storefront\utils\EventFixes
     ## logging
     logging:
