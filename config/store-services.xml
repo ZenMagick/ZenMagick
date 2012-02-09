@@ -223,7 +223,10 @@
         </service>
         -->
 
+        <!-- set zenmagick.base.email.transport to @zencartTransport to use the zencart legacy email system -->
+        <service id="zencartTransport" class="zenmagick\apps\store\bundles\ZenCartBundle\utils\ZenCartTransport" scope="container" />
     </services>
+
 
     <doctrine:config>
         <!--
