@@ -35,6 +35,33 @@ class SettingsParameterBag extends ParameterBag {
     /**
      * {@inheritDoc}
      */
+    public function has($name) {
+        return parent::has($name) || Runtime::getSettings()->exists($name);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function get($name) {
+        $settingsService = Runtime::getSettings();
+        if ($settingsService->exists($name)) {
+            return $settingsService->get($name);
+        }
+
+        return parent::get($name);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function set($name, $value) {
+        parent::set($name, $value);
+        Runtime::getSettings()->set($name, $value);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
     public function resolveString($value, array $resolving=array()) {
         if (preg_match('/^%([^%]+)%$/', $value, $match)) {
             $key = strtolower($match[1]);
