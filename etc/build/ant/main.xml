@@ -208,7 +208,12 @@
     <target name="patch" description="Ant property style substitutions.">
         <echo message="Versioning ${patch.dir}/** ..." />
         <!-- '$$': escape Ant property expansion, '\': escape regexp '$' handling, '\}' required for JDK regexp implementation -->
-        <replaceregexp match="\$$\{zenmagick.version\}" replace="${zenmagick.version}" flags="g"><fileset dir="${patch.dir}" /></replaceregexp>
+        <replaceregexp match="\$$\{zenmagick.version\}" replace="${zenmagick.version}" flags="g">
+            <fileset dir="${patch.dir}">
+              <!-- exclude binary locale files -->
+              <exclude name="**/*.mo" />
+            </fileset>
+        </replaceregexp>
     </target>
 
 
