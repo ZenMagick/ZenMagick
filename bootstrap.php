@@ -46,7 +46,7 @@ use Symfony\Component\DependencyInjection\Loader\XmlFileLoader;
         // detect CLI calls
         define('ZM_CLI_CALL', defined('STDIN'));
         // base installation directory
-        define('ZM_BASE_PATH', dirname(__FILE__));
+        define('ZM_BASE_PATH', __DIR__);
         // set up the environment to run in
         defined('ZM_ENVIRONMENT') || define('ZM_ENVIRONMENT', isset($_SERVER['ZM_ENVIRONMENT']) ? $_SERVER['ZM_ENVIRONMENT'] : 'prod');
         // hide as to avoid filenames that contain account names, etc.
@@ -91,32 +91,37 @@ if (TRACEBS) {$precl = microtime();}
                 }
             }
         }
+
+        $container = Runtime::getContainer();
+        $settingsService = Runtime::getSettings();
+        $applicationPath = Runtime::getApplicationPath();
+
 if (TRACEBS) {echo 'pre CL: '.Runtime::getExecutionTime($precl)."<BR>";}
 if (TRACEBS) {echo 'post CL: '.Runtime::getExecutionTime()."<BR>";}
 
         // some base settings
-        Runtime::getSettings()->set('zenmagick.environment', ZM_ENVIRONMENT);
-        Runtime::getSettings()->set('zenmagick.installationPath', Runtime::getInstallationPath());
-        Runtime::getSettings()->set('zenmagick.base.context', defined('ZM_APP_PATH') ? basename(ZM_APP_PATH) : null);
+        $settingsService->set('zenmagick.environment', ZM_ENVIRONMENT);
+        $settingsService->set('zenmagick.installationPath', Runtime::getInstallationPath());
+        $settingsService->set('zenmagick.base.context', defined('ZM_APP_PATH') ? basename(ZM_APP_PATH) : null);
 
         // load app in separate loader
-        if (null != Runtime::getApplicationPath()) {
+        if (null != $applicationPath) {
             $appLoader = new $CLASSLOADER();
             $appLoader->register();
-            $appLoader->addConfig(Runtime::getApplicationPath().'/lib');
+            $appLoader->addConfig($applicationPath.'/lib');
         }
 
         // as default disable plugins for CLI calls
-        Runtime::getSettings()->set('zenmagick.base.plugins.enabled', !ZM_CLI_CALL);
+        $settingsService->set('zenmagick.base.plugins.enabled', !ZM_CLI_CALL);
 
         // load application config
-        Runtime::getSettings()->setAll(Toolbox::loadWithEnv(Runtime::getApplicationPath().'/config/config.yaml'));
+        $settingsService->setAll(Toolbox::loadWithEnv($applicationPath.'/config/config.yaml'));
 if (TRACEBS) {echo 'post config.yaml: '.Runtime::getExecutionTime()."<BR>";}
 
         // load global config
         $globalFilename = realpath(Runtime::getInstallationPath().'/global.yaml');
-        if (file_exists($globalFilename) && Runtime::getContainer()->has('contextConfigLoader')) {
-            $contextConfigLoader = Runtime::getContainer()->get('contextConfigLoader');
+        if (file_exists($globalFilename) && $container->has('contextConfigLoader')) {
+            $contextConfigLoader = $container->get('contextConfigLoader');
             $contextConfigLoader->setConfig(Toolbox::loadWithEnv($globalFilename));
             $contextConfigLoader->process();
         }
@@ -125,8 +130,7 @@ if (TRACEBS) {echo 'post global.yaml: '.Runtime::getExecutionTime()."<BR>";}
         // bundles; DI only for now - might want to use HttpKernel for loading stuff?
         $bundles = array();
         $extensions = array();
-        $container = Runtime::getContainer();
-        foreach (Runtime::getSettings()->get('zenmagick.bundles', array()) as $key => $class) {
+        foreach ($settingsService->get('zenmagick.bundles', array()) as $key => $class) {
             $bundle = new $class();
             $bundle->build($container);
             if ($extension = $bundle->getContainerExtension()) {
@@ -140,16 +144,16 @@ if (TRACEBS) {echo 'post global.yaml: '.Runtime::getExecutionTime()."<BR>";}
 if (TRACEBS) {echo 'post bundles: '.Runtime::getExecutionTime()."<BR>";}
 
         // load application container config
-        $containerConfig = Toolbox::resolveWithEnv(Runtime::getApplicationPath().'/config/container.xml');
+        $containerConfig = Toolbox::resolveWithEnv($applicationPath.'/config/container.xml');
         if (file_exists($containerConfig)) {
-            $containerLoader = new XmlFileLoader(Runtime::getContainer(), new FileLocator(dirname($containerConfig)));
+            $containerLoader = new XmlFileLoader($container, new FileLocator(dirname($containerConfig)));
             $containerLoader->load(basename($containerConfig));
         }
 if (TRACEBS) {echo 'post container.xml: '.Runtime::getExecutionTime()."<BR>";}
 
-        if (null != Runtime::getApplicationPath()) {
+        if (null != $applicationPath) {
             // always add an application event listener - if available
-            $eventListener = 'zenmagick\\apps\\'.Runtime::getContext().'\\EventListener';
+            $eventListener = sprintf('zenmagick\apps\%s\EventListener', Runtime::getContext());
             if (ClassLoader::classExists($eventListener)) {
                 Runtime::getEventDispatcher()->listen(new $eventListener());
             }
@@ -157,7 +161,7 @@ if (TRACEBS) {echo 'post container.xml: '.Runtime::getExecutionTime()."<BR>";}
 if (TRACEBS) {echo 'post app event listner: '.Runtime::getExecutionTime()."<BR>";}
 
         // hook up default event listeners
-        foreach (Runtime::getSettings()->get('zenmagick.base.events.listeners', array()) as $_zm_elc) {
+        foreach ($settingsService->get('zenmagick.base.events.listeners', array()) as $_zm_elc) {
             if (null != ($_zm_el = Beans::getBean(trim($_zm_elc)))) {
                 Runtime::getEventDispatcher()->listen($_zm_el);
             }
@@ -167,19 +171,19 @@ if (TRACEBS) {echo 'post app event listner: '.Runtime::getExecutionTime()."<BR>"
 if (TRACEBS) {echo 'post init_config_done: '.Runtime::getExecutionTime()."<BR>";}
 
         // set up locale
-        Runtime::getContainer()->get('localeService')->init(Runtime::getSettings()->get('zenmagick.base.locales.locale', 'en'));
+        $container->get('localeService')->init($settingsService->get('zenmagick.base.locales.locale', 'en'));
 if (TRACEBS) {echo 'post init locale: '.Runtime::getExecutionTime()."<BR>";}
 
         // set a default timezone; NOTE: warnings are suppressed for date_default_timezone_get() in case there isn't a default at all
         date_default_timezone_set(Runtime::getSettings()->get('zenmagick.core.date.timezone', @date_default_timezone_get()));
         if (null != ($_dt = date_timezone_get((new DateTime())))) {
             // set back with the actually used value
-            Runtime::getSettings()->set('zenmagick.core.date.timezone', $_dt->getName());
+            $settingsService->set('zenmagick.core.date.timezone', $_dt->getName());
         }
 if (TRACEBS) {echo 'post timezone: '.Runtime::getExecutionTime()."<BR>";}
 
         // register custom error handler
-        if (Runtime::getSettings()->get('zenmagick.base.logging.handleErrors')) {
+        if ($settingsService->get('zenmagick.base.logging.handleErrors')) {
             $logging = Runtime::getLogging();
             set_error_handler(array($logging, 'errorHandler'));
             set_exception_handler(array($logging, 'exceptionHandler'));
@@ -198,8 +202,8 @@ if (TRACEBS) {echo 'post bootstrap_done: '.Runtime::getExecutionTime()."<BR>";}
 
     try {
         // upset plugins if required
-        if (Runtime::getSettings()->get('zenmagick.base.plugins.enabled', true)) {
-            Runtime::getContainer()->get('pluginService')->initAllPlugins(Runtime::getSettings()->get('zenmagick.base.context'));
+        if ($settingsService->get('zenmagick.base.plugins.enabled', true)) {
+            $container->get('pluginService')->initAllPlugins($settingsService->get('zenmagick.base.context'));
         }
 if (TRACEBS) {echo 'post plugins: '.Runtime::getExecutionTime()."<BR>";}
     } catch (Exception $e) {
