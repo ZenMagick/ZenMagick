@@ -21,20 +21,24 @@
 <?php
 
 use zenmagick\base\Runtime;
+use zenmagick\base\Toolbox;
 use zenmagick\base\events\Event;
+
+    $eventDispatcher = Runtime::getEventDispatcher();
+    $container = Runtime::getContainer();
 
     try {
         // create the main request instance
         $request = $_zm_request = Runtime::getContainer()->get('request');
 
         // tell everyone interested that we have a request
-        Runtime::getEventDispatcher()->dispatch('request_ready', new Event(null, array('request' => $_zm_request)));
+        $eventDispatcher->dispatch('request_ready', new Event(null, array('request' => $_zm_request)));
 
         // freeze container
-        Runtime::getContainer()->compile();
+        $container->compile();
 
         // tell everyone interested that we have a container
-        Runtime::getEventDispatcher()->dispatch('container_ready', new Event(null, array('request' => $_zm_request)));
+        $eventDispatcher->dispatch('container_ready', new Event(null, array('request' => $_zm_request)));
 if (TRACEBS) {echo 'post container_ready: '.Runtime::getExecutionTime()."<BR>";}
 
         // allow seo rewriters to fiddle with the request
@@ -42,14 +46,17 @@ if (TRACEBS) {echo 'post container_ready: '.Runtime::getExecutionTime()."<BR>";}
 if (TRACEBS) {echo 'post url decode: '.Runtime::getExecutionTime()."<BR>";}
 
         // make sure we use the appropriate protocol (HTTPS, for example) if required
-        Runtime::getContainer()->get('sacsManager')->ensureAccessMethod($_zm_request);
+        $container->get('sacsManager')->ensureAccessMethod($_zm_request);
 
         // form validation
-        ZMValidator::instance()->load(file_get_contents(Runtime::getApplicationPath().'/config/validation.yaml'));
+        $validationConfig = Runtime::getApplicationPath().'/config/validation.yaml';
+        if ($container->has('validator') && file_exists($validationConfig)) {
+            $container->get('validator')->load(file_get_contents(Toolbox::resolveWithEnv($validationConfig)));
+        }
 
         // load stuff that really needs to be global!
         if (Runtime::getSettings()->get('zenmagick.base.plugins.enabled', true)) {
-            foreach (Runtime::getContainer()->get('pluginService')->getAllPlugins(ZMSettings::get('zenmagick.base.context')) as $plugin) {
+            foreach ($container->get('pluginService')->getAllPlugins(ZMSettings::get('zenmagick.base.context')) as $plugin) {
                 foreach ($plugin->getGlobal($_zm_request) as $_zm_file) {
                     include_once $_zm_file;
                 }
@@ -64,9 +71,9 @@ if (TRACEBS) {echo 'post url decode: '.Runtime::getExecutionTime()."<BR>";}
 
     // reset as other global code migth fiddle with it...
     $request = $_zm_request;
-    Runtime::getEventDispatcher()->dispatch('init_done', new Event(null, array('request' => $_zm_request)));
+    $eventDispatcher->dispatch('init_done', new Event(null, array('request' => $_zm_request)));
 if (TRACEBS) {echo 'post init_done: '.Runtime::getExecutionTime()."<BR>";}
 
-    Runtime::getContainer()->get('dispatcher')->dispatch($_zm_request);
+    $container->get('dispatcher')->dispatch($_zm_request);
 if (TRACEBS) {echo 'post dispatcher: '.Runtime::getExecutionTime()."<BR>";}
     exit;
