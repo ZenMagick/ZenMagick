@@ -57,7 +57,7 @@ class RoutingUrlRewriter implements UrlRewriter {
      * {@inheritDoc}
      */
     public function rewrite($request, $args) {
-        if (Runtime::getSettings()->get('zenmagick.http.routing.enabled', false)) {
+        if (Runtime::getSettings()->get('zenmagick.http.routing.enabled', true)) {
             $requestId = $args['requestId'];
             $router = $request->getRouter();
             if (null != ($route = $router->getRouteCollection()->get($requestId))) {

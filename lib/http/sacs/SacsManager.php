@@ -215,7 +215,7 @@ class SacsManager {
         $requestId = $request->getRequestId();
         $secure = Toolbox::asBoolean($this->getMappingValue($requestId, 'secure', false));
         // check router too
-        if (Runtime::getSettings()->get('zenmagick.http.routing.enabled', false) && null != ($route = $request->getRouter()->getRouteCollection()->get($requestId))) {
+        if (Runtime::getSettings()->get('zenmagick.http.routing.enabled', true) && null != ($route = $request->getRouter()->getRouteCollection()->get($requestId))) {
             $requirements = $route->getRequirements();
             $secure |= (array_key_exists('_scheme', $requirements) && 'https' == $requirements['_scheme']);
         }

@@ -123,7 +123,7 @@ class ZMRequest extends ZMObject {
      * @return array The match or <code>null</code>.
      */
     public function getRouterMatch() {
-        if (!Runtime::getSettings()->get('zenmagick.http.routing.enabled', false)) {
+        if (!Runtime::getSettings()->get('zenmagick.http.routing.enabled', true)) {
             return null;
         }
 

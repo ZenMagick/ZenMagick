@@ -193,7 +193,7 @@ class ZMEZPage extends ZMObject {
      * @param boolean php Optional flag to allow/disable PHP exection in the contents; default is <code>true</code>.
      * @return string The page contents.
      */
-    public function getHtmlText($php=true) {
+    public function getHtmlText($php=false) {
         $text = $this->htmlText;
         if ($php) {
             ob_start();
