@@ -132,5 +132,21 @@
 
         <service id="defaultController" class="zenmagick\apps\store\admin\controller\DefaultController" scope="prototype" />
 
+        <service id="couponStatusCheck" class="zenmagick\apps\store\admin\dashboard\widgets\status\CouponStatusCheck" scope="prototype">
+            <tag name="apps.store.admin.dashboard.widget.statusCheck" />
+        </service>
+
+        <service id="installationStatusCheck" class="zenmagick\apps\store\admin\dashboard\widgets\status\InstallationStatusCheck" scope="prototype">
+            <tag name="apps.store.admin.dashboard.widget.statusCheck" />
+        </service>
+
+        <service id="miscStatusCheck" class="zenmagick\apps\store\admin\dashboard\widgets\status\MiscStatusCheck" scope="prototype">
+            <tag name="apps.store.admin.dashboard.widget.statusCheck" />
+        </service>
+
+        <service id="moduleStatusCheck" class="zenmagick\apps\store\admin\dashboard\widgets\status\ModuleStatusCheck" scope="prototype">
+            <tag name="apps.store.admin.dashboard.widget.statusCheck" />
+        </service>
+
     </services>
 </container>
