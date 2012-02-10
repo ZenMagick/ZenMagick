@@ -32,7 +32,7 @@ use zenmagick\base\dependencyInjection\Container;
 class Runtime {
     private static $container = null;
     private static $context = null;
-
+    private static $environment = null;
 
     /**
      * Get context.
@@ -179,5 +179,24 @@ class Runtime {
 
         return self::$container;
     }
+
+    /**
+     * Get environment.
+     *
+     * @return string The current environment or prod if not set.
+     */
+    public static function getEnvironment() {
+        return null != self::$environment ? self::$environment : 'prod';
+    }
+
+    /**
+     * Set environment.
+     *
+     * @param string environment The new environment.
+     */
+    public static function setEnvironment($environment) {
+        self::$environment = $environment;
+    }
+
 
 }

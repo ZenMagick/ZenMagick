@@ -95,7 +95,9 @@ if (TRACEBS) {echo 'pre CL: '.Runtime::getExecutionTime($precl)."<BR>";}
 if (TRACEBS) {echo 'post CL: '.Runtime::getExecutionTime()."<BR>";}
 
         // some base settings
-        Runtime::getSettings()->set('zenmagick.environment', ZM_ENVIRONMENT);
+        Runtime::setEnvironment(ZM_ENVIRONMENT);
+
+        Runtime::getSettings()->set('zenmagick.environment', Runtime::getEnvironment());
         Runtime::getSettings()->set('zenmagick.installationPath', Runtime::getInstallationPath());
         Runtime::getSettings()->set('zenmagick.base.context', defined('ZM_APP_PATH') ? basename(ZM_APP_PATH) : null);
 
@@ -187,7 +189,7 @@ if (TRACEBS) {echo 'post timezone: '.Runtime::getExecutionTime()."<BR>";}
         }
 if (TRACEBS) {echo 'post error handlers: '.Runtime::getExecutionTime()."<BR>";}
 
-        Runtime::getLogging()->info('environment is: '.ZM_ENVIRONMENT);
+        Runtime::getLogging()->info('environment is: '.Runtime::getEnvironment());
 if (TRACEBS) {echo 'post bootstrap_done: '.Runtime::getExecutionTime()."<BR>";}
     } catch (Exception $e) {
         echo '<pre>';

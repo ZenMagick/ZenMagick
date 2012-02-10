@@ -23,7 +23,7 @@
 ?>
 <h3><?php _vzm("Oops - something went wrong!") ?></h3>
 <p><?php echo $utils->staticPageContent('error') ?></p>
-<?php if (ZM_ENVIRONMENT == 'dev') { ?>
+<?php if (zenmagick\base\Runtime::getEnvironment() == 'dev') { ?>
   <pre>
   <?php
      if (isset($exception)) {
