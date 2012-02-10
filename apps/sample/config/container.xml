@@ -14,7 +14,7 @@
             <argument>sample.com</argument>
         </service>
 
-        <service id="templateManager" class="ZMTemplateManager" scope="container" />
+        <service id="templateManager" class="zenmagick\apps\store\themes\TemplateManager" scope="container" />
 
         <service id="urlManager" class="ZMUrlManager" scope="container" />
 

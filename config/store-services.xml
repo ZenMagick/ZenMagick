@@ -139,7 +139,7 @@
 
         <service id="ezPageService" class="ZMEZPages" scope="container" />
 
-        <service id="templateManager" class="ZMTemplateManager" scope="container">
+        <service id="templateManager" class="zenmagick\apps\store\themes\TemplateManager" scope="container">
             <tag name="zenmagick.http.view.variable" key="templateManager" />
         </service>
 
