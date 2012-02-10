@@ -40,7 +40,7 @@ class Runtime {
      * @return string The current context or <code>null</code> if not set or supported.
      */
     public static function getContext() {
-        return null != self::$context ? self::context : self::getSettings()->get('zenmagick.base.context', null);
+        return null != self::$context ? self::$context : self::getSettings()->get('zenmagick.base.context', null);
     }
 
     /**
