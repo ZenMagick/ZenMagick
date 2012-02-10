@@ -47,8 +47,6 @@ use Symfony\Component\DependencyInjection\Loader\XmlFileLoader;
         define('ZM_CLI_CALL', defined('STDIN'));
         // base installation directory
         define('ZM_BASE_PATH', dirname(__FILE__));
-        // set up the environment to run in
-        defined('ZM_ENVIRONMENT') || define('ZM_ENVIRONMENT', isset($_SERVER['ZM_ENVIRONMENT']) ? $_SERVER['ZM_ENVIRONMENT'] : 'prod');
         // hide as to avoid filenames that contain account names, etc.
         ini_set('display_errors', false);
         // enable all reporting
@@ -95,7 +93,7 @@ if (TRACEBS) {echo 'pre CL: '.Runtime::getExecutionTime($precl)."<BR>";}
 if (TRACEBS) {echo 'post CL: '.Runtime::getExecutionTime()."<BR>";}
 
         // some base settings
-        Runtime::setEnvironment(ZM_ENVIRONMENT);
+        Runtime::setEnvironment(isset($_SERVER['ZM_ENVIRONMENT']) ? $_SERVER['ZM_ENVIRONMENT'] : 'prod');
 
         Runtime::getSettings()->set('zenmagick.environment', Runtime::getEnvironment());
         Runtime::getSettings()->set('zenmagick.installationPath', Runtime::getInstallationPath());

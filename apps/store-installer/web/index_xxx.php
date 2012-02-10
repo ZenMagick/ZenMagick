@@ -21,6 +21,6 @@
 <?php
 
   if (array_key_exists('ZM_ENVIRONMENT', $_GET)) {
-      define('ZM_ENVIRONMENT', $_GET['ZM_ENVIRONMENT']);
+      $_SERVER['ZM_ENVIRONMENT'] = $_GET['ZM_ENVIRONMENT'];
   }
   require 'index.php';
