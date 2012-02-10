@@ -39,7 +39,6 @@ class RedirectView extends ZMObject implements View {
     protected $parameter_;
     protected $status_;
     protected $requestId_;
-    protected $forceRequestId_;
 
 
     /**
@@ -52,7 +51,6 @@ class RedirectView extends ZMObject implements View {
         $this->parameter_ = '';
         $this->status_ = 302;
         $this->requestId_ = null;
-        $this->forceRequestId_ = false;
     }
 
 
@@ -132,15 +130,6 @@ class RedirectView extends ZMObject implements View {
     }
 
     /**
-     * Set the force request id flag.
-     *
-     * @param mixed forceRequestId If set to <code>true</code>, the requestId will be used as redirect target even if url is set.
-     */
-    public function setForceRequestId($forceRequestId) {
-        $this->forceRequestId_ = Toolbox::asBoolean($forceRequestId);
-    }
-
-    /**
      * Get the evaluated redirect url.
      *
      * @param ZMRequest request The current request.
@@ -148,7 +137,7 @@ class RedirectView extends ZMObject implements View {
      */
     public function getRedirectUrl($request) {
         $secure = $this->secure || $this->container->get('sacsManager')->requiresSecurity($this->getRequestId());
-        return ((null != $this->url_ && !$this->forceRequestId_) ? $this->url_ : $request->url($this->getRequestId(), $this->parameter_, $secure));
+        return ((null != $this->url_) ? $this->url_ : $request->url($this->getRequestId(), $this->parameter_, $secure));
     }
 
 }
