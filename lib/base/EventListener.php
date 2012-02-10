@@ -46,7 +46,8 @@ class EventListener extends ZMObject {
         }
 
         // load email container config unless we do have already some swiftmailer config
-        if (0 == count($this->container->getExtensionConfig('swiftmailer'))) {
+        $bundles = array_keys(Runtime::getSettings()->get('zenmagick.bundles', array()));
+        if (0 == count($this->container->getExtensionConfig('swiftmailer')) && in_array('SwiftmailerBundle', $bundles)) {
             $emailConfig = __DIR__.'/email.xml';
             if (file_exists($emailConfig)) {
                 $containerlLoader = new XmlFileLoader(Runtime::getContainer(), new FileLocator(dirname($emailConfig)));
