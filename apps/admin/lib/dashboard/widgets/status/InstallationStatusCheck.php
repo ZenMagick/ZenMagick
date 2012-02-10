@@ -40,15 +40,23 @@ class InstallationStatusCheck implements StatusCheck {
         $messages = array();
 
         $installDir = realpath(dirname(Runtime::getInstallationPath()).'/zc_install');
-        if (is_dir($installDir)) { $messages[] = array(DashboardWidget::STATUS_NOTICE, sprintf(_zm('Installation directory exists at: %s. Please remove this directory for security reasons.'), $installDir)); }
+        if (is_dir($installDir)) {
+            $messages[] = array(DashboardWidget::STATUS_NOTICE, sprintf(_zm('Installation directory exists at: %s. Please remove this directory for security reasons.'), $installDir));
+        }
 
         $configure = realpath(dirname(Runtime::getInstallationPath()).'/includes/configure.php');
         if (file_exists($configure) && is_writeable($configure)) {
             $messages[] = array(DashboardWidget::STATUS_WARN, sprintf(_zm('Store configuration file: %s should be read-only.'), $configure));
         }
+
         $configure = realpath(dirname(Runtime::getInstallationPath()).'/'.Runtime::getSettings()->get('apps.store.zencart.admindir').'/includes/configure.php');
         if (file_exists($configure) && is_writeable($configure)) {
             $messages[] = array(DashboardWidget::STATUS_WARN, sprintf(_zm('Admin configuration file: %s should be read-only.'), $configure));
+        }
+
+        $installApp = realpath(Runtime::getInstallationPath().'/apps/store-installer');
+        if (is_dir($installApp)) {
+            $messages[] = array(DashboardWidget::STATUS_WARN, sprintf(_zm('ZenMagick store installer exists at: %s. Please remove or rename this directory for security reasons.'), $installApp));
         }
 
         return $messages;
