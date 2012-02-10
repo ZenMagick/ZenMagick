@@ -66,12 +66,18 @@
             </call>
         </service>
 
+        <!-- defaults -->
+        <service id="request" class="ZMRequest" scope="container" />
+        <service id="session" class="zenmagick\http\session\Session" scope="container" />
+        <service id="defaultView" alias="templateView" />
+
         <service id="redirect" class="zenmagick\http\view\RedirectView" scope="prototype">
             <call method="setRequest">
                 <argument type="service" id="request" />
             </call>
         </service>
 
+        <!-- add tag -->
         <service id="httpSettingsService" class="zenmagick\base\settings\Settings" parent="merge:settingsService">
             <tag name="zenmagick.http.view.variable" key="settings" />
         </service>

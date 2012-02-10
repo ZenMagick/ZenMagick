@@ -6,22 +6,13 @@
     xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
 
     <parameters>
-        <parameter key="kernel.debug">false</parameter>
-        <parameter key="kernel.environment">%zenmagick.environment%</parameter>
-        <parameter key="kernel.bundles">%zenmagick.bundles%</parameter>
-        <parameter key="kernel.root_dir">%zenmagick.cacheBasePath%/kernel</parameter>
-        <parameter key="kernel.cache_dir">%zenmagick.cacheBasePath%</parameter>
         <parameter key="zenmagick.cacheBasePath">%zenmagick.installationPath%/../cache/zenmagick</parameter>
     </parameters>
 
     <services>
-        <service id="request" class="ZMRequest" scope="container" />
-
         <service id="session" class="zenmagick\http\session\Session" scope="container">
             <argument>sample.com</argument>
         </service>
-
-        <service id="defaultView" alias="templateView" />
 
         <service id="templateManager" class="ZMTemplateManager" scope="container" />
 

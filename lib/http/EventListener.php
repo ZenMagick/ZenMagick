@@ -42,10 +42,13 @@ class EventListener extends ZMObject {
      * Additional config loading.
      */
     public function onInitConfigDone($event) {
-        // mvc mappings
-        \ZMUrlManager::instance()->load(file_get_contents(Runtime::getApplicationPath().'/config/url_mappings.yaml'), false);
+        if ($this->container->has('urlManager')) {
+            // mvc mappings
+            $this->container->get('urlManager')->load(file_get_contents(Runtime::getApplicationPath().'/config/url_mappings.yaml'), false);
+        }
         // sacs mappings
         $this->container->get('sacsManager')->load(Runtime::getApplicationPath().'/config/sacs_mappings.yaml', false);
+        //TODO: use tag
         $this->container->get('sacsManager')->loadProviderMappings(Runtime::getSettings()->get('zenmagick.http.sacs.mappingProviders', array()));
     }
 
