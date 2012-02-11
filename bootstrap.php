@@ -47,8 +47,6 @@ use Symfony\Component\DependencyInjection\Loader\XmlFileLoader;
         define('ZM_CLI_CALL', defined('STDIN'));
         // base installation directory
         define('ZM_BASE_PATH', __DIR__);
-        // set up the environment to run in
-        defined('ZM_ENVIRONMENT') || define('ZM_ENVIRONMENT', isset($_SERVER['ZM_ENVIRONMENT']) ? $_SERVER['ZM_ENVIRONMENT'] : 'prod');
         // hide as to avoid filenames that contain account names, etc.
         ini_set('display_errors', false);
         // enable all reporting
@@ -100,7 +98,8 @@ if (TRACEBS) {echo 'pre CL: '.Runtime::getExecutionTime($precl)."<BR>";}
 if (TRACEBS) {echo 'post CL: '.Runtime::getExecutionTime()."<BR>";}
 
         // some base settings
-        $settingsService->set('zenmagick.environment', ZM_ENVIRONMENT);
+        Runtime::setEnvironment(isset($_SERVER['ZM_ENVIRONMENT']) ? $_SERVER['ZM_ENVIRONMENT'] : 'prod');
+        $settingsService->set('zenmagick.environment', Runtime::getEnvironment());
         $settingsService->set('zenmagick.installationPath', Runtime::getInstallationPath());
         $settingsService->set('zenmagick.base.context', defined('ZM_APP_PATH') ? basename(ZM_APP_PATH) : null);
 
@@ -191,7 +190,7 @@ if (TRACEBS) {echo 'post timezone: '.Runtime::getExecutionTime()."<BR>";}
         }
 if (TRACEBS) {echo 'post error handlers: '.Runtime::getExecutionTime()."<BR>";}
 
-        Runtime::getLogging()->info('environment is: '.ZM_ENVIRONMENT);
+        Runtime::getLogging()->info('environment is: '.Runtime::getEnvironment());
 if (TRACEBS) {echo 'post bootstrap_done: '.Runtime::getExecutionTime()."<BR>";}
     } catch (Exception $e) {
         echo '<pre>';

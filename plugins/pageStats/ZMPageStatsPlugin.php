@@ -130,7 +130,7 @@ class ZMPageStatsPlugin extends Plugin {
         echo '  Client IP: '.$_SERVER['REMOTE_ADDR']."\n";
         echo '  PHP: '.phpversion()."\n";
         echo '  ZenMagick: '.Runtime::getSettings()->get('zenmagick.version')."\n";
-        echo '  environment: '.ZM_ENVIRONMENT."\n";
+        echo '  environment: '.Runtime::getEnvironment()."\n";
         echo '  total page execution: '.Runtime::getExecutionTime().' secconds;'."\n";
         if (null != ($db = $this->getDB())) {
             echo '  db: SQL queries: '.$db->queryCount().', duration: '.round($db->queryTime(), 4).' seconds;';
@@ -219,7 +219,7 @@ class ZMPageStatsPlugin extends Plugin {
         echo 'Client IP: <strong>'.$_SERVER['REMOTE_ADDR'].'</strong>;';
         echo '&nbsp;&nbsp;&nbsp;PHP: <strong>'.phpversion().'</strong>;';
         echo '&nbsp;&nbsp;&nbsp;ZenMagick: <strong>'.Runtime::getSettings()->get('zenmagick.version').'</strong>;';
-        echo '&nbsp;&nbsp;&nbsp;environment: <strong>'.ZM_ENVIRONMENT.'</strong>;';
+        echo '&nbsp;&nbsp;&nbsp;environment: <strong>'.Runtime::getEnvironment().'</strong>;';
         echo '&nbsp;&nbsp;&nbsp;total page execution: <strong>'.Runtime::getExecutionTime().'</strong> secconds;<br'.$slash.'>';
         if (null != ($db = $this->getDB())) {
             echo '<strong>db</strong>: SQL queries: <strong>'.$db->queryCount().'</strong>, duration: <strong>'.round($db->queryTime(), 4).'</strong> seconds;';
