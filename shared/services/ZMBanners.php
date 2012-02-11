@@ -107,7 +107,7 @@ class ZMBanners extends ZMObject {
     }
 
     /**
-     * Update banner display count.
+     * Update banner display count and expire those that have reached the requested impressions.
      *
      * @param int bannerId The banner id.
      */
@@ -127,6 +127,28 @@ class ZMBanners extends ZMObject {
                     VALUES (:id, 1, now())";
         }
         ZMRuntime::getDatabase()->updateObj($sql, array('id' => $bannerId), TABLE_BANNERS_HISTORY);
+    
+        $this->expireByImpressions($bannerId);
+    }
+
+    /**
+     * Expire banners that have reached their impressions limit.
+     *
+     * @param int bannerId The banner id.
+     */
+    public function expireByImpressions($bannerId) {
+        $banner = $this->getBannerForId($bannerId);
+        $maxImpressions = $banner->getExpiryImpressions();
+        if ($maxImpressions > 0) {
+            $sql = "SELECT SUM(banners_shown) AS total_shown
+                    FROM " . TABLE_BANNERS_HISTORY . "
+                    WHERE banners_id = :id";
+            $result = ZMRuntime::getDatabase()->querySingle($sql, array('id' => $banner->getId()), array(TABLE_BANNERS_HISTORY), ZMDatabase::MODEL_RAW);
+            if ($maxImpressions <= $result['total_shown']) {
+                $banner->setActive(false);
+            }
+            ZMRuntime::getDatabase()->updateModel(TABLE_BANNERS, $banner);
+        }
     }
 
     /**
