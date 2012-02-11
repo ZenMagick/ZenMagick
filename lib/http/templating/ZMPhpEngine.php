@@ -127,7 +127,7 @@ class ZMPhpEngine extends ZMObject implements EngineInterface {
 				extract($variables, EXTR_REFS | EXTR_SKIP);
 
         $tn = $template;
-        unset($template)
+        unset($template);
         ob_start();
         require $ptt;
         $result = ob_get_clean();
