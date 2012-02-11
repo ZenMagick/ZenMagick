@@ -122,12 +122,11 @@ class ZMPhpEngine extends ZMObject implements EngineInterface {
             }
         }
 
-        // keep in instance var to make it harder to break
+        // more precise would be an instance stack, i suppose
         $__fetchVars = array('template' => $template, 'variables' => $variables);
 
         // drop all from local scope
         unset($template);
-        unset($path);
         unset($variables);
 
         // prepare env
