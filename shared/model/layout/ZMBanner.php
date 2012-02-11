@@ -295,11 +295,14 @@ class ZMBanner extends ZMObject {
     public function setUrl($url) { $this->url = $url; }
 
     /**
-     * Set the banner status.
+     * Set the banner status and log the date the status changed.
      *
      * @param boolean $status The banner status.
      */
-    public function setActive($status) { $this->active = $status; }
+    public function setActive($status) {
+        $this->active = $status;
+        $this->setDateStatusChange(new \DateTime());
+    }
 
     /**
      * Set Group
