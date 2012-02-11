@@ -87,17 +87,17 @@ class ZMBanner extends ZMObject {
      */
     private $group;
     /**
-     * @var integer $expiresImpressions
+     * @var integer $expiryImpressions
      *
      * @ORM\Column(name="expires_impressions", type="integer", nullable=true)
      */
-    private $expiresImpressions;
+    private $expiryImpressions;
     /**
-     * @var datetime $expiresDate
+     * @var datetime $expiryDate
      *
      * @ORM\Column(name="expires_date", type="datetime", nullable=true)
      */
-    private $expiresDate;
+    private $expiryDate;
     /**
      * @var datetime $dateScheduled
      *
@@ -204,18 +204,18 @@ class ZMBanner extends ZMObject {
     public function getGroup() { return $this->group; }
 
    /**
-     * Get expiresImpressions
+     * Get expiryImpressions
      *
-     * @return integer $expiresImpressions
+     * @return integer $expiryImpressions
      */
-    public function getExpiresImpressions() { return $this->expiresImpressions; }
+    public function getExpiryImpressions() { return $this->expiryImpressions; }
 
     /**
-     * Get expiresDate
+     * Get expiryDate
      *
-     * @return datetime $expiresDate
+     * @return datetime $expiryDate
      */
-    public function getExpiresDate() { return $this->expiresDate; }
+    public function getExpiryDate() { return $this->expiryDate; }
 
     /**
      * Get dateScheduled
@@ -313,19 +313,18 @@ class ZMBanner extends ZMObject {
 
 
     /**
-     * Set expiresImpressions
+     * Set expiryImpressions
      *
-     * @author  DerManoMann
-     * @param integer $expiresImpressions
+     * @param integer $expiryImpressions
      */
-    public function setExpiresImpressions($expiresImpressions) { $this->expiresImpressions = $expiresImpressions; }
+    public function setExpiryImpressions($expiryImpressions) { $this->expiryImpressions = $expiryImpressions; }
 
     /**
-     * Set expiresDate
+     * Set expiryDate
      *
-     * @param datetime $expiresDate
+     * @param datetime $expiryDate
      */
-    public function setExpiresDate($expiresDate) { $this->expiresDate = $expiresDate; }
+    public function setExpiryDate($expiryDate) { $this->expiryDate = $expiryDate; }
 
     /**
      * Set dateScheduled
