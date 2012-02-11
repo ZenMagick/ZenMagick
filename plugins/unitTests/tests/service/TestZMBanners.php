@@ -53,4 +53,18 @@ class TestZMBanners extends ZMTestCase {
         $this->assertEqual(array(5, 9), $bannerIds);
     }
 
+    /**
+     * Test enabling and disabling all banners scheduled.
+     */
+    public function testBannerScheduling() {
+        $this->skip('skip until we have have better test data');
+    }
+
+    /**
+     * Test update banner click count.
+     */
+    public function testBannerUpdateClickCount() {
+        $this->skip('skip until we have have better test data');
+    }
+
 }
