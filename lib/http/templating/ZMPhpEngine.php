@@ -122,16 +122,19 @@ class ZMPhpEngine extends ZMObject implements EngineInterface {
             }
         }
 
-        $path = $this->view->getResourceResolver()->findResource($template, View::TEMPLATE);
+        $ptt = $this->view->getResourceResolver()->findResource($template, View::TEMPLATE);
 				extract($this->properties, EXTR_REFS | EXTR_SKIP);
 				extract($variables, EXTR_REFS | EXTR_SKIP);
+
+        $tn = $template;
+        unset($template)
         ob_start();
-        require $path;
+        require $ptt;
         $result = ob_get_clean();
 
         // if we have a cache, keep it
-        if (null != $this->templateCache && $this->templateCache->eligible($template)) {
-            $this->templateCache->save($template, $result);
+        if (null != $this->templateCache && $this->templateCache->eligible($tn)) {
+            $this->templateCache->save($tn, $result);
         }
 
         return $result;
