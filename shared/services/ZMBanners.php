@@ -65,7 +65,7 @@ class ZMBanners extends ZMObject {
      * @param boolean secure Optional flag to load just banners for secure/unsecure pages; default is <code>null</code> for all.
      * @return array A list of <code>ZMBanner</code> instances.
      */
-    public function getBannersForGroupName($group, $secure=null) {
+    public function getBannersForGroupName($group, $secure = false) {
         if (empty($group)) {
             return array();
         }
@@ -74,8 +74,8 @@ class ZMBanners extends ZMObject {
                 FROM " . TABLE_BANNERS . "
                 WHERE status = 1";
 
-        if (null !== $secure) {
-            $sql .= " AND banners_on_ssl = :ssl";
+        if ($secure) {
+            $sql .= " AND banners_on_ssl = 1";
         }
 
         // handle multiple groups
@@ -90,7 +90,7 @@ class ZMBanners extends ZMObject {
         }
         $sql .= " ORDER BY banners_sort_order";
 
-        return ZMRuntime::getDatabase()->fetchAll($sql, array('ssl' => $secure, 'group' => $groupList), TABLE_BANNERS, 'ZMBanner');
+        return ZMRuntime::getDatabase()->fetchAll($sql, array('group' => $groupList), TABLE_BANNERS, 'ZMBanner');
     }
 
     /**
