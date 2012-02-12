@@ -29,7 +29,7 @@ use Doctrine\ORM\Mapping AS ORM;
  * @ORM\Table(name="featured")
  * @ORM\Entity
  */
-class ZMFeatured extends ZMObject {
+class ZMFeature extends ZMObject {
     /**
      * @var integer $id
      *
