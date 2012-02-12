@@ -163,4 +163,26 @@ class ZMBanners extends ZMObject {
         ZMRuntime::getDatabase()->updateObj($sql, array('id' => $bannerId), TABLE_BANNERS_HISTORY);
     }
 
+    /**
+     * Start/stop all banners.
+     *
+     * Stops all banners scheduled for expiration
+     * and starts all banners scheduled to be started.
+     */
+    public function scheduleBanners() {
+        $sql = "SELECT banners_id, date_scheduled, expires_date
+                FROM " . TABLE_BANNERS;
+        foreach (ZMRuntime::getDatabase()->fetchAll($sql, array(), TABLE_BANNERS, 'ZMBanner') as $banner) {
+            $dateScheduled = $banner->getDateScheduled();
+            $expiryDate = $banner->getExpiryDate();
+            if (null != $dateScheduled && new \DateTime() >= $dateScheduled) {
+                $banner->setActive(true);
+                ZMRuntime::getDatabase()->updateModel(TABLE_BANNERS, $banner);
+            }
+            if (null != $expiryDate && new \DateTime() >= $expiryDate) {
+                $banner->setActive(false);
+                ZMRuntime::getDatabase()->updateModel(TABLE_BANNERS, $banner);
+            }
+        }
+    }
 }
