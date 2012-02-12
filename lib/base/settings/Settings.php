@@ -45,7 +45,7 @@ class Settings {
             if (empty($element)) {
                 throw new \RuntimeException(sprintf('invalid path: %s', $path));
             }
-            if (!array_key_exists($element, $current)) {
+            if (!$current || !array_key_exists($element, $current)) {
                 return null;
             }
             $last = &$current;
@@ -98,7 +98,7 @@ class Settings {
             if (empty($element)) {
                 throw new \RuntimeException(sprintf('invalid path: %s', $path));
             }
-            if (!array_key_exists($element, $current)) {
+            if (!$current || !array_key_exists($element, $current)) {
                 $current[$element] = array();
             }
             $last = &$current;
