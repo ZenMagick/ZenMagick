@@ -101,4 +101,33 @@ class ZMSalemaker extends ZMObject {
         return array('type' => $saleDiscountType, 'amount' => $saleDiscount);
     }
 
+
+    /**
+     * Start/stop all sales.
+     *
+     * Stops all sales scheduled for expiration
+     * and starts all sales scheduled to be started.
+     */
+    public function scheduleSales() {
+        $sql = "SELECT sale_id, sale_status, sale_date_start, sale_date_end
+                FROM " . TABLE_SALEMAKER_SALES;
+        foreach (ZMRuntime::getDatabase()->fetchAll($sql, array(), TABLE_SALEMAKER_SALES, 'ZMSaleMakerSale') as $sale) {
+            $dateStart = $sale->getDateStart();
+            $dateEnd = $sale->getDateEnd();
+            $active = $sale->getStatus();
+            $saleCategories = array_unique(explode(',', $sale->getCategoriesSelected()));
+            if (!$active && null != $dateStart && new \DateTime() >= $dateStart) {
+                $sale->setActive(true);
+                // @todo update product prices via product price sorter for $saleCategories?
+                zen_update_salemaker_product_prices($sale->getId());
+                ZMRuntime::getDatabase()->updateModel(TABLE_BANNERS, $sale);
+            }
+            // @todo the original code also disabled sales tht haven't started yet. is that something we should worry about?
+            if ($active && null != $dateEnd && new \DateTime() >= $dateEnd) {
+                $sale->setActive(false);
+                // @todo update product prices via product price sorter for $saleCategories?
+                ZMRuntime::getDatabase()->updateModel(TABLE_SALEMAKER_SALES, $sale);
+            }
+        }
+    }
 }
