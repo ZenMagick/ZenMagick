@@ -122,16 +122,25 @@ class ZMPhpEngine extends ZMObject implements EngineInterface {
             }
         }
 
-        $path = $this->view->getResourceResolver()->findResource($template, View::TEMPLATE);
+        // more precise would be an instance stack, i suppose
+        $__fetchVars = array('template' => $template, 'variables' => $variables);
+
+        // drop all from local scope
+        unset($template);
+        unset($variables);
+
+        // prepare env
 				extract($this->properties, EXTR_REFS | EXTR_SKIP);
-				extract($variables, EXTR_REFS | EXTR_SKIP);
+				extract($__fetchVars['variables'], EXTR_REFS | EXTR_SKIP);
+        $__fetchVars['path'] = $this->view->getResourceResolver()->findResource($__fetchVars['template'], View::TEMPLATE);
+
         ob_start();
-        require $path;
+        require $__fetchVars['path'];
         $result = ob_get_clean();
 
         // if we have a cache, keep it
-        if (null != $this->templateCache && $this->templateCache->eligible($template)) {
-            $this->templateCache->save($template, $result);
+        if (null != $this->templateCache && $this->templateCache->eligible($__fetchVars['template'])) {
+            $this->templateCache->save($__fetchVars['template'], $result);
         }
 
         return $result;

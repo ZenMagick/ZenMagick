@@ -131,7 +131,7 @@ class ZMBannerBlockWidget extends Widget {
             $content = '';
             if (!ZMLangUtils::isEmpty($banner->getText())) {
                 // use text if not empty
-                $html = $banner->getText();
+                $content .= $banner->getText();
             } else {
                 $net = $request->getToolbox()->net;
                 $slash = Runtime::getSettings()->get('zenmagick.mvc.html.xhtml') ? '/' : '';

@@ -23,13 +23,13 @@ use zenmagick\base\ZMObject;
 use Doctrine\ORM\Mapping AS ORM;
 
 /**
- * A featured product
+ * A featured product.
  *
  * @package zenmagick.store.shared.model.catalog
  * @ORM\Table(name="featured")
  * @ORM\Entity
  */
-class ZMFeatured extends ZMObject {
+class ZMFeature extends ZMObject {
     /**
      * @var integer $id
      *
@@ -177,14 +177,17 @@ class ZMFeatured extends ZMObject {
      *
      * @param datetime $statusChangeDate
      */
-    public function setstatusChangeDate($statusChangeDate) { $this->statusChangeDate = $statusChangeDate; }
+    public function setStatusChangeDate($statusChangeDate) { $this->statusChangeDate = $statusChangeDate; }
 
     /**
      * Set the featured product status.
      *
      * @param integer $status
      */
-    public function setStatus($status) { $this->status = $status; }
+    public function setStatus($status) {
+        $this->status = $status;
+        $this->setStatusChangeDate(new \DateTime());
+    }
 
     /**
      * Set the date the featured product will be available.

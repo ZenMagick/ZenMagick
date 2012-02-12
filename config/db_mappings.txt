@@ -375,7 +375,7 @@ array(
         'dateScheduled' => 'column=date_scheduled;type=datetime',
         'dateAdded' => 'column=date_added;type=datetime',
         'dateStatusChange' => 'column=date_status_change;type=datetime',
-        'status' => 'column=status;type=boolean',
+        'active' => 'column=status;type=boolean',
         'newWin' => 'column=banners_open_new_windows;type=boolean',
         'ssl' => 'column=banners_on_ssl;type=boolean',
         'sortOrder' => 'column=banners_sort_order;type=integer'

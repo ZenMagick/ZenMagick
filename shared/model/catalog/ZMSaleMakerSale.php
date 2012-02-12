@@ -208,42 +208,55 @@ class SalemakerSale extends ZMObject {
      *
      * @return date $dateStart
      */
-    public function getDateStart() { return $this->dateStart; }
+    public function getDateStart() {
+        return $this->dateStart == ZMDatabase::NULL_DATE ? null : $this->dateStart;
+    }
 
     /**
      * Get dateEnd
      *
      * @return date $dateEnd
      */
-    public function getDateEnd() { return $this->dateEnd; }
+    public function getDateEnd() {
+        return $this->dateEnd == ZMDatabase::NULL_DATE ? null : $this->dateEnd;
+    }
 
     /**
      * Get dateAdded
      *
      * @return date $dateAdded
      */
-    public function getDateAdded() { return $this->dateAdded; }
+    public function getDateAdded() {
+        return $this->dateAdded == ZMDatabase::NULL_DATE ? null : $this->dateAdded;
+    }
 
     /**
      * Get dateLastModified
      *
      * @return date $dateLastModified
      */
-    public function getDateLastModified() { return $this->dateLastModified; }
+    public function getDateLastModified() {
+        return $this->dateLastModified == ZMDatabase::NULL_DATE ? null : $this->dateLastModified;
+    }
 
     /**
      * Get dateStatusChange
      *
      * @return date $dateStatusChange
      */
-    public function getDateStatusChange() { return $this->dateStatusChange; }
+    public function getDateStatusChange() {
+        return $this->dateStatusChange == ZMDatabase::NULL_DATE ? null : $this->dateStatusChange;
+    }
 
     /**
      * Set status
      *
      * @param boolean $status
      */
-    public function setStatus($status) { $this->status = $status; }
+    public function setStatus($status) {
+        $this->status = $status;
+        $this->setDateStatusChange(new \DateTime());
+    }
 
     /**
      * Set name

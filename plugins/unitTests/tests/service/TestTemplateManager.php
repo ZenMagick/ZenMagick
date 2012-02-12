@@ -26,7 +26,7 @@
  * @package org.zenmagick.plugins.unitTests.tests
  * @author DerManoMann <mano@zenmagick.org>
  */
-class TestZMTemplateManager extends ZMTestCase {
+class TestTemplateManager extends ZMTestCase {
 
     /**
      * Test field length.

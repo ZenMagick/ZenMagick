@@ -192,11 +192,14 @@ class ZMSpecial extends ZMObject {
     public function setStatusChangeDate($statusChangeDate) { $this->statusChangeDate = $statusChangeDate; }
 
     /**
-     * Set status
+     * Set status and log the date the status changed.
      *
      * @param integer $status
      */
-    public function setStatus($status) { $this->status = $status; }
+    public function setStatus($status) {
+        $this->status = $status;
+        $this->StatusChangeDate(new \DateTime());
+    }
 
     /**
      * Set availableDate

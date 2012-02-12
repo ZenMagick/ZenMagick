@@ -65,7 +65,7 @@ class ZMBanners extends ZMObject {
      * @param boolean secure Optional flag to load just banners for secure/unsecure pages; default is <code>null</code> for all.
      * @return array A list of <code>ZMBanner</code> instances.
      */
-    public function getBannersForGroupName($group, $secure=null) {
+    public function getBannersForGroupName($group, $secure = false) {
         if (empty($group)) {
             return array();
         }
@@ -74,8 +74,8 @@ class ZMBanners extends ZMObject {
                 FROM " . TABLE_BANNERS . "
                 WHERE status = 1";
 
-        if (null !== $secure) {
-            $sql .= " AND banners_on_ssl = :ssl";
+        if ($secure) {
+            $sql .= " AND banners_on_ssl = 1";
         }
 
         // handle multiple groups
@@ -90,7 +90,7 @@ class ZMBanners extends ZMObject {
         }
         $sql .= " ORDER BY banners_sort_order";
 
-        return ZMRuntime::getDatabase()->fetchAll($sql, array('ssl' => $secure, 'group' => $groupList), TABLE_BANNERS, 'ZMBanner');
+        return ZMRuntime::getDatabase()->fetchAll($sql, array('group' => $groupList), TABLE_BANNERS, 'ZMBanner');
     }
 
     /**
@@ -107,7 +107,7 @@ class ZMBanners extends ZMObject {
     }
 
     /**
-     * Update banner display count.
+     * Update banner display count and expire those that have reached the requested impressions.
      *
      * @param int bannerId The banner id.
      */
@@ -127,6 +127,28 @@ class ZMBanners extends ZMObject {
                     VALUES (:id, 1, now())";
         }
         ZMRuntime::getDatabase()->updateObj($sql, array('id' => $bannerId), TABLE_BANNERS_HISTORY);
+    
+        $this->expireByImpressions($bannerId);
+    }
+
+    /**
+     * Expire banners that have reached their impressions limit.
+     *
+     * @param int bannerId The banner id.
+     */
+    public function expireByImpressions($bannerId) {
+        $banner = $this->getBannerForId($bannerId);
+        $maxImpressions = $banner->getExpiryImpressions();
+        if ($maxImpressions > 0) {
+            $sql = "SELECT SUM(banners_shown) AS total_shown
+                    FROM " . TABLE_BANNERS_HISTORY . "
+                    WHERE banners_id = :id";
+            $result = ZMRuntime::getDatabase()->querySingle($sql, array('id' => $banner->getId()), array(TABLE_BANNERS_HISTORY), ZMDatabase::MODEL_RAW);
+            if ($maxImpressions <= $result['total_shown']) {
+                $banner->setActive(false);
+            }
+            ZMRuntime::getDatabase()->updateModel(TABLE_BANNERS, $banner);
+        }
     }
 
     /**
@@ -141,4 +163,26 @@ class ZMBanners extends ZMObject {
         ZMRuntime::getDatabase()->updateObj($sql, array('id' => $bannerId), TABLE_BANNERS_HISTORY);
     }
 
+    /**
+     * Start/stop all banners.
+     *
+     * Stops all banners scheduled for expiration
+     * and starts all banners scheduled to be started.
+     */
+    public function scheduleBanners() {
+        $sql = "SELECT banners_id, date_scheduled, expires_date
+                FROM " . TABLE_BANNERS;
+        foreach (ZMRuntime::getDatabase()->fetchAll($sql, array(), TABLE_BANNERS, 'ZMBanner') as $banner) {
+            $dateScheduled = $banner->getDateScheduled();
+            $expiryDate = $banner->getExpiryDate();
+            if (null != $dateScheduled && new \DateTime() >= $dateScheduled) {
+                $banner->setActive(true);
+                ZMRuntime::getDatabase()->updateModel(TABLE_BANNERS, $banner);
+            }
+            if (null != $expiryDate && new \DateTime() >= $expiryDate) {
+                $banner->setActive(false);
+                ZMRuntime::getDatabase()->updateModel(TABLE_BANNERS, $banner);
+            }
+        }
+    }
 }

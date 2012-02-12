@@ -56,7 +56,7 @@ if (TRACEBS) {echo 'post url decode: '.Runtime::getExecutionTime()."<BR>";}
 
         // load stuff that really needs to be global!
         if (Runtime::getSettings()->get('zenmagick.base.plugins.enabled', true)) {
-            foreach ($container->get('pluginService')->getAllPlugins(ZMSettings::get('zenmagick.base.context')) as $plugin) {
+            foreach ($container->get('pluginService')->getAllPlugins(Runtime::getContext()) as $plugin) {
                 foreach ($plugin->getGlobal($_zm_request) as $_zm_file) {
                     include_once $_zm_file;
                 }
