@@ -81,7 +81,8 @@ class TestLocaleScanner extends ZMTestCase {
         if ($this->assertEqual(1, count($map))) {
             $expected = array(
               'Yooo' => array('msg' => 'Yooo', 'plural' => null, 'context' => null, 'filename' => 'l10n-mixed\l10n-test1.phpx', 'line' => 5),
-              'Foo %s Deng' =>  array('msg' => 'Foo %s Deng', 'plural' => null, 'context' => null, 'filename' => 'l10n-mixed\l10n-test1.phpx', 'line' => 8)
+              'Foo %s Deng' =>  array('msg' => 'Foo %s Deng', 'plural' => null, 'context' => null, 'filename' => 'l10n-mixed\l10n-test1.phpx', 'line' => 8),
+              'Hey %s, nice to see you again. <br /><br />Welcome back.' =>  array('msg' => 'Hey %s, nice to see you again. <br /><br />Welcome back.', 'plural' => null, 'context' => null, 'filename' => 'l10n-mixed\l10n-test1.phpx', 'line' => 15)
             );
             $this->assertEqual($expected, array_pop($map));
         }
@@ -106,7 +107,8 @@ EOT;
         // try to parse again...
         $expectMap = array(
             "Yooo" => "Yooo",
-            "Foo %s Deng" => "Foo %s Deng"
+            "Foo %s Deng" => "Foo %s Deng",
+            "Hey %s, nice to see you again. <br /><br />Welcome back." => "Hey %s, nice to see you again. <br /><br />Welcome back."
         );
         $parsedYaml = Yaml::parse($yaml);
         $this->assertEqual($expectMap, $parsedYaml);
