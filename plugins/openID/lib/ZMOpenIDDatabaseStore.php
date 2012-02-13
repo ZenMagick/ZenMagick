@@ -44,19 +44,19 @@ class ZMOpenIDDatabaseStore extends Auth_OpenID_OpenIDStore {
 
         ZMDbTableMapper::instance()->setMappingForTable('zm_openid_associations',
             array(
-                'server_url' => 'column=server_url;type=string;key=true',
-                'handle' => 'column=handle;type=string;key=true',
-                'secret' => 'column=secret;type=blob',
-                'issued' => 'column=issued;type=integer',
-                'lifetime' => 'column=lifetime;type=integer',
-                'type' => 'column=assoc_type;type=string',
+                'server_url' => array('column' => 'server_url', 'type' => 'string', 'key' => true),
+                'handle' => array('column' => 'handle', 'type' => 'string', 'key' => true),
+                'secret' => array('column' => 'secret', 'type' => 'blob'),
+                'issued' => array('column' => 'issued', 'type' => 'integer'),
+                'lifetime' => array('column' => 'lifetime', 'type' => 'integer'),
+                'type' => array('column' => 'assoc_type', 'type' => 'string'),
             )
         );
         ZMDbTableMapper::instance()->setMappingForTable('zm_openid_nonces',
             array(
-                'server_url' => 'column=server_url;type=string;key=true',
-                'issued' => 'column=issued;type=integer;key=true',
-                'salt' => 'column=salt;type=string;key=true',
+                'server_url' => array('column' => 'server_url', 'type' => 'string', 'key' => true),
+                'issued' => array('column' => 'issued', 'type' => 'integer', 'key' => true),
+                'salt' => array('column' => 'salt', 'type' => 'string', 'key' => true),
             )
         );
     }

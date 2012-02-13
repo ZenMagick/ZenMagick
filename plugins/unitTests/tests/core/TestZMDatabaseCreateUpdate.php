@@ -65,11 +65,11 @@ class TestZMDatabaseCreateUpdate extends ZMTestCase {
     protected function registerTableMapping() {
         ZMDbTableMapper::instance()->setMappingForTable('create_update_tests',
             array(
-                'myId' => 'column=row_id;type=integer;key=true',
-                'name' => 'column=name;type=string',
-                'className' => 'column=class_name;type=string',
-                'methodName' => 'column=method_name;type=string',
-                'parameterList' => 'column=parameter_list;type=string',
+                'myId' => array('column' => 'row_id', 'type' => 'integer', 'key' => true),
+                'name' => array('column' => 'name', 'type' => 'string'),
+                'className' => array('column' => 'class_name', 'type' => 'string'),
+                'methodName' => array('column' => 'method_name', 'type' => 'string'),
+                'parameterList' => array('column' => 'parameter_list', 'type' => 'string'),
             )
         );
     }

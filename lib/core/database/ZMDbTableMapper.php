@@ -35,8 +35,8 @@ use zenmagick\base\logging\Logging;
  * <p>A simple mapping could look like this:</p>
  * <code><pre>
  *   'products_to_categories' => array(
- *       'productId' => 'column=products_id;type=integer;key=true',
- *       'categoryId' => 'column=categories_id;type=integer;key=true',
+ *       'productId' => array('column' => 'products_id', 'type' = 'integer', 'key' => true),
+ *       'categoryId' => array('column' => categories_id', 'type' = 'integer', 'key' => true),
  *    ),
  * </pre></code>
  *
@@ -84,7 +84,7 @@ class ZMDbTableMapper extends ZMObject {
         // load from file
         eval('$mappings = '.file_get_contents(Runtime::getInstallationPath().'/config/db_mappings.txt'));
         foreach ($mappings as $table => $mapping) {
-            $this->tableMap_[$table] = $this->parseTable($mapping);
+            $this->setMappingForTable($table, $mapping);
         }
 
     }
@@ -100,34 +100,6 @@ class ZMDbTableMapper extends ZMObject {
         $this->tablePrefix_ = $tablePrefix;
     }
 
-    /**
-     * Parse mapping for a single table.
-     *
-     * @param array mapping The mapping.
-     * @return array The parsed mapping.
-     */
-    protected function parseTable($mapping) {
-        $defaults = array('key' => false, 'auto' => false, 'custom' => false, 'default' => null);
-        $tableInfo = array();
-        if (null != $mapping) {
-            foreach ($mapping as $property => $info) {
-                $arr = array();
-                parse_str(str_replace(';', '&', $info), $arr);
-                $tableInfo[$property] = array_merge($defaults, $arr);
-                $tableInfo[$property]['property'] = $property;
-                // handle boolean values
-                foreach ($tableInfo[$property] as $name => $value) {
-                    if ('false' == $value) {
-                        $tableInfo[$property][$name] = false;
-                    } else if ('true' == $value) {
-                        $tableInfo[$property][$name] = true;
-                    }
-                }
-            }
-        }
-
-        return $tableInfo;
-    }
 
     /**
      * Get a table map.
@@ -163,25 +135,11 @@ class ZMDbTableMapper extends ZMObject {
      */
     public function buildTableMapping($table) {
         try {
-            $tableMetaData = ZMRuntime::getDatabase()->getMetaData($table);
+            return  ZMRuntime::getDatabase()->getMetaData($table);
         } catch (\ZMDatabaseException $dbe) {
             Runtime::getLogging()->dump($dbe, 'missing table', Logging::TRACE);
             return null;
         }
-
-        $mapping = array();
-        foreach ($tableMetaData as $column) {
-            $line = 'column=' . $column['name'] . ';type=' . $column['type'];
-            if ($column['key']) {
-                $line .= ';key=true';
-            }
-            if ($column['auto']) {
-                $line .= ';auto=true';
-            }
-            $mapping[$column['name']] = $line;
-        }
-
-        return $mapping;
     }
 
     /**
@@ -216,7 +174,14 @@ class ZMDbTableMapper extends ZMObject {
      * @param array The new mapping.
      */
     public function setMappingForTable($table, $mapping) {
-        $this->tableMap_[$table] = $this->parseTable($mapping);
+        $defaults = array('key' => false, 'auto' => false, 'custom' => false, 'default' => null);
+        $tableInfo = array();
+        foreach ((array)$mapping as $property => $info) {
+            $tableInfo[$property] = array_merge($defaults, $info);
+            $tableInfo[$property]['property'] = $property;
+        }
+
+        $this->tableMap_[$table] = $tableInfo;
     }
 
     /**

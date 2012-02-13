@@ -47,15 +47,15 @@ class ZMWhoIsOnlinePlugin extends Plugin {
         parent::init();
 
         ZMDbTableMapper::instance()->setMappingForTable('whos_online', array(
-            'accountId' => 'column=customer_id;type=integer',
-            'fullName' => 'column=full_name;type=string',
-            'sessionId' => 'column=session_id;type=string',
-            'ipAddress' => 'column=ip_address;type=string',
-            'sessionStartTime' => 'column=time_entry;type=string',
-            'lastRequestTime' => 'column=time_last_click;type=string',
-            'lastUrl' => 'column=last_page_url;type=string',
-            'hostAddress' => 'column=host_address;type=string',
-            'userAgent' => 'column=user_agent;type=string',
+            'accountId' => array('column' => 'customer_id', 'type' => 'integer'),
+            'fullName' => array('column' => 'full_name', 'type' => 'string'),
+            'sessionId' => array('column' => 'session_id', 'type' => 'string'),
+            'ipAddress' => array('column' => 'ip_address', 'type' => 'string'),
+            'sessionStartTime' => array('column' => 'time_entry', 'type' => 'string'),
+            'lastRequestTime' => array('column' => 'time_last_click', 'type' => 'string'),
+            'lastUrl' => array('column' => 'last_page_url', 'type' => 'string'),
+            'hostAddress' => array('column' => 'host_address', 'type' => 'string'),
+            'userAgent' => array('column' => 'user_agent', 'type' => 'string'),
         ));
     }
 

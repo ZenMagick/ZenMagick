@@ -43,67 +43,67 @@ class ZMMusicManager extends ZMObject {
         parent::__construct();
         $mappings = array(
             'media_clips' => array(
-                'mediaItemId' => 'column=clip_id;type=integer;key=true;auto=true',
-                'mediaId' => 'column=media_id;type=integer',
-                'mediaTypeId' => 'column=clip_type;type=integer',
-                'filename' => 'column=clip_filename;type=string',
-                'dateAdded' => 'column=date_added;type=datetime',
-                'lastModified' => 'column=last_modified;type=datetime'
+                'mediaItemId' => array('column' => 'clip_id', 'type' => 'integer', 'key' => true, 'auto' => true),
+                'mediaId' => array('column' => 'media_id', 'type' => 'integer'),
+                'mediaTypeId' => array('column' => 'clip_type', 'type' => 'integer'),
+                'filename' => array('column' => 'clip_filename', 'type' => 'string'),
+                'dateAdded' => array('column' => 'date_added', 'type' => 'datetime'),
+                'lastModified' => array('column' => 'last_modified', 'type' => 'datetime')
             ),
             'media_manager' => array(
-                'collectionId' => 'column=media_id;type=integer;key=true;auto=true',
-                'name' => 'column=media_name;type=string',
-                'lastModified' => 'column=last_modified;type=datetime',
-                'dateAdded' => 'column=date_added;type=datetime'
+                'collectionId' => array('column' => 'media_id', 'type' => 'integer', 'key' => true, 'auto' => true),
+                'name' => array('column' => 'media_name', 'type' => 'string'),
+                'lastModified' => array('column' => 'last_modified', 'type' => 'datetime'),
+                'dateAdded' => array('column' => 'date_added', 'type' => 'datetime')
             ),
             'media_to_products' => array(
-                'mediaId' => 'column=media_id;type=integer',
-                'productId' => 'column=product_id;type=integer'
+                'mediaId' => array('column' => 'media_id', 'type' => 'integer'),
+                'productId' => array('column' => 'product_id', 'type' => 'integer')
             ),
             'media_types' => array(
-                'mediaTypeId' => 'column=type_id;type=integer;key=true;auto=true',
-                'name' => 'column=type_name;type=string',
-                'extentsion' => 'column=type_ext;type=string'
+                'mediaTypeId' => array('column' => 'type_id', 'type' => 'integer', 'key' => true, 'auto' => true),
+                'name' => array('column' => 'type_name', 'type' => 'string'),
+                'extentsion' => array('column' => 'type_ext', 'type' => 'string')
             ),
             'music_genre' => array(
-                'genreId' => 'column=music_genre_id;type=integer;key=true;auto=true',
-                'name' => 'column=music_genre_name;type=string',
-                'dateAdded' => 'column=date_added;type=datetime',
-                'lastModified' => 'column=last_modified;type=datetime'
+                'genreId' => array('column' => 'music_genre_id', 'type' => 'integer', 'key' => true, 'auto' => true),
+                'name' => array('column' => 'music_genre_name', 'type' => 'string'),
+                'dateAdded' => array('column' => 'date_added', 'type' => 'datetime'),
+                'lastModified' => array('column' => 'last_modified', 'type' => 'datetime')
             ),
             'product_music_extra' => array(
-                'productId' => 'column=products_id;type=integer;key=true',
-                'artistId' => 'column=artists_id;type=integer',
-                'recordCompanyId' => 'column=record_company_id;type=integer',
-                'genreId' => 'column=music_genre_id;type=integer'
+                'productId' => array('column' => 'products_id', 'type' => 'integer', 'key' => true),
+                'artistId' => array('column' => 'artists_id', 'type' => 'integer'),
+                'recordCompanyId' => array('column' => 'record_company_id', 'type' => 'integer'),
+                'genreId' => array('column' => 'music_genre_id', 'type' => 'integer')
             ),
             'record_artists' => array(
-                'artistId' => 'column=artists_id;type=integer;key=true;auto=true',
-                'name' => 'column=artists_name;type=string',
-                'image' => 'column=artists_image;type=string',
-                'dateAdded' => 'column=date_added;type=datetime',
-                'lastModified' => 'column=last_modified;type=datetime'
+                'artistId' => array('column' => 'artists_id', 'type' => 'integer', 'key' => true, 'auto' => true),
+                'name' => array('column' => 'artists_name', 'type' => 'string'),
+                'image' => array('column' => 'artists_image', 'type' => 'string'),
+                'dateAdded' => array('column' => 'date_added', 'type' => 'datetime'),
+                'lastModified' => array('column' => 'last_modified', 'type' => 'datetime')
             ),
             'record_artists_info' => array(
-                'artistId' => 'column=artists_id;type=integer;key=true',
-                'languageId' => 'column=languages_id;type=integer;key=true',
-                'url' => 'column=artists_url;type=string',
-                'urlClicked' => 'column=url_clicked;type=integer',
-                'dateLastClick' => 'column=date_last_click;type=datetime'
+                'artistId' => array('column' => 'artists_id', 'type' => 'integer', 'key' => true),
+                'languageId' => array('column' => 'languages_id', 'type' => 'integer', 'key' => true),
+                'url' => array('column' => 'artists_url', 'type' => 'string'),
+                'urlClicked' => array('column' => 'url_clicked', 'type' => 'integer'),
+                'dateLastClick' => array('column' => 'date_last_click', 'type' => 'datetime')
             ),
             'record_company' => array(
-                'recordCompanyId' => 'column=record_company_id;type=integer;key=true;auto=true',
-                'name' => 'column=record_company_name;type=string',
-                'image' => 'column=record_company_image;type=string',
-                'dateAdded' => 'column=date_added;type=datetime',
-                'lastModified' => 'column=last_modified;type=datetime'
+                'recordCompanyId' => array('column' => 'record_company_id', 'type' => 'integer', 'key' => true, 'auto' => true),
+                'name' => array('column' => 'record_company_name', 'type' => 'string'),
+                'image' => array('column' => 'record_company_image', 'type' => 'string'),
+                'dateAdded' => array('column' => 'date_added', 'type' => 'datetime'),
+                'lastModified' => array('column' => 'last_modified', 'type' => 'datetime')
             ),
             'record_company_info' => array(
-                'recordCompanyId' => 'column=record_company_id;type=integer;key=true',
-                'languageId' => 'column=languages_id;type=integer;key=true',
-                'url' => 'column=record_company_url;type=string',
-                'urlClicked' => 'column=url_clicked;type=integer',
-                'dateLastClick' => 'column=date_last_click;type=datetime'
+                'recordCompanyId' => array('column' => 'record_company_id', 'type' => 'integer', 'key' => true),
+                'languageId' => array('column' => 'languages_id', 'type' => 'integer', 'key' => true),
+                'url' => array('column' => 'record_company_url', 'type' => 'string'),
+                'urlClicked' => array('column' => 'url_clicked', 'type' => 'integer'),
+                'dateLastClick' => array('column' => 'date_last_click', 'type' => 'datetime')
             )
         );
         foreach ($mappings as $table => $mapping) {

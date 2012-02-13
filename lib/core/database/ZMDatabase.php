@@ -608,8 +608,9 @@ class ZMDatabase extends Connection {
 
         foreach($tableDetails->getColumns() as $column) {
             $meta[$column->getName()] = array(
+                'property' => $column->getName(),
                 'type' => $column->getType()->getName(),
-                'name' => $column->getName(),
+                'column' => $column->getName(),
                 'key' => in_array($column->getName(), $keys),
                 'auto' => $column->getAutoincrement(),
                 'maxLen' => $column->getLength(),/* TODO doesn't work for integers*/

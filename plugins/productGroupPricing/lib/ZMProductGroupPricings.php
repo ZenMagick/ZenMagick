@@ -41,14 +41,14 @@ class ZMProductGroupPricings extends ZMObject {
     public function __construct() {
         parent::__construct();
         ZMDbTableMapper::instance()->setMappingForTable('product_group_pricing', array(
-            'id' => 'column=group_pricing_id;type=integer;key=true;auto=true',
-            'productId' => 'column=products_id;type=integer',
-            'groupId' => 'column=group_id;type=integer',
-            'discount' => 'column=discount;type=float',
-            'type' => 'column=type;type=string',
-            'allowSaleSpecial' => 'column=allow_sale_special;type=boolean',
-            'startDate' => 'column=start_date;type=datetime',
-            'endDate' => 'column=end_date;type=datetime',
+            'id' => array('column' => 'group_pricing_id', 'type' => 'integer', 'key' => true, 'auto' => true),
+            'productId' => array('column' => 'products_id', 'type' => 'integer'),
+            'groupId' => array('column' => 'group_id', 'type' => 'integer'),
+            'discount' => array('column' => 'discount', 'type' => 'float'),
+            'type' => array('column' => 'type', 'type' => 'string'),
+            'allowSaleSpecial' => array('column' => 'allow_sale_special', 'type' => 'boolean'),
+            'startDate' => array('column' => 'start_date', 'type' => 'datetime'),
+            'endDate' => array('column' => 'end_date', 'type' => 'datetime'),
         ));
     }
 
