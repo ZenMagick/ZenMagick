@@ -81,7 +81,6 @@ class ToolboxMetaTags extends ToolboxTool {
         }
 
         // special handling for categories, manufacturers
-        $controller = $this->getRequest()->getController();
         if ('index' == $requestId) {
             $title = Runtime::getSettings()->get('storeName');
         } else if (\ZMLangUtils::startsWith($requestId, 'product_')) {
