@@ -79,7 +79,7 @@ class ZMProductGroupPricing extends ZMObject {
             // default to current date
             $startDate = new DateTime();
         }
-        $localeService = $this->container->get('localeSercice');
+        $localeService = $this->container->get('localeService');
         $this->startDate_ = DateTime::createFromFormat($localeService->getLocale()->getFormat('date', 'short'), $startDate);
         $this->endDate_ = DateTime::createFromFormat($localeService->getLocale()->getFormat('date', 'short'), $request->getParameter('endDate'));
     }
