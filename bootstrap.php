@@ -161,6 +161,7 @@ if (TRACEBS) {echo 'post app event listner: '.Runtime::getExecutionTime()."<BR>"
 
         // hook up default event listeners
         foreach ($settingsService->get('zenmagick.base.events.listeners', array()) as $_zm_elc) {
+            if (ZM_CLI_CALL && trim($_zm_elc) == 'zenmagick\http\EventListener') continue;
             if (null != ($_zm_el = Beans::getBean(trim($_zm_elc)))) {
                 Runtime::getEventDispatcher()->listen($_zm_el);
             }
