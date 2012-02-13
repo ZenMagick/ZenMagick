@@ -22,6 +22,7 @@
 namespace zenmagick\http\request\rewriter;
 
 use zenmagick\base\Runtime;
+use zenmagick\base\ZMObject;
 use zenmagick\http\request\UrlRewriter;
 
 /**
@@ -29,16 +30,14 @@ use zenmagick\http\request\UrlRewriter;
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class RoutingUrlRewriter implements UrlRewriter {
+class RoutingUrlRewriter extends ZMObject implements UrlRewriter {
 
     /**
      * {@inheritDoc}
      */
     public function decode($request) {
-        // try router first
-        $routerMatch = $request->getRouterMatch();
-
-        if (null != $routerMatch) {
+        $routeResolver = $this->container->get('routeResolver');
+        if (null != ($routerMatch = $routeResolver->getRouterMatch($request->getUri()))) {
             $request->setRequestId($routerMatch['_route']);
             $parameterMap = $request->getParameterMap();
             // grab things not set and not prefixed with '_'
@@ -57,15 +56,13 @@ class RoutingUrlRewriter implements UrlRewriter {
      * {@inheritDoc}
      */
     public function rewrite($request, $args) {
-        if (Runtime::getSettings()->get('zenmagick.http.routing.enabled', true)) {
-            $requestId = $args['requestId'];
-            $router = $request->getRouter();
-            if (null != ($route = $router->getRouteCollection()->get($requestId))) {
-                $requirements = array('_scheme' => $args['secure'] ? 'https' : 'http');
-                parse_str($args['params'], $parameters);
-                // use generator directly to avoid having to customize that as well
-                return $router->getGenerator()->generate($requestId, $parameters, false, $requirements);
-            }
+        $requestId = $args['requestId'];
+        $routeResolver = $this->container->get('routeResolver');
+        if (null != ($route = $routeResolver->getRouteForId($requestId))) {
+            $requirements = array('_scheme' => $args['secure'] ? 'https' : 'http');
+            parse_str($args['params'], $parameters);
+            // use generator directly to avoid having to customize that as well
+            return $routeResolver->getRouter()->getGenerator()->generate($requestId, $parameters, false, $requirements);
         }
 
         return false;

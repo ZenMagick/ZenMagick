@@ -4,8 +4,15 @@
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://symfony.com/schema/routing http://symfony.com/schema/routing/routing-1.0.xsd">
 
+    <!-- global routes -->
+    <route id="zenmagick_global_routing" pattern="">
+      <option key="view:login">redirect://login</option>
+    </route>
+
     <route id="login" pattern="/login">
         <default key="_controller">zenmagick\apps\store\storefront\controller\LoginController</default>
+        <option key="view:account">redirect://account</option>
+        <option key="view:success">redirect://account</option>
     </route>
 
 </routes>

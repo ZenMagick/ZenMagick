@@ -73,7 +73,7 @@ class Dispatcher extends ZMObject {
      * @return View The view or <code>null</code>.
      */
     public function handleRequest($request) {
-        $controller = $request->getController();
+        $controller = $this->container->get('routeResolver')->getControllerForRequest($request);
         $view = null;
 
         try {

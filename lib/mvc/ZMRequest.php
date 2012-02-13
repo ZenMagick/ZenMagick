@@ -29,7 +29,6 @@ use zenmagick\base\Toolbox;
 use zenmagick\base\ZMObject;
 use zenmagick\base\logging\Logging;
 use zenmagick\base\events\VetoableEvent;
-use zenmagick\http\routing\loader\YamlLoader;
 
 
 /**
@@ -58,8 +57,6 @@ class ZMRequest extends ZMObject {
     private $toolbox_;
     private $parameter_;
     private $method_;
-    private $router_;
-    private $routerMatch_;
 
 
     /**
@@ -85,16 +82,6 @@ class ZMRequest extends ZMObject {
         $this->setMethod(array_key_exists('REQUEST_METHOD', $_SERVER) ? $_SERVER['REQUEST_METHOD'] : 'GET');
         $this->controller_ = null;
         $this->toolbox_ = null;
-        $scheme = $this->isSecure() ? 'https' : 'http';
-        // empty router
-        $requestContext = new RequestContext($this->getContext(), $this->getMethod(), $this->getHostname(), $scheme);
-        $options = array(
-            'generator_class' => 'zenmagick\http\routing\generator\UrlGenerator',
-            //'matcher_class' => 'Symfony\\Component\\Routing\\Matcher\\RedirectableUrlMatcher'
-        );
-
-        $this->router_ = new Router(new YamlLoader(), '', $options, $requestContext);
-        $this->routerMatch_ = false;
     }
 
     /**
@@ -107,40 +94,6 @@ class ZMRequest extends ZMObject {
         return Runtime::getContainer()->get('request');
     }
 
-
-    /**
-     * Get the router.
-     *
-     * @return Router The router.
-     */
-    public function getRouter() {
-        return $this->router_;
-    }
-
-    /**
-     * Get router match for this request.
-     *
-     * @return array The match or <code>null</code>.
-     */
-    public function getRouterMatch() {
-        if (!Runtime::getSettings()->get('zenmagick.http.routing.enabled', true)) {
-            return null;
-        }
-
-        if (false === $this->routerMatch_) {
-            // try router first
-            $this->routerMatch_ = null;
-            try {
-                // XXX: should this be handled by the router??
-                $uri = preg_replace('#^'.$this->getContext().'#', '', $this->getUri());
-                $this->routerMatch_ = $this->router_->match($uri);
-            } catch (Exception $e) {
-                Runtime::getLogging()->dump($e, 'no route found', Logging::TRACE);
-            }
-        }
-
-        return $this->routerMatch_;
-    }
 
     /**
      * Check if this request is an Ajax request.
@@ -456,43 +409,6 @@ class ZMRequest extends ZMObject {
         }
         $this->parameter_[$name] = $value;
         return $old;
-    }
-
-    /**
-     * Get the controller for this request.
-     *
-     * <p>In case the controller is not explicitely set, the method will use the url mapper
-     * (<code>ZMUrlManager::instance()->findController()</code>) to determine a controller. This will then
-     * be either a configured controller or the default controller.</p>
-     *
-     * @return ZMController The current controller.
-     */
-    public function getController() {
-        if (null === $this->controller_) {
-            // try router first
-            $routerMatch = $this->getRouterMatch();
-            if (null !== $routerMatch) {
-                // class:method ?
-                $token = explode(':', $routerMatch['_controller']);
-                if (1 == count($token)) {
-                    // expect a ZMController instance with traditional processing
-                    $this->controller_ = Beans::getBean($routerMatch['_controller']);
-                } else {
-                    // wrap to allow custom method with variable parameters
-                    // TODO: remove once all controller use ype hints for $request
-                    if (!array_key_exists('request', $routerMatch)) {
-                        // allow $request as mappable parameter too
-                        $routerMatch['request'] = $this;
-                    }
-                    $this->controller_ = new ZMRoutingController(Beans::getBean($token[0]), $token[1], $routerMatch);
-                    $this->controller_->setContainer($this->container);
-                }
-            } else {
-                $this->controller_ = \ZMUrlManager::instance()->findController($this->getRequestId());
-            }
-        }
-
-        return $this->controller_;
     }
 
     /**

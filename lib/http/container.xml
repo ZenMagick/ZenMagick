@@ -66,10 +66,19 @@
             </call>
         </service>
 
-        <!-- defaults -->
         <service id="request" class="ZMRequest" scope="container" />
+
         <service id="session" class="zenmagick\http\session\Session" scope="container" />
+
         <service id="defaultView" alias="templateView" />
+
+        <service id="requestContext" class="zenmagick\http\routing\RequestContext" scope="container">
+            <argument type="service" id="request" />
+        </service>
+
+        <service id="routeResolver" class="zenmagick\http\routing\RouteResolver" scope="container">
+            <argument type="service" id="requestContext" />
+        </service>
 
         <service id="redirect" class="zenmagick\http\view\RedirectView" scope="prototype">
             <call method="setRequest">

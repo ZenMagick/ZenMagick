@@ -24,6 +24,7 @@ namespace zenmagick\http\sacs;
 use zenmagick\base\Beans;
 use zenmagick\base\Runtime;
 use zenmagick\base\Toolbox;
+use zenmagick\base\ZMObject;
 use zenmagick\base\events\Event;
 use zenmagick\base\logging\Logging;
 
@@ -49,7 +50,7 @@ use zenmagick\base\logging\Logging;
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class SacsManager {
+class SacsManager extends ZMObject {
     private $mappings_;
     private $handlers_;
     private $permissionProviders_;
@@ -59,6 +60,7 @@ class SacsManager {
      * Create new instance.
      */
     public function __construct() {
+        parent::__construct();
         $this->reset();
     }
 
@@ -215,7 +217,8 @@ class SacsManager {
         $requestId = $request->getRequestId();
         $secure = Toolbox::asBoolean($this->getMappingValue($requestId, 'secure', false));
         // check router too
-        if (Runtime::getSettings()->get('zenmagick.http.routing.enabled', true) && null != ($route = $request->getRouter()->getRouteCollection()->get($requestId))) {
+        $routeResolver = $this->container->get('routeResolver');
+        if (null != ($route = $routeResolver->getRouteForId($requestId))) {
             $requirements = $route->getRequirements();
             $secure |= (array_key_exists('_scheme', $requirements) && 'https' == $requirements['_scheme']);
         }
