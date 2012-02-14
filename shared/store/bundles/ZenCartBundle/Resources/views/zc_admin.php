@@ -17,28 +17,14 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
+
 ?>
 <link rel="stylesheet" type="text/css" href="<?php echo str_replace('zenmagick/apps/admin/web', '', $request->getContext()).ZENCART_ADMIN_FOLDER ?>/includes/stylesheet.css">
 
 <?php
 
 $resourceManager->cssFile('zc_admin.css');
-use zenmagick\base\Runtime;
 
-if (!function_exists('zen_href_link')) {
-    function zen_href_link($page='', $params='', $transport='NONSSL', $addSessionId=true, $seo=true, $isStatic=false, $useContext=true) {
-        $request = Runtime::getContainer()->get('request');
-        // strip rid,zpid frm params
-        parse_str($params, $tmp);
-        unset($tmp['rid']);
-        unset($tmp['zpid']);
-        $params = http_build_query($tmp);
-        return $request->url('zc_admin', 'zpid='.str_replace('.php', '', $page).'&'.$params);
-    }
-}
-
-// load ZM email wrapper and replacement functions
-require_once Runtime::getInstallationPath().'/shared/store/bundles/ZenCartBundle/utils/zencart_overrides.php';
 // map emails view; here we want a store view; merge
 ZMUrlManager::instance()->setMapping(null, array('emails' => array('view' => 'storeEmailView')), false);
 
