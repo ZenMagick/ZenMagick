@@ -38,7 +38,7 @@ class EditAdminUserController extends \ZMController {
         $adminUser = parent::getFormData($request, $formDef, $formId);
         if (!$this->isFormSubmit($request)) {
             if (0 < ($adminUserId = $request->getParameter('adminUserId'))) {
-                // prepopulate with data
+                // pre-populate with data
                 $user = $this->container->get('adminUserService')->getUserForId($adminUserId);
                 if (null != $user) {
                     $adminUser->setAdminUserId($user->getId());
