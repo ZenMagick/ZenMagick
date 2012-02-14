@@ -157,6 +157,10 @@ class RouteResolver extends ZMObject {
                         $token['query'] = '';
                     }
                     if (array_key_exists('scheme', $token)) {
+                        // default to same page if nothing set
+                        if (!array_key_exists('host', $token)) {
+                            $token['host'] = $request->getRequestId();
+                        }
                         $viewDefinition = sprintf('%s#requestId=%s&%s', $token['scheme'], $token['host'], $token['query']);
                     } else {
                         $viewDefinition = sprintf('%s#template=%s&%s', 'defaultView', $token['path'], $token['query']);
