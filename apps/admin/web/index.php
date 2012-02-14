@@ -23,9 +23,5 @@
   // app location relative to zenmagick installation
   define('ZM_APP_PATH', '/apps/'.basename(dirname(dirname(__FILE__))));
 
-  // make zen-cart happy
-  define('IS_ADMIN_FLAG', true);
-  define('GZIP_LEVEL', false);
-
   require realpath(dirname(__FILE__).'/../../../bootstrap.php');
   require realpath(dirname(__FILE__).'/../../../mvc.php');
