@@ -139,7 +139,7 @@ class Toolbox {
         }
 
         // check for imports:
-        if (array_key_exists('imports', $data)) {
+        if (array_key_exists('imports', (array)$data)) {
             $currentDir = dirname($filename).'/';
 
             $imports = $data['imports'];
