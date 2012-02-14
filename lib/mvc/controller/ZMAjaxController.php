@@ -35,20 +35,6 @@ use zenmagick\http\sacs\SacsManager;
 class ZMAjaxController extends ZMController {
 
     /**
-     * Create new instance.
-     */
-    function __construct() {
-        parent::__construct();
-    }
-
-    /**
-     * Destruct instance.
-     */
-    function __destruct() {
-    }
-
-
-    /**
      * Process a HTTP GET request.
      *
      * <p>Just return <code>null</code>.</p>

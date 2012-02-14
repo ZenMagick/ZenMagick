@@ -33,20 +33,6 @@ use zenmagick\http\sacs\SacsManager;
 class ZMRpcController extends ZMController {
 
     /**
-     * Create new instance.
-     */
-    function __construct() {
-        parent::__construct();
-    }
-
-    /**
-     * Destruct instance.
-     */
-    function __destruct() {
-    }
-
-
-    /**
      * {@inheritDoc}
      */
     public function process(ZMRequest $request) {
