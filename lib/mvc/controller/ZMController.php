@@ -305,7 +305,7 @@ class ZMController extends ZMObject {
         // TODO: doh!
         $request = $this->container->get('request');
         $view = $this->container->get('routeResolver')->getViewForId($id, $request, $data);
-        Beans::setAll($view, $parameter);
+        Beans::setAll($view, (array)$parameter);
 
         $view->setVariables($data);
         $this->view_ = $view;
