@@ -41,22 +41,23 @@ if (!function_exists('zen_href_link')) {
      * 5. zenmagick admin integration using zenmagick native mappings using the zencart admin page name (minus .php)  as the request id.
      */
     function zen_href_link($page='', $params='', $transport='NONSSL', $addSessionId=true, $seo=true, $isStatic=false, $useContext=true) {
-        if (class_exists('ZMStoreDefaultUrlRewriter') && !Runtime::isContextMatch('admin')) { // 1 
+        if (class_exists('ZMStoreDefaultUrlRewriter') && !Runtime::isContextMatch('admin')) { // 1 or 2 
             return ZMStoreDefaultUrlRewriter::furl($page, $params, $transport, $addSessionId, $seo, $isStatic, $useContext);
+            // @todo use REQUEST_URI directly in case the container isn't frozen yet. is this a valid concern here?
         } else if (preg_match('#' . ZM_APP_PATH .'#', $_SERVER['REQUEST_URI']) && Runtime::isContextMatch('admin')){
             $request = Runtime::getContainer()->get('request');
             parse_str($params, $tmp);
-            $page = str_replace('.php', '', $page); // 4
+            $page = str_replace('.php', '', $page); // 4 or 5
             $requestId = $request->getRequestId() == 'zc_admin' ? 'zc_admin' : $page;
             $params = '';
-            if ($requestId == 'zc_admin') { // 3
+            if ($requestId == 'zc_admin') { // 4
                 $params = 'zpid='.$page.'&';
             }
             unset($tmp['zpid']);
             unset($tmp['rid']);
             $params .= http_build_query($tmp);
             return $request->url($requestId, $params);
-        } else if (function_exists('zen_href_link_DISABLED')) { // 1 or 2
+        } else if (function_exists('zen_href_link_DISABLED')) { // 1 or 3
             // just in case...
             return zen_href_link_DISABLED($page, $params, $transport, $addSessionId, $seo, $isStatic, $useContext);
         } else {
