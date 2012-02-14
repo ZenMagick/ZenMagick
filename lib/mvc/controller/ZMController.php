@@ -301,7 +301,11 @@ class ZMController extends ZMObject {
         if ($this->isAjax_) {
             $id = 'ajax_'.$id;
         }
-        $view = ZMUrlManager::instance()->findView($this->requestId_, $id, $parameter);
+
+        // TODO: doh!
+        $request = $this->container->get('request');
+        $view = $this->container->get('routeResolver')->getViewForId($id, $request, $data);
+        Beans::setAll($view, $parameter);
 
         $view->setVariables($data);
         $this->view_ = $view;
@@ -317,6 +321,19 @@ class ZMController extends ZMObject {
      * @return ZMObject An object instance or <code>null</code>
      */
     public function getFormData($request, $formDef=null, $formId=null) {
+        $routeResolver = $this->container->get('routeResolver');
+        if (null != ($route = $routeResolver->getRouteForUri($request->getUri()))) {
+            if (null != ($options = $route->getOptions()) && array_key_exists('form', $options)) {
+                $this->formData_ = Beans::getBean($options['form']);
+                if ($this->formData_ instanceof ZMFormData) {
+                    $this->formData_->populate($request);
+                } else {
+                    $this->formData_ = Beans::setAll($this->formData_, $request->getParameterMap());
+                }
+            }
+        }
+
+        // TODO: drop
         if (null == $this->formData_ && null !== ($mapping = ZMUrlManager::instance()->findMapping($this->requestId_))) {
             $formDef = null != $formDef ? $formDef : (array_key_exists('form', $mapping) ? $mapping['form'] : null);
             $formId = null != $formId ? $formId : (array_key_exists('formId', $mapping) ? $mapping['formId'] : null);

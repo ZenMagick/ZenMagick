@@ -114,33 +114,17 @@ class RouteResolver extends ZMObject {
     }
 
     /**
-     * Get a controller instance for the given request.
+     * Get a route for the given uri.
      *
-     * @return ZMController A controller instance or <code>null</code>.
+     * @param string uri The uri.
+     * @return mixed The route or <code>null</code>.
      */
-    public function getControllerForRequest($request) {
-        $controller = null;
-        if ($routerMatch = $this->getRouterMatch($request->getUri())) {
-            // class:method ?
-            $token = explode(':', $routerMatch['_controller']);
-            if (1 == count($token)) {
-                // expect a ZMController instance with traditional processing
-                $controller = Beans::getBean($routerMatch['_controller']);
-            } else {
-                // wrap to allow custom method with variable parameters
-                // TODO: remove once all controller use type hints for $request
-                if (!array_key_exists('request', $routerMatch)) {
-                    // allow $request as mappable parameter too
-                    $routerMatch['request'] = $request;
-                }
-                $controller_ = new \ZMRoutingController(Beans::getBean($token[0]), $token[1], $routerMatch);
-                $controller_->setContainer($this->container);
-            }
-        } else {
-            $controller = \ZMUrlManager::instance()->findController($request->getRequestId());
+    public function getRouteForUri($uri) {
+        if (null != ($routerMatch = $this->getRouterMatch($uri))) {
+            return $this->getRouteForId($routerMatch['_route']);
         }
 
-        return $controller;
+        return null;
     }
 
     /**
@@ -150,33 +134,42 @@ class RouteResolver extends ZMObject {
      * @param ZMRequest request The current request.
      * @param array Optional view data; default is an empty array.
      * @return View A view.
+     * @todo: move into dispatcher and fix controller to return just string/string/data from process
      */
     public function getViewForId($viewId, $request, array $data=array()) {
         $view = null;
-        $routeId = null;
+        // build list of routes to look at
+        $routeIds = array();
         if (null != ($routerMatch = $this->getRouterMatch($request->getUri()))) {
-            $routeId = $routerMatch['_route'];
-        } else {
-            $routeId = self::GLOBAL_ROUTING_KEY;
+            $routeIds[] = $routerMatch['_route'];
         }
-        if (null != ($route = $this->getRouteForId($routeId))) {
-            $viewKey = null == $viewId ? 'view' : sprintf('view:%s', $viewId);
-            $options = $route->getOptions();
-            if (array_key_exists($viewKey, $options)) {
-                $viewDefinition = null;
-                $token = parse_url($options[$viewKey]);
-                if (array_key_exists('scheme', $token)) {
-                    $viewDefinition = sprintf('%s#requestId=%s&%s', $token['scheme'], $token['host'], $token['query']);
-                } else {
-                    $viewDefinition = sprintf('%s#template=%s&%s', 'defaultView', $token['path'], $token['query']);
+        $routeIds[] = self::GLOBAL_ROUTING_KEY;
+
+        // check until match or we run out of routeIds
+        foreach ($routeIds as $routeId) {
+            if (null != ($route = $this->getRouteForId($routeId))) {
+                $viewKey = null == $viewId ? 'view' : sprintf('view:%s', $viewId);
+                $options = $route->getOptions();
+                if (array_key_exists($viewKey, $options)) {
+                    $viewDefinition = null;
+                    $token = parse_url($options[$viewKey]);
+                    if (!array_key_exists('query', $token)) {
+                        $token['query'] = '';
+                    }
+                    if (array_key_exists('scheme', $token)) {
+                        $viewDefinition = sprintf('%s#requestId=%s&%s', $token['scheme'], $token['host'], $token['query']);
+                    } else {
+                        $viewDefinition = sprintf('%s#template=%s&%s', 'defaultView', $token['path'], $token['query']);
+                    }
+                    $view = Beans::getBean($viewDefinition);
+                    break;
                 }
-                $view = Beans::getBean($viewDefinition);
             }
         }
 
-        // TODO: enable
+        // TODO: enable once we have all current url mappings converted
         if (false && !$view) {
-            // use conventions to default the template name
+            // use conventions and defaults
             $settingsService = $this->container->get('settingsService');
             $templateName = sprintf('views/%s%s', $request->getRequestId(), $settingsService->get('zenmagick.http.templates.ext', '.php'));
             $layoutName = $settingsService->exists('zenmagick.mvc.view.defaultLayout') ? $settingsService->get('zenmagick.mvc.view.defaultLayout') : null;
@@ -186,8 +179,7 @@ class RouteResolver extends ZMObject {
         }
 
         if (!$view) {
-            // legacy url mappings
-            $view = \ZMUrlManager::instance()->findView($request->getRequestId(), $viewId);
+            $view = \ZMUrlManager::instance()->findView($request->getrequestId(), $viewId);
         }
 
         if ($view instanceof TemplateView && $data) {

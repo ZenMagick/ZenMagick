@@ -73,7 +73,7 @@ class Dispatcher extends ZMObject {
      * @return View The view or <code>null</code>.
      */
     public function handleRequest($request) {
-        $controller = $this->container->get('routeResolver')->getControllerForRequest($request);
+        $controller = $this->getControllerForRequest($request);
         $view = null;
 
         try {
@@ -112,6 +112,36 @@ class Dispatcher extends ZMObject {
         }
 
         return $view;
+    }
+
+    /**
+     * Get a controller instance for the given request.
+     *
+     * @return ZMController A controller instance or <code>null</code>.
+     */
+    public function getControllerForRequest($request) {
+        $controller = null;
+        if ($routerMatch = $this->container->get('routeResolver')->getRouterMatch($request->getUri())) {
+            // class:method ?
+            $token = explode(':', $routerMatch['_controller']);
+            if (1 == count($token)) {
+                // expect a ZMController instance with traditional processing
+                $controller = Beans::getBean($routerMatch['_controller']);
+            } else {
+                // wrap to allow custom method with variable parameters
+                // TODO: remove once all controller use type hints for $request
+                if (!array_key_exists('request', $routerMatch)) {
+                    // allow $request as mappable parameter too
+                    $routerMatch['request'] = $request;
+                }
+                $controller_ = new \ZMRoutingController(Beans::getBean($token[0]), $token[1], $routerMatch);
+                $controller_->setContainer($this->container);
+            }
+        } else {
+            $controller = \ZMUrlManager::instance()->findController($request->getRequestId());
+        }
+
+        return $controller;
     }
 
 }
