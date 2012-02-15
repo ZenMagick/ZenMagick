@@ -180,7 +180,7 @@ class ZMDbTableMapper extends ZMObject {
             $tableInfo[$property] = array_merge($defaults, $info);
             $tableInfo[$property]['property'] = $property;
         }
-
+        $table = str_replace($this->tablePrefix_, '', $table);
         $this->tableMap_[$table] = $tableInfo;
     }
 

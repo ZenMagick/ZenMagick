@@ -81,8 +81,9 @@ class TestZMDatabaseCreateUpdate extends ZMTestCase {
     public function testCreateModelObj() {
         $obj = new ZMObject();
         $obj->setName('foo1');
-        $obj->setClass_name('class1');
-        $obj->setMethod_name('method1');
+        $obj->setClassName('class1');
+        $obj->setMethodName('method1');
+        $this->registerTableMapping();
         foreach (TestZMDatabase::getProviders() as $provider => $database) {
             $database->createModel(TABLE_CREATE_UPDATE_TESTS, $obj);
         }

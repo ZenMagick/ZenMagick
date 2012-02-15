@@ -49,7 +49,7 @@ class TestZMDatabase extends ZMTestCase {
             $this->assertTrue(array_key_exists('products_name', $tableMeta), '%s: '.$provider);
             $this->assertTrue(is_array($tableMeta['products_name']), '%s: '.$provider);
             $this->assertEqual('string', $tableMeta['products_name']['type'], '%s: '.$provider);
-            $this->assertEqual(64, $tableMeta['products_name']['maxLen'], '%s: '.$provider);
+            $this->assertTrue(64 <= $tableMeta['products_name']['maxLen'], '%s: '.$provider);
         }
     }
 
@@ -61,9 +61,9 @@ class TestZMDatabase extends ZMTestCase {
         $create_table = "CREATE TABLE ".$tname." (id int(11) NOT NULL auto_increment, name varchar(32) NOT NULL, other varchar(32), PRIMARY KEY (id)) engine=MyISAM;";
         $drop_table = "DROP TABLE IF EXISTS ".$tname.";";
         $expectedMapping = array(
-            'id' => 'column=id;type=integer;key=true;auto=true',
-            'name' => 'column=name;type=string',
-            'other' => 'column=other;type=string'
+            'id' => array('column' => 'id', 'type' => 'integer', 'key' => true, 'auto' => true, 'maxLen' => null, 'default' => null),
+            'name' => array('column' => 'name', 'type' => 'string', 'key' => false, 'auto' => false, 'maxLen' => 32, 'default' => null),
+            'other' => array('column' => 'other', 'type' => 'string', 'key' => false, 'auto' => false, 'maxLen' => 32, 'default' => null)
         );
 
         foreach (self::getProviders() as $provider => $database) {
@@ -71,7 +71,7 @@ class TestZMDatabase extends ZMTestCase {
             $database->executeUpdate($drop_table);
             $database->executeUpdate($create_table);
 
-            $mapping = ZMDbTableMapper::instance()->buildTableMapping('db_test', $database, true);
+            $mapping = ZMRuntime::getDatabase()->getMetaData('db_test');
             if ($this->assertTrue(is_array($mapping), '%s: '.$provider)) {
                 $this->assertEqual($expectedMapping, $mapping, '%s: '.$provider);
             }
