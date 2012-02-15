@@ -86,10 +86,10 @@ class EventListener extends ZMObject {
         }
 
         if (null != ($userSession = $session->getUserSession())) {
-            if (null != ($locale = $userSession->getLocaleCode())) {
+            if (null != ($localeCode = $userSession->getLocaleCode())) {
                 // init with user locale
                 $localeService = $this->container->get('localeService');
-                $localeService->init($locale, null, true);
+                $localeService->init($localeCode, null, true);
             }
         }
     }
