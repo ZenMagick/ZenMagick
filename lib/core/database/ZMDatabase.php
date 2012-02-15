@@ -82,8 +82,6 @@ class ZMDatabase extends Connection {
      */
     public function __construct(array $params, Driver $driver, Configuration $config = null, EventManager $eventManager = null) {
         parent::__construct($params, $driver, $config, $eventManager);
-        $this->mapper_ = ZMDbTableMapper::instance();
-        $this->mapper_->setTablePrefix($params['prefix']);
 
         Type::overrideType('datetime', 'zenmagick\base\database\doctrine\types\DateTimeType');
         Type::overrideType('date', 'zenmagick\base\database\doctrine\types\DateType');
@@ -112,6 +110,19 @@ class ZMDatabase extends Connection {
 		$params = $this->getParams();
 		return isset($params['prefix']) ? $params['prefix'] : null;
         //return isset($this->_params['prefix']) ? $this->_params['prefix'] : null;
+    }
+
+    /**
+     * Get a table mapper insance.
+     *
+     * @return object
+     */
+    public function getMapper() {
+        if (null == $this->mapper_) {
+            $this->mapper_ = new ZMDbTableMapper();
+            $this->mapper_->setTablePrefix($this->getPrefix());
+        }
+        return $this->mapper_;
     }
 
     /**
@@ -185,7 +196,7 @@ class ZMDatabase extends Connection {
      * @throws ZMDatabaseException
      */
     public function loadModel($table, $key, $modelClass, $mapping = null) {
-        $mapping = $this->mapper_->ensureMapping(null !== $mapping ? $mapping : $table);
+        $mapping = $this->getMapper()->ensureMapping(null !== $mapping ? $mapping : $table);
 
         // determine by looking at key and auto settings
         foreach ($mapping as $property => $field) {
@@ -216,7 +227,7 @@ class ZMDatabase extends Connection {
             return null;
         }
 
-        $mapping = $this->mapper_->ensureMapping(null !== $mapping ? $mapping : $table);
+        $mapping = $this->getMapper()->ensureMapping(null !== $mapping ? $mapping : $table);
 
         // convert to array
         if (is_object($model)) {
@@ -276,7 +287,7 @@ class ZMDatabase extends Connection {
             return null;
         }
 
-        $mapping = $this->mapper_->ensureMapping(null !== $mapping ? $mapping : $table);
+        $mapping = $this->getMapper()->ensureMapping(null !== $mapping ? $mapping : $table);
 
         // convert to array
         if (is_object($model)) {
@@ -327,7 +338,7 @@ class ZMDatabase extends Connection {
             return;
         }
 
-        $mapping = $this->mapper_->ensureMapping(null !== $mapping ? $mapping : $table);
+        $mapping = $this->getMapper()->ensureMapping(null !== $mapping ? $mapping : $table);
 
         // convert to array
         if (is_object($model)) {
@@ -382,7 +393,7 @@ class ZMDatabase extends Connection {
      * @throws ZMDatabaseException
      */
     public function updateObj($query, $params = array(), $mapping = null) {
-        $mapping = $this->mapper_->ensureMapping($mapping);
+        $mapping = $this->getMapper()->ensureMapping($mapping);
 
         // convert to array
         if (is_object($params)) {
@@ -435,7 +446,7 @@ class ZMDatabase extends Connection {
      * @throws ZMDatabaseException
      */
     public function fetchAll($sql, array $params = array(), $mapping = null, $modelClass = null) {
-        $mapping = $this->mapper_->ensureMapping($mapping);
+        $mapping = $this->getMapper()->ensureMapping($mapping);
 
         try {
             $stmt = $this->prepareStatement($sql, $params, $mapping);

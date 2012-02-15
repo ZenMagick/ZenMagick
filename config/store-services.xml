@@ -165,8 +165,6 @@
 
         <service id="contextConfigLoader" class="zenmagick\apps\store\utils\ContextConfigLoader" scope="prototype" />
 
-        <service id="dbTableMapper" class="ZMDbTableMapper" scope="container" />
-
         <service id="tagService" class="ZMTags" scope="container" />
 
         <service id="defaultStoreBlockProvider" class="ZMStoreBlockProvider" scope="container">

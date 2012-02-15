@@ -89,17 +89,9 @@ class ZMDbTableMapper extends ZMObject {
 
     }
 
-    /**
-     * Get instance.
-     */
-    public static function instance() {
-        return Runtime::getContainer()->get('dbTableMapper');
-    }
-
     public function setTablePrefix($tablePrefix = '') {
         $this->tablePrefix_ = $tablePrefix;
     }
-
 
     /**
      * Get a table map.

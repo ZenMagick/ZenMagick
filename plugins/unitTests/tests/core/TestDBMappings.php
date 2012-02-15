@@ -40,7 +40,7 @@ class TestDBMappings extends ZMTestCase {
      */
     public function testDuplicates() {
         $excludes = 'languageId,categoryId,productId,orderId,accountId,countryId,zoneId,attributeId,attributeValueId,siteId,orderStatusId,orderProductId,couponId';
-        $mapper = ZMDbTableMapper::instance();
+        $mapper = ZMRuntime::getDatabase()->getMapper();
         $tables = $mapper->getTableNames();
         $allFields = array();
         foreach ($tables as $table) {

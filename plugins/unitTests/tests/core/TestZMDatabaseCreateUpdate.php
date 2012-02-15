@@ -57,14 +57,14 @@ class TestZMDatabaseCreateUpdate extends ZMTestCase {
     public function tearDown() {
         parent::tearDown();
         ZMRuntime::getDatabase()->executeUpdate('DROP TABLE IF EXISTS ' . TABLE_CREATE_UPDATE_TESTS. ';');
-        ZMDbTableMapper::instance()->removeMappingForTable(TABLE_CREATE_UPDATE_TESTS);
+        ZMRuntime::getDatabase()->getMapper()->removeMappingForTable(TABLE_CREATE_UPDATE_TESTS);
     }
 
     /**
      * Register table mapping.
      */
     protected function registerTableMapping() {
-        ZMDbTableMapper::instance()->setMappingForTable('create_update_tests',
+        ZMRuntime::getDatabase()->getMapper()->setMappingForTable('create_update_tests',
             array(
                 'myId' => array('column' => 'row_id', 'type' => 'integer', 'key' => true),
                 'name' => array('column' => 'name', 'type' => 'string'),

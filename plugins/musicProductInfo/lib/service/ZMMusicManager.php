@@ -107,7 +107,7 @@ class ZMMusicManager extends ZMObject {
             )
         );
         foreach ($mappings as $table => $mapping) {
-            ZMDbTableMapper::instance()->setMappingForTable($table, $mapping);
+            ZMRuntime::getDatabase()->getMapper()->setMappingForTable($table, $mapping);
         }
     }
 
