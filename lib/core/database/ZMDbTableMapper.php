@@ -115,8 +115,7 @@ class ZMDbTableMapper extends ZMObject {
 
             if (!array_key_exists($table, $this->tableMap_)) {
                 Runtime::getLogging()->debug('creating dynamic mapping for table name: '.$table);
-                $rawMapping = $this->buildTableMapping($table);
-                $this->setMappingForTable($table, $rawMapping);
+                $this->setMappingForTable($table, ZMRuntime::getDatabase()->getMetaData($table));
             }
 
             // add the current custom fields at runtime as they might change
@@ -127,20 +126,6 @@ class ZMDbTableMapper extends ZMObject {
         return $mappings;
     }
 
-    /**
-     * Generate a database mapping for the given table.
-     *
-     * @param string table The table name.
-     * @return array The mapping.
-     */
-    public function buildTableMapping($table) {
-        try {
-            return  ZMRuntime::getDatabase()->getMetaData($table);
-        } catch (\ZMDatabaseException $dbe) {
-            Runtime::getLogging()->dump($dbe, 'missing table', Logging::TRACE);
-            return null;
-        }
-    }
 
     /**
      * Handle mixed mapping values.
@@ -155,7 +140,7 @@ class ZMDbTableMapper extends ZMObject {
             $mapping = $this->getMapping($table);
             if (null === $mapping) {
                 Runtime::getLogging()->debug('creating dynamic mapping for table name: '.$table);
-                $rawMapping = $this->buildTableMapping($table);
+                $rawMapping = ZMRuntime::getDatabase()->getMetaData($table);
                 $this->setMappingForTable(str_replace($this->tablePrefix_, '', $table), $rawMapping);
                 $mapping = $this->getMapping($table);
             }
