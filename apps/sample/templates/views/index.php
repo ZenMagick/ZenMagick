@@ -19,7 +19,7 @@
 </script>
 
 <!-- semi automatic -->
-<?php echo ZMValidator::instance()->toJSString('mynameForm'); ?>
+<?php echo $validator->toJSString('mynameForm'); ?>
 
 <form action="<?php echo $request->url() ?>" id="mynameForm" onsubmit="return zmFormValidation.validate(this);" method="POST">
   <p><?php _vzm('Tell me your name?') ?></p>
