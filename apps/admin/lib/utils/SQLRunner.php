@@ -11,17 +11,11 @@ use zenmagick\base\Runtime;
 
 if (!defined('ZC_UPG_DEBUG3')) define('ZC_UPG_DEBUG3', false);
 class SQLRunner {
- static function get_db() {
- global $db;
-
-   if (!isset($db)) {
-      $db = new \queryFactory();
-      $conf = Runtime::getSettings()->get('apps.store.database.default');
-      $db->connect($conf['host'], $conf['user'], $conf['password'], $conf['dbname']);
-   }
-
-   return $db;
- }
+    static function get_db() {
+        global $db;
+        if (!isset($db)) { $db = new \queryFactory(); }
+        return $db;
+    }
 
  static function execute_sql($lines, $database, $table_prefix = '') {
    if (!get_cfg_var('safe_mode')) {
@@ -33,9 +27,12 @@ class SQLRunner {
    $newline = '';
    $saveline = '';
    $ignored_count=0;
+   $ignore_line=false;
+   $lines_to_keep_together_counter=0;
    $return_output=array();
    $errors = array();
    $results = 0;
+   $string='';
    $debug = Runtime::getContainer()->get('request')->getParameter('debug', 'OFF');
    foreach ($lines as $line) {
      if ('ON' == $debug) echo $line . '<br />';
@@ -246,7 +243,7 @@ class SQLRunner {
           $results++;
           $string .= $newline.'<br />';
           $return_output[]=$output;
-          if (!\ZMLangUtils::isEmpty($result)) $errors[]=$result;
+          if (isset($result) && !\ZMLangUtils::isEmpty($result)) $errors[]=$result;
           // reset var's
           $newline = '';
           $keep_together=1;
