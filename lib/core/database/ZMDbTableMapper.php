@@ -134,17 +134,8 @@ class ZMDbTableMapper extends ZMObject {
      * @return array A mapping or <code>null</code>.
      */
     public function ensureMapping($mapping) {
-        if (!is_array($mapping)) {
-            // table name
-            $table = $mapping;
-            $mapping = $this->getMapping($table);
-            if (null === $mapping) {
-                Runtime::getLogging()->debug('creating dynamic mapping for table name: '.$table);
-                $rawMapping = ZMRuntime::getDatabase()->getMetaData($table);
-                $this->setMappingForTable(str_replace($this->tablePrefix_, '', $table), $rawMapping);
-                $mapping = $this->getMapping($table);
-            }
-            return $mapping;
+        if (!is_array($mapping)) { // table name
+            return $this->getMapping($mapping);
         }
         // either mapping or table list
         return (0 < count($mapping) && is_array($mapping[0])) ? $mapping : $this->getMapping($mapping);
