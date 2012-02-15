@@ -42,7 +42,8 @@ class EventListener extends ZMObject {
      * Additional config loading.
      */
     public function onInitConfigDone($event) {
-        if ($this->container->has('urlManager')) {
+        $urlMappings = Runtime::getApplicationPath().'/config/url_mappings.yaml';
+        if ($this->container->has('urlManager') && file_exists($urlMappings)) {
             // mvc mappings
             $this->container->get('urlManager')->load(file_get_contents(Runtime::getApplicationPath().'/config/url_mappings.yaml'), false);
         }
