@@ -15,7 +15,3 @@ zenmagick:
   mvc:
     view:
       defaultLayout: default_layout.php
-
-  http:
-    request:
-      urlType: realpath

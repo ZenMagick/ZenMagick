@@ -42,6 +42,7 @@ class IndexController extends \ZMController {
      */
     public function processGet($request) {
         $data = array();
+        $viewId = null;
         $name = $request->getSession()->getValue('name');
         if (!empty($name)) {
             $data['name'] = $name;
@@ -50,9 +51,10 @@ class IndexController extends \ZMController {
         if (Toolbox::asBoolean($request->getParameter('clear'))) {
             $data = array();
             $request->getSession()->destroy();
+            $viewId = 'success';
         }
 
-        return $this->findView(null, $data);
+        return $this->findView($viewId, $data);
     }
 
     /**

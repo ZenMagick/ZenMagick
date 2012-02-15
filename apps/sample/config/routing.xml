@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<routes xmlns="http://symfony.com/schema/routing"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://symfony.com/schema/routing http://symfony.com/schema/routing/routing-1.0.xsd">
+
+    <!-- global routes -->
+    <route id="zenmagick_global_routing" pattern="">
+        <option key="view:error">views/error.php</option>
+        <option key="view:index">views/index.php</option>
+    </route>
+
+    <route id="index" pattern="/index/{clear}">
+        <default key="_controller">zenmagick\apps\sample\controller\IndexController</default>
+        <default key="clear">false</default>
+        <option key="form">zenmagick\base\ZMObject#formId=mynameForm</option>
+        <option key="view:success">redirect://index</option>
+    </route>
+
+    <route id="about" pattern="/about">
+        <default key="_controller">defaultController</default>
+    </route>
+
+</routes>
