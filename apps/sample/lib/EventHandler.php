@@ -21,6 +21,7 @@
 <?php
 namespace zenmagick\apps\sample;
 
+use zenmagick\base\ZMObject;
 
 /**
  * Handle a few events.
@@ -29,20 +30,15 @@ namespace zenmagick\apps\sample;
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class EventHandler {
+class EventHandler extends ZMObject {
 
     /**
      * Init done callback.
      */
-    public function onInitDone($event) {
-        // TODO: fix this
-        return;
+    public function onRequestReady($event) {
         $request = $event->get('request');
         if (null != ($locale = $request->getParameter('locale'))) {
-            //$this->container->get('localeService')->getLocale(true, $locale);
-            $request->getSession()->setValue('locale', $locale);
-        } else if (null != ($locale = $request->getSession()->getValue('locale'))) {
-            $this->container->get('localeService')->getLocale(true, $locale);
+            $request->getSession()->setValue('uiLocale', $locale);
         }
     }
 

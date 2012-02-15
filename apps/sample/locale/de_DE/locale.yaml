@@ -25,18 +25,3 @@ formats:
     'short-ui-format': 'dd/mm/yyyy'
     'short-ui-example': '16/11/1967'
   dir: ltr
-
-# translations
-messages:
-  'Hello world!': 'Hallo Welt!'
-  'Please enter your name.': 'Bitte geben sie Ihren Namen ein.'
-  'Your name must contain a minimum of %2$s characters.': 'Ihr Name muss mindestens %2$s Zeichen lang sein.'
-  'Tell me your name?': 'Sagst du mir wie Du heisst?'
-  'Clear session': 'Neue Session'
-  'About': '&Uuml;ber mich'
-  'This is the ZenMagick MVC sample application': 'Dies ist die ZenMagick MVC Beispielanwendung'
-  'Home': 'Startseite'
-  'Submit': 'Abschicken'
-  'Oopsey, why such a hurry?': 'Hoppla, wieso diese Eile?'
-  'Please be patient!': 'Etwas Geduld, bitte.'
-  'Your name is: %s.': 'Dein Name ist: %s.'

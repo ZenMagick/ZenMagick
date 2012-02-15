@@ -6,6 +6,8 @@ zenmagick:
   bundles: {}
 
   base:
+    locales:
+      handler: zenmagick\base\locales\handler\PomoLocale
     events:
       listeners:
         - zenmagick\base\EventListener

@@ -1,0 +1,47 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: ZenMagick Sample App\n"
+"POT-Creation-Date: \n"
+"PO-Revision-Date: \n"
+"Last-Translator: DerManoMann <mano@zenmagick.org>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=iso-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+msgid "Hello world!"
+msgstr "Hallo Welt!"
+
+msgid "Please enter your name."
+msgstr "Bitte geben sie Ihren Namen ein."
+
+msgid "Your name must contain a minimum of %2$s characters."
+msgstr "Ihr Name muss mindestens %2$s Zeichen lang sein."
+
+msgid "Tell me your name?"
+msgstr "Sagst du mir wie Du heisst?"
+
+msgid "Clear session"
+msgstr "Neue Session"
+
+msgid "About"
+msgstr "&Uuml;ber mich"
+
+msgid "This is the ZenMagick MVC sample application"
+msgstr "Dies ist die ZenMagick MVC Beispielanwendung"
+
+msgid "Home"
+msgstr "Startseite"
+
+msgid "Submit"
+msgstr "Abschicken"
+
+msgid "Oopsey, why such a hurry?"
+msgstr "Hoppla, wieso diese Eile?"
+
+msgid "Please be patient!"
+msgstr "Etwas Geduld, bitte."
+
+msgid "Your name is: %s."
+msgstr "Dein Name ist: %s."
+
