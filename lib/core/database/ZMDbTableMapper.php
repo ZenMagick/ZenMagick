@@ -185,6 +185,15 @@ class ZMDbTableMapper extends ZMObject {
     }
 
     /**
+     * Remove the mapping for the given table.
+     *
+     * @param string table The table to remove.
+     */
+    public function removeMappingForTable($table) {
+        $table = str_replace($this->tablePrefix_, '', $table);
+        unset($this->tableMap_[$table]);
+    }
+    /**
      * Get field info map about custom fields for the given table.
      *
      * <p>The returned array is a map with the property as key and an info map as value.</p>
