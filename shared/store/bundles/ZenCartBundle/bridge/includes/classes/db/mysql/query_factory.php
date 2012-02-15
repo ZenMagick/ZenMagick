@@ -30,6 +30,8 @@ use Doctrine\DBAL\Cache\QueryCacheProfile;
   * @author Johnny Robeson
   */
 class queryFactory {
+    public $link; // backwards compatibility
+
     private $hasResultCache = false;
 
     public function __construct() {
@@ -48,16 +50,17 @@ class queryFactory {
             throw new ZMDatabaseException('Install `ext/mysql` extension to enable mysql_* functions.');
         }
         $defaults = Runtime::getSettings()->get('apps.store.database.default');
-        if (null != $params) $params = array_merge($defaults, $params);
+        $params = array_merge($defaults, (array)$params);
         $link = mysql_connect($params['host'], $params['user'], $params['password'], true);
 
         if (is_resource($link) && mysql_select_db($params['dbname'])) {
             if (!isset($params['charset']) && !empty($params['charset'])) {
                 mysql_set_charset($params['charset']);
             }
-            return $link;
+            $this->link = $link;
+            return $this->link;
         } else {
-            throw new ZMDatabaseException(mysql_error(), mysql_errno()); 
+            throw new ZMDatabaseException(mysql_error(), mysql_errno());
         }
     }
 
@@ -201,7 +204,7 @@ class queryFactory {
                 if (isset($typeArray[1])) {
                     $regexp = $typeArray[1];
                 }
-                return '\'' . $this->prepare_input($value) . '\'';
+                return ZMRuntime::getDatabase()->quote($value);
             break;
             case 'noquotestring':
                 return $this->prepare_input($value);
@@ -212,7 +215,7 @@ class queryFactory {
                 if (isset($typeArray[1])) {
                     $enumArray = explode('|', $typeArray[1]);
                 }
-                return '\'' . $this->prepare_input($value) . '\'';
+                return ZMRuntime::getDatabase()->quote($value);
             case 'regexp':
                 $searchArray = array('[', ']', '(', ')', '{', '}', '|', '*', '?', '.', '$', '^');
                 foreach ($searchArray as $searchTerm) {
@@ -248,7 +251,7 @@ class queryFactory {
     public function close() { ZMRuntime::getDatabase()->close(); }
     public function get_server_info() { return ZMRuntime::getDatabase()->getWrappedConnection()->getAttribute(PDO::ATTR_SERVER_VERSION); }
     public function insert_ID() { return ZMRuntime::getDatabase()->lastInsertId(); }
-    public function prepare_input($string) { return ZMRuntime::getDatabase()->quote($string); }
+    public function prepare_input($string) { return str_replace(array('\\', "\0", "\n", "\r", "'", '"', "\x1a"), array('\\\\', '\\0', '\\n', '\\r', "\\'", '\\"', '\\Z'), $string); }
     public function prepareInput($string) { return $this->prepare_input($string); }
     // @todo could implement these if we need to.
     public function queryCount() { return 0; }
