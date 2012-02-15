@@ -174,7 +174,7 @@ class ZMDbTableMapper extends ZMObject {
         $customFieldKey = 'zenmagick.core.database.sql.'.str_replace($this->tablePrefix_, '', $table).'.customFields';
         $setting = Runtime::getSettings()->get($customFieldKey);
         if (empty($setting)) {
-            return array();
+            return $mapping;
         }
 
         $customFields = array();
