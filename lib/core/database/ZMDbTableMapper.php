@@ -169,15 +169,16 @@ class ZMDbTableMapper extends ZMObject {
         $table = str_replace($this->tablePrefix_, '', $table);
         unset($this->tableMap_[$table]);
     }
+
     /**
-     * Get field info map about custom fields for the given table.
+     * Add a field list of custom fields for the given table.
      *
-     * <p>The returned array is a map with the property as key and an info map as value.</p>
-     *
+     * @param array mapping The existing mapping.
      * @param string table The table name.
-     * @return array A map of custom field details (if any)
+     * @return array The updated mapping
      */
-    public function getCustomFieldInfo($table) {
+    protected function addCustomFields($mapping, $table) {
+        $defaults = array('key' => false, 'auto' => false, 'custom' => true, 'default' => null);
         $customFieldKey = 'zenmagick.core.database.sql.'.str_replace($this->tablePrefix_, '', $table).'.customFields';
         $setting = Runtime::getSettings()->get($customFieldKey);
         if (empty($setting)) {
@@ -195,19 +196,7 @@ class ZMDbTableMapper extends ZMObject {
             }
         }
 
-        return $customFields;
-    }
-
-    /**
-     * Add a field list of custom fields for the given table.
-     *
-     * @param array mapping The existing mapping.
-     * @param string table The table name.
-     * @return array The updated mapping
-     */
-    protected function addCustomFields($mapping, $table) {
-        $defaults = array('key' => false, 'auto' => false, 'custom' => true, 'default' => null);
-        foreach ($this->getCustomFieldInfo($table) as $fieldId => $fieldInfo) {
+        foreach ($customFields as $fieldId => $fieldInfo) {
             // merge in defaults
             $mapping[$fieldId] = array_merge($defaults, $fieldInfo);
         }
