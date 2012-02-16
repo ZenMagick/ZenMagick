@@ -46,7 +46,7 @@ class ZMWhoIsOnlinePlugin extends Plugin {
     function init() {
         parent::init();
 
-        ZMDbTableMapper::instance()->setMappingForTable('whos_online', array(
+        ZMRuntime::getDatabase()->getMapper()->setMappingForTable('whos_online', array(
             'accountId' => array('column' => 'customer_id', 'type' => 'integer'),
             'fullName' => array('column' => 'full_name', 'type' => 'string'),
             'sessionId' => array('column' => 'session_id', 'type' => 'string'),

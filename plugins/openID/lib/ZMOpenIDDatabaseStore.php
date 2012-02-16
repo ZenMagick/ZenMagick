@@ -42,7 +42,7 @@ class ZMOpenIDDatabaseStore extends Auth_OpenID_OpenIDStore {
             $this->nonceLifetime = $nonceLifetime;
         }
 
-        ZMDbTableMapper::instance()->setMappingForTable('zm_openid_associations',
+        ZMRuntime::getDatabase()->getMapper()->setMappingForTable('zm_openid_associations',
             array(
                 'server_url' => array('column' => 'server_url', 'type' => 'string', 'key' => true),
                 'handle' => array('column' => 'handle', 'type' => 'string', 'key' => true),
@@ -52,7 +52,7 @@ class ZMOpenIDDatabaseStore extends Auth_OpenID_OpenIDStore {
                 'type' => array('column' => 'assoc_type', 'type' => 'string'),
             )
         );
-        ZMDbTableMapper::instance()->setMappingForTable('zm_openid_nonces',
+        ZMRuntime::getDatabase()->getMapper()->setMappingForTable('zm_openid_nonces',
             array(
                 'server_url' => array('column' => 'server_url', 'type' => 'string', 'key' => true),
                 'issued' => array('column' => 'issued', 'type' => 'integer', 'key' => true),

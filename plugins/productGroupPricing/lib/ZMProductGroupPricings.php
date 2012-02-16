@@ -40,7 +40,7 @@ class ZMProductGroupPricings extends ZMObject {
      */
     public function __construct() {
         parent::__construct();
-        ZMDbTableMapper::instance()->setMappingForTable('product_group_pricing', array(
+        ZMRuntime::getDatabase()->getMapper()->setMappingForTable('product_group_pricing', array(
             'id' => array('column' => 'group_pricing_id', 'type' => 'integer', 'key' => true, 'auto' => true),
             'productId' => array('column' => 'products_id', 'type' => 'integer'),
             'groupId' => array('column' => 'group_id', 'type' => 'integer'),
