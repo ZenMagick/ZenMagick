@@ -48,7 +48,7 @@ class ZMGravatarPlugin extends Plugin {
         $this->addConfigValue('Image Size', 'defaultSize', '80', 'Default avatar size');
         $this->addConfigValue('Default Image Set', 'imageSet', 'mm', 'Default image if no avatar found',
             'widget@ZMSelectFormWidget#name=imageSet&options='.urlencode('404=404&mm=Mystery Man&identicon=Identicon geometrical pattern&monsterid=Monster&wavartar=Generated faces&retro=Retro Pixels'));
-        $this->addConfigValue('Raximum Rating', 'rating', 'g', 'Maximum rating of avatar images allowed',
+        $this->addConfigValue('Maximum Rating', 'rating', 'g', 'Maximum rating of avatar images allowed',
             'widget@ZMSelectFormWidget#name=rating&options='.urlencode('g=G - General&pg=PG - Rude, mild violence&r=R - Rated&x=X - Rated'));
     }
 
