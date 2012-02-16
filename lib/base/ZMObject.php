@@ -173,7 +173,7 @@ class ZMObject extends ContainerAware implements Serializable {
      */
     public function __call($method, $args) {
         // start with dynamic methods to allow attaching methods that start with 'get', etc...
-        if (isset(self::$methods_[$method])) {
+        if (array_key_exists($method, self::$methods_)) {
             // method found, so check if there is a class match
             foreach (array_keys(self::$methods_[$method]) as $className) {
                 if ($this instanceof $className) {
