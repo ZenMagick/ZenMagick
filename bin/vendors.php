@@ -31,6 +31,7 @@ $vendorDeps = array(
     ),
 );
 
+if (isset($extraDeps)) $vendorDeps = array_merge($vendorDeps, (array)$extraDeps);
 foreach ($vendorDeps as $vendorDir => $deps) {
     if (!is_dir($vendorDir)) {
         mkdir($vendorDir, 0777, true);
