@@ -65,7 +65,11 @@ class queryFactory {
     }
 
     /**
-     * Execute a query
+     * Execute a query.
+     *
+     * If a query is one of DESCRIBE, SELECT, or SHOW
+     * then use DBAL executeQuery otherwise pass it off to
+     * DBAL executeUpdate
      *
      * @param string $sql sql query string
      * @param int $limit limit the number of results
@@ -74,11 +78,12 @@ class queryFactory {
      * @return object queryFactoryResult
      */
     public function Execute($sql, $limit = null, $useCache = false, $cacheTime = 0) {
-        if (!preg_match('/^select/i', $sql)) {
+        $commandType = strtolower(substr($sql, 0, 3));
+        if (!in_array($commandType, array('des', 'sel', 'sho'))) { 
             try {
                 return  ZMRuntime::getDatabase()->executeUpdate($sql);
             } catch (PDOException $e) {
-               throw new ZMDatabaseException($e->getMessage(), $e->getCode(), $e); 
+               throw new ZMDatabaseException($e->getMessage(), $e->getCode(), $e);
             }
         }
         if ($limit) $sql .= ' LIMIT ' . $limit;
