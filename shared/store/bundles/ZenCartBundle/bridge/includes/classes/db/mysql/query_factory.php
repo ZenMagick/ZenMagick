@@ -300,6 +300,7 @@ class queryFactoryResult {
             $this->fields = $result;
         } else {
             $this->EOF = true;
+            $this->stmt->closeCursor();
         }
     }
 
