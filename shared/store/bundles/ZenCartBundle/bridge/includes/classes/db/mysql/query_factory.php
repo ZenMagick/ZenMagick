@@ -45,7 +45,7 @@ class queryFactory {
      *                     <code>apps.store.database.default</code> settings.
      * @return resource an ext/mysql resource
      */
-    public static function mysql_connect($params = null) {
+    public function mysql_connect($params = null) {
         if(!function_exists('mysql_connect')) {
             throw new ZMDatabaseException('Install `ext/mysql` extension to enable mysql_* functions.');
         }
