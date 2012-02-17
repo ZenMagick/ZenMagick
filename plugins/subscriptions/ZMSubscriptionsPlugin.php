@@ -42,16 +42,16 @@ class ZMSubscriptionsPlugin extends Plugin {
         // the new prices and customer flag
         $customFields = array(
             'orders' => array(
-                'is_subscription;boolean;subscription',
-                'is_subscription_canceled;boolean;subscriptionCanceled',
-                'subscription_next_order;datetime;nextOrder',
-                'subscription_schedule;string;schedule',
-                'subscription_order_id;integer;subscriptionOrderId'
+                'subscription' => array('column' => 'is_subscription', 'type' => 'boolean'),
+                'subscriptionCanceled' => array('column' => 'is_subscription_canceled', 'type' => 'boolean'),
+                'nextOrder' => array('column' => 'subscription_next_order', 'type' => 'datetime'),
+                'schedule' => array('column' => 'subscription_schedule', 'type' => 'string'),
+                'subscriptionOrderId' => array('column' => 'subscription_order_id', 'type' => 'integer'),
             )
         );
         foreach ($customFields as $table => $fields) {
-            foreach ($fields as $field) {
-                ZMSettings::append('zenmagick.core.database.sql.'.$table.'.customFields', $field);
+            foreach ($fields as $field => $info) {
+                ZMRuntime::getDatabase()->getMapper()->addPropertyForTable($table, $field, $info);
             }
         }
     }

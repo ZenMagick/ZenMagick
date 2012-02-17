@@ -98,13 +98,6 @@
                         'desc' => 'Enable/disable setting for plugin with name "@name@".'
                     )
                 ),
-                'database' => array(
-                    array(
-                        'key' => 'sql.@table@.customFields',
-                        'type' => 'dynamic:table:string',
-                        'desc' => 'List of custom field mappings for table "@table@".'
-                    )
-                ),
                 'fs' => array(
                     array(
                         'key' => 'permissions.fix',

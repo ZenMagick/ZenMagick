@@ -65,7 +65,8 @@ class ZMOpenIDPlugin extends Plugin {
         zenmagick\base\Runtime::getEventDispatcher()->listen($this);
 
         // add OpenID field to accounts fields list
-        ZMSettings::append('zenmagick.core.database.sql.customers.customFields', 'openid;string');
+        $info = array('column' => 'openid', 'type' => 'string');
+        ZMRuntime::getDatabase()->getMapper()->addPropertyForTable('customers', 'openid', $info);
 
         // make openid_login use session token
         ZMSettings::append('zenmagick.mvc.html.tokenSecuredForms', 'openid_login');

@@ -19,9 +19,10 @@ Each field is configured separately, and requires the following information:
 - widget: The widget to handle the data
 
 NOTE: For custom database fields you also have to configure ZMProducts in order to actually read/write those columns. This is done
-by setting 'zenmagick.core.database.sql.products.customFields'.
+by setting by adding the property to the database mapping.
 
 Example:
 
-    ZMSettings::append('zenmagick.core.database.sql.products.customFields', 'metatags_title_status;integer', ',');
-
+   
+    $info = array('column' => 'metatag_title_status', 'type' => 'integer');
+    ZMRuntime::getDatabase()->getMapper()->addPropertyForTable('products', 'metatag_title_status', $info);

@@ -110,9 +110,7 @@ class ZMDbTableMapper extends ZMObject {
                 $this->setMappingForTable($table, ZMRuntime::getDatabase()->getMetaData($table));
             }
 
-            // add the current custom fields at runtime as they might change
-            $tableMap = $this->addCustomFields($this->tableMap_[$table], $table);
-            $mappings = array_merge($mappings, $tableMap);
+            $mappings = array_merge($mappings, $this->tableMap_[$table]);
         }
 
         return $mappings;
@@ -134,6 +132,15 @@ class ZMDbTableMapper extends ZMObject {
     }
 
     /**
+     * Add a property to a table.
+     */
+    public function addPropertyForTable($table, $name, $info) {
+        $table = str_replace($this->tablePrefix_, '', $table);
+        $defaults = array('property' => $name, 'key' => false, 'auto' => false, 'custom' => false, 'default' => null); 
+        $this->tableMap_[$table][$name] = array_merge($defaults, (array)$info);
+    }
+
+    /**
      * Set the mapping for the given table.
      *
      * <p><strong>NOTE:</strong> This will silently override mappings for existing tables.</p>
@@ -142,14 +149,10 @@ class ZMDbTableMapper extends ZMObject {
      * @param array The new mapping.
      */
     public function setMappingForTable($table, $mapping) {
-        $defaults = array('key' => false, 'auto' => false, 'custom' => false, 'default' => null);
-        $tableInfo = array();
+        $this->removeMappingForTable($table);
         foreach ((array)$mapping as $property => $info) {
-            $tableInfo[$property] = array_merge($defaults, $info);
-            $tableInfo[$property]['property'] = $property;
+            $this->addPropertyForTable($table, $property, $info);
         }
-        $table = str_replace($this->tablePrefix_, '', $table);
-        $this->tableMap_[$table] = $tableInfo;
     }
 
     /**
@@ -160,40 +163,6 @@ class ZMDbTableMapper extends ZMObject {
     public function removeMappingForTable($table) {
         $table = str_replace($this->tablePrefix_, '', $table);
         unset($this->tableMap_[$table]);
-    }
-
-    /**
-     * Add a field list of custom fields for the given table.
-     *
-     * @param array mapping The existing mapping.
-     * @param string table The table name.
-     * @return array The updated mapping
-     */
-    protected function addCustomFields($mapping, $table) {
-        $defaults = array('key' => false, 'auto' => false, 'custom' => true, 'default' => null);
-        $customFieldKey = 'zenmagick.core.database.sql.'.str_replace($this->tablePrefix_, '', $table).'.customFields';
-        $setting = Runtime::getSettings()->get($customFieldKey);
-        if (empty($setting)) {
-            return $mapping;
-        }
-
-        $customFields = array();
-        foreach (explode(',', $setting) as $field) {
-            // process single fields
-            if (!empty($field)) {
-                $info = explode(';', trim($field));
-                $fieldId = (count($info) > 2 ? $info[2] : $info[0]);
-                $default = (count($info) > 3 ? $info[3] : null);
-                $customFields[$fieldId] = array('column' => $info[0], 'type' => $info[1], 'property' => $fieldId, 'default' => $default);
-            }
-        }
-
-        foreach ($customFields as $fieldId => $fieldInfo) {
-            // merge in defaults
-            $mapping[$fieldId] = array_merge($defaults, $fieldInfo);
-        }
-
-        return $mapping;
     }
 
     /**

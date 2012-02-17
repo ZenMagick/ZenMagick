@@ -73,8 +73,9 @@ class ZMHowDidYouHearPlugin extends Plugin {
     public function init() {
         parent::init();
         zenmagick\base\Runtime::getEventDispatcher()->listen($this);
-
-        ZMSettings::append('zenmagick.core.database.sql.customers_info.customFields', 'customers_info_source_id;integer;sourceId');
+        
+        $info = array('column' => 'customers_info_source_id', 'type' => 'integer');
+        ZMRuntime::getDatabase()->getMapper()->addPropertyForTable('customers_info', 'sourceId', $info);
 
         // add admin pages
         $menuKey = $this->addMenuGroup(_zm('Referral Sources'));
