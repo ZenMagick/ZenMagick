@@ -18,108 +18,26 @@
  *
  */
 array(
-
-    'currencies' => array(
-        'currencyId' => array('column' => 'currencies_id', 'type' => 'integer', 'key' => true, 'auto' => true),
-        'name' => array('column' => 'title', 'type' => 'string'),
-        'code' => array('column' => 'code', 'type' => 'string'),
-        'symbolLeft' => array('column' => 'symbol_left', 'type' => 'string'),
-        'symbolRight' => array('column' => 'symbol_right', 'type' => 'string'),
-        'decimalPoint' => array('column' => 'decimal_point', 'type' => 'string'),
-        'thousandsPoint' => array('column' => 'thousands_point', 'type' => 'string'),
-        'decimalPlaces' => array('column' => 'decimal_places', 'type' => 'string'),
-        'rate' => array('column' => 'value', 'type' => 'float'),
-        'lastUpdate' => array('column' => 'last_updated', 'type' => 'datetime')
+    'admin' => array(
+        'id' => array('column' => 'admin_id', 'type' => 'integer', 'key' => true, 'auto' => true),
+        'name' => array('column' => 'admin_name', 'type' => 'string'),
+        'email' => array('column' => 'admin_email', 'type' => 'string'),
+        'password' => array('column' => 'admin_pass', 'type' => 'string'),
+        'live' => array('column' => 'admin_level', 'type' => 'boolean')
     ),
-    'categories' => array(
-        'categoryId' => array('column' => 'categories_id', 'type' => 'integer', 'key' => true, 'auto' => true),
-        'image' => array('column' => 'categories_image', 'type' => 'string'),
-        'parentId' => array('column' => 'parent_id', 'type' => 'integer'),
-        'sortOrder' => array('column' => 'sort_order', 'type' => 'integer'),
-        'dateAdded' => array('column' => 'date_added', 'type' => 'datetime'),
-        'lastModified' => array('column' => 'last_modified', 'type' => 'datetime'),
-        'active' => array('column' => 'categories_status', 'type' => 'boolean')
+    'admin_prefs' => array(
+        'admin_pref_id' => array('column' => 'admin_pref_id', 'type' => 'integer', 'key' => true, 'auto' => true),
+        'admin_id' => array('column' => 'admin_id', 'type' => 'integer'),
+        'name' => array('column' => 'name', 'type' => 'string'),
+        'value' => array('column' => 'value', 'type' => 'text')
     ),
-    'categories_description' => array(
-        'categoryId' => array('column' => 'categories_id', 'type' => 'integer', 'key' => true),
-        'languageId' => array('column' => 'language_id', 'type' => 'integer', 'key' => true),
-        'name' => array('column' => 'categories_name', 'type' => 'string'),
-        'description' => array('column' => 'categories_description', 'type' => 'text')
+    'admin_roles' => array(
+        'admin_role_id' => array('column' => 'admin_role_id', 'type' => 'integer', 'key' => true, 'auto' => true),
+        'name' => array('column' => 'name', 'type' => 'string')
     ),
-    'meta_tags_categories_description' => array(
-        'categoryId' => array('column' => 'categories_id', 'type' => 'integer', 'key' => true),
-        'languageId' => array('column' => 'language_id', 'type' => 'integer', 'key' => true),
-        'title' => array('column' => 'metatags_title', 'type' => 'string'),
-        'keywords' => array('column' => 'metatags_keywords', 'type' => 'text'),
-        'description' => array('column' => 'metatags_description', 'type' => 'text')
-    ),
-    'products_to_categories' => array(
-        'productId' => array('column' => 'products_id', 'type' => 'integer', 'key' => true),
-        'categoryId' => array('column' => 'categories_id', 'type' => 'integer', 'key' => true)
-    ),
-    'product_types_to_category' => array(
-        'productTypeId' => array('column' => 'product_type_id', 'type' => 'integer', 'key' => true),
-        'categoryId' => array('column' => 'category_id', 'type' => 'integer', 'key' => true)
-    ),
-    'manufacturers' => array(
-        'manufacturerId' => array('column' => 'manufacturers_id', 'type' => 'integer', 'key' => true, 'auto' => true),
-        'name' => array('column' => 'manufacturers_name', 'type' => 'string'),
-        'image' => array('column' => 'manufacturers_image', 'type' => 'string'),
-        'dateAdded' => array('column' => 'date_added', 'type' => 'datetime'),
-        'lastModified' => array('column' => 'last_modified', 'type' => 'datetime')
-    ),
-    'manufacturers_info' => array(
-        'manufacturerId' => array('column' => 'manufacturers_id', 'type' => 'integer', 'key' => true),
-        'languageId' => array('column' => 'languages_id', 'type' => 'integer', 'key' => true),
-        'url' => array('column' => 'manufacturers_url', 'type' => 'string'),
-        'clickCount' => array('column' => 'url_clicked', 'type' => 'integer'),
-        'lastClick' => array('column' => 'date_last_click', 'type' => 'datetime')
-    ),
-    'customers' => array(
-        'accountId' => array('column' => 'customers_id', 'type' => 'integer', 'key' => true, 'auto' => true),
-        'gender' => array('column' => 'customers_gender', 'type' => 'string'),
-        'firstName' => array('column' => 'customers_firstname', 'type' => 'string'),
-        'lastName' => array('column' => 'customers_lastname', 'type' => 'string'),
-        'dob' => array('column' => 'customers_dob', 'type' => 'datetime'),
-        'emailFormat' => array('column' => 'customers_email_format', 'type' => 'string'),
-        'email' => array('column' => 'customers_email_address', 'type' => 'string'),
-        'nickName' => array('column' => 'customers_nick', 'type' => 'string'),
-        'defaultAddressId' => array('column' => 'customers_default_address_id', 'type' => 'integer'),
-        'phone' => array('column' => 'customers_telephone', 'type' => 'string'),
-        'fax' => array('column' => 'customers_fax', 'type' => 'string'),
-        'password' => array('column' => 'customers_password', 'type' => 'string'),
-        'newsletterSubscriber' => array('column' => 'customers_newsletter', 'type' => 'string'), // @todo should be boolean
-        'priceGroupId' => array('column' => 'customers_group_pricing', 'type' => 'integer'),
-        'authorization' => array('column' => 'customers_authorization', 'type' => 'integer'),
-        'referral' => array('column' => 'customers_referral', 'type' => 'string'),
-        'payPalPayerId' => array('column' => 'customers_paypal_payerid', 'type' => 'string'),
-        'payPalEc' => array('column' => 'customers_paypal_ec', 'type' => 'boolean')
-    ),
-    'customers_info' => array(
-        'accountId' => array('column' => 'customers_info_id', 'type' => 'integer', 'key' => true),
-        'lastLogonDate' => array('column' => 'customers_info_date_of_last_logon', 'type' => 'datetime'),
-        'numberOfLogons' => array('column' => 'customers_info_number_of_logons', 'type' => 'integer'),
-        'accountCreateDate' => array('column' => 'customers_info_date_account_created', 'type' => 'datetime'),
-        'lastModifiedDate' => array('column' => 'customers_info_date_account_last_modified', 'type' => 'datetime'),
-        'globalProductSubscriber' => array('column' => 'global_product_notifications', 'type' => 'boolean')
-    ),
-    'products_notifications' => array(
-        'productId' => array('column' => 'products_id', 'type' => 'integer', 'key' => true),
-        'accountId' => array('column' => 'customers_id', 'type' => 'integer', 'key' => true),
-        //'dateAdded' => array('column' => 'date_added', 'type' => 'datetime')
-    ),
-    'countries' => array(
-        'countryId' => array('column' => 'countries_id', 'type' => 'integer', 'key' => true, 'auto' => true),
-        'name' => array('column' => 'countries_name', 'type' => 'string'),
-        'isoCode2' => array('column' => 'countries_iso_code_2', 'type' => 'string'),
-        'isoCode3' => array('column' => 'countries_iso_code_3', 'type' => 'string'),
-        'addressFormatId' => array('column' => 'address_format_id', 'type' => 'integer')
-    ),
-    'zones' => array(
-        'zoneId' => array('column' => 'zone_id', 'type' => 'integer', 'key' => true, 'auto' => true),
-        'countryId' => array('column' => 'zone_country_id', 'type' => 'integer'),
-        'code' => array('column' => 'zone_code', 'type' => 'string'),
-        'name' => array('column' => 'zone_name', 'type' => 'string')
+    'admins_to_roles' => array(
+        'admin_id' => array('column' => 'admin_id', 'type' => 'integer', 'key' => true),
+        'admin_role_id' => array('column' => 'admin_role_id', 'type' => 'integer', 'key' => true)
     ),
     'address_book' => array(
         'id' => array('column' => 'address_book_id', 'type' => 'integer', 'key' => true, 'auto' => true),
@@ -141,9 +59,231 @@ array(
         'format' => array('column' => 'address_format', 'type' => 'string'),
         'summary' => array('column' => 'address_summary', 'type' => 'string')
     ),
-    'products_notifications' => array(
-        'productId' => array('column' => 'products_id', 'type' => 'integer', 'key' => true),
-        'accountId' => array('column' => 'customers_id', 'type' => 'integer', 'key' => true),
+    'banners' => array(
+        'id' => array('column' => 'banners_id', 'type' => 'integer', 'key' => true, 'auto' => true),
+        'title' => array('column' => 'banners_title', 'type' => 'string'),
+        'url' => array('column' => 'banners_url', 'type' => 'string'),
+        'image' => array('column' => 'banners_image', 'type' => 'string'),
+        'group' => array('column' => 'banners_group', 'type' => 'string'),
+        'text' => array('column' => 'banners_html_text', 'type' => 'text'),
+        'expiryImpressions' => array('column' => 'expires_impressions', 'type' => 'integer'),
+        'expiryDate' => array('column' => 'expires_date', 'type' => 'datetime'),
+        'dateScheduled' => array('column' => 'date_scheduled', 'type' => 'datetime'),
+        'dateAdded' => array('column' => 'date_added', 'type' => 'datetime'),
+        'dateStatusChange' => array('column' => 'date_status_change', 'type' => 'datetime'),
+        'active' => array('column' => 'status', 'type' => 'boolean'),
+        'newWin' => array('column' => 'banners_open_new_windows', 'type' => 'boolean'),
+        'ssl' => array('column' => 'banners_on_ssl', 'type' => 'boolean'),
+        'sortOrder' => array('column' => 'banners_sort_order', 'type' => 'integer'),
+    ),
+    'banners_history' => array(
+        'id' => array('column' => 'banners_history_id', 'type' => 'integer', 'key' => true, 'auto' => true),
+        'bannerId' => array('column' => 'banners_id', 'type' => 'integer'),
+        'shown' => array('column' => 'banners_shown', 'type' => 'integer'),
+        'clicked' => array('column' => 'banners_clicked', 'type' => 'integer'),
+        'historyDate' => array('column' => 'banners_history_date', 'type' => 'datetime')
+    ),
+    'categories' => array(
+        'categoryId' => array('column' => 'categories_id', 'type' => 'integer', 'key' => true, 'auto' => true),
+        'image' => array('column' => 'categories_image', 'type' => 'string'),
+        'parentId' => array('column' => 'parent_id', 'type' => 'integer'),
+        'sortOrder' => array('column' => 'sort_order', 'type' => 'integer'),
+        'dateAdded' => array('column' => 'date_added', 'type' => 'datetime'),
+        'lastModified' => array('column' => 'last_modified', 'type' => 'datetime'),
+        'active' => array('column' => 'categories_status', 'type' => 'boolean')
+    ),
+    'categories_description' => array(
+        'categoryId' => array('column' => 'categories_id', 'type' => 'integer', 'key' => true),
+        'languageId' => array('column' => 'language_id', 'type' => 'integer', 'key' => true),
+        'name' => array('column' => 'categories_name', 'type' => 'string'),
+        'description' => array('column' => 'categories_description', 'type' => 'text'),
+    ),
+    'configuration' => array(
+        'id' => array('column' => 'configuration_id', 'type' => 'integer', 'key' => true, 'auto' => true),
+        'name' => array('column' => 'configuration_title', 'type' => 'string'),
+        'key' => array('column' => 'configuration_key', 'type' => 'string'),
+        'value' => array('column' => 'configuration_value', 'type' => 'text'),
+        'description' => array('column' => 'configuration_description', 'type' => 'text'),
+        'groupId' => array('column' => 'configuration_group_id', 'type' => 'integer'),
+        'sortOrder' => array('column' => 'sort_order', 'type' => 'integer'),
+        'lastModified' => array('column' => 'last_modified', 'type' => 'datetime'),
+        'dateAdded' => array('column' => 'date_added', 'type' => 'datetime'),
+        'useFunction' => array('column' => 'use_function', 'type' => 'text'),
+        'setFunction' => array('column' => 'set_function', 'type' => 'text')
+    ),
+    'configuration_group' => array(
+        'id' => array('column' => 'configuration_group_id', 'type' => 'integer', 'key' => true, 'auto' => true),
+        'name' => array('column' => 'configuration_group_title', 'type' => 'string'),
+        'description' => array('column' => 'configuration_group_description', 'type' => 'string'),
+        'sortOrder' => array('column' => 'sort_order', 'type' => 'integer'),
+        'visible' => array('column' => 'visible', 'type' => 'boolean')
+    ),
+    'countries' => array(
+        'countryId' => array('column' => 'countries_id', 'type' => 'integer', 'key' => true, 'auto' => true),
+        'name' => array('column' => 'countries_name', 'type' => 'string'),
+        'isoCode2' => array('column' => 'countries_iso_code_2', 'type' => 'string'),
+        'isoCode3' => array('column' => 'countries_iso_code_3', 'type' => 'string'),
+        'addressFormatId' => array('column' => 'address_format_id', 'type' => 'integer')
+    ),
+    'coupons' => array(
+        'id' => array('column' => 'coupon_id', 'type' => 'integer', 'key' => true, 'auto' => true),
+        'type' => array('column' => 'coupon_type', 'type' => 'string'),
+        'code' => array('column' => 'coupon_code', 'type' => 'string'),
+        'amount' => array('column' => 'coupon_amount', 'type' => 'float'),
+        'minOrderAmount' => array('column' => 'coupon_minimum_order', 'type' => 'float'),
+        'startDate' => array('column' => 'coupon_start_date', 'type' => 'datetime'),
+        'expiryDate' => array('column' => 'coupon_expire_date', 'type' => 'datetime'),
+        'usesPerCoupon' => array('column' => 'uses_per_coupon', 'type' => 'integer'),
+        'usesPerUser' => array('column' => 'uses_per_user', 'type' => 'integer'),
+        //'restrict_to_products' => array('column' => 'restrict_to_products', 'type' => 'string'),
+        //'restrict_to_categories' => array('column' => 'restrict_to_categories', 'type' => 'string'),
+        //'restrict_to_customers' => array('column' => 'restrict_to_customers', 'type' => 'text'),
+        'active' => array('column' => 'coupon_active', 'type' => 'string'), /* @todo should be boolean */
+        //'date_created' => array('column' => 'date_created', 'type' => 'datetime'),
+        //'date_modified' => array('column' => 'date_modified', 'type' => 'datetime'),
+        //'coupon_zone_restriction' => array('column' => 'coupon_zone_restriction', 'type' => 'integer')
+    ),
+    'coupons_description' => array(
+        'couponId' => array('column' => 'coupon_id', 'type' => 'integer', 'key' => true),
+        'languageId' => array('column' => 'language_id', 'type' => 'integer', 'key' => true),
+        'name' => array('column' => 'coupon_name', 'type' => 'string'),
+        'description' => array('column' => 'coupon_description', 'type' => 'text')
+    ),
+    'coupon_email_track' => array(
+        'couponEmailId' => array('column' => 'unique_id', 'type' => 'integer', 'key' => true, 'auto' => true),
+        'couponId' => array('column' => 'coupon_id', 'type' => 'integer'),
+        'accountId' => array('column' => 'customer_id_sent', 'type' => 'integer'),
+        'firstName' => array('column' => 'sent_firstname', 'type' => 'string'),
+        'lastName' => array('column' => 'sent_lastname', 'type' => 'string'),
+        'emailTo' => array('column' => 'emailed_to', 'type' => 'string'),
+        'dateSent' => array('column' => 'date_sent', 'type' => 'datetime')
+    ),
+    'coupon_gv_customer' => array(
+        'accountId' => array('column' => 'customer_id', 'type' => 'integer', 'key' => true),
+        'amount' => array('column' => 'amount', 'type' => 'float')
+    ),
+    'coupon_gv_queue' => array(
+        'id' => array('column' => 'unique_id', 'type' => 'integer', 'key' => true, 'auto' => true),
+        'accountId' => array('column' => 'customer_id', 'type' => 'integer'),
+        'orderId' => array('column' => 'order_id', 'type' => 'integer'),
+        'amount' => array('column' => 'amount', 'type' => 'integer'),
+        'dateCreated' => array('column' => 'date_created', 'type' => 'datetime'),
+        'ipAddr' => array('column' => 'ipaddr', 'type' => 'string'),
+        'released' => array('column' => 'release_flag', 'type' => 'string')
+    ),
+    'coupon_redeem_track' => array(
+        'couponRedeemId' => array('column' => 'unique_id', 'type' => 'integer', 'key' => true, 'auto' => true),
+        'couponId' => array('column' => 'coupon_id', 'type' => 'integer'),
+        'accountId' => array('column' => 'customer_id', 'type' => 'integer'),
+        'redeemDate' => array('column' => 'redeem_date', 'type' => 'datetime'),
+        'redeemIp' => array('column' => 'redeem_ip', 'type' => 'string'),
+        'orderId' => array('column' => 'order_id', 'type' => 'integer')
+    ),
+    'coupon_restrict' => array(
+        'couponRestrictionId' => array('column' => 'restrict_id', 'type' => 'integer', 'key' => true, 'auto' => true),
+        'couponId' => array('column' => 'coupon_id', 'type' => 'integer'),
+        'productId' => array('column' => 'product_id', 'type' => 'integer'),
+        'categoryId' => array('column' => 'category_id', 'type' => 'integer'),
+        'restriction' => array('column' => 'coupon_restrict', 'type' => 'string')
+    ),
+    'currencies' => array(
+        'currencyId' => array('column' => 'currencies_id', 'type' => 'integer', 'key' => true, 'auto' => true),
+        'name' => array('column' => 'title', 'type' => 'string'),
+        'code' => array('column' => 'code', 'type' => 'string'),
+        'symbolLeft' => array('column' => 'symbol_left', 'type' => 'string'),
+        'symbolRight' => array('column' => 'symbol_right', 'type' => 'string'),
+        'decimalPoint' => array('column' => 'decimal_point', 'type' => 'string'),
+        'thousandsPoint' => array('column' => 'thousands_point', 'type' => 'string'),
+        'decimalPlaces' => array('column' => 'decimal_places', 'type' => 'string'),
+        'rate' => array('column' => 'value', 'type' => 'float'),
+        'lastUpdate' => array('column' => 'last_updated', 'type' => 'datetime')
+    ),
+    'customers' => array(
+        'accountId' => array('column' => 'customers_id', 'type' => 'integer', 'key' => true, 'auto' => true),
+        'gender' => array('column' => 'customers_gender', 'type' => 'string'),
+        'firstName' => array('column' => 'customers_firstname', 'type' => 'string'),
+        'lastName' => array('column' => 'customers_lastname', 'type' => 'string'),
+        'dob' => array('column' => 'customers_dob', 'type' => 'datetime'),
+        'emailFormat' => array('column' => 'customers_email_format', 'type' => 'string'),
+        'email' => array('column' => 'customers_email_address', 'type' => 'string'),
+        'nickName' => array('column' => 'customers_nick', 'type' => 'string'),
+        'defaultAddressId' => array('column' => 'customers_default_address_id', 'type' => 'integer'),
+        'phone' => array('column' => 'customers_telephone', 'type' => 'string'),
+        'fax' => array('column' => 'customers_fax', 'type' => 'string'),
+        'password' => array('column' => 'customers_password', 'type' => 'string'),
+        'newsletterSubscriber' => array('column' => 'customers_newsletter', 'type' => 'string'), // @todo should be boolean
+        'priceGroupId' => array('column' => 'customers_group_pricing', 'type' => 'integer'),
+        'authorization' => array('column' => 'customers_authorization', 'type' => 'integer'),
+        'referral' => array('column' => 'customers_referral', 'type' => 'string'),
+        'payPalPayerId' => array('column' => 'customers_paypal_payerid', 'type' => 'string'),
+        'payPalEc' => array('column' => 'customers_paypal_ec', 'type' => 'boolean')
+    ),
+    'customers_basket' => array(
+        'cartId' => array('column' => 'customers_basket_id', 'type' => 'integer', 'key' => true, 'auto' => true),
+        'accountId' => array('column' => 'customers_id', 'type' => 'integer'),
+        'skuId' => array('column' => 'products_id', 'type' => 'string'),
+        'quantity' => array('column' => 'customers_basket_quantity', 'type' => 'float'),
+        'calculatedPrice' => array('column' => 'final_price', 'type' => 'float'),
+        'dateAdded' => array('column' => 'customers_basket_date_added', 'type' => 'string')
+    ),
+    'customers_basket_attributes' => array(
+        'cartAttributeId' => array('column' => 'customers_basket_attributes_id', 'type' => 'integer', 'key' => true, 'auto' => true),
+        'accountId' => array('column' => 'customers_id', 'type' => 'integer'),
+        'skuId' => array('column' => 'products_id', 'type' => 'string'),
+        'attributeId' => array('column' => 'products_options_id', 'type' => 'string'),
+        'attributeValueId' => array('column' => 'products_options_value_id', 'type' => 'integer'),
+        'attributeValueText' => array('column' => 'products_options_value_text', 'type' => 'text'),
+        'sortOrder' => array('column' => 'products_options_sort_order', 'type' => 'string')
+    ),
+    'customers_info' => array(
+        'accountId' => array('column' => 'customers_info_id', 'type' => 'integer', 'key' => true),
+        'lastLogonDate' => array('column' => 'customers_info_date_of_last_logon', 'type' => 'datetime'),
+        'numberOfLogons' => array('column' => 'customers_info_number_of_logons', 'type' => 'integer'),
+        'accountCreateDate' => array('column' => 'customers_info_date_account_created', 'type' => 'datetime'),
+        'lastModifiedDate' => array('column' => 'customers_info_date_account_last_modified', 'type' => 'datetime'),
+        'globalProductSubscriber' => array('column' => 'global_product_notifications', 'type' => 'boolean')
+    ),
+    'ezpages' => array(
+        'id' => array('column' => 'pages_id', 'type' => 'integer', 'key' => true, 'auto' => true),
+        'languageId' => array('column' => 'languages_id', 'type' => 'integer'),
+        'title' => array('column' => 'pages_title', 'type' => 'string'),
+        'altUrl' => array('column' => 'alt_url', 'type' => 'string'),
+        'altUrlExternal' => array('column' => 'alt_url_external', 'type' => 'string'),
+        'htmlText' => array('column' => 'pages_html_text', 'type' => 'text'),
+        'header' => array('column' => 'status_header', 'type' => 'boolean'),
+        'sidebox' => array('column' => 'status_sidebox', 'type' => 'boolean'),
+        'footer' => array('column' => 'status_footer', 'type' => 'boolean'),
+        'toc' => array('column' => 'status_toc', 'type' => 'integer'),
+        'headerSort' => array('column' => 'header_sort_order', 'type' => 'integer'),
+        'sideboxSort' => array('column' => 'sidebox_sort_order', 'type' => 'integer'),
+        'footerSort' => array('column' => 'footer_sort_order', 'type' => 'integer'),
+        'tocSort' => array('column' => 'toc_sort_order', 'type' => 'integer'),
+        'newWin' => array('column' => 'page_open_new_window', 'type' => 'boolean'),
+        'ssl' => array('column' => 'page_is_ssl', 'type' => 'boolean'),
+        'tocChapter' => array('column' => 'toc_chapter', 'type' => 'integer'),
+    ),
+    'featured' => array(
+        'id' => array('column' => 'featured_id', 'type' => 'integer', 'key' => true, 'auto' => true),
+        'productId' => array('column' => 'products_id', 'type' => 'integer'),
+        'dateAdded' => array('column' => 'featured_date_added', 'type' => 'datetime'),
+        'lastModified' => array('column' => 'featured_last_modified', 'type' => 'datetime'),
+        'expiryDate' => array('column' => 'expires_date', 'type' => 'date'),
+        'statusChangeDate' => array('column' => 'date_status_change', 'type' => 'datetime'),
+        'status' => array('column' => 'status', 'type' => 'boolean'),
+        'availableDate' => array('column' => 'featured_date_available', 'type' => 'date'),
+    ),
+    'geo_zones' => array(
+        'geoZoneId' => array('column' => 'geo_zone_id', 'type' => 'integer', 'key' => true, 'auto' => true),
+        'name' => array('column' => 'geo_zone_name', 'type' => 'string'),
+        'description' => array('column' => 'geo_zone_description', 'type' => 'string'),
+        'lastModified' => array('column' => 'last_modified', 'type' => 'datetime'),
+        'dateAdded' => array('column' => 'date_added', 'type' => 'datetime')
+    ),
+    'group_pricing' => array(
+        'id' => array('column' => 'group_id', 'type' => 'integer', 'key' => true, 'auto' => true),
+        'name' => array('column' => 'group_name', 'type' => 'string'),
+        'discount' => array('column' => 'group_percentage', 'type' => 'integer'),
+        'lastModified' => array('column' => 'last_modified', 'type' => 'datetime'),
         'dateAdded' => array('column' => 'date_added', 'type' => 'datetime')
     ),
     'languages' => array(
@@ -163,6 +303,34 @@ array(
         'sortOrder' => array('column' => 'layout_box_sort_order', 'type' => 'integer'),
         'singleSortOrder' => array('column' => 'layout_box_sort_order_single', 'type' => 'integer'),
         'singleStatus' => array('column' => 'layout_box_status_single', 'type' => 'boolean')
+    ),
+    'manufacturers' => array(
+        'manufacturerId' => array('column' => 'manufacturers_id', 'type' => 'integer', 'key' => true, 'auto' => true),
+        'name' => array('column' => 'manufacturers_name', 'type' => 'string'),
+        'image' => array('column' => 'manufacturers_image', 'type' => 'string'),
+        'dateAdded' => array('column' => 'date_added', 'type' => 'datetime'),
+        'lastModified' => array('column' => 'last_modified', 'type' => 'datetime')
+    ),
+    'manufacturers_info' => array(
+        'manufacturerId' => array('column' => 'manufacturers_id', 'type' => 'integer', 'key' => true),
+        'languageId' => array('column' => 'languages_id', 'type' => 'integer', 'key' => true),
+        'url' => array('column' => 'manufacturers_url', 'type' => 'string'),
+        'clickCount' => array('column' => 'url_clicked', 'type' => 'integer'),
+        'lastClick' => array('column' => 'date_last_click', 'type' => 'datetime')
+    ),
+    'meta_tags_categories_description' => array(
+        'categoryId' => array('column' => 'categories_id', 'type' => 'integer', 'key' => true),
+        'languageId' => array('column' => 'language_id', 'type' => 'integer', 'key' => true),
+        'title' => array('column' => 'metatags_title', 'type' => 'string'),
+        'keywords' => array('column' => 'metatags_keywords', 'type' => 'text'),
+        'description' => array('column' => 'metatags_description', 'type' => 'text')
+    ),
+    'meta_tags_products_description' => array(
+        'productId' => array('column' => 'products_id', 'type' => 'integer', 'key' => true),
+        'languageId' => array('column' => 'language_id', 'type' => 'integer', 'key' => true),
+        'title' => array('column' => 'metatags_title', 'type' => 'string'),
+        'keywords' => array('column' => 'metatags_keywords', 'type' => 'text'),
+        'description' => array('column' => 'metatags_description', 'type' => 'text')
     ),
     'products' => array(
         'productId' => array('column' => 'products_id', 'type' => 'integer', 'key' => true, 'auto' => true),
@@ -201,90 +369,6 @@ array(
         'metatagsPriceStatus' => array('column' => 'metatags_price_status', 'type' => 'boolean'),
         'metatagsTitleTaglineStatus' => array('column' => 'metatags_title_tagline_status', 'type' => 'boolean')
     ),
-    'meta_tags_products_description' => array(
-        'productId' => array('column' => 'products_id', 'type' => 'integer', 'key' => true),
-        'languageId' => array('column' => 'language_id', 'type' => 'integer', 'key' => true),
-        'title' => array('column' => 'metatags_title', 'type' => 'string'),
-        'keywords' => array('column' => 'metatags_keywords', 'type' => 'text'),
-        'description' => array('column' => 'metatags_description', 'type' => 'text')
-    ),
-    'products_description' => array(
-        'productId' => array('column' => 'products_id', 'type' => 'integer', 'key' => true),
-        'languageId' => array('column' => 'language_id', 'type' => 'integer', 'key' => true),
-        'name' => array('column' => 'products_name', 'type' => 'string'),
-        'description' => array('column' => 'products_description', 'type' => 'text'),
-        'url' => array('column' => 'products_url', 'type' => 'string'),
-        //'viewed' => array('column' => 'products_viewed', 'type' => 'integer')
-    ),
-    'product_types' => array(
-        'id' => array('column' => 'type_id', 'type' => 'integer', 'key' => true, 'auto' => true),
-        'name' => array('column' => 'type_name', 'type' => 'string'),
-        'handler' => array('column' => 'type_handler', 'type' => 'string'),
-        'masterType' => array('column' => 'type_master_type', 'type' => 'integer'),
-        'addToCart' => array('column' => 'allow_add_to_cart', 'type' => 'string'), /* @todo should be boolean */
-        'defaultImage' => array('column' => 'default_image', 'type' => 'string'),
-        'dateAdded' => array('column' => 'date_added', 'type' => 'datetime'),
-        'lastModified' => array('column' => 'last_modified', 'type' => 'datetime')
-    ),
-    'product_type_layout' => array(
-        'id' => array('column' => 'configuration_id', 'type' => 'integer', 'key' => true, 'auto' => true),
-        'title' => array('column' => 'configuration_title', 'type' => 'string'),
-        'key' => array('column' => 'configuration_key', 'type' => 'string'),
-        'value' => array('column' => 'configuration_value', 'type' => 'text'),
-        'description' => array('column' => 'configuration_description', 'type' => 'text'),
-        'productTypeId' => array('column' => 'product_type_id', 'type' => 'integer'),
-        'sortOrder' => array('column' => 'sort_order', 'type' => 'integer'),
-        'lastModified' => array('column' => 'last_modified', 'type' => 'datetime'),
-        'dateAdded' => array('column' => 'date_added', 'type' => 'datetime'),
-        'useFunction' => array('column' => 'use_function', 'type' => 'text'),
-        'setFunction' => array('column' => 'set_function', 'type' => 'text')
-    ),
-    'featured' => array(
-        'id' => array('column' => 'featured_id', 'type' => 'integer', 'key' => true, 'auto' => true),
-        'productId' => array('column' => 'products_id', 'type' => 'integer'),
-        'dateAdded' => array('column' => 'featured_date_added', 'type' => 'datetime'),
-        'lastModified' => array('column' => 'featured_last_modified', 'type' => 'datetime'),
-        'expiryDate' => array('column' => 'expires_date', 'type' => 'date'),
-        'statusChangeDate' => array('column' => 'date_status_change', 'type' => 'datetime'),
-        'status' => array('column' => 'status', 'type' => 'boolean'),
-        'availableDate' => array('column' => 'featured_date_available', 'type' => 'date')
-    ),
-    'specials' => array(
-        'id' => array('column' => 'specials_id', 'type' => 'integer', 'key' => true, 'auto' => true),
-        'productId' => array('column' => 'products_id', 'type' => 'integer'),
-        'specialPrice' => array('column' => 'specials_new_products_price', 'type' => 'float'),
-        'dateAdded' => array('column' => 'specials_date_added', 'type' => 'datetime'),
-        'lastModified' => array('column' => 'specials_last_modified', 'type' => 'datetime'),
-        'expiryDate' => array('column' => 'expires_date', 'type' => 'date'),
-        'statusChangeDate' => array('column' => 'date_status_change', 'type' => 'datetime'),
-        'status' => array('column' => 'status', 'type' => 'boolean'),
-        'availableDate' => array('column' => 'specials_date_available', 'type' => 'date')
-    ),
-    'ezpages' => array(
-        'id' => array('column' => 'pages_id', 'type' => 'integer', 'key' => true, 'auto' => true),
-        'languageId' => array('column' => 'languages_id', 'type' => 'integer'),
-        'title' => array('column' => 'pages_title', 'type' => 'string'),
-        'altUrl' => array('column' => 'alt_url', 'type' => 'string'),
-        'altUrlExternal' => array('column' => 'alt_url_external', 'type' => 'string'),
-        'htmlText' => array('column' => 'pages_html_text', 'type' => 'text'),
-        'header' => array('column' => 'status_header', 'type' => 'boolean'),
-        'sidebox' => array('column' => 'status_sidebox', 'type' => 'boolean'),
-        'footer' => array('column' => 'status_footer', 'type' => 'boolean'),
-        'toc' => array('column' => 'status_toc', 'type' => 'integer'),
-        'headerSort' => array('column' => 'header_sort_order', 'type' => 'integer'),
-        'sideboxSort' => array('column' => 'sidebox_sort_order', 'type' => 'integer'),
-        'footerSort' => array('column' => 'footer_sort_order', 'type' => 'integer'),
-        'tocSort' => array('column' => 'toc_sort_order', 'type' => 'integer'),
-        'newWin' => array('column' => 'page_open_new_window', 'type' => 'boolean'),
-        'ssl' => array('column' => 'page_is_ssl', 'type' => 'boolean'),
-        'tocChapter' => array('column' => 'toc_chapter', 'type' => 'integer')
-    ),
-    'template_select' => array(
-        'id' => array('column' => 'template_id', 'type' => 'integer', 'key' => true, 'auto' => true),
-        'themeId' => array('column' => 'template_dir', 'type' => 'string'),
-        'languageId' => array('column' => 'template_language', 'type' => 'string'),
-        'variationId' => array('column' => 'variation_dir', 'type' => 'string')
-    ),
     // attribute value details; price, discounts, etc
     'products_attributes' => array(
         'attributeValueDetailsId' => array('column' => 'products_attributes_id', 'type' => 'integer', 'key' => true, 'auto' => true),
@@ -315,6 +399,20 @@ array(
         'priceLettersFree' => array('column' => 'attributes_price_letters_free', 'type' => 'integer'),
         'required' => array('column' => 'attributes_required', 'type' => 'boolean')
     ),
+    'products_description' => array(
+        'productId' => array('column' => 'products_id', 'type' => 'integer', 'key' => true),
+        'languageId' => array('column' => 'language_id', 'type' => 'integer', 'key' => true),
+        'name' => array('column' => 'products_name', 'type' => 'string'),
+        'description' => array('column' => 'products_description', 'type' => 'text'),
+        'url' => array('column' => 'products_url', 'type' => 'string'),
+        //'viewed' => array('column' => 'products_viewed', 'type' => 'integer')
+    ),
+    'products_discount_quantity' => array(
+        'quantityDiscountId' => array('column' => 'discount_id', 'type' => 'integer'),
+        'productId' => array('column' => 'products_id', 'type' => 'integer'),
+        'quantity' => array('column' => 'discount_qty', 'type' => 'float'),
+        'value' => array('column' => 'discount_price', 'type' => 'float')
+    ),
     // attribute; model, size, memory, etc
     'products_options' => array(
         'attributeId' => array('column' => 'products_options_id', 'type' => 'integer', 'key' => true),
@@ -337,56 +435,46 @@ array(
         // alternatively, enable this and add pov.products_options_values_sort_order to the values loaded in ZMAttributes ~line# 99
         //'sortOrder' => array('column' => 'products_options_values_sort_order', 'type' => 'integer')
     ),
-    'group_pricing' => array(
-        'id' => array('column' => 'group_id', 'type' => 'integer', 'key' => true, 'auto' => true),
-        'name' => array('column' => 'group_name', 'type' => 'string'),
-        'discount' => array('column' => 'group_percentage', 'type' => 'integer'),
-        'lastModified' => array('column' => 'last_modified', 'type' => 'datetime'),
+    'products_notifications' => array(
+        'productId' => array('column' => 'products_id', 'type' => 'integer', 'key' => true),
+        'accountId' => array('column' => 'customers_id', 'type' => 'integer', 'key' => true),
+        //'dateAdded' => array('column' => 'date_added', 'type' => 'datetime')
+    ),
+    'products_notifications' => array(
+        'productId' => array('column' => 'products_id', 'type' => 'integer', 'key' => true),
+        'accountId' => array('column' => 'customers_id', 'type' => 'integer', 'key' => true),
         'dateAdded' => array('column' => 'date_added', 'type' => 'datetime')
     ),
-    'configuration' => array(
+    'products_to_categories' => array(
+        'productId' => array('column' => 'products_id', 'type' => 'integer', 'key' => true),
+        'categoryId' => array('column' => 'categories_id', 'type' => 'integer', 'key' => true)
+    ),
+    'product_types' => array(
+        'id' => array('column' => 'type_id', 'type' => 'integer', 'key' => true, 'auto' => true),
+        'name' => array('column' => 'type_name', 'type' => 'string'),
+        'handler' => array('column' => 'type_handler', 'type' => 'string'),
+        'masterType' => array('column' => 'type_master_type', 'type' => 'integer'),
+        'addToCart' => array('column' => 'allow_add_to_cart', 'type' => 'string'), /* @todo should be boolean */
+        'defaultImage' => array('column' => 'default_image', 'type' => 'string'),
+        'dateAdded' => array('column' => 'date_added', 'type' => 'datetime'),
+        'lastModified' => array('column' => 'last_modified', 'type' => 'datetime')
+    ),
+    'product_types_to_category' => array(
+        'productTypeId' => array('column' => 'product_type_id', 'type' => 'integer', 'key' => true),
+        'categoryId' => array('column' => 'category_id', 'type' => 'integer', 'key' => true)
+    ),
+    'product_type_layout' => array(
         'id' => array('column' => 'configuration_id', 'type' => 'integer', 'key' => true, 'auto' => true),
-        'name' => array('column' => 'configuration_title', 'type' => 'string'),
+        'title' => array('column' => 'configuration_title', 'type' => 'string'),
         'key' => array('column' => 'configuration_key', 'type' => 'string'),
         'value' => array('column' => 'configuration_value', 'type' => 'text'),
         'description' => array('column' => 'configuration_description', 'type' => 'text'),
-        'groupId' => array('column' => 'configuration_group_id', 'type' => 'integer'),
+        'productTypeId' => array('column' => 'product_type_id', 'type' => 'integer'),
         'sortOrder' => array('column' => 'sort_order', 'type' => 'integer'),
         'lastModified' => array('column' => 'last_modified', 'type' => 'datetime'),
         'dateAdded' => array('column' => 'date_added', 'type' => 'datetime'),
         'useFunction' => array('column' => 'use_function', 'type' => 'text'),
         'setFunction' => array('column' => 'set_function', 'type' => 'text')
-    ),
-    'configuration_group' => array(
-        'id' => array('column' => 'configuration_group_id', 'type' => 'integer', 'key' => true, 'auto' => true),
-        'name' => array('column' => 'configuration_group_title', 'type' => 'string'),
-        'description' => array('column' => 'configuration_group_description', 'type' => 'string'),
-        'sortOrder' => array('column' => 'sort_order', 'type' => 'integer'),
-        'visible' => array('column' => 'visible', 'type' => 'boolean')
-    ),
-    'banners' => array(
-        'id' => array('column' => 'banners_id', 'type' => 'integer', 'key' => true, 'auto' => true),
-        'title' => array('column' => 'banners_title', 'type' => 'string'),
-        'url' => array('column' => 'banners_url', 'type' => 'string'),
-        'image' => array('column' => 'banners_image', 'type' => 'string'),
-        'group' => array('column' => 'banners_group', 'type' => 'string'),
-        'text' => array('column' => 'banners_html_text', 'type' => 'text'),
-        'expiryImpressions' => array('column' => 'expires_impressions', 'type' => 'integer'),
-        'expiryDate' => array('column' => 'expires_date', 'type' => 'datetime'),
-        'dateScheduled' => array('column' => 'date_scheduled', 'type' => 'datetime'),
-        'dateAdded' => array('column' => 'date_added', 'type' => 'datetime'),
-        'dateStatusChange' => array('column' => 'date_status_change', 'type' => 'datetime'),
-        'active' => array('column' => 'status', 'type' => 'boolean'),
-        'newWin' => array('column' => 'banners_open_new_windows', 'type' => 'boolean'),
-        'ssl' => array('column' => 'banners_on_ssl', 'type' => 'boolean'),
-        'sortOrder' => array('column' => 'banners_sort_order', 'type' => 'integer')
-    ),
-    'banners_history' => array(
-        'id' => array('column' => 'banners_history_id', 'type' => 'integer', 'key' => true, 'auto' => true),
-        'bannerId' => array('column' => 'banners_id', 'type' => 'integer'),
-        'shown' => array('column' => 'banners_shown', 'type' => 'integer'),
-        'clicked' => array('column' => 'banners_clicked', 'type' => 'integer'),
-        'historyDate' => array('column' => 'banners_history_date', 'type' => 'datetime')
     ),
     'orders' => array(
         'orderId' => array('column' => 'orders_id', 'type' => 'integer', 'key' => true, 'auto' => true),
@@ -441,6 +529,23 @@ array(
         'paypal_ipn_id' => array('column' => 'paypal_ipn_id', 'type' => 'integer'),
         'ip_address' => array('column' => 'ip_address', 'type' => 'string')
     ),
+    'orders_products' => array(
+        'orderItemId' => array('column' => 'orders_products_id', 'type' => 'integer', 'key' => true, 'auto' => true),
+        'orderId' => array('column' => 'orders_id', 'type' => 'integer'),
+        'productId' => array('column' => 'products_id', 'type' => 'integer'),
+        'model' => array('column' => 'products_model', 'type' => 'string'),
+        'name' => array('column' => 'products_name', 'type' => 'string'),
+        'productPrice' => array('column' => 'products_price', 'type' => 'float'),
+        'calculatedPrice' => array('column' => 'final_price', 'type' => 'float'),
+        'taxValue' => array('column' => 'products_tax', 'type' => 'float'),
+        'qty' => array('column' => 'products_quantity', 'type' => 'float'),
+        'oneTimeCharges' => array('column' => 'onetime_charges', 'type' => 'integer'),
+        'pricedByAttribute' => array('column' => 'products_priced_by_attribute', 'type' => 'boolean'),
+        'free' => array('column' => 'product_is_free', 'type' => 'boolean'),
+        'discountType' => array('column' => 'products_discount_type', 'type' => 'integer'),
+        'discountTypeFrom' => array('column' => 'products_discount_type_from', 'type' => 'integer'),
+        'sku' => array('column' => 'products_prid', 'type' => 'string')
+    ),
     'orders_products_attributes' => array(
         'orderProductAttributeId' => array('column' => 'orders_products_attributes_id', 'type' => 'integer', 'key' => true, 'auto' => true),
         'orderId' => array('column' => 'orders_id', 'type' => 'integer'),
@@ -469,14 +574,14 @@ array(
         'attributeValueId' => array('column' => 'products_options_values_id', 'type' => 'integer'),
         'sku' => array('column' => 'products_prid', 'type' => 'string')
     ),
-    'orders_total' => array(
-        'orderTotalId' => array('column' => 'orders_total_id', 'type' => 'integer', 'key' => true, 'auto' => true),
+    'orders_products_download' => array(
+        'id' => array('column' => 'orders_products_download_id', 'type' => 'integer', 'key' => true, 'auto' => true),
         'orderId' => array('column' => 'orders_id', 'type' => 'integer'),
-        'name' => array('column' => 'title', 'type' => 'string'),
-        'value' => array('column' => 'text', 'type' => 'text'),
-        'amount' => array('column' => 'value', 'type' => 'float'),
-        'type' => array('column' => 'class', 'type' => 'string'),
-        'sortOrder' => array('column' => 'sort_order', 'type' => 'integer')
+        'orderItemId' => array('column' => 'orders_products_id', 'type' => 'integer'),
+        'filename' => array('column' => 'orders_products_filename', 'type' => 'string'),
+        'maxDays' => array('column' => 'download_maxdays', 'type' => 'integer'),
+        'downloadCount' => array('column' => 'download_count', 'type' => 'integer'),
+        'productId' => array('column' => 'products_prid', 'type' => 'string')
     ),
     'orders_status' => array(
         'orderStatusId' => array('column' => 'orders_status_id', 'type' => 'integer', 'key' => true),
@@ -491,109 +596,14 @@ array(
         'customerNotified' => array('column' => 'customer_notified', 'type' => 'boolean'),
         'comment' => array('column' => 'comments', 'type' => 'text')
     ),
-    'coupon_gv_queue' => array(
-        'id' => array('column' => 'unique_id', 'type' => 'integer', 'key' => true, 'auto' => true),
-        'accountId' => array('column' => 'customer_id', 'type' => 'integer'),
-        'orderId' => array('column' => 'order_id', 'type' => 'integer'),
-        'amount' => array('column' => 'amount', 'type' => 'integer'),
-        'dateCreated' => array('column' => 'date_created', 'type' => 'datetime'),
-        'ipAddr' => array('column' => 'ipaddr', 'type' => 'string'),
-        'released' => array('column' => 'release_flag', 'type' => 'string')
-    ),
-    'orders_products' => array(
-        'orderItemId' => array('column' => 'orders_products_id', 'type' => 'integer', 'key' => true, 'auto' => true),
+    'orders_total' => array(
+        'orderTotalId' => array('column' => 'orders_total_id', 'type' => 'integer', 'key' => true, 'auto' => true),
         'orderId' => array('column' => 'orders_id', 'type' => 'integer'),
-        'productId' => array('column' => 'products_id', 'type' => 'integer'),
-        'model' => array('column' => 'products_model', 'type' => 'string'),
-        'name' => array('column' => 'products_name', 'type' => 'string'),
-        'productPrice' => array('column' => 'products_price', 'type' => 'float'),
-        'calculatedPrice' => array('column' => 'final_price', 'type' => 'float'),
-        'taxValue' => array('column' => 'products_tax', 'type' => 'float'),
-        'qty' => array('column' => 'products_quantity', 'type' => 'float'),
-        'oneTimeCharges' => array('column' => 'onetime_charges', 'type' => 'integer'),
-        'pricedByAttribute' => array('column' => 'products_priced_by_attribute', 'type' => 'boolean'),
-        'free' => array('column' => 'product_is_free', 'type' => 'boolean'),
-        'discountType' => array('column' => 'products_discount_type', 'type' => 'integer'),
-        'discountTypeFrom' => array('column' => 'products_discount_type_from', 'type' => 'integer'),
-        'sku' => array('column' => 'products_prid', 'type' => 'string')
-    ),
-    'orders_products_download' => array(
-        'id' => array('column' => 'orders_products_download_id', 'type' => 'integer', 'key' => true, 'auto' => true),
-        'orderId' => array('column' => 'orders_id', 'type' => 'integer'),
-        'orderItemId' => array('column' => 'orders_products_id', 'type' => 'integer'),
-        'filename' => array('column' => 'orders_products_filename', 'type' => 'string'),
-        'maxDays' => array('column' => 'download_maxdays', 'type' => 'integer'),
-        'downloadCount' => array('column' => 'download_count', 'type' => 'integer'),
-        'productId' => array('column' => 'products_prid', 'type' => 'string')
-    ),
-    'coupons' => array(
-        'id' => array('column' => 'coupon_id', 'type' => 'integer', 'key' => true, 'auto' => true),
-        'type' => array('column' => 'coupon_type', 'type' => 'string'),
-        'code' => array('column' => 'coupon_code', 'type' => 'string'),
-        'amount' => array('column' => 'coupon_amount', 'type' => 'float'),
-        'minOrderAmount' => array('column' => 'coupon_minimum_order', 'type' => 'float'),
-        'startDate' => array('column' => 'coupon_start_date', 'type' => 'datetime'),
-        'expiryDate' => array('column' => 'coupon_expire_date', 'type' => 'datetime'),
-        'usesPerCoupon' => array('column' => 'uses_per_coupon', 'type' => 'integer'),
-        'usesPerUser' => array('column' => 'uses_per_user', 'type' => 'integer'),
-        //'restrict_to_products' => array('column' => 'restrict_to_products', 'type' => 'string'),
-        //'restrict_to_categories' => array('column' => 'restrict_to_categories', 'type' => 'string'),
-        //'restrict_to_customers' => array('column' => 'restrict_to_customers', 'type' => 'text'),
-        'active' => array('column' => 'coupon_active', 'type' => 'string'), /* @todo should be boolean */
-        //'date_created' => array('column' => 'date_created', 'type' => 'datetime'),
-        //'date_modified' => array('column' => 'date_modified', 'type' => 'datetime'),
-        //'coupon_zone_restriction' => array('column' => 'coupon_zone_restriction', 'type' => 'integer')
-    ),
-    'coupons_description' => array(
-        'couponId' => array('column' => 'coupon_id', 'type' => 'integer', 'key' => true),
-        'languageId' => array('column' => 'language_id', 'type' => 'integer', 'key' => true),
-        'name' => array('column' => 'coupon_name', 'type' => 'string'),
-        'description' => array('column' => 'coupon_description', 'type' => 'text')
-    ),
-    'coupon_gv_customer' => array(
-        'accountId' => array('column' => 'customer_id', 'type' => 'integer', 'key' => true),
-        'amount' => array('column' => 'amount', 'type' => 'float')
-    ),
-    'coupon_redeem_track' => array(
-        'couponRedeemId' => array('column' => 'unique_id', 'type' => 'integer', 'key' => true, 'auto' => true),
-        'couponId' => array('column' => 'coupon_id', 'type' => 'integer'),
-        'accountId' => array('column' => 'customer_id', 'type' => 'integer'),
-        'redeemDate' => array('column' => 'redeem_date', 'type' => 'datetime'),
-        'redeemIp' => array('column' => 'redeem_ip', 'type' => 'string'),
-        'orderId' => array('column' => 'order_id', 'type' => 'integer')
-    ),
-    'coupon_restrict' => array(
-        'couponRestrictionId' => array('column' => 'restrict_id', 'type' => 'integer', 'key' => true, 'auto' => true),
-        'couponId' => array('column' => 'coupon_id', 'type' => 'integer'),
-        'productId' => array('column' => 'product_id', 'type' => 'integer'),
-        'categoryId' => array('column' => 'category_id', 'type' => 'integer'),
-        'restriction' => array('column' => 'coupon_restrict', 'type' => 'string')
-    ),
-    'coupon_email_track' => array(
-        'couponEmailId' => array('column' => 'unique_id', 'type' => 'integer', 'key' => true, 'auto' => true),
-        'couponId' => array('column' => 'coupon_id', 'type' => 'integer'),
-        'accountId' => array('column' => 'customer_id_sent', 'type' => 'integer'),
-        'firstName' => array('column' => 'sent_firstname', 'type' => 'string'),
-        'lastName' => array('column' => 'sent_lastname', 'type' => 'string'),
-        'emailTo' => array('column' => 'emailed_to', 'type' => 'string'),
-        'dateSent' => array('column' => 'date_sent', 'type' => 'datetime')
-    ),
-    'salemaker_sales' => array(
-        'saleId' => array('column' => 'sale_id', 'type' => 'integer', 'key' => true, 'auto' => true),
-        'status' => array('column' => 'sale_status', 'type' => 'boolean'),
-        'name' => array('column' => 'sale_name', 'type' => 'string'),
-        'deductionValue' => array('column' => 'sale_deduction_value', 'type' => 'float'),
-        'deductionType' => array('column' => 'sale_deduction_type', 'type' => 'integer'),
-        'priceFrom' => array('column' => 'sale_pricerange_from', 'type' => 'float'),
-        'priceTo' => array('column' => 'sale_pricerange_to', 'type' => 'float'),
-        'specialsCondition' => array('column' => 'sale_specials_condition', 'type' => 'integer'),
-        'categoriesSelected' => array('column' => 'sale_categories_selected', 'type' => 'string'),
-        'categoriesAll' => array('column' => 'sale_categories_all', 'type' => 'string'),
-        'dateStart' => array('column' => 'sale_date_start', 'type' => 'date'),
-        'dateEnd' => array('column' => 'sale_date_end', 'type' => 'date'),
-        'dateAdded' => array('column' => 'sale_date_added', 'type' => 'date'),
-        'dateLastModified' => array('column' => 'sale_date_last_modified', 'type' => 'date'),
-        'dateStatusChange' => array('column' => 'sale_date_status_change', 'type' => 'date')
+        'name' => array('column' => 'title', 'type' => 'string'),
+        'value' => array('column' => 'text', 'type' => 'text'),
+        'amount' => array('column' => 'value', 'type' => 'float'),
+        'type' => array('column' => 'class', 'type' => 'string'),
+        'sortOrder' => array('column' => 'sort_order', 'type' => 'integer')
     ),
     'reviews' => array(
         'reviewId' => array('column' => 'reviews_id', 'type' => 'integer', 'key' => true, 'auto' => true),
@@ -612,6 +622,46 @@ array(
         'title' => array('column' => 'title', 'type' => 'text'),
         'text' => array('column' => 'reviews_text', 'type' => 'text')
     ),
+    'salemaker_sales' => array(
+        'saleId' => array('column' => 'sale_id', 'type' => 'integer', 'key' => true, 'auto' => true),
+        'status' => array('column' => 'sale_status', 'type' => 'boolean'),
+        'name' => array('column' => 'sale_name', 'type' => 'string'),
+        'deductionValue' => array('column' => 'sale_deduction_value', 'type' => 'float'),
+        'deductionType' => array('column' => 'sale_deduction_type', 'type' => 'integer'),
+        'priceFrom' => array('column' => 'sale_pricerange_from', 'type' => 'float'),
+        'priceTo' => array('column' => 'sale_pricerange_to', 'type' => 'float'),
+        'specialsCondition' => array('column' => 'sale_specials_condition', 'type' => 'integer'),
+        'categoriesSelected' => array('column' => 'sale_categories_selected', 'type' => 'string'),
+        'categoriesAll' => array('column' => 'sale_categories_all', 'type' => 'string'),
+        'dateStart' => array('column' => 'sale_date_start', 'type' => 'date'),
+        'dateEnd' => array('column' => 'sale_date_end', 'type' => 'date'),
+        'dateAdded' => array('column' => 'sale_date_added', 'type' => 'date'),
+        'dateLastModified' => array('column' => 'sale_date_last_modified', 'type' => 'date'),
+        'dateStatusChange' => array('column' => 'sale_date_status_change', 'type' => 'date')
+    ),
+    'sessions' => array(
+        'sesskey' => array('column' => 'sesskey', 'type' => 'string', 'key' => true),
+        'expiry' => array('column' => 'expiry', 'type' => 'integer'),
+        'value' => array('column' => 'value', 'type' => 'text')
+    ),
+    'specials' => array(
+        'id' => array('column' => 'specials_id', 'type' => 'integer', 'key' => true, 'auto' => true),
+        'productId' => array('column' => 'products_id', 'type' => 'integer'),
+        'specialPrice' => array('column' => 'specials_new_products_price', 'type' => 'float'),
+        'dateAdded' => array('column' => 'specials_date_added', 'type' => 'datetime'),
+        'lastModified' => array('column' => 'specials_last_modified', 'type' => 'datetime'),
+        'expiryDate' => array('column' => 'expires_date', 'type' => 'date'),
+        'statusChangeDate' => array('column' => 'date_status_change', 'type' => 'datetime'),
+        'status' => array('column' => 'status', 'type' => 'boolean'),
+        'availableDate' => array('column' => 'specials_date_available', 'type' => 'date'),
+    ),
+    'tax_class' => array(
+        'taxClassId' => array('column' => 'tax_class_id', 'type' => 'integer', 'key' => true, 'auto' => true),
+        'title' => array('column' => 'tax_class_title', 'type' => 'string'),
+        'description' => array('column' => 'tax_class_description', 'type' => 'string'),
+        'lastModified' => array('column' => 'last_modified', 'type' => 'datetime'),
+        'dateAdded' => array('column' => 'date_added', 'type' => 'datetime')
+    ),
     'tax_rates' => array(
         'taxRateId' => array('column' => 'tax_rates_id', 'type' => 'integer', 'key' => true, 'auto' => true),
         'taxZoneId' => array('column' => 'tax_zone_id', 'type' => 'integer'),
@@ -622,71 +672,11 @@ array(
         'lastModified' => array('column' => 'last_modified', 'type' => 'datetime'),
         'dateAdded' => array('column' => 'date_added', 'type' => 'datetime')
     ),
-    'tax_class' => array(
-        'taxClassId' => array('column' => 'tax_class_id', 'type' => 'integer', 'key' => true, 'auto' => true),
-        'title' => array('column' => 'tax_class_title', 'type' => 'string'),
-        'description' => array('column' => 'tax_class_description', 'type' => 'string'),
-        'lastModified' => array('column' => 'last_modified', 'type' => 'datetime'),
-        'dateAdded' => array('column' => 'date_added', 'type' => 'datetime')
-    ),
-    'zones_to_geo_zones' => array(
-        'zoneToGeoZoneId' => array('column' => 'association_id', 'type' => 'integer', 'key' => true, 'auto' => true),
-        'countryId' => array('column' => 'zone_country_id', 'type' => 'integer'),
-        'zoneId' => array('column' => 'zone_id', 'type' => 'integer'),
-        'geoZoneId' => array('column' => 'geo_zone_id', 'type' => 'integer'),
-        'lastModified' => array('column' => 'last_modified', 'type' => 'datetime'),
-        'dateAdded' => array('column' => 'date_added', 'type' => 'datetime')
-    ),
-    'geo_zones' => array(
-        'geoZoneId' => array('column' => 'geo_zone_id', 'type' => 'integer', 'key' => true, 'auto' => true),
-        'name' => array('column' => 'geo_zone_name', 'type' => 'string'),
-        'description' => array('column' => 'geo_zone_description', 'type' => 'string'),
-        'lastModified' => array('column' => 'last_modified', 'type' => 'datetime'),
-        'dateAdded' => array('column' => 'date_added', 'type' => 'datetime')
-    ),
-    'products_discount_quantity' => array(
-        'quantityDiscountId' => array('column' => 'discount_id', 'type' => 'integer'),
-        'productId' => array('column' => 'products_id', 'type' => 'integer'),
-        'quantity' => array('column' => 'discount_qty', 'type' => 'float'),
-        'value' => array('column' => 'discount_price', 'type' => 'float')
-    ),
-    'customers_basket' => array(
-        'cartId' => array('column' => 'customers_basket_id', 'type' => 'integer', 'key' => true, 'auto' => true),
-        'accountId' => array('column' => 'customers_id', 'type' => 'integer'),
-        'skuId' => array('column' => 'products_id', 'type' => 'string'),
-        'quantity' => array('column' => 'customers_basket_quantity', 'type' => 'float'),
-        'calculatedPrice' => array('column' => 'final_price', 'type' => 'float'),
-        'dateAdded' => array('column' => 'customers_basket_date_added', 'type' => 'string')
-    ),
-    'customers_basket_attributes' => array(
-        'cartAttributeId' => array('column' => 'customers_basket_attributes_id', 'type' => 'integer', 'key' => true, 'auto' => true),
-        'accountId' => array('column' => 'customers_id', 'type' => 'integer'),
-        'skuId' => array('column' => 'products_id', 'type' => 'string'),
-        'attributeId' => array('column' => 'products_options_id', 'type' => 'string'),
-        'attributeValueId' => array('column' => 'products_options_value_id', 'type' => 'integer'),
-        'attributeValueText' => array('column' => 'products_options_value_text', 'type' => 'text'),
-        'sortOrder' => array('column' => 'products_options_sort_order', 'type' => 'string')
-    ),
-    'admin' => array(
-        'id' => array('column' => 'admin_id', 'type' => 'integer', 'key' => true, 'auto' => true),
-        'name' => array('column' => 'admin_name', 'type' => 'string'),
-        'email' => array('column' => 'admin_email', 'type' => 'string'),
-        'password' => array('column' => 'admin_pass', 'type' => 'string'),
-        'live' => array('column' => 'admin_level', 'type' => 'boolean')
-    ),
-    'admin_prefs' => array(
-        'admin_pref_id' => array('column' => 'admin_pref_id', 'type' => 'integer', 'key' => true, 'auto' => true),
-        'admin_id' => array('column' => 'admin_id', 'type' => 'integer'),
-        'name' => array('column' => 'name', 'type' => 'string'),
-        'value' => array('column' => 'value', 'type' => 'text')
-    ),
-    'admin_roles' => array(
-        'admin_role_id' => array('column' => 'admin_role_id', 'type' => 'integer', 'key' => true, 'auto' => true),
-        'name' => array('column' => 'name', 'type' => 'string')
-    ),
-    'admins_to_roles' => array(
-        'admin_id' => array('column' => 'admin_id', 'type' => 'integer', 'key' => true),
-        'admin_role_id' => array('column' => 'admin_role_id', 'type' => 'integer', 'key' => true)
+    'template_select' => array(
+        'id' => array('column' => 'template_id', 'type' => 'integer', 'key' => true, 'auto' => true),
+        'themeId' => array('column' => 'template_dir', 'type' => 'string'),
+        'languageId' => array('column' => 'template_language', 'type' => 'string'),
+        'variationId' => array('column' => 'variation_dir', 'type' => 'string')
     ),
     'token' => array(
         'hashId' => array('column' => 'hash_id', 'type' => 'integer', 'key' => true, 'auto' => true),
@@ -695,9 +685,18 @@ array(
         'issued' => array('column' => 'issued', 'type' => 'datetime'),
         'expires' => array('column' => 'expires', 'type' => 'datetime')
     ),
-    'sessions' => array(
-        'sesskey' => array('column' => 'sesskey', 'type' => 'string', 'key' => true),
-        'expiry' => array('column' => 'expiry', 'type' => 'integer'),
-        'value' => array('column' => 'value', 'type' => 'text')
+    'zones' => array(
+        'zoneId' => array('column' => 'zone_id', 'type' => 'integer', 'key' => true, 'auto' => true),
+        'countryId' => array('column' => 'zone_country_id', 'type' => 'integer'),
+        'code' => array('column' => 'zone_code', 'type' => 'string'),
+        'name' => array('column' => 'zone_name', 'type' => 'string')
+    ),
+    'zones_to_geo_zones' => array(
+        'zoneToGeoZoneId' => array('column' => 'association_id', 'type' => 'integer', 'key' => true, 'auto' => true),
+        'countryId' => array('column' => 'zone_country_id', 'type' => 'integer'),
+        'zoneId' => array('column' => 'zone_id', 'type' => 'integer'),
+        'geoZoneId' => array('column' => 'geo_zone_id', 'type' => 'integer'),
+        'lastModified' => array('column' => 'last_modified', 'type' => 'datetime'),
+        'dateAdded' => array('column' => 'date_added', 'type' => 'datetime')
     ),
 );
