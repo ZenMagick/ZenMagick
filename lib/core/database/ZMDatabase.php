@@ -94,6 +94,8 @@ class ZMDatabase extends Connection {
 
         // @todo enum: remove or add doctrine mapping type
         $this->getDatabasePlatform()->registerDoctrineTypeMapping('enum', 'string');
+        // alias boolean to boolean so ZMDbTableMapper maps continue to work
+        $this->getDatabasePlatform()->registerDoctrineTypeMapping('boolean', 'boolean');
 
         // @todo ask DBAL if the driver/db type supports nested transactions
         $this->setNestTransactionsWithSavepoints(true);
