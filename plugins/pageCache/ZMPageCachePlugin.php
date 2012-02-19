@@ -87,7 +87,7 @@ class ZMPageCachePlugin extends \Plugin {
         $parameters = $request->getParameterMap();
         ksort($parameters);
         return $request->getRequestId() . '-' . http_build_query($parameters) . '-' . $request->getAccountId() . '-' .
-                  $session->getLanguageId() . '-' . $this->container->get('themeService')->getActiveThemeId($session->getLanguageId());
+                  $session->getLanguageId() . '-' . $this->container->get('themeService')->getActiveThemeId();
     }
 
     /**

@@ -176,7 +176,7 @@ class EventFixes extends ZMObject {
 
         if (!\ZMsettings::get('isEnableZMThemes', true)) {
             // pass on already set args
-            $args = array_merge($event->all(), array('themeId' => $this->container->get('themeService')->getActiveThemeId($request->getSession()->getLanguageId())));
+            $args = array_merge($event->all(), array('themeId' => $this->container->get('themeService')->getActiveThemeId()));
             Runtime::getEventDispatcher()->dispatch('theme_resolved', new Event($this, $args));
         }
 

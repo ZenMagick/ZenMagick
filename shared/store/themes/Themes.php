@@ -46,7 +46,7 @@ class Themes extends ZMObject {
      */
     public function __construct() {
         parent::__construct();
-        $this->themeChain_ = null;
+        $this->themeChain_ = array();
         $this->initLanguage_ = null;
         $this->basePath = '/themes';
     }
@@ -149,9 +149,6 @@ class Themes extends ZMObject {
      * @param array themeChain The theme chain to use.
      */
     public function setThemeChain($languageId, $themeChain) {
-        if (null === $this->themeChain_) {
-            $this->themeChain_ = array();
-        }
         $this->themeChain_[$languageId] = $themeChain;
     }
 
@@ -162,28 +159,31 @@ class Themes extends ZMObject {
      * @return array List of active themes in increasing order of importance.
      */
     public function getThemeChain($languageId) {
-        if (null === $this->themeChain_ || !array_key_exists($languageId, $this->themeChain_)) {
-            if (null === $this->themeChain_) {
-                $this->themeChain_ = array();
-            }
-            $this->themeChain_[$languageId] = array();
-            $sql = "SELECT *
-                    FROM " . TABLE_TEMPLATE_SELECT . "
-                    WHERE template_language = :languageId";
-            $result = \ZMRuntime::getDatabase()->querySingle($sql, array('languageId' => $languageId), 'template_select');
-            if (null === $result) {
-                $sql = "SELECT *
-                        FROM " . TABLE_TEMPLATE_SELECT . "
-                        WHERE template_language = 0";
-                $result = \ZMRuntime::getDatabase()->querySingle($sql, array('languageId' => $languageId), 'template_select');
-            }
+        if (!array_key_exists($languageId, $this->themeChain_)) {
 
             // fill the chain
+            $this->themeChain_[$languageId] = array();
             $this->themeChain_[$languageId][] = $this->getThemeForId(Runtime::getSettings()->get('apps.store.themes.default'), $languageId);
-            if (!empty($result['themeId']) && null != ($theme = $this->getThemeForId($result['themeId'], $languageId))) {
+
+            // Get themes
+            $themes = array();
+            foreach ($this->getThemeConfigList() as $theme) {
+                $themeLanguageId = $theme->getLanguageId();
+                if (0 == $themeLanguageId || $themeLanguageId == $languageId) {
+                    $themes[$themeLangaugeId] = $theme;
+                }
+            }
+
+            if (empty($themes)) return $this->themeChain_[$languageId];
+
+            $theme = array_pop($themes);
+            $themeId = $theme->getThemeId();
+            $variationId = $theme->getVariationId();
+
+            if (null != ($theme = $this->getThemeForId($themeId, $languageId))) {
                 $this->themeChain_[$languageId][] = $theme;
             }
-            if (!empty($result['variationId']) && null != ($variation  = $this->getThemeForId($result['variationId'], $languageId))) {
+            if (!empty($variationId) && null != ($variation  = $this->getThemeForId($variationId, $languageId))) {
                 $this->themeChain_[$languageId][] = $variation;
             }
         }
@@ -280,32 +280,17 @@ class Themes extends ZMObject {
     /**
      * Get the active theme id (aka the template directory name).
      *
-     * @param int languageId Language id; default is <em>0</em> to load the language default theme.
      * @return string The configured theme id.
      */
-    public function getActiveThemeId($languageId=0) {
-        $sql = "SELECT *
-                FROM " . TABLE_TEMPLATE_SELECT . "
-                WHERE template_language = :languageId";
-        $result = \ZMRuntime::getDatabase()->querySingle($sql, array('languageId' => $languageId), 'template_select');
-        if (null !== $result) {
-            $themeId = $result['themeId'];
-        } else {
-            $sql = "SELECT *
-                    FROM " . TABLE_TEMPLATE_SELECT . "
-                    WHERE template_language = 0";
-            $result = \ZMRuntime::getDatabase()->querySingle($sql, array('languageId' => $languageId), 'template_select');
-            $themeId = $result['themeId'];
-        }
-
-        $themeId = empty($themeId) ? Runtime::getSettings()->get('apps.store.themes.default') : $themeId;
-        return $themeId;
+    public function getActiveThemeId() {
+        $theme = $this->getActiveTheme();
+        return null != $theme ? $theme->getThemeId() : null;
     }
 
     /**
      * Get a list of configured themes.
      *
-     * @return string The configured theme id.
+     * @return array A list of themes.
      */
     public function getThemeConfigList() {
         $sql = "SELECT *
