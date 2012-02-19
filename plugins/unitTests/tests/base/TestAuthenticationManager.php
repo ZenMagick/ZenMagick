@@ -38,7 +38,7 @@ class TestAuthenticationManager extends ZMTestCase {
      */
     public function testGetProviders() {
         $authenticationManager = $this->container->get('authenticationManager');
-        $this->assertEqual(4, count($authenticationManager->getProviders()));
+        $this->assertTrue(4 <= count($authenticationManager->getProviders()));
     }
 
     /**
