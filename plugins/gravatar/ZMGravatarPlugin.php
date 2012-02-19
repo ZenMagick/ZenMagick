@@ -46,10 +46,11 @@ class ZMGravatarPlugin extends Plugin {
         parent::install();
 
         $this->addConfigValue('Image Size', 'defaultSize', '80', 'Default avatar size');
-        $this->addConfigValue('Default Image Set', 'imageSet', 'mm', 'Default image if no avatar found',
-            'widget@ZMSelectFormWidget#name=imageSet&options='.urlencode('404=404&mm=Mystery Man&identicon=Identicon geometrical pattern&monsterid=Monster&wavartar=Generated faces&retro=Retro Pixels'));
         $this->addConfigValue('Maximum Rating', 'rating', 'g', 'Maximum rating of avatar images allowed',
             'widget@ZMSelectFormWidget#name=rating&options='.urlencode('g=G - General&pg=PG - Rude, mild violence&r=R - Rated&x=X - Rated'));
+        $this->addConfigValue('Default Image Set', 'imageSet', 'mm', 'Default image if no avatar found',
+            'widget@ZMSelectFormWidget#name=imageSet&options='.urlencode('404=404&mm=Mystery Man&identicon=Identicon geometrical pattern&monsterid=Monster&wavartar=Generated faces&retro=Retro Pixels&custom=Custom Image'));
+        $this->addConfigValue('Default Image', 'defaultImage', '', 'Default avatar to be used when none available (imageSet=custom)');
     }
 
     /**
@@ -75,6 +76,14 @@ class ZMGravatarPlugin extends Plugin {
         }
         $size = null != $size ? $size : $this->get('defaultSize');
         $imageSet = $this->get('imageSet');
+        if ('custom' == $imageSet) {
+            if (null != ($defaultImage = $this->get('defaultImage')) && !empty($defaultImage)) {
+                $imageSet = urlencode($defaultImage);
+            } else {
+                $imageSet = '404';
+            }
+
+        }
         $rating = $this->get('rating');
         return $this->pullGravatar($email, $size, $imageSet, $rating, $img, $attributes);
     }
