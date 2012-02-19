@@ -163,7 +163,7 @@ page:
   empty_cart:
     view: redirect#requestId=shopping_cart
   checkout_shipping_address: 
-    controller: 'zenmagick\apps\storefront\controller\CheckoutAddressController#mode=shipping'
+    controller: 'zenmagick\apps\store\storefront\controller\CheckoutAddressController#mode=shipping'
     formId: shippingAddress
     form: ZMAddress
     success: 
@@ -172,7 +172,7 @@ page:
     success: 
       view: redirect#requestId=checkout_confirmation
   checkout_payment_address: 
-    controller: 'zenmagick\apps\storefront\controller\CheckoutAddressController#mode=billing'
+    controller: 'zenmagick\apps\store\storefront\controller\CheckoutAddressController#mode=billing'
     formId: billingAddress
     form: ZMAddress
     success: 
