@@ -138,8 +138,8 @@ class queryFactory {
         foreach (ZMRuntime::getDatabase()->getMetaData($table) as $name => $attrs) {
             $meta = new \stdClass();
             $meta->type = $attrs['type'];
-            $meta->max_length = isset($attrs['maxLen']) && null != $attrs['maxLen'] ? $attrs['maxLen'] : 3;
-            $details[strtoupper($name)] = $meta; 
+            $meta->max_length = isset($attrs['length']) && null != $attrs['length'] ? $attrs['length'] : 3;
+            $details[strtoupper($name)] = $meta;
         }
         return $details;
     }

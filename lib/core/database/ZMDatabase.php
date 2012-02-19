@@ -590,7 +590,7 @@ class ZMDatabase extends Connection {
      *  <dd>A boolean indicating a primary key</dd>
      *  <dt>auto</dt>
      *  <dd>A boolean flag indication an auto increment column</dd>
-     *  <dt>maxLen</dt>
+     *  <dt>length</dt>
      *  <dd>The max. field length; this value is context specific.</dd>
      * </dl>
      *
@@ -623,7 +623,7 @@ class ZMDatabase extends Connection {
                 'type' => $column->getType()->getName(),
                 'key' => in_array($column->getName(), $keys),
                 'auto' => $column->getAutoincrement(),
-                'maxLen' => $column->getLength(),/* TODO doesn't work for integers*/
+                'length' => $column->getLength(),/* TODO doesn't work for integers*/
                 'default' => $column->getDefault()
              );
         }

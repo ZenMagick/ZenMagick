@@ -160,7 +160,7 @@ class TemplateManager extends ZMObject {
             $this->tableMeta_[$table] = \ZMRuntime::getDatabase()->getMetaData($table);
         }
 
-        return $this->tableMeta_[$table][$field]['maxLen'];
+        return $this->tableMeta_[$table][$field]['length'];
     }
 
     /**

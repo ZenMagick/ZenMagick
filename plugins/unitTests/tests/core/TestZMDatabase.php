@@ -49,7 +49,7 @@ class TestZMDatabase extends ZMTestCase {
             $this->assertTrue(array_key_exists('products_name', $tableMeta), '%s: '.$provider);
             $this->assertTrue(is_array($tableMeta['products_name']), '%s: '.$provider);
             $this->assertEqual('string', $tableMeta['products_name']['type'], '%s: '.$provider);
-            $this->assertTrue(64 <= $tableMeta['products_name']['maxLen'], '%s: '.$provider);
+            $this->assertTrue(64 <= $tableMeta['products_name']['length'], '%s: '.$provider);
         }
     }
 
@@ -61,9 +61,9 @@ class TestZMDatabase extends ZMTestCase {
         $create_table = "CREATE TABLE ".$tname." (id int(11) NOT NULL auto_increment, name varchar(32) NOT NULL, other varchar(32), PRIMARY KEY (id)) engine=MyISAM;";
         $drop_table = "DROP TABLE IF EXISTS ".$tname.";";
         $expectedMapping = array(
-            'id' => array('column' => 'id', 'type' => 'integer', 'key' => true, 'auto' => true, 'maxLen' => null, 'default' => null),
-            'name' => array('column' => 'name', 'type' => 'string', 'key' => false, 'auto' => false, 'maxLen' => 32, 'default' => null),
-            'other' => array('column' => 'other', 'type' => 'string', 'key' => false, 'auto' => false, 'maxLen' => 32, 'default' => null)
+            'id' => array('column' => 'id', 'type' => 'integer', 'key' => true, 'auto' => true, 'length' => null, 'default' => null),
+            'name' => array('column' => 'name', 'type' => 'string', 'key' => false, 'auto' => false, 'length' => 32, 'default' => null),
+            'other' => array('column' => 'other', 'type' => 'string', 'key' => false, 'auto' => false, 'length' => 32, 'default' => null)
         );
 
         foreach (self::getProviders() as $provider => $database) {
