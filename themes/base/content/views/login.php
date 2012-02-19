@@ -51,8 +51,10 @@
         <?php
           $guestAddressInfo = array(
               'address' => $guestCheckoutAddress,
-              'label'=>_zm("E-Mail Address").'<span>*</span>',
-              'field'=>'<input type="text" id="email_address_guest" name="email_address" '.$form->fieldLength(TABLE_CUSTOMERS, 'customers_email_address').'/>'
+              'customFields' => array(array(
+                  'label'=>_zm("E-Mail Address").'<span>*</span>',
+                  'field'=>'<input type="text" id="email_address_guest" name="email_address" '.$form->fieldLength(TABLE_CUSTOMERS, 'customers_email_address').'/>'
+              ))
           );
           echo $this->fetch('views/address.php', $guestAddressInfo);
         ?>
