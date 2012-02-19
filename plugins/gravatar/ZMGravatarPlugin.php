@@ -50,7 +50,9 @@ class ZMGravatarPlugin extends Plugin {
             'widget@ZMSelectFormWidget#name=rating&options='.urlencode('g=G - General&pg=PG - Rude, mild violence&r=R - Rated&x=X - Rated'));
         $this->addConfigValue('Default Image Set', 'imageSet', 'mm', 'Default image if no avatar found',
             'widget@ZMSelectFormWidget#name=imageSet&options='.urlencode('404=404&mm=Mystery Man&identicon=Identicon geometrical pattern&monsterid=Monster&wavartar=Generated faces&retro=Retro Pixels&custom=Custom Image'));
-        $this->addConfigValue('Default Image', 'defaultImage', '', 'Default avatar to be used when none available (imageSet=custom)');
+        $this->addConfigValue('Default Image', 'defaultImage', '', 'Default avatar to be used when none available (imageSet=custom)',
+              'widget@ZMTextFormWidget#name=defaultImage&default=&size=24&maxlength=255');
+
     }
 
     /**
