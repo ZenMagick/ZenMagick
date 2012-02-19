@@ -224,6 +224,7 @@
     <doctrine:config>
         <!--
           * logging is enabled for the page stats plugin
+          * boolean mapping-type required for ZMDbTableMapper
             collation="%apps.store.database.default.collation%"
         -->
         <doctrine:dbal
