@@ -20,6 +20,7 @@
 ?>
 <?php
 
+use zenmagick\base\Application;
 use zenmagick\base\Runtime;
 use zenmagick\base\Toolbox;
 use zenmagick\base\classloader\ClassLoader;
@@ -32,7 +33,11 @@ use zenmagick\base\classloader\ClassLoader;
     $installDir = dirname(dirname(dirname(__FILE__)));
     $baseDir = $installDir;
     chdir($installDir);
-    include 'bootstrap.php';
+
+    include_once 'lib/base/Application.php';
+    $application = new Application();
+    $application->bootstrap();
+
     $classLoader = new ClassLoader();
     $classLoader->addPath(dirname(__FILE__).'/lib');
     $classLoader->register();

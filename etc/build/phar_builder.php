@@ -21,6 +21,7 @@
 ?>
 <?php
 
+use zenmagick\base\Application;
 use zenmagick\base\classloader\PharBuilder;
 
 
@@ -31,8 +32,10 @@ use zenmagick\base\classloader\PharBuilder;
     $installDir = dirname(dirname(dirname(__FILE__)));
     $baseDir = $installDir;
     chdir($installDir);
-    define('ZM_APP_PATH', 'apps/admin/');
-    include 'bootstrap.php';
+
+    include_once 'lib/base/Application.php';
+    $application = new Application();
+    $application->bootstrap();
 
     if (2 > $argc) {
         echo PHP_EOL."  usage: php phar_builder.php [path-to-classloader.ini-directory]".PHP_EOL;
