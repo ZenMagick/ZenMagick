@@ -35,7 +35,7 @@ class EchoLoggingHandler extends DefaultLoggingHandler {
      * {@inheritDoc}
      */
     protected function doLog($msg) {
-        echo '['.Runtime::getExecutionTime().'] '.$msg;
+        echo '['.Runtime::getApplication()->getElapsedTime().'] '.$msg;
     }
 
 }

@@ -1,10 +1,11 @@
 #!/usr/bin/env php
 <?php
+use zenmagick\base\Application;
+
 chdir(dirname(dirname(__FILE__)));
-
-define('ZM_APP_PATH', '/apps/admin/');
-
-include 'bootstrap.php';
+include_once 'lib/base/Application.php';
+$application = new Application(array('appConfig' => array(dirname(__DIR__).'/config/store-config.yaml')));
+$application->bootstrap();
 
 $helpers = array(
     'db' => new Doctrine\DBAL\Tools\Console\Helper\ConnectionHelper(ZMRuntime::getDatabase()->getResource()),

@@ -2,11 +2,6 @@
 # store-installer settings
 #
 zenmagick:
-  base:
-    events:
-      listeners:
-        - zenmagick\base\EventListener
-        - zenmagick\http\EventListener
   mvc:
     view:
       defaultLayout: page.php

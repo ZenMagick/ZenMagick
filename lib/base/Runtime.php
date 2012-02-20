@@ -31,16 +31,15 @@ use zenmagick\base\dependencyInjection\Container;
  */
 class Runtime {
     private static $container = null;
-    private static $context = null;
-    private static $environment = null;
+
 
     /**
-     * Get context.
+     * Get the application we are running.
      *
-     * @return string The current context or <code>null</code> if not set or supported.
+     * @return Application The application or <code>null</code>.
      */
-    public static function getContext() {
-        return null != self::$context ? self::$context : self::getSettings()->get('zenmagick.base.context', null);
+    public static function getApplication() {
+        return self::getContainer()->get('application');
     }
 
     /**
@@ -55,7 +54,7 @@ class Runtime {
      */
     public static function isContextMatch($s, $context=null) {
         if (null === $context) {
-            $context = self::getContext();
+            $context = self::getApplication()->getContext();
         }
         if (null === $context) {
             return true;
@@ -67,21 +66,12 @@ class Runtime {
     }
 
     /**
-     * Set context.
-     *
-     * @param string context The new context.
-     */
-    public static function setContext($context) {
-        self::$context = $context;
-    }
-
-    /**
      * Get the full ZenMagick installation path.
      *
      * @return string The ZenMagick installation folder.
      */
     public static function getInstallationPath() {
-        return defined('ZM_BASE_PATH') ? constant('ZM_BASE_PATH') : dirname(dirname(__FILE__));
+        return dirname(dirname(dirname(__FILE__)));
     }
 
     /**
@@ -90,7 +80,7 @@ class Runtime {
      * @return string The application base folder or <code>null</code>.
      */
     public static function getApplicationPath() {
-        return defined('ZM_APP_PATH') ? self::getInstallationPath().'/'.ZM_APP_PATH : null;
+        return self::getApplication()->getApplicationPath() ? self::getApplication()->getApplicationPath() : (defined('ZM_APP_PATH') ? self::getInstallationPath().'/'.ZM_APP_PATH : null);
     }
 
     /**
@@ -109,23 +99,7 @@ class Runtime {
                 self::getApplicationPath().'/plugins'
             ));
         }
-
         return $settings->get('zenmagick.base.plugins.dirs');
-    }
-
-    /**
-     * Get the currently elapsed page execution time.
-     *
-     * @param string time Optional execution timestamp to be used instead of the current time.
-     * @return long The execution time in milliseconds.
-     */
-    public static function getExecutionTime($time=null) {
-        $startTime = explode (' ', ZM_START_TIME);
-        $endTime = explode (' ', (null!=$time?$time:microtime()));
-        // $time might be float
-        if (1 == count($endTime)) { $endTime[] = 0;}
-        $executionTime = $endTime[1]+$endTime[0]-$startTime[1]-$startTime[0];
-        return round($executionTime, 4);
     }
 
     /**
@@ -176,27 +150,7 @@ class Runtime {
         if (null == self::$container) {
             self::$container = new Container();
         }
-
         return self::$container;
     }
-
-    /**
-     * Get environment.
-     *
-     * @return string The current environment or prod if not set.
-     */
-    public static function getEnvironment() {
-        return null != self::$environment ? self::$environment : 'prod';
-    }
-
-    /**
-     * Set environment.
-     *
-     * @param string environment The new environment.
-     */
-    public static function setEnvironment($environment) {
-        self::$environment = $environment;
-    }
-
 
 }

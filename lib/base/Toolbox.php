@@ -113,12 +113,12 @@ class Toolbox {
      * Load a <em>YAML</em> file, respecting the environment setting.
      *
      * @param string filename The file to load.
-     * @param string environment Optional environment; default is the value of <code>Runtime::getEnvironment()</code>.
+     * @param string environment Optional environment; default is the value of <code>Application::getEnvironment()</code>.
      * @param boolean useEnvFile Optional flag to load the <em>file_[$environemnt].yaml</em> file if available; default is <code>true</code>.
      * @return mixed The parsed data.
      */
     public static function loadWithEnv($filename, $environment = null, $useEnvFile = true) {
-        $environment = null != $environment ? $environment : Runtime::getEnvironment();
+        $environment = null != $environment ? $environment : Runtime::getApplication()->getEnvironment();
 
         if ($useEnvFile) {
             $filename = self::resolveWithEnv($filename, $environment);
@@ -191,11 +191,11 @@ class Toolbox {
      * Resolve a filename with respect to the given environment.
      *
      * @param string filename The file to load.
-     * @param string environment Optional environment; default is the value of <code>Runtime::getEnvironment()</code>.
+     * @param string environment Optional environment; default is the value of <code>Application::getEnvironment()</code>.
      * @return string The most specific filename with respect to the given <em>environment</em>.
      */
     public static function resolveWithEnv($filename, $environment = null) {
-        $environment = null != $environment ? $environment : Runtime::getEnvironment();
+        $environment = null != $environment ? $environment : Runtime::getApplication()->getEnvironment();
         $filename = realpath($filename);
         $envFilename = preg_replace('/(.*)\.(.*)/', '$1_'.$environment.'.$2', $filename);
         if (file_exists($envFilename)) {

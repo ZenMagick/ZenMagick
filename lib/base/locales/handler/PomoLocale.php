@@ -74,7 +74,7 @@ class PomoLocale extends Locale {
      * @return Translations A <code>Translations</code> instance.
      */
     protected function getTranslationsForDomain($domain) {
-        $domain = null != $domain ? $domain : Runtime::getContext();
+        $domain = null != $domain ? $domain : Runtime::getApplication()->getContext();
         if (!array_key_exists($domain, $this->translations_)) {
             $this->translations_[$domain] = new Translations();
         }
@@ -92,7 +92,7 @@ class PomoLocale extends Locale {
      * @return boolean <code>true</code> on success.
      */
     protected function registerMOForLocale($basedir, $locale, $filename=self::DEFAULT_MO_NAME, $domain=null) {
-        $domain = null != $domain ? $domain : Runtime::getContext();
+        $domain = null != $domain ? $domain : Runtime::getApplication()->getContext();
         $filename = (null == $filename ? $domain : $filename).'.mo';
         $path = realpath($basedir).'/'.$filename;
         if (!file_exists($basedir) || null == ($path = Locale::resolvePath($path, $locale))) {
@@ -110,7 +110,7 @@ class PomoLocale extends Locale {
      * @return boolean <code>true</code> on success.
      */
     public function registerMO($filename, $domain=null) {
-        $domain = null != $domain ? $domain : Runtime::getContext();
+        $domain = null != $domain ? $domain : Runtime::getApplication()->getContext();
         Runtime::getLogging()->debug(sprintf('registering MO: %s for domain: %s', $filename, $domain));
         $mo = new MO();
         if (!$mo->import_from_file($filename)) {

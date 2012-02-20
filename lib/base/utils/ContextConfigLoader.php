@@ -76,7 +76,7 @@ class ContextConfigLoader extends ZMObject {
      * @return array The complete configuration for the chosen context.
      */
     public function resolve($context=null) {
-        $context = null === $context ? Runtime::getContext() : $context;
+        $context = null === $context ? Runtime::getApplication()->getContext() : $context;
 
         $cconfig = array();
         foreach ($this->config as $key => $data) {

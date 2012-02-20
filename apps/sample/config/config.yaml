@@ -10,8 +10,6 @@ zenmagick:
       handler: zenmagick\base\locales\handler\PomoLocale
     events:
       listeners:
-        - zenmagick\base\EventListener
-        - zenmagick\http\EventListener
         - zenmagick\apps\sample\EventHandler
 
   mvc:

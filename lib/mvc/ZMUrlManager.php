@@ -254,7 +254,7 @@ class ZMUrlManager extends ZMObject {
             foreach (Runtime::getSettings()->get('zenmagick.http.controller.namespaces', array()) as $namespace) {
                 $definitions[] = sprintf('%s\%s', $namespace, $class);
             }
-            $definitions[] = sprintf('zenmagick\apps\%s\controller\%s', Runtime::getContext(), $class);
+            $definitions[] = sprintf('zenmagick\apps\%s\controller\%s', Runtime::getApplication()->getContext(), $class);
             $definitions[] = 'ZM'.$class;
         }
         // as defined in the container

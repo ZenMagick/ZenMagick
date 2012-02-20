@@ -5,7 +5,7 @@
     xsi:schemaLocation="http://symfony.com/schema/routing http://symfony.com/schema/routing/routing-1.0.xsd">
 
     <!-- global routes -->
-    <route id="zenmagick_global_routing" pattern="">
+    <route id="zenmagick_global_routing" pattern="^^">
         <option key="view:success">redirect://</option>
         <option key="view:error">views/error.php?layout=</option>
         <option key="view:success-demo">redirect://index</option>

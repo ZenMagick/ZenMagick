@@ -19,17 +19,13 @@
  */
 ?>
 <?php
-use zenmagick\base\Runtime;
+use zenmagick\http\HttpApplication;
 
-  // app location relative to zenmagick installation
-  define('ZM_APP_PATH', 'apps/'.basename(dirname(dirname(__FILE__))));
+  $rootDir = realpath(__DIR__.'/../../..');
+  include_once $rootDir.'/lib/base/Application.php';
+  include_once $rootDir.'/lib/http/HttpApplication.php';
 
-  // make zen-cart happy
-  define('IS_ADMIN_FLAG', false);
-
-  require realpath(dirname(__FILE__).'/../../../bootstrap.php');
-
-  // more zen-cart config stuff we need
-  Runtime::getSettings()->set('apps.store.storefront.sessions', true);
-
-  require realpath(dirname(__FILE__).'/../../../mvc.php');
+  $config = array('appName' => basename(dirname(__DIR__)), 'environment' => (isset($_SERVER['ZM_ENVIRONMENT']) ? $_SERVER['ZM_ENVIRONMENT'] : 'prod'));
+  $application = new HttpApplication($config);
+  $application->bootstrap();
+  $application->serve();

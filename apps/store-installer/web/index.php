@@ -19,9 +19,13 @@
  */
 ?>
 <?php
+use zenmagick\http\HttpApplication;
 
-  // app location relative to zenmagick installation
-  define('ZM_APP_PATH', '/apps/'.basename(dirname(dirname(__FILE__))));
+  $rootDir = realpath(__DIR__.'/../../..');
+  include_once $rootDir.'/lib/base/Application.php';
+  include_once $rootDir.'/lib/http/HttpApplication.php';
 
-  require realpath(dirname(__FILE__).'/../../../bootstrap.php');
-  require realpath(dirname(__FILE__).'/../../../mvc.php');
+  $config = array('appName' => basename(dirname(__DIR__)), 'environment' => (isset($_SERVER['ZM_ENVIRONMENT']) ? $_SERVER['ZM_ENVIRONMENT'] : 'prod'));
+  $application = new HttpApplication($config);
+  $application->bootstrap();
+  $application->serve();

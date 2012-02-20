@@ -127,7 +127,7 @@ class ZMPageCachePlugin extends \Plugin {
                 echo $contents;
                 Runtime::getEventDispatcher()->dispatch(ZM_EVENT_PLUGINS_PAGE_CACHE_CONTENTS_DONE, new Event($this, $event->all()));
                 if ($this->get('loadStats')) {
-                    echo '<!-- pageCache stats: page: ' . Runtime::getExecutionTime() . ' sec.; ';
+                    echo '<!-- pageCache stats: page: ' . Runtime::getApplication()->getElapsedTime() . ' sec.; ';
                     echo 'lastModified: ' . $this->cache_->lastModified() . ' -->';
                 }
                 exit;

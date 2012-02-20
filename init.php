@@ -19,51 +19,45 @@
  */
 ?>
 <?php
-
 use zenmagick\base\Runtime;
-use zenmagick\base\events\Event;
+use zenmagick\http\HttpApplication;
 
-    try {
-        if (!defined('ZM_APP_PATH')) {
-            // app location relative to zenmagick installation
-            define('ZM_APP_PATH', '/apps/storefront');
-        }
+  $rootDir = __DIR__;
+  include_once $rootDir.'/lib/base/Application.php';
+  include_once $rootDir.'/lib/http/HttpApplication.php';
 
-        include_once __DIR__.'/bootstrap.php';
+  if (!defined('ZM_APP_PATH')) {
+      // app location relative to zenmagick installation
+      define('ZM_APP_PATH', '/apps/storefront');
+  }
 
-        // create the main request instance
-        $request = $_zm_request = Runtime::getContainer()->get('request');
+  try {
+      $config = array('appName' => basename(ZM_APP_PATH), 'environment' => (isset($_SERVER['ZM_ENVIRONMENT']) ? $_SERVER['ZM_ENVIRONMENT'] : 'prod'));
+      $application = new HttpApplication($config);
+      $application->bootstrap();
 
-        // tell everyone interested that we have a request
-        Runtime::getEventDispatcher()->dispatch('request_ready', new Event(null, array('request' => $_zm_request)));
+      $container = Runtime::getContainer();
+      $_zm_request = $request = $container->get('request');
+      // allow seo rewriters to fiddle with the request
+      $request->urlDecode();
 
-        // freeze container
-        Runtime::getContainer()->compile();
+      // make sure we use the appropriate protocol (HTTPS, for example) if required
+      $container->get('sacsManager')->ensureAccessMethod($request);
 
-        // tell everyone interested that we have a container
-        Runtime::getEventDispatcher()->dispatch('container_ready', new Event(null, array('request' => $_zm_request)));
-if (TRACEBS) {echo 'post container_ready: '.Runtime::getExecutionTime()."<BR>";}
+      // form validation
+      $validationConfig = Runtime::getApplicationPath().'/config/validation.yaml';
+      if ($container->has('validator') && file_exists($validationConfig)) {
+          $container->get('validator')->load(file_get_contents(Toolbox::resolveWithEnv($validationConfig)));
+      }
 
-        // allow url rewriters to fiddle with the request
-        $_zm_request->urlDecode();
-if (TRACEBS) {echo 'post url decode: '.Runtime::getExecutionTime()."<BR>";}
-
-        // make sure we use the appropriate protocol (HTTPS, for example) if required
-        Runtime::getContainer()->get('sacsManager')->ensureAccessMethod($_zm_request);
-
-        // load stuff that really needs to be global!
-        if (Runtime::getSettings()->get('zenmagick.base.plugins.enabled', true)) {
-            foreach (Runtime::getContainer()->get('pluginService')->getAllPlugins(ZMSettings::get('zenmagick.base.context')) as $plugin) {
-                foreach ($plugin->getGlobal($_zm_request) as $_zm_file) {
-                    include_once $_zm_file;
-                }
-            }
-        }
-
-        // restore
-        $request = $_zm_request;
-        Runtime::getEventDispatcher()->dispatch('init_done', new Event(null, array('request' => $_zm_request)));
-if (TRACEBS) {echo 'post init_done: '.Runtime::getExecutionTime()."<BR>";}
+      // load stuff that really needs to be global!
+      if (Runtime::getSettings()->get('zenmagick.base.plugins.enabled', true)) {
+          foreach (Runtime::getContainer()->get('pluginService')->getAllPlugins(ZMSettings::get('zenmagick.base.context')) as $plugin) {
+              foreach ($plugin->getGlobal($request) as $file) {
+                  include_once $_file;
+              }
+          }
+      }
     } catch (Exception $e) {
         echo '<pre>';
         echo $e->getTraceAsString();

@@ -130,8 +130,9 @@ class ZMPageStatsPlugin extends Plugin {
         echo '  Client IP: '.$_SERVER['REMOTE_ADDR']."\n";
         echo '  PHP: '.phpversion()."\n";
         echo '  ZenMagick: '.Runtime::getSettings()->get('zenmagick.version')."\n";
-        echo '  environment: '.Runtime::getEnvironment()."\n";
-        echo '  total page execution: '.Runtime::getExecutionTime().' secconds;'."\n";
+        $application = Runtime::getApplication();
+        echo '  environment: '.$application->getEnvironment()."\n";
+        echo '  total page execution: '.$application->getElapsedTime().' secconds;'."\n";
         if (null != ($db = $this->getDB())) {
             echo '  db: SQL queries: '.$db->queryCount().', duration: '.round($db->queryTime(), 4).' seconds;';
         }
@@ -153,9 +154,9 @@ class ZMPageStatsPlugin extends Plugin {
         echo '-->'."\n";
         if (Toolbox::asBoolean($this->get('showEvents'))) {
             echo '<!--'."\n";
-            echo '  '.Runtime::getExecutionTime(ZM_START_TIME).' ZM_START_TIME '."\n";
+            echo '  '.'0'.' ZM_START_TIME '."\n";
             foreach ($this->eventStats_ as $eventInfo) {
-                echo '  '.Runtime::getExecutionTime($eventInfo['timestamp']).' '.$eventInfo['method'].' / '.$eventInfo['name'].' values: '.$eventInfo['values']."\n";
+                echo '  '.$application->getElapsedTime($eventInfo['timestamp']).' '.$eventInfo['method'].' / '.$eventInfo['name'].' values: '.$eventInfo['values']."\n";
             }
             echo '-->'."\n";
         }
@@ -213,14 +214,15 @@ class ZMPageStatsPlugin extends Plugin {
             return;
         }
 
+        $application = Runtime::getApplication();
         ob_start();
         $slash = ZMSettings::get('zenmagick.mvc.html.xhtml') ? '/' : '';
         echo '<div id="page-stats">';
         echo 'Client IP: <strong>'.$_SERVER['REMOTE_ADDR'].'</strong>;';
         echo '&nbsp;&nbsp;&nbsp;PHP: <strong>'.phpversion().'</strong>;';
         echo '&nbsp;&nbsp;&nbsp;ZenMagick: <strong>'.Runtime::getSettings()->get('zenmagick.version').'</strong>;';
-        echo '&nbsp;&nbsp;&nbsp;environment: <strong>'.Runtime::getEnvironment().'</strong>;';
-        echo '&nbsp;&nbsp;&nbsp;total page execution: <strong>'.Runtime::getExecutionTime().'</strong> secconds;<br'.$slash.'>';
+        echo '&nbsp;&nbsp;&nbsp;environment: <strong>'.$application->getEnvironment().'</strong>;';
+        echo '&nbsp;&nbsp;&nbsp;total page execution: <strong>'.$application->getElapsedTime().'</strong> secconds;<br'.$slash.'>';
         if (null != ($db = $this->getDB())) {
             echo '<strong>db</strong>: SQL queries: <strong>'.$db->queryCount().'</strong>, duration: <strong>'.round($db->queryTime(), 4).'</strong> seconds;';
         }
@@ -237,12 +239,12 @@ class ZMPageStatsPlugin extends Plugin {
             echo '<div id="event-log">';
             echo '<table border="1">';
             echo '<tr>';
-            echo '<td style="text-align:right;padding:4px;">'.Runtime::getExecutionTime(ZM_START_TIME).'</td>';
+            echo '<td style="text-align:right;padding:4px;">'.'0'.'</td>';
             echo '<td colspan="4" style="text-align:left;padding:4px;">ZM_START_TIME</td>';
             echo '</tr>';
             foreach ($this->eventStats_ as $eventInfo) {
                 echo '<tr>';
-                echo '<td style="text-align:right;padding:4px;">'.Runtime::getExecutionTime($eventInfo['timestamp']).'</td>';
+                echo '<td style="text-align:right;padding:4px;">'.$application->getElapsedTime($eventInfo['timestamp']).'</td>';
                 echo '<td style="text-align:left;padding:4px;">'.$eventInfo['name'].'</td>';
                 echo '<td style="text-align:left;padding:4px;">'.sprintf("%d", $eventInfo['memory']).'</td>';
                 echo '<td style="text-align:left;padding:4px;">'.$eventInfo['method'].'</td>';

@@ -33,15 +33,15 @@ if (!function_exists('zen_href_link')) {
      * zen_href_link wrapper that delegates to the Zenmagick implementation.
      *
      * This function needs to work for 5 use cases.
-     * 
-     * 1. zencart template storefront 
+     *
+     * 1. zencart template storefront
      * 2. zenmagick themed storefront
      * 3. zencart admin
      * 4. zenmagick admin with zencart admin integration via zc_admin bundle template and the zencart admin page name (minus .php) as zpid parameter.
      * 5. zenmagick admin integration using zenmagick native mappings using the zencart admin page name (minus .php)  as the request id.
      */
     function zen_href_link($page='', $params='', $transport='NONSSL', $addSessionId=true, $seo=true, $isStatic=false, $useContext=true) {
-        if (class_exists('ZMStoreDefaultUrlRewriter') && !Runtime::isContextMatch('admin')) { // 1 or 2 
+        if (class_exists('ZMStoreDefaultUrlRewriter') && !Runtime::isContextMatch('admin')) { // 1 or 2
             return ZMStoreDefaultUrlRewriter::furl($page, $params, $transport, $addSessionId, $seo, $isStatic, $useContext);
             // @todo use REQUEST_URI directly in case the container isn't frozen yet. is this a valid concern here?
         } else if (preg_match('#' . ZM_APP_PATH .'#', $_SERVER['REQUEST_URI']) && Runtime::isContextMatch('admin')){
