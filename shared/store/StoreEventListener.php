@@ -80,7 +80,7 @@ class StoreEventListener extends ZMObject {
     /**
      * Set up block manager.
      */
-    public function onInitDone($event) {
+    public function onContainerReady($event) {
         $request = $event->get('request');
 
         if (Runtime::isContextMatch('storefront')) {

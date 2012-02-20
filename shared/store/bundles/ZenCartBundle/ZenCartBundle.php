@@ -51,7 +51,7 @@ class ZenCartBundle extends Bundle {
 
         $eventDispatcher = Runtime::getEventDispatcher();
         $eventDispatcher->addListener('init_config_done', array($this, 'onInitConfigDone'), 5);
-        $eventDispatcher->addListener('init_done', array($this, 'onInitDone'));
+        $eventDispatcher->addListener('init_done', array($this, 'onContainerReady'));
         $eventDispatcher->addListener('generate_email', array(Beans::getBean('zenmagick\apps\store\bundles\ZenCartBundle\utils\EmailEventHandler'), 'onGenerateEmail'));
         $eventDispatcher->addListener('create_account', array($this, 'onCreateAccount'));
         $eventDispatcher->addListener('login_success', array($this, 'onLoginSuccess'));
@@ -207,7 +207,7 @@ class ZenCartBundle extends Bundle {
     /**
      * Handle things that require a request.
      */
-    public function onInitDone($event) {
+    public function onContainerReady($event) {
         $request = $event->get('request');
         if (Runtime::isContextMatch('admin') || (defined('IS_ADMIN_FLAG') && IS_ADMIN_FLAG)) {
             $settingsService = $this->container->get('settingsService');

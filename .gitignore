@@ -8,8 +8,7 @@ global.yaml
 /build
 /config/store-config.yaml
 /config/store-container.yaml
-/config/admin/config_*.yaml
-/config/store/config_*.yaml
+/config/store-email.xml
 /vendor/*
 !/vendor/classloader.ini
 !/vendor/openwall

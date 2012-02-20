@@ -72,7 +72,7 @@ class ZMAutoLoginPlugin extends Plugin {
     /**
      * Handle auto login.
      */
-    public function onInitDone($event) {
+    public function onContainerReady($event) {
         $request = $event->get('request');
 
         $session = $request->getSession();

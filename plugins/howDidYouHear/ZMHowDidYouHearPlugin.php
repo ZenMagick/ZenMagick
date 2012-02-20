@@ -73,7 +73,7 @@ class ZMHowDidYouHearPlugin extends Plugin {
     public function init() {
         parent::init();
         zenmagick\base\Runtime::getEventDispatcher()->listen($this);
-        
+
         $info = array('column' => 'customers_info_source_id', 'type' => 'integer');
         ZMRuntime::getDatabase()->getMapper()->addPropertyForTable('customers_info', 'sourceId', $info);
 
@@ -96,7 +96,7 @@ class ZMHowDidYouHearPlugin extends Plugin {
     /**
      * Add validation rules.
      */
-    public function onInitDone($event) {
+    public function onContainerReady($event) {
         $request = $event->get('request');
         if ($this->handleRequest($request->getRequestId())) {
             if ($this->isRequired()) {

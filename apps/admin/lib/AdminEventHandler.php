@@ -101,7 +101,7 @@ class AdminEventHandler extends ZMObject {
     /**
      * Final init.
      */
-    public function onInitDone($event) {
+    public function onContainerReady($event) {
         $request = $event->get('request');
 
         // need db for this, so only do now

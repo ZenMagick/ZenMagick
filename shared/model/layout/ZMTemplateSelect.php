@@ -51,7 +51,7 @@ class ZMTemplateSelect extends ZMObject {
     /**
      * @var string $languageId
      *
-     * @ORM\Column(name="template_language", type="string", length=64, nullable=false)
+     * @ORM\Column(name="template_language", type="integer", nullable=false)
      */
     private $languageId;
 

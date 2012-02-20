@@ -406,11 +406,12 @@ class Application {
      * Init event listener.
      */
     protected function initEventListener() {
+        $eventDispatcher = Runtime::getEventDispatcher();
         if ($applicationPath = $this->config['applicationPath'] && $this->config['appName']) {
             // always add an application event listener - if available
             $eventListener = sprintf('zenmagick\apps\%s\EventListener', $this->config['appName']);
             if (ClassLoader::classExists($eventListener)) {
-                Runtime::getEventDispatcher()->listen(new $eventListener());
+                $eventDispatcher->listen(new $eventListener());
             }
         }
 
@@ -418,13 +419,13 @@ class Application {
         $settingsService = Runtime::getSettings();
         foreach ($this->config['eventListener'] as $eventListener) {
             if (null != ($eventListener = Beans::getBean(trim($eventListener)))) {
-                Runtime::getEventDispatcher()->listen($eventListener);
+                $eventDispatcher->listen($eventListener);
             }
         }
 
         foreach ($settingsService->get('zenmagick.base.events.listeners', array()) as $eventListener) {
             if (null != ($eventListener = Beans::getBean(trim($eventListener)))) {
-                Runtime::getEventDispatcher()->listen($eventListener);
+                $eventDispatcher->listen($eventListener);
             }
         }
     }
