@@ -170,7 +170,7 @@ class Themes extends ZMObject {
             foreach ($this->getThemeConfigList() as $theme) {
                 $themeLanguageId = $theme->getLanguageId();
                 if (0 == $themeLanguageId || $themeLanguageId == $languageId) {
-                    $themes[$themeLangaugeId] = $theme;
+                    $themes[$themeLanguageId] = $theme;
                 }
             }
 
@@ -199,6 +199,9 @@ class Themes extends ZMObject {
      * @return Theme <code>Theme</code> instance or <code>null</code>.
      */
     public function getThemeForId($themeId, $languageId=null) {
+        if (empty($themeId)) {
+            return null;
+        }
         $cacheKey = \ZMLangUtils::mkUnique('themes', $themeId, $languageId);
         if (false !== ($theme = $this->cache_->lookup($cacheKey))) {
             return $theme;
@@ -212,7 +215,7 @@ class Themes extends ZMObject {
 
             $libPath = $theme->getBaseDir().'/lib';
             $classLoader = $this->container->get('classLoader');
-            $classLoader->addNamespace('zenmagick\\themes\\'.$themeId, $libPath);
+            $classLoader->addNamespace(sprintf('zenmagick\themes\%s', $themeId), $libPath);
             // allow custom class loading config
             $classLoader->addConfig($libPath);
             $classLoader->register();
