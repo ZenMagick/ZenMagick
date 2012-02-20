@@ -46,9 +46,9 @@ class ToolboxCrumbtrail extends ToolboxTool {
 
 
     /**
-     * {@inheritDoc}
+     * Reset.
      */
-    public function onInitDone($event) {
+    public function onContainerReady($event) {
         $this->reset();
     }
 

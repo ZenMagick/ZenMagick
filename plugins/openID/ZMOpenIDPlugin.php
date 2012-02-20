@@ -86,7 +86,7 @@ class ZMOpenIDPlugin extends Plugin {
      * <p>Setup additional validation rules; this is done here to avoid getting in the way of
      * custom global/theme validation rule setups.</p>
      */
-    public function onInitDone($event) {
+    public function onContainerReady($event) {
         // initial rule
         $rules = array(
             array('ZMRequiredRule', 'openid', 'Please enter your OpenID.')

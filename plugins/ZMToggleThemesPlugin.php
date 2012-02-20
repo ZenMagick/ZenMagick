@@ -56,7 +56,7 @@ class ZMToggleThemesPlugin extends Plugin {
     /**
      * Handle toggle param.
      */
-    public function onInitDone($event) {
+    public function onContainerReady($event) {
         $request = $event->get('request');
         $session = $request->getSession();
 

@@ -123,7 +123,7 @@ class ZMSubscriptionsPlugin extends Plugin {
     /**
      * Event handler to pick up subscription checkout options.
      */
-    public function onInitDone($event) {
+    public function onContainerReady($event) {
         $request = $event->get('request');
         if ('checkout_shipping' == $request->getRequestId() && 'POST' == $request->getMethod()) {
             if (Toolbox::asBoolean($request->getParameter('subscription'))) {

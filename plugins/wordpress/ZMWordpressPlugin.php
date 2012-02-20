@@ -143,7 +143,7 @@ class ZMWordpressPlugin extends Plugin {
      * <p>Code in here can't be executed in <code>init()</code>, as it depends on the global
      * WP stuff being loaded first.</p>
      */
-    public function onInitDone($event) {
+    public function onContainerReady($event) {
         $request = $event->get('request');
         $requestId = $request->getRequestId();
 

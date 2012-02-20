@@ -58,7 +58,7 @@ class EventFixes extends ZMObject {
     /**
      * Fake theme resolved event if using zen-cart templates and handle persisted messages.
      */
-    public function onInitDone($event) {
+    public function zcInit($event) {
         $request = $event->get('request');
 
         // skip more zc request handling
@@ -152,19 +152,17 @@ class EventFixes extends ZMObject {
      * @todo: what to do???
      */
     public function onRequestReady($event) {
-        if (!ZM_CLI_CALL) {
-            $request = $event->get('request');
-            $language = $request->getSession()->getLanguage();
-            $theme = $this->container->get('themeService')->initThemes($language);
-            $args = array_merge($event->all(), array('theme' => $theme, 'themeId' => $theme->getId()));
-            Runtime::getEventDispatcher()->dispatch('theme_resolved', new Event($this, $args));
+        $request = $event->get('request');
+        $language = $request->getSession()->getLanguage();
+        $theme = $this->container->get('themeService')->initThemes($language);
+        $args = array_merge($event->all(), array('theme' => $theme, 'themeId' => $theme->getId()));
+        Runtime::getEventDispatcher()->dispatch('theme_resolved', new Event($this, $args));
 
-            // now we can check for a static homepage
-            if (!\ZMLangUtils::isEmpty(Runtime::getSettings()->get('staticHome')) && 'index' == $request->getRequestId()
-                && (0 == $request->getCategoryId() && 0 == $request->getManufacturerId())) {
-                require Runtime::getSettings()->get('staticHome');
-                exit;
-            }
+        // now we can check for a static homepage
+        if (!\ZMLangUtils::isEmpty(Runtime::getSettings()->get('staticHome')) && 'index' == $request->getRequestId()
+            && (0 == $request->getCategoryId() && 0 == $request->getManufacturerId())) {
+            require Runtime::getSettings()->get('staticHome');
+            exit;
         }
     }
 
@@ -218,6 +216,7 @@ class EventFixes extends ZMObject {
         // do not check for valid product id
         $_SESSION['check_valid'] = 'false';
         // END: zc_fixes
+        $this->zcInit($event);
     }
 
     /**
