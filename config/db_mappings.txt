@@ -675,7 +675,7 @@ array(
     'template_select' => array(
         'id' => array('column' => 'template_id', 'type' => 'integer', 'key' => true, 'auto' => true),
         'themeId' => array('column' => 'template_dir', 'type' => 'string'),
-        'languageId' => array('column' => 'template_language', 'type' => 'string'),
+        'languageId' => array('column' => 'template_language', 'type' => 'integer'),
         'variationId' => array('column' => 'variation_dir', 'type' => 'string')
     ),
     'token' => array(
