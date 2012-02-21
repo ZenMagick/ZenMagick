@@ -50,7 +50,7 @@
             <tag name="zenmagick.http.request.rewriter" />
         </service>
 
-        <service id="defaultRssFeedSource" class="ZMStoreDefaultUrlRewriter" scope="container">
+        <service id="defaultRssFeedSource" class="ZMDefaultRssFeedSource" scope="container">
             <tag name="zenmagick.http.rss.source" />
         </service>
 
