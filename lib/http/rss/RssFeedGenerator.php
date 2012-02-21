@@ -135,7 +135,7 @@ class RssFeedGenerator extends ZMObject {
      * <ul>
      *
      * @param ZMRequest request The current request.
-     * @param ZMRssItem item The item to render.
+     * @param RssItem item The item to render.
      */
     protected function rssItem($request, $item) {
         echo "  <item>\n";

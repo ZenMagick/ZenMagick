@@ -35,7 +35,7 @@ interface RssSource {
      * @param ZMRequest request The current request.
      * @param string channel The feed name.
      * @param array args Optional parameter; default is an empty array.
-     * @return ZMRssFeed The feed or <code>null</code>.
+     * @return RssFeed The feed or <code>null</code>.
      */
     public function getFeed($request, $channel, $args=array());
 
