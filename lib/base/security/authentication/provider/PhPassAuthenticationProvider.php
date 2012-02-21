@@ -21,40 +21,40 @@
 <?php
 namespace zenmagick\base\security\authentication\provider;
 
-use openwall\phpass\PasswordHash;
+use Phpass\Hash;
 use zenmagick\base\security\authentication\AuthenticationProvider;
 
 
 /**
- * PhPass authentication provider.
+ * PhPass 2.0 authentication provider.
  *
- * <p>Uses <a href="http://www.openwall.com/phpass/">PHPass</a>.</p>
+ * <p>Uses <a href="https://github.com/rchouinard/phpass">Phpass</a>.</p>
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
 class PhPassAuthenticationProvider implements AuthenticationProvider {
-    private $passwordHash_;
+    protected $hash;
 
 
     /**
      * Create instance.
      */
     public function __construct() {
-        $this->passwordHash_ = new PasswordHash(8, false);
+        $this->hash = new Hash();
     }
 
     /**
      * {@inheritDoc}
      */
     public function encryptPassword($plaintext, $salt=null) {
-        return $this->passwordHash_->HashPassword($plaintext);
+        return $this->hash->hashPassword($plaintext);
     }
 
     /**
      * {@inheritDoc}
      */
     public function validatePassword($plaintext, $encrypted) {
-        return $this->passwordHash_->CheckPassword($plaintext, $encrypted);
+        return $this->hash->checkPassword($plaintext, $encrypted);
     }
 
 }

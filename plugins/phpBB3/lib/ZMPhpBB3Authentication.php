@@ -20,7 +20,9 @@
 ?>
 <?php
 
-use openwall\phpass;
+use Phpass\Hash;
+use Phpass\Hash\Adapter\Portable;
+use zenmagick\base\security\authentication\provider\PhPassAuthenticationProvider;
 
 /**
  * phpBB3 authentication provider.
@@ -28,29 +30,14 @@ use openwall\phpass;
  * @author DerManoMann <mano@zenmagick.org>
  * @package org.zenmagick.plugins.phpbb3
  */
-class ZMPhpBB3Authentication implements ZMAuthentication {
-    private $passwordHash_;
-
+class ZMPhpBB3Authentication extends PhPassAuthenticationProvider {
 
     /**
      * Create instance.
      */
-    function __construct() {
-        $this->passwordHash_ = new PasswordHash(6, false, '$H$');
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function encryptPassword($plaintext, $salt=null) {
-        return $this->passwordHash_->HashPassword($plaintext);
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function validatePassword($plaintext, $encrypted) {
-        return $this->passwordHash_->HashPassword($plaintext);
+    public function __construct() {
+        parent::__construct();
+        $this->hash = new Hash(new Portable(array('iterationCountLog2' => 8)));
     }
 
 }
