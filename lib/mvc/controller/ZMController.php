@@ -101,19 +101,7 @@ class ZMController extends ZMObject {
         $this->requestId_ = null != $this->requestId_ ? $this->requestId_ : $request->getRequestId();
         $this->isAjax_ = $request->isAjax();
 
-        $sacsManager = $this->container->get('sacsManager');
-        // check authorization
-        $sacsManager->authorize($request, $request->getRequestId(), $request->getUser());
-
         $settingsService = Runtime::getSettings();
-
-        $enableTransactions = $settingsService->get('zenmagick.mvc.transactions.enabled', false);
-
-        if ($enableTransactions) {
-            ZMRuntime::getDatabase()->beginTransaction();
-        }
-
-        Runtime::getEventDispatcher()->dispatch('controller_process_start', new Event($this, array('request' => $request, 'controller' => $this)));
 
         // method independant (pre-)processing
         $this->preProcess($request);
@@ -137,36 +125,25 @@ class ZMController extends ZMObject {
 
         if (null == $view) {
             $method = null != $this->getMethod() ? $this->getMethod() : $request->getMethod();
-            try {
-                switch ($method) {
-                    case 'HEAD':
-                        $view = $this->processHead($request);
+            switch ($method) {
+                case 'HEAD':
+                    $view = $this->processHead($request);
+                    break;
+                case 'GET':
+                    $view = $this->processGet($request);
+                    break;
+                case 'POST':
+                    $view = $this->processPost($request);
+                    break;
+                default:
+                    //return call_user_func_array($target, $margs);
+                    if (method_exists($this, $method) || in_array($method, $this->getAttachedMethods())) {
+                        // (re-)check on method level if mapping exists
+                        $methodRequestId = $request->getRequestId().'#'.$method;
+                        $view = $this->$method($request);
                         break;
-                    case 'GET':
-                        $view = $this->processGet($request);
-                        break;
-                    case 'POST':
-                        $view = $this->processPost($request);
-                        break;
-                    default:
-                        //return call_user_func_array($target, $margs);
-                        if (method_exists($this, $method) || in_array($method, $this->getAttachedMethods())) {
-                            // (re-)check on method level if mapping exists
-                            $methodRequestId = $request->getRequestId().'#'.$method;
-                            if ($sacsManager->hasMappingForRequestId($methodRequestId)) {
-                                $sacsManager->authorize($request, $methodRequestId, $request->getUser());
-                            }
-                            $view = $this->$method($request);
-                            break;
-                        }
-                        throw new ZMException('unsupported method: ' . $method);
-                }
-            } catch (Exception $e) {
-                if ($enableTransactions) {
-                    ZMRuntime::getDatabase()->rollback();
-                }
-                // re-throw
-                throw $e;
+                    }
+                    throw new ZMException('unsupported method: ' . $method);
             }
         }
 
@@ -178,12 +155,6 @@ class ZMController extends ZMObject {
                 $this->initViewVars($view, $request, $formData);
             }
             $this->view_ = $view;
-        }
-
-        Runtime::getEventDispatcher()->dispatch('controller_process_end', new Event($this, array('request' => $request, 'controller' => $this, 'view' => $this->view_)));
-
-        if ($enableTransactions) {
-            ZMRuntime::getDatabase()->commit();
         }
 
         if ($this->isAjax_) {

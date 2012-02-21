@@ -82,7 +82,7 @@ class Dispatcher extends ZMObject implements ParameterMapper {
         $eventDispatcher = $this->container->get('eventDispatcher');
 
         try {
-            $view = $this->getControllerExecutor($request)->execute();
+            $view = $this->executeController($request);
         } catch (Exception $e) {
             $this->container->get('loggingService')->dump($e, sprintf('controller::process failed: %s', $e->getMessage()), Logging::ERROR);
             $controller = $this->container->get('defaultController');
@@ -187,6 +187,48 @@ class Dispatcher extends ZMObject implements ParameterMapper {
             $controller = \ZMUrlManager::instance()->findController($request->getRequestId());
             return new Executor(array($controller, 'process'), array($request));
         }
+    }
+
+    /**
+     * Execute controller.
+     *
+     * @param ZMRequest request The request.
+     * @return View The result view.
+     */
+    protected function executeController(ZMRequest $request) {
+        // check authorization
+        $sacsManager = $this->container->get('sacsManager');
+        $sacsManager->authorize($request, $request->getRequestId(), $request->getUser());
+
+        $settingsService = Runtime::getSettings();
+        $enableTransactions = $settingsService->get('zenmagick.http.transactions.enabled', false);
+
+        if ($enableTransactions) {
+            ZMRuntime::getDatabase()->beginTransaction();
+        }
+
+        $controller = null;
+        $eventDispatcher = $this->container->get('eventDispatcher');
+        $eventDispatcher->dispatch('controller_process_start', new Event($this, array('request' => $request, 'controller' => $controller)));
+
+        try {
+            // execute
+            $view = $this->getControllerExecutor($request)->execute();
+        } catch (Exception $e) {
+            if ($enableTransactions) {
+                ZMRuntime::getDatabase()->rollback();
+            }
+            // re-throw
+            throw $e;
+        }
+
+        $eventDispatcher->dispatch('controller_process_end', new Event($this, array('request' => $request, 'controller' => $controller, 'view' => $view)));
+
+        if ($enableTransactions) {
+            ZMRuntime::getDatabase()->commit();
+        }
+
+        return $view;
     }
 
 }
