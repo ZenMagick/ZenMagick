@@ -52,7 +52,7 @@ class RssFeedLoader extends ZMObject {
      * @param array config General loader config.
      */
     public function init($config) {
-        $this->container->get('filesystem')->mkdir($config['cacheDir'], 0755);
+        Runtime::getContainer()->get('filesystem')->mkdir($config['cacheDir'], 0755);
         if (!file_exists($config['cacheDir']) || !is_writeable($config['cacheDir'])) {
             Runtime::getLogging()->warn(sprintf('RSS cache dir not usable: %s', $config['cacheDir']));
         }
