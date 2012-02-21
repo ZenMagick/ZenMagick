@@ -19,49 +19,27 @@
  */
 ?>
 <?php
+namespace zenmagick\http\forms;
 
+use ZMRequest;
 use zenmagick\base\Beans;
 use zenmagick\base\ZMObject;
 
 /**
- * Basic form data container.
+ * Basic form container.
  *
- * <p>If no form class is configured for an url, the form will be stored in an <code>array()</code>.
- * If custom pre-processing of form data is required, a custom container class extending <code>ZMFormData</code>
- * can be used.</p>
- *
- * <p>The default implementation of <code>populate($request)</code> will just populate the form container instance
+ * <p>The default implementation of <code>populate($request)</code> will just populate the form instance
  * with all request data. Custom implementations are free to override/extend <code>populate($request)</code> to hook
  * up their own population code.</p>
  *
  * @author DerManoMann <mano@zenmagick.org>
- * @package org.zenmagick.mvc.forms
  */
-class ZMFormData extends ZMObject {
+class FormData extends ZMObject implements Form {
 
     /**
-     * Create new instance.
+     * {@inheritDoc}
      */
-    function __construct() {
-        parent::__construct();
-    }
-
-    /**
-     * Destruct instance.
-     */
-    function __destruct() {
-        parent::__destruct();
-    }
-
-
-    /**
-     * Populate this form.
-     *
-     * <p>Populate this <em>bean</em> with all request parameters.</p>
-     *
-     * @param ZMRequest request The request to process.
-     */
-    public function populate($request) {
+    public function populate(ZMRequest $request) {
         Beans::setAll($this, $request->getParameterMap(), null);
     }
 

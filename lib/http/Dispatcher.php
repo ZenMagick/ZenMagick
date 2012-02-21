@@ -141,7 +141,7 @@ class Dispatcher extends ZMObject implements ParameterMapper {
                 if ($hintClass) {
                     // check for special classes/interfaces
                     // TODO: this is expected to grow a bit, so make the code look nicer
-                    if ('ZMFormData' == $hintClass->name || $hintClass->isSubclassOf('ZMFormData')) {
+                    if ('zenmagick\http\forms\Form' == $hintClass->name || $hintClass->isSubclassOf('zenmagick\http\forms\Form')) {
                         $value = Beans::getBean($hintClass->name);
                         $value->populate($request);
                     } else if ('ZMRequest' == $hintClass->name || $hintClass->isSubclassOf('ZMRequest')) {

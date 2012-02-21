@@ -22,6 +22,7 @@
 
 use zenmagick\base\Beans;
 use zenmagick\base\Runtime;
+use zenmagick\http\forms\FormData;
 
 /**
  * An account form (bean).
@@ -29,12 +30,12 @@ use zenmagick\base\Runtime;
  * @author DerManoMann
  * @package zenmagick.store.shared.model.forms
  */
-class ZMAccountForm extends ZMFormData {
+class ZMAccountForm extends FormData {
 
     /**
      * {@inheritDoc}
      */
-    public function populate($request) {
+    public function populate(ZMRequest $request) {
         $this->loadAccount();
         parent::populate($request);
     }

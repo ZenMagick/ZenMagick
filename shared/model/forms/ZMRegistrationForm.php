@@ -22,6 +22,7 @@
 
 use zenmagick\base\Beans;
 use zenmagick\base\Runtime;
+use zenmagick\http\forms\FormData;
 
 /**
  * A registration form (bean).
@@ -29,7 +30,7 @@ use zenmagick\base\Runtime;
  * @author DerManoMann
  * @package zenmagick.store.shared.model.forms
  */
-class ZMRegistrationForm extends ZMFormData {
+class ZMRegistrationForm extends FormData {
 
     /**
      * Get a populated <code>ZMAccount</code> instance.

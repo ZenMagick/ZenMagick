@@ -26,6 +26,7 @@ use zenmagick\base\ZMException;
 use zenmagick\base\ZMObject;
 use zenmagick\base\events\Event;
 use zenmagick\base\logging\Logging;
+use zenmagick\http\forms\Form;
 use zenmagick\http\sacs\SacsManager;
 use zenmagick\http\view\TemplateView;
 
@@ -296,7 +297,7 @@ class ZMController extends ZMObject {
         if (null != ($route = $routeResolver->getRouteForUri($request->getUri()))) {
             if (null != ($options = $route->getOptions()) && array_key_exists('form', $options)) {
                 $this->formData_ = Beans::getBean($options['form']);
-                if ($this->formData_ instanceof ZMFormData) {
+                if ($this->formData_ instanceof Form) {
                     $this->formData_->populate($request);
                 } else {
                     $this->formData_ = Beans::setAll($this->formData_, $request->getParameterMap());
@@ -310,7 +311,7 @@ class ZMController extends ZMObject {
             $formId = null != $formId ? $formId : (array_key_exists('formId', $mapping) ? $mapping['formId'] : null);
             if (null != $formDef && null != $formId) {
                 $this->formData_ =  Beans::getBean($formDef.(false === strpos($mapping['view'], '#') ? '#' : '&').'formId='.$formId);
-                if ($this->formData_ instanceof ZMFormData) {
+                if ($this->formData_ instanceof Form) {
                     $this->formData_->populate($request);
                 } else {
                     $this->formData_ = Beans::setAll($this->formData_, $request->getParameterMap());
