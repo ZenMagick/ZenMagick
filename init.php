@@ -22,6 +22,11 @@
 use zenmagick\base\Runtime;
 use zenmagick\http\HttpApplication;
 
+  // avoid including twice
+  if (class_exists('zenmagick\base\Application')) {
+      return;
+  }
+
   $rootDir = __DIR__;
   include_once $rootDir.'/lib/base/Application.php';
   include_once $rootDir.'/lib/http/HttpApplication.php';
