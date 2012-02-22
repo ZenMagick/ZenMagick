@@ -25,6 +25,7 @@ use Symfony\Component\Templating\EngineInterface;
 use Symfony\Component\Templating\TemplateNameParserInterface;
 use zenmagick\base\Beans;
 use zenmagick\base\Runtime;
+use zenmagick\base\ZMException;
 use zenmagick\base\ZMObject;
 use zenmagick\base\Logging\Logging;
 use zenmagick\http\view\ResourceResolver;
@@ -134,6 +135,9 @@ class ZMPhpEngine extends ZMObject implements EngineInterface {
 				extract($__fetchVars['variables'], EXTR_REFS | EXTR_SKIP);
         $__fetchVars['path'] = $this->view->getResourceResolver()->findResource($__fetchVars['template'], View::TEMPLATE);
 
+        if (empty($__fetchVars['path'])) {
+            throw new ZMException('empty template filename');
+        }
         ob_start();
         require $__fetchVars['path'];
         $result = ob_get_clean();
