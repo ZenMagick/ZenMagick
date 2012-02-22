@@ -31,8 +31,6 @@ use zenmagick\base\logging\Logging;
  * @author DerManoMann <mano@zenmagick.org>
  */
 class ZMException extends Exception {
-    protected $previous_;
-
 
     /**
      * Create new instance.
@@ -42,8 +40,7 @@ class ZMException extends Exception {
      * @param Exception previous The original exception (if any) for chaining; default is <code>null</code>.
      */
     public function __construct($message=null, $code=0, $previous=null) {
-        parent::__construct((string)$message, (int)$code); //, $previous);
-        $this->previous_ = $previous;
+        parent::__construct((string)$message, (int)$code, $previous);
         Runtime::getLogging()->trace($message, Logging::TRACE);
     }
 
@@ -55,7 +52,7 @@ class ZMException extends Exception {
         $s .= ' message='.$this->getMessage();
         $s .= ', file='.Runtime::getContainer()->get('filesystem')->makePathRelative($this->getFile(), Runtime::getInstallationPath());
         $s .= ', line='.$this->getLine();
-        $s .= ', previous='.$this->previous_;
+        $s .= ', previous='.$this->getPrevious();
         $s .= ']';
         return $s;
     }
