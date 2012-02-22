@@ -37,6 +37,8 @@ class Filesystem extends \Symfony\Component\Filesystem\Filesystem {
             $endPath = realpath($endPath);
             $startPath = realpath($startPath);
             return str_replace($startPath.DIRECTORY_SEPARATOR, '', $endPath);
+        } else if (0 === strpos($endPath, $startPath)) {
+            return substr($endPath, strlen($startPath)+1);
         }
 
         return parent::makePathRelative($endPath, $startPath);
