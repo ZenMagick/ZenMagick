@@ -92,11 +92,14 @@ class DefaultLoggingHandler extends ZMObject implements LoggingHandler {
             if (array_key_exists($level, Logging::$LOG_LEVEL)) {
                 $msg = Logging::$LOG_LEVEL[$level] . ': ' . $msg;
             }
-            echo '<h3>'.$msg.":</h3>\n";
+            echo $msg."\n";
         }
         echo "<pre>";
-        if ($obj instanceof ZMObject || $obj instanceof ZMException) {
-            echo $obj;
+        if ($obj instanceof ZMObject) {
+            echo $obj."\n";
+        } else if ($obj instanceof ZMException) {
+            echo "<strong>".$obj."</strong>\n";
+            echo $obj->getTraceAsString()."\n";
         } else {
             echo get_class($obj);
         }
