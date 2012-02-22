@@ -72,7 +72,7 @@
     </div>
 
     <div class="filetree">
-      <?php echo $form->open('tests', '', false, array('method'=>'post')); ?>
+      <?php echo $form->open('unitTests', '', false, array('method'=>'post')); ?>
         <div id="root">
           <input type="submit" id="run" value="Run Selected">
           <input type="checkbox" id="hideErrors" name="hideErrors" value="true"<?php echo ($hideErrors ? ' checked' : '') ?>> <label for="hideErrors"><strong>Hide errors</strong></label><br>

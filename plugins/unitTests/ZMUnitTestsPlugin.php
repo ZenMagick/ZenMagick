@@ -51,12 +51,6 @@ class ZMUnitTestsPlugin extends Plugin {
      */
     public function init() {
         parent::init();
-        ZMSettings::set('zenmagick.mvc.templates.ext', '.php');
-        ZMUrlManager::instance()->setMapping('tests', array(
-            'layout' => '',
-            'template' => 'views/tests.php',
-            'controller' => 'ZMUnitTestsController'
-        ));
 
         // TODO: manually load lib for now
         require_once dirname(__FILE__).'/lib/simpletest-trunk-20110128.packed.php';
