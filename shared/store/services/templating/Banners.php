@@ -22,7 +22,10 @@
  */
 ?>
 <?php
+namespace zenmagick\apps\store\services\templating;
 
+use ZMDatabase;
+use ZMRuntime;
 use zenmagick\base\Runtime;
 use zenmagick\base\ZMObject;
 
@@ -30,17 +33,8 @@ use zenmagick\base\ZMObject;
  * Banner.
  *
  * @author DerManoMann
- * @package zenmagick.store.shared.services
  */
-class ZMBanners extends ZMObject {
-
-    /**
-     * Get instance.
-     */
-    public static function instance() {
-        return Runtime::getContainer()->get('bannerService');
-    }
-
+class Banners extends ZMObject {
 
     /**
      * Get a list of all banner groups.

@@ -147,7 +147,7 @@ class ToolboxMacro extends ToolboxTool {
     /**
      * Display the given banner.
      *
-     * @param ZMBanner banner A <code>ZMBanner</code> instance.
+     * @param Banner banner A <code>Banner</code> instance.
      * @param boolean updateStats If <code>true</code>, the banner stats will get updated (click count).
      * @return string The HTML formatted banner.
      */

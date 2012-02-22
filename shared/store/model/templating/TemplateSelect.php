@@ -19,19 +19,19 @@
  */
 ?>
 <?php
+namespace zenmagick\apps\store\model\templating;
 
 use zenmagick\base\ZMObject;
 
 use Doctrine\ORM\Mapping AS ORM;
 
 /**
- * ZMTemplateSelect
+ * TemplateSelect
  *
- * @package zenmagick.store.shared.model.layout
  * @ORM\Table(name="template_select")
  * @ORM\Entity
  */
-class ZMTemplateSelect extends ZMObject {
+class TemplateSelect extends ZMObject {
     /**
      * @var integer $id
      *

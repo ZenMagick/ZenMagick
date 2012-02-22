@@ -22,6 +22,7 @@
  */
 ?>
 <?php
+namespace zenmagick\apps\store\model\templating;
 
 use zenmagick\base\ZMObject;
 
@@ -31,11 +32,10 @@ use Doctrine\ORM\Mapping AS ORM;
  * A single banner.
  *
  * @author DerManoMann
- * @package zenmagick.store.shared.model.layout
  * @ORM\Table(name="banners")
  * @ORM\Entity
  */
-class ZMBanner extends ZMObject {
+class Banner extends ZMObject {
     /**
      * @var integer $id
      *

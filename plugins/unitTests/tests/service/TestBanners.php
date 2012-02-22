@@ -21,12 +21,12 @@
 <?php
 
 /**
- * Test <code>ZMBanners</code>.
+ * Test <code>Banners</code>.
  *
  * @package org.zenmagick.plugins.unitTests.tests
  * @author DerManoMann <mano@zenmagick.org>
  */
-class TestZMBanners extends ZMTestCase {
+class TestBanners extends ZMTestCase {
 
     /**
      * Test get banner group ids.
