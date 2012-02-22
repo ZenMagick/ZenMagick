@@ -146,6 +146,8 @@ class RouteResolver extends ZMObject {
         $routeIds[] = self::GLOBAL_ROUTING_KEY;
 
         // check until match or we run out of routeIds
+        $settingsService = $this->container->get('settingsService');
+        $layoutName = $settingsService->exists('zenmagick.mvc.view.defaultLayout') ? $settingsService->get('zenmagick.mvc.view.defaultLayout') : null;
         foreach ($routeIds as $routeId) {
             if (null != ($route = $this->getRouteForId($routeId))) {
                 $viewKey = null == $viewId ? 'view' : sprintf('view:%s', $viewId);
@@ -155,6 +157,14 @@ class RouteResolver extends ZMObject {
                     $token = parse_url($options[$viewKey]);
                     if (!array_key_exists('query', $token)) {
                         $token['query'] = '';
+                    }
+                    // merge in layout if set
+                    if (null != $layoutName) {
+                        parse_str($token['query'], $query);
+                        if (!array_key_exists('layout', $query)) {
+                            $query['layout'] = $layoutName;
+                        }
+                        $token['query'] = http_build_query($query);
                     }
                     if (array_key_exists('scheme', $token)) {
                         // default to same page if nothing set
@@ -174,9 +184,7 @@ class RouteResolver extends ZMObject {
         // TODO: enable once we have all current url mappings converted
         if (false && !$view) {
             // use conventions and defaults
-            $settingsService = $this->container->get('settingsService');
             $templateName = sprintf('views/%s%s', $request->getRequestId(), $settingsService->get('zenmagick.http.templates.ext', '.php'));
-            $layoutName = $settingsService->exists('zenmagick.mvc.view.defaultLayout') ? $settingsService->get('zenmagick.mvc.view.defaultLayout') : null;
             $view = Beans::getBean('defaultView');
             $view->setTemplate($templateName);
             $view->setLayout($layoutName);
