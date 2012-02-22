@@ -35,10 +35,10 @@ use Symfony\Component\Config\FileLocator;
  * @author DerManoMann
  */
 class Themes extends ZMObject {
-    private $themeChain_;
-    private $initLanguage_;
-    private $cache_;
-    private $basePath;
+    protected $themeChain_;
+    protected $initLanguage_;
+    protected $cache_;
+    protected $basePath;
 
 
     /**
