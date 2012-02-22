@@ -193,6 +193,15 @@ class Application {
     }
 
     /**
+     * Get enabled bundles.
+     *
+     * @return array List of enabled bundle objects.
+     */
+    public function getBundles() {
+        return $this->bundles;
+    }
+
+    /**
      * Add entry to profile.
      *
      * @param string text The profile text; default is null to just return the current profile data.
