@@ -73,7 +73,7 @@ class CountryService extends ZMObject {
         $sql = "SELECT *
                 FROM " . TABLE_COUNTRIES . "
                 ORDER BY countries_name";
-        $this->countries = \ZMRuntime::getDatabase()->fetchAll($sql, array(), TABLE_COUNTRIES, 'zenmagick\apps\store\entities\location\Country');
+        $this->countries = \ZMRuntime::getDatabase()->fetchAll($sql, array(), TABLE_COUNTRIES, 'zenmagick\apps\store\model\location\Country');
         return $this->countries;
     }
 
@@ -143,7 +143,7 @@ class CountryService extends ZMObject {
                 FROM " . TABLE_ZONES . "
                 WHERE zone_country_id = :countryId
                 ORDER BY zone_name";
-        $zones = \ZMRuntime::getDatabase()->fetchAll($sql, array('countryId' => $countryId), TABLE_ZONES, 'zenmagick\apps\store\entities\location\Zone');
+        $zones = \ZMRuntime::getDatabase()->fetchAll($sql, array('countryId' => $countryId), TABLE_ZONES, 'zenmagick\apps\store\model\location\Zone');
         return $zones;
     }
 

@@ -45,7 +45,7 @@ class LanguageService extends ZMObject {
                 FROM " . TABLE_LANGUAGES . "
                 ORDER BY sort_order";
         $this->languages = array();
-        foreach (ZMRuntime::getDatabase()->fetchAll($sql, array(), 'languages', 'zenmagick\apps\store\entities\locale\Language') as $language) {
+        foreach (ZMRuntime::getDatabase()->fetchAll($sql, array(), 'languages', 'zenmagick\apps\store\model\locale\Language') as $language) {
             $this->languages[$language->getCode()] = $language;
         }
     }

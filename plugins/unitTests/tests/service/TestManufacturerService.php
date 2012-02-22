@@ -78,7 +78,7 @@ class TestManufacturerService extends ZMTestCase {
      */
     public function testNoInfo() {
         // create new manufacturer without info record
-        $newManufacturer = Beans::getBean('zenmagick\apps\store\entities\catalog\Manufacturer');
+        $newManufacturer = Beans::getBean('zenmagick\apps\store\model\catalog\Manufacturer');
         $newManufacturer->setName('Foo');
         $newManufacturer->setDateAdded(new \DateTime());
         $newManufacturer->setLastModified(new \DateTime());

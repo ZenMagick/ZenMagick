@@ -23,7 +23,7 @@
 use zenmagick\base\Beans;
 use zenmagick\base\Runtime;
 
-use zenmagick\apps\store\entities\catalog\Review;
+use zenmagick\apps\store\model\catalog\Review;
 
 /**
  * Test reviews service.
@@ -133,7 +133,7 @@ class TestReviewService extends ZMTestCase {
         Runtime::getSettings()->set('isApproveReviews', false);
         $account = $this->container->get('accountService')->getAccountForId(1);
         if (null != $account) {
-            $review = Beans::getBean('zenmagick\apps\store\entities\catalog\Review');
+            $review = Beans::getBean('zenmagick\apps\store\model\catalog\Review');
             $review->setProductId(3);
             $review->setRating(4);
             $review->setDescription('some foo', 1);
@@ -166,7 +166,7 @@ class TestReviewService extends ZMTestCase {
         $reviewService = $this->container->get('reviewService');
         $account = $this->container->get('accountService')->getAccountForId(1);
         if (null != $account) {
-            $review = Beans::getBean('zenmagick\apps\store\entities\catalog\Review');
+            $review = Beans::getBean('zenmagick\apps\store\model\catalog\Review');
             $review->setProductId(3);
             $review->setRating(4);
             $review->setLanguageId(1);

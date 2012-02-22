@@ -20,7 +20,7 @@
 ?>
 <?php
 
-use zenmagick\apps\store\entities\catalog\Review;
+use zenmagick\apps\store\model\catalog\Review;
 
 /**
  * Demo review.

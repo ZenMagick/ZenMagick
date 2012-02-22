@@ -22,7 +22,7 @@
  */
 ?>
 <?php
-namespace zenmagick\apps\store\entities\catalog;
+namespace zenmagick\apps\store\model\catalog;
 
 use zenmagick\base\ZMObject;
 
@@ -38,7 +38,7 @@ class ReviewDescriptions extends ZMObject {
     /**
      * @var object $review
      * @ORM\Id
-     * @ORM\ManyToOne(targetEntity="zenmagick\apps\store\entities\catalog\Review", inversedBy="descriptions")
+     * @ORM\ManyToOne(targetEntity="zenmagick\apps\store\model\catalog\Review", inversedBy="descriptions")
      * @ORM\JoinColumn(name="reviews_id", referencedColumnName="reviews_id")
      */
     private $review;

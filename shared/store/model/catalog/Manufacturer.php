@@ -22,7 +22,7 @@
  */
 ?>
 <?php
-namespace zenmagick\apps\store\entities\catalog;
+namespace zenmagick\apps\store\model\catalog;
 
 use zenmagick\base\Runtime;
 use zenmagick\base\ZMObject;

@@ -22,7 +22,7 @@
  */
 ?>
 <?php
-namespace zenmagick\apps\store\entities\location;
+namespace zenmagick\apps\store\model\location;
 
 use zenmagick\base\ZMObject;
 

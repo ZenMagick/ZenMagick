@@ -22,7 +22,7 @@
  */
 ?>
 <?php
-namespace zenmagick\apps\store\entities\locale;
+namespace zenmagick\apps\store\model\locale;
 
 use zenmagick\base\ZMObject;
 
