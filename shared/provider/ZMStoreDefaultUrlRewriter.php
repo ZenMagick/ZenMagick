@@ -62,11 +62,6 @@ class ZMStoreDefaultUrlRewriter implements UrlRewriter {
             throw new ZMException('missing page parameter');
         }
 
-        if (null != ($alias = ZMUrlManager::instance()->getAlias($page))) {
-            $page = $alias['requestId'];
-            $params .= '&'.$alias['parameter'];
-        }
-
         // also do process all rewriters as here we have the full context incl. add. zencart parameters
         // if called directly (as done from the override zen_href_link function...)
         $rewriters = $request->getUrlRewriter();

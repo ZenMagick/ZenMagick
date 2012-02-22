@@ -1,0 +1,11 @@
+storefront:
+  routing:
+    wp:
+      pattern: /wp?{slug}
+      defaults: { _controller: ZMWordpressController, slug: "" }
+      options: { view:wp_index: views/wp/index.php }
+      options: { view:wp_single: views/wp/single.php }
+      options: { view:wp_page: views/wp/page.php }
+      options: { view:wp_archive: views/wp/archive.php }
+      options: { view:wp_archives: views/wp/archives.php }
+      options: { view:wp_search: views/wp/search.php }

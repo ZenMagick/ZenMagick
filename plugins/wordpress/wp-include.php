@@ -22,7 +22,6 @@
 
 use zenmagick\base\Runtime;
 
-
   /**
    * Load WP API.
    *

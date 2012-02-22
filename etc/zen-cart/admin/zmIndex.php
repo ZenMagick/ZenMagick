@@ -37,7 +37,6 @@ use zenmagick\http\sacs\SacsManager;
   $classLoader->register();
 
   // set some admin specific things...
-  ZMUrlManager::instance()->clear();
   $sacsManager = $container->get('sacsManager');
   $sacsManager->reset();
   $sacsManager->load(file_get_contents(Runtime::getInstallationPath().'/apps/admin/config/sacs_mappings.yaml'), false);

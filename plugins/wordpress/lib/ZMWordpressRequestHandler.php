@@ -32,7 +32,7 @@ class ZMWordpressRequestHandler extends ZMController {
     private $plugin_;
     private $request_;
     private $viewName_;
-    private $view_;
+    private $resourceResolver;
 
 
     /**
@@ -47,7 +47,7 @@ class ZMWordpressRequestHandler extends ZMController {
         $this->plugin_ = $plugin;
         $this->request_ = $request;
         $this->viewName_ = null;
-        $this->view_ = null;
+        $this->resourceResolver = null;
     }
 
 
@@ -97,7 +97,7 @@ class ZMWordpressRequestHandler extends ZMController {
      * @param View view The current view.
      */
     public function registerFilter($view) {
-        $this->view_ = $view;
+        $this->resourceResolver = $view->getResourceResolver();
         add_filter('tag_link', array($this, 'link_filter'));
         add_filter('post_link', array($this, 'link_filter'));
         add_filter('page_link', array($this, 'link_filter'));
@@ -139,7 +139,7 @@ class ZMWordpressRequestHandler extends ZMController {
      * WP filter to adjust comments include.
      */
     public function comments_template_filter($arg) {
-        return $this->view_->path($this->request_, 'views/wp/comments.php');
+        return $this->resourceResolver->findResource('template:views/wp/comments.php');
     }
 
 }

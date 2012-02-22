@@ -81,13 +81,6 @@ class DefaultUrlRewriter extends ZMObject implements UrlRewriter {
         $requestId = $args['requestId'];
         $params = $args['params'];
         $secure = $args['secure'];
-        if (null != ($alias = \ZMUrlManager::instance()->getAlias($requestId))) {
-            $requestId = $alias['requestId'];
-            $params = str_replace('&&', '&', $params.'&'.$alias['parameter']);
-            if ('&' == $params[0]) {
-                $params = substr($params, 1);
-            }
-        }
 
         if (null != ($method = $this->methods_['rewrite'])) {
             return $this->$method($request, $requestId, $params, $secure);
