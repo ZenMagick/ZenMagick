@@ -118,7 +118,17 @@
             <tag name="zenmagick.http.view.variable" key="toolbox" />
         </service>
 
-        <service id="dispatcher" class="zenmagick\http\Dispatcher" scope="prototype" />
+        <service id="controllerParameterMapper" class="zenmagick\http\controller\ControllerParameterMapper" scope="prototype">
+            <call method="setRequest">
+                <argument type="service" id="request" />
+            </call>
+        </service>
+
+        <service id="dispatcher" class="zenmagick\http\Dispatcher" scope="prototype">
+            <call method="setParameterMapper">
+                <argument type="service" id="controllerParameterMapper" />
+            </call>
+        </service>
 
         <service id="blockWidget" class="zenmagick\http\blocks\widgets\BlockWidget" scope="prototype" />
 

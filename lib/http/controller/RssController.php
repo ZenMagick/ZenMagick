@@ -19,8 +19,10 @@
  */
 ?>
 <?php
+namespace zenmagick\http\controller;
 
-use zenmagick\base\Beans;
+use ZMRequest;
+use zenmagick\base\ZMObject;
 use zenmagick\http\rss\RssSource;
 use zenmagick\http\rss\RssFeedGenerator;
 
@@ -31,36 +33,43 @@ use zenmagick\http\rss\RssFeedGenerator;
  *
  * <p>Sources are registered via the container tag '<em>zenmagick.http.rss.source</em>'.</p>
  *
+ * <p>Routing for this controller should look something like this:</p>
+ * <pre>
+ *   &lt;route id="rss" pattern="/rss/{channel}/{key}">
+ *      &lt;default key="_controller">zenmagick\http\controller\RssController:generate&lt;default>
+ *      &lt;default key="key">&lt;default>
+ *   &lt;route>
+ * </pre>
+ *
  * @author DerManoMann <mano@zenmagick.org>
- * @package org.zenmagick.mvc.controller
  */
-class ZMRssController extends ZMController {
+class RssController extends ZMObject {
 
     /**
      * {@inheritDoc}
      */
-    public function processGet($request) {
-        $channel = $request->getParameter('channel');
-        $feedArgs = array('key' => $request->getParameter('key', null));
-
+    public function generate(ZMRequest $request, $channel, $key) {
         // find source
         $feed = null;
+        $key = empty($key) ? null : $key;
         foreach ($this->container->findTaggedServiceIds('zenmagick.http.rss.source') as $id => $args) {
             $source = $this->container->get($id);
-            if (null != ($feed = $source->getFeed($request, $channel, $feedArgs))) {
+            if (null != ($feed = $source->getFeed($request, $channel, array('key' => $key)))) {
                 break;
             }
         }
 
         if (null == $feed) {
-            return $this->findView('error');
+            return 'error';
         }
 
+        //TODO: how??
+        //$this->setContentType('application/xhtml+xml');
         // create content
-        $this->setContentType('application/xhtml+xml');
         $feedGenerator = new RssFeedGenerator();
         echo $feedGenerator->generate($request, $feed);
 
+        // no view
         return null;
     }
 

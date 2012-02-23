@@ -21,7 +21,6 @@
 <?php
 namespace zenmagick\http;
 
-use ReflectionClass;
 use ZMRequest;
 use zenmagick\base\Beans;
 use zenmagick\base\Runtime;
@@ -31,13 +30,25 @@ use zenmagick\base\events\Event;
 use zenmagick\base\logging\Logging;
 use zenmagick\base\utils\Executor;
 use zenmagick\base\utils\ParameterMapper;
+use zenmagick\http\view\ModelAndView;
+use zenmagick\http\view\View;
 
 /**
  * ZenMagick MVC request dispatcher.
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class Dispatcher extends ZMObject implements ParameterMapper {
+class Dispatcher extends ZMObject {
+    private $parameterMapper;
+
+    /**
+     * Set the parameter mapper for controller.
+     *
+     * @param ParameterMapper parameterMapper The parameter mapper.
+     */
+    public function setParameterMapper(ParameterMapper $parameterMapper) {
+        $this->parameterMapper = $parameterMapper;
+    }
 
     /**
      * Dispatch a request.
@@ -82,9 +93,22 @@ class Dispatcher extends ZMObject implements ParameterMapper {
         $eventDispatcher = $this->container->get('eventDispatcher');
 
         try {
-            $view = $this->executeController($request);
+            $result = $this->executeController($request);
+
+            // make sure we end up with a View instance
+            $view = null;
+            $routeResolver = $this->container->get('routeResolver');
+            if (is_string($result)) {
+                $view = $routeResolver->getViewForId($result, $request);
+            } else if ($result instanceof ModelAndView) {
+                $view = $routeResolver->getViewForId($result->getViewId(), $request);
+                $view->setVariables($result->getModel());
+            } else if ($result instanceof View) {
+                $view = $result;
+            }
         } catch (Exception $e) {
             $this->container->get('loggingService')->dump($e, sprintf('controller::process failed: %s', $e->getMessage()), Logging::ERROR);
+            //TODO: why is this a classic controller only?
             $controller = $this->container->get('defaultController');
             $view = $controller->findView('error', array('exception' => $e));
             $request->setController($controller);
@@ -119,45 +143,46 @@ class Dispatcher extends ZMObject implements ParameterMapper {
     }
 
     /**
-     * {@inheritDoc}
+     * Execute controller.
+     *
+     * @param ZMRequest request The request.
+     * @return mixed The result;
      */
-    public function mapParameter($callback, array $parameter) {
-        if (!is_array($callback)) {
-            return $parameter;
+    protected function executeController(ZMRequest $request) {
+        // check authorization
+        $sacsManager = $this->container->get('sacsManager');
+        $sacsManager->authorize($request, $request->getRequestId(), $request->getUser());
+
+        $settingsService = $this->container->get('settingsService');
+        $enableTransactions = $settingsService->get('zenmagick.http.transactions.enabled', false);
+
+        if ($enableTransactions) {
+            ZMRuntime::getDatabase()->beginTransaction();
         }
 
-        $rc = new ReflectionClass($callback[0]);
-        $method = $rc->getMethod($callback[1]);
-        // we always put that in
-        $request = $parameter['request'];
-        $mapped = array();
-        foreach ($method->getParameters() as $rp) {
-            $value = null;
-            if (array_key_exists($rp->name, $parameter)) {
-                $value = $parameter[$rp->name];
-            } else {
-                // check for known types
-                $hintClass = $rp->getClass();
-                if ($hintClass) {
-                    // check for special classes/interfaces
-                    // TODO: this is expected to grow a bit, so make the code look nicer
-                    if ('zenmagick\http\forms\Form' == $hintClass->name || $hintClass->isSubclassOf('zenmagick\http\forms\Form')) {
-                        $value = Beans::getBean($hintClass->name);
-                        $value->populate($request);
-                    } else if ('ZMRequest' == $hintClass->name || $hintClass->isSubclassOf('ZMRequest')) {
-                        $value = $request;
-                    } else if ('zenmagick\http\messages\Messages' == $hintClass->name || $hintClass->isSubclassOf('zenmagick\http\messages\Messages')) {
-                        $value = $this->container->get('messageService');
-                    } else {
-                        // last choice - assume a model class that does not extend/implement FormData
-                        $value = Beans::getBean($hintClass->name);
-                        Beans::setAll($value, $request->getParameterMap(), null);
-                    }
-                }
+        $controller = null;
+        $eventDispatcher = $this->container->get('eventDispatcher');
+        $eventDispatcher->dispatch('controller_process_start', new Event($this, array('request' => $request, 'controller' => $controller)));
+
+        try {
+            // execute
+            $executor = $this->getControllerExecutor($request);
+            $result = $executor->execute();
+        } catch (Exception $e) {
+            if ($enableTransactions) {
+                ZMRuntime::getDatabase()->rollback();
             }
-            $mapped[] = $value;
+            // re-throw
+            throw $e;
         }
-        return $mapped;
+
+        $eventDispatcher->dispatch('controller_process_end', new Event($this, array('request' => $request, 'controller' => $controller, 'result' => $result)));
+
+        if ($enableTransactions) {
+            ZMRuntime::getDatabase()->commit();
+        }
+
+        return $result;
     }
 
     /**
@@ -166,7 +191,7 @@ class Dispatcher extends ZMObject implements ParameterMapper {
      * @param ZMRequest request The request.
      * @return Executor The executor.
      */
-    public function getControllerExecutor(ZMRequest $request) {
+    protected function getControllerExecutor(ZMRequest $request) {
         if ($routerMatch = $this->container->get('routeResolver')->getRouterMatch($request->getUri())) {
             // class:method ?
             $token = explode(':', $routerMatch['_controller']);
@@ -181,54 +206,12 @@ class Dispatcher extends ZMObject implements ParameterMapper {
                     // allow $request as mappable parameter too
                     $routerMatch['request'] = $request;
                 }
-                return new Executor(array(Beans::getBean($token[0]), $token[1]), $routerMatch, $this);
+                return new Executor(array(Beans::getBean($token[0]), $token[1]), $routerMatch, $this->parameterMapper);
             }
         } else {
             $controller = \ZMUrlManager::instance()->findController($request->getRequestId());
             return new Executor(array($controller, 'process'), array($request));
         }
-    }
-
-    /**
-     * Execute controller.
-     *
-     * @param ZMRequest request The request.
-     * @return View The result view.
-     */
-    protected function executeController(ZMRequest $request) {
-        // check authorization
-        $sacsManager = $this->container->get('sacsManager');
-        $sacsManager->authorize($request, $request->getRequestId(), $request->getUser());
-
-        $settingsService = Runtime::getSettings();
-        $enableTransactions = $settingsService->get('zenmagick.http.transactions.enabled', false);
-
-        if ($enableTransactions) {
-            ZMRuntime::getDatabase()->beginTransaction();
-        }
-
-        $controller = null;
-        $eventDispatcher = $this->container->get('eventDispatcher');
-        $eventDispatcher->dispatch('controller_process_start', new Event($this, array('request' => $request, 'controller' => $controller)));
-
-        try {
-            // execute
-            $view = $this->getControllerExecutor($request)->execute();
-        } catch (Exception $e) {
-            if ($enableTransactions) {
-                ZMRuntime::getDatabase()->rollback();
-            }
-            // re-throw
-            throw $e;
-        }
-
-        $eventDispatcher->dispatch('controller_process_end', new Event($this, array('request' => $request, 'controller' => $controller, 'view' => $view)));
-
-        if ($enableTransactions) {
-            ZMRuntime::getDatabase()->commit();
-        }
-
-        return $view;
     }
 
 }
