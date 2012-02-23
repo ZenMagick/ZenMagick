@@ -24,8 +24,8 @@ namespace zenmagick\base\locales\handler;
 use zenmagick\base\Runtime;
 use zenmagick\base\logging\Logging;
 use zenmagick\base\locales\Locale;
-use pomo\Translations;
-use pomo\MO;
+use zenmagick\base\locales\handler\pomo\Translations;
+use zenmagick\base\locales\handler\pomo\MO;
 
 /**
  * Locale using <em>pomo</em>.

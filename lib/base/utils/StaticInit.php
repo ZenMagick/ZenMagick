@@ -73,7 +73,7 @@ class StaticInit {
      * Preload Locales class to make translation functions available.
      */
     public static function initLocales() {
-        if (!class_exists('pomo\POMO')) {
+        if (!class_exists('zenmagick\base\locales\handler\pomo\POMO')) {
             throw new ZMException('pomo not found');
         }
         class_exists('zenmagick\base\locales\Locales');

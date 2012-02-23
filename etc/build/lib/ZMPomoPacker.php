@@ -38,6 +38,7 @@ class ZMPomoPacker extends PhpPackagePacker implements ZMLibraryPacker {
     public function process($sourceDir, $targetDir, $version, $strip) {
         $this->rootFolder_ = $sourceDir;
         $this->outputFilename_ = $targetDir.'/POMO.php';
+        echo $this->outputFilename_;
 
         // run the parent package packer; strip/leave references
         $this->packFiles($strip, false);
@@ -69,7 +70,7 @@ class ZMPomoPacker extends PhpPackagePacker implements ZMLibraryPacker {
 
         if (!$this->nsAdded) {
             $this->nsAdded = true;
-            return array_merge(array("<?php namespace pomo; class POMO {} ?>"), $lines);
+            return array_merge(array("<?php namespace zenmagick\\base\\locales\\handler\\pomo; class POMO {} ?>"), $lines);
         }
         return $lines;
     }
