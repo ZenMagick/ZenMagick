@@ -60,21 +60,6 @@ class StoreEventListener extends ZMObject {
             $containerlLoader = new XmlFileLoader(Runtime::getContainer(), new FileLocator(dirname($emailConfig)));
             $containerlLoader->load($emailConfig);
         }
-
-        // load some static files that we still need
-        $statics = array(
-            'storefront,admin' => array('/shared/store/bundles/ZenCartBundle/utils/zencart_overrides.php')
-        );
-        foreach ($statics as $context => $files) {
-            if (Runtime::isContextMatch($context)) {
-                foreach ($files as $static) {
-                    $file = Runtime::getInstallationPath().$static;
-                    if (file_exists($file)) {
-                        require_once $file;
-                    }
-                }
-            }
-        }
     }
 
     /**
