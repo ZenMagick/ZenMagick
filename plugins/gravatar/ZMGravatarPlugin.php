@@ -20,6 +20,7 @@
 ?>
 <?php
 
+use zenmagick\base\Toolbox;
 use zenmagick\base\ZMObject;
 
 /**
@@ -29,6 +30,7 @@ use zenmagick\base\ZMObject;
  * @author DerManoMann <mano@zenmagick.org>
  */
 class ZMGravatarPlugin extends Plugin {
+    private $baseUrl;
 
     /**
      * Create new instance.
@@ -36,6 +38,7 @@ class ZMGravatarPlugin extends Plugin {
     public function __construct() {
         parent::__construct('Gravatar', 'Adds gravatar support to accounts.', '${plugin.version}');
         $this->setContext('storefront');
+        $this->baseUrl = 'http://www.gravatar.com/avatar/';
     }
 
 
@@ -47,11 +50,13 @@ class ZMGravatarPlugin extends Plugin {
 
         $this->addConfigValue('Image Size', 'defaultSize', '80', 'Default avatar size');
         $this->addConfigValue('Maximum Rating', 'rating', 'g', 'Maximum rating of avatar images allowed',
-            'widget@ZMSelectFormWidget#name=rating&options='.urlencode('g=G - General&pg=PG - Rude, mild violence&r=R - Rated&x=X - Rated'));
+            'widget@selectFormWidget#name=rating&options='.urlencode('g=G - General&pg=PG - Rude, mild violence&r=R - Rated&x=X - Rated'));
         $this->addConfigValue('Default Image Set', 'imageSet', 'mm', 'Default image if no avatar found',
-            'widget@ZMSelectFormWidget#name=imageSet&options='.urlencode('404=404&mm=Mystery Man&identicon=Identicon geometrical pattern&monsterid=Monster&wavartar=Generated faces&retro=Retro Pixels&custom=Custom Image'));
+            'widget@selectFormWidget#name=imageSet&options='.urlencode('404=404&mm=Mystery Man&identicon=Identicon geometrical pattern&monsterid=Monster&wavartar=Generated faces&retro=Retro Pixels&custom=Custom Image'));
         $this->addConfigValue('Default Image', 'defaultImage', '', 'Default avatar to be used when none available (imageSet=custom)',
-              'widget@ZMTextFormWidget#name=defaultImage&default=&size=24&maxlength=255');
+              'widget@textFormWidget#name=defaultImage&default=&size=24&maxlength=255');
+        $this->addConfigValue('Force reload', 'forceReload', 'false', 'Add a timestamp to the image url to force a refresh every time',
+            'widget@booleanFormWidget#name=forceReload&default=false&label=Force reload&style=checkbox');
 
     }
 
@@ -62,6 +67,15 @@ class ZMGravatarPlugin extends Plugin {
         parent::init();
         // attach method to ZMAccount
         ZMObject::attachMethod('getGravatar', 'ZMAccount', array($this, 'getGravatar'));
+        $this->container->get('eventDispatcher')->addListener('request_ready', array($this, 'onRequestReady'));
+    }
+
+    /**
+     * Adjust baseUrl.
+     */
+    public function onRequestReady($event) {
+        $request = $event->get('request');
+        $this->baseUrl = $request->isSecure() ? 'https://secure.gravatar.com/avatar/' : 'http://www.gravatar.com/avatar/';
     }
 
     /**
@@ -103,9 +117,12 @@ class ZMGravatarPlugin extends Plugin {
      * @source http://gravatar.com/site/implement/images/php/
      */
     private function pullGravatar($email, $s=80, $d='mm', $r='g', $img=false, $atts=array()) {
-        $url = 'http://www.gravatar.com/avatar/';
+        $url = $this->baseUrl;
         $url .= md5(strtolower(trim($email)));
         $url .= "?s=$s&d=$d&r=$r";
+        if (Toolbox::asBoolean($this->get('forceReload'))) {
+            $url .= '&ts='.time();
+        }
         if ($img) {
             $slash = $this->container->get('settingsService')->get('zenmagick.mvc.html.xhtml') ? '/' : '';
             $url = '<img src="' . $url . '"';
