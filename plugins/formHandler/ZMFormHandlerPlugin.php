@@ -20,6 +20,8 @@
 ?>
 <?php
 
+use Symfony\Component\Routing\Route;
+use Symfony\Component\Routing\RouteCollection;
 use zenmagick\base\Toolbox;
 use zenmagick\http\sacs\SacsManager;
 
@@ -64,16 +66,16 @@ class ZMFormHandlerPlugin extends Plugin {
         $pages = $this->get('pages');
         if (0 < strlen($pages)) {
             $pages = explode(',', $pages);
-            $secure = Toolbox::asBoolean($this->get('secure'));
+            $settingsService = $this->container->get('settingsService');
+            $ext = $settingsService->get('zenmagick.http.templates.ext', '.php');
+            $routeResolver = $this->container->get('routeResolver');
+            $routeList = array();
             foreach ($pages as $page) {
-                ZMUrlManager::instance()->setMapping($page, array(
-                  'template' => $page,
-                  'controller' => 'ZMFormHandlerController',
-                  'success' => array('view' => 'redirect')
-                ));
+                $routeList[] = array($page, new Route('/'.$page, array('_controller' => 'ZMFormHandlerController'), array(), array('view' => 'views/'.$page.$ext, 'view:success' => 'redirect://'.$page)));
             }
+            $routeResolver->addRoutes($routeList);
 
-            if ($secure) {
+            if (Toolbox::asBoolean($this->get('secure'))) {
                 // mark as secure
                 foreach ($pages as $page) {
                     $this->container->get('sacsManager')->setMapping($page, ZMAccount::ANONYMOUS);

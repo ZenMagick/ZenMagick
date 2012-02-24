@@ -22,6 +22,8 @@
 namespace zenmagick\http\routing;
 
 use Exception;
+use Symfony\Component\Routing\Route;
+use Symfony\Component\Routing\RouteCollection;
 use Symfony\Component\Routing\Router;
 use Symfony\Component\Routing\RequestContext as SymfonyRequestContext;
 
@@ -199,6 +201,31 @@ class RouteResolver extends ZMObject {
         }
 
         return $view;
+    }
+
+    /**
+     * Add route.
+     *
+     * @param string routeId The route id.
+     * @param Route route The route.
+     */
+    public function addRoute($routeId, Route $route) {
+        $routeCollection = new RouteCollection();
+        $routeCollection->add('routeId', $route);
+        $this->getRouter()->getRouteCollection()->addCollection($routeCollection);
+    }
+
+    /**
+     * Add routes.
+     *
+     * @param array routeList List of arrays containing routeId/route.
+     */
+    public function addRoutes(array $routeList) {
+        $routeCollection = new RouteCollection();
+        foreach ($routeList as $routeDetails) {
+            $routeCollection->add($routeDetails[0], $routeDetails[1]);
+        }
+        $this->getRouter()->getRouteCollection()->addCollection($routeCollection);
     }
 
 }

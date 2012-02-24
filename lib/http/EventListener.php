@@ -66,8 +66,8 @@ class EventListener extends ZMObject {
         $appRoutingFile = Runtime::getApplicationPath().'/config/routing.xml';
         if (file_exists($appRoutingFile)) {
             $appRoutingLoader = new XmlFileLoader(new FileLocator());
-            $appRouterCollection = $appRoutingLoader->load($appRoutingFile);
-            $routeResolver->getRouter()->getRouteCollection()->addCollection($appRouterCollection);
+            $appRouteCollection = $appRoutingLoader->load($appRoutingFile);
+            $routeResolver->getRouter()->getRouteCollection()->addCollection($appRouteCollection);
         }
 
         // adjust front controller parameter
@@ -80,8 +80,8 @@ class EventListener extends ZMObject {
         if ($contextConfigLoader instanceof HttpContextConfigLoader) {
             foreach ($contextConfigLoader->getRouting() as $routing) {
                 $routingLoader = new YamlLoader();
-                $routerCollection = $routingLoader->load($routing);
-                $routeResolver->getRouter()->getRouteCollection()->addCollection($routerCollection);
+                $routeCollection = $routingLoader->load($routing);
+                $routeResolver->getRouter()->getRouteCollection()->addCollection($routeCollection);
             }
         }
 

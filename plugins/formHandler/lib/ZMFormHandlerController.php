@@ -59,16 +59,16 @@ class ZMFormHandlerController extends ZMController {
         // create model
         $data = array('formData' => $this->createFormData($request));
 
-        if (!$this->validate($request, $this->getId())) {
+        if (!$this->validate($request, $request->getRequestId())) {
             return $this->findView(null, $data);
         }
 
         $plugin = $this->getPlugin();
-        $template = $plugin->get('emailTemplate');
+        $emailTemplate = $plugin->get('emailTemplate');
         if (empty($emailTemplate)) {
-            $emailTemplate = $this->getId();
+            $emailTemplate = $request->getRequestId();
         }
-        $this->sendNotificationEmail($request->getParameterMap(), $emailTemplate, $plugin->get('adminEmail'));
+        $this->sendNotificationEmail($request->getParameterMap(), $emailTemplate, $plugin->get('adminEmail'), $request);
         $this->messageService->success(_zm("Request submitted!"));
 
         return $this->findView('success', $data);
@@ -80,14 +80,16 @@ class ZMFormHandlerController extends ZMController {
      * @param array data The form data.
      * @param string template The template.
      * @param string email The email address.
+     * @param ZMRequest request The current request.
      */
-    protected function sendNotificationEmail($data, $template, $email) {
+    protected function sendNotificationEmail($data, $template, $email, $request) {
+        $settingsService = $this->container->get('settingsService');
         if (empty($email)) {
-            $email = ZMSettings::get('storeEmail');
+            $email = $settingsService->get('storeEmail');
         }
 
-        $message = $this->container->get('messageBuilder')->createMessage($template, true, $request, array('data' => $data, 'id' => $this->getId()));
-        $message->setSubject(sprintf(_zm("Form Handler notification: %s"), $this->getId()))->setTo($email)->setFrom(ZMSettings::get('storeEmail'));
+        $message = $this->container->get('messageBuilder')->createMessage($template, true, $request, array('data' => $data, 'id' => $request->getRequestId()));
+        $message->setSubject(sprintf(_zm("Form Handler notification: %s"), $request->getRequestId()))->setTo($email)->setFrom($settingsService->get('storeEmail'));
         $this->container->get('mailer')->send($message);
     }
 

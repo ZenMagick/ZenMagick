@@ -1,0 +1,20 @@
+storefront:
+  routing:
+    cancel_subscription:
+      pattern: /order/subscription/cancel/{orderId}
+      defaults: { _controller: ZMCancelSubscriptionController, orderId: 0 }
+      options:
+        view: redirect://account
+    subscription_request:
+      pattern: /order/subscription/subscribe
+      defaults: { _controller: ZMSubscriptionRequestController }
+      options:
+        "view:success": redirect://subscription_request
+
+admin:
+  routing:
+    subscriptionAdmin:
+      pattern: /orders/subscriptions
+      defaults: { _controller: ZMSubscriptionAdminController }
+      options:
+        "view:success": redirect://subscriptionAdmin
