@@ -346,7 +346,7 @@ class Themes extends ZMObject {
      * @param Language language The language.
      * @return Theme The final theme.
      */
-    public function initThemes($language) {
+    public function initThemes($language = null) {
         if (null == $language) {
             // default language
             $language = $this->container->get('languageService')->getLanguageForCode(Runtime::getSettings()->get('defaultLanguageCode'));
