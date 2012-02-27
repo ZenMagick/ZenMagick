@@ -64,22 +64,22 @@ use zenmagick\base\Runtime;
                 // open and selected
                 $needRefresh = true;
                 $status = $patch->patch(true);
-                $container->get('messageService')->addAll($patch->getMessages());
+                $messageService->addAll($patch->getMessages());
                 if ($status) {
-                    $container->get('messageService')->success("'".$patchLabel[$patch->getId()]."' installed successfully");
+                    $messageService->success("'".$patchLabel[$patch->getId()]."' installed successfully");
                 } else {
-                    $container->get('messageService')->error("Could not install '".$patchLabel[$patch->getId()]."'");
+                    $messageService->error("Could not install '".$patchLabel[$patch->getId()]."'");
                 }
             } else if (!$patch->isOpen() && null == $request->getParameter($formId)) {
                 // installed and not selected
                 if ($patch->canUndo()) {
                     $needRefresh = true;
                     $status = $patch->undo();
-                    $container->get('messageService')->addAll($patch->getMessages());
+                    $messageService->addAll($patch->getMessages());
                     if ($status) {
-                        $container->get('messageService')->success("Uninstalled '".$patchLabel[$patch->getId()]."' successfully");
+                        $messageService->success("Uninstalled '".$patchLabel[$patch->getId()]."' successfully");
                     } else {
-                        $container->get('messageService')->error("Could not uninstall '".$patchLabel[$patch->getId()]."'");
+                        $messageService->error("Could not uninstall '".$patchLabel[$patch->getId()]."'");
                     }
                 }
             }
@@ -126,7 +126,7 @@ use zenmagick\base\Runtime;
 
         // cleanup
         $settingsService->set('apps.store.staticContent', $tmp);
-        $container->get('messageService')->success("Import successful!");
+        $messageService->success("Import successful!");
         $needRefresh = true;
     }
 
@@ -138,7 +138,7 @@ use zenmagick\base\Runtime;
             $sql = str_replace('[table]', $table->getName(), "LOCK TABLES [table] READ; CHECK TABLE [table]; UNLOCK TABLES; OPTIMIZE TABLE [table];");
             $database->executeUpdate($sql);
         }
-        $container->get('messageService')->success("All tables optimized");
+        $messageService->success("All tables optimized");
         $needRefresh = true;
     }
 

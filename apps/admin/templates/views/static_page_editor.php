@@ -42,7 +42,7 @@
       // save
       $editContents = stripslashes($editContents);
       if ($selectedTheme->saveStaticPageContent($selectedFile, $editContents, $selectedLanguageId)) {
-          $container->get('messageService')->error(sprintf(_zm('Could not save %s'), $selectedFile));
+          $messageService->error(sprintf(_zm('Could not save %s'), $selectedFile));
       }
       $editContents = null;
   } else if (null != $selectedFile) {

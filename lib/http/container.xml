@@ -12,7 +12,9 @@
     <services>
         <service id="contextConfigLoader" class="zenmagick\http\utils\ContextConfigLoader" scope="prototype" />
 
-        <service id="messageService" class="zenmagick\http\messages\Messages" scope="container" />
+        <service id="messageService" class="zenmagick\http\messages\Messages" scope="container">
+            <tag name="zenmagick.http.view.variable" key="messageService" />
+        </service>
 
         <service id="sacsManager" class="zenmagick\http\sacs\SacsManager" scope="container" />
 
@@ -26,10 +28,6 @@
 
         <service id="taggedBlocksBlockProvider" class="zenmagick\http\utils\TaggedBlocksBlockProvider" scope="container">
             <tag name="zenmagick.http.blocks.provider" />
-        </service>
-
-        <service id="defaultUrlRewriter" class="zenmagick\http\request\rewriter\DefaultUrlRewriter" scope="container">
-            <tag name="zenmagick.http.request.rewriter" />
         </service>
 
         <service id="resourceManager" class="zenmagick\http\view\ResourceManager" scope="prototype" />

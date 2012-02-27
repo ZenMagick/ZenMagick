@@ -18,7 +18,7 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 ?>
-<?php if ($container->get('messageService')->hasMessages()) { ?>
+<?php if ($messageService->hasMessages()) { ?>
     <ul id="messages" class="ui-widget">
     <?php
       $messageClass = array(
@@ -28,7 +28,7 @@
           ZMMessages::T_ERROR => array('ui-state-error', 'ui-icon ui-icon-alert')
       );
     ?>
-    <?php foreach ($container->get('messageService')->getMessages() as $message) { ?>
+    <?php foreach ($messageService->getMessages() as $message) { ?>
         <li class="ui-corner-all <?php echo $messageClass[$message->getType()][0] ?>"><span class="<?php echo $messageClass[$message->getType()][1] ?>" style="float:left;margin-right:0.3em;"></span><?php echo $message->getText() ?></li>
     <?php } ?>
     </ul>
