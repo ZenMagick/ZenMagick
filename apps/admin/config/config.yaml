@@ -48,19 +48,10 @@ zenmagick:
     templates:
       ext: .php
 
-    ## view
-    view:
-      defaultLayout: default_layout.php
-
     ## request
     request:
       index: views/index.php
       missingPage: views/error.php
-
-    ## html
-    html:
-      xhtml: false
-      charset: utf-8
 
     ## rpc
     rpc:
@@ -70,6 +61,10 @@ zenmagick:
     ## html
     html:
       xhtml: false
+      charset: utf-8
+    ## view
+    view:
+      defaultLayout: default_layout.php
     ## session
     session:
       useFqdn: false

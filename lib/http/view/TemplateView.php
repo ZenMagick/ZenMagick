@@ -59,7 +59,7 @@ class TemplateView extends ZMObject implements View {
         $this->template = null;
         $this->request = null;
         $this->contentType = 'text/html';
-        $this->encoding = 'utf-8';
+        $this->encoding = Runtime::getSettings()->get('zenmagick.http.html.charset', 'utf-8');
     }
 
 
