@@ -10,7 +10,7 @@ Released   : 20090515
 
 -->
   <head>
-   <meta http-equiv="Content-Type" content="text/html;charset=UTF-8" />
+    <meta charset="<?php echo $settingsService->get('zenmagick.http.html.charset') ?>" />
     <title>Your Title Here </title>
     <meta name="keywords" content="" />  <!-- come back and fill in theses meta tags later  -->
     <meta name="description" content="" />

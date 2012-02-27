@@ -223,7 +223,7 @@ class Session extends \zenmagick\http\session\Session {
         $this->setValue('messageToStack', '');
         // just in case
         $this->setValue('messages', '');
-        $this->setValue('messages', '', 'zenmagick.mvc');
+        $this->setValue('messages', '', 'zenmagick.http');
     }
 
     /**

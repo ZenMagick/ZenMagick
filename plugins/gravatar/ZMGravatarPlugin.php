@@ -124,7 +124,7 @@ class ZMGravatarPlugin extends Plugin {
             $url .= '&ts='.time();
         }
         if ($img) {
-            $slash = $this->container->get('settingsService')->get('zenmagick.mvc.html.xhtml') ? '/' : '';
+            $slash = $this->container->get('settingsService')->get('zenmagick.http.html.xhtml') ? '/' : '';
             $url = '<img src="' . $url . '"';
             foreach ($atts as $key => $val)
                 $url .= ' ' . $key . '="' . $val . '"';

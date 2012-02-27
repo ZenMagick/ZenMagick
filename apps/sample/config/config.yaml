@@ -12,6 +12,6 @@ zenmagick:
       listeners:
         - zenmagick\apps\sample\EventHandler
 
-  mvc:
+  http:
     view:
       defaultLayout: default_layout.php

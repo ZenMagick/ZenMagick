@@ -305,11 +305,6 @@
                         'key' => 'default',
                         'type' => 'string',
                         'desc' => 'Default view definition.'
-                    ),
-                    array(
-                        'key' => 'defaultLayout',
-                        'type' => 'string',
-                        'desc' => 'Default layout name.'
                     )
                 ),
                 'resultlist' => array(
@@ -342,6 +337,11 @@
                         'type' => 'string',
                         'desc' => 'Type of url format; either "default", "path" or "realpath".'
                     )
+                ),
+                'view' => array(
+                    'key' => 'defaultLayout',
+                    'type' => 'string',
+                    'desc' => 'Default layout name.'
                 )
             ),
             'apps.store' => array(

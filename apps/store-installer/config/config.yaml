@@ -2,6 +2,6 @@
 # store-installer settings
 #
 zenmagick:
-  mvc:
+  http:
     view:
       defaultLayout: page.php

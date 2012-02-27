@@ -26,7 +26,7 @@
   <head>
     <title><?php echo $metaTags->getTitle() ?></title>
     <base href="<?php echo $request->getBaseUrl() ?>" />
-    <meta http-equiv="content-type" content="text/html; charset=<?php echo $settingsService->get('zenmagick.mvc.html.charset') ?>" />
+    <meta charset="<?php echo $settingsService->get('zenmagick.http.html.charset') ?>" />
     <meta name="generator" content="ZenMagick <?php echo $settingsService->get('zenmagick.version') ?>" />
     <meta name="keywords" content="<?php echo $metaTags->getKeywords()?>" />
     <meta name="description" content="<?php echo $metaTags->getDescription()?>" />

@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
   <head>
     <title>Keep It Simple</title>
-    <meta http-equiv="content-type" content="application/xhtml+xml; charset=UTF-8" />
+    <meta charset="<?php echo $settingsService->get('zenmagick.http.html.charset') ?>" />
     <meta name="author" content="Erwin Aligam - styleshout.com" />
     <meta name="description" content="Site Description Here" />
     <meta name="keywords" content="keywords, here" />

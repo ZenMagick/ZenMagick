@@ -134,7 +134,7 @@ class ZMBannerBlockWidget extends Widget {
                 $content .= $banner->getText();
             } else {
                 $net = $request->getToolbox()->net;
-                $slash = Runtime::getSettings()->get('zenmagick.mvc.html.xhtml') ? '/' : '';
+                $slash = Runtime::getSettings()->get('zenmagick.http.html.xhtml') ? '/' : '';
                 $img = '<img src="'.$net->image($banner->getImage()).'" alt="'.ZMHtmlUtils::encode($banner->getTitle()).'"'.$slash.'>';
                 if (ZMLangUtils::isEmpty($banner->getUrl())) {
                     // if we do not have a url try our luck with the image...

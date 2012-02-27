@@ -149,7 +149,7 @@ class RouteResolver extends ZMObject {
 
         // check until match or we run out of routeIds
         $settingsService = $this->container->get('settingsService');
-        $layoutName = $settingsService->exists('zenmagick.mvc.view.defaultLayout') ? $settingsService->get('zenmagick.mvc.view.defaultLayout') : null;
+        $layoutName = $settingsService->exists('zenmagick.http.view.defaultLayout') ? $settingsService->get('zenmagick.http.view.defaultLayout') : null;
         foreach ($routeIds as $routeId) {
             if (null != ($route = $this->getRouteForId($routeId))) {
                 $viewKey = null == $viewId ? 'view' : sprintf('view:%s', $viewId);

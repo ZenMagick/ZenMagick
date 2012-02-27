@@ -37,7 +37,7 @@ class ZMHtmlUtils {
      * @return string The encoded HTML.
      */
     public static function encode($s) {
-        $charset = Runtime::getSettings()->get('zenmagick.mvc.html.charset');
+        $charset = Runtime::getSettings()->get('zenmagick.http.html.charset');
         $s = html_entity_decode($s, ENT_QUOTES, $charset);
         $s = htmlentities($s, ENT_QUOTES, $charset);
         return $s;

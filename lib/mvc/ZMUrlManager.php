@@ -307,7 +307,7 @@ class ZMUrlManager extends ZMObject {
             $parameter = http_build_query($parameter);
         }
         $layout = ((array_key_exists('layout', $mapping) && null !== $mapping['layout'])
-              ? $mapping['layout'] : Runtime::getSettings()->get('zenmagick.mvc.view.defaultLayout', null));
+              ? $mapping['layout'] : Runtime::getSettings()->get('zenmagick.http.view.defaultLayout', null));
         $definition = $parameter.'&template='.$mapping['template'].'&layout='.$layout.'&viewId='.$viewId;
         Runtime::getLogging()->debug('view: '.$definition);
 

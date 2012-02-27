@@ -21,7 +21,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <meta http-equiv="content-type" content="text/html; charset=<?php echo $settingsService->get('zenmagick.mvc.html.charset') ?>">
+    <meta charset="<?php echo $settingsService->get('zenmagick.http.html.charset') ?>" />
     <title><?php _vzm('ZenMagick Admin') ?></title>
     <link rel="shortcut icon" href="<?php echo $this->asUrl('resource:favicon.ico') ?>">
     <?php $resources->cssFile('style/zenmagick.css') ?>

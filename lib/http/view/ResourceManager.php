@@ -211,7 +211,7 @@ class ResourceManager extends ZMObject {
                 }
             }
         } else if ('css' == $group) {
-            $slash = $this->container->get('settingsService')->get('zenmagick.mvc.html.xhtml') ? '/' : '';
+            $slash = $this->container->get('settingsService')->get('zenmagick.http.html.xhtml') ? '/' : '';
             $css = '';
             foreach ($files as $details) {
                 if (null != ($href = $this->resolveResource($details['filename'])) && !empty($href)) {

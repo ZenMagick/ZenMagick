@@ -112,7 +112,7 @@ class ToolboxHtml extends ToolboxTool {
         if (!\ZMLangUtils::startsWith($imgSrc, '/')) {
             $imgSrc = $this->getRequest()->getContext() . '/' . $imgSrc;
         }
-        $slash = Runtime::getSettings()->get('zenmagick.mvc.html.xhtml') ? '/' : '';
+        $slash = Runtime::getSettings()->get('zenmagick.http.html.xhtml') ? '/' : '';
         $html = '<img src="'.$imgSrc.'" alt="'.$this->encode($imageInfo->getAltText()).'" ';
         $html .= $imageInfo->getFormattedParameter();
         $html .= $slash.'>';

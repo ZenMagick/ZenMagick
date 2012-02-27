@@ -242,7 +242,7 @@ class ZMRequest extends ZMObject {
      * Get the user (if any) for authentication.
      *
      * <p>Creation of the user object is delegated to the configured <code>zenmagick\http\session\UserFactory</code> instance.
-     * The factory may be configured as bean defintion via the setting 'zenmagick.mvc.session.userFactory'.</p>
+     * The factory may be configured as bean defintion via the setting 'zenmagick.http.session.userFactory'.</p>
      *
      * @return mixed A user/credentials object. Default is <code>null</code>.
      */
@@ -588,7 +588,7 @@ class ZMRequest extends ZMObject {
         }
 
         $data = array('requestId' => $this->getRequestId(), 'params' => $params, 'secure' => $this->isSecure());
-        $this->getSession()->setValue('followUpUrl', $data, 'zenmagick.mvc');
+        $this->getSession()->setValue('followUpUrl', $data, 'zenmagick.http');
     }
 
     /**
@@ -598,13 +598,13 @@ class ZMRequest extends ZMObject {
      * @return string The url to go to or <code>null</code>.
      */
     public function getFollowUpUrl($clear=true) {
-        if (null != ($data = $this->getSession()->getValue('followUpUrl', 'zenmagick.mvc'))) {
+        if (null != ($data = $this->getSession()->getValue('followUpUrl', 'zenmagick.http'))) {
             $params = array();
             foreach ($data['params'] as $key => $value) {
                 $params[] = $key.'='.$value;
             }
             if ($clear) {
-                $this->getSession()->setValue('followUpUrl', null, 'zenmagick.mvc');
+                $this->getSession()->setValue('followUpUrl', null, 'zenmagick.http');
             }
             return $this->url($data['requestId'], implode('&', $params), $data['secure']);
         }
