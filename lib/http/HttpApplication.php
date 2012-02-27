@@ -40,19 +40,14 @@ class HttpApplication extends Application {
      */
     public function __construct(array $config=array()) {
         parent::__construct($config);
+        // add to config
         $this->config['packages'] = array_merge($this->config['packages'], array('lib/http', 'lib/mvc'));
         $this->config['eventListener'][] = 'zenmagick\http\EventListener';
+
+        // add to bootstrap
+        $this->addBootstrapAfter('bootstrap', array('key' => 'request', 'methods' => 'initRequest', 'postEvent' => 'request_ready'));
     }
 
-
-    /**
-     * Init the bootstrap config.
-     */
-    protected function initBootstrap() {
-        parent::initBootstrap();
-        $this->bootstrap['b33'] = array('type' => 'method', 'list' => array('initRequest'));
-        $this->bootstrap['b34'] = array('type' => 'event', 'list' => array('request_ready'));
-    }
 
     /**
      * {@inheritDoc}

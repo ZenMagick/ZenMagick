@@ -66,6 +66,8 @@ class Application {
             'classLoader' => 'zenmagick\base\classloader\CachingClassLoader',
             'eventListener' => array('zenmagick\base\EventListener'),
 
+            'bundles' => array(),
+
             // app stuff
             'appName' => null,
             'environment' => 'prod',
@@ -93,6 +95,39 @@ class Application {
         $this->initBootstrap();
     }
 
+
+    /**
+     * Add a bootstrap block after the given key.
+     *
+     * <p>A bootstrap is a map that needs a unique <em>key</em> field and optionally:</p>
+     * <ul>
+     *  <li>a method list; eg <code>'methods' => array('foo', 'bar')</code></li>
+     *  <li>a preEvent; eg <code>'preEvent' => 'before_foo'</code></li>
+     *  <li>a postEvent; eg <code>'postEvent' => 'after_foo'</code></li>
+     * </li>
+     *
+     * <p>If <code>$key</code> is <code>null</code> the block will be appended at the end of the current bootstrap sequence.<p>
+     *
+     * @param string key The bootstrap order key.
+     * @param array block bootstrap block.
+     */
+    public function addBootstrapAfter($key, array $block) {
+        if (null != $key) {
+            // find key position
+            $pos = -1;
+            for ($ii=0; $ii < count($this->bootstrap); ++$ii) {
+                if ($key == $this->bootstrap[$ii]['key']) {
+                    $pos = $ii+1;
+                    break;
+                }
+            }
+        } else {
+            $pos = count($this->bootstrap);
+        }
+        if (-1 != $pos) {
+            array_splice($this->bootstrap, $pos, 0, array($block));
+        }
+    }
 
     /**
      * Get the application name.
@@ -144,9 +179,9 @@ class Application {
      */
     protected function initBootstrap() {
         $this->bootstrap = array(
-            'b00' => array(
-                'type' => 'method',
-                'list' => array(
+            array(
+                'key' => 'init',
+                'methods' => array(
                     'initClassLoader',
                     'loadPackages',
                     'initLogging',
@@ -158,27 +193,18 @@ class Application {
                     'loadBundles',
                     'initApplicationContainer',
                     'initEventListener'
-                )
+                ),
+                'postEvent' => 'init_config_done'
             ),
-            'b10' => array(
-                'type' => 'event',
-                'list' => array('init_config_done')
+            array(
+                'key' => 'bootstrap',
+                'methods' => array('initLocale', 'initPlugins'),
+                'postEvent' => 'bootstrap_done'
             ),
-            'b20' => array(
-                'type' => 'method',
-                'list' => array('initLocale', 'initPlugins')
-            ),
-            'b30' => array(
-                'type' => 'event',
-                'list' => array('bootstrap_done')
-            ),
-            'b40' => array(
-                'type' => 'method',
-                'list' => array('compileContainer')
-            ),
-            'b50' => array(
-                'type' => 'event',
-                'list' => array('container_ready')
+            array(
+                'key' => 'container',
+                'methods' => array('compileContainer'),
+                'postEvent' => 'container_ready'
             )
         );
     }
@@ -267,25 +293,31 @@ class Application {
 
     /**
      * Bootstrap application.
+     *
+     * @param array keys Optional list of bootstrap block keys to run; default is <code>null</code> for all.
      */
-    public function bootstrap() {
+    public function bootstrap(array $keys=null) {
         try {
-            ksort($this->bootstrap);
-            foreach ($this->bootstrap as $step) {
-                switch ($step['type']) {
-                case 'method':
-                    foreach ($step['list'] as $method) {
-                        $this->$method();
-                        $this->profile(sprintf('exit method: %s', $method));
-                    }
-                    break;
-                case 'event':
-                    foreach ($step['list'] as $eventName) {
-                        $this->fireEvent($eventName);
-                        $this->profile(sprintf('finished event: %s', $eventName));
-                    }
-                    break;
+            foreach ($this->bootstrap as $ii => $step) {
+                if (array_key_exists('done', $step) || (null !== $keys && !in_array($keys, $step['key']))) {
+                    continue;
                 }
+
+                if (array_key_exists('preEvent', $step)) {
+                    $eventName = $step['preEvent'];
+                    $this->fireEvent($eventName);
+                    $this->profile(sprintf('finished event: %s', $eventName));
+                }
+                foreach ((array)$step['methods'] as $method) {
+                    $this->$method();
+                    $this->profile(sprintf('exit method: %s', $method));
+                }
+                if (array_key_exists('postEvent', $step)) {
+                    $eventName = $step['postEvent'];
+                    $this->fireEvent($eventName);
+                    $this->profile(sprintf('finished event: %s', $eventName));
+                }
+                $this->bootstrap[$ii]['done'] = true;
             }
         } catch (Exception $e) {
             echo $e->getTraceAsString();
@@ -382,9 +414,10 @@ class Application {
         $container = Runtime::getContainer();
         $settingsService = Runtime::getSettings();
 
-        // bundles; DI only for now - might want to use HttpKernel for loading stuff?
+        // TODO?: this might be less than HttpKernel does
         $extensions = array();
-        foreach ($settingsService->get('zenmagick.bundles', array()) as $key => $class) {
+        $bundles = array_merge($settingsService->get('zenmagick.bundles', array()), $this->config['bundles']);
+        foreach ($bundles as $key => $class) {
             $bundle = new $class();
             $bundle->build($container);
             if ($extension = $bundle->getContainerExtension()) {
