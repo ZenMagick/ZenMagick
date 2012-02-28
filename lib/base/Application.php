@@ -483,7 +483,7 @@ class Application {
             set_exception_handler(array($logging, 'exceptionHandler'));
             register_shutdown_function(array($logging, 'shutdownHandler'));
         }
-        Runtime::getLogging()->info(sprintf('environment is: %s', $this->config['environment']));
+        Runtime::getLogging()->debug(sprintf('environment is: %s', $this->config['environment']));
     }
 
     /**
