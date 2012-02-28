@@ -299,7 +299,7 @@ class Application {
     public function bootstrap(array $keys=null) {
         try {
             foreach ($this->bootstrap as $ii => $step) {
-                if (array_key_exists('done', $step) || (null !== $keys && !in_array($keys, $step['key']))) {
+                if (array_key_exists('done', $step) || (null !== $keys && !in_array($step['key'], $keys))) {
                     continue;
                 }
 
