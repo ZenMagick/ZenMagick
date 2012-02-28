@@ -1,0 +1,7 @@
+storefront,admin:
+  routing:
+    openID:
+      pattern: /openID
+      defaults: { _controller: ZMOpenIDController }
+      options:
+        "view:success": redirect://account

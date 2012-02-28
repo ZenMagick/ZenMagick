@@ -71,11 +71,6 @@ class ZMOpenIDPlugin extends Plugin {
         // make openid_login use session token
         ZMSettings::append('zenmagick.mvc.html.tokenSecuredForms', 'openid_login');
 
-        // add success URL mapping if none exists
-        ZMUrlManager::instance()->setMapping('openID', array(
-            'success' => array('view' => 'redirect#requestId=account')
-        ));
-
         // TODO: manually load lib for now
         require_once dirname(__FILE__).'/lib/openid-2.1.3-php53.packed.php';
     }
