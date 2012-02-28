@@ -227,23 +227,27 @@ class ZMPageStatsPlugin extends Plugin {
         $application = Runtime::getApplication();
         ob_start();
         $slash = ZMSettings::get('zenmagick.http.html.xhtml') ? '/' : '';
+        $sep = '&nbsp;&nbsp;&nbsp;';
         echo '<div id="page-stats">';
         echo 'Client IP: <strong>'.$_SERVER['REMOTE_ADDR'].'</strong>;';
-        echo '&nbsp;&nbsp;&nbsp;PHP: <strong>'.phpversion().'</strong>;';
-        echo '&nbsp;&nbsp;&nbsp;ZenMagick: <strong>'.Runtime::getSettings()->get('zenmagick.version').'</strong>;';
-        echo '&nbsp;&nbsp;&nbsp;environment: <strong>'.$application->getEnvironment().'</strong>;';
-        echo '&nbsp;&nbsp;&nbsp;total page execution: <strong>'.$application->getElapsedTime().'</strong> secconds;<br'.$slash.'>';
+        echo $sep.'PHP: <strong>'.phpversion().'</strong>;';
+        echo $sep.'ZenMagick: <strong>'.Runtime::getSettings()->get('zenmagick.version').'</strong>;';
+        echo $sep.'environment: <strong>'.$application->getEnvironment().'</strong>;';
+        echo $sep.'total page execution: <strong>'.$application->getElapsedTime().'</strong> secconds;';
+        echo '<br'.$slash.'>';
         if (null != ($db = $this->getDB())) {
-            echo '<strong>db</strong>: SQL queries: <strong>'.$db->queryCount().'</strong>, duration: <strong>'.round($db->queryTime(), 4).'</strong> seconds;';
+            echo $sep.'<strong>db</strong>: SQL queries: <strong>'.$db->queryCount().'</strong>, duration: <strong>'.round($db->queryTime(), 4).'</strong> seconds;';
         }
         echo '&nbsp;&nbsp;<strong>databases:</strong> ';
         foreach (ZMRuntime::getDatabases() as $database) {
             $config = $database->getParams();
             $stats = $database->getStats();
-            echo $config['dbname'].'('.get_class($database).'): SQL queries: <strong>'.$stats['queries'].'</strong>, duration: <strong>'.round($stats['time'], 4).'</strong> seconds; ';
+            echo $config['dbname'].'('.get_class($database).'): SQL queries: <strong>'.$stats['queries'].'</strong>, duration: <strong>'.round($stats['time'], 4).'</strong> seconds;';
         }
         echo '<br'.$slash.'>';
-        echo '[includes: '.count(get_included_files()).']<br'.$slash.'>';
+        echo $sep.'<strong>includes:</strong> '.count(get_included_files()).';';
+        echo $sep.'<strong>memory:</strong> '.memory_get_usage(true);
+        echo '<br'.$slash.'>';
         echo '</div>';
         if (Toolbox::asBoolean($this->get('showEvents'))) {
             echo '<div id="event-log">';

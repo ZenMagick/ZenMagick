@@ -60,13 +60,13 @@ namespace zenmagick\base\classloader;
  * $loader = new ClassLoader();
  *
  * // register classes with namespaces
- * $loader->registerNamespaces(array(
+ * $loader->addNamespaces(array(
  *   'Symfony\Component' => __DIR__.'/component',
  *   'Symfony' => __DIR__.'/framework'
  * ));
  *
  * // register a library using the PEAR naming convention
- * $loader->registerPrefixes(array(
+ * $loader->addPrefixes(array(
  *   'Swift_' => __DIR__.'/Swift'
  * ));
  *
