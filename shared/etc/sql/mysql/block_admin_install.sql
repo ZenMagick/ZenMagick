@@ -2,7 +2,6 @@
 # Create ZenMagick block admin tables
 #
 
-DROP TABLE IF EXISTS block_groups;
 CREATE TABLE block_groups (
   block_group_id int(11) NOT NULL auto_increment,
   group_name varchar(32) NOT NULL,
@@ -12,7 +11,6 @@ CREATE TABLE block_groups (
   UNIQUE(group_name)
 ) ENGINE=MyISAM;
 
-DROP TABLE IF EXISTS blocks_to_groups;
 CREATE TABLE blocks_to_groups (
   blocks_to_groups_id int(11) NOT NULL auto_increment,
   block_group_id int(11),
@@ -25,7 +23,6 @@ CREATE TABLE blocks_to_groups (
   FOREIGN KEY (block_group_id) REFERENCES block_groups (block_group_id) ON DELETE CASCADE
 ) ENGINE=MyISAM;
 
-DROP TABLE IF EXISTS block_config;
 CREATE TABLE block_config (
   block_config_id int(11) NOT NULL auto_increment,
   blocks_to_groups_id int(11),

@@ -2,7 +2,6 @@
 # Create ZenMagick admin user role tables
 #
 
-DROP TABLE IF EXISTS admin_roles;
 CREATE TABLE admin_roles (
   admin_role_id int(11) NOT NULL auto_increment,
   name varchar(32) NOT NULL,
@@ -10,7 +9,6 @@ CREATE TABLE admin_roles (
   UNIQUE (name)
 ) ENGINE=MyISAM;
 
-DROP TABLE IF EXISTS admins_to_roles;
 CREATE TABLE admins_to_roles (
   admin_id int(11),
   admin_role_id int(11),

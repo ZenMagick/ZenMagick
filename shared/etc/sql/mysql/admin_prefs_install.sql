@@ -2,7 +2,6 @@
 # Create ZenMagick admin preferences table
 #
 
-DROP TABLE IF EXISTS admin_prefs;
 CREATE TABLE admin_prefs (
   admin_pref_id int(11) NOT NULL auto_increment,
   admin_id int(11),
