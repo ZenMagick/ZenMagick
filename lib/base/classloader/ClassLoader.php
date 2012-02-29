@@ -126,7 +126,7 @@ class ClassLoader {
      */
     public function addConfig($path) {
         // optional phar
-        $phar = realpath($path . '/' . basename($path) . '.phar');
+        $phar = $path.'/'.basename($path).'.phar';
         $usePhar = file_exists($phar);
         if (is_dir($path)) {
             $ini = null;
@@ -135,10 +135,10 @@ class ClassLoader {
             }
             if (!file_exists($ini)) {
                 // fallback
-                $ini = realpath($path . '/' . 'classloader.ini');
+                $ini = $path.'/'.'classloader.ini';
             }
         } else {
-            $ini = realpath($path);
+            $ini = $path;
         }
         if (!empty($ini) && file_exists($ini) && is_file($ini)) {
             $baseDir = dirname($ini);
@@ -150,19 +150,19 @@ class ClassLoader {
                         $nsoff = substr($folder, $at+1);
                         $folder = substr($folder, 0, $at);
                     }
-                    $nspath = $usePhar ? 'phar://'.$phar.'/'.str_replace('\\', '/', $folder) : (realpath($baseDir.'/'.$folder).((!empty($nsoff) && false !== $at) ? '@'.$nsoff: ''));
+                    $nspath = $usePhar ? 'phar://'.$phar.'/'.str_replace('\\', '/', $folder) : (($baseDir.'/'.$folder).((!empty($nsoff) && false !== $at) ? '@'.$nsoff: ''));
                     $this->addNamespace($namespace, $nspath);
                 }
             }
             if (array_key_exists('prefixes', $mappings)) {
                 foreach ($mappings['prefixes'] as $prefix => $folder) {
-                    $pxpath = $usePhar ? 'phar://'.$phar.'/'.str_replace('\\', '/', $folder) : realpath($baseDir.'/'.$folder);
+                    $pxpath = $usePhar ? 'phar://'.$phar.'/'.str_replace('\\', '/', $folder) : ($baseDir.'/'.$folder);
                     $this->addPrefix($prefix, $pxpath);
                 }
             }
             if (array_key_exists('default', $mappings)) {
                 foreach ($mappings['default'] as $folder) {
-                    $pxpath = $usePhar ? 'phar://'.$phar.'/'.$folder : realpath($baseDir.'/'.$folder);
+                    $pxpath = $usePhar ? 'phar://'.$phar.'/'.$folder : ($baseDir.'/'.$folder);
                     $this->addPath($pxpath);
                 }
             }
@@ -475,10 +475,11 @@ class ClassLoader {
                         $finalns = $namespace;
                         if ($path[1]) {
                             // adjust
-                            $finalns = substr($finalns, strlen($path[1]), strlen($finalns));
+                            $finalns = substr($finalns, strlen($path[1])+1, strlen($finalns));
                         }
                         $sep = 0 === strpos($path[0], 'phar://') ? '/' : DIRECTORY_SEPARATOR;
                         $file = $path[0].$sep.str_replace($this->namespaceSeparator, $sep, $finalns).$sep.str_replace('_', $sep, $class).'.php';
+                        $file = str_replace($sep.$sep, $sep, $file);
                         if (file_exists($file)) {
                             return $file;
                         }
