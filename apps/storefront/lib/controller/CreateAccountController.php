@@ -76,6 +76,8 @@ class CreateAccountController extends \ZMController {
     public function processPost($request) {
         $registration = $this->getFormData($request);
 
+        $settingsService = $this->container->get('settingsService');
+
         $clearPassword = $registration->getPassword();
         $account = $registration->getAccount();
         $account->setPassword($this->container->get('authenticationManager')->encryptPassword($clearPassword));
@@ -110,11 +112,11 @@ class CreateAccountController extends \ZMController {
 
         $couponService = $this->container->get('couponService');
         $discountCoupon = null;
-        if (null != ($newAccountDiscountCouponId = Runtime::getSettings()->get('apps.store.newAccountDiscountCouponId'))) {
+        if (null != ($newAccountDiscountCouponId = $settingsService->get('apps.store.newAccountDiscountCouponId'))) {
             $discountCoupon = $couponService->getCouponForId($newAccountDiscountCouponId, $session->getLanguageId());
         }
         $newAccountGVAmountCoupon = null;
-        if (null != ($newAccountGVAmount = Runtime::getSettings()->get('apps.store.newAccountGVAmount'))) {
+        if (null != ($newAccountGVAmount = $settingsService->get('apps.store.newAccountGVAmount'))) {
             // set up coupon
             $couponCode = $couponService->createCouponCode($account->getEmail());
             $coupon = $couponService->createCoupon($couponCode, $newAccountGVAmount, \ZMCoupons::TYPPE_GV);
@@ -123,7 +125,7 @@ class CreateAccountController extends \ZMController {
             $gvReceiver->setEmail($account->getEmail());
             // the sender
             $senderAccount = $this->container->get('ZMAccount');
-            $senderAccount->setFirstName(Runtime::getSettings('storeName'));
+            $senderAccount->setFirstName($settingsService->('storeName'));
             $couponService->createCouponTracker($coupon, $senderAccount, $gvReceiver);
             $newAccountGVAmountCoupon = $coupon;
         }
@@ -137,16 +139,19 @@ class CreateAccountController extends \ZMController {
         );
 
         $message = $this->container->get('messageBuilder')->createMessage('welcome', $account->isHtmlEmail(), $request, $context);
-        $message->setSubject(sprintf(_zm("Welcome to %s"), Runtime::getSettings()->get('storeName')))->setTo($account->getEmail(), $account->getFullName())->setFrom(Runtime::getSettings()->get('storeEmail'));
+        $message->setSubject(sprintf(_zm("Welcome to %s"), $settingsService->get('storeName')))->setTo($account->getEmail(), $account->getFullName())->setFrom($settingsService->get('storeEmail'));
         $this->container->get('mailer')->send($message);
 
-        if (Runtime::getSettings()->get('isEmailAdminCreateAccount')) {
+        if ($settingsService->get('isEmailAdminCreateAccount')) {
             // store copy
             $context = $request->getToolbox()->macro->officeOnlyEmailFooter($account->getFullName(), $account->getEmail(), $session);
             $context['currentAccount'] = $account;
 
-            $message = $this->container->get('messageBuilder')->createMessage('welcome', Runtime::getSettings()->get('isEmailAdminExtraHtml', false), $request, $context);
-            $message->setSubject(sprintf(_zm("[CREATE ACCOUNT] Welcome to %s"), Runtime::getSettings()->get('storeName')))->setTo(Runtime::getSettings()->get('emailAdminCreateAccount'))->setFrom(Runtime::getSettings()->get('storeEmail'));
+            $message = $this->container->get('messageBuilder')->createMessage('welcome', $settingsService->get('isEmailAdminExtraHtml', false), $request, $context);
+            $message->setSubject(sprintf(_zm("[CREATE ACCOUNT] Welcome to %s"), $settingsService->get('storeName')))->setFrom($settingsService->get('storeEmail'));
+            foreach ($settingsService->get('emailAdminCreateAccount') as $email => $name) {
+                $message->addTo($email, $name);
+            }
             $this->container->get('mailer')->send($message);
         }
 

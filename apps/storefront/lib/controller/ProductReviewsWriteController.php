@@ -70,6 +70,7 @@ class ProductReviewsWriteController extends \ZMController {
             return $this->findView('product_not_found');
         }
 
+        $settingsService = $this->container->get('settingsService');
         $review = $this->getFormData($request);
         $account = $request->getAccount();
         $this->container->get('reviewService')->createReview($review, $account, $review->getLanguageId());
@@ -77,7 +78,7 @@ class ProductReviewsWriteController extends \ZMController {
         $product = $this->container->get('productService')->getProductForId($review->getProductId(), $review->getLanguageId());
 
         // account email
-        if (Runtime::getSettings()->get('isApproveReviews') && Runtime::getSettings()->get('isEmailAdminReview')) {
+        if ($settingsService->get('isApproveReviews') && $settingsService->get('isEmailAdminReview')) {
             $subject = sprintf(_zm("Product Review Pending Approval: %s"), $product->getName());
             $context = $request->getToolbox()->macro->officeOnlyEmailFooter($account->getFullName(), $account->getEmail(), $request->getSession());
             $context['currentAccount'] = $account;
@@ -85,7 +86,10 @@ class ProductReviewsWriteController extends \ZMController {
             $context['currentProduct'] = $product;
 
             $message = $this->container->get('messageBuilder')->createMessage('review', true, $request, $context);
-            $message->setSubject($subject)->setTo(Runtime::getSettings()->get('emailAdminReview'))->setFrom(Runtime::getSettings()->get('storeEmail'));
+            $message->setSubject($subject)->setFrom($settingsService->get('storeEmail'));
+            foreach ($settingsService->get('emailAdminReview') as $email => $name) {
+                $message->addTo($email, $name);
+            }
             $this->container->get('mailer')->send($message);
         }
 

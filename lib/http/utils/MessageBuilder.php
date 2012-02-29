@@ -21,6 +21,7 @@
 <?php
 namespace zenmagick\http\utils;
 
+use Swift_Message;
 use zenmagick\base\Runtime;
 use zenmagick\base\ZMObject;
 use zenmagick\base\events\Event;
@@ -148,7 +149,7 @@ class MessageBuilder extends ZMObject {
         $event = new Event(null, $args);
         $this->container->get('eventDispatcher')->dispatch('generate_email', $event);
         $context = $event->get('context');
-        // save context for legacy HTML generation...
+        // TODO: drop! save context for legacy HTML generation...
         $request->set('ZM_EMAIL_CONTEXT', $context);
 
         // always have text body
@@ -178,7 +179,7 @@ class MessageBuilder extends ZMObject {
      * @return mixed A message obect.
      */
     public function getMessage($subject='', $body='', $contentType=null, $charset='utf-8') {
-        return \Swift_Message::newInstance($subject, $body, $contentType, $charset);
+        return Swift_Message::newInstance($subject, $body, $contentType, $charset);
     }
 
 }
