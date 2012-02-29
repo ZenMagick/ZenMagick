@@ -34,10 +34,6 @@ class AdminRolesPatch extends SQLPatch {
     var $sqlFiles_ = array(
         "/shared/etc/sql/mysql/admin_roles_install.sql"
     );
-    var $sqlUndoFiles_ = array(
-        "/shared/etc/sql/mysql/admin_roles_uninstall.sql"
-    );
-
 
     /**
      * Create new instance.
@@ -54,7 +50,7 @@ class AdminRolesPatch extends SQLPatch {
      */
     function isOpen() {
         $sm = \ZMRuntime::getDatabase()->getSchemaManager();
-        return !$sm->tablesExist(array(DB_PREFIX.'admin_roles'));
+        return !$sm->tablesExist(array(DB_PREFIX.'admin_roles', DB_PREFIX.'admins_to_roles'));
     }
 
     /**
@@ -89,13 +85,10 @@ class AdminRolesPatch extends SQLPatch {
             return true;
         }
 
-        $baseDir = Runtime::getInstallationPath();
-        $status = true;
-        foreach ($this->sqlUndoFiles_ as $file) {
-            $sql = file($baseDir.$file);
-            $status |= $this->_runSQL($sql);
-        }
-        return $status;
+        $sm = \ZMRuntime::getDatabase()->getSchemaManager();
+        $sm->dropTable(DB_PREFIX.'admins_to_roles');
+        $sm->dropTable(DB_PREFIX.'admin_roles');
+        return true;
     }
 
 }

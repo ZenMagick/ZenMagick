@@ -34,10 +34,6 @@ class SacsPermissionsPatch extends SQLPatch {
     var $sqlFiles_ = array(
         "/shared/etc/sql/mysql/sacs_perms_install.sql"
     );
-    var $sqlUndoFiles_ = array(
-        "/shared/etc/sql/mysql/sacs_perms_uninstall.sql"
-    );
-
 
     /**
      * Create new instance.
@@ -89,13 +85,8 @@ class SacsPermissionsPatch extends SQLPatch {
             return true;
         }
 
-        $baseDir = Runtime::getInstallationPath();
-        $status = true;
-        foreach ($this->sqlUndoFiles_ as $file) {
-            $sql = file($baseDir.$file);
-            $status |= $this->_runSQL($sql);
-        }
-        return $status;
+        $sm = \ZMRuntime::getDatabase()->getSchemaManager();
+        $sm->dropTable(DB_PREFIX.'sacs_permissions');
+        return true;
     }
-
 }

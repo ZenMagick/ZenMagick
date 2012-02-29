@@ -34,10 +34,6 @@ class BlockAdminPatch extends SQLPatch {
     var $sqlFiles_ = array(
         "/shared/etc/sql/mysql/block_admin_install.sql"
     );
-    var $sqlUndoFiles_ = array(
-        "/shared/etc/sql/mysql/block_admin_uninstall.sql"
-    );
-
 
     /**
      * Create new instance.
@@ -88,14 +84,11 @@ class BlockAdminPatch extends SQLPatch {
         if ($this->isOpen()) {
             return true;
         }
-
-        $baseDir = Runtime::getInstallationPath();
-        $status = true;
-        foreach ($this->sqlUndoFiles_ as $file) {
-            $sql = file($baseDir.$file);
-            $status |= $this->_runSQL($sql);
-        }
-        return $status;
+        $sm = \ZMRuntime::getDatabase()->getSchemaManager();
+        $sm->dropTable(DB_PREFIX.'blocks_to_groups');
+        $sm->dropTable(DB_PREFIX.'block_groups');
+        $sm->dropTable(DB_PREFIX.'block_config');
+        return true;
     }
 
 }

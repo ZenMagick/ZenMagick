@@ -51,7 +51,9 @@ class ZMProductTagsPlugin extends Plugin {
      */
     public function remove($keepSettings=false) {
         parent::remove($keepSettings);
-        ZMDbUtils::executePatch(file(ZMDbUtils::resolveSQLFilename($this->getPluginDirectory()."/sql/uninstall.sql")), $this->messages_);
+        $sm = \ZMRuntime::getDatabase()->getSchemaManager();
+        $sm->dropTable(DB_PREFIX.'tags');
+        $sm->dropTable(DB_PREFIX.'product_tags');
     }
 
 }
