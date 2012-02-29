@@ -118,7 +118,7 @@ class ZMMusicProductInfoPlugin extends Plugin {
      * @return A URL.
      */
     public function mediaUrl($tool, $filename) {
-        $url = DIR_WS_MEDIA.$filename;
+        $url = 'media/'.$filename;
         return $url;
     }
 

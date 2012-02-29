@@ -92,8 +92,7 @@ class ZMPhpBB3Plugin extends Plugin {
         // main define to get at things
         $phpBB3Dir = $this->get('phpBB3Dir');
         if (empty($phpBB3Dir)) {
-            $default = defined('DIR_WS_PHPBB') ? DIR_WS_PHPBB : null;
-            $phpBB3Dir = ZMSettings::get('plugins.pbpBB3.root', $default);
+            $phpBB3Dir = ZMSettings::get('plugins.pbpBB3.root');
         }
         define('ZM_PHPBB3_ROOT', $phpBB3Dir);
 

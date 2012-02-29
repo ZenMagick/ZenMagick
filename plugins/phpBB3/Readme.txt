@@ -24,5 +24,4 @@ If the nickname is then set at a later stage, the phpBB account will be created 
 
 Settings
 ========
-The phpBB3 installation folder can either be set via the plugin UI, the setting 'plugins.pbpBB3.root', or, alternatively
-with the zen-cart define DIR_WS_PHPBB.
+The phpBB3 installation folder can either be set via the plugin UI or the setting 'plugins.pbpBB3.root'

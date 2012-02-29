@@ -175,9 +175,11 @@ class FualSlimboxOptions {
 	 * @brief Writes the javascript which sets the lightbox options to the page
 	 */
 	function jscript() {
+        $theme = \zenmagick\base\Runtime::getContainer()->get('themeService')->getActiveThemeId();
+        $themeDir = 'includes/templates/' . $theme;
 		// There is no point in doing anything if Slimbox is turned off and if zenbox is turned on this will just cause conflicts
 		if( FUAL_SLIMBOX == 'true' && ZEN_LIGHTBOX_STATUS != 'true' ) {
-			echo '<script type="text/javascript" src="' . DIR_WS_TEMPLATE . 'jscript/slimbox/mootools-release-1.11.slim.js"></script>' . "\n";
+			echo '<script type="text/javascript" src="' . $themeDir . '/jscript/slimbox/mootools-release-1.11.slim.js"></script>' . "\n";
 		?>
 		<script type="text/javascript"><!--
 			var FualSlimboxOptions = new Class({
@@ -198,7 +200,7 @@ class FualSlimboxOptions {
 			});
 		//--></script>
 		<?php
-			echo '<script type="text/javascript" src="' . DIR_WS_TEMPLATE . 'jscript/slimbox/slimbox_ex.compressed.js"></script>'  . "\n"; // */
+			echo '<script type="text/javascript" src="' . $themeDir . '/jscript/slimbox/slimbox_ex.compressed.js"></script>'  . "\n"; // */
 
 			if( FUAL_SLIMBOX_NERVOUS != 0 ) {
 			?>
@@ -206,7 +208,7 @@ class FualSlimboxOptions {
 			var fualNervous = <?php echo FUAL_SLIMBOX_NERVOUS; ?>
 		//--></script>
 			<?php
-				echo '<script type="text/javascript" src="' . DIR_WS_TEMPLATE . 'jscript/slimbox/fual_slimbox.compressed.js"></script>'  . "\n";
+				echo '<script type="text/javascript" src="' . $themeDir . '/jscript/slimbox/fual_slimbox.compressed.js"></script>'  . "\n";
 			}
 		}
 	}
