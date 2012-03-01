@@ -425,7 +425,7 @@ class Application {
             }
             $bundle->setContainer($container);
             $bundle->boot();
-            $this->bundles[] = $bundle;
+            $this->bundles[$key] = $bundle;
         }
     }
 
