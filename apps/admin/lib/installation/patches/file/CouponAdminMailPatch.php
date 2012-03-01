@@ -24,14 +24,13 @@ namespace zenmagick\apps\store\admin\installation\patches\file;
 use zenmagick\base\Runtime;
 use zenmagick\apps\store\admin\installation\patches\FilePatch;
 
-define('_ZM_ZEN_COUPON_ADMIN_PHP', ZC_INSTALL_PATH.ZENCART_ADMIN_FOLDER.'/coupon_admin.php');
-
 /**
  * Patch to enable ZenMagick templates for coupon admin emails.
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
 class CouponAdminMailPatch extends FilePatch {
+    protected $couponAdminFile;
 
     /**
      * Create new instance.
@@ -39,6 +38,7 @@ class CouponAdminMailPatch extends FilePatch {
     public function __construct() {
         parent::__construct('couponAdminMail');
         $this->label_ = 'Patch zen-cart to allow use of ZenMagick email templates for coupon admin mail';
+        $this->couponAdminFile = $this->getZcAdminPath().'/coupon_admin.php';
     }
 
 
@@ -50,7 +50,7 @@ class CouponAdminMailPatch extends FilePatch {
      */
     function isOpen($lines=null) {
         if (null == $lines) {
-            $lines = $this->getFileLines(_ZM_ZEN_COUPON_ADMIN_PHP);
+            $lines = $this->getFileLines($this->couponAdminFile);
         }
 
         // look for ZenMagick code...
@@ -71,7 +71,7 @@ class CouponAdminMailPatch extends FilePatch {
      * @return boolean <code>true</code> if this patch is ready and all preconditions are met.
      */
     function isReady() {
-        return is_writeable(_ZM_ZEN_COUPON_ADMIN_PHP);
+        return is_writeable($this->couponAdminFile);
     }
 
     /**
@@ -82,7 +82,7 @@ class CouponAdminMailPatch extends FilePatch {
      * @return string The preconditions message or an empty string.
      */
     function getPreconditionsMessage() {
-        return $this->isReady() ? "" : "Need permission to write " . _ZM_ZEN_COUPON_ADMIN_PHP;
+        return $this->isReady() ? "" : "Need permission to write " . $this->couponAdminFile;
     }
 
     /**
@@ -93,12 +93,12 @@ class CouponAdminMailPatch extends FilePatch {
      * @return boolean <code>true</code> if patching was successful, <code>false</code> if not.
      */
     function patch($force=false) {
-        $lines = $this->getFileLines(_ZM_ZEN_COUPON_ADMIN_PHP);
+        $lines = $this->getFileLines($this->couponAdminFile);
         if (!$this->isOpen($lines)) {
             return true;
         }
 
-        if (is_writeable(_ZM_ZEN_COUPON_ADMIN_PHP)) {
+        if (is_writeable($this->couponAdminFile)) {
             $patchedLines = array();
             foreach ($lines as $line) {
                 array_push($patchedLines, $line);
@@ -111,7 +111,7 @@ class CouponAdminMailPatch extends FilePatch {
                 }
             }
 
-            return $this->putFileLines(_ZM_ZEN_COUPON_ADMIN_PHP, $patchedLines);
+            return $this->putFileLines($this->couponAdminFile, $patchedLines);
         } else {
             Runtime::getLogging()->error("** ZenMagick: no permission to patch coupon admin mail fix into coupon_admin.php");
             return false;
@@ -124,12 +124,12 @@ class CouponAdminMailPatch extends FilePatch {
      * @return boolean <code>true</code> if patching was successful, <code>false</code> if not.
      */
     function undo() {
-        $lines = $this->getFileLines(_ZM_ZEN_COUPON_ADMIN_PHP);
+        $lines = $this->getFileLines($this->couponAdminFile);
         if ($this->isOpen($lines)) {
             return true;
         }
 
-        if (is_writeable(_ZM_ZEN_COUPON_ADMIN_PHP)) {
+        if (is_writeable($this->couponAdminFile)) {
             $unpatchedLines = array();
             foreach ($lines as $line) {
                 if (false !== strpos($line, "added by ZenMagick")) {
@@ -138,7 +138,7 @@ class CouponAdminMailPatch extends FilePatch {
                 array_push($unpatchedLines, $line);
             }
 
-            return $this->putFileLines(_ZM_ZEN_COUPON_ADMIN_PHP, $unpatchedLines);
+            return $this->putFileLines($this->couponAdminFile, $unpatchedLines);
         } else {
             Runtime::getLogging()->error("** ZenMagick: no permission to patch coupon_admin.php for uninstall");
             return false;

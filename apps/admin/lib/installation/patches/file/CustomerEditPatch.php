@@ -24,15 +24,13 @@ namespace zenmagick\apps\store\admin\installation\patches\file;
 use zenmagick\base\Runtime;
 use zenmagick\apps\store\admin\installation\patches\FilePatch;
 
-
-define('_ZM_ZEN_CUSTOMERS_PHP', ZC_INSTALL_PATH.ZENCART_ADMIN_FOLDER.'/customers.php');
-
 /**
  * Patch to enable editing customers if the same email exists as guest checkout.
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
 class CustomerEditPatch extends FilePatch {
+    protected $customersAdminFile;
 
     /**
      * Create new instance.
@@ -40,6 +38,7 @@ class CustomerEditPatch extends FilePatch {
     public function __construct() {
         parent::__construct('customerEdit');
         $this->label_ = 'Patch zen-cart to allow editing customers where email also exists as guest account';
+        $this->customersAdminFile = $this->getZcAdminPath().'/customers.php';
     }
 
 
@@ -51,7 +50,7 @@ class CustomerEditPatch extends FilePatch {
      */
     function isOpen($lines=null) {
         if (null == $lines) {
-            $lines = $this->getFileLines(_ZM_ZEN_CUSTOMERS_PHP);
+            $lines = $this->getFileLines($this->customersAdminFile);
         }
 
         // look for ZenMagick code...
@@ -72,7 +71,7 @@ class CustomerEditPatch extends FilePatch {
      * @return boolean <code>true</code> if this patch is ready and all preconditions are met.
      */
     function isReady() {
-        return is_writeable(_ZM_ZEN_CUSTOMERS_PHP);
+        return is_writeable($this->customersAdminFile);
     }
 
     /**
@@ -83,7 +82,7 @@ class CustomerEditPatch extends FilePatch {
      * @return string The preconditions message or an empty string.
      */
     function getPreconditionsMessage() {
-        return $this->isReady() ? "" : "Need permission to write " . _ZM_ZEN_CUSTOMERS_PHP;
+        return $this->isReady() ? "" : "Need permission to write " . $this->customersAdminFile;
     }
 
     /**
@@ -94,12 +93,12 @@ class CustomerEditPatch extends FilePatch {
      * @return boolean <code>true</code> if patching was successful, <code>false</code> if not.
      */
     function patch($force=false) {
-        $lines = $this->getFileLines(_ZM_ZEN_CUSTOMERS_PHP);
+        $lines = $this->getFileLines($this->customersAdminFile);
         if (!$this->isOpen($lines)) {
             return true;
         }
 
-        if (is_writeable(_ZM_ZEN_CUSTOMERS_PHP)) {
+        if (is_writeable($this->customersAdminFile)) {
             $patchedLines = array();
             foreach ($lines as $line) {
                 array_push($patchedLines, $line);
@@ -109,7 +108,7 @@ class CustomerEditPatch extends FilePatch {
                 }
             }
 
-            return $this->putFileLines(_ZM_ZEN_CUSTOMERS_PHP, $patchedLines);
+            return $this->putFileLines($this->customersAdminFile, $patchedLines);
         } else {
             Runtime::getLogging()->error("** ZenMagick: no permission to patch edit fix into customers.php");
             return false;
@@ -124,12 +123,12 @@ class CustomerEditPatch extends FilePatch {
      * @return boolean <code>true</code> if patching was successful, <code>false</code> if not.
      */
     function undo() {
-        $lines = $this->getFileLines(_ZM_ZEN_CUSTOMERS_PHP);
+        $lines = $this->getFileLines($this->customersAdminFile);
         if ($this->isOpen($lines)) {
             return true;
         }
 
-        if (is_writeable(_ZM_ZEN_CUSTOMERS_PHP)) {
+        if (is_writeable($this->customersAdminFile)) {
             $unpatchedLines = array();
             foreach ($lines as $line) {
                 if (false !== strpos($line, "  and NOT customers_password = ''")) {
@@ -138,7 +137,7 @@ class CustomerEditPatch extends FilePatch {
                 array_push($unpatchedLines, $line);
             }
 
-            return $this->putFileLines(_ZM_ZEN_CUSTOMERS_PHP, $unpatchedLines);
+            return $this->putFileLines($this->customersAdminFile, $unpatchedLines);
         } else {
             Runtime::getLogging()->error("** ZenMagick: no permission to patch customers.php for uninstall");
             return false;

@@ -24,8 +24,6 @@ namespace zenmagick\apps\store\admin\installation\patches\file;
 use zenmagick\base\Runtime;
 use zenmagick\apps\store\admin\installation\patches\FilePatch;
 
-define('_ZM_ZEN_FUNCTIONS_FILE', ZC_INSTALL_PATH . '/includes/functions/html_output.php');
-define('_ZM_ZEN_ADMIN_FUNCTIONS_FILE', ZC_INSTALL_PATH . ZENCART_ADMIN_FOLDER . '/includes/functions/html_output.php');
 
 /**
  * Patch to enable replace zen_href_link to allow full pretty link support.
@@ -33,22 +31,27 @@ define('_ZM_ZEN_ADMIN_FUNCTIONS_FILE', ZC_INSTALL_PATH . ZENCART_ADMIN_FOLDER . 
  * @author DerManoMann <mano@zenmagick.org>
  */
 class LinkGenerationPatch extends FilePatch {
-    var $fktFilesCfg_ = array(
-        _ZM_ZEN_FUNCTIONS_FILE => array(
-            array('zen_href_link', '_DISABLED')
-        ),
-        _ZM_ZEN_ADMIN_FUNCTIONS_FILE => array(
-            array('zen_href_link', '_DISABLED')
-        )
-    );
-
+    protected $fktFilesCfg_;
+    protected $adminHtmlOutputFile;
+    protected $htmlOutputFile;
 
     /**
      * Create new instance.
      */
     public function __construct() {
         parent::__construct('linkGeneration');
+
         $this->label_ = 'Disable zen-cart\'s <code>zen_href_link</code> function in favour of a ZenMagick implementation';
+        $this->htmlOutputFile = ZC_INSTALL_PATH . '/includes/functions/html_output.php';
+        $this->adminHtmlOutputFile = $this->getZcAdminPath().'/includes/functions/html_output.php';
+        $this->fktFilesCfg_ = array(
+            $this->htmlOutputFile => array(
+                array('zen_href_link', '_DISABLED')
+            ),
+            $this->adminHtmlOutputFile => array(
+                array('zen_href_link', '_DISABLED')
+            )
+        );
     }
 
 
@@ -67,7 +70,7 @@ class LinkGenerationPatch extends FilePatch {
      * @return boolean <code>true</code> if this patch is ready and all preconditions are met.
      */
     function isReady() {
-        return is_writeable(_ZM_ZEN_FUNCTIONS_FILE) && is_writeable(_ZM_ZEN_ADMIN_FUNCTIONS_FILE);
+        return is_writeable($this->fktFilesCfg) && is_writeable($this->adminHtmlOutputFile);
     }
 
     /**
@@ -78,7 +81,7 @@ class LinkGenerationPatch extends FilePatch {
      * @return string The preconditions message or an empty string.
      */
     function getPreconditionsMessage() {
-        return $this->isReady() ? "" : "Need permission to write " . _ZM_ZEN_FUNCTIONS_FILE . " and " . _ZM_ZEN_ADMIN_FUNCTIONS_FILE;
+        return $this->isReady() ? "" : "Need permission to write " . $this->htmlOutputFile . " and " . $this->adminHtmlOutputFile;
     }
 
     /**
