@@ -39,6 +39,7 @@ class ThemeSupportPatch extends FilePatch {
      */
     public function __construct() {
         parent::__construct('themeSupport');
+        $this->label_ = 'Patch zen-cart to enable ZenMagick request handling (aka ZenMagick themes)';
     }
 
 

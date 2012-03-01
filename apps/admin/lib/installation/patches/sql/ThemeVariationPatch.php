@@ -44,6 +44,7 @@ class ThemeVariationPatch extends SQLPatch {
      */
     public function __construct() {
         parent::__construct('sqlThemeVariation');
+        $this->label_ = 'Create additional column for theme variation selection';
     }
 
 

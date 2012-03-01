@@ -39,6 +39,7 @@ class EventProxyPatch extends FilePatch {
      */
     public function __construct() {
         parent::__construct('eventProxy');
+        $this->label_ = 'Patch zen-cart to activate the ZenMagick event proxy service (required for some emails and guest checkout!)';
     }
 
 

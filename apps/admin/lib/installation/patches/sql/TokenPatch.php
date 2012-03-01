@@ -40,6 +40,7 @@ class TokenPatch extends SQLPatch {
      */
     public function __construct() {
         parent::__construct('sqlToken');
+        $this->label_ = 'Create the database table used by the token service';
     }
 
 

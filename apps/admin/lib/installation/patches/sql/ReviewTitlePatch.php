@@ -44,6 +44,7 @@ class ReviewTitlePatch extends SQLPatch {
      */
     public function __construct() {
         parent::__construct('reviewTitle');
+        $this->label_ = 'Add column to store review title';
     }
 
 

@@ -23,35 +23,6 @@
 use zenmagick\base\Beans;
 use zenmagick\base\Runtime;
 
-    // locale
-    $patchLabel = array(
-        "adminMenu" => "Install ZenMagick admin menu",
-        "themeSupport" => "Patch zen-cart to enable ZenMagick request handling (aka ZenMagick themes)",
-        "noThemeSupport" => "Patch zen-cart to use ZenMagick <strong>without</strong> ZenMagick themes",
-        "themeDummies" => "Create admin dummy files for all installed ZenMagick themes",
-        "sideboxDummies" => "Create dummy files for all (side)boxes of <strong>all</strong> ZenMagick themes and <strong>installed</strong> plugins",
-        "linkGeneration" => "Disable zen-cart's <code>zen_href_link</code> function in favour of a ZenMagick implementation",
-        "email" => "Disable zen-cart's <code>zen_mail</code> function in favour of a ZenMagick implementation",
-        "eventProxy" => "Patch zen-cart to activate the ZenMagick event proxy service (required for some emails and guest checkout!)",
-        "customerEdit" => "Patch zen-cart to allow editing customers where email also exists as guest account",
-        "couponAdminMail" => "Patch zen-cart to allow use of ZenMagick email templates for coupon admin mail",
-        "reviewTitle" => "Add column to store review title",
-
-        "rewriteBase" => "Update RewriteBase value in .htaccess (pretty links, SEO)",
-
-        "adminFolderName" => "Adjust admin folder name for ZenMagick admin",
-        "redirectPatch" => "Patch zen-cart's <code>zen_redirect</code> function to allow to veto redirects",
-
-        "sqlConfig" => "Setup ZenMagick config groups and initial values",
-        "sqlToken" => "Create the database table used by the token service",
-        "sqlFulltext" => "Create indices for fulltext product search",
-        "sqlAdminRoles" => "Create tables for new role based admin access control",
-        "sqlAdminPrefs" => "Create new admin preferences table",
-        "sqlThemeVariation" => "Create additional column for theme variation selection",
-        "sacsPermissions" => "Create new table to store custom admin access rules",
-        "blockAdmin" => "Create new tables for block admin",
-    );
-
     $installer = new zenmagick\apps\store\admin\installation\InstallationPatcher();
     $needRefresh = false;
 
@@ -66,9 +37,9 @@ use zenmagick\base\Runtime;
                 $status = $patch->patch(true);
                 $messageService->addAll($patch->getMessages());
                 if ($status) {
-                    $messageService->success("'".$patchLabel[$patch->getId()]."' installed successfully");
+                    $messageService->success("'".$patch->getLabel()."' installed successfully");
                 } else {
-                    $messageService->error("Could not install '".$patchLabel[$patch->getId()]."'");
+                    $messageService->error("Could not install '".$patch->getLabel()."'");
                 }
             } else if (!$patch->isOpen() && null == $request->getParameter($formId)) {
                 // installed and not selected
@@ -77,9 +48,9 @@ use zenmagick\base\Runtime;
                     $status = $patch->undo();
                     $messageService->addAll($patch->getMessages());
                     if ($status) {
-                        $messageService->success("Uninstalled '".$patchLabel[$patch->getId()]."' successfully");
+                        $messageService->success("Uninstalled '".$patch->getLabel()."' successfully");
                     } else {
-                        $messageService->error("Could not uninstall '".$patchLabel[$patch->getId()]."'");
+                        $messageService->error("Could not uninstall '".$patch->getLabel()."'");
                     }
                 }
             }
@@ -145,7 +116,7 @@ use zenmagick\base\Runtime;
     /**
      * Show patch group.
      */
-    function _zm_patch_group($groupId, $patchLabel, $buttonClasses, $checkall=true) {
+    function _zm_patch_group($groupId, $buttonClasses, $checkall=true) {
         $installer = new zenmagick\apps\store\admin\installation\InstallationPatcher();
         foreach ($installer->getPatches($groupId) as $id => $patch) {
             if ('sqlFulltext' == $patch->getId()) {
@@ -157,11 +128,11 @@ use zenmagick\base\Runtime;
             foreach ($patch->dependsOn() as $dId) {
                 $dPatch = $installer->getPatchForId($dId);
                 if ($dPatch->isOpen()) {
-                    array_push($unfulfilled, $dPatch->getId());
+                    array_push($unfulfilled, $dPatch->getLabel());
                 }
             }
             foreach ($unfulfilled as $dId) {
-                ?><p class="error"><?php echo sprintf(_zm("Depends on: '%s'"), $patchLabel[$dId]) ?></p><?php
+                ?><p class="error"><?php echo sprintf(_zm("Depends on: '%s'"), $dId) ?></p><?php
             }
             if (!$patch->isReady() && $patch->isOpen()) {
               ?><p class="error"><?php echo $patch->getPreconditionsMessage() ?></p><?php
@@ -172,7 +143,7 @@ use zenmagick\base\Runtime;
                 <?php if (!$patch->isOpen()) { ?>checked="checked" <?php } ?>
                 <?php if (!$patch->canUndo() && !$patch->isOpen()) { ?>disabled="disabled" <?php } ?>>
               <label for="<?php echo $patch->getId() ?>">
-                  <?php echo $patchLabel[$patch->getId()] ?>
+                  <?php echo $patch->getLabel() ?>
               </label>
               <br><?php
         } ?>
@@ -208,7 +179,7 @@ use zenmagick\base\Runtime;
     <fieldset class="patches">
       <legend><?php _vzm("ZenMagick File Patches") ?></legend>
       <input type="hidden" name="update" value="file">
-      <?php _zm_patch_group('file', $patchLabel, $buttonClasses) ?>
+      <?php _zm_patch_group('file', $buttonClasses) ?>
     </fieldset>
   </form>
 
@@ -216,7 +187,7 @@ use zenmagick\base\Runtime;
     <fieldset class="patches">
       <legend><?php _vzm("ZenMagick SQL Extensions") ?></legend>
       <input type="hidden" name="update" value="sql">
-      <?php _zm_patch_group('sql', $patchLabel, $buttonClasses) ?>
+      <?php _zm_patch_group('sql', $buttonClasses) ?>
       <div class="submit">
         <strong>NOTE:</strong> It is <strong>strongly</strong> recommended to backup your database before appying/reverting SQL patches.
       </div>

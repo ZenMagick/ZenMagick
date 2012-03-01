@@ -44,6 +44,7 @@ class ThemeDummyPatch extends FilePatch {
     public function __construct() {
         parent::__construct('themeDummies');
         $this->includeDefault_ = true;
+        $this->label_ = 'Create admin dummy files for all installed ZenMagick themes';
     }
 
 

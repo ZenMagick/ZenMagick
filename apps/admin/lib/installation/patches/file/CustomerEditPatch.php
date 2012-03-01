@@ -39,6 +39,7 @@ class CustomerEditPatch extends FilePatch {
      */
     public function __construct() {
         parent::__construct('customerEdit');
+        $this->label_ = 'Patch zen-cart to allow editing customers where email also exists as guest account';
     }
 
 

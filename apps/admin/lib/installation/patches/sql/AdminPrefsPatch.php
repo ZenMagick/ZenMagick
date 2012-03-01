@@ -40,6 +40,7 @@ class AdminPrefsPatch extends SQLPatch {
      */
     public function __construct() {
         parent::__construct('sqlAdminPrefs');
+        $this->label_ = 'Create new admin preferences table';
     }
 
 

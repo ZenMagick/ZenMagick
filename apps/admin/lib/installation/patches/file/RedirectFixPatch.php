@@ -40,6 +40,7 @@ class RedirectFixPatch extends FilePatch {
      */
     public function __construct() {
         parent::__construct('redirectPatch');
+        $this->label_ = 'Patch zen-cart\'s <code>zen_redirect</code> function to allow to veto redirects';
     }
 
 

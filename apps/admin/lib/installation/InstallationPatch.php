@@ -29,9 +29,10 @@ use zenmagick\base\ZMObject;
  * @author DerManoMann <mano@zenmagick.org>
  */
 class InstallationPatch extends ZMObject {
-    var $id_ = null;
-    var $messages_ = null;
 
+    public $messages_;
+    protected $id_;
+    protected $label_;
 
     /**
      * Create new patch.
@@ -41,6 +42,7 @@ class InstallationPatch extends ZMObject {
     public function __construct($id) {
         parent::__construct();
         $this->id_ = $id;
+        $this->label_ = $id. ' Patch';
         $this->messages_ = array();
     }
 
@@ -52,6 +54,12 @@ class InstallationPatch extends ZMObject {
      */
     function getId() { return $this->id_; }
 
+    /**
+     * Get the patch label.
+     *
+     * @return string The label of the patch.
+     */
+    function getLabel() { return $this->label_; }
 
     /**
      * Returns a list of other patches it depends on.

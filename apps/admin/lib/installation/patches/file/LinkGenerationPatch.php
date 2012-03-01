@@ -48,6 +48,7 @@ class LinkGenerationPatch extends FilePatch {
      */
     public function __construct() {
         parent::__construct('linkGeneration');
+        $this->label_ = 'Disable zen-cart\'s <code>zen_href_link</code> function in favour of a ZenMagick implementation';
     }
 
 

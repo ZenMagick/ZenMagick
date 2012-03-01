@@ -39,6 +39,7 @@ class AdminMenuPatch extends FilePatch {
      */
     public function __construct() {
         parent::__construct('adminMenu');
+        $this->label_ = 'Install ZenMagick admin menu';
     }
 
 

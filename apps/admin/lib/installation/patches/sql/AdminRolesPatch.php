@@ -40,6 +40,7 @@ class AdminRolesPatch extends SQLPatch {
      */
     public function __construct() {
         parent::__construct('sqlAdminRoles');
+        $this->label_ = 'Create tables for new role based admin access control';
     }
 
 

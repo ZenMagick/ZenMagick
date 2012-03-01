@@ -38,6 +38,7 @@ class RewriteBasePatch extends FilePatch {
      */
     public function __construct() {
         parent::__construct('rewriteBase');
+        $this->label_ = 'Update RewriteBase value in .htaccess (pretty links, SEO)';
     }
 
 
