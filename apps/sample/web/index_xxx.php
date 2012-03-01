@@ -20,7 +20,7 @@
 ?>
 <?php
 
-  if (array_key_exists('ZM_ENVIRONMENT', $_GET)) {
-      $_SERVER['ZM_ENVIRONMENT'] = $_GET['ZM_ENVIRONMENT'];
-  }
-  require 'index.php';
+if (array_key_exists('ZM_ENVIRONMENT', $_GET)) {
+    $_SERVER['ZM_ENVIRONMENT'] = $_GET['ZM_ENVIRONMENT'];
+}
+require 'index.php';
