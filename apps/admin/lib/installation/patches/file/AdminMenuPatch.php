@@ -24,21 +24,20 @@ namespace zenmagick\apps\store\admin\installation\patches\file;
 use zenmagick\base\Runtime;
 use zenmagick\apps\store\admin\installation\patches\FilePatch;
 
-
-define('_ZM_ZEN_ADMIN_FILE', ZC_INSTALL_PATH.ZENCART_ADMIN_FOLDER.'/includes/boxes/extras_dhtml.php');
-
 /**
  * Admin menu patch.
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
 class AdminMenuPatch extends FilePatch {
-
+    protected $extrasBoxFile;
     /**
      * Create new instance.
      */
     public function __construct() {
         parent::__construct('adminMenu');
+        $this->label_ = 'Install ZenMagick admin menu';
+        $this->extrasBoxFile = $this->getZcAdminPath().'/includes/boxes/extras_dhtml.php';
     }
 
 
@@ -48,7 +47,7 @@ class AdminMenuPatch extends FilePatch {
      * @return boolean <code>true</code> if this patch can still be applied.
      */
     function isOpen() {
-        $contents = file_get_contents(_ZM_ZEN_ADMIN_FILE);
+        $contents = file_get_contents($this->extrasBoxFile);
         return false === strpos($contents, "zenmagick_dhtml.php");
     }
 
@@ -58,7 +57,7 @@ class AdminMenuPatch extends FilePatch {
      * @return boolean <code>true</code> if this patch is ready and all preconditions are met.
      */
     function isReady() {
-        return is_writeable(_ZM_ZEN_ADMIN_FILE);
+        return is_writeable($this->extrasBoxFile);
     }
 
     /**
@@ -69,7 +68,7 @@ class AdminMenuPatch extends FilePatch {
      * @return string The preconditions message or an empty string.
      */
     function getPreconditionsMessage() {
-        return $this->isReady() ? "" : "Need permission to write " . _ZM_ZEN_ADMIN_FILE;
+        return $this->isReady() ? "" : "Need permission to write " . $this->extrasBoxFile;
     }
 
     /**
@@ -82,10 +81,10 @@ class AdminMenuPatch extends FilePatch {
     function patch($force=false) {
         if ($this->isOpen() && $this->isReady()) {
             Runtime::getLogging()->error("** ZenMagick: patching zen-cart admin to auto-enable ZenMagick admin menu");
-            $handle = fopen(_ZM_ZEN_ADMIN_FILE, "ab");
+            $handle = fopen($this->extrasBoxFile, "ab");
             fwrite($handle, "<?php require('includes/boxes/zenmagick_dhtml.php'); /* added by ZenMagick installation patcher */ ?>\n");
             fclose($handle);
-            \ZMFileUtils::setFilePerms(_ZM_ZEN_ADMIN_FILE);
+            \ZMFileUtils::setFilePerms($this->extrasBoxFile);
             return true;
         } else {
             Runtime::getLogging()->error("** ZenMagick: no permission to patch zen-cart admin extras_dhtml.php");
@@ -105,8 +104,8 @@ class AdminMenuPatch extends FilePatch {
             return true;
         }
 
-        if (is_writeable(_ZM_ZEN_ADMIN_FILE)) {
-            $lines = $this->getFileLines(_ZM_ZEN_ADMIN_FILE);
+        if (is_writeable($this->extrasBoxFile)) {
+            $lines = $this->getFileLines($this->extrasBoxFile);
             $unpatchedLines = array();
             foreach ($lines as $line) {
                 if (false !== strpos($line, "zenmagick_dhtml")) {
@@ -115,7 +114,7 @@ class AdminMenuPatch extends FilePatch {
                 array_push($unpatchedLines, $line);
             }
 
-            return $this->putFileLines(_ZM_ZEN_ADMIN_FILE, $unpatchedLines);
+            return $this->putFileLines($this->extrasBoxFile, $unpatchedLines);
         } else {
             Runtime::getLogging()->error("** ZenMagick: no permission to patch index.php for uninstall");
             return false;

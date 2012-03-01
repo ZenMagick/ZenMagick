@@ -40,6 +40,7 @@ class BlockAdminPatch extends SQLPatch {
      */
     public function __construct() {
         parent::__construct('blockAdmin');
+        $this->label_ = 'Create new tables for block admin';
     }
 
 

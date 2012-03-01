@@ -558,7 +558,7 @@ class SQLRunner {
   static function write_to_upgrade_exceptions_table($line, $reason, $sql_file) {
     $db = self::get_db();
     self::create_exceptions_table();
-    $sql="INSERT INTO " . DB_PREFIX . TABLE_UPGRADE_EXCEPTIONS . " VALUES (0,'". $sql_file."','".$reason."', now(), '".addslashes($line)."')";
+    $sql="INSERT INTO " . DB_PREFIX . "upgrade_exceptions VALUES (0,'". $sql_file."','".$reason."', now(), '".addslashes($line)."')";
      if (ZC_UPG_DEBUG3==true) echo '<br />sql='.$sql.'<br />';
     $result = $db->Execute($sql);
     return $result;
@@ -567,14 +567,14 @@ class SQLRunner {
   static function purge_exceptions_table() {
     $db = self::get_db();
     self::create_exceptions_table();
-    $result = $db->Execute("TRUNCATE TABLE " . DB_PREFIX . TABLE_UPGRADE_EXCEPTIONS );
+    $result = $db->Execute("TRUNCATE TABLE " . DB_PREFIX."upgrade_exceptions");
     return $result;
   }
 
   static function create_exceptions_table() {
     $db = self::get_db();
-    if (!self::table_exists(TABLE_UPGRADE_EXCEPTIONS)) {
-      $result = $db->Execute("CREATE TABLE " . DB_PREFIX . TABLE_UPGRADE_EXCEPTIONS ." (
+    if (!self::table_exists('upgrade_exceptions')) {
+        $result = $db->Execute("CREATE TABLE " . DB_PREFIX . "upgrade_exceptions (
             upgrade_exception_id smallint(5) NOT NULL auto_increment,
             sql_file varchar(50) default NULL,
             reason varchar(200) default NULL,

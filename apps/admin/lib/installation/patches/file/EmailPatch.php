@@ -44,6 +44,7 @@ class EmailPatch extends FilePatch {
      */
     public function __construct() {
         parent::__construct('email');
+        $this->label_ = 'Disable zen-cart\'s <code>zen_mail</code> function in favour of a ZenMagick implementation';
     }
 
 

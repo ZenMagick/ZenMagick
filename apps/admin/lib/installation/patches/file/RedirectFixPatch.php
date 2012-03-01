@@ -25,21 +25,22 @@ use zenmagick\base\Runtime;
 use zenmagick\apps\store\admin\installation\patches\FilePatch;
 
 
-define('_ZM_ZEN_GENERAL_FILE', ZC_INSTALL_PATH . '/includes/functions/functions_general.php');
-define('_ZM_ZEN_ADMIN_GENERAL_FILE', ZC_INSTALL_PATH . ZENCART_ADMIN_FOLDER . '/includes/functions/general.php');
-
 /**
  * Patch to enable vetoable redirects in zencart.
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
 class RedirectFixPatch extends FilePatch {
-
+    protected $generalFile;
+    protected $adminGeneralFile;
     /**
      * Create new instance.
      */
     public function __construct() {
         parent::__construct('redirectPatch');
+        $this->label_ = 'Patch zen-cart\'s <code>zen_redirect</code> function to allow to veto redirects';
+        $this->adminGeneralFile = $this->getZcAdminPath().'/includes/functions/general.php';
+        $this->generalFile = ZC_INSTALL_PATH.'/includes/functions/functions_general.php';
     }
 
 
@@ -51,7 +52,7 @@ class RedirectFixPatch extends FilePatch {
      */
     function isOpen($lines=null) {
         $found = 0;
-        foreach (array(_ZM_ZEN_GENERAL_FILE, _ZM_ZEN_ADMIN_GENERAL_FILE) as $file) {
+        foreach (array($this->generalFile, $this->adminGeneralFile) as $file) {
             if (null == $lines) {
                 $lines = $this->getFileLines($file);
             }
@@ -74,7 +75,7 @@ class RedirectFixPatch extends FilePatch {
      * @return boolean <code>true</code> if this patch is ready and all preconditions are met.
      */
     function isReady() {
-        return is_writeable(_ZM_ZEN_GENERAL_FILE) && is_writeable(_ZM_ZEN_ADMIN_GENERAL_FILE);
+        return is_writeable($this->generalFile) && is_writeable($this->adminGeneralFile);
     }
 
     /**
@@ -85,7 +86,7 @@ class RedirectFixPatch extends FilePatch {
      * @return string The preconditions message or an empty string.
      */
     function getPreconditionsMessage() {
-        return $this->isReady() ? "" : "Need permission to write " . _ZM_ZEN_GENERAL_FILE. ' and ' . _ZM_ZEN_ADMIN_GENERAL_FILE;
+        return $this->isReady() ? "" : "Need permission to write " . $this->generalFile. ' and ' . $this->adminGeneralFile;
     }
 
     /**
@@ -100,14 +101,14 @@ class RedirectFixPatch extends FilePatch {
             return true;
         }
 
-        foreach (array(_ZM_ZEN_GENERAL_FILE, _ZM_ZEN_ADMIN_GENERAL_FILE) as $file) {
+        foreach (array($this->generalFile, $this->adminGeneralFile) as $file) {
             if (is_writeable($file)) {
                 $patchedLines = array();
                 $insertNow = false;
                 $lines = $this->getFileLines($file);
                 foreach ($lines as $line) {
                     if ($insertNow && false === strpos($line, "ZMRequest::instance") && false === strpos($line, 'Runtime::getContainer()->get(\'request\')')) {
-                        if ($file == _ZM_ZEN_GENERAL_FILE) {
+                        if ($file == $this->generalFile) {
                             $patchLine = 'zenmagick\\base\\Runtime::getContainer()->get(\'request\')->redirect($url, $httpResponseCode); return; /* added by ZenMagick installation patcher */';
                         } else {
                             $patchLine = 'zenmagick\\base\\Runtime::getContainer()->get(\'request\')->redirect($url); return; /* added by ZenMagick installation patcher */';
@@ -139,7 +140,7 @@ class RedirectFixPatch extends FilePatch {
             return true;
         }
 
-        foreach (array(_ZM_ZEN_GENERAL_FILE, _ZM_ZEN_ADMIN_GENERAL_FILE) as $file) {
+        foreach (array($this->generalFile, $this->adminGeneralFile) as $file) {
             if (is_writeable($file)) {
                 $unpatchedLines = array();
                 $lines = $this->getFileLines($file);

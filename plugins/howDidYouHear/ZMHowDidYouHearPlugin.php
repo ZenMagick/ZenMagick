@@ -22,6 +22,7 @@
 
 use zenmagick\base\Toolbox;
 use zenmagick\base\ZMObject;
+use zenmagick\http\view\TemplateView;
 
 define('ID_SOURCE_OTHER', 9999);
 define('TABLE_SOURCES', DB_PREFIX . 'sources');
@@ -145,15 +146,16 @@ class ZMHowDidYouHearPlugin extends Plugin {
             }
 
             // create reliable form reference
-            $view = $event->get('view');
-            $view->setVariable('howDidYouHearSources', $howDidYouHearSources);
-            if (null != ($registration = $view->getVariable('registration'))) {
-                $view->setVariable('howDidYouHearForm', $registration);
-            } else if (null != ($shippingAddress = $view->getVariable('shippingAddress'))) {
-                // if we have an address we should have got the source as well...
-                $addressList = $this->container->get('addressService')->getAddressesForAccountId($request->getAccountId());
-                if ($this->isEnableOnGuestCheckout() && ZMAccount::GUEST == $request->getAccount()->getType() && 0 == count($addressList)) {
-                    $view->setVariable('howDidYouHearForm', $shippingAddress);
+            if (null != ($view = $event->get('view')) && $view instanceof TemplateView) {
+                $view->setVariable('howDidYouHearSources', $howDidYouHearSources);
+                if (null != ($registration = $view->getVariable('registration'))) {
+                    $view->setVariable('howDidYouHearForm', $registration);
+                } else if (null != ($shippingAddress = $view->getVariable('shippingAddress'))) {
+                    // if we have an address we should have got the source as well...
+                    $addressList = $this->container->get('addressService')->getAddressesForAccountId($request->getAccountId());
+                    if ($this->isEnableOnGuestCheckout() && ZMAccount::GUEST == $request->getAccount()->getType() && 0 == count($addressList)) {
+                        $view->setVariable('howDidYouHearForm', $shippingAddress);
+                    }
                 }
             }
         }

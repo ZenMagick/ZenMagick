@@ -44,6 +44,7 @@ class FulltextPatch extends SQLPatch {
      */
     public function __construct() {
         parent::__construct('sqlFulltext');
+        $this->label_ = 'Create indices for fulltext product search';
     }
 
 

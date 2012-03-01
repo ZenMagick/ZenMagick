@@ -44,6 +44,7 @@ class ConfigPatch extends SQLPatch {
      */
     public function __construct() {
         parent::__construct('sqlConfig');
+        $this->label_ = 'Setup ZenMagick config groups and initial values';
     }
 
 

@@ -39,6 +39,7 @@ class SideboxDummyPatch extends FilePatch {
      */
     public function __construct() {
         parent::__construct('sideboxDummies');
+        $this->label_ = 'Create dummy files for all (side)boxes of <strong>all</strong> ZenMagick themes and <strong>installed</strong> plugins';
     }
 
 

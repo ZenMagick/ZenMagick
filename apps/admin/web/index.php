@@ -21,11 +21,11 @@
 <?php
 use zenmagick\http\HttpApplication;
 
-  $rootDir = realpath(__DIR__.'/../../..');
-  include_once $rootDir.'/lib/base/Application.php';
-  include_once $rootDir.'/lib/http/HttpApplication.php';
+$rootDir = realpath(__DIR__.'/../../..');
+include_once $rootDir.'/lib/base/Application.php';
+include_once $rootDir.'/lib/http/HttpApplication.php';
 
-  $config = array('appName' => basename(dirname(__DIR__)), 'environment' => (isset($_SERVER['ZM_ENVIRONMENT']) ? $_SERVER['ZM_ENVIRONMENT'] : 'prod'));
-  $application = new HttpApplication($config);
-  $application->bootstrap();
-  $application->serve();
+$config = array('appName' => basename(dirname(__DIR__)), 'environment' => (isset($_SERVER['ZM_ENVIRONMENT']) ? $_SERVER['ZM_ENVIRONMENT'] : 'prod'));
+$application = new HttpApplication($config);
+$application->bootstrap();
+$application->serve();

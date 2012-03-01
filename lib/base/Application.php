@@ -189,15 +189,14 @@ class Application {
                     'initRuntime',
                     'initApplicationConfig',
                     'initGlobal',
-                    'initLogging',
                     'loadBundles',
                     'initApplicationContainer',
                     'initEventListener'
                 ),
-                'postEvent' => 'init_config_done'
             ),
             array(
                 'key' => 'bootstrap',
+                'preEvent' => 'init_config_done',
                 'methods' => array('initLocale', 'initPlugins'),
                 'postEvent' => 'bootstrap_done'
             ),
@@ -426,7 +425,7 @@ class Application {
             }
             $bundle->setContainer($container);
             $bundle->boot();
-            $this->bundles[] = $bundle;
+            $this->bundles[$key] = $bundle;
         }
     }
 

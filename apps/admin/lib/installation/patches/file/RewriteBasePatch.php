@@ -24,7 +24,6 @@ namespace zenmagick\apps\store\admin\installation\patches\file;
 use zenmagick\apps\store\admin\installation\patches\FilePatch;
 
 define('_ZM_HTACCESS', ZC_INSTALL_PATH.".htaccess");
-if (!defined('DIR_WS_CATALOG')) define('DIR_WS_CATALOG', '/');
 
 /**
  * Patch to update the <code>.htaccess</code> <code>RewriteBase</code>.
@@ -32,12 +31,16 @@ if (!defined('DIR_WS_CATALOG')) define('DIR_WS_CATALOG', '/');
  * @author DerManoMann <mano@zenmagick.org>
  */
 class RewriteBasePatch extends FilePatch {
+    protected $rewriteBase;
 
     /**
      * Create new instance.
      */
     public function __construct() {
         parent::__construct('rewriteBase');
+        $this->label_ = 'Update RewriteBase value in .htaccess (pretty links, SEO)';
+        // @todo detect RewriteBase *WITHOUT* DIR_WS_CATALOG
+        $this->rewriteBase = defined('DIR_FS_CATALOG') ? DIR_WS_CATALOG : '/';
     }
 
 
@@ -52,7 +55,7 @@ class RewriteBasePatch extends FilePatch {
             foreach ($lines as $line) {
                 $words = explode(' ', $line);
                 if (2 == count($words) && 'RewriteBase' == trim($words[0])) {
-                    return DIR_WS_CATALOG != $words[1];
+                    return $this->rewriteBase != $words[1];
                 }
             }
             return false;
@@ -124,9 +127,9 @@ class RewriteBasePatch extends FilePatch {
         foreach ($lines as $ii => $line) {
             $words = explode(' ', $line);
             if (2 == count($words) && 'RewriteBase' == trim($words[0])) {
-                if (DIR_WS_CATALOG != $words[1]) {
+                if ($this->rewriteBase != $words[1]) {
                     // fix (might not get written, though
-                    $lines[$ii] = 'RewriteBase ' . DIR_WS_CATALOG;
+                    $lines[$ii] = 'RewriteBase ' . $this->rewriteBase;
                 }
                 break;
             }

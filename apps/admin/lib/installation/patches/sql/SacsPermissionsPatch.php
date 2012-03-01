@@ -40,6 +40,7 @@ class SacsPermissionsPatch extends SQLPatch {
      */
     public function __construct() {
         parent::__construct('sacsPermissions');
+        $this->label_ = 'Create new table to store custom admin access rules';
     }
 
 

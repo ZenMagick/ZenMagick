@@ -39,6 +39,7 @@ class NoThemeSupportPatch extends FilePatch {
      */
     public function __construct() {
         parent::__construct('noThemeSupport');
+        $this->label_ = 'Patch zen-cart to use ZenMagick <strong>without</strong> ZenMagick themes';
     }
 
 
