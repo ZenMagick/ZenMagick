@@ -193,10 +193,10 @@ class Application {
                     'initApplicationContainer',
                     'initEventListener'
                 ),
-                'postEvent' => 'init_config_done'
             ),
             array(
                 'key' => 'bootstrap',
+                'preEvent' => 'init_config_done',
                 'methods' => array('initLocale', 'initPlugins'),
                 'postEvent' => 'bootstrap_done'
             ),
