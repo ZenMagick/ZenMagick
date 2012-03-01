@@ -21,6 +21,7 @@
 <?php
 namespace zenmagick\base\utils;
 
+use Exception;
 use zenmagick\base\classloader\ClassLoader;
 use zenmagick\base\Runtime;
 use zenmagick\base\ZMException;

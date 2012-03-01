@@ -19,6 +19,7 @@
  */
 ?>
 <?php
+namespace zenmagick\apps\store\model;
 
 use zenmagick\base\ZMObject;
 
@@ -28,11 +29,10 @@ use Doctrine\ORM\Mapping AS ORM;
  * Token model class.
  *
  * @author DerManoMann
- * @package zenmagick.store.shared.model
  * @ORM\Table(name="token")
  * @ORM\Entity
  */
-class ZMToken extends ZMObject {
+class Token extends ZMObject {
     /**
      * @var integer $hashId
      *
@@ -65,14 +65,6 @@ class ZMToken extends ZMObject {
      * @ORM\Column(name="expires", type="datetime", nullable=false)
      */
     private $expires;
-
-
-    /**
-     * Create new instance.
-     */
-    public function __construct() {
-        parent::__construct();
-    }
 
 
     /**

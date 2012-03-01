@@ -21,6 +21,7 @@
 <?php
 namespace zenmagick\base;
 
+use InvalidArgumentException;
 use Symfony\Component\Yaml\Yaml;
 
 /**
@@ -134,7 +135,7 @@ class Toolbox {
 
         try {
             $data = Yaml::parse($filename);
-        } catch (\InvalidArgumentException $e) {
+        } catch (InvalidArgumentException $e) {
             Runtime::getLogging()->dump($e);
         }
 

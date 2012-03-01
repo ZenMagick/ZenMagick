@@ -131,7 +131,7 @@
 
         <service id="taxRateService" class="ZMTaxRates" scope="container" />
 
-        <service id="tokenService" class="ZMTokens" scope="container" />
+        <service id="tokenService" class="zenmagick\apps\store\services\TokenService" scope="container" />
 
         <service id="bannerService" class="zenmagick\apps\store\services\templating\Banners" scope="container" />
 

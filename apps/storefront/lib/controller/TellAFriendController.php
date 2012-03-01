@@ -80,16 +80,17 @@ class TellAFriendController extends \ZMController {
             return $this->findView('product_not_found', $this->viewData_);
         }
 
+        $settingsService = $this->container->get('settingsService');
         $emailMessage = $this->getFormData($request);
 
         $context = array('emailMessage' => $emailMessage, 'currentProduct' => $this->product_, 'office_only_html' => '', 'office_only_text' => '');
-        $subject = sprintf(_zm("Your friend %s has recommended this great product from %s"), $emailMessage->getFromName(), Runtime::getSettings()->get('storeName'));
+        $subject = sprintf(_zm("Your friend %s has recommended this great product from %s"), $emailMessage->getFromName(), $settingsService->get('storeName'));
 
         $message = $this->container->get('messageBuilder')->createMessage('tell_a_friend', true, $request, $context);
-        $message->setSubject($subject)->setTo($emailMessage->getToEmail(), $emailMessage->getToName())->setFrom(Runtime::getSettings()->get('storeEmail'));
+        $message->setSubject($subject)->setTo($emailMessage->getToEmail(), $emailMessage->getToName())->setFrom($settingsService->get('storeEmail'));
         $this->container->get('mailer')->send($message);
 
-        if (Runtime::getSettings()->get('isEmailAdminTellAFriend')) {
+        if ($settingsService->get('isEmailAdminTellAFriend')) {
             // store copy
             $session = $request->getSession();
             $context = $request->getToolbox()->macro->officeOnlyEmailFooter($emailMessage->getFromName(), $emailMessage->getFromEmail(), $session);
@@ -97,7 +98,10 @@ class TellAFriendController extends \ZMController {
             $context['currentProduct'] = $this->product_;
 
             $message = $this->container->get('messageBuilder')->createMessage('tell_a_friend', false, $request, $context);
-            $message->setSubject(sprintf(_zm('[TELL A FRIEND] %s'), $subject))->setTo(Runtime::getSettings()->get('emailAdminTellAFriend'))->setFrom(Runtime::getSettings()->get('storeEmail'));
+            $message->setSubject(sprintf(_zm('[TELL A FRIEND] %s'), $subject))->setFrom($settingsService->get('storeEmail'));
+            foreach ($settingsService->get('emailAdminTellAFriend') as $email => $name) {
+                $message->addTo($email, $name);
+            }
             $this->container->get('mailer')->send($message);
         }
 

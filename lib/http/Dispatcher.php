@@ -21,6 +21,7 @@
 <?php
 namespace zenmagick\http;
 
+use Exception;
 use ZMRequest;
 use zenmagick\base\Beans;
 use zenmagick\base\Runtime;

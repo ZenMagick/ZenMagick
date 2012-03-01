@@ -24,6 +24,23 @@
 <?php
 
     /**
+     * Split email addresses as per zc convention.
+     */
+    function zm_split_email_addresses($s) {
+        $recipients = array();
+        foreach (explode(',', $s) as $address) {
+            preg_match('/([^<]*)<(.*@.*)>/', $address, $token);
+            if ($token) {
+                $token[1] = trim($token[1]);
+                $recipients[trim($token[2])] = empty($token[1]) ? null : $token[1];
+            } else {
+                $recipients[trim($address)] = null;
+            }
+        }
+        return $recipients;
+    }
+
+    /**
      * Set up default setting.
      *
      * <p>The reason for this being wrapped in a function is to make it possible
@@ -154,13 +171,13 @@
             'emailTestReceiver' => (defined('DEVELOPER_OVERRIDE_EMAIL_ADDRESS') && DEVELOPER_OVERRIDE_EMAIL_ADDRESS != '') ? DEVELOPER_OVERRIDE_EMAIL_ADDRESS : null,
             'isEmailAdminExtraHtml' => ADMIN_EXTRA_EMAIL_FORMAT != 'TEXT',
             'isEmailAdminCreateAccount' => SEND_EXTRA_CREATE_ACCOUNT_EMAILS_TO_STATUS == '1' && SEND_EXTRA_CREATE_ACCOUNT_EMAILS_TO != '',
-            'emailAdminCreateAccount' => SEND_EXTRA_CREATE_ACCOUNT_EMAILS_TO,
+            'emailAdminCreateAccount' => zm_split_email_addresses(SEND_EXTRA_CREATE_ACCOUNT_EMAILS_TO),
             'isEmailAdminTellAFriend' => SEND_EXTRA_TELL_A_FRIEND_EMAILS_TO_STATUS == '1' and SEND_EXTRA_TELL_A_FRIEND_EMAILS_TO != '',
-            'emailAdminTellAFriend' => SEND_EXTRA_TELL_A_FRIEND_EMAILS_TO,
+            'emailAdminTellAFriend' => zm_split_email_addresses(SEND_EXTRA_TELL_A_FRIEND_EMAILS_TO),
             'isEmailAdminReview' => SEND_EXTRA_REVIEW_NOTIFICATION_EMAILS_TO_STATUS == '1' && SEND_EXTRA_REVIEW_NOTIFICATION_EMAILS_TO != '',
-            'emailAdminReview' => SEND_EXTRA_REVIEW_NOTIFICATION_EMAILS_TO,
+            'emailAdminReview' => zm_split_email_addresses(SEND_EXTRA_REVIEW_NOTIFICATION_EMAILS_TO),
             'isEmailAdminGvSend' => SEND_EXTRA_GV_CUSTOMER_EMAILS_TO_STATUS == '1' && SEND_EXTRA_GV_CUSTOMER_EMAILS_TO != '',
-            'emailAdminGvSend' => SEND_EXTRA_GV_CUSTOMER_EMAILS_TO,
+            'emailAdminGvSend' => zm_split_email_addresses(SEND_EXTRA_GV_CUSTOMER_EMAILS_TO),
 
 
             /**************************************
