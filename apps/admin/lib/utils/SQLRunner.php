@@ -573,7 +573,7 @@ class SQLRunner {
 
   static function create_exceptions_table() {
     $db = self::get_db();
-    if (!self::table_exists(DB_PREFIX.'upgrade_exceptions')) {
+    if (!self::table_exists('upgrade_exceptions')) {
         $result = $db->Execute("CREATE TABLE " . DB_PREFIX . "upgrade_exceptions (
             upgrade_exception_id smallint(5) NOT NULL auto_increment,
             sql_file varchar(50) default NULL,
