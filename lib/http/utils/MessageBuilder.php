@@ -41,34 +41,25 @@ use zenmagick\http\view\View;
  * @author DerManoMann <mano@zenmagick.org>
  */
 class MessageBuilder extends ZMObject {
-    private $viewViewId_;
+    private $view;
 
 
     /**
-     * Create new instance.
-     */
-    public function __construct() {
-        parent::__construct();
-        $this->viewViewId_ = 'emails';
-    }
-
-
-    /**
-     * Set the view id to be used to lookup the view to format email content.
+     * Set the view to render email content.
      *
-     * @param string viewId The new view id.
+     * @param View view The view.
      */
-    public function setViewViewId($viewId) {
-        $this->viewViewId_ = $viewId;
+    public function setView(View $view) {
+        $this->view = $view;
     }
 
     /**
-     * Get the view id to be used to lookup the view to format email content.
+     * Get the render viev.
      *
-     * @return string The view id.
+     * @return View The view.
      */
-    public function getViewViewId() {
-        return $this->viewViewId_;
+    public function getView() {
+        return $this->view;
     }
 
     /**
@@ -78,8 +69,7 @@ class MessageBuilder extends ZMObject {
      * @return array Map of available formats with the template type (file extension) as value.
      */
     public function getFormatsForTemplate($template) {
-        $view = \ZMUrlManager::instance()->findView(null, $this->viewViewId_);
-        $resourceResolver = $view->getResourceResolver();
+        $resourceResolver = $this->view->getResourceResolver();
         $formats = array();
 
         foreach ($resourceResolver->find('views/emails', '/'.$template.'/', View::TEMPLATE) as $template) {
@@ -120,16 +110,15 @@ class MessageBuilder extends ZMObject {
         }
 
         // set up view
-        $view = \ZMUrlManager::instance()->findView(null, $this->viewViewId_);
-        $view->setTemplate('views/emails/'.$template.'.'.$format.'.'.$formats[$format]);
+        $this->view->setTemplate('views/emails/'.$template.'.'.$format.'.'.$formats[$format]);
         // disable layout for now
-        $view->setLayout(null);
+        $this->view->setLayout(null);
 
         // make sure these prevail
-        $view->setVariables($context);
+        $this->view->setVariables($context);
 
         // create contents
-        return $view->generate($request);
+        return $this->view->generate($request);
     }
 
     /**
