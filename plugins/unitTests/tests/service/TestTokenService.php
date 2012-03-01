@@ -21,12 +21,12 @@
 <?php
 
 /**
- * Test <code>ZMTokens</code>.
+ * Test <code>TokenServics</code>.
  *
  * @package org.zenmagick.plugins.unitTests.tests
  * @author DerManoMann <mano@zenmagick.org>
  */
-class TestZMTokens extends ZMTestCase {
+class TestTokenService extends ZMTestCase {
 
     /**
      * Test get new token.

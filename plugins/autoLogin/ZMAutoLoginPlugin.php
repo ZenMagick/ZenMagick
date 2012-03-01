@@ -105,7 +105,7 @@ class ZMAutoLoginPlugin extends Plugin {
      * Try to get a token from the current request.
      *
      * @param ZMRequest request The current request.
-     * @return ZMToken A token or <code>null</code>.
+     * @return Token A token or <code>null</code>.
      */
     protected function getRequestToken($request) {
         $tokenService = $this->container->get('tokenService');
