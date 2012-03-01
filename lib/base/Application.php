@@ -189,7 +189,6 @@ class Application {
                     'initRuntime',
                     'initApplicationConfig',
                     'initGlobal',
-                    'initLogging',
                     'loadBundles',
                     'initApplicationContainer',
                     'initEventListener'
