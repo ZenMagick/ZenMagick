@@ -9,7 +9,6 @@
         <option key="view:success">redirect://</option>
         <option key="view:error">views/error.php?layout=</option>
         <option key="view:success-demo">redirect://index</option>
-        <option key="view:store-view">storeTemplateView</option>
     </route>
 
     <route id="index" pattern="/index">

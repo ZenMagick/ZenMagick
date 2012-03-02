@@ -25,9 +25,6 @@
 
 $resourceManager->cssFile('zc_admin.css');
 
-// map emails view; here we want a store view; merge
-ZMUrlManager::instance()->setMapping(null, array('emails' => array('view' => 'storeEmailView')), false);
-
 function split_slash($s) {
   $s = preg_replace('#(\S)/#', '$1 /', $s);
   return preg_replace('#/(\S)#', '/ $1', $s);

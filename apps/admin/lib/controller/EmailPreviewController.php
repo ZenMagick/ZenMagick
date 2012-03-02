@@ -62,7 +62,6 @@ class EmailPreviewController extends \ZMController {
             $format = $request->getParameter('format');
             $type = $request->getParameter('type');
             $messageBuilder = $this->container->get('messageBuilder');
-            $messageBuilder->setViewViewId('store-view');
 
             $context = $this->getInitialContext($request);
             $event = new Event($this, array('template' => $template, 'format' => $format, 'type' => $type, 'request' => $request, 'context' => $context));

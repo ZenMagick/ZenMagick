@@ -40,6 +40,12 @@
             </call>
         </service>
 
+        <service id="messageBuilder" class="zenmagick\http\utils\MessageBuilder" scope="prototype">
+            <call method="setView">
+                <argument type="service" id="templateView" />
+            </call>
+        </service>
+
         <service id="simpleTemplateCache" class="zenmagick\http\templating\cache\SimpleTemplateCache" scope="container">
             <call method="setCache">
                 <argument type="service" id="persistentCache" />
