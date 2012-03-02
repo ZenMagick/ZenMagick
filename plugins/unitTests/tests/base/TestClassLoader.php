@@ -62,9 +62,9 @@ class TestClassLoader extends ZMTestCase {
      * @param string name The class name.
      */
     protected function assertFilename(ClassLoader $classLoader, $name) {
-        $filename = realpath($this->invokeMethod($classLoader, 'resolveClass', $name));
-        $expected = realpath(self::$LOADER_DIR.'/'.$name.'.php');
-        $this->assertEqual($expected, $filename);
+        $filename = $this->invokeMethod($classLoader, 'resolveClass', $name);
+        $expected = self::$LOADER_DIR.'/'.$name.'.php';
+        $this->assertEqual(realpath($expected), realpath($filename));
     }
 
     /**
@@ -133,6 +133,18 @@ class TestClassLoader extends ZMTestCase {
     }
 
     /**
+     * Validate the filename for the given class.
+     *
+     * @param ClassLoader classLoader The class loader to test.
+     * @param string name The class name.
+     */
+    protected function assertFilename2(ClassLoader $classLoader, $name) {
+        $filename = $this->invokeMethod($classLoader, 'resolveClass', $name);
+        $expected = dirname(self::$LOADER_DIR).'/'.$name.'.php';
+        $this->assertEqual(realpath($expected), realpath($filename));
+    }
+
+    /**
      * Assert overlap2 classes for the given class loader.
      *
      * @param ClassLoader classLoader The class loader to test.
@@ -140,21 +152,21 @@ class TestClassLoader extends ZMTestCase {
     protected function assertOverlap2Classes(ClassLoader $classLoader) {
         // overlapping namespace
         $this->assertTrue($classLoader->canResolve('loader\over\OverClass1'));
-        $this->assertFilename($classLoader, 'loader\over\OverClass1');
+        $this->assertFilename2($classLoader, 'loader\over\OverClass1');
         $this->assertTrue($classLoader->canResolve('loader\overlap\OverlapClass1'));
-        $this->assertFilename($classLoader, 'loader\overlap\OverlapClass1');
+        $this->assertFilename2($classLoader, 'loader\overlap\OverlapClass1');
 
         // same class name
         $this->assertTrue($classLoader->canResolve('loader\over\SameName'));
-        $this->assertFilename($classLoader, 'loader\over\SameName');
+        $this->assertFilename2($classLoader, 'loader\over\SameName');
         $this->assertTrue($classLoader->canResolve('loader\overlap\SameName'));
-        $this->assertFilename($classLoader, 'loader\overlap\SameName');
+        $this->assertFilename2($classLoader, 'loader\overlap\SameName');
 
         // sub
         $this->assertTrue($classLoader->canResolve('loader\over\sub\SameName'));
-        $this->assertFilename($classLoader, 'loader\over\sub\SameName');
+        $this->assertFilename2($classLoader, 'loader\over\sub\SameName');
         $this->assertTrue($classLoader->canResolve('loader\overlap\sub\SameName'));
-        $this->assertFilename($classLoader, 'loader\overlap\sub\SameName');
+        $this->assertFilename2($classLoader, 'loader\overlap\sub\SameName');
     }
 
     /**
@@ -163,7 +175,7 @@ class TestClassLoader extends ZMTestCase {
     public function testOverlap2Folded() {
         $classLoader = new ClassLoader();
         $classLoader->addNamespace('loader\over', self::$LOADER_DIR.'/over@loader\over');
-        $classLoader->addNamespace('loader\overlap', self::$LOADER_DIR.'@loader\overlap');
+        $classLoader->addNamespace('loader\overlap', self::$LOADER_DIR.'/overlap@loader\overlap');
         $this->assertOverlap2Classes($classLoader);
     }
 
@@ -172,8 +184,8 @@ class TestClassLoader extends ZMTestCase {
      */
     public function testOverlap2FoldedReverse() {
         $classLoader = new ClassLoader();
-        $classLoader->addNamespace('loader\overlap', self::$LOADER_DIR.'@loader\overlap');
-        $classLoader->addNamespace('loader\over', self::$LOADER_DIR.'@loader\over');
+        $classLoader->addNamespace('loader\overlap', self::$LOADER_DIR.'/overlap@loader\overlap');
+        $classLoader->addNamespace('loader\over', self::$LOADER_DIR.'/over@loader\over');
         $this->assertOverlap2Classes($classLoader);
     }
 
