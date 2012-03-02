@@ -43,13 +43,10 @@ class ZMDbUtils {
      * @return boolean <code>true</code> for success, <code>false</code> if the execution fails.
      */
     public static function executePatch($sql, $messages, $debug=false) {
-        if ($debug) {
-            Runtime::getContainer()->get('request')->setParameter('debug', 'ON');
-        }
         // disable to allow plugins to insert HTML into the database...
         //$sql = ZMSecurityTools::sanitize($sql);
         if (!empty($sql)) {
-            $results = SQLRunner::execute_sql($sql);
+            $results = SQLRunner::execute_sql($sql, $debug);
             foreach (ZMDbUtils::processPatchResults($results) as $msg) {
                 $messages[] = $msg;
             }

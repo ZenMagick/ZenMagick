@@ -15,18 +15,17 @@ class SQLRunner {
 
     static function get_db() {
         global $db;
-        if (null == self::$prefix) self::$prefix = ZMRuntime::getDatabase()->getPrefix();
+        if (null == self::$prefix) self::$prefix = \ZMRuntime::getDatabase()->getPrefix();
         if (!isset($db)) { $db = new \queryFactory(); }
         return $db;
     }
 
- static function execute_sql($lines) {
-   $database = ZMRuntime::getDatabase()->getDatabase();
+ static function execute_sql($lines, $debug = false) {
+   $database = \ZMRuntime::getDatabase()->getDatabase();
    if (!get_cfg_var('safe_mode')) {
      @set_time_limit(1200);
    }
    $db = self::get_db();
-   global $debug;
    $sql_file='SQLPATCH';
    $newline = '';
    $saveline = '';
@@ -37,9 +36,8 @@ class SQLRunner {
    $errors = array();
    $results = 0;
    $string='';
-   $debug = Runtime::getContainer()->get('request')->getParameter('debug', 'OFF');
    foreach ($lines as $line) {
-     if ('ON' == $debug) echo $line . '<br />';
+     if ($debug) echo $line . '<br />';
 
      $line = trim($line);
      $line = str_replace('`','',$line); //remove backquotes
@@ -73,7 +71,7 @@ class SQLRunner {
             break;
           case (substr($line_upper, 0, 13) == 'CREATE TABLE '):
             // check to see if table exists
-            $table = (strtoupper($param[2].' '.$param[3].' '.$param[4]) == 'IF NOT EXISTS') ? $param[5] : $param[2];
+            $table = (isset($param[4]) && (strtoupper($param[2].' '.$param[3].' '.$param[4]) == 'IF NOT EXISTS')) ? $param[5] : $param[2];
             $result=self::table_exists(self::$prefix.$table);
             if ($result==true) {
               self::write_to_upgrade_exceptions_table($line, sprintf(REASON_TABLE_ALREADY_EXISTS,$table), $sql_file);
@@ -81,7 +79,7 @@ class SQLRunner {
               $result=sprintf(REASON_TABLE_ALREADY_EXISTS,$table); //duplicated here for on-screen error-reporting
               break;
             } else {
-              $line = (strtoupper($param[2].' '.$param[3].' '.$param[4]) == 'IF NOT EXISTS') ? 'CREATE TABLE IF NOT EXISTS ' . self::$prefix . substr($line, 27) : 'CREATE TABLE ' . self::$prefix . substr($line, 13);
+              $line = (isset($param[4]) && (strtoupper($param[2].' '.$param[3].' '.$param[4]) == 'IF NOT EXISTS')) ? 'CREATE TABLE IF NOT EXISTS ' . self::$prefix . substr($line, 27) : 'CREATE TABLE ' . self::$prefix . substr($line, 13);
             }
             break;
           case (substr($line_upper, 0, 15) == 'TRUNCATE TABLE '):
@@ -238,8 +236,8 @@ class SQLRunner {
           }
         } //endif found ';'
 
-        if ($complete_line) {
-          //if ($debug==true) echo ((!$ignore_line) ? '<br />About to execute.': 'Ignoring statement. This command WILL NOT be executed.').'<br />Debug info:<br>$ line='.$line.'<br>$ complete_line='.$complete_line.'<br>$ keep_together='.$keep_together.'<br>SQL='.$newline.'<br><br>';
+        if (isset($complete_line) && $complete_line) {
+          if ($debug==true) echo ((!$ignore_line) ? '<br />About to execute.': 'Ignoring statement. This command WILL NOT be executed.').'<br />Debug info:<br>$ line='.$line.'<br>$ complete_line='.$complete_line.'<br>$ keep_together='.$keep_together.'<br>SQL='.$newline.'<br><br>';
           if (get_magic_quotes_runtime() > 0  && $keepslashes != true ) $newline=stripslashes($newline);
           if (trim(str_replace(';','',$newline)) != '' && !$ignore_line) $output=$db->Execute($newline);
           $results++;
