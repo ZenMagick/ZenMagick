@@ -161,7 +161,11 @@
 
         <service id="configService" class="ZMConfig" scope="container" />
 
-        <service id="messageBuilder" class="zenmagick\http\utils\MessageBuilder" scope="prototype" />
+        <service id="messageBuilder" class="zenmagick\http\utils\MessageBuilder" scope="prototype">
+            <call method="setView">
+                <argument type="service" id="storeTemplateView" />
+            </call>
+        </service>
 
         <service id="contextConfigLoader" class="zenmagick\apps\store\utils\ContextConfigLoader" scope="prototype" />
 

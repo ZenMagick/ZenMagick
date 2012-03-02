@@ -12,8 +12,6 @@ global:
     layout: 
   success-demo:
     view: redirect#requestId=index
-  store-view:
-    view: storeTemplateView
 
 ## page mappings    
 page:
