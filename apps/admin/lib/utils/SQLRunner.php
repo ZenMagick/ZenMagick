@@ -11,13 +11,17 @@ use zenmagick\base\Runtime;
 
 if (!defined('ZC_UPG_DEBUG3')) define('ZC_UPG_DEBUG3', false);
 class SQLRunner {
+    static $prefix;
+
     static function get_db() {
         global $db;
+        if (null == self::$prefix) self::$prefix = ZMRuntime::getDatabase()->getPrefix();
         if (!isset($db)) { $db = new \queryFactory(); }
         return $db;
     }
 
- static function execute_sql($lines, $database, $table_prefix = '') {
+ static function execute_sql($lines) {
+   $database = ZMRuntime::getDatabase()->getDatabase();
    if (!get_cfg_var('safe_mode')) {
      @set_time_limit(1200);
    }
@@ -49,53 +53,51 @@ class SQLRunner {
       // Syntax: #NEXT_X_ROWS_AS_ONE_COMMAND:6     for running the next 6 commands together (commands denoted by a ;)
       if (substr($line,0,28) == '#NEXT_X_ROWS_AS_ONE_COMMAND:') $keep_together = substr($line,28);
       if (substr($line,0,1) != '#' && substr($line,0,1) != '-' && $line != '') {
-//        if ($table_prefix != -1) {
+//        if (self::$prefix != -1) {
 //echo '*}'.$line.'<br>';
 
           $line_upper=strtoupper($line);
           switch (true) {
           case (substr($line_upper, 0, 21) == 'DROP TABLE IF EXISTS '):
-//            if (!$checkprivs = self::check_database_privs('DROP')) return sprintf(REASON_NO_PRIVILEGES,'DROP');
-            $line = 'DROP TABLE IF EXISTS ' . $table_prefix . substr($line, 21);
+            $line = 'DROP TABLE IF EXISTS ' . self::$prefix . substr($line, 21);
             break;
           case (substr($line_upper, 0, 11) == 'DROP TABLE ' && $param[2] != 'IF'):
-            if (!$checkprivs = self::check_database_privs('DROP')) $result=sprintf(REASON_NO_PRIVILEGES,'DROP');
-            if (!self::table_exists($param[2]) || !\ZMLangUtils::isEmpty($result)) {
+            if (!self::table_exists(self::$prefix.$param[2]) || !\ZMLangUtils::isEmpty($result)) {
               self::write_to_upgrade_exceptions_table($line, (!\ZMLangUtils::isEmpty($result) ? $result : sprintf(REASON_TABLE_DOESNT_EXIST,$param[2])), $sql_file);
               $ignore_line=true;
               $result=(!\ZMLangUtils::isEmpty($result) ? $result : sprintf(REASON_TABLE_DOESNT_EXIST,$param[2])); //duplicated here for on-screen error-reporting
               break;
             } else {
-              $line = 'DROP TABLE ' . $table_prefix . substr($line, 11);
+              $line = 'DROP TABLE ' . self::$prefix . substr($line, 11);
             }
             break;
           case (substr($line_upper, 0, 13) == 'CREATE TABLE '):
             // check to see if table exists
             $table = (strtoupper($param[2].' '.$param[3].' '.$param[4]) == 'IF NOT EXISTS') ? $param[5] : $param[2];
-            $result=self::table_exists($table);
+            $result=self::table_exists(self::$prefix.$table);
             if ($result==true) {
               self::write_to_upgrade_exceptions_table($line, sprintf(REASON_TABLE_ALREADY_EXISTS,$table), $sql_file);
               $ignore_line=true;
               $result=sprintf(REASON_TABLE_ALREADY_EXISTS,$table); //duplicated here for on-screen error-reporting
               break;
             } else {
-              $line = (strtoupper($param[2].' '.$param[3].' '.$param[4]) == 'IF NOT EXISTS') ? 'CREATE TABLE IF NOT EXISTS ' . $table_prefix . substr($line, 27) : 'CREATE TABLE ' . $table_prefix . substr($line, 13);
+              $line = (strtoupper($param[2].' '.$param[3].' '.$param[4]) == 'IF NOT EXISTS') ? 'CREATE TABLE IF NOT EXISTS ' . self::$prefix . substr($line, 27) : 'CREATE TABLE ' . self::$prefix . substr($line, 13);
             }
             break;
           case (substr($line_upper, 0, 15) == 'TRUNCATE TABLE '):
             // check to see if TRUNCATE command may be safely executed
-            if (!$tbl_exists = self::table_exists($param[2])) {
+            if (!$tbl_exists = self::table_exists(self::$prefix.$param[2])) {
               $result=sprintf(REASON_TABLE_NOT_FOUND,$param[2]).' CHECK PREFIXES!' . $param[2];
               self::write_to_upgrade_exceptions_table($line, $result, $sql_file);
               $ignore_line=true;
               break;
             } else {
-              $line = 'TRUNCATE TABLE ' . $table_prefix . substr($line, 15);
+              $line = 'TRUNCATE TABLE ' . self::$prefix . substr($line, 15);
             }
             break;
           case (substr($line_upper, 0, 13) == 'REPLACE INTO '):
             //check to see if table prefix is going to match
-            if (!$tbl_exists = self::table_exists($param[2])) $result=sprintf(REASON_TABLE_NOT_FOUND,$param[2]).' CHECK PREFIXES!';
+            if (!$tbl_exists = self::table_exists(self::$prefix.$param[2])) $result=sprintf(REASON_TABLE_NOT_FOUND,$param[2]).' CHECK PREFIXES!';
             // check to see if INSERT command may be safely executed for "configuration" or "product_type_layout" tables
             if (($param[2]=='configuration'       && ($result=self::check_config_key($line))) or
                 ($param[2]=='product_type_layout' && ($result=self::check_product_type_layout_key($line))) or
@@ -104,12 +106,12 @@ class SQLRunner {
               $ignore_line=true;
               break;
             } else {
-              $line = 'REPLACE INTO ' . $table_prefix . substr($line, 13);
+              $line = 'REPLACE INTO ' . self::$prefix . substr($line, 13);
             }
             break;
           case (substr($line_upper, 0, 12) == 'INSERT INTO '):
             //check to see if table prefix is going to match
-            if (!$tbl_exists = self::table_exists($param[2])) $result=sprintf(REASON_TABLE_NOT_FOUND,$param[2]).' CHECK PREFIXES!';
+            if (!$tbl_exists = self::table_exists(self::$prefix.$param[2])) $result=sprintf(REASON_TABLE_NOT_FOUND,$param[2]).' CHECK PREFIXES!';
             // check to see if INSERT command may be safely executed for "configuration" or "product_type_layout" tables
             if (($param[2]=='configuration'       && ($result=self::check_config_key($line))) or
                 ($param[2]=='product_type_layout' && ($result=self::check_product_type_layout_key($line))) or
@@ -118,18 +120,18 @@ class SQLRunner {
               $ignore_line=true;
               break;
             } else {
-              $line = 'INSERT INTO ' . $table_prefix . substr($line, 12);
+              $line = 'INSERT INTO ' . self::$prefix . substr($line, 12);
             }
             break;
           case (substr($line_upper, 0, 19) == 'INSERT IGNORE INTO '):
             //check to see if table prefix is going to match
-            if (!$tbl_exists = self::table_exists($param[3])) {
+            if (!$tbl_exists = self::table_exists(self::$prefix.$param[3])) {
 	    $result=sprintf(REASON_TABLE_NOT_FOUND,$param[3]).' CHECK PREFIXES!';
       self::write_to_upgrade_exceptions_table($line, $result, $sql_file);
               $ignore_line=true;
               break;
             } else {
-              $line = 'INSERT IGNORE INTO ' . $table_prefix . substr($line, 19);
+              $line = 'INSERT IGNORE INTO ' . self::$prefix . substr($line, 19);
             }
             break;
           case (substr($line_upper, 0, 12) == 'ALTER TABLE '):
@@ -139,12 +141,12 @@ class SQLRunner {
               $ignore_line=true;
               break;
             } else {
-              $line = 'ALTER TABLE ' . $table_prefix . substr($line, 12);
+              $line = 'ALTER TABLE ' . self::$prefix . substr($line, 12);
             }
             break;
           case (substr($line_upper, 0, 13) == 'RENAME TABLE '):
             // RENAME TABLE command cannot be parsed to insert table prefixes, so skip if zen is using prefixes
-            if (!\ZMLangUtils::isEmpty(DB_PREFIX)) {
+            if (!\ZMLangUtils::isEmpty(self::$prefix)) {
               self::write_to_upgrade_exceptions_table($line, 'RENAME TABLE command not supported by upgrader. Please use phpMyAdmin instead.', $sql_file);
               $messageStack->add('RENAME TABLE command not supported by upgrader. Please use phpMyAdmin instead.', 'caution');
 
@@ -153,28 +155,28 @@ class SQLRunner {
             break;
           case (substr($line_upper, 0, 7) == 'UPDATE '):
             //check to see if table prefix is going to match
-            if (!$tbl_exists = self::table_exists($param[1])) {
+            if (!$tbl_exists = self::table_exists(self::$prefix.$param[1])) {
               self::write_to_upgrade_exceptions_table($line, sprintf(REASON_TABLE_NOT_FOUND,$param[1]).' CHECK PREFIXES!', $sql_file);
               $result=sprintf(REASON_TABLE_NOT_FOUND,$param[1]).' CHECK PREFIXES!';
               $ignore_line=true;
               break;
             } else {
-              $line = 'UPDATE ' . $table_prefix . substr($line, 7);
+              $line = 'UPDATE ' . self::$prefix . substr($line, 7);
             }
             break;
           case (substr($line_upper, 0, 14) == 'UPDATE IGNORE '):
             //check to see if table prefix is going to match
-            if (!$tbl_exists = self::table_exists($param[2])) {
+            if (!$tbl_exists = self::table_exists(self::$prefix.$param[2])) {
               self::write_to_upgrade_exceptions_table($line, sprintf(REASON_TABLE_NOT_FOUND,$param[2]).' CHECK PREFIXES!', $sql_file);
               $result=sprintf(REASON_TABLE_NOT_FOUND,$param[2]).' CHECK PREFIXES!';
               $ignore_line=true;
               break;
             } else {
-              $line = 'UPDATE IGNORE ' . $table_prefix . substr($line, 14);
+              $line = 'UPDATE IGNORE ' . self::$prefix . substr($line, 14);
             }
             break;
          case (substr($line_upper, 0, 12) == 'DELETE FROM '):
-            $line = 'DELETE FROM ' . $table_prefix . substr($line, 12);
+            $line = 'DELETE FROM ' . self::$prefix . substr($line, 12);
             break;
           case (substr($line_upper, 0, 11) == 'DROP INDEX '):
             // check to see if DROP INDEX command may be safely executed
@@ -183,7 +185,7 @@ class SQLRunner {
               $ignore_line=true;
               break;
             } else {
-              $line = 'DROP INDEX ' . $param[2] . ' ON ' . $table_prefix . $param[4];
+              $line = 'DROP INDEX ' . $param[2] . ' ON ' . self::$prefix . $param[4];
             }
             break;
           case (substr($line_upper, 0, 13) == 'CREATE INDEX ' || (strtoupper($param[0])=='CREATE' && strtoupper($param[2])=='INDEX')):
@@ -194,34 +196,34 @@ class SQLRunner {
               break;
             } else {
               if (strtoupper($param[1])=='INDEX') {
-                $line = trim('CREATE INDEX ' . $param[2] .' ON '. $table_prefix . implode(' ',array($param[4],$param[5],$param[6],$param[7],$param[8],$param[9],$param[10],$param[11],$param[12],$param[13])) ).';'; // add the ';' back since it was removed from $param at start
+                $line = trim('CREATE INDEX ' . $param[2] .' ON '. self::$prefix . implode(' ',array($param[4],$param[5],$param[6],$param[7],$param[8],$param[9],$param[10],$param[11],$param[12],$param[13])) ).';'; // add the ';' back since it was removed from $param at start
               } else {
-                $line = trim('CREATE '. $param[1] .' INDEX ' .$param[3]. ' ON '. $table_prefix . implode(' ',array($param[5],$param[6],$param[7],$param[8],$param[9],$param[10],$param[11],$param[12],$param[13])) ); // add the ';' back since it was removed from $param at start
+                $line = trim('CREATE '. $param[1] .' INDEX ' .$param[3]. ' ON '. self::$prefix . implode(' ',array($param[5],$param[6],$param[7],$param[8],$param[9],$param[10],$param[11],$param[12],$param[13])) ); // add the ';' back since it was removed from $param at start
               }
             }
             break;
           case (substr($line_upper, 0, 8) == 'SELECT (' && substr_count($line,'FROM ')>0):
-            $line = str_replace('FROM ','FROM '. $table_prefix, $line);
+            $line = str_replace('FROM ','FROM '. self::$prefix, $line);
             break;
           case (substr($line_upper, 0, 10) == 'LEFT JOIN '):
-            $line = 'LEFT JOIN ' . $table_prefix . substr($line, 10);
+            $line = 'LEFT JOIN ' . self::$prefix . substr($line, 10);
             break;
           case (substr($line_upper, 0, 5) == 'FROM '):
             if (substr_count($line,',')>0) { // contains FROM and a comma, thus must parse for multiple tablenames
               $tbl_list = explode(',',substr($line,5));
               $line = 'FROM ';
               foreach($tbl_list as $val) {
-                $line .= $table_prefix . trim($val) . ','; // add prefix and comma
+                $line .= self::$prefix . trim($val) . ','; // add prefix and comma
               } //end foreach
               if (substr($line,-1)==',') $line = substr($line,0,(strlen($line)-1)); // remove trailing ','
             } else { //didn't have a comma, but starts with "FROM ", so insert table prefix
-              $line = str_replace('FROM ', 'FROM '.$table_prefix, $line);
+              $line = str_replace('FROM ', 'FROM '.self::$prefix, $line);
             }//endif substr_count(,)
             break;
           default:
             break;
           } //end switch
-//        } // endif $table_prefix
+//        } // endif self::$prefix
         $newline .= $line . ' ';
 
         if ( substr($line,-1) ==  ';') {
@@ -237,7 +239,7 @@ class SQLRunner {
         } //endif found ';'
 
         if ($complete_line) {
-          if ($debug==true) echo ((!$ignore_line) ? '<br />About to execute.': 'Ignoring statement. This command WILL NOT be executed.').'<br />Debug info:<br>$ line='.$line.'<br>$ complete_line='.$complete_line.'<br>$ keep_together='.$keep_together.'<br>SQL='.$newline.'<br><br>';
+          //if ($debug==true) echo ((!$ignore_line) ? '<br />About to execute.': 'Ignoring statement. This command WILL NOT be executed.').'<br />Debug info:<br>$ line='.$line.'<br>$ complete_line='.$complete_line.'<br>$ keep_together='.$keep_together.'<br>SQL='.$newline.'<br><br>';
           if (get_magic_quotes_runtime() > 0  && $keepslashes != true ) $newline=stripslashes($newline);
           if (trim(str_replace(';','',$newline)) != '' && !$ignore_line) $output=$db->Execute($newline);
           $results++;
@@ -273,7 +275,7 @@ class SQLRunner {
 
   static function table_exists($tablename, $pre_install=false) {
     $db = self::get_db();
-    $tables = $db->Execute("SHOW TABLES like '" . DB_PREFIX . $tablename . "'");
+    $tables = $db->Execute("SHOW TABLES like '" . $tablename . "'");
     if (ZC_UPG_DEBUG3==true) echo 'Table check ('.$tablename.') = '. $tables->RecordCount() .'<br>';
     if ($tables->RecordCount() > 0) {
       return true;
@@ -282,74 +284,16 @@ class SQLRunner {
     }
   }
 
-  static function check_database_privs($priv='',$table='',$show_privs=false) {
-    // bypass until future version
-    return true;
-    // end bypass
-    if (isset($_GET['nogrants'])) return true; // bypass if flag set
-    if (isset($_POST['nogrants'])) return true; // bypass if flag set
-    //Display permissions, or check for suitable permissions to carry out a particular task
-      //possible outputs:
-      //GRANT ALL PRIVILEGES ON *.* TO 'xyz'@'localhost' WITH GRANT OPTION
-      //GRANT SELECT, INSERT, UPDATE, DELETE, CREATE, DROP, FILE, INDEX, ALTER ON *.* TO 'xyz'@'localhost' IDENTIFIED BY PASSWORD '2344'
-      //GRANT SELECT, INSERT, UPDATE, DELETE, CREATE, DROP, INDEX, ALTER ON `db1`.* TO 'xyz'@'localhost'
-      //GRANT SELECT (id) ON db1.tablename TO 'xyz'@'localhost
-    $db = self::get_db();
-    global $db_test;
-    $granted_privs_list='';
-    if (ZC_UPG_DEBUG3==true) echo '<br />Checking for priv: ['.(!\ZMLangUtils::isEmpty($priv) ? $priv : 'none specified').']<br />';
-    $conf = Runtime::getSettings()->get('apps.store.database.default');
-    $user = $conf['user'].'@'.$conf['host'];
-    $sql = "show grants for ".$user;
-    if (ZC_UPG_DEBUG3==true) echo $sql.'<br />';
-    $result = $db->Execute($sql);
-    while (!$result->EOF) {
-      if (ZC_UPG_DEBUG3==true) echo $result->fields['Grants for '.$user].'<br />';
-      $grant_syntax = $result->fields['Grants for '.$user] . ' ';
-      $granted_privs = str_replace('GRANT ','',$grant_syntax); // remove "GRANT" keyword
-      $granted_privs = substr($granted_privs,0,strpos($granted_privs,' TO ')); //remove anything after the "TO" keyword
-      $granted_db = str_replace(array('`','\\'),'',substr($granted_privs,strpos($granted_privs,' ON ')+4) ); //remove backquote and find "ON" string
-      if (ZC_UPG_DEBUG3==true) echo 'privs_list = '.$granted_privs.'<br />';
-      if (ZC_UPG_DEBUG3==true) echo 'granted_db = '.$granted_db.'<br />';
-      $db_priv_ok += ($granted_db == '*.*' || $granted_db==$conf['dbname'].'.*' || $granted_db==$conf['dbname'].'.'.$table) ? true : false;
-      if (ZC_UPG_DEBUG3==true) echo 'db-priv-ok='.$db_priv_ok.'<br />';
-
-      if ($db_priv_ok) {  // if the privs list pertains to the current database, or is *.*, carry on
-        $granted_privs = substr($granted_privs,0,strpos($granted_privs,' ON ')); //remove anything after the "ON" keyword
-        $granted_privs_list .= ($granted_privs_list=='') ? $granted_privs : ', '.$granted_privs;
-
-        $specific_priv_found = (!\ZMLangUtils::isEmpty($priv) && substr_count($granted_privs,$priv)==1);
-        if (ZC_UPG_DEBUG3==true) echo 'specific priv['.$priv.'] found ='.$specific_priv_found.'<br />';
-
-        if (ZC_UPG_DEBUG3==true) echo 'spec+db='.($specific_priv_found && $db_priv_ok == true).' ||| ';
-        if (ZC_UPG_DEBUG3==true) echo 'all+db='.($granted_privs == 'ALL PRIVILEGES' && $db_priv_ok==true).'<br /><br />';
-
-        if (($specific_priv_found && $db_priv_ok == true) || ($granted_privs == 'ALL PRIVILEGES' && $db_priv_ok==true)) {
-          return true; // privs found
-        }
-      } // endif $db_priv_ok
-      $result->MoveNext();
-    }
-    if ($show_privs) {
-      if (ZC_UPG_DEBUG3==true) echo 'LIST OF PRIVS='.$granted_privs_list.'<br />';
-      return $db_priv_ok . '|||'. $granted_privs_list;
-    } else {
-    return false; // if not found, return false
-    }
-  }
-
   static function drop_index_command($param) {
-    if (!$checkprivs = self::check_database_privs('INDEX')) return sprintf(REASON_NO_PRIVILEGES,'INDEX');
     //this is only slightly different from the ALTER TABLE DROP INDEX command
     $db = self::get_db();
     if (\ZMLangUtils::isEmpty($param)) return "Empty SQL Statement";
     $index = $param[2];
-    $sql = "show index from " . DB_PREFIX . $param[4];
+    $sql = "show index from " . self::$prefix . $param[4];
     $result = $db->Execute($sql);
     while (!$result->EOF) {
       if (ZC_UPG_DEBUG3==true) echo $result->fields['Key_name'].'<br />';
       if  ($result->fields['Key_name'] == $index) {
-//        if (!$checkprivs = self::check_database_privs('INDEX')) return sprintf(REASON_NO_PRIVILEGES,'INDEX');
         return; // if we get here, the index exists, and we have index privileges, so return with no error
       }
       $result->MoveNext();
@@ -360,13 +304,12 @@ class SQLRunner {
 
   static function create_index_command($param) {
     //this is only slightly different from the ALTER TABLE CREATE INDEX command
-    if (!$checkprivs = self::check_database_privs('INDEX')) return sprintf(REASON_NO_PRIVILEGES,'INDEX');
     $db = self::get_db();
     if (\ZMLangUtils::isEmpty($param)) return "Empty SQL Statement";
     $index = (strtoupper($param[1])=='INDEX') ? $param[2] : $param[3];
     if (in_array('USING',$param)) return 'USING parameter found. Cannot validate syntax. Please run manually in phpMyAdmin.';
     $table = (strtoupper($param[2])=='INDEX' && strtoupper($param[4])=='ON') ? $param[5] : $param[4];
-    $sql = "show index from " . DB_PREFIX . $table;
+    $sql = "show index from " . self::$prefix . $table;
     $result = $db->Execute($sql);
     while (!$result->EOF) {
       if (ZC_UPG_DEBUG3==true) echo $result->fields['Key_name'].'<br />';
@@ -385,13 +328,12 @@ class SQLRunner {
   static function check_alter_command($param) {
     $db = self::get_db();
     if (\ZMLangUtils::isEmpty($param)) return "Empty SQL Statement";
-    if (!$checkprivs = self::check_database_privs('ALTER')) return sprintf(REASON_NO_PRIVILEGES,'ALTER');
     switch (strtoupper($param[3])) {
       case ("ADD"):
         if (strtoupper($param[4]) == 'INDEX') {
           // check that the index to be added doesn't already exist
           $index = $param[5];
-          $sql = "show index from " . DB_PREFIX . $param[2];
+          $sql = "show index from " . self::$prefix . $param[2];
           $result = $db->Execute($sql);
           while (!$result->EOF) {
             if (ZC_UPG_DEBUG3==true) echo 'KEY: '.$result->fields['Key_name'].'<br />';
@@ -403,7 +345,7 @@ class SQLRunner {
         } elseif (strtoupper($param[4])=='PRIMARY') {
           // check that the primary key to be added doesn't exist
           if ($param[5] != 'KEY') return;
-          $sql = "show index from " . DB_PREFIX . $param[2];
+          $sql = "show index from " . self::$prefix . $param[2];
           $result = $db->Execute($sql);
           while (!$result->EOF) {
             if (ZC_UPG_DEBUG3==true) echo $result->fields['Key_name'].'<br />';
@@ -416,7 +358,7 @@ class SQLRunner {
         } elseif (!in_array(strtoupper($param[4]),array('CONSTRAINT','UNIQUE','PRIMARY','FULLTEXT','FOREIGN','SPATIAL') ) ) {
         // check that the column to be added does not exist
           $colname = ($param[4]=='COLUMN') ? $param[5] : $param[4];
-          $sql = "show fields from " . DB_PREFIX . $param[2];
+          $sql = "show fields from " . self::$prefix . $param[2];
           $result = $db->Execute($sql);
           while (!$result->EOF) {
             if (ZC_UPG_DEBUG3==true) echo $result->fields['Field'].'<br />';
@@ -429,7 +371,7 @@ class SQLRunner {
         } elseif (strtoupper($param[5])=='AFTER') {
           // check that the requested "after" field actually exists
           $colname = ($param[6]=='COLUMN') ? $param[7] : $param[6];
-          $sql = "show fields from " . DB_PREFIX . $param[2];
+          $sql = "show fields from " . self::$prefix . $param[2];
           $result = $db->Execute($sql);
           while (!$result->EOF) {
             if (ZC_UPG_DEBUG3==true) echo $result->fields['Field'].'<br />';
@@ -442,7 +384,7 @@ class SQLRunner {
         } elseif (strtoupper($param[6])=='AFTER') {
           // check that the requested "after" field actually exists
           $colname = ($param[7]=='COLUMN') ? $param[8] : $param[7];
-          $sql = "show fields from " . DB_PREFIX . $param[2];
+          $sql = "show fields from " . self::$prefix . $param[2];
           $result = $db->Execute($sql);
           while (!$result->EOF) {
             if (ZC_UPG_DEBUG3==true) echo $result->fields['Field'].'<br />';
@@ -460,7 +402,7 @@ class SQLRunner {
         if (strtoupper($param[4]) == 'INDEX') {
           // check that the index to be dropped exists
           $index = $param[5];
-          $sql = "show index from " . DB_PREFIX . $param[2];
+          $sql = "show index from " . self::$prefix . $param[2];
           $result = $db->Execute($sql);
           while (!$result->EOF) {
             if (ZC_UPG_DEBUG3==true) echo $result->fields['Key_name'].'<br />';
@@ -475,7 +417,7 @@ class SQLRunner {
         } elseif (strtoupper($param[4])=='PRIMARY') {
           // check that the primary key to be dropped exists
           if ($param[5] != 'KEY') return;
-          $sql = "show index from " . DB_PREFIX . $param[2];
+          $sql = "show index from " . self::$prefix . $param[2];
           $result = $db->Execute($sql);
           while (!$result->EOF) {
             if (ZC_UPG_DEBUG3==true) echo $result->fields['Key_name'].'<br />';
@@ -490,7 +432,7 @@ class SQLRunner {
         } elseif (!in_array(strtoupper($param[4]),array('CONSTRAINT','UNIQUE','PRIMARY','FULLTEXT','FOREIGN','SPATIAL'))) {
           // check that the column to be dropped exists
           $colname = ($param[4]=='COLUMN') ? $param[5] : $param[4];
-          $sql = "show fields from " . DB_PREFIX . $param[2];
+          $sql = "show fields from " . self::$prefix . $param[2];
           $result = $db->Execute($sql);
           while (!$result->EOF) {
             if (ZC_UPG_DEBUG3==true) echo $result->fields['Field'].'<br />';
@@ -508,7 +450,7 @@ class SQLRunner {
       case ("CHANGE"):
         // just check that the column to be changed 'exists'
         $colname = ($param[4]=='COLUMN') ? $param[5] : $param[4];
-        $sql = "show fields from " . DB_PREFIX . $param[2];
+        $sql = "show fields from " . self::$prefix . $param[2];
         $result = $db->Execute($sql);
         while (!$result->EOF) {
           if (ZC_UPG_DEBUG3==true) echo $result->fields['Field'].'<br />';
@@ -539,7 +481,7 @@ class SQLRunner {
      //[4]=blah blah
     $title = $values[1];
     $key  =  $values[3];
-    $sql = "select configuration_title from " . DB_PREFIX . "configuration where configuration_key='".$key."'";
+    $sql = "select configuration_title from " . self::$prefix . "configuration where configuration_key='".$key."'";
     $result = $db->Execute($sql);
     if ($result->RecordCount() >0 ) return sprintf(REASON_CONFIG_KEY_ALREADY_EXISTS,$key);
   }
@@ -550,7 +492,7 @@ class SQLRunner {
     $values=explode("'",$line);
     $title = $values[1];
     $key  =  $values[3];
-    $sql = "select configuration_title from " . DB_PREFIX . "product_type_layout where configuration_key='".$key."'";
+    $sql = "select configuration_title from " . self::$prefix . "product_type_layout where configuration_key='".$key."'";
     $result = $db->Execute($sql);
     if ($result->RecordCount() >0 ) return sprintf(REASON_PRODUCT_TYPE_LAYOUT_KEY_ALREADY_EXISTS,$key);
   }
@@ -558,7 +500,7 @@ class SQLRunner {
   static function write_to_upgrade_exceptions_table($line, $reason, $sql_file) {
     $db = self::get_db();
     self::create_exceptions_table();
-    $sql="INSERT INTO " . DB_PREFIX . "upgrade_exceptions VALUES (0,'". $sql_file."','".$reason."', now(), '".addslashes($line)."')";
+    $sql="INSERT INTO " . self::$prefix . "upgrade_exceptions VALUES (0,'". $sql_file."','".$reason."', now(), '".addslashes($line)."')";
      if (ZC_UPG_DEBUG3==true) echo '<br />sql='.$sql.'<br />';
     $result = $db->Execute($sql);
     return $result;
@@ -567,14 +509,14 @@ class SQLRunner {
   static function purge_exceptions_table() {
     $db = self::get_db();
     self::create_exceptions_table();
-    $result = $db->Execute("TRUNCATE TABLE " . DB_PREFIX."upgrade_exceptions");
+    $result = $db->Execute("TRUNCATE TABLE " . self::$prefix."upgrade_exceptions");
     return $result;
   }
 
   static function create_exceptions_table() {
     $db = self::get_db();
-    if (!self::table_exists('upgrade_exceptions')) {
-        $result = $db->Execute("CREATE TABLE " . DB_PREFIX . "upgrade_exceptions (
+    if (!self::table_exists(self::$prefix.'upgrade_exceptions')) {
+        $result = $db->Execute("CREATE TABLE " . self::$prefix . "upgrade_exceptions (
             upgrade_exception_id smallint(5) NOT NULL auto_increment,
             sql_file varchar(50) default NULL,
             reason varchar(200) default NULL,

@@ -49,8 +49,7 @@ class ZMDbUtils {
         // disable to allow plugins to insert HTML into the database...
         //$sql = ZMSecurityTools::sanitize($sql);
         if (!empty($sql)) {
-            $conf = Runtime::getSettings()->get('apps.store.database.default');
-            $results = SQLRunner::execute_sql($sql, $conf['dbname'], $conf['prefix']);
+            $results = SQLRunner::execute_sql($sql);
             foreach (ZMDbUtils::processPatchResults($results) as $msg) {
                 $messages[] = $msg;
             }

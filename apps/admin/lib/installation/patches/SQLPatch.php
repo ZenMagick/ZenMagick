@@ -73,8 +73,7 @@ class SQLPatch extends InstallationPatch {
     function _runSQL($sql) {
         $sql = \ZMRequest::sanitize($sql);
         if (!empty($sql)) {
-            $params = Runtime::getSettings()->get('apps.store.database.default');
-            $results = SQLRunner::execute_sql($sql, $params['dbname'], $params['prefix']);
+            $results = SQLRunner::execute_sql($sql);
             $this->_processSQLMessages($results);
             return empty($results['error']);
         }
