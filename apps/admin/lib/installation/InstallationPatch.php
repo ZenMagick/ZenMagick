@@ -21,6 +21,7 @@
 <?php
 namespace zenmagick\apps\store\admin\installation;
 
+use zenmagick\base\Runtime;
 use zenmagick\base\ZMObject;
 
 /**
@@ -33,6 +34,7 @@ class InstallationPatch extends ZMObject {
     public $messages_;
     protected $id_;
     protected $label_;
+    protected $zcAdminPath;
 
     /**
      * Create new patch.
@@ -145,4 +147,32 @@ class InstallationPatch extends ZMObject {
         return true;
     }
 
+    function getZcAdminPath() {
+        if (null != $this->zcAdminPath) return $this->zcAdminPath;
+        $this->zcAdminPath = $this->guessZcAdminPath();
+        return $this->zcAdminPath;
+    }
+
+    /**
+     * Get full path to ZenCart admin
+     *
+     * return string full path to ZenCart Admin
+     */
+    public function guessZcAdminPath() {
+
+        $folder = null;
+        $basePath = dirname(Runtime::getInstallationPath());
+        if (false !== ($handle = opendir($basePath))) {
+            while (false !== ($file = readdir($handle))) {
+                if (is_dir($basePath.'/'.$file) && !in_array($file, array('.', '..'))) {
+                    if (file_exists(realpath($basePath.'/'.$file.'/specials.php')) && file_exists(realpath($basePath.'/'.$file.'/featured.php'))) {
+                        $folder = $file;
+                        break;
+                    }
+                }
+            }
+            closedir($handle);
+        }
+        return $basePath.'/'.$folder;
+    }
 }

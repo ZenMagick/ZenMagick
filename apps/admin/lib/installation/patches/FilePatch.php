@@ -29,7 +29,6 @@ use zenmagick\apps\store\admin\installation\InstallationPatch;
  * @author DerManoMann <mano@zenmagick.org>
  */
 class FilePatch extends InstallationPatch {
-    protected $zcAdminPath;
 
     /**
      * Create new patch.
@@ -42,16 +41,6 @@ class FilePatch extends InstallationPatch {
     }
 
 
-    /**
-     * Get full path to ZenCart admin
-     *
-     * return string
-     */
-    public function getZcAdminPath() {
-        if (null != $this->zcAdminPath) return $this->zcAdminPath;
-        $this->zcAdminPath = ZC_INSTALL_PATH .ZENCART_ADMIN_FOLDER;
-        return $this->zcAdminPath;
-    }
 
     /**
      * Get the patch group id.
@@ -61,7 +50,6 @@ class FilePatch extends InstallationPatch {
     function getGroupId() {
         return 'file';
     }
-
 
     /**
      * Load the given file line by line.
