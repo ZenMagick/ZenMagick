@@ -81,6 +81,23 @@ class ZMConfig extends ZMObject {
     }
 
     /**
+     * Create Configuration Group
+     *
+     * @param string name The name of the configuration group
+     * @param string description The description of the configuration group
+     * @param bool visible Is the configuration group visible
+     * @param int sortOder The sort order of the configuration group
+     */
+    public function createConfigGroup($name, $description = '', $visible = true, $sortOrder = 0) {
+        $configGroup = Beans::getBean("ZMConfigGroup");
+        $configGroup->setName($name);
+        $configGroup->setDescription($description);
+        $configGroup->setVisible($visible);
+        $configGroup->setSortOrder($sortOrder);
+        return ZMRuntime::getDatabase()->createModel('configuration_group', $configGroup);
+    }
+
+    /**
      * Update config value.
      *
      * @param string key The config key.
@@ -315,6 +332,20 @@ class ZMConfig extends ZMObject {
                 FROM " . DB_PREFIX . "configuration_group
                 WHERE configuration_group_id = :id";
         return ZMRuntime::getDatabase()->querySingle($sql, array('id' => $groupId), 'configuration_group', 'ZMConfigGroup');
+    }
+
+    /**
+     * Get a configuration group for name.
+     *
+     * @param string name The name of the group.
+     * @return ZMConfigGroup A <code>ZMConfigGroup</code> instance or <code>null</code>.
+     */
+    public function getConfigGroupForName($name) {
+        
+        $sql = "SELECT *
+                FROM " . DB_PREFIX . "configuration_group
+                WHERE configuration_group_title = :name";
+        return ZMRuntime::getDatabase()->querySingle($sql, array('name' => $name), 'configuration_group', 'ZMConfigGroup');
     }
 
     /**
