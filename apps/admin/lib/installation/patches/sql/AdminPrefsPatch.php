@@ -41,6 +41,7 @@ class AdminPrefsPatch extends SQLPatch {
     public function __construct() {
         parent::__construct('sqlAdminPrefs');
         $this->label_ = 'Create new admin preferences table';
+        $this->setTables('admin_prefs');
     }
 
 
@@ -50,8 +51,7 @@ class AdminPrefsPatch extends SQLPatch {
      * @return boolean <code>true</code> if this patch can still be applied.
      */
     function isOpen() {
-        $sm = \ZMRuntime::getDatabase()->getSchemaManager();
-        return !$sm->tablesExist(array(DB_PREFIX.'admin_prefs'));
+        return !$this->tablesExist();
     }
 
     /**
@@ -64,7 +64,7 @@ class AdminPrefsPatch extends SQLPatch {
     function patch($force=false) {
         $baseDir = Runtime::getInstallationPath();
         // do only interactive
-        if ($force) {
+        if ($force || $this->isOpen()) {
             $status = true;
             foreach ($this->sqlFiles_ as $file) {
                 $sql = file($baseDir.$file);
@@ -73,21 +73,6 @@ class AdminPrefsPatch extends SQLPatch {
             return $status;
         }
 
-        return true;
-    }
-
-    /**
-     * Revert the patch.
-     *
-     * @return boolean <code>true</code> if patching was successful, <code>false</code> if not.
-     */
-    function undo() {
-        if ($this->isOpen()) {
-            return true;
-        }
-
-        $sm = \ZMRuntime::getDatabase()->getSchemaManager();
-        $sm->dropTable(DB_PREFIX.'admin_prefs');
         return true;
     }
 }

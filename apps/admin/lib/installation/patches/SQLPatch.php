@@ -34,6 +34,7 @@ use zenmagick\apps\store\admin\utils\SQLRunner;
  * @author DerManoMann <mano@zenmagick.org>
  */
 class SQLPatch extends InstallationPatch {
+    protected $tables; 
 
     /**
      * Create new patch.
@@ -42,8 +43,21 @@ class SQLPatch extends InstallationPatch {
      */
     public function __construct($id) {
         parent::__construct($id);
+        $this->tables = array();
     }
 
+
+    function setTables($tables) {
+        $this->tables = (array)$tables;
+    }
+
+    function getTables() {
+        $tables = array();
+        foreach($this->tables as $table) {
+            $tables[] = \ZMRuntime::getDatabase()->getPrefix().$table;
+        }
+        return $tables;
+    }
 
     /**
      * Get the patch group id.
@@ -63,6 +77,26 @@ class SQLPatch extends InstallationPatch {
      */
     function getPreconditionsMessage() {
         return "";
+    }
+
+    function tablesExist() {
+        $sm = \ZMRuntime::getDatabase()->getSchemaManager();
+        return $sm->tablesExist($this->getTables());
+    }
+
+    /**
+     * Revert the patch.
+     *
+     * @return boolean <code>true</code> if patching was successful, <code>false</code> if not.
+     */
+    function undo() {
+        if ($this->isOpen()) return true;
+
+        $sm = \ZMRuntime::getDatabase()->getSchemaManager();
+        foreach ($this->getTables() as $table) {
+            $sm->dropTable($table);
+        }
+        return parent::undo();
     }
 
     /**

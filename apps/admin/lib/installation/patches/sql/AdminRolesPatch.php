@@ -41,6 +41,7 @@ class AdminRolesPatch extends SQLPatch {
     public function __construct() {
         parent::__construct('sqlAdminRoles');
         $this->label_ = 'Create tables for new role based admin access control';
+        $this->setTables(array('admins_to_roles', 'admin_roles'));
     }
 
 
@@ -50,8 +51,7 @@ class AdminRolesPatch extends SQLPatch {
      * @return boolean <code>true</code> if this patch can still be applied.
      */
     function isOpen() {
-        $sm = \ZMRuntime::getDatabase()->getSchemaManager();
-        return !$sm->tablesExist(array(DB_PREFIX.'admin_roles', DB_PREFIX.'admins_to_roles'));
+        return !$this->tablesExist();
     }
 
     /**
@@ -64,7 +64,7 @@ class AdminRolesPatch extends SQLPatch {
     function patch($force=false) {
         $baseDir = Runtime::getInstallationPath();
         // do only interactive
-        if ($force) {
+        if ($force || $this->isOpen()) {
             $status = true;
             foreach ($this->sqlFiles_ as $file) {
                 $sql = file($baseDir.$file);
@@ -75,21 +75,4 @@ class AdminRolesPatch extends SQLPatch {
 
         return true;
     }
-
-    /**
-     * Revert the patch.
-     *
-     * @return boolean <code>true</code> if patching was successful, <code>false</code> if not.
-     */
-    function undo() {
-        if ($this->isOpen()) {
-            return true;
-        }
-
-        $sm = \ZMRuntime::getDatabase()->getSchemaManager();
-        $sm->dropTable(DB_PREFIX.'admins_to_roles');
-        $sm->dropTable(DB_PREFIX.'admin_roles');
-        return true;
-    }
-
 }
