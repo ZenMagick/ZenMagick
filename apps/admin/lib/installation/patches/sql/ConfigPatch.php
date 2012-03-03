@@ -22,6 +22,7 @@
 namespace zenmagick\apps\store\admin\installation\patches\sql;
 
 use zenmagick\base\Runtime;
+use zenmagick\base\Beans;
 use zenmagick\apps\store\admin\installation\patches\SQLPatch;
 
 
@@ -31,9 +32,6 @@ use zenmagick\apps\store\admin\installation\patches\SQLPatch;
  * @author DerManoMann <mano@zenmagick.org>
  */
 class ConfigPatch extends SQLPatch {
-    var $sqlFiles_ = array(
-        "/shared/etc/sql/mysql/config.sql"
-    );
     var $sqlUndoFiles_ = array(
         "/shared/etc/sql/mysql/config_undo.sql"
     );
@@ -54,7 +52,7 @@ class ConfigPatch extends SQLPatch {
      * @return boolean <code>true</code> if this patch can still be applied.
      */
     function isOpen() {
-        return !defined('ZENMAGICK_CONFIG_GROUP_ID');
+        return true;
     }
 
     /**
@@ -65,16 +63,44 @@ class ConfigPatch extends SQLPatch {
      * @return boolean <code>true</code> if patching was successful, <code>false</code> if not.
      */
     function patch($force=false) {
-        $baseDir = Runtime::getInstallationPath();
-        // do only interactive
-        if ($force) {
-            $status = true;
-            foreach ($this->sqlFiles_ as $file) {
-                $sql = file($baseDir.$file);
-                $status |= $this->_runSQL($sql);
-            }
-            return $status;
+        $configService = Runtime::getContainer()->get('configService');
+
+        // Create configuration groups
+        $group = $configService->getConfigGroupForName('ZenMagick Configuration');
+        if (null == $group) {
+            $group = $configService->createConfigGroup('ZenMagick Configuration', 'ZenMagick Configuration', false);
         }
+
+        $pluginGroup = $configService->getConfigGroupForName('ZenMagick Plugins');
+        if (null == $pluginGroup) {
+            $pluginGroup = $configService->createConfigGroup('ZenMagick Plugins', 'ZenMagick Plugins', false);
+        }
+        $groupId = $group->getId();
+        $pluginGroupId = $pluginGroup->getId();
+
+        // create configuration values
+        if (null == $configService->getConfigValue('ZENMAGICK_CONFIG_GROUP_ID')) {
+            $configService->createConfigValue('ZenMagick Configuration Group Id', 'ZENMAGICK_CONFIG_GROUP_ID', $groupId, $groupId);
+        }
+        if (null == $configService->getConfigValue('ZENMAGICK_PLUGIN_STATUS')) {
+            $configService->createConfigValue('ZenMagick Plugin Status', 'ZENMAGICK_PLUGIN_STATUS', '', $groupId);
+        }
+        if (null == $configService->getConfigValue('ZENMAGICK_PLUGIN_GROUP_ID')) {
+            $configService->createConfigValue('ZenMagick Plugins Group Id', 'ZENMAGICK_PLUGIN_GROUP_ID', $pluginGroupId, $groupId);
+        }
+
+        $adminDir = $configService->getConfigValue('ZENCART_ADMIN_FOLDER');
+        $guessedDir = basename($this->guessZcAdminPath());
+        if (null == $adminDir) {
+            $configService->createConfigValue('zencart admin folder', 'ZENCART_ADMIN_FOLDER', $guessedDir, $groupId);
+            $adminDir = $guessedDir;
+        }
+        if ($adminDir != $guessedDir) { // Update
+            $configService->updateConfigValue('ZENCART_ADMIN_FOLDER', $guessedDir);
+        }
+
+        // @todo ??? ?
+        //UPDATE configuration SET configuration_group_id = @t5 WHERE configuration_key like 'PLUGIN_REQUEST_%';
 
         return true;
     }
@@ -85,10 +111,6 @@ class ConfigPatch extends SQLPatch {
      * @return boolean <code>true</code> if patching was successful, <code>false</code> if not.
      */
     function undo() {
-        if ($this->isOpen()) {
-            return true;
-        }
-
         $baseDir = Runtime::getInstallationPath();
         $status = true;
         foreach ($this->sqlUndoFiles_ as $file) {
@@ -97,5 +119,4 @@ class ConfigPatch extends SQLPatch {
         }
         return $status;
     }
-
 }
