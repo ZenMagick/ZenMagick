@@ -30,17 +30,25 @@ $application = new HttpApplication($config);
 $application->bootstrap(array('init'));
 $installer = new zenmagick\apps\store\admin\installation\InstallationPatcher();
 
+$messageService = Runtime::getContainer()->get('messageService');
 // Get DB Config first!
-$installer->getPatchForId('importZencartConfigure')->patch();
+$status = $installer->getPatchForId('importZencartConfigure')->patch();
 
-if(!defined('DB_PREFIX')) define('DB_PREFIX', \ZMRuntime::getDatabase()->getPrefix());
-
-$patches = array('sqlConfig','sacsPermissions', 'sqlAdminRoles', 'sqlAdminPrefs'); 
+$patches = array('importZencartConfigure', 'sqlConfig','sacsPermissions', 'sqlAdminRoles', 'sqlAdminPrefs'); 
 foreach ($patches as $patch) {
     $patchObj = $installer->getPatchForId($patch);
     if ($patchObj->isOpen()) {
-        $patchObj->patch(); 
+        $status = $patchObj->patch(); 
+        $messageService->addAll($patchObj->getMessages());
+        if ($status) {
+            $messageService->success("'".$patchObj->getLabel()."' installed successfully");
+        } else {
+            $messageService->error("Could not install '".$patchObj->getLabel()."'");
+        }
     }
+    // @todo DB_PREFIX must die! It is needed for the sqlConfig patch to run.
+    if (!defined('DB_PREFIX')) define('DB_PREFIX', \ZMRuntime::getDatabase()->getPrefix());
 }
-die('installed patches');
-$application->serve();
+
+$request = Runtime::getContainer()->get('request');
+$request->redirect($request->url('login'));
