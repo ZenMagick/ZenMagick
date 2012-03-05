@@ -65,12 +65,12 @@ class Dispatcher extends ZMObject {
         // load saved messages
         $messageService->loadMessages($request->getSession());
 
-        $eventDispatcher->dispatch('dispatch_start', new Event(null, array('request' => $request)));
+        $eventDispatcher->dispatch('dispatch_start', new Event($this, array('request' => $request)));
         $view = $this->handleRequest($request);
-        $eventDispatcher->dispatch('dispatch_done', new Event(null, array('request' => $request)));
+        $eventDispatcher->dispatch('dispatch_done', new Event($this, array('request' => $request)));
 
         // allow plugins and event subscribers to filter/modify the final contents; corresponds with ob_start() in init.php
-        $event = new Event(null, array('request' => $request, 'view' => $view, 'content' => ob_get_clean()));
+        $event = new Event($this, array('request' => $request, 'view' => $view, 'content' => ob_get_clean()));
         $eventDispatcher->dispatch('finalise_content', $event);
 
         echo $event->get('content');
@@ -80,7 +80,7 @@ class Dispatcher extends ZMObject {
         $messageService->saveMessages($request->getSession());
 
         // all done
-        $eventDispatcher->dispatch('all_done', new Event(null, array('request' => $request, 'view' => $view, 'content' => $event->get('content'))));
+        $eventDispatcher->dispatch('all_done', new Event($this, array('request' => $request, 'view' => $view, 'content' => $event->get('content'))));
         $request->closeSession();
     }
 
