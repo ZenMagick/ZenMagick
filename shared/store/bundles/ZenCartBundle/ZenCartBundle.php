@@ -137,62 +137,12 @@ class ZenCartBundle extends Bundle {
     }
 
     /**
-     * Guess zc admin folder.
-     *
-     * @param boolean useDb Flag to indicate whether we can use the db or not.
-     * @return The dir name.
-     */
-    protected function guessAdminFolder($useDb) {
-        if ($useDb) {
-            try {
-                $configService = $this->container->get('configService');
-                if (null != ($value = $configService->getConfigValue(self::ZENCART_ADMIN_FOLDER)) && file_exists(realpath(Runtime::getInstallationPath().'/'.$value->getValue()))) {
-                    return $value->getValue();
-                }
-            } catch (\ZMDatabaseException $e) {
-                // might get that if no db access because no configure.php loaded yet...
-            }
-        }
-
-        $basePath = dirname(Runtime::getInstallationPath());
-        $folder = null;
-        if (false !== ($handle = opendir($basePath))) {
-            while (false !== ($file = readdir($handle))) {
-                if (is_dir($basePath.'/'.$file) && !in_array($file, array('.', '..'))) {
-                    if (file_exists(realpath($basePath.'/'.$file.'/includes/configure.php')) && file_exists(realpath($basePath.'/'.$file.'/featured.php'))) {
-                        $folder = $file;
-                        break;
-                    }
-                }
-            }
-            closedir($handle);
-        }
-
-        // save
-        if ($useDb) {
-            try {
-                if (null != $folder && defined('ZENMAGICK_CONFIG_GROUP_ID')) {
-                    if ($value) {
-                        // config option exists
-                        $configService->updateConfigValue(self::ZENCART_ADMIN_FOLDER, $folder);
-                    } else {
-                        $configService->createConfigValue('zencart admin folder', self::ZENCART_ADMIN_FOLDER, $folder, ZENMAGICK_CONFIG_GROUP_ID);
-                    }
-                }
-            } catch (\ZMDatabaseException $e) {
-                // might get that if no db access because no configure.php loaded yet...
-            }
-        }
-
-        return $folder;
-    }
-
-    /**
      * Prepare db config
      */
     public function onInitConfigDone($event) {
         if (Runtime::isContextMatch('admin') || (defined('IS_ADMIN_FLAG') && IS_ADMIN_FLAG)) {
-            if (null != ($folder = $this->guessAdminFolder(false))) {
+            $folder = $this->container->get('configService')->getConfigValue(self::ZENCART_ADMIN_FOLDER);
+            if (null != $folder) {
                 $this->container->get('settingsService')->set('apps.store.zencart.admindir', $folder);
             }
             Runtime::getSettings()->set('zenmagick.base.context', 'admin');
@@ -214,12 +164,6 @@ class ZenCartBundle extends Bundle {
         if (Runtime::isContextMatch('admin') || (defined('IS_ADMIN_FLAG') && IS_ADMIN_FLAG)) {
             $settingsService = $this->container->get('settingsService');
             $settingsService->set('apps.store.baseUrl', 'http://'.$request->getHostname().str_replace('zenmagick/apps/admin/web', '', $request->getContext()));
-
-            $folder = $settingsService->get('apps.store.zencart.admindir');
-            if ($settingsService->get('apps.store.zencart.admindir')) {
-                // guess again, because we might not have had a db connection before
-                $folder = $this->guessAdminFolder(true);
-            }
         }
 
         if (Runtime::isContextMatch('admin') && defined('EMAIL_ENCODING_METHOD') && null == $request->getRequestId()) {
