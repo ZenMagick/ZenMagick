@@ -52,7 +52,6 @@
         </copy>
 
         <!-- copy docs -->
-        <copy tofile="${release.admin.dir}/Readme.txt" file="etc/build/docs/Readme-admin.txt" />
         <copy tofile="${release.admin.dir}/Install.txt" file="etc/build/docs/Install-admin.txt" />
 
         <!-- rename zenmagick folder to avoid overlap with main build at the cost of having separate copies -->

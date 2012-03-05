@@ -14,31 +14,17 @@ your theme directory and local.php file before installing a new version. This
 helps to avoid having obsolete files staying around.
 
 
-2. Updating admin
-=================
-
-ZenMagick contains files that need to be added to the zen-cart admin directory. 
-If you have renamed your admin directory as recommened by zen-cart (obscurity 
-rather than security), you have two options:
-
-* Move the contents of the ZenMagick admin folder manually into your renamed 
-  admin directory
-* Extract the release locally, rename the extracted admin folder, zip everything 
-  up again and use the new zip file for installation. 
-
-
-3. Configuration
+2. Configuration
 ================
 
-3.1 ZenMagick Patches
+2.1 ZenMagick Patches
 ---------------------
 Even though ZenMagick does not contain modified zen-cart files, it requires 
 changes to zen-cart files in order to work properly. ZenMagick contains a set 
 of patches to automatically perform those modifications.
 
-If you are installing ZenMagick for the first time, those patches will need to be 
-run the first time you login to zen-cart admin. A new menu item 'ZenMagic Installation'
-should be under Tools.
+If you are installing ZenMagick for the first time, those patches will need to be
+run by visiting http://[YOUR DOMAIN]/zenmagick/apps/admin/web/upgrade.php
 
 NOTE: If you are installing a full build these patches are already applied to the included
 zen cart files.
@@ -47,22 +33,18 @@ As an alternative pre-patched versions of all affected zencart files are include
 in the etc folder.
 
 
-3.2 Troubleshooting
+2.2 Troubleshooting
 -------------------
-There are a few reasons why the patches might not work as expected. If that 
-is the case you may not see the ZenMagick menu, but only a menu item ZenMagick 
-Installation under the Tools menu. Selecting that, you will see ZenMagick's installation 
-options and error messages detailing why the patches did not work.
 
 Please check the wiki [http://wiki.zenmagick.org/] section about troubleshooting.
 You may also consult the forum [http://forum.zenmagick.org/] for similar topics or ask for help.
 
-3.3 Required zen-cart configuration settings 
+2.3 Required zen-cart configuration settings 
 --------------------------------------------
 * When using ZenMagick themes, the missing page check must be disabled using zen-cart
   admin (Configuration -> My Store: 'Missing Page Check'). 
 
-3.4 Additional configuration
+2.4 Additional configuration
 ----------------------------
 This release includes a sample ZenMagick config file named local.php.in. If required,
 rename to local.php and uncomment the settings you need.
@@ -73,7 +55,7 @@ Also, keep in mind that you can also create a local.php file in your theme's ext
 if you are using multiple themes and need theme specific configuration.
 
 
-4. Further information
+3. Further information
 ======================
 
 For more information and help please check http://www.zenmagic.org/. The wiki and forum are typically

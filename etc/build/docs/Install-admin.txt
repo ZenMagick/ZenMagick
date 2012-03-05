@@ -18,33 +18,13 @@ and unpack on the server using the management consoles file manager.
 
 2.1 Run SQL scripts
 -------------------
-ZenMagick admin requires a couple additional database tables. The following scripts need to be run
-via the Zen Cart SQL Patch tool:
-
-* zmadmin/shared/etc/sql/mysql/admin_prefs_install.sql
-* zmadmin/shared/etc/sql/mysql/admin_roles_install.sql
-
-NOTE: Corresponding un-install scripts are located in the same folder.
-
-2.2 Optional steps for Zen Cart installations with renamed admin folder
------------------------------------------------------------------------
-If you have renamed your admin folder (as per Zen Cart recommendation), you will need to manually
-edit the file 'zmadmin/apps/admin/web/index.php'
-
-Find this line: 
-
-  define('ZC_ADMIN_NAME', 'admin');
-
-and change admin to whatever the name of your admin folder.
+Open a browser and browse to http://[YOUR_DOMAIN]/zmadmin/apps/admin/web/upgrade.php
 
 
 3. Using ZenMagick admin
 ========================
 
-Once installed, there will be a new menu item Tools = ZenMagick Admin that will let you log in into the 
-ZenMagick admin application.
-
-Alternatively, open a browser and browse to http://[YOUR_DOMAIN]/zmadmin/apps/admin/web/
+Open a browser and browse to http://[YOUR_DOMAIN]/zmadmin/apps/admin/web/
 
 If all is well you should see the ZenMagick admin login page. Login details are shared with Zen Cart,
 so just login using your normal admin credentials.

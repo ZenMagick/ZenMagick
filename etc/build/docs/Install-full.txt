@@ -27,10 +27,6 @@ to actually install and set up ZenMagick.
 
 4. Troubleshooting
 ==================
-There are a few reasons why the patches might not work as expected. If that 
-is the case you may not see the ZenMagick menu, but only a menu item ZenMagick 
-Installation under the Tools menu. Selecting that, you will see ZenMagick's installation 
-options and error messages detailing why the patches did not work.
 
 Please check the wiki [http://wiki.zenmagick.org/] section about troubleshooting.
 You may also consult the forum [http://forum.zenmagick.org/] for similar topics or ask for help.
