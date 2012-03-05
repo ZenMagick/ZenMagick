@@ -78,7 +78,7 @@ class ControllerParameterMapper extends ZMObject implements ParameterMapper {
                         $value = Beans::getBean($hintClass->name);
                         $value->populate($this->request);
                     } else if ($this->container->has($rp->name)) {
-                        if ($service = $this->container->get($rp->name) instanceof $hintClass->name) {
+                        if (($service = $this->container->get($rp->name)) instanceof $hintClass->name) {
                             $value = $service;
                         }
                     } else {
