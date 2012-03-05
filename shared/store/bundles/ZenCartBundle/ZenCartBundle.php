@@ -91,12 +91,11 @@ class ZenCartBundle extends Bundle {
      */
     public function onInitConfigDone($event) {
         $this->prepareConfig();
-        if (Runtime::isContextMatch('admin') || (defined('IS_ADMIN_FLAG') && IS_ADMIN_FLAG)) {
-            $folder = $this->container->get('configService')->getConfigValue(self::ZENCART_ADMIN_FOLDER);
-            if (null != $folder) {
-                $this->container->get('settingsService')->set('apps.store.zencart.admindir', $folder);
+        if (Runtime::isContextMatch('admin')) {
+            $adminDir = $this->container->get('configService')->getConfigValue(self::ZENCART_ADMIN_FOLDER);
+            if (null != $adminDir) {
+                $this->container->get('settingsService')->set('apps.store.zencart.admindir', $adminDir->getValue());
             }
-            Runtime::getSettings()->set('zenmagick.base.context', 'admin');
         }
 
 
@@ -111,15 +110,11 @@ class ZenCartBundle extends Bundle {
      */
     public function onContainerReady($event) {
         $request = $event->get('request');
-        if (Runtime::isContextMatch('admin') || (defined('IS_ADMIN_FLAG') && IS_ADMIN_FLAG)) {
+        if (Runtime::isContextMatch('admin')) {
             $settingsService = $this->container->get('settingsService');
             $settingsService->set('apps.store.baseUrl', 'http://'.$request->getHostname().str_replace('zenmagick/apps/admin/web', '', $request->getContext()));
         }
 
-        if (Runtime::isContextMatch('admin') && defined('EMAIL_ENCODING_METHOD') && null == $request->getRequestId()) {
-            // old zc admin?
-            $request->setRequestId(str_replace('.php', '', $request->getFrontController()));
-        }
     }
 
     /**
