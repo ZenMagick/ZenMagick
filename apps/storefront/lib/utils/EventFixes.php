@@ -37,6 +37,25 @@ use zenmagick\http\view\TemplateView;
 class EventFixes extends ZMObject {
 
     /**
+     * Generic zen-cart event observer.
+     *
+     * <p>Implemented to generate some ZenMagick events triggered by zen-cart events.</p>
+     */
+    public function update($eventId, $args) {
+        if (!\ZMsettings::get('isEnableZMThemes', true)) {
+            if (0 === strpos($eventId, 'NOTIFY_HEADER_START_')) {
+                $controllerId = str_replace('NOTIFY_HEADER_START_', '', $eventId);
+                $args = array_merge($args, array('controllerId' => $controllerId, 'request' => $this->container->get('request')));
+                Runtime::getEventDispatcher()->dispatch('controller_process_start', new Event($this, $args));
+            } else if (0 === strpos($eventId, 'NOTIFY_HEADER_END_')) {
+                $controllerId = str_replace('NOTIFY_HEADER_END_', '', $eventId);
+                $args = array_merge($args, array('controllerId' => $controllerId, 'request' => $this->container->get('request')));
+                Runtime::getEventDispatcher()->dispatch('controller_process_end', new Event($this, $args));
+            }
+        }
+    }
+
+    /**
      * Fake theme resolved event if using zen-cart templates and handle persisted messages.
      */
     public function zcInit($event) {

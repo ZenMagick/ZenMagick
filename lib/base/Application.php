@@ -76,7 +76,7 @@ class Application {
             'appConfig' => array(),
 
             // ini
-            'display_errors'=> true,
+            'display_errors'=> false,
             'error_reporting' => -1,
             'log_errors' => true
         );
@@ -478,9 +478,9 @@ class Application {
         $settingsService = Runtime::getSettings();
         if ($settingsService->get('zenmagick.base.logging.handleErrors')) {
             $logging = Runtime::getLogging();
-            //set_error_handler(array($logging, 'errorHandler'));
-            //set_exception_handler(array($logging, 'exceptionHandler'));
-            //register_shutdown_function(array($logging, 'shutdownHandler'));
+            set_error_handler(array($logging, 'errorHandler'));
+            set_exception_handler(array($logging, 'exceptionHandler'));
+            register_shutdown_function(array($logging, 'shutdownHandler'));
         }
         Runtime::getLogging()->debug(sprintf('environment is: %s', $this->config['environment']));
     }

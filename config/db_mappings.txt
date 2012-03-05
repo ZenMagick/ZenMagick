@@ -622,10 +622,6 @@ array(
         'title' => array('column' => 'title', 'type' => 'text'),
         'text' => array('column' => 'reviews_text', 'type' => 'text')
     ),
-    'sacs_permissions' => array(
-
-
-    ),
     'salemaker_sales' => array(
         'saleId' => array('column' => 'sale_id', 'type' => 'integer', 'key' => true, 'auto' => true),
         'status' => array('column' => 'sale_status', 'type' => 'boolean'),

@@ -112,20 +112,6 @@ class InstallationPatcher extends ZMObject {
     }
 
     /**
-     * Run a set of patches
-     *
-     * @param mixed a single patch or an array of patches
-     */
-    function installPatches($patches) {
-        $patches = (array)$patches;
-        foreach ($patches as $patchId) {
-            $patch = $this->getPatchForId($patchId);
-            if (null == $patch) continue;
-            $status = $patch->patch();
-        }
-    }
-
-    /**
      * Get all patches.
      *
      * @param string groupId Optional group id.

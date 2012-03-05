@@ -48,7 +48,7 @@ class YamlLoader extends \Symfony\Component\Routing\Loader\YamlFileLoader {
      * {@inheritDoc}
      */
     public function load($file, $type=null) {
-        if (is_array($file) || empty($file)) {
+        if (empty($file)) {
             return new RouteCollection();
         }
         return parent::load($file, $type);

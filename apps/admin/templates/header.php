@@ -35,7 +35,7 @@
       </p>
       <p id="header-opts">
         <a href="<?php echo $settingsService->get('apps.store.baseUrl') ?>" target="_blank">Storefront</a>
-        | <a href="<?php echo $request->getHostname().'/'. $settingsService->get('apps.store.zencart.admindir').'/index.php'; ?>" target="_blank">OLD Admin</a>
+        | <a href="<?php echo  $settingsService->get('apps.store.oldAdminUrl') ?>" target="_blank">OLD Admin</a>
         | <a href="http://forum.zenmagick.org/" target="_blank"><?php _vzm('Get Help') ?></a>
         | <a href="<?php echo $admin2->url('about') ?>" onclick="ZenMagick.ajaxDialog(this.href, {title:'About ZenMagick', width:'85%', height:640}); return false;"><?php _vzm('About') ?></a>
       </p>
