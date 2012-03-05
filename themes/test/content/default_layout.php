@@ -30,7 +30,7 @@
     <meta name="generator" content="ZenMagick <?php echo $settingsService->get('zenmagick.version') ?>" />
     <meta name="keywords" content="<?php echo $metaTags->getKeywords()?>" />
     <meta name="description" content="<?php echo $metaTags->getDescription()?>" />
-    <?php $resourceManager->cssFile($request->getContext().'/zenmagick/themes/default/content/site.css') ?>
+    <?php $resourceManager->cssFile($request->getContext().'/zenmagick/themes/base/content/site.css') ?>
     <?php $resourceManager->cssFile('ie.css', array('prefix' => '<!--[if IE]>', 'suffix' => '<![endif]-->')) ?>
     <?php $resourceManager->jsFile('common.js', $resourceManager::FOOTER) ?>
     <?php $resourceManager->jsFile('common.js', $resourceManager::FOOTER) ?>
