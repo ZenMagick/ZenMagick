@@ -90,6 +90,7 @@ class ZenCartBundle extends Bundle {
      * Prepare db config
      */
     public function onInitConfigDone($event) {
+        $this->prepareConfig();
         if (Runtime::isContextMatch('admin') || (defined('IS_ADMIN_FLAG') && IS_ADMIN_FLAG)) {
             $folder = $this->container->get('configService')->getConfigValue(self::ZENCART_ADMIN_FOLDER);
             if (null != $folder) {
@@ -98,7 +99,6 @@ class ZenCartBundle extends Bundle {
             Runtime::getSettings()->set('zenmagick.base.context', 'admin');
         }
 
-        $this->prepareConfig();
 
         // include overrides for zen_href_link and zen_mail*
         require_once __DIR__ . '/utils/zencart_overrides.php';
