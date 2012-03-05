@@ -22,6 +22,8 @@
 <?php
 namespace zenmagick\base\utils;
 
+use zenmagick\base\Runtime;
+
 /**
  * An executor.
  *
@@ -92,6 +94,7 @@ class Executor {
             $parameter = $this->parameterMapper->mapParameter($this->callback, $parameter);
         }
 
+        Runtime::getLogging()->debug(sprintf('executing %s', get_class($this->callback[0])));
         return call_user_func_array($this->callback, $parameter);
     }
 
