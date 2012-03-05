@@ -26,7 +26,7 @@ namespace zenmagick\http\view;
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class ViewAndModel {
+class ModelAndView {
     private $viewId;
     private $model;
 
