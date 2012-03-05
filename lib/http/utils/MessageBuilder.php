@@ -32,11 +32,6 @@ use zenmagick\http\view\View;
  *
  * <p>The code in this service assumes that email templates are located in a separate
  *  <em>emails</em> template folder.<p>
- * <p>The view used to resolve template names and create content is accquired via
- *  <code>ZMUrlManager::instance()->findView(null, 'emails')</code>, so if you need special settings, etc.
- *  it is possible to configure that via the regular url mappings.</p>
- *
- * <p>The default view view id is <em>emails</em>.</p>
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
