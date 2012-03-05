@@ -220,8 +220,6 @@ class ZenCartBundle extends Bundle {
                 // guess again, because we might not have had a db connection before
                 $folder = $this->guessAdminFolder(true);
             }
-
-            $settingsService->set('apps.store.oldAdminUrl', $settingsService->get('apps.store.baseUrl').$folder.'/index.php');
         }
 
         if (Runtime::isContextMatch('admin') && defined('EMAIL_ENCODING_METHOD') && null == $request->getRequestId()) {
