@@ -73,57 +73,7 @@ class ZenCartBundle extends Bundle {
      */
     protected function prepareConfig() {
         $settingsService = $this->container->get('settingsService');
-        $admindir = $settingsService->get('apps.store.zencart.admindir');
-        $configure = dirname(Runtime::getInstallationPath()).($admindir ? '/'.$admindir : '').'/includes/configure.php';
-        if (!file_exists($configure)) {
-            throw new \Exception('could not find zencart configure.php');
-        }
 
-        // check for existing defines
-        foreach (array('DB_SERVER', 'DB_SERVER_USERNAME', 'DB_SERVER_PASSWORD', 'DB_DATABASE', 'DB_PREFIX', 'DIR_WS_CATALOG') as $key) {
-            if (defined($key)) {
-                define('ZM_'.$key, constant($key));
-            }
-        }
-
-        // pick the lines we need
-        $lines = file($configure);
-        $defines = array();
-        foreach ($lines as $line) {
-            if (false !== strpos($line, 'define')) {
-                $defines[] = str_replace(
-                    array("define('", " DIR_WS_INCLUDES ", " DIR_WS_CATALOG ", " DIR_FS_CATALOG ", " DIR_WS_IMAGES ", " DIR_FS_SQL_CACHE.", " DIR_FS_ADMIN ", " HTTP_CATALOG_SERVER "),
-                    array("define('ZM_", " ZM_DIR_WS_INCLUDES ", " ZM_DIR_WS_CATALOG ", " ZM_DIR_FS_CATALOG ", " ZM_DIR_WS_IMAGES ", " ZM_DIR_FS_SQL_CACHE.", " ZM_DIR_FS_ADMIN ", " ZM_HTTP_CATALOG_SERVER "),
-                    $line
-                );
-            }
-        }
-        eval(implode("\n", $defines));
-        $defaults = array();
-        $defaultsMap = array(
-            'host' => 'ZM_DB_SERVER',
-            'user' => 'ZM_DB_SERVER_USERNAME',
-            'password' => 'ZM_DB_SERVER_PASSWORD',
-            'dbname' => 'ZM_DB_DATABASE',
-            'prefix' => 'ZM_DB_PREFIX',
-            'charset' => 'ZM_DB_CHARSET'
-        );
-        foreach ($defaultsMap as $key => $def) {
-            if (defined($def)) {
-                $defaults[$key] = constant($def);
-            } else if ('charset' == $key) {
-                $defaults[$key] = 'utf8';
-            }
-        }
-
-        // merge with current settings
-        $current = $settingsService->get('apps.store.database.default', array());
-        foreach ($current as $key => $value) {
-            if (null === $value && array_key_exists($key, $defaults)) {
-                unset($current[$key]);
-            }
-        }
-        $settingsService->set('apps.store.database.default', array_merge($defaults, $current));
         $current = $settingsService->get('apps.store.database.default', array());
 
         if (!defined('DB_PREFIX')) define('DB_PREFIX', $current['prefix']);
