@@ -479,7 +479,6 @@ class ClassLoader {
                         }
                         $sep = 0 === strpos($path[0], 'phar://') ? '/' : DIRECTORY_SEPARATOR;
                         $file = $path[0].$sep.str_replace($this->namespaceSeparator, $sep, $finalns).$sep.str_replace('_', $sep, $class).'.php';
-                        $file = str_replace($sep.$sep, $sep, $file);
                         if (file_exists($file)) {
                             return $file;
                         }
