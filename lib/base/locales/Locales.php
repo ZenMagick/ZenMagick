@@ -152,7 +152,6 @@ function _zm($text, $context=null, $domain=null) {
  * @param mixed context Optional translation context; default is <code>null</code>.
  * @param string domain The translation domain; default is <code>null</code>.
  * @return string The translated text or, if no translation found, the original text.
- * @package org.zenmagick.core.services.locale
  */
 function _zmn($single, $number, $plural=null, $context=null, $domain=null) {
     return Runtime::getContainer()->get('localeService')->getLocale()->translatePlural($single, $number, $plural, $context, $domain);
@@ -166,7 +165,6 @@ function _zmn($single, $number, $plural=null, $context=null, $domain=null) {
  * @param string text The text.
  * @param mixed ... Variable number of arguments to be used as arguments for
  *  <code>vsprintf(..)</code> to insert variables into the localized text.
- * @package org.zenmagick.core.services.locale
  */
 function _vzm($text) {
     // get the remaining args
@@ -207,7 +205,6 @@ function _vzm($text) {
  * @param string format The format string.
  * @param mixed mixed Variable numer parameter.
  * @return string The formatted string.
- * @package org.zenmagick.core.services.locale
  */
 function _zmsprintf($format, $mixed) {
     $args = func_get_args();
