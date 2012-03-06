@@ -19,28 +19,23 @@
  */
 ?>
 <?php
+namespace zenmagick\apps\store\model\mock;
 
 
 /**
- * Demo order total line.
+ * Mock product.
  *
  * @author DerManoMann
- * @package zenmagick.store.admin.model.demo
  */
-class ZMDemoOrderTotalLineDetails extends ZMOrderTotalLineDetails {
+class MockProduct extends \ZMProduct {
 
     /**
      * Create new instance.
-     *
-     * @param string title The title.
-     * @param flaot amount The amount.
-     * @param string displayValue The display value.
      */
-    public function __construct($title, $amount, $displayValue) {
+    public function __construct() {
         parent::__construct();
-        $this->setTitle($title);
-        $this->setAmount($amount);
-        $this->setDisplayValue($displayValue);
+        $this->setName('Product A');
+        $this->setDescription('This is product A.');
     }
 
 }

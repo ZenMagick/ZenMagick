@@ -19,98 +19,66 @@
  */
 ?>
 <?php
+namespace zenmagick\apps\store\model\mock;
 
-use zenmagick\base\ZMObject;
 
 /**
- * Demo payment type.
+ * Mock order.
  *
  * @author DerManoMann
- * @package zenmagick.store.admin.model.demo
  */
-class ZMDemoPaymentType extends ZMObject implements ZMPaymentType {
+class MockOrder extends \ZMOrder {
+
+    /**
+     * Create new instance.
+     */
+    public function __construct() {
+        parent::__construct();
+        $this->setId(3);
+        $this->setOrderDate(time());
+    }
+
 
     /**
      * {@inheritDoc}
      */
-    public function getId() {
-        return 'demo';
+    public function getAccount() {
+        return new MockAccount();
     }
 
     /**
      * {@inheritDoc}
      */
-    public function getName() {
-        return 'Demo Payment';
+    public function getShippingAddress() {
+        return new MockAddress();
     }
 
     /**
      * {@inheritDoc}
      */
-    public function getTitle() {
-        return 'Demo Payment';
+    public function getBillingAddress() {
+        return new MockAddress();
     }
 
     /**
      * {@inheritDoc}
      */
-    public function getDescription() {
-        return 'Demo Payment Type';
+    public function getOrderItems() {
+        return array(new MockOrderItem(1), new MockOrderItem(2));
     }
 
     /**
      * {@inheritDoc}
      */
-    public function getError() {
-        return null;
+    public function getOrderTotalLines() {
+        return array(new \ZMOrderTotalLine('Tax', 9, '$9.00'), new \ZMOrderTotalLine('Subtotal', 119.20, '$119.20'), new \ZMOrderTotalLine('Total', 119.20, '$119.20'));
     }
 
     /**
      * {@inheritDoc}
      */
-    public function getFields() {
-      return array();
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function getInfo() {
-        return '';
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function getFormValidationJS($request) {
-        return null;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function getOrderFormContent($request) {
-        return null;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function getOrderFormUrl($request) {
-        return null;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function getOrderStatus() {
-        return 1;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function prepare() {
+    public function getPaymentType() {
+        return new MockPaymentType();
     }
 
 }

@@ -19,23 +19,24 @@
  */
 ?>
 <?php
+namespace zenmagick\apps\store\model\mock;
 
 
 /**
- * Demo account.
+ * Mock coupon queue entry.
  *
  * @author DerManoMann
- * @package zenmagick.store.admin.model.demo
  */
-class ZMDemoAccount extends ZMAccount {
+class MockCouponQueue extends \ZMCouponQueue {
 
     /**
      * Create new instance.
      */
     public function __construct() {
         parent::__construct();
-        $this->setFirstName('foo');
-        $this->setLastName('bar');
+        $this->setAccountId(3);
+        $this->setOrderId(5);
+        $this->setAmount(20.00);
     }
 
 }

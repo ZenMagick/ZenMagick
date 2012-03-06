@@ -19,66 +19,98 @@
  */
 ?>
 <?php
+namespace zenmagick\apps\store\model\mock;
 
+use zenmagick\base\ZMObject;
 
 /**
- * Demo order.
+ * Mock payment type.
  *
  * @author DerManoMann
- * @package zenmagick.store.admin.model.demo
  */
-class ZMDemoOrder extends ZMOrder {
-
-    /**
-     * Create new instance.
-     */
-    public function __construct() {
-        parent::__construct();
-        $this->setId(3);
-        $this->setOrderDate(time());
-    }
-
+class MockPaymentType extends ZMObject implements \ZMPaymentType {
 
     /**
      * {@inheritDoc}
      */
-    public function getAccount() {
-        return new ZMDemoAccount();
+    public function getId() {
+        return 'demo';
     }
 
     /**
      * {@inheritDoc}
      */
-    public function getShippingAddress() {
-        return new ZMDemoAddress();
+    public function getName() {
+        return 'Demo Payment';
     }
 
     /**
      * {@inheritDoc}
      */
-    public function getBillingAddress() {
-        return new ZMDemoAddress();
+    public function getTitle() {
+        return 'Demo Payment';
     }
 
     /**
      * {@inheritDoc}
      */
-    public function getOrderItems() {
-        return array(new ZMDemoOrderItem(1), new ZMDemoOrderItem(2));
+    public function getDescription() {
+        return 'Demo Payment Type';
     }
 
     /**
      * {@inheritDoc}
      */
-    public function getOrderTotalLines() {
-        return array(new ZMOrderTotalLine('Tax', 9, '$9.00'), new ZMOrderTotalLine('Subtotal', 119.20, '$119.20'), new ZMOrderTotalLine('Total', 119.20, '$119.20'));
+    public function getError() {
+        return null;
     }
 
     /**
      * {@inheritDoc}
      */
-    public function getPaymentType() {
-        return new ZMDemoPaymentType();
+    public function getFields() {
+      return array();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getInfo() {
+        return '';
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getFormValidationJS($request) {
+        return null;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getOrderFormContent($request) {
+        return null;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getOrderFormUrl($request) {
+        return null;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getOrderStatus() {
+        return 1;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function prepare() {
     }
 
 }

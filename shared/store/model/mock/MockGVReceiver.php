@@ -19,24 +19,30 @@
  */
 ?>
 <?php
+namespace zenmagick\apps\store\model\mock;
 
 
 /**
- * Demo coupon.
+ * Mock gv receiver.
  *
  * @author DerManoMann
- * @package zenmagick.store.admin.model.demo
  */
-class ZMDemoCoupon extends ZMCoupon {
+class MockGVReceiver extends \ZMGVReceiver {
 
     /**
      * Create new instance.
      */
     public function __construct() {
-        parent::__construct(123, 'abc123');
-        $this->setStartDate(time());
-        $this->setExpiryDate(time());
-        $this->setAmount(20.00);
+        parent::__construct();
+        $this->setName('foo');
+        $this->setEmail('foo@bar.com');
+        $this->setMessage('THE_MESSAGE');
     }
+
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getAmount() { return 15.00; }
 
 }

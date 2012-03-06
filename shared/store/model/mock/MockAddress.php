@@ -19,23 +19,31 @@
  */
 ?>
 <?php
+namespace zenmagick\apps\store\model\mock;
 
+use zenmagick\base\Runtime;
 
 /**
- * Demo product.
+ * Mock address.
  *
  * @author DerManoMann
- * @package zenmagick.store.admin.model.demo
  */
-class ZMDemoProduct extends ZMProduct {
+class MockAddress extends \ZMAddress {
 
     /**
      * Create new instance.
      */
     public function __construct() {
         parent::__construct();
-        $this->setName('Product A');
-        $this->setDescription('This is product A.');
+        $this->setFirstName('foo');
+        $this->setLastName('bar');
+        $this->setCompany('Doo Ltd.');
+        $this->setAddressLine1('1 Street');
+        $this->setSuburb('Suburb');
+        $this->setPostcode('1234');
+        $this->setCity('The City');
+        $this->setState('Some State');
+        $this->setCountry(Runtime::getContainer()->get('countryService')->getCountryForId('NZ'));
     }
 
 }

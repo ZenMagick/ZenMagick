@@ -19,31 +19,28 @@
  */
 ?>
 <?php
+namespace zenmagick\apps\store\model\mock;
 
-use zenmagick\base\Runtime;
 
 /**
- * Demo address.
+ * Mock order total line.
  *
  * @author DerManoMann
- * @package zenmagick.store.admin.model.demo
  */
-class ZMDemoAddress extends ZMAddress {
+class MockOrderTotalLineDetails extends \ZMOrderTotalLineDetails {
 
     /**
      * Create new instance.
+     *
+     * @param string title The title.
+     * @param flaot amount The amount.
+     * @param string displayValue The display value.
      */
-    public function __construct() {
+    public function __construct($title, $amount, $displayValue) {
         parent::__construct();
-        $this->setFirstName('foo');
-        $this->setLastName('bar');
-        $this->setCompany('Doo Ltd.');
-        $this->setAddressLine1('1 Street');
-        $this->setSuburb('Suburb');
-        $this->setPostcode('1234');
-        $this->setCity('The City');
-        $this->setState('Some State');
-        $this->setCountry(Runtime::getContainer()->get('countryService')->getCountryForId('NZ'));
+        $this->setTitle($title);
+        $this->setAmount($amount);
+        $this->setDisplayValue($displayValue);
     }
 
 }

@@ -19,25 +19,24 @@
  */
 ?>
 <?php
+namespace zenmagick\apps\store\model\mock;
 
 
 /**
- * Demo email message.
+ * Mock coupon.
  *
  * @author DerManoMann
- * @package zenmagick.store.admin.model.demo
  */
-class ZMDemoEmailMessage extends ZMEmailMessage {
+class MockCoupon extends \ZMCoupon {
 
     /**
      * Create new instance.
      */
     public function __construct() {
-        parent::__construct();
-        $this->setFromEmail('from@foo.com');
-        $this->setToEmail('to@foo.com');
-        $this->setFromName('Foo From');
-        $this->setToName('Bar To');
+        parent::__construct(123, 'abc123');
+        $this->setStartDate(time());
+        $this->setExpiryDate(time());
+        $this->setAmount(20.00);
     }
 
 }

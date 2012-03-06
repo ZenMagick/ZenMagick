@@ -19,48 +19,23 @@
  */
 ?>
 <?php
+namespace zenmagick\apps\store\model\mock;
 
 
 /**
- * Demo order item.
+ * Mock account.
  *
  * @author DerManoMann
- * @package zenmagick.store.admin.model.demo
  */
-class ZMDemoOrderItem extends ZMOrderItem {
-    private $index_;
-
+class MockAccount extends \ZMAccount {
 
     /**
      * Create new instance.
-     *
-     * @param int index Optional index.
      */
-    public function __construct($index=1) {
+    public function __construct() {
         parent::__construct();
-        $this->index_ = $index;
-    }
-
-
-    /**
-     * {@inheritDoc}
-     */
-    public function getQuantity() {
-        return $this->index_*2;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function getName() {
-        return 'Order Item #'.$this->index_;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function getCalculatedPrice($tax=true) {
-        return $this->index_*19.99;
+        $this->setFirstName('foo');
+        $this->setLastName('bar');
     }
 
 }

@@ -23,6 +23,8 @@
 use zenmagick\http\sacs\SacsManager;
 use zenmagick\http\sacs\handler\UserRoleSacsHandler;
 use zenmagick\http\sacs\handler\UserRoleCredentials;
+use zenmagick\apps\store\model\mock\MockAccount;
+
 
 /**
  * Test SACS manager
@@ -48,7 +50,7 @@ class TestZMZenCartAccountSacsHandler extends ZMTestCase {
      * @return ZMAccount An account.
      */
     protected function getAccount($level) {
-        $account = new ZMDemoAccount();
+        $account = new MockAccount();
         $account->setType($level);
         return $account;
     }

@@ -19,24 +19,25 @@
  */
 ?>
 <?php
+namespace zenmagick\apps\store\model\mock;
 
-use zenmagick\apps\store\model\catalog\Review;
 
 /**
- * Demo review.
+ * Mock email message.
  *
  * @author DerManoMann
- * @package zenmagick.store.admin.model.demo
  */
-class ZMDemoReview extends Review {
+class MockEmailMessage extends \ZMEmailMessage {
 
     /**
      * Create new instance.
      */
     public function __construct() {
         parent::__construct();
-        $this->setAuthor('foo bar');
-        $this->setText('Some review bla bla...');
+        $this->setFromEmail('from@foo.com');
+        $this->setToEmail('to@foo.com');
+        $this->setFromName('Foo From');
+        $this->setToName('Bar To');
     }
 
 }

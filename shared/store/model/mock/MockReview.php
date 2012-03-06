@@ -19,24 +19,24 @@
  */
 ?>
 <?php
+namespace zenmagick\apps\store\model\mock;
 
+use zenmagick\apps\store\model\catalog\Review;
 
 /**
- * Demo coupon queue entry.
+ * Mock review.
  *
  * @author DerManoMann
- * @package zenmagick.store.admin.model.demo
  */
-class ZMDemoCouponQueue extends ZMCouponQueue {
+class MockReview extends Review {
 
     /**
      * Create new instance.
      */
     public function __construct() {
         parent::__construct();
-        $this->setAccountId(3);
-        $this->setOrderId(5);
-        $this->setAmount(20.00);
+        $this->setAuthor('foo bar');
+        $this->setText('Some review bla bla...');
     }
 
 }

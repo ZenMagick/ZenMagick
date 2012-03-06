@@ -25,6 +25,14 @@ use zenmagick\base\Runtime;
 use zenmagick\base\events\Event;
 use zenmagick\http\view\View;
 
+use zenmagick\apps\store\model\mock\MockAccount;
+use zenmagick\apps\store\model\mock\MockOrder;
+use zenmagick\apps\store\model\mock\MockProduct;
+use zenmagick\apps\store\model\mock\MockCoupon;
+use zenmagick\apps\store\model\mock\MockReview;
+use zenmagick\apps\store\model\mock\MockEmailMessage;
+use zenmagick\apps\store\model\mock\MockGVReceiver;
+
 /**
  * Admin controller for email previews.
  *
@@ -86,7 +94,7 @@ class EmailPreviewController extends \ZMController {
      * @return array The context map.
      */
     protected function getInitialContext($request) {
-        $order = new \ZMDemoOrder();
+        $order = new MockOrder();
         return array(
             'office_only_html' => true,
             'office_only_text' => true,
@@ -94,9 +102,9 @@ class EmailPreviewController extends \ZMController {
             'language' => $request->getSelectedLanguage(),
             'password' => 'THE_NEW_PASSWORD',
             'newPassword' => 'THE_NEW_PASSWORD',
-            'currentAccount' => new \ZMDemoAccount(),
+            'currentAccount' => new MockAccount(),
             'order' => $order,
-            'currentProduct' => new \ZMDemoProduct(),
+            'currentProduct' => new MockProduct(),
             'currentOrder' => $order,
             'comment' => 'Some comment',
             'adminName' => 'SOME_ADMIN_NAME',
@@ -106,12 +114,12 @@ class EmailPreviewController extends \ZMController {
             'shippingAddress' => $order->getShippingAddress(),
             'billingAddress' => $order->getBillingAddress(),
             'paymentType' => $order->getPaymentType(),
-            'couponQueue' => new \ZMDemoCouponQueue(),
-            'gvReceiver' => new \ZMDemoGVReceiver(),
-            'emailMessage' => new \ZMDemoEmailMessage(),
-            'currentReview' => new \ZMDemoReview(),
+            'couponQueue' => new MockGVReceiver(),
+            'gvReceiver' => new MockGVReceiver(),
+            'emailMessage' => new MockEmailMessage(),
+            'currentReview' => new MockReview(),
             'contactInfo' => new \ZMContactInfo('foo bar', 'foo@bar.com', 'Congrats on your new store!'),
-            'currentCoupon' => new \ZMDemoCoupon()
+            'currentCoupon' => new MockCoupon()
         );
     }
 

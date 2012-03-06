@@ -19,30 +19,48 @@
  */
 ?>
 <?php
+namespace zenmagick\apps\store\model\mock;
 
 
 /**
- * Demo gv receiver.
+ * Mock order item.
  *
  * @author DerManoMann
- * @package zenmagick.store.admin.model.demo
  */
-class ZMDemoGVReceiver extends ZMGVReceiver {
+class MockOrderItem extends \ZMOrderItem {
+    private $index_;
+
 
     /**
      * Create new instance.
+     *
+     * @param int index Optional index.
      */
-    public function __construct() {
+    public function __construct($index=1) {
         parent::__construct();
-        $this->setName('foo');
-        $this->setEmail('foo@bar.com');
-        $this->setMessage('THE_MESSAGE');
+        $this->index_ = $index;
     }
 
 
     /**
      * {@inheritDoc}
      */
-    public function getAmount() { return 15.00; }
+    public function getQuantity() {
+        return $this->index_*2;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getName() {
+        return 'Order Item #'.$this->index_;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getCalculatedPrice($tax=true) {
+        return $this->index_*19.99;
+    }
 
 }
