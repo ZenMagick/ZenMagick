@@ -14,6 +14,7 @@
  */
 /**
  * inoculate against hack attempts which waste CPU cycles
+ * @todo does this help anything?
  */
 $contaminated = (isset($_FILES['GLOBALS']) || isset($_REQUEST['GLOBALS'])) ? true : false;
 $paramsToAvoid = array('GLOBALS', '_COOKIE', '_ENV', '_FILES', '_GET', '_POST', '_REQUEST', '_SERVER', '_SESSION', 'HTTP_COOKIE_VARS', 'HTTP_ENV_VARS', 'HTTP_GET_VARS', 'HTTP_POST_VARS', 'HTTP_POST_FILES', 'HTTP_RAW_POST_DATA', 'HTTP_SERVER_VARS', 'HTTP_SESSION_VARS');
@@ -54,7 +55,8 @@ define('IS_ADMIN_FLAG', false);
 define('PAGE_PARSE_START_TIME', microtime());
 define('DEBUG_AUTOLOAD', false);
 
-/if (defined('STRICT_ERROR_REPORTING') && STRICT_ERROR_REPORTING == true) {
+// @todo how do we want to control this? perhaps a new setting apps.store.zencart.strictErrorReporting ?
+if (defined('STRICT_ERROR_REPORTING') && STRICT_ERROR_REPORTING == true) {
   @ini_set('display_errors', TRUE);
   error_reporting(version_compare(PHP_VERSION, 5.3, '>=') ? E_ALL & ~E_DEPRECATED & ~E_NOTICE : version_compare(PHP_VERSION, 5.4, '>=') ? E_ALL & ~E_DEPRECATED & ~E_NOTICE & ~E_STRICT : E_ALL & ~E_NOTICE);
 } else {
@@ -68,6 +70,7 @@ if (!isset($PHP_SELF)) $PHP_SELF = $_SERVER['PHP_SELF'];
 if (file_exists('includes/configure.php')) {
   include('includes/configure.php');
 } else {
+  // @todo should we use the "not_installed.php" file?
   $problemString = 'includes/configure.php not found';
   require('includes/templates/template_default/templates/tpl_zc_install_suggested_default.php');
   exit;
@@ -87,6 +90,7 @@ $autoLoadConfig = array();
 $loaderPrefix = isset($loaderPrefix) ? $loaderPrefix : 'config';
 $loader_file = $loaderPrefix . '.core.php';
 require('includes/initsystem.php');
+
 require('includes/autoload_func.php');
 
 if ($spider_flag == false) {
