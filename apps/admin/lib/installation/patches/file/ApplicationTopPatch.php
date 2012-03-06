@@ -92,7 +92,7 @@ class ApplicationTopPatch extends FilePatch {
         }
 
         if (is_writeable($this->applicationTop)) {
-            $lines[0] = "<?php require('".basename(Runtime::getInstallationPath())."/shared/store/Bundles/ZenCartBundle/bridge/includes/application_top'); return; /* added by ZenMagick installation patcher */"; 
+            $lines[0] = "<?php require('".basename(Runtime::getInstallationPath())."/shared/store/bundles/ZenCartBundle/bridge/includes/application_top.php'); return; /* added by ZenMagick installation patcher */"; 
             return $this->putFileLines($this->applicationTop, $lines);
         } else {
             Runtime::getLogging()->error("** ZenMagick: no permission to patch theme support into application_top.php");
