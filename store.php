@@ -1,7 +1,7 @@
 <?php
 /*
  * ZenMagick - Another PHP framework.
- * Copyright (C) 2006-2011 zenmagick.org
+ * Copyright (C) 2006-2012 zenmagick.org
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -17,20 +17,18 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-?>
-<?php
 use zenmagick\base\Runtime;
 
-    // main request processor
-    if (ZMSettings::get('isEnableZMThemes', true)) {
-        // pick up session data changed by zencart code
-        $_zm_session = $_zm_request->getSession();
-        foreach ($_SESSION as $key => $value) {
-            $_zm_session->setValue($key, $value);
-        }
-        Runtime::getContainer()->get('dispatcher')->dispatch($_zm_request);
-        exit;
-    } else {
-        // do ob_start() to allow plugins to do their magic with zen cart templates too
-        ob_start();
+// main request processor
+if (ZMSettings::get('isEnableZMThemes', true)) {
+    // pick up session data changed by zencart code
+    $_zm_session = $_zm_request->getSession();
+    foreach ($_SESSION as $key => $value) {
+        $_zm_session->setValue($key, $value);
     }
+    Runtime::getContainer()->get('dispatcher')->dispatch($_zm_request);
+    exit;
+} else {
+    // do ob_start() to allow plugins to do their magic with zen cart templates too
+    ob_start();
+}
