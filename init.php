@@ -31,13 +31,8 @@ use zenmagick\http\HttpApplication;
   include_once $rootDir.'/lib/base/Application.php';
   include_once $rootDir.'/lib/http/HttpApplication.php';
 
-  if (!defined('ZM_APP_PATH')) {
-      // app location relative to zenmagick installation
-      define('ZM_APP_PATH', '/apps/storefront');
-  }
-
   try {
-      $config = array('appName' => basename(ZM_APP_PATH), 'environment' => (isset($_SERVER['ZM_ENVIRONMENT']) ? $_SERVER['ZM_ENVIRONMENT'] : 'prod'));
+      $config = array('appName' => 'storefront', 'environment' => (isset($_SERVER['ZM_ENVIRONMENT']) ? $_SERVER['ZM_ENVIRONMENT'] : 'prod'));
       $application = new HttpApplication($config);
       $application->bootstrap();
 
