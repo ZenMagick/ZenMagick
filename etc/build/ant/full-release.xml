@@ -134,11 +134,13 @@
             <param name="rename.function" value="zen_href_link" />
             <param name="rename.suffix" value="_DISABLED" />
         </antcall>
+        <!--
         <antcall target="rename-function">
             <param name="rename.file" value="${release.full.dir}/admin/includes/functions/html_output.php" />
             <param name="rename.function" value="zen_href_link" />
             <param name="rename.suffix" value="_DISABLED" />
         </antcall>
+        -->
 
         <!-- patch email funcs -->
         <antcall target="rename-function">
@@ -219,7 +221,7 @@
             <fileset dir="${release.full.dir}">
                 <include name="includes/classes/class.base.php" />
                 <include name="includes/functions/html_output.php" />
-                <include name="admin/includes/functions/html_output.php" />
+                <!--include name="admin/includes/functions/html_output.php" /-->
                 <include name="includes/functions/functions_email.php" />
                 <include name="admin/customers.php" />
                 <include name="includes/application_bottom.php" />
