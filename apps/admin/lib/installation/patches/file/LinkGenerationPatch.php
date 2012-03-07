@@ -42,7 +42,7 @@ class LinkGenerationPatch extends FilePatch {
         parent::__construct('linkGeneration');
 
         $this->label_ = 'Disable zen-cart\'s <code>zen_href_link</code> function in favour of a ZenMagick implementation';
-        $this->htmlOutputFile = ZC_INSTALL_PATH . '/includes/functions/html_output.php';
+        $this->htmlOutputFile = dirname($this->getZcAdminPath()) . '/includes/functions/html_output.php';
         $this->adminHtmlOutputFile = $this->getZcAdminPath().'/includes/functions/html_output.php';
         $this->fktFilesCfg_ = array(
             $this->htmlOutputFile => array(

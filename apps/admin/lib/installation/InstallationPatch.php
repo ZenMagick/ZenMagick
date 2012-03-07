@@ -147,8 +147,8 @@ class InstallationPatch extends ZMObject {
         return true;
     }
 
-    function getZcAdminPath() {
-        if (null != $this->zcAdminPath) return $this->zcAdminPath;
+    protected function getZcAdminPath() {
+        if (null != $this->zcAdminPath) { return $this->zcAdminPath; }
         $this->zcAdminPath = $this->guessZcAdminPath();
         return $this->zcAdminPath;
     }
