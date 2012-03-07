@@ -17,8 +17,6 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-?>
-<?php
 
 if (array_key_exists('ZM_ENVIRONMENT', $_GET)) {
     $_SERVER['ZM_ENVIRONMENT'] = $_GET['ZM_ENVIRONMENT'];

@@ -19,9 +19,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
- */
-?>
-<?php if ($shoppingCart->isEmpty()) { ?>
+ */ if ($shoppingCart->isEmpty()) { ?>
     <h2><?php _vzm("Your Shopping Cart is empty") ?></h2>
 <?php } else { ?>
     <?php echo $form->open('shopping_cart', "action=update_product", true) ?>

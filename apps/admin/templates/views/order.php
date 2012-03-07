@@ -16,9 +16,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
- */
-?>
-<?php $admin2->title(sprintf(_zm('Order: %s'), $order->getId())) ?>
+ */ $admin2->title(sprintf(_zm('Order: %s'), $order->getId())) ?>
 
 <h3><?php _vzm("Item Details") ?></h3>
 <table class="grid">

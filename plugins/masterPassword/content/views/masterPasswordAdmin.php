@@ -16,9 +16,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
- */
-?>
-<?php $admin2->title() ?>
+ */ $admin2->title() ?>
 <form action="<?php echo $admin2->url() ?>" method="POST">
   <div>
     <p><label for="masterPassword">Master Password</label> <input type="password" name="masterPassword" value=""></p>

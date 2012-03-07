@@ -16,9 +16,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
- */
-?>
-<?php $admin2->title(_zm('Translation Helper')) ?>
+ */ $admin2->title(_zm('Translation Helper')) ?>
 <form action="<?php echo $admin2->url() ?>" method="POST">
   <h2>ZenMagick Language Tool (
           <select id="languageId" name="languageId">

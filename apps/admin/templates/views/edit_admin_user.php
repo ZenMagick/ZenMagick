@@ -16,9 +16,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
- */
-?>
-<?php $admin2->title(_zm('Edit User Details')) ?>
+ */ $admin2->title(_zm('Edit User Details')) ?>
 
 <form action="<?php echo $admin2->url() ?>" method="POST">
   <input type="hidden" name="adminUserId" value="<?php echo $adminUser->getAdminUserId() ?>">

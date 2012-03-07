@@ -19,8 +19,6 @@
 * and is licensed under the LGPL. For more information, see
 * <http://www.gnu.org/licenses/lgpl.html>.
 */
-?>
-<?php
 namespace zenmagick\base\classloader;
 
 /**

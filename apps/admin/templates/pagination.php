@@ -16,9 +16,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
- */
-?>
-<?php if (1 < $resultList->getNumberOfPages()) { ?>
+ */ if (1 < $resultList->getNumberOfPages()) { ?>
     <div class="rnav">
         <span class="pno"><?php _vzm("Page %s/%s", $resultList->getPageNumber(), $resultList->getNumberOfPages()) ?></span>
         <?php if ($resultList->hasPreviousPage()) { ?>
