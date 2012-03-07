@@ -21,6 +21,7 @@
 <?php
 namespace zenmagick\apps\store\admin\controller;
 
+use zenmagick\base\Beans;
 use zenmagick\base\Runtime;
 use zenmagick\base\Toolbox;
 
@@ -97,7 +98,7 @@ class L10nController extends \ZMController {
     protected function processInternal($request) {
         $vd = $this->getViewData($request);
 
-        $scanner = new LocaleScanner();
+        $scanner = Beans::getBean('zenmagick\base\locales\LocaleScanner');
         $themeService = $this->container->get('themeService');
 
         $defaultMap = array();
