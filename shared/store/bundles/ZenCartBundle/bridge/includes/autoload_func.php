@@ -26,7 +26,7 @@ reset($autoLoadConfig);
 ksort($autoLoadConfig);
 foreach ($autoLoadConfig as $actionPoint => $row) {
     foreach($row as $entry) {
-        var_dump($entry);
+        if (isset($entry['loaderPrefix']) && ($entry['loaderPrefix'] != $loaderPrefix)) continue;
         $files = array();
         $require = false;
         switch($entry['autoType']) {

@@ -79,6 +79,14 @@
   $autoLoadConfig[60][] = array('autoType'=>'init_script',
                                 'loadFile'=> 'init_tlds.php');
 /**
+ * Include PayPal-specific functions
+ *  require('includes/modules/payment/paypal/paypal_functions.php');
+ */
+  $autoLoadConfig[60][] = array('autoType'=>'include',
+                                'loadFile'=> DIR_WS_MODULES . 'payment/paypal/paypal_functions.php',
+                                'loaderPrefix'=>'paypal_ipn');
+
+/**
  * Breakpoint 70.
  * 
  * require('includes/init_includes/init_sessions.php'); 
@@ -86,6 +94,11 @@
  */
   $autoLoadConfig[70][] = array('autoType'=>'init_script',
                                 'loadFile'=> 'init_sessions.php');
+
+  $autoLoadConfig[71][] = array('autoType'=>'init_script',
+                                'loadFile'=> 'init_paypal_ipn_sessions.php',
+                                'loaderPrefix'=>'paypal_ipn');
+
 /**
  * Breakpoint 80.
  * 
@@ -102,7 +115,8 @@
                                 'className'=>'navigationHistory',
                                 'objectName'=>'navigation',
                                 'checkInstantiated'=>true,
-                                'classSession'=>true);
+                                'classSession'=>true,
+                                'loaderPrefix'=>'config');
 /**
  * Breakpoint 90.
  * 
@@ -144,7 +158,8 @@
  */
   $autoLoadConfig[120][] = array('autoType'=>'objectMethod',
                                 'objectName'=>'navigation',
-                                'methodName' => 'add_current_page');
+                                'methodName' => 'add_current_page',
+                                'loaderPrefix'=>'config');
   $autoLoadConfig[120][] = array('autoType'=>'init_script',
                                  'loadFile'=> 'init_currencies.php');
 /**
@@ -158,7 +173,8 @@
                                  'className'=>'messageStack',
                                  'objectName'=>'messageStack');
   $autoLoadConfig[130][] = array('autoType'=>'init_script',
-                                 'loadFile'=> 'init_customer_auth.php');
+                                 'loadFile'=> 'init_customer_auth.php',
+                                 'loaderPrefix'=>'config');
 /**
  * Breakpoint 140.
  * 
@@ -193,7 +209,12 @@
  * 
  */
   $autoLoadConfig[170][] = array('autoType'=>'init_script',
-                                 'loadFile'=> 'init_add_crumbs.php');
+                                 'loadFile'=> 'init_add_crumbs.php',
+                                 'loaderPrefix'=>'config');
+
+  $autoLoadConfig[170][] = array('autoType'=>'init_script',
+                                 'loadFile'=> 'init_ipn_postcfg.php',
+                                 'loaderPrefix'=>'paypal_ipn');  
 /**
  * Breakpoint 180.
  * 
@@ -201,5 +222,6 @@
  * 
  */
   $autoLoadConfig[180][] = array('autoType'=>'init_script',
-                                 'loadFile'=> 'init_header.php');
+                                'loadFile'=> 'init_header.php',
+                                'loaderPrefix'=>'config');
 ?>
