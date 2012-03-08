@@ -1,7 +1,7 @@
 <?php
 /*
  * ZenMagick - Smart e-commerce
- * Copyright (C) 2006-2011 zenmagick.org
+ * Copyright (C) 2006-2012 zenmagick.org
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -17,8 +17,6 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-?>
-<?php
 namespace zenmagick\apps\store\admin\installation\patches\file;
 
 use zenmagick\base\Runtime;
@@ -42,7 +40,7 @@ class LinkGenerationPatch extends FilePatch {
         parent::__construct('linkGeneration');
 
         $this->label_ = 'Disable zen-cart\'s <code>zen_href_link</code> function in favour of a ZenMagick implementation';
-        $this->htmlOutputFile = ZC_INSTALL_PATH . '/includes/functions/html_output.php';
+        $this->htmlOutputFile = dirname($this->getZcAdminPath()) . '/includes/functions/html_output.php';
         $this->adminHtmlOutputFile = $this->getZcAdminPath().'/includes/functions/html_output.php';
         $this->fktFilesCfg_ = array(
             $this->htmlOutputFile => array(

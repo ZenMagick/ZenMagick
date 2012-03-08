@@ -1,7 +1,7 @@
 <?php
 /*
  * ZenMagick - Smart e-commerce
- * Copyright (C) 2006-2011 zenmagick.org
+ * Copyright (C) 2006-2012 zenmagick.org
  *
  * Portions Copyright (c) 2003 The zen-cart developers
  * Portions Copyright (c) 2003 osCommerce
@@ -20,8 +20,6 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-?>
-<?php
 
 use zenmagick\base\Runtime;
 use zenmagick\base\Toolbox;

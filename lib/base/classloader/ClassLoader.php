@@ -1,7 +1,7 @@
 <?php
 /*
  * ZenMagick - Another PHP framework.
- * Copyright (C) 2006-2011 zenmagick.org
+ * Copyright (C) 2006-2012 zenmagick.org
  *
 * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
 * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -19,8 +19,6 @@
 * and is licensed under the LGPL. For more information, see
 * <http://www.gnu.org/licenses/lgpl.html>.
 */
-?>
-<?php
 namespace zenmagick\base\classloader;
 
 /**

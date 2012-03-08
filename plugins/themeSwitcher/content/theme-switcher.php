@@ -1,7 +1,7 @@
 <?php
 /*
  * ZenMagick - Smart e-commerce
- * Copyright (C) 2006-2011 zenmagick.org
+ * Copyright (C) 2006-2012 zenmagick.org
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -16,9 +16,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
- */
-?>
-<?php if (0 < count($themeList)) { ?>
+ */ if (0 < count($themeList)) { ?>
   <div id="theme-switcher" style="text-align:right;padding:2px 8px;">
     <label for="selected-theme">Current Theme: </label><select id="selected-theme" name="selectedTheme" onchange="window.location = this.value;">
       <?php foreach ($themeList as $info) { ?>

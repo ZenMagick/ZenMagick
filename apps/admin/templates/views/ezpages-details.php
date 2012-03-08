@@ -1,7 +1,7 @@
 <?php
 /*
  * ZenMagick - Smart e-commerce
- * Copyright (C) 2006-2011 zenmagick.org
+ * Copyright (C) 2006-2012 zenmagick.org
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -104,6 +104,6 @@ use zenmagick\base\Beans;
 
   <div>
     <input class="<?php echo $buttonClasses ?>" type="submit" value="Save">
-    <a class="<?php echo $buttonClasses ?>" href="<?php echo $admin2->url(null, 'languageId='.$selectedLanguageId) ?>"><?php _vzm('Cancel') ?></a>
+    <a class="<?php echo $buttonClasses ?>" href="<?php echo $admin2->url('ezpages', 'languageId='.$selectedLanguageId) ?>"><?php _vzm('Cancel') ?></a>
   </div>
 </form>

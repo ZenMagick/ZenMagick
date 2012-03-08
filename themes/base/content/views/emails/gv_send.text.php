@@ -1,7 +1,7 @@
 <?php
 /*
  * ZenMagick - Smart e-commerce
- * Copyright (C) 2006-2011 zenmagick.org
+ * Copyright (C) 2006-2012 zenmagick.org
  *
  * Portions Copyright (c) 2003 The zen-cart developers
  * Portions Copyright (c) 2003 osCommerce
@@ -19,9 +19,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
- */
-?>
-<?php _vzm("Dear %s,", $gvReceiver->getName()) ?>
+ */ _vzm("Dear %s,", $gvReceiver->getName()) ?>
 
 
 <?php _vzm('You have been sent a Gift Certificate worth %s by %s.', $utils->formatMoney($gvReceiver->getAmount(), false), $currentAccount->getFullName()) ?>

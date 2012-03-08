@@ -1,7 +1,7 @@
 <?php
 /*
  * ZenMagick - Smart e-commerce
- * Copyright (C) 2006-2011 zenmagick.org
+ * Copyright (C) 2006-2012 zenmagick.org
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -17,10 +17,9 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-?>
-<?php
 namespace zenmagick\apps\store\admin\controller;
 
+use zenmagick\base\Beans;
 use zenmagick\base\Runtime;
 use zenmagick\base\Toolbox;
 
@@ -97,7 +96,7 @@ class L10nController extends \ZMController {
     protected function processInternal($request) {
         $vd = $this->getViewData($request);
 
-        $scanner = new LocaleScanner();
+        $scanner = Beans::getBean('zenmagick\base\locales\LocaleScanner');
         $themeService = $this->container->get('themeService');
 
         $defaultMap = array();

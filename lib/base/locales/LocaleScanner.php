@@ -1,7 +1,7 @@
 <?php
 /*
  * ZenMagick - Another PHP framework.
- * Copyright (C) 2006-2011 zenmagick.org
+ * Copyright (C) 2006-2012 zenmagick.org
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -17,8 +17,6 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-?>
-<?php
 namespace zenmagick\base\locales;
 
 use zenmagick\base\Runtime;
@@ -170,6 +168,9 @@ class LocaleScanner extends ZMObject {
         $file = null;
         foreach (file($filename) as $line) {
             $line = trim($line);
+            if (empty($line)) {
+                continue;
+            }
             if ('#' == $line[0]) {
                 if (':' == $line[1]) {
                     // file
@@ -190,12 +191,38 @@ class LocaleScanner extends ZMObject {
                     // strip quotes
                     $key = trim(substr($line, 1, $pos-1));
                     $text = trim(substr($line, $pos+3, strlen($line)-1));
+                    if ($text[0] == $text[strlen($text)-1] && ("'" == $text[0] || '"' == $text[0])) {
+                        $text = substr($text, 1, -1);
+                    }
                     // mapping
                     $map[$file][$key] = array('msg' => $text, 'plural' => null, 'context' => null, 'filename' => $file, 'line' => 0);
                 }
             }
         }
         return $map;
+    }
+
+    /**
+     * Format a po string.
+     *
+     */
+    protected function formatString($string) {
+        // preformat string
+        $string = stripslashes($string);
+        $string = str_replace('"', '\"', $string);
+
+        // newline in string?
+        $nl = 0 < substr_count($string, "\n");
+        if (!$nl) {
+            $string = '"'.trim($string).'"';
+        } else {
+            $tmp = '""'."\n";
+            foreach (explode("\n", $string) as $sl) {
+                $tmp .= '"'.trim($sl).'"'."\n";
+            }
+            $string = $tmp;
+        }
+        return $string;
     }
 
     /**
@@ -213,7 +240,7 @@ class LocaleScanner extends ZMObject {
             $lines[] = 'msgid ""';
             $lines[] = 'msgstr ""';
             $lines[] = '"Project-Id-Version: '.Runtime::getSettings()->get('zenmagick.version').'\n"';
-            $lines[] = '"POT-Creation-Date: '.date().'\n"';
+            $lines[] = '"POT-Creation-Date: '.date(DATE_RFC822).'\n"';
             $lines[] = '"PO-Revision-Date: \n"';
             $lines[] = '"Last-Translator: \n"';
             $lines[] = '"Language-Team: \n"';
@@ -230,8 +257,8 @@ class LocaleScanner extends ZMObject {
                 continue;
             }
 
-            foreach ($infos as $info) {
-                $key = trim($info['msg']);
+            foreach ($infos as $key => $info) {
+                $key = trim($key);
                 if (!array_key_exists($key, $globalMap)) {
                     $globalMap[$key] = array();
                 }
@@ -248,21 +275,7 @@ class LocaleScanner extends ZMObject {
             }
             $lines[] = $location;
 
-            // preformat string
-            $string = stripslashes($string);
-            $string = str_replace('"', '\"', $string);
-
-            // newline in string?
-            $nl = 0 < substr_count($string, "\n");
-            if (!$nl) {
-                $string = '"'.trim($string).'"';
-            } else {
-                $tmp = '""'."\n";
-                foreach (explode("\n", $string) as $sl) {
-                    $tmp .= '"'.trim($sl).'"'."\n";
-                }
-                $string = $tmp;
-            }
+            $string = $this->formatString($string);
 
             // format the actual line(s)
             if (null != $info['context']) {
@@ -276,7 +289,11 @@ class LocaleScanner extends ZMObject {
                     $lines[] = 'msgstr[1] ""';
                 }
             } else {
-                $lines[] = $pot ? 'msgstr ""' : 'msgstr '.$string;
+                $msg = $string;
+                if (array_key_exists('msg', $info)) {
+                    $msg = $this->formatString($info['msg']);
+                }
+                $lines[] = $pot ? 'msgstr ""' : 'msgstr '.$msg;
             }
 
             $lines[] = '';

@@ -1,7 +1,7 @@
 <?php
 /*
  * ZenMagick - Smart e-commerce
- * Copyright (C) 2006-2011 zenmagick.org
+ * Copyright (C) 2006-2012 zenmagick.org
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -17,8 +17,6 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-?>
-<?php
 namespace zenmagick\apps\store\admin\controller;
 
 use zenmagick\base\Beans;
@@ -29,16 +27,6 @@ use zenmagick\base\Beans;
  * @author DerManoMann <mano@zenmagick.org>
  */
 class EzpagesController extends \ZMController {
-
-    /**
-     * {@inheritDoc}
-     */
-    public function preProcess($request) {
-        \ZMUrlManager::instance()->setMapping('ezpages', array(
-            'ezpages-overview' => array('template' => 'views/ezpages-overview.php'),
-            'ezpages-details' => array('template' => 'views/ezpages-details.php'),
-        ));
-    }
 
     /**
      * {@inheritDoc}
@@ -59,6 +47,7 @@ class EzpagesController extends \ZMController {
     public function processGet($request) {
         $language = $request->getSelectedLanguage();
         $languageId = $request->getParameter('languageId', $language->getId());
+
         if (null !== ($ezPageId = $request->getParameter('editId'))) {
             $ezPageId = (int)$ezPageId;
             if (0 == $ezPageId) {
@@ -69,10 +58,10 @@ class EzpagesController extends \ZMController {
             if (null == $ezPage) {
                 return $this->findView('error', array('message' => _zm('Invalid page id')));
             }
-            return $this->findView('ezpages-details', array('ezPage' => $ezPage));
+            return $this->findView(null, array('ezPage' => $ezPage));
         }
 
-        return $this->findView('ezpages-overview');
+        return $this->findView();
     }
 
     /**
@@ -86,7 +75,7 @@ class EzpagesController extends \ZMController {
         $languageId = $request->getParameter('languageId');
         $ezPageService = $this->container->get('ezPageService');
 
-        $viewId = 'ezpages-overview';
+        $viewId = null;
         if (null !== ($ezPageId = $request->getParameter('updateId'))) {
             if (0 == $ezPageId) {
                 // create

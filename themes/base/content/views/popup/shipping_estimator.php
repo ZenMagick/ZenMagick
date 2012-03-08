@@ -1,7 +1,7 @@
 <?php
 /*
  * ZenMagick - Smart e-commerce
- * Copyright (C) 2006-2011 zenmagick.org
+ * Copyright (C) 2006-2012 zenmagick.org
  *
  * Portions Copyright (c) 2003 Edwin Bekaert (edwin@ednique.com)
  * Portions Copyright (c) 2003-2006 The zen-cart developers
@@ -21,8 +21,6 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-?>
-<?php
 
   $shoppingCart = $request->getShoppingCart();
   $shippingEstimator = new zenmagick\apps\storefront\utils\ShippingEstimator();
