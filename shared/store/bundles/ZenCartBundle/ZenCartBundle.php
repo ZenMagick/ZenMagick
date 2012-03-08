@@ -66,6 +66,49 @@ class ZenCartBundle extends Bundle {
         if (!defined('UPLOAD_PREFIX')) { define('UPLOAD_PREFIX', 'upload_'); }
     }
 
+    public static function buildSearchPaths($base = '') {
+        $dirs = array(dirname(__FILE__).'/bridge/', dirname(Runtime::getInstallationPath()).'/');
+
+        if (Runtime::isContextMatch('admin')) {
+            $dirs = array_merge(array(dirname(__FILE__).'/bridge/admin/', dirname(Runtime::getInstallationPath()).'/'.ZENCART_ADMIN_FOLDER.'/'), $dirs);
+        }
+        $overrides = (false !== strpos($base, 'auto_loaders') || false !== strpos($base, 'init_includes'));
+        $searchPaths = array();
+        foreach ($dirs as $dir) {
+            if ($overrides) {
+                $searchPaths[] = $dir.$base.'/overrides';
+            }
+            $searchPaths[] = $dir.$base;
+        }
+        return $searchPaths;
+    }
+
+    /**
+     * Find Zen Cart init system files
+     *
+     * We check our bridge directory before falling back on ZenCart native files
+     *
+     * @param mixed string|array $paths path or paths to file or files, can be a glob.
+     * @returns array array of absolute paths to files indexed by file basename.
+     */
+    public static function resolveFiles($paths) {
+        $files = array();
+        
+        foreach ((array)$paths as $path) {
+            //$relative = str_replace(array_keys($map), array_values($map), $path);
+            $file = basename($path);
+            $relative = dirname($path);
+            $checkRoots = self::buildSearchPaths($relative);
+            foreach ($checkRoots as $root) {
+                foreach (glob($root . '/' .  $file, GLOB_BRACE) as $found) {
+                    if (isset($files[basename($found)])) continue;
+                    $files[basename($found)] = realpath($found);
+                }
+            }
+        }
+        return $files;
+    }
+
     /**
      * Load configure.php to get the required store-container settings if required.
      *
@@ -97,7 +140,6 @@ class ZenCartBundle extends Bundle {
                 $this->container->get('settingsService')->set('apps.store.zencart.admindir', $adminDir->getValue());
             }
         }
-
 
         // include overrides for zen_href_link and zen_mail*
         require_once __DIR__ . '/utils/zencart_overrides.php';
