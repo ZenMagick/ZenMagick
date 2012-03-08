@@ -33,6 +33,28 @@
         <option key="view:success">redirect://index</option>
         <option key="form">zenmagick\apps\store\admin\forms\AdminUserForm#formId=updateUser</option>
     </route>
+    <route id="ezpages" pattern="/ezpages/{languageId}">
+        <default key="_controller">zenmagick\apps\store\admin\controller\EzpagesController</default>
+        <default key="languageId">1</default>
+        <option key="view">views/ezpages-overview.php</option>
+    </route>
+    <route id="ezpage" pattern="/ezpage?{slug}">
+        <default key="_controller">zenmagick\apps\store\admin\controller\EzpagesController</default>
+        <default key="slug"></default>
+        <option key="view">views/ezpages-details.php</option>
+        <option key="view:success">redirect://ezpages</option>
+    </route>
+    <route id="content_edit" pattern="/content/edit?{slug}">
+        <default key="_controller">zenmagick\apps\store\admin\controller\ContentEditorController</default>
+        <default key="slug"></default>
+        <option key="view">views/ezpages-details.php</option>
+        <option key="view:success">redirect://content_editor</option>
+    </route>
+    <route id="content_editor" pattern="/content/{languageId}">
+        <default key="_controller">zenmagick\apps\store\admin\controller\ContentEditorController</default>
+        <default key="languageId">1</default>
+        <option key="view">views/content_overview.php</option>
+    </route>
     <!--
     <route id="admin_users" pattern="/manage/users">
         <default key="_controller">zenmagick\apps\store\admin\controller\AdminUsersController</default>

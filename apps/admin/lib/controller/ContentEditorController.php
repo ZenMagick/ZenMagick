@@ -31,16 +31,6 @@ class ContentEditorController extends \ZMController {
     /**
      * {@inheritDoc}
      */
-    public function preProcess($request) {
-        \ZMUrlManager::instance()->setMapping('content_editor', array(
-            'overview' => array('template' => 'views/content_overview.php'),
-            'details' => array('template' => 'views/ezpages-details.php'),
-        ));
-    }
-
-    /**
-     * {@inheritDoc}
-     */
     public function getViewData($request) {
         $language = $request->getSelectedLanguage();
         $languageId = $request->getParameter('languageId', $language->getId());
@@ -69,10 +59,10 @@ class ContentEditorController extends \ZMController {
             if (null == $ezPage) {
                 return $this->findView('error', array('message' => _zm('Invalid id')));
             }
-            return $this->findView('details', array('ezPage' => $ezPage));
+            return $this->findView(null, array('ezPage' => $ezPage));
         }
 
-        return $this->findView('overview');
+        return $this->findView();
     }
 
     /**
@@ -86,7 +76,7 @@ class ContentEditorController extends \ZMController {
         $ezPageService = $this->container->get('ezPageService');
         $languageId = $request->getParameter('languageId');
 
-        $viewId = 'overview';
+        $viewId = null;
         if (null !== ($ezPageId = $request->getParameter('updateId'))) {
             if (0 == $ezPageId) {
                 // create

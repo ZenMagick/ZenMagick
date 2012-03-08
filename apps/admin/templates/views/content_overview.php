@@ -29,7 +29,7 @@
             <?php } ?>
           </select>
         )
-      <a href="<?php echo $admin2->url(null, 'editId=0&languageId='.$selectedLanguageId) ?>">Create new</a>
+      <a href="<?php echo $admin2->url('content_edit', 'editId=0&languageId='.$selectedLanguageId) ?>">Create new</a>
   </h2>
 </form>
 
@@ -43,15 +43,15 @@
   <?php foreach ($resultList->getResults() as $ezPage) { ?>
     <tr>
       <td><?php echo $ezPage->getId() ?></td>
-      <td><a href="<?php echo $admin2->url(null, 'editId='.$ezPage->getId().'&languageId='.$selectedLanguageId) ?>"><?php echo $html->encode($ezPage->getTitle()) ?></a></td>
+      <td><a href="<?php echo $admin2->url('content_edit', 'editId='.$ezPage->getId().'&languageId='.$selectedLanguageId) ?>"><?php echo $html->encode($ezPage->getTitle()) ?></a></td>
       <td><?php echo $ezPage->isStatic() ? _zm('Static') : _zm('EZPage') ?></td>
       <td>
-        <form action="<?php echo $admin2->url() ?>" method="POST" onsubmit="return ZenMagick.confirm('<?php _vzm('Delete page id:#%s?', $ezPage->getId()) ?>', this);">
+        <form action="<?php echo $admin2->url('content_edit') ?>" method="POST" onsubmit="return ZenMagick.confirm('<?php _vzm('Delete page id:#%s?', $ezPage->getId()) ?>', this);">
           <input type="hidden" name="rid" value="content_editor">
           <input type="hidden" name="languageId" value="<?php echo $selectedLanguageId ?>">
           <input type="hidden" name="deleteId" value="<?php echo $ezPage->getId() ?>">
           <input class="<?php echo $buttonClasses ?>" type="submit" value="Delete">
-          <a class="<?php echo $buttonClasses ?>" href="<?php echo $admin2->url(null, 'editId='.$ezPage->getId().'&languageId='.$selectedLanguageId) ?>">Edit</a>
+          <a class="<?php echo $buttonClasses ?>" href="<?php echo $admin2->url('content_edit', 'editId='.$ezPage->getId().'&languageId='.$selectedLanguageId) ?>">Edit</a>
         </form>
       </td>
     </tr>

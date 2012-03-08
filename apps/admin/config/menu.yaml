@@ -7,7 +7,7 @@ tools: { requestId: tools, name: Tools }
 configuration: { requestId: configuration, name: Configuration }
 zc-admin: { requestId: zc_admin, name: Zen Cart Admin }
 tools-cms: { parent: tools, name: Manage Content }
-content-editor: { parent: tools-cms, requestId: content_editor, name: Static Content }
+content-editor: { parent: tools-cms, requestId: content_editor, name: Static Content, alias: [content_editor] }
 ezpages: { parent: tools-cms, requestId: ezpages, name: EZPages }
 static-page-editor: { parent: tools-cms, requestId: static_page_editor, name: Static Pages (deprecated) }
 tools-admin: { parent: tools, name: Admin }
