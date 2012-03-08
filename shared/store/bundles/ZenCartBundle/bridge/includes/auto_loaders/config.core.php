@@ -29,8 +29,9 @@
  */
   $autoLoadConfig[10][] = array('autoType'=>'init_script',
                                 'loadFile'=> 'init_file_db_names.php');
-  $autoLoadConfig[10][] = array('autoType'=>'init_script',
-                                'loadFile'=>'init_database.php');
+  $autoLoadConfig[10][] = array('autoType'=>'classInstantiate',
+                                'className'=>'queryFactory',
+                                'objectName'=> 'db');
 /**
  * Breakpoint 20.
  * 
