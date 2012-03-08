@@ -21,18 +21,16 @@
 use zenmagick\base\Runtime;
 use zenmagick\http\HttpApplication;
 
-// avoid including twice
-if (class_exists('zenmagick\base\Application')) {
-    return;
-}
-
 $rootDir = __DIR__;
 include_once $rootDir.'/lib/base/Application.php';
 include_once $rootDir.'/lib/http/HttpApplication.php';
 
 try {
-    $config = array('appName' => 'storefront', 'environment' => (isset($_SERVER['ZM_ENVIRONMENT']) ? $_SERVER['ZM_ENVIRONMENT'] : 'prod'));
-    $application = new HttpApplication($config);
+
+    if (!isset($application)) {
+        $config = array('appName' => 'storefront', 'environment' => (isset($_SERVER['ZM_ENVIRONMENT']) ? $_SERVER['ZM_ENVIRONMENT'] : 'prod'));
+        $application = new HttpApplication($config);
+    }
     $application->bootstrap();
 
     $container = Runtime::getContainer();

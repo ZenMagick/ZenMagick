@@ -12,6 +12,11 @@
  * @license http://www.zen-cart.com/license/2_0.txt GNU Public License V2.0
  * @version $Id: application_top.php 19731 2011-10-09 17:20:30Z wilt $
  */
+
+use zenmagick\http\HttpApplication;
+use zenmagick\base\Runtime;
+use zenmagick\apps\store\bundles\ZenCartBundle\ZenCartBundle;
+
 /**
  * inoculate against hack attempts which waste CPU cycles
  * @todo does this help anything?
@@ -51,6 +56,13 @@ if ($contaminated) {
 unset($contaminated);
 /* *** END OF INNOCULATION *** */
 
+$rootDir = 'zenmagick';
+include_once $rootDir.'/lib/base/Application.php';
+include_once $rootDir.'/lib/http/HttpApplication.php';
+
+$config = array('appName' => 'storefront', 'environment' => (isset($_SERVER['ZM_ENVIRONMENT']) ? $_SERVER['ZM_ENVIRONMENT'] : 'prod'));
+$application = new HttpApplication($config);
+$application->bootstrap(array('init')); // @todo boot more!
 define('IS_ADMIN_FLAG', false);
 define('PAGE_PARSE_START_TIME', microtime());
 define('DEBUG_AUTOLOAD', false);
