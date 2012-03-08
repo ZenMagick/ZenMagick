@@ -79,11 +79,11 @@ class base {
         if (!zenmagick\base\Runtime::getSettings()->get('isEnableZMThemes', true)) {
             if (0 === strpos($eventId, 'NOTIFY_HEADER_START_')) {
                 $controllerId = str_replace('NOTIFY_HEADER_START_', '', $eventId);
-                $args = array_merge($args, array('controllerId' => $controllerId, 'request' => zenmagick\base\Runtime::getContainer()->get('request')));
+                $params = array_merge($params, array('controllerId' => $controllerId, 'request' => zenmagick\base\Runtime::getContainer()->get('request')));
                 zenmagick\base\Runtime::getEventDispatcher()->dispatch('controller_process_start', new zenmagick\base\events\Event($this, $params));
             } else if (0 === strpos($eventId, 'NOTIFY_HEADER_END_')) {
                 $controllerId = str_replace('NOTIFY_HEADER_END_', '', $eventId);
-                $args = array_merge($args, array('controllerId' => $controllerId, 'request' => zenmagick\base\Runtime::getContainer()->get('request')));
+                $params = array_merge($params, array('controllerId' => $controllerId, 'request' => zenmagick\base\Runtime::getContainer()->get('request')));
                 zenmagick\base\Runtime::getEventDispatcher()->dispatch('controller_process_end', new zenmagick\base\events\Event($this, $params));
             }
         }
