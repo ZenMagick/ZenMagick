@@ -18,9 +18,6 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-use zenmagick\base\Runtime;
-use Doctrine\DBAL\Cache\QueryCacheProfile;
-
 /**
   * ZenCart database abstraction layer implementation
   *
@@ -49,7 +46,7 @@ class queryFactory {
         if(!function_exists('mysql_connect')) {
             throw new ZMDatabaseException('Install `ext/mysql` extension to enable mysql_* functions.');
         }
-        $defaults = Runtime::getSettings()->get('apps.store.database.default');
+        $defaults = zenmagick\base\Runtime::getSettings()->get('apps.store.database.default');
         $params = array_merge($defaults, (array)$params);
         $link = mysql_connect($params['host'], $params['user'], $params['password'], true);
 
@@ -90,7 +87,7 @@ class queryFactory {
 
         $qcp = null;
         if ($useCache && $this->hasResultCache) {
-           $qcp =  new QueryCacheProfile($cacheTime, md5($sql));
+           $qcp =  new Doctrine\DBAL\Cache\QueryCacheProfile($cacheTime, md5($sql));
         }
         try {
             $stmt = ZMRuntime::getDatabase()->executeQuery($sql, array(), array(), $qcp);
