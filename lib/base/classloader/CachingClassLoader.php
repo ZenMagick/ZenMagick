@@ -50,11 +50,12 @@ class CachingClassLoader extends ClassLoader {
             foreach ($data[$key] as $name => $value) {
                 if (is_array($value)) {
                     $relativeData[$key][$name] = array();
-                    foreach ($value as $file) {
-                        $relativeData[$key][$name][] = str_replace(DIRECTORY_SEPARATOR, '/', str_replace($path.DIRECTORY_SEPARATOR, '', $file));
+                    foreach ($value as $fileInfo) {
+                        $fileInfo[0] = str_replace(DIRECTORY_SEPARATOR, '/', str_replace($path.DIRECTORY_SEPARATOR, '', realpath($fileInfo[0])));
+                        $relativeData[$key][$name][] = $fileInfo;
                     }
                 } else {
-                    $relativeData[$key][$name] = str_replace(DIRECTORY_SEPARATOR, '/', str_replace($path.DIRECTORY_SEPARATOR, '', $value));
+                    $relativeData[$key][$name] = str_replace(DIRECTORY_SEPARATOR, '/', str_replace($path.DIRECTORY_SEPARATOR, '', realpath($value)));
                 }
             }
         }
@@ -82,8 +83,13 @@ class CachingClassLoader extends ClassLoader {
             foreach ($data[$key] as $name => $value) {
                 if (is_array($value)) {
                     $absoluteData[$key][$name] = array();
-                    foreach ($value as $file) {
-                        $absoluteData[$key][$name][] = realpath($path.'/'.$file);
+                    foreach ($value as $fileInfo) {
+                        $fileInfo[0] = realpath($path.'/'.$fileInfo[0]);
+                        $fpath = $fileInfo[0];
+                        if (!empty($fileInfo[1])) {
+                            $fpath .= '@'.$fileInfo[1];
+                        }
+                        $absoluteData[$key][$name][] = $fpath;
                     }
                 } else {
                     $absoluteData[$key][$name] = realpath($path.'/'.$value);
@@ -91,7 +97,9 @@ class CachingClassLoader extends ClassLoader {
             }
         }
 
-        $this->addNamespaces($absoluteData['namespaces']);
+        foreach ($absoluteData['namespaces'] as $namespace => $paths) {
+            $this->addNamespace($namespace, $paths);
+        }
         $this->addPrefixes($absoluteData['prefixes']);
         $this->addDefaults($absoluteData['defaults']);
     }
