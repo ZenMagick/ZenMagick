@@ -74,6 +74,7 @@ class HttpApplication extends Application {
             $request = $container->get('request');
 
             // allow seo rewriters to fiddle with the request
+            $this->profile('enter urlDecode');
             $request->urlDecode();
             $this->profile('exit: urlDecode');
 
@@ -81,17 +82,22 @@ class HttpApplication extends Application {
             $container->get('sacsManager')->ensureAccessMethod($request);
 
             // form validation
+            $this->profile('enter initValidator');
             $applicationPath = $this->config['applicationPath'];
             $validationConfig = $applicationPath.'/config/validation.yaml';
             if ($container->has('validator') && file_exists($validationConfig)) {
                 $container->get('validator')->load(file_get_contents(Toolbox::resolveWithEnv($validationConfig)));
             }
+            $this->profile('exit initValidator');
 
             // reset as other global code migth fiddle with it...
+            $this->profile(sprintf('fire event: %s', 'init_done'));
             $this->fireEvent('init_done', array('request' => $request));
             $this->profile(sprintf('finished event: %s', 'init_done'));
 
+            $this->profile('enter dispatcher');
             $container->get('dispatcher')->dispatch($request);
+            $this->profile('exit dispatcher');
         } catch (Exception $e) {
             die(sprintf('serve failed: %s', $e->getMessage()));
         }
