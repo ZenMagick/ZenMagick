@@ -164,8 +164,9 @@ class LocaleScanner extends ZMObject {
      * @return array A translation map.
      */
     public function yaml2map($filename) {
+        $seps = array('": "', "': '", '":"', "':'");
         $map = array();
-        $file = null;
+        $file = 'unknown';
         foreach (file($filename) as $line) {
             $line = trim($line);
             if (empty($line)) {
@@ -175,18 +176,27 @@ class LocaleScanner extends ZMObject {
                 if (':' == $line[1]) {
                     // file
                     $nextfile = trim(str_replace('#: ', '', $line));
+                    if (empty($nextfile)) {
+                        $nextfile = 'unknown';
+                    }
                     if ($file != $nextfile) {
                         $file = $nextfile;
-                        $map[$file] = array();
+                        if (!array_key_exists($file, $map)) {
+                            $map[$file] = array();
+                        }
                     }
                 } else if ('.' == $line[1]) {
                     // comment
                 }
                 continue;
             } else {
-                if (false === ($pos = strpos($line, '": "'))) {
-                    $pos = strpos($line, "': '");
+                // find sep pos
+                foreach ($seps as $sep) {
+                    if (false !== ($pos = strpos($line, $sep))) {
+                        break;
+                    }
                 }
+
                 if (false !== $pos) {
                     // strip quotes
                     $key = trim(substr($line, 1, $pos-1));

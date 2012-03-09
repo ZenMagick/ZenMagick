@@ -25,7 +25,7 @@ storefront:
       privacy:
         view: redirect#url=http://www.dilbert.com/
       ## product_info
-      product_info:
+      Xproduct_info:
         layout: ""
         template: views/twig_product.twig
         
