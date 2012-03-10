@@ -27,6 +27,8 @@
  * require('includes/version.php');
  * 
  */
+  $autoLoadConfig[10][] = array('autoType'=>'include_glob',
+                                'loadFile'=>'includes/extra_configures/*.php');
   $autoLoadConfig[10][] = array('autoType'=>'require',
                                 'loadFile'=>'includes/filenames.php');
   $autoLoadConfig[10][] = array('autoType'=>'require',
