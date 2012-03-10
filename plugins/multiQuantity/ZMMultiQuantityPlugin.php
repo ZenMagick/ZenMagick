@@ -61,11 +61,11 @@ class ZMMultiQuantityPlugin extends Plugin {
             // add own mapping
             if (ZMSettings::get('isShowCartAfterAddProduct', true)) {
                 $mapping = array('success' => array(
-                    'view' => 'RedirectView#requestId=shopping_cart'
+                    'view' => 'redirect://shopping_cart'
                 ));
             } else {
                 $mapping = array('success' => array(
-                    'view' => 'RedirectView#requestId=product_info&parameter='.urlencode('products_id='.$request->getProductId())
+                    'view' => 'redirect://product_info&products_id='.$request->getProductId()
                 ));
             }
 

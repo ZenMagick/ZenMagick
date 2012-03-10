@@ -55,7 +55,7 @@ class Application {
             'timerStart' => microtime(),
             'installationPath' => dirname(dirname(__DIR__)),
             'cli' => defined('STDIN'),
-            'profile' => false,
+            'profile' => true,
 
             // packages
             'packageBase' => 'zenmagick',
@@ -233,8 +233,7 @@ class Application {
     public function profile($text=null) {
         if ($this->config['profile']) {
             if ($text) {
-                $time = microtime();
-                $this->profile[] = array('text' => $text, 'time' => $time, 'elapsed' => $this->getElapsedTime($time));
+                $this->profile[] = array('text' => $text, 'timestamp' => microtime());
             }
             return $this->profile;
         }
@@ -302,15 +301,18 @@ class Application {
 
                 if (array_key_exists('preEvent', $step)) {
                     $eventName = $step['preEvent'];
+                    $this->profile(sprintf('fire event: %s', $eventName));
                     $this->fireEvent($eventName);
                     $this->profile(sprintf('finished event: %s', $eventName));
                 }
                 foreach ((array)$step['methods'] as $method) {
+                    $this->profile(sprintf('enter method: %s', $method));
                     $this->$method();
                     $this->profile(sprintf('exit method: %s', $method));
                 }
                 if (array_key_exists('postEvent', $step)) {
                     $eventName = $step['postEvent'];
+                    $this->profile(sprintf('fire event: %s', $eventName));
                     $this->fireEvent($eventName);
                     $this->profile(sprintf('finished event: %s', $eventName));
                 }
