@@ -16,6 +16,11 @@
   function zen_href_link_DISABLED($page = '', $parameters = '', $connection = 'NONSSL', $add_session_id = true, $search_engine_safe = true, $static = false, $use_dir_ws_catalog = true) {
     global $request_type, $session_started, $http_domain, $https_domain;
 
+    //bof simple seo url
+    global $ssu; // @todo ZENMAGICK MODIFICATION : support ssu until we can rely on routing for ZenCart
+    if(is_object($ssu) && ($link = $ssu->ssu_link($page, $parameters, $connection, $add_session_id, $search_engine_safe, $static, $use_dir_ws_catalog))!= false) return $link;
+    //eof simple seo url
+
     if (!zen_not_null($page)) {
       die('</td></tr></table></td></tr></table><br /><br /><strong class="note">Error!<br /><br />Unable to determine the page link!</strong><br /><br /><!--' . $page . '<br />' . $parameters . ' -->');
     }
