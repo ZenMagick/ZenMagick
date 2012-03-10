@@ -68,14 +68,10 @@ $application->bootstrap(array('init')); // @todo boot more!
 define('IS_ADMIN_FLAG', Runtime::isContextMatch('admin'));
 define('PAGE_PARSE_START_TIME', microtime());
 
-// @todo how do we want to control this? perhaps a new setting apps.store.zencart.strictErrorReporting ?
-if (defined('STRICT_ERROR_REPORTING') && STRICT_ERROR_REPORTING == true) {
-  @ini_set('display_errors', TRUE);
-  error_reporting(version_compare(PHP_VERSION, 5.3, '>=') ? E_ALL & ~E_DEPRECATED & ~E_NOTICE : version_compare(PHP_VERSION, 5.4, '>=') ? E_ALL & ~E_DEPRECATED & ~E_NOTICE & ~E_STRICT : E_ALL & ~E_NOTICE);
-} else {
-  error_reporting(0);
+// @todo find a way to restore the original value once all processing by ZenCart is complete.
+if (Runtime::getSettings()->get('apps.store.zencart.strictErrorReporting', false)) {
+  error_reporting(version_compare(PHP_VERSION, 5.4, '>=') ? E_ALL ^ E_DEPRECATED ^ E_NOTICE ^ E_STRICT : E_ALL ^ E_DEPRECATED ^ E_NOTICE);
 }
-
 
 // set php_self in the local scope
 if (!isset($PHP_SELF)) $PHP_SELF = $_SERVER['PHP_SELF'];
