@@ -101,10 +101,17 @@ define('DIR_WS_TEMPLATES', DIR_WS_INCLUDES . 'templates/');
 
 $autoLoadConfig = array();
 $loaderPrefix = isset($loaderPrefix) ? $loaderPrefix : 'config';
-$loader_file = $loaderPrefix . '.core.php';
-require('includes/initsystem.php');
+$coreLoaderPrefix = in_array($loaderPrefix, array('config', 'paypal_ipn')) ? 'config' : $loaderPrefix;
+$files = ZenCartBundle::resolveFiles('includes/auto_loaders/'.$coreLoaderPrefix.'.*.php');
 
-require('includes/autoload_func.php');
+include $files[$coreLoaderPrefix.'.core.php'];
+unset($files[$coreLoaderPrefix.'.core.php']);
+
+foreach ($files as $file) {
+    include $file;
+}
+
+require Runtime::getInstallationPath().'/shared/store/bundles/ZenCartBundle/bridge/includes/autoload_func.php';
 
 if ($spider_flag == false) {
 // counter and counter history
