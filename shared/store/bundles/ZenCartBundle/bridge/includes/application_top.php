@@ -56,16 +56,17 @@ if ($contaminated) {
 unset($contaminated);
 /* *** END OF INNOCULATION *** */
 
+if (!class_exists('zenmagick\base\Application')) {
 $rootDir = 'zenmagick';
 include_once $rootDir.'/lib/base/Application.php';
 include_once $rootDir.'/lib/http/HttpApplication.php';
-
 $config = array('appName' => 'storefront', 'environment' => (isset($_SERVER['ZM_ENVIRONMENT']) ? $_SERVER['ZM_ENVIRONMENT'] : 'prod'));
 $application = new HttpApplication($config);
 $application->bootstrap(array('init')); // @todo boot more!
-define('IS_ADMIN_FLAG', false);
+
+}
+define('IS_ADMIN_FLAG', Runtime::isContextMatch('admin'));
 define('PAGE_PARSE_START_TIME', microtime());
-define('DEBUG_AUTOLOAD', false);
 
 // @todo how do we want to control this? perhaps a new setting apps.store.zencart.strictErrorReporting ?
 if (defined('STRICT_ERROR_REPORTING') && STRICT_ERROR_REPORTING == true) {
