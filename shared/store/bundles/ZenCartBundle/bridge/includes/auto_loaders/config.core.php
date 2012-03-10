@@ -27,8 +27,13 @@
  * require('includes/version.php');
  * 
  */
-  $autoLoadConfig[10][] = array('autoType'=>'init_script',
-                                'loadFile'=> 'init_file_db_names.php');
+  $autoLoadConfig[10][] = array('autoType'=>'require',
+                                'loadFile'=>'includes/filenames.php');
+  $autoLoadConfig[10][] = array('autoType'=>'require',
+                                'loadFile'=>'includes/database_tables.php');
+  $autoLoadConfig[10][] = array('autoType'=>'include_glob',
+                                'loadFile'=>'includes/extra_datafiles/*.php');
+
   $autoLoadConfig[10][] = array('autoType'=>'classInstantiate',
                                 'className'=>'queryFactory',
                                 'objectName'=> 'db');

@@ -91,6 +91,7 @@ if (file_exists('includes/configure.php')) {
 foreach(glob(DIR_FS_CATALOG.'includes/extra_configures/*.php') as $file) {
     include $file;
 }
+$request_type = ZMRequest::instance()->isSecure() ? 'SSL' : 'NONSSL';
 /**
  * Admin only.. destroy later
 $template_dir = '';
