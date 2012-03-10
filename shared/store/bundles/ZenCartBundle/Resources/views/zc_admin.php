@@ -19,6 +19,7 @@
  */
 
 $resourceManager->cssFile('zc_admin.css');
+$resourceManager->jsFile('zc_admin.js');
 
 function split_slash($s) {
   $s = preg_replace('#(\S)/#', '$1 /', $s);
@@ -46,6 +47,10 @@ $code = preg_replace("/require\(.*application_bottom.php'\s*\);/", '', $code);
 ob_start();
 eval('?>'.$code);
 $content = ob_get_clean();
+$spiffyCalKill = array( // this often gets included outside of <head> so we "fix" the entire document
+    '<link rel="stylesheet" type="text/css" href="includes/javascript/spiffyCal/spiffyCal_v2_1.css">',
+    '<script language="JavaScript" src="includes/javascript/spiffyCal/spiffyCal_v2_1.js">');
+$content = str_replace($spiffyCalKill, '', $content);
 // get all head content and find all script code
 preg_match("/<head\>.*<\/head\>/is", $content, $head);
 if (1 == count($head)) {
