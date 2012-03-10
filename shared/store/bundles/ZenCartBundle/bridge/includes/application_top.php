@@ -109,13 +109,3 @@ foreach ($files as $file) {
 }
 
 require Runtime::getInstallationPath().'/shared/store/bundles/ZenCartBundle/bridge/includes/autoload_func.php';
-
-if ($spider_flag == false) {
-// counter and counter history
-  require(DIR_WS_INCLUDES . 'counter.php');
-}
-// get customers unique IP that paypal does not touch
-$customers_ip_address = $_SERVER['REMOTE_ADDR'];
-if (!isset($_SESSION['customers_ip_address'])) {
-  $_SESSION['customers_ip_address'] = $customers_ip_address;
-}
