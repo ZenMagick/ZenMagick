@@ -9,6 +9,7 @@
         <parameter key="kernel.debug">false</parameter>
         <parameter key="zenmagick.http.session.validator.userAgent">false</parameter>
         <parameter key="zenmagick.http.session.validator.ip">false</parameter>
+        <parameter key="zenmagick.http.session.validator.sslSessionId">false</parameter>
     </parameters>
 
     <services>
@@ -185,6 +186,13 @@
         <service id="ipSessionValidator" class="zenmagick\http\session\validation\IPSessionValidator" scope="prototype">
             <call method="setEnabled">
                 <argument>%zenmagick.http.session.validator.ip%</argument>
+            </call>
+            <tag name="zenmagick.http.session.validator" />
+        </service>
+
+        <service id="sslSessionIdSessionValidator" class="zenmagick\http\session\validation\SSLSessionIdSessionValidator" scope="prototype">
+            <call method="setEnabled">
+                <argument>%zenmagick.http.session.validator.sslSessionId%</argument>
             </call>
             <tag name="zenmagick.http.session.validator" />
         </service>

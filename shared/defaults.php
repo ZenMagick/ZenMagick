@@ -151,6 +151,7 @@
 
             'zenmagick.http.session.validator.userAgent' => SESSION_CHECK_USER_AGENT == 'True',
             'zenmagick.http.session.validator.ip' => SESSION_CHECK_IP_ADDRESS == 'True',
+            'zenmagick.http.session.validator.sslSessionId' => SESSION_CHECK_SSL_SESSION_ID == 'True',
 
 
             /**************************************
