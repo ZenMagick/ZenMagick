@@ -21,6 +21,7 @@ namespace zenmagick\apps\store\toolbox;
 
 use zenmagick\base\Runtime;
 use zenmagick\http\toolbox\ToolboxTool;
+use zenmagick\http\session\validation\FormTokenSessionValidator;
 
 /**
  * Form related functions.
@@ -99,8 +100,8 @@ class ToolboxForm extends ToolboxTool {
         }
 
         // add session token if configured
-        if ($hasId && 'post' == strtolower($attr['method']) && \ZMLangUtils::inArray($attr['id'], Runtime::getSettings()->get('zenmagick.mvc.html.tokenSecuredForms'))) {
-            $hidden[\ZMRequest::SESSION_TOKEN_NAME] = $this->getRequest()->getSession()->getToken();
+        if ($hasId && 'post' == strtolower($attr['method']) && \ZMLangUtils::inArray($attr['id'], Runtime::getSettings()->get('zenmagick.http.session.formToken'))) {
+            $hidden[FormTokenSessionValidator::SESSION_TOKEN_NAME] = $this->getRequest()->getSession()->getToken();
         }
 
         ob_start();

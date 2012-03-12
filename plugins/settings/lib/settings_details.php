@@ -200,11 +200,6 @@
                         'key' => 'charset',
                         'type' => 'string',
                         'desc' => 'Page charset.'
-                    ),
-                    array(
-                        'key' => 'tokenSecuredForms',
-                        'type' => 'string',
-                        'desc' => 'List of forms (formId) to be secured with a dynamic session token.'
                     )
                 ),
                 'sacs' => array(
@@ -334,6 +329,13 @@
                         'key' => 'urlType',
                         'type' => 'string',
                         'desc' => 'Type of url format; either "default", "path" or "realpath".'
+                    )
+                ),
+                'session' => array(
+                    array(
+                        'key' => 'formToken',
+                        'type' => 'array',
+                        'desc' => 'List of request ids (POST) to be secured with a dynamic session token.'
                     )
                 ),
                 'view' => array(

@@ -46,11 +46,6 @@ class ZMRequest extends ZMObject {
      */
     const DEFAULT_REQUEST_ID = 'rid';
 
-    /**
-     * Name of the session token form field and also the name in the session.
-     */
-    const SESSION_TOKEN_NAME = 'stoken';
-
     private $controller_;
     private $toolbox_;
     private $parameter_;
@@ -553,23 +548,6 @@ class ZMRequest extends ZMObject {
      */
     public function getWebPath() {
         return Runtime::getApplicationPath().'web/';
-    }
-
-    /**
-     * Validate session token.
-     *
-     * @return boolean <code>true</code> in case the session token is valid.
-     */
-    public function validateSessionToken() {
-        $valid = true;
-        if (\ZMLangUtils::inArray($this->getRequestId(), $this->container->get('settingsService')->get('zenmagick.mvc.html.tokenSecuredForms'))) {
-            $valid = false;
-            if (null != ($token = $this->getParameter(self::SESSION_TOKEN_NAME))) {
-                $valid = $this->getSession()->getToken() == $token;
-            }
-        }
-
-        return $valid;
     }
 
     /**

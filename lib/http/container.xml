@@ -166,5 +166,12 @@
 
         <service id="defaultController" class="ZMController" scope="prototype" />
 
+        <service id="formTokenSessionValidator" class="zenmagick\http\session\validation\FormTokenSessionValidator" scope="prototype">
+            <call method="setRequestIds">
+              <argument>%zenmagick.http.session.formToken%</argument>
+            </call>
+            <tag name="zenmagick.http.session.validator" />
+        </service>
+
     </services>
 </container>

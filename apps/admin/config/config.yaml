@@ -68,6 +68,10 @@ zenmagick:
     ## session
     session:
       useFqdn: false
+      # POST validatd with session token
+      formToken: 
+        - login
+        - reset_password
     ## request
     request:
       invalidSession: login

@@ -8,6 +8,7 @@
     <route id="zenmagick_global_routing" pattern="^^">
         <option key="view:success">redirect://</option>
         <option key="view:error">views/error.php?layout=</option>
+        <option key="view:login-demo">redirect://login</option>
         <option key="view:success-demo">redirect://index</option>
     </route>
 

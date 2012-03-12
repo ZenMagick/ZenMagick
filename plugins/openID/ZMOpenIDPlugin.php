@@ -21,6 +21,7 @@
 define('OPENID_ENABLED', true);
 define('Auth_OpenID_RAND_SOURCE', null);
 
+use zenmagick\base\Runtime;
 
 /**
  * Support for OpenID.
@@ -64,14 +65,14 @@ class ZMOpenIDPlugin extends Plugin {
      */
     public function init() {
         parent::init();
-        zenmagick\base\Runtime::getEventDispatcher()->listen($this);
+        Runtime::getEventDispatcher()->listen($this);
 
         // add OpenID field to accounts fields list
         $info = array('column' => 'openid', 'type' => 'string');
         ZMRuntime::getDatabase()->getMapper()->addPropertyForTable('customers', 'openid', $info);
 
         // make openid_login use session token
-        ZMSettings::append('zenmagick.mvc.html.tokenSecuredForms', 'openid_login');
+        $this->container->get('settingsService')->add('zenmagick.http.session.formToken', 'openid_login');
 
         // TODO: manually load lib for now
         require_once dirname(__FILE__).'/lib/openid-2.1.3-php53.packed.php';

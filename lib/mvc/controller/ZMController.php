@@ -108,11 +108,6 @@ class ZMController extends ZMObject {
         // default is no view to allow the controller to generate content
         $view = null;
 
-        // session validation
-        if ($this->isFormSubmit($request) && null != ($view = $this->validateSession($request))) {
-            Runtime::getLogging()->log('session validation failed returning: '.$view, Logging::TRACE);
-        }
-
         // form validation (only if not already error view from session validation...)
         $formData = $this->getFormData($request);
         if (null == $view && null != $formData && $this->isFormSubmit($request)) {
@@ -318,16 +313,6 @@ class ZMController extends ZMObject {
         }
 
         return $this->formData_;
-    }
-
-    /**
-     * Validate session token.
-     *
-     * @param ZMRequest request The request to process.
-     * @return View Either the error view (in case of validation errors), or <code>null</code> for success.
-     */
-    protected function validateSession($request) {
-        return $request->validateSessionToken() ? null : $this->findView();
     }
 
     /**

@@ -1,6 +1,6 @@
 <?php
 /*
- * ZenMagick - Smart e-commerce
+ * ZenMagick - Another PHP framework.
  * Copyright (C) 2006-2012 zenmagick.org
  *
  * This program is free software; you can redistribute it and/or modify
@@ -16,20 +16,25 @@
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
- */ $admin2->title(_zm('Reset Password')) ?></h1>
+ */
+namespace zenmagick\http\session;
 
-<form action="<?php echo $admin2->url() ?>" method="POST">
-<p><?php _vzm('Please enter your admin email address and a new password will be emailed to you.') ?></p>
+use ZMRequest;
 
-<input type="hidden" name="stoken" value="<?php echo $session->getToken() ?>">
+/**
+ * Session validator interface.
+ *
+ * @author DerManoMann <mano@zenmagick.org>
+ */
+interface SessionValidator {
 
-<p>
-<label for="email"><?php _vzm('Email') ?></label><br>
-<input type="text" name="email" id="email">
-</p>
+    /**
+     * Validate session for the given request.
+     *
+     * @param ZMRequest request The request.
+     * @param Session Session session The session.
+     * @return boolean <code>true</code> if, and only if the session is considered valid.
+     */
+    public function isValidSession(ZMRequest $request, Session $session);
 
-<p>
-  <input class="<?php echo $buttonClasses ?>" type="submit" value="<?php _vzm('Reset') ?>">
-  <a class="<?php echo $buttonClasses ?>" href="<?php echo $admin2->url('login') ?>"><?php _vzm('Back to Login') ?></a>
-</p>
-</form>
+}

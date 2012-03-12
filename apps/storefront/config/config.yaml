@@ -52,10 +52,6 @@ zenmagick:
     request:
       missingPage: page_not_found.php
 
-    ## html
-    html:
-      tokenSecuredForms: login
-
     ## resultlist
     resultlist:
       defaultPagination: 10
@@ -73,6 +69,11 @@ zenmagick:
       invalidSession: cookie_usage
       login: login
       enforceSecure: true
+    session:
+      # POST validatd with session token
+      formToken: 
+        - login
+
     controller:
       namespaces:
         - zenmagick\apps\store\storefront\controller

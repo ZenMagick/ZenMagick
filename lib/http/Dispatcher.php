@@ -29,6 +29,7 @@ use zenmagick\base\events\Event;
 use zenmagick\base\logging\Logging;
 use zenmagick\base\utils\Executor;
 use zenmagick\base\utils\ParameterMapper;
+use zenmagick\http\session\SessionValidator;
 use zenmagick\http\view\ModelAndView;
 use zenmagick\http\view\View;
 
@@ -92,7 +93,27 @@ class Dispatcher extends ZMObject {
         $eventDispatcher = $this->container->get('eventDispatcher');
 
         try {
-            $result = $this->executeController($request);
+            // check authorization
+            $sacsManager = $this->container->get('sacsManager');
+            $sacsManager->authorize($request, $request->getRequestId(), $request->getUser());
+
+            $result = null;
+
+            // validate session
+            foreach ($this->container->findTaggedServiceIds('zenmagick.http.session.validator') as $id => $args) {
+                if (null != ($validator = $this->container->get($id)) && $validator instanceof SessionValidator) {
+                    if (!$validator->isValidSession($request, $request->getSession())) {
+                        $this->container->get('loggingService')->trace('session validation failed %s', $validator);
+                        $this->container->get('messageService')->error('Invalid session');
+                        $request->getSession()->regenerate();
+                        $result = '';
+                    }
+                }
+            }
+
+            if (null === $result) {
+                $result = $this->executeController($request);
+            }
 
             // make sure we end up with a View instance
             $view = null;
@@ -145,13 +166,9 @@ class Dispatcher extends ZMObject {
      * Execute controller.
      *
      * @param ZMRequest request The request.
-     * @return mixed The result;
+     * @return mixed The result.
      */
     protected function executeController(ZMRequest $request) {
-        // check authorization
-        $sacsManager = $this->container->get('sacsManager');
-        $sacsManager->authorize($request, $request->getRequestId(), $request->getUser());
-
         $settingsService = $this->container->get('settingsService');
         $enableTransactions = $settingsService->get('zenmagick.http.transactions.enabled', false);
 
