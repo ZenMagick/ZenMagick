@@ -57,7 +57,17 @@ class RssFeedGenerator extends ZMObject {
      * @return string Encoded string.
      */
     protected function encode($s) {
-        return \ZMXmlUtils::encodeXML($s);
+        $encoding = array(
+            '<' => '&lt;',
+            '>' => '&gt;',
+            '&' => '&amp;'
+        );
+
+        foreach ($encoding as $char => $entity) {
+            $s = str_replace($char, $entity, $s);
+        }
+
+        return $s;
     }
 
     /**

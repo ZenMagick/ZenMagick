@@ -16,7 +16,28 @@
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
- */ $admin2->title($group->getName()) ?>
+ */
+
+/**
+ * Encode XML attribute characters.
+ *
+ * @param string s The input string.
+ * @return string The encoded string.
+ */
+function _encodeAttribute($s) {
+    $encoding = array(
+        '"' => '&#34;',
+        "'" => '&#39;'
+    );
+
+    foreach ($encoding as $char => $entity) {
+        $s = str_replace($char, $entity, $s);
+    }
+
+    return $s;
+}
+
+$admin2->title($group->getName()) ?>
 
 <form method="POST" action="<?php echo $admin2->url() ?>">
   <fieldset>
@@ -25,13 +46,13 @@
     <?php foreach ($groupValues as $value) { ?>
       <tr>
       <?php if ($value instanceof ZMConfigValue) { ?>
-        <td><span class="tt" title="<?php _vzm('%s', $value->getName()) ?>|<?php echo ZMXmlUtils::encodeAttribute(_zm($value->getDescription())) ?>"><?php _vzm($value->getName()) ?></span></td>
+        <td><span class="tt" title="<?php _vzm('%s', $value->getName()) ?>|<?php echo _encodeAttribute(_zm($value->getDescription())) ?>"><?php _vzm($value->getName()) ?></span></td>
         <td><strong>Function not supported: <?php echo $value->getSetFunction() ?></strong></td>
       <?php } else { ?>
           <td><label for="<?php echo $value->getName() ?>"><?php _vzm($value->getTitle()) ?></label></td>
           <td>
             <?php /* tooltips */ ?>
-            <span class="tt" title="<?php echo sprintf(_zm('%s'), $value->getTitle()).'|'.ZMXmlUtils::encodeAttribute(_zm($value->getDescription())) ?>">
+            <span class="tt" title="<?php echo sprintf(_zm('%s'), $value->getTitle()).'|'._encodeAttribute(_zm($value->getDescription())) ?>">
               <?php echo $value->render($request, $view); ?>
             </span>
           </td>
