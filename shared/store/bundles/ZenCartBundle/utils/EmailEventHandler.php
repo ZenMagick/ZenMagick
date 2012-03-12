@@ -24,6 +24,7 @@ namespace zenmagick\apps\store\bundles\ZenCartBundle\utils;
 
 use zenmagick\base\Runtime;
 use zenmagick\base\ZMObject;
+use zenmagick\apps\store\model\coupons\Coupon;
 
 /**
  * Fix email context.
@@ -55,9 +56,9 @@ class EmailEventHandler extends ZMObject {
                     $coupon = $this->container->get('couponService')->getCouponForCode($couponCode, $language->getId());
                     if (null == $coupon) {
                         // coupon gets created only *after* the email is sent!
-                        $coupon = Runtime::getContainer()->get('ZMCoupon');
+                        $coupon = new Coupon();
                         $coupon->setCode($couponCode);
-                        $coupon->setType(\ZMCoupons::TYPPE_GV);
+                        $coupon->setType(Coupons::TYPPE_GV);
                         $currency = $this->container->get('currencyService')->getCurrencyForCode($settingsService->get('defaultCurrency'));
                         $coupon->setAmount($currency->parse($context['GV_AMOUNT']));
                     }

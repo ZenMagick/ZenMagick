@@ -26,9 +26,9 @@
   $coupon = $container->get('couponService')->getCouponForId($request->getParameter('cID'), $session->getLanguageId());
   $restrictions = $coupon->getRestrictions();
   $fixed = _zm('This coupon entitles you to a %s discount against your order');
-  if (ZMCoupons::TYPPE_FIXED == $coupon->getType()) {
+  if ($coupon::TYPPE_FIXED == $coupon->getType()) {
       $discount = sprintf($fixed, $utils->formatMoney($coupon->getAmount()));
-  } else if (ZMCoupons::TYPPE_PERCENT == $coupon->getType()) {
+  } else if ($coupon::TYPPE_PERCENT == $coupon->getType()) {
       $discount = sprintf($fixed, number_format($coupon->getAmount(), $settingsService->get('discountDecimals')).'%');
   } else {
       $discount = _zm('This coupon gives you free shipping on your order');

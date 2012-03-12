@@ -26,6 +26,7 @@ use zenmagick\base\Runtime;
 use zenmagick\base\Toolbox;
 use zenmagick\base\logging\Logging;
 use zenmagick\base\events\Event;
+use zenmagick\apps\store\model\coupons\Coupon;
 
 /**
  * Request controller for account creation page.
@@ -117,7 +118,7 @@ class CreateAccountController extends \ZMController {
         if (null != ($newAccountGVAmount = $settingsService->get('apps.store.newAccountGVAmount'))) {
             // set up coupon
             $couponCode = $couponService->createCouponCode($account->getEmail());
-            $coupon = $couponService->createCoupon($couponCode, $newAccountGVAmount, \ZMCoupons::TYPPE_GV);
+            $coupon = $couponService->createCoupon($couponCode, $newAccountGVAmount, Coupon::TYPPE_GV);
             // the receiver of the gv
             $gvReceiver = $this->container->get('ZMGVReceiver');
             $gvReceiver->setEmail($account->getEmail());

@@ -23,6 +23,8 @@
 namespace zenmagick\apps\store\storefront\controller;
 
 use zenmagick\base\Runtime;
+use zenmagick\apps\store\model\coupons\Coupon;
+
 
 /**
  * Request controller for gv confirmation page.
@@ -45,7 +47,7 @@ class GvSendConfirmController extends \ZMController {
     public function processGet($request) {
         $data = array();
         $data['currentAccount'] = $request->getAccount();
-        $coupon = Runtime::getContainer()->get('ZMCoupon');
+        $coupon = new Coupon();
         $coupon->setCode(_zm('THE_COUPON_CODE'));
         $data['currentCoupon'] = $coupon;
         return $this->findView(null, $data);
@@ -95,7 +97,7 @@ class GvSendConfirmController extends \ZMController {
 
         // create the new voucher
         $couponCode = $couponService->createCouponCode($account->getEmail());
-        $coupon = $couponService->createCoupon($couponCode, $amount, \ZMCoupons::TYPPE_GV);
+        $coupon = $couponService->createCoupon($couponCode, $amount, Coupon::TYPPE_GV);
 
         // create coupon tracker
         $couponService->createCouponTracker($coupon, $account, $gvReceiver);

@@ -22,6 +22,7 @@
  */
 namespace zenmagick\apps\store\storefront\controller;
 
+use zenmagick\apps\store\model\coupons\Coupon;
 
 /**
  * Request controller for gv redeem page.
@@ -49,7 +50,7 @@ class GvRedeemController extends \ZMController {
             $couponService = $this->container->get('couponService');
             // only try to redeem if code given - people might browse the page without code parameter...
             $coupon = $couponService->getCouponForCode($gvRedeem->getCouponCode(), $request->getSession()->getLanguageId());
-            if (null != $coupon && \ZMCoupons::TYPPE_GV == $coupon->getType() && $couponService->isCouponRedeemable($coupon->getId())) {
+            if (null != $coupon && Coupon::TYPPE_GV == $coupon->getType() && $couponService->isCouponRedeemable($coupon->getId())) {
                 // all good, set amount
                 $gvRedeem->setAmount($coupon->getAmount());
                 $gvRedeem->setRedeemed(true);
