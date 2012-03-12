@@ -37,7 +37,7 @@ class CouponTranslations extends ZMObject {
     /**
      * @var object $coupon
      * @ORM\Id
-     * @ORM\ManyToOne(targetEntity="ZMCoupon", inversedBy="translations")
+     * @ORM\ManyToOne(targetEntity="Coupon", inversedBy="translations")
      * @ORM\JoinColumn(name="coupon_id", referencedColumnName="coupon_id")
      */
     private $coupon;

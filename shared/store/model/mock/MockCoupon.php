@@ -19,13 +19,14 @@
  */
 namespace zenmagick\apps\store\model\mock;
 
+use zenmagick\apps\store\model\coupons\Coupon;
 
 /**
  * Mock coupon.
  *
  * @author DerManoMann
  */
-class MockCoupon extends \ZMCoupon {
+class MockCoupon extends Coupon {
 
     /**
      * Create new instance.

@@ -23,6 +23,7 @@
 namespace zenmagick\apps\store\storefront\controller;
 
 use zenmagick\base\Runtime;
+use zenmagick\apps\store\model\coupons\Coupon;
 
 /**
  * Request controller for gv send page.
@@ -60,7 +61,7 @@ class GvSendController extends \ZMController {
         $data = array();
         $data['currentAccount'] = $request->getAccount();
         // to fake the email content display
-        $coupon = Runtime::getContainer()->get('ZMCoupon');
+        $coupon = new Coupon();
         $coupon->setCode( _zm('THE_COUPON_CODE'));
         $data['currentCoupon'] = $coupon;
 
