@@ -27,6 +27,7 @@ use ZMRequest;
  * @author DerManoMann <mano@zenmagick.org>
  */
 interface SessionValidator {
+    const SESSION_VALIDATOR_NAMESPACE = 'sessionValidator';
 
     /**
      * Validate session for the given request.

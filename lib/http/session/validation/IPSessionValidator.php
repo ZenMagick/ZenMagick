@@ -25,34 +25,42 @@ use zenmagick\http\session\Session;
 use zenmagick\http\session\SessionValidator;
 
 /**
- * Form token validator.
+ * IP validator.
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class FormTokenSessionValidator extends ZMObject implements SessionValidator {
+class IPSessionValidator extends ZMObject implements SessionValidator {
     /**
-     * Name of the session token form field.
+     * Name of the user agent session key.
      */
-    const SESSION_TOKEN_NAME = 'stoken';
+    const SESSION_IP_KEY = 'ip';
 
-    private $requestIds;
+    private $enabled = false;
 
     /**
-     * Set a list of request ids to be validated.
+     * Enable/disable validation.
      *
-     * @param array requestIds The request ids to validate.
+     * @param boolean state The new state.
      */
-    public function setRequestIds(array $requestIds) {
-        $this->requestIds = $requestIds;
+    public function setEnabled($state) {
+        $this->enabled = $state;
     }
 
     /**
-     * Check if this request needs validation at all.
+     * Simple IP deduction.
      *
-     * <p>This default implementation will validate <em>POST</em> requests only.
+     * @return string ip address.
+     * @todo move to request
      */
-    protected function qualifies(ZMRequest $request) {
-        return 'POST' == $request->getMethod();
+    protected function getIP() {
+        $keys = array('HTTP_CLIENT_IP', 'HTTP_X_FORWARDED_FOR', 'REMOTE_ADDR');
+        foreach ($keys as $key) {
+            if (array_key_exists($key, $_SERVER)) {
+                return $_SERVER[$key];
+            }
+        }
+
+        return null;
     }
 
     /**
@@ -60,13 +68,14 @@ class FormTokenSessionValidator extends ZMObject implements SessionValidator {
      */
     public function isValidSession(ZMRequest $request, Session $session) {
         $valid = true;
-        if ($this->qualifies($request) && in_array($request->getRequestId(), $this->requestIds)) {
-            $valid = false;
-            if (null != ($token = $request->getParameter(self::SESSION_TOKEN_NAME))) {
-                $valid = ($session->getToken() == $token);
+        if ($this->enabled) {
+            $ip = $this->getIP();
+            if (null == ($sessionIP = $session->getValue(self::SESSION_IP_KEY, self::SESSION_VALIDATOR_NAMESPACE))) {
+                $session->setValue(self::SESSION_IP_KEY, $ip, self::SESSION_VALIDATOR_NAMESPACE);
+            } else {
+                $valid = $ip == $sessionIP;
             }
         }
-
         return $valid;
     }
 

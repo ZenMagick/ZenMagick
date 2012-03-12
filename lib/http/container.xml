@@ -7,6 +7,8 @@
 
     <parameters>
         <parameter key="kernel.debug">false</parameter>
+        <parameter key="zenmagick.http.session.validator.userAgent">false</parameter>
+        <parameter key="zenmagick.http.session.validator.ip">false</parameter>
     </parameters>
 
     <services>
@@ -168,7 +170,21 @@
 
         <service id="formTokenSessionValidator" class="zenmagick\http\session\validation\FormTokenSessionValidator" scope="prototype">
             <call method="setRequestIds">
-              <argument>%zenmagick.http.session.formToken%</argument>
+                <argument>%zenmagick.http.session.formToken%</argument>
+            </call>
+            <tag name="zenmagick.http.session.validator" />
+        </service>
+
+        <service id="userAgentSessionValidator" class="zenmagick\http\session\validation\UserAgentSessionValidator" scope="prototype">
+            <call method="setEnabled">
+                <argument>%zenmagick.http.session.validator.userAgent%</argument>
+            </call>
+            <tag name="zenmagick.http.session.validator" />
+        </service>
+
+        <service id="ipSessionValidator" class="zenmagick\http\session\validation\IPSessionValidator" scope="prototype">
+            <call method="setEnabled">
+                <argument>%zenmagick.http.session.validator.ip%</argument>
             </call>
             <tag name="zenmagick.http.session.validator" />
         </service>

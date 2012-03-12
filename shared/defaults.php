@@ -149,6 +149,8 @@
 
             'isResolveClientIP' => SESSION_IP_TO_HOST_ADDRESS == 'true',
 
+            'zenmagick.http.session.validator.userAgent' => SESSION_CHECK_USER_AGENT == 'True',
+            'zenmagick.http.session.validator.ip' => true,//SESSION_CHECK_IP_ADDRESS == 'True',
 
 
             /**************************************

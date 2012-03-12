@@ -25,34 +25,25 @@ use zenmagick\http\session\Session;
 use zenmagick\http\session\SessionValidator;
 
 /**
- * Form token validator.
+ * User Agent validator.
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class FormTokenSessionValidator extends ZMObject implements SessionValidator {
+class UserAgentSessionValidator extends ZMObject implements SessionValidator {
     /**
-     * Name of the session token form field.
+     * Name of the user agent session key.
      */
-    const SESSION_TOKEN_NAME = 'stoken';
+    const SESSION_UA_KEY = 'userAgent';
 
-    private $requestIds;
+    private $enabled = false;
 
     /**
-     * Set a list of request ids to be validated.
+     * Enable/disable validation.
      *
-     * @param array requestIds The request ids to validate.
+     * @param boolean state The new state.
      */
-    public function setRequestIds(array $requestIds) {
-        $this->requestIds = $requestIds;
-    }
-
-    /**
-     * Check if this request needs validation at all.
-     *
-     * <p>This default implementation will validate <em>POST</em> requests only.
-     */
-    protected function qualifies(ZMRequest $request) {
-        return 'POST' == $request->getMethod();
+    public function setEnabled($state) {
+        $this->enabled = $state;
     }
 
     /**
@@ -60,13 +51,15 @@ class FormTokenSessionValidator extends ZMObject implements SessionValidator {
      */
     public function isValidSession(ZMRequest $request, Session $session) {
         $valid = true;
-        if ($this->qualifies($request) && in_array($request->getRequestId(), $this->requestIds)) {
-            $valid = false;
-            if (null != ($token = $request->getParameter(self::SESSION_TOKEN_NAME))) {
-                $valid = ($session->getToken() == $token);
+        if ($this->enabled) {
+            // todo move to request
+            $userAgent = array_key_exists('HTTP_USER_AGENT', $_SERVER) ? $_SERVER['HTTP_USER_AGENT'] : null;
+            if (null == ($sessionUserAgent = $session->getValue(self::SESSION_UA_KEY, self::SESSION_VALIDATOR_NAMESPACE))) {
+                $session->setValue(self::SESSION_UA_KEY, $userAgent, self::SESSION_VALIDATOR_NAMESPACE);
+            } else {
+                $valid = $userAgent == $sessionUserAgent;
             }
         }
-
         return $valid;
     }
 
