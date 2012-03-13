@@ -53,6 +53,22 @@ foreach ($autoLoadConfig as $actionPoint => $row) {
                     $$objectName->$methodName();
                 }
             break;
+            case 'service': // simple container service support with no ability to set arguments.
+                if (!isset($entry['name'])) break;
+
+                $method = isset($entry['method']) ? $entry['method'] : null;
+                $resultVar = isset($entry['resultVar']) ? $entry['resultVar'] : null;
+                if (null != $method) {
+                    $loaderResultVar = Runtime::getContainer()->get($entry['name'])->$method();
+                } else {
+                    $loaderResultVar = Runtime::getContainer()->get($entry['name']);
+                }
+                if (null != $resultVar) {
+                    $$resultVar = $loaderResultVar;
+                } else {
+                    unset($loaderResultVar);
+                }
+            break;
             case 'init_script':
                 $files = ZenCartBundle::resolveFiles('includes/init_includes/'.$entry['loadFile']);
             break;
@@ -66,12 +82,23 @@ foreach ($autoLoadConfig as $actionPoint => $row) {
                 $files = ZenCartBundle::resolveFiles($entry['loadFile']);
             break;
         }
-        foreach ($files as $file) {
-            if ($require) {
-                require $file;
-            } else {
-                include $file;
-            }
+        if (!empty($files)) {
+            $once = isset($entry['once']) && $entry['once'];
+            foreach ($files as $file) {
+                if ($require) {
+                    if ($once) {
+                        require_once $file;
+                    } else {
+                        require $file;
+                    }
+                } else {
+                    if ($once) {
+                        include_once $file;
+                    } else {
+                        include $file;
+                    }
+                }
+            }   
         }
     }
 }

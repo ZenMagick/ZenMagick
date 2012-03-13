@@ -62,14 +62,14 @@ include_once $rootDir.'/lib/base/Application.php';
 include_once $rootDir.'/lib/http/HttpApplication.php';
 $config = array('appName' => 'storefront', 'environment' => (isset($_SERVER['ZM_ENVIRONMENT']) ? $_SERVER['ZM_ENVIRONMENT'] : 'prod'));
 $application = new HttpApplication($config);
-$application->bootstrap(array('init')); // @todo boot more!
+$application->bootstrap(array('init', 'bootstrap')); // @todo boot more!
 
 }
 define('IS_ADMIN_FLAG', Runtime::isContextMatch('admin'));
 define('PAGE_PARSE_START_TIME', microtime());
 
 // @todo find a way to restore the original value once all processing by ZenCart is complete.
-if (Runtime::getSettings()->get('apps.store.zencart.strictErrorReporting', false)) {
+if (Runtime::getSettings()->get('apps.store.zencart.strictErrorReporting', true)) {
   error_reporting(version_compare(PHP_VERSION, 5.4, '>=') ? E_ALL ^ E_DEPRECATED ^ E_NOTICE ^ E_STRICT : E_ALL ^ E_DEPRECATED ^ E_NOTICE);
 }
 

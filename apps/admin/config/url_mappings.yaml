@@ -56,3 +56,5 @@ page:
   legacy-config:
     success:
       view: redirect#requestId=legacy-config
+  zc_admin:
+    controller: zenmagick\apps\store\bundles\ZenCartBundle\controller\AdminController

@@ -36,7 +36,7 @@ class RedirectFixPatch extends FilePatch {
      */
     public function __construct() {
         parent::__construct('redirectPatch');
-        $this->label_ = 'Patch zen-cart\'s <code>zen_redirect</code> function to allow to veto redirects';
+        $this->label_ = 'Remove deprecated redirect veto patch.';
         $this->adminGeneralFile = $this->getZcAdminPath().'/includes/functions/general.php';
         $this->generalFile = ZC_INSTALL_PATH.'/includes/functions/functions_general.php';
     }
@@ -64,7 +64,7 @@ class RedirectFixPatch extends FilePatch {
             }
         }
 
-        return 2 != $found;
+        return 2 == $found;
     }
 
     /**
@@ -95,45 +95,6 @@ class RedirectFixPatch extends FilePatch {
      * @return boolean <code>true</code> if patching was successful, <code>false</code> if not.
      */
     function patch($force=false) {
-        if (!$this->isOpen($lines)) {
-            return true;
-        }
-
-        foreach (array($this->generalFile, $this->adminGeneralFile) as $file) {
-            if (is_writeable($file)) {
-                $patchedLines = array();
-                $insertNow = false;
-                $lines = $this->getFileLines($file);
-                foreach ($lines as $line) {
-                    if ($insertNow && false === strpos($line, "ZMRequest::instance") && false === strpos($line, 'Runtime::getContainer()->get(\'request\')')) {
-                        if ($file == $this->generalFile) {
-                            $patchLine = 'zenmagick\\base\\Runtime::getContainer()->get(\'request\')->redirect($url, $httpResponseCode); return; /* added by ZenMagick installation patcher */';
-                        } else {
-                            $patchLine = 'zenmagick\\base\\Runtime::getContainer()->get(\'request\')->redirect($url); return; /* added by ZenMagick installation patcher */';
-                        }
-                        array_push($patchedLines, $patchLine);
-                    }
-                    $insertNow = false;
-                    array_push($patchedLines, $line);
-                    if (false !== strpos($line, "function zen_redirect")) {
-                        $insertNow = true;
-                    }
-                }
-                $this->putFileLines($file, $patchedLines);
-            } else {
-                Runtime::getLogging()->error("** ZenMagick: no permission to patch redirect fix support into ".basename($file));
-                return false;
-            }
-        }
-        return true;
-    }
-
-    /**
-     * Revert the patch.
-     *
-     * @return boolean <code>true</code> if patching was successful, <code>false</code> if not.
-     */
-    function undo() {
         if ($this->isOpen($lines)) {
             return true;
         }
@@ -158,4 +119,7 @@ class RedirectFixPatch extends FilePatch {
         return true;
     }
 
+    function canUndo() {
+        return false;
+    }
 }

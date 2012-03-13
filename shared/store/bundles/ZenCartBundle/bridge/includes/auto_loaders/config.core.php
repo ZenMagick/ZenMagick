@@ -31,8 +31,9 @@
                                 'loadFile'=>'includes/extra_configures/*.php');
   $autoLoadConfig[10][] = array('autoType'=>'require',
                                 'loadFile'=>'includes/filenames.php');
-  $autoLoadConfig[10][] = array('autoType'=>'require',
-                                'loadFile'=>'includes/database_tables.php');
+  $autoLoadConfig[10][] = array('autoType'=>'include',
+                                'loadFile'=>'includes/database_tables.php',
+                                'once'=>true);
   $autoLoadConfig[10][] = array('autoType'=>'include_glob',
                                 'loadFile'=>'includes/extra_datafiles/*.php');
 
@@ -46,7 +47,7 @@
  * 
  */
   $autoLoadConfig[20][] = array('autoType'=>'include',
-                                'loadFile'=> DIR_WS_INCLUDES . 'version.php');
+                                'loadFile'=> 'includes/version.php');
 /**
  * Breakpoint 30.
  * 
@@ -60,8 +61,12 @@
  * require('includes/init_includes/init_db_config_read.php');
  * 
  */
-  $autoLoadConfig[40][] = array('autoType'=>'init_script',
-                                'loadFile'=> 'init_db_config_read.php');
+  $autoLoadConfig[40][] = array('autoType'=>'include',
+                                'loadFile'=>'includes/classes/db/mysql/define_queries.php');
+  $autoLoadConfig[40][] = array('autoType'=>'service',
+                                'name'=>'productTypeLayoutService',
+                                'method'=>'defineAll');
+
 /**
  * Breakpoint 50.
  * 
@@ -82,11 +87,9 @@
  * 
  */
   $autoLoadConfig[60][] = array('autoType'=>'include_glob',
-                                'loadFile'=> 'includes/functions/{functions_email.php,functions_general.php,html_output.php,functions_ezpages.php}');
+                                'loadFile'=> 'includes/functions/{functions_email.php,functions_general.php,html_output.php,functions_ezpages.php,sessions.php}');
   $autoLoadConfig[60][] = array('autoType'=>'include_glob',
                                 'loadFile'=> 'includes/functions/extra_functions/*.php');
-  $autoLoadConfig[60][] = array('autoType'=>'init_script',
-                                'loadFile'=> 'init_tlds.php');
 /**
  * Include PayPal-specific functions
  *  require('includes/modules/payment/paypal/paypal_functions.php');
@@ -101,9 +104,6 @@
  * require('includes/init_includes/init_sessions.php'); 
  * 
  */
-  $autoLoadConfig[70][] = array('autoType'=>'init_script',
-                                'loadFile'=> 'init_sessions.php');
-
   $autoLoadConfig[71][] = array('autoType'=>'init_script',
                                 'loadFile'=> 'init_paypal_ipn_sessions.php',
                                 'loaderPrefix'=>'paypal_ipn');

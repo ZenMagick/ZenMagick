@@ -37,7 +37,7 @@ class EventProxyPatch extends FilePatch {
      */
     public function __construct() {
         parent::__construct('eventProxy');
-        $this->label_ = 'Patch zen-cart to activate the ZenMagick event proxy service (required for some emails and guest checkout!)';
+        $this->label_ = 'Remove deprecated event proxy patch.';
     }
 
 
@@ -55,11 +55,11 @@ class EventProxyPatch extends FilePatch {
         // look for ZenMagick code...
         foreach ($lines as $line) {
             if (false !== strpos($line, '$zm_events') || false !== strpos($line, 'ZMEvents::instance()') || false !== strpos($line, 'getEventDispatcher()')) {
-                return false;
+                return true;
             }
         }
 
-        return true;
+        return false;
     }
 
     /**
@@ -91,36 +91,6 @@ class EventProxyPatch extends FilePatch {
      */
     function patch($force=false) {
         $lines = $this->getFileLines(_ZM_ZEN_BASE_PHP);
-        if (!$this->isOpen($lines)) {
-            return true;
-        }
-
-        if (is_writeable(_ZM_ZEN_BASE_PHP)) {
-            $patchedLines = array();
-            foreach ($lines as $line) {
-                array_push($patchedLines, $line);
-                if (false !== strpos($line, "function notify(")) {
-                    // need to insert after the matched line
-                    array_push($patchedLines, '    if(class_exists("zenmagick\\\base\\\Runtime")) { zenmagick\\base\\Runtime::getEventDispatcher()->dispatch($eventID, new zenmagick\\base\\events\\Event($this, $paramArray)); } /* added by ZenMagick installation patcher */');
-                }
-            }
-
-            return $this->putFileLines(_ZM_ZEN_BASE_PHP, $patchedLines);
-        } else {
-            Runtime::getLogging()->error("** ZenMagick: no permission to patch event proxy support into class.base.php");
-            return false;
-        }
-
-        return true;
-    }
-
-    /**
-     * Revert the patch.
-     *
-     * @return boolean <code>true</code> if patching was successful, <code>false</code> if not.
-     */
-    function undo() {
-        $lines = $this->getFileLines(_ZM_ZEN_BASE_PHP);
         if ($this->isOpen($lines)) {
             return true;
         }
@@ -143,4 +113,7 @@ class EventProxyPatch extends FilePatch {
         return true;
     }
 
+    function canUndo() {
+        return false;
+    }
 }
