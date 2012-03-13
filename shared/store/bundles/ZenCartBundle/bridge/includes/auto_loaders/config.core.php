@@ -47,7 +47,7 @@
  * 
  */
   $autoLoadConfig[20][] = array('autoType'=>'include',
-                                'loadFile'=> DIR_WS_INCLUDES . 'version.php');
+                                'loadFile'=> 'includes/version.php');
 /**
  * Breakpoint 30.
  * 
@@ -61,8 +61,12 @@
  * require('includes/init_includes/init_db_config_read.php');
  * 
  */
-  $autoLoadConfig[40][] = array('autoType'=>'init_script',
-                                'loadFile'=> 'init_db_config_read.php');
+  $autoLoadConfig[40][] = array('autoType'=>'include',
+                                'loadFile'=>'includes/classes/db/mysql/define_queries.php');
+  $autoLoadConfig[40][] = array('autoType'=>'service',
+                                'name'=>'productTypeLayoutService',
+                                'method'=>'defineAll');
+
 /**
  * Breakpoint 50.
  * 
