@@ -196,18 +196,6 @@
         <!-- fix $db -->
         <antcall target="exceptions-for-db" />
 
-        <!-- add vetoable redirect patch -->
-        <antcall target="insert-after">
-          <param name="insert.file" value="${release.full.dir}/includes/functions/functions_general.php" />
-            <param name="insert.regexp" value="function zen_redirect" />
-            <param name="insert.substitution" value="zenmagick\\\\\base\\\\\Runtime::getContainer()->get(\'request\')->redirect($url, $httpResponseCode); return; /* added by ZenMagick installation patcher */" />
-        </antcall>
-        <antcall target="insert-after">
-          <param name="insert.file" value="${release.full.dir}/admin/includes/functions/general.php" />
-            <param name="insert.regexp" value="function zen_redirect" />
-            <param name="insert.substitution" value="zenmagick\\\\\base\\\\\Runtime::getContainer()->get(\'request\')->redirect($url); return; /* added by ZenMagick installation patcher */" />
-        </antcall>
-
         <!-- create zip with all patched files -->
         <mkdir dir="${build.dir}/zenmagick/etc" />
         <zip zipfile="${build.dir}/zenmagick/etc/zencart-patched-${zenmagick.version}.zip">
@@ -219,8 +207,6 @@
                 <include name="includes/application_bottom.php" />
                 <include name="index.php" />
                 <include name="admin/coupon_admin.php" />
-                <include name="includes/functions/functions_general.php" />
-                <include name="admin/includes/functions/general.php" />
                 <include name="includes/templates/base/**" />
                 <include name="includes/templates/demo/**" />
             </fileset>
