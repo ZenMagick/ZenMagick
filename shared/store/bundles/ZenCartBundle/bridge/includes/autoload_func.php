@@ -66,12 +66,23 @@ foreach ($autoLoadConfig as $actionPoint => $row) {
                 $files = ZenCartBundle::resolveFiles($entry['loadFile']);
             break;
         }
-        foreach ($files as $file) {
-            if ($require) {
-                require $file;
-            } else {
-                include $file;
-            }
+        if (!empty($files)) {
+            $once = isset($entry['once']) && $entry['once'];
+            foreach ($files as $file) {
+                if ($require) {
+                    if ($once) {
+                        require_once $file;
+                    } else {
+                        require $file;
+                    }
+                } else {
+                    if ($once) {
+                        include_once $file;
+                    } else {
+                        include $file;
+                    }
+                }
+            }   
         }
     }
 }

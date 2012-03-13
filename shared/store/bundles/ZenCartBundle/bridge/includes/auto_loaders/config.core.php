@@ -31,8 +31,9 @@
                                 'loadFile'=>'includes/extra_configures/*.php');
   $autoLoadConfig[10][] = array('autoType'=>'require',
                                 'loadFile'=>'includes/filenames.php');
-  $autoLoadConfig[10][] = array('autoType'=>'require',
-                                'loadFile'=>'includes/database_tables.php');
+  $autoLoadConfig[10][] = array('autoType'=>'include',
+                                'loadFile'=>'includes/database_tables.php',
+                                'once'=>true);
   $autoLoadConfig[10][] = array('autoType'=>'include_glob',
                                 'loadFile'=>'includes/extra_datafiles/*.php');
 
