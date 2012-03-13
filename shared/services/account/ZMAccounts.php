@@ -188,11 +188,8 @@ class ZMAccounts extends ZMObject {
     /**
      * Update an existing account.
      *
-     * <p><strong>NOTE:</strong> This will not update product notification
-     * changes!</p>
-     * <p>Use <code>setGlobalProductSubscriber(..)</code> and
-     * <code>setSubscribedProductIds(..)</code> * to update product
-     * subscriptions.</p>
+     * <p><strong>NOTE:</strong> This will not update product notification changes!</p>
+     * <p>Use <code>setGlobalProductSubscriber(..)</code> and <code>setSubscribedProductIds(..)</code> * to update product subscriptions.</p>
      *
      * @param ZMAccount The account.
      * @return ZMAccount The updated account.
