@@ -121,13 +121,6 @@
         <!-- create sidebox dummy files -->
         <antcallback target="create-sidebox-dummies" return="datetime.sidebox.dummies.cutoff"><param name="theme.id" value='base' /></antcallback>
 
-        <!-- add event proxy code -->
-        <antcall target="insert-after">
-            <param name="insert.file" value="${release.full.dir}/includes/classes/class.base.php" />
-            <param name="insert.regexp" value="function notify\(" />
-            <param name="insert.substitution" value='    if(class_exists("\\\\\zenmagick\\\\\base\\\\\Runtime")) { \\\\\zenmagick\\\\\base\\\\\Runtime::getEventDispatcher()->dispatch($$eventID, new \\\\\zenmagick\\\\\base\\\\\events\\\\\Event($$this, $$paramArray)); } /* added by ZenMagick installation patcher */' />
-        </antcall>
-
         <!-- patch zen_href_link -->
         <antcall target="rename-function">
             <param name="rename.file" value="${release.full.dir}/includes/functions/html_output.php" />
@@ -219,7 +212,6 @@
         <mkdir dir="${build.dir}/zenmagick/etc" />
         <zip zipfile="${build.dir}/zenmagick/etc/zencart-patched-${zenmagick.version}.zip">
             <fileset dir="${release.full.dir}">
-                <include name="includes/classes/class.base.php" />
                 <include name="includes/functions/html_output.php" />
                 <!--include name="admin/includes/functions/html_output.php" /-->
                 <include name="includes/functions/functions_email.php" />
