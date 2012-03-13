@@ -32,11 +32,11 @@ $messageService = Runtime::getContainer()->get('messageService');
 // Get DB Config first!
 $status = $installer->getPatchForId('importZencartConfigure')->patch();
 
-$patches = array('importZencartConfigure', 'sqlConfig','sacsPermissions', 'sqlAdminRoles', 'sqlAdminPrefs'); 
+$patches = array('importZencartConfigure', 'sqlConfig', 'applicationTop', 'sacsPermissions', 'sqlAdminRoles', 'sqlAdminPrefs');
 foreach ($patches as $patch) {
     $patchObj = $installer->getPatchForId($patch);
     if ($patchObj->isOpen()) {
-        $status = $patchObj->patch(); 
+        $status = $patchObj->patch();
         $messageService->addAll($patchObj->getMessages());
         if ($status) {
             $messageService->success("'".$patchObj->getLabel()."' installed successfully");

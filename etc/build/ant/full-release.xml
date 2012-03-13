@@ -80,6 +80,9 @@
         <!-- remove music extra stuff -->
         <!--delete file="${release.full.dir}/admin/includes/boxes/extra_boxes/product_music_extras_dhtml.php" /-->
 
+        <!-- add ZenMagick upgrade link -->
+        <antcall target="add-upgrade-link" />
+
         <!-- add ZenMagick -->
         <unzip src="${dist.dir}/zenmagick-${zenmagick.version}.zip" dest="${release.full.dir}" />
 
@@ -279,9 +282,12 @@
         <!-- copy image as well... -->
         <mkdir dir="${release.full.dir}/includes/templates/${theme.id}/images" />
         <copy file="${zenmagick.src.dir}/themes/${theme.id}/preview.jpg" todir="${release.full.dir}/includes/templates/${theme.id}/images" />
-
     </target>
 
+    <!-- add ZenMagick upgrade link -->
+    <target name="add-upgrade-link" description="Add upgrade link to final installation page.">
+      <replaceregexp match="\?\>" replace="?>&lt;div class='center' style='padding:4px; margin:9px 5px;'>&lt;a class='button' style='color:white;background:#093' href='&lt;?php echo HTTP_SERVER.DIR_WS_CATALOG ?>zenmagick/apps/admin/web/upgrade.php' target='_blank'>Run Required ZenMagick Upgrade&lt;/a>&lt;br>&lt;br>&lt;/div>"><fileset file="${release.full.dir}/zc_install/includes/templates/template_default/templates/finished_default.php"></fileset></replaceregexp>
+    </target>
 
     <!-- build sidebox dummy files -->
     <target name="create-sidebox-dummies" description="Create sidebox dummy files for zen cart.">
