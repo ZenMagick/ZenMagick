@@ -88,7 +88,7 @@ class ImportZencartConfigurePatch extends FilePatch {
      */
     function patch($force=false) {
         if (!$this->isOpen()) return true;
-        
+
         include_once _ZM_ZEN_CONFIGURE_PHP;
 
         // find DB_CHARSET
@@ -98,13 +98,14 @@ class ImportZencartConfigurePatch extends FilePatch {
         }
 
         $storeConfig = array();
-        $dbServer = explode(':', DB_SERVER); 
+        $dbServer = explode(':', DB_SERVER);
         $host = $dbServer[0];
         $port = (isset($dbServer[1]) && $dbServer[1] != 3306) ? $dbServer[1] : null;
         $charset = defined('DB_CHARSET') ? DB_CHARSET : 'utf8';
         $dbConfig = array( // @todo should some of these defaults be in the application configuration defaults instead?
             'charset' => $charset,
             'dbname' => DB_DATABASE,
+            'prefix' => DB_PREFIX,
             'driver' => 'pdo_mysql',
             'host' => $host,
             'password' => DB_SERVER_PASSWORD,
@@ -139,7 +140,7 @@ class ImportZencartConfigurePatch extends FilePatch {
     }
 
     /**
-     * {@inheritDoc} 
+     * {@inheritDoc}
      */
     function canUndo() {
         return false;
