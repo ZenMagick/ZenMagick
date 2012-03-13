@@ -193,9 +193,6 @@
             <param name="insert.substitution" value='      $html_msg["accountId"] = $mail->fields["customers_id"]; // added by ZenMagick' />
         </antcall>
 
-        <!-- fix $db -->
-        <antcall target="exceptions-for-db" />
-
         <!-- create zip with all patched files -->
         <mkdir dir="${build.dir}/zenmagick/etc" />
         <zip zipfile="${build.dir}/zenmagick/etc/zencart-patched-${zenmagick.version}.zip">
@@ -312,34 +309,6 @@
     <target name="create-sidebox-dummy" description="Create single sidebox dummy.">
         <basename property="basename" file="${filename}"/>
         <copy overwrite="true" tofile="${build.dir}/dummies/${basename}" file="${build.dir}/sidebox_dummy.php" />
-    </target>
-
-    <!-- convert database die() to throwing an exception -->
-    <target name="exceptions-for-db" description="Convert die() to throwing an exception.">
-        <!-- normal die(); -->
-        <replaceregexp flags="g">
-            <fileset file="${release.full.dir}/includes/classes/db/mysql/query_factory.php" />
-            <regexp pattern="die\(\);"/>
-            <substitution expression='throw new ZMDatabaseException();' />
-        </replaceregexp>
-        <!-- die('with text'); -->
-        <replaceregexp flags="g">
-            <fileset file="${release.full.dir}/includes/classes/db/mysql/query_factory.php" />
-            <regexp pattern="die\s*\(('[Cv].*)'\);"/>
-            <substitution expression="throw new ZMDatabaseException(\1');" />
-        </replaceregexp>
-        <!-- convert $this->show_error(); into exception -->
-        <replaceregexp flags="g">
-            <fileset file="${release.full.dir}/includes/classes/db/mysql/query_factory.php" />
-            <regexp pattern="\$this->show_error\(\);"/>
-            <substitution expression="throw new ZMDatabaseException($zp_err_text);" />
-        </replaceregexp>
-        <!-- ensure we do have the exception in any case -->
-        <antcall target="insert-before">
-            <param name="insert.file" value="${release.full.dir}/includes/classes/db/mysql/query_factory.php" />
-            <param name="insert.regexp" value="class queryFactory extends base" />
-            <param name="insert.substitution" value="if (!class_exists('ZMDatabaseException')) { class ZMDatabaseException extends Exception { } } /* added by ZenMagick installation patcher */" />
-        </antcall>
     </target>
 
     <!-- remove phpBB from installation -->
