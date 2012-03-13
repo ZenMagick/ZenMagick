@@ -65,18 +65,19 @@ class ZenCartBundle extends Bundle {
     }
 
     public static function buildSearchPaths($base = '') {
-        $dirs = array(dirname(__FILE__).'/bridge/', dirname(Runtime::getInstallationPath()).'/');
-
+        $dirs = array(dirname(__FILE__).'/bridge', dirname(Runtime::getInstallationPath()));
         if (Runtime::isContextMatch('admin')) {
-            $dirs = array_merge(array(dirname(__FILE__).'/bridge/admin/', dirname(Runtime::getInstallationPath()).'/'.ZENCART_ADMIN_FOLDER.'/'), $dirs);
+            $adminDirs = array(dirname(__FILE__).'/bridge/admin', dirname(Runtime::getInstallationPath()).'/'.ZENCART_ADMIN_FOLDER);
+            $dirs = false !== strpos($base, 'classes') ? array_merge($adminDirs, $dirs) : $adminDirs;
         }
+
         $overrides = (false !== strpos($base, 'auto_loaders') || false !== strpos($base, 'init_includes'));
         $searchPaths = array();
         foreach ($dirs as $dir) {
             if ($overrides) {
-                $searchPaths[] = $dir.$base.'/overrides';
+                $searchPaths[] = $dir.'/'.$base.'/overrides';
             }
-            $searchPaths[] = $dir.$base;
+            $searchPaths[] = $dir.'/'.$base;
         }
         return $searchPaths;
     }
