@@ -83,11 +83,9 @@
  * 
  */
   $autoLoadConfig[60][] = array('autoType'=>'include_glob',
-                                'loadFile'=> 'includes/functions/{functions_email.php,functions_general.php,html_output.php,functions_ezpages.php}');
+                                'loadFile'=> 'includes/functions/{functions_email.php,functions_general.php,html_output.php,functions_ezpages.php,sessions.php}');
   $autoLoadConfig[60][] = array('autoType'=>'include_glob',
                                 'loadFile'=> 'includes/functions/extra_functions/*.php');
-  $autoLoadConfig[60][] = array('autoType'=>'init_script',
-                                'loadFile'=> 'init_tlds.php');
 /**
  * Include PayPal-specific functions
  *  require('includes/modules/payment/paypal/paypal_functions.php');
@@ -102,9 +100,6 @@
  * require('includes/init_includes/init_sessions.php'); 
  * 
  */
-  $autoLoadConfig[70][] = array('autoType'=>'init_script',
-                                'loadFile'=> 'init_sessions.php');
-
   $autoLoadConfig[71][] = array('autoType'=>'init_script',
                                 'loadFile'=> 'init_paypal_ipn_sessions.php',
                                 'loaderPrefix'=>'paypal_ipn');

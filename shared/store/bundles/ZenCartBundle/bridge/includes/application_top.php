@@ -62,7 +62,7 @@ include_once $rootDir.'/lib/base/Application.php';
 include_once $rootDir.'/lib/http/HttpApplication.php';
 $config = array('appName' => 'storefront', 'environment' => (isset($_SERVER['ZM_ENVIRONMENT']) ? $_SERVER['ZM_ENVIRONMENT'] : 'prod'));
 $application = new HttpApplication($config);
-$application->bootstrap(array('init')); // @todo boot more!
+$application->bootstrap(array('init', 'bootstrap')); // @todo boot more!
 
 }
 define('IS_ADMIN_FLAG', Runtime::isContextMatch('admin'));
