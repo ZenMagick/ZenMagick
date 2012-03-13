@@ -36,6 +36,7 @@ global $PHP_SELF, $db, $autoLoadConfig, $sniffer, $currencies, $template, $curre
 $PHP_SELF = $zcAdminFolder.$zcPage;
 $code = file_get_contents($zcAdminFolder.$zcPage);
 $code = preg_replace("/<!doctype[^>]*>/s", '', $code);
+$code = preg_replace("/require\(.*application_top.php'\s*\);/", "require('".zenmagick\base\Runtime::getInstallationPath().'/shared/store/bundles/ZenCartBundle/bridge/includes/application_top.php'."');", $code);
 $code = preg_replace("/require\(.*header.php'\s*\);/", '', $code);
 $code = preg_replace("/require\(.*footer.php'\s*\);/", '', $code);
 $code = preg_replace("/<\/body>\s*<\/html>/s", '', $code);
@@ -150,5 +151,5 @@ function check_form() {
   <?php if (isset($scripts)) { ?>
     <div id="navbar"></div>
     <div id="hoverJS"></div>
-    <script> function cssjsmenu(foo) {}; init(); </script>
+    <script type="text/javascript"> function cssjsmenu(foo) {}; init(); </script>
   <?php } ?>
