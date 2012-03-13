@@ -108,6 +108,8 @@
 
         <service id="productAssociationService" class="zenmagick\apps\store\services\catalog\ProductAssociationService" scope="container" />
 
+        <service id="productTypeLayoutService" class="zenmagick\apps\store\services\catalog\ProductTypeLayoutService" scope="container" />
+
         <service id="checkoutHelper" class="zenmagick\apps\store\utils\CheckoutHelper" scope="container" />
 
         <service id="shoppingCart" class="ZMShoppingCart" scope="container">
