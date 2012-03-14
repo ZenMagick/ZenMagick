@@ -48,10 +48,6 @@ class EventFixes extends ZMObject {
         $this->fixCategoryPath($request);
         $this->checkAuthorization($request);
         $this->configureLocale($request);
-
-        // adjust session timeout
-        global $SESS_LIFE;
-        $SESS_LIFE = Runtime::getContainer()->getParameterBag()->get('storefront.session_timeout');
     }
 
     /**
