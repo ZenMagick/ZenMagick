@@ -113,16 +113,26 @@
  * require('includes/init_includes/init_languages.php');
  * 
  */
-  $autoLoadConfig[70][] = array('autoType'=>'init_script',
-                                'loadFile'=> 'init_languages.php');
+  $autoLoadConfig[70][] = array('autoType'=>'service',
+                                'name'=>'themeService',
+                                'method'=>'initThemes');
+  $autoLoadConfig[70][] = array('autoType'=>'service',
+                                'name'=>'themeService',
+                                'method'=>'getActiveThemeId',
+                                'resultVar'=>'template_dir');
+  $autoLoadConfig[70][] = array('autoType'=>'require',
+                                'loadFile'=>'includes/languages/%language%.php');
+  $autoLoadConfig[70][] = array('autoType'=>'require',
+                                'loadFile'=>'includes/languages/%language%/%current_page%.php');
+  $autoLoadConfig[70][] = array('autoType'=>'include_glob',
+                                'loadFile'=>'includes/languages/%language%/extra_definitions/*.php');
+
 /**
  * Breakpoint 80.
  * 
  * require('includes/init_includes/init_templates.php');
  * 
  */
-  $autoLoadConfig[80][] = array('autoType'=>'init_script',
-                                'loadFile'=> 'init_templates.php');
 /**
  * Breakpoint 90.
  * 
