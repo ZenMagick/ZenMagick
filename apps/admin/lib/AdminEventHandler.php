@@ -59,11 +59,6 @@ class AdminEventHandler extends ZMObject {
             $view->setVariable('currentEditor', $this->getCurrentEditor($request));
             $view->setVariable('buttonClasses', 'ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only');
             $view->setVariable('adminMenu', $this->container->get('adminMenu'));
-
-            // no layout for invoice/packaging slip
-            if ('zc_admin' == $request->getRequestId() && in_array($request->getParameter('zpid'), Runtime::getSettings()->get('apps.store.zencart.skipLayout', array()))) {
-                $view->setLayout(null);
-            }
         }
     }
 
