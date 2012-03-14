@@ -38,10 +38,32 @@ class AdminController extends \ZMController {
             $session->setValue('securityToken', $session->getToken());
         }
 
+        $language = $request->getSelectedLanguage();
+        $session->setValue('language', $language->getDirectory());
+        $session->setValue('languages_id', $language->getId());
+        $session->setValue('languages_code', $language->getCode());
+
+        // strangely whos_online is the only user. @todo test ZM version of whos_online
+        $session->setValue('currency', Runtime::getSettings()->get('defaultCurrency'));
+
+        if (null == $session->getValue('selected_box')) {
+            $session->setValue('selected_box', 'configuration');
+        }
+
+        $selectedBox = $request->getParameter('selected_box');
+        if (null != $selectedBox) {
+            $session->setValue('selected_box', $selectedBox);
+        }
+
         // @todo add option to store data in $_SESSION for zc admin too so the values can be used bidirectionally
         $_SESSION = $session->getData();
 
-        $view = $this->findView('zc_admin');
+        $cPath = (string)$request->getCategoryPath();
+        $current_category_id = $request->getCategoryId();
+        $cPath_array = $request->getCategoryPathArray();
+
+        $tpl = compact('current_category_id', 'cPath', 'cPath_array');
+        $view = $this->findView('zc_admin', $tpl);
         $view->setTemplate('views/zc_admin.php');
         // no layout for invoice/packaging slip
         if (in_array($request->getParameter('zpid'), Runtime::getSettings()->get('apps.store.zencart.skipLayout', array()))) {

@@ -170,8 +170,7 @@
  * require('includes/init_includes/init_category_path.php');
  * 
  */
-  $autoLoadConfig[130][] = array('autoType'=>'init_script',
-                                 'loadFile'=> 'init_category_path.php');
+
 /**
  * Breakpoint 140.
  * 
@@ -185,8 +184,7 @@
  * require('includes/init_includes/init_admin_auth.php');
  * 
  */
-  $autoLoadConfig[150][] = array('autoType'=>'init_script',
-                                 'loadFile'=> 'init_admin_auth.php');
+
 /**
  * Breakpoint 160.
  * 
