@@ -28,8 +28,11 @@ $vendorDeps = array(
     ),
     $baseDir .'/bundles/Doctrine/Bundle' => array(
             array('MigrationsBundle', 'git://github.com/doctrine/DoctrineMigrationsBundle.git', 'origin/HEAD', false),
-            array('DoctrineBundle', 'git://github.com/doctrine/DoctrineBundle.git', 'origin/HEAD', false),
+            array('DoctrineBundle', 'git://github.com/doctrine/DoctrineBundle.git', 'origin/HEAD', false)
     ),
+    $baseDir .'/bundles/Symfony/Bundle' => array(
+            array('SwiftmailerBundle', 'git://github.com/symfony/SwiftmailerBundle.git', 'origin/HEAD', false)
+    )
 );
 
 if (isset($extraDeps)) $vendorDeps = array_merge($vendorDeps, (array)$extraDeps);
