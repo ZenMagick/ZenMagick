@@ -157,8 +157,24 @@
   $autoLoadConfig[110][] = array('autoType'=>'classInstantiate',
                                  'className'=> 'language',
                                  'objectName'=>'lng');
-  $autoLoadConfig[110][] = array('autoType'=>'init_script',
-                                 'loadFile'=> 'init_templates.php');
+  $autoLoadConfig[110][] = array('autoType'=>'include',
+                                 'once'=>true,
+                                 'loadFile'=> 'zenmagick/init.php');
+  $autoLoadConfig[110][] = array('autoType'=>'service',
+                                'name'=>'themeService',
+                                'method'=>'getActiveThemeId',
+                                'resultVar'=>'template_dir');
+  $autoLoadConfig[110][] = array('autoType'=>'include',
+                                 'once'=>true,
+                                 'loadFile'=>'includes/languages/%template_dir%/%language%.php');
+  $autoLoadConfig[110][] = array('autoType'=>'include',
+                                 'once'=>true,
+                                 'loadFile'=>'includes/languages/%language%.php');
+  $autoLoadConfig[110][] = array('autoType'=>'include_glob',
+                                 'loadFile'=> array(
+                                              'includes/languages/%language%/extra_definitions/%template_dir%/*.php',
+                                              'includes/languages/%language%/extra_definitions/*.php'));
+
 /**
  * Breakpoint 120.
  * 

@@ -66,4 +66,5 @@ define('DIR_WS_TEMPLATE', DIR_WS_TEMPLATES.Runtime::getContainer()->get('themeSe
 define('DIR_WS_TEMPLATE_IMAGES', DIR_WS_TEMPLATE.'images/');
 define('DIR_WS_TEMPLATE_ICONS', DIR_WS_TEMPLATE_IMAGES.'icons/');
 
+define('CHARSET', $settings->get('zenmagick.http.html.charset'));
 
