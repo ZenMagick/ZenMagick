@@ -27,9 +27,10 @@ ksort($autoLoadConfig);
 
 $map = array();
 $request = Runtime::getContainer()->get('request');
+$session = Runtime::getcontainer()->get('session');
 // @todo remove zpid asap
 $map['%current_page%'] = !Runtime::isContextMatch('admin') ? $request->getRequestId() : $request->getParameter('zpid', 'index');
-$map['%language%'] = $request->getSession()->getValue('language');
+$map['%language%'] = $session->getValue('language');
 $map['%template_dir%'] = Runtime::getContainer()->get('themeService')->getActiveThemeId();
 
 foreach ($autoLoadConfig as $actionPoint => $row) {
@@ -44,8 +45,8 @@ foreach ($autoLoadConfig as $actionPoint => $row) {
                 $objectName = $entry['objectName'];
                 $className = $entry['className'];
                 if ($entry['classSession']) {
-                    if (!isset($_SESSION[$objectName]) || !$entry['checkInstantiated']) {
-                        $_SESSION[$objectName] = new $className();
+                    if (!is_object($session->getValue($objectName)) || !$entry['checkInstantiated']) {
+                        $session->setValue($objectName, new $className());
                     }
                 } else {
                     $$objectName = new $className();
@@ -54,7 +55,7 @@ foreach ($autoLoadConfig as $actionPoint => $row) {
             case 'objectMethod':
                 $objectName = $entry['objectName'];
                 $methodName = $entry['methodName'];
-                $object = $_SESSION[$objectName];
+                $object = $session->getValue($objectName);
                 if (is_object($object)) {
                     $object->$methodName();
                 } else {
