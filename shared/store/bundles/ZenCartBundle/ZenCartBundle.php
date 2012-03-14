@@ -54,9 +54,6 @@ class ZenCartBundle extends Bundle {
         $eventDispatcher->addListener('create_account', array($this, 'onCreateAccount'));
         $eventDispatcher->addListener('login_success', array($this, 'onLoginSuccess'));
 
-        $zcClassLoader = new ZenCartClassLoader();
-        $zcClassLoader->register();
-
         // random defines that we might need
         if (!defined('PRODUCTS_OPTIONS_TYPE_SELECT')) { define('PRODUCTS_OPTIONS_TYPE_SELECT', 0); }
         if (!defined('ATTRIBUTES_PRICE_FACTOR_FROM_SPECIAL')) { define('ATTRIBUTES_PRICE_FACTOR_FROM_SPECIAL', 0); }
@@ -140,6 +137,10 @@ class ZenCartBundle extends Bundle {
                 $this->container->get('settingsService')->set('apps.store.zencart.admindir', $adminDir->getValue());
             }
         }
+
+        $zcClassLoader = new ZenCartClassLoader();
+        $zcClassLoader->setBaseDirectories($this->buildSearchPaths('includes/classes'));
+        $zcClassLoader->register();
 
         // include overrides for zen_href_link and zen_mail*
         require_once __DIR__ . '/utils/zencart_overrides.php';
