@@ -154,8 +154,9 @@
  * require('includes/init_includes/init_templates.php'); 
  * 
  */
-  $autoLoadConfig[110][] = array('autoType'=>'init_script',
-                                 'loadFile'=> 'init_languages.php');
+  $autoLoadConfig[110][] = array('autoType'=>'classInstantiate',
+                                 'className'=> 'language',
+                                 'objectName'=>'lng');
   $autoLoadConfig[110][] = array('autoType'=>'init_script',
                                  'loadFile'=> 'init_templates.php');
 /**
