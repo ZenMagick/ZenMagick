@@ -19,10 +19,9 @@
  */
 namespace zenmagick\base;
 
+use Swift_Transport_AbstractSmtpTransport;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\Loader\XmlFileLoader;
-
-use zenmagick\base\Runtime;
 
 /**
  * BASE event listener.
@@ -44,12 +43,23 @@ class EventListener extends ZMObject {
         }
 
         // load email container config unless we do have already some swiftmailer config
-        $bundles = array_keys(Runtime::getSettings()->get('zenmagick.bundles', array()));
+        $bundles = array_keys($this->container->get('settingsService')->get('zenmagick.bundles', array()));
         if (0 == count($this->container->getExtensionConfig('swiftmailer')) && in_array('SwiftmailerBundle', $bundles)) {
             $emailConfig = __DIR__.'/email.xml';
             if (file_exists($emailConfig)) {
-                $containerlLoader = new XmlFileLoader(Runtime::getContainer(), new FileLocator(dirname($emailConfig)));
+                $containerlLoader = new XmlFileLoader($this->container, new FileLocator(dirname($emailConfig)));
                 $containerlLoader->load($emailConfig);
+            }
+        }
+    }
+
+    /**
+     * Cannot have a default for encryption, so need to set that explicitely.
+     */
+    public function onContainerReady($event) {
+        if ($this->container->has('swiftmailer.transport')) {
+            if (null != ($transport = $this->container->get('swiftmailer.transport')) && $transport instanceof Swift_Transport_AbstractSmtpTransport) {
+                $transport->setEncryption($this->container->getParameterBag()->get('zenmagick.base.email.encryption'));
             }
         }
     }

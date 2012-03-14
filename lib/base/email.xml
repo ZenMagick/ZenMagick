@@ -14,7 +14,6 @@
         password="%zenmagick.base.email.password%"
         host="%zenmagick.base.email.host%"
         port="%zenmagick.base.email.port%"
-        encryption="%zenmagick.base.email.encryption%"
         logging="%zenmagick.base.email.logging%">
 
         <!--<swiftmailer:spool type="file" path="%zenmagick.cacheBasePath%/swiftmailer/spool" />-->
