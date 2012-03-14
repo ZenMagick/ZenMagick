@@ -38,6 +38,11 @@ class AdminController extends \ZMController {
             $session->setValue('securityToken', $session->getToken());
         }
 
+        $language = $request->getSelectedLanguage();
+        $session->setValue('language', $language->getDirectory());
+        $session->setValue('languages_id', $language->getId());
+        $session->setValue('languages_code', $language->getCode());
+
         // @todo add option to store data in $_SESSION for zc admin too so the values can be used bidirectionally
         $_SESSION = $session->getData();
 
