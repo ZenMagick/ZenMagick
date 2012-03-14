@@ -97,9 +97,6 @@ class ConfigPatch extends SQLPatch {
             $configService->updateConfigValue('ZENCART_ADMIN_FOLDER', $guessedDir);
         }
 
-        // @todo ??? ?
-        //UPDATE configuration SET configuration_group_id = @t5 WHERE configuration_key like 'PLUGIN_REQUEST_%';
-
         return true;
     }
 
