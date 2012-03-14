@@ -133,6 +133,9 @@
  * require('includes/init_includes/init_templates.php');
  * 
  */
+  $autoLoadConfig[90][] = array('autoType'=>'classInstantiate',
+                                'className'=>'template_func',
+                                'objectName'=>'template');
 /**
  * Breakpoint 90.
  * 
