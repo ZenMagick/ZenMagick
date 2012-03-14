@@ -67,7 +67,8 @@ class ZenCartBundle extends Bundle {
     public static function buildSearchPaths($base = '') {
         $dirs = array(dirname(__FILE__).'/bridge', dirname(Runtime::getInstallationPath()));
         if (Runtime::isContextMatch('admin')) {
-            $adminDirs = array(dirname(__FILE__).'/bridge/admin', dirname(Runtime::getInstallationPath()).'/'.ZENCART_ADMIN_FOLDER);
+            $adminDir = Runtime::getSettings()->get('apps.store.zencart.admindir');
+            $adminDirs = array(dirname(__FILE__).'/bridge/admin', dirname(Runtime::getInstallationPath()).'/'.$adminDir);
             $dirs = false !== strpos($base, 'classes') ? array_merge($adminDirs, $dirs) : $adminDirs;
         }
 
