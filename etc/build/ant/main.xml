@@ -123,9 +123,7 @@
     <target name="prepare" depends="clean,init,ask-versions" description="Prepare build files.">
         <!-- copy all files that go into zen-cart directories -->
         <copy todir="${build.dir}">
-            <fileset dir="${zencart.src.dir}">
-                <exclude name="index_zm.php" />
-            </fileset>
+            <fileset dir="${zencart.src.dir}" />
         </copy>
 
         <!-- copy all ZenMagick files -->
@@ -139,7 +137,7 @@
                 <exclude name="notes/**" />
                 <exclude name="etc/**" />
                 <exclude name="apps/sample/**" />
-                <exclude name="apps/admin/locale/**" />
+                <exclude name="apps/store-installer/**" />
                 <exclude name="build.xml" />
                 <exclude name="local.properties" />
                 <exclude name="local.xml" />
