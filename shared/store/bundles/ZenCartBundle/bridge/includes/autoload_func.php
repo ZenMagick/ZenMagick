@@ -24,6 +24,14 @@ use zenmagick\apps\store\bundles\ZenCartBundle\ZenCartBundle;
  */
 reset($autoLoadConfig);
 ksort($autoLoadConfig);
+
+$map = array();
+$request = Runtime::getContainer()->get('request');
+// @todo remove zpid asap
+$map['%current_page%'] = !Runtime::isContextMatch('admin') ? $request->getRequestId() : $request->getParameter('zpid', 'index');
+$map['%language%'] = $request->getSession()->getValue('language');
+$map['%template_dir%'] = Runtime::getContainer()->get('themeService')->getActiveThemeId();
+
 foreach ($autoLoadConfig as $actionPoint => $row) {
     foreach($row as $entry) {
         if (isset($entry['loaderPrefix']) && ($entry['loaderPrefix'] != $loaderPrefix)) continue;
@@ -79,6 +87,7 @@ foreach ($autoLoadConfig as $actionPoint => $row) {
                 $require = true;
             case 'include':
             case 'include_glob':
+                $entry['loadFile'] = str_replace(array_keys($map), array_values($map), $entry['loadFile']);
                 $files = ZenCartBundle::resolveFiles($entry['loadFile']);
             break;
         }
