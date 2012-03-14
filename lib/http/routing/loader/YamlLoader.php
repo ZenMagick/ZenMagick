@@ -62,4 +62,11 @@ class YamlLoader extends \Symfony\Component\Routing\Loader\YamlFileLoader {
         return parent::loadYaml($path);
     }
 
+    /**
+     * {@inheritDoc}
+     */
+    protected function addResource(RouteCollection $collection, $path) {
+        // nothing
+    }
+
 }
