@@ -124,45 +124,6 @@
         <!-- create sidebox dummy files -->
         <antcallback target="create-sidebox-dummies" return="datetime.sidebox.dummies.cutoff"><param name="theme.id" value='base' /></antcallback>
 
-        <!-- patch zen_href_link -->
-        <antcall target="rename-function">
-            <param name="rename.file" value="${release.full.dir}/includes/functions/html_output.php" />
-            <param name="rename.function" value="zen_href_link" />
-            <param name="rename.suffix" value="_DISABLED" />
-        </antcall>
-        <!--
-        <antcall target="rename-function">
-            <param name="rename.file" value="${release.full.dir}/admin/includes/functions/html_output.php" />
-            <param name="rename.function" value="zen_href_link" />
-            <param name="rename.suffix" value="_DISABLED" />
-        </antcall>
-        -->
-
-        <!-- patch email funcs -->
-        <antcall target="rename-function">
-            <param name="rename.file" value="${release.full.dir}/includes/functions/functions_email.php" />
-            <param name="rename.function" value="zen_mail" />
-            <param name="rename.suffix" value="_org" />
-        </antcall>
-        <antcall target="rename-function">
-            <param name="rename.file" value="${release.full.dir}/includes/functions/functions_email.php" />
-            <param name="rename.function" value="zen_build_html_email_from_template" />
-            <param name="rename.suffix" value="_org" />
-        </antcall>
-
-        <!-- i18n patches 
-        <antcall target="rename-function">
-            <param name="rename.file" value="${release.full.dir}/includes/languages/english.php" />
-            <param name="rename.function" value="zen_date_raw" />
-            <param name="rename.suffix" value="_DISABLED" />
-        </antcall>
-        <antcall target="rename-function">
-            <param name="rename.file" value="${release.full.dir}/admin/includes/languages/english.php" />
-            <param name="rename.function" value="zen_date_raw" />
-            <param name="rename.suffix" value="_DISABLED" />
-        </antcall>
-        -->
-
         <!-- edit customer patch -->
         <antcall target="insert-after">
           <param name="insert.file" value="${release.full.dir}/admin/customers.php" />
