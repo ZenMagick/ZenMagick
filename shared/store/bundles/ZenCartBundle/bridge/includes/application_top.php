@@ -62,8 +62,7 @@ include_once $rootDir.'/lib/base/Application.php';
 include_once $rootDir.'/lib/http/HttpApplication.php';
 $config = array('appName' => 'storefront', 'environment' => (isset($_SERVER['ZM_ENVIRONMENT']) ? $_SERVER['ZM_ENVIRONMENT'] : 'prod'));
 $application = new HttpApplication($config);
-$application->bootstrap(array('init', 'bootstrap')); // @todo boot more!
-
+$application->bootstrap();
 }
 define('IS_ADMIN_FLAG', Runtime::isContextMatch('admin'));
 define('PAGE_PARSE_START_TIME', microtime());
@@ -76,22 +75,12 @@ if (Runtime::getSettings()->get('apps.store.zencart.strictErrorReporting', true)
 // set php_self in the local scope
 if (!isset($PHP_SELF)) $PHP_SELF = $_SERVER['PHP_SELF'];
 
-if (file_exists('includes/configure.php')) {
-  include('includes/configure.php');
-} else {
-  // @todo should we use the "not_installed.php" file?
-  $problemString = 'includes/configure.php not found';
-  require('includes/templates/template_default/templates/tpl_zc_install_suggested_default.php');
-  exit;
+if (Runtime::isContextMatch('admin')) { // @todo we need it, but zm admin doesn't do it.
+    Runtime::getContainer()->get('themeService')->initThemes();
 }
+require __DIR__.'/configure.php';
 
 $request_type = ZMRequest::instance()->isSecure() ? 'SSL' : 'NONSSL';
-/**
- * Admin only.. destroy later
-$template_dir = '';
-define('DIR_WS_TEMPLATES', DIR_WS_INCLUDES . 'templates/');
-*/
-
 
 $autoLoadConfig = array();
 $loaderPrefix = isset($loaderPrefix) ? $loaderPrefix : 'config';
