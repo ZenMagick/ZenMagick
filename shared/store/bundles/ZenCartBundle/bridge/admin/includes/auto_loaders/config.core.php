@@ -185,8 +185,7 @@
  * require('includes/init_includes/init_admin_auth.php');
  * 
  */
-  $autoLoadConfig[150][] = array('autoType'=>'init_script',
-                                 'loadFile'=> 'init_admin_auth.php');
+
 /**
  * Breakpoint 160.
  * 
