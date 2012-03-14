@@ -44,10 +44,10 @@ class ZMCronPlugin extends Plugin {
         parent::install();
 
         $this->addConfigValue('Trigger', 'image', 'false', 'Enable image trigger',
-            'widget@ZMBooleanFormWidget#name=image&default=false&label=Enable image trigger&style=checkbox');
+            'widget@booleanFormWidget#name=image&default=false&label=Enable image trigger&style=checkbox');
         $this->addConfigValue('Image trigger pages', 'triggerPages', 'index', 'List of pages (separated by comma \',\') to be used for imger trigger');
         $this->addConfigValue('Missed run policy', 'missedRuns', 'false', 'Select what should happen when one or more runs have been missed',
-            'widget@ZMBooleanFormWidget#name=missedRuns&default=false&style=select&label_true=Catch-up&label_false=Ignore');
+            'widget@booleanFormWidget#name=missedRuns&default=false&style=select&label_true=Catch-up&label_false=Ignore');
     }
 
     /**

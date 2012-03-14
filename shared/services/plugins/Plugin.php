@@ -184,9 +184,9 @@ class Plugin extends zenmagick\base\plugins\Plugin {
      */
     public function install() {
         $this->addConfigValue('Plugin Enabled', self::KEY_ENABLED, 'true', 'Enable/disable this plugin',
-            'widget@ZMBooleanFormWidget#name='.self::KEY_ENABLED.'&default=true&label.true=Enabled&label.false=Disabled&style=checkbox', 0);
+            'widget@booleanFormWidget#name='.self::KEY_ENABLED.'&default=true&label.true=Enabled&label.false=Disabled&style=checkbox', 0);
         $this->addConfigValue('Plugin sort order', self::KEY_SORT_ORDER, $this->preferredSortOrder_, 'Controls the execution order of plugins',
-            'widget@ZMTextFormWidget#name='.self::KEY_SORT_ORDER.'&default=0&size=6&maxlength=5', 0);
+            'widget@textFormWidget#name='.self::KEY_SORT_ORDER.'&default=0&size=6&maxlength=5', 0);
     }
 
     /**
@@ -305,7 +305,7 @@ class Plugin extends zenmagick\base\plugins\Plugin {
     public function addConfigValue($title, $key, $value, $description='', $widget=null, $sortOrder=1) {
         if (null == $widget) {
             // do this first before fiddling with $key
-            $widget = 'widget@ZMTextFormWidget#name='.$key.'&default=&size=12&maxlength=56';
+            $widget = 'widget@textFormWidget#name='.$key.'&default=&size=12&maxlength=56';
         }
 
         if (!\ZMLangUtils::startsWith($key, $this->configPrefix_)) {

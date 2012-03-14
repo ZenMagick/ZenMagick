@@ -53,7 +53,7 @@ class ZMGoogleAdSensePlugin extends Plugin {
             $name = self::ADSENSE_PREFIX.$ii;
             $this->addConfigValue('Google AdSense JavaScript #'.$ii, $name, '',
               'The JavaScript provided by Google to display your ads for box #'.$ii,
-              'widget@ZMTextAreaFormWidget#name='.$name);
+              'widget@textAreaFormWidget#name='.$name);
         }
     }
 

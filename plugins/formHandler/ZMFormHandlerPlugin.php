@@ -51,7 +51,7 @@ class ZMFormHandlerPlugin extends Plugin {
             'Email address for admin notifications (use store email if empty)');
         $this->addConfigValue('Notification template', 'emailTemplate', 'form_handler', 'Name of common notification email template (empty will use the page name as template)');
         $this->addConfigValue('Secure', 'secure', 'false', 'Flag *all* form urls as secure',
-            'widget@ZMBooleanFormWidget#name=secure&default=false&label=Enforce HTTPS&style=checkbox');
+            'widget@booleanFormWidget#name=secure&default=false&label=Enforce HTTPS&style=checkbox');
     }
 
     /**

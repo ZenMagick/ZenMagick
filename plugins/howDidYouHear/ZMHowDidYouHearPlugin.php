@@ -51,11 +51,11 @@ class ZMHowDidYouHearPlugin extends Plugin {
         ZMDbUtils::executePatch(file(ZMDbUtils::resolveSQLFilename($this->getPluginDirectory()."/sql/install.sql")), $this->messages_);
         $this->addConfigValue('Display "Other', 'displayOther', 'true',
             'Display "Other - please specify" with text box in referral source in account creation',
-            'widget@ZMBooleanFormWidget#name=displayOther&default=true&label=Allow other&style=checkbox');
+            'widget@booleanFormWidget#name=displayOther&default=true&label=Allow other&style=checkbox');
         $this->addConfigValue('Require Source', 'requireSource', 'true', 'Is the Referral Source mandatory or optional?',
-            'widget@ZMBooleanFormWidget#name=requireSource&default=true&label=Require Source&style=checkbox');
+            'widget@booleanFormWidget#name=requireSource&default=true&label=Require Source&style=checkbox');
         $this->addConfigValue('Enable on guest checkout', 'enableOnGuestCheckout', 'true', 'Handle referral data during guest checkout',
-            'widget@ZMBooleanFormWidget#name=enableOnGuestCheckout&default=true&label=Enable on guest checkout&style=checkbox');
+            'widget@booleanFormWidget#name=enableOnGuestCheckout&default=true&label=Enable on guest checkout&style=checkbox');
     }
 
     /**

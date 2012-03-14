@@ -57,7 +57,7 @@ class ZMPageCachePlugin extends \Plugin {
         parent::install();
         $this->addConfigValue('Cache TTL', 'ttl', 300, '(T)ime (T)o (L)ive for cache entries in seconds.');
         $this->addConfigValue('Load stats', 'loadStats', 'false', 'If set to true, add some hidden (HTML comment) page load stats',
-            'widget@ZMBooleanFormWidget#name=loadStats&default=false&label=Add hidden page load stats.');
+            'widget@booleanFormWidget#name=loadStats&default=false&label=Add hidden page load stats.');
     }
 
     /**

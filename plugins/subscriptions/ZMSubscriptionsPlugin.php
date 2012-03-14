@@ -68,17 +68,17 @@ class ZMSubscriptionsPlugin extends Plugin {
         $this->addConfigValue('Admin notification email address', 'adminEmail', ZMSettings::get('storeEmail'),
             'Email address for admin notifications (use store email if empty)');
         $this->addConfigValue('Subscription comment', 'subscriptionComment', true, 'Create subscription comment on original order',
-            'widget@ZMBooleanFormWidget#name=subscriptionComment&default=true&label=Add comment');
+            'widget@booleanFormWidget#name=subscriptionComment&default=true&label=Add comment');
         $this->addConfigValue('Order history', 'orderHistory', true, 'Create subscription order history on schedule',
-            'widget@ZMBooleanFormWidget#name=orderHistory&default=true&label=Create schedule history');
+            'widget@booleanFormWidget#name=orderHistory&default=true&label=Create schedule history');
         $this->addConfigValue('Shipping Address', 'addressPolicy', 'order', 'use either the original shipping addres, or the current default address',
-            'widget@ZMSelectFormWidget#name=addressPolicy&default=order&options='.urlencode('order=Order Address&account=Account Address'));
+            'widget@selectFormWidget#name=addressPolicy&default=order&options='.urlencode('order=Order Address&account=Account Address'));
         $this->addConfigValue('Order status', 'orderStatus', '2', 'Order status for subscription orders',
-            'widget@ZMOrderStatusSelectFormWidget#name=orderStatus&default=2');
+            'widget@orderStatusSelectFormWidget#name=orderStatus&default=2');
         $this->addConfigValue('Schedule offset', 'scheduleOffset', '0',
             'Optional offset (in days) to schedule subscription earlier that actually required');
         $this->addConfigValue('Customer cancel', 'customerCancel', false, 'Allow customers to cancel subscriptions directly',
-            'widget@ZMBooleanFormWidget#name=customerCancen&default=false&label=Allow customer cancel');
+            'widget@booleanFormWidget#name=customerCancen&default=false&label=Allow customer cancel');
     }
 
     /**

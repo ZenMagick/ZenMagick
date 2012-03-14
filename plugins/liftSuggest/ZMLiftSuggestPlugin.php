@@ -65,10 +65,10 @@ class ZMLiftSuggestPlugin extends Plugin {
         $this->addConfigValue('Google Analytics Account ID', 'uacct', $uacct, 'Type in your Google Analytics Account ID. For example, UA-XXXXXXX-X.');
         $this->addConfigValue('Google Analytics Tracking Type', 'trackingType', $trackingType,
             'Select the type of Google Analytics tracking that you have on your site.',
-            'widget@ZMSelectFormWidget#name=trackingType&default='.$trackingType.'&options='.urlencode('as=Asynchronous&ga=Traditional'));
+            'widget@selectFormWidget#name=trackingType&default='.$trackingType.'&options='.urlencode('as=Asynchronous&ga=Traditional'));
 
         $this->addConfigValue('Debug', "debug", 'true', 'Generate code, but make inactive.',
-            'widget@ZMBooleanFormWidget#name=debug&default=true&label=Debug&style=checkbox');
+            'widget@booleanFormWidget#name=debug&default=true&label=Debug&style=checkbox');
     }
 
     /**

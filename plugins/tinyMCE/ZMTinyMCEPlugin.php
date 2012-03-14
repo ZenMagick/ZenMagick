@@ -53,7 +53,7 @@ class ZMTinyMCEPlugin extends Plugin {
     public function install() {
         parent::install();
         $this->addConfigValue('Default Editor', 'defaultEditor', false, 'Make TinyMCE the default editor',
-            'widget@ZMBooleanFormWidget#name=defaultEditor&default=false&label=Default Editor&style=checkbox');
+            'widget@booleanFormWidget#name=defaultEditor&default=false&label=Default Editor&style=checkbox');
     }
 
 }

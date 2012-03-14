@@ -63,16 +63,16 @@ class ZMGoogleAnalyticsPlugin extends Plugin {
         $this->addConfigValue('AdWords Conversion language', 'conversionLang', 'en_US', 'Optional AdWords conversion language');
 
         $this->addConfigValue('Product identifier', 'identifier', 'productId', 'Select whether to use productId or model to identify products',
-            'widget@ZMSelectFormWidget#name=identifier&options='.urlencode('productId=Product Id&model=Model'));
+            'widget@selectFormWidget#name=identifier&options='.urlencode('productId=Product Id&model=Model'));
 
         $this->addConfigValue('Page name format', 'pagenameFormat', 'pagename', 'Select the formt to use to track individual URLs',
-            'widget@ZMSelectFormWidget#name=pagenameFormat&options='.urlencode('pagename=Pagename&uri=Uri&custom=Custom&none=None'));
+            'widget@selectFormWidget#name=pagenameFormat&options='.urlencode('pagename=Pagename&uri=Uri&custom=Custom&none=None'));
 
         $this->addConfigValue('Transaction Address', 'address', 'shipping', 'Select which address to use for transaction (order) logging',
-            'widget@ZMSelectFormWidget#name=address&options='.urlencode('shipping=Shipping&billing=Billing'));
+            'widget@selectFormWidget#name=address&options='.urlencode('shipping=Shipping&billing=Billing'));
 
         $this->addConfigValue('Debug', "debug", 'true', 'Generate code, but make inactive.',
-            'widget@ZMBooleanFormWidget#name=debug&default=true&label=Debug&style=checkbox');
+            'widget@booleanFormWidget#name=debug&default=true&label=Debug&style=checkbox');
     }
 
     /**

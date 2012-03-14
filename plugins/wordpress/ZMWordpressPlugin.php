@@ -52,15 +52,15 @@ class ZMWordpressPlugin extends Plugin {
         parent::install();
 
         $this->addConfigValue('Wordpress Installation Folder', 'wordpressDir', '', 'Path to your Wordpress installation',
-              'widget@ZMTextFormWidget#name=wordpressDir&default=&size=24&maxlength=255');
+              'widget@textFormWidget#name=wordpressDir&default=&size=24&maxlength=255');
         $this->addConfigValue('Permalink Path Prefix', 'permaPrefix', '', 'Path prefix for Wordpress permalinks; leave empty if not using permalinks');
         $this->addConfigValue('WP enabled pages', 'wordpressEnabledPages', '', 'Comma separated list of pages that can display WP content (leave empty for all).');
         $this->addConfigValue('User syncing', 'syncUser', false, 'Automatically create WP account (and update)',
-            'widget@ZMBooleanFormWidget#name=syncUser&default=false&label=Update WP');
+            'widget@booleanFormWidget#name=syncUser&default=false&label=Update WP');
         $this->addConfigValue('Nickname policy', 'requireNickname', true, 'Make nick name mandatory (empty nickname will skip automatic WP registration)',
-            'widget@ZMBooleanFormWidget#name=requireNickname&default=true&label=Require nickname');
+            'widget@booleanFormWidget#name=requireNickname&default=true&label=Require nickname');
         $this->addConfigValue('URL rewriting', 'urlRewrite', true, 'Convert Wordpress URLs to store URLs pointing to the plugin templates',
-            'widget@ZMBooleanFormWidget#name=urlRewrite&default=true&label=Rewrite WP URLs');
+            'widget@booleanFormWidget#name=urlRewrite&default=true&label=Rewrite WP URLs');
     }
 
     /**
