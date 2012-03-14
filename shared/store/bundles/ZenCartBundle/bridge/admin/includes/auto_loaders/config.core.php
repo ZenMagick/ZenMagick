@@ -47,27 +47,6 @@
   $autoLoadConfig[0][] = array('autoType'=>'classInstantiate',
                                 'className'=>'notifier',
                                 'objectName'=>'zco_notifier');
-  $autoLoadConfig[0][] = array('autoType'=>'class',
-                               'loadFile'=>'logger.php',
-                               'classPath'=>DIR_WS_CLASSES);
-  $autoLoadConfig[0][] = array('autoType'=>'class',
-                               'loadFile'=> 'table_block.php',
-                               'classPath'=>DIR_WS_CLASSES);
-  $autoLoadConfig[0][] = array('autoType'=>'class',
-                               'loadFile'=> 'box.php',
-                               'classPath'=>DIR_WS_CLASSES);
-  $autoLoadConfig[0][] = array('autoType'=>'class',
-                               'loadFile'=>'message_stack.php',
-                               'classPath'=>DIR_WS_CLASSES);
-  $autoLoadConfig[0][] = array('autoType'=>'class',
-                               'loadFile'=>'split_page_results.php',
-                               'classPath'=>DIR_WS_CLASSES);
-  $autoLoadConfig[0][] = array('autoType'=>'class',
-                               'loadFile'=>'object_info.php',
-                               'classPath'=>DIR_WS_CLASSES);
-  $autoLoadConfig[0][] = array('autoType'=>'class',
-                               'loadFile'=>'upload.php',
-                               'classPath'=>DIR_WS_CLASSES);
 /**
  * Breakpoint 10.
  * 
