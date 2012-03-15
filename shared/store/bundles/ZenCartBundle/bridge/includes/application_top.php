@@ -64,6 +64,9 @@ $config = array('appName' => 'storefront', 'environment' => (isset($_SERVER['ZM_
 $application = new HttpApplication($config);
 $application->bootstrap();
 }
+global $session_started;
+$session_started = true;
+
 if (!defined('IS_ADMIN_FLAG')) { define('IS_ADMIN_FLAG', Runtime::isContextMatch('admin')); }
 define('PAGE_PARSE_START_TIME', microtime());
 
