@@ -75,8 +75,12 @@ class ZMException extends Exception {
             } else {
                 return get_class($value);
             }
+        } else if (is_bool($value)) {
+            return $value ? 'true' : 'false';
+        } else if (null === $value) {
+            return 'null';
         }
-        return '??';
+        return $value;
     }
 
     /**
@@ -108,7 +112,12 @@ class ZMException extends Exception {
                 $entry .= '(';
                 $args = array();
                 if (array_key_exists('args', $line)) {
-                    foreach ($line['args'] as $arg) {
+                    $largs = $line['args'];
+                    if (in_array($line['function'], array('require', 'require_once', 'include', 'include_once')) && 1 == count($largs)) {
+                        $largs[0] = $filesystem->makePathRelative($largs[0], Runtime::getInstallationPath());
+                    }
+
+                    foreach ($largs as $arg) {
                         $args[] = self::formatValue($arg);
                     }
                 }
