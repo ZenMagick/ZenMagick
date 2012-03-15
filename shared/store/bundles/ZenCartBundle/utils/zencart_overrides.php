@@ -22,47 +22,6 @@
  */
 
 use zenmagick\base\Runtime;
-use zenmagick\base\ZMException;
-
-
-if (!function_exists('zen_href_link')) {
-
-    /**
-     * zen_href_link wrapper that delegates to the Zenmagick implementation.
-     *
-     * This function needs to work for 4 use cases.
-     *
-     * 1. zencart template storefront
-     * 2. zenmagick themed storefront
-     * 3. zenmagick admin with zencart admin integration via zc_admin bundle template and the zencart admin page name (minus .php) as zpid parameter.
-     * 4. zenmagick admin integration using zenmagick native mappings using the zencart admin page name (minus .php)  as the request id.
-     */
-    function zen_href_link($page='', $params='', $transport='NONSSL', $addSessionId=true, $seo=true, $isStatic=false, $useContext=true) {
-        $useNativeHrefLink = Runtime::getSettings()->get('apps.store.zencart.useNativeHrefLink', false);
-        if ($useNativeHrefLink && class_exists('ZMStoreDefaultUrlRewriter') && !Runtime::isContextMatch('admin')) { // 1 or 2
-            return ZMStoreDefaultUrlRewriter::furl($page, $params, $transport, $addSessionId, $seo, $isStatic, $useContext);
-        } else if (Runtime::isContextMatch('admin')) { // 3 or 4
-            $request = Runtime::getContainer()->get('request');
-            parse_str($params, $tmp);
-            $page = str_replace('.php', '', $page);
-            $requestId = $request->getRequestId() == 'zc_admin' ? 'zc_admin' : $page;
-            $params = '';
-            if ($requestId == 'zc_admin') { // 4
-                $params = 'zpid='.$page.'&';
-            }
-            unset($tmp['zpid']);
-            unset($tmp['rid']);
-            $params .= http_build_query($tmp);
-            return $request->url($requestId, $params);
-        } else if (function_exists('zen_href_link_DISABLED')) { // 1
-            // just in case...
-            return zen_href_link_DISABLED($page, $params, $transport, $addSessionId, $seo, $isStatic, $useContext);
-        } else {
-            throw new ZMException("can't find zen_href_link implementation");
-        }
-    }
-
-}
 
 if (!function_exists('zen_mail')) {
 
