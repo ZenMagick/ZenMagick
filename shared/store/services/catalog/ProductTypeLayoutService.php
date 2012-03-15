@@ -25,7 +25,7 @@ use zenmagick\base\ZMObject;
 /**
  * Product Type Layout  service.
  *
- * @todo reuse most of the config service (ZMConfig)
+ * @todo reuse most of the config service (configService)
  */
 class ProductTypeLayoutService extends ZMObject {
 

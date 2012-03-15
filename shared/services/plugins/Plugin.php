@@ -325,7 +325,7 @@ class Plugin extends zenmagick\base\plugins\Plugin {
     /**
      * Get all the config values.
      *
-     * @return array A list of <code>ZMConfigValue</code> instances.
+     * @return array A list of <code>ConfigValue</code> instances.
      */
     public function getConfigValues() {
         if (null === $this->configValues_) {

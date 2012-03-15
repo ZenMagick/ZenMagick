@@ -20,6 +20,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
+namespace zenmagick\apps\store\model;
 
 use zenmagick\base\ZMObject;
 
@@ -29,11 +30,10 @@ use Doctrine\ORM\Mapping AS ORM;
  * Configuration value.
  *
  * @author DerManoMann
- * @package zenmagick.store.shared.model
  * @ORM\Table(name="configuration")
  * @ORM\Entity
  */
-class ZMConfigValue extends ZMObject {
+class ConfigValue extends ZMObject {
     /**
      * @var integer $id
      *
