@@ -17,6 +17,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
+use zenmagick\apps\store\model\ConfigValue;
 
 /**
  * Encode XML attribute characters.
@@ -45,7 +46,7 @@ $admin2->title($group->getName()) ?>
     <table class="grid" width="80%">
     <?php foreach ($groupValues as $value) { ?>
       <tr>
-      <?php if ($value instanceof ZMConfigValue) { ?>
+      <?php if ($value instanceof ConfigValue) { ?>
         <td><span class="tt" title="<?php _vzm('%s', $value->getName()) ?>|<?php echo _encodeAttribute(_zm($value->getDescription())) ?>"><?php _vzm($value->getName()) ?></span></td>
         <td><strong>Function not supported: <?php echo $value->getSetFunction() ?></strong></td>
       <?php } else { ?>

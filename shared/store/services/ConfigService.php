@@ -20,27 +20,22 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
+namespace zenmagick\apps\store\services;
 
+use ZMRuntime;
 use zenmagick\base\Beans;
 use zenmagick\base\Runtime;
 use zenmagick\base\ZMObject;
 use zenmagick\http\widgets\Widget;
+use zenmagick\apps\store\model\ConfigGroup;
+use zenmagick\apps\store\model\ConfigValue;
 
 /**
- * Configuration.
+ * Config service.
  *
  * @author DerManoMann
- * @package zenmagick.store.shared.services
  */
-class ZMConfig extends ZMObject {
-
-    /**
-     * Get instance.
-     */
-    public static function instance() {
-        return Runtime::getContainer()->get('configService');
-    }
-
+class ConfigService extends ZMObject {
 
     /**
      * Create config value.
@@ -87,7 +82,7 @@ class ZMConfig extends ZMObject {
      * @param int sortOder The sort order of the configuration group
      */
     public function createConfigGroup($name, $description = '', $visible = true, $sortOrder = 0) {
-        $configGroup = Beans::getBean("ZMConfigGroup");
+        $configGroup = new ConfigGroup();
         $configGroup->setName($name);
         $configGroup->setDescription($description);
         $configGroup->setVisible($visible);
@@ -144,11 +139,11 @@ class ZMConfig extends ZMObject {
     }
 
     /**
-     * Build a collection of Widget and/or ZMConfigValue objects
+     * Build a collection of Widget and/or ConfigValue objects
      *
-     * @todo most of this should be part of the ZMConfigValue entity
+     * @todo most of this should be part of the ConfigValue entity
      * @param array array of config values
-     * @return array A list of <code>ZMConfigValue</code> or <code>Widget</code> instances.
+     * @return array A list of <code>ConfigValue</code> or <code>Widget</code> instances.
      */
     protected function buildObjects($configValues) {
         $values = array();
@@ -255,7 +250,7 @@ class ZMConfig extends ZMObject {
      * Get a single config value for the given key pattern.
      *
      * @param string pattern The key pattern; for example 'foo_%'.
-     * @return mixed A single <code>ZMConfigValue</code> instance, <code>Widget</code> instance or <code>null</code>.
+     * @return mixed A single <code>ConfigValue</code> instance, <code>Widget</code> instance or <code>null</code>.
      */
     public function getConfigValue($pattern) {
         $values = $this->getConfigValues($pattern);
@@ -269,7 +264,7 @@ class ZMConfig extends ZMObject {
      * Get all config values for a given key pattern.
      *
      * @param string pattern The key pattern; for example 'foo_%'.
-     * @return array A list of <code>ZMConfigValue</code> or <code>Widget</code> instances.
+     * @return array A list of <code>ConfigValue</code> or <code>Widget</code> instances.
      */
     public function getConfigValues($pattern) {
         $sql = "SELECT *
@@ -285,7 +280,7 @@ class ZMConfig extends ZMObject {
      * Get all config values for a given group id.
      *
      * @param int groupId The group id.
-     * @return array A list of <code>ZMConfigValue</code> or <code>Widget</code> instances.
+     * @return array A list of <code>ConfigValue</code> or <code>Widget</code> instances.
      */
     public function getValuesForGroupId($groupId) {
         $sql = "SELECT *
@@ -323,39 +318,39 @@ class ZMConfig extends ZMObject {
      * Get a configuration group.
      *
      * @param int groupId The group id.
-     * @return ZMConfigGroup A <code>ZMConfigGroup</code> instance or <code>null</code>.
+     * @return ConfigGroup A <code>ConfigGroup</code> instance or <code>null</code>.
      */
     public function getConfigGroupForId($groupId) {
         $sql = "SELECT *
                 FROM " . DB_PREFIX . "configuration_group
                 WHERE configuration_group_id = :id";
-        return ZMRuntime::getDatabase()->querySingle($sql, array('id' => $groupId), 'configuration_group', 'ZMConfigGroup');
+        return ZMRuntime::getDatabase()->querySingle($sql, array('id' => $groupId), 'configuration_group', 'zenmagick\apps\store\model\ConfigGroup');
     }
 
     /**
      * Get a configuration group for name.
      *
      * @param string name The name of the group.
-     * @return ZMConfigGroup A <code>ZMConfigGroup</code> instance or <code>null</code>.
+     * @return ConfigGroup A <code>ConfigGroup</code> instance or <code>null</code>.
      */
     public function getConfigGroupForName($name) {
-        
+
         $sql = "SELECT *
                 FROM " . DB_PREFIX . "configuration_group
                 WHERE configuration_group_title = :name";
-        return ZMRuntime::getDatabase()->querySingle($sql, array('name' => $name), 'configuration_group', 'ZMConfigGroup');
+        return ZMRuntime::getDatabase()->querySingle($sql, array('name' => $name), 'configuration_group', 'zenmagick\apps\store\model\ConfigGroup');
     }
 
     /**
      * Get all configuration groups.
      *
-     * @return array List of ZMConfigGroup instances.
+     * @return array List of ConfigGroup instances.
      */
     public function getConfigGroups() {
         $sql = "SELECT *
                 FROM " . DB_PREFIX . "configuration_group
                 ORDER BY sort_order";
-        return ZMRuntime::getDatabase()->fetchAll($sql, array(), 'configuration_group', 'ZMConfigGroup');
+        return ZMRuntime::getDatabase()->fetchAll($sql, array(), 'configuration_group', 'zenmagick\apps\store\model\ConfigGroup');
     }
 
     /**
