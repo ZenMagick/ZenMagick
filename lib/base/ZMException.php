@@ -20,6 +20,7 @@
 namespace zenmagick\base;
 
 use Exception;
+use ReflectionClass;
 use zenmagick\base\Runtime;
 use zenmagick\base\logging\Logging;
 
@@ -53,6 +54,70 @@ class ZMException extends Exception {
         $s .= ', previous='.$this->getPrevious();
         $s .= ']';
         return $s;
+    }
+
+    /**
+     * Format a value.
+     */
+    protected static function formatValue($value, $recursive=true) {
+        if (is_string($value)) {
+            return "'".$value."'";
+        } else if (is_array($value)) {
+            $va = array();
+            foreach ($value as $ve) {
+                $va[] = self::formatValue($ve, false);
+            }
+            return implode(', ', $va);
+        } else if (is_object($value)) {
+            $rc = new ReflectionClass($value);
+            if ($rc->hasMethod('__toString')) {
+                return (string) $value;
+            } else {
+                return get_class($value);
+            }
+        }
+        return '??';
+    }
+
+    /**
+     * Format a stack trace.
+     *
+     * @param array lines The stack info.
+     * @return array Formatted lines.
+     */
+    public static function formatStackTrace(array $lines) {
+        $filesystem = Runtime::getContainer()->get('filesystem');
+        $stack = array();
+        $index = 0;
+        foreach ($lines as $line) {
+            $entry = '#'.$index++.' ';
+            if (isset($line['file'])) {
+                $file = $filesystem->makePathRelative($line['file'], Runtime::getInstallationPath());
+                $location = $file.'('.$line['line'].')';
+            } else {
+                $location = '[no source]';
+            }
+            $entry .= $location.': ';
+            $keys = array('class', 'type', 'function');
+            foreach ($keys as $key) {
+                if (array_key_exists($key, $line)) {
+                    $entry .= $line[$key];
+                }
+            }
+            if (array_key_exists('function', $line)) {
+                $entry .= '(';
+                $args = array();
+                if (array_key_exists('args', $line)) {
+                    foreach ($line['args'] as $arg) {
+                        $args[] = self::formatValue($arg);
+                    }
+                }
+                $entry .= implode(', ', $args);
+                $entry .= ')';
+            }
+            $stack[] = $entry;
+        }
+        return $stack;
     }
 
 }
