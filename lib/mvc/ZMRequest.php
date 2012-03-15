@@ -212,7 +212,7 @@ class ZMRequest extends ZMObject {
      */
     public function absoluteURL($url, $full=false, $secure=false) {
         $url = (!empty($url) && ('/' == $url[0] || false !== strpos($url, '://'))) ? $url : $this->getContext().'/'.$url;
-
+        $secure = Runtime::getSettings()->get('zenmagick.http.request.enforceSecure') && $secure;
         if ($full || ($secure && !$this->isSecure())) {
             // full requested or we need a full URL to ensure it will be secure
             $isSecure = ($this->isSecure() || $secure);
