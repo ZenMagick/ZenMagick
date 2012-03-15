@@ -64,7 +64,7 @@ $config = array('appName' => 'storefront', 'environment' => (isset($_SERVER['ZM_
 $application = new HttpApplication($config);
 $application->bootstrap();
 }
-define('IS_ADMIN_FLAG', Runtime::isContextMatch('admin'));
+if (!defined('IS_ADMIN_FLAG')) { define('IS_ADMIN_FLAG', Runtime::isContextMatch('admin')); }
 define('PAGE_PARSE_START_TIME', microtime());
 
 // @todo find a way to restore the original value once all processing by ZenCart is complete.

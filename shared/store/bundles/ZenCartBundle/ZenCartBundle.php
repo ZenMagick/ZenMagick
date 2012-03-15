@@ -90,7 +90,7 @@ class ZenCartBundle extends Bundle {
      */
     public static function resolveFiles($paths) {
         $files = array();
-        
+
         foreach ((array)$paths as $path) {
             //$relative = str_replace(array_keys($map), array_values($map), $path);
             $file = basename($path);
@@ -137,6 +137,8 @@ class ZenCartBundle extends Bundle {
                 $this->container->get('settingsService')->set('apps.store.zencart.admindir', $adminDir->getValue());
             }
         }
+
+        if (!defined('IS_ADMIN_FLAG')) { define('IS_ADMIN_FLAG', Runtime::isContextMatch('admin')); }
 
         $zcClassLoader = new ZenCartClassLoader();
         $zcClassLoader->setBaseDirectories($this->buildSearchPaths('includes/classes'));
