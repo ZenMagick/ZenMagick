@@ -25,6 +25,7 @@ use zenmagick\base\Runtime;
 use zenmagick\base\Beans;
 use zenmagick\base\classloader\ClassLoader;
 use zenmagick\base\Toolbox;
+use zenmagick\base\ZMException;
 use zenmagick\base\events\Event;
 
 use Symfony\Component\Config\FileLocator;
@@ -319,8 +320,12 @@ class Application {
                 $this->bootstrap[$ii]['done'] = true;
             }
         } catch (Exception $e) {
-            echo $e->getTraceAsString();
-            die(sprintf('bootstrap failed: %s', $e->getMessage()));
+            $msg = sprintf('bootstrap failed: %s', $e->getMessage());
+            if (null != ($loggingService = Runtime::getLogging())) {
+                $loggingService->dump($e, $msg);
+            }
+            echo implode("\n", ZMException::formatStackTrace($e->getTrace()));
+            die($msg);
         }
     }
 
