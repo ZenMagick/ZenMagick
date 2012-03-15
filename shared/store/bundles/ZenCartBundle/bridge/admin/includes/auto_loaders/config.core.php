@@ -198,8 +198,6 @@
  * require('includes/init_includes/init_admin_history.php');
  * 
  */
-  $autoLoadConfig[170][] = array('autoType'=>'init_script',
-                                 'loadFile'=> 'init_admin_history.php');
 /**
  * Breakpoint 180.
  * 
@@ -209,4 +207,3 @@
 
   $autoLoadConfig[180][] = array('autoType'=>'init_script',
                                  'loadFile'=> 'init_html_editor.php');
-?>

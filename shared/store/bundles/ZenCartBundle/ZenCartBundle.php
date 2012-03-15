@@ -158,6 +158,20 @@ class ZenCartBundle extends Bundle {
         if (Runtime::isContextMatch('admin')) {
             $settingsService = $this->container->get('settingsService');
             $settingsService->set('apps.store.baseUrl', 'http://'.$request->getHostname().str_replace('zenmagick/apps/admin/web', '', $request->getContext()));
+            if ('index' != $request->getRequestId()) {
+                $params = $request->getParameterMap(true);
+                $idName = $request->getRequestIdKey();
+                if (isset($params[$idName])) unset($params[$idName]);
+                $data = array(
+                    'admin_id' => (null !== $request->getUser()) ? $request->getUser()->getId() : 0,
+                    'access_date' => new \DateTime(),
+                    'page_accessed' => $request->getRequestId(),
+                    'page_parameters' => http_build_query($params),
+                    'ip_address' => $_SERVER['REMOTE_ADDR']
+                );
+            \ZMRuntime::getDatabase()->createModel('admin_activity_log', $data);
+        }
+
         }
 
     }
