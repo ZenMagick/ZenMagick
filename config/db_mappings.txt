@@ -25,6 +25,14 @@ array(
         'password' => array('column' => 'admin_pass', 'type' => 'string'),
         'live' => array('column' => 'admin_level', 'type' => 'boolean')
     ),
+    'admin_activity_log' => array(
+        'id' => array('column' => 'log_id', 'type' => 'integer', 'key' => true, 'auto' => true),
+        'access_date' => array('column' => 'access_date', 'type' => 'datetime'),
+        'admin_id' => array('column' => 'admin_id', 'type' => 'integer'),
+        'page_accessed' => array('column' => 'page_accessed', 'type' => 'string'),
+        'page_parameters' => array('column' => 'page_parameters', 'type' => 'text'),
+        'ip_address' => array('column' => 'ip_address', 'type' => 'string')
+    ),
     'admin_prefs' => array(
         'admin_pref_id' => array('column' => 'admin_pref_id', 'type' => 'integer', 'key' => true, 'auto' => true),
         'admin_id' => array('column' => 'admin_id', 'type' => 'integer'),
@@ -117,6 +125,12 @@ array(
         'description' => array('column' => 'configuration_group_description', 'type' => 'string'),
         'sortOrder' => array('column' => 'sort_order', 'type' => 'integer'),
         'visible' => array('column' => 'visible', 'type' => 'boolean')
+    ),
+    'counter_history' => array(
+        'id' => array('column' => 'id', 'type' => 'bigint', 'key' => true, 'auto' => true),
+        'startdate' => array('column' => 'startdate', 'type' => 'string'),
+        'counter' => array('column' => 'counter', 'type' => 'integer'),
+        'session_counter' => array('column' => 'session_counter', 'type' => 'integer')
     ),
     'countries' => array(
         'countryId' => array('column' => 'countries_id', 'type' => 'integer', 'key' => true, 'auto' => true),
