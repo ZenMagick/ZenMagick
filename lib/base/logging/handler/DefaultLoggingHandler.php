@@ -19,6 +19,7 @@
  */
 namespace zenmagick\base\logging\handler;
 
+use Exception;
 use zenmagick\base\Runtime;
 use zenmagick\base\ZMException;
 use zenmagick\base\ZMObject;
@@ -93,15 +94,14 @@ class DefaultLoggingHandler extends ZMObject implements LoggingHandler {
             echo $msg."\n";
         }
         echo "<pre>";
-        if ($obj instanceof ZMObject) {
-            echo $obj."\n";
-        } else if ($obj instanceof ZMException) {
-            echo "<strong>".$obj."</strong>\n";
-            echo $obj->getTraceAsString()."\n";
+        if ($obj instanceof Exception) {
+            echo implode("\n", ZMException::formatStackTrace($obj->getTrace()));
+        } else if ($obj instanceof ZMObject) {
+            echo $obj;
         } else {
             echo get_class($obj);
         }
-        echo "</pre>";
+        echo "\n</pre>";
         $info = ob_get_clean();
         $this->doLog($info);
     }
@@ -125,21 +125,7 @@ class DefaultLoggingHandler extends ZMObject implements LoggingHandler {
         }
         $filesystem = $this->container->get('filesystem');
         echo "<pre>";
-        foreach (debug_backtrace() as $line) {
-            echo ' ';
-            if (isset($line['class'])) {
-                echo $line['class'].'::';
-            }
-            if (isset($line['file'])) {
-                $file = $filesystem->makePathRelative($line['file'], Runtime::getInstallationPath());
-                $lineNumber = $line['line'];
-                $location = '#'.$line['line'].':'.$file;
-            } else {
-                $location = 'no source';
-            }
-            $class = array_key_exists('class', $line) ? $line['class'].'::' : '';
-            echo $class.$line['function'].' ('.$location.")\n";
-        }
+        echo implode("\n", ZMException::formatStackTrace(debug_backtrace()));
         echo "</pre>";
         $info = ob_get_clean();
         $this->doLog($info);
