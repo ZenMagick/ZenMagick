@@ -38,7 +38,8 @@ if (!function_exists('zen_href_link')) {
      * 4. zenmagick admin integration using zenmagick native mappings using the zencart admin page name (minus .php)  as the request id.
      */
     function zen_href_link($page='', $params='', $transport='NONSSL', $addSessionId=true, $seo=true, $isStatic=false, $useContext=true) {
-        if (class_exists('ZMStoreDefaultUrlRewriter') && !Runtime::isContextMatch('admin')) { // 1 or 2
+        $useNativeHrefLink = Runtime::getSettings()->get('apps.store.zencart.useNativeHrefLink', false);
+        if ($useNativeHrefLink && class_exists('ZMStoreDefaultUrlRewriter') && !Runtime::isContextMatch('admin')) { // 1 or 2
             return ZMStoreDefaultUrlRewriter::furl($page, $params, $transport, $addSessionId, $seo, $isStatic, $useContext);
         } else if (Runtime::isContextMatch('admin')) { // 3 or 4
             $request = Runtime::getContainer()->get('request');
