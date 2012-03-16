@@ -29,13 +29,9 @@ use zenmagick\base\ZMException;
  *
  */
 function zen_href_link($page='', $params='', $transport='NONSSL', $addSessionId=true, $seo=true, $isStatic=false, $useContext=true) {
-    $useNativeHrefLink = Runtime::getSettings()->get('apps.store.zencart.useNativeHrefLink', false);
-    if ($useNativeHrefLink && class_exists('ZMStoreDefaultUrlRewriter')) {
+    if (!Runtime::getSettings()->get('apps.store.zencart.useNativeHrefLink', false)) {
         return ZMStoreDefaultUrlRewriter::furl($page, $params, $transport, $addSessionId, $seo, $isStatic, $useContext);
-    } else if (function_exists('zen_href_link_DISABLED')) { // 1
-        // just in case...
-        return zen_href_link_DISABLED($page, $params, $transport, $addSessionId, $seo, $isStatic, $useContext);
     } else {
-        throw new ZMException("can't find zen_href_link implementation");
+        return zen_href_link_DISABLED($page, $params, $transport, $addSessionId, $seo, $isStatic, $useContext);
     }
 }
