@@ -164,6 +164,7 @@
             'zenmagick.base.email.port' => EMAIL_SMTPAUTH_MAIL_SERVER_PORT,
             'zenmagick.base.email.user' => EMAIL_SMTPAUTH_MAILBOX,
             'zenmagick.base.email.password' => EMAIL_SMTPAUTH_PASSWORD,
+            'zenmagick.base.email.disabled' => SEND_EMAILS != 'true',
 
 
             // email

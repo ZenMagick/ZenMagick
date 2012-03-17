@@ -24,6 +24,7 @@
         <parameter key="zenmagick.base.email.host">localhost</parameter>
         <parameter key="zenmagick.base.email.port">25</parameter>
         <parameter key="zenmagick.base.email.encryption">tcp</parameter>
+        <parameter key="zenmagick.base.email.disabled">false</parameter>
         <parameter key="zenmagick.base.email.logging">false</parameter>
     </parameters>
 
