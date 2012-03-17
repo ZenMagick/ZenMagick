@@ -238,9 +238,11 @@
                                  'loadFile'=> 'init_add_crumbs.php',
                                  'loaderPrefix'=>'config');
 
-  $autoLoadConfig[170][] = array('autoType'=>'init_script',
-                                 'loadFile'=> 'init_ipn_postcfg.php',
-                                 'loaderPrefix'=>'paypal_ipn');  
+  $autoLoadConfig[170][] = array('autoType'=>'include_glob',
+                                 'loadFile'=>array(
+                                                   'includes/languages/%language%/%template_dir%/checkout_process.php',
+                                                   'includes/languages/%language%/checkout_process.php'),
+                                 'loaderPrefix'=>'paypal_ipn');
 /**
  * Breakpoint 180.
  * 
