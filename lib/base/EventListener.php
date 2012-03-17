@@ -47,8 +47,8 @@ class EventListener extends ZMObject {
         if (0 == count($this->container->getExtensionConfig('swiftmailer')) && in_array('SwiftmailerBundle', $bundles)) {
             $emailConfig = __DIR__.'/email.xml';
             if (file_exists($emailConfig)) {
-                $containerlLoader = new XmlFileLoader($this->container, new FileLocator(dirname($emailConfig)));
-                $containerlLoader->load($emailConfig);
+                $containerLoader = new XmlFileLoader($this->container, new FileLocator(dirname($emailConfig)));
+                $containerLoader->load($emailConfig);
             }
         }
     }
