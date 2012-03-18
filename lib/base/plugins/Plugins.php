@@ -185,6 +185,36 @@ class Plugins extends ZMObject {
     }
 
     /**
+     * Get plugin class.
+     */
+    protected function getPluginClass($id) {
+        $classBase = ClassLoader::className($id);
+        $basePath = $this->getBasePathForId($id);
+        $pluginDir = $basePath.'/'.$id;
+
+        // 1) namespaced
+        $class = sprintf('zenmagick\plugins\%s\%sPlugin', $id, $classBase);
+        if (class_exists($class)) {
+            return $class;
+        }
+
+        // 2) traditional
+        $class = 'ZM'.$classBase.'Plugin';
+        if (is_dir($pluginDir)) {
+            $file = $pluginDir.'/'.$class.'.php';
+            if (!file_exists($file)) {
+                $class = 'Plugin';
+            }
+        } else {
+            $file = $basePath.'/'.$class.'.php';
+            if (!is_file($file)) {
+                $class = 'Plugin';
+            }
+        }
+        return $class;
+    }
+
+    /**
      * Get the plugin for the given id.
      *
      * @param string id The plugin id.
