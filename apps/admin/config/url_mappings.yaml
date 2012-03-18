@@ -56,5 +56,11 @@ page:
   legacy-config:
     success:
       view: redirect#requestId=legacy-config
+  ezpage:
+      controller: zenmagick\apps\store\admin\controller\EzpagesController
+      template: views/ezpages-details.php
+  ezpages:
+      controller: zenmagick\apps\store\admin\controller\EzpagesController
+      template: views/ezpages-overview.php
   zc_admin:
     controller: zenmagick\apps\store\bundles\ZenCartBundle\controller\AdminController
