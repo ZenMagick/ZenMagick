@@ -71,7 +71,7 @@ class AdminEventHandler extends ZMObject {
     protected function getCurrentEditor($request) {
         $user = $request->getUser();
         if (null == $user || null == ($editorId = $this->container->get('adminUserPrefService')->getPrefForName($user->getId(), 'wysiwygEditor'))) {
-            $editorId = $this->container->get('settingsService')->get('apps.store.admin.defaultEditor', self::DEFAULT_EDITOR_SERVICE_ID);
+            $editorId = self::DEFAULT_EDITOR_SERVICE_ID;
         }
 
         if (!$this->container->has($editorId)) {
