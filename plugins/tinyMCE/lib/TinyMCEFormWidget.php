@@ -43,6 +43,7 @@ class TinyMCEFormWidget extends TextAreaFormWidget implements WysiwygEditor {
      */
     public function __construct() {
         parent::__construct();
+        $this->addClasses(array('wysiwyg_editor', 'tinymce_editor'/*,'mceEditable'*/));
         $this->idList = array();
     }
 
@@ -54,7 +55,7 @@ class TinyMCEFormWidget extends TextAreaFormWidget implements WysiwygEditor {
      */
     private function initEditor(ResourceManager $resourceManager) {
         // add required js
-        $resourceManager->jsFile('tinymce-3.3.8/jscripts/tiny_mce/tiny_mce.js', ResourceManager::HEADER);
+        $resourceManager->jsFile('tinymce/jscripts/tiny_mce/tiny_mce.js', ResourceManager::HEADER);
         // create init script code at the end once we know all the ids
         Runtime::getEventDispatcher()->listen($this);
     }

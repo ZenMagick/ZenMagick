@@ -40,7 +40,7 @@ class SelectFormWidget extends FormWidget {
      */
     public function __construct() {
         parent::__construct();
-        $this->setAttributeNames(array('id', 'class', 'size', 'multiple', 'title'));
+        $this->addAttributeNames(array('size', 'multiple', 'title'));
         $this->options_ = array();
         // defaults
         $this->set('style', 'select');
@@ -187,7 +187,7 @@ class SelectFormWidget extends FormWidget {
         ob_start();
         $index = 0;
         foreach ($this->getOptions($request) as $oval => $name) {
-            echo '<input type="radio" id="'.$idBase.'-'.$index.'" class="'.$this->get('class').'" name="'.$this->getName().'" value="'.\ZMHtmlUtils::encode($oval).'"'.($oval==$value ? $checked : '').$slash.'>';
+            echo '<input type="radio" id="'.$idBase.'-'.$index.'" class="'.$this->getClass().'" name="'.$this->getName().'" value="'.\ZMHtmlUtils::encode($oval).'"'.($oval==$value ? $checked : '').$slash.'>';
             echo ' <label for="'.$idBase.'-'.$index.'">'.\ZMHtmlUtils::encode(_zm($name)).'</label>';
             ++$index;
         }
