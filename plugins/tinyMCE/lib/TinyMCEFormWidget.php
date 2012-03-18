@@ -55,7 +55,7 @@ class TinyMCEFormWidget extends TextAreaFormWidget implements WysiwygEditor {
      */
     private function initEditor(ResourceManager $resourceManager) {
         // add required js
-        $resourceManager->jsFile('tinymce/jscripts/tiny_mce/tiny_mce.js', ResourceManager::HEADER);
+        $resourceManager->jsFile('tinymce/jscripts/tiny_mce/jquery.tinymce.js', ResourceManager::HEADER);
         // create init script code at the end once we know all the ids
         Runtime::getEventDispatcher()->listen($this);
     }
@@ -93,30 +93,34 @@ class TinyMCEFormWidget extends TextAreaFormWidget implements WysiwygEditor {
      * Add init code.
      */
     public function onFinaliseContent($event) {
+        $tinyMce = $this->container->get('pluginService')->getPluginForId('tinyMCE');
+        $scriptUrl = $tinyMce->pluginURL('content/tinymce/jscripts/tiny_mce/tiny_mce.js');
         if (0 < count($this->idList) || null === $this->idList) {
             if (null === $this->idList) {
-                $elements = '';
-                $mode = 'textareas';
+                $selector = 'textarea';
             } else {
-                $elements = 'elements : "' . implode(',', $this->idList) . '",';
-                $mode = 'exact';
+                $selector = '#'.implode(',#', $this->idList);
             }
             $jsInit = <<<EOT
-<script>
-  tinyMCE.init({
-    theme : "advanced",
-    mode : "$mode",
-    $elements
-    plugins : "paste, save",
-    theme_advanced_toolbar_location : "top",
-    theme_advanced_toolbar_align:"left",
-    theme_advanced_buttons1 : "bold,italic,underline,strikethrough,separator,"
-    + "justifyleft,justifycenter,justifyright,justifyfull,formatselect,"
-    + "bullist,numlist,outdent,indent",
-    theme_advanced_buttons2 : "link,unlink,anchor,image,separator,"
-    +"undo,redo,cleanup,separator,sub,sup,charmap",
-    theme_advanced_buttons3 : ""
-  });
+<script type="text/javascript">
+jQuery(function() {
+    jQuery('$selector').each(function() {
+        $(this).tinymce({
+            // Location of TinyMCE script
+            script_url : '$scriptUrl',
+            theme : "advanced",
+            plugins : "paste, save",
+            theme_advanced_toolbar_location : "top",
+            theme_advanced_toolbar_align : "left",
+            theme_advanced_buttons1 : "bold,italic,underline,strikethrough,separator,"
+            + "justifyleft,justifycenter,justifyright,justifyfull,formatselect,"
+            + "bullist,numlist,outdent,indent",
+            theme_advanced_buttons2 : "link,unlink,anchor,image,separator,"
+            +"undo,redo,cleanup,separator,sub,sup,charmap",
+            theme_advanced_buttons3 : ""
+        });
+    });
+});
 </script>
 EOT;
             $content = $event->get('content');
