@@ -1,3 +1,9 @@
+meta:
+  name: 'CKEditor'
+  version: '${zenmagick.version}'
+  author: 'zenmagick.org'
+  description: 'CKEditor WYSIWYG editor'
+
 storefront,admin:
   container:
     services:
