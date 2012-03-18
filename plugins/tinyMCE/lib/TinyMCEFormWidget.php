@@ -43,7 +43,7 @@ class TinyMCEFormWidget extends TextAreaFormWidget implements WysiwygEditor {
      */
     public function __construct() {
         parent::__construct();
-        $this->addClasses(array('wysiwyg_editor', 'tinymce_editor'/*,'mceEditable'*/));
+        $this->addClasses(array(self::EDITOR_CLASS, 'tinymce_editor'/*,'mceEditable'*/));
         $this->idList = array();
     }
 

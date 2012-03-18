@@ -41,7 +41,7 @@ class XinhaFormWidget extends TextAreaFormWidget implements WysiwygEditor {
      */
     public function __construct() {
         parent::__construct();
-        $this->addClasses(array('wysiwyg_editor', 'xinha_editor'));
+        $this->addClasses(array(self::EDITOR_CLASS, 'xinha_editor'));
         $this->idList = array();
     }
 

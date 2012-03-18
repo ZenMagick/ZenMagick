@@ -27,6 +27,8 @@ use zenmagick\http\view\TemplateView;
  * @author DerManoMann <mano@zenmagick.org>
  */
 interface WysiwygEditor {
+    const EDITOR_CLASS = 'wysiwyg_editor';
+    const NO_EDITOR_CLASS = 'no_editor';
 
     /**
      * Apply editor to the given element ids.

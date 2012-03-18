@@ -43,7 +43,7 @@ class CkEditorFormWidget extends TextAreaFormWidget implements WysiwygEditor {
         parent::__construct();
         $this->plugin_ = Runtime::getContainer()->get('pluginService')->getPluginForId('ckEditor');
         $this->editorConfig = array();
-        $this->addClasses(array('wysiwyg_editor', 'ckeditor_editor'));
+        $this->addClasses(array(self::EDITOR_CLASS, 'ckeditor_editor'));
         //TODO: allow for predefined 'basic', 'standard' and 'advanced' presettings in abstract ZMWysiwygEditorFormWidget base class
         $this->editorConfig['toolbar'] = array(
             array('Source', '-', 'Bold', 'Italic', 'Underline', 'Strike'),
