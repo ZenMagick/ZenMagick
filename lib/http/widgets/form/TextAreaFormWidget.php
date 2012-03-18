@@ -33,7 +33,7 @@ class TextAreaFormWidget extends FormWidget implements WysiwygEditor {
      */
     public function __construct() {
         parent::__construct();
-        $this->setAttributeNames(array('id', 'name', 'class', 'cols', 'rows', 'wrap', 'title'));
+        $this->addAttributeNames(array('name', 'cols', 'rows', 'wrap', 'title'));
         // some defaults
         $this->setRows(5);
         $this->setCols(60);

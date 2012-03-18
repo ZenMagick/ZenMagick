@@ -31,11 +31,11 @@ use zenmagick\http\widgets\Widget;
  * @author DerManoMann <mano@zenmagick.org>
  */
 abstract class FormWidget extends Widget {
-    private static $NO_VAL_ATTR = array('multiple', 'readonly', 'disabled');
-    private $name_;
-    private $value_;
-    private $attributeNames_;
-    private $encode_;
+    protected static $NO_VAL_ATTR = array('multiple', 'readonly', 'disabled');
+    protected $name_;
+    protected $value_;
+    protected $attributeNames_;
+    protected $encode_;
 
 
     /**
@@ -45,7 +45,7 @@ abstract class FormWidget extends Widget {
         parent::__construct();
         $this->name_ = '';
         $this->value_ = null;
-        $this->attributeNames_ = array();
+        $this->setAttributeNames(array('id'));
         $this->encode_ = true;
     }
 
@@ -120,6 +120,15 @@ abstract class FormWidget extends Widget {
      */
     public function setAttributeNames($names) {
         $this->attributeNames_ = $names;
+    }
+
+    /**
+     * Add to the list of supported attributes.
+     *
+     * @param array names The attribute names.
+     */
+    public function addAttributeNames($names) {
+        $this->attributeNames_ = array_unique(array_merge($this->attributeNames_, (array)$names));
     }
 
     /**

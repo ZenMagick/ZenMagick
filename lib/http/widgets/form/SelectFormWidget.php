@@ -40,7 +40,7 @@ class SelectFormWidget extends FormWidget {
      */
     public function __construct() {
         parent::__construct();
-        $this->setAttributeNames(array('id', 'class', 'size', 'multiple', 'title'));
+        $this->addAttributeNames(array('size', 'multiple', 'title'));
         $this->options_ = array();
         // defaults
         $this->set('style', 'select');

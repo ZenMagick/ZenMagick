@@ -34,7 +34,7 @@ class TextFormWidget extends FormWidget {
      */
     public function __construct() {
         parent::__construct();
-        $this->setAttributeNames(array('id', 'class', 'size', 'maxlength', 'autocomplete', 'title', 'readonly'));
+        $this->addAttributeNames(array('size', 'maxlength', 'autocomplete', 'title', 'readonly'));
     }
 
 
