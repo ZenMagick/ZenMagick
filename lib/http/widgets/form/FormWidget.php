@@ -32,6 +32,7 @@ use zenmagick\http\widgets\Widget;
  */
 abstract class FormWidget extends Widget {
     protected static $NO_VAL_ATTR = array('multiple', 'readonly', 'disabled');
+    protected $classes_;
     protected $name_;
     protected $value_;
     protected $attributeNames_;
@@ -44,11 +45,47 @@ abstract class FormWidget extends Widget {
     public function __construct() {
         parent::__construct();
         $this->name_ = '';
+        $this->classes_ = array();
         $this->value_ = null;
         $this->setAttributeNames(array('id'));
         $this->encode_ = true;
     }
 
+    /**
+     * Set the classes.
+     *
+     * @param string class The classes.
+     */
+    public function setClasses($classes) {
+        $this->classes_ = $classes;
+    }
+
+    /**
+     * Add a class or classes
+     *
+     * @param string class The classes.
+     */
+    public function addClasses($classes) {
+        $this->classes_ = array_unique(array_merge($this->classes_, (array)$classes));
+    }
+
+    /**
+     * Get the classes.
+     *
+     * @return array The classes.
+     */
+    public function getClasses() {
+        return $this->classes_;
+    }
+
+    /**
+     * Get the class string (space seperated)
+     *
+     * @return string class.
+     */
+    public function getClass() {
+        return implode(' ', $this->classes_);
+    }
 
     /**
      * Set the name.
@@ -164,7 +201,10 @@ abstract class FormWidget extends Widget {
         if ($addName) {
             $attr = ' name="'.$this->getName().($this->isMultiValue() ? '[]' : '').'"';
         }
-
+        $class = $this->getClass();
+        if (!empty($class)) {
+            $attr .= ' class="'.$class.'"';
+        }
         foreach ($this->properties_ as $name => $value) {
             if (in_array($name, $this->attributeNames_)) {
                 if (in_array($name, self::$NO_VAL_ATTR)) {
