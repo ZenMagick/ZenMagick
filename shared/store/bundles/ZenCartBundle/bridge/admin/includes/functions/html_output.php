@@ -272,7 +272,12 @@
 // Output a form textarea field
   function zen_draw_textarea_field($name, $wrap, $width, $height, $text = '~*~*#', $parameters = '', $reinsert_value = true) {
     $field = '<textarea name="' . zen_output_string($name) . '" wrap="' . zen_output_string($wrap) . '" cols="' . zen_output_string($width) . '" rows="' . zen_output_string($height) . '"';
-
+    // BEGIN ZENMAGICK MODIFICATION: support zenmagick editor code
+    $parameters = str_replace('noEditor', 'no_editor', $parameters);
+    // message tends to be used in combination with an html specific message_html field
+    // We could do something better, but it probably isn't worth it.
+    if ($name == 'message') $parameters .= ' class="no_editor" ';
+    // END ZENMAGICK MODIFICATION
     if (zen_not_null($parameters)) $field .= ' ' . $parameters;
 
     $field .= '>';
@@ -286,7 +291,7 @@
     }
 
     $field .= '</textarea>';
-
+    
     return $field;
   }
 

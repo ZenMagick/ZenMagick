@@ -34,6 +34,7 @@ chdir($zcAdminFolder);
 // prepare globals
 global $PHP_SELF, $db, $autoLoadConfig, $sniffer, $currencies, $template, $current_page_base, $zco_notifier, $zc_products, $session_started;
 $session_started = true;
+define('TEXT_EDITOR_INFO', ''); // hide text editor box
 $PHP_SELF = $zcAdminFolder.$zcPage;
 $code = file_get_contents($zcAdminFolder.$zcPage);
 $code = preg_replace("/<!doctype[^>]*>/s", '', $code);
@@ -79,8 +80,8 @@ $content = str_replace('src="includes', 'src="/'.ZENCART_ADMIN_FOLDER.'/includes
 $content = str_replace('src="images', 'src="/'.ZENCART_ADMIN_FOLDER.'/images', $content);
 $content = str_replace(array('onmouseover="rowOverEffect(this)"', 'onmouseout="rowOutEffect(this)"'), '', $content);
 //action="/zmdev/zenmagick/apps/admin/web/index.php?rid=zc_admin&zpid=categories&" method="get">
+$content = preg_replace('|<select([^>]*)name="reset_editor"(.*?)>(.*?)</select>|sm', '', $content);
 $content = preg_replace('/(action="[^"]*index.php\?rid=zc_admin&zpid=)([^&"]*)([^>]*>)/', '$1$2$3<input type="hidden" name="rid" value="zc_admin"><input type="hidden" name="zpid" value="$2">', $content);
-//$content = preg_replace('/(action="[^"]*index.php)\?rid=zc_admin&zpid=[^&"]*([^>]*>)/', '$1$2', $content);
 //echo $content;return;
 
 // printing view
@@ -149,6 +150,7 @@ function check_form() {
 <?php } ?>
 <div id="view-container">
   <?php echo $content; ?>
+  <?php echo $currentEditor->apply($request, $view, null); ?>
   <?php if (isset($scripts)) { ?>
     <div id="navbar"></div>
     <div id="hoverJS"></div>

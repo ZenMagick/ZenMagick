@@ -204,6 +204,3 @@
  * require('includes/init_includes/init_html_editor.php);
  * 
  */
-
-  $autoLoadConfig[180][] = array('autoType'=>'init_script',
-                                 'loadFile'=> 'init_html_editor.php');
