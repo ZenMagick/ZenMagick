@@ -95,6 +95,7 @@ class TinyMCEFormWidget extends TextAreaFormWidget implements WysiwygEditor {
     public function onFinaliseContent($event) {
         $tinyMce = $this->container->get('pluginService')->getPluginForId('tinyMCE');
         $scriptUrl = $tinyMce->pluginURL('content/tinymce/jscripts/tiny_mce/tiny_mce.js');
+        $noEditorClass = self::NO_EDITOR_CLASS;
         if (0 < count($this->idList) || null === $this->idList) {
             if (null === $this->idList) {
                 $selector = 'textarea';
@@ -104,7 +105,7 @@ class TinyMCEFormWidget extends TextAreaFormWidget implements WysiwygEditor {
             $jsInit = <<<EOT
 <script type="text/javascript">
 jQuery(function() {
-    jQuery('$selector').each(function() {
+    jQuery('$selector').not('.$noEditorClass').each(function() {
         $(this).tinymce({
             // Location of TinyMCE script
             script_url : '$scriptUrl',
