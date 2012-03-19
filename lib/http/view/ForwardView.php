@@ -30,7 +30,7 @@ use zenmagick\base\ZMObject;
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class RedirectView extends ZMObject implements View {
+class ForwardView extends ZMObject implements View {
     private $requestId_;
 
 
