@@ -17,6 +17,8 @@
  * dropped db cache
  * dropped phpbb3
  */
+  $autoLoadConfig[0][] = array('autoType'=>'init_script',
+                                'loadFile'=> 'init_begin.php');
   $autoLoadConfig[0][] = array('autoType'=>'classInstantiate',
                                 'className'=>'notifier',
                                 'objectName'=>'zco_notifier');
