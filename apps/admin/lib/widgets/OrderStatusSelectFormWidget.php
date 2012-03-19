@@ -32,7 +32,7 @@ use zenmagick\http\widgets\form\SelectFormWidget;
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class orderStatusSelectFormWidget extends SelectFormWidget {
+class OrderStatusSelectFormWidget extends SelectFormWidget {
     private $showKey_;
 
 
