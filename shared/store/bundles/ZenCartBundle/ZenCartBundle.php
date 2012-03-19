@@ -125,8 +125,6 @@ class ZenCartBundle extends Bundle {
         $zcClassLoader->setBaseDirectories($this->buildSearchPaths('includes/classes'));
         $zcClassLoader->register();
 
-        // include overrides for zen_href_link and zen_mail*
-        require_once __DIR__ . '/utils/zencart_overrides.php';
         // include some zencart files we need.
         include_once ZC_INSTALL_PATH . 'includes/database_tables.php';
     }
