@@ -40,7 +40,7 @@ class RssFeedLoader extends ZMObject {
      */
     public function __construct() {
         parent::__construct();
-        $this->rss_ = new lastRSS();
+        $this->rss_ = new LastRSS();
     }
 
 

@@ -75,7 +75,7 @@ class LastRSS {
 				if ($result) $result['cached'] = 0;
 			}
 		}
-		// If CACHE DISABLED >> load and parse the file directly
+		// If CACHE DISABLED >> load and parse the url directly
 		else {
 			$result = $this->Parse($rss_url);
 			if ($result) $result['cached'] = 0;
