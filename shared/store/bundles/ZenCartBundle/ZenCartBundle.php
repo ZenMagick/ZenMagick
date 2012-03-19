@@ -107,30 +107,11 @@ class ZenCartBundle extends Bundle {
     }
 
     /**
-     * Load configure.php to get the required store-container settings if required.
-     *
-     * @todo This will eventually be deprecated once we have an installer to write store-config.yaml
-     */
-    protected function prepareConfig() {
-        $settingsService = $this->container->get('settingsService');
-
-        $current = $settingsService->get('apps.store.database.default', array());
-
-        if (!defined('DB_PREFIX')) define('DB_PREFIX', $current['prefix']);
-
-        if (defined('ENABLE_SSL_ADMIN')) $settingsService->set('zenmagick.http.request.secure', 'true' == ENABLE_SSL_ADMIN);
-        if (defined('ENABLE_SSL')) $settingsService->set('zenmagick.http.request.secure', 'true' == ENABLE_SSL);
-
-        // download base folder
-        $downloadBaseDir = !defined('DIR_FS_DOWNLOAD') ? ZC_INSTALL_PATH . 'download/' : DIR_FS_DOWNLOAD;
-        $settingsService->set('downloadBaseDir', $downloadBaseDir);
-    }
-
-    /**
      * Prepare db config
      */
     public function onInitConfigDone($event) {
-        $this->prepareConfig();
+        if (!defined('DB_PREFIX')) define('DB_PREFIX', \ZMRuntime::getDatabase()->getPrefix());
+
         if (Runtime::isContextMatch('admin')) {
             $adminDir = $this->container->get('configService')->getConfigValue(self::ZENCART_ADMIN_FOLDER);
             if (null != $adminDir) {
