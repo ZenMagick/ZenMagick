@@ -92,11 +92,8 @@
         </service>
 
         <service id="rssLoader" class="zenmagick\http\rss\RssFeedLoader" scope="container">
-            <call method="init">
-                <argument type="collection">
-                    <argument key="cacheTTL">300</argument>
-                    <argument key="cacheDir">%zenmagick.cacheBasePath%/rss/</argument>
-                </argument>
+            <call method="setCache">
+                <argument type="service" id="persistentCache" />
             </call>
         </service>
 

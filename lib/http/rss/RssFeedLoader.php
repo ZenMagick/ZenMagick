@@ -32,31 +32,28 @@ use zenmagick\base\ZMObject;
  * @author DerManoMann <mano@zenmagick.org>
  */
 class RssFeedLoader extends ZMObject {
-    private $rss_;
+    private $config;
+    private $cache;
 
 
     /**
      * Create a new instance.
      */
-    public function __construct() {
+    public function __construct(array $config=array()) {
         parent::__construct();
-        $this->rss_ = new LastRSS();
+        $defaults = array('strictErrorChecking' => false, 'useIncludePath' => false, 'urlContext' => false);
+        $this->config = array_merge($defaults, $config);
+        $this->cache = null;
     }
 
 
     /**
-     * Initialize.
+     * Set the cache.
      *
-     * @param array config General loader config.
+     * @param zenmagick\base\cache\Cache cache The cache.
      */
-    public function init($config) {
-        Runtime::getContainer()->get('filesystem')->mkdir($config['cacheDir'], 0755);
-        if (!file_exists($config['cacheDir']) || !is_writeable($config['cacheDir'])) {
-            Runtime::getLogging()->warn(sprintf('RSS cache dir not usable: %s', $config['cacheDir']));
-        }
-        $this->rss_->cache_dir = $config['cacheDir'];
-        $this->rss_->cache_time = $config['cacheTTL'];
-        $this->rss_->CDATA = 'strip';
+    public function setCache($cache) {
+        $this->cache = $cache;
     }
 
     /**
@@ -68,25 +65,70 @@ class RssFeedLoader extends ZMObject {
      * @return RssFedd A <code>RssFeed</code> instance.
      */
     public function getFeed($url, $category=null, $limit=5) {
-        // to filter we need all to start with
-        $this->rss_->items_limit = null == $category ? $limit : 0;
-        $rs = $this->rss_->Get($url);
-        $feed = new RssFeed();
-        if (null != $rs) {
-            $feed->setChannel(new RssChannel($rs));
-            $items = array();
-            foreach ($rs['items'] as $item) {
-                $item = new RssItem($item);
-                if (null == $category || $category == $item->getCategory()) {
-                    $items[] = $item;
-                }
-                if (0 != $limit && $limit <= count($items)) {
-                    break;
-                }
-            }
-            $feed->setItems($items);
+        $cacheKey = \ZMLangUtils::mkUnique('feeds', $url, implode(':', $this->config));
+
+        if (!$this->cache || false === ($rssParser = $this->cache->lookup($cacheKey))) {
+            $rssParser = new RssParser($this->config);
+            // todo: conditional GET
+            $rssParser->parse(file_get_contents($url, $this->config['useIncludePath'], $this->getContext()));
         }
+
+        $feed = new RssFeed();
+        $feed->setChannel(new RssChannel($rssParser->getChannel()));
+        $items = array();
+        foreach ($rssParser->getItems() as $itemData) {
+            $item = new RssItem($itemData);
+            if (null == $category || in_array($category, $item->getCategories())) {
+                $items[] = $item;
+            }
+            if (0 != $limit && $limit <= count($items)) {
+                break;
+            }
+        }
+        $feed->setItems($items);
+
+        // cache if enabled
+        if ($this->cache) {
+            $this->cache->save($rssParser, $cacheKey);
+        }
+
         return $feed;
+    }
+
+    /**
+     * Get a context to be used when loading a feed from a url.
+     *
+     * @return A stream context or <code>null</code>.
+     */
+    private function getContext() {
+        switch ($this->config['urlContext']) {
+        case 'zenmagick':
+            $header = array(
+                'Accept: text/xml,application/xml,application/xhtml+xml,;q=0.9',
+                'Accept-Language: en-gb,en;q=0.5',
+                'User-Agent: ZenMagick RssFeedLoader 1.0'
+            );
+            break;
+        case 'random':
+            $header = array(
+                'Accept: text/xml,application/xml,application/xhtml+xml,text/html;q=0.9,text/plain;q=0.8,image/png,*/*;q=0.5',
+                'Accept-Charset: '.(rand(0,1) ? 'en-gb,en;q=0.'.rand(3,8) : 'en-us,en;q=0.'.rand(3,8)),
+                'Accept-Language: en-us,en;q=0.'.rand(4,6),
+                'User-Agent: Mozilla/5.0 (Windows U; Windows NT 5.'.rand(0,2).'; en-US; rv:1.'.rand(2,9).'.'.rand(0,4).'.'.rand(1,9).') Gecko/2007'.rand(10,12).rand(10,30).' Firefox/2.0.'.rand(0,1).'.'.rand(1,9)
+            );
+            break;
+        default:
+            return null;
+        }
+
+        $contextOptions = array(
+            'http' => array(
+                'method'=> 'GET',
+                'header' => implode("\r\n", $header)
+            )
+        );
+
+        return stream_context_create($contextOptions);
     }
 
 }

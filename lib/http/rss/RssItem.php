@@ -66,11 +66,11 @@ class RssItem extends ZMObject {
     public function getDescription() { return $this->get('description'); }
 
     /**
-     * Get the item category.
+     * Get the item categories.
      *
-     * @return string The item category.
+     * @return array The item categories.
      */
-    public function getCategory() { return $this->get('category'); }
+    public function getCategories() { return (array)$this->get('category'); }
 
     /**
      * Get the item publish date.
