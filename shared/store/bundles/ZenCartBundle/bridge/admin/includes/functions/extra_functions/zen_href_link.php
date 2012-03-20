@@ -30,6 +30,7 @@ use zenmagick\base\ZMException;
  */
 function zen_href_link($page='', $params='', $transport='NONSSL', $addSessionId=true, $seo=true, $isStatic=false, $useContext=true) {
     $request = Runtime::getContainer()->get('request');
+    $page = str_replace('.php', '', $page);
     parse_str($params, $tmp);
     unset($tmp['rid']);
     $params = http_build_query($tmp);
