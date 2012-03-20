@@ -28,8 +28,8 @@ ksort($autoLoadConfig);
 $map = array();
 $request = Runtime::getContainer()->get('request');
 $session = Runtime::getcontainer()->get('session');
-// @todo remove zpid asap
-$map['%current_page%'] = !Runtime::isContextMatch('admin') ? $request->getRequestId() : $request->getParameter('zpid', 'index');
+
+$map['%current_page%'] = $request->getRequestId();
 $map['%language%'] = $request->getSelectedLanguage()->getDirectory(); //$session->getValue('language');
 $map['%template_dir%'] = Runtime::getContainer()->get('themeService')->getActiveThemeId();
 

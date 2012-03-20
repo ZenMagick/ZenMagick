@@ -117,6 +117,9 @@ class ZenCartBundle extends Bundle {
             if (null != $adminDir) {
                 $this->container->get('settingsService')->set('apps.store.zencart.admindir', $adminDir->getValue());
             }
+
+            $urlMappings = __DIR__.'/Resources/config/admin/url_mappings.yaml';
+            \ZMUrlManager::instance()->load(file_get_contents($urlMappings), false);
         }
 
         if (!defined('IS_ADMIN_FLAG')) { define('IS_ADMIN_FLAG', Runtime::isContextMatch('admin')); }

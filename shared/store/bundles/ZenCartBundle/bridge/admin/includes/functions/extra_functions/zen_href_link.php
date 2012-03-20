@@ -31,14 +31,7 @@ use zenmagick\base\ZMException;
 function zen_href_link($page='', $params='', $transport='NONSSL', $addSessionId=true, $seo=true, $isStatic=false, $useContext=true) {
     $request = Runtime::getContainer()->get('request');
     parse_str($params, $tmp);
-    $page = str_replace('.php', '', $page);
-    $requestId = $request->getRequestId() == 'zc_admin' ? 'zc_admin' : $page;
-    $params = '';
-    if ($requestId == 'zc_admin') { // 4
-        $params = 'zpid='.$page.'&';
-    }
-    unset($tmp['zpid']);
     unset($tmp['rid']);
-    $params .= http_build_query($tmp);
-    return $request->url($requestId, $params);
+    $params = http_build_query($tmp);
+    return $request->url($page, $params);
 }

@@ -67,7 +67,7 @@ class BasicStatsDashboardWidget extends DashboardWidget {
         $result = $database->querySingle("SELECT count(*) AS count FROM " . TABLE_REVIEWS);
         $data[_zm('Reviews')] = $result['count'];
         $result = $database->querySingle("SELECT count(*) AS count FROM " . TABLE_REVIEWS . " WHERE status='0'");
-        $data['<a href="'.$request->url('zc_admin', 'zpid=reviews&status=1').'">'._zm('Reviews pending approval').'</a>'] = $result['count'];
+        $data['<a href="'.$request->url('reviews', 'status=1').'">'._zm('Reviews pending approval').'</a>'] = $result['count'];
 
         // separator
         $data[] = null;

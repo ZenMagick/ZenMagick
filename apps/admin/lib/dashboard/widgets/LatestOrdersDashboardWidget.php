@@ -54,8 +54,8 @@ class LatestOrdersDashboardWidget extends DashboardWidget {
             if (null != ($actualAccount = $accountService->getAccountForId($order->getAccountId()))) {
                 $name = $actualAccount->getType() == \ZMAccount::REGISTERED ? $order->getAccount()->getFullName() : _zm('** Guest **');
             }
-            $contents .= '    <td><a href="'.$admin2->url('zc_admin', 'zpid=orders&action=edit&oID='.$order->getId()).'">'.$order->getId().'</a></td>';
-            $contents .= '    <td><a href="'.$admin2->url('zc_admin', 'zpid=customers&action=edit&cID='.$order->getAccountId()).'">'.$name.'</a></td>';
+            $contents .= '    <td><a href="'.$admin2->url('orders', 'action=edit&oID='.$order->getId()).'">'.$order->getId().'</a></td>';
+            $contents .= '    <td><a href="'.$admin2->url('customers', 'action=edit&cID='.$order->getAccountId()).'">'.$name.'</a></td>';
             $contents .= '    <td>'.\ZMLocaleUtils::dateShort($order->getOrderDate()).'</td>';
             $contents .= '    <td>'.$utils->formatMoney($order->getTotal()).'</td>';
             $contents .= '  </tr>';

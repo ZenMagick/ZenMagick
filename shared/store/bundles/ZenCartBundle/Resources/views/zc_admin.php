@@ -26,9 +26,8 @@ function split_slash($s) {
   return preg_replace('#/(\S)#', '/ $1', $s);
 }
 
-$zcAdminFolder = ZC_INSTALL_PATH.ZENCART_ADMIN_FOLDER.DIRECTORY_SEPARATOR;
-$zpid = str_replace('.php', '', $request->getParameter('zpid', 'index'));
-$zcPage = $zpid.'.php';
+$zcAdminFolder = ZC_INSTALL_PATH.ZENCART_ADMIN_FOLDER.'/';
+$zcPage = $request->getRequestId() == 'zc_admin' ? 'index.php' : $request->getRequestId().'.php';
 chdir($zcAdminFolder);
 
 // prepare globals
@@ -79,13 +78,13 @@ $content = str_replace('id="main"', '', $content);
 $content = str_replace('src="includes', 'src="/'.ZENCART_ADMIN_FOLDER.'/includes', $content);
 $content = str_replace('src="images', 'src="/'.ZENCART_ADMIN_FOLDER.'/images', $content);
 $content = str_replace(array('onmouseover="rowOverEffect(this)"', 'onmouseout="rowOutEffect(this)"'), '', $content);
-//action="/zmdev/zenmagick/apps/admin/web/index.php?rid=zc_admin&zpid=categories&" method="get">
+//action="/zmdev/zenmagick/apps/admin/web/index.php?rid=categories&" method="get">
 $content = preg_replace('|<select([^>]*)name="reset_editor"(.*?)>(.*?)</select>|sm', '', $content);
-$content = preg_replace('/(action="[^"]*index.php\?rid=zc_admin&zpid=)([^&"]*)([^>]*>)/', '$1$2$3<input type="hidden" name="rid" value="zc_admin"><input type="hidden" name="zpid" value="$2">', $content);
+$content = preg_replace('/(action="[^"]*index.php\?rid=)([^&"]*)([^>]*>)/', '$1$2$3<input type="hidden" name="rid" value="$2">', $content);
 //echo $content;return;
 
 // printing view
-$skipMenu = in_array($zpid, $settings->get('apps.store.zencart.skipLayout', array()));
+$skipMenu = in_array($request->getRequestId(), $settings->get('apps.store.zencart.skipLayout', array()));
 
 if (!$skipMenu) {
 ?>
