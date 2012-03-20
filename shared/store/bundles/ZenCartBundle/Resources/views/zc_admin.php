@@ -50,7 +50,7 @@ $spiffyCalKill = array( // this often gets included outside of <head> so we "fix
     '<script language="JavaScript" src="includes/javascript/spiffyCal/spiffyCal_v2_1.js">');
 $content = str_replace($spiffyCalKill, '', $content);
 // get all head content and find all script code
-preg_match("/<head\>.*<\/head\>/is", $content, $head);
+preg_match('|<head\>(.*?)</head\>|is', $content, $head);
 if (1 == count($head)) {
     preg_match_all("/<script?.+<\/script\>/Uis", $head[0], $scripts);
     foreach ($scripts as $match) {
@@ -69,7 +69,7 @@ if (1 == count($head)) {
         }
     }
 }
-$content = preg_replace("/<html.*<body[^>]*>/s", '', $content);
+$content = preg_replace("/<html.*?<body[^>]*>/s", '', $content);
 $content = str_replace('id="main"', '', $content);
 $content = str_replace('src="includes', 'src="/'.ZENCART_ADMIN_FOLDER.'/includes', $content);
 $content = str_replace('src="images', 'src="/'.ZENCART_ADMIN_FOLDER.'/images', $content);
