@@ -75,8 +75,9 @@ class queryFactory {
      * @return object queryFactoryResult
      */
     public function Execute($sql, $limit = null, $useCache = false, $cacheTime = 0) {
+        $sql = trim($sql);
         $commandType = strtolower(substr($sql, 0, 3));
-        if (!in_array($commandType, array('des', 'sel', 'sho'))) { 
+        if (!in_array($commandType, array('des', 'sel', 'sho'))) {
             try {
                 return  ZMRuntime::getDatabase()->executeUpdate($sql);
             } catch (PDOException $e) {
