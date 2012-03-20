@@ -111,6 +111,20 @@ class ZMDatabase extends Connection {
     }
 
     /**
+     * Figure out used table name.
+     * 
+     * @param string table
+     * @return table (possibly prefixed)
+     */
+    public function resolveTable($table) {
+        $prefix = $this->getPrefix();
+        if (null != $prefix && 0 !== strpos($table, $prefix)) {
+            $table = $prefix.$table;
+        }
+        return $table;
+    } 
+
+    /**
      * Get a table mapper insance.
      *
      * @return object
@@ -194,6 +208,7 @@ class ZMDatabase extends Connection {
      * @throws ZMDatabaseException
      */
     public function loadModel($table, $key, $modelClass, $mapping = null) {
+        $table = $this->resolveTable($table);
         $mapping = $this->getMapper()->ensureMapping(null !== $mapping ? $mapping : $table);
 
         // determine by looking at key and auto settings
@@ -221,12 +236,9 @@ class ZMDatabase extends Connection {
      * @throws ZMDatabaseException
      */
     public function createModel($table, $model, $mapping = null) {
-        if (null === $model) {
-            return null;
-        }
-
+        if (null === $model) return null;
+        $table = $this->resolveTable($table);
         $mapping = $this->getMapper()->ensureMapping(null !== $mapping ? $mapping : $table);
-
         // convert to array
         if (is_object($model)) {
             $modelData = Beans::obj2map($model, array_keys($mapping));
@@ -281,10 +293,8 @@ class ZMDatabase extends Connection {
      * @throws ZMDatabaseException
      */
     public function removeModel($table, $model, $mapping = null) {
-        if (null === $model) {
-            return null;
-        }
-
+        if (null === $model) return null;
+        $table = $this->resolveTable($table);
         $mapping = $this->getMapper()->ensureMapping(null !== $mapping ? $mapping : $table);
 
         // convert to array
@@ -332,10 +342,8 @@ class ZMDatabase extends Connection {
      * @throws ZMDatabaseException
      */
     public function updateModel($table, $model, $mapping = null) {
-        if (null === $model) {
-            return;
-        }
-
+        if (null === $model) return null;
+        $table = $this->resolveTable($table);
         $mapping = $this->getMapper()->ensureMapping(null !== $mapping ? $mapping : $table);
 
         // convert to array
@@ -597,11 +605,8 @@ class ZMDatabase extends Connection {
      * @throws ZMDatabaseException
      */
     public function getMetaData($table) {
-        $params = $this->getParams();
+        $table = $this->resolveTable($table);
         $sm = $this->getSchemaManager();
-        if (!empty($params['prefix']) && 0 !== strpos($table, $params['prefix'])) {
-            $table = $params['prefix'].$table;
-        }
 
         $meta = array();
 
