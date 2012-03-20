@@ -18,6 +18,8 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
+use zenmagick\base\ZMException;
+
 /**
  * PHP utils.
  *
@@ -146,10 +148,7 @@ class ZMLangUtils {
      */
     public static function dumpStack($msg=null) {
         if ($msg) { echo '<h2>'.$msg.'</h2>'; }
-        foreach (debug_backtrace() as $level) {
-            $level = array_merge(array('line' => 'line:n/a ', 'function' => 'function:n/a ', 'file' => 'file:n/a '), $level);
-            echo $level['line'].':'.$level['function'].':'.$level['file']."<br>\n";
-        }
+        echo implode('<br>', ZMException::formatStackTrace(debug_backtrace()));
         echo '<br>';
     }
 
