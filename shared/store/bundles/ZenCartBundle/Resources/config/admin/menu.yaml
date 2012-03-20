@@ -6,7 +6,7 @@ featured: { parent: catalog-products, requestId: featured, name: Featured }
 products-expected: { parent: catalog-products, requestId: products_expected, name: Coming Soon }
 reviews: { parent: catalog-products, requestId: reviews, name: Reviews }
 salemaker: { parent: catalog-products, requestId: salemaker, name: SaleMaker }
-product-price-manager: { parent: catalog-products, requestId: product_price_manager, name: Products Price Manager }
+product-price-manager: { parent: catalog-products, requestId: products_price_manager, name: Products Price Manager }
 product-types: { parent: catalog-products, requestId: product_types, name: Product Types }
 downloads-manager: { parent: catalog-products, requestId: downloads_manager, name: Downloads Manager }
 catalog-attrs: { parent: catalog, name: Attributes }
@@ -50,4 +50,4 @@ stats-products-viewed: { parent: reports-reports, requestId: stats_products_view
 stats-products-purchased: { parent: reports-reports, requestId: stats_products_purchased, name: Products Purchased }
 stats-products-lowstock: { parent: reports-reports, requestId: stats_products_lowstock, name: Products Low Stock }
 stats-customers: { parent: reports-reports, requestId: stats_customers, name: Customer Order Totals }
-stats-customers-referrrals: { parent: reports-reports, requestId: stats_customers_referrrals, name: Customer Referrals }
+stats-customers-referrals: { parent: reports-reports, requestId: stats_customers_referrals, name: Customer Referrals }
