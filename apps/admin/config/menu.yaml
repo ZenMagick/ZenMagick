@@ -5,7 +5,6 @@ fulfilment: { requestId: fulfilment, name: Fulfilment }
 reports: { requestId: reports, name: Reports }
 tools: { requestId: tools, name: Tools }
 configuration: { requestId: configuration, name: Configuration }
-zc-admin: { requestId: zc_admin, name: Zen Cart Admin }
 tools-cms: { parent: tools, name: Manage Content }
 content-editor: { parent: tools-cms, requestId: content_editor, name: Static Content, alias: [content_editor] }
 ezpages: { parent: tools-cms, requestId: ezpages, name: EZPages }

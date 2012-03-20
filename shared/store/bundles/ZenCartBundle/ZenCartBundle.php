@@ -25,6 +25,7 @@ use Symfony\Component\DependencyInjection\ContainerBuilder;
 use zenmagick\base\Beans;
 use zenmagick\base\Runtime;
 use zenmagick\apps\store\bundles\ZenCartBundle\utils\EmailEventHandler;
+use zenmagick\apps\store\menu\MenuLoader;
 
 /**
  * Zencart support bundle.
@@ -139,6 +140,12 @@ class ZenCartBundle extends Bundle {
         $request = $event->get('request');
         if (Runtime::isContextMatch('admin')) {
             $settingsService = $this->container->get('settingsService');
+
+            // @todo shouldn't assume we already have a menu, but we have to since the $adminMenu is never checked for emptiness only null
+            $adminMenu = $this->container->get('adminMenu');
+            $menuLoader = new MenuLoader();
+            $menuLoader->load(__DIR__.'/Resources/config/admin/menu.yaml', $adminMenu);
+
             $settingsService->set('apps.store.baseUrl', 'http://'.$request->getHostname().str_replace('zenmagick/apps/admin/web', '', $request->getContext()));
             if ('index' != $request->getRequestId()) {
                 $params = $request->getParameterMap(true);

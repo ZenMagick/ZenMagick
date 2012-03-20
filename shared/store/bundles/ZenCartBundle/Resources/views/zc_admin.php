@@ -18,16 +18,12 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
+$admin2->title();
 $resourceManager->cssFile('zc_admin.css');
 $resourceManager->jsFile('zc_admin.js');
 
-function split_slash($s) {
-  $s = preg_replace('#(\S)/#', '$1 /', $s);
-  return preg_replace('#/(\S)#', '/ $1', $s);
-}
-
 $zcAdminFolder = ZC_INSTALL_PATH.ZENCART_ADMIN_FOLDER.'/';
-$zcPage = $request->getRequestId() == 'zc_admin' ? 'index.php' : $request->getRequestId().'.php';
+$zcPage = $request->getRequestId().'.php';
 chdir($zcAdminFolder);
 
 // prepare globals
@@ -82,76 +78,16 @@ $content = str_replace(array('onmouseover="rowOverEffect(this)"', 'onmouseout="r
 $content = preg_replace('|<select([^>]*)name="reset_editor"(.*?)>(.*?)</select>|sm', '', $content);
 $content = preg_replace('/(action="[^"]*index.php\?rid=)([^&"]*)([^>]*>)/', '$1$2$3<input type="hidden" name="rid" value="$2">', $content);
 //echo $content;return;
-
-// printing view
-$skipMenu = in_array($request->getRequestId(), $settings->get('apps.store.zencart.skipLayout', array()));
-
-if (!$skipMenu) {
 ?>
-<h1><?php _vzm('Zen Cart Admin') ?></h1>
-<script>
+<script type="text/javascript">
 function check_form() {
   return true;
 }
 </script>
-<div id="sub-menu">
-  <div id="sub-common">
-    <?php
-      ob_start();
-      $zc_menus = array('catalog', 'modules', 'customers', 'taxes', 'localization', 'reports', 'tools', 'gv_admin', 'extras');
-      $menu = array();
-      foreach ($zc_menus as $zm_menu) {
-          require('includes/boxes/' . $zm_menu . '_dhtml.php');
-          $header = split_slash($za_heading['text']);
-          $menu[$header] = array();
-          $skipList = array('zmIndex', 'template_select', 'server_info', 'sqlpatch', 'zpid=admin','ezpages', 'define_page_editor',
-          'record_artists', 'record_company', 'music_genre', 'media_manager', 'media_types');
-          foreach ($za_contents as $item) {
-              $skip = false;
-              foreach ($skipList as $s) {
-                  if (-1 < strpos($item['link'], $s)) {
-                      $skip = true;
-                      break;
-                  }
-              }
-              if (!$skip) {
-                  $menu[$header][strip_tags(split_slash($item['text']))] = $item['link'];
-              }
-          }
-      }
-      ob_end_clean();
-    ?>
-    <?php foreach ($menu as $header => $items) { ?>
-      <h3><a href="#"><?php echo $header ?></a></h3>
-      <div>
-        <ul>
-          <?php foreach ($items as $text => $link) { ?>
-            <li><a href="<?php echo $link ?>"><?php echo $text ?></a></li>
-          <?php } ?>
-        </ul>
-      </div>
-    <?php } ?>
-  </div>
-</div>
-<script type="text/javascript">
-  $(function() {
-    $("#sub-common").accordion({
-      active: false,
-      autoHeight: false,
-      collapsible: true,
-      navigation: true,
-      navigationFilter: function() {
-        return this.href == location.href;
-      }
-    });
-  });
-</script>
-<?php } ?>
-<div id="view-container">
-  <?php echo $content; ?>
-  <?php echo $currentEditor->apply($request, $view, null); ?>
-  <?php if (isset($scripts)) { ?>
+<?php echo $content; ?>
+<?php echo $currentEditor->apply($request, $view, null); ?>
+<?php if (isset($scripts)) { ?>
     <div id="navbar"></div>
     <div id="hoverJS"></div>
     <script type="text/javascript"> function cssjsmenu(foo) {}; init(); </script>
-  <?php } ?>
+<?php } ?>
