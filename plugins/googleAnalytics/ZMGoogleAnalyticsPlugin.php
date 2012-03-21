@@ -86,7 +86,7 @@ class ZMGoogleAnalyticsPlugin extends Plugin {
     /**
      * Event handler.
      */
-    public function onControllerProcessEnd($event) {
+    public function onViewStart($event) {
         $request = $event->get('request');
         if ('checkout_success' == $request->getRequestId()) {
             $view = $event->get('view');
