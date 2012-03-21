@@ -19,10 +19,10 @@
  */
 namespace zenmagick\plugins\ckEditor;
 
-use CKEditor;
 use zenmagick\base\Runtime;
 use zenmagick\http\widgets\form\TextAreaFormWidget;
 use zenmagick\http\widgets\form\WysiwygEditor;
+use zenmagick\http\view\ResourceManager;
 use zenmagick\http\view\TemplateView;
 
 /**
@@ -32,7 +32,7 @@ use zenmagick\http\view\TemplateView;
  * @package zenmagick.plugins.ckEditor
  */
 class CkEditorFormWidget extends TextAreaFormWidget implements WysiwygEditor {
-    private $plugin_;
+    private $idList;
     private $editorConfig;
 
 
@@ -41,73 +41,87 @@ class CkEditorFormWidget extends TextAreaFormWidget implements WysiwygEditor {
      */
     public function __construct() {
         parent::__construct();
-        $this->plugin_ = Runtime::getContainer()->get('pluginService')->getPluginForId('ckEditor');
-        $this->editorConfig = array();
         $this->addClasses(array(self::EDITOR_CLASS, 'ckeditor_editor'));
-        //TODO: allow for predefined 'basic', 'standard' and 'advanced' presettings in abstract ZMWysiwygEditorFormWidget base class
-        $this->editorConfig['toolbar'] = array(
-            array('Source', '-', 'Bold', 'Italic', 'Underline', 'Strike'),
-            array('Image', 'Link', 'Unlink', 'Anchor')
+        $this->idList = array();
+        $this->editorConfig = array('toolbar' => array(
+                array('Source', '-', 'Bold', 'Italic', 'Underline', 'Strike'),
+                array('Image', 'Link', 'Unlink', 'Anchor')
+            )
         );
 
     }
 
 
     /**
-     * Get a CK editor instance.
+     * Init editor.
      *
-     * @return CKEditor An editor instance or <code>null</code>.
+     * @param ResourceManager resourceManager The resourceManager.
      */
-    private function getCKEditor() {
-        include_once $this->plugin_->getPluginDirectory().'/content/ckeditor/ckeditor_php5.php';
-        if (!class_exists('CKEditor')) {
-            return null;
-        }
-
-        $ckEditor = new CKEditor();
-        $ckEditor->returnOutput = true;
-        return $ckEditor;
+    private function initEditor(ResourceManager $resourceManager) {
+        // add required js
+        $resourceManager->jsFile('ckeditor/jquery.CKEditor.pack.js', ResourceManager::HEADER);
+        // create init script code at the end once we know all the ids
+        Runtime::getEventDispatcher()->listen($this);
     }
 
     /**
      * {@inheritDoc}
      */
     public function apply($request, TemplateView $templateView, $idList=null) {
-        if (!$this->plugin_ || null == ($ckEditor = $this->getCKEditor())) {
-            return null;
-        }
-
-        $out = '';
+        $this->initEditor($templateView->getResourceManager());
         if (null === $idList) {
-            //TODO: check if this is fixed in future versions
-            $ckEditor->config = array_merge($ckEditor->config, $this->editorConfig);
-            $out .= $ckEditor->replaceAll();
+            $this->idList = null;
         } else {
-            foreach ($idList as $id) {
-                $out .= $ckEditor->replace($id, $this->editorConfig);
-            }
+            $this->idList = array_merge($this->idList, $idList);
         }
-        return $out;
+        return '';
     }
 
     /**
      * {@inheritDoc}
      */
     public function render($request, TemplateView $templateView) {
-        if (!$this->plugin_ || null == ($ckEditor = $this->getCKEditor())) {
+        if (null == $this->container->get('pluginService')->getPluginForId('ckEditor')) {
             // fallback
             return parent::render($request, $templateView);
         }
 
-        $ckEditor->textareaAttributes = array(
-            'id' => $this->getId(),
-            'rows' => $this->getRows(),
-            'cols' => $this->getCols(),
-            'class' => $this->getClass(),
-            'wrap' => $this->getWrap()
-        );
+        $this->initEditor($templateView->getResourceManager());
 
-        return $ckEditor->editor($this->getId(), $this->getValue(), $this->editorConfig);
+        $this->idList[] = $this->getId();
+
+        return parent::render($request, $templateView);
+    }
+
+    /**
+     * Add init code.
+     */
+    public function onFinaliseContent($event) {
+        $ckEditor = $this->container->get('pluginService')->getPluginForId('ckEditor');
+        $basePath = $ckEditor->pluginURL('content/ckeditor');
+        $noEditorClass = self::NO_EDITOR_CLASS;
+        if (0 < count($this->idList) || null === $this->idList) {
+            if (null === $this->idList) {
+                $selector = 'textarea';
+            } else {
+                $selector = '#'.implode(',#', $this->idList);
+            }
+            $editorConfig = json_encode($this->editorConfig);
+            $jsInit = <<<EOT
+<script type="text/javascript">
+var CKEDITOR_BASEPATH = '$basePath/';
+$(function(){
+$.ckeditor.path = CKEDITOR_BASEPATH;
+$('$selector').ckeditor($editorConfig);
+});
+</script>
+EOT;
+            $content = $event->get('content');
+            $content = preg_replace('/<\/body>/', $jsInit . '</body>', $content, 1);
+            $event->set('content', $content);
+            // clear to create js only once
+            $this->idList = array();
+        }
     }
 
 }
