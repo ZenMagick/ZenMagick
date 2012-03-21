@@ -33,19 +33,6 @@ use zenmagick\base\events\Event;
 class Session extends \zenmagick\http\session\Session {
 
     /**
-     * Create a new instance.
-     */
-    public function __construct($domain=null, $name=self::DEFAULT_NAME, $secure=false) {
-        parent::__construct($domain, $name, $secure);
-        if (!Runtime::getSettings()->get('apps.store.storefront.sessions', true)) {
-            // fake start to load session data
-            $this->data_ = array_merge($_SESSION, $this->data_);
-            $this->setName('zenid');
-        }
-    }
-
-
-    /**
      * {@inheritDoc}
      * @todo: drop
      */
@@ -67,27 +54,6 @@ class Session extends \zenmagick\http\session\Session {
             return $_SESSION[$name];
         }
         return null;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function regenerate() {
-        if (Runtime::getSettings()->get('apps.store.storefront.sessions', true)) {
-            parent::regenerate();
-        }
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function getToken($renew=false, $tokenKey=self::SESSION_TOKEN_KEY) {
-        // XXX: TODO: remove; hack for zc
-        if (Runtime::getSettings()->get('apps.store.storefront.sessions', true)) {
-            return parent::getToken($renew);
-        } else {
-            return parent::getToken($renew, 'securityToken');
-        }
     }
 
     /**
@@ -254,7 +220,7 @@ class Session extends \zenmagick\http\session\Session {
     public function getClientHostname() {
         if (Runtime::getSettings()->get('isResolveClientIP', false)) {
             $this->setValue('customers_host_address', gethostbyaddr($_SERVER['REMOTE_ADDR']));
-        } 
+        }
         return $this->getValue('customers_host_address');
     }
 
