@@ -59,7 +59,7 @@ class CkEditorFormWidget extends TextAreaFormWidget implements WysiwygEditor {
      * @return CKEditor An editor instance or <code>null</code>.
      */
     private function getCKEditor() {
-        include_once $this->plugin_->getPluginDirectory().'/ckeditor-3.4/ckeditor_php5.php';
+        include_once $this->plugin_->getPluginDirectory().'/ckeditor/ckeditor_php5.php';
         if (!class_exists('CKEditor')) {
             return null;
         }
