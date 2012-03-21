@@ -156,7 +156,7 @@ class Session extends ZMObject {
     public function setCookieParams($domain, $path) {
         ini_set('session.cookie_path', $path);
         if ($this->isStarted()) {
-            $this->container->get('logging')->warn(sprintf('session already started - ignoring; domain: %s, path: %s', $domain, $path));
+            $this->container->get('loggingService')->warn(sprintf('session already started - ignoring; domain: %s, path: %s', $domain, $path));
             return;
         }
         session_set_cookie_params(0, $path, $domain);
@@ -222,17 +222,19 @@ class Session extends ZMObject {
     /**
      * Start session.
      *
+     * @param boolean force Optional flag to force a start; default is <code>false</code>.
      * @return boolean <code>true</code> if a session was started, <code>false</code> if not.
      */
-    public function start() {
+    public function start($force=false) {
         session_cache_limiter('must-revalidate');
         $id = session_id();
-        if (empty($id)) {
+        if (empty($id) || $force) {
             $this->setCookieParams($this->adjustDomain($this->domain_), $this->cookiePath_);
             $this->internalStart_ = true;
             session_start();
             // allow setting / getting data before/without starting session
             $this->data_ = array_merge($_SESSION, $this->data_);
+            $this->closed_ = false;
             return true;
         }
 
@@ -279,7 +281,7 @@ class Session extends ZMObject {
             session_id($newId);
             $this->registerSessionHandler($this->sessionHandler_);
             // and start
-            $this->start();
+            $this->start(true);
             // regenerate token too
             $this->getToken(true);
         }
