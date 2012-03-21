@@ -36,24 +36,4 @@ class ZMTinyMCEPlugin extends Plugin {
         parent::__construct('TinyMCE', 'TinyMCE WYSIWYG editor.');
     }
 
-
-    /**
-     * {@inheritDoc}
-     */
-    public function init() {
-        parent::init();
-        if (Toolbox::asBoolean($this->get('defaultEditor'))) {
-            ZMSettings::set('apps.store.admin.defaultEditor', 'tinyMCEEditorWidget');
-        }
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function install() {
-        parent::install();
-        $this->addConfigValue('Default Editor', 'defaultEditor', false, 'Make TinyMCE the default editor',
-            'widget@booleanFormWidget#name=defaultEditor&default=false&label=Default Editor&style=checkbox');
-    }
-
 }

@@ -36,24 +36,4 @@ class ZMCkEditorPlugin extends Plugin {
         parent::__construct('CKEditor', 'CKEditor WYSIWYG editor.');
     }
 
-
-    /**
-     * {@inheritDoc}
-     */
-    public function init() {
-        parent::init();
-        if (Toolbox::asBoolean($this->get('defaultEditor'))) {
-            ZMSettings::set('apps.store.admin.defaultEditor', 'ckEditorEditorWidget');
-        }
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function install() {
-        parent::install();
-        $this->addConfigValue('Default Editor', 'defaultEditor', false, 'Make CKEditor the default editor',
-            'widget@booleanFormWidget#name=defaultEditor&default=false&label=Default Editor&style=checkbox');
-    }
-
 }
