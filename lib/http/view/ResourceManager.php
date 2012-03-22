@@ -92,20 +92,39 @@ class ResourceManager extends ZMObject {
     }
 
     /**
+     * Add inline CSS.
+     *
+     * @param string css The CSS.
+     * @param array attr Optional attribute map; special keys 'prefix' and 'suffix' may be used to wrap.
+     */
+    public function css($css, $attr=array()) {
+        $this->styles($css, true, $attr);
+    }
+
+    /**
      * Add link to the given CSS file or create inline CSS in the head element of the response.
      *
      * @param string filename A relative CSS filename.
-     * @param boolean inline Optional flag that can be used to control whether to create a link
-     *  or insert CSS inline; default is <code>false</code> to link.
      * @param array attr Optional attribute map; special keys 'prefix' and 'suffix' may be used to wrap.
      */
-    public function cssFile($filename, $inline=false, $attr=array()) {
-        if (!array_key_exists($filename, $this->resources_['css'])) {
+    public function cssFile($filename, $attr=array()) {
+        $this->styles($filename, false, $attr);
+    }
+
+    /**
+     * Add link to the given CSS file or create inline CSS in the head element of the response.
+     *
+     * @param string css A relative filename or plain CSS.
+     * @param boolean inline A relative CSS filename.
+     * @param array attr Optional attribute map; special keys 'prefix' and 'suffix' may be used to wrap.
+     */
+    protected function styles($css, $inline=false, $attr=array()) {
+        if (!array_key_exists($css, $this->resources_['css'])) {
             // avoid duplicates
-            $this->resources_['css'][$filename] = array(
-                'filename' => $filename,
+            $this->resources_['css'][$css] = array(
+                'filename' => $css,
                 'inline' => $inline,
-                'external' => $this->isExternal($filename),
+                'external' => $this->isExternal($css),
                 'attr' => $attr
             );
         }
@@ -212,17 +231,23 @@ class ResourceManager extends ZMObject {
             $slash = $this->container->get('settingsService')->get('zenmagick.http.html.xhtml') ? '/' : '';
             $css = '';
             foreach ($files as $details) {
-                if (null != ($href = $this->resolveResource($details['filename'])) && !empty($href)) {
-                    // merge in defaults
-                    $attr = '';
-                    $details['attr'] = array_merge(array('rel' => 'stylesheet', 'type' => 'text/css', 'prefix' => '', 'suffix' => ''), $details['attr']);
-                    foreach ($details['attr'] as $name => $value) {
-                        if (null !== $value && !in_array($name, array('prefix', 'suffix'))) {
-                            $attr .= ' '.$name.'="'.$value.'"';
-                        }
+                $load = null;
+                $details['attr'] = array_merge(array('rel' => 'stylesheet', 'type' => 'text/css', 'prefix' => '', 'suffix' => ''), $details['attr']);
+                // merge in defaults
+                $attr = '';
+                foreach ($details['attr'] as $name => $value) {
+                    if (null !== $value && !in_array($name, array('prefix', 'suffix'))) {
+                        $attr .= ' '.$name.'="'.$value.'"';
                     }
+                }
+                if ($details['inline']) {
+                    $load = sprintf('<style%s>%s</style>', $attr, $details['filename']);
+                } else if (null != ($href = $this->resolveResource($details['filename'])) && !empty($href)) {
+                    $load = sprintf('<link%s href="%s"%s>', $attr, $href, $slash);
+                }
+                if ($load) {
                     $css .= $details['attr']['prefix'];
-                    $css .= '<link'.$attr.' href="'.$href.'"'.$slash.'>';
+                    $css .= $load;
                     $css .= $details['attr']['suffix']."\n";
                 }
             }
