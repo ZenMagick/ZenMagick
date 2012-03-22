@@ -19,7 +19,7 @@
  */
 namespace zenmagick\base;
 
-use Swift_Transport_AbstractSmtpTransport;
+use Swift_Transport_EsmtpTransport;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\Loader\XmlFileLoader;
 
@@ -58,7 +58,7 @@ class EventListener extends ZMObject {
      */
     public function onContainerReady($event) {
         if ($this->container->has('swiftmailer.transport')) {
-            if (null != ($transport = $this->container->get('swiftmailer.transport')) && $transport instanceof Swift_Transport_AbstractSmtpTransport) {
+            if (null != ($transport = $this->container->get('swiftmailer.transport')) && $transport instanceof Swift_Transport_EsmtpTransport) {
                 $transport->setEncryption($this->container->getParameterBag()->get('zenmagick.base.email.encryption'));
             }
         }
