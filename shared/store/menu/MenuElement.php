@@ -30,6 +30,7 @@ use zenmagick\base\utils\Node;
 class MenuElement extends Node {
     private $requestId;
     private $params;
+    private $alias;
 
 
     /**
@@ -43,6 +44,7 @@ class MenuElement extends Node {
         parent::__construct($id, $name);
         $this->requestId = $requestId;
         $this->params = '';
+        $this->alias = array();
     }
 
 
@@ -80,6 +82,24 @@ class MenuElement extends Node {
      */
     public function getParams() {
         return $this->params;
+    }
+
+    /**
+     * Set alias.
+     *
+     * @param array alias The alias.
+     */
+    public function setAlias($alias) {
+        $this->alias = $alias;
+    }
+
+    /**
+     * Get alias.
+     *
+     * @return array The alias.
+     */
+    public function getAlias() {
+        return $this->alias;
     }
 
 }
