@@ -22,6 +22,8 @@ namespace zenmagick\apps\store\bundles\ZenCartBundle;
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 
+use Swift_Transport_SendmailTransport;
+
 use zenmagick\base\Beans;
 use zenmagick\base\Runtime;
 use zenmagick\apps\store\bundles\ZenCartBundle\utils\EmailEventHandler;
@@ -158,11 +160,15 @@ class ZenCartBundle extends Bundle {
                     'page_parameters' => http_build_query($params),
                     'ip_address' => $_SERVER['REMOTE_ADDR']
                 );
-            \ZMRuntime::getDatabase()->createModel('admin_activity_log', $data);
+                \ZMRuntime::getDatabase()->createModel('admin_activity_log', $data);
+            }
         }
 
+        if (defined('EMAIL_TRANSPORT') && 'Qmail' == EMAIL_TRANSPORT && $this->container->has('swiftmailer.transport')) {
+            if (null != ($transport = $this->container->get('swiftmailer.transport')) && $transport instanceof Swift_Transport_SendmailTransport) {
+                $transport->setCommand('/var/qmail/bin/sendmail -t');
+            }
         }
-
     }
 
     /**
