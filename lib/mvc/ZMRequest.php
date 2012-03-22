@@ -280,7 +280,13 @@ class ZMRequest extends ZMObject {
      * @return string The hostname or <code>null</code> for <em>CL</code> calls.
      */
     public function getHostname() {
-        return array_key_exists('HTTP_HOST', $_SERVER) ? $_SERVER['HTTP_HOST'] : null;
+        if (!array_key_exists('HTTP_HOST', $_SERVER)) {
+            return null;
+        }
+
+        // split port
+        $token = explode(':', $_SERVER['HTTP_HOST']);
+        return $token[0];
     }
 
     /**
