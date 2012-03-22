@@ -154,7 +154,7 @@ class RouteResolver extends ZMObject {
                 $options = $route->getOptions();
                 if (array_key_exists($viewKey, $options)) {
                     $viewDefinition = null;
-                    $token = parse_url($options[$viewKey]);
+                    $token = parse_url(str_replace('%routeId%', $request->getRequestId(), $options[$viewKey]));
                     if (!array_key_exists('query', $token)) {
                         $token['query'] = '';
                     }
