@@ -32,7 +32,8 @@ class RequestContext extends SymfonyRequestContext {
      * Create new instance.
      */
     public function __construct($request) {
-        parent::__construct($request->getContext(), $request->getMethod(), $request->getHostname(), $request->isSecure() ? 'https' : 'http');
+        // todo: have a separate https port
+        parent::__construct($request->getContext(), $request->getMethod(), $request->getHostname(), $request->isSecure() ? 'https' : 'http', $request->getPort(), 443);
     }
 
 }
