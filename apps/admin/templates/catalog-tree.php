@@ -116,7 +116,7 @@ $(function () {
       }
     }
   })
-})
 .delegate('a', 'click', function (event, data) { window.location = this; })
+})
 ;
 </script>
