@@ -55,7 +55,7 @@ class Application {
             // general stuff
             'timerStart' => microtime(),
             'installationPath' => dirname(dirname(__DIR__)),
-            'cli' => defined('STDIN'),
+            'cli' => php_sapi_name() == 'cli',
             'profile' => true,
 
             // packages
