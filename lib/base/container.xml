@@ -12,7 +12,11 @@
         <parameter key="kernel.root_dir">%zenmagick.cacheBasePath%/kernel</parameter>
         <parameter key="kernel.cache_dir">%zenmagick.cacheBasePath%</parameter>
         <parameter key="zenmagick.cacheBasePath">%zenmagick.installationPath%/cache</parameter>
-        <parameter key="zenmagick.bundles" type="collection"></parameter>
+        <parameter key="zenmagick.bundles" type="collection">
+            <parameter key="DoctrineBundle">Doctrine\Bundle\DoctrineBundle\DoctrineBundle</parameter>
+            <parameter key="DoctrineMigrationsBundle">Doctrine\Bundle\MigrationsBundle\DoctrineMigrationsBundle</parameter>
+            <parameter key="SwiftmailerBundle">Symfony\Bundle\SwiftmailerBundle\SwiftmailerBundle</parameter>
+        </parameter>
 
         <!-- main logging level -->
         <parameter key="zenmagick.base.logging.level">INFO</parameter>
