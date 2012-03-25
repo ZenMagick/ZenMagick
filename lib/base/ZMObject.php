@@ -47,12 +47,6 @@ class ZMObject extends ContainerAware implements Serializable {
         $this->properties_ = $properties;
     }
 
-    /**
-     * Destruct instance.
-     */
-    public function __destruct() {
-    }
-
 
     /**
      * Support to access property values by name.
