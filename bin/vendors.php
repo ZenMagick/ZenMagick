@@ -24,7 +24,8 @@ $vendorDeps = array(
         array('symfony', 'git://github.com/ZenMagick/symfony.git', 'origin/HEAD', false),
         //array('phprules', 'git://github.com/DerManoMann/phprules.git', 'origin/master', false),
         array('phpass', 'git://github.com/rchouinard/phpass.git', 'origin/master', false),
-        array('twig', 'git://github.com/fabpot/Twig.git', 'origin/master', false)
+        array('twig', 'git://github.com/fabpot/Twig.git', 'origin/master', false),
+        array('CacheLite', 'git://github.com/ZenMagick/CacheLite.git', 'origin/master', false)
     ),
     $baseDir .'/bundles/Doctrine/Bundle' => array(
             array('MigrationsBundle', 'git://github.com/doctrine/DoctrineMigrationsBundle.git', 'origin/HEAD', false),
