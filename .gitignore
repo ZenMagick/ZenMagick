@@ -11,6 +11,3 @@ global.yaml
 /config/store-email.xml
 /vendor/*
 !/vendor/classloader.ini
-!/vendor/openwall
-!/vendor/pear
-!/vendor/pomo
