@@ -32,7 +32,7 @@ class LegacyConfigController extends \ZMController {
      */
     public function processGet($request) {
         $groupId = $request->getParameter('groupId', 1);
-        $configService = $this->container->get('configService');
+        $configService = $this->container->get('configWidgetService');
         $group = $configService->getConfigGroupForId($groupId);
         $groupValues = $configService->getValuesForGroupId($groupId);
         return $this->findView(null, array('group' => $group, 'groupValues' => $groupValues));
@@ -48,7 +48,7 @@ class LegacyConfigController extends \ZMController {
             return $this->findView('success-demo', array(), array('parameter' => 'groupId='.$groupId));
         }
 
-        $configService = $this->container->get('configService');
+        $configService = $this->container->get('configWidgetService');
         $group = $configService->getConfigGroupForId($groupId);
         $groupValues = $configService->getValuesForGroupId($groupId);
 
