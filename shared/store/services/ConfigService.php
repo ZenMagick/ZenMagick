@@ -104,40 +104,6 @@ class ConfigService extends ZMObject {
     }
 
     /**
-     * Split options into map.
-     *
-     * @param string value The set function value.
-     * @return array An options map.
-     */
-    private function splitOptions($value) {
-        // some initial stripping
-        $value = preg_replace('/.*\(array\((.*)\).*/', '\1', $value);
-
-        $idText = false;
-        if (false !== strpos($value, 'id') && false !== strpos($value, 'text') && false !== strpos($value, '=>')) {
-            // we do have an id/text mapping (nested arrays)
-            $idText = true;
-        }
-
-        $options = array();
-        if ($idText) {
-            foreach (explode(', array(', $value) as $option) {
-                $tmp = explode(',', $option);
-                $value = str_replace(array("'id'", '"id"', '=>', '"', "'"), '', trim($tmp[0]));
-                $text = str_replace(array("'text'", '"text"', '=>', '"', "'"), '', trim($tmp[1]));
-                $text = substr($text, 0, -1);
-                $options[$value] = $text;
-            }
-        } else {
-            foreach (explode(',', $value) as $option) {
-                $option = str_replace(array('"', "'"), '', trim($option));
-                $options[$option] = $option;
-            }
-        }
-        return $options;
-    }
-
-    /**
      * Build a collection of ConfigValue objects
      *
      * @param array array of config values
