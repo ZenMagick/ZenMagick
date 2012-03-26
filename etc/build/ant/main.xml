@@ -25,7 +25,6 @@
     <import file="themes.xml" />
     <import file="phpdoctor.xml" />
     <import file="libraries.xml" />
-    <import file="admin.xml" />
 
     <!-- This is used to compare zip files; see http://zipdiff.sourceforge.net/ for details -->
     <taskdef name="zipdiff" classname="zipdiff.ant.ZipDiffTask">
@@ -263,7 +262,7 @@
 
 
     <!-- Do all -->
-    <target name="all" depends="mod-release,full-release,admin-release,plugin-releases,theme-releases,phpdoctor" description="Build all.">
+    <target name="all" depends="mod-release,full-release,plugin-releases,theme-releases,phpdoctor" description="Build all.">
     </target>
 
 </project>
