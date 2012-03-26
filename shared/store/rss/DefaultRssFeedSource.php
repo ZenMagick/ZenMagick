@@ -17,7 +17,9 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
+namespace zenmagick\apps\store\rss;
 
+use DateTime;
 use zenmagick\base\ZMObject;
 use zenmagick\http\rss\RssChannel;
 use zenmagick\http\rss\RssFeed;
@@ -28,9 +30,8 @@ use zenmagick\http\rss\RssSource;
  * RSS source for default feeds.
  *
  * @author DerManoMann
- * @package zenmagick.store.shared.provider
  */
-class ZMDefaultRssFeedSource extends ZMObject implements RssSource {
+class DefaultRssFeedSource extends ZMObject implements RssSource {
 
     /**
      * {@inheritDoc}
@@ -84,7 +85,7 @@ class ZMDefaultRssFeedSource extends ZMObject implements RssSource {
 
             $params = 'products_id='.$review->getProductId().'&reviews_id='.$review->getId();
             $item->setLink($request->url('product_reviews_info', $params));
-            $item->setDescription(ZMHtmlUtils::more($review->getText(), 60));
+            $item->setDescription(\ZMHtmlUtils::more($review->getText(), 60));
             $item->setPubDate($review->getDateAdded());
             $items[] = $item;
 
@@ -93,13 +94,14 @@ class ZMDefaultRssFeedSource extends ZMObject implements RssSource {
             }
         }
 
+        $settingsService = $this->container->get('settingsService');
         $channel = new RssChannel();
         $channel->setTitle(_zm("Product Reviews"));
         $channel->setLink($request->url('reviews'));
         if (null != $key)  {
-            $channel->setDescription(sprintf(_zm("Product Reviews for %s at %s"), $product->getName(), ZMSettings::get('storeName')));
+            $channel->setDescription(sprintf(_zm("Product Reviews for %s at %s"), $product->getName(), $settingsService->get('storeName')));
         } else {
-            $channel->setDescription(sprintf(_zm("Product Reviews at %s"), ZMSettings::get('storeName')));
+            $channel->setDescription(sprintf(_zm("Product Reviews at %s"), $settingsService->get('storeName')));
         }
         $channel->setLastBuildDate($lastPubDate);
 
@@ -146,7 +148,7 @@ class ZMDefaultRssFeedSource extends ZMObject implements RssSource {
      *
      * @param ZMRequest request The current request.
      * @param string key Optional key value for various product types; supported: 'new'
-     * @return ZMRssFeed The feed data.
+     * @return RssFeed The feed data.
      */
     protected function getProductsFeed($request, $key=null) {
         if ('new' != $key) {
@@ -160,7 +162,7 @@ class ZMDefaultRssFeedSource extends ZMObject implements RssSource {
             $item = new RssItem();
             $item->setTitle($product->getName());
             $item->setLink($request->getToolbox()->net->product($product->getId(), null, false));
-            $item->setDescription(ZMHtmlUtils::more(ZMHtmlUtils::strip($product->getDescription()), 60));
+            $item->setDescription(\ZMHtmlUtils::more(\ZMHtmlUtils::strip($product->getDescription()), 60));
             $item->setPubDate($product->getDateAdded());
             $items[] = $item;
 
@@ -169,10 +171,11 @@ class ZMDefaultRssFeedSource extends ZMObject implements RssSource {
             }
         }
 
+        $settingsService = $this->container->get('settingsService');
         $channel = new RssChannel();
-        $channel->setTitle(sprintf(_zm("New Products at %s"), ZMSettings::get('storeName')));
+        $channel->setTitle(sprintf(_zm("New Products at %s"), $settingsService->get('storeName')));
         $channel->setLink($request->url('index'));
-        $channel->setDescription(sprintf(_zm("The latest updates to %s's product list"), ZMSettings::get('storeName')));
+        $channel->setDescription(sprintf(_zm("The latest updates to %s's product list"), $settingsService->get('storeName')));
         $channel->setLastBuildDate($lastPubDate);
 
         $feed = new RssFeed();

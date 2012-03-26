@@ -50,11 +50,11 @@
             <tag name="zenmagick.http.request.rewriter" />
         </service>
 
-        <service id="defaultRssFeedSource" class="ZMDefaultRssFeedSource" scope="container">
+        <service id="defaultRssFeedSource" class="zenmagick\apps\store\rss\DefaultRssFeedSource" scope="container">
             <tag name="zenmagick.http.rss.source" />
         </service>
 
-        <service id="catalogRssFeedSource" class="ZMCatalogRssFeedSource" scope="container">
+        <service id="catalogRssFeedSource" class="zenmagick\apps\store\rss\CatalogRssFeedSource" scope="container">
             <tag name="zenmagick.http.rss.source" />
         </service>
 

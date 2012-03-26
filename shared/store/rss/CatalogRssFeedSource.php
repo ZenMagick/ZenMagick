@@ -17,6 +17,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
+namespace zenmagick\apps\store\rss;
 
 use zenmagick\base\ZMObject;
 use zenmagick\http\rss\RssChannel;
@@ -28,9 +29,8 @@ use zenmagick\http\rss\RssSource;
  * RSS source to create a full catalog feed.
  *
  * @author DerManoMann
- * @package zenmagick.store.shared.provider
  */
-class ZMCatalogRssFeedSource extends ZMObject implements RssSource {
+class CatalogRssFeedSource extends ZMObject implements RssSource {
 
     /**
      * {@inheritDoc}
@@ -77,10 +77,11 @@ class ZMCatalogRssFeedSource extends ZMObject implements RssSource {
             $lastPubDate = $productsFeed->getLastBuildDate();
         }
 
+        $settingsService = $this->container->get('settingsService');
         $channel = new RssChannel();
-        $channel->setTitle(sprintf(_zm("%s Catalog"), ZMSettings::get('storeName')));
+        $channel->setTitle(sprintf(_zm("%s Catalog"), $settingsService->get('storeName')));
         $channel->setLink($request->url('index'));
-        $channel->setDescription(sprintf(_zm("All categories and products at %s"), ZMSettings::get('storeName')));
+        $channel->setDescription(sprintf(_zm("All categories and products at %s"), $settingsService->get('storeName')));
         $channel->setLastBuildDate($lastPubDate);
 
         $items = array_merge($categoriesFeed->getItems(), $productsFeed->getItems());
@@ -107,9 +108,9 @@ class ZMCatalogRssFeedSource extends ZMObject implements RssSource {
             $item = new RssItem();
             $item->setTitle($product->getName());
             $item->setLink($request->getToolbox()->net->product($product->getId(), null, false));
-            $desc = ZMHtmlUtils::strip($product->getDescription());
+            $desc = \ZMHtmlUtils::strip($product->getDescription());
             if (!$isCatalog) {
-                $desc = ZMHtmlUtils::more($desc, 60);
+                $desc = \ZMHtmlUtils::more($desc, 60);
             }
             $item->setDescription($desc);
             $item->setPubDate($product->getDateAdded());
@@ -135,10 +136,11 @@ class ZMCatalogRssFeedSource extends ZMObject implements RssSource {
             }
         }
 
+        $settingsService = $this->container->get('settingsService');
         $channel = new RssChannel();
-        $channel->setTitle(sprintf(_zm("Products at %s"), ZMSettings::get('storeName')));
+        $channel->setTitle(sprintf(_zm("Products at %s"), $settingsService->get('storeName')));
         $channel->setLink($request->url('index'));
-        $channel->setDescription(sprintf(_zm("All products at %s"), ZMSettings::get('storeName')));
+        $channel->setDescription(sprintf(_zm("All products at %s"), $settingsService->get('storeName')));
         $channel->setLastBuildDate($lastPubDate);
 
         $feed = new RssFeed();
@@ -163,9 +165,9 @@ class ZMCatalogRssFeedSource extends ZMObject implements RssSource {
                 $item = new RssItem();
                 $item->setTitle($category->getName());
                 $item->setLink($request->url('category', $category->getPath(), false));
-                $desc = ZMHtmlUtils::strip($category->getDescription());
+                $desc = \ZMHtmlUtils::strip($category->getDescription());
                 if (!$isCatalog) {
-                    $desc = ZMHtmlUtils::more($desc, 60);
+                    $desc = \ZMHtmlUtils::more($desc, 60);
                 }
                 $item->setDescription($desc);
                 $item->setPubDate($category->getDateAdded());
@@ -189,10 +191,11 @@ class ZMCatalogRssFeedSource extends ZMObject implements RssSource {
             }
         }
 
+        $settingsService = $this->container->get('settingsService');
         $channel = new RssChannel();
-        $channel->setTitle(sprintf(_zm("Categories at %s"), ZMSettings::get('storeName')));
+        $channel->setTitle(sprintf(_zm("Categories at %s"), $settingsService->get('storeName')));
         $channel->setLink($request->url('index'));
-        $channel->setDescription(sprintf(_zm("All categories at %s"), ZMSettings::get('storeName')));
+        $channel->setDescription(sprintf(_zm("All categories at %s"), $settingsService->get('storeName')));
         $channel->setLastBuildDate($lastPubDate);
 
         $feed = new RssFeed();
