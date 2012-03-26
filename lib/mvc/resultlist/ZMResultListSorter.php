@@ -53,13 +53,6 @@ class ZMResultListSorter extends ZMObject {
         }
     }
 
-    /**
-     * Destruct instance.
-     */
-    function __destruct() {
-        parent::__destruct();
-    }
-
 
     /**
      * Returns true if the current sort order is descending.

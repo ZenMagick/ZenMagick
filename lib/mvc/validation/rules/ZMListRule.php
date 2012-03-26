@@ -43,13 +43,6 @@ class ZMListRule extends ZMRule {
         $this->setValues($values);
     }
 
-    /**
-     * Destruct instance.
-     */
-    function __destruct() {
-        parent::__destruct();
-    }
-
 
     /**
      * Set values.

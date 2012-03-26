@@ -44,13 +44,6 @@ class ZMWrapperRule extends ZMRule {
         $this->setFunction($function);
     }
 
-    /**
-     * Destruct instance.
-     */
-    function __destruct() {
-        parent::__destruct();
-    }
-
 
     /**
      * Set the validation function.

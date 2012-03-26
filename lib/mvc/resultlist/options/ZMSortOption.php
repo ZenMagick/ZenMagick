@@ -53,13 +53,6 @@ class ZMSortOption extends ZMObject {
         $this->decending_ = $decending;
     }
 
-    /**
-     * Destruct instance.
-     */
-    function __destruct() {
-        parent::__destruct();
-    }
-
 
     /**
      * Get the option id.

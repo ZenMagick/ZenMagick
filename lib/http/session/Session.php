@@ -98,7 +98,6 @@ class Session extends ZMObject {
      * Destruct instance.
      */
     public function __destruct() {
-        parent::__destruct();
         foreach (Runtime::getContainer()->findTaggedServiceIds('zenmagick.http.session.persist') as $id => $args) {
             $service = $container->get($id);
             if ($service instanceof Serializable) {

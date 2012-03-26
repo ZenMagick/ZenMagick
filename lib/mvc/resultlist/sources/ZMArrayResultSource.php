@@ -43,14 +43,6 @@ class ZMArrayResultSource extends ZMObject implements ZMResultSource {
         $this->list_ = $list;
     }
 
-    /**
-     * Destruct instance.
-     */
-    public function __destruct() {
-        parent::__destruct();
-    }
-
-
 
     /**
      * {@inheritDoc}

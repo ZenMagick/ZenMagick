@@ -39,13 +39,6 @@ class ZMRequiredRule extends ZMRule {
         parent::__construct($name, "Please enter a value for %s.", $msg);
     }
 
-    /**
-     * Destruct instance.
-     */
-    function __destruct() {
-        parent::__destruct();
-    }
-
 
     /**
      * {@inheritDoc}

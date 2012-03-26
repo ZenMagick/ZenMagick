@@ -46,13 +46,6 @@ class ZMFilterOption extends ZMObject {
         $this->active_ = $active;
     }
 
-    /**
-     * Destruct instance.
-     */
-    function __destruct() {
-        parent::__destruct();
-    }
-
 
     /**
      * Get the option id.

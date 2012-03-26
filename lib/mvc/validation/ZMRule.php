@@ -46,13 +46,6 @@ abstract class ZMRule extends ZMObject {
         $this->setMsg($msg);
     }
 
-    /**
-     * Destruct instance.
-     */
-    function __destruct() {
-        parent::__destruct();
-    }
-
 
     /**
      * Validate the given request data.

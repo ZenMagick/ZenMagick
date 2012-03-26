@@ -37,13 +37,6 @@ class ZMEmailRule extends ZMRule {
         parent::__construct($name, "%s is not a valid email.", $msg);
     }
 
-    /**
-     * Destruct instance.
-     */
-    function __destruct() {
-        parent::__destruct();
-    }
-
 
     /**
      * Build email regexp.

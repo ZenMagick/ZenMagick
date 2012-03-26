@@ -41,13 +41,6 @@ class ZMRegexpRule extends ZMRule {
         $this->setRegexp($regexp);
     }
 
-    /**
-     * Destruct instance.
-     */
-    function __destruct() {
-        parent::__destruct();
-    }
-
 
     /**
      * Set the regular expression.

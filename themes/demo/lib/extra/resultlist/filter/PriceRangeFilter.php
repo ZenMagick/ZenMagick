@@ -52,12 +52,6 @@ class PriceRangeFilter extends ZMResultListFilter {
         }
     }
 
-    /**
-     * Destruct instance.
-     */
-    function __destruct() {
-    }
-
 
     /**
      * Return <code>true</code> if the given object is to be excluded.

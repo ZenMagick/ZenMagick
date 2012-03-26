@@ -44,13 +44,6 @@ class ZMMinMaxRule extends ZMRule {
         $this->setMax($max);
     }
 
-    /**
-     * Destruct instance.
-     */
-    function __destruct() {
-        parent::__destruct();
-    }
-
 
     /**
      * Set the minimum length.

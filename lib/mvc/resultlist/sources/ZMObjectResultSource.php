@@ -63,13 +63,6 @@ class ZMObjectResultSource extends ZMObject implements ZMResultSource {
         $this->isFinal_ = null;
     }
 
-    /**
-     * Destruct instance.
-     */
-    function __destruct() {
-        parent::__destruct();
-    }
-
 
     /**
      * {@inheritDoc}

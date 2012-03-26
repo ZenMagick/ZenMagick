@@ -51,13 +51,6 @@ class ZMValidator extends ZMObject {
     }
 
     /**
-     * Destruct instance.
-     */
-    function __destruct() {
-        parent::__destruct();
-    }
-
-    /**
      * Get instance.
      */
     public static function instance() {

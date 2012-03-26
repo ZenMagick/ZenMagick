@@ -43,13 +43,6 @@ class ZMFieldMatchRule extends ZMRule {
         $this->setOther($other);
     }
 
-    /**
-     * Destruct instance.
-     */
-    function __destruct() {
-        parent::__destruct();
-    }
-
 
     /**
      * Set the other field name.

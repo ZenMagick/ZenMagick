@@ -50,13 +50,6 @@ class ZMResultListFilter extends ZMObject {
         $this->filterValues_ = explode(",", $value);
     }
 
-    /**
-     * Destruct instance.
-     */
-    function __destruct() {
-        parent::__destruct();
-    }
-
 
     /**
      * Set the result list we belong to.

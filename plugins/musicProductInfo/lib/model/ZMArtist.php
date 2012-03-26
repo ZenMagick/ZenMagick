@@ -42,26 +42,13 @@ class ZMArtist extends ZMObject {
     /**
      * Create new instance.
      */
-    function ZMArtist() {
+    function __construct() {
         $this->artistId_ = 0;
         $this->name_ = '';
         $this->genre_ = '';
         $this->image_ = null;
         $this->url_ = null;
         $this->recordCompany_ = null;
-    }
-
-    /**
-     * Create new instance.
-     */
-    function __construct() {
-        $this->ZMArtist();
-    }
-
-    /**
-     * Destruct instance.
-     */
-    function __destruct() {
     }
 
 

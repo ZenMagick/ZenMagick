@@ -43,13 +43,6 @@ class ZMRuleSet extends ZMObject {
         $this->rules_ = null != $rules ? $rules : array();
     }
 
-    /**
-     * Destruct instance.
-     */
-    function __destruct() {
-        parent::__destruct();
-    }
-
 
     /**
      * Get the rule set id.

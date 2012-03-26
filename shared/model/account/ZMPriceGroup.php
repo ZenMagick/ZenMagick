@@ -50,13 +50,6 @@ class ZMPriceGroup extends ZMObject {
         $this->lastModified_ = null;
     }
 
-    /**
-     * Destruct instance.
-     */
-    public function __destruct() {
-        parent::__destruct();
-    }
-
 
     /**
      * Get the group id.

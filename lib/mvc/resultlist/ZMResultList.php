@@ -58,13 +58,6 @@ class ZMResultList extends ZMObject {
         $this->results_ = null;
     }
 
-    /**
-     * Destruct instance.
-     */
-    function __destruct() {
-        parent::__destruct();
-    }
-
 
     /**
      * Set a source for results.
