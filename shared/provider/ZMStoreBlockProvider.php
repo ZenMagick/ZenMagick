@@ -52,10 +52,10 @@ class ZMStoreBlockProvider extends ZMObject implements BlockProvider {
         }
 
         // banners
-        $blocks['ZMBannerBlockWidget'] = 'ZMBannerBlockWidget';
+        $blocks['bannerBlockWidget'] = 'zenmagick\apps\store\widgets\BannerBlockWidget';
 
         // paypal ec button
-        $blocks['ZMPayPalECButtonBlockWidget'] = 'ZMPayPalECButtonBlockWidget';
+        $blocks['payPalECButtonBlockWidget'] = 'zenmagick\apps\store\widgets\PayPalECButtonBlockWidget';
 
         return $blocks;
     }

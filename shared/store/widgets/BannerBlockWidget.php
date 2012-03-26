@@ -17,6 +17,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
+namespace zenmagick\apps\store\widgets;
 
 use zenmagick\base\Runtime;
 use zenmagick\base\Toolbox;
@@ -27,9 +28,8 @@ use zenmagick\http\view\TemplateView;
  * A banner block widget.
  *
  * @author DerManoMann
- * @package zenmagick.store.shared.mvc.widgets
  */
-class ZMBannerBlockWidget extends Widget {
+class BannerBlockWidget extends Widget {
     private $group_;
     private $trackDisplay_;
     private $showAll_;
@@ -127,14 +127,14 @@ class ZMBannerBlockWidget extends Widget {
         $bannerContentList = array();
         foreach ($banners as $banner) {
             $content = '';
-            if (!ZMLangUtils::isEmpty($banner->getText())) {
+            if (!\ZMLangUtils::isEmpty($banner->getText())) {
                 // use text if not empty
                 $content .= $banner->getText();
             } else {
                 $net = $request->getToolbox()->net;
                 $slash = Runtime::getSettings()->get('zenmagick.http.html.xhtml') ? '/' : '';
-                $img = '<img src="'.$net->image($banner->getImage()).'" alt="'.ZMHtmlUtils::encode($banner->getTitle()).'"'.$slash.'>';
-                if (ZMLangUtils::isEmpty($banner->getUrl())) {
+                $img = '<img src="'.$net->image($banner->getImage()).'" alt="'.\ZMHtmlUtils::encode($banner->getTitle()).'"'.$slash.'>';
+                if (\ZMLangUtils::isEmpty($banner->getUrl())) {
                     // if we do not have a url try our luck with the image...
                     $content .= $img;
                 } else {
@@ -146,7 +146,7 @@ class ZMBannerBlockWidget extends Widget {
             if ($this->isTrackDisplay()) {
                 $bannerService->updateBannerDisplayCount($banner->getId());
             }
-            if (!ZMLangUtils::isEmpty($this->getFormat()) && !empty($content)) {
+            if (!\ZMLangUtils::isEmpty($this->getFormat()) && !empty($content)) {
                 $content = sprintf($this->getFormat(), $content);
             }
             $bannerContentList[] = $content;
@@ -155,7 +155,7 @@ class ZMBannerBlockWidget extends Widget {
         // always set
         $this->set('bannerContentList', $bannerContentList);
 
-        if (!ZMLangUtils::isEmpty($this->getTemplate())) {
+        if (!\ZMLangUtils::isEmpty($this->getTemplate())) {
             // leave formatting to template rather than just concatenating
             return parent::render($request, $engine);
         }

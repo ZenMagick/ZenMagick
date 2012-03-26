@@ -40,9 +40,6 @@ storefront:
     services:
       foo:
         class: Bar
-      XXX:
-        parent: merge:ZMBannerBlockWidget
-        class: XXX
   
 admin,storefront:
   container:

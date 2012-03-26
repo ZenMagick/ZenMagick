@@ -17,14 +17,39 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
+namespace zenmagick\apps\store\widgets;
 
 use zenmagick\base\Runtime;
+use zenmagick\http\widgets\Widget;
+use zenmagick\http\view\TemplateView;
 
 /**
- * A banner block widget.
+ * PayPal express checkout block widget.
  *
  * @author DerManoMann
- * @package zenmagick.store.shared.mvc.widgets
  */
-class XXX extends ZMBannerBlockWidget {
+class PayPalECButtonBlockWidget extends Widget {
+
+    /**
+     * Create new instance.
+     */
+    public function __construct() {
+        parent::__construct();
+        $this->setTitle('PayPal EC Button');
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function render($request, TemplateView $templateView) {
+        ob_start();
+
+        if (defined('MODULE_PAYMENT_PAYPALWPP_STATUS') && MODULE_PAYMENT_PAYPALWPP_STATUS == 'True') {
+            global $order, $db, $currencies;
+            include(ZC_INSTALL_PATH . 'includes/modules/payment/paypal/tpl_ec_button.php');
+        }
+
+        return ob_get_clean();
+    }
+
 }

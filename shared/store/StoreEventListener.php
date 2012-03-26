@@ -94,7 +94,7 @@ class StoreEventListener extends ZMObject {
 
         // general banners block group - if used, the group needs to be passed into fetchBlockGroup()
         $mappings['banners'] = array();
-        $mappings['banners'][] = 'ZMBannerBlockWidget';
+        $mappings['banners'][] = 'zenmagick\apps\store\widgets\BannerBlockWidget';
 
         // individual banner groups as per current convention
         $defaultBannerGroupNames = array(
@@ -106,12 +106,12 @@ class StoreEventListener extends ZMObject {
         foreach ($defaultBannerGroupNames as $blockGroupName) {
             // the banner group name is configured as setting..
             $bannerGroup = Runtime::getSettings()->get($blockGroupName);
-            $mappings[$blockGroupName] = array('ZMBannerBlockWidget#group='.$bannerGroup);
+            $mappings[$blockGroupName] = array('zenmagick\apps\store\widgets\BannerBlockWidget#group='.$bannerGroup);
         }
 
         // shopping cart options
         $mappings['shoppingCart.options'] = array();
-        $mappings['shoppingCart.options'][] = 'ZMPayPalECButtonBlockWidget';
+        $mappings['shoppingCart.options'][] = 'zenmagick\apps\store\widgets\PayPalECButtonBlockWidget';
         $mappings['mainMenu'] = array();
         $mappings['mainMenu'][] = 'ref::browserIDLogin';
 
