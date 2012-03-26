@@ -26,7 +26,6 @@ use ZMRuntime;
 use zenmagick\base\Beans;
 use zenmagick\base\Runtime;
 use zenmagick\base\ZMObject;
-use zenmagick\http\widgets\Widget;
 use zenmagick\apps\store\model\ConfigGroup;
 use zenmagick\apps\store\model\ConfigValue;
 
@@ -139,109 +138,15 @@ class ConfigService extends ZMObject {
     }
 
     /**
-     * Build a collection of Widget and/or ConfigValue objects
+     * Build a collection of ConfigValue objects
      *
-     * @todo most of this should be part of the ConfigValue entity
      * @param array array of config values
-     * @return array A list of <code>ConfigValue</code> or <code>Widget</code> instances.
+     * @return array A list of <code>ConfigValue</code>s.
      */
     protected function buildObjects($configValues) {
         $values = array();
         foreach ($configValues as $value) {
-            if (0 === strpos($value['setFunction'], 'widget@')) {
-                $widgetDefinition = $value['setFunction'].'&'.$value['useFunction'];
-                // build definition from both function values (just in case)
-                $definition = str_replace('widget@', '', $widgetDefinition);
-                $widget = Beans::getBean($definition);
-                if (null !== $widget) {
-                    $widget->setTitle($value['name']);
-                    $widget->setDescription($value['description']);
-                    $widget->setValue($value['value']);
-                    // needed for generic plugin config support
-                    $widget->set('configurationKey', $value['key']);
-                    $values[] = $widget;
-                } else {
-                    Runtime::getLogging()->warn('failed to create widget: '.$widgetDefinition);
-                }
-            } else {
-                // try to convert into widget...
-                $widget = null;
-                $setFunction = $value['setFunction'];
-                if (null != $setFunction) {
-                    $tmp = explode('(', $setFunction);
-                    $setFunction = trim($tmp[0]);
-                }
-                switch ($setFunction) {
-                case null:
-                    $widget = Beans::getBean('textFormWidget');
-                    $size = strlen($value['value'])+3;
-                    $size = 64 < $size ? 64 : $size;
-                    $widget->set('size', $size);
-                    break;
-                case 'zen_cfg_textarea':
-                    $widget = Beans::getBean('textAreaFormWidget');
-                    $widget->setRows(5);
-                    $widget->setCols(60);
-                    break;
-                case 'zen_cfg_textarea_small':
-                    $widget = Beans::getBean('textAreaFormWidget');
-                    $widget->setRows(1);
-                    $widget->setCols(35);
-                    break;
-                case 'zen_cfg_select_option':
-                    // XXX: perhaps make radio group
-                    $widget = Beans::getBean('selectFormWidget#style=radio');
-                    $widget->setOptions($this->splitOptions($value['setFunction']));
-                    if (3 < count($widget->getOptions(null))) {
-                        $widget->setStyle('select');
-                    }
-                    break;
-                case 'zen_cfg_select_drop_down':
-                    $widget = Beans::getBean('selectFormWidget');
-                    $widget->setOptions($this->splitOptions($value['setFunction']));
-                    break;
-                case 'zen_cfg_pull_down_order_statuses':
-                    $widget = Beans::getBean('orderStatusSelectFormWidget');
-                    break;
-                case 'zen_cfg_pull_down_country_list':
-                    $widget = Beans::getBean('countrySelectFormWidget');
-                    break;
-                case 'zen_cfg_pull_down_country_list_none':
-                    $widget = Beans::getBean('countrySelectFormWidget');
-                    $widget->setOptions(array('' => _zm('None')));
-                    break;
-                case 'zen_cfg_pull_down_htmleditors':
-                    $widget = Beans::getBean('textFormWidget');
-                    $widget->set('readonly', true);
-                    //$widget = Beans::getBean('ZMEditorSelectFormWidget');
-                    break;
-                case 'zen_cfg_pull_down_zone_list';
-                    $widget = Beans::getBean('zoneSelectFormWidget');
-                    $widget->setOptions(array('' => _zm('None')));
-                    break;
-                case 'zen_cfg_select_coupon_id';
-                    $widget = Beans::getBean('couponSelectFormWidget');
-                    $widget->setOptions(array('' => _zm('None')));
-                    break;
-
-                default:
-                    //echo $setFunction.": ".$value['setFunction']."<BR>";
-                    $widget = Beans::map2obj('ConfigValue', $value);
-                    break;
-                }
-                if ($widget instanceof Widget) {
-                    // common stuff
-                    $widget->setName($value['key']);
-                    $widget->setTitle($value['name']);
-                    $widget->setDescription(htmlentities($value['description']));
-                    $widget->setValue(htmlentities($value['value']));
-                    $widget->set('id', $value['key']);
-                    // needed for generic plugin config support
-                    $widget->set('configurationKey', $value['key']);
-                }
-
-                $values[] = $widget;
-            }
+            $values[] = Beans::map2obj('zenmagick\apps\store\model\ConfigValue', $value);
         }
         return $values;
     }
@@ -250,7 +155,7 @@ class ConfigService extends ZMObject {
      * Get a single config value for the given key pattern.
      *
      * @param string pattern The key pattern; for example 'foo_%'.
-     * @return mixed A single <code>ConfigValue</code> instance, <code>Widget</code> instance or <code>null</code>.
+     * @return mixed A single <code>ConfigValue</code> instance or <code>null</code>.
      */
     public function getConfigValue($pattern) {
         $values = $this->getConfigValues($pattern);
@@ -264,7 +169,7 @@ class ConfigService extends ZMObject {
      * Get all config values for a given key pattern.
      *
      * @param string pattern The key pattern; for example 'foo_%'.
-     * @return array A list of <code>ConfigValue</code> or <code>Widget</code> instances.
+     * @return array A list of <code>ConfigValue</code> instances.
      */
     public function getConfigValues($pattern) {
         $sql = "SELECT *
@@ -280,7 +185,7 @@ class ConfigService extends ZMObject {
      * Get all config values for a given group id.
      *
      * @param int groupId The group id.
-     * @return array A list of <code>ConfigValue</code> or <code>Widget</code> instances.
+     * @return array A list of <code>ConfigValue</code> instances.
      */
     public function getValuesForGroupId($groupId) {
         $sql = "SELECT *

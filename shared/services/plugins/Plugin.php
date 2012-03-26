@@ -330,7 +330,7 @@ class Plugin extends zenmagick\base\plugins\Plugin {
     public function getConfigValues() {
         if (null === $this->configValues_) {
             $this->configValues_ = array();
-            foreach ($this->container->get('configService')->getConfigValues($this->configPrefix_.'%') as $configValue) {
+            foreach ($this->container->get('configWidgetService')->getConfigValues($this->configPrefix_.'%') as $configValue) {
                 $this->configValues_[$configValue->getName()] = $configValue;
             }
         }
