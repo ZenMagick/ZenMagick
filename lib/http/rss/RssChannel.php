@@ -32,9 +32,9 @@ class RssChannel extends ZMObject {
     /**
      * Create new RSS channel.
      *
-     * @param array Channel data.
+     * @param array Channel data; default is an empty array.
      */
-    public function __construct($rs) {
+    public function __construct(array $rs=array()) {
         parent::__construct();
         if (is_array($rs)) {
             foreach ($rs as $key => $value) {

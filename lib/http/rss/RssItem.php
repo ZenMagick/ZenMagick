@@ -32,9 +32,9 @@ class RssItem extends ZMObject {
     /**
      * Create new RSS item.
      *
-     * @param array Array of item data.
+     * @param array Array of item data; default is an empty array.
      */
-    public function __construct($item) {
+    public function __construct(array $item=array()) {
         parent::__construct();
         if (is_array($item)) {
             foreach ($item as $key => $value) {
