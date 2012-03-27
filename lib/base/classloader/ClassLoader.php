@@ -497,7 +497,9 @@ class ClassLoader {
             // try default namespace
             foreach ($this->defaults as $clazz => $file) {
                 if ($clazz == $name) {
-                    return $file;
+                    if (file_exists($file)) {
+                        return $file;
+                    }
                 }
             }
         }
