@@ -217,15 +217,7 @@ class ZMRequest extends ZMObject {
             // full requested or we need a full URL to ensure it will be secure
             $isSecure = ($this->isSecure() || $secure);
             $scheme = ($this->isSecure() || $secure) ? 'https://' : 'http://';
-            $host = $this->getHostname();
-            $port = $this->getPort();
-            if ('80' == $port && !$this->isSecure() || '443' == $port && $this->isSecure()) {
-                $port = '';
-            } else {
-                $port = ':'.$port;
-            }
-
-            $url = $scheme.$host.$port.$url;
+            $url = $scheme.$this->getHttpHost().$url;
         }
 
         return $url;
@@ -287,6 +279,31 @@ class ZMRequest extends ZMObject {
         // split port
         $token = explode(':', $_SERVER['HTTP_HOST']);
         return strtolower($token[0]);
+    }
+
+    /**
+     * Gets the request's scheme.
+     *
+     * @return string
+     */
+    public function getScheme() {
+        return $this->isSecure() ? 'https' : 'http';
+    }
+
+    /**
+     * Get Host with port.
+     *
+     * The port name will be appended to the host if it's non-standard.
+     *
+     * @return string
+     */
+    public function getHttpHost() {
+        $scheme = $this->getScheme();
+        $port = $this->getPort();
+        if (('http' == $scheme && $port == 80) || ('https' == $scheme && $port == 443)) {
+            return $this->getHostname();
+        }
+        return $this->getHostname().':'.$port;
     }
 
     /**
