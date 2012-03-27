@@ -20,8 +20,9 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
+namespace zenmagick\plugins;
 
-use zenmagick\base\Runtime;
+use Plugin;
 use zenmagick\base\Toolbox;
 
 /**
@@ -30,7 +31,7 @@ use zenmagick\base\Toolbox;
  * @package org.zenmagick.plugins
  * @author DerManoMann <mano@zenmagick.org>
  */
-class ZMToggleThemesPlugin extends Plugin {
+class ToggleThemesPlugin extends Plugin {
     const SESS_THEME_TOGGLE_KEY = 'themeToggle';
 
 
@@ -48,7 +49,7 @@ class ZMToggleThemesPlugin extends Plugin {
      */
     public function init() {
         parent::init();
-        Runtime::getEventDispatcher()->listen($this, 4);
+        $this->container->get('eventDispatcher')->listen($this, 4);
     }
 
     /**
@@ -63,7 +64,7 @@ class ZMToggleThemesPlugin extends Plugin {
         }
 
         if (null !== ($themeToggle = $session->getValue(self::SESS_THEME_TOGGLE_KEY))) {
-            Runtime::getSettings()->set('isEnableZMThemes', Toolbox::asBoolean($themeToggle));
+            $this->container->get('settingsService')->set('isEnableZMThemes', Toolbox::asBoolean($themeToggle));
         }
     }
 
@@ -79,12 +80,12 @@ class ZMToggleThemesPlugin extends Plugin {
             return;
         }
 
-        $toggleValue = \ZMSettings::get('isEnableZMThemes', true) ? 'false' : 'true';
+        $toggleValue = $this->container->get('settingsService')->get('isEnableZMThemes', true) ? 'false' : 'true';
         $url = $request->url(null, null, $request->isSecure());
         $hasParams = false !== strpos($url, '?');
         $url .= ($hasParams ? '&' : '?') . 'themeToggle='.$toggleValue;
         // special case for requestId == category
-        $idName = Runtime::getSettings()->get('zenmagick.http.request.idName');
+        $idName = $this->container->get('settingsService')->get('zenmagick.http.request.idName');
         if ('category' == $request->getRequestId()) {
             $url = str_replace($idName.'=category', $idName.'=index', $url);
         }

@@ -17,7 +17,9 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
+namespace zenmagick\plugins\autoLogin;
 
+use Plugin;
 use zenmagick\base\Toolbox;
 
 define('AUTO_LOGIN_COOKIE', 'auto_login');
@@ -27,11 +29,11 @@ define('AUTO_LOGIN_OPT_IN', 'autoLogin');
 /**
  * Plugin to automatically login returning customers.
  *
- * @package org.zenmagick.plugins.autoLogin
  * @author DerManoMann <mano@zenmagick.org>
  */
-class ZMAutoLoginPlugin extends Plugin {
+class AutoLoginPlugin extends Plugin {
     private $cookieUpdated;
+
 
     /**
      * Create new instance.
@@ -64,7 +66,7 @@ class ZMAutoLoginPlugin extends Plugin {
      */
     public function init() {
         parent::init();
-        zenmagick\base\Runtime::getEventDispatcher()->listen($this);
+        $this->container->get('eventDispatcher')->listen($this);
     }
 
     /**

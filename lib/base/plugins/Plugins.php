@@ -19,10 +19,11 @@
  */
 namespace zenmagick\base\plugins;
 
-use zenmagick\base\classloader\ClassLoader;
+use zenmagick\base\Beans;
 use zenmagick\base\Runtime;
 use zenmagick\base\Toolbox;
 use zenmagick\base\ZMObject;
+use zenmagick\base\classloader\ClassLoader;
 
 use zenmagick\apps\store\utils\ContextConfigLoader;
 
@@ -45,12 +46,16 @@ use zenmagick\apps\store\utils\ContextConfigLoader;
  * @author DerManoMann <mano@zenmagick.org> <mano@zenmagick.org>
  */
 class Plugins extends ZMObject {
+    const PLUGIN_BASE_NAMESPACE = 'zenmagick\plugins';
+    // TODO: this should be zenmagick\base\plugins\Plugin - or a configured value
+    const DEFAULT_PLUGIN_CLASS = 'Plugin';
     // internal plugin cache with some details
     protected $plugins_;
     // plugin status details
     protected $pluginStatus_;
     // plugin/basePath map
     protected $pathIdMap_;
+    protected $classLoader;
 
 
     /**
@@ -64,6 +69,11 @@ class Plugins extends ZMObject {
             $this->pluginStatus_ = array();
         }
         $this->pathIdMap_ = null;
+        $this->classLoader = new ClassLoader();
+        foreach (Runtime::getPluginBasePath() as $basePath) {
+            $this->classLoader->addNamespace(self::PLUGIN_BASE_NAMESPACE, sprintf('%s@%s', $basePath, self::PLUGIN_BASE_NAMESPACE));
+        }
+        $this->classLoader->register();
     }
 
 
@@ -225,45 +235,34 @@ class Plugins extends ZMObject {
             return $this->plugins_[$id]['plugin'];
         }
 
-        $pluginClassSuffix = ClassLoader::className($id);
+        $pluginClassBase = ClassLoader::className($id);
         $basePath = $this->getBasePathForId($id);
         $pluginDir = $basePath.'/'.$id;
+        $pluginClasses = array();
         if (is_dir($pluginDir)) {
-            // todo: drop ZM stuff
-            // expect plugin file in the directory as 'ZM[CamelCaseId]Plugin.php.php' extension
-            $pluginClass = 'ZM' . $pluginClassSuffix . 'Plugin';
-            $file = $pluginDir . '/' . $pluginClass . '.php';
-            if (!file_exists($file)) {
-                Runtime::getLogging()->warn("can't find plugin file(dir) for id = '".$id."'; dir = '".$pluginDir."'");
-                return null;
-            }
+            $namespace = sprintf('zenmagick\plugins\%s', $id);
+            $pluginClasses[] = sprintf('%s\%sPlugin', $namespace, $pluginClassBase);
+            $this->classLoader->addNamespace($namespace, sprintf('%s@%s', $pluginDir, $namespace));
         } else {
-            // single file, so either the id is just the id or the filename; let's try both...
-            $pluginClass = $pluginClassSuffix;
-            $file = $basePath . $pluginClass . '.php';
-            if (!is_file($file)) {
-                // todo: drop ZM stuff
-                $pluginClass = 'ZM' . $pluginClassSuffix . 'Plugin';
-                $file = $basePath . '/' . $pluginClass . '.php';
-                if (!is_file($file)) {
-                    Runtime::getLogging()->warn("can't find plugin file for id = '".$id."'; dir = '".$pluginDir."'");
-                    return null;
-                }
+            $pluginClasses[] = sprintf('zenmagick\plugins\%sPlugin', $pluginClassBase);
+            $pluginDir = $basePath;
+        }
+        // todo: drop ZM stuff
+        $defaultClass = $pluginClasses[] = sprintf('ZM%sPlugin', $pluginClassBase);
+        // TODO: remove once we are all namespaced
+        $this->classLoader->addDefault($defaultClass, sprintf('%s/%s.php', $pluginDir, $defaultClass));
+        // TODO: make the default plugin class configurable?
+        $pluginClasses[] = self::DEFAULT_PLUGIN_CLASS;
+
+        foreach ($pluginClasses as $pluginClass) {
+            if (class_exists($pluginClass)) {
+                break;
             }
+            $pluginClass = null;
         }
 
-        // load if required
-        if (!class_exists($pluginClass)) {
-            // load plugin class
-            require_once($file);
-        }
-
-        $plugin = Runtime::getContainer()->get($pluginClass);
-        $id = substr(preg_replace('/Plugin$/', '', $pluginClass), 2);
-        $id[0] = strtolower($id[0]);
+        $plugin = Beans::getBean($pluginClass);
         $plugin->setId($id);
-        //PHP5.3 only: $plugin->setId(lcfirst(substr(preg_replace('/Plugin$/', '', $pluginClass), 2)));
-        $pluginDir = dirname($file);
         $plugin->setPluginDirectory($pluginDir);
 
         $this->plugins_[$id] = array('plugin' => $plugin, 'init' => false);
@@ -357,6 +356,13 @@ class Plugins extends ZMObject {
                     $configLoader = $this->container->get('contextConfigLoader');
                     $configLoader->setConfig(Toolbox::loadWithEnv($pluginConfig));
                     $configLoader->process();
+                    // if the plugin is a generic class, try to set some meta data
+                    if (get_class($plugin) == self::DEFAULT_PLUGIN_CLASS) {
+                        $config = $configLoader->getConfig();
+                        if (array_key_exists('meta', $config)) {
+                            Beans::setAll($plugin, $config['meta']);
+                        }
+                    }
                 }
 
                 // call init only after everything set up
