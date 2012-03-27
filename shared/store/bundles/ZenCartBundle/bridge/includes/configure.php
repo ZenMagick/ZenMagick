@@ -19,10 +19,12 @@ define('DB_TYPE', 'mysql');
 
 
 // @todo need to fix up for shared certificates
-define('HTTP_SERVER', 'http://'. $request->getHostname());
-define('HTTPS_SERVER', 'https://localhost'.$request->getHostname());
-define('HTTP_CATALOG_SERVER', 'http://'.$request->getHostname());
-define('HTTPS_CATALOG_SERVER', 'https://'.$request->getHostname());
+// @todo probably switch out this mechanism once we fully control the system
+$httpServer = $request->getHttpHost().'/';
+define('HTTP_SERVER', 'http://'.$httpServer);
+define('HTTPS_SERVER', 'https://'.$httpServer);
+define('HTTP_CATALOG_SERVER', 'http://'.$httpServer);
+define('HTTPS_CATALOG_SERVER', 'https://'.$httpServer);
 
 define('ENABLE_SSL_ADMIN', $settings->get('zenmagick.http.request.secure') ? 'true' : 'false');
 define('ENABLE_SSL_CATALOG', $settings->get('zenmagick.http.request.secure') ? 'true' : 'false');
