@@ -17,16 +17,17 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
+namespace zenmagick\apps\store\session;
 
+use ZMRuntime;
 use zenmagick\http\session\SessionHandler;
 
 /**
  * Simple session handler interface.
  *
  * @author DerManoMann
- * @package zenmagick.store.shared.provider
  */
-class ZMZenCartSessionHandler implements SessionHandler {
+class StoreSessionHandler implements SessionHandler {
     private $expiryTime_ = 1440;
 
 

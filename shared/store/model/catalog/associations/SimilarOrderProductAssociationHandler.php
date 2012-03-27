@@ -20,7 +20,9 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
+namespace zenmagick\apps\store\model\catalog\associations;
 
+use ZMRuntime;
 use zenmagick\apps\store\model\catalog\ProductAssociation;
 use zenmagick\apps\store\services\catalog\ProductAssociationHandler;
 
@@ -30,9 +32,8 @@ use zenmagick\apps\store\services\catalog\ProductAssociationHandler;
  * <p>Supports <em>limit</em> parameter in the <code>$args</code> map.</p>
  *
  * @author DerManoMann
- * @package zenmagick.store.shared.provider
  */
-class ZMSimilarOrderProductAssociationHandler implements ProductAssociationHandler {
+class SimilarOrderProductAssociationHandler implements ProductAssociationHandler {
 
     /**
      * {@inheritDoc}

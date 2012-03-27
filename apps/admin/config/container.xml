@@ -14,7 +14,7 @@
 
         <service id="pluginService" class="Plugins" scope="container" />
 
-        <service id="sessionHandler" class="ZMZenCartSessionHandler" scope="container">
+        <service id="sessionHandler" class="zenmagick\apps\store\session\StoreSessionHandler" scope="container">
             <call method="setExpiryTime">
                 <argument>%admin.session_timeout%</argument>
             </call>

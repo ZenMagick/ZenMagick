@@ -175,7 +175,7 @@
             <tag name="zenmagick.http.blocks.provider" />
         </service>
 
-        <service id="similarOrderProductAssociationHandler" class="ZMSimilarOrderProductAssociationHandler" scope="container">
+        <service id="similarOrderProductAssociationHandler" class="zenmagick\apps\store\model\catalog\associations\SimilarOrderProductAssociationHandler" scope="container">
             <tag name="apps.store.associations.handler" />
         </service>
 

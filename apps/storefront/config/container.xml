@@ -40,7 +40,7 @@
         <service id="ZMForwardView" class="ForwardView" scope="prototype" />
         <service id="forwardView" alias="ZMForwardView" />
 
-        <service id="sessionHandler" class="ZMZenCartSessionHandler" scope="container">
+        <service id="sessionHandler" class="zenmagick\apps\store\session\StoreSessionHandler" scope="container">
             <call method="setExpiryTime">
                 <argument>%storefront.session_timeout%</argument>
             </call>
