@@ -286,7 +286,7 @@ class ZMRequest extends ZMObject {
 
         // split port
         $token = explode(':', $_SERVER['HTTP_HOST']);
-        return $token[0];
+        return strtolower($token[0]);
     }
 
     /**
