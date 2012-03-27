@@ -86,3 +86,17 @@
       </fieldset>
   <?php } ?>
 </form>
+
+
+<?php $productService = $container->get('productService'); ?>
+<h3><?php _vzm('People that bought "%s" also bought:', '<em>'.$currentProduct->getName().'</em>') ?></h3>
+<div id="similar">
+  <?php foreach ($currentProduct->getProductAssociations('similarOrder') as $assoc) { $assocProduct = $productService->getProductForId($assoc->getProductId(), $languageId) ; ?>
+    <div>
+      <p><?php echo $html->productImageLink($assocProduct) ?></p>
+      <p><a href="<?php echo $net->product($assocProduct->getId()) ?>"><?php echo $html->encode($assocProduct->getName()) ?></a></p>
+      <?php $offers = $assocProduct->getOffers(); ?>
+      <p><?php echo $utils->formatMoney($offers->getCalculatedPrice()) ?></p>
+    </div>
+  <?php } ?>
+</div>

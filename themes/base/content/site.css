@@ -286,7 +286,7 @@ div#eztoc p a:hover {text-decoration:none;}
 
 /* index */
 #b_index h3 {text-decoration:underline;}
-#featured div {float:left;width:150px;min-height:195px;_height:195px;border:1px dotted gray;text-align:center;margin:3px 6px 6px 0;}
+#featured div, #similar div {float:left;width:150px;min-height:195px;_height:195px;border:1px dotted gray;text-align:center;margin:3px 6px 6px 0;}
 
 /* advanved search */
 #b_advanced_search #help {text-align:right;}
