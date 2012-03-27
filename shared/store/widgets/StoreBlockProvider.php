@@ -17,6 +17,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
+namespace zenmagick\apps\store\widgets;
 
 use zenmagick\base\ZMObject;
 
@@ -26,9 +27,8 @@ use zenmagick\http\blocks\BlockProvider;
  * Store block provider.
  *
  * @author DerManoMann
- * @package zenmagick.store.shared.provider
  */
-class ZMStoreBlockProvider extends ZMObject implements BlockProvider {
+class StoreBlockProvider extends ZMObject implements BlockProvider {
 
     /**
      * {@inheritDoc}

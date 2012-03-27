@@ -23,6 +23,7 @@
 
 use zenmagick\base\Runtime;
 use zenmagick\base\ZMException;
+use zenmagick\apps\store\storefront\http\request\StoreDefaultUrlRewriter;
 
 /**
  * zen_href_link wrapper that delegates to the Zenmagick implementation (for storefront).
@@ -30,7 +31,7 @@ use zenmagick\base\ZMException;
  */
 function zen_href_link($page='', $params='', $transport='NONSSL', $addSessionId=true, $seo=true, $isStatic=false, $useContext=true) {
     if (!Runtime::getSettings()->get('apps.store.zencart.useNativeHrefLink', false)) {
-        return ZMStoreDefaultUrlRewriter::furl($page, $params, $transport, $addSessionId, $seo, $isStatic, $useContext);
+        return StoreDefaultUrlRewriter::furl($page, $params, $transport, $addSessionId, $seo, $isStatic, $useContext);
     } else {
         return zen_href_link_DISABLED($page, $params, $transport, $addSessionId, $seo, $isStatic, $useContext);
     }

@@ -17,8 +17,10 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
+namespace zenmagick\apps\store\storefront\http\sacs;
 
-use zenmagick\base\Runtime;
+use ZMAccount;
+use zenmagick\base\ZMObject;
 use zenmagick\http\sacs\SacsHandler;
 
 /**
@@ -31,9 +33,8 @@ use zenmagick\http\sacs\SacsHandler;
  * non secure HTTP is used to access them.</p>
  *
  * @author DerManoMann
- * @package zenmagick.store.shared.provider
  */
-class ZMZenCartAccountSacsHandler implements SacsHandler {
+class StorefrontAccountSacsHandler extends ZMObject implements SacsHandler {
     private $levelMap_;
 
 
@@ -61,7 +62,7 @@ class ZMZenCartAccountSacsHandler implements SacsHandler {
      * {@inheritDoc}
      */
     public function evaluate($requestId, $credentials, $manager) {
-        $requiredLevel = $manager->getMappingValue($requestId, 'level', ZMSettings::get('apps.store.defaultAccessLevel'));
+        $requiredLevel = $manager->getMappingValue($requestId, 'level', $this->container->get('settingsService')->get('apps.store.defaultAccessLevel'));
         if (null == $requiredLevel || ZMAccount::ANONYMOUS == $requiredLevel) {
             return true;
         }
@@ -76,7 +77,7 @@ class ZMZenCartAccountSacsHandler implements SacsHandler {
         }
 
         if (!in_array($level, $this->levelMap_[$requiredLevel])) {
-            Runtime::getLogging()->debug('missing authorization for '.$requestId.'; current='.$level.', required='.$requiredLevel);
+            $this->container->get('loggingService')->debug('missing authorization for '.$requestId.'; current='.$level.', required='.$requiredLevel);
             return false;
         }
 

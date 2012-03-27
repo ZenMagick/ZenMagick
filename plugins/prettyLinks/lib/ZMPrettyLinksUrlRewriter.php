@@ -20,6 +20,7 @@
 
 use zenmagick\base\Runtime;
 use zenmagick\http\request\rewriter\UrlRewriter;
+use zenmagick\apps\store\storefront\http\request\StoreDefaultUrlRewriter;
 
 /**
  * SEO rewriter for pretty link (SEO) support.
@@ -54,7 +55,7 @@ class ZMPrettyLinksUrlRewriter implements UrlRewriter {
 
         // get default url
         $toolbox = $request->getToolbox();
-        $href = ZMStoreDefaultUrlRewriter::furl($requestId, $params, $secure ? 'SSL' : 'NONSSL', $addSessionId, false, $isStatic, $useContext, $request);
+        $href = StoreDefaultUrlRewriter::furl($requestId, $params, $secure ? 'SSL' : 'NONSSL', $addSessionId, false, $isStatic, $useContext, $request);
 
         $url = parse_url($href);
         $queryString = $toolbox->net->decode($url['query']);

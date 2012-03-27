@@ -80,7 +80,7 @@ zenmagick:
     ## sacs
     sacs:
       handler:
-        - ZMZenCartAccountSacsHandler
+        - zenmagick\apps\store\storefront\http\sacs\StorefrontAccountSacsHandler
   ## bundles
   bundles:
     ZenCartBundle: zenmagick\apps\store\bundles\ZenCartBundle\ZenCartBundle

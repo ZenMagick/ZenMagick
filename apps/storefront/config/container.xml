@@ -46,7 +46,7 @@
             </call>
         </service>
 
-        <service id="storeDefaultUrlRewriter" class="ZMStoreDefaultUrlRewriter" scope="container">
+        <service id="storeDefaultUrlRewriter" class="zenmagick\apps\store\storefront\http\request\StoreDefaultUrlRewriter" scope="container">
             <tag name="zenmagick.http.request.rewriter" />
         </service>
 

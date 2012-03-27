@@ -20,8 +20,10 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
+namespace zenmagick\apps\store\storefront\http\request;
 
 use zenmagick\base\Runtime;
+use zenmagick\base\ZMObject;
 use zenmagick\base\ZMException;
 use zenmagick\http\request\UrlRewriter;
 
@@ -29,9 +31,8 @@ use zenmagick\http\request\UrlRewriter;
  * Default rewriter implementing the original zencart URL scheme.
  *
  * @author DerManoMann
- * @package zenmagick.store.sf.provider
  */
-class ZMStoreDefaultUrlRewriter implements UrlRewriter {
+class StoreDefaultUrlRewriter extends ZMObject implements UrlRewriter {
 
     /**
      * {@inheritDoc}
@@ -54,7 +55,8 @@ class ZMStoreDefaultUrlRewriter implements UrlRewriter {
      * ZenMagick implementation of zen-cart's zen_href_link function.
      */
     public static function furl($page=null, $params='', $transport='NONSSL', $addSessionId=true, $seo=true, $isStatic=false, $useContext=true, $request=null) {
-        if (null == $request) { $request = Runtime::getContainer()->get('request'); }
+        $container = Runtime::getContainer();
+        if (null == $request) { $request = $container->get('request'); }
 
         if (empty($page)) {
             throw new ZMException('missing page parameter');
@@ -74,7 +76,7 @@ class ZMStoreDefaultUrlRewriter implements UrlRewriter {
               'useContext' => $useContext
             );
             foreach ($rewriters as $rewriter) {
-                if ($rewriter instanceof ZMStoreDefaultUrlRewriter) {
+                if ($rewriter instanceof StoreDefaultUrlRewriter) {
                     // ignore self
                     continue;
                 }
@@ -89,8 +91,9 @@ class ZMStoreDefaultUrlRewriter implements UrlRewriter {
         $httpServer = 'http://'.$hostname;
         $httpsServer = 'https://'.$hostname;
 
+        $settingsService = $container->get('settingsService');
         $server = $httpServer;
-        if ($transport == 'SSL' && ZMSettings::get('zenmagick.http.request.secure', true)) {
+        if ($transport == 'SSL' && $settingsService->get('zenmagick.http.request.secure', true)) {
             $server = $httpsServer;
         }
 
@@ -108,7 +111,7 @@ class ZMStoreDefaultUrlRewriter implements UrlRewriter {
             $path .= $page;
         } else {
             $path .= 'index.php';
-            $query .= Runtime::getSettings()->get('zenmagick.http.request.idName') . '=' . $page;
+            $query .= $settingsService->get('zenmagick.http.request.idName') . '=' . $page;
         }
 
         if (!empty($params)) {
@@ -124,8 +127,8 @@ class ZMStoreDefaultUrlRewriter implements UrlRewriter {
         // Add the session ID when moving from different HTTP and HTTPS servers, or when SID is defined
         $sid = null;
         $session = $request->getSession();
-        if ($addSessionId && ($session->isStarted()) && !ZMSettings::get('isForceCookieUse')) {
-            if (defined('SID') && !ZMLangUtils::isEmpty(SID)) {
+        if ($addSessionId && ($session->isStarted()) && !$settingsService->get('isForceCookieUse')) {
+            if (defined('SID') && !\ZMLangUtils::isEmpty(SID)) {
                 // defined, so use it
                 $sid = SID;
             } elseif (($transport == 'NONSSL' && $httpsServer == $server) || ($transport == 'SSL' && $httpServer == $server)) {
@@ -146,7 +149,7 @@ class ZMStoreDefaultUrlRewriter implements UrlRewriter {
         while (false !== strpos($path, '//')) $path = str_replace('//', '/', $path);
         $query = (1 < strlen($query)) ? $query : '';
 
-        return ZMNetUtils::encode($server.$path.$query);
+        return \ZMNetUtils::encode($server.$path.$query);
     }
 
 }
