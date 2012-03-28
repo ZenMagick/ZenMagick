@@ -160,7 +160,7 @@ class SideboxDummyPatch extends FilePatch {
         }
 
         // 2) plugins
-        foreach ($this->container->get('pluginService')->getAllPlugins() as $plugin) {
+        foreach ($this->container->get('pluginService')->getPluginsForContext() as $plugin) {
             $dir = $plugin->getPluginDirectory().'/content/boxes';
             $boxPathList[] = $dir;
         }

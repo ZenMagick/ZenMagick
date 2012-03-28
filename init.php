@@ -50,7 +50,7 @@ try {
     // load stuff that really needs to be global!
     $settingsService = $container->get('settingsService');
     if ($settingsService->get('zenmagick.base.plugins.enabled', true)) {
-        foreach (Runtime::getContainer()->get('pluginService')->getAllPlugins($settingsService->get('zenmagick.base.context')) as $plugin) {
+        foreach (Runtime::getContainer()->get('pluginService')->getPluginsForContext($settingsService->get('zenmagick.base.context')) as $plugin) {
             foreach ($plugin->getGlobal($request) as $file) {
                 include_once $file;
             }

@@ -84,7 +84,7 @@ class ZMUnitTestsController extends \ZMController {
         }
 
         // add plugins/tests folder of all available plugins to loader
-        foreach ($this->container->get('pluginService')->getAllPlugins() as $plugin) {
+        foreach ($this->container->get('pluginService')->getPluginsForContext() as $plugin) {
             if ($plugin instanceof \ZMUnitTestsPlugin) {
                 continue;
             }

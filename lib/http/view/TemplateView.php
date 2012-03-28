@@ -301,7 +301,7 @@ class TemplateView extends ZMObject implements View {
         }
 
         // set all plugins
-        foreach ($this->container->get('pluginService')->getAllPlugins($settingsService->get('zenmagick.base.context')) as $plugin) {
+        foreach ($this->container->get('pluginService')->getPluginsForContext($settingsService->get('zenmagick.base.context')) as $plugin) {
             $this->setVariable($plugin->getId(), $plugin);
         }
 

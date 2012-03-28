@@ -515,7 +515,7 @@ class Application {
         $settingsService = Runtime::getSettings();
 
         if ($settingsService->get('zenmagick.base.plugins.enabled', true)) {
-            $container->get('pluginService')->initAllPlugins($this->config['context']);
+            $container->get('pluginService')->getPluginsForContext($this->config['context']);
         }
     }
 
