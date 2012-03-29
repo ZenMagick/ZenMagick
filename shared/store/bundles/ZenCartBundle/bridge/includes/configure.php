@@ -20,7 +20,7 @@ define('DB_TYPE', 'mysql');
 
 // @todo need to fix up for shared certificates
 // @todo probably switch out this mechanism once we fully control the system
-$httpServer = $request->getHttpHost().'/';
+$httpServer = $request->getHttpHost();
 define('HTTP_SERVER', 'http://'.$httpServer);
 define('HTTPS_SERVER', 'https://'.$httpServer);
 define('HTTP_CATALOG_SERVER', 'http://'.$httpServer);
