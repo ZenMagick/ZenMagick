@@ -22,6 +22,7 @@
  */
 ?>
 
+<?php $crumbtrail->addCrumb(_zm('Logoff')) ?>
 <p><?php _vzm('You have been logged off your account. It is now safe to leave the computer.') ?></p>
 <p><?php _vzm('Your shopping cart has been saved, the items inside it will be restored whenever you log back into your account.') ?></p>
 <?php echo $html->backLink(_zm("continue")) ?>

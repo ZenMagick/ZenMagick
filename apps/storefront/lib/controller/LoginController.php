@@ -35,13 +35,6 @@ class LoginController extends \ZMController {
     /**
      * {@inheritDoc}
      */
-    public function preProcess($request) {
-        $request->getToolbox()->crumbtrail->addCrumb($request->getToolbox()->utils->getTitle());
-    }
-
-    /**
-     * {@inheritDoc}
-     */
     public function processGet($request) {
         $session = $request->getSession();
         if ($session->isRegistered()) {
