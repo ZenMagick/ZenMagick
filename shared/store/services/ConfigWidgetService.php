@@ -147,7 +147,7 @@ class ConfigWidgetService extends ConfigService {
      * @param string value The set function value.
      * @return array An options map.
      */
-    private function splitOptions($value) {
+    protected function splitOptions($value) {
         // some initial stripping
         $value = preg_replace('/.*\(array\((.*)\).*/', '\1', $value);
 
