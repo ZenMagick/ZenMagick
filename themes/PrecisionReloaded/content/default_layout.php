@@ -49,9 +49,7 @@ Released   : 20090515
 			<div id="colleft">
 				<!-- start content center column  -->
       <div id="content">
-          <?php if (!ZMLangUtils::inArray($request->getRequestId(), 'index')) { ?>
-              <?php echo $macro->buildCrumbtrail($crumbtrail, " &gt; "); ?>
-          <?php } ?>
+          <div id="crumbtrail"><?php echo $this->fragment('crumbtrail') ?></div>
 
           <?php if ($messageService->hasMessages()) { ?>
               <ul id="messages">
@@ -98,7 +96,7 @@ Released   : 20090515
 
 
     <div id="footer">
-      <p class="legal">&copy;2009 All Rights Reserved - &nbsp;<strong>Your Web Store Site</strong>&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;| Powered by <strong><a href="http://www.zenmagick.org">ZenMagick</a></strong></p>
+      <p class="legal">&copy;2009-2012 All Rights Reserved - &nbsp;<strong>Your Web Store Site</strong>&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;| Powered by <strong><a href="http://www.zenmagick.org">ZenMagick</a></strong></p>
       <p class="credit">Design by <strong>You the chief designer</strong></p>
     </div> <!-- end of footer div  -->
 	</div> <!-- end of container div  -->

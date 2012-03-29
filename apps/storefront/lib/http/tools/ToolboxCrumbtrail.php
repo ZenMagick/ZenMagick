@@ -52,18 +52,24 @@ class ToolboxCrumbtrail extends ToolboxTool {
 
     /**
      * Reset.
+     *
+     * @return ToolboxCrumbtrail <code>$this</code> for chaining.
      */
     public function reset() {
         $this->crumbs_ = array();
         // always add home
         $this->addCrumb("Home", $this->getRequest()->url('index'));
+        return $this;
     }
 
     /**
      * Clear all crumbs.
+     *
+     * @return ToolboxCrumbtrail <code>$this</code> for chaining.
      */
     public function clear() {
         $this->crumbs_ = array();
+        return $this;
     }
 
     /**
@@ -106,6 +112,7 @@ class ToolboxCrumbtrail extends ToolboxTool {
      *
      * @param string name The crumbtrail element name.
      * @param string url Optional crumbtrail element URL.
+     * @return ToolboxCrumbtrail <code>$this</code> for chaining.
      */
     public function addCrumb($name, $url = null) {
         if (!is_array($this->crumbs_)) {
@@ -115,55 +122,62 @@ class ToolboxCrumbtrail extends ToolboxTool {
         $crumb->setName($name);
         $crumb->setUrl($url);
         $this->crumbs_[] = $crumb;
+        return $this;
     }
 
     /**
      * Add the given category path to the crumbtrail.
      *
      * @param array path The category path to add as a list of category ids.
+     * @return ToolboxCrumbtrail <code>$this</code> for chaining.
      */
     public function addCategoryPath($path) {
         if (null == $path)
-            return;
+            return $this;
 
         // categories
         foreach ($path as $catId) {
             $category = $this->container->get('categoryService')->getCategoryForId($catId, $this->getRequest()->getSession()->getLanguageId());
             if (null == $category) {
-                return;
+                return $this;
             }
             $this->addCrumb($category->getName(),$this->getRequest()->url('category', $category->getPath()));
         }
+        return $this;
     }
 
     /**
      * Add manufacturer to the crumbtrail.
      *
      * @param int manufacturerId The manufacturer's id.
+     * @return ToolboxCrumbtrail <code>$this</code> for chaining.
      */
     public function addManufacturer($manufacturerId) {
         if (null == $manufacturerId)
-            return;
+            return $this;
 
         $manufacturer = $this->container->get('manufacturerService')->getManufacturerForId($manufacturerId, $this->getRequest()->getSession()->getLanguageId());
         if (null != $manufacturer) {
             $this->addCrumb($manufacturer->getName(), $this->getRequest()->url('category', 'manufacturers_id=' . $manufacturerId));
         }
+        return $this;
     }
 
     /**
      * Add product to the crumbtrail.
      *
      * @param int productId The product id of the product to add.
+     * @return ToolboxCrumbtrail <code>$this</code> for chaining.
      */
     public function addProduct($productId) {
         if (null == $productId)
-            return;
+            return $this;
 
         $product = $this->container->get('productService')->getProductForId($productId, $this->getRequest()->getSession()->getLanguageId());
         if (null != $product) {
             $this->addCrumb($product->getName(), $this->getToolbox()->net->product($productId, null));
         }
+        return $this;
     }
 
 }

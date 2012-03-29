@@ -187,7 +187,7 @@ class ToolboxMacro extends ToolboxTool {
      */
     public function buildCrumbtrail($crumbtrail, $sep) {
         $toolbox = $this->getToolbox();
-        $html = '<div id="crumbtrail">';
+        $html = '';
         $first = true;
         $crumbs = $toolbox->crumbtrail->getCrumbs();
         foreach ($crumbs as $crumb) {
@@ -199,7 +199,6 @@ class ToolboxMacro extends ToolboxTool {
                 $html .= \ZMHtmlUtils::encode(_zm($crumb->getName()));
             }
         }
-		    $html .= '</div>';
         return $html;
     }
 

@@ -61,10 +61,7 @@
       <?php echo $this->fetch('header.php') ?>
 
       <div id="contentMainWrapper">
-
-		 <?php //if ('index' != $request->getRequestId()) { ?>
-            <?php echo $macro->buildCrumbtrail($crumbtrail, " :: "); ?>
-       	 <?php //} ?>
+        <div id="crumbtrail"><?php echo $this->fragment('crumbtrail') ?></div>
 
        	 <?php if ($container->get('messageService')->hasMessages()) { ?>
             <ul id="messages">
@@ -94,6 +91,7 @@
 	  </div>
 
       <?php echo $this->fetch('footer.php') ?>
+      <?php $this->fragment('crumbtrail', $macro->buildCrumbtrail($crumbtrail, " &gt; ")) ?>
     </div>
 
     <div id="bannerSix"><?php echo $this->fetchBlockGroup('banners.footer3') ?></div>
