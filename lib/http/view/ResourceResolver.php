@@ -287,10 +287,10 @@ class ResourceResolver extends ZMObject {
      * Find a given resource.
      *
      * @param string resource A relative path to the resource.
-     * @param string type The resource type.
+     * @param string type The resource type; default is <code>View::RESOURCE</code>.
      * @return string The path to the resource or <code>null</code>.
      */
-    public function findResource($resource, $type) {
+    public function findResource($resource, $type=View::RESOURCE) {
         list($resource, $type) = $this->resolveType($resource, $type);
         $locations = $this->getLocationsFor($type);
         foreach ($locations as $location) {

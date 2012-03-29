@@ -179,9 +179,7 @@ class ResourceManager extends ZMObject {
     }
 
     /**
-     * Resolve resource path.
-     *
-     * <p>This default implementation does nothing but return the result of: <code>$view->asUrl($filename);</code>.</p>
+     * Resolve resource path as url.
      *
      * @param string resource The (relative) path to the resource.
      * @return string The resolved final URL.
@@ -195,8 +193,38 @@ class ResourceManager extends ZMObject {
             // absolute path
             return $resource;
         } else {
-            return $this->view->asUrl(($this->resourcesAsTemplates_ ? View::TEMPLATE : View::RESOURCE).$resource);
+            $type = $this->resourcesAsTemplates_ ? View::TEMPLATE : View::RESOURCE;
+            if (null != ($path = $this->view->getResourceResolver()->findResource($resource, $type))) {
+                if (null != ($uri= $this->file2uri($path))) {
+                    $url = $this->view->getRequest()->absoluteURL($uri);
+                    Runtime::getLogging()->log(sprintf('resolved file "%s" as url: %s; path=%s', $resource, $url, $path), Logging::TRACE);
+                    return $url;
+                }
+            }
+
+            Runtime::getLogging()->warn(sprintf('cannot resolve file "%s" to url', $resource));
+            return '';
         }
+    }
+
+    /**
+     * Convert a full fs path to uri.
+     *
+     * @param string filename The full filename.
+     * @return string The uri or <code>null</code> if the filename is invalid.
+     */
+    protected function file2uri($filename) {
+        $filename = realpath($filename);
+        $docRoot = realpath($this->view->getRequest()->getDocRoot());
+        if (empty($filename) || empty($docRoot)) {
+            return null;
+        }
+        if (0 !== strpos($filename, $docRoot)) {
+            // outside docroot
+            return null;
+        }
+
+        return str_replace(DIRECTORY_SEPARATOR, '/', substr($filename, strlen($docRoot)));
     }
 
     /**
