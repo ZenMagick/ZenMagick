@@ -208,4 +208,15 @@ class ZMPhpEngine extends ZMObject implements EngineInterface {
         return $wObj->render($this->request, $this->view);
     }
 
+    /**
+     * Fragment handling - either set a fragment marker or populate a fragment.
+     *
+     * @param string name The fragment name.
+     * @param string value The fragment value; default is <code>null</code> to set a marker.
+     * @return string The fragment marker content or an empty string on a set.
+     */
+    public function fragment($name, $value=null) {
+        return $this->view->getResourceManager()->fragment($name, $value);
+    }
+
 }
