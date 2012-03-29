@@ -28,7 +28,6 @@ use zenmagick\base\Toolbox;
 /**
  * Allow users to toggle ZenMagick themes support.
  *
- * @package org.zenmagick.plugins
  * @author DerManoMann <mano@zenmagick.org>
  */
 class ToggleThemesPlugin extends Plugin {

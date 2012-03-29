@@ -22,6 +22,8 @@
  */
 ?>
 
+<?php $crumbtrail->addCrumb(_zm('Login')) ?>
+
 <?php $resourceManager->jsFile('jquery.js', $resourceManager::NOW) ?>
 <?php $resourceManager->jsFile('jquery.form.js', $resourceManager::NOW) ?>
 <?php $resourceManager->jsFile('json2.js', $resourceManager::NOW) ?>

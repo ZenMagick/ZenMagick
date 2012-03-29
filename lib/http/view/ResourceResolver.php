@@ -89,7 +89,7 @@ class ResourceResolver extends ZMObject {
             }
 
             // add plugins as fallback fallback
-            foreach ($this->container->get('pluginService')->getAllPlugins(Runtime::getSettings()->get('zenmagick.base.context')) as $plugin) {
+            foreach ($this->container->get('pluginService')->getPluginsForContext(Runtime::getSettings()->get('zenmagick.base.context')) as $plugin) {
                 $ppath = $plugin->getPluginDirectory().'/content';
                 $path[] = $ppath;
                 foreach ($localeCodes as $code) {
@@ -135,7 +135,7 @@ class ResourceResolver extends ZMObject {
             }
 
             // add plugins as fallback fallback
-            foreach ($this->container->get('pluginService')->getAllPlugins(Runtime::getSettings()->get('zenmagick.base.context')) as $plugin) {
+            foreach ($this->container->get('pluginService')->getPluginsForContext(Runtime::getSettings()->get('zenmagick.base.context')) as $plugin) {
                 $ppath = $plugin->getPluginDirectory().'/content';
                 $path[] = $ppath;
                 foreach ($localeCodes as $code) {
@@ -287,10 +287,10 @@ class ResourceResolver extends ZMObject {
      * Find a given resource.
      *
      * @param string resource A relative path to the resource.
-     * @param string type The resource type.
+     * @param string type The resource type; default is <code>View::RESOURCE</code>.
      * @return string The path to the resource or <code>null</code>.
      */
-    public function findResource($resource, $type) {
+    public function findResource($resource, $type=View::RESOURCE) {
         list($resource, $type) = $this->resolveType($resource, $type);
         $locations = $this->getLocationsFor($type);
         foreach ($locations as $location) {

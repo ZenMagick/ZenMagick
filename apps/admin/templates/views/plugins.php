@@ -49,9 +49,8 @@
 <?php $admin2->title() ?>
 
 <table class="grid">
-  <?php foreach ($pluginList as $group => $plugins) { ?>
     <tr>
-      <th colspan="5"><a href="<?php echo $admin2->url(null, 'group='.$group) ?>"><?php echo sprintf(_zm("%s Plugins"), ucwords(str_replace('_', ' ', $group))) ?></a></th>
+      <th colspan="5"><?php _vzm('Plugins') ?></th>
     </tr>
     <tr>
       <th></th>
@@ -60,7 +59,7 @@
       <th><?php _vzm("Status") ?></th>
       <th><?php _vzm("Options") ?></th>
     </tr>
-    <?php foreach ($plugins as $plugin) { ?>
+    <?php foreach ($pluginList as $plugin) { ?>
       <tr>
         <td><input type="checkbox" name="multiUpdate[]" value="<?php echo $plugin->getId() ?>"></td>
         <td><a name="<?php echo $plugin->getId() ?>"></a><?php echo $plugin->getName() ?></td>
@@ -77,7 +76,6 @@
           <?php $msg = ($plugin->isInstalled() ? 'Remove ' : 'Install ').'plugin: '.$plugin->getName(); ?>
           <form action="<?php echo $admin2->url() ?>" method="POST" onsubmit="return ZenMagick.confirm('<?php echo $msg ?>', this);">
           <input type="hidden" name="pluginId" value="<?php echo $plugin->getId() ?>">
-          <input type="hidden" name="group" value="<?php echo $plugin->getGroup() ?>">
           <?php if (!$plugin->isInstalled()) { ?>
             <input type="hidden" name="action" value="install">
             <button class="<?php echo $buttonClasses ?>" type="submit">Install</button>
@@ -86,16 +84,15 @@
             <?php $cid = 'keepSettings-'.$plugin->getId(); ?>
             <input type="checkbox" id="<?php echo $cid ?>" name="keepSettings" value="true" checked> <label for="<?php echo $cid ?>"><?php _vzm('Keep plugin options') ?></label>
             <button class="<?php echo $buttonClasses ?>" type="submit">Uninstall</button>
-            <a class="<?php echo $buttonClasses ?>" href="<?php echo $admin2->url(null, 'action=upgrade&pluginId='.$plugin->getId().'&group='.$plugin->getGroup()) ?>#<?php echo $plugin->getId() ?>">Upgrade</a>
+            <a class="<?php echo $buttonClasses ?>" href="<?php echo $admin2->url(null, 'action=upgrade&pluginId='.$plugin->getId()) ?>#<?php echo $plugin->getId() ?>">Upgrade</a>
             <?php if ($plugin->hasOptions()) { /* enabled/disabled and sort order are handled by this page */ ?>
-            <a class="<?php echo $buttonClasses ?>" href="<?php echo $admin2->url(null, 'ajax=false&action=edit&pluginId='.$plugin->getId().'&group='.$plugin->getGroup()) ?>#<?php echo $plugin->getId() ?>" onclick="return ZenMagick.ajaxFormDialog(this.href, {title:'<?php echo sprintf(_zm('Edit Plugin Options: %s'), $plugin->getName()) ?>', formId: 'ajax-form'});">Edit</a>
+            <a class="<?php echo $buttonClasses ?>" href="<?php echo $admin2->url(null, 'ajax=false&action=edit&pluginId='.$plugin->getId()) ?>#<?php echo $plugin->getId() ?>" onclick="return ZenMagick.ajaxFormDialog(this.href, {title:'<?php echo sprintf(_zm('Edit Plugin Options: %s'), $plugin->getName()) ?>', formId: 'ajax-form'});">Edit</a>
           <?php } ?>
           <?php } ?>
           </form>
         </td>
       </tr>
     <?php } ?>
-  <?php } ?>
       <tr>
         <td><input type="checkbox" name="multi-update-toggle" value="" onclick="sync_all(this, 'multiUpdate[]')"></td>
         <td colspan="4">

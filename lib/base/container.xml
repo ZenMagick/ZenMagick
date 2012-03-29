@@ -18,6 +18,8 @@
             <parameter key="SwiftmailerBundle">Symfony\Bundle\SwiftmailerBundle\SwiftmailerBundle</parameter>
         </parameter>
 
+        <parameter key="zenmagick.base.plugins.defaultPluginClass">zenmagick\base\plugins\Plugin</parameter>
+
         <!-- main logging level -->
         <parameter key="zenmagick.base.logging.level">INFO</parameter>
 
@@ -62,7 +64,17 @@
 
         <service id="contextConfigLoader" class="zenmagick\base\utils\ContextConfigLoader" scope="prototype" />
 
-        <service id="pluginService" class="zenmagick\base\plugins\Plugins" scope="container" />
+        <service id="pluginService" class="zenmagick\base\plugins\Plugins" scope="container">
+            <call method="setCache">
+                <argument type="service" id="persistentCache" />
+            </call>
+        </service>
+
+        <service id="pluginStatusMapBuilder" class="zenmagick\base\plugins\PluginStatusMapBuilder" scope="container">
+            <call method="setDefaultPluginClass">
+              <argument>%zenmagick.base.plugins.defaultPluginClass%</argument>
+            </call>
+        </service>
 
         <service id="defaultLoggingHandler" class="zenmagick\base\logging\handler\DefaultLoggingHandler" scope="container">
             <call method="setLogLevel">

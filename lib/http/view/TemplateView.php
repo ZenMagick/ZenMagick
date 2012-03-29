@@ -301,7 +301,7 @@ class TemplateView extends ZMObject implements View {
         }
 
         // set all plugins
-        foreach ($this->container->get('pluginService')->getAllPlugins($settingsService->get('zenmagick.base.context')) as $plugin) {
+        foreach ($this->container->get('pluginService')->getPluginsForContext($settingsService->get('zenmagick.base.context')) as $plugin) {
             $this->setVariable($plugin->getId(), $plugin);
         }
 
@@ -328,10 +328,14 @@ class TemplateView extends ZMObject implements View {
             // render
             $output = $this->fetch($template, $variables);
 
+            // apply resources...
             if (null !== ($resources = $this->resourceManager->getResourceContents())) {
-                // apply resources...
                 $output = preg_replace('/<\/head>/', $resources['header'] . '</head>', $output, 1);
                 $output = preg_replace('/<\/body>/', $resources['footer'] . '</body>', $output, 1);
+            }
+            // and resources
+            foreach ($this->resourceManager->getFragments() as $key => $value) {
+                $output = str_replace($key, $value, $output);
             }
 
             return $output;
@@ -354,47 +358,6 @@ class TemplateView extends ZMObject implements View {
         // render
         $engine = $this->getEngine();
         return $engine->render($template, array_merge($variables, $this->getVariables()));
-    }
-
-    /**
-     * Resolve the given (relative) templates filename into a url.
-     *
-     * @param string file The file, relative to the template path.
-     * @return string A url or empty string.
-     * @todo: move elsewhere
-     */
-    public function asUrl($file) {
-        if (null != ($path = $this->resourceResolver->findResource($file, View::TEMPLATE))) {
-            if (null != ($uri= $this->file2uri($path))) {
-                $url = $this->request->absoluteURL($uri);
-                Runtime::getLogging()->log(sprintf('resolved file "%s" as url: %s; path=%s', $file, $url, $path), Logging::TRACE);
-                return $url;
-            }
-        }
-
-        Runtime::getLogging()->warn(sprintf('cannot resolve file "%s" to url', $file));
-        return '';
-    }
-
-    /**
-     * Convert a full fs path to uri.
-     *
-     * @param string filename The full filename.
-     * @return string The uri or <code>null</code> if the filename is invalid.
-     * @todo: move elsewhere together with asUrl
-     */
-    protected function file2uri($filename) {
-        $filename = realpath($filename);
-        $docRoot = realpath($this->request->getDocRoot());
-        if (empty($filename) || empty($docRoot)) {
-            return null;
-        }
-        if (0 !== strpos($filename, $docRoot)) {
-            // outside docroot
-            return null;
-        }
-
-        return str_replace(DIRECTORY_SEPARATOR, '/', substr($filename, strlen($docRoot)));
     }
 
 }

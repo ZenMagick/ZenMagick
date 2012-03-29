@@ -40,50 +40,21 @@ class PluginsController extends \ZMController {
      * {@inheritDoc}
      */
     public function getViewData($request) {
-        // TODO: make flat list
-        $pluginList['general'] = $this->container->get('pluginService')->getAllPlugins(0, false);
+        $pluginList = $this->container->get('pluginService')->getPluginsForContext(null, false);
         return array('pluginList' => $pluginList);
-    }
-
-    /**
-     * Get the plugin type.
-     *
-     * @param ZMPlugin plugin The plugin.
-     * @return String The type.
-     */
-    protected function getPluginType($plugin) {
-        $types = array();
-        foreach (self::$TYPE_MAP as $name => $type) {
-            if ($plugin instanceof $type) {
-                $types[] = $name;
-            }
-        }
-
-        if (empty($types)) {
-            $types[] = 'general';
-        }
-
-        return implode(',', $types);
     }
 
     /**
      * Refresh plugin status data.
      */
-    protected function refreshPluginStatus() {
-        $pluginStatus = array();
-        foreach ($this->container->get('pluginService')->getAllPlugins(null, false) as $plugin) {
-            $pluginStatus[$plugin->getId()] = array(
-                'type' => $this->getPluginType($plugin),
-                'scope' => $plugin->getScope(),
-                'installed' => $plugin->isInstalled(),
-                'enabled' => $plugin->isEnabled(),
-                'context' => $plugin->getContext(),
-                'order' => $plugin->getSortOrder()
-            );
+    protected function refreshPluginCache() {
+        $pluginService = $this->container->get('pluginService');
+        if (null != ($cache = $pluginService->getCache())) {
+            $this->container->get('loggingService')->log('updating plugin cache...', Logging::TRACE);
+            $pluginStatusMapBuilder = $this->container->get('pluginStatusMapBuilder');
+            $statusMap = $pluginStatusMapBuilder->buildStatusMap();
+            $cache->save($statusMap, $pluginService::STATUS_MAP_KEY);
         }
-        // update in db
-        Runtime::getLogging()->log('updating plugin status...', Logging::TRACE);
-        $this->container->get('configService')->updateConfigValue('ZENMAGICK_PLUGIN_STATUS', serialize($pluginStatus));
     }
 
     /**
@@ -96,7 +67,7 @@ class PluginsController extends \ZMController {
         $viewId = null;
 
         if ('upgrade' == $action) {
-            if (null != ($plugin = $this->container->get('pluginService')->initPluginForId($pluginId, false)) && $plugin->isInstalled()) {
+            if (null != ($plugin = $this->container->get('pluginService')->getPluginForId($pluginId)) && $plugin->isInstalled()) {
                 Runtime::getLogging()->log('upgrade plugin: '.$plugin->getId(), Logging::TRACE);
                 $plugin->upgrade();
                 $this->messageService->success(sprintf(_zm('Plugin %s upgraded successfully'), $plugin->getName()));
@@ -104,12 +75,12 @@ class PluginsController extends \ZMController {
                 $viewId = 'success-upgrade';
             }
         } else if ('edit' == $action) {
-            if (null != ($plugin = $this->container->get('pluginService')->initPluginForId($pluginId, false)) && $plugin->isInstalled()) {
+            if (null != ($plugin = $this->container->get('pluginService')->getPluginForId($pluginId)) && $plugin->isInstalled()) {
                 return $this->findView('plugin-conf', array('plugin' => $plugin));
             }
         }
 
-        $this->refreshPluginStatus();
+        $this->refreshPluginCache();
         return $this->findView($viewId);
     }
 
@@ -134,21 +105,24 @@ class PluginsController extends \ZMController {
             $multiPluginId = explode(',', $multiPluginId);
         }
 
+        $pluginService = $this->container->get('pluginService');
+        // force loading all
+        $pluginService->getPluginsForContext(null, false);
+
         $viewId = null;
 
         foreach ($multiPluginId as $pluginId) {
             if ('install' == $action) {
-                if (null != ($plugin = $this->container->get('pluginService')->initPluginForId($pluginId, false)) && !$plugin->isInstalled()) {
+                if (null != ($plugin = $pluginService->getPluginForId($pluginId)) && !$plugin->isInstalled()) {
                     Runtime::getLogging()->log('install plugin: '.$plugin->getId(), Logging::TRACE);
                     $plugin->install();
                     $this->messageService->success(sprintf(_zm('Plugin %s installed successfully'), $plugin->getName()));
                     $this->messageService->addAll($plugin->getMessages());
                     $viewId = 'success-install';
-                } else {
                 }
             } else if ('uninstall' == $action) {
                 $keepSettings = Toolbox::asBoolean($request->getParameter('keepSettings', false));
-                if (null != ($plugin = $this->container->get('pluginService')->initPluginForId($pluginId, true)) && $plugin->isInstalled()) {
+                if (null != ($plugin = $pluginService->getPluginForId($pluginId)) && $plugin->isInstalled()) {
                     Runtime::getLogging()->log('un-install plugin: '.$plugin->getId() . '; keepSettings: '.($keepSettings?'true':'false'), Logging::TRACE);
                     $plugin->remove($keepSettings);
                     $this->messageService->success(sprintf(_zm('Plugin %s un-installed successfully'), $plugin->getName()));
@@ -156,7 +130,7 @@ class PluginsController extends \ZMController {
                     $viewId = 'success-uninstall';
                 }
             } else if ('upgrade' == $action) {
-                if (null != ($plugin = $this->container->get('pluginService')->initPluginForId($pluginId, true)) && $plugin->isInstalled()) {
+                if (null != ($plugin = $pluginService->getPluginForId($pluginId)) && $plugin->isInstalled()) {
                     Runtime::getLogging()->log('upgrade plugin: '.$plugin->getId(), Logging::TRACE);
                     $plugin->upgrade();
                     $this->messageService->success(sprintf(_zm('Plugin %s upgraded successfully'), $plugin->getName()));
@@ -164,7 +138,7 @@ class PluginsController extends \ZMController {
                     $viewId = 'success-upgrade';
                 }
             } else if ('update' == $action) {
-                if (null != ($plugin = $this->container->get('pluginService')->initPluginForId($pluginId, false)) && $plugin->isInstalled()) {
+                if (null != ($plugin = $pluginService->getPluginForId($pluginId)) && $plugin->isInstalled()) {
                     foreach ($plugin->getConfigValues() as $widget) {
                         if ($widget instanceof FormWidget && null !== ($value = $request->getParameter($widget->getName()))) {
                             if (!$widget->compare($value)) {
@@ -176,7 +150,7 @@ class PluginsController extends \ZMController {
                     }
                 }
             } else if ('enable' == $action) {
-                if (null != ($plugin = $this->container->get('pluginService')->initPluginForId($pluginId, false)) && $plugin->isInstalled()) {
+                if (null != ($plugin = $pluginService->getPluginForId($pluginId)) && $plugin->isInstalled()) {
                     Runtime::getLogging()->log('enable plugin: '.$plugin->getId(), Logging::TRACE);
                     $plugin->setEnabled(true);
                     $this->messageService->success(sprintf(_zm('Plugin %s enabled successfully'), $plugin->getName()));
@@ -184,7 +158,7 @@ class PluginsController extends \ZMController {
                     $viewId = 'success-enable';
                 }
             } else if ('disable' == $action) {
-                if (null != ($plugin = $this->container->get('pluginService')->initPluginForId($pluginId, true)) && $plugin->isInstalled()) {
+                if (null != ($plugin = $pluginService->getPluginForId($pluginId)) && $plugin->isInstalled()) {
                     Runtime::getLogging()->log('disable plugin: '.$plugin->getId(), Logging::TRACE);
                     $plugin->setEnabled(false);
                     $this->messageService->success(sprintf(_zm('Plugin %s disabled successfully'), $plugin->getName()));
@@ -195,7 +169,7 @@ class PluginsController extends \ZMController {
         }
 
         // do this last once all changes are made
-        $this->refreshPluginStatus();
+        $this->refreshPluginCache();
         return $this->findView($viewId);
     }
 

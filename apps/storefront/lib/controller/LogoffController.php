@@ -53,10 +53,6 @@ class LogoffController extends \ZMController {
             return $this->findView('success', array(), array('url' => $lastUrl));
         }
 
-
-        // display page
-        $request->getToolbox()->crumbtrail->addCrumb($request->getToolbox()->utils->getTitle());
-
         return $this->findView();
     }
 

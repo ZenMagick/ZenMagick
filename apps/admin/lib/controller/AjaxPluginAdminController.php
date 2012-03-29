@@ -36,7 +36,11 @@ class AjaxPluginAdminController extends \ZMRpcController {
 
         $rpcResponse = $rpcRequest->createResponse();
 
-        if (null != ($plugin = $this->container->get('pluginService')->initPluginForId($pluginId, false))) {
+        $pluginService = $this->container->get('pluginService');
+        // force loading all
+        $pluginService->getPluginsForContext(null, false);
+
+        if (null != ($plugin = $pluginService->getPluginForId($pluginId))) {
             if (!$plugin->isInstalled()) {
                 $plugin->install();
                 foreach ($plugin->getMessages() as $msg) {
@@ -66,13 +70,16 @@ class AjaxPluginAdminController extends \ZMRpcController {
         $rpcResponse = $rpcRequest->createResponse();
 
         $pluginService = $this->container->get('pluginService');
-        if (null != ($plugin = $pluginService->initPluginForId($remove, true)) && $plugin->isInstalled()) {
+        // force loading all
+        $pluginService->getPluginsForContext(null, false);
+
+        if (null != ($plugin = $pluginService->getPluginForId($remove)) && $plugin->isInstalled()) {
             $plugin->remove();
             foreach ($plugin->getMessages() as $msg) {
                 $rpcResponse->addMessage($msg, 'info');
             }
         }
-        if (null != ($plugin = $pluginService->initPluginForId($pluginId, false))) {
+        if (null != ($plugin = $pluginService->getPluginForId($pluginId))) {
             if ($plugin->isInstalled()) {
                 $plugin->remove();
                 $rpcResponse->setStatus(true);
@@ -102,7 +109,11 @@ class AjaxPluginAdminController extends \ZMRpcController {
 
         $rpcResponse = $rpcRequest->createResponse();
 
-        if (null == ($plugin = $this->container->get('pluginService')->initPluginForId($pluginId, false))) {
+        $pluginService = $this->container->get('pluginService');
+        // force loading all
+        $pluginService->getPluginsForContext(null, false);
+
+        if (null == ($plugin = $pluginService->getPluginForId($pluginId))) {
             $rpcResponse->setStatus(false);
             $rpcResponse->addMessage(_zm('Invalid plugin id'), 'error');
         } else {

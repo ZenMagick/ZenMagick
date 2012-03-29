@@ -155,7 +155,7 @@ class ZMPhpEngine extends ZMObject implements EngineInterface {
      * @return string A url or empty string.
      */
     public function asUrl($file) {
-        return $this->view->asUrl($file);
+        return $this->view->getResourceManager()->resolveResource($file);
     }
 
     /**
@@ -206,6 +206,17 @@ class ZMPhpEngine extends ZMObject implements EngineInterface {
             Beans::setAll($wObj, $args);
         }
         return $wObj->render($this->request, $this->view);
+    }
+
+    /**
+     * Fragment handling - either set a fragment marker or populate a fragment.
+     *
+     * @param string name The fragment name.
+     * @param string value The fragment value; default is <code>null</code> to set a marker.
+     * @return string The fragment marker content or an empty string on a set.
+     */
+    public function fragment($name, $value=null) {
+        return $this->view->getResourceManager()->fragment($name, $value);
     }
 
 }

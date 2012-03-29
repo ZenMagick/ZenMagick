@@ -72,10 +72,7 @@
       </div>
 
       <div id="content">
-        <?php if ('index' != $request->getRequestId()) { ?>
-            <?php echo $macro->buildCrumbtrail($crumbtrail, " &gt; "); ?>
-        <?php } ?>
-
+        <div id="crumbtrail"><?php echo $this->fragment('crumbtrail') ?></div>
         <div id="bannerThree"><?php echo $this->fetchBlockGroup('banners.header3') ?></div>
 
         <?php if ($messageService->hasMessages()) { ?>
@@ -87,6 +84,7 @@
         <?php } ?>
 
         <?php echo $this->fetch($viewTemplate); ?>
+        <?php $this->fragment('crumbtrail', $macro->buildCrumbtrail($crumbtrail, " &gt; ")) ?>
 
         <div id="bannerFour"><?php echo $this->fetchBlockGroup('banners.footer1') ?></div>
       </div>

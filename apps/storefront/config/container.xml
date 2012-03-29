@@ -12,8 +12,6 @@
     <services>
         <service id="request" class="zenmagick\apps\store\storefront\http\Request" scope="container" />
 
-        <service id="pluginService" class="Plugins" scope="container" />
-
         <service id="session" class="zenmagick\apps\store\storefront\http\Session" scope="container">
             <argument>%apps.store.storefront.domain%</argument>
             <call method="setName">

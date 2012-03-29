@@ -38,6 +38,7 @@ class ResourceManager extends ZMObject {
     private $resources_;
     private $resourcesAsTemplates_;
     private $view;
+    private $fragments;
 
 
     /**
@@ -48,6 +49,7 @@ class ResourceManager extends ZMObject {
         $this->resources_ = array('css' => array(), 'js' => array());
         $this->resourcesAsTemplates_ = false;
         $this->view = null;
+        $this->fragments = array();
     }
 
 
@@ -179,9 +181,7 @@ class ResourceManager extends ZMObject {
     }
 
     /**
-     * Resolve resource path.
-     *
-     * <p>This default implementation does nothing but return the result of: <code>$view->asUrl($filename);</code>.</p>
+     * Resolve resource path as url.
      *
      * @param string resource The (relative) path to the resource.
      * @return string The resolved final URL.
@@ -195,8 +195,38 @@ class ResourceManager extends ZMObject {
             // absolute path
             return $resource;
         } else {
-            return $this->view->asUrl(($this->resourcesAsTemplates_ ? View::TEMPLATE : View::RESOURCE).$resource);
+            $type = $this->resourcesAsTemplates_ ? View::TEMPLATE : View::RESOURCE;
+            if (null != ($path = $this->view->getResourceResolver()->findResource($resource, $type))) {
+                if (null != ($uri= $this->file2uri($path))) {
+                    $url = $this->view->getRequest()->absoluteURL($uri);
+                    Runtime::getLogging()->log(sprintf('resolved file "%s" as url: %s; path=%s', $resource, $url, $path), Logging::TRACE);
+                    return $url;
+                }
+            }
+
+            Runtime::getLogging()->warn(sprintf('cannot resolve file "%s" to url', $resource));
+            return '';
         }
+    }
+
+    /**
+     * Convert a full fs path to uri.
+     *
+     * @param string filename The full filename.
+     * @return string The uri or <code>null</code> if the filename is invalid.
+     */
+    protected function file2uri($filename) {
+        $filename = realpath($filename);
+        $docRoot = realpath($this->view->getRequest()->getDocRoot());
+        if (empty($filename) || empty($docRoot)) {
+            return null;
+        }
+        if (0 !== strpos($filename, $docRoot)) {
+            // outside docroot
+            return null;
+        }
+
+        return str_replace(DIRECTORY_SEPARATOR, '/', substr($filename, strlen($docRoot)));
     }
 
     /**
@@ -293,6 +323,28 @@ class ResourceManager extends ZMObject {
         $contents['footer'] .= $this->handleResourceGroup($footer, 'js', self::FOOTER);
 
         return $contents;
+    }
+
+    /**
+     * Fragment handling - either set a fragment marker or populate a fragment.
+     *
+     * @param string name The fragment name.
+     * @param string value The fragment value; default is <code>null</code> to set a marker.
+     * @return string The fragment marker content or an empty string on a set.
+     */
+    public function fragment($name, $value=null) {
+        $key = sprintf('<!--ZenMagick:fragment:%s-->', $name);
+        $this->fragments[$key] = $value;
+        return $key;
+    }
+
+    /**
+     * Get the fragments map.
+     *
+     * @return array Map of fragment key =&gt; value pairs.
+     */
+    public function getFragments() {
+        return $this->fragments;
     }
 
 }

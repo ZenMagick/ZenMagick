@@ -71,9 +71,7 @@
       </div>
 
       <div id="main">
-        <?php if (!ZMLangUtils::inArray($request->getRequestId(), 'index')) { ?>
-            <?php echo $macro->buildCrumbtrail($crumbtrail, " &gt; "); ?>
-        <?php } ?>
+        <div id="crumbtrail"><?php echo $this->fragment('crumbtrail') ?></div>
 
         <?php if ($messageService->hasMessages()) { ?>
             <ul id="messages">
@@ -84,6 +82,7 @@
         <?php } ?>
 
         <?php echo $this->fetch($viewTemplate); ?>
+        <?php $this->fragment('crumbtrail', $macro->buildCrumbtrail($crumbtrail, " &gt; ")) ?>
       </div>
 
       <div id="rightbar">
@@ -100,7 +99,7 @@
 
     <div class="footer-left">
       <p class="align-left">
-      &copy; 2008 <strong>ZenMagick</strong> |
+      &copy; 2008-2012 <strong>ZenMagick</strong> |
       Design by <a href="http://www.styleshout.com/">styleshout</a> |
       Valid <a href="http://validator.w3.org/check/referer">XHTML</a> |
       <a href="http://jigsaw.w3.org/css-validator/check/referer">CSS</a>
