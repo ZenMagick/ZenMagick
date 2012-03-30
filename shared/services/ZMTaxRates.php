@@ -28,7 +28,7 @@ use zenmagick\base\ZMObject;
 /**
  * Tax rates.
  *
- * <p>Rate values will have a precision that is 2 digits more than <em>ZMSettings::get('calculationDecimals')</em>.</p>
+ * <p>Rate values will have a precision that is 2 digits more than <em>$settingsService->get('calculationDecimals')</em>.</p>
  *
  * @author DerManoMann
  * @package zenmagick.store.shared.services
@@ -70,6 +70,7 @@ class ZMTaxRates extends ZMObject {
      * @return ZMTaxRate The tax rate.
      */
     public function getTaxRateForClassId($taxClassId, $countryId=0, $zoneId=0) {
+        $settingsService = $this->container->get('settingsService');
         if (0 == $countryId && 0 == $zoneId) {
             $account = $this->container->get('request')->getAccount();
             if (null != $account && ZMAccount::ANONYMOUS == $account->getType()) {
@@ -78,12 +79,12 @@ class ZMTaxRates extends ZMObject {
                     $zoneId = $defaultAddress->getZoneId();
                     $countryId = $defaultAddress->getCountryId();
                 } else {
-                    $zoneId = ZMSettings::get('storeZone');
-                    $countryId = ZMSettings::get('storeCountry');
+                    $zoneId = $settingsService->get('storeZone');
+                    $countryId = $settingsService->get('storeCountry');
                 }
             } else {
-                $zoneId = ZMSettings::get('storeZone');
-                $countryId = ZMSettings::get('storeCountry');
+                $zoneId = $settingsService->get('storeZone');
+                $countryId = $settingsService->get('storeCountry');
             }
         }
 
@@ -93,8 +94,8 @@ class ZMTaxRates extends ZMObject {
             return $this->taxRates_[$taxRateId];
         }
 
-        if (self::TAX_BASE_STORE == ZMSettings::get('productTaxBase')) {
-            if (ZMSettings::get('storeZone') != $zoneId) {
+        if (self::TAX_BASE_STORE == $settingsService->get('productTaxBase')) {
+            if ($settingsService->get('storeZone') != $zoneId) {
                 $taxRate = Beans::getBean("ZMTaxRate");
                 $taxRate->setId($taxRateId);
                 $taxRate->setClassId($taxClassId);
@@ -163,7 +164,7 @@ class ZMTaxRates extends ZMObject {
         $args = array('taxClassId' => $taxClassId, 'countryId' => $countryId, 'zoneId' => $zoneId);
         $description = null;
         foreach (ZMRuntime::getDatabase()->fetchAll($sql, $args, array(TABLE_TAX_RATES, TABLE_ZONES_TO_GEO_ZONES, TABLE_GEO_ZONES)) as $result) {
-            if (null !== $description) { $description .= _zm(ZMSettings::get('tax.delim', ' + ')); }
+            if (null !== $description) { $description .= _zm($this->container->get('settingsService')->get('tax.delim', ' + ')); }
             $description .= $result['description'];
         }
         return $description;
@@ -177,7 +178,8 @@ class ZMTaxRates extends ZMObject {
      */
     public function getTaxRateForDescription($description) {
         $rate = 0.00;
-        $descriptions = explode(_zm(ZMSettings::get('tax.delim', ' + ')), $description);
+        $settingsService = $this->container->get('settingsService');
+        $descriptions = explode(_zm($settingsService->get('tax.delim', ' + ')), $description);
         foreach ($descriptions as $description) {
             $sql = "SELECT tax_rate
                     FROM " . TABLE_TAX_RATES . "
@@ -189,7 +191,7 @@ class ZMTaxRates extends ZMObject {
         }
 
         // round 2 better as calculations use
-        return round($rate, ZMSettings::get('calculationDecimals') + 2);
+        return round($rate, $settingsService->get('calculationDecimals') + 2);
     }
 
     /**
@@ -216,6 +218,7 @@ class ZMTaxRates extends ZMObject {
      * @return array List of <code>ZMTaxRate</code> instances.
      */
     public function getTaxRatesForClassId($taxClassId, $countryId=0, $zoneId=0) {
+        $settingsService = $this->container->get('settingsService');
         if (0 == $countryId && 0 == $zoneId) {
             $account = $this->container->get('request')->getAccount();
             if (null != $account && ZMAccount::ANONYMOUS == $account->getType()) {
@@ -224,12 +227,12 @@ class ZMTaxRates extends ZMObject {
                     $zoneId = $defaultAddress->getZoneId();
                     $countryId = $defaultAddress->getCountryId();
                 } else {
-                    $zoneId = ZMSettings::get('storeZone');
-                    $countryId = ZMSettings::get('storeCountry');
+                    $zoneId = $settingsService->get('storeZone');
+                    $countryId = $settingsService->get('storeCountry');
                 }
             } else {
-                $zoneId = ZMSettings::get('storeZone');
-                $countryId = ZMSettings::get('storeCountry');
+                $zoneId = $settingsService->get('storeZone');
+                $countryId = $settingsService->get('storeCountry');
             }
         }
 
