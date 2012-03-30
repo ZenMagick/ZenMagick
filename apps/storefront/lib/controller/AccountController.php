@@ -35,8 +35,6 @@ class AccountController extends \ZMController {
      * {@inheritDoc}
      */
     public function processGet($request) {
-        $request->getToolbox()->crumbtrail->addCrumb($request->getToolbox()->utils->getTitle());
-
         // orders are sorted desc...
         $resultSource = new \ZMObjectResultSource('ZMOrder', 'orderService', "getOrdersForAccountId", array($request->getAccountId(), $request->getSession()->getLanguageId()));
         $resultList = Runtime::getContainer()->get('ZMResultList');

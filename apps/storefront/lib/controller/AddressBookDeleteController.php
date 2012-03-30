@@ -32,15 +32,6 @@ class AddressBookDeleteController extends \ZMController {
     /**
      * {@inheritDoc}
      */
-    public function preProcess($request) {
-        $request->getToolbox()->crumbtrail->addCrumb("Account", $request->url('account', '', true));
-        $request->getToolbox()->crumbtrail->addCrumb("Address Book", $request->url('address_book', '', true));
-        $request->getToolbox()->crumbtrail->addCrumb("Delete");
-    }
-
-    /**
-     * {@inheritDoc}
-     */
     public function processGet($request) {
         $address = $this->container->get('addressService')->getAddressForId($request->getParameter('id'));
         return $this->findView(null, array('address' => $address));

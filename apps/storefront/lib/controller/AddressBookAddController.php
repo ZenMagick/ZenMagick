@@ -35,15 +35,6 @@ class AddressBookAddController extends \ZMController {
     /**
      * {@inheritDoc}
      */
-    public function preProcess($request) {
-        $request->getToolbox()->crumbtrail->addCrumb("Account", $request->url('account', '', true));
-        $request->getToolbox()->crumbtrail->addCrumb("Address Book", $request->url('address_book', '', true));
-        $request->getToolbox()->crumbtrail->addCrumb("New Entry");
-    }
-
-    /**
-     *{@inheritDoc}
-     */
     public function processPost($request) {
         $addressService = $this->container->get('addressService');
         $address = $this->getFormData($request);

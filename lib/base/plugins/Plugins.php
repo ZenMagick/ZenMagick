@@ -23,6 +23,7 @@ use zenmagick\base\Beans;
 use zenmagick\base\Runtime;
 use zenmagick\base\Toolbox;
 use zenmagick\base\ZMObject;
+use zenmagick\base\cache\Cache;
 use zenmagick\base\classloader\ClassLoader;
 
 use zenmagick\apps\store\utils\ContextConfigLoader;
@@ -66,7 +67,7 @@ class Plugins extends ZMObject {
      *
      * @param zenmagick\base\cache\Cache cache The cache.
      */
-    public function setCache($cache) {
+    public function setCache(Cache $cache) {
         $this->cache = $cache;
     }
 

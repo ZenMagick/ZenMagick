@@ -22,6 +22,7 @@
  */
 ?>
 
+<?php $crumbtrail->addCrumb(_zm('Account')) ?>
 <fieldset>
     <legend><?php _vzm("My Account") ?></legend>
     <ul>

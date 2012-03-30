@@ -22,6 +22,7 @@
  */
 ?>
 
+<?php $crumbtrail->addCrumb(_zm('Account'), $net->url('account', '', true))->addCrumb(_zm('Addresses'), $net->url('address_book', '', true))->addCrumb(_zm('Delete')) ?>
 <p><?php _vzm("Are you sure you would like to delete the selected address from your address book?") ?></p>
 <?php echo $form->open('address_book_delete', '', true, array('onsubmit'=>null)) ?>
     <fieldset>

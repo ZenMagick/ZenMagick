@@ -34,11 +34,7 @@ class AddressBookController extends \ZMController {
      * {@inheritDoc}
      */
     public function processGet($request) {
-        $request->getToolbox()->crumbtrail->addCrumb("Account", $request->url('account', '', true));
-        $request->getToolbox()->crumbtrail->addCrumb($request->getToolbox()->utils->getTitle());
-
         $addressList = $this->container->get('addressService')->getAddressesForAccountId($request->getAccountId());
-
         return $this->findView(null, array('addressList' => $addressList));
     }
 

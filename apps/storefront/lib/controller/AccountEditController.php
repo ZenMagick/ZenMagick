@@ -35,14 +35,6 @@ class AccountEditController extends \ZMController {
     /**
      * {@inheritDoc}
      */
-    public function preProcess($request) {
-        $request->getToolbox()->crumbtrail->addCrumb("Account", $request->url('account', '', true));
-        $request->getToolbox()->crumbtrail->addCrumb($request->getToolbox()->utils->getTitle());
-    }
-
-    /**
-     * {@inheritDoc}
-     */
     public function processGet($request) {
         return $this->findView(null, array('account' => $request->getAccount()));
     }

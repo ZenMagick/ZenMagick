@@ -22,6 +22,7 @@
  */
 ?>
 
+<?php $crumbtrail->addCrumb(_zm('Account'), $net->url('account', '', true))->addCrumb(_zm('Addresses')) ?>
 <?php foreach ($addressList as $address) { ?>
     <fieldset>
         <legend><?php echo $html->encode($address->getFirstName() . ' ' . $address->getLastName()) ?>
