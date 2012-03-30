@@ -160,10 +160,7 @@ class EventFixes extends ZMObject {
             Runtime::getSettings()->set('zenmagick.base.locales.locale', $language->getCode());
         }
 
-        // TODO: remove once new admin is go
-        if (!Runtime::isContextMatch('admin')) {
-            $this->sanitizeRequest($request);
-        }
+        $this->sanitizeRequest($request);
 
         // START: zc_fixes
         // simulate the number of uploads parameter for add to cart
