@@ -155,7 +155,11 @@ class ZMPhpEngine extends ZMObject implements EngineInterface {
      * @return string A url or empty string.
      */
     public function asUrl($file) {
-        return $this->view->getResourceManager()->resolveResource($file);
+        if (null != ($path = $this->view->getResourceResolver()->findResource($file, View::TEMPLATE))) {
+            return $this->view->getResourceManager()->file2uri($path);
+        }
+
+        return null;
     }
 
     /**

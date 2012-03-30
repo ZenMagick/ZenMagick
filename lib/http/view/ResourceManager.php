@@ -204,7 +204,6 @@ class ResourceManager extends ZMObject {
                 }
             }
 
-            Runtime::getLogging()->warn(sprintf('cannot resolve file "%s" to url', $resource));
             return '';
         }
     }
@@ -215,14 +214,16 @@ class ResourceManager extends ZMObject {
      * @param string filename The full filename.
      * @return string The uri or <code>null</code> if the filename is invalid.
      */
-    protected function file2uri($filename) {
+    public function file2uri($filename) {
         $filename = realpath($filename);
         $docRoot = realpath($this->view->getRequest()->getDocRoot());
         if (empty($filename) || empty($docRoot)) {
+            Runtime::getLogging()->warn(sprintf('cannot convert t"%s" to url; docroot: %s', $filename, $docRoot));
             return null;
         }
         if (0 !== strpos($filename, $docRoot)) {
             // outside docroot
+            Runtime::getLogging()->warn(sprintf('cannot convert t"%s" to url (basedir); docroot: %s', $filename, $docRoot));
             return null;
         }
 
