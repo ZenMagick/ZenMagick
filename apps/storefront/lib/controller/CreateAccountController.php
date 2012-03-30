@@ -124,7 +124,7 @@ class CreateAccountController extends \ZMController {
             $gvReceiver->setEmail($account->getEmail());
             // the sender
             $senderAccount = $this->container->get('ZMAccount');
-            $senderAccount->setFirstName($settingsService->('storeName'));
+            $senderAccount->setFirstName($settingsService->get('storeName'));
             $couponService->createCouponTracker($coupon, $senderAccount, $gvReceiver);
             $newAccountGVAmountCoupon = $coupon;
         }
