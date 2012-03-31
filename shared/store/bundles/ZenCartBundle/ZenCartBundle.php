@@ -48,7 +48,11 @@ class ZenCartBundle extends Bundle {
      * {@inheritDoc}
      */
     public function boot() {
-        define('ZC_INSTALL_PATH', dirname(Runtime::getInstallationPath()).DIRECTORY_SEPARATOR);
+        $settingsService = Runtime::getSettings();
+        if (null == $settingsService->get('apps.store.zencart.path')) { // @todo or default to vendors/zencart?
+            $settingsService->set('apps.store.zencart.path', dirname(Runtime::getInstallationPath()));
+        }
+        define('ZC_INSTALL_PATH', $settingsService->get('apps.store.zencart.path') .'/');
 
         $eventDispatcher = Runtime::getEventDispatcher();
         $eventDispatcher->addListener('init_config_done', array($this, 'onInitConfigDone'), 5);
