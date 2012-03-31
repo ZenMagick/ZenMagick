@@ -341,22 +341,6 @@ class Request extends \ZMRequest {
     }
 
     /**
-     * {@inheritDoc}
-     */
-    public function getTemplatePath() {
-        // for storefront both templates and resources are relative to the installation folder
-        return dirname(Runtime::getInstallationPath()).DIRECTORY_SEPARATOR;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function getWebPath() {
-        // for storefront both templates and resources are relative to the installation folder
-        return dirname(Runtime::getInstallationPath()).DIRECTORY_SEPARATOR;
-    }
-
-    /**
      * Set the last URL.
      */
     public function setLastUrl() {

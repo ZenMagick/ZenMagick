@@ -556,24 +556,6 @@ class ZMRequest extends ZMObject {
     }
 
     /**
-     * Get the template path.
-     *
-     * @return string The path.
-     */
-    public function getTemplatePath() {
-        return Runtime::getApplicationPath().'templates/';
-    }
-
-    /**
-     * Get the web path.
-     *
-     * @return string The path.
-     */
-    public function getWebPath() {
-        return Runtime::getApplicationPath().'web/';
-    }
-
-    /**
      * Save this request as follow up URL.
      *
      * <p>Typically this happends when a request is received without valid authority.
@@ -631,10 +613,10 @@ class ZMRequest extends ZMObject {
     public function closeSession() {
         $session = $this->getSession();
         if ($session->getData()) {
-            if (!$session->isStarted()) {
+            if ($session->isStarted()) {
                 $session->start();
+                $session->close();
             }
-            $session->close();
         }
     }
 
