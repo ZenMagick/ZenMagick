@@ -3,6 +3,7 @@ use zenmagick\base\Runtime;
 
 $settings = Runtime::getSettings();
 $request = Runtime::getContainer()->get('request');
+$zcPath = $settings->get('apps.store.zencart.path');
 /**
  * admin/storefront configure.php defines
  */
@@ -50,9 +51,9 @@ define('DIR_WS_MODULES', 'includes/modules/');
 define('DIR_WS_TEMPLATES', 'includes/templates/');
 define('DIR_WS_UPLOADS', 'images/uploads/');
 
-define('DIR_FS_CATALOG', ZC_INSTALL_PATH);
-define('DIR_FS_ADMIN', ZC_INSTALL_PATH.$settings->get('apps.store.zencart.admindir').'/');
-define('DIR_FS_CACHE', ZC_INSTALL_PATH.'/cache/');
+define('DIR_FS_CATALOG', $zcPath.'/');
+define('DIR_FS_ADMIN', $zcPath.'/'.$settings->get('apps.store.zencart.admindir').'/');
+define('DIR_FS_CACHE', $zcPath.'/cache/');
 define('DIR_FS_CATALOG_LANGUAGES', DIR_FS_CATALOG.'includes/languages/');
 define('DIR_FS_CATALOG_IMAGES', DIR_FS_CATALOG.'images/');
 define('DIR_FS_CATALOG_MODULES', DIR_FS_CATALOG.'includes/modules/');
@@ -60,7 +61,7 @@ define('DIR_FS_CATALOG_TEMPLATES', DIR_FS_CATALOG.'includes/templates/');
 define('DIR_FS_DOWNLOAD', DIR_FS_CATALOG.'download/');
 define('DIR_FS_DOWNLOAD_PUBLIC', DIR_FS_CATALOG.'pub/');
 define('DIR_FS_EMAIL_TEMPLATES', DIR_FS_CATALOG.'email/');
-define('DIR_FS_SQL_CACHE', ZC_INSTALL_PATH.'/cache/');
+define('DIR_FS_SQL_CACHE', $zcPath.'/cache/');
 define('DIR_FS_UPLOADS', DIR_FS_CATALOG.DIR_WS_UPLOADS);
 
 define('SQL_CACHE_METHOD', 'none'); // none,database,file

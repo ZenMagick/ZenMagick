@@ -19,9 +19,8 @@
  */
 namespace zenmagick\apps\store\admin\installation\patches\file;
 
+use zenmagick\base\Runtime;
 use zenmagick\apps\store\admin\installation\patches\FilePatch;
-
-define('_ZM_ZEN_EMAIL_FILE', ZC_INSTALL_PATH . '/includes/functions/functions_email.php');
 
 /**
  * Patch to replace zen_mail for supported email types.
@@ -29,13 +28,8 @@ define('_ZM_ZEN_EMAIL_FILE', ZC_INSTALL_PATH . '/includes/functions/functions_em
  * @author DerManoMann <mano@zenmagick.org>
  */
 class EmailPatch extends FilePatch {
-    var $fktFilesCfg_ = array(
-        _ZM_ZEN_EMAIL_FILE => array(
-            array('zen_mail', '_org'),
-            array('zen_build_html_email_from_template', '_org')
-        )
-    );
-
+    public $fktFilesCfg_;
+    protected $emailFunctionsFile;
 
     /**
      * Create new instance.
@@ -43,6 +37,15 @@ class EmailPatch extends FilePatch {
     public function __construct() {
         parent::__construct('email');
         $this->label_ = 'Disable zen-cart\'s <code>zen_mail</code> function in favour of a ZenMagick implementation';
+        $this->emailFunctionsFile = Runtime::getSettings()->get('apps.store.zencart.path').'/includes/functions/functions_email.php';
+        $this->fktFilesCfg_ = array(
+        $this->emailFunctionsFile => array(
+            array('zen_mail', '_org'),
+            array('zen_build_html_email_from_template', '_org')
+        )
+    );
+
+
     }
 
 
@@ -61,7 +64,7 @@ class EmailPatch extends FilePatch {
      * @return boolean <code>true</code> if this patch is ready and all preconditions are met.
      */
     function isReady() {
-        return is_writeable(_ZM_ZEN_EMAIL_FILE);
+        return is_writeable($this->emailFunctionsFile);
     }
 
     /**
@@ -72,7 +75,7 @@ class EmailPatch extends FilePatch {
      * @return string The preconditions message or an empty string.
      */
     function getPreconditionsMessage() {
-        return $this->isReady() ? "" : "Need permission to write " . _ZM_ZEN_EMAIL_FILE;
+        return $this->isReady() ? "" : "Need permission to write " . $this->emailFunctionsFile;
     }
 
     /**

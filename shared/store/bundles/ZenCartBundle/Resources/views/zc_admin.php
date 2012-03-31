@@ -22,7 +22,7 @@ $admin2->title();
 $resourceManager->cssFile('zc_admin.css');
 $resourceManager->jsFile('zc_admin.js');
 
-$zcAdminFolder = ZC_INSTALL_PATH.ZENCART_ADMIN_FOLDER.'/';
+$zcAdminFolder = $settingsService->get('apps.store.zencart.path').'/'.ZENCART_ADMIN_FOLDER.'/';
 $zcPage = $request->getRequestId().'.php';
 chdir($zcAdminFolder);
 

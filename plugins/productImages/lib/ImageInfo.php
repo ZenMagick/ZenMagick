@@ -144,6 +144,7 @@ class ImageInfo extends ZMImageInfo {
      * @todo assimilate
      */
     private function handle_image($src, $alt, $width, $height, $parameters) {
+        $imageRoot = ZMSettings::get('apps.store.zencart.path').'/';
         if ($this->plugin_->get('resize')) {
             $ih2Image = new ZMIh2Image($src, $width, $height);
             $src = $ih2Image->get_local();
@@ -152,12 +153,12 @@ class ImageInfo extends ZMImageInfo {
             // default to standard Zen-Cart fallback behavior for large -> medium -> small images
             $image_ext = substr($src, strrpos($src, '.'));
             $image_base = substr($src, strlen('images/'), -strlen($image_ext));
-            if (strrpos($src, IMAGE_SUFFIX_LARGE) && !is_file(ZC_INSTALL_PATH . $src)) {
+            if (strrpos($src, IMAGE_SUFFIX_LARGE) && !is_file($imageRoot . $src)) {
                 //large image wanted but not found
                 $image_base = '/medium' . substr($image_base, strlen('/large'), -strlen(IMAGE_SUFFIX_LARGE)) . IMAGE_SUFFIX_MEDIUM;
                 $src = 'images/' . $image_base . $image_ext;
             }
-            if (strrpos($src, IMAGE_SUFFIX_MEDIUM) && !is_file(ZC_INSTALL_PATH . $src)) {
+            if (strrpos($src, IMAGE_SUFFIX_MEDIUM) && !is_file($imageRoot . $src)) {
                 //medium image wanted but not found
                 $image_base = substr($image_base, strlen('/medium'), -strlen(IMAGE_SUFFIX_MEDIUM));
                 $src = 'images/' . $image_base . $image_ext;

@@ -38,7 +38,7 @@ class RedirectFixPatch extends FilePatch {
         parent::__construct('redirectPatch');
         $this->label_ = 'Remove deprecated redirect veto patch.';
         $this->adminGeneralFile = $this->getZcAdminPath().'/includes/functions/general.php';
-        $this->generalFile = ZC_INSTALL_PATH.'/includes/functions/functions_general.php';
+        $this->generalFile = Runtime::getSettings()->get('apps.store.zencart.path').'/includes/functions/functions_general.php';
     }
 
 

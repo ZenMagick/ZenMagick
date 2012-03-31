@@ -9,7 +9,7 @@
  * Last modified by DerManoMann 2010-05-31 23:46:50
  */
 
-ZMSettings::set('plugins.imageHandler2.cachedir', ZC_INSTALL_PATH.'bmz_cache');
+ZMSettings::set('plugins.imageHandler2.cachedir', ZMSettings::get('apps.store.zencart.path').'/bmz_cache');
 // files which contain this string will not be resized
 ZMSettings::set('plugins.imageHandler2.noresize_key', 'noresize');
 // images in directories with these names within the images directory will not be resized.
@@ -28,7 +28,7 @@ ZMSettings::set('plugins.imageHandler2.defaults.quality', 85);
 
 global $ihConf;
 
-$ihConf['dir']['docroot']       = ZC_INSTALL_PATH;
+$ihConf['dir']['docroot']       = ZMSettings::get('apps.store.zencart.path').'/';
 $ihConf['dir']['images']        = 'images/';
 
 $ihConf['resize']               = defined('IH_RESIZE') ? (IH_RESIZE == 'yes') : false;

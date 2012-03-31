@@ -87,7 +87,8 @@ class ZMShippingProviders extends ZMObject {
         if (isset($this->providers_[$configured])) {
             return $this->providers_[$configured];
         }
-
+        $settingsService = $this->container->get('settingsService');
+        $zcPath = $settingsService->get('apps.store.zencart.path');
         $this->providers_[$configured] = array();
 
         $moduleInfos = array();
@@ -100,7 +101,7 @@ class ZMShippingProviders extends ZMObject {
                 }
             }
         } else {
-            $module_directory = ZC_INSTALL_PATH . '/includes/modules/shipping/';
+            $module_directory = $zcPath.'/includes/modules/shipping/';
             if ($dir = @dir($module_directory)) {
                 while ($file = $dir->read()) {
                     if (!is_dir($module_directory . $file) && substr($file, strrpos($file, '.')) == '.php') {
@@ -124,13 +125,12 @@ class ZMShippingProviders extends ZMObject {
             $template = new template_func();
         }
 
-        $settingsService = $this->container->get('settingsService');
         $activeTheme = $this->container->get('themeService')->getActiveTheme();
         $defaultLanguage = $this->container->get('languageService')->getLanguageForId($settingsService->get('storeDefaultLanguageId'));
         foreach ($moduleInfos as $moduleInfo) {
             $lang_files = array(
-                ZC_INSTALL_PATH.'includes/languages/'.$defaultLanguage->getDirectory().'/modules/shipping/'.$activeTheme->getThemeId().'/'.$moduleInfo['file'],
-                ZC_INSTALL_PATH.'includes/languages/'.$defaultLanguage->getDirectory().'/modules/shipping/'.$moduleInfo['file']
+                $zcPath.'/includes/languages/'.$defaultLanguage->getDirectory().'/modules/shipping/'.$activeTheme->getThemeId().'/'.$moduleInfo['file'],
+                $zcPath.'/includes/languages/'.$defaultLanguage->getDirectory().'/modules/shipping/'.$moduleInfo['file']
             );
             foreach ($lang_files as $lf) {
                 if (@file_exists($lf)) {
@@ -138,7 +138,7 @@ class ZMShippingProviders extends ZMObject {
                     break;
                 }
             }
-            include_once ZC_INSTALL_PATH . 'includes/modules/shipping/' . $moduleInfo['file'];
+            include_once $zcPath . '/includes/modules/shipping/' . $moduleInfo['file'];
             if (class_exists($moduleInfo['class'])) {
                 // create instance
                 $module = new $moduleInfo['class']();

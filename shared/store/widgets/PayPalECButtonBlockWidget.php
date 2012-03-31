@@ -42,11 +42,12 @@ class PayPalECButtonBlockWidget extends Widget {
      * {@inheritDoc}
      */
     public function render($request, TemplateView $templateView) {
+        $settingsService = Runtime::getSettings();
         ob_start();
 
         if (defined('MODULE_PAYMENT_PAYPALWPP_STATUS') && MODULE_PAYMENT_PAYPALWPP_STATUS == 'True') {
             global $order, $db, $currencies;
-            include(ZC_INSTALL_PATH . 'includes/modules/payment/paypal/tpl_ec_button.php');
+            include $settingsService->get('apps.store.zencart.path').'/includes/modules/payment/paypal/tpl_ec_button.php';
         }
 
         return ob_get_clean();

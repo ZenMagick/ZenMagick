@@ -19,13 +19,8 @@
  */
 namespace zenmagick\apps\store\admin\installation\patches\file;
 
-if (!defined('DIR_FS_CATALOG_TEMPLATES')) {
-    define('DIR_FS_CATALOG_TEMPLATES', ZC_INSTALL_PATH . '/includes/templates/');
-}
-
 use zenmagick\base\Runtime;
 use zenmagick\apps\store\admin\installation\patches\FilePatch;
-
 
 /**
  * Patch to create zen-cart theme dummy files for all ZenMagick themes.
@@ -33,8 +28,8 @@ use zenmagick\apps\store\admin\installation\patches\FilePatch;
  * @author DerManoMann <mano@zenmagick.org>
  */
 class ThemeDummyPatch extends FilePatch {
+    protected $catalogTemplatePath;
     private $includeDefault_;
-
 
     /**
      * Create new instance.
@@ -43,6 +38,7 @@ class ThemeDummyPatch extends FilePatch {
         parent::__construct('themeDummies');
         $this->includeDefault_ = true;
         $this->label_ = 'Create admin dummy files for all installed ZenMagick themes';
+        $this->catalogTemplatePath = Runtime::getSettings()->get('apps.store.zencart.path').'/includes/templates/';
     }
 
 
@@ -56,7 +52,7 @@ class ThemeDummyPatch extends FilePatch {
             if (Runtime::getSettings()->get('apps.store.themes.default') == $theme->getThemeId() && !$this->includeDefault_) {
                 continue;
             }
-            if (!file_exists(DIR_FS_CATALOG_TEMPLATES.$theme->getThemeId())) {
+            if (!file_exists($this->catalogTemplatePath.$theme->getThemeId())) {
                 return true;
             }
         }
@@ -70,7 +66,7 @@ class ThemeDummyPatch extends FilePatch {
      * @return boolean <code>true</code> if this patch is ready and all preconditions are met.
      */
     function isReady() {
-        return is_writeable(DIR_FS_CATALOG_TEMPLATES);
+        return is_writeable($this->catalogTemplatePath);
     }
 
     /**
@@ -90,7 +86,7 @@ class ThemeDummyPatch extends FilePatch {
      * @return string The preconditions message or an empty string.
      */
     function getPreconditionsMessage() {
-        return $this->isReady() ? "" : "Need permission to write " . DIR_FS_CATALOG_TEMPLATES;
+        return $this->isReady() ? "" : "Need permission to write " . $this->catalogTemplatePath;
     }
 
     /**
@@ -108,9 +104,9 @@ class ThemeDummyPatch extends FilePatch {
 
             $filesystem = $this->container->get('filesystem');
             $themeId = $theme->getThemeId();
-            if (!file_exists(DIR_FS_CATALOG_TEMPLATES.$themeId)) {
-                if (is_writeable(DIR_FS_CATALOG_TEMPLATES)) {
-                    $templateDir = DIR_FS_CATALOG_TEMPLATES.$themeId.'/';
+            if (!file_exists($this->catalogTemplatePath.$themeId)) {
+                if (is_writeable($this->catalogTemplatePath)) {
+                    $templateDir = $this->catalogTemplatePath.$themeId.'/';
                     $themeConfig = $theme->getConfig();
                     $filesystem->mkdir(array($templateDir, $templateDir.'images'), 0755);
                     if (!array_key_exists('preview', $themeConfig)) {
@@ -122,7 +118,7 @@ class ThemeDummyPatch extends FilePatch {
                     } else {
                         copy(Runtime::getInstallationPath().'/lib/store/etc/images/preview_not_found.jpg', $templateDir.'/images/'.$imageName);
                     }
-                    $handle = fopen(DIR_FS_CATALOG_TEMPLATES.$themeId."/template_info.php", 'ab');
+                    $handle = fopen($this->catalogTemplatePath.$themeId."/template_info.php", 'ab');
                     fwrite($handle, '<?php /** dummy file created by ZenMagick installation patcher **/'."\n");
                     fwrite($handle, '  $template_version = ' . "'" . addslashes($themeConfig['version']) . "';\n");
                     fwrite($handle, '  $template_name = ' . "'" . addslashes($themeConfig['name']) . "';\n");
@@ -166,14 +162,14 @@ class ThemeDummyPatch extends FilePatch {
      */
     function _getDummies() {
         $dummies = array();
-        if (file_exists(DIR_FS_CATALOG_TEMPLATES)) {
-            $handle = opendir(DIR_FS_CATALOG_TEMPLATES);
+        if (file_exists($this->catalogTemplatePath)) {
+            $handle = opendir($this->catalogTemplatePath);
             while (false !== ($file = readdir($handle))) {
-                if (is_dir(DIR_FS_CATALOG_TEMPLATES.$file) && !\ZMLangUtils::startsWith($file, '.')) {
-                    if (file_exists(DIR_FS_CATALOG_TEMPLATES.$file."/template_info.php")) {
-                        $contents = file_get_contents(DIR_FS_CATALOG_TEMPLATES.$file."/template_info.php");
+                if (is_dir($this->catalogTemplatePath.$file) && !\ZMLangUtils::startsWith($file, '.')) {
+                    if (file_exists($this->catalogTemplatePath.$file."/template_info.php")) {
+                        $contents = file_get_contents($this->catalogTemplatePath.$file."/template_info.php");
                         if (false !== strpos($contents, 'created by ZenMagick')) {
-                            array_push($dummies, DIR_FS_CATALOG_TEMPLATES.$file);
+                            array_push($dummies, $this->catalogTemplatePath.$file);
                         }
                     }
                 }

@@ -22,15 +22,13 @@ namespace zenmagick\apps\store\admin\installation\patches\file;
 use zenmagick\base\Runtime;
 use zenmagick\apps\store\admin\installation\patches\FilePatch;
 
-
-define('_ZM_ZEN_APP_BOTTOM_PHP', ZC_INSTALL_PATH."/includes/application_bottom.php");
-
 /**
  * Patch to enable ZenMagick without themes.
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
 class NoThemeSupportPatch extends FilePatch {
+    protected $applicationBottomFile;
 
     /**
      * Create new instance.
@@ -38,6 +36,7 @@ class NoThemeSupportPatch extends FilePatch {
     public function __construct() {
         parent::__construct('noThemeSupport');
         $this->label_ = 'Patch zen-cart to use ZenMagick <strong>without</strong> ZenMagick themes';
+        $this->applicationBottomFile = Runtime::getSettings()->get('apps.store.zencart.path').'/includes/application_bottom.php';
     }
 
 
@@ -49,7 +48,7 @@ class NoThemeSupportPatch extends FilePatch {
      */
     function isOpen($lines=null) {
         if (null == $lines) {
-            $lines = $this->getFileLines(_ZM_ZEN_APP_BOTTOM_PHP);
+            $lines = $this->getFileLines($this->applicationBottomFile);
         }
 
         // look for ZenMagick code...
@@ -69,7 +68,7 @@ class NoThemeSupportPatch extends FilePatch {
      * @return boolean <code>true</code> if this patch is ready and all preconditions are met.
      */
     function isReady() {
-        return is_writeable(_ZM_ZEN_APP_BOTTOM_PHP);
+        return is_writeable($this->applicationBottomFile);
     }
 
     /**
@@ -80,7 +79,7 @@ class NoThemeSupportPatch extends FilePatch {
      * @return string The preconditions message or an empty string.
      */
     function getPreconditionsMessage() {
-        return $this->isReady() ? "" : "Need permission to write " . _ZM_ZEN_APP_BOTTOM_PHP;
+        return $this->isReady() ? "" : "Need permission to write " . $this->applicationBottomFile;
     }
 
     /**
@@ -91,14 +90,14 @@ class NoThemeSupportPatch extends FilePatch {
      * @return boolean <code>true</code> if patching was successful, <code>false</code> if not.
      */
     function patch($force=false) {
-        $lines = $this->getFileLines(_ZM_ZEN_APP_BOTTOM_PHP);
+        $lines = $this->getFileLines($this->applicationBottomFile);
         if (!$this->isOpen($lines)) {
             return true;
         }
 
         $PATCHLINE = "if (!zenmagick\\base\\Runtime::getSettings()->get('isEnableZMThemes', true)) { \$request = zenmagick\\base\\Runtime::getContainer()->get('request'); \$event = new zenmagick\\base\\events\\Event(null, array('request' => \$request, 'content' => ob_get_clean(), 'view' => zenmagick\\base\\Runtime::getContainer()->get('defaultView'))); \$event->get('view')->setContainer(zenmagick\\base\\Runtime::getContainer()); zenmagick\\base\\Runtime::getEventDispatcher()->dispatch('finalise_content', \$event); echo \$event->get('content'); \$request->getSession()->clearMessages(); zenmagick\\base\\Runtime::getEventDispatcher()->dispatch('all_done', new zenmagick\\base\\events\\Event(null, array('request' => \$request))); } /* added by ZenMagick installation patcher */";
 
-        if (is_writeable(_ZM_ZEN_APP_BOTTOM_PHP)) {
+        if (is_writeable($this->applicationBottomFile)) {
             $patchedLines = array();
             foreach ($lines as $line) {
                 if (false !== strpos($line, "session_write_close")) {
@@ -106,7 +105,7 @@ class NoThemeSupportPatch extends FilePatch {
                 }
                 $patchedLines[] = $line;
             }
-            return $this->putFileLines(_ZM_ZEN_APP_BOTTOM_PHP, $patchedLines);
+            return $this->putFileLines($this->applicationBottomFile, $patchedLines);
         } else {
             Runtime::getLogging()->error("** ZenMagick: no permission to patch no theme support into application_bottpm.php");
             return false;
@@ -119,12 +118,12 @@ class NoThemeSupportPatch extends FilePatch {
      * @return boolean <code>true</code> if patching was successful, <code>false</code> if not.
      */
     function undo() {
-        $lines = $this->getFileLines(_ZM_ZEN_APP_BOTTOM_PHP);
+        $lines = $this->getFileLines($this->applicationBottomFile);
         if ($this->isOpen($lines)) {
             return true;
         }
 
-        if (is_writeable(_ZM_ZEN_APP_BOTTOM_PHP)) {
+        if (is_writeable($this->applicationBottomFile)) {
             $unpatchedLines = array();
             foreach ($lines as $line) {
                 if (false !== stripos($line, "finalise_content") && (false !== strpos($line, "getEventDispatcher") || false !== strpos($line, "ZMEvents"))) {
@@ -133,7 +132,7 @@ class NoThemeSupportPatch extends FilePatch {
                 $unpatchedLines[] = $line;
             }
 
-            return $this->putFileLines(_ZM_ZEN_APP_BOTTOM_PHP, $unpatchedLines);
+            return $this->putFileLines($this->applicationBottomFile, $unpatchedLines);
         } else {
             Runtime::getLogging()->error("** ZenMagick: no permission to patch application_bottpm.php for uninstall");
             return false;

@@ -69,10 +69,12 @@ class ZenCartBundle extends Bundle {
     }
 
     public static function buildSearchPaths($base = '') {
-        $dirs = array(dirname(__FILE__).'/bridge', dirname(Runtime::getInstallationPath()));
+        $settingsService = Runtime::getSettings();
+        $zcPath = $settingsService->get('apps.store.zencart.path');
+        $dirs = array(dirname(__FILE__).'/bridge', $zcPath);
         if (Runtime::isContextMatch('admin')) {
-            $adminDir = Runtime::getSettings()->get('apps.store.zencart.admindir');
-            $adminDirs = array(dirname(__FILE__).'/bridge/admin', dirname(Runtime::getInstallationPath()).'/'.$adminDir);
+            $adminDir = $settingsService->get('apps.store.zencart.admindir');
+            $adminDirs = array(dirname(__FILE__).'/bridge/admin', $zcPath.'/'.$adminDir);
             $dirs = false !== strpos($base, 'classes') ? array_merge($adminDirs, $dirs) : $adminDirs;
         }
 
@@ -118,11 +120,11 @@ class ZenCartBundle extends Bundle {
      */
     public function onInitConfigDone($event) {
         if (!defined('DB_PREFIX')) define('DB_PREFIX', \ZMRuntime::getDatabase()->getPrefix());
-
+        $settingsService = $this->container->get('settingsService');
         if (Runtime::isContextMatch('admin')) {
             $adminDir = $this->container->get('configService')->getConfigValue(self::ZENCART_ADMIN_FOLDER);
             if (null != $adminDir) {
-                $this->container->get('settingsService')->set('apps.store.zencart.admindir', $adminDir->getValue());
+                $settingsService->set('apps.store.zencart.admindir', $adminDir->getValue());
             }
 
             $urlMappings = __DIR__.'/Resources/config/admin/url_mappings.yaml';
@@ -136,7 +138,7 @@ class ZenCartBundle extends Bundle {
         $zcClassLoader->register();
 
         // include some zencart files we need.
-        include_once ZC_INSTALL_PATH . 'includes/database_tables.php';
+        include_once $settingsService->get('apps.store.zencart.path').'/includes/database_tables.php';
     }
 
     /**

@@ -22,15 +22,13 @@ namespace zenmagick\apps\store\admin\installation\patches\file;
 use zenmagick\base\Runtime;
 use zenmagick\apps\store\admin\installation\patches\FilePatch;
 
-
-define('_ZM_ZEN_BASE_PHP', ZC_INSTALL_PATH."/includes/classes/class.base.php");
-
 /**
  * Patch to hook up ZenMagick as glboal zencart event listener.
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
 class EventProxyPatch extends FilePatch {
+    protected $baseClassFile;
 
     /**
      * Create new instance.
@@ -38,6 +36,7 @@ class EventProxyPatch extends FilePatch {
     public function __construct() {
         parent::__construct('eventProxy');
         $this->label_ = 'Remove deprecated event proxy patch.';
+        $this->baseClassFile = Runtime::getSettings()->get('apps.store.zencart.path').'/includes/classes/class.base.php';
     }
 
 
@@ -49,7 +48,7 @@ class EventProxyPatch extends FilePatch {
      */
     function isOpen($lines=null) {
         if (null == $lines) {
-            $lines = $this->getFileLines(_ZM_ZEN_BASE_PHP);
+            $lines = $this->getFileLines($this->baseClassFile);
         }
 
         // look for ZenMagick code...
@@ -68,7 +67,7 @@ class EventProxyPatch extends FilePatch {
      * @return boolean <code>true</code> if this patch is ready and all preconditions are met.
      */
     function isReady() {
-        return is_writeable(_ZM_ZEN_BASE_PHP);
+        return is_writeable($this->baseClassFile);
     }
 
     /**
@@ -79,7 +78,7 @@ class EventProxyPatch extends FilePatch {
      * @return string The preconditions message or an empty string.
      */
     function getPreconditionsMessage() {
-        return $this->isReady() ? "" : "Need permission to write " . _ZM_ZEN_BASE_PHP;
+        return $this->isReady() ? "" : "Need permission to write " . $this->baseClassFile;
     }
 
     /**
@@ -90,12 +89,12 @@ class EventProxyPatch extends FilePatch {
      * @return boolean <code>true</code> if patching was successful, <code>false</code> if not.
      */
     function patch($force=false) {
-        $lines = $this->getFileLines(_ZM_ZEN_BASE_PHP);
+        $lines = $this->getFileLines($this->baseClassFile);
         if ($this->isOpen($lines)) {
             return true;
         }
 
-        if (is_writeable(_ZM_ZEN_BASE_PHP)) {
+        if (is_writeable($this->baseClassFile)) {
             $unpatchedLines = array();
             foreach ($lines as $line) {
                 if (false !== strpos($line, '$zm_events') || false !== strpos($line, 'ZMEvents::instance()') || false !== strpos($line, 'getEventDispatcher()')) {
@@ -104,7 +103,7 @@ class EventProxyPatch extends FilePatch {
                 array_push($unpatchedLines, $line);
             }
 
-            return $this->putFileLines(_ZM_ZEN_BASE_PHP, $unpatchedLines);
+            return $this->putFileLines($this->baseClassFile, $unpatchedLines);
         } else {
             Runtime::getLogging()->error("** ZenMagick: no permission to patch class.base.php for uninstall");
             return false;

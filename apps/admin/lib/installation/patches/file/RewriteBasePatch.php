@@ -19,9 +19,8 @@
  */
 namespace zenmagick\apps\store\admin\installation\patches\file;
 
+use zenmagick\base\Runtime;
 use zenmagick\apps\store\admin\installation\patches\FilePatch;
-
-define('_ZM_HTACCESS', ZC_INSTALL_PATH.".htaccess");
 
 /**
  * Patch to update the <code>.htaccess</code> <code>RewriteBase</code>.
@@ -30,6 +29,7 @@ define('_ZM_HTACCESS', ZC_INSTALL_PATH.".htaccess");
  */
 class RewriteBasePatch extends FilePatch {
     protected $rewriteBase;
+    protected $htaccessFile;
 
     /**
      * Create new instance.
@@ -38,7 +38,9 @@ class RewriteBasePatch extends FilePatch {
         parent::__construct('rewriteBase');
         $this->label_ = 'Update RewriteBase value in .htaccess (pretty links, SEO)';
         // @todo detect RewriteBase *WITHOUT* DIR_WS_CATALOG
-        $this->rewriteBase = defined('DIR_FS_CATALOG') ? DIR_WS_CATALOG : '/';
+        $this->rewriteBase = defined('DIR_WS_CATALOG') ? DIR_WS_CATALOG : '/';
+        $this->htaccessFile = Runtime::getSettings()->get('apps.store.zencart.path').'/.htaccess'; 
+        
     }
 
 
@@ -48,8 +50,8 @@ class RewriteBasePatch extends FilePatch {
      * @return boolean <code>true</code> if this patch can still be applied.
      */
     function isOpen() {
-        if (file_exists(_ZM_HTACCESS)) {
-            $lines = $this->getFileLines(_ZM_HTACCESS);
+        if (file_exists($this->htaccessFile)) {
+            $lines = $this->getFileLines($this->htaccessFile);
             foreach ($lines as $line) {
                 $words = explode(' ', $line);
                 if (2 == count($words) && 'RewriteBase' == trim($words[0])) {
@@ -67,7 +69,7 @@ class RewriteBasePatch extends FilePatch {
      * @return boolean <code>true</code> if this patch is ready and all preconditions are met.
      */
     function isReady() {
-        return !file_exists(_ZM_HTACCESS) || is_writeable(_ZM_HTACCESS);
+        return !file_exists($this->htaccessFile) || is_writeable($this->htaccessFile);
     }
 
     /**
@@ -87,7 +89,7 @@ class RewriteBasePatch extends FilePatch {
      * @return string The preconditions message or an empty string.
      */
     function getPreconditionsMessage() {
-        return ($this->isReady() || !file_exists(_ZM_HTACCESS)) ? "" : "Need permission to write " . _ZM_HTACCESS;
+        return ($this->isReady() || !file_exists($this->htaccessFile)) ? "" : "Need permission to write " . $this->htaccessFile;
     }
 
     /**
@@ -102,9 +104,9 @@ class RewriteBasePatch extends FilePatch {
             return false;
         }
 
-        $lines = $this->getFileLines(_ZM_HTACCESS);
+        $lines = $this->getFileLines($this->htaccessFile);
         $lines = $this->_fixLines($lines);
-        $lines = $this->putFileLines(_ZM_HTACCESS, $lines);
+        $lines = $this->putFileLines($this->htaccessFile, $lines);
         return true;
     }
 

@@ -38,7 +38,7 @@ class ApplicationTopPatch extends FilePatch {
     public function __construct() {
         parent::__construct('applicationTop');
         $this->label_ = 'Allow Zenmagick to handle all ZenCart initialisation code';
-        $this->applicationTop = ZC_INSTALL_PATH.'includes/application_top.php';
+        $this->applicationTop = Runtime::getSettings()->get('apps.store.zencart.path').'/includes/application_top.php';
     }
 
 

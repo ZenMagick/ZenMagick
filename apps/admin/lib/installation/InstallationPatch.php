@@ -159,7 +159,7 @@ class InstallationPatch extends ZMObject {
     public function guessZcAdminPath() {
 
         $folder = null;
-        $basePath = dirname(Runtime::getInstallationPath());
+        $basePath = Runtime::getSettings()->get('apps.store.zencart.path');
         if (false !== ($handle = opendir($basePath))) {
             while (false !== ($file = readdir($handle))) {
                 if (is_dir($basePath.'/'.$file) && !in_array($file, array('.', '..'))) {

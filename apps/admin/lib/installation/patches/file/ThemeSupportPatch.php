@@ -23,14 +23,14 @@ use zenmagick\base\Runtime;
 use zenmagick\apps\store\admin\installation\patches\FilePatch;
 
 
-define('_ZM_ZEN_INDEX_PHP', ZC_INSTALL_PATH."index.php");
-
 /**
  * Patch to enable ZenMagick themes.
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
 class ThemeSupportPatch extends FilePatch {
+    
+    protected $indexFile;
 
     /**
      * Create new instance.
@@ -38,6 +38,7 @@ class ThemeSupportPatch extends FilePatch {
     public function __construct() {
         parent::__construct('themeSupport');
         $this->label_ = 'Patch zen-cart to enable ZenMagick request handling (aka ZenMagick themes)';
+        $this->indexFile = Runtime::getSettings()->get('apps.store.zencart.path').'/index.php';
     }
 
 
@@ -49,7 +50,7 @@ class ThemeSupportPatch extends FilePatch {
      */
     function isOpen($lines=null) {
         if (null == $lines) {
-            $lines = $this->getFileLines(_ZM_ZEN_INDEX_PHP);
+            $lines = $this->getFileLines($this->indexFile);
         }
 
         // look for ZenMagick code...
@@ -69,7 +70,7 @@ class ThemeSupportPatch extends FilePatch {
      * @return boolean <code>true</code> if this patch is ready and all preconditions are met.
      */
     function isReady() {
-        return is_writeable(_ZM_ZEN_INDEX_PHP);
+        return is_writeable($this->indexFile);
     }
 
     /**
@@ -80,7 +81,7 @@ class ThemeSupportPatch extends FilePatch {
      * @return string The preconditions message or an empty string.
      */
     function getPreconditionsMessage() {
-        return $this->isReady() ? "" : "Need permission to write " . _ZM_ZEN_INDEX_PHP;
+        return $this->isReady() ? "" : "Need permission to write " . $this->indexFile;
     }
 
     /**
@@ -91,23 +92,23 @@ class ThemeSupportPatch extends FilePatch {
      * @return boolean <code>true</code> if patching was successful, <code>false</code> if not.
      */
     function patch($force=false) {
-        $lines = $this->getFileLines(_ZM_ZEN_INDEX_PHP);
+        $lines = $this->getFileLines($this->indexFile);
         if (!$this->isOpen($lines)) {
             return true;
         }
 
-        if (is_writeable(_ZM_ZEN_INDEX_PHP)) {
+        if (is_writeable($this->indexFile)) {
             $patchedLines = array();
             foreach ($lines as $line) {
                 // need to insert before the zen-cart html_header...
                 if (false !== strpos($line, "require") && false !== strpos($line, "html_header.php")) {
-                    array_push($patchedLines, "  include('".Runtime::getInstallationPath()."/store.php'); /* added by ZenMagick installation patcher */");
+                    array_push($patchedLines, "  include('".dirname($this->indexFile)."/store.php'); /* added by ZenMagick installation patcher */");
                 }
 
                 array_push($patchedLines, $line);
             }
 
-            return $this->putFileLines(_ZM_ZEN_INDEX_PHP, $patchedLines);
+            return $this->putFileLines($this->indexFile, $patchedLines);
         } else {
             Runtime::getLogging()->error("** ZenMagick: no permission to patch theme support into index.php");
             return false;
@@ -122,12 +123,12 @@ class ThemeSupportPatch extends FilePatch {
      * @return boolean <code>true</code> if patching was successful, <code>false</code> if not.
      */
     function undo() {
-        $lines = $this->getFileLines(_ZM_ZEN_INDEX_PHP);
+        $lines = $this->getFileLines($this->indexFile);
         if ($this->isOpen($lines)) {
             return true;
         }
 
-        if (is_writeable(_ZM_ZEN_INDEX_PHP)) {
+        if (is_writeable($this->indexFile)) {
             $unpatchedLines = array();
             foreach ($lines as $line) {
                 if (false !== strpos($line, "include") && false !== strpos($line, "store.php")) {
@@ -136,7 +137,7 @@ class ThemeSupportPatch extends FilePatch {
                 array_push($unpatchedLines, $line);
             }
 
-            return $this->putFileLines(_ZM_ZEN_INDEX_PHP, $unpatchedLines);
+            return $this->putFileLines($this->indexFile, $unpatchedLines);
         } else {
             Runtime::getLogging()->error("** ZenMagick: no permission to patch index.php for uninstall");
             return false;

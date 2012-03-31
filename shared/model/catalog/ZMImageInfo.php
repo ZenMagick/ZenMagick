@@ -65,17 +65,19 @@ class ZMImageInfo extends ZMObject {
             $imageBase = $comp[2];
 
             $toolbox = $this->container->get('request')->getToolbox();
-
+            $settingsService = $this->container->get('settingsService'); 
+            // @todo we don't really want to use images from where zencart is, but from where the app is
+            $zcPath = $settingsService->get('apps.store.zencart.path');
             // set default image
-            if (empty($image) || !file_exists(ZC_INSTALL_PATH.'images/'.$image) || !is_file(ZC_INSTALL_PATH.'images/'.$image)) {
-                $this->imageDefault_ = $toolbox->net->image(Runtime::getSettings()->get('imgNotFound'));
+            if (empty($image) || !file_exists($zcPath.'/images/'.$image) || !is_file($zcPath.'/images/'.$image)) {
+                $this->imageDefault_ = $toolbox->net->image($settingsService->get('imgNotFound'));
             } else {
                 $this->imageDefault_ = $toolbox->net->image($image);
             }
 
             // evaluate optional medium image
-            $medium = $imageBase.Runtime::getSettings()->get('imgSuffixMedium').$ext;
-            if (!file_exists(ZC_INSTALL_PATH.'images/'.'medium/'.$medium)) {
+            $medium = $imageBase.$settingsService->get('imgSuffixMedium').$ext;
+            if (!file_exists($zcPath.'/images/'.'medium/'.$medium)) {
                 // default to next smaller version
                 $this->imageMedium_ = $this->imageDefault_;
             } else {
@@ -83,8 +85,8 @@ class ZMImageInfo extends ZMObject {
             }
 
             // evaluate optional large image
-            $large = $imageBase.Runtime::getSettings()->get('imgSuffixLarge').$ext;
-            if (!file_exists(ZC_INSTALL_PATH.'images/'.'large/'.$large)) {
+            $large = $imageBase.$settingsService->get('imgSuffixLarge').$ext;
+            if (!file_exists($zcPath.'/images/'.'large/'.$large)) {
                 // default to next smaller version
                 $this->imageLarge_ = $this->imageMedium_;
             } else {
@@ -221,7 +223,7 @@ class ZMImageInfo extends ZMObject {
         $realImageBase = basename($comp[2]);
 
         // directory to scan
-        $dirname = ZC_INSTALL_PATH.'images/'.$subdir;
+        $dirname = Runtime::getSettings()->get('apps.store.zencart.path').'/images/'.$subdir;
 
         $imageList = array();
         if (is_dir($dirname) && ($dir = dir($dirname))) {

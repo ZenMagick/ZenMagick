@@ -36,18 +36,19 @@ class InstallationStatusCheck implements StatusCheck {
      */
     public function getStatusMessages() {
         $messages = array();
-
-        $installDir = realpath(dirname(Runtime::getInstallationPath()).'/zc_install');
+        $settingsService = Runtime::getSettings();
+        $zcPath = $settingsService->get('apps.store.zencart.path');
+        $installDir = $zcPath.'/zc_install';
         if (is_dir($installDir)) {
             $messages[] = array(DashboardWidget::STATUS_NOTICE, sprintf(_zm('Installation directory exists at: %s. Please remove this directory for security reasons.'), $installDir));
         }
 
-        $configure = realpath(dirname(Runtime::getInstallationPath()).'/includes/configure.php');
+        $configure = $zcPath.'/includes/configure.php';
         if (file_exists($configure) && is_writeable($configure)) {
             $messages[] = array(DashboardWidget::STATUS_WARN, sprintf(_zm('Store configuration file: %s should be read-only.'), $configure));
         }
 
-        $configure = realpath(dirname(Runtime::getInstallationPath()).'/'.Runtime::getSettings()->get('apps.store.zencart.admindir').'/includes/configure.php');
+        $configure = $zcPath.'/'.$settingsService->get('apps.store.zencart.admindir').'/includes/configure.php';
         if (file_exists($configure) && is_writeable($configure)) {
             $messages[] = array(DashboardWidget::STATUS_WARN, sprintf(_zm('Admin configuration file: %s should be read-only.'), $configure));
         }

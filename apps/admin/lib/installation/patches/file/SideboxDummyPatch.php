@@ -22,15 +22,13 @@ namespace zenmagick\apps\store\admin\installation\patches\file;
 use zenmagick\base\Runtime;
 use zenmagick\apps\store\admin\installation\patches\FilePatch;
 
-
-define('_ZM_ZEN_DIR_FS_BOXES', ZC_INSTALL_PATH . "/includes/modules/sideboxes/");
-
 /**
  * Patch to create dummy sidebox files for zen-cart.
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
 class SideboxDummyPatch extends FilePatch {
+    protected $sideBoxPath;
 
     /**
      * Create new instance.
@@ -38,6 +36,7 @@ class SideboxDummyPatch extends FilePatch {
     public function __construct() {
         parent::__construct('sideboxDummies');
         $this->label_ = 'Create dummy files for all (side)boxes of <strong>all</strong> ZenMagick themes and <strong>installed</strong> plugins';
+        $this->sideBoxPath = Runtime::getSettings()->get('apps.store.zencart.path').'/includes/modules/sideboxes/';
     }
 
 
@@ -56,7 +55,7 @@ class SideboxDummyPatch extends FilePatch {
      * @return boolean <code>true</code> if this patch is ready and all preconditions are met.
      */
     public function isReady() {
-        return is_writeable(_ZM_ZEN_DIR_FS_BOXES);
+        return is_writeable($this->sideBoxPath);
     }
 
     /**
@@ -76,7 +75,7 @@ class SideboxDummyPatch extends FilePatch {
      * @return string The preconditions message or an empty string.
      */
     public function getPreconditionsMessage() {
-        return $this->isReady() ? "" : "Need permission to write " . _ZM_ZEN_DIR_FS_BOXES;
+        return $this->isReady() ? "" : "Need permission to write " . $this->sideBoxPath;
     }
 
     /**
@@ -92,11 +91,11 @@ class SideboxDummyPatch extends FilePatch {
         if (0 < count($missingBoxes)) {
             foreach ($missingBoxes as $box) {
                 if ($this->isReady()) {
-                    if (!file_exists(_ZM_ZEN_DIR_FS_BOXES.$box)) {
-                        $handle = fopen(_ZM_ZEN_DIR_FS_BOXES.$box, 'ab');
+                    if (!file_exists($this->sideBoxPath.$box)) {
+                        $handle = fopen($this->sideBoxPath.$box, 'ab');
                         fwrite($handle, '<?php /** dummy file created by ZenMagick installation patcher **/ ?>');
                         fclose($handle);
-                        \ZMFileUtils::setFilePerms($_ZM_ZEN_DIR_FS_BOXES.$box);
+                        \ZMFileUtils::setFilePerms($$this->sideBoxPath.$box);
                     }
                 } else {
                     Runtime::getLogging()->error("** ZenMagick: no permission to create dummy sidebox " . $box);
@@ -129,13 +128,13 @@ class SideboxDummyPatch extends FilePatch {
      */
     protected function _getDummies() {
         $dummies = array();
-        if (file_exists(_ZM_ZEN_DIR_FS_BOXES)) {
-            $handle = opendir(_ZM_ZEN_DIR_FS_BOXES);
+        if (file_exists($this->sideBoxPath)) {
+            $handle = opendir($this->sideBoxPath);
             while (false !== ($file = readdir($handle))) {
-                if (!is_dir(_ZM_ZEN_DIR_FS_BOXES.$file) && !\ZMLangUtils::startsWith($file, '.')) {
-                    $contents = file_get_contents(_ZM_ZEN_DIR_FS_BOXES.$file);
+                if (!is_dir($this->sideBoxPath.$file) && !\ZMLangUtils::startsWith($file, '.')) {
+                    $contents = file_get_contents($this->sideBoxPath.$file);
                     if (false !== strpos($contents, '/** dummy file created by ZenMagick installation patcher **/')) {
-                        array_push($dummies, _ZM_ZEN_DIR_FS_BOXES.$file);
+                        array_push($dummies, $this->sideBoxPath.$file);
                     }
                 }
             }
@@ -179,7 +178,7 @@ class SideboxDummyPatch extends FilePatch {
                 closedir($handle);
 
                 $zcBoxes = array();
-                $handle = opendir(_ZM_ZEN_DIR_FS_BOXES);
+                $handle = opendir($this->sideBoxPath);
                 while (false !== ($file = readdir($handle))) {
                     $zcBoxes[$file] = $file;
                 }

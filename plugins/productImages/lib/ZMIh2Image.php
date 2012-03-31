@@ -9,6 +9,7 @@
 class ZMIh2Image {
     // full path
     private $src = null;
+    private $imageRoot;
     // cached
     private $local = null;
     // the plugin
@@ -19,7 +20,7 @@ class ZMIh2Image {
     private $width;
     private $height;
     private $sizetype;
-    var $canvas;
+    public  $canvas;
     private $zoom;
     private $watermark;
     private $force_canvas;
@@ -37,7 +38,7 @@ class ZMIh2Image {
         $this->width = $width;
         $this->height = $height;
         $this->zoom = array();
-
+        $this->imageRoot = Runtime::getSettings()->get('apps.store.zencart.path').'/';
         $this->determine_image_sizetype();
 
         if (($this->sizetype == 'large' || $this->sizetype == 'medium') && !$this->file_exists()) {
@@ -45,7 +46,7 @@ class ZMIh2Image {
             // now we can actually access the default image referenced in the database.
             $this->src = $this->strip_sizetype_suffix($this->src);
         }
-        $this->filename = ZC_INSTALL_PATH . $this->src;
+        $this->filename = $this->imageRoot . $this->src;
         $this->extension = substr($this->src, strrpos($this->src, '.'));
 
         list($newwidth, $newheight, $resize) = $this->calculate_size($this->width, $this->height);
@@ -67,14 +68,14 @@ class ZMIh2Image {
     protected function file_exists() {
         // try to find file by using different file extensions if initial
         // source doesn't succeed
-        if (is_file(ZC_INSTALL_PATH . $this->src)) {
+        if (is_file($this->imageRoot . $this->src)) {
             return true;
         } else {
             // do a quick search for files with common extensions
             $extensions = array('.png', '.PNG', '.jpg', '.JPG', '.jpeg', '.JPEG', '.gif', '.GIF');
             $base = substr($this->src, 0, strrpos($this->src, '.'));
             for ($i=0; $i<count($extensions); $i++) {
-                if (is_file(ZC_INSTALL_PATH . $base . $extensions[$i])) {
+                if (is_file($this->imageRoot . $base . $extensions[$i])) {
                     $this->src = $base . $extensions[$i];
                     return true;
                 }
@@ -108,19 +109,18 @@ class ZMIh2Image {
 
 	function initialize_overlays($sizetype) {
 		global $ihConf;
-
 		switch ($sizetype) {
 			case 'large':
-				$this->watermark['file'] = ($ihConf['large']['watermark']) ? ZC_INSTALL_PATH . $ihConf['dir']['images'] . 'large/watermark' . $ihConf['large']['suffix'] . '.png' : '';
-				$this->zoom['file'] = (isset($ihConf['large']['zoom'])&&$ihConf['large']['zoom']) ? ZC_INSTALL_PATH . $ihConf['dir']['images'] . 'large/zoom' . $ihConf['large']['suffix'] . '.png' : '';
+				$this->watermark['file'] = ($ihConf['large']['watermark']) ? $this->imageRoot . $ihConf['dir']['images'] . 'large/watermark' . $ihConf['large']['suffix'] . '.png' : '';
+				$this->zoom['file'] = (isset($ihConf['large']['zoom'])&&$ihConf['large']['zoom']) ? $this->imageRoot . $ihConf['dir']['images'] . 'large/zoom' . $ihConf['large']['suffix'] . '.png' : '';
 				break;
 			case 'medium':
-				$this->watermark['file'] = ($ihConf['medium']['watermark']) ? ZC_INSTALL_PATH . $ihConf['dir']['images'] . 'medium/watermark' . $ihConf['medium']['suffix'] . '.png': '';
-				$this->zoom['file'] = (isset($ihConf['large']['zoom'])&&$ihConf['medium']['zoom']) ? ZC_INSTALL_PATH . $ihConf['dir']['images'] . 'medium/zoom' . $ihConf['medium']['suffix'] . '.png' : '';
+				$this->watermark['file'] = ($ihConf['medium']['watermark']) ? $this->imageRoot . $ihConf['dir']['images'] . 'medium/watermark' . $ihConf['medium']['suffix'] . '.png': '';
+				$this->zoom['file'] = (isset($ihConf['large']['zoom'])&&$ihConf['medium']['zoom']) ? $this->imageRoot . $ihConf['dir']['images'] . 'medium/zoom' . $ihConf['medium']['suffix'] . '.png' : '';
 				break;
 			case 'small':
-				$this->watermark['file'] = ($ihConf['small']['watermark']) ? ZC_INSTALL_PATH . $ihConf['dir']['images'] . 'watermark.png' : '';
-				$this->zoom['file'] = (isset($ihConf['large']['zoom'])&&$ihConf['small']['zoom']) ? ZC_INSTALL_PATH . $ihConf['dir']['images'] . 'zoom.png' : '';
+				$this->watermark['file'] = ($ihConf['small']['watermark']) ? $this->imageRoot . $ihConf['dir']['images'] . 'watermark.png' : '';
+				$this->zoom['file'] = (isset($ihConf['large']['zoom'])&&$ihConf['small']['zoom']) ? $this->imageRoot . $ihConf['dir']['images'] . 'zoom.png' : '';
 				break;
 			default:
 				$this->watermark['file'] = '';
@@ -166,7 +166,7 @@ class ZMIh2Image {
     $allowed = false;
     if ($ihConf['resize'] &&
         ((strpos($this->src, $ihConf['dir']['images']) === 0) ||
-         ((strpos($this->src, substr(ZMSettings::get('plugins.imageHandler2.cachedir'), strlen(ZC_INSTALL_PATH))) === 0))) &&
+         ((strpos($this->src, substr(ZMSettings::get('plugins.imageHandler2.cachedir'), strlen($this->imageRoot))) === 0))) &&
         (strpos($this->src, ZMSettings::get('plugins.imageHandler2.noresize_key')) === false)) {
       $allowed = true;
       foreach (ZMSettings::get('plugins.imageHandler2.noresize_dirs') as $dir) {
@@ -224,7 +224,7 @@ class ZMIh2Image {
 			if ( (($mtime > @filemtime($this->filename)) && ($mtime > @filemtime($this->watermark['file'])) && ($mtime > @filemtime($this->zoom['file'])) ) ||
 				$this->resize_imageIM($file_extension, $local, $background, $quality) ||
 				$this->resize_imageGD($file_extension, $local, $background, $quality) ) {
-				return str_replace(ZC_INSTALL_PATH, '', $local);
+				return str_replace($this->imageRoot, '', $local);
 			}
 			//still here? resizing failed
 		}
@@ -654,7 +654,7 @@ class ZMIh2Image {
         $products_image_zoom = $ihConf['dir']['images'] . $zoom_sizetype . '/' . $products_image_directory . $products_image_filename . $ihConf[$zoom_sizetype]['suffix'] . $this->extension;
         $ih_zoom_image = new ZMIh2Image($products_image_zoom, $ihConf[$zoom_sizetype]['width'], $ihConf[$zoom_sizetype]['height']);
         $products_image_zoom = $ih_zoom_image->get_local();
-        list($zoomwidth, $zoomheight) = @getimagesize(ZC_INSTALL_PATH . $products_image_zoom);
+        list($zoomwidth, $zoomheight) = @getimagesize($this->imageRoot . $products_image_zoom);
         // we should parse old parameters here and possibly merge some inc case they're duplicate
         $parameters .= ($parameters != '') ? ' ' : '';
         return $parameters . 'style="position:relative" onmouseover="showtrail(' . "'$products_image_zoom','$alt',$width,$height,$zoomwidth,$zoomheight,this," . $this->zoom['startx'].','.$this->zoom['starty'].','.$this->zoom['width'].','.$this->zoom['height'].');" onmouseout="hidetrail();" ';
