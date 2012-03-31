@@ -17,13 +17,16 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
+use zenmagick\base\Runtime;
 
 $admin2->title();
 $resourceManager->cssFile('zc_admin.css');
 $resourceManager->jsFile('zc_admin.js');
 
 $adminDir = $settingsService->get('apps.store.zencart.admindir');
-$zcAdminPath = $settingsService->get('apps.store.zencart.path').'/'.$adminDir.'/';
+$zcPath = $settingsService->get('apps.store.zencart.path');
+$adminWeb = trim(str_replace(Runtime::getInstallationPath(), '', $zcPath).'/'.$adminDir, '/');
+$zcAdminPath = $zcPath.'/'.$adminDir.'/';
 $zcPage = $request->getRequestId().'.php';
 chdir($zcAdminPath);
 
@@ -72,8 +75,8 @@ if (1 == count($head)) {
 }
 $content = preg_replace("/<html.*?<body[^>]*>/s", '', $content);
 $content = str_replace('id="main"', '', $content);
-$content = str_replace('src="includes', 'src="/'.$adminDir.'/includes', $content);
-$content = str_replace('src="images', 'src="/'.$adminDir.'/images', $content);
+$content = str_replace('src="includes', 'src="/'.$adminWeb.'/includes', $content);
+$content = str_replace('src="images', 'src="/'.$adminWeb.'/images', $content);
 $content = str_replace(array('onmouseover="rowOverEffect(this)"', 'onmouseout="rowOutEffect(this)"'), '', $content);
 //action="/zmdev/zenmagick/apps/admin/web/index.php?rid=categories&" method="get">
 $content = preg_replace('|<select([^>]*)name="reset_editor"(.*?)>(.*?)</select>|sm', '', $content);
