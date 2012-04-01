@@ -31,5 +31,5 @@
 <input type="password" name="password" id="password">
 </p>
 
-<p><input class="<?php echo $buttonClasses ?>" type="submit" value="<?php _vzm('Login') ?>"> <a class="<?php echo $buttonClasses ?>" href="<?php echo $admin2->url('reset_password') ?>"><?php _vzm('Reset Password') ?></a></p>
+<p><input class="<?php echo $buttonClasses ?>" type="submit" value="<?php _vzm('Login') ?>"> <a class="<?php echo $buttonClasses ?>" href="<?php echo $admin->url('reset_password') ?>"><?php _vzm('Reset Password') ?></a></p>
 </form>
