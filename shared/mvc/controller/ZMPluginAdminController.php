@@ -25,7 +25,7 @@
  * @author DerManoMann
  * @package zenmagick.store.shared.services.plugins
  */
-class ZMPluginAdmin2Controller extends ZMController {
+class ZMPluginAdminController extends ZMController {
     private $plugin_;
 
 

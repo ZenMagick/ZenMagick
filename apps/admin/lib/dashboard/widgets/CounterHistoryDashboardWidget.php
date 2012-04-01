@@ -60,7 +60,6 @@ class CounterHistoryDashboardWidget extends DashboardWidget {
      * {@inheritDoc}
      */
     public function getContents($request) {
-        $admin2 = $request->getToolbox()->admin2;
         $contents = '<table class="grid" cellspacing="0">';
         $contents .= '<tr><th>'._zm('Date').'</th><th>'._zm('Session').'</th><th>'._zm('Total').'</th></tr>';
         $language = $request->getSelectedLanguage();

@@ -38,9 +38,9 @@ function _encodeAttribute($s) {
     return $s;
 }
 
-$admin2->title($group->getName()) ?>
+$admin->title($group->getName()) ?>
 
-<form method="POST" action="<?php echo $admin2->url() ?>">
+<form method="POST" action="<?php echo $admin->url() ?>">
   <fieldset>
     <legend><?php echo sprintf(_zm('Config: %s'), $group->getName()) ?></legend>
     <table class="grid" width="80%">

@@ -16,10 +16,10 @@
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
- */ $admin2->title(_zm('Themes')) ?>
+ */ $admin->title(_zm('Themes')) ?>
 
 <h2><?php _vzm('Manage Themes') ?></h2>
-<form action="<?php echo $admin2->url() ?>" method="POST">
+<form action="<?php echo $admin->url() ?>" method="POST">
   <table class="grid">
     <tr>
       <th><?php _vzm('Theme') ?></th>

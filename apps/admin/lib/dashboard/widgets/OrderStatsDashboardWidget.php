@@ -40,7 +40,7 @@ class OrderStatsDashboardWidget extends DashboardWidget {
      * {@inheritDoc}
      */
     public function getContents($request) {
-        $admin2 = $request->getToolbox()->admin2;
+        $admin = $request->getToolbox()->admin;
         $contents = '<table class="grid" cellspacing="0">';
         $contents .= '<tr><th>'._zm('Status').'</th><th>'._zm('Number of Orders').'</th></tr>';
         $language = $request->getSelectedLanguage();
@@ -50,7 +50,7 @@ class OrderStatsDashboardWidget extends DashboardWidget {
             $args = array('orderStatusId' => $status->getOrderStatusId());
             $result = \ZMRuntime::getDatabase()->querySingle($sql, $args, 'orders');
             $contents .= '<tr>';
-            $contents .= '<td><a href="'.$admin2->url('orders', 'orderStatusId='.$status->getOrderStatusId()).'">'._zm($status->getName()).'</a></td>';
+            $contents .= '<td><a href="'.$admin->url('orders', 'orderStatusId='.$status->getOrderStatusId()).'">'._zm($status->getName()).'</a></td>';
             $contents .= '<td>'.$result['count'].'</td>';
             $contents .= '</tr>';
         }

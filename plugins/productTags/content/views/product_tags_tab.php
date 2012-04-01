@@ -29,7 +29,7 @@ function addTag(tag) {
 }
 </script>
 
-<form action="<?php echo $admin2->catalog() ?>" method="POST">
+<form action="<?php echo $admin->catalog() ?>" method="POST">
     <input type="hidden" name="catalogRequestId" value="product_tags_tab">
     <fieldset>
         <legend>Manage Product Tags</legend>

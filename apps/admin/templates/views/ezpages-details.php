@@ -22,8 +22,8 @@ use zenmagick\base\Beans;
 ?>
 <?php $selectedLanguageId = $currentLanguage->getId(); ?>
 
-<?php $admin2->title(_zm('Edit Content')) ?>
-<form action="<?php echo $admin2->url() ?>" method="POST">
+<?php $admin->title(_zm('Edit Content')) ?>
+<form action="<?php echo $admin->url() ?>" method="POST">
   <input type="hidden" name="languageId" value="<?php echo $selectedLanguageId ?>">
   <input type="hidden" name="updateId" value="<?php echo $ezPage->getId() ?>">
 
@@ -104,6 +104,6 @@ use zenmagick\base\Beans;
 
   <div>
     <input class="<?php echo $buttonClasses ?>" type="submit" value="Save">
-    <a class="<?php echo $buttonClasses ?>" href="<?php echo $admin2->url('ezpages', 'languageId='.$selectedLanguageId) ?>"><?php _vzm('Cancel') ?></a>
+    <a class="<?php echo $buttonClasses ?>" href="<?php echo $admin->url('ezpages', 'languageId='.$selectedLanguageId) ?>"><?php _vzm('Cancel') ?></a>
   </div>
 </form>

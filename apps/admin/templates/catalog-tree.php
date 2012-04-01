@@ -30,7 +30,7 @@ use zenmagick\base\Runtime;
      * @return string The created HTML.
      */
     function _admin_category_tree($request, $categories=null, $start=true) {
-        $admin2 = $request->getToolbox()->admin2;
+        $admin = $request->getToolbox()->admin;
         $path = $request->getCategoryPathArray();
         if ($start) {
             ob_start();
@@ -43,7 +43,7 @@ use zenmagick\base\Runtime;
         foreach ($categories as $category) {
             $active = in_array($category->getId(), $path);
             echo '<li id="ct-'.$category->getId().'">';
-            echo '<a href="'.$admin2->url('catalog', $category->getPath()).'">'.ZMHtmlUtils::encode($category->getName()).'</a>';
+            echo '<a href="'.$admin->url('catalog', $category->getPath()).'">'.ZMHtmlUtils::encode($category->getName()).'</a>';
             if ($category->hasChildren()) {
                 _admin_category_tree($request, $category->getChildren(), false);
             }

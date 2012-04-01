@@ -16,7 +16,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
- */ $admin2->title() ?>
+ */ $admin->title() ?>
 
 <script>
 	$(function() {
@@ -26,7 +26,7 @@
 
 <h2><?php _vzm('Export orders') ?></h2>
 <div>
-  <form class="export-orders-form" action="<?php echo $admin2->url() ?>" method="GET">
+  <form class="export-orders-form" action="<?php echo $admin->url() ?>" method="GET">
     <input type="hidden" name="rid" value="export_orders">
     <p>
       <label for="dateFrom"><?php _vzm('From:') ?></label>

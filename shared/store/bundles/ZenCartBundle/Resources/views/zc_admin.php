@@ -19,7 +19,7 @@
  */
 use zenmagick\base\Runtime;
 
-$admin2->title();
+$admin->title();
 $resourceManager->cssFile('zc_admin.css');
 $resourceManager->jsFile('zc_admin.js');
 

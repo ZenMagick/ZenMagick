@@ -22,12 +22,12 @@
  */
   $typeMap = array('#' => 'Fixed Price', '$' => 'Amount', '%' => 'Percent');
 ?>
-<form action="<?php echo $admin2->catalog() ?>" method="GET">
+<form action="<?php echo $admin->catalog() ?>" method="GET">
   <input type="hidden" name="catalogRequestId" value="product_group_pricing_tab">
   <h2>Group Pricing ( <?php echo $form->idpSelect('groupId', $priceGroups, $groupId, array('size'=>1, 'onchange'=>'this.form.submit()')) ?> )</h2>
 </form>
 
-<form action="<?php echo $admin2->catalog() ?>" method="POST">
+<form action="<?php echo $admin->catalog() ?>" method="POST">
   <fieldset>
     <legend>Price/Discount</legend>
     <div>
@@ -62,7 +62,7 @@
     <input type="hidden" name="catalogRequestId" value="product_group_pricing_tab">
     <?php if (0 < $request->getParameter('groupPricingId')) { ?>
         <input type="submit" name="update" value="Update">
-        <a href="<?php echo $admin2->catalog(null, 'groupPricingId='.$request->getParameter('groupPricingId').'&delete=true') ?>">Delete</a>
+        <a href="<?php echo $admin->catalog(null, 'groupPricingId='.$request->getParameter('groupPricingId').'&delete=true') ?>">Delete</a>
     <?php } else { ?>
         <input type="submit" name="create" value="Create">
     <?php } ?>
@@ -81,7 +81,7 @@
           <td><?php echo ($productGroupPricing->isAllowSaleSpecial() ? 'Y' : 'N') ?></td>
           <td><?php echo $productGroupPricing->getStartDate() ?></td>
           <td><?php echo $productGroupPricing->getEndDate() ?></td>
-          <td><a href="<?php echo $admin2->catalog(null, 'groupPricingId='.$productGroupPricing->getId()) ?>">Change</a></td>
+          <td><a href="<?php echo $admin->catalog(null, 'groupPricingId='.$productGroupPricing->getId()) ?>">Change</a></td>
         </tr>
       <?php } ?>
     </table>

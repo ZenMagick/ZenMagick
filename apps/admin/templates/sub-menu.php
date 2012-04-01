@@ -30,7 +30,7 @@
             <?php if ('sep' == $subItem->getType()) { ?>
               <li class="sep"></li>
             <?php } else { ?>
-              <li><a href="<?php echo $admin2->url($subItem->getRequestId(), $subItem->getParams()) ?>"><?php echo $subItem->getName() ?></a></li>
+              <li><a href="<?php echo $admin->url($subItem->getRequestId(), $subItem->getParams()) ?>"><?php echo $subItem->getName() ?></a></li>
             <?php } ?>
           <?php } ?>
           </ul>
@@ -47,7 +47,7 @@
     if (null != ($current = $adminMenu->getItemForRequestId($request->getRequestId()))) {
       foreach ($current->getAlias() as $alias) {
         if ($request->getRequestId() == $alias) {
-          echo "alias = '".$admin2->url($current->getRequestId(), true?'':$current->getParams())."'";
+          echo "alias = '".$admin->url($current->getRequestId(), true?'':$current->getParams())."'";
         }
       }
     }

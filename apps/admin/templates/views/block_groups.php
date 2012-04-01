@@ -16,7 +16,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
- */ $admin2->title() ?>
+ */ $admin->title() ?>
 
 <table class="grid">
   <tr>
@@ -27,18 +27,18 @@
     <tr>
       <td><?php echo $groupName ?></td>
       <td>
-      <form class="button-form" action="<?php echo $admin2->url() ?>" method="POST" onsubmit="return ZenMagick.confirm('<?php _vzm("Remove group '%s'", $groupName) ?>', this);">
+      <form class="button-form" action="<?php echo $admin->url() ?>" method="POST" onsubmit="return ZenMagick.confirm('<?php _vzm("Remove group '%s'", $groupName) ?>', this);">
           <input type="hidden" name="groupName" value="<?php echo $groupName ?>">
           <input type="hidden" name="action" value="removeGroup">
           <input type="submit" class="<?php echo $buttonClasses ?>" value="Remove">
         </form>
-        <a href="<?php echo $admin2->url('block_group_admin', 'groupName='.$groupName) ?>" class="<?php echo $buttonClasses ?>"><?php _vzm('Configure') ?></a>
+        <a href="<?php echo $admin->url('block_group_admin', 'groupName='.$groupName) ?>" class="<?php echo $buttonClasses ?>"><?php _vzm('Configure') ?></a>
       </td>
     </tr>
   <?php } ?>
   <tr>
     <td colspan="2">
-      <form action="<?php echo $admin2->url() ?>" method="POST">
+      <form action="<?php echo $admin->url() ?>" method="POST">
         <input type="hidden" name="action" value="addGroup">
         <input type="text" id="groupName" name="groupName" value="">
         <input type="submit" class="<?php echo $buttonClasses ?>" value="Add group">

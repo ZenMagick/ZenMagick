@@ -25,7 +25,7 @@
  * @author DerManoMann <mano@zenmagick.org>
  * @package org.zenmagick.plugins.googleStoreLocator
  */
-class ZMGoogleStoreLocatorAdminController extends ZMPluginAdmin2Controller {
+class ZMGoogleStoreLocatorAdminController extends ZMPluginAdminController {
 
     /**
      * Create new instance.

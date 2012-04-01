@@ -27,7 +27,7 @@ use zenmagick\base\Toolbox;
  * @author DerManoMann <mano@zenmagick.org>
  * @package org.zenmagick.plugins.subscriptions
  */
-class ZMSubscriptionAdminController extends ZMPluginAdmin2Controller {
+class ZMSubscriptionAdminController extends ZMPluginAdminController {
 
     /**
      * Create new instance.

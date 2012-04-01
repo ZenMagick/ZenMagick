@@ -16,7 +16,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
- */ $admin2->title() ?>
+ */ $admin->title() ?>
 
 <table class="grid" width="50%">
   <tr>
@@ -26,7 +26,7 @@
   <?php foreach ($resultList->getResults() as $line) { ?>
   <tr>
     <?php if (ID_SOURCE_OTHER == $line->getSourceId()) { ?>
-      <td><a href="<?php echo $admin2->url(null, 'other=true') ?>"><?php echo $html->encode($line->getName()) ?></a></td>
+      <td><a href="<?php echo $admin->url(null, 'other=true') ?>"><?php echo $html->encode($line->getName()) ?></a></td>
     <?php } else { ?>
       <td><?php echo $html->encode($line->getName()) ?></td>
     <?php } ?>
@@ -35,6 +35,6 @@
   <?php } ?>
 </table>
 <?php if ($isOther) { ?>
-  <p><a href="<?php echo $admin2->url(null, '') ?>" class="<?php echo $buttonClasses ?>"><?php _vzm('Back to overview') ?></a></p>
+  <p><a href="<?php echo $admin->url(null, '') ?>" class="<?php echo $buttonClasses ?>"><?php _vzm('Back to overview') ?></a></p>
 <?php } ?>
 <?php echo $this->fetch('pagination.php') ?>

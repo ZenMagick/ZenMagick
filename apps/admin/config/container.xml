@@ -122,8 +122,8 @@
             <tag name="zenmagick.http.widgets.widget" />
         </service>
 
-        <service id="admin2Tool" class="zenmagick\apps\store\admin\http\tools\ToolboxAdmin2" scope="prototype">
-            <tag name="zenmagick.http.toolbox.tool" key="admin2" />
+        <service id="adminTool" class="zenmagick\apps\store\admin\http\tools\ToolboxAdmin" scope="prototype">
+            <tag name="zenmagick.http.toolbox.tool" key="admin" />
         </service>
 
         <service id="themeBuilder" class="zenmagick\apps\store\admin\utils\ThemeBuilder" scope="prototype" />

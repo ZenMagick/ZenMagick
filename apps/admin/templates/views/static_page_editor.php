@@ -62,8 +62,8 @@
 ?>
 
 <?php echo $this->fetch('messages.php'); ?>
-<?php $admin2->title(_zm('Edit Define Pages')) ?></h1>
-<form action="<?php echo $admin2->url() ?>" method="GET">
+<?php $admin->title(_zm('Edit Define Pages')) ?></h1>
+<form action="<?php echo $admin->url() ?>" method="GET">
   <input type="hidden" name="rid" value="static_page_editor">
   <h2>ZenMagick Static Page Editor (
           <select id="languageId" name="languageId" onchange="this.form.submit();">
@@ -112,7 +112,7 @@
   }
 </script>
 <?php if (null !== $editContents) { ?>
-  <form action="<?php echo $admin2->url() ?>" method="POST">
+  <form action="<?php echo $admin->url() ?>" method="POST">
     <input type="hidden" name="themeId" value="<?php echo $selectedThemeId ?>">
     <input type="hidden" name="file" value="<?php echo $selectedFile ?>">
     <input type="hidden" name="languageId" value="<?php echo $selectedLanguageId ?>">
@@ -129,7 +129,7 @@
 
     <br><br>
     <input class="<?php echo $buttonClasses ?>" type="submit" name="save" value="Save">
-    <a class="<?php echo $buttonClasses ?>" href="<?php echo $admin2->url() ?>">Cancel</a>
+    <a class="<?php echo $buttonClasses ?>" href="<?php echo $admin->url() ?>">Cancel</a>
     <a class="<?php echo $buttonClasses ?>" href="#" onclick="preview();return false;">Preview</a>
   </form>
 <?php } ?>

@@ -25,7 +25,7 @@ use zenmagick\base\Beans;
 <?php $lastIndex = count($fieldList)-1; ?>
 <h2><?php _vzm('Quick Edit: <em>%s</em>', $html->encode($category->getName())) ?></h2>
 
-<form action="<?php echo $admin2->catalog() ?>" method="POST">
+<form action="<?php echo $admin->catalog() ?>" method="POST">
   <table class="grid">
     <thead><tr>
       <th class="first">Id</th>
@@ -36,7 +36,7 @@ use zenmagick\base\Beans;
     <tbody>
       <?php $first = true; $odd = true; foreach ($productList as $product) { ?>
         <tr class="<?php echo ($odd?"odd":"even").($first?" first":" other") ?>">
-          <td class="first" style="text-align:right;"><a href="<?php echo $admin2->catalog(null, 'productId='.$product->getId()) ?>"><?php echo $product->getId() ?></a></td>
+          <td class="first" style="text-align:right;"><a href="<?php echo $admin->catalog(null, 'productId='.$product->getId()) ?>"><?php echo $product->getId() ?></a></td>
           <?php foreach ($fieldList as $ii => $field) { $widget = $field['widget'];
             // allow widgets to do custom calculations, etc
             $widget->setProduct($product);

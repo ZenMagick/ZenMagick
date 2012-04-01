@@ -16,7 +16,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
- */ $admin2->title() ?>
+ */ $admin->title() ?>
 <h2><?php _vzm('All Subscriptions') ?></h2>
 
 <?php $resultList->setPagination(10); ?>
@@ -60,7 +60,7 @@
                 <td style="text-align:center;"><img src="images/icons/<?php echo ($order->isSubscriptionCanceled() ? 'cross.gif' : 'tick.gif') ?>" alt="tick"></td>
                 <td>
                     <?php if (!$order->isSubscriptionCanceled()) { ?>
-                        <form action="<?php echo $admin2->url() ?>" method="POST">
+                        <form action="<?php echo $admin->url() ?>" method="POST">
                             <input type="hidden" name="fkt" value="subscription_admin">
                             <input type="hidden" name="orderId" value="<?php echo $order->getId() ?>">
                             <input type="submit" name="cancel" value="cancel">

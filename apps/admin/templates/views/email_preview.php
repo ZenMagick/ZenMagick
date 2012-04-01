@@ -16,7 +16,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
- */ $admin2->title() ?>
+ */ $admin->title() ?>
 
 <script>
   $(document).ready(function() {
@@ -40,14 +40,14 @@
       <?php
         $textLink = null;
         if (array_key_exists('text', $formats)) {
-            $textLink = '<a class="plink" target="_blank" href="'.$admin2->url(null, 'template='.$template.'&format=text&type='.$formats['text']).'">'._zm('Text').'</a>';
+            $textLink = '<a class="plink" target="_blank" href="'.$admin->url(null, 'template='.$template.'&format=text&type='.$formats['text']).'">'._zm('Text').'</a>';
         }
       ?>
       <td><?php echo (null != $textLink ? $textLink : '') ?></td>
       <?php
         $htmlLink = null;
         if (array_key_exists('html', $formats)) {
-            $htmlLink = '<a class="plink" target="_blank" href="'.$admin2->url(null, 'template='.$template.'&format=html&type='.$formats['html']).'">'._zm('HTML').'</a>';
+            $htmlLink = '<a class="plink" target="_blank" href="'.$admin->url(null, 'template='.$template.'&format=html&type='.$formats['html']).'">'._zm('HTML').'</a>';
         }
       ?>
       <td><?php echo (null != $htmlLink ? $htmlLink : '') ?></td>

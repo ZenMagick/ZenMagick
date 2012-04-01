@@ -19,7 +19,7 @@
  */
 ?>
 
-<form id="ajax-form" action="<?php echo $admin2->url() ?>" method="POST">
+<form id="ajax-form" action="<?php echo $admin->url() ?>" method="POST">
   <input type="hidden" name="pluginId" value="<?php echo $plugin->getId() ?>">
   <input type="hidden" name="group" value="<?php echo $plugin->getGroup() ?>">
   <input type="hidden" name="action" value="update">

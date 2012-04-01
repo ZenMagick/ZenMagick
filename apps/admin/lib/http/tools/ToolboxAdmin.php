@@ -28,7 +28,7 @@ use zenmagick\apps\store\admin\controller\CatalogContentController;
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class ToolboxAdmin2 extends ToolboxTool {
+class ToolboxAdmin extends ToolboxTool {
     private $tags_;
 
 

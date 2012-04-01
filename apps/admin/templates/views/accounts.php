@@ -16,7 +16,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
- */ $admin2->title() ?>
+ */ $admin->title() ?>
 
 <table class="grid">
   <tr>
@@ -29,7 +29,7 @@
     <tr>
       <td><?php echo $account->getId() ?></td>
       <?php $name = $account->getType() == ZMAccount::REGISTERED ? $account->getFullName() : _zm('** Guest **'); ?>
-      <td><a href="<?php echo $admin2->url('account', 'accountId='.$account->getId()) ?>"><?php echo $name ?></a></td>
+      <td><a href="<?php echo $admin->url('account', 'accountId='.$account->getId()) ?>"><?php echo $name ?></a></td>
       <td><?php echo $locale->shortDate($account->getAccountCreateDate()) ?></td>
       <td><?php echo ($account->getAuthorization() ? _vzm('Pending') : _vzm('Approved')) ?></td>
     </tr>

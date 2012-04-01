@@ -16,7 +16,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
- */ $admin2->title(sprintf(_zm("%s Orders"), (null != $orderStatus ? $orderStatus->getName() : ''))) ?></h1>
+ */ $admin->title(sprintf(_zm("%s Orders"), (null != $orderStatus ? $orderStatus->getName() : ''))) ?></h1>
 
 <table class="grid">
   <tr>
@@ -30,10 +30,10 @@
   </tr>
   <?php foreach ($resultList->getResults() as $order) { ?>
     <tr>
-      <td><a href="<?php echo $admin2->url('order', 'orderId='.$order->getId()) ?>"><?php echo $order->getId() ?></a></td>
+      <td><a href="<?php echo $admin->url('order', 'orderId='.$order->getId()) ?>"><?php echo $order->getId() ?></a></td>
       <?php $actualAccount = $container->get('accountService')->getAccountForId($order->getAccountId()); ?>
       <?php $name = $actualAccount->getType() == ZMAccount::REGISTERED ? $order->getAccount()->getFullName() : _zm('** Guest **'); ?>
-      <td><a href="<?php echo $admin2->url('account', 'accountId='.$order->getAccountId()) ?>"><?php echo $name ?></a></td>
+      <td><a href="<?php echo $admin->url('account', 'accountId='.$order->getAccountId()) ?>"><?php echo $name ?></a></td>
       <td><?php echo $order->getOrderDate() ?></td>
       <td><?php echo $order->get('payment_method') ?></td>
       <td><?php echo $order->get('shipping_method') ?></td>

@@ -16,7 +16,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
- */ $admin2->title() ?>
+ */ $admin->title() ?>
 
 <table class="grid" width="50%">
   <tr>
@@ -29,7 +29,7 @@
     <td>
       <a href="" class="<?php echo $buttonClasses ?>"><?php _vzm('Edit') ?></a>
       <?php if (ID_SOURCE_OTHER != $line->getSourceId()) { ?>
-        <form class="button-form" action="<?php echo $admin2->url() ?>" method="POST" onsubmit="return ZenMagick.confirm('<?php _vzm('Are you sure?') ?>', this);">
+        <form class="button-form" action="<?php echo $admin->url() ?>" method="POST" onsubmit="return ZenMagick.confirm('<?php _vzm('Are you sure?') ?>', this);">
           <input type="hidden" name="action" value="delete">
           <input type="hidden" name="sourceId" value="<?php echo $line->getSourceId() ?>">
           <input type="submit" class="<?php echo $buttonClasses ?>" value="<?php _vzm('Delete') ?>">
@@ -40,7 +40,7 @@
   <?php } ?>
   <tr>
     <td colspan="2">
-      <form action="<?php echo $admin2->url() ?>" method="POST">
+      <form action="<?php echo $admin->url() ?>" method="POST">
         <input type="hidden" name="action" value="create">
         <label for="source"><?php _vzm('New Source') ?></label> <input type="text" id="source" name="source" value="">
         <input type="submit" class="<?php echo $buttonClasses ?>" value="<?php _vzm('Create') ?>">

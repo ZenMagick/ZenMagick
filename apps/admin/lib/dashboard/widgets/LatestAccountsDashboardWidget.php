@@ -40,14 +40,14 @@ class LatestAccountsDashboardWidget extends DashboardWidget {
      * {@inheritDoc}
      */
     public function getContents($request) {
-        $admin2 = $request->getToolbox()->admin2;
+        $admin = $request->getToolbox()->admin;
         $contents = '';
         $contents .= '<table class="grid" cellspacing="0">';
         $contents .= '<tr><th>'._zm('Name').'</th><th>'._zm('Registered').'</th></tr>';
         foreach ($this->container->get('accountService')->getAllAccounts(null, 5) as $account) {
             $contents .= '<tr>';
             $name = $account->getType() == \ZMAccount::REGISTERED ? $account->getFullName() : _zm('** Guest **');
-            $contents .= '<td><a href="'.$admin2->url('account', 'accountId='.$account->getId()).'">'.$name.'</a></td>';
+            $contents .= '<td><a href="'.$admin->url('account', 'accountId='.$account->getId()).'">'.$name.'</a></td>';
             $contents .= '<td>'.\ZMLocaleUtils::dateShort($account->getAccountCreateDate()).'</td>';
             $contents .= '</tr>';
         }

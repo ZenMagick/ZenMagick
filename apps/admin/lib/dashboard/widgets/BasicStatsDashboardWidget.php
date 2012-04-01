@@ -98,7 +98,6 @@ class BasicStatsDashboardWidget extends DashboardWidget {
      * {@inheritDoc}
      */
     public function getContents($request) {
-        $admin2 = $request->getToolbox()->admin2;
         $contents = '<table class="grid" cellspacing="0">';
         $contents .= '<tr><th>'._zm('Type').'</th><th>'._zm('Stat').'</th></tr>';
         $language = $request->getSelectedLanguage();

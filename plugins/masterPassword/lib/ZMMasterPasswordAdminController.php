@@ -25,7 +25,7 @@
  * @author DerManoMann <mano@zenmagick.org>
  * @package org.zenmagick.plugins.masterPassword
  */
-class ZMMasterPasswordAdminController extends ZMPluginAdmin2Controller {
+class ZMMasterPasswordAdminController extends ZMPluginAdminController {
 
     /**
      * Create new instance.

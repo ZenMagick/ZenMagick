@@ -25,7 +25,7 @@
  * @author DerManoMann <mano@zenmagick.org>
  * @package org.zenmagick.plugins.settings
  */
-class ZMSettingsAdminController extends ZMPluginAdmin2Controller {
+class ZMSettingsAdminController extends ZMPluginAdminController {
 
     /**
      * Create new instance.

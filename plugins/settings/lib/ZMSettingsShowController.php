@@ -27,7 +27,7 @@ use zenmagick\base\Toolbox;
  * @author DerManoMann <mano@zenmagick.org>
  * @package org.zenmagick.plugins.settings
  */
-class ZMSettingsShowController extends ZMPluginAdmin2Controller {
+class ZMSettingsShowController extends ZMPluginAdminController {
 
     /**
      * Create new instance.

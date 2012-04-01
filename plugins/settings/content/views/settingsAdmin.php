@@ -16,7 +16,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
- */ $admin2->title() ?>
+ */ $admin->title() ?>
 <h2><?php _vzm('Manage Settings') ?></h2>
 
 <script type="text/javascript">
@@ -24,7 +24,7 @@
     // use jquery to toggle value element
 </script>
 
-<form action="<?php echo $admin2->url() ?>" method="POST">
+<form action="<?php echo $admin->url() ?>" method="POST">
     <fieldset>
         <legend>Create New Setting</legend>
         <p>
@@ -58,7 +58,7 @@
     </fieldset>
 </form>
 
-<form action="<?php echo $admin2->url() ?>" method="POST">
+<form action="<?php echo $admin->url() ?>" method="POST">
     <fieldset>
         <legend>Current Settings</legend>
         <table class="grid">
