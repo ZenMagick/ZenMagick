@@ -26,7 +26,7 @@
  * Credit class interface.
  *
  * @author DerManoMann
- * @package zenmagick.store.shared.services.plugins.types
+ * @package zenmagick.store.shared.model.checkout
  * @todo return types
  */
 interface ZMCreditClass {
