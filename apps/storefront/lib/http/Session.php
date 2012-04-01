@@ -142,16 +142,6 @@ class Session extends \zenmagick\http\session\Session {
     }
 
     /**
-     * Check if we have a session yet.
-     *
-     * @return boolean <code>true<code> if the session has been already started.
-     */
-    public function isStarted() {
-        $id = session_id();
-        return !empty($id);
-    }
-
-    /**
      * Restore the shopping cart contents.
      */
     public function restoreCart() {
