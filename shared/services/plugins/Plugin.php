@@ -66,7 +66,7 @@ class Plugin extends zenmagick\base\plugins\Plugin {
         $this->preferredSortOrder_ = 0;
         $this->configValues_ = null;
         // all
-        $this->setContext(null);
+        $this->setContext('admin,storefront');
     }
 
 

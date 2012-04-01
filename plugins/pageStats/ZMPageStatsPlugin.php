@@ -71,9 +71,10 @@ class ZMPageStatsPlugin extends Plugin {
     public function init() {
         parent::init();
         // register to log events
-        Runtime::getEventDispatcher()->listen(array($this, 'logEvent'));
+        $eventDispatcher = $this->container->get('eventDispatcher');
+        $eventDispatcher->listen(array($this, 'logEvent'));
         // register for method mapped events
-        Runtime::getEventDispatcher()->listen($this);
+        $eventDispatcher->listen($this);
     }
 
     /**

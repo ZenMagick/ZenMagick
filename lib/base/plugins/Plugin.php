@@ -19,7 +19,6 @@
  */
 namespace zenmagick\base\plugins;
 
-use zenmagick\base\Runtime;
 use zenmagick\base\ZMObject;
 
 /**
@@ -170,7 +169,7 @@ class Plugin extends ZMObject {
      * @return boolean <code>true</code> if the plugin is enabled, <code>false</code> if not.
      */
     public function isEnabled() {
-        return null !== $this->enabled_ ? $this->enabled_ : Runtime::getSettings()->get('zenmagick.base.plugins.'.$this->getId().'.enabled', false);
+        return null !== $this->enabled_ ? $this->enabled_ : $this->container->get('settingsService')->get('zenmagick.base.plugins.'.$this->getId().'.enabled', false);
     }
 
     /**
