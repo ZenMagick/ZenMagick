@@ -53,11 +53,6 @@ class ProductInfoController extends \ZMController {
             $productService->updateViewCount($product->getId(), $languageId);
         }
 
-        // crumbtrail handling
-        $request->getToolbox()->crumbtrail->addCategoryPath($request->getCategoryPathArray());
-        $request->getToolbox()->crumbtrail->addManufacturer($request->getManufacturerId());
-        $request->getToolbox()->crumbtrail->addProduct($product->getId());
-
         $viewName = $this->container->get('templateManager')->getProductTemplate($product->getId());
         return $this->findView($viewName, $data);
     }

@@ -35,13 +35,6 @@ class PasswordForgottenController extends \ZMController {
     /**
      * {@inheritDoc}
      */
-    public function preProcess($request) {
-        $request->getToolbox()->crumbtrail->addCrumb($request->getToolbox()->utils->getTitle());
-    }
-
-    /**
-     * {@inheritDoc}
-     */
     public function processPost($request) {
         $emailAddress = $request->getParameter('email_address');
         $account = $this->container->get('accountService')->getAccountForEmailAddress($emailAddress);

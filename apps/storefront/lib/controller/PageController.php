@@ -34,7 +34,6 @@ class PageController extends \ZMController {
      */
     public function processGet($request) {
         $languageId = $request->getSession()->getLanguageId();
-        // prepare page name for crumbtrail
         $page = $this->container->get('ezPageService')->getPageForId($request->getParameter("id"), $languageId);
         if (null == $page) {
             // do we have a chapter
@@ -50,8 +49,6 @@ class PageController extends \ZMController {
             // still nothing!
             return $this->findView('page_not_found');
         }
-
-        $request->getToolbox()->crumbtrail->addCrumb($page->getTitle());
 
         return $this->findView(null, array('ezPage' => $page));
     }

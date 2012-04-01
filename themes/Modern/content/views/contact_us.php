@@ -22,6 +22,7 @@
  */
 ?>
 
+<?php $crumbtrail->addCrumb(_zm('Contact Us')) ?>
 <address><?php echo nl2br($settingsService->get('storeNameAddress')); ?></address>
 <div id="contactUsNoticeContent" class="content">
 	<?php echo $utils->staticPageContent("contact_us") ?>

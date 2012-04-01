@@ -34,10 +34,6 @@ class AccountHistoryInfoController extends \ZMController {
      * {@inheritDoc}
      */
     public function processGet($request) {
-        $request->getToolbox()->crumbtrail->addCrumb("Account", $request->url('account', '', true));
-        $request->getToolbox()->crumbtrail->addCrumb($request->getToolbox()->utils->getTitle(), $request->url('account_history', '', true));
-        $request->getToolbox()->crumbtrail->addCrumb("Order # ".$request->getOrderId());
-
         $order = $this->container->get('orderService')->getOrderForId($request->getOrderId(), $request->getSession()->getLanguageId());
         $account = $request->getAccount();
         if ($account->getId() != $order->getAccountId()) {

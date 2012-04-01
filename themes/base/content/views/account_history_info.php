@@ -22,6 +22,7 @@
  */
 ?>
 
+<?php $crumbtrail->addCrumb(_zm('Account'), $net->url('account', '', true))->addCrumb(_zm('Order History'), $net->url('account_history', '', true))->addCrumb(sprintf(_zm('Order #%s'), $request->getOrderId())) ?>
 <h3><?php _vzm("Item Details") ?></h3>
 <table cellpadding="0" cellspacing="0">
     <tbody>

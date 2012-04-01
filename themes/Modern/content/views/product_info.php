@@ -22,8 +22,8 @@
  */
 ?>
 
+<?php $crumbtrail->addCategoryPath($request->getCategoryPathArray())->addManufacturer($request->getManufacturerId())->addProduct($currentProduct->getId()) ?>
 <?php $manufacturer = $currentProduct->getManufacturer() ?>
-
 <?php echo $form->addProduct($currentProduct->getId()) ?>
 	<div id="productTopInfoBox">
 	  <?php $imageInfo = $currentProduct->getImageInfo() ?>

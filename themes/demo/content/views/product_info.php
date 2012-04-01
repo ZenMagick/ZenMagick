@@ -19,9 +19,13 @@
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
- */ $resourceManager->jsFile('lightbox/prototype.js', $resourceManager::FOOTER) ?>
+ */
+
+$resourceManager->jsFile('lightbox/prototype.js', $resourceManager::FOOTER) ?>
 <?php $resourceManager->jsFile('lightbox/scriptaculous.js?load=effects', $resourceManager::FOOTER) ?>
 <?php $resourceManager->jsFile('lightbox/lightbox.js', $resourceManager::FOOTER) ?>
+
+<?php $crumbtrail->addCategoryPath($request->getCategoryPathArray())->addManufacturer($request->getManufacturerId())->addProduct($currentProduct->getId()) ?>
 
 <?php $manufacturer = $currentProduct->getManufacturer() ?>
 <h2><?php echo $html->encode(null != $manufacturer ? $manufacturer->getName() : '') ?> <?php echo $html->encode($currentProduct->getName()) ?></h2>

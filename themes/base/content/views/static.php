@@ -22,4 +22,12 @@
  */
 ?>
 
+<?php
+// prepare page name for crumbtrail
+$sub = $request->getSubPageName();
+$sub = str_replace('_', ' ', $sub);
+$sub = ucwords($sub);
+$crumbtrail->addCrumb($sub);
+?>
+
 <?php echo $utils->staticPageContent($request->getSubPageName()) ?>

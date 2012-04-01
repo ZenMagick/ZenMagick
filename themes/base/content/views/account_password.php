@@ -22,6 +22,8 @@
  */
 ?>
 
+<?php $crumbtrail->addCrumb(_zm('Account'), $net->url('account', '', true))->addCrumb(_zm('Change Password')) ?>
+
 <?php echo $form->open('account_password', '', true, array('id'=>'account_password')) ?>
     <fieldset>
         <legend><?php _vzm("Change Password") ?></legend>

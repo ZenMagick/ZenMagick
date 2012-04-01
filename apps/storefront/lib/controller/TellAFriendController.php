@@ -48,7 +48,6 @@ class TellAFriendController extends \ZMController {
         }
         if (null != $this->product_) {
             $this->viewData_['currentProduct'] = $this->product_;
-            $this->handleCrumbtrail($this->product_, $request);
         }
     }
 
@@ -108,19 +107,6 @@ class TellAFriendController extends \ZMController {
 
         $data = array_merge($this->viewData_, array('emailMessage' => $emailMessage));
         return $this->findView('success', $data, array('parameter' => 'products_id='.$this->product_->getId()));
-    }
-
-    /**
-     * Handle crumbtrail.
-     *
-     * @param ZMProduct product The current product.
-     * @param ZMRequest request The current request.
-     */
-    protected function handleCrumbtrail($product, $request) {
-        $request->getToolbox()->crumbtrail->addCategoryPath($request->getCategoryPathArray());
-        $request->getToolbox()->crumbtrail->addManufacturer($request->getManufacturerId());
-        $request->getToolbox()->crumbtrail->addProduct($product->getId());
-        $request->getToolbox()->crumbtrail->addCrumb("Tell A Friend");
     }
 
 }

@@ -35,9 +35,6 @@ class AccountHistoryController extends \ZMController {
      * {@inheritDoc}
      */
     public function processGet($request) {
-        $request->getToolbox()->crumbtrail->addCrumb("Account", $request->url('account', '', true));
-        $request->getToolbox()->crumbtrail->addCrumb($request->getToolbox()->utils->getTitle());
-
         $resultSource = new \ZMObjectResultSource('ZMOrder', 'orderService', "getOrdersForAccountId", array($request->getAccountId(), $request->getSession()->getLanguageId()));
         $resultList = Runtime::getContainer()->get("ZMResultList");
         $resultList->setResultSource($resultSource);

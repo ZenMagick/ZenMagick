@@ -35,12 +35,6 @@ class ReviewsController extends \ZMController {
      * {@inheritDoc}
      */
     public function processGet($request) {
-        // crumbtrail handling
-        $request->getToolbox()->crumbtrail->addCategoryPath($request->getCategoryPathArray());
-        $request->getToolbox()->crumbtrail->addManufacturer($request->getManufacturerId());
-        $request->getToolbox()->crumbtrail->addProduct($request->getProductId());
-        $request->getToolbox()->crumbtrail->addCrumb("Reviews");
-
         $resultSource = new \ZMObjectResultSource('zenmagick\apps\store\entities\catalog\Review', 'reviewService', "getAllReviews", array($request->getSession()->getLanguageId()));
         $resultList = Runtime::getContainer()->get('ZMResultList');
         $resultList->setResultSource($resultSource);

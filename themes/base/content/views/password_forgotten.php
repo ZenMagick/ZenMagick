@@ -22,6 +22,7 @@
  */
 ?>
 
+<?php $crumbtrail->addCrumb(_zm('Password Recovery')) ?>
 <p><?php _vzm("Enter your E-Mail address below and we'll send you an e-mail message containing your new password.") ?></p>
 <?php echo $form->open('password_forgotten') ?>
   <fieldset>

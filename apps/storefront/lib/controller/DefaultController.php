@@ -30,13 +30,4 @@ namespace zenmagick\apps\store\storefront\controller;
  */
 class DefaultController extends \ZMController {
 
-    /**
-     * {@inheritDoc}
-     */
-    public function processGet($request) {
-        $request->getToolbox()->crumbtrail->addCrumb($request->getToolbox()->utils->getTitle());
-
-        return parent::processGet($request);
-    }
-
 }

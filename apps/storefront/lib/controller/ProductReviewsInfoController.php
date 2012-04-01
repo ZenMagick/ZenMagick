@@ -35,12 +35,6 @@ class ProductReviewsInfoController extends \ZMController {
      * {@inheritDoc}
      */
     public function processGet($request) {
-        // crumbtrail handling
-        $request->getToolbox()->crumbtrail->addCategoryPath($request->getCategoryPathArray());
-        $request->getToolbox()->crumbtrail->addManufacturer($request->getManufacturerId());
-        $request->getToolbox()->crumbtrail->addProduct($request->getProductId());
-        $request->getToolbox()->crumbtrail->addCrumb("Reviews");
-
         $data = array();
         $languageId = $request->getSession()->getLanguageId();
         $product = $this->container->get('productService')->getProductForId($request->getProductId(), $languageId);

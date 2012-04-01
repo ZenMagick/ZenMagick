@@ -36,11 +36,6 @@ class FeaturedProductsController extends \ZMController {
      * {@inheritDoc}
      */
     public function processGet($request) {
-        // crumbtrail handling
-        $request->getToolbox()->crumbtrail->addCategoryPath($request->getCategoryPathArray());
-        $request->getToolbox()->crumbtrail->addManufacturer($request->getManufacturerId());
-        $request->getToolbox()->crumbtrail->addCrumb("Featured Products");
-
         $resultSource = new \ZMObjectResultSource('ZMProduct', 'productService', "getFeaturedProducts", array($request->getCategoryId(), 0));
         $resultList = Runtime::getContainer()->get("ZMResultList");
         $resultList->setResultSource($resultSource);

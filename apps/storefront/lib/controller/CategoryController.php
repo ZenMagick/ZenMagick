@@ -35,15 +35,6 @@ class CategoryController extends \ZMController {
     /**
      * {@inheritDoc}
      */
-    public function preProcess($request) {
-        $request->getToolbox()->crumbtrail->addCategoryPath($request->getCategoryPathArray());
-        $request->getToolbox()->crumbtrail->addManufacturer($request->getManufacturerId());
-        $request->getToolbox()->crumbtrail->addProduct($request->getProductId());
-    }
-
-    /**
-     * {@inheritDoc}
-     */
     public function processGet($request) {
         $viewName = 'error';
         $method = null;

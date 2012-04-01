@@ -21,6 +21,8 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 ?>
+
+<?php $crumbtrail->addCrumb(_zm('Account'), $request->url('account', '', true))->addCrumb(_zm('Create Account')) ?>
 <script type="text/javascript">
     var all_zones = new Array();
     <?php

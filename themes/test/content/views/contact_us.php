@@ -22,6 +22,8 @@
  */
 ?>
 
+<?php $crumbtrail->addCrumb(_zm('Contact Us')) ?>
+
 <h3><?php _vzm("Store Contact Details") ?></h3>
 <p><address><?php echo nl2br($settingsService->get('storeNameAddress')); ?></address></p>
 <br/>

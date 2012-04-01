@@ -36,11 +36,6 @@ class SpecialsController extends \ZMController {
      * {@inheritDoc}
      */
     public function processGet($request) {
-        // crumbtrail handling
-        $request->getToolbox()->crumbtrail->addCategoryPath($request->getCategoryPathArray());
-        $request->getToolbox()->crumbtrail->addManufacturer($request->getManufacturerId());
-        $request->getToolbox()->crumbtrail->addCrumb("Specials");
-
         $resultSource = new \ZMObjectResultSource('ZMProduct', 'productService', "getSpecials", 0);
         $resultList = Runtime::getContainer()->get('ZMResultList');
         $resultList->setResultSource($resultSource);

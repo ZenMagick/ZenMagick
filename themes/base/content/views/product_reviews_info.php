@@ -22,6 +22,7 @@
  */
 ?>
 
+<?php $crumbtrail->addCategoryPath($request->getCategoryPathArray())->addManufacturer($request->getManufacturerId())->addProduct($request->getProductId())->addCrumb(_zm('Review')) ?>
 <?php echo $form->addProduct($currentProduct->getId(), 1) ?>
   <div>
     <div id="pinfo">

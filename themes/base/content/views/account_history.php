@@ -22,9 +22,12 @@
  */
 ?>
 
+<?php $crumbtrail->addCrumb("Account", $net->url('account', '', true))->addCrumb(_zm('Order History')) ?>
+
 <?php if ($resultList->hasResults()) { ?>
     <div class="rnblk">
         <?php echo $this->fetch('views/resultlist/nav.php') ?>
+        <p>&nbsp;</p>
     </div>
 
     <div class="rlist">

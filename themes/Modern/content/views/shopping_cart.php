@@ -22,6 +22,7 @@
  */
 ?>
 
+<?php $crumbtrail->addCrumb(_zm('Shopping Cart')) ?>
 <?php echo $form->open('shopping_cart', "action=update_product", true) ?>
     <table cellpadding="0" cellspacing="0" width="100%">
     	<tr class="tableHeading">

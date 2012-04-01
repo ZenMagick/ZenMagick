@@ -22,6 +22,7 @@
  */
 ?>
 
+<?php $crumbtrail->addCategoryPath($request->getCategoryPathArray())->addManufacturer($request->getManufacturerId())->addProduct($currentProduct->getId())->addCrumb(_zm('Tell A Friend')) ?>
 <?php echo $form->open('tell_a_friend', 'products_id=' . $request->getProductId(), true, array('id'=>'tellAFriend')) ?>
    <fieldset>
         <legend><?php _vzm("Tell a friend about '%s'", $currentProduct->getName()); ?></legend>
