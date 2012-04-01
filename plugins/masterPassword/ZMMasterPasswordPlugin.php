@@ -51,7 +51,7 @@ class ZMMasterPasswordPlugin extends Plugin {
         parent::init();
 
         // add admin page
-        $this->addMenuItem2(_zm('Master Password'), 'masterPasswordAdmin');
+        $this->addMenuItem(_zm('Master Password'), 'masterPasswordAdmin');
     }
 
     /**

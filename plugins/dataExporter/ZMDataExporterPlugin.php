@@ -42,7 +42,7 @@ class ZMDataExporterPlugin extends Plugin {
     public function init() {
         parent::init();
         $menuKey = $this->addMenuGroup(_zm('Data Export'), 'tools');
-        $this->addMenuItem2(_zm('Orders'), 'export_orders', $menuKey);
+        $this->addMenuItem(_zm('Orders'), 'export_orders', $menuKey);
     }
 
 }

@@ -65,8 +65,8 @@ class Plugin extends zenmagick\base\plugins\Plugin {
         $this->messages_ = array();
         $this->preferredSortOrder_ = 0;
         $this->configValues_ = null;
-        // both
-        $this->setContext('admin,storefront');
+        // all
+        $this->setContext(null);
     }
 
 
@@ -269,26 +269,6 @@ class Plugin extends zenmagick\base\plugins\Plugin {
     public function setSortOrder($sortOrder) { $this->set(self::KEY_SORT_ORDER, $sortOrder); }
 
     /**
-     * Get a plugin config file path.
-     *
-     * <p>Return a fully qualified filename; resolved either against the plugin directory or <code>config/</code>.
-     * If neither file exists, the <code>config/</code> based filename is returned.</p>
-     *
-     * @param string file The filename.
-     * @return string A fully qualified filename.
-     */
-    public function getConfigPath($file) {
-        $configPath = Runtime::getInstallationPath().'config'.DIRECTORY_SEPARATOR;
-        $configFile = $configPath.$this->getId().DIRECTORY_SEPARATOR.$file;
-
-        if (file_exists($configFile) || !file_exists($this->getPluginDirectory().'/'.$file)) {
-            return $configFile;
-        }
-
-        return $this->getPluginDirectory().'/'.$file;
-    }
-
-    /**
      * Add a configuration value.
      *
      * <p>If no sort order is specified, entries will be listed in the order they are added. Effectively,
@@ -367,7 +347,7 @@ class Plugin extends zenmagick\base\plugins\Plugin {
      * @param string requestId The corresponding requestId.
      * @param string menuKey Optional key determining where the menu item should appear; default is <em>'configuration-plugins'</em>.
      */
-    public function addMenuItem2($title, $requestId, $menuKey='configuration-plugins') {
+    public function addMenuItem($title, $requestId, $menuKey='configuration-plugins') {
         if ($this->container->has('adminMenu')) {
             $adminMenu = $this->container->get('adminMenu');
             if (null != ($parent = $adminMenu->getElement($menuKey))) {

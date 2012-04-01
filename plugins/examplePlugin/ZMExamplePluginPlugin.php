@@ -61,7 +61,7 @@ class ZMExamplePluginPlugin extends Plugin {
         Runtime::getEventDispatcher()->listen($this);
 
         // add admin page
-        $this->addMenuItem2(_zm('Example Plugin Admin Page'), 'examplePluginAdmin');
+        $this->addMenuItem(_zm('Example Plugin Admin Page'), 'examplePluginAdmin');
     }
 
     /**

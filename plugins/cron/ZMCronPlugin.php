@@ -55,7 +55,7 @@ class ZMCronPlugin extends Plugin {
      */
     public function init() {
         parent::init();
-        zenmagick\base\Runtime::getEventDispatcher()->listen($this);
+        Runtime::getEventDispatcher()->listen($this);
     }
 
     /**
@@ -74,6 +74,26 @@ class ZMCronPlugin extends Plugin {
                 $event->set('content', $content);
             }
         }
+    }
+
+    /**
+     * Get a plugin config file path.
+     *
+     * <p>Return a fully qualified filename; resolved either against the plugin directory or <code>config/</code>.
+     * If neither file exists, the <code>config/</code> based filename is returned.</p>
+     *
+     * @param string file The filename.
+     * @return string A fully qualified filename.
+     */
+    public function getConfigPath($file) {
+        $configPath = Runtime::getInstallationPath().'config'.DIRECTORY_SEPARATOR;
+        $configFile = $configPath.$this->getId().DIRECTORY_SEPARATOR.$file;
+
+        if (file_exists($configFile) || !file_exists($this->getPluginDirectory().'/'.$file)) {
+            return $configFile;
+        }
+
+        return $this->getPluginDirectory().'/'.$file;
     }
 
     /**

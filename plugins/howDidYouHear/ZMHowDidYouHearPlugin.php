@@ -82,8 +82,8 @@ class ZMHowDidYouHearPlugin extends Plugin {
 
         // add admin pages
         $menuKey = $this->addMenuGroup(_zm('Referral Sources'));
-        $this->addMenuItem2(_zm('Referral Stats'), 'howDidYouHearSourcesStats', $menuKey);
-        $this->addMenuItem2(_zm('Referral Admin'), 'howDidYouHearSourcesAdmin', $menuKey);
+        $this->addMenuItem(_zm('Referral Stats'), 'howDidYouHearSourcesStats', $menuKey);
+        $this->addMenuItem(_zm('Referral Admin'), 'howDidYouHearSourcesAdmin', $menuKey);
     }
 
     /**

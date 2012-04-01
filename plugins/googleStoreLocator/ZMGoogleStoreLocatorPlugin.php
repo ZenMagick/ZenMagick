@@ -61,7 +61,7 @@ class ZMGoogleStoreLocatorPlugin extends Plugin {
         parent::init();
         zenmagick\base\Runtime::getEventDispatcher()->listen($this);
         // add admin page
-        $this->addMenuItem2(_zm('Google Store Locator'), 'googleStoreLocatorAdmin');
+        $this->addMenuItem(_zm('Google Store Locator'), 'googleStoreLocatorAdmin');
     }
 
     /**

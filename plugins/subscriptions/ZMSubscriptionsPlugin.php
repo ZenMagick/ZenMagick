@@ -110,7 +110,7 @@ class ZMSubscriptionsPlugin extends Plugin {
         ));
 
         // add admin page
-        $this->addMenuItem2(_zm('Subscriptions'), 'subscriptionAdmin');
+        $this->addMenuItem(_zm('Subscriptions'), 'subscriptionAdmin');
     }
 
     /**
