@@ -142,7 +142,7 @@ if ($this->profile) { echo $id.' cl prepared: '.($end=$app->getElapsedTime()).' 
                     $plugin->setPluginDirectory($status['pluginDir']);
 if ($this->profile) { echo $id.' base init done: '.($end=$app->getElapsedTime()).' dur: '.round(($end-$start), 4)."<BR>"; $start=$end; }
 
-                    if ($status['enabled'] && $status['installed']) {
+                    if ($status['enabled'] && $status['installed'] && Runtime::isContextMatch($status['context'], $context)) {
                         // no matter what, if disabled or not installed we'll never init
                         if ($status['lib']) {
                             $libDir = $status['pluginDir'].'/lib';
