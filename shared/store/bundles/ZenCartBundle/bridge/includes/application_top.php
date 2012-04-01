@@ -19,12 +19,7 @@ use zenmagick\apps\store\bundles\ZenCartBundle\ZenCartBundle;
 
 
 if (!class_exists('zenmagick\base\Application')) {
-$rootDir = 'zenmagick';
-include_once $rootDir.'/lib/base/Application.php';
-include_once $rootDir.'/lib/http/HttpApplication.php';
-$config = array('appName' => 'storefront', 'environment' => (isset($_SERVER['ZM_ENVIRONMENT']) ? $_SERVER['ZM_ENVIRONMENT'] : 'prod'));
-$application = new HttpApplication($config);
-$application->bootstrap();
+    include 'zenmagick/init.php';
 }
 global $session_started;
 $session_started = true;

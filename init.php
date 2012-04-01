@@ -26,11 +26,8 @@ include_once $rootDir.'/lib/base/Application.php';
 include_once $rootDir.'/lib/http/HttpApplication.php';
 
 try {
-
-    if (!isset($application)) {
-        $config = array('appName' => 'storefront', 'environment' => (isset($_SERVER['ZM_ENVIRONMENT']) ? $_SERVER['ZM_ENVIRONMENT'] : 'prod'));
-        $application = new HttpApplication($config);
-    }
+    $config = array('appName' => 'storefront', 'environment' => (isset($_SERVER['ZM_ENVIRONMENT']) ? $_SERVER['ZM_ENVIRONMENT'] : 'prod'));
+    $application = new HttpApplication($config);
     $application->bootstrap();
 
     $container = Runtime::getContainer();

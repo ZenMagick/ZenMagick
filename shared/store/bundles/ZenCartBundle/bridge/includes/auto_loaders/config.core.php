@@ -159,9 +159,6 @@
   $autoLoadConfig[110][] = array('autoType'=>'classInstantiate',
                                  'className'=> 'language',
                                  'objectName'=>'lng');
-  $autoLoadConfig[110][] = array('autoType'=>'include',
-                                 'once'=>true,
-                                 'loadFile'=> 'zenmagick/init.php');
   $autoLoadConfig[110][] = array('autoType'=>'service',
                                 'name'=>'themeService',
                                 'method'=>'getActiveThemeId',
