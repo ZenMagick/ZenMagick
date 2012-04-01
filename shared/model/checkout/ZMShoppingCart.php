@@ -528,7 +528,7 @@ class ZMShoppingCart extends ZMObject {
     /**
      * Get the order totals.
      *
-     * @return array List of <code>ZMOrderTotal</code> instances.
+     * @return array List of <code>ZMOrderTotalLine</code> instances.
      */
     public function getTotals() {
         $totals = array();
