@@ -44,6 +44,7 @@ class ZenCartClassLoader extends ClassLoader {
         $this->classFileMap = array(
             // ZenMagick
             'base' => 'class.base',
+            'currencies' => 'currencies',
             'httpClient' => 'http_client',
             'messageStack' => 'message_stack', // admin overrides storefront
             'navigationHistory' => 'navigation_history',
