@@ -25,6 +25,10 @@ use zenmagick\base\Runtime;
 /**
  * Zencart class loader.
  *
+ * This will only load classes from the internal 
+ * <code>$classFileMap</code>
+ *
+ * @todo will we need {get|set|add}ClassFileMap methods? 
  * @author DerManoMann
  */
 class ZenCartClassLoader extends ClassLoader {
@@ -87,9 +91,10 @@ class ZenCartClassLoader extends ClassLoader {
      * {@inheritDoc}
      */
     protected function resolveClass($name) {
-        if (array_key_exists($name, $this->classFileMap)) {
-            $name = $this->classFileMap[$name];
+        if (!array_key_exists($name, $this->classFileMap)) {
+            return null;
         }
+        $name = $this->classFileMap[$name];
 
         foreach ($this->baseDirectories as $dir) {
             $file = $dir.'/'.$name.'.php';
