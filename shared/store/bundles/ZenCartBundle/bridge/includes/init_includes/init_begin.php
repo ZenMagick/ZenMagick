@@ -49,4 +49,4 @@ unset($contaminated);
   * @todo move this somewhere else once zencart fully runs inside ZM or
   *       move it and the same code in the admin controller to application_top.php
   */
-$_SESSION['securityToken'] = Runtime::getContainer()->get('session')->getToken();
+$_SESSION['securityToken'] = zenmagick\base\Runtime::getContainer()->get('session')->getToken();
