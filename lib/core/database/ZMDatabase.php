@@ -105,14 +105,14 @@ class ZMDatabase extends Connection {
      * @return string
      */
     public function getPrefix() {
-		$params = $this->getParams();
-		return isset($params['prefix']) ? $params['prefix'] : null;
+        $params = $this->getParams();
+        return isset($params['prefix']) ? $params['prefix'] : null;
         //return isset($this->_params['prefix']) ? $this->_params['prefix'] : null;
     }
 
     /**
      * Figure out used table name.
-     * 
+     *
      * @param string table
      * @return table (possibly prefixed)
      */
@@ -122,7 +122,7 @@ class ZMDatabase extends Connection {
             $table = $prefix.$table;
         }
         return $table;
-    } 
+    }
 
     /**
      * Get a table mapper insance.
