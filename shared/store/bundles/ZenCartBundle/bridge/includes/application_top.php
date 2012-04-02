@@ -25,19 +25,12 @@ global $session_started, $PHP_SELF;
 $session_started = true;
 if (!isset($PHP_SELF)) $PHP_SELF = $_SERVER['PHP_SELF'];
 
-if (!defined('IS_ADMIN_FLAG')) define('IS_ADMIN_FLAG', Runtime::isContextMatch('admin'));
 define('PAGE_PARSE_START_TIME', microtime());
 
 // @todo find a way to restore the original value once all processing by ZenCart is complete.
 if (Runtime::getSettings()->get('apps.store.zencart.strictErrorReporting', true)) {
   error_reporting(version_compare(PHP_VERSION, 5.4, '>=') ? E_ALL ^ E_DEPRECATED ^ E_NOTICE ^ E_STRICT : E_ALL ^ E_DEPRECATED ^ E_NOTICE);
 }
-
-
-if (Runtime::isContextMatch('admin')) { // @todo we need it, but zm admin doesn't do it.
-    Runtime::getContainer()->get('themeService')->initThemes();
-}
-require __DIR__.'/configure.php';
 
 $request_type = ZMRequest::instance()->isSecure() ? 'SSL' : 'NONSSL';
 

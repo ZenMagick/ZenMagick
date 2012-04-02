@@ -44,6 +44,10 @@
  * require(DIR_WS_CLASSES . 'upload.php'); 
  * 
  */
+
+
+  $autoLoadConfig[0][] = array('autoType'=>'include',
+                                'loadFile'=> '../includes/configure.php');
   $autoLoadConfig[0][] = array('autoType'=>'classInstantiate',
                                 'className'=>'notifier',
                                 'objectName'=>'zco_notifier');
