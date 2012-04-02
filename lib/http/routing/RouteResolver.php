@@ -77,10 +77,6 @@ class RouteResolver extends ZMObject {
      * @return array The match or <code>null</code>.
      */
     public function getRouterMatch($uri) {
-        if (!Runtime::getSettings()->get('zenmagick.http.routing.enabled', true)) {
-            return null;
-        }
-
         // check for cache hit
         if (array_key_exists($uri, $this->routes)) {
             return $this->routes[$uri];
@@ -107,9 +103,6 @@ class RouteResolver extends ZMObject {
      * @return mixed The route or <code>null</code>.
      */
     public function getRouteForId($routeId) {
-        if (!Runtime::getSettings()->get('zenmagick.http.routing.enabled', true)) {
-            return null;
-        }
         return $this->getRouter()->getRouteCollection()->get($routeId);
     }
 
