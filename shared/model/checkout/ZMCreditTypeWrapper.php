@@ -27,8 +27,7 @@ use zenmagick\base\ZMObject;
  * A credit type wrapper for Zen Cart credit classes.
  *
  * @author DerManoMann
- * @package org.zenmagick.model.checkout
- * @version $Id: ZMPaymentType.php 954 2008-03-29 10:12:29Z DerManoMann $
+ * @package zenmagick.store.shared.model.checkout
  */
 class ZMCreditTypeWrapper extends ZMObject {
     private $id_;
