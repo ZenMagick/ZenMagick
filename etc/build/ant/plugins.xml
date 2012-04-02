@@ -35,10 +35,11 @@
 
         <copy todir="${build.dir}/plugins" verbose="true">
             <fileset dir="${zenmagick.src.dir}/plugins" casesensitive="no">
-              <include name="ZM${plugin.name}Plugin.php" />
+                <include name="${plugin.name}Plugin.php" />
+                <include name="ZM${plugin.name}Plugin.php" />
             </fileset>
             <fileset dir="${zenmagick.src.dir}/plugins">
-              <include name="${plugin.name}/**" />
+                <include name="${plugin.name}/**" />
             </fileset>
         </copy>
 
@@ -48,7 +49,8 @@
 
         <zip zipfile="${dist.dir}/plugins/${zenmagick.version}/plugin-${plugin.name}-${plugin.version}.zip">
             <fileset dir="${zenmagick.src.dir}/plugins" casesensitive="no">
-              <include name="ZM${plugin.name}Plugin.php" />
+                <include name="${plugin.name}Plugin.php" />
+                <include name="ZM${plugin.name}Plugin.php" />
             </fileset>
             <fileset dir="${build.dir}/plugins">
                 <include name="${plugin.name}/**" />
