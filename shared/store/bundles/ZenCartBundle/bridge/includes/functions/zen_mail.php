@@ -35,7 +35,7 @@ function zen_mail($toName, $toAddress, $subject, $text, $fromName, $fromAddress,
 
     // use zen_mail_org as fallback for emails without ZenMagick template
     $formats = $messageBuilder->getFormatsForTemplate($module);
-    if (0 < count($formats) && Runtime::getSettings()->get('isEnableZMThemes', true)) {
+    if (0 < count($formats) && !Runtime::getSettings()->get('apps.store.zencart.useNativeEmail', false)) {
         $block['text_msg'] = $text;
         $request = $container->get('request');
         $message = $messageBuilder->createMessage($module, true, $request, $block);
@@ -52,7 +52,7 @@ function zen_mail($toName, $toAddress, $subject, $text, $fromName, $fromAddress,
  * version of it.
  */
 function zen_build_html_email_from_template($template, $args=array()) {
-    if (!Runtime::getSettings()->get('isEnableZMThemes', true)) {
+    if (Runtime::getSettings()->get('apps.store.zencart.useNativeEmail', false)) {
         return zen_build_html_email_from_template_org($template, $args);
     }
     $container = Runtime::getContainer();
