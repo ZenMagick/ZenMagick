@@ -50,6 +50,7 @@ foreach ($autoLoadConfig as $actionPoint => $row) {
                     }
                 } else {
                     $$objectName = new $className();
+                    $GLOBALS[$objectName] = $$objectName;
                 }
             break;
             case 'objectMethod':
