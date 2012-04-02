@@ -30,6 +30,7 @@ $zcAdminPath = $zcPath.'/'.$adminDir.'/';
 $zcPage = $request->getRequestId().'.php';
 chdir($zcAdminPath);
 
+global $currencies;
 define('TEXT_EDITOR_INFO', ''); // hide text editor box
 $PHP_SELF = $zcAdminPath.$zcPage;
 $code = file_get_contents($zcAdminPath.$zcPage);
