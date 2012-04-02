@@ -115,6 +115,18 @@ class ZenCartBundle extends Bundle {
     }
 
     /**
+     * Find a ZenCart init file.
+     *
+     * This just wraps resolveFiles and returns a single result.
+     *
+     * @see self::resolveFiles
+     */ 
+    public static function resolveFile($paths) {
+        $file = current(self::resolveFiles($paths));
+        return $file;
+    }
+
+    /**
      * Prepare db config
      */
     public function onInitConfigDone($event) {
