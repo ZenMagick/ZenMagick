@@ -22,7 +22,6 @@ use zenmagick\apps\store\bundles\ZenCartBundle\ZenCartBundle;
  *
  * @author Johnny Robeson
  */
-reset($autoLoadConfig);
 ksort($autoLoadConfig);
 
 $map = array();
@@ -31,7 +30,7 @@ $session = Runtime::getcontainer()->get('session');
 
 $map['%current_page%'] = $request->getRequestId();
 $map['%language%'] = $request->getSelectedLanguage()->getDirectory(); //$session->getValue('language');
-$map['%template_dir%'] = Runtime::getContainer()->get('themeService')->getActiveThemeId();
+$map['%template_dir%'] = 'classic';//Runtime::getContainer()->get('themeService')->getActiveThemeId();
 
 foreach ($autoLoadConfig as $actionPoint => $row) {
     foreach($row as $entry) {
@@ -75,6 +74,11 @@ foreach ($autoLoadConfig as $actionPoint => $row) {
                 }
                 if (null != $resultVar) {
                     $$resultVar = $loaderResultVar;
+                    if (isset($entry['session']) && $entry['session']) {
+                        $session->setValue($resultVar, $loaderResultVar);
+                    } else {
+                        $GLOBALS[$resultVar] = $loaderResultVar;
+                    }
                 } else {
                     unset($loaderResultVar);
                 }

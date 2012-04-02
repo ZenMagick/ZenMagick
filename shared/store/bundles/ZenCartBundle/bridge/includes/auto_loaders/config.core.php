@@ -108,6 +108,12 @@
  * require('includes/init_includes/init_sessions.php'); 
  * 
  */
+  $autoLoadConfig[110][] = array('autoType'=>'service',
+                                'name'=>'session',
+                                'method'=>'getToken',
+                                'session' => true,
+                                'resultVar'=>'securityToken');
+
   $autoLoadConfig[71][] = array('autoType'=>'init_script',
                                 'loadFile'=> 'init_paypal_ipn_sessions.php',
                                 'loaderPrefix'=>'paypal_ipn');
@@ -161,10 +167,11 @@
   $autoLoadConfig[110][] = array('autoType'=>'classInstantiate',
                                  'className'=> 'language',
                                  'objectName'=>'lng');
-  $autoLoadConfig[110][] = array('autoType'=>'service',
+  /*$autoLoadConfig[110][] = array('autoType'=>'service',
                                 'name'=>'themeService',
                                 'method'=>'getActiveThemeId',
                                 'resultVar'=>'template_dir');
+  */
   $autoLoadConfig[110][] = array('autoType'=>'include',
                                  'once'=>true,
                                  'loadFile'=>'includes/languages/%template_dir%/%language%.php');
