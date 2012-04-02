@@ -30,8 +30,6 @@ use zenmagick\base\Runtime;
 function zen_mail($toName, $toAddress, $subject, $text, $fromName, $fromAddress, $block=array(), $module='default', $attachments_list='') {
     // uncomment to trace mail calls and figure out module names (ie template names)
     //Runtime::getLogging()->trace('mail: '.$module);
-
-    $request = Runtime::getContainer()->get('request');
     $container = Runtime::getContainer();
     $messageBuilder = $container->get('messageBuilder');
 
@@ -39,8 +37,8 @@ function zen_mail($toName, $toAddress, $subject, $text, $fromName, $fromAddress,
     $formats = $messageBuilder->getFormatsForTemplate($module);
     if (0 < count($formats) && Runtime::getSettings()->get('isEnableZMThemes', true)) {
         $block['text_msg'] = $text;
-        $container = Runtime::getContainer();
-        $message = $container->get('messageBuilder')->createMessage($module, true, $request, $block);
+        $request = $container->get('request');
+        $message = $messageBuilder->createMessage($module, true, $request, $block);
         $message->setSubject($subject)->setTo($toAddress, $toName)->setFrom($fromAddress, $fromName);
         $container->get('mailer')->send($message);
     } else {
@@ -54,11 +52,11 @@ function zen_mail($toName, $toAddress, $subject, $text, $fromName, $fromAddress,
  * version of it.
  */
 function zen_build_html_email_from_template($template, $args=array()) {
-    $container = Runtime::getContainer();
-    $messageBuilder = $container->get('messageBuilder');
     if (!Runtime::getSettings()->get('isEnableZMThemes', true)) {
         return zen_build_html_email_from_template_org($template, $args);
     }
-    $request = Runtime::getContainer()->get('request');
+    $container = Runtime::getContainer();
+    $messageBuilder = $container->get('messageBuilder');
+    $request = $container->get('request');
     return $messageBuilder->createContents($template, true, $request, $request->get('ZM_EMAIL_CONTEXT'));
 }
