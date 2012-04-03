@@ -8,6 +8,7 @@ $zcPath = $settings->get('apps.store.zencart.path');
  * admin/storefront configure.php defines
  */
 define('DB_TYPE', 'mysql');
+define('IS_ADMIN_FLAG', Runtime::isContextMatch('admin'));
 
 // @todo we want this to be here!
 //define('DB_PREFIX', $settings->get('apps.store.database.default.prefix'));
@@ -36,20 +37,22 @@ define('DIR_WS_CATALOG', basename($request->getBaseUrl).'/');
 define('DIR_WS_HTTPS_ADMIN', DIR_WS_ADMIN);
 define('DIR_WS_HTTPS_CATALOG', DIR_WS_CATALOG);
 
-define('DIR_WS_BOXES', 'includes/boxes/');
 define('DIR_WS_CATALOG_LANGUAGES', HTTP_CATALOG_SERVER.DIR_WS_CATALOG.'includes/languages/');
 define('DIR_WS_CATALOG_IMAGES', HTTP_CATALOG_SERVER.DIR_WS_CATALOG.'images/');
 define('DIR_WS_CATALOG_TEMPLATE', HTTP_CATALOG_SERVER.DIR_WS_CATALOG.'includes/templates/');
-define('DIR_WS_CLASSES', 'includes/classes/');
-define('DIR_WS_DOWNLOAD_PUBLIC', DIR_WS_CATALOG.'pub/');
-define('DIR_WS_FUNCTIONS', 'includes/functions/');
 define('DIR_WS_ICONS', 'images/icons/');
 define('DIR_WS_IMAGES', 'images/');
-define('DIR_WS_INCLUDES', 'includes/');
-define('DIR_WS_LANGUAGES', 'includes/languages/');
-define('DIR_WS_MODULES', 'includes/modules/');
-define('DIR_WS_TEMPLATES', 'includes/templates/');
 define('DIR_WS_UPLOADS', 'images/uploads/');
+
+define('DIR_WS_INCLUDES', 'includes/');
+define('DIR_WS_BOXES', DIR_WS_INCLUDES.'boxes/');
+define('DIR_WS_CLASSES', DIR_WS_INCLUDES.'classes/');
+define('DIR_WS_FUNCTIONS', DIR_WS_INCLUDES.'functions/');
+define('DIR_WS_LANGUAGES', DIR_WS_INCLUDES.'languages/');
+define('DIR_WS_MODULES', DIR_WS_INCLUDES.'modules/');
+define('DIR_WS_TEMPLATES', DIR_WS_INCLUDES.'templates/');
+
+define('DIR_WS_DOWNLOAD_PUBLIC', DIR_WS_CATALOG.'pub/');
 
 define('DIR_FS_CATALOG', $zcPath.'/');
 define('DIR_FS_ADMIN', $zcPath.'/'.$settings->get('apps.store.zencart.admindir').'/');
