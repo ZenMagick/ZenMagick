@@ -54,11 +54,8 @@ class ZenCartBundle extends Bundle {
         }
 
         $eventDispatcher = Runtime::getEventDispatcher();
-        $eventDispatcher->addListener('init_config_done', array($this, 'onInitConfigDone'), 5);
-        $eventDispatcher->addListener('init_done', array($this, 'onContainerReady'));
+        $eventDispatcher->listen($this);
         $eventDispatcher->addListener('generate_email', array(Beans::getBean('zenmagick\apps\store\bundles\ZenCartBundle\utils\EmailEventHandler'), 'onGenerateEmail'));
-        $eventDispatcher->addListener('create_account', array($this, 'onCreateAccount'));
-        $eventDispatcher->addListener('login_success', array($this, 'onLoginSuccess'));
 
         // random defines that we might need
         if (!defined('PRODUCTS_OPTIONS_TYPE_SELECT')) { define('PRODUCTS_OPTIONS_TYPE_SELECT', 0); }
@@ -136,7 +133,7 @@ class ZenCartBundle extends Bundle {
      * This just wraps resolveFiles and returns a single result.
      *
      * @see self::resolveFiles
-     */ 
+     */
     public static function resolveFile($paths) {
         $file = current(self::resolveFiles($paths));
         return $file;
