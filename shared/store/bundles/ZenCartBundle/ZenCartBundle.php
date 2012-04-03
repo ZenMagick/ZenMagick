@@ -173,6 +173,11 @@ class ZenCartBundle extends Bundle {
      */
     public function onContainerReady($event) {
         $request = $event->get('request');
+        // needed throughout sadly
+        $GLOBALS['session_started'] = true;
+        $GLOBALS['request_type'] = $request->isSecure() ? 'SSL' : 'NONSSL';
+        $GLOBALS['PHP_SELF'] = $_SERVER['PHP_SELF'];
+
         if (Runtime::isContextMatch('admin')) {
             $settingsService = $this->container->get('settingsService');
 

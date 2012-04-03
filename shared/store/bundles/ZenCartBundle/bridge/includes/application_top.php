@@ -21,9 +21,9 @@ use zenmagick\apps\store\bundles\ZenCartBundle\ZenCartBundle;
 if (!class_exists('zenmagick\base\Application')) {
     include 'zenmagick/init.php';
 }
-global $session_started, $PHP_SELF;
-$session_started = true;
-if (!isset($PHP_SELF)) $PHP_SELF = $_SERVER['PHP_SELF'];
+$session_started = $GLOBALS['session_started'];
+$PHP_SELF = $GLOBALS['PHP_SELF'];
+$request_type = $GLOBALS['request_type'];
 
 define('PAGE_PARSE_START_TIME', microtime());
 
@@ -31,8 +31,6 @@ define('PAGE_PARSE_START_TIME', microtime());
 if (Runtime::getSettings()->get('apps.store.zencart.strictErrorReporting', true)) {
   error_reporting(version_compare(PHP_VERSION, 5.4, '>=') ? E_ALL ^ E_DEPRECATED ^ E_NOTICE ^ E_STRICT : E_ALL ^ E_DEPRECATED ^ E_NOTICE);
 }
-
-$request_type = ZMRequest::instance()->isSecure() ? 'SSL' : 'NONSSL';
 
 $autoLoadConfig = array();
 $loaderPrefix = isset($loaderPrefix) ? $loaderPrefix : 'config';
