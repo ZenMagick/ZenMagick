@@ -22,13 +22,15 @@
  */
 
 
+use zenmagick\apps\store\controller\CatalogContentController;
+
 /**
  * Admin controller.
  *
  * @author DerManoMann <mano@zenmagick.org>
  * @package org.zenmagick.plugins.productImages
  */
-class ZMProductImagesTabController extends ZMCatalogContentController {
+class ZMProductImagesTabController extends CatalogContentController {
 
     /**
      * Create new instance.

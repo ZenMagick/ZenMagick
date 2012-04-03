@@ -19,13 +19,15 @@
  */
 
 
+use zenmagick\apps\store\controller\CatalogContentController;
+
 /**
  * Admin controller.
  *
  * @author DerManoMann <mano@zenmagick.org>
  * @package org.zenmagick.plugins.productTags
  */
-class ZMProductTagsTabController extends ZMCatalogContentController {
+class ZMProductTagsTabController extends CatalogContentController {
 
     /**
      * Create new instance.

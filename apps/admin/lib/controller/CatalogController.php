@@ -24,6 +24,7 @@ use zenmagick\base\Runtime;
 use zenmagick\base\classloader\ClassLoader;
 use zenmagick\base\logging\Logging;
 use zenmagick\http\sacs\SacsManager;
+use zenmagick\apps\store\controller\CatalogContentController;
 
 /**
  * Admin controller for catalog page(s).
@@ -77,7 +78,7 @@ class CatalogController extends \ZMController {
 
         }
 
-        // check authorization as we'll need the follwo up redirect point to the catalog URL, not a tab url
+        // check authorization as we'll need the follow up redirect point to the catalog URL, not a tab url
         $authorized = $this->container->get('sacsManager')->authorize($request, $request->getRequestId(), $request->getUser(), false);
 
         if (null == $controller || !$authorized) {

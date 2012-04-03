@@ -20,8 +20,11 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
+namespace zenmagick\apps\store\controller;
 
+use ZMRequest;
 use zenmagick\base\Beans;
+use zenmagick\http\view\RedirectView;
 
 /**
  * Catalog content controller.
@@ -30,9 +33,8 @@ use zenmagick\base\Beans;
  * redirects to the same page.</p>
  *
  * @author DerManoMann
- * @package zenmagick.store.shared.mvc.controller
  */
-abstract class ZMCatalogContentController extends ZMController {
+abstract class CatalogContentController extends \ZMController {
     const ACTIVE_CATEGORY = 1;
     const ACTIVE_PRODUCT = 2;
     protected $catalogRequestId_;
@@ -98,11 +100,8 @@ abstract class ZMCatalogContentController extends ZMController {
      */
     public function process(ZMRequest $request) {
         $view = parent::process($request);
-        if ($view->getVariable('catalogRedirect')) {
-            // some hacky reuse...
-            // set url
-            $admin = $request->getToolbox()->admin;
-            $view->setUrl($admin->catalog($this));
+        if ($view instanceof RedirectView) {
+            $view->setUrl($request->getToolbox()->admin->catalog($this));
         }
         return $view;
     }
@@ -117,7 +116,7 @@ abstract class ZMCatalogContentController extends ZMController {
     public function findView($id=null, $data=array(), $parameter=null) {
         if ('catalog-redirect' == $id) {
             // the property catalogRedirect tags the view as special redirect view...
-            return Beans::getBean('ZMRedirectView#requestId=catalog&catalogRedirect=true&parameter='.urlencode($parameter).'&catalogRequestId='.$this->getCalogRequestId());
+            return Beans::getBean('redirect#requestId=catalog&catalogRedirect=true&parameter='.urlencode($parameter).'&catalogRequestId='.$this->getCalogRequestId());
         }
 
         return parent::findView($id, $data, $parameter);

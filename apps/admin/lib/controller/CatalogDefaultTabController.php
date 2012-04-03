@@ -22,13 +22,15 @@
  */
 namespace zenmagick\apps\store\admin\controller;
 
+use zenmagick\apps\store\controller\CatalogContentController;
+
 
 /**
  * Admin controller.
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class CatalogDefaultTabController extends \ZMCatalogContentController {
+class CatalogDefaultTabController extends CatalogContentController {
 
     /**
      * Create new instance.

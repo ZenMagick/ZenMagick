@@ -36,6 +36,7 @@ use zenmagick\base\logging\LoggingHandler;
  */
 class DefaultLoggingHandler extends ZMObject implements LoggingHandler {
     protected $logLevel;
+    protected $logCallerId;
 
 
     /**
@@ -46,8 +47,32 @@ class DefaultLoggingHandler extends ZMObject implements LoggingHandler {
     public function __construct($logLevel=null) {
         parent::__construct();
         $this->logLevel = $logLevel;
+        $this->logCallerId = true;
     }
 
+
+    /**
+     * Get the caller id.
+     */
+    protected function getCallerId() {
+        $stack = debug_backtrace();
+        $pastLogging = false;
+        $id = 'N/A';
+        foreach ($stack as $ii => $level) {
+            if (array_key_exists('class', $level)) {
+                if ('zenmagick\base\logging\Logging' == $level['class']) {
+                    $pastLogging = true;
+                } else if ($pastLogging) {
+                    $caller = $stack[$ii];
+                    $class = array_key_exists('class', $caller) ? $caller['class'] : 'n/a';
+                    $line = array_key_exists('line', $caller) ? $caller['line'] : '..';
+                    $id = sprintf('%s (%s)', $class, $line);
+                    break;
+                }
+            }
+        }
+        return $id;
+    }
 
     /**
      * Do the actual logging.
@@ -73,11 +98,29 @@ class DefaultLoggingHandler extends ZMObject implements LoggingHandler {
     }
 
     /**
+     * Set the flag to enable/disable logging of the caller id.
+     *
+     * @param boolean value The new value.
+     */
+    public function setLogCallerId($value) {
+        $this->logCallerId = $value;
+    }
+
+    /**
+     * Get the current value of the <code>logCallerId</code> setting.
+     *
+     * @return boolean <code>true</code> if the caller id is logged, <code>false</code> if not.
+     */
+    public function getLogCallerId() {
+        return $this->logCallerId;
+    }
+
+    /**
      * {@inheritDoc}
      */
     public function log($msg, $level) {
         if (array_key_exists($level, Logging::$LOG_LEVEL)) {
-            $msg = Logging::$LOG_LEVEL[$level] . ': ' . $msg;
+            $msg = Logging::$LOG_LEVEL[$level] . ': ' . ($this->logCallerId ? $this->getCallerId().': ' : '') . $msg;
         }
         $this->doLog($msg.'<br>');
     }
@@ -89,7 +132,7 @@ class DefaultLoggingHandler extends ZMObject implements LoggingHandler {
         ob_start();
         if (null !== $msg) {
             if (array_key_exists($level, Logging::$LOG_LEVEL)) {
-                $msg = Logging::$LOG_LEVEL[$level] . ': ' . $msg;
+                $msg = Logging::$LOG_LEVEL[$level] . ': ' . ($this->logCallerId ? $this->getCallerId().': ' : '') . $msg;
             }
             echo $msg."\n";
         }
@@ -118,7 +161,7 @@ class DefaultLoggingHandler extends ZMObject implements LoggingHandler {
                 echo "</pre>";
             } else {
                 if (array_key_exists($level, Logging::$LOG_LEVEL)) {
-                    $msg = Logging::$LOG_LEVEL[$level] . ': ' . $msg;
+                    $msg = Logging::$LOG_LEVEL[$level] . ': ' . ($this->logCallerId ? $this->getCallerId().': ' : '') . $msg;
                 }
                 echo '<h3>'.$msg.":</h3>\n";
             }

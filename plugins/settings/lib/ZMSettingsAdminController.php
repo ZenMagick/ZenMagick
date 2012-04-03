@@ -18,6 +18,7 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
+use zenmagick\http\widgets\form\FormWidget;
 
 /**
  * Admin controller.
@@ -47,7 +48,7 @@ class ZMSettingsAdminController extends ZMPluginAdminController {
             $type = $request->getParameter('type');
             // special case for generic select where the initial value gets added to the widget definition
             $parValue = '';
-            if (0 === strpos($type, 'ZMSelectFormWidget#')) {
+            if (0 === strpos($type, 'selectFormWidget#')) {
                 // urlencode to allow to set multiple value=name pairs
                 $parValue = '&options='.urlencode($value);
                 $value = '';
@@ -59,7 +60,7 @@ class ZMSettingsAdminController extends ZMPluginAdminController {
         } else if ('update' == $action) {
             foreach ($plugin->getConfigValues() as $widget) {
                 $sanitize = !($widget instanceof ZMWysiwygFormWidget);
-                if ($widget instanceof ZMFormWidget && null != ($value = $request->getParameter($widget->getName(), null, $sanitize))) {
+                if ($widget instanceof FormWidget && null != ($value = $request->getParameter($widget->getName(), null, $sanitize))) {
                     if (!$widget->compare($value)) {
                         // value changed, use widget to (optionally) format value
                         $widget->setValue($value);

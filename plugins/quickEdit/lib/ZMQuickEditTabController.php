@@ -22,6 +22,8 @@
  */
 
 use zenmagick\base\Beans;
+use zenmagick\http\widgets\form\FormWidget;
+use zenmagick\apps\store\controller\CatalogContentController;
 
 /**
  * Admin controller.
@@ -29,7 +31,7 @@ use zenmagick\base\Beans;
  * @author DerManoMann <mano@zenmagick.org>
  * @package org.zenmagick.plugins.quickEdit
  */
-class ZMQuickEditTabController extends ZMCatalogContentController {
+class ZMQuickEditTabController extends CatalogContentController {
     const STALE_CHECK_FIELD_PREFIX = '@_';
 
 
@@ -51,12 +53,12 @@ class ZMQuickEditTabController extends ZMCatalogContentController {
             // use defaults
             $fieldList = array(
                 // name, widget, propert is optional in case the fieldname and product proerty name do not match
-                array('name' => 'name', 'widget' => 'ZMTextFormWidget#title=Name&name=name&size=35'),
-                array('name' => 'model', 'widget' => 'ZMTextFormWidget#title=Model&name=model&size=14'),
-                array('name' => 'image', 'widget' => 'ZMTextFormWidget#title=Image&name=image&size=24', 'property' => 'defaultImage'),
-                array('name' => 'quantity', 'widget' => 'ZMTextFormWidget#title=Quantity&name=quantity&size=4'),
-                array('name' => 'productPrice', 'widget' => 'ZMTextFormWidget#title=Product Price&name=productPrice&size=7'),
-                array('name' => 'status', 'widget' => 'ZMTextFormWidget#title=Status&name=status&size=2')
+                array('name' => 'name', 'widget' => 'textFormWidget#title=Name&name=name&size=35'),
+                array('name' => 'model', 'widget' => 'textFormWidget#title=Model&name=model&size=14'),
+                array('name' => 'image', 'widget' => 'textFormWidget#title=Image&name=image&size=24', 'property' => 'defaultImage'),
+                array('name' => 'quantity', 'widget' => 'textFormWidget#title=Quantity&name=quantity&size=4'),
+                array('name' => 'productPrice', 'widget' => 'textFormWidget#title=Product Price&name=productPrice&size=7'),
+                array('name' => 'status', 'widget' => 'textFormWidget#title=Status&name=status&size=2')
             );
         }
 
@@ -98,7 +100,7 @@ class ZMQuickEditTabController extends ZMCatalogContentController {
             $_formData = array();
             foreach ($fieldList as $field) {
                 $widget = $field['widget'];
-                if ($widget instanceof ZMFormWidget) {
+                if ($widget instanceof FormWidget) {
                     $fieldName = $field['name'].'_'.$productId;
                     // use widget to *read* the value to allow for optional conversions, etc
                     $widget->setValue($request->getParameter($fieldName, null, false));

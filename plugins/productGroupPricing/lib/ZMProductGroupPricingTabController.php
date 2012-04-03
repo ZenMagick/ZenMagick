@@ -23,6 +23,7 @@
 
 use zenmagick\base\Beans;
 use zenmagick\base\Toolbox;
+use zenmagick\apps\store\controller\CatalogContentController;
 
 /**
  * Admin controller.
@@ -30,7 +31,7 @@ use zenmagick\base\Toolbox;
  * @author DerManoMann <mano@zenmagick.org>
  * @package org.zenmagick.plugins.productGroupPricing
  */
-class ZMProductGroupPricingTabController extends ZMCatalogContentController {
+class ZMProductGroupPricingTabController extends CatalogContentController {
 
     /**
      * Create new instance.
