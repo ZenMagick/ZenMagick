@@ -20,13 +20,14 @@
 use zenmagick\base\Runtime;
 
 // main request processor
-if (ZMSettings::get('isEnableZMThemes', true)) {
+$container = Runtime::getContainer();
+if ($container->get('settingsService')->get('isEnableZMThemes', true)) {
     // pick up session data changed by zencart code
     $_zm_session = $_zm_request->getSession();
     foreach ($_SESSION as $key => $value) {
         $_zm_session->setValue($key, $value);
     }
-    Runtime::getContainer()->get('dispatcher')->dispatch($_zm_request);
+    $container->get('dispatcher')->dispatch($_zm_request);
     exit;
 } else {
     // do ob_start() to allow plugins to do their magic with zen cart templates too
