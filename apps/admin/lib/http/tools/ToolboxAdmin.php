@@ -29,17 +29,6 @@ use zenmagick\apps\store\controller\CatalogContentController;
  * @author DerManoMann <mano@zenmagick.org>
  */
 class ToolboxAdmin extends ToolboxTool {
-    private $tags_;
-
-
-    /**
-     * Create new instance.
-     */
-    public function __construct() {
-        $this->tags_ = array();
-        Runtime::getEventDispatcher()->listen($this);
-    }
-
 
     /**
      * Create a admin page URL.
@@ -141,42 +130,9 @@ class ToolboxAdmin extends ToolboxTool {
         }
         ?><h1><?php echo $title ?></h1><?php
         echo $this->getView()->fetch('sub-menu.php'); echo '<div id="view-container">';
-        $this->tag('title', sprintf(_zm("%1s :: %2s :: ZenMagick Admin"), Runtime::getSettings()->get('storeName'), $title));
+        $title = sprintf(_zm("%1s :: %2s :: ZenMagick Admin"), Runtime::getSettings()->get('storeName'), $title);
+        $this->getView()->getResourceManager()->fragment('title', $title);
         return $title;
-    }
-
-    /**
-     * Manipulate the content of a given tag.
-     *
-     * <p>Typical tags would be <em>title</em> or meta tags.</p>
-     *
-     * <p>If <code>value</code> is a function, it will get passed the current value as single parameter.
-     * The returned value will be taken as the new value.</p>
-     *
-     * @param string tag The tag name.
-     * @param mixed value The new value or a function to compute the new value.
-     */
-    public function tag($tag, $value) {
-        $this->tags_[$tag] = $value;
-    }
-
-    /**
-     * Handle tag updates.
-     */
-    public function onFinaliseContent($event) {
-        $content = $event->get('content');
-        $request = $event->get('request');
-
-        // process all tags
-        foreach ($this->tags_ as $tag => $value) {
-            if (function_exists($value) || is_array($value)) {
-                preg_replace('/<'.$tag.'>(.*)<\/'.$tag.'>/', $content, $matches);
-                $value = call_user_func($value, 1 == count($matches) ? $matches[0] : null);
-            }
-            $content = preg_replace('/<'.$tag.'>.*<\/'.$tag.'>/', '<'.$tag.'>'.$value.'</'.$tag.'>', $content, 1);
-        }
-
-        $event->set('content', $content);
     }
 
 }
