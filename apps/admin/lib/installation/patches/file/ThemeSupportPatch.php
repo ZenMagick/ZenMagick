@@ -29,7 +29,7 @@ use zenmagick\apps\store\admin\installation\patches\FilePatch;
  * @author DerManoMann <mano@zenmagick.org>
  */
 class ThemeSupportPatch extends FilePatch {
-    
+
     protected $indexFile;
 
     /**
@@ -102,7 +102,7 @@ class ThemeSupportPatch extends FilePatch {
             foreach ($lines as $line) {
                 // need to insert before the zen-cart html_header...
                 if (false !== strpos($line, "require") && false !== strpos($line, "html_header.php")) {
-                    array_push($patchedLines, "  include('".dirname($this->indexFile)."/store.php'); /* added by ZenMagick installation patcher */");
+                    array_push($patchedLines, "  include('".dirname($this->indexFile)."/zenmagick/store.php'); /* added by ZenMagick installation patcher */");
                 }
 
                 array_push($patchedLines, $line);
