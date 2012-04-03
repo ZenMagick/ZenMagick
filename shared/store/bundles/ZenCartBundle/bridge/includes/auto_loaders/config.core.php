@@ -50,7 +50,7 @@
  * require('includes/init_includes/init_file_db_names.php');
  * 
  */
-  $autoLoadConfig[20][] = array('autoType'=>'include',
+  $autoLoadConfig[20][] = array('autoType'=>'include', // actually used by the paypal modules!
                                 'loadFile'=> 'includes/version.php');
 /**
  * Breakpoint 30.
@@ -65,12 +65,6 @@
  * require('includes/init_includes/init_db_config_read.php');
  * 
  */
-  $autoLoadConfig[40][] = array('autoType'=>'include',
-                                'loadFile'=>'includes/classes/db/mysql/define_queries.php');
-  $autoLoadConfig[40][] = array('autoType'=>'service',
-                                'name'=>'productTypeLayoutService',
-                                'method'=>'defineAll');
-
 /**
  * Breakpoint 50.
  * 
@@ -108,15 +102,11 @@
  * require('includes/init_includes/init_sessions.php'); 
  * 
  */
-  $autoLoadConfig[110][] = array('autoType'=>'service',
+  $autoLoadConfig[70][] = array('autoType'=>'service',
                                 'name'=>'session',
                                 'method'=>'getToken',
                                 'session' => true,
                                 'resultVar'=>'securityToken');
-
-  $autoLoadConfig[71][] = array('autoType'=>'init_script',
-                                'loadFile'=> 'init_paypal_ipn_sessions.php',
-                                'loaderPrefix'=>'paypal_ipn');
 
 /**
  * Breakpoint 80.
@@ -125,6 +115,9 @@
  * if(!$_SESSION['navigaton']) $_SESSION['navigation'] = new navigaionHistory();
  * 
  */
+  $autoLoadConfig[80][] = array('autoType'=>'classInstantiate',
+                                 'className'=>'messageStack',
+                                 'objectName'=>'messageStack');
   $autoLoadConfig[80][] = array('autoType'=>'classInstantiate',
                                 'className'=>'shoppingCart',
                                 'objectName'=>'cart',
@@ -136,6 +129,10 @@
                                 'checkInstantiated'=>true,
                                 'classSession'=>true,
                                 'loaderPrefix'=>'config');
+
+ $autoLoadConfig[81][] = array('autoType'=>'init_script',
+                                'loadFile'=> 'init_paypal_ipn_sessions.php',
+                                'loaderPrefix'=>'paypal_ipn');
 /**
  * Breakpoint 90.
  * 
@@ -164,14 +161,15 @@
  * require('includes/init_includes/init_templates.php'); 
  * 
  */
+  $autoLoadConfig[110][] = array('autoType'=>'include',
+                                'loadFile'=>'includes/classes/db/mysql/define_queries.php');
   $autoLoadConfig[110][] = array('autoType'=>'classInstantiate',
                                  'className'=> 'language',
                                  'objectName'=>'lng');
-  /*$autoLoadConfig[110][] = array('autoType'=>'service',
+  $autoLoadConfig[110][] = array('autoType'=>'service',
                                 'name'=>'themeService',
                                 'method'=>'getActiveThemeId',
                                 'resultVar'=>'template_dir');
-  */
   $autoLoadConfig[110][] = array('autoType'=>'include',
                                  'once'=>true,
                                  'loadFile'=>'includes/languages/%template_dir%/%language%.php');
@@ -190,6 +188,9 @@
  * require('includes/init_includes/init_currencies.php'); 
  * 
  */
+  $autoLoadConfig[120][] = array('autoType'=>'service',
+                                'name'=>'productTypeLayoutService',
+                                'method'=>'defineAll');
   $autoLoadConfig[120][] = array('autoType'=>'objectMethod',
                                 'objectName'=>'navigation',
                                 'methodName' => 'add_current_page',
@@ -203,9 +204,6 @@
  * messageStack = new messageStack();
  * 
  */
-  $autoLoadConfig[130][] = array('autoType'=>'classInstantiate',
-                                 'className'=>'messageStack',
-                                 'objectName'=>'messageStack');
   $autoLoadConfig[130][] = array('autoType'=>'init_script',
                                  'loadFile'=> 'init_customer_auth.php',
                                  'loaderPrefix'=>'config');
