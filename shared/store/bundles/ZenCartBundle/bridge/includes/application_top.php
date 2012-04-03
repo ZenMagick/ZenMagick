@@ -21,9 +21,9 @@ use zenmagick\apps\store\bundles\ZenCartBundle\ZenCartBundle;
 if (!class_exists('zenmagick\base\Application')) {
     include 'zenmagick/init.php';
 }
-//$session_started = $GLOBALS['session_started'];
-//$PHP_SELF = $GLOBALS['PHP_SELF'];
-//$request_type = $GLOBALS['request_type'];
+$session_started = $GLOBALS['session_started'];
+$PHP_SELF = $GLOBALS['PHP_SELF'];
+$request_type = $GLOBALS['request_type'];
 
 define('PAGE_PARSE_START_TIME', microtime());
 
