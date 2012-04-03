@@ -45,7 +45,7 @@ class ManufacturerController extends \ZMController {
         // get category
 
         // decide what to do
-        if (null != $request->getManufacturerId()) {
+        if ($request->getManufacturerId()) {
             $method = "getProductsForManufacturerId";
             $args = array($request->getManufacturerId(), true, $languageId);
             $viewName = 'manufacturer';

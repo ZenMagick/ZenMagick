@@ -144,7 +144,7 @@ class Request extends \ZMRequest {
      *
      * @return int The current page index (default is 1).
      */
-    public function getPageIndex() {  return $this->getParameter('page', 1); }
+    public function getPageIndex() {  return (int)$this->getParameter('page', 1); }
 
     /**
      * Get the current sort id.
@@ -256,14 +256,14 @@ class Request extends \ZMRequest {
      *
      * @return int The manufacturer id or <code>0</code>.
      */
-    public function getManufacturerId() { return $this->getParameter('manufacturers_id', 0); }
+    public function getManufacturerId() { return (int)$this->getParameter('manufacturers_id', 0); }
 
     /**
      * Get the account id.
      *
      * @return int The account id for the currently logged in user or <code>0</code>.
      */
-    public function getAccountId() { return $this->getSession()->getAccountId(); }
+    public function getAccountId() { return (int)$this->getSession()->getAccountId(); }
 
     /**
      * {@inheritDoc}
@@ -292,14 +292,14 @@ class Request extends \ZMRequest {
      *
      * @return int The current review id or <code>0</code>.
      */
-    public function getReviewId() { return $this->getParameter('reviews_id', 0); }
+    public function getReviewId() { return (int)$this->getParameter('reviews_id', 0); }
 
     /**
      * Get the current order id.
      *
      * @return int The current order id or <code>0</code>.
      */
-    public function getOrderId() { return $this->getParameter('order_id',  $this->getParameter('orderId', 0)); }
+    public function getOrderId() { return (int)$this->getParameter('order_id',  $this->getParameter('orderId', 0)); }
 
     /**
      * Returns <code>true</code> if the user is not logged in at all.

@@ -291,7 +291,7 @@ class ToolboxMetaTags extends ToolboxTool {
             if (null != ($category = $this->container->get('categoryService')->getCategoryForId($this->getRequest()->getCategoryId(), $this->getRequest()->getSession()->getLanguageId()))) {
                 $this->category_ = $category->getName();
             }
-        } else if (null != $this->getRequest()->getManufacturerId()) {
+        } else if ($this->getRequest()->getManufacturerId()) {
             if (null != ($manufacturer = $this->container->get('manufacturerService')->getManufacturerForId($this->getRequest()->getManufacturerId(), $this->getRequest()->getSession()->getLanguageId()))) {
                 $this->category_ = $manufacturer->getName();
             }
