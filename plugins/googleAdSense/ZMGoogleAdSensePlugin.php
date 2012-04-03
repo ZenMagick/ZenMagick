@@ -22,7 +22,6 @@
  *
  */
 
-
 /**
  * Plugin providing functionallity to manage Google AdSense content, including four sideboxes.
  *
@@ -39,9 +38,16 @@ class ZMGoogleAdSensePlugin extends Plugin {
      */
     public function __construct() {
         parent::__construct('Google AdSense', 'Plugin to manage Google AdSense JS (including four sideboxes).', '${plugin.version}');
-        $this->totalAds_ = ZMSettings::get('plugins.googleAdSense.totalAds', 6);
     }
 
+
+    /**
+     * {@inheritDoc}
+     */
+    public function init() {
+        parent::init();
+        $this->totalAds_ = $this->container->get('settingsService')->get('plugins.googleAdSense.totalAds', 6);
+    }
 
     /**
      * Install this plugin.

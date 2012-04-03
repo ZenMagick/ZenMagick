@@ -87,15 +87,17 @@ class ZMPhpBB3Plugin extends Plugin {
         $this->page_ = $request->getRequestId();
         $this->prePostAccount_ = $request->getAccount();
 
+        $settingsService = $this->container->get('settingsService');
+
         // main define to get at things
         $phpBB3Dir = $this->get('phpBB3Dir');
         if (empty($phpBB3Dir)) {
-            $phpBB3Dir = ZMSettings::get('plugins.pbpBB3.root');
+            $phpBB3Dir = $settingsService->get('plugins.pbpBB3.root');
         }
         define('ZM_PHPBB3_ROOT', $phpBB3Dir);
 
         // enable nick name field
-        ZMSettings::set('isAccountNickname', true);
+        $settingsService->set('isAccountNickname', true);
 
         if ('create_account' == $this->page_) {
             $phpBB = $this->getAdapter();

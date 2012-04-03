@@ -49,7 +49,7 @@ class ZMQuickEditTabController extends CatalogContentController {
     public function getViewData($request) {
         $data = array();
 
-        if (null == ($fieldList = ZMSettings::get('plugins.quickEdit.fieldList', null))) {
+        if (null == ($fieldList = $this->container->get('settingsService')->get('plugins.quickEdit.fieldList', null))) {
             // use defaults
             $fieldList = array(
                 // name, widget, propert is optional in case the fieldname and product proerty name do not match

@@ -103,7 +103,7 @@ class ToolboxUtils extends ToolboxTool {
         $languageId = $this->getRequest()->getSession()->getLanguageId();
         if (empty($languageId)) {
             // XXX: when called in admin
-            $languageId = $this->container->get('languageService')->getLanguageForCode(\ZMSettings::get('defaultLanguageCode'))->getLanguageId();
+            $languageId = $this->container->get('languageService')->getLanguageForCode($this->container->get('settingsService')->get('defaultLanguageCode'))->getLanguageId();
         }
         // most specific first
         $themeChain = array_reverse($this->container->get('themeService')->getThemeChain($languageId));

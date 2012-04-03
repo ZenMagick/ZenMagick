@@ -227,7 +227,7 @@ class ZMPageStatsPlugin extends Plugin {
 
         $application = Runtime::getApplication();
         ob_start();
-        $slash = ZMSettings::get('zenmagick.http.html.xhtml') ? '/' : '';
+        $slash = $this->container->get('settingsService')->get('zenmagick.http.html.xhtml') ? '/' : '';
         $sep = '&nbsp;&nbsp;&nbsp;';
         echo '<div id="page-stats">';
         echo 'Client IP: <strong>'.$_SERVER['REMOTE_ADDR'].'</strong>;';

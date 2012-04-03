@@ -48,7 +48,8 @@ class ZMPrettyLinksUrlRewriter implements UrlRewriter {
         $isStatic = isset($args['isStatic']) ? $args['isStatic'] : false;
         $useContext = isset($args['useContext']) ? $args['useContext'] : true;
 
-        if (null != ZMSettings::get('plugins.prettyLinks.seoEnabled') && !ZMLangUtils::inArray($requestId, ZMSettings::get('plugins.prettyLinks.seoEnabled'))) {
+        $settingsService = $this->container->get('settingsService');
+        if (null != $settingsService->get('plugins.prettyLinks.seoEnabled') && !ZMLangUtils::inArray($requestId, $settingsService->get('plugins.prettyLinks.seoEnabled'))) {
             // not doing anything
             return null;
         }

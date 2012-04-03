@@ -19,6 +19,7 @@
  */
 
 use zenmagick\base\Toolbox;
+use zenmagick\base\Runtime;
 use zenmagick\base\ZMObject;
 
 /**
@@ -35,10 +36,11 @@ class ZMSearchCriteria extends ZMObject {
     public function __construct() {
         parent::__construct();
 
-        $this->set('includeTax', ZMSettings::get('showPricesTaxIncluded'));
-        $this->set('countryId', ZMSettings::get('storeCountry'));
-        $this->set('zoneId', ZMSettings::get('storeCountry'));
-        $this->set('languageId', ZMSettings::get('storeDefaultLanguageId'));
+        $settingsService = $this->container->get('settingsService');
+        $this->set('includeTax', $settingsService->get('showPricesTaxIncluded'));
+        $this->set('countryId', $settingsService->get('storeCountry'));
+        $this->set('zoneId', $settingsService->get('storeCountry'));
+        $this->set('languageId', $settingsService->get('storeDefaultLanguageId'));
         $this->set('searchAll', false);
     }
 

@@ -59,24 +59,16 @@ Examples
  * title: The display title
  */
 
-ZMSettings::set('plugins.paymentSurcharge.conditions', array(
-    array(  
-      'code' => 'cc', 
-      'cvalue' => 'field:cc_card_number;cc_number', 
-      'regexp' => '^3[47][0-9]{13}$',
-      'value' => '%:3',
-      'title' => 'AMEX Surcharge'
-    ),
-  )
-);
+storefront:
+  settings:
+    paymentSurcharge:
+      conditions:
+        - { code: cc, cvalue: 'field:cc_card_number;cc_number', regexp: '^3[47][0-9]{13}$', value: '%:3', title: 'AMEX Surcharge' }
 
 2) A $3.00 surcharge for money orders:
 
-ZMSettings::set('plugins.paymentSurcharge.conditions', array(
-    array(  
-      'code' => 'moneyorder', 
-      'value' => '3',
-      'title' => 'Money Order Surcharge'
-    ),
-  )
-);
+storefront:
+  settings:
+    paymentSurcharge:
+      conditions:
+        - { code: 'moneyorder', value: '3', title: 'Money Order Surcharge' }

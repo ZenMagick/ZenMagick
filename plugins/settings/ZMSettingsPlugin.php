@@ -48,9 +48,10 @@ class ZMSettingsPlugin extends Plugin {
         $this->addMenuItem(_zm('Show Settings'), 'settingsShow', $menuKey);
 
         // make all config values proper settings
+        $settingsService = $this->container->get('settingsService');
         foreach ($this->getConfigValues() as $value) {
             if ($value instanceof Widget) {
-                ZMSettings::set($value->getName(), $value->getStringValue());
+                $settingsService->set($value->getName(), $value->getStringValue());
             }
         }
 

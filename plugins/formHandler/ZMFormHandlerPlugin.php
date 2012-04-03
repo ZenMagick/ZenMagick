@@ -47,7 +47,7 @@ class ZMFormHandlerPlugin extends Plugin {
 
         // options: page name(s);form_name?, email address
         $this->addConfigValue('Pages', 'pages', '', 'Comma separated list of page names that should be handled');
-        $this->addConfigValue('Notification email address', 'adminEmail', ZMSettings::get('storeEmail'),
+        $this->addConfigValue('Notification email address', 'adminEmail', $this->container->get('settingsService')->get('storeEmail'),
             'Email address for admin notifications (use store email if empty)');
         $this->addConfigValue('Notification template', 'emailTemplate', 'form_handler', 'Name of common notification email template (empty will use the page name as template)');
         $this->addConfigValue('Secure', 'secure', 'false', 'Flag *all* form urls as secure',

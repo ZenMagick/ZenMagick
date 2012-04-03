@@ -59,7 +59,7 @@ class ZMMultiQuantityPlugin extends Plugin {
             ZMUrlManager::instance()->setMapping('product_info', array('controller' => 'ZMMultiQuantityProductInfoController'));
 
             // add own mapping
-            if (ZMSettings::get('isShowCartAfterAddProduct', true)) {
+            if ($this->container->get('settingsService')->get('isShowCartAfterAddProduct', true)) {
                 $mapping = array('success' => array(
                     'view' => 'redirect://shopping_cart'
                 ));

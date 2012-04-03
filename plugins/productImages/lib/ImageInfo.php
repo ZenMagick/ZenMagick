@@ -95,7 +95,7 @@ class ImageInfo extends ZMImageInfo {
         $ext = $comp[1];
         $imageBase = $comp[2];
 
-        $medium = $imageBase.ZMSettings::get('imgSuffixMedium').$ext;
+        $medium = $imageBase.$this->container->get('settingsService')->get('imgSuffixMedium').$ext;
         $newimg = $this->handle_image('images/'.$medium, $this->altText_, MEDIUM_IMAGE_WIDTH, MEDIUM_IMAGE_HEIGHT, '');
         if ($this->zoomSmallImages_) {
             $this->formattedParameter_ = $newimg[4];
@@ -114,7 +114,7 @@ class ImageInfo extends ZMImageInfo {
         $ext = $comp[1];
         $imageBase = $comp[2];
 
-        $large = $imageBase.ZMSettings::get('imgSuffixLarge').$ext;
+        $large = $imageBase.$this->container->get('settingsService')->get('imgSuffixLarge').$ext;
         $newimg = $this->handle_image('images/'.$large, $this->altText_, '', '', '');
         if ($this->zoomSmallImages_) {
             $this->formattedParameter_ = $newimg[4];
@@ -144,7 +144,7 @@ class ImageInfo extends ZMImageInfo {
      * @todo assimilate
      */
     private function handle_image($src, $alt, $width, $height, $parameters) {
-        $imageRoot = ZMSettings::get('apps.store.zencart.path').'/';
+        $imageRoot = $this->container->get('settingsService')->get('apps.store.zencart.path').'/';
         if ($this->plugin_->get('resize')) {
             $ih2Image = new ZMIh2Image($src, $width, $height);
             $src = $ih2Image->get_local();

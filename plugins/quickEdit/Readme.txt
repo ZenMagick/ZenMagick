@@ -3,16 +3,14 @@ This is a Catalog Manager plugin to quickly edit all products of a selected cate
 It is possible to configure your own set of fields by creating a setting
 named 'plugins.quickEdit.fieldList' that contains a custom field map.
 
-<?php
-
-  // custom fields
-  ZMSettings::set('plugins.quickEdit.fieldList', array(
-      array('name' => 'name', 'widget' => 'ZMTextFormWidget#title=Name&name=name&size=35'),
-      array('name' => 'status', 'widget' => 'ZMBooleanFormWidget#style=checkbox&title=Enabled&name=status&size=35'),
-      array('name' => 'manufacturerId', 'widget' => 'nanufacturerSelectFormWidget#title=Manufacturer&options=0= --- '),
-  ));
-
-?>
+admin:
+  settings:
+    quickEdit:
+      fieldList:
+         - { name: name, widget: 'textFormWidget#title=Name&name=name&size=35' }
+         - { name: status, widget: 'booleanFormWidget#style=checkbox&title=Enabled&name=status' }
+         - { name: manufacturerId, widget: 'nanufacturerSelectFormWidget#title=Manufacturer&options=0= --- ' }
+  
 
 Each field is configured separately, and requires the following information:
 - name: The property name of ZMProduct

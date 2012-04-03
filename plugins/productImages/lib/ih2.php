@@ -8,27 +8,27 @@
  * @version $Id: bmz_image_handler_conf.php,v 2.0 Rev 8 2010-05-31 23:46:5 DerManoMann Exp $
  * Last modified by DerManoMann 2010-05-31 23:46:50
  */
-
-ZMSettings::set('plugins.imageHandler2.cachedir', ZMSettings::get('apps.store.zencart.path').'/bmz_cache');
+$settingsService = zenmagick\base\Runtime::getSettings();
+$settingsService->set('plugins.imageHandler2.cachedir', $settingsService->get('apps.store.zencart.path').'/bmz_cache');
 // files which contain this string will not be resized
-ZMSettings::set('plugins.imageHandler2.noresize_key', 'noresize');
+$settingsService->set('plugins.imageHandler2.noresize_key', 'noresize');
 // images in directories with these names within the images directory will not be resized.
-ZMSettings::set('plugins.imageHandler2.noresize_dirs', array('noresize', 'banners'));
+$settingsService->set('plugins.imageHandler2.noresize_dirs', array('noresize', 'banners'));
 // this is where semitransparent pixels blend to transparent when rendering gifs with ImageMagick
-ZMSettings::set('plugins.imageHandler2.trans_threshold', '90%');
+$settingsService->set('plugins.imageHandler2.trans_threshold', '90%');
 $ihConf['im_convert']           = '';
 // if you want to use ImageMagick, you must specify the convert binary here (e.g. '/usr/bin/convert')
-ZMSettings::set('plugins.imageHandler2.im_convert', '');
+$settingsService->set('plugins.imageHandler2.im_convert', '');
 // the GDlib version (0, 1 or 2) 2 tries to autodetect
-ZMSettings::set('plugins.imageHandler2.gdlib', 2);
+$settingsService->set('plugins.imageHandler2.gdlib', 2);
 // some defaults
-ZMSettings::set('plugins.imageHandler2.defaults.bg', 'transparent 255:255:255');
-ZMSettings::set('plugins.imageHandler2.defaults.quality', 85);
+$settingsService->set('plugins.imageHandler2.defaults.bg', 'transparent 255:255:255');
+$settingsService->set('plugins.imageHandler2.defaults.quality', 85);
 
 
 global $ihConf;
 
-$ihConf['dir']['docroot']       = ZMSettings::get('apps.store.zencart.path').'/';
+$ihConf['dir']['docroot']       = $settingsService->get('apps.store.zencart.path').'/';
 $ihConf['dir']['images']        = 'images/';
 
 $ihConf['resize']               = defined('IH_RESIZE') ? (IH_RESIZE == 'yes') : false;

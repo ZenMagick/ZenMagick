@@ -38,4 +38,8 @@ d) Install plugin
 
 Example of how to set the max to 8:
 
-    ZMSettings::set('plugins.googleAdSense.totalAds', 8);
+storefront,admin:
+  settings:
+    plugins:
+      googleAdSense:
+        totalAds: 8

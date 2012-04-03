@@ -65,7 +65,7 @@ class ZMSubscriptionsPlugin extends Plugin {
         $this->addConfigValue('Qualifying amount', 'minAmount', '0', 'The minimum amount to qualify for a subscription');
         $this->addConfigValue('Minimum orders', 'minOrders', '0', 'The minimum number of orders before the subscription can be canceled');
         $this->addConfigValue('Cancel dealline', 'cancelDeadline', '0', 'Days before the next order the user can cancel the subscription');
-        $this->addConfigValue('Admin notification email address', 'adminEmail', ZMSettings::get('storeEmail'),
+        $this->addConfigValue('Admin notification email address', 'adminEmail', $this->container->get('settingsService')->get('storeEmail'),
             'Email address for admin notifications (use store email if empty)');
         $this->addConfigValue('Subscription comment', 'subscriptionComment', true, 'Create subscription comment on original order',
             'widget@booleanFormWidget#name=subscriptionComment&default=true&label=Add comment');
@@ -172,7 +172,7 @@ class ZMSubscriptionsPlugin extends Plugin {
                 'enquire' => _zm("Enquire order status"),
                 'other' => _zm("Other"),
         );
-        return ZMSettings::get('plugins.zm_subscriptions.request.types', $defaults);
+        return $this->container->get('settingsService')->get('plugins.zm_subscriptions.request.types', $defaults);
     }
 
     /**
@@ -189,7 +189,7 @@ class ZMSubscriptionsPlugin extends Plugin {
             '4w' => array('name' => 'Every four weeks', 'active' => true),
             '1m' => array('name' => 'Once a month', 'active' => true)
         );
-        return ZMSettings::get('plugins.zm_subscriptions.schedules', $defaults);
+        return $this->container->get('settingsService')->get('plugins.zm_subscriptions.schedules', $defaults);
     }
 
     /**

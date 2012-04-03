@@ -65,7 +65,7 @@ class ZMRedirectorController extends ZMController {
 
         if (null != $product) {
             // check for redirect mappings
-            $productMappings = ZMSettings::get('plugins.redirector.productMappings', array());
+            $productMappings = $this->container->get('settingsService')->get('plugins.redirector.productMappings', array());
             if (array_key_exists($product->getId(), $productMappings)) {
                 $view =  new ZMRedirectView();
                 $view->setRequestId('product_info');
@@ -91,7 +91,7 @@ class ZMRedirectorController extends ZMController {
         }
 
         // check for redirect mappings
-        $categoryMappings = ZMSettings::get('plugins.redirector.categoryMappings', array());
+        $categoryMappings = $this->container->get('settingsService')->get('plugins.redirector.categoryMappings', array());
         if (array_key_exists($category->getId(), $categoryMappings)) {
             // find new category
             $newCategoryId = $categoryMappings[$category->getId()];

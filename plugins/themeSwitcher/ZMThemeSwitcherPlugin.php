@@ -18,6 +18,7 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
+use zenmagick\base\Runtime;
 use zenmagick\http\view\TemplateView;
 
 /**
@@ -45,7 +46,7 @@ class ZMThemeSwitcherPlugin extends Plugin {
      */
     public function init() {
         parent::init();
-        zenmagick\base\Runtime::getEventDispatcher()->listen($this);
+        Runtime::getEventDispatcher()->listen($this);
     }
 
     /**
@@ -63,7 +64,7 @@ class ZMThemeSwitcherPlugin extends Plugin {
         if (null != ($themeId = $session->getValue(self::SESS_THEME_KEY))) {
             $themeService = $this->container->get('themeService');
             $themeChain = array();
-            $themeChain[] = $themeService->getThemeForId(ZMSettings::get('apps.store.themes.default'), true);
+            $themeChain[] = $themeService->getThemeForId($this->container->get('settingsService')->get('apps.store.themes.default'), true);
             $themeChain[] = $themeService->getThemeForId($themeId, $languageId);
             $themeService->setThemeChain($languageId, $themeChain);
         }
@@ -88,9 +89,10 @@ class ZMThemeSwitcherPlugin extends Plugin {
 
         $request = $event->get('request');
         $themeService = $this->container->get('themeService');
+        $settingsService = $this->container->get('settingsService');
 
         $defaultConfig = null;
-        if (!ZMSettings::exists('plugins.themeSwitcher.themes')) {
+        if (!$settingsService->exists('plugins.themeSwitcher.themes')) {
             // iterate over all themes and build default config
             $defaultConfig = '';
             foreach ($themeService->getAvailableThemes() as $theme) {
@@ -100,7 +102,7 @@ class ZMThemeSwitcherPlugin extends Plugin {
             }
         }
 
-        $themes = explode(',', ZMSettings::get('plugins.themeSwitcher.themes', $defaultConfig));
+        $themes = explode(',', $settingsService->get('plugins.themeSwitcher.themes', $defaultConfig));
 
         // prepare theme details list
         $themeList = array();

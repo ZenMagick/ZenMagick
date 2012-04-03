@@ -97,12 +97,24 @@ Furthermore, there are two settings to tweak things:
 'plugins.cron.jobs.birthday.offset'
 This may be used to generate emails before/after the actual birthday. Valid values are [+|-][0-9]* or 
 an empty string for the actual date.
+
 Examples:
 // send emails one day early
-ZMSettings::set('plugins.cron.jobs.birthday.offset', -1);
+storefront,admin:
+  settings:
+    plugins:
+      jobs:
+        birthday:
+          offset: -1
 
 // send emails two days late
-ZMSettings::set('plugins.cron.jobs.birthday.offset', +2);
+storefront,admin:
+  settings:
+    plugins:
+      jobs:
+        birthday:
+          template: birthday.php
+          offset: +2
 
 NOTE: The sign (+/-) is mandatory.
 
@@ -122,6 +134,6 @@ The template will have access to a variable $account as the customer to process.
 
 Example template:
 Congratulations, <?php echo $account->getFullName() ?>,
-it's your birthday and <?php echo ZMSettings::get('storeName') ?> would like to wish you all the best!
+it's your birthday and <?php echo $settingsService->get('storeName') ?> would like to wish you all the best!
 Have fun,
-The team at <?php echo ZMSettings::get('storeName') ?>
+The team at <?php echo $settingsService->get('storeName') ?>

@@ -32,10 +32,16 @@ Setting examples:
 
 * simple (list of theme ids): 
 
-  ZMSettings::set('plugins.themeSwitcher.themes', 'default,demo');
+storefront:
+  settings:
+    themeSwitcher:
+      themes: default,demo
 
 * advanced (themeId and label):
 
-  ZMSettings::set('plugins.themeSwitcher.themes', 'default:Default,demo:Demo');
+storefront:
+  settings:
+    themeSwitcher:
+      themes: 'default:Default,demo:Demo'
 
 If the setting is not set or null, a list of all themes will be build.

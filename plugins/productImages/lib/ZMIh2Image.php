@@ -1,4 +1,7 @@
 <?php
+
+use zenmagick\base\Runtime;
+
 /**
  * IH2 class for image manipulation
  *
@@ -58,6 +61,7 @@ class ZMIh2Image {
 
         // initialize overlays (watermark, zoom overlay)
         $this->initialize_overlays($this->sizetype);
+        $this->container = Runtime::getContainer();
 	  }
 
     /**
@@ -164,12 +168,13 @@ class ZMIh2Image {
     // don't resize template images so test for the configured images directory.
     // if $ihConf['noresize_key'] is found within the string, don't resize either.
     $allowed = false;
+    $settingsService = Runtime::getSettings();
     if ($ihConf['resize'] &&
         ((strpos($this->src, $ihConf['dir']['images']) === 0) ||
-         ((strpos($this->src, substr(ZMSettings::get('plugins.imageHandler2.cachedir'), strlen($this->imageRoot))) === 0))) &&
-        (strpos($this->src, ZMSettings::get('plugins.imageHandler2.noresize_key')) === false)) {
+         ((strpos($this->src, substr($settingsService->get('plugins.imageHandler2.cachedir'), strlen($this->imageRoot))) === 0))) &&
+        (strpos($this->src, $settingsService->get('plugins.imageHandler2.noresize_key')) === false)) {
       $allowed = true;
-      foreach (ZMSettings::get('plugins.imageHandler2.noresize_dirs') as $dir) {
+      foreach ($settingsService->get('plugins.imageHandler2.noresize_dirs') as $dir) {
         $allowed = (strpos($this->src, $ihConf['dir']['images'] . $dir . '/') !== 0);
       }
     }
@@ -200,8 +205,8 @@ class ZMIh2Image {
         break;
       default:
         $file_extension = $this->extension;
-        $background = ZMSettings::get('plugins.imageHandler2.defaults.bg');
-        $quality = ZMSettings::get('plugins.imageHandler2.defaults.quality');
+        $background = $this->container->get('settingsService')->get('plugins.imageHandler2.defaults.bg');
+        $quality = $this->container->get('settingsService')->get('plugins.imageHandler2.defaults.quality');
         break;
 		}
 		list($newwidth, $newheight, $resize) = $this->calculate_size($width, $height);
@@ -297,12 +302,12 @@ class ZMIh2Image {
     global $messageStack;
     //echo 'im_convert: ' . $ihConf['im_convert'] . '<br />';
     // check if convert is configured
-    if(!ZMSettings::get('plugins.imageHandler2.im_convert')) return false;
+    if(!$this->container->get('settingsService')->get('plugins.imageHandler2.im_convert')) return false;
     //echo 'Trying to use ImageMagick.<br />';
     $size = $this->canvas['width'] . 'x' . $this->canvas['height'];
     //echo $size . '<br />';
     $bg = trim($bg);
-    $bg = ($bg == '') ? ZMSettings::get('plugins.imageHandler2.defaults.bg') : $bg;
+    $bg = ($bg == '') ? $this->container->get('settingsService')->get('plugins.imageHandler2.defaults.bg') : $bg;
     $transparent = (strpos($bg, 'transparent') !== false);
     $transparent &= preg_match('/(\.gif)|(\.png)/i', $file_ext);
     $color = $this->get_background_rgb($bg);
@@ -323,7 +328,7 @@ class ZMIh2Image {
 
     // still no background? default to transparent
 		$bg = ($bg != '') ? $bg : 'transparent';
-    $command  = ZMSettings::get('plugins.imageHandler2.im_convert') . " -size $size ";
+    $command  = $this->container->get('settingsService')->get('plugins.imageHandler2.im_convert') . " -size $size ";
     $command .= "xc:none -fill " . ($gif_treatment ? "transparent" : "\"$bg\"") . " -draw 'color 0,0 reset'";
     $size .= $this->force_canvas ? '' : '!';
     $command .= ' "' . $this->filename . '" -compose Over -gravity Center -geometry ' . $size . ' -composite';
@@ -333,10 +338,10 @@ class ZMIh2Image {
     @exec($command . ' 2>&1', $message, $retval);
     if ($gif_treatment) {
       if ($retval != 0) return false;
-      $command  = ZMSettings::get('plugins.imageHandler2.im_convert') . " -size $size ";
+      $command  = $this->container->get('settingsService')->get('plugins.imageHandler2.im_convert') . " -size $size ";
       $command .= "xc:none -fill \"$bg\" -draw 'color 0,0 reset'";
       $command .= " \"$temp_name\" -compose Over -gravity Center -geometry $size -composite";
-      $command .= " \"$temp_name\" -channel Alpha -threshold " . ZMSettings::get('plugins.imageHandler2.trans_threshold') . " -compose CopyOpacity -gravity Center -geometry $size -composite";
+      $command .= " \"$temp_name\" -channel Alpha -threshold " . $this->container->get('settingsService')->get('plugins.imageHandler2.trans_threshold') . " -compose CopyOpacity -gravity Center -geometry $size -composite";
       $command .= " \"$dest_name\"";
       @exec($command . ' 2>&1', $message, $retval);
     }
@@ -377,7 +382,7 @@ class ZMIh2Image {
 
   function imagemergealpha($background, $overlay, $startwidth, $startheight, $newwidth, $newheight, $threshold = '', $background_override = '', $debug = false) {
     //restore the transparency
-    if (ZMSettings::get('plugins.imageHandler2.gdlib')>1){
+    if ($this->container->get('settingsService')->get('plugins.imageHandler2.gdlib')>1){
       imagealphablending($background, false);
     }
 
@@ -411,7 +416,7 @@ class ZMIh2Image {
   function resize_imageGD($file_ext, $dest_name, $bg, $quality = 85) {
     global $messageStack;
 
-    if(ZMSettings::get('plugins.imageHandler2.gdlib') < 1) return false; //no GDlib available or wanted
+    if($this->container->get('settingsService')->get('plugins.imageHandler2.gdlib') < 1) return false; //no GDlib available or wanted
     $srcimage = $this->load_imageGD($this->filename);
     if (!$srcimage) return false; // couldn't load image
     $src_ext = substr($this->filename, strrpos($this->filename, '.'));
@@ -432,14 +437,14 @@ class ZMIh2Image {
     $startwidth = (($this->canvas['width'] - $newwidth)/2);
     $startheight = (($this->canvas['height'] - $newheight)/2);
 
-    if((ZMSettings::get('plugins.imageHandler2.gdlib')>1) && function_exists("imagecreatetruecolor")){
+    if(($this->container->get('settingsService')->get('plugins.imageHandler2.gdlib')>1) && function_exists("imagecreatetruecolor")){
       $tmpimg = @imagecreatetruecolor ($newwidth, $newheight);
     }
     if(!$tmpimg) $tmpimg = @imagecreate($newwidth, $newheight);
     if(!$tmpimg) return false;
 
     //keep alpha channel if possible
-    if (ZMSettings::get('plugins.imageHandler2.gdlib')>1 && function_exists('imagesavealpha')){
+    if ($this->container->get('settingsService')->get('plugins.imageHandler2.gdlib')>1 && function_exists('imagesavealpha')){
       imagealphablending($tmpimg, false);
     }
     //try resampling first
@@ -454,13 +459,13 @@ class ZMIh2Image {
     imagedestroy($srcimage);
 
     // initialize FIRST background image (transparent canvas)
-    if((ZMSettings::get('plugins.imageHandler2.gdlib')>1) && function_exists("imagecreatetruecolor")){
+    if(($this->container->get('settingsService')->get('plugins.imageHandler2.gdlib')>1) && function_exists("imagecreatetruecolor")){
       $newimg = @imagecreatetruecolor ($this->canvas['width'], $this->canvas['height']);
     }
     if(!$newimg) $newimg = @imagecreate($this->canvas['width'], $this->canvas['height']);
     if(!$newimg) return false;
 
-    if (ZMSettings::get('plugins.imageHandler2.gdlib')>1 && function_exists('imagesavealpha')){
+    if ($this->container->get('settingsService')->get('plugins.imageHandler2.gdlib')>1 && function_exists('imagesavealpha')){
       imagealphablending($newimg, false);
     }
     $background_color = imagecolorallocatealpha($newimg, 255, 255, 255, 127);
@@ -472,7 +477,7 @@ class ZMIh2Image {
     $tmpimg = $newimg;
 
 
-    if (ZMSettings::get('plugins.imageHandler2.gdlib')>1 && function_exists('imagesavealpha')){
+    if ($this->container->get('settingsService')->get('plugins.imageHandler2.gdlib')>1 && function_exists('imagesavealpha')){
       imagealphablending($tmpimg, true);
     }
     // we need to watermark our images
@@ -492,13 +497,13 @@ class ZMIh2Image {
     }
 
     // initialize REAL background image (filled canvas)
-    if((ZMSettings::get('plugins.imageHandler2.gdlib')>1) && function_exists("imagecreatetruecolor")){
+    if(($this->container->get('settingsService')->get('plugins.imageHandler2.gdlib')>1) && function_exists("imagecreatetruecolor")){
       $newimg = @imagecreatetruecolor ($this->canvas['width'], $this->canvas['height']);
     }
     if(!$newimg) $newimg = @imagecreate($this->canvas['width'], $this->canvas['height']);
     if(!$newimg) return false;
 
-    if (ZMSettings::get('plugins.imageHandler2.gdlib')>1 && function_exists('imagesavealpha')){
+    if ($this->container->get('settingsService')->get('plugins.imageHandler2.gdlib')>1 && function_exists('imagesavealpha')){
       imagealphablending($newimg, false);
     }
 
@@ -507,8 +512,8 @@ class ZMIh2Image {
     // when downsampling to gif with just boolean transparency
     $color = $this->get_background_rgb($bg);
     if (!$color) {
-      $color = $this->get_background_rgb(ZMSettings::get('plugins.imageHandler2.defaults.bg'));
-      $transparent = (strpos(ZMSettings::get('plugins.imageHandler2.defaults.bg'), 'transparent') !== false);
+      $color = $this->get_background_rgb($this->container->get('settingsService')->get('plugins.imageHandler2.defaults.bg'));
+      $transparent = (strpos($this->container->get('settingsService')->get('plugins.imageHandler2.defaults.bg'), 'transparent') !== false);
     } else {
       $transparent = (strpos($bg, 'transparent') !== false);
     }
@@ -522,13 +527,13 @@ class ZMIh2Image {
     }
     imagefilledrectangle($newimg, 0, 0, $this->canvas['width'] - 1, $this->canvas['height'] - 1, $background_color);
 
-    if (ZMSettings::get('plugins.imageHandler2.gdlib')>1 && function_exists('imagesavealpha')){
+    if ($this->container->get('settingsService')->get('plugins.imageHandler2.gdlib')>1 && function_exists('imagesavealpha')){
       imagealphablending($newimg, true);
     }
 
     if (preg_match('/\.gif/i', $file_ext)) {
       if ($transparent) {
-        $newimg = $this->imagemergealpha($newimg, $tmpimg, 0, 0, $this->canvas['width'], $this->canvas['height'], ZMSettings::get('plugins.imageHandler2.trans_threshold'), $background_color);
+        $newimg = $this->imagemergealpha($newimg, $tmpimg, 0, 0, $this->canvas['width'], $this->canvas['height'], $this->container->get('settingsService')->get('plugins.imageHandler2.trans_threshold'), $background_color);
         imagecolortransparent($newimg, $background_color);
       } else {
         imagecopy($newimg, $tmpimg, 0, 0, 0, 0, $this->canvas['width'], $this->canvas['height']);
@@ -542,12 +547,12 @@ class ZMIh2Image {
     }
     imagedestroy($tmpimg);
 
-    if (ZMSettings::get('plugins.imageHandler2.gdlib')>1 && function_exists('imagesavealpha')){
+    if ($this->container->get('settingsService')->get('plugins.imageHandler2.gdlib')>1 && function_exists('imagesavealpha')){
       imagesavealpha($newimg, true);
     }
 
     if (preg_match('/\.gif/i', $file_ext)) {
-      if (ZMSettings::get('plugins.imageHandler2.gdlib')>1 && function_exists('imagetruecolortopalette')) {
+      if ($this->container->get('settingsService')->get('plugins.imageHandler2.gdlib')>1 && function_exists('imagetruecolortopalette')) {
         imagetruecolortopalette($newimg, true, 256);
       }
     }

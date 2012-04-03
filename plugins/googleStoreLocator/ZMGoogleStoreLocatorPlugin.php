@@ -48,7 +48,7 @@ class ZMGoogleStoreLocatorPlugin extends Plugin {
               'widget@textFormWidget#name=adminKey&default=&size=24&maxlength=255');
         $this->addConfigValue('Store Location', 'location', '37.4419, -122.1419', 'The store location (Lat,Lng)');
         $this->addConfigValue('Zoom Level', 'zoom', '13', 'The initial zoom level');
-        $this->addConfigValue('Marker Text', 'marker_text', ZMSettings::get('storeName'), 'Optional text for the store marker',
+        $this->addConfigValue('Marker Text', 'marker_text', $this->container->get('settingsService')->get('storeName'), 'Optional text for the store marker',
             'widget@textAreaFormWidget#name=marker_text');
         $this->addConfigValue('Add Controls', 'controls', 'true', 'Enable/disable map controls',
             'widget@booleanFormWidget#name=controls&default=true&label=Enable controls&style=checkbox');

@@ -82,10 +82,13 @@ class ZMWordpressPlugin extends Plugin {
      * Prepare WP.
      */
     protected function prepareWP() {
+        $settingsService = $this->container->get('settingsService');
+        $settingsService->set('isAccountNickname', true);
+
         // main define to get at things
         $wordpressDir = $this->get('wordpressDir');
         if (empty($wordpressDir)) {
-            $wordpressDir = ZMSettings::get('plugins.wordpress.root');
+            $wordpressDir = $settingsService->get('plugins.wordpress.root');
         }
         define('ZM_WORDPRESS_ROOT', $wordpressDir);
 
@@ -93,7 +96,7 @@ class ZMWordpressPlugin extends Plugin {
 
         if ($this->get('requireNickname')) {
             // enable nick name field
-            ZMSettings::set('isAccountNickname', true);
+            $settingsService->set('isAccountNickname', true);
         }
     }
 

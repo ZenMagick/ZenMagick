@@ -88,16 +88,18 @@ class ZMVBulletinPlugin extends Plugin {
         $this->page_ = $request->getRequestId();
         $this->prePostAccount_ = $request->getAccount();
 
+        $settingsService = $this->container->get('settingsService');
+
         // main define to get at things
         $vBulletinDir = $this->get('vBulletinDir');
         if (empty($vBulletinDir)) {
-            $vBulletinDir = ZMSettings::get('plugins.zm_vbulletin.root');
+            $vBulletinDir = $settingsService->get('plugins.zm_vbulletin.root');
         }
         define('ZM_VBULLETIN_ROOT', $vBulletinDir);
 
-        // enable nick name field
-        ZMSettings::set('isAccountNickname', true);
+        $settingsService->set('isAccountNickname', true);
 
+        // enable nick name field
         if ('create_account' == $this->page_) {
             $vBulletin = $this->getAdapter();
             // add custom validation rules

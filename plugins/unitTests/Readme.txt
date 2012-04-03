@@ -29,13 +29,23 @@ Alternative test database
 =========================
 It is possible to configure an alternative database using the setting: 'plugins.unitTests.database.test'.
 Syntax is the same as for each database. The configured values will be merged with the defaults, so usually
-something like the following should be sufficient:
+something like the following should be sufficient (in your global.yaml):
 
-    ZMSettings::set('plugins.unitTests.database.test', 'dbname=mytestdatabase');
+storefront:
+  settings:
+    plugins:
+      unitTests:
+        database:
+          test: dbname=mytestdatabase
 
 However, it is possible to configure all aspects in this setting:
 
-    ZMSettings::set('plugins.unitTests.database.test', 'dbname=test&user=dbuser&password=dbpwd');
+storefront:
+  settings:
+    plugins:
+      unitTests:
+        database:
+          test: dbname=test&user=dbuser&password=dbpwd
 
 
 Custom tests

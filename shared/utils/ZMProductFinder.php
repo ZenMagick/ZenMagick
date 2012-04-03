@@ -99,7 +99,7 @@ class ZMProductFinder extends ZMObject {
      */
     protected function buildQuery($criteria) {
         $args = array();
-		    $useFulltext = ZMSettings::get('apps.store.search.fulltext', false);
+		    $useFulltext = $this->container->get('settingsService')->get('apps.store.search.fulltext', false);
 
         $select = "SELECT DISTINCT p.products_id";
         if ($criteria->isIncludeTax() && (!ZMLangUtils::isEmpty($criteria->getPriceFrom()) || !ZMLangUtils::isEmpty($criteria->getPriceTo()))) {

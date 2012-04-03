@@ -99,7 +99,7 @@ class ImageInfo extends ZMImageInfo {
         $ext = $comp[1];
         $imageBase = $comp[2];
 
-        $medium = $imageBase.ZMSettings::get('imgSuffixMedium').$ext;
+        $medium = $imageBase.$this->container->get('settingsService')->get('imgSuffixMedium').$ext;
 
         if (function_exists('handle_image')) {
             $newimg = handle_image('images/'.$medium, $this->altText_, MEDIUM_IMAGE_WIDTH, MEDIUM_IMAGE_HEIGHT, '');
@@ -124,7 +124,7 @@ class ImageInfo extends ZMImageInfo {
         $ext = $comp[1];
         $imageBase = $comp[2];
 
-        $large = $imageBase.ZMSettings::get('imgSuffixLarge').$ext;
+        $large = $imageBase.$this->container->get('settingsService')->get('imgSuffixLarge').$ext;
         $newimg = handle_image('images/'.$large, $this->altText_, '', '', '');
         if (!$this->disableIH2Attributes_) {
             $this->formattedParameter_ = $newimg[4];

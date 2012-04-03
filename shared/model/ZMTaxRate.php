@@ -155,7 +155,7 @@ class ZMTaxRate extends ZMObject {
      *
      * @param float $rate The tax rate.
      */
-    public function setRate($rate) { $this->rate = round($rate, ZMSettings::get('calculationDecimals') + 2); }
+    public function setRate($rate) { $this->rate = round($rate, $this->container->get('settingsService')->get('calculationDecimals') + 2); }
 
     /**
      * Get the tax class id.
@@ -251,7 +251,7 @@ class ZMTaxRate extends ZMObject {
      */
     public function addTax($amount) {
         $currency = $this->getCurrency();
-        if (ZMSettings::get('showPricesTaxIncluded') && 0 < $this->rate) {
+        if ($this->container->get('settingsService')->get('showPricesTaxIncluded') && 0 < $this->rate) {
             return round($amount + $this->getTaxAmount($amount), $currency->getDecimalPlaces());
         }
 
@@ -281,7 +281,7 @@ class ZMTaxRate extends ZMObject {
         $currency = $currencyService->getCurrencyForCode($session->getCurrencyCode());
         if (null == $currency) {
             Runtime::getLogging()->warn('no currency found - using default currency');
-            $currency = $currencyService->getCurrencyForCode(ZMSettings::get('defaultCurrency'));
+            $currency = $currencyService->getCurrencyForCode($this->container->get('settingsService')->get('defaultCurrency'));
         }
 
         return $currency;

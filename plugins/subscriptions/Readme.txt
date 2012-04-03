@@ -81,12 +81,14 @@ Schedule options
 The defauls may be changed by configuring a plugin setting 'plugins.subscriptions.schedules':
 Example:
 
-    ZMSettings::set('plugins.subscriptions.schedules', array(
-        '1w' => array('name' => 'Weekly', 'active' => true),
-        '10d' => array('name' => 'Every 10 days', 'active' => true),
-        '4w' => array('name' => 'Every four weeks', 'active' => true),
-        '1m' => array('name' => 'Once a month', 'active' => true)
-    ));
+storefront,admin:
+  settings:
+    subscriptions:
+      schedules:
+        1w: { name: Weekly, active: true }
+        10d: { name: 'Every 10 days', active: true }
+        4w: { name: 'Every four weeks', active: true }
+        1m: { name: 'Once a month', active: true }
 
 
 Subscription request types
@@ -94,11 +96,14 @@ Subscription request types
 Similar to the schedule options, the enquiry types can be configured via a setting, namely 'plugins.subscriptions.request.types':
 Example:
 
-    ZMSettings::set('plugins.subscriptions.request.types', array(
-        'cancel' => "Cancel Subscription",
-        'enquire' => "Enquire order status",
-        'other' => "Other",
-    ));
+storefront,admin:
+  settings:
+    subscriptions:
+      request:
+        types:
+          - { cancel: 'Cancel Subscription' }
+          - { enquire: 'Enquire order status' }
+          - { other: 'Other' }
 
 
 
