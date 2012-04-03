@@ -24,13 +24,8 @@ use zenmagick\apps\store\bundles\ZenCartBundle\ZenCartBundle;
  */
 ksort($autoLoadConfig);
 
-$map = array();
-$request = Runtime::getContainer()->get('request');
 $session = Runtime::getcontainer()->get('session');
 
-$map['%current_page%'] = $request->getRequestId();
-$map['%language%'] = $request->getSelectedLanguage()->getDirectory(); //$session->getValue('language');
-$map['%template_dir%'] = 'classic';//Runtime::getContainer()->get('themeService')->getActiveThemeId();
 
 foreach ($autoLoadConfig as $actionPoint => $row) {
     foreach($row as $entry) {
@@ -93,7 +88,6 @@ foreach ($autoLoadConfig as $actionPoint => $row) {
                 $require = true;
             case 'include':
             case 'include_glob':
-                $entry['loadFile'] = str_replace(array_keys($map), array_values($map), $entry['loadFile']);
                 $files = ZenCartBundle::resolveFiles($entry['loadFile']);
             break;
         }

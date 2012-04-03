@@ -89,6 +89,22 @@ class ZenCartBundle extends Bundle {
     }
 
     /**
+     * Resolve some templated file vars
+     *
+     *
+     * @todo refactor this into a different class
+     */
+    public static function resolveFileVars($string) {
+        $container = Runtime::getContainer();
+        $request = $container->get('request');
+        $map = array();
+        $map['%current_page%'] = $request->getRequestId();
+        $map['%language%'] = $request->getSelectedLanguage()->getDirectory();
+        $map['%template_dir%'] = $container->get('themeService')->getActiveThemeId();
+        return str_replace(array_keys($map), array_values($map), $string);
+    }
+
+    /**
      * Find Zen Cart init system files
      *
      * We check our bridge directory before falling back on ZenCart native files
@@ -100,7 +116,7 @@ class ZenCartBundle extends Bundle {
         $files = array();
 
         foreach ((array)$paths as $path) {
-            //$relative = str_replace(array_keys($map), array_values($map), $path);
+            $path = self::resolveFileVars($path);
             $file = basename($path);
             $relative = dirname($path);
             $checkRoots = self::buildSearchPaths($relative);
