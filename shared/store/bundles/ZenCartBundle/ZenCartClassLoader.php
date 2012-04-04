@@ -25,10 +25,10 @@ use zenmagick\base\Runtime;
 /**
  * Zencart class loader.
  *
- * This will only load classes from the internal 
+ * This will only load classes from the internal
  * <code>$classFileMap</code>
  *
- * @todo will we need {get|set|add}ClassFileMap methods? 
+ * @todo will we need {get|set|add}ClassFileMap methods?
  * @author DerManoMann
  */
 class ZenCartClassLoader extends ClassLoader {
@@ -62,6 +62,9 @@ class ZenCartClassLoader extends ClassLoader {
             'template_func' => 'template_func',
             'PHPMailer' => 'class.phpmailer', // @todo remove legacy mailer support
             'SMTP' => 'class.smtp',
+            'order_total' => 'order_total',
+            'shipping' => 'shipping',
+            'order' => 'order',
             // ZenCart Admin
             'box' => 'box',
             'objectInfo' => 'object_info',
