@@ -23,6 +23,7 @@ use zenmagick\base\ZMObject;
 use zenmagick\base\Runtime;
 use zenmagick\base\Toolbox;
 use zenmagick\base\dependencyInjection\loader\YamlLoader;
+use zenmagick\base\dependencyInjection\compiler\ResolveMergeDefinitionsPass;
 
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\Yaml\Yaml;
@@ -140,6 +141,9 @@ class ContextConfigLoader extends ZMObject {
             if (!$this->container->isFrozen()) {
                 $containerYamlLoader = new YamlLoader($this->container, new FileLocator(dirname(__FILE__)));
                 $containerYamlLoader->load($config['container']);
+                // resolve parent: merge:xxx
+                $parentMergeCompilerPass = new ResolveMergeDefinitionsPass();
+                $parentMergeCompilerPass->process($this->container);
             } else {
                 Runtime::getLogging()->warn('skipping container config - container is frozen');
             }
