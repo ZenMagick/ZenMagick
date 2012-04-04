@@ -22,6 +22,7 @@
  */
 ?>
 
+<?php $crumbtrail->addCrumb(_zm('Checkout'), $request->url('checkout', '', true))->addCrumb(_zm('Summary')) ?>
 <fieldset>
     <legend><?php _vzm("Shopping Cart Contents") ?></legend>
     <table cellpadding="0" cellspacing="0" id="cart">

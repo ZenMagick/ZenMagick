@@ -34,9 +34,6 @@ class CheckoutConfirmationController extends \ZMController {
      * {@inheritDoc}
      */
     public function processGet($request) {
-        $request->getToolbox()->crumbtrail->addCrumb("Checkout", $request->url('checkout', '', true));
-        $request->getToolbox()->crumbtrail->addCrumb($request->getToolbox()->utils->getTitle());
-
         // some defaults
         $orderFormContent =  '';
         $orderFormUrl = $request->url('checkout_process', '', true);

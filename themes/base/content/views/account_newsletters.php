@@ -21,6 +21,8 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 ?>
+
+<?php $crumbtrail->addCrumb(_zm('Account'), $request->url('account', '', true))->addCrumb(_zm('Newsletter')) ?>
 <p><?php _vzm("Including store news, new products, special offers, and other promotional announcements.") ?></p>
 <?php echo $form->open('account_newsletters', '', true, array('onsubmit'=>null)) ?>
     <fieldset>

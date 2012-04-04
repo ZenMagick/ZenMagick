@@ -78,8 +78,6 @@ class SearchController extends \ZMController {
      * {@inheritDoc}
      */
     public function processGet($request) {
-        $request->getToolbox()->crumbtrail->addCrumb($request->getToolbox()->utils->getTitle());
-
         $searchCriteria = $this->getFormData($request);
         // never search inactive products
         $searchCriteria->setSearchAll(false);

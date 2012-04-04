@@ -22,6 +22,7 @@
  */
 ?>
 
+<?php $crumbtrail->addCrumb(_zm('Advanced Search')) ?>
 <?php define('KEYWORD_DEFAULT', _zm("enter search")); ?>
 <?php echo $form->open('search', '', false, array('method' => 'get', 'id' => 'searchCriteria')) ?>
     <fieldset id="term">

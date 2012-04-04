@@ -22,6 +22,7 @@
  */
 ?>
 
+<?php $crumbtrail->addCrumb(_zm('Checkout'), $request->url('checkout_payment', '', true))->addCrumb(_zm('Billing Address')) ?>
 <?php $currentAddress = $shoppingCart->getBillingAddress(); ?>
 <?php if (0 < count($addressList)) { ?>
     <?php echo $form->open('checkout_payment_address', 'action=select', true) ?>

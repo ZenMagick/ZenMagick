@@ -53,9 +53,9 @@ class CheckoutAddressController extends \ZMController {
      */
     public function setMode($mode) {
         if ('shipping' == $mode) {
-            $this->modeSettings_ = array('url' => 'checkout_shipping', 'method' => 'setShippingAddressId', 'ignoreCheckId' => 'require_shipping', 'mode' => $mode);
+            $this->modeSettings_ = array('method' => 'setShippingAddressId', 'ignoreCheckId' => 'require_shipping', 'mode' => $mode);
         } else if ('billing' == $mode) {
-            $this->modeSettings_ = array('url' => 'checkout_payment', 'method' => 'setBillingAddressId', 'ignoreCheckId' => 'require_payment', 'mode' => $mode);
+            $this->modeSettings_ = array('method' => 'setBillingAddressId', 'ignoreCheckId' => 'require_payment', 'mode' => $mode);
         }
     }
 
@@ -63,9 +63,6 @@ class CheckoutAddressController extends \ZMController {
      * {@inheritDoc}
      */
     public function preProcess($request) {
-        $request->getToolbox()->crumbtrail->addCrumb("Checkout", $request->url($this->modeSettings_['url'], '', true));
-        $request->getToolbox()->crumbtrail->addCrumb($request->getToolbox()->utils->getTitle());
-
         $shoppingCart = $request->getShoppingCart();
         $this->viewData_['shoppingCart'] = $shoppingCart;
 

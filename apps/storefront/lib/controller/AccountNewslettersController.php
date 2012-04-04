@@ -34,14 +34,6 @@ class AccountNewslettersController extends \ZMController {
     /**
      * {@inheritDoc}
      */
-    public function preProcess($request) {
-        $request->getToolbox()->crumbtrail->addCrumb("Account", $request->url('account', '', true));
-        $request->getToolbox()->crumbtrail->addCrumb("Newsletter");
-    }
-
-    /**
-     * {@inheritDoc}
-     */
     public function processGet($request) {
         return $this->findView(null, array('currentAccount' => $request->getAccount()));
     }

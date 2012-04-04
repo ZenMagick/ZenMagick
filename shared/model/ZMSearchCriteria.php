@@ -36,7 +36,7 @@ class ZMSearchCriteria extends ZMObject {
     public function __construct() {
         parent::__construct();
 
-        $settingsService = $this->container->get('settingsService');
+        $settingsService = Runtime::getContainer()->get('settingsService');
         $this->set('includeTax', $settingsService->get('showPricesTaxIncluded'));
         $this->set('countryId', $settingsService->get('storeCountry'));
         $this->set('zoneId', $settingsService->get('storeCountry'));
