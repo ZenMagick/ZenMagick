@@ -19,7 +19,9 @@
  */
 namespace zenmagick\apps\store\bundles\ZenCartBundle\themes;
 
+use zenmagick\base\Runtime;
 use zenmagick\apps\store\themes\Themes;
+use zenmagick\base\utils\Executor;
 
 /**
  * Theme service with with zencart support.
@@ -27,6 +29,64 @@ use zenmagick\apps\store\themes\Themes;
  * @author DerManoMann
  */
 class ZencartThemes extends Themes {
+    private $zencart;
+
+    /**
+     * Create new instance.
+     */
+    public function __construct() {
+        parent::__construct();
+        Runtime::getEventDispatcher()->listen($this);
+        $this->zencart = false;
+    }
+
+
+    /**
+     * {@inheritDoc}
+     */
+    public function setThemeChain($languageId, $themeChain) {
+        parent::setThemeChain($languageId, $themeChain);
+        $this->zencart = false;
+        foreach ($themeChain as $theme) {
+            if ($theme->isZencart()) {
+                $this->zencart = true;
+                break;
+            }
+        }
+    }
+
+    /**
+     * Theme resolved listener.
+     *
+     * @param Event event The event.
+     */
+    public function onThemeResolved($event) {
+        $this->zencart = false;
+        $themeChain = $event->get('themeChain');
+        foreach ($themeChain as $theme) {
+            if ($theme->isZencart()) {
+                $this->zencart = true;
+                break;
+            }
+        }
+    }
+
+    /**
+     * Event listener.
+     *
+     * @param Event event The event.
+     */
+    public function onControllerProcessStart($event) {
+        if ($this->zencart) {
+            $settingsService = $this->container->get('settingsService');
+            $settingsService->set('zenmagick.http.view.defaultLayout', 'zc_storefront_layout.php');
+
+            $request = $event->get('request');
+            // TODO: do we need a custom controller here???
+            $executor = new Executor(array($this->container->get('defaultController'), 'process'), array($request));
+            $request->getDispatcher()->setControllerExecutor($executor);
+        }
+    }
 
     /**
      * {@inheritDoc}

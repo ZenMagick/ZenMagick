@@ -46,10 +46,10 @@ class ZMRequest extends ZMObject {
      */
     const DEFAULT_REQUEST_ID = 'rid';
 
-    private $controller_;
     private $toolbox_;
     private $parameter_;
     private $method_;
+    private $dispatcher;
 
 
     /**
@@ -73,8 +73,8 @@ class ZMRequest extends ZMObject {
         }
 
         $this->setMethod(array_key_exists('REQUEST_METHOD', $_SERVER) ? $_SERVER['REQUEST_METHOD'] : 'GET');
-        $this->controller_ = null;
         $this->toolbox_ = null;
+        $this->dispatcher = null;
     }
 
     /**
@@ -87,6 +87,24 @@ class ZMRequest extends ZMObject {
         return Runtime::getContainer()->get('request');
     }
 
+
+    /**
+     * Set the dispatcher for this request.
+     *
+     * @param Dispatcher dispatcher The dispatcher.
+     */
+    public function setDispatcher($dispatcher) {
+        $this->dispatcher = $dispatcher;
+    }
+
+    /**
+     * Get the dispatcher for this request.
+     *
+     * @return Dispatcher The dispatcher.
+     */
+    public function getDispatcher() {
+        return $this->dispatcher;
+    }
 
     /**
      * Check if this request is an Ajax request.
@@ -425,15 +443,6 @@ class ZMRequest extends ZMObject {
         }
         $this->parameter_[$name] = $value;
         return $old;
-    }
-
-    /**
-     * Set the current controller.
-     *
-     * @param ZMController controller The new controller.
-     */
-    public function setController($controller) {
-        $this->controller_ = $controller;
     }
 
     /**

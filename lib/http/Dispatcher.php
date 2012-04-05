@@ -40,6 +40,7 @@ use zenmagick\http\view\View;
  */
 class Dispatcher extends ZMObject {
     private $parameterMapper;
+    private $controllerExecutor;
 
     /**
      * Set the parameter mapper for controller.
@@ -56,6 +57,7 @@ class Dispatcher extends ZMObject {
      * @param ZMRequest request The request to dispatch.
      */
     public function dispatch($request) {
+        $request->setDispatcher($this);
         ob_start();
 
         $messageService = $this->container->get('messageService');
@@ -131,7 +133,6 @@ class Dispatcher extends ZMObject {
             //TODO: why is this a classic controller only?
             $controller = $this->container->get('defaultController');
             $view = $controller->findView('error', array('exception' => $e));
-            $request->setController($controller);
             $controller->initViewVars($view, $request);
         }
 
@@ -202,12 +203,27 @@ class Dispatcher extends ZMObject {
     }
 
     /**
+     * Set controller executor.
+     *
+     * <p>Allows to override the dynamical controller executor lookup.
+     *
+     * @param Executor executor Executor.
+     */
+    public function setControllerExecutor(Executor $executor) {
+        $this->controllerExecutor = $executor;
+    }
+
+    /**
      * Get an executor for an controller to handle the given request.
      *
      * @param ZMRequest request The request.
      * @return Executor The executor.
      */
     protected function getControllerExecutor(ZMRequest $request) {
+        if ($this->controllerExecutor) {
+            return $this->controllerExecutor;
+        }
+
         if ($routerMatch = $this->container->get('routeResolver')->getRouterMatch($request->getUri())) {
             // class:method ?
             $token = explode(':', $routerMatch['_controller']);

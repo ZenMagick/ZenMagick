@@ -128,8 +128,9 @@ class EventFixes extends ZMObject {
     public function onRequestReady($event) {
         $request = $event->get('request');
         $language = $request->getSession()->getLanguage();
-        $theme = $this->container->get('themeService')->initThemes($language);
-        $args = array_merge($event->all(), array('theme' => $theme, 'themeId' => $theme->getId()));
+        $themeService = $this->container->get('themeService');
+        $theme = $themeService->initThemes($language);
+        $args = array_merge($event->all(), array('theme' => $theme, 'themeId' => $theme->getId(), 'themeChain' => $themeService->getThemeChain($language->getId())));
         Runtime::getEventDispatcher()->dispatch('theme_resolved', new Event($this, $args));
 
         // now we can check for a static homepage
