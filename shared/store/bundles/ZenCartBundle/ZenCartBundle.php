@@ -208,6 +208,14 @@ class ZenCartBundle extends Bundle {
             }
         } else {
             $this->handleCounter($event);
+            /**
+             * only used in the orders class and old email functions
+             * @todo move it somewhere else
+             */
+            $session = $request->getSession();
+            if (null == $session->getValue('customers_ip_address')) {
+                $session->setValue('customers_ip_address', $_SERVER['REMOTE_ADDR']);
+            }
         }
 
         if (defined('EMAIL_TRANSPORT') && 'Qmail' == EMAIL_TRANSPORT && $this->container->has('swiftmailer.transport')) {

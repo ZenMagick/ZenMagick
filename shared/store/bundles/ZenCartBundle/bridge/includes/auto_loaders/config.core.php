@@ -139,6 +139,3 @@
   $autoLoadConfig[180][] = array('autoType'=>'init_script',
                                 'loadFile'=> 'init_header.php',
                                 'loaderPrefix'=>'config');
-
-  $autoLoadConfig[180][] = array('autoType'=>'init_script',
-                                'loadFile'=> 'init_end.php');
