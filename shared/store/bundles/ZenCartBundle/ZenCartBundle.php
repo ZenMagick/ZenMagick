@@ -19,13 +19,15 @@
  */
 namespace zenmagick\apps\store\bundles\ZenCartBundle;
 
-use Symfony\Component\HttpKernel\Bundle\Bundle;
+use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
+use Symfony\Component\HttpKernel\Bundle\Bundle;
 
 use Swift_Transport_SendmailTransport;
 
 use zenmagick\base\Beans;
 use zenmagick\base\Runtime;
+use zenmagick\base\dependencyInjection\loader\YamlLoader;
 use zenmagick\apps\store\bundles\ZenCartBundle\utils\EmailEventHandler;
 use zenmagick\apps\store\menu\MenuLoader;
 
@@ -143,6 +145,13 @@ class ZenCartBundle extends Bundle {
      * Prepare db config
      */
     public function onInitConfigDone($event) {
+        $yaml = array('services' => array(
+            'zencartTheme' => array('parent' => 'merge:theme', 'class' => 'zenmagick\apps\store\bundles\ZenCartBundle\themes\ZencartTheme'),
+            'zencartThemeService' => array('parent' => 'merge:themeService', 'class' => 'zenmagick\apps\store\bundles\ZenCartBundle\themes\ZencartThemes')
+        ));
+        $yamlLoader = new YamlLoader($this->container, new FileLocator(dirname(__FILE__)));
+        $yamlLoader->load($yaml);
+
         if (!defined('DB_PREFIX')) define('DB_PREFIX', \ZMRuntime::getDatabase()->getPrefix());
         $settingsService = $this->container->get('settingsService');
         if (Runtime::isContextMatch('admin')) {
