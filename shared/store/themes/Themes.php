@@ -117,15 +117,6 @@ class Themes extends ZMObject {
             }
         }
 
-        //XXX: try for zc themes
-        foreach ($this->getZCThemeDirList() as $dir) {
-            if (!in_array($dir, $themeDirs)) {
-                $theme = $this->container->get('theme');
-                $theme->setThemeId($dir);
-                $themes[] = $theme;
-            }
-        }
-
         return $themes;
     }
 
@@ -246,7 +237,7 @@ class Themes extends ZMObject {
      *
      * @return array List of all directories under <em>themes</em> that contain a theme.
      */
-    private function getThemeDirList() {
+    protected function getThemeDirList() {
         $themes = array();
         $handle = @opendir($this->getThemesDir());
         while (false !== ($file = readdir($handle))) {
@@ -256,26 +247,6 @@ class Themes extends ZMObject {
             array_push($themes, $file);
         }
         @closedir($handle);
-        return $themes;
-    }
-
-    /**
-     * Generate a list of all zencart directories.
-     *
-     * @return array List of all directories.
-     */
-    private function getZCThemeDirList() {
-        $themes = array();
-        $zcPath = $this->container->get('settingsService')->get('apps.store.zencart.path');
-        if (false !== ($handle = @opendir($zcPath.'/includes/templates'))) {
-            while (false !== ($file = readdir($handle))) {
-                if (\ZMLangUtils::startsWith($file, '.')) {
-                    continue;
-                }
-                array_push($themes, $file);
-            }
-            @closedir($handle);
-        }
         return $themes;
     }
 

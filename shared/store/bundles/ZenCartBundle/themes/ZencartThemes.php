@@ -28,4 +28,44 @@ use zenmagick\apps\store\themes\Themes;
  */
 class ZencartThemes extends Themes {
 
+    /**
+     * {@inheritDoc}
+     */
+    public function getAvailableThemes() {
+        $themes = parent::getAvailableThemes();
+
+        //XXX: try for zc themes
+        $themeDirs = $this->getThemeDirList();
+        foreach ($this->getZCThemeDirList() as $dir) {
+            if (!in_array($dir, $themeDirs)) {
+                $theme = $this->container->get('theme');
+                $theme->setThemeId($dir);
+                $themes[] = $theme;
+            }
+        }
+
+        return $themes;
+    }
+
+    /**
+     * Generate a list of all zencart directories.
+     *
+     * @return array List of all directories.
+     */
+    protected function getZCThemeDirList() {
+        $themes = array();
+        $zcPath = $this->container->get('settingsService')->get('apps.store.zencart.path');
+        if (false !== ($handle = @opendir($zcPath.'/includes/templates'))) {
+            while (false !== ($file = readdir($handle))) {
+                if (\ZMLangUtils::startsWith($file, '.')) {
+                    continue;
+                }
+                array_push($themes, $file);
+            }
+            @closedir($handle);
+        }
+
+        return $themes;
+    }
+
 }

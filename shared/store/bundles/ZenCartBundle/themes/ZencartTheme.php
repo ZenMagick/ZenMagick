@@ -27,5 +27,42 @@ use zenmagick\apps\store\themes\Theme;
  * @author DerManoMann
  */
 class ZencartTheme extends Theme {
+    private $zencart = false;
+
+    /**
+     * {@inheritDoc}
+     */
+    public function setThemeId($themeId) {
+        parent::setThemeId($themeId);
+        $configFile = $this->getBaseDir().'/theme.yaml';
+        if (!file_exists($configFile)) {
+            //XXX: try for zc theme
+            $zcPath = $this->container->get('settingsService')->get('apps.store.zencart.path');
+            $templatePath = $zcPath.'/includes/templates/'.$themeId;
+            if (is_dir($templatePath) && file_exists($templatePath.'/template_info.php')) {
+                $this->zencart = true;
+                include $templatePath.'/template_info.php';
+                if (isset($template_name)) {
+                    $config = array();
+                    $config['meta'] = array();
+                    $config['meta']['name'] = $template_name.' (Zen Cart)';
+                    $config['meta']['version'] = $template_version;
+                    $config['meta']['author'] = $template_author;
+                    $config['meta']['description'] = $template_description;
+                    $config['meta']['zencart'] = true;
+                    $this->setConfig($config);
+                }
+            }
+        }
+    }
+
+    /**
+     * Check if this is a zencart theme/template.
+     *
+     * @return boolean <code>true</code> if this theme is a zencart wrapper.
+     */
+    public function isZencart() {
+        return $this->zencart;
+    }
 
 }
