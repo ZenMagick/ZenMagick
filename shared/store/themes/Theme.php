@@ -155,7 +155,7 @@ class Theme extends ZMObject {
      * @deprecated
      */
     public function getExtraDir() {
-        return $this->getBaseDir() . '/extra/';
+        return $this->getBaseDir() . '/extra';
     }
 
     /**
@@ -164,7 +164,7 @@ class Theme extends ZMObject {
      * @return string A full filename denoting the themes boxes directory.
      */
     public function getBoxesDir() {
-        return $this->getBaseDir() . '/content/boxes/';
+        return $this->getBaseDir() . '/content/boxes';
     }
 
     /**
@@ -173,7 +173,7 @@ class Theme extends ZMObject {
      * @return string A full filename denoting the themes content directory.
      */
     public function getContentDir() {
-        return $this->getBaseDir() . '/content/';
+        return $this->getBaseDir() . '/content';
     }
 
     /**
@@ -182,7 +182,7 @@ class Theme extends ZMObject {
      * @return string A full filename denoting the themes views directory.
      */
     public function getViewsDir() {
-        return $this->getBaseDir() . '/content/views/';
+        return $this->getBaseDir() . '/content/views';
     }
 
     /**
@@ -192,7 +192,7 @@ class Theme extends ZMObject {
      * @deprecated
      */
     public function getLangDir() {
-        return $this->getBaseDir() . '/lang/';
+        return $this->getBaseDir() . '/lang';
     }
 
     /**
