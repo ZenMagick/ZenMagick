@@ -35,8 +35,6 @@ class GvRedeemController extends \ZMController {
      * {@inheritDoc}
      */
     public function processGet($request) {
-        $request->getToolbox()->crumbtrail->addCrumb($request->getToolbox()->utils->getTitle());
-
         $gvRedeem = $this->getFormData($request);
 
         //XXX: fix for gv_mail generated URLs

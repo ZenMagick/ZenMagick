@@ -22,6 +22,7 @@
  */
 ?>
 
+<?php $crumbtrail->addCrumb(_zm('Redeem Gift Certificate')) ?>
 <h2><?php _vzm("Redeem A Gift Certificate") ?></h2>
 <?php if ($gvRedeem->isRedeemed()) { ?>
   <p><?php _vzm("Congratulations, you have redeemed a Gift Certificate worth %s.", $utils->formatMoney($gvRedeem->getAmount())) ?></p>

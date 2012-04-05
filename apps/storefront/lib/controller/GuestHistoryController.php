@@ -33,13 +33,6 @@ class GuestHistoryController extends \ZMController {
     /**
      * {@inheritDoc}
      */
-    public function preProcess($request) {
-        $request->getToolbox()->crumbtrail->addCrumb('Guest Order');
-    }
-
-    /**
-     * {@inheritDoc}
-     */
     public function processPost($request) {
         if (!$this->validate($request, 'guest_history')) {
             return $this->findView();

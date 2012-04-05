@@ -22,6 +22,7 @@
  */
 ?>
 
+<?php $crumbtrail->addCrumb(_zm('Guest Order Status')) ?>
 <?php echo $form->open('guest_history', '', true, array('id'=>'guest_history')) ?>
   <fieldset>
     <legend><?php _vzm("Find Guest Order") ?></legend>

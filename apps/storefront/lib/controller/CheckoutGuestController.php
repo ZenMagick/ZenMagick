@@ -34,13 +34,6 @@ class CheckoutGuestController extends \ZMController {
     /**
      * {@inheritDoc}
      */
-    public function preProcess($request) {
-        $request->getToolbox()->crumbtrail->addCrumb($request->getToolbox()->utils->getTitle());
-    }
-
-    /**
-     * {@inheritDoc}
-     */
     public function processPost($request) {
         if (!Runtime::getSettings()->get('isGuestCheckout')) {
             $this->messageService->warn(_zm('Guest checkout not allowed at this time'));
@@ -55,7 +48,7 @@ class CheckoutGuestController extends \ZMController {
             return $this->findView('success');
         }
 
-        $address = $this->getFormData($request,'ZMAddress', 'checkout_guest');
+        $address = $this->getFormData($request, 'ZMAddress', 'checkout_guest');
         $address->setPrimary(true);
         if (!$this->validate($request, 'checkout_guest')) {
             return $this->findView(null, array('guestCheckoutAddress' => $address));
