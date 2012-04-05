@@ -99,6 +99,7 @@ class ResolveMergeDefinitionsPass implements CompilerPassInterface {
         $def->setFile($parentDef->getFile());
         $def->setPublic($parentDef->isPublic());
         $def->setTags($parentDef->getTags());
+        $def->setScope($parentDef->getScope());
 
         // overwrite with values specified in the decorator
         $changes = $definition->getChanges();
@@ -154,7 +155,6 @@ class ResolveMergeDefinitionsPass implements CompilerPassInterface {
 
         // these attributes are always taken from the child
         $def->setAbstract($definition->isAbstract());
-        $def->setScope($definition->getScope());
 
         // set new definition on container
         $this->container->setDefinition($id, $def);
