@@ -161,22 +161,22 @@ class Themes extends ZMObject {
 
             // fill the chain
             $this->themeChain_[$languageId] = array();
-            $this->themeChain_[$languageId][] = $this->getThemeForId(Runtime::getSettings()->get('apps.store.themes.default'), $languageId);
+            $this->themeChain_[$languageId][] = $this->getThemeForId($this->container->get('settingsService')->get('apps.store.themes.default'), $languageId);
 
-            // Get themes
-            $themes = array();
-            foreach ($this->getThemeConfigList() as $theme) {
-                $themeLanguageId = $theme->getLanguageId();
-                if (0 == $themeLanguageId || $themeLanguageId == $languageId) {
-                    $themes[$themeLanguageId] = $theme;
+            // Get themeSelects and filter by languageId
+            $themeSelelects = array();
+            foreach ($this->getThemeConfigList() as $themeSelect) {
+                $themeSelectLanguageId = $themeSelect->getLanguageId();
+                if (0 == $themeSelectLanguageId || $themeSelectLanguageId == $languageId) {
+                    $themeSelelects[] = $themeSelect;
                 }
             }
 
-            if (empty($themes)) return $this->themeChain_[$languageId];
+            if (empty($themeSelelects)) return $this->themeChain_[$languageId];
 
-            $theme = array_pop($themes);
-            $themeId = $theme->getThemeId();
-            $variationId = $theme->getVariationId();
+            $themeSelect = array_pop($themeSelelects);
+            $themeId = $themeSelect->getThemeId();
+            $variationId = $themeSelect->getVariationId();
 
             if (null != ($theme = $this->getThemeForId($themeId, $languageId))) {
                 $this->themeChain_[$languageId][] = $theme;
@@ -348,7 +348,7 @@ class Themes extends ZMObject {
     public function initThemes($language = null) {
         if (null == $language) {
             // default language
-            $language = $this->container->get('languageService')->getLanguageForCode(Runtime::getSettings()->get('defaultLanguageCode'));
+            $language = $this->container->get('languageService')->getLanguageForCode($this->container->get('settingsService')->get('defaultLanguageCode'));
         }
         $this->initLanguage_ = $language;
 
