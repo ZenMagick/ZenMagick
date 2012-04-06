@@ -83,7 +83,7 @@ class ZencartThemes extends Themes {
 
             $request = $event->get('request');
             // TODO: do we need a custom controller here???
-            $executor = new Executor(array($this->container->get('defaultController'), 'process'), array($request));
+            $executor = new Executor(array($this->container->get('zenmagick\apps\store\bundles\ZenCartBundle\controller\ZencartStorefrontController'), 'process'), array($request));
             $request->getDispatcher()->setControllerExecutor($executor);
         }
     }

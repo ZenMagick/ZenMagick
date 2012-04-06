@@ -28,6 +28,7 @@ use zenmagick\base\Runtime;
  * @todo <johnny> we could try to untangle GET/POST mess, but is it really worth it?
  */
 class AdminController extends \ZMController {
+
     /**
      * {@inheritDoc}
      */
