@@ -99,9 +99,8 @@ class DefaultUrlRewriter extends ZMObject implements UrlRewriter {
     protected function rewriteDefault($request, $requestId, $params, $secure) {
         $url = $this->index_ . '?' . $this->requestIdKey_ . '=' . $requestId;
         if (!empty($params)) {
-            $url .= '&'.$params;
+            $url .= '&'.ltrim($params, '&');
         }
-
         return $request->absoluteURL($url, false, $secure);
     }
 
