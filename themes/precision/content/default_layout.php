@@ -21,6 +21,7 @@ Released   : 20081126
     <?php $resourceManager->jsFile('common.js', $resourceManager->FOOTER) ?>
   </head>
   <body>
+    <?php define('KEYWORD_DEFAULT', _zm("enter search")); ?>
     <div id="header">
       <div id="logo">
         <h1><a href="<?php echo $net->url('index') ?>">ZenMagick</a></h1>

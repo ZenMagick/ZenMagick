@@ -28,7 +28,6 @@
         <?php echo $form->open('search', '', false, array('method' => 'get')) ?>
             <div>
                 <input type="hidden" name="search_in_description" value="1" />
-                <?php define('KEYWORD_DEFAULT', _zm("enter search")); ?>
                 <?php $onfocus = "if(this.value=='" . KEYWORD_DEFAULT . "') this.value='';" ?>
                 <input type="text" id="keyword" name="keyword" value="<?php echo $html->encode($request->getParameter('keyword', KEYWORD_DEFAULT)) ?>" onfocus="<?php echo $onfocus ?>" />
                 <input type="submit" class="btn" value="<?php _vzm("Go") ?>" /><br />

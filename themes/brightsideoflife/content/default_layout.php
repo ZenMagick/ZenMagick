@@ -12,7 +12,7 @@
   <body>
   <!-- wrap starts here -->
   <div id="wrap">
-
+    <?php define('KEYWORD_DEFAULT', _zm("enter search")); ?>
     <div id="header">
       <h1 id="logo"><span class="green">Zen</span><span class="blue">Magick</span></h1>
       <h2 id="slogan">As simple as that!</h2>

@@ -23,12 +23,10 @@
 ?>
 
 <?php $crumbtrail->addCrumb(_zm('Search')) ?>
-<?php define('KEYWORD_DEFAULT', _zm("enter search")); ?>
 <?php echo $form->open('search', '', false, array('method' => 'get')) ?>
     <fieldset>
     <legend><?php _vzm("Search again") ?></legend>
         <div>
-            <?php define('KEYWORD_DEFAULT', _zm("enter search")); ?>
             <?php $onfocus = "if(this.value=='" . KEYWORD_DEFAULT . "') this.value='';" ?>
             <input type="text" id="keywords" name="keywords" value="<?php echo $html->encode($searchCriteria->getKeywords(KEYWORD_DEFAULT)) ?>" onfocus="<?php echo $onfocus ?>" />
         </div>

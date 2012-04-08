@@ -55,6 +55,7 @@
   </head>
 
   <body id="b_<?php echo $request->getRequestId() ?>">
+    <?php define('KEYWORD_DEFAULT', _zm("search ...")); ?>
     <div id="bannerOne"><?php echo $this->fetchBlockGroup('banners.header1') ?></div>
 
     <div id="container">

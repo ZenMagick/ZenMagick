@@ -14,6 +14,7 @@
   </head>
 
   <body>
+    <?php define('KEYWORD_DEFAULT', _zm("enter search")); ?>
     <!-- wrap starts here -->
     <div id="wrap">
 
