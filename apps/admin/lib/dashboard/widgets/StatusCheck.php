@@ -19,9 +19,6 @@
  */
 namespace zenmagick\apps\store\admin\dashboard\widgets;
 
-use zenmagick\base\Runtime;
-use zenmagick\apps\store\admin\dashboard\DashboardWidget;
-
 /**
  * Status check interface.
  *
