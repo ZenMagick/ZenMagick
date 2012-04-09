@@ -298,40 +298,54 @@ class EventFixes extends ZMObject {
 
     /**
      * Set locale based on browser settings.
+     *
+     * @todo move redirects to a controller (which one?)
      */
     public function configureLocale($request) {
-        // ** currency **
+        $settingsService = $this->container->get('settingsService');
         $session = $request->getSession();
-        if (null == ($currencyCode = $session->getCurrencyCode()) || null != ($currencyCode = $request->getCurrencyCode())) {
-            if (null != $currencyCode) {
-                if (null == $this->container->get('currencyService')->getCurrencyForCode($currencyCode)) {
-                    $currencyCode = Runtime::getSettings()->get('defaultCurrency');
-                }
-            } else {
-                $currencyCode = Runtime::getSettings()->get('defaultCurrency');
+
+        // ** currency **
+        // Models rely currency sesson variable via $request->getCurrencyCode, so this has to happen first!
+        if (null != ($currencyCode = $request->getParameter('currency'))) {
+            // @todo error on bad request currency?
+            if (null != $this->container->get('currencyService')->getCurrencyForCode($currencyCode)) {
+                $session->setCurrencyCode($currencyCode);
             }
-            $session->setCurrencyCode($currencyCode);
+            // @todo better way to do this? perhaps we'd be better off setting a redirect_url form key or always set SetLastUrl?
+            $params = $request->getParameterMap();
+            unset($params['currency']);
+            $request->setParameterMap($params);
+            $request->redirect($request->url());
+        } 
+        if (null == $session->getCurrencyCode()) {
+            $session->setCurrencyCode($settingsService->get('defaultCurrency'));
         }
 
-        // ** lanugage **
+        // ** language **
         $languageService = $this->container->get('languageService');
-        $languageCode = 0;
-        if (null == ($language = $session->getLanguage()) || 0 != ($languageCode = $request->getLanguageCode())) {
-            if (0 != $languageCode) {
-                // URL parameter takes precedence
-                $language = $languageService->getLanguageForCode($languageCode);
+        if (null != ($languageCode = $request->getLanguageCode())) {
+            // @todo error on bad request language?
+            if (null != ($language = $languageService->getLanguageForCode($languageCode))) {
+                $session->setLanguage($language);
+            }
+           // @todo better way to do this? perhaps we'd be better off setting a redirect_url form key or always set SetLastUrl?
+           $params = $request->getParameterMap();
+           unset($params['language']);
+           $request->setParameterMap($params);
+           $request->redirect($request->url());
+        }
+
+        if (null == $session->getLanguage()) {
+            if ($settingsService->get('isUseBrowserLanguage')) {
+                $language = $this->getClientLanguage();
             } else {
-                if (Runtime::getSettings()->get('isUseBrowserLanguage')) {
-                    $language = $this->getClientLanguage();
-                } else {
-                    $language = $languageService->getLanguageForCode(Runtime::getSettings()->get('defaultLanguageCode'));
-                }
+                $language = $languageService->getLanguageForCode($settingsService->get('defaultLanguageCode'));
             }
             if (null == $language) {
                 $language = $languageService->getDefaultLanguage();
                 Runtime::getLogging()->warn('invalid or missing language - using default language');
             }
-
             $session->setLanguage($language);
         }
     }
