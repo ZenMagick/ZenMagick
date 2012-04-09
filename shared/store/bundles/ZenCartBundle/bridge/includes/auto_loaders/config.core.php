@@ -107,8 +107,6 @@
                                 'objectName'=>'navigation',
                                 'methodName' => 'add_current_page',
                                 'loaderPrefix'=>'config');
-  $autoLoadConfig[120][] = array('autoType'=>'init_script',
-                                 'loadFile'=> 'init_currencies.php');
 
   $autoLoadConfig[130][] = array('autoType'=>'init_script',
                                  'loadFile'=> 'init_customer_auth.php',
