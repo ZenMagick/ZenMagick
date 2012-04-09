@@ -44,7 +44,7 @@
                                 'loadFile'=> 'includes/functions/extra_functions/*.php');
 
   $autoLoadConfig[60][] = array('autoType'=>'include',
-                                'loadFile'=> DIR_WS_MODULES . 'payment/paypal/paypal_functions.php',
+                                'loadFile'=> 'includes/modules/payment/paypal/paypal_functions.php',
                                 'loaderPrefix'=>'paypal_ipn');
 
   $autoLoadConfig[70][] = array('autoType'=>'service',
