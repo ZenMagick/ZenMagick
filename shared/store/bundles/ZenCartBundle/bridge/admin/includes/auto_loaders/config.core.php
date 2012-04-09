@@ -57,9 +57,6 @@
 
   $autoLoadConfig[70][] = array('autoType'=>'service',
                                 'name'=>'themeService',
-                                'method'=>'initThemes');
-  $autoLoadConfig[70][] = array('autoType'=>'service',
-                                'name'=>'themeService',
                                 'method'=>'getActiveThemeId',
                                 'resultVar'=>'template_dir');
   $autoLoadConfig[70][] = array('autoType'=>'require',

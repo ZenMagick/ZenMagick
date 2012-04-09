@@ -39,6 +39,9 @@ class AdminController extends \ZMController {
                 $request->setParameter($k, strip_tags($v));
             }
         }
+
+        $this->container->get('themeService')->initThemes();
+
         $session = $request->getSession();
 
         if (null == $session->getValue('securityToken')) {
