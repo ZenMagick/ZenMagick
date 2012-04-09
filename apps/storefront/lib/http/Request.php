@@ -175,7 +175,7 @@ class Request extends \ZMRequest {
      *
      * @return string The language code or <code>null</code>.
      */
-    public function getLanguageCode() { return (int)$this->getParameter('language'); }
+    public function getLanguageCode() { return $this->getParameter('language'); }
 
     /**
      * Get the currency code.
