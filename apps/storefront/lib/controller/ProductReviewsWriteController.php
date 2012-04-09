@@ -42,17 +42,6 @@ class ProductReviewsWriteController extends \ZMController {
     /**
      * {@inheritDoc}
      */
-    public function preProcess($request) {
-        $product = $this->getProduct($request);
-        $request->getToolbox()->crumbtrail->addCategoryPath($request->getCategoryPathArray());
-        $request->getToolbox()->crumbtrail->addManufacturer($request->getManufacturerId());
-        $request->getToolbox()->crumbtrail->addProduct($product->getId());
-        $request->getToolbox()->crumbtrail->addCrumb("Reviews");
-    }
-
-    /**
-     * {@inheritDoc}
-     */
     public function processGet($request) {
         if (null == $this->getProduct($request)) {
             return $this->findView('product_not_found');

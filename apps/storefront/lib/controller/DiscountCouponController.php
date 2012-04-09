@@ -33,13 +33,6 @@ class DiscountCouponController extends \ZMController {
     /**
      * {@inheritDoc}
      */
-    public function preProcess($request) {
-        $request->getToolbox()->crumbtrail->addCrumb($request->getToolbox()->utils->getTitle());
-    }
-
-    /**
-     * {@inheritDoc}
-     */
     public function processPost($request) {
         $data = array();
         $viewName = null;

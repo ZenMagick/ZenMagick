@@ -22,6 +22,7 @@
  */
 ?>
 
+<?php $crumbtrail->addCrumb(_zm('Discount Coupon')) ?>
 <?php echo $utils->staticPageContent("discount_coupon") ?>
 
 <?php echo $form->open('discount_coupon', 'action=lookup', false, array('method' => 'get')) ?>
