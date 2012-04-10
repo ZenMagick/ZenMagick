@@ -11,7 +11,8 @@ Released   : 20090515
 -->
   <head>
     <meta charset="<?php echo $settingsService->get('zenmagick.http.html.charset') ?>" />
-    <title>Your Title Here </title>
+    <title><?php echo $this->fragment('page.title') ?></title>
+    <?php $this->fragment('page.title', $metaTags->getTitle()) ?>
     <meta name="keywords" content="" />  <!-- come back and fill in theses meta tags later  -->
     <meta name="description" content="" />
     <?php $resourceManager->cssFile('style.css', array('media' => 'screen')) ?>

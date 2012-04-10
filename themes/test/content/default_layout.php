@@ -24,7 +24,8 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
   <head>
-    <title><?php echo $metaTags->getTitle() ?></title>
+    <title><?php echo $this->fragment('page.title') ?></title>
+    <?php $this->fragment('page.title', $metaTags->getTitle()) ?>
     <base href="<?php echo $request->getBaseUrl() ?>" />
     <meta charset="<?php echo $settingsService->get('zenmagick.http.html.charset') ?>" />
     <meta name="generator" content="ZenMagick <?php echo $settingsService->get('zenmagick.version') ?>" />
