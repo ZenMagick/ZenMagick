@@ -41,6 +41,7 @@
       <?php if (null != $manufacturer) { ?>
         <?php _vzm("Producer") ?>: <?php echo $html->encode($manufacturer->getName()); ?><br />
       <?php } ?>
+        <?php _vzm("Avilable") ?>: <?php echo $locale->shortDate($currentProduct->getDateAvailable()) ?><br />
       <p id="price"><?php echo $html->encode($currentProduct->getModel()) ?>: <?php echo $macro->productPrice($currentProduct) ?></p>
   </div>
 
