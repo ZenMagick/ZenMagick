@@ -20,6 +20,7 @@
 namespace zenmagick\apps\store\widgets\status;
 
 use zenmagick\base\ZMObject;
+use zenmagick\base\Runtime;
 use zenmagick\apps\store\widgets\StatusCheck;
 
 /**
@@ -45,7 +46,7 @@ class MaintenanceStatusCheck extends ZMObject implements StatusCheck {
             $messages[] = array(StatusCheck::STATUS_NOTICE, sprintf(_zm('This website is scheduled to be "<em>Down For Maintenance</em>" on: %s.'), $downForMaintenanceDateTime->getValue()));
         }
 
-        if ($downForMaintenance) {
+        if ($downForMaintenance && !Runtime::isContextMatch('storefront')) {
             $messages[] = array(StatusCheck::STATUS_WARN, _zm('The website is currently "<em>Down For Maintenance</em>" to the public.'));
         }
 
