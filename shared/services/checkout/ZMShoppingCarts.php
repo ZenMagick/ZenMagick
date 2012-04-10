@@ -130,7 +130,6 @@ class ZMShoppingCarts extends ZMObject {
 
         // todo: make shoppingCart prototype, but keep singleton for session
         $shoppingCart = Beans::getBean('ZMShoppingCart');
-        $shoppingCart->setContainer($this->container);
         $shoppingCart->setCheckoutHelper($this->container->get('checkoutHelper'));
         $items = array();
 

@@ -38,8 +38,7 @@ class ShoppingCartController extends \ZMController {
     public function processGet($request) {
         $session = $request->getSession();
         $shoppingCart = $request->getShoppingCart();
-        $checkoutHelper = Runtime::getContainer()->get('checkoutHelper');
-        $checkoutHelper->setShoppingCart($shoppingCart);
+        $checkoutHelper = $shoppingCart->getCheckoutHelper();
 
         $checkoutHelper->checkStock();
 

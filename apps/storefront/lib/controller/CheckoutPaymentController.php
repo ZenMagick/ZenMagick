@@ -44,8 +44,7 @@ class CheckoutPaymentController extends \ZMController {
      */
     public function processGet($request) {
         $shoppingCart = $request->getShoppingCart();
-        $checkoutHelper = Runtime::getContainer()->get('checkoutHelper');
-        $checkoutHelper->setShoppingCart($shoppingCart);
+        $checkoutHelper = $shoppingCart->getCheckoutHelper();
 
         if (!$checkoutHelper->verifyHash($request)) {
             return $this->findView('check_cart');
@@ -70,8 +69,7 @@ class CheckoutPaymentController extends \ZMController {
      */
     public function processPost($request) {
         $shoppingCart = $request->getShoppingCart();
-        $checkoutHelper = Runtime::getContainer()->get('checkoutHelper');
-        $checkoutHelper->setShoppingCart($shoppingCart);
+        $checkoutHelper = $shoppingCart->getCheckoutHelper();
 
         if (!$checkoutHelper->verifyHash($request)) {
             return $this->findView('check_cart');

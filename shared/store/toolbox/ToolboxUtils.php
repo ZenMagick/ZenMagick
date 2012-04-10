@@ -88,9 +88,7 @@ class ToolboxUtils extends ToolboxTool {
      * @return boolean <code>true</code> if this cart qualifies for free shipping.
      */
     public function isFreeShipping($shoppingCart) {
-        $checkoutHelper = Runtime::getContainer()->get('checkoutHelper');
-        $checkoutHelper->setShoppingCart($shoppingCart);
-        return $checkoutHelper->isFreeShipping();
+        return $shoppingCart->getCheckoutHelper()->isFreeShipping();
     }
 
     /**
