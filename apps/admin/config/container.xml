@@ -146,5 +146,9 @@
             <tag name="apps.store.admin.dashboard.widget.statusCheck" />
         </service>
 
+        <service id="moduleStatusCheck" class="zenmagick\apps\store\admin\dashboard\widgets\status\MaintenanceStatusCheck" scope="prototype">
+            <tag name="apps.store.admin.dashboard.widget.statusCheck" />
+        </service>
+
     </services>
 </container>

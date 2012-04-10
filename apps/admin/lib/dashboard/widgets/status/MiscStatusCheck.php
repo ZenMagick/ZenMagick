@@ -59,7 +59,6 @@ class MiscStatusCheck extends ZMObject implements StatusCheck {
 
         if (!defined('DEFAULT_CURRENCY')) { $messages[] = array(DashboardWidget::STATUS_WARN, _zm('Please set a default currency.')); }
         if (!defined('DEFAULT_LANGUAGE') || DEFAULT_LANGUAGE=='') { $messages[] = array(DashboardWidget::STATUS_NOTICE, _zm('Please set a default language.')); }
-        if (DOWN_FOR_MAINTENANCE == 'true') { $messages[] = array(DashboardWidget::STATUS_WARN, _zm('Your site is currently down for Maintenance.')); }
 
         return $messages;
     }
