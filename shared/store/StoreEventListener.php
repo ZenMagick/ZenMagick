@@ -27,6 +27,8 @@ use Symfony\Component\DependencyInjection\Loader\XmlFileLoader;
 
 use zenmagick\base\Runtime;
 use zenmagick\base\ZMObject;
+use zenmagick\http\messages\Messages;
+use zenmagick\apps\store\widgets\StatusCheck;
 
 /**
  * Shared store event listener.
@@ -116,6 +118,23 @@ class StoreEventListener extends ZMObject {
         $mappings['mainMenu'][] = 'ref::browserIDLogin';
 
         $this->container->get('blockManager')->setMappings($mappings);
+
+        // status messages
+        $messages = array();
+        foreach ($this->container->findTaggedServiceIds('apps.store.admin.dashboard.widget.statusCheck') as $id => $args) {
+            $statusCheck = $this->container->get($id);
+            $messages = array_merge($messages, $statusCheck->getStatusMessages());
+        }
+        $statusMap = array(
+            StatusCheck::STATUS_DEFAULT => Messages::T_MESSAGE,
+            StatusCheck::STATUS_INFO => Messages::T_MESSAGE,
+            StatusCheck::STATUS_NOTICE => Messages::T_WARN,
+            StatusCheck::STATUS_WARN => Messages::T_WARN,
+        );
+        $messageService = $this->container->get('messageService');
+        foreach ($messages as $details) {
+            $messageService->add($details[1], $statusMap[$details[0]]);
+        }
     }
 
 }
