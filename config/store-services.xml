@@ -214,6 +214,10 @@
 
         <service id="annotation_reader" class="Doctrine\Common\Annotations\AnnotationReader" scope="container" />
 
+        <service id="moduleStatusCheck" class="zenmagick\apps\store\widgets\status\MaintenanceStatusCheck" scope="prototype">
+            <tag name="apps.store.admin.dashboard.widget.statusCheck" />
+        </service>
+
         <!--
         <service id="table_prefix" class="zenmagick\base\database\doctrine\TablePrefix" scope="container">
           <argument>%apps.store.database.default.prefix%</argument>

@@ -22,6 +22,7 @@ namespace zenmagick\apps\store\admin\dashboard\widgets;
 use DateTime;
 use zenmagick\base\Beans;
 use zenmagick\base\Runtime;
+use zenmagick\apps\store\widgets\StatusCheck;
 use zenmagick\apps\store\admin\dashboard\DashboardWidget;
 
 /**
@@ -59,15 +60,15 @@ class StoreStatusDashboardWidget extends DashboardWidget {
             // TODO: improve icons and styling
             $contents = '<ul class="ui-widget">';
             foreach ($messages as $details) {
-                if (self::STATUS_WARN == $details[0]) {
+                if (StatusCheck::STATUS_WARN == $details[0]) {
                     $status = self::STATUS_WARN;
                     $contents .= '<li class="ui-state-error"><span class="ui-icon ui-icon-alert"></span><span>'.$details[1].'</span></li>';
-                } else if (self::STATUS_NOTICE == $details[0]) {
+                } else if (StatusCheck::STATUS_NOTICE == $details[0]) {
                     if (self::STATUS_DEFAULT == $status || self::STATUS_INFO == $status) {
                         $status = self::STATUS_NOTICE;
                     }
                     $contents .= '<li class="ui-state-highlight"><span class="ui-icon ui-icon-notice"></span><span>'.$details[1].'</span></li>';
-                } else if (self::STATUS_INFO == $details[0]) {
+                } else if (StatusCheck::STATUS_INFO == $details[0]) {
                     if (self::STATUS_DEFAULT == $status) {
                         $status = self::STATUS_INFO;
                     }

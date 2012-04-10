@@ -22,8 +22,7 @@ namespace zenmagick\apps\store\admin\dashboard\widgets\status;
 use DateTime;
 use zenmagick\base\Runtime;
 use zenmagick\base\ZMObject;
-use zenmagick\apps\store\admin\dashboard\widgets\StatusCheck;
-use zenmagick\apps\store\admin\dashboard\DashboardWidget;
+use zenmagick\apps\store\widgets\StatusCheck;
 
 /**
  * Misc status check.
@@ -53,12 +52,12 @@ class MiscStatusCheck extends ZMObject implements StatusCheck {
                 }
             }
             if ($reset) {
-                $messages[] = array(DashboardWidget::STATUS_NOTICE, $reset);
+                $messages[] = array(StatusCheck::STATUS_NOTICE, $reset);
             }
         }
 
-        if (!defined('DEFAULT_CURRENCY')) { $messages[] = array(DashboardWidget::STATUS_WARN, _zm('Please set a default currency.')); }
-        if (!defined('DEFAULT_LANGUAGE') || DEFAULT_LANGUAGE=='') { $messages[] = array(DashboardWidget::STATUS_NOTICE, _zm('Please set a default language.')); }
+        if (!defined('DEFAULT_CURRENCY')) { $messages[] = array(StatusCheck::STATUS_WARN, _zm('Please set a default currency.')); }
+        if (!defined('DEFAULT_LANGUAGE') || DEFAULT_LANGUAGE=='') { $messages[] = array(StatusCheck::STATUS_NOTICE, _zm('Please set a default language.')); }
 
         return $messages;
     }

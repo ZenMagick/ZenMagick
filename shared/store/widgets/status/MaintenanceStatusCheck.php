@@ -17,13 +17,10 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-namespace zenmagick\apps\store\admin\dashboard\widgets\status;
+namespace zenmagick\apps\store\widgets\status;
 
-use DateTime;
-use zenmagick\base\Runtime;
 use zenmagick\base\ZMObject;
-use zenmagick\apps\store\admin\dashboard\widgets\StatusCheck;
-use zenmagick\apps\store\admin\dashboard\DashboardWidget;
+use zenmagick\apps\store\widgets\StatusCheck;
 
 /**
  * Maintenance status check.
@@ -45,11 +42,11 @@ class MaintenanceStatusCheck extends ZMObject implements StatusCheck {
         if ($warnBeforeMaintenance && !$downForMaintenance) {
             $configService = $this->container->get('configService');
             $downForMaintenanceDateTime = $configService->getConfigValue('PERIOD_BEFORE_DOWN_FOR_MAINTENANCE');
-            $messages[] = array(DashboardWidget::STATUS_NOTICE, sprintf(_zm('This website is scheduled to be "<em>Down For Maintenance</em>" on: %s.'), $downForMaintenanceDateTime->getValue()));
+            $messages[] = array(StatusCheck::STATUS_NOTICE, sprintf(_zm('This website is scheduled to be "<em>Down For Maintenance</em>" on: %s.'), $downForMaintenanceDateTime->getValue()));
         }
 
         if ($downForMaintenance) {
-            $messages[] = array(DashboardWidget::STATUS_WARN, _zm('The website is currently "<em>Down For Maintenance</em>" to the public.'));
+            $messages[] = array(StatusCheck::STATUS_WARN, _zm('The website is currently "<em>Down For Maintenance</em>" to the public.'));
         }
 
         return $messages;

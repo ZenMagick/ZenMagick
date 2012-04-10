@@ -17,7 +17,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-namespace zenmagick\apps\store\admin\dashboard\widgets;
+namespace zenmagick\apps\store\widgets;
 
 /**
  * Status check interface.
@@ -25,6 +25,10 @@ namespace zenmagick\apps\store\admin\dashboard\widgets;
  * @author DerManoMann <mano@zenmagick.org>
  */
 interface StatusCheck {
+    const STATUS_DEFAULT = 'default';
+    const STATUS_INFO = 'info';
+    const STATUS_NOTICE = 'notice';
+    const STATUS_WARN = 'warn';
 
     /**
      * Get status messages.

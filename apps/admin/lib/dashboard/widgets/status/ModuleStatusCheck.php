@@ -22,8 +22,7 @@ namespace zenmagick\apps\store\admin\dashboard\widgets\status;
 use DateTime;
 use zenmagick\base\Runtime;
 use zenmagick\base\ZMObject;
-use zenmagick\apps\store\admin\dashboard\widgets\StatusCheck;
-use zenmagick\apps\store\admin\dashboard\DashboardWidget;
+use zenmagick\apps\store\widgets\StatusCheck;
 
 /**
  * Module status check.
@@ -42,28 +41,28 @@ class ModuleStatusCheck extends ZMObject implements StatusCheck {
         if (null != ($value = $configService->getConfigValue('MODULE_PAYMENT_INSTALLED'))) {
             $value = $value->getValue();
             if (empty($value)) {
-                $messages[] = array(DashboardWidget::STATUS_NOTICE, _zm('You have no payment modules activated. Please go to Configuration->Modules->Payment to configure.'));
+                $messages[] = array(StatusCheck::STATUS_NOTICE, _zm('You have no payment modules activated. Please go to Configuration->Modules->Payment to configure.'));
             }
         }
         if (null != ($value = $configService->getConfigValue('MODULE_SHIPPING_INSTALLED'))) {
             $value = $value->getValue();
             if (empty($value)) {
-                $messages[] = array(DashboardWidget::STATUS_NOTICE, _zm('You have no shipping modules activated. Please go to Configuration->Modules->Shipping to configure.'));
+                $messages[] = array(StatusCheck::STATUS_NOTICE, _zm('You have no shipping modules activated. Please go to Configuration->Modules->Shipping to configure.'));
             }
         }
 
         // payment module test modes
         if (defined('MODULE_PAYMENT_PAYPAL_IPN_DEBUG') && defined('MODULE_PAYMENT_PAYPAL_TESTING') && (MODULE_PAYMENT_PAYPAL_IPN_DEBUG == 'true' || MODULE_PAYMENT_PAYPAL_TESTING == 'Test')) {
-            $messages[] = array(DashboardWidget::STATUS_NOTICE, _zm('PayPal is in testing mode.'));
+            $messages[] = array(StatusCheck::STATUS_NOTICE, _zm('PayPal is in testing mode.'));
         }
         if ((defined('MODULE_PAYMENT_AUTHORIZENET_AIM_STATUS') && MODULE_PAYMENT_AUTHORIZENET_AIM_STATUS == 'True'
           && defined('MODULE_PAYMENT_AUTHORIZENET_AIM_TESTMODE') && MODULE_PAYMENT_AUTHORIZENET_AIM_TESTMODE == 'Test')
           || (defined('MODULE_PAYMENT_AUTHORIZENET_STATUS') && MODULE_PAYMENT_AUTHORIZENET_STATUS == 'True'
               && defined('MODULE_PAYMENT_AUTHORIZENET_TESTMODE') && MODULE_PAYMENT_AUTHORIZENET_TESTMODE =='Test' ) ) {
-            $messages[] = array(DashboardWidget::STATUS_NOTICE, _zm('AuthorizeNet is in testing mode.'));
+            $messages[] = array(StatusCheck::STATUS_NOTICE, _zm('AuthorizeNet is in testing mode.'));
         }
         if (defined('MODULE_SHIPPING_USPS_SERVER') && MODULE_SHIPPING_USPS_SERVER == 'test' ) {
-            $messages[] = array(DashboardWidget::STATUS_NOTICE, _zm('USPS is in testing mode.'));
+            $messages[] = array(StatusCheck::STATUS_NOTICE, _zm('USPS is in testing mode.'));
         }
 
         return $messages;

@@ -22,8 +22,7 @@ namespace zenmagick\apps\store\admin\dashboard\widgets\status;
 use DateTime;
 use zenmagick\base\Runtime;
 use zenmagick\base\ZMObject;
-use zenmagick\apps\store\admin\dashboard\widgets\StatusCheck;
-use zenmagick\apps\store\admin\dashboard\DashboardWidget;
+use zenmagick\apps\store\widgets\StatusCheck;
 
 /**
  * Coupon status check.
@@ -50,7 +49,7 @@ class CouponStatusCheck extends ZMObject implements StatusCheck {
                   $diff = $expiryDate->diff(new DateTime(), true);
                   $interval = (int)$diff->format('%r%a');
                   if ($interval > 0 && $interval < self::NEW_SIGNUP_GV_EXPIRY_THRESHOLD) {
-                      $messages[] = array(DashboardWidget::STATUS_NOTICE, sprintf(_zm('Welcome Email Discount Coupon expires in %s days.'), $interval));
+                      $messages[] = array(StatusCheck::STATUS_NOTICE, sprintf(_zm('Welcome Email Discount Coupon expires in %s days.'), $interval));
                   }
               }
             }
@@ -58,7 +57,7 @@ class CouponStatusCheck extends ZMObject implements StatusCheck {
 
         if (null != ($results = \ZMRuntime::getDatabase()->fetchAll('SELECT * FROM ' . TABLE_COUPON_GV_QUEUE . ' where release_flag = "N"')) && 0 < count($results)) {
             $url = '<a href="'.$request->url('gv_queue').'">'._zm('gift queue').'</a>';
-            $messages[] = array(DashboardWidget::STATUS_NOTICE, sprintf(_zm('%s item(s) in %s waiting for approval.'), count($results), $url));
+            $messages[] = array(StatusCheck::STATUS_NOTICE, sprintf(_zm('%s item(s) in %s waiting for approval.'), count($results), $url));
         }
 
         return $messages;
