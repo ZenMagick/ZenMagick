@@ -141,6 +141,7 @@
 
             'apps.store.warnBeforeMaintenance' => WARN_BEFORE_DOWN_FOR_MAINTENANCE == 'true',
             'apps.store.downForMaintenance' => DOWN_FOR_MAINTENANCE == 'true',
+            'apps.store.downForMaintenanceRoute' => DOWN_FOR_MAINTENANCE_FILENAME,
 
 
             // cookies only?

@@ -121,6 +121,19 @@ class StoreEventListener extends ZMObject {
 
         // status messages
         if (Runtime::isContextMatch('storefront')) {
+            // check DFM
+            $settingsService = $this->container->get('settingsService');
+            $downForMaintenance = $settingsService->get('apps.store.downForMaintenance', false);
+            if ($downForMaintenance) {
+                $request = $event->get('request');
+                $dfmRoute = $settingsService->get('apps.store.downForMaintenanceRoute');
+                if ($dfmRoute != $request->getRequestId()) {
+                    $url = $request->url($dfmRoute);
+                    $request->redirect($url);
+                    exit;
+                }
+            }
+
             $messages = array();
             foreach ($this->container->findTaggedServiceIds('apps.store.admin.dashboard.widget.statusCheck') as $id => $args) {
                 $statusCheck = $this->container->get($id);
