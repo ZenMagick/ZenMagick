@@ -58,6 +58,7 @@ class AjaxPluginAdminController extends \ZMRpcController {
             $rpcResponse->addMessage(_zm('Invalid plugin id'), 'error');
         }
 
+        $pluginService->refreshStatusMap();
         return $rpcResponse;
     }
 
@@ -96,6 +97,7 @@ class AjaxPluginAdminController extends \ZMRpcController {
             $rpcResponse->addMessage(_zm('Invalid plugin id'), 'error');
         }
 
+        $pluginService->refreshStatusMap();
         return $rpcResponse;
     }
 
@@ -122,6 +124,7 @@ class AjaxPluginAdminController extends \ZMRpcController {
             $rpcResponse->addMessage(_zm('Status updated'), 'success');
         }
 
+        $pluginService->refreshStatusMap();
         return $rpcResponse;
     }
 
