@@ -81,19 +81,27 @@ class Plugins extends ZMObject {
     }
 
     /**
+     * Refresh plugin status map.
+     */
+    public function refreshStatusMap() {
+        $this->getStatusMap(true);
+    }
+
+    /**
      * Get plugin status map.
      *
+     * @param boolean refresh Optional flag to force a refresh; default is <code>false</code>.
      * @return array Plugin status map.
      */
-    protected function getStatusMap() {
-        if (null === $this->statusMap) {
+    protected function getStatusMap($refresh=false) {
+        if (null === $this->statusMap || $refresh) {
 if ($this->profile) { echo 'lookup status map ...  '; }
             if (null != $this->cache) {
 if ($this->profile) { echo 'in cache<br>'; }
                 $this->statusMap = $this->cache->lookup(self::STATUS_MAP_KEY);
             }
 
-            if (!$this->statusMap) {
+            if (!$this->statusMap || $refresh) {
 if ($this->profile) { echo 'build!<br>'; }
                 $this->container->get('loggingService')->debug('Loading plugin status map...');
                 $pluginStatusMapBuilder = $this->container->get('pluginStatusMapBuilder');

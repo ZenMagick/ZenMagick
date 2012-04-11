@@ -19,6 +19,7 @@
  */
 namespace zenmagick\http\session;
 
+use RuntimeException;
 use Serializable;
 use zenmagick\base\Runtime;
 use zenmagick\base\ZMObject;
@@ -169,7 +170,7 @@ class Session extends ZMObject {
      */
     public function setSecureCookie($value) {
         if ($this->isStarted()) {
-            throw new \RuntimeException('session already started');
+            throw new RuntimeException('session already started');
         }
         ini_set("session.cookie_secure", $value);
     }
@@ -263,8 +264,8 @@ class Session extends ZMObject {
      * <p>This will create a new session id while keeping existing session data.</p>
      */
     public function regenerate() {
-        $oldId = session_id();
-        if (!empty($oldId)) {
+        $lastSessionId = session_id();
+        if (!empty($lastSessionId)) {
             if (isset($_COOKIE[session_name()])) {
                 setcookie(session_name(), '', 0, $this->cookiePath_);
                 unset($_COOKIE[session_name()]);
@@ -283,6 +284,8 @@ class Session extends ZMObject {
             $this->start(true);
             // regenerate token too
             $this->getToken(true);
+            // keep old session id for reference
+            $this->setValue('lastSessionId', $lastSessionId, 'session');
         }
     }
 

@@ -30,11 +30,6 @@ use zenmagick\http\widgets\form\FormWidget;
  * @author DerManoMann <mano@zenmagick.org>
  */
 class PluginsController extends \ZMController {
-    private static $TYPE_MAP = array(
-        'order_total' => 'ZMOrderTotal',
-        'payment' => 'ZMPaymentType'
-    );
-
 
     /**
      * {@inheritDoc}
@@ -45,19 +40,6 @@ class PluginsController extends \ZMController {
     }
 
     /**
-     * Refresh plugin status data.
-     */
-    protected function refreshPluginCache() {
-        $pluginService = $this->container->get('pluginService');
-        if (null != ($cache = $pluginService->getCache())) {
-            $this->container->get('loggingService')->log('updating plugin cache...', Logging::TRACE);
-            $pluginStatusMapBuilder = $this->container->get('pluginStatusMapBuilder');
-            $statusMap = $pluginStatusMapBuilder->buildStatusMap();
-            $cache->save($statusMap, $pluginService::STATUS_MAP_KEY);
-        }
-    }
-
-    /**
      * {@inheritDoc}
      */
     public function processGet($request) {
@@ -65,9 +47,10 @@ class PluginsController extends \ZMController {
         $pluginId = $request->getParameter('pluginId');
 
         $viewId = null;
+        $pluginService = $this->container->get('pluginService');
 
         if ('upgrade' == $action) {
-            if (null != ($plugin = $this->container->get('pluginService')->getPluginForId($pluginId)) && $plugin->isInstalled()) {
+            if (null != ($plugin = $pluginService->getPluginForId($pluginId)) && $plugin->isInstalled()) {
                 Runtime::getLogging()->log('upgrade plugin: '.$plugin->getId(), Logging::TRACE);
                 $plugin->upgrade();
                 $this->messageService->success(sprintf(_zm('Plugin %s upgraded successfully'), $plugin->getName()));
@@ -75,12 +58,12 @@ class PluginsController extends \ZMController {
                 $viewId = 'success-upgrade';
             }
         } else if ('edit' == $action) {
-            if (null != ($plugin = $this->container->get('pluginService')->getPluginForId($pluginId)) && $plugin->isInstalled()) {
+            if (null != ($plugin = $pluginService->getPluginForId($pluginId)) && $plugin->isInstalled()) {
                 return $this->findView('plugin-conf', array('plugin' => $plugin));
             }
         }
 
-        $this->refreshPluginCache();
+        $pluginService->refreshStatusMap();
         return $this->findView($viewId);
     }
 
@@ -169,7 +152,7 @@ class PluginsController extends \ZMController {
         }
 
         // do this last once all changes are made
-        $this->refreshPluginCache();
+        $pluginService->refreshStatusMap();
         return $this->findView($viewId);
     }
 

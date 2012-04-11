@@ -7,7 +7,8 @@
     <meta name="description" content="<?php echo $metaTags->getDescription()?>" />
     <?php $resourceManager->cssFile('site.css') ?>
     <?php $resourceManager->cssFile('theme.css') ?>
-    <title><?php echo $metaTags->getTitle() ?></title>
+    <title><?php echo $this->fragment('page.title') ?></title>
+    <?php $this->fragment('page.title', $metaTags->getTitle()) ?>
   </head>
   <body>
   <!-- wrap starts here -->

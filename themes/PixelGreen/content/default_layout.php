@@ -10,7 +10,8 @@
     <?php $resourceManager->cssFile('PixelGreen.css', array('media' => 'screen')) ?>
     <?php $resourceManager->cssFile('theme.css', array('media' => 'screen')) ?>
     <?php $resourceManager->jsFile('common.js', $resourceManager->FOOTER) ?>
-    <title>Pixel Green</title>
+    <title><?php echo $this->fragment('page.title') ?></title>
+    <?php $this->fragment('page.title', $metaTags->getTitle()) ?>
   </head>
 
   <body>
