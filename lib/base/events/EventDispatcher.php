@@ -19,6 +19,7 @@
  */
 namespace zenmagick\base\events;
 
+use stdClass;
 use \Symfony\Component\EventDispatcher\Event;
 use \Symfony\Component\EventDispatcher\EventDispatcher as SymfonyEventDispatcher;
 
@@ -45,7 +46,7 @@ class EventDispatcher extends SymfonyEventDispatcher {
      */
     public function listen($listener, $priority=0) {
         if (is_array($listener)) {
-            $tmp = new \stdClass();
+            $tmp = new stdClass();
             $tmp->callable = $listener;
             $listener = $tmp;
         }
