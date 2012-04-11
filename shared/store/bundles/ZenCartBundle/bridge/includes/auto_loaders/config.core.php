@@ -134,6 +134,3 @@
                                                    'includes/languages/%language%/checkout_process.php'),
                                  'loaderPrefix'=>'paypal_ipn');
 
-  $autoLoadConfig[180][] = array('autoType'=>'init_script',
-                                'loadFile'=> 'init_header.php',
-                                'loaderPrefix'=>'config');
