@@ -653,4 +653,25 @@ class ZMRequest extends ZMObject {
         return $value;
     }
 
+    /**
+     * Simple IP deduction.
+     *
+     * @return string ip address.
+     */
+    public function getClientIp() {
+        $keys = array('HTTP_CLIENT_IP', 'HTTP_X_FORWARDED_FOR', 'REMOTE_ADDR');
+        foreach ($keys as $key) {
+            if (array_key_exists($key, $_SERVER)) {
+                $ip = $_SERVER[$key];
+                if (false !== strpos($ip, ',')) {
+                    $ip = explode(',', $ip, 2);
+                    $ip = isset($ip[0]) ? trim($ip[0]) : null;
+                }
+                return $ip;
+            }
+        }
+
+        return null;
+    }
+
 }

@@ -47,29 +47,12 @@ class IPSessionValidator extends ZMObject implements SessionValidator {
     }
 
     /**
-     * Simple IP deduction.
-     *
-     * @return string ip address.
-     * @todo move to request
-     */
-    protected function getIP() {
-        $keys = array('HTTP_CLIENT_IP', 'HTTP_X_FORWARDED_FOR', 'REMOTE_ADDR');
-        foreach ($keys as $key) {
-            if (array_key_exists($key, $_SERVER)) {
-                return $_SERVER[$key];
-            }
-        }
-
-        return null;
-    }
-
-    /**
      * {@inheritDoc}
      */
     public function isValidSession(ZMRequest $request, Session $session) {
         $valid = true;
         if ($this->enabled) {
-            $ip = $this->getIP();
+            $ip = $request->getClientIp();
             if (null == ($sessionIP = $session->getValue(self::SESSION_IP_KEY, self::SESSION_VALIDATOR_NAMESPACE))) {
                 $session->setValue(self::SESSION_IP_KEY, $ip, self::SESSION_VALIDATOR_NAMESPACE);
             } else {

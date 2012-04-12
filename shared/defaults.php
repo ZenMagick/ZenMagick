@@ -123,7 +123,7 @@
              **************************************/
 
             // tax decimal places
-            'taxDecimalPlaces' => TAX_DECIMAL_PLACES,
+            'taxDecimalPlaces' => (int)TAX_DECIMAL_PLACES,
 
             // tax inclusive/exclusive
             'showPricesTaxIncluded' => DISPLAY_PRICE_WITH_TAX == 'true',
@@ -276,4 +276,4 @@
         return $map;
     }
 
-    ZMSettings::addAll(zm_get_default_settings());
+    ZMSettings::addAll(zm_get_default_settings(), true);
