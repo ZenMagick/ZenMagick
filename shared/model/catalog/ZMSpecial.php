@@ -198,7 +198,7 @@ class ZMSpecial extends ZMObject {
      */
     public function setStatus($status) {
         $this->status = $status;
-        $this->StatusChangeDate(new \DateTime());
+        $this->setStatusChangeDate(new \DateTime());
     }
 
     /**
