@@ -55,7 +55,7 @@ class MinifyResourceManager extends ResourceManager {
             return $resource;
         }
         $plugin = $this->getPlugin();
-        return $plugin->pluginURL('min/f='.parent::resolveResource($resource));
+        return sprintf('%s/f=%s', $plugin->pluginURL('min'), parent::resolveResource($resource));
     }
 
     /**
@@ -89,7 +89,7 @@ class MinifyResourceManager extends ResourceManager {
      */
     protected function handleJSResourceGroup($files, $group, $location) {
         $plugin = $this->getPlugin();
-        $baseFUrl = $plugin->pluginURL('min/f=');
+        $baseFUrl = sprintf('%s/f=', $plugin->pluginURL('min'));
         $urlLimit = $plugin->get('urlLimit');
         $limit = $urlLimit - strlen($baseFUrl);
 
@@ -183,7 +183,7 @@ class MinifyResourceManager extends ResourceManager {
      */
     protected function handleCSSResourceGroup($files, $group, $location) {
         $plugin = $this->getPlugin();
-        $baseFUrl = $plugin->pluginURL('min/f=');
+        $baseFUrl = sprintf('%s/f=', $plugin->pluginURL('min'));
         $urlLimit = $plugin->get('urlLimit');
         $limit = $urlLimit - strlen($baseFUrl);
 

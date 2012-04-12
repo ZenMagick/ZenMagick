@@ -364,19 +364,16 @@ class Plugin extends zenmagick\base\plugins\Plugin {
      * <p>The given <code>uri</code> is assumed to be relative to the plugin folder.</p>
      *
      * @param string uri The relative URI.
-     * @return string An absolute URL or <code>null</code>.
+     * @return string An absolute URI or <code>null</code>.
      */
     public function pluginURL($uri) {
         if (null == $this->getPluginDirectory()) {
             throw new ZMException('pluginDirectory missing');
         }
 
-        // TODO: fix
-        $context = $this->container->get('request')->getContext();
-        // always want the 'storefront' context
-        $context = str_replace('/zenmagick/apps/storefront/web', '', $context);
-        $context = str_replace('/zenmagick/apps/admin/web', '', $context);
-        return \ZMHtmlUtils::encode($context.'/'.basename(Runtime::getInstallationPath()).'/plugins/' . $this->getId() . '/' . $uri);
+        $path = $this->getPluginDirectory().'/'.$uri;
+        $templateView = $this->container->get('defaultView');
+        return $templateView->getResourceManager()->file2uri($path);
     }
 
     /**
