@@ -108,14 +108,9 @@ class Plugin extends zenmagick\base\plugins\Plugin {
     }
 
     /**
-     * Support generic getter method for plugin config values.
-     *
-     * <p>Supports <code>getXXX()</code> methods for all keys.</p>
-     *
-     * @param string name The property name.
-     * @return mixed The value or <code>null</code>.
+     * {@inheritDoc}
      */
-    function __get($name) {
+    public function __get($name) {
         $dname = strtoupper($this->configPrefix_ . $name);
         if (defined($dname)) {
             return constant($dname);
@@ -127,22 +122,15 @@ class Plugin extends zenmagick\base\plugins\Plugin {
 
     /**
      * {@inheritDoc}
-     *
-     * <p>Here, the <code>$default</code> parameter is always ingnored.</p>
      */
     public function get($name, $default=null) {
         return $this->__get($name);
     }
 
     /**
-     * Support generic setter method for plugin config values.
-     *
-     * <p>Supports <code>setXXX()</code> methods for all keys.</p>
-     *
-     * @param string name The property name.
-     * @param mixed value The value.
+     * {@inheritDoc}
      */
-    function __set($name, $value) {
+    public function __set($name, $value) {
         $dname = strtoupper($this->configPrefix_ . $name);
         if (defined($dname)) {
             if (constant($dname) != $value) {
@@ -155,10 +143,7 @@ class Plugin extends zenmagick\base\plugins\Plugin {
     }
 
     /**
-     * Support to set plugin config values by name.
-     *
-     * @param string name The property name.
-     * @param mixed value The value.
+     * {@inheritDoc}
      */
     public function set($name, $value) {
         $this->__set($name, $value);
@@ -280,7 +265,7 @@ class Plugin extends zenmagick\base\plugins\Plugin {
      * @param string value The value.
      * @param string description The description; defaults to <code>''</code>.
      * @param string widget The widget definitio; default is <code>null</code> for a default text field.
-     * @param int sortOrder The sort order; defaults to <code>0</code>.
+     * @param int sortOrder The sort order; defaults to <code>1</code>.
      */
     public function addConfigValue($title, $key, $value, $description='', $widget=null, $sortOrder=1) {
         if (null == $widget) {
