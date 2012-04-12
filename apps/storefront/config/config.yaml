@@ -142,9 +142,9 @@ taxDecimalPlaces: 0
 # tax inclusive/exclusive
 showPricesTaxIncluded: false
 # product tax base
-productTaxBase: shipping #shipping,billing,store
+productTaxBase: Shipping #Shipping,Billing,Store
 # shipping tax base
-shippingTaxBase: shipping #shipping,billing,store
+shippingTaxBase: Shipping #Shipping,Billing,Store
 
 ## Error pages, other global page settings
 # static homepage
@@ -158,7 +158,7 @@ isShowCartAfterAddProduct: true
 
 ## Stock handling
 # enable stock tracking
-isEnableStock: true,
+isEnableStock: true
 # allow checkout of low stock products (low meaning 'out of stock')
 isAllowLowStockCheckout: false
 
