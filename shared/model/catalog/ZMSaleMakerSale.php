@@ -28,7 +28,7 @@ use Doctrine\ORM\Mapping AS ORM;
  * @ORM\Table(name="salemaker_sales")
  * @ORM\Entity
  */
-class SalemakerSale extends ZMObject {
+class ZMSalemakerSale extends ZMObject {
     /**
      * @var integer $saleId
      *
