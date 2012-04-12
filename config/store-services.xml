@@ -135,6 +135,8 @@
 
         <service id="bannerService" class="zenmagick\apps\store\services\templating\Banners" scope="container" />
 
+        <service id="productFeaturedService" class="zenmagick\apps\store\services\catalog\ProductFeaturedService" scope="container" />
+
         <service id="couponService" class="zenmagick\apps\store\services\coupons\CouponService" scope="container" />
 
         <service id="ezPageService" class="ZMEZPages" scope="container" />
