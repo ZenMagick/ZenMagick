@@ -156,6 +156,13 @@ class Banners extends ZMObject {
     }
 
     /**
+     * Run scheduled tasks for this service.
+     */
+    public function runTasks() {
+        $this->scheduleBanners();
+    }
+
+    /**
      * Start/stop all banners.
      *
      * Stops all banners scheduled for expiration
