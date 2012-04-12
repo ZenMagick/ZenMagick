@@ -111,9 +111,9 @@ class Plugin extends zenmagick\base\plugins\Plugin {
      * {@inheritDoc}
      */
     public function __get($name) {
-        $dname = strtoupper($this->configPrefix_ . $name);
-        if (defined($dname)) {
-            return constant($dname);
+        if (array_key_exists($name, $this->configValues_)) {
+            // config value
+            return $this->configValues_[$name]->getValue();
         }
 
         // regular dynamic property
@@ -131,11 +131,9 @@ class Plugin extends zenmagick\base\plugins\Plugin {
      * {@inheritDoc}
      */
     public function __set($name, $value) {
-        $dname = strtoupper($this->configPrefix_ . $name);
-        if (defined($dname)) {
-            if (constant($dname) != $value) {
-                $this->container->get('configService')->updateConfigValue($dname, $value);
-            }
+        if ($this->configValues_ && array_key_exists($name, $this->configValues_)) {
+            $dname = strtoupper($this->configPrefix_ . $name);
+            $this->container->get('configService')->updateConfigValue($dname, $value);
         } else {
             // regular dynamic property
             parent::__set($name, $value);
