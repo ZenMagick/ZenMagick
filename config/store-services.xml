@@ -137,6 +137,8 @@
 
         <service id="productFeaturedService" class="zenmagick\apps\store\services\catalog\ProductFeaturedService" scope="container" />
 
+        <service id="productSpecialsService" class="zenmagick\apps\store\services\catalog\ProductSpecialsService" scope="container" />
+
         <service id="couponService" class="zenmagick\apps\store\services\coupons\CouponService" scope="container" />
 
         <service id="ezPageService" class="ZMEZPages" scope="container" />
