@@ -99,32 +99,39 @@ class ZMSalemaker extends ZMObject {
         return array('type' => $saleDiscountType, 'amount' => $saleDiscount);
     }
 
+    public function runTasks() {
+        $this->scheduleSales();
+    }
 
     /**
      * Start/stop all sales.
      *
      * Stops all sales scheduled for expiration
      * and starts all sales scheduled to be started.
+     *
+     * @todo replace zen_update_salemaker_product_prices
      */
     public function scheduleSales() {
         $sql = "SELECT sale_id, sale_status, sale_date_start, sale_date_end
                 FROM " . TABLE_SALEMAKER_SALES;
-        foreach (ZMRuntime::getDatabase()->fetchAll($sql, array(), TABLE_SALEMAKER_SALES, 'ZMSaleMakerSale') as $sale) {
+        foreach (\ZMRuntime::getDatabase()->fetchAll($sql, array(), TABLE_SALEMAKER_SALES, 'ZMSaleMakerSale') as $sale) {
             $dateStart = $sale->getDateStart();
             $dateEnd = $sale->getDateEnd();
             $active = $sale->getStatus();
-            $saleCategories = array_unique(explode(',', $sale->getCategoriesSelected()));
-            if (!$active && null != $dateStart && new \DateTime() >= $dateStart) {
-                $sale->setActive(true);
+            // does what part of zen_update_salemaker_product_prices does
+            //$saleCategories = array_unique(explode(',', $sale->getCategoriesSelected()));
+            if (!$active && null != $dateStart && new DateTime() >= $dateStart) {
+                $sale->setStatus(true);
                 // @todo update product prices via product price sorter for $saleCategories?
                 zen_update_salemaker_product_prices($sale->getId());
-                ZMRuntime::getDatabase()->updateModel(TABLE_BANNERS, $sale);
+                \ZMRuntime::getDatabase()->updateModel(TABLE_SALEMAKER_SALES, $sale);
             }
             // @todo the original code also disabled sales tht haven't started yet. is that something we should worry about?
-            if ($active && null != $dateEnd && new \DateTime() >= $dateEnd) {
-                $sale->setActive(false);
+            if ($active && null != $dateEnd && new DateTime() >= $dateEnd) {
+                $sale->setStatus(false);
                 // @todo update product prices via product price sorter for $saleCategories?
-                ZMRuntime::getDatabase()->updateModel(TABLE_SALEMAKER_SALES, $sale);
+                zen_update_salemaker_product_prices($sale->getId());
+                \ZMRuntime::getDatabase()->updateModel(TABLE_SALEMAKER_SALES, $sale);
             }
         }
     }
