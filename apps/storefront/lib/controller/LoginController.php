@@ -87,10 +87,11 @@ class LoginController extends \ZMController {
             return $this->findView();
         }
 
+        $session->regenerate();
+
         if (!$session->registerAccount($account, $request, $this)) {
             return $this->findView();
         }
-        $session->regenerate();
 
         $stickyUrl = $request->getFollowUpUrl();
         if (null == $stickyUrl) {
