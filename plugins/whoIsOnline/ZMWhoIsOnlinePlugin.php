@@ -27,6 +27,7 @@
  *
  * @package org.zenmagick.plugins.whoIsOnline
  * @author DerManoMann <mano@zenmagick.org>
+ * @todo create an admin interface and widget.
  */
 class ZMWhoIsOnlinePlugin extends Plugin {
 
@@ -55,6 +56,7 @@ class ZMWhoIsOnlinePlugin extends Plugin {
             'hostAddress' => array('column' => 'host_address', 'type' => 'string'),
             'userAgent' => array('column' => 'user_agent', 'type' => 'string'),
         ));
+        zenmagick\base\Runtime::getEventDispatcher()->listen($this);
     }
 
     /**
@@ -63,18 +65,9 @@ class ZMWhoIsOnlinePlugin extends Plugin {
      * <p>The returned array map has three elements. One for the number of anonymous users (<em>anonymous</em>),
      on for the number of registered users online (<em>registered</em>) and the third the total number of online users (<em>total</em>).</p>
      *
-     * @param boolean expire Optional expire flag to delete old entries; default is <code>true</code>.
      * @return array Online user stats.
      */
-    public function getStats($expire=true) {
-        if ($expire) {
-            // expire old entries
-            $timeAgo = (time() - 1200);
-            $sql = "DELETE FROM " . TABLE_WHOS_ONLINE . "
-                    WHERE time_last_click < :lastRequestTime";
-            ZMRuntime::getDatabase()->updateObj($sql, array('lastRequestTime' => $timeAgo), TABLE_WHOS_ONLINE);
-        }
-
+    public function getStats() {
         $sql = "SELECT customer_id FROM " . TABLE_WHOS_ONLINE;
         $results = ZMRuntime::getDatabase()->fetchAll($sql, array(), TABLE_WHOS_ONLINE, ZMDatabase::MODEL_RAW);
         $anonymous = 0;
@@ -90,4 +83,104 @@ class ZMWhoIsOnlinePlugin extends Plugin {
         return array('anonymous' => $anonymous, 'registered' => $registered, 'total' => ($anonymous+$registered));
     }
 
+    /**
+     * Remove expired entries.
+     *
+     * @todo cron it!
+     * @todo configurable expiry time.
+     */
+    public function removeExpired() {
+            $timeAgo = (time() - 1200);
+            $sql = "DELETE FROM " . TABLE_WHOS_ONLINE . "
+                    WHERE time_last_click < :lastRequestTime";
+            ZMRuntime::getDatabase()->updateObj($sql, array('lastRequestTime' => $timeAgo), TABLE_WHOS_ONLINE);
+    }
+
+    /**
+     * {@inheritDoc}
+     *
+     * @todo Should spiders be detected and marked here or output?
+     *       Probably marked on output, but that's not how the current admin works
+     * @todo Can we differentiate between spiders and regular guest users without using HTTP_USER_AGENT?
+     */
+    public function onContainerReady($event) {
+        $this->removeExpired(); // @todo cron!
+
+        if (zenmagick\base\Runtime::isContextMatch('admin')) return;
+
+        $request = $event->get('request');
+        $session = $request->getSession();
+        $accountId = $request->getAccountId();
+        $sessionId = $session->getId();
+
+        $ipAddress = isset($_SERVER['REMOTE_ADDR']) ? $_SERVER['REMOTE_ADDR'] : '';
+
+        $fullName = 'Guest'; // used for zc admin page
+        if (!empty($accountId) && !empty($sessionId)) {
+            $account = $request->getAccount();
+            $fullName = $account->getLastName().', '.$account->getFirstName();
+        }
+
+        $conn = ZMRuntime::getDatabase();
+        $sql = "SELECT customer_id FROM " . TABLE_WHOS_ONLINE . "
+                WHERE session_id = :sessionId AND ip_address = :ipAddress"; 
+        $result = $conn->querySingle($sql, array('sessionId' => $sessionId, 'ipAddress' => $ipAddress), TABLE_WHOS_ONLINE);
+
+        $now = time();
+        $data = array();
+        $data['customer_id'] = $accountId;
+        $data['full_name'] = $fullName;
+        $data['time_last_click'] = $now;
+        $data['last_page_url'] = rtrim($_SERVER['REQUEST_URI'], '?');
+        $data['user_agent'] = isset($_SERVER['HTTP_USER_AGENT']) ? $_SERVER['HTTP_USER_AGENT'] : '';
+        if (!empty($result)) {
+            $conn->update(TABLE_WHOS_ONLINE, $data, array('session_id' => $sessionId));
+        } else {
+            $data['ip_address'] = $ipAddress;
+            $data['host_address'] = $session->getValue('customers_host_address') ?: '';
+            $data['time_entry'] = $now;
+            $data['session_id'] = $sessionId;
+            $conn->insert(TABLE_WHOS_ONLINE, $data);
+        }
+    }
+
+    /**
+     * Login event handler.
+     */
+    public function onLoginSuccess($event) {
+        $this->updateSessionId($event);
+    }
+
+    /**
+     * Create account event handler.
+     */
+    public function onCreateAccount($event) {
+        $this->updateSessionId($event);
+    }
+
+    /**
+     * Logoff event handler.
+     *
+     * Just delete the db entry since we have no useful session id.
+     *
+     */
+    public function onLogoffSuccess($event) {
+        $accountId = $event->get('account')->getId();
+        if (0 < $accountId) {
+            ZMRuntime::getDatabase()->delete(DB_PREFIX.'whos_online', array('customer_id' => $accountId)); 
+        }
+    }
+
+    /**
+     * Update the session id if it changed.
+     */
+    public function updateSessionId($event) {
+        $session = $event->get('request')->getSession();
+        if (null != ($lastId = $session->getValue('lastSessionId', 'session'))) {
+            ZMRuntime::getDatabase()->update(DB_PREFIX.'whos_online',
+                array('session_id' => $session->getId(), 'customer_id' => $event->get('account')->getId()),
+                array('session_id' => $lastId)
+            );
+        }
+    }
 }
