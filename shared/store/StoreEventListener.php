@@ -154,6 +154,19 @@ class StoreEventListener extends ZMObject {
                 $messageService->add($details[1], $statusMap[$details[0]]);
             }
         }
+
+        /**
+         * Quick hack to run scheduled tasks previously done by init_general_funcs in both admin and storefront.
+         *
+         * The original code ran once per day per user via a session var (but only on the storefront)
+         * , but we can do a better job with cron or some other dispatcher like gearmand.
+         *
+         * @todo cron it
+         */
+        $taskServices = array('productFeaturedService', 'productSpecialsService', 'bannerService', 'salemakerService');
+        foreach ($taskServices as $service) {
+            $this->container->get($service)->runTasks();
+        }
     }
 
 }

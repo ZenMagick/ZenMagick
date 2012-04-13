@@ -78,7 +78,3 @@
                                  'className'=>'messageStack',
                                  'objectName'=>'messageStack');
 
-  $autoLoadConfig[120][] = array('autoType'=>'init_script',
-                                 'loadFile'=> 'init_special_funcs.php');
-
-
