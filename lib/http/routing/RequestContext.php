@@ -39,8 +39,9 @@ class RequestContext extends SymfonyRequestContext {
         if ('path' == $settingsService->get('zenmagick.http.request.urlType', 'default')) {
             $frontendController = '/'.$settingsService->get('zenmagick.http.request.handler', 'index.php');
         }
-        // todo: have a separate https port
-        parent::__construct($request->getContext().$frontendController, $request->getMethod(), $request->getHostname(), $request->isSecure() ? 'https' : 'http', $request->getPort(), 443);
+        // todo: should ports be configurable?
+        // todo: have a separate https hostname
+        parent::__construct($request->getContext().$frontendController, $request->getMethod(), $request->getHostname(), $request->isSecure() ? 'https' : 'http', 80, 443);
     }
 
 }
