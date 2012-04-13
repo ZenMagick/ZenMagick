@@ -51,30 +51,6 @@ class TestSettings extends ZMTestCase {
     }
 
     /**
-     * Test append old.
-     */
-    public function testAppendOld() {
-        $settings = new Settings();
-        $key = 'a.b.o@@';
-        $old = 'yo';
-        $value = 'doh';
-        $settings->set($key, $old);
-        $this->assertEqual($old, $settings->get($key));
-        $oldValue = $settings->append($key, $value);
-        $this->assertEqual($old, $oldValue);
-        // ',' is the default delimiter
-        $this->assertEqual($old.','.$value, $settings->get($key));
-
-        // and with delim
-        $key = 'o@@@';
-        $delim = '!';
-        ZMSettings::set($key, $old);
-        $oldValue = ZMSettings::append($key, $value, $delim);
-        $this->assertEqual($old, $oldValue);
-        $this->assertEqual($old.$delim.$value, ZMSettings::get($key));
-    }
-
-    /**
      * Test append multiple.
      */
     public function testAppendMultiple() {

@@ -21,6 +21,9 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
+use zenmagick\base\Runtime;
+
+
     /**
      * Split email addresses as per zc convention.
      */
@@ -192,10 +195,10 @@
              **************************************/
 
             // max
-            'maxBestSellers' => MAX_DISPLAY_BESTSELLERS,
-            'maxSpecialProducts' => MAX_RANDOM_SELECT_SPECIALS,
-            'maxNewProducts' => SHOW_NEW_PRODUCTS_LIMIT,
-            'maxRandomReviews' => MAX_RANDOM_SELECT_REVIEWS,
+            'maxBestSellers' => (int)MAX_DISPLAY_BESTSELLERS,
+            'maxSpecialProducts' => (int)MAX_RANDOM_SELECT_SPECIALS,
+            'maxNewProducts' => (int)SHOW_NEW_PRODUCTS_LIMIT,
+            'maxRandomReviews' => (int)MAX_RANDOM_SELECT_REVIEWS,
 
             // range of enabled order stati to show downloads
             'downloadOrderStatusRange' => DOWNLOADS_CONTROLLER_ORDERS_STATUS.'-'.DOWNLOADS_CONTROLLER_ORDERS_STATUS_END,
@@ -276,4 +279,10 @@
         return $map;
     }
 
-    ZMSettings::addAll(zm_get_default_settings(), true);
+    $replace = true;
+    $settingsService = Runtime::getSettings();
+    foreach (zm_get_default_settings() as $name => $value) {
+        if ($replace || !$settingsService->exists($name)) {
+            $settingsService->set($name, $value);
+        }
+    }

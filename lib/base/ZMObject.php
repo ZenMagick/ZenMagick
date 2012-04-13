@@ -177,9 +177,9 @@ class ZMObject extends ContainerAware implements Serializable {
         } else {
             foreach (Beans::$GETTER_PREFIX_LIST as $prefix) {
                 if (0 === strpos($method, $prefix) && 0 == count($args)) {
-                  $property = substr($method, strlen($prefix));
-                  $property = strtolower($property[0]).substr($property, 1);
-                  return $this->get($property);
+                    $property = substr($method, strlen($prefix));
+                    $property = strtolower($property[0]).substr($property, 1);
+                    return $this->get($property);
                 }
             }
             if (0 === strpos($method, Beans::$SETTER_PREFIX) && 1 == count($args)) {

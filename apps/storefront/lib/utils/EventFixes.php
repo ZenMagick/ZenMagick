@@ -152,7 +152,7 @@ class EventFixes extends ZMObject {
     public function onContainerReady($event) {
         $request = $event->get('request');
 
-        if (!\ZMsettings::get('isEnableZMThemes', true)) {
+        if (!$this->container->get('settingsService')->get('isEnableZMThemes', true)) {
             // pass on already set args
             $args = array_merge($event->all(), array('themeId' => $this->container->get('themeService')->getActiveThemeId()));
             Runtime::getEventDispatcher()->dispatch('theme_resolved', new Event($this, $args));
@@ -317,7 +317,7 @@ class EventFixes extends ZMObject {
             unset($params['currency']);
             $request->setParameterMap($params);
             $request->redirect($request->url());
-        } 
+        }
         if (null == $session->getCurrencyCode()) {
             $session->setCurrencyCode($settingsService->get('defaultCurrency'));
         }

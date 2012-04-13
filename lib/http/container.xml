@@ -7,6 +7,7 @@
 
     <parameters>
         <parameter key="kernel.debug">false</parameter>
+        <parameter key="zenmagick.http.session.useFqdn">true</parameter>
         <parameter key="zenmagick.http.session.validator.userAgent">false</parameter>
         <parameter key="zenmagick.http.session.validator.ip">false</parameter>
         <parameter key="zenmagick.http.session.validator.sslSessionId">false</parameter>
