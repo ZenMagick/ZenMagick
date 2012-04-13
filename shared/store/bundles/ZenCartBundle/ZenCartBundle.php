@@ -256,32 +256,4 @@ class ZenCartBundle extends Bundle {
             $conn->updateObj($query, array(), TABLE_COUNTER);
         }
     }
-
-    /**
-     * Periodic stuff zencart needs to do.
-     */
-    private function zenSessionStuff() {
-        if (function_exists('zen_session_recreate')) {
-            // yay!
-            if (!function_exists('whos_online_session_recreate')) {
-                function whos_online_session_recreate($old_session, $new_session) { }
-            }
-            zen_session_recreate();
-        }
-    }
-
-    /**
-     * Login event handler.
-     */
-    public function onLoginSuccess($event) {
-        $this->zenSessionStuff();
-    }
-
-    /**
-     * Create account event handler.
-     */
-    public function onCreateAccount($event) {
-        $this->zenSessionStuff();
-    }
-
 }
