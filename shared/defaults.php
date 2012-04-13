@@ -145,9 +145,10 @@ use zenmagick\base\Runtime;
             'apps.store.warnBeforeMaintenance' => WARN_BEFORE_DOWN_FOR_MAINTENANCE == 'true',
             'apps.store.downForMaintenance' => DOWN_FOR_MAINTENANCE == 'true',
             'apps.store.downForMaintenanceRoute' => DOWN_FOR_MAINTENANCE_FILENAME,
+            'apps.store.downForMaintenancePages' => array('logoff', 'privacy', 'contact_us', 'conditions', 'shippinginfo'),
             // @todo migrate to some better method to let admin view restricted storefront content
             'apps.store.adminOverrideIPs' => explode(',', str_replace(' ', '', EXCLUDE_ADMIN_IP_FOR_MAINTENANCE)),
-
+            
             // cookies only?
             'isForceCookieUse' => SESSION_FORCE_COOKIE_USE == 'True',
             'apps.store.storefront.domain' => (zenmagick\base\Runtime::getContainer()->get('request')->isSecure() && defined('HTTP_COOKIE_DOMAIN') ? HTTP_COOKIE_DOMAIN : (!zenmagick\base\Runtime::getContainer()->get('request')->isSecure() && defined('HTTPS_COOKIE_DOMAIN') ? HTTPS_COOKIE_DOMAIN : null)),

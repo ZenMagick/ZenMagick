@@ -132,8 +132,10 @@ class StoreEventListener extends ZMObject {
                 // but also needs to work if  don't get that far due to application errors and
                 // should only work on storefront.
                 header('HTTP/1.1 503 Service Unavailable');
+                $dfmPages = $settingsService->get('apps.store.downForMaintenancePages');
                 $dfmRoute = $settingsService->get('apps.store.downForMaintenanceRoute');
-                if ($dfmRoute != $request->getRequestId()) {
+                $dfmPages[] = $dfmRoute;
+                if (!in_array($request->getRequestId(), $dfmPages)) {
                     $url = $request->url($dfmRoute);
                     $request->redirect($url);
                     exit;
