@@ -192,10 +192,10 @@
              **************************************/
 
             // max
-            'maxBestSellers' => MAX_DISPLAY_BESTSELLERS,
-            'maxSpecialProducts' => MAX_RANDOM_SELECT_SPECIALS,
-            'maxNewProducts' => SHOW_NEW_PRODUCTS_LIMIT,
-            'maxRandomReviews' => MAX_RANDOM_SELECT_REVIEWS,
+            'maxBestSellers' => (int)MAX_DISPLAY_BESTSELLERS,
+            'maxSpecialProducts' => (int)MAX_RANDOM_SELECT_SPECIALS,
+            'maxNewProducts' => (int)SHOW_NEW_PRODUCTS_LIMIT,
+            'maxRandomReviews' => (int)MAX_RANDOM_SELECT_REVIEWS,
 
             // range of enabled order stati to show downloads
             'downloadOrderStatusRange' => DOWNLOADS_CONTROLLER_ORDERS_STATUS.'-'.DOWNLOADS_CONTROLLER_ORDERS_STATUS_END,
