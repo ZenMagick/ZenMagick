@@ -21,6 +21,9 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
+use zenmagick\base\Runtime;
+
+
     /**
      * Split email addresses as per zc convention.
      */
@@ -276,4 +279,10 @@
         return $map;
     }
 
-    ZMSettings::addAll(zm_get_default_settings(), true);
+    $replace = true;
+    $settingsService = Runtime::getSettings();
+    foreach (zm_get_default_settings() as $name => $value) {
+        if ($replace || !$settingsService->exists($name)) {
+            $settingsService->set($name, $value);
+        }
+    }
