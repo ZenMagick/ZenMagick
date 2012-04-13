@@ -35,6 +35,14 @@ class Theme extends ZMObject {
     private $themeId_;
     private $config_;
 
+    /**
+     * Create new instance.
+     */
+    public function __construct() {
+        parent::__construct();
+        $this->themeId_ = null;
+        $this->config_ = array();
+    }
 
     /**
      * Set the theme id.

@@ -38,7 +38,7 @@ class ContextConfigLoader extends HttpContextConfigLoader {
     /**
      * {@inheritDoc}
      */
-    public function apply($config) {
+    public function apply(array $config) {
         parent::apply($config);
 
         // locale
