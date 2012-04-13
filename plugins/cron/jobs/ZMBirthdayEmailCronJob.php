@@ -40,32 +40,27 @@
  * @package org.zenmagick.plugins.cron
  */
 class ZMBirthdayEmailCronJob implements ZMCronJob {
-    private $offset_;
-    private $template_;
-
-
-    /**
-     * Create new instance.
-     */
-    function __construct() {
-        $this->offset_ = ZMSettings::get('plugins.cron.jobs.birthday.offset', '');
-        $this->template_ = ZMSettings::get('plugins.cron.jobs.birthday.template', 'birthday');
-    }
 
     /**
      * {@inheritDoc}
      */
     public function execute() {
+        $container = $this->container;
+        $settingsService = $container->get('settingsService');
+
+        $offset = $settingsService->get('plugins.cron.jobs.birthday.offset', '');
+        $template = $settingsService->get('plugins.cron.jobs.birthday.template', 'birthday');
+
         $sql = "SELECT * FROM " . TABLE_CUSTOMERS . "
                 WHERE MONTH(customers_dob) = MONTH(curdate())
-                  AND DAYOFMONTH(customers_dob) = DAYOFMONTH(curdate()) " . $this->offset_;
+                  AND DAYOFMONTH(customers_dob) = DAYOFMONTH(curdate()) " . $offset;
         $results = ZMRuntime::getDatabase()->fetchAll($sql, array(), TABLE_CUSTOMERS, 'ZMAccount');
         foreach ($results as $account) {
             $context = array('account' => $account);
 
-            $message = $this->container->get('messageBuilder')->createMessage($this->template_, true, $request, $context);
-            $message->setSubject(sprintf(_zm("It's your birthday, %s"), $account->getFirstName()))->setTo($account->getEmail(), $account->getFullName())->setFrom(ZMSettings::get('storeEmail'));
-            $this->container->get('mailer')->send($message);
+            $message = $container->get('messageBuilder')->createMessage($template, true, $request, $context);
+            $message->setSubject(sprintf(_zm("It's your birthday, %s"), $account->getFirstName()))->setTo($account->getEmail(), $account->getFullName())->setFrom($settingsService->get('storeEmail'));
+            $container->get('mailer')->send($message);
         }
 
         return true;

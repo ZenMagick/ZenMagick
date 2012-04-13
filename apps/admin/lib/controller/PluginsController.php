@@ -48,6 +48,8 @@ class PluginsController extends \ZMController {
 
         $viewId = null;
         $pluginService = $this->container->get('pluginService');
+        // ensure we load all plugins
+        $pluginService->getPluginsForContext(null);
 
         if ('upgrade' == $action) {
             if (null != ($plugin = $pluginService->getPluginForId($pluginId)) && $plugin->isInstalled()) {

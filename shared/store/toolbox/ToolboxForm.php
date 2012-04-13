@@ -65,7 +65,8 @@ class ToolboxForm extends ToolboxTool {
         $validator = $this->container->get('validator');
         $defaults = array('method' => 'post');
         $hasId = isset($attr['id']);
-        $hasValidation = ($hasId && $validator->hasRuleSet($attr['id']) && Runtime::getSettings()->get('isAutoJSValidation'));
+        $settingsService = $this->container->get('settingsService');
+        $hasValidation = ($hasId && $validator->hasRuleSet($attr['id']) && $settingsService->get('isAutoJSValidation'));
         if ($hasValidation) {
             $defaults['onsubmit'] = 'return zmFormValidation.validate(this);';
         }
@@ -84,30 +85,28 @@ class ToolboxForm extends ToolboxTool {
         if (null !== $page && (false !== strpos($page, '://') || '/' == $page[0])) {
             $attr['action'] = $page;
         } else {
-            //TODO: remove; keep params to make useo2 happy!!
-            $attr['action'] = $this->getRequest()->url($page, $params, $secure);
-            //$attr['action'] = $this->getRequest()->url($page, '', $secure);
+            $attr['action'] = $this->getRequest()->url($page, '', $secure);
         }
 
         // parse params AND action params
         parse_str($params.'&'.html_entity_decode(parse_url($attr['action'], PHP_URL_QUERY)), $hidden);
         // set best requestId value
-        if (!isset($hidden[Runtime::getSettings()->get('zenmagick.http.request.idName')])) {
+        if (!isset($hidden[$settingsService->get('zenmagick.http.request.idName')])) {
             $page = null === $page ? $this->getRequest()->getRequestId() : $page;
             if (null !== $page) {
-                $hidden[Runtime::getSettings()->get('zenmagick.http.request.idName')] = $page;
+                $hidden[$settingsService->get('zenmagick.http.request.idName')] = $page;
             }
         }
 
         // add session token if configured
-        if ($hasId && 'post' == strtolower($attr['method']) && \ZMLangUtils::inArray($attr['id'], Runtime::getSettings()->get('zenmagick.http.session.formToken'))) {
+        if ($hasId && 'post' == strtolower($attr['method']) && \ZMLangUtils::inArray($attr['id'], $settingsService->get('zenmagick.http.session.formToken'))) {
             $hidden[FormTokenSessionValidator::SESSION_TOKEN_NAME] = $this->getRequest()->getSession()->getToken();
         }
 
         ob_start();
 
         // create JS validation code if all go
-        if ($hasId && $validator->hasRuleSet($attr['id']) && Runtime::getSettings()->get('isAutoJSValidation')) {
+        if ($hasId && $validator->hasRuleSet($attr['id']) && $settingsService->get('isAutoJSValidation')) {
             echo $validator->toJSString($attr['id']);
 
             // inline JS to allow PHP
@@ -127,7 +126,7 @@ class ToolboxForm extends ToolboxTool {
         echo '>';
 
         // add hidden form fields if any params set
-        $slash = Runtime::getSettings()->get('zenmagick.http.html.xhtml') ? '/' : '';
+        $slash = $settingsService->get('zenmagick.http.html.xhtml') ? '/' : '';
         if (0 < count($hidden)) {
             echo '<div>';
             foreach ($hidden as $name => $value) {

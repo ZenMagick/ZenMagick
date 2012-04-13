@@ -21,6 +21,8 @@ namespace zenmagick\http\routing;
 
 use Symfony\Component\Routing\RequestContext as SymfonyRequestContext;
 
+use zenmagick\base\Runtime;
+
 /**
  * ZenMagick request context, populated from <code>ZMRequest</code>.
  *
@@ -32,8 +34,14 @@ class RequestContext extends SymfonyRequestContext {
      * Create new instance.
      */
     public function __construct($request) {
-        // todo: have a separate https port
-        parent::__construct($request->getContext(), $request->getMethod(), $request->getHostname(), $request->isSecure() ? 'https' : 'http', $request->getPort(), 443);
+        $frontendController = '';
+        $settingsService = Runtime::getSettings();
+        if ('path' == $settingsService->get('zenmagick.http.request.urlType', 'default')) {
+            $frontendController = '/'.$settingsService->get('zenmagick.http.request.handler', 'index.php');
+        }
+        // todo: should ports be configurable?
+        // todo: have a separate https hostname
+        parent::__construct($request->getContext().$frontendController, $request->getMethod(), $request->getHostname(), $request->isSecure() ? 'https' : 'http', 80, 443);
     }
 
 }

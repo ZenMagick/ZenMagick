@@ -345,25 +345,26 @@ class ZMProducts extends ZMObject implements ZMSQLAware {
      * @return array A list of <code>ZMProduct</code> instances.
      */
     public function getNewProducts($categoryId=null, $max=0, $timeLimit=null, $languageId=null) {
-        $timeLimit = null === $timeLimit ? Runtime::getSettings()->get('maxNewProducts') : $timeLimit;
+        $timeLimit = (int)(null === $timeLimit ? Runtime::getSettings()->get('maxNewProducts') : $timeLimit);
 
         $queryLimit = '';
         $orderBy = ' ORDER BY products_date_added DESC';
         switch ($timeLimit) {
-            case '0':
+            case 0:
                 // no global limit, so use some same limits just in case...
                 $queryLimit = '';
-                $date = '';
+                $date = null;
                 break;
-            case '1':
+            case 1:
                 // this month
-                $date = date('Ym', time()) . '01';
+                $date = new DateTime();
+                $date->modify('first day of this month');
                 $queryLimit = ' AND p.products_date_added >= :dateAdded';
                 break;
             default:
                 // X days; 24 hours; 60 mins; 60secs
-                $dateRange = time() - ($timeLimit * 24 * 60 * 60);
-                $date = date('Ymd', $dateRange);
+                $date = new DateTime();
+                $date->modify(sprintf('-%s days', $timeLimit));
                 $queryLimit = ' AND p.products_date_added >= :dateAdded';
                 break;
         }

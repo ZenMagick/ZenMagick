@@ -40,7 +40,7 @@ class ContextConfigLoader extends BaseContextConfigLoader {
     /**
      * {@inheritDoc}
      */
-    public function apply($config) {
+    public function apply(array $config) {
         parent::apply($config);
 
         // traditional router

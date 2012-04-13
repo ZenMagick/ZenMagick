@@ -40,9 +40,9 @@ class ContextConfigLoader extends ZMObject {
     /**
      * Create new instance.
      *
-     * @param mixed config Either a filename or array (already loaded YAML); default is <code>null</code>.
+     * @param mixed config Either a filename or array (already loaded YAML); default is an empty array.
      */
-    public function __construct($config=null) {
+    public function __construct($config=array()) {
         parent::__construct();
         $this->setConfig($config);
     }
@@ -54,9 +54,7 @@ class ContextConfigLoader extends ZMObject {
      * @param mixed config Either a filename or array (already loaded YAML); default is <code>null</code>.
      */
     public function setConfig($config) {
-        if (null != $config) {
-            $this->config = is_array($config) ? $config : Yaml::parse($config);
-        }
+        $this->config = is_array($config) ? $config : Yaml::parse((string)$config);
     }
 
     /**
@@ -110,7 +108,7 @@ class ContextConfigLoader extends ZMObject {
      *
      * @param array config The configuration to process.
      */
-    public function apply($config) {
+    public function apply(array $config) {
         // php
         if (array_key_exists('php', $config) && is_array($config['php'])) {
             $phpConfig = $config['php'];
