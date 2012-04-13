@@ -121,15 +121,17 @@ class StoreEventListener extends ZMObject {
 
         // status messages
         if (Runtime::isContextMatch('storefront')) {
+
             // check DFM
             $settingsService = $this->container->get('settingsService');
             $downForMaintenance = $settingsService->get('apps.store.downForMaintenance', false);
-            if ($downForMaintenance) {
+            $adminIps = $settingsService->get('apps.store.adminOverrideIPs');
+
+            if ($downForMaintenance && !in_array($request->getClientIp(), $adminIps)) {
                 // @todo this would be more appropriately placed in the controller or dispatcher,
                 // but also needs to work if  don't get that far due to application errors and
-                // should only work on storefront and optionally hide from registered admin IP
+                // should only work on storefront.
                 header('HTTP/1.1 503 Service Unavailable');
-                $request = $event->get('request');
                 $dfmRoute = $settingsService->get('apps.store.downForMaintenanceRoute');
                 if ($dfmRoute != $request->getRequestId()) {
                     $url = $request->url($dfmRoute);
