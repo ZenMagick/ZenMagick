@@ -51,7 +51,7 @@
   $autoLoadConfig[40][] = array('autoType'=>'include_glob',
                                 'loadFile'=>'includes/functions/{general.php,database.php,functions_customers.php,functions_metatags.php,functions_prices.php,html_output.php,localization.php,password_funcs.php}');
   $autoLoadConfig[40][] = array('autoType'=>'include_glob',
-                                'loadFile'=> '../includes/functions/{audience.php,functions_email.php,sessions.php,zen_mail.php}');
+                                'loadFile'=> '../includes/functions/{audience.php,banner.php,featured.php,functions_email.php,salemaker.php,sessions.php,specials.php,zen_mail.php}');
   $autoLoadConfig[40][] = array('autoType'=>'include_glob',
                                 'loadFile'=> 'includes/functions/extra_functions/*.php');
 
