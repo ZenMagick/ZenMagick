@@ -39,7 +39,7 @@
                                 'objectName'=>'sniffer');
 
   $autoLoadConfig[60][] = array('autoType'=>'include_glob',
-                                'loadFile'=> 'includes/functions/{functions_email.php,functions_general.php,html_output.php,functions_ezpages.php,sessions.php,zen_mail.php}');
+                                'loadFile'=> 'includes/functions/{functions_email.php,functions_general.php,html_output.php,functions_ezpages.php,password_funcs.php,sessions.php,zen_mail.php}');
   $autoLoadConfig[60][] = array('autoType'=>'include_glob',
                                 'loadFile'=> 'includes/functions/extra_functions/*.php');
 
