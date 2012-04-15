@@ -277,18 +277,18 @@ class ToolboxMacro extends ToolboxTool {
      */
     public function officeOnlyEmailFooter($name, $email, $session) {
         $context = array();
-        $hostAddn = $session->getClientHostname();
-        if (null != $hostAddn) {
-            $hostAddn = ' - '.$hostAddn;
-        }
 
-        $context['office_only_text'] = "\n\n" .
-          _zm("Office Use Only:") . "\n" .
-          _zm("From: ") . $name . "\n" .
-          _zm("Email: ") . $email . "\n" .
-          _zm("Remote: ") . $session->getClientAddress() . $hostAddn . "\n" .
-          _zm("Date: ") . date("D M j Y G:i:s T") . "\n\n";
-        $context['office_only_html'] = nl2br($context['office_only_text']);
+        $session = $request->getSession();
+        $officeOnly = array(
+            "\n",
+            _zm('Office Use Only:'),
+            sprintf(_zm('From: %s', $name),
+            sprintf(_zm('Email: %s'), $email),
+            sprintf(_zm('Remote: %s - %s'), $session->getClientAddress(), $request->getClientIp()),
+            sprintf(_zm('Date: %s'), date("D M j Y G:i:s T")),
+            "\n\n";
+        );
+        $context['office_only_html'] = nl2br(implode("\n", $officeOnly));
 
         return $context;
     }
