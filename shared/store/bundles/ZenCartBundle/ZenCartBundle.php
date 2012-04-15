@@ -22,6 +22,7 @@ namespace zenmagick\apps\store\bundles\ZenCartBundle;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\HttpKernel\Bundle\Bundle;
+use Symfony\Component\Routing\Loader\XmlFileLoader;
 
 use Swift_Transport_SendmailTransport;
 
@@ -162,6 +163,14 @@ class ZenCartBundle extends Bundle {
 
             $urlMappings = __DIR__.'/Resources/config/admin/url_mappings.yaml';
             \ZMUrlManager::instance()->load(file_get_contents($urlMappings), false);
+
+            $routingFile = __DIR__.'/Resources/config/admin/routing.xml';
+            if (file_exists($routingFile)) {
+                $routeResolver = $this->container->get('routeResolver');
+                $routingLoader = new XmlFileLoader(new FileLocator());
+                $routeCollection = $routingLoader->load($routingFile);
+                $routeResolver->getRouter()->getRouteCollection()->addCollection($routeCollection);
+            }
         }
 
         if (!defined('IS_ADMIN_FLAG')) { define('IS_ADMIN_FLAG', Runtime::isContextMatch('admin')); }
@@ -235,9 +244,9 @@ class ZenCartBundle extends Bundle {
     private function handleCounter($event) {
         $conn = \ZMRuntime::getDatabase();
         $session = $event->get('request')->getSession();
-    
+
         $newSession = false;
-        if ($session->isStarted()) { 
+        if ($session->isStarted()) {
             $newSession = !$session->getValue('session_counter');
             if ($newSession) $session->setValue('session_counter', true);
         }
