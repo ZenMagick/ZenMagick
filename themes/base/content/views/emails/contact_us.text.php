@@ -31,3 +31,7 @@
 <?php echo $contactInfo->getMessage() ?>
 
 -------------------------------------------
+
+
+<?php echo strip_tags($utils->staticPageContent('email_advisory')) ?>
+<?php echo $office_only_text; ?>
