@@ -282,11 +282,11 @@ class ToolboxMacro extends ToolboxTool {
         $officeOnly = array(
             "\n",
             _zm('Office Use Only:'),
-            sprintf(_zm('From: %s', $name),
+            sprintf(_zm('From: %s'), $name),
             sprintf(_zm('Email: %s'), $email),
             sprintf(_zm('Remote: %s - %s'), $session->getClientAddress(), $request->getClientIp()),
             sprintf(_zm('Date: %s'), date("D M j Y G:i:s T")),
-            "\n\n";
+            "\n\n"
         );
         $context['office_only_html'] = nl2br(implode("\n", $officeOnly));
 
