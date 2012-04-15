@@ -37,3 +37,8 @@
 <hr>
 <div><?php echo $html->text2html($contactInfo->getMessage()) ?></div>
 <hr>
+<?php if (!isset($isSupressDisclaimer)) { echo $utils->staticPageContent('email_advisory'); } ?>
+<?php echo $office_only_html; ?>
+</div>
+</body>
+</html>
