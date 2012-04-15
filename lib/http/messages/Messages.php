@@ -177,7 +177,7 @@ class Messages extends ZMObject {
 
         $messages = array();
         foreach ($this->messages_ as $ii => $msg) {
-            if ($ref == $msg->ref_) {
+            if ($ref == $msg->getRef()) {
                 $messages[] = $msg;
             }
         }
