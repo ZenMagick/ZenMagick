@@ -1,8 +1,8 @@
 <h1><?php _vzm('Hello world!') ?></h1>
 
-<?php if (ZMMessages::instance()->hasMessages()) { ?>
+<?php if ($messageService->hasMessages()) { ?>
     <ul id="messages">
-    <?php foreach (ZMMessages::instance()->getMessages() as $message) { ?>
+    <?php foreach ($messageService->getMessages() as $message) { ?>
         <li class="<?php echo $message->getType() ?>"><?php echo $message->getText() ?></li>
     <?php } ?>
     </ul>

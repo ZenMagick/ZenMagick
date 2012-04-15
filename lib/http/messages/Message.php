@@ -42,7 +42,7 @@ class Message extends ZMObject {
      *
      * @param string text The message text; default is an empty string <code>''</code>.
      * @param string type The message type; default is <em>Messages::T_MESSAGE</em>.
-     * @param string ref The referencing resource; default is <code>ZMMessages::REF_GLOBAL</code>.
+     * @param string ref The referencing resource; default is <code>Messages::REF_GLOBAL</code>.
      */
     public function __construct($text='', $type=Messages::T_MESSAGE, $ref=Messages::REF_GLOBAL) {
         parent::__construct();

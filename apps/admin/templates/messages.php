@@ -16,14 +16,17 @@
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
- */ if ($messageService->hasMessages()) { ?>
+ */    
+use zenmagick\http\messages\Messages;
+
+if ($messageService->hasMessages()) { ?>
     <ul id="messages" class="ui-widget">
     <?php
       $messageClass = array(
-          ZMMessages::T_SUCCESS => array('ui-state-default', 'ui-icon ui-icon-check'),
-          ZMMessages::T_MESSAGE => array('ui-state-default', 'ui-icon ui-icon-info'),
-          ZMMessages::T_WARN => array('ui-state-highlight', 'ui-icon ui-icon-alert'),
-          ZMMessages::T_ERROR => array('ui-state-error', 'ui-icon ui-icon-alert')
+          Messages::T_SUCCESS => array('ui-state-default', 'ui-icon ui-icon-check'),
+          Messages::T_MESSAGE => array('ui-state-default', 'ui-icon ui-icon-info'),
+          Messages::T_WARN => array('ui-state-highlight', 'ui-icon ui-icon-alert'),
+          Messages::T_ERROR => array('ui-state-error', 'ui-icon ui-icon-alert')
       );
     ?>
     <?php foreach ($messageService->getMessages() as $message) { ?>
