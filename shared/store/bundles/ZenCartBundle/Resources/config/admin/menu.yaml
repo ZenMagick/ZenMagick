@@ -23,7 +23,7 @@ coupon-admin: { parent: tools-coupons, requestId: coupon_admin, name: Coupons }
 gv-queue: { parent: tools-coupons, requestId: gv_queue, name: Gift Voucher Queue }
 gv-mail: { parent: tools-coupons, requestId: gv_mail, name: Mail Gift Voucher }
 gv-sent: { parent: tools-coupons, requestId: gv_sent, name: Gift Vouchers Sent }
-email: { parent: tools-misc, requestId: email, name: Send Email }
+mail: { parent: tools-misc, requestId: mail, name: Send Email }
 configuration-zl10n: { parent: configuration, name: Localization }
 currencies: { parent: configuration-zl10n, requestId: currencies, name: Currencies }
 languages: { parent: configuration-zl10n, requestId: languages, name: Languages }
