@@ -1,7 +1,7 @@
 <project name="zenmagick-phpdoctor" default="phpdoctor">
 
     <!-- properties -->
-    <property name="phpdoctor.dir" location="../../phpdoctor" />
+    <property name="phpdoctor.dir" location="../phpdoctor" />
     <property name="phpdoctor.ini.dir" location="etc/phpdoctor" />
     <property name="phpdoctor.source.path" value="${basedir}/lib,${basedir}/shared,${basedir}/apps/admin/lib,${basedir}/apps/storefront/lib" />
     <property name="phpdoctor.apidocs.path" location="${zencart.target.dir}/docs/apidocs/${zenmagick.version}" />
