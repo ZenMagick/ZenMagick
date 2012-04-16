@@ -140,16 +140,4 @@ class ZMLangUtils {
         }
         return $val;
     }
-
-    /**
-     * Simple stack trace.
-     *
-     * @param string msg Optional message; default is <code>null</code>.
-     */
-    public static function dumpStack($msg=null) {
-        if ($msg) { echo '<h2>'.$msg.'</h2>'; }
-        echo implode('<br>', ZMException::formatStackTrace(debug_backtrace()));
-        echo '<br>';
-    }
-
 }
