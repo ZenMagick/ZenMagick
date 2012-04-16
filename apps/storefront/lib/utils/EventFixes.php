@@ -151,10 +151,17 @@ class EventFixes extends ZMObject {
      */
     public function onContainerReady($event) {
         $request = $event->get('request');
+        $settingsService = $this->container->get('settingsService');
 
-        if (!$this->container->get('settingsService')->get('isEnableZMThemes', true)) {
+        if (!$settingsService->get('isEnableZMThemes', true)) {
+            $language = $request->getSession()->getLanguage();
+            if (null == $language) {
+                // default language
+                $language = $this->container->get('languageService')->getLanguageForCode($settingsService->get('defaultLanguageCode'));
+            }
+            $themeService = $this->container->get('themeService');
             // pass on already set args
-            $args = array_merge($event->all(), array('themeId' => $this->container->get('themeService')->getActiveThemeId()));
+            $args = array_merge($event->all(), array('themeId' => $themeService->getActiveThemeId(), 'themeChain' => $themeService->getThemeChain($language->getId())));
             Runtime::getEventDispatcher()->dispatch('theme_resolved', new Event($this, $args));
         }
 
@@ -163,7 +170,7 @@ class EventFixes extends ZMObject {
 
         // set locale
         if (null != ($language = $request->getSession()->getLanguage())) {
-            Runtime::getSettings()->set('zenmagick.base.locales.locale', $language->getCode());
+            $settingsService->set('zenmagick.base.locales.locale', $language->getCode());
         }
 
         $this->sanitizeRequest($request);
@@ -173,7 +180,7 @@ class EventFixes extends ZMObject {
         if ('add_product' == $request->getParameter('action')) {
             $uploads = 0;
             foreach ($request->getParameterMap() as $name => $value) {
-                if (\ZMLangUtils::startsWith($name, Runtime::getSettings()->get('uploadOptionPrefix'))) {
+                if (\ZMLangUtils::startsWith($name, $settingsService->get('uploadOptionPrefix'))) {
                     ++$uploads;
                 }
             }
