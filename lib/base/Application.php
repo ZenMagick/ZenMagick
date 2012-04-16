@@ -59,7 +59,7 @@ class Application {
             'profile' => true,
 
             // packages
-            'packageBase' => 'zenmagick',
+            'packageBase' => basename(dirname(dirname(__DIR__))),
             'packages' => array('vendor', 'lib/base', 'lib/core', 'shared', 'vendor/local'),
 
             'classLoader' => 'zenmagick\base\classloader\CachingClassLoader',

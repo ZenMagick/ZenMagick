@@ -62,6 +62,10 @@ class ZencartThemes extends Themes {
      */
     public function onThemeResolved($event) {
         $this->zencart = false;
+        if (!$event->has('themeChain')) {
+            $this->zencart = true;
+            return;
+        }
         $themeChain = $event->get('themeChain');
         foreach ($themeChain as $theme) {
             if ($theme->isZencart()) {
@@ -77,14 +81,14 @@ class ZencartThemes extends Themes {
      * @param Event event The event.
      */
     public function onControllerProcessStart($event) {
-        if ($this->zencart) {
+        $request = $event->get('request');
+        if ($this->zencart && null != ($dispatcher = $request->getDispatcher())) {
             $settingsService = $this->container->get('settingsService');
             $settingsService->set('zenmagick.http.view.defaultLayout', 'zc_storefront_layout.php');
 
-            $request = $event->get('request');
             // TODO: do we need a custom controller here???
             $executor = new Executor(array($this->container->get('zenmagick\apps\store\bundles\ZenCartBundle\controller\ZencartStorefrontController'), 'process'), array($request));
-            $request->getDispatcher()->setControllerExecutor($executor);
+            $dispatcher->setControllerExecutor($executor);
         }
     }
 
