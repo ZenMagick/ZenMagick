@@ -263,7 +263,7 @@
         </foreach>
 
         <!-- touch existing to only update missing files -->
-        <touch>
+        <touch mkdirs="true">
             <fileset dir="${release.full.dir}/includes/modules/sideboxes/"/>
         </touch>
 
