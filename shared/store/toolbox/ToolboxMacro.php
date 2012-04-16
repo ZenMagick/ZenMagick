@@ -143,42 +143,6 @@ class ToolboxMacro extends ToolboxTool {
     }
 
     /**
-     * Display the given banner.
-     *
-     * @param Banner banner A <code>Banner</code> instance.
-     * @param boolean updateStats If <code>true</code>, the banner stats will get updated (click count).
-     * @return string The HTML formatted banner.
-     */
-    public function showBanner($banner, $updateStats=true) {
-        $html = '';
-
-        if (null != $banner) {
-            $toolbox = $this->getToolbox();
-            if (!\ZMLangUtils::isEmpty($banner->getText())) {
-                // use text if not empty
-                $html = $banner->getText();
-            } else {
-                $slash = Runtime::getSettings()->get('zenmagick.http.html.xhtml') ? '/' : '';
-                $img = '<img src="'.$toolbox->net->image($banner->getImage()).'" alt="'.
-                          \ZMHtmlUtils::encode($banner->getTitle()).'"'.$slash.'>';
-                if (\ZMLangUtils::isEmpty($banner->getUrl())) {
-                    // if we do not have a url try our luck with the image...
-                    $html = $img;
-                } else {
-                    $html = '<a href="'.$toolbox->net->trackLink('banner', $banner->getId()).'"'.
-                                $toolbox->html->hrefTarget($banner->isNewWin()).'>'.$img.'</a>';
-                }
-            }
-
-            if ($updateStats) {
-                $this->container->get('bannerService')->updateBannerDisplayCount($banner->getId());
-            }
-        }
-
-        return $html;
-    }
-
-    /**
      * Helper to format a given <code>ZMCrumbtrail</code>.
      *
      * @param ZMCrumbtrail crumbtrail A <code>ZMCrumbtrail</code> instance.
