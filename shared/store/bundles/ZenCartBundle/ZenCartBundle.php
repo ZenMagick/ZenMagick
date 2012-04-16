@@ -171,6 +171,11 @@ class ZenCartBundle extends Bundle {
                 $routeCollection = $routingLoader->load($routingFile);
                 $routeResolver->getRouter()->getRouteCollection()->addCollection($routeCollection);
             }
+
+            if ($settingsService->get('zenmagick.http.request.secure')) {
+                // make all of ZM admin secure
+                $settingsService->set('zenmagick.http.request.allSecure', true);
+            }
         }
 
         if (!defined('IS_ADMIN_FLAG')) { define('IS_ADMIN_FLAG', Runtime::isContextMatch('admin')); }
