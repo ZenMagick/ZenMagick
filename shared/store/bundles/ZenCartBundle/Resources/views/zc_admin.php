@@ -25,7 +25,9 @@ $resourceManager->jsFile('zc_admin.js');
 
 $adminDir = $settingsService->get('apps.store.zencart.admindir');
 $zcPath = $settingsService->get('apps.store.zencart.path');
-$adminWeb = trim(str_replace(Runtime::getInstallationPath(), '', $zcPath).'/'.$adminDir, '/');
+$baseContext = trim(str_replace('/zenmagick/apps/admin/web', '', $request->getContext()));
+$adminWeb = substr(sprintf('%s/%s', $baseContext, $adminDir), 1);
+//$adminWeb = trim(str_replace(Runtime::getInstallationPath(), '', $zcPath).'/'.$adminDir, '/');
 $zcAdminPath = $zcPath.'/'.$adminDir.'/';
 $zcPage = $request->getRequestId().'.php';
 chdir($zcAdminPath);
@@ -35,7 +37,7 @@ define('TEXT_EDITOR_INFO', ''); // hide text editor box
 $PHP_SELF = $zcAdminPath.$zcPage;
 $code = file_get_contents($zcAdminPath.$zcPage);
 $code = preg_replace("/<!doctype[^>]*>/s", '', $code);
-$code = preg_replace("/require\(.*application_top.php'\s*\);/", "require('".zenmagick\base\Runtime::getInstallationPath().'/shared/store/bundles/ZenCartBundle/bridge/includes/application_top.php'."');", $code);
+$code = preg_replace("/require\(.*application_top.php'\s*\);/", "require('".Runtime::getInstallationPath().'/shared/store/bundles/ZenCartBundle/bridge/includes/application_top.php'."');", $code);
 $code = preg_replace("/require\(.*header.php'\s*\);/", '', $code);
 $code = preg_replace("/require\(.*footer.php'\s*\);/", '', $code);
 $code = preg_replace("/<\/body>\s*<\/html>/s", '', $code);
@@ -74,6 +76,7 @@ if (1 == count($head)) {
 $content = preg_replace("/<html.*?<body[^>]*>/s", '', $content);
 $content = str_replace('id="main"', '', $content);
 $content = str_replace('src="includes', 'src="/'.$adminWeb.'/includes', $content);
+
 $content = str_replace('src="images', 'src="/'.$adminWeb.'/images', $content);
 $content = str_replace(array('onmouseover="rowOverEffect(this)"', 'onmouseout="rowOutEffect(this)"'), '', $content);
 //action="/zmdev/zenmagick/apps/admin/web/index.php?rid=categories&" method="get">
