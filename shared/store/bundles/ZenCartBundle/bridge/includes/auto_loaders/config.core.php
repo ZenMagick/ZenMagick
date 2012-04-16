@@ -123,8 +123,10 @@
                                  'objectName'=>'breadcrumb');
   $autoLoadConfig[160][] = array('autoType'=>'init_script',
                                  'loadFile'=> 'init_category_path.php');
-  $autoLoadConfig[150][] = array('autoType'=>'include_glob',
-                                'loadFile'=> 'includes/functions/{banner.php,featured.php,password_funcs.php,salemaker.php,specials.php}');
+
+  $autoLoadConfig[170][] = array('autoType'=>'init_script',
+                                 'loadFile'=> 'init_add_crumbs.php',
+                                 'loaderPrefix'=>'config');
 
   $autoLoadConfig[170][] = array('autoType'=>'include_glob',
                                  'loadFile'=>array(
