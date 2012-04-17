@@ -248,8 +248,6 @@ class ZenCartBundle extends Bundle {
         // skip more zc request handling
         if (!$this->needsZC($request) && $this->container->get('settingsService')->get('isEnableZMThemes', false)) {
         global $code_page_directory;
-$this->container->get('application')->profile('fix cpd III');
-//\Dumper::stack('fix cpd');
             $code_page_directory = 'zenmagick';
         }
     }
