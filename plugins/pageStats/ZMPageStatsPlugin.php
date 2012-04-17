@@ -123,13 +123,6 @@ class ZMPageStatsPlugin extends Plugin {
     }
 
     /**
-     * Get the database dao.
-     *
-     * @return queryFactory *The* zen-cart <code>queryFactory</code> instance.
-     */
-    private function getDB() { global $db; return $db; }
-
-    /**
      * Generate hidden stats.
      *
      * @param ZMRequest request The current request.
@@ -144,9 +137,6 @@ class ZMPageStatsPlugin extends Plugin {
         $application = Runtime::getApplication();
         echo '  environment: '.$application->getEnvironment()."\n";
         echo '  total page execution: '.$application->getElapsedTime().' secconds;'."\n";
-        if (null != ($db = $this->getDB())) {
-            echo '  db: SQL queries: '.$db->queryCount().', duration: '.round($db->queryTime(), 4).' seconds;';
-        }
         echo '  databases: ';
         foreach (ZMRuntime::getDatabases() as $database) {
             $config = $database->getParams();
@@ -236,9 +226,6 @@ class ZMPageStatsPlugin extends Plugin {
         echo $sep.'environment: <strong>'.$application->getEnvironment().'</strong>;';
         echo $sep.'total page execution: <strong>'.$application->getElapsedTime().'</strong> secconds;';
         echo '<br'.$slash.'>';
-        if (null != ($db = $this->getDB())) {
-            echo $sep.'<strong>db</strong>: SQL queries: <strong>'.$db->queryCount().'</strong>, duration: <strong>'.round($db->queryTime(), 4).'</strong> seconds;';
-        }
         echo '&nbsp;&nbsp;<strong>databases:</strong> ';
         foreach (ZMRuntime::getDatabases() as $database) {
             $config = $database->getParams();
