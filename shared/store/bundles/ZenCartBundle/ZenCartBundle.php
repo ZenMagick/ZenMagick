@@ -240,6 +240,48 @@ class ZenCartBundle extends Bundle {
     }
 
     /**
+     * Things to do after the auto loader is finished, but before going back into index.php
+     */
+    public function onAutoloadDone($event) {
+        $request = $event->get('request');
+
+        // skip more zc request handling
+        if (!$this->needsZC($request) && $this->container->get('settingsService')->get('isEnableZMThemes', false)) {
+        global $code_page_directory;
+$this->container->get('application')->profile('fix cpd III');
+//\Dumper::stack('fix cpd');
+            $code_page_directory = 'zenmagick';
+        }
+    }
+
+    /**
+     * Simple function to check if we need zen-cart request processing.
+     *
+     * @param ZMRequest request The current request.
+     * @return boolean <code>true</code> if zen-cart should handle the request.
+     */
+    private function needsZC($request) {
+        $requestId = $request->getRequestId();
+        if (\ZMLangUtils::inArray($requestId, Runtime::getSettings()->get('apps.store.request.enableZCRequestHandling'))) {
+            Runtime::getLogging()->debug('enable zencart request processing for requestId='.$requestId);
+            return true;
+        }
+        if (false === strpos($requestId, 'checkout_') && 'download' != $requestId) {
+            // not checkout
+            return false;
+        }
+
+        // supported by ZenMagick
+        $supportedCheckoutPages = array('checkout_shipping_address', 'checkout_payment_address', 'checkout_payment', 'checkout_shipping');
+
+        $needs = !in_array($requestId, $supportedCheckoutPages);
+        if ($needs) {
+            Runtime::getLogging()->debug('enable zencart request processing for requestId='.$requestId);
+        }
+        return $needs;
+    }
+
+    /**
      * Handle ZenCart page and session counting
      *
      * @todo add index on startdate field in counter table

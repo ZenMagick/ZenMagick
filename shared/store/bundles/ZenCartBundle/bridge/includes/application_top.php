@@ -13,8 +13,9 @@
  * @version $Id: application_top.php 19731 2011-10-09 17:20:30Z wilt $
  */
 
-use zenmagick\http\HttpApplication;
 use zenmagick\base\Runtime;
+use zenmagick\base\events\Event;
+use zenmagick\http\HttpApplication;
 use zenmagick\apps\store\bundles\ZenCartBundle\ZenCartBundle;
 
 
@@ -45,3 +46,4 @@ foreach ($files as $file) {
 }
 
 require Runtime::getInstallationPath().'/shared/store/bundles/ZenCartBundle/bridge/includes/autoload_func.php';
+Runtime::getEventDispatcher()->dispatch('autoload_done', new Event(null, array('request' => Runtime::getContainer()->get('request'))));
