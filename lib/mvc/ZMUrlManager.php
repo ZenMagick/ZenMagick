@@ -21,6 +21,7 @@
 use zenmagick\base\Beans;
 use zenmagick\base\Runtime;
 use zenmagick\base\Toolbox;
+use zenmagick\base\ZMException;
 use zenmagick\base\ZMObject;
 use zenmagick\base\classloader\ClassLoader;
 use zenmagick\base\logging\Logging;
