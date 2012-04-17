@@ -105,7 +105,7 @@ class Dispatcher extends ZMObject {
             foreach ($this->container->findTaggedServiceIds('zenmagick.http.session.validator') as $id => $args) {
                 if (null != ($validator = $this->container->get($id)) && $validator instanceof SessionValidator) {
                     if (!$validator->isValidSession($request, $request->getSession())) {
-                        $this->container->get('loggingService')->trace('session validation failed %s', $validator);
+                        $this->container->get('loggingService')->trace(sprintf('session validation failed %s', $validator));
                         $this->container->get('messageService')->error('Invalid session');
                         $request->getSession()->regenerate();
                         $result = '';
