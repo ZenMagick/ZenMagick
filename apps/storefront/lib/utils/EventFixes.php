@@ -31,6 +31,9 @@ use zenmagick\http\view\TemplateView;
  * Fixes and stuff that are (can be) event driven.
  *
  * @author DerManoMann <mano@zenmagick.org>
+ * @todo move all code only required by ZenCart to ZenCartBundle.
+ * @todo handle all direct superglobal modifications in a more sane and centralized fashion
+ *       so we don't actually make ZenCart more insecure on accident.
  */
 class EventFixes extends ZMObject {
      /**
@@ -127,6 +130,9 @@ class EventFixes extends ZMObject {
      */
     public function onRequestReady($event) {
         $request = $event->get('request');
+
+        $this->sanitizeRequest($request);
+
         $settingsService = $this->container->get('settingsService');
         $language = $request->getSession()->getLanguage();
         if (null == $language) {
@@ -173,7 +179,6 @@ class EventFixes extends ZMObject {
             $settingsService->set('zenmagick.base.locales.locale', $language->getCode());
         }
 
-        $this->sanitizeRequest($request);
 
         // START: zc_fixes
         // simulate the number of uploads parameter for add to cart
@@ -228,19 +233,99 @@ class EventFixes extends ZMObject {
     }
 
     /**
+     * Fix $_POST[products_id] keys and values.
+     *
+     * Reimplementation of extra_configures/security_patch_v138_20080919.php
+     * for CVE-2008-6985.
+     *
+     * Required for all users of the zencart version of shoppingCart
+     *
+     * @todo make it only required while using ZenCart templates
+     */
+    protected function fixProductIds($ids) {
+        $pattern = '/^[0-9]+(:[0-9a-f]{32})?$/';
+        $ids = new \ArrayIterator((array)$ids);
+        $iter = new \RegexIterator($ids, $pattern, \RegexIterator::MATCH, \RegexIterator::USE_KEY);
+        return iterator_to_array(new \RegexIterator($iter, $pattern, \RegexIterator::MATCH));
+    }
+
+    /**
+     * Fix $_POST['id'] keys and values
+     *
+     * Reimplementation of extra_configures/security_patch_v138_20080919.php
+     * for CVE-2008-6985.
+     *
+     * Required for all users of the zencart version of shoppingCart
+     *
+     * @todo make it only required while using ZenCart templates
+     */
+
+    function fixPostIds($ids) {
+        foreach ($ids as $k => $v) {
+            if (is_int($k)) {
+                $ids[$k] = is_array($ids[$k]) ? $this->fixPostIds($ids[$k]) : (int)$v;
+            } else {
+                if (!preg_match('/[0-9a-zA-Z:._]/', $k)) unset($ids[$k]);
+            }
+        }
+        return $ids;
+    }
+
+    /**
      * Fix a number of things...
      *
      * @param ZMRequest request The current request.
+     *
+     * @todo find a better way/place to add these sanitizers
+     * @todo ZMRequest has no differentiation between _GET/_POST internally so 
+     *       products_id has to be dealt with directly.
      */
     protected function sanitizeRequest($request) {
-        $parameter = $request->getParameterMap(false);
+        $params = $request->getParameterMap();
+        // START CVE-2008-6985 (includes/extra_configures/security_patch_v138_20080919.php)
+        if ('POST' == $request->getMethod()) {
+            if (isset($_POST['products_id'])) {
+                $_POST['products_id'] = $this->fixProductIds($_POST['products_id']);
+            }
+            if (isset($params['notify'])) {
+                $params['notify'] = $this->fixProductIds($params['notify']);
+            }
+            if (isset($params['id']) && is_array($params['id'])) {
+                $params['id'] = $this->fixPostIds($params['id']);
+            }
+        }
+        // END CVE-2008-6985
+        // init_sanitize
+        if (isset($_GET['products_id']) && !preg_match('/^[0-9]+(:[0-9a-f]{32})?$/', $_GET['products_id'])) {
+            unset($_GET['products_id']);
+        }
+        if (isset($params['manufacturers_id'])) {
+            $params['manufacturers_id'] = (int)$params['manufacturers_id'];
+        } 
+        if (isset($params['categories_id'])) {
+            $params['categories_id'] = (int)$params['categories_id'];
+        }
+        if (isset($params['cPath'])) {
+            $params['cPath'] = preg_replace('/[^0-9_]/', '', $params['cPath']);
+        }
+        if (isset($params['sort'])) {
+            $params['sort'] = preg_replace('/[^0-9a-zA-Z]/', '', $params['sort']);
+        }
+        // end init_sanitize
 
         $idName = Runtime::getSettings()->get('zenmagick.http.request.idName');
-        if (!isset($parameter[$idName]) || empty($parameter[$idName])) {
-            $parameter[$idName] = 'index';
+        if (!isset($params[$idName]) || empty($params[$idName])) {
+            $params[$idName] = 'index';
         }
 
-        $request->setParameterMap($parameter);
+        $request->setParameterMap($params);
+        // @todo use overrideGlobals() from symfony request component 
+        foreach (array_keys($_GET) as $v) {
+            $_GET[$v] = $request->getParameter($v);
+        }
+        foreach (array_keys($_POST) as $v) {
+            $_POST[$v] = $request->getParameter($v);
+        }
     }
 
     /**
