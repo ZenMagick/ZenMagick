@@ -64,11 +64,19 @@ class TestShoppingCart extends ZMTestCase {
 
 
     /**
+     * Get a shopping cart instance.
+     */
+    protected function getShoppingCart() {
+        $shoppingCart = new ZMShoppingCart();
+        $shoppingCart->setContainer($this->container);
+        return $shoppingCart;
+    }
+
+    /**
      * Compare values for the given productIds using the wrapper and service.
      */
     protected function compareValues_Wrapper_Service($ids) {
-        $referenceCart = new ZMShoppingCart();
-        $referenceCart->setContainer($this->container);
+        $referenceCart = $this->getShoppingCart();
         $qty = 5;
         foreach ($ids as $id) {
             $referenceCart->addProduct($id, $qty);
@@ -95,8 +103,7 @@ class TestShoppingCart extends ZMTestCase {
      */
     protected function compareValues_Service_Order($ids) {
         // use to add products
-        $referenceCart = new ZMShoppingCart();
-        $referenceCart->setContainer($this->container);
+        $referenceCart = $this->getShoppingCart();
         $qty = 5;
         foreach ($ids as $id) {
             $referenceCart->addProduct($id, $qty);
@@ -197,8 +204,7 @@ class TestShoppingCart extends ZMTestCase {
      * Test change quantity.
      */
     public function testChangeQty() {
-        $shoppingCart = new ZMShoppingCart();
-        $shoppingCart->setContainer($this->container);
+        $shoppingCart = $this->getShoppingCart();
         $shoppingCart->addProduct(12, 3);
 
         $items = $shoppingCart->getItems();
@@ -215,6 +221,28 @@ class TestShoppingCart extends ZMTestCase {
 
         $item = array_pop($items);
         $this->assertEqual(4, $item->getQuantity());
+    }
+
+    /**
+     * Test mkItemId.
+     */
+    public function testMkItemId() {
+        $products = array(
+            5 => array(),
+            '5:abc' => array(),
+            6 => array('foo' => 'bar'),
+            '6:abc' => array('foo' => 'bar'),
+            7 => array('foo' => 'bar', 'x' => 'y'),
+            8 => array('z' => 3, 'foo' => 'bar', 'x' => 'y'),
+            11 => array('foo' => 'bar', 'arr' => array('a', 'b', 'c')),
+            12 => array('foo' => 'bar', 'arr' => array('c', 'b', 'a'))
+        );
+
+        $shoppingCart = $this->getShoppingCart();
+
+        foreach ($products as $productId => $attributes) {
+            $this->assertEqual(zen_get_uprid($productId, $attributes), $shoppingCart::mkItemId($productId, $attributes), sprintf('Failed for productId: %s', $productId));
+        }
     }
 
 }

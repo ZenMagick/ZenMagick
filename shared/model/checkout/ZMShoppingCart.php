@@ -946,17 +946,17 @@ class ZMShoppingCart extends ZMObject {
      * @param string productId The full product id incl. attribute suffix.
      * @param array attrbutes Additional product attributes.
      * @return string The product id.
-     * @todo currently uses <code>zen_get_uprid(..)</code>...
+     * @todo enable ksorts on attribute arrays to avoid different results for unsorted attributes
      */
     public static function mkItemId($productId, $attributes=array()) {
-return zen_get_uprid($productId, $attributes);
         $fullProductId = $productId;
 
         if (is_array($attributes) && 0 < count($attributes) && !strstr($productId, ':')) {
-            krsort($attributes);
+            //krsort($attributes);
             $s = $productId;
             foreach ($attributes as $id => $value) {
 	              if (is_array($value)) {
+                    //krsort($value);
                     foreach ($value as $vid => $vval) {
                         $s .= '{' . $id . '}' . trim($vid);
                     }
@@ -965,6 +965,13 @@ return zen_get_uprid($productId, $attributes);
                 }
             }
             $fullProductId .= ':' . md5($s);
+        }
+
+        if (Runtime::getContainer()->get('settingsService')->get('apps.store.assertZencart', false)) {
+            $uprid = zen_get_uprid($productId, $attributes);
+            if ($uprid != $fullProductId) {
+                echo sprintf('mkItemId differs! uprid=%s, mkItemId=%s', $uprid, $fullProductId).'<br>';
+            }
         }
 
         return $fullProductId;

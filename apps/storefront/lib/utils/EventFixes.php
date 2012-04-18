@@ -41,13 +41,6 @@ class EventFixes extends ZMObject {
      */
     public function zcInit($event) {
         $request = $event->get('request');
-
-        // skip more zc request handling
-        if (!$this->needsZC($request) && Runtime::getSettings()->get('isEnableZMThemes', false)) {
-        global $code_page_directory;
-            $code_page_directory = 'zenmagick';
-        }
-
         $this->fixCategoryPath($request);
         $this->checkAuthorization($request);
         $this->configureLocale($request);
@@ -95,33 +88,6 @@ class EventFixes extends ZMObject {
         if ('login' != $request->getRequestId() && 'logoff' != $request->getRequestId()) {
             $request->setLastUrl();
         }
-    }
-
-    /**
-     * Simple function to check if we need zen-cart request processing.
-     *
-     * @param ZMRequest request The current request.
-     * @return boolean <code>true</code> if zen-cart should handle the request.
-     */
-    private function needsZC($request) {
-        $requestId = $request->getRequestId();
-        if (\ZMLangUtils::inArray($requestId, Runtime::getSettings()->get('apps.store.request.enableZCRequestHandling'))) {
-            Runtime::getLogging()->debug('enable zencart request processing for requestId='.$requestId);
-            return true;
-        }
-        if (false === strpos($requestId, 'checkout_') && 'download' != $requestId) {
-            // not checkout
-            return false;
-        }
-
-        // supported by ZenMagick
-        $supportedCheckoutPages = array('checkout_shipping_address', 'checkout_payment_address', 'checkout_payment', 'checkout_shipping');
-
-        $needs = !in_array($requestId, $supportedCheckoutPages);
-        if ($needs) {
-            Runtime::getLogging()->debug('enable zencart request processing for requestId='.$requestId);
-        }
-        return $needs;
     }
 
     /**
