@@ -77,8 +77,6 @@
   $autoLoadConfig[100][] = array('autoType'=>'classInstantiate',
                                  'className'=>'template_func',
                                  'objectName'=>'template');
-  $autoLoadConfig[100][] = array('autoType'=>'init_script',
-                                 'loadFile'=> 'init_sanitize.php');
 
   $autoLoadConfig[110][] = array('autoType'=>'include',
                                 'loadFile'=>'includes/classes/db/mysql/define_queries.php');
