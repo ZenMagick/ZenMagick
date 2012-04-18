@@ -13,6 +13,7 @@
             <parameter>persistentCache</parameter>
             <parameter>servicesCache</parameter>
             <parameter>templateCache</parameter>
+            <parameter>bootstrapCache</parameter>
         </parameter>
         <parameter key="zenmagick.base.plugins.defaultPluginClass">Plugin</parameter>
     </parameters>

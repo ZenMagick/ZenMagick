@@ -52,6 +52,16 @@
             </call>
         </service>
 
+        <service id="bootstrapCache" class="zenmagick\base\cache\FileCache" scope="container">
+            <call method="init">
+                <argument>bootstrap</argument>
+                <argument type="collection">
+                    <argument key="cacheTTL">null</argument>
+                    <argument key="cacheDir">%zenmagick.cacheBasePath%/files/</argument>
+                </argument>
+            </call>
+        </service>
+
         <service id="classLoader" class="zenmagick\base\classloader\ClassLoader" scope="prototype" />
 
         <service id="loggingService" class="zenmagick\base\logging\Logging" scope="container" />
@@ -66,7 +76,7 @@
 
         <service id="pluginService" class="zenmagick\base\plugins\Plugins" scope="container">
             <call method="setCache">
-                <argument type="service" id="persistentCache" />
+                <argument type="service" id="bootstrapCache" />
             </call>
         </service>
 
@@ -95,6 +105,5 @@
 
         <service id="phpCompressor" class="zenmagick\base\utils\packer\PhpCompressor" scope="prototype" />
         <service id="phpPackagePacker" class="zenmagick\base\utils\packer\PhpPackagePacker" scope="prototype" />
-
     </services>
 </container>
