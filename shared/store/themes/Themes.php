@@ -126,7 +126,10 @@ class Themes extends ZMObject {
      * @return Theme The active theme.
      */
     public function getActiveTheme() {
-        $languageId = $this->initLanguage_->getId();
+        $languageId = 0;
+        if (null != $this->initLanguage_) {
+            $languageId = $this->initLanguage_->getId();
+        }
         $length = count($this->themeChain_[$languageId]);
         return $this->themeChain_[$languageId][$length-1];
     }
