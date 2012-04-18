@@ -54,15 +54,16 @@ class FileCache extends ZMObject implements Cache {
         if (!isset($config['cacheDir'])) {
             throw new \RuntimeException('missing cacheDir');
         }
-        $config = array(
+        $defaults = array(
             'automaticSerialization' => true,
-            'cacheDir' => $config['cacheDir']
         );
+        $config = array_merge($defaults, $config);
+        if (array_key_exists('cacheTTL', $config)) {
+            $config['lifeTime'] = $config['cacheTTL'];
+            unset($config['cacheTTL']);
+        }
         $this->ensureCacheDir($config['cacheDir']);
         $this->metaCache_ = new CacheLite($config);
-        if (isset($config['cacheTTL'])) {
-            $config['lifeTime'] = $config['cacheTTL'];
-        }
         $this->group_ = $group;
         $this->available_ = $this->ensureCacheDir($config['cacheDir']);
         $this->cache_ = new CacheLite($config);
