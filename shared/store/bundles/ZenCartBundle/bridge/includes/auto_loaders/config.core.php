@@ -43,10 +43,6 @@
   $autoLoadConfig[60][] = array('autoType'=>'include_glob',
                                 'loadFile'=> 'includes/functions/extra_functions/*.php');
 
-  $autoLoadConfig[60][] = array('autoType'=>'include',
-                                'loadFile'=> 'includes/modules/payment/paypal/paypal_functions.php',
-                                'loaderPrefix'=>'paypal_ipn');
-
   $autoLoadConfig[70][] = array('autoType'=>'service',
                                 'name'=>'session', 'method'=>'getToken', 'session' => true,
                                 'resultVar'=>'securityToken');
@@ -65,10 +61,6 @@
                                 'checkInstantiated'=>true,
                                 'classSession'=>true,
                                 'loaderPrefix'=>'config');
-
- $autoLoadConfig[81][] = array('autoType'=>'init_script',
-                                'loadFile'=> 'init_paypal_ipn_sessions.php',
-                                'loaderPrefix'=>'paypal_ipn');
 
   $autoLoadConfig[90][] = array('autoType'=>'classInstantiate',
                                 'className'=>'currencies',
@@ -126,9 +118,4 @@
                                  'loadFile'=> 'init_add_crumbs.php',
                                  'loaderPrefix'=>'config');
 
-  $autoLoadConfig[170][] = array('autoType'=>'include_glob',
-                                 'loadFile'=>array(
-                                                   'includes/languages/%language%/%template_dir%/checkout_process.php',
-                                                   'includes/languages/%language%/checkout_process.php'),
-                                 'loaderPrefix'=>'paypal_ipn');
 
