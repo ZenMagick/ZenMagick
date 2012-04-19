@@ -57,6 +57,7 @@ class Application {
             'installationPath' => dirname(dirname(__DIR__)),
             'cli' => php_sapi_name() == 'cli',
             'profile' => true,
+            'enablePlugins' => null,
 
             // packages
             'packageBase' => basename(dirname(dirname(__DIR__))),
@@ -73,6 +74,7 @@ class Application {
             'context' => null,
             'defaultLocale' => 'en',
             'appConfig' => array(),
+            'appContainer' => array(),
 
             // ini
             'display_errors'=> false,
@@ -363,7 +365,7 @@ class Application {
         $settingsService->set('zenmagick.base.context', $this->config['context'] ? $this->config['context'] : $this->config['appName']);
 
         // as default disable plugins for CLI calls
-        $settingsService->set('zenmagick.base.plugins.enabled', !$this->config['cli']);
+        $settingsService->set('zenmagick.base.plugins.enabled', (!$this->config['cli'] || (null !== $this->config['enablePlugins'] ? $this->config['enablePlugins'] : false)));
     }
 
     /**
@@ -437,6 +439,14 @@ class Application {
         if ($applicationPath = $this->config['applicationPath']) {
             $container = Runtime::getContainer();
             $containerConfig = Toolbox::resolveWithEnv($applicationPath.'/config/container.xml');
+            if (file_exists($containerConfig)) {
+                $containerLoader = new XmlFileLoader($container, new FileLocator(dirname($containerConfig)));
+                $containerLoader->load(basename($containerConfig));
+            }
+        }
+        foreach ($this->config['appContainer'] as $file) {
+            $container = Runtime::getContainer();
+            $containerConfig = Toolbox::resolveWithEnv($file);
             if (file_exists($containerConfig)) {
                 $containerLoader = new XmlFileLoader($container, new FileLocator(dirname($containerConfig)));
                 $containerLoader->load(basename($containerConfig));
