@@ -193,6 +193,7 @@ class ZenCartBundle extends Bundle {
      */
     public function onContainerReady($event) {
         $request = $event->get('request');
+
         // needed throughout sadly
         $GLOBALS['session_started'] = true;
         $GLOBALS['request_type'] = $request->isSecure() ? 'SSL' : 'NONSSL';
@@ -221,6 +222,10 @@ class ZenCartBundle extends Bundle {
                 \ZMRuntime::getDatabase()->createModel('admin_activity_log', $data);
             }
         } else {
+            // init_canonical needs this
+            global $current_page;
+            $current_page = $request->getRequestId();
+
             $this->handleCounter($event);
             /**
              * only used in the orders class and old email functions
@@ -247,8 +252,12 @@ class ZenCartBundle extends Bundle {
 
         // skip more zc request handling
         if (!$this->needsZC($request) && $this->container->get('settingsService')->get('isEnableZMThemes', false)) {
-        global $code_page_directory;
+            global $code_page_directory;
             $code_page_directory = 'zenmagick';
+        } else {
+            global $code_page_directory, $current_page_base;
+            $current_page_base = $request->getRequestId();
+            $code_page_directory = 'includes/modules/pages/'.$request->getRequestId();
         }
     }
 
