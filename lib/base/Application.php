@@ -302,20 +302,16 @@ class Application {
 
                 if (array_key_exists('preEvent', $step)) {
                     $eventName = $step['preEvent'];
-                    $this->profile(sprintf('fire event: %s', $eventName));
                     $this->fireEvent($eventName);
-                    $this->profile(sprintf('finished event: %s', $eventName));
                 }
                 foreach ((array)$step['methods'] as $method) {
-                    $this->profile(sprintf('enter method: %s', $method));
+                    $this->profile(sprintf('enter bootstrap method: %s', $method));
                     $this->$method();
-                    $this->profile(sprintf('exit method: %s', $method));
+                    $this->profile(sprintf('exit bootstrap method: %s', $method));
                 }
                 if (array_key_exists('postEvent', $step)) {
                     $eventName = $step['postEvent'];
-                    $this->profile(sprintf('fire event: %s', $eventName));
                     $this->fireEvent($eventName);
-                    $this->profile(sprintf('finished event: %s', $eventName));
                 }
                 $this->bootstrap[$ii]['done'] = true;
             }

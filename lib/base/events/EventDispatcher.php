@@ -20,8 +20,9 @@
 namespace zenmagick\base\events;
 
 use stdClass;
-use \Symfony\Component\EventDispatcher\Event;
-use \Symfony\Component\EventDispatcher\EventDispatcher as SymfonyEventDispatcher;
+use zenmagick\base\Runtime;
+use Symfony\Component\EventDispatcher\Event;
+use Symfony\Component\EventDispatcher\EventDispatcher as SymfonyEventDispatcher;
 
 /**
  * The ZenMagick event service.
@@ -57,8 +58,12 @@ class EventDispatcher extends SymfonyEventDispatcher {
      * {@inheritDoc}
      */
     public function dispatch($eventName, Event $event = null) {
+        $application = Runtime::getContainer()->get('application');
+        $application->profile(sprintf('fire event: %s', $eventName));
+
         // use hasListeners rather than looking at the private listeners property
         if (!$this->hasListeners($eventName)) {
+            $application->profile(sprintf('finished event: %s', $eventName));
             return;
         }
 if (false) {
@@ -78,6 +83,7 @@ if (false) {
         $event->setName($eventName);
 
         $this->doDispatch($this->getListeners($eventName), $eventName, $event);
+        $application->profile(sprintf('finished event: %s', $eventName));
     }
 
     /**
