@@ -119,6 +119,70 @@ class EventFixes extends ZMObject {
     }
 
     /**
+     * Handle ZC style cart actions.
+     *
+     * MUST HAPPEN AFTER sanitizeRequest()!
+     */
+    public function handleCart($event) {
+        $request = $event->get('request');
+        $session = $request->getSession();
+        $settingsService = $this->container->get('settingsService');
+        $action = $request->getParameter('action');
+
+        $cartActionMap = array(
+            'update_product' => 'actionUpdateProduct',
+            'add_product' => 'actionAddProduct',
+            'buy_now' => 'actionBuyNow',
+            'multiple_products_add_product' => 'actionMultipleAddProduct',
+            'notify' => 'actionNotify',
+            'notify_remove' => 'actionNotifyRemove',
+            'cust_order' => 'actionCustomerOrder',
+            'remove_product' => 'actionRemoveProduct',
+            'cart' => 'actionCartUserAction',
+            'empty_cart' => 'reset',
+        );
+
+        if (!in_array($action, array_keys($cartActionMap))) return;
+        if (!$session->isStarted()) {
+            $request->redirect($request->url(Runtime::getSettings()->get('zenmagick.http.request.invalidSession')));
+        }
+
+        if ($settingsService->get('isShowCartAfterAddProduct')) {
+            $redirectTarget =  'shopping_cart';
+            $params = array('action', 'cPath', 'products_id', 'pid', 'main_page');
+        } else {
+            $redirectTarget = $request->getRequestId();
+            if ($action == 'buy_now') {
+                if (strpos($redirectTarget, 'reviews') > 1) {
+                    $params = array('action');
+                    $redirectTarget = 'product_reviews';
+                } else {
+                    $params = array('action', 'products_id');
+                }
+            } else {
+                $params = array('action', 'pid', 'main_page');
+            }
+        }
+
+        $cart = $request->getShoppingCart();
+        if ('empty_cart' == $action) $redirectTarget = true; 
+        if ('add_product' == $action) {
+            $uploads = 0;
+            foreach ($request->getParameterMap() as $name => $value) {
+                if (\ZMLangUtils::startsWith($name, $settingsService->get('uploadOptionPrefix'))) {
+                    ++$uploads;
+                }
+            }
+            $_GET['number_of_uploads'] = $uploads;
+        }
+
+        $cartMethod = isset($cartActionMap[$action]) ? $cartActionMap[$action] : null;
+        if (null != $cartMethod) {
+            call_user_func_array(array($cart->cart_, $cartMethod), array($redirectTarget, $params));
+        }
+    }
+
+    /**
      * More store startup code.
      */
     public function onContainerReady($event) {
@@ -145,18 +209,9 @@ class EventFixes extends ZMObject {
             $settingsService->set('zenmagick.base.locales.locale', $language->getCode());
         }
 
-
+        $this->handleCart($event);
         // START: zc_fixes
         // simulate the number of uploads parameter for add to cart
-        if ('add_product' == $request->getParameter('action')) {
-            $uploads = 0;
-            foreach ($request->getParameterMap() as $name => $value) {
-                if (\ZMLangUtils::startsWith($name, $settingsService->get('uploadOptionPrefix'))) {
-                    ++$uploads;
-                }
-            }
-            $_GET['number_of_uploads'] = $uploads;
-        }
 
         // make action work with zen-cart cart and checkout code
         if (isset($_POST['action']) && !isset($_GET['action'])) {
