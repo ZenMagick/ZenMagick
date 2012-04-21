@@ -153,56 +153,6 @@ class Session extends \zenmagick\http\session\Session {
     }
 
     /**
-     * Save the given messages in the session.
-     *
-     * @param array messages A list of <code>Message</code> objects.
-     */
-    public function setMessages($messages) {
-        $messageToStack = $this->getValue('messageToStack');
-        if (!is_array($messageToStack)) {
-            $sessionMessages = array();
-        }
-
-        foreach ($messages as $msg) {
-            array_push($sessionMessages, array('class' => $msg->getRef(), 'text' => $msg->getText(), 'type' => $msg->getType()));
-        }
-
-        $this->setValue('messageToStack', $sessionMessages);
-    }
-
-    /**
-     * Clear all session messages.
-     */
-    public function clearMessages() {
-        $this->setValue('messageToStack', '');
-        // just in case
-        $this->setValue('messages', '');
-        $this->setValue('messages', '', 'zenmagick.http');
-    }
-
-    /**
-     * Get all session messages.
-     *
-     * @param array Messages.
-     * @deprecated
-     */
-    public function getMessages() {
-        $messages = array();
-        $messageToStack = $this->getValue('messageToStack');
-        if (is_array($messageToStack)) {
-            foreach ($messageToStack as $arr) {
-                $message = Runtime::getContainer()->get('ZMMessage');
-                $message->setText($arr['text']);
-                $message->setType($arr['type']);
-                $message->setRef($arr['class']);
-                $messages[] = $message;
-            }
-        }
-
-        return $messages;
-    }
-
-    /**
      * Get the client ip address.
      *
      * @return string The client IP address or <code>null</code>.
