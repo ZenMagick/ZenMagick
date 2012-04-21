@@ -200,27 +200,12 @@ class ZenCartBundle extends Bundle {
         $GLOBALS['PHP_SELF'] = $_SERVER['PHP_SELF'];
 
         if (Runtime::isContextMatch('admin')) {
-            $settingsService = $this->container->get('settingsService');
 
             // @todo shouldn't assume we already have a menu, but we have to since the $adminMenu is never checked for emptiness only null
             $adminMenu = $this->container->get('adminMenu');
             $menuLoader = new MenuLoader();
             $menuLoader->load(__DIR__.'/Resources/config/admin/menu.yaml', $adminMenu);
 
-            $settingsService->set('apps.store.baseUrl', 'http://'.$request->getHostname().str_replace('zenmagick/apps/admin/web', '', $request->getContext()));
-            if ('index' != $request->getRequestId()) {
-                $params = $request->getParameterMap(true);
-                $idName = $request->getRequestIdKey();
-                if (isset($params[$idName])) unset($params[$idName]);
-                $data = array(
-                    'admin_id' => (null !== $request->getUser()) ? $request->getUser()->getId() : 0,
-                    'access_date' => new \DateTime(),
-                    'page_accessed' => $request->getRequestId(),
-                    'page_parameters' => http_build_query($params),
-                    'ip_address' => $_SERVER['REMOTE_ADDR']
-                );
-                \ZMRuntime::getDatabase()->createModel('admin_activity_log', $data);
-            }
         } else {
             // init_canonical needs this
             global $current_page;
