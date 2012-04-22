@@ -209,7 +209,7 @@ class ZMSalemakerSale extends ZMObject {
      * @return date $dateStart
      */
     public function getDateStart() {
-        return $this->dateStart == ZMDatabase::NULL_DATE ? null : $this->dateStart;
+        return $this->dateStart == \ZMDatabase::NULL_DATE ? null : $this->dateStart;
     }
 
     /**
@@ -218,7 +218,7 @@ class ZMSalemakerSale extends ZMObject {
      * @return date $dateEnd
      */
     public function getDateEnd() {
-        return $this->dateEnd == ZMDatabase::NULL_DATE ? null : $this->dateEnd;
+        return $this->dateEnd == \ZMDatabase::NULL_DATE ? null : $this->dateEnd;
     }
 
     /**
@@ -227,7 +227,7 @@ class ZMSalemakerSale extends ZMObject {
      * @return date $dateAdded
      */
     public function getDateAdded() {
-        return $this->dateAdded == ZMDatabase::NULL_DATE ? null : $this->dateAdded;
+        return $this->dateAdded == \ZMDatabase::NULL_DATE ? null : $this->dateAdded;
     }
 
     /**
@@ -236,7 +236,7 @@ class ZMSalemakerSale extends ZMObject {
      * @return date $dateLastModified
      */
     public function getDateLastModified() {
-        return $this->dateLastModified == ZMDatabase::NULL_DATE ? null : $this->dateLastModified;
+        return $this->dateLastModified == \ZMDatabase::NULL_DATE ? null : $this->dateLastModified;
     }
 
     /**
@@ -245,7 +245,16 @@ class ZMSalemakerSale extends ZMObject {
      * @return date $dateStatusChange
      */
     public function getDateStatusChange() {
-        return $this->dateStatusChange == ZMDatabase::NULL_DATE ? null : $this->dateStatusChange;
+        return $this->dateStatusChange == \ZMDatabase::NULL_DATE ? null : $this->dateStatusChange;
+    }
+
+    /**
+     * Set sale id
+     *
+     * @param int $id
+     */
+    public function setSaleId($id) {
+        $this->saleId = $id;
     }
 
     /**
