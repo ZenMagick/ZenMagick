@@ -115,9 +115,13 @@ class CatalogRssFeedSource extends ZMObject implements RssSource {
             $item->setDescription($desc);
             $item->setPubDate($product->getDateAdded());
 
-            $tags = array('category', 'model');
-            $item->set('category', $product->getDefaultCategory()->getId());
+            $tags = array('id', 'model');
+            $item->set('id', $product->getId());
             $item->set('model', $product->getModel());
+            if (null != ($defaultCategory = $product->getDefaultCategory())) {
+                $tags[] = 'category';
+                $item->set('category', $defaultCategory->getId());
+            }
 
             if ($isCatalog) {
                 $tags[] = 'price';
@@ -125,6 +129,15 @@ class CatalogRssFeedSource extends ZMObject implements RssSource {
                 $item->set('price', $offers->getCalculatedPrice());
                 $tags[] = 'type';
                 $item->set('type', 'product');
+
+                if (null != ($manufacturer = $product->getManufacturer())) {
+                    $tags[] = 'brand';
+                    $item->set('brand', $manufacturer->getName());
+                }
+                if (null != ($imageInfo = $product->getImageInfo())) {
+                    $tags[] = 'img';
+                    $item->set('img', $imageInfo->getDefaultImage());
+                }
             }
 
             $item->setTags($tags);
