@@ -1,0 +1,5 @@
+meta:
+  name: 'Recently Viewed'
+  version: '${zenmagick.version}'
+  author: 'zenmagick.org'
+  description: 'Track and display recently viewed products'
