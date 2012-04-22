@@ -171,7 +171,7 @@ class SideboxDummyPatch extends FilePatch {
                 $handle = opendir($boxPath);
                 $zmBoxes = array();
                 while (false !== ($file = readdir($handle))) {
-                    if (is_file($boxPath.$file) && false === strpos($file, '.in.')) {
+                    if (is_file($boxPath.'/'.$file) && false === strpos($file, '.in.')) {
                         $zmBoxes[$file] = $file;
                     }
                 }
