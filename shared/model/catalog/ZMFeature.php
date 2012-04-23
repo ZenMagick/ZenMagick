@@ -87,7 +87,7 @@ class ZMFeature extends ZMObject {
     public function getId() { return $this->id; }
 
     /**
-     * Get the featured producdt id 
+     * Get the featured producdt id
      *
      * @return integer $productId
      */
@@ -143,7 +143,7 @@ class ZMFeature extends ZMObject {
     public function setId($id) { $this->id = $id; }
 
     /**
-     * Set the featured product id 
+     * Set the featured product id
      *
      * @param integer $productId
      */

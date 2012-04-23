@@ -1,5 +1,5 @@
 <?php
-/** 
+/**
  * File contains just the base class
  *
  * @package classes
@@ -18,7 +18,7 @@
  * It has been modified to pass certain events to ZenMagick.
  * See notifyZenMagick() for details.
  *
- * 
+ *
  */
 class base {
 
@@ -26,12 +26,12 @@ class base {
 
     /**
      * Attach an observer to the notifier object
-     * 
+     *
      * NB. We have to get a little sneaky here to stop session based classes adding events ad infinitum
      * To do this we first concatenate the class name with the event id, as a class is only ever going to attach to an
      * event id once, this provides a unigue key. To ensure there are no naming problems with the array key, we md5 the unique
-     * name to provide a unique hashed key. 
-     * 
+     * name to provide a unique hashed key.
+     *
      * @param object objserver Reference to the observer class
      * @param array eventIds An array of event ids to observe
      */
@@ -49,7 +49,7 @@ class base {
      * @param array eventIds
      */
     function detach($observer, $eventIds) {
-        foreach ($eventIds as $eventId) {    
+        foreach ($eventIds as $eventId) {
             $nameHash = md5(get_class($observer).$eventId);
             self::unsetStaticObserver($nameHash);
         }
@@ -57,7 +57,7 @@ class base {
 
     /**
      * Notify observers that an event as occurred in the notifier object
-     * 
+     *
      * @param string eventId The event ID to notify for
      * @param array params paramters to pass to the observer, useful for passing stuff which is outside of the 'scope' of the observed class.
      */

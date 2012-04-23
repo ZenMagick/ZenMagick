@@ -165,7 +165,7 @@ class EventFixes extends ZMObject {
         }
 
         $cart = $request->getShoppingCart();
-        if ('empty_cart' == $action) $redirectTarget = true; 
+        if ('empty_cart' == $action) $redirectTarget = true;
         if ('add_product' == $action) {
             $uploads = 0;
             foreach ($request->getParameterMap() as $name => $value) {
@@ -298,7 +298,7 @@ class EventFixes extends ZMObject {
      * @param ZMRequest request The current request.
      *
      * @todo find a better way/place to add these sanitizers
-     * @todo ZMRequest has no differentiation between _GET/_POST internally so 
+     * @todo ZMRequest has no differentiation between _GET/_POST internally so
      *       products_id has to be dealt with directly.
      */
     protected function sanitizeRequest($request) {
@@ -322,7 +322,7 @@ class EventFixes extends ZMObject {
         }
         if (isset($params['manufacturers_id'])) {
             $params['manufacturers_id'] = (int)$params['manufacturers_id'];
-        } 
+        }
         if (isset($params['categories_id'])) {
             $params['categories_id'] = (int)$params['categories_id'];
         }
@@ -340,7 +340,7 @@ class EventFixes extends ZMObject {
         }
 
         $request->setParameterMap($params);
-        // @todo use overrideGlobals() from symfony request component 
+        // @todo use overrideGlobals() from symfony request component
         foreach (array_keys($_GET) as $v) {
             $_GET[$v] = $request->getParameter($v);
         }

@@ -32,7 +32,7 @@ use zenmagick\apps\store\admin\utils\SQLRunner;
  * @author DerManoMann <mano@zenmagick.org>
  */
 class SQLPatch extends InstallationPatch {
-    protected $tables; 
+    protected $tables;
 
     /**
      * Create new patch.

@@ -111,7 +111,7 @@ class ConfigPatch extends SQLPatch {
         }
 
         if (null == $configService->getConfigValue('SESSION_ADD_PERIOD_PREFIX')) {
-            $title = 'Add period prefix to cookie domain'; 
+            $title = 'Add period prefix to cookie domain';
             $description = 'Normally a period will be added to the cookie domain, (<strong>.www.mydomain.com</strong>).
                 This sometimes causes problems with some server configurations. Try setting this to False if you have having session problems.';
             $setFunction = "zen_cfg_select_option(array('True', 'False'),";

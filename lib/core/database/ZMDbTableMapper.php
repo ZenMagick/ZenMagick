@@ -134,7 +134,7 @@ class ZMDbTableMapper extends ZMObject {
      */
     public function addPropertyForTable($table, $name, $info) {
         $table = str_replace($this->tablePrefix_, '', $table);
-        $defaults = array('property' => $name, 'key' => false, 'auto' => false, 'custom' => false, 'default' => null); 
+        $defaults = array('property' => $name, 'key' => false, 'auto' => false, 'custom' => false, 'default' => null);
         $this->tableMap_[$table][$name] = array_merge($defaults, (array)$info);
     }
 

@@ -35,7 +35,7 @@ class queryFactory {
         $this->hasResultCache = null != ZMRuntime::getDatabase()->getConfiguration()->getResultCacheImpl();
     }
 
-    /** 
+    /**
      * Get a ext/mysql resource
      * @param array $params an array of mysql connection optons that match the PDO dsn.
      *                     If you do not specify any parameters. it will use the
@@ -93,7 +93,7 @@ class queryFactory {
         try {
             $stmt = ZMRuntime::getDatabase()->executeQuery($sql, array(), array(), $qcp);
         } catch (PDOException $e) {
-            throw new ZMDatabaseException($e->getMessage(), $e->getCode(), $e); 
+            throw new ZMDatabaseException($e->getMessage(), $e->getCode(), $e);
         }
 
         $obj = new queryFactoryResult($stmt);
@@ -179,7 +179,7 @@ class queryFactory {
     /**
      * Bind a value to a type
      *
-     * This function doesn't do real bind vars, just replaces :column to value by 
+     * This function doesn't do real bind vars, just replaces :column to value by
      * str_replace and performs some basic XSS protection.
      *
      *
@@ -317,7 +317,7 @@ class queryFactoryResult {
      *
      * This cursor only moves forward. There is only one caller
      * (<code>zen_random_row</code>) of this method in ZenCart
-     * and all callers of that are commented out as of ZenCart 1.5.0 
+     * and all callers of that are commented out as of ZenCart 1.5.0
      * so it doesn't seem worth it to implement a scrollable cursor here.
      *
      * This method also silently stops when it reaches the last result

@@ -19,7 +19,7 @@
  */
 
 /**
- * Simplified ZenCart langauge class. 
+ * Simplified ZenCart langauge class.
  */
 class language {
     public $catalog_languages = array(); // this tends to be accessed directly, so it must stay public

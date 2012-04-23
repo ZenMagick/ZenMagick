@@ -65,7 +65,7 @@ class ZMImageInfo extends ZMObject {
             $imageBase = $comp[2];
 
             $toolbox = $this->container->get('request')->getToolbox();
-            $settingsService = $this->container->get('settingsService'); 
+            $settingsService = $this->container->get('settingsService');
             // @todo we don't really want to use images from where zencart is, but from where the app is
             $zcPath = $settingsService->get('apps.store.zencart.path');
             // set default image

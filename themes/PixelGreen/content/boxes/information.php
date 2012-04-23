@@ -28,4 +28,4 @@
   <li><a href="<?php echo $net->staticPage('privacy') ?>"><?php _vzm("Our Privacy Policy") ?></a></li>
   <li><a href="<?php echo $net->staticPage('conditions') ?>"><?php _vzm("Conditions") ?></a></li>
   <li><a href="<?php echo $net->url('contact_us') ?>"><?php _vzm("Contact Us") ?></a></li>
-</ul>	
+</ul>

@@ -107,7 +107,7 @@ foreach ($autoLoadConfig as $actionPoint => $row) {
                         include $file;
                     }
                 }
-            }   
+            }
         }
     }
 }
