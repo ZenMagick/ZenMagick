@@ -1,8 +1,0 @@
-admin:
-  container:
-    services:
-      productImagesTabController:
-        class: ZMProductImagesTabController
-        scope: container
-        tags:
-          - { name: apps.store.admin.tabcontroller }

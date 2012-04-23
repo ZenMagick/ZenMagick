@@ -19,7 +19,7 @@
  */
 
 use zenmagick\base\Runtime;
-use zenmagick\http\request\rewriter\UrlRewriter;
+use zenmagick\http\request\UrlRewriter;
 use zenmagick\apps\store\storefront\http\request\StoreDefaultUrlRewriter;
 
 /**
@@ -48,7 +48,7 @@ class ZMPrettyLinksUrlRewriter implements UrlRewriter {
         $isStatic = isset($args['isStatic']) ? $args['isStatic'] : false;
         $useContext = isset($args['useContext']) ? $args['useContext'] : true;
 
-        $settingsService = $this->container->get('settingsService');
+        $settingsService = Runtime::getContainer()->get('settingsService');
         if (null != $settingsService->get('plugins.prettyLinks.seoEnabled') && !ZMLangUtils::inArray($requestId, $settingsService->get('plugins.prettyLinks.seoEnabled'))) {
             // not doing anything
             return null;
