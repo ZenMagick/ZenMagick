@@ -27,16 +27,4 @@ use zenmagick\base\ZMException;
  * @package org.zenmagick.core.database
  */
 class ZMDatabaseException extends ZMException {
-
-    /**
-     * Create new instance.
-     *
-     * @param string message The message; default is <code>null</code>.
-     * @param int code The exception code; default is <em>0</em>.
-     * @param Exception previous The original exception (if any) for chaining; default is <code>null</code>.
-     */
-    function __construct($message=null, $code=0, $previous=null) {
-        parent::__construct($message, $code, $previous);
-    }
-
 }

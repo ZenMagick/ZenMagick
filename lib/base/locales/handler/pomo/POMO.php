@@ -68,14 +68,14 @@ class Translation_Entry {
 		// prepend context and EOT, like in MO files
 		return is_null($this->context)? $this->singular : $this->context.chr(4).$this->singular;
 	}
-	
+
 	function merge_with(&$other) {
 		$this->flags = array_unique( array_merge( $this->flags, $other->flags ) );
 		$this->references = array_unique( array_merge( $this->references, $other->references ) );
 		if ( $this->extracted_comments != $other->extracted_comments ) {
 			$this->extracted_comments .= $other->extracted_comments;
 		}
-		
+
 	}
 }
 endif;
@@ -93,15 +93,15 @@ endif;
 
 if ( !class_exists( 'POMO_Reader' ) ):
 class POMO_Reader {
-	
+
 	var $endian = 'little';
 	var $_post = '';
-	
+
 	function __construct() {
 		$this->is_overloaded = ((ini_get("mbstring.func_overload") & 2) != 0) && function_exists('mb_substr');
 		$this->_pos = 0;
 	}
-	
+
 	/**
 	 * Sets the endianness of the file.
 	 *
@@ -140,8 +140,8 @@ class POMO_Reader {
 		$endian_letter = ('big' == $this->endian)? 'N' : 'V';
 		return unpack($endian_letter.$count, $bytes);
 	}
-	
-	
+
+
 	function substr($string, $start, $length) {
 		if ($this->is_overloaded) {
 			return mb_substr($string, $start, $length, 'ascii');
@@ -149,7 +149,7 @@ class POMO_Reader {
 			return substr($string, $start, $length);
 		}
 	}
-	
+
 	function strlen($string) {
 		if ($this->is_overloaded) {
 			return mb_strlen($string, 'ascii');
@@ -157,7 +157,7 @@ class POMO_Reader {
 			return strlen($string);
 		}
 	}
-	
+
 	function str_split($string, $chunk_size) {
 		if (!function_exists('str_split')) {
 			$length = $this->strlen($string);
@@ -169,8 +169,8 @@ class POMO_Reader {
 			return str_split( $string, $chunk_size );
 		}
 	}
-	
-		
+
+
 	function pos() {
 		return $this->_pos;
 	}
@@ -178,7 +178,7 @@ class POMO_Reader {
 	function is_resource() {
 		return true;
 	}
-	
+
 	function close() {
 		return true;
 	}
@@ -191,11 +191,11 @@ class POMO_FileReader extends POMO_Reader {
 		parent::__construct();
 		$this->_f = fopen($filename, 'rb');
 	}
-	
+
 	function read($bytes) {
 		return fread($this->_f, $bytes);
 	}
-	
+
 	function seekto($pos) {
 		if ( -1 == fseek($this->_f, $pos, SEEK_SET)) {
 			return false;
@@ -203,19 +203,19 @@ class POMO_FileReader extends POMO_Reader {
 		$this->_pos = $pos;
 		return true;
 	}
-	
+
 	function is_resource() {
 		return is_resource($this->_f);
 	}
-	
+
 	function feof() {
 		return feof($this->_f);
 	}
-	
+
 	function close() {
 		return fclose($this->_f);
 	}
-	
+
 	function read_all() {
 		$all = '';
 		while ( !$this->feof() )
@@ -231,9 +231,9 @@ if ( !class_exists( 'POMO_StringReader' ) ):
  * of a physical file.
  */
 class POMO_StringReader extends POMO_Reader {
-	
+
 	var $_str = '';
-	
+
 	function __construct($str = '') {
 		parent::__construct();
 		$this->_str = $str;
@@ -261,7 +261,7 @@ class POMO_StringReader extends POMO_Reader {
 	function read_all() {
 		return $this->substr($this->_str, $this->_pos, $this->strlen($this->_str));
 	}
-	
+
 }
 endif;
 
@@ -285,9 +285,6 @@ if ( !class_exists( 'POMO_CachedIntFileReader' ) ):
  * Reads the contents of the file in the beginning.
  */
 class POMO_CachedIntFileReader extends POMO_CachedFileReader {
-	function __construct($filename) {
-		parent::__construct($filename);
-	}
 }
 endif;
  /* .tmp\flat\translations.php */ ?>
@@ -323,7 +320,7 @@ class Translations {
 		$this->entries[$key] = &$entry;
 		return true;
 	}
-	
+
 	function add_entry_or_merge($entry) {
 		if (is_array($entry)) {
 			$entry = new Translation_Entry($entry);
@@ -415,7 +412,7 @@ class Translations {
 			$this->entries[$entry->key()] = $entry;
 		}
 	}
-	
+
 	function merge_originals_with(&$other) {
 		foreach( $other->entries as $entry ) {
 			if ( !isset( $this->entries[$entry->key()] ) )
@@ -442,7 +439,7 @@ class Gettext_Translations extends Translations {
 		}
 		return call_user_func($this->_gettext_select_plural_form, $count);
 	}
-	
+
 	function nplurals_and_expression_from_header($header) {
 		if (preg_match('/^\s*nplurals\s*=\s*(\d+)\s*;\s+plural\s*=\s*(.+)$/', $header, $matches)) {
 			$nplurals = (int)$matches[1];
@@ -468,7 +465,7 @@ class Gettext_Translations extends Translations {
 	/**
 	 * Adds parantheses to the inner parts of ternary operators in
 	 * plural expressions, because PHP evaluates ternary oerators from left to right
-	 * 
+	 *
 	 * @param string $expression the expression without parentheses
 	 * @return string the expression with parentheses added
 	 */
@@ -496,7 +493,7 @@ class Gettext_Translations extends Translations {
 		}
 		return rtrim($res, ';');
 	}
-	
+
 	function make_headers($translation) {
 		$headers = array();
 		// sometimes \ns are used instead of real new lines
@@ -509,7 +506,7 @@ class Gettext_Translations extends Translations {
 		}
 		return $headers;
 	}
-	
+
 	function set_header($header, $value) {
 		parent::set_header($header, $value);
 		if ('Plural-Forms' == $header) {
@@ -528,7 +525,7 @@ if ( !class_exists( 'NOOP_Translations' ) ):
 class NOOP_Translations {
 	var $entries = array();
 	var $headers = array();
-	
+
 	function add_entry($entry) {
 		return true;
 	}
@@ -605,7 +602,7 @@ class MO extends Gettext_Translations {
 		fclose($fh);
 		return $res;
 	}
-	
+
 	function export() {
 		$tmp_fh = fopen("php://temp", 'r+');
 		if ( !$tmp_fh ) return false;
@@ -613,7 +610,7 @@ class MO extends Gettext_Translations {
 		rewind( $tmp_fh );
 		return stream_get_contents( $tmp_fh );
 	}
-	
+
 	function export_to_file_handle($fh) {
 		$entries = array_filter($this->entries, create_function('$e', 'return !empty($e->translations);'));
 		ksort($entries);
@@ -628,7 +625,7 @@ class MO extends Gettext_Translations {
 		fwrite($fh, pack('V*', $magic, $revision, $total, $originals_lenghts_addr,
 			$translations_lenghts_addr, $size_of_hash, $hash_addr));
 		fseek($fh, $originals_lenghts_addr);
-		
+
 		// headers' msgid is an empty string
 		fwrite($fh, pack('VV', 0, $current_addr));
 		$current_addr++;
@@ -640,24 +637,24 @@ class MO extends Gettext_Translations {
 			fwrite($fh, pack('VV', $length, $current_addr));
 			$current_addr += $length + 1; // account for the NULL byte after
 		}
-		
+
 		$exported_headers = $this->export_headers();
 		fwrite($fh, pack('VV', strlen($exported_headers), $current_addr));
 		$current_addr += strlen($exported_headers) + 1;
 		$translations_table = $exported_headers . chr(0);
-		
+
 		foreach($entries as $entry) {
 			$translations_table .= $this->export_translations($entry) . chr(0);
 			$length = strlen($this->export_translations($entry));
 			fwrite($fh, pack('VV', $length, $current_addr));
 			$current_addr += $length + 1;
 		}
-		
+
 		fwrite($fh, $originals_table);
 		fwrite($fh, $translations_table);
 		return true;
 	}
-	
+
 	function export_original($entry) {
 		//TODO: warnings for control characters
 		$exported = $entry->singular;
@@ -665,12 +662,12 @@ class MO extends Gettext_Translations {
 		if (!is_null($entry->context)) $exported = $entry->context . chr(4) . $exported;
 		return $exported;
 	}
-	
+
 	function export_translations($entry) {
 		//TODO: warnings for control characters
 		return implode(chr(0), $entry->translations);
 	}
-	
+
 	function export_headers() {
 		$exported = '';
 		foreach($this->headers as $header => $value) {
@@ -779,7 +776,7 @@ class MO extends Gettext_Translations {
 	/**
 	 * Build a Translation_Entry from original string and translation strings,
 	 * found in a MO file
-	 * 
+	 *
 	 * @static
 	 * @param string $original original string to translate from MO file. Might contain
 	 * 	0x04 as context separator or 0x00 as singular/plural separator
@@ -837,7 +834,7 @@ ini_set('auto_detect_line_endings', 1);
  */
 if ( !class_exists( 'PO' ) ):
 class PO extends Gettext_Translations {
-	
+
 	var $comments_before_headers = '';
 
 	/**
@@ -899,10 +896,10 @@ class PO extends Gettext_Translations {
 		if (false === $res) return false;
 		return fclose($fh);
 	}
-	
+
 	/**
 	 * Text to include as a comment before the start of the PO contents
-	 * 
+	 *
 	 * Doesn't need to include # in the beginning of lines, these are added automatically
 	 */
 	function set_comment_before_headers( $text ) {
@@ -939,10 +936,10 @@ class PO extends Gettext_Translations {
 		$po = str_replace("$newline$quote$quote", '', $po);
 		return $po;
 	}
-	
+
 	/**
 	 * Gives back the original string from a PO-formatted string
-	 * 
+	 *
 	 * @static
 	 * @param string $string PO-formatted string
 	 * @return string enascaped string
@@ -972,7 +969,7 @@ class PO extends Gettext_Translations {
 	}
 
 	/**
-	 * Inserts $with in the beginning of every new line of $string and 
+	 * Inserts $with in the beginning of every new line of $string and
 	 * returns the modified string
 	 *
 	 * @static
@@ -1050,7 +1047,7 @@ class PO extends Gettext_Translations {
 		PO::read_line($f, 'clear');
 		return $res !== false;
 	}
-	
+
 	function read_entry($f, $lineno = 0) {
 		$entry = new Translation_Entry();
 		// where were we in the last step
@@ -1155,7 +1152,7 @@ class PO extends Gettext_Translations {
 		}
 		return array('entry' => $entry, 'lineno' => $lineno);
 	}
-	
+
 	function read_line($f, $action = 'read') {
 		static $last_line = '';
 		static $use_last_line = false;
@@ -1172,7 +1169,7 @@ class PO extends Gettext_Translations {
 		$use_last_line = false;
 		return $line;
 	}
-	
+
 	function add_comment_to_entry(&$entry, $po_comment_line) {
 		$first_two = substr($po_comment_line, 0, 2);
 		$comment = trim(substr($po_comment_line, 2));
@@ -1186,7 +1183,7 @@ class PO extends Gettext_Translations {
 			$entry->translator_comments = trim($entry->translator_comments . "\n" . $comment);
 		}
 	}
-	
+
 	function trim_quotes($s) {
 		if ( substr($s, 0, 1) == '"') $s = substr($s, 1);
 		if ( substr($s, -1, 1) == '"') $s = substr($s, 0, -1);

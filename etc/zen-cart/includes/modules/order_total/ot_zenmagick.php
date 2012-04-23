@@ -78,13 +78,6 @@ class ot_zenmagick {
     }
 
     /**
-     * Destruct instance.
-     */
-    function __destruct() {
-    }
-
-
-    /**
      * Generate order total line(s).
      *
      * <p>Each order total line must contain the following elements:</p>
