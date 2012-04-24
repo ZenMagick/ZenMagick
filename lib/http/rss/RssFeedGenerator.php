@@ -65,6 +65,7 @@ class RssFeedGenerator extends ZMObject {
         );
         if ($tag) {
             $encoding[' '] = '-';
+            $encoding['/'] = '-';
         }
 
         foreach ($encoding as $char => $entity) {

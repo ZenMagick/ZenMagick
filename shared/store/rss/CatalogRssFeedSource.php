@@ -97,11 +97,11 @@ class CatalogRssFeedSource extends ZMObject implements RssSource {
      * Generate RSS feed for all products.
      *
      * @param ZMRequest request The current request.
-     * @param boolean isCatalog Indicates whether the call is part of the catalog feed or not; default is <code>false</code>.
+     * @param boolean full Indicates whether to generate a full feed or not; default is <code>false</code>.
      * @return RssFeed The feed.
      * @todo add support for attributes
      */
-    protected function getProductsFeed($request, $isCatalog=false) {
+    protected function getProductsFeed($request, $full=false) {
         $lastPubDate = null;
         $items = array();
         foreach ($this->container->get('productService')->getAllProducts(true, $request->getSession()->getLanguageId()) as $product) {
@@ -109,38 +109,43 @@ class CatalogRssFeedSource extends ZMObject implements RssSource {
             $item->setTitle($product->getName());
             $item->setLink($request->getToolbox()->net->product($product->getId(), null, false));
             $desc = \ZMHtmlUtils::strip($product->getDescription());
-            if (!$isCatalog) {
+            if (!$full) {
                 $desc = \ZMHtmlUtils::more($desc, 60);
             }
             $item->setDescription($desc);
             $item->setPubDate($product->getDateAdded());
 
-            $tags = array('id', 'model');
-            $item->set('id', $product->getId());
-            $item->set('model', $product->getModel());
+            $item->addTag('id', $product->getId());
+            $item->addTag('model', $product->getModel());
             if (null != ($defaultCategory = $product->getDefaultCategory())) {
-                $tags[] = 'category';
-                $item->set('category', $defaultCategory->getId());
+                $item->addTag('category', $defaultCategory->getId());
             }
 
-            if ($isCatalog) {
-                $tags[] = 'price';
+            if ($full) {
                 $offers = $product->getOffers();
-                $item->set('price', $offers->getCalculatedPrice());
-                $tags[] = 'type';
-                $item->set('type', 'product');
+                $item->addTag('price', $offers->getCalculatedPrice());
+                $item->addTag('type', 'product');
 
                 if (null != ($manufacturer = $product->getManufacturer())) {
-                    $tags[] = 'brand';
-                    $item->set('brand', $manufacturer->getName());
+                    $item->addTag('brand', $manufacturer->getName());
                 }
                 if (null != ($imageInfo = $product->getImageInfo())) {
-                    $tags[] = 'img';
-                    $item->set('img', $imageInfo->getDefaultImage());
+                    $item->addTag('img', $imageInfo->getDefaultImage());
                 }
             }
 
-            $item->setTags($tags);
+            if ($product->hasAttributes()) {
+                $attributes = array();
+                foreach ($product->getAttributes() as $attribute) {
+                    $values = array();
+                    foreach ($attribute->getValues() as $value) {
+                        $values[] = $value->getName();
+                    }
+                    $attributes[$attribute->getName()] = $values;
+                }
+                $item->addTag('attributes', $attributes);
+            }
+
             $items[] = $item;
 
             // make newest product
@@ -167,10 +172,10 @@ class CatalogRssFeedSource extends ZMObject implements RssSource {
      * Generate RSS feed for all categories.
      *
      * @param ZMRequest request The current request.
-     * @param boolean isCatalog Indicates whether the call is part of the catalog feed or not; default is <code>false</code>.
+     * @param boolean full Indicates whether to generate a full feed or not; default is <code>false</code>.
      * @return RssFeed The feed.
      */
-    protected function getCategoriesFeed($request, $isCatalog) {
+    protected function getCategoriesFeed($request, $full) {
         $lastPubDate = null;
         $items = array();
         foreach ($this->container->get('categoryService')->getAllCategories($request->getSession()->getLanguageId()) as $category) {
@@ -179,22 +184,19 @@ class CatalogRssFeedSource extends ZMObject implements RssSource {
                 $item->setTitle($category->getName());
                 $item->setLink($request->url('category', $category->getPath(), false));
                 $desc = \ZMHtmlUtils::strip($category->getDescription());
-                if (!$isCatalog) {
+                if (!$full) {
                     $desc = \ZMHtmlUtils::more($desc, 60);
                 }
                 $item->setDescription($desc);
                 $item->setPubDate($category->getDateAdded());
-                $tags = array('id', 'path', 'children');
-                $item->set('id', $category->getId());
-                $item->set('path', implode('_', $category->getPathArray()));
-                $item->set('children', array('id' => $category->getDecendantIds(false)));
+                $item->addTag('id', $category->getId());
+                $item->addTag('path', implode('_', $category->getPathArray()));
+                $item->addTag('children', array('id' => $category->getDecendantIds(false)));
 
-                if ($isCatalog) {
-                    $tags[] = 'type';
-                    $item->set('type', 'category');
+                if ($full) {
+                    $item->addTag('type', 'category');
                 }
 
-                $item->setTags($tags);
                 $items[] = $item;
 
                 // make newest product
