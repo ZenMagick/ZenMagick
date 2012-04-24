@@ -54,14 +54,18 @@ class RssFeedGenerator extends ZMObject {
      * Encode data.
      *
      * @param string s The string to encode.
+     * @param boolean tag Optinal flag indicating that <code>$s</code> is a tag.
      * @return string Encoded string.
      */
-    protected function encode($s) {
+    protected function encode($s, $tag=false) {
         $encoding = array(
             '<' => '&lt;',
             '>' => '&gt;',
             '&' => '&amp;'
         );
+        if ($tag) {
+            $encoding[' '] = '-';
+        }
 
         foreach ($encoding as $char => $entity) {
             $s = str_replace($char, $entity, $s);
@@ -105,6 +109,28 @@ class RssFeedGenerator extends ZMObject {
     }
 
     /**
+     * Format a tag value.
+     *
+     * @param mixed value The value.
+     * @param string indent The leading whitespace.
+     */
+    protected function tagValue($value, $indent) {
+        if (is_array($value)) {
+            echo "\n";
+            $tindent = '  '.$indent;
+            foreach ($value as $tkey => $tvalue) {
+                $tkey = $this->encode($tkey, true);
+                echo $tindent.'<zm:'.$tkey.'>';
+                $this->tagValue($tvalue, $tindent);
+                echo '</zm:'.$tkey.">\n";
+            }
+            echo $indent;
+        } else {
+            echo $this->encode($value);
+        }
+    }
+
+    /**
      * Process custom tags.
      *
      * @param mixed obj The object.
@@ -112,22 +138,10 @@ class RssFeedGenerator extends ZMObject {
      */
     protected function customTags($obj, $indent) {
         foreach ($obj->getTags() as $tag) {
+            $tag = $this->encode($tag, true);
             $value = $obj->get($tag);
             echo $indent."<zm:".$tag.">";
-            if (is_array($value)) {
-                echo "\n";
-                foreach ($value as $stag => $svalues) {
-                    foreach ($svalues as $sval) {
-                        echo $indent." <zm:".$stag.">";
-                        echo $this->encode($sval);
-                        echo "</zm:".$stag.">\n";
-                    }
-                }
-                echo $indent;
-            } else {
-                // treat as string
-                echo $this->encode($obj->get($tag));
-            }
+            $this->tagValue($value, $indent);
             echo "</zm:".$tag.">\n";
         }
     }

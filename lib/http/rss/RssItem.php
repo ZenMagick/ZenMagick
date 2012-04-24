@@ -136,4 +136,19 @@ class RssItem extends ZMObject {
      */
     public function setTags($tags) { $this->set('tags', $tags); }
 
+    /**
+     * Add tag.
+     *
+     * <p>Shortcut for adding the tag name and setting the value in one go.</p>
+     *
+     * @param string name The tag name.
+     * @param mixed value The tag value.
+     */
+    public function addTag($name, $value) {
+        $tags = $this->getTags();
+        $tags[] = $name;
+        $this->setTags($tags);
+        $this->set($name, $value);
+    }
+
 }
