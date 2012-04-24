@@ -1298,6 +1298,7 @@ if (!defined('IS_ADMIN_FLAG')) {
     $zv_filename = $check_file;
     if (!strstr($zv_filename, '.php')) $zv_filename .= '.php';
 
+    if (0 !== strpos($check_directory, '/')) $check_directory = DIR_FS_CATALOG.$check_directory;
     if (file_exists($check_directory . $template_dir . '/' . $zv_filename)) {
       $zv_directory = $check_directory . $template_dir . '/';
     } else {
@@ -1541,17 +1542,17 @@ if (!defined('IS_ADMIN_FLAG')) {
 ////
 // call additional function files
 // prices and quantities
-  require(DIR_WS_FUNCTIONS . 'functions_prices.php');
+  require(DIR_FS_CATALOG.DIR_WS_FUNCTIONS.'functions_prices.php');
 // taxes
-  require(DIR_WS_FUNCTIONS . 'functions_taxes.php');
+  require(DIR_FS_CATALOG.DIR_WS_FUNCTIONS.'functions_taxes.php');
 // gv and coupons
-  require(DIR_WS_FUNCTIONS . 'functions_gvcoupons.php');
+  require(DIR_FS_CATALOG.DIR_WS_FUNCTIONS.'functions_gvcoupons.php');
 // categories, paths, pulldowns
-  require(DIR_WS_FUNCTIONS . 'functions_categories.php');
+  require(DIR_FS_CATALOG.DIR_WS_FUNCTIONS.'functions_categories.php');
 // customers and addresses
-  require(DIR_WS_FUNCTIONS . 'functions_customers.php');
+  require(DIR_FS_CATALOG.DIR_WS_FUNCTIONS.'functions_customers.php');
 // lookup information
-  require(DIR_WS_FUNCTIONS . 'functions_lookups.php');
+  require(DIR_FS_CATALOG.DIR_WS_FUNCTIONS.'functions_lookups.php');
 ////
 /////////////////////////////////////////////
 
