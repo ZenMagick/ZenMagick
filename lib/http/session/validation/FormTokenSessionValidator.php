@@ -33,7 +33,7 @@ class FormTokenSessionValidator extends ZMObject implements SessionValidator {
     /**
      * Name of the session token form field.
      */
-    const SESSION_TOKEN_NAME = 'stoken';
+    const SESSION_TOKEN_NAME = 'securityToken';
 
     private $requestIds;
 
@@ -66,7 +66,6 @@ class FormTokenSessionValidator extends ZMObject implements SessionValidator {
                 $valid = ($session->getToken() == $token);
             }
         }
-
         return $valid;
     }
 
