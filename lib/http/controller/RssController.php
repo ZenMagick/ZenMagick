@@ -62,7 +62,7 @@ class RssController extends ZMObject {
         }
 
         //TODO: how??
-        //$this->setContentType('application/xhtml+xml');
+        //$this->setContentType('application/rss+xml');
         // create content
         $feedGenerator = new RssFeedGenerator();
         echo $feedGenerator->generate($request, $feed);

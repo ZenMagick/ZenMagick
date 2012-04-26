@@ -72,6 +72,11 @@ class RssFeedGenerator extends ZMObject {
             $s = str_replace($char, $entity, $s);
         }
 
+        if ($tag && (string)(int)$s == $s) {
+            // can't have numeric element name
+            $s = 'n_'.$s;
+        }
+
         return $s;
     }
 
@@ -96,8 +101,8 @@ class RssFeedGenerator extends ZMObject {
             '<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:zm="http://www.zenmagick.org/">',
             ' <channel>',
             '  <title><![CDATA['.$this->encode($channel->getTitle()).']]></title>',
-            '  <atom:link href="'.$this->encode($request->absoluteUrl($channel->getLink(), true)).'" rel="self" type="application/rss+xml" />',
-            '  <link><![CDATA['.$request->absoluteUrl($channel->getLink(), true).']]></link>',
+            '  <atom:link href="'.$this->encode($channel->getLink()).'" rel="self" type="application/rss+xml" />',
+            '  <link><![CDATA['.$channel->getLink().']]></link>',
             '  <description><![CDATA['.$this->encode($channel->getDescription()).']]></description>',
             '  <lastBuildDate>'.$channel->getLastBuildDate()->format(DateTime::RSS).'</lastBuildDate>'
         );
