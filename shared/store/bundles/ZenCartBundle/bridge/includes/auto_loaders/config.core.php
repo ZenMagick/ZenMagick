@@ -8,7 +8,7 @@
  * @license http://www.zen-cart.com/license/2_0.txt GNU Public License V2.0
  * @version $Id: config.core.php 4271 2006-08-26 01:21:02Z drbyte $
  */
- 
+
   $autoLoadConfig[0][] = array('autoType'=>'include',
                                'loadFile'=> 'includes/configure.php');
   $autoLoadConfig[0][] = array('autoType'=>'init_script',
@@ -39,7 +39,7 @@
                                 'objectName'=>'sniffer');
 
   $autoLoadConfig[60][] = array('autoType'=>'include_glob',
-                                'loadFile'=> 'includes/functions/{functions_email.php,functions_general.php,html_output.php,functions_ezpages.php,password_funcs.php,sessions.php,zen_mail.php}');
+                                'loadFile'=> 'includes/functions/{functions_email.php,functions_general.php,html_output.php,functions_ezpages.php,sessions.php,zen_mail.php}');
   $autoLoadConfig[60][] = array('autoType'=>'include_glob',
                                 'loadFile'=> 'includes/functions/extra_functions/*.php');
 
