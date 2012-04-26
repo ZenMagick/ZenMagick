@@ -26,7 +26,7 @@ use zenmagick\base\ZMObject;
 /**
  * A record company.
  *
- * @author mano
+ * @author DerManoMann <mano@zenmagick.org>
  * @package org.zenmagick.plugins.musicProductInfo.model
  */
 class ZMRecordCompany extends ZMObject {

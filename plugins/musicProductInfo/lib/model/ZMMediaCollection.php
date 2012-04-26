@@ -26,7 +26,7 @@ use zenmagick\base\ZMObject;
 /**
  * A collection of media items.
  *
- * @author mano
+ * @author DerManoMann <mano@zenmagick.org>
  * @package org.zenmagick.plugins.musicProductInfo.model
  */
 class ZMMediaCollection extends ZMObject {

@@ -26,7 +26,7 @@ use Symfony\Component\DependencyInjection\ContainerAwareInterface;
 /**
  * ZenMagick Lift Suggest Recommendation implementation.
  *
- * @author mano
+ * @author DerManoMann <mano@zenmagick.org>
  * @package org.zenmagick.plugins.liftSuggest
  */
 class ZMLiftSuggestLookup extends LiftSuggestLookup implements ContainerAwareInterface {

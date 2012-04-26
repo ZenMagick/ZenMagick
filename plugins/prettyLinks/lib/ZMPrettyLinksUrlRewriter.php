@@ -26,7 +26,7 @@ use zenmagick\apps\store\storefront\http\request\StoreDefaultUrlRewriter;
  * SEO rewriter for pretty link (SEO) support.
  *
  * @package org.zenmagick.plugins.prettyLinks
- * @author mano
+ * @author DerManoMann <mano@zenmagick.org>
  */
 class ZMPrettyLinksUrlRewriter implements UrlRewriter {
 

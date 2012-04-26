@@ -23,7 +23,7 @@ use zenmagick\base\ZMObject;
 /**
  * ZenMagick Lift Suggest Recommendation.
  *
- * @author mano
+ * @author DerManoMann <mano@zenmagick.org>
  * @package org.zenmagick.plugins.liftSuggest
  */
 class ZMLiftSuggestRecommendations extends ZMObject {

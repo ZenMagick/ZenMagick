@@ -27,7 +27,7 @@ use zenmagick\base\ZMObject;
 /**
  * An artist.
  *
- * @author mano
+ * @author DerManoMann <mano@zenmagick.org>
  * @package org.zenmagick.plugins.musicProductInfo.model
  */
 class ZMArtist extends ZMObject {

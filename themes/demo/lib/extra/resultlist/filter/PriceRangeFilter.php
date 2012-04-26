@@ -28,7 +28,7 @@ use zenmagick\base\Runtime;
  *
  * <p>This is an example for a multi value filter.</p>
  *
- * @author mano
+ * @author DerManoMann <mano@zenmagick.org>
  */
 class PriceRangeFilter extends ZMResultListFilter {
     private $ranges_;

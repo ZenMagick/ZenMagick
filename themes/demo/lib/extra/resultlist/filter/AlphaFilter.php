@@ -26,7 +26,7 @@ use zenmagick\base\Runtime;
 /**
  * Alpha key filter for products.
  *
- * @author mano
+ * @author DerManoMann <mano@zenmagick.org>
  */
 class AlphaFilter extends ZMResultListFilter {
 

@@ -29,7 +29,7 @@ define('RECAPTCHA_FIELD', 'recaptcha_response_field');
 /**
  * Plugin to enable support for ReCAPTCHA in ZenMagick.
  *
- * @author mano
+ * @author DerManoMann <mano@zenmagick.org>
  */
 class RecaptchaPlugin extends Plugin {
     private $captchaEnabled_;

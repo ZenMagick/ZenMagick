@@ -26,7 +26,7 @@ use zenmagick\base\Toolbox;
 /**
  * Plugin adding a Google Maps based store locator.
  *
- * @author mano
+ * @author DerManoMann <mano@zenmagick.org>
  */
 class GoogleStoreLocatorPlugin extends Plugin {
 

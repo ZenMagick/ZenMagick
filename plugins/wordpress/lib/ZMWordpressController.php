@@ -22,7 +22,7 @@
 /**
  * WP controller.
  *
- * @author mano
+ * @author DerManoMann <mano@zenmagick.org>
  * @package org.zenmagick.plugins.wordpress
  */
 class ZMWordpressController extends ZMController {

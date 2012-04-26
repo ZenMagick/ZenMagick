@@ -24,7 +24,7 @@ use zenmagick\http\request\rewriter\UrlRewriter;
  * SSU rewriter.
  *
  * @package org.zenmagick.plugins.ssu
- * @author mano
+ * @author DerManoMann <mano@zenmagick.org>
  */
 class ZMSsuUrlRewriter implements UrlRewriter {
 

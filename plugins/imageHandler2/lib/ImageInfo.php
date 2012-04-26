@@ -26,7 +26,7 @@ use zenmagick\base\Runtime;
 /**
  * Image information implementation for ImageHandler2 support.
  *
- * @author mano
+ * @author DerManoMann <mano@zenmagick.org>
  * @package org.zenmagick.plugins.imageHandler2
  */
 class ImageInfo extends ZMImageInfo {

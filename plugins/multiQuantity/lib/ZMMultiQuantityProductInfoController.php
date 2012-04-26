@@ -22,7 +22,7 @@
 /**
  * Custom controller to handle multi quantity requests.
  *
- * @author mano
+ * @author DerManoMann <mano@zenmagick.org>
  * @package org.zenmagick.plugins.multiQuantity
  */
 class ZMMultiQuantityProductInfoController extends ZMController {

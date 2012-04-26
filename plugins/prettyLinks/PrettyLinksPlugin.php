@@ -25,7 +25,7 @@ use zenmagick\base\Runtime;
 /**
  * Plugin for pretty link (SEO) support.
  *
- * @author mano
+ * @author DerManoMann <mano@zenmagick.org>
  */
 class PrettyLinksPlugin extends Plugin {
 

@@ -22,7 +22,7 @@
 /**
  * Check for unique openID.
  *
- * @author mano
+ * @author DerManoMann <mano@zenmagick.org>
  * @package org.zenmagick.plugins.openID
  */
 class ZMUniqueOpenIDRule extends ZMRule {
