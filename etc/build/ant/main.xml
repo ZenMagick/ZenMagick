@@ -140,6 +140,7 @@
                 <exclude name="build.xml" />
                 <exclude name="local.properties" />
                 <exclude name="local.xml" />
+                <exclude name="vendor/local/**" />
             </fileset>
 
             <!-- copy default and demo theme -->
