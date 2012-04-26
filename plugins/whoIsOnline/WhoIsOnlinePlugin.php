@@ -72,7 +72,7 @@ class WhoIsOnlinePlugin extends Plugin {
      */
     public function getStats() {
         $sql = "SELECT customer_id FROM " . TABLE_WHOS_ONLINE;
-        $results = \ZMRuntime::getDatabase()->fetchAll($sql, array(), TABLE_WHOS_ONLINE, ZMDatabase::MODEL_RAW);
+        $results = \ZMRuntime::getDatabase()->fetchAll($sql, array(), TABLE_WHOS_ONLINE, \ZMDatabase::MODEL_RAW);
         $anonymous = 0;
         $registered = 0;
         foreach ($results as $result) {
@@ -122,6 +122,15 @@ class WhoIsOnlinePlugin extends Plugin {
         if (!empty($accountId) && !empty($sessionId)) {
             $account = $request->getAccount();
             $fullName = $account->getLastName().', '.$account->getFirstName();
+        }
+
+        if (empty($sessionId)) {
+            // create hash
+            $token = array(
+                $ipAddress,
+                (isset($_SERVER['HTTP_USER_AGENT']) ? $_SERVER['HTTP_USER_AGENT'] : '')
+            );
+            $sessionId = md5(implode(':', $token));
         }
 
         $conn = \ZMRuntime::getDatabase();
