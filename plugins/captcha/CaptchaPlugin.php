@@ -25,6 +25,8 @@ use Plugin;
 use zenmagick\base\Runtime;
 use zenmagick\base\Toolbox;
 
+use PCaptcha;
+
 /**
  * Plugin to enable support for CAPTCHA in ZenMagick.
  *

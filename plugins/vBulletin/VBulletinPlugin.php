@@ -20,6 +20,7 @@
 namespace zenmagick\plugins\vbulletin;
 
 use Plugin;
+use zenmagick\base\Beans;
 use zenmagick\base\Toolbox;
 use zenmagick\base\Runtime;
 
