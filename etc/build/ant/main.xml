@@ -141,6 +141,7 @@
                 <exclude name="local.properties" />
                 <exclude name="local.xml" />
                 <exclude name="vendor/local/**" />
+                <exclude name="config/store-config.yaml" />
             </fileset>
 
             <!-- copy default and demo theme -->
