@@ -107,7 +107,7 @@ class ConfigPatch extends SQLPatch {
             rather than the store directory. It should only be used if you have problems with sessions.<br>
             <strong>You must clear your cookies after changing this setting.</strong>';
             $setFunction = "zen_cfg_select_option(array('True', 'False'),";
-            $configService->createConfigValue($name, 'SESSION_USE_ROOT_COOKIE_PATH', 'False', $sessionGroupId, $description, 0, $setFunction);
+            $configService->createConfigValue($title, 'SESSION_USE_ROOT_COOKIE_PATH', 'False', $sessionGroupId, $description, 0, $setFunction);
         }
 
         if (null == $configService->getConfigValue('SESSION_ADD_PERIOD_PREFIX')) {
