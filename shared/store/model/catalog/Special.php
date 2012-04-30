@@ -17,6 +17,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
+namespace zenmagick\apps\store\model\catalog;
 
 use zenmagick\base\ZMObject;
 use Doctrine\ORM\Mapping AS ORM;
@@ -24,11 +25,10 @@ use Doctrine\ORM\Mapping AS ORM;
 /**
  * A Special.
  *
- * @package zenmagick.store.shared.model.catalog
  * @ORM\Table(name="specials")
  * @ORM\Entity
  */
-class ZMSpecial extends ZMObject {
+class Special extends ZMObject {
     /**
      * @var integer $id
      *

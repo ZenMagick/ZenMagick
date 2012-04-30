@@ -24,7 +24,7 @@
  * @package org.zenmagick.plugins.unitTests.tests
  * @author DerManoMann <mano@zenmagick.org>
  */
-class TestZMSalemaker extends ZMTestCase {
+class TestSalemakerService extends ZMTestCase {
 
     /**
      * Test getSaleDiscountTypeInfo.

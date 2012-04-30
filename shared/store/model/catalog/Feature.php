@@ -17,17 +17,18 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
+namespace zenmagick\apps\store\model\catalog;
+
 use zenmagick\base\ZMObject;
 use Doctrine\ORM\Mapping AS ORM;
 
 /**
  * A featured product.
  *
- * @package zenmagick.store.shared.model.catalog
  * @ORM\Table(name="featured")
  * @ORM\Entity
  */
-class ZMFeature extends ZMObject {
+class Feature extends ZMObject {
     /**
      * @var integer $id
      *

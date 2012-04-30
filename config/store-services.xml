@@ -158,7 +158,7 @@
 
         <service id="orderTotalService" class="ZMOrderTotals" scope="container" />
 
-        <service id="salemakerService" class="ZMSalemaker" scope="container" />
+        <service id="salemakerService" class="zenmagick\apps\store\services\catalog\SalemakerService" scope="container" />
 
         <service id="attributeService" class="ZMAttributes" scope="container" />
 

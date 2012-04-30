@@ -20,6 +20,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
+namespace zenmagick\apps\store\services\catalog;
 
 use zenmagick\base\Runtime;
 use zenmagick\base\ZMObject;
@@ -28,9 +29,8 @@ use zenmagick\base\ZMObject;
  * Sale maker.
  *
  * @author DerManoMann
- * @package zenmagick.store.shared.services.catalog
  */
-class ZMSalemaker extends ZMObject {
+class SalemakerService extends ZMObject {
     private $sales_;
 
 
@@ -40,14 +40,6 @@ class ZMSalemaker extends ZMObject {
     public function __construct() {
         parent::__construct();
         $this->sales_ = null;
-    }
-
-
-    /**
-     * Get instance.
-     */
-    public static function instance() {
-        return Runtime::getContainer()->get('salemakerService');
     }
 
 
@@ -68,7 +60,7 @@ class ZMSalemaker extends ZMObject {
             $sql = "SELECT *
                     FROM " . TABLE_SALEMAKER_SALES . "
                     WHERE sale_status = '1'";
-            $this->sales_ = ZMRuntime::getDatabase()->fetchAll($sql, array(), TABLE_SALEMAKER_SALES, ZMDatabase::MODEL_RAW);
+            $this->sales_ = \ZMRuntime::getDatabase()->fetchAll($sql, array(), TABLE_SALEMAKER_SALES, \ZMDatabase::MODEL_RAW);
         }
 
         $hasSale = false;
@@ -114,7 +106,7 @@ class ZMSalemaker extends ZMObject {
     public function scheduleSales() {
         $sql = "SELECT sale_id, sale_status, sale_date_start, sale_date_end
                 FROM " . TABLE_SALEMAKER_SALES;
-        foreach (\ZMRuntime::getDatabase()->fetchAll($sql, array(), TABLE_SALEMAKER_SALES, 'ZMSaleMakerSale') as $sale) {
+        foreach (\ZMRuntime::getDatabase()->fetchAll($sql, array(), TABLE_SALEMAKER_SALES, 'zenmagick\apps\store\model\catalog\SaleMakerSale') as $sale) {
             $dateStart = $sale->getDateStart();
             $dateEnd = $sale->getDateEnd();
             $active = $sale->getStatus();

@@ -17,6 +17,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
+namespace zenmagick\apps\store\model\catalog;
 
 use zenmagick\base\ZMObject;
 use Doctrine\ORM\Mapping AS ORM;
@@ -24,11 +25,10 @@ use Doctrine\ORM\Mapping AS ORM;
 /**
  * An individual sale.
  *
- * @package zenmagick.store.shared.model.catalog
  * @ORM\Table(name="salemaker_sales")
  * @ORM\Entity
  */
-class ZMSalemakerSale extends ZMObject {
+class SalemakerSale extends ZMObject {
     /**
      * @var integer $saleId
      *
