@@ -69,7 +69,7 @@ zenmagick:
     session:
       useFqdn: false
       # POST validatd with session token
-      formToken: 
+      formToken:
         - login
         - reset_password
     ## request
@@ -91,9 +91,9 @@ zenmagick:
   ## bundles
   bundles:
     ZenCartBundle: zenmagick\apps\store\bundles\ZenCartBundle\ZenCartBundle
-    DoctrineBundle: Doctrine\Bundle\DoctrineBundle\DoctrineBundle 
+    DoctrineBundle: Doctrine\Bundle\DoctrineBundle\DoctrineBundle
     DoctrineMigrationsBundle: Doctrine\Bundle\MigrationsBundle\DoctrineMigrationsBundle
-    SwiftmailerBundle: Symfony\Bundle\SwiftmailerBundle\SwiftmailerBundle 
+    SwiftmailerBundle: Symfony\Bundle\SwiftmailerBundle\SwiftmailerBundle
 
 
 ## app settings

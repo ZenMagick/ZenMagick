@@ -9,11 +9,11 @@ global:
     view: redirect
   error:
     template: views/error.php
-    layout: 
+    layout:
   success-demo:
     view: redirect#requestId=index
 
-## page mappings    
+## page mappings
 page:
   login:
     success:
@@ -51,7 +51,7 @@ page:
     success-disable:
       view: redirect#requestId=plugins
     plugin-conf:
-      layout: 
+      layout:
       template: views/plugin_conf.php
   legacy-config:
     success:

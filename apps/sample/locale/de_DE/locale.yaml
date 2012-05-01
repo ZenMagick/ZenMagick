@@ -20,7 +20,7 @@
 name: Deutsch
 
 formats:
-  date: 
+  date:
     'short': 'd/m/Y'
     'short-ui-format': 'dd/mm/yyyy'
     'short-ui-example': '16/11/1967'

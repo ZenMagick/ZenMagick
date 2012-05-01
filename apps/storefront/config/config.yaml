@@ -71,7 +71,7 @@ zenmagick:
       enforceSecure: true
     session:
       # POST validatd with session token
-      formToken: 
+      formToken:
         - login
 
     controller:
@@ -84,8 +84,8 @@ zenmagick:
   ## bundles
   bundles:
     ZenCartBundle: zenmagick\apps\store\bundles\ZenCartBundle\ZenCartBundle
-    DoctrineBundle: Doctrine\Bundle\DoctrineBundle\DoctrineBundle 
-    SwiftmailerBundle: Symfony\Bundle\SwiftmailerBundle\SwiftmailerBundle 
+    DoctrineBundle: Doctrine\Bundle\DoctrineBundle\DoctrineBundle
+    SwiftmailerBundle: Symfony\Bundle\SwiftmailerBundle\SwiftmailerBundle
 
 apps:
   store:

@@ -1,6 +1,6 @@
 name: English (NZ)
 formats:
-  date: 
+  date:
     'short': 'd/m/Y'
     'short-ui-format': 'dd/mm/yy'
     'short-ui-example': '16/11/67'

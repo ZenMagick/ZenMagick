@@ -1,6 +1,6 @@
 name: English (US)
 formats:
-  date: 
+  date:
     'short': 'm/d/Y'
     'short-ui-format': 'mm/dd/yy'
     'short-ui-example': '11/16/67'
