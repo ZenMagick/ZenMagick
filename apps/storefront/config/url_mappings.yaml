@@ -154,7 +154,7 @@ page:
   ## alias to have a neutral point to start the checkout process
   checkout:
     template: views/checkout_shipping.php
-    controller: zenmagick\apps\storefront\controller\CheckoutShippingController
+    controller: zenmagick\apps\store\storefront\controller\CheckoutShippingController
     skip_shipping:
       view: redirect#requestId=checkout_payment
     success:
@@ -201,6 +201,6 @@ page:
     formId: searchCriteria
     form: ZMSearchCriteria
   advanced_search:
-    controller: 'zenmagick\apps\storefront\controller\SearchController#autoSearch=false'
+    controller: 'zenmagick\apps\store\storefront\controller\SearchController#autoSearch=false'
     formId: searchCriteria
     form: ZMSearchCriteria
