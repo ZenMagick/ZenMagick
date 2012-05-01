@@ -60,6 +60,9 @@ admin,storefront:
         assertZencart: false
         # use new static content rather than static pages
         staticContent: true
+        reviews:
+          # use nick name as author if set
+          useNickName: true
 
     #############################
     ## old style store settings - these names will be changed in a future version

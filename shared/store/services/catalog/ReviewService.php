@@ -22,6 +22,7 @@
  */
 namespace zenmagick\apps\store\services\catalog;
 
+use DateTime;
 use zenmagick\base\Runtime;
 use zenmagick\base\ZMObject;
 
@@ -31,6 +32,25 @@ use zenmagick\base\ZMObject;
  * @author DerManoMann <mano@zenmagick.org>
  */
 class ReviewService extends ZMObject {
+    private $useNickName;
+
+    /**
+     * Create instance.
+     */
+    public function __construct() {
+        parent::__construct();
+        $this->useNickName = false;
+    }
+
+
+    /**
+     * Set the <em>useNickName</em> property.
+     *
+     * @param boolean value The new value.
+     */
+    public function setUseNickName($value) {
+        $this->useNickName = $value;
+    }
 
     /**
      * Get the number of reviews for the given product (id).
@@ -217,10 +237,11 @@ class ReviewService extends ZMObject {
      * @return ZMReview The inserted review (incl. the new id).
      */
     public function createReview($review, $account, $languageId) {
-        $review->setAuthor($account->getFullName());
+        $author = ($this->useNickName && 0 < strlen(trim($account->getNickName()))) ? $account->getNickName() : $account->getFullName();
+        $review->setAuthor($author);
         $review->setAccountId($account->getId());
-        $review->setLastModified(new \DateTime());
-        $review->setDateAdded(new \DateTime());
+        $review->setLastModified(new DateTime());
+        $review->setDateAdded(new DateTime());
         $isApproveReviews = $this->container->get('settingsService')->get('isApproveReviews');
         $review->setActive($isApproveReviews ? false : true);
 

@@ -16,6 +16,7 @@
             <parameter>bootstrapCache</parameter>
         </parameter>
         <parameter key="zenmagick.base.plugins.defaultPluginClass">Plugin</parameter>
+        <parameter key="apps.store.reviews.useNickName">false</parameter>
     </parameters>
 
     <services>
@@ -128,7 +129,11 @@
             <tag name="zenmagick.http.view.variable" key="validator" />
         </service>
 
-        <service id="reviewService" class="zenmagick\apps\store\services\catalog\ReviewService" scope="container" />
+        <service id="reviewService" class="zenmagick\apps\store\services\catalog\ReviewService" scope="container">
+            <call method="setUseNickName">
+                <argument>%apps.store.reviews.useNickName%</argument>
+            </call>
+        </service>
 
         <service id="taxRateService" class="ZMTaxRates" scope="container" />
 
