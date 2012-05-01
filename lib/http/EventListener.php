@@ -76,8 +76,22 @@ class EventListener extends ZMObject {
         // load additional routing
         $contextConfigLoader = $this->container->get('contextConfigLoader');
         if ($contextConfigLoader instanceof HttpContextConfigLoader) {
+            $routingLoader = new YamlLoader();
+            $routeResolver = $this->container->get('routeResolver');
             foreach ($contextConfigLoader->getRouting() as $routing) {
-                $routingLoader = new YamlLoader();
+                foreach ($routing as $id => $info) {
+                    if (!array_key_exists('pattern', $info) && null != ($route = $routeResolver->getRouteForId('product_info'))) {
+                        // merge options and defaults
+                        if (array_key_exists('defaults', $info)) {
+                            $route->addOptions($info['defaults']);
+                        }
+                        if (array_key_exists('options', $info)) {
+                            $route->addOptions($info['options']);
+                        }
+                        unset ($routing[$id]);
+                    }
+                }
+
                 $routeCollection = $routingLoader->load($routing);
                 $routeResolver->getRouter()->getRouteCollection()->addCollection($routeCollection);
             }
