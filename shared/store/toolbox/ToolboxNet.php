@@ -153,6 +153,9 @@ class ToolboxNet extends ToolboxTool {
      * @return string A full URL.
      */
     public function trackLink($action, $id) {
+        if ('url' == $action && false === strpos('://', $id)) {
+            $id = 'http://'.$id;
+        }
         return $this->getRequest()->url('redirect', "action=".$action."&goto=".$id);
     }
 
