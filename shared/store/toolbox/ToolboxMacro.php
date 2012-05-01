@@ -242,13 +242,13 @@ class ToolboxMacro extends ToolboxTool {
     public function officeOnlyEmailFooter($name, $email, $session) {
         $context = array();
 
-        $session = $request->getSession();
+        $session = $this->getRequest()->getSession();
         $officeOnly = array(
             "\n",
             _zm('Office Use Only:'),
             sprintf(_zm('From: %s'), $name),
             sprintf(_zm('Email: %s'), $email),
-            sprintf(_zm('Remote: %s - %s'), $session->getClientAddress(), $request->getClientIp()),
+            sprintf(_zm('Remote: %s - %s'), $session->getClientAddress(), $this->getRequest()->getClientIp()),
             sprintf(_zm('Date: %s'), date("D M j Y G:i:s T")),
             "\n\n"
         );
