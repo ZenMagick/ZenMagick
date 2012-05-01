@@ -20,6 +20,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
+namespace zenmagick\plugins\musicProductInfo\model;
 
 use zenmagick\base\ZMObject;
 
@@ -27,9 +28,8 @@ use zenmagick\base\ZMObject;
  * A single media item.
  *
  * @author DerManoMann <mano@zenmagick.org>
- * @package org.zenmagick.plugins.musicProductInfo.model
  */
-class ZMMediaItem extends ZMObject {
+class MediaItem extends ZMObject {
     private $mediaItemId_;
     private $mediaId_;
     private $mediaTypeId_;
@@ -90,7 +90,7 @@ class ZMMediaItem extends ZMObject {
     /**
      * Get the media type.
      *
-     * @return ZMMediaType The media type.
+     * @return MediaType The media type.
      */
     public function getMediaType() { return $this->mediaType_; }
 
@@ -132,7 +132,7 @@ class ZMMediaItem extends ZMObject {
     /**
      * Set the media type.
      *
-     * @param ZMMediaType mediaType The media type.
+     * @param MediaType mediaType The media type.
      */
     public function setMediaType($mediaType) { $this->mediaType_ = $mediaType; }
 

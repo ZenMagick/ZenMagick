@@ -20,6 +20,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
+namespace zenmagick\plugins\musicProductInfo\model;
 
 use zenmagick\base\ZMObject;
 
@@ -27,9 +28,8 @@ use zenmagick\base\ZMObject;
  * A collection of media items.
  *
  * @author DerManoMann <mano@zenmagick.org>
- * @package org.zenmagick.plugins.musicProductInfo.model
  */
-class ZMMediaCollection extends ZMObject {
+class MediaCollection extends ZMObject {
     private $collectionId_;
     private $name_;
     private $items_;
@@ -63,7 +63,7 @@ class ZMMediaCollection extends ZMObject {
     /**
      * Get the media items.
      *
-     * @return array A list of <code>ZMMedia</code> objects.
+     * @return array A list of <code>Media</code> objects.
      */
     public function getItems() { return $this->items_; }
 
@@ -84,14 +84,14 @@ class ZMMediaCollection extends ZMObject {
     /**
      * Set the media items.
      *
-     * @param array items A list of <code>ZMMedia</code> objects.
+     * @param array items A list of <code>Media</code> objects.
      */
     public function setItems($items) { $this->items_ = $items; }
 
     /**
      * Add a single media items.
      *
-     * @param ZMMedia item A single <code>ZMMedia</code> object.
+     * @param Media item A single <code>Media</code> object.
      */
     public function addItem($item) { $this->items_[] = $item; }
 

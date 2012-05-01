@@ -84,13 +84,23 @@ class MusicProductInfoPlugin extends Plugin {
         Runtime::getEventDispatcher()->listen($this);
 
         // attach mediaUrl method to the $net toolbox tool
-        ZMObject::attachMethod('mediaUrl', 'ZMToolboxNet',
+        ZMObject::attachMethod('mediaUrl', 'zenmagick\apps\store\toolbox\ToolboxNet',
             array($this, 'mediaUrl'));
 
+        // todo: drop once we have proper routing set up
         // add mapping for this product type
         \ZMUrlManager::instance()->setMapping('product_info', array(
             'product_music_info' => array('template' => 'views/product_music_info.php')
           ), false);
+    }
+
+    /**
+     * Update route.
+     */
+    public function onDispatchStart($event) {
+        if (null != ($route = $this->container->get('routeResolver')->getRouteForId('product_info'))) {
+            $route->addOptions(array('view:product_music_info' => 'views/product_music_info.php'));
+        }
     }
 
     /**
@@ -99,11 +109,11 @@ class MusicProductInfoPlugin extends Plugin {
     public function onViewStart($event) {
         $view = $event->get('view');
         $request = $event->get('request');
-        if ('product_music_info' == $request->getRequestId()) {
-            $musicManager = \ZMMusicManager::instance();
+        if ('product_info' == $request->getRequestId()) {
+            $musicManager = $this->container->get('musicManager');
             // artist information
             $artist = $musicManager->getArtistForProductId($request->getProductId(), $request->getSession()->getLanguageId());
-            // musc collections for this product/artist
+            // music collections for this product/artist
             $collections = $musicManager->getMediaCollectionsForProductId($request->getProductId());
             $view->setVariable('musicManager', $musicManager);
             $view->setVariable('artist', $artist);

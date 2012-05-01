@@ -2,5 +2,10 @@ admin,storefront:
   container:
     services:
       musicManager:
-        class: ZMMusicManager
+        class: zenmagick\plugins\musicProductInfo\services\MusicManager
         scope: container
+storefront:
+  routing:
+    product_info:
+      options:
+        'view:product_music_info': views/product_music_info.php

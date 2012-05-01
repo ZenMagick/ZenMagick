@@ -20,6 +20,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
+namespace zenmagick\plugins\musicProductInfo\model;
 
 use zenmagick\base\Runtime;
 use zenmagick\base\ZMObject;
@@ -28,9 +29,8 @@ use zenmagick\base\ZMObject;
  * An artist.
  *
  * @author DerManoMann <mano@zenmagick.org>
- * @package org.zenmagick.plugins.musicProductInfo.model
  */
-class ZMArtist extends ZMObject {
+class Artist extends ZMObject {
     private $artistId_;
     private $name_;
     private $genre_;

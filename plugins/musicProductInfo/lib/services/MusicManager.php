@@ -20,24 +20,28 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
+namespace zenmagick\plugins\musicProductInfo\services;
 
 use zenmagick\base\Runtime;
 use zenmagick\base\ZMObject;
+use zenmagick\plugins\musicProductInfo\model\Artist;
+use zenmagick\plugins\musicProductInfo\model\MediaCollection;
+use zenmagick\plugins\musicProductInfo\model\MediaItem;
+use zenmagick\plugins\musicProductInfo\model\MediaType;
+use zenmagick\plugins\musicProductInfo\model\RecordCompany;
 
 
 /**
  * Music manager.
  *
  * @author DerManoMann <mano@zenmagick.org>
- * @package org.zenmagick.plugins.zm_product_music_info.service
  */
-class ZMMusicManager extends ZMObject {
-
+class MusicManager extends ZMObject {
 
     /**
      * Create new instance.
      */
-    function __construct() {
+    public function __construct() {
         parent::__construct();
         $mappings = array(
             'media_clips' => array(
@@ -105,16 +109,8 @@ class ZMMusicManager extends ZMObject {
             )
         );
         foreach ($mappings as $table => $mapping) {
-            ZMRuntime::getDatabase()->getMapper()->setMappingForTable($table, $mapping);
+            \ZMRuntime::getDatabase()->getMapper()->setMappingForTable($table, $mapping);
         }
-    }
-
-
-    /**
-     * Get instance.
-     */
-    public static function instance() {
-        return Runtime::getContainer()->get('musicManager');
     }
 
 
@@ -122,27 +118,27 @@ class ZMMusicManager extends ZMObject {
      * Get all available media for the given product (id).
      *
      * @param int productId The product id.
-     * @return array A list of <code>ZMMediaCollection</code> instances.
+     * @return array A list of <code>MediaCollection</code> instances.
      */
     public function getMediaCollectionsForProductId($productId) {
         // get all media for the given product (id)
         $sql = "SELECT media_id FROM " . TABLE_MEDIA_TO_PRODUCTS . " WHERE product_id = :productId";
-        $productMediaIdList = ZMRuntime::getDatabase()->fetchAll($sql, array('productId' => $productId), TABLE_MEDIA_TO_PRODUCTS);
+        $productMediaIdList = \ZMRuntime::getDatabase()->fetchAll($sql, array('productId' => $productId), TABLE_MEDIA_TO_PRODUCTS);
 
         $collections = array();
         foreach ($productMediaIdList as $mediaId) {
             // all media collections
             $sql = "SELECT * FROM " . TABLE_MEDIA_MANAGER . " WHERE media_id = :collectionId";
             $args = array('collectionId' => $mediaId['mediaId']);
-            foreach (ZMRuntime::getDatabase()->fetchAll($sql, $args, TABLE_MEDIA_MANAGER, 'ZMMediaCollection') as $collection) {
+            foreach (\ZMRuntime::getDatabase()->fetchAll($sql, $args, TABLE_MEDIA_MANAGER, 'zenmagick\plugins\musicProductInfo\model\MediaCollection') as $collection) {
                 // populate collection
                 $sql = "SELECT * FROM " . TABLE_MEDIA_CLIPS . " WHERE media_id = :mediaId";
-                foreach (ZMRuntime::getDatabase()->fetchAll($sql, array('mediaId' => $mediaId['mediaId']), TABLE_MEDIA_CLIPS, 'ZMMediaItem') as $mediaItem) {
+                foreach (\ZMRuntime::getDatabase()->fetchAll($sql, array('mediaId' => $mediaId['mediaId']), TABLE_MEDIA_CLIPS, 'zenmagick\plugins\musicProductInfo\model\MediaItem') as $mediaItem) {
                     // plus clip types
                     $sql = "SELECT * FROM " . TABLE_MEDIA_TYPES . " WHERE type_id = :mediaTypeId";
                     $args = array('mediaTypeId' => $mediaItem->getMediaTypeId());
                     // maybe null
-                    $mediaType = ZMRuntime::getDatabase()->querySingle($sql, $args, TABLE_MEDIA_TYPES, 'ZMMediaType');
+                    $mediaType = \ZMRuntime::getDatabase()->querySingle($sql, $args, TABLE_MEDIA_TYPES, 'zenmagick\plugins\musicProductInfo\model\MediaType');
                     $mediaItem->setType($mediaType);
                     $collection->addItem($mediaItem);
                 }
@@ -158,14 +154,14 @@ class ZMMusicManager extends ZMObject {
      *
      * @param int productId The product id.
      * @param int languageId The language id.
-     * @return ZMArtist Artist information or <code>null</code>.
+     * @return Artist Artist information or <code>null</code>.
      */
     public function getArtistForProductId($productId, $languageId) {
         $sql = "SELECT * FROM " . TABLE_PRODUCT_MUSIC_EXTRA . " WHERE products_id = :productId";
-        $extraInfo = ZMRuntime::getDatabase()->querySingle($sql, array('productId' => $productId), TABLE_PRODUCT_MUSIC_EXTRA);
+        $extraInfo = \ZMRuntime::getDatabase()->querySingle($sql, array('productId' => $productId), TABLE_PRODUCT_MUSIC_EXTRA);
 
         $sql = "SELECT * FROM " . TABLE_RECORD_ARTISTS . " WHERE artists_id = :artistId";
-        $artist = ZMRuntime::getDatabase()->querySingle($sql, array('artistId' => $extraInfo['artistId']), TABLE_RECORD_ARTISTS, 'ZMArtist');
+        $artist = \ZMRuntime::getDatabase()->querySingle($sql, array('artistId' => $extraInfo['artistId']), TABLE_RECORD_ARTISTS, 'zenmagick\plugins\musicProductInfo\model\Artist');
 
         if (null == $artist) {
             return null;
@@ -173,23 +169,23 @@ class ZMMusicManager extends ZMObject {
 
         $sql = "SELECT * FROM " . TABLE_RECORD_ARTISTS_INFO . " WHERE artists_id = :artistId AND languages_id = :languageId";
         $args = array('artistId' => $artist->getArtistId(), 'languageId' => $languageId);
-        $artistInfo = ZMRuntime::getDatabase()->querySingle($sql, $args, TABLE_RECORD_ARTISTS_INFO);
+        $artistInfo = \ZMRuntime::getDatabase()->querySingle($sql, $args, TABLE_RECORD_ARTISTS_INFO);
         $artist->setUrl($artistInfo['url']);
 
         $sql = "SELECT * FROM " . TABLE_RECORD_COMPANY . " WHERE record_company_id = :recordCompanyId";
         $args = array('recordCompanyId' => $extraInfo['recordCompanyId']);
-        $recordCompany = ZMRuntime::getDatabase()->querySingle($sql, $args, TABLE_RECORD_COMPANY, 'ZMRecordCompany');
+        $recordCompany = \ZMRuntime::getDatabase()->querySingle($sql, $args, TABLE_RECORD_COMPANY, 'zenmagick\plugins\musicProductInfo\model\RecordCompany');
 
         if (null != $recordCompany) {
             $sql = "SELECT * FROM " . TABLE_RECORD_COMPANY_INFO . " WHERE record_company_id = :recordCompanyId AND languages_id = :languageId";
             $args = array('recordCompanyId' => $recordCompany->getRecordCompanyId(), 'languageId' => $languageId);
-            $recordCompanyInfo = ZMRuntime::getDatabase()->querySingle($sql, $args, TABLE_RECORD_COMPANY_INFO);
+            $recordCompanyInfo = \ZMRuntime::getDatabase()->querySingle($sql, $args, TABLE_RECORD_COMPANY_INFO);
             $recordCompany->setUrl($recordCompanyInfo['url']);
             $artist->setRecordCompany($recordCompany);
         }
 
         $sql = "SELECT * FROM " . TABLE_MUSIC_GENRE . " WHERE music_genre_id = :genreId";
-        $genre = ZMRuntime::getDatabase()->querySingle($sql, array('genreId' => $extraInfo['genreId']), TABLE_MUSIC_GENRE);
+        $genre = \ZMRuntime::getDatabase()->querySingle($sql, array('genreId' => $extraInfo['genreId']), TABLE_MUSIC_GENRE);
         if ($genre) {
             $artist->setGenre($genre['name']);
         }
