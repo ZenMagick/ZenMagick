@@ -30,14 +30,6 @@ use zenmagick\base\Runtime;
 class ExamplePluginPlugin extends Plugin {
 
     /**
-     * Create new instance.
-     */
-    public function __construct() {
-        parent::__construct('ZenMagick Example Plugin', 'This is the ZenMagick Example Plugin');
-    }
-
-
-    /**
      * {@inheritDoc}
      */
     public function install() {

@@ -1,0 +1,13 @@
+meta:
+  name: 'ZenMagick Example Plugin'
+  version: '${zenmagick.version}'
+  author: 'zenmagick.org'
+  description: 'This is a basic ZenMagick Example Plugin'
+
+admin:
+  routing:
+    examplePluginAdmin:
+      pattern: /examplePluginAdmin
+      defaults: { _controller: zenmagick\plugins\examplePlugin\ExamplePluginAdminController }
+      options:
+        'view': views/examplePluginAdmin.php

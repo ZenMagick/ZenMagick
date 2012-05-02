@@ -17,15 +17,16 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
+namespace zenmagick\plugins\examplePlugin;
 
+use ZMController;
 
 /**
  * Example plugin admin controller.
  *
  * @author DerManoMann <mano@zenmagick.org>
- * @package org.zenmagick.plugins.examplePlugin
  */
-class ZMExamplePluginAdminController extends ZMController {
+class ExamplePluginAdminController extends ZMController {
 
     /**
      * {@inheritDoc}
