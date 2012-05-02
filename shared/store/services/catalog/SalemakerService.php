@@ -22,6 +22,7 @@
  */
 namespace zenmagick\apps\store\services\catalog;
 
+use DateTime;
 use zenmagick\base\Runtime;
 use zenmagick\base\ZMObject;
 
