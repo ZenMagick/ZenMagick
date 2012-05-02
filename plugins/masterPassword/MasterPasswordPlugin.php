@@ -52,7 +52,7 @@ class MasterPasswordPlugin extends Plugin {
         parent::init();
 
         // add admin page
-        $this->addMenuItem(_zm('Master Password'), 'masterPasswordAdmin');
+        $this->addMenuItem(_zm('Master Password'), 'master_password_admin');
     }
 
     /**

@@ -17,6 +17,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
+namespace zenmagick\plugins\masterPassword\;
 
 use zenmagick\base\ZMObject;
 use zenmagick\base\security\authentication\AuthenticationProvider;
@@ -27,9 +28,8 @@ use zenmagick\base\security\authentication\AuthenticationProvider;
  * <p>This provider is intended only for validating passwords. Encrypting will be delegated to the configured default provider.</p>
  *
  * @author DerManoMann <mano@zenmagick.org>
- * @package org.zenmagick.plugins.masterPassword
  */
-class ZMMasterPasswordAuthenticationProvider extends ZMObject implements AuthenticationProvider {
+class MasterPasswordAuthenticationProvider extends ZMObject implements AuthenticationProvider {
 
     /**
      * {@inheritDoc}
