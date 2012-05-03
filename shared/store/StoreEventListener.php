@@ -60,7 +60,7 @@ class StoreEventListener extends ZMObject {
         // load email container config once all settings/config is loaded
         $emailConfig = Runtime::getInstallationPath().'/config/store-email.xml';
         if (file_exists($emailConfig)) {
-            $containerlLoader = new XmlFileLoader(Runtime::getContainer(), new FileLocator(dirname($emailConfig)));
+            $containerlLoader = new XmlFileLoader($this->container, new FileLocator(dirname($emailConfig)));
             $containerlLoader->load($emailConfig);
         }
     }
@@ -92,6 +92,9 @@ class StoreEventListener extends ZMObject {
                     $mappings['rightColumn'][$boxName] = 'blockWidget#template=boxes/'.$boxName.'.php&sortOrder='.$index++;
                 }
             }
+
+            $this->container->get('salemakerService')->runTasks();
+            $this->container->get('productSpecialsService')->runTasks();
         }
 
         // general banners block group - if used, the group needs to be passed into fetchBlockGroup()

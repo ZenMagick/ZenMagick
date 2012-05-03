@@ -220,8 +220,6 @@ class ZenCartBundle extends Bundle {
             if (null == $session->getValue('customers_ip_address')) {
                 $session->setValue('customers_ip_address', $_SERVER['REMOTE_ADDR']);
             }
-            $this->container->get('salemakerService')->runTasks();
-            $this->container->get('productSpecialsService')->runTasks();
         }
 
         if (defined('EMAIL_TRANSPORT') && 'Qmail' == EMAIL_TRANSPORT && $this->container->has('swiftmailer.transport')) {
