@@ -126,12 +126,6 @@ array(
         'sortOrder' => array('column' => 'sort_order', 'type' => 'integer'),
         'visible' => array('column' => 'visible', 'type' => 'boolean')
     ),
-    'counter_history' => array(
-        'id' => array('column' => 'id', 'type' => 'bigint', 'key' => true, 'auto' => true),
-        'startdate' => array('column' => 'startdate', 'type' => 'string'),
-        'counter' => array('column' => 'counter', 'type' => 'integer'),
-        'session_counter' => array('column' => 'session_counter', 'type' => 'integer')
-    ),
     'countries' => array(
         'countryId' => array('column' => 'countries_id', 'type' => 'integer', 'key' => true, 'auto' => true),
         'name' => array('column' => 'countries_name', 'type' => 'string'),

@@ -82,10 +82,6 @@
             <tag name="apps.store.admin.dashboard.widget" />
         </service>
 
-        <service id="counterHistoryDashboardWidget" class="zenmagick\apps\store\admin\dashboard\widgets\CounterHistoryDashboardWidget" scope="prototype">
-            <tag name="apps.store.admin.dashboard.widget" />
-        </service>
-
         <service id="basicStatsDashboardWidget" class="zenmagick\apps\store\admin\dashboard\widgets\BasicStatsDashboardWidget" scope="prototype">
             <tag name="apps.store.admin.dashboard.widget" />
         </service>

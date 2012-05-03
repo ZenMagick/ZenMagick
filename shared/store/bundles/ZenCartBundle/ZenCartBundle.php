@@ -211,7 +211,6 @@ class ZenCartBundle extends Bundle {
             global $current_page;
             $current_page = $request->getRequestId();
 
-            $this->handleCounter($event);
             /**
              * only used in the orders class and old email functions
              * @todo move it somewhere else
@@ -271,37 +270,5 @@ class ZenCartBundle extends Bundle {
             Runtime::getLogging()->debug('enable zencart request processing for requestId='.$requestId);
         }
         return $needs;
-    }
-
-    /**
-     * Handle ZenCart page and session counting
-     *
-     * @todo add index on startdate field in counter table
-     * @todo convert startdate to an actual date field instead of char for both tables
-     * @todo move it somewhere else if we want to keep it
-     */
-    private function handleCounter($event) {
-        $conn = \ZMRuntime::getDatabase();
-        $session = $event->get('request')->getSession();
-
-        $newSession = false;
-        if ($session->isStarted()) {
-            $newSession = !$session->getValue('session_counter');
-            if ($newSession) $session->setValue('session_counter', true);
-        }
-        $today  = date('Ymd');
-        $query = "INSERT INTO " . TABLE_COUNTER_HISTORY . " (startdate, counter, session_counter) values (:today, 1, 1)
-                 ON DUPLICATE KEY UPDATE counter = counter + 1, session_counter = session_counter + :session_counter";
-        $conn->executeUpdate($query, array('today' => $today, 'session_counter' => (int)$newSession));
-
-        // @todo add a unique index on counter table
-        $query = "SELECT startdate, counter FROM " . TABLE_COUNTER . " WHERE startdate = :startdate";
-        $result = $conn->querySingle($query, array('startdate' => $today), TABLE_COUNTER);
-        if (empty($result)) {
-            $conn->insert(TABLE_COUNTER, array('startdate' => $today, 'counter' => 1));
-        } else {
-            $query = "UPDATE " . TABLE_COUNTER . " SET counter = counter + 1";
-            $conn->updateObj($query, array(), TABLE_COUNTER);
-        }
     }
 }
