@@ -45,22 +45,23 @@ class ProductSpecialsService extends ZMObject {
     public function scheduleSpecials() {
         $sql = "SELECT specials_id, products_id, status, expires_date, specials_date_available
                 FROM " . TABLE_SPECIALS;
+        $productService = $this->container->get('productService');
         foreach (\ZMRuntime::getDatabase()->fetchAll($sql, array(), TABLE_SPECIALS, 'zenmagick\apps\store\model\catalog\Special') as $special) {
             $availableDate = $special->getAvailableDate();
             $expiryDate = $special->getExpiryDate();
             $active = $special->getStatus();
             if (!$active && null != $availableDate && new DateTime() >= $availableDate) {
                 $special->setStatus(true);
-                // @todo update product prices via product price sorter for $special?
-                \ZMRuntime::getDatabase()->updateModel(TABLE_SPECIALS, $special);
-                zen_update_products_price_sorter($special->getProductId());
             }
-            // @todo the original code also disabled specials tht haven't started yet. is that something we should worry about?
+            // @todo the original code also disabled specials that haven't started yet. is that something we should worry about?
             if ($active && null != $expiryDate && new DateTime() >= $expiryDate) {
                 $special->setStatus(false);
-                // @todo update product prices via product price sorter for $special?
+            }
+
+            // changed ??
+            if ($special->getStatus() != $active) {
                 \ZMRuntime::getDatabase()->updateModel(TABLE_SPECIALS, $special);
-                zen_update_products_price_sorter($special->getProductId());
+                $productService->updateSortPrice($special->getProductId());
             }
         }
     }

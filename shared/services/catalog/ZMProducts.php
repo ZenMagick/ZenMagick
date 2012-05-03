@@ -697,4 +697,16 @@ class ZMProducts extends ZMObject implements ZMSQLAware {
         return ZMRuntime::getDatabase()->querySingle($sql, $args, TABLE_META_TAGS_PRODUCTS_DESCRIPTION, 'ZMMetaTagDetails');
     }
 
+    /**
+     * Update price sorter price for the given product id.
+     *
+     * @param int productId The id of the product to update.
+     */
+    public function updateSortPrice($productId) {
+        if (null != ($product = $this->getProductForId($productId))) {
+            $product->setPriceSorter($product->getCalculatedPrice());
+            $this->updateProduct($product);
+        }
+    }
+
 }
