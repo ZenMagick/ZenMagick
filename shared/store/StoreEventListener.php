@@ -92,10 +92,12 @@ class StoreEventListener extends ZMObject {
                     $mappings['rightColumn'][$boxName] = 'blockWidget#template=boxes/'.$boxName.'.php&sortOrder='.$index++;
                 }
             }
-
-            $this->container->get('salemakerService')->runTasks();
-            $this->container->get('productSpecialsService')->runTasks();
         }
+
+        $this->container->get('bannerService')->runTasks();
+        $this->container->get('salemakerService')->runTasks();
+        $this->container->get('productFeaturedService')->runTasks();
+        $this->container->get('productSpecialsService')->runTasks();
 
         // general banners block group - if used, the group needs to be passed into fetchBlockGroup()
         $mappings['banners'] = array();
