@@ -1,0 +1,14 @@
+meta:
+  name: 'Count site vistors'
+  version: '${zenmagick.version}'
+  author: 'zenmagick.org'
+  description: 'Reimplements the ZenCart site vist counter'
+
+admin:
+  container:
+    services:
+      counterHistoryDashboardWidget:
+        class: zenmagick\plugins\visitCounter\CounterHistoryDashboardWidget
+        scope: prototype
+        tags:
+          -  { name: apps.store.admin.dashboard.widget }
