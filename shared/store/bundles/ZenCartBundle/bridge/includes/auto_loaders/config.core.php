@@ -39,9 +39,11 @@
                                 'objectName'=>'sniffer');
 
   $autoLoadConfig[60][] = array('autoType'=>'include_glob',
-                                'loadFile'=> 'includes/functions/{functions_email.php,functions_general.php,html_output.php,functions_ezpages.php,sessions.php,zen_mail.php}');
+                                'loadFile'=>'includes/functions/{functions_email.php,functions_general.php,html_output.php,sessions.php,zen_mail.php}');
   $autoLoadConfig[60][] = array('autoType'=>'include_glob',
-                                'loadFile'=> 'includes/functions/extra_functions/*.php');
+                                'loadFile'=>'includes/functions/{banner.php,functions_ezpages.php,password_funcs.php}');
+  $autoLoadConfig[60][] = array('autoType'=>'include_glob',
+                                'loadFile'=>'includes/functions/extra_functions/*.php');
 
   $autoLoadConfig[70][] = array('autoType'=>'service',
                                 'name'=>'session', 'method'=>'getToken', 'session' => true,
@@ -104,9 +106,6 @@
 
   $autoLoadConfig[140][] = array('autoType'=>'init_script',
                                  'loadFile'=> 'init_cart_handler.php');
-
-  $autoLoadConfig[150][] = array('autoType'=>'init_script',
-                                 'loadFile'=> 'init_special_funcs.php');
 
   $autoLoadConfig[160][] = array('autoType'=>'classInstantiate',
                                  'className'=>'breadcrumb',
