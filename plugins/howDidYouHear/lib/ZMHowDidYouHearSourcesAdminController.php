@@ -40,7 +40,7 @@ class ZMHowDidYouHearSourcesAdminController extends ZMController {
         $resultList = Runtime::getContainer()->get("ZMResultList");
         $resultList->setResultSource($resultSource);
         $resultList->setPageNumber($request->getParameter('page', 1));
-        return array('resultList' => $resultList, 'isOther' => $isOther);
+        return array('resultList' => $resultList);
     }
 
     /**
