@@ -75,3 +75,7 @@ define('DIR_WS_TEMPLATE_ICONS', DIR_WS_TEMPLATE_IMAGES.'icons/');
 
 define('CHARSET', $settings->get('zenmagick.http.html.charset'));
 
+// used by some zen-cart validation code
+if (null != ($shortUIFormat = Runtime::getContainer()->get('localeService')->getLocale()->getFormat('date', 'short-ui-format'))) {
+    define('DOB_FORMAT_STRING', $shortUIFormat);
+}
