@@ -271,7 +271,7 @@ class Plugin extends zenmagick\base\plugins\Plugin {
             $widget = 'widget@textFormWidget#name='.$key.'&default=&size=12&maxlength=56';
         }
 
-        if (!\ZMLangUtils::startsWith($key, $this->configPrefix_)) {
+        if (0 !== strpos($key, $this->configPrefix_)) {
             $key = $this->configPrefix_ . $key;
         }
         // keys are always upper case

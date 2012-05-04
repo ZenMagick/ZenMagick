@@ -131,7 +131,7 @@ class SideboxDummyPatch extends FilePatch {
         if (file_exists($this->sideBoxPath)) {
             $handle = opendir($this->sideBoxPath);
             while (false !== ($file = readdir($handle))) {
-                if (!is_dir($this->sideBoxPath.$file) && !\ZMLangUtils::startsWith($file, '.')) {
+                if (!is_dir($this->sideBoxPath.$file) && 0 !== strpos($file, '.')) {
                     $contents = file_get_contents($this->sideBoxPath.$file);
                     if (false !== strpos($contents, '/** dummy file created by ZenMagick installation patcher **/')) {
                         array_push($dummies, $this->sideBoxPath.$file);

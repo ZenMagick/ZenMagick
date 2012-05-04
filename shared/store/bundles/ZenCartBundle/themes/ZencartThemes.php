@@ -121,7 +121,7 @@ class ZencartThemes extends Themes {
         $zcPath = $this->container->get('settingsService')->get('apps.store.zencart.path');
         if (false !== ($handle = @opendir($zcPath.'/includes/templates'))) {
             while (false !== ($file = readdir($handle))) {
-                if (\ZMLangUtils::startsWith($file, '.')) {
+                if (0 === strpos($file, '.')) {
                     continue;
                 }
                 array_push($themes, $file);

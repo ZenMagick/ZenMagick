@@ -814,7 +814,7 @@ class ZMShoppingCart extends ZMObject {
     function prepare_uploads($product, $attributes=array()) {
         $uploads = 0;
         foreach ($attributes as $name => $value) {
-            if (ZMLangUtils::startsWith($name, Runtime::getSettings()->get('uploadOptionPrefix'))) {
+            if (0 === strpos($name, Runtime::getSettings()->get('uploadOptionPrefix'))) {
                 ++$uploads;
             }
         }

@@ -65,7 +65,7 @@ class ZMPrettyLinksUrlRewriter implements UrlRewriter {
         if (!ZMLangUtils::endsWith($path, '/')) {
             $path .= '/';
         }
-        if (ZMLangUtils::startsWith($path, '\\')) {
+        if (0 === strpos($path, '\\')) {
             $path = substr($path, 1);
         }
         $requestId = $query[Runtime::getSettings()->get('zenmagick.http.request.idName')];
@@ -232,7 +232,7 @@ class ZMPrettyLinksUrlRewriter implements UrlRewriter {
                 array_push($removeNames, 'action');
                 break;
             default:
-                if (ZMLangUtils::startsWith($requestId, 'popup_')) {
+                if (0 === strpos($requestId, 'popup_')) {
                     $path .= "popup/".substr($requestId, 6);
                 } else {
                     if (isset($_zm_pretty_link_map) && isset($_zm_pretty_link_map[$requestId])) {

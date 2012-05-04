@@ -165,7 +165,7 @@ class ThemeDummyPatch extends FilePatch {
         if (file_exists($this->catalogTemplatePath)) {
             $handle = opendir($this->catalogTemplatePath);
             while (false !== ($file = readdir($handle))) {
-                if (is_dir($this->catalogTemplatePath.$file) && !\ZMLangUtils::startsWith($file, '.')) {
+                if (is_dir($this->catalogTemplatePath.$file) && 0 !== strpos($file, '.')) {
                     if (file_exists($this->catalogTemplatePath.$file."/template_info.php")) {
                         $contents = file_get_contents($this->catalogTemplatePath.$file."/template_info.php");
                         if (false !== strpos($contents, 'created by ZenMagick')) {

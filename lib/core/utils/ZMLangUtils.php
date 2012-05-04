@@ -45,6 +45,7 @@ class ZMLangUtils {
      * @param string start The needle.
      * @return boolean <code>true</code> if <code>$s</code> starts with <code>$start</code>,
      *  <code>false</code> if not.
+     * @deprecated
      */
     public static function startsWith($s, $start) {
         return 0 === strpos($s, $start);

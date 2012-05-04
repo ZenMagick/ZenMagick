@@ -43,7 +43,7 @@ class ZMUnitTestsController extends \ZMController {
         foreach (new \RecursiveIteratorIterator(new \RecursiveDirectoryIterator($path)) as $filename => $fileInfo) {
             if ($fileInfo->isFile() && $ext == substr($fileInfo->getFilename(), -strlen($ext))) {
                 $className = substr($fileInfo->getFilename(), 0, strlen($fileInfo->getFilename())-strlen($ext));
-                if (ZMLangUtils::startsWith($className, 'Test')) {
+                if (0 === strpos($className, 'Test')) {
                     $tests[$className] = $fileInfo->getPathname();
                 }
             }

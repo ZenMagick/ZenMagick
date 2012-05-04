@@ -169,7 +169,7 @@ class EventFixes extends ZMObject {
         if ('add_product' == $action) {
             $uploads = 0;
             foreach ($request->getParameterMap() as $name => $value) {
-                if (\ZMLangUtils::startsWith($name, $settingsService->get('uploadOptionPrefix'))) {
+                if (0 === strpos($name, $settingsService->get('uploadOptionPrefix'))) {
                     ++$uploads;
                 }
             }

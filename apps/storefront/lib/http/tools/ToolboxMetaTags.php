@@ -81,7 +81,7 @@ class ToolboxMetaTags extends ToolboxTool {
         // special handling for categories, manufacturers
         if ('index' == $requestId) {
             $title = Runtime::getSettings()->get('storeName');
-        } else if (\ZMLangUtils::startsWith($requestId, 'product_')) {
+        } else if (0 === strpos($requestId, 'product_')) {
             if (null != $this->product_) {
                 $languageId = $this->getRequest()->getSession()->getLanguageId();
                 if (null != ($details =  $this->product_->getMetaTagDetails($languageId)) && !\ZMLangUtils::isEmpty($details->getTitle())) {

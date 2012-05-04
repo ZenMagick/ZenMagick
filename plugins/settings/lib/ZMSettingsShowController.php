@@ -119,7 +119,7 @@ class ZMSettingsShowController extends ZMPluginAdminController {
                         $prefix = $bits[0];
                         $suffix = $bits[1];
                         foreach (Runtime::getSettings()->getAll() as $akey => $avalue) {
-                            if (ZMLangUtils::startsWith($akey, $prefix) && ZMLangUtils::endsWith($akey, $suffix)) {
+                            if (0 === strpos($akey, $prefix) && ZMLangUtils::endsWith($akey, $suffix)) {
                                 // potential match
                                 $dynVal = substr($akey, strlen($prefix), -strlen($suffix));
                                 if (!ZMLangUtils::isEmpty($dynVal)) {
@@ -143,7 +143,7 @@ class ZMSettingsShowController extends ZMPluginAdminController {
         // check for settings without details
         foreach (Runtime::getSettings()->getAll() as $key => $value) {
             foreach ($settingDetails as $group => $groupDetails) {
-                if (ZMLangUtils::startsWith($key, $group.'.')) {
+                if (0 === strpos($key, $group.'.')) {
                     $found = false;
                     foreach ($groupDetails as $subDetails) {
                         foreach ($subDetails as $details) {

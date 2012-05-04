@@ -44,7 +44,7 @@ class AlphaFilter extends ZMResultListFilter {
      * @param mixed obj The obecjt to examine.
      * @return boolean <code>true</code> if the object is to be excluded, <code>false</code> if not.
      */
-    function exclude($obj) { return !ZMLangUtils::startsWith(strtolower($obj->getName()), $this->filterValues_[0]); }
+    function exclude($obj) { return 0 !== strpos(strtolower($obj->getName()), $this->filterValues_[0]); }
 
 
     /**

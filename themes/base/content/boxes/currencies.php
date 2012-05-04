@@ -23,7 +23,7 @@
 ?>
 
 <?php $currencyList = $container->get('currencyService')->getCurrencies(); ?>
-<?php if (0 < count($currencyList) && !ZMLangUtils::startsWith($request->getRequestId(), 'checkout')) { ?>
+<?php if (0 < count($currencyList) && 0 !== strpos($request->getRequestId(), 'checkout')) { ?>
     <h3><?php _vzm("Currencies") ?></h3>
     <div id="sb_currencies" class="box">
         <?php echo $form->open(null, '', $request->isSecure(), array('method'=>'get')) ?>
