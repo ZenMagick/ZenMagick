@@ -219,8 +219,9 @@ class EventFixes extends ZMObject {
         }
 
         // used by some zen-cart validation code
-        if (!defined('DOB_FORMAT_STRING') && null != \ZMLocaleUtils::getFormat('date', 'short-ui-format')) {
-            define('DOB_FORMAT_STRING', \ZMLocaleUtils::getFormat('date', 'short-ui-format'));
+        $shortUIFormat = $this->container->get('localeService')->getLocale()->getFormat('date', 'short-ui-format');
+        if (!defined('DOB_FORMAT_STRING') && null != $shortUIFormat) {
+            define('DOB_FORMAT_STRING', $shortUIFormat);
         }
 
         // do not check for valid product id
