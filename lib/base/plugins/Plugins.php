@@ -160,16 +160,11 @@ if ($this->profile) { echo $id.' base init done: '.($end=$app->getElapsedTime())
                         }
 if ($this->profile) { echo $id.' pl cl int done: '.($end=$app->getElapsedTime()).' dur: '.round(($end-$start), 4)."<BR>"; $start=$end; }
 
-                        $config = $status['config'];
-                        if ($config) {
+                        if ($status['config']) {
                             $configLoader = $this->container->get('contextConfigLoader');
-                            $configLoader->setConfig($config);
+                            $configLoader->setConfig($status['config']);
                             $configLoader->process();
 if ($this->profile) { echo $id.' ctx loader done: '.($end=$app->getElapsedTime()).' dur: '.round(($end-$start), 4)."<BR>"; $start=$end; }
-                            if (array_key_exists('meta', $config)) {
-                                Beans::setAll($plugin, $config['meta']);
-if ($this->profile) { echo $id.' meta set done: '.($end=$app->getElapsedTime()).' dur: '.round(($end-$start), 4)."<BR>"; $start=$end; }
-                            }
                         }
 
                         $plugin->init();
@@ -178,6 +173,12 @@ if ($this->profile) { echo $id.' meta set done: '.($end=$app->getElapsedTime()).
                         $path = $plugin->getPluginDirectory().'/locale/'.$settingsService->get('zenmagick.base.locales.locale');
                         $localeService->getLocale()->addResource($path);
                     }
+
+                    if ($status['config'] && array_key_exists('meta', $status['config'])) {
+                        Beans::setAll($plugin, $status['config']['meta']);
+if ($this->profile) { echo $id.' meta set done: '.($end=$app->getElapsedTime()).' dur: '.round(($end-$start), 4)."<BR>"; $start=$end; }
+                    }
+
                     $this->plugins[$id] = $plugins[$id] = $plugin;
                 }
             }
