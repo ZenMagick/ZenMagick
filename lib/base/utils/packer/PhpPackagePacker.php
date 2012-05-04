@@ -195,7 +195,7 @@ class PhpPackagePacker extends ZMObject {
                 if ($this->ignoreFile($filename)) {
                     continue;
                 }
-                $lines = \ZMFileUtils::getFileLines($filename);
+                $lines = file($filename);
                 foreach ($lines as $ii => $line) {
                     // match all statements, regardless whether they match the PEAR style expected above or not
                     if (preg_match('/^\s*\s*(require_once|require|include_once|include).*$/', $line, $matches)) {

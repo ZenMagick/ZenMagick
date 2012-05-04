@@ -175,7 +175,7 @@ class PhpSourceAnalyzer {
         // 1) start by collecting lines and class/interface for each file
         $fileDetails = array();
         foreach ($files as $filename) {
-            $lines = \ZMFileUtils::getFileLines($filename);
+            $lines = file($filename);
             //$fileDetails[$filename] = array('lines' => $lines);
             $fileDetails[$filename]['deps'] = PhpSourceAnalyzer::getDependencies(implode("\n", $lines));
         }

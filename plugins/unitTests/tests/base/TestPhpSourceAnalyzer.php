@@ -54,7 +54,7 @@ class TestPhpSourceAnalyzer extends ZMTestCase {
      */
     protected function getSourceFor($filename) {
         $path = $this->getTestPlugin()->getPluginDirectory().'/tests/base/testclasses/';
-        $lines = ZMFileUtils::getFileLines($path.$filename);
+        $lines = file($path.$filename);
         return implode("\n", $lines);
     }
 
