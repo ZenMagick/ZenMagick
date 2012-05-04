@@ -172,7 +172,7 @@ class ZMExportOrdersController extends ZMController {
             $lastRow = $ii == count($orderItems)-1;
             $row = array();
             if ($firstRow) {
-                $row[] = ZMLocaleUtils::dateShort($order->getOrderDate());
+                $row[] = $this->container->get('localeService')->getLocale()->dateShort($order->getOrderDate());
                 $row[] = $order->getId();
                 $row[] = trim($order->getAccount()->getFullName());
                 $row[] = (null != $shippingCountry ? $shippingCountry->getName() : '');

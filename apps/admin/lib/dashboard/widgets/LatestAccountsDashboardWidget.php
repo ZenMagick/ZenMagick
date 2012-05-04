@@ -48,7 +48,7 @@ class LatestAccountsDashboardWidget extends DashboardWidget {
             $contents .= '<tr>';
             $name = $account->getType() == \ZMAccount::REGISTERED ? $account->getFullName() : _zm('** Guest **');
             $contents .= '<td><a href="'.$admin->url('account', 'accountId='.$account->getId()).'">'.$name.'</a></td>';
-            $contents .= '<td>'.\ZMLocaleUtils::dateShort($account->getAccountCreateDate()).'</td>';
+            $contents .= '<td>'.$this->container->get('localeService')->getLocale()->dateShort($account->getAccountCreateDate()).'</td>';
             $contents .= '</tr>';
         }
         $contents .= '</table>';
