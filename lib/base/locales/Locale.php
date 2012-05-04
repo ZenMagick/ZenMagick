@@ -19,6 +19,7 @@
  */
 namespace zenmagick\base\locales;
 
+use DateTime;
 use zenmagick\base\Runtime;
 use zenmagick\base\Toolbox;
 use zenmagick\base\ZMObject;
@@ -234,6 +235,34 @@ abstract class Locale extends ZMObject {
      */
     public function setFormats($formats) {
         $this->formats_ = Toolbox::arrayMergeRecursive($this->formats_, $formats);
+    }
+
+    /**
+     * Format a date as short date according to this locales format.
+     *
+     * @param DateTime date A date.
+     * @return string A short version.
+     */
+    public function dateShort($date) {
+        if ($date instanceof DateTime) {
+            return $date->format($this->getFormat('date', 'short'));
+        }
+
+        return $date;
+    }
+
+    /**
+     * Format a date as long date according to this locales format.
+     *
+     * @param DateTime date A date.
+     * @return string A long version.
+     */
+    public function dateLong($date) {
+        if ($date instanceof DateTime) {
+            return $date->format($this->getFormat('date', 'long'));
+        }
+
+        return $date;
     }
 
 }
