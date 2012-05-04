@@ -276,6 +276,7 @@ class TemplateView extends ZMObject implements View {
         $this->setVariable('request', $request);
         $this->setVariable('session', $request->getSession());
         $this->setVariable('settingsService', $settingsService);
+        $this->setVariable('locale', $this->container->get('localeService')->getLocale());
 
         // find services tagged as view variables
         foreach ($this->container->findTaggedServiceIds('zenmagick.http.view.variable') as $id => $args) {

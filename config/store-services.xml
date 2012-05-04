@@ -206,10 +206,6 @@
             <tag name="zenmagick.http.toolbox.tool" key="html" />
         </service>
 
-        <service id="localeTool" class="zenmagick\apps\store\toolbox\ToolboxLocale" scope="prototype">
-            <tag name="zenmagick.http.toolbox.tool" key="locale" />
-        </service>
-
         <service id="macroTool" class="zenmagick\apps\store\toolbox\ToolboxMacro" scope="prototype">
             <tag name="zenmagick.http.toolbox.tool" key="macro" />
         </service>

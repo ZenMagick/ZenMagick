@@ -243,7 +243,7 @@ abstract class Locale extends ZMObject {
      * @param DateTime date A date.
      * @return string A short version.
      */
-    public function dateShort($date) {
+    public function shortDate($date) {
         if ($date instanceof DateTime) {
             return $date->format($this->getFormat('date', 'short'));
         }
@@ -257,7 +257,7 @@ abstract class Locale extends ZMObject {
      * @param DateTime date A date.
      * @return string A long version.
      */
-    public function dateLong($date) {
+    public function longDate($date) {
         if ($date instanceof DateTime) {
             return $date->format($this->getFormat('date', 'long'));
         }
