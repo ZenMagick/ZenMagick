@@ -67,6 +67,7 @@ class ZMLocaleUtils {
      * @param string type Optional type.
      * @return string The format or <code>null</code>
      * @see Locale::getFormat(string,string)
+     * @deprecate
      */
     public static function getFormat($group, $type=null) {
         return Runtime::getContainer()->get('localeService')->getLocale()->getFormat($group, $type);

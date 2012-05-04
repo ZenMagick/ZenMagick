@@ -36,7 +36,7 @@ class ToolboxLocale extends ToolboxTool {
      * @return string The formatted date.
      */
     public function shortDate($date, $format=null) {
-        return \ZMLocaleUtils::dateShort($date, $format);
+        return $this->container->get('localeService')->dateShort($date, $format);
     }
 
     /**
@@ -47,7 +47,7 @@ class ToolboxLocale extends ToolboxTool {
      * @return string The formatted date.
      */
     public function longDate($date, $format=null) {
-        return \ZMLocaleUtils::dateLong($date, $format);
+        return $this->container->get('localeService')->dateLong($date, $format);
     }
 
     /**
@@ -59,7 +59,7 @@ class ToolboxLocale extends ToolboxTool {
      * @see Locale::getFormat(string,string)
      */
     public function getFormat($group, $type=null) {
-        return \ZMLocaleUtils::getFormat($group, $type);
+        return $this->container->get('localeService')->getLocale()->getFormat($group, $type);
     }
 
 }
