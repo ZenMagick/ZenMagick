@@ -62,6 +62,7 @@ class ZenCartClassLoader extends ClassLoader {
             'template_func' => 'template_func',
             'PHPMailer' => 'class.phpmailer', // @todo remove legacy mailer support
             'SMTP' => 'class.smtp',
+            'payment' => 'payment',
             'order_total' => 'order_total',
             'shipping' => 'shipping',
             'order' => 'order',
