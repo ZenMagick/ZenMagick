@@ -404,6 +404,7 @@ class Session extends ZMObject {
             session_set_save_handler(array($sessionHandler, 'open'), array($sessionHandler, 'close'), array($sessionHandler, 'read'),
                 array($sessionHandler, 'write'), array($sessionHandler, 'destroy'), array($sessionHandler, 'gc'));
             $this->sessionHandler_ = $sessionHandler;
+            register_shutdown_function('session_write_close');
         }
     }
 
