@@ -20,6 +20,7 @@
 namespace zenmagick\base;
 
 use Serializable;
+use zenmagick\base\Runtime;
 use Symfony\Component\DependencyInjection\ContainerAware;
 
 /**
@@ -221,11 +222,14 @@ class ZMObject extends ContainerAware implements Serializable {
      * @param string serialized The serialized data.
      */
     public function unserialize($serialized) {
-        if (function_exists('gzcompress')) {
-            $serialized = base64_decode(gzuncompress($serialized));
+        $this->__construct();
+        $this->container = Runtime::getContainer();
+
+        if (function_exists('gzuncompress')) {
+            $serialized = gzuncompress(base64_decode($serialized));
         }
 
-        $sprops = base64_decode(unserialize($serialized));
+        $sprops = unserialize($serialized);
 
         foreach ($sprops as $name => $sprop) {
             $this->set($name, unserialize($sprop));
