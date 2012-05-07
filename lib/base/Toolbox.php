@@ -226,4 +226,26 @@ class Toolbox {
         return $map;
     }
 
+    /**
+     * Create a unique key from all given parameters.
+     *
+     * @param var arg Arguments.
+     * @return string a unique key based on the arguments.
+     */
+    public static function hash() {
+        $args = func_get_args();
+        $key = '';
+        foreach (func_get_args() as $arg) {
+            if (is_array($arg)) {
+                asort($arg);
+                foreach ($arg as $ar) {
+                    $key .= '@'.$ar;
+                }
+            } else {
+                $key .= ':'.$arg;
+            }
+        }
+        return md5($key);
+    }
+
 }

@@ -100,6 +100,7 @@ class ZMLangUtils {
      *
      * @param var arg Arguments.
      * @return string a unique key based on the arguments.
+     * @deprecated use Toolbox::hash instead
      */
     public static function mkUnique() {
         $args = func_get_args();
