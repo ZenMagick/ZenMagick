@@ -52,7 +52,7 @@
               <argument>/themes</argument>
             </call>
             <call method="setCache">
-                <argument type="service" id="bootstrapCache" />
+                <argument type="service" id="servicesCache" />
             </call>
         </service>
 
