@@ -19,6 +19,7 @@
  */
 
 use zenmagick\base\ZMObject;
+use zenmagick\plugins\unitTests\simpletest\TestCase;
 
 /**
  * Test shopping cart.
@@ -26,7 +27,7 @@ use zenmagick\base\ZMObject;
  * @package org.zenmagick.plugins.unitTests.tests
  * @author DerManoMann <mano@zenmagick.org>
  */
-class TestShoppingCart extends ZMTestCase {
+class TestShoppingCart extends TestCase {
 
     /**
      * {@inheritDoc}

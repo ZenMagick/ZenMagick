@@ -19,6 +19,7 @@
  */
 
 use zenmagick\base\classloader\ClassLoader;
+use zenmagick\plugins\unitTests\simpletest\TestCase;
 
 /**
  * Test class loader
@@ -26,7 +27,7 @@ use zenmagick\base\classloader\ClassLoader;
  * @package org.zenmagick.plugins.unitTests.tests
  * @author DerManoMann <mano@zenmagick.org>
  */
-class TestClassLoader extends ZMTestCase {
+class TestClassLoader extends TestCase {
     protected static $LOADER_DIR;
 
 

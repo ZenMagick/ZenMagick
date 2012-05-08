@@ -20,8 +20,8 @@
 
 use zenmagick\base\Beans;
 use zenmagick\base\Runtime;
-
 use zenmagick\apps\store\model\catalog\Review;
+use zenmagick\plugins\unitTests\simpletest\TestCase;
 
 /**
  * Test reviews service.
@@ -29,7 +29,7 @@ use zenmagick\apps\store\model\catalog\Review;
  * @package org.zenmagick.plugins.unitTests.tests
  * @author DerManoMann <mano@zenmagick.org>
  */
-class TestReviewService extends ZMTestCase {
+class TestReviewService extends TestCase {
 
     /**
      * Validate the given review as the (single) demo review.

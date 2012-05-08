@@ -18,13 +18,15 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
+use zenmagick\plugins\unitTests\simpletest\TestCase;
+
 /**
  * Test offers.
  *
  * @package org.zenmagick.plugins.unitTests.tests
  * @author DerManoMann <mano@zenmagick.org>
  */
-class TestZMOffers extends ZMTestCase {
+class TestZMOffers extends TestCase {
 
     /**
      * Set up.

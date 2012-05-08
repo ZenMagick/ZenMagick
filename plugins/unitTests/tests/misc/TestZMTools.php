@@ -19,6 +19,7 @@
  */
 
 use zenmagick\base\Runtime;
+use zenmagick\plugins\unitTests\simpletest\TestCase;
 
 /**
  * Test ZMTools.
@@ -26,7 +27,7 @@ use zenmagick\base\Runtime;
  * @package org.zenmagick.plugins.unitTests.tests
  * @author DerManoMann <mano@zenmagick.org>
  */
-class TestZMTools extends ZMTestCase {
+class TestZMTools extends TestCase {
 
     /**
      * Test range parser.

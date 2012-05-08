@@ -22,6 +22,7 @@ use zenmagick\base\Runtime;
 use zenmagick\base\settings\Settings;
 use zenmagick\base\Toolbox;
 use zenmagick\base\security\authentication\AuthenticationProvider;
+use zenmagick\plugins\unitTests\simpletest\TestCase;
 
 /**
  * Test authentication manager and provider.
@@ -29,7 +30,7 @@ use zenmagick\base\security\authentication\AuthenticationProvider;
  * @package org.zenmagick.plugins.unitTests.tests
  * @author DerManoMann <mano@zenmagick.org>
  */
-class TestAuthenticationManager extends ZMTestCase {
+class TestAuthenticationManager extends TestCase {
 
     /**
      * Test getProvider

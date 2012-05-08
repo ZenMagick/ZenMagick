@@ -18,13 +18,15 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
+use zenmagick\plugins\unitTests\simpletest\TestCase;
+
 /**
  * Test salemaker service.
  *
  * @package org.zenmagick.plugins.unitTests.tests
  * @author DerManoMann <mano@zenmagick.org>
  */
-class TestSalemakerService extends ZMTestCase {
+class TestSalemakerService extends TestCase {
 
     /**
      * Test getSaleDiscountTypeInfo.

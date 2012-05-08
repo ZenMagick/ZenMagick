@@ -19,6 +19,7 @@
  */
 
 use zenmagick\base\Beans;
+use zenmagick\plugins\unitTests\simpletest\TestCase;
 
 /**
  * Test manufacturer service.
@@ -26,7 +27,7 @@ use zenmagick\base\Beans;
  * @package org.zenmagick.plugins.unitTests.tests
  * @author DerManoMann <mano@zenmagick.org>
  */
-class TestManufacturerService extends ZMTestCase {
+class TestManufacturerService extends TestCase {
 
     /**
      * Test get for name.

@@ -21,6 +21,7 @@
 define('TABLE_CREATE_UPDATE_TESTS', DB_PREFIX . 'create_update_tests');
 
 use zenmagick\base\ZMObject;
+use zenmagick\plugins\unitTests\simpletest\TestCase;
 
 /**
  * Test create / update methods.
@@ -28,7 +29,7 @@ use zenmagick\base\ZMObject;
  * @package org.zenmagick.plugins.unitTests.tests
  * @author DerManoMann <mano@zenmagick.org>
  */
-class TestZMDatabaseCreateUpdate extends ZMTestCase {
+class TestZMDatabaseCreateUpdate extends TestCase {
 
     /**
      * {@inheritDoc}

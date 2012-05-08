@@ -3,8 +3,9 @@
 use phprules\SingleRule;
 use phprules\RuleContext;
 use phprules\CompositeRule;
+use zenmagick\plugins\unitTests\simpletest\TestCase;
 
-class TestRules extends ZMTestCase {
+class TestRules extends TestCase {
 
     public function testRule() {
         $rule = new SingleRule( 'passengerSuitableForUpgrade' );

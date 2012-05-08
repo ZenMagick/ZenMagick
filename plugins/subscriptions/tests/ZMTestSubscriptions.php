@@ -20,6 +20,7 @@
 
 use zenmagick\base\Beans;
 use zenmagick\base\classloader\ClassLoader;
+use zenmagick\plugins\unitTests\simpletest\TestCase;
 
 /**
  * Test subscriptions.
@@ -27,7 +28,7 @@ use zenmagick\base\classloader\ClassLoader;
  * @package org.zenmagick.plugins.subscriptions
  * @author DerManoMann <mano@zenmagick.org>
  */
-class ZMTestSubscriptions extends ZMTestCase {
+class ZMTestSubscriptions extends TestCase {
 
     /**
      * Get the plugin.

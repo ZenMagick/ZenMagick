@@ -18,13 +18,15 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
+use zenmagick\plugins\unitTests\simpletest\TestCase;
+
 /**
  * Test ZMTags store implementation.
  *
  * @package org.zenmagick.plugins.productTags
  * @author DerManoMann <mano@zenmagick.org>
  */
-class TestZMTags extends ZMTestCase {
+class TestZMTags extends TestCase {
 
     /**
      * Test getTagsForProductId.

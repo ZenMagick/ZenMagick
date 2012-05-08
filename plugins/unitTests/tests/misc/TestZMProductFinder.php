@@ -19,6 +19,7 @@
  */
 
 use zenmagick\base\Beans;
+use zenmagick\plugins\unitTests\simpletest\TestCase;
 
 /**
  * Test the product finder.
@@ -26,7 +27,7 @@ use zenmagick\base\Beans;
  * @package org.zenmagick.plugins.unitTests.tests.misc
  * @author DerManoMann <mano@zenmagick.org>
  */
-class TestZMProductFinder extends ZMTestCase {
+class TestZMProductFinder extends TestCase {
 
     /**
      * Test.

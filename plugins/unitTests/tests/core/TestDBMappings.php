@@ -18,13 +18,15 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
+use zenmagick\plugins\unitTests\simpletest\TestCase;
+
 /**
  * Test database mappings.
  *
  * @package org.zenmagick.plugins.unitTests.tests
  * @author DerManoMann <mano@zenmagick.org>
  */
-class TestDBMappings extends ZMTestCase {
+class TestDBMappings extends TestCase {
 
     /**
      * {@inheritDoc}

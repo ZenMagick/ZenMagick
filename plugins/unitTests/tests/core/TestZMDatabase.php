@@ -19,8 +19,8 @@
  */
 
 use zenmagick\base\Beans;
-
 use zenmagick\apps\store\model\location\Country;
+use zenmagick\plugins\unitTests\simpletest\TestCase;
 
 /**
  * Test database implementations.
@@ -28,7 +28,7 @@ use zenmagick\apps\store\model\location\Country;
  * @package org.zenmagick.plugins.unitTests.tests
  * @author DerManoMann <mano@zenmagick.org>
  */
-class TestZMDatabase extends ZMTestCase {
+class TestZMDatabase extends TestCase {
 
     /**
      * Get all provider to test.

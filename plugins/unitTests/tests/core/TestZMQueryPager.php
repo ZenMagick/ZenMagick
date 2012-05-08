@@ -18,13 +18,15 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
+use zenmagick\plugins\unitTests\simpletest\TestCase;
+
 /**
  * Test query pager.
  *
  * @package org.zenmagick.plugins.unitTests.tests
  * @author DerManoMann <mano@zenmagick.org>
  */
-class TestZMQueryPager extends ZMTestCase {
+class TestZMQueryPager extends TestCase {
 
     /**
      * Test simple.
@@ -54,8 +56,9 @@ class TestZMQueryPager extends ZMTestCase {
             $orders = $resultList->getResults();
             echo 'is final source: ' . $resultSource->isFinal()."<BR>";
             echo "# of pages: " . $resultList->getNumberOfPages()."<BR>";
+            $locale = $this->container->get('localeService')->getLocale();
             foreach ($orders as $order) {
-                echo $order->getId() . ' ' . $order->getOrderDate()."<BR>";
+                echo $order->getId() . ' ' . $locale->longDate($order->getOrderDate())."<BR>";
             }
     }
 

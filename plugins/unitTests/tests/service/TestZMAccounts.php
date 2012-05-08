@@ -19,6 +19,7 @@
  */
 
 use zenmagick\base\Beans;
+use zenmagick\plugins\unitTests\simpletest\TestCase;
 
 /**
  * Test accounts service.
@@ -26,7 +27,7 @@ use zenmagick\base\Beans;
  * @package org.zenmagick.plugins.unitTests.tests
  * @author DerManoMann <mano@zenmagick.org>
  */
-class TestZMAccounts extends ZMTestCase {
+class TestZMAccounts extends TestCase {
     // test account data
     protected $accountData1 = array(
         'FirstName' => 'john',

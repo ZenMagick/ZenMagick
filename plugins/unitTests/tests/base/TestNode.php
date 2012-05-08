@@ -18,11 +18,10 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
+use Symfony\Component\Yaml\Yaml;
 use zenmagick\base\Runtime;
 use zenmagick\base\utils\Node;
-
-use Symfony\Component\Yaml\Yaml;
-
+use zenmagick\plugins\unitTests\simpletest\TestCase;
 
 /**
  * Test Node.
@@ -30,7 +29,7 @@ use Symfony\Component\Yaml\Yaml;
  * @package org.zenmagick.plugins.unitTests.tests
  * @author DerManoMann <mano@zenmagick.org>
  */
-class TestNode extends ZMTestCase {
+class TestNode extends TestCase {
 
     public function testChildren() {
         $root = new Node();

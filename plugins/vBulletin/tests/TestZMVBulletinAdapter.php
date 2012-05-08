@@ -19,6 +19,7 @@
  */
 
 use zenmagick\base\Runtime;
+use zenmagick\plugins\unitTests\simpletest\TestCase;
 
 /**
  * ZMVBulletin adapter test class.
@@ -26,7 +27,7 @@ use zenmagick\base\Runtime;
  * @package org.zenmagick.plugins.vbulletin
  * @author DerManoMann <mano@zenmagick.org>
  */
-class TestZMVBulletinAdapter extends ZMTestCase {
+class TestZMVBulletinAdapter extends TestCase {
     private $adapter_ = null;
 
 

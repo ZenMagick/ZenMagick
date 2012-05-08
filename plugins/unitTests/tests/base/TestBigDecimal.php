@@ -19,6 +19,7 @@
  */
 
 use zenmagick\base\utils\BigDecimal;
+use zenmagick\plugins\unitTests\simpletest\TestCase;
 
 /**
  * Test BigDecimal.
@@ -26,7 +27,7 @@ use zenmagick\base\utils\BigDecimal;
  * @package org.zenmagick.plugins.unitTests.tests
  * @author DerManoMann <mano@zenmagick.org>
  */
-class TestBigDecimal extends ZMTestCase {
+class TestBigDecimal extends TestCase {
 
     /**
      * Test add.

@@ -18,14 +18,13 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
+use Symfony\Component\Yaml\Yaml;
 use zenmagick\base\Runtime;
 use zenmagick\apps\store\menu\Menu;
 use zenmagick\apps\store\menu\MenuLoader;
 use zenmagick\apps\store\menu\MenuElement;
 use zenmagick\apps\store\menu\MenuSeparator;
-
-use Symfony\Component\Yaml\Yaml;
-
+use zenmagick\plugins\unitTests\simpletest\TestCase;
 
 /**
  * Test Menu.
@@ -33,7 +32,7 @@ use Symfony\Component\Yaml\Yaml;
  * @package org.zenmagick.plugins.unitTests.tests
  * @author DerManoMann <mano@zenmagick.org>
  */
-class TestMenu extends ZMTestCase {
+class TestMenu extends TestCase {
 
     public function testGetElement() {
         $menu = new Menu();

@@ -20,6 +20,7 @@
 
 use zenmagick\base\Beans;
 use zenmagick\base\ZMObject;
+use zenmagick\plugins\unitTests\simpletest\TestCase;
 
 /**
  * Test Beans.
@@ -27,7 +28,7 @@ use zenmagick\base\ZMObject;
  * @package org.zenmagick.plugins.unitTests.tests
  * @author DerManoMann <mano@zenmagick.org>
  */
-class TestBeans extends ZMTestCase {
+class TestBeans extends TestCase {
 
     /**
      * Test obj2map.

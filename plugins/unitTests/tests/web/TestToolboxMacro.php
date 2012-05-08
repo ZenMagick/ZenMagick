@@ -18,13 +18,15 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
+use zenmagick\plugins\unitTests\simpletest\TestCase;
+
 /**
  * Test the toolbox macros.
  *
  * @package org.zenmagick.plugins.unitTests.tests.web
  * @author DerManoMann <mano@zenmagick.org>
  */
-class TestToolboxMacro extends ZMTestCase {
+class TestToolboxMacro extends TestCase {
 
     /**
      * Test format address.

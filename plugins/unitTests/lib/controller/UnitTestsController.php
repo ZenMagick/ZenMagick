@@ -17,19 +17,25 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
+namespace zenmagick\plugins\unitTests\controller;
 
+use Exception;
+use RecursiveIteratorIterator;
+use RecursiveDirectoryIterator;
+use TestSuite;
 use zenmagick\base\Beans;
 use zenmagick\base\classloader\ClassLoader;
 use zenmagick\base\Runtime;
 use zenmagick\base\Toolbox;
+use zenmagick\plugins\unitTests\UnitTestsPlugin;
+use zenmagick\plugins\unitTests\simpletest\HtmlReporter;
 
 /**
  * Unit testing controller.
  *
  * @author DerManoMann <mano@zenmagick.org>
- * @package org.zenmagick.plugins.unitTests
  */
-class ZMUnitTestsController extends \ZMController {
+class UnitTestsController extends \ZMController {
 
     /**
      * Find tests in the given path.
@@ -40,7 +46,7 @@ class ZMUnitTestsController extends \ZMController {
     protected function findTests($path) {
         $tests = array();
         $ext = '.php';
-        foreach (new \RecursiveIteratorIterator(new \RecursiveDirectoryIterator($path)) as $filename => $fileInfo) {
+        foreach (new RecursiveIteratorIterator(new RecursiveDirectoryIterator($path)) as $filename => $fileInfo) {
             if ($fileInfo->isFile() && $ext == substr($fileInfo->getFilename(), -strlen($ext))) {
                 $className = substr($fileInfo->getFilename(), 0, strlen($fileInfo->getFilename())-strlen($ext));
                 if (0 === strpos($className, 'Test')) {
@@ -85,7 +91,7 @@ class ZMUnitTestsController extends \ZMController {
 
         // add plugins/tests folder of all available plugins to loader
         foreach ($this->container->get('pluginService')->getPluginsForContext() as $plugin) {
-            if ($plugin instanceof \ZMUnitTestsPlugin) {
+            if ($plugin instanceof UnitTestsPlugin) {
                 continue;
             }
             $ptests = $plugin->getPluginDirectory().'/tests';
@@ -159,7 +165,7 @@ class ZMUnitTestsController extends \ZMController {
             set_time_limit(300);
 
             // run tests
-            $reporter = new \ZMHtmlReporter($hideErrors);
+            $reporter = new HtmlReporter($hideErrors);
             // enable all selected tests
             foreach ($tests as $id) {
                 // XXX: this should not be handled by the reporter

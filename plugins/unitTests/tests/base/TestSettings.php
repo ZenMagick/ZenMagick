@@ -21,6 +21,7 @@
 use zenmagick\base\Runtime;
 use zenmagick\base\settings\Settings;
 use zenmagick\base\Toolbox;
+use zenmagick\plugins\unitTests\simpletest\TestCase;
 
 /**
  * Test settings
@@ -28,7 +29,7 @@ use zenmagick\base\Toolbox;
  * @package org.zenmagick.plugins.unitTests.tests
  * @author DerManoMann <mano@zenmagick.org>
  */
-class TestSettings extends ZMTestCase {
+class TestSettings extends TestCase {
 
     /**
      * Test append.

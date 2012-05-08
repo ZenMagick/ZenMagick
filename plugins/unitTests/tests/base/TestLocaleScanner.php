@@ -18,10 +18,10 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
+use Symfony\Component\Yaml\Yaml;
 use zenmagick\base\Runtime;
 use zenmagick\base\locales\LocaleScanner;
-
-use Symfony\Component\Yaml\Yaml;
+use zenmagick\plugins\unitTests\simpletest\TestCase;
 
 /**
  * Test LocaleScanner.
@@ -29,7 +29,7 @@ use Symfony\Component\Yaml\Yaml;
  * @package org.zenmagick.plugins.unitTests.tests
  * @author DerManoMann <mano@zenmagick.org>
  */
-class TestLocaleScanner extends ZMTestCase {
+class TestLocaleScanner extends TestCase {
     protected static $DATA_DIR;
 
 

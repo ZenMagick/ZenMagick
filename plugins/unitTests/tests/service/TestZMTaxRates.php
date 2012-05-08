@@ -19,6 +19,7 @@
  */
 
 use zenmagick\base\Runtime;
+use zenmagick\plugins\unitTests\simpletest\TestCase;
 
 /**
  * Test layout service.
@@ -26,7 +27,7 @@ use zenmagick\base\Runtime;
  * @package org.zenmagick.plugins.unitTests.tests
  * @author DerManoMann <mano@zenmagick.org>
  */
-class TestZMTaxRates extends ZMTestCase {
+class TestZMTaxRates extends TestCase {
 
     /**
      * Test get tax rate for class id.

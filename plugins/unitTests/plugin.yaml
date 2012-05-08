@@ -6,5 +6,5 @@ storefront,admin:
   routing:
     unitTests:
       pattern: /unitTests
-      defaults: { _controller: ZMUnitTestsController }
+      defaults: { _controller: zenmagick\plugins\unitTests\controller\UnitTestsController }
       options: { view: views/tests.php?layout= }

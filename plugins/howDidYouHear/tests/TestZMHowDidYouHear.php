@@ -19,6 +19,7 @@
  */
 
 use zenmagick\base\Beans;
+use zenmagick\plugins\unitTests\simpletest\TestCase;
 
 /**
  * Test <em>How did you hear about us</em> plugin.
@@ -26,7 +27,7 @@ use zenmagick\base\Beans;
  * @package org.zenmagick.plugins.howDidYouHear
  * @author DerManoMann <mano@zenmagick.org>
  */
-class TestZMHowDidYouHear extends ZMTestCase {
+class TestZMHowDidYouHear extends TestCase {
     // test account data
     protected $accountData1 = array(
             'FirstName' => 'john',

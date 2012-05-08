@@ -22,15 +22,16 @@ use zenmagick\http\sacs\SacsManager;
 use zenmagick\http\sacs\handler\UserRoleSacsHandler;
 use zenmagick\http\sacs\handler\UserRoleCredentials;
 use zenmagick\apps\store\model\mock\MockAccount;
-
+use zenmagick\plugins\unitTests\simpletest\TestCase;
+use zenmagick\apps\store\storefront\http\sacs\StorefrontAccountSacsHandler;
 
 /**
- * Test SACS manager
+ * Test StorefrontAccountSacsHandler
  *
  * @package org.zenmagick.plugins.unitTests.tests
  * @author DerManoMann <mano@zenmagick.org>
  */
-class TestZMZenCartAccountSacsHandler extends ZMTestCase {
+class TestStorefrontAccountSacsHandler extends TestCase {
 
     /**
      * Get a sacs manager.
@@ -58,7 +59,8 @@ class TestZMZenCartAccountSacsHandler extends ZMTestCase {
      */
     public function testAnonymous() {
         $sacsManager = $this->getSacsManager();
-        $handler = new ZMZenCartAccountSacsHandler();
+        $handler = new StorefrontAccountSacsHandler();
+        $handler->setContainer($this->container);
         $this->assertTrue($handler->evaluate('index', $this->getAccount(ZMAccount::ANONYMOUS), $sacsManager));
         $this->assertFalse($handler->evaluate('account', $this->getAccount(ZMAccount::ANONYMOUS), $sacsManager));
     }
@@ -68,7 +70,8 @@ class TestZMZenCartAccountSacsHandler extends ZMTestCase {
      */
     public function testRegistered() {
         $sacsManager = $this->getSacsManager();
-        $handler = new ZMZenCartAccountSacsHandler();
+        $handler = new StorefrontAccountSacsHandler();
+        $handler->setContainer($this->container);
         $this->assertTrue($handler->evaluate('index', $this->getAccount(ZMAccount::REGISTERED), $sacsManager));
         $this->assertTrue($handler->evaluate('account', $this->getAccount(ZMAccount::REGISTERED), $sacsManager));
     }
@@ -78,7 +81,8 @@ class TestZMZenCartAccountSacsHandler extends ZMTestCase {
      */
     public function testGuest() {
         $sacsManager = $this->getSacsManager();
-        $handler = new ZMZenCartAccountSacsHandler();
+        $handler = new StorefrontAccountSacsHandler();
+        $handler->setContainer($this->container);
         $this->assertTrue($handler->evaluate('index', $this->getAccount(ZMAccount::GUEST), $sacsManager));
         $this->assertFalse($handler->evaluate('account', $this->getAccount(ZMAccount::GUEST), $sacsManager));
         $this->assertTrue($handler->evaluate('checkout_shipping', $this->getAccount(ZMAccount::GUEST), $sacsManager));

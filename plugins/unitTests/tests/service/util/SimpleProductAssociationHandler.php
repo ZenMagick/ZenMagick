@@ -20,6 +20,7 @@
 
 use zenmagick\apps\store\model\catalog\ProductAssociation;
 use zenmagick\apps\store\services\catalog\ProductAssociationHandler;
+use zenmagick\plugins\unitTests\simpletest\TestCase;
 
 /**
  * Simple <code>ZMProductAssociationHandler</code> implementation.
@@ -27,7 +28,7 @@ use zenmagick\apps\store\services\catalog\ProductAssociationHandler;
  * @package org.zenmagick.plugins.unitTests.tests
  * @author DerManoMann <mano@zenmagick.org>
  */
-class SimpleProductAssociationHandler extends ZMTestCase implements ProductAssociationHandler {
+class SimpleProductAssociationHandler extends TestCase implements ProductAssociationHandler {
 
     /**
      * {@inheritDoc}

@@ -19,7 +19,7 @@
  */
 
 use zenmagick\base\utils\packer\PhpSourceAnalyzer;
-
+use zenmagick\plugins\unitTests\simpletest\TestCase;
 
 /**
  * Test PHP source analyzer.
@@ -27,7 +27,7 @@ use zenmagick\base\utils\packer\PhpSourceAnalyzer;
  * @package org.zenmagick.plugins.unitTests.tests
  * @author DerManoMann <mano@zenmagick.org>
  */
-class TestPhpSourceAnalyzer extends ZMTestCase {
+class TestPhpSourceAnalyzer extends TestCase {
 
     /**
      * Get an (empty) dependency map.

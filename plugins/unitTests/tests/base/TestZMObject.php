@@ -19,6 +19,7 @@
  */
 
 use zenmagick\base\ZMObject;
+use zenmagick\plugins\unitTests\simpletest\TestCase;
 
 /**
  * Test ZMObject.
@@ -26,7 +27,7 @@ use zenmagick\base\ZMObject;
  * @package org.zenmagick.plugins.unitTests.tests
  * @author DerManoMann <mano@zenmagick.org>
  */
-class TestZMObject extends ZMTestCase {
+class TestZMObject extends TestCase {
 
     /**
      * Test property names.

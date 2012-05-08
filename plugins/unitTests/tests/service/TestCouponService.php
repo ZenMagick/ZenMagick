@@ -20,6 +20,7 @@
 
 use zenmagick\base\Beans;
 use zenmagick\apps\store\model\coupons\Coupon;
+use zenmagick\plugins\unitTests\simpletest\TestCase;
 
 /**
  * Test coupon service.
@@ -27,7 +28,7 @@ use zenmagick\apps\store\model\coupons\Coupon;
  * @package org.zenmagick.plugins.unitTests.tests
  * @author DerManoMann <mano@zenmagick.org>
  */
-class TestCouponService extends ZMTestCase {
+class TestCouponService extends TestCase {
     private $createdCouponIds_;
     private $testCouponId_;
 

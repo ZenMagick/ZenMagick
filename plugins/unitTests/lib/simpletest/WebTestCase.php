@@ -17,16 +17,17 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
+namespace zenmagick\plugins\unitTests\simpletest;
 
+use WebTestCase as SimpletestWebTestCase;
 use zenmagick\base\Runtime;
 
 /**
  * WebTestCase base class.
  *
- * @package org.zenmagick.plugins.unitTests
  * @author DerManoMann <mano@zenmagick.org>
  */
-class ZMWebTestCase extends WebTestCase {
+class WebTestCase extends SimpletestWebTestCase {
 
     /**
      * Get the current request.
@@ -53,7 +54,7 @@ class ZMWebTestCase extends WebTestCase {
      */
     public function assertEqual($first, $second, $message = '%s') {
         if (is_array($second)) {
-            return $this->assert(new ZMArrayEqualExpectation($first), $second, $message);
+            return $this->assert(new ArrayEqualExpectation($first), $second, $message);
         }
         return parent::assertEqual($first, $second, $message);
     }

@@ -21,6 +21,7 @@
 use zenmagick\base\Runtime;
 use zenmagick\apps\store\view\ThemeResourceResolver;
 use zenmagick\plugins\minify\view\MinifyResourceManager;
+use zenmagick\plugins\unitTests\simpletest\TestCase;
 
 /**
  * Test MinifyResourceManager implementation.
@@ -28,7 +29,7 @@ use zenmagick\plugins\minify\view\MinifyResourceManager;
  * @author DerManoMann <mano@zenmagick.org>
  * @package plugins.minify
  */
-class TestMinifyResourceManager extends ZMTestCase {
+class TestMinifyResourceManager extends TestCase {
     const MIN_BASE = '/zmdev/zenmagick/plugins/minify/min/f=';
     const COMMON_JS = '/zmdev/zenmagick/themes/base/content/common.js';
     const JQUERY_JS = '/zmdev/zenmagick/plugins/unitTests/content/js/jquery-1.2.1.pack.js';

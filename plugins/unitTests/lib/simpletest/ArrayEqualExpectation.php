@@ -17,14 +17,16 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
+namespace zenmagick\plugins\unitTests\simpletest;
+
+use EqualExpectation;
 
 /**
  * Simple expectation class to compare arrays.
  *
- * @package org.zenmagick.plugins.unitTests
  * @author DerManoMann <mano@zenmagick.org>
  */
-class ZMArrayEqualExpectation extends EqualExpectation {
+class ArrayEqualExpectation extends EqualExpectation {
 
     /**
      * {@inheritDoc}

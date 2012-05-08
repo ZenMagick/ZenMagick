@@ -21,6 +21,7 @@
 use zenmagick\http\sacs\SacsManager;
 use zenmagick\http\sacs\handler\UserRoleSacsHandler;
 use zenmagick\http\sacs\handler\UserRoleCredentials;
+use zenmagick\plugins\unitTests\simpletest\TestCase;
 
 /**
  * Test SACS manager
@@ -28,7 +29,7 @@ use zenmagick\http\sacs\handler\UserRoleCredentials;
  * @package org.zenmagick.plugins.unitTests.tests
  * @author DerManoMann <mano@zenmagick.org>
  */
-class TestUserRoleSacsHandler extends ZMTestCase {
+class TestUserRoleSacsHandler extends TestCase {
 
     /**
      * Get a sacs manager.

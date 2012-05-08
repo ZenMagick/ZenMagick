@@ -19,6 +19,7 @@
  */
 
 use zenmagick\base\Beans;
+use zenmagick\plugins\unitTests\simpletest\TestCase;
 
 /**
  * Test order service.
@@ -27,7 +28,7 @@ use zenmagick\base\Beans;
  * @author DerManoMann <mano@zenmagick.org>
  * @todo create custom order and add specific asserts to test explicit data
  */
-class TestZMOrders extends ZMTestCase {
+class TestZMOrders extends TestCase {
 
     /**
      * Test create product.

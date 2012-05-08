@@ -18,13 +18,15 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
+use zenmagick\plugins\unitTests\simpletest\TestCase;
+
 /**
  * Test OpenID store implementation.
  *
  * @package org.zenmagick.plugins.openID
  * @author DerManoMann <mano@zenmagick.org>
  */
-class TestZMOpenIDDatabaseStore extends ZMTestCase {
+class TestZMOpenIDDatabaseStore extends TestCase {
 
     /**
      * Test store.

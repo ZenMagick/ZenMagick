@@ -19,6 +19,7 @@
  */
 
 use zenmagick\base\Beans;
+use zenmagick\plugins\unitTests\simpletest\TestCase;
 
 /**
  * Test the cron parser.
@@ -26,7 +27,7 @@ use zenmagick\base\Beans;
  * @package org.zenmagick.plugins.cron.tests
  * @author DerManoMann <mano@zenmagick.org>
  */
-class TestZMCronParser extends ZMTestCase {
+class TestZMCronParser extends TestCase {
     protected static $TEXT_CRONTAB = array(
         '0    5    0    *    Sun      ZMSimpleCronJob         # every sunday at 5 am',
         '40   5    2    *    -        ZMSimpleCronJob         # 5:40 am on the second day of each month',

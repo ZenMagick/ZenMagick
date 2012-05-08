@@ -20,6 +20,7 @@
 
 use zenmagick\base\Beans;
 use zenmagick\base\Runtime;
+use zenmagick\plugins\unitTests\simpletest\TestCase;
 
 /**
  * Test result list related code.
@@ -27,7 +28,7 @@ use zenmagick\base\Runtime;
  * @package org.zenmagick.plugins.unitTests.tests
  * @author DerManoMann <mano@zenmagick.org>
  */
-class TestResultListSupport extends ZMTestCase {
+class TestResultListSupport extends TestCase {
 
     /**
      * Set up.
