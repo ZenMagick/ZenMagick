@@ -509,6 +509,7 @@ class ToolboxMacro extends ToolboxTool {
             $html .= _zm("Starting at: ");
         }
         if (!$product->isFree() && ($offers->isSpecial() || $offers->isSale())) {
+            // special/sale
             $html .= '<span class="strike base">' . $toolbox->utils->formatMoney($offers->getBasePrice($tax)) . '</span> ';
             if ($offers->isSpecial())  {
                 if ($offers->isSale()) {
@@ -517,6 +518,7 @@ class ToolboxMacro extends ToolboxTool {
                    $html .= $toolbox->utils->formatMoney($offers->getSpecialPrice($tax));
                 }
             }
+            // sale has precendence
             if ($offers->isSale()) {
                $html .= $toolbox->utils->formatMoney($offers->getSalePrice($tax));
             }
