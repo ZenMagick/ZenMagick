@@ -99,12 +99,12 @@ class CatalogRssFeedSource extends ZMObject implements RssSource {
      * @param ZMRequest request The current request.
      * @param boolean full Indicates whether to generate a full feed or not; default is <code>false</code>.
      * @return RssFeed The feed.
-     * @todo add support for attributes
      */
     protected function getProductsFeed($request, $full=false) {
         $lastPubDate = null;
         $items = array();
-        foreach ($this->container->get('productService')->getAllProducts(true, $request->getSession()->getLanguageId()) as $product) {
+        $languageId = $request->getSession()->getLanguageId();
+        foreach ($this->container->get('productService')->getAllProducts(true, $languageId) as $product) {
             $item = new RssItem();
             $item->setTitle($product->getName());
             $item->setLink($request->getToolbox()->net->product($product->getId(), null, false));
@@ -123,15 +123,36 @@ class CatalogRssFeedSource extends ZMObject implements RssSource {
 
             if ($full) {
                 $offers = $product->getOffers();
-                $item->addTag('price', $offers->getCalculatedPrice());
-                $item->addTag('type', 'product');
+                $tax = true;
+                $pricing = array(
+                    'basePrice' => $offers->getBasePrice($tax),
+                    'price' => $offers->getCalculatedPrice(),
+                      // starting at ...
+                    'staggered' => ($offers->isAttributePrice() ? 'true' : 'false'),
+                    'free' => ($product->isFree() ? 'true' : 'false'),
+                );
 
+                if (!$product->isFree()) {
+                    if ($offers->isSale())  {
+                        $pricing['sale'] = $offers->getSalePrice($tax);
+                    } else if ($offers->isSpecial())  {
+                        $pricing['special'] = $offers->getSpecialPrice($tax);
+                    }
+                }
+
+                $item->addTag('pricing', $pricing);
+
+                $item->addTag('type', 'product');
                 if (null != ($manufacturer = $product->getManufacturer())) {
                     $item->addTag('brand', $manufacturer->getName());
                 }
                 if (null != ($imageInfo = $product->getImageInfo())) {
                     $item->addTag('img', $imageInfo->getDefaultImage());
                 }
+
+                $reviewService = $this->container->get('reviewService');
+                $ar = round($reviewService->getAverageRatingForProductId($product->getId(), $languageId));
+                $item->addTag('rating', $ar);
             }
 
             if ($product->hasAttributes()) {
@@ -178,7 +199,8 @@ class CatalogRssFeedSource extends ZMObject implements RssSource {
     protected function getCategoriesFeed($request, $full) {
         $lastPubDate = null;
         $items = array();
-        foreach ($this->container->get('categoryService')->getAllCategories($request->getSession()->getLanguageId()) as $category) {
+        $languageId = $request->getSession()->getLanguageId();
+        foreach ($this->container->get('categoryService')->getAllCategories($languageId) as $category) {
             if ($category->isActive()) {
                 $item = new RssItem();
                 $item->setTitle($category->getName());
