@@ -133,7 +133,7 @@ class ReviewService extends ZMObject {
      *
      * @param int productId The product id.
      * @param int languageId Language id.
-     * @return float The average rating or <code>null</code> if no ratnig exists.
+     * @return float The average rating or <code>null</code> if no rating exists.
      */
     public function getAverageRatingForProductId($productId, $languageId) {
         // SQL based on Dedek's average rating mod: http://www.zen-cart.com/index.php?main_page=product_contrib_info&cPath=40_47&products_id=595
