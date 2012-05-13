@@ -76,8 +76,9 @@ zenmagick:
     request:
       invalidSession: login
       login: login
-      urlType: default
-      enforceSecure: true
+      urlType: path
+      secure: false
+      enforceSecure: false
     controller:
       namespaces:
         - zenmagick\apps\store\admin\controller
