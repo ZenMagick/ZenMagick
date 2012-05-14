@@ -81,9 +81,6 @@ class EventFixes extends ZMObject {
      */
     public function onAllDone($event) {
         $request = $event->get('request');
-        // clear messages if not redirect...
-        $request->getSession()->clearMessages();
-
         // save url to be used as redirect in some cases
         if ('login' != $request->getRequestId() && 'logoff' != $request->getRequestId()) {
             $request->setLastUrl();
@@ -166,6 +163,8 @@ class EventFixes extends ZMObject {
 
         $cart = $request->getShoppingCart();
         if ('empty_cart' == $action) $redirectTarget = true;
+
+        // simulate the number of uploads parameter for add to cart
         if ('add_product' == $action) {
             $uploads = 0;
             foreach ($request->getParameterMap() as $name => $value) {
@@ -178,17 +177,6 @@ class EventFixes extends ZMObject {
 
         $cartMethod = isset($cartActionMap[$action]) ? $cartActionMap[$action] : null;
         if (null != $cartMethod) {
-            $zcPath = $settingsService->get('apps.store.zencart.path');
-            define('DIR_WS_FUNCTIONS', 'includes/functions/');
-            require_once $zcPath . '/zenmagick/shared/store/bundles/ZenCartBundle/bridge/includes/functions/extra_functions/zen_href_link.php';
-            require_once $zcPath . '/zenmagick/shared/store/bundles/ZenCartBundle/bridge/includes/functions/sessions.php';
-            require_once $zcPath . '/zenmagick/shared/store/bundles/ZenCartBundle/bridge/includes/functions/functions_general.php';
-            require_once $zcPath . '/zenmagick/shared/store/bundles/ZenCartBundle/bridge/includes/functions/html_output.php';
-            global $db;
-            if (!isset($db)) {
-                $db = new \queryFactory();
-            }
-
             call_user_func_array(array($cart->cart_, $cartMethod), array($redirectTarget, $params));
         }
     }
@@ -200,43 +188,17 @@ class EventFixes extends ZMObject {
         $request = $event->get('request');
         $settingsService = $this->container->get('settingsService');
 
-        if (!$settingsService->get('isEnableZMThemes', true)) {
-            $language = $request->getSession()->getLanguage();
-            if (null == $language) {
-                // default language
-                $language = $this->container->get('languageService')->getLanguageForCode($settingsService->get('defaultLanguageCode'));
-            }
-            $themeService = $this->container->get('themeService');
-            // pass on already set args
-            $args = array_merge($event->all(), array('themeId' => $themeService->getActiveThemeId(), 'themeChain' => $themeService->getThemeChain($language->getId())));
-            Runtime::getEventDispatcher()->dispatch('theme_resolved', new Event($this, $args));
-        }
-
-        // if using ZMCheckoutPaymentController, we need 'conditions' in $POST to make zencarts checkout_confirmation header_php.php happy
-        if (isset($_GET['conditions']) && 'checkout_confirmation' == $request->getRequestId()) { $_POST['conditions'] = 1; }
-
         // set locale
         if (null != ($language = $request->getSession()->getLanguage())) {
             $settingsService->set('zenmagick.base.locales.locale', $language->getCode());
         }
 
-        $this->handleCart($event);
         // START: zc_fixes
-        // simulate the number of uploads parameter for add to cart
 
         // make action work with zen-cart cart and checkout code
         if (isset($_POST['action']) && !isset($_GET['action'])) {
             $_GET['action'] = $_POST['action'];
         }
-
-        // used by some zen-cart validation code
-        $shortUIFormat = $this->container->get('localeService')->getLocale()->getFormat('date', 'short-ui-format');
-        if (!defined('DOB_FORMAT_STRING') && null != $shortUIFormat) {
-            define('DOB_FORMAT_STRING', $shortUIFormat);
-        }
-
-        // do not check for valid product id
-        $_SESSION['check_valid'] = 'false';
         // END: zc_fixes
         $this->zcInit($event);
     }
@@ -246,15 +208,8 @@ class EventFixes extends ZMObject {
      */
     public function onDispatchStart($event) {
         $request = $event->get('request');
-        // remove ajax calls from call history
-        if (false !== strpos($request->getRequestId(), 'ajax')) {
-            $_SESSION['navigation']->remove_current_page();
-        }
 
-        if ('checkout_confirmation' == $request->getRequestId() && 'free_free' == $_SESSION['shipping']) {
-            Runtime::getLogging()->warn('fixing free_free shipping method info');
-            $_SESSION['shipping'] = array('title' => _zm('Free Shipping'), 'cost' => 0, 'id' => 'free_free');
-        }
+        $this->handleCart($event);
     }
 
     /**
@@ -352,13 +307,6 @@ class EventFixes extends ZMObject {
         }
 
         $request->setParameterMap($params);
-        // @todo use overrideGlobals() from symfony request component
-        foreach (array_keys($_GET) as $v) {
-            $_GET[$v] = $request->getParameter($v);
-        }
-        foreach (array_keys($_POST) as $v) {
-            $_POST[$v] = $request->getParameter($v);
-        }
     }
 
     /**
@@ -415,7 +363,11 @@ class EventFixes extends ZMObject {
     protected function checkAuthorization($request) {
         $account = $request->getAccount();
         if (null != $account && \ZMAccounts::AUTHORIZATION_PENDING == $account->getAuthorization()) {
-            if (!in_array($request->getRequestId(), array('customers_authorization', 'login', 'logoff', 'contact_us', 'privacy'))) {
+            // @todo shouldn't use a hardcoded list.
+            $unrestrictedPaged = array('conditions', 'cookie_usage', 'down_for_maintenance', 'contact_us',
+                'customers_authorization', 'login', 'logoff', 'password_forgotten', 'privacy',
+                'shippinginfo', 'unsubscribe');
+            if (!in_array($request->getRequestId(), $unrestrictedPages)) {
                 $request->redirect($request->url('customers_authorization'));
             }
         }
