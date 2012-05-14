@@ -198,7 +198,7 @@ class ZMShoppingCart extends ZMObject {
         if (null === $this->items_) {
             $this->items_ = array();
             if (null != $this->cart_) {
-if (true) {
+if (false) {
                 $settingsService = $this->container->get('settingsService');
                 $qtyDecimals = (int)$settingsService->get('qtyDecimals', 0);
                 $cartContents = (array) $this->cart_->contents;
@@ -208,6 +208,7 @@ if (true) {
                     $item->setId($id);
                     $item->populateAttributes($itemData);
                     $product = $item->getProduct();
+                    $offers = $product->getOffers();
 
                     if (0 == $qtyDecimals) {
                         $item->setQuantity($itemData['qty']);
@@ -228,7 +229,11 @@ if (true) {
                     // TODO:'onetime_charges' => ($this->attributes_price_onetime_charges($products_id, $new_qty)),
 
                     $item->setOneTimeCharge($product->getOneTimeCharge());
-                    $item->setItemPrice($product->getPrice(false) + $item->getAttributesPrice(false, 1));
+                    $price = $product->getPrice(false);
+                    if (null != ($quantityDiscount = $offers->getQuantityDiscountFor($item->getQuantity(), false))) {
+                        $price = $quantityDiscount->getPrice();
+                    }
+                    $item->setItemPrice($price + $item->getAttributesPrice(false, 1));
 
                     $this->items_[$item->getId()] = $item;
                 }
