@@ -198,7 +198,7 @@ class ZMShoppingCart extends ZMObject {
         if (null === $this->items_) {
             $this->items_ = array();
             if (null != $this->cart_) {
-if (false) {
+if (true) {
                 $settingsService = $this->container->get('settingsService');
                 $qtyDecimals = (int)$settingsService->get('qtyDecimals', 0);
                 $cartContents = (array) $this->cart_->contents;

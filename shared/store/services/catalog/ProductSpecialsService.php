@@ -54,7 +54,7 @@ class ProductSpecialsService extends ZMObject {
                 $special->setStatus(true);
             }
             // @todo the original code also disabled specials that haven't started yet. is that something we should worry about?
-            if ($active && null != $expiryDate && new DateTime() >= $expiryDate) {
+            if ($special->getStatus() && null != $expiryDate && new DateTime() >= $expiryDate) {
                 $special->setStatus(false);
             }
 

@@ -50,7 +50,7 @@ class ProductFeaturedService extends ZMObject {
                 \ZMRuntime::getDatabase()->updateModel(TABLE_FEATURED, $feature);
             }
             // @todo the original code also disabled features tht haven't started yet. is that something we should worry about?
-            if ($active && null != $expiryDate && new DateTime() >= $expiryDate) {
+            if ($feature->getStatus() && null != $expiryDate && new DateTime() >= $expiryDate) {
                 $feature->setStatus(false);
                 \ZMRuntime::getDatabase()->updateModel(TABLE_FEATURED, $feature);
             }
