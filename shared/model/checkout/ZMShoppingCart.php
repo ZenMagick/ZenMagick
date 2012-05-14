@@ -198,6 +198,41 @@ class ZMShoppingCart extends ZMObject {
         if (null === $this->items_) {
             $this->items_ = array();
             if (null != $this->cart_) {
+if (false) {
+                $settingsService = $this->container->get('settingsService');
+                $qtyDecimals = (int)$settingsService->get('qtyDecimals', 0);
+                $cartContents = (array) $this->cart_->contents;
+                foreach ($cartContents as $id => $itemData) {
+                    $item = new ZMShoppingCartItem($this);
+                    $item->setContainer($this->container);
+                    $item->setId($id);
+                    $item->populateAttributes($itemData);
+                    $product = $item->getProduct();
+
+                    if (0 == $qtyDecimals) {
+                        $item->setQuantity($itemData['qty']);
+                    } else {
+                        $qty = $itemData['qty'];
+                        // check for decimal point
+                        if (strstr($fix_qty, '.')) {
+                            // trim trailing 0
+                            $qty = preg_replace('/[0]+$/', '', $qty);
+                            $qtyOrderUnits = $product->getQtyOrderUnits();
+                            $qty = round($qty, $qtyDecimals);
+                        } else {
+                            $qty = round($qty, 0);
+                        }
+                        $item->setQuantity($qty);
+                    }
+
+                    // TODO:'onetime_charges' => ($this->attributes_price_onetime_charges($products_id, $new_qty)),
+
+                    $item->setOneTimeCharge($product->getOneTimeCharge());
+                    $item->setItemPrice($product->getPrice(false) + $item->getAttributesPrice(false, 1));
+
+                    $this->items_[$item->getId()] = $item;
+                }
+} else {
                 $zenItems = $this->cart_->get_products();
                 foreach ($zenItems as $zenItem) {
                     $item = new ZMShoppingCartItem($this, $zenItem);
@@ -205,6 +240,7 @@ class ZMShoppingCart extends ZMObject {
                     $this->items_[$item->getId()] = $item;
                 }
             }
+}
 
             if ($this->container->get('settingsService')->get('apps.store.assertZencart', false)) {
                 foreach ($this->items_ as $item) {

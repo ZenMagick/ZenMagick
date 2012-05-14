@@ -85,20 +85,19 @@ class ZMShoppingCartItem extends ZMObject {
     // @deprecated
     function getTaxClassId() { return $this->getProduct()->getTaxClassId(); }
     /**
-     * Get selected attributes for this cart item.
+     * Populate attributes for this cart item.
      *
-     * @param array zenItem zc item data.
-     * @deprecated
+     * @param array attributeData item attribute data.
      */
-    private function populateAttributes($zenItem) {
-        if (!isset($zenItem['attributes']) || !is_array($zenItem['attributes'])) {
+    public function populateAttributes($attributeData) {
+        if (!isset($attributeData['attributes']) || !is_array($attributeData['attributes'])) {
             $this->setAttributes(array());
             return;
         }
 
         // build attribute => value list map
         $attrMap = array();
-        foreach ($zenItem['attributes'] as $option => $valueId) {
+        foreach ($attributeData['attributes'] as $option => $valueId) {
             $tmp = explode('_', $option);
             $attributeId = $tmp[0];
             if (!array_key_exists($attributeId, $attrMap)) {
@@ -108,7 +107,7 @@ class ZMShoppingCartItem extends ZMObject {
         }
 
         // values of text/upload attributes
-        $textValues = $zenItem['attributes_values'];
+        $textValues = $attributeData['attributes_values'];
 
         // now get all attributes and strip the not selected stuff
         $product = $this->getProduct();
@@ -342,6 +341,25 @@ class ZMShoppingCartItem extends ZMObject {
      */
     public function getAttributes() {
         return $this->attributes_;
+    }
+
+    /**
+     * Get the attribute price.
+     *
+     * @param boolean tax Optional flag to include/exlcude tax; default is <code>true</code> to include tax.
+     * @param int quantity Optional quantity; default is <code>null</code> to use the quantity set on the item.
+     * @return float The attributes value.
+     */
+    public function getAttributesPrice($tax=true, $quantity=null) {
+        $price = 0;
+        $quantity = null === $quantity ? $this->quantity_ : $quantity;
+        foreach ($this->attributes_ as $attribute) {
+            foreach ($attribute->getValues() as $value) {
+                $price += $value->getPrice($tax, $quantity);
+            }
+        }
+
+        return $price;
     }
 
 }
