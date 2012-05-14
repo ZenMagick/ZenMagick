@@ -47,7 +47,7 @@ class ResourceResolverFileLocator implements FileLocatorInterface {
      * {@inheritDoc}
      */
     public function locate($name, $currentPath=null, $first=true) {
-        if (!$this->resourceResolver->exists($template)) {
+        if (!$this->resourceResolver->exists($name)) {
             throw new InvalidArgumentException(sprintf('not found: %s', $name));
         }
 
