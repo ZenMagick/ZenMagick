@@ -178,6 +178,17 @@ class EventFixes extends ZMObject {
 
         $cartMethod = isset($cartActionMap[$action]) ? $cartActionMap[$action] : null;
         if (null != $cartMethod) {
+            $zcPath = $settingsService->get('apps.store.zencart.path');
+            define('DIR_WS_FUNCTIONS', 'includes/functions/');
+            require_once $zcPath . '/zenmagick/shared/store/bundles/ZenCartBundle/bridge/includes/functions/extra_functions/zen_href_link.php';
+            require_once $zcPath . '/zenmagick/shared/store/bundles/ZenCartBundle/bridge/includes/functions/sessions.php';
+            require_once $zcPath . '/zenmagick/shared/store/bundles/ZenCartBundle/bridge/includes/functions/functions_general.php';
+            require_once $zcPath . '/zenmagick/shared/store/bundles/ZenCartBundle/bridge/includes/functions/html_output.php';
+            global $db;
+            if (!isset($db)) {
+                $db = new \queryFactory();
+            }
+
             call_user_func_array(array($cart->cart_, $cartMethod), array($redirectTarget, $params));
         }
     }
