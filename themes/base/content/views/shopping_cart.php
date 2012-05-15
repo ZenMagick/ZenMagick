@@ -52,6 +52,9 @@ if ($shoppingCart->isEmpty()) { ?>
                             <?php } ?>
                         <?php } ?>
                     </td>
+                    <td class="item">
+                        <?php echo $utils->formatMoney($item->getItemPrice()) ?>
+                    </td>
                     <td class="qty">
                         <input type="text" name="cart_quantity[]" size="4" value="<?php echo $item->getQuantity() ?>" />
                     </td>
@@ -64,7 +67,7 @@ if ($shoppingCart->isEmpty()) { ?>
                 </tr>
             <?php $odd = !$odd; $first = false; } ?>
             <tr class="other">
-                <td colspan="4" class="total"><?php _vzm("Subtotal") ?></td>
+                <td colspan="5" class="total"><?php _vzm("Subtotal") ?></td>
                 <td class="price"><?php echo $utils->formatMoney($shoppingCart->getSubtotal()) ?></td>
             </tr>
             </tbody>
