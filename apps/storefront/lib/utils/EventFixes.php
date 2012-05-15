@@ -177,6 +177,10 @@ class EventFixes extends ZMObject {
 
         $cartMethod = isset($cartActionMap[$action]) ? $cartActionMap[$action] : null;
         if (null != $cartMethod) {
+            // TODO: where does this happen?
+            if (is_array($_POST['products_id'])) {
+                $_POST['products_id'] = $request->getProductId();
+            }
             call_user_func_array(array($cart->cart_, $cartMethod), array($redirectTarget, $params));
         }
     }
@@ -193,13 +197,6 @@ class EventFixes extends ZMObject {
             $settingsService->set('zenmagick.base.locales.locale', $language->getCode());
         }
 
-        // START: zc_fixes
-
-        // make action work with zen-cart cart and checkout code
-        if (isset($_POST['action']) && !isset($_GET['action'])) {
-            $_GET['action'] = $_POST['action'];
-        }
-        // END: zc_fixes
         $this->zcInit($event);
     }
 
