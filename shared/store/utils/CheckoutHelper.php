@@ -24,7 +24,7 @@ namespace zenmagick\apps\store\utils;
 
 use zenmagick\base\Runtime;
 use zenmagick\base\ZMObject;
-use zenmagick\apps\store\bundles\ZenCartBundle\Mock\ZenCartMock;
+use zenmagick\apps\store\bundles\ZenCartBundle\mock\ZenCartMock;
 
 /**
  * Checkout helper.
