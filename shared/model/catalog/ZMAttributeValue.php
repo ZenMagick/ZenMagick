@@ -186,39 +186,25 @@ class ZMAttributeValue extends ZMObject {
     }
 
     /**
-     * Get the final one time attribute price.
-     *
-     * @param int quantity The quantity.
-     * @return float The price.
-     */
-    protected function getFinalOneTimePriceForQty($quantity) {
-        $price = $this->oneTimePrice_;
-
-        // quantity onetime discounts
-        $price += $this->getQtyPrice($this->getQtyPricesOneTime(), $quantity);
-
-        // price factor
-        $product = $this->container->get('productService')->getProductForId($this->attribute_->getProductId());
-        $offers = $product->getOffers();
-        $discountPrice = $offers->isSale() ? $offers->getSalePrice(false) : $offers->getSpecialPrice(false);
-
-        $price += $this->getPriceFactorCharge($offers->getCalculatedPrice(false), $discountPrice,
-                                                $this->getPriceFactorOneTime(), $this->getPriceFactorOneTimeOffset());
-
-        return $price;
-    }
-
-    /**
      * Get the final one time price.
      *
      * @param boolean tax Set to <code>true</code> to include tax (if applicable); default is <code>true</code>.
+     * @param int quantity The quantity; default is 1.
      * @return double The attributes one time price.
      */
-    public function getOneTimePrice($tax=true) {
+    public function getOneTimePrice($tax=true, $quantity=1) {
         $price = $this->oneTimePrice_;
         if (0 != $price || $this->isPriceFactorOneTime_) {
-            //TODO: cache
-            $price = $this->getFinalOneTimePriceForQty(1);
+            // quantity onetime discounts
+            $price += $this->getQtyPrice($this->getQtyPricesOneTime(), $quantity);
+
+            // price factor
+            $product = $this->container->get('productService')->getProductForId($this->attribute_->getProductId());
+            $offers = $product->getOffers();
+            $discountPrice = $offers->isSale() ? $offers->getSalePrice(false) : $offers->getSpecialPrice(false);
+
+            $price += $this->getPriceFactorCharge($offers->getCalculatedPrice(false), $discountPrice,
+                                                    $this->getPriceFactorOneTime(), $this->getPriceFactorOneTimeOffset());
         }
 
         return $tax ? $this->taxRate_->addTax($price) : $price;

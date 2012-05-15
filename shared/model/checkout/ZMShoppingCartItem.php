@@ -344,7 +344,7 @@ class ZMShoppingCartItem extends ZMObject {
     }
 
     /**
-     * Get the attribute price.
+     * Get the (discounted) attribute price.
      *
      * @param boolean tax Optional flag to include/exlcude tax; default is <code>true</code> to include tax.
      * @param int quantity Optional quantity; default is <code>null</code> to use the quantity set on the item.
@@ -356,6 +356,26 @@ class ZMShoppingCartItem extends ZMObject {
         foreach ($this->attributes_ as $attribute) {
             foreach ($attribute->getValues() as $value) {
                 $price += $value->getPrice($tax, $quantity);
+            }
+        }
+
+        return $price;
+    }
+
+    /**
+     * Get the attribute one time price.
+     *
+     * @param boolean tax Optional flag to include/exlcude tax; default is <code>true</code> to include tax.
+     * @param int quantity Optional quantity; default is <code>null</code> to use the quantity set on the item.
+     * @return float The attributes value.
+     */
+    public function getAttributesOneTimePrice($tax=true, $quantity=null) {
+        $price = 0;
+        $quantity = null === $quantity ? $this->quantity_ : $quantity;
+        foreach ($this->attributes_ as $attribute) {
+            foreach ($attribute->getValues() as $value) {
+                if ($value->isFree()) { continue; }
+                $price += $value->getOneTimePrice($tax, $quantity);
             }
         }
 

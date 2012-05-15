@@ -199,41 +199,38 @@ class ZMShoppingCart extends ZMObject {
             $this->items_ = array();
             if (null != $this->cart_) {
 if (false) {
-                $settingsService = $this->container->get('settingsService');
-                $qtyDecimals = (int)$settingsService->get('qtyDecimals', 0);
+                // 1) iterate and populate items array
                 $cartContents = (array) $this->cart_->contents;
                 foreach ($cartContents as $id => $itemData) {
+                    if (empty($id)) { continue; }
                     $item = new ZMShoppingCartItem($this);
                     $item->setContainer($this->container);
                     $item->setId($id);
                     $item->populateAttributes($itemData);
+                    $item->setQuantity($this->adjustQty($itemData['qty']));
+                    $this->items_[$item->getId()] = $item;
+                }
+
+                // 2) iterate again - now we can calculate quantities properly...
+                foreach ($this->items_ as $id => $item) {
                     $product = $item->getProduct();
                     $offers = $product->getOffers();
 
-                    if (0 == $qtyDecimals) {
-                        $item->setQuantity($itemData['qty']);
-                    } else {
-                        $qty = $itemData['qty'];
-                        // check for decimal point
-                        if (strstr($fix_qty, '.')) {
-                            // trim trailing 0
-                            $qty = preg_replace('/[0]+$/', '', $qty);
-                            $qtyOrderUnits = $product->getQtyOrderUnits();
-                            $qty = round($qty, $qtyDecimals);
-                        } else {
-                            $qty = round($qty, 0);
-                        }
-                        $item->setQuantity($qty);
-                    }
-
-                    // TODO:'onetime_charges' => ($this->attributes_price_onetime_charges($products_id, $new_qty)),
-
-                    $item->setOneTimeCharge($product->getOneTimeCharge());
+                    // todo: cleanup item methods a bit to make more sense for this
+//echo '<hr>ZM: '.$item->getId(); var_dump($item->getAttributesOneTimePrice(false)); echo '<hr>';
+                    $item->setOneTimeCharge($product->getOneTimeCharge() + $item->getAttributesOneTimePrice(false));
                     $price = $product->getPrice(false);
-                    if (null != ($quantityDiscount = $offers->getQuantityDiscountFor($item->getQuantity(), false))) {
+//echo '<hr>ZM i: '.$item->getId(); echo ' '.$price.' + '.$item->getAttributesPrice(false); echo '<hr>';
+
+                    // qty depends om qtyMixed option on base product
+                    $cartQty = $item->getQuantity();//$this->getItemQuantityFor($id, $product->isQtyMixedDiscount());
+//var_dump($item->getId()); var_dump($cartQty); var_dump($this->getItemQuantityFor($id, $item->getQuantity()));
+                    $cartQty= $this->getItemQuantityFor($id, $item->getQuantity());
+                    if (null != ($quantityDiscount = $offers->getQuantityDiscountFor($cartQty, false))) {
                         $price = $quantityDiscount->getPrice();
                     }
-                    $item->setItemPrice($price + $item->getAttributesPrice(false, 1));
+//echo '<hr>ZM i: '.$item->getId(); echo ' '.$price.' + '.$item->getAttributesPrice(false); echo '<hr>';
+                    $item->setItemPrice($price + $item->getAttributesPrice(false));
 
                     $this->items_[$item->getId()] = $item;
                 }
@@ -248,13 +245,26 @@ if (false) {
 }
 
             if ($this->container->get('settingsService')->get('apps.store.assertZencart', false)) {
+                $zenItems = $this->cart_->get_products();
                 foreach ($this->items_ as $item) {
                     $itemId = $item->getId();
-                    if ($this->cart_->get_quantity($itemId) != $this->getItemQuantityFor($itemId, false)) {
-                        echo 'cart: get_quantity diff! order: ';var_dump($this->cart_->get_quantity($itemId));echo 'my: ';var_dump($this->getItemQuantityFor($itemId, false));echo '<br>';
+                    $product = $item->getProduct();
+                    if ($this->cart_->get_quantity($itemId) != $this->getItemQuantityFor($itemId, $product->isQtyMixed())) {
+                        echo 'cart: get_quantity diff! cart: ';var_dump($this->cart_->get_quantity($itemId));echo 'my: ';var_dump($this->getItemQuantityFor($itemId, $product->isQtyMixed()));echo '<br>';
                     }
-                    if ($this->cart_->in_cart_mixed($itemId) != $this->getItemQuantityFor($itemId, true)) {
-                        echo 'cart: in_cart_mixed diff! order: ';var_dump($this->cart_->in_cart_mixed($itemId));echo 'my: ';var_dump($this->getItemQuantityFor($itemId, true));echo '<br>';
+                    if ($this->cart_->in_cart_mixed($itemId) != $this->getItemQuantityFor($itemId, $product->isQtyMixed())) {
+                        echo 'cart: in_cart_mixed diff! cart: ';var_dump($this->cart_->in_cart_mixed($itemId));echo 'my: ';var_dump($this->getItemQuantityFor($itemId, $product->isQtyMixed()));echo '<br>';
+                    }
+                    // prices
+                    foreach ($zenItems as $zi) {
+                        if ($zi['id'] == $item->getId()) {
+                            if (round($item->getItemPrice(),2) != round($zi['final_price'],2)) {
+                                echo 'cart: item price differ: '.$zi['id'].': ZM: '.$item->getItemPrice().', zc: '.$zi['final_price'].'<br>';
+                            }
+                            if (round($item->getOneTimeCharge(),2) != round($zi['onetime_charges'],2)) {
+                                echo 'cart: onetime charge differ: '.$zi['id'].': ZM: '.$item->getOneTimeCharge().', zc: '.$zi['onetime_charges'].'<br>';
+                            }
+                        }
                     }
                 }
             }
@@ -657,10 +667,9 @@ if (false) {
      *
      * @param mixed quantity The quantity.
      * @return The adjusted quantity.
-     * @todo move to helper?
      */
-    function adjustQty($quantity) {
-        $digits = Runtime::getSettings()->get('qtyDecimals');
+    protected function adjustQty($quantity) {
+        $digits = $this->container->get('settingsService')->get('qtyDecimals');
         if (0 != $digits) {
             if (strstr($quantity, '.')) {
                 // remove leading '0'
@@ -680,22 +689,16 @@ if (false) {
      *
      * @param string itemId The cart item/sku id.
      * @param boolean qtyMixed Indicates whether to return just the specified product variation quantity, or
-     *  the quantity across all variations; default is <code>false</code>.
+     *  the quantity across all variations.
      * @return int The number of products in the cart.
      */
-    public function getItemQuantityFor($itemId, $isQtyMixed=false) {
+    public function getItemQuantityFor($itemId, $isQtyMixed) {
         if ($this->isEmpty()) {
             return 0;
         }
 
         // if mixed attributes is disabled, do not mix
         $baseItemId = self::getBaseProductIdFor($itemId);
-        if ($isQtyMixed) {
-            $product = $this->container->get('productService')->getProductForId($baseItemId);
-            if (null != $product && !$product->isQtyMixed()) {
-                $isQtyMixed = false;
-            }
-        }
 
         // method to get id from item
         $method = $isQtyMixed ? 'getProductId' : 'getId';
