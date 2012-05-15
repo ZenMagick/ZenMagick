@@ -19,6 +19,7 @@
  */
 
 use zenmagick\base\ZMObject;
+use zenmagick\apps\store\utils\CheckoutHelper;
 use zenmagick\plugins\unitTests\simpletest\TestCase;
 
 /**
@@ -70,6 +71,7 @@ class TestShoppingCart extends TestCase {
     protected function getShoppingCart() {
         $shoppingCart = new ZMShoppingCart();
         $shoppingCart->setContainer($this->container);
+        $shoppingCart->setCheckoutHelper(new CheckoutHelper());
         return $shoppingCart;
     }
 
