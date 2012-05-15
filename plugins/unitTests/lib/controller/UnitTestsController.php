@@ -23,6 +23,7 @@ use Exception;
 use RecursiveIteratorIterator;
 use RecursiveDirectoryIterator;
 use TestSuite;
+use UnitTestCase;
 use zenmagick\base\Beans;
 use zenmagick\base\classloader\ClassLoader;
 use zenmagick\base\Runtime;
@@ -156,7 +157,7 @@ class UnitTestsController extends \ZMController {
             $suite = new TestSuite('ZenMagick Tests');
             foreach ($testCases as $name) {
                 $testCase = Beans::getBean($name);
-                if ($testCase instanceof SimpleTestCase) {
+                if ($testCase instanceof UnitTestCase) {
                     $suite->add($name);
                 }
             }
