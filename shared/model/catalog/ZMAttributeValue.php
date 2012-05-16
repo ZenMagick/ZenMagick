@@ -158,7 +158,7 @@ class ZMAttributeValue extends ZMObject {
         $offers = $product->getOffers();
         $discountPrice = $offers->isSale() ? $offers->getSalePrice(false) : $offers->getSpecialPrice(false);
 
-        $price += $this->getPriceFactorCharge($offers->getCalculatedPrice(false), $discountPrice ,$this->getPriceFactor(), $this->getPriceFactorOffset());
+        $price += $this->getPriceFactorCharge($offers->getCalculatedPrice(false), $discountPrice, $this->getPriceFactor(), $this->getPriceFactorOffset());
 
         return $price;
     }

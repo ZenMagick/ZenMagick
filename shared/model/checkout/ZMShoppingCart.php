@@ -211,26 +211,32 @@ if (false) {
                     $this->items_[$item->getId()] = $item;
                 }
 
-                // 2) iterate again - now we can calculate quantities properly...
+                // 2) iterate again - now we can calculate quantities and prices properly...
                 foreach ($this->items_ as $id => $item) {
                     $product = $item->getProduct();
                     $offers = $product->getOffers();
 
-                    // todo: cleanup item methods a bit to make more sense for this
-//echo '<hr>ZM: '.$item->getId(); var_dump($item->getAttributesOneTimePrice(false)); echo '<hr>';
-                    $item->setOneTimeCharge($product->getOneTimeCharge() + $item->getAttributesOneTimePrice(false));
-                    $price = $product->getPrice(false);
-//echo '<hr>ZM i: '.$item->getId(); echo ' '.$price.' + '.$item->getAttributesPrice(false); echo '<hr>';
-
-                    // qty depends om qtyMixed option on base product
-                    $cartQty = $item->getQuantity();//$this->getItemQuantityFor($id, $product->isQtyMixedDiscount());
-//var_dump($item->getId()); var_dump($cartQty); var_dump($this->getItemQuantityFor($id, $item->getQuantity()));
-                    $cartQty= $this->getItemQuantityFor($id, $item->getQuantity());
-                    if (null != ($quantityDiscount = $offers->getQuantityDiscountFor($cartQty, false))) {
-                        $price = $quantityDiscount->getPrice();
+                    // default
+                    $price = $product->getProductPrice();
+                    if (!$product->isPricedByAttributes()) {
+                        // allow specials
+                        $price = $product->getPrice(false);
+                        // qty depends om qtyMixed option on base product
+                        $cartQty = $this->getItemQuantityFor($id, $item->getQuantity());
+                        if (null != ($quantityDiscount = $offers->getQuantityDiscountFor($cartQty, false))) {
+                            $price = $quantityDiscount->getPrice();
+                        }
                     }
+
+                    if ($product->isFree()) {
+                        $price = 0;
+                    }
+
+
 //echo '<hr>ZM i: '.$item->getId(); echo ' '.$price.' + '.$item->getAttributesPrice(false); echo '<hr>';
                     $item->setItemPrice($price + $item->getAttributesPrice(false));
+                    // todo: cleanup item methods a bit to make more sense for this
+                    $item->setOneTimeCharge($product->getOneTimeCharge() + $item->getAttributesOneTimePrice(false));
 
                     $this->items_[$item->getId()] = $item;
                 }
@@ -245,16 +251,34 @@ if (false) {
 }
 
             if ($this->container->get('settingsService')->get('apps.store.assertZencart', false)) {
+                // total items
+                $itemTotal = 0;
+                foreach ($this->items_ as $item) {
+                    $itemTotals += $item->getQuantity();
+                }
+                if ($this->cart_->count_contents() != $itemTotals) {
+                    echo 'cart: item count diff! cart: ';var_dump($this->cart_->count_contents());echo 'my: ';var_dump($itemTotals);echo '<br>';
+                }
+                // some totals
+                echo 'Total items: '.$itemTotals.' Weight: '.$this->getWeight().'<br>';
+
+
+                // weight
+                if ($this->cart_->show_weight() != $this->getWeight()) {
+                    echo 'cart: weight diff! cart: ';var_dump($this->cart_->show_weight());echo 'my: ';var_dump($this->getWeight());echo '<br>';
+                }
+
                 $zenItems = $this->cart_->get_products();
                 foreach ($this->items_ as $item) {
                     $itemId = $item->getId();
                     $product = $item->getProduct();
-                    if ($this->cart_->get_quantity($itemId) != $this->getItemQuantityFor($itemId, $product->isQtyMixed())) {
-                        echo 'cart: get_quantity diff! cart: ';var_dump($this->cart_->get_quantity($itemId));echo 'my: ';var_dump($this->getItemQuantityFor($itemId, $product->isQtyMixed()));echo '<br>';
+                    if ($this->cart_->get_quantity($itemId) != $this->getItemQuantityFor($itemId, false)) {
+                        echo 'cart: get_quantity diff! cart: ';var_dump($this->cart_->get_quantity($itemId));echo 'my: ';var_dump($this->getItemQuantityFor($itemId, false));echo '<br>';
                     }
                     if ($this->cart_->in_cart_mixed($itemId) != $this->getItemQuantityFor($itemId, $product->isQtyMixed())) {
                         echo 'cart: in_cart_mixed diff! cart: ';var_dump($this->cart_->in_cart_mixed($itemId));echo 'my: ';var_dump($this->getItemQuantityFor($itemId, $product->isQtyMixed()));echo '<br>';
                     }
+
                     // prices
                     foreach ($zenItems as $zi) {
                         if ($zi['id'] == $item->getId()) {
