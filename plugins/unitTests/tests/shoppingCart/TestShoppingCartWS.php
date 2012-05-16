@@ -35,9 +35,19 @@ class TestShoppingCartWS extends ShoppingCartTestCaseBase {
      */
     protected function compareValues_Wrapper_Service($ids) {
         $referenceCart = $this->getShoppingCart();
+        $textOptionPrefix = $this->container->get('settingsService')->get('textOptionPrefix');
+        $productService = $this->container->get('productService');
         $qty = 5;
         foreach ($ids as $id) {
-            $referenceCart->addProduct($id, $qty);
+            $attr = array();
+            if (null != ($product = $productService->getProductForId($id, 1))) {
+                foreach ($product->getAttributes() as $attribute) {
+                    if (PRODUCTS_OPTIONS_TYPE_TEXT == $attribute->getType()) {
+                        $attr[$textOptionPrefix.$attribute->getId()] = 5 == $qty ? 'abc' : 'defgh';
+                    }
+                }
+            }
+            $referenceCart->addProduct($id, $qty, $attr);
             $qty = 5 == $qty ? 3: 5;
         }
         // load again from DB
