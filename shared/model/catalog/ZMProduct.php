@@ -788,10 +788,19 @@ class ZMProduct extends ZMObject {
     /**
      * Check if this product has attributes or not.
      *
+     * @param boolean ignoreReadOnly Optional flag to ignore read only attributes; default is <code>false</code> to look at all attributes.
      * @return boolean <code>true</code> if there are attributes (values) available,
      *  <code>false</code> if not.
      */
-    public function hasAttributes() { return 0 < count($this->getAttributes()); }
+    public function hasAttributes($ignoreReadOnly=false) {
+        foreach ($this->getAttributes() as $attribute) {
+            if (!$attribute->isReadOnly() || !$ignoreReadOnly) {
+                return true;
+            }
+        }
+
+        return false;
+    }
 
     /**
      * Get the product attributes.

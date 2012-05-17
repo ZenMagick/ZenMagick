@@ -121,6 +121,8 @@ use zenmagick\base\Runtime;
             // base attribute price factor on discounted or regular price
             'isDiscountAttributePriceFactor' => '1' == ATTRIBUTES_PRICE_FACTOR_FROM_SPECIAL,
 
+            'apps.store.pricing.text.ignoreWS' => '1' == TEXT_SPACES_FREE,
+
             /**************************************
              * Tax settings
              **************************************/

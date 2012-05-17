@@ -158,23 +158,40 @@ class ZMAttributeValue extends ZMObject {
         $offers = $product->getOffers();
         $discountPrice = $offers->isSale() ? $offers->getSalePrice(false) : $offers->getSpecialPrice(false);
 
-        $price += $this->getPriceFactorCharge($offers->getCalculatedPrice(false), $discountPrice ,$this->getPriceFactor(), $this->getPriceFactorOffset());
+        $price += $this->getPriceFactorCharge($offers->getCalculatedPrice(false), $discountPrice, $this->getPriceFactor(), $this->getPriceFactorOffset());
 
         return $price;
+    }
+
+    /**
+     * Calculate text price.
+     *
+     * @param string text The text.
+     * @return double The price.
+     */
+    protected function calculateTextPrice($text) {
+        $letterPrice = $this->countPriceableLetters($text) * $this->getPriceLetters();
+        $wordPrice = $this->countPriceableWords($text) * $this->getPriceWords();
+        return $letterPrice + $wordPrice;
     }
 
     /**
      * Get the final (and discounted) value price.
      *
      * @param boolean tax Set to <code>true</code> to include tax (if applicable); default is <code>true</code>.
-     * @param int quantity Optional quantity; default is <em>1</em>.
+     * @param int quantity Optional quantity for quantity discounts; default is <em>1</em>.
+     * @param string value Optional value for attributes that accept customer input (text attribute, for example); default is <code>null</code>.
      * @return double The price.
      */
-    public function getPrice($tax=true, $quantity=1) {
+    public function getPrice($tax=true, $quantity=1, $value=null) {
         $price = $this->price_;
         if ($this->isDiscounted_) {
-            //TODO: cache value
             $price = $this->getFinalPriceForQty($quantity);
+
+            if (null !== $value) {
+                $price += $this->calculateTextPrice($value);
+            }
+
             // no need to discount free attributes
             if (0 != $price) {
                 $product = $this->container->get('productService')->getProductForId($this->attribute_->getProductId());
@@ -421,5 +438,34 @@ class ZMAttributeValue extends ZMObject {
      * @param int sortOrder The attribute sort order.
      */
     public function setSortOrder($sortOrder) { $this->sortOrder_ = $sortOrder; }
+
+    /**
+     * Calculate the letter count.
+     *
+     * @param string text The text.
+     * @return int The letters accountable for pricing.
+     */
+    protected function countPriceableLetters($text) {
+        $ignoreWS = $this->container->get('settingsService')->get('apps.store.pricing.text.ignoreWS');
+        $sws = $ignoreWS ? '' : ' ';
+        $text = str_replace(array("\r\n", "\n", "\r", "\t"), $sws, trim($text));
+        // shrink multi WS to single ws
+        while (strstr($text, '  ')) { $text = str_replace('  ', ' ', $text); }
+        $text = str_replace(' ', $sws, $text);
+        $count = strlen($text) - $this->getPriceLettersFree();
+        return 0 > $count ? 0 : $count;
+    }
+
+    /**
+     * Calculate the word count.
+     *
+     * @param string text The text.
+     * @return int The words accountable for pricing.
+     */
+    protected function countPriceableWords($text) {
+        $words = preg_split('/[\s,]+/', trim($text));
+        $count = count($words) - $this->getPriceWordsFree();
+        return 0 > $count ? 0 : $count;
+    }
 
 }

@@ -123,7 +123,7 @@
             -->
         </service>
 
-        <service id="shoppingCartService" class="ZMShoppingCarts" scope="container" />
+        <service id="shoppingCartService" class="zenmagick\apps\store\services\checkout\ShoppingCartService" scope="container" />
 
         <service id="validator" class="ZMValidator" scope="container">
             <tag name="zenmagick.http.view.variable" key="validator" />

@@ -134,11 +134,30 @@ class ZMShoppingCart extends ZMObject {
     }
 
     /**
-     * Get the carts weight.
+     * Get the shopping cart weight.
      *
+     * @param boolean
      * @return float The weight if the shopping cart.
      */
-    public function getWeight() { return $this->cart_->show_weight(); }
+    public function getWeight() {
+        $weight = 0;
+        foreach ($this->getItems() as $item) {
+            $product = $item->getProduct();
+
+            if (!$product->isAlwaysFreeShipping() && !$product->isVirtual()) {
+                $quantity = $item->getQuantity();
+                $weight += $quantity * $product->getWeight();
+
+                foreach ($item->getAttributes() as $attribute) {
+                    foreach ($attribute->getValues() as $value) {
+                        $pref = '-' == $value->getWeightPrefix() ? -1 : 1;
+                        $weight += $pref * $quantity * $value->getWeight();
+                    }
+                }
+            }
+        }
+        return $weight;
+    }
 
     /**
      * Check for out of stock items.
@@ -190,71 +209,93 @@ class ZMShoppingCart extends ZMObject {
     }
 
     /**
+     * Set the contents for this cart.
+     *
+     * @param array contents The contents.
+     */
+    public function setContents($contents) {
+        $this->items_ = array();
+        foreach ($contents as $id => $itemData) {
+            if (empty($id)) { continue; }
+            $item = new ZMShoppingCartItem($this);
+            $item->setContainer($this->container);
+            $item->setId($id);
+            $item->populateAttributes($itemData);
+            $item->setQuantity($this->adjustQty($itemData['qty']));
+            $this->items_[$item->getId()] = $item;
+        }
+
+        // 2) iterate again - now we can calculate quantities and prices properly...
+        foreach ($this->items_ as $id => $item) {
+            $product = $item->getProduct();
+            $offers = $product->getOffers();
+
+            // default
+            $price = $product->getProductPrice();
+            if (!$product->isPricedByAttributes()) {
+                // allow specials
+                $price = $product->getPrice(false);
+                // qty depends om qtyMixed option on base product
+                $cartQty = $this->getItemQuantityFor($id, $item->getQuantity());
+                if (null != ($quantityDiscount = $offers->getQuantityDiscountFor($cartQty, false))) {
+                    $price = $quantityDiscount->getPrice();
+                }
+            }
+
+            if ($product->isFree()) {
+                $price = 0;
+            }
+
+
+//echo '<hr>ZM i: '.$item->getId(); echo ' '.$price.' + '.$item->getAttributesPrice(false); echo '<hr>';
+            $item->setItemPrice($price + $item->getAttributesPrice(false));
+            // todo: cleanup item methods a bit to make more sense for this
+            $item->setOneTimeCharge($product->getOneTimeCharge() + $item->getAttributesOneTimePrice(false));
+
+            $this->items_[$item->getId()] = $item;
+        }
+    }
+
+    /**
      * Get the items in the cart.
      *
      * @return array List of <code>ZMShoppingCartItem</code>s.
      */
     public function getItems() {
         if (null === $this->items_) {
-            $this->items_ = array();
             if (null != $this->cart_) {
-if (false) {
-                // 1) iterate and populate items array
-                $cartContents = (array) $this->cart_->contents;
-                foreach ($cartContents as $id => $itemData) {
-                    if (empty($id)) { continue; }
-                    $item = new ZMShoppingCartItem($this);
-                    $item->setContainer($this->container);
-                    $item->setId($id);
-                    $item->populateAttributes($itemData);
-                    $item->setQuantity($this->adjustQty($itemData['qty']));
-                    $this->items_[$item->getId()] = $item;
-                }
-
-                // 2) iterate again - now we can calculate quantities properly...
-                foreach ($this->items_ as $id => $item) {
-                    $product = $item->getProduct();
-                    $offers = $product->getOffers();
-
-                    // todo: cleanup item methods a bit to make more sense for this
-//echo '<hr>ZM: '.$item->getId(); var_dump($item->getAttributesOneTimePrice(false)); echo '<hr>';
-                    $item->setOneTimeCharge($product->getOneTimeCharge() + $item->getAttributesOneTimePrice(false));
-                    $price = $product->getPrice(false);
-//echo '<hr>ZM i: '.$item->getId(); echo ' '.$price.' + '.$item->getAttributesPrice(false); echo '<hr>';
-
-                    // qty depends om qtyMixed option on base product
-                    $cartQty = $item->getQuantity();//$this->getItemQuantityFor($id, $product->isQtyMixedDiscount());
-//var_dump($item->getId()); var_dump($cartQty); var_dump($this->getItemQuantityFor($id, $item->getQuantity()));
-                    $cartQty= $this->getItemQuantityFor($id, $item->getQuantity());
-                    if (null != ($quantityDiscount = $offers->getQuantityDiscountFor($cartQty, false))) {
-                        $price = $quantityDiscount->getPrice();
-                    }
-//echo '<hr>ZM i: '.$item->getId(); echo ' '.$price.' + '.$item->getAttributesPrice(false); echo '<hr>';
-                    $item->setItemPrice($price + $item->getAttributesPrice(false));
-
-                    $this->items_[$item->getId()] = $item;
-                }
-} else {
-                $zenItems = $this->cart_->get_products();
-                foreach ($zenItems as $zenItem) {
-                    $item = new ZMShoppingCartItem($this, $zenItem);
-                    $item->setContainer($this->container);
-                    $this->items_[$item->getId()] = $item;
-                }
+                $this->setContents((array) $this->cart_->contents);
             }
-}
 
             if ($this->container->get('settingsService')->get('apps.store.assertZencart', false)) {
+                // total items
+                $itemTotal = 0;
+                foreach ($this->items_ as $item) {
+                    $itemTotals += $item->getQuantity();
+                }
+                if ($this->cart_->count_contents() != $itemTotals) {
+                    echo 'cart: item count diff! cart: ';var_dump($this->cart_->count_contents());echo 'my: ';var_dump($itemTotals);echo '<br>';
+                }
+                // some totals
+                //echo 'Total items: '.$itemTotals.' Weight: '.$this->getWeight().'<br>';
+
+
+                // weight
+                if ($this->cart_->show_weight() != $this->getWeight()) {
+                    echo 'cart: weight diff! cart: ';var_dump($this->cart_->show_weight());echo 'my: ';var_dump($this->getWeight());echo '<br>';
+                }
+
                 $zenItems = $this->cart_->get_products();
                 foreach ($this->items_ as $item) {
                     $itemId = $item->getId();
                     $product = $item->getProduct();
-                    if ($this->cart_->get_quantity($itemId) != $this->getItemQuantityFor($itemId, $product->isQtyMixed())) {
-                        echo 'cart: get_quantity diff! cart: ';var_dump($this->cart_->get_quantity($itemId));echo 'my: ';var_dump($this->getItemQuantityFor($itemId, $product->isQtyMixed()));echo '<br>';
+                    if ($this->cart_->get_quantity($itemId) != $this->getItemQuantityFor($itemId, false)) {
+                        echo 'cart: get_quantity diff! cart: ';var_dump($this->cart_->get_quantity($itemId));echo 'my: ';var_dump($this->getItemQuantityFor($itemId, false));echo '<br>';
                     }
                     if ($this->cart_->in_cart_mixed($itemId) != $this->getItemQuantityFor($itemId, $product->isQtyMixed())) {
                         echo 'cart: in_cart_mixed diff! cart: ';var_dump($this->cart_->in_cart_mixed($itemId));echo 'my: ';var_dump($this->getItemQuantityFor($itemId, $product->isQtyMixed()));echo '<br>';
                     }
+
                     // prices
                     foreach ($zenItems as $zi) {
                         if ($zi['id'] == $item->getId()) {
