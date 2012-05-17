@@ -52,6 +52,7 @@ class ShoppingCartTestCaseBase extends TestCase {
         // clear session and database
         $_SESSION['cart']->reset(true);
         $_SESSION['cart']->restore_contents();
+        $this->container->get('settingsService')->set('apps.store.assertZencart', false);
     }
 
     /**

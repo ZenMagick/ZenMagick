@@ -353,9 +353,16 @@ class ZMShoppingCartItem extends ZMObject {
     public function getAttributesPrice($tax=true, $quantity=null) {
         $price = 0;
         $quantity = null === $quantity ? $this->quantity_ : $quantity;
+        $productIsFree = $this->getProduct()->isFree();
         foreach ($this->attributes_ as $attribute) {
             foreach ($attribute->getValues() as $value) {
-                $price += $value->getPrice($tax, $quantity);
+                if ($productIsFree && $value->isFree()) {
+                    // value is only free if product is free
+                    continue;
+                }
+                // for text attributes, the name is the text entered by the customer
+                $valueValue = PRODUCTS_OPTIONS_TYPE_TEXT == $attribute->getType() ? $value->getName() : null;
+                $price += $value->getPrice($tax, $quantity, $valueValue);
             }
         }
 

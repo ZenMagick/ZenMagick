@@ -39,6 +39,10 @@ class TestShoppingCartWS extends ShoppingCartTestCaseBase {
         // load again from DB
         $serviceShoppingCart = $this->container->get('shoppingCartService')->loadCartForAccountId($this->getRequest()->getSession()->getAccountId());
         $itemMap = $serviceShoppingCart->getItems();
+
+        // also validate against zencart cart
+        $zenReferenceItems = $serviceShoppingCart->cart_->get_products();
+
         foreach ($referenceCart->getItems() as $item) {
             if ($this->assertTrue(array_key_exists($item->getId(), $itemMap), "%s: productId: ".$item->getId())) {
                 // compare
@@ -47,6 +51,14 @@ class TestShoppingCartWS extends ShoppingCartTestCaseBase {
                 // no tax
                 $this->assertEqual($item->getItemPrice(false), $serviceItem->getItemPrice(false), "%s: productId: ".$item->getId());
                 $this->assertEqual($item->getOneTimeCharge(false), $serviceItem->getOneTimeCharge(false), "%s: productId: ".$item->getId());
+
+                // zencart prices
+                foreach ($zenReferenceItems as $zi) {
+                    if ($zi['id'] == $item->getId()) {
+                        $this->assertEqual(round($item->getItemPrice(), 2), round($zi['final_price'],2), "zc i: %s: productId: ".$item->getId());
+                        $this->assertEqual(round($item->getOneTimeCharge(), 2), round($zi['onetime_charges'],2), "zc ot: %s: productId: ".$item->getId());
+                    }
+                }
             }
         }
     }

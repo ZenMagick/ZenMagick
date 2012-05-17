@@ -401,9 +401,9 @@ array(
         'priceFactorOneTimeOffset' => array('column' => 'attributes_price_factor_onetime_offset', 'type' => 'float'),
         'qtyPrices' => array('column' => 'attributes_qty_prices', 'type' => 'string'),
         'qtyPricesOneTime' => array('column' => 'attributes_qty_prices_onetime', 'type' => 'string'),
-        'priceWords' => array('column' => 'attributes_price_words', 'type' => 'integer'),
+        'priceWords' => array('column' => 'attributes_price_words', 'type' => 'float'),
         'priceWordsFree' => array('column' => 'attributes_price_words_free', 'type' => 'integer'),
-        'priceLetters' => array('column' => 'attributes_price_letters', 'type' => 'integer'),
+        'priceLetters' => array('column' => 'attributes_price_letters', 'type' => 'float'),
         'priceLettersFree' => array('column' => 'attributes_price_letters_free', 'type' => 'integer'),
         'required' => array('column' => 'attributes_required', 'type' => 'boolean')
     ),
@@ -575,9 +575,9 @@ array(
         'attributes_qty_prices' => array('column' => 'attributes_qty_prices', 'type' => 'string'),
         'priceFactorOneTimeOffset' => array('column' => 'attributes_qty_prices_onetime', 'type' => 'string'),
         'priceWords' => array('column' => 'attributes_price_words', 'type' => 'float'),
-        'wordsFree' => array('column' => 'attributes_price_words_free', 'type' => 'integer'),
+        'priceWordsFree' => array('column' => 'attributes_price_words_free', 'type' => 'integer'),
         'priceLetters' => array('column' => 'attributes_price_letters', 'type' => 'float'),
-        'lettersFree' => array('column' => 'attributes_price_letters_free', 'type' => 'integer'),
+        'priceLettersFree' => array('column' => 'attributes_price_letters_free', 'type' => 'integer'),
         'attributeId' => array('column' => 'products_options_id', 'type' => 'integer'),
         'attributeValueId' => array('column' => 'products_options_values_id', 'type' => 'integer'),
         'sku' => array('column' => 'products_prid', 'type' => 'string')
