@@ -26,7 +26,7 @@ use zenmagick\plugins\unitTests\simpletest\TestCase;
  * @package org.zenmagick.plugins.unitTests.tests
  * @author DerManoMann <mano@zenmagick.org>
  */
-class TestZMShoppingCarts extends TestCase {
+class TestShoppingCartService extends TestCase {
 
     /**
      * {@inheritDoc}

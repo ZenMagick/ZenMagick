@@ -20,7 +20,9 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
+namespace zenmagick\apps\store\services\checkout;
 
+use ZMRuntime;
 use zenmagick\base\Beans;
 use zenmagick\base\Runtime;
 use zenmagick\base\ZMObject;
@@ -36,17 +38,8 @@ use zenmagick\base\ZMObject;
  * code do currently not seem worth the effort.</strong></p>
  *
  * @author DerManoMann
- * @package zenmagick.store.shared.services.checkout
  */
-class ZMShoppingCarts extends ZMObject {
-
-    /**
-     * Get instance.
-     */
-    public static function instance() {
-        return Runtime::getContainer()->get('shoppingCartService');
-    }
-
+class ShoppingCartService extends ZMObject {
 
     /**
      * Save the cart content.
