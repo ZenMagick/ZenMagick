@@ -38,6 +38,7 @@ use zenmagick\base\ZMObject;
  * code do currently not seem worth the effort.</strong></p>
  *
  * @author DerManoMann
+ * @todo update method
  */
 class ShoppingCartService extends ZMObject {
 
