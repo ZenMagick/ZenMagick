@@ -102,26 +102,28 @@ class ShoppingCartTestCaseBase extends TestCase {
         $textOptionPrefix = $this->container->get('settingsService')->get('textOptionPrefix');
         $productService = $this->container->get('productService');
         $qty = 5;
-        foreach ($ids as $id) {
-            $attr = array();
-            if (null != ($product = $productService->getProductForId($id, 1))) {
-                foreach ($product->getAttributes() as $attribute) {
-                    switch ($attribute->getType()) {
-                    case PRODUCTS_OPTIONS_TYPE_TEXT:
-                        $attr[$textOptionPrefix.$attribute->getId()] = 5 == $qty ? 'abcde   foooo  ' : 'ab   cd ef gh';
-                        break;
-                    case PRODUCTS_OPTIONS_TYPE_RADIO:
-                    //case PRODUCTS_OPTIONS_TYPE_CHECKBOX:
-                    case PRODUCTS_OPTIONS_TYPE_SELECT:
-                        $values = $attribute->getValues();
-                        $ii = rand(0, count($values)-1);
-                        $attr[$attribute->getId()] = $values[$ii]->getId();
-                        break;
+        for ($ii=0; $ii<1; ++$ii) {
+            foreach ($ids as $id) {
+                $attr = array();
+                if (null != ($product = $productService->getProductForId($id, 1))) {
+                    foreach ($product->getAttributes() as $attribute) {
+                        switch ($attribute->getType()) {
+                        case PRODUCTS_OPTIONS_TYPE_TEXT:
+                            $attr[$textOptionPrefix.$attribute->getId()] = 5 == $qty ? 'abcde   foooo  ' : 'ab   cd ef gh';
+                            break;
+                        case PRODUCTS_OPTIONS_TYPE_RADIO:
+                        //case PRODUCTS_OPTIONS_TYPE_CHECKBOX:
+                        case PRODUCTS_OPTIONS_TYPE_SELECT:
+                            $values = $attribute->getValues();
+                            $ii = rand(0, count($values)-1);
+                            $attr[$attribute->getId()] = $values[$ii]->getId();
+                            break;
+                        }
                     }
                 }
+                $referenceCart->addProduct($id, $qty, $attr);
+                $qty = 5 == $qty ? 13: 5;
             }
-            $referenceCart->addProduct($id, $qty, $attr);
-            $qty = 5 == $qty ? 13: 5;
         }
 
         return $referenceCart;

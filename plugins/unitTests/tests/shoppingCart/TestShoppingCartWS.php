@@ -39,7 +39,6 @@ class TestShoppingCartWS extends ShoppingCartTestCaseBase {
         // load again from DB
         $serviceShoppingCart = $this->container->get('shoppingCartService')->loadCartForAccountId($this->getRequest()->getSession()->getAccountId());
         $itemMap = $serviceShoppingCart->getItems();
-
         foreach ($referenceCart->getItems() as $item) {
             if ($this->assertTrue(array_key_exists($item->getId(), $itemMap), "%s: productId: ".$item->getId())) {
                 // compare
