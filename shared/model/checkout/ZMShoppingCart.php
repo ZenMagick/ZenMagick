@@ -277,7 +277,7 @@ class ZMShoppingCart extends ZMObject {
                     echo 'cart: item count diff! cart: ';var_dump($this->cart_->count_contents());echo 'my: ';var_dump($itemTotals);echo '<br>';
                 }
                 // some totals
-                echo 'Total items: '.$itemTotals.' Weight: '.$this->getWeight().'<br>';
+                //echo 'Total items: '.$itemTotals.' Weight: '.$this->getWeight().'<br>';
 
 
                 // weight
