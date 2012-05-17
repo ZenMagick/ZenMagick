@@ -90,4 +90,41 @@ class ShoppingCartTestCaseBase extends TestCase {
         $this->$method($range);
     }
 
+    /**
+     * Populate the reference cart.
+     *
+     * @param array ids List of product ids to put into cart.
+     * @return ZMShoppingCart The reference cart.
+     */
+    protected function getReferenceCart($ids) {
+        // use to add products
+        $referenceCart = $this->getShoppingCart();
+        $textOptionPrefix = $this->container->get('settingsService')->get('textOptionPrefix');
+        $productService = $this->container->get('productService');
+        $qty = 5;
+        foreach ($ids as $id) {
+            $attr = array();
+            if (null != ($product = $productService->getProductForId($id, 1))) {
+                foreach ($product->getAttributes() as $attribute) {
+                    switch ($attribute->getType()) {
+                    case PRODUCTS_OPTIONS_TYPE_TEXT:
+                        $attr[$textOptionPrefix.$attribute->getId()] = 5 == $qty ? 'abcde   foooo  ' : 'ab   cd ef gh';
+                        break;
+                    case PRODUCTS_OPTIONS_TYPE_RADIO:
+                    //case PRODUCTS_OPTIONS_TYPE_CHECKBOX:
+                    case PRODUCTS_OPTIONS_TYPE_SELECT:
+                        $values = $attribute->getValues();
+                        $ii = rand(0, count($values)-1);
+                        $attr[$attribute->getId()] = $values[$ii]->getId();
+                        break;
+                    }
+                }
+            }
+            $referenceCart->addProduct($id, $qty, $attr);
+            $qty = 5 == $qty ? 13: 5;
+        }
+
+        return $referenceCart;
+    }
+
 }

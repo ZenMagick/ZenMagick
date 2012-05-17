@@ -34,32 +34,7 @@ class TestShoppingCartSO extends ShoppingCartTestCaseBase {
      * Compare values for the given productIds using the service and order class data.
      */
     protected function compareValues_Service_Order($ids) {
-        // use to add products
-        $referenceCart = $this->getShoppingCart();
-        $textOptionPrefix = $this->container->get('settingsService')->get('textOptionPrefix');
-        $productService = $this->container->get('productService');
-        $qty = 5;
-        foreach ($ids as $id) {
-            $attr = array();
-            if (null != ($product = $productService->getProductForId($id, 1))) {
-                foreach ($product->getAttributes() as $attribute) {
-                    switch ($attribute->getType()) {
-                    case PRODUCTS_OPTIONS_TYPE_TEXT:
-                        $attr[$textOptionPrefix.$attribute->getId()] = 5 == $qty ? 'abc' : 'defgh';
-                        break;
-                    case PRODUCTS_OPTIONS_TYPE_RADIO:
-                    //case PRODUCTS_OPTIONS_TYPE_CHECKBOX:
-                    case PRODUCTS_OPTIONS_TYPE_SELECT:
-                        $values = $attribute->getValues();
-                        $ii = rand(0, count($values)-1);
-                        $attr[$attribute->getId()] = $values[$ii]->getId();
-                        break;
-                    }
-                }
-            }
-            $referenceCart->addProduct($id, $qty, $attr);
-            $qty = 5 == $qty ? 3: 5;
-        }
+        $referenceCart = $this->getReferenceCart($ids);
 
         // load again from DB
         $serviceShoppingCart = $this->container->get('shoppingCartService')->loadCartForAccountId($this->getRequest()->getSession()->getAccountId());
