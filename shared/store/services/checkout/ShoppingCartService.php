@@ -91,7 +91,7 @@ class ShoppingCartService extends ZMObject {
     /**
      * Clear a cart.
      *
-     * <p>This will remove all database entries and session data.</p>
+     * <p>This will remove all cart data fom the database.</p>
      *
      * @param ZMShoppingCart shoppingCart The cart to save.
      */
@@ -111,173 +111,41 @@ class ShoppingCartService extends ZMObject {
      * @return ZMShoppingCart The cart.
      */
     public function loadCartForAccountId($accountId) {
-        // first read attributes so they are availabe to restore the products
+        // build contents
+        $cartContents = array();
+
+        // read all in one go
         $sql = "SELECT * FROM " . TABLE_CUSTOMERS_BASKET_ATTRIBUTES . "
                 WHERE customers_id = :accountId
-                ORDER BY LPAD(products_options_sort_order, 11, '0')";
+                ORDER BY LPAD(products_options_sort_order, 11, '0'), products_id";
         $attributeResults = ZMRuntime::getDatabase()->fetchAll($sql, array('accountId' => $accountId), TABLE_CUSTOMERS_BASKET_ATTRIBUTES);
-        // fix zc attributeId format (checkboxes)...
-        foreach ($attributeResults as $ii => $attributeResult) {
-            $attributeResults[$ii]['attributeId'] = preg_replace('/([0-9]*).*/', '\1', $attributeResult['attributeId']);
-        }
-
-        // todo: make shoppingCart prototype, but keep singleton for session
-        $shoppingCart = Beans::getBean('ZMShoppingCart');
-        $shoppingCart->setCheckoutHelper($this->container->get('checkoutHelper'));
-        $items = array();
 
         $sql = "SELECT * FROM " . TABLE_CUSTOMERS_BASKET . "
                 WHERE customers_id = :accountId";
-        foreach (ZMRuntime::getDatabase()->fetchAll($sql, array('accountId' => $accountId), TABLE_CUSTOMERS_BASKET) as $productResult) {
-            $item = Beans::getBean('ZMShoppingCartItem');
-            $item->setId($productResult['skuId']);
-            $item->setQuantity($productResult['quantity']);
-            $productAttributes = null;
-            $attributeMap = array();
+        foreach (ZMRuntime::getDatabase()->fetchAll($sql, array('accountId' => $accountId), TABLE_CUSTOMERS_BASKET) as $result) {
+            $id = $result['skuId'];
+            $quantity = $result['quantity'];
+
+            // match attributes
             $attributes = array();
-            // find attributes
-            foreach ($attributeResults as $attributeResult) {
-                if ($item->getId() == $attributeResult['skuId']) {
-                    if (null === $productAttributes) {
-                        // load only if attributes are in the db
-                        $productAttributes = $item->getProduct()->getAttributes();
-                    }
-                    // find attribute in product's attributes and clone to avoid breaking anything
-                    foreach ($productAttributes as $productAttribute) {
-                        if ($productAttribute->getId() == $attributeResult['attributeId']) {
-                            break;
-                        }
-                    }
-
-                    // make sure the attribute itself is ready with the first value
-                    if (!array_key_exists($attributeResult['attributeId'], $attributeMap)) {
-                        $attribute = clone $productAttribute;
-                        $attribute->clearValues();
-                        $attributeMap[$attribute->getId()] = $attribute;
-                        $attributes[] = $attribute;
-                    } else {
-                        $attribute = $attributeMap[$attributeResult['attributeId']];
-                    }
-
-                    // now we have $productAttribute - a complete attribute with all available values,
-                    // so lets find the value we are currently processing
-                    foreach ($productAttribute->getValues() as $value) {
-                        if ($value->getId() == $attributeResult['attributeValueId']) {
-                            $tmp = clone $value;
-                            // check for text/upload attributes where we also need to set the name...
-                            if (in_array($attribute->getType(), array(PRODUCTS_OPTIONS_TYPE_TEXT, PRODUCTS_OPTIONS_TYPE_FILE))) {
-                                $tmp->setName($attributeResult['attributeValueText']);
-                            }
-                            $attribute->addValue($tmp);
-                            break;
-                        }
-                    }
+            $attributes_values = array();
+            foreach ($attributeResults as $result) {
+                if ($result['skuId'] == $id) {
+                    $attributes[$result['attributeId']] = $result['attributeValueId'];
+                    $attributes_values[$result['attributeId']] = $result['attributeValueText'];
                 }
             }
-            $item->setAttributes($attributes);
-
-            // now the funky bits
-            $item->setItemPrice($this->calculateProductPrice($item) + $this->calculateAttributePrice($item));
-            $item->setOneTimeCharge($this->calculateOneTimeCharge($item));
-
-            // for easy lookup
-            $items[$item->getId()] = $item;
+            $cartContents[$id] = array(
+                'qty' => $quantity,
+                'attributes' => $attributes,
+                'attributes_values' => $attributes_values,
+            );
         }
 
-        $shoppingCart->setItems($items);
+        $shoppingCart = Beans::getBean('ZMShoppingCart');
+        $shoppingCart->setCheckoutHelper($this->container->get('checkoutHelper'));
+        $shoppingCart->setContents($cartContents);
         return $shoppingCart;
-    }
-
-    /**
-     * Calculate the product price for the given item.
-     *
-     * @param ZMShoppingCartItem item The item.
-     * @return float The product price (excl. attribute pricing).
-     */
-    protected function calculateProductPrice($item) {
-        $product = $item->getProduct();
-        $offers = $product->getOffers();
-        $hasOfferPrice = $offers->isSpecial() || $offers->isSale();
-
-        if ($product->isFree()) {
-            $productPrice = 0;
-        } else {
-            if ($hasOfferPrice && !$product->isPricedByAttributes()) {
-                $productPrice = $offers->getCalculatedPrice(false);
-            } else {
-                $productPrice = $product->getProductPrice();
-            }
-
-            // start with the regular or offer price...
-            if ($product->isPricedByAttributes() && $item->hasAttributes()) {
-                $productPrice = $product->getProductPrice();
-            } else {
-                // apply quantity discounts
-                foreach ($product->getOffers()->getQuantityDiscounts(false) as $discount) {
-                    if ($discount->getQuantity() <= $item->getQuantity()) {
-                        $productPrice = $discount->getPrice();
-                    } else {
-                        break;
-                    }
-                }
-            }
-        }
-
-        return $productPrice;
-    }
-
-    /**
-     * Calculate the attribute price for the given item.
-     *
-     * @param ZMShoppingCartItem item The item.
-     * @return float The attribute price.
-     */
-    protected function calculateAttributePrice($item) {
-        $itemAttributesPrice = 0;
-
-        foreach ($item->getAttributes() as $attribute) {
-            $attributePrice = 0;
-            foreach ($attribute->getValues() as $value) {
-                $attributePrice += $value->getPrice(false, $item->getQuantity());
-
-                // add special code to calculate word/letter price
-                if ($attribute->getType() == PRODUCTS_OPTIONS_TYPE_TEXT) {
-                    // special handling of customer input [text]
-
-                    $word_count = zen_get_word_count($value->getName()) - $value->getWordsFree();
-                    if (0 < $word_count) {
-                        $attributePrice += $word_count * $value->getPriceWords();
-                    }
-
-                    $letters_count = zen_get_letters_count($value->getName()) - $value->getLettersFree();
-                    $letters_price = $letters_count * $value->getPriceLetters();
-                    if (0 < $letters_price) {
-                        $attributePrice += $letters_price;
-                    }
-                }
-            }
-            $itemAttributesPrice += $attributePrice;
-        }
-
-        return $itemAttributesPrice;
-    }
-
-    /**
-     * Calculate optional one time charges.
-     *
-     * @param ZMShoppingCartItem item The item.
-     * @return float The amount.
-     */
-    protected function calculateOneTimeCharge($item) {
-        $charge = 0;
-
-        foreach ($item->getAttributes() as $attribute) {
-            foreach ($attribute->getValues() as $value) {
-                $charge += $value->getOneTimePrice(false);
-            }
-        }
-
-        return $charge;
     }
 
 }
