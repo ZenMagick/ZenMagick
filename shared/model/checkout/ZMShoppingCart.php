@@ -151,13 +151,12 @@ class ZMShoppingCart extends ZMObject {
                 foreach ($item->getAttributes() as $attribute) {
                     foreach ($attribute->getValues() as $value) {
                         $pref = '-' == $value->getWeightPrefix() ? -1 : 1;
-                        $weight += $pref * $quantity * $product->getWeight();
+                        $weight += $pref * $quantity * $value->getWeight();
                     }
                 }
             }
         }
-        //return $weight;
-        return $this->cart_->show_weight();
+        return $weight;
     }
 
     /**

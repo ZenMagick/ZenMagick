@@ -103,7 +103,7 @@ class ShoppingCartTestCaseBase extends TestCase {
         $textOptionPrefix = $this->container->get('settingsService')->get('textOptionPrefix');
         $productService = $this->container->get('productService');
         $qty = 5;
-        for ($ii=0; $ii<1; ++$ii) {
+        for ($ii=0; $ii<2; ++$ii) {
             foreach ($ids as $id) {
                 $attr = array();
                 if (null != ($product = $productService->getProductForId($id, 1))) {

@@ -41,9 +41,15 @@ class TestShoppingCartWS extends ShoppingCartTestCaseBase {
         $itemMap = $serviceShoppingCart->getItems();
 
         // also validate against zencart cart
-        $zenReferenceItems = $serviceShoppingCart->cart_->get_products();
+        $zcCart = $serviceShoppingCart->cart_;
+        $zenReferenceItems = $zcCart->get_products();
 
+        // zencart weight
+        $this->assertEqual($zcCart->show_weight(), $serviceShoppingCart->getWeight());
+
+        $itemTotal = 0;
         foreach ($referenceCart->getItems() as $item) {
+            $itemTotals += $item->getQuantity();
             if ($this->assertTrue(array_key_exists($item->getId(), $itemMap), "%s: productId: ".$item->getId())) {
                 // compare
                 $serviceItem = $itemMap[$item->getId()];
@@ -59,8 +65,16 @@ class TestShoppingCartWS extends ShoppingCartTestCaseBase {
                         $this->assertEqual(round($item->getOneTimeCharge(), 2), round($zi['onetime_charges'],2), "zc ot: %s: productId: ".$item->getId());
                     }
                 }
+
+                // zencart quantities
+                $itemId = $item->getId();
+                $product = $item->getProduct();
+                $this->assertEqual($zcCart->get_quantity($itemId), $referenceCart->getItemQuantityFor($itemId, false), "zc get_quantity: %s: productId: ".$item->getId());
+                $this->assertEqual($zcCart->in_cart_mixed($itemId), $referenceCart->getItemQuantityFor($itemId, $product->isQtyMixed()), "zc in_cart_mixed: %s: productId: ".$item->getId());
             }
         }
+
+        $this->assertEqual($zcCart->count_contents($itemId), $itemTotals);
     }
 
     /**
