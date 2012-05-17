@@ -32,7 +32,6 @@ use zenmagick\base\ZMObject;
  *
  * @author DerManoMann
  * @package zenmagick.store.shared.model.checkout
- * @todo remove deprecated code and zenItem references
  */
 class ZMShoppingCartItem extends ZMObject {
     private $shoppingCart;
@@ -47,23 +46,14 @@ class ZMShoppingCartItem extends ZMObject {
      * Create new shopping cart item
      *
      * @param ZMShoppingCart shoppingCart The cart this item belongs to.
-     * @param array zenItem The zen-cart shopping item infos.
      */
-    public function __construct(ZMShoppingCart $shoppingCart=null, $zenItem=null) {
+    public function __construct(ZMShoppingCart $shoppingCart=null) {
         parent::__construct();
         $this->shoppingCart = $shoppingCart;
         $this->id_ = null;
         $this->quantity_ = 0;
         $this->itemPrice_ = 0;
         $this->oneTimeCharge_ = 0;
-        $this->setContainer(Runtime::getContainer());
-        if (null !== $zenItem) {
-            $this->setId($zenItem['id']);
-            $this->setQuantity($zenItem['quantity']);
-            $this->setItemPrice($zenItem['final_price']);
-            $this->setOneTimeCharge($zenItem['onetime_charges']);
-            $this->populateAttributes($zenItem);
-        }
     }
 
 
@@ -76,14 +66,6 @@ class ZMShoppingCartItem extends ZMObject {
         $this->shoppingCart = $shoppingCart;
     }
 
-    // @deprecated
-    function getName() { return $this->getProduct()->getName(); }
-    // @deprecated
-    function getImage() { return $this->getProduct()->getImage(); }
-    // @deprecated
-    function getImageInfo() { return $this->getProduct()->getImageInfo(); }
-    // @deprecated
-    function getTaxClassId() { return $this->getProduct()->getTaxClassId(); }
     /**
      * Populate attributes for this cart item.
      *
@@ -261,7 +243,6 @@ class ZMShoppingCartItem extends ZMObject {
      *
      * @param boolean tax Optional flag to include/exlcude tax; default is <code>true</code> to include tax.
      * @return float The price for a single item.
-     * @todo include onetime charge
      */
     public function getItemTotal($tax=true) {
         $total = $this->getItemPrice(false) * $this->getQuantity();
