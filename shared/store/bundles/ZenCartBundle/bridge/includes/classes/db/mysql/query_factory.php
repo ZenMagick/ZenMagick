@@ -155,8 +155,19 @@ class queryFactory {
         $data = array();
         $types = array();
         foreach ($tableData as $key => $value) {
+            $type = $value['type'];
+            if ('noquotestring' == $type) {
+                // only supporting the now() function until otherwise necessary
+                if (preg_match('/now\(\)/i', $value['value'])) {
+                    $type = 'datetime';
+                    $value['value'] = new \DateTime;
+                } else {
+                    $type = 'string';
+                }
+            }
+
             $data[$value['fieldName']] = $value['value'];
-            $types[] = $value['type'];
+            $types[] = $type;
         }
 
         switch (strtolower($type)) {
