@@ -44,7 +44,7 @@ class CheckoutHelper extends ZMObject {
     /**
      * Create new instance.
      *
-     * @param ZMShoppingCart shoppingCart The cart; default is <code>null</code>.
+     * @param ShoppingCart shoppingCart The cart; default is <code>null</code>.
      */
     public function __construct($shoppingCart=null) {
         parent::__construct();
@@ -55,7 +55,7 @@ class CheckoutHelper extends ZMObject {
     /**
      * Set the corresponding shopping cart.
      *
-     * @param ZMShoppingCart shoppingCart The cart; default is <code>null</code>.
+     * @param ShoppingCart shoppingCart The cart; default is <code>null</code>.
      */
     public function setShoppingCart($shoppingCart) {
         $this->shoppingCart_ = $shoppingCart;

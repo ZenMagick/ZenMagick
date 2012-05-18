@@ -112,7 +112,7 @@
 
         <service id="checkoutHelper" class="zenmagick\apps\store\utils\CheckoutHelper" scope="container" />
 
-        <service id="shoppingCart" class="ZMShoppingCart" scope="container">
+        <service id="shoppingCart" class="zenmagick\apps\store\model\checkout\ShoppingCart" scope="container">
             <call method="setCheckoutHelper">
                 <argument type="service" id="checkoutHelper" />
             </call>

@@ -165,7 +165,7 @@ class ToolboxForm extends ToolboxTool {
     /**
      * Create all required hidden form fields for a given shoppin cart item.
      *
-     * @param ZMShoppingCartItem item The shopping cart item.
+     * @param ShoppingCartItem item The shopping cart item.
      * @return string HTML form to add a given productId to the shopping cart.
      */
     public function hiddenCartFields($item) {

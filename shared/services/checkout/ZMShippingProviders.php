@@ -23,6 +23,7 @@
 
 use zenmagick\base\Runtime;
 use zenmagick\base\ZMObject;
+use zenmagick\apps\store\model\checkout\ShoppingCart;
 
 /**
  * General access class for shipping provider.
@@ -160,11 +161,11 @@ class ZMShippingProviders extends ZMObject {
     /**
      * Get a list of all shipping providers for the given address.
      *
-     * @param ZMShoppingCart shoppingCart The shopping cart.
+     * @param ShoppingCart shoppingCart The shopping cart.
      * @param ZMAddress address The address.
      * @return array List of <code>ZMShippingProvider</code> instances.
      */
-    public function getShippingProvidersForAddress($shoppingCart, $address) {
+    public function getShippingProvidersForAddress(ShoppingCart $shoppingCart, $address) {
         $available = array();
         foreach ($this->getShippingProviders() as $provider) {
             // check address

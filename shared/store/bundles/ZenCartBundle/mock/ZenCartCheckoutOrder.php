@@ -24,7 +24,7 @@ namespace zenmagick\apps\store\bundles\ZenCartBundle\Mock;
 
 use zenmagick\base\Runtime;
 use zenmagick\base\ZMObject;
-
+use zenmagick\apps\store\model\checkout\ShoppingCart;
 /**
  * A zencart order based on the shopping cart.
  *
@@ -42,9 +42,9 @@ class ZenCartCheckoutOrder extends ZMObject {
     /**
      * Create new instance for the given shopping cart.
      *
-     * @param ZMShoppingCart shoppingCart The shopping cart; default is <code>null</code>
+     * @param ShoppingCart shoppingCart The shopping cart; default is <code>null</code>
      */
-    public function __construct($shoppingCart=null) {
+    public function __construct(ShoppingCart $shoppingCart=null) {
         parent::__construct();
         $this->setShoppingCart($shoppingCart);
     }
@@ -52,7 +52,7 @@ class ZenCartCheckoutOrder extends ZMObject {
     /**
      * Set the shopping cart.
      *
-     * @param ZMShoppingCart shoppingCart The shopping cart.
+     * @param ShoppingCart shoppingCart The shopping cart.
      * @param boolean applyTotals Optional flag to apply/skip totals; default is <code>true</code>.
      */
     public function setShoppingCart($shoppingCart, $applyTotals=true) {
@@ -122,9 +122,9 @@ class ZenCartCheckoutOrder extends ZMObject {
     /**
      * Populate products.
      *
-     * @param ZMShoppingCart shoppingCart The shopping cart.
+     * @param ShoppingCart shoppingCart The shopping cart.
      */
-    protected function populateProducts($shoppingCart) {
+    protected function populateProducts(ShoppingCart $shoppingCart) {
         $this->products = array();
         foreach ($shoppingCart->getItems() as $item) {
             $itemProduct = $item->getProduct();
@@ -226,13 +226,13 @@ class ZenCartCheckoutOrder extends ZMObject {
     /**
      * Populate info.
      *
-     * @param ZMShoppingCart shoppingCart The shopping cart.
+     * @param ShoppingCart shoppingCart The shopping cart.
      */
-    protected function populateInfo($shoppingCart) {
+    protected function populateInfo(ShoppingCart $shoppingCart) {
         // general stuff
         // TODO: where from/to??
         $languageId = $this->container->get('settingsService')->get('storeDefaultLanguageId');
-        // TODO: move all cart/session values into ZMShoppingCart
+        // TODO: move all cart/session values into ShoppingCart
         $currencyCode = $this->container->get('session')->getCurrencyCode();
         $couponAmount = 0;
         $couponCode = null;
@@ -293,10 +293,10 @@ class ZenCartCheckoutOrder extends ZMObject {
     /**
      * Apply totals.
      *
-     * @param ZMShoppingCart shoppingCart The shopping cart.
+     * @param ShoppingCart shoppingCart The shopping cart.
      * @todo Do not use zencart code to do this!
      */
-    protected function applyTotals($shoppingCart) {
+    protected function applyTotals(ShoppingCart $shoppingCart) {
     global $order, $shipping_modules;
 
         $order = $this;

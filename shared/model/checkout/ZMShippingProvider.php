@@ -21,6 +21,7 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
+use zenmagick\apps\store\model\checkout\ShoppingCart;
 
 /**
  * A shipping provider.
@@ -86,19 +87,19 @@ interface ZMShippingProvider {
      * Get a specific shipping method.
      *
      * @param string id The method id.
-     * @param ZMShoppingCart shoppingCart The shopping cart.
+     * @param ShoppingCart shoppingCart The shopping cart.
      * @param ZMAddress address Optional shipping address; default is <code>null</code>.
      * @return ZMShippingMethod A shipping method or <code>null</code>.
      */
-    public function getShippingMethodForId($id, $shoppingCart, $address=null);
+    public function getShippingMethodForId($id, ShoppingCart $shoppingCart, $address=null);
 
     /**
      * Get available shipping methods for the given address.
      *
-     * @param ZMShoppingCart shoppingCart The shopping cart.
+     * @param ShoppingCart shoppingCart The shopping cart.
      * @param ZMAddress address Optional shipping address; default is <code>null</code>.
      * @return array A list of <code>ZMShippingMethod</code> instances.
      */
-    public function getShippingMethods($shoppingCart, $address=null);
+    public function getShippingMethods(ShoppingCart $shoppingCart, $address=null);
 
 }

@@ -24,6 +24,7 @@ namespace zenmagick\apps\store\toolbox;
 
 use zenmagick\base\Runtime;
 use zenmagick\http\toolbox\ToolboxTool;
+use zenmagick\apps\store\model\checkout\ShoppingCart;
 
 /**
  * Generic utilities.
@@ -84,10 +85,10 @@ class ToolboxUtils extends ToolboxTool {
     /**
      * Check if the given shopping cart qualifies for free shipping (as per free shipping ot).
      *
-     * @param ZMShoppingCart shoppingCart The cart to examine.
+     * @param ShoppingCart shoppingCart The cart to examine.
      * @return boolean <code>true</code> if this cart qualifies for free shipping.
      */
-    public function isFreeShipping($shoppingCart) {
+    public function isFreeShipping(ShoppingCart $shoppingCart) {
         return $shoppingCart->getCheckoutHelper()->isFreeShipping();
     }
 

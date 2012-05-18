@@ -19,6 +19,8 @@
  */
 namespace apps\store\promotions;
 
+use zenmagick\apps\store\model\checkout\ShoppingCart;
+
 /**
  * Base class for promotional elements.
  *
@@ -51,16 +53,16 @@ abstract class AbstractPromotionElement implements PromotionElement {
     /**
      * Set the current shopping cart.
      *
-     * @param ZMShoppingCart shoppingCart The shopping cart.
+     * @param ShoppingCart shoppingCart The shopping cart.
      */
-    public function setShoppingCart($shoppingCart) {
+    public function setShoppingCart(ShoppingCart $shoppingCart) {
         $this->shoppingCart = $shoppingCart;
     }
 
     /**
      * Get the current shopping cart.
      *
-     * @return ZMShoppingCart The shopping cart.
+     * @return ShoppingCart The shopping cart.
      */
     public function getShoppingCart() {
         return $this->shoppingCart;

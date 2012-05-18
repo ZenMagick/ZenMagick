@@ -24,6 +24,7 @@ use zenmagick\base\Beans;
 use zenmagick\base\Runtime;
 use zenmagick\base\Toolbox;
 use zenmagick\http\sacs\SacsManager;
+use zenmagick\apps\store\model\checkout\ShoppingCart;
 
 /**
  * Subscriptions.
@@ -134,10 +135,10 @@ class SubscriptionsPlugin extends Plugin {
     /**
      * Check if the given cart can be used as subscription.
      *
-     * @param ZMShoppingCart shoppingCart The cart.
+     * @param ShoppingCart shoppingCart The cart.
      * @return boolean <code>true</code> if the cart qualifies for a subscription.
      */
-    public function qualifies($shoppingCart) {
+    public function qualifies(ShoppingCart $shoppingCart) {
         return $this->get('minAmount') <= $shoppingCart->getTotal();
     }
 

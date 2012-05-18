@@ -20,6 +20,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
+namespace zenmagick\apps\store\model\checkout;
 
 use zenmagick\base\Runtime;
 use zenmagick\base\ZMObject;
@@ -28,12 +29,11 @@ use zenmagick\base\ZMObject;
  * A single shopping cart item.
  *
  * <p>This class can either be populated using the c'tor argument (zen-cart cart info) or
- * implicit as done by the shopping cart service (<code>ZMShoppingCart</code>)</p>
+ * implicit as done by the shopping cart service (<code>ShoppingCart</code>)</p>
  *
  * @author DerManoMann
- * @package zenmagick.store.shared.model.checkout
  */
-class ZMShoppingCartItem extends ZMObject {
+class ShoppingCartItem extends ZMObject {
     private $shoppingCart;
     private $id_;
     private $quantity_;
@@ -45,9 +45,9 @@ class ZMShoppingCartItem extends ZMObject {
     /**
      * Create new shopping cart item
      *
-     * @param ZMShoppingCart shoppingCart The cart this item belongs to.
+     * @param ShoppingCart shoppingCart The cart this item belongs to.
      */
-    public function __construct(ZMShoppingCart $shoppingCart=null) {
+    public function __construct(ShoppingCart $shoppingCart=null) {
         parent::__construct();
         $this->shoppingCart = $shoppingCart;
         $this->id_ = null;
@@ -60,9 +60,9 @@ class ZMShoppingCartItem extends ZMObject {
     /**
      * Set the shopping cart this items belongs to.
      *
-     * @param ZMShoppingCart shoppingCart The cart this item belongs to.
+     * @param ShoppingCart shoppingCart The cart this item belongs to.
      */
-    public function setShoppingCart(ZMShoppingCart $shoppingCart) {
+    public function setShoppingCart(ShoppingCart $shoppingCart) {
         $this->shoppingCart = $shoppingCart;
     }
 
@@ -181,7 +181,7 @@ class ZMShoppingCartItem extends ZMObject {
      * @return int The product id.
      */
     public function getProductId() {
-        return ZMShoppingCart::getBaseProductIdFor($this->getId());
+        return ShoppingCart::getBaseProductIdFor($this->getId());
     }
 
     /**

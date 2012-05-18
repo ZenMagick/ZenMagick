@@ -124,7 +124,7 @@ class Request extends \ZMRequest {
     /**
      * Get the current shopping cart.
      *
-     * @return ZMShoppingCart The current shopping cart (may be empty).
+     * @return ShoppingCart The current shopping cart (may be empty).
      */
     public function getShoppingCart() {
         if (null == $this->shoppingCart_) {

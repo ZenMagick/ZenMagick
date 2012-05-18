@@ -19,6 +19,7 @@
  */
 
 use zenmagick\base\ZMObject;
+use zenmagick\apps\store\model\checkout\ShoppingCart;
 use zenmagick\apps\store\utils\CheckoutHelper;
 use zenmagick\plugins\unitTests\simpletest\TestCase;
 
@@ -70,7 +71,7 @@ class ShoppingCartTestCaseBase extends TestCase {
      * Get a shopping cart instance.
      */
     protected function getShoppingCart() {
-        $shoppingCart = new ZMShoppingCart();
+        $shoppingCart = new ShoppingCart();
         $shoppingCart->setContainer($this->container);
         $shoppingCart->setCheckoutHelper(new CheckoutHelper());
         return $shoppingCart;
@@ -95,7 +96,7 @@ class ShoppingCartTestCaseBase extends TestCase {
      * Populate the reference cart.
      *
      * @param array ids List of product ids to put into cart.
-     * @return ZMShoppingCart The reference cart.
+     * @return ShoppingCart The reference cart.
      */
     protected function getReferenceCart($ids) {
         // use to add products

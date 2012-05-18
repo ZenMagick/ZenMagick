@@ -25,6 +25,7 @@ namespace zenmagick\plugins\paymentSurcharge;
 use Plugin;
 use zenmagick\base\Beans;
 use zenmagick\base\Runtime;
+use zenmagick\apps\store\model\checkout\ShoppingCart;
 
 /**
  * ZenMagick order total module to add a payment surcharge totals based on configurable conditions.
@@ -44,7 +45,7 @@ class PaymentSurchargePlugin extends Plugin implements \ZMOrderTotal {
     /**
      * {@inheritDoc}
      */
-    public function calculate($request, $shoppingCart) {
+    public function calculate($request, ShoppingCart $shoppingCart) {
         $paymentType = $shoppingCart->getSelectedPaymentType();
 
         // iterate over all conditions

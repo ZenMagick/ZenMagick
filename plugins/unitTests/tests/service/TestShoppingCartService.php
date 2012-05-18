@@ -19,6 +19,7 @@
  */
 
 use zenmagick\plugins\unitTests\simpletest\TestCase;
+use zenmagick\apps\store\model\checkout\ShoppingCart;
 
 /**
  * Test cart service.
@@ -52,10 +53,10 @@ class TestShoppingCartService extends TestCase {
     /**
      * Dump cart.
      *
-     * @param ZMShoppingCart shoppingCart The cart to dump.
+     * @param ShoppingCart shoppingCart The cart to dump.
      * @return string The dump.
      */
-    protected function dumpCart($shoppingCart) {
+    protected function dumpCart(ShoppingCart $shoppingCart) {
         $html = $this->getRequest()->getToolbox()->html;
         $utils = $this->getRequest()->getToolbox()->utils;
         ob_start();

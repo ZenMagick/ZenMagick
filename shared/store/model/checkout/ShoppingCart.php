@@ -20,7 +20,12 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
+namespace zenmagick\apps\store\model\checkout;
 
+use ZMCreditTypeWrapper;
+use ZMOrderTotalLine;
+use ZMPaymentField;
+use ZMTaxRates;
 use zenmagick\base\Runtime;
 use zenmagick\base\ZMObject;
 use zenmagick\apps\store\utils\CheckoutHelper;
@@ -31,9 +36,8 @@ use zenmagick\apps\store\utils\CheckoutHelper;
  * <p>This class is assuming a properly configured zen cart.</p>
  *
  * @author DerManoMann
- * @package zenmagick.store.shared.model.checkout
  */
-class ZMShoppingCart extends ZMObject {
+class ShoppingCart extends ZMObject {
     public $cart_;
     private $session;
     private $zenTotals_;
@@ -196,7 +200,7 @@ class ZMShoppingCart extends ZMObject {
     /**
      * Set the cart items.
      *
-     * @param array items List of <code>ZMShoppingCartItem</code>s.
+     * @param array items List of <code>ShoppingCartItem</code>s.
      */
     public function setItems($items) {
         // invalidate totals
@@ -217,7 +221,7 @@ class ZMShoppingCart extends ZMObject {
         $this->items_ = array();
         foreach ($contents as $id => $itemData) {
             if (empty($id)) { continue; }
-            $item = new ZMShoppingCartItem($this);
+            $item = new ShoppingCartItem($this);
             $item->setContainer($this->container);
             $item->setId($id);
             $item->populateAttributes($itemData);
@@ -259,7 +263,7 @@ class ZMShoppingCart extends ZMObject {
     /**
      * Get the items in the cart.
      *
-     * @return array List of <code>ZMShoppingCartItem</code>s.
+     * @return array List of <code>ShoppingCartItem</code>s.
      */
     public function getItems() {
         if (null === $this->items_) {
@@ -599,14 +603,14 @@ class ZMShoppingCart extends ZMObject {
     global $order, $order_total_modules, $shipping_modules;
 
         if (null === $this->zenTotals_) {
-            $order = new order();
+            $order = new \order();
 
             if (!isset($shipping_modules)) {
-                $shipping_modules = new shipping($_SESSION['shipping']);
+                $shipping_modules = new \shipping($_SESSION['shipping']);
             }
             $this->zenTotals_ = $order_total_modules;
             if (!isset($order_total_modules)) {
-                $this->zenTotals_ = new order_total();
+                $this->zenTotals_ = new \order_total();
                 $this->zenTotals_->collect_posts();
                 $this->zenTotals_->pre_confirmation_check();
             }
@@ -935,7 +939,7 @@ class ZMShoppingCart extends ZMObject {
         $validAttributeIds = array();
         foreach ($defaultAttributes as $attribute) {
             $attributeId = $attribute->getId();
-            if (ZMLangUtils::inArray($attribute->getType(), array(PRODUCTS_OPTIONS_TYPE_TEXT, PRODUCTS_OPTIONS_TYPE_FILE))) {
+            if (\ZMLangUtils::inArray($attribute->getType(), array(PRODUCTS_OPTIONS_TYPE_TEXT, PRODUCTS_OPTIONS_TYPE_FILE))) {
                 $attributeId = Runtime::getSettings()->get('textOptionPrefix') . $attributeId;
             }
             $validAttributeIds[$attributeId] = $attributeId;
@@ -954,15 +958,15 @@ class ZMShoppingCart extends ZMObject {
                     }
                 }
 
-                if (ZMLangUtils::inArray($attribute->getType(), array(PRODUCTS_OPTIONS_TYPE_RADIO, PRODUCTS_OPTIONS_TYPE_SELECT))) {
+                if (\ZMLangUtils::inArray($attribute->getType(), array(PRODUCTS_OPTIONS_TYPE_RADIO, PRODUCTS_OPTIONS_TYPE_SELECT))) {
                     // use default id for radio and select
                     $attributes[$attributeId] = $defaultId;
-                } else if (ZMLangUtils::inArray($attribute->getType(), array(PRODUCTS_OPTIONS_TYPE_TEXT, PRODUCTS_OPTIONS_TYPE_FILE))) {
+                } else if (\ZMLangUtils::inArray($attribute->getType(), array(PRODUCTS_OPTIONS_TYPE_TEXT, PRODUCTS_OPTIONS_TYPE_FILE))) {
                     // use emtpy string for text input attributes
                     $attributes[$attributeId] = '';
                 }
             } else {
-                if (ZMLangUtils::inArray($attribute->getType(), array(PRODUCTS_OPTIONS_TYPE_RADIO, PRODUCTS_OPTIONS_TYPE_SELECT))) {
+                if (\ZMLangUtils::inArray($attribute->getType(), array(PRODUCTS_OPTIONS_TYPE_RADIO, PRODUCTS_OPTIONS_TYPE_SELECT))) {
                     // validate single non input attributes
                     $defaultId = null;
                     $isValid = false;

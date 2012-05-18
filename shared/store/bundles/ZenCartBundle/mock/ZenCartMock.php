@@ -23,6 +23,7 @@
 namespace zenmagick\apps\store\bundles\ZenCartBundle\Mock;
 
 use zenmagick\base\Runtime;
+use zenmagick\apps\store\model\checkout\ShoppingCart;
 use zenmagick\apps\store\bundles\ZenCartBundle\mock\ZenCartCheckoutOrder;
 use zenmagick\apps\store\bundles\ZenCartBundle\mock\ZenCartOrderTotal;
 
@@ -39,10 +40,10 @@ class ZenCartMock {
     /**
      * Start mocking around.
      *
-     * @param ZMShoppingCart shoppingCart The current shopping cart.
+     * @param ShoppingCart shoppingCart The current shopping cart.
      * @param ZMAddress shippingAddress Optional shipping address; default is <code>null</code>.
      */
-    public static function startMock($shoppingCart, $shippingAddress=null) {
+    public static function startMock(ShoppingCart $shoppingCart, $shippingAddress=null) {
     global $order, $shipping_weight, $shipping_quoted, $shipping_num_boxes, $total_count, $order_total_modules;
     global $_order, $_shipping_weight, $_shipping_quoted, $_shipping_num_boxes, $_total_count, $_order_total_modules;
 

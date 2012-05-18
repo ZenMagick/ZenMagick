@@ -50,7 +50,7 @@ interface ZMCreditClass {
      *  to the Gift Voucher account.</p>
      *  <p>Another use would be to check if the product would give reward points and add these to the points/reward account.</p>
      *
-     * @param ZMShoppingCartItem item A single item.
+     * @param ShoppingCartItem item A single item.
      * @todo drop item, give cart and leave it to implementatio; also, return some reference object to  be used later to apply...
      */
     public function updateCreditAccount($item);

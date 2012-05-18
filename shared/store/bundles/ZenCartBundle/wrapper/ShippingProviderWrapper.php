@@ -24,6 +24,7 @@ namespace zenmagick\apps\store\bundles\ZenCartBundle\wrapper;
 
 use zenmagick\base\Beans;
 use zenmagick\base\ZMObject;
+use zenmagick\apps\store\model\checkout\ShoppingCart;
 
 use zenmagick\apps\store\bundles\ZenCartBundle\mock\ZenCartMock;
 use zenmagick\apps\store\bundles\ZenCartBundle\wrapper\ShippingMethodWrapper;
@@ -97,7 +98,7 @@ class ShippingProviderWrapper extends ZMObject implements \ZMShippingProvider {
     /**
      * {@inheritDoc}
      */
-    public function getShippingMethodForId($id, $shoppingCart, $address=null) {
+    public function getShippingMethodForId($id, ShoppingCart $shoppingCart, $address=null) {
         $methods = $this->getShippingMethods($shoppingCart, $address);
         return (array_key_exists($id, $methods) ? $methods[$id] : null);
     }
@@ -105,7 +106,7 @@ class ShippingProviderWrapper extends ZMObject implements \ZMShippingProvider {
     /**
      * {@inheritDoc}
      */
-    public function getShippingMethods($shoppingCart, $address=null) {
+    public function getShippingMethods(ShoppingCart $shoppingCart, $address=null) {
         if (null == $address) {
             // now we just want the shipping method, but we need an address right now...
             $address = $shoppingCart->getShippingAddress();

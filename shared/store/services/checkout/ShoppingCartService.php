@@ -26,11 +26,12 @@ use ZMRuntime;
 use zenmagick\base\Beans;
 use zenmagick\base\Runtime;
 use zenmagick\base\ZMObject;
+use zenmagick\apps\store\model\checkout\ShoppingCart;
 
 /**
  * Shopping cart service.
  *
- * <p><strong>NOTE1: This is work in progress (as are ZMShoppingCart and ZMShoppingCartItem). Eventually I also hope to work around
+ * <p><strong>NOTE1: This is work in progress (as are ShoppingCart and ShoppingCartItem). Eventually I also hope to work around
  * the fact that basket attributes and items are associated by the customers_id rather than the basket id. Right now it is not
  * possible to have more than one cart per customer (if possible, this could be used as wishlist storage by adding a type...)</strong></p>
  *
@@ -45,7 +46,7 @@ class ShoppingCartService extends ZMObject {
     /**
      * Save the cart content.
      *
-     * @param ZMShoppingCart shoppingCart The cart to save.
+     * @param ShoppingCart shoppingCart The cart to save.
      */
     public function saveCart($shoppingCart) {
         // get existing data to decide on whether to INSERT or UPDATE
@@ -94,7 +95,7 @@ class ShoppingCartService extends ZMObject {
      *
      * <p>This will remove all cart data fom the database.</p>
      *
-     * @param ZMShoppingCart shoppingCart The cart to save.
+     * @param ShoppingCart shoppingCart The cart to save.
      */
     public function clearCart($shoppingCart) {
         $sql = "DELETE FROM " . TABLE_CUSTOMERS_BASKET . "
@@ -109,7 +110,7 @@ class ShoppingCartService extends ZMObject {
      * Load and populate a cart.
      *
      * @param int accountId The owner's account id.
-     * @return ZMShoppingCart The cart.
+     * @return ShoppingCart The cart.
      */
     public function loadCartForAccountId($accountId) {
         // build contents
@@ -143,7 +144,7 @@ class ShoppingCartService extends ZMObject {
             );
         }
 
-        $shoppingCart = Beans::getBean('ZMShoppingCart');
+        $shoppingCart = Beans::getBean('zenmagick\apps\store\model\checkout\ShoppingCart');
         $shoppingCart->setCheckoutHelper($this->container->get('checkoutHelper'));
         $shoppingCart->setContents($cartContents);
         return $shoppingCart;

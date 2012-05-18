@@ -21,6 +21,8 @@
 use zenmagick\base\Beans;
 use zenmagick\base\Runtime;
 use zenmagick\base\ZMObject;
+use zenmagick\apps\store\model\checkout\ShoppingCart;
+
 
 /**
  * Manage pluggable product associations.
@@ -131,13 +133,13 @@ class ZMProductAssociations extends ZMObject {
      *
      * <p>This method will also take care of duplicates.</p>
      *
-     * @param ZMShoppingCart shoppingCart The shopping cart.
+     * @param ShoppingCart shoppingCart The shopping cart.
      * @param int type The association type.
      * @param array args Optional parameter that might be required by the used type; default is <code>null</code> for none.
      * @param boolean all Optional flag to load all configured products, regardless of start/end date, etc; default is <code>false</code>.
      * @return array A list of <code>ZMProductAssociation</code> instances.
      */
-    public function getProductAssociationsForShoppingCart($shoppingCart, $type, $args=null, $all=false) {
+    public function getProductAssociationsForShoppingCart(ShoppingCart $shoppingCart, $type, $args=null, $all=false) {
         if (null != ($handler = $this->getHandlerForType($type))) {
             $defaults = array('includeChildren' => false, 'languageId' => null);
             if (null === $args) {
