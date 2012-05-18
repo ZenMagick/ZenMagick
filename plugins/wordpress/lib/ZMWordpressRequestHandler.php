@@ -18,6 +18,7 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
+use zenmagick\base\Toolbox;
 
 /**
  * WP request handler.
@@ -122,7 +123,7 @@ class ZMWordpressRequestHandler extends ZMController {
             $path = $this->request_->getContext().$this->plugin_->get('permaPrefix').'/';
             // does url path start with WP installation folder?
             $wpDir = basename($this->plugin_->get('wordpressDir'));
-            if (!ZMLangUtils::isEmpty($wpDir) && 0 === strpos($urlToken['path'], '/'.$wpDir.'/')) {
+            if (!Toolbox::isEmpty($wpDir) && 0 === strpos($urlToken['path'], '/'.$wpDir.'/')) {
                 return str_replace('/'.$wpDir.'/', $path, $arg);
             } else {
                 //TODO:

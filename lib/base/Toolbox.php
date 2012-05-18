@@ -248,4 +248,14 @@ class Toolbox {
         return md5($key);
     }
 
+    /**
+     * Check if a given value or array is empty.
+     *
+     * @param mixed value The value or array to check.
+     * @return boolean <code>true</code> if the value is empty or <code>null</code>, <code>false</code> if not.
+     */
+    public static function isEmpty($value) {
+        return empty($value);
+    }
+
 }

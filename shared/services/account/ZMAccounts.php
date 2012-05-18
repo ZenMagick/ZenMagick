@@ -22,6 +22,7 @@
  */
 
 use zenmagick\base\Runtime;
+use zenmagick\base\Toolbox;
 use zenmagick\base\ZMObject;
 
 /**
@@ -58,7 +59,7 @@ class ZMAccounts extends ZMObject {
                 WHERE c.customers_id = :accountId";
         $args = array('accountId' => $accountId);
         if (null != ($account = ZMRuntime::getDatabase()->querySingle($sql, $args, array(TABLE_CUSTOMERS, TABLE_CUSTOMERS_INFO), 'ZMAccount'))) {
-            if (ZMLangUtils::isEmpty($account->getPassword())) {
+            if (Toolbox::isEmpty($account->getPassword())) {
                 $account->setType(ZMAccount::GUEST);
             }
         }
@@ -79,7 +80,7 @@ class ZMAccounts extends ZMObject {
                 AND NOT (customers_password = '')";
         $args = array('email' => $emailAddress);
         if (null != ($account = ZMRuntime::getDatabase()->querySingle($sql, $args, array(TABLE_CUSTOMERS, TABLE_CUSTOMERS_INFO), 'ZMAccount'))) {
-            if (ZMLangUtils::isEmpty($account->getPassword())) {
+            if (Toolbox::isEmpty($account->getPassword())) {
                 $account->setType(ZMAccount::GUEST);
             }
         }
@@ -100,7 +101,7 @@ class ZMAccounts extends ZMObject {
         $args = array('email' => $emailAddress);
         $accounts = array();
         foreach (ZMRuntime::getDatabase()->fetchAll($sql, $args, array(TABLE_CUSTOMERS, TABLE_CUSTOMERS_INFO), 'ZMAccount') as $account) {
-            if (ZMLangUtils::isEmpty($account->getPassword())) {
+            if (Toolbox::isEmpty($account->getPassword())) {
                 $account->setType(ZMAccount::GUEST);
             }
             $accounts[] = $account;
@@ -131,7 +132,7 @@ class ZMAccounts extends ZMObject {
 
         $accounts = array();
         foreach (ZMRuntime::getDatabase()->fetchAll($sql, array(), array(TABLE_CUSTOMERS, TABLE_CUSTOMERS_INFO), 'ZMAccount') as $account) {
-            if (ZMLangUtils::isEmpty($account->getPassword())) {
+            if (Toolbox::isEmpty($account->getPassword())) {
                 $account->setType(ZMAccount::GUEST);
             }
             $accounts[] = $account;

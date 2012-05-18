@@ -22,6 +22,7 @@
  */
 
 use zenmagick\base\Runtime;
+use zenmagick\base\Toolbox;
 use zenmagick\base\ZMObject;
 
 /**
@@ -60,7 +61,7 @@ class ZMPaymentTypes extends ZMObject {
         if (null === $this->paymentTypes_) {
             $zcPath = Runtime::getSettings()->get('apps.store.zencart.path');
             $this->paymentTypes_ = array();
-            if (defined('MODULE_PAYMENT_INSTALLED') && !ZMLangUtils::isEmpty(MODULE_PAYMENT_INSTALLED)) {
+            if (defined('MODULE_PAYMENT_INSTALLED') && !Toolbox::isEmpty(MODULE_PAYMENT_INSTALLED)) {
                 // get a list of modules and stuff
                 $moduleInfos = array();
                 foreach (explode(';', MODULE_PAYMENT_INSTALLED) as $filename) {

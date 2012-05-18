@@ -23,6 +23,7 @@
 namespace zenmagick\apps\store\storefront\http\tools;
 
 use zenmagick\base\Runtime;
+use zenmagick\base\Toolbox;
 use zenmagick\http\toolbox\ToolboxTool;
 
 /**
@@ -84,7 +85,7 @@ class ToolboxMetaTags extends ToolboxTool {
         } else if (0 === strpos($requestId, 'product_')) {
             if (null != $this->product_) {
                 $languageId = $this->getRequest()->getSession()->getLanguageId();
-                if (null != ($details =  $this->product_->getMetaTagDetails($languageId)) && !\ZMLangUtils::isEmpty($details->getTitle())) {
+                if (null != ($details =  $this->product_->getMetaTagDetails($languageId)) && !Toolbox::isEmpty($details->getTitle())) {
                     // got meta tags
                     $title = $details->getTitle();
                 } else {
@@ -135,7 +136,7 @@ class ToolboxMetaTags extends ToolboxTool {
         $addTopCats = true;
         if (null != $this->product_) {
             $languageId = $this->getRequest()->getSession()->getLanguageId();
-            if (null != ($details =  $this->product_->getMetaTagDetails($languageId)) && !\ZMLangUtils::isEmpty($details->getKeywords())) {
+            if (null != ($details =  $this->product_->getMetaTagDetails($languageId)) && !Toolbox::isEmpty($details->getKeywords())) {
                 // got meta tags
                 $value .= $details->getKeywords();
                 $value .= $this->keywordDelimiter_;
@@ -180,7 +181,7 @@ class ToolboxMetaTags extends ToolboxTool {
         // special handling for home
         if (null != $this->product_) {
             $languageId = $this->getRequest()->getSession()->getLanguageId();
-            if (null != ($details =  $this->product_->getMetaTagDetails($languageId)) && !\ZMLangUtils::isEmpty($details->getKeywords())) {
+            if (null != ($details =  $this->product_->getMetaTagDetails($languageId)) && !Toolbox::isEmpty($details->getKeywords())) {
                 // got meta tags
                 $value = $details->getDescription();
             } else {
@@ -277,7 +278,7 @@ class ToolboxMetaTags extends ToolboxTool {
 
         if (null != ($this->product_ = $this->container->get('productService')->getProductForId($this->getRequest()->getProductId(), $this->getRequest()->getSession()->getLanguageId()))) {
             $this->productName_ = $this->product_->getName();
-            if (!\ZMLangUtils::isEmpty($this->product_->getModel())) {
+            if (!Toolbox::isEmpty($this->product_->getModel())) {
                 $this->productName_ .= ' [' . $this->product_->getModel() . ']';
             }
         }

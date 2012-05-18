@@ -20,6 +20,9 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
+
+use zenmagick\base\Toolbox;
+
 ?><?php _vzm("%s Order Confirmation", $settingsService->get('storeName')) ?>
 
 
@@ -75,7 +78,7 @@
 
 <?php if (null != ($paymentType = $order->getPaymentType())) { ?>
 <?php echo $html->encode($paymentType->getName()) ?>
-<?php if (!ZMLangUtils::isEmpty($paymentType->getInfo())) { ?>
+<?php if (!Toolbox::isEmpty($paymentType->getInfo())) { ?>
 
 
 <?php echo $paymentType->getInfo() ?>

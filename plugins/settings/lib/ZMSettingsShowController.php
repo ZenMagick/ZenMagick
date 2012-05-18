@@ -122,7 +122,7 @@ class ZMSettingsShowController extends ZMPluginAdminController {
                             if (0 === strpos($akey, $prefix) && ZMLangUtils::endsWith($akey, $suffix)) {
                                 // potential match
                                 $dynVal = substr($akey, strlen($prefix), -strlen($suffix));
-                                if (!ZMLangUtils::isEmpty($dynVal)) {
+                                if (!Toolbox::isEmpty($dynVal)) {
                                     // yep
                                     $subKey = str_replace($dynVar, $dynVal, $details['key']);
 

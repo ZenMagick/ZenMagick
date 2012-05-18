@@ -20,6 +20,9 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
+
+use zenmagick\base\Toolbox;
+
 ?>
 
 <?php $crumbtrail->addCrumb(_zm('Checkout'), $request->url('checkout', '', true))->addCrumb(_zm('Summary')) ?>
@@ -72,7 +75,7 @@
     <?php $paymentType = $shoppingCart->getSelectedPaymentType() ?>
     <?php if (null != $paymentType) { ?>
       <h4><?php echo $paymentType->getName() ?></h4>
-      <?php if (!ZMLangUtils::isEmpty($paymentType->getInfo())) { ?>
+      <?php if (!Toolbox::isEmpty($paymentType->getInfo())) { ?>
         <p><?php echo nl2br($paymentType->getInfo()) ?></p>
       <?php } ?>
     <?php } ?>
@@ -113,7 +116,7 @@
 <fieldset>
     <legend><?php _vzm("Special instructions or comments") ?></legend>
     <div class="btn"><a class="btn" href="<?php echo $net->url('checkout_payment', '', true) ?>"><?php _vzm("Change") ?></a></div>
-    <div><?php echo $html->encode(!ZMLangUtils::isEmpty($shoppingCart->getComments()) ? $shoppingCart->getComments() : "None") ?></div>
+    <div><?php echo $html->encode(!Toolbox::isEmpty($shoppingCart->getComments()) ? $shoppingCart->getComments() : "None") ?></div>
 </fieldset>
 
 

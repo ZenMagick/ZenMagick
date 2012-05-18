@@ -207,7 +207,7 @@ class WordpressPlugin extends Plugin {
      * @return boolean <code>true</code> if permalink support is enabled, <code>false</code> if not.
      */
     public function isPermalinksEnabled() {
-        return !\ZMLangUtils::isEmpty($this->get('permaPrefix'));
+        return !Toolbox::isEmpty($this->get('permaPrefix'));
     }
 
     /**
@@ -215,7 +215,7 @@ class WordpressPlugin extends Plugin {
      */
     public function getGlobal($request) {
         $wordpressEnabledPages = $this->get('wordpressEnabledPages');
-        if (empty($wordpressEnabledPages) || (!\ZMLangUtils::isEmpty($request->getRequestId()) && \ZMLangUtils::inArray($request->getRequestId(), $wordpressEnabledPages))) {
+        if (empty($wordpressEnabledPages) || (!Toolbox::isEmpty($request->getRequestId()) && \ZMLangUtils::inArray($request->getRequestId(), $wordpressEnabledPages))) {
             if ($this->isPermalinksEnabled()) {
                 $path = $request->getContext().$this->get('permaPrefix');
                 if (false === strpos($_SERVER['REQUEST_URI'], '?')) {
@@ -280,7 +280,7 @@ class WordpressPlugin extends Plugin {
     public function onCreateAccount($event) {
         if (Toolbox::asBoolean($this->get('syncUser'))) {
             $account = $event->get('account');
-            if (!\ZMLangUtils::isEmpty($account->getNickName())) {
+            if (!Toolbox::isEmpty($account->getNickName())) {
                 $password = $event->get('clearPassword');
                 if (!$this->getAdapter()->createAccount($account, $password)) {
                     $this->container->get('messageService')->info(_zm('Could not create wordpress account - please contact the store administrator.'));
@@ -298,7 +298,7 @@ class WordpressPlugin extends Plugin {
     public function onPasswordChanged($event) {
         if (Toolbox::asBoolean($this->get('syncUser'))) {
             $account = $event->get('account');
-            if (!\ZMLangUtils::isEmpty($account->getNickName())) {
+            if (!Toolbox::isEmpty($account->getNickName())) {
                 $password = $event->get('clearPassword');
                 $this->getAdapter()->updateAccount($account->getNickName(), $password, $account->getEmail());
             }
@@ -312,7 +312,7 @@ class WordpressPlugin extends Plugin {
         if (Toolbox::asBoolean($this->get('syncUser'))) {
             $request = $event->get('request');
             $account = $event->get('account');
-            if (null != $account && !\ZMLangUtils::isEmpty($account->getNickName())) {
+            if (null != $account && !Toolbox::isEmpty($account->getNickName())) {
                 $this->getAdapter()->updateAccount($account->getNickName(), null, $account->getEmail());
             }
         }

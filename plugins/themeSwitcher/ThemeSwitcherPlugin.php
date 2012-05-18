@@ -21,6 +21,7 @@ namespace zenmagick\plugins\themeSwitcher;
 
 use Plugin;
 use zenmagick\base\Runtime;
+use zenmagick\base\Toolbox;
 use zenmagick\http\view\TemplateView;
 
 /**
@@ -108,7 +109,7 @@ class ThemeSwitcherPlugin extends Plugin {
         // prepare theme details list
         $themeList = array();
         foreach ($themes as $themeConfig) {
-            if (!\ZMLangUtils::isEmpty(trim($themeConfig))) {
+            if (!Toolbox::isEmpty(trim($themeConfig))) {
                 // themeId:name
                 $details = explode(':', $themeConfig);
                 if (2 > count($details)) {

@@ -23,6 +23,7 @@
 namespace zenmagick\apps\store\storefront\utils;
 
 use zenmagick\base\Runtime;
+use zenmagick\base\Toolbox;
 use zenmagick\base\ZMObject;
 use zenmagick\base\events\Event;
 use zenmagick\http\view\TemplateView;
@@ -108,7 +109,7 @@ class EventFixes extends ZMObject {
         Runtime::getEventDispatcher()->dispatch('theme_resolved', new Event($this, $args));
 
         // now we can check for a static homepage
-        if (!\ZMLangUtils::isEmpty($settingsService->get('staticHome')) && 'index' == $request->getRequestId()
+        if (!Toolbox::isEmpty($settingsService->get('staticHome')) && 'index' == $request->getRequestId()
             && (0 == $request->getCategoryId() && 0 == $request->getManufacturerId())) {
             require Runtime::getSettings()->get('staticHome');
             exit;

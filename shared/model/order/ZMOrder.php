@@ -22,6 +22,7 @@
  */
 
 use zenmagick\base\Runtime;
+use zenmagick\base\Toolbox;
 use zenmagick\base\ZMObject;
 
 /**
@@ -247,7 +248,7 @@ class ZMOrder extends ZMObject {
      */
     public function hasShippingAddress() {
         $address = $this->getShippingAddress();
-        return !(ZMLangUtils::isEmpty($address->getLastName()) || ZMLangUtils::isEmpty($address->getAddressLine1()));
+        return !(Toolbox::isEmpty($address->getLastName()) || Toolbox::isEmpty($address->getAddressLine1()));
     }
 
     /**

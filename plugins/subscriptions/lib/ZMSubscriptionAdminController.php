@@ -80,7 +80,7 @@ class ZMSubscriptionAdminController extends ZMPluginAdminController {
         $order = $this->container->get('orderService')->getOrderForId($orderId, $request->getSession()->getLanguageId());
         $emailTemplate = Runtime::getSettings()->get('plugins.subscriptions.email.templates.cancel', 'subscription_cancel');
         $email = $order->getAccount()->getEmail();
-        if (!ZMLangUtils::isEmpty($email)) {
+        if (!Toolbox::isEmpty($email)) {
             $this->sendCancelEmail($order, $emailTemplate, $email);
         }
 

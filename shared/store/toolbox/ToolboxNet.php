@@ -20,6 +20,7 @@
 namespace zenmagick\apps\store\toolbox;
 
 use zenmagick\base\Runtime;
+use zenmagick\base\Toolbox;
 use zenmagick\http\toolbox\ToolboxTool;
 
 /**
@@ -112,7 +113,7 @@ class ToolboxNet extends ToolboxTool {
         }
 
         $href = $this->getRequest()->url('page', $params, $page->isSSL());
-        if (!\ZMLangUtils::isEmpty($page->getAltUrl())) {
+        if (!Toolbox::isEmpty($page->getAltUrl())) {
             $url = parse_url($page->getAltUrl());
             parse_str($url['query'], $query);
             $view = $query[Runtime::getSettings()->get('zenmagick.http.request.idName')];
@@ -122,7 +123,7 @@ class ToolboxNet extends ToolboxTool {
                 $params .= "&".$name."=".$value;
             }
             $href = $this->getRequest()->url($view, $params, $page->isSSL());
-        } else if (!\ZMLangUtils::isEmpty($page->getAltUrlExternal())) {
+        } else if (!Toolbox::isEmpty($page->getAltUrlExternal())) {
             $href = $page->getAltUrlExternal();
         }
 

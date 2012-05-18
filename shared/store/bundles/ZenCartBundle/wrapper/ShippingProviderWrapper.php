@@ -23,6 +23,7 @@
 namespace zenmagick\apps\store\bundles\ZenCartBundle\wrapper;
 
 use zenmagick\base\Beans;
+use zenmagick\base\Toolbox;
 use zenmagick\base\ZMObject;
 use zenmagick\apps\store\model\checkout\ShoppingCart;
 
@@ -73,7 +74,7 @@ class ShippingProviderWrapper extends ZMObject implements \ZMShippingProvider {
     /**
      * {@inheritDoc}
      */
-    public function hasIcon() { return !\ZMLangUtils::isEmpty($this->zenModule_->icon); }
+    public function hasIcon() { return !Toolbox::isEmpty($this->zenModule_->icon); }
 
     /**
      * {@inheritDoc}

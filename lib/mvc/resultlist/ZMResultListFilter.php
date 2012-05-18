@@ -18,6 +18,7 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
+use zenmagick\base\Toolbox;
 use zenmagick\base\ZMObject;
 
 /**
@@ -92,7 +93,7 @@ class ZMResultListFilter extends ZMObject {
      * @return boolean <code>true</code> if the filter is active, <code>false</code> if not.
      */
     function isActive() {
-        return !ZMLangUtils::isEmpty($this->value_);
+        return !Toolbox::isEmpty($this->value_);
     }
 
     /**

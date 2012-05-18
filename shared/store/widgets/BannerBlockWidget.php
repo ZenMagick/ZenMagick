@@ -127,14 +127,14 @@ class BannerBlockWidget extends Widget {
         $bannerContentList = array();
         foreach ($banners as $banner) {
             $content = '';
-            if (!\ZMLangUtils::isEmpty($banner->getText())) {
+            if (!Toolbox::isEmpty($banner->getText())) {
                 // use text if not empty
                 $content .= $banner->getText();
             } else {
                 $net = $request->getToolbox()->net;
                 $slash = Runtime::getSettings()->get('zenmagick.http.html.xhtml') ? '/' : '';
                 $img = '<img src="'.$net->image($banner->getImage()).'" alt="'.\ZMHtmlUtils::encode($banner->getTitle()).'"'.$slash.'>';
-                if (\ZMLangUtils::isEmpty($banner->getUrl())) {
+                if (Toolbox::isEmpty($banner->getUrl())) {
                     // if we do not have a url try our luck with the image...
                     $content .= $img;
                 } else {
@@ -146,7 +146,7 @@ class BannerBlockWidget extends Widget {
             if ($this->isTrackDisplay()) {
                 $bannerService->updateBannerDisplayCount($banner->getId());
             }
-            if (!\ZMLangUtils::isEmpty($this->getFormat()) && !empty($content)) {
+            if (!Toolbox::isEmpty($this->getFormat()) && !empty($content)) {
                 $content = sprintf($this->getFormat(), $content);
             }
             $bannerContentList[] = $content;
@@ -155,7 +155,7 @@ class BannerBlockWidget extends Widget {
         // always set
         $this->set('bannerContentList', $bannerContentList);
 
-        if (!\ZMLangUtils::isEmpty($this->getTemplate())) {
+        if (!Toolbox::isEmpty($this->getTemplate())) {
             // leave formatting to template rather than just concatenating
             return parent::render($request, $engine);
         }

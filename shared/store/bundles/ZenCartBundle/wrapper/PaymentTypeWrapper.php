@@ -23,6 +23,7 @@
 namespace zenmagick\apps\store\bundles\ZenCartBundle\wrapper;
 
 use zenmagick\base\ZMObject;
+use zenmagick\base\Toolbox;
 
 use zenmagick\apps\store\bundles\ZenCartBundle\mock\ZenCartMock;
 
@@ -115,7 +116,7 @@ class PaymentTypeWrapper extends ZMObject implements \ZMPaymentType {
      * {@inheritDoc}
      */
     public function getInfo() {
-        if (isset($this->module_->email_footer) && !\ZMLangUtils::isEmpty($this->module_->email_footer)) {
+        if (isset($this->module_->email_footer) && !Toolbox::isEmpty($this->module_->email_footer)) {
             return $this->module_->email_footer;
         }
 

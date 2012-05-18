@@ -18,6 +18,7 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
+use zenmagick\base\Toolbox;
 use zenmagick\base\ZMObject;
 
 /**
@@ -60,7 +61,7 @@ class ZMWordpressAdapter extends ZMObject {
      * @return boolean <code>true</code> if the email is valid, <code>false</code> if not.
      */
     public function vDuplicateEmail($request, $data) {
-		    return ZMLangUtils::isEmpty(email_exists($data['email']));
+		    return Toolbox::isEmpty(email_exists($data['email']));
     }
 
     /**

@@ -22,6 +22,7 @@
  */
 
 use zenmagick\base\Runtime;
+use zenmagick\base\Toolbox;
 use zenmagick\base\ZMObject;
 use zenmagick\apps\store\model\checkout\ShoppingCart;
 
@@ -94,7 +95,7 @@ class ZMShippingProviders extends ZMObject {
 
         $moduleInfos = array();
         if ($configured) {
-            if (defined('MODULE_SHIPPING_INSTALLED') && !ZMLangUtils::isEmpty(MODULE_SHIPPING_INSTALLED)) {
+            if (defined('MODULE_SHIPPING_INSTALLED') && !Toolbox::isEmpty(MODULE_SHIPPING_INSTALLED)) {
                 $files = explode(';', MODULE_SHIPPING_INSTALLED);
                 foreach ($files as $file) {
                     $clazz = substr($file, 0, strrpos($file, '.'));

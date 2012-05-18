@@ -82,7 +82,7 @@ class SearchController extends \ZMController {
         // never search inactive products
         $searchCriteria->setSearchAll(false);
 
-        if (!\ZMLangUtils::isEmpty($searchCriteria->getKeywords()) && $this->autoSearch_) {
+        if (!Toolbox::isEmpty($searchCriteria->getKeywords()) && $this->autoSearch_) {
             $resultList = Beans::getBean('ZMResultList');
             //TODO: filter??
             foreach (explode(',', Runtime::getSettings()->get('resultListProductSorter')) as $sorter) {

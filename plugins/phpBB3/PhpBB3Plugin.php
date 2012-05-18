@@ -136,7 +136,7 @@ class PhpBB3Plugin extends Plugin {
      */
     public function onCreateAccount($event) {
         $account = $event->get('account');
-        if (!\ZMLangUtils::isEmpty($account->getNickName())) {
+        if (!Toolbox::isEmpty($account->getNickName())) {
             $password = $event->get('clearPassword');
             $this->getAdapter()->createAccount($account, $password);
         }
@@ -150,7 +150,7 @@ class PhpBB3Plugin extends Plugin {
      */
     public function onPasswordChanged($event) {
         $account = $event->get('account');
-        if (!\ZMLangUtils::isEmpty($account->getNickName())) {
+        if (!Toolbox::isEmpty($account->getNickName())) {
             $password = $event->get('clearPassword');
             $this->getAdapter()->updateAccount($account->getNickName(), $password, $account->getEmail());
         }
@@ -161,7 +161,7 @@ class PhpBB3Plugin extends Plugin {
      */
     public function onAccountUpdated($event) {
         $account = $event->get('account');
-        if (null != $account && !\ZMLangUtils::isEmpty($account->getNickName())) {
+        if (null != $account && !Toolbox::isEmpty($account->getNickName())) {
             $this->getAdapter()->updateAccount($account->getNickName(), null, $account->getEmail());
         }
     }

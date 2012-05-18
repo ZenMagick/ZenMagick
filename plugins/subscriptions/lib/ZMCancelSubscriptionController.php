@@ -87,7 +87,7 @@ class ZMCancelSubscriptionController extends ZMController {
         if (empty($adminEmail)) {
             $adminEmail = Runtime::getSettings()->get('storeEmail');
         }
-        if (!ZMLangUtils::isEmpty($adminEmail)) {
+        if (!Toolbox::isEmpty($adminEmail)) {
             $this->sendCancelEmail($order, $cancelEmailTemplate, $adminEmail);
         }
 

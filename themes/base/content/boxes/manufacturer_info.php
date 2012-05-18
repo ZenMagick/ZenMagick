@@ -20,6 +20,9 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
+
+use zenmagick\base\Toolbox;
+
 ?>
 
 <?php if (null != $request->getProductId()) { ?>
@@ -33,12 +36,12 @@
                 if ($manufacturer->hasImage()) {
                     $url = $net->url('manufacturer', 'manufacturers_id='.$manufacturer->getId());
                     $target = '';
-                    if (!ZMLangUtils::isEmpty($manufacturer->getUrl())) {
+                    if (!Toolbox::isEmpty($manufacturer->getUrl())) {
                         $url = $net->trackLink('manufacturer', $manufacturer->getId());
                         $target = $settingsService->get('isJSTarget') ? ' onclick="newWin(this); return false;"' : ' target="_blank"';
                     }
                     ?><a href="<?php echo $url ?>"<?php echo $target ?>><?php echo $html->image($manufacturer->getImageInfo()) ?></a><?php
-                    if (!ZMLangUtils::isEmpty($manufacturer->getUrl())) {
+                    if (!Toolbox::isEmpty($manufacturer->getUrl())) {
                         $url = $net->url('manufacturer', 'manufacturers_id='.$manufacturer->getId());
                         ?><a href="<?php echo $url ?>"<?php echo $target ?>><?php _vzm("Other Products") ?></a><?php
                     }
@@ -46,13 +49,13 @@
                     $url = $net->url('manufacturer', 'manufacturers_id='.$manufacturer->getId());
                     $target = '';
                     $text = _zm("Other Products");
-                    if (!ZMLangUtils::isEmpty($manufacturer->getUrl())) {
+                    if (!Toolbox::isEmpty($manufacturer->getUrl())) {
                         $url = $net->trackLink('manufacturer', $manufacturer->getId());
                         $target = $settingsService->get('isJSTarget') ? ' onclick="newWin(this); return false;"' : ' target="_blank"';
                         $text = _zm("Manufacturer Homepage");
                     }
                     ?><a href="<?php echo $url ?>"<?php echo $target ?>><?php echo $text ?></a><?php
-                    if (!ZMLangUtils::isEmpty($manufacturer->getUrl())) {
+                    if (!Toolbox::isEmpty($manufacturer->getUrl())) {
                         $url = $net->url('manufacturer', 'manufacturers_id='.$manufacturer->getId());
                         ?><a href="<?php echo $url ?>"<?php echo $target ?>><?php _vzm("Other Products") ?></a><?php
                     }

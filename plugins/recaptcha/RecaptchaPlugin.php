@@ -151,7 +151,7 @@ class RecaptchaPlugin extends Plugin {
      * @return boolean <code>true</code> if the captcha is valid, <code>false</code> if not.
      */
     public function vRecaptcha($request, $data) {
-        if (\ZMLangUtils::isEmpty($request->getParameter(RECAPTCHA_FIELD))) {
+        if (Toolbox::isEmpty($request->getParameter(RECAPTCHA_FIELD))) {
             // we have a required rule, so no need for additional checks
             return true;
         }

@@ -18,6 +18,9 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
+
+use zenmagick\base\Toolbox;
+
   // get selections and defaults
   $editor = $request->getParameter('editor');
   if (null != $editor) {
@@ -46,7 +49,7 @@
   } else if (null != $selectedFile) {
       $editContents = null;
       if (null !== $selectedFile) {
-          if (ZMLangUtils::isEmpty($selectedFile) && !ZMLangUtils::isEmpty($newFile)) {
+          if (Toolbox::isEmpty($selectedFile) && !Toolbox::isEmpty($newFile)) {
               $editContents = '';
               $selectedFile = $newFile;
           } else {

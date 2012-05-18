@@ -22,6 +22,7 @@
  */
 namespace zenmagick\apps\store\storefront\controller;
 
+use zenmagick\base\Toolbox;
 use zenmagick\apps\store\model\coupons\Coupon;
 
 /**
@@ -38,13 +39,13 @@ class GvRedeemController extends \ZMController {
         $gvRedeem = $this->getFormData($request);
 
         //XXX: fix for gv_mail generated URLs
-        if (\ZMLangUtils::isEmpty($gvRedeem->getCouponCode())) {
+        if (Toolbox::isEmpty($gvRedeem->getCouponCode())) {
           if (null != ($gvNo = $request->getParameter('gv_no'))) {
               $gvRedeem->setCouponCode($gvNo);
           }
         }
 
-        if (!\ZMLangUtils::isEmpty($gvRedeem->getCouponCode())) {
+        if (!Toolbox::isEmpty($gvRedeem->getCouponCode())) {
             $couponService = $this->container->get('couponService');
             // only try to redeem if code given - people might browse the page without code parameter...
             $coupon = $couponService->getCouponForCode($gvRedeem->getCouponCode(), $request->getSession()->getLanguageId());

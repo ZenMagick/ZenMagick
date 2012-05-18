@@ -20,6 +20,9 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
+
+use zenmagick\base\Toolbox;
+
 ?>
 
 <?php $crumbtrail->addCrumb(_zm('Account'), $net->url('account', '', true))->addCrumb(_zm('Order History'), $net->url('account_history', '', true))->addCrumb(sprintf(_zm('Order #%s'), $request->getOrderId())) ?>
@@ -60,7 +63,7 @@
     <tbody><tr><td>
 <?php if (null != ($paymentType = $currentOrder->getPaymentType())) { ?>
     <p><?php echo $paymentType->getName() ?></p>
-    <?php if (!ZMLangUtils::isEmpty($paymentType->getInfo())) { ?>
+    <?php if (!Toolbox::isEmpty($paymentType->getInfo())) { ?>
       <p><?php echo nl2br($paymentType->getInfo()) ?></p>
     <?php } ?>
 <?php } else { ?>

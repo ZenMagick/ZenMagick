@@ -137,7 +137,7 @@ class VBulletinPlugin extends Plugin {
      */
     public function onCreateAccount($event) {
         $account = $event->get('account');
-        if (!\ZMLangUtils::isEmpty($account->getNickName())) {
+        if (!Toolbox::isEmpty($account->getNickName())) {
             $password = $event->get('clearPassword');
             $this->getAdapter()->createAccount($account, $password);
         }
@@ -151,7 +151,7 @@ class VBulletinPlugin extends Plugin {
      */
     public function onPasswordChanged($event) {
         $account = $event->get('account');
-        if (!\ZMLangUtils::isEmpty($account->getNickName())) {
+        if (!Toolbox::isEmpty($account->getNickName())) {
             $password = $event->get('clearPassword');
             $this->getAdapter()->updateAccount($account->getNickName(), $password, $account->getEmail());
         }
@@ -164,7 +164,7 @@ class VBulletinPlugin extends Plugin {
         $request = $event->get('request');
         $account = $event->get('account');
         // check if nickname set and no matching forum user
-        if (!\ZMLangUtils::isEmpty($account->getNickName())) {
+        if (!Toolbox::isEmpty($account->getNickName())) {
             if (null == $this->getAdapter()->getAccountForNickName($account->getNickName())) {
                 // no vBulletin user found, so create one now!
                 $password = $request->getParameter('password');
@@ -179,7 +179,7 @@ class VBulletinPlugin extends Plugin {
     public function onAccountUpdated($event) {
         $account = $event->get('account');
         $vbAccount = $this->getAdapter()->getAccountForNickName($account->getNickName());
-        if (null != $account && !\ZMLangUtils::isEmpty($account->getNickName())) {
+        if (null != $account && !Toolbox::isEmpty($account->getNickName())) {
             if (null != $vbAccount) {
                 $this->getAdapter()->updateAccount($account->getNickName(), null, $account->getEmail());
             } else {

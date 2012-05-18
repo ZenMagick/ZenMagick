@@ -23,6 +23,7 @@
 namespace zenmagick\apps\store\toolbox;
 
 use zenmagick\base\Runtime;
+use zenmagick\base\Toolbox;
 use zenmagick\base\ZMException;
 use zenmagick\http\toolbox\ToolboxTool;
 
@@ -81,7 +82,7 @@ class ToolboxMacro extends ToolboxTool {
         if (null == $address) {
             $out = _zm("N/A");
         } else {
-            if (!\ZMLangUtils::isEmpty($address->getLastName())) {
+            if (!Toolbox::isEmpty($address->getLastName())) {
                 $firstname = $address->getFirstName();
                 $lastname = $address->getLastName();
             } else {

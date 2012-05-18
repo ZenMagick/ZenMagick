@@ -20,6 +20,9 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
+
+use zenmagick\base\Toolbox;
+
 ?><!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
 <html lang="<?php echo $language->getCode() ?>">
 <head>
@@ -74,7 +77,7 @@
 <h3><?php _vzm("Payment Details") ?></h3>
 <?php if (null != ($paymentType = $order->getPaymentType())) { ?>
 <p><?php echo $paymentType->getName() ?></p>
-<?php if (!ZMLangUtils::isEmpty($paymentType->getInfo())) { ?>
+<?php if (!Toolbox::isEmpty($paymentType->getInfo())) { ?>
 <p><?php echo nl2br($paymentType->getInfo()) ?></p>
 <?php } ?>
 <?php } ?>

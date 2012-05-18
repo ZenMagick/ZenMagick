@@ -23,6 +23,7 @@
 namespace zenmagick\apps\store\storefront\http\request;
 
 use zenmagick\base\Runtime;
+use zenmagick\base\Toolbox;
 use zenmagick\base\ZMObject;
 use zenmagick\base\ZMException;
 use zenmagick\http\request\UrlRewriter;
@@ -128,7 +129,7 @@ class StoreDefaultUrlRewriter extends ZMObject implements UrlRewriter {
         $sid = null;
         $session = $request->getSession();
         if ($addSessionId && ($session->isStarted()) && !$settingsService->get('isForceCookieUse')) {
-            if (defined('SID') && !\ZMLangUtils::isEmpty(SID)) {
+            if (defined('SID') && !Toolbox::isEmpty(SID)) {
                 // defined, so use it
                 $sid = SID;
             } elseif (($transport == 'NONSSL' && $httpsServer == $server) || ($transport == 'SSL' && $httpServer == $server)) {
