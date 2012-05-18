@@ -43,10 +43,10 @@ class ShoppingCart extends ZMObject {
     private $zenTotals_;
     private $items_;
     private $checkoutHelper;
-    private $comments_;
-    private $accountId_;
     private $selectedPaymentType_;
-
+    private $accountId;
+    private $contents;
+    private $comments;
 
     /**
      * Create new instance.
@@ -64,6 +64,7 @@ class ShoppingCart extends ZMObject {
         $this->setAccountId(null !== $accountId ? $accountId : 0);
         $this->zenTotals_ = null;
         $this->items_ = null;
+        $this->contents = array();
         $this->selectedPaymentType_ = null;
     }
 
@@ -219,6 +220,7 @@ class ShoppingCart extends ZMObject {
      */
     public function setContents($contents) {
         $this->items_ = array();
+        $this->contents = $contents;
         foreach ($contents as $id => $itemData) {
             if (empty($id)) { continue; }
             $item = new ShoppingCartItem($this);
@@ -352,7 +354,7 @@ class ShoppingCart extends ZMObject {
      * @return int The account id.
      */
     public function getAccountId() {
-        return $this->accountId_;
+        return $this->accountId;
     }
 
     /**
@@ -361,7 +363,7 @@ class ShoppingCart extends ZMObject {
      * @param int accountId The account id.
      */
     public function setAccountId($accountId) {
-        $this->accountId_ = $accountId;
+        $this->accountId = $accountId;
     }
 
     /**
@@ -370,7 +372,7 @@ class ShoppingCart extends ZMObject {
      * @return string The customer comment.
      */
     public function getComments() {
-        return $this->comments_;
+        return $this->comments;
     }
 
     /**
@@ -379,7 +381,7 @@ class ShoppingCart extends ZMObject {
      * @param string comments The customer comment.
      */
     public function setComments($comments) {
-        $this->comments_ = $comments;
+        $this->comments = $comments;
         //TODO: remove
         $this->session->setValue('comments', $comments);
     }
