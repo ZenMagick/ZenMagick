@@ -702,9 +702,9 @@ class ZMProduct extends ZMObject {
     /**
      * Get the tax rate.
      *
-     * @return ZMTaxRate The tax rate.
+     * @return TaxRate The tax rate.
      */
-    public function getTaxRate() { return $this->container->get('taxRateService')->getTaxRateForClassId($this->taxClassId); }
+    public function getTaxRate() { return $this->container->get('taxService')->getTaxRateForClassId($this->taxClassId); }
 
     /**
      * Get the product price sorter.

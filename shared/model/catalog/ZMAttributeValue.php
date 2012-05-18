@@ -307,7 +307,7 @@ class ZMAttributeValue extends ZMObject {
     /**
      * Get the tax rate.
      *
-     * @return ZMTaxRate The tax rate.
+     * @return TaxRate The tax rate.
      */
     public function getTaxRate() { return $this->taxRate_; }
 
@@ -421,7 +421,7 @@ class ZMAttributeValue extends ZMObject {
     /**
      * Set the tax rate.
      *
-     * @param ZMTaxRate taxRate The tax rate.
+     * @param TaxRate taxRate The tax rate.
      */
     public function setTaxRate($taxRate) { $this->taxRate_ = $taxRate; }
 

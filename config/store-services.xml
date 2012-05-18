@@ -135,7 +135,7 @@
             </call>
         </service>
 
-        <service id="taxRateService" class="ZMTaxRates" scope="container" />
+        <service id="taxService" class="zenmagick\apps\store\services\TaxService" scope="container" />
 
         <service id="tokenService" class="zenmagick\apps\store\services\TokenService" scope="container" />
 

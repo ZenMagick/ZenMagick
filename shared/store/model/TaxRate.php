@@ -20,6 +20,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
+namespace zenmagick\apps\store\model;
 
 use zenmagick\base\Runtime;
 use zenmagick\base\ZMObject;
@@ -32,11 +33,14 @@ use Doctrine\ORM\Mapping AS ORM;
  * <p>The tax rate id is build from the tax classId, countryId and zoneId to make it unique.</p>
  *
  * @author DerManoMann
- * @package zenmagick.store.shared.model
  * @ORM\Table(name="tax_rates")
  * @ORM\Entity
  */
-class ZMTaxRate extends ZMObject {
+class TaxRate extends ZMObject {
+    const TAX_BASE_STORE = 'Store';
+    const TAX_BASE_SHIPPING = 'Shipping';
+    const TAX_BASE_BILLING = 'Billing';
+
     /**
      * @var integer $taxRatesId
      *
@@ -131,7 +135,7 @@ class ZMTaxRate extends ZMObject {
      */
     public function getDescription() {
         if (null == $this->description) {
-            $this->description = $this->container->get('taxRateService')->getTaxDescription($this->classId, $this->countryId, $this->zoneId);
+            $this->description = $this->container->get('taxService')->getTaxDescription($this->classId, $this->countryId, $this->zoneId);
         }
         return $this->description;
     }
@@ -272,7 +276,7 @@ class ZMTaxRate extends ZMObject {
     /**
      * Get the best matching currency.
      *
-     * @return ZMCurrency A currency.
+     * @return Currency A currency.
      */
     protected function getCurrency() {
         $currencyService = $this->container->get('currencyService');

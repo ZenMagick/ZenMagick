@@ -46,7 +46,7 @@ class ShippingMethodWrapper extends ZMObject implements \ZMShippingMethod {
         parent::__construct();
         $this->provider_ = $provider;
         $this->zenMethod_ = $zenMethod;
-        $this->taxRate_ = Beans::getBean("ZMTaxRate");
+        $this->taxRate_ = Beans::getBean('zenmagick\apps\store\model\TaxRate');
     }
 
 
@@ -95,7 +95,7 @@ class ShippingMethodWrapper extends ZMObject implements \ZMShippingMethod {
     /**
      * Set the tax rate.
      *
-     * @param ZMTaxRate taxRate The tax rate.
+     * @param TaxRate taxRate The tax rate.
      */
     public function setTaxRate($taxRate) { $this->taxRate_ = $taxRate; }
 

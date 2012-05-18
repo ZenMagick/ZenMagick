@@ -129,26 +129,26 @@ class ShoppingCartItem extends ZMObject {
      * Get the tax rate for this item.
      *
      * @param ZMAddress address Optional tax address; default is <code>null</code> to default to the shopping cart tax address.
-     * @return ZMTaxRate The tax rate or <code>null</code>.
+     * @return TaxRate The tax rate or <code>null</code>.
      */
     public function getTaxRate($address=null) {
         $address = null != $address ? $address : $this->shoppingCart->getTaxAddress();
         $countryId = null != $address ? $address->getCountryId() : 0;
         $zoneId = null != $address ? $address->getZoneId() : 0;
-        return $this->container->get('taxRateService')->getTaxRateForClassId($this->getProduct()->getTaxClassId(), $countryId, $zoneId);
+        return $this->container->get('taxService')->getTaxRateForClassId($this->getProduct()->getTaxClassId(), $countryId, $zoneId);
     }
 
     /**
      * Get all tax rates for this item.
      *
      * @param ZMAddress address Optional tax address; default is <code>null</code> to default to the shopping cart tax address.
-     * @return array List of <code>ZMTaxRate</code> instances.
+     * @return array List of <code>TaxRate</code> instances.
      */
     public function getTaxRates($address=null) {
         $address = null != $address ? $address : $this->shoppingCart->getTaxAddress();
         $countryId = null != $address ? $address->getCountryId() : 0;
         $zoneId = null != $address ? $address->getZoneId() : 0;
-        return $this->container->get('taxRateService')->getTaxRatesForClassId($this->getProduct()->getTaxClassId(), $countryId, $zoneId);
+        return $this->container->get('taxService')->getTaxRatesForClassId($this->getProduct()->getTaxClassId(), $countryId, $zoneId);
     }
 
     /**

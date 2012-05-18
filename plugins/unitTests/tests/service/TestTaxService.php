@@ -20,6 +20,7 @@
 
 use zenmagick\base\Runtime;
 use zenmagick\plugins\unitTests\simpletest\TestCase;
+use zenmagick\apps\store\model\TaxRate;
 
 /**
  * Test layout service.
@@ -27,15 +28,15 @@ use zenmagick\plugins\unitTests\simpletest\TestCase;
  * @package org.zenmagick.plugins.unitTests.tests
  * @author DerManoMann <mano@zenmagick.org>
  */
-class TestZMTaxRates extends TestCase {
+class TestTaxService extends TestCase {
 
     /**
      * Test get tax rate for class id.
      */
     public function testGetRateForClassId() {
-        $taxRateService = $this->container->get('taxRateService');
-        $taxRate = $taxRateService->getTaxRateForClassId(1, 223, 18);
-        $this->assertTrue($taxRate instanceof ZMTaxRate);
+        $taxService = $this->container->get('taxService');
+        $taxRate = $taxService->getTaxRateForClassId(1, 223, 18);
+        $this->assertTrue($taxRate instanceof TaxRate);
         if ($this->assertNotNull($taxRate)) {
             $this->assertEqual('1_223_18', $taxRate->getId());
             $this->assertEqual(1, $taxRate->getClassId());
@@ -48,8 +49,8 @@ class TestZMTaxRates extends TestCase {
         }
 
         // test non existing
-        $taxRate = $taxRateService->getTaxRateForClassId(2);
-        $this->assertTrue($taxRate instanceof ZMTaxRate);
+        $taxRate = $taxService->getTaxRateForClassId(2);
+        $this->assertTrue($taxRate instanceof TaxRate);
         if ($this->assertNotNull($taxRate)) {
             $this->assertEqual(2, $taxRate->getClassId());
             $this->assertEqual(Runtime::getSettings()->get('storeCountry'), $taxRate->getCountryId());
@@ -65,25 +66,25 @@ class TestZMTaxRates extends TestCase {
      * Test get description.
      */
     public function testTaxDescription() {
-        $taxRateService = $this->container->get('taxRateService');
-        $this->assertEqual('FL TAX 7.0%', $taxRateService->getTaxDescription(1, 223, 18));
-        $this->assertNull($taxRateService->getTaxDescription(1, 1, 8));
+        $taxService = $this->container->get('taxService');
+        $this->assertEqual('FL TAX 7.0%', $taxService->getTaxDescription(1, 223, 18));
+        $this->assertNull($taxService->getTaxDescription(1, 1, 8));
     }
 
     /**
      * Test rate for description.
      */
     public function testGetTaxForDescription() {
-        $taxRateService = $this->container->get('taxRateService');
-        $this->assertEqual(7.0, $taxRateService->getTaxRateForDescription('FL TAX 7.0%'));
-        $this->assertEqual(0, $taxRateService->getTaxRateForDescription('foo bar'));
+        $taxService = $this->container->get('taxService');
+        $this->assertEqual(7.0, $taxService->getTaxRateForDescription('FL TAX 7.0%'));
+        $this->assertEqual(0, $taxService->getTaxRateForDescription('foo bar'));
     }
 
     /**
      * Test get tax class
      */
     public function testGetTaxClassForId() {
-        $taxClass = $this->container->get('taxRateService')->getTaxClassForId(1);
+        $taxClass = $this->container->get('taxService')->getTaxClassForId(1);
         $this->assertNotNull($taxClass);
         $this->assertEqual('Taxable Goods', $taxClass->getTitle());
     }

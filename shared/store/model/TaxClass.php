@@ -20,6 +20,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
+namespace zenmagick\apps\store\model;
 
 use zenmagick\base\ZMObject;
 
@@ -29,11 +30,10 @@ use Doctrine\ORM\Mapping AS ORM;
  * Info for a single tax class.
  *
  * @author DerManoMann
- * @package zenmagick.store.shared.model
  * @ORM\Table(name="tax_class")
  * @ORM\Entity
  */
-class ZMTaxClass extends ZMObject {
+class TaxClass extends ZMObject {
     /**
      * @var integer $taxClassId
      *

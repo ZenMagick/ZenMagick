@@ -25,10 +25,10 @@ namespace zenmagick\apps\store\model\checkout;
 use ZMCreditTypeWrapper;
 use ZMOrderTotalLine;
 use ZMPaymentField;
-use ZMTaxRates;
 use zenmagick\base\Runtime;
 use zenmagick\base\ZMObject;
 use zenmagick\apps\store\utils\CheckoutHelper;
+use zenmagick\apps\store\model\TaxRate;
 
 /**
  * Shopping cart.
@@ -875,11 +875,11 @@ class ShoppingCart extends ZMObject {
      */
     public function getTaxAddress() {
         switch (Runtime::getSettings()->get('productTaxBase')) {
-            case ZMTaxRates::TAX_BASE_SHIPPING:
+            case TaxRate::TAX_BASE_SHIPPING:
                 return $this->isVirtual() ? $this->getBillingAddress() : $this->getShippingAddress();
-            case ZMTaxRates::TAX_BASE_BILLING:
+            case TaxRate::TAX_BASE_BILLING:
                 return $this->getBillingAddress();
-            case ZMTaxRates::TAX_BASE_STORE:
+            case TaxRate::TAX_BASE_STORE:
                 if ($address->getZoneId() == Runtime::getSettings()->get('storeZone')) {
                     $address = $this->getBillingAddress();
                 } else {
