@@ -63,6 +63,8 @@ class GoogleAnalyticsPlugin extends Plugin {
         $this->addConfigValue('AdWords Conversion id', 'conversionId', '', 'Optional AdWords conversion id (leave empty to ignore)');
         $this->addConfigValue('AdWords Conversion language', 'conversionLang', 'en_US', 'Optional AdWords conversion language');
 
+        $this->addConfigValue('Domain Name', 'domainName', '', 'Optional domain name if, for example, subdomain tracking is required');
+
         $this->addConfigValue('Product identifier', 'identifier', 'productId', 'Select whether to use productId or model to identify products',
             'widget@selectFormWidget#name=identifier&options='.urlencode('productId=Product Id&model=Model'));
 
@@ -193,6 +195,11 @@ class GoogleAnalyticsPlugin extends Plugin {
     protected function getTrackerCodeGa($request) {
         $tracker = $this->get('uacct');
         $pageview = $this->getPageview($request);
+        $setDomainName = '';
+        $domainName = trim($this->get('domainName'));
+        if (!empty($domainName)) {
+            $setDomainName = sprintf('pageTracker._setDomainName("%s")', $domainName);
+        }
 
         $code = <<<EOT
 <script type="text/javascript">
@@ -203,6 +210,7 @@ document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.
 var pageTracker = _gat._getTracker("$tracker");
 pageTracker._initData();
 pageTracker._trackPageview("$pageview");
+$setDomainName;
 </script>
 EOT;
 
@@ -227,6 +235,12 @@ EOT;
         $tracker = $this->get('uacct');
         $pageview = $this->getPageview($request);
         $affiliation = $this->get('affiliation');
+
+        $setDomainName = '';
+        $domainName = trim($this->get('domainName'));
+        if (!empty($domainName)) {
+            $setDomainName = sprintf('pageTracker._setDomainName("%s")', $domainName);
+        }
 
         // order
         $address = $this->getAddress($this->order_);
@@ -253,6 +267,7 @@ document.write(unescape("%3Cscript src='" + gaJsHost +
 var pageTracker = _gat._getTracker("$tracker");
 pageTracker._initData();
 pageTracker._trackPageview("$pageview");
+$setDomainName;
 pageTracker._addTrans(
 "${orderId}", // order ID - required
 "${affiliation}", // affiliation or store name
