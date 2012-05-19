@@ -61,8 +61,8 @@ class TestShoppingCartWS extends ShoppingCartTestCaseBase {
                 // zencart prices
                 foreach ($zenReferenceItems as $zi) {
                     if ($zi['id'] == $item->getId()) {
-                        $this->assertEqual(round($item->getItemPrice(), 2), round($zi['final_price'],2), "zc i: %s: productId: ".$item->getId());
-                        $this->assertEqual(round($item->getOneTimeCharge(), 2), round($zi['onetime_charges'],2), "zc ot: %s: productId: ".$item->getId());
+                        $this->assertEqual(round($item->getItemPrice(false), 2), round($zi['final_price'],2), "zc i: %s: productId: ".$item->getId());
+                        $this->assertEqual(round($item->getOneTimeCharge(false), 2), round($zi['onetime_charges'],2), "zc ot: %s: productId: ".$item->getId());
                     }
                 }
 

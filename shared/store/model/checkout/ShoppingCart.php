@@ -237,10 +237,12 @@ class ShoppingCart extends ZMObject {
             $offers = $product->getOffers();
 
             // default
-            $price = $product->getProductPrice();
+            $price = $product->getProductPrice(false);
             if (!$product->isPricedByAttributes()) {
                 // allow specials
-                $price = $product->getPrice(false);
+                if ($offers->isSpecial()) {
+                    $price = $product->getPrice(false);
+                }
                 // qty depends om qtyMixed option on base product
                 $cartQty = $this->getItemQuantityFor($id, $item->getQuantity());
                 if (null != ($quantityDiscount = $offers->getQuantityDiscountFor($cartQty, false))) {
@@ -251,7 +253,6 @@ class ShoppingCart extends ZMObject {
             if ($product->isFree()) {
                 $price = 0;
             }
-
 
 //echo '<hr>ZM i: '.$item->getId(); echo ' '.$price.' + '.$item->getAttributesPrice(false); echo '<hr>';
             $item->setItemPrice($price + $item->getAttributesPrice(false));
@@ -305,11 +306,11 @@ class ShoppingCart extends ZMObject {
                     // prices
                     foreach ($zenItems as $zi) {
                         if ($zi['id'] == $item->getId()) {
-                            if (round($item->getItemPrice(),2) != round($zi['final_price'],2)) {
-                                echo 'cart: item price differ: '.$zi['id'].': ZM: '.$item->getItemPrice().', zc: '.$zi['final_price'].'<br>';
+                            if (round($item->getItemPrice(false),2) != round($zi['final_price'],2)) {
+                                echo 'cart: item price differ: '.$zi['id'].': ZM: '.$item->getItemPrice(false).', zc: '.$zi['final_price'].'<br>';
                             }
-                            if (round($item->getOneTimeCharge(),2) != round($zi['onetime_charges'],2)) {
-                                echo 'cart: onetime charge differ: '.$zi['id'].': ZM: '.$item->getOneTimeCharge().', zc: '.$zi['onetime_charges'].'<br>';
+                            if (round($item->getOneTimeCharge(false),2) != round($zi['onetime_charges'],2)) {
+                                echo 'cart: onetime charge differ: '.$zi['id'].': ZM: '.$item->getOneTimeCharge(false).', zc: '.$zi['onetime_charges'].'<br>';
                             }
                         }
                     }
