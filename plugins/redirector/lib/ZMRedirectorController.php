@@ -98,7 +98,7 @@ class ZMRedirectorController extends ZMController {
             if (null != ($newCategory = $categoryService->getCategoryForId($newCategoryId, $request->getSession()->getLanguageId()))) {
                 $view =  new ZMRedirectView();
                 $view->setRequestId('category');
-                $view->setParameter($newCategory->getPath());
+                $view->setParameter('cPath='.implode('_', $newCategory->getPath()));
                 return $view;
             }
         }

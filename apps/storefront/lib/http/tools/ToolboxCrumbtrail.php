@@ -141,7 +141,7 @@ class ToolboxCrumbtrail extends ToolboxTool {
             if (null == $category) {
                 return $this;
             }
-            $this->addCrumb($category->getName(),$this->getRequest()->url('category', $category->getPath()));
+            $this->addCrumb($category->getName(),$this->getRequest()->url('category', 'cPath='.implode('_', $category->getPath())));
         }
         return $this;
     }

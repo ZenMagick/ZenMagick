@@ -191,11 +191,11 @@ class ZMCategory extends ZMObject {
     }
 
     /**
-     * Get the category path array.
+     * Get the category path.
      *
-     * @return array The category path as array of categories with the last element being the products category.
+     * @return array The category path as array of category ids with the last element being the products category.
      */
-    public function getPathArray() {
+    public function getPath() {
         $path = array();
         array_push($path, $this->properties_['categoryId']);
         $parent = $this->getParent();
@@ -204,19 +204,6 @@ class ZMCategory extends ZMObject {
             $parent = $parent->getParent();
         }
         return array_reverse($path);
-    }
-
-    /**
-     * Get the category path.
-     *
-     * <p>This method will return a value that can be used as <code>cPath</code> value in a URL
-     * pointing to this category.</p>
-     *
-     * @return string The category path in the form <code>cPath=[PATH]</code>.
-     */
-    public function getPath() {
-        $path = implode('_', $this->getPathArray());
-        return "cPath=".$path;
     }
 
     /**

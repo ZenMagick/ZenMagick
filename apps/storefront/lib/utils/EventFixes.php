@@ -318,7 +318,7 @@ class EventFixes extends ZMObject {
                 if (null != ($product = $this->container->get('productService')->getProductForId($productId, $languageId))) {
                     $defaultCategory = $product->getDefaultCategory($languageId);
                     if (null != $defaultCategory) {
-                        $request->setCategoryPathArray($defaultCategory->getPathArray());
+                        $request->setCategoryPathArray($defaultCategory->getPath());
                     }
                 }
             }
@@ -349,7 +349,7 @@ class EventFixes extends ZMObject {
                 }
                 if (!$valid) {
                     $category = $this->container->get('categoryService')->getCategoryForId(array_pop($request->getCategoryPathArray(), $languageId));
-                    $request->setCategoryPathArray($category->getPathArray());
+                    $request->setCategoryPathArray($category->getPath());
                 }
             }
         }

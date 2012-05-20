@@ -70,7 +70,7 @@ class ToolboxMacro extends \zenmagick\apps\store\toolbox\ToolboxMacro {
 
             /*if ($root) {
         		echo '<div class="parentCate catFirst"><a href="' .
-                        $this->getRequest()->url('category', '&'.$category->getPath()).'">'.$toolbox->html->encode($category->getName()).'</a></div>';
+                        $this->getRequest()->url('category', 'cPath='.implode('_', $category->getPath())).'">'.$toolbox->html->encode($category->getName()).'</a></div>';
         		continue;
         	}*/
 
@@ -85,7 +85,7 @@ class ToolboxMacro extends \zenmagick\apps\store\toolbox\ToolboxMacro {
             $class = trim($class);
             $onclick = $isEmpty ? ($useCategoryPage ? '' : ' onclick="return catclick(this);"') : '';
             echo '<a' . ('' != $class ? ' class="'.$class.'"' : '') . $onclick . ' href="' .
-                        $this->getRequest()->url('category', '&'.$category->getPath()) .
+                        $this->getRequest()->url('category', 'cPath='.implode('_', $category->getPath())) .
                         '">'.$toolbox->html->encode($category->getName()).'</a>';
             /*if ($showProductCount) {
                 if (0 < ($noOfProductsInTree = count($container->get('productService')->getProductIdsForCategoryId($category->getId(), $languageId, true, true)))) {

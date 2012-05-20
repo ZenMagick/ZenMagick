@@ -43,7 +43,7 @@ use zenmagick\base\Runtime;
         foreach ($categories as $category) {
             $active = in_array($category->getId(), $path);
             echo '<li id="ct-'.$category->getId().'">';
-            echo '<a href="'.$admin->url('catalog', $category->getPath()).'">'.ZMHtmlUtils::encode($category->getName()).'</a>';
+            echo '<a href="'.$admin->url('catalog', 'cPath='.implode('_', $category->getPath())).'">'.ZMHtmlUtils::encode($category->getName()).'</a>';
             if ($category->hasChildren()) {
                 _admin_category_tree($request, $category->getChildren(), false);
             }

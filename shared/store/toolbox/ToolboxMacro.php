@@ -210,7 +210,7 @@ class ToolboxMacro extends ToolboxTool {
             $class = trim($class);
             $onclick = $isEmpty ? ($useCategoryPage ? '' : ' onclick="return catclick(this);"') : '';
             echo '<a' . ('' != $class ? ' class="'.$class.'"' : '') . $onclick . ' href="' .
-                        $this->getRequest()->url('category', '&'.$category->getPath()) .
+                        $this->getRequest()->url('category', 'cPath='.implode('_', $category->getPath())) .
                         '">'.\ZMHtmlUtils::encode($category->getName()).'</a>';
             if ($showProductCount) {
                 if (0 < ($noOfProductsInTree = count($this->container->get('productService')->getProductIdsForCategoryId($category->getId(), $languageId, true, true)))) {

@@ -34,7 +34,7 @@ $crumbtrail->addCategoryPath($request->getCategoryPathArray())->addManufacturer(
           $catImage = $category->getImageInfo();
           $linkText = null == $catImage ? $encName : '<img src="'.$catImage->getDefaultImage().'" alt="'.$encName.'" title="'.$encName.'">';
           ?>
-          <a href="<?php echo $net->url('category', $category->getPath()) ?>"><?php echo $linkText ?></a>
+          <a href="<?php echo $net->url('category', 'cPath='.implode('_', $category->getPath())) ?>"><?php echo $linkText ?></a>
       <?php } ?>
   </div>
 <?php } ?>

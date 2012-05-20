@@ -79,7 +79,7 @@ class ToolboxNet extends ToolboxTool {
         if (null != $categoryId) {
             $category = $this->container->get('categoryService')->getCategoryForId($categoryId, $this->getRequest()->getSession()->getLanguageId());
             if (null != $category) {
-                $cPath = '&'.$category->getPath();
+                $cPath = '&cPath='.implode('_', $category->getPath());
             }
         }
         return $this->getRequest()->url('product_info', '&products_id='.$productId.$cPath);
