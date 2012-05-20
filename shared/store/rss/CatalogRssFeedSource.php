@@ -104,6 +104,7 @@ class CatalogRssFeedSource extends ZMObject implements RssSource {
         $lastPubDate = null;
         $items = array();
         $languageId = $request->getSession()->getLanguageId();
+        $categoryService = $this->container->get('categoryService');
         foreach ($this->container->get('productService')->getAllProducts(true, $languageId) as $product) {
             $item = new RssItem();
             $item->setTitle($product->getName());
@@ -118,7 +119,16 @@ class CatalogRssFeedSource extends ZMObject implements RssSource {
             $item->addTag('id', $product->getId());
             $item->addTag('model', $product->getModel());
             if (null != ($defaultCategory = $product->getDefaultCategory())) {
-                $item->addTag('category', $defaultCategory->getId());
+                // build id/name path
+                $idPath = array();
+                $namePath = array();
+                foreach ($defaultCategory->getPath() as $categoryId) {
+                    if (null != ($category = $categoryService->getCategoryForId($categoryId, $languageId))) {
+                        $idPath[] = $category->getId();
+                        $namePath[] = $category->getName();
+                    }
+                }
+                $item->addTag('category', array('idPath' => implode('|', $idPath), 'namePath' => implode('|', $namePath)));
             }
 
             if ($full) {
@@ -204,7 +214,7 @@ class CatalogRssFeedSource extends ZMObject implements RssSource {
             if ($category->isActive()) {
                 $item = new RssItem();
                 $item->setTitle($category->getName());
-                $item->setLink($request->url('category', $category->getPath(), false));
+                $item->setLink($request->url('category', 'cPath='.implode('_', $category->getPath()), false));
                 $desc = \ZMHtmlUtils::strip($category->getDescription());
                 if (!$full) {
                     $desc = \ZMHtmlUtils::more($desc, 60);
@@ -212,7 +222,7 @@ class CatalogRssFeedSource extends ZMObject implements RssSource {
                 $item->setDescription($desc);
                 $item->setPubDate($category->getDateAdded());
                 $item->addTag('id', $category->getId());
-                $item->addTag('path', implode('_', $category->getPathArray()));
+                $item->addTag('path', implode('_', $category->getPath()));
                 $item->addTag('children', array('id' => $category->getDecendantIds(false)));
 
                 if ($full) {
