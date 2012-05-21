@@ -237,12 +237,10 @@ class ShoppingCart extends ZMObject {
             $offers = $product->getOffers();
 
             // default
-            $price = $product->getProductPrice(false);
+            $price = $product->getProductPrice();
             if (!$product->isPricedByAttributes()) {
-                // allow specials
-                if ($offers->isSpecial()) {
-                    $price = $product->getPrice(false);
-                }
+                $price = $product->getPrice(false);
+
                 // qty depends om qtyMixed option on base product
                 $cartQty = $this->getItemQuantityFor($id, $item->getQuantity());
                 if (null != ($quantityDiscount = $offers->getQuantityDiscountFor($cartQty, false))) {
