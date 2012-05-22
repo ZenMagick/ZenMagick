@@ -33,8 +33,8 @@
           <select name="themeId[<?php echo $config->getLanguageId() ?>]">
             <option value=""> - </option>
             <?php foreach ($themes as $theme) { ?>
-              <?php $selected = ($config->getThemeId() == $theme->getThemeId() ? ' selected' : ''); ?>
-              <option value="<?php echo $theme->getThemeId() ?>"<?php echo $selected ?>><?php echo $theme->getName() ?></option>
+              <?php $selected = ($config->getThemeId() == $theme->getId() ? ' selected' : ''); ?>
+              <option value="<?php echo $theme->getId() ?>"<?php echo $selected ?>><?php echo $theme->getName() ?></option>
             <?php } ?>
           </select>
         </td>
@@ -42,8 +42,8 @@
           <select name="variationId[<?php echo $config->getLanguageId() ?>]">
             <option value=""> - </option>
             <?php foreach ($themes as $theme) { ?>
-              <?php $selected = ($config->getVariationId() == $theme->getThemeId() ? ' selected' : ''); ?>
-              <option value="<?php echo $theme->getThemeId() ?>"<?php echo $selected ?>><?php echo $theme->getName() ?></option>
+              <?php $selected = ($config->getVariationId() == $theme->getId() ? ' selected' : ''); ?>
+              <option value="<?php echo $theme->getId() ?>"<?php echo $selected ?>><?php echo $theme->getName() ?></option>
             <?php } ?>
           </select>
         </td>
@@ -69,7 +69,7 @@
           <select name="newThemeId">
             <option value=""> - </option>
             <?php foreach ($themes as $theme) { ?>
-              <option value="<?php echo $theme->getThemeId() ?>"><?php echo $theme->getName() ?></option>
+              <option value="<?php echo $theme->getId() ?>"><?php echo $theme->getName() ?></option>
             <?php } ?>
           </select>
         </td>
@@ -77,7 +77,7 @@
           <select name="newVariationId">
             <option value=""> - </option>
             <?php foreach ($themes as $theme) { ?>
-              <option value="<?php echo $theme->getThemeId() ?>"><?php echo $theme->getName() ?></option>
+              <option value="<?php echo $theme->getId() ?>"><?php echo $theme->getName() ?></option>
             <?php } ?>
           </select>
         </td>

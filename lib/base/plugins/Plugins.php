@@ -37,7 +37,7 @@ use zenmagick\apps\store\utils\ContextConfigLoader;
  *  <li>a directory containing multiple files</li>
  * <ul>
  *
- * @author DerManoMann <mano@zenmagick.org> <mano@zenmagick.org>
+ * @author DerManoMann <mano@zenmagick.org>
  */
 class Plugins extends ZMObject {
     const PLUGIN_BASE_NAMESPACE = 'zenmagick\plugins';
@@ -46,7 +46,6 @@ class Plugins extends ZMObject {
     protected $cache;
     protected $statusMap;
     protected $classLoader;
-    private $profile = false;
 
 
     /**
@@ -95,17 +94,14 @@ class Plugins extends ZMObject {
      */
     protected function getStatusMap($refresh=false) {
         if (null === $this->statusMap || $refresh) {
-if ($this->profile) { echo 'lookup status map ...  '; }
             if (null != $this->cache) {
-if ($this->profile) { echo 'in cache<br>'; }
                 $this->statusMap = $this->cache->lookup(self::STATUS_MAP_KEY);
             }
 
             if (!$this->statusMap || $refresh) {
-if ($this->profile) { echo 'build!<br>'; }
                 $this->container->get('loggingService')->debug('Loading plugin status map...');
-                $pluginStatusMapBuilder = $this->container->get('pluginStatusMapBuilder');
-                $this->statusMap = $pluginStatusMapBuilder->buildStatusMap();
+                $statusMapBuilder = $this->container->get('pluginStatusMapBuilder');
+                $this->statusMap = $statusMapBuilder->buildStatusMap();
                 if ($this->cache) {
                     $this->cache->save($this->statusMap, self::STATUS_MAP_KEY);
                 }
@@ -124,7 +120,6 @@ if ($this->profile) { echo 'build!<br>'; }
      */
     public function getPluginsForContext($context=null, $enabled=true) {
         $app = $this->container->get('application');
-if ($this->profile) { echo 'start: '.($allStart=$start=$app->getElapsedTime()).' context: '.$context.' enabled: '.$enabled."<BR>"; }
 
         $localeService = $this->container->get('localeService');
         $settingsService = $this->container->get('settingsService');
@@ -136,7 +131,6 @@ if ($this->profile) { echo 'start: '.($allStart=$start=$app->getElapsedTime()).'
                 continue;
             }
 
-if ($this->profile) { echo $id.' start: '.($startStart=$end=$app->getElapsedTime()).' dur: '.round(($end-$start), 4)."<BR>"; $start=$end; }
             if (($status['enabled'] || !$enabled) && (null === $context || Runtime::isContextMatch($status['context'], $context))) {
                 $this->classLoader->addNamespace($status['namespace'], sprintf('%s@%s', $status['pluginDir'], $status['namespace']));
                 if ('ZM' == substr($status['class'], 0, 2)) {
@@ -144,11 +138,9 @@ if ($this->profile) { echo $id.' start: '.($startStart=$end=$app->getElapsedTime
                     $this->classLoader->addDefault($status['class'], sprintf('%s/%s.php', $status['pluginDir'], $status['class']));
                 }
 
-if ($this->profile) { echo $id.' cl prepared: '.($end=$app->getElapsedTime()).' dur: '.round(($end-$start), 4)."<BR>"; $start=$end; }
                 if ($plugin = Beans::getBean($status['class'])) {
                     $plugin->setId($id);
                     $plugin->setPluginDirectory($status['pluginDir']);
-if ($this->profile) { echo $id.' base init done: '.($end=$app->getElapsedTime()).' dur: '.round(($end-$start), 4)."<BR>"; $start=$end; }
 
                     if ($status['enabled'] && $status['installed'] && Runtime::isContextMatch($status['context'], $context)) {
                         // no matter what, if disabled or not installed we'll never init
@@ -158,13 +150,11 @@ if ($this->profile) { echo $id.' base init done: '.($end=$app->getElapsedTime())
                             // allow custom class loading config
                             $this->classLoader->addConfig($libDir);
                         }
-if ($this->profile) { echo $id.' pl cl int done: '.($end=$app->getElapsedTime()).' dur: '.round(($end-$start), 4)."<BR>"; $start=$end; }
 
                         if ($status['config']) {
                             $configLoader = $this->container->get('contextConfigLoader');
                             $configLoader->setConfig($status['config']);
                             $configLoader->process();
-if ($this->profile) { echo $id.' ctx loader done: '.($end=$app->getElapsedTime()).' dur: '.round(($end-$start), 4)."<BR>"; $start=$end; }
                         }
 
                         $plugin->init();
@@ -176,15 +166,12 @@ if ($this->profile) { echo $id.' ctx loader done: '.($end=$app->getElapsedTime()
 
                     if ($status['config'] && array_key_exists('meta', $status['config'])) {
                         Beans::setAll($plugin, $status['config']['meta']);
-if ($this->profile) { echo $id.' meta set done: '.($end=$app->getElapsedTime()).' dur: '.round(($end-$start), 4)."<BR>"; $start=$end; }
                     }
 
                     $this->plugins[$id] = $plugins[$id] = $plugin;
                 }
             }
-if ($this->profile) { echo $id.' done done: '.($end=$app->getElapsedTime()).' dur: '.round(($end-$startStart), 4)."<BR><br>"; }
         }
-if ($this->profile) { echo 'end: '.($end=$app->getElapsedTime()).' dur: '.round(($end-$allStart), 4)."<BR>"; }
 
         return $plugins;
     }

@@ -39,8 +39,8 @@
     <select id="themeId" name="themeId">
       <option value="">Select Theme</option>
         <?php foreach ($themes as $theme) { ?>
-        <?php $selected = $themeId == $theme->getThemeId() ? ' selected="selected"' : ''; ?>
-        <option value="<?php echo $theme->getThemeId(); ?>"<?php echo $selected ?>><?php echo $theme->getName(); ?></option>
+        <?php $selected = $themeId == $theme->getId() ? ' selected="selected"' : ''; ?>
+        <option value="<?php echo $theme->getId(); ?>"<?php echo $selected ?>><?php echo $theme->getName(); ?></option>
       <?php } ?>
     </select>
     <br>

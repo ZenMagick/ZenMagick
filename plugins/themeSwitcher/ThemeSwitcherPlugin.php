@@ -63,12 +63,14 @@ class ThemeSwitcherPlugin extends Plugin {
         }
 
         $languageId = $session->getLanguageId();
+        $language = $session->getLanguage();
         if (null != ($themeId = $session->getValue(self::SESS_THEME_KEY))) {
             $themeService = $this->container->get('themeService');
             $themeChain = array();
-            $themeChain[] = $themeService->getThemeForId($this->container->get('settingsService')->get('apps.store.themes.default'), true);
-            $themeChain[] = $themeService->getThemeForId($themeId, $languageId);
-            $themeService->setThemeChain($languageId, $themeChain);
+            $themeChain[] = $themeService->getThemeForId($this->container->get('settingsService')->get('apps.store.themes.default'));
+            $themeChain[] = $themeService->getThemeForId($themeId);
+            $themeService->setThemeChain($themeChain, $languageId);
+            $themeService->initThemes($language);
         }
     }
 
@@ -99,7 +101,7 @@ class ThemeSwitcherPlugin extends Plugin {
             $defaultConfig = '';
             foreach ($themeService->getAvailableThemes() as $theme) {
                 if (!$theme->getConfig('zencart')) {
-                    $defaultConfig .= $theme->getThemeId().':'.$theme->getName().',';
+                    $defaultConfig .= $theme->getId().':'.$theme->getName().',';
                 }
             }
         }
@@ -124,7 +126,7 @@ class ThemeSwitcherPlugin extends Plugin {
 
                 $themeChain = $themeService->getThemeChain($request->getSession()->getLanguageId());
                 $currentTheme = array_pop($themeChain);
-                $active = $details[0] == $currentTheme->getThemeId();
+                $active = $details[0] == $currentTheme->getId();
 
                 $themeList[] = array('url' => $url, 'name' => $details[1], 'active' => $active);
             }

@@ -49,10 +49,10 @@ class ThemeDummyPatch extends FilePatch {
      */
     function isOpen() {
         foreach ($this->container->get('themeService')->getAvailableThemes() as $theme) {
-            if (Runtime::getSettings()->get('apps.store.themes.default') == $theme->getThemeId() && !$this->includeDefault_) {
+            if (Runtime::getSettings()->get('apps.store.themes.default') == $theme->getId() && !$this->includeDefault_) {
                 continue;
             }
-            if (!file_exists($this->catalogTemplatePath.$theme->getThemeId())) {
+            if (!file_exists($this->catalogTemplatePath.$theme->getId())) {
                 return true;
             }
         }
@@ -98,12 +98,12 @@ class ThemeDummyPatch extends FilePatch {
      */
     function patch($force=false) {
         foreach ($this->container->get('themeService')->getAvailableThemes() as $theme) {
-            if (Runtime::getSettings()->get('apps.store.themes.default') == $theme->getThemeId() && !$this->includeDefault_) {
+            if (Runtime::getSettings()->get('apps.store.themes.default') == $theme->getId() && !$this->includeDefault_) {
                 continue;
             }
 
             $filesystem = $this->container->get('filesystem');
-            $themeId = $theme->getThemeId();
+            $themeId = $theme->getId();
             if (!file_exists($this->catalogTemplatePath.$themeId)) {
                 if (is_writeable($this->catalogTemplatePath)) {
                     $templateDir = $this->catalogTemplatePath.$themeId.'/';

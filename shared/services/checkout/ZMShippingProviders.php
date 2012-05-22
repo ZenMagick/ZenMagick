@@ -131,7 +131,7 @@ class ZMShippingProviders extends ZMObject {
         $defaultLanguage = $this->container->get('languageService')->getLanguageForId($settingsService->get('storeDefaultLanguageId'));
         foreach ($moduleInfos as $moduleInfo) {
             $lang_files = array(
-                $zcPath.'/includes/languages/'.$defaultLanguage->getDirectory().'/modules/shipping/'.$activeTheme->getThemeId().'/'.$moduleInfo['file'],
+                $zcPath.'/includes/languages/'.$defaultLanguage->getDirectory().'/modules/shipping/'.$activeTheme->getId().'/'.$moduleInfo['file'],
                 $zcPath.'/includes/languages/'.$defaultLanguage->getDirectory().'/modules/shipping/'.$moduleInfo['file']
             );
             foreach ($lang_files as $lf) {

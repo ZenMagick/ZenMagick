@@ -82,7 +82,7 @@
 
         <service id="pluginStatusMapBuilder" class="zenmagick\base\plugins\PluginStatusMapBuilder" scope="container">
             <call method="setDefaultPluginClass">
-              <argument>%zenmagick.base.plugins.defaultPluginClass%</argument>
+                <argument>%zenmagick.base.plugins.defaultPluginClass%</argument>
             </call>
         </service>
 

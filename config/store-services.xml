@@ -47,12 +47,18 @@
 
         <service id="theme" class="zenmagick\apps\store\themes\Theme" scope="prototype" />
 
-        <service id="themeService" class="zenmagick\apps\store\themes\Themes" scope="container">
+        <service id="themeStatusMapBuilder" class="zenmagick\apps\store\themes\ThemeStatusMapBuilder" scope="container">
+            <call method="setThemeService">
+                <argument type="service" id="themeService" />
+            </call>
+        </service>
+
+        <service id="themeService" class="zenmagick\apps\store\themes\ThemeService" scope="container">
             <call method="setBasePath">
               <argument>/themes</argument>
             </call>
             <call method="setCache">
-                <argument type="service" id="servicesCache" />
+                <argument type="service" id="bootstrapCache" />
             </call>
         </service>
 

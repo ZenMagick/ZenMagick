@@ -29,7 +29,7 @@ use zenmagick\base\Toolbox;
 
   $selectedThemeId = $request->getParameter('themeId', $container->get('themeService')->getActiveThemeId());
   $selectedTheme = $container->get('theme');
-  $selectedTheme->setThemeId($selectedThemeId);
+  $selectedTheme->setId($selectedThemeId);
   $selectedTheme->setContainer($container);
   if (null === ($file = $request->getParameter('file')) || empty($file)) {
       $selectedFile = $request->getParameter('newfile');
@@ -84,8 +84,8 @@ use zenmagick\base\Toolbox;
       <select id="themeId" name="themeId" onchange="this.form.submit();">
         <option value="">Select Theme</option>
         <?php foreach ($container->get('themeService')->getAvailableThemes() as $theme) { ?>
-          <?php $selected = $selectedThemeId == $theme->getThemeId() ? ' selected="selected"' : ''; ?>
-          <option value="<?php echo $theme->getThemeId(); ?>"<?php echo $selected ?>><?php echo $theme->getName(); ?></option>
+          <?php $selected = $selectedThemeId == $theme->getId() ? ' selected="selected"' : ''; ?>
+          <option value="<?php echo $theme->getId(); ?>"<?php echo $selected ?>><?php echo $theme->getName(); ?></option>
         <?php } ?>
       </select>
 

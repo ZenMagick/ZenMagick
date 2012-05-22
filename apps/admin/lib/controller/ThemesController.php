@@ -37,7 +37,7 @@ class ThemesController extends \ZMController {
         // strip default theme
         $themes = array();
         foreach ($themeService->getAvailableThemes() as $theme) {
-            if (Runtime::getSettings()->get('apps.store.themes.default') != $theme->getThemeId()) {
+            if (Runtime::getSettings()->get('apps.store.themes.default') != $theme->getId()) {
                 $themes[] = $theme;
             }
         }
@@ -75,6 +75,8 @@ class ThemesController extends \ZMController {
      * {@inheritDoc}
      */
     public function processPost($request) {
+        $themeService = $this->container->get('themeService');
+
         // arrays
         $update = array_flip($request->getParameter('update', array()));
         $delete = array_flip($request->getParameter('delete', array()));
@@ -103,13 +105,13 @@ class ThemesController extends \ZMController {
 
                 $config->setThemeId($themeId[$languageId]);
                 $config->setVariationId($variationId[$languageId]);
-                $this->container->get('themeService')->updateThemeConfig($config);
+                $themeService->updateThemeConfig($config);
                 $this->messageService->success(_zm('Theme mapping updated.'));
             }
             break;
         case  'delete':
             if (null != ($config = $this->getConfigForLanguageId($languageId))) {
-                $this->container->get('themeService')->deleteThemeConfig($config);
+                $themeService->deleteThemeConfig($config);
                 $this->messageService->success(_zm('Theme mapping deleted.'));
             }
             break;
@@ -118,11 +120,12 @@ class ThemesController extends \ZMController {
             $variationId = $request->getParameter('newVariationId');
             $languageId = $request->getParameter('newLanguageId', 0);
             $config = new ZMObject(array('themeId' => $themeId, 'variationId' => $variationId, 'languageId' => $languageId));
-            $this->container->get('themeService')->createThemeConfig($config);
+            $themeService->createThemeConfig($config);
             $this->messageService->success(_zm('Theme mapping created.'));
             break;
         }
 
+        $themeService->refreshStatusMap();
         return $this->findView('success');
     }
 

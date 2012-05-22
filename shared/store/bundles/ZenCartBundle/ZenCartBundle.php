@@ -147,8 +147,7 @@ class ZenCartBundle extends Bundle {
      */
     public function onInitConfigDone($event) {
         $yaml = array('services' => array(
-            'zencartTheme' => array('parent' => 'merge:theme', 'class' => 'zenmagick\apps\store\bundles\ZenCartBundle\themes\ZencartTheme'),
-            'zencartThemeService' => array('parent' => 'merge:themeService', 'class' => 'zenmagick\apps\store\bundles\ZenCartBundle\themes\ZencartThemes')
+            'zenCartThemeStatusMapBuilder' => array('parent' => 'merge:themeStatusMapBuilder', 'class' => 'zenmagick\apps\store\bundles\ZenCartBundle\mock\ZencartThemeStatusMapBuilder')
         ));
         $yamlLoader = new YamlLoader($this->container, new FileLocator(dirname(__FILE__)));
         $yamlLoader->load($yaml);
@@ -252,6 +251,12 @@ class ZenCartBundle extends Bundle {
      * @return boolean <code>true</code> if zen-cart should handle the request.
      */
     private function needsZC($request) {
+        if ($this->isZencartTheme($request)) {
+            // this needs some cleanup, obviously
+            $this->container->get('settingsService')->set('isEnableZMThemes', false);
+            return true;
+        }
+
         $requestId = $request->getRequestId();
         if (\ZMLangUtils::inArray($requestId, Runtime::getSettings()->get('apps.store.request.enableZCRequestHandling'))) {
             Runtime::getLogging()->debug('enable zencart request processing for requestId='.$requestId);
@@ -271,4 +276,21 @@ class ZenCartBundle extends Bundle {
         }
         return $needs;
     }
+
+    /**
+     * Check for zencart theme.
+     */
+    protected function isZencartTheme($request) {
+        $languageId = $request->getSession()->getLanguageId();
+        $themeService = $this->container->get('themeService');
+        $themeChain = $themeService->getThemeChain($languageId);
+        foreach ($themeChain as $theme) {
+            $meta = $theme->getConfig('meta');
+            if (array_key_exists('zencart', $meta)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
 }

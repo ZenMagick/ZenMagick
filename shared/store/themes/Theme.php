@@ -29,52 +29,58 @@ use Symfony\Component\Config\FileLocator;
 /**
  * A theme.
  *
- * @author DerManoMann
+ * @author DerManoMann <mano@zenmagick.org>
  */
 class Theme extends ZMObject {
-    private $themeId_;
-    private $config_;
+    private $id;
+    private $config;
+    private $basePath;
 
     /**
      * Create new instance.
      */
     public function __construct() {
         parent::__construct();
-        $this->themeId_ = null;
-        $this->config_ = array();
+        $this->id = null;
+        $this->config = array();
+        $this->basePath = null;
     }
 
     /**
      * Set the theme id.
      *
-     * @param string themeId The theme id.
+     * @param string id The theme id.
      */
-    public function setThemeId($themeId) {
-        $this->themeId_ = $themeId;
-        $configFile = $this->getBaseDir().'/theme.yaml';
-        if (file_exists($configFile)) {
-            $configLoader = new ContextConfigLoader($configFile);
-            // load config for the current context
-            $this->config_ = $configLoader->resolve();
-        }
+    public function setId($id) {
+        $this->id = $id;
     }
 
     /**
-     * Get this themes id.
+     * Get the themes id.
      *
      * @return string The theme id.
      */
-    public function getThemeId() {
-        return $this->themeId_;
+    public function getId() {
+        return $this->id;
     }
 
     /**
-     * Return the full filename for the themes base directory.
+     * Set the full path to the themes base directory.
+     *
+     * @param string path The path.
+     */
+    public function setBasePath($path) {
+        $this->basePath = $path;;
+    }
+
+    /**
+    /**
+     * Return the full path to the themes base directory.
      *
      * @return string The theme base directory.
      */
-    public function getBaseDir() {
-        return $this->container->get('themeService')->getThemesDir() . '/' . $this->themeId_;
+    public function getBasePath() {
+        return $this->basePath;
     }
 
     /**
@@ -85,11 +91,11 @@ class Theme extends ZMObject {
      */
     public function getConfig($key=null) {
         if (null == $key) {
-            return $this->config_;
+            return $this->config;
         }
 
-        if (array_key_exists($key, $this->config_)) {
-            return $this->config_[$key];
+        if (array_key_exists($key, $this->config)) {
+            return $this->config[$key];
         }
 
         return null;
@@ -101,7 +107,7 @@ class Theme extends ZMObject {
      * @return string The name.
      */
     public function getName() {
-        return array_key_exists('name', $this->config_['meta']) ? $this->config_['meta']['name'] : '??';
+        return array_key_exists('name', $this->config['meta']) ? $this->config['meta']['name'] : '??';
     }
 
     /**
@@ -110,7 +116,7 @@ class Theme extends ZMObject {
      * @param array config The new config map.
      */
     public function setConfig($config) {
-        $this->config_ = $config;
+        $this->config = $config;
     }
 
     /**
@@ -121,10 +127,10 @@ class Theme extends ZMObject {
      */
     public function setConfigValue($key, $value) {
         if (is_array($key)) {
-            $this->config_ = $key;
+            $this->config = $key;
             return;
         }
-        $this->config_[$key] = $value;
+        $this->config[$key] = $value;
     }
 
     /**
@@ -134,7 +140,7 @@ class Theme extends ZMObject {
      * @deprecated
      */
     public function getExtraDir() {
-        return $this->getBaseDir() . '/extra';
+        return $this->getBasePath() . '/extra';
     }
 
     /**
@@ -143,7 +149,7 @@ class Theme extends ZMObject {
      * @return string A full filename denoting the themes boxes directory.
      */
     public function getBoxesDir() {
-        return $this->getBaseDir() . '/content/boxes';
+        return $this->getBasePath() . '/content/boxes';
     }
 
     /**
@@ -152,7 +158,7 @@ class Theme extends ZMObject {
      * @return string A full filename denoting the themes content directory.
      */
     public function getContentDir() {
-        return $this->getBaseDir() . '/content';
+        return $this->getBasePath() . '/content';
     }
 
     /**
@@ -161,17 +167,7 @@ class Theme extends ZMObject {
      * @return string A full filename denoting the themes views directory.
      */
     public function getViewsDir() {
-        return $this->getBaseDir() . '/content/views';
-    }
-
-    /**
-     * Return the path of the lang directory.
-     *
-     * @return string A full filename denoting the themes lang directory.
-     * @deprecated
-     */
-    public function getLangDir() {
-        return $this->getBaseDir() . '/lang';
+        return $this->getBasePath() . '/content/views';
     }
 
     /**
@@ -184,7 +180,7 @@ class Theme extends ZMObject {
     public function getStaticPageList($includeDefaults=false, $languageId) {
         $language = $this->container->get('languageService')->getLanguageForId($languageId);
         $languageDir = $language->getDirectory();
-        $path = $this->getLangDir().$languageDir."/".'static/';
+        $path = $this->getBasePath() . '/lang'.$languageDir."/".'static/';
 
         $pages = array();
         if (is_dir($path)) {
@@ -228,7 +224,7 @@ class Theme extends ZMObject {
     public function saveStaticPageContent($page, $contents, $languageId) {
         $language = $this->container->get('languageService')->getLanguageForId($languageId);
         $languageDir = $language->getDirectory();
-        $path = $this->getLangDir().$languageDir.'/static/';
+        $path = $this->getBasePath() . '/lang'.$languageDir.'/static/';
         if (!file_exists($path)) {
             $this->container->get('filesystem')->mkdir($path, 0755);
         }
@@ -264,7 +260,7 @@ class Theme extends ZMObject {
         }
         $language = $this->container->get('languageService')->getLanguageForId($languageId);
         $languageDir = $language->getDirectory();
-        $path = $this->getLangDir().$languageDir.'/static/';
+        $path = $this->getBasePath() . '/lang'.$languageDir.'/static/';
 
         $filename = $path.$page.'.php';
         if (!file_exists($filename)) {
@@ -292,7 +288,7 @@ class Theme extends ZMObject {
         }
 
         $code = $language->getCode();
-        $path = $this->getBaseDir().'/locale/'.$code;
+        $path = $this->getBasePath().'/locale/'.$code;
 
         // re-init with next file
         $this->container->get('localeService')->getLocale()->init($code, $path);
@@ -303,7 +299,7 @@ class Theme extends ZMObject {
      */
     public function loadSettings() {
         $configLoader = $this->container->get('contextConfigLoader');
-        $configLoader->apply($this->config_);
+        $configLoader->apply($this->config);
     }
 
 }
