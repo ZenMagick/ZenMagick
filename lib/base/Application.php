@@ -319,7 +319,7 @@ class Application {
             }
         } catch (Exception $e) {
             $msg = sprintf('bootstrap failed: %s', $e->getMessage());
-            if (null != ($loggingService = Runtime::getLogging())) {
+            if (null != ($container = Runtime::getContainer()) && $container->has('loggingService') && null != ($loggingService = $container->get('loggingService'))) {
                 $loggingService->dump($e, $msg);
             }
             echo implode("\n", ZMException::formatStackTrace($e->getTrace()));
