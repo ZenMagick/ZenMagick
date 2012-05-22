@@ -39,13 +39,13 @@ class Session extends ZMObject {
     /** The default namespace prefix for session keys. */
     const DEFAULT_NAMESPACE_PREFIX = '__ZM_NSP__';
 
-    protected $internalStart_;
-    protected $data_;
-    protected $sessionHandler_;
-    private $cookiePath_;
-    private $closed_;
-    private $domain_;
-    private $useFqdn_;
+    protected $internalStart;
+    protected $data;
+    protected $sessionHandler;
+    private $cookiePath;
+    private $closed;
+    private $domain;
+    private $useFqdn;
 
 
     /**
@@ -59,15 +59,15 @@ class Session extends ZMObject {
      */
     public function __construct($domain=null, $name=self::DEFAULT_NAME, $secure=false) {
         parent::__construct();
-        $this->domain_ = $domain;
+        $this->domain = null != $domain ? $domain : $_SERVER['HTTP_HOST'];
         $this->setName(null !== $name ? $name : self::DEFAULT_NAME);
 
-        $this->internalStart_ = false;
-        $this->useFqdn_ = true;
-        $this->data_ = array();
-        $this->sessionHandler_ = null;
-        $this->closed_ = false;
-        $this->cookiePath_ = '/';
+        $this->internalStart = false;
+        $this->useFqdn = true;
+        $this->data = array();
+        $this->sessionHandler = null;
+        $this->closed = false;
+        $this->cookiePath = '/';
 
         if (!$this->isStarted()) {
             // disable transparent sid support
@@ -110,27 +110,49 @@ class Session extends ZMObject {
 
 
     /**
+     * Set the domain.
+     *
+     * @param string domain The domain to use.
+     */
+    public function setDomain($domain) {
+        if (null === $domain || !empty($domain)) {
+            $this->domain = $domain;
+        }
+    }
+
+    /**
+     * Get the domain.
+     *
+     * @param boolean fqdn Optional flag to request either the fully qualified domain name or a shortened version; default is <code>true</code>.
+     * @return string The domain to use.
+     */
+    public function getDomain($fqdn=true) {
+        return $this->adjustDomain($this->domain, $fqdn);
+    }
+
+    /**
      * Adjust domain with respect to <em>useFqdn</em> flag.
      *
      * @param string domain The domain.
+     * @param boolean fqdn Optional flag to request either the fully qualified domain name or a shortened version; default is <code>true</code>.
      * @return string The adjusted domain.
      */
-    protected function adjustDomain($domain) {
+    protected function adjustDomain($domain, $fqdn) {
         if (null == $domain) {
             return null;
         }
 
         $domainToken = explode('.', $domain);
-        if (2 > count($domainToken) || $this->useFqdn_) {
+        if (2 > count($domainToken) || $fqdn) {
             return $domain;
         } else {
             $tld = '';
-            foreach ($domainToken as $dt) {
-                if ('www' != $dt) {
-                    $tld .= '.' . $dt;
+            foreach ($domainToken as $ii => $dt) {
+                if (!in_array($dt, array('www'))) {
+                    $tld .= '.'.$dt;
                 }
             }
-            return substr($tld, 1);
+            return substr($tld, $fqdn ? 1 : 0);
         }
     }
 
@@ -160,7 +182,7 @@ class Session extends ZMObject {
             return;
         }
         session_set_cookie_params(0, $path, $domain);
-        $this->cookiePath_ = $path;
+        $this->cookiePath = $path;
     }
 
     /**
@@ -181,7 +203,7 @@ class Session extends ZMObject {
      * @param boolean value The new value.
      */
     public function setUseFqdn($value) {
-        $this->useFqdn_ = $value;
+        $this->useFqdn = $value;
     }
 
     /**
@@ -193,9 +215,9 @@ class Session extends ZMObject {
         $id = session_id();
         $isStarted = !empty($id);
 
-        if ($isStarted && !$this->internalStart_) {
+        if ($isStarted && !$this->internalStart) {
             // started elsewhere, so sync data
-            $this->data_ = array_merge($_SESSION, $this->data_);
+            $this->data = array_merge($_SESSION, $this->data);
         }
 
         return $isStarted;
@@ -216,7 +238,7 @@ class Session extends ZMObject {
      * Get the current session data.
      */
     public function getData() {
-        return $this->data_;
+        return $this->data;
     }
 
     /**
@@ -229,12 +251,12 @@ class Session extends ZMObject {
         session_cache_limiter('must-revalidate');
         $id = session_id();
         if (empty($id) || $force) {
-            $this->setCookieParams($this->adjustDomain($this->domain_), $this->cookiePath_);
-            $this->internalStart_ = true;
+            $this->setCookieParams($this->adjustDomain($this->domain, $this->useFqdn), $this->cookiePath);
+            $this->internalStart = true;
             session_start();
             // allow setting / getting data before/without starting session
-            $this->data_ = array_merge($_SESSION, $this->data_);
-            $this->closed_ = false;
+            $this->data = array_merge($_SESSION, $this->data);
+            $this->closed = false;
             return true;
         }
 
@@ -246,7 +268,7 @@ class Session extends ZMObject {
      */
     public function destroy() {
         if (isset($_COOKIE[session_name()])) {
-            setcookie(session_name(), '', 0, $this->cookiePath_);
+            setcookie(session_name(), '', 0, $this->cookiePath);
             unset($_COOKIE[session_name()]);
         }
 
@@ -255,7 +277,7 @@ class Session extends ZMObject {
             session_destroy();
         }
 
-        $this->data_ = array();
+        $this->data = array();
     }
 
     /**
@@ -267,7 +289,7 @@ class Session extends ZMObject {
         $lastSessionId = session_id();
         if (!empty($lastSessionId)) {
             if (isset($_COOKIE[session_name()])) {
-                setcookie(session_name(), '', 0, $this->cookiePath_);
+                setcookie(session_name(), '', 0, $this->cookiePath);
                 unset($_COOKIE[session_name()]);
             }
 
@@ -279,7 +301,7 @@ class Session extends ZMObject {
 
             // switch back to new session id
             session_id($newId);
-            $this->registerSessionHandler($this->sessionHandler_);
+            $this->registerSessionHandler($this->sessionHandler);
             // and start
             $this->start(true);
             // regenerate token too
@@ -293,8 +315,8 @@ class Session extends ZMObject {
      * Close session rather than wait for the end of request handling.
      */
     public function close() {
-        if ($this->isStarted() && !$this->closed_) {
-            foreach ($this->data_ as $name => $value) {
+        if ($this->isStarted() && !$this->closed) {
+            foreach ($this->data as $name => $value) {
                 $_SESSION[$name] = $value;
             }
             if (0 == count($_SESSION)) {
@@ -302,7 +324,7 @@ class Session extends ZMObject {
                 $this->getToken(true);
             }
             session_write_close();
-            $this->closed_ = true;
+            $this->closed = true;
         }
     }
 
@@ -336,33 +358,33 @@ class Session extends ZMObject {
         $old = null;
         if (null !== $name) {
             if (null === $namespace) {
-                $old = isset($this->data_[$name]) ? $this->data_[$name] : null;
+                $old = isset($this->data[$name]) ? $this->data[$name] : null;
                 if (null === $value) {
-                    unset($this->data_[$name]);
+                    unset($this->data[$name]);
                 } else {
-                    $this->data_[$name] = $value;
+                    $this->data[$name] = $value;
                 }
             } else {
                 $namespace = self::DEFAULT_NAMESPACE_PREFIX.$namespace;
-                if (isset($this->data_[$namespace])) {
-                    $old = isset($this->data_[$namespace][$name]) ? $this->data_[$namespace][$name] : null;
+                if (isset($this->data[$namespace])) {
+                    $old = isset($this->data[$namespace][$name]) ? $this->data[$namespace][$name] : null;
                     if (null === $value) {
-                        unset($this->data_[$namespace][$name]);
-                        if (0 == count($this->data_[$namespace])) {
-                            unset($this->data_[$namespace]);
+                        unset($this->data[$namespace][$name]);
+                        if (0 == count($this->data[$namespace])) {
+                            unset($this->data[$namespace]);
                         }
                     } else {
-                        $this->data_[$namespace][$name] = $value;
+                        $this->data[$namespace][$name] = $value;
                     }
                 } else {
                     if (null !== $value) {
-                        $this->data_[$namespace] = array($name => $value);
+                        $this->data[$namespace] = array($name => $value);
                     }
                 }
             }
         } else {
             // clear all
-            $this->data_ = array();
+            $this->data = array();
         }
 
         return $old;
@@ -382,11 +404,11 @@ class Session extends ZMObject {
             $this->start();
         }
         if (null === $namespace) {
-            return isset($this->data_[$name]) ? $this->data_[$name] : $default;
+            return isset($this->data[$name]) ? $this->data[$name] : $default;
         } else {
             $namespace = self::DEFAULT_NAMESPACE_PREFIX.$namespace;
-            if (isset($this->data_[$namespace])) {
-                return isset($this->data_[$namespace][$name]) ? $this->data_[$namespace][$name] : $default;
+            if (isset($this->data[$namespace])) {
+                return isset($this->data[$namespace][$name]) ? $this->data[$namespace][$name] : $default;
             } else {
                 return $default;
             }
@@ -403,7 +425,7 @@ class Session extends ZMObject {
             ini_set('session.save_handler', 'user');
             session_set_save_handler(array($sessionHandler, 'open'), array($sessionHandler, 'close'), array($sessionHandler, 'read'),
                 array($sessionHandler, 'write'), array($sessionHandler, 'destroy'), array($sessionHandler, 'gc'));
-            $this->sessionHandler_ = $sessionHandler;
+            $this->sessionHandler = $sessionHandler;
             register_shutdown_function('session_write_close');
         }
     }
@@ -414,7 +436,7 @@ class Session extends ZMObject {
      * @return SessionHandler A session handler or <code>null</code>.
      */
     public function getSessionHandler() {
-        return $this->sessionHandler_;
+        return $this->sessionHandler;
     }
 
     /**
