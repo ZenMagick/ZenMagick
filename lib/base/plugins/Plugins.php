@@ -107,7 +107,6 @@ class Plugins extends ZMObject {
                 }
             }
         }
-
         return $this->statusMap;
     }
 
@@ -183,8 +182,9 @@ class Plugins extends ZMObject {
      * @return Plugin A plugin instance or <code>null</code>.
      */
     public function getPluginForId($id) {
-        if (array_key_exists($id, $this->plugins)) {
-            return $this->plugins[$id];
+        $plugins = $this->getPluginsForContext();
+        if (array_key_exists($id, $plugins)) {
+            return $plugins[$id];
         }
 
         return null;
