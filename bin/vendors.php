@@ -19,10 +19,9 @@ $vendorDeps = array(
         array('doctrine-migrations', 'git://github.com/doctrine/migrations.git', 'origin/HEAD', false),
         array('gedmo-doctrine-extensions', 'git://github.com/l3pp4rd/DoctrineExtensions.git', 'origin/master', false),
         array('glotpress', 'git://github.com/buddypress/glotpress.git', 'origin/HEAD', false),
-        //array('monolog', 'http://github.com/Seldaek/monolog.git', 'origin/HEAD', false),
         array('swiftmailer', 'git://github.com/swiftmailer/swiftmailer.git', 'origin/HEAD', false),
         array('symfony', 'git://github.com/ZenMagick/symfony.git', 'origin/HEAD', false),
-        //array('phprules', 'git://github.com/DerManoMann/phprules.git', 'origin/master', false),
+        array('phprules', 'git://github.com/DerManoMann/phprules.git', 'origin/master', false),
         array('phpass', 'git://github.com/rchouinard/phpass.git', 'origin/master', false),
         array('twig', 'git://github.com/fabpot/Twig.git', 'origin/master', false),
         array('CacheLite', 'git://github.com/ZenMagick/CacheLite.git', 'origin/master', false)
