@@ -27,7 +27,7 @@ use zenmagick\apps\store\themes\ThemeStatusMapBuilder;
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class ZencartThemeStatusMapBuilder extends ThemeStatusMapBuilder {
+class ZenCartThemeStatusMapBuilder extends ThemeStatusMapBuilder {
 
     /**
      * Collect a list of all theme folders.

@@ -147,7 +147,7 @@ class ZenCartBundle extends Bundle {
      */
     public function onInitConfigDone($event) {
         $yaml = array('services' => array(
-            'zenCartThemeStatusMapBuilder' => array('parent' => 'merge:themeStatusMapBuilder', 'class' => 'zenmagick\apps\store\bundles\ZenCartBundle\mock\ZencartThemeStatusMapBuilder')
+            'zenCartThemeStatusMapBuilder' => array('parent' => 'merge:themeStatusMapBuilder', 'class' => 'zenmagick\apps\store\bundles\ZenCartBundle\mock\ZenCartThemeStatusMapBuilder')
         ));
         $yamlLoader = new YamlLoader($this->container, new FileLocator(dirname(__FILE__)));
         $yamlLoader->load($yaml);
