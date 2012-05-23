@@ -160,6 +160,7 @@ class ThemeService extends ZMObject {
             if (array_key_exists($id, $themeList)) {
                 $theme->setConfig($themeList[$id]['config']);
                 $theme->setBasePath($themeList[$id]['path']);
+                $theme->setLocales($themeList[$id]['locales']);
             }
         }
         return $this->themes[$id];

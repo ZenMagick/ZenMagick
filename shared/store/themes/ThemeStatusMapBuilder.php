@@ -113,13 +113,13 @@ class ThemeStatusMapBuilder extends ZMObject {
                     if (file_exists($configFile)) {
                         $id = $fileInfo->getFilename();
 
-                        // figure out available locale
-                        $locale = array();
+                        // figure out available locales
+                        $locales = array();
                         $localeBaseDir = sprintf('%s/locale', $path);
                         if (file_exists($localeBaseDir) && is_dir($localeBaseDir)) {
                             foreach (new DirectoryIterator($localeBaseDir) as $localeInfo) {
                                 if ($localeInfo->isDir() && !$localeInfo->isDot()) {
-                                    $locale[$localeInfo->getFilename()] = $localeInfo->getPathname();
+                                    $locales[$localeInfo->getFilename()] = $localeInfo->getPathname();
                                 }
                             }
                         }
@@ -131,7 +131,7 @@ class ThemeStatusMapBuilder extends ZMObject {
                             'config' => array(),
                             'configFile' => $configFile,
                             'lib' => sprintf('%s/lib', $path),
-                            'locale' => $locale,
+                            'locales' => $locales,
                             'namespace' => sprintf('enmagick\apps\store\themes\%s', $id)
                         );
                     }

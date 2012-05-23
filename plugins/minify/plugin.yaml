@@ -5,5 +5,5 @@ admin,storefront:
         parent: merge:resourceManager
         class: zenmagick\plugins\minify\view\MinifyResourceManager
       MinifyStoreResourceManager:
-        parent: merge:storeResourceManager
+        parent: merge:resourceManager
         class: zenmagick\plugins\minify\view\MinifyResourceManager

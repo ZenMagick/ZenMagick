@@ -62,20 +62,31 @@ class ThemeResourceResolver extends ResourceResolver {
     }
 
     /**
-     * Get a list of application template locations.
-     *
-     * @return array List of template locations.
+     * {@inheritDoc}
      */
     protected function getApplicationTemplateLocations() {
         $locations = parent::getApplicationTemplateLocations();
 
-        // available locale
-        $localeCodes = array_reverse($this->container->get('localeService')->getValidLocaleCodes());
+        foreach ($this->container->get('themeService')->getThemeChain($this->languageId) as $theme) {
+            $locations[] = $theme->getTemplatePath();
+            foreach ($theme->getLocales() as $code) {
+                $locations[] = sprintf('%s/locale/%s', $theme->getTemplatePath(), $code);
+            }
+        }
+
+        return $locations;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    protected function getApplicationResourceLocations() {
+        $locations = parent::getApplicationResourceLocations();
 
         foreach ($this->container->get('themeService')->getThemeChain($this->languageId) as $theme) {
-            $locations[] = $theme->getContentDir();
-            foreach ($localeCodes as $code) {
-                $locations[] = $theme->getContentDir().'/locale/'.$code;
+            $locations[] = $theme->getResourcePath();
+            foreach ($theme->getLocales() as $code) {
+                $locations[] = sprintf('%s/locale/%s', $theme->getResourcePath(), $code);
             }
         }
 

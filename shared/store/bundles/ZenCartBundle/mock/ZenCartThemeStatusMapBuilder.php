@@ -58,7 +58,8 @@ class ZencartThemeStatusMapBuilder extends ThemeStatusMapBuilder {
                             'path' => $path,
                             'id' => $id,
                             'class' => $this->defaultThemeClass,
-                            'config' => $config
+                            'config' => $config,
+                            'locales' => array()
                         );
                     }
                 }

@@ -80,17 +80,11 @@
             </call>
         </service>
 
-        <service id="storeResourceManager" class="zenmagick\http\view\ResourceManager">
-            <call method="setResourcesAsTemplates">
-                <argument>true</argument>
-            </call>
-        </service>
-
         <service id="themeResourceResolver" class="zenmagick\apps\store\view\ThemeResourceResolver" scope="container" />
 
         <service id="storeTemplateView" class="zenmagick\http\view\TemplateView" scope="prototype">
             <call method="setResourceManager">
-                <argument type="service" id="storeResourceManager" />
+                <argument type="service" id="resourceManager" />
             </call>
             <call method="setResourceResolver">
                 <argument type="service" id="themeResourceResolver" />

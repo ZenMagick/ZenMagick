@@ -35,6 +35,7 @@ class Theme extends ZMObject {
     private $id;
     private $config;
     private $basePath;
+    private $locales;
 
     /**
      * Create new instance.
@@ -44,6 +45,7 @@ class Theme extends ZMObject {
         $this->id = null;
         $this->config = array();
         $this->basePath = null;
+        $this->locales = array();
     }
 
     /**
@@ -71,6 +73,33 @@ class Theme extends ZMObject {
      */
     public function setBasePath($path) {
         $this->basePath = $path;;
+    }
+
+    /**
+     * Add a locale code supported by this theme.
+     *
+     * @param string code The locale code.
+     */
+    public function addLocale($code) {
+        $this->locales[$code] = $code;
+    }
+
+    /**
+     * Set locale codes for all locale supported by this theme.
+     *
+     * @param array locales The locale codes.
+     */
+    public function setLocales(array $locales) {
+        $this->locales = $locales;
+    }
+
+    /**
+     * Get locale codes for all locale supported by this theme.
+     *
+     * @return array The locale codes.
+     */
+    public function getLocales() {
+        return $this->locales;
     }
 
     /**
@@ -153,21 +182,31 @@ class Theme extends ZMObject {
     }
 
     /**
-     * Return the path of the content directory.
+     * Return the path of the template directory.
      *
-     * @return string A full filename denoting the themes content directory.
+     * @return string A full path to the theme's template folder.
      */
-    public function getContentDir() {
+    public function getTemplatePath() {
         return $this->getBasePath() . '/content';
     }
 
     /**
-     * Return the path of the views directory.
+     * Return the path of the resources directory.
      *
-     * @return string A full filename denoting the themes views directory.
+     * @return string A full path to the theme's resources folder.
      */
-    public function getViewsDir() {
-        return $this->getBasePath() . '/content/views';
+    public function getResourcePath() {
+        return $this->getBasePath() . '/content';
+    }
+
+    /**
+     * Return the path of the content directory.
+     *
+     * @return string A full filename denoting the themes content directory.
+     * @deprecated use getTemplatePath() or getResourcePath() instead
+     */
+    public function getContentDir() {
+        return $this->getBasePath() . '/content';
     }
 
     /**

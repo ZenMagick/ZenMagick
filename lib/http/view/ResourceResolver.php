@@ -26,6 +26,7 @@ use RegexIterator;
 use zenmagick\base\Runtime;
 use zenmagick\base\ZMException;
 use zenmagick\base\ZMObject;
+use zenmagick\http\plugins\HttpPlugin;
 
 /**
  * Resource resolver.
@@ -76,7 +77,7 @@ class ResourceResolver extends ZMObject {
      */
     public function getTemplateLocations() {
         if (null === $this->locations[View::TEMPLATE]) {
-            $path = array();
+            $locations = array();
 
             // available locale
             $localeCodes = array_reverse($this->container->get('localeService')->getValidLocaleCodes());
@@ -85,20 +86,21 @@ class ResourceResolver extends ZMObject {
             foreach ($this->container->getParameterBag()->get('kernel.bundles') as $bundleName => $bundleClass) {
                 $rclass = new ReflectionClass($bundleClass);
                 $bundlePath = dirname($rclass->getFilename());
-                $path[] = $bundlePath.'/Resources';
+                $locations[] = $bundlePath.'/Resources';
             }
 
             // add plugins as fallback fallback
             foreach ($this->container->get('pluginService')->getPluginsForContext(Runtime::getSettings()->get('zenmagick.base.context')) as $plugin) {
-                $ppath = $plugin->getPluginDirectory().'/content';
-                $path[] = $ppath;
-                foreach ($localeCodes as $code) {
-                    $path[] = $ppath.'/locale/'.$code;
+                if ($plugin instanceof HttpPlugin) {
+                    $locations[] = $plugin->getTemplatePath();
+                    foreach ($localeCodes as $code) {
+                        $locations[] = sprintf('%s/locale/%s', $plugin->getTemplatePath(), $code);
+                    }
                 }
             }
 
-            $path = array_merge($path, $this->getApplicationTemplateLocations());
-            $this->locations[View::TEMPLATE] = array_reverse($this->validateLocations($path));
+            $locations = array_merge($locations, $this->getApplicationTemplateLocations());
+            $this->locations[View::TEMPLATE] = array_reverse($this->validateLocations($locations));
         }
 
         return $this->locations[View::TEMPLATE];
@@ -122,7 +124,7 @@ class ResourceResolver extends ZMObject {
      */
     public function getResourceLocations() {
         if (null === $this->locations[View::RESOURCE]) {
-            $path = array();
+            $locations = array();
 
             // available locale
             $localeCodes = array_reverse($this->container->get('localeService')->getValidLocaleCodes());
@@ -131,29 +133,30 @@ class ResourceResolver extends ZMObject {
             foreach ($this->container->getParameterBag()->get('kernel.bundles') as $bundleName => $bundleClass) {
                 $rclass = new ReflectionClass($bundleClass);
                 $bundlePath = dirname($rclass->getFilename());
-                $path[] = $bundlePath.'/Resources';
+                $locations[] = $bundlePath.'/Resources';
             }
 
             // add plugins as fallback fallback
             foreach ($this->container->get('pluginService')->getPluginsForContext(Runtime::getSettings()->get('zenmagick.base.context')) as $plugin) {
-                $ppath = $plugin->getPluginDirectory().'/content';
-                $path[] = $ppath;
-                foreach ($localeCodes as $code) {
-                    $path[] = $ppath.'/locale/'.$code;
+                if ($plugin instanceof HttpPlugin) {
+                    $locations[] = $plugin->getResourcePath();
+                    foreach ($localeCodes as $code) {
+                        $locations[] = sprintf('%s/locale/%s', $plugin->getResourcePath(), $code);
+                    }
                 }
             }
 
             $docroot = $this->getApplicationDocRoot();
-            $path[] = $docroot;
+            $locations[] = $docroot;
 
 
             // add path for locale specific resources
             foreach ($localeCodes as $code) {
-                $path[] = $docroot.'/locale/'.$code;
+                $locations[] = $docroot.'/locale/'.$code;
             }
 
-            $path = array_merge($path, $this->getApplicationResourceLocations());
-            $this->locations[View::RESOURCE] = array_reverse($this->validateLocations($path));
+            $locations = array_merge($locations, $this->getApplicationResourceLocations());
+            $this->locations[View::RESOURCE] = array_reverse($this->validateLocations($locations));
         }
 
         return $this->locations[View::RESOURCE];
