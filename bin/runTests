@@ -1,0 +1,23 @@
+#!/usr/bin/env php
+<?php
+use zenmagick\base\Application;
+use zenmagick\base\Runtime;
+
+define('DB_PREFIX', '');
+chdir(dirname(dirname(__FILE__)));
+include_once 'lib/base/Application.php';
+$application = new Application(
+  array(
+    'enablePlugins' => true,
+    'context' => 'cli',
+    'appConfig' => array(dirname(__DIR__).'/config/store-config.yaml'),
+    'appContainer' => array(dirname(__DIR__).'/config/store-services.xml'),
+    'packages' => array('vendor', 'lib/base', 'lib/core', 'shared', 'vendor/local', 'lib/http', 'lib/mvc'),
+    'bundles' => array('DoctrineBundle' => 'Doctrine\Bundle\DoctrineBundle\DoctrineBundle')
+));
+$application->bootstrap();
+
+$container = Runtime::getContainer();
+$pluginService = $container->get('pluginService');
+$unitTests = $pluginService->getPluginForId('unitTests');
+var_dump(get_class($unitTests));
