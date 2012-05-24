@@ -31,6 +31,34 @@ use zenmagick\http\rss\RssSource;
  * @author DerManoMann
  */
 class CatalogRssFeedSource extends ZMObject implements RssSource {
+    protected $fullFeed;
+
+    /**
+     * Create new instance.
+     */
+    public function __construct() {
+        parent::__construct();
+        $this->fullFeed = false;
+    }
+
+
+    /**
+     * Set a flag to indicate whether to produce a full feed or not.
+     *
+     * @param boolean value The new value.
+     */
+    public function setFullFeed($value) {
+        $this->fullFeed = $value;
+    }
+
+    /**
+     * Check if a full feed needs to be generated.
+     *
+     * @return boolean <code>true</code> if a full feed should be generated.
+     */
+    public function isFullFeed() {
+        return $this->fullFeed;
+    }
 
     /**
      * {@inheritDoc}
@@ -53,7 +81,7 @@ class CatalogRssFeedSource extends ZMObject implements RssSource {
         }
 
         // get feed data
-        $feed = call_user_func(array($this, $method), $request, $key);
+        $feed = call_user_func(array($this, $method), $request, $this->fullFeed);
         if (null == $feed) {
             return null;
         }
@@ -66,11 +94,14 @@ class CatalogRssFeedSource extends ZMObject implements RssSource {
      * Generate RSS feed for the whole catalog (categories plus products).
      *
      * @param ZMRequest request The current request.
+     * @param boolean full Indicates whether to generate a full feed or not; default is <code>true</code>.
      * @return RssFeed The feed.
      */
-    protected function getCatalogFeed($request) {
-        $categoriesFeed = $this->getCategoriesFeed($request, true);
-        $productsFeed = $this->getProductsFeed($request, true);
+    protected function getCatalogFeed($request, $full=true) {
+        // always true
+        $full = true;
+        $categoriesFeed = $this->getCategoriesFeed($request, $full);
+        $productsFeed = $this->getProductsFeed($request, $full);
 
         $lastPubDate = $categoriesFeed->getLastBuildDate();
         if ($productsFeed->getLastBuildDate() > $lastPubDate) {
