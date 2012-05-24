@@ -48,6 +48,7 @@ class ShoppingCart extends ZMObject {
     private $contents;
     private $comments;
 
+
     /**
      * Create new instance.
      */
@@ -96,21 +97,15 @@ class ShoppingCart extends ZMObject {
     }
 
     /**
-     * Set the session for this cart.
-     *
-     * @param Session session The session.
+     * {@inheritDoc}
      */
-    public function setSession($session) {
-        $this->session = $session;
-    }
-
-    /**
-     * Get the session for this cart.
-     *
-     * @return Session The session.
-     */
-    public function getSession() {
-        return $this->session;
+    protected function getSerializableProperties() {
+        $properties = parent::getSerializableProperties();
+        // all we need to persist for the cart
+        $properties['contents'] = $this->contents;
+        $properties['comments'] = $this->comments;
+        $properties['accountId'] = $this->accountId;
+        return $properties;
     }
 
     /**

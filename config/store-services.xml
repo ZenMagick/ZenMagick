@@ -116,11 +116,7 @@
             <call method="setCheckoutHelper">
                 <argument type="service" id="checkoutHelper" />
             </call>
-            <!--
-            <call method="setSession">
-                <argument type="service" id="Session" />
-            </call>
-            -->
+            <tag name="zenmagick.http.session.persist" restore="checkoutHelper" />
         </service>
 
         <service id="shoppingCartService" class="zenmagick\apps\store\services\checkout\ShoppingCartService" scope="container" />
