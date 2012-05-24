@@ -217,35 +217,35 @@ class ZMProduct extends ZMObject {
      */
     private $sortOrder;
     /**
-     * @var boolean $metatagsTitleStatus
+     * @var boolean $metaTagsTitleStatus
      *
      * @ORM\Column(name="metatags_title_status", type="boolean", nullable=false)
      */
-    private $metatagsTitleStatus;
+    private $metaTagsTitleStatus;
     /**
-     * @var boolean $metatagsProductsNameStatus
+     * @var boolean $metaTagsProductsNameStatus
      *
      * @ORM\Column(name="metatags_products_name_status", type="boolean", nullable=false)
      */
-    private $metatagsProductsNameStatus;
+    private $metaTagsProductsNameStatus;
     /**
-     * @var boolean $metatagsModelStatus
+     * @var boolean $metaTagsModelStatus
      *
      * @ORM\Column(name="metatags_model_status", type="boolean", nullable=false)
      */
-    private $metatagsModelStatus;
+    private $metaTagsModelStatus;
     /**
-     * @var boolean $metatagsPriceStatus
+     * @var boolean $metaTagsPriceStatus
      *
      * @ORM\Column(name="metatags_price_status", type="boolean", nullable=false)
      */
-    private $metatagsPriceStatus;
+    private $metaTagsPriceStatus;
     /**
-     * @var boolean $metatagsTitleTaglineStatus
+     * @var boolean $metaTagsTitleTaglineStatus
      *
      * @ORM\Column(name="metatags_title_tagline_status", type="boolean", nullable=false)
      */
-    private $metatagsTitleTaglineStatus;
+    private $metaTagsTitleTaglineStatus;
     /**
      * Raw product price
      * @var decimal $productPrice
@@ -702,9 +702,9 @@ class ZMProduct extends ZMObject {
     /**
      * Get the tax rate.
      *
-     * @return TaxRate The tax rate.
+     * @return ZMTaxRate The tax rate.
      */
-    public function getTaxRate() { return $this->container->get('taxService')->getTaxRateForClassId($this->taxClassId); }
+    public function getTaxRate() { return $this->container->get('taxRateService')->getTaxRateForClassId($this->taxClassId); }
 
     /**
      * Get the product price sorter.
@@ -788,19 +788,10 @@ class ZMProduct extends ZMObject {
     /**
      * Check if this product has attributes or not.
      *
-     * @param boolean ignoreReadOnly Optional flag to ignore read only attributes; default is <code>false</code> to look at all attributes.
      * @return boolean <code>true</code> if there are attributes (values) available,
      *  <code>false</code> if not.
      */
-    public function hasAttributes($ignoreReadOnly=false) {
-        foreach ($this->getAttributes() as $attribute) {
-            if (!$attribute->isReadOnly() || !$ignoreReadOnly) {
-                return true;
-            }
-        }
-
-        return false;
-    }
+    public function hasAttributes() { return 0 < count($this->getAttributes()); }
 
     /**
      * Get the product attributes.
@@ -1002,70 +993,70 @@ class ZMProduct extends ZMObject {
     /**
      * Get meta tags title status
      *
-     * @return boolean $metatagsTitleStatus
+     * @return boolean $metaTagsTitleStatus
      */
-    public function getMetatagsTitleStatus() { return $this->metatagsTitleStatus; }
+    public function getMetaTagsTitleStatus() { return $this->metaTagsTitleStatus; }
 
     /**
      * Set meta tags title status
      *
-     * @param boolean $metatagsTitleStatus
+     * @param boolean $metaTagsTitleStatus
      */
-    public function setMetatagsTitleStatus($metatagsTitleStatus) { $this->metatagsTitleStatus = $metatagsTitleStatus; }
+    public function setMetaTagsTitleStatus($metaTagsTitleStatus) { $this->metaTagsTitleStatus = $metaTagsTitleStatus; }
 
     /**
      * Get meta tags product name status
      *
-     * @return boolean $metatagsProductNameStatus
+     * @return boolean $metaTagsProductNameStatus
      */
-    public function getMetatagsProductNameStatus() { return $this->metatagsProductNameStatus; }
+    public function getMetaTagsProductNameStatus() { return $this->metaTagsProductNameStatus; }
 
     /**
      * Set meta tags product name status
      *
-     * @param boolean $metatagsProductNameStatus
+     * @param boolean $metaTagsProductNameStatus
      */
-    public function setMetatagsProductNameStatus($metatagsProductNameStatus) { $this->metatagsProductNameStatus = $metatagsProductNameStatus; }
+    public function setMetaTagsProductNameStatus($metaTagsProductNameStatus) { $this->metaTagsProductNameStatus = $metaTagsProductNameStatus; }
 
     /**
      * Get meta tags model status
      *
-     * @return boolean $metatagsModelStatus
+     * @return boolean $metaTagsModelStatus
      */
-    public function getMetatagsModelStatus() { return $this->metatagsModelStatus; }
+    public function getMetaTagsModelStatus() { return $this->metaTagsModelStatus; }
 
     /**
      * Set meta tags model status
      *
-     * @param boolean $metatagsModelStatus
+     * @param boolean $metaTagsModelStatus
      */
-    public function setMetatagsModelStatus($metatagsModelStatus) { $this->metatagsModelStatus = $metatagsModelStatus; }
+    public function setMetaTagsModelStatus($metaTagsModelStatus) { $this->metaTagsModelStatus = $metaTagsModelStatus; }
 
     /**
      * Get meta tags price status.
      *
-     * @return boolean $metatagsPriceStatus
+     * @return boolean $metaTagsPriceStatus
      */
-    public function getMetatagsPriceStatus() { return $this->metatagsPriceStatus; }
+    public function getMetaTagsPriceStatus() { return $this->metaTagsPriceStatus; }
 
     /**
      * Set meta tags price status.
      *
-     * @param boolean $metatagsPriceStatus
+     * @param boolean $metaTagsPriceStatus
      */
-    public function setMetatagsPriceStatus($metatagsPriceStatus) { $this->metatagsPriceStatus = $metatagsPriceStatus; }
+    public function setMetaTagsPriceStatus($metaTagsPriceStatus) { $this->metaTagsPriceStatus = $metaTagsPriceStatus; }
 
     /**
      * Get meta tags title tagline status.
      *
-     * @return boolean $metatagsTitleTaglineStatus
+     * @return boolean $metaTagsTitleTaglineStatus
      */
-    public function getMetatagsTitleTaglineStatus() { return $this->metatagsTitleTaglineStatus; }
+    public function getMetaTagsTitleTaglineStatus() { return $this->metaTagsTitleTaglineStatus; }
 
     /**
      * Set meta tags title tagline status.
      *
-     * @param boolean $metatagsTitleTaglineStatus
+     * @param boolean $metaTagsTitleTaglineStatus
      */
-    public function setMetatagsTitleTaglineStatus($metatagsTitleTaglineStatus) { $this->metatagsTitleTaglineStatus = $metatagsTitleTaglineStatus; }
+    public function setMetaTagsTitleTaglineStatus($metaTagsTitleTaglineStatus) { $this->metaTagsTitleTaglineStatus = $metaTagsTitleTaglineStatus; }
 }
