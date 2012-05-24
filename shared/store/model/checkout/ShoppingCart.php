@@ -64,6 +64,13 @@ class ShoppingCart extends ZMObject {
         $this->setAccountId(null !== $accountId ? $accountId : 0);
         $this->zenTotals_ = null;
         $this->items_ = null;
+        /*
+         * id => (
+         *   qty =>
+         *   attributes =>
+         *   attributes_values =>
+         * )
+         */
         $this->contents = array();
         $this->selectedPaymentType_ = null;
     }
@@ -199,18 +206,12 @@ class ShoppingCart extends ZMObject {
     }
 
     /**
-     * Set the cart items.
+     * Set the contents for this cart.
      *
-     * @param array items List of <code>ShoppingCartItem</code>s.
+     * @return array The contents.
      */
-    public function setItems($items) {
-        // invalidate totals
-        $this->zenTotals_ = null;
-
-        $this->items_ = $items;
-        foreach ($this->items_ as $item) {
-            $item->setShoppingCart($this);
-        }
+    public function getContents() {
+        return $this->contents;
     }
 
     /**
@@ -221,44 +222,6 @@ class ShoppingCart extends ZMObject {
     public function setContents($contents) {
         $this->items_ = array();
         $this->contents = $contents;
-        foreach ($contents as $id => $itemData) {
-            if (empty($id)) { continue; }
-            $item = new ShoppingCartItem($this);
-            $item->setContainer($this->container);
-            $item->setId($id);
-            $item->populateAttributes($itemData);
-            $item->setQuantity($this->adjustQty($itemData['qty']));
-            $this->items_[$item->getId()] = $item;
-        }
-
-        // 2) iterate again - now we can calculate quantities and prices properly...
-        foreach ($this->items_ as $id => $item) {
-            $product = $item->getProduct();
-            $offers = $product->getOffers();
-
-            // default
-            $price = $product->getProductPrice();
-            if (!$product->isPricedByAttributes()) {
-                $price = $product->getPrice(false);
-
-                // qty depends om qtyMixed option on base product
-                $cartQty = $this->getItemQuantityFor($id, $item->getQuantity());
-                if (null != ($quantityDiscount = $offers->getQuantityDiscountFor($cartQty, false))) {
-                    $price = $quantityDiscount->getPrice();
-                }
-            }
-
-            if ($product->isFree()) {
-                $price = 0;
-            }
-
-//echo '<hr>ZM i: '.$item->getId(); echo ' '.$price.' + '.$item->getAttributesPrice(false); echo '<hr>';
-            $item->setItemPrice($price + $item->getAttributesPrice(false));
-            // todo: cleanup item methods a bit to make more sense for this
-            $item->setOneTimeCharge($product->getOneTimeCharge() + $item->getAttributesOneTimePrice(false));
-
-            $this->items_[$item->getId()] = $item;
-        }
     }
 
     /**
@@ -268,51 +231,50 @@ class ShoppingCart extends ZMObject {
      */
     public function getItems() {
         if (null === $this->items_) {
-            if (null != $this->cart_) {
-                $this->setContents((array) $this->cart_->contents);
+            $this->items_ = array();
+            $this->contents = $this->cart_->contents;
+            foreach ($this->contents as $id => $itemData) {
+                if (empty($id)) { continue; }
+                $item = new ShoppingCartItem($this);
+                $item->setContainer($this->container);
+                $item->setId($id);
+                $item->populateAttributes($itemData);
+                $item->setQuantity($this->adjustQty($itemData['qty']));
+                $this->items_[$item->getId()] = $item;
+            }
+
+            // 2) iterate again - now we can calculate quantities and prices properly...
+            foreach ($this->items_ as $id => $item) {
+                $product = $item->getProduct();
+                $offers = $product->getOffers();
+
+                // default
+                $price = $product->getProductPrice();
+                if (!$product->isPricedByAttributes()) {
+                    $price = $product->getPrice(false);
+
+                    // qty depends om qtyMixed option on base product
+                    $cartQty = $this->getItemQuantityFor($id, $item->getQuantity());
+                    if (null != ($quantityDiscount = $offers->getQuantityDiscountFor($cartQty, false))) {
+                        $price = $quantityDiscount->getPrice();
+                    }
+                }
+
+                if ($product->isFree()) {
+                    $price = 0;
+                }
+
+    //echo '<hr>ZM i: '.$item->getId(); echo ' '.$price.' + '.$item->getAttributesPrice(false); echo '<hr>';
+                $item->setItemPrice($price + $item->getAttributesPrice(false));
+                // todo: cleanup item methods a bit to make more sense for this
+                $item->setOneTimeCharge($product->getOneTimeCharge() + $item->getAttributesOneTimePrice(false));
+
+                $this->items_[$item->getId()] = $item;
             }
 
             if ($this->container->get('settingsService')->get('apps.store.assertZencart', false)) {
-                // total items
-                $itemTotal = 0;
-                foreach ($this->items_ as $item) {
-                    $itemTotals += $item->getQuantity();
-                }
-                if ($this->cart_->count_contents() != $itemTotals) {
-                    echo 'cart: item count diff! cart: ';var_dump($this->cart_->count_contents());echo 'my: ';var_dump($itemTotals);echo '<br>';
-                }
-                // some totals
-                //echo 'Total items: '.$itemTotals.' Weight: '.$this->getWeight().'<br>';
-
-
-                // weight
-                if ($this->cart_->show_weight() != $this->getWeight()) {
-                    echo 'cart: weight diff! cart: ';var_dump($this->cart_->show_weight());echo 'my: ';var_dump($this->getWeight());echo '<br>';
-                }
-
-                $zenItems = $this->cart_->get_products();
-                foreach ($this->items_ as $item) {
-                    $itemId = $item->getId();
-                    $product = $item->getProduct();
-                    if ($this->cart_->get_quantity($itemId) != $this->getItemQuantityFor($itemId, false)) {
-                        echo 'cart: get_quantity diff! cart: ';var_dump($this->cart_->get_quantity($itemId));echo 'my: ';var_dump($this->getItemQuantityFor($itemId, false));echo '<br>';
-                    }
-                    if ($this->cart_->in_cart_mixed($itemId) != $this->getItemQuantityFor($itemId, $product->isQtyMixed())) {
-                        echo 'cart: in_cart_mixed diff! cart: ';var_dump($this->cart_->in_cart_mixed($itemId));echo 'my: ';var_dump($this->getItemQuantityFor($itemId, $product->isQtyMixed()));echo '<br>';
-                    }
-
-                    // prices
-                    foreach ($zenItems as $zi) {
-                        if ($zi['id'] == $item->getId()) {
-                            if (round($item->getItemPrice(false),2) != round($zi['final_price'],2)) {
-                                echo 'cart: item price differ: '.$zi['id'].': ZM: '.$item->getItemPrice(false).', zc: '.$zi['final_price'].'<br>';
-                            }
-                            if (round($item->getOneTimeCharge(false),2) != round($zi['onetime_charges'],2)) {
-                                echo 'cart: onetime charge differ: '.$zi['id'].': ZM: '.$item->getOneTimeCharge(false).', zc: '.$zi['onetime_charges'].'<br>';
-                            }
-                        }
-                    }
-                }
+                $asserter = new \zenmagick\apps\store\bundles\ZenCartBundle\utils\ShoppingCartAssert();
+                $asserter->assertCart($this);
             }
         }
 
