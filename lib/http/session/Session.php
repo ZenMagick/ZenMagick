@@ -36,8 +36,10 @@ class Session extends ZMObject {
     const DEFAULT_NAME = 'zmid';
     /** A magic session key used to validate forms. */
     const SESSION_TOKEN_KEY = '__ZM_TOKEN__';
-    /** The default namespace prefix for session keys. */
-    const DEFAULT_NAMESPACE_PREFIX = '__ZM_NSP__';
+    /** The default namespace for session keys. */
+    const DEFAULT_NAMESPACE = null;//'__ZM_NSP__';
+    /** The auto save namespace prefix for session keys. */
+    const AUTO_SAVE_KEY = '__ZM_AUTO_SAVE_KEY__';
 
     protected $internalStart;
     protected $data;
@@ -99,12 +101,6 @@ class Session extends ZMObject {
      * Destruct instance.
      */
     public function __destruct() {
-        foreach (Runtime::getContainer()->findTaggedServiceIds('zenmagick.http.session.persist') as $id => $args) {
-            $service = $container->get($id);
-            if ($service instanceof Serializable) {
-                $this->setValue($id, serialize($service));
-            }
-        }
         $this->close();
     }
 
@@ -257,10 +253,57 @@ class Session extends ZMObject {
             // allow setting / getting data before/without starting session
             $this->data = array_merge($_SESSION, $this->data);
             $this->closed = false;
+            $this->restorePersistedServices();
             return true;
         }
 
         return false;
+    }
+
+    /**
+     * persist tagged services.
+     */
+    protected function persistServices() {
+        $autoSave = array();
+        foreach ($this->container->findTaggedServiceIds('zenmagick.http.session.persist') as $id => $args) {
+            // list of services to restore on instance
+            $restore = array();
+            foreach ($args as $elem) {
+                foreach ($elem as $key => $value) {
+                    if ('restore' == $key && $value) {
+                        $restore = explode(',', $value);
+                        break;
+                    }
+                }
+            }
+
+            $service = $this->container->get($id);
+            if ($service instanceof Serializable) {
+                $autoSave[$id] = array('ser' => serialize($service), 'restore' => $restore);
+            }
+        }
+        $this->setValue(self::AUTO_SAVE_KEY, $autoSave);
+    }
+
+    /**
+     * Restore persisted services.
+     */
+    protected function restorePersistedServices() {
+        // restore persisted services
+        foreach ((array)$this->getValue(self::AUTO_SAVE_KEY) as $id => $serdat) {
+            $obj = unserialize($serdat['ser']);
+            foreach ($serdat['restore'] as $rid) {
+                if ($this->container->has($rid)) {
+                    $rid = trim($rid);
+                    $method = 'set'.ucwords($rid);
+                    $obj->$method($this->container->get($rid));
+                }
+            }
+            // preserve definition
+            $definition = $this->container->getDefinition($id);
+            $this->container->set($id, $obj);
+            $this->container->setDefinition($id, $definition);
+        }
     }
 
     /**
@@ -297,7 +340,7 @@ class Session extends ZMObject {
             $newId = session_id();
 
             // persist old session
-            $this->close();
+            $this->close(false);
 
             // switch back to new session id
             session_id($newId);
@@ -313,8 +356,10 @@ class Session extends ZMObject {
 
     /**
      * Close session rather than wait for the end of request handling.
+     *
+     * @param boolean final Optional flag to indicate whether this is a final close; default is <code>true</code>.
      */
-    public function close() {
+    public function close($final=true) {
         if ($this->isStarted() && !$this->closed) {
             foreach ($this->data as $name => $value) {
                 $_SESSION[$name] = $value;
@@ -322,6 +367,9 @@ class Session extends ZMObject {
             if (0 == count($_SESSION)) {
                 // get a new token
                 $this->getToken(true);
+            }
+            if ($final) {
+                $this->persistServices();
             }
             session_write_close();
             $this->closed = true;
@@ -351,10 +399,10 @@ class Session extends ZMObject {
      *
      * @param string name The name; default is <code>null</code> to clear all data.
      * @param mxied value The value; use <code>null</code> to remove; default is <code>null</code>.
-     * @param string namespace Optional namespace; default is <code>null</code> for none.
+     * @param string namespace Optional namespace; default is <code>DEFAULT_NAMESPACE</code>.
      * @return mixed The old value or <code>null</code>.
      */
-    public function setValue($name, $value=null, $namespace=null) {
+    public function setValue($name, $value=null, $namespace=self::DEFAULT_NAMESPACE) {
         $old = null;
         if (null !== $name) {
             if (null === $namespace) {
@@ -365,7 +413,6 @@ class Session extends ZMObject {
                     $this->data[$name] = $value;
                 }
             } else {
-                $namespace = self::DEFAULT_NAMESPACE_PREFIX.$namespace;
                 if (isset($this->data[$namespace])) {
                     $old = isset($this->data[$namespace][$name]) ? $this->data[$namespace][$name] : null;
                     if (null === $value) {
@@ -393,12 +440,12 @@ class Session extends ZMObject {
     /**
      * Get a session value.
      *
-     * @param string name The name.
+     * @param string name The name; if <code>null</code> and namespace set, return all namespace data.
      * @param string namespace Optional namespace; default is <code>null</code> for none.
-     * @param mixed default Optional default value if <code>$name</code> doesn't exist; default is <code>null</code>.
+     * @param mixed default Optional default value if <code>$name</code> doesn't exist; default is <code>DEFAULT_NAMESPACE</code>.
      * @return mixed The value or <code>$default</code>.
      */
-    public function getValue($name, $namespace=null, $default=null) {
+    public function getValue($name, $namespace=self::DEFAULT_NAMESPACE, $default=null) {
         if (!$this->isStarted() && !$this->isNew()) {
             // start only if not a new session
             $this->start();
@@ -406,8 +453,10 @@ class Session extends ZMObject {
         if (null === $namespace) {
             return isset($this->data[$name]) ? $this->data[$name] : $default;
         } else {
-            $namespace = self::DEFAULT_NAMESPACE_PREFIX.$namespace;
             if (isset($this->data[$namespace])) {
+                if (null === $name) {
+                    return $this->data[$namespace];
+                }
                 return isset($this->data[$namespace][$name]) ? $this->data[$namespace][$name] : $default;
             } else {
                 return $default;
