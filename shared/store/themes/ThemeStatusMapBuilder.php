@@ -132,7 +132,7 @@ class ThemeStatusMapBuilder extends ZMObject {
                             'configFile' => $configFile,
                             'lib' => sprintf('%s/lib', $path),
                             'locales' => $locales,
-                            'namespace' => sprintf('enmagick\apps\store\themes\%s', $id)
+                            'namespace' => sprintf('zenmagick\apps\store\themes\%s', $id)
                         );
                     }
                 }
