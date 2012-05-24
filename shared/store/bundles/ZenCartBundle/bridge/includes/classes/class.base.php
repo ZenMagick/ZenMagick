@@ -76,14 +76,17 @@ class base {
      * Tell ZenMagick too
      */
     public function notifyZenmagick($eventId, $params = array()) {
-        if (!zenmagick\base\Runtime::getSettings()->get('isEnableZMThemes', true)) {
+        $container = zenmagick\base\Runtime::getContainer();
+        if (!$container->has('themeService')) return;
+        $themeMeta = $container->get('themeService')->getActiveTheme()->getConfig('meta');
+        if (isset($themeMeta['zencart'])) {
             if (0 === strpos($eventId, 'NOTIFY_HEADER_START_')) {
                 $controllerId = str_replace('NOTIFY_HEADER_START_', '', $eventId);
-                $params = array_merge($params, array('controllerId' => $controllerId, 'request' => zenmagick\base\Runtime::getContainer()->get('request')));
+                $params = array_merge($params, array('controllerId' => $controllerId, 'request' => $container->get('request')));
                 zenmagick\base\Runtime::getEventDispatcher()->dispatch('controller_process_start', new zenmagick\base\events\Event($this, $params));
             } else if (0 === strpos($eventId, 'NOTIFY_HEADER_END_')) {
                 $controllerId = str_replace('NOTIFY_HEADER_END_', '', $eventId);
-                $params = array_merge($params, array('controllerId' => $controllerId, 'request' => zenmagick\base\Runtime::getContainer()->get('request')));
+                $params = array_merge($params, array('controllerId' => $controllerId, 'request' => $container->get('request')));
                 zenmagick\base\Runtime::getEventDispatcher()->dispatch('controller_process_end', new zenmagick\base\events\Event($this, $params));
             }
         }
