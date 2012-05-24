@@ -20,7 +20,6 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-?><?php
 use zenmagick\base\Runtime;
 
     /*
@@ -35,7 +34,6 @@ use zenmagick\base\Runtime;
 
     $validator = $this->container->get('validator');
 
-if (Runtime::getSettings()->get('isEnableZMThemes')) {
     /* edit account */
     $validator->addRules('account', array(
         array('ZMRequiredRule' ,'firstName', 'Please enter your first name.'),
@@ -209,5 +207,3 @@ if (Runtime::getSettings()->get('isEnableZMThemes')) {
         array('ZMRequiredRule', 'email_address', 'Please enter your email address.'),
         array('ZMEmailRule', 'email_address', 'Please enter a valid email address.')
     ));
-}
-?>
