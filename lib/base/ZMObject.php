@@ -199,11 +199,20 @@ class ZMObject extends ContainerAware implements Serializable {
     }
 
     /**
+     * Return a map of serializable data.
+     *
+     * @return array Map of key/value data.
+     */
+    protected function getSerializableProperties() {
+        return $this->getProperties();
+    }
+
+    /**
      * Serialize this instance.
      */
     public function serialize() {
         $sprops = array();
-        foreach ($this->getProperties() as $name => $obj) {
+        foreach ($this->getSerializableProperties() as $name => $obj) {
             $sprops[$name] = serialize($obj);
         }
 
@@ -230,7 +239,6 @@ class ZMObject extends ContainerAware implements Serializable {
         }
 
         $sprops = unserialize($serialized);
-
         foreach ($sprops as $name => $sprop) {
             $this->set($name, unserialize($sprop));
         }
