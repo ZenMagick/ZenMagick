@@ -35,8 +35,8 @@ use Symfony\Component\DependencyInjection\ContainerAware;
  * @author DerManoMann <mano@zenmagick.org>
  */
 class ZMObject extends ContainerAware implements Serializable {
-    private static $methods_ = array();
-    protected $properties_;
+    private static $methods = array();
+    protected $properties;
 
 
     /**
@@ -45,7 +45,7 @@ class ZMObject extends ContainerAware implements Serializable {
      * @param array properties Optional properties; default is an empty array;
      */
     public function __construct($properties=array()) {
-        $this->properties_ = $properties;
+        $this->properties = $properties;
     }
 
     /**
@@ -63,8 +63,8 @@ class ZMObject extends ContainerAware implements Serializable {
      * @return mixed The value or <code>null</code>.
      */
     public function get($name, $default=null) {
-        if (array_key_exists($name, $this->properties_)) {
-            return $this->properties_[$name];
+        if (array_key_exists($name, $this->properties)) {
+            return $this->properties[$name];
         }
 
         return $default;
@@ -77,8 +77,8 @@ class ZMObject extends ContainerAware implements Serializable {
      * @return mixed The value or <code>null</code>.
      */
     public function __get($name) {
-        if (array_key_exists($name, $this->properties_)) {
-            return $this->properties_[$name];
+        if (array_key_exists($name, $this->properties)) {
+            return $this->properties[$name];
         }
 
         return null;
@@ -91,7 +91,7 @@ class ZMObject extends ContainerAware implements Serializable {
      * @param mixed value The value.
      */
     public function __set($name, $value) {
-        $this->properties_[$name] = $value;
+        $this->properties[$name] = $value;
     }
 
     /**
@@ -101,7 +101,7 @@ class ZMObject extends ContainerAware implements Serializable {
      * @param mixed value The value.
      */
     public function set($name, $value) {
-        $this->properties_[$name] = $value;
+        $this->properties[$name] = $value;
     }
 
     /**
@@ -112,10 +112,10 @@ class ZMObject extends ContainerAware implements Serializable {
      */
     public function getPropertyNames($genericOnly=true) {
         if ($genericOnly) {
-            return array_keys($this->properties_);
+            return array_keys($this->properties);
         }
 
-        return array_merge(array_keys($this->properties_), array_keys(Beans::getPropertyMap($this)));
+        return array_merge(array_keys($this->properties), array_keys(Beans::getPropertyMap($this)));
     }
 
     /**
@@ -124,7 +124,7 @@ class ZMObject extends ContainerAware implements Serializable {
      * @return array Map of properties.
      */
     public function getProperties() {
-        return $this->properties_;
+        return $this->properties;
     }
 
     /**
@@ -138,10 +138,10 @@ class ZMObject extends ContainerAware implements Serializable {
      * @param mixed target The target function or method.
      */
     public static function attachMethod($method, $className, $target) {
-        if (!isset(self::$methods_[$method])) {
-            self::$methods_[$method] = array();
+        if (!isset(self::$methods[$method])) {
+            self::$methods[$method] = array();
         }
-        self::$methods_[$method][$className] = $target;
+        self::$methods[$method][$className] = $target;
     }
 
     /**
@@ -151,7 +151,7 @@ class ZMObject extends ContainerAware implements Serializable {
      */
     public function getAttachedMethods() {
         $methods = array();
-        foreach (self::$methods_ as $method => $classInfo) {
+        foreach (self::$methods as $method => $classInfo) {
             foreach (array_keys($classInfo) as $className) {
                 if ($this instanceof $className) {
                     $methods[] = $method;
@@ -172,12 +172,12 @@ class ZMObject extends ContainerAware implements Serializable {
      */
     public function __call($method, $args) {
         // start with dynamic methods to allow attaching methods that start with 'get', etc...
-        if (array_key_exists($method, self::$methods_)) {
+        if (array_key_exists($method, self::$methods)) {
             // method found, so check if there is a class match
-            foreach (array_keys(self::$methods_[$method]) as $className) {
+            foreach (array_keys(self::$methods[$method]) as $className) {
                 if ($this instanceof $className) {
                     $margs = array_merge(array($this), $args);
-                    $target = self::$methods_[$method][$className];
+                    $target = self::$methods[$method][$className];
                     return call_user_func_array($target, $margs);
                 }
             }
