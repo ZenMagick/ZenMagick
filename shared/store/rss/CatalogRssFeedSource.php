@@ -31,6 +31,54 @@ use zenmagick\http\rss\RssSource;
  * @author DerManoMann
  */
 class CatalogRssFeedSource extends ZMObject implements RssSource {
+    protected $fullFeed;
+    protected $multiCurrency
+
+    /**
+     * Create new instance.
+     */
+    public function __construct() {
+        parent::__construct();
+        $this->fullFeed = true;
+        $this->multiCurrency = true;
+    }
+
+
+    /**
+     * Set a flag to indicate whether to produce a full feed or not.
+     *
+     * @param boolean value The new value.
+     */
+    public function setFullFeed($value) {
+        $this->fullFeed = $value;
+    }
+
+    /**
+     * Check if a full feed needs to be generated.
+     *
+     * @return boolean <code>true</code> if a full feed should be generated.
+     */
+    public function isFullFeed() {
+        return $this->fullFeed;
+    }
+
+    /**
+     * Set a flag to indicate whether to generate pricing in multiple currencies.
+     *
+     * @param boolean value The new value.
+     */
+    public function setMultiCurrency($value) {
+        $this->multiCurrency = $value;
+    }
+
+    /**
+     * Check if the multi currency option is set.
+     *
+     * @return boolean <code>true</code> if a full feed should be generated.
+     */
+    public function isMultiCurrency() {
+        return $this->multiCurrency;
+    }
 
     /**
      * {@inheritDoc}
@@ -53,7 +101,7 @@ class CatalogRssFeedSource extends ZMObject implements RssSource {
         }
 
         // get feed data
-        $feed = call_user_func(array($this, $method), $request, $key);
+        $feed = call_user_func(array($this, $method), $request, $this->fullFeed);
         if (null == $feed) {
             return null;
         }
@@ -66,11 +114,14 @@ class CatalogRssFeedSource extends ZMObject implements RssSource {
      * Generate RSS feed for the whole catalog (categories plus products).
      *
      * @param ZMRequest request The current request.
+     * @param boolean full Indicates whether to generate a full feed or not; default is <code>true</code>.
      * @return RssFeed The feed.
      */
-    protected function getCatalogFeed($request) {
-        $categoriesFeed = $this->getCategoriesFeed($request, true);
-        $productsFeed = $this->getProductsFeed($request, true);
+    protected function getCatalogFeed($request, $full=true) {
+        // always true
+        $full = true;
+        $categoriesFeed = $this->getCategoriesFeed($request, $full);
+        $productsFeed = $this->getProductsFeed($request, $full);
 
         $lastPubDate = $categoriesFeed->getLastBuildDate();
         if ($productsFeed->getLastBuildDate() > $lastPubDate) {
@@ -105,6 +156,7 @@ class CatalogRssFeedSource extends ZMObject implements RssSource {
         $items = array();
         $languageId = $request->getSession()->getLanguageId();
         $categoryService = $this->container->get('categoryService');
+        $currencyService = $this->container->get('currencyService');
         foreach ($this->container->get('productService')->getAllProducts(true, $languageId) as $product) {
             $item = new RssItem();
             $item->setTitle($product->getName());
@@ -128,7 +180,11 @@ class CatalogRssFeedSource extends ZMObject implements RssSource {
                         $namePath[] = $category->getName();
                     }
                 }
-                $item->addTag('category', array('id' => $category->getId(), 'name' => $category->getName(), 'path' => array('idPath' => implode('|', $idPath), 'namePath' => implode('|', $namePath))));
+                $item->addTag('category', array(
+                    'id' => $defaultCategory->getId(),
+                    'name' => $defaultCategory->getName(),
+                    'path' => array('idPath' => implode('|', $idPath), 'namePath' => implode('|', $namePath))
+                ));
             }
 
             if ($full) {
@@ -148,6 +204,22 @@ class CatalogRssFeedSource extends ZMObject implements RssSource {
                     } else if ($offers->isSpecial())  {
                         $pricing['special'] = $offers->getSpecialPrice($tax);
                     }
+                }
+
+                if ($this->multiCurrency) {
+                    $currencyPricings = array();
+                    foreach ($currencyService->getCurrencies() as $currency) {
+                        $cp = array();
+                        foreach ($pricing as $key => $value) {
+                            if (!is_string($value)) {
+                                // convert to currency
+                                $value = $currency->convertTo($value);
+                            }
+                            $cp[$key] = $value;
+                        }
+                        $currencyPricings[$currency->getCode()] = $cp;
+                    }
+                    $pricing = $currencyPricings;
                 }
 
                 $item->addTag('pricing', $pricing);

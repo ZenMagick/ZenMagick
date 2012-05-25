@@ -268,18 +268,23 @@ class Session extends ZMObject {
         foreach ($this->container->findTaggedServiceIds('zenmagick.http.session.persist') as $id => $args) {
             // list of services to restore on instance
             $restore = array();
+            $context = null;
             foreach ($args as $elem) {
                 foreach ($elem as $key => $value) {
                     if ('restore' == $key && $value) {
                         $restore = explode(',', $value);
-                        break;
+                    }
+                    if ('context' == $key && $value) {
+                        $context = $value;
                     }
                 }
             }
 
-            $service = $this->container->get($id);
-            if ($service instanceof Serializable) {
-                $autoSave[$id] = array('ser' => serialize($service), 'restore' => $restore);
+            if (Runtime::isContextMatch($context)) {
+                $service = $this->container->get($id);
+                if ($service instanceof Serializable) {
+                    $autoSave[$id] = array('ser' => serialize($service), 'restore' => $restore);
+                }
             }
         }
         $this->setValue(self::AUTO_SAVE_KEY, $autoSave);
