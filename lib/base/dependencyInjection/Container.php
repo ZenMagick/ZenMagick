@@ -78,27 +78,12 @@ class Container extends ContainerBuilder {
     /**
      * {@inheritDoc}
      */
-    protected function createService(Definition $definition, $id){
+    protected function createService(Definition $definition, $id) {
         $service = parent::createService($definition, $id);
         if (null != $service && $service instanceof ContainerAwareInterface) {
             $service->setContainer($this);
         }
         return $service;
-    }
-
-    /**
-     * Get a singleton service.
-     *
-     * <p>This method keeps its own map of references because instances returned by <code>get(..)</code> might be of
-     * scope <em>prototype</em>.</p>
-     *
-     * @param string id The service id.
-     * @param  int invalidBehavior The behavior when the service does not exist.
-     * @return mixed The service instance.
-     * @deprecated
-     */
-    public function getService($id, $invalidBehavior=self::EXCEPTION_ON_INVALID_REFERENCE) {
-        throw new ZMException('method not supported any more; id = '.$id);
     }
 
 }
