@@ -32,13 +32,15 @@ use zenmagick\http\rss\RssSource;
  */
 class CatalogRssFeedSource extends ZMObject implements RssSource {
     protected $fullFeed;
+    protected $multiCurrency
 
     /**
      * Create new instance.
      */
     public function __construct() {
         parent::__construct();
-        $this->fullFeed = false;
+        $this->fullFeed = true;
+        $this->multiCurrency = true;
     }
 
 
@@ -58,6 +60,24 @@ class CatalogRssFeedSource extends ZMObject implements RssSource {
      */
     public function isFullFeed() {
         return $this->fullFeed;
+    }
+
+    /**
+     * Set a flag to indicate whether to generate pricing in multiple currencies.
+     *
+     * @param boolean value The new value.
+     */
+    public function setMultiCurrency($value) {
+        $this->multiCurrency = $value;
+    }
+
+    /**
+     * Check if the multi currency option is set.
+     *
+     * @return boolean <code>true</code> if a full feed should be generated.
+     */
+    public function isMultiCurrency() {
+        return $this->multiCurrency;
     }
 
     /**
@@ -136,6 +156,7 @@ class CatalogRssFeedSource extends ZMObject implements RssSource {
         $items = array();
         $languageId = $request->getSession()->getLanguageId();
         $categoryService = $this->container->get('categoryService');
+        $currencyService = $this->container->get('currencyService');
         foreach ($this->container->get('productService')->getAllProducts(true, $languageId) as $product) {
             $item = new RssItem();
             $item->setTitle($product->getName());
@@ -183,6 +204,22 @@ class CatalogRssFeedSource extends ZMObject implements RssSource {
                     } else if ($offers->isSpecial())  {
                         $pricing['special'] = $offers->getSpecialPrice($tax);
                     }
+                }
+
+                if ($this->multiCurrency) {
+                    $currencyPricings = array();
+                    foreach ($currencyService->getCurrencies() as $currency) {
+                        $cp = array();
+                        foreach ($pricing as $key => $value) {
+                            if (!is_string($value)) {
+                                // convert to currency
+                                $value = $currency->convertTo($value);
+                            }
+                            $cp[$key] = $value;
+                        }
+                        $currencyPricings[$currency->getCode()] = $cp;
+                    }
+                    $pricing = $currencyPricings;
                 }
 
                 $item->addTag('pricing', $pricing);
