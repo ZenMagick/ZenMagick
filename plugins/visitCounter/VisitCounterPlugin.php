@@ -27,7 +27,7 @@ use zenmagick\base\Runtime;
  *
  * This reimplements the ZenCart site visit counter.
  */
-class visitCounterPlugin extends Plugin {
+class VisitCounterPlugin extends Plugin {
 
     /**
      * {@inheritDoc}
