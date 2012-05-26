@@ -62,9 +62,9 @@ class SQLRunner {
             break;
           case (substr($line_upper, 0, 11) == 'DROP TABLE ' && $param[2] != 'IF'):
             if (!self::table_exists(self::$prefix.$param[2]) || !Toolbox::isEmpty($result)) {
-              self::write_to_upgrade_exceptions_table($line, (!\Toolbox::isEmpty($result) ? $result : sprintf(REASON_TABLE_DOESNT_EXIST,$param[2])), $sql_file);
+              self::write_to_upgrade_exceptions_table($line, (!Toolbox::isEmpty($result) ? $result : sprintf(REASON_TABLE_DOESNT_EXIST,$param[2])), $sql_file);
               $ignore_line=true;
-              $result=(!\Toolbox::isEmpty($result) ? $result : sprintf(REASON_TABLE_DOESNT_EXIST,$param[2])); //duplicated here for on-screen error-reporting
+              $result=(!Toolbox::isEmpty($result) ? $result : sprintf(REASON_TABLE_DOESNT_EXIST,$param[2])); //duplicated here for on-screen error-reporting
               break;
             } else {
               $line = 'DROP TABLE ' . self::$prefix . substr($line, 11);
@@ -145,7 +145,7 @@ class SQLRunner {
             break;
           case (substr($line_upper, 0, 13) == 'RENAME TABLE '):
             // RENAME TABLE command cannot be parsed to insert table prefixes, so skip if zen is using prefixes
-            if (!\Toolbox::isEmpty(self::$prefix)) {
+            if (!Toolbox::isEmpty(self::$prefix)) {
               self::write_to_upgrade_exceptions_table($line, 'RENAME TABLE command not supported by upgrader. Please use phpMyAdmin instead.', $sql_file);
               $messageStack->add('RENAME TABLE command not supported by upgrader. Please use phpMyAdmin instead.', 'caution');
 
@@ -244,7 +244,7 @@ class SQLRunner {
           $results++;
           $string .= $newline.'<br />';
           $return_output[]=$output;
-          if (isset($result) && !\Toolbox::isEmpty($result)) $errors[]=$result;
+          if (isset($result) && !Toolbox::isEmpty($result)) $errors[]=$result;
           // reset var's
           $newline = '';
           $keep_together=1;
@@ -286,7 +286,7 @@ class SQLRunner {
   static function drop_index_command($param) {
     //this is only slightly different from the ALTER TABLE DROP INDEX command
     $db = self::get_db();
-    if (\Toolbox::isEmpty($param)) return "Empty SQL Statement";
+    if (Toolbox::isEmpty($param)) return "Empty SQL Statement";
     $index = $param[2];
     $sql = "show index from " . self::$prefix . $param[4];
     $result = $db->Execute($sql);
@@ -304,7 +304,7 @@ class SQLRunner {
   static function create_index_command($param) {
     //this is only slightly different from the ALTER TABLE CREATE INDEX command
     $db = self::get_db();
-    if (\Toolbox::isEmpty($param)) return "Empty SQL Statement";
+    if (Toolbox::isEmpty($param)) return "Empty SQL Statement";
     $index = (strtoupper($param[1])=='INDEX') ? $param[2] : $param[3];
     if (in_array('USING',$param)) return 'USING parameter found. Cannot validate syntax. Please run manually in phpMyAdmin.';
     $table = (strtoupper($param[2])=='INDEX' && strtoupper($param[4])=='ON') ? $param[5] : $param[4];
@@ -326,7 +326,7 @@ class SQLRunner {
 
   static function check_alter_command($param) {
     $db = self::get_db();
-    if (\Toolbox::isEmpty($param)) return "Empty SQL Statement";
+    if (Toolbox::isEmpty($param)) return "Empty SQL Statement";
     switch (strtoupper($param[3])) {
       case ("ADD"):
         if (strtoupper($param[4]) == 'INDEX') {
