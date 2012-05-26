@@ -197,7 +197,7 @@ class ZMCategory extends ZMObject {
      */
     public function getPath() {
         $path = array();
-        array_push($path, $this->properties_['categoryId']);
+        array_push($path, $this->properties['categoryId']);
         $parent = $this->getParent();
         while (null !== $parent) {
             array_push($path, $parent->getId());
@@ -273,7 +273,7 @@ class ZMCategory extends ZMObject {
     public function getDecendantIds($includeSelf=true) {
         $ids = array();
         if ($includeSelf) {
-            $ids[] = $this->properties_['categoryId'];
+            $ids[] = $this->properties['categoryId'];
         }
         foreach ($this->getChildren() as $child) {
             $childIds = $child->getDecendantIds(true);

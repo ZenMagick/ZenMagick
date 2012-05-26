@@ -37,7 +37,7 @@ class ZMRegistrationForm extends FormData {
      */
     public function getAccount() {
         $account = Beans::getBean('ZMAccount');
-        $properties = $this->properties_;
+        $properties = $this->getProperties();
 
         // don't need these
         foreach (array(Runtime::getSettings()->get('zenmagick.http.request.idName'), 'formId', 'action', 'confirmation') as $name) {
@@ -58,7 +58,7 @@ class ZMRegistrationForm extends FormData {
      */
     public function getAddress() {
         $address = Beans::getBean('ZMAddress');
-        $properties = $this->properties_;
+        $properties = $this->getProperties();
 
         // don't need these
         foreach (array(Runtime::getSettings()->get('zenmagick.http.request.idName'), 'formId', 'action', 'password', 'confirmation') as $name) {

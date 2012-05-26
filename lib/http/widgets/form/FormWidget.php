@@ -205,7 +205,7 @@ abstract class FormWidget extends Widget {
         if (!empty($class)) {
             $attr .= ' class="'.$class.'"';
         }
-        foreach ($this->properties_ as $name => $value) {
+        foreach ($this->getProperties() as $name => $value) {
             if (in_array($name, $this->attributeNames_)) {
                 if (in_array($name, self::$NO_VAL_ATTR)) {
                     if (Toolbox::asBoolean($this->get($name))) {

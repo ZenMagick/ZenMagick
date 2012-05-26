@@ -62,7 +62,7 @@ class ZMAccountForm extends FormData {
      */
     public function getAccount() {
         $account = Beans::getBean('ZMAccount');
-        $properties = $this->properties_;
+        $properties = $this->getProperties();
 
         // TODO: see comment in c'tor
         // don't need these
