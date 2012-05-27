@@ -157,11 +157,11 @@ class Plugins extends ZMObject {
                             $configLoader = $this->container->get('contextConfigLoader');
                             $configLoader->setConfig($status['config']);
                             $configLoader->process();
-                            if (array_key_exists('meta', $config)) {
-                                $meta = $config['meta'];
+                            if (array_key_exists('meta', $status['config'])) {
+                                $meta = $status['config']['meta'];
                                 $properties = array();
                                 foreach ($metaProperties as $key) {
-                                    if (array_key_exists($key, $meya)) {
+                                    if (array_key_exists($key, $meta)) {
                                         $properties[$key] = $meta[$key];
                                     }
                                 }
