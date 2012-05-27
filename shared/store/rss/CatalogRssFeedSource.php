@@ -32,7 +32,7 @@ use zenmagick\http\rss\RssSource;
  */
 class CatalogRssFeedSource extends ZMObject implements RssSource {
     protected $fullFeed;
-    protected $multiCurrency
+    protected $multiCurrency;
 
     /**
      * Create new instance.
