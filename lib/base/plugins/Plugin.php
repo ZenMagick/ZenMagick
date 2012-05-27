@@ -48,13 +48,13 @@ use zenmagick\base\ZMObject;
  * @author DerManoMann <mano@zenmagick.org> <mano@zenmagick.org>
  */
 class Plugin extends ZMObject {
-    private $id_;
-    private $name_;
-    private $description_;
-    private $version_;
+    private $id;
+    private $name;
+    private $description;
+    private $version;
     private $enabled_;
-    private $pluginDirectory_;
-    private $context_;
+    private $pluginDirectory;
+    private $context;
 
 
     /**
@@ -63,13 +63,13 @@ class Plugin extends ZMObject {
     public function __construct() {
         parent::__construct();
         // default
-        $this->id_ = get_class($this);
-        $this->name_ = '';
-        $this->description_ = '';
-        $this->version_ = '0.0';
+        $this->id = get_class($this);
+        $this->name = '';
+        $this->description = '';
+        $this->version = '0.0';
         $this->enabled_ = null;
-        $this->pluginDirectory_ = null;
-        $this->context_ = null;
+        $this->pluginDirectory = null;
+        $this->context = null;
     }
 
 
@@ -79,7 +79,7 @@ class Plugin extends ZMObject {
      * @return string A unique id.
      */
     public function getId() {
-        return $this->id_;
+        return $this->id;
     }
 
     /**
@@ -88,7 +88,7 @@ class Plugin extends ZMObject {
      * @param string id A unique id.
      */
     public function setId($id) {
-        $this->id_ = $id;
+        $this->id = $id;
     }
 
    /**
@@ -97,7 +97,7 @@ class Plugin extends ZMObject {
      * @return string The name.
      */
     public function getName() {
-        return $this->name_;
+        return $this->name;
     }
 
     /**
@@ -106,7 +106,7 @@ class Plugin extends ZMObject {
      * @param string name The name.
      */
     public function setName($name) {
-        $this->name_ = $name;
+        $this->name = $name;
     }
 
     /**
@@ -115,7 +115,7 @@ class Plugin extends ZMObject {
      * @return string The description.
      */
     public function getDescription() {
-        return $this->description_;
+        return $this->description;
     }
 
     /**
@@ -124,7 +124,7 @@ class Plugin extends ZMObject {
      * @param string description The description.
      */
     public function setDescription($description) {
-        $this->description_ = $description;
+        $this->description = $description;
     }
 
     /**
@@ -133,7 +133,7 @@ class Plugin extends ZMObject {
      * @return string The version.
      */
     public function getVersion() {
-        return $this->version_;
+        return $this->version;
     }
 
     /**
@@ -142,7 +142,7 @@ class Plugin extends ZMObject {
      * @param string version The version.
      */
     public function setVersion($version) {
-        $this->version_ = $version;
+        $this->version = $version;
     }
 
     /**
@@ -151,7 +151,7 @@ class Plugin extends ZMObject {
      * @return string The plugin directoryr.
      */
     public function getPluginDirectory() {
-        return $this->pluginDirectory_;
+        return $this->pluginDirectory;
     }
 
     /**
@@ -160,7 +160,7 @@ class Plugin extends ZMObject {
      * @param string directory The installation folder.
      */
     public function setPluginDirectory($directory) {
-        $this->pluginDirectory_ = $directory;
+        $this->pluginDirectory = $directory;
     }
 
     /**
@@ -194,7 +194,7 @@ class Plugin extends ZMObject {
      * @return string The context string.
      */
     public function getContext() {
-        return $this->context_;
+        return $this->context;
     }
 
     /**
@@ -203,7 +203,7 @@ class Plugin extends ZMObject {
      * @param string s The context string.
      */
     public function setContext($s) {
-        $this->context_ = $s;
+        $this->context = $s;
     }
 
 }
