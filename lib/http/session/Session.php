@@ -294,6 +294,11 @@ class Session extends ZMObject {
      * Restore persisted services.
      */
     protected function restorePersistedServices() {
+        if ($this->container->isFrozen()) {
+            // TODO: check this is ok
+            // this should only happen on regenerate
+            return;
+        }
         // restore persisted services
         foreach ((array)$this->getValue(self::AUTO_SAVE_KEY) as $id => $serdat) {
             $obj = unserialize($serdat['ser']);
