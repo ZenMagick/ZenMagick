@@ -46,7 +46,6 @@ class Plugin extends zenmagick\http\plugins\HttpPlugin {
     private $configValues_;
     private $enabledKey_;
     private $orderKey_;
-    private $preferredSortOrder_;
     private $messages_ = null;
 
 
@@ -63,7 +62,6 @@ class Plugin extends zenmagick\http\plugins\HttpPlugin {
         $this->setDescription($description);
         $this->setVersion($version);
         $this->messages_ = array();
-        $this->preferredSortOrder_ = 0;
         $this->configValues_ = null;
         // all
         $this->setContext('admin,storefront');
@@ -148,15 +146,6 @@ class Plugin extends zenmagick\http\plugins\HttpPlugin {
     }
 
     /**
-     * Set the preferred sort order.
-     *
-     * @param int sortOrder The preferred sort order.
-     */
-    public function setPreferredSortOrder($sortOrder) {
-        $this->preferredSortOrder_ = $sortOrder;
-    }
-
-    /**
      * Install this plugin.
      *
      * <p>This default implementation will automatically create the following settings:</p>
@@ -168,7 +157,7 @@ class Plugin extends zenmagick\http\plugins\HttpPlugin {
     public function install() {
         $this->addConfigValue('Plugin Enabled', self::KEY_ENABLED, 'true', 'Enable/disable this plugin',
             'widget@booleanFormWidget#name='.self::KEY_ENABLED.'&default=true&label.true=Enabled&label.false=Disabled&style=checkbox', 0);
-        $this->addConfigValue('Plugin sort order', self::KEY_SORT_ORDER, $this->preferredSortOrder_, 'Controls the execution order of plugins',
+        $this->addConfigValue('Plugin sort order', self::KEY_SORT_ORDER, $this->getPreferredSortOrder(), 'Controls the execution order of plugins',
             'widget@textFormWidget#name='.self::KEY_SORT_ORDER.'&default=0&size=6&maxlength=5', 0);
     }
 
@@ -238,16 +227,12 @@ class Plugin extends zenmagick\http\plugins\HttpPlugin {
     }
 
     /**
-     * Get the sort order.
-     *
-     * @return int The sort order index.
+     * {@inheritDoc}
      */
     public function getSortOrder() { return (int)$this->get(self::KEY_SORT_ORDER); }
 
     /**
-     * Set the sort order.
-     *
-     * @param int sortOrder The sort order index.
+     * {@inheritDoc}
      */
     public function setSortOrder($sortOrder) { $this->set(self::KEY_SORT_ORDER, $sortOrder); }
 
