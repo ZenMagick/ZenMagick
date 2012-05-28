@@ -55,6 +55,9 @@ class Plugin extends ZMObject {
     private $enabled_;
     private $pluginDirectory;
     private $context;
+    private $sortOrder;
+    private $preferredSortOrder;
+    private $options;
 
 
     /**
@@ -70,6 +73,9 @@ class Plugin extends ZMObject {
         $this->enabled_ = null;
         $this->pluginDirectory = null;
         $this->context = null;
+        $this->sortOrder = 0;
+        $this->preferredSortOrder = 0;
+        $this->options = array();
     }
 
 
@@ -204,6 +210,61 @@ class Plugin extends ZMObject {
      */
     public function setContext($s) {
         $this->context = $s;
+    }
+
+    /**
+     * Get the preferred sort order value.
+     *
+     * @return int The preferred sort order value.
+     */
+    public function getPreferredSortOrder() {
+        return $this->preferredSortOrder;
+    }
+
+    /**
+     * Set the preferred sort order value.
+     *
+     * @param int preferredSortOrder The preferred sort order value.
+     */
+    public function setPreferredSortOrder($preferredSortOrder) {
+        $this->preferredSortOrder = $preferredSortOrder;
+    }
+
+
+    /**
+     * Get the sort order value.
+     *
+     * @return int The sort order value.
+     */
+    public function getSortOrder() {
+        return $this->sortOrder;
+    }
+
+    /**
+     * Set the sort order value.
+     *
+     * @param int sortOrder The sort order value.
+     */
+    public function setSortOrder($sortOrder) {
+        $this->sortOrder = $sortOrder;
+    }
+
+    /**
+     * Get the map of configuration options.
+     *
+     * @return array Map of configuration options.
+     */
+    public function getOptions() {
+        return $this->options;
+    }
+
+    /**
+     * Set the map of configuration options.
+     *
+     * @param array options Map of configuration options.
+     */
+    public function setOptions(array $options) {
+        $this->options = $options;
     }
 
 }

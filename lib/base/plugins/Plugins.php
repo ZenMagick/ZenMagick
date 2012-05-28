@@ -123,9 +123,6 @@ class Plugins extends ZMObject {
         $localeService = $this->container->get('localeService');
         $settingsService = $this->container->get('settingsService');
 
-        // set some other optional properties
-        $metaProperties = array('context', 'preferredSortOrder');
-
         $plugins = array();
         foreach ($this->getStatusMap() as $id => $status) {
             if (array_key_exists($id, $this->plugins)) {
@@ -157,16 +154,6 @@ class Plugins extends ZMObject {
                             $configLoader = $this->container->get('contextConfigLoader');
                             $configLoader->setConfig($status['config']);
                             $configLoader->process();
-                            if (array_key_exists('meta', $status['config'])) {
-                                $meta = $status['config']['meta'];
-                                $properties = array();
-                                foreach ($metaProperties as $key) {
-                                    if (array_key_exists($key, $meta)) {
-                                        $properties[$key] = $meta[$key];
-                                    }
-                                }
-                                Beans::setAll($plugin, $properties);
-                            }
                         }
 
                         $plugin->init();
@@ -177,7 +164,8 @@ class Plugins extends ZMObject {
                     }
 
                     if ($status['config'] && array_key_exists('meta', $status['config'])) {
-                        Beans::setAll($plugin, $status['config']['meta']);
+                        $meta = $status['config']['meta'];
+                        Beans::setAll($plugin, $meta);
                     }
 
                     $this->plugins[$id] = $plugins[$id] = $plugin;
