@@ -37,6 +37,8 @@ class Session extends \zenmagick\http\session\Session {
      * @todo: drop
      */
     public function setValue($name, $value=null, $namespace=null) {
+        // ZCSMELL
+        if (!$this->isStarted()) $this->start();
         parent::setValue($name, $value, $namespace);
         if (isset($_SESSION)) {
             $_SESSION[$name] = $value;
