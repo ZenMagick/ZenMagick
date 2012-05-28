@@ -19,6 +19,7 @@
  */
 use zenmagick\http\HttpApplication;
 use zenmagick\base\Runtime;
+use zenmagick\base\ZMException;
 $rootDir = realpath(__DIR__.'/../../..');
 include_once $rootDir.'/lib/base/Application.php';
 include_once $rootDir.'/lib/http/HttpApplication.php';
@@ -28,25 +29,30 @@ $application = new HttpApplication($config);
 $application->bootstrap(array('init'));
 $installer = new zenmagick\apps\store\admin\installation\InstallationPatcher();
 
-$messageService = Runtime::getContainer()->get('messageService');
-// Get DB Config first!
-$status = $installer->getPatchForId('importZencartConfigure')->patch();
+try {
+    $messageService = Runtime::getContainer()->get('messageService');
+    // Get DB Config first!
+    $status = $installer->getPatchForId('importZencartConfigure')->patch();
 
-$patches = array('importZencartConfigure', 'sqlConfig', 'sacsPermissions', 'sqlAdminRoles', 'sqlAdminPrefs');
-foreach ($patches as $patch) {
-    $patchObj = $installer->getPatchForId($patch);
-    if ($patchObj->isOpen()) {
-        $status = $patchObj->patch();
-        $messageService->addAll($patchObj->getMessages());
-        if ($status) {
-            $messageService->success("'".$patchObj->getLabel()."' installed successfully");
-        } else {
-            $messageService->error("Could not install '".$patchObj->getLabel()."'");
+    $patches = array('importZencartConfigure', 'sqlConfig', 'sacsPermissions', 'sqlAdminRoles', 'sqlAdminPrefs');
+    foreach ($patches as $patch) {
+        $patchObj = $installer->getPatchForId($patch);
+        if ($patchObj->isOpen()) {
+            $status = $patchObj->patch();
+            $messageService->addAll($patchObj->getMessages());
+            if ($status) {
+                $messageService->success("'".$patchObj->getLabel()."' installed successfully");
+            } else {
+                $messageService->error("Could not install '".$patchObj->getLabel()."'");
+            }
         }
+        // @todo DB_PREFIX must die! It is needed for the sqlConfig patch to run.
+        if (!defined('DB_PREFIX')) define('DB_PREFIX', \ZMRuntime::getDatabase()->getPrefix());
     }
-    // @todo DB_PREFIX must die! It is needed for the sqlConfig patch to run.
-    if (!defined('DB_PREFIX')) define('DB_PREFIX', \ZMRuntime::getDatabase()->getPrefix());
-}
 
-$request = Runtime::getContainer()->get('request');
-$request->redirect($request->url('login'));
+    $request = Runtime::getContainer()->get('request');
+    $request->redirect($request->url('login'));
+} catch (Exception $e) {
+    echo $e->getTraceAsString();
+    die ($e->getMessage());
+}
