@@ -128,16 +128,16 @@ class EventFixes extends ZMObject {
         $action = $request->getParameter('action');
 
         $cartActionMap = array(
-            'update_product' => 'actionUpdateProduct',
-            'add_product' => 'actionAddProduct',
-            'buy_now' => 'actionBuyNow',
-            'multiple_products_add_product' => 'actionMultipleAddProduct',
-            'notify' => 'actionNotify',
-            'notify_remove' => 'actionNotifyRemove',
-            'cust_order' => 'actionCustomerOrder',
-            'remove_product' => 'actionRemoveProduct',
-            'cart' => 'actionCartUserAction',
-            'empty_cart' => 'reset',
+            'update_product' => array('method' => 'actionUpdateProduct', 'multi' => true),
+            'add_product' => array('method' => 'actionAddProduct', 'multi' => false),
+            'buy_now' => array('method' => 'actionBuyNow', 'multi' => false),
+            'multiple_products_add_product' => array('method' => 'actionMultipleAddProduct', 'multi' => true),
+            'notify' => array('method' => 'actionNotify', 'multi' => false),
+            'notify_remove' => array('method' => 'actionNotifyRemove', 'multi' => false),
+            'cust_order' => array('method' => 'actionCustomerOrder', 'multi' => false),
+            'remove_product' => array('method' => 'actionRemoveProduct', 'multi' => false),
+            'cart' => array('method' => 'actionCartUserAction', 'multi' => false),
+            'empty_cart' => array('method' => 'reset', 'multi' => false)
         );
 
         if (!in_array($action, array_keys($cartActionMap))) return;
@@ -176,10 +176,9 @@ class EventFixes extends ZMObject {
             $_GET['number_of_uploads'] = $uploads;
         }
 
-        $cartMethod = isset($cartActionMap[$action]) ? $cartActionMap[$action] : null;
+        $cartMethod = isset($cartActionMap[$action]) ? $cartActionMap[$action]['method'] : null;
         if (null != $cartMethod) {
-            // TODO: where does this happen?
-            if (is_array($_POST['products_id'])) {
+            if (is_array($_POST['products_id']) && !$cartActionMap[$action]['method']) {
                 $_POST['products_id'] = $request->getProductId();
             }
             call_user_func_array(array($cart->cart_, $cartMethod), array($redirectTarget, $params));
