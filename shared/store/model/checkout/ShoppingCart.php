@@ -729,8 +729,9 @@ class ShoppingCart extends ZMObject {
      * @param int quantity The quantity; default is <code>1</code>.
      * @param array attributes Optional list of attributes; key is the attribute id, the value can
      *  be either an int or <code>ZMAttributeValue</code>; default is an empty <code>array</code>.
-     * @param boolean notify Flag whether to add the product to the notify list or not; default is <code>true</code>
+     * @param boolean notify Flag whether to add the product to the notify list or not; default is <code>true</code>.
      * @return boolean <code>true</code> if the product was added, <code>false</code> if not.
+     * @deprecated The <code>$notify</code> parameter is deprecated and will be removed soon.
      */
     public function addProduct($productId, $quantity=1, $attributes=array(), $notify=true) {
         $product = $this->container->get('productService')->getProductForId($productId);
@@ -762,6 +763,10 @@ class ShoppingCart extends ZMObject {
 
         // use adjusted qty on explicit sku qty
         $this->cart_->add_cart($productId, $this->getItemQuantityFor($sku, false) + $adjustedQty, $attributes, $notify);
+
+        // todo:
+        // - update contents
+        // - ??
         $this->items_ = null;
 
         return true;
