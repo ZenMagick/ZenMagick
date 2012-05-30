@@ -39,7 +39,6 @@ use zenmagick\apps\store\model\checkout\ShoppingCart;
  * code do currently not seem worth the effort.</strong></p>
  *
  * @author DerManoMann
- * @todo update method
  */
 class ShoppingCartService extends ZMObject {
 
@@ -49,6 +48,10 @@ class ShoppingCartService extends ZMObject {
      * @param ShoppingCart shoppingCart The cart to save.
      */
     public function saveCart($shoppingCart) {
+        if (0 == $shoppingCart->getAccountId()) {
+            return;
+        }
+
         // get existing data to decide on whether to INSERT or UPDATE
         $sql = "SELECT products_id FROM " . TABLE_CUSTOMERS_BASKET . " WHERE customers_id = :accountId";
         $skuIds = array();
@@ -101,20 +104,30 @@ class ShoppingCartService extends ZMObject {
         $sql = "DELETE FROM " . TABLE_CUSTOMERS_BASKET . "
                 WHERE customers_id = :accountId";
         ZMRuntime::getDatabase()->updateObj($sql, array('accountId' => $shoppingCart->getAccountId()), TABLE_CUSTOMERS_BASKET);
-        $sql = "DELETE FRMO " . TABLE_CUSTOMERS_BASKET_ATTRIBUTES . "
+        $sql = "DELETE FROM " . TABLE_CUSTOMERS_BASKET_ATTRIBUTES . "
                 WHERE customers_id = :accountId";
         ZMRuntime::getDatabase()->updateObj($sql, array('accountId' => $shoppingCart->getAccountId()), TABLE_CUSTOMERS_BASKET_ATTRIBUTES);
     }
 
     /**
-     * Load and populate a cart.
+     * Update the given cart.
+     *
+     * @param ShoppingCart shoppingCart The cart to save.
+     */
+    public function updateCart($shoppingCart) {
+        $this->clearCart($shoppingCart);
+        $this->saveCart($shoppingCart);
+    }
+
+    /**
+     * Get contents for the given account id.
      *
      * @param int accountId The owner's account id.
-     * @return ShoppingCart The cart.
+     * @return array The shopping cart contents.
      */
-    public function loadCartForAccountId($accountId) {
+    public function getContentsForAccountId($accountId) {
         // build contents
-        $cartContents = array();
+        $contents = array();
 
         // read all in one go
         $sql = "SELECT * FROM " . TABLE_CUSTOMERS_BASKET_ATTRIBUTES . "
@@ -137,16 +150,29 @@ class ShoppingCartService extends ZMObject {
                     $attributes_values[$result['attributeId']] = $result['attributeValueText'];
                 }
             }
-            $cartContents[$id] = array(
+            $contents[$id] = array(
                 'qty' => $quantity,
                 'attributes' => $attributes,
                 'attributes_values' => $attributes_values,
             );
         }
 
+        return $contents;
+    }
+
+    /**
+     * Load and populate a cart.
+     *
+     * <p>This will load and instantiate a <strong>new</strong> shopping cart instance.</p>
+     *
+     * @param int accountId The owner's account id.
+     * @return ShoppingCart The cart.
+     * @deprecated Use getContentsForAccountId($accountId) to load the contents and set that on the shared shopping cart instance instead
+     */
+    public function loadCartForAccountId($accountId) {
         $shoppingCart = Beans::getBean('zenmagick\apps\store\model\checkout\ShoppingCart');
         $shoppingCart->setCheckoutHelper($this->container->get('checkoutHelper'));
-        $shoppingCart->setContents($cartContents);
+        $shoppingCart->setContents($this->getContentsForAccountId($accountId));
         return $shoppingCart;
     }
 
