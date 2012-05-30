@@ -140,6 +140,15 @@ class Theme extends ZMObject {
     }
 
     /**
+     * Get the meta data.
+     *
+     * @return array The meta data.
+     */
+    public function getMeta() {
+        return $this->config['meta'];
+    }
+
+    /**
      * Set full theme config.
      *
      * @param array config The new config map.
