@@ -254,6 +254,7 @@ class Session extends \zenmagick\http\session\Session {
         $this->container->get('accountService')->updateAccountLoginStats($account->getId());
 
         // restore cart contents
+        $this->container->get('shoppingCart')->setAccountId($account->getId());
         $this->restoreCart();
 
         return true;
