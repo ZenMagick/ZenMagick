@@ -58,6 +58,7 @@ class ShoppingCart extends ZMObject {
         $cart = $this->session->getValue('cart');
         // TODO: quick fix using 'new' until we drop zencart's shopping cart class altogether
         $this->cart_ = (null != $cart) ? $cart : new shoppingCart;
+        $this->setContents($this->cart_->contents);
         // TODO: remove
         $comments = $this->session->getValue('comments');
         $this->setComments(null !== $comments ? $comments : '');
@@ -116,6 +117,16 @@ class ShoppingCart extends ZMObject {
     public function isEmpty() { return 0 == $this->getSize(); }
 
     /**
+     * Clear this cart.
+     */
+    public function clear() {
+        $this->contents = array();
+        $this->items_ = null;
+        $this->comments = null;
+        $this->container->get('shoppingCartService')->clearCart($this);
+    }
+
+    /**
      * Get the size of the cart.
      *
      * <p><strong>NOTE:</strong> This is the number of line items in the cart, not the total number of products.</p>
@@ -133,8 +144,8 @@ class ShoppingCart extends ZMObject {
      */
     public function getHash() {
         $s = '';
-        foreach ($this->getItems() as $item) {
-            $s .= ';'.$item->getQuantity().":".$item->getId();
+        foreach ($this->contents() as $id => $data) {
+            $s .= sprintf(';%s:%s', $data['qty'], $id);
         }
 
         return md5($s);
@@ -718,6 +729,38 @@ class ShoppingCart extends ZMObject {
     }
 
     /**
+     * Extract attributes values from attribute data.
+     *
+     * @param array attributes All attribute data.
+     * @param ZMProduct product The product.
+     * @return array Attributes values.
+     */
+    protected function splitAttributes($attributeData, $product) {
+        $allAttributes = $product->getAttributes();
+        $textOptionPrefix = $this->container->get('settingsService')->get('textOptionPrefix');
+
+        $attributes = array();
+        $attributesValues = array();
+
+        // iterate and check for text type attributes
+        foreach ($allAttributes as $attribute) {
+            $attributeId = $attribute->getId();
+            if (in_array($attribute->getType(), array(PRODUCTS_OPTIONS_TYPE_TEXT, PRODUCTS_OPTIONS_TYPE_FILE))) {
+                $key = $textOptionPrefix.$attributeId;
+                if (array_key_exists($key, $attributeData) && !empty($attributeData[$key])) {
+                    $attributesValues[$attributeId] = $attributeData[$key];
+                    $attributes[$attributeId] = '';
+                }
+                //??? $attributes[$attributeId] = '';
+            } else if (array_key_exists($attributeId, $attributeData)) {
+                $attributes[$attributeId] = $attributeData[$attributeId];
+            }
+        }
+
+        return array($attributes, $attributesValues);
+    }
+
+    /**
      * Add a product in the given quantity.
      *
      * <p><strong>Doesn't support uploads (yet)</strong>.</p>
@@ -729,14 +772,16 @@ class ShoppingCart extends ZMObject {
      * @param int quantity The quantity; default is <code>1</code>.
      * @param array attributes Optional list of attributes; key is the attribute id, the value can
      *  be either an int or <code>ZMAttributeValue</code>; default is an empty <code>array</code>.
-     * @param boolean notify Flag whether to add the product to the notify list or not; default is <code>true</code>.
      * @return boolean <code>true</code> if the product was added, <code>false</code> if not.
-     * @deprecated The <code>$notify</code> parameter is deprecated and will be removed soon.
      */
-    public function addProduct($productId, $quantity=1, $attributes=array(), $notify=true) {
+    public function addProduct($productId, $quantity=1, $attributes=array()) {
+        if (array_key_exists($sku, $this->contents)) {
+            //return $this->updateProduct($productId, $quantity);
+        }
+
         $product = $this->container->get('productService')->getProductForId($productId);
         if (null == $product) {
-            Runtime::getLogging()->error('failed to add product to cart; productId='.$productId);
+            $this->container->get('loggingService')->error('failed to add product to cart; productId='.$productId);
             return false;
         }
         $attributes = $this->sanitizeAttributes($product, $attributes);
@@ -761,12 +806,22 @@ class ShoppingCart extends ZMObject {
             $adjustedQty = $maxOrderQty - $cartQty;
         }
 
-        // use adjusted qty on explicit sku qty
-        $this->cart_->add_cart($productId, $this->getItemQuantityFor($sku, false) + $adjustedQty, $attributes, $notify);
+        // 1) update contents
+        /*
+        list($attributes, $attributesValues) =$this->splitAttributes($attributes, $product);
+        $this->contents[$sku] = array(
+            'qty' => $adjustedQty,
+            'attributes' => $attributes,
+            'attributes_values' => $attributesValues
+        );
+        */
+
+        // TODO: REMOVE
+        $this->cart_->add_cart($productId, $this->getItemQuantityFor($sku, false) + $adjustedQty, $attributes, true);
 
         // todo:
-        // - update contents
-        // - ??
+        // - persist
+        // - update card ID? where???
         $this->items_ = null;
 
         return true;
@@ -793,10 +848,9 @@ class ShoppingCart extends ZMObject {
      *
      * @param string sku The product sku.
      * @param int quantity The quantity.
-     * @param boolean notify Flag whether to add the product to the notify list or not; default is <code>true</code>
      * @return boolean <code>true</code> if the product was updated, <code>false</code> if not.
      */
-    public function updateProduct($sku, $quantity, $notify=true) {
+    public function updateProduct($sku, $quantity) {
         if (null !== $sku && null !== $quantity) {
             if (0 == $quantity) {
                 return $this->removeProduct($sku);
@@ -821,7 +875,7 @@ class ShoppingCart extends ZMObject {
                 $adjustedQty = $maxOrderQty;
             }
 
-            $this->cart_->add_cart($sku, $adjustedQty, $attributes, $notify);
+            $this->cart_->add_cart($sku, $adjustedQty, $attributes, true);
 
             return true;
         }
@@ -835,13 +889,14 @@ class ShoppingCart extends ZMObject {
      * @return ZMAddress The tax address.
      */
     public function getTaxAddress() {
-        switch (Runtime::getSettings()->get('productTaxBase')) {
+        $settingsService = $this->container->get('settingsService');
+        switch ($settingsService->get('productTaxBase')) {
             case TaxRate::TAX_BASE_SHIPPING:
                 return $this->isVirtual() ? $this->getBillingAddress() : $this->getShippingAddress();
             case TaxRate::TAX_BASE_BILLING:
                 return $this->getBillingAddress();
             case TaxRate::TAX_BASE_STORE:
-                if ($address->getZoneId() == Runtime::getSettings()->get('storeZone')) {
+                if ($address->getZoneId() == $settingsService->get('storeZone')) {
                     $address = $this->getBillingAddress();
                 } else {
                     $address = $this->isVirtual() ? $this->getBillingAddress() : $this->getShippingAddress();
@@ -849,7 +904,7 @@ class ShoppingCart extends ZMObject {
                 return $address;
         }
 
-        Runtime::getLogging()->error('invalid productTaxBase!');
+        $this->container->get('loggingService')->error('invalid productTaxBase!');
         return null;
     }
 
@@ -865,8 +920,9 @@ class ShoppingCart extends ZMObject {
      */
     function prepare_uploads($product, $attributes=array()) {
         $uploads = 0;
+        $uploadOptionPrefix = $this->container->get('settingsService')->get('uploadOptionPrefix');
         foreach ($attributes as $name => $value) {
-            if (0 === strpos($name, Runtime::getSettings()->get('uploadOptionPrefix'))) {
+            if (0 === strpos($name, $uploadOptionPrefix)) {
                 ++$uploads;
             }
         }
@@ -887,8 +943,9 @@ class ShoppingCart extends ZMObject {
      * @todo return note of changes made
      */
     protected function sanitizeAttributes($product, $attributes=array()) {
+        $settingsService = $this->container->get('settingsService');
         //TODO: where should this actually be? attributes, rules, cart, products?
-        if (!Runtime::getSettings()->get('apps.store.isSanitizeAttributes', false)) {
+        if (!$settingsService->get('apps.store.isSanitizeAttributes', false)) {
             return $attributes;
         }
 
@@ -899,11 +956,12 @@ class ShoppingCart extends ZMObject {
         $defaultAttributes = $product->getAttributes();
 
         // check for valid values
+        $textOptionPrefix = $this->container->get('settingsService')->get('textOptionPrefix');
         $validAttributeIds = array();
         foreach ($defaultAttributes as $attribute) {
             $attributeId = $attribute->getId();
-            if (\ZMLangUtils::inArray($attribute->getType(), array(PRODUCTS_OPTIONS_TYPE_TEXT, PRODUCTS_OPTIONS_TYPE_FILE))) {
-                $attributeId = Runtime::getSettings()->get('textOptionPrefix') . $attributeId;
+            if (in_array($attribute->getType(), array(PRODUCTS_OPTIONS_TYPE_TEXT, PRODUCTS_OPTIONS_TYPE_FILE))) {
+                $attributeId = $textOptionPrefix . $attributeId;
             }
             $validAttributeIds[$attributeId] = $attributeId;
             if (!array_key_exists($attributeId, $attributes)) {
@@ -921,15 +979,15 @@ class ShoppingCart extends ZMObject {
                     }
                 }
 
-                if (\ZMLangUtils::inArray($attribute->getType(), array(PRODUCTS_OPTIONS_TYPE_RADIO, PRODUCTS_OPTIONS_TYPE_SELECT))) {
+                if (in_array($attribute->getType(), array(PRODUCTS_OPTIONS_TYPE_RADIO, PRODUCTS_OPTIONS_TYPE_SELECT))) {
                     // use default id for radio and select
                     $attributes[$attributeId] = $defaultId;
-                } else if (\ZMLangUtils::inArray($attribute->getType(), array(PRODUCTS_OPTIONS_TYPE_TEXT, PRODUCTS_OPTIONS_TYPE_FILE))) {
+                } else if (in_array($attribute->getType(), array(PRODUCTS_OPTIONS_TYPE_TEXT, PRODUCTS_OPTIONS_TYPE_FILE))) {
                     // use emtpy string for text input attributes
                     $attributes[$attributeId] = '';
                 }
             } else {
-                if (\ZMLangUtils::inArray($attribute->getType(), array(PRODUCTS_OPTIONS_TYPE_RADIO, PRODUCTS_OPTIONS_TYPE_SELECT))) {
+                if (in_array($attribute->getType(), array(PRODUCTS_OPTIONS_TYPE_RADIO, PRODUCTS_OPTIONS_TYPE_SELECT))) {
                     // validate single non input attributes
                     $defaultId = null;
                     $isValid = false;
