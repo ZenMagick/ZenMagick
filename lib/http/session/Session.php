@@ -295,8 +295,6 @@ class Session extends ZMObject {
      */
     protected function restorePersistedServices() {
         if ($this->container->isFrozen()) {
-            // TODO: check this is ok
-            // this should only happen on regenerate
             return;
         }
         // restore persisted services
@@ -325,12 +323,14 @@ class Session extends ZMObject {
             unset($_COOKIE[session_name()]);
         }
 
+        $this->data = array();
+        $_SESSION = array();
+
         session_unset();
         if ($this->isStarted()) {
+            $this->close(false);
             session_destroy();
         }
-
-        $this->data = array();
     }
 
     /**
