@@ -272,4 +272,24 @@ class ThemeService extends ZMObject {
         return \ZMRuntime::getDatabase()->updateModel(TABLE_TEMPLATE_SELECT, $config);
     }
 
+    /**
+     * Create theme config.
+     *
+     * @param mixed config The theme config to create.
+     * @return boolean <code>true</code> on success.
+     */
+    public function createThemeConfig($config) {
+        return \ZMRuntime::getDatabase()->createModel(TABLE_TEMPLATE_SELECT, $config);
+    }
+
+    /**
+     * Delete theme config.
+     *
+     * @param mixed config The theme config to delete.
+     * @return boolean <code>true</code> on success.
+     */
+    public function deleteThemeConfig($config) {
+        return \ZMRuntime::getDatabase()->removeModel(TABLE_TEMPLATE_SELECT, $config);
+    }
+
 }
