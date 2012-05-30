@@ -240,8 +240,9 @@ class ZMObject extends ContainerAware implements Serializable {
 
         $sprops = unserialize($serialized);
         foreach ($sprops as $name => $sprop) {
-            $this->set($name, unserialize($sprop));
+            $sprops[$name] = unserialize($sprop);
         }
+        Beans::setAll($this, $sprops);
     }
 
     /**
