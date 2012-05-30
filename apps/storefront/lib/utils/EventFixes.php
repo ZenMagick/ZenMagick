@@ -162,7 +162,7 @@ class EventFixes extends ZMObject {
             }
         }
 
-        $cart = $request->getShoppingCart();
+        $shoppingCart = $request->getShoppingCart();
         if ('empty_cart' == $action) $redirectTarget = true;
 
         // simulate the number of uploads parameter for add to cart
@@ -178,10 +178,15 @@ class EventFixes extends ZMObject {
 
         $cartMethod = isset($cartActionMap[$action]) ? $cartActionMap[$action]['method'] : null;
         if (null != $cartMethod) {
-            if (is_array($_POST['products_id']) && !$cartActionMap[$action]['method']) {
+            if (is_array($_POST['products_id']) && !$cartActionMap[$action]['multi']) {
                 $_POST['products_id'] = $request->getProductId();
             }
-            call_user_func_array(array($cart->cart_, $cartMethod), array($redirectTarget, $params));
+            // TODO: this is for testnig only
+            if (false && 'actionAddProduct' == $cartMethod) {
+                $shoppingCart->addProduct($request->getProductId(), $request->getParameter('cart_quantity'), $request->getParameter('id'));
+            } else {
+                call_user_func_array(array($shoppingCart->cart_, $cartMethod), array($redirectTarget, $params));
+            }
         }
     }
 
