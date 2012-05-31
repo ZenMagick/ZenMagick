@@ -39,6 +39,7 @@ class RssFeedGenerator extends ZMObject {
      *
      * @param ZMRequest request The current request.
      * @param RssFeed feed The feed.
+     * @return string The feed data.
      */
     public function generate($request, RssFeed $feed) {
         ob_start();
