@@ -66,14 +66,6 @@ class ShoppingCart extends ZMObject {
         $this->setAccountId(null !== $accountId ? $accountId : 0);
         $this->zenTotals_ = null;
         $this->items_ = null;
-        /*
-         * id => (
-         *   qty =>
-         *   attributes =>
-         *   attributes_values =>
-         * )
-         */
-        $this->contents = array();
         $this->selectedPaymentType_ = null;
     }
 
@@ -226,8 +218,8 @@ class ShoppingCart extends ZMObject {
      * @param array contents The contents.
      */
     public function setContents($contents) {
-        $this->items_ = array();
         $this->contents = $contents;
+        $this->items_ = null;
     }
 
     /**
