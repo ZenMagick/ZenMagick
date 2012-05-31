@@ -181,9 +181,17 @@ class EventFixes extends ZMObject {
             if (is_array($_POST['products_id']) && !$cartActionMap[$action]['multi']) {
                 $_POST['products_id'] = $request->getProductId();
             }
-            // TODO: this is for testnig only
-            if (false && 'actionAddProduct' == $cartMethod) {
+            // TODO: generalize
+            var_dump($cartMethod);die();
+            if ('actionAddProduct' == $cartMethod) {
                 $shoppingCart->addProduct($request->getProductId(), $request->getParameter('cart_quantity'), $request->getParameter('id'));
+                $shoppingCart->getCheckoutHelper()->saveHash($request);
+            } else if ('actionRemoveProduct' == $cartMethod) {
+                $shoppingCart->removeProduct($request->getProductId());
+                $shoppingCart->getCheckoutHelper()->saveHash($request);
+            } else if ('actionUpdateProduct' == $cartMethod) {
+                $shoppingCart->updateProducts($request->getProductId());
+                $shoppingCart->getCheckoutHelper()->saveHash($request);
             } else {
                 call_user_func_array(array($shoppingCart->cart_, $cartMethod), array($redirectTarget, $params));
             }
