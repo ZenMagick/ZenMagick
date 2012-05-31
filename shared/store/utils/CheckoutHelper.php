@@ -417,11 +417,6 @@ class CheckoutHelper extends ZMObject {
             return false;
         }
 
-        // TODO: here for zc compatibility
-        if (isset($this->shoppingCart_->cart_->cartID)) {
-            $request->getSession()->setValue('cartID', $this->shoppingCart_->cart_->cartID);
-        }
-
         if (null != ($hash = $this->shoppingCart_->getHash())) {
             $request->getSession()->setValue('shoppingCartHash', $hash);
             return true;

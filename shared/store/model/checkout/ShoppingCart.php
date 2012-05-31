@@ -54,19 +54,12 @@ class ShoppingCart extends ZMObject {
      */
     public function __construct() {
         parent::__construct();
-        $this->session = Runtime::getContainer()->get('session');
-        $cart = $this->session->getValue('cart');
-        // TODO: quick fix using 'new' until we drop zencart's shopping cart class altogether
-        $this->cart_ = (null != $cart) ? $cart : new \shoppingCart();
-        $this->setContents($this->cart_->contents);
-        // TODO: remove
-        $comments = $this->session->getValue('comments');
-        $this->setComments(null !== $comments ? $comments : '');
-        $accountId = $this->session->getValue('customer_id');
-        $this->setAccountId(null !== $accountId ? $accountId : 0);
+        $this->setContents(null);
+        $this->accountId = 0;
         $this->zenTotals_ = null;
-        $this->items_ = null;
         $this->selectedPaymentType_ = null;
+        // TODO: remove
+        $this->session = Runtime::getContainer()->get('session');
     }
 
 
@@ -112,7 +105,7 @@ class ShoppingCart extends ZMObject {
      * Clear this cart.
      */
     public function clear() {
-        $this->contents = array();
+        $this->contents = null;
         $this->items_ = null;
         $this->comments = null;
         $this->container->get('shoppingCartService')->clearCart($this);
@@ -230,7 +223,9 @@ class ShoppingCart extends ZMObject {
     public function getItems() {
         if (null === $this->items_) {
             $this->items_ = array();
-            $this->contents = $this->cart_->contents;
+            if (null === $this->contents) {
+                $this->contents = $this->container->get('shoppingCartService')->getContentsForAccountId($this->accountId);
+            }
             foreach ($this->contents as $id => $itemData) {
                 if (empty($id)) { continue; }
                 $item = new ShoppingCartItem($this);
@@ -341,8 +336,6 @@ class ShoppingCart extends ZMObject {
      */
     public function setComments($comments) {
         $this->comments = $comments;
-        //TODO: remove
-        $this->session->setValue('comments', $comments);
     }
 
     /**
@@ -779,8 +772,6 @@ class ShoppingCart extends ZMObject {
         $attributes = $this->sanitizeAttributes($product, $attributes);
         $attributes = $this->prepare_uploads($product, $attributes);
 
-        //TODO: zc: comp
-        $attributes = (0 < count($attributes) ? $attributes : '');
         $sku = self::mkItemId($productId, $attributes);
 
         $maxOrderQty = $product->getMaxOrderQty();
@@ -798,23 +789,10 @@ class ShoppingCart extends ZMObject {
             $adjustedQty = $maxOrderQty - $cartQty;
         }
 
-        // 1) update contents
-        /*
         list($attributes, $attributesValues) =$this->splitAttributes($attributes, $product);
-        $this->contents[$sku] = array(
-            'qty' => $adjustedQty,
-            'attributes' => $attributes,
-            'attributes_values' => $attributesValues
-        );
-        */
-
-        // TODO: REMOVE
-        $this->cart_->add_cart($productId, $this->getItemQuantityFor($sku, false) + $adjustedQty, $attributes, true);
-
-        // todo:
-        // - persist
-        // - update card ID? where???
+        $this->contents[$sku] = array('qty' => $adjustedQty, 'attributes' => $attributes, 'attributes_values' => $attributesValues);
         $this->items_ = null;
+        $this->container->get('shoppingCartService')->updateCart($this);
 
         return true;
     }
@@ -827,8 +805,9 @@ class ShoppingCart extends ZMObject {
      */
     public function removeProduct($productId) {
         if (null !== $productId) {
+            unset($this->contents[$productId]);
             $this->items_ = null;
-            $this->cart_->remove($productId);
+            $this->container->get('shoppingCartService')->updateCart($this);
             return true;
         }
 
@@ -836,7 +815,7 @@ class ShoppingCart extends ZMObject {
     }
 
     /**
-     * Update item.
+     * Update item quantity.
      *
      * @param string sku The product sku.
      * @param int quantity The quantity.
@@ -859,16 +838,15 @@ class ShoppingCart extends ZMObject {
                 return false;
             }
 
-            $this->items_ = null;
-
             // adjust quantity if needed
             if (($adjustedQty > $maxOrderQty) && 0 != $maxOrderQty) {
                 // TODO: message
                 $adjustedQty = $maxOrderQty;
             }
 
-            $this->cart_->add_cart($sku, $adjustedQty, $attributes, true);
-
+            $this->contents[$sku]['qty'] = $adjustedQty;
+            $this->items_ = null;
+            $this->container->get('shoppingCartService')->updateCart($this);
             return true;
         }
 
