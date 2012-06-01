@@ -40,15 +40,15 @@ class AdminController extends \ZMController {
             }
         }
 
-        $this->container->get('themeService')->initThemes();
-
         $session = $request->getSession();
+        $language = $request->getSelectedLanguage();
+
+        $this->container->get('themeService')->initThemes($language);
 
         if (null == $session->getValue('securityToken')) {
             $session->setValue('securityToken', $session->getToken());
         }
 
-        $language = $request->getSelectedLanguage();
         $session->setValue('language', $language->getDirectory());
         $session->setValue('languages_id', $language->getId());
         $session->setValue('languages_code', $language->getCode());
