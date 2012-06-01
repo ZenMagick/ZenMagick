@@ -57,7 +57,7 @@ class ShoppingCart extends ZMObject {
         $this->session = Runtime::getContainer()->get('session');
         $cart = $this->session->getValue('cart');
         // TODO: quick fix using 'new' until we drop zencart's shopping cart class altogether
-        $this->cart_ = (null != $cart) ? $cart : new shoppingCart;
+        $this->cart_ = (null != $cart) ? $cart : new \shoppingCart();
         $this->setContents($this->cart_->contents);
         // TODO: remove
         $comments = $this->session->getValue('comments');
