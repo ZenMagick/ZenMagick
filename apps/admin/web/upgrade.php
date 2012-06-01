@@ -17,9 +17,14 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-use zenmagick\http\HttpApplication;
+
 use zenmagick\base\Runtime;
 use zenmagick\base\ZMException;
+use zenmagick\base\events\Event;
+use zenmagick\http\HttpApplication;
+use zenmagick\apps\store\bundles\ZenCartBundle\ZenCartBundle;
+use zenmagick\apps\store\bundles\ZenCartBundle\ZenCartClassLoader;
+
 $rootDir = realpath(__DIR__.'/../../..');
 include_once $rootDir.'/lib/base/Application.php';
 include_once $rootDir.'/lib/http/HttpApplication.php';
@@ -27,9 +32,19 @@ include_once $rootDir.'/lib/http/HttpApplication.php';
 $config = array('appName' => basename(dirname(__DIR__)), 'environment' => (isset($_SERVER['ZM_ENVIRONMENT']) ? $_SERVER['ZM_ENVIRONMENT'] : 'prod'));
 $application = new HttpApplication($config);
 $application->bootstrap(array('init'));
-$installer = new zenmagick\apps\store\admin\installation\InstallationPatcher();
 
 try {
+    // ensure we do use the bride code
+    // on a clean install we won't have this setting, so the bundle's ZenCart class loader won't be able to find anything
+    $rclass = new \ReflectionClass('zenmagick\apps\store\bundles\ZenCartBundle\ZenCartBundle');
+    $settingsService = Runtime::getSettings();
+    $settingsService->set('apps.store.zencart.path', dirname($rclass->getFilename()).'/bridge');
+    $zcClassLoader = new ZenCartClassLoader();
+    $zcClassLoader->setBaseDirectories(ZenCartBundle::buildSearchPaths('includes/classes'));
+    $zcClassLoader->register();
+
+    $installer = new zenmagick\apps\store\admin\installation\InstallationPatcher();
+
     $messageService = Runtime::getContainer()->get('messageService');
     // Get DB Config first!
     $status = $installer->getPatchForId('importZencartConfigure')->patch();
