@@ -64,7 +64,7 @@ class ZMAttributes extends ZMObject {
                   AND po.language_id = :languageId" .
                 $attributesOrderBy;
         $args = array('productId' => $product->getId(), 'languageId' => $product->getLanguageId());
-        $attributes = ZMRuntime::getDatabase()->fetchAll($sql, $args, array(TABLE_PRODUCTS_OPTIONS, 'products_attributes'), 'ZMAttribute');
+        $attributes = ZMRuntime::getDatabase()->fetchAll($sql, $args, array('products_options', 'products_attributes'), 'ZMAttribute');
         if (0 == count($attributes)) {
             return $attributes;
         }

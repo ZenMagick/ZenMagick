@@ -54,7 +54,7 @@ class ZMBirthdayEmailCronJob implements ZMCronJob {
         $sql = "SELECT * FROM " . TABLE_CUSTOMERS . "
                 WHERE MONTH(customers_dob) = MONTH(curdate())
                   AND DAYOFMONTH(customers_dob) = DAYOFMONTH(curdate()) " . $offset;
-        $results = ZMRuntime::getDatabase()->fetchAll($sql, array(), TABLE_CUSTOMERS, 'ZMAccount');
+        $results = ZMRuntime::getDatabase()->fetchAll($sql, array(), 'customers', 'ZMAccount');
         foreach ($results as $account) {
             $context = array('account' => $account);
 

@@ -123,7 +123,7 @@ class MusicManager extends ZMObject {
     public function getMediaCollectionsForProductId($productId) {
         // get all media for the given product (id)
         $sql = "SELECT media_id FROM " . TABLE_MEDIA_TO_PRODUCTS . " WHERE product_id = :productId";
-        $productMediaIdList = \ZMRuntime::getDatabase()->fetchAll($sql, array('productId' => $productId), TABLE_MEDIA_TO_PRODUCTS);
+        $productMediaIdList = \ZMRuntime::getDatabase()->fetchAll($sql, array('productId' => $productId), 'media_to_products');
 
         $collections = array();
         foreach ($productMediaIdList as $mediaId) {

@@ -51,7 +51,7 @@ class ReservedQtyWidget extends Widget {
           $args = array('orderStatusId' => array(3, 4, 5, 6, 8, 9, 13, 17));
 
           self::$qtyMap_ = array();
-          foreach (\ZMRuntime::getDatabase()->fetchAll($sql, $args, array(TABLE_ORDERS, TABLE_ORDERS_PRODUCTS)) as $result) {
+          foreach (\ZMRuntime::getDatabase()->fetchAll($sql, $args, array('orders', 'orders_products')) as $result) {
               self::$qtyMap_[$result['productId']] = $result['qty'];
           }
         }
