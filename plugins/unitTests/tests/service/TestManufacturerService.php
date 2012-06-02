@@ -81,7 +81,7 @@ class TestManufacturerService extends TestCase {
         $newManufacturer->setName('Foo');
         $newManufacturer->setDateAdded(new \DateTime());
         $newManufacturer->setLastModified(new \DateTime());
-        $newManufacturer = ZMRuntime::getDatabase()->createModel(TABLE_MANUFACTURERS, $newManufacturer);
+        $newManufacturer = ZMRuntime::getDatabase()->createModel('manufacturers', $newManufacturer);
 
         $manufacturer = $this->container->get('manufacturerService')->getManufacturerForId($newManufacturer->getId(), 1);
         if ($this->assertNotNull($manufacturer)) {
@@ -90,7 +90,7 @@ class TestManufacturerService extends TestCase {
         }
 
         // remove again
-        ZMRuntime::getDatabase()->removeModel(TABLE_MANUFACTURERS, $newManufacturer);
+        ZMRuntime::getDatabase()->removeModel('manufacturers', $newManufacturer);
     }
 
 }

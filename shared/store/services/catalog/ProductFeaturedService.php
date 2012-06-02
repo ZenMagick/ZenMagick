@@ -41,18 +41,18 @@ class ProductFeaturedService extends ZMObject {
     public function scheduleFeatured() {
         $sql = "SELECT featured_id, status, expires_date, featured_date_available
                 FROM " . TABLE_FEATURED;
-        foreach (\ZMRuntime::getDatabase()->fetchAll($sql, array(), TABLE_FEATURED, 'zenmagick\apps\store\model\catalog\Feature') as $feature) {
+        foreach (\ZMRuntime::getDatabase()->fetchAll($sql, array(), 'featured', 'zenmagick\apps\store\model\catalog\Feature') as $feature) {
             $availableDate = $feature->getAvailableDate();
             $expiryDate = $feature->getExpiryDate();
             $active = $feature->getStatus();
             if (!$active && null != $availableDate && new DateTime() >= $availableDate) {
                 $feature->setStatus(true);
-                \ZMRuntime::getDatabase()->updateModel(TABLE_FEATURED, $feature);
+                \ZMRuntime::getDatabase()->updateModel('featured', $feature);
             }
             // @todo the original code also disabled features tht haven't started yet. is that something we should worry about?
             if ($feature->getStatus() && null != $expiryDate && new DateTime() >= $expiryDate) {
                 $feature->setStatus(false);
-                \ZMRuntime::getDatabase()->updateModel(TABLE_FEATURED, $feature);
+                \ZMRuntime::getDatabase()->updateModel('featured', $feature);
             }
         }
     }

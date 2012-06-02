@@ -61,7 +61,7 @@ class SalemakerService extends ZMObject {
             $sql = "SELECT *
                     FROM " . TABLE_SALEMAKER_SALES . "
                     WHERE sale_status = '1'";
-            $this->sales_ = \ZMRuntime::getDatabase()->fetchAll($sql, array(), TABLE_SALEMAKER_SALES, \ZMDatabase::MODEL_RAW);
+            $this->sales_ = \ZMRuntime::getDatabase()->fetchAll($sql, array(), 'salemaker_sales', \ZMDatabase::MODEL_RAW);
         }
 
         $hasSale = false;
@@ -111,7 +111,7 @@ class SalemakerService extends ZMObject {
         $languageCode = $container->get('settingsService')->get('defaultLanguageCode');
         $languageId = $container->get('languageService')->getLanguageForCode($languageCode)->getLanguageId();
         $now = new DateTime();
-        foreach (\ZMRuntime::getDatabase()->fetchAll($sql, array(), TABLE_SALEMAKER_SALES, 'zenmagick\apps\store\model\catalog\SaleMakerSale') as $sale) {
+        foreach (\ZMRuntime::getDatabase()->fetchAll($sql, array(), 'salemaker_sales', 'zenmagick\apps\store\model\catalog\SaleMakerSale') as $sale) {
             $dateStart = $sale->getDateStart();
             $dateEnd = $sale->getDateEnd();
             $active = $sale->getStatus();
@@ -126,7 +126,7 @@ class SalemakerService extends ZMObject {
 
             // changed ??
             if ($sale->getStatus() != $active) {
-                \ZMRuntime::getDatabase()->updateModel(TABLE_SALEMAKER_SALES, $sale);
+                \ZMRuntime::getDatabase()->updateModel('salemaker_sales', $sale);
                 foreach ($saleCategories as $categoryId) {
                     // get all
                     foreach ($productService->getProductIdsForCategoryId($categoryId, $languageId, false) as $productId) {

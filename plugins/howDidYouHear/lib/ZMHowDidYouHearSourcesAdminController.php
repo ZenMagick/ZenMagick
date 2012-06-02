@@ -35,7 +35,7 @@ class ZMHowDidYouHearSourcesAdminController extends ZMController {
         $sql = "SELECT s.sources_name AS name, s.sources_id as sourceId
                 FROM " . TABLE_SOURCES . " s
                 ORDER BY s.sources_name ASC";
-        $sourceStats = ZMRuntime::getDatabase()->fetchAll($sql, array(), array(TABLE_SOURCES), 'zenmagick\base\ZMObject');
+        $sourceStats = ZMRuntime::getDatabase()->fetchAll($sql, array(), array('sources'), 'zenmagick\base\ZMObject');
         $resultSource = new ZMArrayResultSource('zenmagick\base\ZMObject', $sourceStats);
         $resultList = Runtime::getContainer()->get("ZMResultList");
         $resultList->setResultSource($resultSource);
@@ -51,15 +51,15 @@ class ZMHowDidYouHearSourcesAdminController extends ZMController {
         if ('create' == $action) {
             $name = $request->getParameter('source');
             if (!empty($name)) {
-                ZMRuntime::getDatabase()->createModel(TABLE_SOURCES, array('sources_name' => $name));
+                ZMRuntime::getDatabase()->createModel('sources', array('sources_name' => $name));
                 $this->messageService->success('Source "'.$name.'" created.');
             }
         } else if ('delete' == $action) {
             $sourceId = $request->getParameter('sourceId');
             if (!empty($sourceId)) {
-                $model = ZMRuntime::getDatabase()->loadModel(TABLE_SOURCES, array('sources_id' => $sourceId));
+                $model = ZMRuntime::getDatabase()->loadModel('sources', array('sources_id' => $sourceId));
                 if (null !== $model) {
-                    ZMRuntime::getDatabase()->removeModel(TABLE_SOURCES, array('sources_id' => $sourceId));
+                    ZMRuntime::getDatabase()->removeModel('sources', array('sources_id' => $sourceId));
                     $this->messageService->success('Source "'.$model['sources_name'].'" deleted.');
                 }
             }

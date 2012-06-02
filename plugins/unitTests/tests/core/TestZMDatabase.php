@@ -42,7 +42,7 @@ class TestZMDatabase extends TestCase {
      */
     public function testTableMetaData() {
         foreach ($this->getProviders() as $provider => $database) {
-            $tableMeta = $database->getMetaData(TABLE_PRODUCTS_DESCRIPTION);
+            $tableMeta = $database->getMetaData('products_description');
             $this->assertEqual(6, count($tableMeta), '%s: '.$provider);
             $this->assertTrue(array_key_exists('products_name', $tableMeta), '%s: '.$provider);
             $this->assertTrue(is_array($tableMeta['products_name']), '%s: '.$provider);
@@ -88,8 +88,8 @@ class TestZMDatabase extends TestCase {
 
         foreach (self::getProviders() as $provider => $database) {
             // use simple country query to compare results
-            $results1 = $database->fetchAll($sql1, array('countryId' => 153), TABLE_COUNTRIES);
-            $results2 = $database->fetchAll($sql2, array('1#countryId' => 153), TABLE_COUNTRIES);
+            $results1 = $database->fetchAll($sql1, array('countryId' => 153), 'countries');
+            $results2 = $database->fetchAll($sql2, array('1#countryId' => 153), 'countries');
             $this->assertEqual($results1, $results2, '%s: '.$provider);
         }
     }
@@ -101,7 +101,7 @@ class TestZMDatabase extends TestCase {
         $sql = "SELECT * FROM " . TABLE_COUNTRIES . " WHERE countries_id IN (:countryId)";
 
         foreach (self::getProviders() as $provider => $database) {
-            $results = $database->fetchAll($sql, array('countryId' => array(81, 153)), TABLE_COUNTRIES);
+            $results = $database->fetchAll($sql, array('countryId' => array(81, 153)), 'countries');
             if ($this->assertEqual(2, count($results), '%s: '.$provider)) {
                 $this->assertEqual(81, $results[0]['countryId'], '%s: '.$provider);
                 $this->assertEqual('DE', $results[0]['isoCode2'], '%s: '.$provider);
@@ -117,7 +117,7 @@ class TestZMDatabase extends TestCase {
     public function testModelMethods() {
         // loadModel
         foreach (self::getProviders() as $provider => $database) {
-            $result = $database->loadModel(TABLE_COUNTRIES, 153, 'zenmagick\apps\store\model\location\Country');
+            $result = $database->loadModel('countries', 153, 'zenmagick\apps\store\model\location\Country');
             if ($this->assertTrue($result instanceof Country, '%s: '.$provider)) {
                 $this->assertEqual('NZ', $result->getIsoCode2(), '%s: '.$provider);
             }
@@ -127,33 +127,33 @@ class TestZMDatabase extends TestCase {
         $deleteTestModelSql = "DELETE from " . TABLE_COUNTRIES . " WHERE countries_iso_code_3 = :isoCode3";
         foreach (self::getProviders() as $provider => $database) {
             // first delete, just in case
-            $database->updateObj($deleteTestModelSql, array('isoCode3' => '@@@'), TABLE_COUNTRIES);
+            $database->updateObj($deleteTestModelSql, array('isoCode3' => '@@@'), 'countries');
 
             // set up test data
             $model = Beans::getBean('zenmagick\apps\store\model\location\Country#name="test&isoCode2=@@&isoCode3=@@@&addressFormatId=1');
-            $result = $database->createModel(TABLE_COUNTRIES, $model);
+            $result = $database->createModel('countries', $model);
             if ($this->assertNotNull($result, '%s: '.$provider)) {
                 $this->assertTrue(0 != $result->getId(), '%s: '.$provider);
             }
 
             // clean up
-            $database->updateObj($deleteTestModelSql, array('isoCode3' => '@@@'), TABLE_COUNTRIES);
+            $database->updateObj($deleteTestModelSql, array('isoCode3' => '@@@'), 'countries');
         }
 
         // updateModel
         $reset = "UPDATE " . TABLE_COUNTRIES . " SET countries_iso_code_3 = :isoCode3 WHERE countries_id = :countryId";
         foreach (self::getProviders() as $provider => $database) {
-            $country = $database->loadModel(TABLE_COUNTRIES, 153, 'zenmagick\apps\store\model\location\Country');
+            $country = $database->loadModel('countries', 153, 'zenmagick\apps\store\model\location\Country');
             if ($this->assertNotNull($country, '%s: '.$provider)) {
                 $isCode3 = $country->getIsoCode3();
                 $country->setIsoCode3('###');
-                $database->updateModel(TABLE_COUNTRIES, $country);
-                $updated = $database->loadModel(TABLE_COUNTRIES, 153, 'zenmagick\apps\store\model\location\Country');
+                $database->updateModel('countries', $country);
+                $updated = $database->loadModel('countries', 153, 'zenmagick\apps\store\model\location\Country');
                 if ($this->assertNotNull($updated, '%s: '.$provider)) {
                     $this->assertEqual('###', $updated->getIsoCode3(), '%s: '.$provider);
                 }
                 // clean up
-                $database->updateObj($reset, array('countryId' => 153, 'isoCode3' => 'NZL'), TABLE_COUNTRIES);
+                $database->updateObj($reset, array('countryId' => 153, 'isoCode3' => 'NZL'), 'countries');
             }
         }
 
@@ -162,18 +162,18 @@ class TestZMDatabase extends TestCase {
         $findTestModelSql = "SELECT * from " . TABLE_COUNTRIES . " WHERE countries_iso_code_3 = :isoCode3";
         foreach (self::getProviders() as $provider => $database) {
             // first delete, just in case
-            $database->updateObj($deleteTestModelSql, array('isoCode3' => '%%%'), TABLE_COUNTRIES);
+            $database->updateObj($deleteTestModelSql, array('isoCode3' => '%%%'), 'countries');
 
             // set up test data
             $model = Beans::getBean('zenmagick\apps\store\model\location\Country#name="test&isoCode2=%%&isoCode3=%%%&addressFormatId=1');
-            $result = $database->createModel(TABLE_COUNTRIES, $model);
+            $result = $database->createModel('countries', $model);
             if ($this->assertNotNull($result, '%s: '.$provider)) {
-                $database->removeModel(TABLE_COUNTRIES, $result);
-                $this->assertNull($database->querySingle($findTestModelSql, array('isoCode3' => '%%%'), TABLE_COUNTRIES, 'zenmagick\apps\store\model\location\Country'), '%s: '.$provider);
+                $database->removeModel('countries', $result);
+                $this->assertNull($database->querySingle($findTestModelSql, array('isoCode3' => '%%%'), 'countries', 'zenmagick\apps\store\model\location\Country'), '%s: '.$provider);
             }
 
             // clean up
-            $database->updateObj($deleteTestModelSql, array('isoCode3' => '%%%'), TABLE_COUNTRIES);
+            $database->updateObj($deleteTestModelSql, array('isoCode3' => '%%%'), 'countries');
         }
     }
 

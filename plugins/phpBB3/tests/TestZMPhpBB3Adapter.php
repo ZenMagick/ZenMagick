@@ -54,7 +54,7 @@ class TestZMPhpBB3Adapter extends TestCase {
         parent::tearDown();
         $this->getAdapter()->removeAccount('martin@mixedmatter.co.nz');
         $account = $this->container->get('accountService')->getAccountForEmailAddress('martin@mixedmatter.co.nz');
-        ZMRuntime::getDatabase()->removeModel(TABLE_CUSTOMERS, $account);
+        ZMRuntime::getDatabase()->removeModel('customers', $account);
     }
 
     /**

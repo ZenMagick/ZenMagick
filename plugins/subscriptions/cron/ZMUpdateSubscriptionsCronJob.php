@@ -88,7 +88,7 @@ class ZMUpdateSubscriptionsCronJob implements ZMCronJob {
                     SET subscription_next_order = DATE_ADD(subscription_next_order, INTERVAL " . zm_subscriptions::schedule2SQL($order->get('schedule')) . ")
                     WHERE orders_id = :orderId";
             $args = array('orderId' => $scheduledOrderId);
-            ZMRuntime::getDatabase()->updateObj($sql, $args, TABLE_ORDERS);
+            ZMRuntime::getDatabase()->updateObj($sql, $args, 'orders');
             if (!Toolbox::isEmpty($scheduleEmailTemplate)) {
                 $this->sendOrderEmail($order, $scheduleEmailTemplate);
             }
@@ -157,7 +157,7 @@ class ZMUpdateSubscriptionsCronJob implements ZMCronJob {
         $orderData[TABLE_ORDERS][0]->setOrderDate(new \DateTime());
         $orderData[TABLE_ORDERS][0]->setOrderStatusId(2);
 
-        $newOrder = ZMRuntime::getDatabase()->createModel(TABLE_ORDERS, $orderData[TABLE_ORDERS][0]);
+        $newOrder = ZMRuntime::getDatabase()->createModel('orders', $orderData[TABLE_ORDERS][0]);
 
         // do products by using zen-cart's order class to include all stock taking, etc
         // some requirements first..
@@ -184,19 +184,19 @@ class ZMUpdateSubscriptionsCronJob implements ZMCronJob {
             }
 
             // create new product
-            $orderItem = ZMRuntime::getDatabase()->createModel(TABLE_ORDERS_PRODUCTS, $orderItem);
+            $orderItem = ZMRuntime::getDatabase()->createModel('orders_products', $orderItem);
 
             foreach ($attributes as $attribute) {
                 $attribute->setOrderId($newOrder->getOrderId());
                 $attribute->setOrderProductId($orderItem->getOrderProductId());
-                ZMRuntime::getDatabase()->createModel(TABLE_ORDERS_PRODUCTS_ATTRIBUTES, $attribute);
+                ZMRuntime::getDatabase()->createModel('orders_products_attributes', $attribute);
             }
         }
         */
 
         foreach ($orderData[TABLE_ORDERS_TOTAL] as $orderTotal) {
             $orderTotal->setOrderId($newOrder->getOrderId());
-            ZMRuntime::getDatabase()->createModel(TABLE_ORDERS_TOTAL, $orderTotal);
+            ZMRuntime::getDatabase()->createModel('orders_total', $orderTotal);
         }
 
         return $newOrder;
@@ -213,7 +213,7 @@ class ZMUpdateSubscriptionsCronJob implements ZMCronJob {
                 WHERE  is_subscription = :subscription
                   AND subscription_next_order <= DATE_ADD(now(), INTERVAL " . $plugin->get('scheduleOffset') . " DAY)
                   AND NOT (subscription_next_order = '0001-01-01 00:00:00')";
-        $results = ZMRuntime::getDatabase()->fetchAll($sql, array('subscription' => true), TABLE_ORDERS);
+        $results = ZMRuntime::getDatabase()->fetchAll($sql, array('subscription' => true), 'orders');
         $tmp = array();
         foreach ($results as $row) {
             if ($row['subscriptionCanceled'] && $plugin->get('minOrders') <= count($plugin->getScheduledOrderIdsForSubscriptionOrderId($row['orderId']))) {

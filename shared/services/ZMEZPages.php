@@ -75,7 +75,7 @@ class ZMEZPages extends ZMObject implements ZMSQLAware {
         }
         $sql .= " ORDER BY toc_sort_order, pages_title";
         $args = array('languageId' => $languageId);
-        return new ZMQueryDetails(ZMRuntime::getDatabase(), $sql, $args, array(TABLE_EZPAGES), 'ZMEZPage', 'pages_id');
+        return new ZMQueryDetails(ZMRuntime::getDatabase(), $sql, $args, array('ezpages'), 'ZMEZPage', 'pages_id');
     }
 
     /**
@@ -102,7 +102,7 @@ class ZMEZPages extends ZMObject implements ZMSQLAware {
                 FROM " . TABLE_EZPAGES . "
                 WHERE pages_id = :id";
         $sql .= " AND languages_id = :languageId";
-        return ZMRuntime::getDatabase()->querySingle($sql, array('id' => $pageId, 'languageId' => $languageId), TABLE_EZPAGES, 'ZMEZPage');
+        return ZMRuntime::getDatabase()->querySingle($sql, array('id' => $pageId, 'languageId' => $languageId), 'ezpages', 'ZMEZPage');
     }
 
     /**
@@ -117,7 +117,7 @@ class ZMEZPages extends ZMObject implements ZMSQLAware {
                 FROM " . TABLE_EZPAGES . "
                 WHERE pages_title = :title";
         $sql .= " AND languages_id = :languageId";
-        return ZMRuntime::getDatabase()->querySingle($sql, array('title' => $name, 'languageId' => $languageId), TABLE_EZPAGES, 'ZMEZPage');
+        return ZMRuntime::getDatabase()->querySingle($sql, array('title' => $name, 'languageId' => $languageId), 'ezpages', 'ZMEZPage');
     }
 
     /**
@@ -134,7 +134,7 @@ class ZMEZPages extends ZMObject implements ZMSQLAware {
                 AND alt_url_external = '' AND alt_url = ''";
         $sql .= " AND languages_id = :languageId";
         $sql .= " ORDER BY toc_sort_order, pages_title";
-        return ZMRuntime::getDatabase()->fetchAll($sql, array('tocChapter' => $chapterId, 'languageId' => $languageId), TABLE_EZPAGES, 'ZMEZPage');
+        return ZMRuntime::getDatabase()->fetchAll($sql, array('tocChapter' => $chapterId, 'languageId' => $languageId), 'ezpages', 'ZMEZPage');
     }
 
     /**
@@ -150,7 +150,7 @@ class ZMEZPages extends ZMObject implements ZMSQLAware {
                   AND header_sort_order > 0";
         $sql .= " AND languages_id = :languageId";
         $sql .= " ORDER BY header_sort_order, pages_title";
-        return ZMRuntime::getDatabase()->fetchAll($sql, array('languageId' => $languageId), TABLE_EZPAGES, 'ZMEZPage');
+        return ZMRuntime::getDatabase()->fetchAll($sql, array('languageId' => $languageId), 'ezpages', 'ZMEZPage');
     }
 
     /**
@@ -166,7 +166,7 @@ class ZMEZPages extends ZMObject implements ZMSQLAware {
                   AND sidebox_sort_order > 0";
         $sql .= " AND languages_id = :languageId";
         $sql .= " ORDER BY sidebox_sort_order, pages_title";
-        return ZMRuntime::getDatabase()->fetchAll($sql, array('languageId' => $languageId), TABLE_EZPAGES, 'ZMEZPage');
+        return ZMRuntime::getDatabase()->fetchAll($sql, array('languageId' => $languageId), 'ezpages', 'ZMEZPage');
     }
 
     /**
@@ -182,7 +182,7 @@ class ZMEZPages extends ZMObject implements ZMSQLAware {
                   AND footer_sort_order > 0";
         $sql .= " AND languages_id = :languageId";
         $sql .= " ORDER BY footer_sort_order, pages_title";
-        return ZMRuntime::getDatabase()->fetchAll($sql, array('languageId' => $languageId), TABLE_EZPAGES, 'ZMEZPage');
+        return ZMRuntime::getDatabase()->fetchAll($sql, array('languageId' => $languageId), 'ezpages', 'ZMEZPage');
     }
 
     /**
@@ -192,7 +192,7 @@ class ZMEZPages extends ZMObject implements ZMSQLAware {
      * @return ZMEZPage The updated (keys, etc) instance.
      */
     public function createPage($page) {
-        return ZMRuntime::getDatabase()->createModel(TABLE_EZPAGES, $page);
+        return ZMRuntime::getDatabase()->createModel('ezpages', $page);
     }
 
     /**
@@ -202,7 +202,7 @@ class ZMEZPages extends ZMObject implements ZMSQLAware {
      * @return boolean <code>true</code> for success.
      */
     public function updatePage($page) {
-        ZMRuntime::getDatabase()->updateModel(TABLE_EZPAGES, $page);
+        ZMRuntime::getDatabase()->updateModel('ezpages', $page);
         return true;
     }
 
@@ -213,7 +213,7 @@ class ZMEZPages extends ZMObject implements ZMSQLAware {
      * @return boolean <code>true</code> for success.
      */
     public function removePage($page) {
-        ZMRuntime::getDatabase()->removeModel(TABLE_EZPAGES, $page);
+        ZMRuntime::getDatabase()->removeModel('ezpages', $page);
         return true;
     }
 

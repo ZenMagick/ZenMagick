@@ -269,7 +269,7 @@ class ThemeService extends ZMObject {
      * @return boolean <code>true</code> on success.
      */
     public function updateThemeConfig($config) {
-        return \ZMRuntime::getDatabase()->updateModel(TABLE_TEMPLATE_SELECT, $config);
+        return \ZMRuntime::getDatabase()->updateModel('template_select', $config);
     }
 
     /**
@@ -279,7 +279,7 @@ class ThemeService extends ZMObject {
      * @return boolean <code>true</code> on success.
      */
     public function createThemeConfig($config) {
-        return \ZMRuntime::getDatabase()->createModel(TABLE_TEMPLATE_SELECT, $config);
+        return \ZMRuntime::getDatabase()->createModel('template_select', $config);
     }
 
     /**
@@ -289,7 +289,7 @@ class ThemeService extends ZMObject {
      * @return boolean <code>true</code> on success.
      */
     public function deleteThemeConfig($config) {
-        return \ZMRuntime::getDatabase()->removeModel(TABLE_TEMPLATE_SELECT, $config);
+        return \ZMRuntime::getDatabase()->removeModel('template_select', $config);
     }
 
 }

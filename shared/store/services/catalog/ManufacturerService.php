@@ -77,7 +77,7 @@ class ManufacturerService extends ZMObject {
 
         $cacheKey = \ZMLangUtils::mkUnique('manufacturer', $id, $languageId);
         if (false === ($manufacturer = $this->cache_->lookup($cacheKey))) {
-            $manufacturer = \ZMRuntime::getDatabase()->querySingle($sql, $args, array(TABLE_MANUFACTURERS, TABLE_MANUFACTURERS_INFO), 'zenmagick\apps\store\model\catalog\Manufacturer');
+            $manufacturer = \ZMRuntime::getDatabase()->querySingle($sql, $args, array('manufacturers', 'manufacturers_info'), 'zenmagick\apps\store\model\catalog\Manufacturer');
             $this->cache_->save($manufacturer, $cacheKey);
         }
 
@@ -100,7 +100,7 @@ class ManufacturerService extends ZMObject {
 
         $cacheKey = \ZMLangUtils::mkUnique('manufacturer', $name, $languageId);
         if (false === ($manufacturer = $this->cache_->lookup($cacheKey))) {
-            $manufacturer = \ZMRuntime::getDatabase()->querySingle($sql, $args, array(TABLE_MANUFACTURERS, TABLE_MANUFACTURERS_INFO), 'zenmagick\apps\store\model\catalog\Manufacturer');
+            $manufacturer = \ZMRuntime::getDatabase()->querySingle($sql, $args, array('manufacturers', 'manufacturers_info'), 'zenmagick\apps\store\model\catalog\Manufacturer');
             $this->cache_->save($manufacturer, $cacheKey);
         }
 
@@ -124,8 +124,8 @@ class ManufacturerService extends ZMObject {
      * @return Manufacturer The updated manufacturer.
      */
     public function updateManufacturer($manufacturer) {
-        $manufacturer = \ZMRuntime::getDatabase()->updateModel(TABLE_MANUFACTURERS, $manufacturer);
-        \ZMRuntime::getDatabase()->updateModel(TABLE_MANUFACTURERS_INFO, $manufacturer);
+        $manufacturer = \ZMRuntime::getDatabase()->updateModel('manufacturers', $manufacturer);
+        \ZMRuntime::getDatabase()->updateModel('manufacturers_info', $manufacturer);
         return $manufacturer;
     }
 
@@ -136,8 +136,8 @@ class ManufacturerService extends ZMObject {
      * @return Manufacturer The created manufacturer.
      */
     public function createManufacturer($manufacturer) {
-        $manufacturer = \ZMRuntime::getDatabase()->createModel(TABLE_MANUFACTURERS, $manufacturer);
-        \ZMRuntime::getDatabase()->createModel(TABLE_MANUFACTURERS_INFO, $manufacturer);
+        $manufacturer = \ZMRuntime::getDatabase()->createModel('manufacturers', $manufacturer);
+        \ZMRuntime::getDatabase()->createModel('manufacturers_info', $manufacturer);
         return $manufacturer;
     }
 
@@ -156,7 +156,7 @@ class ManufacturerService extends ZMObject {
 
         $cacheKey = \ZMLangUtils::mkUnique('manufacturer', $languageId);
         if (false === ($manufacturers = $this->cache_->lookup($cacheKey))) {
-            $manufacturers = \ZMRuntime::getDatabase()->fetchAll($sql, $args, array(TABLE_MANUFACTURERS, TABLE_MANUFACTURERS_INFO), 'zenmagick\apps\store\model\catalog\Manufacturer');
+            $manufacturers = \ZMRuntime::getDatabase()->fetchAll($sql, $args, array('manufacturers', 'manufacturers_info'), 'zenmagick\apps\store\model\catalog\Manufacturer');
             $this->cache_->save($manufacturers, $cacheKey);
         }
 
@@ -182,7 +182,7 @@ class ManufacturerService extends ZMObject {
                 WHERE manufacturers_id = :manufacturerId
                 AND languages_id = :languageId";
         $args = array('manufacturerId' => $id, 'languageId' => $languageId);
-        return \ZMRuntime::getDatabase()->updateObj($sql, $args, array(TABLE_MANUFACTURERS, TABLE_MANUFACTURERS_INFO));
+        return \ZMRuntime::getDatabase()->updateObj($sql, $args, array('manufacturers', 'manufacturers_info'));
     }
 
 }
