@@ -4,6 +4,7 @@ use zenmagick\base\Runtime;
 $settings = Runtime::getSettings();
 $request = Runtime::getContainer()->get('request');
 $zcPath = $settings->get('apps.store.zencart.path');
+$adminDir = $settings->get('apps.store.zencart.admindir', 'admin');
 /**
  * admin/storefront configure.php defines
  */
