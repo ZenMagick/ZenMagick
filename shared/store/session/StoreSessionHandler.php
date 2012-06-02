@@ -46,7 +46,7 @@ class StoreSessionHandler implements SessionHandler {
                 FROM " . DB_PREFIX . "sessions
                 WHERE sesskey = :sesskey
                 AND expiry > :expiry";
-        if (null !== ($result = ZMRuntime::getDatabase()->querySingle($sql, array('sesskey' => $id, 'expiry' => time()), DB_PREFIX.'sessions'))) {
+        if (null !== ($result = ZMRuntime::getDatabase()->querySingle($sql, array('sesskey' => $id, 'expiry' => time()), 'sessions'))) {
             return $result['value'];
         }
 
@@ -61,7 +61,7 @@ class StoreSessionHandler implements SessionHandler {
         $sql = "SELECT value
                 FROM " . DB_PREFIX . "sessions
                 WHERE sesskey = :sesskey";
-        if (null !== ($result = ZMRuntime::getDatabase()->querySingle($sql, array('sesskey' => $id), DB_PREFIX.'sessions'))) {
+        if (null !== ($result = ZMRuntime::getDatabase()->querySingle($sql, array('sesskey' => $id), 'sessions'))) {
             // update
             $sql = "UPDATE " . DB_PREFIX . "sessions
                     SET expiry = :expiry, value = :value
@@ -73,7 +73,7 @@ class StoreSessionHandler implements SessionHandler {
         }
 
         $args = array('sesskey' => $id, 'value' => $data, 'expiry' => time() + $this->expiryTime_);
-        return ZMRuntime::getDatabase()->updateObj($sql, $args, DB_PREFIX.'sessions');
+        return ZMRuntime::getDatabase()->updateObj($sql, $args, 'sessions');
     }
 
     /**
@@ -81,7 +81,7 @@ class StoreSessionHandler implements SessionHandler {
      */
     public function destroy($id) {
         $sql = "DELETE FROM " . DB_PREFIX . "sessions WHERE sesskey = :sesskey";
-        return ZMRuntime::getDatabase()->updateObj($sql, array('sesskey' => $id), DB_PREFIX.'sessions');
+        return ZMRuntime::getDatabase()->updateObj($sql, array('sesskey' => $id), 'sessions');
     }
 
     /**
@@ -89,7 +89,7 @@ class StoreSessionHandler implements SessionHandler {
      */
     public function gc($lifetime) {
         $sql = "DELETE FROM " . DB_PREFIX . "sessions where expiry < :expiry";
-        return ZMRuntime::getDatabase()->updateObj($sql, array('expiry' => time()), DB_PREFIX.'sessions');
+        return ZMRuntime::getDatabase()->updateObj($sql, array('expiry' => time()), 'sessions');
     }
 
     /**

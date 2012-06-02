@@ -179,7 +179,7 @@ class WhoIsOnlinePlugin extends Plugin {
     public function onLogoffSuccess($event) {
         if ($event->has('account') && null != ($account = $event->get('account'))) {
             if (0 < ($accountId == $account->getId())) {
-                \ZMRuntime::getDatabase()->delete(DB_PREFIX.'whos_online', array('customer_id' => $accountId));
+                \ZMRuntime::getDatabase()->delete('whos_online', array('customer_id' => $accountId));
             }
         }
     }
@@ -190,7 +190,7 @@ class WhoIsOnlinePlugin extends Plugin {
     public function updateSessionId($event) {
         $session = $event->get('request')->getSession();
         if (null != ($lastId = $session->getValue('lastSessionId', 'session'))) {
-            \ZMRuntime::getDatabase()->update(DB_PREFIX.'whos_online',
+            \ZMRuntime::getDatabase()->update('whos_online',
                 array('session_id' => $session->getId(), 'customer_id' => $event->get('account')->getId()),
                 array('session_id' => $lastId)
             );
