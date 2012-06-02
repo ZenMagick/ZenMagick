@@ -238,7 +238,7 @@ class TestZMDatabase extends TestCase {
 
         foreach (self::getProviders() as $provider => $database) {
             try {
-                $result = $database->querySingle($sql, array('orderStatusId' => 1), TABLE_ORDERS);
+                $result = $database->querySingle($sql, array('orderStatusId' => 1), 'orders');
                 $this->assertTrue(array_key_exists('count', $result), '%s: '.$provider);
             } catch (Exception $e) {
                 $this->fail('unexpected exception: '.$e);

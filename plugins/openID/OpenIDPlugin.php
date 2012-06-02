@@ -113,7 +113,7 @@ class OpenIDPlugin extends Plugin {
         $sql = "SELECT customers_id from ".TABLE_CUSTOMERS."
                 WHERE openid = :openid";
         $args = array('openid' => $openid);
-        $result = \ZMRuntime::getDatabase()->querySingle($sql, $args, TABLE_CUSTOMERS);
+        $result = \ZMRuntime::getDatabase()->querySingle($sql, $args, 'customers');
         if (null != $result) {
             return $this->container->get('accountService')->getAccountForId($result['accountId']);
         }

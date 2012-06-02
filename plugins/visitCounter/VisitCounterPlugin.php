@@ -74,9 +74,9 @@ class VisitCounterPlugin extends Plugin {
 
         // @todo add a unique index on counter table
         $query = "SELECT startdate, counter FROM " . TABLE_COUNTER . " WHERE startdate = :startdate";
-        $result = $conn->querySingle($query, array('startdate' => $today), TABLE_COUNTER);
+        $result = $conn->querySingle($query, array('startdate' => $today), 'counter');
         if (empty($result)) {
-            $conn->insert(TABLE_COUNTER, array('startdate' => $today, 'counter' => 1));
+            $conn->insert('counter', array('startdate' => $today, 'counter' => 1));
         } else {
             $query = "UPDATE " . TABLE_COUNTER . " SET counter = counter + 1";
             $conn->updateObj($query, array(), 'counter');

@@ -48,7 +48,7 @@ class ZMGroupPricing extends ZMObject {
     function getPriceGroups() {
         $sql = "SELECT *
                 FROM " . TABLE_GROUP_PRICING;
-        return ZMRuntime::getDatabase()->fetchAll($sql, array(), TABLE_GROUP_PRICING, 'ZMPriceGroup');
+        return ZMRuntime::getDatabase()->fetchAll($sql, array(), 'group_pricing', 'ZMPriceGroup');
     }
 
     /**
@@ -61,7 +61,7 @@ class ZMGroupPricing extends ZMObject {
         $sql = "SELECT *
                 FROM " . TABLE_GROUP_PRICING . "
                 WHERE  group_id = :id";
-        return ZMRuntime::getDatabase()->querySingle($sql, array('id' => $priceGroupId), TABLE_GROUP_PRICING, 'ZMPriceGroup');
+        return ZMRuntime::getDatabase()->querySingle($sql, array('id' => $priceGroupId), 'group_pricing', 'ZMPriceGroup');
     }
 
 }

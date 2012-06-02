@@ -107,7 +107,7 @@ class TaxService extends ZMObject {
                   AND tr.tax_class_id = :taxClassId
                 GROUP BY tr.tax_priority";
         $args = array('taxClassId' => $taxClassId, 'countryId' => $countryId, 'zoneId' => $zoneId);
-        $results = ZMRuntime::getDatabase()->fetchAll($sql, $args, array(TABLE_TAX_RATES, TABLE_ZONES_TO_GEO_ZONES, TABLE_GEO_ZONES));
+        $results = ZMRuntime::getDatabase()->fetchAll($sql, $args, array('tax_rates', 'zones_to_geo_zones', 'geo_zones'));
 
         if (0 < count($results)) {
             $multiplier = 1.0;
@@ -154,7 +154,7 @@ class TaxService extends ZMObject {
                 ORDER BY tr.tax_priority";
         $args = array('taxClassId' => $taxClassId, 'countryId' => $countryId, 'zoneId' => $zoneId);
         $description = null;
-        foreach (ZMRuntime::getDatabase()->fetchAll($sql, $args, array(TABLE_TAX_RATES, TABLE_ZONES_TO_GEO_ZONES, TABLE_GEO_ZONES)) as $result) {
+        foreach (ZMRuntime::getDatabase()->fetchAll($sql, $args, array('tax_rates', 'zones_to_geo_zones', 'geo_zones')) as $result) {
             if (null !== $description) { $description .= _zm($this->container->get('settingsService')->get('tax.delim', ' + ')); }
             $description .= $result['description'];
         }
@@ -175,7 +175,7 @@ class TaxService extends ZMObject {
             $sql = "SELECT tax_rate
                     FROM " . TABLE_TAX_RATES . "
                     WHERE tax_description = :description";
-            $result = ZMRuntime::getDatabase()->querySingle($sql, array('description' => $description), TABLE_TAX_RATES);
+            $result = ZMRuntime::getDatabase()->querySingle($sql, array('description' => $description), 'tax_rates');
             if (null != $result) {
                 $rate += $result['rate'];
             }
@@ -194,7 +194,7 @@ class TaxService extends ZMObject {
     public function getTaxClassForId($id) {
         $sql = "SELECT * FROM " . TABLE_TAX_CLASS . "
                 WHERE tax_class_id = :taxClassId";
-        return ZMRuntime::getDatabase()->querySingle($sql, array('taxClassId' => $id), TABLE_TAX_CLASS, 'zenmagick\apps\store\model\TaxClass');
+        return ZMRuntime::getDatabase()->querySingle($sql, array('taxClassId' => $id), 'tax_class', 'zenmagick\apps\store\model\TaxClass');
     }
 
     /**
@@ -239,7 +239,7 @@ class TaxService extends ZMObject {
                   AND tr.tax_class_id = :taxClassId
                   ORDER BY tr.tax_priority";
         $args = array('taxClassId' => $taxClassId, 'countryId' => $countryId, 'zoneId' => $zoneId);
-        $results = ZMRuntime::getDatabase()->fetchAll($sql, $args, array(TABLE_TAX_RATES, TABLE_ZONES_TO_GEO_ZONES, TABLE_GEO_ZONES));
+        $results = ZMRuntime::getDatabase()->fetchAll($sql, $args, array('tax_rates', 'zones_to_geo_zones', 'geo_zones'));
 
         // calculate appropriate tax rates respecting priorities and compounding
         $taxRates = array();

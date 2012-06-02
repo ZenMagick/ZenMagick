@@ -287,7 +287,7 @@ class SubscriptionsPlugin extends Plugin {
         $sql = "SELECT DATE_ADD(subscription_next_order, INTERVAL " . $distance . ") as subscription_next_order
                 FROM " . TABLE_ORDERS . "
                 WHERE orders_id = :orderId";
-        $result = \ZMRuntime::getDatabase()->querySingle($sql, array('orderId' => $orderId), TABLE_ORDERS);
+        $result = \ZMRuntime::getDatabase()->querySingle($sql, array('orderId' => $orderId), 'orders');
 
         return $result['nextOrder'];
     }

@@ -131,7 +131,7 @@ class ot_zenmagick {
           $sql = "SELECT configuration_value FROM " . TABLE_CONFIGURATION . "
                   WHERE configuration_key = :key";
           $args = array('key' => 'MODULE_ORDER_TOTAL_ZENMAGICK_STATUS');
-          $result = ZMRuntime::getDatabase()->querySingle($sql, $args, TABLE_CONFIGURATION);
+          $result = ZMRuntime::getDatabase()->querySingle($sql, $args, 'configuration');
           $this->installed_ = null != $result;
         }
 

@@ -210,7 +210,7 @@ class TestCouponService extends TestCase {
             // manually check database
             $sql = "SELECT * FROM " . TABLE_COUPON_EMAIL_TRACK . "
                     WHERE coupon_id = :couponId";
-            $result = ZMRuntime::getDatabase()->querySingle($sql, array('couponId' => $coupon->getId()), TABLE_COUPON_EMAIL_TRACK, 'zenmagick\base\ZMObject');
+            $result = ZMRuntime::getDatabase()->querySingle($sql, array('couponId' => $coupon->getId()), 'coupon_email_track', 'zenmagick\base\ZMObject');
             $this->assertNotNull($result);
             $this->assertEqual('foo@bar.com', $result->getEmailTo());
         } else {
@@ -232,7 +232,7 @@ class TestCouponService extends TestCase {
         // manually check database
         $sql = "SELECT * FROM " . TABLE_COUPON_REDEEM_TRACK . "
                 WHERE coupon_id = :couponId";
-        $result = ZMRuntime::getDatabase()->querySingle($sql, array('couponId' => $coupon->getId()), TABLE_COUPON_REDEEM_TRACK, 'zenmagick\base\ZMObject');
+        $result = ZMRuntime::getDatabase()->querySingle($sql, array('couponId' => $coupon->getId()), 'coupon_redeem_track', 'zenmagick\base\ZMObject');
         $this->assertNotNull($result);
         $this->assertEqual('127.0.0.1', $result->getRedeemIp());
 

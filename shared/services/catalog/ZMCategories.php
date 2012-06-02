@@ -436,7 +436,7 @@ class ZMCategories extends ZMObject {
                 WHERE categories_id = :categoryId
                   AND language_id = :languageId";
         $args = array('categoryId' => $categoryId, 'languageId' => $languageId);
-        return ZMRuntime::getDatabase()->querySingle($sql, $args, TABLE_METATAGS_CATEGORIES_DESCRIPTION, 'ZMMetaTagDetails');
+        return ZMRuntime::getDatabase()->querySingle($sql, $args, 'meta_tags_categories_description', 'ZMMetaTagDetails');
     }
 
 }

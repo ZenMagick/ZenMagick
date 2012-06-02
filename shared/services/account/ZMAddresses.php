@@ -142,7 +142,7 @@ class ZMAddresses extends ZMObject {
         $sql = "SELECT address_format
                 FROM " . TABLE_ADDRESS_FORMAT . "
                 WHERE address_format_id = :id";
-        $result = ZMRuntime::getDatabase()->querySingle($sql, array('id' => $addressFormatId), TABLE_ADDRESS_FORMAT);
+        $result = ZMRuntime::getDatabase()->querySingle($sql, array('id' => $addressFormatId), 'address_format');
         return $result['format'];
     }
 
