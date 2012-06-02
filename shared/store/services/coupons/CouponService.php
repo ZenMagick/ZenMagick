@@ -83,7 +83,7 @@ class CouponService extends ZMObject {
     public function getVoucherBalanceForAccountId($accountId) {
         $sql = "SELECT amount from " . TABLE_COUPON_GV_CUSTOMER . "
                 WHERE customer_id = :accountId";
-        $result = ZMRuntime::getDatabase()->querySingle($sql, array('accountId' => $accountId), TABLE_COUPON_GV_CUSTOMER);
+        $result = ZMRuntime::getDatabase()->querySingle($sql, array('accountId' => $accountId), 'coupon_gv_customer');
         return null !== $result ? $result['amount'] : 0;
     }
 
@@ -109,7 +109,7 @@ class CouponService extends ZMObject {
         $sql = "SELECT amount
                 FROM " . TABLE_COUPON_GV_CUSTOMER . "
                 WHERE customer_id = :accountId";
-        $result = ZMRuntime::getDatabase()->querySingle($sql, array('accountId' => $accountId), TABLE_COUPON_GV_CUSTOMER);
+        $result = ZMRuntime::getDatabase()->querySingle($sql, array('accountId' => $accountId), 'coupon_gv_customer');
         if (null != $result) {
             if (Coupon::BALANCE_ADD == $mode) {
                 $amount = $result['amount'] + $amount;
@@ -121,7 +121,7 @@ class CouponService extends ZMObject {
             $sql = "INSERT INTO " . TABLE_COUPON_GV_CUSTOMER . " (customer_id, amount)
                     VALUES (:accountId, :amount)";
         }
-        ZMRuntime::getDatabase()->updateObj($sql, array('accountId' => $accountId, 'amount' => $amount), TABLE_COUPON_GV_CUSTOMER);
+        ZMRuntime::getDatabase()->updateObj($sql, array('accountId' => $accountId, 'amount' => $amount), 'coupon_gv_customer');
     }
 
     /**
@@ -216,7 +216,7 @@ class CouponService extends ZMObject {
         $sql = "SELECT *
                 FROM " . TABLE_COUPON_GV_QUEUE . "
                 WHERE unique_id = :id";
-        return ZMRuntime::getDatabase()->querySingle($sql, array('id' => $queueId), TABLE_COUPON_GV_QUEUE, 'zenmagick\apps\store\model\coupons\CouponQueue');
+        return ZMRuntime::getDatabase()->querySingle($sql, array('id' => $queueId), 'coupon_gv_queue', 'zenmagick\apps\store\model\coupons\CouponQueue');
     }
 
     /**
@@ -229,7 +229,7 @@ class CouponService extends ZMObject {
         $sql = "SELECT *
                 FROM " . TABLE_COUPON_GV_QUEUE . "
                 WHERE release_flag = :released";
-        return ZMRuntime::getDatabase()->fetchAll($sql, array('released' => $flag), TABLE_COUPON_GV_QUEUE, 'zenmagick\apps\store\model\coupons\CouponQueue');
+        return ZMRuntime::getDatabase()->fetchAll($sql, array('released' => $flag), 'coupon_gv_queue', 'zenmagick\apps\store\model\coupons\CouponQueue');
     }
 
     /**
@@ -288,7 +288,7 @@ class CouponService extends ZMObject {
     public function getRestrictionsForCouponId($couponId) {
         $sql = "SELECT * FROM " . TABLE_COUPON_RESTRICT . "
                 WHERE coupon_id = :couponId";
-        $results = ZMRuntime::getDatabase()->fetchAll($sql, array('couponId' => $couponId), TABLE_COUPON_RESTRICT);
+        $results = ZMRuntime::getDatabase()->fetchAll($sql, array('couponId' => $couponId), 'coupon_restrict');
 
         $products = array();
         $categories = array();

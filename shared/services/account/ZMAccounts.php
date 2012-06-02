@@ -266,7 +266,7 @@ class ZMAccounts extends ZMObject {
                 FROM " . TABLE_PRODUCTS_NOTIFICATIONS . "
                 WHERE customers_id = :accountId";
         $productIds = array();
-        foreach (ZMRuntime::getDatabase()->fetchAll($sql, array('accountId' => $accountId), TABLE_PRODUCTS_NOTIFICATIONS) as $result) {
+        foreach (ZMRuntime::getDatabase()->fetchAll($sql, array('accountId' => $accountId), 'products_notification') as $result) {
             $productIds[] = $result['productId'];
         }
         return $productIds;
@@ -302,14 +302,14 @@ class ZMAccounts extends ZMObject {
             $sql = "DELETE FROM " . TABLE_PRODUCTS_NOTIFICATIONS . "
                     WHERE  customers_id = :accountId
                     AND products_id in (:productId)";
-            ZMRuntime::getDatabase()->updateObj($sql, array('accountId' => $account->getId(), 'productId' => $remove), TABLE_PRODUCTS_NOTIFICATIONS);
+            ZMRuntime::getDatabase()->updateObj($sql, array('accountId' => $account->getId(), 'productId' => $remove), 'products_notification');
         }
 
         if (0 < count($add)) {
             $sql = "INSERT INTO " . TABLE_PRODUCTS_NOTIFICATIONS . "
                     (products_id, customers_id) VALUES (:productId, :accountId)";
             foreach ($add as $id) {
-                ZMRuntime::getDatabase()->updateObj($sql, array('accountId' => $account->getId(), 'productId' => $id), TABLE_PRODUCTS_NOTIFICATIONS);
+                ZMRuntime::getDatabase()->updateObj($sql, array('accountId' => $account->getId(), 'productId' => $id), 'products_notification');
             }
         }
 

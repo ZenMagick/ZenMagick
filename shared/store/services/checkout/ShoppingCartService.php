@@ -55,7 +55,7 @@ class ShoppingCartService extends ZMObject {
         // get existing data to decide on whether to INSERT or UPDATE
         $sql = "SELECT products_id FROM " . TABLE_CUSTOMERS_BASKET . " WHERE customers_id = :accountId";
         $skuIds = array();
-        foreach (ZMRuntime::getDatabase()->fetchAll($sql, array('accountId' => $shoppingCart->getAccountId()), TABLE_CUSTOMERS_BASKET) as $result) {
+        foreach (ZMRuntime::getDatabase()->fetchAll($sql, array('accountId' => $shoppingCart->getAccountId()), 'customers_basket') as $result) {
             $skuIds[] = $result['skuId'];
         }
 
@@ -66,7 +66,7 @@ class ShoppingCartService extends ZMObject {
                         SET customers_basket_quantity = :quantity
                         WHERE customers_id = :accountId and products_id = :skuId";
                 $args = array('accountId' => $shoppingCart->getAccountId(), 'skuId' => $item->getId(), 'quantity' => $item->getQuantity());
-                ZMRuntime::getDatabase()->updateObj($sql, $args, TABLE_CUSTOMERS_BASKET);
+                ZMRuntime::getDatabase()->updateObj($sql, $args, 'customers_basket');
             } else {
                 // insert
                 $sql = "INSERT INTO " . TABLE_CUSTOMERS_BASKET . "
@@ -74,7 +74,7 @@ class ShoppingCartService extends ZMObject {
                         VALUES (:accountId, :skuId, :quantity, :dateAdded)";
                 $args = array('accountId' => $shoppingCart->getAccountId(), 'skuId' => $item->getId(), 'quantity' => $item->getQuantity(),
                           'dateAdded' => date('Ymd')); //column is 8 char, not date!
-                ZMRuntime::getDatabase()->updateObj($sql, $args, TABLE_CUSTOMERS_BASKET);
+                ZMRuntime::getDatabase()->updateObj($sql, $args, 'customers_basket');
                 if ($item->hasAttributes()) {
                     foreach ($item->getAttributes() as $attribute) {
                         foreach ($attribute->getValues() as $value) {
@@ -85,7 +85,7 @@ class ShoppingCartService extends ZMObject {
                             $sortOrder = $attribute->getSortOrder() . '.' . str_pad($value->getSortOrder(), 5, '0', STR_PAD_LEFT);
                             $args = array('accountId' => $shoppingCart->getAccountId(), 'skuId' => $item->getId(), 'attributeId' => $attribute->getId(),
                                       'attributeValueId' => $value->getId(), 'attributeValueText' => $value->getName(), 'sortOrder' => $sortOrder);
-                            ZMRuntime::getDatabase()->updateObj($sql, $args, TABLE_CUSTOMERS_BASKET_ATTRIBUTES);
+                            ZMRuntime::getDatabase()->updateObj($sql, $args, 'customers_basket_attributes');
                         }
                     }
                 }
@@ -103,10 +103,10 @@ class ShoppingCartService extends ZMObject {
     public function clearCart($shoppingCart) {
         $sql = "DELETE FROM " . TABLE_CUSTOMERS_BASKET . "
                 WHERE customers_id = :accountId";
-        ZMRuntime::getDatabase()->updateObj($sql, array('accountId' => $shoppingCart->getAccountId()), TABLE_CUSTOMERS_BASKET);
+        ZMRuntime::getDatabase()->updateObj($sql, array('accountId' => $shoppingCart->getAccountId()), 'customers_basket');
         $sql = "DELETE FROM " . TABLE_CUSTOMERS_BASKET_ATTRIBUTES . "
                 WHERE customers_id = :accountId";
-        ZMRuntime::getDatabase()->updateObj($sql, array('accountId' => $shoppingCart->getAccountId()), TABLE_CUSTOMERS_BASKET_ATTRIBUTES);
+        ZMRuntime::getDatabase()->updateObj($sql, array('accountId' => $shoppingCart->getAccountId()), 'customers_basket_attributes');
     }
 
     /**
@@ -133,11 +133,11 @@ class ShoppingCartService extends ZMObject {
         $sql = "SELECT * FROM " . TABLE_CUSTOMERS_BASKET_ATTRIBUTES . "
                 WHERE customers_id = :accountId
                 ORDER BY LPAD(products_options_sort_order, 11, '0'), products_id";
-        $attributeResults = ZMRuntime::getDatabase()->fetchAll($sql, array('accountId' => $accountId), TABLE_CUSTOMERS_BASKET_ATTRIBUTES);
+        $attributeResults = ZMRuntime::getDatabase()->fetchAll($sql, array('accountId' => $accountId), 'customers_basket_attributes');
 
         $sql = "SELECT * FROM " . TABLE_CUSTOMERS_BASKET . "
                 WHERE customers_id = :accountId";
-        foreach (ZMRuntime::getDatabase()->fetchAll($sql, array('accountId' => $accountId), TABLE_CUSTOMERS_BASKET) as $result) {
+        foreach (ZMRuntime::getDatabase()->fetchAll($sql, array('accountId' => $accountId), 'customers_basket') as $result) {
             $id = $result['skuId'];
             $quantity = $result['quantity'];
 

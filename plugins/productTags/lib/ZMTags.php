@@ -55,7 +55,7 @@ class ZMTags extends ZMObject {
                 AND t.language_id = :language_id
                 ORDER BY name";
         $args = array('product_id' => $productId, 'language_id' => $languageId);
-        foreach (ZMRuntime::getDatabase()->fetchAll($sql, $args, array(TABLE_PRODUCT_TAGS, TABLE_TAGS)) as $result) {
+        foreach (ZMRuntime::getDatabase()->fetchAll($sql, $args, array('product_tags', 'tags')) as $result) {
             $tags[$result['product_tag_id']] = $result['name'];
         }
 
@@ -76,7 +76,7 @@ class ZMTags extends ZMObject {
                 WHERE t.name in (:name) AND t.tag_id = pt.tag_id
                 AND t.language_id = :language_id";
         $args = array('name' => $tags, 'language_id' => $languageId);
-        foreach (ZMRuntime::getDatabase()->fetchAll($sql, $args, array(TABLE_PRODUCT_TAGS, TABLE_TAGS)) as $result) {
+        foreach (ZMRuntime::getDatabase()->fetchAll($sql, $args, array('product_tags', 'tags')) as $result) {
             $ids[] = $result['product_id'];
         }
 
@@ -96,7 +96,7 @@ class ZMTags extends ZMObject {
                 WHERE t.language_id = :language_id
                 ORDER BY name";
         $args = array('language_id' => $languageId);
-        foreach (ZMRuntime::getDatabase()->fetchAll($sql, $args, array(TABLE_PRODUCT_TAGS, TABLE_TAGS)) as $result) {
+        foreach (ZMRuntime::getDatabase()->fetchAll($sql, $args, array('product_tags', 'tags')) as $result) {
             $tags[$result['tag_id']] = $result['name'];
         }
 
@@ -117,7 +117,7 @@ class ZMTags extends ZMObject {
             if (!array_key_exists($tag, $allTags)) {
                 // add new tag for language
                 $sql = "INSERT INTO " . TABLE_TAGS . " (name, language_id) VALUES (:name, :language_id)";
-                ZMRuntime::getDatabase()->updateObj($sql, array('name' => $tag, 'language_id' => $languageId), TABLE_TAGS);
+                ZMRuntime::getDatabase()->updateObj($sql, array('name' => $tag, 'language_id' => $languageId), 'tags');
             }
         }
 
@@ -126,7 +126,7 @@ class ZMTags extends ZMObject {
         if (0 < count($tagIds)) {
             $sql = "DELETE FROM " . TABLE_PRODUCT_TAGS . "
                     WHERE product_tag_id in (:product_tag_id)";
-            ZMRuntime::getDatabase()->updateObj($sql, array('product_tag_id' => $tagIds), TABLE_PRODUCT_TAGS);
+            ZMRuntime::getDatabase()->updateObj($sql, array('product_tag_id' => $tagIds), 'product_tags');
         }
 
         // reload to get all current tag_ids
@@ -136,7 +136,7 @@ class ZMTags extends ZMObject {
         foreach ($tags as $tag) {
             $tagId = $allTags[$tag];
             $sql = "INSERT INTO " . TABLE_PRODUCT_TAGS . " (product_id, tag_id) VALUES (:product_id, :tag_id)";
-            ZMRuntime::getDatabase()->updateObj($sql, array('product_id' => $productId, 'tag_id' => $tagId), TABLE_PRODUCT_TAGS);
+            ZMRuntime::getDatabase()->updateObj($sql, array('product_id' => $productId, 'tag_id' => $tagId), 'product_tags');
         }
     }
 
@@ -161,7 +161,7 @@ class ZMTags extends ZMObject {
                 WHERE t.tag_id = pt.tag_id AND t.language_id = :language_id
                 GROUP BY name";
         $stats = array();
-        foreach (ZMRuntime::getDatabase()->fetchAll($sql, array('language_id' => $languageId), array(TABLE_PRODUCT_TAGS, TABLE_TAGS)) as $result) {
+        foreach (ZMRuntime::getDatabase()->fetchAll($sql, array('language_id' => $languageId), array('product_tags', 'tags')) as $result) {
             //XXX: doh!
             $stats[$result['name']] = $result['tag_id'];
         }

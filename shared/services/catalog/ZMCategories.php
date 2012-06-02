@@ -97,7 +97,7 @@ class ZMCategories extends ZMObject {
                 WHERE products_id = :productId";
         $args = array('productId' => $productId);
         $category = null;
-        $result = ZMRuntime::getDatabase()->querySingle($sql, $args, TABLE_PRODUCTS_TO_CATEGORIES);
+        $result = ZMRuntime::getDatabase()->querySingle($sql, $args, 'products_to_categories');
         if (null !== $result) {
             $category = $this->getCategoryForId($result['categoryId'], $languageId);
         }
@@ -354,9 +354,9 @@ class ZMCategories extends ZMObject {
 
         // remove all product/category mappings
         $sql = "DELETE FROM " . TABLE_PRODUCTS_TO_CATEGORIES ." WHERE categories_id = :categoryId";
-        ZMRuntime::getDatabase()->updateObj($sql, array('categoryId' => $category->getId()), TABLE_PRODUCTS_TO_CATEGORIES);
+        ZMRuntime::getDatabase()->updateObj($sql, array('categoryId' => $category->getId()), 'products_to_categories');
         $sql = "DELETE FROM " . TABLE_PRODUCT_TYPES_TO_CATEGORY ." WHERE category_id = :categoryId";
-        ZMRuntime::getDatabase()->updateObj($sql, array('categoryId' => $category->getId()), TABLE_PRODUCT_TYPES_TO_CATEGORY);
+        ZMRuntime::getDatabase()->updateObj($sql, array('categoryId' => $category->getId()), 'product_types_to_category');
     }
 
     /**
@@ -378,7 +378,7 @@ class ZMCategories extends ZMObject {
         $productTypeIdMap = array();
         $sql = "SELECT * FROM " . TABLE_PRODUCT_TYPES_TO_CATEGORY ."
                 ORDER BY category_id";
-        foreach (ZMRuntime::getDatabase()->fetchAll($sql, array(), TABLE_PRODUCT_TYPES_TO_CATEGORY) as $result) {
+        foreach (ZMRuntime::getDatabase()->fetchAll($sql, array(), 'product_types_to_category') as $result) {
             if (!array_key_exists($result['categoryId'],  $productTypeIdMap)) {
                 $productTypeIdMap[$result['categoryId']] = array();
             }

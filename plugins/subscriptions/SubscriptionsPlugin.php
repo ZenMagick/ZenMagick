@@ -211,7 +211,7 @@ class SubscriptionsPlugin extends Plugin {
                       is_subscription = :subscription, is_subscription_canceled = :subscriptionCanceled, subscription_schedule = :schedule
                     WHERE orders_id = :orderId";
             $args = array('orderId' => $orderId, 'subscription' => true, 'subscriptionCanceled' => false, 'schedule' => $schedule);
-            \ZMRuntime::getDatabase()->updateObj($sql, $args, TABLE_ORDERS);
+            \ZMRuntime::getDatabase()->updateObj($sql, $args, 'orders');
 
             if (Toolbox::asBoolean($this->get('subscriptionComment'))) {
                 if (null != ($order = $this->container->get('orderService')->getOrderForId($orderId, $request->getSession()->getLanguageId()))) {

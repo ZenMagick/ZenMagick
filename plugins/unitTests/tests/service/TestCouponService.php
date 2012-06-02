@@ -259,7 +259,7 @@ class TestCouponService extends TestCase {
         // delete balance record to test create
         $sql = "DELETE FROM " . TABLE_COUPON_GV_CUSTOMER . "
                 WHERE customer_id = :accountId";
-        ZMRuntime::getDatabase()->updateObj($sql, array('accountId' => $this->getAccountId()), TABLE_COUPON_GV_CUSTOMER);
+        ZMRuntime::getDatabase()->updateObj($sql, array('accountId' => $this->getAccountId()), 'coupon_gv_customer');
 
         // new coupon worth $5
         $couponCode = $couponService->createCouponCode('foo@bar.com');

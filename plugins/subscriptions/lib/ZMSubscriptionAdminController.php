@@ -45,7 +45,7 @@ class ZMSubscriptionAdminController extends ZMPluginAdminController {
         $sql = "SELECT orders_id FROM " . TABLE_ORDERS . "
                 WHERE  is_subscription = :subscription
                 ORDER BY subscription_next_order DESC";
-        $results = ZMRuntime::getDatabase()->fetchAll($sql, array('subscription' => true), TABLE_ORDERS);
+        $results = ZMRuntime::getDatabase()->fetchAll($sql, array('subscription' => true), 'orders');
         $orderIds = array();
         foreach ($results as $result) {
             if (null != ($order = $this->container->get('orderService')->getOrderForId($result['orderId'], $request->getSession()->getLanguageId()))) {
@@ -73,7 +73,7 @@ class ZMSubscriptionAdminController extends ZMPluginAdminController {
             $sql = "UPDATE " . TABLE_ORDERS . "
                     SET is_subscription_canceled = :subscriptionCanceled, is_subscription = :subscription
                     WHERE orders_id = :orderId";
-            ZMRuntime::getDatabase()->updateObj($sql, array('orderId' => $orderId, 'subscriptionCanceled' => true, 'subscription' => !$hard), TABLE_ORDERS);
+            ZMRuntime::getDatabase()->updateObj($sql, array('orderId' => $orderId, 'subscriptionCanceled' => true, 'subscription' => !$hard), 'orders');
             $this->messageService->success(_zm("Subscription canceled!"));
         }
 

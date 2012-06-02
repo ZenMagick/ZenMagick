@@ -72,7 +72,7 @@ class WhoIsOnlinePlugin extends Plugin {
      */
     public function getStats() {
         $sql = "SELECT customer_id FROM " . TABLE_WHOS_ONLINE;
-        $results = \ZMRuntime::getDatabase()->fetchAll($sql, array(), TABLE_WHOS_ONLINE, \ZMDatabase::MODEL_RAW);
+        $results = \ZMRuntime::getDatabase()->fetchAll($sql, array(), 'whos_online', \ZMDatabase::MODEL_RAW);
         $anonymous = 0;
         $registered = 0;
         foreach ($results as $result) {
@@ -96,7 +96,7 @@ class WhoIsOnlinePlugin extends Plugin {
             $timeAgo = (time() - 1200);
             $sql = "DELETE FROM " . TABLE_WHOS_ONLINE . "
                     WHERE time_last_click < :lastRequestTime";
-            \ZMRuntime::getDatabase()->updateObj($sql, array('lastRequestTime' => $timeAgo), TABLE_WHOS_ONLINE);
+            \ZMRuntime::getDatabase()->updateObj($sql, array('lastRequestTime' => $timeAgo), 'whos_online');
     }
 
     /**
@@ -136,7 +136,7 @@ class WhoIsOnlinePlugin extends Plugin {
         $conn = \ZMRuntime::getDatabase();
         $sql = "SELECT customer_id FROM " . TABLE_WHOS_ONLINE . "
                 WHERE session_id = :sessionId AND ip_address = :ipAddress";
-        $result = $conn->querySingle($sql, array('sessionId' => $sessionId, 'ipAddress' => $ipAddress), TABLE_WHOS_ONLINE);
+        $result = $conn->querySingle($sql, array('sessionId' => $sessionId, 'ipAddress' => $ipAddress), 'whos_online');
 
         $now = time();
         $data = array();
@@ -146,13 +146,13 @@ class WhoIsOnlinePlugin extends Plugin {
         $data['last_page_url'] = rtrim($_SERVER['REQUEST_URI'], '?');
         $data['user_agent'] = isset($_SERVER['HTTP_USER_AGENT']) ? $_SERVER['HTTP_USER_AGENT'] : '';
         if (!empty($result)) {
-            $conn->update(TABLE_WHOS_ONLINE, $data, array('session_id' => $sessionId));
+            $conn->update('whos_online', $data, array('session_id' => $sessionId));
         } else {
             $data['ip_address'] = $ipAddress;
             $data['host_address'] = $session->getValue('customers_host_address') ?: '';
             $data['time_entry'] = $now;
             $data['session_id'] = $sessionId;
-            $conn->insert(TABLE_WHOS_ONLINE, $data);
+            $conn->insert('whos_online', $data);
         }
     }
 

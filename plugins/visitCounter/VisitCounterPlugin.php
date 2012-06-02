@@ -79,7 +79,7 @@ class VisitCounterPlugin extends Plugin {
             $conn->insert(TABLE_COUNTER, array('startdate' => $today, 'counter' => 1));
         } else {
             $query = "UPDATE " . TABLE_COUNTER . " SET counter = counter + 1";
-            $conn->updateObj($query, array(), TABLE_COUNTER);
+            $conn->updateObj($query, array(), 'counter');
         }
     }
 }

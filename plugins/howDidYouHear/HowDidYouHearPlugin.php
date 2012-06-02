@@ -170,7 +170,7 @@ class HowDidYouHearPlugin extends Plugin {
             // need to store sourceOther
             $sql = "INSERT INTO " . TABLE_SOURCES_OTHER . "
                     VALUES (:customers_id, :sources_other_name)";
-            \ZMRuntime::getDatabase()->updateObj($sql, array('customers_id' => $account->getId(), 'sources_other_name' => $account->getSourceOther()), TABLE_SOURCES_OTHER);
+            \ZMRuntime::getDatabase()->updateObj($sql, array('customers_id' => $account->getId(), 'sources_other_name' => $account->getSourceOther()), 'sources_other');
         }
     }
 
