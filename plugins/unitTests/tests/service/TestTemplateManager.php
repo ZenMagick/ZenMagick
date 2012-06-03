@@ -34,8 +34,8 @@ class TestTemplateManager extends TestCase {
     public function testFieldLength() {
         $fields = array(
             // table, column, expected value
-            array('table' => TABLE_CUSTOMERS, 'column' => 'customers_email_address', 'expected' => 96),
-            array('table' => TABLE_ADDRESS_BOOK, 'column' => 'entry_street_address', 'expected' => 64)
+            array('table' => 'customers', 'column' => 'customers_email_address', 'expected' => 96),
+            array('table' => 'address_book', 'column' => 'entry_street_address', 'expected' => 64)
         );
 
         foreach ($fields as $field) {
