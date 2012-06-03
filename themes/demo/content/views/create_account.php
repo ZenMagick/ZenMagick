@@ -98,15 +98,15 @@
 
                 <tr>
                     <td><?php _vzm("Street Address") ?><span>*</span></td>
-                    <td><input type="text" name="addressLine1" value="<?php echo $html->encode($registration->getAddressLine1()) ?>" <?php echo $form->fieldLength(TABLE_ADDRESS_BOOK, 'entry_street_address') ?> /></td>
+                    <td><input type="text" name="addressLine1" value="<?php echo $html->encode($registration->getAddressLine1()) ?>" <?php echo $form->fieldLength('address_book', 'entry_street_address') ?> /></td>
                 </tr>
                 <tr>
                     <td><?php _vzm("Suburb") ?></td>
-                    <td><input type="text" name="suburb" value="<?php echo $html->encode($registration->getSuburb()) ?>" <?php echo $form->fieldLength(TABLE_ADDRESS_BOOK, 'entry_suburb') ?> /></td>
+                    <td><input type="text" name="suburb" value="<?php echo $html->encode($registration->getSuburb()) ?>" <?php echo $form->fieldLength('address_book', 'entry_suburb') ?> /></td>
                 </tr>
                 <tr>
                     <td><?php _vzm("City") ?><span>*</span></td>
-                    <td><input type="text" name="city" value="<?php echo $html->encode($registration->getCity()) ?>" <?php echo $form->fieldLength(TABLE_ADDRESS_BOOK, 'entry_city') ?> /></td>
+                    <td><input type="text" name="city" value="<?php echo $html->encode($registration->getCity()) ?>" <?php echo $form->fieldLength('address_book', 'entry_city') ?> /></td>
                 </tr>
                 <?php
                     $countryId = $registration->getCountryId();
@@ -114,7 +114,7 @@
                 ?>
                 <tr>
                     <td><?php _vzm("Post Code") ?><span>*</span></td>
-                    <td><input type="text" name="postcode" value="<?php echo $html->encode($registration->getPostcode()) ?>" <?php echo $form->fieldLength(TABLE_ADDRESS_BOOK, 'entry_postcode') ?> /></td>
+                    <td><input type="text" name="postcode" value="<?php echo $html->encode($registration->getPostcode()) ?>" <?php echo $form->fieldLength('address_book', 'entry_postcode') ?> /></td>
                 </tr>
                  <tr>
                     <td><?php _vzm("Country") ?><span>*</span></td>

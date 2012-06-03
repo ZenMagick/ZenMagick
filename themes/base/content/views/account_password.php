@@ -29,15 +29,15 @@
         <legend><?php _vzm("Change Password") ?></legend>
         <p>
             <label for="password_current"><?php _vzm("Current Password") ?></label>
-            <input type="password" id="password_current" name="password_current" <?php echo $form->fieldLength(TABLE_CUSTOMERS, 'customers_password') ?> />
+            <input type="password" id="password_current" name="password_current" <?php echo $form->fieldLength('customers', 'customers_password') ?> />
         </p>
         <p>
             <label for="password_new"><?php _vzm("New Password") ?></label>
-            <input type="password" id="password_new" name="password_new" <?php echo $form->fieldLength(TABLE_CUSTOMERS, 'customers_password') ?> />
+            <input type="password" id="password_new" name="password_new" <?php echo $form->fieldLength('customers', 'customers_password') ?> />
         </p>
         <p>
             <label for="password_confirmation"><?php _vzm("Confirm Password") ?></label>
-            <input type="password" id="password_confirmation" name="password_confirmation" <?php echo $form->fieldLength(TABLE_CUSTOMERS, 'customers_password') ?> />
+            <input type="password" id="password_confirmation" name="password_confirmation" <?php echo $form->fieldLength('customers', 'customers_password') ?> />
         </p>
     </fieldset>
     <div class="btn"><input type="submit" class="btn" value="<?php _vzm("Submit") ?>" /></div>

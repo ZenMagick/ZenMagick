@@ -34,7 +34,7 @@
         <legend><?php _vzm("Newsletter Unsubscribe") ?></legend>
         <div>
           <label for="email_address"><?php _vzm("E-Mail Address") ?></label>
-          <input type="text" id="email_address" name="email_address" <?php echo $form->fieldLength(TABLE_CUSTOMERS, 'customers_email_address') ?> />
+          <input type="text" id="email_address" name="email_address" <?php echo $form->fieldLength('customers', 'customers_email_address') ?> />
         </div>
       </fieldset>
       <div class="btn"><input type="submit" class="btn" value="<?php _vzm("Unsubscribe") ?>" /></div>

@@ -37,14 +37,14 @@ use zenmagick\base\Runtime;
     /* edit account */
     $validator->addRules('account', array(
         array('ZMRequiredRule' ,'firstName', 'Please enter your first name.'),
-        array('ZMMaxFieldLengthRule' ,'firstName', TABLE_CUSTOMERS, 'customers_firstname'),
+        array('ZMMaxFieldLengthRule' ,'firstName', 'customers', 'customers_firstname'),
         array('ZMRequiredRule' ,'lastName', 'Please enter your last name.'),
-        array('ZMMaxFieldLengthRule' ,'lastName', TABLE_CUSTOMERS, 'customers_lastname'),
+        array('ZMMaxFieldLengthRule' ,'lastName', 'customers', 'customers_lastname'),
         array('ZMRequiredRule' ,'email', 'Please enter your email address.'),
-        array('ZMMaxFieldLengthRule' ,'email', TABLE_CUSTOMERS, 'customers_email_address'),
+        array('ZMMaxFieldLengthRule' ,'email', 'customers', 'customers_email_address'),
         array('ZMEmailRule' ,'email', 'Please enter a valid email address.'),
         array('ZMRequiredRule' ,'phone', "Please enter your telephone details."),
-        array('ZMMaxFieldLengthRule' ,'phone', TABLE_CUSTOMERS, 'customers_telephone'),
+        array('ZMMaxFieldLengthRule' ,'phone', 'customers', 'customers_telephone'),
         array('ZMMinRule' ,'phone', ENTRY_TELEPHONE_MIN_LENGTH, 'Your Telephone Number must contain a minimum of %2$s characters.')
     ));
     if (Runtime::getSettings()->get('isAccountGender')) {
@@ -110,12 +110,12 @@ use zenmagick\base\Runtime;
     /* create account */
     $validator->addRules('registration', array(
         array('ZMRequiredRule' ,'firstName', 'Please enter your first name.'),
-        array('ZMMaxFieldLengthRule' ,'firstName', TABLE_CUSTOMERS, 'customers_firstname'),
+        array('ZMMaxFieldLengthRule' ,'firstName', 'customers', 'customers_firstname'),
         array('ZMRequiredRule' ,'lastName', 'Please enter your last name.'),
-        array('ZMMaxFieldLengthRule' ,'lastName', TABLE_CUSTOMERS, 'customers_lastname'),
+        array('ZMMaxFieldLengthRule' ,'lastName', 'customers', 'customers_lastname'),
         array('ZMRequiredRule' ,'email', 'Please enter your email address.'),
         array('ZMEmailRule' ,'email', 'Please enter a valid email address.'),
-        array('ZMMaxFieldLengthRule' ,'email', TABLE_CUSTOMERS, 'customers_email_address'),
+        array('ZMMaxFieldLengthRule' ,'email', 'customers', 'customers_email_address'),
         array('ZMUniqueEmailRule' ,'email', 'The entered email address is already in use.'),
         array('ZMRequiredRule' ,'password', 'Please enter you password.'),
         array('ZMMinRule' ,'password', Runtime::getSettings()->get('zenmagick.base.authentication.minPasswordLength'), 'Your password must contain a minimum of %2$s characters.'),
@@ -129,7 +129,7 @@ use zenmagick\base\Runtime;
         array('ZMMaxFieldLengthRule' ,'postcode', TABLE_ADDRESS_BOOK, 'entry_postcode'),
         array('ZMRequiredRule' ,'countryId', 'Please select a country.'),
         array('ZMRequiredRule' ,'phone', "Please enter your telephone details."),
-        array('ZMMaxFieldLengthRule' ,'phone', TABLE_CUSTOMERS, 'customers_telephone')
+        array('ZMMaxFieldLengthRule' ,'phone', 'customers', 'customers_telephone')
     ));
     if (Runtime::getSettings()->get('isPrivacyMessage')) {
         $validator->addRule('registration', array('ZMRequiredRule' ,'privacy', 'You must agree to the privacy policy.'));

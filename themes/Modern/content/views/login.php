@@ -29,11 +29,11 @@
     <table cellspacing="0" cellpadding="0">
 	    <tr>
 	      <td class="label"><?php _vzm("E-Mail Address") ?></td>
-	      <td><input type="text" id="email_address" name="email_address" <?php echo $form->fieldLength(TABLE_CUSTOMERS, 'customers_email_address') ?> /></td>
+	      <td><input type="text" id="email_address" name="email_address" <?php echo $form->fieldLength('customers', 'customers_email_address') ?> /></td>
 	    </tr>
 	    <tr>
 	      <td><?php _vzm("Password") ?></td>
-	      <td><input type="password" id="password" name="password" <?php echo $form->fieldLength(TABLE_CUSTOMERS, 'customers_password') ?> /></td>
+	      <td><input type="password" id="password" name="password" <?php echo $form->fieldLength('customers', 'customers_password') ?> /></td>
 	    </tr>
     </table>
   </fieldset>
@@ -52,7 +52,7 @@
       <legend><?php _vzm("Checkout without registering") ?></legend>
       <div>
         <label for="email_address_guest"><?php _vzm("E-Mail Address") ?></label>
-        <input type="text" id="email_address_guest" name="email_address" <?php echo $form->fieldLength(TABLE_CUSTOMERS, 'customers_email_address') ?> />
+        <input type="text" id="email_address_guest" name="email_address" <?php echo $form->fieldLength('customers', 'customers_email_address') ?> />
         <input type="submit" class="btn" value="<?php _vzm("Checkout") ?>" />
       </div>
     </fieldset>
