@@ -62,9 +62,9 @@ class SQLRunner {
             break;
           case (substr($line_upper, 0, 11) == 'DROP TABLE ' && $param[2] != 'IF'):
             if (!self::table_exists(self::$prefix.$param[2]) || !Toolbox::isEmpty($result)) {
-              self::write_to_upgrade_exceptions_table($line, (!Toolbox::isEmpty($result) ? $result : sprintf(REASON_TABLE_DOESNT_EXIST,$param[2])), $sql_file);
+              self::write_to_upgrade_exceptions_table($line, (!Toolbox::isEmpty($result) ? $result : sprintf(_zm('Table does not exist'),$param[2])), $sql_file);
               $ignore_line=true;
-              $result=(!Toolbox::isEmpty($result) ? $result : sprintf(REASON_TABLE_DOESNT_EXIST,$param[2])); //duplicated here for on-screen error-reporting
+              $result=(!Toolbox::isEmpty($result) ? $result : sprintf(_zm('Table does not exist'),$param[2])); //duplicated here for on-screen error-reporting
               break;
             } else {
               $line = 'DROP TABLE ' . self::$prefix . substr($line, 11);
@@ -75,9 +75,9 @@ class SQLRunner {
             $table = (isset($param[4]) && (strtoupper($param[2].' '.$param[3].' '.$param[4]) == 'IF NOT EXISTS')) ? $param[5] : $param[2];
             $result=self::table_exists(self::$prefix.$table);
             if ($result==true) {
-              self::write_to_upgrade_exceptions_table($line, sprintf(REASON_TABLE_ALREADY_EXISTS,$table), $sql_file);
+              self::write_to_upgrade_exceptions_table($line, sprintf(_zm('Table already exists'),$table), $sql_file);
               $ignore_line=true;
-              $result=sprintf(REASON_TABLE_ALREADY_EXISTS,$table); //duplicated here for on-screen error-reporting
+              $result=sprintf(_zm('Table already exists'),$table); //duplicated here for on-screen error-reporting
               break;
             } else {
               $line = (isset($param[4]) && (strtoupper($param[2].' '.$param[3].' '.$param[4]) == 'IF NOT EXISTS')) ? 'CREATE TABLE IF NOT EXISTS ' . self::$prefix . substr($line, 27) : 'CREATE TABLE ' . self::$prefix . substr($line, 13);
@@ -86,7 +86,7 @@ class SQLRunner {
           case (substr($line_upper, 0, 15) == 'TRUNCATE TABLE '):
             // check to see if TRUNCATE command may be safely executed
             if (!$tbl_exists = self::table_exists(self::$prefix.$param[2])) {
-              $result=sprintf(REASON_TABLE_NOT_FOUND,$param[2]).' CHECK PREFIXES!' . $param[2];
+              $result=sprintf(_zm('Table not found'),$param[2]).' CHECK PREFIXES!' . $param[2];
               self::write_to_upgrade_exceptions_table($line, $result, $sql_file);
               $ignore_line=true;
               break;
@@ -96,7 +96,7 @@ class SQLRunner {
             break;
           case (substr($line_upper, 0, 13) == 'REPLACE INTO '):
             //check to see if table prefix is going to match
-            if (!$tbl_exists = self::table_exists(self::$prefix.$param[2])) $result=sprintf(REASON_TABLE_NOT_FOUND,$param[2]).' CHECK PREFIXES!';
+            if (!$tbl_exists = self::table_exists(self::$prefix.$param[2])) $result=sprintf(_zm('Table not found'),$param[2]).' CHECK PREFIXES!';
             // check to see if INSERT command may be safely executed for "configuration" or "product_type_layout" tables
             if (($param[2]=='configuration'       && ($result=self::check_config_key($line))) or
                 ($param[2]=='product_type_layout' && ($result=self::check_product_type_layout_key($line))) or
@@ -110,7 +110,7 @@ class SQLRunner {
             break;
           case (substr($line_upper, 0, 12) == 'INSERT INTO '):
             //check to see if table prefix is going to match
-            if (!$tbl_exists = self::table_exists(self::$prefix.$param[2])) $result=sprintf(REASON_TABLE_NOT_FOUND,$param[2]).' CHECK PREFIXES!';
+            if (!$tbl_exists = self::table_exists(self::$prefix.$param[2])) $result=sprintf(_zm('Table not found'),$param[2]).' CHECK PREFIXES!';
             // check to see if INSERT command may be safely executed for "configuration" or "product_type_layout" tables
             if (($param[2]=='configuration'       && ($result=self::check_config_key($line))) or
                 ($param[2]=='product_type_layout' && ($result=self::check_product_type_layout_key($line))) or
@@ -125,7 +125,7 @@ class SQLRunner {
           case (substr($line_upper, 0, 19) == 'INSERT IGNORE INTO '):
             //check to see if table prefix is going to match
             if (!$tbl_exists = self::table_exists(self::$prefix.$param[3])) {
-	    $result=sprintf(REASON_TABLE_NOT_FOUND,$param[3]).' CHECK PREFIXES!';
+	    $result=sprintf(_zm('Table not found'),$param[3]).' CHECK PREFIXES!';
       self::write_to_upgrade_exceptions_table($line, $result, $sql_file);
               $ignore_line=true;
               break;
@@ -155,8 +155,8 @@ class SQLRunner {
           case (substr($line_upper, 0, 7) == 'UPDATE '):
             //check to see if table prefix is going to match
             if (!$tbl_exists = self::table_exists(self::$prefix.$param[1])) {
-              self::write_to_upgrade_exceptions_table($line, sprintf(REASON_TABLE_NOT_FOUND,$param[1]).' CHECK PREFIXES!', $sql_file);
-              $result=sprintf(REASON_TABLE_NOT_FOUND,$param[1]).' CHECK PREFIXES!';
+              self::write_to_upgrade_exceptions_table($line, sprintf(_zm('Table not found'),$param[1]).' CHECK PREFIXES!', $sql_file);
+              $result=sprintf(_zm('Table not found'),$param[1]).' CHECK PREFIXES!';
               $ignore_line=true;
               break;
             } else {
@@ -166,8 +166,8 @@ class SQLRunner {
           case (substr($line_upper, 0, 14) == 'UPDATE IGNORE '):
             //check to see if table prefix is going to match
             if (!$tbl_exists = self::table_exists(self::$prefix.$param[2])) {
-              self::write_to_upgrade_exceptions_table($line, sprintf(REASON_TABLE_NOT_FOUND,$param[2]).' CHECK PREFIXES!', $sql_file);
-              $result=sprintf(REASON_TABLE_NOT_FOUND,$param[2]).' CHECK PREFIXES!';
+              self::write_to_upgrade_exceptions_table($line, sprintf(_zm('Table not found'),$param[2]).' CHECK PREFIXES!', $sql_file);
+              $result=sprintf(_zm('Table not found'),$param[2]).' CHECK PREFIXES!';
               $ignore_line=true;
               break;
             } else {
