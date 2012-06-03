@@ -182,21 +182,21 @@ class ZMDatabase extends Connection {
      * {@inheritDoc}
      */
     public function delete($tableName, array $identifier = array()) {
-        parent::delete($this->resolveTable($tableName), $identifier);
+        return parent::delete($this->resolveTable($tableName), $identifier);
     }
 
     /**
      * {@inheritDoc}
      */
     public function insert($tableName, array $data, array $types = array()) {
-        parent::insert($this->resolveTable($tableName), $data, $types);
+        return parent::insert($this->resolveTable($tableName), $data, $types);
     }
 
     /**
      * {@inheritDoc}
      */
     public function update($tableName, array $data, array $identifier = array(), array $types = array()) {
-        parent::update($this->resolveTable($table), $data, $identifier, $types);
+        return parent::update($this->resolveTable($table), $data, $identifier, $types);
     }
 
     /**
