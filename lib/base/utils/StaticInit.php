@@ -20,6 +20,8 @@
 namespace zenmagick\base\utils;
 
 use Exception;
+use ReflectionClass;
+use Swift;
 use zenmagick\base\classloader\ClassLoader;
 use zenmagick\base\Runtime;
 use zenmagick\base\ZMException;
@@ -38,12 +40,16 @@ class StaticInit {
      */
     public static function initSwiftAutoLoader() {
         try {
-            $rclass = new \ReflectionClass('Swift');
-            \Swift::$initPath = realpath(dirname($rclass->getFilename()).'/../swift_init.php');
+            $rclass = new ReflectionClass('Swift');
+            Swift::$initPath = realpath(dirname($rclass->getFilename()).'/../swift_init.php');
             // ZenMagick class loader append, so the last one wins
             spl_autoload_register(array('Swift', 'autoload'), false, true);
         } catch (Exception $e) {
-            Runtime::getLogging()->error(sprintf('swift init failed %s', $e->getMessage()));
+            $container = Runtime::getContainer();
+            if ($container->has('loggingService')) {
+                $loggingService = $container->get('loggingService');
+                $loggingService->error(sprintf('swift init failed %s', $e->getMessage()));
+            }
         }
     }
 
