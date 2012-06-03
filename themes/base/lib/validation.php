@@ -69,15 +69,15 @@ use zenmagick\base\Runtime;
     /* address */
     $validator->addRules('address', array(
         array('ZMRequiredRule' ,'firstName', 'Please enter your first name.'),
-        array('ZMMaxFieldLengthRule' ,'firstName', TABLE_ADDRESS_BOOK, 'entry_firstname'),
+        array('ZMMaxFieldLengthRule' ,'firstName', 'address_book', 'entry_firstname'),
         array('ZMRequiredRule' ,'lastName', 'Please enter your last name.'),
-        array('ZMMaxFieldLengthRule' ,'lastName', TABLE_ADDRESS_BOOK, 'entry_lastname'),
+        array('ZMMaxFieldLengthRule' ,'lastName', 'address_book', 'entry_lastname'),
         array('ZMRequiredRule' ,'addressLine1', 'Please enter your address.'),
-        array('ZMMaxFieldLengthRule' ,'addressLine1', TABLE_ADDRESS_BOOK, 'entry_street_address'),
+        array('ZMMaxFieldLengthRule' ,'addressLine1', 'address_book', 'entry_street_address'),
         array('ZMRequiredRule' ,'city', 'Please enter a city.'),
-        array('ZMMaxFieldLengthRule' ,'city', TABLE_ADDRESS_BOOK, 'entry_city'),
+        array('ZMMaxFieldLengthRule' ,'city', 'address_book', 'entry_city'),
         array('ZMRequiredRule' ,'postcode', 'Please enter a postcode.'),
-        array('ZMMaxFieldLengthRule' ,'postcode', TABLE_ADDRESS_BOOK, 'entry_postcode'),
+        array('ZMMaxFieldLengthRule' ,'postcode', 'address_book', 'entry_postcode'),
         array('ZMRequiredRule' ,'countryId', 'Please select a country.')
     ));
     if (Runtime::getSettings()->get('isAccountGender')) {
@@ -85,7 +85,7 @@ use zenmagick\base\Runtime;
     }
     if (Runtime::getSettings()->get('isAccountState')) {
         $validator->addRule('address', array('ZMStateOrZoneIdRule' ,'state,zoneId', 'Please enter a state.'));
-        $validator->addRule('address', array('ZMMaxFieldLengthRule' ,'state', TABLE_ADDRESS_BOOK, 'entry_state'));
+        $validator->addRule('address', array('ZMMaxFieldLengthRule' ,'state', 'address_book', 'entry_state'));
     }
 
     /* use alias */
@@ -122,11 +122,11 @@ use zenmagick\base\Runtime;
         array('ZMRequiredRule' ,'confirmation', 'Please confirm the password.'),
         array('ZMFieldMatchRule' ,'password', 'confirmation', 'The password and confirm password must match.'),
         array('ZMRequiredRule' ,'addressLine1', 'Please enter your address.'),
-        array('ZMMaxFieldLengthRule' ,'addressLine1', TABLE_ADDRESS_BOOK, 'entry_street_address'),
+        array('ZMMaxFieldLengthRule' ,'addressLine1', 'address_book', 'entry_street_address'),
         array('ZMRequiredRule' ,'city', 'Please enter a city.'),
-        array('ZMMaxFieldLengthRule' ,'city', TABLE_ADDRESS_BOOK, 'entry_city'),
+        array('ZMMaxFieldLengthRule' ,'city', 'address_book', 'entry_city'),
         array('ZMRequiredRule' ,'postcode', 'Please enter a postcode.'),
-        array('ZMMaxFieldLengthRule' ,'postcode', TABLE_ADDRESS_BOOK, 'entry_postcode'),
+        array('ZMMaxFieldLengthRule' ,'postcode', 'address_book', 'entry_postcode'),
         array('ZMRequiredRule' ,'countryId', 'Please select a country.'),
         array('ZMRequiredRule' ,'phone', "Please enter your telephone details."),
         array('ZMMaxFieldLengthRule' ,'phone', 'customers', 'customers_telephone')
@@ -143,7 +143,7 @@ use zenmagick\base\Runtime;
     }
     if (Runtime::getSettings()->get('isAccountState')) {
         $validator->addRule('registration', array('ZMStateOrZoneIdRule' ,'state,zoneId', 'Please enter a valid state/province.'));
-        $validator->addRule('registration', array('ZMMaxFieldLengthRule' ,'state', TABLE_ADDRESS_BOOK, 'entry_state'));
+        $validator->addRule('registration', array('ZMMaxFieldLengthRule' ,'state', 'address_book', 'entry_state'));
     }
 
 
@@ -195,7 +195,7 @@ use zenmagick\base\Runtime;
     $validator->addRules('gvReceiver', array(
         array('ZMRequiredRule' ,'name', 'Please enter a receiver name.'),
         array('ZMRequiredRule' ,'email', 'Please enter the receivers email address.'),
-        array('ZMMaxFieldLengthRule' ,'email', TABLE_COUPON_EMAIL_TRACK, 'emailed_to'),
+        array('ZMMaxFieldLengthRule' ,'email', 'coupon_email_track', 'emailed_to'),
         array('ZMEmailRule' ,'email', "Please enter a valid receiver email address."),
         array('ZMRequiredRule' ,'amount', 'Please enter the amount.'),
         array('ZMGVAmountRule' ,'amount')
