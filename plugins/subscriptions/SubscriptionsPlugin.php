@@ -206,7 +206,7 @@ class SubscriptionsPlugin extends Plugin {
         $request = $event->get('request');
         $orderId = $event->get('orderId');
         if (null != ($schedule = $this->getSelectedSchedule())) {
-            $sql = "UPDATE " . TABLE_ORDERS . "
+            $sql = "UPDATE %table.orders%
                     SET subscription_next_order = DATE_ADD(date_purchased, INTERVAL " . self::schedule2SQL($schedule) . "),
                       is_subscription = :subscription, is_subscription_canceled = :subscriptionCanceled, subscription_schedule = :schedule
                     WHERE orders_id = :orderId";
@@ -254,7 +254,7 @@ class SubscriptionsPlugin extends Plugin {
      */
     public function getScheduledOrderIdsForSubscriptionOrderId($orderId) {
         $sql = "SELECT orders_id
-                FROM " . TABLE_ORDERS . "
+                FROM %table.orders%
                 WHERE subscription_order_id = :subscriptionOrderId";
         $results = array();
         foreach (\ZMRuntime::getDatabase()->fetchAll($sql, array('subscriptionOrderId' => $orderId), 'orders') as $result) {
@@ -285,7 +285,7 @@ class SubscriptionsPlugin extends Plugin {
 
         // use SQL to calculate the last date
         $sql = "SELECT DATE_ADD(subscription_next_order, INTERVAL " . $distance . ") as subscription_next_order
-                FROM " . TABLE_ORDERS . "
+                FROM %table.orders%
                 WHERE orders_id = :orderId";
         $result = \ZMRuntime::getDatabase()->querySingle($sql, array('orderId' => $orderId), 'orders');
 

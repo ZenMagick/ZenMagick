@@ -21,9 +21,6 @@
 use zenmagick\base\Runtime;
 use zenmagick\base\ZMObject;
 
-define('TABLE_TAGS', DB_PREFIX . 'tags');
-define('TABLE_PRODUCT_TAGS', DB_PREFIX . 'product_tags');
-
 /**
  * <em>Tags</em>.
  *
@@ -50,7 +47,7 @@ class ZMTags extends ZMObject {
     public function getTagsForProductId($productId, $languageId) {
         $tags = array();
         $sql = "SELECT distinct pt.product_tag_id, t.name
-                FROM " . TABLE_PRODUCT_TAGS . " pt, " . TABLE_TAGS . " t
+                FROM %table.product_tags% pt, %table.tags% t
                 WHERE pt.product_id = :product_id AND t.tag_id = pt.tag_id
                 AND t.language_id = :language_id
                 ORDER BY name";
@@ -72,7 +69,7 @@ class ZMTags extends ZMObject {
     public function getProductIdsForTags($tags, $languageId) {
         $ids = array();
         $sql = "SELECT distinct pt.product_id
-                FROM " . TABLE_PRODUCT_TAGS . " pt, " . TABLE_TAGS . " t
+                FROM %table.product_tags% pt, %table.tags% t
                 WHERE t.name in (:name) AND t.tag_id = pt.tag_id
                 AND t.language_id = :language_id";
         $args = array('name' => $tags, 'language_id' => $languageId);
@@ -92,7 +89,7 @@ class ZMTags extends ZMObject {
     public function getAllTags($languageId) {
         $tags = array();
         $sql = "SELECT distinct t.tag_id, t.name
-                FROM " . TABLE_TAGS . " t
+                FROM %table.tags% t
                 WHERE t.language_id = :language_id
                 ORDER BY name";
         $args = array('language_id' => $languageId);
@@ -116,7 +113,7 @@ class ZMTags extends ZMObject {
         foreach ($tags as $tag) {
             if (!array_key_exists($tag, $allTags)) {
                 // add new tag for language
-                $sql = "INSERT INTO " . TABLE_TAGS . " (name, language_id) VALUES (:name, :language_id)";
+                $sql = "INSERT INTO %table.tags% (name, language_id) VALUES (:name, :language_id)";
                 ZMRuntime::getDatabase()->updateObj($sql, array('name' => $tag, 'language_id' => $languageId), 'tags');
             }
         }
@@ -124,7 +121,7 @@ class ZMTags extends ZMObject {
         // delete existing tags for product
         $tagIds = array_keys($this->getTagsForProductId($productId, $languageId));
         if (0 < count($tagIds)) {
-            $sql = "DELETE FROM " . TABLE_PRODUCT_TAGS . "
+            $sql = "DELETE FROM %table.product_tags%
                     WHERE product_tag_id in (:product_tag_id)";
             ZMRuntime::getDatabase()->updateObj($sql, array('product_tag_id' => $tagIds), 'product_tags');
         }
@@ -135,7 +132,7 @@ class ZMTags extends ZMObject {
         // (re-)add all tags
         foreach ($tags as $tag) {
             $tagId = $allTags[$tag];
-            $sql = "INSERT INTO " . TABLE_PRODUCT_TAGS . " (product_id, tag_id) VALUES (:product_id, :tag_id)";
+            $sql = "INSERT INTO %table.product_tags% (product_id, tag_id) VALUES (:product_id, :tag_id)";
             ZMRuntime::getDatabase()->updateObj($sql, array('product_id' => $productId, 'tag_id' => $tagId), 'product_tags');
         }
     }
@@ -144,8 +141,8 @@ class ZMTags extends ZMObject {
      * Purge unused tags.
      */
     public function cleanupTags() {
-        $sql = "DELETE FROM " . TABLE_TAGS . "
-                WHERE NOT tag_id in (SELECT DISTINCT tag_id from " . TABLE_PRODUCT_TAGS . ")";
+        $sql = "DELETE FROM %table.tags%
+                WHERE NOT tag_id in (SELECT DISTINCT tag_id from %table.product_tags%)";
         ZMRuntime::getDatabase()->executeUpdate($sql);
     }
 
@@ -157,7 +154,7 @@ class ZMTags extends ZMObject {
      */
     public function getStats($languageId) {
         $sql = "SELECT COUNT(*) as tag_id, t.name
-                FROM " . TABLE_PRODUCT_TAGS . " pt, " . TABLE_TAGS . " t
+                FROM %table.product_tags% pt, %table.tags% t
                 WHERE t.tag_id = pt.tag_id AND t.language_id = :language_id
                 GROUP BY name";
         $stats = array();

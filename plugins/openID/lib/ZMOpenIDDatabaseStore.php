@@ -69,7 +69,7 @@ class ZMOpenIDDatabaseStore extends Auth_OpenID_OpenIDStore {
      * @param Auth_OpenID_Association $association
      */
     public function storeAssociation($server_url, $association) {
-        $sql = "REPLACE INTO ".DB_PREFIX.'zm_openid_associations'."
+        $sql = "REPLACE INTO %table.zm_openid_associations%
                 (server_url, handle, secret, issued, lifetime, assoc_type)
                 VALUES (:server_url, :handle, :secret, :issued, :lifetime, :type)";
         $args = array(
@@ -94,7 +94,7 @@ class ZMOpenIDDatabaseStore extends Auth_OpenID_OpenIDStore {
         $associations = array();
         if ($handle != null) {
             $sql = "SELECT server_url, handle, secret, issued, lifetime, assoc_type
-                    FROM ".DB_PREFIX.'zm_openid_associations'."
+                    FROM %table.zm_openid_associations%
                     WHERE server_url = :server_url AND handle = :handle";
             $row = ZMRuntime::getDatabase()->querySingle($sql, array('server_url' => $server_url, 'handle' => $handle), 'zm_openid_associations');
             if (null != $row) {
@@ -102,7 +102,7 @@ class ZMOpenIDDatabaseStore extends Auth_OpenID_OpenIDStore {
             }
         } else {
             $sql = "SELECT server_url, handle, secret, issued, lifetime, assoc_type
-                    FROM ".DB_PREFIX.'zm_openid_associations'."
+                    FROM %table.zm_openid_associations%
                     WHERE server_url = :server_url";
             $rows = ZMRuntime::getDatabase()->fetchAll($sql, array('server_url' => $server_url), 'zm_openid_associations');
             foreach ($rows as $row) {
@@ -138,7 +138,7 @@ class ZMOpenIDDatabaseStore extends Auth_OpenID_OpenIDStore {
      * @param string $handle
      */
     public function removeAssociation($server_url, $handle) {
-        $sql = "DELETE FROM ".DB_PREFIX.'zm_openid_associations'."
+        $sql = "DELETE FROM %table.zm_openid_associations%
                 WHERE server_url = :server_url AND handle = :handle";
         $args = array('server_url' => $server_url, 'handle' => $handle);
         ZMRuntime::getDatabase()->updateObj($sql, $args, 'zm_openid_associations');
@@ -153,7 +153,7 @@ class ZMOpenIDDatabaseStore extends Auth_OpenID_OpenIDStore {
             return false;
         }
 
-        $sql = "INSERT INTO ".DB_PREFIX.'zm_openid_nonces'."
+        $sql = "INSERT INTO %table.zm_openid_nonces%
                 (server_url, issued, salt)
                 VALUES (:server_url, :issued, :salt)";
         $args = array('server_url' => $server_url, 'issued' => $issued, 'salt' => $salt);
@@ -167,7 +167,7 @@ class ZMOpenIDDatabaseStore extends Auth_OpenID_OpenIDStore {
     public function cleanupNonces() {
         $timestamp = time() - $this->nonceLifetime;
 
-        $sql = "DELETE FROM ".DB_PREFIX.'zm_openid_nonces'."
+        $sql = "DELETE FROM %table.zm_openid_nonces%
                 WHERE issued < :issued";
         $args = array('issued' => $timestamp);
         return ZMRuntime::getDatabase()->updateObj($sql, $args, 'zm_openid_nonces');
@@ -177,7 +177,7 @@ class ZMOpenIDDatabaseStore extends Auth_OpenID_OpenIDStore {
      * Cleanup associations.
      */
     public function cleanupAssociations() {
-        $sql = "DELETE FROM ".DB_PREFIX.'zm_openid_associations'."
+        $sql = "DELETE FROM %table.zm_openid_associations%
                 WHERE (issued + lifetime) < :lifetime";
         // use lifetime mapping to compare times...
         $args = array('lifetime' => time());
@@ -188,8 +188,8 @@ class ZMOpenIDDatabaseStore extends Auth_OpenID_OpenIDStore {
      * Reset.
      */
     public function reset() {
-        ZMRuntime::getDatabase()->updateObj("DELETE FROM ".DB_PREFIX.'zm_openid_associations', array(), 'zm_openid_associations');
-        ZMRuntime::getDatabase()->updateObj("DELETE FROM ".DB_PREFIX.'zm_openid_nonces', array(), 'zm_openid_nonces');
+        ZMRuntime::getDatabase()->updateObj("DELETE FROM %zm_openid_associations%", array(), 'zm_openid_associations');
+        ZMRuntime::getDatabase()->updateObj("DELETE FROM %zm_openid_nonces%", array(), 'zm_openid_nonces');
     }
 
 }

@@ -43,7 +43,7 @@ class StoreSessionHandler implements SessionHandler {
      */
     public function read($id) {
         $sql = "SELECT value
-                FROM " . DB_PREFIX . "sessions
+                FROM %table.sessions%
                 WHERE sesskey = :sesskey
                 AND expiry > :expiry";
         if (null !== ($result = ZMRuntime::getDatabase()->querySingle($sql, array('sesskey' => $id, 'expiry' => time()), 'sessions'))) {
@@ -59,16 +59,16 @@ class StoreSessionHandler implements SessionHandler {
     public function write($id, $data) {
         // check for existing row
         $sql = "SELECT value
-                FROM " . DB_PREFIX . "sessions
+                FROM %table.sessions%
                 WHERE sesskey = :sesskey";
         if (null !== ($result = ZMRuntime::getDatabase()->querySingle($sql, array('sesskey' => $id), 'sessions'))) {
             // update
-            $sql = "UPDATE " . DB_PREFIX . "sessions
+            $sql = "UPDATE %table.sessions%
                     SET expiry = :expiry, value = :value
                     WHERE sesskey = :sesskey";
         } else {
             // create
-            $sql = "INSERT INTO " . DB_PREFIX . "sessions
+            $sql = "INSERT INTO %table.sessions%
                     VALUES (:sesskey, :expiry, :value)";
         }
 
@@ -80,7 +80,7 @@ class StoreSessionHandler implements SessionHandler {
      * {@inheritDoc}
      */
     public function destroy($id) {
-        $sql = "DELETE FROM " . DB_PREFIX . "sessions WHERE sesskey = :sesskey";
+        $sql = "DELETE FROM %table.sessions% WHERE sesskey = :sesskey";
         return ZMRuntime::getDatabase()->updateObj($sql, array('sesskey' => $id), 'sessions');
     }
 
@@ -88,7 +88,7 @@ class StoreSessionHandler implements SessionHandler {
      * {@inheritDoc}
      */
     public function gc($lifetime) {
-        $sql = "DELETE FROM " . DB_PREFIX . "sessions where expiry < :expiry";
+        $sql = "DELETE FROM %table.sessions% where expiry < :expiry";
         return ZMRuntime::getDatabase()->updateObj($sql, array('expiry' => time()), 'sessions');
     }
 

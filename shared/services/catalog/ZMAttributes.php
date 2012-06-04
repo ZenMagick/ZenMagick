@@ -58,7 +58,7 @@ class ZMAttributes extends ZMObject {
         $sql = "SELECT distinct po.products_options_id, po.products_options_name, po.products_options_sort_order,
                 po.products_options_type, po.products_options_length, po.products_options_comment, po.products_options_size,
                 po.products_options_images_per_row, po.products_options_images_style, pa.products_id
-                FROM " . TABLE_PRODUCTS_OPTIONS . " po, " . TABLE_PRODUCTS_ATTRIBUTES . " pa
+                FROM %table.products_options% po, %table.products_attributes% pa
                 WHERE pa.products_id = :productId
                   AND pa.options_id = po.products_options_id
                   AND po.language_id = :languageId" .
@@ -76,7 +76,7 @@ class ZMAttributes extends ZMObject {
         }
 
         $sql = "SELECT pov.products_options_values_id, pov.products_options_values_name, pa.*
-                FROM " . TABLE_PRODUCTS_ATTRIBUTES . " pa, " . TABLE_PRODUCTS_OPTIONS_VALUES . " pov
+                FROM %table.products_attributes% pa, %table.products_options_values% pov
                 WHERE pa.products_id = :productId
                   AND pa.options_id IN (:attributeId)
                   AND pa.options_values_id = pov.products_options_values_id
@@ -116,7 +116,7 @@ class ZMAttributes extends ZMObject {
 
         $args = array('productId' => $attribute->getProductId(), 'attributeValueId' => $attributeValueIds);
         $sql = "SELECT count(*) as total
-                  FROM " . TABLE_PRODUCTS_ATTRIBUTES . " pa, " . TABLE_PRODUCTS_ATTRIBUTES_DOWNLOAD . " pad
+                  FROM %table.products_attributes% pa, %table.products_attributes_download% pad
                   WHERE pa.products_id = :productId
                     AND pa.options_values_id in (:attributeValueId)
                     AND pa.products_attributes_id = pad.products_attributes_id";

@@ -111,7 +111,7 @@ class OpenIDPlugin extends Plugin {
      * @return ZMAccount The account or <code>null</code>.
      */
     public function getAccountForOpenID($openid) {
-        $sql = "SELECT customers_id from ".TABLE_CUSTOMERS."
+        $sql = "SELECT customers_id from %table.customers%
                 WHERE openid = :openid";
         $args = array('openid' => $openid);
         $result = \ZMRuntime::getDatabase()->querySingle($sql, $args, 'customers');

@@ -56,7 +56,7 @@ class AdminUserService extends ZMObject {
      */
     public function getUserForId($id) {
         $sql = "SELECT *
-                FROM " . TABLE_ADMIN . "
+                FROM %table.admin%
                 WHERE admin_id = :id";
         $args = array('id' => $id);
         return $this->finalizeUser(\ZMRuntime::getDatabase()->querySingle($sql, $args, 'admin', 'zenmagick\apps\store\admin\entities\AdminUser'));
@@ -70,7 +70,7 @@ class AdminUserService extends ZMObject {
      */
     public function getUserForName($name) {
         $sql = "SELECT *
-                FROM " . TABLE_ADMIN . "
+                FROM %table.admin%
                 WHERE admin_name = :name";
         $args = array('name' => $name);
         return $this->finalizeUser(\ZMRuntime::getDatabase()->querySingle($sql, $args, 'admin', 'zenmagick\apps\store\admin\entities\AdminUser'));
@@ -84,7 +84,7 @@ class AdminUserService extends ZMObject {
      */
     public function getAllUsers($demoOnly=false) {
         $sql = "SELECT *
-                FROM " . TABLE_ADMIN;
+                FROM %table.admin%";
         if ($demoOnly) {
             $sql .= " WHERE admin_level = :live";
         }
@@ -104,7 +104,7 @@ class AdminUserService extends ZMObject {
      */
     public function getUserForEmail($email) {
         $sql = "SELECT *
-                FROM " . TABLE_ADMIN . "
+                FROM %table.admin%
                 WHERE admin_email = :email";
         $args = array('email' => $email);
         return $this->finalizeUser(\ZMRuntime::getDatabase()->querySingle($sql, $args, 'admin', 'zenmagick\apps\store\admin\entities\AdminUser'));
@@ -144,7 +144,7 @@ class AdminUserService extends ZMObject {
         // remove roles
         $roles = $adminUserRoleService->getRolesForId($id);
         $adminUserRoleService->setRolesForId($id, $roles);
-        $sql = "DELETE FROM " . TABLE_ADMIN . "
+        $sql = "DELETE FROM %table.admin%
                 WHERE admin_id = :id";
         // delete user
         \ZMRuntime::getDatabase()->updateObj($sql, array('id' => $id), 'admin');

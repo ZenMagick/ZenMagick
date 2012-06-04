@@ -36,7 +36,7 @@ class ProductTypeLayoutService extends ZMObject {
      */
     public function loadAll() {
         $map = array();
-        $sql = "SELECT configuration_key, configuration_value FROM " . DB_PREFIX . "product_type_layout";
+        $sql = "SELECT configuration_key, configuration_value FROM %table.product_type_layout%";
         foreach (\ZMRuntime::getDatabase()->fetchAll($sql) as $result) {
             $map[$result['configuration_key']] = $result['configuration_value'];
         }

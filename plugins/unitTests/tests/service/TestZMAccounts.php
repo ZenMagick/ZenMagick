@@ -69,7 +69,7 @@ class TestZMAccounts extends TestCase {
      * Clean up.
      */
     public function tearDown() {
-        $sql = 'SELECT customers_id FROM '.TABLE_CUSTOMERS.' WHERE customers_lastname = \'doe\'';
+        $sql = 'SELECT customers_id FROM %table.customers% WHERE customers_lastname = \'doe\'';
         $results = ZMRuntime::getDatabase()->fetchAll($sql, array(), 'customers');
         $ids = array();
         foreach ($results as $result) {
@@ -81,10 +81,10 @@ class TestZMAccounts extends TestCase {
             return;
         }
 
-        $sql = 'DELETE FROM '.TABLE_CUSTOMERS_INFO.' WHERE customers_info_id IN (:accountId)';
+        $sql = 'DELETE FROM %table.customers_info% WHERE customers_info_id IN (:accountId)';
         $results = ZMRuntime::getDatabase()->updateObj($sql, array('accountId' => $ids), 'customers_info');
 
-        $sql = 'DELETE FROM '.TABLE_CUSTOMERS.' WHERE customers_id IN (:accountId)';
+        $sql = 'DELETE FROM %table.customers% WHERE customers_id IN (:accountId)';
         $results = ZMRuntime::getDatabase()->updateObj($sql, array('accountId' => $ids), 'customers');
         parent::tearDown();
     }
@@ -160,13 +160,13 @@ class TestZMAccounts extends TestCase {
      */
     public function testProductSubscriptions() {
         // delete previous subscriptions
-        $sql = "DELETE from " . TABLE_PRODUCTS_NOTIFICATIONS . "
+        $sql = "DELETE from %table.products_notifications%
                 WHERE  customers_id = :accountId";
         ZMRuntime::getDatabase()->updateObj($sql, array('accountId' => 2), 'products_notification');
 
         $testProductIds = array(1, 4, 7);
         // insert new
-        $sql = "INSERT into " . TABLE_PRODUCTS_NOTIFICATIONS . "
+        $sql = "INSERT into %table.products_notifications%
                 (products_id, customers_id) VALUES(:productId, :accountId)";
         foreach ($testProductIds as $id) {
             ZMRuntime::getDatabase()->updateObj($sql, array('accountId' => 2, 'productId' => $id), 'products_notification');

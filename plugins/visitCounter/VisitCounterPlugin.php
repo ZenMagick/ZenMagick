@@ -68,17 +68,17 @@ class VisitCounterPlugin extends Plugin {
             if ($newSession) $session->setValue('session_counter', true);
         }
         $today  = date('Ymd');
-        $query = "INSERT INTO " . TABLE_COUNTER_HISTORY . " (startdate, counter, session_counter) values (:today, 1, 1)
+        $query = "INSERT INTO %table.counter_history% (startdate, counter, session_counter) values (:today, 1, 1)
                  ON DUPLICATE KEY UPDATE counter = counter + 1, session_counter = session_counter + :session_counter";
         $conn->executeUpdate($query, array('today' => $today, 'session_counter' => (int)$newSession));
 
         // @todo add a unique index on counter table
-        $query = "SELECT startdate, counter FROM " . TABLE_COUNTER . " WHERE startdate = :startdate";
+        $query = "SELECT startdate, counter FROM %table.counter% WHERE startdate = :startdate";
         $result = $conn->querySingle($query, array('startdate' => $today), 'counter');
         if (empty($result)) {
             $conn->insert('counter', array('startdate' => $today, 'counter' => 1));
         } else {
-            $query = "UPDATE " . TABLE_COUNTER . " SET counter = counter + 1";
+            $query = "UPDATE %table.counter% SET counter = counter + 1";
             $conn->updateObj($query, array(), 'counter');
         }
     }

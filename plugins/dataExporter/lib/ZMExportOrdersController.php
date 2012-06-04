@@ -68,7 +68,7 @@ class ZMExportOrdersController extends ZMController {
 
             // TODO: use new ZMOrders method
             $sql = "SELECT o.*, s.orders_status_name, ots.value as shippingValue
-                    FROM " . TABLE_ORDERS . " o, " . TABLE_ORDERS_TOTAL . "  ot, " . TABLE_ORDERS_STATUS . " s, " . TABLE_ORDERS_TOTAL . "  ots
+                    FROM %table.orders% o, %table.orders_total% ot, %table.orders_status% s, %table.orders_total% ots
                     WHERE date_purchased >= :1#orderDate AND date_purchased < :2#orderDate
                       AND o.orders_id = ot.orders_id
                       AND ot.class = 'ot_total'

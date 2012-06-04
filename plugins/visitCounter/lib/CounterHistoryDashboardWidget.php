@@ -33,7 +33,7 @@ class CounterHistoryDashboardWidget extends DashboardWidget {
      * Create new instance.
      */
     public function __construct() {
-        $sql = "SELECT startdate, counter, session_counter FROM " . TABLE_COUNTER_HISTORY . " ORDER BY startdate DESC limit 10";
+        $sql = "SELECT startdate, counter, session_counter FROM %table.counter_history% ORDER BY startdate DESC limit 10";
         $this->counterResults = \ZMRuntime::getDatabase()->fetchAll($sql, array(), 'counter_history');
 
         parent::__construct(sprintf(_zm('Counter History for last %s recorded days'), count($this->counterResults)));

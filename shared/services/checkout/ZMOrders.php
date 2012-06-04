@@ -61,7 +61,7 @@ class ZMOrders extends ZMObject implements ZMSQLAware {
      */
     protected function getAllOrdersQueryDetails($languageId, $limit=0) {
         $sql = "SELECT o.*, s.orders_status_name
-                FROM " . TABLE_ORDERS . " o, " . TABLE_ORDERS_TOTAL . "  ot, " . TABLE_ORDERS_STATUS . " s
+                FROM %table.orders% o, %table.orders_total%  ot, %table.orders_status% s
                 WHERE o.orders_id = ot.orders_id
                   AND ot.class = 'ot_total'
                   AND o.orders_status = s.orders_status_id
@@ -95,7 +95,7 @@ class ZMOrders extends ZMObject implements ZMSQLAware {
      */
     public function getOrderForId($orderId, $languageId) {
         $sql = "SELECT o.*, s.orders_status_name
-                FROM " . TABLE_ORDERS . " o, " . TABLE_ORDERS_TOTAL . "  ot, " . TABLE_ORDERS_STATUS . " s
+                FROM %table.orders% o, %table.orders_total%  ot, %table.orders_status% s
                 WHERE o.orders_id = :orderId
                   AND o.orders_id = ot.orders_id
                   AND ot.class = 'ot_total'
@@ -119,7 +119,7 @@ class ZMOrders extends ZMObject implements ZMSQLAware {
         // order only
         $sqlLimit = 0 != $limit ? " LIMIT ".$limit : "";
         $sql = "SELECT o.*, s.orders_status_name
-                FROM " . TABLE_ORDERS . " o, " . TABLE_ORDERS_TOTAL . "  ot, " . TABLE_ORDERS_STATUS . " s
+                FROM %table.orders% o, %table.orders_total%  ot, %table.orders_status% s
                 WHERE o.customers_id = :accountId
                   AND o.orders_id = ot.orders_id
                   AND ot.class = 'ot_total'
@@ -153,7 +153,7 @@ class ZMOrders extends ZMObject implements ZMSQLAware {
     protected function getOrdersForStatusIdQueryDetails($statusId, $languageId) {
         // order only
         $sql = "SELECT o.*, s.orders_status_name
-                FROM " . TABLE_ORDERS . " o, " . TABLE_ORDERS_TOTAL . "  ot, " . TABLE_ORDERS_STATUS . " s
+                FROM %table.orders% o, %table.orders_total%  ot, %table.orders_status% s
                 WHERE o.orders_status = :orderStatusId
                   AND o.orders_id = ot.orders_id
                   AND ot.class = 'ot_total'
@@ -185,7 +185,7 @@ class ZMOrders extends ZMObject implements ZMSQLAware {
      */
     public function getOrderStatusHistoryForId($orderId, $languageId) {
         $sql = "SELECT os.orders_status_name, osh.*
-                FROM " . TABLE_ORDERS_STATUS . " os, " . TABLE_ORDERS_STATUS_HISTORY . " osh
+                FROM %table.orders_status% os, %table.orders_status_history% osh
                 WHERE osh.orders_id = :orderId
                   AND osh.orders_status_id = os.orders_status_id
                   AND os.language_id = :languageId
@@ -215,7 +215,7 @@ class ZMOrders extends ZMObject implements ZMSQLAware {
      */
     public function getOrderItems($orderId) {
         $sql = "SELECT *
-                FROM " . TABLE_ORDERS_PRODUCTS . "
+                FROM %table.orders_products%
                 WHERE orders_id = :orderId
                 ORDER BY orders_products_id";
         $items = array();
@@ -223,7 +223,7 @@ class ZMOrders extends ZMObject implements ZMSQLAware {
         foreach (ZMRuntime::getDatabase()->fetchAll($sql, array('orderId' => $orderId), 'orders_products', 'ZMOrderItem') as $item) {
             // lookup selected attributes as well
             $sql = "SELECT *
-                    FROM " . TABLE_ORDERS_PRODUCTS_ATTRIBUTES . "
+                    FROM %table.orders_products_attributes%
                     WHERE orders_id = :orderId
                       AND orders_products_id = :orderItemId";
             $args = array('orderId' => $orderId, 'orderItemId' => $item->getId());
@@ -251,7 +251,7 @@ class ZMOrders extends ZMObject implements ZMSQLAware {
      * @return array Map of <code>ZMOrderTotalLine</code> instances with the type as key.
      */
     public function getOrderTotalLines($orderId) {
-        $sql = "SELECT * FROM " . TABLE_ORDERS_TOTAL . "
+        $sql = "SELECT * FROM %table.orders_total%
                 WHERE orders_id = :orderId
                 ORDER BY sort_order";
         $totals = array();
@@ -287,7 +287,7 @@ class ZMOrders extends ZMObject implements ZMSQLAware {
             $orderStatusList = ZMTools::parseRange(Runtime::getSettings()->get('downloadOrderStatusRange'));
         }
         $sql = "SELECT o.date_purchased, o.orders_status, opd.*
-                FROM " . TABLE_ORDERS . " o, " . TABLE_ORDERS_PRODUCTS . " op, " . TABLE_ORDERS_PRODUCTS_DOWNLOAD . " opd
+                FROM %table.orders% o, %table.orders_products% op, %table.orders_products_download% opd
                 WHERE o.orders_id = :orderId
                   AND o.orders_id = op.orders_id
                   AND op.orders_products_id = opd.orders_products_id
@@ -308,7 +308,7 @@ class ZMOrders extends ZMObject implements ZMSQLAware {
      */
     public function getOrderStatusList($languageId) {
         $sql = "SELECT orders_status_id, orders_status_name
-                FROM " . TABLE_ORDERS_STATUS . "
+                FROM %table.orders_status%
                 WHERE language_id = :languageId
                 ORDER BY orders_status_id";
 
@@ -340,7 +340,7 @@ class ZMOrders extends ZMObject implements ZMSQLAware {
      */
     protected function findOrdersForDateTimeRangeQueryDetails($from, $to, $languageId) {
         $sql = "SELECT o.*, s.orders_status_name, ots.value as shippingValue
-                FROM " . TABLE_ORDERS . " o, " . TABLE_ORDERS_TOTAL . "  ot, " . TABLE_ORDERS_STATUS . " s, " . TABLE_ORDERS_TOTAL . "  ots
+                FROM %table.orders% o, %table.orders_total%  ot, %table.orders_status% s, %table.orders_total%  ots
                 WHERE date_purchased >= :1#orderDate AND date_purchased <= :2#orderDate
                   AND o.orders_id = ot.orders_id
                   AND ot.class = 'ot_total'

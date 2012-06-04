@@ -47,45 +47,45 @@ class BasicStatsDashboardWidget extends DashboardWidget {
         $database = \ZMRuntime::getDatabase();
 
         // counter
-        $result = $database->querySingle("SELECT startdate, counter FROM " . TABLE_COUNTER);
+        $result = $database->querySingle("SELECT startdate, counter FROM %table.counter%");
         $counter_startdate = $result['startdate'];
         $counter_startdate_formatted = strftime('%m/%d/%Y', mktime(0, 0, 0, substr($counter_startdate, 4, 2), substr($counter_startdate, -2), substr($counter_startdate, 0, 4)));
         $data[_zm('Hit Counter Started')] = $counter_startdate_formatted;
         $data[_zm('Hit Counter')] = $result['counter'];
 
         // customers
-        $result = $database->querySingle("SELECT count(*) AS count FROM " . TABLE_CUSTOMERS);
+        $result = $database->querySingle("SELECT count(*) AS count FROM %table.customers%");
         $data[_zm('Customers')] = $result['count'];
 
         // products
-        $result = $database->querySingle("SELECT count(*) AS count FROM " . TABLE_PRODUCTS . " WHERE products_status = '1'");
+        $result = $database->querySingle("SELECT count(*) AS count FROM %table.products% WHERE products_status = '1'");
         $data[_zm('Products')] = $result['count'];
-        $result = $database->querySingle("SELECT count(*) AS count FROM " . TABLE_PRODUCTS . " WHERE products_status = '0'");
+        $result = $database->querySingle("SELECT count(*) AS count FROM %table.products% WHERE products_status = '0'");
         $data[_zm('Inactive Products')] = $result['count'];
 
         // reviews
-        $result = $database->querySingle("SELECT count(*) AS count FROM " . TABLE_REVIEWS);
+        $result = $database->querySingle("SELECT count(*) AS count FROM %table.reviews%");
         $data[_zm('Reviews')] = $result['count'];
-        $result = $database->querySingle("SELECT count(*) AS count FROM " . TABLE_REVIEWS . " WHERE status='0'");
+        $result = $database->querySingle("SELECT count(*) AS count FROM %table.reviews% WHERE status='0'");
         $data['<a href="'.$request->url('reviews', 'status=1').'">'._zm('Reviews pending approval').'</a>'] = $result['count'];
 
         // separator
         $data[] = null;
 
         // promotions
-        $result = $database->querySingle("SELECT count(*) AS count FROM " . TABLE_SPECIALS . " WHERE status= '0'");
+        $result = $database->querySingle("SELECT count(*) AS count FROM %table.specials% WHERE status= '0'");
         $data[_zm('Specials Expired')] = $result['count'];
-        $result = $database->querySingle("SELECT count(*) AS count FROM " . TABLE_SPECIALS . " WHERE status= '1'");
+        $result = $database->querySingle("SELECT count(*) AS count FROM %table.specials% WHERE status= '1'");
         $data[_zm('Specials Active')] = $result['count'];
 
-        $result = $database->querySingle("SELECT count(*) AS count FROM " . TABLE_FEATURED . " WHERE status= '0'");
+        $result = $database->querySingle("SELECT count(*) AS count FROM %table.featured% WHERE status= '0'");
         $data[_zm('Featured Products Expired')] = $result['count'];
-        $result = $database->querySingle("SELECT count(*) AS count FROM " . TABLE_FEATURED . " WHERE status= '1'");
+        $result = $database->querySingle("SELECT count(*) AS count FROM %table.featured% WHERE status= '1'");
         $data[_zm('Featured Products Active')] = $result['count'];
 
-        $result = $database->querySingle("SELECT count(*) AS count FROM " . TABLE_SALEMAKER_SALES . " WHERE sale_status= '0'");
+        $result = $database->querySingle("SELECT count(*) AS count FROM %table.salemaker_sales% WHERE sale_status= '0'");
         $data[_zm('Sales Expired')] = $result['count'];
-        $result = $database->querySingle("SELECT count(*) AS count FROM " . TABLE_SALEMAKER_SALES . " WHERE sale_status= '1'");
+        $result = $database->querySingle("SELECT count(*) AS count FROM %table.salemaker_sales% WHERE sale_status= '1'");
         $data[_zm('Sales Active')] = $result['count'];
 
         $event = new Event($this, array('data' => $data));

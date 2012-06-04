@@ -39,13 +39,13 @@ class MiscStatusCheck extends ZMObject implements StatusCheck {
     public function getStatusMessages() {
         $messages = array();
 
-        $result = \ZMRuntime::getDatabase()->querySingle('SELECT COUNT(log_id) AS counter from '. DB_PREFIX . 'admin_activity_log', array(), 'admin_activity_log');
+        $result = \ZMRuntime::getDatabase()->querySingle('SELECT COUNT(log_id) AS counter from %table.admin_activity_log%', array(), 'admin_activity_log');
         if (0 < $result['counter']) {
             $reset = null;
             if (self::ACTIVITY_LOG_RECORD_THRESHOLD < $result['counter']) {
                 $reset = sprintf(_zm('The Admin Activity Log table has over %s records and should be cleaned ... '), self::ACTIVITY_LOG_RECORD_THRESHOLD);
             } else {
-                $sql = 'SELECT MIN(access_date) AS access_date FROM ' . DB_PREFIX . 'admin_activity_log WHERE access_date < DATE_SUB(CURDATE(), INTERVAL '.self::ACTIVITY_LOG_DATE_THRESHOLD.' DAY)';
+                $sql = 'SELECT MIN(access_date) AS access_date FROM %table.admin_activity_log% WHERE access_date < DATE_SUB(CURDATE(), INTERVAL '.self::ACTIVITY_LOG_DATE_THRESHOLD.' DAY)';
                 $result = \ZMRuntime::getDatabase()->querySingle($sql);
                 if ($result && null != $result['access_date']) {
                     $reset = sprintf(_zm('The Admin Activity Log table has records more than %s days old and should be cleaned ... '), self::ACTIVITY_LOG_DATE_THRESHOLD);

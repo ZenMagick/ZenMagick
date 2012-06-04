@@ -70,8 +70,8 @@ class ManufacturerService extends ZMObject {
      */
     public function getManufacturerForId($id, $languageId) {
         $sql = "SELECT mi.*, m.*
-                FROM " . TABLE_MANUFACTURERS . " m
-                  LEFT JOIN " . TABLE_MANUFACTURERS_INFO . " mi ON (m.manufacturers_id = mi.manufacturers_id AND mi.languages_id = :languageId)
+                FROM %table.manufacturers% m
+                  LEFT JOIN %table.manufacturers_info% mi ON (m.manufacturers_id = mi.manufacturers_id AND mi.languages_id = :languageId)
                 WHERE m.manufacturers_id = :manufacturerId";
         $args = array('manufacturerId' => $id, 'languageId' => $languageId);
 
@@ -93,8 +93,8 @@ class ManufacturerService extends ZMObject {
      */
     public function getManufacturerForName($name, $languageId) {
         $sql = "SELECT mi.*, m.*
-                FROM " . TABLE_MANUFACTURERS . " m
-                  LEFT JOIN " . TABLE_MANUFACTURERS_INFO . " mi ON (m.manufacturers_id = mi.manufacturers_id AND mi.languages_id = :languageId)
+                FROM %table.manufacturers% m
+                  LEFT JOIN %table.manufacturers_info% mi ON (m.manufacturers_id = mi.manufacturers_id AND mi.languages_id = :languageId)
                 WHERE m.manufacturers_name LIKE :name";
         $args = array('name' => $name, 'languageId' => $languageId);
 
@@ -149,8 +149,8 @@ class ManufacturerService extends ZMObject {
      */
     public function getManufacturers($languageId) {
         $sql = "SELECT mi.*, m.*
-                FROM " . TABLE_MANUFACTURERS . " m
-                  LEFT JOIN " . TABLE_MANUFACTURERS_INFO . " mi ON (m.manufacturers_id = mi.manufacturers_id AND mi.languages_id = :languageId)
+                FROM %table.manufacturers% m
+                  LEFT JOIN %table.manufacturers_info% mi ON (m.manufacturers_id = mi.manufacturers_id AND mi.languages_id = :languageId)
                 ORDER BY m.manufacturers_name";
         $args = array('languageId' => $languageId);
 
@@ -177,7 +177,7 @@ class ManufacturerService extends ZMObject {
         $cacheKey = \ZMLangUtils::mkUnique('manufacturer', $id, $languageId);
         $this->cache_->remove($cacheKey);
 
-        $sql = "UPDATE " . TABLE_MANUFACTURERS_INFO . "
+        $sql = "UPDATE %table.manufacturers_info%
                 SET url_clicked = url_clicked+1, date_last_click = now()
                 WHERE manufacturers_id = :manufacturerId
                 AND languages_id = :languageId";

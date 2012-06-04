@@ -53,7 +53,7 @@ class ShoppingCartService extends ZMObject {
         }
 
         // get existing data to decide on whether to INSERT or UPDATE
-        $sql = "SELECT products_id FROM " . TABLE_CUSTOMERS_BASKET . " WHERE customers_id = :accountId";
+        $sql = "SELECT products_id FROM %table.customers_basket% WHERE customers_id = :accountId";
         $skuIds = array();
         foreach (ZMRuntime::getDatabase()->fetchAll($sql, array('accountId' => $shoppingCart->getAccountId()), 'customers_basket') as $result) {
             $skuIds[] = $result['skuId'];
@@ -62,14 +62,14 @@ class ShoppingCartService extends ZMObject {
         foreach ($shoppingCart->getItems() as $item) {
             if (false && in_array($item->getId(), $skuIds)) {
                 // update
-                $sql = "UPDATE " . TABLE_CUSTOMERS_BASKET . "
+                $sql = "UPDATE %table.customers_basket%
                         SET customers_basket_quantity = :quantity
                         WHERE customers_id = :accountId and products_id = :skuId";
                 $args = array('accountId' => $shoppingCart->getAccountId(), 'skuId' => $item->getId(), 'quantity' => $item->getQuantity());
                 ZMRuntime::getDatabase()->updateObj($sql, $args, 'customers_basket');
             } else {
                 // insert
-                $sql = "INSERT INTO " . TABLE_CUSTOMERS_BASKET . "
+                $sql = "INSERT INTO %table.customers_basket%
                           (customers_id, products_id, customers_basket_quantity, customers_basket_date_added)
                         VALUES (:accountId, :skuId, :quantity, :dateAdded)";
                 $args = array('accountId' => $shoppingCart->getAccountId(), 'skuId' => $item->getId(), 'quantity' => $item->getQuantity(),
@@ -78,7 +78,7 @@ class ShoppingCartService extends ZMObject {
                 if ($item->hasAttributes()) {
                     foreach ($item->getAttributes() as $attribute) {
                         foreach ($attribute->getValues() as $value) {
-                            $sql = "INSERT INTO " . TABLE_CUSTOMERS_BASKET_ATTRIBUTES . "
+                            $sql = "INSERT INTO %table.customers_basket_attributes%
                                       (customers_id, products_id, products_options_id,
                                        products_options_value_id, products_options_value_text, products_options_sort_order)
                                     VALUES (:accountId, :skuId, :attributeId, :attributeValueId, :attributeValueText, :sortOrder)";
@@ -101,10 +101,10 @@ class ShoppingCartService extends ZMObject {
      * @param ShoppingCart shoppingCart The cart to save.
      */
     public function clearCart($shoppingCart) {
-        $sql = "DELETE FROM " . TABLE_CUSTOMERS_BASKET . "
+        $sql = "DELETE FROM %table.customers_basket%
                 WHERE customers_id = :accountId";
         ZMRuntime::getDatabase()->updateObj($sql, array('accountId' => $shoppingCart->getAccountId()), 'customers_basket');
-        $sql = "DELETE FROM " . TABLE_CUSTOMERS_BASKET_ATTRIBUTES . "
+        $sql = "DELETE FROM %table.customers_basket_attributes%
                 WHERE customers_id = :accountId";
         ZMRuntime::getDatabase()->updateObj($sql, array('accountId' => $shoppingCart->getAccountId()), 'customers_basket_attributes');
     }
@@ -130,12 +130,12 @@ class ShoppingCartService extends ZMObject {
         $contents = array();
 
         // read all in one go
-        $sql = "SELECT * FROM " . TABLE_CUSTOMERS_BASKET_ATTRIBUTES . "
+        $sql = "SELECT * FROM %table.customers_basket_attributes%
                 WHERE customers_id = :accountId
                 ORDER BY LPAD(products_options_sort_order, 11, '0'), products_id";
         $attributeResults = ZMRuntime::getDatabase()->fetchAll($sql, array('accountId' => $accountId), 'customers_basket_attributes');
 
-        $sql = "SELECT * FROM " . TABLE_CUSTOMERS_BASKET . "
+        $sql = "SELECT * FROM %table.customers_basket%
                 WHERE customers_id = :accountId";
         foreach (ZMRuntime::getDatabase()->fetchAll($sql, array('accountId' => $accountId), 'customers_basket') as $result) {
             $id = $result['skuId'];

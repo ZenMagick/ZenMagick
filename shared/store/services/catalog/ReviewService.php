@@ -61,7 +61,7 @@ class ReviewService extends ZMObject {
      */
     public function getReviewCount($productId, $languageId) {
         $sql = "SELECT COUNT(*) AS count
-                FROM " . TABLE_REVIEWS . " r, " . TABLE_REVIEWS_DESCRIPTION . " rd
+                FROM %table.reviews% r, %table.reviews_description% rd
                 WHERE r.products_id = :productId
                   AND r.reviews_id = rd.reviews_id
                   AND rd.languages_id = :languageId
@@ -83,8 +83,8 @@ class ReviewService extends ZMObject {
         $max = null === $max ? $this->container->get('settingsService')->get('maxRandomReviews') : $max;
 
         $sql = "SELECT r.reviews_id
-                FROM " . TABLE_REVIEWS . " r, " . TABLE_REVIEWS_DESCRIPTION . " rd, "
-                       . TABLE_PRODUCTS . " p, " . TABLE_PRODUCTS_DESCRIPTION . " pd
+                FROM %table.reviews% r, %table.reviews_description% rd,
+                       %table.products% p, %table.products_description% pd
                 WHERE p.products_status = 1
                   AND p.products_id = r.products_id
                   AND r.reviews_id = rd.reviews_id
@@ -113,8 +113,8 @@ class ReviewService extends ZMObject {
         }
 
         $sql = "SELECT r.*, rd.*, p.products_image, pd.products_name
-                FROM " . TABLE_REVIEWS . " r, " . TABLE_REVIEWS_DESCRIPTION . " rd, "
-                       . TABLE_PRODUCTS . " p, " . TABLE_PRODUCTS_DESCRIPTION . " pd
+                FROM %table.reviews% r, %table.reviews_description% rd,
+                       %table.products% p, %table.products_description% pd
                 WHERE p.products_status = 1
                   AND p.products_id = r.products_id
                   AND r.reviews_id = rd.reviews_id
@@ -137,7 +137,7 @@ class ReviewService extends ZMObject {
      */
     public function getAverageRatingForProductId($productId, $languageId) {
         // SQL based on Dedek's average rating mod: http://www.zen-cart.com/index.php?main_page=product_contrib_info&cPath=40_47&products_id=595
-        $sql = "SELECT AVG(reviews_rating) AS average_rating from " . TABLE_REVIEWS . " r, " . TABLE_REVIEWS_DESCRIPTION . " rd
+        $sql = "SELECT AVG(reviews_rating) AS average_rating from %table.reviews% r, %table.reviews_description% rd
                 WHERE r.products_id = :productId
                   AND r.reviews_id = rd.reviews_id
                   AND rd.languages_id = :languageId
@@ -156,8 +156,8 @@ class ReviewService extends ZMObject {
      */
     public function getReviewsForProductId($productId, $languageId) {
         $sql = "SELECT r.*, rd.*, p.products_image, pd.products_name
-                FROM " . TABLE_REVIEWS . " r, " . TABLE_REVIEWS_DESCRIPTION . " rd, "
-                       . TABLE_PRODUCTS . " p, " . TABLE_PRODUCTS_DESCRIPTION . " pd
+                FROM %table.reviews% r, %table.reviews_description% rd,
+                       %table.products% p, %table.products_description% pd
                 WHERE p.products_status = 1
                   AND p.products_id = r.products_id
                   AND r.reviews_id = rd.reviews_id
@@ -179,8 +179,8 @@ class ReviewService extends ZMObject {
      */
     public function getAllReviews($languageId) {
         $sql = "SELECT r.*, rd.*, p.products_image, pd.products_name
-                FROM " . TABLE_REVIEWS . " r, " . TABLE_REVIEWS_DESCRIPTION . " rd, "
-                       . TABLE_PRODUCTS . " p, " . TABLE_PRODUCTS_DESCRIPTION . " pd
+                FROM %table.reviews% r, %table.reviews_description% rd,
+                       %table.products% p, %table.products_description% pd
                 WHERE p.products_status = 1
                   AND p.products_id = r.products_id
                   AND r.reviews_id = rd.reviews_id
@@ -202,8 +202,8 @@ class ReviewService extends ZMObject {
      */
     public function getReviewForId($reviewId, $languageId) {
         $sql = "SELECT r.*, rd.*, p.products_image, pd.products_name
-                FROM " . TABLE_REVIEWS . " r, " . TABLE_REVIEWS_DESCRIPTION . " rd, "
-                       . TABLE_PRODUCTS . " p, " . TABLE_PRODUCTS_DESCRIPTION . " pd
+                FROM %table.reviews% r, %table.reviews_description% rd,
+                       %table.products% p, %table.products_description% pd
                 WHERE p.products_status = 1
                   AND p.products_id = r.products_id
                   AND r.reviews_id = rd.reviews_id
@@ -222,7 +222,7 @@ class ReviewService extends ZMObject {
      * @param int reviewId The id of the review.
      */
     public function updateViewCount($reviewId) {
-        $sql = "UPDATE " . TABLE_REVIEWS . "
+        $sql = "UPDATE %table.reviews%
                 SET reviews_read = reviews_read+1
                 WHERE reviews_id = :reviewId";
         \ZMRuntime::getDatabase()->updateObj($sql, array('reviewId' => $reviewId), 'reviews');

@@ -35,13 +35,13 @@ class ZMHowDidYouHearSourcesStatsController extends ZMController {
     public function getViewData($request) {
         if (!Toolbox::asBoolean($request->getParameter('other', false))) {
             $sql = "SELECT count(ci.customers_info_source_id) AS count, s.sources_name AS name, s.sources_id as sourceId
-                    FROM " . TABLE_CUSTOMERS_INFO . " ci LEFT JOIN " . TABLE_SOURCES . " s ON s.sources_id = ci.customers_info_source_id
+                    FROM %table.customers_info% ci LEFT JOIN %table.sources% s ON s.sources_id = ci.customers_info_source_id
                     GROUP BY s.sources_id
                     ORDER BY ci.customers_info_source_id DESC";
             $isOther = false;
         } else {
           $sql = "SELECT count(ci.customers_info_source_id) as count, so.sources_other_name as name
-                  FROM " . TABLE_CUSTOMERS_INFO . " ci, " . TABLE_SOURCES_OTHER . " so
+                  FROM %table.customers_info% ci, %table.sources_other% so
                   WHERE ci.customers_info_source_id = " . ID_SOURCE_OTHER . " AND so.customers_id = ci.customers_info_id
                   GROUP BY so.sources_other_name
                   ORDER BY so.sources_other_name DESC";

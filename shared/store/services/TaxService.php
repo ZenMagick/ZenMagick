@@ -99,9 +99,9 @@ class TaxService extends ZMObject {
         }
 
         $sql = "SELECT SUM(tax_rate) AS tax_rate
-                FROM (" . TABLE_TAX_RATES . " tr
-                  LEFT JOIN " . TABLE_ZONES_TO_GEO_ZONES . " za ON (tr.tax_zone_id = za.geo_zone_id)
-                  LEFT JOIN " . TABLE_GEO_ZONES . " tz ON (tz.geo_zone_id = tr.tax_zone_id))
+                FROM (%table.tax_rates% tr
+                  LEFT JOIN %table.zones_to_geo_zones% za ON (tr.tax_zone_id = za.geo_zone_id)
+                  LEFT JOIN %table.geo_zones% tz ON (tz.geo_zone_id = tr.tax_zone_id))
                 WHERE (za.zone_country_id IS NULL OR za.zone_country_id = 0 OR za.zone_country_id = :countryId)
                   AND (za.zone_id IS NULL OR za.zone_id = 0 OR za.zone_id = :zoneId)
                   AND tr.tax_class_id = :taxClassId
@@ -145,9 +145,9 @@ class TaxService extends ZMObject {
      */
     public function getTaxDescription($taxClassId, $countryId, $zoneId) {
         $sql = "SELECT tax_description
-                FROM (" . TABLE_TAX_RATES . " tr
-                  LEFT JOIN " . TABLE_ZONES_TO_GEO_ZONES . " za ON (tr.tax_zone_id = za.geo_zone_id)
-                  LEFT JOIN " . TABLE_GEO_ZONES . " tz ON (tz.geo_zone_id = tr.tax_zone_id) )
+                FROM (%table.tax_rates% tr
+                  LEFT JOIN %table.zones_to_geo_zones% za ON (tr.tax_zone_id = za.geo_zone_id)
+                  LEFT JOIN %table.geo_zones% tz ON (tz.geo_zone_id = tr.tax_zone_id) )
                 WHERE (za.zone_country_id IS NULL OR za.zone_country_id = 0 OR za.zone_country_id = :countryId)
                   AND (za.zone_id IS NULL OR za.zone_id = 0 OR za.zone_id = :zoneId)
                   AND tr.tax_class_id = :taxClassId
@@ -173,7 +173,7 @@ class TaxService extends ZMObject {
         $descriptions = explode(_zm($settingsService->get('tax.delim', ' + ')), $description);
         foreach ($descriptions as $description) {
             $sql = "SELECT tax_rate
-                    FROM " . TABLE_TAX_RATES . "
+                    FROM %table.tax_rates%
                     WHERE tax_description = :description";
             $result = ZMRuntime::getDatabase()->querySingle($sql, array('description' => $description), 'tax_rates');
             if (null != $result) {
@@ -192,7 +192,7 @@ class TaxService extends ZMObject {
      * @return TaxClass A <code>TaxClass</code> instance or <code>null</code>.
      */
     public function getTaxClassForId($id) {
-        $sql = "SELECT * FROM " . TABLE_TAX_CLASS . "
+        $sql = "SELECT * FROM %table.tax_class%
                 WHERE tax_class_id = :taxClassId";
         return ZMRuntime::getDatabase()->querySingle($sql, array('taxClassId' => $id), 'tax_class', 'zenmagick\apps\store\model\TaxClass');
     }
@@ -228,9 +228,9 @@ class TaxService extends ZMObject {
         }
 
         $sql = "SELECT tax_description, tax_rate, tax_priority
-                  FROM (" . TABLE_TAX_RATES . " tr
-                  LEFT JOIN " . TABLE_ZONES_TO_GEO_ZONES . " za ON (tr.tax_zone_id = za.geo_zone_id)
-                  LEFT JOIN " . TABLE_GEO_ZONES . " tz ON (tz.geo_zone_id = tr.tax_zone_id) )
+                  FROM (%table.tax_rates% tr
+                  LEFT JOIN %table.zones_to_geo_zones% za ON (tr.tax_zone_id = za.geo_zone_id)
+                  LEFT JOIN %table.geo_zones% tz ON (tz.geo_zone_id = tr.tax_zone_id) )
                   WHERE (za.zone_country_id IS NULL OR za.zone_country_id = 0
                     OR za.zone_country_id = :countryId)
                   AND (za.zone_id is null

@@ -26,9 +26,6 @@ use zenmagick\base\ZMObject;
 use zenmagick\http\view\TemplateView;
 
 define('ID_SOURCE_OTHER', 9999);
-define('TABLE_SOURCES', DB_PREFIX . 'sources');
-define('TABLE_SOURCES_OTHER', DB_PREFIX . 'sources_other');
-
 
 /**
  * Plugin to add and handle a <em>How did you hear about us</em> drop down in the create account page.
@@ -131,7 +128,7 @@ class HowDidYouHearPlugin extends Plugin {
             $howDidYouHearSources[] = $source;
 
             $sql = "SELECT sources_id, sources_name
-                    FROM " . TABLE_SOURCES . "
+                    FROM %table.sources%
                     ORDER BY sources_name";
             foreach (\ZMRuntime::getDatabase()->fetchAll($sql, array()) as $result) {
                 $source = new ZMObject();
@@ -169,7 +166,7 @@ class HowDidYouHearPlugin extends Plugin {
         $account = $event->get('account');
         if (ID_SOURCE_OTHER == $account->getSourceId() && \ZMAccount::GUEST != $account->getType()) {
             // need to store sourceOther
-            $sql = "INSERT INTO " . TABLE_SOURCES_OTHER . "
+            $sql = "INSERT INTO %table.sources_other%
                     VALUES (:customers_id, :sources_other_name)";
             \ZMRuntime::getDatabase()->updateObj($sql, array('customers_id' => $account->getId(), 'sources_other_name' => $account->getSourceOther()), 'sources_other');
         }

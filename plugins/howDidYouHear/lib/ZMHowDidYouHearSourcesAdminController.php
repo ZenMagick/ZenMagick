@@ -33,7 +33,7 @@ class ZMHowDidYouHearSourcesAdminController extends ZMController {
      */
     public function getViewData($request) {
         $sql = "SELECT s.sources_name AS name, s.sources_id as sourceId
-                FROM " . TABLE_SOURCES . " s
+                FROM %table.sources% s
                 ORDER BY s.sources_name ASC";
         $sourceStats = ZMRuntime::getDatabase()->fetchAll($sql, array(), array('sources'), 'zenmagick\base\ZMObject');
         $resultSource = new ZMArrayResultSource('zenmagick\base\ZMObject', $sourceStats);

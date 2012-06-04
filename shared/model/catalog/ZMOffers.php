@@ -197,7 +197,7 @@ class ZMOffers extends ZMObject {
 
         // get available sales
         $sql = "SELECT sale_specials_condition, sale_deduction_value, sale_deduction_type
-                FROM " . TABLE_SALEMAKER_SALES . "
+                FROM %table.salemaker_sales%
                 WHERE sale_categories_all LIKE '%," . $this->product_->getMasterCategoryId() . ",%' AND sale_status = '1'
                 AND (sale_date_start <= now() OR sale_date_start = '0001-01-01')
                 AND (sale_date_end >= now() OR sale_date_end = '0001-01-01')
@@ -396,7 +396,7 @@ class ZMOffers extends ZMObject {
             return $this->discounts_[$tax];
         }
 
-        $sql = "SELECT * FROM " . TABLE_PRODUCTS_DISCOUNT_QUANTITY . "
+        $sql = "SELECT * FROM %table.products_discount_quantity%
                 WHERE products_id = :productId
                   AND discount_qty != 0
                 ORDER BY discount_qty";

@@ -40,7 +40,7 @@ class Banners extends ZMObject {
      * @return array List of banner group ids.
      */
     public function getBannerGroupIds() {
-        $sql = "SELECT DISTINCT banners_group FROM " . TABLE_BANNERS;
+        $sql = "SELECT DISTINCT banners_group FROM %table.banners%";
         $ids = array();
         foreach (ZMRuntime::getDatabase()->fetchAll($sql, array(), 'banners') as $result) {
             $ids[] = $result['group'];
@@ -63,7 +63,7 @@ class Banners extends ZMObject {
         }
 
         $sql = "SELECT *
-                FROM " . TABLE_BANNERS . "
+                FROM %table.banners%
                 WHERE status = 1";
 
         if ($secure) {
@@ -93,7 +93,7 @@ class Banners extends ZMObject {
      */
     public function getBannerForId($id) {
         $sql = "SELECT *
-                FROM " . TABLE_BANNERS . "
+                FROM %table.banners%
                 WHERE status = 1 AND banners_id = :id";
         return ZMRuntime::getDatabase()->querySingle($sql, array('id' => $id), 'banners', 'zenmagick\apps\store\model\templating\Banner');
     }
@@ -105,16 +105,16 @@ class Banners extends ZMObject {
      */
     public function updateBannerDisplayCount($bannerId) {
         $sql = "SELECT count(*) AS total
-                FROM " . TABLE_BANNERS_HISTORY . "
+                FROM %table.banners_history%
                 WHERE banners_id = :id AND date_format(banners_history_date, '%%Y%%m%%d') = date_format(now(), '%%Y%%m%%d')";
         $result = ZMRuntime::getDatabase()->querySingle($sql, array('id' => $bannerId), array('banners_history'), ZMDatabase::MODEL_RAW);
 
         if (0 < $result['total']) {
-            $sql = "UPDATE " . TABLE_BANNERS_HISTORY . "
+            $sql = "UPDATE %table.banners_history%
                     SET banners_shown = banners_shown +1
                     WHERE banners_id = :id AND date_format(banners_history_date, '%%Y%%m%%d') = date_format(now(), '%%Y%%m%%d')";
         } else {
-            $sql = "INSERT INTO " . TABLE_BANNERS_HISTORY . "
+            $sql = "INSERT INTO %table.banners_history%
                       (banners_id, banners_shown, banners_history_date)
                     VALUES (:id, 1, now())";
         }
@@ -133,7 +133,7 @@ class Banners extends ZMObject {
         $maxImpressions = $banner->getExpiryImpressions();
         if ($maxImpressions > 0) {
             $sql = "SELECT SUM(banners_shown) AS total_shown
-                    FROM " . TABLE_BANNERS_HISTORY . "
+                    FROM %table.banners_history%
                     WHERE banners_id = :id";
             $result = ZMRuntime::getDatabase()->querySingle($sql, array('id' => $banner->getId()), array('banners_history'), ZMDatabase::MODEL_RAW);
             if ($maxImpressions <= $result['total_shown']) {
@@ -149,7 +149,7 @@ class Banners extends ZMObject {
      * @param int bannerId The banner id.
      */
     public function updateBannerClickCount($bannerId) {
-        $sql = "UPDATE " . TABLE_BANNERS_HISTORY . "
+        $sql = "UPDATE %table.banners_history%
                 SET banners_clicked = banners_clicked + 1
                 WHERE banners_id = :id AND date_format(banners_history_date, '%%Y%%m%%d') = date_format(now(), '%%Y%%m%%d')";
         ZMRuntime::getDatabase()->updateObj($sql, array('id' => $bannerId), 'banners_history');
@@ -170,7 +170,7 @@ class Banners extends ZMObject {
      */
     public function scheduleBanners() {
         $sql = "SELECT banners_id, date_scheduled, expires_date
-                FROM " . TABLE_BANNERS;
+                FROM %table.banners%";
         foreach (ZMRuntime::getDatabase()->fetchAll($sql, array(), 'banners', 'zenmagick\apps\store\model\templating\Banner') as $banner) {
             $dateScheduled = $banner->getDateScheduled();
             $expiryDate = $banner->getExpiryDate();

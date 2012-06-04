@@ -109,19 +109,19 @@ class ZMProductFinder extends ZMObject {
 
         $needsP2c =  0 != $criteria->getCategoryId();
 
-        $from = " FROM (" . TABLE_PRODUCTS . " p
-                 LEFT JOIN " . TABLE_MANUFACTURERS . " m USING(manufacturers_id), " .
-                 TABLE_PRODUCTS_DESCRIPTION . " pd " .
-                 ($needsP2c ? (', '
-                    . TABLE_CATEGORIES . ' c, '
-                    . TABLE_PRODUCTS_TO_CATEGORIES . ' p2c') : '') .
-                 ") LEFT JOIN " . TABLE_META_TAGS_PRODUCTS_DESCRIPTION . " mtpd ON mtpd.products_id= p.products_id AND mtpd.language_id = :languageId";
+        $from = " FROM (%table.products% p
+                 LEFT JOIN %table.manufacturers% m USING(manufacturers_id),
+                 %table.products_description% pd " .
+                 ($needsP2c ? (',
+                    %table.categories c,
+                    %table.products_to_categories% p2c') : '') .
+                 ") LEFT JOIN %table.meta_tags_products_description% mtpd ON mtpd.products_id= p.products_id AND mtpd.language_id = :languageId";
 
         $args['languageId'] = $criteria->getLanguageId();
 
         if ($criteria->isIncludeTax() && (!Toolbox::isEmpty($criteria->getPriceFrom()) || !Toolbox::isEmpty($criteria->getPriceTo()))) {
-            $from .= " LEFT JOIN " . TABLE_TAX_RATES . " tr ON p.products_tax_class_id = tr.tax_class_id
-                       LEFT JOIN " . TABLE_ZONES_TO_GEO_ZONES . " gz ON tr.tax_zone_id = gz.geo_zone_id
+            $from .= " LEFT JOIN %table.tax_rates% tr ON p.products_tax_class_id = tr.tax_class_id
+                       LEFT JOIN %table.zones_to_geo_zones% gz ON tr.tax_zone_id = gz.geo_zone_id
                          AND (gz.zone_country_id IS null OR gz.zone_country_id = 0 OR gz.zone_country_id = :zoneId)
                          AND (gz.zone_id IS null OR gz.zone_id = 0 OR gz.zone_id = :zoneId)";
             $args['countryId'] = $criteria->getCountryId();
@@ -274,7 +274,7 @@ class ZMProductFinder extends ZMObject {
         }
 
         $sql = $select . $from . $where . $sort;
-        $tables = array(TABLE_PRODUCTS, TABLE_PRODUCTS_DESCRIPTION, TABLE_MANUFACTURERS, TABLE_CATEGORIES, TABLE_TAX_RATES, TABLE_ZONES_TO_GEO_ZONES);
+        $tables = array('products', 'products_description', 'manufacturers', 'categories', 'tax_rates', 'zones_to_geo_zones');
         return new ZMQueryDetails(ZMRuntime::getDatabase(), $sql, $args, $tables, null, 'p.products_id');
     }
 

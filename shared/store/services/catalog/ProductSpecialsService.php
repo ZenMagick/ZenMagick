@@ -44,7 +44,7 @@ class ProductSpecialsService extends ZMObject {
      */
     public function scheduleSpecials() {
         $sql = "SELECT specials_id, products_id, status, expires_date, specials_date_available
-                FROM " . TABLE_SPECIALS;
+                FROM %table.specials%";
         $productService = $this->container->get('productService');
         foreach (\ZMRuntime::getDatabase()->fetchAll($sql, array(), 'specials', 'zenmagick\apps\store\model\catalog\Special') as $special) {
             $availableDate = $special->getAvailableDate();

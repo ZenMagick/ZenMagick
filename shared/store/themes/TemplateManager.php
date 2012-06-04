@@ -106,7 +106,7 @@ class TemplateManager extends ZMObject {
             return $this->leftColBoxes_;
         }
 
-        $sql = "SELECT DISTINCT layout_box_name from " . TABLE_LAYOUT_BOXES . "
+        $sql = "SELECT DISTINCT layout_box_name from %table.layout_boxes%
                 WHERE layout_box_location = 0
                   AND layout_box_status = '1'
                   AND layout_template = :themeId
@@ -131,7 +131,7 @@ class TemplateManager extends ZMObject {
             return $this->rightColBoxes_;
         }
 
-        $sql = "SELECT DISTINCT layout_box_name from " . TABLE_LAYOUT_BOXES . "
+        $sql = "SELECT DISTINCT layout_box_name from %table.layout_boxes%
                 WHERE layout_box_location = 1
                   AND layout_box_status = '1'
                   AND layout_template = :themeId
@@ -172,13 +172,13 @@ class TemplateManager extends ZMObject {
         $template = 'product';
 
         $sql = "SELECT products_type
-                FROM " . TABLE_PRODUCTS . "
+                FROM %table.products%
                 WHERE products_id = :productId";
         $result = \ZMRuntime::getDatabase()->querySingle($sql, array('productId' => $productId), 'products');
         if (null !== $result) {
             $typeId = $result['type'];
             $sql = "SELECT type_handler
-                    FROM " . TABLE_PRODUCT_TYPES . "
+                    FROM %table.product_types%
                     WHERE type_id = :id";
             $result = \ZMRuntime::getDatabase()->querySingle($sql, array('id' => $typeId), 'product_types');
             if (null !== $result) {

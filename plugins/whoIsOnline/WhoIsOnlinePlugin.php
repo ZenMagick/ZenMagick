@@ -71,7 +71,7 @@ class WhoIsOnlinePlugin extends Plugin {
      * @return array Online user stats.
      */
     public function getStats() {
-        $sql = "SELECT customer_id FROM " . TABLE_WHOS_ONLINE;
+        $sql = "SELECT customer_id FROM %table.whos_online%";
         $results = \ZMRuntime::getDatabase()->fetchAll($sql, array(), 'whos_online', \ZMDatabase::MODEL_RAW);
         $anonymous = 0;
         $registered = 0;
@@ -94,7 +94,7 @@ class WhoIsOnlinePlugin extends Plugin {
      */
     public function removeExpired() {
             $timeAgo = (time() - 1200);
-            $sql = "DELETE FROM " . TABLE_WHOS_ONLINE . "
+            $sql = "DELETE FROM %table.whos_online%
                     WHERE time_last_click < :lastRequestTime";
             \ZMRuntime::getDatabase()->updateObj($sql, array('lastRequestTime' => $timeAgo), 'whos_online');
     }
@@ -134,7 +134,7 @@ class WhoIsOnlinePlugin extends Plugin {
         }
 
         $conn = \ZMRuntime::getDatabase();
-        $sql = "SELECT customer_id FROM " . TABLE_WHOS_ONLINE . "
+        $sql = "SELECT customer_id FROM %table.whos_online%
                 WHERE session_id = :sessionId AND ip_address = :ipAddress";
         $result = $conn->querySingle($sql, array('sessionId' => $sessionId, 'ipAddress' => $ipAddress), 'whos_online');
 

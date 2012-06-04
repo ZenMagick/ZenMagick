@@ -208,7 +208,7 @@ class TestCouponService extends TestCase {
             $couponService->createCouponTracker($coupon, $account, $gvReceiver);
 
             // manually check database
-            $sql = "SELECT * FROM " . TABLE_COUPON_EMAIL_TRACK . "
+            $sql = "SELECT * FROM %table.coupon_email_track%
                     WHERE coupon_id = :couponId";
             $result = ZMRuntime::getDatabase()->querySingle($sql, array('couponId' => $coupon->getId()), 'coupon_email_track', 'zenmagick\base\ZMObject');
             $this->assertNotNull($result);
@@ -230,7 +230,7 @@ class TestCouponService extends TestCase {
         $couponService->finaliseCoupon($coupon->getId(), $this->getAccountId(), '127.0.0.1');
 
         // manually check database
-        $sql = "SELECT * FROM " . TABLE_COUPON_REDEEM_TRACK . "
+        $sql = "SELECT * FROM %table.coupon_redeem_track%
                 WHERE coupon_id = :couponId";
         $result = ZMRuntime::getDatabase()->querySingle($sql, array('couponId' => $coupon->getId()), 'coupon_redeem_track', 'zenmagick\base\ZMObject');
         $this->assertNotNull($result);
@@ -257,7 +257,7 @@ class TestCouponService extends TestCase {
         $this->assertEqual(5, $couponService->getVoucherBalanceForAccountId(1));
 
         // delete balance record to test create
-        $sql = "DELETE FROM " . TABLE_COUPON_GV_CUSTOMER . "
+        $sql = "DELETE FROM %table.coupon_gv_customer%
                 WHERE customer_id = :accountId";
         ZMRuntime::getDatabase()->updateObj($sql, array('accountId' => $this->getAccountId()), 'coupon_gv_customer');
 

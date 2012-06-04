@@ -38,7 +38,7 @@ class AdminUserPrefService extends ZMObject {
      */
     public function getPrefForName($adminId, $name) {
         $sql = "SELECT value
-                FROM " . DB_PREFIX.'admin_prefs' . "
+                FROM %table.admin_prefs%
                 WHERE admin_id = :admin_id AND name = :name";
         $args = array('admin_id' => $adminId, 'name' => $name);
         if (null != ($result = \ZMRuntime::getDatabase()->querySingle($sql, $args, 'admin_prefs'))) {
@@ -59,14 +59,14 @@ class AdminUserPrefService extends ZMObject {
 
         // check for insert/update first
         $sql = "SELECT value
-                FROM " . DB_PREFIX.'admin_prefs' . "
+                FROM %table.admin_prefs%
                 WHERE admin_id = :admin_id AND name = :name";
         if (null != ($result = \ZMRuntime::getDatabase()->querySingle($sql, $args, 'admin_prefs'))) {
-            $sql = "UPDATE " . DB_PREFIX.'admin_prefs' . "
+            $sql = "UPDATE %table.admin_prefs%
                     SET value = :value
                     WHERE admin_id = :admin_id AND name = :name";
         } else {
-            $sql = "INSERT INTO " . DB_PREFIX.'admin_prefs' . "
+            $sql = "INSERT INTO %table.admin_prefs%
                     (admin_id, name, value)
                     VALUES (:admin_id, :name, :value)";
         }

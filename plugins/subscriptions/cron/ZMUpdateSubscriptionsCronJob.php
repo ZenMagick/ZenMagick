@@ -84,7 +84,7 @@ class ZMUpdateSubscriptionsCronJob implements ZMCronJob {
 
             // 5) Update subscription order with next schedule date
             // calculate new subscription_next_order based on current subscription_next_order, as we might not run on the same day
-            $sql = "UPDATE " . TABLE_ORDERS . "
+            $sql = "UPDATE %table.orders%
                     SET subscription_next_order = DATE_ADD(subscription_next_order, INTERVAL " . zm_subscriptions::schedule2SQL($order->get('schedule')) . ")
                     WHERE orders_id = :orderId";
             $args = array('orderId' => $scheduledOrderId);
@@ -209,7 +209,7 @@ class ZMUpdateSubscriptionsCronJob implements ZMCronJob {
      */
     public function findScheduledOrders() {
         $plugin = $this->getPlugin();
-        $sql = "SELECT orders_id, is_subscription_canceled FROM " . TABLE_ORDERS . "
+        $sql = "SELECT orders_id, is_subscription_canceled FROM %table.orders%
                 WHERE  is_subscription = :subscription
                   AND subscription_next_order <= DATE_ADD(now(), INTERVAL " . $plugin->get('scheduleOffset') . " DAY)
                   AND NOT (subscription_next_order = '0001-01-01 00:00:00')";

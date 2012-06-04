@@ -44,7 +44,7 @@ class ReservedQtyWidget extends Widget {
     protected function getStats() {
         if (null === self::$qtyMap_) {
           $sql = "SELECT op.products_id, SUM(op.products_quantity) AS products_quantity
-                  FROM " . TABLE_ORDERS . " o, " . TABLE_ORDERS_PRODUCTS . " op
+                  FROM %table.orders% o, %table.orders_products% op
                   WHERE o.orders_id = op.orders_id
                     AND o.orders_status NOT IN (:orderStatusId)
                   GROUP BY op.products_id";

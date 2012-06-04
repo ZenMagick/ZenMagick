@@ -55,7 +55,7 @@ class CouponStatusCheck extends ZMObject implements StatusCheck {
             }
         }
 
-        if (null != ($results = \ZMRuntime::getDatabase()->fetchAll('SELECT * FROM ' . TABLE_COUPON_GV_QUEUE . ' where release_flag = "N"')) && 0 < count($results)) {
+        if (null != ($results = \ZMRuntime::getDatabase()->fetchAll('SELECT * FROM %table.coupon_gv_queue% where release_flag = "N"')) && 0 < count($results)) {
             $url = '<a href="'.$this->container->get('request')->url('gv_queue').'">'._zm('gift queue').'</a>';
             $messages[] = array(StatusCheck::STATUS_NOTICE, sprintf(_zm('%s item(s) in %s waiting for approval.'), count($results), $url));
         }

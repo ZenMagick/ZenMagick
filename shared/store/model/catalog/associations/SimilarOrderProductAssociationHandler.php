@@ -51,7 +51,7 @@ class SimilarOrderProductAssociationHandler implements ProductAssociationHandler
             $limit = (int)$args['limit'];
         }
         $sql = "SELECT p.products_id
-                FROM " . TABLE_ORDERS_PRODUCTS . " opa, " . TABLE_ORDERS_PRODUCTS . " opb, " . TABLE_ORDERS . " o, " . TABLE_PRODUCTS ." p
+                FROM %table.orders_products% opa, %table.orders_products% opb, %table.orders% o, %table.products% p
                 WHERE opa.products_id = :productId AND opa.orders_id = opb.orders_id
                     AND opb.products_id != :productId and opb.products_id = p.products_id
                     AND opb.orders_id = o.orders_id and p.products_status = 1

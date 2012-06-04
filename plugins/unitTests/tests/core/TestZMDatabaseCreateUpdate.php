@@ -18,8 +18,6 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-define('TABLE_CREATE_UPDATE_TESTS', DB_PREFIX . 'create_update_tests');
-
 use zenmagick\base\ZMObject;
 use zenmagick\plugins\unitTests\simpletest\TestCase;
 
@@ -37,9 +35,9 @@ class TestZMDatabaseCreateUpdate extends TestCase {
     public function setUp() {
         parent::setUp();
         // split as some implementations might not support multiple commands per call!
-        $sql = "DROP TABLE IF EXISTS " . TABLE_CREATE_UPDATE_TESTS .";";
+        $sql = "DROP TABLE IF EXISTS %table.create_update_tests%;";
         ZMRuntime::getDatabase()->executeUpdate($sql);
-        $sql = "CREATE TABLE " . TABLE_CREATE_UPDATE_TESTS . " (
+        $sql = "CREATE TABLE %table.create_update_tests% (
                   row_id int(11) NOT NULL auto_increment,
                   name varchar(128) NOT NULL,
                   class_name varchar(128) NOT NULL,
@@ -55,7 +53,7 @@ class TestZMDatabaseCreateUpdate extends TestCase {
      */
     public function tearDown() {
         parent::tearDown();
-        ZMRuntime::getDatabase()->executeUpdate('DROP TABLE IF EXISTS ' . TABLE_CREATE_UPDATE_TESTS. ';');
+        ZMRuntime::getDatabase()->executeUpdate('DROP TABLE IF EXISTS %table.create_update_tests%;');
         ZMRuntime::getDatabase()->getMapper()->removeMappingForTable('create_update_tests');
     }
 
@@ -111,7 +109,7 @@ class TestZMDatabaseCreateUpdate extends TestCase {
         $map['class_name'] = 'class3';
         $map['method_name'] = 'method3';
         $map['parameter_list'] = '';
-        $sql = "INSERT INTO ".TABLE_CREATE_UPDATE_TESTS."
+        $sql = "INSERT INTO %table.create_update_tests%
                 (name, class_name, method_name, parameter_list) VALUES
                 (:name, :class_name, :method_name, :parameter_list)";
         foreach (TestZMDatabase::getProviders() as $provider => $database) {
@@ -131,7 +129,7 @@ class TestZMDatabaseCreateUpdate extends TestCase {
 
         $this->registerTableMapping();
 
-        $sql = "INSERT INTO ".TABLE_CREATE_UPDATE_TESTS."
+        $sql = "INSERT INTO %table.create_update_tests%
                 (name, class_name, method_name, parameter_list) VALUES
                 (:name, :className, :methodName, :parameterList)";
         foreach (TestZMDatabase::getProviders() as $provider => $database) {
@@ -151,7 +149,7 @@ class TestZMDatabaseCreateUpdate extends TestCase {
 
         $this->registerTableMapping();
 
-        $sql = "INSERT INTO ".TABLE_CREATE_UPDATE_TESTS."
+        $sql = "INSERT INTO %table.create_update_tests%
                 (name, class_name, method_name, parameter_list) VALUES
                 (:name, :className, :methodName, :parameterList)";
         foreach (TestZMDatabase::getProviders() as $provider => $database) {

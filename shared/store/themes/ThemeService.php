@@ -258,7 +258,7 @@ class ThemeService extends ZMObject {
      */
     public function getThemeConfigList() {
         $sql = "SELECT *
-                FROM " . TABLE_TEMPLATE_SELECT;
+                FROM %table.template_select%";
         return \ZMRuntime::getDatabase()->fetchAll($sql, array(), 'template_select', 'zenmagick\apps\store\model\templating\TemplateSelect');
     }
 

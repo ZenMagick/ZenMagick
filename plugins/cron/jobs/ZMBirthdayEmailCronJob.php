@@ -51,7 +51,7 @@ class ZMBirthdayEmailCronJob implements ZMCronJob {
         $offset = $settingsService->get('plugins.cron.jobs.birthday.offset', '');
         $template = $settingsService->get('plugins.cron.jobs.birthday.template', 'birthday');
 
-        $sql = "SELECT * FROM " . TABLE_CUSTOMERS . "
+        $sql = "SELECT * FROM %table.customers%
                 WHERE MONTH(customers_dob) = MONTH(curdate())
                   AND DAYOFMONTH(customers_dob) = DAYOFMONTH(curdate()) " . $offset;
         $results = ZMRuntime::getDatabase()->fetchAll($sql, array(), 'customers', 'ZMAccount');

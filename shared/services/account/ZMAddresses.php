@@ -49,7 +49,7 @@ class ZMAddresses extends ZMObject {
      */
     public function getAddressForId($addressId, $accountId=null) {
         $sql = "SELECT *
-                FROM " . TABLE_ADDRESS_BOOK . "
+                FROM %table.address_book%
                 WHERE address_book_id = :id";
         if (null !== $accountId) {
             $sql .= " AND customers_id = :accountId";
@@ -72,7 +72,7 @@ class ZMAddresses extends ZMObject {
      */
     public function getAddressesForAccountId($accountId) {
         $sql = "SELECT *
-                FROM " . TABLE_ADDRESS_BOOK . "
+                FROM %table.address_book%
                 WHERE customers_id = :accountId";
         $addresses = ZMRuntime::getDatabase()->fetchAll($sql, array('accountId' => $accountId), 'address_book', 'ZMAddress');
 
@@ -114,7 +114,7 @@ class ZMAddresses extends ZMObject {
      * @param boolean <code>true</code>.
      */
     public function deleteAddressForId($addressId) {
-        $sql = "DELETE FROM " . TABLE_ADDRESS_BOOK . "
+        $sql = "DELETE FROM %table.address_book%
                 WHERE  address_book_id = :id";
         ZMRuntime::getDatabase()->updateObj($sql, array('id' => $addressId), 'address_book');
         return true;
@@ -140,7 +140,7 @@ class ZMAddresses extends ZMObject {
      */
     public function getAddressFormatForId($addressFormatId) {
         $sql = "SELECT address_format
-                FROM " . TABLE_ADDRESS_FORMAT . "
+                FROM %table.address_format%
                 WHERE address_format_id = :id";
         $result = ZMRuntime::getDatabase()->querySingle($sql, array('id' => $addressFormatId), 'address_format');
         return $result['format'];

@@ -44,7 +44,7 @@ class OrderStatsDashboardWidget extends DashboardWidget {
         $contents = '<table class="grid" cellspacing="0">';
         $contents .= '<tr><th>'._zm('Status').'</th><th>'._zm('Number of Orders').'</th></tr>';
         $language = $request->getSelectedLanguage();
-        $sql = "SELECT count(*) AS count FROM " . TABLE_ORDERS . "
+        $sql = "SELECT count(*) AS count FROM %table.orders%
                 WHERE orders_status = :orderStatusId";
         foreach ($this->container->get('orderService')->getOrderStatusList($language->getId()) as $status) {
             $args = array('orderStatusId' => $status->getOrderStatusId());

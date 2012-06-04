@@ -148,9 +148,9 @@ class TestReviewService extends TestCase {
             $this->assertTrue($found, '%s new review with id: '.$newReview->getId().' not found');
 
             // cleanup
-            $sql = 'DELETE FROM '.TABLE_REVIEWS.' WHERE reviews_id = :reviewId';
+            $sql = 'DELETE FROM %table.reviews% WHERE reviews_id = :reviewId';
             ZMRuntime::getDatabase()->updateObj($sql, array('reviewId' => $newReview->getId()), 'reviews');
-            $sql = 'DELETE FROM '.TABLE_REVIEWS_DESCRIPTION.' WHERE reviews_id = :reviewId';
+            $sql = 'DELETE FROM %table.reviews_description% WHERE reviews_id = :reviewId';
             ZMRuntime::getDatabase()->updateObj($sql, array('reviewId' => $newReview->getId()), 'reviews_description');
         } else {
             $this->skip('no test account found');
@@ -184,9 +184,9 @@ class TestReviewService extends TestCase {
             $this->assertFalse($found, '%s new review with id: '.$newReview->getId().' is available!');
 
             // cleanup
-            $sql = 'DELETE FROM '.TABLE_REVIEWS.' WHERE reviews_id = :reviewId';
+            $sql = 'DELETE FROM %table.reviews% WHERE reviews_id = :reviewId';
             ZMRuntime::getDatabase()->updateObj($sql, array('reviewId' => $newReview->getId()), 'reviews');
-            $sql = 'DELETE FROM '.TABLE_REVIEWS_DESCRIPTION.' WHERE reviews_id = :reviewId';
+            $sql = 'DELETE FROM %table.reviews_description% WHERE reviews_id = :reviewId';
             ZMRuntime::getDatabase()->updateObj($sql, array('reviewId' => $newReview->getId()), 'reviews_description');
         } else {
             $this->skip('no test account found');

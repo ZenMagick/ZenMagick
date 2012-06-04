@@ -60,7 +60,7 @@ class ZMEZPages extends ZMObject implements ZMSQLAware {
      */
     protected function getAllPagesQueryDetails($languageId, $mode='pages') {
         $sql = "SELECT *
-                FROM " . TABLE_EZPAGES;
+                FROM %table.ezpages%";
         $sql .= " WHERE languages_id = :languageId";
         switch ($mode) {
         case 'all':
@@ -99,7 +99,7 @@ class ZMEZPages extends ZMObject implements ZMSQLAware {
      */
     public function getPageForId($pageId, $languageId) {
         $sql = "SELECT *
-                FROM " . TABLE_EZPAGES . "
+                FROM %table.ezpages%
                 WHERE pages_id = :id";
         $sql .= " AND languages_id = :languageId";
         return ZMRuntime::getDatabase()->querySingle($sql, array('id' => $pageId, 'languageId' => $languageId), 'ezpages', 'ZMEZPage');
@@ -114,7 +114,7 @@ class ZMEZPages extends ZMObject implements ZMSQLAware {
      */
     public function getPageForName($name, $languageId) {
         $sql = "SELECT *
-                FROM " . TABLE_EZPAGES . "
+                FROM %table.ezpages%
                 WHERE pages_title = :title";
         $sql .= " AND languages_id = :languageId";
         return ZMRuntime::getDatabase()->querySingle($sql, array('title' => $name, 'languageId' => $languageId), 'ezpages', 'ZMEZPage');
@@ -129,7 +129,7 @@ class ZMEZPages extends ZMObject implements ZMSQLAware {
      */
     public function getPagesForChapterId($chapterId, $languageId) {
         $sql = "SELECT *
-                FROM " . TABLE_EZPAGES . "
+                FROM %table.ezpages%
                 WHERE ((status_toc = 1 AND toc_sort_order <> 0) AND toc_chapter= :tocChapter)
                 AND alt_url_external = '' AND alt_url = ''";
         $sql .= " AND languages_id = :languageId";
@@ -145,7 +145,7 @@ class ZMEZPages extends ZMObject implements ZMSQLAware {
      */
     public function getPagesForHeader($languageId) {
         $sql = "SELECT *
-                FROM " . TABLE_EZPAGES . "
+                FROM %table.ezpages%
                 WHERE status_header = 1
                   AND header_sort_order > 0";
         $sql .= " AND languages_id = :languageId";
@@ -161,7 +161,7 @@ class ZMEZPages extends ZMObject implements ZMSQLAware {
      */
     public function getPagesForSidebar($languageId) {
         $sql = "SELECT *
-                FROM " . TABLE_EZPAGES . "
+                FROM %table.ezpages%
                 WHERE status_sidebox = 1
                   AND sidebox_sort_order > 0";
         $sql .= " AND languages_id = :languageId";
@@ -177,7 +177,7 @@ class ZMEZPages extends ZMObject implements ZMSQLAware {
      */
     public function getPagesForFooter($languageId) {
         $sql = "SELECT *
-                FROM " . TABLE_EZPAGES . "
+                FROM %table.ezpages%
                 WHERE status_footer = 1
                   AND footer_sort_order > 0";
         $sql .= " AND languages_id = :languageId";

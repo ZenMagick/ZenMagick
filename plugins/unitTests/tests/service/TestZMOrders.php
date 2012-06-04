@@ -171,7 +171,7 @@ class TestZMOrders extends TestCase {
             $this->assertNotNull($createdOrderStatus->getDateAdded());
 
             // clean up
-            $sql = "DELETE FROM ".TABLE_ORDERS_STATUS_HISTORY." WHERE orders_status_history_id = :orderStatusHistoryId";
+            $sql = "DELETE FROM %table.orders_status_history% WHERE orders_status_history_id = :orderStatusHistoryId";
             ZMRuntime::getDatabase()->updateObj($sql, array('orderStatusHistoryId' => $newOrderStatus->getId()), 'orders_status_history');
         } else {
             $this->skip('test order not found');

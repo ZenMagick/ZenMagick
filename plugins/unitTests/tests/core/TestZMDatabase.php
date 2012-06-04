@@ -55,7 +55,7 @@ class TestZMDatabase extends TestCase {
      * Test auto mapping.
      */
     public function testAutoMapping() {
-        $tname = DB_PREFIX."db_test";
+        $tname = ZMRuntime::getDatabase()->getPrefix().'db_test';
         $create_table = "CREATE TABLE ".$tname." (id int(11) NOT NULL auto_increment, name varchar(32) NOT NULL, other varchar(32), PRIMARY KEY (id)) engine=MyISAM;";
         $drop_table = "DROP TABLE IF EXISTS ".$tname.";";
         $expectedMapping = array(
@@ -83,8 +83,8 @@ class TestZMDatabase extends TestCase {
      * Test indexed field names.
      */
     public function testIndexedFields() {
-        $sql1 = "SELECT * FROM " . TABLE_COUNTRIES . " WHERE countries_id = :countryId";
-        $sql2 = "SELECT * FROM " . TABLE_COUNTRIES . " WHERE countries_id = :1#countryId";
+        $sql1 = "SELECT * FROM %table.countries% WHERE countries_id = :countryId";
+        $sql2 = "SELECT * FROM %table.countries% WHERE countries_id = :1#countryId";
 
         foreach (self::getProviders() as $provider => $database) {
             // use simple country query to compare results
@@ -98,7 +98,7 @@ class TestZMDatabase extends TestCase {
      * Test value array.
      */
     public function testValueArray() {
-        $sql = "SELECT * FROM " . TABLE_COUNTRIES . " WHERE countries_id IN (:countryId)";
+        $sql = "SELECT * FROM %table.countries% WHERE countries_id IN (:countryId)";
 
         foreach (self::getProviders() as $provider => $database) {
             $results = $database->fetchAll($sql, array('countryId' => array(81, 153)), 'countries');
@@ -124,7 +124,7 @@ class TestZMDatabase extends TestCase {
         }
 
         // createModel
-        $deleteTestModelSql = "DELETE from " . TABLE_COUNTRIES . " WHERE countries_iso_code_3 = :isoCode3";
+        $deleteTestModelSql = "DELETE from %table.countries% WHERE countries_iso_code_3 = :isoCode3";
         foreach (self::getProviders() as $provider => $database) {
             // first delete, just in case
             $database->updateObj($deleteTestModelSql, array('isoCode3' => '@@@'), 'countries');
@@ -141,7 +141,7 @@ class TestZMDatabase extends TestCase {
         }
 
         // updateModel
-        $reset = "UPDATE " . TABLE_COUNTRIES . " SET countries_iso_code_3 = :isoCode3 WHERE countries_id = :countryId";
+        $reset = "UPDATE %table.countries% SET countries_iso_code_3 = :isoCode3 WHERE countries_id = :countryId";
         foreach (self::getProviders() as $provider => $database) {
             $country = $database->loadModel('countries', 153, 'zenmagick\apps\store\model\location\Country');
             if ($this->assertNotNull($country, '%s: '.$provider)) {
@@ -158,8 +158,8 @@ class TestZMDatabase extends TestCase {
         }
 
         // removeModel
-        $deleteTestModelSql = "DELETE from " . TABLE_COUNTRIES . " WHERE countries_iso_code_3 = :isoCode3";
-        $findTestModelSql = "SELECT * from " . TABLE_COUNTRIES . " WHERE countries_iso_code_3 = :isoCode3";
+        $deleteTestModelSql = "DELETE from %table.countries% WHERE countries_iso_code_3 = :isoCode3";
+        $findTestModelSql = "SELECT * from %table.countries% WHERE countries_iso_code_3 = :isoCode3";
         foreach (self::getProviders() as $provider => $database) {
             // first delete, just in case
             $database->updateObj($deleteTestModelSql, array('isoCode3' => '%%%'), 'countries');
@@ -181,7 +181,7 @@ class TestZMDatabase extends TestCase {
      * Test exceptions (and dynamic table mapping without prefix).
      */
     public function testExceptions() {
-        $tname = DB_PREFIX."db_test";
+        $tname = ZMRuntime::getDatabase()->getPrefix()."db_test";
         $create_table = "CREATE TABLE ".$tname." (id int(11) NOT NULL auto_increment, name varchar(32) NOT NULL, other varchar(32), PRIMARY KEY (id)) engine=MyISAM;";
         $drop_table = "DROP TABLE IF EXISTS ".$tname.";";
         $insert = "INSERT INTO ".$tname." SET name = :name;";
@@ -207,7 +207,7 @@ class TestZMDatabase extends TestCase {
      * Test exceptions (and dynamic table mapping with prefix).
      */
     public function testExceptionsPrefix() {
-        $tname = DB_PREFIX."db_test";
+        $tname = ZMRuntime::getDatabase()->getPrefix()."db_test";
         $create_table = "CREATE TABLE ".$tname." (id int(11) NOT NULL auto_increment, name varchar(32) NOT NULL, other varchar(32), PRIMARY KEY (id)) engine=MyISAM;";
         $drop_table = "DROP TABLE IF EXISTS ".$tname.";";
         $insert = "INSERT INTO ".$tname." SET name = :name;";
@@ -234,7 +234,7 @@ class TestZMDatabase extends TestCase {
      */
     public function testUnmapped() {
         // count orders
-        $sql = "SELECT count(*) AS count FROM " . TABLE_ORDERS . " where orders_status = :orderStatusId";
+        $sql = "SELECT count(*) AS count FROM %table.orders% where orders_status = :orderStatusId";
 
         foreach (self::getProviders() as $provider => $database) {
             try {

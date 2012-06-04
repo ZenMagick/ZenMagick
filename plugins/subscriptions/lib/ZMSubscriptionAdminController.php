@@ -42,7 +42,7 @@ class ZMSubscriptionAdminController extends ZMPluginAdminController {
      */
     public function processGet($request) {
         // get all subscription orders
-        $sql = "SELECT orders_id FROM " . TABLE_ORDERS . "
+        $sql = "SELECT orders_id FROM %table.orders%
                 WHERE  is_subscription = :subscription
                 ORDER BY subscription_next_order DESC";
         $results = ZMRuntime::getDatabase()->fetchAll($sql, array('subscription' => true), 'orders');
@@ -70,7 +70,7 @@ class ZMSubscriptionAdminController extends ZMPluginAdminController {
         $cancel = $request->getParameter('cancel');
         $hard = Toolbox::asBoolean($request->getParameter('hard'), false);
         if (0 != $orderId && 'cancel' == $cancel) {
-            $sql = "UPDATE " . TABLE_ORDERS . "
+            $sql = "UPDATE %table.orders%
                     SET is_subscription_canceled = :subscriptionCanceled, is_subscription = :subscription
                     WHERE orders_id = :orderId";
             ZMRuntime::getDatabase()->updateObj($sql, array('orderId' => $orderId, 'subscriptionCanceled' => true, 'subscription' => !$hard), 'orders');

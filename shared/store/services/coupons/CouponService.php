@@ -50,8 +50,8 @@ class CouponService extends ZMObject {
     public function getCouponForCode($code, $languageId) {
         // XXX: relies on order of selected columns; (coupon_id returned twice and cd might be NULL if no description!)
         $sql = "SELECT cd.*, c.*
-                FROM " . TABLE_COUPONS . " c
-                  LEFT JOIN " . TABLE_COUPONS_DESCRIPTION . " cd ON (c.coupon_id = cd.coupon_id AND cd.language_id = :languageId)
+                FROM %table.coupons% c
+                  LEFT JOIN %table.coupons_description% cd ON (c.coupon_id = cd.coupon_id AND cd.language_id = :languageId)
                 WHERE c.coupon_code = :code";
         $args = array('code' => $code, 'languageId' => $languageId);
         return ZMRuntime::getDatabase()->querySingle($sql, $args, array('coupons', 'coupons_description'), 'zenmagick\apps\store\model\coupons\Coupon');
@@ -67,8 +67,8 @@ class CouponService extends ZMObject {
     public function getCouponForId($id, $languageId) {
         // XXX: relies on order of selected columns; (coupon_id returned twice and cd might be NULL if no description!)
         $sql = "SELECT cd.*, c.*
-                FROM " . TABLE_COUPONS . " c
-                  LEFT JOIN " . TABLE_COUPONS_DESCRIPTION . " cd ON (c.coupon_id = cd.coupon_id AND cd.language_id = :languageId)
+                FROM %table.coupons% c
+                  LEFT JOIN %table.coupons_description% cd ON (c.coupon_id = cd.coupon_id AND cd.language_id = :languageId)
                 WHERE c.coupon_id = :id";
         $args = array('id' => $id, 'languageId' => $languageId);
         return ZMRuntime::getDatabase()->querySingle($sql, $args, array('coupons', 'coupons_description'), 'zenmagick\apps\store\model\coupons\Coupon');
@@ -81,7 +81,7 @@ class CouponService extends ZMObject {
      * @return float The available balance or <code>0</code>.
      */
     public function getVoucherBalanceForAccountId($accountId) {
-        $sql = "SELECT amount from " . TABLE_COUPON_GV_CUSTOMER . "
+        $sql = "SELECT amount from %table.coupon_gv_customer%
                 WHERE customer_id = :accountId";
         $result = ZMRuntime::getDatabase()->querySingle($sql, array('accountId' => $accountId), 'coupon_gv_customer');
         return null !== $result ? $result['amount'] : 0;
@@ -107,18 +107,18 @@ class CouponService extends ZMObject {
     protected function updateVoucherBalanceForAccountId($accountId, $amount, $mode=Coupon::BALANCE_SET) {
         // check if customer has already a balance
         $sql = "SELECT amount
-                FROM " . TABLE_COUPON_GV_CUSTOMER . "
+                FROM %table.coupon_gv_customer%
                 WHERE customer_id = :accountId";
         $result = ZMRuntime::getDatabase()->querySingle($sql, array('accountId' => $accountId), 'coupon_gv_customer');
         if (null != $result) {
             if (Coupon::BALANCE_ADD == $mode) {
                 $amount = $result['amount'] + $amount;
             }
-            $sql = "UPDATE " . TABLE_COUPON_GV_CUSTOMER . "
+            $sql = "UPDATE %table.coupon_gv_customer%
                     SET amount = :amount
                     WHERE customer_id = :accountId";
         } else {
-            $sql = "INSERT INTO " . TABLE_COUPON_GV_CUSTOMER . " (customer_id, amount)
+            $sql = "INSERT INTO %table.coupon_gv_customer% (customer_id, amount)
                     VALUES (:accountId, :amount)";
         }
         ZMRuntime::getDatabase()->updateObj($sql, array('accountId' => $accountId, 'amount' => $amount), 'coupon_gv_customer');
@@ -163,7 +163,7 @@ class CouponService extends ZMObject {
      * @return boolean <code>true</code> if the coupon can be redeemed, <code>false</code> if not.
      */
     public function isCouponRedeemable($couponId) {
-        $sql = "SELECT coupon_id FROM ". TABLE_COUPON_REDEEM_TRACK . "
+        $sql = "SELECT coupon_id FROM %table.coupon_redeem_track%
                 WHERE coupon_id = :couponId";
         $results = ZMRuntime::getDatabase()->fetchAll($sql, array('couponId' => $couponId), 'coupon_redeem_track', ZMDatabase::MODEL_RAW);
         return 0 == count($results);
@@ -199,7 +199,7 @@ class CouponService extends ZMObject {
         $tracker->set('orderId', 0);
         ZMRuntime::getDatabase()->createModel('coupon_redeem_track', $tracker);
 
-        $sql = "UPDATE " . TABLE_COUPONS . "
+        $sql = "UPDATE %table.coupons%
                 SET coupon_active = :active
                 WHERE coupon_id = :id";
         $args = array('id' => $couponId, 'active' => Coupon::FLAG_WAITING);
@@ -214,7 +214,7 @@ class CouponService extends ZMObject {
      */
     public function getCouponQueueEntryForId($queueId) {
         $sql = "SELECT *
-                FROM " . TABLE_COUPON_GV_QUEUE . "
+                FROM %table.coupon_gv_queue%
                 WHERE unique_id = :id";
         return ZMRuntime::getDatabase()->querySingle($sql, array('id' => $queueId), 'coupon_gv_queue', 'zenmagick\apps\store\model\coupons\CouponQueue');
     }
@@ -227,7 +227,7 @@ class CouponService extends ZMObject {
      */
     public function getCouponsForFlag($flag=Coupon::FLAG_WAITING) {
         $sql = "SELECT *
-                FROM " . TABLE_COUPON_GV_QUEUE . "
+                FROM %table.coupon_gv_queue%
                 WHERE release_flag = :released";
         return ZMRuntime::getDatabase()->fetchAll($sql, array('released' => $flag), 'coupon_gv_queue', 'zenmagick\apps\store\model\coupons\CouponQueue');
     }
@@ -241,7 +241,7 @@ class CouponService extends ZMObject {
     public function creditCoupon($couponId, $accountId) {
         // get coupon value
         $sql = "SELECT coupon_amount
-                FROM " . TABLE_COUPONS . "
+                FROM %table.coupons%
                 WHERE coupon_id = :id";
         $result = ZMRuntime::getDatabase()->querySingle($sql, array('id' => $couponId), 'coupons');
         $this->updateVoucherBalanceForAccountId($accountId, $result['amount'], Coupon::BALANCE_ADD);
@@ -267,7 +267,7 @@ class CouponService extends ZMObject {
             $code = substr($codes, $ii, $length);
 
             $sql = "SELECT coupon_code
-                    FROM " . TABLE_COUPONS . "
+                    FROM %table.coupons%
                     WHERE coupon_code = :code";
             $results = ZMRuntime::getDatabase()->fetchAll($sql, array('code' => $code), 'coupons', ZMDatabase::MODEL_RAW);
             if (0 == count($results)) {
@@ -286,7 +286,7 @@ class CouponService extends ZMObject {
      * @return CouponRestrictions The restrictions.
      */
     public function getRestrictionsForCouponId($couponId) {
-        $sql = "SELECT * FROM " . TABLE_COUPON_RESTRICT . "
+        $sql = "SELECT * FROM %table.coupon_restrict%
                 WHERE coupon_id = :couponId";
         $results = ZMRuntime::getDatabase()->fetchAll($sql, array('couponId' => $couponId), 'coupon_restrict');
 
@@ -313,7 +313,7 @@ class CouponService extends ZMObject {
      * @return array List of coupons.
      */
     public function getCoupons($languageId, $active=true) {
-        $sql = "SELECT * FROM " . TABLE_COUPONS ." c, ". TABLE_COUPONS_DESCRIPTION . " cd
+        $sql = "SELECT * FROM %table.coupons% c, %table.coupons_description% cd
                 WHERE cd.coupon_id = c.coupon_id AND cd.language_id = :languageId";
         return ZMRuntime::getDatabase()->fetchAll($sql, array('languageId' => $languageId), array('coupons', 'coupons_description'), 'zenmagick\apps\store\model\coupons\Coupon');
     }

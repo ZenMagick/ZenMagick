@@ -39,7 +39,7 @@ class ProductFinder extends ZMProductFinder {
      */
     protected function buildQuery($criteria) {
         $select = "SELECT pd.products_id, ";
-        $from = " FROM " . TABLE_PRODUCTS . " p, " .  TABLE_PRODUCTS_DESCRIPTION . " pd ";
+        $from = " FROM %table.products% p, %table.products_description% pd ";
         $sort = ' ORDER BY weight DESC';
         $where = ' WHERE';
 
@@ -67,7 +67,7 @@ class ProductFinder extends ZMProductFinder {
         $where .= " AND p.products_id = pd.products_Id AND p.products_status = 1 ";
 
         $sql = $select . $weight . ' AS weight'. $from . $where . $sort;
-        $tables = array(TABLE_PRODUCTS_DESCRIPTION);
+        $tables = array('products_description');
         return new ZMQueryDetails(ZMRuntime::getDatabase(), $sql, array(), $tables, null, 'pd.products_id');
     }
 

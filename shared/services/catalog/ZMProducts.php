@@ -95,9 +95,9 @@ class ZMProducts extends ZMObject implements ZMSQLAware {
      */
     protected function getAllProductsQueryDetails($active=true, $languageId) {
         $sql = "SELECT p.*, pd.*, s.specials_new_products_price
-                FROM " . TABLE_PRODUCTS . " p
-                  LEFT JOIN " . TABLE_SPECIALS . " s ON (s.products_id = p.products_id AND s.status = 1),
-                  " . TABLE_PRODUCTS_DESCRIPTION . " pd
+                FROM %table.products% p
+                  LEFT JOIN %table.specials% s ON (s.products_id = p.products_id AND s.status = 1),
+                  %table.products_description% pd
                 WHERE pd.products_id = p.products_id
                   AND pd.language_id = :languageId";
         if ($active) {
@@ -117,7 +117,7 @@ class ZMProducts extends ZMObject implements ZMSQLAware {
      */
     public function getAllProducts($active=true, $languageId) {
         $sql = "SELECT p.products_id
-                FROM " . TABLE_PRODUCTS . " p, " .  TABLE_PRODUCTS_DESCRIPTION . " pd
+                FROM %table.products% p, %table.products_description% pd
                 WHERE ";
         if ($active) {
             $sql .= " p.products_status = 1 AND ";
@@ -159,7 +159,7 @@ class ZMProducts extends ZMObject implements ZMSQLAware {
             }
 
             $sql = "SELECT p.products_id, p2c.categories_id
-                    FROM " . TABLE_PRODUCTS_DESCRIPTION . " pd, " .  TABLE_PRODUCTS . " p, " .  TABLE_PRODUCTS_TO_CATEGORIES . " p2c
+                    FROM %table.products_description% pd, %table.products% p, %table.products_to_categories% p2c
                     WHERE ";
             if ($active) {
                 $sql .= " p.products_status = 1 AND ";
@@ -198,10 +198,10 @@ class ZMProducts extends ZMObject implements ZMSQLAware {
      */
     protected function getProductsForCategoryIdQueryDetails($categoryId, $active, $languageId) {
         $sql = "SELECT p.*, pd.*, m.*, s.specials_new_products_price
-                FROM " . TABLE_PRODUCTS . " p
-                  LEFT JOIN " . TABLE_SPECIALS . " s ON (s.products_id = p.products_id)
-                  LEFT JOIN " . TABLE_MANUFACTURERS . " m ON (m.manufacturers_id = p.manufacturers_id),
-                  " . TABLE_PRODUCTS_DESCRIPTION . " pd, " .  TABLE_PRODUCTS_TO_CATEGORIES . " p2c
+                FROM %table.products% p
+                  LEFT JOIN %table.specials% s ON (s.products_id = p.products_id)
+                  LEFT JOIN %table.manufacturers% m ON (m.manufacturers_id = p.manufacturers_id),
+                  %table.products_description% pd, %table.products_to_categories% p2c
                 WHERE pd.products_id = p.products_id AND p2c.categories_id = :categoryId
                   AND p.products_id = p2c.products_id AND pd.products_id = p2c.products_id
                   AND pd.language_id = :languageId";
@@ -235,7 +235,7 @@ class ZMProducts extends ZMObject implements ZMSQLAware {
      */
     public function getProductsForManufacturerId($manufacturerId, $active=true, $languageId) {
         $sql = "SELECT p.products_id
-                FROM " . TABLE_PRODUCTS . " p, " .  TABLE_PRODUCTS_DESCRIPTION . " pd, " .  TABLE_MANUFACTURERS . " m
+                FROM %table.products% p, %table.products_description% pd, %table.manufacturers% m
                 WHERE ";
         if ($active) {
             $sql .= " p.products_status = 1 AND ";
@@ -267,17 +267,17 @@ class ZMProducts extends ZMObject implements ZMSQLAware {
      */
     public function getProductTypeSetting($productId, $field, $keyPprefix='_INFO', $keySuffix='SHOW_', $fieldPrefix= '_', $fieldSuffix='') {
         $database = ZMRuntime::getDatabase();
-        $sql = "select products_type from " . TABLE_PRODUCTS . "
+        $sql = "select products_type from %table.products%
                 where products_id = :productId";
         $typeResult = $database->querySingle($sql, array('productId' => $productId), 'products', ZMDatabase::MODEL_RAW);
 
-        $sql = "select type_handler from " . TABLE_PRODUCT_TYPES . "
+        $sql = "select type_handler from %table.product_types%
                 where type_id = :id";
         $keyResult = $database->querySingle($sql, array('id' => $typeResult['products_type']), 'product_types', ZMDatabase::MODEL_RAW);
 
         $key = strtoupper($keySuffix . $keyResult['type_handler'] . $keyPprefix . $fieldPrefix . $field . $fieldSuffix);
 
-        $sql = "select configuration_value from " . TABLE_PRODUCT_TYPE_LAYOUT . "
+        $sql = "select configuration_value from %table.product_type_layout%
                 where configuration_key = :key";
         $valueResult = $database->querySingle($sql, array('key' => $key), 'product_type_layout', ZMDatabase::MODEL_RAW);
 
@@ -286,7 +286,7 @@ class ZMProducts extends ZMObject implements ZMSQLAware {
             return 1 == $valueResult['configuration_value'];
         } else {
             // fallback general configuration
-            $sql = "select configuration_value from " . TABLE_CONFIGURATION . "
+            $sql = "select configuration_value from %table.configuration%
                     where configuration_key = :key";
             $valueResult = $database->querySingle($sql, array('key' => $key), 'configuration', ZMDatabase::MODEL_RAW);
 
@@ -310,17 +310,17 @@ class ZMProducts extends ZMObject implements ZMSQLAware {
 		    $sql = null;
         if (null == $categoryId) {
             $sql = "select distinct p.products_id
-                    from " . TABLE_PRODUCTS . " p
-                    left join " . TABLE_FEATURED . " f on p.products_id = f.products_id
+                    from %table.products% p
+                    left join %table.featured% f on p.products_id = f.products_id
                     where p.products_id = f.products_id
                       and p.products_status = '1'
                       and f.status = '1'";
         } else {
             $categoryCond = $includeChildren ? '(c.parent_id = :categoryId or c.categories_id = :categoryId)' : 'c.categories_id = :categoryId';
             $sql = "select distinct p.products_id
-                    from (" . TABLE_PRODUCTS . " p
-                    left join " . TABLE_FEATURED . " f on p.products_id = f.products_id), " .
-                     TABLE_PRODUCTS_TO_CATEGORIES . " p2c, " .  TABLE_CATEGORIES . " c
+                    from (%table.products% p
+                    left join %table.featured% f on p.products_id = f.products_id),
+                    %table.products_to_categories% p2c, %table.categories% c
                     where p.products_id = p2c.products_id
                       and p2c.categories_id = c.categories_id
                       and " . $categoryCond . "
@@ -375,11 +375,11 @@ class ZMProducts extends ZMObject implements ZMSQLAware {
         $sql = null;
         if (null == $categoryId) {
             $sql = "SELECT p.products_id
-                      FROM " . TABLE_PRODUCTS . " p
+                      FROM %table.products% p
                       WHERE p.products_status = 1" . $queryLimit;
         } else {
             $sql = "SELECT DISTINCT p.products_id
-                    FROM " . TABLE_PRODUCTS . " p, " . TABLE_PRODUCTS_TO_CATEGORIES . " p2c, " .  TABLE_CATEGORIES . " c
+                    FROM %table.products% p, %table.products_to_categories% p2c, %table.categories% c
                     WHERE p.products_id = p2c.products_id
                       AND p2c.categories_id = c.categories_id
                       AND c.categories_id = :categoryId
@@ -407,8 +407,8 @@ class ZMProducts extends ZMObject implements ZMSQLAware {
         $sql = null;
         if (null !== $categoryId) {
             $sql = "SELECT DISTINCT p.products_id
-                    FROM " . TABLE_PRODUCTS . " p, "
-                    . TABLE_PRODUCTS_TO_CATEGORIES . " p2c, " . TABLE_CATEGORIES . " c
+                    FROM %table.products% p,
+                    %table.products_to_categories% p2c, %table.categories% c
                     WHERE p.products_status = '1'
                       AND p.products_ordered > 0
                       AND p.products_id = p2c.products_id
@@ -417,7 +417,7 @@ class ZMProducts extends ZMObject implements ZMSQLAware {
                     ORDER BY p.products_ordered desc";
         } else {
             $sql = "SELECT DISTINCT p.products_id, p.products_ordered
-                    FROM " . TABLE_PRODUCTS . " p
+                    FROM %table.products% p
                     WHERE p.products_status = '1'
                       AND p.products_ordered > 0
                     ORDER BY p.products_ordered desc";
@@ -443,7 +443,7 @@ class ZMProducts extends ZMObject implements ZMSQLAware {
         $max = null === $max ? Runtime::getSettings()->get('maxSpecialProducts') : $max;
 
         $sql = "select distinct p.products_id
-                from " . TABLE_PRODUCTS . " p, " . TABLE_SPECIALS . " s
+                from %table.products% p, %table.specials% s
                 where p.products_status = 1
                   AND p.products_id = s.products_id
                   AND s.status = 1";
@@ -461,9 +461,9 @@ class ZMProducts extends ZMObject implements ZMSQLAware {
      */
     public function getProductForModel($model, $languageId) {
         $sql = "SELECT p.*, pd.*, s.specials_new_products_price
-                FROM " . TABLE_PRODUCTS . " p
-                LEFT JOIN " . TABLE_SPECIALS . " s ON (s.products_id = p.products_id AND s.status = 1),
-                " . TABLE_PRODUCTS_DESCRIPTION . " pd
+                FROM %table.products% p
+                LEFT JOIN %table.specials% s ON (s.products_id = p.products_id AND s.status = 1),
+                %table.products_description% pd
                 WHERE p.products_status = '1'
                   AND p.products_model = :model
                   AND pd.products_id = p.products_id
@@ -496,9 +496,9 @@ class ZMProducts extends ZMObject implements ZMSQLAware {
         }
 
         $sql = "SELECT p.*, pd.*, s.specials_new_products_price
-                FROM " . TABLE_PRODUCTS . " p
-                LEFT JOIN " . TABLE_SPECIALS . " s ON (s.products_id = p.products_id AND s.status = 1),
-                " . TABLE_PRODUCTS_DESCRIPTION . " pd
+                FROM %table.products% p
+                LEFT JOIN %table.specials% s ON (s.products_id = p.products_id AND s.status = 1),
+                %table.products_description% pd
                 WHERE p.products_id = :productId
                   AND pd.products_id = p.products_id
                   AND pd.language_id = :languageId";
@@ -542,9 +542,9 @@ class ZMProducts extends ZMObject implements ZMSQLAware {
 
         if (0 < count($needLoadIds)) {
             $sql = "SELECT p.*, pd.*, s.specials_new_products_price
-                    FROM " . TABLE_PRODUCTS . " p
-                    LEFT JOIN " . TABLE_SPECIALS . " s ON (s.products_id = p.products_id AND s.status = 1),
-                    " . TABLE_PRODUCTS_DESCRIPTION . " pd
+                    FROM %table.products% p
+                    LEFT JOIN %table.specials% s ON (s.products_id = p.products_id AND s.status = 1),
+                    %table.products_description% pd
                     WHERE p.products_id in (:productId)
                       AND pd.products_id = p.products_id
                       AND pd.language_id = :languageId";
@@ -598,7 +598,7 @@ class ZMProducts extends ZMObject implements ZMSQLAware {
      * @param int languageId Language id.
      */
     public function updateViewCount($productId, $languageId) {
-        $sql = "UPDATE " . TABLE_PRODUCTS_DESCRIPTION . "
+        $sql = "UPDATE %table.products_description%
                 SET products_viewed = products_viewed+1
                 WHERE products_id = :productId
                 AND language_id = :languageId";
@@ -659,7 +659,7 @@ class ZMProducts extends ZMObject implements ZMSQLAware {
      */
     public function isQuantityAvailable($productId, $quantity) {
         $sql = "SELECT products_quantity
-                from " . TABLE_PRODUCTS . "
+                from %table.products%
                 where products_id = :productId";
         $result = ZMRuntime::getDatabase()->querySingle($sql, array('productId' => $productId), 'products');
         $available = 0;
@@ -690,7 +690,7 @@ class ZMProducts extends ZMObject implements ZMSQLAware {
      * @return ZMMetaTagDetails The details or <code>null</code>.
      */
     public function getMetaTagDetailsForId($productId, $languageId) {
-        $sql = "SELECT * from " . TABLE_META_TAGS_PRODUCTS_DESCRIPTION . "
+        $sql = "SELECT * from %table.meta_tags_products_description%
                 WHERE products_id = :productId
                   AND language_id = :languageId";
         $args = array('productId' => $productId, 'languageId' => $languageId);

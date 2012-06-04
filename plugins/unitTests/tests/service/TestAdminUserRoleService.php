@@ -34,12 +34,12 @@ class TestAdminUserRoleService extends TestCase {
     public function setUp() {
         parent::setUp();
         $adminUserRoleService = $this->container->get('adminUserRoleService');
-        ZMRuntime::getDatabase()->executeUpdate('TRUNCATE TABLE ' . DB_PREFIX.'admin_roles');
-        ZMRuntime::getDatabase()->executeUpdate('TRUNCATE TABLE ' . DB_PREFIX.'admins_to_roles');
+        ZMRuntime::getDatabase()->executeUpdate('TRUNCATE TABLE %table.admin_roles%');
+        ZMRuntime::getDatabase()->executeUpdate('TRUNCATE TABLE %table.admins_to_roles%');
         $adminUserRoleService->addRole('admin');
         $adminUserRoleService->addRole('helpdesk');
-        ZMRuntime::getDatabase()->executeUpdate('INSERT INTO ' . DB_PREFIX.'admins_to_roles' . ' VALUES(1, 1)');
-        ZMRuntime::getDatabase()->executeUpdate('INSERT INTO ' . DB_PREFIX.'admins_to_roles' . ' VALUES(1, 2)');
+        ZMRuntime::getDatabase()->executeUpdate('INSERT INTO %table.admins_to_roles% VALUES(1, 1)');
+        ZMRuntime::getDatabase()->executeUpdate('INSERT INTO %table.admins_to_roles% VALUES(1, 2)');
     }
 
     /**
@@ -48,11 +48,11 @@ class TestAdminUserRoleService extends TestCase {
     public function tearDown() {
         parent::tearDown();
         $adminUserRoleService = $this->container->get('adminUserRoleService');
-        ZMRuntime::getDatabase()->executeUpdate('TRUNCATE TABLE ' . DB_PREFIX.'admin_roles');
-        ZMRuntime::getDatabase()->executeUpdate('TRUNCATE TABLE ' . DB_PREFIX.'admins_to_roles');
+        ZMRuntime::getDatabase()->executeUpdate('TRUNCATE TABLE %table.admin_roles%');
+        ZMRuntime::getDatabase()->executeUpdate('TRUNCATE TABLE %table.admins_to_roles%');
         $adminUserRoleService->addRole('admin');
         $adminUserRoleService->addRole('demo');
-        ZMRuntime::getDatabase()->executeUpdate('INSERT INTO ' . DB_PREFIX.'admins_to_roles' . ' VALUES(1, 1)');
+        ZMRuntime::getDatabase()->executeUpdate('INSERT INTO %table.admins_to_roles% VALUES(1, 1)');
     }
 
     /**

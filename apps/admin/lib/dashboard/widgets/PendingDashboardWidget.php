@@ -48,7 +48,7 @@ class PendingDashboardWidget extends DashboardWidget {
             $contents .= sprintf(_zm('There are %s gift cards waiting for %s.'), count($gvApprovalQueue), $a);
         }
 
-        $result = \ZMRuntime::getDatabase()->querySingle("SELECT count(*) AS count FROM " . TABLE_REVIEWS . " WHERE status='0'");
+        $result = \ZMRuntime::getDatabase()->querySingle("SELECT count(*) AS count FROM %table.reviews% WHERE status='0'");
         if (0 < $result['count']) {
             $contents .= ' <a href="'.$request->url('reviews', 'status=1').'">'.sprintf(_zm('There are %s reviews pending approval.'), $result['count']).'</a>';
         }

@@ -52,7 +52,7 @@ class ZMCancelSubscriptionController extends ZMController {
         $plugin = $this->getPlugin();
 
         // check for number of scheduled orders
-        $sql = "SELECT COUNT(orders_id) AS total FROM " . TABLE_ORDERS . "
+        $sql = "SELECT COUNT(orders_id) AS total FROM %table.orders%
                 WHERE subscription_order_id = :subscriptionOrderId";
         $results = ZMRuntime::getDatabase()->querySingle($sql, array('subscriptionOrderId' => $orderId), 'orders', ZMDatabase::MODEL_RAW);
 
@@ -65,7 +65,7 @@ class ZMCancelSubscriptionController extends ZMController {
         if (0 < $cancelDeadline) {
             // this will return only a result if subscription_next_order is more than $cancelDeadline days in the future
             $sql = "SELECT orders_id
-                    FROM " . TABLE_ORDERS . "
+                    FROM %table.orders%
                     WHERE orders_id = :orderId
                       AND DATE_SUB(subscription_next_order, INTERVAL " . $cancelDeadline . " DAY) >= CURDATE()";
             $result = ZMRuntime::getDatabase()->querySingle($sql, array('orderId' => $orderId), 'orders', ZMDatabase::MODEL_RAW);
@@ -75,7 +75,7 @@ class ZMCancelSubscriptionController extends ZMController {
             }
         }
 
-        $sql = "UPDATE " . TABLE_ORDERS . "
+        $sql = "UPDATE %table.orders%
                 SET is_subscription_canceled = :subscriptionCanceled
                 WHERE orders_id = :orderId";
         ZMRuntime::getDatabase()->updateObj($sql, array('orderId' => $orderId, 'subscriptionCanceled' => true), 'orders');

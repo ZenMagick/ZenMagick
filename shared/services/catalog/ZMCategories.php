@@ -93,7 +93,7 @@ class ZMCategories extends ZMObject {
      */
     public function getDefaultCategoryForProductId($productId, $languageId) {
         $sql = "SELECT categories_id, products_id
-                FROM " . TABLE_PRODUCTS_TO_CATEGORIES . "
+                FROM %table.products_to_categories%
                 WHERE products_id = :productId";
         $args = array('productId' => $productId);
         $category = null;
@@ -129,8 +129,8 @@ class ZMCategories extends ZMObject {
 
         $rootCategories = array();
         $sql = "SELECT c.*, cd.*
-                FROM " . TABLE_CATEGORIES . " c
-                  LEFT JOIN " . TABLE_CATEGORIES_DESCRIPTION . " cd ON c.categories_id = cd.categories_id
+                FROM %table.categories% c
+                  LEFT JOIN %table.categories_description% cd ON c.categories_id = cd.categories_id
                   WHERE cd.language_id = :languageId
                     AND c.parent_id = 0
                   ORDER BY c.parent_id, c.sort_order, cd.categories_name";
@@ -141,8 +141,8 @@ class ZMCategories extends ZMObject {
 
         if ($includeChildren && !empty($rootCategories)) {
             $sql = "SELECT c.*, cd.*
-                    FROM " . TABLE_CATEGORIES . " c
-                      LEFT JOIN " . TABLE_CATEGORIES_DESCRIPTION . " cd ON c.categories_id = cd.categories_id
+                    FROM %table.categories% c
+                      LEFT JOIN %table.categories_description% cd ON c.categories_id = cd.categories_id
                       WHERE cd.language_id = :languageId
                         AND c.parent_id IN (:categoryId)
                       ORDER BY c.parent_id, c.sort_order, cd.categories_name";
@@ -353,9 +353,9 @@ class ZMCategories extends ZMObject {
         }
 
         // remove all product/category mappings
-        $sql = "DELETE FROM " . TABLE_PRODUCTS_TO_CATEGORIES ." WHERE categories_id = :categoryId";
+        $sql = "DELETE FROM %table.products_to_categories% WHERE categories_id = :categoryId";
         ZMRuntime::getDatabase()->updateObj($sql, array('categoryId' => $category->getId()), 'products_to_categories');
-        $sql = "DELETE FROM " . TABLE_PRODUCT_TYPES_TO_CATEGORY ." WHERE category_id = :categoryId";
+        $sql = "DELETE FROM %table.product_types_to_category% WHERE category_id = :categoryId";
         ZMRuntime::getDatabase()->updateObj($sql, array('categoryId' => $category->getId()), 'product_types_to_category');
     }
 
@@ -376,7 +376,7 @@ class ZMCategories extends ZMObject {
         }
 
         $productTypeIdMap = array();
-        $sql = "SELECT * FROM " . TABLE_PRODUCT_TYPES_TO_CATEGORY ."
+        $sql = "SELECT * FROM %table.product_types_to_category%
                 ORDER BY category_id";
         foreach (ZMRuntime::getDatabase()->fetchAll($sql, array(), 'product_types_to_category') as $result) {
             if (!array_key_exists($result['categoryId'],  $productTypeIdMap)) {
@@ -402,8 +402,8 @@ class ZMCategories extends ZMObject {
         // load all straight away - should be faster to sort them later on
         $args = array('languageId' => $languageId);
         $sql = "SELECT c.*, cd.*
-                FROM " . TABLE_CATEGORIES . " c
-                  LEFT JOIN " . TABLE_CATEGORIES_DESCRIPTION . " cd ON c.categories_id = cd.categories_id
+                FROM %table.categories% c
+                  LEFT JOIN %table.categories_description% cd ON c.categories_id = cd.categories_id
                   WHERE cd.language_id = :languageId";
         $sql .= " ORDER BY c.parent_id, c.sort_order, cd.categories_name";
 
@@ -432,7 +432,7 @@ class ZMCategories extends ZMObject {
      * @return ZMMetaTagDetails The details or <code>null</code>.
      */
     public function getMetaTagDetailsForId($categoryId, $languageId) {
-        $sql = "SELECT * from " . TABLE_METATAGS_CATEGORIES_DESCRIPTION . "
+        $sql = "SELECT * from %table.meta_tags_categories_description%
                 WHERE categories_id = :categoryId
                   AND language_id = :languageId";
         $args = array('categoryId' => $categoryId, 'languageId' => $languageId);

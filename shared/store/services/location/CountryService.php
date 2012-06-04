@@ -69,7 +69,7 @@ class CountryService extends ZMObject {
             return $this->countries;
 
         $sql = "SELECT *
-                FROM " . TABLE_COUNTRIES . "
+                FROM %table.countries%
                 ORDER BY countries_name";
         $this->countries = \ZMRuntime::getDatabase()->fetchAll($sql, array(), 'countries', 'zenmagick\apps\store\model\location\Country');
         return $this->countries;
@@ -118,7 +118,7 @@ class CountryService extends ZMObject {
      */
     public function getZoneCode($countryId, $zoneId, $defaultZone='') {
         $sql = "SELECT zone_code
-                FROM " . TABLE_ZONES . "
+                FROM %table.zones%
                 WHERE zone_country_id = :countryId
                  AND zone_id = :zoneId";
         $zone = \ZMRuntime::getDatabase()->querySingle($sql, array('zoneId' => $zoneId, 'countryId' => $countryId), 'zones');
@@ -138,7 +138,7 @@ class CountryService extends ZMObject {
         }
 
         $sql = "SELECT distinct *
-                FROM " . TABLE_ZONES . "
+                FROM %table.zones%
                 WHERE zone_country_id = :countryId
                 ORDER BY zone_name";
         $zones = \ZMRuntime::getDatabase()->fetchAll($sql, array('countryId' => $countryId), 'zones', 'zenmagick\apps\store\model\location\Zone');

@@ -108,7 +108,7 @@ class TestZMProducts extends TestCase {
      * Test new products on home page.
      */
     public function testNewProductsHome() {
-        $sql = "UPDATE " . TABLE_PRODUCTS . " SET products_date_added = :dateAdded";
+        $sql = "UPDATE %table.products% SET products_date_added = :dateAdded";
         ZMRuntime::getDatabase()->updateObj($sql, array('dateAdded' => new \DateTime()), 'products');
 
         $products = $this->container->get('productService')->getNewProducts();

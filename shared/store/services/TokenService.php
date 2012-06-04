@@ -89,11 +89,11 @@ class TokenService extends ZMObject {
      * @return Token A valid token or <code>null</code>.
      */
     public function validateHash($resource, $hash, $expire=true) {
-        $sql = "SELECT * FROM " . DB_PREFIX.'token' . "
+        $sql = "SELECT * FROM %table.token%
                 WHERE hash = :hash AND resource = :resource AND expires >= now()";
         $token = ZMRuntime::getDatabase()->querySingle($sql, array('hash' => $hash, 'resource' => $resource), 'token', 'zenmagick\apps\store\model\Token');
         if ($expire && null !== $token) {
-            $sql = "DELETE FROM " . DB_PREFIX.'token' . "
+            $sql = "DELETE FROM %table.token%
                     WHERE hash = :hash AND resource = :resource";
             ZMRuntime::getDatabase()->updateObj($sql, array('hash' => $hash, 'resource' => $resource), 'token');
         }
@@ -107,7 +107,7 @@ class TokenService extends ZMObject {
      * @return array A list of <code>Token</code>.
      */
     public function getTokenForResource($resource) {
-        $sql = "SELECT * FROM " . DB_PREFIX.'token' . "
+        $sql = "SELECT * FROM %table.token%
                 WHERE resource = :resource AND expires >= now()";
         return ZMRuntime::getDatabase()->fetchAll($sql, array('resource' => $resource), 'token', 'zenmagick\apps\store\model\Token');
     }
@@ -119,7 +119,7 @@ class TokenService extends ZMObject {
      * @return Token A <code>Token</code> or <code>null</code>.
      */
     public function getTokenForHash($hash) {
-        $sql = "SELECT * FROM " . DB_PREFIX.'token' . "
+        $sql = "SELECT * FROM %table.token%
                 WHERE hash = :hash AND expires >= now()";
         $results = ZMRuntime::getDatabase()->fetchAll($sql, array('hash' => $hash), 'token', 'zenmagick\apps\store\model\Token');
         if (1 < count($results)) {
@@ -140,9 +140,9 @@ class TokenService extends ZMObject {
      */
     public function clear($all) {
         if ($all) {
-            $sql = "DELETE FROM " . DB_PREFIX.'token';
+            $sql = "DELETE FROM %table.token%";
         } else {
-            $sql = "DELETE FROM " . DB_PREFIX.'token' . "
+            $sql = "DELETE FROM %table.token%
                     WHERE expires < now()";
         }
         ZMRuntime::getDatabase()->updateObj($sql);

@@ -35,7 +35,7 @@ class SacsPermissionService extends ZMObject {
      * @return array List of permission details.
      */
     public function getAll() {
-        return \ZMRuntime::getDatabase()->fetchAll('SELECT * FROM '.DB_PREFIX.'sacs_permissions');
+        return \ZMRuntime::getDatabase()->fetchAll('SELECT * FROM %table.sacs_permissions%');
     }
 
     /**
@@ -45,7 +45,7 @@ class SacsPermissionService extends ZMObject {
      * @return array List of permission details.
      */
     public function getPermissionsForRole($role) {
-        return \ZMRuntime::getDatabase()->fetchAll('SELECT * FROM '.DB_PREFIX.'sacs_permissions'.' where type = "role" AND name = :name', array('name' => $role), 'sacs_permissions');
+        return \ZMRuntime::getDatabase()->fetchAll('SELECT * FROM %table.sacs_permissions% where type = "role" AND name = :name', array('name' => $role), 'sacs_permissions');
     }
 
     /**
@@ -77,14 +77,14 @@ class SacsPermissionService extends ZMObject {
         }
 
         if (0 < count($remove)) {
-            $sql = "DELETE FROM " . DB_PREFIX.'sacs_permissions' . "
+            $sql = "DELETE FROM %table.sacs_permissions%
                     WHERE  type = 'role' AND name = :name
                       AND rid in (:rid)";
             \ZMRuntime::getDatabase()->updateObj($sql, array('name' => $role, 'rid' => $remove), 'sacs_permissions');
         }
 
         if (0 < count($add)) {
-            $sql = "INSERT INTO " . DB_PREFIX.'sacs_permissions' . "
+            $sql = "INSERT INTO %table.sacs_permissions%
                     (rid, type, name) VALUES (:rid, 'role', :name)";
             foreach ($add as $rid) {
                 \ZMRuntime::getDatabase()->updateObj($sql, array('rid' => $rid, 'name' => $role), 'sacs_permissions');

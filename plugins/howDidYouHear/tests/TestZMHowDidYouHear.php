@@ -93,7 +93,7 @@ class TestZMHowDidYouHear extends TestCase {
      * Clean up.
      */
     public function tearDown() {
-        $sql = 'SELECT customers_id FROM '.TABLE_CUSTOMERS.' WHERE customers_lastname = \'doe\'';
+        $sql = 'SELECT customers_id FROM %table.customers% WHERE customers_lastname = \'doe\'';
         $results = ZMRuntime::getDatabase()->fetchAll($sql, array(), 'customers');
         $ids = array();
         foreach ($results as $result) {
@@ -105,10 +105,10 @@ class TestZMHowDidYouHear extends TestCase {
             return;
         }
 
-        $sql = 'DELETE FROM '.TABLE_CUSTOMERS_INFO.' WHERE customers_info_id IN (:accountId)';
+        $sql = 'DELETE FROM %table.customers_info% WHERE customers_info_id IN (:accountId)';
         $results = ZMRuntime::getDatabase()->updateObj($sql, array('accountId' => $ids), 'customers_info');
 
-        $sql = 'DELETE FROM '.TABLE_CUSTOMERS.' WHERE customers_id IN (:accountId)';
+        $sql = 'DELETE FROM %table.customers% WHERE customers_id IN (:accountId)';
         $results = ZMRuntime::getDatabase()->updateObj($sql, array('accountId' => $ids), 'customers');
         parent::tearDown();
     }

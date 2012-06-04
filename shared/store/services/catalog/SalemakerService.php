@@ -59,7 +59,7 @@ class SalemakerService extends ZMObject {
 
         if (null === $this->sales_) {
             $sql = "SELECT *
-                    FROM " . TABLE_SALEMAKER_SALES . "
+                    FROM %table.salemaker_sales%
                     WHERE sale_status = '1'";
             $this->sales_ = \ZMRuntime::getDatabase()->fetchAll($sql, array(), 'salemaker_sales', \ZMDatabase::MODEL_RAW);
         }
@@ -104,7 +104,7 @@ class SalemakerService extends ZMObject {
      */
     public function scheduleSales() {
         $sql = "SELECT sale_id, sale_status, sale_date_start, sale_date_end
-                FROM " . TABLE_SALEMAKER_SALES;
+                FROM %table.salemaker_sales%";
         $container = $this->container;
         $productService = $container->get('productService');
         // TODO: we should be able to get products without a language id
