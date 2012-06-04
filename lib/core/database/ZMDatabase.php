@@ -196,7 +196,7 @@ class ZMDatabase extends Connection {
      * {@inheritDoc}
      */
     public function update($tableName, array $data, array $identifier = array(), array $types = array()) {
-        return parent::update($this->resolveTable($table), $data, $identifier, $types);
+        return parent::update($this->resolveTable($tableName), $data, $identifier, $types);
     }
 
     /**
