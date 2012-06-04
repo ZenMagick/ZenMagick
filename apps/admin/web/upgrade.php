@@ -41,6 +41,7 @@ try {
     $status = $installer->getPatchForId('importZencartConfigure')->patch();
 
     $patches = array('importZencartConfigure', 'sqlConfig', 'sacsPermissions', 'sqlAdminRoles', 'sqlAdminPrefs');
+    $allSuccess = true;
     foreach ($patches as $patch) {
         $patchObj = $installer->getPatchForId($patch);
         if ($patchObj->isOpen()) {
@@ -49,6 +50,7 @@ try {
             if ($status) {
                 $messageService->success("'".$patchObj->getLabel()."' installed successfully");
             } else {
+                $allSuccess = false;
                 $messageService->error("Could not install '".$patchObj->getLabel()."'");
             }
         }
@@ -56,8 +58,16 @@ try {
         if (!defined('DB_PREFIX')) define('DB_PREFIX', \ZMRuntime::getDatabase()->getPrefix());
     }
 
+    if (!$allSuccess) {
+        // @todo better message, but really we need a better approach. This is just temporary.
+        $messageService->error('Not all patches were applied successfully. Please try again.');
+    } else {
+        $msg = 'All required patches were applied. You may now apply any optional'
+            .'patches in the \'installation\' page.';
+        $messageService->success($msg);
+    }
     $request = Runtime::getContainer()->get('request');
-    $request->redirect($request->url('login'));
+    $request->redirect($request->url('installation'));
 } catch (Exception $e) {
     echo $e->getTraceAsString();
     die ($e->getMessage());
