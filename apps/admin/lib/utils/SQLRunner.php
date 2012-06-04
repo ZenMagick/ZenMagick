@@ -11,6 +11,21 @@ use zenmagick\base\Runtime;
 use zenmagick\base\Toolbox;
 
 if (!defined('ZC_UPG_DEBUG3')) define('ZC_UPG_DEBUG3', false);
+if (!defined('REASON_TABLE_ALREADY_EXISTS')) {
+  define('REASON_TABLE_ALREADY_EXISTS','Cannot create table %s because it already exists');
+  define('REASON_TABLE_DOESNT_EXIST','Cannot drop table %s because it does not exist.');
+  define('REASON_TABLE_NOT_FOUND','Cannot execute because table %s does not exist.');
+  define('REASON_CONFIG_KEY_ALREADY_EXISTS','Cannot insert configuration_key "%s" because it already exists');
+  define('REASON_COLUMN_ALREADY_EXISTS','Cannot ADD column %s because it already exists.');
+  define('REASON_COLUMN_DOESNT_EXIST_TO_DROP','Cannot DROP column %s because it does not exist.');
+  define('REASON_COLUMN_DOESNT_EXIST_TO_CHANGE','Cannot CHANGE column %s because it does not exist.');
+  define('REASON_PRODUCT_TYPE_LAYOUT_KEY_ALREADY_EXISTS','Cannot insert prod-type-layout configuration_key "%s" because it already exists');
+  define('REASON_INDEX_DOESNT_EXIST_TO_DROP','Cannot drop index %s on table %s because it does not exist.');
+  define('REASON_PRIMARY_KEY_DOESNT_EXIST_TO_DROP','Cannot drop primary key on table %s because it does not exist.');
+  define('REASON_INDEX_ALREADY_EXISTS','Cannot add index %s to table %s because it already exists.');
+  define('REASON_PRIMARY_KEY_ALREADY_EXISTS','Cannot add primary key to table %s because a primary key already exists.');
+}
+
 class SQLRunner {
     static $prefix;
 
