@@ -200,6 +200,36 @@ class ZMDatabase extends Connection {
     }
 
     /**
+     * {@inheritDoc}
+     */
+    public function executeUpdate($query, array $params = array(), array $types = array()) {
+        return parent::executeUpdate($this->resolveTablePlaceHolders($query), $params, $types);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function executeQuery($query, array $params = array(), $types = array(), Doctrine\DBAL\Cache\QueryCacheProfile $qcp = null) {
+        return parent::executeQuery($this->resolveTablePlaceHolders($query), $params, $types, $qcp);
+    }
+
+    /**
+     * Resolve table names in SQL queries
+     *
+     * In the future it might be better to use in the prepare() method. It would need
+     * more testing though.
+     *
+     * @param string SQL query
+     * @return string sql query with %table.table_name% replaced with $prefix.table_name
+     */
+    public function resolveTablePlaceHolders($sql) {
+        $prefix = $this->getPrefix();
+        return preg_replace_callback('/%table\.(\w+?)%/', function($matches) use ($prefix) {
+            return $prefix.$matches[1];
+        }, $sql);
+    }
+
+    /**
      * Get some stats about database usage.
      *
      * @return array A map with statistical data.
@@ -545,6 +575,7 @@ class ZMDatabase extends Connection {
         }
 
         // create statement
+        $sql = $this->resolveTablePlaceHolders($sql);
         $stmt = $this->prepare($sql);
         foreach ($params as $name => $value) {
             $typeName = preg_replace('/[0-9]+'.$PDO_INDEX_SEP.'/', '', $name);
