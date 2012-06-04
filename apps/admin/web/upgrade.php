@@ -34,15 +34,6 @@ $application = new HttpApplication($config);
 $application->bootstrap(array('init'));
 
 try {
-    // ensure we do use the bride code
-    // on a clean install we won't have this setting, so the bundle's ZenCart class loader won't be able to find anything
-    $rclass = new \ReflectionClass('zenmagick\apps\store\bundles\ZenCartBundle\ZenCartBundle');
-    $settingsService = Runtime::getSettings();
-    $settingsService->set('apps.store.zencart.path', dirname($rclass->getFilename()).'/bridge');
-    $zcClassLoader = new ZenCartClassLoader();
-    $zcClassLoader->setBaseDirectories(ZenCartBundle::buildSearchPaths('includes/classes'));
-    $zcClassLoader->register();
-
     $installer = new zenmagick\apps\store\admin\installation\InstallationPatcher();
 
     $messageService = Runtime::getContainer()->get('messageService');
