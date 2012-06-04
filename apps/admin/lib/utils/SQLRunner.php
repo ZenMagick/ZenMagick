@@ -15,10 +15,8 @@ class SQLRunner {
     static $prefix;
 
     static function get_db() {
-        global $db;
         if (null == self::$prefix) self::$prefix = \ZMRuntime::getDatabase()->getPrefix();
-        if (!isset($db)) { $db = new \queryFactory(); }
-        return $db;
+        return \ZMRuntime::getDatabase();
     }
 
  static function execute_sql($lines, $debug = false) {
@@ -240,7 +238,13 @@ class SQLRunner {
         if (isset($complete_line) && $complete_line) {
           if ($debug==true) echo ((!$ignore_line) ? '<br />About to execute.': 'Ignoring statement. This command WILL NOT be executed.').'<br />Debug info:<br>$ line='.$line.'<br>$ complete_line='.$complete_line.'<br>$ keep_together='.$keep_together.'<br>SQL='.$newline.'<br><br>';
           if (get_magic_quotes_runtime() > 0  && $keepslashes != true ) $newline=stripslashes($newline);
-          if (trim(str_replace(';','',$newline)) != '' && !$ignore_line) $output=$db->Execute($newline);
+          if (trim(str_replace(';','',$newline)) != '' && !$ignore_line) {
+            if (!in_array(strtolower(substr($newline, 0, 3)), array('des', 'sel', 'sho'))) {
+              $output = $db->executeUpdate($newline);
+            } else {
+              $output = $db->executeQuery($newline);
+            }
+          }
           $results++;
           $string .= $newline.'<br />';
           $return_output[]=$output;
@@ -273,14 +277,10 @@ class SQLRunner {
   } //end function
 
   static function table_exists($tablename, $pre_install=false) {
-    $db = self::get_db();
-    $tables = $db->Execute("SHOW TABLES like '" . $tablename . "'");
-    if (ZC_UPG_DEBUG3==true) echo 'Table check ('.$tablename.') = '. $tables->RecordCount() .'<br>';
-    if ($tables->RecordCount() > 0) {
-      return true;
-    } else {
-      return false;
-    }
+    $sm = \ZMRuntime::getDatabase()->getSchemaManager();
+    $exists = $sm->tablesExist(array($tablename));
+    if (ZC_UPG_DEBUG3==true) echo 'Table check ('.$tablename.') = '. ($exists ? 'true': 'false') .'<br>';
+    return $exists;
   }
 
   static function drop_index_command($param) {
@@ -289,13 +289,12 @@ class SQLRunner {
     if (Toolbox::isEmpty($param)) return "Empty SQL Statement";
     $index = $param[2];
     $sql = "show index from " . self::$prefix . $param[4];
-    $result = $db->Execute($sql);
-    while (!$result->EOF) {
-      if (ZC_UPG_DEBUG3==true) echo $result->fields['Key_name'].'<br />';
-      if  ($result->fields['Key_name'] == $index) {
+    $rows = $db->fetchAll($sql);
+    foreach ($rows as $fields) {
+      if (ZC_UPG_DEBUG3==true) echo $fields['Key_name'].'<br />';
+      if  ($fields['Key_name'] == $index) {
         return; // if we get here, the index exists, and we have index privileges, so return with no error
       }
-      $result->MoveNext();
     }
     // if we get here, then the index didn't exist
     return sprintf(REASON_INDEX_DOESNT_EXIST_TO_DROP,$index,$param[4]);
@@ -309,13 +308,12 @@ class SQLRunner {
     if (in_array('USING',$param)) return 'USING parameter found. Cannot validate syntax. Please run manually in phpMyAdmin.';
     $table = (strtoupper($param[2])=='INDEX' && strtoupper($param[4])=='ON') ? $param[5] : $param[4];
     $sql = "show index from " . self::$prefix . $table;
-    $result = $db->Execute($sql);
-    while (!$result->EOF) {
-      if (ZC_UPG_DEBUG3==true) echo $result->fields['Key_name'].'<br />';
-      if (strtoupper($result->fields['Key_name']) == strtoupper($index)) {
+    $rows = $db->fetchAll($sql);
+    foreach ($rows as $fields) {
+      if (ZC_UPG_DEBUG3==true) echo $fields['Key_name'].'<br />';
+      if (strtoupper($fields['Key_name']) == strtoupper($index)) {
         return sprintf(REASON_INDEX_ALREADY_EXISTS,$index,$table);
       }
-      $result->MoveNext();
     }
 /*
  * @TODO: verify that individual columns exist, by parsing the index_col_name parameters list
@@ -333,64 +331,59 @@ class SQLRunner {
           // check that the index to be added doesn't already exist
           $index = $param[5];
           $sql = "show index from " . self::$prefix . $param[2];
-          $result = $db->Execute($sql);
-          while (!$result->EOF) {
-            if (ZC_UPG_DEBUG3==true) echo 'KEY: '.$result->fields['Key_name'].'<br />';
-            if  ($result->fields['Key_name'] == $index) {
+          $rows = $db->fetchAll($sql);
+          foreach ($rows as $fields) {
+            if (ZC_UPG_DEBUG3==true) echo 'KEY: '.$fields['Key_name'].'<br />';
+            if  ($fields['Key_name'] == $index) {
               return sprintf(REASON_INDEX_ALREADY_EXISTS,$index,$param[2]);
             }
-            $result->MoveNext();
           }
         } elseif (strtoupper($param[4])=='PRIMARY') {
           // check that the primary key to be added doesn't exist
           if ($param[5] != 'KEY') return;
           $sql = "show index from " . self::$prefix . $param[2];
-          $result = $db->Execute($sql);
-          while (!$result->EOF) {
-            if (ZC_UPG_DEBUG3==true) echo $result->fields['Key_name'].'<br />';
-            if  ($result->fields['Key_name'] == 'PRIMARY') {
+          $rows = $db->fetchAll($sql);
+          foreach ($rows as $fields) {
+            if (ZC_UPG_DEBUG3==true) echo $fields['Key_name'].'<br />';
+            if  ($fields['Key_name'] == 'PRIMARY') {
               return sprintf(REASON_PRIMARY_KEY_ALREADY_EXISTS,$param[2]);
             }
-            $result->MoveNext();
           }
 
         } elseif (!in_array(strtoupper($param[4]),array('CONSTRAINT','UNIQUE','PRIMARY','FULLTEXT','FOREIGN','SPATIAL') ) ) {
         // check that the column to be added does not exist
           $colname = ($param[4]=='COLUMN') ? $param[5] : $param[4];
           $sql = "show fields from " . self::$prefix . $param[2];
-          $result = $db->Execute($sql);
-          while (!$result->EOF) {
-            if (ZC_UPG_DEBUG3==true) echo $result->fields['Field'].'<br />';
-            if  ($result->fields['Field'] == $colname) {
+          $rows = $db->fetchAll($sql);
+          foreach ($rows as $fields) {
+            if (ZC_UPG_DEBUG3==true) echo $fields['Field'].'<br />';
+            if  ($fields['Field'] == $colname) {
               return sprintf(REASON_COLUMN_ALREADY_EXISTS,$colname);
             }
-            $result->MoveNext();
           }
 
         } elseif (strtoupper($param[5])=='AFTER') {
           // check that the requested "after" field actually exists
           $colname = ($param[6]=='COLUMN') ? $param[7] : $param[6];
           $sql = "show fields from " . self::$prefix . $param[2];
-          $result = $db->Execute($sql);
-          while (!$result->EOF) {
-            if (ZC_UPG_DEBUG3==true) echo $result->fields['Field'].'<br />';
-            if  ($result->fields['Field'] == $colname) {
+          $rows = $db->fetchAll($sql);
+          foreach ($rows as $fields) {
+            if (ZC_UPG_DEBUG3==true) echo $fields['Field'].'<br />';
+            if  ($fields['Field'] == $colname) {
               return; // exists, so return with no error
             }
-            $result->MoveNext();
           }
 
         } elseif (strtoupper($param[6])=='AFTER') {
           // check that the requested "after" field actually exists
           $colname = ($param[7]=='COLUMN') ? $param[8] : $param[7];
           $sql = "show fields from " . self::$prefix . $param[2];
-          $result = $db->Execute($sql);
-          while (!$result->EOF) {
-            if (ZC_UPG_DEBUG3==true) echo $result->fields['Field'].'<br />';
-            if  ($result->fields['Field'] == $colname) {
+          $rows = $db->fetchAll($sql);
+          foreach ($rows as $fields) {
+            if (ZC_UPG_DEBUG3==true) echo $fields['Field'].'<br />';
+            if  ($fields['Field'] == $colname) {
               return; // exists, so return with no error
             }
-            $result->MoveNext();
           }
 /*
  * @TODO -- add check for FIRST parameter, to check that the FIRST colname specified actually exists
@@ -402,13 +395,12 @@ class SQLRunner {
           // check that the index to be dropped exists
           $index = $param[5];
           $sql = "show index from " . self::$prefix . $param[2];
-          $result = $db->Execute($sql);
-          while (!$result->EOF) {
-            if (ZC_UPG_DEBUG3==true) echo $result->fields['Key_name'].'<br />';
-            if  ($result->fields['Key_name'] == $index) {
+          $rows = $db->fetchAll($sql);
+          foreach ($rows as $fields) {
+            if (ZC_UPG_DEBUG3==true) echo $fields['Key_name'].'<br />';
+            if  ($fields['Key_name'] == $index) {
               return; // exists, so return with no error
             }
-            $result->MoveNext();
           }
           // if we get here, then the index didn't exist
           return sprintf(REASON_INDEX_DOESNT_EXIST_TO_DROP,$index,$param[2]);
@@ -417,13 +409,12 @@ class SQLRunner {
           // check that the primary key to be dropped exists
           if ($param[5] != 'KEY') return;
           $sql = "show index from " . self::$prefix . $param[2];
-          $result = $db->Execute($sql);
-          while (!$result->EOF) {
-            if (ZC_UPG_DEBUG3==true) echo $result->fields['Key_name'].'<br />';
-            if  ($result->fields['Key_name'] == 'PRIMARY') {
+          $rows = $db->fetchAll($sql);
+          foreach ($rows as $fields) {
+            if (ZC_UPG_DEBUG3==true) echo $fields['Key_name'].'<br />';
+            if  ($fields['Key_name'] == 'PRIMARY') {
               return; // exists, so return with no error
             }
-            $result->MoveNext();
           }
           // if we get here, then the primary key didn't exist
           return sprintf(REASON_PRIMARY_KEY_DOESNT_EXIST_TO_DROP,$param[2]);
@@ -432,13 +423,12 @@ class SQLRunner {
           // check that the column to be dropped exists
           $colname = ($param[4]=='COLUMN') ? $param[5] : $param[4];
           $sql = "show fields from " . self::$prefix . $param[2];
-          $result = $db->Execute($sql);
-          while (!$result->EOF) {
-            if (ZC_UPG_DEBUG3==true) echo $result->fields['Field'].'<br />';
-            if  ($result->fields['Field'] == $colname) {
+          $rows = $db->fetchAll($sql);
+          foreach ($rows as $fields) {
+            if (ZC_UPG_DEBUG3==true) echo $fields['Field'].'<br />';
+            if  ($fields['Field'] == $colname) {
               return; // exists, so return with no error
             }
-            $result->MoveNext();
           }
           // if we get here, then the column didn't exist
           return sprintf(REASON_COLUMN_DOESNT_EXIST_TO_DROP,$colname);
@@ -450,13 +440,12 @@ class SQLRunner {
         // just check that the column to be changed 'exists'
         $colname = ($param[4]=='COLUMN') ? $param[5] : $param[4];
         $sql = "show fields from " . self::$prefix . $param[2];
-        $result = $db->Execute($sql);
-        while (!$result->EOF) {
-          if (ZC_UPG_DEBUG3==true) echo $result->fields['Field'].'<br />';
-          if  ($result->fields['Field'] == $colname) {
+        $rows = $db->fetchAll($sql);
+        foreach ($rows as $fields) {
+          if (ZC_UPG_DEBUG3==true) echo $fields['Field'].'<br />';
+          if  ($fields['Field'] == $colname) {
             return; // exists, so return with no error
           }
-          $result->MoveNext();
         }
         // if we get here, then the column didn't exist
         return sprintf(REASON_COLUMN_DOESNT_EXIST_TO_CHANGE,$colname);
@@ -481,8 +470,8 @@ class SQLRunner {
     $title = $values[1];
     $key  =  $values[3];
     $sql = "select configuration_title from " . self::$prefix . "configuration where configuration_key='".$key."'";
-    $result = $db->Execute($sql);
-    if ($result->RecordCount() >0 ) return sprintf(REASON_CONFIG_KEY_ALREADY_EXISTS,$key);
+    $result = $db->querySingle($sql);
+    if (!empty($result)) return sprintf(REASON_CONFIG_KEY_ALREADY_EXISTS,$key);
   }
 
   static function check_product_type_layout_key($line) {
@@ -492,8 +481,8 @@ class SQLRunner {
     $title = $values[1];
     $key  =  $values[3];
     $sql = "select configuration_title from " . self::$prefix . "product_type_layout where configuration_key='".$key."'";
-    $result = $db->Execute($sql);
-    if ($result->RecordCount() >0 ) return sprintf(REASON_PRODUCT_TYPE_LAYOUT_KEY_ALREADY_EXISTS,$key);
+    $result = $db->querySingle($sql);
+    if (!empty($result)) return sprintf(REASON_PRODUCT_TYPE_LAYOUT_KEY_ALREADY_EXISTS,$key);
   }
 
   static function write_to_upgrade_exceptions_table($line, $reason, $sql_file) {
@@ -501,21 +490,21 @@ class SQLRunner {
     self::create_exceptions_table();
     $sql="INSERT INTO " . self::$prefix . "upgrade_exceptions VALUES (0,'". $sql_file."','".$reason."', now(), '".addslashes($line)."')";
      if (ZC_UPG_DEBUG3==true) echo '<br />sql='.$sql.'<br />';
-    $result = $db->Execute($sql);
+    $result = $db->executeUpdate($sql);
     return $result;
   }
 
   static function purge_exceptions_table() {
     $db = self::get_db();
     self::create_exceptions_table();
-    $result = $db->Execute("TRUNCATE TABLE " . self::$prefix."upgrade_exceptions");
+    $result = $db->executeUpdate("TRUNCATE TABLE " . self::$prefix."upgrade_exceptions");
     return $result;
   }
 
   static function create_exceptions_table() {
     $db = self::get_db();
     if (!self::table_exists(self::$prefix.'upgrade_exceptions')) {
-        $result = $db->Execute("CREATE TABLE " . self::$prefix . "upgrade_exceptions (
+        $result = $db->executeUpdate("CREATE TABLE " . self::$prefix . "upgrade_exceptions (
             upgrade_exception_id smallint(5) NOT NULL auto_increment,
             sql_file varchar(50) default NULL,
             reason varchar(200) default NULL,
