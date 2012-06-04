@@ -55,8 +55,9 @@ class ProductGroupPricingPlugin extends Plugin {
      */
     public function remove($keepSettings=false) {
         parent::remove($keepSettings);
-        $sm = \ZMRuntime::getDatabase()->getSchemaManager();
-        $sm->dropTable(DB_PREFIX.'product_group_pricing');
+        $conn = \ZMRuntime::getDatabase();
+        $sm = $conn->getSchemaManager();
+        $sm->dropTable($conn->getPrefix().'product_group_pricing');
     }
 
 }

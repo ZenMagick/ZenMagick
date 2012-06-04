@@ -55,9 +55,10 @@ class OpenIDPlugin extends Plugin {
      */
     public function remove($keepSettings=false) {
         parent::remove($keepSettings);
-        $sm = \ZMRuntime::getDatabase()->getSchemaManager();
-        $sm->dropTable(DB_PREFIX.'zm_openid_associations');
-        $sm->dropTable(DB_PREFIX.'zm_openid_nonces');
+        $conn = \ZMRuntime::getDatabase();
+        $sm = $conn->getSchemaManager();
+        $sm->dropTable($conn->getPrefix().'zm_openid_associations');
+        $sm->dropTable($conn->getPrefix().'zm_openid_nonces');
 
         \ZMDbUtils::executePatch(file(\ZMDbUtils::resolveSQLFilename($this->getPluginDirectory()."/sql/uninstall.sql")), $this->messages_);
     }

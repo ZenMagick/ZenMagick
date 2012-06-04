@@ -62,17 +62,18 @@ class MusicProductInfoPlugin extends Plugin {
      */
     public function remove($keepSettings=false) {
         parent::remove($keepSettings);
-        $sm = \ZMRuntime::getDatabase()->getSchemaManager();
-        $sm->dropTable(DB_PREFIX.'media_clips');
-        $sm->dropTable(DB_PREFIX.'media_manager');
-        $sm->dropTable(DB_PREFIX.'media_to_products');
-        $sm->dropTable(DB_PREFIX.'media_types');
-        $sm->dropTable(DB_PREFIX.'music_genre');
-        $sm->dropTable(DB_PREFIX.'product_music_extra');
-        $sm->dropTable(DB_PREFIX.'record_artists');
-        $sm->dropTable(DB_PREFIX.'record_artists_info');
-        $sm->dropTable(DB_PREFIX.'record_company');
-        $sm->dropTable(DB_PREFIX.'record_company_info');
+        $conn = \ZMRuntime::getDatabase();
+        $sm = $conn->getSchemaManager();
+        $sm->dropTable($conn->getPrefix().'media_clips');
+        $sm->dropTable($conn->getPrefix().'media_manager');
+        $sm->dropTable($conn->getPrefix().'media_to_products');
+        $sm->dropTable($conn->getPrefix().'media_types');
+        $sm->dropTable($conn->getPrefix().'music_genre');
+        $sm->dropTable($conn->getPrefix().'product_music_extra');
+        $sm->dropTable($conn->getPrefix().'record_artists');
+        $sm->dropTable($conn->getPrefix().'record_artists_info');
+        $sm->dropTable($conn->getPrefix().'record_company');
+        $sm->dropTable($conn->getPrefix().'record_company_info');
     }
 
     /**

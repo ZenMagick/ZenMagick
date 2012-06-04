@@ -65,9 +65,10 @@ class HowDidYouHearPlugin extends Plugin {
      */
     public function remove($keepSettings=false) {
         parent::remove($keepSettings);
-        $sm = \ZMRuntime::getDatabase()->getSchemaManager();
-        $sm->dropTable(DB_PREFIX.'sources');
-        $sm->dropTable(DB_PREFIX.'sources_other');
+        $conn = \ZMRuntime::getDatabase();
+        $sm = $conn->getSchemaManager();
+        $sm->dropTable($conn->getPrefix().'sources');
+        $sm->dropTable($conn->getPrefix().'sources_other');
 
         \ZMDbUtils::executePatch(file(\ZMDbUtils::resolveSQLFilename($this->getPluginDirectory()."/sql/uninstall.sql")), $this->messages_);
     }

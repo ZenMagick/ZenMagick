@@ -51,9 +51,10 @@ class ProductTagsPlugin extends Plugin {
      */
     public function remove($keepSettings=false) {
         parent::remove($keepSettings);
-        $sm = \ZMRuntime::getDatabase()->getSchemaManager();
-        $sm->dropTable(DB_PREFIX.'tags');
-        $sm->dropTable(DB_PREFIX.'product_tags');
+        $conn = \ZMRuntime::getDatabase();
+        $sm = $conn->getSchemaManager();
+        $sm->dropTable($conn->getPrefix().'tags');
+        $sm->dropTable($conn->getPrefix().'product_tags');
     }
 
 }
