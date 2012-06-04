@@ -54,12 +54,12 @@ class TestCouponService extends TestCase {
      * {@inheritDoc}
      */
     public function tearDown() {
-        $couponTables = array(TABLE_COUPONS, TABLE_COUPONS_DESCRIPTION, TABLE_COUPON_EMAIL_TRACK, TABLE_COUPON_REDEEM_TRACK, TABLE_COUPON_RESTRICT);
-        $accountTables = array(TABLE_COUPON_GV_CUSTOMER, TABLE_COUPON_GV_QUEUE);
+        $couponTables = array('coupons', 'coupons_description', 'coupon_email_track', 'coupon_redeem_track', 'coupon_restrict');
+        $accountTables = array('coupon_gv_customer', 'coupon_gv_queue');
 
         foreach ($couponTables as $table) {
-            $idName = TABLE_COUPONS == $table ? 'id' : 'couponId';
-            $sql = "DELETE FROM " . $table . "
+            $idName = 'coupons' == $table ? 'id' : 'couponId';
+            $sql = "DELETE FROM %table.". $table."%
                     WHERE coupon_id = :".$idName;
             foreach ($this->createdCouponIds_ as $couponId) {
                 ZMRuntime::getDatabase()->updateObj($sql, array($idName => $couponId), $table);
@@ -67,7 +67,7 @@ class TestCouponService extends TestCase {
         }
 
         foreach ($accountTables as $table) {
-            $sql = "DELETE FROM " . $table . "
+            $sql = "DELETE FROM %table.".$table."%
                     WHERE customer_id = :accountId";
             foreach ($this->accountIds_ as $accountId) {
                 ZMRuntime::getDatabase()->updateObj($sql, array('accountId' => $accountId), $table);

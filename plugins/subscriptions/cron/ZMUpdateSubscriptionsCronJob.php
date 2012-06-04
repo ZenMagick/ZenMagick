@@ -142,22 +142,22 @@ class ZMUpdateSubscriptionsCronJob implements ZMCronJob {
      */
     public static function copyOrder($orderId) {
         $tables = array(
-            TABLE_ORDERS, // date_purchased, orders_status
-            TABLE_ORDERS_PRODUCTS, // orders_id
-            TABLE_ORDERS_PRODUCTS_ATTRIBUTES, // orders_id, orders_products_id
-            TABLE_ORDERS_TOTAL // orders_id
+            'orders', // date_purchased, orders_status
+            'orders_products', // orders_id
+            'orders_products_attributes', // orders_id, orders_products_id
+            'orders_total' // orders_id
         );
 
         $orderData = array();
         foreach ($tables as $table) {
-            $sql = "SELECT * from ".$table." WHERE orders_id = :orderId";
+            $sql = "SELECT * from %table.".$table."% WHERE orders_id = :orderId";
             $orderData[$table] = ZMRuntime::getDatabase()->fetchAll($sql, array('orderId' => $orderId), $table, 'zenmagick\base\ZMObject');
         }
 
-        $orderData[TABLE_ORDERS][0]->setOrderDate(new \DateTime());
-        $orderData[TABLE_ORDERS][0]->setOrderStatusId(2);
+        $orderData['orders'][0]->setOrderDate(new \DateTime());
+        $orderData['orders'][0]->setOrderStatusId(2);
 
-        $newOrder = ZMRuntime::getDatabase()->createModel('orders', $orderData[TABLE_ORDERS][0]);
+        $newOrder = ZMRuntime::getDatabase()->createModel('orders', $orderData['orders'][0]);
 
         // do products by using zen-cart's order class to include all stock taking, etc
         // some requirements first..
@@ -171,13 +171,13 @@ class ZMUpdateSubscriptionsCronJob implements ZMCronJob {
 
         /*
         // products
-        foreach ($orderData[TABLE_ORDERS_PRODUCTS] as $orderItem) {
+        foreach ($orderData['orders_products'] as $orderItem) {
             $orderItem->setOrderId($newOrder->getOrderId());
             $orderProductId = $orderItem->getOrderProductId();
 
             // find attributes using old order product id
             $attributes = array();
-            foreach ($orderData[TABLE_ORDERS_PRODUCTS_ATTRIBUTES] as $attribute) {
+            foreach ($orderData['orders_products_attributes'] as $attribute) {
                 if ($attribute->getOrderProductId() == $orderProductId) {
                     $attributes[] = $attribute;
                 }
@@ -194,7 +194,7 @@ class ZMUpdateSubscriptionsCronJob implements ZMCronJob {
         }
         */
 
-        foreach ($orderData[TABLE_ORDERS_TOTAL] as $orderTotal) {
+        foreach ($orderData['orders_total'] as $orderTotal) {
             $orderTotal->setOrderId($newOrder->getOrderId());
             ZMRuntime::getDatabase()->createModel('orders_total', $orderTotal);
         }
