@@ -136,7 +136,7 @@ class ShoppingCart extends ZMObject {
      */
     public function getHash() {
         $s = '';
-        foreach ($this->contents() as $id => $data) {
+        foreach ($this->getContents() as $id => $data) {
             $s .= sprintf(';%s:%s', $data['qty'], $id);
         }
 
