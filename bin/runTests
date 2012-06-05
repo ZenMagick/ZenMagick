@@ -3,7 +3,6 @@
 use zenmagick\base\Application;
 use zenmagick\base\Runtime;
 
-define('DB_PREFIX', '');
 chdir(dirname(dirname(__FILE__)));
 include_once 'lib/base/Application.php';
 $application = new Application(

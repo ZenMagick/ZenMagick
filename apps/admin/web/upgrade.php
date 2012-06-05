@@ -54,8 +54,6 @@ try {
                 $messageService->error("Could not install '".$patchObj->getLabel()."'");
             }
         }
-        // @todo DB_PREFIX must die! It is needed for the sqlConfig patch to run.
-        if (!defined('DB_PREFIX')) define('DB_PREFIX', \ZMRuntime::getDatabase()->getPrefix());
     }
 
     if (!$allSuccess) {
