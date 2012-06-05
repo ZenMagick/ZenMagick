@@ -113,7 +113,7 @@ class ZMProductFinder extends ZMObject {
                  LEFT JOIN %table.manufacturers% m USING(manufacturers_id),
                  %table.products_description% pd " .
                  ($needsP2c ? (',
-                    %table.categories c,
+                    %table.categories% c,
                     %table.products_to_categories% p2c') : '') .
                  ") LEFT JOIN %table.meta_tags_products_description% mtpd ON mtpd.products_id= p.products_id AND mtpd.language_id = :languageId";
 
