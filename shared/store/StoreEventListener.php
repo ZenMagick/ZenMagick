@@ -43,9 +43,6 @@ class StoreEventListener extends ZMObject {
      * Get config loaded ASAP.
      */
     public function onInitConfigDone($event) {
-        // @todo DB_PREFIX must die!
-        if(!defined('DB_PREFIX')) define('DB_PREFIX', \ZMRuntime::getDatabase()->getPrefix());
-
         foreach ($this->container->get('configService')->loadAll() as $key => $value) {
             if (!defined($key)) {
                 define($key, $value);
