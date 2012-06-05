@@ -30,4 +30,5 @@
         <?php echo $html->more($product->getDescription(), 120) ?>
     </td>
     <td class="pprice"><?php echo $utils->formatMoney($product->getPrice()) ?></td>
+    <td class="addq"><?php if ($addCart) { ?><input type="text" size="2" value="0" name="products_id[<?php echo $product->getId() ?>]"><?php } ?></td>
 </tr>

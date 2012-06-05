@@ -67,7 +67,10 @@ div#footer p#fpages {background:url(images/img01.gif);color:#6A5F5F;}
 /* result lists */
 .rlist th {background-color:#f2f2f3;}
 .rlist tr.even td {background-color:#f2f2f3;}
+.rlist td.addq {vertical-align:middle;text-align:right;}
+.rlist td.addq input {text-align:right;}
 .rnav span.nin {color:#c0c0c0;}
+.multi-add {text-align:right;}
 
 /* product info */
 legend {color:#549DC7;}

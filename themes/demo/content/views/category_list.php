@@ -72,13 +72,22 @@
         <?php echo $this->fetch('views/resultlist/options.php') ?>
     </div>
 
-    <div class="rlist">
-        <table cellspacing="0" cellpadding="0"><tbody>
-            <?php $first = true; $odd = true; foreach ($resultList->getResults() as $product) { ?>
-              <?php echo $this->fetch('views/resultlist/product.php', array('product' => $product, 'first' => $first, 'odd' => $odd)) ?>
-            <?php $first = false; $odd = !$odd; } ?>
-        </tbody></table>
-    </div>
+    <form action="<?php echo $net->url(null, 'action=multiple_products_add_product') ?>" method="POST">
+        <div class="rlist">
+            <table cellspacing="0" cellpadding="0"><tbody>
+                <?php $first = true; $odd = true; $addMulti = false; foreach ($resultList->getResults() as $product) { $addCart = !$product->hasAttributes(); $addMulti |= $addCart; ?>
+                  <?php echo $this->fetch('views/resultlist/product.php', array('product' => $product, 'first' => $first, 'odd' => $odd, 'addCart' => $addCart)) ?>
+                <?php $first = false; $odd = !$odd; } ?>
+            </tbody></table>
+        </div>
+
+    <?php if ($addMulti) { ?>
+        <div class="multi-add">
+            <input type="hidden" name="action" value="multiple_products_add_product">
+            <input class="btn" type="submit" value="<?php _vzm("Add selected items to shopping cart") ?>">
+        </div>
+    <?php } ?>
+    </form>
     <div class="rnblk">
         <?php echo $this->fetch('views/resultlist/nav.php') ?>
     </div>
