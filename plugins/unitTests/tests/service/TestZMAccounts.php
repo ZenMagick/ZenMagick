@@ -162,14 +162,14 @@ class TestZMAccounts extends TestCase {
         // delete previous subscriptions
         $sql = "DELETE from %table.products_notifications%
                 WHERE  customers_id = :accountId";
-        ZMRuntime::getDatabase()->updateObj($sql, array('accountId' => 2), 'products_notification');
+        ZMRuntime::getDatabase()->updateObj($sql, array('accountId' => 2), 'products_notifications');
 
         $testProductIds = array(1, 4, 7);
         // insert new
         $sql = "INSERT into %table.products_notifications%
                 (products_id, customers_id) VALUES(:productId, :accountId)";
         foreach ($testProductIds as $id) {
-            ZMRuntime::getDatabase()->updateObj($sql, array('accountId' => 2, 'productId' => $id), 'products_notification');
+            ZMRuntime::getDatabase()->updateObj($sql, array('accountId' => 2, 'productId' => $id), 'products_notifications');
         }
 
         $subscribedProductIds = $this->container->get('accountService')->getSubscribedProductIds(2);
