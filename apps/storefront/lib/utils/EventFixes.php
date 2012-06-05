@@ -178,22 +178,43 @@ class EventFixes extends ZMObject {
 
         $cartMethod = isset($cartActionMap[$action]) ? $cartActionMap[$action]['method'] : null;
         if (null != $cartMethod) {
-            if (is_array($_POST['products_id']) && !$cartActionMap[$action]['multi']) {
-                $_POST['products_id'] = $request->getProductId();
-            }
             // TODO: generalize
-            var_dump($cartMethod);die();
+            $isNative = false;
             if ('actionAddProduct' == $cartMethod) {
                 $shoppingCart->addProduct($request->getProductId(), $request->getParameter('cart_quantity'), $request->getParameter('id'));
-                $shoppingCart->getCheckoutHelper()->saveHash($request);
+                $isNative = true;
             } else if ('actionRemoveProduct' == $cartMethod) {
+            var_dump($request->getParameterMap());die();
                 $shoppingCart->removeProduct($request->getProductId());
-                $shoppingCart->getCheckoutHelper()->saveHash($request);
+                $isNative = true;
             } else if ('actionUpdateProduct' == $cartMethod) {
-                $shoppingCart->updateProducts($request->getProductId());
-                $shoppingCart->getCheckoutHelper()->saveHash($request);
+                $productIds = (array) $request->getParameter('products_id');
+                $quantities = (array) $request->getParameter('cart_quantity');
+                foreach ($productIds as $ii => $productId) {
+                    $shoppingCart->updateProduct($productId, $quantities[$ii]);
+                }
+                $isNative = true;
+            } else if ('actionMultipleAddProduct' == $cartMethod) {
+                $productQuantities = (array) $request->getParameter('products_id');
+                foreach ($productQuantities as $productId => $quantity) {
+                    $shoppingCart->addProduct($productId, $quantity);
+                }
+                $isNative = true;
+            } else if ('reset' == $cartMethod) {
+                $shoppingCart->clear();
+                $isNative = true;
             } else {
+                if (is_array($_POST['products_id']) && !$cartActionMap[$action]['multi']) {
+                    $_POST['products_id'] = $request->getProductId();
+                }
                 call_user_func_array(array($shoppingCart->cart_, $cartMethod), array($redirectTarget, $params));
+            }
+            if ($isNative) {
+                $shoppingCart->getCheckoutHelper()->saveHash($request);
+                // sync back to ZenCart
+                $cart = $session->getValue('cart');
+                $cart = (null != $cart) ? $cart : new \shoppingCart;
+                $cart->contents = $shoppingCart->getContents();
             }
         }
     }

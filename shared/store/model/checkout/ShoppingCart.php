@@ -38,7 +38,6 @@ use zenmagick\apps\store\model\TaxRate;
  * @author DerManoMann
  */
 class ShoppingCart extends ZMObject {
-    public $cart_;
     private $session;
     private $zenTotals_;
     private $items_;
@@ -257,7 +256,6 @@ class ShoppingCart extends ZMObject {
                     $price = 0;
                 }
 
-    //echo '<hr>ZM i: '.$item->getId(); echo ' '.$price.' + '.$item->getAttributesPrice(false); echo '<hr>';
                 $item->setItemPrice($price + $item->getAttributesPrice(false));
                 // todo: cleanup item methods a bit to make more sense for this
                 $item->setOneTimeCharge($product->getOneTimeCharge() + $item->getAttributesOneTimePrice(false));
