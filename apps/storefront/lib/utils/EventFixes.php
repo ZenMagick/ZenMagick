@@ -178,14 +178,13 @@ class EventFixes extends ZMObject {
 
         $cartMethod = isset($cartActionMap[$action]) ? $cartActionMap[$action]['method'] : null;
         if (null != $cartMethod) {
-            // TODO: generalize
+            // TODO: generalize and move into controller
             $isNative = false;
             if ('actionAddProduct' == $cartMethod) {
                 $shoppingCart->addProduct($request->getProductId(), $request->getParameter('cart_quantity'), $request->getParameter('id'));
                 $isNative = true;
             } else if ('actionRemoveProduct' == $cartMethod) {
-            var_dump($request->getParameterMap());die();
-                $shoppingCart->removeProduct($request->getProductId());
+                $shoppingCart->removeProduct($request->getParameter('product_id'));
                 $isNative = true;
             } else if ('actionUpdateProduct' == $cartMethod) {
                 $productIds = (array) $request->getParameter('products_id');

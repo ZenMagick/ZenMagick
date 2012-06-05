@@ -758,8 +758,11 @@ class ShoppingCart extends ZMObject {
      * @return boolean <code>true</code> if the product was added, <code>false</code> if not.
      */
     public function addProduct($productId, $quantity=1, $attributes=array()) {
+        if (1 > $quantity) {
+            return false;
+        }
         if (array_key_exists($sku, $this->contents)) {
-            //return $this->updateProduct($productId, $quantity);
+            return $this->updateProduct($productId, $quantity);
         }
 
         $product = $this->container->get('productService')->getProductForId($productId);
