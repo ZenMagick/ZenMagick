@@ -27,6 +27,7 @@ use zenmagick\base\Toolbox;
 use zenmagick\base\ZMObject;
 use zenmagick\base\events\Event;
 use zenmagick\http\view\TemplateView;
+use zenmagick\apps\store\model\checkout\ShoppingCart;
 
 /**
  * Fixes and stuff that are (can be) event driven.
@@ -178,7 +179,10 @@ class EventFixes extends ZMObject {
 
         $cartMethod = isset($cartActionMap[$action]) ? $cartActionMap[$action]['method'] : null;
         if (null != $cartMethod) {
-            // TODO: generalize and move into controller
+            // TODO:
+            // - generalize and move into controller
+            // - add redirect logic
+            // - messages??
             $isNative = false;
             if ('actionAddProduct' == $cartMethod) {
                 $shoppingCart->addProduct($request->getProductId(), $request->getParameter('cart_quantity'), $request->getParameter('id'));
@@ -197,6 +201,26 @@ class EventFixes extends ZMObject {
                 $productQuantities = (array) $request->getParameter('products_id');
                 foreach ($productQuantities as $productId => $quantity) {
                     $shoppingCart->addProduct($productId, $quantity);
+                }
+                $isNative = true;
+            } else if ('actionBuyNow' == $cartMethod) {
+                if (0 < ($productId = $request->getProductId())) {
+                    $productService = $this->container->get('productService');
+                    if (null != ($product = $productService->getProductForId(ShoppingCart::getBaseProductIdFor($productId)))) {
+                        if (!$product->hasAttributes()) {
+                            $qtyOrderMax = $product->getQtyOrderMax();
+                            $cartQty = $shoppingCart->getItemQuantityFor($productId, $product->isQtyMixed());
+                            if ($qtyOrderMax > $cartQty) {
+                                // TODO: compute buyNowQty
+                                $buyNowQty = 1;
+                                // limit
+                                $buyNowQty = min($qtyOrderMax, $cartQty + $buyNowQty);
+                                $shoppingCart->addProduct($productId, $buyNowQty);
+                            }
+                        } else {
+                            // TODO: what??
+                        }
+                    }
                 }
                 $isNative = true;
             } else if ('reset' == $cartMethod) {
