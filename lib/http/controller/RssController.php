@@ -40,6 +40,7 @@ use zenmagick\http\rss\RssFeedGenerator;
  * </pre>
  *
  * @author DerManoMann <mano@zenmagick.org>
+ * @todo caching
  */
 class RssController extends ZMObject {
 

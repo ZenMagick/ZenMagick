@@ -30,7 +30,6 @@ use zenmagick\base\ZMObject;
  * A RSS feed generator.
  *
  * @author DerManoMann <mano@zenmagick.org>
- * @todo add support for caching and move into container
  */
 class RssFeedGenerator extends ZMObject {
 

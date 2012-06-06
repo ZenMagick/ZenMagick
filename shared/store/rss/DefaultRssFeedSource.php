@@ -19,6 +19,7 @@
  */
 namespace zenmagick\apps\store\rss;
 
+use ArrayIterator;
 use DateTime;
 use zenmagick\base\ZMObject;
 use zenmagick\http\rss\RssChannel;
@@ -107,7 +108,7 @@ class DefaultRssFeedSource extends ZMObject implements RssSource {
 
         $feed = new RssFeed();
         $feed->setChannel($channel);
-        $feed->setItems($items);
+        $feed->setItems(new ArrayIterator($items));
 
         return $feed;
     }
@@ -138,7 +139,7 @@ class DefaultRssFeedSource extends ZMObject implements RssSource {
 
         $feed = new RssFeed();
         $feed->setChannel($channel);
-        $feed->setItems($items);
+        $feed->setItems(new ArrayIterator($items));
 
         return $feed;
     }
@@ -180,7 +181,7 @@ class DefaultRssFeedSource extends ZMObject implements RssSource {
 
         $feed = new RssFeed();
         $feed->setChannel($channel);
-        $feed->setItems($items);
+        $feed->setItems(new ArrayIterator($items));
 
         return $feed;
     }

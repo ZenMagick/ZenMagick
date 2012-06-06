@@ -19,6 +19,7 @@
  */
 namespace zenmagick\apps\store\rss;
 
+use DateTime;
 use zenmagick\base\ZMObject;
 use zenmagick\http\rss\RssChannel;
 use zenmagick\http\rss\RssFeed;
@@ -33,6 +34,7 @@ use zenmagick\http\rss\RssSource;
 class CatalogRssFeedSource extends ZMObject implements RssSource {
     protected $fullFeed;
     protected $multiCurrency;
+
 
     /**
      * Create new instance.
@@ -91,8 +93,7 @@ class CatalogRssFeedSource extends ZMObject implements RssSource {
         $key = array_key_exists('key', $args) ? $args['key'] : null;
 
         if (null == $key) {
-            // do both categories and products
-            $key = 'catalog';
+            return null;
         }
 
         $method = "get".ucwords($key)."Feed";
@@ -109,41 +110,6 @@ class CatalogRssFeedSource extends ZMObject implements RssSource {
         return $feed;
     }
 
-
-    /**
-     * Generate RSS feed for the whole catalog (categories plus products).
-     *
-     * @param ZMRequest request The current request.
-     * @param boolean full Indicates whether to generate a full feed or not; default is <code>true</code>.
-     * @return RssFeed The feed.
-     */
-    protected function getCatalogFeed($request, $full=true) {
-        // always true
-        $full = true;
-        $categoriesFeed = $this->getCategoriesFeed($request, $full);
-        $productsFeed = $this->getProductsFeed($request, $full);
-
-        $lastPubDate = $categoriesFeed->getLastBuildDate();
-        if ($productsFeed->getLastBuildDate() > $lastPubDate) {
-            $lastPubDate = $productsFeed->getLastBuildDate();
-        }
-
-        $settingsService = $this->container->get('settingsService');
-        $channel = new RssChannel();
-        $channel->setTitle(sprintf(_zm("%s Catalog"), $settingsService->get('storeName')));
-        $channel->setLink($request->url('index'));
-        $channel->setDescription(sprintf(_zm("All categories and products at %s"), $settingsService->get('storeName')));
-        $channel->setLastBuildDate($lastPubDate);
-
-        $items = array_merge($categoriesFeed->getItems(), $productsFeed->getItems());
-
-        $feed = new RssFeed();
-        $feed->setChannel($channel);
-        $feed->setItems($items);
-
-        return $feed;
-    }
-
     /**
      * Generate RSS feed for all products.
      *
@@ -152,121 +118,28 @@ class CatalogRssFeedSource extends ZMObject implements RssSource {
      * @return RssFeed The feed.
      */
     protected function getProductsFeed($request, $full=false) {
-        $lastPubDate = null;
-        $items = array();
-        $languageId = $request->getSession()->getLanguageId();
-        $categoryService = $this->container->get('categoryService');
-        $currencyService = $this->container->get('currencyService');
-        foreach ($this->container->get('productService')->getAllProducts(true, $languageId) as $product) {
-            $item = new RssItem();
-            $item->setTitle($product->getName());
-            $item->setLink($request->getToolbox()->net->product($product->getId(), null, false));
-            $desc = \ZMHtmlUtils::strip($product->getDescription());
-            if (!$full) {
-                $desc = \ZMHtmlUtils::more($desc, 60);
-            }
-            $item->setDescription($desc);
-            $item->setPubDate($product->getDateAdded());
-
-            $item->addTag('id', $product->getId());
-            $item->addTag('model', $product->getModel());
-            if (null != ($defaultCategory = $product->getDefaultCategory())) {
-                // build id/name path
-                $idPath = array();
-                $namePath = array();
-                foreach ($defaultCategory->getPath() as $categoryId) {
-                    if (null != ($category = $categoryService->getCategoryForId($categoryId, $languageId))) {
-                        $idPath[] = $category->getId();
-                        $namePath[] = $category->getName();
-                    }
-                }
-                $item->addTag('category', array(
-                    'id' => $defaultCategory->getId(),
-                    'name' => $defaultCategory->getName(),
-                    'path' => array('idPath' => implode('|', $idPath), 'namePath' => implode('|', $namePath))
-                ));
-            }
-
-            if ($full) {
-                $offers = $product->getOffers();
-                $tax = true;
-                $pricing = array(
-                    'basePrice' => $offers->getBasePrice($tax),
-                    'price' => $offers->getCalculatedPrice(),
-                      // starting at ...
-                    'staggered' => ($offers->isAttributePrice() ? 'true' : 'false'),
-                    'free' => ($product->isFree() ? 'true' : 'false'),
-                );
-
-                if (!$product->isFree()) {
-                    if ($offers->isSale())  {
-                        $pricing['sale'] = $offers->getSalePrice($tax);
-                    } else if ($offers->isSpecial())  {
-                        $pricing['special'] = $offers->getSpecialPrice($tax);
-                    }
-                }
-
-                if ($this->multiCurrency) {
-                    $currencyPricings = array();
-                    foreach ($currencyService->getCurrencies() as $currency) {
-                        $cp = array();
-                        foreach ($pricing as $key => $value) {
-                            if (!is_string($value)) {
-                                // convert to currency
-                                $value = $currency->convertTo($value);
-                            }
-                            $cp[$key] = $value;
-                        }
-                        $currencyPricings[$currency->getCode()] = $cp;
-                    }
-                    $pricing = $currencyPricings;
-                }
-
-                $item->addTag('pricing', $pricing);
-
-                $item->addTag('type', 'product');
-                if (null != ($manufacturer = $product->getManufacturer())) {
-                    $item->addTag('brand', $manufacturer->getName());
-                }
-                if (null != ($imageInfo = $product->getImageInfo())) {
-                    $item->addTag('img', $imageInfo->getDefaultImage());
-                }
-
-                $reviewService = $this->container->get('reviewService');
-                $ar = round($reviewService->getAverageRatingForProductId($product->getId(), $languageId));
-                $item->addTag('rating', $ar);
-            }
-
-            if ($product->hasAttributes()) {
-                $attributes = array();
-                foreach ($product->getAttributes() as $attribute) {
-                    $values = array();
-                    foreach ($attribute->getValues() as $value) {
-                        $values[] = $value->getName();
-                    }
-                    $attributes[$attribute->getName()] = $values;
-                }
-                $item->addTag('attributes', $attributes);
-            }
-
-            $items[] = $item;
-
-            // make newest product
-            if (null === $lastPubDate || $lastPubDate < $product->getLastModified()) {
-                $lastPubDate = $product->getLastModified();
-            }
-        }
-
         $settingsService = $this->container->get('settingsService');
         $channel = new RssChannel();
         $channel->setTitle(sprintf(_zm("Products at %s"), $settingsService->get('storeName')));
         $channel->setLink($request->url('index'));
         $channel->setDescription(sprintf(_zm("All products at %s"), $settingsService->get('storeName')));
-        $channel->setLastBuildDate($lastPubDate);
+        $channel->setLastBuildDate(new DateTime());
 
         $feed = new RssFeed();
         $feed->setChannel($channel);
-        $feed->setItems($items);
+
+        // set up item iterator
+        $net = $request->getToolbox()->net;
+        $languageId = $request->getSession()->getLanguageId();
+        $productService = $this->container->get('productService');
+        $productService->setCache(null);
+        $productInfo = array();
+        foreach ($productService->getAllProductIds(true, $languageId) as $productId) {
+            $productInfo[] = array('id' => $productId, 'url' => $net->product($productId, null, false));
+        }
+        $itemIterator = new CatalogProductRssItemIterator($productInfo, $languageId, $this->fullFeed, $this->multiCurrency);
+        $itemIterator->setContainer($this->container);
+        $feed->setItems($itemIterator);
 
         return $feed;
     }
@@ -279,37 +152,6 @@ class CatalogRssFeedSource extends ZMObject implements RssSource {
      * @return RssFeed The feed.
      */
     protected function getCategoriesFeed($request, $full) {
-        $lastPubDate = null;
-        $items = array();
-        $languageId = $request->getSession()->getLanguageId();
-        foreach ($this->container->get('categoryService')->getAllCategories($languageId) as $category) {
-            if ($category->isActive()) {
-                $item = new RssItem();
-                $item->setTitle($category->getName());
-                $item->setLink($request->url('category', 'cPath='.implode('_', $category->getPath()), false));
-                $desc = \ZMHtmlUtils::strip($category->getDescription());
-                if (!$full) {
-                    $desc = \ZMHtmlUtils::more($desc, 60);
-                }
-                $item->setDescription($desc);
-                $item->setPubDate($category->getDateAdded());
-                $item->addTag('id', $category->getId());
-                $item->addTag('path', implode('_', $category->getPath()));
-                $item->addTag('children', array('id' => $category->getDecendantIds(false)));
-
-                if ($full) {
-                    $item->addTag('type', 'category');
-                }
-
-                $items[] = $item;
-
-                // make newest product
-                if (null === $lastPubDate || $lastPubDate < $category->getLastModified()) {
-                    $lastPubDate = $category->getLastModified();
-                }
-            }
-        }
-
         $settingsService = $this->container->get('settingsService');
         $channel = new RssChannel();
         $channel->setTitle(sprintf(_zm("Categories at %s"), $settingsService->get('storeName')));
@@ -319,7 +161,20 @@ class CatalogRssFeedSource extends ZMObject implements RssSource {
 
         $feed = new RssFeed();
         $feed->setChannel($channel);
-        $feed->setItems($items);
+
+        // set up item iterator
+        $languageId = $request->getSession()->getLanguageId();
+        $categoryService = $this->container->get('categoryService');
+        //TODO: $categoryService->setCache(null);
+        $categoryInfo = array();
+        foreach ($categoryService->getAllCategories($languageId) as $category) {
+            if ($category->isActive()) {
+                $categoryInfo[] = array('id' => $category->getId(), 'url' => $request->url('category', 'cPath='.implode('_', $category->getPath()), false));
+            }
+        }
+        $itemIterator = new CatalogCategoryRssItemIterator($categoryInfo, $languageId, $this->fullFeed);
+        $itemIterator->setContainer($this->container);
+        $feed->setItems($itemIterator);
 
         return $feed;
     }
