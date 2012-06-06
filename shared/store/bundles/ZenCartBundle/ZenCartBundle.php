@@ -219,12 +219,6 @@ class ZenCartBundle extends Bundle {
                 $session->setValue('customers_ip_address', $_SERVER['REMOTE_ADDR']);
             }
         }
-
-        if (defined('EMAIL_TRANSPORT') && 'Qmail' == EMAIL_TRANSPORT && $this->container->has('swiftmailer.transport')) {
-            if (null != ($transport = $this->container->get('swiftmailer.transport')) && $transport instanceof Swift_Transport_SendmailTransport) {
-                $transport->setCommand('/var/qmail/bin/sendmail -t');
-            }
-        }
     }
 
     /**

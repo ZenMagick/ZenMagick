@@ -66,6 +66,15 @@ class StoreEventListener extends ZMObject {
      * Set up block manager.
      */
     public function onContainerReady($event) {
+        $settingsService = $this->container->get('settingsService');
+        // Override transport command for qmail and the like
+        $transportCommand = $settingsService->get('zenmagick.base.email.transportCommand');
+        if ($this->container->has('swiftmailer.transport') && null != $transportCommand) {
+            if (null != ($transport = $this->container->get('swiftmailer.transport'))) {
+                $transport->setCommand(escapeshellcmd($transportCommand));
+            }
+        }
+
         $request = $event->get('request');
 
         if (Runtime::isContextMatch('storefront')) {

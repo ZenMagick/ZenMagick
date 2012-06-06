@@ -172,6 +172,7 @@ use zenmagick\base\Runtime;
 
             // transport - the last 'sendmail' is not a mistake, but the case for Qmail - for that we use sendmail and change the binary path later on the configured swift transport
             'zenmagick.base.email.transport' => ('PHP' == EMAIL_TRANSPORT ? 'mail' : (0 === strpos(EMAIL_TRANSPORT, 'smtp') ? 'smtp' : (0 === strpos(EMAIL_TRANSPORT, 'sendmail') ? 'sendmail' : 'sendmail'))),
+            'zenmagick.base.email.transportCommand' => EMAIL_TRANPORT == 'Qmail' ? '/var/qmail/bin/sendmail -t' : null,
             'zenmagick.base.email.host' => EMAIL_SMTPAUTH_MAIL_SERVER,
             'zenmagick.base.email.port' => EMAIL_SMTPAUTH_MAIL_SERVER_PORT,
             'zenmagick.base.email.user' => EMAIL_SMTPAUTH_MAILBOX,
