@@ -213,11 +213,6 @@ class ZMRequest extends ZMObject {
                 break;
             }
         }
-        // XXX: TODO: remove eventually
-        global $current_page_base;
-        if (!isset($current_page_base)) { // don't override the one set by zencart
-            $current_page_base = $this->getRequestId();
-        }
     }
 
     /**
