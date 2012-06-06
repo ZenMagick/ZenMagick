@@ -89,6 +89,12 @@ class AdminEventHandler extends ZMObject {
 
         $menuLoader = new MenuLoader();
         $menuLoader->load(Runtime::getApplicationPath().'/config/menu.yaml', $adminMenu);
+        $settingsService = $this->container->get('settingsService');
+
+        if ($settingsService->get('zenmagick.http.request.secure')) {
+            // make all of ZM admin secure
+            $settingsService->set('zenmagick.http.request.allSecure', true);
+        }
     }
 
     /**
