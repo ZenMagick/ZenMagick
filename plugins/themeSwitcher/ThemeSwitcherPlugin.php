@@ -22,6 +22,7 @@ namespace zenmagick\plugins\themeSwitcher;
 use Plugin;
 use zenmagick\base\Runtime;
 use zenmagick\base\Toolbox;
+use zenmagick\base\events\Event;
 use zenmagick\http\view\TemplateView;
 
 /**
@@ -68,9 +69,11 @@ class ThemeSwitcherPlugin extends Plugin {
             $themeService = $this->container->get('themeService');
             $themeChain = array();
             $themeChain[] = $themeService->getThemeForId($this->container->get('settingsService')->get('apps.store.themes.default'));
-            $themeChain[] = $themeService->getThemeForId($themeId);
+            $theme = $themeChain[] = $themeService->getThemeForId($themeId);
             $themeService->setThemeChain($themeChain, $languageId);
             $themeService->initThemes($language);
+            $args = array_merge($event->all(), array('theme' => $theme, 'themeId' => $themeId, 'themeChain' => $themeChain));
+            $this->container->get('eventDispatcher')->dispatch('theme_resolved', new Event($this, $args));
         }
     }
 
