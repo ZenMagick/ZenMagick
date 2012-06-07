@@ -160,9 +160,6 @@ class ZenCartBundle extends Bundle {
                 $settingsService->set('apps.store.zencart.admindir', $adminDir->getValue());
             }
 
-            $urlMappings = __DIR__.'/Resources/config/admin/url_mappings.yaml';
-            \ZMUrlManager::instance()->load(file_get_contents($urlMappings), false);
-
             $routingFile = __DIR__.'/Resources/config/admin/routing.xml';
             if (file_exists($routingFile)) {
                 $routeResolver = $this->container->get('routeResolver');
@@ -236,7 +233,7 @@ class ZenCartBundle extends Bundle {
     /**
      * Simple function to check if we need zen-cart request processing.
      *
-     * @param ZMRequest request The current request.
+     * @param /MRequest request The current request.
      * @return boolean <code>true</code> if zen-cart should handle the request.
      */
     private function needsZC($request) {
