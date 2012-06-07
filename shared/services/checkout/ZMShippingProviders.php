@@ -44,15 +44,6 @@ class ZMShippingProviders extends ZMObject {
         $this->providers_ = array();
     }
 
-
-    /**
-     * Get instance.
-     */
-    public static function instance() {
-        return Runtime::getContainer()->get('shippingProviderService');
-    }
-
-
     /**
      * Get a shipping provider for the given id.
      *

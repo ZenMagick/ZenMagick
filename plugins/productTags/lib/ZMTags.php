@@ -30,14 +30,6 @@ use zenmagick\base\ZMObject;
 class ZMTags extends ZMObject {
 
     /**
-     * Get instance.
-     */
-    public static function instance() {
-        return Runtime::getContainer()->get('tagService');
-    }
-
-
-    /**
      * Get all tags for the given product id.
      *
      * @param int productId The product id.

@@ -33,14 +33,6 @@ use zenmagick\base\ZMObject;
 class ZMEZPages extends ZMObject implements ZMSQLAware {
 
     /**
-     * Get instance.
-     */
-    public static function instance() {
-        return Runtime::getContainer()->get('ezPageService');
-    }
-
-
-    /**
      * {@inheritDoc}
      */
     public function getQueryDetails($method=null, $args=array()) {

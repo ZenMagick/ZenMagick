@@ -37,15 +37,6 @@ class ZMAccounts extends ZMObject {
     const AUTHORIZATION_PENDING = 1;
     const AUTHORIZATION_BLOCKED = 4;
 
-
-    /**
-     * Get instance.
-     */
-    public static function instance() {
-        return Runtime::getContainer()->get('accountService');
-    }
-
-
     /**
      * Get account for the given account id.
      *

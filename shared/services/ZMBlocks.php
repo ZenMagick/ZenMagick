@@ -33,14 +33,6 @@ use zenmagick\base\ZMObject;
 class ZMBlocks extends ZMObject {
 
     /**
-     * Get instance.
-     */
-    public static function instance() {
-        return Runtime::getContainer()->get('blockService');
-    }
-
-
-    /**
      * Get a list of all block group names.
      *
      * @return array List of block group names.

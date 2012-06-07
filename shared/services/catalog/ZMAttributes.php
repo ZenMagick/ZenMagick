@@ -33,14 +33,6 @@ use zenmagick\base\ZMObject;
 class ZMAttributes extends ZMObject {
 
     /**
-     * Get instance.
-     */
-    public static function instance() {
-        return Runtime::getContainer()->get('attributeService');
-    }
-
-
-    /**
      * Load attributes for the given product.
      *
      * @param ZMProduct product The product.

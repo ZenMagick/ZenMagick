@@ -78,17 +78,6 @@ class ZMRequest extends ZMObject {
     }
 
     /**
-     * Get instance.
-     *
-     * <p>A final straw to get the shared request instance if nothing else is
-     * available.</p>
-     */
-    public static function instance() {
-        return Runtime::getContainer()->get('request');
-    }
-
-
-    /**
      * Set the dispatcher for this request.
      *
      * @param Dispatcher dispatcher The dispatcher.

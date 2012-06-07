@@ -42,15 +42,6 @@ class ZMPaymentTypes extends ZMObject {
         $this->paymentTypes_ = null;
     }
 
-
-    /**
-     * Get instance.
-     */
-    public static function instance() {
-        return Runtime::getContainer()->get('paymentTypeService');
-    }
-
-
     /**
      * Get all (available) payment types.
      *

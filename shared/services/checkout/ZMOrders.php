@@ -34,14 +34,6 @@ use zenmagick\base\ZMObject;
 class ZMOrders extends ZMObject implements ZMSQLAware {
 
     /**
-     * Get instance.
-     */
-    public static function instance() {
-        return Runtime::getContainer()->get('orderService');
-    }
-
-
-    /**
      * {@inheritDoc}
      */
     public function getQueryDetails($method=null, $args=array()) {

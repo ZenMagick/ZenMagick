@@ -33,14 +33,6 @@ use zenmagick\base\ZMObject;
 class ZMAddresses extends ZMObject {
 
     /**
-     * Get instance.
-     */
-    public static function instance() {
-        return Runtime::getContainer()->get('addressService');
-    }
-
-
-    /**
      * Get the address for the given id.
      *
      * @param int addressId The address id.

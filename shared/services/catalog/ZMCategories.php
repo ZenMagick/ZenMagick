@@ -56,15 +56,6 @@ class ZMCategories extends ZMObject {
         $this->productTypeIdMap_ = null;
     }
 
-
-    /**
-     * Get instance.
-     */
-    public static function instance() {
-        return Runtime::getContainer()->get('categoryService');
-    }
-
-
     /**
      * Set the cache.
      *
