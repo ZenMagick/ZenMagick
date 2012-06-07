@@ -20,7 +20,7 @@ Released   : 20090515
     <?php $resourceManager->jsFile('common.js', $resourceManager::FOOTER) ?>
   </head>
   <body>
-    <?php define('KEYWORD_DEFAULT', '')); ?>
+    <?php define('KEYWORD_DEFAULT', ''); ?>
 	<div id="container">  <!-- wrap the entire package  -->
 	<div id="header"> <!-- for the logo image set we will use a CSS background solution here  -->
       <div id="logo">
