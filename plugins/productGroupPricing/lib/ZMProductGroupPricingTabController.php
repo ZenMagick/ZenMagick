@@ -46,12 +46,13 @@ class ZMProductGroupPricingTabController extends CatalogContentController {
      */
     public function getViewData($request) {
         $priceGroups = $this->container->get('groupPricingService')->getPriceGroups();
+        $productGroupPricingService = $this->container->get('productGroupPricingService');
         $groupId = $request->getParameter('groupId', $priceGroups[0]->getId());
-        $productGroupPricings = ZMProductGroupPricings::instance()->getProductGroupPricings($request->getProductId(), $groupId, false);
+        $productGroupPricings = $productGroupPricingService->getProductGroupPricings($request->getProductId(), $groupId, false);
         $productGroupPricing = Beans::getBean("ZMProductGroupPricing");
         // TODO: should not need to check for delete - viewData should not override findView(.., data) data
         if (null != ($groupPricingId = $request->getParameter('groupPricingId')) && 0 < $groupPricingId && null == $request->getParameter('delete')) {
-            $productGroupPricing = ZMProductGroupPricings::instance()->getProductGroupPricingForId($groupPricingId);
+            $productGroupPricing = $productGroupPricingService->getProductGroupPricingForId($groupPricingId);
         }
         return array(
             'groupId' => $groupId,
@@ -70,7 +71,7 @@ class ZMProductGroupPricingTabController extends CatalogContentController {
             $productGroupPricing = Beans::getBean("ZMProductGroupPricing");
             $productGroupPricing->populate($request);
             // delete
-            ZMProductGroupPricings::instance()->updateProductGroupPricing($productGroupPricing);
+            $this->container->get('productGroupPricingService')->updateProductGroupPricing($productGroupPricing);
         }
         return $this->findView(null, array('productGroupPricing' => Beans::getBean("ZMProductGroupPricing")));
     }
@@ -80,13 +81,14 @@ class ZMProductGroupPricingTabController extends CatalogContentController {
      */
     public function processPost($request) {
         $productGroupPricing = Beans::getBean("ZMProductGroupPricing");
+        $productGroupPricingService = $this->container->get('productGroupPricingService');
         $productGroupPricing->populate($request);
         if (0 == $productGroupPricing->getId()) {
             // create
-            $productGroupPricing = ZMProductGroupPricings::instance()->createProductGroupPricing($productGroupPricing);
+            $productGroupPricing = $productGroupPricingService->createProductGroupPricing($productGroupPricing);
         } else {
             // update
-            $productGroupPricing = ZMProductGroupPricings::instance()->updateProductGroupPricing($productGroupPricing);
+            $productGroupPricing = $productGroupPricingService->updateProductGroupPricing($productGroupPricing);
         }
 
         return $this->findView('catalog-redirect');
