@@ -59,6 +59,8 @@ class StoreDefaultUrlRewriter extends ZMObject implements UrlRewriter {
         $container = Runtime::getContainer();
         if (null == $request) { $request = $container->get('request'); }
 
+        $page = null !== $page ? $page : 'index';
+
         if (empty($page)) {
             throw new ZMException('missing page parameter');
         }

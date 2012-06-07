@@ -141,7 +141,7 @@ Depending on your server configuration you might be better of using something di
         for (var ii=0; ii < attributes.length; ++ii) {
             var attribute = attributes[ii];
             switch (attribute.type) {
-            case '<?php echo PRODUCTS_OPTIONS_TYPE_SELECT ?>':
+            case <?php echo PRODUCTS_OPTIONS_TYPE_SELECT ?>:
                 productDetailsElem.innerHTML += '<b>'+attribute.name+'</b><br>';
                 var html = '';
                 html += '<select name="id['+attribute.id+']">';
@@ -153,7 +153,7 @@ Depending on your server configuration you might be better of using something di
                 html += '<br>';
                 productDetailsElem.innerHTML += html;
                 break;
-            case '<?php echo PRODUCTS_OPTIONS_TYPE_RADIO ?>':
+            case <?php echo PRODUCTS_OPTIONS_TYPE_RADIO ?>:
                 productDetailsElem.innerHTML += '<b>'+attribute.name+'</b><br>';
                 var html = '';
                 var name = 'id['+attribute.id+']';
@@ -167,7 +167,7 @@ Depending on your server configuration you might be better of using something di
                 html += '<br>';
                 productDetailsElem.innerHTML += html;
                 break;
-            case '<?php echo PRODUCTS_OPTIONS_TYPE_CHECKBOX ?>':
+            case <?php echo PRODUCTS_OPTIONS_TYPE_CHECKBOX ?>:
                 var html = '';
                 var name = 'id['+attribute.id+']';
                 for (var jj=0; jj < attribute.values.length; ++jj) {
@@ -180,7 +180,7 @@ Depending on your server configuration you might be better of using something di
                 html += '<br>';
                 productDetailsElem.innerHTML += html;
                 break;
-            case '<?php echo PRODUCTS_OPTIONS_TYPE_TEXT ?>':
+            case <?php echo PRODUCTS_OPTIONS_TYPE_TEXT ?>:
                 productDetailsElem.innerHTML += '<b>'+attribute.name+'</b><br>';
                 var html = '';
                 for (var jj=0; jj < attribute.values.length; ++jj) {
