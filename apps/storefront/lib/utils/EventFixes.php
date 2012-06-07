@@ -211,8 +211,22 @@ class EventFixes extends ZMObject {
                             $qtyOrderMax = $product->getQtyOrderMax();
                             $cartQty = $shoppingCart->getItemQuantityFor($productId, $product->isQtyMixed());
                             if ($qtyOrderMax > $cartQty) {
-                                // TODO: compute buyNowQty
+                                // FTW!
                                 $buyNowQty = 1;
+                                $qtyOrderMin = $product->getQtyOrderMin();
+                                $qtyOrderUnits = $product->getQtyOrderUnits();
+                                if (0 == $cartQty) {
+                                    $buyNowQty = max($qtyOrderMin, $qtyOrderUnits);
+                                } else if ($cartQty < $qtyOrderMin) {
+                                    $buyNowQty = $qtyOrderMin - $cartQty;
+                                } else if ($cartQty > $qtyOrderMin) {
+                                    $adjQtyOrderUnits = $qtyOrderUnits - ZMTools::fmod_round($cartQty, $qtyOrderUnits);
+                                    $buyNowQty = 0 < $adjQtyOrderUnits ? $adjQtyOrderUnits : $qtyOrderUnits;
+                                } else {
+                                    $buyNowQty = $qtyOrderUnits;
+                                }
+
+                                $buyNowQty = 1 > $buyNowQty ? 1 : $buyNowQty;
                                 // limit
                                 $buyNowQty = min($qtyOrderMax, $cartQty + $buyNowQty);
                                 $shoppingCart->addProduct($productId, $buyNowQty);
