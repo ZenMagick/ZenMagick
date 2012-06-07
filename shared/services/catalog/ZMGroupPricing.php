@@ -33,14 +33,6 @@ use zenmagick\base\ZMObject;
 class ZMGroupPricing extends ZMObject {
 
     /**
-     * Get instance.
-     */
-    public static function instance() {
-        return Runtime::getContainer()->get('groupPricingService');
-    }
-
-
-    /**
      * Get all price groups.
      *
      * @return array List of ZMPriceGroup objects.
