@@ -19,15 +19,17 @@
  */
 
     $code = stripslashes($request->getParameter('code', '', false));
+
     $zm_result = null;
     if ('' != $code) {
+        $code = '$container = zenmagick\base\Runtime::getContainer();'."\n".$code;
         ob_start();
         eval($code);
         $zm_result = ob_get_contents();
         ob_end_clean();
     }
     if ('' == $code) {
-        $code = "\$product = ZMProducts::instance()->getProductForId(8, 1);\n"
+        $code = "\$product = \$container->get('productService')->getProductForId(8, 1);\n"
                ."if (null != \$product) {\n"
                ."   echo \$product->getName().\":\\n\".\$product->getDescription();\n"
                ."   \n"
