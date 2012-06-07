@@ -21,6 +21,7 @@
  */
 namespace zenmagick\http\rss;
 
+use ArrayIterator;
 use zenmagick\base\Runtime;
 use zenmagick\base\ZMObject;
 
@@ -85,7 +86,7 @@ class RssFeedLoader extends ZMObject {
                 break;
             }
         }
-        $feed->setItems($items);
+        $feed->setItems(new ArrayIterator($items));
 
         // cache if enabled
         if ($this->cache) {
