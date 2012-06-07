@@ -51,14 +51,6 @@ class ZMValidator extends ZMObject {
     }
 
     /**
-     * Get instance.
-     */
-    public static function instance() {
-        return Runtime::getContainer()->get('validator');
-    }
-
-
-    /**
      * Add an alias to share rules between different forms.
      *
      * <p>Adding / modifying an alias is not permitted and the result not defined.</p>

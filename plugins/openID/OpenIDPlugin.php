@@ -97,10 +97,10 @@ class OpenIDPlugin extends Plugin {
             $rules[] = array('ZMRegexpRule', 'openid', '/'.$providerList.'/', 'The provider of the entered OpenID is currently not supported.');
         }
         // validation rules for login
-        \ZMValidator::instance()->addRules('openid_login', $rules);
+        $this->container->get('validator')->addRules('openid_login', $rules);
 
         // add validation rule for account edit
-        \ZMValidator::instance()->addRule('edit_account', array('ZMUniqueOpenIDRule', 'openid'));
+        $this->container->get('validator')->addRule('edit_account', array('ZMUniqueOpenIDRule', 'openid'));
     }
 
 

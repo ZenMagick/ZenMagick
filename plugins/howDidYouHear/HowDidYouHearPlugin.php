@@ -108,8 +108,8 @@ class HowDidYouHearPlugin extends Plugin {
                     array("ZMRequiredRule", 'sourceId', 'Please select/provide the source where you first heard about us.'),
                     array("ZMSourceOtherRule", 'sourceOther', 'Please provide a description about where you first heard about us.')
                 );
-                \ZMValidator::instance()->addRules('registration', $rules);
-                \ZMValidator::instance()->addRules('shippingAddress', $rules);
+                $this->container->get('validator')->addRules('registration', $rules);
+                $this->container->get('validator')->addRules('shippingAddress', $rules);
             }
         }
     }
