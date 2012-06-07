@@ -67,9 +67,6 @@ admin,storefront:
     #############################
     ## old style store settings - these names will be changed in a future version
 
-    # disable ZenMagick themes
-    isEnableZMThemes: false
-
     # allow tell a friend for anonymous users
     isTellAFriendAnonymousAllow: false
 

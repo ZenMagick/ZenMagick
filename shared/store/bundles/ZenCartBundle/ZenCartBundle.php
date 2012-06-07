@@ -223,7 +223,7 @@ class ZenCartBundle extends Bundle {
         $request = $event->get('request');
 
         // skip more zc request handling
-        if (!$this->needsZC($request) && $this->container->get('settingsService')->get('isEnableZMThemes', false)) {
+        if (!$this->needsZC($request)) {
             global $code_page_directory;
             $code_page_directory = 'zenmagick';
         } else {
@@ -241,8 +241,6 @@ class ZenCartBundle extends Bundle {
      */
     private function needsZC($request) {
         if ($this->isZencartTheme($request)) {
-            // this needs some cleanup, obviously
-            $this->container->get('settingsService')->set('isEnableZMThemes', false);
             return true;
         }
 
