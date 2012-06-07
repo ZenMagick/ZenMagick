@@ -48,15 +48,6 @@ class ZMProducts extends ZMObject implements ZMSQLAware {
         $this->categoryProductMap_ = null;
     }
 
-
-    /**
-     * Get instance.
-     */
-    public static function instance() {
-        return Runtime::getContainer()->get('productService');
-    }
-
-
     /**
      * Set the cache.
      *
