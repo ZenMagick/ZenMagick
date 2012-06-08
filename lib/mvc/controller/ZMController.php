@@ -98,7 +98,7 @@ class ZMController extends ZMObject {
     public function process(ZMRequest $request) {
         // ensure a usable id is set
         $this->requestId_ = null != $this->requestId_ ? $this->requestId_ : $request->getRequestId();
-        $this->isAjax_ = $request->isAjax();
+        $this->isAjax_ = $request->isXmlHttpRequest();
 
         $settingsService = Runtime::getSettings();
 

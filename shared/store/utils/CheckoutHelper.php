@@ -326,7 +326,7 @@ class CheckoutHelper extends ZMObject {
         $session = $request->getSession();
         if (null == $this->container->get('accountService')->getAccountForId($session->getAccountId())) {
             $session->clear();
-            if (!$request->isAjax()) {
+            if (!$request->isXmlHttpRequest()) {
                 $request->saveFollowUpUrl();
             }
             return "login";

@@ -96,17 +96,27 @@ class ZMRequest extends ZMObject {
     }
 
     /**
-     * Check if this request is an Ajax request.
+     * Check if this request is an XMLHTTPRequest.
      *
      * <p>This default implementation will check for a 'X-Requested-With' header. Subclasses are free to
      * extend and override this method for custom Ajax detecting.</p>
      *
      * @return boolean <code>true</code> if this request is considered an Ajax request.
      */
-    public function isAjax() {
+    public function isXmlHttpRequest() {
         $headers = ZMNetUtils::getAllHeaders();
         $ajax = $this->getParameter('ajax', null);
         return $ajax != null ? Toolbox::asBoolean($ajax) : (array_key_exists('X-Requested-With', $headers) && 'XMLHttpRequest' == $headers['X-Requested-With']);
+    }
+
+    /**
+     *  Check if this request is an XMLHttpRequest
+     *
+     *  @deprecated use isXmlHttpRequest instead
+     *  @since 2012-06-08
+     */
+    public function isAjax() {
+        return $this->isXmlHttpRequest();
     }
 
     /**

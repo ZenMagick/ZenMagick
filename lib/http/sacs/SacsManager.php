@@ -193,7 +193,7 @@ class SacsManager extends ZMObject {
                 $request->redirect($request->url(Runtime::getSettings()->get('zenmagick.http.request.invalidSession')));
                 exit;
             }
-            if (!$request->isAjax()) {
+            if (!$request->isXmlHttpRequest()) {
                 $request->saveFollowUpUrl();
             }
             $request->redirect($request->url(Runtime::getSettings()->get('zenmagick.http.request.login', 'login'), '', true));
