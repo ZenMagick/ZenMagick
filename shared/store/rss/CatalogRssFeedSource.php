@@ -132,6 +132,7 @@ class CatalogRssFeedSource extends ZMObject implements RssSource {
         $net = $request->getToolbox()->net;
         $languageId = $request->getSession()->getLanguageId();
         $productService = $this->container->get('productService');
+        // do not cache products for this
         $productService->setCache(null);
         $productInfo = array();
         foreach ($productService->getAllProductIds(true, $languageId) as $productId) {
