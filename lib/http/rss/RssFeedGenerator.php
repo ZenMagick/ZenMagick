@@ -43,8 +43,12 @@ class RssFeedGenerator extends ZMObject {
     public function generate($request, RssFeed $feed) {
         ob_start();
         $this->rssHeader($request, $feed->getChannel());
+        $gcCount = 0;
         foreach ($feed->getItems() as $item) {
             $this->rssItem($request, $item);
+            if (0 == ++$gcCount%133) { gc_collect_cycles(); }
+            $this->rssItem($request, $item);
+
         }
         $this->rssFooter();
         return trim(ob_get_clean());
