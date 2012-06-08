@@ -41,7 +41,7 @@ class RequestContext extends SymfonyRequestContext {
         }
         // todo: should ports be configurable?
         // todo: have a separate https hostname
-        parent::__construct($request->getContext().$frontendController, $request->getMethod(), $request->getHostname(), $request->isSecure() ? 'https' : 'http', 80, 443);
+        parent::__construct($request->getContext().$frontendController, $request->getMethod(), $request->getHost(), $request->isSecure() ? 'https' : 'http', 80, 443);
     }
 
 }

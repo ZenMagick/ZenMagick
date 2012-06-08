@@ -128,7 +128,7 @@ class AdminEventHandler extends ZMObject {
             $this->container->get('localeService')->getLocale(true, $uiLocale);
         }
         $settingsService = $this->container->get('settingsService');
-        $settingsService->set('apps.store.baseUrl', 'http://'.$request->getHostname().str_replace('zenmagick/apps/admin/web', '', $request->getContext()));
+        $settingsService->set('apps.store.baseUrl', 'http://'.$request->getHost().str_replace('zenmagick/apps/admin/web', '', $request->getContext()));
 
         if ('index' != $request->getRequestId()) {
             $params = $request->getParameterMap(true);

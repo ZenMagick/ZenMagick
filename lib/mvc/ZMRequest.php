@@ -273,7 +273,7 @@ class ZMRequest extends ZMObject {
      *
      * @return string The hostname or <code>null</code> for <em>CL</code> calls.
      */
-    public function getHostname() {
+    public function getHost() {
         if (!array_key_exists('HTTP_HOST', $_SERVER)) {
             return null;
         }
@@ -303,9 +303,9 @@ class ZMRequest extends ZMObject {
         $scheme = $this->getScheme();
         $port = $this->getPort();
         if (('http' == $scheme && $port == 80) || ('https' == $scheme && $port == 443)) {
-            return $this->getHostname();
+            return $this->getHost();
         }
-        return $this->getHostname().':'.$port;
+        return $this->getHost().':'.$port;
     }
 
     /**
@@ -438,7 +438,7 @@ class ZMRequest extends ZMObject {
         return (isset($_SERVER['SERVER_PORT']) && 443 == $_SERVER['SERVER_PORT']) ||
                (isset($_SERVER['HTTPS']) && Toolbox::asBoolean($_SERVER['HTTPS'])) ||
                (isset($_SERVER['HTTP_X_FORWARDED_BY']) && strpos(strtoupper($_SERVER['HTTP_X_FORWARDED_BY']), 'SSL') !== false) ||
-               (isset($_SERVER['HTTP_X_FORWARDED_HOST']) && (strpos(strtoupper($_SERVER['HTTP_X_FORWARDED_HOST']), 'SSL') !== false || strpos(strtolower($_SERVER['HTTP_X_FORWARDED_HOST']), $this->getHostname()) !== false)) ||
+               (isset($_SERVER['HTTP_X_FORWARDED_HOST']) && (strpos(strtoupper($_SERVER['HTTP_X_FORWARDED_HOST']), 'SSL') !== false || strpos(strtolower($_SERVER['HTTP_X_FORWARDED_HOST']), $this->getHost()) !== false)) ||
                (isset($_SERVER['SCRIPT_URI']) && strtolower(substr($_SERVER['SCRIPT_URI'], 0, 6)) == 'https:') ||
                (isset($_SERVER['HTTP_X_FORWARDED_SSL']) && (Toolbox::asBoolean($_SERVER['HTTP_X_FORWARDED_SSL']))) ||
                (isset($_SERVER['HTTP_X_FORWARDED_PROTO']) && (strtolower($_SERVER['HTTP_X_FORWARDED_PROTO']) == 'ssl' || strtolower($_SERVER['HTTP_X_FORWARDED_PROTO']) == 'https')) ||

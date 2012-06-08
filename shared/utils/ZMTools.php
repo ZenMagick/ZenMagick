@@ -118,7 +118,7 @@ class ZMTools {
             parse_str(str_replace('&amp;', '&', Runtime::getContainer()->get('request')->getQueryString()), $query2);
         }
 
-        if (isset($url1Token) && null === $url2 && isset($url1Token['host']) && Runtime::getContainer()->get('request')->getHostname() != $url1Token['host']) {
+        if (isset($url1Token) && null === $url2 && isset($url1Token['host']) && Runtime::getContainer()->get('request')->getHost() != $url1Token['host']) {
             return false;
         }
         if (isset($url1Token) && isset($url2Token) && isset($url1Token['host']) && isset($url2Token['host']) && $url1Token['host'] != $url2Token['host']) {

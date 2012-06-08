@@ -90,7 +90,7 @@ class StoreDefaultUrlRewriter extends ZMObject implements UrlRewriter {
         }
 
         // default to non ssl
-        $hostname = $request->getHostname();
+        $hostname = $request->getHost();
         $httpServer = 'http://'.$hostname;
         $httpsServer = 'https://'.$hostname;
 
