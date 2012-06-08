@@ -35,7 +35,7 @@ class RoutingUrlRewriter extends ZMObject implements UrlRewriter {
      */
     public function decode($request) {
         $routeResolver = $this->container->get('routeResolver');
-        if (null != ($routerMatch = $routeResolver->getRouterMatch($request->getUri()))) {
+        if (null != ($routerMatch = $routeResolver->getRouterMatch($request->getRequestUri()))) {
             $request->setRequestId($routerMatch['_route']);
             $parameterMap = $request->getParameterMap();
             // grab things not set and not prefixed with '_'

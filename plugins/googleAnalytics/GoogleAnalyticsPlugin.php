@@ -177,7 +177,7 @@ class GoogleAnalyticsPlugin extends Plugin {
             }
             break;
         case 'uri':
-            $view = $request->getUri();
+            $view = $request->getRequestUri();
             break;
         case 'none':
             // nothing

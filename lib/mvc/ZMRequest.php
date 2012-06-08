@@ -531,7 +531,7 @@ class ZMRequest extends ZMObject {
      *
      * @return string The URI.
      */
-    public function getUri() {
+    public function getRequestUri() {
         $uri = $_SERVER['REQUEST_URI'];
         return $uri;
     }

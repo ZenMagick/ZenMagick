@@ -133,7 +133,7 @@ class RouteResolver extends ZMObject {
         $view = null;
         // build list of routes to look at
         $routeIds = array();
-        if (null != ($routerMatch = $this->getRouterMatch($request->getUri()))) {
+        if (null != ($routerMatch = $this->getRouterMatch($request->getRequestUri()))) {
             $routeIds[] = $routerMatch['_route'];
         }
         $routeIds[] = self::GLOBAL_ROUTING_KEY;

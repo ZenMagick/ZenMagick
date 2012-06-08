@@ -115,7 +115,7 @@ class DefaultUrlRewriter extends ZMObject implements UrlRewriter {
         if (null != $request->getParameter($request->getRequestIdKey())) {
             return true;
         }
-        $uri = $request->getUri();
+        $uri = $request->getRequestUri();
         $context = $request->getContext().'/';
         if (0 === strpos($uri, $context.$this->pathBase_) && false === strpos($uri, '?')) {
             $path = substr($uri, strlen($context.$this->pathBase_));

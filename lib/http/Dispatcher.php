@@ -224,7 +224,7 @@ class Dispatcher extends ZMObject {
             return $this->controllerExecutor;
         }
 
-        if ($routerMatch = $this->container->get('routeResolver')->getRouterMatch($request->getUri())) {
+        if ($routerMatch = $this->container->get('routeResolver')->getRouterMatch($request->getRequestUri())) {
             // class:method ?
             $token = explode(':', $routerMatch['_controller']);
             if (1 == count($token)) {

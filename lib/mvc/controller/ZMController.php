@@ -273,7 +273,7 @@ class ZMController extends ZMObject {
      */
     public function getFormData($request, $formDef=null, $formId=null) {
         $routeResolver = $this->container->get('routeResolver');
-        if (null != ($route = $routeResolver->getRouteForUri($request->getUri()))) {
+        if (null != ($route = $routeResolver->getRouteForUri($request->getRequestUri()))) {
             if (null != ($options = $route->getOptions()) && array_key_exists('form', $options)) {
                 $this->formData_ = Beans::getBean($options['form']);
                 if ($this->formData_ instanceof Form) {
