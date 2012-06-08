@@ -502,16 +502,6 @@ class ZMRequest extends ZMObject {
     }
 
     /**
-     * Get the page base url.
-     *
-     * @return string A base URL for the current request.
-     * @deprecated use getBaseUrl() instead.
-     */
-    public function getPageBase() {
-        return $this->getBaseUrl();
-    }
-
-    /**
      * Get the document root path.
      *
      * @return string The document root.
