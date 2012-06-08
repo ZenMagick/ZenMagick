@@ -402,19 +402,4 @@ class ZMController extends ZMObject {
     public function setMethod($method) {
         $this->method_ = $method;
     }
-
-    /**
-     * Set the controller id.
-     *
-     * @param string id The id (page name).
-     */
-    public function setId($id) { throw new ZMException('deprecated'); }
-
-    /**
-     * Get the controller id.
-     *
-     * @return string The id (page name).
-     */
-    public function getId() {throw new ZMException('deprecated'); }
-
 }
