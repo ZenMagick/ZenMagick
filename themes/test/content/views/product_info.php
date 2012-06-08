@@ -31,8 +31,8 @@
   <?php $imageInfo = $currentProduct->getImageInfo() ?>
   <div>
       <?php if ($imageInfo->hasLargeImage()) { ?>
-          <a href="<?php echo $request->absoluteURL($imageInfo->getLargeImage()) ?>" rel="lightbox[gallery]" title="lightbox[gallery]"><?php echo $html->image($imageInfo, ZMProducts::IMAGE_MEDIUM) ?></a><br>
-          |<a href="<?php echo $request->absoluteURL($imageInfo->getLargeImage()) ?>" rel="lightbox[gallery]">Click to enlarge (lightbox[gallery]) - FTW!</a>|<br>
+          <a href="<?php echo $request->absoluteUrl($imageInfo->getLargeImage()) ?>" rel="lightbox[gallery]" title="lightbox[gallery]"><?php echo $html->image($imageInfo, ZMProducts::IMAGE_MEDIUM) ?></a><br>
+          |<a href="<?php echo $request->absoluteUrl($imageInfo->getLargeImage()) ?>" rel="lightbox[gallery]">Click to enlarge (lightbox[gallery]) - FTW!</a>|<br>
           |<?php if (function_exists('hover3_product_image_link')) { hover3_product_image_link($this, $currentProduct, $imageInfo); } ?>|
       <?php } else { ?>
           <?php echo $html->image($imageInfo, ZMProducts::IMAGE_MEDIUM) ?>
@@ -93,10 +93,10 @@
           <legend><?php _vzm("Additional Images") ?></legend>
           <?php foreach ($addImgList as $addImg) { ?>
               <?php if ($addImg->hasLargeImage()) { ?>
-                  <a href="<?php echo $request->absoluteURL($addImg->getLargeImage()) ?>" rel="lightbox[gallery]"><img src="<?php echo $request->absoluteURL($addImg->getDefaultImage()) ?>" alt="" title="" /></a>
+                  <a href="<?php echo $request->absoluteUrl($addImg->getLargeImage()) ?>" rel="lightbox[gallery]"><img src="<?php echo $request->absoluteUrl($addImg->getDefaultImage()) ?>" alt="" title="" /></a>
                   <br><?php if (function_exists('hover3_product_image_link')) { hover3_product_image_link($this, $currentProduct, $addImg, false); } ?>
               <?php } else { ?>
-                  <img src="<?php echo $request->absoluteURL($addImg->getDefaultImage()) ?>" alt="" title="" />
+                  <img src="<?php echo $request->absoluteUrl($addImg->getDefaultImage()) ?>" alt="" title="" />
               <?php } ?>
           <?php } ?>
       </fieldset>

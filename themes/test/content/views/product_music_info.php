@@ -29,7 +29,7 @@
   <?php $imageInfo = $currentProduct->getImageInfo() ?>
   <div>
       <?php if ($imageInfo->hasLargeImage()) { ?>
-          <a href="<?php echo $request->absoluteURL($imageInfo->getLargeImage()) ?>" onclick="productPopup(event, this); return false;"><?php echo $html->image($imageInfo, ZMProducts::IMAGE_MEDIUM) ?></a>
+          <a href="<?php echo $request->absoluteUrl($imageInfo->getLargeImage()) ?>" onclick="productPopup(event, this); return false;"><?php echo $html->image($imageInfo, ZMProducts::IMAGE_MEDIUM) ?></a>
       <?php } else { ?>
           <?php echo $html->image($imageInfo, ZMProducts::IMAGE_MEDIUM) ?>
       <?php } ?>
@@ -94,9 +94,9 @@
           <legend><?php _vzm("Additional Images") ?></legend>
           <?php foreach ($addImgList as $addImg) { ?>
               <?php if ($addImg->hasLargeImage()) { ?>
-                  <a href="<?php echo $request->absoluteURL($addImg->getLargeImage()) ?>" onclick="productPopup(event, this); return false;"><img src="<?php echo $request->absoluteURL($addImg->getDefaultImage()) ?>" alt="" title="" /></a>
+                  <a href="<?php echo $request->absoluteUrl($addImg->getLargeImage()) ?>" onclick="productPopup(event, this); return false;"><img src="<?php echo $request->absoluteUrl($addImg->getDefaultImage()) ?>" alt="" title="" /></a>
               <?php } else { ?>
-                  <img src="<?php echo $request->absoluteURL($addImg->getDefaultImage()) ?>" alt="" title="" />
+                  <img src="<?php echo $request->absoluteUrl($addImg->getDefaultImage()) ?>" alt="" title="" />
               <?php } ?>
           <?php } ?>
       </fieldset>

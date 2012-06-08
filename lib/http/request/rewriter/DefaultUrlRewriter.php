@@ -101,7 +101,7 @@ class DefaultUrlRewriter extends ZMObject implements UrlRewriter {
         if (!empty($params)) {
             $url .= '&'.ltrim($params, '&');
         }
-        return $request->absoluteURL($url, false, $secure);
+        return $request->absoluteUrl($url, false, $secure);
     }
 
     /**
@@ -153,7 +153,7 @@ class DefaultUrlRewriter extends ZMObject implements UrlRewriter {
             $url .= '/'.\ZMNetUtils::encode($key).'/'.\ZMNetUtils::encode($value);
         }
 
-        return $request->absoluteURL($url, false, $secure);
+        return $request->absoluteUrl($url, false, $secure);
     }
 
 }

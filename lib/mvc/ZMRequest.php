@@ -222,7 +222,7 @@ class ZMRequest extends ZMObject {
      * @param boolean secure Set to true to force a secure URL; default is <code>false</code>.
      * @return string The absolute URL.
      */
-    public function absoluteURL($url, $full=false, $secure=false) {
+    public function absoluteUrl($url, $full=false, $secure=false) {
         $url = (!empty($url) && ('/' == $url[0] || false !== strpos($url, '://'))) ? $url : $this->getContext().'/'.$url;
         $secure = Runtime::getSettings()->get('zenmagick.http.request.enforceSecure') && $secure;
         if ($full || ($secure && !$this->isSecure())) {

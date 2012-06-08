@@ -198,7 +198,7 @@ class ResourceManager extends ZMObject {
             $type = $this->resourcesAsTemplates_ ? View::TEMPLATE : View::RESOURCE;
             if (null != ($path = $this->view->getResourceResolver()->findResource($resource, $type))) {
                 if (null != ($uri= $this->file2uri($path))) {
-                    $url = $this->view->getRequest()->absoluteURL($uri);
+                    $url = $this->view->getRequest()->absoluteUrl($uri);
                     Runtime::getLogging()->log(sprintf('resolved file "%s" as url: %s; path=%s', $resource, $url, $path), Logging::TRACE);
                     return $url;
                 }
