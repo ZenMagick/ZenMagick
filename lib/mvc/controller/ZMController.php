@@ -186,20 +186,6 @@ class ZMController extends ZMObject {
     }
 
     /**
-     * Check if the current request is an Ajax request.
-     *
-     * <p>This default implementation will check for a 'X-Requested-With' header. Subclasses are free to
-     * extend and override this method for custom Ajax detecting.</p>
-     *
-     * @param ZMRequest request The request to process.
-     * @return boolean <code>true</code> if this request is considered an Ajax request.
-     * @deprecated use ZMRequest::isAjax() instead.
-     */
-    public function isAjax($request) {
-        return $request->isAjax();
-    }
-
-    /**
      * Check if this request is a form submit.
      *
      * <p>This default implementation will return <code>true</code> for all <em>POST</em> requests.</p>
