@@ -107,21 +107,6 @@ class Request extends \ZMRequest {
     }
 
     /**
-     * {@inheritDoc}
-     */
-    public function getRequestId() {
-        return $this->getParameter(Runtime::getSettings()->get('zenmagick.http.request.idName'));
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function setRequestId($requestId) {
-        parent::setRequestId($requestId);
-        $this->setParameter(Runtime::getSettings()->get('zenmagick.http.request.idName'), $requestId);
-    }
-
-    /**
      * Get the current shopping cart.
      *
      * @return ShoppingCart The current shopping cart (may be empty).
