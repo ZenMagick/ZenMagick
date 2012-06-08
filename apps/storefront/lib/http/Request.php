@@ -34,24 +34,9 @@ use zenmagick\base\Runtime;
  * @author DerManoMann <mano@zenmagick.org>
  */
 class Request extends \ZMRequest {
-    private $categoryPathArray_;
-    private $shoppingCart_;
-    private $metaTags_;
-
-
-    /**
-     * Create new instance.
-     *
-     * @param array parameter Optional request parameter; if <code>null</code>,
-     *  <code>$_GET</code> and <code>$_POST</code> will be used.
-     */
-    public function __construct($parameter=null) {
-        parent::__construct($parameter);
-        $this->categoryPathArray_ = null;
-        $this->shoppingCart_ = null;
-        $this->metaTags_ = null;
-    }
-
+    private $categoryPathArray_ = null;
+    private $shoppingCart_ = null;
+    private $metaTags_ = null;
 
     /**
      * {@inheritDoc}
