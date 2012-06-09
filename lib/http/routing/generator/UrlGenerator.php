@@ -19,6 +19,8 @@
  */
 namespace zenmagick\http\routing\generator;
 
+use Symfony\Component\Routing\Exception\RouteNotFoundException;
+
 /**
  * Url generator that allows to override requirements.
  *
