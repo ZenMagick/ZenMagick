@@ -1,14 +1,8 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
   <head>
-    <title><?php echo $this->fragment('page.title') ?></title>
-    <?php $this->fragment('page.title', $metaTags->getTitle()) ?>
-    <meta charset="<?php echo $settingsService->get('zenmagick.http.html.charset') ?>" />
-    <meta name="author" content="Erwin Aligam - styleshout.com" />
-    <meta name="description" content="Site Description Here" />
-    <meta name="keywords" content="keywords, here" />
-    <meta name="robots" content="index, follow, noarchive" />
-    <meta name="googlebot" content="noarchive" />
+    <!-- Theme created by Erwin Aligam - styleshout.com -->
+    <?php echo $this->fetch('head.php') ?>
     <?php $resourceManager->cssFile('css/screen.css', array('media' => 'screen')) ?>
     <?php $resourceManager->cssFile('css/theme.css', array('media' => 'screen')) ?>
     <?php $pageCSS = "css/".$request->getRequestId().".css"; ?>

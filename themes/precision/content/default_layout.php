@@ -12,11 +12,7 @@ Released   : 20081126
 -->
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
-    <meta charset="<?php echo $settingsService->get('zenmagick.http.html.charset') ?>" />
-    <title><?php echo $this->fragment('page.title') ?></title>
-    <?php $this->fragment('page.title', $metaTags->getTitle()) ?>
-    <meta name="keywords" content="" />
-    <meta name="description" content="" />
+    <?php echo $this->fetch('head.php') ?>
     <?php $resourceManager->cssFile('style.css', array('media' => 'screen')) ?>
     <?php $resourceManager->cssFile('theme.css', array('media' => 'screen')) ?>
     <?php $resourceManager->jsFile('common.js', $resourceManager->FOOTER) ?>

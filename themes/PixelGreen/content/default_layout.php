@@ -1,17 +1,11 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
   <head>
-    <meta name="Description" content="Information architecture, Web Design, Web Standards." />
-    <meta name="Keywords" content="your, keywords" />
-    <meta charset="<?php echo $settingsService->get('zenmagick.http.html.charset') ?>" />
-    <meta name="Distribution" content="Global" />
-    <meta name="Author" content="Erwin Aligam - ealigam@gmail.com" />
-    <meta name="Robots" content="index,follow" />
+    <!-- Theme created by Erwin Aligam - ealigam@gmail.com -->
+    <?php echo $this->fetch('head'); ?>
     <?php $resourceManager->cssFile('PixelGreen.css', array('media' => 'screen')) ?>
     <?php $resourceManager->cssFile('theme.css', array('media' => 'screen')) ?>
     <?php $resourceManager->jsFile('common.js', $resourceManager->FOOTER) ?>
-    <title><?php echo $this->fragment('page.title') ?></title>
-    <?php $this->fragment('page.title', $metaTags->getTitle()) ?>
   </head>
 
   <body>
