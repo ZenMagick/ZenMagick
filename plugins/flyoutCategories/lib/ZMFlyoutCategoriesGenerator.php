@@ -43,9 +43,10 @@ class ZMFlyoutCategoriesGenerator {
        $spacer_multiplier = 1;
 
    var $document_types_list = ' (3) ';  // acceptable format example: ' (3, 4, 9, 22, 18) '
-
+   protected $netToolbox;
 
     function __construct($request) {
+       $this->netToolbox = $request->getToolbox()->net;
        $this->data = array();
        foreach (Runtime::getContainer()->get('categoryService')->getCategories($request->getSession()->getLanguageId()) as $category) {
           $this->data[$category->getParentId()][$category->getId()] = array('name' => $category->getName(), 'count' => 0);
@@ -71,7 +72,7 @@ class ZMFlyoutCategoriesGenerator {
                 if ($level == 0) {
                     $result .= $this->root_start_string;
                 }
-                $result .= str_repeat($this->spacer_string, $this->spacer_multiplier * 1) . '<a href="' . zen_href_link('category', 'cPath=' . $category_link) . '">';
+                $result .= str_repeat($this->spacer_string, $this->spacer_multiplier * 1) . '<a href="' . $this->netToolbox->url('category', 'cPath=' . $category_link) . '">';
                 $result .= $category['name'];
                 $result .= '</a>';
 
