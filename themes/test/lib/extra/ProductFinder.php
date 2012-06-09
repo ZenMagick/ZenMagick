@@ -44,7 +44,7 @@ class ProductFinder extends ZMProductFinder {
         $where = ' WHERE';
 
         // get token
-        zen_parse_search_string(stripslashes($criteria->getKeywords()), $tokens);
+        $this->parseSearchString(stripslashes($criteria->getKeywords()), $tokens);
 
         $weight = '';
         $weightTemplate = 'IF (products_name LIKE "@@@%", 20, IF (products_name LIKE "%@@@%", 10, 0)) + IF (products_description LIKE "%@@@%", 5, 0)';

@@ -44,9 +44,12 @@ class CategoriesUlGenerator {
       $spacer_string = '',
       $spacer_multiplier = 1;
   var $document_types_list = ' (3) ';  // acceptable format example: ' (3, 4, 9, 22, 18) '
+  protected $netToolbox;
 
   function __construct($request) {
     $this->data = array();
+
+    $this->netToolbox = $request->getToolbox()->net;
     foreach (Runtime::getContainer()->get('categoryService')->getCategories($request->getSession()->getLanguageId()) as $category) {
       $products_in_category = SHOW_COUNTS == 'true' ? count(Runtime::getContainer()->get('productService')->getProductIdsForCategoryId($category->getId(), $request->getSession()->getLanguageId())) : 0;
       $this->data[$category->getParentId()][$category->getId()] = array('name' => $category->getName(), 'count' => $products_in_category);
@@ -71,7 +74,7 @@ class CategoriesUlGenerator {
         if ($cPath == $new_cpath) {
           $result .= '<a href="javascript:void(0)" class="on">'; // highlight current category & disable link
         } else {
-          $result .= '<a href="' . zen_href_link('category', 'cPath=' . $new_cpath) . '">';
+          $result .= '<a href="' . $this->netToolbox->url('category', 'cPath=' . $new_cpath) . '">';
         }
         $result .= $category['name'];
         if (SHOW_COUNTS == 'true' && ((CATEGORIES_COUNT_ZERO == '1' && $category['count'] == 0) || $category['count'] >= 1)) {
