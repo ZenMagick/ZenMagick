@@ -19,6 +19,8 @@
  */
 namespace zenmagick\http\routing\generator;
 
+use Symfony\Component\DependencyInjection\ContainerInterface;
+use Symfony\Component\DependencyInjection\ContainerAwareInterface;
 use Symfony\Component\Routing\Exception\RouteNotFoundException;
 
 /**
@@ -26,12 +28,26 @@ use Symfony\Component\Routing\Exception\RouteNotFoundException;
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class UrlGenerator extends \Symfony\Component\Routing\Generator\UrlGenerator {
+class UrlGenerator extends \Symfony\Component\Routing\Generator\UrlGenerator implements ContainerAwareInterface {
+    protected $container;
+
+    /**
+     * {@inheritDoc}
+     */
+    public function setContainer(ContainerInterface $container=null) {
+        $this->container = $container;
+    }
 
     /**
      * {@inheritDoc}
      */
     public function generate($name, $parameters=array(), $absolute=false, $requirements=array()) {
+        // try alias first
+        $alias = (array) $this->container->get('settingsService')->get('zenmagick.http.routing.alias');
+        if (array_key_exists($name, $alias)) {
+            $name = $alias[$name];
+        }
+
         if (null === $route = $this->routes->get($name)) {
             throw new RouteNotFoundException(sprintf('Route "%s" does not exist.', $name));
         }
@@ -41,7 +57,6 @@ class UrlGenerator extends \Symfony\Component\Routing\Generator\UrlGenerator {
         }
 
         $requirements = array_merge($route->getRequirements(), $requirements);
-
         return $this->doGenerate($this->cache[$name]->getVariables(), $route->getDefaults(), $requirements, $this->cache[$name]->getTokens(), $parameters, $name, $absolute);
     }
 

@@ -66,6 +66,7 @@ class RouteResolver extends ZMObject {
     public function getRouter() {
         if (null == $this->router) {
             $this->router = new Router(new YamlLoader(), '', $this->options, $this->requestContext);
+            $this->router->getGenerator()->setContainer($this->container);
         }
         return $this->router;
     }
@@ -103,6 +104,11 @@ class RouteResolver extends ZMObject {
      * @return mixed The route or <code>null</code>.
      */
     public function getRouteForId($routeId) {
+        // try alias first
+        $alias = (array) $this->container->get('settingsService')->get('zenmagick.http.routing.alias');
+        if (array_key_exists($routeId, $alias)) {
+            $routeId = $alias[$routeId];
+        }
         return $this->getRouter()->getRouteCollection()->get($routeId);
     }
 
