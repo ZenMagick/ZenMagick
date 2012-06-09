@@ -6,24 +6,255 @@
 
     <!-- global routes -->
     <route id="zenmagick_global_routing" pattern="^^">
-      <option key="view:login">redirect://login</option>
+        <option key="view:login">redirect://login</option>
     </route>
 
-    <route id="rss" pattern="/rss/{channel}/{key}">
-        <default key="_controller">zenmagick\http\controller\RssController:generate</default>
-        <default key="key"></default>
+    <route id="index" pattern="/">
+        <default key="_controller">zenmagick\apps\store\storefront\controller\IndexController</default>         
+        <option key="view">views/index.php</option>                    
+        <option key="view:category">forward://category</option>                    
     </route>
-
+    
     <route id="login" pattern="/login">
         <default key="_controller">zenmagick\apps\store\storefront\controller\LoginController</default>
         <option key="view:account">redirect://account</option>
         <option key="view:success">redirect://account</option>
     </route>
-
-    <route id="account_edit" pattern="/account/edit">
+    
+    <route id="logoff" pattern="/logoff">        
+		    <default key="_controller">zenmagick\apps\store\storefront\controller\LogoffController</default>
+        <option key="view:success">redirect://logoff</option>
+    </route>
+    
+    <route id="account.create" pattern="/account/create">     
+        <default key="_controller">zenmagick\apps\store\storefront\controller\CreateAccountController</default>   
+        <option key="form">ZMRegistrationForm#formId=registration</option>
+        <option key="view">views/create_account.php</option>
+        <option key="view:success">redirect://account.create.success</option>
+    </route>
+    
+    <route id="account" pattern="/account">     
+    	<default key="_controller">zenmagick\apps\store\storefront\controller\AccountController</default>   
+        <option key="view">views/account.php</option>
+    </route>
+    
+    <route id="account.edit" pattern="/account/edit">
         <default key="_controller">zenmagick\apps\store\storefront\controller\AccountEditController</default>
         <option key="view:success">redirect://account</option>
         <option key="form">ZMAccountForm#formId=account</option>
     </route>
+    
+    <route id="account.orders" pattern="/account/orders">
+        <default key="_controller">zenmagick\apps\store\storefront\controller\AccountHistoryController</default> 
+        <option key="view">views/account_history.php</option>
+    </route> 
+    
+    <!-- TODO: map to orderId -->
+    <route id="account.order.details" pattern="/account/order/details/{order_id}">
+        <default key="_controller">zenmagick\apps\store\storefront\controller\AccountHistoryInfoController</default> 
+        <option key="view">views/account_history_info.php</option>     
+    </route> 
+    
+    <route id="account.password.edit" pattern="/account/password/edit">
+        <default key="_controller">zenmagick\apps\store\storefront\controller\AccountPasswordController</default> 
+        <option key="view">views/account_password.php</option>     
+        <option key="view:success">redirect://account</option>     
+    </route>    
+    
+    <route id="account.newsletter" pattern="/account/newsletter">
+        <default key="_controller">zenmagick\apps\store\storefront\controller\AccountNewslettersController</default> 
+        <option key="view">views/account_newsletters.php</option>     
+        <option key="view:success">redirect://account</option>     
+    </route>   
 
+    <route id="account.notifications" pattern="/account/notifications">
+        <default key="_controller">zenmagick\apps\store\storefront\controller\AccountNotificationsController</default> 
+        <option key="view">views/account_notifications.php</option>     
+        <option key="view:success">redirect://account</option>     
+    </route>
+    
+    <route id="account.password.recover" pattern="/account/password/recover">     
+        <default key="_controller">zenmagick\apps\store\storefront\controller\PasswordForgottenController</default>   
+        <option key="view">views/password_forgotten.php</option>
+        <option key="view:success">redirect://login</option>
+    </route>       
+
+    <route id="account.addresses" pattern="/account/addresses">
+        <default key="_controller">zenmagick\apps\store\storefront\controller\AddressBookController</default>         
+        <option key="view">views/address_book.php</option>
+    </route>
+    
+    <route id="account.address.new" pattern="/account/address/new">
+        <default key="_controller">zenmagick\apps\store\storefront\controller\AddressBookAddController</default>         
+        <option key="form">ZMAddress#formId=address</option>     
+        <option key="view">views/address_book_create.php</option>
+        <option key="view:success">redirect://account.addresses</option>
+    </route>
+    
+    <!-- TODO: rename to addressId -->
+    <route id="account.address.edit" pattern="/account/address/edit/{id}">
+        <default key="_controller">zenmagick\apps\store\storefront\controller\AddressBookEditController</default> 
+        <!-- The actual update is POST; that means the id is a POST value rather than url parameter -->
+        <default key="id"></default> 
+        <option key="form">ZMAddress#formId=address</option>     
+        <option key="view">views/address_book_edit.php</option>
+        <option key="view:error">redirect://account.addresses</option>
+        <option key="view:success">redirect://account.addresses</option>
+    </route>
+  
+    <!-- TODO: rename to addressId -->
+    <route id="account.address.delete" pattern="/account/address/delete/{id}">
+        <default key="_controller">zenmagick\apps\store\storefront\controller\AddressBookDeleteController</default>         
+        <!-- The actual delete is POST; that means the id is a POST value rather than url parameter -->
+        <default key="id"></default>
+        <option key="view">views/address_book_delete.php</option>                    
+        <option key="view:success">redirect://account.addresses</option>                    
+    </route>
+    
+    <route id="help.cvv" pattern="/help/cvv">
+        <default key="_controller">zenmagick\apps\store\storefront\controller\DefaultController</default> 
+        <option key="view">views/popup/cvv_help.php</option>       
+    </route>
+    
+    <route id="help.search" pattern="/help/search">
+        <default key="_controller">zenmagick\apps\store\storefront\controller\DefaultController</default> 
+        <option key="view">views/popup/search_help.php</option>         
+    </route>
+    
+    <!-- TODO: coupon lookup should be in a controller; rename cID to couponId  -->
+    <route id="help.coupon" pattern="/help/coupon/{cID}">
+        <default key="_controller">zenmagick\apps\store\storefront\controller\DefaultController</default> 
+        <option key="view">views/popup/coupon_help.php</option>         
+    </route>                 
+    
+    <route id="store.contact" pattern="/contact-us">     
+    	  <default key="_controller">zenmagick\apps\store\storefront\controller\ContactUsController</default>   
+        <option key="form">ZMContactInfo#formId:contactUs</option>
+        <option key="view">views/contact_us.php</option>
+        <option key="view:success">redirect://contact_us</option>
+    </route>
+
+    <!-- ***********************mano tested up to here -->
+
+    <route id="shipping.estimator" pattern="/shipping/estimator">
+        <default key="_controller">zenmagick\apps\store\storefront\controller\DefaultController</default> 
+        <option key="view">views/popup/shipping_estimator.php</option>         
+    </route>
+
+    <route id="discount_coupon" pattern="/discount-coupon">
+        <default key="_controller">zenmagick\apps\store\storefront\controller\DiscountCouponController</default>         
+        <option key="view">views/discount_coupon_info.php</option>                    
+    </route>
+    
+    <route id="category" pattern="/category">
+        <default key="_controller">zenmagick\apps\store\storefront\controller\CategoryController</default>         
+        <option key="view:category_list">views/category_list.php</option>                    
+        <option key="view:manufacturer">views/manufacturer.php</option>
+        <option key="view:product_info">forward://product</option>
+    </route>   
+
+    <route id="checkout.shipping.address" pattern="/checkout/shipping/address">
+        <default key="_controller">zenmagick\apps\store\storefront\controller\CheckoutAddressController#mode=shipping</default>         
+        <option key="form">ZMAddress#formId=shippingAddress</option>                    
+        <option key="view">redirect://checkout.shipping</option>
+    </route>
+    
+    <route id="checkout.shipping" pattern="/checkout/shipping">
+        <default key="_controller">zenmagick\apps\store\storefront\controller\CheckoutShippingController</default>         
+        <option key="view:skip_shipping">redirect://checkout.billing</option>                    
+        <option key="view">redirect://checkout.billing</option>
+    </route>
+    
+    <route id="checkout.billing.address" pattern="/checkout/billing/address">
+        <default key="_controller">zenmagick\apps\store\storefront\controller\CheckoutAddressController#mode=billing</default>         
+        <option key="form">ZMAddress#formId=billingAddress</option>                    
+        <option key="view">redirect://checkout.billing</option>
+    </route>
+
+    <route id="checkout.billing" pattern="/checkout/billing">
+        <default key="_controller">zenmagick\apps\store\storefront\controller\CheckoutPaymentController</default>                                     
+        <option key="view">redirect://checkout.confirmation</option>
+    </route>
+    
+    <route id="checkout.guest" pattern="/checkout/guest">
+		<default key="_controller">zenmagick\apps\store\storefront\controller\CheckoutGuestController</default>        
+        <option key="view">views/login.php</option>
+        <option key="view:guest_checkout_disabled">views/login.php</option>
+        <option key="view:success">redirect://checkout.shipping</option>
+    </route>
+    
+    <route id="checkout" pattern="/checkout">
+        <default key="_controller">zenmagick\apps\store\storefront\controller\CheckoutShippingController</default>         
+        <option key="view">views/checkout_shipping.php</option>
+        <option key="view:skip_shipping">redirect://checkout.billing</option>                    
+        <option key="view:success">redirect://checkout.billing</option>
+    </route>
+
+    <route id="cart.empty" pattern="/cart/empty">
+        <default key="_controller">zenmagick\apps\store\storefront\controller\DefaultController</default>         
+        <option key="view">redirect://shopping-cart</option>                            
+    </route>
+    
+    <route id="guest.history" pattern="/guest/history">     
+    	<default key="_controller">zenmagick\apps\store\storefront\controller\GuestHistoryController</default>   
+        <option key="view">views/account_history_info.php</option>
+    </route>
+    
+    <route id="gv_voucher.redeem" pattern="/gift-voucher/redeem">     
+    	<default key="_controller">zenmagick\apps\store\storefront\controller\GvRedeemController</default>   
+        <option key="form">ZMGVRedeem#formId=gvRedeem</option>
+    </route>
+     
+    <route id="gv_voucher.faq" pattern="/gift-voucher/faq">     
+    	<default key="_controller">zenmagick\apps\store\storefront\controller\GvFaqController</default>   
+        <option key="form">ZMGVRedeem#formId=gvRedeem</option>
+    </route>
+        
+    <route id="gv_voucher.send.confirm" pattern="/gift-voucher/send/confirm">     
+    	<default key="_controller">zenmagick\apps\store\storefront\controller\GvSendConfirmController</default>   
+        <option key="form">ZMGVReceiver#formId=gvReceiver</option>
+        <option key="view">redirect://account</option>
+        <option key="view:edit">redirect://gv_voucher.send</option>
+    </route>
+    
+    <route id="gv_voucher.send" pattern="/gift-voucher/send">     
+    	<default key="_controller">zenmagick\apps\store\storefront\controller\GvSendController</default>   
+        <option key="form">ZMGVReceiver#formId=gvReceiver</option>
+        <option key="view">views/gv_send.php</option>
+    </route>	
+    
+    <route id="redirect" pattern="/redirect">     
+    	<default key="_controller">zenmagick\apps\store\storefront\controller\RedirectController</default>   
+        <option key="view">redirect://index</option>
+        <option key="view:error">redirect://index</option>
+    </route> 
+
+  	<route id="product.review.write" pattern="/product/review/write">     
+    	<default key="_controller">zenmagick\apps\store\storefront\controller\RedirectController</default>   
+        <option key="view">redirect://product.reviews</option>
+        <option key="form">zenmagick\apps\store\model\catalog\Review#formId:newReview</option>
+    </route>
+    
+	<route id="tell_a_friend" pattern="/tell-a-friend">     
+    	<default key="_controller">zenmagick\apps\store\storefront\controller\TellAFriendController</default>   
+        <option key="view">redirect://product</option>
+        <option key="form">ZMEmailMessage#formId:tellAFriend</option>
+    </route>
+    
+    <route id="product" pattern="/product">     
+    	<default key="_controller">zenmagick\apps\store\storefront\controller\ProductInfoController</default>           
+    </route>
+
+    <route id="search.advanced" pattern="/search/advanced">     
+    	  <default key="_controller">zenmagick\apps\store\storefront\controller\AdvancedSearchController</default>   
+        <option key="form">ZMSearchCriteria#formId:searchCriteria</option>
+        <option key="view">views/advanced_search.php</option>
+    </route>
+    
+    <route id="search" pattern="/search">     
+    	  <default key="_controller">zenmagick\apps\store\storefront\controller\SearchController</default>   
+        <option key="form">ZMSearchCriteria#formId:searchCriteria</option>
+        <option key="view">views/search.php</option>
+    </route>
+    
 </routes>
