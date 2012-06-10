@@ -114,7 +114,7 @@ class ManufacturerService extends ZMObject {
      * @return Manufacturer The manufacturer or </code>null</code>.
      */
     public function getManufacturerForProduct($product) {
-		    return $this->getManufacturerForId($product->getManufacturerId(), $product->getLanguageId());
+        return $this->getManufacturerForId($product->getManufacturerId(), $product->getLanguageId());
     }
 
     /**

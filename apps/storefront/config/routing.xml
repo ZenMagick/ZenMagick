@@ -22,7 +22,7 @@
     </route>
 
     <route id="logoff" pattern="/logoff">
-		    <default key="_controller">zenmagick\apps\store\storefront\controller\LogoffController</default>
+        <default key="_controller">zenmagick\apps\store\storefront\controller\LogoffController</default>
         <option key="view:success">redirect://logoff</option>
     </route>
 
@@ -187,7 +187,7 @@
     </route>
 
     <route id="checkout.guest" pattern="/checkout/guest">
-		<default key="_controller">zenmagick\apps\store\storefront\controller\CheckoutGuestController</default>
+        <default key="_controller">zenmagick\apps\store\storefront\controller\CheckoutGuestController</default>
         <option key="view">views/login.php</option>
         <option key="view:guest_checkout_disabled">views/login.php</option>
         <option key="view:success">redirect://checkout.shipping</option>
@@ -245,7 +245,7 @@
         <option key="form">zenmagick\apps\store\model\catalog\Review#formId:newReview</option>
     </route>
 
-	<route id="tell_a_friend" pattern="/tell-a-friend">
+    <route id="tell_a_friend" pattern="/tell-a-friend">
         <default key="_controller">zenmagick\apps\store\storefront\controller\TellAFriendController</default>
         <option key="view">redirect://product</option>
         <option key="form">ZMEmailMessage#formId:tellAFriend</option>

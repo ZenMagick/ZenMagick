@@ -138,8 +138,8 @@ class SQLRunner {
           case (substr($line_upper, 0, 19) == 'INSERT IGNORE INTO '):
             //check to see if table prefix is going to match
             if (!$tbl_exists = self::table_exists(self::$prefix.$param[3])) {
-	    $result=sprintf(_zm('Table not found'),$param[3]).' CHECK PREFIXES!';
-      self::write_to_upgrade_exceptions_table($line, $result, $sql_file);
+              $result=sprintf(_zm('Table not found'),$param[3]).' CHECK PREFIXES!';
+              self::write_to_upgrade_exceptions_table($line, $result, $sql_file);
               $ignore_line=true;
               break;
             } else {

@@ -100,7 +100,7 @@ class ZMProductFinder extends ZMObject {
      */
     protected function buildQuery($criteria) {
         $args = array();
-		    $useFulltext = $this->container->get('settingsService')->get('apps.store.search.fulltext', false);
+        $useFulltext = $this->container->get('settingsService')->get('apps.store.search.fulltext', false);
 
         $select = "SELECT DISTINCT p.products_id";
         if ($criteria->isIncludeTax() && (!Toolbox::isEmpty($criteria->getPriceFrom()) || !Toolbox::isEmpty($criteria->getPriceTo()))) {
@@ -156,7 +156,7 @@ class ZMProductFinder extends ZMObject {
             $args['manufacturerId'] = $criteria->getManufacturerId();
         }
 
-		    $fulltext_match_order = array();
+        $fulltext_match_order = array();
         if (!Toolbox::isEmpty($criteria->getKeywords())) {
             if ($this->parseSearchString(stripslashes($criteria->getKeywords()), $tokens)) {
                 $index = 0;
@@ -189,9 +189,9 @@ class ZMProductFinder extends ZMObject {
 
                         // search meta tags
                         $where .= " OR (mtpd.metatags_keywords LIKE :".$name."
-									          AND mtpd.metatags_keywords !='')";
+                                    AND mtpd.metatags_keywords !='')";
                         $where .= " OR (mtpd.metatags_description LIKE :".$name."
-									          AND mtpd.metatags_description !='')";
+                                    AND mtpd.metatags_description !='')";
                         if ($criteria->isIncludeDescription()) {
                             if ($useFulltext) {
                                 $where .= " OR match(pd.products_description) against (:".$name.")";

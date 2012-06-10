@@ -25,16 +25,16 @@
 <?php $crumbtrail->addCrumb(_zm('Shopping Cart')) ?>
 <?php echo $form->open('shopping_cart', "action=update_product", true) ?>
     <table cellpadding="0" cellspacing="0" width="100%">
-    	<tr class="tableHeading">
-    		<th><?php _vzm('Qty.') ?></th>
-    		<th colspan="2"><?php _vzm('Item Name') ?></th>
-    		<th style="text-align: left"><?php _vzm('Total') ?></th>
-    		<th style="width: 50px" align="right">&nbsp;</th>
-    	</tr>
+        <tr class="tableHeading">
+            <th><?php _vzm('Qty.') ?></th>
+            <th colspan="2"><?php _vzm('Item Name') ?></th>
+            <th style="text-align: left"><?php _vzm('Total') ?></th>
+            <th style="width: 50px" align="right">&nbsp;</th>
+        </tr>
         <tbody>
         <?php $odd = true; $first = true; foreach ($shoppingCart->getItems() as $item) { ?>
             <tr class="<?php echo ($odd?"odd":"rowEven").($first?" first":" other") ?>">
-            	<td class="qty">
+                <td class="qty">
                     <input type="text" name="cart_quantity[]" size="4" value="<?php echo $item->getQuantity() ?>" />
                 </td>
 

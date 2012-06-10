@@ -323,7 +323,7 @@ class ZMProducts extends ZMObject implements ZMSQLAware {
      * @return array A list of <code>ZMProduct</code> instances.
      */
     public function getFeaturedProducts($categoryId=null, $max=0, $includeChildren=false, $languageId=null) {
-		    $sql = null;
+        $sql = null;
         if (null == $categoryId) {
             $sql = "select distinct p.products_id
                     from %table.products% p

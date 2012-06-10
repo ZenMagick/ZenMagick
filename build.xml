@@ -2,7 +2,7 @@
 
     <tstamp />
 
-	  <!-- Local properties 'win' over defaults... -->
+    <!-- Local properties 'win' over defaults... -->
     <property file="local.properties" />
 
     <!-- import main targets -->

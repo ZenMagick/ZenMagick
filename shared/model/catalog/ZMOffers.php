@@ -192,8 +192,8 @@ class ZMOffers extends ZMObject {
      * Calculate the discount price.
      */
     protected function doGetSalePrice() {
-  	    $basePrice = $this->getBasePrice(false);
-  	    $specialPrice = $this->getSpecialPrice(false);
+        $basePrice = $this->getBasePrice(false);
+        $specialPrice = $this->getSpecialPrice(false);
 
         // get available sales
         $sql = "SELECT sale_specials_condition, sale_deduction_value, sale_deduction_type

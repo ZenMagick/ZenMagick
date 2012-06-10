@@ -49,7 +49,7 @@ class Toolbox {
      * @return string The random string.
      */
     public static function random($length, $type='mixed') {
-        static $types	=	array(
+        static $types = array(
         self::RANDOM_DIGITS => '0123456789',
         self::RANDOM_CHARS => 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ',
         self::RANDOM_MIXED => '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789',
@@ -62,10 +62,10 @@ class Toolbox {
         }
 
         $chars = array_key_exists($type, $types) ? $types[$type] : $type;
-        $max=	strlen($chars) - 1;
+        $max   = strlen($chars) - 1;
         $token = '';
         for ($ii=0; $ii < $length; ++$ii) {
-            $token .=	$chars[(rand(0, $max))];
+            $token .= $chars[(rand(0, $max))];
         }
 
         return $token;

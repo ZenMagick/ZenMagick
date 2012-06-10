@@ -129,8 +129,8 @@ class ZMPhpEngine extends ZMObject implements EngineInterface {
         unset($variables);
 
         // prepare env
-				extract($this->properties, EXTR_REFS | EXTR_SKIP);
-				extract($__fetchVars['variables'], EXTR_REFS | EXTR_SKIP);
+        extract($this->properties, EXTR_REFS | EXTR_SKIP);
+        extract($__fetchVars['variables'], EXTR_REFS | EXTR_SKIP);
         $__fetchVars['path'] = $this->view->getResourceResolver()->findResource($__fetchVars['template'], View::TEMPLATE);
 
         if (empty($__fetchVars['path'])) {

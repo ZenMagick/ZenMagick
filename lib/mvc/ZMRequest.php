@@ -593,8 +593,8 @@ class ZMRequest extends ZMObject {
      */
     public function getProtocol() {
         $protocol = $_SERVER["SERVER_PROTOCOL"];
-	      if ('HTTP/1.1' != $protocol && 'HTTP/1.0' != $protocol) {
-		        $protocol = 'HTTP/1.0';
+        if ('HTTP/1.1' != $protocol && 'HTTP/1.0' != $protocol) {
+            $protocol = 'HTTP/1.0';
         }
 
         return $protocol;

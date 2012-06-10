@@ -19,9 +19,9 @@
  */ $admin->title() ?>
 
 <script>
-	$(function() {
+$(function() {
     $('.datepicker').datepicker();
-	});
+});
 </script>
 
 <h2><?php _vzm('Export orders') ?></h2>

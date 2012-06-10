@@ -30,7 +30,7 @@ namespace zenmagick\apps\store\themes\modern;
  */
 class ToolboxHtml extends \zenmagick\apps\store\toolbox\ToolboxHtml {
 
-	/**
+   /**
      * Create a full HTML &lt;a&gt; tag pointig to an ezpage.
      *
      * <p>Since the link text may be HTML, no HTML escaping is done on the <code>$text</code> parameter.</p>

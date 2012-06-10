@@ -4,9 +4,9 @@
   <xsl:output method="text"/>
 
   <xsl:template match="zipdiff/differences/added">
-  	<xsl:value-of select="."/>
+    <xsl:value-of select="."/>
   </xsl:template>
   <xsl:template match="zipdiff/differences/changed">
-  	<xsl:value-of select="."/>
+    <xsl:value-of select="."/>
   </xsl:template>
 </xsl:stylesheet>

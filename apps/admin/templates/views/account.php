@@ -19,9 +19,9 @@
  */ $admin->title() ?>
 
 <?php /*
-	customers_default_address_id 	int(11) 			No 	0 		Browse distinct values 	Change 	Drop 	Primary 	Unique 	Index 	Fulltext
-	customers_password 	varchar(40) 	utf8_general_ci 		No 			Browse distinct values 	Change 	Drop 	Primary 	Unique 	Index 	Fulltext
-	customers_authorization 	int(1) 			No 	0 		Browse distinct values 	Change 	Drop 	Primary 	Unique 	Index 	Fulltext
+  customers_default_address_id int(11)
+  customers_password           varchar(40)
+  customers_authorization      int(1)
 
   TODO:
   - above

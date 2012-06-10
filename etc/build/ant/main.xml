@@ -56,25 +56,25 @@
 
     <!-- Ask for version numbers if not set -->
     <target name="ask-versions" depends="ask-current-version,ask-last-version" description="Ask for ZenMagick versions.">
-        <input addproperty="zenmagick.version" message="Enter the version number " /> 
+        <input addproperty="zenmagick.version" message="Enter the version number " />
     </target>
 
 
     <!-- Ask for current version number if not set -->
     <target name="ask-current-version" unless="zenmagick.version" description="Ask for current ZenMagick version.">
-        <input addproperty="zenmagick.version" message="Enter the CURRENT version number: " /> 
+        <input addproperty="zenmagick.version" message="Enter the CURRENT version number: " />
     </target>
 
 
     <!-- Ask for last version number if not set -->
     <target name="ask-last-version" unless="zenmagick.last.version" description="Ask for last ZenMagick version.">
-        <input addproperty="zenmagick.last.version" message="Enter the LAST version number: " /> 
+        <input addproperty="zenmagick.last.version" message="Enter the LAST version number: " />
     </target>
 
 
     <!-- Build reielase update files, add to release zip and create incr. release zip -->
     <target name="incr-release" unless="skip.incr" description="Build release update files, add to release zip and create incr. release zip.">
-        <zipdiff filename1="${version.dir}/${version.prefix}-${version.from}.zip" 
+        <zipdiff filename1="${version.dir}/${version.prefix}-${version.from}.zip"
               filename2="${version.dir}/${version.prefix}-${version.to}.zip"
               ignoreTimestamps="true"
               ignoreEmbedded="true"
@@ -94,7 +94,7 @@
 
         <!-- incremental update -->
         <delete file="${diff.incr.filename}" />
-    	  <xslt in="${diff.xml.filename}" out="${diff.incr.filename}" style="etc/build/zipdiff2list.xsl" />
+        <xslt in="${diff.xml.filename}" out="${diff.incr.filename}" style="etc/build/zipdiff2list.xsl" />
 
         <zip destfile="${version.incr.filename}">
             <zipfileset src="${version.dir}/${version.file}.zip" includesfile="${diff.incr.filename}" />

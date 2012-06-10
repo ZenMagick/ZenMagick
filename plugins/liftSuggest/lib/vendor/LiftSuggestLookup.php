@@ -49,7 +49,7 @@ class LiftSuggestLookup {
      *
      * @param array config The configuration.
      */
-	  public function __construct($config) {
+    public function __construct($config) {
         $this->token = $config['token'];
         $this->customerId = $config['customerId'];
         $this->limit = $config['limit'];
@@ -148,9 +148,9 @@ class LiftSuggestLookup {
 
         foreach ($raw as $value) {
             if (is_array($value)) {
-					      foreach ($value as $key => $details) {
+                foreach ($value as $key => $details) {
                     $recommendations[$key] = $details;
-					      }
+                }
             } else {
                 $this->log(sprintf('invalid recommendation: "%s"', $value));
             }

@@ -39,7 +39,7 @@ class ZMLiftSuggestLookup extends LiftSuggestLookup implements ContainerAwareInt
      *
      * @param ZMPlugin plugin The related plugin or <code>null</code>.
      */
-	  public function __construct($plugin=null) {
+    public function __construct($plugin=null) {
         $this->plugin_ = null != $plugin ? $plugin : Runtime::getContainer()->get('pluginService')->getPluginForId('liftSuggest');
         parent::__construct($this->plugin_->getLiftSuggestConfig());
     }
@@ -83,7 +83,7 @@ class ZMLiftSuggestLookup extends LiftSuggestLookup implements ContainerAwareInt
 
         // process product infos
         $products = array();
-		    foreach ($raw['products'] as $details) {
+        foreach ($raw['products'] as $details) {
             if (array_key_exists('sku', $details)) {
                 $product = $this->container->get('productService')->getProductForId($details['sku'], Runtime::getSettings()->get('storeDefaultLanguageId'));
                 if (null != $product && $product->getStatus()) {
@@ -104,7 +104,7 @@ class ZMLiftSuggestLookup extends LiftSuggestLookup implements ContainerAwareInt
         $recommendations->set('productDetails', $products);
 
         // keep other
-		    foreach ($raw as $key => $details) {
+        foreach ($raw as $key => $details) {
             if ('products' != $key) {
                 $recommendations->set($key, $details);
                 if ('popular_perc' == $key) {

@@ -74,12 +74,12 @@ use zenmagick\base\Runtime;
 <?php $resources->jsFile('js/jquery.jstree.js') ?>
 <script type="text/javascript">
 $(function () {
-	$("#category-tree").jstree({
+  $("#category-tree").jstree({
     core: {
       animation: 200,
       initially_open: [<?php echo $initially_open ?>]
     },
-		plugins : ["html_data", "ui", "contextmenu", "themeroller"],
+    plugins : ["html_data", "ui", "contextmenu", "themeroller"],
     themeroller: {
       opened: "ui-icon-circle-minus",
       closed: "ui-icon-circle-plus",
@@ -88,7 +88,7 @@ $(function () {
       item_icon: "ui-icon-empty"
     },
     contextmenu: {
-			show_at_node : false,
+      show_at_node : false,
       items: function(node) {
         return {
           "create": {
