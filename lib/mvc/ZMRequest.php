@@ -501,17 +501,6 @@ class ZMRequest extends ZMObject {
     }
 
     /**
-     * Get the base url.
-     *
-     * <p>This will return the absolute url for the current request context.</p>
-     *
-     * @return string A base URL for the current request.
-     */
-    public function getBaseUrl() {
-        return $this->absoluteUrl('', true);
-    }
-
-    /**
      * Get the document root path.
      *
      * @return string The document root.

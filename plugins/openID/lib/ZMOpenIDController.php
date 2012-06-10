@@ -138,7 +138,7 @@ class ZMOpenIDController extends ZMController {
 
         // For OpenID 1, send a redirect.  For OpenID 2, use a Javascript
         // form to send a POST request to the server.
-        $realm = $request->getBaseUrl();
+        $realm = $request->absoluteUrl('', true);
         if ($auth_request->shouldSendRedirect()) {
             $redirect_url = $auth_request->redirectURL($realm, $this->returnTo_);
 
