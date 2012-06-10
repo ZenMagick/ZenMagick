@@ -118,6 +118,26 @@ class ConfigPatch extends SQLPatch {
             $configService->createConfigValue($title, 'SESSION_ADD_PERIOD_PREFIX', 'True', $sessionGroupId, $description, 0, $setFunction);
         }
 
+        $modulesGroup = $configService->getConfigGroupForName('Module Options')->getId();
+
+        if (null == $configService->getConfigValue('PRODUCTS_OPTIONS_TYPE_SELECT')) {
+            $title = 'Product option type Select';
+            $description = 'Numeric value of the text product option type.';
+            $configService->createConfigValue($title, 'PRODUCTS_OPTIONS_TYPE_SELECT', 0, $modulesGroup, $description);
+        }
+
+        if (null == $configService->getConfigValue('TEXT_PREFIX')) {
+            $title = 'Text Prefix';
+            $description = 'Prefix used to differentiate between text option values and other option values';
+            $configService->createConfigValue($title, 'TEXT_PREFIX', 'txt_', $modulesGroup, $description);
+        }
+
+        if (null == $configService->getConfigValue('UPLOAD_PREFIX')) {
+            $title = 'Upload Prefix';
+            $description = 'Prefix used to differentiate between upload option values and other option values';
+            $configService->createConfigValue($title, 'UPLOAD_PREFIX', 'upload_', $modulesGroup, $description);
+        }
+
         return true;
     }
 
