@@ -60,11 +60,6 @@ class ZenCartBundle extends Bundle {
         $eventDispatcher->listen($this);
         $eventDispatcher->addListener('generate_email', array(Beans::getBean('zenmagick\apps\store\bundles\ZenCartBundle\utils\EmailEventHandler'), 'onGenerateEmail'));
 
-        // random defines that we might need
-        if (!defined('PRODUCTS_OPTIONS_TYPE_SELECT')) { define('PRODUCTS_OPTIONS_TYPE_SELECT', 0); }
-        if (!defined('ATTRIBUTES_PRICE_FACTOR_FROM_SPECIAL')) { define('ATTRIBUTES_PRICE_FACTOR_FROM_SPECIAL', 0); }
-        if (!defined('TEXT_PREFIX')) { define('TEXT_PREFIX', 'txt_'); }
-        if (!defined('UPLOAD_PREFIX')) { define('UPLOAD_PREFIX', 'upload_'); }
     }
 
     public static function buildSearchPaths($base = '') {

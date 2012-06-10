@@ -23,6 +23,8 @@
 
 use zenmagick\base\Runtime;
 
+// NOTE: this isn't actually set anywhere in zencart, it's only used in functions_prices. Must require extra_configures?
+if (!defined('ATTRIBUTES_PRICE_FACTOR_FROM_SPECIAL')) define('ATTRIBUTES_PRICE_FACTOR_FROM_SPECIAL', 0);
 
     /**
      * Split email addresses as per zc convention.
@@ -105,8 +107,8 @@ use zenmagick\base\Runtime;
             'defaultLanguageCode' => DEFAULT_LANGUAGE,
 
             // cart form constants
-            'textOptionPrefix' => TEXT_PREFIX,
-            'uploadOptionPrefix' => UPLOAD_PREFIX,
+            'textOptionPrefix' => defined('TEXT_PREFIX') ? TEXT_PREFIX : 'txt_',
+            'uploadOptionPrefix' => defined('UPLOAD_PREFIX') ? UPLOAD_PREFIX : 'upload_',
 
             // default/store currency
             'defaultCurrency' => DEFAULT_CURRENCY,
@@ -119,7 +121,7 @@ use zenmagick\base\Runtime;
             'couponCodeLength' => SECURITY_CODE_LENGTH,
 
             // base attribute price factor on discounted or regular price
-            'isDiscountAttributePriceFactor' => '1' == ATTRIBUTES_PRICE_FACTOR_FROM_SPECIAL,
+            'isDiscountAttributePriceFactor' => '1' == (defined('ATTRIBUTES_PRICE_FACTOR_FROM_SPECIAL') ? ATTRIBUTES_PRICE_FACTOR_FROM_SPECIAL : '0'),
 
             'apps.store.pricing.text.ignoreWS' => '1' == TEXT_SPACES_FREE,
 
