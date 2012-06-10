@@ -23,7 +23,6 @@
 ?>
 
 <?php
-  $coupon = $container->get('couponService')->getCouponForId($request->getParameter('cID'), $session->getLanguageId());
   $restrictions = $coupon->getRestrictions();
   $fixed = _zm('This coupon entitles you to a %s discount against your order');
   if ($coupon::TYPPE_FIXED == $coupon->getType()) {
@@ -33,12 +32,11 @@
   } else {
       $discount = _zm('This coupon gives you free shipping on your order');
   }
-
 ?>
 <h2><?php _vzm("Congratulations, you have redeemed a Discount Coupon.") ?></h2>
 <p>
   <?php _vzm("Coupon Name: %s", $coupon->getName()) ?><br/>
-  <?php _vzm("Coupon Description: %s", $html->encode($coupon->getDescription())) ?><br/>
+  <?php _vzm("Coupon Description: %s", $coupon->getDescription()) ?><br/>
   <?php echo $discount ?>
 </p>
 
