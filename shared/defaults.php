@@ -155,7 +155,16 @@ if (!defined('ATTRIBUTES_PRICE_FACTOR_FROM_SPECIAL')) define('ATTRIBUTES_PRICE_F
 
             // cookies only?
             'isForceCookieUse' => SESSION_FORCE_COOKIE_USE == 'True',
-            'apps.store.storefront.domain' => (zenmagick\base\Runtime::getContainer()->get('request')->isSecure() && defined('HTTP_COOKIE_DOMAIN') ? HTTP_COOKIE_DOMAIN : (!zenmagick\base\Runtime::getContainer()->get('request')->isSecure() && defined('HTTPS_COOKIE_DOMAIN') ? HTTPS_COOKIE_DOMAIN : null)),
+            /**
+             * @todo this won't work and/or doesn't matter until we support shared certificates.
+             *       It's likely that we would want want to split this into 2 seperate parameters.
+             * 'apps.store.storefront.domain' => (zenmagick\base\Runtime::getContainer()->get('request')->isSecure()
+             *                                   && defined('HTTP_COOKIE_DOMAIN') ?
+             *                                      HTTP_COOKIE_DOMAIN :
+             *                                      (!zenmagick\base\Runtime::getContainer()->get('request')->isSecure() &&
+             *                                      defined('HTTPS_COOKIE_DOMAIN') ? HTTPS_COOKIE_DOMAIN : null)),
+             */
+            'apps.store.storefront.domain' => null,
             'zenmagick.http.session.useFqdn' => SESSION_USE_FQDN == 'True',
 
             // recreate sessions?
