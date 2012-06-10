@@ -66,6 +66,6 @@
     <h4><?php _vzm("The coupon is valid for all categories and products.") ?></h4>
 <?php } ?>
 
-<p>Discount Coupons may not be applied towards the purchase of Gift Certificates.</p>
+<p><?php _vzm("Discount Coupons may not be applied towards the purchase of Gift Certificates.") ?></p>
 
 <div id="close"><a href="#" onclick="javascript:window.close()"><?php _vzm("Close Window [x]") ?></a></div>
