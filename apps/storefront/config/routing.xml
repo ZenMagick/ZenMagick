@@ -123,7 +123,7 @@
 
     <!-- TODO: coupon lookup should be in a controller; rename cID to couponId  -->
     <route id="help.coupon" pattern="/help/coupon/{cID}">
-        <default key="_controller">zenmagick\apps\store\storefront\controller\DefaultController</default>
+        <default key="_controller">zenmagick\apps\store\storefront\controller\CouponHelpController:show</default>
         <option key="view">views/popup/coupon_help.php</option>
     </route>
 
