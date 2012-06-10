@@ -29,7 +29,7 @@
   }
 </script>
 
-<?php $adminId = $request->getUser()->getId(); ?>
+<?php $adminId = $request->getAccount()->getId(); ?>
 <h1><?php _vzm('Dashboard') ?><a href="" title="<?php _vzm('Customize Dashboard') ?>" onclick="return _db_open_options();"><span class="ui-icon ui-corner-all ui-icon-wrench"></span></a></h1>
 <div><!--view-container-->
 <div id="dashboard" class="<?php echo ($container->get('dashboard')->getLayout($adminId)) ?>">

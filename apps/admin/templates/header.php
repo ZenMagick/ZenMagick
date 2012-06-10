@@ -22,12 +22,12 @@
   <div id="logo">
     <a href="<?php echo $admin->url('index') ?>"><img src="<?php echo $this->asUrl('resource:images/logo.png') ?>" alt="ZenMagick" title="ZenMagick"></a>
   </div>
-  <?php if ($request->getUser()) { ?>
+  <?php if ($request->getAccount()) { ?>
     <div id="header-box">
       <p id="header-state">
-        <?php $userLink = '<a href="'.$admin->url('update_user').'" onclick="ZenMagick.ajaxFormDialog(this.href, {title:\''.sprintf(_zm('User Profile: %s'), $request->getUser()->getName()).'\', formId:\'updateUser\'}); return false;">'.$request->getUser()->getName().'</a>'; ?>
+        <?php $userLink = '<a href="'.$admin->url('update_user').'" onclick="ZenMagick.ajaxFormDialog(this.href, {title:\''.sprintf(_zm('User Profile: %s'), $request->getAccount()->getName()).'\', formId:\'updateUser\'}); return false;">'.$request->getAccount()->getName().'</a>'; ?>
         <?php _vzm('Logged in as %s', $userLink) ?>
-        <?php if (!$request->getUser()->isLive()) { ?>
+        <?php if (!$request->getAccount()->isLive()) { ?>
           <span id="demo-note"><?php _vzm('*** DEMO MODE ***') ?></span>
         <?php } ?>
         | <?php echo date('l, F d, Y') ?>
@@ -42,7 +42,7 @@
     </div>
   <?php } ?>
   <ul id="main-menu">
-    <?php if ($request->getUser()) { ?>
+    <?php if ($request->getAccount()) { ?>
       <?php $root = $adminMenu->getRootItemForRequestId($request->getRequestId()); ?>
       <?php foreach ($adminMenu->getRoot()->getChildren() as $item) { ?>
         <li<?php if (null != $root && $root->getId() == $item->getId()) { echo ' class="active"'; } ?>><a href="<?php echo $admin->url($item->getRequestId()) ?>"><?php echo $item->getName() ?></a></li>

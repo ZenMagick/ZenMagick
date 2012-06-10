@@ -42,7 +42,7 @@ class AdminEventHandler extends ZMObject {
      */
     public function onInsufficientCredentials($event) {
         $request = $event->get('request');
-        if (null != $request->getUser()) {
+        if (null != $request->getAccount()) {
             // only if we still have a valid session
             $this->container->get('messageService')->warn(sprintf(_zm('You are not allowed to access the page with id: <em>%s</em>'), $request->getRequestId()));
         }
@@ -69,7 +69,7 @@ class AdminEventHandler extends ZMObject {
      * @return TextAreaFormWidget A text editor widget.
      */
     protected function getCurrentEditor($request) {
-        $user = $request->getUser();
+        $user = $request->getAccount();
         if (null == $user || null == ($editorId = $this->container->get('adminUserPrefService')->getPrefForName($user->getId(), 'wysiwygEditor'))) {
             $editorId = self::DEFAULT_EDITOR_SERVICE_ID;
         }
@@ -123,7 +123,7 @@ class AdminEventHandler extends ZMObject {
             set_time_limit($timeLimit->getValue());
         }
 
-        $user = $request->getUser();
+        $user = $request->getAccount();
         if (null != $user && null != ($uiLocale = $this->container->get('adminUserPrefService')->getPrefForName($user->getId(), 'uiLocale'))) {
             $this->container->get('localeService')->getLocale(true, $uiLocale);
         }
@@ -135,7 +135,7 @@ class AdminEventHandler extends ZMObject {
             $idName = $request->getRequestIdKey();
             if (isset($params[$idName])) unset($params[$idName]);
             $data = array(
-                'admin_id' => (null !== $request->getUser()) ? $request->getUser()->getId() : 0,
+                'admin_id' => (null !== $request->getAccount()) ? $request->getAccount()->getId() : 0,
                 'access_date' => new \DateTime(),
                 'page_accessed' => $request->getRequestId(),
                 'page_parameters' => http_build_query($params),

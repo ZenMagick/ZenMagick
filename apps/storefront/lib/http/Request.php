@@ -235,17 +235,9 @@ class Request extends \ZMRequest {
     public function getAccountId() { return (int)$this->getSession()->getAccountId(); }
 
     /**
-     * {@inheritDoc}
-     */
-    public function getUser() {
-        return $this->getAccount();
-    }
-
-    /**
      * Get the account.
      *
      * @return ZMAccount The account or <code>null</code>.
-     * @deprecated use getUser() instead
      */
     public function getAccount() {
         $accountId = $this->getAccountId();

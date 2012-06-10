@@ -41,14 +41,14 @@ class ZMRpcController extends ZMController {
 
         $sacsManager = $this->container->get('sacsManager');
         // check access on controller level
-        if (!$sacsManager->authorize($request, $request->getRequestId(), $request->getUser(), false)) {
+        if (!$sacsManager->authorize($request, $request->getRequestId(), $request->getAccount(), false)) {
             $rpcResponse = $this->invalidCredentials($rpcRequest);
         }
 
         // (re-)check on method level if mapping exists
         $methodRequestId = $request->getRequestId().'#'.$sacsMethod;
         if ($sacsManager->hasMappingForRequestId($methodRequestId)) {
-            if (!$sacsManager->authorize($request, $methodRequestId, $request->getUser(), false)) {
+            if (!$sacsManager->authorize($request, $methodRequestId, $request->getAccount(), false)) {
                 $rpcResponse = $this->invalidCredentials($rpcRequest);
             }
         }
@@ -80,7 +80,7 @@ class ZMRpcController extends ZMController {
     public function invalidCredentials($rpcRequest) {
         $request = $rpcRequest->getRequest();
         $rpcResponse = $rpcRequest->createResponse();
-        if (null === $request->getUser()) {
+        if (null === $request->getAccount()) {
             $rpcResponse->setStatus(false, ZMRpcResponse::RC_NO_CREDENTIALS);
             $rpcResponse->addMessage(_zm('No credentials'), 'error');
             $rpcResponse->setData(array('location' => $request->url(Runtime::getSettings()->get('zenmagick.http.request.login', 'login'), '', true)));

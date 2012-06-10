@@ -97,7 +97,7 @@ class Dispatcher extends ZMObject {
         try {
             // check authorization
             $sacsManager = $this->container->get('sacsManager');
-            $sacsManager->authorize($request, $request->getRequestId(), $request->getUser());
+            $sacsManager->authorize($request, $request->getRequestId(), $request->getAccount());
 
             $result = null;
 

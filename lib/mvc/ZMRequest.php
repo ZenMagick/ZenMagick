@@ -242,8 +242,10 @@ class ZMRequest extends ZMObject {
      * The factory may be configured as bean defintion via the setting 'zenmagick.http.session.userFactory'.</p>
      *
      * @return mixed A user/credentials object. Default is <code>null</code>.
+     *
+     * @todo move this either to the session or request attributes
      */
-    public function getUser() {
+    public function getAccount() {
         if ($this->container->has('userFactory') && null != ($userFactory = $this->container->get('userFactory'))) {
             return $userFactory->getUser($this);
         }

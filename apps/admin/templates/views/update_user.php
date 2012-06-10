@@ -18,7 +18,7 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 ?>
-<p>Groups: <?php echo implode(', ', $request->getUser()->getRoles()) ?></p>
+<p>Groups: <?php echo implode(', ', $request->getAccount()->getRoles()) ?></p>
 <form action="<?php echo $admin->url() ?>" method="POST" id="updateUser">
   <fieldset>
   <legend><?php _vzm('Account') ?></legend>

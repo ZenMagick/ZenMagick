@@ -32,7 +32,7 @@ class AdminUsersController extends \ZMController {
      * {@inheritDoc}
      */
     public function processGet($request) {
-        $user = $request->getUser();
+        $user = $request->getAccount();
         $resultSource = new \ZMObjectResultSource('zenmagick\\apps\\admin\\entities\\AdminUser', 'adminUserService', "getAllUsers", !$user->isLive());
         $resultList = Runtime::getContainer()->get('ZMResultList');
         $resultList->setResultSource($resultSource);
