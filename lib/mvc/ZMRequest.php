@@ -46,7 +46,6 @@ class ZMRequest extends ZMObject {
      */
     const DEFAULT_REQUEST_ID = 'rid';
 
-    private $toolbox_;
     private $parameter_;
     private $method_;
     private $dispatcher;
@@ -73,7 +72,6 @@ class ZMRequest extends ZMObject {
         }
 
         $this->setMethod(array_key_exists('REQUEST_METHOD', $_SERVER) ? $_SERVER['REQUEST_METHOD'] : 'GET');
-        $this->toolbox_ = null;
         $this->dispatcher = null;
     }
 
