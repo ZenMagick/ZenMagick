@@ -29,7 +29,7 @@ class you'll need to reapply those changes.
 2) added a new line in the c'tor to set the fonts directory. That line needs
    to be placed after the original code that initialises dir_fs_fonts:
 
-		$this->dir_fs_fonts = $captcha->getPluginDirectory() . 'fonts/';
+$this->dir_fs_fonts = $captcha->getPluginDirectory() . 'fonts/';
 
 3) At the end of the c'tor, the img_href gets set. I removed the '.php' sufix
    from captcha_img.php to make it point to the new controller included in this

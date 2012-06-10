@@ -79,7 +79,7 @@ class FilePatch extends InstallationPatch {
      * @return boolean <code>true</code> if successful, <code>false</code> if not.
      */
     function putFileLines($file, $lines) {
-    	$fileExists = file_exists($file);
+        $fileExists = file_exists($file);
         $handle = fopen($file, 'wb');
         if ($handle) {
             $lineCount = count($lines) - 1;
@@ -123,7 +123,7 @@ class FilePatch extends InstallationPatch {
      */
     function writeFile($file, $contents) {
         $fileExists = file_exists($file);
-    	$handle = @fopen($file, 'wb');
+        $handle = @fopen($file, 'wb');
         if ($handle) {
             fwrite($handle, $contents);
             fclose($handle);

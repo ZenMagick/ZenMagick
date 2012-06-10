@@ -39,12 +39,12 @@ class TokenService extends ZMObject {
      * @return string The token.
      */
     protected function createToken($length=32) {
-        static $chars	=	'0123456789abcdef';
-        $max=	strlen($chars) - 1;
+        static $chars = '0123456789abcdef';
+        $max= strlen($chars) - 1;
         $token = '';
         $name = session_name();
         for ($ii=0; $ii < $length; ++$ii) {
-            $token .=	$chars[(rand(0, $max))];
+            $token .= $chars[(rand(0, $max))];
         }
 
         return md5($token.$name);

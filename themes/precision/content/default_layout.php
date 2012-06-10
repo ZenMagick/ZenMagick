@@ -35,7 +35,7 @@ Released   : 20081126
         <!-- start sidebar1 -->
         <div id="sidebar1" class="sidebar">
           <ul>
-	          <?php echo $this->fetchBlockGroup('leftColumn', array('format' => '<li>%s</li>')) ?>
+              <?php echo $this->fetchBlockGroup('leftColumn', array('format' => '<li>%s</li>')) ?>
           </ul>
         </div>
         <!-- end sidebar1 -->
@@ -62,7 +62,7 @@ Released   : 20081126
         <!-- start sidebar2 -->
         <div id="sidebar2" class="sidebar">
           <ul>
-	          <?php echo $this->fetchBlockGroup('rightColumn', array('format' => '<li>%s</li>')) ?>
+              <?php echo $this->fetchBlockGroup('rightColumn', array('format' => '<li>%s</li>')) ?>
           </ul>
         </div>
         <!-- end sidebar2 -->

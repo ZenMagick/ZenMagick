@@ -61,7 +61,7 @@ class ZMWordpressAdapter extends ZMObject {
      * @return boolean <code>true</code> if the email is valid, <code>false</code> if not.
      */
     public function vDuplicateEmail($request, $data) {
-		    return Toolbox::isEmpty(email_exists($data['email']));
+        return Toolbox::isEmpty(email_exists($data['email']));
     }
 
     /**
@@ -90,7 +90,7 @@ class ZMWordpressAdapter extends ZMObject {
      */
     public function createAccount($account, $password) {
         $email = $account->getEmail();
-		    $userId = username_exists($email);
+        $userId = username_exists($email);
         if (!$userId) {
             $userId = email_exists($email);
         }

@@ -90,7 +90,6 @@ class Request extends \ZMRequest {
         Runtime::getLogging()->trace('unresolved URL: '.$requestId);
         return null;
     }
-
     /**
      * Get the current shopping cart.
      *
@@ -98,12 +97,12 @@ class Request extends \ZMRequest {
      */
     public function getShoppingCart() {
         if (null == $this->shoppingCart_) {
-        	// TODO: enable
-        	if ($this->isAnonymous() || true) {
-              $this->shoppingCart_ = Runtime::getContainer()->get('shoppingCart');
-        	} else {
-        		  $this->shoppingCart_ = $this->container->get('shoppingCartService')->loadCartForAccountId($this->getAccountId());
-        	}
+            // TODO: enable
+            if ($this->isAnonymous() || true) {
+                $this->shoppingCart_ = Runtime::getContainer()->get('shoppingCart');
+            } else {
+                $this->shoppingCart_ = $this->container->get('shoppingCartService')->loadCartForAccountId($this->getAccountId());
+            }
         }
 
         return $this->shoppingCart_;

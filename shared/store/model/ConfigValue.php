@@ -109,10 +109,10 @@ class ConfigValue extends ZMObject {
      */
     public function __construct() {
         parent::__construct();
-		    $this->name = null;
-		    $this->description = null;
-		    $this->key = null;
-		    $this->value = null;
+        $this->name = null;
+        $this->description = null;
+        $this->key = null;
+        $this->value = null;
     }
 
 

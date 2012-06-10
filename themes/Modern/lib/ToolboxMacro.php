@@ -69,10 +69,10 @@ class ToolboxMacro extends \zenmagick\apps\store\toolbox\ToolboxMacro {
             }
 
             /*if ($root) {
-        		echo '<div class="parentCate catFirst"><a href="' .
+                echo '<div class="parentCate catFirst"><a href="' .
                         $this->getRequest()->url('category', 'cPath='.implode('_', $category->getPath())).'">'.$toolbox->html->encode($category->getName()).'</a></div>';
-        		continue;
-        	}*/
+                continue;
+            }*/
 
             $active = in_array($category->getId(), $path);
             $noOfProductsInCat = $showProductCount ? count($container->get('productService')->getProductIdsForCategoryId($category->getId(), $languageId, true, false)) : 0;

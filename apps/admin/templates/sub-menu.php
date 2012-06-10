@@ -53,9 +53,9 @@
     }
   ?>
 
-	$(function() {
-		$("#sub-common").accordion({
-			autoHeight: false,
+  $(function() {
+    $("#sub-common").accordion({
+      autoHeight: false,
       collapsible: true,
       navigation: true,
       navigationFilter: function() {
@@ -64,6 +64,6 @@
         }
         return this.href == location.href;
       }
-		});
-	});
+    });
+  });
 </script>

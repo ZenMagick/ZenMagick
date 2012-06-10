@@ -90,7 +90,7 @@ class ApcCache implements Cache {
      * {@inheritDoc}
      */
     public function lookup($id) {
-		    return apc_fetch($this->group_.'/'.$id);
+        return apc_fetch($this->group_.'/'.$id);
     }
 
     /**
@@ -98,7 +98,7 @@ class ApcCache implements Cache {
      */
     public function remove($id) {
         $this->lastModified_ = time();
-		    return apc_delete($this->group_.'/'.$id);
+        return apc_delete($this->group_.'/'.$id);
     }
 
     /**

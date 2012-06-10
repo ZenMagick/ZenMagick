@@ -19,7 +19,7 @@
  */ $admin->title() ?>
 
 <div id="catalog-tabs">
-	<ul>
+  <ul>
     <?php $tabIndex = 0;
     $index = 0;
     foreach ($controllers as $controller) {
@@ -32,16 +32,16 @@
       ++$index; ?>
       <li><a href="<?php echo $url ?>"><?php echo $controller->getName() ?></a></li>
     <?php } ?>
-	</ul>
+  </ul>
   <div id="<?php echo $catalogRequestId ?>">
     <?php if (null != $catalogViewContent) { echo $catalogViewContent; } ?>
   </div>
 </div>
 <script type="text/javascript">
-	$(function() {
+$(function() {
     $("#catalog-tabs").tabs({
       cache: true,
       selected: <?php echo $tabIndex ?>
     });//.css("float", "left");//.css('width', '80%');
-	});
+});
 </script>
