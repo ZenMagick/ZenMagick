@@ -134,6 +134,12 @@
         <option key="view:success">redirect://contact_us</option>
     </route>
 
+    <route id="store.privacy" pattern="/privacy">
+        <default key="_controller">zenmagick\apps\store\storefront\controller\DefaultController</default>
+        <option key="view">views/privacy.php</option>
+    </route>
+
+    <!-- ***********************mano tested up to here -->
     <!-- ***********************mano tested up to here -->
 
     <route id="shipping.estimator" pattern="/shipping/estimator">
