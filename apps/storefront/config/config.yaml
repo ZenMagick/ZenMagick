@@ -99,6 +99,7 @@ zenmagick:
         popup_search_help: help.search
         popup_coupon_help: help.coupon
         contact_us: store.contact
+        privacy: store.privacy
         advanced_search: search.advanced
   ## bundles
   bundles:
