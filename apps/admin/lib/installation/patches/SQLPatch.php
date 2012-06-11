@@ -103,7 +103,11 @@ class SQLPatch extends InstallationPatch {
      * @param string sql Some sql.
      */
     function _runSQL($sql) {
-        $sql = \ZMRequest::sanitize($sql);
+        $sql = trim(preg_replace('/[<>]/', '_', $sql));
+        if (function_exists('get_magic_quotes_gpc') && get_magic_quotes_gpc()) {
+            $sql = stripslashes($sql);
+        }
+
         if (!empty($sql)) {
             $results = SQLRunner::execute_sql($sql);
             $this->_processSQLMessages($results);
