@@ -54,7 +54,7 @@ class UpdateUserController extends \ZMController {
     /**
      * Process prefs
      *
-     * @param Request request The current request.
+     * @param ZMRequest request The current request.
      */
     protected function processPrefs($request) {
         $user = $request->getAccount();

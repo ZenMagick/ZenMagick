@@ -81,7 +81,7 @@ class ZMAjaxUtils {
     /**
      * Create a RPC request wrapper for the given request.
      *
-     * @param Request request The current request.
+     * @param ZMRequest request The current request.
      * @return ZMRpcRequest A <code>ZMRpcRequest</code> instance.
      */
     public static function createRpcRequest($request) {

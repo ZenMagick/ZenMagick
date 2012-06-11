@@ -109,7 +109,7 @@ class ZMPaymentTypes extends ZMObject {
      *
      * <p>This method is only defined in <em>storefront</em> context.</p>
      *
-     * @param Request request The current request.
+     * @param ZMRequest request The current request.
      * @return string Fully formatted JavaScript incl. of wrapping &lt;script&gt; tag.
      */
     public function getPaymentFormValidationJS($request) {

@@ -104,7 +104,7 @@ class AutoLoginPlugin extends Plugin {
     /**
      * Try to get a token from the current request.
      *
-     * @param Request request The current request.
+     * @param ZMRequest request The current request.
      * @return Token A token or <code>null</code>.
      */
     protected function getRequestToken($request) {

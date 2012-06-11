@@ -260,7 +260,7 @@ class WordpressPlugin extends Plugin {
     /**
      * Get the request handler.
      *
-     * @param Request request The current request.
+     * @param ZMRequest request The current request.
      * @return ZMWpRequestHandler The single request handler for this request.
      */
     public function getRequestHandler($request) {

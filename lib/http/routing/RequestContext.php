@@ -24,7 +24,7 @@ use Symfony\Component\Routing\RequestContext as SymfonyRequestContext;
 use zenmagick\base\Runtime;
 
 /**
- * ZenMagick request context, populated from <code>Request</code>.
+ * ZenMagick request context, populated from <code>ZMRequest</code>.
  *
  * @author DerManoMann <mano@zenmagick.org>
  */

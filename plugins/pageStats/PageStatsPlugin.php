@@ -126,7 +126,7 @@ class PageStatsPlugin extends Plugin {
     /**
      * Generate hidden stats.
      *
-     * @param Request request The current request.
+     * @param ZMRequest request The current request.
      * @param View view The current view.
      */
     private function hiddenStats($request, $view) {

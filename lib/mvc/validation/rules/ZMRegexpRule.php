@@ -63,7 +63,7 @@ class ZMRegexpRule extends ZMRule {
     /**
      * Validate the given request data.
      *
-     * @param Request request The current request.
+     * @param ZMRequest request The current request.
      * @param array data The data.
      * @return boolean <code>true</code> if the regular expression does match.
      */

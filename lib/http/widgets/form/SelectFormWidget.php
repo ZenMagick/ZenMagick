@@ -79,7 +79,7 @@ class SelectFormWidget extends FormWidget {
     /**
      * Get the options map.
      *
-     * @param Request request The current request.
+     * @param ZMRequest request The current request.
      * @return array Map of value/name pairs.
      */
     public function getOptions($request) {
@@ -139,7 +139,7 @@ class SelectFormWidget extends FormWidget {
     /**
      * Render as seclect drop down.
      *
-     * @param Request request The current request.
+     * @param ZMRequest request The current request.
      */
     public function renderSelect($request) {
         $values = $this->getValue();
@@ -165,7 +165,7 @@ class SelectFormWidget extends FormWidget {
     /**
      * Render as group of radio buttons.
      *
-     * @param Request request The current request.
+     * @param ZMRequest request The current request.
      */
     public function renderRadio($request) {
         $slash = Runtime::getSettings()->get('zenmagick.http.html.xhtml') ? '/' : '';

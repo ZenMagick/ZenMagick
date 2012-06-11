@@ -90,7 +90,7 @@ class DefaultUrlRewriter extends ZMObject implements UrlRewriter {
     /**
      * Rewrite default implementation using query parameter.
      *
-     * @param Request request The current request.
+     * @param ZMRequest request The current request.
      * @param string requestId The request id.
      * @param string params Optional parameter.
      * @param boolean secure Indicate whether to create a secure or non secure URL.
@@ -107,7 +107,7 @@ class DefaultUrlRewriter extends ZMObject implements UrlRewriter {
     /**
      * Decode path implementation.
      *
-     * @param Request request The current request.
+     * @param ZMRequest request The current request.
      * @return boolean <code>true</code> if decoded, <code>false</code> if not.
      */
     protected function decodePath($request) {
@@ -139,7 +139,7 @@ class DefaultUrlRewriter extends ZMObject implements UrlRewriter {
     /**
      * Rewrite path implementation using something like '[index.php/]foo/value-of-foo/bar/value-of-bar'.
      *
-     * @param Request request The current request.
+     * @param ZMRequest request The current request.
      * @param string requestId The request id.
      * @param string params Optional parameter.
      * @param boolean secure Indicate whether to create a secure or non secure URL.

@@ -33,7 +33,7 @@ class ToolboxNet extends ToolboxTool {
     /**
      * Create a URL.
      *
-     * <p>Convenience/compatibility method calling <code>url()</code> on Request.</p>
+     * <p>Convenience/compatibility method calling <code>url()</code> on ZMRequest.</p>
      *
      * @param string requestId The request id.
      * @param string params Query string style parameter; if <code>null</code> add all current parameter

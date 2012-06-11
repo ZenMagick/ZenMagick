@@ -57,7 +57,7 @@ class DefaultRssFeedSource extends ZMObject implements RssSource {
     /**
      * Generate RSS feed for reviews.
      *
-     * @param Request request The current request.
+     * @param ZMRequest request The current request.
      * @param string key Optional product id.
      * @return RssFeed The feed.
      */
@@ -116,7 +116,7 @@ class DefaultRssFeedSource extends ZMObject implements RssSource {
     /**
      * Generate RSS feed for EZPages chapter.
      *
-     * @param Request request The current request.
+     * @param ZMRequest request The current request.
      * @param string key EZPages chapter.
      * @return RssFeed The feed data.
      */
@@ -147,7 +147,7 @@ class DefaultRssFeedSource extends ZMObject implements RssSource {
     /**
      * Generate RSS feed for products.
      *
-     * @param Request request The current request.
+     * @param ZMRequest request The current request.
      * @param string key Optional key value for various product types; supported: 'new'
      * @return RssFeed The feed data.
      */

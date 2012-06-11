@@ -87,7 +87,7 @@ class ProductReviewsWriteController extends \ZMController {
     /**
      * Get the product.
      *
-     * @param Request request The current request.
+     * @param ZMRequest request The current request.
      * @return ZMProduct The product or <code>null</code>.
      */
     protected function getProduct($request) {

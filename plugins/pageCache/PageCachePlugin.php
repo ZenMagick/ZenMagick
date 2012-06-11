@@ -78,7 +78,7 @@ class PageCachePlugin extends \Plugin {
      * <p>Depending on whether the user is logged in or not, a user
      * specifc keu will be generated, to avoid session leaks.</p>
      *
-     * @param Request request The current request.
+     * @param ZMRequest request The current request.
      * @return string A cache id.
      */
     protected function getRequestKey($request) {
@@ -94,7 +94,7 @@ class PageCachePlugin extends \Plugin {
      *
      * <p>Evaluation is delegated to the configured strategy function (<em>pageCacheStrategyCallback</em>).</p>
      *
-     * @param Request request The current request.
+     * @param ZMRequest request The current request.
      * @return boolean <code>true</code> if the current request is cacheable, <code>false</code> if not.
      */
     protected function isCacheable($request) {

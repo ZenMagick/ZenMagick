@@ -108,7 +108,7 @@ class ZMOpenIDController extends ZMController {
     /**
      * Initiate OpenID authentication.
      *
-     * @param Request request The current request.
+     * @param ZMRequest request The current request.
      * @param string openid The OpenID to authenticate.
      */
     private function initAuthentication($request, $openid) {

@@ -113,7 +113,7 @@ class CatalogRssFeedSource extends ZMObject implements RssSource {
     /**
      * Generate RSS feed for all products.
      *
-     * @param Request request The current request.
+     * @param ZMRequest request The current request.
      * @param boolean full Indicates whether to generate a full feed or not; default is <code>false</code>.
      * @return RssFeed The feed.
      */
@@ -148,7 +148,7 @@ class CatalogRssFeedSource extends ZMObject implements RssSource {
     /**
      * Generate RSS feed for all categories.
      *
-     * @param Request request The current request.
+     * @param ZMRequest request The current request.
      * @param boolean full Indicates whether to generate a full feed or not; default is <code>false</code>.
      * @return RssFeed The feed.
      */

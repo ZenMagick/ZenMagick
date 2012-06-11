@@ -65,7 +65,7 @@ class AdminEventHandler extends ZMObject {
     /**
      * Get instance of the current editor.
      *
-     * @param Request request The current request.
+     * @param ZMRequest request The current request.
      * @return TextAreaFormWidget A text editor widget.
      */
     protected function getCurrentEditor($request) {

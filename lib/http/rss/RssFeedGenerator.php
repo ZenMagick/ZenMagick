@@ -36,7 +36,7 @@ class RssFeedGenerator extends ZMObject {
     /**
      * Generate feed data.
      *
-     * @param Request request The current request.
+     * @param ZMRequest request The current request.
      * @param RssFeed feed The feed.
      * @return string The feed data.
      */
@@ -95,7 +95,7 @@ class RssFeedGenerator extends ZMObject {
      *  <li>lastBuildDate</li>
      * <ul>
      *
-     * @param Request request The current request.
+     * @param ZMRequest request The current request.
      * @param RssChannel channel The channel data.
      */
     protected function rssHeader($request, $channel) {
@@ -166,7 +166,7 @@ class RssFeedGenerator extends ZMObject {
      *  <li>description</li>
      * <ul>
      *
-     * @param Request request The current request.
+     * @param ZMRequest request The current request.
      * @param RssItem item The item to render.
      */
     protected function rssItem($request, $item) {

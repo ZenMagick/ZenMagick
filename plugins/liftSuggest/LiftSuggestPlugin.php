@@ -97,7 +97,7 @@ class LiftSuggestPlugin extends Plugin {
     /**
      * Generate the required JS code for success tracking.
      *
-     * @param Request request The current request.
+     * @param ZMRequest request The current request.
      * @return string The complete code.
      */
     protected function getTrackerCode($request) {

@@ -74,7 +74,7 @@ class ZMPhpBB3Adapter extends ZMObject {
     /**
      * Check for duplicate nickname.
      *
-     * @param Request request The current request.
+     * @param ZMRequest request The current request.
      * @param array data The request data.
      * @return boolean <code>true</code> if the nickname is valid, <code>false</code> if not.
      */
@@ -87,7 +87,7 @@ class ZMPhpBB3Adapter extends ZMObject {
     /**
      * Check for duplicate email address.
      *
-     * @param Request request The current request.
+     * @param ZMRequest request The current request.
      * @param array req The request data.
      * @return boolean <code>true</code> if the email is valid, <code>false</code> if not.
      */
@@ -98,7 +98,7 @@ class ZMPhpBB3Adapter extends ZMObject {
     /**
      * Check for duplicate email address if different from current account email address.
      *
-     * @param Request request The current request.
+     * @param ZMRequest request The current request.
      * @param array req The request data.
      * @return boolean <code>true</code> if the email is valid, <code>false</code> if not.
      */

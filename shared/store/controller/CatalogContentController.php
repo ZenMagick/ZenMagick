@@ -63,7 +63,7 @@ abstract class CatalogContentController extends \ZMController {
      * <p>Subclasses can control this by either setting the active (bit-)flags in the constructor or by
      * overriding this method.</p>
      *
-     * @param Request request The current request.
+     * @param ZMRequest request The current request.
      * @return boolean <code>true</code> if the plugin requests to be rendered for this request.
      */
     public function isActive($request) {
