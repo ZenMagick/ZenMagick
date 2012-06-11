@@ -29,45 +29,6 @@ use zenmagick\base\Runtime;
 class ZMNetUtils {
 
     /**
-     * helper to try to sort out headers for people who aren't running apache,
-     * or people who are running PHP as FastCGI.
-     *
-     * @return array of request headers as associative array.
-     */
-    public static function getAllHeaders() {
-        $retarr = array();
-        $raw = array();
-
-        if (function_exists('getallheaders')) {
-            $raw = getallheaders();
-        } else {
-            $raw = array();
-            foreach (array_merge($_ENV, $_SERVER) as $key => $value) {
-                //we need this header
-                if (false !== strpos(strtolower($key), 'content-type')) {
-                    continue;
-                }
-                if ('HTTP_' == strtoupper(substr($key, 0, 5)) || false !== strpos(strtolower($key), 'content-type')) {
-                    $key = preg_replace('/^HTTP_/i', '', $key);
-                    $key = str_replace(' ', '-', strtolower(str_replace(array('-', '_'), ' ', $key)));
-                    $raw[$key] = $value;
-                }
-            }
-        }
-
-        $headers = array();
-        foreach ($raw as $key => $value) {
-            // normalize keys
-            $key = str_replace(' ', '-', ucwords(strtolower(str_replace('-', ' ', $key))));
-            $headers[$key] = $value;
-        }
-
-        ksort($headers);
-
-        return $headers;
-    }
-
-    /**
      * Encode a given URL to valid HTML.
      *
      * @param string url The url to encode.
