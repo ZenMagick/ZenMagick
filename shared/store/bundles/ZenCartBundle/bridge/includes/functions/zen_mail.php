@@ -58,5 +58,7 @@ function zen_build_html_email_from_template($template, $args=array()) {
     $container = Runtime::getContainer();
     $messageBuilder = $container->get('messageBuilder');
     $request = $container->get('request');
-    return $messageBuilder->createContents($template, true, $request, $request->get('ZM_EMAIL_CONTEXT'));
+    $emailContext = $GLOBALS['ZM_EMAIL_CONTEXT'];
+    unset($GLOBALS['ZM_EMAIL_CONTEXT']);
+    return $messageBuilder->createContents($template, true, $request, $emailContext);
 }
