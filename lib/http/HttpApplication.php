@@ -61,7 +61,9 @@ class HttpApplication extends Application {
      * Init request.
      */
     protected function initRequest() {
-        Runtime::getContainer()->get('request');
+        $request = Runtime::getContainer()->get('request');
+        // @todo init this later so we can actually take parameters (once init.php is gone)
+        $request->initialize($_GET, $_POST, array(), $_COOKIE, $_FILES, $_SERVER, null);
     }
 
     /**
@@ -72,7 +74,6 @@ class HttpApplication extends Application {
             $container = Runtime::getContainer();
             $settingsService = $container->get('settingsService');
             $request = $container->get('request');
-
             // allow seo rewriters to fiddle with the request
             $this->profile('enter urlDecode');
             $request->urlDecode();

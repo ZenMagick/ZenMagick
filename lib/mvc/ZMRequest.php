@@ -18,27 +18,24 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
+use Symfony\Component\DependencyInjection\ContainerAwareInterface;
+use Symfony\Component\DependencyInjection\ContainerInterface;
+use Symfony\Component\HttpFoundation\Request as HttpFoundationRequest;
 use Symfony\Component\Routing\Router;
 use Symfony\Component\Routing\RequestContext;
 
 use zenmagick\base\Beans;
 use zenmagick\base\Runtime;
 use zenmagick\base\Toolbox;
-use zenmagick\base\ZMObject;
 use zenmagick\base\logging\Logging;
 use zenmagick\base\events\VetoableEvent;
 
-
 /**
- * A request wrapper.
- *
- * <p><strong>NOTE:</strong</strong> For the time of transition between static and instance
- * usage of request methods this will have a temp. name of <code>ZMRequest</code>.</p>
+ * A wrapper around Symfony 2's <code>Symfony\Component\HttpFoundation\Request</code>
  *
  * @author DerManoMann <mano@zenmagick.org>
- * @package org.zenmagick.mvc
  */
-class ZMRequest extends ZMObject {
+class ZMRequest extends HttpFoundationRequest implements ContainerAwareInterface {
     /**
      * Default paramter name containing the request id.
      *
@@ -46,33 +43,13 @@ class ZMRequest extends ZMObject {
      */
     const DEFAULT_REQUEST_ID = 'rid';
 
-    private $parameter_;
-    private $method_;
-    private $dispatcher;
-
+    private $dispatcher = null;
 
     /**
-     * Create new instance.
-     *
-     * @param array parameter Optional request parameter; if <code>null</code>,
-     *  <code>$_GET</code> and <code>$_POST</code> will be used.
+     * {@inheritDoc}
      */
-    public function __construct($parameter=null) {
-        parent::__construct();
-
-        if (null != $parameter) {
-            $this->parameter_ = $parameter;
-        } else {
-            $this->parameter_ = array_merge($_POST, $_GET);
-        }
-
-        if (Toolbox::isEmpty($this->getRequestId())) {
-            // empty string is not null!
-            $this->setRequestId(null);
-        }
-
-        $this->setMethod(array_key_exists('REQUEST_METHOD', $_SERVER) ? $_SERVER['REQUEST_METHOD'] : 'GET');
-        $this->dispatcher = null;
+    public function setContainer(ContainerInterface $container=null) {
+        $this->container = $container;
     }
 
     /**
@@ -94,7 +71,7 @@ class ZMRequest extends ZMObject {
     }
 
     /**
-     * Check if this request is an XMLHTTPRequest.
+     * Check if this request is an Ajax request.
      *
      * <p>This default implementation will check for a 'X-Requested-With' header. Subclasses are free to
      * extend and override this method for custom Ajax detecting.</p>
@@ -102,19 +79,8 @@ class ZMRequest extends ZMObject {
      * @return boolean <code>true</code> if this request is considered an Ajax request.
      */
     public function isXmlHttpRequest() {
-        $headers = ZMNetUtils::getAllHeaders();
         $ajax = $this->getParameter('ajax', null);
-        return $ajax != null ? Toolbox::asBoolean($ajax) : (array_key_exists('X-Requested-With', $headers) && 'XMLHttpRequest' == $headers['X-Requested-With']);
-    }
-
-    /**
-     *  Check if this request is an XMLHttpRequest
-     *
-     *  @deprecated use isXmlHttpRequest instead
-     *  @since 2012-06-08
-     */
-    public function isAjax() {
-        return $this->isXmlHttpRequest();
+        return $ajax != null ? Toolbox::asBoolean($ajax) : parent::isXmlHttpRequest();
     }
 
     /**
@@ -153,9 +119,9 @@ class ZMRequest extends ZMObject {
      */
     public function url($requestId=null, $params='', $secure=false) {
         // custom params handling
-        if (null === $params) {
+        if (/*null == $requestId || */null === $params) {
             // if requestId null, keep current and also current params
-            $query = $this->getParameterMap();
+            $query = $this->query->all();
             unset($query[$this->getRequestIdKey()]);
             unset($query[$this->getSession()->getName()]);
             if (null != $params) {
@@ -240,8 +206,6 @@ class ZMRequest extends ZMObject {
      * The factory may be configured as bean defintion via the setting 'zenmagick.http.session.userFactory'.</p>
      *
      * @return mixed A user/credentials object. Default is <code>null</code>.
-     *
-     * @todo move this either to the session or request attributes
      */
     public function getAccount() {
         if ($this->container->has('userFactory') && null != ($userFactory = $this->container->get('userFactory'))) {
@@ -249,24 +213,6 @@ class ZMRequest extends ZMObject {
         }
 
         return null;
-    }
-
-    /**
-     * Get the request method.
-     *
-     * @return string The (upper case) request method.
-     */
-    public function getMethod() {
-        return $this->method_;
-    }
-
-    /**
-     * Set the request method.
-     *
-     * @param string method The request method.
-     */
-    public function setMethod($method) {
-        $this->method_ = strtoupper($method);
     }
 
     /**
@@ -279,72 +225,17 @@ class ZMRequest extends ZMObject {
     }
 
     /**
-     * Get the hostname for this request.
-     *
-     * @return string The hostname or <code>null</code> for <em>CL</code> calls.
-     */
-    public function getHost() {
-        if (!array_key_exists('HTTP_HOST', $_SERVER)) {
-            return null;
-        }
-
-        // split port
-        $token = explode(':', $_SERVER['HTTP_HOST']);
-        return strtolower($token[0]);
-    }
-
-    /**
-     * Gets the request's scheme.
-     *
-     * @return string
-     */
-    public function getScheme() {
-        return $this->isSecure() ? 'https' : 'http';
-    }
-
-    /**
-     * Get Host with port.
-     *
-     * The port name will be appended to the host if it's non-standard.
-     *
-     * @return string
-     */
-    public function getHttpHost() {
-        $scheme = $this->getScheme();
-        $port = $this->getPort();
-        if (('http' == $scheme && $port == 80) || ('https' == $scheme && $port == 443)) {
-            return $this->getHost();
-        }
-        return $this->getHost().':'.$port;
-    }
-
-    /**
-     * Get the port for this request.
-     *
-     * @return string The port or <code>null</code> for <em>CL</code> calls.
-     */
-    public function getPort() {
-        return array_key_exists('SERVER_PORT', $_SERVER) ? $_SERVER['SERVER_PORT'] : null;
-    }
-
-    /**
-     * Get the full query string.
-     *
-     * @return string The full query string for this request.
-     */
-    public function getQueryString() {
-        return array_key_exists('QUERY_STRING', $_SERVER) ? $_SERVER['QUERY_STRING'] : '';
-    }
-
-    /**
      * Get the complete parameter map.
      *
+     * GET and POST.
+     * @todo change all users ?
      * @param boolean sanitize If <code>true</code>, sanitze value; default is <code>true</code>.
      * @return array Map of all request parameters
      */
     public function getParameterMap($sanitize=true) {
         $map = array();
-        foreach (array_keys($this->parameter_) as $key) {
+        $params = array_unique(array_merge($this->request->keys(), $this->query->keys()));
+        foreach ($params as $key) {
             // checkbox special case
             if (0 === strpos($key, '_')) {
                 $key = substr($key, 1);
@@ -358,10 +249,12 @@ class ZMRequest extends ZMObject {
     /**
      * Set the parameter map.
      *
+     * Only works with GET params, otherwise how can we tell the difference?
+     *
      * @param array map Map of all request parameters
      */
     public function setParameterMap($map) {
-        $this->parameter_ = $map;
+        $this->query->replace($map);
     }
 
     /**
@@ -383,7 +276,7 @@ class ZMRequest extends ZMObject {
      * @return string The request id of this request.
      */
     public function getRequestId() {
-        return $this->getParameter($this->getRequestIdKey(), 'index');
+        return $this->query->get($this->getRequestIdKey(), 'index');
     }
 
     /**
@@ -392,7 +285,7 @@ class ZMRequest extends ZMObject {
      * @param string requestId The new request id.
      */
     public function setRequestId($requestId) {
-        $this->setParameter($this->getRequestIdKey(), $requestId);
+        $this->query->set($this->getRequestIdKey(), $requestId);
     }
 
     /**
@@ -410,16 +303,18 @@ class ZMRequest extends ZMObject {
      * @return mixed The parameter value or the default value or <code>null</code>.
      */
     public function getParameter($name, $default=null, $sanitize=true) {
-        if (isset($this->parameter_[$name])) {
-            return $sanitize ? self::sanitize($this->parameter_[$name]) : $this->parameter_[$name];
+        // try GET, then POST
+        // @todo we could also just rely on parent::get() as it searches these as well
+        foreach (array('query', 'request') as $parameterBag) {
+            if ($this->$parameterBag->has($name)) {
+                return $sanitize ? self::sanitize($this->$parameterBag->get($name)) : $this->$parameterBag->get($name);
+            }
+            // special case for checkboxes/radioboxes?
+            if ($this->$parameterBag->has('_'.$name)) {
+                // checkbox boolean value
+                return false;
+            }
         }
-
-        // special case for checkboxes/radioboxes?
-        if (isset($this->parameter_['_'.$name])) {
-            // checkbox boolean value
-            return false;
-        }
-
         return $default;
     }
 
@@ -431,29 +326,13 @@ class ZMRequest extends ZMObject {
      * @return mixed The previous value or <code>null</code>.
      */
     public function setParameter($name, $value) {
+        // Only seems to be used for GET params
         $old = null;
-        if (isset($this->parameter_[$name])) {
-            $old = $this->parameter_[$name];
+        if ($this->query->has($name)) {
+            $old = $this->query->get($name);
         }
-        $this->parameter_[$name] = $value;
+        $this->query->set($name, $value);
         return $old;
-    }
-
-    /**
-     * Checks if the current request is secure or note.
-     *
-     * @return boolean <code>true</code> if the current request is secure; eg. SSL, <code>false</code> if not.
-     */
-    public function isSecure() {
-        return (isset($_SERVER['SERVER_PORT']) && 443 == $_SERVER['SERVER_PORT']) ||
-               (isset($_SERVER['HTTPS']) && Toolbox::asBoolean($_SERVER['HTTPS'])) ||
-               (isset($_SERVER['HTTP_X_FORWARDED_BY']) && strpos(strtoupper($_SERVER['HTTP_X_FORWARDED_BY']), 'SSL') !== false) ||
-               (isset($_SERVER['HTTP_X_FORWARDED_HOST']) && (strpos(strtoupper($_SERVER['HTTP_X_FORWARDED_HOST']), 'SSL') !== false || strpos(strtolower($_SERVER['HTTP_X_FORWARDED_HOST']), $this->getHost()) !== false)) ||
-               (isset($_SERVER['SCRIPT_URI']) && strtolower(substr($_SERVER['SCRIPT_URI'], 0, 6)) == 'https:') ||
-               (isset($_SERVER['HTTP_X_FORWARDED_SSL']) && (Toolbox::asBoolean($_SERVER['HTTP_X_FORWARDED_SSL']))) ||
-               (isset($_SERVER['HTTP_X_FORWARDED_PROTO']) && (strtolower($_SERVER['HTTP_X_FORWARDED_PROTO']) == 'ssl' || strtolower($_SERVER['HTTP_X_FORWARDED_PROTO']) == 'https')) ||
-               (isset($_SERVER['HTTP_SSLSESSIONID']) && $_SERVER['HTTP_SSLSESSIONID'] != '') ||
-               (isset($_SERVER['SERVER_PORT']) && $_SERVER['SERVER_PORT'] == '443');
     }
 
     /**
@@ -516,35 +395,13 @@ class ZMRequest extends ZMObject {
     }
 
     /**
-     * Get the uri for this request.
-     *
-     * @return string The URI.
-     */
-    public function getRequestUri() {
-        $uri = $_SERVER['REQUEST_URI'];
-        return $uri;
-    }
-
-    /**
-     * Get the front controller name.
-     *
-     * @return string The name of the main <em>.php</em> file.
-     */
-    public function getScriptName() {
-        if (false !== ($components = parse_url($_SERVER['SCRIPT_NAME']))) {
-            return basename($components['path']);
-        }
-        return 'index.php';
-    }
-
-    /**
      * Save this request as follow up URL.
      *
      * <p>Typically this happends when a request is received without valid authority.
      * The saved URL will be forwarded to, once permissions is gained (user logged in).</p>
      */
     public function saveFollowUpUrl() {
-        $params = $this->getParameterMap();
+        $params = $this->query->all();
         $ridKey = $this->getRequestIdKey();
         if (array_key_exists($ridKey, $params)) {
             unset($params[$ridKey]);
@@ -625,26 +482,4 @@ class ZMRequest extends ZMObject {
 
         return $value;
     }
-
-    /**
-     * Simple IP deduction.
-     *
-     * @return string ip address.
-     */
-    public function getClientIp() {
-        $keys = array('HTTP_CLIENT_IP', 'HTTP_X_FORWARDED_FOR', 'REMOTE_ADDR');
-        foreach ($keys as $key) {
-            if (array_key_exists($key, $_SERVER)) {
-                $ip = $_SERVER[$key];
-                if (false !== strpos($ip, ',')) {
-                    $ip = explode(',', $ip, 2);
-                    $ip = isset($ip[0]) ? trim($ip[0]) : null;
-                }
-                return $ip;
-            }
-        }
-
-        return null;
-    }
-
 }
