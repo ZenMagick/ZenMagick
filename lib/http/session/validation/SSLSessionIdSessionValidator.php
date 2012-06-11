@@ -54,7 +54,7 @@ class SSLSessionIdSessionValidator extends ZMObject implements SessionValidator 
     public function isValidSession(ZMRequest $request, Session $session) {
         $valid = true;
         if ($this->enabled && $request->isSecure()) {
-            $sslSessionId = array_key_exists('SSL_SESSION_ID', $_SERVER) ? $_SERVER['SSL_SESSION_ID'] : null;
+            $sslSessionId = $request->server->get('SSL_SESSION_ID');
             if (null == ($sessionSslSessionId = $session->getValue(self::SESSION_SSL_SESSION_ID_KEY, self::SESSION_VALIDATOR_NAMESPACE))) {
                 $session->setValue(self::SESSION_SSL_SESSION_ID_KEY, $sslSessionId, self::SESSION_VALIDATOR_NAMESPACE);
             } else {

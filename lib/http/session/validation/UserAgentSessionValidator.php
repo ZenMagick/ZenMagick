@@ -53,7 +53,7 @@ class UserAgentSessionValidator extends ZMObject implements SessionValidator {
         $valid = true;
         if ($this->enabled) {
             // todo move to request
-            $userAgent = array_key_exists('HTTP_USER_AGENT', $_SERVER) ? $_SERVER['HTTP_USER_AGENT'] : null;
+            $userAgent = $request->server->get('HTTP_USER_AGENT');
             if (null == ($sessionUserAgent = $session->getValue(self::SESSION_UA_KEY, self::SESSION_VALIDATOR_NAMESPACE))) {
                 $session->setValue(self::SESSION_UA_KEY, $userAgent, self::SESSION_VALIDATOR_NAMESPACE);
             } else {

@@ -126,10 +126,7 @@ class WhoIsOnlinePlugin extends Plugin {
 
         if (empty($sessionId)) {
             // create hash
-            $token = array(
-                $ipAddress,
-                (isset($_SERVER['HTTP_USER_AGENT']) ? $_SERVER['HTTP_USER_AGENT'] : '')
-            );
+            $token = array($ipAddress, $this->server->get('HTTP_USER_AGENT'));
             $sessionId = md5(implode(':', $token));
         }
 
@@ -143,8 +140,8 @@ class WhoIsOnlinePlugin extends Plugin {
         $data['customer_id'] = $accountId;
         $data['full_name'] = $fullName;
         $data['time_last_click'] = $now;
-        $data['last_page_url'] = rtrim($_SERVER['REQUEST_URI'], '?');
-        $data['user_agent'] = isset($_SERVER['HTTP_USER_AGENT']) ? $_SERVER['HTTP_USER_AGENT'] : '';
+        $data['last_page_url'] = rtrim($request->getRequestUri(), '?');
+        $data['user_agent'] = (string)$request->server->get('HTTP_USER_AGENT');
         if (!empty($result)) {
             $conn->update('whos_online', $data, array('session_id' => $sessionId));
         } else {

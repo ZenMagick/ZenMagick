@@ -183,7 +183,7 @@ class ZenCartBundle extends Bundle {
         // needed throughout sadly
         $GLOBALS['session_started'] = true;
         $GLOBALS['request_type'] = $request->isSecure() ? 'SSL' : 'NONSSL';
-        $GLOBALS['PHP_SELF'] = $_SERVER['PHP_SELF'];
+        $GLOBALS['PHP_SELF'] = $request->server->get('PHP_SELF');
 
         if (Runtime::isContextMatch('admin')) {
 

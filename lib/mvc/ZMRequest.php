@@ -375,7 +375,7 @@ class ZMRequest extends HttpFoundationRequest implements ContainerAwareInterface
      * @return string The URL context.
      */
     public function getContext() {
-        $context = str_replace('\\', '/', dirname($_SERVER['SCRIPT_NAME']));
+        $context = str_replace('\\', '/', dirname($this->server->get('SCRIPT_NAME')));
         return '/' == $context ? '' : $context;
     }
 
@@ -385,12 +385,12 @@ class ZMRequest extends HttpFoundationRequest implements ContainerAwareInterface
      * @return string The document root.
      */
     public function getDocRoot() {
-        if (!array_key_exists('DOCUMENT_ROOT', $_SERVER) || empty($_SERVER['DOCUMENT_ROOT']) || 0 !== strpos($_SERVER['SCRIPT_FILENAME'], $_SERVER['DOCUMENT_ROOT'])) {
-            $docRoot = str_replace(DIRECTORY_SEPARATOR, '/', substr($_SERVER['SCRIPT_FILENAME'], 0, 0-strlen($_SERVER['PHP_SELF'])));
-        } else {
-            $docRoot = $_SERVER['DOCUMENT_ROOT'];
+        $docRoot = $this->server->get('DOCUMENT_ROOT');
+        $scriptFileName = $this->server->get('SCRIPT_FILENAME');
+        if (empty($docRoot) || 0 !== strpos($scriptFileName, $docRoot)) {
+            $phpSelf = $this->server->get('PHP_SELF');
+            $docRoot = str_replace(DIRECTORY_SEPARATOR, '/', substr($scriptFileName, 0, 0-strlen($phpSelf)));
         }
-
         return $docRoot;
     }
 
@@ -438,7 +438,7 @@ class ZMRequest extends HttpFoundationRequest implements ContainerAwareInterface
      * @return string The protocol string.
      */
     public function getProtocol() {
-        $protocol = $_SERVER["SERVER_PROTOCOL"];
+        $protocol = $this->server->get('SERVER_PROTOCOL');
         if ('HTTP/1.1' != $protocol && 'HTTP/1.0' != $protocol) {
             $protocol = 'HTTP/1.0';
         }

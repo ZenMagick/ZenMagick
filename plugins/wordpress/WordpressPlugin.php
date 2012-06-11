@@ -218,12 +218,11 @@ class WordpressPlugin extends Plugin {
         if (empty($wordpressEnabledPages) || (!Toolbox::isEmpty($request->getRequestId()) && \ZMLangUtils::inArray($request->getRequestId(), $wordpressEnabledPages))) {
             if ($this->isPermalinksEnabled()) {
                 $path = $request->getContext().$this->get('permaPrefix');
-                if (false === strpos($_SERVER['REQUEST_URI'], '?')) {
-                    // simulate empty query arg to make WP homepage work
-                    $_SERVER['REQUEST_URI'] .= '?';
-                }
+                // simulate empty query arg to make WP homepage work
+                $requestUri = rtrim($request->getRequestUri(), '?').'?';
                 // make WP permalink parsing work
-                $_SERVER['REQUEST_URI'] = str_replace($path, '', $_SERVER['REQUEST_URI']);
+                $requestUri = str_replace($path, '', $requestUri);
+                $_SERVER['REQUEST_URI'] = $requestUri;
             }
             // load as proper global to make WP work - @#!!$&^ globals
             return array($this->getPluginDirectory().'/wp-include.php');

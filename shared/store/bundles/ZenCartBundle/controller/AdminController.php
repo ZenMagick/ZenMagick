@@ -88,7 +88,7 @@ class AdminController extends \ZMController {
     public function processPost($request) {
         if (!$this->validateSecurityToken($request)) {
             $this->messageService->error(_zm('Security token validation failed'));
-            $request->redirect($_SERVER['HTTP_REFERER']);
+            $request->redirect($request->server->get('HTTP_REFERER'));
         }
         return $this->processGet($request);
     }
