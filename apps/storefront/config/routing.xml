@@ -14,6 +14,10 @@
         <default key="key"></default>
     </route>
 
+    <route id="shopping_cart" pattern="/cart">
+        <default key="_controller">zenmagick\apps\store\storefront\controller\ShoppingCartController:show</default>
+    </route>
+
     <route id="login" pattern="/login">
         <default key="_controller">zenmagick\apps\store\storefront\controller\LoginController</default>
         <option key="view:account">redirect://account</option>

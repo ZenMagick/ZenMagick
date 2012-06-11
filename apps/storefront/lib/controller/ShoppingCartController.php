@@ -20,9 +20,12 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-namespace zenmagick\apps\storefront\controller;
+namespace zenmagick\apps\store\storefront\controller;
 
+use ZMRequest;
 use zenmagick\base\Runtime;
+use zenmagick\base\ZMObject;
+use zenmagick\http\view\ModelAndView;
 use zenmagick\apps\store\utils\CheckoutHelper;
 
 /**
@@ -30,13 +33,14 @@ use zenmagick\apps\store\utils\CheckoutHelper;
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class ShoppingCartController extends \ZMController {
+class ShoppingCartController extends ZMObject {
 
     /**
-     * {@inheritDoc}
+     * Show cart.
+     *
+     * @param ZMRequest request The current request.
      */
-    public function processGet($request) {
-        $session = $request->getSession();
+    public function show(ZMRequest $request) {
         $shoppingCart = $request->getShoppingCart();
         $checkoutHelper = $shoppingCart->getCheckoutHelper();
 
@@ -60,7 +64,7 @@ class ShoppingCartController extends \ZMController {
             }
         }
 
-        return $this->findView(null, array('shoppingCart' => $shoppingCart));
+        return new ModelAndView(null, array('shoppingCart' => $shoppingCart));
     }
 
 }
