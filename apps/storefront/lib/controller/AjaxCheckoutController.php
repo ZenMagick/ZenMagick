@@ -54,7 +54,7 @@ class AjaxCheckoutController extends \ZMAjaxController {
      *  <li>Any address proerty (<em>countryId, zoneId, postcode, etc.</em>)</li>
      * </ul>
      *
-     * @param ZMRequest request The current request.
+     * @param Request request The current request.
      */
     public function getShippingMethodsJSON($request) {
         // try to set up an address using request information

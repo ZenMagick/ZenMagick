@@ -40,7 +40,7 @@ class ZMAjaxCountryController extends ZMAjaxController {
     /**
      * Generates a JSON list of all countries.
      *
-     * @param ZMRequest request The current request.
+     * @param Request request The current request.
      */
     public function getCountryListJSON($request) {
         $flatObj = ZMAjaxUtils::flattenObject($this->container->get('countryService')->getCountries(), $this->get('ajaxCountryMap'));
@@ -56,7 +56,7 @@ class ZMAjaxCountryController extends ZMAjaxController {
      *  <li>countryId - A valid country id</li>
      * </ul>
      *
-     * @param ZMRequest request The current request.
+     * @param Request request The current request.
      */
     public function getZonesForCountryIdJSON($request) {
         $countryId = $request->getParameter('countryId', null);

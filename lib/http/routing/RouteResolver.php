@@ -130,7 +130,7 @@ class RouteResolver extends ZMObject {
      * Get a view for the given request and view id.
      *
      * @param string viewId The view id.
-     * @param ZMRequest request The current request.
+     * @param Request request The current request.
      * @param array Optional view data; default is an empty array.
      * @return View A view.
      * @todo: move into dispatcher and fix controller to return just string/string/data from process

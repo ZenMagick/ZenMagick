@@ -28,9 +28,6 @@ use zenmagick\base\Runtime;
 /**
  * Store request wrapper.
  *
- * <p><strong>NOTE:</strong</strong> For the time of transition between static and instance
- * usage of request methods this will have a temp. name of <code>ZMRequest</code>.</p>
- *
  * @author DerManoMann <mano@zenmagick.org>
  */
 class Request extends \ZMRequest {

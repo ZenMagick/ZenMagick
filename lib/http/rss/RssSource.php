@@ -30,7 +30,7 @@ interface RssSource {
     /**
      * Get the feed.
      *
-     * @param ZMRequest request The current request.
+     * @param Request request The current request.
      * @param string channel The feed name.
      * @param array args Optional parameter; default is an empty array.
      * @return RssFeed The feed or <code>null</code>.

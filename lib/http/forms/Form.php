@@ -35,7 +35,7 @@ interface Form {
     /**
      * Populate this form from the given request.
      *
-     * @param ZMRequest request The current request.
+     * @param Request request The current request.
      */
     public function populate(ZMRequest $request);
 

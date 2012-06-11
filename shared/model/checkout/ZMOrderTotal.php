@@ -31,7 +31,7 @@ interface ZMOrderTotal {
     /**
      * Evaluate the given cart and return resulting order totals.
      *
-     * @param ZMRequest request The current request.
+     * @param Request request The current request.
      * @param ShoppingCart shoppingCart The current shopping cart.
      * @return mixed Either a single <code>ZMOrderTotalLineDetails</code>, a list of order total line details
      *  (<code>ZMOrderTotalLineDetails</code>) or <code>null</code>.

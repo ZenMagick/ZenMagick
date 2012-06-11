@@ -45,7 +45,7 @@ class ControllerParameterMapper extends ZMObject implements ParameterMapper {
     /**
      * Set the request.
      *
-     * @param ZMRequest request The request.
+     * @param Request request The request.
      */
     public function setRequest(ZMRequest $request) {
         $this->request = $request;

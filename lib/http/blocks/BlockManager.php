@@ -58,7 +58,7 @@ class BlockManager extends ZMObject {
     /**
      * Get all blocks for the given block group id.
      *
-     * @param ZMRequest request The current request.
+     * @param Request request The current request.
      * @param string groupId The block group id.
      * @param array args Optional parameter; default is an empty array.
      * @return array List of <code>BlockWidget</code> instances.

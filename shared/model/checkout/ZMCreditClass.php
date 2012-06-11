@@ -60,7 +60,7 @@ interface ZMCreditClass {
      *
      * <p>Allows a plugin to process the checkout data (ie. gift voucher, coupon code or other). This is the place to validate that data.</p>
      *
-     * @param ZMRequest request The current request.
+     * @param Request request The current request.
      * @return boolean <code>true</code> if the request data is valid with respect to this plugins credit data.
      */
     public function validateRequest($request);
@@ -75,7 +75,7 @@ interface ZMCreditClass {
     /**
      * Apply the available credit.
      *
-     * @param ZMRequest request The current request.
+     * @param Request request The current request.
      * @todo should there be some reference object coming from validateRequest or updateCreditAccount?
      */
     public function applyCredit();

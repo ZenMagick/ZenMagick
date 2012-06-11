@@ -259,7 +259,7 @@ class EventFixes extends ZMObject {
     /**
      * Fix a number of things...
      *
-     * @param ZMRequest request The current request.
+     * @param Request request The current request.
      *
      * @todo find a better way/place to add these sanitizers
      * @todo ZMRequest has no differentiation between _GET/_POST internally so

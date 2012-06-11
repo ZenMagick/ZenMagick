@@ -130,7 +130,7 @@ class RedirectView extends ZMObject implements View {
     /**
      * Get the evaluated redirect url.
      *
-     * @param ZMRequest request The current request.
+     * @param Request request The current request.
      * @return string The redirect url.
      */
     public function getRedirectUrl($request) {

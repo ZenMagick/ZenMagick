@@ -63,7 +63,7 @@ class ZMController extends ZMObject {
      * Init view vars.
      *
      * @param View view The view to init.
-     * @param ZMRequest request The current request.
+     * @param Request request The current request.
      * @param mixed formData Optional form data; default is <code>null</code>.
      */
     public function initViewVars($view, $request, $formData=null) {
@@ -92,7 +92,7 @@ class ZMController extends ZMObject {
      * <p>Supported request methods are <code>GET</code> and <code>POST</code>.</p>
      * <p><strong>This method should not be overridded!</strong>.</p>
      *
-     * @param ZMRequest request The request to process.
+     * @param Request request The request to process.
      * @return View A <code>View</code> instance or <code>null</code>.
      */
     public function process(ZMRequest $request) {
@@ -166,7 +166,7 @@ class ZMController extends ZMObject {
      * <p>Good to override if a custom controller needs to provide some data for both <em>GET</em> and <em>POST</em>
      * requests.</p>
      *
-     * @param ZMRequest request The current request.
+     * @param Request request The current request.
      * @return array Some data map.
      */
     public function getViewData($request) {
@@ -179,7 +179,7 @@ class ZMController extends ZMObject {
      * <p>Despite the name this is called as part of the controllers <code>process($request)</code> method.
      * That ensures that all processing is within the boundaries of a single transaction (if enabled).</p>
      *
-     * @param ZMRequest request The request to process.
+     * @param Request request The request to process.
      */
     public function preProcess($request) {
         // nothing
@@ -190,7 +190,7 @@ class ZMController extends ZMObject {
      *
      * <p>This default implementation will return <code>true</code> for all <em>POST</em> requests.</p>
      *
-     * @param ZMRequest request The request to process.
+     * @param Request request The request to process.
      * @return boolean <code>true</code> if this is a form submit request.
      */
     public function isFormSubmit($request) {
@@ -200,7 +200,7 @@ class ZMController extends ZMObject {
     /**
      * Process a HTTP HEAD request.
      *
-     * @param ZMRequest request The request to process.
+     * @param Request request The request to process.
      * @return View A <code>View</code> that handles presentation or <code>null</code>
      * if the controller generates the contents itself.
      */
@@ -211,7 +211,7 @@ class ZMController extends ZMObject {
     /**
      * Process a HTTP GET request.
      *
-     * @param ZMRequest request The request to process.
+     * @param Request request The request to process.
      * @return View A <code>View</code> that handles presentation or <code>null</code>
      * if the controller generates the contents itself.
      */
@@ -223,7 +223,7 @@ class ZMController extends ZMObject {
     /**
      * Process a HTTP POST request.
      *
-     * @param ZMRequest request The request to process.
+     * @param Request request The request to process.
      * @return View A <code>View</code> that handles presentation or <code>null</code>
      * if the controller generates the contents itself.
      */
@@ -266,7 +266,7 @@ class ZMController extends ZMObject {
     /**
      * Get the form data object (if any) for this request.
      *
-     * @param ZMRequest request The request to process.
+     * @param Request request The request to process.
      * @param string formDef Optional form container definition; default is <code>null</code> to use the global mapping.
      * @param string formId Optional form id; default is <code>null</code> to use the global mapping.
      * @return ZMObject An object instance or <code>null</code>
@@ -304,7 +304,7 @@ class ZMController extends ZMObject {
     /**
      * Validate the given form bean.
      *
-     * @param ZMRequest request The request to process.
+     * @param Request request The request to process.
      * @param mixed formData An object.
      * @return View Either the error view (in case of validation errors), or <code>null</code> for success.
      */
@@ -324,7 +324,7 @@ class ZMController extends ZMObject {
     /**
      * Validate the current request using the given rule id.
      *
-     * @param ZMRequest request The request to process.
+     * @param Request request The request to process.
      * @param string formId The <code>ZMRuleSet</code> id.
      * @param mixed formData A map, (bean) object instance or <code>null</code> for all current request parameter.
      * @return boolean <code>true</code> if the validation was successful, <code>false</code> if not.

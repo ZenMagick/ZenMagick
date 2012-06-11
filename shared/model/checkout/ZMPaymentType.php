@@ -88,7 +88,7 @@ interface ZMPaymentType {
     /**
      * Get form validation javaScript for this payment type.
      *
-     * @param ZMRequest request The current request.
+     * @param Request request The current request.
      * @return string JavaScript code.
      */
     public function getFormValidationJS($request);
@@ -96,7 +96,7 @@ interface ZMPaymentType {
     /**
      * Get the content (HTML) for the actual order form (button).
      *
-     * @param ZMRequest request The current request.
+     * @param Request request The current request.
      * @return string The order form content for this payment type.
      */
     public function getOrderFormContent($request);
@@ -106,7 +106,7 @@ interface ZMPaymentType {
      *
      * <p>This is mostly relevant for payment types with externally hosted payment forms.</p>
      *
-     * @param ZMRequest request The current request.
+     * @param Request request The current request.
      * @return string A url or <code>null</code>.
      */
     public function getOrderFormUrl($request);

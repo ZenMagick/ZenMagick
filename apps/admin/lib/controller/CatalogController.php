@@ -38,7 +38,7 @@ class CatalogController extends \ZMController {
     /**
      * Create list of all active catalog content controllers.
      *
-     * @param ZMRequest request The current request.
+     * @param Request request The current request.
      * @return array List of controller instances.
      */
     protected function getCatalogContentControllers($request) {

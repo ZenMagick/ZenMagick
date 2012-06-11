@@ -31,7 +31,7 @@ interface View {
     /**
      * Generate the view.
      *
-     * @param ZMRequest request The current request.
+     * @param Request request The current request.
      * @param string template Optional template override; default is <code>null</code>.
      * @param array variables Optional additional template variables; default is an empty array.
      * @return string The contents.

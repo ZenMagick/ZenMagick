@@ -45,9 +45,9 @@ class ThemeResourceResolver extends ResourceResolver {
     /**
      * Set the request.
      *
-     * @param ZMRequest request The request.
+     * @param Request request The request.
      */
-    public function setRequest(ZMRequest $request) {
+    public function setRequest(Request $request) {
         $this->request = $request;
         $this->languageId = $request->getSession()->getLanguageId();
     }
@@ -55,7 +55,7 @@ class ThemeResourceResolver extends ResourceResolver {
     /**
      * Get the request.
      *
-     * @return ZMRequest The request.
+     * @return Request The request.
      */
     public function getRequest() {
         return $this->request;

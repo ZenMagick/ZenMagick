@@ -33,7 +33,7 @@ interface WysiwygEditor {
     /**
      * Apply editor to the given element ids.
      *
-     * @param ZMRequest request The current request.
+     * @param Request request The current request.
      * @param TemplateView templateView The current view.
      * @param array idList List of element ids to convert as Wysiwyg editor; default is <code>null</code> for all on the page.
      * @return string Generated code or <code>null</code>.

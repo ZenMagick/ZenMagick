@@ -45,7 +45,7 @@ class ZMWordpressAdapter extends ZMObject {
     /**
      * Check for duplicate nickname.
      *
-     * @param ZMRequest request The current request.
+     * @param Request request The current request.
      * @param array data The data.
      * @return boolean <code>true</code> if the nickname is valid, <code>false</code> if not.
      */
@@ -56,7 +56,7 @@ class ZMWordpressAdapter extends ZMObject {
     /**
      * Check for duplicate email address.
      *
-     * @param ZMRequest request The current request.
+     * @param Request request The current request.
      * @param array data The data.
      * @return boolean <code>true</code> if the email is valid, <code>false</code> if not.
      */
@@ -67,7 +67,7 @@ class ZMWordpressAdapter extends ZMObject {
     /**
      * Check for duplicate email address if different from current account email address.
      *
-     * @param ZMRequest request The current request.
+     * @param Request request The current request.
      * @param array data The data.
      * @return boolean <code>true</code> if the email is valid, <code>false</code> if not.
      */

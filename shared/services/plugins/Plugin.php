@@ -98,7 +98,7 @@ class Plugin extends zenmagick\http\plugins\HttpPlugin {
      * <p>Files returned here would typically have an extension different to <em>.php</em> as otherwise
      * the loader will load them as static.</p>
      *
-     * @param ZMRequest request The current request.
+     * @param Request request The current request.
      * @return array List of filenames relative to the plugin location.
      */
     public function getGlobal($request) {

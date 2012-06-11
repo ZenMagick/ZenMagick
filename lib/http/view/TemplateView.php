@@ -118,7 +118,7 @@ class TemplateView extends ZMObject implements View {
     /**
      * Set the request.
      *
-     * @param ZMRequest request The request.
+     * @param Request request The request.
      */
     public function setRequest(\ZMRequest $request) {
         $this->request = $request;
@@ -127,7 +127,7 @@ class TemplateView extends ZMObject implements View {
     /**
      * Get the request.
      *
-     * @return ZMRequest The request.
+     * @return Request The request.
      */
     public function getRequest() {
         return $this->request;
@@ -255,7 +255,7 @@ class TemplateView extends ZMObject implements View {
     /**
      * Init variables.
      *
-     * @param ZMRequest request The current request.
+     * @param Request request The current request.
      */
     protected function initVariables($request) {
         if (array_key_exists('view', $this->variables)) {

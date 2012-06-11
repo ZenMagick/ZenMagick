@@ -109,7 +109,7 @@ abstract class Widget extends ZMObject {
     /**
      * Get the HTML to render this widget.
      *
-     * @param ZMRequest request The current request.
+     * @param Request request The current request.
      * @param TemplateView templateView The current view.
      * @return string The HTML.
      */
