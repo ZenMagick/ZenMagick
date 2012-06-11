@@ -20,7 +20,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-namespace zenmagick\apps\storefront\controller;
+namespace zenmagick\apps\store\storefront\controller;
 
 use zenmagick\base\Runtime;
 use zenmagick\apps\store\utils\CheckoutHelper;
