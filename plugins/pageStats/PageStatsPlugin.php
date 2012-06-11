@@ -132,7 +132,7 @@ class PageStatsPlugin extends Plugin {
     private function hiddenStats($request, $view) {
         ob_start();
         echo '<!--'."\n";
-        echo '  Client IP: '.$_SERVER['REMOTE_ADDR']."\n";
+        echo '  Client IP: '.$request->getClientIp()."\n";
         echo '  PHP: '.phpversion()."\n";
         echo '  ZenMagick: '.Runtime::getSettings()->get('zenmagick.version')."\n";
         $application = Runtime::getApplication();
@@ -221,7 +221,7 @@ class PageStatsPlugin extends Plugin {
         $slash = $this->container->get('settingsService')->get('zenmagick.http.html.xhtml') ? '/' : '';
         $sep = '&nbsp;&nbsp;&nbsp;';
         echo '<div id="page-stats">';
-        echo 'Client IP: <strong>'.$_SERVER['REMOTE_ADDR'].'</strong>;';
+        echo 'Client IP: <strong>'.$request->getClientIp().'</strong>;';
         echo $sep.'PHP: <strong>'.phpversion().'</strong>;';
         echo $sep.'ZenMagick: <strong>'.Runtime::getSettings()->get('zenmagick.version').'</strong>;';
         echo $sep.'environment: <strong>'.$application->getEnvironment().'</strong>;';

@@ -65,7 +65,7 @@
 <?php
 if (SHOW_FOOTER_IP == '1') {
 ?>
-<div id="siteinfoIP"><?php echo TEXT_YOUR_IP_ADDRESS . '  ' . $_SERVER['REMOTE_ADDR']; ?></div>
+<div id="siteinfoIP"><?php echo TEXT_YOUR_IP_ADDRESS . '  ' . $request->getClientIp(); ?></div>
 <?php
 }
 ?>

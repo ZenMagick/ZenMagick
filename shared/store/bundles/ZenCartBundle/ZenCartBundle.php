@@ -203,7 +203,7 @@ class ZenCartBundle extends Bundle {
              */
             $session = $request->getSession();
             if (null == $session->getValue('customers_ip_address')) {
-                $session->setValue('customers_ip_address', $_SERVER['REMOTE_ADDR']);
+                $session->setValue('customers_ip_address', $request->getClientIp());
             }
         }
     }

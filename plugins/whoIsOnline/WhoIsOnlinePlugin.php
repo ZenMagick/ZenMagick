@@ -116,7 +116,7 @@ class WhoIsOnlinePlugin extends Plugin {
         $accountId = $request->getAccountId();
         $sessionId = $session->getId();
 
-        $ipAddress = isset($_SERVER['REMOTE_ADDR']) ? $_SERVER['REMOTE_ADDR'] : '';
+        $ipAddress = $request->getClientIp();
 
         $fullName = 'Guest'; // used for zc admin page
         if (!empty($accountId) && !empty($sessionId)) {

@@ -157,7 +157,7 @@ class RecaptchaPlugin extends Plugin {
         }
 
         $resp = recaptcha_check_answer ($this->get('privateKey'),
-                                        $_SERVER["REMOTE_ADDR"],
+                                        $request->getClientIp(),
                                         $_POST["recaptcha_challenge_field"],
                                         $_POST["recaptcha_response_field"]);
 
