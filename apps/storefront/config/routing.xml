@@ -144,6 +144,11 @@
         <option key="view">views/site_map.php</option>
     </route>
 
+    <route id="cart" pattern="/cart">
+        <default key="_controller">zenmagick\apps\store\storefront\controller\ShoppingCartController</default>
+        <option key="view">views/shopping_cart.php</option>
+    </route>
+
     <!-- ***********************mano tested up to here -->
 
     <route id="shipping.estimator" pattern="/shipping/estimator">
@@ -198,11 +203,6 @@
         <option key="view">views/checkout_shipping.php</option>
         <option key="view:skip_shipping">redirect://checkout.billing</option>
         <option key="view:success">redirect://checkout.billing</option>
-    </route>
-
-    <route id="cart.empty" pattern="/cart/empty">
-        <default key="_controller">zenmagick\apps\store\storefront\controller\DefaultController</default>
-        <option key="view">redirect://shopping-cart</option>
     </route>
 
     <route id="guest.history" pattern="/guest/history">

@@ -102,6 +102,7 @@ zenmagick:
         privacy: store.privacy
         site_map: store.sitemap
         advanced_search: search.advanced
+        shopping_cart: cart
   ## bundles
   bundles:
     ZenCartBundle: zenmagick\apps\store\bundles\ZenCartBundle\ZenCartBundle
