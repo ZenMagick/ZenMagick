@@ -131,7 +131,7 @@ class AdminEventHandler extends ZMObject {
         $settingsService->set('apps.store.baseUrl', 'http://'.$request->getHost().str_replace('zenmagick/apps/admin/web', '', $request->getContext()));
 
         if ('index' != $request->getRequestId()) {
-            $params = $request->getParameterMap(true);
+            $params = $request->query->all();
             $idName = $request->getRequestIdKey();
             if (isset($params[$idName])) unset($params[$idName]);
             $data = array(
