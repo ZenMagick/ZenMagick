@@ -56,7 +56,8 @@ class MultiQuantityPlugin extends Plugin {
         $request = $event->get('request');
         if (null != $request->getParameter(MULTI_QUANTITY_ID)) {
             // this is a multi quantity request, so leave it to the custom controller to handle
-            unset($_GET['action']);
+            //
+            $request->query->remove('action');
 
             // create mapping for lookup
             \ZMUrlManager::instance()->setMapping('product_info', array('controller' => 'ZMMultiQuantityProductInfoController'));
