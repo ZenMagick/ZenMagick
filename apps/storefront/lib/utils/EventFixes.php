@@ -397,7 +397,7 @@ class EventFixes extends ZMObject {
 
         if (null == $session->getLanguage()) {
             if ($settingsService->get('isUseBrowserLanguage')) {
-                $language = $this->getClientLanguage();
+                $language = $this->getClientLanguage($request);
             } else {
                 $language = $languageService->getLanguageForCode($settingsService->get('defaultLanguageCode'));
             }
@@ -412,49 +412,23 @@ class EventFixes extends ZMObject {
     /**
      * Determine the browser language.
      *
-     * <p>As found at <a href="http://zencart-solutions.palek.cz/en/multilanguage-zencart/default-language-by-browser.html">http://zencart-solutions.palek.cz/en/multilanguage-zencart/default-language-by-browser.html</a>.</p>
-     *
+     * Allow substituting a user agent provided language for an internal one via
+     * the setting apps.store.browserLanguageSubstitutions
      * @return ZMLanguage The preferred language based on request headers or <code>null</code>.
      */
-    private function getClientLanguage() {
-        if (isset($_SERVER['HTTP_ACCEPT_LANGUAGE'])) {
-            // build list of language identifiers
-            $browser_languages = explode(',', $_SERVER['HTTP_ACCEPT_LANGUAGE']);
+    private function getClientLanguage($request) {
+        if ($request->server->has('HTTP_ACCEPT_LANGUAGE')) {
+            $clientLanguages = $request->getLanguages();
+            $substitutions = $this->container->get('settingsService')->get('apps.store.browserLanguageSubstitutions');
 
-            // build list of language substitutions
-            if (defined('BROWSER_LANGUAGE_SUBSTITUTIONS') && BROWSER_LANGUAGE_SUBSTITUTIONS != '') {
-                $substitutions = explode(',', BROWSER_LANGUAGE_SUBSTITUTIONS);
-                $language_substitutions = array();
-                for ($i = 0; $i < count($substitutions); $i++) {
-                    $subst = explode(':', $substitutions[$i]);
-                    $language_substitutions[trim($subst[0])] = trim($subst[1]);
-                }
-            }
-
-            for ($i=0, $n=sizeof($browser_languages); $i<$n; $i++) {
-                // separate the clear language identifier from possible language quality (q param)
-                $lang = explode(';', $browser_languages[$i]);
-
-                if (strlen($lang[0]) == 2) {
-                    // 2 letter only language code (code without subtags)
-                    $code = $lang[0];
-
-                } elseif (strpos($lang[0], '-') == 2 || strpos($lang[0], '_') == 2) {
-                    // 2 letter language code with subtags
-                    // use only language code and throw out all possible subtags
-                    // the underscore is not RFC3036 and RFC4646 valid, but sometimes used and acceptable in this case
-                    $code = substr($lang[0], 0, 2);
-                } else {
-                    // ignore all other language identifiers
-                    $code = '';
-                }
-
+            foreach($clientLanguages as $clientLanguage) {
+                $code = substr($clientLanguage, 0, 2); // 2 letter language code
                 if (null != ($language = ($this->container->get('languageService')->getLanguageForCode($code)))) {
                     // found!
                     return $language;
-                } elseif (isset($language_substitutions[$code])) {
+                } elseif (isset($substitutions[$code])) {
                     // try fallback to substitue
-                    $code = $language_substitutions[$code];
+                    $code = $substitutions[$code];
                     if (null != ($language = ($this->container->get('languageService')->getLanguageForCode($code)))) {
                         // found!
                         return $language;
