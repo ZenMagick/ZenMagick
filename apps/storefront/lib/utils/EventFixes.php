@@ -376,9 +376,7 @@ class EventFixes extends ZMObject {
                 $session->setCurrencyCode($currencyCode);
             }
             // @todo better way to do this? perhaps we'd be better off setting a redirect_url form key or always set SetLastUrl?
-            $params = $request->getParameterMap();
-            unset($params['currency']);
-            $request->setParameterMap($params);
+            $request->query->remove('currency');
             $request->redirect($request->url());
         }
         if (null == $session->getCurrencyCode()) {
@@ -393,9 +391,7 @@ class EventFixes extends ZMObject {
                 $session->setLanguage($language);
             }
            // @todo better way to do this? perhaps we'd be better off setting a redirect_url form key or always set SetLastUrl?
-           $params = $request->getParameterMap();
-           unset($params['language']);
-           $request->setParameterMap($params);
+           $params = $request->query->remove('language');
            $request->redirect($request->url());
         }
 
