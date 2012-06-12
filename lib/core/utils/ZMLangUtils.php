@@ -38,19 +38,6 @@ class ZMLangUtils {
         return empty($value);
     }
 
-    /**
-     * Check if the given string starts with the provided string.
-     *
-     * @param string s The haystack.
-     * @param string start The needle.
-     * @return boolean <code>true</code> if <code>$s</code> starts with <code>$start</code>,
-     *  <code>false</code> if not.
-     * @deprecated
-     */
-    public static function startsWith($s, $start) {
-        return 0 === strpos($s, $start);
-    }
-
 
     /**
      * Check if the given string ends with the provided string.
@@ -116,30 +103,5 @@ class ZMLangUtils {
             }
         }
         return md5($key);
-    }
-
-    /**
-     * Get bytes from K/M/G sizes
-     *
-     * <p>
-     * echo ini_get('post_max_size'); // 8M
-     * echo ZMLangUtils::asBytes('8M'); // 8388608
-     * </p>
-     *
-     * @param string val number with g/k/m suffix.
-     * @return int bytes from <code>val</code>.
-     */
-    public static function asBytes($val) {
-        $val = trim($val);
-        $unit = strtolower(substr($val,strlen($val/1),1));
-        switch($unit) {
-        case 'g':
-            $val *= 1024;
-        case 'm':
-            $val *= 1024;
-        case 'k':
-            $val *= 1024;
-        }
-        return $val;
     }
 }
