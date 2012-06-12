@@ -22,6 +22,7 @@
  */
 
 use zenmagick\base\Runtime;
+use zenmagick\base\Beans;
 use zenmagick\apps\store\admin\utils\SQLRunner;
 
 /**
@@ -88,10 +89,11 @@ class ZMDbUtils {
      *
      * @param string msg The message.
      * @param string type The type.
-     * @return ZMMessage The message.
+     * @return object instance of <code>zenmagick\http\messages\Message</code>
      */
     private static function createMessage($msg, $type) {
-        $message = Runtime::getContainer()->get('ZMMessage');
+        // @todo just use the messages service throughout
+        $message = Beans::getBean('zenmagick\http\messages\Message');
         $message->setText($msg);
         $message->setType($type);
         return $message;

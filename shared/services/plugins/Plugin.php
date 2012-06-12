@@ -86,7 +86,7 @@ class Plugin extends zenmagick\http\plugins\HttpPlugin {
     /**
      * Get optional installation messages.
      *
-     * @return array List of <code>ZMMessage</code> instances.
+     * @return array List of <code>zenmagick\http\messages\Message</code> instances.
      */
     public function getMessages() {
         return $this->messages_;
