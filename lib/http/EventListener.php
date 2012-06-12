@@ -69,8 +69,8 @@ class EventListener extends ZMObject {
         }
 
         // adjust front controller parameter
-        if ($request->getScriptName() != Runtime::getSettings()->get('zenmagick.http.request.handler')) {
-             Runtime::getSettings()->set('zenmagick.http.request.handler', $request->getScriptName());
+        if (basename($request->getScriptName()) != Runtime::getSettings()->get('zenmagick.http.request.handler')) {
+             Runtime::getSettings()->set('zenmagick.http.request.handler', basename($request->getScriptName()));
         }
 
         // load additional routing
