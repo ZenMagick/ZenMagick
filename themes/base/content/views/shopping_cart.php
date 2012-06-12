@@ -25,12 +25,12 @@ $crumbtrail->addCrumb(_zm('Shopping Cart'));
 if ($shoppingCart->isEmpty()) { ?>
     <h2><?php _vzm("Your Shopping Cart is empty") ?></h2>
 <?php } else { ?>
-    <?php echo $form->open('shopping_cart', "action=update_product", true) ?>
+    <?php echo $form->open('cart_update', '', true) ?>
         <table cellpadding="0" cellspacing="0">
             <tbody>
             <?php $odd = true; $first = true; foreach ($shoppingCart->getItems() as $item) { ?>
                 <tr class="<?php echo ($odd?"odd":"even").($first?" first":" other") ?>">
-                <td class="remove"><a href="<?php echo $net->url('shopping_cart', 'action=remove_product&product_id='.$item->getId()) ?>"><img src="<?php echo $this->asUrl("images/small_delete.gif") ?>" alt="remove" /></a></td>
+                <td class="remove"><a href="<?php echo $net->url('cart_remove', 'product_id='.$item->getId()) ?>"><img src="<?php echo $this->asUrl("images/small_delete.gif") ?>" alt="remove" /></a></td>
                     <td class="img">
                         <?php echo $html->productImageLink($item->getProduct()) ?>
                         <?php echo $form->hiddenCartFields($item) ?>

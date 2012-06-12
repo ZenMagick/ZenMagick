@@ -67,4 +67,61 @@ class ShoppingCartController extends ZMObject {
         return new ModelAndView(null, array('shoppingCart' => $shoppingCart));
     }
 
+protected function syncZC($session, $shoppingCart) {
+                // sync back to ZenCart
+                $cart = $session->getValue('cart');
+                $cart = (null != $cart) ? $cart : new \shoppingCart;
+                $cart->contents = $shoppingCart->getContents();
+
+}
+
+    /**
+     * Add product.
+     */
+    public function addProduct(ZMRequest $request) {
+        $shoppingCart = $request->getShoppingCart();
+        $shoppingCart->addProduct($request->getProductId(), $request->getParameter('cart_quantity'), $request->getParameter('id'));
+        $shoppingCart->getCheckoutHelper()->saveHash($request);
+        // TODO: remove
+        $this->syncZC($request->getSession(), $shoppingCart);
+        // TODO: message/error handling
+
+        // TODO: add support for redirect back to origin
+        return new ModelAndView('success', array('shoppingCart' => $shoppingCart));
+    }
+
+    /**
+     * Remove product.
+     */
+    public function removeProduct(ZMRequest $request) {
+        $shoppingCart = $request->getShoppingCart();
+        $shoppingCart->removeProduct($request->getParameter('product_id'));
+        $shoppingCart->getCheckoutHelper()->saveHash($request);
+        // TODO: remove
+        $this->syncZC($request->getSession(), $shoppingCart);
+        // TODO: message/error handling
+
+        // TODO: add support for redirect back to origin
+        return new ModelAndView('success', array('shoppingCart' => $shoppingCart));
+    }
+
+    /**
+     * Update cart.
+     * @todo: edit cart attributes
+     */
+    public function update(ZMRequest $request) {
+        $shoppingCart = $request->getShoppingCart();
+        $productIds = (array) $request->getParameter('products_id');
+        $quantities = (array) $request->getParameter('cart_quantity');
+        foreach ($productIds as $ii => $productId) {
+            $shoppingCart->updateProduct($productId, $quantities[$ii]);
+        }
+        // TODO: remove
+        $this->syncZC($request->getSession(), $shoppingCart);
+        // TODO: message/error handling
+
+        // TODO: add support for redirect back to origin
+        return new ModelAndView('success', array('shoppingCart' => $shoppingCart));
+    }
+
 }
