@@ -168,19 +168,21 @@ class EventFixes extends ZMObject {
         // simulate the number of uploads parameter for add to cart
         if ('add_product' == $action) {
             $uploads = 0;
-            foreach ($request->getParameterMap() as $name => $value) {
+            foreach ($request->query->all() as $name => $value) {
                 if (0 === strpos($name, $settingsService->get('uploadOptionPrefix'))) {
                     ++$uploads;
                 }
             }
-            $_GET['number_of_uploads'] = $uploads;
+            $request->query->set('number_of_uploads', $uploads);
         }
 
         $cartMethod = isset($cartActionMap[$action]) ? $cartActionMap[$action]['method'] : null;
         if (null != $cartMethod) {
-            if (is_array($_POST['products_id']) && !$cartActionMap[$action]['multi']) {
-                $_POST['products_id'] = $request->getProductId();
+            $productsId = $request->request->get('products_id');
+            if (is_array($productsId) && !$cartActionMap[$action]['multi']) {
+                $request->request->set('products_id', $request->getProductId());
             }
+            $request->overrideGlobals();
             call_user_func_array(array($shoppingCart->cart_, $cartMethod), array($redirectTarget, $params));
         }
     }
