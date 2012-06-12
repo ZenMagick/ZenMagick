@@ -65,7 +65,7 @@ class ZMRpcController extends ZMController {
         }
 
         // set content type
-        ZMNetUtils::setContentType($rpcResponse->getContentType());
+        $this->setContentType($rpcResponse->getContentType());
         // the response
         echo $rpcResponse;
         return null;
