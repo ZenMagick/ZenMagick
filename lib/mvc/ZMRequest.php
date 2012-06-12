@@ -247,17 +247,6 @@ class ZMRequest extends HttpFoundationRequest implements ContainerAwareInterface
     }
 
     /**
-     * Set the parameter map.
-     *
-     * Only works with GET params, otherwise how can we tell the difference?
-     *
-     * @param array map Map of all request parameters
-     */
-    public function setParameterMap($map) {
-        $this->query->replace($map);
-    }
-
-    /**
      * Get the name of the request parameter that contains the request id.
      *
      * @return string The request id key.
