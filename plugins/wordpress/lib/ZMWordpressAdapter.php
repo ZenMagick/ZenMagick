@@ -119,12 +119,13 @@ class ZMWordpressAdapter extends ZMObject {
         $userData = get_userdata(email_exists($email));
         if ($userData) {
             $userId = $userData->ID;
-            $_POST['pass1'] = $password;
-            $_POST['pass2'] = $password;
-            $_POST['email'] = $userData->user_login;
+            $request->request->set('pass1', $password);
+            $request->request->set('pass2', $password);
+            $request->request->set('email', $userData->user_login);
             foreach ($userData as $key => $value) {
-              $_POST[$key] = $value;
+                $request->request->set($key, $value);
             }
+            $request->overrideGlobals();
             edit_user($userId);
         }
     }

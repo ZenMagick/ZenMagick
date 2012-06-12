@@ -33,14 +33,19 @@ use zenmagick\base\ZMObject;
  */
 class ShippingEstimator extends ZMObject {
 
+    function getRequest() {
+        return Runtime::getContainer()->get('request');
+    }
+
     /**
      * Get the postcode.
      *
      * @return string The postcode for the current calculations.
      */
     function getPostcode() {
+        $request = $this->getRequest();
         $zip_code = (isset($_SESSION['cart_zip_code'])) ? $_SESSION['cart_zip_code'] : '';
-        $zip_code = (isset($_POST['zip_code'])) ? strip_tags(addslashes($_POST['zip_code'])) : $zip_code;
+        $zip_code = $request->request->has('zip_code') ? strip_tags(addslashes($request->request->get('zip_code'))) : $zip_code;
         return $zip_code;
     }
 
@@ -50,8 +55,9 @@ class ShippingEstimator extends ZMObject {
      * @return int The state id for the current shipping calculation.
      */
     function getStateId() {
+        $request = $this->getRequest();
         $state_zone_id = (isset($_SESSION['cart_zone'])) ? (int)$_SESSION['cart_zone'] : '';
-        $state_zone_id = (isset($_POST['state'])) ? $_POST['state'] : $state_zone_id;
+        $state_zone_id = $request->request->has('state') ? $request->request->get('state') : $state_zone_id;
         return $state_zone_id;
     }
 
@@ -62,8 +68,9 @@ class ShippingEstimator extends ZMObject {
      */
     function getCountryId() {
         $countryId = Runtime::getSettings()->get('storeCountry');
-        if (isset($_POST['country_id'])){
-            $countryId = $_POST['country_id'];
+        $request = $this->getRequest();
+        if ($request->request->has('country_id')) {
+            $countryId = $request->request->get('country_id');
         } else if ($_SESSION['cart_country_id']) {
             $countryId = $_SESSION['cart_country_id'];
         }
@@ -77,8 +84,9 @@ class ShippingEstimator extends ZMObject {
      */
     function _getAddressId() {
         $addressId = 0;
-        if (isset($_POST['address_id'])) {
-            $addressId = $_POST['address_id'];
+        $request = $this->getRequest();
+        if ($request->request->get('address_id')) {
+            $addressId = $request->request->get('address_id');
         } elseif ($_SESSION['cart_address_id']) {
             $addressId = $_SESSION['cart_address_id'];
         } else {
@@ -97,17 +105,19 @@ class ShippingEstimator extends ZMObject {
     global $order, $country_info;
         $address = null;
         $countryService = Runtime::getContainer()->get('countryService');
-        if (isset($_POST['country_id'])){
+        $request = $this->getRequest();
+        $countryId = $request->request->get('country_id');
+        if (null != $countryId) {
             // country is selected
             $country_info = $_SESSION['country_info'];
             $address = array('postcode' => $this->getPostcode(),
-                'country' => array('id' => $_POST['country_id'], 'title' => $country_info['countries_name'],
+                'country' => array('id' => $countryId, 'title' => $country_info['countries_name'],
                 'iso_code_2' => $country_info['countries_iso_code_2'], 'iso_code_3' =>  $country_info['countries_iso_code_3']),
-                'country_id' => $_POST['country_id'],
+                'country_id' => $countryId,
                 //add state zone_id
                 'zone_id' => $this->getStateId(),
-                'format_id' => $countryService->getCountryForId($_POST['country_id'])->getAddressFormatId());
-            $_SESSION['cart_country_id'] = $_POST['country_id'];
+                'format_id' => $countryService->getCountryForId($countryId)->getAddressFormatId());
+            $_SESSION['cart_country_id'] = $countryId;
             //add state zone_id
             $_SESSION['cart_zone'] = $this->getStateId();
             $_SESSION['cart_zip_code'] = $this->getPostcode();

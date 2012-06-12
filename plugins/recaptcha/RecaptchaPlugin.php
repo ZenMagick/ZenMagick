@@ -158,8 +158,8 @@ class RecaptchaPlugin extends Plugin {
 
         $resp = recaptcha_check_answer ($this->get('privateKey'),
                                         $request->getClientIp(),
-                                        $_POST["recaptcha_challenge_field"],
-                                        $_POST["recaptcha_response_field"]);
+                                        $request->request->get('recaptcha_challenge_field'),
+                                        $request->request->get('recaptcha_response_field'));
 
         if ($resp->is_valid) {
             return true;
