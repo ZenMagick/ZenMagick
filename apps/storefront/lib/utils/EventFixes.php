@@ -264,48 +264,35 @@ class EventFixes extends ZMObject {
      * @param ZMRequest request The current request.
      *
      * @todo find a better way/place to add these sanitizers
-     * @todo ZMRequest has no differentiation between _GET/_POST internally so
-     *       products_id has to be dealt with directly.
      */
     protected function sanitizeRequest($request) {
-        $params = $request->getParameterMap();
         // START CVE-2008-6985 (includes/extra_configures/security_patch_v138_20080919.php)
-        if ('POST' == $request->getMethod()) {
-            if (isset($_POST['products_id'])) {
-                $_POST['products_id'] = $this->fixProductIds($_POST['products_id']);
-            }
-            if (isset($params['notify'])) {
-                $params['notify'] = $this->fixProductIds($params['notify']);
-            }
-            if (isset($params['id']) && is_array($params['id'])) {
-                $params['id'] = $this->fixPostIds($params['id']);
-            }
+        if ($request->request->has('products_id')) {
+            $request->request->set('products_id', $this->fixProductIds($request->request->get('products_id')));
+        }
+        if ($request->request->has('notify')) {
+            $request->request->set('notify', $this->fixProductIds($request->request->get('notify')));
+        }
+        if ($request->request->has('id')) {
+            $request->request->set('id', $this->fixPostIds($request->request->get('id')));
         }
         // END CVE-2008-6985
+
         // init_sanitize
-        if (isset($_GET['products_id']) && !preg_match('/^[0-9]+(:[0-9a-f]{32})?$/', $_GET['products_id'])) {
-            unset($_GET['products_id']);
-        }
-        if (isset($params['manufacturers_id'])) {
-            $params['manufacturers_id'] = (int)$params['manufacturers_id'];
-        }
-        if (isset($params['categories_id'])) {
-            $params['categories_id'] = (int)$params['categories_id'];
-        }
-        if (isset($params['cPath'])) {
-            $params['cPath'] = preg_replace('/[^0-9_]/', '', $params['cPath']);
-        }
-        if (isset($params['sort'])) {
-            $params['sort'] = preg_replace('/[^0-9a-zA-Z]/', '', $params['sort']);
+        $sanitizeList = array(
+            'products_id' => '/^[0-9]+(:[0-9a-f]{32})?$/',
+            'manufacturers_id' => '/^\d+$/',
+            'categories_id' => '/^\d+$/',
+            'cPath' => '/^[0-9_]+$/',
+            'sort' => '/^\w+$/'
+        );
+        foreach ($sanitizeList as $name => $pattern) {
+            if ($request->query->has($name) && !preg_match($pattern, $request->query->get($name))) {
+                $request->query->remove($name);
+            }
         }
         // end init_sanitize
-
-        $idName = Runtime::getSettings()->get('zenmagick.http.request.idName');
-        if (!isset($params[$idName]) || empty($params[$idName])) {
-            $params[$idName] = 'index';
-        }
-
-        $request->setParameterMap($params);
+        $request->overrideGlobals(); // @todo do it only for zc controller
     }
 
     /**
