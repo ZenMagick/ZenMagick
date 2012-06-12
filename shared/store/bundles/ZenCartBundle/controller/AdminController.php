@@ -34,12 +34,11 @@ class AdminController extends \ZMController {
      */
     public function processGet($request) {
         // @todo remove once we rely on ZenCart 1.5.0
-        if ($request->getMethod() == 'GET') { // from init_general_funcs
-            foreach ($request->getParameterMap() as $k =>$v) {
-                $request->setParameter($k, strip_tags($v));
-            }
+        // from init_general_funcs
+        foreach ($request->query->all() as $k => $v) {
+            $request->query->set($k, strip_tags($v));
         }
-
+        $request->overrideGlobals();
         $session = $request->getSession();
         $language = $request->getSelectedLanguage();
 
