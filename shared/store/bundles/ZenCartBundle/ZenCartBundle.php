@@ -155,13 +155,6 @@ class ZenCartBundle extends Bundle {
                 $settingsService->set('apps.store.zencart.admindir', $adminDir->getValue());
             }
 
-            $routingFile = __DIR__.'/Resources/config/admin/routing.xml';
-            if (file_exists($routingFile)) {
-                $routeResolver = $this->container->get('routeResolver');
-                $routingLoader = new XmlFileLoader(new FileLocator());
-                $routeCollection = $routingLoader->load($routingFile);
-                $routeResolver->getRouter()->getRouteCollection()->addCollection($routeCollection);
-            }
         }
 
         if (!defined('IS_ADMIN_FLAG')) { define('IS_ADMIN_FLAG', Runtime::isContextMatch('admin')); }
@@ -186,6 +179,13 @@ class ZenCartBundle extends Bundle {
         $GLOBALS['PHP_SELF'] = $request->server->get('PHP_SELF');
 
         if (Runtime::isContextMatch('admin')) {
+            $routingFile = __DIR__.'/Resources/config/admin/routing.xml';
+            if (file_exists($routingFile)) {
+                $routeResolver = $this->container->get('routeResolver');
+                $routingLoader = new XmlFileLoader(new FileLocator());
+                $routeCollection = $routingLoader->load($routingFile);
+                $routeResolver->getRouter()->getRouteCollection()->addCollection($routeCollection);
+            }
 
             // @todo shouldn't assume we already have a menu, but we have to since the $adminMenu is never checked for emptiness only null
             $adminMenu = $this->container->get('adminMenu');
