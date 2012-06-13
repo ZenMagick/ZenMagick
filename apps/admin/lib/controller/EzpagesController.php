@@ -80,7 +80,7 @@ class EzpagesController extends \ZMController {
             if (0 == $ezPageId) {
                 // create
                 $ezPage = Beans::getBean('ZMEZPage');
-                Beans::setAll($ezPage, $request->getParameterMap(false));
+                Beans::setAll($ezPage, $request->request->all());
                 $ezPage = $ezPageService->createPage($ezPage);
                 if (0 < $ezPage->getId()) {
                     $this->messageService->success('EZPage #'.$ezPage->getId().' saved');
@@ -90,7 +90,7 @@ class EzpagesController extends \ZMController {
                 }
             } else if (null != ($ezPage = $ezPageService->getPageForId($ezPageId, $languageId))) {
                 // no sanitize!
-                Beans::setAll($ezPage, $request->getParameterMap(false));
+                Beans::setAll($ezPage, $request->request->all());
                 $ezPageService->updatePage($ezPage);
                 $this->messageService->success('EZPage #'.$ezPageId.' updated');
                 $viewId = 'success';

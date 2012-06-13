@@ -61,7 +61,7 @@ class ZMSubscriptionRequestController extends ZMController {
 
         $plugin = $this->getPlugin();
         $emailTemplate = Runtime::getSettings()->get('plugins.subscriptions.email.templates.request', 'subscription_request');
-        $this->sendNotificationEmail($request->getParameterMap(), $emailTemplate, $plugin->get('adminEmail'));
+        $this->sendNotificationEmail($request->request->all(), $emailTemplate, $plugin->get('adminEmail'));
 
         $this->messageService->success(_zm("Request submitted!"));
 

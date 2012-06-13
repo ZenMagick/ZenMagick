@@ -81,7 +81,7 @@ class ContentEditorController extends \ZMController {
             if (0 == $ezPageId) {
                 // create
                 $ezPage = Beans::getBean('ZMEZPage');
-                Beans::setAll($ezPage, $request->getParameterMap(false));
+                Beans::setAll($ezPage, $request->request->all());
                 $ezPage->setStatic(true);
                 $ezPage = $ezPageService->createPage($ezPage);
                 if (0 < $ezPage->getId()) {
@@ -92,7 +92,7 @@ class ContentEditorController extends \ZMController {
                 }
             } else if (null != ($ezPage = $ezPageService->getPageForId($ezPageId, $languageId))) {
                 // no sanitize!
-                Beans::setAll($ezPage, $request->getParameterMap(false));
+                Beans::setAll($ezPage, $request->request->all());
                 $ezPage->setStatic(true);
                 $ezPageService->updatePage($ezPage);
                 $this->messageService->success('Page #'.$ezPageId.' updated');
