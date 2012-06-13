@@ -63,7 +63,7 @@ class EventListener extends ZMObject {
         // load application routing
         $routeResolver = $this->container->get('routeResolver');
         $routeFiles = array(Runtime::getApplicationPath().'/config/routing.xml');
-        $routeFiles = array_merge($routeFiles, $settingsService->get('lib.http.routing.addnRouteFiles'));
+        $routeFiles = array_merge($routeFiles, $settingsService->get('zenmagick.http.routing.addnRouteFiles'));
         $routeLoader = new XmlFileLoader(new FileLocator());
 
         foreach ($routeFiles as $routeFile) {

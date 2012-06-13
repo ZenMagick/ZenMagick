@@ -150,11 +150,12 @@ class ZenCartBundle extends Bundle {
         $settingsService = $this->container->get('settingsService');
         if (Runtime::isContextMatch('admin')) {
             $settingsService->add('apps.store.admin.menus', 'shared/store/bundles/ZenCartBundle/Resources/config/admin/menu.yaml');
-            $settingsService->add('lib.http.routing.addnRouteFiles', __DIR__.'/Resources/config/admin/routing.xml');
+            $settingsService->add('zenmagick.http.routing.addnRouteFiles', __DIR__.'/Resources/config/admin/routing.xml');
         }
     }
 
     public function onBootstrapDone($event) {
+        $settingsService = $this->container->get('settingsService');
 
         if (!defined('DB_PREFIX')) define('DB_PREFIX', \ZMRuntime::getDatabase()->getPrefix());
         if (!defined('IS_ADMIN_FLAG')) { define('IS_ADMIN_FLAG', Runtime::isContextMatch('admin')); }
