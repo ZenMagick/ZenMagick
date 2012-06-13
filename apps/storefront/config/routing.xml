@@ -7,6 +7,7 @@
     <!-- global routes -->
     <route id="zenmagick_global_routing" pattern="^^">
       <option key="view:login">redirect://login</option>
+      <option key="view:empty_cart">redirect://shopping_cart</option>
     </route>
 
     <route id="rss" pattern="/rss/{channel}/{key}">
@@ -32,6 +33,7 @@
 
     <route id="shopping_cart" pattern="/cart">
         <default key="_controller">zenmagick\apps\store\storefront\controller\ShoppingCartController:show</default>
+        <requirement key="_method">GET</requirement>
     </route>
 
     <route id="login" pattern="/login">
