@@ -107,6 +107,8 @@ if (!defined('ATTRIBUTES_PRICE_FACTOR_FROM_SPECIAL')) define('ATTRIBUTES_PRICE_F
             // show cart after product added
             'isShowCartAfterAddProduct' => DISPLAY_CART == 'true',
 
+            'apps.store.zencart.admindir' => defined('ZENCART_ADMIN_FOLDER') ? ZENCART_ADMIN_FOLDER : 'admin',
+
             /**************************************
              * formatting and other defaults
              **************************************/

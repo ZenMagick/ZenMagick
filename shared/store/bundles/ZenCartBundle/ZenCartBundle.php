@@ -38,7 +38,6 @@ use zenmagick\apps\store\menu\MenuLoader;
  * @author DerManoMann
  */
 class ZenCartBundle extends Bundle {
-    const ZENCART_ADMIN_FOLDER = 'ZENCART_ADMIN_FOLDER';
 
     /**
      * {@inheritDoc}
@@ -148,28 +147,24 @@ class ZenCartBundle extends Bundle {
         $yamlLoader = new YamlLoader($this->container, new FileLocator(dirname(__FILE__)));
         $yamlLoader->load($yaml);
 
-        $settingsService = $this->container->get('settingsService');
-
         if (!defined('DB_PREFIX')) define('DB_PREFIX', \ZMRuntime::getDatabase()->getPrefix());
         $settingsService = $this->container->get('settingsService');
         if (Runtime::isContextMatch('admin')) {
             $settingsService->add('apps.store.admin.menus', 'shared/store/bundles/ZenCartBundle/Resources/config/admin/menu.yaml');
             $settingsService->add('lib.http.routing.addnRouteFiles', __DIR__.'/Resources/config/admin/routing.xml');
-            $adminDir = $this->container->get('configService')->getConfigValue(self::ZENCART_ADMIN_FOLDER);
-            if (null != $adminDir) {
-                $settingsService->set('apps.store.zencart.admindir', $adminDir->getValue());
-            }
-
         }
 
         if (!defined('IS_ADMIN_FLAG')) { define('IS_ADMIN_FLAG', Runtime::isContextMatch('admin')); }
 
+        // include some zencart files we need.
+        include_once $settingsService->get('apps.store.zencart.path').'/includes/database_tables.php';
+    }
+
+    public function onBootstrapDone($event) {
+        // needed before session objects are restored
         $zcClassLoader = new ZenCartClassLoader();
         $zcClassLoader->setBaseDirectories($this->buildSearchPaths('includes/classes'));
         $zcClassLoader->register();
-
-        // include some zencart files we need.
-        include_once $settingsService->get('apps.store.zencart.path').'/includes/database_tables.php';
     }
 
     /**
