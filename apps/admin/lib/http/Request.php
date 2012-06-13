@@ -36,7 +36,7 @@ class Request extends \ZMRequest {
      * @return ZMLanguage The selected language.
      */
     public function getSelectedLanguage() {
-        if (null == ($selectedLanguageId = $this->getParameter('languageId'))) {
+        if (null == ($selectedLanguageId = $this->query->get('languageId'))) {
             // fallback to session
             if (null == ($selectedLanguageId = $this->getSession()->getValue('languages_id'))) {
                 $selectedLanguageId = Runtime::getSettings()->get('storeDefaultLanguageId');
@@ -67,7 +67,7 @@ class Request extends \ZMRequest {
      *
      * @return string The category path value (<code>cPath</code>) or <code>null</code>.
      */
-    public function getCategoryPath() { return $this->getParameter('cPath', null); }
+    public function getCategoryPath() { return $this->query->get('cPath', null); }
 
     /**
      * Get the category path arry.
@@ -75,7 +75,7 @@ class Request extends \ZMRequest {
      * @return array The current category path broken into an array of category ids.
      */
     public function getCategoryPathArray() {
-        $path = $this->getParameter('cPath');
+        $path = $this->query->get('cPath');
         $cPath = array();
         if (null !== $path) {
             $path = explode('_', $path);
@@ -109,6 +109,6 @@ class Request extends \ZMRequest {
      *
      * @return int The request product id or <code>0</code>.
      */
-    public function getProductId() { return (int)$this->getParameter('products_id', $this->getParameter('productId', 0)); }
+    public function getProductId() { return (int)$this->query->get('products_id', $this->query->get('productId', 0)); }
 
 }

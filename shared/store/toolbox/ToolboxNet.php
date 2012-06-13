@@ -216,7 +216,7 @@ class ToolboxNet extends ToolboxTool {
 
         $params = 'page='.$resultList->getPreviousPageNumber();
         foreach ($keep as $name) {
-            $params .= '&'.$name.'='.$this->getRequest()->getParameter($name);
+            $params .= '&'.$name.'='.$this->getRequest()->query->get($name);
         }
 
         $secure = null !== $secure ? $secure : $this->getRequest()->isSecure();
@@ -241,7 +241,7 @@ class ToolboxNet extends ToolboxTool {
 
         $params = 'page='.$resultList->getNextPageNumber();
         foreach ($keep as $name) {
-            $params .= '&'.$name.'='.$this->getRequest()->getParameter($name);
+            $params .= '&'.$name.'='.$this->getRequest()->query->get($name);
         }
 
         $secure = null !== $secure ? $secure : $this->getRequest()->isSecure();

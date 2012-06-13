@@ -41,8 +41,8 @@
         <?php } ?>
         <?php if ($resultList->hasSorters()) { $hasOptions = true; ?>
             <div class="rls">
-                <?php if ($request->getParameter('keywords')) { ?>
-                    <input type="hidden" name="keywords" value="<?php echo$request->getParameter('keywords') ?>" />
+                <?php if ($request->query->get('keywords')) { ?>
+                    <input type="hidden" name="keywords" value="<?php echo$request->query->get('keywords') ?>" />
                 <?php } ?>
                 <input type="hidden" name="page" value="<?php echo $resultList->getPageNumber() ?>" />
                 <?php if ($request->getCategoryPath()) { ?>

@@ -59,7 +59,7 @@ class AdminController extends \ZMController {
             $session->setValue('selected_box', 'configuration');
         }
 
-        $selectedBox = $request->getParameter('selected_box');
+        $selectedBox = $request->query->get('selected_box');
         if (null != $selectedBox) {
             $session->setValue('selected_box', $selectedBox);
         }

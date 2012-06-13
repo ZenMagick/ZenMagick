@@ -34,7 +34,7 @@
       <?php echo $form->open('search', '', $request->isSecure(), array('method' => 'get', 'name' => 'quick_find_header')) ?>
           <?php $onfocus = "if(this.value=='"._zm('Enter search keywords here')."') this.value='';" ?>
           <?php $onblur = "if(this.value=='') this.value='"._zm('Enter search keywords here')."';" ?>
-          <input type="text" name="keywords" size="6" maxlength="30" style="width:180px" value="<?php echo $html->encode($request->getParameter('keywords', _zm('Enter search keywords here'))) ?>" onfocus="<?php echo $onfocus ?>" onblur="<?php echo $onblur ?>" />
+          <input type="text" name="keywords" size="6" maxlength="30" style="width:180px" value="<?php echo $html->encode($request->query->get('keywords', _zm('Enter search keywords here'))) ?>" onfocus="<?php echo $onfocus ?>" onblur="<?php echo $onblur ?>" />
       </form>
 		</div>
 		<!--eof header_search-->

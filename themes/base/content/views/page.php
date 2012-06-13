@@ -23,7 +23,7 @@
 ?>
 
 <?php $crumbtrail->addCrumb($ezPage->getTitle()) ?>
-<?php $toc = $container->get('ezPageService')->getPagesForChapterId($request->getParameter("chapter"), $session->getLanguageId()); ?>
+<?php $toc = $container->get('ezPageService')->getPagesForChapterId($request->query->get("chapter"), $session->getLanguageId()); ?>
 <?php if (1 < count($toc)) { ?>
     <div id="eztoc">
         <h4><?php _vzm("Table of Contents") ?></h4>

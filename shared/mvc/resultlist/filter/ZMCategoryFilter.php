@@ -34,7 +34,7 @@ class ZMCategoryFilter extends ZMResultListFilter implements ZMSQLAware {
      * Create new instance.
      */
     public function __construct() {
-        parent::__construct('cfilter', _zm('Category'), Runtime::getContainer()->get('request')->getParameter('cfilter'));
+        parent::__construct('cfilter', _zm('Category'), Runtime::getContainer()->get('request')->query->get('cfilter'));
         $this->productIds_ = null;
     }
 

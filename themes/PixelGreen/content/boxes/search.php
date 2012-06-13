@@ -28,7 +28,7 @@
       <p>
         <input type="hidden" name="search_in_description" value="1" />
         <?php $onfocus = "if(this.value=='" . KEYWORD_DEFAULT . "') this.value='';" ?>
-        <input name="keywords" class="textbox" type="text" value="<?php echo $html->encode($request->getParameter('keywords', KEYWORD_DEFAULT)) ?>" onfocus="<?php echo $onfocus ?>" />
+        <input name="keywords" class="textbox" type="text" value="<?php echo $html->encode($request->query->get('keywords', KEYWORD_DEFAULT)) ?>" onfocus="<?php echo $onfocus ?>" />
         <input name="search" class="button" value="Search" type="submit" /><br />
         <a href="<?php echo $net->url('advanced_search') ?>"><?php _vzm("Advanced Search") ?></a>
       </p>

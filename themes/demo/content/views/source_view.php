@@ -20,8 +20,8 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-  $template_name = $request->getParameter("template_name");
-  $view_name = $request->getParameter("view_name");
+  $template_name = $request->query->get("template_name");
+  $view_name = $request->query->get("view_name");
 
   $source = null;
   if (null != $template_name) {

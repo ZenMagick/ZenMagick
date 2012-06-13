@@ -29,7 +29,7 @@
             <div>
                 <input type="submit" class="btn" value="<?php _vzm("Go") ?>" />
                 <?php $onfocus = "if(this.value=='" . KEYWORD_DEFAULT . "') this.value='';" ?>
-                <input type="text" id="keywords" name="keywords" value="<?php echo $html->encode($request->getParameter('keywords', KEYWORD_DEFAULT)) ?>" onfocus="<?php echo $onfocus ?>" />
+                <input type="text" id="keywords" name="keywords" value="<?php echo $html->encode($request->query->get('keywords', KEYWORD_DEFAULT)) ?>" onfocus="<?php echo $onfocus ?>" />
             </div>
         </form>
         <a class="clear" href="<?php echo $net->url('advanced_search') ?>"><?php _vzm("Advanced Search") ?></a>

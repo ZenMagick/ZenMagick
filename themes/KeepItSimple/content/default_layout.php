@@ -30,7 +30,7 @@
         <label for="qsearch">Search:</label>
         <?php define('KEYWORD_DEFAULT', _zm("search ...")); ?>
         <?php $onfocus = "if(this.value=='" . KEYWORD_DEFAULT . "') this.value='';" ?>
-        <input class="tbox" id="qsearch" type="text" name="keywords" value="<?php echo $html->encode($request->getParameter('keywords', KEYWORD_DEFAULT)) ?>" onfocus="<?php echo $onfocus ?>" title="Start typing and hit ENTER" />
+        <input class="tbox" id="qsearch" type="text" name="keywords" value="<?php echo $html->encode($request->query->get('keywords', KEYWORD_DEFAULT)) ?>" onfocus="<?php echo $onfocus ?>" title="Start typing and hit ENTER" />
         <input class="btn" alt="Search" type="image" name="searchsubmit" title="Search" src="<?php echo $this->asUrl("images/search.gif") ?>" />
         </p>
       </form>
