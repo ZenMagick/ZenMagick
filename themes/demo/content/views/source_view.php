@@ -20,19 +20,22 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-  $template_name = $request->query->get("template_name");
+  $layout_name = $request->query->get("layout_name");
   $view_name = $request->query->get("view_name");
 
   $source = null;
-  if (null != $template_name) {
-      $source = $template_name.'.php';
+  if (null != $layout_name) {
+      $source = $layout_name;
   } else if (null != $view_name) {
       $source = 'views/'.$view_name.'.php';
   }
 
-  if (null != $source) {
+  // resolve
+  $sourceFile = $resourceResolver->findResource($source, $view::TEMPLATE);
+
+  if (null != $sourceFile && is_file($sourceFile)) {
       ?><h2>Source for <?php echo $source ?></h2><pre id="source"><?php
-      echo $html->encode(file_get_contents($this->path($source)));
+      echo $html->encode(file_get_contents($sourceFile));
       ?></pre><?php
       return;
   }

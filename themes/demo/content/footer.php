@@ -32,7 +32,7 @@
     <div id="bannerFive"><?php echo $this->fetchBlockGroup('banners.footer2') ?></div>
 
     <p id="sview">
-        <a href="<?php echo $net->url('source_view', 'template_name='.$view->getLayout()) ?>">Template: '<?php echo basename($view->getLayout()) ?>'</a>
+        <a href="<?php echo $net->url('source_view', 'layout_name='.$view->getLayout()) ?>">Layout: '<?php echo basename($view->getLayout()) ?>'</a>
         <a href="<?php echo $net->url('source_view', 'view_name='.$request->getRequestId()) ?>">View: '<?php echo basename($request->getRequestId()) ?>'</a>
     </p>
     <p>Powered by <a href="http://www.zen-cart.com">zen-cart</a> and <a href="http://www.zenmagick.org">ZenMagick</a></p>
