@@ -145,15 +145,16 @@ class ZenCartBundle extends Bundle {
             'zenCartThemeStatusMapBuilder' => array('parent' => 'merge:themeStatusMapBuilder', 'class' => 'zenmagick\apps\store\bundles\ZenCartBundle\mock\ZenCartThemeStatusMapBuilder')
         ));
 
-        $settingsService = $this->container->get('settingsService');
-        $settingsService->add('apps.store.admin.menus', 'shared/store/bundles/ZenCartBundle/Resources/config/admin/menu.yaml');
-
         $yamlLoader = new YamlLoader($this->container, new FileLocator(dirname(__FILE__)));
         $yamlLoader->load($yaml);
+
+        $settingsService = $this->container->get('settingsService');
 
         if (!defined('DB_PREFIX')) define('DB_PREFIX', \ZMRuntime::getDatabase()->getPrefix());
         $settingsService = $this->container->get('settingsService');
         if (Runtime::isContextMatch('admin')) {
+            $settingsService->add('apps.store.admin.menus', 'shared/store/bundles/ZenCartBundle/Resources/config/admin/menu.yaml');
+            $settingsService->add('lib.http.routing.addnRouteFiles', __DIR__.'/Resources/config/admin/routing.xml');
             $adminDir = $this->container->get('configService')->getConfigValue(self::ZENCART_ADMIN_FOLDER);
             if (null != $adminDir) {
                 $settingsService->set('apps.store.zencart.admindir', $adminDir->getValue());
@@ -182,16 +183,7 @@ class ZenCartBundle extends Bundle {
         $GLOBALS['request_type'] = $request->isSecure() ? 'SSL' : 'NONSSL';
         $GLOBALS['PHP_SELF'] = $request->server->get('PHP_SELF');
 
-        if (Runtime::isContextMatch('admin')) {
-            $routingFile = __DIR__.'/Resources/config/admin/routing.xml';
-            if (file_exists($routingFile)) {
-                $routeResolver = $this->container->get('routeResolver');
-                $routingLoader = new XmlFileLoader(new FileLocator());
-                $routeCollection = $routingLoader->load($routingFile);
-                $routeResolver->getRouter()->getRouteCollection()->addCollection($routeCollection);
-            }
-
-        } else {
+        if (Runtime::isContextMatch('storefront')) {
             // init_canonical needs this
             global $current_page;
             $current_page = $request->getRequestId();
