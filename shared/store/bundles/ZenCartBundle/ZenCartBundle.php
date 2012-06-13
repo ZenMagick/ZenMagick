@@ -144,6 +144,10 @@ class ZenCartBundle extends Bundle {
         $yaml = array('services' => array(
             'zenCartThemeStatusMapBuilder' => array('parent' => 'merge:themeStatusMapBuilder', 'class' => 'zenmagick\apps\store\bundles\ZenCartBundle\mock\ZenCartThemeStatusMapBuilder')
         ));
+
+        $settingsService = $this->container->get('settingsService');
+        $settingsService->add('apps.store.admin.menus', 'shared/store/bundles/ZenCartBundle/Resources/config/admin/menu.yaml');
+
         $yamlLoader = new YamlLoader($this->container, new FileLocator(dirname(__FILE__)));
         $yamlLoader->load($yaml);
 
@@ -186,11 +190,6 @@ class ZenCartBundle extends Bundle {
                 $routeCollection = $routingLoader->load($routingFile);
                 $routeResolver->getRouter()->getRouteCollection()->addCollection($routeCollection);
             }
-
-            // @todo shouldn't assume we already have a menu, but we have to since the $adminMenu is never checked for emptiness only null
-            $adminMenu = $this->container->get('adminMenu');
-            $menuLoader = new MenuLoader();
-            $menuLoader->load(__DIR__.'/Resources/config/admin/menu.yaml', $adminMenu);
 
         } else {
             // init_canonical needs this

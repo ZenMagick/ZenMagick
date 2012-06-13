@@ -85,11 +85,15 @@ class AdminEventHandler extends ZMObject {
      * Init menu.
      */
     public function onInitConfigDone($event) {
-        $adminMenu = $this->container->get('adminMenu');
+        $settingsService = $this->container->get('settingsService');
 
         $menuLoader = new MenuLoader();
-        $menuLoader->load(Runtime::getApplicationPath().'/config/menu.yaml', $adminMenu);
-        $settingsService = $this->container->get('settingsService');
+        $adminMenu = $this->container->get('adminMenu');
+        $menus = $settingsService->get('apps.store.admin.menus');
+        // @todo support relative and absolute paths (and also placeholder paths)
+        foreach ($menus as $menu) {
+            $menuLoader->load(Runtime::getInstallationPath().'/'.$menu, $adminMenu);
+        }
 
         if ($settingsService->get('zenmagick.http.request.secure')) {
             // make all of ZM admin secure
