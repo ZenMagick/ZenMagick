@@ -103,6 +103,7 @@ zenmagick:
         site_map: store.sitemap
         advanced_search: search.advanced
         shopping_cart: cart
+      addnRouteFiles: []
   ## bundles
   bundles:
     ZenCartBundle: zenmagick\apps\store\bundles\ZenCartBundle\ZenCartBundle

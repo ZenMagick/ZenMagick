@@ -58,19 +58,24 @@ class EventListener extends ZMObject {
         $request = $event->get('request');
         $session = $request->getSession();
 
-        $routeResolver = $this->container->get('routeResolver');
+        $settingsService = Runtime::getSettings();
 
         // load application routing
-        $appRoutingFile = Runtime::getApplicationPath().'/config/routing.xml';
-        if (file_exists($appRoutingFile)) {
-            $appRoutingLoader = new XmlFileLoader(new FileLocator());
-            $appRouteCollection = $appRoutingLoader->load($appRoutingFile);
-            $routeResolver->getRouter()->getRouteCollection()->addCollection($appRouteCollection);
+        $routeResolver = $this->container->get('routeResolver');
+        $routeFiles = array(Runtime::getApplicationPath().'/config/routing.xml');
+        $routeFiles = array_merge($routeFiles, $settingsService->get('lib.http.routing.addnRouteFiles'));
+        $routeLoader = new XmlFileLoader(new FileLocator());
+
+        foreach ($routeFiles as $routeFile) {
+            if (file_exists($routeFile)) {
+                $routeCollection = $routeLoader->load($routeFile);
+                $routeResolver->getRouter()->getRouteCollection()->addCollection($routeCollection);
+            }
         }
 
         // adjust front controller parameter
-        if (basename($request->getScriptName()) != Runtime::getSettings()->get('zenmagick.http.request.handler')) {
-             Runtime::getSettings()->set('zenmagick.http.request.handler', basename($request->getScriptName()));
+        if (basename($request->getScriptName()) != $settingsService->get('zenmagick.http.request.handler')) {
+             $settingsService->set('zenmagick.http.request.handler', basename($request->getScriptName()));
         }
 
         // load additional routing

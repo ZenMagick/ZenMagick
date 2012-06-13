@@ -79,6 +79,8 @@ zenmagick:
       urlType: path
       secure: false
       enforceSecure: false
+    routing:
+      addnRouteFiles: []
     controller:
       namespaces:
         - zenmagick\apps\store\admin\controller
