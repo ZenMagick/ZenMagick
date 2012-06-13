@@ -25,6 +25,7 @@ namespace zenmagick\apps\store\storefront\controller;
 use ZMRequest;
 use zenmagick\base\Runtime;
 use zenmagick\base\ZMObject;
+use zenmagick\base\events\Event;
 use zenmagick\http\view\ModelAndView;
 use zenmagick\apps\store\utils\CheckoutHelper;
 
@@ -67,24 +68,76 @@ class ShoppingCartController extends ZMObject {
         return new ModelAndView(null, array('shoppingCart' => $shoppingCart));
     }
 
-protected function syncZC($session, $shoppingCart) {
-                // sync back to ZenCart
-                $cart = $session->getValue('cart');
-                $cart = (null != $cart) ? $cart : new \shoppingCart;
-                $cart->contents = $shoppingCart->getContents();
+    // TODO: move into bundle
+    protected function syncZC($session, $shoppingCart) {
+        // sync back to ZenCart
+        $cart = $session->getValue('cart');
+        $cart = (null != $cart) ? $cart : new \shoppingCart;
+        $cart->contents = $shoppingCart->getContents();
 
-}
+    }
 
     /**
      * Add product.
      */
     public function addProduct(ZMRequest $request) {
         $shoppingCart = $request->getShoppingCart();
-        $shoppingCart->addProduct($request->getProductId(), $request->getParameter('cart_quantity'), $request->getParameter('id'));
-        $shoppingCart->getCheckoutHelper()->saveHash($request);
-        // TODO: remove
-        $this->syncZC($request->getSession(), $shoppingCart);
-        // TODO: message/error handling
+        if ($shoppingCart->addProduct($request->getProductId(), $request->getParameter('cart_quantity'), $request->getParameter('id'))) {
+            $productId = $request->getProductId();
+            $shoppingCart->getCheckoutHelper()->saveHash($request);
+            $this->syncZC($request->getSession(), $shoppingCart);
+            $this->container->get('eventDispatcher')->dispatch('cart_add', new Event($this, array('request' => $request, 'productId' => $productId)));
+            $product = $this->container->get('productService')->getProductForId($productId);
+            $this->container->get('messageService')->success(sprintf(_zm("Product '%s' added to cart"), $product->getName()));
+        } else {
+            $this->container->get('messageService')->error(_zm('Add to cart failed'));
+        }
+
+        // TODO: add support for redirect back to origin
+        return new ModelAndView('success', array('shoppingCart' => $shoppingCart));
+    }
+
+    /**
+     * Buy now product.
+     */
+    public function buyNow(ZMRequest $request) {
+        $shoppingCart = $request->getShoppingCart();
+        if (0 < ($productId = $request->getProductId())) {
+            $productService = $this->container->get('productService');
+            if (null != ($product = $productService->getProductForId(ShoppingCart::getBaseProductIdFor($productId)))) {
+                if (!$product->hasAttributes()) {
+                    $qtyOrderMax = $product->getQtyOrderMax();
+                    $cartQty = $shoppingCart->getItemQuantityFor($productId, $product->isQtyMixed());
+                    if ($qtyOrderMax > $cartQty) {
+                        // FTW!
+                        $buyNowQty = 1;
+                        $qtyOrderMin = $product->getQtyOrderMin();
+                        $qtyOrderUnits = $product->getQtyOrderUnits();
+                        if (0 == $cartQty) {
+                            $buyNowQty = max($qtyOrderMin, $qtyOrderUnits);
+                        } else if ($cartQty < $qtyOrderMin) {
+                            $buyNowQty = $qtyOrderMin - $cartQty;
+                        } else if ($cartQty > $qtyOrderMin) {
+                            $adjQtyOrderUnits = $qtyOrderUnits - ZMTools::fmod_round($cartQty, $qtyOrderUnits);
+                            $buyNowQty = 0 < $adjQtyOrderUnits ? $adjQtyOrderUnits : $qtyOrderUnits;
+                        } else {
+                            $buyNowQty = $qtyOrderUnits;
+                        }
+
+                        $buyNowQty = 1 > $buyNowQty ? 1 : $buyNowQty;
+                        // limit
+                        $buyNowQty = min($qtyOrderMax, $cartQty + $buyNowQty);
+                        $shoppingCart->addProduct($productId, $buyNowQty);
+                        $shoppingCart->getCheckoutHelper()->saveHash($request);
+                        $this->syncZC($request->getSession(), $shoppingCart);
+                        $this->container->get('eventDispatcher')->dispatch('cart_add', new Event($this, array('request' => $request, 'productId' => $productId)));
+                        $this->container->get('messageService')->success(sprintf(_zm("Product '%s' added to cart"), $product->getName()));
+                    }
+                } else {
+                    $this->container->get('messageService')->error(_zm('Add to cart failed'));
+                }
+            }
+        }
 
         // TODO: add support for redirect back to origin
         return new ModelAndView('success', array('shoppingCart' => $shoppingCart));
@@ -95,11 +148,12 @@ protected function syncZC($session, $shoppingCart) {
      */
     public function removeProduct(ZMRequest $request) {
         $shoppingCart = $request->getShoppingCart();
-        $shoppingCart->removeProduct($request->getParameter('product_id'));
+        $productId = $request->getParameter('product_id');
+        $shoppingCart->removeProduct($productId);
         $shoppingCart->getCheckoutHelper()->saveHash($request);
-        // TODO: remove
         $this->syncZC($request->getSession(), $shoppingCart);
-        // TODO: message/error handling
+        $this->container->get('eventDispatcher')->dispatch('cart_remove', new Event($this, array('request' => $request, 'productId' => $productId)));
+        $this->container->get('messageService')->success(_zm('Product removed from cart'));
 
         // TODO: add support for redirect back to origin
         return new ModelAndView('success', array('shoppingCart' => $shoppingCart));
@@ -116,9 +170,9 @@ protected function syncZC($session, $shoppingCart) {
         foreach ($productIds as $ii => $productId) {
             $shoppingCart->updateProduct($productId, $quantities[$ii]);
         }
-        // TODO: remove
+        $this->container->get('eventDispatcher')->dispatch('cart_update', new Event($this, array('request' => $request, 'productIds' => $productIds)));
+        $this->container->get('messageService')->success(_zm('Product(s) added to cart'));
         $this->syncZC($request->getSession(), $shoppingCart);
-        // TODO: message/error handling
 
         // TODO: add support for redirect back to origin
         return new ModelAndView('success', array('shoppingCart' => $shoppingCart));
