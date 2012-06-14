@@ -57,43 +57,6 @@ class ZenCartBundle extends Bundle {
 
     }
 
-    public static function buildSearchPaths($base = '') {
-        $settingsService = Runtime::getSettings();
-        $zcPath = $settingsService->get('apps.store.zencart.path');
-        $dirs = array(dirname(__FILE__).'/bridge', $zcPath);
-        if (Runtime::isContextMatch('admin')) {
-            $adminDir = $settingsService->get('apps.store.zencart.admindir');
-            $adminDirs = array(dirname(__FILE__).'/bridge/admin', $zcPath.'/'.$adminDir);
-            $dirs = false !== strpos($base, 'classes') ? array_merge($adminDirs, $dirs) : $adminDirs;
-        }
-
-        $overrides = (false !== strpos($base, 'auto_loaders') || false !== strpos($base, 'init_includes'));
-        $searchPaths = array();
-        foreach ($dirs as $dir) {
-            if ($overrides) {
-                $searchPaths[] = $dir.'/'.$base.'/overrides';
-            }
-            $searchPaths[] = $dir.'/'.$base;
-        }
-        return $searchPaths;
-    }
-
-    /**
-     * Resolve some templated file vars
-     *
-     *
-     * @todo refactor this into a different class
-     */
-    public static function resolveFileVars($string) {
-        $container = Runtime::getContainer();
-        $request = $container->get('request');
-        $map = array();
-        $map['%current_page%'] = $request->getRequestId();
-        $map['%language%'] = $request->getSelectedLanguage()->getDirectory();
-        $map['%template_dir%'] = $container->get('themeService')->getActiveThemeId();
-        return str_replace(array_keys($map), array_values($map), $string);
-    }
-
     /**
      * Find Zen Cart init system files
      *
@@ -103,33 +66,7 @@ class ZenCartBundle extends Bundle {
      * @returns array array of absolute paths to files indexed by file basename.
      */
     public static function resolveFiles($paths) {
-        $files = array();
-
-        foreach ((array)$paths as $path) {
-            $path = self::resolveFileVars($path);
-            $file = basename($path);
-            $relative = dirname($path);
-            $checkRoots = self::buildSearchPaths($relative);
-            foreach ($checkRoots as $root) {
-                foreach (glob($root . '/' .  $file, GLOB_BRACE) as $found) {
-                    if (isset($files[basename($found)])) continue;
-                    $files[basename($found)] = realpath($found);
-                }
-            }
-        }
-        return $files;
-    }
-
-    /**
-     * Find a ZenCart init file.
-     *
-     * This just wraps resolveFiles and returns a single result.
-     *
-     * @see self::resolveFiles
-     */
-    public static function resolveFile($paths) {
-        $file = current(self::resolveFiles($paths));
-        return $file;
+        return Runtime::getContainer()->get('zenCartAutoLoader')->resolveFiles($paths);
     }
 
     /**
@@ -137,7 +74,8 @@ class ZenCartBundle extends Bundle {
      */
     public function onInitConfigDone($event) {
         $yaml = array('services' => array(
-            'zenCartThemeStatusMapBuilder' => array('parent' => 'merge:themeStatusMapBuilder', 'class' => 'zenmagick\apps\store\bundles\ZenCartBundle\mock\ZenCartThemeStatusMapBuilder')
+            'zenCartThemeStatusMapBuilder' => array('parent' => 'merge:themeStatusMapBuilder', 'class' => 'zenmagick\apps\store\bundles\ZenCartBundle\mock\ZenCartThemeStatusMapBuilder'),
+            'zenCartAutoLoader' => array('class' => 'zenmagick\apps\store\bundles\ZenCartBundle\utils\ZenCartAutoLoader'),
         ));
 
         $yamlLoader = new YamlLoader($this->container, new FileLocator(dirname(__FILE__)));
@@ -152,7 +90,7 @@ class ZenCartBundle extends Bundle {
 
     public function onBootstrapDone($event) {
         $settingsService = $this->container->get('settingsService');
-
+        $autoLoader = $this->container->get('zenCartAutoLoader');
         if (!defined('DB_PREFIX')) define('DB_PREFIX', \ZMRuntime::getDatabase()->getPrefix());
         if (!defined('IS_ADMIN_FLAG')) { define('IS_ADMIN_FLAG', Runtime::isContextMatch('admin')); }
 
@@ -161,7 +99,7 @@ class ZenCartBundle extends Bundle {
 
         // needed before session objects are restored
         $zcClassLoader = new ZenCartClassLoader();
-        $zcClassLoader->setBaseDirectories($this->buildSearchPaths('includes/classes'));
+        $zcClassLoader->setBaseDirectories($autoLoader->buildSearchPaths('includes/classes'));
         $zcClassLoader->register();
     }
 
