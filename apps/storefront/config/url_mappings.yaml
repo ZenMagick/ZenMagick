@@ -45,16 +45,16 @@ global:
 page:
   # view without classname# prefix will be completed to: [default-view-classname]#[value]
   popup_cvv_help:
-    layout: popup_layout
+    layout: popup_layout.php
     template: views/popup/cvv_help.php
   popup_search_help:
-    layout: popup_layout
+    layout: popup_layout.php
     template: views/popup/search_help.php
   popup_shipping_estimator:
-    layout: popup_layout
+    layout: popup_layout.php
     template: views/popup/shipping_estimator.php
   popup_coupon_help:
-    layout: popup_layout
+    layout: popup_layout.php
     template: views/popup/coupon_help.php
 
   account_history_info:
