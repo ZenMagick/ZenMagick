@@ -37,15 +37,6 @@ use zenmagick\http\view\TemplateView;
  *       so we don't actually make ZenCart more insecure on accident.
  */
 class EventFixes extends ZMObject {
-     /**
-     * Fake theme resolved event if using zen-cart templates and handle persisted messages.
-     */
-    public function zcInit($event) {
-        $request = $event->get('request');
-        $this->fixCategoryPath($request);
-        $this->checkAuthorization($request);
-        $this->configureLocale($request);
-    }
 
     /**
      * Handle 'showAll' parameter for result lists and provide empty address for guest checkout if needed.
@@ -191,7 +182,9 @@ class EventFixes extends ZMObject {
             $settingsService->set('zenmagick.base.locales.locale', $language->getCode());
         }
 
-        $this->zcInit($event);
+        $this->fixCategoryPath($request);
+        $this->checkAuthorization($request);
+        $this->configureLocale($request);
     }
 
     /**
