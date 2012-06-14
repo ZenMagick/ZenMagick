@@ -61,9 +61,7 @@ class HttpApplication extends Application {
      * Init request.
      */
     protected function initRequest() {
-        $request = Runtime::getContainer()->get('request');
-        // @todo init this later so we can actually take parameters (once init.php is gone)
-        $request->initialize($_GET, $_POST, array(), $_COOKIE, $_FILES, $_SERVER, null);
+        Runtime::getContainer()->get('request');
     }
 
     /**

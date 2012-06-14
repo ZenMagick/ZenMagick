@@ -37,15 +37,6 @@ use zenmagick\http\view\TemplateView;
  *       so we don't actually make ZenCart more insecure on accident.
  */
 class EventFixes extends ZMObject {
-     /**
-     * Fake theme resolved event if using zen-cart templates and handle persisted messages.
-     */
-    public function zcInit($event) {
-        $request = $event->get('request');
-        $this->fixCategoryPath($request);
-        $this->checkAuthorization($request);
-        $this->configureLocale($request);
-    }
 
     /**
      * Handle 'showAll' parameter for result lists and provide empty address for guest checkout if needed.
@@ -89,8 +80,15 @@ class EventFixes extends ZMObject {
 
         $this->sanitizeRequest($request);
 
+        $session = $request->getSession();
+        // in case we came from paypal or some other external location.
+        // @todo it should probably be some sort of session attribute.
+        if (null == $session->getValue('customers_ip_address')) {
+            $session->setValue('customers_ip_address', $request->getClientIp());
+        }
+
         $settingsService = $this->container->get('settingsService');
-        $language = $request->getSession()->getLanguage();
+        $language = $session->getLanguage();
         if (null == $language) {
             // default language
             $language = $this->container->get('languageService')->getLanguageForCode($settingsService->get('defaultLanguageCode'));
@@ -191,7 +189,9 @@ class EventFixes extends ZMObject {
             $settingsService->set('zenmagick.base.locales.locale', $language->getCode());
         }
 
-        $this->zcInit($event);
+        $this->fixCategoryPath($request);
+        $this->checkAuthorization($request);
+        $this->configureLocale($request);
     }
 
     /**

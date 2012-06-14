@@ -213,8 +213,7 @@ class Request extends \ZMRequest {
      */
     public function setCategoryPathArray($cPath) {
         if (is_array($cPath)) {
-            $this->setParameter('cPath', implode('_', $cPath));
-            $this->setParameter('cPath', implode('_', $cPath));
+            $this->query->set('cPath', implode('_', $cPath));
         } else {
             Runtime::getLogging()->error('invalid cPath: ' . $cPath);
         }

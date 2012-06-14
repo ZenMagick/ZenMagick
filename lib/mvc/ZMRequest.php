@@ -46,6 +46,15 @@ class ZMRequest extends HttpFoundationRequest implements ContainerAwareInterface
     private $dispatcher = null;
 
     /**
+     * Populate ParameterBag instances from superglobals
+     *
+     * @todo don't initialize in the ctor. pass it to the Application in the front controller.
+     */
+    public function __construct(array $query = array(), array $request = array(), array $attributes = array(), array $cookies = array(), array $files = array(), array $server = array(), $content = null) {
+        $this->initialize($_GET, $_POST, array(), $_COOKIE, $_FILES, $_SERVER, null);
+    }
+
+    /**
      * {@inheritDoc}
      */
     public function setContainer(ContainerInterface $container=null) {
@@ -305,23 +314,6 @@ class ZMRequest extends HttpFoundationRequest implements ContainerAwareInterface
             }
         }
         return $default;
-    }
-
-    /**
-     * Allow programmatic manipulation of request parameters.
-     *
-     * @param string name The paramenter name.
-     * @param mixed value The value.
-     * @return mixed The previous value or <code>null</code>.
-     */
-    public function setParameter($name, $value) {
-        // Only seems to be used for GET params
-        $old = null;
-        if ($this->query->has($name)) {
-            $old = $this->query->get($name);
-        }
-        $this->query->set($name, $value);
-        return $old;
     }
 
     /**
