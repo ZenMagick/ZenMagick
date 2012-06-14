@@ -163,6 +163,10 @@ class RouteResolver extends ZMObject {
                         if (!array_key_exists('layout', $query)) {
                             $query['layout'] = $layoutName;
                         }
+                        // also allow layout as option
+                        if (array_key_exists('layout', $options)) {
+                            $query['layout'] = $options['layout'];
+                        }
                         $token['query'] = http_build_query($query);
                     }
                     if (array_key_exists('scheme', $token)) {
