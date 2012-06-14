@@ -80,8 +80,15 @@ class EventFixes extends ZMObject {
 
         $this->sanitizeRequest($request);
 
+        $session = $request->getSession();
+        // in case we came from paypal or some other external location.
+        // @todo it should probably be some sort of session attribute.
+        if (null == $session->getValue('customers_ip_address')) {
+            $session->setValue('customers_ip_address', $request->getClientIp());
+        }
+
         $settingsService = $this->container->get('settingsService');
-        $language = $request->getSession()->getLanguage();
+        $language = $session->getLanguage();
         if (null == $language) {
             // default language
             $language = $this->container->get('languageService')->getLanguageForCode($settingsService->get('defaultLanguageCode'));

@@ -181,14 +181,6 @@ class ZenCartBundle extends Bundle {
             global $current_page;
             $current_page = $request->getRequestId();
 
-            /**
-             * only used in the orders class and old email functions
-             * @todo move it somewhere else
-             */
-            $session = $request->getSession();
-            if (null == $session->getValue('customers_ip_address')) {
-                $session->setValue('customers_ip_address', $request->getClientIp());
-            }
         }
     }
 
