@@ -27,6 +27,7 @@ use zenmagick\base\classloader\ClassLoader;
 use zenmagick\base\Toolbox;
 use zenmagick\base\ZMException;
 use zenmagick\base\events\Event;
+use zenmagick\base\plugins\Plugins;
 
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\Loader\XmlFileLoader;
@@ -61,7 +62,7 @@ class Application {
 
             // packages
             'packageBase' => basename(dirname(dirname(__DIR__))),
-            'packages' => array('vendor', 'lib/base', 'lib/core', 'shared', 'vendor/local'),
+            'packages' => array('vendor', 'lib/base', 'lib/core', 'shared', 'config', 'vendor/local'),
 
             'classLoader' => 'zenmagick\base\classloader\CachingClassLoader',
             'eventListener' => array('zenmagick\base\EventListener'),
@@ -191,6 +192,7 @@ class Application {
                     'initApplicationConfig',
                     'initGlobal',
                     'loadBundles',
+                    'loadBootstrapPackages',
                     'initApplicationContainer',
                     'initEventListener'
                 ),
@@ -429,6 +431,19 @@ class Application {
             $bundle->setContainer($container);
             $bundle->boot();
             $this->bundles[$key] = $bundle;
+        }
+    }
+
+    /**
+     * Load bootstrap packages.
+     */
+    protected function loadBootstrapPackages() {
+        $container = Runtime::getContainer();
+        $settingsService = Runtime::getSettings();
+        if ($settingsService->get('zenmagick.base.plugins.enabled', true)) {
+            foreach ($container->get('pluginService')->getPluginPackages() as $path) {
+                $this->classLoader->addConfig($path);
+            }
         }
     }
 
