@@ -46,6 +46,15 @@ class ZMRequest extends HttpFoundationRequest implements ContainerAwareInterface
     private $dispatcher = null;
 
     /**
+     * Populate ParameterBag instances from superglobals
+     *
+     * @todo don't initialize in the ctor. pass it to the Application in the front controller.
+     */
+    public function __construct(array $query = array(), array $request = array(), array $attributes = array(), array $cookies = array(), array $files = array(), array $server = array(), $content = null) {
+        $this->initialize($_GET, $_POST, array(), $_COOKIE, $_FILES, $_SERVER, null);
+    }
+
+    /**
      * {@inheritDoc}
      */
     public function setContainer(ContainerInterface $container=null) {
