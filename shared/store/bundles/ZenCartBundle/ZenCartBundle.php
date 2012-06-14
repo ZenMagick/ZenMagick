@@ -22,15 +22,11 @@ namespace zenmagick\apps\store\bundles\ZenCartBundle;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\HttpKernel\Bundle\Bundle;
-use Symfony\Component\Routing\Loader\XmlFileLoader;
-
-use Swift_Transport_SendmailTransport;
 
 use zenmagick\base\Beans;
 use zenmagick\base\Runtime;
 use zenmagick\base\dependencyInjection\loader\YamlLoader;
 use zenmagick\apps\store\bundles\ZenCartBundle\utils\EmailEventHandler;
-use zenmagick\apps\store\menu\MenuLoader;
 
 /**
  * Zencart support bundle.
