@@ -90,7 +90,7 @@ class CategoryController extends \ZMController {
         if (null != $resultList && 1 == $resultList->getNumberOfResults() && Runtime::getSettings()->get('isSkipSingleProductCategory')) {
             $results = $resultList->getResults();
             $product = array_pop($results);
-            $request->setParameter('products_id', $product->getId());
+            $request->query->set('products_id', $product->getId());
             $viewName = 'product_info';
         }
 

@@ -42,11 +42,11 @@ class RoutingUrlRewriter extends ZMObject implements UrlRewriter {
                 $requestId = $alias[$requestId];
             }
             $request->setRequestId($requestId);
-            $parameterMap = $request->getParameterMap();
+            $parameterMap = $request->query->all();
             // grab things not set and not prefixed with '_'
             foreach ($routerMatch as $key => $value) {
                 if ('_' != $key[0] && !array_key_exists($key, $parameterMap)) {
-                    $request->setParameter($key, $value);
+                    $request->query->set($key, $value);
                 }
             }
             return true;

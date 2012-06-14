@@ -75,7 +75,7 @@ class ForwardView extends ZMObject implements View {
      */
     public function generate($request, $template=null, $variables=array()) {
         // keep reference to original request
-        $request->setParameter('rootRequestId', $request->getRequestId());
+        $request->query->set('rootRequestId', $request->getRequestId());
         // set forward id
         $request->setRequestId($this->getRequestId());
         $this->container->get('dispatcher')->dispatch($request);

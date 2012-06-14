@@ -127,7 +127,7 @@ class DefaultUrlRewriter extends ZMObject implements UrlRewriter {
                 }
                 $request->setRequestId($token[0]);
                 for ($ii=1; $ii<$tokenCount; $ii+=2) {
-                    $request->setParameter($token[$ii], $token[$ii+1]);
+                    $request->query->set($token[$ii], $token[$ii+1]);
                 }
                 return true;
             }
