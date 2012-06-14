@@ -308,23 +308,6 @@ class ZMRequest extends HttpFoundationRequest implements ContainerAwareInterface
     }
 
     /**
-     * Allow programmatic manipulation of request parameters.
-     *
-     * @param string name The paramenter name.
-     * @param mixed value The value.
-     * @return mixed The previous value or <code>null</code>.
-     */
-    public function setParameter($name, $value) {
-        // Only seems to be used for GET params
-        $old = null;
-        if ($this->query->has($name)) {
-            $old = $this->query->get($name);
-        }
-        $this->query->set($name, $value);
-        return $old;
-    }
-
-    /**
      * Redirect to the given url.
      *
      * @param string url A fully qualified url.
