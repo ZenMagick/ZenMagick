@@ -21,6 +21,7 @@
 namespace zenmagick\apps\store\bundles\ZenCartBundle\utils;
 
 use zenmagick\base\Runtime;
+use zenmagick\base\ZMObject;
 
 /**
  * ZenCart auto loader utility
@@ -28,9 +29,55 @@ use zenmagick\base\Runtime;
  * @author Johnny Robeson
  * @todo fix image handler extra_configures
  */
-class ZenCartAutoLoader {
+class ZenCartAutoLoader extends ZMObject {
     private $globalKeys = array();
     private $originalErrorLevel;
+
+    /**
+     * Init common stuff across storefront and admin
+     *
+     * Assume access to $request
+     */
+    public function initCommon() {
+        $request = $this->container->get('request');
+
+        $isAdmin = Runtime::isContextMatch('admin');
+        if ($isAdmin) {
+            $this->includeFiles('../includes/configure.php');
+            $this->includeFiles('../includes/database_tables.php');
+            $this->includeFiles('../includes/filenames.php');
+        } else {
+            $this->includeFiles('includes/configure.php');
+            $this->includeFiles('includes/database_tables.php');
+            $this->includeFiles('includes/filenames.php');
+        }
+
+        $settingsService = Runtime::getSettings();
+        require $settingsService->get('apps.store.zencart.path').'/includes/version.php';
+
+        $requestId = $request->getRequestId();
+
+        // needed throughout sadly
+        $globals = array(
+            'current_page' => $requestId,
+            'current_page_base' => $requestId,
+            'request_type' => $request->isSecure() ? 'SSL' : 'NONSSL',
+            'session_started' => true,
+            'PHP_SELF' => $request->server->get('PHP_SELF'),
+        );
+        $this->setGlobalValues($globals);
+
+        // Common classes
+        $zcClassLoader = new \zenmagick\apps\store\bundles\ZenCartBundle\ZenCartClassLoader();
+        $zcClassLoader->setBaseDirectories($this->buildSearchPaths('includes/classes'));
+        $zcClassLoader->register();
+
+        $this->setGlobalValue('zco_notifier', new \notifier);
+        $this->setGlobalValue('db', new \queryFactory);
+        $this->setGlobalValue('messageStack', new \messageStack);
+        $this->setGlobalValue('template', new \template_func);
+        $this->setGlobalValue('sniffer', new \sniffer);
+    }
 
     /**
      * Get names of all global variables needed by ZenCart.
@@ -181,9 +228,9 @@ class ZenCartAutoLoader {
     }
 
     /**
-     * Include a file or files. 
+     * Include a file or files.
      *
-     * This method also gives all files access to the 
+     * This method also gives all files access to the
      * required global variables.
      */
     public function includeFiles($path, $require = false, $once = true) {
