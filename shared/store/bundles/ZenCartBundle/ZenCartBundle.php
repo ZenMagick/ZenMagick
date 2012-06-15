@@ -88,36 +88,15 @@ class ZenCartBundle extends Bundle {
         }
     }
 
-    public function onBootstrapDone($event) {
-        $settingsService = $this->container->get('settingsService');
-        $autoLoader = $this->container->get('zenCartAutoLoader');
-        if (!defined('DB_PREFIX')) define('DB_PREFIX', \ZMRuntime::getDatabase()->getPrefix());
-        if (!defined('IS_ADMIN_FLAG')) { define('IS_ADMIN_FLAG', Runtime::isContextMatch('admin')); }
-
-        // include some zencart files we need.
-        include_once $settingsService->get('apps.store.zencart.path').'/includes/database_tables.php';
-
-        // needed before session objects are restored
-        $zcClassLoader = new ZenCartClassLoader();
-        $zcClassLoader->setBaseDirectories($autoLoader->buildSearchPaths('includes/classes'));
-        $zcClassLoader->register();
-    }
-
     /**
      * Handle things that require a request.
      */
-    public function onContainerReady($event) {
+    public function onRequestReady($event) {
         $request = $event->get('request');
 
-        // needed throughout sadly
-        $GLOBALS['session_started'] = true;
-        $GLOBALS['request_type'] = $request->isSecure() ? 'SSL' : 'NONSSL';
-        $GLOBALS['PHP_SELF'] = $request->server->get('PHP_SELF');
-
         if (Runtime::isContextMatch('storefront')) {
-            // init_canonical needs this
-            global $current_page;
-            $current_page = $request->getRequestId();
+            $autoLoader = $this->container->get('zenCartAutoLoader');
+            $autoLoader = $autoLoader->initCommon();
 
         }
     }
@@ -129,12 +108,10 @@ class ZenCartBundle extends Bundle {
         $request = $event->get('request');
 
         // skip more zc request handling
+        global $code_page_directory;
         if (!$this->needsZC($request)) {
-            global $code_page_directory;
             $code_page_directory = 'zenmagick';
         } else {
-            global $code_page_directory, $current_page_base;
-            $current_page_base = $request->getRequestId();
             $code_page_directory = 'includes/modules/pages/'.$request->getRequestId();
         }
     }

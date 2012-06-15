@@ -22,22 +22,19 @@ use zenmagick\apps\store\bundles\ZenCartBundle\ZenCartBundle;
 if (!class_exists('zenmagick\base\Application')) {
     include 'zenmagick/init.php';
 }
-$session_started = $GLOBALS['session_started'];
-$PHP_SELF = $GLOBALS['PHP_SELF'];
-$request_type = $GLOBALS['request_type'];
 
+$autoLoader = Runtime::getContainer()->get('zenCartAutoLoader');
 define('PAGE_PARSE_START_TIME', microtime());
 
 // @todo find a way to restore the original value once all processing by ZenCart is complete.
-if (Runtime::getSettings()->get('apps.store.zencart.strictErrorReporting', true)) {
-  error_reporting(version_compare(PHP_VERSION, 5.4, '>=') ? E_ALL ^ E_DEPRECATED ^ E_NOTICE ^ E_STRICT : E_ALL ^ E_DEPRECATED ^ E_NOTICE);
-}
+$autoLoader->setErrorLevel();
 
 $autoLoadConfig = array();
 $loaderPrefix = isset($loaderPrefix) ? $loaderPrefix : 'config';
 $coreLoaderPrefix = in_array($loaderPrefix, array('config', 'paypal_ipn')) ? 'config' : $loaderPrefix;
-$files = ZenCartBundle::resolveFiles('includes/auto_loaders/'.$coreLoaderPrefix.'.*.php');
+$files = $autoLoader->resolveFiles('includes/auto_loaders/'.$coreLoaderPrefix.'.*.php');
 
+extract($autoLoader->getGlobalValues());
 include $files[$coreLoaderPrefix.'.core.php'];
 unset($files[$coreLoaderPrefix.'.core.php']);
 

@@ -9,34 +9,13 @@
  * @version $Id: config.core.php 4271 2006-08-26 01:21:02Z drbyte $
  */
 
-  $autoLoadConfig[0][] = array('autoType'=>'include',
-                               'loadFile'=> 'includes/configure.php');
   $autoLoadConfig[0][] = array('autoType'=>'init_script',
                                 'loadFile'=> 'init_begin.php');
-  $autoLoadConfig[0][] = array('autoType'=>'classInstantiate',
-                                'className'=>'notifier',
-                                'objectName'=>'zco_notifier');
 
   $autoLoadConfig[10][] = array('autoType'=>'include_glob',
                                 'loadFile'=>'includes/extra_configures/*.php');
-  $autoLoadConfig[10][] = array('autoType'=>'require',
-                                'loadFile'=>'includes/filenames.php');
-  $autoLoadConfig[10][] = array('autoType'=>'include',
-                                'loadFile'=>'includes/database_tables.php',
-                                'once'=>true);
   $autoLoadConfig[10][] = array('autoType'=>'include_glob',
                                 'loadFile'=>'includes/extra_datafiles/*.php');
-
-  $autoLoadConfig[10][] = array('autoType'=>'classInstantiate',
-                                'className'=>'queryFactory',
-                                'objectName'=> 'db');
-
-  $autoLoadConfig[20][] = array('autoType'=>'include', // actually used by the paypal modules!
-                                'loadFile'=> 'includes/version.php');
-
-  $autoLoadConfig[50][] = array('autoType'=>'classInstantiate',
-                                'className'=>'sniffer',
-                                'objectName'=>'sniffer');
 
   $autoLoadConfig[60][] = array('autoType'=>'include_glob',
                                 'loadFile'=>'includes/functions/{functions_email.php,functions_general.php,html_output.php,sessions.php,zen_mail.php}');
@@ -49,9 +28,6 @@
                                 'name'=>'session', 'method'=>'getToken', 'session' => true,
                                 'resultVar'=>'securityToken');
 
-  $autoLoadConfig[80][] = array('autoType'=>'classInstantiate',
-                                 'className'=>'messageStack',
-                                 'objectName'=>'messageStack');
   $autoLoadConfig[80][] = array('autoType'=>'classInstantiate',
                                 'className'=>'shoppingCart',
                                 'objectName'=>'cart',
@@ -67,10 +43,6 @@
   $autoLoadConfig[90][] = array('autoType'=>'classInstantiate',
                                 'className'=>'currencies',
                                 'objectName'=>'currencies');
-
-  $autoLoadConfig[100][] = array('autoType'=>'classInstantiate',
-                                 'className'=>'template_func',
-                                 'objectName'=>'template');
 
   $autoLoadConfig[110][] = array('autoType'=>'include',
                                 'loadFile'=>'includes/classes/db/mysql/define_queries.php');

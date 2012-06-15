@@ -12,7 +12,7 @@ define('DB_TYPE', 'mysql');
 define('IS_ADMIN_FLAG', Runtime::isContextMatch('admin'));
 
 // @todo we want this to be here!
-//define('DB_PREFIX', $settings->get('apps.store.database.default.prefix'));
+define('DB_PREFIX', $settings->get('apps.store.database.default.prefix'));
 
 // @todo these shouldn't be available by default
 //define('DB_SERVER', $settings->get('apps.store.database.default.host'));
