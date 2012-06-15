@@ -61,6 +61,9 @@ class ZenCartAutoLoader extends ZMObject {
         $globals = array(
             'current_page' => $requestId,
             'current_page_base' => $requestId,
+            'cPath' => (string)$request->getCategoryPath(),
+            'current_category_id' => $request->getCategoryId(),
+            'cPath_array' => $request->getCategoryPathArray(),
             'request_type' => $request->isSecure() ? 'SSL' : 'NONSSL',
             'session_started' => true,
             'PHP_SELF' => $request->server->get('PHP_SELF'),
