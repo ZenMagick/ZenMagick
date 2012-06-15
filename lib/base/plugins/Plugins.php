@@ -111,6 +111,30 @@ class Plugins extends ZMObject {
     }
 
     /**
+     * Get packages for all enabled plugins.
+     *
+     * <p>This method will only return data if the bootstrap cache is populated.</p>
+     *
+     * @param int context Optional context flag; default is <code>null</code> for all.
+     * @return array List of plugin lib folders.
+     */
+    public function getPluginPackages($context=null) {
+        if (null == $this->cache || !$this->cache->lookup(self::STATUS_MAP_KEY)) {
+            return array();
+        }
+
+        $statusMap = $this->getStatusMap();
+        $pluginPackages = array();
+        foreach ($statusMap as $id => $status) {
+            if ($status['enabled'] && $status['lib']) {
+                $pluginPackages[] = $status['pluginDir'].'/lib';
+            }
+        }
+
+        return $pluginPackages;
+    }
+
+    /**
      * Get all plugins for the given context.
      *
      * @param int context Optional context flag; default is <code>null</code> for all.

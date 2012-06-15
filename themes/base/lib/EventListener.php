@@ -37,7 +37,7 @@ class EventListener extends ThemeEventListener {
         $theme = $event->get('theme');
         $validation = $theme->getBasePath().'/lib/validation.php';
         if (file_exists($validation)) {
-            require $validation;
+            require_once $validation;
         }
     }
 }

@@ -169,7 +169,7 @@ class ResourceManager extends ZMObject {
             $this->resources_['js'][$filename]['done'] = true;
             if ($this->resources_['js'][$filename]['inline']) {
                 echo '<script type="text/javascript">',"\n";
-                $this->view->fetch($filename);
+                echo $this->view->fetch($filename);
                 echo '</script>',"\n";
             } else {
                 // avoid empty src
