@@ -15,7 +15,7 @@
         <parameter key="zenmagick.http.session.validator.userAgent">false</parameter>
         <parameter key="zenmagick.http.session.validator.ip">false</parameter>
         <parameter key="zenmagick.http.session.validator.sslSessionId">false</parameter>
-        <parameter key="zenmagick.http.session.formToken"></parameter>
+        <parameter key="zenmagick.http.session.formToken" type="collection"></parameter>
     </parameters>
 
     <services>
