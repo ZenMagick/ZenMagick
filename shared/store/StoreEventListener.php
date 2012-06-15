@@ -54,6 +54,10 @@ class StoreEventListener extends ZMObject {
             include $defaults;
         }
 
+        $settingsService = $this->container->get('settingsService');
+        set_time_limit($settingsService->get('apps.store.maxExecutionTime', 60));
+
+
         // load email container config once all settings/config is loaded
         $emailConfig = Runtime::getInstallationPath().'/config/store-email.xml';
         if (file_exists($emailConfig)) {
