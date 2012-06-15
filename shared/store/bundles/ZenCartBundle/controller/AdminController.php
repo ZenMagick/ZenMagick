@@ -72,6 +72,14 @@ class AdminController extends \ZMController {
         $cPath_array = $request->getCategoryPathArray();
 
         $tpl = compact('current_category_id', 'cPath', 'cPath_array');
+
+        $autoLoader = $this->container->get('zenCartAutoLoader');
+        $autoLoader->initCommon();
+
+        foreach ($autoLoader->getGlobalValues() as $k => $v) {
+            $tpl[$k] = $v;
+        }
+
         $view = $this->findView('zc_admin', $tpl);
         $view->setTemplate('views/zc_admin.php');
         // no layout for invoice/packaging slip

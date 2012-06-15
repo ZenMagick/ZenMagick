@@ -20,33 +20,14 @@
 // $Id: config.core.php 17921 2010-10-10 11:58:15Z wilt $
 //
 //
-  $autoLoadConfig[0][] = array('autoType'=>'include',
-                                'loadFile'=> '../includes/configure.php');
-  $autoLoadConfig[0][] = array('autoType'=>'classInstantiate',
-                                'className'=>'notifier',
-                                'objectName'=>'zco_notifier');
 
   $autoLoadConfig[10][] = array('autoType'=>'include_glob',
                                 'loadFile'=>'includes/extra_configures/*.php');
-  $autoLoadConfig[10][] = array('autoType'=>'require',
-                                'loadFile'=>'../includes/filenames.php');
-  $autoLoadConfig[10][] = array('autoType'=>'include',
-                                'loadFile'=>'../includes/database_tables.php',
-                                'once'=>true);
   $autoLoadConfig[10][] = array('autoType'=>'include_glob',
                                 'loadFile'=>'includes/extra_datafiles/*.php');
-  $autoLoadConfig[10][] = array('autoType'=>'classInstantiate',
-                                'className'=>'queryFactory',
-                                'objectName'=> 'db');
-  $autoLoadConfig[10][] = array('autoType'=>'require',
-                               'loadFile'=> '../includes/version.php');
   $autoLoadConfig[20][] = array('autoType'=>'service',
                                 'name'=>'productTypeLayoutService',
                                 'method'=>'defineAll');
-
-  $autoLoadConfig[30][] = array('autoType'=>'classInstantiate',
-                                'className'=>'sniffer',
-                                'objectName'=>'sniffer');
 
   $autoLoadConfig[40][] = array('autoType'=>'include_glob',
                                 'loadFile'=>'includes/functions/{general.php,database.php,functions_customers.php,functions_metatags.php,functions_prices.php,html_output.php,localization.php,password_funcs.php}');
@@ -67,13 +48,6 @@
                                 'loadFile'=>'includes/languages/%language%/extra_definitions/*.php');
 
   $autoLoadConfig[90][] = array('autoType'=>'classInstantiate',
-                                'className'=>'template_func',
-                                'objectName'=>'template');
-
-  $autoLoadConfig[90][] = array('autoType'=>'classInstantiate',
                                 'className'=>'products',
                                 'objectName'=>'zc_products');
 
-  $autoLoadConfig[100][] = array('autoType'=>'classInstantiate',
-                                 'className'=>'messageStack',
-                                 'objectName'=>'messageStack');
