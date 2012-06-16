@@ -35,7 +35,3 @@
   $autoLoadConfig[70][] = array('autoType'=>'include_glob',
                                 'loadFile'=>'includes/languages/%language%/extra_definitions/*.php');
 
-  $autoLoadConfig[90][] = array('autoType'=>'classInstantiate',
-                                'className'=>'products',
-                                'objectName'=>'zc_products');
-

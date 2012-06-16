@@ -70,6 +70,8 @@ class AdminController extends \ZMController {
         $autoLoader = $this->container->get('zenCartAutoLoader');
         $autoLoader->initCommon();
 
+        $autoLoader->setGlobalValue('zc_products', new \products);
+
         foreach ($autoLoader->getGlobalValues() as $k => $v) {
             $tpl[$k] = $v;
         }
