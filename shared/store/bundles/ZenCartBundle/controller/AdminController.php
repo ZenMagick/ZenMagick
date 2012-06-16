@@ -42,7 +42,8 @@ class AdminController extends \ZMController {
         $session = $request->getSession();
         $language = $request->getSelectedLanguage();
 
-        $this->container->get('themeService')->initThemes($language);
+        $themeService = $this->container->get('themeService');
+        $themeService->initThemes($language);
 
         if (null == $session->getValue('securityToken')) {
             $session->setValue('securityToken', $session->getToken());
@@ -70,12 +71,13 @@ class AdminController extends \ZMController {
         $autoLoader = $this->container->get('zenCartAutoLoader');
         $autoLoader->initCommon();
 
+        $autoLoader->setGlobalValue('template_dir', $themeService->getActiveTheme()->getId());
         $autoLoader->setGlobalValue('zc_products', new \products);
 
+        $tpl = compact('autoLoader');
         foreach ($autoLoader->getGlobalValues() as $k => $v) {
             $tpl[$k] = $v;
         }
-
         $view = $this->findView('zc_admin', $tpl);
         $view->setTemplate('views/zc_admin.php');
         // no layout for invoice/packaging slip
