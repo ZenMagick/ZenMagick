@@ -34,40 +34,14 @@ class ZenCartAutoLoader extends ZMObject {
     private $originalErrorLevel;
 
     /**
-     * Init common stuff across storefront and admin
+     * Commonly used ZenCart request related globals.
      *
-     * Assume access to $request
+     * May need to be overwritten from time to time.
      */
-    public function initCommon() {
+    public function overrideRequestGlobals() {
         $request = $this->container->get('request');
 
-        $isAdmin = Runtime::isContextMatch('admin');
-        if ($isAdmin) {
-            $this->includeFiles('../includes/configure.php');
-            $this->includeFiles('../includes/database_tables.php');
-            $this->includeFiles('../includes/filenames.php');
-            $this->includeFiles('includes/extra_datafiles/*.php');
-            $this->includeFiles('includes/functions/extra_functions/*.php');
-            $this->includeFiles('includes/functions/{general.php,database.php,functions_customers.php,functions_metatags.php,functions_prices.php,html_output.php,localization.php,password_funcs.php}');
-            $this->includeFiles('../includes/functions/{audience.php,banner.php,featured.php,functions_email.php,salemaker.php,sessions.php,specials.php,zen_mail.php}');
-
-        } else {
-            $this->includeFiles('includes/configure.php');
-            $this->includeFiles('includes/database_tables.php');
-            $this->includeFiles('includes/filenames.php');
-
-            $this->includeFiles('includes/extra_datafiles/*.php');
-            $this->includeFiles('includes/functions/extra_functions/*.php');
-            $this->includeFiles('includes/functions/{functions_email.php,functions_general.php,html_output.php,functions_ezpages.php,password_funcs.php,sessions.php,zen_mail.php}');
-            $this->includeFiles('includes/functions/banner.php');
-
-        }
-
-        $settingsService = Runtime::getSettings();
-        require $settingsService->get('apps.store.zencart.path').'/includes/version.php';
-
         $requestId = $request->getRequestId();
-
         // needed throughout sadly
         $globals = array(
             'current_page' => $requestId,
@@ -80,6 +54,44 @@ class ZenCartAutoLoader extends ZMObject {
             'PHP_SELF' => $request->server->get('PHP_SELF'),
         );
         $this->setGlobalValues($globals);
+        if (Runtime::isContextMatch('admin')) {
+            $this->setGlobalValue('PHP_SELF', $requestId.'.php');
+        }
+    }
+
+    /**
+     * Init common stuff across storefront and admin
+     *
+     * Assume access to $request
+     */
+    public function initCommon() {
+        $this->overrideRequestGlobals();
+        $isAdmin = Runtime::isContextMatch('admin');
+        if ($isAdmin) {
+            $this->includeFiles('../includes/version.php');
+            $this->includeFiles('../includes/configure.php');
+            $this->includeFiles('../includes/database_tables.php');
+            $this->includeFiles('../includes/filenames.php');
+            $this->includeFiles('includes/extra_datafiles/*.php');
+            $this->includeFiles('includes/functions/extra_functions/*.php');
+            $this->includeFiles('includes/functions/{general.php,database.php,functions_customers.php,functions_metatags.php,functions_prices.php,html_output.php,localization.php,password_funcs.php}');
+            $this->includeFiles('../includes/functions/{audience.php,banner.php,featured.php,functions_email.php,salemaker.php,sessions.php,specials.php,zen_mail.php}');
+
+        } else {
+            $this->includeFiles('includes/version.php');
+            $this->includeFiles('includes/configure.php');
+            $this->includeFiles('includes/database_tables.php');
+            $this->includeFiles('includes/filenames.php');
+
+            $this->includeFiles('includes/extra_datafiles/*.php');
+            $this->includeFiles('includes/functions/extra_functions/*.php');
+            $this->includeFiles('includes/functions/{functions_email.php,functions_general.php,html_output.php,functions_ezpages.php,password_funcs.php,sessions.php,zen_mail.php}');
+            $this->includeFiles('includes/functions/banner.php');
+
+        }
+
+        $settingsService = Runtime::getSettings();
+
 
         // Common classes
         $zcClassLoader = new \zenmagick\apps\store\bundles\ZenCartBundle\ZenCartClassLoader();
