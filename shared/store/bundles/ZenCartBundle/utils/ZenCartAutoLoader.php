@@ -44,11 +44,13 @@ class ZenCartAutoLoader extends ZMObject {
         $requestId = $request->getRequestId();
         // needed throughout sadly
         $globals = array(
+            'code_page_directory' => 'includes/modules/pages/'.$requestId,
             'current_page' => $requestId,
             'current_page_base' => $requestId,
             'cPath' => (string)$request->getCategoryPath(),
             'current_category_id' => $request->getCategoryId(),
             'cPath_array' => $request->getCategoryPathArray(),
+            'page_directory' => 'includes/modules/pages/'.$requestId,
             'request_type' => $request->isSecure() ? 'SSL' : 'NONSSL',
             'session_started' => true,
             'PHP_SELF' => $request->server->get('PHP_SELF'),
@@ -56,6 +58,8 @@ class ZenCartAutoLoader extends ZMObject {
         $this->setGlobalValues($globals);
         if (Runtime::isContextMatch('admin')) {
             $this->setGlobalValue('PHP_SELF', $requestId.'.php');
+        } else {
+            $_GET['main_page'] = $requestId; // needed (somewhere) to catch routes from the route resolver
         }
     }
 
