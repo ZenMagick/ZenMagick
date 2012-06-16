@@ -58,18 +58,6 @@ class ZenCartBundle extends Bundle {
     }
 
     /**
-     * Find Zen Cart init system files
-     *
-     * We check our bridge directory before falling back on ZenCart native files
-     *
-     * @param mixed string|array $paths path or paths to file or files, can be a glob.
-     * @returns array array of absolute paths to files indexed by file basename.
-     */
-    public static function resolveFiles($paths) {
-        return Runtime::getContainer()->get('zenCartAutoLoader')->resolveFiles($paths);
-    }
-
-    /**
      * Prepare db config
      */
     public function onInitConfigDone($event) {

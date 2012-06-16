@@ -15,7 +15,6 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 use zenmagick\base\Runtime;
-use zenmagick\apps\store\bundles\ZenCartBundle\ZenCartBundle;
 
 /**
  * Cleaned up version of the Zen Cart auto loader
@@ -79,16 +78,16 @@ foreach ($autoLoadConfig as $actionPoint => $row) {
                 }
             break;
             case 'init_script':
-                $files = ZenCartBundle::resolveFiles('includes/init_includes/'.$entry['loadFile']);
+                $files = $autoLoader->resolveFiles('includes/init_includes/'.$entry['loadFile']);
             break;
             case 'class':
-                $files = ZenCartBundle::resolveFiles('includes/classes/'.$entry['loadFile']);
+                $files = $autoLoader->resolveFiles('includes/classes/'.$entry['loadFile']);
             break;
             case 'require':
                 $require = true;
             case 'include':
             case 'include_glob':
-                $files = ZenCartBundle::resolveFiles($entry['loadFile']);
+                $files = $autoLoader->resolveFiles($entry['loadFile']);
             break;
         }
         if (!empty($files)) {
