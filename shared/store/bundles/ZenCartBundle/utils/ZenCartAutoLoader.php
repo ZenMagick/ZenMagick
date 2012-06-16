@@ -46,10 +46,21 @@ class ZenCartAutoLoader extends ZMObject {
             $this->includeFiles('../includes/configure.php');
             $this->includeFiles('../includes/database_tables.php');
             $this->includeFiles('../includes/filenames.php');
+            $this->includeFiles('includes/extra_datafiles/*.php');
+            $this->includeFiles('includes/functions/extra_functions/*.php');
+            $this->includeFiles('includes/functions/{general.php,database.php,functions_customers.php,functions_metatags.php,functions_prices.php,html_output.php,localization.php,password_funcs.php}');
+            $this->includeFiles('../includes/functions/{audience.php,banner.php,featured.php,functions_email.php,salemaker.php,sessions.php,specials.php,zen_mail.php}');
+
         } else {
             $this->includeFiles('includes/configure.php');
             $this->includeFiles('includes/database_tables.php');
             $this->includeFiles('includes/filenames.php');
+
+            $this->includeFiles('includes/extra_datafiles/*.php');
+            $this->includeFiles('includes/functions/extra_functions/*.php');
+            $this->includeFiles('includes/functions/{functions_email.php,functions_general.php,html_output.php,functions_ezpages.php,password_funcs.php,sessions.php,zen_mail.php}');
+            $this->includeFiles('includes/functions/banner.php');
+
         }
 
         $settingsService = Runtime::getSettings();
@@ -80,6 +91,9 @@ class ZenCartAutoLoader extends ZMObject {
         $this->setGlobalValue('messageStack', new \messageStack);
         $this->setGlobalValue('template', new \template_func);
         $this->setGlobalValue('sniffer', new \sniffer);
+
+        $this->container->get('productTypeLayoutService')->defineAll();
+
     }
 
     /**

@@ -14,15 +14,6 @@
 
   $autoLoadConfig[10][] = array('autoType'=>'include_glob',
                                 'loadFile'=>'includes/extra_configures/*.php');
-  $autoLoadConfig[10][] = array('autoType'=>'include_glob',
-                                'loadFile'=>'includes/extra_datafiles/*.php');
-
-  $autoLoadConfig[60][] = array('autoType'=>'include_glob',
-                                'loadFile'=>'includes/functions/{functions_email.php,functions_general.php,html_output.php,sessions.php,zen_mail.php}');
-  $autoLoadConfig[60][] = array('autoType'=>'include_glob',
-                                'loadFile'=>'includes/functions/{banner.php,functions_ezpages.php,password_funcs.php}');
-  $autoLoadConfig[60][] = array('autoType'=>'include_glob',
-                                'loadFile'=>'includes/functions/extra_functions/*.php');
 
   $autoLoadConfig[70][] = array('autoType'=>'service',
                                 'name'=>'session', 'method'=>'getToken', 'session' => true,
@@ -64,9 +55,6 @@
                                               'includes/languages/%language%/extra_definitions/%template_dir%/*.php',
                                               'includes/languages/%language%/extra_definitions/*.php'));
 
-  $autoLoadConfig[120][] = array('autoType'=>'service',
-                                'name'=>'productTypeLayoutService',
-                                'method'=>'defineAll');
   $autoLoadConfig[120][] = array('autoType'=>'objectMethod',
                                 'objectName'=>'navigation',
                                 'methodName' => 'add_current_page',
