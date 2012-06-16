@@ -84,7 +84,22 @@ class ZenCartBundle extends Bundle {
 
         if (Runtime::isContextMatch('storefront')) {
             $autoLoader = $this->container->get('zenCartAutoLoader');
-            $autoLoader = $autoLoader->initCommon();
+            $autoLoader->initCommon();
+            $autoLoader->setGlobalValue('currencies', new \currencies);
+
+            $session = $request->getSession();
+
+            if (null == $session->getValue('cart')) {
+                $session->setValue('cart', new \shoppingCart);
+            }
+            if (null == $session->getValue('navigation')) {
+                $session->setValue('navigation', new \navigationHistory);
+            }
+
+            if (!$request->isXmlHttpRequest()) {
+                $session->getValue('navigation')->add_current_page();
+            }
+
 
         }
     }

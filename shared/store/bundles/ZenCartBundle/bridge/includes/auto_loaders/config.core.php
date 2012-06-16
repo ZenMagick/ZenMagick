@@ -15,26 +15,6 @@
   $autoLoadConfig[10][] = array('autoType'=>'include_glob',
                                 'loadFile'=>'includes/extra_configures/*.php');
 
-  $autoLoadConfig[70][] = array('autoType'=>'service',
-                                'name'=>'session', 'method'=>'getToken', 'session' => true,
-                                'resultVar'=>'securityToken');
-
-  $autoLoadConfig[80][] = array('autoType'=>'classInstantiate',
-                                'className'=>'shoppingCart',
-                                'objectName'=>'cart',
-                                'checkInstantiated'=>true,
-                                'classSession'=>true);
-  $autoLoadConfig[80][] = array('autoType'=>'classInstantiate',
-                                'className'=>'navigationHistory',
-                                'objectName'=>'navigation',
-                                'checkInstantiated'=>true,
-                                'classSession'=>true,
-                                'loaderPrefix'=>'config');
-
-  $autoLoadConfig[90][] = array('autoType'=>'classInstantiate',
-                                'className'=>'currencies',
-                                'objectName'=>'currencies');
-
   $autoLoadConfig[110][] = array('autoType'=>'include',
                                 'loadFile'=>'includes/classes/db/mysql/define_queries.php');
   $autoLoadConfig[110][] = array('autoType'=>'classInstantiate',
