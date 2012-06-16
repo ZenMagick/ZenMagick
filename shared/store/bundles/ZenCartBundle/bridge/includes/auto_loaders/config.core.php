@@ -35,17 +35,9 @@
                                               'includes/languages/%language%/extra_definitions/%template_dir%/*.php',
                                               'includes/languages/%language%/extra_definitions/*.php'));
 
-  $autoLoadConfig[120][] = array('autoType'=>'objectMethod',
-                                'objectName'=>'navigation',
-                                'methodName' => 'add_current_page',
-                                'loaderPrefix'=>'config');
-
   $autoLoadConfig[130][] = array('autoType'=>'init_script',
                                  'loadFile'=> 'init_customer_auth.php',
                                  'loaderPrefix'=>'config');
-
-  $autoLoadConfig[140][] = array('autoType'=>'init_script',
-                                 'loadFile'=> 'init_cart_handler.php');
 
   $autoLoadConfig[160][] = array('autoType'=>'classInstantiate',
                                  'className'=>'breadcrumb',
