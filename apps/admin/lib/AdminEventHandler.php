@@ -123,10 +123,6 @@ class AdminEventHandler extends ZMObject {
             }
         }
 
-        if (null != ($timeLimit = $this->container->get('configService')->getConfigValue('GLOBAL_SET_TIME_LIMIT'))) {
-            set_time_limit($timeLimit->getValue());
-        }
-
         $user = $request->getAccount();
         if (null != $user && null != ($uiLocale = $this->container->get('adminUserPrefService')->getPrefForName($user->getId(), 'uiLocale'))) {
             $this->container->get('localeService')->getLocale(true, $uiLocale);

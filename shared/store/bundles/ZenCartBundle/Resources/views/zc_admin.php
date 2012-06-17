@@ -32,8 +32,17 @@ $zcAdminPath = $zcPath.'/'.$adminDir.'/';
 $zcPage = $request->getRequestId().'.php';
 chdir($zcAdminPath);
 
-global $currencies;
+//$autoLoader->setErrorLevel();
+// needed in a local context
 define('TEXT_EDITOR_INFO', ''); // hide text editor box
+global $currencies;
+// Might want to actually load it completely local instead.
+$autoLoader->setErrorLevel();
+$autoLoader->includeFiles('includes/extra_configures/*.php');
+$autoLoader->includeFiles('includes/languages/%language%.php');
+$autoLoader->includeFiles('includes/languages/%language%/%current_page%.php');
+$autoLoader->includeFiles('includes/languages/%language%/extra_definitions/*.php');
+
 $PHP_SELF = $zcAdminPath.$zcPage;
 $code = file_get_contents($zcAdminPath.$zcPage);
 $code = preg_replace("/<!doctype[^>]*>/s", '', $code);
@@ -96,3 +105,4 @@ function check_form() {
     <div id="hoverJS"></div>
     <script type="text/javascript"> function cssjsmenu(foo) {}; init(); </script>
 <?php } ?>
+<?php $autoLoader->restoreErrorLevel(); ?>

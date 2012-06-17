@@ -21,6 +21,7 @@
 namespace zenmagick\apps\store\bundles\ZenCartBundle\utils;
 
 use zenmagick\base\Runtime;
+use zenmagick\base\ZMObject;
 
 /**
  * ZenCart auto loader utility
@@ -28,9 +29,88 @@ use zenmagick\base\Runtime;
  * @author Johnny Robeson
  * @todo fix image handler extra_configures
  */
-class ZenCartAutoLoader {
+class ZenCartAutoLoader extends ZMObject {
     private $globalKeys = array();
     private $originalErrorLevel;
+
+    /**
+     * Commonly used ZenCart request related globals.
+     *
+     * May need to be overwritten from time to time.
+     */
+    public function overrideRequestGlobals() {
+        $request = $this->container->get('request');
+
+        $requestId = $request->getRequestId();
+        // needed throughout sadly
+        $globals = array(
+            'code_page_directory' => 'includes/modules/pages/'.$requestId,
+            'current_page' => $requestId,
+            'current_page_base' => $requestId,
+            'cPath' => (string)$request->getCategoryPath(),
+            'current_category_id' => $request->getCategoryId(),
+            'cPath_array' => $request->getCategoryPathArray(),
+            'page_directory' => 'includes/modules/pages/'.$requestId,
+            'request_type' => $request->isSecure() ? 'SSL' : 'NONSSL',
+            'session_started' => true,
+            'PHP_SELF' => $request->server->get('PHP_SELF'),
+        );
+        $this->setGlobalValues($globals);
+        if (Runtime::isContextMatch('admin')) {
+            $this->setGlobalValue('PHP_SELF', $requestId.'.php');
+        } else {
+            $_GET['main_page'] = $requestId; // needed (somewhere) to catch routes from the route resolver
+        }
+    }
+
+    /**
+     * Init common stuff across storefront and admin
+     *
+     * Assume access to $request
+     */
+    public function initCommon() {
+        $this->overrideRequestGlobals();
+        $isAdmin = Runtime::isContextMatch('admin');
+        if ($isAdmin) {
+            $this->includeFiles('../includes/version.php');
+            $this->includeFiles('../includes/configure.php');
+            $this->includeFiles('../includes/database_tables.php');
+            $this->includeFiles('../includes/filenames.php');
+            $this->includeFiles('includes/extra_datafiles/*.php');
+            $this->includeFiles('includes/functions/extra_functions/*.php');
+            $this->includeFiles('includes/functions/{general.php,database.php,functions_customers.php,functions_metatags.php,functions_prices.php,html_output.php,localization.php,password_funcs.php}');
+            $this->includeFiles('../includes/functions/{audience.php,banner.php,featured.php,functions_email.php,salemaker.php,sessions.php,specials.php,zen_mail.php}');
+
+        } else {
+            $this->includeFiles('includes/version.php');
+            $this->includeFiles('includes/configure.php');
+            $this->includeFiles('includes/database_tables.php');
+            $this->includeFiles('includes/filenames.php');
+
+            $this->includeFiles('includes/extra_datafiles/*.php');
+            $this->includeFiles('includes/functions/extra_functions/*.php');
+            $this->includeFiles('includes/functions/{functions_email.php,functions_general.php,html_output.php,functions_ezpages.php,password_funcs.php,sessions.php,zen_mail.php}');
+            $this->includeFiles('includes/functions/banner.php');
+
+        }
+
+        $settingsService = Runtime::getSettings();
+
+
+        // Common classes
+        $zcClassLoader = new \zenmagick\apps\store\bundles\ZenCartBundle\ZenCartClassLoader();
+        $zcClassLoader->setBaseDirectories($this->buildSearchPaths('includes/classes'));
+        $zcClassLoader->register();
+
+        $this->setGlobalValue('zco_notifier', new \notifier);
+        $this->setGlobalValue('db', new \queryFactory);
+        $this->setGlobalValue('messageStack', new \messageStack);
+        $this->setGlobalValue('template', new \template_func);
+        $this->setGlobalValue('sniffer', new \sniffer);
+
+        $this->container->get('productTypeLayoutService')->defineAll();
+
+    }
 
     /**
      * Get names of all global variables needed by ZenCart.
@@ -181,9 +261,9 @@ class ZenCartAutoLoader {
     }
 
     /**
-     * Include a file or files. 
+     * Include a file or files.
      *
-     * This method also gives all files access to the 
+     * This method also gives all files access to the
      * required global variables.
      */
     public function includeFiles($path, $require = false, $once = true) {

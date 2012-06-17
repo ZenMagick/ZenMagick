@@ -9,68 +9,11 @@
  * @version $Id: config.core.php 4271 2006-08-26 01:21:02Z drbyte $
  */
 
-  $autoLoadConfig[0][] = array('autoType'=>'include',
-                               'loadFile'=> 'includes/configure.php');
   $autoLoadConfig[0][] = array('autoType'=>'init_script',
                                 'loadFile'=> 'init_begin.php');
-  $autoLoadConfig[0][] = array('autoType'=>'classInstantiate',
-                                'className'=>'notifier',
-                                'objectName'=>'zco_notifier');
 
   $autoLoadConfig[10][] = array('autoType'=>'include_glob',
                                 'loadFile'=>'includes/extra_configures/*.php');
-  $autoLoadConfig[10][] = array('autoType'=>'require',
-                                'loadFile'=>'includes/filenames.php');
-  $autoLoadConfig[10][] = array('autoType'=>'include',
-                                'loadFile'=>'includes/database_tables.php',
-                                'once'=>true);
-  $autoLoadConfig[10][] = array('autoType'=>'include_glob',
-                                'loadFile'=>'includes/extra_datafiles/*.php');
-
-  $autoLoadConfig[10][] = array('autoType'=>'classInstantiate',
-                                'className'=>'queryFactory',
-                                'objectName'=> 'db');
-
-  $autoLoadConfig[20][] = array('autoType'=>'include', // actually used by the paypal modules!
-                                'loadFile'=> 'includes/version.php');
-
-  $autoLoadConfig[50][] = array('autoType'=>'classInstantiate',
-                                'className'=>'sniffer',
-                                'objectName'=>'sniffer');
-
-  $autoLoadConfig[60][] = array('autoType'=>'include_glob',
-                                'loadFile'=>'includes/functions/{functions_email.php,functions_general.php,html_output.php,sessions.php,zen_mail.php}');
-  $autoLoadConfig[60][] = array('autoType'=>'include_glob',
-                                'loadFile'=>'includes/functions/{banner.php,functions_ezpages.php,password_funcs.php}');
-  $autoLoadConfig[60][] = array('autoType'=>'include_glob',
-                                'loadFile'=>'includes/functions/extra_functions/*.php');
-
-  $autoLoadConfig[70][] = array('autoType'=>'service',
-                                'name'=>'session', 'method'=>'getToken', 'session' => true,
-                                'resultVar'=>'securityToken');
-
-  $autoLoadConfig[80][] = array('autoType'=>'classInstantiate',
-                                 'className'=>'messageStack',
-                                 'objectName'=>'messageStack');
-  $autoLoadConfig[80][] = array('autoType'=>'classInstantiate',
-                                'className'=>'shoppingCart',
-                                'objectName'=>'cart',
-                                'checkInstantiated'=>true,
-                                'classSession'=>true);
-  $autoLoadConfig[80][] = array('autoType'=>'classInstantiate',
-                                'className'=>'navigationHistory',
-                                'objectName'=>'navigation',
-                                'checkInstantiated'=>true,
-                                'classSession'=>true,
-                                'loaderPrefix'=>'config');
-
-  $autoLoadConfig[90][] = array('autoType'=>'classInstantiate',
-                                'className'=>'currencies',
-                                'objectName'=>'currencies');
-
-  $autoLoadConfig[100][] = array('autoType'=>'classInstantiate',
-                                 'className'=>'template_func',
-                                 'objectName'=>'template');
 
   $autoLoadConfig[110][] = array('autoType'=>'include',
                                 'loadFile'=>'includes/classes/db/mysql/define_queries.php');
@@ -92,20 +35,9 @@
                                               'includes/languages/%language%/extra_definitions/%template_dir%/*.php',
                                               'includes/languages/%language%/extra_definitions/*.php'));
 
-  $autoLoadConfig[120][] = array('autoType'=>'service',
-                                'name'=>'productTypeLayoutService',
-                                'method'=>'defineAll');
-  $autoLoadConfig[120][] = array('autoType'=>'objectMethod',
-                                'objectName'=>'navigation',
-                                'methodName' => 'add_current_page',
-                                'loaderPrefix'=>'config');
-
   $autoLoadConfig[130][] = array('autoType'=>'init_script',
                                  'loadFile'=> 'init_customer_auth.php',
                                  'loaderPrefix'=>'config');
-
-  $autoLoadConfig[140][] = array('autoType'=>'init_script',
-                                 'loadFile'=> 'init_cart_handler.php');
 
   $autoLoadConfig[160][] = array('autoType'=>'classInstantiate',
                                  'className'=>'breadcrumb',
