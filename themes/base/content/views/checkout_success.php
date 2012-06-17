@@ -33,14 +33,14 @@
     <?php $customercare = '<a href="' . $net->url('contact_us') . '">' . _zm("Customer Service") . '</a>'; ?>
     <p><?php _vzm("Please direct any questions you have to %s.", $customercare) ?></p>
 
-    <?php if (!$request->getAccount()->isGlobalProductSubscriber()) { ?>
+    <?php if (!empty($productsToSubscribe)) { ?>
         <fieldset>
             <legend><?php _vzm("Product Notifications") ?></legend>
             <h4><?php _vzm("Please notify me of updates to the products I have selected below:") ?></h4>
-            <?php foreach ($currentOrder->getOrderItems() as $orderItem) { $id = "not_" . $orderItem->getProductId(); ?>
+            <?php foreach ($productsToSubscribe as $productId => $productName) { $id = "not_" . $productId; ?>
                 <p>
-                    <input type="checkbox" id="<?php echo $id ?>" name="notify[]" value="<?php echo $orderItem->getProductId() ?>" />
-                    <label for="<?php echo $id ?>"><?php echo $html->encode($orderItem->getName()) ?></label><br />
+                    <input type="checkbox" id="<?php echo $id ?>" name="notify[]" value="<?php echo $productId ?>" />
+                    <label for="<?php echo $id ?>"><?php echo $html->encode($productName) ?></label><br />
                 </p>
             <?php } ?>
             <div class="btn"><input type="submit" class="btn" value="<?php _vzm("Update") ?>" /></div>

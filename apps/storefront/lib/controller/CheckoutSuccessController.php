@@ -37,10 +37,21 @@ class CheckoutSuccessController extends \ZMController {
     public function processGet($request) {
         // see: onViewDone()
         Runtime::getEventDispatcher()->listen($this);
+        $account = $request->getAccount();
+        $orders = $this->container->get('orderService')->getOrdersForAccountId($account->getId(), $request->getSession()->getLanguageId(), 1);
 
-        $orders = $this->container->get('orderService')->getOrdersForAccountId($request->getAccountId(), $request->getSession()->getLanguageId(), 1);
-        $data = array('currentOrder' => $orders[0], 'currentAccount' => $request->getAccount());
+        $currentOrder = $orders[0];
+        $productsToSubscribe = array();
+        if (!$request->getAccount()->isGlobalProductSubscriber()) {
+            $subscribedProducts = $account->getSubscribedProducts();
+            foreach ($currentOrder->getOrderItems() as $orderItem) {
+                $productId = $orderItem->getProductId();
+                if (in_array($productId, $subscribedProducts)) continue;
+                $productsToSubscribe[$productId] = $orderItem->getName();
+            }
 
+        }
+        $data = array('currentOrder' => $currentOrder, 'currentAccount' => $account, 'productsToSubscribe' => $productsToSubscribe);
         return $this->findView(null, $data);
     }
 
