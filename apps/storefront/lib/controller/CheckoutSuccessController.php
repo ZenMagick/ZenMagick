@@ -55,6 +55,21 @@ class CheckoutSuccessController extends \ZMController {
         return $this->findView(null, $data);
     }
 
+    public function processPost($request) {
+        $notifyProducts = $request->request->get('notify', array());
+
+        if (!empty($notifyProducts)) {
+            $account = $request->getAccount();
+            $subscribedProducts = array_unique(array_merge($account->getSubscribedProducts(), $notifyProducts));
+            if (!empty($subscribedProducts)) {
+                $this->container->get('accountService')->setSubscribedProductIds($account, $subscribedProducts);
+            }
+            $this->messageService->success(_zm('Your product subscriptions have been updated.'));
+        }
+
+        return $this->processGet($request);
+    }
+
     /**
      * Event handler to logout guest users only *after* the view is done.
      */

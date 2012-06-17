@@ -191,6 +191,10 @@
         <option key="view">redirect://checkout.confirmation</option>
     </route>
 
+    <route id="checkout.success" pattern="/checkout/success">
+        <default key="_controller">zenmagick\apps\store\storefront\controller\CheckoutSuccessController</default>
+    </route>
+
     <route id="checkout.guest" pattern="/checkout/guest">
         <default key="_controller">zenmagick\apps\store\storefront\controller\CheckoutGuestController</default>
         <option key="view">views/login.php</option>

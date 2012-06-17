@@ -177,6 +177,8 @@ page:
     form: ZMAddress
     success:
       view: redirect#requestId=checkout_payment
+  checkout_success:
+    controller: 'zenmagick\apps\store\storefront\controller\CheckoutSuccessController'
   redirect:
     success:
       view: redirect#requestId=index

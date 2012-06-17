@@ -22,11 +22,17 @@
  */
 namespace zenmagick\apps\store\storefront\controller;
 
+use zenmagick\base\Runtime;
 
 /**
  * Request controller for checkout shipping page.
  *
  * @author DerManoMann <mano@zenmagick.org>
+ *
+ * @todo implement referral coupon logic ?
+ * @todo hide shipping address edit if specified by alterShippingEditButton() method
+ * @todo hide payment address edit if specified by flagDisablePaymentAddressChange property
+ *
  */
 class CheckoutConfirmationController extends \ZMController {
 
@@ -47,4 +53,39 @@ class CheckoutConfirmationController extends \ZMController {
         return $this->findView(null, array('shoppingCart' => $shoppingCart, 'orderFormContent' => $orderFormContent, 'orderFormUrl' => $orderFormUrl));
     }
 
+    public function processPost($request) {
+        $shoppingCart = $request->getShoppingCart();
+        $checkoutHelper = $shoppingCart->getCheckoutHelper();
+        $settingsService = $this->container->get('settingsService');
+
+        if (!$checkoutHelper->verifyHash($request)) {
+            return $this->findView('check_cart');
+        }
+
+        if ('free_free' == $_SESSION['shipping']) { // <johnny> When does this actually happen?
+            Runtime::getLogging()->warn('fixing free_free shipping method info');
+            $_SESSION['shipping'] = array('title' => _zm('Free Shipping'), 'cost' => 0, 'id' => 'free_free');
+        }
+
+        if (null !== ($viewId = $checkoutHelper->validateCheckout($request, false))) {
+            return $this->findView($viewId);
+        }
+        if (null !== ($viewId = $checkoutHelper->validateAddresses($request, true))) {
+            return $this->findView($viewId);
+        }
+
+        if (null != ($comments = $request->request->get('comments'))) {
+            $shoppingCart->setComments($comments);
+        }
+
+        if ($settingsService->get('isConditionsMessage') && !Toolbox::asBoolean($request->getParameter('conditions'))) {
+            $this->messageService->error(_zm('Please confirm the terms and conditions bound to this order by ticking the box below.'));
+            return $this->findView();
+        }
+
+        if (null != ($paymentMethod = $request->request->get('payment'))) {
+            $request->getSession()->setValue('payment', $paymentMethod);
+        }
+        return $this->processGet($request);
+    }
 }
