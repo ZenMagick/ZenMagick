@@ -76,6 +76,7 @@ class Application {
             'defaultLocale' => 'en',
             'appConfig' => array(),
             'appContainer' => array(),
+            'settings' => array(),
 
             // ini
             'display_errors'=> false,
@@ -403,11 +404,17 @@ class Application {
      */
     protected function initGlobal() {
         $container = Runtime::getContainer();
+        $settingsService = Runtime::getSettings();
         $globalFilename = realpath($this->config['installationPath'].'/global.yaml');
         if (file_exists($globalFilename) && $container->has('contextConfigLoader')) {
             $contextConfigLoader = $container->get('contextConfigLoader');
             $contextConfigLoader->setConfig(Toolbox::loadWithEnv($globalFilename));
             $contextConfigLoader->process();
+        }
+
+        // if settings are defined here, they are the final word
+        foreach ($this->config['settings'] as $key => $value) {
+            $settingsServivce->set($key, $value);
         }
     }
 
