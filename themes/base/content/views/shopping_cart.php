@@ -44,10 +44,8 @@ if ($shoppingCart->isEmpty()) { ?>
                             <br/>
                             <?php foreach ($item->getAttributes() as $attribute) { ?>
                                 <p><span class="attr"><?php echo $html->encode($attribute->getName()) ?>:</span>
-                                <?php $first = true; foreach ($attribute->getValues() as $attributeValue) { ?>
-                                    <?php if (!$first) { ?>, <?php } ?>
-                                    <span class="atval"><?php echo $html->encode($attributeValue->getName()) ?></span>
-                                <?php $first = false; } ?>
+                                <?php $first = true; foreach ($attribute->getValues() as $attributeValue) { ?><?php if (!$first) { ?>, <?php } ?>
+                                    <span class="atval"><?php echo $html->encode($attributeValue->getName()) ?></span><?php $first = false; } ?>
                                 </p>
                             <?php } ?>
                         <?php } ?>

@@ -80,14 +80,18 @@ class ShoppingCartItem extends ZMObject {
 
         // build attribute => value list map
         $attrMap = array();
-        foreach ($attributeData['attributes'] as $option => $valueId) {
-            if (!empty($valueId)) {
+        foreach ($attributeData['attributes'] as $option => $value) {
+            if (!empty($value)) {
                 $tmp = explode('_', $option);
                 $attributeId = $tmp[0];
                 if (!array_key_exists($attributeId, $attrMap)) {
                     $attrMap[$attributeId] = array();
                 }
-                $attrMap[$attributeId][$valueId] = $valueId;
+                if (is_array($value)) {
+                    $attrMap[$attributeId] = $value;
+                } else {
+                    $attrMap[$attributeId][$value] = $value;
+                }
             }
         }
         // also add values

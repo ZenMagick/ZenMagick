@@ -74,11 +74,10 @@ class ShoppingCartController extends ZMObject {
      * @return array Attribute id map for uploads.
      * @todo do not use _FILES directly
      */
-    protected function getAttributeUploads(ZMRequest $request, $shoppingCart) {
+    protected function getAttributeUploads($shoppingCart, array $attributes) {
         $settingsService = $this->container->get('settingsService');
         $destination = $settingsService->get('apps.store.cart.uploads');
         $textOptionPrefix = $settingsService->get('textOptionPrefix');
-        $attributes = array();
 
         if (array_key_exists('id', $_FILES)) {
             foreach ($_FILES['id']['name'] as $id => $file) {
@@ -112,7 +111,7 @@ class ShoppingCartController extends ZMObject {
      */
     public function addProduct(ZMRequest $request) {
         $shoppingCart = $request->getShoppingCart();
-        $id = array_merge((array) $request->getParameter('id'), $this->getAttributeUploads($request, $shoppingCart));
+        $id = $this->getAttributeUploads($shoppingCart, $request->getParameter('id'));
         if ($shoppingCart->addProduct($request->getProductId(), $request->getParameter('cart_quantity'), $id)) {
             $productId = $request->getProductId();
             $shoppingCart->getCheckoutHelper()->saveHash($request);
