@@ -210,6 +210,8 @@ class ShoppingCart extends ZMObject {
      * @param array contents The contents.
      */
     public function setContents($contents) {
+        // default to null if contents is empty
+        $contents = is_array($contents) && $contents ? $contents : null;
         $this->contents = $contents;
         $this->items_ = null;
     }
@@ -771,7 +773,6 @@ class ShoppingCart extends ZMObject {
             return false;
         }
         $attributes = $this->sanitizeAttributes($product, $attributes);
-        $attributes = $this->prepare_uploads($product, $attributes);
 
         $sku = self::mkItemId($productId, $attributes);
 
@@ -790,7 +791,7 @@ class ShoppingCart extends ZMObject {
             $adjustedQty = $maxOrderQty - $cartQty;
         }
 
-        list($attributes, $attributesValues) =$this->splitAttributes($attributes, $product);
+        list($attributes, $attributesValues) = $this->splitAttributes($attributes, $product);
         $this->contents[$sku] = array('qty' => $adjustedQty, 'attributes' => $attributes, 'attributes_values' => $attributesValues);
         $this->items_ = null;
         $this->container->get('shoppingCartService')->updateCart($this);
@@ -877,32 +878,6 @@ class ShoppingCart extends ZMObject {
 
         $this->container->get('loggingService')->error('invalid productTaxBase!');
         return null;
-    }
-
-    /**
-     * Prepare file uploads.
-     *
-     * <p>Check for uploaded files and prepare attributes accordingly.</p>
-     *
-     * @param ZMProduct product The product.
-     * @param array attributes The given attributes.
-     * @return array A set of valid attribute values for the given product.
-     * @todo IMPLEMENT!
-     */
-    function prepare_uploads($product, $attributes=array()) {
-        $uploads = 0;
-        $uploadOptionPrefix = $this->container->get('settingsService')->get('uploadOptionPrefix');
-        foreach ($attributes as $name => $value) {
-            if (0 === strpos($name, $uploadOptionPrefix)) {
-                ++$uploads;
-            }
-        }
-
-        if (0 < $uploads) {
-            //TODO: handle file uploads
-        }
-
-        return $attributes;
     }
 
     /**

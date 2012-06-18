@@ -147,11 +147,13 @@ class Session extends \zenmagick\http\session\Session {
      * Restore the shopping cart contents.
      */
     public function restoreCart() {
+        // todo: remove
         $cart = $this->getValue('cart');
         if (null != $cart) {
             //TODO:
             $cart->restore_contents();
         }
+        $this->container->get('shoppingCart')->setContents($this->getAccountId());
     }
 
     /**

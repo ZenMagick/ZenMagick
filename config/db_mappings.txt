@@ -280,6 +280,12 @@ array(
         'status' => array('column' => 'status', 'type' => 'boolean'),
         'availableDate' => array('column' => 'featured_date_available', 'type' => 'date'),
     ),
+    'files_uploaded' => array(
+        'fileUploadedId' => array('column' => 'files_uploaded_id', 'type' => 'integer', 'key' => true, 'auto' => true),
+        'sesskey' => array('column' => 'sesskey', 'type' => 'string'),
+        'accountId' => array('column' => 'customers_id', 'type' => 'integer', 'key' => true),
+        'filename' => array('column' => 'files_uploaded_name', 'type' => 'string')
+    ),
     'geo_zones' => array(
         'geoZoneId' => array('column' => 'geo_zone_id', 'type' => 'integer', 'key' => true, 'auto' => true),
         'name' => array('column' => 'geo_zone_name', 'type' => 'string'),

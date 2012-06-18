@@ -114,6 +114,9 @@ class ZMAttributes extends ZMObject {
             $attributeValueIds[] = $value->getId();
         }
 
+        if (0 == count($attributeValueIds)) {
+            return false;
+        }
         $args = array('productId' => $attribute->getProductId(), 'attributeValueId' => $attributeValueIds);
         $sql = "SELECT count(*) as total
                   FROM %table.products_attributes% pa, %table.products_attributes_download% pad

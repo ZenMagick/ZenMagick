@@ -411,8 +411,6 @@ class ToolboxMacro extends ToolboxTool {
             $name = 'id['.Runtime::getSettings()->get('textOptionPrefix').$attribute->getId().']';
             $text = '<label for="'.$id.'">'.$this->buildAttributeValueLabel($product, $value).'</label>';
             $text .= '<input type="file" id="'.$id.'" name="'.$name.'" value=""'.$slash.'>';
-            $text .= '<input type="hidden" name="'.Runtime::getSettings()->get('uploadOptionPrefix').$uploadIndex.'" value="'.$attribute->getId().'"'.$slash.'>';
-            $text .= '<input type="hidden" name="'.Runtime::getSettings()->get('textOptionPrefix').Runtime::getSettings()->get('uploadOptionPrefix').$uploadIndex.'" value=""'.$slash.'>';
             array_push($elements, $text);
         }
         $element['html'] = $elements;

@@ -293,4 +293,24 @@ class ZenCartBundle extends Bundle {
         return false;
     }
 
+    /**
+     * Sync ZenCart cart.
+     *
+     * @param Session session The current session.
+     * @param zenmagick\apps\store\model\checkout\ShoppingCart shoppingCart The shopping cart.
+     */
+    protected function syncZC($session, $shoppingCart) {
+        // sync back to ZenCart
+        $cart = $session->getValue('cart');
+        $cart = (null != $cart) ? $cart : new \shoppingCart;
+        $cart->contents = $shoppingCart->getContents();
+    }
+
+    /**
+     * Sync cart.
+     */
+    public function onCartAdd($event) { $this->syncZC($event->get('request')->getSession(), $event->get('shoppingCart')); }
+    public function onCartRemove($event) { $this->syncZC($event->get('request')->getSession(), $event->get('shoppingCart')); }
+    public function onCartUpdate($event) { $this->syncZC($event->get('request')->getSession(), $event->get('shoppingCart')); }
+
 }

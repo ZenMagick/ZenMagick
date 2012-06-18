@@ -68,13 +68,43 @@ class ShoppingCartController extends ZMObject {
         return new ModelAndView(null, array('shoppingCart' => $shoppingCart));
     }
 
-    // TODO: move into bundle
-    protected function syncZC($session, $shoppingCart) {
-        // sync back to ZenCart
-        $cart = $session->getValue('cart');
-        $cart = (null != $cart) ? $cart : new \shoppingCart;
-        $cart->contents = $shoppingCart->getContents();
+    /**
+     * Process optional uploads.
+     *
+     * @return array Attribute id map for uploads.
+     * @todo do not use _FILES directly
+     */
+    protected function getAttributeUploads(ZMRequest $request, $shoppingCart) {
+        $settingsService = $this->container->get('settingsService');
+        $destination = $settingsService->get('apps.store.cart.uploads');
+        $textOptionPrefix = $settingsService->get('textOptionPrefix');
+        $attributes = array();
 
+        if (array_key_exists('id', $_FILES)) {
+            foreach ($_FILES['id']['name'] as $id => $file) {
+                $failed = null;
+                if (0 === strpos($id, $textOptionPrefix) && !empty($file)) {
+                    $size = $_FILES['id']['size'][$id];
+                    $tmp = $_FILES['id']['tmp_name'][$id];
+                    // todo: do we need/want to enfore any restrictions about size, etc?
+                    if (0 != $size && is_uploaded_file($tmp)) {
+                        // process
+                        $ext = substr($file, strrpos($file, '.'));
+                        $fileId = $this->container->get('shoppingCartService')->registerUpload(session_id(), $shoppingCart->getAccountId(), $file);
+                        $attributes[$id] = $fileId.'. '.$file;
+                        if (!move_uploaded_file($tmp, $destination.'/'.$fileId.$ext)) {
+                            $failed = $file;
+                        }
+                    } else {
+                        $failed = $file;
+                    }
+                }
+                if ($failed) {
+                    // todo: message
+                }
+            }
+        }
+        return $attributes;
     }
 
     /**
@@ -82,11 +112,11 @@ class ShoppingCartController extends ZMObject {
      */
     public function addProduct(ZMRequest $request) {
         $shoppingCart = $request->getShoppingCart();
-        if ($shoppingCart->addProduct($request->getProductId(), $request->getParameter('cart_quantity'), $request->getParameter('id'))) {
+        $id = array_merge((array) $request->getParameter('id'), $this->getAttributeUploads($request, $shoppingCart));
+        if ($shoppingCart->addProduct($request->getProductId(), $request->getParameter('cart_quantity'), $id)) {
             $productId = $request->getProductId();
             $shoppingCart->getCheckoutHelper()->saveHash($request);
-            $this->syncZC($request->getSession(), $shoppingCart);
-            $this->container->get('eventDispatcher')->dispatch('cart_add', new Event($this, array('request' => $request, 'productId' => $productId)));
+            $this->container->get('eventDispatcher')->dispatch('cart_add', new Event($this, array('request' => $request, 'shoppingCart' => $shoppingCart, 'productId' => $productId)));
             $product = $this->container->get('productService')->getProductForId($productId);
             $this->container->get('messageService')->success(sprintf(_zm("Product '%s' added to cart"), $product->getName()));
         } else {
@@ -129,8 +159,7 @@ class ShoppingCartController extends ZMObject {
                         $buyNowQty = min($qtyOrderMax, $cartQty + $buyNowQty);
                         $shoppingCart->addProduct($productId, $buyNowQty);
                         $shoppingCart->getCheckoutHelper()->saveHash($request);
-                        $this->syncZC($request->getSession(), $shoppingCart);
-                        $this->container->get('eventDispatcher')->dispatch('cart_add', new Event($this, array('request' => $request, 'productId' => $productId)));
+                        $this->container->get('eventDispatcher')->dispatch('cart_add', new Event($this, array('request' => $request, 'shoppingCart' => $shoppingCart, 'productId' => $productId)));
                         $this->container->get('messageService')->success(sprintf(_zm("Product '%s' added to cart"), $product->getName()));
                     }
                 } else {
@@ -151,8 +180,7 @@ class ShoppingCartController extends ZMObject {
         $productId = $request->getParameter('product_id');
         $shoppingCart->removeProduct($productId);
         $shoppingCart->getCheckoutHelper()->saveHash($request);
-        $this->syncZC($request->getSession(), $shoppingCart);
-        $this->container->get('eventDispatcher')->dispatch('cart_remove', new Event($this, array('request' => $request, 'productId' => $productId)));
+        $this->container->get('eventDispatcher')->dispatch('cart_remove', new Event($this, array('request' => $request, 'shoppingCart' => $shoppingCart, 'productId' => $productId)));
         $this->container->get('messageService')->success(_zm('Product removed from cart'));
 
         // TODO: add support for redirect back to origin
@@ -170,9 +198,8 @@ class ShoppingCartController extends ZMObject {
         foreach ($productIds as $ii => $productId) {
             $shoppingCart->updateProduct($productId, $quantities[$ii]);
         }
-        $this->container->get('eventDispatcher')->dispatch('cart_update', new Event($this, array('request' => $request, 'productIds' => $productIds)));
+        $this->container->get('eventDispatcher')->dispatch('cart_update', new Event($this, array('request' => $request, 'shoppingCart' => $shoppingCart, 'productIds' => $productIds)));
         $this->container->get('messageService')->success(_zm('Product(s) added to cart'));
-        $this->syncZC($request->getSession(), $shoppingCart);
 
         // TODO: add support for redirect back to origin
         return new ModelAndView('success', array('shoppingCart' => $shoppingCart));
