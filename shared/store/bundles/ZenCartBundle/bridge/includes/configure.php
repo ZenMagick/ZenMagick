@@ -53,7 +53,7 @@ define('DIR_WS_LANGUAGES', DIR_WS_INCLUDES.'languages/');
 define('DIR_WS_MODULES', DIR_WS_INCLUDES.'modules/');
 define('DIR_WS_TEMPLATES', DIR_WS_INCLUDES.'templates/');
 
-define('DIR_WS_DOWNLOAD_PUBLIC', DIR_WS_CATALOG.'pub/');
+define('DIR_WS_DOWNLOAD_PUBLIC', 'pub/');
 
 define('DIR_FS_CATALOG', $zcPath.'/');
 define('DIR_FS_ADMIN', $zcPath.'/'.$settings->get('apps.store.zencart.admindir').'/');

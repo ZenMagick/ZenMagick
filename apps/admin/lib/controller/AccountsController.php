@@ -35,7 +35,7 @@ class AccountsController extends \ZMController {
         $resultSource = new \ZMObjectResultSource('ZMAccount', 'accountService', "getAllAccounts");
         $resultList = Runtime::getContainer()->get('ZMResultList');
         $resultList->setResultSource($resultSource);
-        $resultList->setPageNumber($request->getParameter('page', 1));
+        $resultList->setPageNumber($request->query->get('page', 1));
 
         $data = array('resultList' => $resultList);
         return $this->findView(null, $data);

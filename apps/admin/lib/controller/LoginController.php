@@ -42,14 +42,14 @@ class LoginController extends \ZMController {
      * {@inheritDoc}
      */
     public function processPost($request) {
-        $name = $request->getParameter('name');
+        $name = $request->request->get('name');
 
         if (null == ($user = $this->container->get('adminUserService')->getUserForName($name))) {
             $this->messageService->error(_zm('Sorry, there is no match for that email address and/or password.'));
             return $this->findView();
         }
 
-        $password = $request->getParameter('password');
+        $password = $request->request->get('password');
         if (!$this->container->get('authenticationManager')->validatePassword($password, $user->getPassword())) {
             $this->messageService->error(_zm('Sorry, there is no match for that email address and/or password.'));
             return $this->findView();

@@ -48,10 +48,10 @@ class BlockGroupsController extends \ZMController {
      */
     public function processPost($request) {
         $blockService = $this->container->get('blockService');
-        $action = $request->getParameter('action');
+        $action = $request->request->get('action');
         switch ($action) {
         case 'addGroup':
-            $groupName = $request->getParameter('groupName');
+            $groupName = $request->request->get('groupName');
             if (!empty($groupName)) {
                 $blockGroup = new \ZMBlockGroup();
                 $blockGroup->setName($groupName);
@@ -60,7 +60,7 @@ class BlockGroupsController extends \ZMController {
             }
             break;
         case 'removeGroup':
-            $groupName = $request->getParameter('groupName');
+            $groupName = $request->request->get('groupName');
             if (!empty($groupName)) {
                 $blockService->deleteGroupForName($groupName);
                 $this->messageService->success(sprintf(_zm('Block group %s removed.'), $groupName));

@@ -31,7 +31,7 @@ class LegacyConfigController extends \ZMController {
      * {@inheritDoc}
      */
     public function processGet($request) {
-        $groupId = $request->getParameter('groupId', 1);
+        $groupId = $request->query->get('groupId', 1);
         $configService = $this->container->get('configWidgetService');
         $group = $configService->getConfigGroupForId($groupId);
         $groupValues = $configService->getValuesForGroupId($groupId);
@@ -42,7 +42,7 @@ class LegacyConfigController extends \ZMController {
      * {@inheritDoc}
      */
     public function processPost($request) {
-        $groupId = $request->getParameter('groupId');
+        $groupId = $request->request->get('groupId');
 
         if ($request->handleDemo()) {
             return $this->findView('success-demo', array(), array('parameter' => 'groupId='.$groupId));
@@ -57,7 +57,7 @@ class LegacyConfigController extends \ZMController {
         foreach ($groupValues as $widget) {
             $name = $widget->getName();
             $oldValue = $widget->getValue();
-            if (null !== ($newValue = $request->getParameter($name)) && $newValue != $oldValue) {
+            if (null !== ($newValue = $request->request->get($name)) && $newValue != $oldValue) {
                 // update
                 $configService->updateConfigValue($name, $newValue);
                 $updated[] = $widget->getTitle();
