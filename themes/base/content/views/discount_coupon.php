@@ -25,11 +25,11 @@
 <?php $crumbtrail->addCrumb(_zm('Discount Coupon')) ?>
 <?php echo $utils->staticPageContent("discount_coupon") ?>
 
-<?php echo $form->open('discount_coupon', 'action=lookup', false, array('method' => 'get')) ?>
+<?php echo $form->open('discount_coupon', '', false, array('method' => 'get')) ?>
   <fieldset>
     <legend><?php _vzm("Look-up Discount Coupon ...") ?></legend>
-    <label for="lookup_discount_coupon"><?php _vzm("Your Code") ?></label>
-    <input type="text" id="lookup_discount_coupon" name="lookup_discount_coupon" size="40" value="<?php echo $html->encode($currentCoupon) ?>" />
+    <label for="couponCode"><?php _vzm("Your Code") ?></label>
+    <input type="text" id="couponCode" name="couponCode" size="40" value="<?php echo $html->encode($currentCoupon) ?>" />
   </fieldset>
   <div class="btn"><input type="submit" class="btn" value="<?php _vzm("Send") ?>" />
 </form>

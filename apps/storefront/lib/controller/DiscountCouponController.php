@@ -33,13 +33,11 @@ class DiscountCouponController extends \ZMController {
     /**
      * {@inheritDoc}
      */
-    public function processPost($request) {
+    public function processGet($request) {
         $data = array();
         $viewName = null;
-        $code = $request->getParameter('lookup_discount_coupon');
-        if (null == $code) {
-            $this->messageService->warn(_zm("Please enter a coupon code."));
-        } else {
+        $code = $request->getParameter('couponCode');
+        if (null != $code) {
             $coupon = $this->container->get('couponService')->getCouponForCode($code, $request->getSession()->getLanguageId());
             if (null == $coupon) {
                 $this->messageService->error(sprintf(_zm("'%s' does not appear to be a valid Coupon Redemption Code."), $code));
