@@ -227,6 +227,7 @@ class ShoppingCart extends ZMObject {
             if (null === $this->contents) {
                 $this->contents = $this->container->get('shoppingCartService')->getContentsForAccountId($this->accountId);
             }
+
             foreach ($this->contents as $id => $itemData) {
                 if (empty($id)) { continue; }
                 $item = new ShoppingCartItem($this);
@@ -734,9 +735,9 @@ class ShoppingCart extends ZMObject {
                 $key = $textOptionPrefix.$attributeId;
                 if (array_key_exists($key, $attributeData) && !empty($attributeData[$key])) {
                     $attributesValues[$attributeId] = $attributeData[$key];
-                    $attributes[$attributeId] = '';
+                    // zc needs '0' instead of ''
+                    $attributes[$attributeId] = '0';
                 }
-                //??? $attributes[$attributeId] = '';
             } else if (array_key_exists($attributeId, $attributeData)) {
                 $attributes[$attributeId] = $attributeData[$attributeId];
             }
