@@ -108,6 +108,8 @@ if (!defined('ATTRIBUTES_PRICE_FACTOR_FROM_SPECIAL')) define('ATTRIBUTES_PRICE_F
             'isShowCartAfterAddProduct' => DISPLAY_CART == 'true',
 
             'apps.store.zencart.admindir' => defined('ZENCART_ADMIN_FOLDER') ? ZENCART_ADMIN_FOLDER : 'admin',
+            // @todo store the path in the database (supporting both absolute and relative paths)
+            'downloadBaseDir' => Runtime::getSettings()->get('downloadBaseDir') ?: realpath(Runtime::getInstallationPath().'/../download'),
 
             'apps.store.maxExecutionTime' => defined('GLOBAL_SET_TIME_LIMIT') ? GLOBAL_SET_TIME_LIMIT : 60,
             /**************************************
