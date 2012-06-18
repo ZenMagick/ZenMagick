@@ -32,7 +32,7 @@ class ZMOrderStatusIdFilter extends ZMResultListFilter implements ZMSQLAware {
      * Create new instance.
      */
     public function __construct() {
-        parent::__construct('ofilter', _zm('Order Status'), Runtime::getContainer()->get('request')->getParameter('ofilter'));
+        parent::__construct('ofilter', _zm('Order Status'), Runtime::getContainer()->get('request')->query->get('ofilter'));
     }
 
 
