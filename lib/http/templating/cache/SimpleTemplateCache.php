@@ -19,7 +19,6 @@
  */
 namespace zenmagick\http\templating\cache;
 
-use zenmagick\base\Runtime;
 use zenmagick\base\logging\Logging;
 use zenmagick\base\ZMObject;
 use zenmagick\http\templating\TemplateCache;
@@ -39,7 +38,7 @@ class SimpleTemplateCache extends ZMObject implements TemplateCache {
      * {@inheritDoc}
      */
     public function eligible($template) {
-        Runtime::getLogging()->log('check if eligible: '.$template, LOGGING::TRACE);
+        $this->container->get('loggingService')->log('check if eligible: '.$template, LOGGING::TRACE);
         return in_array($template, (array)$this->container->get('settingsService')->get('zenmagick.http.templating.cache.simple', array()));
     }
 

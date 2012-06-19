@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
   <head>
     <!-- Theme created by Erwin Aligam - ealigam@gmail.com -->
-    <?php echo $this->fetch('head'); ?>
+    <?php echo $this->fetch('head.php'); ?>
     <?php $resourceManager->cssFile('PixelGreen.css', array('media' => 'screen')) ?>
     <?php $resourceManager->cssFile('theme.css', array('media' => 'screen')) ?>
     <?php $resourceManager->jsFile('common.js', $resourceManager->FOOTER) ?>

@@ -22,7 +22,7 @@
  */
 ?>
 
-<?php if (0 == $request->getProductId() && 'specials' != $request->getPageName()) { ?>
+<?php if (0 == $request->getProductId() && 'specials' != $request->getRequestId()) { ?>
     <?php $products = $container->get('productService')->getSpecials(1, $session->getLanguageId()); ?>
     <?php if (0 != count($products)) { $product = $products[0]; ?>
         <h2><a href="<?php echo $net->url('specials') ?>"><?php _vzm("[More]") ?></a><?php _vzm("Specials") ?></h2>
