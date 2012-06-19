@@ -41,14 +41,14 @@ class ProductReviewsInfoController extends \ZMController {
         $data['currentProduct'] = $product;
 
         $reviewService = $this->container->get('reviewService');
-        if (null == ($review = $reviewService->getReviewForId($request->getReviewId(), $languageId))) {
+        if (null == ($review = $reviewService->getReviewForId($request->query->get('reviews_id'), $languageId))) {
             return $this->findView('error');
         }
 
         $data['currentReview'] = $review;
 
         if (Runtime::getSettings()->get('isLogPageStats')) {
-            $reviewService->updateViewCount($request->getReviewId());
+            $reviewService->updateViewCount($request->query->get('reviews_id'));
         }
 
         return $this->findView(null, $data);

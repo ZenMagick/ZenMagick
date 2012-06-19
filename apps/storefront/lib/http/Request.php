@@ -248,13 +248,6 @@ class Request extends \ZMRequest {
     }
 
     /**
-     * Get the current review id.
-     *
-     * @return int The current review id or <code>0</code>.
-     */
-    public function getReviewId() { return (int)$this->getParameter('reviews_id', 0); }
-
-    /**
      * Get the current order id.
      *
      * @return int The current order id or <code>0</code>.
