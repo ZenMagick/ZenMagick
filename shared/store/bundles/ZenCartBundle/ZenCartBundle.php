@@ -126,7 +126,7 @@ class ZenCartBundle extends Bundle {
      * @return boolean <code>true</code> if zen-cart should handle the request.
      */
     private function needsZC($request) {
-        if ($this->isZencartTheme($request)) {
+        if ($this->container->get('themeService')->getActiveTheme()->getMeta('zencart')) {
             return true;
         }
 
@@ -142,21 +142,4 @@ class ZenCartBundle extends Bundle {
         }
         return $needs;
     }
-
-    /**
-     * Check for zencart theme.
-     */
-    protected function isZencartTheme($request) {
-        $languageId = $request->getSession()->getLanguageId();
-        $themeService = $this->container->get('themeService');
-        $themeChain = $themeService->getThemeChain($languageId);
-        foreach ($themeChain as $theme) {
-            $meta = $theme->getConfig('meta');
-            if (array_key_exists('zencart', $meta)) {
-                return true;
-            }
-        }
-        return false;
-    }
-
 }

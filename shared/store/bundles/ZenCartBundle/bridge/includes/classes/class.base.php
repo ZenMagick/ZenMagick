@@ -78,8 +78,7 @@ class base {
     public function notifyZenmagick($eventId, $params = array()) {
         $container = zenmagick\base\Runtime::getContainer();
         if (!$container->has('themeService')) return;
-        $themeMeta = $container->get('themeService')->getActiveTheme()->getConfig('meta');
-        if (isset($themeMeta['zencart'])) {
+        if ($container->get('themeService')->getActiveTheme()->getMeta('zencart')) {
             if (0 === strpos($eventId, 'NOTIFY_HEADER_START_')) {
                 $controllerId = str_replace('NOTIFY_HEADER_START_', '', $eventId);
                 $params = array_merge($params, array('controllerId' => $controllerId, 'request' => $container->get('request')));
