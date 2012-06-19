@@ -103,6 +103,7 @@ class ShoppingCartController extends ZMObject {
                 }
             }
         }
+
         return $attributes;
     }
 
@@ -111,7 +112,7 @@ class ShoppingCartController extends ZMObject {
      */
     public function addProduct(ZMRequest $request) {
         $shoppingCart = $request->getShoppingCart();
-        $id = $this->getAttributeUploads($shoppingCart, $request->getParameter('id'));
+        $id = $this->getAttributeUploads($shoppingCart, $request->getParameter('id', array()));
         if ($shoppingCart->addProduct($request->getProductId(), $request->getParameter('cart_quantity'), $id)) {
             $productId = $request->getProductId();
             $shoppingCart->getCheckoutHelper()->saveHash($request);

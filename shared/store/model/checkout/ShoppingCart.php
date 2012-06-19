@@ -764,7 +764,7 @@ class ShoppingCart extends ZMObject {
         if (1 > $quantity) {
             return false;
         }
-        if (array_key_exists($sku, $this->contents)) {
+        if (array_key_exists($sku, (array) $this->contents)) {
             return $this->updateProduct($productId, $quantity);
         }
 
