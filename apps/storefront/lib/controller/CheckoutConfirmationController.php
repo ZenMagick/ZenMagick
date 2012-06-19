@@ -23,6 +23,7 @@
 namespace zenmagick\apps\store\storefront\controller;
 
 use zenmagick\base\Runtime;
+use zenmagick\base\Toolbox;
 
 /**
  * Request controller for checkout shipping page.
@@ -36,11 +37,7 @@ use zenmagick\base\Runtime;
  */
 class CheckoutConfirmationController extends \ZMController {
 
-    /**
-     * {@inheritDoc}
-     */
-    public function processGet($request) {
-        // some defaults
+    public function getViewData($request) {
         $orderFormContent =  '';
         $orderFormUrl = $request->url('checkout_process', '', true);
 
@@ -49,10 +46,19 @@ class CheckoutConfirmationController extends \ZMController {
             $orderFormContent = $paymentType->getOrderFormContent($request);
             $orderFormUrl = $paymentType->getOrderFormUrl($request);
         }
-
-        return $this->findView(null, array('shoppingCart' => $shoppingCart, 'orderFormContent' => $orderFormContent, 'orderFormUrl' => $orderFormUrl));
+        return array('shoppingCart' => $shoppingCart, 'orderFormContent' => $orderFormContent, 'orderFormUrl' => $orderFormUrl);
     }
 
+    /**
+     * {@inheritDoc}
+     */
+    public function processGet($request) {
+        return $this->findView();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
     public function processPost($request) {
         $shoppingCart = $request->getShoppingCart();
         $checkoutHelper = $shoppingCart->getCheckoutHelper();
