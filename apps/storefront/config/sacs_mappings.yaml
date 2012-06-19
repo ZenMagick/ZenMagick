@@ -61,6 +61,8 @@ mappings:
   checkout_shipping_address:
     level: guest
     secure: true
+  download:
+    level: guest
   gv_redeem:
     level: registered
     secure: true

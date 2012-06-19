@@ -110,6 +110,10 @@ if (!defined('ATTRIBUTES_PRICE_FACTOR_FROM_SPECIAL')) define('ATTRIBUTES_PRICE_F
             'apps.store.zencart.admindir' => defined('ZENCART_ADMIN_FOLDER') ? ZENCART_ADMIN_FOLDER : 'admin',
             // @todo store the path in the database (supporting both absolute and relative paths)
             'downloadBaseDir' => Runtime::getSettings()->get('downloadBaseDir') ?: realpath(Runtime::getInstallationPath().'/../download'),
+            // @todo downloadPubDir should really just exist in a publically accessible cache directory (like minified css/js)
+            'downloadPubDir' => Runtime::getSettings()->get('downloadPubDir') ?: realpath(Runtime::getInstallationPath().'/../pub'),
+            'downloadByRedirect' => DOWNLOAD_BY_REDIRECT == 'true',
+            'downloadInChunks' => DOWNLOAD_IN_CHUNKS == 'true',
 
             'apps.store.maxExecutionTime' => defined('GLOBAL_SET_TIME_LIMIT') ? GLOBAL_SET_TIME_LIMIT : 60,
             /**************************************

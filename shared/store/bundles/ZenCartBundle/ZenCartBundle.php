@@ -131,21 +131,14 @@ class ZenCartBundle extends Bundle {
         }
 
         $requestId = $request->getRequestId();
-        if (\ZMLangUtils::inArray($requestId, Runtime::getSettings()->get('apps.store.request.enableZCRequestHandling'))) {
+        $requestIds = Runtime::getSettings()->get('apps.store.request.enableZCRequestHandling', array());
+        // not supported by ZenMagick (yet)
+        $requestIds = array_merge($requestIds, array('checkout_confirmation', 'checkout_process'));
+
+        $needs = false;
+        if (in_array($requestId, $requestIds)) {
             Runtime::getLogging()->debug('enable zencart request processing for requestId='.$requestId);
             return true;
-        }
-        if (false === strpos($requestId, 'checkout_') && 'download' != $requestId) {
-            // not checkout
-            return false;
-        }
-
-        // supported by ZenMagick
-        $supportedCheckoutPages = array('checkout_shipping_address', 'checkout_payment_address', 'checkout_payment', 'checkout_shipping', 'checkout_success');
-
-        $needs = !in_array($requestId, $supportedCheckoutPages);
-        if ($needs) {
-            Runtime::getLogging()->debug('enable zencart request processing for requestId='.$requestId);
         }
         return $needs;
     }
