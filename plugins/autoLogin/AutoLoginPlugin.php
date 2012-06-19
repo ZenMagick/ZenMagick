@@ -118,7 +118,7 @@ class AutoLoginPlugin extends Plugin {
         }
 
         // check for url parameter if enabled
-        if ($this->get('urlToken') && null != ($hash = $request->getParameter($this->get('urlTokenName')))) {
+        if ($this->get('urlToken') && null != ($hash = $request->request->get($this->get('urlTokenName')))) {
             if (null != ($token = $tokenService->getTokenForHash($hash)) && $this->get('expireUrlToken')) {
                 // expire after first use (set lifetime to 0)
                 $tokenService->updateToken($token, 0);
@@ -183,14 +183,14 @@ class AutoLoginPlugin extends Plugin {
      * Event handler for create account.
      */
     public function onCreateAccount($event) {
-        $this->onOptIn($event->get('account'), $event->get('request')->getParameter(AUTO_LOGIN_OPT_IN));
+        $this->onOptIn($event->get('account'), $event->get('request')->request->get(AUTO_LOGIN_OPT_IN));
     }
 
     /**
      * Event handler for login.
      */
     public function onLoginSuccess($event) {
-        $this->onOptIn($event->get('account'), $event->get('request')->getParameter(AUTO_LOGIN_OPT_IN));
+        $this->onOptIn($event->get('account'), $event->get('request')->request->get(AUTO_LOGIN_OPT_IN));
     }
 
     /**

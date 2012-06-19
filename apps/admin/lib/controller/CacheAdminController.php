@@ -69,7 +69,7 @@ class CacheAdminController extends \ZMController {
             $stats = $caches->getStats();
             foreach ($stats['system']['groups'] as $group => $config) {
                 $hash = md5($type.$group.implode($config));
-                if ('x' == $request->getParameter('cache_'.$hash)) {
+                if ('x' == $request->request->get('cache_'.$hash)) {
                     $cache = \ZMCaches::instance()->getCache($group, $config, $type);
                     $result = $cache->clear();
                     $msg = 'Clear cache \'%s\' ' . ($result ? 'successful' : 'failed');

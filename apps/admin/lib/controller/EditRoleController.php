@@ -80,13 +80,13 @@ class EditRoleController extends \ZMController {
      * {@inheritDoc}
      */
     public function processPost($request) {
-        $role = $request->getParameter('role');
+        $role = $request->request->get('role');
 
         // changed permissions
-        $permissons = $request->getParameter('perm');
+        $permissons = $request->request->get('perm');
         // new permissions
-        $requestIds = $request->getParameter('requestId', array());
-        $nperms = $request->getParameter('nperm', array());
+        $requestIds = $request->request->get('requestId', array());
+        $nperms = $request->request->get('nperm', array());
         for ($ii=0; $ii<count($requestIds); ++$ii) {
             if (!empty($requestIds[$ii]) && Toolbox::asBoolean($nperms[$ii])) {
                 $permissons[] = $requestIds[$ii];

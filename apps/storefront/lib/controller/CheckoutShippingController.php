@@ -93,12 +93,12 @@ class CheckoutShippingController extends \ZMController {
             return $this->findView('skip_shipping');
         }
 
-        if (null != ($comments = $request->getParameter('comments'))) {
+        if (null != ($comments = $request->request->get('comments'))) {
             $shoppingCart->setComments($comments);
         }
 
         // process selected shipping method
-        $shipping = $request->getParameter('shipping');
+        $shipping = $request->request->get('shipping');
         list($providerName, $methodName) = explode('_', $shipping);
         if (null != ($shippingProvider = $this->container->get('shippingProviderService')->getShippingProviderForId($providerName))) {
             $shippingMethod = $shippingProvider->getShippingMethodForId($methodName, $shoppingCart, $shoppingCart->getShippingAddress());

@@ -44,9 +44,9 @@ class ManageRolesController extends \ZMController {
      */
     public function processPost($request) {
         $adminUserRoleService = $this->container->get('adminUserRoleService');
-        if (null == ($newRole = $request->getParameter('newRole'))) {
+        if (null == ($newRole = $request->request->get('newRole'))) {
             // check for changes
-            $updatedRoles = $request->getParameter('roles');
+            $updatedRoles = $request->request->get('roles');
             $currentRoles = $adminUserRoleService->getAllRoles();
             foreach ($updatedRoles as $role) {
                 if (!in_array($role, $currentRoles)) {

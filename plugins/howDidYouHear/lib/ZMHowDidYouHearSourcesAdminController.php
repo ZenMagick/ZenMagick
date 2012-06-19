@@ -39,7 +39,7 @@ class ZMHowDidYouHearSourcesAdminController extends ZMController {
         $resultSource = new ZMArrayResultSource('zenmagick\base\ZMObject', $sourceStats);
         $resultList = Runtime::getContainer()->get("ZMResultList");
         $resultList->setResultSource($resultSource);
-        $resultList->setPageNumber($request->getParameter('page', 1));
+        $resultList->setPageNumber($request->query->get('page', 1));
         return array('resultList' => $resultList);
     }
 
@@ -47,15 +47,15 @@ class ZMHowDidYouHearSourcesAdminController extends ZMController {
      * {@inheritDoc}
      */
     public function processPost($request) {
-        $action = $request->getParameter('action');
+        $action = $request->request->get('action');
         if ('create' == $action) {
-            $name = $request->getParameter('source');
+            $name = $request->request->get('source');
             if (!empty($name)) {
                 ZMRuntime::getDatabase()->createModel('sources', array('sources_name' => $name));
                 $this->messageService->success('Source "'.$name.'" created.');
             }
         } else if ('delete' == $action) {
-            $sourceId = $request->getParameter('sourceId');
+            $sourceId = $request->request->get('sourceId');
             if (!empty($sourceId)) {
                 $model = ZMRuntime::getDatabase()->loadModel('sources', array('sources_id' => $sourceId));
                 if (null !== $model) {

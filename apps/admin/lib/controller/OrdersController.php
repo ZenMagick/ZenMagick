@@ -53,7 +53,7 @@ class OrdersController extends \ZMController {
         }
         $resultList = Runtime::getContainer()->get('ZMResultList');
         $resultList->setResultSource($resultSource);
-        $resultList->setPageNumber($request->getParameter('page', 1));
+        $resultList->setPageNumber($request->query->get('page', 1));
 
         $data = array('resultList' => $resultList, 'orderStatus' => $orderStatus);
         return $this->findView(null, $data);

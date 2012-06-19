@@ -73,7 +73,7 @@ class FirePHPPlugin extends Plugin {
     public function onContainerReady($event) {
         $request = $event->get('request');
         if (Toolbox::asBoolean($this->get('isOnDemand'))) {
-            if (null != $request->getParameter($this->get('onDemandName'))) {
+            if (null != $request->query->get($this->get('onDemandName'))) {
                 // make sure logging is enabled
                 Runtime::getSettings()->set('zenmagick.base.logging.enabled', true);
                 $this->container->get('firePHPLoggingHandler')->setLogLevel($this->get('logLevel'));

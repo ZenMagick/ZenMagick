@@ -19,9 +19,9 @@
  */
 
     if ('POST' == $request->getMethod()) {
-        $name = $request->getParameter('name');
+        $name = $request->request->get('name');
         $themeBuilder = $container->get('themeBuilder');
-        $themeBuilder->setName($request->getParameter('name'));
+        $themeBuilder->setName($request->request->get('name'));
         $buildOK = $themeBuilder->build();
         foreach ($themeBuilder->getMessages() as $msgInfo) {
             $messageService->add($msgInfo[1], $msgInfo[0]);

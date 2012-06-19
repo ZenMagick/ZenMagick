@@ -62,7 +62,7 @@ class FormTokenSessionValidator extends ZMObject implements SessionValidator {
         $valid = true;
         if ($this->qualifies($request) && in_array($request->getRequestId(), $this->requestIds)) {
             $valid = false;
-            if (null != ($token = $request->getParameter(self::SESSION_TOKEN_NAME))) {
+            if (null != ($token = $request->request->get(self::SESSION_TOKEN_NAME))) {
                 $valid = ($session->getToken() == $token);
             }
         }

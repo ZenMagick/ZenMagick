@@ -51,7 +51,7 @@ class UnsubscribeController extends \ZMController {
             return $this->findView();
         }
 
-        $emailAddress = $request->getParameter('email_address');
+        $emailAddress = $request->request->get('email_address');
         $account = \ZMAccounts::getAccountForEmailAddress($emailAddress);
 
         if (null == $account) {

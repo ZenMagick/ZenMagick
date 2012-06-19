@@ -34,10 +34,10 @@ class PageController extends \ZMController {
      */
     public function processGet($request) {
         $languageId = $request->getSession()->getLanguageId();
-        $page = $this->container->get('ezPageService')->getPageForId($request->getParameter("id"), $languageId);
+        $page = $this->container->get('ezPageService')->getPageForId($request->query->get("id"), $languageId);
         if (null == $page) {
             // do we have a chapter
-            if (null != ($chapter = $request->getParameter('chapter'))) {
+            if (null != ($chapter = $request->query->get('chapter'))) {
                 $toc = $this->container->get('ezPageService')->getPagesForChapterId($chapter, $languageId);
                 if (0 < count($toc)) {
                     $page = $toc[0];

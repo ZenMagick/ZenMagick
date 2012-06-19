@@ -25,11 +25,11 @@ use zenmagick\base\Runtime;
     $needRefresh = false;
 
     // install
-    if (null != $request->getParameter('update')) {
-        $group = $request->getParameter('update');
+    if (null != $request->request->get('update')) {
+        $group = $request->request->get('update');
         foreach ($installer->getPatches($group) as $id => $patch) {
             $formId = 'patch_'.$group.'_'.$patch->getId();
-            if ($patch->isOpen() && $patch->getId() == $request->getParameter($formId)) {
+            if ($patch->isOpen() && $patch->getId() == $request->request->get($formId)) {
                 // open and selected
                 $needRefresh = true;
                 $status = $patch->patch(true);
@@ -39,7 +39,7 @@ use zenmagick\base\Runtime;
                 } else {
                     $messageService->error("Could not install '".$patch->getLabel()."'");
                 }
-            } else if (!$patch->isOpen() && null == $request->getParameter($formId)) {
+            } else if (!$patch->isOpen() && null == $request->request->get($formId)) {
                 // installed and not selected
                 if ($patch->canUndo()) {
                     $needRefresh = true;
@@ -56,7 +56,7 @@ use zenmagick\base\Runtime;
     }
 
     // import static pages
-    if (null != $request->getParameter('importSp')) {
+    if (null != $request->request->get('importSp')) {
         // disable
         $settingsService = Runtime::getSettings();
         $tmp = $settingsService->get('apps.store.staticContent', false);
@@ -94,86 +94,86 @@ use zenmagick\base\Runtime;
         }
 
         // cleanup
-        $settingsService->set('apps.store.staticContent', $tmp);
-        $messageService->success("Import successful!");
-        $needRefresh = true;
-    }
+    $settingsService->set('apps.store.staticContent', $tmp);
+    $messageService->success("Import successful!");
+    $needRefresh = true;
+}
 
-    // optimize database tables
-    if (null != $request->getParameter('optimizeDb')) {
-        $database = ZMRuntime::getDatabase();
-        $sm = $database->getSchemaManager();
-        foreach ($sm->listTables() as $table) {
-            $sql = str_replace('[table]', $table->getName(), "LOCK TABLES [table] READ; CHECK TABLE [table]; UNLOCK TABLES; OPTIMIZE TABLE [table];");
-            $database->executeUpdate($sql);
+// optimize database tables
+if (null != $request->request->get('optimizeDb')) {
+    $database = ZMRuntime::getDatabase();
+    $sm = $database->getSchemaManager();
+    foreach ($sm->listTables() as $table) {
+        $sql = str_replace('[table]', $table->getName(), "LOCK TABLES [table] READ; CHECK TABLE [table]; UNLOCK TABLES; OPTIMIZE TABLE [table];");
+        $database->executeUpdate($sql);
+    }
+    $messageService->success("All tables optimized");
+    $needRefresh = true;
+}
+
+/**
+ * Show patch group.
+ */
+function _zm_patch_group($groupId, $buttonClasses, $checkall=true) {
+    $installer = new zenmagick\apps\store\admin\installation\InstallationPatcher();
+    foreach ($installer->getPatches($groupId) as $id => $patch) {
+        if ('sqlFulltext' == $patch->getId()) {
+            continue;
         }
-        $messageService->success("All tables optimized");
-        $needRefresh = true;
-    }
 
-    /**
-     * Show patch group.
-     */
-    function _zm_patch_group($groupId, $buttonClasses, $checkall=true) {
-        $installer = new zenmagick\apps\store\admin\installation\InstallationPatcher();
-        foreach ($installer->getPatches($groupId) as $id => $patch) {
-            if ('sqlFulltext' == $patch->getId()) {
-                continue;
+        // check dependencies
+        $unfulfilled = array();
+        foreach ($patch->dependsOn() as $dId) {
+            $dPatch = $installer->getPatchForId($dId);
+            if ($dPatch->isOpen()) {
+                array_push($unfulfilled, $dPatch->getLabel());
             }
+        }
+        foreach ($unfulfilled as $dId) {
+            ?><p class="error"><?php echo sprintf(_zm("Depends on: '%s'"), $dId) ?></p><?php
+        }
+        if (!$patch->isReady() && $patch->isOpen()) {
+          ?><p class="error"><?php echo $patch->getPreconditionsMessage() ?></p><?php
+        }
+        ?><input type="checkbox"
+            id="<?php echo $patch->getId() ?>" name="patch_<?php echo $groupId ?>_<?php echo $patch->getId() ?>"
+            value="<?php echo $patch->getId() ?>"
+            <?php if (!$patch->isOpen()) { ?>checked="checked" <?php } ?>
+            <?php if (!$patch->canUndo() && !$patch->isOpen()) { ?>disabled="disabled" <?php } ?>>
+          <label for="<?php echo $patch->getId() ?>">
+              <?php echo $patch->getLabel() ?>
+          </label>
+          <br><?php
+    } ?>
+    <input type="checkbox" class="all" id="<?php echo $groupId ?>_all" name="<?php echo $groupId ?>_all" value="" onclick="sync_all(this, 'patch_<?php echo $groupId ?>_')">
+    <label for="<?php echo $groupId ?>_all"><?php _vzm("Select/Unselect All") ?></label><br>
+    <div class="submit">
+        <input class="<?php echo $buttonClasses ?>" type="submit" value="<?php _vzm("Update") ?>">
+    </div>
+<?php }
 
-            // check dependencies
-            $unfulfilled = array();
-            foreach ($patch->dependsOn() as $dId) {
-                $dPatch = $installer->getPatchForId($dId);
-                if ($dPatch->isOpen()) {
-                    array_push($unfulfilled, $dPatch->getLabel());
-                }
-            }
-            foreach ($unfulfilled as $dId) {
-                ?><p class="error"><?php echo sprintf(_zm("Depends on: '%s'"), $dId) ?></p><?php
-            }
-            if (!$patch->isReady() && $patch->isOpen()) {
-              ?><p class="error"><?php echo $patch->getPreconditionsMessage() ?></p><?php
-            }
-            ?><input type="checkbox"
-                id="<?php echo $patch->getId() ?>" name="patch_<?php echo $groupId ?>_<?php echo $patch->getId() ?>"
-                value="<?php echo $patch->getId() ?>"
-                <?php if (!$patch->isOpen()) { ?>checked="checked" <?php } ?>
-                <?php if (!$patch->canUndo() && !$patch->isOpen()) { ?>disabled="disabled" <?php } ?>>
-              <label for="<?php echo $patch->getId() ?>">
-                  <?php echo $patch->getLabel() ?>
-              </label>
-              <br><?php
-        } ?>
-        <input type="checkbox" class="all" id="<?php echo $groupId ?>_all" name="<?php echo $groupId ?>_all" value="" onclick="sync_all(this, 'patch_<?php echo $groupId ?>_')">
-        <label for="<?php echo $groupId ?>_all"><?php _vzm("Select/Unselect All") ?></label><br>
-        <div class="submit">
-            <input class="<?php echo $buttonClasses ?>" type="submit" value="<?php _vzm("Update") ?>">
-        </div>
-    <?php }
-
-    if ($needRefresh) {
-        $request->redirect($admin->url(null, '', true));
-    }
+if ($needRefresh) {
+    $request->redirect($admin->url(null, '', true));
+}
 
 ?>
-    <script type="text/javascript">
-      // select/unselect all
-      function sync_all(box, name) {
-        var boxes = document.getElementsByTagName('input');
-        for (var ii=0; ii<boxes.length; ++ii) {
-          if (0 == boxes[ii].name.indexOf(name) && !boxes[ii].disabled) {
-            boxes[ii].checked = box.checked;
-          }
-        }
+<script type="text/javascript">
+  // select/unselect all
+  function sync_all(box, name) {
+    var boxes = document.getElementsByTagName('input');
+    for (var ii=0; ii<boxes.length; ++ii) {
+      if (0 == boxes[ii].name.indexOf(name) && !boxes[ii].disabled) {
+        boxes[ii].checked = box.checked;
       }
-    </script>
+    }
+  }
+</script>
 
 <?php $admin->title() ?>
 <div id="b_installation">
-  <h2><?php _vzm("ZenMagick Installation") ?> <a class="btn" href="<?php echo $admin->url() ?>"><?php _vzm("Refresh Page") ?></a></h2>
+<h2><?php _vzm("ZenMagick Installation") ?> <a class="btn" href="<?php echo $admin->url() ?>"><?php _vzm("Refresh Page") ?></a></h2>
 
-  <form action="<?php echo $admin->url() ?>" method="POST" onsubmit="return ZenMagick.confirm('Update File Patches?', this);">
+<form action="<?php echo $admin->url() ?>" method="POST" onsubmit="return ZenMagick.confirm('Update File Patches?', this);">
     <fieldset class="patches">
       <legend><?php _vzm("ZenMagick File Patches") ?></legend>
       <input type="hidden" name="update" value="file">

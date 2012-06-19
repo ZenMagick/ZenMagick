@@ -34,11 +34,11 @@ class ZMSubscriptionRequestController extends ZMController {
      *
      * @return ZMObject The model.
      */
-    protected function createModel() {
+    protected function createModel($parameterBag) {
         $model = new ZMObject();
-        $model->set('type', $this->container->get('request')->getParameter('type'));
-        $model->set('orderId', $this->container->get('request')->getParameter('orderId'));
-        $model->set('message', $this->container->get('request')->getParameter('message'));
+        $model->set('type', $parameterBag->get('type'));
+        $model->set('orderId', $parameterBag->get('orderId'));
+        $model->set('message', $parameterBag->get('message'));
         $model->set('types', $this->getPlugin()->getRequestTypes());
         return $model;
     }
@@ -47,14 +47,14 @@ class ZMSubscriptionRequestController extends ZMController {
      * {@inheritDoc}
      */
     public function processGet($request) {
-        return $this->findView(null, array('subscriptionRequest' => $this->createModel()));
+        return $this->findView(null, array('subscriptionRequest' => $this->createModel($request->query)));
     }
 
     /**
      * {@inheritDoc}
      */
     public function processPost($request) {
-        $data = array('subscriptionRequest' => $this->createModel());
+        $data = array('subscriptionRequest' => $this->createModel($request->request));
         if (!$this->validate($request, 'subscription_request')) {
             return $this->findView(null, $data);
         }

@@ -36,7 +36,7 @@ class DiscountCouponController extends \ZMController {
     public function processGet($request) {
         $data = array();
         $viewName = null;
-        $code = $request->getParameter('couponCode');
+        $code = $request->query->get('couponCode');
         if (null != $code) {
             $coupon = $this->container->get('couponService')->getCouponForCode($code, $request->getSession()->getLanguageId());
             if (null == $coupon) {

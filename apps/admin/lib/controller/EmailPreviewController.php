@@ -64,9 +64,9 @@ class EmailPreviewController extends \ZMController {
      * {@inheritDoc}
      */
     public function processGet($request) {
-        if (null != ($template = $request->getParameter('template'))) {
-            $format = $request->getParameter('format');
-            $type = $request->getParameter('type');
+        if (null != ($template = $request->query->get('template'))) {
+            $format = $request->query->get('format');
+            $type = $request->query->get('type');
             $messageBuilder = $this->container->get('messageBuilder');
 
             $context = $this->getInitialContext($request);

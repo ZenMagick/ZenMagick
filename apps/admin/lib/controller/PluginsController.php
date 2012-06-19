@@ -77,10 +77,10 @@ class PluginsController extends \ZMController {
             return $this->findView('success-demo');
         }
 
-        $action = $request->getParameter('action');
-        $multiAction = $request->getParameter('multiAction');
-        $pluginId = $request->getParameter('pluginId');
-        $multiPluginId = $request->getParameter('multiPluginId');
+        $action = $request->request->get('action');
+        $multiAction = $request->request->get('multiAction');
+        $pluginId = $request->request->get('pluginId');
+        $multiPluginId = $request->request->get('multiPluginId');
 
         // convert single action into multi
         if (null != $action && null != $pluginId) {
@@ -106,7 +106,7 @@ class PluginsController extends \ZMController {
                     $viewId = 'success-install';
                 }
             } else if ('uninstall' == $action) {
-                $keepSettings = Toolbox::asBoolean($request->getParameter('keepSettings', false));
+                $keepSettings = Toolbox::asBoolean($request->request->get('keepSettings', false));
                 if (null != ($plugin = $pluginService->getPluginForId($pluginId)) && $plugin->isInstalled()) {
                     Runtime::getLogging()->log('un-install plugin: '.$plugin->getId() . '; keepSettings: '.($keepSettings?'true':'false'), Logging::TRACE);
                     $plugin->remove($keepSettings);
@@ -125,7 +125,7 @@ class PluginsController extends \ZMController {
             } else if ('update' == $action) {
                 if (null != ($plugin = $pluginService->getPluginForId($pluginId)) && $plugin->isInstalled()) {
                     foreach ($plugin->getConfigValues() as $widget) {
-                        if ($widget instanceof FormWidget && null !== ($value = $request->getParameter($widget->getName()))) {
+                        if ($widget instanceof FormWidget && null !== ($value = $request->request->get($widget->getName()))) {
                             if (!$widget->compare($value)) {
                                 // value changed, use widget to (optionally) format value
                                 $widget->setValue($value);

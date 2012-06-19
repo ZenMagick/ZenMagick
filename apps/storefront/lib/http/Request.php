@@ -113,21 +113,21 @@ class Request extends \ZMRequest {
      *
      * @return int The current page index (default is 1).
      */
-    public function getPageIndex() {  return (int)$this->getParameter('page', 1); }
+    public function getPageIndex() {  return (int)$this->query->get('page', 1); }
 
     /**
      * Get the current sort id.
      *
      * @return string The current sort id.
      */
-    public function getSortId() {  return $this->getParameter('sort_id'); }
+    public function getSortId() {  return $this->query->get('sort_id'); }
 
     /**
      * Get the sub page name; this is the contents name for static pages.
      *
      * @return strin The static page contents id.
      */
-    public function getSubPageName() { return $this->getParameter('cat'); }
+    public function getSubPageName() { return $this->query->get('cat'); }
 
     /**
      * Get the product id.
@@ -224,7 +224,7 @@ class Request extends \ZMRequest {
      *
      * @return int The manufacturer id or <code>0</code>.
      */
-    public function getManufacturerId() { return (int)$this->getParameter('manufacturers_id', 0); }
+    public function getManufacturerId() { return (int)$this->query->get('manufacturers_id', 0); }
 
     /**
      * Get the account id.

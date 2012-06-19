@@ -77,7 +77,7 @@ class CheckoutAddressController extends \ZMController {
      * {@inheritDoc}
      */
     protected function validateFormData($request, $formBean) {
-        $addressId = $request->getParameter('addressId', null);
+        $addressId = $request->request->get('addressId', null);
         if (null !== $addressId) {
             // selected existing address, so do not validate
             return null;
@@ -129,7 +129,7 @@ class CheckoutAddressController extends \ZMController {
 
 
         // if address field in request, it's a select; otherwise a new address
-        $addressId = $request->getParameter('addressId', null);
+        $addressId = $request->request->get('addressId', null);
         if (null !== $addressId) {
             $shoppingCart->$method($addressId);
         } else {

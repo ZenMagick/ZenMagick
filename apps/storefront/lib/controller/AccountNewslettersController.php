@@ -42,7 +42,7 @@ class AccountNewslettersController extends \ZMController {
      * {@inheritDoc}
      */
     public function processPost($request) {
-        $newsletterSubscriber = Toolbox::asBoolean($request->getParameter('newsletter_general', false));
+        $newsletterSubscriber = Toolbox::asBoolean($request->request->get('newsletter_general', false));
 
         $account = $request->getAccount();
         if ($newsletterSubscriber != $account->isNewsletterSubscriber()) {

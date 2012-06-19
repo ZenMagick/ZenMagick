@@ -103,9 +103,9 @@ class ZMQuickEditTabController extends CatalogContentController {
                 if ($widget instanceof FormWidget) {
                     $fieldName = $field['name'].'_'.$productId;
                     // use widget to *read* the value to allow for optional conversions, etc
-                    $widget->setValue($request->getParameter($fieldName, null, false));
+                    $widget->setValue($request->request->get($fieldName, null, false));
                     $formData[$fieldMap[$field['name']]] = $widget->getStringValue();
-                    $widget->setValue($request->getParameter(self::STALE_CHECK_FIELD_PREFIX.$fieldName, null, false));
+                    $widget->setValue($request->request->get(self::STALE_CHECK_FIELD_PREFIX.$fieldName, null, false));
                     $_formData[$fieldMap[$field['name']]] = $widget->getStringValue();
                 }
             }

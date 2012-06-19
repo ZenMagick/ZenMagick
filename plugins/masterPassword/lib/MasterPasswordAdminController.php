@@ -40,7 +40,7 @@ class MasterPasswordAdminController extends ZMPluginAdminController {
      * {@inheritDoc}
      */
     public function processPost($request) {
-        $masterPassword = $request->getParameter('masterPassword', null);
+        $masterPassword = $request->request->get('masterPassword', null);
 
         // encrypt only if not empty to allow to reset to blank
         if (!empty($masterPassword)) {

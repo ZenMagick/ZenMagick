@@ -39,9 +39,9 @@ class ZMExportOrdersController extends ZMController {
      * {@inheritDoc}
      */
     public function getViewData($request) {
-        $fromDate = $request->getParameter('fromDate');
-        $toDate = $request->getParameter('toDate');
-        $exportFormat = $request->getParameter('exportFormat');
+        $fromDate = $request->query->get('fromDate');
+        $toDate = $request->query->get('toDate');
+        $exportFormat = $request->query->get('exportFormat');
         // datepicker uses double chars
         $dateFormat = str_replace(array('d', 'm', 'y', 'Y'), array('dd', 'mm', 'yy', 'yy'), $this->getDateFormat());
         return array('fromDate' => $fromDate, 'toDate' => $toDate, 'dateFormat' => $dateFormat);
@@ -51,9 +51,9 @@ class ZMExportOrdersController extends ZMController {
      * {@inheritDoc}
      */
     public function processGet($request) {
-        $fromDate = $request->getParameter('fromDate');
-        $toDate = $request->getParameter('toDate');
-        $exportFormat = $request->getParameter('exportFormat');
+        $fromDate = $request->query->get('fromDate');
+        $toDate = $request->query->get('toDate');
+        $exportFormat = $request->query->get('exportFormat');
 
         $viewData = array();
         if (null != $fromDate) {

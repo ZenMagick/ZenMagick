@@ -82,18 +82,18 @@ class CheckoutPaymentController extends \ZMController {
             return $this->findView($viewId);
         }
 
-        if (null != ($comments = $request->getParameter('comments'))) {
+        if (null != ($comments = $request->request->get('comments'))) {
             $shoppingCart->setComments($comments);
         }
 
-        if (Runtime::getSettings()->get('isConditionsMessage') && !Toolbox::asBoolean($request->getParameter('conditions'))) {
+        if (Runtime::getSettings()->get('isConditionsMessage') && !Toolbox::asBoolean($request->request->get('conditions'))) {
             $this->messageService->error(_zm('Please confirm the terms and conditions bound to this order by ticking the box below.'));
             return $this->findView();
         }
 
         // TODO: check if credit/gv covers total (currently in order_total::pre_confirmation_check)
 
-        if (null == ($paymentTypeId = $request->getParameter('payment'))) {
+        if (null == ($paymentTypeId = $request->request->get('payment'))) {
             $this->messageService->error(_zm('Please select a payment type.'));
             return $this->findView();
         }

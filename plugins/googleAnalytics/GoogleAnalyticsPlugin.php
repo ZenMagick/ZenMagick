@@ -164,7 +164,7 @@ class GoogleAnalyticsPlugin extends Plugin {
             $view = $request->getRequestId();
             foreach ($args as $name) {
                 $attr = '[';
-                if (null != ($value = $request->getParameter($name))) {
+                if (null != ($value = $request->query->get($name))) {
                     if ('[' != $attr) {
                         $attr .= ',';
                     }

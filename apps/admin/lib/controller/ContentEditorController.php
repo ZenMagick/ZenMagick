@@ -74,10 +74,10 @@ class ContentEditorController extends \ZMController {
         }
 
         $ezPageService = $this->container->get('ezPageService');
-        $languageId = $request->getParameter('languageId');
+        $languageId = $request->request->get('languageId');
 
         $viewId = null;
-        if (null !== ($ezPageId = $request->getParameter('updateId'))) {
+        if (null !== ($ezPageId = $request->request->get('updateId'))) {
             if (0 == $ezPageId) {
                 // create
                 $ezPage = Beans::getBean('ZMEZPage');
@@ -100,7 +100,7 @@ class ContentEditorController extends \ZMController {
             } else {
                 $this->messageService->error('Could not save page - invalid request data');
             }
-        } else if (null !== ($ezPageId = $request->getParameter('deleteId'))) {
+        } else if (null !== ($ezPageId = $request->request->get('deleteId'))) {
             $ezPageId = (int)$ezPageId;
             if (null != ($ezPage = $ezPageService->getPageForId($ezPageId, $languageId))) {
                 $ezPageService->removePage($ezPage);

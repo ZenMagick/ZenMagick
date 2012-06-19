@@ -32,7 +32,7 @@ class ResetPasswordController extends \ZMController {
      * {@inheritDoc}
      */
     public function processPost($request) {
-        $email = $request->getParameter('email');
+        $email = $request->request->get('email');
         $adminUserService = $this->container->get('adminUserService');
         $user = $adminUserService->getUserForEmail($email);
         if (null === $user) {

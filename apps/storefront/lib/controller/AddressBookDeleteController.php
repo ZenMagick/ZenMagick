@@ -42,7 +42,7 @@ class AddressBookDeleteController extends \ZMController {
      */
     public function processPost($request) {
         $account = $request->getAccount();
-        $addressId = $request->getParameter('id', 0);
+        $addressId = $request->request->get('id', 0);
         if (0 < $addressId) {
             $this->container->get('addressService')->deleteAddressForId($addressId);
             $this->messageService->success(_zm('The selected address has been successfully removed from your address book.'));

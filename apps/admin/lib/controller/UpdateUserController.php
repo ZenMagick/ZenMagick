@@ -62,7 +62,7 @@ class UpdateUserController extends \ZMController {
         $widgets = $viewData['widgets'];
         foreach ($widgets as $widget) {
             $name = $widget->getName();
-            $this->container->get('adminUserPrefService')->setPrefForName($user->getId(), $name, $request->getParameter($name));
+            $this->container->get('adminUserPrefService')->setPrefForName($user->getId(), $name, $request->request->get($name));
         }
     }
 

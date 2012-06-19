@@ -61,7 +61,7 @@ class GvSendConfirmController extends \ZMController {
      * {@inheritDoc}
      */
     public function processPost($request) {
-        if (null != $request->getParameter('edit')) {
+        if (null != $request->request->get('edit')) {
             return $this->findView('edit');
         }
 

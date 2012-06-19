@@ -54,7 +54,7 @@ class ZMProductTagsTabController extends CatalogContentController {
      */
     public function processPost($request) {
         $productId = $request->getProductId();
-        if (0 < $productId && null != ($currentProductTags = $request->getParameter('currentProductTags'))) {
+        if (0 < $productId && null != ($currentProductTags = $request->request->get('currentProductTags'))) {
             $languageId = $request->getSelectedLanguage()->getId();
             $tags = array();
             foreach (explode(',', $currentProductTags) as $tag) {

@@ -84,8 +84,8 @@ class ZMOpenIDController extends ZMController {
             return $this->findView('login');
         }
 
-        $action = $request->getParameter('action');
-        $openid = $request->getParameter('openid');
+        $action = $request->request->get('action');
+        $openid = $request->request->get('openid');
 
         $account = $this->plugin_->getAccountForOpenID($openid);
         if (null != $account) {

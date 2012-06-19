@@ -78,10 +78,10 @@ class ThemesController extends \ZMController {
         $themeService = $this->container->get('themeService');
 
         // arrays
-        $update = array_flip($request->getParameter('update', array()));
-        $delete = array_flip($request->getParameter('delete', array()));
+        $update = array_flip($request->request->get('update', array()));
+        $delete = array_flip($request->request->get('delete', array()));
         // single
-        $create = $request->getParameter('create');
+        $create = $request->request->get('create');
 
         $action = null;
         if (1 == count($update)) {
@@ -100,8 +100,8 @@ class ThemesController extends \ZMController {
         case  'update':
             if (null != ($config = $this->getConfigForLanguageId($languageId))) {
                 // arrays
-                $themeId = $request->getParameter('themeId');
-                $variationId = $request->getParameter('variationId');
+                $themeId = $request->request->get('themeId');
+                $variationId = $request->request->get('variationId');
 
                 $config->setThemeId($themeId[$languageId]);
                 $config->setVariationId($variationId[$languageId]);
@@ -116,9 +116,9 @@ class ThemesController extends \ZMController {
             }
             break;
         case  'create':
-            $themeId = $request->getParameter('newThemeId');
-            $variationId = $request->getParameter('newVariationId');
-            $languageId = $request->getParameter('newLanguageId', 0);
+            $themeId = $request->request->get('newThemeId');
+            $variationId = $request->request->get('newVariationId');
+            $languageId = $request->request->get('newLanguageId', 0);
             $config = new ZMObject(array('themeId' => $themeId, 'variationId' => $variationId, 'languageId' => $languageId));
             $themeService->createThemeConfig($config);
             $this->messageService->success(_zm('Theme mapping created.'));

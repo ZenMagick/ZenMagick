@@ -46,7 +46,7 @@ class GvSendController extends \ZMController {
         $gvReceiver = $this->getFormData($request);
 
         // back from confirmation to edit or not valid
-        if (null != $request->getParameter('edit')) {
+        if (null != $request->request->get('edit')) {
             return $this->findView();
         }
 

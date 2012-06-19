@@ -42,7 +42,7 @@ class AccountNotificationsController extends \ZMController {
      * {@inheritDoc}
      */
     public function processPost($request) {
-        $globalProductSubscriber = Toolbox::asBoolean($request->getParameter('product_global', false));
+        $globalProductSubscriber = Toolbox::asBoolean($request->request->get('product_global', false));
 
         $account = $request->getAccount();
         $isGlobalUpdate = false;
@@ -55,7 +55,7 @@ class AccountNotificationsController extends \ZMController {
         if (!$isGlobalUpdate) {
             // if global update is on, products are not listed in the form,
             // therefore, they would all be removed if updated!
-            $subscribedProducts = $request->getParameter('notify', array());
+            $subscribedProducts = $request->request->get('notify', array());
             $account = $this->container->get('accountService')->setSubscribedProductIds($account, $subscribedProducts);
         }
 

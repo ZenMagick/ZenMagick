@@ -35,7 +35,7 @@ class ExamplePluginAdminController extends ZMController {
         $plugin = $this->getPlugin();
 
         foreach ($plugin->getConfigValues() as $configValue) {
-            if (null != ($value = $request->getParameter($configValue->getName()))) {
+            if (null != ($value = $request->request->get($configValue->getName()))) {
                 $plugin->set($configValue->getName(), $value);
             }
         }

@@ -67,7 +67,7 @@ class EditAdminUserController extends \ZMController {
 
         $adminUserService = $this->container->get('adminUserService');
 
-        if (null != ($editUserId = $request->getParameter('adminUserId'))) {
+        if (null != ($editUserId = $request->request->get('adminUserId'))) {
             $adminUserForm = $this->getFormData($request);
 
             $user = Beans::getBean('zenmagick\\apps\\admin\\entities\\AdminUser');
@@ -92,7 +92,7 @@ class EditAdminUserController extends \ZMController {
                 $adminUserService->createUser($user);
                 $this->messageService->success(_zm('User created.'));
             }
-        } else if (null != ($deleteUserId = $request->getParameter('deleteUserId'))) {
+        } else if (null != ($deleteUserId = $request->request->get('deleteUserId'))) {
             $adminUserService->deleteUserForId($deleteUserId);
             $this->messageService->success(_zm('User deleted.'));
         }

@@ -40,12 +40,12 @@ class ZMSettingsAdminController extends ZMPluginAdminController {
      */
     public function processPost($request) {
         $plugin = $this->getPlugin();
-        $action = $request->getParameter('action', '');
+        $action = $request->request->get('action', '');
         if ('create' == $action) {
-            $title = $request->getParameter('title', '');
-            $key = $request->getParameter('key');
-            $value = $request->getParameter('value');
-            $type = $request->getParameter('type');
+            $title = $request->request->get('title', '');
+            $key = $request->request->get('key');
+            $value = $request->request->get('value');
+            $type = $request->request->get('type');
             // special case for generic select where the initial value gets added to the widget definition
             $parValue = '';
             if (0 === strpos($type, 'selectFormWidget#')) {
@@ -60,7 +60,7 @@ class ZMSettingsAdminController extends ZMPluginAdminController {
         } else if ('update' == $action) {
             foreach ($plugin->getConfigValues() as $widget) {
                 $sanitize = !($widget instanceof ZMWysiwygFormWidget);
-                if ($widget instanceof FormWidget && null != ($value = $request->getParameter($widget->getName(), null, $sanitize))) {
+                if ($widget instanceof FormWidget && null != ($value = $request->request->get($widget->getName(), null, $sanitize))) {
                     if (!$widget->compare($value)) {
                         // value changed, use widget to (optionally) format value
                         $widget->setValue($value);
