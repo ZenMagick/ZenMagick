@@ -33,11 +33,11 @@ class ContentEditorController extends \ZMController {
      */
     public function getViewData($request) {
         $language = $request->getSelectedLanguage();
-        $languageId = $request->getParameter('languageId', $language->getId());
+        $languageId = $request->query->get('languageId', $language->getId());
         $resultSource = new \ZMObjectResultSource('ZMEZPage', 'ezPageService', "getAllPages", array($languageId, 'static'));
         $resultList = $this->container->get("ZMResultList");
         $resultList->setResultSource($resultSource);
-        $resultList->setPageNumber($request->getParameter('page', 1));
+        $resultList->setPageNumber($request->query->get('page', 1));
         return array('resultList' => $resultList);
     }
 
@@ -46,8 +46,8 @@ class ContentEditorController extends \ZMController {
      */
     public function processGet($request) {
         $language = $request->getSelectedLanguage();
-        $languageId = $request->getParameter('languageId', $language->getId());
-        if (null !== ($ezPageId = $request->getParameter('editId'))) {
+        $languageId = $request->query->get('languageId', $language->getId());
+        if (null !== ($ezPageId = $request->query->get('editId'))) {
             $ezPageId = (int)$ezPageId;
             if (0 == $ezPageId) {
                 // new

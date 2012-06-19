@@ -59,7 +59,7 @@ class ThemeSwitcherPlugin extends Plugin {
         $request = $event->get('request');
 
         $session = $request->getSession();
-        if (null != ($themeId = $request->getParameter('themeId'))) {
+        if (null != ($themeId = $request->query->get('themeId'))) {
             $session->setValue(self::SESS_THEME_KEY, $themeId);
         }
 

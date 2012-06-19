@@ -45,7 +45,7 @@ class EventFixes extends ZMObject {
         $request = $event->get('request');
         $view = $event->get('view');
         if ($view instanceof TemplateView) {
-            if (null !== $request->getParameter('showAll')) {
+            if (null !== $request->query->get('showAll')) {
                 if (null != ($resultList = $view->getVariable('resultList'))) {
                     $resultList->setPagination(0);
                 }
@@ -362,7 +362,7 @@ class EventFixes extends ZMObject {
 
         // ** currency **
         // Models rely currency sesson variable via $request->getCurrencyCode, so this has to happen first!
-        if (null != ($currencyCode = $request->getParameter('currency'))) {
+        if (null != ($currencyCode = $request->query->get('currency'))) {
             // @todo error on bad request currency?
             if (null != $this->container->get('currencyService')->getCurrencyForCode($currencyCode)) {
                 $session->setCurrencyCode($currencyCode);

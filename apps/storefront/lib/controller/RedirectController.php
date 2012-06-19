@@ -35,8 +35,8 @@ class RedirectController extends \ZMController {
      * {@inheritDoc}
      */
     public function processGet($request) {
-        $action = $request->getParameter('action');
-        $goto = $request->getParameter('goto');
+        $action = $request->query->get('action');
+        $goto = $request->query->get('goto');
         $bannerService = $this->container->get('bannerService');
 
         switch ($action) {

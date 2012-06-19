@@ -167,7 +167,7 @@ class VBulletinPlugin extends Plugin {
         if (!Toolbox::isEmpty($account->getNickName())) {
             if (null == $this->getAdapter()->getAccountForNickName($account->getNickName())) {
                 // no vBulletin user found, so create one now!
-                $password = $request->getParameter('password');
+                $password = $request->request->get('password');
                 $this->getAdapter()->createAccount($account, $password);
             }
         }

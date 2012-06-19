@@ -53,7 +53,7 @@
     /* we are in a function here (get_comments()), so ZenMagick template vars are not visible */
     $request = zenmagick\base\Runtime::getContainer()->get('request');
 ?>
-<input type="hidden" name="redirect_to" value="<?php echo $request->url('wp', 'p='.$request->getParameter('p'), false) ?>">
+<input type="hidden" name="redirect_to" value="<?php echo $request->url('wp', 'p='.$request->query->get('p'), false) ?>">
 
 <?php if ( $user_ID ) : ?>
 

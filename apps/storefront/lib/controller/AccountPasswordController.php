@@ -46,9 +46,9 @@ class AccountPasswordController extends \ZMController {
             return $this->findView('error');
         }
 
-        $oldPassword = $request->getParameter('password_current');
-        $newPassword = $request->getParameter('password_new');
-        $confirmPassword = $request->getParameter('password_confirmation');
+        $oldPassword = $request->request->get('password_current');
+        $newPassword = $request->request->get('password_new');
+        $confirmPassword = $request->request->get('password_confirmation');
 
         $authenticationManager = $this->container->get('authenticationManager');
         if (!$authenticationManager->validatePassword($oldPassword, $account->getPassword())) {

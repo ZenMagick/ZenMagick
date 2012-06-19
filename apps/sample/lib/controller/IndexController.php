@@ -46,7 +46,7 @@ class IndexController extends \ZMController {
             $data['name'] = $name;
         }
 
-        if (Toolbox::asBoolean($request->getParameter('clear'))) {
+        if (Toolbox::asBoolean($request->query->get('clear'))) {
             $data = array();
             $request->getSession()->destroy();
             $viewId = 'success';
@@ -59,7 +59,7 @@ class IndexController extends \ZMController {
      * {@inheritDoc}
      */
     public function processPost($request) {
-        $name = $request->getParameter('myname');
+        $name = $request->request->get('myname');
         $data = array();
         $viewId = null;
         if (empty($name)) {

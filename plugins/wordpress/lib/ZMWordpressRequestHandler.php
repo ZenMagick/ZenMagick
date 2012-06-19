@@ -63,22 +63,22 @@ class ZMWordpressRequestHandler extends ZMController {
 
         $this->viewName_ = 'wp_index';
 
-        if (null != ($p = $request->getParameter('p'))) {
+        if (null != ($p = $request->query->get('p'))) {
             $this->viewName_ = 'wp_single';
             $this->plugin_->query_posts('p='.$p);
-        } else if (null != ($pageId = $request->getParameter('page_id'))) {
+        } else if (null != ($pageId = $request->query->get('page_id'))) {
             $this->viewName_ = 'wp_page';
             $this->plugin_->query_posts('page_id='.$pageId);
-        } else if (null != ($cat = $request->getParameter('cat'))) {
+        } else if (null != ($cat = $request->query->get('cat'))) {
             $this->viewName_ = 'wp_archive';
             $this->plugin_->query_posts('cat='.$cat);
-        } else if (null != ($m = $request->getParameter('m'))) {
+        } else if (null != ($m = $request->query->get('m'))) {
             $this->viewName_ = 'wp_archive';
             $this->plugin_->query_posts('m='.$m);
-        } else if (null != ($s = $request->getParameter('s'))) {
+        } else if (null != ($s = $request->query->get('s'))) {
             $this->viewName_ = 'wp_search';
             $this->plugin_->query_posts('s='.$s);
-        } else if (null != ($tag = $request->getParameter('tag'))) {
+        } else if (null != ($tag = $request->query->get('tag'))) {
             $this->viewName_ = 'wp_archive';
             $this->plugin_->query_posts('tag='.$tag);
         }

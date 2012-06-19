@@ -121,8 +121,8 @@ class SubscriptionsPlugin extends Plugin {
     public function onContainerReady($event) {
         $request = $event->get('request');
         if ('checkout_shipping' == $request->getRequestId() && 'POST' == $request->getMethod()) {
-            if (Toolbox::asBoolean($request->getParameter('subscription'))) {
-                $request->getSession()->setValue('subscription_schedule', $request->getParameter('schedule'));
+            if (Toolbox::asBoolean($request->request->get('subscription'))) {
+                $request->getSession()->setValue('subscription_schedule', $request->request->get('schedule'));
             } else {
                 $request->getSession()->setValue('subscription_schedule');
             }

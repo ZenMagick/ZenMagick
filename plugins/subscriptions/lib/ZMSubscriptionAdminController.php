@@ -67,8 +67,8 @@ class ZMSubscriptionAdminController extends ZMPluginAdminController {
      */
     public function processPost($request) {
         $orderId = $request->getOrderId();
-        $cancel = $request->getParameter('cancel');
-        $hard = Toolbox::asBoolean($request->getParameter('hard'), false);
+        $cancel = $request->request->get('cancel');
+        $hard = Toolbox::asBoolean($request->request->get('hard'), false);
         if (0 != $orderId && 'cancel' == $cancel) {
             $sql = "UPDATE %table.orders%
                     SET is_subscription_canceled = :subscriptionCanceled, is_subscription = :subscription

@@ -18,7 +18,7 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-    $code = stripslashes($request->getParameter('code', '', false));
+    $code = stripslashes($request->request->get('code', '', false));
 
     $zm_result = null;
     if ('' != $code) {

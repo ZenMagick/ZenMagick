@@ -132,8 +132,8 @@ class UnitTestsController extends \ZMController {
 
         $context['all_tests'] = $allTests;
 
-        $testCases = $request->getParameter('testCases', array());
-        $tests = $request->getParameter('tests', array());
+        $testCases = $request->query->get('testCases', array());
+        $tests = $request->query->get('tests', array());
         // build testCases from tests as there might be tests selected, but not the testCase
         $testCaseMap = array();
         foreach ($tests as $id) {
@@ -146,7 +146,7 @@ class UnitTestsController extends \ZMController {
             $testCases[] = $testCase;
         }
 
-        $hideErrors = Toolbox::asBoolean($request->getParameter('hideErrors', false));
+        $hideErrors = Toolbox::asBoolean($request->query->get('hideErrors', false));
         $context['hideErrors'] = $hideErrors;
 
         $context['all_selected_testCases'] = array_flip($testCases);
