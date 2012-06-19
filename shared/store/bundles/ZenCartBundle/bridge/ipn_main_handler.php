@@ -9,13 +9,11 @@
  * @version $Id: ipn_main_handler.php 18014 2010-10-22 03:39:17Z drbyte $
  */
 if (!defined('TEXT_RESELECT_SHIPPING')) define('TEXT_RESELECT_SHIPPING', 'You have changed the items in your cart since shipping was last calculated, and costs may have changed. Please verify/re-select your shipping method.');
-
 /**
  * handle Express Checkout processing:
  */
 if (isset($_GET['type']) && $_GET['type'] == 'ec') {
   // this is an EC handler request
-  require('includes/application_top.php');
 
 // Validate Cart for checkout
   $_SESSION['valid_to_checkout'] = true;
@@ -50,7 +48,6 @@ if (isset($_GET['type']) && $_GET['type'] == 'ec') {
 //    zen_redirect(zen_href_link(FILENAME_TIME_OUT));
   }
 
-  require(DIR_WS_CLASSES . 'payment.php');
   // See if we were sent a request to clear the session for PayPal.
   if (isset($_GET['clearSess']) || isset($_GET['amp;clearSess']) || isset($_GET['ec_cancel']) || isset($_GET['amp;ec_cancel'])) {
     // Unset the PayPal EC information.
@@ -72,12 +69,12 @@ if (isset($_GET['type']) && $_GET['type'] == 'ec') {
       // We have not gone to PayPal's website yet in order to grab
       // a token at this time.  This will send the customer over to PayPal's
       // website to login and return a token
-      $$paypalwpp_module->ec_step1();
+      $GLOBALS[$paypalwpp_module]->ec_step1();
     } else {
       // This will push on the second step of the paypal ec payment
       // module, as we already have a PayPal express checkout token
       // at this point.
-      $$paypalwpp_module->ec_step2();
+      $GLOBALS[$paypalwpp_module]->ec_step2();
     }
   }
 ?>
@@ -110,7 +107,6 @@ Processing...
   $current_page_base = 'paypalipn';
   $loaderPrefix = 'paypal_ipn';
   $show_all_errors = FALSE;
-  require('includes/application_top.php');
   // use the 3 extra auto_loader entries for paypalipn.core.php here.
   require('includes/modules/payment/paypal/paypal_functions.php');
   require('includes/init_includes/init_paypal_ipn_sessions.php');
