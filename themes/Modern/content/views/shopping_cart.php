@@ -23,7 +23,7 @@
 ?>
 
 <?php $crumbtrail->addCrumb(_zm('Shopping Cart')) ?>
-<?php echo $form->open('shopping_cart', "action=update_product", true) ?>
+<?php echo $form->open('cart.update', '', true) ?>
     <table cellpadding="0" cellspacing="0" width="100%">
     	<tr class="tableHeading">
     		<th><?php _vzm('Qty.') ?></th>
@@ -67,7 +67,7 @@
                     <?php } ?>
                 </td>
 
-                <td class="remove" align="right"><a href="<?php echo $net->url('shopping_cart', 'action=remove_product&product_id='.$item->getId()) ?>"><img src="<?php echo $this->asUrl("images/small_delete.gif") ?>" alt="remove" /></a></td>
+                <td class="remove" align="right"><a href="<?php echo $net->url('cart.remove', 'product_id='.$item->getId()) ?>"><img src="<?php echo $this->asUrl("images/small_delete.gif") ?>" alt="remove" /></a></td>
             </tr>
         <?php $odd = !$odd; $first = false; } ?>
         <tr class="other">

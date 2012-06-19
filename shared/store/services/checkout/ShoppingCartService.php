@@ -134,7 +134,6 @@ class ShoppingCartService extends ZMObject {
                 WHERE customers_id = :accountId
                 ORDER BY LPAD(products_options_sort_order, 11, '0'), products_id";
         $attributeResults = ZMRuntime::getDatabase()->fetchAll($sql, array('accountId' => $accountId), 'customers_basket_attributes');
-        var_dump($attributeResult);
 
         $sql = "SELECT * FROM %table.customers_basket%
                 WHERE customers_id = :accountId";
