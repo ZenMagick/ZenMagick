@@ -21,7 +21,7 @@ use zenmagick\base\Runtime;
 
 // main request processor
 $container = Runtime::getContainer();
-if ($container->get('themeService')->getActiveTheme()->getMeta('zencart')) {
+if (!$container->get('themeService')->getActiveTheme()->getMeta('zencart')) {
     // pick up session data changed by zencart code
     $_zm_session = $_zm_request->getSession();
     foreach ($_SESSION as $key => $value) {
