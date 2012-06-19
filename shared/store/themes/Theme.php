@@ -136,16 +136,24 @@ class Theme extends ZMObject {
      * @return string The name.
      */
     public function getName() {
-        return array_key_exists('name', $this->config['meta']) ? $this->config['meta']['name'] : '??';
+        return $this->getMeta('name') ?: '??';
     }
 
     /**
      * Get the meta data.
      *
-     * @return array The meta data.
+     * @param string key Optional meta  config key; default is <code>null</code> to return the full meata map.
+     * @return mixed Theme config meta map, the value of a specific key or <code>null</code> for unknown keys.
      */
-    public function getMeta() {
-        return $this->config['meta'];
+    public function getMeta($key=null) {
+        $meta = $this->getConfig('meta');
+        if (null == $key) {
+            return $meta;
+        }
+        if (array_key_exists($key, $meta)) {
+            return $meta[$key];
+        }
+        return null;
     }
 
     /**
