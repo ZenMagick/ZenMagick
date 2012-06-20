@@ -119,6 +119,7 @@ class ZenCartBundle extends Bundle {
         define('DIR_WS_TEMPLATE_ICONS', DIR_WS_TEMPLATE_IMAGES.'icons/');
 
         // required for the payment,checkout,shipping modules
+        $autoLoader->setErrorLevel();
         $autoLoader->includeFiles('includes/classes/db/mysql/define_queries.php');
         $autoLoader->includeFiles('includes/languages/%template_dir%/%language%.php');
         $autoLoader->includeFiles('includes/languages/%language%.php');
@@ -126,6 +127,7 @@ class ZenCartBundle extends Bundle {
             'includes/languages/%language%/extra_definitions/%template_dir%/*.php',
             'includes/languages/%language%/extra_definitions/*.php')
         );
+        $autoLoader->restoreErrorLevel();
         $autoLoader->setGlobalValue('language_page_directory', 'includes/languages/'.$request->getSelectedLanguage()->getDirectory().'/');
 
         // skip more zc request handling
