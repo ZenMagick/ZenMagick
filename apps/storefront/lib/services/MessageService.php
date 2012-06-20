@@ -45,17 +45,18 @@ class MessageService extends HttpMessageService {
 
         // also check for other messages in the request...
         $request = Runtime::getContainer()->get('request');
-        if (null != ($error = $request->getParameter('error_message'))) {
+        // These messages come from various payment methods
+        if (null != ($error = $request->query->get('error_message'))) {
             $this->error($error);
         }
-        if (null != ($error = $request->getParameter('credit_class_error'))) {
+        if (null != ($error = $request->query->get('credit_class_error'))) {
             $this->error($error);
         }
-        if (null != ($info = $request->getParameter('info_message'))) {
+        if (null != ($info = $request->query->get('info_message'))) {
             $this->info($info);
         }
-        if (null != ($perror = $request->getParameter('payment_error'))) {
-            $this->error($request->getParameter('error', $perror));
+        if (null != ($perror = $request->query->get('payment_error'))) {
+            $this->error($request->query->get('error', $perror));
         }
     }
 }
