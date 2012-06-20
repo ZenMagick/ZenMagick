@@ -64,36 +64,48 @@ class ZenCartAutoLoader extends ZMObject {
     }
 
     /**
+     * Get a list of init files to load.
+     *
+     */
+    public function initFiles() {
+        $isAdmin = Runtime::isContextMatch('admin');
+        $filePatterns = array();
+        if ($isAdmin) {
+            $filePatterns[] = '../includes/version.php';
+            $filePatterns[] = '../includes/configure.php';
+            $filePatterns[] = '../includes/database_tables.php';
+            $filePatterns[] = '../includes/filenames.php';
+            $filePatterns[] = 'includes/extra_datafiles/*.php';
+            $filePatterns[] = 'includes/functions/extra_functions/*.php';
+            $filePatterns[] = 'includes/functions/{general.php,database.php,functions_customers.php}';
+            $filePatterns[] = 'includes/functions/{functions_metatags.php,functions_prices.php,html_output.php}';
+            $filePatterns[] = 'includes/functions/{localization.php,password_funcs.php}';
+            $filePatterns[] = '../includes/functions/{audience.php,banner.php,featured.php}';
+            $filePatterns[] = '../includes/functions/{functions_email.php,salemaker.php,sessions.php,specials.php,zen_mail.php}';
+        } else {
+            $filePatterns[] = 'includes/version.php';
+            $filePatterns[] = 'includes/configure.php';
+            $filePatterns[] = 'includes/database_tables.php';
+            $filePatterns[] = 'includes/filenames.php';
+            $filePatterns[] = 'includes/extra_datafiles/*.php';
+            $filePatterns[] = 'includes/functions/extra_functions/*.php';
+            $filePatterns[] = 'includes/functions/{functions_email.php,functions_general.php,html_output.php}';
+            $filePatterns[] = 'includes/functions/{functions_ezpages.php,password_funcs.php,sessions.php,zen_mail.php}';
+            $filePatterns[] = 'includes/functions/banner.php';
+        }
+        return $filePatterns;
+    }
+
+    /**
      * Init common stuff across storefront and admin
      *
      * Assume access to $request
      */
     public function initCommon() {
         $this->overrideRequestGlobals();
-        $isAdmin = Runtime::isContextMatch('admin');
-        if ($isAdmin) {
-            $this->includeFiles('../includes/version.php');
-            $this->includeFiles('../includes/configure.php');
-            $this->includeFiles('../includes/database_tables.php');
-            $this->includeFiles('../includes/filenames.php');
-            $this->includeFiles('includes/extra_datafiles/*.php');
-            $this->includeFiles('includes/functions/extra_functions/*.php');
-            $this->includeFiles('includes/functions/{general.php,database.php,functions_customers.php,functions_metatags.php,functions_prices.php,html_output.php,localization.php,password_funcs.php}');
-            $this->includeFiles('../includes/functions/{audience.php,banner.php,featured.php,functions_email.php,salemaker.php,sessions.php,specials.php,zen_mail.php}');
-
-        } else {
-            $this->includeFiles('includes/version.php');
-            $this->includeFiles('includes/configure.php');
-            $this->includeFiles('includes/database_tables.php');
-            $this->includeFiles('includes/filenames.php');
-
-            $this->includeFiles('includes/extra_datafiles/*.php');
-            $this->includeFiles('includes/functions/extra_functions/*.php');
-            $this->includeFiles('includes/functions/{functions_email.php,functions_general.php,html_output.php,functions_ezpages.php,password_funcs.php,sessions.php,zen_mail.php}');
-            $this->includeFiles('includes/functions/banner.php');
-
+        foreach ($this->initFiles() as $filePattern) {
+            $this->includeFiles($filePattern);
         }
-
         $settingsService = Runtime::getSettings();
 
 
