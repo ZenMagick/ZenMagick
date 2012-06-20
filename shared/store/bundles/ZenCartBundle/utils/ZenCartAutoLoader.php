@@ -298,5 +298,10 @@ class ZenCartAutoLoader extends ZMObject {
                 }
             }
         }
+        // image handler sets these 2 in extra_datafiles !
+        // @todo any others we might need ?
+        if (isset($ihConf)) $this->setGlobalValue('ihConf', $ihConf);
+        if (isset($bmzConf)) $this->setGlobalValue('bmzConf', $bmzConf);
+
     }
 }
