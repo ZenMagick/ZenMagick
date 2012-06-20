@@ -114,9 +114,9 @@ class ZenCartBundle extends Bundle {
         $autoLoader = $this->container->get('zenCartAutoLoader');
         $themeId = $this->container->get('themeService')->getActiveThemeId();
         $autoLoader->setGlobalValue('template_dir', $themeId);
-        //define('DIR_WS_TEMPLATE', DIR_WS_TEMPLATES.$themeId.'/');
-        //define('DIR_WS_TEMPLATE_IMAGES', DIR_WS_TEMPLATE.'images/');
-        //define('DIR_WS_TEMPLATE_ICONS', DIR_WS_TEMPLATE_IMAGES.'icons/');
+        define('DIR_WS_TEMPLATE', DIR_WS_TEMPLATES.$themeId.'/');
+        define('DIR_WS_TEMPLATE_IMAGES', DIR_WS_TEMPLATE.'images/');
+        define('DIR_WS_TEMPLATE_ICONS', DIR_WS_TEMPLATE_IMAGES.'icons/');
 
         // required for the payment,checkout,shipping modules
         $autoLoader->includeFiles('includes/classes/db/mysql/define_queries.php');
