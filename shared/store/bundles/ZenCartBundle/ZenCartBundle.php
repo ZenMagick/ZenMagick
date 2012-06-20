@@ -108,7 +108,25 @@ class ZenCartBundle extends Bundle {
      * Things to do after the auto loader is finished, but before going back into index.php
      */
     public function onAutoloadDone($event) {
+        if (!Runtime::isContextMatch('storefront')) return;
         $request = $event->get('request');
+
+        $autoLoader = $this->container->get('zenCartAutoLoader');
+        $themeId = $this->container->get('themeService')->getActiveThemeId();
+        $autoLoader->setGlobalValue('template_dir', $themeId);
+        //define('DIR_WS_TEMPLATE', DIR_WS_TEMPLATES.$themeId.'/');
+        //define('DIR_WS_TEMPLATE_IMAGES', DIR_WS_TEMPLATE.'images/');
+        //define('DIR_WS_TEMPLATE_ICONS', DIR_WS_TEMPLATE_IMAGES.'icons/');
+
+        // required for the payment,checkout,shipping modules
+        $autoLoader->includeFiles('includes/classes/db/mysql/define_queries.php');
+        $autoLoader->includeFiles('includes/languages/%template_dir%/%language%.php');
+        $autoLoader->includeFiles('includes/languages/%language%.php');
+        $autoLoader->includeFiles(array(
+            'includes/languages/%language%/extra_definitions/%template_dir%/*.php',
+            'includes/languages/%language%/extra_definitions/*.php')
+        );
+        $autoLoader->setGlobalValue('language_page_directory', 'includes/languages/'.$request->getSelectedLanguage()->getDirectory().'/');
 
         // skip more zc request handling
         global $code_page_directory;

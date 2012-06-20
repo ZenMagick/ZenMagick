@@ -15,25 +15,9 @@
   $autoLoadConfig[10][] = array('autoType'=>'include_glob',
                                 'loadFile'=>'includes/extra_configures/*.php');
 
-  $autoLoadConfig[110][] = array('autoType'=>'include',
-                                'loadFile'=>'includes/classes/db/mysql/define_queries.php');
   $autoLoadConfig[110][] = array('autoType'=>'classInstantiate',
                                  'className'=> 'language',
                                  'objectName'=>'lng');
-  $autoLoadConfig[110][] = array('autoType'=>'service',
-                                'name'=>'themeService',
-                                'method'=>'getActiveThemeId',
-                                'resultVar'=>'template_dir');
-  $autoLoadConfig[110][] = array('autoType'=>'include',
-                                 'once'=>true,
-                                 'loadFile'=>'includes/languages/%template_dir%/%language%.php');
-  $autoLoadConfig[110][] = array('autoType'=>'include',
-                                 'once'=>true,
-                                 'loadFile'=>'includes/languages/%language%.php');
-  $autoLoadConfig[110][] = array('autoType'=>'include_glob',
-                                 'loadFile'=> array(
-                                              'includes/languages/%language%/extra_definitions/%template_dir%/*.php',
-                                              'includes/languages/%language%/extra_definitions/*.php'));
 
   $autoLoadConfig[130][] = array('autoType'=>'init_script',
                                  'loadFile'=> 'init_customer_auth.php',
