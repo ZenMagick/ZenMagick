@@ -12,9 +12,6 @@
   $autoLoadConfig[0][] = array('autoType'=>'init_script',
                                 'loadFile'=> 'init_begin.php');
 
-  $autoLoadConfig[10][] = array('autoType'=>'include_glob',
-                                'loadFile'=>'includes/extra_configures/*.php');
-
   $autoLoadConfig[110][] = array('autoType'=>'classInstantiate',
                                  'className'=> 'language',
                                  'objectName'=>'lng');

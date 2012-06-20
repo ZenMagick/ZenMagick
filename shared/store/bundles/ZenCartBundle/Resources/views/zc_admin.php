@@ -38,7 +38,6 @@ define('TEXT_EDITOR_INFO', ''); // hide text editor box
 global $currencies;
 // Might want to actually load it completely local instead.
 $autoLoader->setErrorLevel();
-$autoLoader->includeFiles('includes/extra_configures/*.php');
 $autoLoader->includeFiles('includes/languages/%language%.php');
 $autoLoader->includeFiles('includes/languages/%language%/%current_page%.php');
 $autoLoader->includeFiles('includes/languages/%language%/extra_definitions/*.php');

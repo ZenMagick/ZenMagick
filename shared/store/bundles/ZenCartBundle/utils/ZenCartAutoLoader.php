@@ -73,6 +73,7 @@ class ZenCartAutoLoader extends ZMObject {
         if ($isAdmin) {
             $filePatterns[] = '../includes/version.php';
             $filePatterns[] = '../includes/configure.php';
+            $filePatterns[] = 'includes/extra_configures/*.php';
             $filePatterns[] = '../includes/database_tables.php';
             $filePatterns[] = '../includes/filenames.php';
             $filePatterns[] = 'includes/extra_datafiles/*.php';
@@ -85,6 +86,7 @@ class ZenCartAutoLoader extends ZMObject {
         } else {
             $filePatterns[] = 'includes/version.php';
             $filePatterns[] = 'includes/configure.php';
+            $filePatterns[] = 'includes/extra_configures/*.php';
             $filePatterns[] = 'includes/database_tables.php';
             $filePatterns[] = 'includes/filenames.php';
             $filePatterns[] = 'includes/extra_datafiles/*.php';
