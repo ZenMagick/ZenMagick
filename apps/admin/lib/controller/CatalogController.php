@@ -64,7 +64,7 @@ class CatalogController extends \ZMController {
 
         $controllers = $this->getCatalogContentControllers($request);
         $controller = null;
-        if (null == ($catalogRequestId = $request->getParameter('catalogRequestId'))) {
+        if (null == ($catalogRequestId = $request->query->get('catalogRequestId'))) {
             if (0 < count($controllers)) {
                 $controller = $controllers[0];
                 $catalogRequestId = $controller->getCatalogRequestId();

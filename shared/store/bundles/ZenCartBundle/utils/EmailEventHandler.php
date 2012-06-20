@@ -48,7 +48,7 @@ class EmailEventHandler extends ZMObject {
 
         $orderService = $this->container->get('orderService');
 
-        if (Runtime::isContextMatch('admin') && 'send_email_to_user' == $request->getParameter('action')) {
+        if (Runtime::isContextMatch('admin') && 'send_email_to_user' == $request->query->get('action')) {
             // gv mail
             if ($context['GV_REDEEM']) {
                 if (1 == preg_match('/.*strong>(.*)<\/strong.*/', $context['GV_REDEEM'], $matches)) {
@@ -65,8 +65,8 @@ class EmailEventHandler extends ZMObject {
                     $context['currentCoupon'] = $coupon;
                 }
 
-                $context['message'] = $request->getParameter('message', '');
-                $context['htmlMessage'] = $request->getParameter('message_html', '', false);
+                $context['message'] = $request->request->get('message', '');
+                $context['htmlMessage'] = $request->request->get('message_html', '');
             }
         }
 
@@ -91,8 +91,8 @@ class EmailEventHandler extends ZMObject {
             $context['comment'] = $comment;
 
             // from zc_fixes
-            if (null !== $request->getParameter("oID") && 'update_order' == $request->getParameter("action")) {
-                $orderId = $request->getParameter("oID");
+            if (null !== $request->query->get("oID") && 'update_order' == $request->query->get("action")) {
+                $orderId = $request->query->get("oID");
                 $order = $orderService->getOrderForId($orderId, $language->getId());
                 $context['currentOrder'] = $order;
                 $account = $this->container->get('accountService')->getAccountForId($order->getAccountId());
@@ -101,7 +101,7 @@ class EmailEventHandler extends ZMObject {
         }
 
         if ('gv_queue' == $template) {
-            $queueId = $request->getParameter('gid');
+            $queueId = $request->query->get('gid');
             $couponQueue = $this->container->get('couponService')->getCouponQueueEntryForId($queueId);
             $context['couponQueue'] = $couponQueue;
             $account = $this->container->get('accountService')->getAccountForId($couponQueue->getAccountId());
@@ -111,7 +111,7 @@ class EmailEventHandler extends ZMObject {
         }
 
         if ('coupon' == $template) {
-            $couponId = $request->getParameter('cid');
+            $couponId = $request->query->get('cid');
             $coupon = $this->container->get('couponService')->getCouponForId($couponId, $language->getId());
             $context['currentCoupon'] = $coupon;
             $account = $this->container->get('accountService')->getAccountForId($context['accountId']);
