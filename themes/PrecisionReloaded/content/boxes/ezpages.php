@@ -25,7 +25,7 @@
 <?php $sbchapter = isset($sbchapter) ? $sbchapter : $request->query->get("sbchapter", null); ?>
 <?php $pages = null != $sbchapter ? $container->get('ezPageService')->getPagesForChapterId($sbchapter, $session->getLanguageId()) : $container->get('ezPageService')->getPagesForSidebar($session->getLanguageId()); ?>
 <?php if (0 < count($pages)) { ?>
-  <h2><?php _vzm("Important Links") ?></h2>
+  <h3><?php _vzm("Important Links") ?></h3>
   <ul>
     <?php foreach ($pages as $page) { ?>
       <li><?php echo $html->ezpageLink($page->getId())?></li>

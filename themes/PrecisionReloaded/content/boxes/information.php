@@ -22,7 +22,7 @@
  */
 ?>
 
-<h2><?php _vzm("Information") ?></h2>
+<h3><?php _vzm("Legalese") ?></h3>
 <ul>
   <li><a href="<?php echo $net->staticPage('shippinginfo') ?>"><?php _vzm("Shipping &amp; Returns") ?></a></li>
   <li><a href="<?php echo $net->staticPage('privacy') ?>"><?php _vzm("Our Privacy Policy") ?></a></li>

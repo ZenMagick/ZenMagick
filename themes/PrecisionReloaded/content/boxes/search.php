@@ -1,5 +1,5 @@
 <div id="search">
-  <h2>Search</h2>
+  <h3><?php _vzm("Quick Search") ?></h3>
   <?php echo $form->open('search', '', false, array('method' => 'get', 'id' => 'searchform')) ?>
     <div>
       <?php $onfocus = "if(this.value=='" . KEYWORD_DEFAULT . "') this.value='';" ?>
