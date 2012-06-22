@@ -49,7 +49,7 @@ class ZMOrderSorter extends ZMResultListSorter implements ZMSQLAware {
      * Create new instance.
      */
     public function __construct() {
-        parent::__construct('osort', '', Runtime::getContainer()->get('request')->getSortId());
+        parent::__construct('osort', '', Runtime::getContainer()->get('request')->query->getAlnum('sort_id'));
     }
 
 

@@ -108,13 +108,6 @@ class Request extends \ZMRequest {
     }
 
     /**
-     * Get the current sort id.
-     *
-     * @return string The current sort id.
-     */
-    public function getSortId() {  return $this->query->get('sort_id'); }
-
-    /**
      * Get the product id.
      *
      * @return int The request product id or <code>0</code>.
