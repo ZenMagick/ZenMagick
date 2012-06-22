@@ -22,7 +22,7 @@
  */
 ?>
 
-<?php $crumbtrail->addManufacturer($request->getManufacturerId())->addProduct($request->getProductId()) ?>
+<?php $crumbtrail->addManufacturer($request->query->getInt('manufacturers_id'))->addProduct($request->getProductId()) ?>
 <?php if ($resultList->hasResults()) { ?>
     <div class="rnblk">
         <?php echo $this->fetch('views/resultlist/nav.php') ?>

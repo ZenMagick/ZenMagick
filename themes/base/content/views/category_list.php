@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-$crumbtrail->addCategoryPath($request->getCategoryPathArray())->addManufacturer($request->getManufacturerId())->addProduct($request->getProductId());
+$crumbtrail->addCategoryPath($request->getCategoryPathArray())->addManufacturer($request->query->getInt('manufacturers_id'))->addProduct($request->getProductId());
 
 if ($resultList->hasResults()) { ?>
     <div class="rnblk">

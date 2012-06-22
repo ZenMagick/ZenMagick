@@ -173,7 +173,7 @@ class ZencartStorefrontController extends \ZMController {
      */
     public function getZcViewData($request) {
         // category path - no support for get_terms_to_filter table. does anybody use that?
-        $manufacturerId = $request->getManufacturerId();
+        $manufacturerId = $request->query->getInt('manufacturers_id');
         $show_welcome = false;
         if (null == $request->getCategoryPath()) {
             if (!empty($productId) && empty($manufacturerId)) {
@@ -205,7 +205,7 @@ class ZencartStorefrontController extends \ZMController {
         }
         // ZenMagick does most of the following , we should be able to reuse it.
         $manufacturer = null;
-        $manufacturerId = $request->getManufacturerId();
+        $manufacturerId = $request->query->getInt('manufacturers_id');
         if (null != $manufacturerId) {
             $manufacturer = $this->container->get('manufacturerService')->getManufacturerForId($manufacturerId, $languageId);
         }
@@ -230,7 +230,7 @@ class ZencartStorefrontController extends \ZMController {
     public function isHomePage() {
         $request = $this->container->get('request');
         return 'index' == $request->getRequestId() && null == $request->getCategoryPath()
-            && null == $request->getManufacturerId() && '' == $request->query->get('type_filter', '');
+            && null == $request->query->getInt('manufacturers_id') && '' == $request->query->get('type_filter', '');
     }
 
     /**

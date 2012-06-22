@@ -28,7 +28,7 @@
     <div id="sb_manufacturers" class="box">
         <?php echo $form->open('manufacturer', '', $request->isSecure(), array('method' => 'get', 'onsubmit'=>null)) ?>
             <div>
-                <?php echo $form->idpSelect('manufacturers_id', array_merge(array(new ZMIdNamePair("", _zm("Please Select"))), $manufacturers), $request->getManufacturerId(), array('size'=>1, 'onchange'=>'this.form.submit()')) ?>
+                <?php echo $form->idpSelect('manufacturers_id', array_merge(array(new ZMIdNamePair("", _zm("Please Select"))), $manufacturers), $request->query->getInt('manufacturers_id'), array('size'=>1, 'onchange'=>'this.form.submit()')) ?>
                 <noscript>
                     <div><input type="submit" class="btn" value="<?php _vzm('Go') ?>" /></div>
                 </noscript>

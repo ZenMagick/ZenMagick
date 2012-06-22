@@ -22,7 +22,7 @@
  */
 ?>
 
-<?php $crumbtrail->addCategoryPath($request->getCategoryPathArray())->addManufacturer($request->getManufacturerId())->addProduct($currentProduct->getId()) ?>
+<?php $crumbtrail->addCategoryPath($request->getCategoryPathArray())->addManufacturer($request->query->getInt('manufacturers_id'))->addProduct($currentProduct->getId()) ?>
 <?php $manufacturer = $currentProduct->getManufacturer() ?>
 <?php echo $form->addProduct($currentProduct->getId()) ?>
 	<div id="productTopInfoBox">

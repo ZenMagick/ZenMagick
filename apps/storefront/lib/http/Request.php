@@ -188,13 +188,6 @@ class Request extends \ZMRequest {
     }
 
     /**
-     * Get the manufacturer id.
-     *
-     * @return int The manufacturer id or <code>0</code>.
-     */
-    public function getManufacturerId() { return (int)$this->query->get('manufacturers_id', 0); }
-
-    /**
      * Get the account id.
      *
      * @return int The account id for the currently logged in user or <code>0</code>.

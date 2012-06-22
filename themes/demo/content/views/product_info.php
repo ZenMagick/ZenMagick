@@ -25,7 +25,7 @@ $resourceManager->jsFile('lightbox/prototype.js', $resourceManager::FOOTER) ?>
 <?php $resourceManager->jsFile('lightbox/scriptaculous.js?load=effects', $resourceManager::FOOTER) ?>
 <?php $resourceManager->jsFile('lightbox/lightbox.js', $resourceManager::FOOTER) ?>
 
-<?php $crumbtrail->addCategoryPath($request->getCategoryPathArray())->addManufacturer($request->getManufacturerId())->addProduct($currentProduct->getId()) ?>
+<?php $crumbtrail->addCategoryPath($request->getCategoryPathArray())->addManufacturer($request->query->getInt('manufacturers_id'))->addProduct($currentProduct->getId()) ?>
 
 <?php $manufacturer = $currentProduct->getManufacturer() ?>
 <h2><?php echo $html->encode(null != $manufacturer ? $manufacturer->getName() : '') ?> <?php echo $html->encode($currentProduct->getName()) ?></h2>

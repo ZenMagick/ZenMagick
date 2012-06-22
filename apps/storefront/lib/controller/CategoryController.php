@@ -52,11 +52,11 @@ class CategoryController extends \ZMController {
             if (null == ($category = $this->container->get('categoryService')->getCategoryForId($request->getCategoryId(), $languageId)) || !$category->isActive()) {
                 return $this->findView('category_not_found');
             }
-        } else if ($request->getManufacturerId()) {
+        } else if ($request->query->has('manufacturers_id')) {
             $method = "getProductsForManufacturerId";
-            $args = array($request->getManufacturerId(), true, $languageId);
+            $args = array($request->query->getInt('manufacturers_id'), true, $languageId);
             $viewName = 'manufacturer';
-            if (null == ($manufacturer = $this->container->get('manufacturerService')->getManufacturerForId($request->getManufacturerId(), $languageId))) {
+            if (null == ($manufacturer = $this->container->get('manufacturerService')->getManufacturerForId($request->query->getInt('manufacturers_id'), $languageId))) {
                 return $this->findView('manufacturer_not_found');
             }
         }

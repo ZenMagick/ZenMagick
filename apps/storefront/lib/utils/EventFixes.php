@@ -100,7 +100,7 @@ class EventFixes extends ZMObject {
 
         // now we can check for a static homepage
         if (!Toolbox::isEmpty($settingsService->get('staticHome')) && 'index' == $request->getRequestId()
-            && (0 == $request->getCategoryId() && 0 == $request->getManufacturerId())) {
+            && (0 == $request->getCategoryId() && !$request->query->has('manufacturers_id'))) {
             require Runtime::getSettings()->get('staticHome');
             exit;
         }
