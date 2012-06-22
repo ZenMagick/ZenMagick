@@ -298,7 +298,7 @@ class EventFixes extends ZMObject {
     protected function fixCategoryPath($request) {
         $languageId = $request->getSession()->getLanguageId();
         if (0 != ($productId = $request->getProductId())) {
-            if (null == $request->getCategoryPath()) {
+            if ($request->query->has('cPath')) {
                 // set default based on product default category
                 if (null != ($product = $this->container->get('productService')->getProductForId($productId, $languageId))) {
                     $defaultCategory = $product->getDefaultCategory($languageId);
@@ -310,7 +310,7 @@ class EventFixes extends ZMObject {
         }
 
         if (Runtime::getSettings()->get('apps.store.verifyCategoryPath')) {
-            if (null != $request->getCategoryPath()) {
+            if ($request->query->has('cPath')) {
                 $path = array_reverse($request->getCategoryPathArray());
                 $last = count($path) - 1;
                 $valid = true;

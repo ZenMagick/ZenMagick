@@ -52,7 +52,7 @@ class ToolboxAdmin extends ToolboxTool {
     public function catalog($controller=null, $params=null) {
         $request = $this->getRequest();
         $ps = '';
-        if (null != ($cPath = $request->getCategoryPath())) {
+        if (null != ($cPath = $request->query->get('cPath'))) {
             $ps .= '&cPath='.$cPath;
         }
         if (null != ($productId = $request->getProductId())) {
@@ -79,7 +79,7 @@ class ToolboxAdmin extends ToolboxTool {
     public function catalogTab($controller=null, $params=null) {
         $request = $this->getRequest();
         $ps = '';
-        if (null != ($cPath = $request->getCategoryPath())) {
+        if (null != ($cPath = $request->query->get('cPath'))) {
             $ps .= '&cPath='.$cPath;
         }
         if (null != ($productId = $request->getProductId())) {

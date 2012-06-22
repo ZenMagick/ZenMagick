@@ -175,7 +175,7 @@ class ZencartStorefrontController extends \ZMController {
         // category path - no support for get_terms_to_filter table. does anybody use that?
         $manufacturerId = $request->query->getInt('manufacturers_id');
         $show_welcome = false;
-        if (null == $request->getCategoryPath()) {
+        if ($request->query->has('cPath')) {
             if (!empty($productId) && empty($manufacturerId)) {
                 $request->query->set('cPath', zen_get_product_path($productId));
             } else if (SHOW_CATEGORIES_ALWAYS == '1' && empty($manufacturerId)) {
@@ -229,7 +229,7 @@ class ZencartStorefrontController extends \ZMController {
      */
     public function isHomePage() {
         $request = $this->container->get('request');
-        return 'index' == $request->getRequestId() && null == $request->getCategoryPath()
+        return 'index' == $request->getRequestId() && $request->query->has('cPath')
             && null == $request->query->getInt('manufacturers_id') && '' == $request->query->get('type_filter', '');
     }
 
@@ -310,7 +310,7 @@ class ZencartStorefrontController extends \ZMController {
 
         // Add Product
         if (null != $product) {
-            $breadcrumb->add($product->getName(), zen_href_link(zen_get_info_page($product->getId()), 'cPath='.$request->getCategoryPath().'&products_id='.$product->getId()));
+            $breadcrumb->add($product->getName(), $request->url(zen_get_info_page($product->getId()), 'cPath='.(string)$request->query->get('cPath').'&products_id='.$product->getId()));
         }
 
         return $breadcrumb;

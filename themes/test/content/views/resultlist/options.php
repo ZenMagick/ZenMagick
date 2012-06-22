@@ -42,8 +42,8 @@
         <?php if ($resultList->hasSorters()) { ?>
             <div>
                 <input type="hidden" name="page" value="<?php echo $resultList->getPageNumber() ?>" />
-                <?php if ($request->getCategoryPath()) { ?>
-                    <input type="hidden" name="cPath" value="<?php echo $request->getCategoryPath() ?>" />
+                <?php if ($request->query->has('cPath')) { ?>
+                    <input type="hidden" name="cPath" value="<?php echo $request->query->get('cPath') ?>" />
                 <?php } else if ($request->query->has('manufacturers_id')) { ?>
                     <input type="hidden" name="manufacturers_id" value="<?php echo $request->query->getInt('manufacturers_id') ?>" />
                 <?php } ?>

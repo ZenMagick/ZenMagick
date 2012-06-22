@@ -47,13 +47,6 @@ class Request extends \ZMRequest {
     }
 
     /**
-     * Get the current category path.
-     *
-     * @return string The category path value (<code>cPath</code>) or <code>null</code>.
-     */
-    public function getCategoryPath() { return $this->query->get('cPath', null); }
-
-    /**
      * Get the category path arry.
      *
      * @return array The current category path broken into an array of category ids.

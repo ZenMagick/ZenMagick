@@ -37,7 +37,7 @@ class IndexController extends \ZMController {
         $viewName = null;
 
         // be nice to seo URL's that we do not control and also bookmarked pages
-        if (null != $request->getCategoryPath()) {
+        if ($request->query->has('cPath')) {
             $viewName = 'category';
         } else if ($request->query->getInt('manufacturers_id')) {
             $viewName = 'category';

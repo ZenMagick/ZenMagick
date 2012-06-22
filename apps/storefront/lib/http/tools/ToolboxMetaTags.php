@@ -288,7 +288,7 @@ class ToolboxMetaTags extends ToolboxTool {
      * Load category info.
      */
     protected function loadCategory() {
-        if (null != $this->getRequest()->getCategoryPath()) {
+        if ($this->getRequest()->query->has('cPath')) {
             if (null != ($category = $this->container->get('categoryService')->getCategoryForId($this->getRequest()->getCategoryId(), $this->getRequest()->getSession()->getLanguageId()))) {
                 $this->category_ = $category->getName();
             }

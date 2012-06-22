@@ -62,13 +62,6 @@ class Request extends \ZMRequest {
     public function getProductId() { return (int)$this->getParameter('products_id', $this->getParameter('productId', 0)); }
 
     /**
-     * Get the current category path.
-     *
-     * @return string The category path value (<code>cPath</code>) or <code>null</code>.
-     */
-    public function getCategoryPath() { return $this->getParameter('cPath', null); }
-
-    /**
      * Get the category path arry.
      *
      * @return array The current category path broken into an array of category ids.

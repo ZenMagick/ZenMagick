@@ -47,7 +47,7 @@ class ZenCartAutoLoader extends ZMObject {
             'code_page_directory' => 'includes/modules/pages/'.$requestId,
             'current_page' => $requestId,
             'current_page_base' => $requestId,
-            'cPath' => (string)$request->getCategoryPath(),
+            'cPath' => (string)$request->query->get('cPath'),
             'current_category_id' => $request->getCategoryId(),
             'cPath_array' => $request->getCategoryPathArray(),
             'page_directory' => 'includes/modules/pages/'.$requestId,
