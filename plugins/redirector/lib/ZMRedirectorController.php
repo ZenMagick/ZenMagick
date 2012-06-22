@@ -59,8 +59,8 @@ class ZMRedirectorController extends ZMController {
         // try to find product based on the current request
         if ($request->getProductId()) {
             $product = $productService->getProductForId($request->getProductId(), $languageId);
-        } else if ($request->getModel()) {
-            $product = $productService->getProductForModel($request->getModel(), $languageId);
+        } else if ($request->query->has('model')) {
+            $product = $productService->getProductForModel($request->query->get('model'), $languageId);
         }
 
         if (null != $product) {

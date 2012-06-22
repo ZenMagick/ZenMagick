@@ -158,13 +158,6 @@ class Request extends \ZMRequest {
     public function getCurrencyCode() { return $this->getParameter('currency', $this->getSession()->getCurrencyCode()); }
 
     /**
-     * Get the request model number.
-     *
-     * @return string The model numner or <code>null</code>.
-     */
-    public function getModel() { return $this->getParameter('model'); }
-
-    /**
      * Get the current category path.
      *
      * @return string The category path value (<code>cPath</code>) or <code>null</code>.

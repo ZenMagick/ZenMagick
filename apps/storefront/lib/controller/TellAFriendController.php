@@ -43,8 +43,8 @@ class TellAFriendController extends \ZMController {
         $productService = $this->container->get('productService');
         if ($request->getProductId()) {
             $this->product_ = $productService->getProductForId($request->getProductId(), $languageId);
-        } else if ($request->getModel()) {
-            $this->product_ = $productService->getProductForModel($request->getModel(), $languageId);
+        } else if ($request->query->has('model')) {
+            $this->product_ = $productService->getProductForModel($request->query->get('model'), $languageId);
         }
         if (null != $this->product_) {
             $this->viewData_['currentProduct'] = $this->product_;
