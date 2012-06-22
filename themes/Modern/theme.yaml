@@ -13,23 +13,3 @@ storefront:
       modernMacroTool:
         parent: merge:macroTool
         class: zenmagick\apps\store\themes\modern\ToolboxMacro
-
-
-
-# Notes:
-# - I think with all those classes and ids, there is almost no justification for inline styles as used in a few places
-# - style: element names in CSS rules should be lower case
-# - only three sideboxes adapted; using default sideboxes causes wrapping of centre column underneath the left column
-# - rihgt hand side column could be disabled via theme code - admin r/l hand side column options are not theme specific
-# - ZenMagick does not use the advanced_search_results url any more; there is a search and advanced_search
-# - header also uses zen-cart style defines for translatable text
-# - header also uses if (STORE_STATUS == '0') { - instead the corresponding ZenMagick setting should be used
-# - in ZenMagick, there is a wrapper around $_SESSION, so using $_SESSION directly is considered bad
-#   if ($_SESSION['customer_id'])  should be: if ($request->isRegistered()) 
-# - in addition to the above, there are: if ($request->isAnonymous()) and: if ($request->isGuest())
-#   NOTE: if a user is guest, logoff is available, the account page not!
-# - not sure if the search was tested, but the ZenMagick search results page doesn't look that flash
-# - maybe the code for the right hand side column should be removed completely in default_layout.php
-#
-# - NOTE: If there are simple things to change in the default theme that will make your life easier, we should do those rather work
-#   around. In the long run more people will benefit from that! So, let me know or send me pull requests.
