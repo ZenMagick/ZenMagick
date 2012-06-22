@@ -75,7 +75,7 @@ class GvSendConfirmController extends \ZMController {
         $amount = $gvReceiver->getAmount();
 
         $settingsService = $this->container->get('settingsService');
-        $currentCurrencyCode = $request->getCurrencyCode();
+        $currentCurrencyCode = $request->getSesion()->getCurrencyCode();
         if ($settingsService->get('defaultCurrency') != $currentCurrencyCode) {
             // need to convert amount to default currency as GV values are in default currency
             $currency = $this->container->get('currencyService')->getCurrencyForCode($currentCurrencyCode);

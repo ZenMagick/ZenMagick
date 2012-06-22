@@ -115,17 +115,6 @@ class Request extends \ZMRequest {
     public function getProductId() { return (int)$this->getParameter('products_id', $this->getParameter('productId', 0)); }
 
     /**
-     * Get the currency code.
-     *
-     * <p><strong>NOTE:</strong> This will return the currency code as found in the request. If not set,
-     * the session currency code will be returned instead. To access the session currency code directly, use
-     * <code>$request->getSession()->getCurrencyCode()</code>.</p>
-     *
-     * @return string The currency code or <code>null</code>.
-     */
-    public function getCurrencyCode() { return $this->getParameter('currency', $this->getSession()->getCurrencyCode()); }
-
-    /**
      * Get the current category path.
      *
      * @return string The category path value (<code>cPath</code>) or <code>null</code>.
