@@ -137,16 +137,6 @@ class Request extends \ZMRequest {
     public function getProductId() { return (int)$this->getParameter('products_id', $this->getParameter('productId', 0)); }
 
     /**
-     * Get the language code.
-     *
-     * <p><strong>NOTE:</strong> This will return only the language code as found in the request. If you
-     * want to find out the session language (ie the language for the current request), use <code>getSelectedLanguage()</code>.</p>
-     *
-     * @return string The language code or <code>null</code>.
-     */
-    public function getLanguageCode() { return $this->getParameter('language'); }
-
-    /**
      * Get the currency code.
      *
      * <p><strong>NOTE:</strong> This will return the currency code as found in the request. If not set,

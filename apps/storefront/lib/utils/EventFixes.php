@@ -377,7 +377,7 @@ class EventFixes extends ZMObject {
 
         // ** language **
         $languageService = $this->container->get('languageService');
-        if (null != ($languageCode = $request->getLanguageCode())) {
+        if (null != ($languageCode = $request->query->get('language'))) {
             // @todo error on bad request language?
             if (null != ($language = $languageService->getLanguageForCode($languageCode))) {
                 $session->setLanguage($language);
