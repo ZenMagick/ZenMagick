@@ -75,7 +75,7 @@ class ToolboxUtils extends ToolboxTool {
         $currencyService = $this->container->get('currencyService');
         if (Runtime::isContextMatch('storefront')) {
             // @todo we shouldn't be getting it from the request
-            $code = $this->getRequest()->getCurrencyCode();
+            $code = $this->getRequest()->getSession()->getCurrencyCode();
         } else {
             $code = Runtime::getSettings()->get('defaultCurrency');
         }

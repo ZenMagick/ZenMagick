@@ -106,7 +106,7 @@ class ZMGVReceiver extends ZMObject {
      */
     public function setAmount($amount) {
         // TODO: this should be passed into the method
-        $currencyCode = $this->container->get('request')->getCurrencyCode();
+        $currencyCode = $this->container->get('request')->getSession()->getCurrencyCode();
         $currency = $this->container->get('currencyService')->getCurrencyForCode($currencyCode);
         $this->amount_ = $currency->parse($amount, false);
     }
