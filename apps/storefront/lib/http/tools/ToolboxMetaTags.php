@@ -243,7 +243,7 @@ class ToolboxMetaTags extends ToolboxTool {
         // it's the controllers responsibility to set up the crumbtrail..
         return;
         $this->crumbtrail_->addCategoryPath($this->getRequest()->getCategoryPathArray());
-        $this->crumbtrail_->addManufacturer($this->getRequest()->getManufacturerId());
+        $this->crumbtrail_->addManufacturer($this->getRequest()->query->getInt('manufacturers_id'));
         $this->crumbtrail_->addProduct($this->getRequest()->getProductId());
     }
 
@@ -292,8 +292,8 @@ class ToolboxMetaTags extends ToolboxTool {
             if (null != ($category = $this->container->get('categoryService')->getCategoryForId($this->getRequest()->getCategoryId(), $this->getRequest()->getSession()->getLanguageId()))) {
                 $this->category_ = $category->getName();
             }
-        } else if ($this->getRequest()->getManufacturerId()) {
-            if (null != ($manufacturer = $this->container->get('manufacturerService')->getManufacturerForId($this->getRequest()->getManufacturerId(), $this->getRequest()->getSession()->getLanguageId()))) {
+        } else if ($this->getRequest()->query->has('manufacturers_id')) {
+            if (null != ($manufacturer = $this->container->get('manufacturerService')->getManufacturerForId($this->getRequest()->query->getInt('manufacturers_id'), $this->getRequest()->getSession()->getLanguageId()))) {
                 $this->category_ = $manufacturer->getName();
             }
         }
