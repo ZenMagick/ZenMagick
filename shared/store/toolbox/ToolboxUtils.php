@@ -42,7 +42,7 @@ class ToolboxUtils extends ToolboxTool {
     public function getTitle($page=null) {
         $title = null == $page ? $this->getRequest()->getRequestId() : $page;
         // special case for static pages
-        $title = 'static' != $title ? $title : $this->getRequest()->getSubPageName();
+        $title = 'static' != $title ? $title : $this->getRequest()->query->get('cat');
 
         // format
         $title = str_replace('_', ' ', $title);

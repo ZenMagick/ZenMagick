@@ -123,13 +123,6 @@ class Request extends \ZMRequest {
     public function getSortId() {  return $this->query->get('sort_id'); }
 
     /**
-     * Get the sub page name; this is the contents name for static pages.
-     *
-     * @return strin The static page contents id.
-     */
-    public function getSubPageName() { return $this->query->get('cat'); }
-
-    /**
      * Get the product id.
      *
      * @return int The request product id or <code>0</code>.
