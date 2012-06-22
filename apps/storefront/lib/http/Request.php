@@ -34,7 +34,6 @@ use zenmagick\base\Runtime;
  * @author DerManoMann <mano@zenmagick.org>
  */
 class Request extends \ZMRequest {
-    private $categoryPathArray_ = null;
     private $shoppingCart_ = null;
 
     /**
