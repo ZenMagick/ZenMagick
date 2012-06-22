@@ -58,7 +58,7 @@ class CatalogController extends \ZMController {
      */
     public function process(\ZMRequest $request) {
         // disable POST in demo
-        if ('POST' == $request->getMethod() && $request->handleDemo()) {
+        if ('POST' == $request->getMethod() && $this->handleDemo()) {
             return $this->findView('success-demo');
         }
 

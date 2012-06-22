@@ -44,7 +44,7 @@ class LegacyConfigController extends \ZMController {
     public function processPost($request) {
         $groupId = $request->request->get('groupId');
 
-        if ($request->handleDemo()) {
+        if ($this->handleDemo()) {
             return $this->findView('success-demo', array(), array('parameter' => 'groupId='.$groupId));
         }
 

@@ -38,7 +38,7 @@ class ThemeBuilderController extends \ZMController {
      * {@inheritDoc}
      */
     public function processPost($request) {
-        if ($request->handleDemo()) {
+        if ($this->handleDemo()) {
             return $this->findView('success-demo');
         }
 

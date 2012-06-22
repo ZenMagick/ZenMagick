@@ -31,7 +31,7 @@ class ConsoleController extends \ZMController {
      * {@inheritDoc}
      */
     public function processGet($request) {
-        if ($request->handleDemo()) {
+        if ($this->handleDemo()) {
             return $this->findView('success-demo');
         }
         return parent::processGet($request);
@@ -41,7 +41,7 @@ class ConsoleController extends \ZMController {
      * {@inheritDoc}
      */
     public function processPost($request) {
-        if ($request->handleDemo()) {
+        if ($this->handleDemo()) {
             return $this->findView('success-demo');
         }
         return parent::processPost($request);

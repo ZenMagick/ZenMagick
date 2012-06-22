@@ -47,22 +47,6 @@ class Request extends \ZMRequest {
     }
 
     /**
-     * Deal with demo/non-live user.
-     *
-     * <p>Will create a message that the requested functionallity is not availale for demo users.</p>
-     *
-     * @return boolean <code>true</code> if the current user is a demo user.
-     */
-    public function handleDemo() {
-        if (!$this->getAccount()->isLive()) {
-            $this->container->get('messageService')->warn(_zm('Sorry, the action you tried to excute is not available to demo users'));
-            return true;
-        }
-
-        return false;
-    }
-
-    /**
      * Get the current category path.
      *
      * @return string The category path value (<code>cPath</code>) or <code>null</code>.

@@ -91,7 +91,7 @@ class UpdateUserController extends \ZMController {
         // allow pref changes without password
         $this->processPrefs($request);
 
-        if ($request->handleDemo()) {
+        if ($this->handleDemo()) {
             return $this->findView('success');
         }
 
