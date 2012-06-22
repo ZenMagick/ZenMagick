@@ -39,7 +39,7 @@ class AccountController extends \ZMController {
         $resultSource = new \ZMObjectResultSource('ZMOrder', 'orderService', "getOrdersForAccountId", array($request->getAccountId(), $request->getSession()->getLanguageId()));
         $resultList = Runtime::getContainer()->get('ZMResultList');
         $resultList->setResultSource($resultSource);
-        $resultList->setPageNumber($request->getPageIndex());
+        $resultList->setPageNumber($request->query->getInt('page'));
 
         $data = array('resultList' => $resultList, 'currentAccount' => $request->getAccount());
 

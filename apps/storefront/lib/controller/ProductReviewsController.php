@@ -45,7 +45,7 @@ class ProductReviewsController extends \ZMController {
         $resultSource = new \ZMObjectResultSource('zenmagick\apps\store\entities\catalog\Review', 'reviewService', "getReviewsForProductId", array($product->getId(), $request->getSession()->getLanguageId()));
         $resultList = Runtime::getContainer()->get("ZMResultList");
         $resultList->setResultSource($resultSource);
-        $resultList->setPageNumber($request->getPageIndex());
+        $resultList->setPageNumber($request->query->getInt('page'));
         $data['resultList'] = $resultList;
 
         return $this->findView(null, $data);

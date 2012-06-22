@@ -36,7 +36,6 @@ use zenmagick\base\Runtime;
 class Request extends \ZMRequest {
     private $categoryPathArray_ = null;
     private $shoppingCart_ = null;
-    private $metaTags_ = null;
 
     /**
      * {@inheritDoc}
@@ -107,13 +106,6 @@ class Request extends \ZMRequest {
 
         return $this->shoppingCart_;
     }
-
-    /**
-     * Get the current page index (if available).
-     *
-     * @return int The current page index (default is 1).
-     */
-    public function getPageIndex() {  return (int)$this->query->get('page', 1); }
 
     /**
      * Get the current sort id.

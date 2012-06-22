@@ -65,7 +65,7 @@ class ManufacturerController extends \ZMController {
             foreach (explode(',', Runtime::getSettings()->get('resultListProductSorter')) as $sorter) {
                 $resultList->addSorter(Beans::getBean($sorter));
             }
-            $resultList->setPageNumber($request->getPageIndex());
+            $resultList->setPageNumber($request->query->getInt('page'));
             $data['resultList'] = $resultList;
         }
 
