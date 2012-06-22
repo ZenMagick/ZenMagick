@@ -107,6 +107,10 @@ class AdminEventHandler extends ZMObject {
     public function onContainerReady($event) {
         $request = $event->get('request');
 
+        if ($request->query->has('languageId')) {
+            $request->getSession()->setValue('languages_id', $request->query->get('languageId'));
+        }
+
         // need db for this, so only do now
         $adminMenu = $this->container->get('adminMenu');
         $legacyConfig = $adminMenu->getElement('configuration-legacy');
