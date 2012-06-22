@@ -31,7 +31,7 @@ class OrderController extends \ZMController {
      * {@inheritDoc}
      */
     public function processGet($request) {
-        $orderId = $request->getParameter('orderId');
+        $orderId = $request->query->getInt('orderId');
         // TODO: language
         if (null == ($order = $this->container->get('orderService')->getOrderForId($orderId, 1))) {
             $this->messageService->error(sprintf(_zm('Order for orderId id %s not found'), $orderId));

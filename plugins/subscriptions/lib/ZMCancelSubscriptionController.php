@@ -39,7 +39,7 @@ class ZMCancelSubscriptionController extends ZMController {
             $this->messageService->error(_zm("Insufficient permission"));
             return $this->findView();
         }
-        $orderId = $request->getOrderId();
+        $orderId = $request->query->getInt('orderId');
         $order = $this->container->get('orderService')->getOrderForId($orderId, $request->getSession()->getLanguageId());
         $account = $order->getAccount();
 

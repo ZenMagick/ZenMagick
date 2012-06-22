@@ -38,7 +38,7 @@ class GuestHistoryController extends \ZMController {
             return $this->findView();
         }
 
-        $orderId = $request->getParameter('orderId', 0);
+        $orderId = $request->request->getInt('orderId', 0);
         $email = $request->getParameter('email', 0);
 
         // default

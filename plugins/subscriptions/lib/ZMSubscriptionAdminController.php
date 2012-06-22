@@ -66,7 +66,7 @@ class ZMSubscriptionAdminController extends ZMPluginAdminController {
      * {@inheritDoc}
      */
     public function processPost($request) {
-        $orderId = $request->getOrderId();
+        $orderId = $request->request->getInt('orderId');
         $cancel = $request->request->get('cancel');
         $hard = Toolbox::asBoolean($request->request->get('hard'), false);
         if (0 != $orderId && 'cancel' == $cancel) {

@@ -118,13 +118,6 @@ class Request extends \ZMRequest {
     }
 
     /**
-     * Get the current order id.
-     *
-     * @return int The current order id or <code>0</code>.
-     */
-    public function getOrderId() { return (int)$this->getParameter('order_id',  $this->getParameter('orderId', 0)); }
-
-    /**
      * Returns <code>true</code> if the user is not logged in at all.
      *
      * @return boolean <code>true</code> if the current user is guest, <code>false</code> if not.
