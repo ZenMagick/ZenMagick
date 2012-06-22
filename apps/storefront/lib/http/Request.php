@@ -38,58 +38,6 @@ class Request extends \ZMRequest {
     private $shoppingCart_ = null;
 
     /**
-     * {@inheritDoc}
-     */
-    public function url($requestId=null, $params='', $secure=false) {
-        $settingService = Runtime::getSettings();
-        // custom params handling
-        if (null == $requestId || null === $params) {
-            // if requestId null, keep current and also current params
-            $query = $this->getParameterMap();
-            unset($query[$settingService->get('zenmagick.http.request.idName', \ZMRequest::DEFAULT_REQUEST_ID)]);
-            unset($query[$this->getSession()->getName()]);
-            if (null != $params) {
-                parse_str($params, $arr);
-                $query = array_merge($query, $arr);
-            }
-            // rebuild
-            $params = array();
-            foreach ($query as $name => $value) {
-                if (is_array($value)) {
-                    foreach ($value as $subValue) {
-                        $params[] = $name.'[]='.$subValue;
-                    }
-                } else {
-                    $params[] = $name.'='.$value;
-                }
-            }
-            $params = implode('&', $params);
-        }
-
-        // default to current requestId
-        $requestId = $requestId === null ? $this->getRequestId() : $requestId;
-
-        // adjust according to settings
-        if ($settingService->get('zenmagick.http.request.secure', true)) {
-            // check if always secure
-            $secure = $settingService->get('zenmagick.http.request.allSecure', false) || $secure;
-        } else {
-            // disabled
-            $secure = false;
-        }
-
-        // delegate generation to Url rewriters
-        $args = array('requestId' => $requestId, 'params' => $params, 'secure' => $secure);
-        foreach ($this->getUrlRewriter() as $rewriter) {
-            if (null != ($rewrittenUrl = $rewriter->rewrite($this, $args))) {
-                return $rewrittenUrl;
-            }
-        }
-
-        Runtime::getLogging()->trace('unresolved URL: '.$requestId);
-        return null;
-    }
-    /**
      * Get the current shopping cart.
      *
      * @return ShoppingCart The current shopping cart (may be empty).

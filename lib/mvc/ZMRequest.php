@@ -128,7 +128,9 @@ class ZMRequest extends HttpFoundationRequest implements ContainerAwareInterface
      */
     public function url($requestId=null, $params='', $secure=false) {
         // custom params handling
-        if (/*null == $requestId || */null === $params) {
+        // @todo don't be app specific here (i don't know why this is so in any case, but it does break admin.
+        $check = Runtime::isContextMatch('storefront') ? (null == $requestId || null === $params) : (null == $params);
+        if ($check) {
             // if requestId null, keep current and also current params
             $query = $this->query->all();
             unset($query[$this->getRequestIdKey()]);
