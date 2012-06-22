@@ -298,7 +298,7 @@ class EventFixes extends ZMObject {
                 if (null != ($product = $this->container->get('productService')->getProductForId($productId, $languageId))) {
                     $defaultCategory = $product->getDefaultCategory($languageId);
                     if (null != $defaultCategory) {
-                        $request->setCategoryPathArray($defaultCategory->getPath());
+                        $request->query->set('cPath', implode('_', $defaultCategory->getPath()));
                     }
                 }
             }
@@ -329,7 +329,11 @@ class EventFixes extends ZMObject {
                 }
                 if (!$valid) {
                     $category = $this->container->get('categoryService')->getCategoryForId(array_pop($request->getCategoryPathArray(), $languageId));
-                    $request->setCategoryPathArray($category->getPath());
+                    if (is_array($category->getPath())) {
+                        $request->query->set('cPath', implode('_', $category->getPath()));
+                    } else {
+                        Runtime::getLogging()->error('invalid cPath: ' . $cPath);
+                    }
                 }
             }
         }

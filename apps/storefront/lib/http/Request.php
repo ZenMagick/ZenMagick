@@ -157,19 +157,6 @@ class Request extends \ZMRequest {
     }
 
     /**
-     * Set the category path arry.
-     *
-     * @param array cPath The category path as array.
-     */
-    public function setCategoryPathArray($cPath) {
-        if (is_array($cPath)) {
-            $this->query->set('cPath', implode('_', $cPath));
-        } else {
-            Runtime::getLogging()->error('invalid cPath: ' . $cPath);
-        }
-    }
-
-    /**
      * Get the account id.
      *
      * @return int The account id for the currently logged in user or <code>0</code>.
