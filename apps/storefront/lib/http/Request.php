@@ -324,10 +324,10 @@ class Request extends \ZMRequest {
     public function getSelectedLanguage() {
         $session = $this->getSession();
         $language = null;
-        if (null != ($code = $session->getValue('languages_code'))) {
+        if (null != ($id = $session->getValue('languages_id'))) {
             $languageService = $this->container->get('languageService');
             // try session language code
-            if (null == ($language = $languageService->getLanguageForId($code))) {
+            if (null == ($language = $languageService->getLanguageForId($id))) {
                 // try store default
                 $language = $languageService->getLanguageForId(Runtime::getSettings()->get('storeDefaultLanguageId'));
             }
