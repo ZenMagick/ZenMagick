@@ -33,7 +33,7 @@
     <?php if (!$request->isAnonymous()) { ?>
         <li><a href="<?php echo $net->url('logoff', '', true); ?>"><?php _vzm("LOGOFF") ?></a></li>
     <?php } ?>
-    <?php if (!$request->getShoppingCart()->isEmpty() && !$request->isCheckout()) { ?>
+    <?php if (!$request->getShoppingCart()->isEmpty() && !$isCheckout) { ?>
         <li><a href="<?php echo $net->url('shopping_cart', '', true); ?>"><?php _vzm("SHOPPING CART") ?></a></li>
         <li><a href="<?php echo $net->url('checkout_shipping', '', true); ?>"><?php _vzm("CHECKOUT") ?></a></li>
     <?php } ?>

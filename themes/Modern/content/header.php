@@ -53,7 +53,7 @@
 					<li>|</li>
 		    		<li><a href="<?php echo $net->url('login'); ?>"><span class="colorBlackLink"><?php _vzm("Login"); ?></span></a></li>
 			<?php } ?>
-			<?php if (!$request->getShoppingCart()->isEmpty() && !$request->isCheckout()) { ?>
+			<?php if (!$request->getShoppingCart()->isEmpty() && !$isCheckout) { ?>
 				<li>|</li>
 				<li><a href="<?php echo $net->url('checkout_shipping'); ?>"><span class="colorOrangeLink"><?php echo _zm('Checkout') ?></span></a></li>
 				<li>|</li>

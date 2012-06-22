@@ -36,11 +36,12 @@ class EventListener extends ThemeEventListener {
     public function themeLoaded($event) {
         $templateManager = $this->container->get('templateManager');
         $templateManager->setRightColBoxes(array('categories.php', 'manufacturers.php', 'information.php', 'banner_box.php'));
-        if ('index' == $this->container->get('request')->getRequestId()) {
+        $requestId = $this->container->get('request')->getRequestId();
+        if ('index' == $requestId) {
             $templateManager->setLeftColBoxes(array('featured.php', 'reviews.php'));
         } else {
             $templateManager->setLeftColEnabled(false);
-            if ($this->container->get('request')->isCheckout(false)) {
+            if ($requestId == 'shopping_cart' || !(false === strpos($requestId, 'checkout_'))) {
                 $templateManager->setRightColBoxes(array('information.php'));
             }
         }

@@ -213,17 +213,6 @@ class Request extends \ZMRequest {
     public function isLoggedIn() { return $this->getSession()->isLoggedIn(); }
 
     /**
-     * Checks, if the current page is a checkout page.
-     *
-     * @param boolean includeCart If <code>true</code>, the shopping cart is considered a checkout page, too; (defaults to <code>true</code>)
-     * @return boolean <code>true</code> if the current page is a checkout page.
-     */
-    public function isCheckout($includeCart=true) {
-        $page = $this->getRequestId();
-        return ($includeCart && 'shopping_cart' == $page) || !(false === strpos($page, 'checkout_'));
-    }
-
-    /**
      * Set the last URL.
      */
     public function setLastUrl() {

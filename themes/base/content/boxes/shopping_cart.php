@@ -22,7 +22,7 @@
  */
 ?>
 
-<?php if (!$request->getShoppingCart()->isEmpty() && !$request->isCheckout()) { ?>
+<?php if (!$request->getShoppingCart()->isEmpty() && !$isCheckout) { ?>
     <h3><?php _vzm("Shopping Cart") ?></h3>
     <div id="sb_cart" class="box">
         <?php foreach ($request->getShoppingCart()->getItems() as $item) { ?>

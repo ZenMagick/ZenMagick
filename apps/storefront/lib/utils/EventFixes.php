@@ -45,19 +45,24 @@ class EventFixes extends ZMObject {
         $request = $event->get('request');
         $view = $event->get('view');
         if ($view instanceof TemplateView) {
+            $requestId = $request->getRequestId();
             if (null !== $request->query->get('showAll')) {
                 if (null != ($resultList = $view->getVariable('resultList'))) {
                     $resultList->setPagination(0);
                 }
             }
-            if ('login' == $request->getRequestId() && Runtime::getSettings()->get('isGuestCheckoutAskAddress')) {
+            if ('login' == $requestId && Runtime::getSettings()->get('isGuestCheckoutAskAddress')) {
                 if (null == $view->getVariable('guestCheckoutAddress')) {
                     $address = $this->container->get('ZMAddress');
                     $address->setPrimary(true);
                     $view->setVariable('guestCheckoutAddress', $address);
                 }
             }
+            // @todo where should this really live?
+            $view->setVariable('isCheckout', !(false === strpos($requestId, 'checkout_')));
+
         }
+
     }
 
     /**
