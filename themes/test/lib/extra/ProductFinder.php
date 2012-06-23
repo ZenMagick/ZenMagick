@@ -3,9 +3,6 @@
  * ZenMagick - Smart e-commerce
  * Copyright (C) 2006-2011 ZenMagick
  *
- * Portions Copyright (c) 2003 The zen-cart developers
- * Portions Copyright (c) 2003 osCommerce
- *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation; either version 2 of the License, or (at
@@ -27,7 +24,6 @@
  *
  * @author DerManoMann
  * @package org.zenmagick.store.utils
- * @version $Id: ZMProductFinder.php 2308 2009-06-24 11:03:11Z dermanomann $
  */
 class ProductFinder extends ZMProductFinder {
 
