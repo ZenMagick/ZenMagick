@@ -34,7 +34,7 @@ class HttpPlugin extends Plugin {
      * @return string A full path to the plugin's template folder.
      */
     public function getTemplatePath() {
-        return $this->getPluginDirectory() . '/content';
+        return $this->getPluginDirectory() . '/templates';
     }
 
     /**
@@ -43,7 +43,7 @@ class HttpPlugin extends Plugin {
      * @return string A full path to the plugin's resources folder.
      */
     public function getResourcePath() {
-        return $this->getPluginDirectory() . '/content';
+        return $this->getPluginDirectory() . '/public';
     }
 
 }
