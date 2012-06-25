@@ -33,8 +33,8 @@
                 <?php $offers = $product->getOffers(); ?>
                 <p><?php echo $utils->formatMoney($offers->getCalculatedPrice()) ?></p>
             <?php } else { ?>
-                <?php $resources->jsFile('jscroller2-1.5.js'); ?>
-                <?php $resources->cssFile('style_jscroller.css'); ?>
+                <?php $resources->jsFile('jscroller/jscroller2-1.5.js'); ?>
+                <?php $resources->cssFile('jscroller/style_jscroller.css'); ?>
                 <?php ob_start(); foreach ($products as $product) { ?>
                     <p>
                     <?php echo $html->productImageLink($product, $request->getCategoryId()) ?><br>

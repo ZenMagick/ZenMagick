@@ -33,7 +33,7 @@ class ZMMinifyPacker extends PhpPackagePacker implements ZMLibraryPacker {
      * {@inheritDoc}
      */
     public function process($sourceDir, $targetDir, $version, $strip) {
-        $this->rootFolder_ = $sourceDir.'min'.DIRECTORY_SEPARATOR;
+        $this->rootFolder_ = $sourceDir.'min/public/';
         $this->outputFilename_ = $targetDir.'minify-'.$version.'.packed.php';
 
         // run the parent package packer; strip/leave references
