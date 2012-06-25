@@ -1,0 +1,21 @@
+meta:
+  name: 'SLI Search'
+  version: '${zenmagick.version}'
+  author: 'zenmagick.org'
+  description: 'Support for SLI Systems search'
+  options:
+    groups:
+      default: { title: Default }
+      ajax: { title: Ajax Search }
+      rac: { title: Rich Auto Complete }
+      ct: { title: Conversion Tracker }
+    properties:
+      clientName:
+        group: default
+        name: The client name
+        description: The client name for this site
+        type: text
+        config:
+          default: ''
+          value: abc
+          size: 12
