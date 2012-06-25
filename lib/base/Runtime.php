@@ -2,6 +2,7 @@
 /*
  * ZenMagick - Another PHP framework.
  * Copyright (C) 2006-2012 zenmagick.org
+ * Copyright (parts) (c) Fabien Potencier <fabien@symfony.com>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -21,6 +22,7 @@ namespace zenmagick\base;
 
 use zenmagick\base\events\EventDispatcher;
 use zenmagick\base\dependencyInjection\Container;
+use Symfony\Component\DependencyInjection\ParameterBag\ParameterBag;
 
 /**
  * Central place for runtime stuff.
@@ -146,9 +148,39 @@ class Runtime {
      */
     public static function getContainer() {
         if (null == self::$container) {
-            self::$container = new Container();
+
+            self::$container = new Container(new ParameterBag(self::getRuntimeParameters()));
         }
         return self::$container;
+    }
+
+    /**
+     * Gets the environment parameters.
+     *
+     * Only the parameters starting with "SYMFONY__" are considered.
+     *
+     * @return array An array of parameters
+     */
+    protected static function getRuntimeParameters() {
+        return self::getEnvParameters();
+    }
+
+    /**
+     * Gets the environment parameters.
+     *
+     * Only the parameters starting with "SYMFONY__" are considered.
+     *
+     * @return array An array of parameters
+     */
+    protected static function getEnvParameters() {
+        $parameters = array();
+        foreach ($_SERVER as $key => $value) {
+            if (0 === strpos($key, 'SYMFONY__')) {
+                $parameters[strtolower(str_replace('__', '.', substr($key, 9)))] = $value;
+            }
+        }
+
+        return $parameters;
     }
 
 }
