@@ -195,7 +195,7 @@ class Theme extends ZMObject {
      * @return string A full filename denoting the themes boxes directory.
      */
     public function getBoxesDir() {
-        return $this->getBasePath() . '/content/boxes';
+        return $this->getBasePath() . '/templates/boxes';
     }
 
     /**
@@ -204,7 +204,7 @@ class Theme extends ZMObject {
      * @return string A full path to the theme's template folder.
      */
     public function getTemplatePath() {
-        return $this->getBasePath() . '/content';
+        return $this->getBasePath() . '/templates';
     }
 
     /**
@@ -213,17 +213,7 @@ class Theme extends ZMObject {
      * @return string A full path to the theme's resources folder.
      */
     public function getResourcePath() {
-        return $this->getBasePath() . '/content';
-    }
-
-    /**
-     * Return the path of the content directory.
-     *
-     * @return string A full filename denoting the themes content directory.
-     * @deprecated use getTemplatePath() or getResourcePath() instead
-     */
-    public function getContentDir() {
-        return $this->getBasePath() . '/content';
+        return $this->getBasePath() . '/public';
     }
 
     /**
