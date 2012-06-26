@@ -152,10 +152,11 @@ class ShippingEstimator extends ZMObject {
      */
     function prepare() {
     global $db, $order;
-
+        $request = Runtime::getContainer()->get('request');
         // Only do when something is in the cart
-        if (!Runtime::getContainer()->get('request')->getShoppingCart()->isEmpty()) {
-          if (Runtime::getContainer()->get('request')->isRegistered()) {
+        if (!$request->getShoppingCart()->isEmpty()) {
+          $session = $request->getSession();
+          if ($session->isRegistered()) {
               $sendto = $this->_getAddressId();
               $_SESSION['sendto'] = $sendto;
               // set session now

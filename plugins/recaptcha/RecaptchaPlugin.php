@@ -87,7 +87,7 @@ class RecaptchaPlugin extends Plugin {
     public function onContainerReady($event) {
         $request = $event->get('request');
         $disableRegistered = Toolbox::asBoolean($this->get('disableRegistered'));
-        if ($disableRegistered && $request->isRegistered()) {
+        if ($disableRegistered && $request->getSession()->isRegistered()) {
             // skip
             return;
         }

@@ -24,7 +24,7 @@
 <p><?php _vzm("If you are having difficulty in locating something on our site, please %s!", $contact) ?></p>
 <?php echo $macro->categoryTree($container->get('categoryService')->getCategoryTree($session->getLanguageId()), "catalog"); ?>
 <ul>
-    <?php if ($request->isRegistered()) { ?>
+    <?php if ($session->isRegistered()) { ?>
       <li><a href="<?php echo $net->url('account', '', true) ?>"><?php _vzm("My Account") ?></a>
       <ul>
         <li><a href="<?php echo $net->url('account_edit', '', true); ?>"><?php _vzm("Change Account") ?></a></li>

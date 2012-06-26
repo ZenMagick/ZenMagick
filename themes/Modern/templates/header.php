@@ -40,7 +40,7 @@
 		<div id="smallNaviHeader" class="forward">
 			<ul>
 			<?php if (!$session->isAnonymous()) { ?>
-			  <?php if ($request->isRegistered()) { ?>
+			  <?php if ($session->isRegistered()) { ?>
 				  <li><a href="<?php echo $net->url('account') ?>" title="<?php _vzm("MyAccount") ?>"><span class="colorOrangeLink"><?php _vzm("MyAccount") ?></span></a></li>
 				  <li>|</li>
         <?php } ?>

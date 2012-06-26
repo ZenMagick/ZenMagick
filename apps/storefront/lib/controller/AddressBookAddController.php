@@ -42,6 +42,7 @@ class AddressBookAddController extends \ZMController {
         $args = array('request' => $request, 'controller' => $this, 'account' => $account, 'address' => $address, 'type' => 'addressBook');
         Runtime::getEventDispatcher()->dispatch('create_address', new Event($this, $args));
 
+        $session = $request->getSession();
         // process primary setting
         if ($address->isPrimary() || 1 == count($addressService->getAddressesForAccountId($request->getAccountId()))) {
             $account = $request->getAccount();
@@ -50,12 +51,11 @@ class AddressBookAddController extends \ZMController {
             $address->setPrimary(true);
             $addressService->updateAddress($address);
 
-            $session = $request->getSession();
             $session->setAccount($account);
         }
 
         // if guest, there is no address book!
-        if ($request->isRegistered()) {
+        if ($session->isRegistered()) {
             $this->messageService->success(_zm('Address added to your address book.'));
         }
 

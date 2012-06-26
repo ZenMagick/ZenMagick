@@ -32,8 +32,9 @@ class ContactUsController extends \ZMController {
      * {@inheritDoc}
      */
     public function processGet($request) {
+        $session = $request->getSession();
         $contactInfo = $this->getFormData($request);
-        if ($request->isRegistered()) {
+        if ($session->isRegistered()) {
             $account = $request->getAccount();
             $contactInfo->setName($account->getFullName());
             $contactInfo->setEmail($account->getEmail());

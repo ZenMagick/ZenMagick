@@ -26,7 +26,7 @@
           if ($session->isAnonymous()) {
               $menu[] = array($net->url('login', '', true), _zm("Login"));
           }
-          if ($request->isRegistered()) {
+          if ($session->isRegistered()) {
               $menu[] = array($net->url('account', '', true), _zm("Account"));
           }
           if (!$session->isAnonymous()) {

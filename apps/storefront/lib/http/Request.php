@@ -115,13 +115,6 @@ class Request extends \ZMRequest {
     }
 
     /**
-     * Returns <code>true</code> if the user is fully registered and logged in.
-     *
-     * @return boolean <code>true</code> if the current user is fully registered and logged in, <code>false</code> if not.
-     */
-    public function isRegistered() { return $this->getSession()->isRegistered(); }
-
-    /**
      * Returns <code>true</code> if the user is logged in.
      *
      * @return boolean <code>true</code> if the current user is logged in, <code>false</code> if not.

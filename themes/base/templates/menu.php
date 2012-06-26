@@ -25,7 +25,7 @@
     <?php if ($session->isAnonymous()) { ?>
         <li><a href="<?php echo $net->url('login', '', true); ?>"><?php _vzm("LOGIN") ?></a></li>
     <?php } ?>
-    <?php if ($request->isRegistered()) { ?>
+    <?php if ($session->isRegistered()) { ?>
         <li><a href="<?php echo $net->url('account', '', true); ?>"><?php _vzm("ACCOUNT") ?></a></li>
     <?php } ?>
     <?php if (!$session->isAnonymous()) { ?>

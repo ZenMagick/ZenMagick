@@ -91,17 +91,16 @@ class CaptchaPlugin extends Plugin {
      */
     public function onContainerReady($event) {
         $request = $event->get('request');
-
+        $session = $request->getSession();
         // check if we need to do anything for this request...
         $disableRegistered = Toolbox::asBoolean($this->get('disableRegistered'));
-        if ($disableRegistered && $request->isRegistered()) {
+        if ($disableRegistered && $session->isRegistered()) {
             return;
         }
 
         $requestId = $request->getRequestId();
         if (array_key_exists($requestId, $this->pageConfig_)) {
             $this->captcha_ = new PCaptcha($request);
-            $session = $request->getSession();
             $session->setValue('captcha_field', CAPTCHA_FIELD);
             $config = $this->pageConfig_[$requestId];
             if ($config[0]) {
