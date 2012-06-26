@@ -41,7 +41,7 @@ class Request extends \ZMRequest {
     public function getShoppingCart() {
         if (null == $this->shoppingCart_) {
             // TODO: enable
-            if ($this->isAnonymous() || true) {
+            if ($this->getSession()->isAnonymous() || true) {
                 $this->shoppingCart_ = Runtime::getContainer()->get('shoppingCart');
             } else {
                 $this->shoppingCart_ = $this->container->get('shoppingCartService')->loadCartForAccountId($this->getAccountId());
