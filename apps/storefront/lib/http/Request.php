@@ -115,13 +115,6 @@ class Request extends \ZMRequest {
     }
 
     /**
-     * Returns <code>true</code> if the user is logged in.
-     *
-     * @return boolean <code>true</code> if the current user is logged in, <code>false</code> if not.
-     */
-    public function isLoggedIn() { return $this->getSession()->isLoggedIn(); }
-
-    /**
      * Set the last URL.
      */
     public function setLastUrl() {
