@@ -83,7 +83,7 @@
         </fieldset>
     <?php } ?>
 
-    <?php if ($request->isGuest()) { ?>
+    <?php if ($session->isGuest()) { ?>
         <fieldset>
             <legend><?php _vzm("Order Status Check") ?></legend>
             <p>
