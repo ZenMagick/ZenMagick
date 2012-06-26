@@ -20,7 +20,7 @@
  */
 ?>
 
-<?php if ($request->isAnonymous() && 'login' != $request->getRequestId() && 'time_out' != $request->getRequestId()) { ?>
+<?php if ($session->isAnonymous() && 'login' != $request->getRequestId() && 'time_out' != $request->getRequestId()) { ?>
     <h3><?php _vzm("Login") ?></h3>
     <div id="sb_login" class="box">
         <?php echo $form->open('login', '', true, array('id'=>'login')) ?>

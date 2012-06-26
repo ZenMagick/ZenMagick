@@ -19,7 +19,7 @@
  */
 ?>
 
-<?php if ($request->isAnonymous()) { ?>
+<?php if ($session->isAnonymous()) { ?>
     <h2><?php _vzm("Whoops! Your session has expired.") ?></h2>
 <?php } else { ?>
     <h2><?php _vzm("Whoops! Sorry, but you are not allowed to perform the action requested.") ?></h2>

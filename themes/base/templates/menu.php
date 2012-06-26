@@ -22,13 +22,13 @@
 <div id="menu">
   <ul>
     <li class="first"><a href="<?php echo $net->url('index'); ?>"><?php _vzm("HOME") ?></a></li>
-    <?php if ($request->isAnonymous()) { ?>
+    <?php if ($session->isAnonymous()) { ?>
         <li><a href="<?php echo $net->url('login', '', true); ?>"><?php _vzm("LOGIN") ?></a></li>
     <?php } ?>
     <?php if ($request->isRegistered()) { ?>
         <li><a href="<?php echo $net->url('account', '', true); ?>"><?php _vzm("ACCOUNT") ?></a></li>
     <?php } ?>
-    <?php if (!$request->isAnonymous()) { ?>
+    <?php if (!$session->isAnonymous()) { ?>
         <li><a href="<?php echo $net->url('logoff', '', true); ?>"><?php _vzm("LOGOFF") ?></a></li>
     <?php } ?>
     <?php if (!$request->getShoppingCart()->isEmpty() && !$isCheckout) { ?>

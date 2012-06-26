@@ -12,10 +12,10 @@
 
 
 
-    /*if ($request->isAnonymous()) {
+    /*if ($session->isAnonymous()) {
         $menu[] = array($net->url('login', '', true), _zm("Login"));
     }
-  /*  if (!$request->isAnonymous()) {
+  /*  if (!$session->isAnonymous()) {
         $menu[] = array($net->url('logoff', '', true), _zm("Logoff"));
     }
    /* if (!$request->getShoppingCart()->isEmpty() && !$isCheckout) {

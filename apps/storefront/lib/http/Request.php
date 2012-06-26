@@ -115,13 +115,6 @@ class Request extends \ZMRequest {
     }
 
     /**
-     * Returns <code>true</code> if the user is not logged in at all.
-     *
-     * @return boolean <code>true</code> if the current user is guest, <code>false</code> if not.
-     */
-    public function isAnonymous() { return $this->getSession()->isAnonymous(); }
-
-    /**
      * Returns <code>true</code> if the user is fully registered and logged in.
      *
      * @return boolean <code>true</code> if the current user is fully registered and logged in, <code>false</code> if not.

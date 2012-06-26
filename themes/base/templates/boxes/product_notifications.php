@@ -31,7 +31,7 @@
           }
       }
     ?>
-    <?php if ($request->isAnonymous() || !$isSubscribed) { ?>
+    <?php if ($session->isAnonymous() || !$isSubscribed) { ?>
         <h3><?php _vzm("Notifications") ?></h3>
         <div id="sb_product_notifications" class="box">
             <a href="<?php echo $net->url(null, 'action=notify') ?>"><img src="<?php echo $this->asUrl("images/big_tick.gif") ?>" alt="<?php _vzm("Notify me of updates to this product") ?>" title="<?php _vzm("Notify me of updates to this product") ?>" /><br /><?php _vzm("Notify me of updates to <strong>%s</strong>", $currentProduct->getName())?></a>

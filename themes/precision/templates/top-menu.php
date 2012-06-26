@@ -2,13 +2,13 @@
   <?php
     $menu = array();
     $menu[] = array($net->url('index'), _zm("Home"));
-    if ($request->isAnonymous()) {
+    if ($session->isAnonymous()) {
         $menu[] = array($net->url('login', '', true), _zm("Login"));
     }
     if ($request->isRegistered()) {
         $menu[] = array($net->url('account', '', true), _zm("Account"));
     }
-    if (!$request->isAnonymous()) {
+    if (!$session->isAnonymous()) {
         $menu[] = array($net->url('logoff', '', true), _zm("Logoff"));
     }
     if (!$request->getShoppingCart()->isEmpty() && !$isCheckout) {
