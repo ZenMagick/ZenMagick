@@ -39,6 +39,7 @@ class ResourceManager extends ZMObject {
     private $resourcesAsTemplates_;
     private $view;
     private $fragments;
+    private $virtualPathMap;
 
 
     /**
@@ -50,8 +51,18 @@ class ResourceManager extends ZMObject {
         $this->resourcesAsTemplates_ = false;
         $this->view = null;
         $this->fragments = array();
+        $this->virtualPathMap = array();
     }
 
+
+    /**
+     * Set the virtual path mappings.
+     *
+     * @param array virtualPathMap The mapping.
+     */
+    public function setVirtualPathMap(array $virtualPathMap) {
+        $this->virtualPathMap = $virtualPathMap;
+    }
 
     /**
      * Set the view.
@@ -216,12 +227,23 @@ class ResourceManager extends ZMObject {
      */
     public function file2uri($filename) {
         $filename = realpath($filename);
+
+        $virtual = false;
+        // try virtual path mapping
+        foreach ($this->virtualPathMap as $path => $config) {
+            if (0 === strpos($filename, $path)) {
+                $filename = str_replace($path, $config['path'], $filename);
+                $virtual = $config['virtual'];
+                break;
+            }
+        }
+
         $docRoot = realpath($this->view->getRequest()->getDocRoot());
         if (empty($filename) || empty($docRoot)) {
             Runtime::getLogging()->warn(sprintf('cannot convert t"%s" to url; docroot: %s', $filename, $docRoot));
             return null;
         }
-        if (0 !== strpos($filename, $docRoot)) {
+        if (!$virtual && 0 !== strpos($filename, $docRoot)) {
             // outside docroot
             Runtime::getLogging()->warn(sprintf('cannot convert t"%s" to url (basedir); docroot: %s', $filename, $docRoot));
             return null;

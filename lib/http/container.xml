@@ -16,6 +16,7 @@
         <parameter key="zenmagick.http.session.validator.ip">false</parameter>
         <parameter key="zenmagick.http.session.validator.sslSessionId">false</parameter>
         <parameter key="zenmagick.http.session.formToken" type="collection"></parameter>
+        <parameter key="zenmagick.http.virtualPathMap" type="collection"></parameter>
     </parameters>
 
     <services>
@@ -39,7 +40,11 @@
             <tag name="zenmagick.http.blocks.provider" />
         </service>
 
-        <service id="resourceManager" class="zenmagick\http\view\ResourceManager" scope="prototype" />
+        <service id="resourceManager" class="zenmagick\http\view\ResourceManager" scope="prototype">
+            <call method="setVirtualPathMap">
+                <argument>%zenmagick.http.virtualPathMap%</argument>
+            </call>
+        </service>
 
         <service id="resourceResolver" class="zenmagick\http\view\ResourceResolver" scope="container" />
 
