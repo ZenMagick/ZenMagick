@@ -33,7 +33,7 @@ class GvSendController extends \ZMController {
      * {@inheritDoc}
      */
     public function processGet($request) {
-        return $this->findView(null, array('currentAccount' => $request->getAccount()));
+        return $this->findView(null, array('currentAccount' => $this->getUser());
     }
 
     /**
@@ -48,7 +48,7 @@ class GvSendController extends \ZMController {
         }
 
         $data = array();
-        $data['currentAccount'] = $request->getAccount();
+        $data['currentAccount'] = $this->getUser();
         // to fake the email content display
         $coupon = new Coupon();
         $coupon->setCode( _zm('THE_COUPON_CODE'));

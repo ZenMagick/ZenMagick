@@ -38,7 +38,7 @@ class AddressBookDeleteController extends \ZMController {
      * {@inheritDoc}
      */
     public function processPost($request) {
-        $account = $request->getAccount();
+        $account = $this->getUser();
         $addressId = $request->request->get('id', 0);
         if (0 < $addressId) {
             $this->container->get('addressService')->deleteAddressForId($addressId);

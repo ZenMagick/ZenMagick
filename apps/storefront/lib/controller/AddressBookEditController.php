@@ -33,9 +33,9 @@ class AddressBookEditController extends \ZMController {
     public function processGet($request) {
         // populate with original data
         $address = $this->container->get('addressService')->getAddressForId($request->getParameter('id'));
-        $account = $request->getAccount();
+        $account = $this->getUser();
 
-        if ($account->getAccountId() != $address->getAccountId()) {
+        if ($account->getId() != $address->getAccountId()) {
             $this->messageService->error(_zm('Address not found'));
             return $this->findView('error');
         }
@@ -49,17 +49,17 @@ class AddressBookEditController extends \ZMController {
     public function processPost($request) {
         $address = $this->getFormData($request);
         $addressService = $this->container->get('addressService');
+        $account = $this->getUser();
 
-        if (1 == count($addressService->getAddressesForAccountId($request->getAccountId()))) {
+        if (1 == count($addressService->getAddressesForAccountId($account->getId()))) {
             $address->setPrimary(true);
         }
 
-        $address->setAccountId($request->getAccountId());
+        $address->setAccountId($account->getId());
         $addressService->updateAddress($address);
 
         // process primary setting
         if ($address->isPrimary()) {
-            $account = $request->getAccount();
             if ($account->getDefaultAddressId() != $address->getId()) {
                 $account->setDefaultAddressId($address->getId());
                 $this->container->get('accountService')->updateAccount($account);

@@ -394,6 +394,31 @@ class ZMController extends ZMObject {
     }
 
     /**
+     * Get the user account.
+     *
+     * @todo stop custom hack for storefront when users no longer rely on session
+     */
+    public function getUser() {
+        if (Runtime::isContextMatch('storefront')) {
+            $accountId = $this->container->get('session')->getAccountId();
+            if (!$accountId) return null;
+            return $this->container->get('accountService')->getAccountForId($accountId);
+        }
+        /**
+         * Get the user (if any) for authentication.
+         *
+         * <p>Creation of the user object is delegated to the configured <code>zenmagick\http\session\UserFactory</code> instance.
+         * The factory may be configured as bean defintion via the setting 'zenmagick.http.session.userFactory'.</p>
+         *
+         * @return mixed A user/credentials object. Default is <code>null</code>.
+         */
+        if ($this->container->has('userFactory') && null != ($userFactory = $this->container->get('userFactory'))) {
+            return $userFactory->getUser($this->container->get('request'));
+        }
+        return null;
+    }
+
+    /**
      * Deal with demo/non-live user.
      *
      * <p>Will create a message that the requested functionallity is not availale for demo users.</p>
@@ -403,7 +428,7 @@ class ZMController extends ZMObject {
      * @todo this should be dealt with in sacs
      */
     public function handleDemo() {
-        if (!$this->container->get('request')->getAccount()->isLive()) {
+        if (!$this->getUser()->isLive()) {
             $this->container->get('messageService')->warn(_zm('Sorry, the action you tried to excute is not available to demo users'));
             return true;
         }

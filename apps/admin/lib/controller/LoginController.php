@@ -31,7 +31,7 @@ class LoginController extends \ZMController {
      * {@inheritDoc}
      */
     public function processGet($request) {
-        if (null != $request->getAccount()) {
+        if (null != $this->getUser()) {
             return $this->findView('logged-in');
         }
 

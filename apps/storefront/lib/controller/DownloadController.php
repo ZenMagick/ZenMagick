@@ -47,7 +47,7 @@ class DownloadController extends \ZMController {
 
         $languageId = $request->getSession()->getLanguageId();
         $order = $this->container->get('orderService')->getOrderForId($orderId, $languageId);
-        $account = $request->getAccount();
+        $account = $this->getUser();
         if ($account->getId() != $order->getAccountId()) {
             $this->messageService->error(_zm('Order not found'));
             return $this->findView('error');

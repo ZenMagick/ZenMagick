@@ -33,7 +33,7 @@ class AccountHistoryController extends \ZMController {
      * {@inheritDoc}
      */
     public function processGet($request) {
-        $resultSource = new \ZMObjectResultSource('ZMOrder', 'orderService', "getOrdersForAccountId", array($request->getAccountId(), $request->getSession()->getLanguageId()));
+        $resultSource = new \ZMObjectResultSource('ZMOrder', 'orderService', "getOrdersForAccountId", array($this->getUser()->getId(), $request->getSession()->getLanguageId()));
         $resultList = Runtime::getContainer()->get("ZMResultList");
         $resultList->setResultSource($resultSource);
         $resultList->setPageNumber($request->query->getInt('page'));

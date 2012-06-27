@@ -31,7 +31,7 @@ class AddressBookController extends \ZMController {
      * {@inheritDoc}
      */
     public function processGet($request) {
-        $addressList = $this->container->get('addressService')->getAddressesForAccountId($request->getAccountId());
+        $addressList = $this->container->get('addressService')->getAddressesForAccountId($this->getUser()->getId());
         return $this->findView(null, array('addressList' => $addressList));
     }
 

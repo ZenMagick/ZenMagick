@@ -63,7 +63,7 @@ class CheckoutAddressController extends \ZMController {
         $shoppingCart = $request->getShoppingCart();
         $this->viewData_['shoppingCart'] = $shoppingCart;
 
-        $addressList = $this->container->get('addressService')->getAddressesForAccountId($request->getAccountId());
+        $addressList = $this->container->get('addressService')->getAddressesForAccountId($this->getUser()->getId());
         $this->viewData_['addressList'] = $addressList;
         if (null != ($address = $this->getFormData($request))) {
             $address->setPrimary(0 == count($addressList));
@@ -130,16 +130,16 @@ class CheckoutAddressController extends \ZMController {
         if (null !== $addressId) {
             $shoppingCart->$method($addressId);
         } else {
+            $account = $this->getUser();
             $address = $this->getFormData($request);
-            $address->setAccountId($request->getAccountId());
+            $address->setAccountId($account->getId());
             $address = $addressService->createAddress($address);
 
-            $account = $request->getAccount();
             $args = array('request' => $request, 'controller' => $this, 'account' => $account, 'address' => $address, 'type' => $this->settings_['mode']);
             Runtime::getEventDispatcher()->dispatch('create_address', new Event($this, $args));
 
             // process primary setting
-            if ($address->isPrimary() || 1 == count($addressService->getAddressesForAccountId($request->getAccountId()))) {
+            if ($address->isPrimary() || 1 == count($addressService->getAddressesForAccountId($account->getId()))) {
                 $account->setDefaultAddressId($address->getId());
                 $this->container->get('accountService')->updateAccount($account);
                 $address->setPrimary(true);

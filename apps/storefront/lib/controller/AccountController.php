@@ -33,12 +33,13 @@ class AccountController extends \ZMController {
      */
     public function processGet($request) {
         // orders are sorted desc...
-        $resultSource = new \ZMObjectResultSource('ZMOrder', 'orderService', "getOrdersForAccountId", array($request->getAccountId(), $request->getSession()->getLanguageId()));
+        $account = $this->getUser();
+        $resultSource = new \ZMObjectResultSource('ZMOrder', 'orderService', "getOrdersForAccountId", array($account->getId(), $request->getSession()->getLanguageId()));
         $resultList = Runtime::getContainer()->get('ZMResultList');
         $resultList->setResultSource($resultSource);
         $resultList->setPageNumber($request->query->getInt('page'));
 
-        $data = array('resultList' => $resultList, 'currentAccount' => $request->getAccount());
+        $data = array('resultList' => $resultList, 'currentAccount' => $account);
 
         return $this->findView(null, $data);
     }

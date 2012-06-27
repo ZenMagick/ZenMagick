@@ -56,7 +56,7 @@ class TellAFriendController extends \ZMController {
             return $this->findView('product_not_found', $this->viewData_);
         }
 
-        $account = $request->getAccount();
+        $account = $this->getUser();
         $emailMessage = $this->getFormData($request);
         if (null != $account) {
             $emailMessage->setFromEmail($account->getEmail());

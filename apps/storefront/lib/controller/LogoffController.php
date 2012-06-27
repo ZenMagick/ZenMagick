@@ -35,7 +35,7 @@ class LogoffController extends \ZMController {
      */
     public function processGet($request) {
         // pre logoff account
-        $account = $request->getAccount();
+        $account = $this->getUser();
 
         // get before wiping the session!
         $lastUrl = $request->getLastUrl();

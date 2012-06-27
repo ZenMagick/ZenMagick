@@ -35,7 +35,7 @@ class GvSendConfirmController extends \ZMController {
      */
     public function processGet($request) {
         $data = array();
-        $data['currentAccount'] = $request->getAccount();
+        $data['currentAccount'] = $this->getUser();
         $coupon = new Coupon();
         $coupon->setCode(_zm('THE_COUPON_CODE'));
         $data['currentCoupon'] = $coupon;
@@ -65,7 +65,7 @@ class GvSendConfirmController extends \ZMController {
         // the form data
         $gvReceiver = $this->getFormData($request);
         // the sender account
-        $account = $request->getAccount();
+        $account = $this->getUser();
         // current balance
         $balance = $account->getVoucherBalance();
         // coupon amount

@@ -37,7 +37,7 @@ class AjaxDashboardController extends \ZMRpcController {
         $state = json_encode($rpcRequest->getData());
 
         $rpcResponse = $rpcRequest->createResponse();
-        $this->container->get('dashboard')->setState($rpcRequest->getRequest()->getAccount()->getId(), $state);
+        $this->container->get('dashboard')->setState($this->getUser()->getId(), $state);
         $rpcResponse->setStatus(true);
 
         return $rpcResponse;

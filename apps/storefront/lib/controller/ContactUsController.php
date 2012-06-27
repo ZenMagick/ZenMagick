@@ -35,7 +35,7 @@ class ContactUsController extends \ZMController {
         $session = $request->getSession();
         $contactInfo = $this->getFormData($request);
         if ($session->isRegistered()) {
-            $account = $request->getAccount();
+            $account = $this->getUser();
             $contactInfo->setName($account->getFullName());
             $contactInfo->setEmail($account->getEmail());
 

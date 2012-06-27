@@ -34,12 +34,12 @@ class CheckoutSuccessController extends \ZMController {
     public function processGet($request) {
         // see: onViewDone()
         Runtime::getEventDispatcher()->listen($this);
-        $account = $request->getAccount();
+        $account = $this->getUser();
         $orders = $this->container->get('orderService')->getOrdersForAccountId($account->getId(), $request->getSession()->getLanguageId(), 1);
 
         $currentOrder = $orders[0];
         $productsToSubscribe = array();
-        if (!$request->getAccount()->isGlobalProductSubscriber()) {
+        if (!$account->isGlobalProductSubscriber()) {
             $subscribedProducts = $account->getSubscribedProducts();
             foreach ($currentOrder->getOrderItems() as $orderItem) {
                 $productId = $orderItem->getProductId();
@@ -56,7 +56,7 @@ class CheckoutSuccessController extends \ZMController {
         $notifyProducts = $request->request->get('notify', array());
 
         if (!empty($notifyProducts)) {
-            $account = $request->getAccount();
+            $account = $this->getUser();
             $subscribedProducts = array_unique(array_merge($account->getSubscribedProducts(), $notifyProducts));
             if (!empty($subscribedProducts)) {
                 $this->container->get('accountService')->setSubscribedProductIds($account, $subscribedProducts);

@@ -32,7 +32,7 @@ class AccountNotificationsController extends \ZMController {
      * {@inheritDoc}
      */
     public function processGet($request) {
-        return $this->findView(null, array('currentAccount' => $request->getAccount()));
+        return $this->findView(null, array('currentAccount' => $this->getUser()));
     }
 
     /**
@@ -41,7 +41,7 @@ class AccountNotificationsController extends \ZMController {
     public function processPost($request) {
         $globalProductSubscriber = Toolbox::asBoolean($request->request->get('product_global', false));
 
-        $account = $request->getAccount();
+        $account = $this->getUser();
         $isGlobalUpdate = false;
         if ($globalProductSubscriber != $account->isGlobalProductSubscriber()) {
             $account->setGlobalProductSubscriber($globalProductSubscriber);
@@ -57,7 +57,7 @@ class AccountNotificationsController extends \ZMController {
         }
 
         $this->messageService->success(_zm('Your product subscriptions have been updated.'));
-        return $this->findView('success', array('currentAccount' => $request->getAccount()));
+        return $this->findView('success', array('currentAccount' => $account));
     }
 
 }

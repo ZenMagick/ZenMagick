@@ -34,18 +34,17 @@ class AddressBookAddController extends \ZMController {
      */
     public function processPost($request) {
         $addressService = $this->container->get('addressService');
+        $account = $this->getUser();
         $address = $this->getFormData($request);
-        $address->setAccountId($request->getAccountId());
+        $address->setAccountId($account->getId());
         $address = $addressService->createAddress($address);
 
-        $account = $request->getAccount();
         $args = array('request' => $request, 'controller' => $this, 'account' => $account, 'address' => $address, 'type' => 'addressBook');
         Runtime::getEventDispatcher()->dispatch('create_address', new Event($this, $args));
 
         $session = $request->getSession();
         // process primary setting
-        if ($address->isPrimary() || 1 == count($addressService->getAddressesForAccountId($request->getAccountId()))) {
-            $account = $request->getAccount();
+        if ($address->isPrimary() || 1 == count($addressService->getAddressesForAccountId($account->getId()))) {
             $account->setDefaultAddressId($address->getId());
             $this->container->get('accountService')->updateAccount($account);
             $address->setPrimary(true);

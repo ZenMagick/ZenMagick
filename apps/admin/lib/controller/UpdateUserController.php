@@ -32,7 +32,7 @@ class UpdateUserController extends \ZMController {
      * {@inheritDoc}
      */
     public function getViewData($request) {
-        $user = $request->getAccount();
+        $user = $this->getUser();
         $widgets = array();
 
         // WYSIWYG
@@ -57,7 +57,7 @@ class UpdateUserController extends \ZMController {
      * @param ZMRequest request The current request.
      */
     protected function processPrefs($request) {
-        $user = $request->getAccount();
+        $user = $this->getUser();
         $viewData = $this->getViewData($request);
         $widgets = $viewData['widgets'];
         foreach ($widgets as $widget) {
@@ -73,7 +73,7 @@ class UpdateUserController extends \ZMController {
         $updateUser = parent::getFormData($request, $formDef, $formId);
         if (!$this->isFormSubmit($request)) {
             // pre-populate with current data
-            $user = $request->getAccount();
+            $user = $this->getUser();
             $updateUser->setEmail($user->getEmail());
             $updateUser->setName($user->getName());
         }
@@ -84,7 +84,7 @@ class UpdateUserController extends \ZMController {
      * {@inheritDoc}
      */
     public function processPost($request) {
-        $user = $request->getAccount();
+        $user = $this->getUser();
         $updateUser = $this->getFormData($request);
         // assume validation is already done...
 

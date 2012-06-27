@@ -33,7 +33,7 @@ class ProductReviewsWriteController extends \ZMController {
      */
     public function getViewData($request) {
         $product = $this->getProduct($request);
-        return array('currentProduct' => $product, 'currentAccount' => $request->getAccount());
+        return array('currentProduct' => $product, 'currentAccount' => $this->getUser());
     }
 
     /**
@@ -56,7 +56,7 @@ class ProductReviewsWriteController extends \ZMController {
 
         $settingsService = $this->container->get('settingsService');
         $review = $this->getFormData($request);
-        $account = $request->getAccount();
+        $account = $this->getUser();
         $this->container->get('reviewService')->createReview($review, $account, $review->getLanguageId());
 
         $product = $this->container->get('productService')->getProductForId($review->getProductId(), $review->getLanguageId());

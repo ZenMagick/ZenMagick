@@ -79,7 +79,7 @@ class CatalogController extends \ZMController {
         }
 
         // check authorization as we'll need the follow up redirect point to the catalog URL, not a tab url
-        $authorized = $this->container->get('sacsManager')->authorize($request, $request->getRequestId(), $request->getAccount(), false);
+        $authorized = $this->container->get('sacsManager')->authorize($request, $request->getRequestId(), $this->getUser(), false);
 
         if (null == $controller || !$authorized) {
             // no controller found

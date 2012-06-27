@@ -32,7 +32,7 @@ class AccountNewslettersController extends \ZMController {
      * {@inheritDoc}
      */
     public function processGet($request) {
-        return $this->findView(null, array('currentAccount' => $request->getAccount()));
+        return $this->findView(null, array('currentAccount' => $this->getUser()));
     }
 
     /**
@@ -41,14 +41,14 @@ class AccountNewslettersController extends \ZMController {
     public function processPost($request) {
         $newsletterSubscriber = Toolbox::asBoolean($request->request->get('newsletter_general', false));
 
-        $account = $request->getAccount();
+        $account = $this->getUser();
         if ($newsletterSubscriber != $account->isNewsletterSubscriber()) {
             $account->setNewsletterSubscriber($newsletterSubscriber);
             $this->container->get('accountService')->updateAccount($account);
         }
 
         $this->messageService->success(_zm('Your newsletter subscription has been updated.'));
-        return $this->findView('success', array('currentAccount' => $request->getAccount()));
+        return $this->findView('success', array('currentAccount' => $account));
     }
 
 }

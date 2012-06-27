@@ -33,14 +33,14 @@ class AccountEditController extends \ZMController {
      * {@inheritDoc}
      */
     public function processGet($request) {
-        return $this->findView(null, array('account' => $request->getAccount()));
+        return $this->findView(null, array('account' => $this->getUser()));
     }
 
     /**
      * {@inheritDoc}
      */
     public function processPost($request) {
-        $currentAccount = $request->getAccount();
+        $currentAccount = $this->getUser();
         $account = $this->getFormData($request)->getAccount();
 
         if ($account->getEmail() != $currentAccount->getEmail()) {

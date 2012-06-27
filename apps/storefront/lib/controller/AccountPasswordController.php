@@ -37,7 +37,7 @@ class AccountPasswordController extends \ZMController {
             return $this->findView();
         }
 
-        $account = $request->getAccount();
+        $account = $this->getUser();
         if (null == $account) {
             Runtime::getLogging()->error('could not access session account');
             return $this->findView('error');
