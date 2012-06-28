@@ -99,7 +99,11 @@ class ZMTools {
 
         if (false !== strpos($url1, '//') || false !== strpos($url1, '?')) {
             $url1Token = parse_url($url1);
-            parse_str($url1Token['query'], $query1);
+            if (array_key_exists('query', $url1Token)) {
+                parse_str($url1Token['query'], $query1);
+            } else {
+                $query1 = array();
+            }
         } else {
             parse_str($url1, $query1);
         }
@@ -107,7 +111,11 @@ class ZMTools {
         if (null !== $url2) {
             if (false !== strpos($url2, '//') || false !== strpos($url2, '?')) {
                 $url2Token = parse_url($url2);
-                parse_str($url2Token['query'], $query2);
+                if (array_key_exists('query', $url2Token)) {
+                    parse_str($url2Token['query'], $query2);
+                } else {
+                    $query2 = array();
+                }
             } else {
                 parse_str($url2, $query2);
             }
