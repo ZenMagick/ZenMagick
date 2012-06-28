@@ -129,7 +129,7 @@ class ToolboxCrumbtrail extends ToolboxTool {
      * @return ToolboxCrumbtrail <code>$this</code> for chaining.
      */
     public function addCategoryPath($path = null) {
-        $path = $path ?: $this->getRequest()->getCategoryPath();
+        $path = $path ?: $this->getRequest()->getCategoryPathArray();
         if (null == $path) {
             return $this;
         }
