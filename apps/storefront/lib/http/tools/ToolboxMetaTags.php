@@ -206,6 +206,9 @@ class ToolboxMetaTags extends ToolboxTool {
     protected function initMetaTags() {
         $this->loadTopCategories();
         $this->loadCrumbtrail();
+        if (null == $this->crumbtrail_) {
+            $this->crumbtrail_ = $this->getToolbox()->crumbtrail;
+        }
         $this->loadProduct();
         $this->loadCategory();
     }
@@ -233,15 +236,6 @@ class ToolboxMetaTags extends ToolboxTool {
      * Load category crumbtrail.
      */
     protected function loadCrumbtrail() {
-        if (null != $this->crumbtrail_)
-            return;
-
-        $this->crumbtrail_ = $this->getToolbox()->crumbtrail;
-        // it's the controllers responsibility to set up the crumbtrail..
-        return;
-        $this->crumbtrail_->addCategoryPath($this->getRequest()->getCategoryPathArray());
-        $this->crumbtrail_->addManufacturer($this->getRequest()->query->getInt('manufacturers_id'));
-        $this->crumbtrail_->addProduct($this->getRequest()->getProductId());
     }
 
 
