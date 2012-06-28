@@ -128,10 +128,11 @@ class ToolboxCrumbtrail extends ToolboxTool {
      * @param array path The category path to add as a list of category ids.
      * @return ToolboxCrumbtrail <code>$this</code> for chaining.
      */
-    public function addCategoryPath($path) {
-        if (null == $path)
+    public function addCategoryPath($path = null) {
+        $path = $path ?: $this->getRequest()->getCategoryPath();
+        if (null == $path) {
             return $this;
-
+        }
         // categories
         foreach ($path as $catId) {
             $category = $this->container->get('categoryService')->getCategoryForId($catId, $this->getRequest()->getSession()->getLanguageId());
@@ -149,10 +150,11 @@ class ToolboxCrumbtrail extends ToolboxTool {
      * @param int manufacturerId The manufacturer's id.
      * @return ToolboxCrumbtrail <code>$this</code> for chaining.
      */
-    public function addManufacturer($manufacturerId) {
-        if (null == $manufacturerId)
+    public function addManufacturer($manufacturerId = null) {
+        $manufacturerId = $manufacturerId ?: $this->getRequest()->query->getInt('manufacturers_id');
+        if (null == $manufacturerId) {
             return $this;
-
+        }
         $manufacturer = $this->container->get('manufacturerService')->getManufacturerForId($manufacturerId, $this->getRequest()->getSession()->getLanguageId());
         if (null != $manufacturer) {
             $this->addCrumb($manufacturer->getName(), $this->getRequest()->url('category', 'manufacturers_id=' . $manufacturerId));
@@ -166,10 +168,11 @@ class ToolboxCrumbtrail extends ToolboxTool {
      * @param int productId The product id of the product to add.
      * @return ToolboxCrumbtrail <code>$this</code> for chaining.
      */
-    public function addProduct($productId) {
-        if (null == $productId)
+    public function addProduct($productId = null) {
+        $productId = $productId ?: $this->getRequest()->getProductId();
+        if (null == $productId) {
             return $this;
-
+        }
         $product = $this->container->get('productService')->getProductForId($productId, $this->getRequest()->getSession()->getLanguageId());
         if (null != $product) {
             $this->addCrumb($product->getName(), $this->getToolbox()->net->product($productId, null));

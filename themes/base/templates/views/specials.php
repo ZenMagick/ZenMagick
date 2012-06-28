@@ -19,7 +19,7 @@
  */
 ?>
 
-<?php $crumbtrail->addCategoryPath($request->getCategoryPathArray())->addManufacturer($request->query->getInt('manufacturers_id'))->addCrumb(_zm('Specials')) ?>
+<?php $crumbtrail->addCategoryPath()->addManufacturer()->addCrumb(_zm('Specials')) ?>
 <?php if ($resultList->hasResults()) { ?>
     <div class="rnblk">
         <?php echo $this->fetch('views/resultlist/nav.php') ?>

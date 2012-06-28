@@ -19,7 +19,7 @@
  */
 ?>
 
-<?php $crumbtrail->addCategoryPath($request->getCategoryPathArray())->addManufacturer($request->query->getInt('manufacturers_id'))->addProduct($currentProduct->getId())->addCrumb(_zm('Tell A Friend')) ?>
+<?php $crumbtrail->addCategoryPath()->addManufacturer()->addProduct($currentProduct->getId())->addCrumb(_zm('Tell A Friend')) ?>
 <?php echo $form->open('tell_a_friend', 'products_id=' . $request->getProductId(), true, array('id'=>'tellAFriend')) ?>
    <fieldset>
         <legend><?php _vzm("Tell a friend about '%s'", $currentProduct->getName()); ?></legend>
