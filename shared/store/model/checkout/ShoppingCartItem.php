@@ -87,7 +87,7 @@ class ShoppingCartItem extends ZMObject {
         }
 
         // values of text/upload attributes
-        $textValues = $attributeData['attributes_values'];
+        $textValues = array_key_exists('attributes_values', $attributeData) ? $attributeData['attributes_values'] : array();
 
         // now get all attributes and strip the not selected stuff
         $product = $this->getProduct();
