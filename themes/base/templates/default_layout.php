@@ -30,9 +30,9 @@
     <?php if ($this->exists("resource:css/theme.css")) { ?>
         <?php $resourceManager->cssFile('css/theme.css') ?>
     <?php } ?>
-    <?php $pageCSS = "resource:css/".$request->getRequestId().".css"; ?>
+    <?php $pageCSS = "css/".$request->getRequestId().".css"; ?>
     <?php /* page specific CSS */ ?>
-    <?php if ($this->exists($pageCSS)) { ?>
+    <?php if ($this->exists('resource:'.$pageCSS)) { ?>
         <?php $resourceManager->cssFile($pageCSS) ?>
     <?php } ?>
     <?php if (!$templateManager->isLeftColEnabled() || !$templateManager->isRightColEnabled()) { ?>

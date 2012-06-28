@@ -23,14 +23,14 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
   <head>
     <?php echo $this->fetch('head.php'); ?>
-    <?php $resourceManager->cssFile('popup.css') ?>
+    <?php $resourceManager->cssFile('css/popup.css') ?>
     <?php /* give other themes the chance to add to the default CSS without having to copy everything */ ?>
     <?php if ($this->exists("theme.css")) { ?>
-        <?php $resourceManager->cssFile('theme.css') ?>
+        <?php $resourceManager->cssFile('css/theme.css') ?>
     <?php } ?>
     <?php $pageCSS = "css/".$request->getRequestId().".css"; ?>
     <?php /* page specific CSS */ ?>
-    <?php if ($this->exists($pageCSS)) { ?>
+    <?php if ($this->exists('resource:'.$pageCSS)) { ?>
         <?php $resourceManager->cssFile($pageCSS) ?>
     <?php } ?>
   </head>

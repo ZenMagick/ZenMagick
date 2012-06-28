@@ -22,7 +22,7 @@
 ?>
 <?php if (isset($cssCategories) && class_exists('CategoriesUlGenerator')) {
     $categoriesULGenerator = new CategoriesUlGenerator($request);
-    $resources->cssFile('categories_css.css');
+    $resources->cssFile('css/categories_css.css');
     ?>
     <ul class="bullet-menu" id="siteMenu">
         <?php echo preg_replace('%^\s*<ul>(.+)</ul>\s*$%sim', '\1', $categoriesULGenerator->buildTree(true)); ?>
@@ -42,7 +42,7 @@
         <?php } ?>
     </ul>
 
-    <?php $resources->jsFile('categories_css.js', $resources::NOW); ?>
+    <?php $resources->jsFile('js/categories_css.js', $resources::NOW); ?>
     <script type="text/javascript">
       // Preload menu images when page loads (won't affect IE, which never caches CSS images)
       var mp = '<?php echo $this->asUrl('images/menu/').'/' ?>';

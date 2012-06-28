@@ -20,8 +20,8 @@
  */
 ?>
 
-<?php $resourceManager->jsFile('jquery.js', $resourceManager::FOOTER) ?>
-<?php $resourceManager->jsFile('interface.js', $resourceManager::FOOTER) ?>
+<?php $resourceManager->jsFile('js/jquery.js', $resourceManager::FOOTER) ?>
+<?php $resourceManager->jsFile('js/interface.js', $resourceManager::FOOTER) ?>
 
 <script type="text/javascript">
     // callback used by drop handler to update cart contents

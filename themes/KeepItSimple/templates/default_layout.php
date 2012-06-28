@@ -7,7 +7,7 @@
     <?php $resourceManager->cssFile('css/theme.css', array('media' => 'screen')) ?>
     <?php $pageCSS = "resource:css/".$request->getRequestId().".css"; ?>
     <?php /* page specific CSS */ ?>
-    <?php if ($this->exists($pageCSS)) { ?>
+    <?php if ($this->exists('resource:'.$pageCSS)) { ?>
         <?php $resourceManager->cssFile($pageCSS, array('media' => 'screen')) ?>
     <?php } ?>
   </head>

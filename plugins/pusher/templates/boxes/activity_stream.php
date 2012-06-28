@@ -24,5 +24,9 @@
 
 <h3><?php _vzm("Recent Activities") ?></h3>
 <div id="sb_pusher_activities" class="box">
-  <ul id="site_activity_stream" class="activity-stream"></ul>
+  <ul id="site_activity_stream" class="activity-stream">
+    <?php foreach ($eventQueueHistory as $event) { ?>
+      <li class="<?php echo $event['type'] ?>"><?php echo $event['data'] ?></li>
+    <?php } ?>
+  </ul>
 </div>

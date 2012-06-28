@@ -24,15 +24,15 @@
     <?php echo $this->fetch('head.php'); ?>
     <?php $resourceManager->cssFile($request->getContext().'/zenmagick/themes/base/public/css/site.css') ?>
     <?php $resourceManager->cssFile('css/ie.css', array('prefix' => '<!--[if IE]>', 'suffix' => '<![endif]-->')) ?>
-    <?php $resourceManager->jsFile('resource:js/common.js', $resourceManager::FOOTER) ?>
+    <?php $resourceManager->jsFile('js/common.js', $resourceManager::FOOTER) ?>
     <?php $resourceManager->jsFile('//ajax.googleapis.com/ajax/libs/jquery/1.6.1/jquery.min.js', $resourceManager::HEADER) ?>
     <?php /* give other themes the chance to add to the default CSS without having to copy everything */ ?>
     <?php if ($this->exists("resource:css/theme.css")) { ?>
         <?php $resourceManager->cssFile('css/theme.css') ?>
     <?php } ?>
-    <?php $pageCSS = "resource:css/".$request->getRequestId().".css"; ?>
+    <?php $pageCSS = "css/".$request->getRequestId().".css"; ?>
     <?php /* page specific CSS */ ?>
-    <?php if ($this->exists($pageCSS)) { ?>
+    <?php if ($this->exists('resource:'.$pageCSS)) { ?>
         <?php $resourceManager->cssFile($pageCSS) ?>
     <?php } ?>
     <?php if (!$templateManager->isLeftColEnabled() || !$templateManager->isRightColEnabled()) { ?>
