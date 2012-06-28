@@ -133,7 +133,7 @@ class ResourceResolver extends ZMObject {
             foreach ($this->container->getParameterBag()->get('kernel.bundles') as $bundleName => $bundleClass) {
                 $rclass = new ReflectionClass($bundleClass);
                 $bundlePath = dirname($rclass->getFilename());
-                $locations[] = $bundlePath.'/Resources';
+                $locations[] = $bundlePath.'/Resources/public';
             }
 
             // add plugins as fallback fallback
