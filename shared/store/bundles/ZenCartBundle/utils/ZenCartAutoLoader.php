@@ -33,6 +33,10 @@ class ZenCartAutoLoader extends ZMObject {
     private $globalKeys = array();
     private $originalErrorLevel;
 
+    public function __construct() {
+        $this->originalErrorLevel = error_reporting();
+    }
+
     /**
      * Commonly used ZenCart request related globals.
      *
@@ -257,9 +261,6 @@ class ZenCartAutoLoader extends ZMObject {
      * This is equivalent to STRICT_ERROR_REPORTING
      */
     public function setErrorLevel() {
-        if (null != $this->originalErrorLevel) {
-            $this->originalErrorLevel = error_reporting();
-        }
         if (!Runtime::getSettings()->get('apps.store.zencart.strictErrorReporting', false)) {
             error_reporting(version_compare(PHP_VERSION, 5.4, '>=') ? E_ALL ^ E_DEPRECATED ^ E_NOTICE ^ E_STRICT : E_ALL ^ E_DEPRECATED ^ E_NOTICE);
         }
