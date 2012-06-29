@@ -230,7 +230,7 @@ class ZenCartCheckoutOrder extends ZMObject {
         // TODO: where from/to??
         $languageId = $this->container->get('settingsService')->get('storeDefaultLanguageId');
         // TODO: move all cart/session values into ShoppingCart
-        $currencyCode = $this->container->get('session')->getCurrencyCode();
+        $currencyCode = $this->container->get('session')->getValue('currency');
         $couponAmount = 0;
         $couponCode = null;
         if (null != ($couponCodeId = $this->container->get('session')->getValue('cc_id'))) {

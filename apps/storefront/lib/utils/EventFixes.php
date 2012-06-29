@@ -371,14 +371,14 @@ class EventFixes extends ZMObject {
         if (null != ($currencyCode = $request->query->get('currency'))) {
             // @todo error on bad request currency?
             if (null != $this->container->get('currencyService')->getCurrencyForCode($currencyCode)) {
-                $session->setCurrencyCode($currencyCode);
+                $session->setValue('currency', $currencyCode);
             }
             // @todo better way to do this? perhaps we'd be better off setting a redirect_url form key or always set SetLastUrl?
             $request->query->remove('currency');
             $request->redirect($request->url());
         }
-        if (null == $session->getCurrencyCode()) {
-            $session->setCurrencyCode($settingsService->get('defaultCurrency'));
+        if (null == $session->getValue('currency')) {
+            $session->setValue('currency', $settingsService->get('defaultCurrency'));
         }
 
         // ** language **
