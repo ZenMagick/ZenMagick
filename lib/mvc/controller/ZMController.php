@@ -394,24 +394,14 @@ class ZMController extends ZMObject {
     }
 
     /**
-     * Get the user account.
+     * Get the user (if any) for authentication.
      *
-     * @todo stop custom hack for storefront when users no longer rely on session
+     * <p>Creation of the user object is delegated to the configured <code>zenmagick\http\session\UserFactory</code> instance.
+     * The factory may be configured as bean defintion via the setting 'zenmagick.http.session.userFactory'.</p>
+     *
+     * @return mixed A user/credentials object. Default is <code>null</code>.
      */
     public function getUser() {
-        if (Runtime::isContextMatch('storefront')) {
-            $accountId = $this->container->get('session')->getAccountId();
-            if (!$accountId) return null;
-            return $this->container->get('accountService')->getAccountForId($accountId);
-        }
-        /**
-         * Get the user (if any) for authentication.
-         *
-         * <p>Creation of the user object is delegated to the configured <code>zenmagick\http\session\UserFactory</code> instance.
-         * The factory may be configured as bean defintion via the setting 'zenmagick.http.session.userFactory'.</p>
-         *
-         * @return mixed A user/credentials object. Default is <code>null</code>.
-         */
         if ($this->container->has('userFactory') && null != ($userFactory = $this->container->get('userFactory'))) {
             return $userFactory->getUser($this->container->get('request'));
         }

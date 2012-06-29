@@ -66,5 +66,6 @@
 
         <service id="defaultController" class="zenmagick\apps\store\storefront\controller\DefaultController" scope="prototype" />
 
+        <service id="userFactory" class="zenmagick\apps\store\storefront\services\CustomerUserFactory" scope="container" />
     </services>
 </container>

@@ -98,20 +98,11 @@ class Request extends \ZMRequest {
      *
      * @return int The account id for the currently logged in user or <code>0</code>.
      */
-    public function getAccountId() { return (int)$this->getSession()->getAccountId(); }
-
-    /**
-     * Get the account.
-     *
-     * @return ZMAccount The account or <code>null</code>.
-     */
-    public function getAccount() {
-        $accountId = $this->getAccountId();
-        if (0 == $accountId) {
-            return null;
+    public function getAccountId() {
+        if (null !== ($account = $this->getAccount())) {
+            return $account->getId();
         }
-
-        return $this->container->get('accountService')->getAccountForId($accountId);
+        return 0;
     }
 
     /**
