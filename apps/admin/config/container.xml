@@ -10,7 +10,6 @@
     </parameters>
 
     <services>
-        <service id="request" class="zenmagick\apps\store\admin\http\Request" scope="container" />
 
         <service id="sessionHandler" class="zenmagick\apps\store\session\StoreSessionHandler" scope="container">
             <call method="setExpiryTime">

@@ -107,8 +107,13 @@ class AdminEventHandler extends ZMObject {
     public function onContainerReady($event) {
         $request = $event->get('request');
 
+        // @todo languages setting not really supposed to be here
+        $session = $request->getSession();
         if ($request->query->has('languageId')) {
-            $request->getSession()->setValue('languages_id', $request->query->get('languageId'));
+            $session->setValue('languages_id', $request->query->get('languageId'));
+        }
+        if (null == $session->getValue('languages_id')) {
+            $session->setValue('languages_id', Runtime::getSettings()->get('storeDefaultLanguageId'));
         }
 
         // need db for this, so only do now
