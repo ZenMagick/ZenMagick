@@ -152,18 +152,6 @@ class Session extends \zenmagick\http\session\Session {
     }
 
     /**
-     * Get the client ip address.
-     *
-     * @return string The client IP address or <code>null</code>.
-     */
-    public function getClientHostname() {
-        if (Runtime::getSettings()->get('isResolveClientIP', false)) {
-            $this->setValue('customers_host_address', gethostbyaddr($_SERVER['REMOTE_ADDR']));
-        }
-        return $this->getValue('customers_host_address');
-    }
-
-    /**
      * Set the language.
      *
      * @param Language language The language.
