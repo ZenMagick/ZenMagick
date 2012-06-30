@@ -32,42 +32,6 @@ class ZMFileUtils {
     private static $fileGroup_ = null;
 
     /**
-     * Unzip a file into the given directory.
-     *
-     * @param string filename The zip filename.
-     * @param string target The target directory.
-     * @return boolean <code>true</code> on success.
-     */
-    public static function unzip($filename, $target) {
-        if (!function_exists('zip_open')) {
-            return false;
-        }
-        if (DIRECTORY_SEPARATOR != substr($target, -1)) {
-            $target .= DIRECTORY_SEPARATOR;
-        }
-
-        if ($zhandle = zip_open($filename)) {
-            while ($zentry = zip_read($zhandle)) {
-                if (zip_entry_open($zhandle, $zentry, 'r')) {
-                    $entryFilename = $target.zip_entry_name($zentry);
-                    // ensure folder exists, otherwise things get dropped silently
-                    self::mkDir(dirname($entryFilename));
-                    $buffer = zip_entry_read($zentry, zip_entry_filesize($zentry));
-                    zip_entry_close($zentry);
-                    $fp = fopen($entryFilename, 'wb');
-                    fwrite($fp, "$buffer");
-                    fclose($fp);
-                    self::setFilePerms($entryFilename);
-                } else {
-                    return false;
-                }
-            }
-            zip_close($zhandle);
-            return true;
-        }
-    }
-
-    /**
      * Apply user/group settings to file(s) that should allow ftp users to modify/delete them.
      *
      * <p>The file group attribute is only going to be changed if the <code>$perms</code> parameter is not empty.</p>
@@ -133,22 +97,6 @@ class ZMFileUtils {
     }
 
     /**
-     * Load the given file line by line.
-     *
-     * @param string file The filename.
-     * @return array File contents as lines or <code>null</code>.
-     */
-    public static function getFileLines($file) {
-        $lines = array();
-
-        if (file_exists($file)) {
-            $lines = file($file, FILE_IGNORE_NEW_LINES);
-        }
-
-        return $lines;
-    }
-
-    /**
      * Write the given lines to file.
      *
      * @param string file The filename.
@@ -172,56 +120,6 @@ class ZMFileUtils {
         }
 
         return false;
-    }
-
-    /**
-     * Parse a single CSV line.
-     *
-     * <p>As found at: http://uk3.php.net/manual/en/function.fgetcsv.php#62524</p>
-     *
-     * @param string str The csv string.
-     * @return array A token list.
-     */
-    public static function csvString2Array($str) {
-        $results = preg_split("/,(?=(?:[^\"]*\"[^\"]*\")*(?![^\"]*\"))/", trim($str));
-        return preg_replace("/^\"(.*)\"$/", "$1", $results);
-    }
-
-    /**
-     * Load CSV file.
-     *
-     * <p>If the <code>$keys</code> parameter is not set, the first line will be assumed to contain the column names.</p>
-     *
-     * @param string filename The filename.
-     * @param array keys Optional list of keys; default is <code>null</code> to parse keys from the first line.
-     * @return array List of row data with each element being an assoc. array/map.
-     */
-    public static function loadCSV($filename, $keys=null) {
-        $csvLines = file($filename);
-        $keyOffset = 0;
-        if (null === $keys) {
-            $keys = self::csvString2Array($csvLines[0]);
-            $keyOffset = 1;
-        }
-
-        // some totals
-        $keyCount = count($keys);
-        $rowCount = count($csvLines) - $keyOffset;
-        $rows = array();
-        for ($ii=$keyOffset; $ii < ($rowCount+$keyOffset); ++$ii) {
-            $line = self::csvString2Array($csvLines[$ii]);
-            if (count($line) != $keyCount) {
-                Runtime::getLogging()->warn( 'invalid line count; skipping line'.$ii . '; expected='.$keyCount.', actual='.count($line));
-                continue;
-            }
-            $row = array();
-            for ($jj=0; $jj < $keyCount; ++$jj) {
-                $row[$keys[$jj]] = $line[$jj];
-            }
-            $rows[] = $row;
-        }
-
-        return $rows;
     }
 
     /**
