@@ -149,8 +149,9 @@ class DefaultUrlRewriter extends ZMObject implements UrlRewriter {
         $url = $this->pathBase_.$requestId;
         parse_str($params, $parr);
 
+        $netTool = $request->getToolbox()->net;
         foreach ($parr as $key => $value) {
-            $url .= '/'.\ZMNetUtils::encode($key).'/'.\ZMNetUtils::encode($value);
+            $url .= '/'.$netTool->encode($key).'/'.$netTool->encode($value);
         }
 
         return $request->absoluteUrl($url, false, $secure);

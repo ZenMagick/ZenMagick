@@ -32,12 +32,13 @@ class TestZMNetUtils extends TestCase {
      * Test global.
      */
     public function testGetDomain() {
-        $this->assertEqual('google.com', ZMNetUtils::getDomain('http://www.google.com/test.html'));
-        $this->assertEqual('google.co.uk', ZMNetUtils::getDomain('https://news.google.co.uk/?id=12345'));
-        $this->assertEqual('google.com', ZMNetUtils::getDomain('http://my.subdomain.google.com/directory1/page.php?id=abc'));
-        $this->assertEqual('google.co.uk', ZMNetUtils::getDomain('https://testing.multiple.subdomain.google.co.uk/'));
-        $this->assertEqual('nothingelsethan.com', ZMNetUtils::getDomain('http://nothingelsethan.com'));
-        $this->assertEqual('localhost', ZMNetUtils::getDomain('http://localhost/zenmagick/index.php'));
+        $netTool = $this->container->get('netTool');
+        $this->assertEqual('google.com', $netTool->getDomain('http://www.google.com/test.html'));
+        $this->assertEqual('google.co.uk', $netTool->getDomain('https://news.google.co.uk/?id=12345'));
+        $this->assertEqual('google.com', $netTool->getDomain('http://my.subdomain.google.com/directory1/page.php?id=abc'));
+        $this->assertEqual('google.co.uk', $netTool->getDomain('https://testing.multiple.subdomain.google.co.uk/'));
+        $this->assertEqual('nothingelsethan.com', $netTool->getDomain('http://nothingelsethan.com'));
+        $this->assertEqual('localhost', $netTool->getDomain('http://localhost/zenmagick/index.php'));
     }
 
 }

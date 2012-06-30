@@ -149,7 +149,7 @@ class StoreDefaultUrlRewriter extends ZMObject implements UrlRewriter {
         while (false !== strpos($path, '//')) $path = str_replace('//', '/', $path);
         $query = (1 < strlen($query)) ? $query : '';
 
-        return \ZMNetUtils::encode($server.$path.$query);
+        return $request->getToolbox()->net->encode($server.$path.$query);
     }
 
 }

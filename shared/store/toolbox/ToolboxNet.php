@@ -50,8 +50,10 @@ class ToolboxNet extends ToolboxTool {
      * @param string url The url to encode.
      * @return string The URL encoded in valid HTM.
      */
-    public static function encode($url) {
-        return \ZMNetUtils::encode($url);
+    public function encode($url) {
+        $url = htmlentities($url, ENT_QUOTES, Runtime::getSettings()->get('zenmagick.http.html.charset'));
+        $url = str_replace(' ', '%20', $url);
+        return $url;
     }
 
     /**
@@ -60,8 +62,10 @@ class ToolboxNet extends ToolboxTool {
      * @param string url The url to decode.
      * @return string The decoded URL.
      */
-    public static function decode($url) {
-        return \ZMNetUtils::decode($url);
+    public function decode($url) {
+        $s = html_entity_decode($url, ENT_QUOTES, Runtime::getSettings()->get('zenmagick.http.html.charset'));
+        $s = str_replace('%20', ' ', $s);
+        return $s;
     }
 
     /**
@@ -249,5 +253,23 @@ class ToolboxNet extends ToolboxTool {
 
         return $url;
     }
+
+    /**
+     * Get the top level domain from a given url.
+     *
+     * @param string url The url
+     * @return string The top level domain.
+     * @see http://stackoverflow.com/questions/399250/going-where-php-parse-url-doesnt-parsing-only-the-domain
+     */
+    public function getDomain($url) {
+        $pieces = parse_url($url);
+        $domain = isset($pieces['host']) ? $pieces['host'] : '';
+        if (preg_match('/(?P<domain>[a-z0-9][a-z0-9\-]{1,63}\.[a-z\.]{2,6})$/i', $domain, $regs)) {
+            return $regs['domain'];
+        }
+
+        return $domain;
+    }
+
 
 }
