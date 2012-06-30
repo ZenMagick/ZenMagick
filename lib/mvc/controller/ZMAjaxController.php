@@ -91,28 +91,6 @@ class ZMAjaxController extends ZMController {
     }
 
     /**
-     * Flattens any given object.
-     *
-     * <p>Criteria for the included data is the ZenMagick naming convention that access methods start with
-     * either <code>get</code>, <code>is</code> or <code>has</code>.</p>
-     *
-     * <p>If the given object is an array, all elements will be converted, too. Generally speaking, this method works
-     * recursively. Arrays are preserved, array values, in turn, will be flattened.</p>
-     *
-     * <p>The methods array may contain nested arrays to allow recursiv method mapping. The Ajax product controller is
-     * a good example for this.</p>
-     *
-     * @param mixed obj The object.
-     * @param array methods Optional list of methods to include as properties.
-     * @param function formatter Optional formatting method for all values; signature is <code>formatter($obj, $name, $value)</code>.
-     * @return array Associative array of methods values.
-     * @deprecated Use ZMAjaxUtils::flattenObject instead.
-     */
-    public function flattenObject($obj, $properties=null, $formatter=null) {
-        return ZMAjaxUtils::flattenObject($obj, $properties, $formatter);
-    }
-
-    /**
      * Serialize object to JSON.
      *
      * @param mixed obj The object to serialize; can also be an array of objects.

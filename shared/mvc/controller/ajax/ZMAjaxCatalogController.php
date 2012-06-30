@@ -61,7 +61,8 @@ class ZMAjaxCatalogController extends ZMAjaxController {
         $productId = $request->getProductId();
         $languageId = $request->getParameter('languageId', $request->getSession()->getLanguageId());
 
-        $flatObj = ZMAjaxUtils::flattenObject($this->container->get('productService')->getProductForId($productId, $languageId), $this->get('ajaxProductMap'));
+        $utilsTool = $this->container->get('utilsTool');
+        $flatObj = $utilsTool->flattenObject($this->container->get('productService')->getProductForId($productId, $languageId), $this->get('ajaxProductMap'));
         $json = $this->toJSON($flatObj);
         $this->setJSONHeader($json);
     }
@@ -87,9 +88,10 @@ class ZMAjaxCatalogController extends ZMAjaxController {
             $activeOnly = $request->getParameter('active', true);
         }
 
+        $utilsTool = $this->container->get('utilsTool');
         if (null === ($page = $request->getParameter('page'))) {
             // return all
-            $flatObj = ZMAjaxUtils::flattenObject($this->container->get('productService')->getProductsForCategoryId($categoryId, $activeOnly, $languageId), $this->get('ajaxProductMap'));
+            $flatObj = $utilsTool->flattenObject($this->container->get('productService')->getProductsForCategoryId($categoryId, $activeOnly, $languageId), $this->get('ajaxProductMap'));
         } else {
             // use result list to paginate
             $args = array($categoryId, $activeOnly, $languageId);
@@ -100,7 +102,7 @@ class ZMAjaxCatalogController extends ZMAjaxController {
             if (null !== ($pagination = $request->getParameter('pagination'))) {
                 $resultList->setPagination($pagination);
             }
-            $flatObj = ZMAjaxUtils::flattenObject($resultList, $this->get('ajaxResultListMap'));
+            $flatObj = $utilsTool->flattenObject($resultList, $this->get('ajaxResultListMap'));
         }
 
         $json = $this->toJSON($flatObj);
@@ -128,9 +130,10 @@ class ZMAjaxCatalogController extends ZMAjaxController {
             $activeOnly = $request->getParameter('active', true);
         }
 
+        $utilsTool = $this->container->get('utilsTool');
         if (null === ($page = $request->getParameter('page'))) {
             // return all
-            $flatObj = ZMAjaxUtils::flattenObject($this->container->get('productService')->getProductsForManufacturerId($manufacturerId, $activeOnly, $languageId), $this->get('ajaxProductMap'));
+            $flatObj = $utilsTool->flattenObject($this->container->get('productService')->getProductsForManufacturerId($manufacturerId, $activeOnly, $languageId), $this->get('ajaxProductMap'));
         } else {
             // use result list to paginate
             $args = array($manufacturerId, $activeOnly, $languageId);
@@ -141,7 +144,7 @@ class ZMAjaxCatalogController extends ZMAjaxController {
             if (null !== ($pagination = $request->getParameter('pagination'))) {
                 $resultList->setPagination($pagination);
             }
-            $flatObj = ZMAjaxUtils::flattenObject($resultList, $this->get('ajaxResultListMap'));
+            $flatObj = $utilsTool->flattenObject($resultList, $this->get('ajaxResultListMap'));
         }
 
         $json = $this->toJSON($flatObj);

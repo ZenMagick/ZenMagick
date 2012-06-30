@@ -43,7 +43,8 @@ class ZMAjaxCountryController extends ZMAjaxController {
      * @param ZMRequest request The current request.
      */
     public function getCountryListJSON($request) {
-        $flatObj = ZMAjaxUtils::flattenObject($this->container->get('countryService')->getCountries(), $this->get('ajaxCountryMap'));
+        $utilsTool = $this->container->get('utilsTool');
+        $flatObj = $utilsTool->flattenObject($this->container->get('countryService')->getCountries(), $this->get('ajaxCountryMap'));
         $json = $this->toJSON($flatObj);
         $this->setJSONHeader($json);
     }
@@ -60,8 +61,8 @@ class ZMAjaxCountryController extends ZMAjaxController {
      */
     public function getZonesForCountryIdJSON($request) {
         $countryId = $request->getParameter('countryId', null);
-
-        $flatObj = ZMAjaxUtils::flattenObject($this->container->get('countryService')->getZonesForCountryId($countryId), $this->get('ajaxZoneMap'));
+        $utilsTool = $this->container->get('utilsTool');
+        $flatObj = $utilsTool->flattenObject($this->container->get('countryService')->getZonesForCountryId($countryId), $this->get('ajaxZoneMap'));
         $json = $this->toJSON($flatObj);
         $this->setJSONHeader($json);
     }
