@@ -45,9 +45,5 @@ class EventListener extends ThemeEventListener {
                 $templateManager->setRightColBoxes(array('information.php'));
             }
         }
-
-        Runtime::getSettings()->set('isUseCategoryPage', false);
-        Runtime::getSettings()->set('resultListProductFilter', '');
-        Runtime::getSettings()->set('zenmagick.mvc.resultlist.defaultPagination', 6);
     }
 }

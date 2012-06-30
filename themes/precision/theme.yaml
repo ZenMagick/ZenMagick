@@ -3,3 +3,8 @@ meta:
   version: '${zenmagick.version}'
   author: 'zenmagick.org'
   description: 'Precision a theme based on the precision template found at freecsstemplates.org'
+
+storefront:
+  settings:
+    isUseCategoryPage: false
+    resultListProductFilter: ''

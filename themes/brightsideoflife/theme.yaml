@@ -3,3 +3,8 @@ meta:
   version: '${zenmagick.version}'
   author: 'zenmagick.org'
   description: 'Bright Side of Life; A ZenMagick theme based on work by ealigam (as found at opendesigns.org)'
+
+storefront:
+  settings:
+    isUseCategoryPage: false
+    resultListProductFilter: ''

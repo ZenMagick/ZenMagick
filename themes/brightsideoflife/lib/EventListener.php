@@ -38,7 +38,5 @@ class EventListener extends ThemeEventListener {
         $templateManager->setLeftColBoxes(array('categories.php', 'information.php'));
         $templateManager->setRightColBoxes(array('search.php', 'manufacturers.php', 'banner_box.php'));
 
-        Runtime::getSettings()->set('isUseCategoryPage', false);
-        Runtime::getSettings()->set('resultListProductFilter', '');
     }
 }

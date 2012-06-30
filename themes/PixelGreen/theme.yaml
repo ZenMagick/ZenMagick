@@ -3,3 +3,8 @@ meta:
   version: '${zenmagick.version}'
   author: 'zenmagick.org'
   description: 'Pixel Green; based on work by ealigam as found at styleshout.com'
+
+storefront:
+  settings:
+    isUseCategoryPage: false
+    resultListProductFilter: ''

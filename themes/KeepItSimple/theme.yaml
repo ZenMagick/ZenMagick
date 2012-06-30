@@ -3,3 +3,9 @@ meta:
   version: '${zenmagick.version}'
   author: 'zenmagick.org'
   description: 'Keep It Simple; based on the KeepItSimple template at styleshout.com'
+
+storefront:
+  settings:
+    isUseCategoryPage: false
+    resultListProductFilter: ''
+    zenmagick.mvc.resultlist.defaultPagination: 5
