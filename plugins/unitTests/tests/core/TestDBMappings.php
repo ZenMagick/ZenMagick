@@ -46,7 +46,7 @@ class TestDBMappings extends TestCase {
         foreach ($tables as $table) {
             $tableFields = $mapper->getMapping($table);
             foreach (array_keys($tableFields) as $property) {
-                if (!ZMLangUtils::inArray($property, $excludes)) {
+                if (in_array($property, $excludes)) {
                     $this->assertFalse(array_key_exists($property, $allFields), '%s duplicate property: '.$property.' in table: '.$table);
                     $allFields[$property] = $property;
                 }

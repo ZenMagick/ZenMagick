@@ -49,7 +49,7 @@ class ZMPrettyLinksUrlRewriter implements UrlRewriter {
         $useContext = isset($args['useContext']) ? $args['useContext'] : true;
 
         $settingsService = Runtime::getContainer()->get('settingsService');
-        if (null != $settingsService->get('plugins.prettyLinks.seoEnabled') && !ZMLangUtils::inArray($requestId, $settingsService->get('plugins.prettyLinks.seoEnabled'))) {
+        if (null != $settingsService->get('plugins.prettyLinks.seoEnabled') && !in_array($requestId, $settingsService->get('plugins.prettyLinks.seoEnabled'))) {
             // not doing anything
             return null;
         }

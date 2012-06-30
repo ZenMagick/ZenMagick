@@ -68,7 +68,7 @@ A simple way of doing this would be to modify the checkout_payments.php template
       $single = 1 == count($paymentTypes);
       foreach ($paymentTypes as $type) {
         // check against list of allowed subscription payment types
-        $isSubscriptionPaytype = ZMLangUtils::inArray($type->getId(), 'cc');
+        $isSubscriptionPaytype = in_array($type->getId(), 'cc');
         if ((null != $schedule && !$isSubscriptionPaytype) || (null == $schedule && $isSubscriptionPaytype)) {
             continue;
         }

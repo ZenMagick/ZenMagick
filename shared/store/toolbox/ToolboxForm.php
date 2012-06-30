@@ -99,7 +99,7 @@ class ToolboxForm extends ToolboxTool {
         }
 
         // add session token if configured
-        if ($hasId && 'post' == strtolower($attr['method']) && \ZMLangUtils::inArray($attr['id'], $settingsService->get('zenmagick.http.session.formToken'))) {
+        if ($hasId && 'post' == strtolower($attr['method']) && in_array($attr['id'], $settingsService->get('zenmagick.http.session.formToken'))) {
             $hidden[FormTokenSessionValidator::SESSION_TOKEN_NAME] = $this->getRequest()->getSession()->getToken();
         }
 
