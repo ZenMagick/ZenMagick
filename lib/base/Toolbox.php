@@ -258,4 +258,16 @@ class Toolbox {
         return empty($value);
     }
 
+    /**
+     * Check if the given string ends with the provided string.
+     *
+     * @param string s The haystack.
+     * @param string end The needle.
+     * @return boolean <code>true</code> if <code>$s</code> ends with <code>$start</code>,
+     *  <code>false</code> if not.
+     */
+    public static function endsWith($s, $end) {
+        $endLen = strlen($end);
+        return $end == substr($s, -$endLen);
+    }
 }
