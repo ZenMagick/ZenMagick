@@ -123,6 +123,18 @@ class PageStatsPlugin extends Plugin {
         return $value;
     }
 
+    private function getDatabaseInfo() {
+        $stats = array();
+        foreach (\ZMRuntime::getDatabases() as $database) {
+            $stats[] = array(
+                'params' => $database->getParams(),
+                'provider' => get_class($database),
+                'stats' => $database->getStats()
+            );
+        }
+        return $stats;
+    }
+
     /**
      * Generate hidden stats.
      *
@@ -139,10 +151,9 @@ class PageStatsPlugin extends Plugin {
         echo '  environment: '.$application->getEnvironment()."\n";
         echo '  total page execution: '.$application->getElapsedTime().' secconds;'."\n";
         echo '  databases: ';
-        foreach (\ZMRuntime::getDatabases() as $database) {
-            $config = $database->getParams();
-            $stats = $database->getStats();
-            echo $config['dbname'].'('.get_class($database).'): SQL queries: '.$stats['queries'].', duration: '.round($stats['time'], 4).' seconds; ';
+        foreach ($this->getDatabaseInfo() as $database) {
+            $stats = $database['stats'];
+            echo $database['params']['dbname'].'('.$database['provider'].'): SQL queries: '.$stats['queries'].', duration: '.round($stats['time'], 4).' seconds; ';
         }
         echo "\n";
 
@@ -167,15 +178,13 @@ class PageStatsPlugin extends Plugin {
             $limit = $this->get('sqlTimingLimit');
             echo '<!--'."\n";
             echo '  SQL timings: ';
-            foreach (\ZMRuntime::getDatabases() as $database) {
-                $config = $database->getParams();
-                $stats = $database->getStats();
-                $details = $stats['details'];
+            foreach ($this->getDatabaseInfo() as $database) {
+                $details = $database['stats']['details'];
                 usort($details, array($this, "compareStats"));
                 if (0 != $limit && count($details) > $limit) {
                     $details = array_slice($details, 0, $limit);
                 }
-                echo $config['dbname'].'('.get_class($database).'):'."\n";
+                echo $database['params']['dbname'].'('.$database['provider'].'):'."\n";
                 foreach ($details as $query) {
                     echo $query['time'].': '.$query['sql']."\n";
                 }
@@ -184,10 +193,8 @@ class PageStatsPlugin extends Plugin {
         }
 
         if (Toolbox::asBoolean($this->get('dumpQueries'))) {
-            foreach (\ZMRuntime::getDatabases() as $database) {
-                $stats = $database->getStats();
-                $details = $stats['details'];
-                foreach ($details as $query) {
+            foreach ($this->getDatabaseInfo() as $database) {
+                foreach ($database['stats']['details'] as $query) {
                     error_log("QUERYLOG: " . $query['start'] . " [" . $query['time'] . " secs] " . $query['sql']);
                 }
             }
@@ -228,10 +235,9 @@ class PageStatsPlugin extends Plugin {
         echo $sep.'total page execution: <strong>'.$application->getElapsedTime().'</strong> secconds;';
         echo '<br'.$slash.'>';
         echo '&nbsp;&nbsp;<strong>databases:</strong> ';
-        foreach (\ZMRuntime::getDatabases() as $database) {
-            $config = $database->getParams();
-            $stats = $database->getStats();
-            echo $config['dbname'].'('.get_class($database).'): SQL queries: <strong>'.$stats['queries'].'</strong>, duration: <strong>'.round($stats['time'], 4).'</strong> seconds;';
+        foreach ($this->getDatabaseInfo() as $database) {
+            $stats = $database['stats'];
+            echo $database['params']['dbname'].'('.$database['provider'].'): SQL queries: <strong>'.$stats['queries'].'</strong>, duration: <strong>'.round($stats['time'], 4).'</strong> seconds;';
         }
         echo '<br'.$slash.'>';
         echo $sep.'<strong>includes:</strong> '.count(get_included_files()).';';
@@ -281,14 +287,13 @@ class PageStatsPlugin extends Plugin {
             echo '<div id="sql-timings">';
             echo '<table border="1">';
             echo '<tr><th>Time (sec)</th><th>SQL</td></tr>';
-            foreach (\ZMRuntime::getDatabases() as $database) {
-                $stats = $database->getStats();
-                $details = $stats['details'];
+            foreach ($this->getDatabaseInfo() as $database) {
+                $details = $database['stats']['details'];
                 usort($details, array($this, "compareStats"));
                 if (0 != $limit && count($details) > $limit) {
                     $details = array_slice($details, 0, $limit);
                 }
-                echo '<tr><th colspan="2">'.$config['dbname'].'('.get_class($database).')</th></tr>'."\n";
+                echo '<tr><th colspan="2">'.$database['params']['dbname'].'('.$database['provider'].')</th></tr>'."\n";
                 foreach ($details as $query) {
                     echo '<tr><td>'.$query['time'].'</td><td>'.$query['sql']."</td></tr>";
                 }
