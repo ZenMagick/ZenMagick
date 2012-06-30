@@ -81,27 +81,4 @@ class ZMLangUtils {
         return $value == 'true' || $value == '1' || $value == 'on' || $value == 'yes';
         //return in_array(strtolower($value), array('on', 'true', 'yes', '1'));
     }
-
-    /**
-     * Create a unique key from all given parameters.
-     *
-     * @param var arg Arguments.
-     * @return string a unique key based on the arguments.
-     * @deprecated use Toolbox::hash instead
-     */
-    public static function mkUnique() {
-        $args = func_get_args();
-        $key = '';
-        foreach ($args as $arg) {
-            if (is_array($arg)) {
-                asort($arg);
-                foreach ($arg as $ar) {
-                    $key .= '@'.$ar;
-                }
-            } else {
-                $key .= ':'.$arg;
-            }
-        }
-        return md5($key);
-    }
 }

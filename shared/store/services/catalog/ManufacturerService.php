@@ -21,6 +21,7 @@
 namespace zenmagick\apps\store\services\catalog;
 
 use zenmagick\base\Runtime;
+use zenmagick\base\Toolbox;
 use zenmagick\base\ZMObject;
 
 /**
@@ -73,7 +74,7 @@ class ManufacturerService extends ZMObject {
                 WHERE m.manufacturers_id = :manufacturerId";
         $args = array('manufacturerId' => $id, 'languageId' => $languageId);
 
-        $cacheKey = \ZMLangUtils::mkUnique('manufacturer', $id, $languageId);
+        $cacheKey = Toolbox::hash('manufacturer', $id, $languageId);
         if (false === ($manufacturer = $this->cache_->lookup($cacheKey))) {
             $manufacturer = \ZMRuntime::getDatabase()->querySingle($sql, $args, array('manufacturers', 'manufacturers_info'), 'zenmagick\apps\store\model\catalog\Manufacturer');
             $this->cache_->save($manufacturer, $cacheKey);
@@ -96,7 +97,7 @@ class ManufacturerService extends ZMObject {
                 WHERE m.manufacturers_name LIKE :name";
         $args = array('name' => $name, 'languageId' => $languageId);
 
-        $cacheKey = \ZMLangUtils::mkUnique('manufacturer', $name, $languageId);
+        $cacheKey = Toolbox::hash('manufacturer', $name, $languageId);
         if (false === ($manufacturer = $this->cache_->lookup($cacheKey))) {
             $manufacturer = \ZMRuntime::getDatabase()->querySingle($sql, $args, array('manufacturers', 'manufacturers_info'), 'zenmagick\apps\store\model\catalog\Manufacturer');
             $this->cache_->save($manufacturer, $cacheKey);
@@ -152,7 +153,7 @@ class ManufacturerService extends ZMObject {
                 ORDER BY m.manufacturers_name";
         $args = array('languageId' => $languageId);
 
-        $cacheKey = \ZMLangUtils::mkUnique('manufacturer', $languageId);
+        $cacheKey = Toolbox::hash('manufacturer', $languageId);
         if (false === ($manufacturers = $this->cache_->lookup($cacheKey))) {
             $manufacturers = \ZMRuntime::getDatabase()->fetchAll($sql, $args, array('manufacturers', 'manufacturers_info'), 'zenmagick\apps\store\model\catalog\Manufacturer');
             $this->cache_->save($manufacturers, $cacheKey);
@@ -169,10 +170,10 @@ class ManufacturerService extends ZMObject {
      */
     public function updateManufacturerClickCount($id, $languageId) {
         // clear global cache
-        $cacheKey = \ZMLangUtils::mkUnique('manufacturer', $languageId);
+        $cacheKey = Toolbox::hash('manufacturer', $languageId);
         $this->cache_->remove($cacheKey);
         // remove from cache
-        $cacheKey = \ZMLangUtils::mkUnique('manufacturer', $id, $languageId);
+        $cacheKey = Toolbox::hash('manufacturer', $id, $languageId);
         $this->cache_->remove($cacheKey);
 
         $sql = "UPDATE %table.manufacturers_info%

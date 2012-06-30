@@ -20,6 +20,7 @@
  */
 
 use zenmagick\base\Runtime;
+use zenmagick\base\Toolbox;
 use zenmagick\base\ZMObject;
 
 /**
@@ -111,7 +112,7 @@ class ZMCategories extends ZMObject {
         }
 
         // first check cache
-        if (false !== ($rootCategories = $this->cache_->lookup(ZMLangUtils::mkUnique('categories', 'rootCategories', $rootCategoriesKey)))) {
+        if (false !== ($rootCategories = $this->cache_->lookup(Toolbox::hash('categories', 'rootCategories', $rootCategoriesKey)))) {
             $this->rootCategories_[$rootCategoriesKey] = $rootCategories;
             return $rootCategories;
         }
@@ -142,7 +143,7 @@ class ZMCategories extends ZMObject {
         }
 
         // save for later
-        $this->cache_->save($rootCategories, ZMLangUtils::mkUnique('categories', 'rootCategories', $rootCategoriesKey));
+        $this->cache_->save($rootCategories, Toolbox::hash('categories', 'rootCategories', $rootCategoriesKey));
         $this->rootCategories_[$rootCategoriesKey] = $rootCategories;
 
         return $rootCategories;
@@ -168,10 +169,10 @@ class ZMCategories extends ZMObject {
     public function getCategories($languageId, $ids=null) {
         if (array_key_exists($languageId, $this->categories_)) {
             $categories = $this->categories_[$languageId];
-        } else if (false === ($categories = $this->cache_->lookup(ZMLangUtils::mkUnique('categories', 'categories', $languageId)))) {
+        } else if (false === ($categories = $this->cache_->lookup(Toolbox::hash('categories', 'categories', $languageId)))) {
             $categories = $this->loadAndInitTree($languageId);
             // save for later
-            $this->cache_->save($categories, ZMLangUtils::mkUnique('categories', 'categories', $languageId));
+            $this->cache_->save($categories, Toolbox::hash('categories', 'categories', $languageId));
         }
         $this->categories_[$languageId] = $categories;
 
@@ -230,9 +231,9 @@ class ZMCategories extends ZMObject {
      * @param ZMCategory category Optional category to update in runtime cache; default is <code>null</code>.
      */
     protected function invalidateCache($languageId, $category=null) {
-        $this->cache_->remove(ZMLangUtils::mkUnique('categories', 'categories', $languageId));
-        $this->cache_->remove(ZMLangUtils::mkUnique('categories', 'rootCategories', $languageId));
-        $this->cache_->remove(ZMLangUtils::mkUnique('categories', 'productTypeIdMap'));
+        $this->cache_->remove(Toolbox::hash('categories', 'categories', $languageId));
+        $this->cache_->remove(Toolbox::hash('categories', 'rootCategories', $languageId));
+        $this->cache_->remove(Toolbox::hash('categories', 'productTypeIdMap'));
 
         if (null != $category && array_key_exists($languageId, $this->categories_)) {
             $this->categories_[$languageId][$category->getId()] = $category;
@@ -359,7 +360,7 @@ class ZMCategories extends ZMObject {
         }
 
         // first check cache
-        if (false !== ($productTypeIdMap = $this->cache_->lookup(ZMLangUtils::mkUnique('categories', 'productTypeIdMap')))) {
+        if (false !== ($productTypeIdMap = $this->cache_->lookup(Toolbox::hash('categories', 'productTypeIdMap')))) {
             $this->productTypeIdMap_ = $productTypeIdMap;
             return array_key_exists($categoryId, $this->productTypeIdMap_) ? $this->productTypeIdMap_[$categoryId] : array();
         }
@@ -375,7 +376,7 @@ class ZMCategories extends ZMObject {
         }
 
         // save for later
-        $this->cache_->save($productTypeIdMap, ZMLangUtils::mkUnique('categories', 'productTypeIdMap'));
+        $this->cache_->save($productTypeIdMap, Toolbox::hash('categories', 'productTypeIdMap'));
         $this->productTypeIdMap_ = $productTypeIdMap;
 
         return array_key_exists($categoryId, $productTypeIdMap) ? $productTypeIdMap[$categoryId] : array();

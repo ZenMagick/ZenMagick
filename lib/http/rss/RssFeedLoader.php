@@ -23,6 +23,7 @@ namespace zenmagick\http\rss;
 
 use ArrayIterator;
 use zenmagick\base\Runtime;
+use zenmagick\base\Toolbox;
 use zenmagick\base\ZMObject;
 
 /**
@@ -66,7 +67,7 @@ class RssFeedLoader extends ZMObject {
      * @return RssFedd A <code>RssFeed</code> instance.
      */
     public function getFeed($url, $category=null, $limit=5) {
-        $cacheKey = \ZMLangUtils::mkUnique('feeds', $url, implode(':', $this->config));
+        $cacheKey = Toolbox::hash('feeds', $url, implode(':', $this->config));
 
         if (!$this->cache || false === ($rssParser = $this->cache->lookup($cacheKey))) {
             $rssParser = new RssParser($this->config);

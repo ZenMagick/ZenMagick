@@ -20,6 +20,7 @@
  */
 
 use zenmagick\base\Runtime;
+use zenmagick\base\Toolbox;
 use zenmagick\base\ZMObject;
 
 /**
@@ -486,7 +487,7 @@ class ZMProducts extends ZMObject implements ZMSQLAware {
 
         $product = ZMRuntime::getDatabase()->querySingle($sql, $args, array('products', 'products_description', 'specials'), 'ZMProduct');
         if (null != $product && null != $this->cache_) {
-            $this->cache_->save($product, ZMLangUtils::mkUnique('product', $product->getId(), $product->getLanguageId()));
+            $this->cache_->save($product, Toolbox::hash('product', $product->getId(), $product->getLanguageId()));
         }
 
         return $product;
@@ -505,7 +506,7 @@ class ZMProducts extends ZMObject implements ZMSQLAware {
             $languageId = $session->getLanguageId();
         }
 
-        if (null != $this->cache_ && false !== ($product = $this->cache_->lookup(ZMLangUtils::mkUnique('product', $productId, $languageId)))) {
+        if (null != $this->cache_ && false !== ($product = $this->cache_->lookup(Toolbox::hash('product', $productId, $languageId)))) {
             return $product;
         }
 
@@ -520,7 +521,7 @@ class ZMProducts extends ZMObject implements ZMSQLAware {
         $product = ZMRuntime::getDatabase()->querySingle($sql, $args, array('products', 'products_description', 'specials'), 'ZMProduct');
 
         if (null != $this->cache_ && null != $product) {
-            $this->cache_->save($product, ZMLangUtils::mkUnique('product', $productId, $languageId));
+            $this->cache_->save($product, Toolbox::hash('product', $productId, $languageId));
         }
 
         return $product;
@@ -549,7 +550,7 @@ class ZMProducts extends ZMObject implements ZMSQLAware {
         // check cache first
         $needLoadIds = array();
         foreach ($productIds as $id) {
-            if (null != $this->cache_ && false !== ($product = $this->cache_->lookup(ZMLangUtils::mkUnique('product', $id, $languageId)))) {
+            if (null != $this->cache_ && false !== ($product = $this->cache_->lookup(Toolbox::hash('product', $id, $languageId)))) {
                 $products[] = $product;
             } else {
                 $needLoadIds[$id] = $id;
@@ -573,7 +574,7 @@ class ZMProducts extends ZMObject implements ZMSQLAware {
                 $products[] = $product;
                 // put in cache
                 if (null != $this->cache_) {
-                    $this->cache_->save($product, ZMLangUtils::mkUnique('product', $product->getId(), $languageId));
+                    $this->cache_->save($product, Toolbox::hash('product', $product->getId(), $languageId));
                 }
             }
         }
@@ -605,7 +606,7 @@ class ZMProducts extends ZMObject implements ZMSQLAware {
 
         // update cache
         if (null != $this->cache_) {
-            $this->cache_->remove(ZMLangUtils::mkUnique('product', $product->getId(), $product->getLanguageId()));
+            $this->cache_->remove(Toolbox::hash('product', $product->getId(), $product->getLanguageId()));
         }
 
         return $product;
