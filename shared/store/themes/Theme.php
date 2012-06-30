@@ -230,30 +230,20 @@ class Theme extends ZMObject {
 
         $pages = array();
         if (is_dir($path)) {
-            $handle = @opendir($path);
-            while (false !== ($file = readdir($handle))) {
-                if (!\ZMLangUtils::endsWith($file, '.php')) {
-                    continue;
-                }
-                $page = str_replace('.php', '', $file);
+            foreach ((array)glob($path.'*.php') as $file) {
+                $page = basename(str_replace('.php', '', $file));
                 $pages[$page] = $page;
             }
-            @closedir($handle);
         }
 
         if ($includeDefaults) {
             // TODO: deprecated
             $path = $this->container->get('themeService')->getThemesDir().Runtime::getSettings()->get('apps.store.themes.default').'/lang/'.$languageDir.'/static/';
             if (is_dir($path)) {
-                $handle = @opendir($path);
-                while (false !== ($file = readdir($handle))) {
-                    if (!\ZMLangUtils::endsWith($file, '.php')) {
-                        continue;
-                    }
-                    $page = str_replace('.php', '', $file);
+                foreach ((array)glob($path.'*.php') as $file) {
+                    $page = basename(str_replace('.php', '', $file));
                     $pages[$page] = $page;
                 }
-                @closedir($handle);
             }
         }
         return $pages;
