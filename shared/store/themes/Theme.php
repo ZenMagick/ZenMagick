@@ -226,7 +226,7 @@ class Theme extends ZMObject {
     public function getStaticPageList($includeDefaults=false, $languageId) {
         $language = $this->container->get('languageService')->getLanguageForId($languageId);
         $languageDir = $language->getDirectory();
-        $path = $this->getBasePath() . '/lang'.$languageDir."/".'static/';
+        $path = $this->getBasePath() . '/lang/'.$languageDir."/".'static/';
 
         $pages = array();
         if (is_dir($path)) {
@@ -306,7 +306,7 @@ class Theme extends ZMObject {
         }
         $language = $this->container->get('languageService')->getLanguageForId($languageId);
         $languageDir = $language->getDirectory();
-        $path = $this->getBasePath() . '/lang'.$languageDir.'/static/';
+        $path = $this->getBasePath() . '/lang/'.$languageDir.'/static/';
 
         $filename = $path.$page.'.php';
         if (!file_exists($filename)) {
