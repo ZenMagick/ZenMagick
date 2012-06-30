@@ -40,18 +40,4 @@ class ZMLangUtils {
         $endLen = strlen($end);
         return $end == substr($s, -$endLen);
     }
-
-    /**
-     * Check if the given value exists in the array or comma separated list.
-     *
-     * @param string value The value to search for.
-     * @param mixed array Either an <code>array</code> or a string containing a comma separated list.
-     * @return boolean <code>true</code> if the given value exists in the array, <code>false</code> if not.
-     */
-    public static function inArray($value, $array) {
-        if (!is_array($array)) {
-            $array = explode(',', $array);
-        }
-        return in_array($value, $array);
-    }
 }
