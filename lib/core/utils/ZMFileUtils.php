@@ -94,31 +94,6 @@ class ZMFileUtils {
         }
     }
 
-    /**
-     * Write the given lines to file.
-     *
-     * @param string file The filename.
-     * @param array lines The  lines to write.
-     * @return boolean <code>true</code> if successful, <code>false</code> if not.
-     */
-    public static function putFileLines($file, $lines) {
-        $fileExists = file_exists($file);
-        $handle = fopen($file, 'wb');
-        if ($handle) {
-            $lineCount = count($lines) - 1;
-            foreach ($lines as $ii => $line) {
-                $eol = $ii < $lineCount ? "\n" : '';
-                fwrite($handle, $line.$eol);
-            }
-            fclose($handle);
-            if (!$fileExists) {
-                self::setFilePerms($file);
-            }
-            return true;
-        }
-
-        return false;
-    }
 
     /**
      * Scan (recursively) for <code>.php</code> files.
