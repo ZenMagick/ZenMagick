@@ -29,17 +29,6 @@ use zenmagick\base\ZMException;
 class ZMLangUtils {
 
     /**
-     * Check if a given value or array is empty.
-     *
-     * @param mixed value The value or array to check.
-     * @return boolean <code>true</code> if the value is empty or <code>null</code>, <code>false</code> if not.
-     */
-    public static function isEmpty($value) {
-        return empty($value);
-    }
-
-
-    /**
      * Check if the given string ends with the provided string.
      *
      * @param string s The haystack.
@@ -64,21 +53,5 @@ class ZMLangUtils {
             $array = explode(',', $array);
         }
         return in_array($value, $array);
-    }
-
-    /**
-     * Evaluate a string value as boolean.
-     *
-     * @param mixed value The value.
-     * @return boolean The boolean value.
-     */
-    public static function asBoolean($value) {
-        if (is_integer($value)) {
-            return (bool)$value;
-        }
-
-        $value = strtolower($value);
-        return $value == 'true' || $value == '1' || $value == 'on' || $value == 'yes';
-        //return in_array(strtolower($value), array('on', 'true', 'yes', '1'));
     }
 }
