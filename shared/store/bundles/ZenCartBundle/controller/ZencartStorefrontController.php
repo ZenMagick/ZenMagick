@@ -21,6 +21,7 @@
 namespace zenmagick\apps\store\bundles\ZenCartBundle\controller;
 
 use zenmagick\base\Runtime;
+use zenmagick\base\Toolbox;
 
 /**
  * ZenCart storefront controller
@@ -262,7 +263,7 @@ class ZencartStorefrontController extends \ZMController {
 
         if ($this->isHomePage()) {
             $url = $request->getBaseUrl();
-        } else if (\ZMLangUtils::endsWith($requestId, 'info') && null != ($productId = $request->getProductId())) {
+        } else if (Toolbox::endsWith($requestId, 'info') && null != ($productId = $request->getProductId())) {
             $url = $request->getToolbox()->net->product($productId, null);
         } else {
             $url = $request->url($requestId, rtrim(zen_get_all_get_params($exclusionList), '&'));

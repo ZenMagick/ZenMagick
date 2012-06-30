@@ -20,6 +20,7 @@
 namespace zenmagick\apps\store\admin\installation\patches;
 
 use zenmagick\base\Runtime;
+use zenmagick\base\Toolbox;
 use zenmagick\apps\store\admin\installation\InstallationPatch;
 /**
  * Generic file patch.
@@ -182,7 +183,7 @@ class FilePatch extends InstallationPatch {
                     if (false !== strpos($line, "function ")
                         && false !== strpos($line, $fktCfg[0]."(")
                         && false === strpos($line, $fktCfg[1])
-                        && \ZMLangUtils::endsWith(trim($line), "{")) {
+                        && Toolbox::endsWith(trim($line), "{")) {
                         // modify
                         $lines[$ii] = str_replace($fktCfg[0], $fktCfg[0].$fktCfg[1], $line);
                         $lines[$ii] = trim($lines[$ii]) . " /* modified by ZenMagick installation patcher */";

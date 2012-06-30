@@ -16,7 +16,11 @@
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
- */ $admin->title() ?>
+ */
+$admin->title();
+use zenmagick\base\Toolbox;
+?>
+
 <h2><?php _vzm('Manage Settings') ?></h2>
 
 <script type="text/javascript">
@@ -71,10 +75,10 @@
             </thead>
             <tbody>
                 <?php foreach ($plugin->getConfigValues() as $value) { ?>
-                    <?php if (ZMLangUtils::endsWith($value->getKey(), Plugin::KEY_ENABLED) || ZMLangUtils::endsWith($value->getKey(), Plugin::KEY_SORT_ORDER)) { continue; } ?>
+                    <?php if (Toolbox::endsWith($value->getKey(), Plugin::KEY_ENABLED) || Toolbox::endsWith($value->getKey(), Plugin::KEY_SORT_ORDER)) { continue; } ?>
 
                     <?php if ($value instanceof zenmagick\http\widgets\Widget) { ?>
-                        <?php if (ZMLangUtils::endsWith($value->getName(), Plugin::KEY_ENABLED) || ZMLangUtils::endsWith($value->getName(), Plugin::KEY_SORT_ORDER)) { continue; } ?>
+                        <?php if (Toolbox::endsWith($value->getName(), Plugin::KEY_ENABLED) || Toolbox::endsWith($value->getName(), Plugin::KEY_SORT_ORDER)) { continue; } ?>
                         <tr>
                             <td><?php echo $value->getTitle() ?></td>
                             <td><?php echo $value->getName() ?></td>

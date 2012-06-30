@@ -20,6 +20,7 @@
  */
 
 use zenmagick\base\Runtime;
+use zenmagick\base\Toolbox;
 use zenmagick\base\ZMObject;
 
 /**
@@ -227,7 +228,7 @@ class ZMImageInfo extends ZMObject {
         if (is_dir($dirname) && ($dir = dir($dirname))) {
             while ($file = $dir->read()) {
                 if (!is_dir($dirname . $file)) {
-                    if (ZMLangUtils::endsWith($file, $ext)) {
+                    if (Toolbox::endsWith($file, $ext)) {
                         if (1 == preg_match("/" . $realImageBase . "/i", $file)) {
                             if ($file != basename($image)) {
                                 if ($realImageBase . preg_replace('/'.$realImageBase.'/', '', $file) == $file) {

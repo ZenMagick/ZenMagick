@@ -20,6 +20,7 @@
 namespace zenmagick\apps\store\admin\installation\patches\file;
 
 use zenmagick\base\Runtime;
+use zenmagick\base\Toolbox;
 use zenmagick\apps\store\admin\installation\patches\FilePatch;
 
 /**
@@ -185,7 +186,7 @@ class SideboxDummyPatch extends FilePatch {
                 closedir($handle);
 
                 foreach ($zmBoxes as $box) {
-                    if (!array_key_exists($box, $zcBoxes) && '.' != $box && '..' != $box && \ZMLangUtils::endsWith($box, '.php')) {
+                    if (!array_key_exists($box, $zcBoxes) && '.' != $box && '..' != $box && Toolbox::endsWith($box, '.php')) {
                         $missingBoxes[$box] = $box;
                     }
                 }

@@ -17,7 +17,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-
+use zenmagick\base\Toolbox;
 use zenmagick\base\ZMObject;
 
 /**
@@ -47,8 +47,8 @@ class ZMResultListSorter extends ZMObject {
 
         $this->id_ = $id;
         $this->sortId_ = $sortId;
-        $this->descending_ = ZMLangUtils::endsWith($this->sortId_, '_d');
-        if (ZMLangUtils::endsWith($this->sortId_, '_a') || $this->descending_) {
+        $this->descending_ = Toolbox::endsWith($this->sortId_, '_d');
+        if (Toolbox::endsWith($this->sortId_, '_a') || $this->descending_) {
             $this->sortId_ = substr($this->sortId_, 0, strlen($this->sortId_)-2);
         }
     }
