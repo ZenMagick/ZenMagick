@@ -33,7 +33,7 @@ class TestZMHtmlUtils extends TestCase {
      */
     public function testStrip() {
         $text = "<p>Foo</p>\n\n \tsome inline stuff<br><br />";
-        $stripped = ZMHtmlUtils::strip($text);
+        $stripped = $this->container->get('htmlTool')->strip($text);
         $this->assertEqual('Foo some inline stuff', $stripped);
     }
 
