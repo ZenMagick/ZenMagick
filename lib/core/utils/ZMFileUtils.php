@@ -79,9 +79,7 @@ class ZMFileUtils {
 
             if (is_dir($file) && $recursive) {
                 $dir = $file;
-                if (!\ZMLangUtils::endsWith($dir, DIRECTORY_SEPARATOR)) {
-                    $dir .= '/';
-                }
+                $dir = rtrim($dir, DIRECTORY_SEPARATOR).DIRECTORY_SEPARATOR);
                 $subfiles = array();
                 $handle = @opendir($dir);
                 while (false !== ($file = readdir($handle))) {
