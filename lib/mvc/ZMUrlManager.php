@@ -63,8 +63,7 @@ class ZMUrlManager extends ZMObject {
      *  default is <code>true</code> to override.
      */
     public function yamlParse($yaml, $defaults=array(), $override=true) {
-        require_once Runtime::getInstallationPath().'/lib/core/spyc.php';
-
+        require_once __DIR__.'/spyc.php';
         if ($override) {
             return Spyc::YAMLLoadString($yaml);
         } else {
