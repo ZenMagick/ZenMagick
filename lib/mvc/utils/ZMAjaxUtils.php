@@ -78,17 +78,4 @@ class ZMAjaxUtils {
         return $props;
     }
 
-    /**
-     * Create a RPC request wrapper for the given request.
-     *
-     * @param ZMRequest request The current request.
-     * @return ZMRpcRequest A <code>ZMRpcRequest</code> instance.
-     */
-    public static function createRpcRequest($request) {
-        $format = Runtime::getSettings()->get('zenmagick.mvc.rpc.format', 'JSON');
-        $rpcRequest = Runtime::getContainer()->get('ZMRpcRequest'.$format);
-        $rpcRequest->setRequest($request);
-        return $rpcRequest;
-    }
-
 }

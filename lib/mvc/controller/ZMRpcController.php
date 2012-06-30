@@ -34,7 +34,10 @@ class ZMRpcController extends ZMController {
      * {@inheritDoc}
      */
     public function process(ZMRequest $request) {
-        $rpcRequest = ZMAjaxUtils::createRpcRequest($request);
+        $format = $this->container->get('settingsService')->get('zenmagick.mvc.rpc.format', 'JSON');
+        $rpcRequest = $this->container->get('ZMRpcRequest'.$format);
+        $rpcRequest->setRequest($request);
+
         $method = $sacsMethod = $rpcRequest->getMethod();
 
         $rpcResponse = null;
