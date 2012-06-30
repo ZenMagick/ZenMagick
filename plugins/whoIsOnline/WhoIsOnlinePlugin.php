@@ -108,6 +108,7 @@ class WhoIsOnlinePlugin extends Plugin {
 
         if (Runtime::isContextMatch('admin')) return;
 
+        $settingsService = $this->container->get('settingsService');
         $request = $event->get('request');
         $session = $request->getSession();
         $accountId = $request->getAccountId();
@@ -142,8 +143,13 @@ class WhoIsOnlinePlugin extends Plugin {
         if (!empty($result)) {
             $conn->update('whos_online', $data, array('session_id' => $sessionId));
         } else {
+            $hostAddress = '';
+            if ($settingsService->get('isResolveClientIP')) {
+                // @todo we should probably only do this in the admin interface (when one exists)
+                $hostAddress = @gethostbyaddr($ipAddress);
+            }
             $data['ip_address'] = $ipAddress;
-            $data['host_address'] = $session->getValue('customers_host_address') ?: '';
+            $data['host_address'] = $hostAddress;
             $data['time_entry'] = $now;
             $data['session_id'] = $sessionId;
             $conn->insert('whos_online', $data);
