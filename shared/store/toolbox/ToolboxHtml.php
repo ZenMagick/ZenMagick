@@ -37,7 +37,10 @@ class ToolboxHtml extends ToolboxTool {
      * @return string The encoded HTML.
      */
     public static function encode($s) {
-        return \ZMHtmlUtils::encode($s);
+        $charset = Runtime::getSettings()->get('zenmagick.http.html.charset');
+        $s = html_entity_decode($s, ENT_QUOTES, $charset);
+        $s = htmlentities($s, ENT_QUOTES, $charset);
+        return $s;
     }
 
     /**
@@ -47,7 +50,10 @@ class ToolboxHtml extends ToolboxTool {
      * @return string HTML formatted text.
      */
     public static function text2html($s) {
-        return \ZMHtmlUtils::text2html($s);
+        $html = str_replace("\r\n", '<br>', $s);
+        $html = str_replace("\n", '<br>', $s);
+        $html = str_replace("\r", '', $html);
+        return $html;
     }
 
     /**
@@ -59,7 +65,16 @@ class ToolboxHtml extends ToolboxTool {
      * @return string The (possibly) truncated text.
      */
     public static function more($s, $max=0, $more=" ...") {
-        return \ZMHtmlUtils::more($s, $max, $more);
+        $text = $s;
+        if (0 != $max && strlen($text) > $max) {
+            $pos = strpos($text, ' ', $max-10);
+            if (!($pos === false)) {
+                $text = substr($text, 0, $pos+1);
+            }
+            $text .= $more;
+        }
+
+        return $text;
     }
 
     /**
