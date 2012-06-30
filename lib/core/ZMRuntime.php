@@ -98,23 +98,4 @@ class ZMRuntime {
     public static function getDatabases() {
         return self::$databaseMap_;
     }
-
-    /**
-     * Load mappings from a YAML style string.
-     *
-     * @param string yaml The yaml style mappings.
-     * @param array defaults Optional defaults for merging; default is an empty array.
-     * @param boolean override Optional flag to control whether to override existing mappings or to merge;
-     *  default is <code>true</code> to override.
-     */
-    public static function yamlParse($yaml, $defaults=array(), $override=true) {
-        require_once Runtime::getInstallationPath().'/lib/core/spyc.php';
-
-        if ($override) {
-            return Spyc::YAMLLoadString($yaml);
-        } else {
-            return Toolbox::arrayMergeRecursive($defaults, Spyc::YAMLLoadString($yaml));
-        }
-    }
-
 }

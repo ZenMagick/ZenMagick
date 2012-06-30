@@ -55,6 +55,25 @@ class ZMUrlManager extends ZMObject {
     }
 
     /**
+     * Load mappings from a YAML style string.
+     *
+     * @param string yaml The yaml style mappings.
+     * @param array defaults Optional defaults for merging; default is an empty array.
+     * @param boolean override Optional flag to control whether to override existing mappings or to merge;
+     *  default is <code>true</code> to override.
+     */
+    public function yamlParse($yaml, $defaults=array(), $override=true) {
+        require_once Runtime::getInstallationPath().'/lib/core/spyc.php';
+
+        if ($override) {
+            return Spyc::YAMLLoadString($yaml);
+        } else {
+            return Toolbox::arrayMergeRecursive($defaults, Spyc::YAMLLoadString($yaml));
+        }
+    }
+
+
+    /**
      * Get instance.
      */
     public static function instance() {
@@ -80,7 +99,7 @@ class ZMUrlManager extends ZMObject {
      *  default is <code>true</code> to override.
      */
     public function load($yaml, $override=true) {
-        $this->mappings_ = ZMRuntime::yamlParse($yaml, $this->mappings_, $override);
+        $this->mappings_ = $this->yamlParse($yaml, $this->mappings_, $override);
     }
 
     /**
@@ -94,7 +113,7 @@ class ZMUrlManager extends ZMObject {
     public function setMapping($requestId, $mapping, $replace=true) {
         $type = null == $requestId ? 'global' : 'page';
         if (!is_array($mapping)) {
-            $mapping = ZMRuntime::yamlParse($mapping);
+            $mapping = $this->yamlParse($mapping);
         }
 
         if (null == $requestId) {
@@ -134,7 +153,7 @@ class ZMUrlManager extends ZMObject {
                 $this->mappings_ = Toolbox::arrayMergeRecursive($this->mappings_, $mappings);
             }
         } else {
-            $this->mappings_ = ZMRuntime::yamlParse($mappings, $this->mappings_, $replace);
+            $this->mappings_ = $this->yamlParse($mappings, $this->mappings_, $replace);
         }
 
         // ensure we do have both required keys
