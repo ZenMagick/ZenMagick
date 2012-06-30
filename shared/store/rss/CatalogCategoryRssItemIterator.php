@@ -99,9 +99,10 @@ class CatalogCategoryRssItemIterator extends ZMObject implements Iterator {
         $item = new RssItem();
         $item->setTitle($category->getName());
         $item->setLink($categoryInfo['url']);
-        $desc = \ZMHtmlUtils::strip($category->getDescription());
+        $html = $this->container->get('htmlTool');
+        $desc = $html->strip($category->getDescription());
         if (!$full) {
-            $desc = \ZMHtmlUtils::more($desc, 60);
+            $desc = $html->more($desc, 60);
         }
         $item->setDescription($desc);
         $item->setPubDate($category->getDateAdded());

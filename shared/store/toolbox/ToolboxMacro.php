@@ -117,7 +117,7 @@ class ToolboxMacro extends ToolboxTool {
             // encode
             $vars = array('firstname', 'lastname', 'company', 'street', 'suburb', 'city', 'state', 'country', 'postcode');
             foreach ($vars as $var) {
-                $$var = \ZMHtmlUtils::encode($$var);
+                $$var = $this->getToolbox()->html->encode($$var);
             }
 
             // alias or derived
@@ -156,9 +156,9 @@ class ToolboxMacro extends ToolboxTool {
             if (!$first) $html .= $sep;
             $first = false;
             if (null != $crumb->getURL()) {
-                $html .= '<a href="'.$crumb->getURL().'">'.\ZMHtmlUtils::encode(_zm($crumb->getName())).'</a>';
+                $html .= '<a href="'.$crumb->getURL().'">'.$toolbox->html->encode(_zm($crumb->getName())).'</a>';
             } else {
-                $html .= \ZMHtmlUtils::encode(_zm($crumb->getName()));
+                $html .= $toolbox->html->encode(_zm($crumb->getName()));
             }
         }
         return $html;
@@ -187,6 +187,7 @@ class ToolboxMacro extends ToolboxTool {
      */
     public function categoryTree($categories, $showProductCount=false, $useCategoryPage=false, $activeParent=false, $root=true, $path=null) {
         if ($root) {
+            $toolbox = $this->getToolbox();
             ob_start();
             $path = $this->getRequest()->getCategoryPathArray();
         }
@@ -208,7 +209,7 @@ class ToolboxMacro extends ToolboxTool {
             $onclick = $isEmpty ? ($useCategoryPage ? '' : ' onclick="return catclick(this);"') : '';
             echo '<a' . ('' != $class ? ' class="'.$class.'"' : '') . $onclick . ' href="' .
                         $this->getRequest()->url('category', 'cPath='.implode('_', $category->getPath())) .
-                        '">'.\ZMHtmlUtils::encode($category->getName()).'</a>';
+                        '">'.$toolbox->html->encode($category->getName()).'</a>';
             if ($showProductCount) {
                 if (0 < ($noOfProductsInTree = count($this->container->get('productService')->getProductIdsForCategoryId($category->getId(), $languageId, true, true)))) {
                     echo '('.$noOfProductsInTree.')';

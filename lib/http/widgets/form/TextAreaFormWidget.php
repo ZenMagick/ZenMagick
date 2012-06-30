@@ -52,7 +52,7 @@ class TextAreaFormWidget extends FormWidget implements WysiwygEditor {
      * {@inheritDoc}
      */
     public function render($request, TemplateView $templateView) {
-        $value = $this->isEncode() ? \ZMHtmlUtils::encode($this->getValue()) : $this->getValue();
+        $value = $this->isEncode() ?$request->getToolbox()->html->encode($this->getValue()) : $this->getValue();
         return '<textarea'.$this->getAttributeString($request, false).'>'.$value.'</textarea>';
     }
 

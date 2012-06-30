@@ -146,6 +146,7 @@ class SelectFormWidget extends FormWidget {
         if (!is_array($values)) {
             $values = array($values);
         }
+        $html = $request->getToolbox()->html;
         $output = '<select'.$this->getAttributeString($request, false).'>';
         foreach ($this->getOptions($request) as $oval => $name) {
             $selected = '';
@@ -156,7 +157,7 @@ class SelectFormWidget extends FormWidget {
                     $selected = ' selected';
                 }
             }
-            $output .= '<option'.$selected.' value="'.\ZMHtmlUtils::encode($oval).'">'.\ZMHtmlUtils::encode($name).'</option>';
+            $output .= '<option'.$selected.' value="'.$html->encode($oval).'">'.$html->encode($name).'</option>';
         }
         $output .= '</select>';
         return $output;
@@ -175,8 +176,8 @@ class SelectFormWidget extends FormWidget {
         if (!is_array($values)) {
             $values = array($values);
         }
-
-        $idBase = \ZMHtmlUtils::encode($this->get('id'));
+        $html = $request->getToolbox()->html;
+        $idBase = $html->encode($this->get('id'));
         if (empty($idBase)) {
             // default to name; we need this to make label work
             $idBase = $this->getName();
@@ -187,8 +188,8 @@ class SelectFormWidget extends FormWidget {
         ob_start();
         $index = 0;
         foreach ($this->getOptions($request) as $oval => $name) {
-            echo '<input type="radio" id="'.$idBase.'-'.$index.'" class="'.$this->getClass().'" name="'.$this->getName().'" value="'.\ZMHtmlUtils::encode($oval).'"'.($oval==$value ? $checked : '').$slash.'>';
-            echo ' <label for="'.$idBase.'-'.$index.'">'.\ZMHtmlUtils::encode(_zm($name)).'</label>';
+            echo '<input type="radio" id="'.$idBase.'-'.$index.'" class="'.$this->getClass().'" name="'.$this->getName().'" value="'.$html->encode($oval).'"'.($oval==$value ? $checked : '').$slash.'>';
+            echo ' <label for="'.$idBase.'-'.$index.'">'.$html->encode(_zm($name)).'</label>';
             ++$index;
         }
         return ob_get_clean();

@@ -66,6 +66,7 @@ class ToolboxMetaTags extends ToolboxTool {
 
         // default to page name
         $title = $this->getToolbox()->utils->getTitle();
+        $html = $this->getToolbox()->html;
         // remove popup prefix
         $title = str_replace('Popup ', '', $title);
 
@@ -97,7 +98,7 @@ class ToolboxMetaTags extends ToolboxTool {
             if (null != ($category = $this->container->get('categoryService')->getCategoryForId($this->getRequest()->getCategoryId(), $this->getRequest()->getSession()->getLanguageId()))) {
                 $languageId = $this->getRequest()->getSession()->getLanguageId();
                 if (null != ($details = $category->getMetaTagDetails($languageId))) {
-                    $title = \ZMHtmlUtils::encode($details->getTitle());
+                    $title = $html->encode($details->getTitle());
                 } else {
                     $title = $this->category_;
                 }
@@ -117,7 +118,7 @@ class ToolboxMetaTags extends ToolboxTool {
             $title .= Runtime::getSettings()->get('storeName');
         }
 
-        $title = \ZMHtmlUtils::encode($title);
+        $title = $html->encode($title);
 
         return $title;
     }
@@ -157,7 +158,7 @@ class ToolboxMetaTags extends ToolboxTool {
             $value .= $this->topCategories_;
         }
 
-        $value = \ZMHtmlUtils::encode(trim($value));
+        $value = $this->getToolbox()->html->encode(trim($value));
 
         return $value;
     }
@@ -194,7 +195,7 @@ class ToolboxMetaTags extends ToolboxTool {
             }
         }
 
-        $value = \ZMHtmlUtils::encode(trim($value));
+        $value = $this->getToolbox()->html->encode(trim($value));
 
         return $value;
     }

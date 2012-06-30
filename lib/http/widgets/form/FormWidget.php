@@ -197,6 +197,7 @@ abstract class FormWidget extends Widget {
     public function getAttributeString($request, $addValue=true, $addName=true) {
         $isXhtml = Runtime::getSettings()->get('zenmagick.http.html.xhtml');
 
+        $html = $request->getToolbox()->html;
         $attr = '';
         if ($addName) {
             $attr = ' name="'.$this->getName().($this->isMultiValue() ? '[]' : '').'"';
@@ -217,14 +218,14 @@ abstract class FormWidget extends Widget {
                         }
                     }
                 } else {
-                    $value = $this->encode_ ? \ZMHtmlUtils::encode($value) : $value;
+                    $value = $this->encode_ ? $html->encode($value) : $value;
                     $attr .= ' '.$name.'="'.$value.'"';
                 }
             }
         }
 
         if ($addValue) {
-            $value = $this->encode_ ? \ZMHtmlUtils::encode($this->getValue()) : $this->getValue();
+            $value = $this->encode_ ? $html->encode($this->getValue()) : $this->getValue();
             $attr .= ' value="'.$value.'"';
         }
 

@@ -76,6 +76,7 @@ class DefaultRssFeedSource extends ZMObject implements RssSource {
         }
 
         $items = array();
+        $html = $this->container->get('htmlTool');
         $lastPubDate = null;
         foreach ($reviews as $review) {
             if (null == $key) {
@@ -86,7 +87,7 @@ class DefaultRssFeedSource extends ZMObject implements RssSource {
 
             $params = 'products_id='.$review->getProductId().'&reviews_id='.$review->getId();
             $item->setLink($request->url('product_reviews_info', $params));
-            $item->setDescription(\ZMHtmlUtils::more($review->getText(), 60));
+            $item->setDescription($html->more($review->getText(), 60));
             $item->setPubDate($review->getDateAdded());
             $items[] = $item;
 
@@ -156,14 +157,15 @@ class DefaultRssFeedSource extends ZMObject implements RssSource {
             return null;
         }
 
+        $toolbox = $request->getToolbox();
         $lastPubDate = null;
         $items = array();
         $products = array_slice(array_reverse($this->container->get('productService')->getNewProducts()), 0, 20);
         foreach ($products as $product) {
             $item = new RssItem();
             $item->setTitle($product->getName());
-            $item->setLink($request->getToolbox()->net->product($product->getId(), null, false));
-            $item->setDescription(\ZMHtmlUtils::more(\ZMHtmlUtils::strip($product->getDescription()), 60));
+            $item->setLink($toolbox->net->product($product->getId(), null, false));
+            $item->setDescription($toolbox->html->more($toolbox->html->strip($product->getDescription()), 60));
             $item->setPubDate($product->getDateAdded());
             $items[] = $item;
 

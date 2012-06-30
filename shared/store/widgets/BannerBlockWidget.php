@@ -131,14 +131,15 @@ class BannerBlockWidget extends Widget {
                 // use text if not empty
                 $content .= $banner->getText();
             } else {
+
+                $html = $request->getToolbox()->html;
                 $net = $request->getToolbox()->net;
                 $slash = Runtime::getSettings()->get('zenmagick.http.html.xhtml') ? '/' : '';
-                $img = '<img src="'.$net->image($banner->getImage()).'" alt="'.\ZMHtmlUtils::encode($banner->getTitle()).'"'.$slash.'>';
+                $img = '<img src="'.$net->image($banner->getImage()).'" alt="'.$html->encode($banner->getTitle()).'"'.$slash.'>';
                 if (Toolbox::isEmpty($banner->getUrl())) {
                     // if we do not have a url try our luck with the image...
                     $content .= $img;
                 } else {
-                    $html = $request->getToolbox()->html;
                     $content .= '<a href="'.$net->trackLink('banner', $banner->getId()).'"'.$html->hrefTarget($banner->isNewWin()).'>'.$img.'</a>';
                 }
             }

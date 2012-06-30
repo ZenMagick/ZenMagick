@@ -105,9 +105,10 @@ class CatalogProductRssItemIterator extends ZMObject implements Iterator {
         $item = new RssItem();
         $item->setTitle($product->getName());
         $item->setLink($productInfo['url']);
-        $desc = \ZMHtmlUtils::strip($product->getDescription());
+        $html = $this->container->get('htmlTool');
+        $desc = $html->strip($product->getDescription());
         if (!$fullFeed) {
-            $desc = \ZMHtmlUtils::more($desc, 60);
+            $desc = $html->more($desc, 60);
         }
         $item->setDescription($desc);
         $item->setPubDate($product->getDateAdded());
