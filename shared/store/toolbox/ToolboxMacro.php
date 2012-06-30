@@ -241,12 +241,17 @@ class ToolboxMacro extends ToolboxTool {
         $context = array();
 
         $session = $this->getRequest()->getSession();
+        $ipAddress = $this->getRequest()->getClientIp();
+        $hostAddress = '';
+        if ($this->container->get('settingsService')->get('isResolveClientIP')) {
+            $hostAddress = @gethostbyaddr($ipAddress);
+        }
         $officeOnly = array(
             "\n",
             _zm('Office Use Only:'),
             sprintf(_zm('From: %s'), $name),
             sprintf(_zm('Email: %s'), $email),
-            sprintf(_zm('Remote: %s - %s'), $session->getClientAddress(), $this->getRequest()->getClientIp()),
+            sprintf(_zm('Remote: %s - %s'), $hostAddress, $ipAddress),
             sprintf(_zm('Date: %s'), date("D M j Y G:i:s T")),
             "\n\n"
         );
