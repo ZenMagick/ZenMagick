@@ -66,8 +66,8 @@ class CronPlugin extends Plugin {
         $request = $event->get('request');
 
         if ($this->isEnabled() && Toolbox::asBoolean($this->get('image'))) {
-            $pages = $this->get('triggerPages');
-            if (empty($pages) || \ZMLangUtils::inArray($request->getRequestId(), $pages)) {
+            $pages = explode(',', $this->get('triggerPages'));
+            if (empty($pages) || in_array($request->getRequestId(), $pages)) {
                 $slash = $this->container->get('settingsService')->get('zenmagick.http.html.xhtml') ? '/' : '';
                 $img = '<div><img src="'.$request->url('cron_image').'" alt=""'.$slash.'></div>';
                 $content = $event->get('content');

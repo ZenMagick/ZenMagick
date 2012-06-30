@@ -70,7 +70,8 @@ class ZMListRule extends ZMRule {
      * @return boolean <code>true</code> if the regular expression does match.
      */
     public function validate($request, $data) {
-        return empty($data[$this->getName()]) || ZMLangUtils::inArray($data[$this->getName()], $this->values_);
+        $values = is_array($this->values_) ? $this->values_ : explode(',', $this->values_);
+        return empty($data[$this->getName()]) || in_array($data[$this->getName()], $values);
     }
 
 

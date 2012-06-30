@@ -170,7 +170,7 @@ class PageCachePlugin extends \Plugin {
         return 'POST' != $request->getMethod()
           && (null == $request->getShoppingCart() || $request->getShoppingCart()->isEmpty())
           && !$this->container->get('messageService')->hasMessages()
-          && \ZMLangUtils::inArray($request->getRequestId(), $this->container->get('settingsService')->get('plugins.pageCache.strategy.allowed', ZM_PLUGINS_PAGE_CACHE_ALLOWED_DEFAULT));
+          && in_array($request->getRequestId(), $this->container->get('settingsService')->get('plugins.pageCache.strategy.allowed', explode(',', ZM_PLUGINS_PAGE_CACHE_ALLOWED_DEFAULT)));
     }
 
 }

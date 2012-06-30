@@ -119,8 +119,8 @@ class WordpressPlugin extends Plugin {
         $request = $event->get('request');
 
         // create single request handler
-        $wordpressEnabledPages = $this->get('wordpressEnabledPages');
-        if ($this->initWP() && (empty($wordpressEnabledPages) || \ZMLangUtils::inArray($request->getRequestId(), $wordpressEnabledPages))) {
+        $wordpressEnabledPages = explode(',', $this->get('wordpressEnabledPages'));
+        if ($this->initWP() && (empty($wordpressEnabledPages) || in_array($request->getRequestId(), $wordpressEnabledPages))) {
             // need to do this on all enabled pages, not just wp
             $requestHandler = $this->getRequestHandler($request);
             if (Toolbox::asBoolean($this->get('urlRewrite'))) {
@@ -142,8 +142,8 @@ class WordpressPlugin extends Plugin {
         $this->prepareWP();
 
         // create single request handler
-        $wordpressEnabledPages = $this->get('wordpressEnabledPages');
-        if ($this->initWP() && (empty($wordpressEnabledPages) || \ZMLangUtils::inArray($request->getRequestId(), $wordpressEnabledPages))) {
+        $wordpressEnabledPages = explode(',', $this->get('wordpressEnabledPages'));
+        if ($this->initWP() && (empty($wordpressEnabledPages) || in_array($request->getRequestId(), $wordpressEnabledPages))) {
             // need to do this on all enabled pages, not just wp
             $requestHandler = $this->getRequestHandler($request);
             $requestHandler->preProcess($request);
@@ -214,8 +214,8 @@ class WordpressPlugin extends Plugin {
      * {@inheritDoc}
      */
     public function getGlobal($request) {
-        $wordpressEnabledPages = $this->get('wordpressEnabledPages');
-        if (empty($wordpressEnabledPages) || (!Toolbox::isEmpty($request->getRequestId()) && \ZMLangUtils::inArray($request->getRequestId(), $wordpressEnabledPages))) {
+        $wordpressEnabledPages = explode(',', $this->get('wordpressEnabledPages'));
+        if (empty($wordpressEnabledPages) || (!Toolbox::isEmpty($request->getRequestId()) && in_array($request->getRequestId(), $wordpressEnabledPages))) {
             if ($this->isPermalinksEnabled()) {
                 $path = $request->getContext().$this->get('permaPrefix');
                 // simulate empty query arg to make WP homepage work
