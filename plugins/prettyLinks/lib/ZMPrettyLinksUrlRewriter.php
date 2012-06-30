@@ -62,9 +62,8 @@ class ZMPrettyLinksUrlRewriter implements UrlRewriter {
         $queryString = $toolbox->net->decode($url['query']);
         parse_str($queryString, $query);
         $path = dirname($url['path']);
-        if (!ZMLangUtils::endsWith($path, '/')) {
-            $path .= '/';
-        }
+        $path = rtrim($path, '/').'/';
+
         if (0 === strpos($path, '\\')) {
             $path = substr($path, 1);
         }
