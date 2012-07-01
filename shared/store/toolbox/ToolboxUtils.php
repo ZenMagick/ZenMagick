@@ -52,16 +52,6 @@ class ToolboxUtils extends ToolboxTool {
     }
 
     /**
-     * Encode XML control characters.
-     *
-     * @param string s The input string.
-     * @return string The encoded string.
-     */
-    public function encodeXML($s) {
-        return \ZMXmlTools::encodeXML($s);
-    }
-
-    /**
      * Format the given amount according to the current currency.
      *
      * @param float amount The amount.
