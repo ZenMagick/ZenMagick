@@ -186,8 +186,8 @@ class ToolboxMacro extends ToolboxTool {
      * @return string The given categories as nested unordered list.
      */
     public function categoryTree($categories, $showProductCount=false, $useCategoryPage=false, $activeParent=false, $root=true, $path=null) {
+        $toolbox = $this->getToolbox();
         if ($root) {
-            $toolbox = $this->getToolbox();
             ob_start();
             $path = $this->getRequest()->getCategoryPathArray();
         }
