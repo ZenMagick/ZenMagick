@@ -1,8 +1,8 @@
 meta:
-  name: 'Count site vistors'
+  name: 'Count site visitors'
   version: '${zenmagick.version}'
   author: 'zenmagick.org'
-  description: 'Reimplements the ZenCart site vist counter'
+  description: 'Reimplements the ZenCart site visit counter'
 
 admin:
   container:
