@@ -23,7 +23,7 @@
 ?>
 
 <?php if (isset($jscrollerSideboxes)) { ?>
-    <?php if (0 == $request->getProductId() && 'specials' != $request->getRequestId()) { ?>
+    <?php if (!isset($currentProduct) && 'specials' != $request->getRequestId()) { ?>
         <?php $products = $this->container->get('productService')->getSpecials(MAX_RANDOM_SELECT_SPECIALS, $session->getLanguageId()); ?>
         <?php if (0 < count($products)) { ?>
             <h3><a href="<?php echo $net->url('specials') ?>"><?php _vzm("[More]") ?></a><?php _vzm("Specials") ?></h3>

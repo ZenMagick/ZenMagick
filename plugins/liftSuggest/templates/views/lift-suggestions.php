@@ -22,8 +22,8 @@
 if (isset($liftSuggest)) {
     // TODO: review and move into plugin somewhere
     $recoProds = $session->getValue('reco_prods', null, array());
-    if ('product_info' == $request->getRequestId()) {
-        $productId = $request->getProductId();
+    if (('product_info' == $request->getRequestId()) && isset($currentProduct)) {
+        $productId = $currentProduct->getId();
         if (in_array($productId, $recoProds)) {
             $ls_rev_css = "liftsuggest {act:'prodview', sku:'".$productId."', reco:'R'}";
         } else {

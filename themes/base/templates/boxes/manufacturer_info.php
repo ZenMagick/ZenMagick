@@ -23,10 +23,8 @@ use zenmagick\base\Toolbox;
 
 ?>
 
-<?php if (null != $request->getProductId()) { ?>
-    <?php $product = $container->get('productService')->getProductForId($request->getProductId(), $session->getLanguageId()); ?>
-    <?php if (null != $product) { ?>
-        <?php $manufacturer = $product->getManufacturer(); ?>
+<?php if (isset($currentProduct)) { ?>
+        <?php $manufacturer = $currentProduct->getManufacturer(); ?>
         <?php if (null != $manufacturer) { ?>
             <h3><?php _vzm("Manufacturer Info") ?></h3>
             <div id="sb_manufacturer_info" class="box">
@@ -60,6 +58,5 @@ use zenmagick\base\Toolbox;
                 } ?>
             </div>
         <?php } ?>
-    <?php } ?>
 <?php } ?>
 

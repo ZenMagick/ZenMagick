@@ -23,12 +23,8 @@
 <?php
 
     // get review for product (if on product page)
-    $reviews = $container->get('reviewService')->getRandomReviews($session->getLanguageId(), $request->getProductId(), 1);
-
-    if (0 == count($reviews) && 0 == $request->getProductId()) {
-        // default to any random on non product pages
-        $reviews = $container->get('reviewService')->getRandomReviews($session->getLanguageId(), null, 1);
-    }
+    $filterArg = isset($currentProduct) ? $currentProduct->getId() : null;
+    $reviews = $container->get('reviewService')->getRandomReviews($session->getLanguageId(), $filterArg, 1);
 ?>
 <?php if (1 == count($reviews)) {
     $review = $reviews[0];
