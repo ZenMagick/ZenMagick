@@ -79,7 +79,7 @@ class Application {
             'settings' => array(),
 
             // ini
-            'display_errors'=> false,
+            'display_errors'=> true,
             'error_reporting' => -1,
             'log_errors' => true
         );
@@ -217,8 +217,16 @@ class Application {
      *
      * @return array Map of application configuration.
      */
-    public function getConfig() {
-        return $this->config;
+    public function getConfig($key=null) {
+        if (null == $key) {
+            return $this->config;
+        }
+
+        if (array_key_exists($key, $this->config)) {
+            return $this->config[$key];
+        }
+
+        return null;
     }
 
     /**
