@@ -52,6 +52,15 @@ class ZMRequest extends HttpFoundationRequest implements ContainerAwareInterface
      */
     public function __construct(array $query = array(), array $request = array(), array $attributes = array(), array $cookies = array(), array $files = array(), array $server = array(), $content = null) {
         $this->initialize($_GET, $_POST, array(), $_COOKIE, $_FILES, $_SERVER, null);
+
+        // @todo could move into custom parameter bag class?
+        foreach (array($this->query, $this->request) as $parameterBag) {
+            foreach ($parameterBag->keys() as $key) {
+                if (0 === strpos($key, '_') && !$parameterBag->has(substr($key, 1))) {
+                    $parameterBag->set(substr($key, 1), false);
+                }
+            }
+        }
     }
 
     /**
@@ -247,10 +256,6 @@ class ZMRequest extends HttpFoundationRequest implements ContainerAwareInterface
         $map = array();
         $params = array_unique(array_merge($this->request->keys(), $this->query->keys()));
         foreach ($params as $key) {
-            // checkbox special case
-            if (0 === strpos($key, '_')) {
-                $key = substr($key, 1);
-            }
             $map[$key] = $this->getParameter($key, null, $sanitize);
         }
 
@@ -308,11 +313,6 @@ class ZMRequest extends HttpFoundationRequest implements ContainerAwareInterface
         foreach (array('query', 'request') as $parameterBag) {
             if ($this->$parameterBag->has($name)) {
                 return $sanitize ? self::sanitize($this->$parameterBag->get($name)) : $this->$parameterBag->get($name);
-            }
-            // special case for checkboxes/radioboxes?
-            if ($this->$parameterBag->has('_'.$name)) {
-                // checkbox boolean value
-                return false;
             }
         }
         return $default;
@@ -440,6 +440,7 @@ class ZMRequest extends HttpFoundationRequest implements ContainerAwareInterface
                 $session->close();
             }
         }
+        session_write_close();
     }
 
     /**
