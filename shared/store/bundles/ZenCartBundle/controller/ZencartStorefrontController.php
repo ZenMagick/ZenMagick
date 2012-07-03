@@ -135,6 +135,9 @@ class ZencartStorefrontController extends \ZMController {
         }
         chdir($cwd);
         $autoLoader->restoreErrorLevel();
+        foreach ($_SESSION as $k => $v) {
+            $session->setValue($k, $v);
+        }
         return null;
     }
 
