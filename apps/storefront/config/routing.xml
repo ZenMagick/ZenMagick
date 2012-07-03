@@ -9,6 +9,11 @@
         <option key="view:login">redirect://login</option>
     </route>
 
+    <route id="rss" pattern="/rss/{channel}/{key}">
+        <default key="_controller">zenmagick\http\controller\RssController:generate</default>
+        <default key="key"></default>
+    </route>
+
     <route id="index" pattern="/">
         <default key="_controller">zenmagick\apps\store\storefront\controller\IndexController</default>
         <option key="view">views/index.php</option>
