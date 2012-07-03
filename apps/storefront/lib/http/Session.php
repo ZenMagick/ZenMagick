@@ -184,6 +184,15 @@ class Session extends \zenmagick\http\session\Session {
     }
 
     /**
+     * Get the currency code.
+     *
+     * @return string The current currency code.
+     */
+    public function getCurrencyCode() {
+        return $this->getValue('currency');
+    }
+
+    /**
      * Get the current language code.
      *
      * @return string The language code or <code>null</code>.
