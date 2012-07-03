@@ -74,9 +74,10 @@ class base {
 
     /**
      * Tell ZenMagick too
+     * @todo do we want to know about any other events?
      */
     public function notifyZenmagick($eventId, $params = array()) {
-        $container = zenmagick\base\Runtime::getContainer();
+        /*$container = zenmagick\base\Runtime::getContainer();
         if (!$container->has('themeService')) return;
         if ($container->get('themeService')->getActiveTheme()->getMeta('zencart')) {
             if (0 === strpos($eventId, 'NOTIFY_HEADER_START_')) {
@@ -88,7 +89,7 @@ class base {
                 $params = array_merge($params, array('controllerId' => $controllerId, 'request' => $container->get('request')));
                 zenmagick\base\Runtime::getEventDispatcher()->dispatch('controller_process_end', new zenmagick\base\events\Event($this, $params));
             }
-        }
+        }*/
     }
 
     protected static function getStaticObserver() {
