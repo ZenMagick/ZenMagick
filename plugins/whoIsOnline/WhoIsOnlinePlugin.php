@@ -35,7 +35,7 @@ class WhoIsOnlinePlugin extends Plugin {
      * Create new instance.
      */
     public function __construct() {
-        parent::__construct('Who\'s online', 'Provide inormation about current site users', '${plugin.version}');
+        parent::__construct('Who\'s online', 'Provide information about current site users', '${plugin.version}');
     }
 
 

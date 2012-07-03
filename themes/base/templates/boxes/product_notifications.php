@@ -20,14 +20,14 @@
  */
 ?>
 
-<?php if (0 != $request->getProductId() && isset($currentProduct)) { ?>
+<?php if (isset($currentProduct)) { ?>
      <?php
       $isSubscribed = false;
       if ($session->isRegistered()) {
           $account = $request->getAccount();
           if (null != $account) {
               $subscribedProducts = $account->getSubscribedProducts();
-              $isSubscribed = in_array($request->getProductId(), $subscribedProducts);
+              $isSubscribed = in_array($currentProduct->getId(), $subscribedProducts);
           }
       }
     ?>

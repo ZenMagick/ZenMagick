@@ -21,6 +21,7 @@ namespace zenmagick\http;
 
 use Exception;
 use ZMRequest;
+use Symfony\Component\HttpFoundation\Response;
 use zenmagick\base\Beans;
 use zenmagick\base\Runtime;
 use zenmagick\base\ZMException;
@@ -31,6 +32,7 @@ use zenmagick\base\utils\Executor;
 use zenmagick\base\utils\ParameterMapper;
 use zenmagick\http\session\SessionValidator;
 use zenmagick\http\view\ModelAndView;
+use zenmagick\http\view\ResponseModelAndView;
 use zenmagick\http\view\View;
 
 /**
@@ -58,7 +60,6 @@ class Dispatcher extends ZMObject {
      */
     public function dispatch($request) {
         $request->setDispatcher($this);
-        ob_start();
 
         $messageService = $this->container->get('messageService');
         $eventDispatcher = $this->container->get('eventDispatcher');
@@ -67,14 +68,20 @@ class Dispatcher extends ZMObject {
         $messageService->loadMessages($request->getSession());
 
         $eventDispatcher->dispatch('dispatch_start', new Event($this, array('request' => $request)));
-        $view = $this->handleRequest($request);
+        ob_start();
+        list($response, $view) = $this->handleRequest($request);
+        $content = ob_get_clean();
+        if (!empty($content) && !$view) {
+            $response->setContent($content);
+        }
         $eventDispatcher->dispatch('dispatch_done', new Event($this, array('request' => $request)));
 
         // allow plugins and event subscribers to filter/modify the final contents; corresponds with ob_start() in init.php
-        $event = new Event($this, array('request' => $request, 'view' => $view, 'content' => ob_get_clean()));
+        $event = new Event($this, array('request' => $request, 'view' => $view, 'content' => $response->getContent()));
         $eventDispatcher->dispatch('finalise_content', $event);
 
-        echo $event->get('content');
+        $response->setContent($event->get('content'));
+        $response->send();
 
         // if we get to here all messages have been displayed
         $messageService->clear();
@@ -89,11 +96,14 @@ class Dispatcher extends ZMObject {
      * Handle a request.
      *
      * @param ZMRequest request The request to dispatch.
-     * @return View The view or <code>null</code>.
+     * @return Response The response or <code>null</code>.
      */
     public function handleRequest($request) {
         $eventDispatcher = $this->container->get('eventDispatcher');
 
+        $view = null;
+        $response = null;
+        $content = '';
         try {
             // check authorization
             $sacsManager = $this->container->get('sacsManager');
@@ -118,7 +128,6 @@ class Dispatcher extends ZMObject {
             }
 
             // make sure we end up with a View instance
-            $view = null;
             $routeResolver = $this->container->get('routeResolver');
             if (is_string($result)) {
                 $view = $routeResolver->getViewForId($result, $request);
@@ -127,6 +136,8 @@ class Dispatcher extends ZMObject {
                 $view->setVariables($result->getModel());
             } else if ($result instanceof View) {
                 $view = $result;
+            } else if ($result instanceof Response) {
+                $response = $result;
             }
         } catch (Exception $e) {
             $this->container->get('loggingService')->dump($e, sprintf('controller::process failed: %s', $e->getMessage()), Logging::ERROR);
@@ -136,19 +147,12 @@ class Dispatcher extends ZMObject {
             $controller->initViewVars($view, $request);
         }
 
-        // generate response
+        // populate response
         if (null != $view) {
             try {
-                if (null !== $view->getContentType()) {
-                    $s = 'Content-Type: '.$view->getContentType();
-                    if (null !== $view->getEncoding()) {
-                        $s .= '; charset='.$view->getEncoding();
-                    }
-                    header($s);
-                }
                 $eventDispatcher->dispatch('view_start', new Event(null, array('request' => $request, 'view' => $view)));
                 // generate response
-                echo $view->generate($request);
+                $content = $view->generate($request);
                 $eventDispatcher->dispatch('view_done', new Event(null, array('request' => $request, 'view' => $view)));
             } catch (ZMException $e) {
                 $this->container->get('loggingService')->dump($e, sprintf('view::generate failed: %s', $e), Logging::ERROR);
@@ -160,7 +164,9 @@ class Dispatcher extends ZMObject {
             $this->container->get('loggingService')->debug('null view, skipping $view->generate()');
         }
 
-        return $view;
+        // convert view stuff to response...
+        $response = $response ?: new Response($content);
+        return array($response, $view);
     }
 
     /**

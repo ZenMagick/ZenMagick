@@ -19,6 +19,7 @@
  */
 namespace zenmagick\http\controller;
 
+use Symfony\Component\HttpFoundation\Response;
 use ZMRequest;
 use zenmagick\base\ZMObject;
 use zenmagick\http\rss\RssSource;
@@ -62,14 +63,9 @@ class RssController extends ZMObject {
             return 'error';
         }
 
-        //TODO: how??
-        //$this->setContentType('application/rss+xml');
         // create content
         $feedGenerator = new RssFeedGenerator();
-        echo $feedGenerator->generate($request, $feed);
-
-        // no view
-        return null;
+        return new Response($feedGenerator->generate($request, $feed), 200, array('Content-Type' => 'application/rss+xml'));
     }
 
 }
