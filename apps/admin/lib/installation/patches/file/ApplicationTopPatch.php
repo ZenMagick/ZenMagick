@@ -37,7 +37,7 @@ class ApplicationTopPatch extends FilePatch {
      */
     public function __construct() {
         parent::__construct('applicationTop');
-        $this->label_ = 'Allow Zenmagick to handle all ZenCart initialisation code';
+        $this->label_ = 'Remove deprecated application_top.php patch';
         $this->applicationTop = Runtime::getSettings()->get('apps.store.zencart.path').'/includes/application_top.php';
     }
 
@@ -54,7 +54,7 @@ class ApplicationTopPatch extends FilePatch {
         }
 
         // look for ZenMagick code...
-        $patched = !(false !== strpos($lines[0], 'ZenCartBundle'));
+        $patched = false !== strpos($lines[0], 'ZenCartBundle');
         return $patched;
     }
 
@@ -87,28 +87,6 @@ class ApplicationTopPatch extends FilePatch {
      */
     function patch($force=false) {
         $lines = $this->getFileLines($this->applicationTop);
-        if (!$this->isOpen($lines)) {
-            return true;
-        }
-
-        if (is_writeable($this->applicationTop)) {
-            $lines[0] = "<?php require '".basename(Runtime::getInstallationPath())."/shared/store/bundles/ZenCartBundle/bridge/includes/application_top.php'; return; /* added by ZenMagick installation patcher */";
-            return $this->putFileLines($this->applicationTop, $lines);
-        } else {
-            Runtime::getLogging()->error("** ZenMagick: no permission to patch theme support into application_top.php");
-            return false;
-        }
-
-        return true;
-    }
-
-    /**
-     * Revert the patch.
-     *
-     * @return boolean <code>true</code> if patching was successful, <code>false</code> if not.
-     */
-    function undo() {
-        $lines = $this->getFileLines($this->applicationTop);
         if ($this->isOpen($lines)) {
             return true;
         }
@@ -124,4 +102,7 @@ class ApplicationTopPatch extends FilePatch {
         return true;
     }
 
+    function canUndo() {
+        return false;
+    }
 }

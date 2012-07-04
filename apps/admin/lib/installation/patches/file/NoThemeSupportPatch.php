@@ -35,7 +35,7 @@ class NoThemeSupportPatch extends FilePatch {
      */
     public function __construct() {
         parent::__construct('noThemeSupport');
-        $this->label_ = 'Patch zen-cart to use ZenMagick <strong>without</strong> ZenMagick themes';
+        $this->label_ = 'Remove "Patch zen-cart to use ZenMagick <strong>without</strong> ZenMagick themes"';
         $this->applicationBottomFile = Runtime::getSettings()->get('apps.store.zencart.path').'/includes/application_bottom.php';
     }
 
@@ -91,34 +91,6 @@ class NoThemeSupportPatch extends FilePatch {
      */
     function patch($force=false) {
         $lines = $this->getFileLines($this->applicationBottomFile);
-        if (!$this->isOpen($lines)) {
-            return true;
-        }
-
-        $PATCHLINE = "if (array_key_exists('zencart', zenmagick\\base\\Runtime::getContainer()->get('themeService')->getActiveTheme()->getMeta())) { \$request = zenmagick\\base\\Runtime::getContainer()->get('request'); \$event = new zenmagick\\base\\events\\Event(null, array('request' => \$request, 'content' => ob_get_clean(), 'view' => zenmagick\\base\\Runtime::getContainer()->get('defaultView'))); \$event->get('view')->setContainer(zenmagick\\base\\Runtime::getContainer()); zenmagick\\base\\Runtime::getEventDispatcher()->dispatch('finalise_content', \$event); echo \$event->get('content'); \$request->getSession()->clearMessages(); zenmagick\\base\\Runtime::getEventDispatcher()->dispatch('all_done', new zenmagick\\base\\events\\Event(null, array('request' => \$request))); } /* added by ZenMagick installation patcher */";
-
-        if (is_writeable($this->applicationBottomFile)) {
-            $patchedLines = array();
-            foreach ($lines as $line) {
-                if (false !== strpos($line, "session_write_close")) {
-                    array_push($patchedLines, $PATCHLINE);
-                }
-                $patchedLines[] = $line;
-            }
-            return $this->putFileLines($this->applicationBottomFile, $patchedLines);
-        } else {
-            Runtime::getLogging()->error("** ZenMagick: no permission to patch no theme support into application_bottpm.php");
-            return false;
-        }
-    }
-
-    /**
-     * Revert the patch.
-     *
-     * @return boolean <code>true</code> if patching was successful, <code>false</code> if not.
-     */
-    function undo() {
-        $lines = $this->getFileLines($this->applicationBottomFile);
         if ($this->isOpen($lines)) {
             return true;
         }
@@ -141,4 +113,7 @@ class NoThemeSupportPatch extends FilePatch {
         return true;
     }
 
+    public function canUndo() {
+        return false;
+    }
 }
