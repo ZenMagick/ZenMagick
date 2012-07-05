@@ -93,42 +93,4 @@ class ZMFileUtils {
             }
         }
     }
-
-
-    /**
-     * Scan (recursively) for <code>.php</code> files.
-     *
-     * <p>It is worth mentioning that directories will always be processed only after
-     * all plain files in a directory are done.</p>
-     *
-     * @param string dir The name of the root directory to scan.
-     * @param string ext Optional file suffix/extension; default is <em>.php</em>.
-     * @param boolean recursive If <code>true</code>, scan recursively.
-     * @return array List of full filenames of <code>.php</code> files.
-     */
-    public static function findIncludes($dir, $ext='.php', $recursive=false, $level=0) {
-        $includes = array();
-
-        // sanity check
-        if (!file_exists($dir) || !is_dir($dir)) {
-            return $includes;
-        }
-
-        $handle = @opendir($dir);
-        while (false !== ($name = readdir($handle))) {
-            if ("." == $name || ".." == $name) {
-                continue;
-            }
-            $file = $dir.$name;
-            if (is_dir($file) && $recursive) {
-                $includes = array_merge($includes, self::findIncludes($file.DIRECTORY_SEPARATOR, $ext, $recursive, $level+1));
-            } else if ($ext == substr($name, -strlen($ext))) {
-                $includes[] = $file;
-            }
-        }
-        @closedir($handle);
-
-        return $includes;
-    }
-
 }
