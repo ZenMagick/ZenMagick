@@ -45,7 +45,7 @@ $autoLoader->includeFiles('includes/languages/%language%/extra_definitions/*.php
 $PHP_SELF = $zcAdminPath.$zcPage;
 $code = file_get_contents($zcAdminPath.$zcPage);
 $code = preg_replace("/<!doctype[^>]*>/s", '', $code);
-$code = preg_replace("/require\(.*application_top.php'\s*\);/", "require('".Runtime::getInstallationPath().'/shared/store/bundles/ZenCartBundle/bridge/includes/application_top.php'."');", $code);
+$code = preg_replace("/require\(.*application_top.php'\s*\);/", '', $code);
 $code = preg_replace("/require\(.*header.php'\s*\);/", '', $code);
 $code = preg_replace("/require\(.*footer.php'\s*\);/", '', $code);
 $code = preg_replace("/<\/body>\s*<\/html>/s", '', $code);
