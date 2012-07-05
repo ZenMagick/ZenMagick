@@ -69,7 +69,7 @@ class ThemeSwitcherPlugin extends Plugin {
             $themeChain = array();
             $themeChain[] = $themeService->getThemeForId($this->container->get('settingsService')->get('apps.store.themes.default'));
             $theme = $themeChain[] = $themeService->getThemeForId($themeId);
-            $themeService->setThemeChain($themeChain, $languageId->getId());
+            $themeService->setThemeChain($themeChain, $language->getId());
             $themeService->initThemes($language);
             $args = array_merge($event->all(), array('theme' => $theme, 'themeId' => $themeId, 'themeChain' => $themeChain));
             $this->container->get('eventDispatcher')->dispatch('theme_resolved', new Event($this, $args));
