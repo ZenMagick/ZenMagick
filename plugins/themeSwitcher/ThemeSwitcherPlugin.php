@@ -88,11 +88,6 @@ class ThemeSwitcherPlugin extends Plugin {
             return;
         }
 
-        if (!$event->has('view')) {
-            // zc template active?
-            return;
-        }
-
         $request = $event->get('request');
         $themeService = $this->container->get('themeService');
         $settingsService = $this->container->get('settingsService');
