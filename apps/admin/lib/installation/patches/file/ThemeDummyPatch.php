@@ -127,9 +127,9 @@ class ThemeDummyPatch extends FilePatch {
                     fwrite($handle, '  $template_screenshot = ' . "'" . $imageName . "';\n");
                     fwrite($handle, '?>');
                     fclose($handle);
-                    \ZMFileUtils::setFilePerms($templateDir."template_info.php");
-                    \ZMFileUtils::setFilePerms($templateDir."images");
-                    \ZMFileUtils::setFilePerms($templateDir."images/".$imageName);
+                    $this->setFilePerms($templateDir."template_info.php");
+                    $this->setFilePerms($templateDir."images");
+                    $this->setFilePerms($templateDir."images/".$imageName);
                 } else {
                     Runtime::getLogging()->error("** ZenMagick: no permission to create theme dummy ".$themeId);
                     return false;

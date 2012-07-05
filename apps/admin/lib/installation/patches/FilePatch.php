@@ -90,7 +90,7 @@ class FilePatch extends InstallationPatch {
             }
             fclose($handle);
             if (!$fileExists) {
-                \ZMFileUtils::setFilePerms($file);
+                $this->setFilePerms($file);
             }
             return true;
         }
@@ -129,7 +129,7 @@ class FilePatch extends InstallationPatch {
             fwrite($handle, $contents);
             fclose($handle);
             if (!$fileExists) {
-                \ZMFileUtils::setFilePerms($file);
+                $this->setFilePerms($file);
             }
             return true;
         }
@@ -242,5 +242,9 @@ class FilePatch extends InstallationPatch {
         }
 
         return $undoOk;
+    }
+
+    function setFilePerms($paths) {
+        return \ZMFileUtils::setFilePerms($paths);
     }
 }
