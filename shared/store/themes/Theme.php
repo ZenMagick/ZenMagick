@@ -260,7 +260,7 @@ class Theme extends ZMObject {
     public function saveStaticPageContent($page, $contents, $languageId) {
         $language = $this->container->get('languageService')->getLanguageForId($languageId);
         $languageDir = $language->getDirectory();
-        $path = $this->getBasePath() . '/lang'.$languageDir.'/static/';
+        $path = $this->getBasePath() . '/lang/'.$languageDir.'/static/';
         if (!file_exists($path)) {
             $this->container->get('filesystem')->mkdir($path, 0755);
         }
