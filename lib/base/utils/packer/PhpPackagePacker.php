@@ -152,7 +152,9 @@ class PhpPackagePacker extends ZMObject {
      * @return array A list of file names.
      */
     protected function getFileList() {
-        return \ZMFileUtils::findIncludes($this->rootFolder_, '.php', true);
+        $it = new \RecursiveIteratorIterator(new \RecursiveDirectoryIterator($this->rootFolder_));
+        $it = new \RegexIterator($it, '/\.php$/', \RegexIterator::MATCH);
+        return array_keys(iterator_to_array($it));
     }
 
     /**

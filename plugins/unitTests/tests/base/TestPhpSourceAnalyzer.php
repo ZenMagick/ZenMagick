@@ -159,7 +159,10 @@ class TestPhpSourceAnalyzer extends TestCase {
         );
 
         $path = $this->getTestPlugin()->getPluginDirectory().'/tests/base/testclasses/deps/';
-        $tree = PhpSourceAnalyzer::buildDepdencyTree(ZMFileUtils::findIncludes($path, '.phpx', true), array('SystemClass'));
+        $it = new \RecursiveIteratorIterator(new \RecursiveDirectoryIterator($path));
+        $it = new \RegexIterator($it, '/\.phpx$/', \RegexIterator::MATCH);
+        $files = array_keys(iterator_to_array($it));
+        $tree = PhpSourceAnalyzer::buildDepdencyTree($files, array('SystemClass'));
         // strip path to make comparable and also just look at keys here
         foreach ($tree as $level => $files) {
             $tmp = array();
