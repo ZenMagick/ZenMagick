@@ -243,7 +243,7 @@ class PhpPackagePacker extends ZMObject {
             }
             fclose($handle);
             if (!$fileExists) {
-                \ZMFileUtils::setFilePerms($file);
+                $this->container->get('filesystem')->chmod($file, 0644);
             }
             return true;
         }

@@ -293,7 +293,7 @@ class PhpCompressor extends ZMObject {
             }
 
             fclose($handle);
-            \ZMFileUtils::setFilePerms($out);
+            $this->container->get('filesystem')->chmod($out, 0644);
         } else {
             echo $source;
         }
@@ -452,7 +452,7 @@ class PhpCompressor extends ZMObject {
             }
 
             fclose($handle);
-            \ZMFileUtils::setFilePerms($outfile);
+            $filesystem->chmod($outfile, 0644);
         }
     }
 
@@ -535,7 +535,7 @@ class PhpCompressor extends ZMObject {
         }
 
         fclose($handle);
-        \ZMFileUtils::setFilePerms($outfile);
+        $filesystem->chmod($outfile, 0644);
     }
 
 }
