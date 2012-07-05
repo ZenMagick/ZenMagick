@@ -100,15 +100,16 @@ class L10nController extends \ZMController {
         $themeService = $this->container->get('themeService');
 
         $defaultMap = array();
+        $defaultThemeId = Runtime::getSettings()->get('apps.store.themes.default');
         if ($vd['includeDefaults']) {
-            $themesDir = $themeService->getThemesDir();
-            $defaultMap = $scanner->buildL10nMap($themesDir.Runtime::getSettings()->get('apps.store.themes.default'));
+            $theme = $themeService->getThemeForId($defaultThemeId);
+            $defaultMap = $scanner->buildL10nMap($theme->getBasePath());
         }
 
         $existingMap = array();
         if ($vd['mergeExisting']) {
             $theme = $themeService->getThemeForId($vd['themeId']);
-            $themeMap = $scanner->buildL10nMap($theme->getBaseDir());
+            $themeMap = $scanner->buildL10nMap($theme->getBasePath());
             $existingMap = $themeMap;
         }
 
