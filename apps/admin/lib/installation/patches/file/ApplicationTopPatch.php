@@ -87,7 +87,7 @@ class ApplicationTopPatch extends FilePatch {
      */
     function patch($force=false) {
         $lines = $this->getFileLines($this->applicationTop);
-        if ($this->isOpen($lines)) {
+        if (!$this->isOpen($lines)) {
             return true;
         }
 

@@ -116,7 +116,7 @@ class ThemeDummyPatch extends FilePatch {
                     if (file_exists($theme->getBaseDir().'preview.jpg')) {
                         copy($theme->getBaseDir().'/preview.jpg', $templateDir.'/images/'.$imageName);
                     } else {
-                        copy(Runtime::getInstallationPath().'/lib/store/etc/images/preview_not_found.jpg', $templateDir.'/images/'.$imageName);
+                        copy(Runtime::getInstallationPath().'/shared/etc/images/preview_not_found.jpg', $templateDir.'/images/'.$imageName);
                     }
                     $handle = fopen($this->catalogTemplatePath.$themeId."/template_info.php", 'ab');
                     fwrite($handle, '<?php /** dummy file created by ZenMagick installation patcher **/'."\n");
