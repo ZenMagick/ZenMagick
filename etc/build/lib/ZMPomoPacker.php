@@ -47,7 +47,7 @@ class ZMPomoPacker extends PhpPackagePacker implements ZMLibraryPacker {
      */
     protected function getFileList() {
         // no recursive find
-        return ZMFileUtils::findIncludes($this->rootFolder_, '.php', false);
+        return glob($this->rootFolder_.'/*.php');
     }
 
     /**

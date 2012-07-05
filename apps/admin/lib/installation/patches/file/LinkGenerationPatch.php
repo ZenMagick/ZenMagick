@@ -39,7 +39,7 @@ class LinkGenerationPatch extends FilePatch {
     public function __construct() {
         parent::__construct('linkGeneration');
 
-        $this->label_ = 'Disable zen-cart\'s <code>zen_href_link</code> function in favour of a ZenMagick implementation';
+        $this->label_ = 'Remove deprecated zen_href_link patch.';
         $this->htmlOutputFile = dirname($this->getZcAdminPath()) . '/includes/functions/html_output.php';
         $this->adminHtmlOutputFile = $this->getZcAdminPath().'/includes/functions/html_output.php';
         $this->fktFilesCfg_ = array(
@@ -59,7 +59,7 @@ class LinkGenerationPatch extends FilePatch {
      * @return boolean <code>true</code> if this patch can still be applied.
      */
     function isOpen() {
-        return $this->isFilesFktOpen($this->fktFilesCfg_);
+        return !$this->isFilesFktOpen($this->fktFilesCfg_);
     }
 
     /**
@@ -93,17 +93,10 @@ class LinkGenerationPatch extends FilePatch {
         if (!$this->isOpen()) {
             return true;
         }
-
-        return $this->patchFilesFkt($this->fktFilesCfg_);
-    }
-
-    /**
-     * Revert the patch.
-     *
-     * @return boolean <code>true</code> if patching was successful, <code>false</code> if not.
-     */
-    function undo() {
         return $this->undoFilesFkt($this->fktFilesCfg_);
     }
 
+    function canUndo() {
+        return false;
+    }
 }

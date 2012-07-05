@@ -59,7 +59,7 @@ class NoThemeSupportPatch extends FilePatch {
             }
         }
 
-        return !($storeInclude);
+        return $storeInclude;
     }
 
     /**
