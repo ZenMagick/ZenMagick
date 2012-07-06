@@ -354,8 +354,8 @@ class PhpCompressor extends ZMObject {
      */
     protected function stripPhpDir($in, $out=null, $recursive=true) {
         //echo "** stripping " . $in . " into " . $out . "\n";
-        $in = rtrim($in, DIRECTORY_SEPARATOR).DIRECTORY_SEPARATOR);
-        $out = rtrim($out, DIRECTORY_SEPARATOR).DIRECTORY_SEPARATOR);
+        $in = rtrim($in, DIRECTORY_SEPARATOR).DIRECTORY_SEPARATOR;
+        $out = rtrim($out, DIRECTORY_SEPARATOR).DIRECTORY_SEPARATOR;
 
         $files = $this->findIncludes($in, '.php', $recursive);
 
@@ -365,7 +365,7 @@ class PhpCompressor extends ZMObject {
             $name = basename($infile);
             $dirbase = substr(dirname($infile), strlen($in));
             $outdir = $out.$dirbase;
-            $outdir = rtrim($outdir, DIRECTORY_SEPARATOR).DIRECTORY_SEPARATOR);
+            $outdir = rtrim($outdir, DIRECTORY_SEPARATOR).DIRECTORY_SEPARATOR;
             $outfile = $outdir.$name;
             //echo $outfile."<BR>";
             if (!file_exists($outdir)) {
