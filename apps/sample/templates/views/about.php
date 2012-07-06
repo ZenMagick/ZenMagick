@@ -6,6 +6,6 @@
   </head>
   <body>
     <h1><?php _vzm('This is the ZenMagick MVC sample application') ?></h1>
-    <p><a href="<?php echo $request->url('index') ?>"><?php _vzm('Home') ?></a></p>
+    <p><a href="<?php echo $net->url('index') ?>"><?php _vzm('Home') ?></a></p>
   </body>
 </html

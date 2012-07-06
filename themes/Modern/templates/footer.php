@@ -77,7 +77,7 @@ if (SHOW_FOOTER_IP == '1') {
 
 <!--bof- site copyright display -->
 <div id="siteinfoLegal" class="legalCopyright">
-  <?php _vzm('Copyright &copy; %1s %2s.', date('Y'), '<a href="'.$request->url('index').'">'.$settingsService->get('storeName').'</a>') ?>
+  <?php _vzm('Copyright &copy; %1s %2s.', date('Y'), '<a href="'.$net->url('index').'">'.$settingsService->get('storeName').'</a>') ?>
   <?php _vzm('Powered by %1s and %2s.', '<a href="http://www.zenmagick.org/" target="_blank">ZenMagick</a>', '<a href="http://www.zen-cart.com/" target="_blank">Zen Cart</a>') ?>
 </div>
 <!--eof- site copyright display -->
