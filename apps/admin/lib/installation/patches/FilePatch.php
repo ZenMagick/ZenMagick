@@ -29,6 +29,9 @@ use zenmagick\apps\store\admin\installation\InstallationPatch;
  */
 class FilePatch extends InstallationPatch {
 
+    protected $fileOwner_ = null;
+    protected $fileGroup_ = null;
+
     /**
      * Create new patch.
      *
@@ -90,7 +93,7 @@ class FilePatch extends InstallationPatch {
             }
             fclose($handle);
             if (!$fileExists) {
-                \ZMFileUtils::setFilePerms($file);
+                $this->setFilePerms($file);
             }
             return true;
         }
@@ -129,7 +132,7 @@ class FilePatch extends InstallationPatch {
             fwrite($handle, $contents);
             fclose($handle);
             if (!$fileExists) {
-                \ZMFileUtils::setFilePerms($file);
+                $this->setFilePerms($file);
             }
             return true;
         }
@@ -243,4 +246,70 @@ class FilePatch extends InstallationPatch {
 
         return $undoOk;
     }
+
+    /**
+     * Apply user/group settings to file(s) that should allow ftp users to modify/delete them.
+     *
+     * <p>The file group attribute is only going to be changed if the <code>$perms</code> parameter is not empty.</p>
+     *
+     * <p>This method may be disabled by setting <em>zenmagick.core.fs.permissions.fix</em> to <code>false</code>.</p>
+     *
+     * @param mixed files Either a single filename or list of files.
+     * @param boolean recursive Optional flag to recursively process all files/folders in a given directory; default is <code>false</code>.
+     * @param array perms Optional file permissions; defaults are taken from the settings <em>fs.permissions.defaults.folder</em> for folder,
+     *  <em>fs.permissions.defaults.file</em> for files.
+     *
+     * @todo rewrite to use Symfony\Component\Filesystem methods.
+     */
+    public function setFilePerms($files, $recursive=false, $perms=array()) {
+        $settingsService = Runtime::getSettings();
+        if (!$settingsService->get('zenmagick.core.fs.permissions.fix')) {
+            return;
+        }
+        if (null == $this->fileOwner_ || null == $this->fileGroup_) {
+            clearstatcache();
+            $this->fileOwner_ = fileowner(__FILE__);
+            $this->fileGroup_ = filegroup(__FILE__);
+            if (0 == $this->fileOwner_ && 0 == $this->fileGroup_) {
+                return;
+            }
+        }
+
+        if (!is_array($files)) {
+            $files = array($files);
+        }
+
+        $filePerms = array_merge(array('file' => $settingsService->get('zenmagick.core.fs.permissions.defaults.file', '0644'),
+                                    'folder' => $settingsService->get('zenmagick.core.fs.permissions.defaults.folder', '0755')), $perms);
+        foreach ($filePerms as $type => $perms) {
+            if (is_string($perms)) {
+                $filePerms[$type] = intval($perms, 8);
+            }
+        }
+
+        foreach ($files as $file) {
+            if (0 < count($perms)) {
+                @chgrp($file, $this->fileGroup_);
+            }
+            @chown($file, $this->fileOwner_);
+            $mod = $filePerms[(is_dir($file) ? 'folder' : 'file')];
+            @chmod($file, $mod);
+
+            if (is_dir($file) && $recursive) {
+                $dir = $file;
+                $dir = rtrim($dir, DIRECTORY_SEPARATOR).DIRECTORY_SEPARATOR;
+                $subfiles = array();
+                $handle = @opendir($dir);
+                while (false !== ($file = readdir($handle))) {
+                    if ("." == $file || ".." == $file) {
+                        continue;
+                    }
+                    $subfiles[] = $dir.$file;
+                }
+                @closedir($handle);
+                $this->setFilePerms($subfiles, $recursive, $perms);
+            }
+        }
+    }
+
 }

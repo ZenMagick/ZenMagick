@@ -36,7 +36,7 @@ class EmailPatch extends FilePatch {
      */
     public function __construct() {
         parent::__construct('email');
-        $this->label_ = 'Disable zen-cart\'s <code>zen_mail</code> function in favour of a ZenMagick implementation';
+        $this->label_ = 'Remove deprecated functions_email.php patch';
         $this->emailFunctionsFile = Runtime::getSettings()->get('apps.store.zencart.path').'/includes/functions/functions_email.php';
         $this->fktFilesCfg_ = array(
         $this->emailFunctionsFile => array(
@@ -55,7 +55,7 @@ class EmailPatch extends FilePatch {
      * @return boolean <code>true</code> if this patch can still be applied.
      */
     function isOpen() {
-        return $this->isFilesFktOpen($this->fktFilesCfg_);
+        return !$this->isFilesFktOpen($this->fktFilesCfg_);
     }
 
     /**
@@ -89,17 +89,10 @@ class EmailPatch extends FilePatch {
         if (!$this->isOpen()) {
             return true;
         }
-
-        return $this->patchFilesFkt($this->fktFilesCfg_);
-    }
-
-    /**
-     * Revert the patch.
-     *
-     * @return boolean <code>true</code> if patching was successful, <code>false</code> if not.
-     */
-    function undo() {
         return $this->undoFilesFkt($this->fktFilesCfg_);
     }
 
+    function canUndo() {
+        return false;
+    }
 }

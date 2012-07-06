@@ -98,6 +98,17 @@ class ZencartStorefrontController extends \ZMController {
         if (null == $session->getValue('securityToken')) {
             $session->setValue('securityToken', $session->getToken());
         }
+
+        if (null == $session->getValue('navigation')) {
+            $session->setValue('navigation', new \navigationHistory);
+        }
+
+        if (!$request->isXmlHttpRequest()) {
+            $session->getValue('navigation')->add_current_page();
+        }
+
+
+
         /**
          *  Execute ZenCart controller
          */
@@ -124,6 +135,9 @@ class ZencartStorefrontController extends \ZMController {
         }
         chdir($cwd);
         $autoLoader->restoreErrorLevel();
+        foreach ($_SESSION as $k => $v) {
+            $session->setValue($k, $v);
+        }
         return null;
     }
 

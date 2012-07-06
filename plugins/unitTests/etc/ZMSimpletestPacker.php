@@ -46,7 +46,7 @@ class ZMSimpletestPacker extends PhpPackagePacker implements ZMLibraryPacker {
     protected function getFileList() {
         // just the main folder excl. a few specific files.
         $exclude = array('autorun.php', 'eclipse.php', 'reflection_php4.php');
-        $files = ZMFileUtils::findIncludes($this->rootFolder_, '.php', false);
+        $files = glob($this->rootFolder_.'/*.php');
         foreach ($files as $ii => $file) {
             $name = basename($file);
             if (in_array($name, $exclude)) {

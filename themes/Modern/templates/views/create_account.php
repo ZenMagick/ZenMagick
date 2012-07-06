@@ -22,7 +22,7 @@
  */
 
 echo $form->open('create_account', '', true, array('id'=>'registration')) ?>
-<?php $crumbtrail->addCrumb(_zm('Account'), $request->url('account', '', true))->addCrumb(_zm('Create Account')) ?>
+<?php $crumbtrail->addCrumb(_zm('Account'), $net->url('account', '', true))->addCrumb(_zm('Create Account')) ?>
     <?php if ($settingsService->get('isPrivacyMessage')) { ?>
         <fieldset>
             <legend><?php _vzm("About Privacy") ?></legend>

@@ -37,7 +37,7 @@ class ThemeSupportPatch extends FilePatch {
      */
     public function __construct() {
         parent::__construct('themeSupport');
-        $this->label_ = 'Patch zen-cart to enable ZenMagick request handling (aka ZenMagick themes)';
+        $this->label_ = 'Remove "Patch zen-cart to enable ZenMagick request handling (aka ZenMagick themes)"';
         $this->indexFile = Runtime::getSettings()->get('apps.store.zencart.path').'/index.php';
     }
 
@@ -61,7 +61,7 @@ class ThemeSupportPatch extends FilePatch {
             }
         }
 
-        return !($storeInclude);
+        return $storeInclude;
     }
 
     /**
@@ -93,37 +93,6 @@ class ThemeSupportPatch extends FilePatch {
      */
     function patch($force=false) {
         $lines = $this->getFileLines($this->indexFile);
-        if (!$this->isOpen($lines)) {
-            return true;
-        }
-
-        if (is_writeable($this->indexFile)) {
-            $patchedLines = array();
-            foreach ($lines as $line) {
-                // need to insert before the zen-cart html_header...
-                if (false !== strpos($line, "require") && false !== strpos($line, "html_header.php")) {
-                    array_push($patchedLines, "  include('".dirname($this->indexFile)."/zenmagick/store.php'); /* added by ZenMagick installation patcher */");
-                }
-
-                array_push($patchedLines, $line);
-            }
-
-            return $this->putFileLines($this->indexFile, $patchedLines);
-        } else {
-            Runtime::getLogging()->error("** ZenMagick: no permission to patch theme support into index.php");
-            return false;
-        }
-
-        return true;
-    }
-
-    /**
-     * Revert the patch.
-     *
-     * @return boolean <code>true</code> if patching was successful, <code>false</code> if not.
-     */
-    function undo() {
-        $lines = $this->getFileLines($this->indexFile);
         if ($this->isOpen($lines)) {
             return true;
         }
@@ -146,4 +115,7 @@ class ThemeSupportPatch extends FilePatch {
         return true;
     }
 
+    public function canUndo() {
+        return false;
+    }
 }

@@ -20,7 +20,7 @@
  */
 ?>
 
-<?php $crumbtrail->addCrumb(_zm('Checkout'), $request->url('checkout_payment', '', true))->addCrumb(_zm('Payment Method')) ?>
+<?php $crumbtrail->addCrumb(_zm('Checkout'), $net->url('checkout_payment', '', true))->addCrumb(_zm('Payment Method')) ?>
 <fieldset>
     <legend><?php _vzm("Billing Address") ?></legend>
     <div class="btn">

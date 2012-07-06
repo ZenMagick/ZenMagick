@@ -260,8 +260,10 @@ class Theme extends ZMObject {
     public function saveStaticPageContent($page, $contents, $languageId) {
         $language = $this->container->get('languageService')->getLanguageForId($languageId);
         $languageDir = $language->getDirectory();
-        $path = $this->getBasePath() . '/lang'.$languageDir.'/static/';
+        $settingsService = $this->container->get('settingsService');
+        $path = $this->getBasePath() . '/lang/'.$languageDir.'/static/';
         if (!file_exists($path)) {
+            $mode = $settingsService->get('zenmagick.core.fs.permissions.defaults.folder', '0755');
             $this->container->get('filesystem')->mkdir($path, 0755);
         }
         $filename = $path.$page.'.php';
@@ -275,7 +277,8 @@ class Theme extends ZMObject {
         $handle = fopen($filename, 'w');
         fwrite($handle, $contents, strlen($contents));
         fclose($handle);
-        \ZMFileUtils::setFilePerms($filename);
+        $mode = $settingsService->get('zenmagick.core.fs.permissions.defaults.file', '0644');
+        $this->container->get('filesystem')->chmod($filename, $mode);
 
         return file_exists($filename);
     }

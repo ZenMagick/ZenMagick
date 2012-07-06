@@ -20,7 +20,7 @@
  */
 ?>
 
-<?php $crumbtrail->addCrumb(_zm('Checkout'), $request->url('checkout_shipping', '', true))->addCrumb(_zm('Shipping')) ?>
+<?php $crumbtrail->addCrumb(_zm('Checkout'), $net->url('checkout_shipping', '', true))->addCrumb(_zm('Shipping')) ?>
 <fieldset>
     <legend><?php _vzm("Shipping Address") ?></legend>
     <div class="btn">

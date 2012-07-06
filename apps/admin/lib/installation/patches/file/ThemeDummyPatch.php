@@ -116,7 +116,7 @@ class ThemeDummyPatch extends FilePatch {
                     if (file_exists($theme->getBaseDir().'preview.jpg')) {
                         copy($theme->getBaseDir().'/preview.jpg', $templateDir.'/images/'.$imageName);
                     } else {
-                        copy(Runtime::getInstallationPath().'/lib/store/etc/images/preview_not_found.jpg', $templateDir.'/images/'.$imageName);
+                        copy(Runtime::getInstallationPath().'/shared/etc/images/preview_not_found.jpg', $templateDir.'/images/'.$imageName);
                     }
                     $handle = fopen($this->catalogTemplatePath.$themeId."/template_info.php", 'ab');
                     fwrite($handle, '<?php /** dummy file created by ZenMagick installation patcher **/'."\n");
@@ -127,9 +127,9 @@ class ThemeDummyPatch extends FilePatch {
                     fwrite($handle, '  $template_screenshot = ' . "'" . $imageName . "';\n");
                     fwrite($handle, '?>');
                     fclose($handle);
-                    \ZMFileUtils::setFilePerms($templateDir."template_info.php");
-                    \ZMFileUtils::setFilePerms($templateDir."images");
-                    \ZMFileUtils::setFilePerms($templateDir."images/".$imageName);
+                    $this->setFilePerms($templateDir."template_info.php");
+                    $this->setFilePerms($templateDir."images");
+                    $this->setFilePerms($templateDir."images/".$imageName);
                 } else {
                     Runtime::getLogging()->error("** ZenMagick: no permission to create theme dummy ".$themeId);
                     return false;

@@ -21,7 +21,7 @@
 <!-- semi automatic -->
 <?php echo $validator->toJSString('mynameForm'); ?>
 
-<form action="<?php echo $request->url() ?>" id="mynameForm" onsubmit="return zmFormValidation.validate(this);" method="POST">
+<form action="<?php echo $net->url() ?>" id="mynameForm" onsubmit="return zmFormValidation.validate(this);" method="POST">
   <p><?php _vzm('Tell me your name?') ?></p>
   <p>
     <input type="text" name="myname" value="">
@@ -34,10 +34,10 @@
 <p><?php echo sprintf(_vzm('Context is: %s', $request->getContext())) ?></p>
 <p><?php echo sprintf(_vzm('DocRoot is: %s', $request->getDocRoot())) ?></p>
 
-<p><a href="<?php echo $request->url(null, 'clear=true', true) ?>"><?php _vzm('Clear session') ?></a></p>
+<p><a href="<?php echo $net->url(null, 'clear=true', true) ?>"><?php _vzm('Clear session') ?></a></p>
 <p>
   <?php foreach ($languages as $locale => $name) { if ($locale == $currentLocale) { continue; } ?>
-    <a href="<?php echo $request->url(null, 'locale='.$locale) ?>"><?php echo $name ?></a>
+    <a href="<?php echo $net->url(null, 'locale='.$locale) ?>"><?php echo $name ?></a>
   <?php } ?>
 </p>
-<p><a href="<?php echo $request->url('about') ?>"><?php _vzm('About') ?></a></p>
+<p><a href="<?php echo $net->url('about') ?>"><?php _vzm('About') ?></a></p>

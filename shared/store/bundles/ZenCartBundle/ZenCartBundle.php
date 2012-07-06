@@ -25,6 +25,7 @@ use Symfony\Component\HttpKernel\Bundle\Bundle;
 
 use zenmagick\base\Beans;
 use zenmagick\base\Runtime;
+use zenmagick\base\utils\Executor;
 use zenmagick\base\dependencyInjection\loader\YamlLoader;
 use zenmagick\apps\store\bundles\ZenCartBundle\utils\EmailEventHandler;
 
@@ -96,22 +97,15 @@ class ZenCartBundle extends Bundle {
             if (null == $session->getValue('navigation')) {
                 $session->setValue('navigation', new \navigationHistory);
             }
-
-            if (!$request->isXmlHttpRequest()) {
-                $session->getValue('navigation')->add_current_page();
-            }
-
-
         }
     }
 
     /**
-     * Things to do after the auto loader is finished, but before going back into index.php
+     * Boot ZenCart template and language
      */
-    public function onAutoloadDone($event) {
-        if (!Runtime::isContextMatch('storefront')) return;
-        $request = $event->get('request');
-
+    public function onDispatchStart($event) {
+        // @todo all this code should go somewhere else
+        if (defined('DIR_WS_TEMPLATE') || !Runtime::isContextMatch('storefront')) return;
         $autoLoader = $this->container->get('zenCartAutoLoader');
         $themeId = $this->container->get('themeService')->getActiveThemeId();
         $autoLoader->setGlobalValue('template_dir', $themeId);
@@ -129,38 +123,26 @@ class ZenCartBundle extends Bundle {
             'includes/languages/%language%/extra_definitions/*.php')
         );
         $autoLoader->restoreErrorLevel();
-        $autoLoader->setGlobalValue('language_page_directory', 'includes/languages/'.$request->getSelectedLanguage()->getDirectory().'/');
-
-        // skip more zc request handling
-        global $code_page_directory;
-        if (!$this->needsZC($request)) {
-            $code_page_directory = 'zenmagick';
-        } else {
-            $code_page_directory = 'includes/modules/pages/'.$request->getRequestId();
-        }
     }
 
     /**
-     * Simple function to check if we need zen-cart request processing.
+     * Switch over to ZenCartStorefrontController if required.
      *
-     * @param /MRequest request The current request.
-     * @return boolean <code>true</code> if zen-cart should handle the request.
+     * @todo this is the wrong place because error templates show
+     * the "base" template.
      */
-    private function needsZC($request) {
-        if ($this->container->get('themeService')->getActiveTheme()->getMeta('zencart')) {
-            return true;
-        }
+    public function onControllerProcessStart($event) {
+        if (!Runtime::isContextMatch('storefront')) return;
 
-        $requestId = $request->getRequestId();
-        $requestIds = Runtime::getSettings()->get('apps.store.request.enableZCRequestHandling', array());
-        // not supported by ZenMagick (yet)
-        $requestIds = array_merge($requestIds, array('checkout_confirmation', 'checkout_process'));
-
-        $needs = false;
-        if (in_array($requestId, $requestIds)) {
-            Runtime::getLogging()->debug('enable zencart request processing for requestId='.$requestId);
-            return true;
+        $request = $event->get('request');
+        $needsZC = $this->container->get('themeService')->getActiveTheme()->getMeta('zencart');
+        // @todo <johnny> we want to use the route instead right?
+        // || in_array($request->getRequestId(), (array)$this->container->get('settingsService')->get('apps.store.request.enableZCRequestHandling));
+        if ($needsZC && null != ($dispatcher = $request->getDispatcher())) {
+            $settingsService = $this->container->get('settingsService');
+            $settingsService->set('zenmagick.http.view.defaultLayout', null);
+            $executor = new Executor(array($this->container->get('zenmagick\apps\store\bundles\ZenCartBundle\controller\ZencartStorefrontController'), 'process'), array($request));
+            $dispatcher->setControllerExecutor($executor);
         }
-        return $needs;
-    }
+     }
 }

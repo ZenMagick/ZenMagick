@@ -62,11 +62,14 @@ class LocaleScanner extends ZMObject {
      */
     public function buildL10nMap($baseDir, $ext='.php') {
         $filesystem = $this->container->get('filesystem');
-
+        if (!is_dir($baseDir)) return array();
         $lnPatterns = explode(',', self::LOCALE_PATTERNS);
         $map = array();
-        foreach (\ZMFileUtils::findIncludes($baseDir.DIRECTORY_SEPARATOR, $ext, true) as $filename) {
+        $it = new \RecursiveIteratorIterator(new \RecursiveDirectoryIterator($baseDir));
+        $it = new \RegexIterator($it, '/\\'.$ext.'$/', \RegexIterator::MATCH);
+        foreach ($it as $fileInfo) {
             $strings = array();
+            $filename = $fileInfo->getPathname();
             $contents = file_get_contents($filename);
             // try to convert into relative path
             $filename = $filesystem->makePathRelative($filename, dirname($baseDir));

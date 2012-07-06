@@ -96,7 +96,7 @@ class SideboxDummyPatch extends FilePatch {
                         $handle = fopen($this->sideBoxPath.$box, 'ab');
                         fwrite($handle, '<?php /** dummy file created by ZenMagick installation patcher **/ ?>');
                         fclose($handle);
-                        \ZMFileUtils::setFilePerms($$this->sideBoxPath.$box);
+                        $this->setFilePerms($this->sideBoxPath.$box);
                     }
                 } else {
                     Runtime::getLogging()->error("** ZenMagick: no permission to create dummy sidebox " . $box);

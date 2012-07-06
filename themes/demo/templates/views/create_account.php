@@ -22,7 +22,7 @@
 <?php /*=== include to allow PHP execution in ZM context ==*/ ?>
 <script type="text/javascript"><?php echo $this->fetch("dynamicState.js") ?></script>
 
-<?php $crumbtrail->addCrumb(_zm('Account'), $request->url('account', '', true))->addCrumb(_zm('Create Account')) ?>
+<?php $crumbtrail->addCrumb(_zm('Account'), $net->url('account', '', true))->addCrumb(_zm('Create Account')) ?>
 <?php echo $form->open('create_account', '', true, array('id'=>'registration')) ?>
     <?php if ($settingsService->get('isPrivacyMessage')) { ?>
         <fieldset>

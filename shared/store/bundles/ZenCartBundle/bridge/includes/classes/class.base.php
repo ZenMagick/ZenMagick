@@ -63,7 +63,7 @@ class base {
      */
     public function notify($eventId, $params = array()) {
         // Tell ZenMagick about the event
-        $this->notifyZenMagick($eventId, $params);
+        //$this->notifyZenMagick($eventId, $params);
         $observers = (array)self::getStaticObserver();
         foreach ($observers as $hash => $observer) {
             if ($observer['eventId'] == $eventId) {
@@ -74,6 +74,7 @@ class base {
 
     /**
      * Tell ZenMagick too
+     * @todo do we want to know about any other events?
      */
     public function notifyZenmagick($eventId, $params = array()) {
         $container = zenmagick\base\Runtime::getContainer();

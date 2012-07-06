@@ -63,14 +63,13 @@ class ThemeSwitcherPlugin extends Plugin {
             $session->setValue(self::SESS_THEME_KEY, $themeId);
         }
 
-        $languageId = $session->getLanguageId();
         $language = $session->getLanguage();
         if (null != ($themeId = $session->getValue(self::SESS_THEME_KEY))) {
             $themeService = $this->container->get('themeService');
             $themeChain = array();
             $themeChain[] = $themeService->getThemeForId($this->container->get('settingsService')->get('apps.store.themes.default'));
             $theme = $themeChain[] = $themeService->getThemeForId($themeId);
-            $themeService->setThemeChain($themeChain, $languageId);
+            $themeService->setThemeChain($themeChain, $language->getId());
             $themeService->initThemes($language);
             $args = array_merge($event->all(), array('theme' => $theme, 'themeId' => $themeId, 'themeChain' => $themeChain));
             $this->container->get('eventDispatcher')->dispatch('theme_resolved', new Event($this, $args));
@@ -86,11 +85,6 @@ class ThemeSwitcherPlugin extends Plugin {
         // id on main div
         if (false !== strpos($content, 'theme-switcher')) {
             // already done, do not change
-            return;
-        }
-
-        if (!$event->has('view')) {
-            // zc template active?
             return;
         }
 

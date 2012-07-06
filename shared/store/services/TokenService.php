@@ -138,7 +138,7 @@ class TokenService extends ZMObject {
      *
      * @param boolean all Optional flag to clear all token; default is false.
      */
-    public function clear($all) {
+    public function clear($all=false) {
         if ($all) {
             $sql = "DELETE FROM %table.token%";
         } else {
