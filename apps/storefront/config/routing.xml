@@ -262,6 +262,7 @@
 
     <route id="tell_a_friend" pattern="/tell-a-friend/{productId}">
         <default key="_controller">zenmagick\apps\store\storefront\controller\TellAFriendController</default>
+        <default key="productId"></default>
         <option key="view">redirect://product</option>
         <option key="form">ZMEmailMessage#formId:tellAFriend</option>
     </route>
