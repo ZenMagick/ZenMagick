@@ -210,7 +210,7 @@ class ZencartStorefrontController extends \ZMController {
         // breadcrumb
         $robotsNoIndex = false;
         $validCategories = array();
-        $cPathArray = $request->getCategoryPathArray();
+        $cPathArray = (array)$request->attributes->get('categoryIds');
         foreach ($cPathArray as $categoryId) {
             $category = $this->container->get('categoryService')->getCategoryForId($categoryId, $languageId);
             if (null != $category) {

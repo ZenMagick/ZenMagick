@@ -63,10 +63,35 @@ class StoreEventListener extends ZMObject {
         }
     }
 
+
+    /**
+     * {@inheritDoc}
+     */
+    public function onRequestReady($event) {
+        $request = $event->get('request');
+
+        $cPath = array();
+        if (null !== ($path = $request->query->get('cPath'))) {
+            $path = explode('_', $path);
+            foreach ($path as $categoryId) {
+                $categoryId = (int)$categoryId;
+                if (!in_array($categoryId, $cPath)) {
+                    $cPath[] = $categoryId;
+                }
+            }
+        }
+        $request->attributes->set('categoryIds', $cPath);
+        $currentCategoryId = end($cPath);
+        $request->attributes->set('categoryId', (int)$currentCategoryId);
+
+
+    }
+
     /**
      * Set up block manager.
      */
     public function onContainerReady($event) {
+
         $settingsService = $this->container->get('settingsService');
         // Override transport command for qmail and the like
         $transportCommand = $settingsService->get('zenmagick.base.email.transportCommand');

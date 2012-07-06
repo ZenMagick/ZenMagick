@@ -146,7 +146,7 @@ class ToolboxAdmin extends ToolboxTool {
     function categoryTree($categories = null, $start = true) {
         $admin = $this->getToolbox()->admin;
         $html = $this->getToolbox()->html;
-        $path = $this->getRequest()->getCategoryPathArray();
+        $path = (array)$this->getRequest()->attributes->get('categoryIds');
         if ($start) {
             ob_start();
             if (null === $categories) {

@@ -189,7 +189,7 @@ class ToolboxMacro extends ToolboxTool {
         $toolbox = $this->getToolbox();
         if ($root) {
             ob_start();
-            $path = $this->getRequest()->getCategoryPathArray();
+            $path = (array)$this->getRequest()->attributes->get('categoryIds');
         }
         $languageId = $this->getRequest()->getSession()->getLanguageId();
         echo '<ul' . ($activeParent ? ' class="act"' : '') . '>';

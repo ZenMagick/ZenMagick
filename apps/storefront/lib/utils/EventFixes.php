@@ -295,20 +295,22 @@ class EventFixes extends ZMObject {
     protected function fixCategoryPath($request) {
         $languageId = $request->getSession()->getLanguageId();
         if (0 != ($productId = $request->getProductId())) {
-            if ($request->query->has('cPath')) {
+            if ($request->attributes->get('categoryIds')) {
                 // set default based on product default category
                 if (null != ($product = $this->container->get('productService')->getProductForId($productId, $languageId))) {
                     $defaultCategory = $product->getDefaultCategory($languageId);
                     if (null != $defaultCategory) {
+                        // @todo ZCSMELL
                         $request->query->set('cPath', implode('_', $defaultCategory->getPath()));
+                        $request->attributes->set('categoryIds', $defaultCategory->getPath());
                     }
                 }
             }
         }
 
         if (Runtime::getSettings()->get('apps.store.verifyCategoryPath')) {
-            if ($request->query->has('cPath')) {
-                $path = array_reverse($request->getCategoryPathArray());
+            if ($request->attributes->has('categoryIds')) {
+                $path = array_reverse((array)$request->attributes->get('categoryIds'));
                 $last = count($path) - 1;
                 $valid = true;
                 foreach ($path as $ii => $categoryId) {
@@ -330,9 +332,11 @@ class EventFixes extends ZMObject {
                     }
                 }
                 if (!$valid) {
-                    $category = $this->container->get('categoryService')->getCategoryForId(array_pop($request->getCategoryPathArray(), $languageId));
+                    $category = $this->container->get('categoryService')->getCategoryForId(array_pop($request->attributes->get('categoryIds'), $languageId));
                     if (is_array($category->getPath())) {
+                        // @todo ZCSMELL
                         $request->query->set('cPath', implode('_', $category->getPath()));
+                        $request->attributes->set('categoryIds', $category->getPath());
                     } else {
                         Runtime::getLogging()->error('invalid cPath: ' . $cPath);
                     }
