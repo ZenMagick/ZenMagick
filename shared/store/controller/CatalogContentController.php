@@ -65,7 +65,7 @@ abstract class CatalogContentController extends \ZMController {
      */
     public function isActive($request) {
         $bits = 0;
-        if (0 < $request->getCategoryId()) {
+        if (0 < $request->attributes->get('categoryId')) {
             $bits |= self::ACTIVE_CATEGORY;
         }
         if (0 < $request->getProductId()) {

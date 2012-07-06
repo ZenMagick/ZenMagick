@@ -20,10 +20,10 @@
 ?>
 
 <tr class="<?php echo ($odd?"odd":"even").($first?" first":" other") ?>">
-    <td><?php echo $html->productImageLink($product, $request->getCategoryId()) ?></td>
+    <td><?php echo $html->productImageLink($product, $request->attributes->get('categoryId')) ?></td>
     <td class="pinfo">
     	<div style="margin-left: 10px">
-	    	<div class="productsName"><a href="<?php echo $net->product($product->getId(), $request->getCategoryId()) ?>"><?php echo $html->encode($product->getName()) ?></a></div>
+	    	<div class="productsName"><a href="<?php echo $net->product($product->getId(), $request->attributes->get('categoryId')) ?>"><?php echo $html->encode($product->getName()) ?></a></div>
 	        <div class="productsPrice"><?php echo $utils->formatMoney($product->getPrice()) ?></div>
 	        <div class="shortProductsDescription"><?php echo $html->more($product->getDescription(), 120) ?></div>
         </div>

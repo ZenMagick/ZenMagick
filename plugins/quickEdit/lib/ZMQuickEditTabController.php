@@ -71,7 +71,7 @@ class ZMQuickEditTabController extends CatalogContentController {
         $data['fieldList'] = $fieldList;
         $data['fieldMap'] = $fieldMap;
 
-        $categoryId = $request->getCategoryId();
+        $categoryId = $request->attributes->get('categoryId');
         $data['categoryId'] = $categoryId;
         $data['category'] = $this->container->get('categoryService')->getCategoryForId($categoryId, $request->getSelectedLanguage()->getId());
         $productList = $this->container->get('productService')->getProductsForCategoryId($categoryId, false, $request->getSelectedLanguage()->getId());
@@ -89,7 +89,7 @@ class ZMQuickEditTabController extends CatalogContentController {
         $fieldList = $data['fieldList'];
         $fieldMap = $data['fieldMap'];
 
-        $productIdList = $this->container->get('productService')->getProductIdsForCategoryId($request->getCategoryId(), $languageId, false, false);
+        $productIdList = $this->container->get('productService')->getProductIdsForCategoryId($request->attributes->get('categoryId'), $languageId, false, false);
         foreach ($productIdList as $productId) {
             // build a data map for each submitted product
             $formData = array();

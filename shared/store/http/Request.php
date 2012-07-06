@@ -59,22 +59,6 @@ class Request extends \ZMRequest {
     public function getProductId() { return (int)$this->getParameter('products_id', $this->getParameter('productId', 0)); }
 
     /**
-     * Get the current category id.
-     *
-     * @return int The current category id or <code>0</code>.
-     */
-    public function getCategoryId() {
-
-        $cPath = $this->attributes->get('categoryIds');
-
-        if (0 < count($cPath)) {
-            return end($cPath);
-        }
-
-        return 0;
-    }
-
-    /**
      * Get the account id.
      *
      * @return int The account id for the currently logged in user or <code>0</code>.

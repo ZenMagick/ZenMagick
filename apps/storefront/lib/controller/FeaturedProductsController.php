@@ -33,7 +33,7 @@ class FeaturedProductsController extends \ZMController {
      * {@inheritDoc}
      */
     public function processGet($request) {
-        $resultSource = new \ZMObjectResultSource('ZMProduct', 'productService', "getFeaturedProducts", array($request->getCategoryId(), 0));
+        $resultSource = new \ZMObjectResultSource('ZMProduct', 'productService', "getFeaturedProducts", array($request->attributes->get('categoryId'), 0));
         $resultList = Runtime::getContainer()->get("ZMResultList");
         $resultList->setResultSource($resultSource);
         foreach (explode(',', Runtime::getSettings()->get('resultListProductFilter')) as $filter) {

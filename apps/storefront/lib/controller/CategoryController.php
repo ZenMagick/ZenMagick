@@ -44,9 +44,9 @@ class CategoryController extends \ZMController {
         // decide what to do
         if ($request->query->has('cPath')) {
             $method = "getProductsForCategoryId";
-            $args = array($request->getCategoryId(), true, $request->getSession()->getLanguageId());
+            $args = array($request->attributes->get('categoryId'), true, $request->getSession()->getLanguageId());
             $viewName = 'category_list';
-            if (null == ($category = $this->container->get('categoryService')->getCategoryForId($request->getCategoryId(), $languageId)) || !$category->isActive()) {
+            if (null == ($category = $this->container->get('categoryService')->getCategoryForId($request->attributes->get('categoryId'), $languageId)) || !$category->isActive()) {
                 return $this->findView('category_not_found');
             }
         } else if ($request->query->has('manufacturers_id')) {

@@ -52,7 +52,7 @@ class ZenCartAutoLoader extends ZMObject {
             'current_page' => $requestId,
             'current_page_base' => $requestId,
             'cPath' => (string)$request->query->get('cPath'),
-            'current_category_id' => $request->getCategoryId(),
+            'current_category_id' => $request->attributes->get('categoryId'),
             'cPath_array' => $request->attributes->get('categoryIds'),
             'page_directory' => 'includes/modules/pages/'.$requestId,
             'request_type' => $request->isSecure() ? 'SSL' : 'NONSSL',

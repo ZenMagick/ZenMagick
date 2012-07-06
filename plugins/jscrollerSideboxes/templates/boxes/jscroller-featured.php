@@ -23,7 +23,7 @@
 ?>
 
 <?php if (isset($jscrollerSideboxes)) { ?>
-    <?php $products = $this->container->get('productService')->getFeaturedProducts($request->getCategoryId(),
+    <?php $products = $this->container->get('productService')->getFeaturedProducts($request->attributes->get('categoryId'),
               MAX_RANDOM_SELECT_FEATURED_PRODUCTS, false, $session->getLanguageId()); ?>
     <?php if (0 < count($products)) { ?>
         <h3><a href="<?php echo $net->url('featured_products') ?>"><?php _vzm("[More]") ?></a><?php _vzm("Featured") ?></h3>
@@ -38,8 +38,8 @@
                 <?php $resources->cssFile('jscroller/style_jscroller.css'); ?>
                 <?php ob_start(); foreach ($products as $product) { ?>
                     <p>
-                    <?php echo $html->productImageLink($product, $request->getCategoryId()) ?><br>
-                    <a href="<?php echo $net->product($product->getId(), $request->getCategoryId()) ?>"><?php echo $html->encode($product->getName()) ?></a><br>
+                    <?php echo $html->productImageLink($product, $request->attributes->get('categoryId')) ?><br>
+                    <a href="<?php echo $net->product($product->getId(), $request->attributes->get('categoryId')) ?>"><?php echo $html->encode($product->getName()) ?></a><br>
                     <?php echo $macro->productPrice($product) ?>
                     </p>
                 <?php } $featured = ob_get_clean(); ?>

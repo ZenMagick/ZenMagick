@@ -20,7 +20,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */ if (isset($jscrollerSideboxes)) { ?>
-    <?php $products = $this->container->get('productService')->getBestSellers($request->getCategoryId(), null, $session->getLanguageId()); ?>
+    <?php $products = $this->container->get('productService')->getBestSellers($request->attributes->get('categoryId'), null, $session->getLanguageId()); ?>
     <?php if (0 < count($products)) { ?>
         <h3><?php _vzm("Best Sellers") ?></h3>
         <div id="sb_bestsellers" class="box">
@@ -34,8 +34,8 @@
                 <?php $resources->cssFile('jscroller/style_jscroller.css'); ?>
                 <?php ob_start(); foreach ($products as $product) { ?>
                     <p>
-                    <?php echo $html->productImageLink($product, $request->getCategoryId()) ?><br>
-                    <a href="<?php echo $net->product($product->getId(), $request->getCategoryId()) ?>"><?php echo $html->encode($product->getName()) ?></a><br>
+                    <?php echo $html->productImageLink($product, $request->attributes->get('categoryId')) ?><br>
+                    <a href="<?php echo $net->product($product->getId(), $request->attributes->get('categoryId')) ?>"><?php echo $html->encode($product->getName()) ?></a><br>
                     <?php echo $macro->productPrice($product) ?>
                     </p>
                 <?php } $featured = ob_get_clean(); ?>

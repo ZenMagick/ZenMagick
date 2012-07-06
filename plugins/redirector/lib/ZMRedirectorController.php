@@ -36,7 +36,7 @@ class ZMRedirectorController extends ZMController {
                 return $view;
             }
             return $this->findView('product_not_found');
-        } else if (0 < $request->getCategoryId()) {
+        } else if (0 < $request->attributes->get('categoryId')) {
             if (null != ($view = $this->processMissingCategory($request))) {
                 return $view;
             }
@@ -86,7 +86,7 @@ class ZMRedirectorController extends ZMController {
     protected function processMissingCategory($request) {
         $categoryService = $this->container->get('categoryService');
 
-        if (null == ($category = $categoryService->getCategoryForId($request->getCategoryId(), $request->getSession()->getLanguageId()))) {
+        if (null == ($category = $categoryService->getCategoryForId($request->attributes->get('categoryId'), $request->getSession()->getLanguageId()))) {
             return null;
         }
 

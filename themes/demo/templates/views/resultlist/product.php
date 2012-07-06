@@ -22,7 +22,7 @@
 
 <tr class="<?php echo ($odd?"odd":"even").($first?" first":" other") ?>">
     <!-- need id on link to identify the product -->
-    <td><a href="<?php echo $net->product($product->getId(), $request->getCategoryId()) ?>" id="product_<?php echo $product->getId() ?>" class="product"><?php echo $html->image($product->getImageInfo(), ZMProducts::IMAGE_SMALL) ?></a></td>
+    <td><a href="<?php echo $net->product($product->getId(), $request->attributes->get('categoryId')) ?>" id="product_<?php echo $product->getId() ?>" class="product"><?php echo $html->image($product->getImageInfo(), ZMProducts::IMAGE_SMALL) ?></a></td>
     <td class="pinfo">
         <a href="<?php echo $net->product($product->getId()) ?>"><?php echo $html->encode($product->getName()) ?></a><br/>
         <?php echo $html->more($product->getDescription(), 120) ?>
