@@ -160,7 +160,7 @@ class GoogleAnalyticsPlugin extends Plugin {
 
             // fallthrough to pagename
         case 'pagename':
-            $args = array('reviews_id', 'manufacturers_id', 'cPath', 'id', 'cat', 'products_id');
+            $args = array('reviews_id', 'manufacturers_id', 'cPath', 'id', 'cat', 'productId');
             $view = $request->getRequestId();
             foreach ($args as $name) {
                 $attr = '[';

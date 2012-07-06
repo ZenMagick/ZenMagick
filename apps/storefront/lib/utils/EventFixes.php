@@ -139,7 +139,7 @@ class EventFixes extends ZMObject {
 
         if ($settingsService->get('isShowCartAfterAddProduct')) {
             $redirectTarget =  'shopping_cart';
-            $params = array('action', 'cPath', 'products_id', 'pid', 'main_page');
+            $params = array('action', 'cPath', 'products_id', 'pid', 'main_page', 'productId');
         } else {
             $redirectTarget = $request->getRequestId();
             if ($action == 'buy_now') {
@@ -147,12 +147,15 @@ class EventFixes extends ZMObject {
                     $params = array('action');
                     $redirectTarget = 'product_reviews';
                 } else {
-                    $params = array('action', 'products_id');
+                    $params = array('action', 'products_id', 'productId');
                 }
             } else {
                 $params = array('action', 'pid', 'main_page');
             }
         }
+
+        $productId = $request->query->get('productId');
+        if (null !== $productId) $_GET['product_id'] = $productId;
 
         $shoppingCart = $request->getShoppingCart();
         if ('empty_cart' == $action) $redirectTarget = true;
@@ -275,6 +278,7 @@ class EventFixes extends ZMObject {
         // init_sanitize
         $sanitizeList = array(
             'products_id' => '/^[0-9]+(:[0-9a-f]{32})?$/',
+            'productId' => '/^[0-9]+(:[0-9a-f]{32})?$/',
             'manufacturers_id' => '/^\d+$/',
             'categories_id' => '/^\d+$/',
             'cPath' => '/^[0-9_]+$/',

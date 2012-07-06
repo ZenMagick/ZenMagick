@@ -41,7 +41,7 @@ RewriteRule ^account/giftcard/redeem/([0-9:a-f]+)/?$ index.php?main_page=gv_rede
 RewriteRule ^account/giftcard/faq/?$ index.php?main_page=gv_faq [QSA,L]
 RewriteRule ^account/notifications/?$ index.php?main_page=account_notifications [QSA,L]
 RewriteRule ^account/newsletters/?$ index.php?main_page=account_newsletters [QSA,L]
-RewriteRule ^account/notifications/([0-9:a-f]+)/?$ index.php?main_page=account_notifications&products_id=$1 [QSA,L]
+RewriteRule ^account/notifications/([0-9:a-f]+)/?$ index.php?main_page=account_notifications&productId=$1 [QSA,L]
 RewriteRule ^account/notifications/?$ index.php?main_page=account_notifications [QSA,L]
 RewriteRule ^account/password/process?$ index.php?main_page=account_password&action=process [QSA,L]
 RewriteRule ^account/password/?$ index.php?main_page=account_password [QSA,L]
@@ -54,14 +54,14 @@ RewriteRule ^login/process/?$ index.php?main_page=login&action=process [QSA,L]
 RewriteRule ^login/?$ index.php?main_page=login [QSA,L]
 RewriteRule ^logoff/?$ index.php?main_page=logoff [QSA,L]
 
-RewriteRule ^manufacturer/([0-9]+)/([0-9:a-f]+)/?$ index.php?main_page=product_info&manufacturers_id=$1&products_id=$2 [QSA,L]
+RewriteRule ^manufacturer/([0-9]+)/([0-9:a-f]+)/?$ index.php?main_page=product_info&manufacturers_id=$1&productId=$2 [QSA,L]
 RewriteRule ^manufacturer/([0-9]+)/?$ index.php?main_page=index&manufacturers_id=$1 [QSA,L]
 
 RewriteRule ^model/([-0-9a-zA-Z]+)/([0-9_]+)/?$ index.php?main_page=product_info&model=$1&cPath=$2 [QSA,L]
 RewriteRule ^model/([-0-9a-zA-Z]+)/?$ index.php?main_page=product_info&model=$1 [QSA,L]
 
-RewriteRule ^product/([0-9:a-f]+)/([0-9_]+)/?$ index.php?main_page=product_info&products_id=$1&cPath=$2 [QSA,L]
-RewriteRule ^product/([0-9:a-f]+)/?$ index.php?main_page=product_info&products_id=$1 [QSA,L]
+RewriteRule ^product/([0-9:a-f]+)/([0-9_]+)/?$ index.php?main_page=product_info&productId=$1&cPath=$2 [QSA,L]
+RewriteRule ^product/([0-9:a-f]+)/?$ index.php?main_page=product_info&productId=$1 [QSA,L]
 
 RewriteRule ^category/([0-9_]+)/([0-9]+)/?$ index.php?main_page=index&cPath=$1&page=$2 [QSA,L]
 RewriteRule ^category/([0-9_]+)/?$ index.php?main_page=index&cPath=$1 [QSA,L]

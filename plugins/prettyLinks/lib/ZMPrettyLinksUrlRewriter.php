@@ -69,7 +69,7 @@ class ZMPrettyLinksUrlRewriter implements UrlRewriter {
         }
         $requestId = $query[Runtime::getSettings()->get('zenmagick.http.request.idName')];
         $translate = true;
-        $removeNames = array(Runtime::getSettings()->get('zenmagick.http.request.idName'), 'cPath', 'manufacturers_id', 'cat', 'products_id', 'order_id', 'reviews_id', 'id');
+        $removeNames = array(Runtime::getSettings()->get('zenmagick.http.request.idName'), 'cPath', 'manufacturers_id', 'cat', 'productId', 'order_id', 'reviews_id', 'id');
         switch ($requestId) {
             case 'index':
             case 'category':
@@ -86,13 +86,13 @@ class ZMPrettyLinksUrlRewriter implements UrlRewriter {
                 break;
             case 'product_info':
                 if (array_key_exists("cPath", $query)) {
-                    $path .= "product/".$query['products_id'];
+                    $path .= "product/".$query['productId'];
                     $path .= "/".$query['cPath'];
                 } else if (array_key_exists("manufacturers_id", $query)) {
-                    $path .= "manufacturer/".$query['products_id'];
+                    $path .= "manufacturer/".$query['productId'];
                     $path .= "/".$query['manufacturers_id'];
                 } else {
-                    $path .= "product/".$query['products_id'];
+                    $path .= "product/".$query['productId'];
                 }
                 break;
             case 'login':
@@ -132,8 +132,8 @@ class ZMPrettyLinksUrlRewriter implements UrlRewriter {
                 break;
             case 'account_notifications':
                 $path .= "account/notifications/";
-                if (array_key_exists('products_id', $query)) {
-                    $path .= $query['products_id'];
+                if (array_key_exists('productId', $query)) {
+                    $path .= $query['productId'];
                 }
                 break;
             case 'tell_a_friend':

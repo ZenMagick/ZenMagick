@@ -86,7 +86,7 @@ class ToolboxNet extends ToolboxTool {
                 $cPath = '&cPath='.implode('_', $category->getPath());
             }
         }
-        return $this->getRequest()->url('product_info', '&products_id='.$productId.$cPath);
+        return $this->getRequest()->url('product_info', '&productId='.$productId.$cPath);
     }
 
     /**

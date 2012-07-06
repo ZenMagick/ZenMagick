@@ -142,7 +142,7 @@ class ZMTools {
                 'page' => array('id'),
                 'index' => array('cPath', 'manufacturers_id'),
                 'category' => array('cPath', 'manufacturers_id'),
-                'products_info' => array('products_id'),
+                'products_info' => array('productId'),
                 'account_history_info' => array('order_id'),
                 'product_reviews' => array('productId'),
                 'product_reviews_info' => array('productId', 'reviews_id')

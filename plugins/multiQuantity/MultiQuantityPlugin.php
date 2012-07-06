@@ -69,7 +69,7 @@ class MultiQuantityPlugin extends Plugin {
                 ));
             } else {
                 $mapping = array('success' => array(
-                    'view' => 'redirect://product_info&products_id='.$request->getProductId()
+                    'view' => 'redirect://product_info&productId='.$request->getProductId()
                 ));
             }
 
