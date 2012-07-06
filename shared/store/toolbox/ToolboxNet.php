@@ -271,5 +271,13 @@ class ToolboxNet extends ToolboxTool {
         return $domain;
     }
 
-
+    /**
+     * Wrapper around Request::absoluteUrl();
+     *
+     * {@inheritDoc}
+     * @todo probably replace with methods specifically for assets
+     */
+    public function absoluteUrl($url, $full=false, $secure=false) {
+        return $this->getRequest()->absoluteUrl($url, $full, $secure);
+    }
 }

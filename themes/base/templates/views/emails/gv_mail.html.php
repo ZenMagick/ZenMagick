@@ -34,7 +34,7 @@
 
 <p><?php _vzm('You have been sent a Gift Certificate worth %s.', $utils->formatMoney($currentCoupon->getAmount(), false)) ?></p>
 <p><?php _vzm("The code to redeem your Gift Certificate is: %s.", $currentCoupon->getCode()) ?></p>
-<?php $href = '<a href="'.$request->absoluteUrl($net->url('gv_redeem', 'couponCode='.$currentCoupon->getCode(), true), true, true).'">'.$settingsService->get('storeName').'</a>'; ?>
+<?php $href = '<a href="'.$net->absoluteUrl($net->url('gv_redeem', 'couponCode='.$currentCoupon->getCode(), true), true, true).'">'.$settingsService->get('storeName').'</a>'; ?>
 <p><?php _vzm("To redeem your gift, visit %s.", $href) ?></p>
 
 <?php if (!isset($isSupressDisclaimer)) { echo $utils->staticPageContent('email_advisory'); } ?>

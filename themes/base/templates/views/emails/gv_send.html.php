@@ -36,7 +36,7 @@
 <?php echo $html->text2html($gvReceiver->getMessage()) ?>
 </p>
 <?php } ?>
-<?php $href = '<a href="'.$request->absoluteUrl($net->url('gv_redeem', 'couponCode='.$currentCoupon->getCode(), true), true, true).'">'.$settingsService->get('storeName').'</a>'; ?>
+<?php $href = '<a href="'.$net->absoluteUrl($net->url('gv_redeem', 'couponCode='.$currentCoupon->getCode(), true), true, true).'">'.$settingsService->get('storeName').'</a>'; ?>
 <p><?php _vzm("To redeem your gift, visit %s.", $href) ?></p>
 
 <?php if (!isset($isSupressDisclaimer)) { echo $utils->staticPageContent('email_advisory'); } ?>
