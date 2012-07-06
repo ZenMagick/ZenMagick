@@ -55,7 +55,7 @@ class ToolboxAdmin extends ToolboxTool {
         if (null != ($cPath = $request->query->get('cPath'))) {
             $ps .= '&cPath='.$cPath;
         }
-        if (null != ($productId = $request->getProductId())) {
+        if (null != ($productId = $request->query->get('productId'))) {
             $ps .= '&productId='.$productId;
         }
         if (null != $controller && $controller instanceof CatalogContentController) {
@@ -82,7 +82,7 @@ class ToolboxAdmin extends ToolboxTool {
         if (null != ($cPath = $request->query->get('cPath'))) {
             $ps .= '&cPath='.$cPath;
         }
-        if (null != ($productId = $request->getProductId())) {
+        if (null != ($productId = $request->query->get('productId'))) {
             $ps .= '&productId='.$productId;
         }
         if (null != $controller && $controller instanceof CatalogContentController) {

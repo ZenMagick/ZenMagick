@@ -169,7 +169,7 @@ class ToolboxCrumbtrail extends ToolboxTool {
      * @return ToolboxCrumbtrail <code>$this</code> for chaining.
      */
     public function addProduct($productId = null) {
-        $productId = $productId ?: $this->getRequest()->getProductId();
+        $productId = $productId ?: $this->getRequest()->query->get('productId');
         if (null == $productId) {
             return $this;
         }

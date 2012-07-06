@@ -35,8 +35,8 @@ class ProductInfoController extends \ZMController {
         $product = null;
         $productService = $this->container->get('productService');
         $languageId = $request->getSession()->getLanguageId();
-        if ($request->getProductId()) {
-            $product = $productService->getProductForId($request->getProductId(), $languageId);
+        if ($request->query->get('productId')) {
+            $product = $productService->getProductForId($request->query->get('productId'), $languageId);
         } else if ($request->query->has('model')) {
             $product = $productService->getProductForModel($request->query->get('model'), $languageId);
         }

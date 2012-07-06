@@ -60,6 +60,11 @@ class ZencartStorefrontController extends \ZMController {
                 }
             }
         }
+        if ($request->query->has('productId')) {
+            $request->query->set('products_id', $request->query->get('productId'));
+            $request->query->remove('productId');
+        }
+
     }
 
     /**
@@ -155,7 +160,7 @@ class ZencartStorefrontController extends \ZMController {
             return $autoLoader->resolveFile('ipn_main_handler.php');
         }
 
-        if (null != ($productId = $request->getProductId())) {
+        if (null != ($productId = $request->query->get('products_id'))) {
             /**
              * If no info page was provided for this product id, set one ourselves.
              */
@@ -191,6 +196,7 @@ class ZencartStorefrontController extends \ZMController {
     public function getZcViewData($request) {
         // category path - no support for get_terms_to_filter table. does anybody use that?
         $manufacturerId = $request->query->getInt('manufacturers_id');
+        $productId = $request->query->get('products_id');
         $show_welcome = false;
         if ($request->query->has('cPath')) {
             if (!empty($productId) && empty($manufacturerId)) {
@@ -227,8 +233,8 @@ class ZencartStorefrontController extends \ZMController {
             $manufacturer = $this->container->get('manufacturerService')->getManufacturerForId($manufacturerId, $languageId);
         }
         $product = null;
-        if (null != $request->getProductId()) {
-            $product = $this->container->get('productService')->getProductForId($request->getProductId());
+        if (null != $productId) {
+            $product = $this->container->get('productService')->getProductForId($productId);
         }
         $breadcrumb = $this->initCrumbs($validCategories, $manufacturer, $product);
         // end breakdcrumb
@@ -279,7 +285,7 @@ class ZencartStorefrontController extends \ZMController {
 
         if ($this->isHomePage()) {
             $url = $request->getBaseUrl();
-        } else if (Toolbox::endsWith($requestId, 'info') && null != ($productId = $request->getProductId())) {
+        } else if (Toolbox::endsWith($requestId, 'info') && null != ($productId = $request->query->get('products_id'))) {
             $url = $request->getToolbox()->net->product($productId, null);
         } else {
             $url = $request->url($requestId, rtrim(zen_get_all_get_params($exclusionList), '&'));

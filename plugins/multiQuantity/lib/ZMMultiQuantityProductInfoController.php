@@ -39,7 +39,7 @@ class ZMMultiQuantityProductInfoController extends ZMController {
      * {@inheritDoc}
      */
     public function processPost($request) {
-        $productId = $request->getProductId();
+        $productId = $request->request->get('productId');
         // prepare attributes
         $multiQuantityId = $request->request->get(MULTI_QUANTITY_ID);
         // id is the shared form field for all attributes

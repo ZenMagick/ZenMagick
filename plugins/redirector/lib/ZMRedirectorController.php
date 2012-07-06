@@ -31,7 +31,7 @@ class ZMRedirectorController extends ZMController {
      * {@inheritDoc}
      */
     public function processGet($request) {
-        if (0 < $request->getProductId()) {
+        if (0 < $request->query->get('productId')) {
             if (null != ($view = $this->processMissingProduct($request))) {
                 return $view;
             }
@@ -57,8 +57,8 @@ class ZMRedirectorController extends ZMController {
         $productService = $this->container->get('productService');
         $languageId = $request->getSession()->getLanguageId();
         // try to find product based on the current request
-        if ($request->getProductId()) {
-            $product = $productService->getProductForId($request->getProductId(), $languageId);
+        if ($request->query->get('productId')) {
+            $product = $productService->getProductForId($request->query->get('productId'), $languageId);
         } else if ($request->query->has('model')) {
             $product = $productService->getProductForModel($request->query->get('model'), $languageId);
         }

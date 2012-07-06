@@ -64,7 +64,7 @@ class ZMProductGroupPricing extends ZMObject {
      */
     public function populate($request) {
         $this->id_ = $request->getParameter('groupPricingId', '0');
-        $this->productId_ = $request->getProductId();
+        $this->productId_ = $request->get('productId');
         $this->groupId_ = $request->getParameter('groupId', '0');
         $this->discount_ = $request->getParameter('discount', '0');
         $this->type_ = $request->getParameter('type', '%');

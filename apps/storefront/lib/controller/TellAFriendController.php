@@ -38,8 +38,8 @@ class TellAFriendController extends \ZMController {
     public function preProcess($request) {
         $languageId = $request->getSession()->getLanguageId();
         $productService = $this->container->get('productService');
-        if ($request->getProductId()) {
-            $this->product_ = $productService->getProductForId($request->getProductId(), $languageId);
+        if ($request->query->get('productId')) {
+            $this->product_ = $productService->getProductForId($request->query->get('productId'), $languageId);
         } else if ($request->query->has('model')) {
             $this->product_ = $productService->getProductForModel($request->query->get('model'), $languageId);
         }

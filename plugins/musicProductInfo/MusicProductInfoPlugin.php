@@ -110,9 +110,9 @@ class MusicProductInfoPlugin extends Plugin {
         if ('product_info' == $request->getRequestId()) {
             $musicManager = $this->container->get('musicManager');
             // artist information
-            $artist = $musicManager->getArtistForProductId($request->getProductId(), $request->getSession()->getLanguageId());
+            $artist = $musicManager->getArtistForProductId($request->query->get('productId'), $request->getSession()->getLanguageId());
             // music collections for this product/artist
-            $collections = $musicManager->getMediaCollectionsForProductId($request->getProductId());
+            $collections = $musicManager->getMediaCollectionsForProductId($request->query->get('productId'));
             $view->setVariable('musicManager', $musicManager);
             $view->setVariable('artist', $artist);
             $view->setVariable('collections', $collections);

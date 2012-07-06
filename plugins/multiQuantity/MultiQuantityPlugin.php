@@ -58,6 +58,7 @@ class MultiQuantityPlugin extends Plugin {
             // this is a multi quantity request, so leave it to the custom controller to handle
             //
             $request->query->remove('action');
+            $request->request->remove('action');
 
             // create mapping for lookup
             \ZMUrlManager::instance()->setMapping('product_info', array('controller' => 'ZMMultiQuantityProductInfoController'));
@@ -69,7 +70,7 @@ class MultiQuantityPlugin extends Plugin {
                 ));
             } else {
                 $mapping = array('success' => array(
-                    'view' => 'redirect://product_info&productId='.$request->getProductId()
+                    'view' => 'redirect://product_info&productId='.$request->request->get('productId')
                 ));
             }
 

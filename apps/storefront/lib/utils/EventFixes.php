@@ -175,7 +175,7 @@ class EventFixes extends ZMObject {
         if (null != $cartMethod) {
             $productsId = $request->request->get('products_id');
             if (is_array($productsId) && !$cartActionMap[$action]['multi']) {
-                $request->request->set('products_id', $request->getProductId());
+                $request->request->set('products_id', $request->query->get('productId'));
             }
             $request->overrideGlobals();
             call_user_func_array(array($shoppingCart->cart_, $cartMethod), array($redirectTarget, $params));
@@ -298,7 +298,7 @@ class EventFixes extends ZMObject {
      */
     protected function fixCategoryPath($request) {
         $languageId = $request->getSession()->getLanguageId();
-        if (0 != ($productId = $request->getProductId())) {
+        if (0 != ($productId = $request->query->get('productId'))) {
             if ($request->attributes->get('categoryIds')) {
                 // set default based on product default category
                 if (null != ($product = $this->container->get('productService')->getProductForId($productId, $languageId))) {

@@ -34,7 +34,7 @@ class ProductReviewsInfoController extends \ZMController {
     public function processGet($request) {
         $data = array();
         $languageId = $request->getSession()->getLanguageId();
-        $product = $this->container->get('productService')->getProductForId($request->getProductId(), $languageId);
+        $product = $this->container->get('productService')->getProductForId($request->query->get('productId'), $languageId);
         $data['currentProduct'] = $product;
 
         $reviewService = $this->container->get('reviewService');

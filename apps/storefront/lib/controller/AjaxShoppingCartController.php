@@ -120,7 +120,7 @@ class AjaxShoppingCartController extends \ZMAjaxController {
      */
     public function addProductJSON($request) {
         $shoppingCart = $request->getShoppingCart();
-        $productId = $request->getProductId();
+        $productId = $request->get('productId');
         $quantity = $request->getParameter('quantity', 0);
         $id = $request->getParameter('id', array());
 
@@ -144,7 +144,7 @@ class AjaxShoppingCartController extends \ZMAjaxController {
      * @param ZMRequest request The current request.
      */
     public function removeProductJSON($request) {
-        $productId = $request->getProductId();
+        $productId = $request->query->get('productId');
 
         if (null !== $productId) {
             $shoppingCart = $request->getShoppingCart();
@@ -170,7 +170,7 @@ class AjaxShoppingCartController extends \ZMAjaxController {
      * @param ZMRequest request The current request.
      */
     public function updateProductJSON($request) {
-        $productId = $request->getProductId();
+        $productId = $request->query->get('productId');
         $quantity = $request->getParameter('quantity', 0);
 
         if (null !== $productId && 0 != $quantity) {

@@ -58,7 +58,7 @@ class ZMAjaxCatalogController extends ZMAjaxController {
      * @return void
      */
     public function getProductForIdJSON($request) {
-        $productId = $request->getProductId();
+        $productId = $request->get('productId');
         $languageId = $request->getParameter('languageId', $request->getSession()->getLanguageId());
 
         $utilsTool = $this->container->get('utilsTool');

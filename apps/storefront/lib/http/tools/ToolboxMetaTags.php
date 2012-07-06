@@ -265,10 +265,10 @@ class ToolboxMetaTags extends ToolboxTool {
      * Load product info.
      */
     protected function loadProduct() {
-        if (null == $this->getRequest()->getProductId() || null != $this->productName_)
+        if (null == $this->getRequest()->query->get('productId') || null != $this->productName_)
             return;
 
-        if (null != ($this->product_ = $this->container->get('productService')->getProductForId($this->getRequest()->getProductId(), $this->getRequest()->getSession()->getLanguageId()))) {
+        if (null != ($this->product_ = $this->container->get('productService')->getProductForId($this->getRequest()->query->get('productId'), $this->getRequest()->getSession()->getLanguageId()))) {
             $this->productName_ = $this->product_->getName();
             if (!Toolbox::isEmpty($this->product_->getModel())) {
                 $this->productName_ .= ' [' . $this->product_->getModel() . ']';

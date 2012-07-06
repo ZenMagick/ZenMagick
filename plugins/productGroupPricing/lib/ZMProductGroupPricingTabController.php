@@ -45,7 +45,7 @@ class ZMProductGroupPricingTabController extends CatalogContentController {
         $priceGroups = $this->container->get('groupPricingService')->getPriceGroups();
         $productGroupPricingService = $this->container->get('productGroupPricingService');
         $groupId = $request->getParameter('groupId', $priceGroups[0]->getId());
-        $productGroupPricings = $productGroupPricingService->getProductGroupPricings($request->getProductId(), $groupId, false);
+        $productGroupPricings = $productGroupPricingService->getProductGroupPricings($request->get('productId'), $groupId, false);
         $productGroupPricing = Beans::getBean("ZMProductGroupPricing");
         // TODO: should not need to check for delete - viewData should not override findView(.., data) data
         if (null != ($groupPricingId = $request->getParameter('groupPricingId')) && 0 < $groupPricingId && null == $request->getParameter('delete')) {

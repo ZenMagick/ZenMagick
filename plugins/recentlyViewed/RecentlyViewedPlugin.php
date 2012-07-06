@@ -70,7 +70,7 @@ class RecentlyViewedPlugin extends Plugin {
             if (null == ($recentlyViewedProducts = $session->getValue(self::RECENTLY_VIEWED_KEY))) {
                 $recentlyViewedProducts = array();
             }
-            if (0 < ($productId = $request->getProductId())) {
+            if (0 < ($productId = $request->query->get('productId'))) {
                 $recentlyViewedProducts[] = $productId;
                 $recentlyViewedProducts = array_unique(array_reverse($recentlyViewedProducts));
 

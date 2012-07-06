@@ -102,7 +102,7 @@ class LiftSuggestPlugin extends Plugin {
      */
     protected function getTrackerCode($request) {
         $code = '';
-        $productId = $request->getProductId();
+        $productId = $request->query->get('productId');
         if (null === $productId) {
             // fallback
             $productId = $this->recomendationsLoadedFor;

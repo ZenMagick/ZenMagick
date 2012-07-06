@@ -32,7 +32,7 @@ class ProductReviewsController extends \ZMController {
      * {@inheritDoc}
      */
     public function processGet($request) {
-        $product = $this->container->get('productService')->getProductForId($request->getProductId(), $request->getSession()->getLanguageId());
+        $product = $this->container->get('productService')->getProductForId($request->query->get('productId'), $request->getSession()->getLanguageId());
         if (null == $product) {
             return $this->findView('product_not_found');
         }

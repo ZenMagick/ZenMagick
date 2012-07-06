@@ -44,7 +44,7 @@ class ZMProductTagsTabController extends CatalogContentController {
         $languageId = $request->getSelectedLanguage()->getId();
         $tagService = $this->container->get('tagService');
         return array(
-            'currentProductTags' => $tagService->getTagsForProductId($request->getProductId(), $languageId),
+            'currentProductTags' => $tagService->getTagsForProductId($request->get('productId'), $languageId),
             'allTags' => $tagService->getAllTags($languageId)
         );
     }
@@ -53,7 +53,7 @@ class ZMProductTagsTabController extends CatalogContentController {
      * {@inheritDoc}
      */
     public function processPost($request) {
-        $productId = $request->getProductId();
+        $productId = $request->get('productId');
         if (0 < $productId && null != ($currentProductTags = $request->request->get('currentProductTags'))) {
             $languageId = $request->getSelectedLanguage()->getId();
             $tags = array();
