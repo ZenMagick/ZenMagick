@@ -77,7 +77,7 @@ class Dispatcher extends ZMObject {
         $eventDispatcher->dispatch('dispatch_done', new Event($this, array('request' => $request)));
 
         // ensure we do have a view if we got this far
-        $view = null !== $view ?: $this->container->get('defaultView');
+        $view = null !== $view ? $view : $this->container->get('defaultView');
         // allow plugins and event subscribers to filter/modify the final contents; corresponds with ob_start() in init.php
         $event = new Event($this, array('request' => $request, 'view' => $view, 'content' => $response->getContent()));
         $eventDispatcher->dispatch('finalise_content', $event);
