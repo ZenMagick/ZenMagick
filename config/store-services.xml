@@ -49,8 +49,7 @@
         <service id="orderService" class="ZMOrders" scope="container" />
 
         <service id="theme" class="zenmagick\apps\store\themes\Theme" scope="prototype" />
-        <!-- @todo remove the forced zencart theme status map -->
-        <service id="themeStatusMapBuilder" class="zenmagick\apps\store\bundles\ZenCartBundle\mock\ZenCartThemeStatusMapBuilder" scope="container">
+        <service id="themeStatusMapBuilder" class="zenmagick\apps\store\themes\ThemeStatusMapBuilder" scope="container">
             <call method="setThemeService">
                 <argument type="service" id="themeService" />
             </call>

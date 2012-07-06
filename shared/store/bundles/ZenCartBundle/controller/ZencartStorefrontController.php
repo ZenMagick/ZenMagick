@@ -127,7 +127,9 @@ class ZencartStorefrontController extends \ZMController {
 
         require($controllerFile);
 
-        if ($this->container->get('themeService')->getActiveTheme()->getMeta('zencart')) {
+        // is this really required? we got here because the bundle checked this already, it seems
+        $language = $request->getSession()->getLanguage();
+        if ($this->container->get('themeService')->getActiveTheme($language->getId())->getMeta('zencart')) {
             require($template->get_template_dir('html_header.php',DIR_WS_TEMPLATE, $request->getRequestId(),'common'). '/html_header.php');
             require($template->get_template_dir('main_template_vars.php',DIR_WS_TEMPLATE, $request->getRequestId(),'common'). '/main_template_vars.php');
             require($template->get_template_dir('tpl_main_page.php',DIR_WS_TEMPLATE, $request->getRequestId(),'common'). '/tpl_main_page.php');

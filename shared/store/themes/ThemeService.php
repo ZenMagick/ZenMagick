@@ -244,10 +244,11 @@ class ThemeService extends ZMObject {
     /**
      * Get the active theme id (aka the template directory name).
      *
+     * @param int languageId Optional language id; default is <code>0</code>.
      * @return string The configured theme id.
      */
-    public function getActiveThemeId() {
-        $theme = $this->getActiveTheme();
+    public function getActiveThemeId($languageId=0) {
+        $theme = $this->getActiveTheme($languageId);
         return null != $theme ? $theme->getId() : null;
     }
 

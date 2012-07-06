@@ -63,8 +63,7 @@ class ZenCartBundle extends Bundle {
      */
     public function onInitConfigDone($event) {
         $yaml = array('services' => array(
-            // @todo restore this once it works again.
-            //'zenCartThemeStatusMapBuilder' => array('parent' => 'merge:themeStatusMapBuilder', 'class' => 'zenmagick\apps\store\bundles\ZenCartBundle\mock\ZenCartThemeStatusMapBuilder'),
+            'zenCartThemeStatusMapBuilder' => array('parent' => 'merge:themeStatusMapBuilder', 'class' => 'zenmagick\apps\store\bundles\ZenCartBundle\mock\ZenCartThemeStatusMapBuilder'),
             'zenCartAutoLoader' => array('class' => 'zenmagick\apps\store\bundles\ZenCartBundle\utils\ZenCartAutoLoader'),
         ));
 
@@ -107,7 +106,9 @@ class ZenCartBundle extends Bundle {
         // @todo all this code should go somewhere else
         if (defined('DIR_WS_TEMPLATE') || !Runtime::isContextMatch('storefront')) return;
         $autoLoader = $this->container->get('zenCartAutoLoader');
-        $themeId = $this->container->get('themeService')->getActiveThemeId();
+        $session = $event->get('request')->getSession();
+        $language = $session->getLanguage();
+        $themeId = $this->container->get('themeService')->getActiveThemeId($language->getId());
         $autoLoader->setGlobalValue('template_dir', $themeId);
         define('DIR_WS_TEMPLATE', DIR_WS_TEMPLATES.$themeId.'/');
         define('DIR_WS_TEMPLATE_IMAGES', DIR_WS_TEMPLATE.'images/');
@@ -135,7 +136,8 @@ class ZenCartBundle extends Bundle {
         if (!Runtime::isContextMatch('storefront')) return;
 
         $request = $event->get('request');
-        $needsZC = $this->container->get('themeService')->getActiveTheme()->getMeta('zencart');
+        $language = $request->getSession()->getLanguage();
+        $needsZC = $this->container->get('themeService')->getActiveTheme($language->getId())->getMeta('zencart');
         // @todo <johnny> we want to use the route instead right?
         // || in_array($request->getRequestId(), (array)$this->container->get('settingsService')->get('apps.store.request.enableZCRequestHandling));
         if ($needsZC && null != ($dispatcher = $request->getDispatcher())) {
