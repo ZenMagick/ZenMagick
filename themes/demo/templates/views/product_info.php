@@ -84,7 +84,7 @@ $resourceManager->jsFile('lightbox/prototype.js', $resourceManager::FOOTER) ?>
               <a class="btn" href="<?php echo $net->url('product_reviews_write', '') ?>"><?php _vzm("Write a Review") ?></a>
           <?php } ?>
           <?php if ($currentProduct->getTypeSetting('tell_a_friend')) { ?>
-              <a class="btn" href="<?php echo $net->url('tell_a_friend', "products_id=".$currentProduct->getId()) ?>"><?php _vzm("Tell a friend about this product") ?></a>
+              <a class="btn" href="<?php echo $net->url('tell_a_friend', "productId=".$currentProduct->getId()) ?>"><?php _vzm("Tell a friend about this product") ?></a>
           <?php } ?>
       </fieldset>
   <?php } ?>

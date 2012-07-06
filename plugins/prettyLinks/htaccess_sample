@@ -73,7 +73,7 @@ RewriteRule ^sitemap/?$ index.php?main_page=site_map [QSA,L]
 RewriteRule ^privacy/?$ index.php?main_page=privacy [QSA,L]
 RewriteRule ^contactus/?$ index.php?main_page=contact_us [QSA,L]
 RewriteRule ^newproducts/?$ index.php?main_page=products_new [QSA,L]
-RewriteRule ^tellafriend/([0-9:a-f]+)/?$ index.php?main_page=tell_a_friend&products_id=$1 [QSA,L]
+RewriteRule ^tellafriend/([0-9:a-f]+)/?$ index.php?main_page=tell_a_friend&productId=$1 [QSA,L]
 
 RewriteRule ^popup/([^/]+)/?$ index.php?main_page=popup_$1 [QSA,L]
 

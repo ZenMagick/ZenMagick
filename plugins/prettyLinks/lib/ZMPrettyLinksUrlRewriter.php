@@ -137,7 +137,7 @@ class ZMPrettyLinksUrlRewriter implements UrlRewriter {
                 }
                 break;
             case 'tell_a_friend':
-                $path .= "tellafriend/".$query['products_id'];
+                $path .= "tellafriend/".$query['productId'];
                 break;
             case 'page':
                 $path .= "page/".$query['id'];

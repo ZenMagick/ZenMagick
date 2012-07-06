@@ -25,7 +25,7 @@
     <div id="sb_tellafriend" class="box">
         <?php echo $form->open('tell_a_friend', '', $request->isSecure(), array('method' => 'get')) ?>
             <div>
-              <input type="hidden" name="products_id" value="<?php echo $currentProduct->getId() ?>" />
+              <input type="hidden" name="productId" value="<?php echo $currentProduct->getId() ?>" />
               <input type="submit" class="btn" value="<?php _vzm("Email") ?>" />
               <?php $onfocus = "if(this.value=='" . _zm("enter email") . "') this.value='';" ?>
               <input type="text" id="to_email_address" name="to_email_address" value="<?php _vzm("enter email") ?>" onfocus="<?php echo $onfocus ?>" />

@@ -103,7 +103,7 @@ class TellAFriendController extends \ZMController {
         $emailMessage = Beans::getBean("ZMEmailMessage");
 
         $data = array_merge($this->viewData_, array('emailMessage' => $emailMessage));
-        return $this->findView('success', $data, array('parameter' => 'products_id='.$this->product_->getId()));
+        return $this->findView('success', $data, array('parameter' => 'productId='.$this->product_->getId()));
     }
 
 }
