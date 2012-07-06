@@ -135,4 +135,41 @@ class ToolboxAdmin extends ToolboxTool {
         return $title;
     }
 
+    /**
+     * Build category tree as simple unordered list.
+     *
+     * @param ZMRequest request The current request.
+     * @param array categories List of root categories; default is <code>null</code>.
+     * @param boolean start Flag to indicate start of recursion; default is <code>true</code>.
+     * @return string The created HTML.
+     */
+    function categoryTree($categories = null, $start = true) {
+        $admin = $this->getToolbox()->admin;
+        $html = $this->getToolbox()->html;
+        $path = $this->getRequest()->getCategoryPathArray();
+        if ($start) {
+            ob_start();
+            if (null === $categories) {
+                $languageId = $this->getRequest()->getSelectedLanguage()->getId();
+                $categories = $this->container->get('categoryService')->getCategoryTree($languageId);
+            }
+        }
+        echo '<ul>';
+        foreach ($categories as $category) {
+            $active = in_array($category->getId(), $path);
+            echo '<li id="ct-'.$category->getId().'">';
+            echo '<a href="'.$admin->url('catalog', 'cPath='.implode('_', $category->getPath())).'">'.$html->encode($category->getName()).'</a>';
+            if ($category->hasChildren()) {
+                $this->categoryTree($category->getChildren(), false);
+            }
+            echo '</li>';
+        }
+        echo '</ul>';
+
+        if ($start) {
+            return ob_get_clean();
+        }
+
+        return '';
+    }
 }

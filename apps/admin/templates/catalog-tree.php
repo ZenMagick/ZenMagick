@@ -17,47 +17,8 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-?><?php
 
-use zenmagick\base\Runtime;
 
-    /**
-     * Build category tree as simple unordered list.
-     *
-     * @param ZMRequest request The current request.
-     * @param array categories List of root categories; default is <code>null</code>.
-     * @param boolean start Flag to indicate start of recursion; default is <code>true</code>.
-     * @return string The created HTML.
-     */
-    function _admin_category_tree($request, $categories=null, $start=true) {
-        $admin = $request->getToolbox()->admin;
-        $html = $request->getToolbox()->html;
-        $path = $request->getCategoryPathArray();
-        if ($start) {
-            ob_start();
-            if (null === $categories) {
-                $languageId = $request->getSelectedLanguage()->getId();
-                $categories = Runtime::getContainer()->get('categoryService')->getCategoryTree($languageId);
-            }
-        }
-        echo '<ul>';
-        foreach ($categories as $category) {
-            $active = in_array($category->getId(), $path);
-            echo '<li id="ct-'.$category->getId().'">';
-            echo '<a href="'.$admin->url('catalog', 'cPath='.implode('_', $category->getPath())).'">'.$html->encode($category->getName()).'</a>';
-            if ($category->hasChildren()) {
-                _admin_category_tree($request, $category->getChildren(), false);
-            }
-            echo '</li>';
-        }
-        echo '</ul>';
-
-        if ($start) {
-            return ob_get_clean();
-        }
-
-        return '';
-    }
 
     $initially_open = '';
     foreach ($request->getCategoryPathArray() as $categoryId) {
@@ -69,7 +30,7 @@ use zenmagick\base\Runtime;
 ?>
 
 <div id="category-tree">
-  <?php echo _admin_category_tree($request); ?>
+  <?php echo $admin->categoryTree(); ?>
 </div>
 
 <?php $resources->jsFile('js/jquery.jstree.js') ?>
