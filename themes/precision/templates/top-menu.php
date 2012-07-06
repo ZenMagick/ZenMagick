@@ -22,7 +22,7 @@
     }
      */
     foreach ($menu as $ii => $item) {
-        $last = $ii == (count($items) - 1) ? ' class="last"' : '';
+        $last = $ii == (count($menu) - 1) ? ' class="last"' : '';
         if (3 == count($item)) {
           // url, page, false
           $page = $item[1];
