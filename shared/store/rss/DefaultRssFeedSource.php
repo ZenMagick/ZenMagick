@@ -85,7 +85,7 @@ class DefaultRssFeedSource extends ZMObject implements RssSource {
             $item = new RssItem();
             $item->setTitle(sprintf(_zm("Review: %s"), $product->getName()));
 
-            $params = 'products_id='.$review->getProductId().'&reviews_id='.$review->getId();
+            $params = 'productId='.$review->getProductId().'&reviews_id='.$review->getId();
             $item->setLink($request->url('product_reviews_info', $params));
             $item->setDescription($html->more($review->getText(), 60));
             $item->setPubDate($review->getDateAdded());

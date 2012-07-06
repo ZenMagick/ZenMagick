@@ -110,10 +110,10 @@
       <fieldset>
           <legend><?php _vzm("Other Options") ?></legend>
           <?php if ($currentProduct->hasReviews()) { ?>
-              <a class="btn" href="<?php echo $net->url('product_reviews', "products_id=".$currentProduct->getId()) ?>"><?php _vzm("Read Reviews") ?></a>
+              <a class="btn" href="<?php echo $net->url('product_reviews', "productId=".$currentProduct->getId()) ?>"><?php _vzm("Read Reviews") ?></a>
           <?php } ?>
           <?php if ($currentProduct->getTypeSetting('reviews')) { ?>
-              <a class="btn" href="<?php echo $net->url('product_reviews_write', "products_id=".$currentProduct->getId()) ?>"><?php _vzm("Write a Review") ?></a>
+              <a class="btn" href="<?php echo $net->url('product_reviews_write', "productId=".$currentProduct->getId()) ?>"><?php _vzm("Write a Review") ?></a>
           <?php } ?>
           <?php if ($currentProduct->getTypeSetting('tell_a_friend')) { ?>
               <a class="btn" href="<?php echo $net->url('tell_a_friend', "productId=".$currentProduct->getId()) ?>"><?php _vzm("Tell a friend about this product") ?></a>

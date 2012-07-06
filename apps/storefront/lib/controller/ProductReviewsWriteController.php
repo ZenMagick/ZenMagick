@@ -78,7 +78,7 @@ class ProductReviewsWriteController extends \ZMController {
         }
 
         $this->messageService->success(_zm("Thank you for your submission"));
-        return $this->findView('success', array(), array('parameter' => 'products_id='.$product->getId()));
+        return $this->findView('success', array(), array('parameter' => 'productId='.$product->getId()));
     }
 
     /**

@@ -144,8 +144,8 @@ class ZMTools {
                 'category' => array('cPath', 'manufacturers_id'),
                 'products_info' => array('products_id'),
                 'account_history_info' => array('order_id'),
-                'product_reviews' => array('products_id'),
-                'product_reviews_info' => array('products_id', 'reviews_id')
+                'product_reviews' => array('productId'),
+                'product_reviews_info' => array('productId', 'reviews_id')
             );
             if (isset($subArgs[$query1[$idName]])) {
                 foreach ($subArgs[$query1[$idName]] as $sub) {

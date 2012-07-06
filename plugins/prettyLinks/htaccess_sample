@@ -16,9 +16,9 @@ RewriteRule ^page/([^/]+)/?$ index.php?main_page=page&id=$1 [QSA,L]
 
 ## CUSTOM RULES marker comment (please do not remove)
 
-RewriteRule ^reviews/new/([0-9:a-f]+)/?$ index.php?main_page=product_reviews_write&products_id=$1 [QSA,L]
-RewriteRule ^reviews/([0-9:a-f]+)/([0-9]+)/?$ index.php?main_page=product_reviews_info&products_id=$1&reviews_id=$2 [QSA,L]
-RewriteRule ^reviews/([0-9:a-f]+)/?$ index.php?main_page=product_reviews&products_id=$1 [QSA,L]
+RewriteRule ^reviews/new/([0-9:a-f]+)/?$ index.php?main_page=product_reviews_write&productId=$1 [QSA,L]
+RewriteRule ^reviews/([0-9:a-f]+)/([0-9]+)/?$ index.php?main_page=product_reviews_info&productId=$1&reviews_id=$2 [QSA,L]
+RewriteRule ^reviews/([0-9:a-f]+)/?$ index.php?main_page=product_reviews&productId=$1 [QSA,L]
 RewriteRule ^reviews/?$ index.php?main_page=reviews [QSA,L]
 
 RewriteRule ^(shopping)?cart/?$ index.php?main_page=shopping_cart [QSA,L]

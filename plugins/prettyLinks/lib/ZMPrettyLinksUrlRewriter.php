@@ -119,13 +119,13 @@ class ZMPrettyLinksUrlRewriter implements UrlRewriter {
                 $path .= "addressbook/process/";
                 break;
             case 'product_reviews':
-                $path .= "reviews/".$query['products_id'];
+                $path .= "reviews/".$query['productId'];
                 break;
             case 'product_reviews_info':
-                $path .= "reviews/".$query['products_id']."/".$query['reviews_id'];
+                $path .= "reviews/".$query['productId']."/".$query['reviews_id'];
                 break;
             case 'product_reviews_write':
-                $path .= "reviews/new/".$query['products_id'];
+                $path .= "reviews/new/".$query['productId'];
                 break;
             case 'shopping_cart':
                 $path .= "cart/";
