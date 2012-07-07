@@ -36,6 +36,7 @@ use zenmagick\base\events\VetoableEvent;
  * @author DerManoMann <mano@zenmagick.org>
  */
 class ZMRequest extends HttpFoundationRequest implements ContainerAwareInterface {
+
     /**
      * Default paramter name containing the request id.
      *
@@ -44,6 +45,7 @@ class ZMRequest extends HttpFoundationRequest implements ContainerAwareInterface
     const DEFAULT_REQUEST_ID = 'rid';
 
     private $dispatcher = null;
+    private $shoppingCart_ = null;
 
     /**
      * Populate ParameterBag instances from superglobals
@@ -466,4 +468,55 @@ class ZMRequest extends HttpFoundationRequest implements ContainerAwareInterface
 
         return $value;
     }
+
+    /**
+     * Get the current shopping cart.
+     *
+     * @return ShoppingCart The current shopping cart (may be empty).
+     * @todo REMOVE! very temporary
+     */
+    public function getShoppingCart() {
+        if (null == $this->shoppingCart_) {
+            // TODO: enable
+            if ($this->getSession()->isAnonymous() || true) {
+                $this->shoppingCart_ = Runtime::getContainer()->get('shoppingCart');
+            } else {
+                $this->shoppingCart_ = $this->container->get('shoppingCartService')->loadCartForAccountId($this->getAccountId());
+            }
+        }
+
+        return $this->shoppingCart_;
+    }
+
+    /**
+     * Get the selected language.
+     *
+     * <p>Determine the currently active language, with respect to potentially selected language from a dropdown in admin UI.</p>
+     *
+     * @return ZMLanguage The selected language.
+     * @todo REMOVE! very temporary
+     */
+    public function getSelectedLanguage() {
+        $session = $this->getSession();
+        $language = null;
+        if (null != ($id = $session->getValue('languages_id'))) {
+            $languageService = $this->container->get('languageService');
+            // try session language code
+            if (null == ($language = $languageService->getLanguageForId($id))) {
+                // try store default
+                $language = $languageService->getLanguageForId(Runtime::getSettings()->get('storeDefaultLanguageId'));
+            }
+        }
+
+        if (null == $language) {
+            Runtime::getLogging()->warn('no default language found - using en as fallback');
+            $language = Beans::getBean('apps\\store\\entities\\locale\\Language');
+            $language->setId(1);
+            $language->setDirectory('english');
+            $language->setCode('en');
+        }
+        return $language;
+    }
+
+
 }
