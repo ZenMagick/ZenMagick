@@ -74,7 +74,9 @@ class HttpApplication extends Application {
             $request = $container->get('request');
             // allow seo rewriters to fiddle with the request
             $this->profile('enter urlDecode');
-            $request->urlDecode();
+            foreach ($request->getUrlRewriter() as $rewriter) {
+                if ($rewriter->decode($request)) break; // traditional ZenMagick routing
+            }
             $this->profile('exit: urlDecode');
 
             // make sure we use the appropriate protocol (HTTPS, for example) if required

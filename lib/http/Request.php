@@ -191,18 +191,6 @@ class Request extends HttpFoundationRequest implements ContainerAwareInterface {
     }
 
     /**
-     * Decode a (potentially) rewritten request.
-     */
-    public function urlDecode() {
-        // traditional ZenMagick routing
-        foreach ($this->getUrlRewriter() as $rewriter) {
-            if ($rewriter->decode($this)) {
-                break;
-            }
-        }
-    }
-
-    /**
      * Convert a given relative URL into an absolute one.
      *
      * @param string url The (relative) URL to convert.
