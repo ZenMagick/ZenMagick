@@ -48,7 +48,7 @@ class Toolbox extends ContainerAware {
     /**
      * Set the request.
      *
-     * @param ZMRequest request The current request.
+     * @param zenmagick\http\Request request The current request.
      */
     public function setRequest($request) {
         $this->request = $request;

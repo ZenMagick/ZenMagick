@@ -23,6 +23,7 @@ use zenmagick\base\Beans;
 use zenmagick\base\Runtime;
 use zenmagick\base\classloader\ClassLoader;
 use zenmagick\base\logging\Logging;
+use zenmagick\http\Request;
 use zenmagick\http\sacs\SacsManager;
 use zenmagick\apps\store\controller\CatalogContentController;
 
@@ -38,7 +39,7 @@ class CatalogController extends \ZMController {
     /**
      * Create list of all active catalog content controllers.
      *
-     * @param ZMRequest request The current request.
+     * @param zenmagick\http\Request request The current request.
      * @return array List of controller instances.
      */
     protected function getCatalogContentControllers($request) {
@@ -56,7 +57,7 @@ class CatalogController extends \ZMController {
     /**
      * {@inheritDoc}
      */
-    public function process(\ZMRequest $request) {
+    public function process(Request $request) {
         // disable POST in demo
         if ('POST' == $request->getMethod() && $this->handleDemo()) {
             return $this->findView('success-demo');

@@ -205,7 +205,7 @@ EOT;
     /**
      * Set the sli data cookie.
      *
-     * @param ZMRequest request The current request.
+     * @param zenmagick\http\Request request The current request.
      */
     protected function setDataCookie($request) {
         $languageCode = null != ($language = $request->getSession()->getLanguage()) ? $language->getCode() : '';

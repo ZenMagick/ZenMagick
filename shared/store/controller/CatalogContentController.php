@@ -19,8 +19,8 @@
  */
 namespace zenmagick\apps\store\controller;
 
-use ZMRequest;
 use zenmagick\base\Beans;
+use zenmagick\http\Request;
 use zenmagick\http\view\RedirectView;
 
 /**
@@ -60,7 +60,7 @@ abstract class CatalogContentController extends \ZMController {
      * <p>Subclasses can control this by either setting the active (bit-)flags in the constructor or by
      * overriding this method.</p>
      *
-     * @param ZMRequest request The current request.
+     * @param zenmagick\http\Request request The current request.
      * @return boolean <code>true</code> if the plugin requests to be rendered for this request.
      */
     public function isActive($request) {
@@ -95,7 +95,7 @@ abstract class CatalogContentController extends \ZMController {
     /**
      * {@inheritDoc}
      */
-    public function process(ZMRequest $request) {
+    public function process(Request $request) {
         $view = parent::process($request);
         if ($view instanceof RedirectView) {
             $view->setUrl($request->getToolbox()->admin->catalog($this));

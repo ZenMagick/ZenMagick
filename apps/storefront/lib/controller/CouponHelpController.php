@@ -19,7 +19,7 @@
  */
 namespace zenmagick\apps\store\storefront\controller;
 
-use ZMRequest;
+use zenmagick\http\Request;
 use zenmagick\http\session\Session;
 use zenmagick\http\view\ModelAndView;
 
@@ -33,7 +33,7 @@ class CouponHelpController extends \ZMController {
     /**
      * Show.
      */
-    public function show($cID, ZMRequest $request, Session $session) {
+    public function show($cID, Request $request, Session $session) {
         $coupon = $this->container->get('couponService')->getCouponForId($request->getParameter('cID'), $session->getLanguageId());
         return new ModelAndView(null, array('coupon' => $coupon));
     }

@@ -30,7 +30,7 @@ interface UrlRewriter {
     /**
      * Decode a given request if this rewriter can decode it.
      *
-     * @param ZMRequest request The current request.
+     * @param zenmagick\http\Request request The current request.
      * @return boolean <code>true</code> if, and only if, the request was decoded.
      */
     public function decode($request);
@@ -38,14 +38,14 @@ interface UrlRewriter {
     /**
      * Generate a SEO url for the given parameter.
      *
-     * <p>The default implementation of <code>ZMRequest::url()</code> will set the following args:</p>
+     * <p>The default implementation of <code>zenmagick\http\Request::url()</code> will set the following args:</p>
      * <ul>
      *  <li><strong>requestId</strong>: The request id.</li>
      *  <li><strong>params</strong>: Query string type URL parameter(s).</li>
      *  <li><strong>secure</strong>: Boolean flag as to whether the URL needs to be secure or not.</li>
      * </ul>
      *
-     * @param ZMRequest request The current request.
+     * @param zenmagick\http\Request request The current request.
      * @param array args Optional parameter.
      * @return string Either a rewritten usable URL, or <code>null</code>.
      */

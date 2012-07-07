@@ -480,7 +480,7 @@ class ShoppingCart extends ZMObject {
      *   &lt;/form&gt;
      * </pre>
      *
-     * @param ZMRequest request The current request.
+     * @param zenmagick\http\Request request The current request.
      * @return string The URL to be used for the actual order form.
      */
     public function getOrderFormUrl($request) {
@@ -490,7 +490,7 @@ class ShoppingCart extends ZMObject {
     /**
      * Returns the order form elements.
      *
-     * @param ZMRequest request The current request.
+     * @param zenmagick\http\Request request The current request.
      * @return mixed The form content for the actual order process form.
      */
     public function getOrderFormContent($request) {
@@ -605,7 +605,7 @@ class ShoppingCart extends ZMObject {
      *
      * <p>This method is only defined in <em>storefront</em> context.</p>
      *
-     * @param ZMRequest request The current request.
+     * @param zenmagick\http\Request request The current request.
      * @return string Fully formatted JavaScript incl. of wrapping &lt;script&gt; tag.
      */
     public function getPaymentFormValidationJS($request) {

@@ -18,6 +18,8 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
+namespace zenmagick\http;
+
 use Symfony\Component\DependencyInjection\ContainerAwareInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpFoundation\Request as HttpFoundationRequest;
@@ -35,7 +37,7 @@ use zenmagick\base\events\VetoableEvent;
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class ZMRequest extends HttpFoundationRequest implements ContainerAwareInterface {
+class Request extends HttpFoundationRequest implements ContainerAwareInterface {
 
     /**
      * Default paramter name containing the request id.

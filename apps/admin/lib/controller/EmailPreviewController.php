@@ -88,7 +88,7 @@ class EmailPreviewController extends \ZMController {
     /**
      * Set up an initial context for emails with everything we might need.
      *
-     * @param ZMRequest request The current request.
+     * @param zenmagick\http\Request request The current request.
      * @return array The context map.
      */
     protected function getInitialContext($request) {

@@ -20,6 +20,8 @@
     </parameters>
 
     <services>
+        <service id="request" class="zenmagick\http\Request" scope="container" />
+
         <service id="contextConfigLoader" class="zenmagick\http\utils\ContextConfigLoader" scope="prototype" />
 
         <service id="messageService" class="zenmagick\http\messages\Messages" scope="container">
@@ -83,8 +85,6 @@
                 <argument type="service" id="request" />
             </call>
         </service>
-
-        <service id="request" class="ZMRequest" scope="container" />
 
         <service id="session" class="zenmagick\http\session\Session" scope="container">
             <call method="setDomain">

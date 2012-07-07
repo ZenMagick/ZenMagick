@@ -20,8 +20,8 @@
 namespace zenmagick\http\controller;
 
 use Symfony\Component\HttpFoundation\Response;
-use ZMRequest;
 use zenmagick\base\ZMObject;
+use zenmagick\http\Request;
 use zenmagick\http\rss\RssSource;
 use zenmagick\http\rss\RssFeedGenerator;
 
@@ -48,7 +48,7 @@ class RssController extends ZMObject {
     /**
      * {@inheritDoc}
      */
-    public function generate(ZMRequest $request, $channel, $key) {
+    public function generate(Request $request, $channel, $key) {
         // find source
         $feed = null;
         $key = empty($key) ? null : $key;

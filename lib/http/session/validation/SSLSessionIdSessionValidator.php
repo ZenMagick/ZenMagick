@@ -19,8 +19,8 @@
  */
 namespace zenmagick\http\session\validation;
 
-use ZMRequest;
 use zenmagick\base\ZMObject;
+use zenmagick\http\Request;
 use zenmagick\http\session\Session;
 use zenmagick\http\session\SessionValidator;
 
@@ -51,7 +51,7 @@ class SSLSessionIdSessionValidator extends ZMObject implements SessionValidator 
      *
      * @todo move to request
      */
-    public function isValidSession(ZMRequest $request, Session $session) {
+    public function isValidSession(Request $request, Session $session) {
         $valid = true;
         if ($this->enabled && $request->isSecure()) {
             $sslSessionId = $request->server->get('SSL_SESSION_ID');

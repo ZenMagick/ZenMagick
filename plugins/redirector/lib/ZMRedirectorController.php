@@ -49,7 +49,7 @@ class ZMRedirectorController extends ZMController {
     /**
      * Handle product not found.
      *
-     * @param ZMRequest request The current request.
+     * @param zenmagick\http\Request request The current request.
      * @return View A response view or <code>null</code> if no useful response possible.
      */
     protected function processMissingProduct($request) {
@@ -80,7 +80,7 @@ class ZMRedirectorController extends ZMController {
     /**
      * Handle category not found.
      *
-     * @param ZMRequest request The current request.
+     * @param zenmagick\http\Request request The current request.
      * @return View A response view or <code>null</code> if no useful response possible.
      */
     protected function processMissingCategory($request) {

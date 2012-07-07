@@ -20,6 +20,7 @@
 namespace zenmagick\apps\store\view;
 
 use zenmagick\base\Runtime;
+use zenmagick\http\Request;
 use zenmagick\http\view\ResourceResolver;
 
 /**
@@ -45,9 +46,9 @@ class ThemeResourceResolver extends ResourceResolver {
     /**
      * Set the request.
      *
-     * @param ZMRequest request The request.
+     * @param zenmagick\http\Request request The request.
      */
-    public function setRequest(ZMRequest $request) {
+    public function setRequest(Request $request) {
         $this->request = $request;
         $this->languageId = $request->getSession()->getLanguageId();
     }
@@ -55,7 +56,7 @@ class ThemeResourceResolver extends ResourceResolver {
     /**
      * Get the request.
      *
-     * @return ZMRequest The request.
+     * @return zenmagick\http\Request The request.
      */
     public function getRequest() {
         return $this->request;

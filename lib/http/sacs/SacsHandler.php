@@ -43,7 +43,7 @@ interface SacsHandler {
     /**
      * Evaluate the given credentials in the context of the request.
      *
-     * @param ZMRequest request The current request.
+     * @param zenmagick\http\Request request The current request.
      * @param mixed credentials The user credentials.
      * @param SacsManager manager The delegating manager.
      * @return mixed Either <code>null</code> to indicate that the given request can't be handled, or

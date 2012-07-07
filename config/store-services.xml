@@ -37,9 +37,6 @@
             </call>
         </service>
 
-
-        <service id="request" class="zenmagick\apps\store\http\Request" scope="container" />
-
         <service id="accountService" class="ZMAccounts" scope="container" />
 
         <service id="addressService" class="ZMAddresses" scope="container" />

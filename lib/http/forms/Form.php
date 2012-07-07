@@ -19,7 +19,7 @@
  */
 namespace zenmagick\http\forms;
 
-use ZMRequest;
+use zenmagick\http\Request;
 
 /**
  * Form container.
@@ -35,8 +35,8 @@ interface Form {
     /**
      * Populate this form from the given request.
      *
-     * @param ZMRequest request The current request.
+     * @param zenmagick\http\Request request The current request.
      */
-    public function populate(ZMRequest $request);
+    public function populate(Request $request);
 
 }

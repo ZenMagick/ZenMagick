@@ -19,8 +19,8 @@
  */
 namespace zenmagick\http\session\validation;
 
-use ZMRequest;
 use zenmagick\base\ZMObject;
+use zenmagick\http\Request;
 use zenmagick\http\session\Session;
 use zenmagick\http\session\SessionValidator;
 
@@ -51,14 +51,14 @@ class FormTokenSessionValidator extends ZMObject implements SessionValidator {
      *
      * <p>This default implementation will validate <em>POST</em> requests only.
      */
-    protected function qualifies(ZMRequest $request) {
+    protected function qualifies(Request $request) {
         return 'POST' == $request->getMethod();
     }
 
     /**
      * {@inheritDoc}
      */
-    public function isValidSession(ZMRequest $request, Session $session) {
+    public function isValidSession(Request $request, Session $session) {
         $valid = true;
         if ($this->qualifies($request) && in_array($request->getRequestId(), $this->requestIds)) {
             $valid = false;

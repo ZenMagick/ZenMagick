@@ -20,7 +20,6 @@
 namespace zenmagick\http;
 
 use Exception;
-use ZMRequest;
 use Symfony\Component\HttpFoundation\Response;
 use zenmagick\base\Beans;
 use zenmagick\base\Runtime;
@@ -30,6 +29,7 @@ use zenmagick\base\events\Event;
 use zenmagick\base\logging\Logging;
 use zenmagick\base\utils\Executor;
 use zenmagick\base\utils\ParameterMapper;
+use zenmagick\http\Request;
 use zenmagick\http\session\SessionValidator;
 use zenmagick\http\view\ModelAndView;
 use zenmagick\http\view\ResponseModelAndView;
@@ -56,7 +56,7 @@ class Dispatcher extends ZMObject {
     /**
      * Dispatch a request.
      *
-     * @param ZMRequest request The request to dispatch.
+     * @param zenmagick\http\Request request The request to dispatch.
      */
     public function dispatch($request) {
         $request->setDispatcher($this);
@@ -97,7 +97,7 @@ class Dispatcher extends ZMObject {
     /**
      * Handle a request.
      *
-     * @param ZMRequest request The request to dispatch.
+     * @param zenmagick\http\Request request The request to dispatch.
      * @return Response The response or <code>null</code>.
      */
     public function handleRequest($request) {
@@ -174,10 +174,10 @@ class Dispatcher extends ZMObject {
     /**
      * Execute controller.
      *
-     * @param ZMRequest request The request.
+     * @param zenmagick\http\Request request The request.
      * @return mixed The result.
      */
-    protected function executeController(ZMRequest $request) {
+    protected function executeController(Request $request) {
         $settingsService = $this->container->get('settingsService');
         $enableTransactions = $settingsService->get('zenmagick.http.transactions.enabled', false);
 
@@ -224,10 +224,10 @@ class Dispatcher extends ZMObject {
     /**
      * Get an executor for an controller to handle the given request.
      *
-     * @param ZMRequest request The request.
+     * @param zenmagick\http\Request request The request.
      * @return Executor The executor.
      */
-    protected function getControllerExecutor(ZMRequest $request) {
+    protected function getControllerExecutor(Request $request) {
         if ($this->controllerExecutor) {
             return $this->controllerExecutor;
         }

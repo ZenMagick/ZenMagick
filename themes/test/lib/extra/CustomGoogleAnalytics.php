@@ -30,7 +30,7 @@ class CustomGoogleAnalytics extends ZMObject {
     /**
      * Get pageview string.
      *
-     * @param ZMRequest request The current request.
+     * @param zenmagick\http\Request request The current request.
      * @return string A string to identify the current page or <code>null</code> to default to the <em>pagename</em> format.
      */
     public function getPageview($request) {

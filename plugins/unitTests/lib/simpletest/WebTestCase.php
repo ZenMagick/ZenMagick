@@ -32,7 +32,7 @@ class WebTestCase extends SimpletestWebTestCase {
     /**
      * Get the current request.
      *
-     * @return ZMRequest The current request.
+     * @return zenmagick\http\Request The current request.
      */
     public function getRequest() {
         return Runtime::getContainer()->get('request');

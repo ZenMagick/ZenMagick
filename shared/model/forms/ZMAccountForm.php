@@ -20,6 +20,7 @@
 
 use zenmagick\base\Beans;
 use zenmagick\base\Runtime;
+use zenmagick\http\Request;
 use zenmagick\http\forms\FormData;
 
 /**
@@ -33,7 +34,7 @@ class ZMAccountForm extends FormData {
     /**
      * {@inheritDoc}
      */
-    public function populate(ZMRequest $request) {
+    public function populate(Request $request) {
         $this->loadAccount();
         parent::populate($request);
     }

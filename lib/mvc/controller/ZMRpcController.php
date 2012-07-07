@@ -20,6 +20,7 @@
 
 use zenmagick\base\Runtime;
 use zenmagick\base\logging\Logging;
+use zenmagick\http\Request;
 use zenmagick\http\sacs\SacsManager;
 
 /**
@@ -33,7 +34,7 @@ class ZMRpcController extends ZMController {
     /**
      * {@inheritDoc}
      */
-    public function process(ZMRequest $request) {
+    public function process(Request $request) {
         $format = $this->container->get('settingsService')->get('zenmagick.mvc.rpc.format', 'JSON');
         $rpcRequest = $this->container->get('ZMRpcRequest'.$format);
         $rpcRequest->setRequest($request);

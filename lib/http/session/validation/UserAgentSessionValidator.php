@@ -19,8 +19,8 @@
  */
 namespace zenmagick\http\session\validation;
 
-use ZMRequest;
 use zenmagick\base\ZMObject;
+use zenmagick\http\Request;
 use zenmagick\http\session\Session;
 use zenmagick\http\session\SessionValidator;
 
@@ -49,7 +49,7 @@ class UserAgentSessionValidator extends ZMObject implements SessionValidator {
     /**
      * {@inheritDoc}
      */
-    public function isValidSession(ZMRequest $request, Session $session) {
+    public function isValidSession(Request $request, Session $session) {
         $valid = true;
         if ($this->enabled) {
             // todo move to request

@@ -108,7 +108,7 @@ class ZMOpenIDController extends ZMController {
     /**
      * Initiate OpenID authentication.
      *
-     * @param ZMRequest request The current request.
+     * @param zenmagick\http\Request request The current request.
      * @param string openid The OpenID to authenticate.
      */
     private function initAuthentication($request, $openid) {

@@ -65,7 +65,7 @@ class ZMFieldMatchRule extends ZMRule {
     /**
      * Validate the given request data.
      *
-     * @param ZMRequest request The current request.
+     * @param zenmagick\http\Request request The current request.
      * @param array data The data.
      * @return boolean <code>true</code> if the value for <code>$name</code> is valid, <code>false</code> if not.
      */

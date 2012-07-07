@@ -77,7 +77,7 @@ class BooleanFormWidget extends FormWidget {
     /**
      * Render as checkbox.
      *
-     * @param ZMRequest request The current request.
+     * @param zenmagick\http\Request request The current request.
      * @return The rendered HTML.
      */
     protected function renderCheckbox($request) {
@@ -108,7 +108,7 @@ class BooleanFormWidget extends FormWidget {
     /**
      * Render as radiobox group.
      *
-     * @param ZMRequest request The current request.
+     * @param zenmagick\http\Request request The current request.
      * @return The rendered HTML.
      */
     protected function renderRadio($request) {
@@ -134,7 +134,7 @@ class BooleanFormWidget extends FormWidget {
     /**
      * Render as select box.
      *
-     * @param ZMRequest request The current request.
+     * @param zenmagick\http\Request request The current request.
      * @return The rendered HTML.
      */
     protected function renderSelect($request) {

@@ -34,7 +34,7 @@ class ZMRpcRequestJSON implements ZMRpcRequest {
     /**
      * Create new instance
      *
-     * @param ZMRequest request The current request; default is <code>null</code>.
+     * @param zenmagick\http\Request request The current request; default is <code>null</code>.
      */
     function __construct($request=null) {
         $this->request_ = $request;
@@ -46,7 +46,7 @@ class ZMRpcRequestJSON implements ZMRpcRequest {
     /**
      * Set the request.
      *
-     * @param ZMRequest request The current request.
+     * @param zenmagick\http\Request request The current request.
      */
     public function setRequest($request) {
         $this->request_ = $request;

@@ -20,10 +20,10 @@
 namespace zenmagick\http\controller;
 
 use ReflectionClass;
-use ZMRequest;
 use zenmagick\base\Beans;
 use zenmagick\base\ZMObject;
 use zenmagick\base\utils\ParameterMapper;
+use zenmagick\http\Request;
 
 /**
  * ParameterMapper for controller classes.
@@ -45,9 +45,9 @@ class ControllerParameterMapper extends ZMObject implements ParameterMapper {
     /**
      * Set the request.
      *
-     * @param ZMRequest request The request.
+     * @param zenmagick\http\Request request The request.
      */
-    public function setRequest(ZMRequest $request) {
+    public function setRequest(Request $request) {
         $this->request = $request;
     }
 

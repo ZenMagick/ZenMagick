@@ -60,7 +60,7 @@ class ZMProductGroupPricing extends ZMObject {
     /**
      * Populate all available fields from the given request.
      *
-     * @param ZMRequest request The current request.
+     * @param zenmagick\http\Request request The current request.
      */
     public function populate($request) {
         $this->id_ = $request->getParameter('groupPricingId', '0');

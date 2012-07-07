@@ -54,7 +54,7 @@ class UpdateUserController extends \ZMController {
     /**
      * Process prefs
      *
-     * @param ZMRequest request The current request.
+     * @param zenmagick\http\Request request The current request.
      */
     protected function processPrefs($request) {
         $user = $this->getUser();

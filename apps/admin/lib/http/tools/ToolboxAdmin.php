@@ -126,7 +126,7 @@ class ToolboxAdmin extends ToolboxTool {
     /**
      * Build category tree as simple unordered list.
      *
-     * @param ZMRequest request The current request.
+     * @param zenmagick\http\Request request The current request.
      * @param array categories List of root categories; default is <code>null</code>.
      * @param boolean start Flag to indicate start of recursion; default is <code>true</code>.
      * @return string The created HTML.

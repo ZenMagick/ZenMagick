@@ -262,7 +262,7 @@ class EventFixes extends ZMObject {
     /**
      * Fix a number of things...
      *
-     * @param ZMRequest request The current request.
+     * @param zenmagick\http\Request request The current request.
      *
      * @todo find a better way/place to add these sanitizers
      */

@@ -82,8 +82,8 @@ class MessageBuilder extends ZMObject {
      * <p>If <em>HTML</em> is requested but not available, <em>text</em> will be returned.</p>
      *
      * @param string template The template name.
-     * @request ZMRequest request The current request.
      * @param boolean html Indicate whether to create <em>HTML</em> or <em>text</em> content; default is <code>false</code>.
+     * @param zenmagick\http\Request request The current request.
      * @param array context Optional context parameter; default is an empty array.
      * @return strintg The content.
      * @deprecated use createMessage(...) instead
@@ -120,8 +120,8 @@ class MessageBuilder extends ZMObject {
      * <p>If <em>HTML</em> is requested but not available, <em>text</em> will be returned.</p>
      *
      * @param string template The template name.
-     * @request ZMRequest request The current request.
      * @param boolean html Indicate whether to create <em>HTML</em> or <em>text</em> content; default is <code>false</code>.
+     * @param zenmagick\http\Request request The current request.
      * @param array context Optional context parameter; default is an empty array.
      * @return mixed The message.
      */

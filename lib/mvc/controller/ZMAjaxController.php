@@ -19,6 +19,7 @@
  */
 
 use zenmagick\base\Runtime;
+use zenmagick\http\Request;
 use zenmagick\http\sacs\SacsManager;
 
 /**
@@ -55,7 +56,7 @@ class ZMAjaxController extends ZMController {
      *
      * @return View A <code>View</code> instance or <code>null</code>.
      */
-    public function process(ZMRequest $request) {
+    public function process(Request $request) {
         $method = $sacsMethod = $request->getParameter('method');
         if (!method_exists($this, $method)) {
             $method = $method.'JSON';

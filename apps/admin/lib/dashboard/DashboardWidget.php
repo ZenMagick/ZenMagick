@@ -76,7 +76,7 @@ abstract class DashboardWidget extends Widget {
     /**
      * Get the (HTML) contents.
      *
-     * @param ZMRequest request The current request.
+     * @param zenmagick\http\Request request The current request.
      * @return string The contents.
      */
     public abstract function getContents($request);

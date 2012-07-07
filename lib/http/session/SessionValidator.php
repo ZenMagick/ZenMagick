@@ -19,7 +19,7 @@
  */
 namespace zenmagick\http\session;
 
-use ZMRequest;
+use zenmagick\http\Request;
 
 /**
  * Session validator interface.
@@ -32,10 +32,10 @@ interface SessionValidator {
     /**
      * Validate session for the given request.
      *
-     * @param ZMRequest request The request.
+     * @param zenmagick\http\Request request The request.
      * @param Session Session session The session.
      * @return boolean <code>true</code> if, and only if the session is considered valid.
      */
-    public function isValidSession(ZMRequest $request, Session $session);
+    public function isValidSession(Request $request, Session $session);
 
 }

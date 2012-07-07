@@ -18,10 +18,11 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
+use zenmagick\http\Request;
 use zenmagick\plugins\unitTests\simpletest\TestCase;
 
 /**
- * Test ZMRequest.
+ * Test zenmagick\http\Request
  *
  * @package org.zenmagick.plugins.unitTests.tests
  * @author DerManoMann <mano@zenmagick.org>
@@ -32,7 +33,7 @@ class TestZMRequest extends TestCase {
      * Test getParameter
      */
     public function testGetParameter() {
-        $request = new ZMRequest(array('foo' => 'bar  bar  bar <'));
+        $request = new Request(array('foo' => 'bar  bar  bar <'));
         $this->assertEqual('bar  bar  bar <', $request->getParameter('foo', null, false));
         $this->assertEqual('bar  bar  bar _', $request->getParameter('foo'));
     }

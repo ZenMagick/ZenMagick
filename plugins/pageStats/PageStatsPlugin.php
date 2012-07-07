@@ -138,7 +138,7 @@ class PageStatsPlugin extends Plugin {
     /**
      * Generate hidden stats.
      *
-     * @param ZMRequest request The current request.
+     * @param zenmagick\http\Request request The current request.
      * @param View view The current view.
      */
     private function hiddenStats($request, $view) {

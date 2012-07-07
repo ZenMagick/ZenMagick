@@ -27,6 +27,7 @@ use zenmagick\base\ZMException;
 use zenmagick\base\ZMObject;
 use zenmagick\base\logging\Logging;
 use zenmagick\base\events\Event;
+use zenmagick\http\Request;
 use zenmagick\http\widgets\Widget;
 use zenmagick\http\toolbox\Toolbox;
 use zenmagick\http\toolbox\ToolboxTool;
@@ -118,16 +119,16 @@ class TemplateView extends ZMObject implements View {
     /**
      * Set the request.
      *
-     * @param ZMRequest request The request.
+     * @param zenmagick\http\Request request The request.
      */
-    public function setRequest(\ZMRequest $request) {
+    public function setRequest(Request $request) {
         $this->request = $request;
     }
 
     /**
      * Get the request.
      *
-     * @return ZMRequest The request.
+     * @return zenmagick\http\Request The request.
      */
     public function getRequest() {
         return $this->request;
@@ -255,7 +256,7 @@ class TemplateView extends ZMObject implements View {
     /**
      * Init variables.
      *
-     * @param ZMRequest request The current request.
+     * @param zenmagick\http\Request request The current request.
      */
     protected function initVariables($request) {
         if (array_key_exists('view', $this->variables)) {

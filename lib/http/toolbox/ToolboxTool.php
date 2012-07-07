@@ -34,7 +34,7 @@ class ToolboxTool extends ZMObject {
     /**
      * Set the request.
      *
-     * @param ZMRequest request The current request.
+     * @param zenmagick\http\Request request The current request.
      */
     public function setRequest($request) {
         $this->request_ = $request;
@@ -43,7 +43,7 @@ class ToolboxTool extends ZMObject {
     /**
      * Get the request.
      *
-     * @return ZMRequest The current request.
+     * @return zenmagick\http\Request The current request.
      */
     public function getRequest() {
         return $this->request_;

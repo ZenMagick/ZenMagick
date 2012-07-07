@@ -19,9 +19,9 @@
  */
 namespace zenmagick\http\forms;
 
-use ZMRequest;
 use zenmagick\base\Beans;
 use zenmagick\base\ZMObject;
+use zenmagick\http\Request;
 
 /**
  * Basic form container.
@@ -37,7 +37,7 @@ class FormData extends ZMObject implements Form {
     /**
      * {@inheritDoc}
      */
-    public function populate(ZMRequest $request) {
+    public function populate(Request $request) {
         Beans::setAll($this, $request->getParameterMap(), null);
     }
 

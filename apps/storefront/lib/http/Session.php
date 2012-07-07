@@ -210,7 +210,7 @@ class Session extends \zenmagick\http\session\Session {
      * <p>This operation will fail, for example, if the account is blocked/disabled.</p>
      *
      * @param ZMAccount account The account.
-     * @param ZMRequest request The current request.
+     * @param zenmagick\http\Request request The current request.
      * @param mixed source The event source; default is <code>null</code>.
      * @return boolean <code>true</code> if ok, <code>false</code> if not.
      */

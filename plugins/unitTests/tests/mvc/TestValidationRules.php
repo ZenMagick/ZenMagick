@@ -18,6 +18,7 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
+use zenmagick\http\Request;
 use zenmagick\plugins\unitTests\simpletest\TestCase;
 
 /**
@@ -32,7 +33,7 @@ class TestValidationRules extends TestCase {
      * Test regexp.
      */
     public function testRegExp() {
-        $request = new ZMRequest();
+        $request = new Request();
         $request->setContainer($this->container);
         $rule = new ZMRegexpRule('host', '/yahoo.com|localhost/i', 'no match');
         $this->assertNotNull($rule);
@@ -49,7 +50,7 @@ class TestValidationRules extends TestCase {
      * Test email validation.
      */
     public function testEmail() {
-        $request = new ZMRequest();
+        $request = new Request();
         $request->setContainer($this->container);
         $rule = new ZMEmailRule('email', 'not valid');
         $this->assertNotNull($rule);

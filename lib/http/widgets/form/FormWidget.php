@@ -189,7 +189,7 @@ abstract class FormWidget extends Widget {
     /**
      * Get the formatted attribute string.
      *
-     * @param ZMRequest request The current request.
+     * @param zenmagick\http\Request request The current request.
      * @param boolean addValue Optional flag to include/exclude the value; default is <code>true</code>.
      * @param boolean addName Optional flag to include/exclude the name; default is <code>true</code>.
      * @return string All set (and allowed) attributes as formatted HTML string.

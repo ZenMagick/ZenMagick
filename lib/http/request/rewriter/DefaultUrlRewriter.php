@@ -21,6 +21,7 @@ namespace zenmagick\http\request\rewriter;
 
 use zenmagick\base\Runtime;
 use zenmagick\base\ZMObject;
+use zenmagick\http\Request;
 use zenmagick\http\request\UrlRewriter;
 
 /**
@@ -47,7 +48,7 @@ class DefaultUrlRewriter extends ZMObject implements UrlRewriter {
         parent::__construct();
         $this->index_ = Runtime::getSettings()->get('zenmagick.http.request.handler', 'index.php');
         // resolve once only
-        $this->requestIdKey_ = Runtime::getSettings()->get('zenmagick.http.request.idName', \ZMRequest::DEFAULT_REQUEST_ID);
+        $this->requestIdKey_ = Runtime::getSettings()->get('zenmagick.http.request.idName', Request::DEFAULT_REQUEST_ID);
         $type = Runtime::getSettings()->get('zenmagick.http.request.urlType', 'default');
         if (!array_key_exists($type, self::$methodList_)) {
             $type = 'default';
@@ -90,7 +91,7 @@ class DefaultUrlRewriter extends ZMObject implements UrlRewriter {
     /**
      * Rewrite default implementation using query parameter.
      *
-     * @param ZMRequest request The current request.
+     * @param zenmagick\http\Request request The current request.
      * @param string requestId The request id.
      * @param string params Optional parameter.
      * @param boolean secure Indicate whether to create a secure or non secure URL.
@@ -107,7 +108,7 @@ class DefaultUrlRewriter extends ZMObject implements UrlRewriter {
     /**
      * Decode path implementation.
      *
-     * @param ZMRequest request The current request.
+     * @param zenmagick\http\Request request The current request.
      * @return boolean <code>true</code> if decoded, <code>false</code> if not.
      */
     protected function decodePath($request) {
@@ -139,7 +140,7 @@ class DefaultUrlRewriter extends ZMObject implements UrlRewriter {
     /**
      * Rewrite path implementation using something like '[index.php/]foo/value-of-foo/bar/value-of-bar'.
      *
-     * @param ZMRequest request The current request.
+     * @param zenmagick\http\Request request The current request.
      * @param string requestId The request id.
      * @param string params Optional parameter.
      * @param boolean secure Indicate whether to create a secure or non secure URL.

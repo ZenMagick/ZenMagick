@@ -30,7 +30,7 @@ interface UserFactory {
     /**
      * Get the current user (if any).
      *
-     * @param ZMRequest request The current request.
+     * @param zenmagick\http\Request request The current request.
      * @return mixed A user object or <code>null</code>.
      */
     public function getUser($request);
