@@ -52,18 +52,6 @@ class Request extends \ZMRequest {
     }
 
     /**
-     * Get the account id.
-     *
-     * @return int The account id for the currently logged in user or <code>0</code>.
-     */
-    public function getAccountId() {
-        if (null !== ($account = $this->getAccount())) {
-            return $account->getId();
-        }
-        return 0;
-    }
-
-    /**
      * Set the last URL.
      */
     public function setLastUrl() {
