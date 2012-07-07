@@ -420,20 +420,6 @@ class Request extends HttpFoundationRequest implements ContainerAwareInterface {
     }
 
     /**
-     * Get the protocol used.
-     *
-     * @return string The protocol string.
-     */
-    public function getProtocol() {
-        $protocol = $this->server->get('SERVER_PROTOCOL');
-        if ('HTTP/1.1' != $protocol && 'HTTP/1.0' != $protocol) {
-            $protocol = 'HTTP/1.0';
-        }
-
-        return $protocol;
-    }
-
-    /**
      * Close session if required.
      */
     public function closeSession() {

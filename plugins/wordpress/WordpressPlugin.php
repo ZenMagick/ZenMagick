@@ -150,7 +150,8 @@ class WordpressPlugin extends Plugin {
 
             // TODO: make optional
             if (false) {
-                header($request->getProtocol().' 200 OK');
+                $protocol = $this->server->get('SERVER_PROTOCOL');
+                header($protocol.' 200 OK');
             }
         }
 
