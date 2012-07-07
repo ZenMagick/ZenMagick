@@ -85,7 +85,8 @@ class PageCachePlugin extends \Plugin {
         $session = $request->getSession();
         $parameters = $request->query->all();
         ksort($parameters);
-        return $request->getRequestId() . '-' . http_build_query($parameters) . '-' . $request->getAccountId() . '-' .
+        $accountId = $request->getAccount() ? $request->getAccount()->getId() : 0;
+        return $request->getRequestId() . '-' . http_build_query($parameters) . '-' . $accountId . '-' .
                   $session->getLanguageId() . '-' . $this->container->get('themeService')->getActiveThemeId();
     }
 

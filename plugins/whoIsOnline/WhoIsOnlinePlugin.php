@@ -111,7 +111,7 @@ class WhoIsOnlinePlugin extends Plugin {
         $settingsService = $this->container->get('settingsService');
         $request = $event->get('request');
         $session = $request->getSession();
-        $accountId = $request->getAccountId();
+        $accountId = $session->getAccountId();
         $sessionId = $session->getId();
 
         $ipAddress = $request->getClientIp();
