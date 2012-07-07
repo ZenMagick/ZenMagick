@@ -21,7 +21,7 @@
 <h1><?php _vzm('Oops') ?></h1><div>
 <p><?php _vzm('Something went wrong.') ?></p>
 <?php /* TODO: need to create conventions for messages, etc */ if (isset($message)) { ?><h2><?php echo $message ?></h2><?php } ?>
-<?php if (zenmagick\base\Runtime::getApplication()->getEnvironment() == 'dev') { ?>
+<?php if ($app->getEnvironment() == 'dev') { ?>
   <pre>
   <?php
      if (isset($exception)) {

@@ -21,6 +21,7 @@
 ?>
 
 <?php $crumbtrail->addCrumb(_zm('Order Confirmation')) ?>
+<?php $account = $app->getUser(); ?>
 <?php echo $form->open('checkout_success', 'action=update', true, array('onsubmit'=>null)) ?>
     <h2><?php _vzm("Thanks for shopping with us") ?></h2>
     <p><?php _vzm("Your order number is: <strong>%s</strong>", $currentOrder->getId()) ?></p>
@@ -46,7 +47,7 @@
     <?php } ?>
 
 
-    <?php $voucherBalance = $request->getAccount()->getVoucherBalance(); ?>
+    <?php $voucherBalance = $account->getVoucherBalance(); ?>
     <?php if (0 < $voucherBalance) { ?>
         <fieldset>
             <legend><?php _vzm("Gift Certificate Account") ?></legend>
@@ -70,7 +71,7 @@
     <?php } ?>
 </form>
 
-<?php if (1 == count($container->get('orderService')->getOrdersForAccountId($currentOrder->getAccountId(), $session->getLanguageId(), 2)) && 'registered' == $request->getAccount()->getType()) { ?>
+<?php if (1 == count($container->get('orderService')->getOrdersForAccountId($currentOrder->getAccountId(), $session->getLanguageId(), 2)) && 'registered' == $account->getType()) { ?>
     <?php echo $form->open('checkout_refer_a_friend', '', true, array('id'=>'checkout_refer_a_friend')) ?>
         Friend1: <input type="text" name="friend1" value=""><br>
         Friend2: <input type="text" name="friend2" value=""><br>

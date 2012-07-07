@@ -24,7 +24,7 @@
      <?php
       $isSubscribed = false;
       if ($session->isRegistered()) {
-          $account = $request->getAccount();
+          $account = $app->getUser();
           if (null != $account) {
               $subscribedProducts = $account->getSubscribedProducts();
               $isSubscribed = in_array($currentProduct->getId(), $subscribedProducts);

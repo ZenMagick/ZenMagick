@@ -28,7 +28,7 @@
     </div>
     <strong><?php echo $utils->formatMoney($currentProduct->getPrice()); ?></strong>
     <div class="btn"><input type="submit" class="btn" value="<?php _vzm("Add to cart") ?>" /></div>
-    <p id="author"><?php _vzm("Review by: %s", $request->getAccount()->getFullName()) ?></p>
+    <p id="author"><?php _vzm("Review by: %s", $app->getUser()->getFullName()) ?></p>
   </div>
 </form>
 

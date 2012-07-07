@@ -18,13 +18,13 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-?>
 
-<?php
-    $orders = $container->get('orderService')->getOrdersForAccountId($request->getAccountId(), $session->getLanguageId(), 7);
+    $orders = array();
+    if ($app->getUser()) {
+        $orders = $container->get('orderService')->getOrdersForAccountId($app->getUser()->getId(), $session->getLanguageId(), 7);
+    }
     $products = array();
-?>
-<?php if (0 < count($orders)) { ?>
+?><?php if (0 < count($orders)) { ?>
     <h3><?php _vzm("Previous Purchases") ?></h3>
     <div id="sb_order_history" class="box">
       <ul>

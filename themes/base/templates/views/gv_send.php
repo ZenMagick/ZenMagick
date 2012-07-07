@@ -21,7 +21,7 @@
 ?>
 
 <?php $crumbtrail->addCrumb(_zm('Account'), $net->url('account', '', true))->addCrumb(_zm('Send Gift Certificate')) ?>
-<p><?php _vzm("Current available balance: <strong>%s</strong>", $utils->formatMoney($request->getAccount()->getVoucherBalance())) ?></p>
+<p><?php _vzm("Current available balance: <strong>%s</strong>", $utils->formatMoney($app->getUser()->getVoucherBalance())) ?></p>
 <?php echo $form->open('gv_send', '', true, array('id'=>'gvreceiverObject')) ?>
     <fieldset>
         <legend><?php _vzm("EMail Gift Certificate") ?></legend>

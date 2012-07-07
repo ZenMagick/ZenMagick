@@ -196,6 +196,11 @@
             <tag name="zenmagick.base.security.authentication.provider" default="true" />
         </service>
 
+        <!-- Impersonate FrameworkBundle provided GlobalVariables class -->
+        <service id="globalVariablesTool" class="zenmagick\apps\store\toolbox\ToolboxGlobalVariables" scope="prototype">
+            <tag name="zenmagick.http.toolbox.tool" key="app" />
+        </service>
+
         <service id="formTool" class="zenmagick\apps\store\toolbox\ToolboxForm" scope="prototype">
             <tag name="zenmagick.http.toolbox.tool" key="form" />
         </service>

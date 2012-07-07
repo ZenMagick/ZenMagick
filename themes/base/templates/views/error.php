@@ -21,7 +21,7 @@
 ?>
 <h3><?php _vzm("Oops - something went wrong!") ?></h3>
 <p><?php echo $utils->staticPageContent('error') ?></p>
-<?php if (zenmagick\base\Runtime::getApplication()->getEnvironment() == 'dev') { ?>
+<?php if ($app->getEnvironment() == 'dev') { ?>
   <pre>
   <?php
      if (isset($exception)) {

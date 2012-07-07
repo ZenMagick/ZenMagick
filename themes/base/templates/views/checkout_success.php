@@ -70,7 +70,7 @@
         </fieldset>
     <?php } ?>
 
-    <?php $voucherBalance = $request->getAccount()->getVoucherBalance(); ?>
+    <?php $voucherBalance = $app->getUser()->getVoucherBalance(); ?>
     <?php if (0 < $voucherBalance) { ?>
         <fieldset>
             <legend><?php _vzm("Gift Certificate Account") ?></legend>
