@@ -52,27 +52,6 @@ class Request extends \ZMRequest {
     }
 
     /**
-     * Set the last URL.
-     */
-    public function setLastUrl() {
-        // save url to be used as redirect in some cases
-        if ('GET' == $this->getMethod()) {
-            $this->getSession()->setValue('lastUrl', $this->url());
-        } else {
-            $this->getSession()->setValue('lastUrl', null);
-        }
-    }
-
-    /**
-     * Get the last URL.
-     *
-     * @return string The last URL or <code>null</code>.
-     */
-    public function getLastUrl() {
-        return $this->getSession()->getValue('lastUrl');
-    }
-
-    /**
      * Get the selected language.
      *
      * <p>Determine the currently active language, with respect to potentially selected language from a dropdown in admin UI.</p>

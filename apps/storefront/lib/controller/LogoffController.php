@@ -37,10 +37,11 @@ class LogoffController extends \ZMController {
         // pre logoff account
         $account = $this->getUser();
 
-        // get before wiping the session!
-        $lastUrl = $request->getLastUrl();
-
         $session = $request->getSession();
+
+        // get before wiping the session!
+        $lastUrl = $session->getValue('lastUrl');
+
         // check state first!
         $loggedIn = !$session->isAnonymous();
         $session->destroy();

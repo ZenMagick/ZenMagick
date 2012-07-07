@@ -55,7 +55,7 @@ class LoginController extends \ZMController {
         $session = $request->getSession();
 
         // get before doing anything with the session!
-        $lastUrl = $request->getLastUrl();
+        $lastUrl = $session->getValue('lastUrl');
 
         if (!$session->isStarted()) {
             $session->setValue(self::KEY_REDIRECT);

@@ -69,7 +69,11 @@ class EventFixes extends ZMObject {
         $request = $event->get('request');
         // save url to be used as redirect in some cases
         if ('login' != $request->getRequestId() && 'logoff' != $request->getRequestId()) {
-            $request->setLastUrl();
+            if ('GET' == $request->getMethod()) {
+                $request->getSession()->setValue('lastUrl', $request->url());
+            } else {
+                $request->getSession()->setValue('lastUrl', null);
+            }
         }
     }
 
