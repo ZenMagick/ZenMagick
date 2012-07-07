@@ -41,7 +41,7 @@ class StoreStatusDashboardWidget extends DashboardWidget {
 
 
     /**
-     * {@inheritDoc}
+     {@inheritDoc}
      */
     public function getContents($request) {
         $contents = _zm('Nothing to report.');

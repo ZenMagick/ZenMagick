@@ -26,7 +26,7 @@ $(function() {
 
 <h2><?php _vzm('Export orders') ?></h2>
 <div>
-  <form class="export-orders-form" action="<?php echo $admin->url() ?>" method="GET">
+  <form class="export-orders-form" action="<?php echo $net->url() ?>" method="GET">
     <input type="hidden" name="rid" value="export_orders">
     <p>
       <label for="dateFrom"><?php _vzm('From:') ?></label>

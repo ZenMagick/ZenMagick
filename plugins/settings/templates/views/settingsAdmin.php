@@ -28,7 +28,7 @@ use zenmagick\base\Toolbox;
     // use jquery to toggle value element
 </script>
 
-<form action="<?php echo $admin->url() ?>" method="POST">
+<form action="<?php echo $net->url() ?>" method="POST">
     <fieldset>
         <legend>Create New Setting</legend>
         <p>
@@ -62,7 +62,7 @@ use zenmagick\base\Toolbox;
     </fieldset>
 </form>
 
-<form action="<?php echo $admin->url() ?>" method="POST">
+<form action="<?php echo $net->url() ?>" method="POST">
     <fieldset>
         <legend>Current Settings</legend>
         <table class="grid">

@@ -44,7 +44,7 @@ class PendingDashboardWidget extends DashboardWidget {
         $contents = '';
         $gvApprovalQueue = $this->container->get('couponService')->getCouponsForFlag('N');
         if (0 < count($gvApprovalQueue)) {
-            $a = '<a href="'.$request->getToolbox()->admin->url('gv_queue').'">'._zm('approval').'</a>';
+            $a = '<a href="'.$request->getToolbox()->net->url('gv_queue').'">'._zm('approval').'</a>';
             $contents .= sprintf(_zm('There are %s gift cards waiting for %s.'), count($gvApprovalQueue), $a);
         }
 

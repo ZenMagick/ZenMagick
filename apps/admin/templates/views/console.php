@@ -42,7 +42,7 @@
 
 <?php $admin->title() ?>
 <div id="b_console">
-  <form action="<?php echo $admin->url() ?>" method="POST">
+  <form action="<?php echo $net->url() ?>" method="POST">
       <fieldset>
           <legend><?php _vzm("<code>PHP</code> Console") ?></legend>
           <label for="code"><?php _vzm("Code:") ?></label>

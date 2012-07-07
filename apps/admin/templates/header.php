@@ -20,24 +20,24 @@
 ?>
 <div id="header">
   <div id="logo">
-    <a href="<?php echo $admin->url('index') ?>"><img src="<?php echo $this->asUrl('resource:images/logo.png') ?>" alt="ZenMagick" title="ZenMagick"></a>
+    <a href="<?php echo $net->url('index') ?>"><img src="<?php echo $this->asUrl('resource:images/logo.png') ?>" alt="ZenMagick" title="ZenMagick"></a>
   </div>
   <?php if ($app->getUser()) { ?>
     <div id="header-box">
       <p id="header-state">
-        <?php $userLink = '<a href="'.$admin->url('update_user').'" onclick="ZenMagick.ajaxFormDialog(this.href, {title:\''.sprintf(_zm('User Profile: %s'), $app->getUser()->getName()).'\', formId:\'updateUser\'}); return false;">'.$app->getUser()->getName().'</a>'; ?>
+        <?php $userLink = '<a href="'.$net->url('update_user').'" onclick="ZenMagick.ajaxFormDialog(this.href, {title:\''.sprintf(_zm('User Profile: %s'), $app->getUser()->getName()).'\', formId:\'updateUser\'}); return false;">'.$app->getUser()->getName().'</a>'; ?>
         <?php _vzm('Logged in as %s', $userLink) ?>
         <?php if (!$app->getUser()->isLive()) { ?>
           <span id="demo-note"><?php _vzm('*** DEMO MODE ***') ?></span>
         <?php } ?>
         | <?php echo date('l, F d, Y') ?>
-        | <a href="<?php echo $admin->url('logoff') ?>"><?php _vzm('Log Out') ?></a>
+        | <a href="<?php echo $net->url('logoff') ?>"><?php _vzm('Log Out') ?></a>
       </p>
       <p id="header-opts">
         <a href="<?php echo $settingsService->get('apps.store.baseUrl') ?>" target="_blank">Storefront</a>
         | <a href="<?php echo $request->getHost().'/'. $settingsService->get('apps.store.zencart.admindir').'/index.php'; ?>" target="_blank">OLD Admin</a>
         | <a href="http://forum.zenmagick.org/" target="_blank"><?php _vzm('Get Help') ?></a>
-        | <a href="<?php echo $admin->url('about') ?>" onclick="ZenMagick.ajaxDialog(this.href, {title:'About ZenMagick', width:'85%', height:640}); return false;"><?php _vzm('About') ?></a>
+        | <a href="<?php echo $net->url('about') ?>" onclick="ZenMagick.ajaxDialog(this.href, {title:'About ZenMagick', width:'85%', height:640}); return false;"><?php _vzm('About') ?></a>
       </p>
     </div>
   <?php } ?>
@@ -45,7 +45,7 @@
     <?php if ($app->getUser()) { ?>
       <?php $root = $adminMenu->getRootItemForRequestId($request->getRequestId()); ?>
       <?php foreach ($adminMenu->getRoot()->getChildren() as $item) { ?>
-        <li<?php if (null != $root && $root->getId() == $item->getId()) { echo ' class="active"'; } ?>><a href="<?php echo $admin->url($item->getRequestId()) ?>"><?php echo $item->getName() ?></a></li>
+        <li<?php if (null != $root && $root->getId() == $item->getId()) { echo ' class="active"'; } ?>><a href="<?php echo $net->url($item->getRequestId()) ?>"><?php echo $item->getName() ?></a></li>
       <?php } ?>
     <?php } ?>
   </ul>

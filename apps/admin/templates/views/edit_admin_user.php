@@ -18,7 +18,7 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */ $admin->title(_zm('Edit User Details')) ?>
 
-<form action="<?php echo $admin->url() ?>" method="POST">
+<form action="<?php echo $net->url() ?>" method="POST">
   <input type="hidden" name="adminUserId" value="<?php echo $adminUser->getAdminUserId() ?>">
   <table>
     <tr>
@@ -51,6 +51,6 @@
   </table>
   <p>
     <input type="submit" class="<?php echo $buttonClasses ?>" value="<?php _vzm((0 < $adminUser->getAdminUserId()) ? "Update" : "Create") ?>">
-    <a class="<?php echo $buttonClasses ?>" href="<?php echo $admin->url('admin_users') ?>"><?php _vzm('Cancel') ?></a>
+    <a class="<?php echo $buttonClasses ?>" href="<?php echo $net->url('admin_users') ?>"><?php _vzm('Cancel') ?></a>
   </p>
 </form>

@@ -66,7 +66,7 @@ use zenmagick\base\Toolbox;
 
 <?php echo $this->fetch('messages.php'); ?>
 <?php $admin->title(_zm('Edit Define Pages')) ?></h1>
-<form action="<?php echo $admin->url() ?>" method="GET">
+<form action="<?php echo $net->url() ?>" method="GET">
   <input type="hidden" name="rid" value="static_page_editor">
   <h2>ZenMagick Static Page Editor (
           <select id="languageId" name="languageId" onchange="this.form.submit();">
@@ -115,7 +115,7 @@ use zenmagick\base\Toolbox;
   }
 </script>
 <?php if (null !== $editContents) { ?>
-  <form action="<?php echo $admin->url() ?>" method="POST">
+  <form action="<?php echo $net->url() ?>" method="POST">
     <input type="hidden" name="themeId" value="<?php echo $selectedThemeId ?>">
     <input type="hidden" name="file" value="<?php echo $selectedFile ?>">
     <input type="hidden" name="languageId" value="<?php echo $selectedLanguageId ?>">
@@ -132,7 +132,7 @@ use zenmagick\base\Toolbox;
 
     <br><br>
     <input class="<?php echo $buttonClasses ?>" type="submit" name="save" value="Save">
-    <a class="<?php echo $buttonClasses ?>" href="<?php echo $admin->url() ?>">Cancel</a>
+    <a class="<?php echo $buttonClasses ?>" href="<?php echo $net->url() ?>">Cancel</a>
     <a class="<?php echo $buttonClasses ?>" href="#" onclick="preview();return false;">Preview</a>
   </form>
 <?php } ?>

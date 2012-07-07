@@ -17,7 +17,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */ $admin->title() ?>
-<form action="<?php echo $admin->url() ?>" method="POST">
+<form action="<?php echo $net->url() ?>" method="POST">
   <div>
     <p><label for="masterPassword">Master Password</label> <input type="password" name="masterPassword" value=""></p>
     <p><input type="submit" value="<?php _vzm('Update') ?>"></p>

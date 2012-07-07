@@ -30,10 +30,10 @@
   </tr>
   <?php foreach ($resultList->getResults() as $order) { ?>
     <tr>
-      <td><a href="<?php echo $admin->url('order', 'orderId='.$order->getId()) ?>"><?php echo $order->getId() ?></a></td>
+      <td><a href="<?php echo $net->url('order', 'orderId='.$order->getId()) ?>"><?php echo $order->getId() ?></a></td>
       <?php $actualAccount = $container->get('accountService')->getAccountForId($order->getAccountId()); ?>
       <?php $name = $actualAccount->getType() == ZMAccount::REGISTERED ? $order->getAccount()->getFullName() : _zm('** Guest **'); ?>
-      <td><a href="<?php echo $admin->url('account', 'accountId='.$order->getAccountId()) ?>"><?php echo $name ?></a></td>
+      <td><a href="<?php echo $net->url('account', 'accountId='.$order->getAccountId()) ?>"><?php echo $name ?></a></td>
       <td><?php echo $order->getOrderDate() ?></td>
       <td><?php echo $order->get('payment_method') ?></td>
       <td><?php echo $order->get('shipping_method') ?></td>

@@ -31,18 +31,6 @@ use zenmagick\apps\store\controller\CatalogContentController;
 class ToolboxAdmin extends ToolboxTool {
 
     /**
-     * Create a admin page URL.
-     *
-     * @param string requestId The request id.
-     * @param string params Query string style parameter; if <code>''</code>.
-     * @param boolean secure Flag to create a secure url; default is <code>true</code>.
-     * @return string A full URL.
-     */
-    public function url($requestId=null, $params='', $secure=true) {
-        return $this->getRequest()->url($requestId, $params, $secure);
-    }
-
-    /**
      * Create a catalog admin page URL.
      *
      * @param CatalogContentController controller A controller: default is <code>null</code> to use the current <em>catalogRequestId</em>.
@@ -144,7 +132,7 @@ class ToolboxAdmin extends ToolboxTool {
      * @return string The created HTML.
      */
     function categoryTree($categories = null, $start = true) {
-        $admin = $this->getToolbox()->admin;
+        $net = $this->getToolbox()->net;
         $html = $this->getToolbox()->html;
         $path = (array)$this->getRequest()->attributes->get('categoryIds');
         if ($start) {
@@ -158,7 +146,7 @@ class ToolboxAdmin extends ToolboxTool {
         foreach ($categories as $category) {
             $active = in_array($category->getId(), $path);
             echo '<li id="ct-'.$category->getId().'">';
-            echo '<a href="'.$admin->url('catalog', 'cPath='.implode('_', $category->getPath())).'">'.$html->encode($category->getName()).'</a>';
+            echo '<a href="'.$net->url('catalog', 'cPath='.implode('_', $category->getPath())).'">'.$html->encode($category->getName()).'</a>';
             if ($category->hasChildren()) {
                 $this->categoryTree($category->getChildren(), false);
             }

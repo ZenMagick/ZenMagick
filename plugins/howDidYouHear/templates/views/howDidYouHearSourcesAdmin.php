@@ -29,7 +29,7 @@
     <td>
       <a href="" class="<?php echo $buttonClasses ?>"><?php _vzm('Edit') ?></a>
       <?php if (ID_SOURCE_OTHER != $line->getSourceId()) { ?>
-        <form class="button-form" action="<?php echo $admin->url() ?>" method="POST" onsubmit="return ZenMagick.confirm('<?php _vzm('Are you sure?') ?>', this);">
+        <form class="button-form" action="<?php echo $net->url() ?>" method="POST" onsubmit="return ZenMagick.confirm('<?php _vzm('Are you sure?') ?>', this);">
           <input type="hidden" name="action" value="delete">
           <input type="hidden" name="sourceId" value="<?php echo $line->getSourceId() ?>">
           <input type="submit" class="<?php echo $buttonClasses ?>" value="<?php _vzm('Delete') ?>">
@@ -40,7 +40,7 @@
   <?php } ?>
   <tr>
     <td colspan="2">
-      <form action="<?php echo $admin->url() ?>" method="POST">
+      <form action="<?php echo $net->url() ?>" method="POST">
         <input type="hidden" name="action" value="create">
         <label for="source"><?php _vzm('New Source') ?></label> <input type="text" id="source" name="source" value="">
         <input type="submit" class="<?php echo $buttonClasses ?>" value="<?php _vzm('Create') ?>">

@@ -17,7 +17,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */ $admin->title(_zm('Translation Helper')) ?>
-<form action="<?php echo $admin->url() ?>" method="POST">
+<form action="<?php echo $net->url() ?>" method="POST">
   <h2>ZenMagick Language Tool (
           <select id="languageId" name="languageId">
             <?php foreach ($this->container->get('languageService')->getLanguages() as $lang) { ?>
@@ -66,9 +66,9 @@
 </form>
 <?php if (isset($translations)) { ?>
   <strong>Download: </strong>
-  <a href="<?php echo $admin->url(null, $downloadParamsYaml) ?>">.yaml</a>
-  <a href="<?php echo $admin->url(null, $downloadParamsPo) ?>">.po</a>
-  <a href="<?php echo $admin->url(null, $downloadParamsPot) ?>">.pot</a>
+  <a href="<?php echo $net->url(null, $downloadParamsYaml) ?>">.yaml</a>
+  <a href="<?php echo $net->url(null, $downloadParamsPo) ?>">.po</a>
+  <a href="<?php echo $net->url(null, $downloadParamsPot) ?>">.pot</a>
   <?php foreach ($translations as $file => $strings) { ?>
     <h3><?php echo $file ?></h3>
     <?php foreach ($strings as $key => $info) { ?>

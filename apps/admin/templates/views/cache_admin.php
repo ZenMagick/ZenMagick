@@ -21,7 +21,7 @@
 
 <?php $admin->title(_zm('Cache Admin')) ?>
 
-<form action="<?php echo $admin->url() ?>" method="POST" onsubmit="return ZenMagick.confirm('<?php _vzm('Clear selected caches?') ?>', this);">
+<form action="<?php echo $net->url() ?>" method="POST" onsubmit="return ZenMagick.confirm('<?php _vzm('Clear selected caches?') ?>', this);">
   <fieldset>
     <legend><?php _vzm("Existing Caches") ?></legend>
       <table class="grid">

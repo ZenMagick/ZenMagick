@@ -53,7 +53,7 @@
 <?php $admin->title() ?>
 <div id="locator_map" style="width:400px;height:400px;border:1px solid #ccc;margin:10px;float:left;"><?php _vzm("Loading map...") ?></div>
 <div style="margin:10px;">
-  <form action="<?php echo $admin->url() ?>" method="POST">
+  <form action="<?php echo $net->url() ?>" method="POST">
     <div>
       <p><label for="zoom">Zoom</label> <input type="text" name="zoom" value="<?php echo $zoom ?>"></p>
       <p><label for="location">Location</label> <input type="text" name="location" value="<?php echo $location ?>"> <a href="#" onclick="copy_location(); return false;">Copy Location</a></p>

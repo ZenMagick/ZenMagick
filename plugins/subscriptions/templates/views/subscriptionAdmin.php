@@ -60,7 +60,7 @@
                 <td style="text-align:center;"><img src="images/icons/<?php echo ($order->isSubscriptionCanceled() ? 'cross.gif' : 'tick.gif') ?>" alt="tick"></td>
                 <td>
                     <?php if (!$order->isSubscriptionCanceled()) { ?>
-                        <form action="<?php echo $admin->url() ?>" method="POST">
+                        <form action="<?php echo $net->url() ?>" method="POST">
                             <input type="hidden" name="fkt" value="subscription_admin">
                             <input type="hidden" name="orderId" value="<?php echo $order->getId() ?>">
                             <input type="submit" name="cancel" value="cancel">

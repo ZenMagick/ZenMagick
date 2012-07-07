@@ -19,7 +19,7 @@
  */
 ?>
 
-<form id="ajax-form" action="<?php echo $admin->url() ?>" method="POST">
+<form id="ajax-form" action="<?php echo $net->url() ?>" method="POST">
   <input type="hidden" name="role" value="<?php echo $role ?>">
 
   <table class="grid">

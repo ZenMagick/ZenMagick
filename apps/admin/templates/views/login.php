@@ -18,7 +18,7 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */ $admin->title(_zm('Login')) ?>
 
-<form action="<?php echo $admin->url() ?>" method="POST">
+<form action="<?php echo $net->url() ?>" method="POST">
 <input type="hidden" name="<?php echo zenmagick\http\session\validation\FormTokenSessionValidator::SESSION_TOKEN_NAME; ?>" value="<?php echo $session->getToken() ?>">
 
 <p>
@@ -31,5 +31,5 @@
 <input type="password" name="password" id="password">
 </p>
 
-<p><input class="<?php echo $buttonClasses ?>" type="submit" value="<?php _vzm('Login') ?>"> <a class="<?php echo $buttonClasses ?>" href="<?php echo $admin->url('reset_password') ?>"><?php _vzm('Reset Password') ?></a></p>
+<p><input class="<?php echo $buttonClasses ?>" type="submit" value="<?php _vzm('Login') ?>"> <a class="<?php echo $buttonClasses ?>" href="<?php echo $net->url('reset_password') ?>"><?php _vzm('Reset Password') ?></a></p>
 </form>
