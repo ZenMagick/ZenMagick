@@ -55,7 +55,7 @@ class ToolboxCrumbtrail extends ToolboxTool {
     public function reset() {
         $this->crumbs_ = array();
         // always add home
-        $this->addCrumb("Home", $this->getRequest()->url('index'));
+        $this->addCrumb("Home", $this->getToolbox()->net->url('index'));
         return $this;
     }
 
@@ -139,7 +139,7 @@ class ToolboxCrumbtrail extends ToolboxTool {
             if (null == $category) {
                 return $this;
             }
-            $this->addCrumb($category->getName(),$this->getRequest()->url('category', 'cPath='.implode('_', $category->getPath())));
+            $this->addCrumb($category->getName(),$this->getToolbox()->net->url('category', 'cPath='.implode('_', $category->getPath())));
         }
         return $this;
     }
@@ -157,7 +157,7 @@ class ToolboxCrumbtrail extends ToolboxTool {
         }
         $manufacturer = $this->container->get('manufacturerService')->getManufacturerForId($manufacturerId, $this->getRequest()->getSession()->getLanguageId());
         if (null != $manufacturer) {
-            $this->addCrumb($manufacturer->getName(), $this->getRequest()->url('category', 'manufacturers_id=' . $manufacturerId));
+            $this->addCrumb($manufacturer->getName(), $this->getToolbox()->net->url('category', 'manufacturers_id=' . $manufacturerId));
         }
         return $this;
     }

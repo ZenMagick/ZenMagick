@@ -96,7 +96,7 @@ class ToolboxAdmin extends ToolboxTool {
      */
     public function ajax($controller, $method, $params='') {
         $controller = 'ajax_'.$controller;
-        $url = str_replace('&amp;', '&', $this->getRequest()->url($controller, $params.'&method='.$method, $this->getRequest()->isSecure()));
+        $url = str_replace('&amp;', '&', $this->getToolbox()->net->url($controller, $params.'&method='.$method, $this->getRequest()->isSecure()));
 
         return $url;
     }
