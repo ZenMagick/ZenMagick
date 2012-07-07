@@ -45,7 +45,7 @@ class BasicStatsDashboardWidget extends DashboardWidget {
     protected function getData($request) {
         $data = array();
         $database = \ZMRuntime::getDatabase();
-
+        $net = $request->getToolbox()->net;
         // counter
         $result = $database->querySingle("SELECT startdate, counter FROM %table.counter%");
         $counter_startdate = $result['startdate'];
@@ -67,7 +67,7 @@ class BasicStatsDashboardWidget extends DashboardWidget {
         $result = $database->querySingle("SELECT count(*) AS count FROM %table.reviews%");
         $data[_zm('Reviews')] = $result['count'];
         $result = $database->querySingle("SELECT count(*) AS count FROM %table.reviews% WHERE status='0'");
-        $data['<a href="'.$request->url('reviews', 'status=1').'">'._zm('Reviews pending approval').'</a>'] = $result['count'];
+        $data['<a href="'.$net->url('reviews', 'status=1').'">'._zm('Reviews pending approval').'</a>'] = $result['count'];
 
         // separator
         $data[] = null;
