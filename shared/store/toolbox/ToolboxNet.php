@@ -86,7 +86,7 @@ class ToolboxNet extends ToolboxTool {
                 $cPath = '&cPath='.implode('_', $category->getPath());
             }
         }
-        return $this->getRequest()->url('product_info', '&productId='.$productId.$cPath);
+        return $this->url('product_info', '&productId='.$productId.$cPath);
     }
 
     /**
@@ -96,7 +96,7 @@ class ToolboxNet extends ToolboxTool {
      * @return string A complete URL for the given static page.
      */
     public function staticPage($name) {
-        return $this->getRequest()->url('static', '&cat='.$name);
+        return $this->url('static', '&cat='.$name);
     }
 
     /**
@@ -116,7 +116,7 @@ class ToolboxNet extends ToolboxTool {
             $params .= '&chapter='.$page->getTocChapter();
         }
 
-        $href = $this->getRequest()->url('page', $params, $page->isSSL());
+        $href = $this->url('page', $params, $page->isSSL());
         if (!Toolbox::isEmpty($page->getAltUrl())) {
             $url = parse_url($page->getAltUrl());
             parse_str($url['query'], $query);
@@ -126,7 +126,7 @@ class ToolboxNet extends ToolboxTool {
             foreach ($query as $name => $value) {
                 $params .= "&".$name."=".$value;
             }
-            $href = $this->getRequest()->url($view, $params, $page->isSSL());
+            $href = $this->url($view, $params, $page->isSSL());
         } else if (!Toolbox::isEmpty($page->getAltUrlExternal())) {
             $href = $page->getAltUrlExternal();
         }
@@ -161,7 +161,7 @@ class ToolboxNet extends ToolboxTool {
         if ('url' == $action && false === strpos('://', $id)) {
             $id = 'http://'.$id;
         }
-        return $this->getRequest()->url('redirect', "action=".$action."&goto=".$id);
+        return $this->url('redirect', "action=".$action."&goto=".$id);
     }
 
     /**
@@ -182,7 +182,7 @@ class ToolboxNet extends ToolboxTool {
             $controller = 'ajax_'.$controller;
         }
 
-        $url = str_replace('&amp;', '&', $this->getRequest()->url($controller, $params.'&method='.$method, $this->getRequest()->isSecure()));
+        $url = str_replace('&amp;', '&', $this->url($controller, $params.'&method='.$method, $this->getRequest()->isSecure()));
 
         return $url;
     }
@@ -199,7 +199,7 @@ class ToolboxNet extends ToolboxTool {
         if (null !== $key) {
             $params .= "&key=".$key;
         }
-        $url = $this->getRequest()->url('rss', $params);
+        $url = $this->url('rss', $params);
 
         return $url;
     }
@@ -224,7 +224,7 @@ class ToolboxNet extends ToolboxTool {
         }
 
         $secure = null !== $secure ? $secure : $this->getRequest()->isSecure();
-        $url = $this->getRequest()->url(null, $params, $secure);
+        $url = $this->url(null, $params, $secure);
 
         return $url;
     }
@@ -249,7 +249,7 @@ class ToolboxNet extends ToolboxTool {
         }
 
         $secure = null !== $secure ? $secure : $this->getRequest()->isSecure();
-        $url = $this->getRequest()->url(null, $params, $secure);
+        $url = $this->url(null, $params, $secure);
 
         return $url;
     }
