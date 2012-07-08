@@ -24,8 +24,9 @@ include_once $rootDir.'/vendor/symfony/src/Symfony/Component/HttpKernel/HttpKern
 include_once $rootDir.'/lib/base/Application.php';
 include_once $rootDir.'/lib/http/HttpApplication.php';
 
-$config = array('appName' => basename(dirname(__DIR__)), 'environment' => (isset($_SERVER['ZM_ENVIRONMENT']) ? $_SERVER['ZM_ENVIRONMENT'] : 'prod'));
-$application = new HttpApplication($config);
+$config = array('appName' => basename(dirname(__DIR__)));
+$environment = isset($_SERVER['ZM_ENVIRONMENT']) ? $_SERVER['ZM_ENVIRONMENT'] : 'prod';
+$application = new HttpApplication($environment, false, $config);
 // @todo shouldn't have to bootstrap before Request::createFromGlobals, but the class isn't there yet.
 $application->bootstrap();
 $request = new Request(); // @todo use createFromGlobals

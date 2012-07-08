@@ -49,9 +49,11 @@ class Application {
     /**
      * Create new application
      *
+     * @param string  environment The environment
+     * @param boolean debug Whether to enable debugging or not
      * @param array config Optional config settings.
      */
-    public function __construct(array $config=array()) {
+    public function __construct($environment = 'prod', $debug = false, array $config=array()) {
         $defaults = array(
             // general stuff
             'timerStart' => microtime(),
@@ -71,7 +73,7 @@ class Application {
 
             // app stuff
             'appName' => null,
-            'environment' => 'prod',
+            'environment' => $environment,
             'context' => null,
             'defaultLocale' => 'en',
             'appConfig' => array(),

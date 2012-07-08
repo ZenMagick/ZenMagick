@@ -34,12 +34,10 @@ use Symfony\Component\HttpKernel\HttpKernelInterface;
 class HttpApplication extends Application implements HttpKernelInterface {
 
     /**
-     * Create new application
-     *
-     * @param array config Optional config settings.
+     * {@inheritDoc}
      */
-    public function __construct(array $config=array()) {
-        parent::__construct($config);
+    public function __construct($environment = 'prod', $debug = false, array $config = array()) {
+        parent::__construct($environment, $debug, $config);
         // add to config
         $this->config['packages'] = array_merge($this->config['packages'], array('lib/http', 'lib/mvc'));
         $this->config['eventListener'][] = 'zenmagick\http\EventListener';

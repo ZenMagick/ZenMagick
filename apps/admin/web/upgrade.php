@@ -31,8 +31,9 @@ include_once $rootDir.'/vendor/symfony/src/Symfony/Component/HttpKernel/HttpKern
 include_once $rootDir.'/lib/base/Application.php';
 include_once $rootDir.'/lib/http/HttpApplication.php';
 
-$config = array('appName' => basename(dirname(__DIR__)), 'environment' => (isset($_SERVER['ZM_ENVIRONMENT']) ? $_SERVER['ZM_ENVIRONMENT'] : 'prod'));
-$application = new HttpApplication($config);
+$config = array('appName' => basename(dirname(__DIR__)));
+$environment = isset($_SERVER['ZM_ENVIRONMENT']) ? $_SERVER['ZM_ENVIRONMENT'] : 'prod';
+$application = new HttpApplication($environment, false, $config);
 $application->bootstrap(array('init'));
 
 try {
