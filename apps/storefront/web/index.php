@@ -18,12 +18,16 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 use zenmagick\http\HttpApplication;
-
+use zenmagick\http\Request;
 $rootDir = realpath(__DIR__.'/../../..');
+include_once $rootDir.'/vendor/symfony/src/Symfony/Component/HttpKernel/HttpKernelInterface.php';
 include_once $rootDir.'/lib/base/Application.php';
 include_once $rootDir.'/lib/http/HttpApplication.php';
 
 $config = array('appName' => basename(dirname(__DIR__)), 'environment' => (isset($_SERVER['ZM_ENVIRONMENT']) ? $_SERVER['ZM_ENVIRONMENT'] : 'prod'));
 $application = new HttpApplication($config);
+// @todo shouldn't have to bootstrap before Request::createFromGlobals, but the class isn't there yet.
 $application->bootstrap();
-$application->serve();
+$request = new Request(); // @todo use createFromGlobals
+$response = $application->handle($request);
+$response->send();

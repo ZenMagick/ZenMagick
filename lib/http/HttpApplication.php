@@ -23,13 +23,15 @@ use Exception;
 use zenmagick\base\Runtime;
 use zenmagick\base\Toolbox;
 use zenmagick\base\Application;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\HttpKernelInterface;
 
 /**
  * HTTP application
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class HttpApplication extends Application {
+class HttpApplication extends Application implements HttpKernelInterface {
 
     /**
      * Create new application
@@ -67,11 +69,11 @@ class HttpApplication extends Application {
     /**
      * Handle web request.
      */
-    public function serve() {
+    public function handle(\Symfony\Component\HttpFoundation\Request $request, $type = self::MASTER_REQUEST, $catch = true) {
         try {
             $container = Runtime::getContainer();
             $settingsService = $container->get('settingsService');
-            $request = $container->get('request');
+            $request = $container->get('request'); // @todo use it from the argument :)
             // allow seo rewriters to fiddle with the request
             $this->profile('enter urlDecode');
             foreach ($request->getUrlRewriter() as $rewriter) {
@@ -97,11 +99,12 @@ class HttpApplication extends Application {
             $this->profile(sprintf('finished event: %s', 'init_done'));
 
             $this->profile('enter dispatcher');
-            $container->get('dispatcher')->dispatch($request);
-            $this->profile('exit dispatcher');
+            return $container->get('dispatcher')->dispatch($request);
         } catch (Exception $e) {
-            die(sprintf('serve failed: %s', $e->getMessage()));
+            if (false === $catch) {
+                throw $e;
+            }
+            return new Response(sprintf('serve failed: %s', $e->getMessage()), 500);
         }
     }
-
 }

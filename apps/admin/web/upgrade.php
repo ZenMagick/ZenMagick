@@ -22,10 +22,12 @@ use zenmagick\base\Runtime;
 use zenmagick\base\ZMException;
 use zenmagick\base\events\Event;
 use zenmagick\http\HttpApplication;
+use zenmagick\http\Request;
 use zenmagick\apps\store\bundles\ZenCartBundle\ZenCartBundle;
 use zenmagick\apps\store\bundles\ZenCartBundle\ZenCartClassLoader;
 
 $rootDir = realpath(__DIR__.'/../../..');
+include_once $rootDir.'/vendor/symfony/src/Symfony/Component/HttpKernel/HttpKernelInterface.php';
 include_once $rootDir.'/lib/base/Application.php';
 include_once $rootDir.'/lib/http/HttpApplication.php';
 

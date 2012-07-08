@@ -83,15 +83,17 @@ class Dispatcher extends ZMObject {
         $eventDispatcher->dispatch('finalise_content', $event);
 
         $response->setContent($event->get('content'));
-        $response->send();
 
         // if we get to here all messages have been displayed
         $messageService->clear();
         $messageService->saveMessages($request->getSession());
 
         // all done
+        // @todo CHECKME: how late does this have to be?
         $eventDispatcher->dispatch('all_done', new Event($this, array('request' => $request, 'view' => $view, 'content' => $event->get('content'))));
         $request->closeSession();
+
+        return $response;
     }
 
     /**
