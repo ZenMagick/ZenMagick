@@ -1,0 +1,99 @@
+{
+    "name": "zenmagick/zenmagick",
+    "description": "A reliable, flexible Open Source e-commerce solution for internet retailers of all trades.",
+    "license": "GPL-2.0+",
+    "homepage": "http://www.zenmagick.org",
+    "keywords": ["e-commerce"],
+    "authors": [
+        {
+            "name": "Martin Rademacher",
+            "email": "mano@zenmagick.org",
+            "homepage": "http://www.radebatz.net",
+            "role": "Developer"
+        },
+        {
+            "name": "John Robeson",
+            "email": "johnny@localmomentum.net",
+            "role": "Developer"
+        }
+    ],
+    "support": {
+        "issues": "http://dev.zenmagick.org/projects/zenmagick/issues",
+        "wiki": "http://dev.zenmagick.org/projects/zenmagick/wiki",
+        "forum": "http://forum.zenmagick.org",
+        "source": "https://github.com/DerManoMann/ZenMagick.git"
+    },
+    "minimum-stability": "dev",
+    "require": {
+        "php": ">=5.3.3",
+        "symfony/symfony": "2.1.*",
+        "doctrine/doctrine-bundle": "dev-master",
+        "doctrine/orm": "2.2.*",
+        "doctrine/migrations": "dev-master",
+        "doctrine/doctrine-migrations-bundle": "dev-master",
+        "rych/phpass": "dev-master",
+        "symfony/swiftmailer-bundle": "dev-master",
+        "zenmagick/zencart": "1.3.9-RC8",
+        "zenmagick/cachelite": "dev-master",
+        "buddypress/glotpress": "dev-master",
+        "dermanomann/phprules": "dev-master"
+    },
+    "config": {
+        "bin-dir": "bin"
+    },
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "git://github.com/ZenMagick/symfony.git"
+        },
+        {
+            "type": "package",
+            "package": {
+                "name": "zenmagick/zencart",
+                "version": "1.3.9-RC8",
+                "source": {
+                    "url": "git://github.com/ZenMagick/zc-base.git",
+                    "type": "git",
+                    "reference": "master"
+                }
+            }
+        },
+        {
+            "type": "package",
+            "package": {
+                "name": "buddypress/glotpress",
+                "version" : "dev-master",
+                "source": {
+                    "url": "git://github.com/buddypress/glotpress.git",
+                    "type": "git",
+                    "reference": "master"
+                }
+            }
+        },
+        {
+            "type": "package",
+            "package": {
+                "name": "dermanomann/phprules",
+                "version" : "dev-master",
+                "source": {
+                    "url": "git://github.com/DerManoMann/phprules.git",
+                    "type": "git",
+                    "reference": "master"
+                }
+            }
+        },
+        {
+            "type": "package",
+            "package": {
+                "name": "zenmagick/cachelite",
+                "version" : "dev-master",
+                "source": {
+                    "url": "git://github.com/ZenMagick/CacheLite.git",
+                    "type": "git",
+                    "reference": "master"
+                }
+            }
+        }
+
+    ]
+}
