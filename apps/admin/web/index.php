@@ -20,7 +20,7 @@
 use zenmagick\http\HttpApplication;
 use zenmagick\http\Request;
 $rootDir = realpath(__DIR__.'/../../..');
-include_once $rootDir.'/vendor/symfony/src/Symfony/Component/HttpKernel/HttpKernelInterface.php';
+include_once $rootDir.'/vendor/symfony/symfony/src/Symfony/Component/HttpKernel/HttpKernelInterface.php';
 include_once $rootDir.'/lib/base/Application.php';
 include_once $rootDir.'/lib/http/HttpApplication.php';
 

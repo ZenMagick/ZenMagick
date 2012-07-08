@@ -5,7 +5,7 @@
     <!-- Line ending to be used for multi line substitutes -->
     <property name="nl" value="&#13;&#10;" />
     <!-- assuming it's here ... -->
-    <property name="zencart.base.dir" value="${zenmagick.src.dir}/vendor/zc-base" />
+    <property name="zencart.base.dir" value="${zenmagick.src.dir}/vendor/zenmagick/zencart" />
 
     <target name="init-full-release" description="Init full release build.">
         <mkdir dir="${release.full.dir}" />
