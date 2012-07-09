@@ -27,7 +27,7 @@ use zenmagick\apps\store\bundles\ZenCartBundle\ZenCartBundle;
 use zenmagick\apps\store\bundles\ZenCartBundle\ZenCartClassLoader;
 
 $rootDir = realpath(__DIR__.'/../../..');
-include_once $rootDir.'/vendor/symfony/symfony/src/Symfony/Component/HttpKernel/HttpKernelInterface.php';
+include_once $rootDir.'/vendor/autoload.php';
 include_once $rootDir.'/lib/base/Application.php';
 include_once $rootDir.'/lib/http/HttpApplication.php';
 
