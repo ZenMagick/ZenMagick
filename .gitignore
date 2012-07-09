@@ -2,6 +2,7 @@
 *.swp
 *.cache
 Thumbs.db
+composer.phar
 local.properties
 local.xml
 global.yaml
