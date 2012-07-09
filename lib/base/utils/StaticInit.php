@@ -35,22 +35,6 @@ use Doctrine\Common\Annotations\AnnotationRegistry;
 class StaticInit {
 
     /**
-     * Init swift auto loader.
-     */
-    public static function initSwiftAutoLoader() {
-        try {
-            $rclass = new ReflectionClass('Swift');
-            realpath(dirname($rclass->getFilename()).'/../swift_required.php');
-        } catch (Exception $e) {
-            $container = Runtime::getContainer();
-            if ($container->has('loggingService')) {
-                $loggingService = $container->get('loggingService');
-                $loggingService->error(sprintf('swift init failed %s', $e->getMessage()));
-            }
-        }
-    }
-
-    /**
      * Init Doctrine annotations registry.
      */
     public static function initDoctrineAnnotationRegistry() {
