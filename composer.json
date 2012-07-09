@@ -91,6 +91,9 @@
                     "url": "git://github.com/ZenMagick/CacheLite.git",
                     "type": "git",
                     "reference": "master"
+                },
+                "autoload": {
+                    "psr-0": {"pear\\cache": "pear/cache"}
                 }
             }
         }
