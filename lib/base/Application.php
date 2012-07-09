@@ -56,7 +56,7 @@ class Application {
      */
     public function __construct($environment = 'prod', $debug = false, array $config=array()) {
         $this->environment = $environment;
-        $this->startTime microtime(true);
+        $this->startTime = microtime(true);
 
         $defaults = array(
             // general stuff
@@ -374,7 +374,7 @@ class Application {
     protected function initSettings() {
         $settingsService = Runtime::getSettings();
 
-        $settingsService->set('zenmagick.environment', $this->config['environment']);
+        $settingsService->set('zenmagick.environment', $this->environment);
         $settingsService->set('zenmagick.installationPath', $this->config['installationPath']);
         $settingsService->set('zenmagick.base.context', $this->config['context'] ? $this->config['context'] : $this->config['appName']);
 
@@ -526,7 +526,7 @@ class Application {
             set_exception_handler(array($logging, 'exceptionHandler'));
             register_shutdown_function(array($logging, 'shutdownHandler'));
         }
-        Runtime::getLogging()->debug(sprintf('environment is: %s', $this->config['environment']));
+        Runtime::getLogging()->debug(sprintf('environment is: %s', $this->environment));
     }
 
     /**
