@@ -44,7 +44,8 @@ class Application {
     protected $classLoader;
     protected $profile;
     protected $bundles;
-
+    protected $environment;
+    protected $startTime;
 
     /**
      * Create new application
@@ -54,9 +55,11 @@ class Application {
      * @param array config Optional config settings.
      */
     public function __construct($environment = 'prod', $debug = false, array $config=array()) {
+        $this->environment = $environment;
+        $this->startTime microtime(true);
+
         $defaults = array(
             // general stuff
-            'timerStart' => microtime(),
             'installationPath' => dirname(dirname(__DIR__)),
             'cli' => php_sapi_name() == 'cli',
             'profile' => true,
@@ -73,7 +76,6 @@ class Application {
 
             // app stuff
             'appName' => null,
-            'environment' => $environment,
             'context' => null,
             'defaultLocale' => 'en',
             'appConfig' => array(),
@@ -167,7 +169,7 @@ class Application {
      * @return string The current environment or prod if not set.
      */
     public function getEnvironment() {
-        return $this->config['environment'];
+        return $this->environment;
     }
 
     /**
@@ -263,11 +265,10 @@ class Application {
      * @return long The execution time in milliseconds.
      */
     public function getElapsedTime($time=null) {
-        $startTime = explode(' ', $this->config['timerStart']);
         $endTime = explode(' ', (null != $time ? $time : microtime()));
         // $time might be float
         if (1 == count($endTime)) { $endTime[] = 0; }
-        $executionTime = $endTime[1]+$endTime[0]-$startTime[1]-$startTime[0];
+        $executionTime = $endTime[1]+$endTime[0]-$this->startTime;
         return round($executionTime, 4);
     }
 
