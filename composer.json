@@ -21,7 +21,7 @@
         "issues": "http://dev.zenmagick.org/projects/zenmagick/issues",
         "wiki": "http://dev.zenmagick.org/projects/zenmagick/wiki",
         "forum": "http://forum.zenmagick.org",
-        "source": "https://github.com/DerManoMann/ZenMagick.git"
+        "source": "https://github.com/ZenMagick/ZenMagick.git"
     },
     "minimum-stability": "dev",
     "require": {
