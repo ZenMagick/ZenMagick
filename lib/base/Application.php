@@ -92,6 +92,11 @@ class Application {
         $this->config['context'] = $this->config['context'] ? $this->config['context'] : $this->config['appName'];
         $this->config['applicationPath'] = $this->config['appName'] ? sprintf('%s/apps/%s', $this->config['installationPath'], $this->config['appName']) : null;
 
+        if (!$this->getConfig('cli')) {
+            $this->config['packages'] = array_merge($this->config['packages'], array('lib/http', 'lib/mvc'));
+            $this->config['eventListener'][] = 'zenmagick\http\EventListener';
+        }
+
         $this->profile = array();
         $this->bundles = array();
 
@@ -185,7 +190,7 @@ class Application {
      * Init the bootstrap config.
      */
     protected function initBootstrap() {
-        $this->bootstrap = array(
+        $bootstrap = array(
             array(
                 'key' => 'init',
                 'methods' => array(
@@ -214,6 +219,15 @@ class Application {
                 'postEvent' => 'container_ready'
             )
         );
+
+        if (!$this->getConfig('cli')) {
+            $bootstrap[] = array('key' => 'request', 'methods' => array('initRequest'), 'postEvent' => 'request_ready');
+        }
+        $this->bootstrap = $bootstrap;
+    }
+
+    public function initRequest() {
+        Runtime::getContainer()->get('request');
     }
 
     /**
@@ -301,6 +315,10 @@ class Application {
      */
     protected function fireEvent($eventName, array $parameter=array()) {
         $parameter['application'] = $this;
+        if (!$this->getConfig('cli') && in_array($eventName, array('request_ready', 'container_ready'))) {
+            $parameter['request'] = Runtime::getContainer()->get('request');
+        }
+
         Runtime::getEventDispatcher()->dispatch($eventName, new Event($this, $parameter));
     }
 

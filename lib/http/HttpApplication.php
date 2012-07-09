@@ -32,38 +32,6 @@ use Symfony\Component\HttpKernel\HttpKernelInterface;
  * @author DerManoMann <mano@zenmagick.org>
  */
 class HttpApplication extends Application implements HttpKernelInterface {
-
-    /**
-     * {@inheritDoc}
-     */
-    public function __construct($environment = 'prod', $debug = false, array $config = array()) {
-        parent::__construct($environment, $debug, $config);
-        // add to config
-        $this->config['packages'] = array_merge($this->config['packages'], array('lib/http', 'lib/mvc'));
-        $this->config['eventListener'][] = 'zenmagick\http\EventListener';
-
-        // add to bootstrap
-        $this->addBootstrapAfter('bootstrap', array('key' => 'request', 'methods' => 'initRequest', 'postEvent' => 'request_ready'));
-    }
-
-
-    /**
-     * {@inheritDoc}
-     */
-    protected function fireEvent($eventName, array $parameter=array()) {
-        if (in_array($eventName, array('request_ready', 'container_ready'))) {
-            $parameter['request'] = Runtime::getContainer()->get('request');
-        }
-        parent::fireEvent($eventName, $parameter);
-    }
-
-    /**
-     * Init request.
-     */
-    protected function initRequest() {
-        Runtime::getContainer()->get('request');
-    }
-
     /**
      * Handle web request.
      */
