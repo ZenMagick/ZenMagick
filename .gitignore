@@ -11,4 +11,3 @@ global.yaml
 /config/store-container.yaml
 /config/store-email.xml
 /vendor/*
-!/vendor/classloader.ini

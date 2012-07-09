@@ -79,7 +79,11 @@
                     "url": "git://github.com/DerManoMann/phprules.git",
                     "type": "git",
                     "reference": "master"
+                },
+                "autoload": {
+                    "psr-0": {"phprules": "src/"}
                 }
+
             }
         },
         {
@@ -93,7 +97,7 @@
                     "reference": "master"
                 },
                 "autoload": {
-                    "psr-0": {"pear\\cache": "pear/cache"}
+                    "psr-0": {"pear\\cache": "lib/"}
                 }
             }
         }
