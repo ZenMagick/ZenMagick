@@ -25,8 +25,6 @@ include_once $rootDir.'/vendor/autoload.php';
 $config = array('appName' => basename(dirname(__DIR__)));
 $environment = isset($_SERVER['ZM_ENVIRONMENT']) ? $_SERVER['ZM_ENVIRONMENT'] : 'prod';
 $application = new HttpApplication($environment, true, $config);
-// @todo shouldn't have to bootstrap before Request::createFromGlobals, but the class isn't there yet.
-$application->bootstrap();
 $request = new Request(); // @todo use createFromGlobals
 $response = $application->handle($request);
 $response->send();
