@@ -1,5 +1,5 @@
 {
-    "hash": "8b119226fb83ed67200cc25e2d837ce1",
+    "hash": "df926e9be14ad70db733feb7461696b4",
     "packages": [
         {
             "package": "buddypress/glotpress",
@@ -68,7 +68,7 @@
         {
             "package": "symfony/swiftmailer-bundle",
             "version": "dev-master",
-            "source-reference": "e1d413ce27fd1696bdc82ad9525f1b874664530e",
+            "source-reference": "v2.1.0-BETA2",
             "commit-date": "1341509614"
         },
         {

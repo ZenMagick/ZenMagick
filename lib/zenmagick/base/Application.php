@@ -60,14 +60,14 @@ class Application {
 
         $defaults = array(
             // general stuff
-            'installationPath' => dirname(dirname(__DIR__)),
+            'installationPath' => dirname(dirname(dirname(__DIR__))),
             'cli' => php_sapi_name() == 'cli',
             'profile' => true,
             'enablePlugins' => null,
 
             // packages
-            'packageBase' => basename(dirname(dirname(__DIR__))),
-            'packages' => array('vendor', 'lib/base', 'lib/core', 'shared', 'config', 'vendor/local'),
+            'packageBase' => basename(dirname(dirname(dirname(__DIR__)))),
+            'packages' => array('vendor', 'lib/zenmagick/base', 'lib/core', 'shared', 'config', 'vendor/local'),
 
             'classLoader' => 'zenmagick\base\classloader\CachingClassLoader',
             'eventListener' => array('zenmagick\base\EventListener'),
@@ -87,13 +87,14 @@ class Application {
             'error_reporting' => -1,
             'log_errors' => true
         );
+
         $this->config = array_merge($defaults, $config);
         // some derived config
         $this->config['context'] = $this->config['context'] ? $this->config['context'] : $this->config['appName'];
         $this->config['applicationPath'] = $this->config['appName'] ? sprintf('%s/apps/%s', $this->config['installationPath'], $this->config['appName']) : null;
 
         if (!$this->getConfig('cli')) {
-            $this->config['packages'] = array_merge($this->config['packages'], array('lib/http', 'lib/mvc'));
+            $this->config['packages'] = array_merge($this->config['packages'], array('lib/zenmagick/http', 'lib/mvc'));
             $this->config['eventListener'][] = 'zenmagick\http\EventListener';
         }
 
@@ -291,16 +292,16 @@ class Application {
      */
     protected function initClassLoader() {
         // set up base class loader
-        $installationPath = $this->config['installationPath'];
-        $basephar = 'phar://'.$installationPath.'/lib/base/base.phar';
+        $installationPath = $this->config['installationPath'] .'/lib/zenmagick/base';
+        $basephar = 'phar://'.$installationPath.'/base.phar';
 
         // NOTE: the base package has a flattened folder structure, so the path doesn't reflect the namespace
         if (file_exists($basephar)) {
             require_once $basephar.'/classloader/ClassLoader.php';
             require_once $basephar.'/classloader/CachingClassLoader.php';
         } else {
-            require_once $installationPath.'/lib/base/classloader/ClassLoader.php';
-            require_once $installationPath.'/lib/base/classloader/CachingClassLoader.php';
+            require_once $installationPath.'/classloader/ClassLoader.php';
+            require_once $installationPath.'/classloader/CachingClassLoader.php';
         }
 
         $this->classLoader = new $this->config['classLoader']();

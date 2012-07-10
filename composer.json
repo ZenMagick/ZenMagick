@@ -23,6 +23,11 @@
         "forum": "http://forum.zenmagick.org",
         "source": "https://github.com/ZenMagick/ZenMagick.git"
     },
+    "autoload": {
+        "psr-0": {
+            "zenmagick": "lib/"
+        }
+    },
     "minimum-stability": "dev",
     "require": {
         "php": ">=5.3.3",

@@ -71,7 +71,7 @@ class Runtime {
      * @return string The ZenMagick installation folder.
      */
     public static function getInstallationPath() {
-        return dirname(dirname(dirname(__FILE__)));
+        return dirname(dirname(dirname(__DIR__)));
     }
 
     /**
