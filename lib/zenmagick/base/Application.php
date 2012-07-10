@@ -46,8 +46,11 @@ class Application implements HttpKernelInterface {
     protected $profile;
     protected $bundles;
     protected $container;
+    protected $rootDir;
     protected $environment;
     protected $debug;
+    protected $booted;
+    protected $name;
     protected $startTime;
 
     /**
@@ -61,11 +64,14 @@ class Application implements HttpKernelInterface {
         $this->environment = $environment;
         $this->debug = (bool)$debug;
         $this->booted = false;
+        // @todo same as installationPath?
+        $this->rootDir = dirname(dirname(dirname(__DIR__)));
+        $this->name = 'zenmagick'; // @todo what?
         $this->startTime = microtime(true);
 
         $defaults = array(
             // general stuff
-            'installationPath' => dirname(dirname(dirname(__DIR__))),
+            'installationPath' => $this->rootDir,
             'cli' => php_sapi_name() == 'cli',
             'profile' => $this->debug,
             'enablePlugins' => null,
@@ -238,6 +244,15 @@ class Application implements HttpKernelInterface {
     }
 
     /**
+     * Get enabled bundles.
+     *
+     * @return array List of enabled bundle objects.
+     */
+    public function getBundles() {
+        return $this->bundles;
+    }
+
+    /**
      * Get the application name.
      *
      * @return string The application name or <code>null</code>.
@@ -265,6 +280,18 @@ class Application implements HttpKernelInterface {
     }
 
     /**
+     * Gets the name of the kernel
+     *
+     * @return string The kernel name
+     *
+     * @api
+     */
+    public function getName()
+    {
+        return $this->name;
+    }
+
+    /**
      * Get environment.
      *
      * @return string The current environment or prod if not set.
@@ -283,6 +310,17 @@ class Application implements HttpKernelInterface {
     public function isDebug()
     {
         return $this->debug;
+    }
+
+    /**
+     * Gets the application root dir.
+     *
+     * @return string The application root dir
+     *
+     * @api
+     */
+    public function getRootDir() {
+        return $this->rootDir;
     }
 
     /**
@@ -349,15 +387,6 @@ class Application implements HttpKernelInterface {
         }
 
         return null;
-    }
-
-    /**
-     * Get enabled bundles.
-     *
-     * @return array List of enabled bundle objects.
-     */
-    public function getBundles() {
-        return $this->bundles;
     }
 
     /**
