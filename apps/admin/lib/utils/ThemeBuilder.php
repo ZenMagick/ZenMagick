@@ -109,7 +109,7 @@ class ThemeBuilder extends ZMObject {
      * @return string The theme base directory.
      */
     public function getBaseDir() {
-        return Runtime::getContainer()->get('themeService')->getThemesDir() . '/' . $this->name_ . '/';
+        return $this->container->get('themeService')->getThemesDir() . '/' . $this->name_ . '/';
     }
 
     /**
