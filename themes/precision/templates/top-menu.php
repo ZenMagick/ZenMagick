@@ -23,15 +23,14 @@
      */
     foreach ($menu as $ii => $item) {
         $last = $ii == (count($menu) - 1) ? ' class="last"' : '';
+        $current = $utils->compareStoreUrl($item[0]) ? ' id="current"' : '';
         if (3 == count($item)) {
           // url, page, false
           $page = $item[1];
-          $current = ZMTools::compareStoreUrl($item[0]) ? ' id="current"' : '';
           ?><li<?php echo $last ?><?php echo $current ?>><?php echo $html->ezpageLink($page->getId(), '<span>'.$html->encode($page->getTitle()).'</span>') ?></li><?php
         $menu[] = array($html->ezpageLink($page->getId(), '<span>'.$html->encode($page->getTitle()).'</span>', array()));
         } else {
           // url, title
-          $current = ZMTools::compareStoreUrl($item[0]) ? ' id="current"' : '';
           ?><li<?php echo $last ?><?php echo $current ?>><a href="<?php echo $item[0] ?>"><span><?php echo $item[1] ?></span></a></li><?php
         }
     }

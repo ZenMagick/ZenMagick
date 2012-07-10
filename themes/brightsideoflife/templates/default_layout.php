@@ -41,13 +41,13 @@
           }
           foreach ($menu as $item) {
               if (2 == count($item)) {
-                $current = ZMTools::compareStoreUrl($item[0]) ? ' id="current"' : '';
+                $current = $utils->compareStoreUrl($item[0]) ? ' id="current"' : '';
                 ?><li<?php echo $current ?>><a href="<?php echo $item[0] ?>"><span><?php echo $item[1] ?></span></a></li><?php
               } else {
                 $current = '';
                 //TODO:
                 //preg_match('/.*href=[\'"]([^\'"]*)[\'"].*/', $item[0], $matches);
-                //$current = ZMTools::compareStoreUrl($matches[1]) ? ' id="current"' : '';
+                //$current = $utils->compareStoreUrl($matches[1]) ? ' id="current"' : '';
                 ?><li<?php echo $current ?>><?php echo $item[0] ?></li><?php
               }
           }
