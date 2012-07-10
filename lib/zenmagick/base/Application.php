@@ -306,14 +306,59 @@ class Application implements HttpKernelInterface {
     }
 
     /**
-     * Gets the application root dir.
-     *
-     * @return string The application root dir
-     *
-     * @api
+     * {@inheritDoc}
      */
     public function getRootDir() {
         return $this->rootDir;
+    }
+
+    /**
+     * {@inheritDoc}
+     * @todo don't get it from runtime!
+     */
+    public function getContainer() {
+        return Runtime::getContainer();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getStartTime() {
+        return $this->debug ? $this->startTime : -INF;
+    }
+
+    /**
+     * @{inheritDoc}
+     * @todo adjust
+     */
+    public function getCacheDir() {
+        return $this->rootDir.'/cache/'.$this->environment;
+    }
+
+    /**
+     * @{inheritDoc}
+     * @todo adjust
+     */
+    public function getLogDir() {
+        return $this->rootDir.'/logs';
+    }
+
+    /**
+     * {@inheritDoc}
+     * @todo adjust
+     */
+    public function getCharset() {
+        return 'UTF-8';
+    }
+
+    public function serialize() {
+        return serialize(array($this->environment, $this->debug));
+    }
+
+    public function unserialize($data) {
+        list($environment, $debug) = unserialize($data);
+
+        $this->__construct($environment, $debug);
     }
 
     /**
