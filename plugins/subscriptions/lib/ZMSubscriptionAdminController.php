@@ -54,7 +54,7 @@ class ZMSubscriptionAdminController extends ZMPluginAdminController {
         }
 
         $resultSource = new ZMArrayResultSource('ZMOrder', $orderIds);
-        $resultList = Runtime::getContainer()->get('ZMResultList');
+        $resultList = $this->container->get('ZMResultList');
         $resultList->setResultSource($resultSource);
         $resultList->setPageNumber($request->query->getInt('page'));
 

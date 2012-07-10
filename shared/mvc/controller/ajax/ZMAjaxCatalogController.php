@@ -96,7 +96,7 @@ class ZMAjaxCatalogController extends ZMAjaxController {
             // use result list to paginate
             $args = array($categoryId, $activeOnly, $languageId);
             $resultSource = new ZMObjectResultSource('ZMProduct', 'productService', "getProductsForCategoryId", $args);
-            $resultList = Runtime::getContainer()->get('ZMResultList');
+            $resultList = $this->container->get('ZMResultList');
             $resultList->setResultSource($resultSource);
             $resultList->setPageNumber($page);
             if (null !== ($pagination = $request->getParameter('pagination'))) {
@@ -138,7 +138,7 @@ class ZMAjaxCatalogController extends ZMAjaxController {
             // use result list to paginate
             $args = array($manufacturerId, $activeOnly, $languageId);
             $resultSource = new ZMObjectResultSource('ZMProduct', 'productService', "getProductsForManufacturerId", $args);
-            $resultList = Runtime::getContainer()->get('ZMResultList');
+            $resultList = $this->container->get('ZMResultList');
             $resultList->setResultSource($resultSource);
             $resultList->setPageNumber($page);
             if (null !== ($pagination = $request->getParameter('pagination'))) {

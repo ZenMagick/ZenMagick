@@ -52,7 +52,7 @@ class CheckoutGuestController extends \ZMController {
         }
 
         // create anonymous account
-        $account = Runtime::getContainer()->get("ZMAccount");
+        $account = $this->container->get("ZMAccount");
         $account->setEmail($request->request->get('email_address'));
         $account->setPassword('');
         $account->setDob(\ZMDatabase::NULL_DATETIME);

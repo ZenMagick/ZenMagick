@@ -34,7 +34,7 @@ class AdminUsersController extends \ZMController {
     public function processGet($request) {
         $user = $this->getUser();
         $resultSource = new \ZMObjectResultSource('zenmagick\\apps\\admin\\entities\\AdminUser', 'adminUserService', "getAllUsers", !$user->isLive());
-        $resultList = Runtime::getContainer()->get('ZMResultList');
+        $resultList = $this->container->get('ZMResultList');
         $resultList->setResultSource($resultSource);
         $resultList->setPageNumber($request->query->get('page', 1));
 

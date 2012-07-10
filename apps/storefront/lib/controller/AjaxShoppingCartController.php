@@ -89,7 +89,7 @@ class AjaxShoppingCartController extends \ZMAjaxController {
         $shoppingCart = $request->getShoppingCart();
         $cartDetails  = array();
         $items = array();
-        $formatter = create_function('$obj,$name,$value', 'return $name=="itemTotal" ? zenmagick\base\Runtime::getContainer()->get(\'request\')->getToolbox()->utils->formatMoney($value) : $value;');
+        $formatter = create_function('$obj,$name,$value', 'return $name=="itemTotal" ? $this->container->get(\'request\')->getToolbox()->utils->formatMoney($value) : $value;');
         $utilsTool = $this->container->get('utilsTool');
         foreach ($shoppingCart->getItems() as $item) {
             array_push($items, $utilsTool->flattenObject($item, $this->get('ajaxCartItemMap'), $formatter));
@@ -97,7 +97,7 @@ class AjaxShoppingCartController extends \ZMAjaxController {
         $cartDetails ['items'] = $items;
         $cartDetails ['total'] = $utilsTool->formatMoney($shoppingCart->getTotal());
 
-        $flatObj = \$utilsTool->flattenObject($cartDetails );
+        $flatObj = $utilsTool->flattenObject($cartDetails );
         $json = $this->toJSON($flatObj);
         $this->setJSONHeader($json);
     }

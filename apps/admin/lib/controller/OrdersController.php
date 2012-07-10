@@ -51,7 +51,7 @@ class OrdersController extends \ZMController {
         } else {
             $resultSource = new \ZMObjectResultSource('ZMOrder', 'orderService', "getAllOrders", array($languageId));
         }
-        $resultList = Runtime::getContainer()->get('ZMResultList');
+        $resultList = $this->container->get('ZMResultList');
         $resultList->setResultSource($resultSource);
         $resultList->setPageNumber($request->query->get('page', 1));
 

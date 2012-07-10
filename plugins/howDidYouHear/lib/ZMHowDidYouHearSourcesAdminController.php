@@ -37,7 +37,7 @@ class ZMHowDidYouHearSourcesAdminController extends ZMController {
                 ORDER BY s.sources_name ASC";
         $sourceStats = ZMRuntime::getDatabase()->fetchAll($sql, array(), array('sources'), 'zenmagick\base\ZMObject');
         $resultSource = new ZMArrayResultSource('zenmagick\base\ZMObject', $sourceStats);
-        $resultList = Runtime::getContainer()->get("ZMResultList");
+        $resultList = $this->container->get("ZMResultList");
         $resultList->setResultSource($resultSource);
         $resultList->setPageNumber($request->query->get('page', 1));
         return array('resultList' => $resultList);

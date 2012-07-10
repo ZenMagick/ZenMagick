@@ -33,7 +33,7 @@ class ReviewsController extends \ZMController {
      */
     public function processGet($request) {
         $resultSource = new \ZMObjectResultSource('zenmagick\apps\store\entities\catalog\Review', 'reviewService', "getAllReviews", array($request->getSession()->getLanguageId()));
-        $resultList = Runtime::getContainer()->get('ZMResultList');
+        $resultList = $this->container->get('ZMResultList');
         $resultList->setResultSource($resultSource);
         $resultList->setPageNumber($request->query->getInt('page'));
 

@@ -86,7 +86,7 @@ class SearchController extends \ZMController {
                 $resultList->addSorter(Beans::getBean($sorter));
             }
 
-            $resultSource = Runtime::getContainer()->get('ZMSearchResultSource');
+            $resultSource = $this->container->get('ZMSearchResultSource');
             $resultSource->setSearchCriteria($searchCriteria);
             $resultList->setResultSource($resultSource);
             $resultList->setPageNumber($request->query->getInt('page'));

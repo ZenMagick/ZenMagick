@@ -35,7 +35,7 @@ class AccountController extends \ZMController {
         // orders are sorted desc...
         $account = $this->getUser();
         $resultSource = new \ZMObjectResultSource('ZMOrder', 'orderService', "getOrdersForAccountId", array($account->getId(), $request->getSession()->getLanguageId()));
-        $resultList = Runtime::getContainer()->get('ZMResultList');
+        $resultList = $this->container->get('ZMResultList');
         $resultList->setResultSource($resultSource);
         $resultList->setPageNumber($request->query->getInt('page'));
 

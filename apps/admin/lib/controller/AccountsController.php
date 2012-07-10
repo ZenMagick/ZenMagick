@@ -33,7 +33,7 @@ class AccountsController extends \ZMController {
      */
     public function processGet($request) {
         $resultSource = new \ZMObjectResultSource('ZMAccount', 'accountService', "getAllAccounts");
-        $resultList = Runtime::getContainer()->get('ZMResultList');
+        $resultList = $this->container->get('ZMResultList');
         $resultList->setResultSource($resultSource);
         $resultList->setPageNumber($request->query->get('page', 1));
 

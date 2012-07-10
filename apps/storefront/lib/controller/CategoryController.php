@@ -61,7 +61,7 @@ class CategoryController extends \ZMController {
         $resultList = null;
         if (null !== $method) {
             $resultSource = new \ZMObjectResultSource('ZMProduct', 'productService', $method, $args);
-            $resultList = Runtime::getContainer()->get('ZMResultList');
+            $resultList = $this->container->get('ZMResultList');
             $resultList->setResultSource($resultSource);
             foreach (explode(',', Runtime::getSettings()->get('resultListProductFilter')) as $filter) {
                 $resultList->addFilter(Beans::getBean($filter));
