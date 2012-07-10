@@ -339,6 +339,8 @@ class Application {
                     $eventName = $step['preEvent'];
                     $this->fireEvent($eventName);
                 }
+
+                if (!array_key_exists('methods', $step)) $step['methods'] = array();
                 foreach ((array)$step['methods'] as $method) {
                     $this->profile(sprintf('enter bootstrap method: %s', $method));
                     $this->$method();
