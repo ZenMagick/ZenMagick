@@ -107,6 +107,21 @@ class Application {
         $this->initBootstrap();
     }
 
+    /**
+     * Register Bundle classes.
+     *
+     * @return array instantiated bundle objects
+     */
+    public function registerBundles() {
+        $settingsService = Runtime::getSettings();
+        $bundleList = array_merge($settingsService->get('zenmagick.bundles', array()), $this->config['bundles']);
+        $bundles = array();
+        foreach ($bundleList as $name) {
+            $bundles[] = new $name();
+        }
+        return $bundles;
+    }
+
     public function init()
     {
         ini_set('log_errors', $this->config['log_errors']);
@@ -479,9 +494,7 @@ class Application {
 
         // TODO?: this might be less than HttpKernel does
         $extensions = array();
-        $bundles = array_merge($settingsService->get('zenmagick.bundles', array()), $this->config['bundles']);
-        foreach ($bundles as $key => $class) {
-            $bundle = new $class();
+        foreach ($this->registerBundles() as $bundle) {
             $bundle->build($container);
             if ($extension = $bundle->getContainerExtension()) {
                 $container->registerExtension($extension);
@@ -489,7 +502,7 @@ class Application {
             }
             $bundle->setContainer($container);
             $bundle->boot();
-            $this->bundles[$key] = $bundle;
+            $this->bundles[] = $bundle;
         }
     }
 
