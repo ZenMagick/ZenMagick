@@ -131,8 +131,7 @@ class Application implements HttpKernelInterface {
         return $bundles;
     }
 
-    public function init()
-    {
+    public function init() {
         ini_set('log_errors', $this->config['log_errors']);
         if ($this->debug) {
             ini_set('display_errors', 1);
@@ -145,8 +144,7 @@ class Application implements HttpKernelInterface {
         }
     }
 
-    public function __clone()
-    {
+    public function __clone() {
         if ($this->debug) {
             $this->startTime = microtime(true);
         }
@@ -203,8 +201,7 @@ class Application implements HttpKernelInterface {
      *
      * @api
      */
-    public function shutdown()
-    {
+    public function shutdown() {
         if (false === $this->booted) {
             return;
         }
@@ -224,8 +221,7 @@ class Application implements HttpKernelInterface {
      *
      * @api
      */
-    public function handle(\Symfony\Component\HttpFoundation\Request $request, $type = HttpKernelInterface::MASTER_REQUEST, $catch = true)
-    {
+    public function handle(\Symfony\Component\HttpFoundation\Request $request, $type = HttpKernelInterface::MASTER_REQUEST, $catch = true) {
         if (false === $this->booted) {
             $this->boot();
         }
@@ -238,8 +234,7 @@ class Application implements HttpKernelInterface {
      *
      * @return HttpKernel
      */
-    protected function getHttpKernel()
-    {
+    protected function getHttpKernel() {
         //return $this->container->get('http_kernel');
     }
 
@@ -286,8 +281,7 @@ class Application implements HttpKernelInterface {
      *
      * @api
      */
-    public function getName()
-    {
+    public function getName() {
         return $this->name;
     }
 
@@ -307,8 +301,7 @@ class Application implements HttpKernelInterface {
      *
      * @api
      */
-    public function isDebug()
-    {
+    public function isDebug() {
         return $this->debug;
     }
 
