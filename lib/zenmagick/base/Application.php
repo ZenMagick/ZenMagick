@@ -186,7 +186,7 @@ class Application implements HttpKernelInterface {
             $this->booted = true;
         } catch (Exception $e) {
             $msg = sprintf('bootstrap failed: %s', $e->getMessage());
-            if (null != ($container = Runtime::getContainer()) && $container->has('loggingService') && null != ($loggingService = $container->get('loggingService'))) {
+            if (null != ($container = $this->getContainer()) && $container->has('loggingService') && null != ($loggingService = $container->get('loggingService'))) {
                 $loggingService->dump($e, $msg);
             }
             echo implode("\n", ZMException::formatStackTrace($e->getTrace()));
@@ -487,7 +487,7 @@ class Application implements HttpKernelInterface {
     protected function fireEvent($eventName, array $parameter=array()) {
         $parameter['application'] = $this;
         if (!$this->getConfig('cli') && in_array($eventName, array('request_ready', 'container_ready'))) {
-            $parameter['request'] = Runtime::getContainer()->get('request');
+            $parameter['request'] = $this->getContainer()->get('request');
         }
 
         Runtime::getEventDispatcher()->dispatch($eventName, new Event($this, $parameter));
@@ -539,7 +539,7 @@ class Application implements HttpKernelInterface {
      */
     protected function initRuntime() {
         // register this as 'application'
-        Runtime::getContainer()->set('application', $this);
+        $this->getContainer()->set('application', $this);
     }
 
     /**
@@ -566,7 +566,7 @@ class Application implements HttpKernelInterface {
      * Init global.
      */
     protected function initGlobal() {
-        $container = Runtime::getContainer();
+        $container = $this->getContainer();
         $settingsService = Runtime::getSettings();
         $globalFilename = realpath($this->config['installationPath'].'/global.yaml');
         if (file_exists($globalFilename) && $container->has('contextConfigLoader')) {
@@ -585,7 +585,7 @@ class Application implements HttpKernelInterface {
      * Load bundles.
      */
     protected function loadBundles() {
-        $container = Runtime::getContainer();
+        $container = $this->getContainer();
         $settingsService = Runtime::getSettings();
 
         // TODO?: this might be less than HttpKernel does
@@ -606,7 +606,7 @@ class Application implements HttpKernelInterface {
      * Load bootstrap packages.
      */
     protected function loadBootstrapPackages() {
-        $container = Runtime::getContainer();
+        $container = $this->getContainer();
         $settingsService = Runtime::getSettings();
         if ($settingsService->get('zenmagick.base.plugins.enabled', true)) {
             foreach ($container->get('pluginService')->getPluginPackages() as $path) {
@@ -620,7 +620,7 @@ class Application implements HttpKernelInterface {
      */
     protected function initApplicationContainer() {
         if ($applicationPath = $this->config['applicationPath']) {
-            $container = Runtime::getContainer();
+            $container = $this->getContainer();
             $containerConfig = Toolbox::resolveWithEnv($applicationPath.'/config/container.xml');
             if (file_exists($containerConfig)) {
                 $containerLoader = new XmlFileLoader($container, new FileLocator(dirname($containerConfig)));
@@ -628,7 +628,7 @@ class Application implements HttpKernelInterface {
             }
         }
         foreach ($this->config['appContainer'] as $file) {
-            $container = Runtime::getContainer();
+            $container = $this->getContainer();
             $containerConfig = Toolbox::resolveWithEnv($file);
             if (file_exists($containerConfig)) {
                 $containerLoader = new XmlFileLoader($container, new FileLocator(dirname($containerConfig)));
@@ -683,7 +683,7 @@ class Application implements HttpKernelInterface {
      * Init locale.
      */
     protected function initLocale() {
-        $container = Runtime::getContainer();
+        $container = $this->getContainer();
         $settingsService = Runtime::getSettings();
 
         $container->get('localeService')->init($settingsService->get('zenmagick.base.locales.locale', $this->config['defaultLocale']));
@@ -700,7 +700,7 @@ class Application implements HttpKernelInterface {
      * Init plugins.
      */
     protected function initPlugins() {
-        $container = Runtime::getContainer();
+        $container = $this->getContainer();
         $settingsService = Runtime::getSettings();
 
         if ($settingsService->get('zenmagick.base.plugins.enabled', true)) {
@@ -712,7 +712,7 @@ class Application implements HttpKernelInterface {
      * Compile container.
      */
     protected function compileContainer() {
-        $container = Runtime::getContainer()->compile();
+        $container = $this->getContainer()->compile();
     }
 
 }
