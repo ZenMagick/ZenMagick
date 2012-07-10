@@ -33,7 +33,7 @@ use zenmagick\base\classloader\PharBuilder;
 
     include_once 'lib/base/Application.php';
     $application = new Application();
-    $application->bootstrap();
+    $application->boot();
 
     if (2 > $argc) {
         echo PHP_EOL."  usage: php phar_builder.php [path-to-classloader.ini-directory]".PHP_EOL;

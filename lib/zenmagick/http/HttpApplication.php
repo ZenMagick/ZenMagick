@@ -37,7 +37,7 @@ class HttpApplication extends Application implements HttpKernelInterface {
      */
     public function handle(\Symfony\Component\HttpFoundation\Request $request, $type = self::MASTER_REQUEST, $catch = true) {
         try {
-            $this->bootstrap();
+            $this->boot();
             $container = Runtime::getContainer();
             $settingsService = $container->get('settingsService');
             $request = $container->get('request'); // @todo use it from the argument :)

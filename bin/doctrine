@@ -5,7 +5,7 @@ use zenmagick\base\Application;
 chdir(dirname(dirname(__FILE__)));
 include_once 'lib/base/Application.php';
 $application = new Application(array('appConfig' => array(dirname(__DIR__).'/config/store-config.yaml')));
-$application->bootstrap();
+$application->boot();
 
 $helpers = array(
     'db' => new Doctrine\DBAL\Tools\Console\Helper\ConnectionHelper(ZMRuntime::getDatabase()->getResource()),

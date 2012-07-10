@@ -34,7 +34,7 @@ use zenmagick\base\classloader\ClassLoader;
 
     include_once 'lib/base/Application.php';
     $application = new Application();
-    $application->bootstrap();
+    $application->boot();
 
     $classLoader = new ClassLoader();
     $classLoader->addPath(dirname(__FILE__).'/lib');

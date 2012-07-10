@@ -32,7 +32,7 @@ include_once $rootDir.'/vendor/autoload.php';
 $config = array('appName' => basename(dirname(__DIR__)));
 $environment = isset($_SERVER['ZM_ENVIRONMENT']) ? $_SERVER['ZM_ENVIRONMENT'] : 'prod';
 $application = new HttpApplication($environment, true, $config);
-$application->bootstrap(array('init'));
+$application->boot(array('init'));
 
 try {
     $installer = new zenmagick\apps\store\admin\installation\InstallationPatcher();

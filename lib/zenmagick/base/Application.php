@@ -137,6 +137,45 @@ class Application {
     }
 
     /**
+     * Bootstrap application.
+     *
+     * @param array keys Optional list of bootstrap block keys to run; default is <code>null</code> for all.
+     */
+    public function boot(array $keys=null) {
+        try {
+            foreach ($this->bootstrap as $ii => $step) {
+                if (array_key_exists('done', $step) || (null !== $keys && !in_array($step['key'], $keys))) {
+                    continue;
+                }
+
+                if (array_key_exists('preEvent', $step)) {
+                    $eventName = $step['preEvent'];
+                    $this->fireEvent($eventName);
+                }
+
+                if (!array_key_exists('methods', $step)) $step['methods'] = array();
+                foreach ((array)$step['methods'] as $method) {
+                    $this->profile(sprintf('enter bootstrap method: %s', $method));
+                    $this->$method();
+                    $this->profile(sprintf('exit bootstrap method: %s', $method));
+                }
+                if (array_key_exists('postEvent', $step)) {
+                    $eventName = $step['postEvent'];
+                    $this->fireEvent($eventName);
+                }
+                $this->bootstrap[$ii]['done'] = true;
+            }
+        } catch (Exception $e) {
+            $msg = sprintf('bootstrap failed: %s', $e->getMessage());
+            if (null != ($container = Runtime::getContainer()) && $container->has('loggingService') && null != ($loggingService = $container->get('loggingService'))) {
+                $loggingService->dump($e, $msg);
+            }
+            echo implode("\n", ZMException::formatStackTrace($e->getTrace()));
+            die($msg);
+        }
+    }
+
+    /**
      * Get the application name.
      *
      * @return string The application name or <code>null</code>.
@@ -323,45 +362,6 @@ class Application {
         }
 
         Runtime::getEventDispatcher()->dispatch($eventName, new Event($this, $parameter));
-    }
-
-    /**
-     * Bootstrap application.
-     *
-     * @param array keys Optional list of bootstrap block keys to run; default is <code>null</code> for all.
-     */
-    public function bootstrap(array $keys=null) {
-        try {
-            foreach ($this->bootstrap as $ii => $step) {
-                if (array_key_exists('done', $step) || (null !== $keys && !in_array($step['key'], $keys))) {
-                    continue;
-                }
-
-                if (array_key_exists('preEvent', $step)) {
-                    $eventName = $step['preEvent'];
-                    $this->fireEvent($eventName);
-                }
-
-                if (!array_key_exists('methods', $step)) $step['methods'] = array();
-                foreach ((array)$step['methods'] as $method) {
-                    $this->profile(sprintf('enter bootstrap method: %s', $method));
-                    $this->$method();
-                    $this->profile(sprintf('exit bootstrap method: %s', $method));
-                }
-                if (array_key_exists('postEvent', $step)) {
-                    $eventName = $step['postEvent'];
-                    $this->fireEvent($eventName);
-                }
-                $this->bootstrap[$ii]['done'] = true;
-            }
-        } catch (Exception $e) {
-            $msg = sprintf('bootstrap failed: %s', $e->getMessage());
-            if (null != ($container = Runtime::getContainer()) && $container->has('loggingService') && null != ($loggingService = $container->get('loggingService'))) {
-                $loggingService->dump($e, $msg);
-            }
-            echo implode("\n", ZMException::formatStackTrace($e->getTrace()));
-            die($msg);
-        }
     }
 
     /**

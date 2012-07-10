@@ -14,7 +14,7 @@ $application = new Application(
     'packages' => array('vendor', 'lib/base', 'lib/core', 'shared', 'vendor/local', 'lib/http', 'lib/mvc'),
     'bundles' => array('DoctrineBundle' => 'Doctrine\Bundle\DoctrineBundle\DoctrineBundle')
 ));
-$application->bootstrap();
+$application->boot();
 
 $container = Runtime::getContainer();
 $pluginService = $container->get('pluginService');
