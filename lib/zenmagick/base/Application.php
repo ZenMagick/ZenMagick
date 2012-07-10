@@ -44,6 +44,7 @@ class Application {
     protected $classLoader;
     protected $profile;
     protected $bundles;
+    protected $container;
     protected $environment;
     protected $debug;
     protected $startTime;
@@ -58,6 +59,7 @@ class Application {
     public function __construct($environment = 'prod', $debug = false, array $config=array()) {
         $this->environment = $environment;
         $this->debug = (bool)$debug;
+        $this->booted = false;
         $this->startTime = microtime(true);
 
         $defaults = array(
@@ -136,12 +138,23 @@ class Application {
         }
     }
 
+    public function __clone()
+    {
+        if ($this->debug) {
+            $this->startTime = microtime(true);
+        }
+
+        $this->booted = false;
+        $this->container = null;
+    }
+
     /**
      * Bootstrap application.
      *
      * @param array keys Optional list of bootstrap block keys to run; default is <code>null</code> for all.
      */
     public function boot(array $keys=null) {
+        if (true === $this->booted) return;
         try {
             foreach ($this->bootstrap as $ii => $step) {
                 if (array_key_exists('done', $step) || (null !== $keys && !in_array($step['key'], $keys))) {
@@ -165,6 +178,7 @@ class Application {
                 }
                 $this->bootstrap[$ii]['done'] = true;
             }
+            $this->booted = true;
         } catch (Exception $e) {
             $msg = sprintf('bootstrap failed: %s', $e->getMessage());
             if (null != ($container = Runtime::getContainer()) && $container->has('loggingService') && null != ($loggingService = $container->get('loggingService'))) {
@@ -173,6 +187,29 @@ class Application {
             echo implode("\n", ZMException::formatStackTrace($e->getTrace()));
             die($msg);
         }
+    }
+
+    /**
+     * Shutdowns the kernel.
+     *
+     * This method is mainly useful when doing functional testing.
+     *
+     * @api
+     */
+    public function shutdown()
+    {
+        if (false === $this->booted) {
+            return;
+        }
+
+        $this->booted = false;
+
+        foreach ((array)$this->getBundles() as $bundle) {
+            $bundle->shutdown();
+            $bundle->setContainer(null);
+        }
+
+        $this->container = null;
     }
 
     /**
