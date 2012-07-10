@@ -137,39 +137,6 @@ class Application {
     }
 
     /**
-     * Add a bootstrap block after the given key.
-     *
-     * <p>A bootstrap is a map that needs a unique <em>key</em> field and optionally:</p>
-     * <ul>
-     *  <li>a method list; eg <code>'methods' => array('foo', 'bar')</code></li>
-     *  <li>a preEvent; eg <code>'preEvent' => 'before_foo'</code></li>
-     *  <li>a postEvent; eg <code>'postEvent' => 'after_foo'</code></li>
-     * </li>
-     *
-     * <p>If <code>$key</code> is <code>null</code> the block will be appended at the end of the current bootstrap sequence.<p>
-     *
-     * @param string key The bootstrap order key.
-     * @param array block bootstrap block.
-     */
-    public function addBootstrapAfter($key, array $block) {
-        if (null != $key) {
-            // find key position
-            $pos = -1;
-            for ($ii=0; $ii < count($this->bootstrap); ++$ii) {
-                if ($key == $this->bootstrap[$ii]['key']) {
-                    $pos = $ii+1;
-                    break;
-                }
-            }
-        } else {
-            $pos = count($this->bootstrap);
-        }
-        if (-1 != $pos) {
-            array_splice($this->bootstrap, $pos, 0, array($block));
-        }
-    }
-
-    /**
      * Get the application name.
      *
      * @return string The application name or <code>null</code>.
