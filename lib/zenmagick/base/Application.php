@@ -45,6 +45,7 @@ class Application {
     protected $profile;
     protected $bundles;
     protected $environment;
+    protected $debug;
     protected $startTime;
 
     /**
@@ -56,13 +57,14 @@ class Application {
      */
     public function __construct($environment = 'prod', $debug = false, array $config=array()) {
         $this->environment = $environment;
+        $this->debug = (bool)$debug;
         $this->startTime = microtime(true);
 
         $defaults = array(
             // general stuff
             'installationPath' => dirname(dirname(dirname(__DIR__))),
             'cli' => php_sapi_name() == 'cli',
-            'profile' => true,
+            'profile' => $this->debug,
             'enablePlugins' => null,
 
             // packages
@@ -83,7 +85,7 @@ class Application {
             'settings' => array(),
 
             // ini
-            'display_errors'=> true,
+            'display_errors'=> false,
             'error_reporting' => -1,
             'log_errors' => true
         );
@@ -101,13 +103,23 @@ class Application {
         $this->profile = array();
         $this->bundles = array();
 
-        // init
-        ini_set('display_errors', $this->config['display_errors']);
-        error_reporting($this->config['error_reporting']);
-        ini_set('log_errors', $this->config['log_errors']);
+        $this->init();
         $this->initBootstrap();
     }
 
+    public function init()
+    {
+        ini_set('log_errors', $this->config['log_errors']);
+        if ($this->debug) {
+            ini_set('display_errors', 1);
+            error_reporting(-1);
+        } else {
+            //ini_set('display_errors', false);
+            ini_set('display_errors', $this->config['display_errors']);
+            error_reporting($this->config['error_reporting']);
+
+        }
+    }
 
     /**
      * Add a bootstrap block after the given key.
