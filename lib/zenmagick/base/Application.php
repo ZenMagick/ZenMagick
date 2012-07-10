@@ -28,9 +28,10 @@ use zenmagick\base\Toolbox;
 use zenmagick\base\ZMException;
 use zenmagick\base\events\Event;
 use zenmagick\base\plugins\Plugins;
-
+use zenmagick\http\Request;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\Loader\XmlFileLoader;
+use Symfony\Component\HttpKernel\HttpKernelInterface;
 
 /**
  * Base application.
@@ -38,7 +39,7 @@ use Symfony\Component\DependencyInjection\Loader\XmlFileLoader;
  * @author DerManoMann <mano@zenmagick.org>
  * @todo: document all config options
  */
-class Application {
+class Application implements HttpKernelInterface {
     protected $bootstrap;
     protected $config;
     protected $classLoader;
@@ -210,6 +211,30 @@ class Application {
         }
 
         $this->container = null;
+    }
+
+    /**
+     * {@inheritdoc}
+     *
+     * @api
+     */
+    public function handle(\Symfony\Component\HttpFoundation\Request $request, $type = HttpKernelInterface::MASTER_REQUEST, $catch = true)
+    {
+        if (false === $this->booted) {
+            $this->boot();
+        }
+        // @todo disappear!
+        //return $this->getHttpKernel()->handle($request, $type, $catch);
+    }
+
+    /**
+     * Gets a http kernel from the container
+     *
+     * @return HttpKernel
+     */
+    protected function getHttpKernel()
+    {
+        //return $this->container->get('http_kernel');
     }
 
     /**

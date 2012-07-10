@@ -31,13 +31,15 @@ use Symfony\Component\HttpKernel\HttpKernelInterface;
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class HttpApplication extends Application implements HttpKernelInterface {
+class HttpApplication extends Application {
     /**
      * Handle web request.
+     *
+     * @todo fold into an HttpKernel!
      */
     public function handle(\Symfony\Component\HttpFoundation\Request $request, $type = self::MASTER_REQUEST, $catch = true) {
+        parent::handle($request, $type, $catch);
         try {
-            if (false === $this->booted) $this->boot();
             $container = Runtime::getContainer();
             $settingsService = $container->get('settingsService');
             $request = $container->get('request'); // @todo use it from the argument :)
