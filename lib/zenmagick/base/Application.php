@@ -191,6 +191,18 @@ class Application {
     }
 
     /**
+     * Checks if debug mode is enabled.
+     *
+     * @return Boolean true if debug mode is enabled, false otherwise
+     *
+     * @api
+     */
+    public function isDebug()
+    {
+        return $this->debug;
+    }
+
+    /**
      * Get the application context.
      *
      * @return string The application context.
