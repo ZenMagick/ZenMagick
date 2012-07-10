@@ -46,7 +46,7 @@ class OpenIDPlugin extends Plugin {
      */
     public function install() {
         parent::install();
-        \ZMDbUtils::executePatch(file(\ZMDbUtils::resolveSQLFilename($this->getPluginDirectory()."/sql/install.sql")), $this->messages_);
+        \ZMDbUtils::executePatch(file($this->getPluginDirectory()."/sql/install.sql"), $this->messages_);
         $this->addConfigValue('Allowed OpenID provider', 'openIDProvider', '', 'A list of allowed OpenID identity providers (separated by \'|\').');
     }
 
@@ -60,7 +60,7 @@ class OpenIDPlugin extends Plugin {
         $sm->dropTable($conn->getPrefix().'zm_openid_associations');
         $sm->dropTable($conn->getPrefix().'zm_openid_nonces');
 
-        \ZMDbUtils::executePatch(file(\ZMDbUtils::resolveSQLFilename($this->getPluginDirectory()."/sql/uninstall.sql")), $this->messages_);
+        \ZMDbUtils::executePatch(file($this->getPluginDirectory()."/sql/uninstall.sql"), $this->messages_);
     }
 
     /**

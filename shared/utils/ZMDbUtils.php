@@ -53,35 +53,6 @@ class ZMDbUtils {
     }
 
     /**
-     * Resolve a given SQL file name.
-     *
-     * <p>This will try to find the most specific available file for the configured database type.</p>
-     *
-     * <p>Filenames are expected in the format <em>[name]-[driver].sql</em> if driver specific SQL is required. If no
-     * specific file is found, the default <em>[name].sql</em> will is tried. If that is also not found, <code>null</code>
-     * will be returned.</p>
-     *
-     * @param string filename The filename.
-     * @return string The most specific filename or <code>null</code>.
-     */
-    public static function resolveSQLFilename($filename) {
-        $config = ZMRuntime::getDatabase()->getParams();
-        $driver = $config['driver'];
-        if (false !== ($ldot = strrpos($filename, '.'))) {
-            $driverFilename = substr($filename, 0, $ldot) . '-' . $driver . substr($filename, $ldot);
-            if (file_exists($driverFilename)) {
-                return $driverFilename;
-            }
-        }
-
-        if (file_exists($filename)) {
-            return $filename;
-        }
-
-        return null;
-    }
-
-    /**
      * Create a message.
      *
      * @param string msg The message.

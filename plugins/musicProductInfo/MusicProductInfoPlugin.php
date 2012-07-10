@@ -48,7 +48,7 @@ class MusicProductInfoPlugin extends Plugin {
      */
     public function install() {
         parent::install();
-        \ZMDbUtils::executePatch(file(\ZMDbUtils::resolveSQLFilename($this->getPluginDirectory()."/sql/install.sql")), $this->messages_);
+        \ZMDbUtils::executePatch(file($this->getPluginDirectory()."/sql/install.sql"), $this->messages_);
 
         //TODO:
         // * configure product type
