@@ -222,13 +222,9 @@ class Application {
         );
 
         if (!$this->getConfig('cli')) {
-            $bootstrap[] = array('key' => 'request', 'methods' => array('initRequest'), 'postEvent' => 'request_ready');
+            $bootstrap[] = array('key' => 'request', 'postEvent' => 'request_ready');
         }
         $this->bootstrap = $bootstrap;
-    }
-
-    public function initRequest() {
-        Runtime::getContainer()->get('request');
     }
 
     /**
