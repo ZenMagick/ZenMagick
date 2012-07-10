@@ -56,27 +56,6 @@ foreach ($autoLoadConfig as $actionPoint => $row) {
                     $$objectName->$methodName();
                 }
             break;
-            case 'service': // simple container service support with no ability to set arguments.
-                if (!isset($entry['name'])) break;
-
-                $method = isset($entry['method']) ? $entry['method'] : null;
-                $resultVar = isset($entry['resultVar']) ? $entry['resultVar'] : null;
-                if (null != $method) {
-                    $loaderResultVar = Runtime::getContainer()->get($entry['name'])->$method();
-                } else {
-                    $loaderResultVar = Runtime::getContainer()->get($entry['name']);
-                }
-                if (null != $resultVar) {
-                    $$resultVar = $loaderResultVar;
-                    if (isset($entry['session']) && $entry['session']) {
-                        $session->setValue($resultVar, $loaderResultVar);
-                    } else {
-                        $GLOBALS[$resultVar] = $loaderResultVar;
-                    }
-                } else {
-                    unset($loaderResultVar);
-                }
-            break;
             case 'init_script':
                 $files = $autoLoader->resolveFiles('includes/init_includes/'.$entry['loadFile']);
             break;
