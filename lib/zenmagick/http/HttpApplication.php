@@ -40,7 +40,7 @@ class HttpApplication extends Application {
     public function handle(\Symfony\Component\HttpFoundation\Request $request, $type = self::MASTER_REQUEST, $catch = true) {
         parent::handle($request, $type, $catch);
         try {
-            $container = Runtime::getContainer();
+            $container = $this->getContainer();
             $settingsService = $container->get('settingsService');
             $request = $container->get('request'); // @todo use it from the argument :)
             // allow seo rewriters to fiddle with the request

@@ -181,10 +181,10 @@ if (!defined('ATTRIBUTES_PRICE_FACTOR_FROM_SPECIAL')) define('ATTRIBUTES_PRICE_F
             /**
              * @todo this won't work and/or doesn't matter until we support shared certificates.
              *       It's likely that we would want want to split this into 2 seperate parameters.
-             * 'apps.store.storefront.domain' => (zenmagick\base\Runtime::getContainer()->get('request')->isSecure()
+             * 'apps.store.storefront.domain' => ($this->container->get('request')->isSecure()
              *                                   && defined('HTTP_COOKIE_DOMAIN') ?
              *                                      HTTP_COOKIE_DOMAIN :
-             *                                      (!zenmagick\base\Runtime::getContainer()->get('request')->isSecure() &&
+             *                                      (!$this->container->get('request')->isSecure() &&
              *                                      defined('HTTPS_COOKIE_DOMAIN') ? HTTPS_COOKIE_DOMAIN : null)),
              */
             'apps.store.storefront.domain' => null,

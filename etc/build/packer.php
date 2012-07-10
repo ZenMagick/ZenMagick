@@ -57,7 +57,7 @@ use zenmagick\base\classloader\ClassLoader;
         }
     }
 
-    $packer = Runtime::getContainer()->get($class);
+    $packer = $application->getContainer()->get($class);
     $packer->process($source, $targetBaseDir.$target, $version, $strip);
 
     exit;

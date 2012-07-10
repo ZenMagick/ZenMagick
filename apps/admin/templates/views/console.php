@@ -22,7 +22,7 @@
 
     $zm_result = null;
     if ('' != $code) {
-        $code = '$container = zenmagick\base\Runtime::getContainer();'."\n".$code;
+        $code = '$container = $this->container;'."\n".$code;
         ob_start();
         eval($code);
         $zm_result = ob_get_contents();

@@ -113,7 +113,7 @@ class Dashboard extends ZMObject {
      * @param string state The state as JSON.
      */
     public function setState($adminId, $state) {
-        Runtime::getContainer()->get('adminUserPrefService')->setPrefForName($adminId, 'dashboard', $state);
+        $this->container->get('adminUserPrefService')->setPrefForName($adminId, 'dashboard', $state);
     }
 
     /**
@@ -124,7 +124,7 @@ class Dashboard extends ZMObject {
      */
     public function getConfig($adminId) {
         $config = array();
-        $dashboard = Runtime::getContainer()->get('adminUserPrefService')->getPrefForName($adminId, 'dashboard');
+        $dashboard = $this->container->get('adminUserPrefService')->getPrefForName($adminId, 'dashboard');
         if (empty($dashboard)) {
             $dashboard = Runtime::getSettings()->get('apps.store.dashboad.default');
         }

@@ -16,7 +16,7 @@ $application = new Application(
 ));
 $application->boot();
 
-$container = Runtime::getContainer();
+$container = $application->getContainer();
 $pluginService = $container->get('pluginService');
 $unitTests = $pluginService->getPluginForId('unitTests');
 var_dump(get_class($unitTests));
