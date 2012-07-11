@@ -28,3 +28,4 @@ $application = new HttpApplication($environment, true, $config);
 $request = new Request(); // @todo use createFromGlobals
 $response = $application->handle($request);
 $response->send();
+$application->terminate($request, $response);

@@ -33,6 +33,7 @@ use Symfony\Component\Config\FileLocator;
 use Symfony\Component\Config\Loader\LoaderInterface;
 use Symfony\Component\DependencyInjection\Loader\XmlFileLoader;
 use Symfony\Component\HttpKernel\Kernel;
+use Symfony\Component\HttpFoundation\Response;
 
 /**
  * Base application.
@@ -194,6 +195,22 @@ class Application extends Kernel {
             echo implode("\n", ZMException::formatStackTrace($e->getTrace()));
             die($msg);
         }
+    }
+
+    /**
+     * {@inheritdoc}
+     *
+     * @api
+     */
+    public function terminate(\Symfony\Component\HttpFoundation\Request $request, Response $response)
+    {
+        if (false === $this->booted) {
+            return;
+        }
+
+        /*if ($this->getHttpKernel() instanceof TerminableInterface) {
+            $this->getHttpKernel()->terminate($request, $response);
+        }i*/
     }
 
     /**
