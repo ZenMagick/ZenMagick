@@ -107,44 +107,14 @@ class SQLPatch extends InstallationPatch {
 
         if (!empty($sql)) {
             $results = SQLRunner::execute_sql($sql);
-            $this->_processSQLMessages($results);
+            $messages = SQLRunner::process_patch_results($results);
+            foreach ($messages as $message) {
+                $this->messages_[] = $message;
+            }
             return empty($results['error']);
         }
 
         return true;
-    }
-
-    /**
-     * Add a message.
-     *
-     * @param string msg The message.
-     * @param string type The type.
-     */
-    private function addMessage($msg, $type) {
-        $message = Runtime::getContainer()->get('zenmagick\http\messages\Message');
-        $message->setText($msg);
-        $message->setType($type);
-        $this->messages_[] = $message;
-    }
-
-    /**
-     * Process messages.
-     */
-    function _processSQLMessages($results) {
-        if ($results['queries'] > 0 && $results['queries'] != $results['ignored']) {
-            $this->addMessage($results['queries'].' statements processed.', 'success');
-        } else {
-            $this->addMessage('Failed: '.$results['queries'].'.', 'error');
-        }
-
-        if (!empty($results['errors'])) {
-            foreach ($results['errors'] as $value) {
-                $this->addMessage('ERROR: '.$value.'.', 'error');
-            }
-        }
-        if ($results['ignored'] != 0) {
-            $this->addMessage('Note: '.$results['ignored'].' statements ignored. See "upgrade_exceptions" table for additional details.', 'warn');
-        }
     }
 
 }

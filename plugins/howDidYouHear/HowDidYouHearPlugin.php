@@ -47,7 +47,7 @@ class HowDidYouHearPlugin extends Plugin {
      */
     public function install() {
         parent::install();
-        \ZMDbUtils::executePatch(file($this->getPluginDirectory()."/sql/install.sql"), $this->messages_);
+        $this->executePatch(file($this->getPluginDirectory()."/sql/install.sql"), $this->messages_);
         $this->addConfigValue('Display "Other', 'displayOther', 'true',
             'Display "Other - please specify" with text box in referral source in account creation',
             'widget@booleanFormWidget#name=displayOther&default=true&label=Allow other&style=checkbox');
@@ -67,7 +67,7 @@ class HowDidYouHearPlugin extends Plugin {
         $sm->dropTable($conn->getPrefix().'sources');
         $sm->dropTable($conn->getPrefix().'sources_other');
 
-        \ZMDbUtils::executePatch(file($this->getPluginDirectory()."/sql/uninstall.sql"), $this->messages_);
+        $this->executePatch(file($this->getPluginDirectory()."/sql/uninstall.sql"), $this->messages_);
     }
 
     /**

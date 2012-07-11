@@ -44,7 +44,7 @@ class ProductGroupPricingPlugin extends Plugin {
      */
     public function install() {
         parent::install();
-        \ZMDbUtils::executePatch(file($this->getPluginDirectory()."/sql/install.sql"), $this->messages_);
+        $this->executePatch(file($this->getPluginDirectory()."/sql/install.sql"), $this->messages_);
     }
 
     /**

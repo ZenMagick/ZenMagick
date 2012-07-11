@@ -162,6 +162,26 @@ class Plugin extends zenmagick\http\plugins\HttpPlugin {
     }
 
     /**
+     * Execute a SQL patch.
+     *
+     * @param string sql The sql.
+     * @param array Result message list.
+     * @param boolean Debug flag.
+     * @return boolean <code>true</code> for success, <code>false</code> if the execution fails.
+     */
+    public function executePatch($sql, $messages, $debug=false) {
+        if (!empty($sql)) {
+            $results = zenmagick\apps\store\admin\utils\SQLRunner::execute_sql($sql, $debug);
+            foreach (zenmagick\apps\store\admin\utils\SQLRunner::process_patch_results($results) as $msg) {
+                $messages[] = $msg;
+            }
+            return empty($results['error']);
+        }
+
+        return true;
+    }
+
+    /**
      * Remove this plugin.
      *
      * @param boolean keepSettings If set to <code>true</code>, the settings will not be removed; default is <code>false</code>.

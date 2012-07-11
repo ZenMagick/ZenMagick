@@ -7,6 +7,7 @@
  */
 namespace zenmagick\apps\store\admin\utils;
 
+use zenmagick\base\Beans;
 use zenmagick\base\Runtime;
 use zenmagick\base\Toolbox;
 
@@ -528,5 +529,38 @@ class SQLRunner {
           ) engine=MyISAM   ");
     return $result;
     }
+  }
+
+  static function create_message($msg, $type) {
+    $message = Beans::getBean('zenmagick\http\messages\Message');
+    $message->setText($msg);
+    $message->setType($type);
+    return $message;
+  }
+
+  /**
+   * Process SQL patch messages.
+   *
+   * @param array The execution results.
+   * @return array The results converted to messages.
+   */
+  static function process_patch_results($results) {
+    $messages = array();
+    if ($results['queries'] > 0 && $results['queries'] != $results['ignored']) {
+      $messages[] = self::create_message($results['queries'].' statements processed.', 'success');
+    } else {
+      $messages[] = self::create_message('Failed: '.$results['queries'].'.', 'error');
+    }
+
+    if (!empty($results['errors'])) {
+      foreach ($results['errors'] as $value) {
+        $messages[] = self::create_message('ERROR: '.$value.'.', 'error');
+      }
+    }
+    if ($results['ignored'] != 0) {
+      $messages[] = self::create_message('Note: '.$results['ignored'].' statements ignored. See "upgrade_exceptions" table for additional details.', 'warn');
+    }
+
+    return $messages;
   }
 }
