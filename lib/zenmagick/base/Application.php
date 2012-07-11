@@ -30,8 +30,10 @@ use zenmagick\base\events\Event;
 use zenmagick\base\plugins\Plugins;
 use zenmagick\http\Request;
 use Symfony\Component\Config\FileLocator;
+use Symfony\Component\Config\Loader\LoaderInterface;
 use Symfony\Component\DependencyInjection\Loader\XmlFileLoader;
 use Symfony\Component\HttpKernel\HttpKernelInterface;
+use Symfony\Component\HttpKernel\KernelInterface;
 
 /**
  * Base application.
@@ -39,7 +41,7 @@ use Symfony\Component\HttpKernel\HttpKernelInterface;
  * @author DerManoMann <mano@zenmagick.org>
  * @todo: document all config options
  */
-class Application implements HttpKernelInterface {
+class Application implements KernelInterface {
     protected $bootstrap;
     protected $config;
     protected $classLoader;
@@ -131,6 +133,16 @@ class Application implements HttpKernelInterface {
         return $bundles;
     }
 
+    /**
+     * {@inheritDoc}
+     * @copyright see symfony.com
+     * @see Symfony\Component\HttpKernel\KernelInterface
+     */
+    public function registerContainerConfiguration(LoaderInterface $loader) {
+        die(var_dump(debug_backtrace()));
+        $loader->load(__DIR__.'/config/config_'.$this->getEnvironment().'.yml');
+    }
+
     public function init() {
         ini_set('log_errors', $this->config['log_errors']);
         if ($this->debug) {
@@ -195,11 +207,8 @@ class Application implements HttpKernelInterface {
     }
 
     /**
-     * Shutdowns the kernel.
-     *
-     * This method is mainly useful when doing functional testing.
-     *
-     * @api
+     * {@inheritDoc}
+     * @copyright see symfony.org
      */
     public function shutdown() {
         if (false === $this->booted) {
@@ -218,8 +227,6 @@ class Application implements HttpKernelInterface {
 
     /**
      * {@inheritdoc}
-     *
-     * @api
      */
     public function handle(\Symfony\Component\HttpFoundation\Request $request, $type = HttpKernelInterface::MASTER_REQUEST, $catch = true) {
         if (false === $this->booted) {
@@ -245,6 +252,98 @@ class Application implements HttpKernelInterface {
      */
     public function getBundles() {
         return $this->bundles;
+    }
+
+
+    /**
+     * {@inheritDoc}
+     * @copyright see symfony.org
+     */
+    public function isClassInActiveBundle($class)
+    {
+        foreach ($this->getBundles() as $bundle) {
+            if (0 === strpos($class, $bundle->getNamespace())) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    /**
+     * {inheritDoc}
+     * @copyright see symfony.com
+     */
+    public function getBundle($name, $first = true)
+    {
+        if (!isset($this->bundleMap[$name])) {
+            throw new \InvalidArgumentException(sprintf('Bundle "%s" does not exist or it is not enabled. Maybe you forgot to add it in the registerBundles() function of your %s.php file?', $name, get_class($this)));
+        }
+
+        if (true === $first) {
+            return $this->bundleMap[$name][0];
+        }
+
+        return $this->bundleMap[$name];
+    }
+
+    /**
+     * {@inheritDoc}
+     * @copyright see symfony.com
+     * @see Symfony\Component\HttpKernel\Kernel
+     */
+    public function locateResource($name, $dir = null, $first = true)
+    {
+        if ('@' !== $name[0]) {
+            throw new \InvalidArgumentException(sprintf('A resource name must start with @ ("%s" given).', $name));
+        }
+
+        if (false !== strpos($name, '..')) {
+            throw new \RuntimeException(sprintf('File name "%s" contains invalid characters (..).', $name));
+        }
+
+        $bundleName = substr($name, 1);
+        $path = '';
+        if (false !== strpos($bundleName, '/')) {
+            list($bundleName, $path) = explode('/', $bundleName, 2);
+        }
+
+        $isResource = 0 === strpos($path, 'Resources') && null !== $dir;
+        $overridePath = substr($path, 9);
+        $resourceBundle = null;
+        $bundles = $this->getBundle($bundleName, false);
+        $files = array();
+
+        foreach ($bundles as $bundle) {
+            if ($isResource && file_exists($file = $dir.'/'.$bundle->getName().$overridePath)) {
+                if (null !== $resourceBundle) {
+                    throw new \RuntimeException(sprintf('"%s" resource is hidden by a resource from the "%s" derived bundle. Create a "%s" file to override the bundle resource.',
+                        $file,
+                        $resourceBundle,
+                        $dir.'/'.$bundles[0]->getName().$overridePath
+                    ));
+                }
+
+                if ($first) {
+                    return $file;
+                }
+                $files[] = $file;
+            }
+
+            if (file_exists($file = $bundle->getPath().'/'.$path)) {
+                if ($first && !$isResource) {
+                    return $file;
+                }
+                $files[] = $file;
+                $resourceBundle = $bundle->getName();
+            }
+        }
+
+        if (count($files) > 0) {
+            return $first && $isResource ? $files[0] : $files;
+        }
+
+        throw new \InvalidArgumentException(sprintf('Unable to find file "%s".', $name));
     }
 
     /**
