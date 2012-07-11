@@ -80,7 +80,7 @@ class Application extends Kernel {
 
             // packages
             'packageBase' => basename(dirname(dirname(dirname(__DIR__)))),
-            'packages' => array('vendor', 'lib/zenmagick/base', 'lib/core', 'shared', 'config', 'vendor/local'),
+            'packages' => array('lib/zenmagick/base', 'lib/core', 'shared', 'config'),
 
             'classLoader' => 'zenmagick\base\classloader\CachingClassLoader',
             'eventListener' => array('zenmagick\base\EventListener'),
@@ -112,8 +112,6 @@ class Application extends Kernel {
         }
 
         $this->profile = array();
-        $this->bundles = array();
-
         $this->init();
         $this->initBootstrap();
     }
