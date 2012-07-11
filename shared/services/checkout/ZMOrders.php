@@ -265,6 +265,41 @@ class ZMOrders extends ZMObject implements ZMSQLAware {
     }
 
     /**
+     * Convert a numeric range definition into an array of single values.
+     *
+     * <p>A range might be a single value, a range; for example <em>3-8</em> or a list of both.</p>
+     * <p>Valid examples of ranges are:</p>
+     * <ul>
+     *  <li>3</li>
+     *  <li>3,4,8</li>
+     *  <li>3,4-6,8</li>
+     *  <li>1,3-5,9,13,100-302</li>
+     * </ul>
+     *
+     * @param string range The range value.
+     * @return array List of numeric (int) values.
+     * @copyright the zen-cart developers.
+     */
+    public function parseRange($range) {
+        $arr = array();
+        foreach (explode(',', $range) as $token) {
+            if (!empty($token)) {
+                $elems = explode('-', $token);
+                $size = count($elems);
+                if (1 == $size && !empty($elems[0])) {
+                    $elem = (int)$elems[0];
+                    $arr[$elem] = $elem;
+                } else if (2 == $size && !empty($elems[0]) && !empty($elems[1])) {
+                    for ($ii=(int)$elems[0]; $ii<=(int)$elems[1]; ++$ii) {
+                        $arr[$ii] = $ii;
+                    }
+                }
+            }
+        }
+        return $arr;
+    }
+
+    /**
      * Get downloads for order.
      *
      * @param int orderId The order id.
@@ -274,7 +309,7 @@ class ZMOrders extends ZMObject implements ZMSQLAware {
     public function getDownloadsForOrderId($orderId, $orderStatusList=null) {
         if (null === $orderStatusList) {
             // build default list
-            $orderStatusList = ZMTools::parseRange(Runtime::getSettings()->get('downloadOrderStatusRange'));
+            $orderStatusList = $this->parseRange(Runtime::getSettings()->get('downloadOrderStatusRange'));
         }
         $sql = "SELECT o.date_purchased, o.orders_status, opd.*
                 FROM %table.orders% o, %table.orders_products% op, %table.orders_products_download% opd

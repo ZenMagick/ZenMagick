@@ -262,7 +262,7 @@ class CheckoutHelper extends ZMObject {
 
             // check quantity units
             $units = $product->getQtyOrderUnits();
-            if (\ZMTools::fmod_round($qty, $units)) {
+            if ($this->fmod_round($qty, $units)) {
                 if (!isset($map[self::CART_PRODUCT_UNITS])) {
                     $map[self::CART_PRODUCT_UNITS] = array();
                 }
@@ -272,6 +272,20 @@ class CheckoutHelper extends ZMObject {
 
         return $map;
     }
+
+    /**
+     * fmod variant that can handle values < 1.
+     */
+    public function fmod_round($x, $y) {
+        $x = strval($x);
+        $y = strval($y);
+        $round = ($x*1000)/($y*1000);
+        $round_ceil = (int)($round);
+        $multiplier = $round_ceil * $y;
+        $result = abs(round($x - $multiplier, 6));
+        return $result;
+    }
+
 
     /**
      * Check whether the cart is ready for checkout or not.
