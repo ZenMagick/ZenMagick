@@ -400,7 +400,7 @@ class Application extends Kernel {
      * @param array parameter Optional parameter; default is an empty array.
      */
     protected function fireEvent($eventName, array $parameter=array()) {
-        $parameter['application'] = $this;
+        $parameter['kernel'] = $this;
         if (!$this->getConfig('cli') && in_array($eventName, array('request_ready', 'container_ready'))) {
             $parameter['request'] = $this->getContainer()->get('request');
         }
@@ -453,8 +453,8 @@ class Application extends Kernel {
      * Init runtime.
      */
     protected function initRuntime() {
-        // register this as 'application'
-        $this->getContainer()->set('application', $this);
+        // register this as 'kernel'
+        $this->getContainer()->set('kernel', $this);
     }
 
     /**

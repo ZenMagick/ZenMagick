@@ -142,7 +142,7 @@ class Plugins extends ZMObject {
      * @return array List of initialized plugins.
      */
     public function getPluginsForContext($context=null, $enabled=true) {
-        $app = $this->container->get('application');
+        $app = $this->container->get('kernel');
 
         $localeService = $this->container->get('localeService');
         $settingsService = $this->container->get('settingsService');

@@ -39,7 +39,7 @@ class Runtime {
      * @return Application The application or <code>null</code>.
      */
     public static function getApplication() {
-        return self::getContainer()->get('application');
+        return self::getContainer()->get('kernel');
     }
 
     /**

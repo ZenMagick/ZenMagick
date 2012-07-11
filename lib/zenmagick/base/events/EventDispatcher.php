@@ -58,7 +58,7 @@ class EventDispatcher extends SymfonyEventDispatcher {
      * {@inheritDoc}
      */
     public function dispatch($eventName, Event $event = null) {
-        $application = Runtime::getContainer()->get('application');
+        $application = Runtime::getContainer()->get('kernel');
         $application->profile(sprintf('fire event: %s', $eventName));
 
         // use hasListeners rather than looking at the private listeners property
