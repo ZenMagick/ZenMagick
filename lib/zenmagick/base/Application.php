@@ -32,8 +32,7 @@ use zenmagick\http\Request;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\Config\Loader\LoaderInterface;
 use Symfony\Component\DependencyInjection\Loader\XmlFileLoader;
-use Symfony\Component\HttpKernel\HttpKernelInterface;
-use Symfony\Component\HttpKernel\KernelInterface;
+use Symfony\Component\HttpKernel\Kernel;
 
 /**
  * Base application.
@@ -41,7 +40,7 @@ use Symfony\Component\HttpKernel\KernelInterface;
  * @author DerManoMann <mano@zenmagick.org>
  * @todo: document all config options
  */
-class Application implements KernelInterface {
+class Application extends Kernel {
     protected $bootstrap;
     protected $config;
     protected $classLoader;
@@ -70,7 +69,7 @@ class Application implements KernelInterface {
         $this->rootDir = dirname(dirname(dirname(__DIR__)));
         $this->name = 'zenmagick'; // @todo what?
         $this->startTime = microtime(true);
-
+        $this->classes = array();
         $defaults = array(
             // general stuff
             'installationPath' => $this->rootDir,
@@ -156,15 +155,6 @@ class Application implements KernelInterface {
         }
     }
 
-    public function __clone() {
-        if ($this->debug) {
-            $this->startTime = microtime(true);
-        }
-
-        $this->booted = false;
-        $this->container = null;
-    }
-
     /**
      * Bootstrap application.
      *
@@ -207,25 +197,6 @@ class Application implements KernelInterface {
     }
 
     /**
-     * {@inheritDoc}
-     * @copyright see symfony.org
-     */
-    public function shutdown() {
-        if (false === $this->booted) {
-            return;
-        }
-
-        $this->booted = false;
-
-        foreach ((array)$this->getBundles() as $bundle) {
-            $bundle->shutdown();
-            $bundle->setContainer(null);
-        }
-
-        $this->container = null;
-    }
-
-    /**
      * {@inheritdoc}
      */
     public function handle(\Symfony\Component\HttpFoundation\Request $request, $type = HttpKernelInterface::MASTER_REQUEST, $catch = true) {
@@ -243,107 +214,6 @@ class Application implements KernelInterface {
      */
     protected function getHttpKernel() {
         //return $this->container->get('http_kernel');
-    }
-
-    /**
-     * Get enabled bundles.
-     *
-     * @return array List of enabled bundle objects.
-     */
-    public function getBundles() {
-        return $this->bundles;
-    }
-
-
-    /**
-     * {@inheritDoc}
-     * @copyright see symfony.org
-     */
-    public function isClassInActiveBundle($class)
-    {
-        foreach ($this->getBundles() as $bundle) {
-            if (0 === strpos($class, $bundle->getNamespace())) {
-                return true;
-            }
-        }
-
-        return false;
-    }
-
-    /**
-     * {inheritDoc}
-     * @copyright see symfony.com
-     */
-    public function getBundle($name, $first = true)
-    {
-        if (!isset($this->bundleMap[$name])) {
-            throw new \InvalidArgumentException(sprintf('Bundle "%s" does not exist or it is not enabled. Maybe you forgot to add it in the registerBundles() function of your %s.php file?', $name, get_class($this)));
-        }
-
-        if (true === $first) {
-            return $this->bundleMap[$name][0];
-        }
-
-        return $this->bundleMap[$name];
-    }
-
-    /**
-     * {@inheritDoc}
-     * @copyright see symfony.com
-     * @see Symfony\Component\HttpKernel\Kernel
-     */
-    public function locateResource($name, $dir = null, $first = true)
-    {
-        if ('@' !== $name[0]) {
-            throw new \InvalidArgumentException(sprintf('A resource name must start with @ ("%s" given).', $name));
-        }
-
-        if (false !== strpos($name, '..')) {
-            throw new \RuntimeException(sprintf('File name "%s" contains invalid characters (..).', $name));
-        }
-
-        $bundleName = substr($name, 1);
-        $path = '';
-        if (false !== strpos($bundleName, '/')) {
-            list($bundleName, $path) = explode('/', $bundleName, 2);
-        }
-
-        $isResource = 0 === strpos($path, 'Resources') && null !== $dir;
-        $overridePath = substr($path, 9);
-        $resourceBundle = null;
-        $bundles = $this->getBundle($bundleName, false);
-        $files = array();
-
-        foreach ($bundles as $bundle) {
-            if ($isResource && file_exists($file = $dir.'/'.$bundle->getName().$overridePath)) {
-                if (null !== $resourceBundle) {
-                    throw new \RuntimeException(sprintf('"%s" resource is hidden by a resource from the "%s" derived bundle. Create a "%s" file to override the bundle resource.',
-                        $file,
-                        $resourceBundle,
-                        $dir.'/'.$bundles[0]->getName().$overridePath
-                    ));
-                }
-
-                if ($first) {
-                    return $file;
-                }
-                $files[] = $file;
-            }
-
-            if (file_exists($file = $bundle->getPath().'/'.$path)) {
-                if ($first && !$isResource) {
-                    return $file;
-                }
-                $files[] = $file;
-                $resourceBundle = $bundle->getName();
-            }
-        }
-
-        if (count($files) > 0) {
-            return $first && $isResource ? $files[0] : $files;
-        }
-
-        throw new \InvalidArgumentException(sprintf('Unable to find file "%s".', $name));
     }
 
     /**
@@ -374,44 +244,6 @@ class Application implements KernelInterface {
     }
 
     /**
-     * Gets the name of the kernel
-     *
-     * @return string The kernel name
-     *
-     * @api
-     */
-    public function getName() {
-        return $this->name;
-    }
-
-    /**
-     * Get environment.
-     *
-     * @return string The current environment or prod if not set.
-     */
-    public function getEnvironment() {
-        return $this->environment;
-    }
-
-    /**
-     * Checks if debug mode is enabled.
-     *
-     * @return Boolean true if debug mode is enabled, false otherwise
-     *
-     * @api
-     */
-    public function isDebug() {
-        return $this->debug;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function getRootDir() {
-        return $this->rootDir;
-    }
-
-    /**
      * {@inheritDoc}
      * @todo don't get it from runtime!
      */
@@ -421,43 +253,10 @@ class Application implements KernelInterface {
 
     /**
      * {@inheritDoc}
-     */
-    public function getStartTime() {
-        return $this->debug ? $this->startTime : -INF;
-    }
-
-    /**
-     * @{inheritDoc}
-     * @todo adjust
-     */
-    public function getCacheDir() {
-        return $this->rootDir.'/cache/'.$this->environment;
-    }
-
-    /**
-     * @{inheritDoc}
-     * @todo adjust
-     */
-    public function getLogDir() {
-        return $this->rootDir.'/logs';
-    }
-
-    /**
-     * {@inheritDoc}
      * @todo adjust
      */
     public function getCharset() {
         return 'UTF-8';
-    }
-
-    public function serialize() {
-        return serialize(array($this->environment, $this->debug));
-    }
-
-    public function unserialize($data) {
-        list($environment, $debug) = unserialize($data);
-
-        $this->__construct($environment, $debug);
     }
 
     /**
