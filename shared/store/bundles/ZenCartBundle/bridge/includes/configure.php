@@ -2,7 +2,6 @@
 use zenmagick\base\Runtime;
 
 $settings = Runtime::getSettings();
-$request = Runtime::getContainer()->get('request');
 $zcPath = $settings->get('apps.store.zencart.path');
 $adminDir = $settings->get('apps.store.zencart.admindir', 'admin');
 /**
@@ -20,10 +19,8 @@ define('DB_PREFIX', $settings->get('apps.store.database.default.prefix'));
 //define('DB_SERVER_PASSWORD', $settings->get('apps.store.database.default.password'));
 //define('DB_DATABASE', $settings->get('apps.store.database.default.dbname'));
 
-
 // @todo need to fix up for shared certificates
 // @todo probably switch out this mechanism once we fully control the system
-$httpServer = $request->getHttpHost();
 define('HTTP_SERVER', 'http://'.$httpServer);
 define('HTTPS_SERVER', 'https://'.$httpServer);
 define('HTTP_CATALOG_SERVER', 'http://'.$httpServer);
@@ -34,7 +31,7 @@ define('ENABLE_SSL_CATALOG', $settings->get('zenmagick.http.request.secure') ? '
 define('ENABLE_SSL', $settings->get('zenmagick.http.request.secure') ? 'true' : 'false');
 
 define('DIR_WS_ADMIN', str_replace(Runtime::getInstallationPath(), '', $zcPath).'/'.$adminDir.'/');
-define('DIR_WS_CATALOG', str_replace('//', '/', '/'.$request->getContext().'/'));
+define('DIR_WS_CATALOG', str_replace('//', '/', '/'.$requestContext.'/'));
 define('DIR_WS_HTTPS_ADMIN', DIR_WS_ADMIN);
 define('DIR_WS_HTTPS_CATALOG', DIR_WS_CATALOG);
 

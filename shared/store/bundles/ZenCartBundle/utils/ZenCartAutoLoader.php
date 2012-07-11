@@ -37,13 +37,21 @@ class ZenCartAutoLoader extends ZMObject {
         $this->originalErrorLevel = error_reporting();
     }
 
+    public function getRequest() {
+        return $this->container->get('request');
+    }
+
+    public function getThemeService() {
+        return $this->container->get('themeService');
+    }
+
     /**
      * Commonly used ZenCart request related globals.
      *
      * May need to be overwritten from time to time.
      */
     public function overrideRequestGlobals() {
-        $request = $this->container->get('request');
+        $request = $this->getRequest();
 
         $requestId = $request->getRequestId();
         // needed throughout sadly
@@ -109,16 +117,23 @@ class ZenCartAutoLoader extends ZMObject {
      */
     public function initCommon() {
         $this->overrideRequestGlobals();
+        $zcClassLoader = new \zenmagick\apps\store\bundles\ZenCartBundle\ZenCartClassLoader();
+        $zcClassLoader->setBaseDirectories($this->buildSearchPaths('includes/classes'));
+        $zcClassLoader->register();
+
+
+        $request = $this->getRequest();
+        $data = array(
+            'requestContext' => $request->getContext(),
+            'httpServer' => $request->getHttpHost()
+        );
         foreach ($this->initFiles() as $filePattern) {
-            $this->includeFiles($filePattern);
+            $this->includeFiles($filePattern, $data);
         }
         $settingsService = Runtime::getSettings();
 
 
         // Common classes
-        $zcClassLoader = new \zenmagick\apps\store\bundles\ZenCartBundle\ZenCartClassLoader();
-        $zcClassLoader->setBaseDirectories($this->buildSearchPaths('includes/classes'));
-        $zcClassLoader->register();
 
         $this->setGlobalValue('zco_notifier', new \notifier);
         $this->setGlobalValue('db', new \queryFactory);
@@ -281,24 +296,17 @@ class ZenCartAutoLoader extends ZMObject {
      * This method also gives all files access to the
      * required global variables.
      */
-    public function includeFiles($path, $require = false, $once = true) {
+    public function includeFiles($path, $data = array(), $once = true) {
         $files = $this->resolveFiles($path);
         // Get some local helpers
         extract($this->getGlobalValues());
+        extract($data);
 
         foreach ($files as $file) {
-            if ($require) {
-                if ($once) {
-                    require_once $file;
-                } else {
-                    require $file;
-                }
+            if ($once) {
+                include_once $file;
             } else {
-                if ($once) {
-                    include_once $file;
-                } else {
-                    include $file;
-                }
+                include $file;
             }
         }
         // image handler sets these 2 in extra_datafiles !
