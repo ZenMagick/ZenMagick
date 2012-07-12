@@ -79,7 +79,7 @@ class Application extends Kernel {
 
             // packages
             'packageBase' => basename(dirname(dirname(dirname(__DIR__)))),
-            'packages' => array('lib/zenmagick/base', 'lib/core', 'shared', 'config'),
+            'packages' => array('lib/zenmagick/base', 'shared', 'config'),
 
             'classLoader' => 'zenmagick\base\classloader\CachingClassLoader',
             'eventListener' => array('zenmagick\base\EventListener'),
