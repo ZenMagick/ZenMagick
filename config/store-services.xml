@@ -239,7 +239,7 @@
     <doctrine:config>
         <!--
           * logging is enabled for the page stats plugin
-          * boolean mapping-type required for ZMDbTableMapper
+          * boolean mapping-type required for zenmagick\base\database\TableMapper
             collation="%apps.store.database.default.collation%"
         -->
         <doctrine:dbal

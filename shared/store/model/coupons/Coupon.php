@@ -128,7 +128,7 @@ class Coupon extends ZMObject {
     private $translations;
 
     /**
-     * @deprecated $name and $description must still be supported since ZMDbTableMapper won't hydrate our "sub" objects
+     * @deprecated $name and $description must still be supported since TableMapper won't hydrate our "sub" objects
      */
     private $name;
     private $description;

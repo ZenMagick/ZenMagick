@@ -24,6 +24,7 @@ use zenmagick\base\Beans;
 use zenmagick\base\Runtime;
 use zenmagick\base\Toolbox;
 use zenmagick\base\ZMObject;
+use zenmagick\base\database\TableMapper;
 use zenmagick\base\database\DatabaseException;
 use Doctrine\Common\EventManager;
 use Doctrine\DBAL\Connection as DbalConnection;
@@ -99,7 +100,7 @@ class Connection extends DbalConnection {
 
         // @todo enum: remove or add doctrine mapping type
         $this->getDatabasePlatform()->registerDoctrineTypeMapping('enum', 'string');
-        // alias boolean to boolean so ZMDbTableMapper maps continue to work
+        // alias boolean to boolean so TableMapper maps continue to work
         $this->getDatabasePlatform()->registerDoctrineTypeMapping('boolean', 'boolean');
 
         // @todo ask DBAL if the driver/db type supports nested transactions
@@ -138,7 +139,7 @@ class Connection extends DbalConnection {
      */
     public function getMapper() {
         if (null == $this->mapper_) {
-            $this->mapper_ = new \ZMDbTableMapper();
+            $this->mapper_ = new TableMapper();
             $this->mapper_->setTablePrefix($this->getPrefix());
         }
         return $this->mapper_;

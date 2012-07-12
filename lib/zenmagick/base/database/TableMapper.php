@@ -17,6 +17,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
+namespace zenmagick\base\database;
 
 use zenmagick\base\Runtime;
 use zenmagick\base\ZMObject;
@@ -67,7 +68,7 @@ use zenmagick\base\logging\Logging;
  * @author DerManoMann <mano@zenmagick.org> <mano@zenmagick.org>
  * @package org.zenmagick.core.database
  */
-class ZMDbTableMapper extends ZMObject {
+class TableMapper extends ZMObject {
     private $tableMap_;
     private $tablePrefix_;
 
