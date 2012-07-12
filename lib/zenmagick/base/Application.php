@@ -260,7 +260,6 @@ class Application extends Kernel {
                     'initLogging',
                     'initSettings',
                     'initRuntime',
-                    'initApplicationConfig',
                     'initGlobal',
                     'loadBundles',
                     'loadBootstrapPackages',
@@ -418,22 +417,7 @@ class Application extends Kernel {
 
         // as default disable plugins for CLI calls
         $settingsService->set('zenmagick.base.plugins.enabled', (!$this->config['cli'] || (null !== $this->config['enablePlugins'] ? $this->config['enablePlugins'] : false)));
-    }
 
-    /**
-     * Init runtime.
-     */
-    protected function initRuntime() {
-        // register this as 'kernel'
-        $this->getContainer()->set('kernel', $this);
-        $this->getContainer()->set('http_kernel', new \zenmagick\http\HttpApplication);
-    }
-
-    /**
-     * Init application config.
-     */
-    protected function initApplicationConfig() {
-        $settingsService = Runtime::getSettings();
         if ($applicationPath = $this->config['applicationPath']) {
             $settingsService->setAll(Toolbox::loadWithEnv($applicationPath.'/config/config.yaml'));
         }
@@ -443,6 +427,15 @@ class Application extends Kernel {
                 $settingsService->setAll(Toolbox::loadWithEnv($config));
             }
         }
+    }
+
+    /**
+     * Init runtime.
+     */
+    protected function initRuntime() {
+        // register this as 'kernel'
+        $this->getContainer()->set('kernel', $this);
+        $this->getContainer()->set('http_kernel', new \zenmagick\http\HttpApplication());
     }
 
     /**
