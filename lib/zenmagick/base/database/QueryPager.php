@@ -17,6 +17,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
+namespace zenmagick\base\database;
 
 use zenmagick\base\ZMObject;
 
@@ -24,9 +25,8 @@ use zenmagick\base\ZMObject;
  * Paginate a query.
  *
  * @author DerManoMann <mano@zenmagick.org> <mano@zenmagick.org>
- * @package org.zenmagick.core.database
  */
-class ZMQueryPager extends ZMObject {
+class QueryPager extends ZMObject {
     private $queryDetails_;
     private $orderBy_;
     private $filters_;
@@ -36,7 +36,7 @@ class ZMQueryPager extends ZMObject {
     /**
      * Create new instance for the given query.
      *
-     * @param ZMQueryDetails queryDetails The query details; default is <code>null</code>.
+     * @param zenmagick\base\database\QueryDetails queryDetails The query details; default is <code>null</code>.
      */
     public function __construct($queryDetails=null) {
         $this->queryDetails_ = $queryDetails;
@@ -49,7 +49,7 @@ class ZMQueryPager extends ZMObject {
     /**
      * Set query details.
      *
-     * @param ZMQueryDetails queryDetails The query details.
+     * @param zenmagick\base\database\QueryDetails queryDetails The query details.
      */
     public function setQueryDetails($queryDetails) {
         $this->queryDetails_ = $queryDetails;

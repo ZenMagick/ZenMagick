@@ -19,6 +19,8 @@
  */
 
 use zenmagick\base\Runtime;
+use zenmagick\base\database\QueryDetails;
+use zenmagick\base\database\SqlAware;
 
 /**
  * Filter products by manufacturer.
@@ -26,7 +28,7 @@ use zenmagick\base\Runtime;
  * @author DerManoMann
  * @package zenmagick.store.shared.mvc.resultlist.filter
  */
-class ZMManufacturerFilter extends ZMResultListFilter implements ZMSQLAware {
+class ZMManufacturerFilter extends ZMResultListFilter implements SqlAware {
 
     /**
      * Create new instance.
@@ -69,7 +71,7 @@ class ZMManufacturerFilter extends ZMResultListFilter implements ZMSQLAware {
      * {@inheritDoc}
      */
     public function getQueryDetails($method=null, $args=array()) {
-        return new ZMQueryDetails(ZMRuntime::getDatabase(), 'p.manufacturers_id = '.(int)$this->getValue());
+        return new QueryDetails(ZMRuntime::getDatabase(), 'p.manufacturers_id = '.(int)$this->getValue());
     }
 
 }

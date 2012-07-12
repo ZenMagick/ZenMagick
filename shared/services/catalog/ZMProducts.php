@@ -23,6 +23,8 @@ use zenmagick\base\Runtime;
 use zenmagick\base\Toolbox;
 use zenmagick\base\ZMObject;
 use zenmagick\base\database\Connection;
+use zenmagick\base\database\QueryDetails;
+use zenmagick\base\database\SqlAware;
 
 /**
  * Product access.
@@ -30,7 +32,7 @@ use zenmagick\base\database\Connection;
  * @author DerManoMann
  * @package zenmagick.store.shared.services.catalog
  */
-class ZMProducts extends ZMObject implements ZMSQLAware {
+class ZMProducts extends ZMObject implements SqlAware {
     // image size constants
     const IMAGE_SMALL = 'small';
     const IMAGE_MEDIUM = 'medium';
@@ -82,7 +84,7 @@ class ZMProducts extends ZMObject implements ZMSQLAware {
      *
      * @param boolean active If <code>true</code> return only active products; default is <code>true</code>.
      * @param int languageId Optional language id.
-     * @return ZMQueryDetails Query details.
+     * @return zenmagick\base\database\QueryDetails Query details.
      */
     protected function getAllProductsQueryDetails($active=true, $languageId) {
         $sql = "SELECT p.*, pd.*, s.specials_new_products_price
@@ -96,7 +98,7 @@ class ZMProducts extends ZMObject implements ZMSQLAware {
         }
         $sql .= " ORDER BY p.products_sort_order, pd.products_name";
         $args = array('languageId' => $languageId);
-        return new ZMQueryDetails(ZMRuntime::getDatabase(), $sql, $args, array('products', 'specials', 'products_description'), 'ZMProduct', 'p.products_id');
+        return new QueryDetails(ZMRuntime::getDatabase(), $sql, $args, array('products', 'specials', 'products_description'), 'ZMProduct', 'p.products_id');
     }
 
     /**
@@ -226,7 +228,7 @@ class ZMProducts extends ZMObject implements ZMSQLAware {
         }
         $sql .= " ORDER BY p.products_sort_order, pd.products_name";
         $args = array('categoryId' => $categoryId, 'languageId' => $languageId);
-        return new ZMQueryDetails(ZMRuntime::getDatabase(), $sql, $args, array('products', 'specials', 'products_description', 'products_to_categories'), 'ZMProduct', 'p.products_id');
+        return new QueryDetails(ZMRuntime::getDatabase(), $sql, $args, array('products', 'specials', 'products_description', 'products_to_categories'), 'ZMProduct', 'p.products_id');
     }
 
     /**

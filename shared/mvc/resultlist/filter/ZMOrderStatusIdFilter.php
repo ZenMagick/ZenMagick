@@ -19,6 +19,8 @@
  */
 
 use zenmagick\base\Runtime;
+use zenmagick\base\database\QueryDetails;
+use zenmagick\base\database\SqlAware;
 
 /**
  * Filter orders by status id.
@@ -26,7 +28,7 @@ use zenmagick\base\Runtime;
  * @author DerManoMann
  * @package zenmagick.store.shared.mvc.resultlist.filter
  */
-class ZMOrderStatusIdFilter extends ZMResultListFilter implements ZMSQLAware {
+class ZMOrderStatusIdFilter extends ZMResultListFilter implements SqlAware {
 
     /**
      * Create new instance.
@@ -50,7 +52,7 @@ class ZMOrderStatusIdFilter extends ZMResultListFilter implements ZMSQLAware {
      * {@inheritDoc}
      */
     public function getQueryDetails($method=null, $args=array()) {
-        return new ZMQueryDetails(ZMRuntime::getDatabase(), 'o.orders_status = 2');
+        return new QueryDetails(ZMRuntime::getDatabase(), 'o.orders_status = 2');
     }
 
 }

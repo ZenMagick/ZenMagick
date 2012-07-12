@@ -17,7 +17,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-
+use zenmagick\base\database\QueryDetails;
 
 /**
  * Simple custom product search.
@@ -31,7 +31,7 @@ class ProductFinder extends ZMProductFinder {
      * Build the search SQL.
      *
      * @param ZMSearchCriteria criteria Search criteria.
-     * @return ZMQueryDetails The search SQL.
+     * @return zenmagick\base\database\QueryDetails The search SQL.
      */
     protected function buildQuery($criteria) {
         $select = "SELECT pd.products_id, ";
@@ -64,7 +64,7 @@ class ProductFinder extends ZMProductFinder {
 
         $sql = $select . $weight . ' AS weight'. $from . $where . $sort;
         $tables = array('products_description');
-        return new ZMQueryDetails(ZMRuntime::getDatabase(), $sql, array(), $tables, null, 'pd.products_id');
+        return new QueryDetails(ZMRuntime::getDatabase(), $sql, array(), $tables, null, 'pd.products_id');
     }
 
 }

@@ -17,7 +17,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-
+namespace zenmagick\base\database;
 
 /**
  * Add support for querying the SQL parameters for a particular method on an object.
@@ -26,16 +26,15 @@
  * result list handling.</p>
  *
  * @author DerManoMann <mano@zenmagick.org> <mano@zenmagick.org>
- * @package org.zenmagick.core.database
  */
-interface ZMSQLAware {
+interface SqlAware {
 
     /**
      * Get query details.
      *
      * @param string method The method name to query; default is <code>null</code> for none.
      * @param array args Parameter for the method; default is an empty array <code>array()</code>.
-     * @return ZMQueryDetails Details about the query that would be used or <code>null</code for
+     * @return zenmagick\base\database\QueryDetails Details about the query that would be used or <code>null</code for
      * unsupported methods.
      */
     public function getQueryDetails($method=null, $args=array());

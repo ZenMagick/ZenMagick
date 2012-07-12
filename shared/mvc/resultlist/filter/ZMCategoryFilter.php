@@ -19,6 +19,8 @@
  */
 
 use zenmagick\base\Runtime;
+use zenmagick\base\database\QueryDetails;
+use zenmagick\base\database\SqlAware;
 
 /**
  * Filter products by a single category.
@@ -26,7 +28,7 @@ use zenmagick\base\Runtime;
  * @author DerManoMann
  * @package zenmagick.store.shared.mvc.resultlist.filter
  */
-class ZMCategoryFilter extends ZMResultListFilter implements ZMSQLAware {
+class ZMCategoryFilter extends ZMResultListFilter implements SqlAware {
     private $productIds_;
 
 
@@ -85,7 +87,7 @@ class ZMCategoryFilter extends ZMResultListFilter implements ZMSQLAware {
      * {@inheritDoc}
      */
     public function getQueryDetails($method=null, $args=array()) {
-        return new ZMQueryDetails(ZMRuntime::getDatabase(), 'p.master_categories_id = '.(int)$this->getValue());
+        return new QueryDetails(ZMRuntime::getDatabase(), 'p.master_categories_id = '.(int)$this->getValue());
     }
 
 }

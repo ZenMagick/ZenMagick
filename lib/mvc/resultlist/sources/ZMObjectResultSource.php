@@ -20,6 +20,7 @@
 
 use zenmagick\base\Runtime;
 use zenmagick\base\ZMObject;
+use zenmagick\base\database\SqlAware;
 
 /**
  * A result source based on calling a method on an object.
@@ -76,15 +77,15 @@ class ZMObjectResultSource extends ZMObject implements ZMResultSource {
      */
     public function getResults($reload=false) {
         if ($reload || null === $this->results_) {
-            if ($this->object_ instanceof ZMSQLAware) {
+            if ($this->object_ instanceof SqlAware) {
                 if (null != ($queryDetails = $this->object_->getQueryDetails($this->method_, $this->args_))) {
                     // potentially final, so check sorter and filter
                     $this->isFinal_ = true;
-                    $queryPager = Runtime::getContainer()->get('ZMQueryPager');
+                    $queryPager = Runtime::getContainer()->get('zenmagick\base\database\QueryPager');
                     $queryPager->setQueryDetails($queryDetails);
                     $sorters = $this->resultList_->getSorters(true);
                     if (0 < count($sorters)) {
-                        if ($sorters[0] instanceof ZMSQLAware) {
+                        if ($sorters[0] instanceof SqlAware) {
                             $sortDetails = $sorters[0]->getQueryDetails();
                             $queryPager->setOrderBy($sortDetails->getSql());
                         } else {
@@ -93,7 +94,7 @@ class ZMObjectResultSource extends ZMObject implements ZMResultSource {
                     }
                     if ($this->resultList_->hasFilters()) {
                         foreach ($this->resultList_->getFilters(true) as $filter) {
-                            if ($filter instanceof ZMSQLAware) {
+                            if ($filter instanceof SqlAware) {
                                 $filterDetails = $filter->getQueryDetails();
                                 $queryPager->addFilter($filterDetails->getSql());
                             } else {

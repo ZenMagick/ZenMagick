@@ -20,6 +20,8 @@
 
 use zenmagick\base\Runtime;
 use zenmagick\base\ZMObject;
+use zenmagick\base\database\QueryDetails;
+use zenmagick\base\database\SqlAware;
 
 /**
  * EZ-pages.
@@ -27,7 +29,7 @@ use zenmagick\base\ZMObject;
  * @author DerManoMann
  * @package zenmagick.store.shared.services
  */
-class ZMEZPages extends ZMObject implements ZMSQLAware {
+class ZMEZPages extends ZMObject implements SqlAware {
 
     /**
      * {@inheritDoc}
@@ -64,7 +66,7 @@ class ZMEZPages extends ZMObject implements ZMSQLAware {
         }
         $sql .= " ORDER BY toc_sort_order, pages_title";
         $args = array('languageId' => $languageId);
-        return new ZMQueryDetails(ZMRuntime::getDatabase(), $sql, $args, array('ezpages'), 'ZMEZPage', 'pages_id');
+        return new QueryDetails(ZMRuntime::getDatabase(), $sql, $args, array('ezpages'), 'ZMEZPage', 'pages_id');
     }
 
     /**

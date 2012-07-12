@@ -17,16 +17,16 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
+namespace zenmagick\base\database;
 
 use zenmagick\base\ZMObject;
 
 /**
- * Query details as returned by the <code>ZMSQLAware</code> interface method.
+ * Query details as returned by the <code>zenmagick\base\database\SqlAware</code> interface method.
  *
  * @author DerManoMann <mano@zenmagick.org> <mano@zenmagick.org>
- * @package org.zenmagick.core.database
  */
-class ZMQueryDetails extends ZMObject {
+class QueryDetails extends ZMObject {
     private $database_;
     private $sql_;
     private $args_;

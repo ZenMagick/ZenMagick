@@ -19,6 +19,8 @@
  */
 
 use zenmagick\base\Runtime;
+use zenmagick\base\database\QueryDetails;
+use zenmagick\base\database\SqlAware;
 
 /**
  * Product sorter.
@@ -26,7 +28,7 @@ use zenmagick\base\Runtime;
  * @author DerManoMann
  * @package zenmagick.store.shared.mvc.resultlist.sorter
  */
-class ZMProductSorter extends ZMResultListSorter implements ZMSQLAware {
+class ZMProductSorter extends ZMResultListSorter implements SqlAware {
     // supported sorts
     private $methods_ = array(
         'model' => '_cmpModel',
@@ -127,7 +129,7 @@ class ZMProductSorter extends ZMResultListSorter implements ZMSQLAware {
             return null;
         }
 
-        return new ZMQueryDetails(ZMRuntime::getDatabase(), $this->sql_[$this->sortId_] . ($this->isDescending() ? ' DESC' : ' ASC'));
+        return new QueryDetails(ZMRuntime::getDatabase(), $this->sql_[$this->sortId_] . ($this->isDescending() ? ' DESC' : ' ASC'));
     }
 
 }

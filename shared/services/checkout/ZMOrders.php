@@ -22,6 +22,8 @@
 use zenmagick\base\Beans;
 use zenmagick\base\Runtime;
 use zenmagick\base\ZMObject;
+use zenmagick\base\database\QueryDetails;
+use zenmagick\base\database\SqlAware;
 
 /**
  * Orders.
@@ -29,7 +31,7 @@ use zenmagick\base\ZMObject;
  * @author DerManoMann
  * @package zenmagick.store.shared.services.checkout
  */
-class ZMOrders extends ZMObject implements ZMSQLAware {
+class ZMOrders extends ZMObject implements SqlAware {
 
     /**
      * {@inheritDoc}
@@ -47,7 +49,7 @@ class ZMOrders extends ZMObject implements ZMSQLAware {
      *
      * @param int languageId Language id.
      * @param int limit Optional limit; default is <code>0</code> for all.
-     * @return ZMQueryDetails Query details.
+     * @return zenmagick\base\database\QueryDetails Query details.
      */
     protected function getAllOrdersQueryDetails($languageId, $limit=0) {
         $sql = "SELECT o.*, s.orders_status_name
@@ -61,7 +63,7 @@ class ZMOrders extends ZMObject implements ZMSQLAware {
             $sql .= " LIMIT ".$limit;
         }
         $args = array('languageId' => $languageId);
-        return new ZMQueryDetails(ZMRuntime::getDatabase(), $sql, $args, array('orders', 'orders_total', 'orders_status'), 'ZMOrder', 'o.orders_id');
+        return new QueryDetails(ZMRuntime::getDatabase(), $sql, $args, array('orders', 'orders_total', 'orders_status'), 'ZMOrder', 'o.orders_id');
     }
 
     /**
@@ -103,7 +105,7 @@ class ZMOrders extends ZMObject implements ZMSQLAware {
      * @param int accountId The account id.
      * @param int languageId Language id.
      * @param int limit Optional result limit.
-     * @return ZMQueryDetails Query details.
+     * @return zenmagick\base\database\QueryDetails Query details.
      */
     protected function getOrdersForAccountIdQueryDetails($accountId, $languageId, $limit=0) {
         // order only
@@ -117,7 +119,7 @@ class ZMOrders extends ZMObject implements ZMSQLAware {
                   AND s.language_id = :languageId
                 ORDER BY orders_id DESC".$sqlLimit;
         $args = array('accountId' => $accountId, 'languageId' => $languageId);
-        return new ZMQueryDetails(ZMRuntime::getDatabase(), $sql, $args, array('orders', 'orders_total', 'orders_status'), 'ZMOrder', 'o.orders_id');
+        return new QueryDetails(ZMRuntime::getDatabase(), $sql, $args, array('orders', 'orders_total', 'orders_status'), 'ZMOrder', 'o.orders_id');
     }
 
     /**
@@ -138,7 +140,7 @@ class ZMOrders extends ZMObject implements ZMSQLAware {
      *
      * @param int statusId The order status.
      * @param int languageId Language id.
-     * @return ZMQueryDetails Query details.
+     * @return zenmagick\base\database\QueryDetails Query details.
      */
     protected function getOrdersForStatusIdQueryDetails($statusId, $languageId) {
         // order only
@@ -151,7 +153,7 @@ class ZMOrders extends ZMObject implements ZMSQLAware {
                   AND s.language_id = :languageId
                 ORDER BY orders_id DESC";
         $args = array('orderStatusId' => $statusId, 'languageId' => $languageId);
-        return new ZMQueryDetails(ZMRuntime::getDatabase(), $sql, $args, array('orders', 'orders_total', 'orders_status'), 'ZMOrder', 'o.orders_id');
+        return new QueryDetails(ZMRuntime::getDatabase(), $sql, $args, array('orders', 'orders_total', 'orders_status'), 'ZMOrder', 'o.orders_id');
     }
 
     /**
@@ -375,7 +377,7 @@ class ZMOrders extends ZMObject implements ZMSQLAware {
                   AND s.language_id = :languageId
                 ORDER BY orders_id DESC";
         $args = array('languageId' => $languageId, '1#orderDate' => $from, '2#orderDate' => $to);
-        return new ZMQueryDetails(ZMRuntime::getDatabase(), $sql, $args, array('orders', 'orders_total', 'orders_status'), 'ZMOrder', 'o.orders_id');
+        return new QueryDetails(ZMRuntime::getDatabase(), $sql, $args, array('orders', 'orders_total', 'orders_status'), 'ZMOrder', 'o.orders_id');
     }
 
     /**

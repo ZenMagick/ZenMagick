@@ -24,6 +24,7 @@
 use zenmagick\base\Runtime;
 use zenmagick\base\Toolbox;
 use zenmagick\base\ZMObject;
+use zenmagick\base\database\QueryDetails;
 
 /**
  * Product search.
@@ -85,7 +86,7 @@ class ZMProductFinder extends ZMObject {
     /**
      * Execute a product search for the given criteria.
      *
-     * @return ZMQueryDetails Query details for a product id search.
+     * @return zenmagick\base\database\QueryDetails Query details for a product id search.
      */
     public function execute() {
         $queryDetails = $this->buildQuery($this->criteria_);
@@ -96,7 +97,7 @@ class ZMProductFinder extends ZMObject {
      * Build the search SQL.
      *
      * @param ZMSearchCriteria criteria Search criteria.
-     * @return ZMQueryDetails The search SQL.
+     * @return zenmagick\base\database\QueryDetails The search SQL.
      */
     protected function buildQuery($criteria) {
         $args = array();
@@ -275,7 +276,7 @@ class ZMProductFinder extends ZMObject {
 
         $sql = $select . $from . $where . $sort;
         $tables = array('products', 'products_description', 'manufacturers', 'categories', 'tax_rates', 'zones_to_geo_zones');
-        return new ZMQueryDetails(ZMRuntime::getDatabase(), $sql, $args, $tables, null, 'p.products_id');
+        return new QueryDetails(ZMRuntime::getDatabase(), $sql, $args, $tables, null, 'p.products_id');
     }
 
     /**

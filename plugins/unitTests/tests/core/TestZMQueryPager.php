@@ -18,6 +18,8 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
+use zenmagick\base\database\QueryPager;
+use zenmagick\base\database\QueryDetails;
 use zenmagick\plugins\unitTests\simpletest\TestCase;
 
 /**
@@ -32,7 +34,7 @@ class TestZMQueryPager extends TestCase {
      * Test simple.
      */
     public function testSimple() {
-        $queryPager = new ZMQueryPager(new ZMQueryDetails(ZMRuntime::getDatabase(), 'select * from %table.products%', array(), 'products', 'ZMProduct'));
+        $queryPager = new QueryPager(new QueryDetails(ZMRuntime::getDatabase(), 'select * from %table.products%', array(), 'products', 'ZMProduct'));
         $queryPager->getResults(2, 13);
     }
 
