@@ -110,7 +110,7 @@ class ZMAttributes extends ZMObject {
                   WHERE pa.products_id = :productId
                     AND pa.options_values_id in (:attributeValueId)
                     AND pa.products_attributes_id = pad.products_attributes_id";
-        $result = ZMRuntime::getDatabase()->querySingle($sql, $args, array('products_attributes', 'products_attributes_download'), ZMDatabase::MODEL_RAW);
+        $result = ZMRuntime::getDatabase()->querySingle($sql, $args, array('products_attributes', 'products_attributes_download'), \zenmagick\base\database\Connection::MODEL_RAW);
         return 0 != $result['total'];
     }
 

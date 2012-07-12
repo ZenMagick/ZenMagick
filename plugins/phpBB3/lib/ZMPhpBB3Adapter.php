@@ -46,14 +46,14 @@ class ZMPhpBB3Adapter extends ZMObject {
     /**
      * Get database.
      *
-     * @return ZMDatabase A database handle.
+     * @return zenmagick\base\database\Connection A database handle.
      */
     protected function getDatabase() {
         if (null == $this->database_) {
             // load phpBB3 config
             require ZM_PHPBB3_ROOT . 'config.php';
 
-            // ZMDatabase config
+            // db config
             $dbconf = array(
                 'host' => $dbhost,
                 'database' => $dbname,
@@ -123,7 +123,7 @@ class ZMPhpBB3Adapter extends ZMObject {
                 WHERE group_name = 'REGISTERED'
                   AND group_type = " . GROUP_SPECIAL;
 
-        $result = $this->getDatabase()->querySingle($sql, array(), null, ZMDatabase::MODEL_RAW);
+        $result = $this->getDatabase()->querySingle($sql, array(), null, \zenmagick\base\database\Connection::MODEL_RAW);
         return null !== $result ? (int)$result['group_id'] : false;
     }
 

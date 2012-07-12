@@ -21,6 +21,7 @@
 use zenmagick\base\Runtime;
 use zenmagick\base\Toolbox;
 use zenmagick\base\ZMObject;
+use zenmagick\base\database\Connection;
 
 /**
  * Accounts.
@@ -155,7 +156,7 @@ class ZMAccounts extends ZMObject {
                 WHERE customers_email_address = :email
                 AND NOT (customers_password = '')";
         $args = array('email' => $emailAddress);
-        $result = ZMRuntime::getDatabase()->querySingle($sql, $args, array('customers'), ZMDatabase::MODEL_RAW);
+        $result = ZMRuntime::getDatabase()->querySingle($sql, $args, array('customers'), Connection::MODEL_RAW);
         return 0 < $result['total'];
     }
 
@@ -191,7 +192,7 @@ class ZMAccounts extends ZMObject {
         // check for existence in case record does not exist...
         $sql = "SELECT COUNT(*) AS total FROM %table.customers_info%
                 WHERE customers_info_id = :accountId";
-        $result = ZMRuntime::getDatabase()->querySingle($sql, array('accountId' => $account->getId()), array('customers_info'), ZMDatabase::MODEL_RAW);
+        $result = ZMRuntime::getDatabase()->querySingle($sql, array('accountId' => $account->getId()), array('customers_info'), Connection::MODEL_RAW);
         if ($result['total'] > 0) {
             ZMRuntime::getDatabase()->updateModel('customers_info', $account);
         } else {

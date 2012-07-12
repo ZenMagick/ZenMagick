@@ -20,6 +20,7 @@
 
 use zenmagick\base\Runtime;
 use zenmagick\base\Toolbox;
+use zenmagick\base\database\Connection;
 
 /**
  * Request controller to cancel a subscription.
@@ -54,7 +55,7 @@ class ZMCancelSubscriptionController extends ZMController {
         // check for number of scheduled orders
         $sql = "SELECT COUNT(orders_id) AS total FROM %table.orders%
                 WHERE subscription_order_id = :subscriptionOrderId";
-        $results = ZMRuntime::getDatabase()->querySingle($sql, array('subscriptionOrderId' => $orderId), 'orders', ZMDatabase::MODEL_RAW);
+        $results = ZMRuntime::getDatabase()->querySingle($sql, array('subscriptionOrderId' => $orderId), 'orders', Connection::MODEL_RAW);
 
         if ($results['total'] < $plugin->get('minOrders')) {
             $this->messageService->error(sprintf(_zm("This subscription can only be canceled after a minimum of %s orders"), $plugin->get('minOrders')));
@@ -68,7 +69,7 @@ class ZMCancelSubscriptionController extends ZMController {
                     FROM %table.orders%
                     WHERE orders_id = :orderId
                       AND DATE_SUB(subscription_next_order, INTERVAL " . $cancelDeadline . " DAY) >= CURDATE()";
-            $result = ZMRuntime::getDatabase()->querySingle($sql, array('orderId' => $orderId), 'orders', ZMDatabase::MODEL_RAW);
+            $result = ZMRuntime::getDatabase()->querySingle($sql, array('orderId' => $orderId), 'orders', Connection::MODEL_RAW);
             if (null == $result) {
                 $this->messageService->error(sprintf(_zm("Can't cancel less than %s days before next subscription"), $cancelDeadline));
                 return $this->findView();

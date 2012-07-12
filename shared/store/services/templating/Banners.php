@@ -19,10 +19,10 @@
  */
 namespace zenmagick\apps\store\services\templating;
 
-use ZMDatabase;
 use ZMRuntime;
 use zenmagick\base\Runtime;
 use zenmagick\base\ZMObject;
+use zenmagick\base\database\Connection;
 
 /**
  * Banner.
@@ -104,7 +104,7 @@ class Banners extends ZMObject {
         $sql = "SELECT count(*) AS total
                 FROM %table.banners_history%
                 WHERE banners_id = :id AND date_format(banners_history_date, '%%Y%%m%%d') = date_format(now(), '%%Y%%m%%d')";
-        $result = ZMRuntime::getDatabase()->querySingle($sql, array('id' => $bannerId), array('banners_history'), ZMDatabase::MODEL_RAW);
+        $result = ZMRuntime::getDatabase()->querySingle($sql, array('id' => $bannerId), array('banners_history'), Connection::MODEL_RAW);
 
         if (0 < $result['total']) {
             $sql = "UPDATE %table.banners_history%
@@ -132,7 +132,7 @@ class Banners extends ZMObject {
             $sql = "SELECT SUM(banners_shown) AS total_shown
                     FROM %table.banners_history%
                     WHERE banners_id = :id";
-            $result = ZMRuntime::getDatabase()->querySingle($sql, array('id' => $banner->getId()), array('banners_history'), ZMDatabase::MODEL_RAW);
+            $result = ZMRuntime::getDatabase()->querySingle($sql, array('id' => $banner->getId()), array('banners_history'), Connection::MODEL_RAW);
             if ($maxImpressions <= $result['total_shown']) {
                 $banner->setActive(false);
             }

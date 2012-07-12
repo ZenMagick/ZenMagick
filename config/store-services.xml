@@ -252,7 +252,7 @@
             charset="%apps.store.database.default.charset%"
             unix_socket="%apps.store.database.default.unix_socket%"
             logging="true"
-            wrapper_class="ZMDatabase"
+            wrapper_class="zenmagick\base\database\Connection"
         >
            <!--
            <doctrine:connection>

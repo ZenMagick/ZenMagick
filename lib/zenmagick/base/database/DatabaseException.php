@@ -17,6 +17,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
+namespace zenmagick\base\database;
 
 use zenmagick\base\ZMException;
 
@@ -24,7 +25,6 @@ use zenmagick\base\ZMException;
  * Database exception.
  *
  * @author DerManoMann <mano@zenmagick.org> <mano@zenmagick.org>
- * @package org.zenmagick.core.database
  */
-class ZMDatabaseException extends ZMException {
+class DatabaseException extends ZMException {
 }

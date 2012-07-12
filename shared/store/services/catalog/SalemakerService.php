@@ -59,7 +59,7 @@ class SalemakerService extends ZMObject {
             $sql = "SELECT *
                     FROM %table.salemaker_sales%
                     WHERE sale_status = '1'";
-            $this->sales_ = \ZMRuntime::getDatabase()->fetchAll($sql, array(), 'salemaker_sales', \ZMDatabase::MODEL_RAW);
+            $this->sales_ = \ZMRuntime::getDatabase()->fetchAll($sql, array(), 'salemaker_sales', \zenmagick\base\database\Connection::MODEL_RAW);
         }
 
         $hasSale = false;

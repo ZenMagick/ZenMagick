@@ -19,6 +19,7 @@
  */
 
 use zenmagick\base\Beans;
+use zenmagick\base\database\DatabaseException;
 use zenmagick\apps\store\model\location\Country;
 use zenmagick\plugins\unitTests\simpletest\TestCase;
 
@@ -193,7 +194,7 @@ class TestZMDatabase extends TestCase {
 
             try {
                 $database->updateObj($insert, array('name' => 'foo'), $tname);
-            } catch (ZMDatabaseException $e) {
+            } catch (DatabaseException $e) {
             } catch (Exception $e) {
                 $this->fail('unexpected exception: '.$e);
             }
@@ -219,7 +220,7 @@ class TestZMDatabase extends TestCase {
 
             try {
                 $database->updateObj($insert, array('name' => 'foo'), $tname);
-            } catch (ZMDatabaseException $e) {
+            } catch (DatabaseException $e) {
             } catch (Exception $e) {
                 $this->fail('unexpected exception: '.$e);
             }

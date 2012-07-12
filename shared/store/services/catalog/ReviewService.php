@@ -23,6 +23,7 @@ namespace zenmagick\apps\store\services\catalog;
 use DateTime;
 use zenmagick\base\Runtime;
 use zenmagick\base\ZMObject;
+use zenmagick\base\database\Connection;
 
 /**
  * Review service.
@@ -65,7 +66,7 @@ class ReviewService extends ZMObject {
                   AND rd.languages_id = :languageId
                   AND r.status = 1";
         $args = array('productId' => $productId, 'languageId' => $languageId);
-        $result = \ZMRuntime::getDatabase()->querySingle($sql, $args, array('reviews', 'reviews_description'), \ZMDatabase::MODEL_RAW);
+        $result = \ZMRuntime::getDatabase()->querySingle($sql, $args, array('reviews', 'reviews_description'), Connection::MODEL_RAW);
         return null != $result ? $result['count'] : 0;
     }
 
@@ -141,7 +142,7 @@ class ReviewService extends ZMObject {
                   AND rd.languages_id = :languageId
                   AND r.status = 1";
         $args = array('productId' => $productId, 'languageId' => $languageId);
-        $result = \ZMRuntime::getDatabase()->querySingle($sql, $args, array('reviews', 'reviews_description'), \ZMDatabase::MODEL_RAW);
+        $result = \ZMRuntime::getDatabase()->querySingle($sql, $args, array('reviews', 'reviews_description'), Connection::MODEL_RAW);
         return null != $result ? $result['average_rating'] : 0;
     }
 

@@ -38,9 +38,9 @@ class ZMQueryDetails extends ZMObject {
     /**
      * Create new instance.
      *
-     * <p>The parameters here correspond to <code>ZMDatabase#fetchAll()</code>.</p>
+     * <p>The parameters here correspond to <code>zenmagick\base\database\Connection#fetchAll()</code>.</p>
      *
-     * @param ZMDatabase database The database.
+     * @param zenmagick\base\database\Connection database The database.
      * @param string sql The sql.
      * @param array args Database query parameter; default is <code>array()</code>.
      * @param mixed mapping The field mappings; default is <code>null</code>.

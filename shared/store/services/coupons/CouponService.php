@@ -21,10 +21,9 @@
 
 namespace zenmagick\apps\store\services\coupons;
 
-use ZMDatabase;
 use ZMRuntime;
 use zenmagick\base\ZMObject;
-
+use zenmagick\base\database\Connection;
 use zenmagick\apps\store\model\coupons\Coupon;
 use zenmagick\apps\store\model\coupons\CouponQueue;
 use zenmagick\apps\store\model\coupons\restrictions\CouponRestrictions;
@@ -163,7 +162,7 @@ class CouponService extends ZMObject {
     public function isCouponRedeemable($couponId) {
         $sql = "SELECT coupon_id FROM %table.coupon_redeem_track%
                 WHERE coupon_id = :couponId";
-        $results = ZMRuntime::getDatabase()->fetchAll($sql, array('couponId' => $couponId), 'coupon_redeem_track', ZMDatabase::MODEL_RAW);
+        $results = ZMRuntime::getDatabase()->fetchAll($sql, array('couponId' => $couponId), 'coupon_redeem_track', Connection::MODEL_RAW);
         return 0 == count($results);
     }
 
@@ -267,7 +266,7 @@ class CouponService extends ZMObject {
             $sql = "SELECT coupon_code
                     FROM %table.coupons%
                     WHERE coupon_code = :code";
-            $results = ZMRuntime::getDatabase()->fetchAll($sql, array('code' => $code), 'coupons', ZMDatabase::MODEL_RAW);
+            $results = ZMRuntime::getDatabase()->fetchAll($sql, array('code' => $code), 'coupons', Connection::MODEL_RAW);
             if (0 == count($results)) {
                 return $code;
             }

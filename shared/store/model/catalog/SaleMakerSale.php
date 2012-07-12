@@ -20,6 +20,7 @@
 namespace zenmagick\apps\store\model\catalog;
 
 use zenmagick\base\ZMObject;
+use zenmagick\base\database\Connection;
 use Doctrine\ORM\Mapping AS ORM;
 
 /**
@@ -209,7 +210,7 @@ class SalemakerSale extends ZMObject {
      * @return date $dateStart
      */
     public function getDateStart() {
-        return $this->dateStart == \ZMDatabase::NULL_DATE ? null : $this->dateStart;
+        return $this->dateStart == Connection::NULL_DATE ? null : $this->dateStart;
     }
 
     /**
@@ -218,7 +219,7 @@ class SalemakerSale extends ZMObject {
      * @return date $dateEnd
      */
     public function getDateEnd() {
-        return $this->dateEnd == \ZMDatabase::NULL_DATE ? null : $this->dateEnd;
+        return $this->dateEnd == Connection::NULL_DATE ? null : $this->dateEnd;
     }
 
     /**
@@ -227,7 +228,7 @@ class SalemakerSale extends ZMObject {
      * @return date $dateAdded
      */
     public function getDateAdded() {
-        return $this->dateAdded == \ZMDatabase::NULL_DATE ? null : $this->dateAdded;
+        return $this->dateAdded == Connection::NULL_DATE ? null : $this->dateAdded;
     }
 
     /**
@@ -236,7 +237,7 @@ class SalemakerSale extends ZMObject {
      * @return date $dateLastModified
      */
     public function getDateLastModified() {
-        return $this->dateLastModified == \ZMDatabase::NULL_DATE ? null : $this->dateLastModified;
+        return $this->dateLastModified == Connection::NULL_DATE ? null : $this->dateLastModified;
     }
 
     /**
@@ -245,7 +246,7 @@ class SalemakerSale extends ZMObject {
      * @return date $dateStatusChange
      */
     public function getDateStatusChange() {
-        return $this->dateStatusChange == \ZMDatabase::NULL_DATE ? null : $this->dateStatusChange;
+        return $this->dateStatusChange == Connection::NULL_DATE ? null : $this->dateStatusChange;
     }
 
     /**

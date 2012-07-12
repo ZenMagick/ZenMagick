@@ -22,6 +22,7 @@
 use zenmagick\base\Runtime;
 use zenmagick\base\Toolbox;
 use zenmagick\base\ZMObject;
+use zenmagick\base\database\Connection;
 
 /**
  * Product access.
@@ -284,17 +285,17 @@ class ZMProducts extends ZMObject implements ZMSQLAware {
         $database = ZMRuntime::getDatabase();
         $sql = "select products_type from %table.products%
                 where products_id = :productId";
-        $typeResult = $database->querySingle($sql, array('productId' => $productId), 'products', ZMDatabase::MODEL_RAW);
+        $typeResult = $database->querySingle($sql, array('productId' => $productId), 'products', Connection::MODEL_RAW);
 
         $sql = "select type_handler from %table.product_types%
                 where type_id = :id";
-        $keyResult = $database->querySingle($sql, array('id' => $typeResult['products_type']), 'product_types', ZMDatabase::MODEL_RAW);
+        $keyResult = $database->querySingle($sql, array('id' => $typeResult['products_type']), 'product_types', Connection::MODEL_RAW);
 
         $key = strtoupper($keySuffix . $keyResult['type_handler'] . $keyPprefix . $fieldPrefix . $field . $fieldSuffix);
 
         $sql = "select configuration_value from %table.product_type_layout%
                 where configuration_key = :key";
-        $valueResult = $database->querySingle($sql, array('key' => $key), 'product_type_layout', ZMDatabase::MODEL_RAW);
+        $valueResult = $database->querySingle($sql, array('key' => $key), 'product_type_layout', Connection::MODEL_RAW);
 
         if (null !== $valueResult) {
             // type result
@@ -303,7 +304,7 @@ class ZMProducts extends ZMObject implements ZMSQLAware {
             // fallback general configuration
             $sql = "select configuration_value from %table.configuration%
                     where configuration_key = :key";
-            $valueResult = $database->querySingle($sql, array('key' => $key), 'configuration', ZMDatabase::MODEL_RAW);
+            $valueResult = $database->querySingle($sql, array('key' => $key), 'configuration', Connection::MODEL_RAW);
 
             if (null !== $valueResult) {
                 return 1 == $valueResult['configuration_value'];

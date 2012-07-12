@@ -48,7 +48,7 @@ class ZMVBulletinAdapter extends ZMObject {
             throw new ZMException('cannot find vBulletin config');
         }
 
-        // ZMDatabase config
+        // db config
         $this->dbConfig_ = array(
             'host' => $config['MasterServer']['servername'],
             'port' => $config['MasterServer']['port'],
@@ -64,7 +64,7 @@ class ZMVBulletinAdapter extends ZMObject {
     /**
      * Get database.
      *
-     * @return ZMDatabase A database handle.
+     * @return zenmagick\base\database\Connection A database handle.
      */
     protected function getDatabase() {
         if (null == $this->database_) {

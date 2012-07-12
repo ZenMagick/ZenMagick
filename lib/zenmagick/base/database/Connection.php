@@ -17,16 +17,24 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
+namespace zenmagick\base\database;
+
+use PDO;
 use zenmagick\base\Beans;
 use zenmagick\base\Runtime;
 use zenmagick\base\Toolbox;
 use zenmagick\base\ZMObject;
+use zenmagick\base\database\DatabaseException;
 use Doctrine\Common\EventManager;
-use Doctrine\DBAL\Connection;
+use Doctrine\DBAL\Connection as DbalConnection;
+use Doctrine\DBAL\Cache\QueryCacheProfile;
 use Doctrine\DBAL\ConnectionException;
 use Doctrine\DBAL\Configuration;
 use Doctrine\DBAL\Driver;
+use Doctrine\DBAL\Logging\DebugStack;
 use Doctrine\DBAL\Types\Type;
+use \Doctrine\DBAL\Event\Listeners\MysqlSessionInit;
+
 /**
  * ZenMagick database abstractation.
  *
@@ -59,9 +67,8 @@ use Doctrine\DBAL\Types\Type;
  * statement.</p>
  *
  * @author DerManoMann <mano@zenmagick.org> <mano@zenmagick.org>
- * @package org.zenmagick.core.database
  */
-class ZMDatabase extends Connection {
+class Connection extends DbalConnection {
     /** If used as modelClass parameter, the raw SQL data will be returned (no mapping, etc). */
     const MODEL_RAW = '@raw';
 
@@ -86,9 +93,9 @@ class ZMDatabase extends Connection {
 
         // @todo don't tie logging to the pageStats plugin
         // @todo look at doctrine.dbal.logging (boolean) and doctrine.dbal.logger_class
-        $this->getConfiguration()->setSQLLogger(new Doctrine\DBAL\Logging\DebugStack);
+        $this->getConfiguration()->setSQLLogger(new DebugStack);
 
-        $this->getEventManager()->addEventSubscriber(new Doctrine\DBAL\Event\Listeners\MysqlSessionInit($params['charset'], $params['collation']));
+        $this->getEventManager()->addEventSubscriber(new MysqlSessionInit($params['charset'], $params['collation']));
 
         // @todo enum: remove or add doctrine mapping type
         $this->getDatabasePlatform()->registerDoctrineTypeMapping('enum', 'string');
@@ -131,7 +138,7 @@ class ZMDatabase extends Connection {
      */
     public function getMapper() {
         if (null == $this->mapper_) {
-            $this->mapper_ = new ZMDbTableMapper();
+            $this->mapper_ = new \ZMDbTableMapper();
             $this->mapper_->setTablePrefix($this->getPrefix());
         }
         return $this->mapper_;
@@ -142,39 +149,39 @@ class ZMDatabase extends Connection {
      *
      * <p>If the database provider (and database driver) allow, nested transaction are possible.</p>
      *
-     * @throws ZMDatabaseException
+     * @throws zenmagick\base\database\DatabaseException
      */
     public function beginTransaction() {
         try {
             parent::beginTransaction();
         } catch (ConnectionException $e) {
-            throw new ZMDatabaseException($e->getMessage(), $e->getCode(), $e);
+            throw new DatabaseException($e->getMessage(), $e->getCode(), $e);
         }
     }
 
     /**
      * Commits statements in a transaction.
      *
-     * @throws ZMDatabaseException
+     * @throws zenmagick\base\database\DatabaseException
      */
     public function commit() {
         try {
             parent::commit();
         } catch (ConnectionException $e) {
-            throw new ZMDatabaseException($e->getMessage(), $e->getCode(), $e);
+            throw new DatabaseException($e->getMessage(), $e->getCode(), $e);
         }
     }
 
     /**
      * Rollback changes in a transaction.
      *
-     * @throws ZMDatabaseException
+     * @throws zenmagick\base\database\DatabaseException
      */
     public function rollback() {
         try {
             parent::rollback();
         } catch (ConnectionException $e) {
-            throw new ZMDatabaseException($e->getMessage(), $e->getCode(), $e);
+            throw new DatabaseException($e->getMessage(), $e->getCode(), $e);
         }
     }
 
@@ -209,7 +216,7 @@ class ZMDatabase extends Connection {
     /**
      * {@inheritDoc}
      */
-    public function executeQuery($query, array $params = array(), $types = array(), Doctrine\DBAL\Cache\QueryCacheProfile $qcp = null) {
+    public function executeQuery($query, array $params = array(), $types = array(), QueryCacheProfile $qcp = null) {
         return parent::executeQuery($this->resolveTablePlaceHolders($query), $params, $types, $qcp);
     }
 
@@ -256,7 +263,7 @@ class ZMDatabase extends Connection {
      * @param string modelClass The class name to be used to build result obects; default is <code>null</code>.
      * @param mixed mapping The field mappings; default is <code>null</code>.
      * @return mixed The model with the updated primary key.
-     * @throws ZMDatabaseException
+     * @throws zenmagick\base\database\DatabaseException
      */
     public function loadModel($table, $key, $modelClass, $mapping = null) {
         $table = $this->resolveTable($table);
@@ -284,7 +291,7 @@ class ZMDatabase extends Connection {
      * @param mixed model The model instance.
      * @param mixed mapping The field mappings; default is <code>null</code>.
      * @return mixed The model with the updated primary key.
-     * @throws ZMDatabaseException
+     * @throws zenmagick\base\database\DatabaseException
      */
     public function createModel($table, $model, $mapping = null) {
         if (null === $model) return null;
@@ -323,7 +330,7 @@ class ZMDatabase extends Connection {
             $newId = $this->lastInsertId();
             $stmt->closeCursor();
         } catch (PDOException $e) {
-            throw new ZMDatabaseException($e->getMessage(), $e->getCode(), $e);
+            throw new DatabaseException($e->getMessage(), $e->getCode(), $e);
         }
 
         foreach ($mapping as $property => $field) {
@@ -341,7 +348,7 @@ class ZMDatabase extends Connection {
      * @param string table The table to update.
      * @param mixed model The model instance.
      * @param mixed mapping The field mappings; default is <code>null</code>.
-     * @throws ZMDatabaseException
+     * @throws zenmagick\base\database\DatabaseException
      */
     public function removeModel($table, $model, $mapping = null) {
         if (null === $model) return null;
@@ -371,7 +378,7 @@ class ZMDatabase extends Connection {
             }
         }
         if (8 > strlen($where)) {
-            throw new ZMDatabaseException('missing key');
+            throw new DatabaseException('missing key');
         }
         $sql .= $where;
 
@@ -380,7 +387,7 @@ class ZMDatabase extends Connection {
             $stmt->execute();
             $stmt->closeCursor();
         } catch (PDOException $e) {
-            throw new ZMDatabaseException($e->getMessage(), $e->getCode(), $e);
+            throw new DatabaseException($e->getMessage(), $e->getCode(), $e);
         }
     }
 
@@ -390,7 +397,7 @@ class ZMDatabase extends Connection {
      * @param string table The table to update.
      * @param mixed model The model instance.
      * @param mixed mapping The field mappings; default is <code>null</code>.
-     * @throws ZMDatabaseException
+     * @throws zenmagick\base\database\DatabaseException
      */
     public function updateModel($table, $model, $mapping = null) {
         if (null === $model) return null;
@@ -427,7 +434,7 @@ class ZMDatabase extends Connection {
             }
         }
         if (8 > strlen($where)) {
-            throw new ZMDatabaseException('missing key');
+            throw new DatabaseException('missing key');
         }
         $sql .= $where;
 
@@ -436,7 +443,7 @@ class ZMDatabase extends Connection {
             $stmt->execute();
             $stmt->closeCursor();
         } catch (PDOException $e) {
-            throw new ZMDatabaseException($e->getMessage(), $e->getCode(), $e);
+            throw new DatabaseException($e->getMessage(), $e->getCode(), $e);
         }
     }
 
@@ -447,7 +454,7 @@ class ZMDatabase extends Connection {
      * @param mixed data A model instance or array; default is an empty array.
      * @param mixed mapping The field mappings or table name (list); default is <code>null</code>.
      * @return int affected rows
-     * @throws ZMDatabaseException
+     * @throws zenmagick\base\database\DatabaseException
      */
     public function updateObj($query, $params = array(), $mapping = null) {
         $mapping = $this->getMapper()->ensureMapping($mapping);
@@ -462,7 +469,7 @@ class ZMDatabase extends Connection {
             $rows = $stmt->rowCount();
             $stmt->closeCursor();
         } catch (PDOException $e) {
-            throw new ZMDatabaseException($e->getMessage(), $e->getCode(), $e);
+            throw new DatabaseException($e->getMessage(), $e->getCode(), $e);
         }
 
         return $rows;
@@ -471,7 +478,7 @@ class ZMDatabase extends Connection {
     /**
      * Execute a query expecting a single result.
      *
-     * <p><code>$modelClass</code> may be set to the magic value of <code>ZMDatabase::MODEL_RAW</code> to force
+     * <p><code>$modelClass</code> may be set to the magic value of <code>Connection::MODEL_RAW</code> to force
      * returning the raw data without applying any mappings or conversions.</p>
      *
      * @param string sql The query.
@@ -479,7 +486,7 @@ class ZMDatabase extends Connection {
      * @param mixed mapping The field mappings or table name (list); default is <code>null</code>.
      * @param string modelClass The class name to be used to build result obects; default is <code>null</code>.
      * @return mixed The (expected) single result or <code>null</code>
-     * @throws ZMDatabaseException
+     * @throws zenmagick\base\database\DatabaseException
      */
     public function querySingle($sql, array $params = array(), $mapping = null, $modelClass = null) {
         $results = $this->fetchAll($sql, $params, $mapping, $modelClass);
@@ -492,7 +499,7 @@ class ZMDatabase extends Connection {
      * <p>If <code>$resultClass</code> is <code>null</code>, the returned
      * list will contain a map of <em>columns</em> =&gt; <em>value</em> for each selected row.</p>
      *
-     * <p><code>$modelClass</code> may be set to the magic value of <code>ZMDatabase::MODEL_RAW</code> to force
+     * <p><code>$modelClass</code> may be set to the magic value of <code>Connection::MODEL_RAW</code> to force
      * returning the raw data without applying any mappings or conversions.</p>
      *
      * @param string sql The query.
@@ -500,7 +507,7 @@ class ZMDatabase extends Connection {
      * @param mixed mapping The field mappings or table name (list); default is <code>null</code>.
      * @param string modelClass The class name to be used to build result obects; default is <code>null</code>.
      * @return array List of populated objects of class <code>$resultClass</code> or map if <em>modelClass</em> is <code>null</code>.
-     * @throws ZMDatabaseException
+     * @throws zenmagick\base\database\DatabaseException
      */
     public function fetchAll($sql, array $params = array(), $mapping = null, $modelClass = null) {
         $mapping = $this->getMapper()->ensureMapping($mapping);
@@ -511,10 +518,10 @@ class ZMDatabase extends Connection {
             $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
             $stmt->closeCursor();
         } catch (PDOException $e) {
-            throw new ZMDatabaseException($e->getMessage(), $e->getCode(), $e);
+            throw new DatabaseException($e->getMessage(), $e->getCode(), $e);
         }
 
-        if (ZMDatabase::MODEL_RAW == $modelClass) return $rows;
+        if (self::MODEL_RAW == $modelClass) return $rows;
 
         $results = array();
         foreach ($rows as $result) {
@@ -583,18 +590,18 @@ class ZMDatabase extends Connection {
                 // only bind if actually used
                 $type = $mapping[$typeName]['type'];
 
-                // @todo do we really want to keep ZMDatabase::NULL_DATE* for native ZM code/plugins or keep it at all?
+                // @todo do we really want to keep self::NULL_DATE* for native ZM code/plugins or keep it at all?
                 if ('datetime' == $type && null == $value) {
-                    $value = ZMDatabase::NULL_DATETIME;
+                    $value = self::NULL_DATETIME;
                 }
                 if ('date' == $type && null == $value) {
-                   $value = ZMDatabase::NULL_DATE;
+                   $value = self::NULL_DATE;
                 }
 
                 try {
                     $dbalType = $this->getDatabasePlatform()->getDoctrineTypeMapping($type);
                 } catch(\Doctrine\DBAL\DBALException $e) {
-                    throw new ZMDatabaseException('unsupported data(prepare) type='.$type.' for name='.$name);
+                    throw new DatabaseException('unsupported data(prepare) type='.$type.' for name='.$name);
                 }
                 $x = $stmt->bindValue(':'.$name, $value, $dbalType);
             }
@@ -641,7 +648,7 @@ class ZMDatabase extends Connection {
      * <p>The following table information will be returned:</p>
      * <dl>
      *  <dt>type</dt>
-     *  <dd>The data type. This will be a data type as supported by the <code>ZMDatabase</code> API.</dd>
+     *  <dd>The data type. This will be a data type as supported by the <code>Doctrine\DBAL\Types</code> API.</dd>
      *  <dt>name</dt>
      *  <dd>The (case sensitive) column name.</dd>
      *  <dt>key</dt>
@@ -654,7 +661,7 @@ class ZMDatabase extends Connection {
      *
      * @param string table table to get metadata from
      * @return array Context dependent meta data.
-     * @throws ZMDatabaseException
+     * @throws zenmagick\base\database\DatabaseException
      */
     public function getMetaData($table) {
         $table = $this->resolveTable($table);
@@ -665,7 +672,7 @@ class ZMDatabase extends Connection {
         try {
             $tableDetails = $sm->listTableDetails($table);
         } catch(Doctrine\DBAL\Schema\SchemaException $e) {
-            throw new ZMDatabaseException($e->getMessage(), $e->getCode(), $e);
+            throw new DatabaseException($e->getMessage(), $e->getCode(), $e);
         }
 
         // TODO: yes we have a table without a primary key :(

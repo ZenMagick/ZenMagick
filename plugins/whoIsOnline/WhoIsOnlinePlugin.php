@@ -69,7 +69,7 @@ class WhoIsOnlinePlugin extends Plugin {
      */
     public function getStats() {
         $sql = "SELECT customer_id FROM %table.whos_online%";
-        $results = \ZMRuntime::getDatabase()->fetchAll($sql, array(), 'whos_online', \ZMDatabase::MODEL_RAW);
+        $results = \ZMRuntime::getDatabase()->fetchAll($sql, array(), 'whos_online', \zenmagick\base\database\Connection::MODEL_RAW);
         $anonymous = 0;
         $registered = 0;
         foreach ($results as $result) {

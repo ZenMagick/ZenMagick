@@ -16,6 +16,6 @@ apps:
         #dbname: store
         prefix:
         charset: utf8
-        ## @todo mysql collation setting for ZMDatabase
+        ## @todo mysql collation setting
         collation: null
         unix_socket: null

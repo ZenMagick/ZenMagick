@@ -55,7 +55,7 @@ class CheckoutGuestController extends \ZMController {
         $account = $this->container->get("ZMAccount");
         $account->setEmail($request->request->get('email_address'));
         $account->setPassword('');
-        $account->setDob(\ZMDatabase::NULL_DATETIME);
+        $account->setDob(\zenmagick\base\database\Connection::NULL_DATETIME);
         $account->setType(\ZMAccount::GUEST);
         $account = $this->container->get('accountService')->createAccount($account);
 
