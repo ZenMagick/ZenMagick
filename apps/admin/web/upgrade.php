@@ -27,7 +27,7 @@ use zenmagick\apps\store\bundles\ZenCartBundle\ZenCartBundle;
 use zenmagick\apps\store\bundles\ZenCartBundle\ZenCartClassLoader;
 
 $rootDir = realpath(__DIR__.'/../../..');
-include_once $rootDir.'/vendor/autoload.php';
+include_once $rootDir.'/autoload.php';
 
 $config = array('appName' => basename(dirname(__DIR__)));
 $environment = isset($_SERVER['ZM_ENVIRONMENT']) ? $_SERVER['ZM_ENVIRONMENT'] : 'prod';
