@@ -45,14 +45,6 @@ class Application extends Kernel {
     protected $config;
     protected $classLoader;
     protected $profile;
-    protected $bundles;
-    protected $container;
-    protected $rootDir;
-    protected $environment;
-    protected $debug;
-    protected $booted;
-    protected $name;
-    protected $startTime;
 
     /**
      * Create new application
