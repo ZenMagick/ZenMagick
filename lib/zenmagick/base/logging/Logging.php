@@ -23,9 +23,12 @@ use zenmagick\base\Beans;
 use zenmagick\base\Runtime;
 use zenmagick\base\ZMObject;
 
+use Symfony\Component\HttpKernel\Log\LoggerInterface;
 
 /**
  * The ZenMagick logging service.
+ *
+ * @see https://github.com/Seldaek/monolog/blob/master/README.mdown for level descriptions.
  *
  * <p>Logging manager. The actual logging is delegated to all configured logging handlers.</p>
  *
@@ -121,37 +124,90 @@ class Logging extends ZMObject {
     /**
      * Log info.
      *
-     * @param string msg The message to log.
+     * @param string message The message to log.
+     * @param array context (unimplemented)
      */
-    public function info($msg) {
-        $this->log($msg, self::INFO);
+    public function info($message, array $context = array()) {
+        $this->log($message, self::INFO);
+    }
+
+    /**
+     * Log notice. (maps to self::INFO)
+     *
+     * @param string message The message to log.
+     * @param array context (unimplemented)
+     */
+    public function notice($message, array $context = array()) {
+        $this->log($message, self::INFO);
     }
 
     /**
      * Log warning.
      *
-     * @param string msg The message to log.
+     * @param string message The message to log.
+     * @param array context (unimplemented)
      */
-    public function warn($msg) {
-        $this->log($msg, self::WARN);
+    public function warn($message, array $context = array()) {
+        $this->log($message, self::WARN);
     }
 
     /**
      * Log error.
      *
-     * @param string msg The message to log.
+     * @param string message The message to log.
+     * @param array context (unimplemented)
      */
-    public function error($msg) {
-        $this->log($msg, self::ERROR);
+    public function error($message) {
+        $this->log($message, self::ERROR);
+    }
+
+    /**
+     * Log error. (mapped to self::ERROR)
+     *
+     * @param string message The message to log.
+     * @param array context (unimplemented)
+     */
+    public function err($message) {
+        $this->log($message, self::ERROR);
+    }
+
+    /**
+     * Log emergency. (mapped to self::ERROR)
+     *
+     * @param string message The message to log.
+     * @param array context (unimplemented)
+     */
+    public function emerg($message) {
+        $this->log($message, self::ERROR);
+    }
+
+    /**
+     * Log critical. (mapped to self::ERROR)
+     *
+     * @param string message The message to log.
+     * @param array context (unimplemented)
+     */
+    public function crit($message) {
+        $this->log($message, self::ERROR);
+    }
+
+    /**
+     * Log alert. (mapped to self::ERROR)
+     *
+     * @param string message The message to log.
+     * @param array context (unimplemented)
+     */
+    public function alert($message) {
+        $this->log($message, self::ERROR);
     }
 
     /**
      * Log debug.
      *
-     * @param string msg The message to log.
+     * @param string message The message to log.
      */
-    public function debug($msg) {
-        $this->log($msg, self::DEBUG);
+    public function debug($message, array $context = array()) {
+        $this->log($message, self::DEBUG);
     }
 
     /**
@@ -160,15 +216,15 @@ class Logging extends ZMObject {
      * <p>Messages will either be appended to the webserver's error log or, if a custom
      * error handler is installed, trigger a <em>E_USER_NOTICE</em> error.</p>
      *
-     * @param string msg The message to log.
+     * @param string message The message to log.
      * @param int level Optional level; default: <code>INFO</code>.
      */
-    public function log($msg, $level=self::INFO) {
+    public function log($message, $level=self::INFO) {
         if (Runtime::getSettings()->get('zenmagick.base.logging.enabled', true)) {
             $logLevel = $this->getLogLevel();
             foreach ($this->getHandlers() as $handler) {
                 if ((null === ($customLevel = $handler->getLogLevel()) && $level <= $logLevel) || $level <= $this->translateLogLevel($customLevel)) {
-                    $handler->log($msg, $level);
+                    $handler->log($message, $level);
                 }
             }
         }
@@ -178,15 +234,15 @@ class Logging extends ZMObject {
      * Simple dump function.
      *
      * @param mixed obj The object to dump.
-     * @param string msg An optional message.
+     * @param string message An optional message.
      * @param int level Optional level; default: <code>TRACE</code>.
      */
-    public function dump($obj, $msg=null, $level=self::TRACE) {
+    public function dump($obj, $message=null, $level=self::TRACE) {
         if (Runtime::getSettings()->get('zenmagick.base.logging.enabled', true)) {
             $logLevel = $this->getLogLevel();
             foreach ($this->getHandlers() as $handler) {
                 if ((null === ($customLevel = $handler->getLogLevel()) && $level <= $logLevel) || $level <= $this->translateLogLevel($customLevel)) {
-                    $handler->dump($obj, $msg, $level);
+                    $handler->dump($obj, $message, $level);
                 }
             }
         }
@@ -195,15 +251,15 @@ class Logging extends ZMObject {
     /**
      * Create a simple stack trace.
      *
-     * @param mixed msg An optional string or array.
+     * @param mixed message An optional string or array.
      * @param int level Optional level; default: <code>TRACE</code>.
      */
-    public function trace($msg=null, $level=self::TRACE) {
+    public function trace($message=null, $level=self::TRACE) {
         if (Runtime::getSettings()->get('zenmagick.base.logging.enabled', true)) {
             $logLevel = $this->getLogLevel();
             foreach ($this->getHandlers() as $handler) {
                 if ((null === ($customLevel = $handler->getLogLevel()) && $level <= $logLevel) || $level <= $this->translateLogLevel($customLevel)) {
-                    $handler->trace($msg, $level);
+                    $handler->trace($message, $level);
                 }
             }
         }
