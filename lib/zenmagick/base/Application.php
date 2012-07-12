@@ -98,7 +98,7 @@ class Application extends Kernel {
         $this->config['applicationPath'] = $this->config['appName'] ? sprintf('%s/apps/%s', $this->config['installationPath'], $this->config['appName']) : null;
 
         if (!$this->getConfig('cli')) {
-            $this->config['packages'] = array_merge($this->config['packages'], array('lib/zenmagick/http', 'lib/mvc'));
+            $this->config['packages'] = array_merge($this->config['packages'], array('lib/zenmagick/http'));
             $this->config['eventListener'][] = 'zenmagick\http\EventListener';
         }
 
@@ -353,6 +353,16 @@ class Application extends Kernel {
 
         $this->classLoader = new $this->config['classLoader']();
         $this->classLoader->register();
+
+        // @todo hardcoded list until we can use composer class map.
+        $classDirs = array('lib/mvc', 'shared');
+        if ($applicationName = $this->config['appName']) {
+            $classDirs[] = 'apps/'.$applicationName.'/lib';
+        }
+        foreach ($classDirs as $classDir) {
+            $classPath = $this->config['installationPath'].'/'.$classDir;
+            $this->classLoader->addConfig($classPath);
+        }
     }
 
     /**
@@ -384,7 +394,6 @@ class Application extends Kernel {
             foreach ($includePath as $dir) {
                 $ppath = $dir.'/'.$packageBase.'/'.$path;
                 if (file_exists($ppath) && is_dir($ppath)) {
-                    $this->classLoader->addConfig($ppath);
                     // packages may have their own *system* services
                     $packageConfig = $ppath.'/container.xml';
                     if (file_exists($packageConfig)) {
@@ -426,10 +435,6 @@ class Application extends Kernel {
     protected function initApplicationConfig() {
         $settingsService = Runtime::getSettings();
         if ($applicationPath = $this->config['applicationPath']) {
-            $appLoader = new $this->config['classLoader']();
-            $appLoader->register();
-            $appLoader->addConfig($applicationPath.'/lib');
-
             $settingsService->setAll(Toolbox::loadWithEnv($applicationPath.'/config/config.yaml'));
         }
 
