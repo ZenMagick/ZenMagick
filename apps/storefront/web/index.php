@@ -17,14 +17,14 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-use zenmagick\http\HttpApplication;
+use zenmagick\base\Application;
 use zenmagick\http\Request;
 $rootDir = realpath(__DIR__.'/../../..');
 include_once $rootDir.'/vendor/autoload.php';
 
 $config = array('appName' => basename(dirname(__DIR__)));
 $environment = isset($_SERVER['ZM_ENVIRONMENT']) ? $_SERVER['ZM_ENVIRONMENT'] : 'prod';
-$application = new HttpApplication($environment, true, $config);
+$application = new Application($environment, true, $config);
 $request = new Request(); // @todo use createFromGlobals
 $response = $application->handle($request);
 $response->send();

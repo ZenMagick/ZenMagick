@@ -31,43 +31,41 @@ use Symfony\Component\HttpKernel\HttpKernelInterface;
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class HttpApplication extends Application {
+class HttpApplication implements HttpKernelInterface {
     /**
      * Handle web request.
-     *
-     * @todo fold into an HttpKernel!
      */
     public function handle(\Symfony\Component\HttpFoundation\Request $request, $type = self::MASTER_REQUEST, $catch = true) {
-        parent::handle($request, $type, $catch);
         try {
-            $container = $this->getContainer();
+            $container = Runtime::getContainer();
+            $kernel = $container->get('kernel'); // @todo NO NO NO. we don't want use it for profiling here!
             $settingsService = $container->get('settingsService');
             $request = $container->get('request'); // @todo use it from the argument :)
             // allow seo rewriters to fiddle with the request
-            $this->profile('enter urlDecode');
+            $kernel->profile('enter urlDecode');
             foreach ($request->getUrlRewriter() as $rewriter) {
                 if ($rewriter->decode($request)) break; // traditional ZenMagick routing
             }
-            $this->profile('exit: urlDecode');
+            $kernel->profile('exit: urlDecode');
 
             // make sure we use the appropriate protocol (HTTPS, for example) if required
             $container->get('sacsManager')->ensureAccessMethod($request);
 
             // form validation
-            $this->profile('enter initValidator');
-            $applicationPath = $this->config['applicationPath'];
+            $kernel->profile('enter initValidator');
+            $applicationPath = $kernel->getConfig('applicationPath');
             $validationConfig = $applicationPath.'/config/validation.yaml';
             if ($container->has('validator') && file_exists($validationConfig)) {
                 $container->get('validator')->load(file_get_contents(Toolbox::resolveWithEnv($validationConfig)));
             }
-            $this->profile('exit initValidator');
+            $kernel->profile('exit initValidator');
 
             // reset as other global code migth fiddle with it...
-            $this->profile(sprintf('fire event: %s', 'init_done'));
-            $this->fireEvent('init_done', array('request' => $request));
-            $this->profile(sprintf('finished event: %s', 'init_done'));
+            $kernel->profile(sprintf('fire event: %s', 'init_done'));
+            $kernel->fireEvent('init_done', array('request' => $request));
+            $kernel->profile(sprintf('finished event: %s', 'init_done'));
 
-            $this->profile('enter dispatcher');
+            $kernel->profile('enter dispatcher');
             return $container->get('dispatcher')->dispatch($request);
         } catch (Exception $e) {
             if (false === $catch) {

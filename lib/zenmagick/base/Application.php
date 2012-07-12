@@ -28,7 +28,6 @@ use zenmagick\base\Toolbox;
 use zenmagick\base\ZMException;
 use zenmagick\base\events\Event;
 use zenmagick\base\plugins\Plugins;
-use zenmagick\http\Request;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\Config\Loader\LoaderInterface;
 use Symfony\Component\DependencyInjection\Loader\XmlFileLoader;
@@ -196,39 +195,12 @@ class Application extends Kernel {
     }
 
     /**
-     * {@inheritdoc}
-     *
-     * @api
-     */
-    public function terminate(\Symfony\Component\HttpFoundation\Request $request, Response $response)
-    {
-        if (false === $this->booted) {
-            return;
-        }
-
-        /*if ($this->getHttpKernel() instanceof TerminableInterface) {
-            $this->getHttpKernel()->terminate($request, $response);
-        }i*/
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function handle(\Symfony\Component\HttpFoundation\Request $request, $type = HttpKernelInterface::MASTER_REQUEST, $catch = true) {
-        if (false === $this->booted) {
-            $this->boot();
-        }
-        // @todo disappear!
-        //return $this->getHttpKernel()->handle($request, $type, $catch);
-    }
-
-    /**
      * Gets a http kernel from the container
      *
      * @return HttpKernel
      */
     protected function getHttpKernel() {
-        //return $this->container->get('http_kernel');
+        return $this->getContainer()->get('http_kernel');
     }
 
     /**
@@ -397,7 +369,7 @@ class Application extends Kernel {
      * @param string eventName The event name.
      * @param array parameter Optional parameter; default is an empty array.
      */
-    protected function fireEvent($eventName, array $parameter=array()) {
+    public function fireEvent($eventName, array $parameter=array()) {
         $parameter['kernel'] = $this;
         if (!$this->getConfig('cli') && in_array($eventName, array('request_ready', 'container_ready'))) {
             $parameter['request'] = $this->getContainer()->get('request');
@@ -453,6 +425,7 @@ class Application extends Kernel {
     protected function initRuntime() {
         // register this as 'kernel'
         $this->getContainer()->set('kernel', $this);
+        $this->getContainer()->set('http_kernel', new \zenmagick\http\HttpApplication);
     }
 
     /**
