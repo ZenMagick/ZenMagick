@@ -75,15 +75,13 @@ class Application extends Kernel {
 
             // packages
             'packageBase' => basename(dirname(dirname(dirname(__DIR__)))),
-            'packages' => array('lib/zenmagick/base', 'shared', 'config'),
-
+            'packages' => array('lib/zenmagick/base', 'config'),
             'classLoader' => 'zenmagick\base\classloader\CachingClassLoader',
             'eventListener' => array('zenmagick\base\EventListener'),
 
             'bundles' => array(),
 
             // app stuff
-            'appName' => null,
             'context' => null,
             'defaultLocale' => 'en',
             'appConfig' => array(),
@@ -98,11 +96,10 @@ class Application extends Kernel {
 
         $this->config = array_merge($defaults, $config);
         // some derived config
-        $this->config['context'] = $this->config['context'] ? $this->config['context'] : $this->config['appName'];
-        $this->config['applicationPath'] = $this->config['appName'] ? sprintf('%s/apps/%s', $this->config['installationPath'], $this->config['appName']) : null;
+        $this->config['applicationPath'] = $this->config['context'] ? sprintf('%s/apps/%s', $this->config['installationPath'], $this->config['context']) : null;
 
         if (!$this->getConfig('cli')) {
-            $this->config['packages'] = array_merge($this->config['packages'], array('lib/zenmagick/http'));
+            $this->config['packages'][] = 'lib/zenmagick/http';
             $this->config['eventListener'][] = 'zenmagick\http\EventListener';
         }
 
@@ -214,7 +211,7 @@ class Application extends Kernel {
      * @return string The application name or <code>null</code>.
      */
     public function getApplicationName() {
-        return $this->config['appName'];
+        return $this->config['context'];
     }
 
     /**
@@ -368,7 +365,7 @@ class Application extends Kernel {
 
         // @todo hardcoded list until we can use composer class map.
         $classDirs = array('lib/mvc', 'shared');
-        if ($applicationName = $this->config['appName']) {
+        if ($applicationName = $this->config['context']) {
             $classDirs[] = 'apps/'.$applicationName.'/lib';
         }
         foreach ($classDirs as $classDir) {
@@ -426,7 +423,7 @@ class Application extends Kernel {
 
         $settingsService->set('zenmagick.environment', $this->environment);
         $settingsService->set('zenmagick.installationPath', $this->config['installationPath']);
-        $settingsService->set('zenmagick.base.context', $this->config['context'] ? $this->config['context'] : $this->config['appName']);
+        $settingsService->set('zenmagick.base.context', $this->config['context']);
 
         // as default disable plugins for CLI calls
         $settingsService->set('zenmagick.base.plugins.enabled', (!$this->config['cli'] || (null !== $this->config['enablePlugins'] ? $this->config['enablePlugins'] : false)));
@@ -524,16 +521,16 @@ class Application extends Kernel {
                 $containerLoader->load(basename($containerConfig));
             }
         }
-    }
+   }*/
 
     /**
      * Init event listener.
      */
     protected function initEventListener() {
         $eventDispatcher = Runtime::getEventDispatcher();
-        if ($applicationPath = $this->config['applicationPath'] && $this->config['appName']) {
+        if ($applicationPath = $this->config['applicationPath'] && $this->config['context']) {
             // always add an application event listener - if available
-            $eventListener = sprintf('zenmagick\apps\%s\EventListener', $this->config['appName']);
+            $eventListener = sprintf('zenmagick\apps\%s\EventListener', $this->config['context']);
             if (ClassLoader::classExists($eventListener)) {
                 $eventDispatcher->listen(new $eventListener());
             }

@@ -22,7 +22,7 @@ use zenmagick\http\Request;
 $rootDir = realpath(__DIR__.'/../../..');
 include_once $rootDir.'/autoload.php';
 
-$config = array('appName' => basename(dirname(__DIR__)));
+$config = array('context' => basename(dirname(__DIR__)));
 $environment = isset($_SERVER['ZM_ENVIRONMENT']) ? $_SERVER['ZM_ENVIRONMENT'] : 'prod';
 $application = new Application($environment, true, $config);
 $request = new Request(); // @todo use createFromGlobals
