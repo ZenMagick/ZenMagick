@@ -3,7 +3,6 @@
 <!-- http container -->
 <container xmlns="http://symfony.com/schema/dic/services"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xmlns:doctrine="http://symfony.com/schema/dic/doctrine"
     xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
 
     <parameters>
@@ -235,13 +234,8 @@
         <service id="zencartTransport" class="zenmagick\apps\store\bundles\ZenCartBundle\utils\ZenCartTransport" scope="container" />
     </services>
 
-
+    <!--
     <doctrine:config>
-        <!--
-          * logging is enabled for the page stats plugin
-          * boolean mapping-type required for zenmagick\base\database\TableMapper
-            collation="%apps.store.database.default.collation%"
-        -->
         <doctrine:dbal
             driver="%apps.store.database.default.driver%"
             dbname="%apps.store.database.default.dbname%"
@@ -252,16 +246,15 @@
             charset="%apps.store.database.default.charset%"
             unix_socket="%apps.store.database.default.unix_socket%"
             logging="true"
+            collation="%apps.store.database.default.collation%"
             wrapper_class="zenmagick\base\database\Connection"
         >
-           <!--
            <doctrine:connection>
                 <doctrine:mapping-type name="boolean">boolean</doctrine:mapping-type>
                 <doctrine:mapping-type name="enum">string</doctrine:mapping-type>
             </doctrine:connection>
             <doctrine:type name="date" class="zenmagick\base\database\doctrine\types\DateType" />
             <doctrine:type name="datetime" class="zenmagick\base\database\doctrine\types\DateTimeType" />
-            -->
         </doctrine:dbal>
 
         <doctrine:orm
@@ -286,4 +279,5 @@
             </doctrine:entity-manager>
         </doctrine:orm>
     </doctrine:config>
+    -->
 </container>
