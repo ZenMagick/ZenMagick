@@ -32,6 +32,10 @@ use Symfony\Component\Config\FileLocator;
 use Symfony\Component\Config\Loader\LoaderInterface;
 use Symfony\Component\DependencyInjection\Loader\XmlFileLoader;
 use Symfony\Component\HttpKernel\Kernel;
+use Symfony\Component\HttpKernel\Debug\ErrorHandler;
+use Symfony\Component\HttpKernel\Debug\ExceptionHandler;
+use Symfony\Component\ClassLoader\DebugClassLoader;
+
 use Symfony\Component\HttpFoundation\Response;
 
 /**
@@ -132,16 +136,25 @@ class Application extends Kernel {
         $loader->load(__DIR__.'/config/config_'.$this->getEnvironment().'.yml');
     }
 
+    /**
+     * {@inheritDoc}
+     *
+     * Modified to support our settings for 'display_errors'
+     * and 'error_reporting'.
+     */
     public function init() {
         ini_set('log_errors', $this->config['log_errors']);
         if ($this->debug) {
-            ini_set('display_errors', 1);
+            ini_set('display_errors', true);
             error_reporting(-1);
+            DebugClassLoader::enable();
+            ErrorHandler::register($this->errorReportingLevel);
+            if ('cli' !== php_sapi_name()) {
+                ExceptionHandler::register();
+            }
         } else {
-            //ini_set('display_errors', false);
             ini_set('display_errors', $this->config['display_errors']);
             error_reporting($this->config['error_reporting']);
-
         }
     }
 
