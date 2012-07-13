@@ -38,7 +38,7 @@ class Toolbox {
     const RANDOM_HEX = 'hex';
 
     private static $seedDone_;
-
+    private static $environment = null;
 
     /**
      * Generate a random value.
@@ -108,6 +108,15 @@ class Toolbox {
         return $base;
     }
 
+    public static function setEnvironment($environment) {
+        if (null != self::$environment) return;
+        self::$environment = $environment;
+    }
+
+    public static function getEnvironment() {
+        if (null == self::$environment) return 'prod';
+        return self::$environment;
+    }
     /**
      * Load a <em>YAML</em> file, respecting the environment setting.
      *
@@ -117,7 +126,7 @@ class Toolbox {
      * @return mixed The parsed data.
      */
     public static function loadWithEnv($filename, $environment = null, $useEnvFile = true) {
-        $environment = null != $environment ? $environment : Runtime::getApplication()->getEnvironment();
+        $environment = $environment ?: self::getEnvironment();
 
         if ($useEnvFile) {
             $filename = self::resolveWithEnv($filename, $environment);
@@ -194,7 +203,7 @@ class Toolbox {
      * @return string The most specific filename with respect to the given <em>environment</em>.
      */
     public static function resolveWithEnv($filename, $environment = null) {
-        $environment = null != $environment ? $environment : Runtime::getApplication()->getEnvironment();
+        $environment = $environment ?: self::getEnvironment();
         $filename = realpath($filename);
         $envFilename = preg_replace('/(.*)\.(.*)/', '$1_'.$environment.'.$2', $filename);
         if (file_exists($envFilename)) {

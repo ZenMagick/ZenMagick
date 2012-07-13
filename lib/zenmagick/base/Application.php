@@ -103,6 +103,7 @@ class Application extends Kernel {
             $this->config['eventListener'][] = 'zenmagick\http\EventListener';
         }
 
+        Toolbox::setEnvironment($this->environment);
         $this->profile = array();
         $this->init();
         $this->initBootstrap();
