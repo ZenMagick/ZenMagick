@@ -207,15 +207,6 @@ class Application extends Kernel {
     }
 
     /**
-     * Get the application name.
-     *
-     * @return string The application name or <code>null</code>.
-     */
-    public function getApplicationName() {
-        return $this->config['context'];
-    }
-
-    /**
      * Get the application path.
      *
      * @return string The application path or <code>null</code>.
