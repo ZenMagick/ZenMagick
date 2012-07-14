@@ -513,7 +513,7 @@ class Application extends Kernel {
                 $containerLoader->load(basename($containerConfig));
             }
         }
-   }*/
+    }
 
     /**
      * Init event listener.
