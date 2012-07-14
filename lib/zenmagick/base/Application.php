@@ -258,11 +258,10 @@ class Application extends Kernel {
                 'key' => 'init',
                 'methods' => array(
                     'initClassLoader',
+                    'initSettings',
                     'loadPackages',
                     'initLogging',
-                    'initSettings',
                     'initRuntime',
-                    'initGlobal',
                     'loadBundles',
                     'loadBootstrapPackages',
                     'initApplicationContainer',
@@ -411,8 +410,8 @@ class Application extends Kernel {
      * Init some basic settings.
      */
     protected function initSettings() {
-        $settingsService = Runtime::getSettings();
-
+        // brute force way of solving the chicken/egg situation re: settings being used in the container.
+        $settingsService = new \zenmagick\base\settings\Settings;
         $settingsService->set('zenmagick.environment', $this->environment);
         $settingsService->set('zenmagick.installationPath', $this->config['installationPath']);
         $settingsService->set('zenmagick.base.context', $this->config['context']);
@@ -429,6 +428,24 @@ class Application extends Kernel {
                 $settingsService->setAll(Toolbox::loadWithEnv($config));
             }
         }
+
+        $globalFilename = realpath($this->config['installationPath'].'/global.yaml');
+        if (file_exists($globalFilename)) {
+            $contextConfigLoader = new \zenmagick\base\utils\ContextConfigLoader;
+            $contextConfigLoader->setConfig(Toolbox::loadWithEnv($globalFilename));
+            $config = $contextConfigLoader->resolve($this->getContext());
+            $settingsService->setAll($config['settings']);
+            unset($config['settings']);
+            unset($config['container']); // @todo merge this with the other container configuration if we want to keep it.
+            $contextConfigLoader->apply($config);
+        }
+
+        // if settings are defined here, they are the final word
+        foreach ($this->config['settings'] as $key => $value) {
+            $settingsService->set($key, $value);
+        }
+        $container = Runtime::getContainer(); // @todo NO NO NO! wrong place to initialize it.
+        $container->set('settingsService', $settingsService);
     }
 
     /**
@@ -440,31 +457,12 @@ class Application extends Kernel {
         $this->getContainer()->set('http_kernel', new \zenmagick\http\HttpApplication());
     }
 
-    /**
-     * Init global.
-     */
-    protected function initGlobal() {
-        $container = $this->getContainer();
-        $settingsService = Runtime::getSettings();
-        $globalFilename = realpath($this->config['installationPath'].'/global.yaml');
-        if (file_exists($globalFilename) && $container->has('contextConfigLoader')) {
-            $contextConfigLoader = $container->get('contextConfigLoader');
-            $contextConfigLoader->setConfig(Toolbox::loadWithEnv($globalFilename));
-            $contextConfigLoader->process();
-        }
-
-        // if settings are defined here, they are the final word
-        foreach ($this->config['settings'] as $key => $value) {
-            $settingsServivce->set($key, $value);
-        }
-    }
 
     /**
      * Load bundles.
      */
     protected function loadBundles() {
         $container = $this->getContainer();
-        $settingsService = Runtime::getSettings();
 
         // TODO?: this might be less than HttpKernel does
         $extensions = array();
