@@ -166,7 +166,6 @@ class DefaultLoggingHandler extends ZMObject implements LoggingHandler {
                 echo '<h3>'.$msg.":</h3>\n";
             }
         }
-        $filesystem = $this->container->get('filesystem');
         echo "<pre>";
         echo implode("\n", ZMException::formatStackTrace(debug_backtrace()));
         echo "</pre>";
