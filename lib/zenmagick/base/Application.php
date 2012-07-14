@@ -264,7 +264,6 @@ class Application extends Kernel {
                     'initRuntime',
                     'loadBundles',
                     'loadBootstrapPackages',
-                    'initApplicationContainer',
                     'initEventListener'
                 ),
             ),
@@ -384,25 +383,33 @@ class Application extends Kernel {
      * Load all configured packages.
      */
     protected function loadPackages() {
-        $packageBase = $this->config['packageBase'];
-        $packages = $this->config['packages'];
-
-        // all folders to check
-        $includePath = array_merge(array(dirname($this->config['installationPath'])), explode(PATH_SEPARATOR, get_include_path()));
-        foreach ($packages as $path) {
-            // pick first existing folder
-            foreach ($includePath as $dir) {
-                $ppath = $dir.'/'.$packageBase.'/'.$path;
-                if (file_exists($ppath) && is_dir($ppath)) {
-                    // packages may have their own *system* services
-                    $packageConfig = $ppath.'/container.xml';
-                    if (file_exists($packageConfig)) {
-                        $packageLoader = new XmlFileLoader(Runtime::getContainer(), new FileLocator(dirname($packageConfig)));
-                        $packageLoader->load($packageConfig);
-                    }
-                    break;
+        $container = $this->getContainer();
+        // Collect all files.
+        $rootDir = $this->config['installationPath'];
+        foreach ($this->config['packages'] as $package) {
+            $packagePath = $rootDir.'/'.$package;
+            if (is_dir($packagePath)) {
+                $packageConfig = $packagePath.'/container.xml';
+                if (file_exists($packageConfig)) {
+                    $files[] = $packageConfig;
                 }
             }
+        }
+
+        if ($applicationPath = $this->config['applicationPath']) {
+            $this->config['appContainer'][] = $applicationPath.'/config/container.xml';
+        }
+        // @todo the only difference between the above and below is Toolbox::resolveWithEnv!
+        foreach ($this->config['appContainer'] as $file) {
+            $containerConfig = Toolbox::resolveWithEnv($file);
+            if (file_exists($containerConfig)) {
+                $files[] = $containerConfig;
+            }
+        }
+
+        foreach ($files as $file) {
+            $loader = new XmlFileLoader($container, new FileLocator(dirname($file)));
+            $loader->load($file);
         }
     }
 
@@ -490,28 +497,6 @@ class Application extends Kernel {
             }
         }
     }
-
-    /**
-     * Init application container.
-     */
-    protected function initApplicationContainer() {
-        if ($applicationPath = $this->config['applicationPath']) {
-            $container = $this->getContainer();
-            $containerConfig = Toolbox::resolveWithEnv($applicationPath.'/config/container.xml');
-            if (file_exists($containerConfig)) {
-                $containerLoader = new XmlFileLoader($container, new FileLocator(dirname($containerConfig)));
-                $containerLoader->load(basename($containerConfig));
-            }
-        }
-        foreach ($this->config['appContainer'] as $file) {
-            $container = $this->getContainer();
-            $containerConfig = Toolbox::resolveWithEnv($file);
-            if (file_exists($containerConfig)) {
-                $containerLoader = new XmlFileLoader($container, new FileLocator(dirname($containerConfig)));
-                $containerLoader->load(basename($containerConfig));
-            }
-        }
-   }*/
 
     /**
      * Init event listener.
