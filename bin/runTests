@@ -11,8 +11,8 @@ $application = new Application(
     'context' => 'cli',
     'appConfig' => array(dirname(__DIR__).'/config/store-config.yaml'),
     'appContainer' => array(dirname(__DIR__).'/config/store-services.xml'),
-    'packages' => array('vendor', 'lib/base', 'lib/core', 'shared', 'vendor/local', 'lib/http', 'lib/mvc'),
-    'bundles' => array('DoctrineBundle' => 'Doctrine\Bundle\DoctrineBundle\DoctrineBundle')
+    'packages' => array('lib/zenmagick/base', 'shared', 'lib/http'),
+    'bundles' => array('Doctrine\Bundle\DoctrineBundle\DoctrineBundle')
 ));
 $application->boot();
 

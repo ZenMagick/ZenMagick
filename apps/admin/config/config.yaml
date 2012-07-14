@@ -93,10 +93,10 @@ zenmagick:
         - zenmagick\apps\store\admin\services\DBSacsPermissionProvider
   ## bundles
   bundles:
-    ZenCartBundle: zenmagick\apps\store\bundles\ZenCartBundle\ZenCartBundle
-    DoctrineBundle: Doctrine\Bundle\DoctrineBundle\DoctrineBundle
-    DoctrineMigrationsBundle: Doctrine\Bundle\MigrationsBundle\DoctrineMigrationsBundle
-    SwiftmailerBundle: Symfony\Bundle\SwiftmailerBundle\SwiftmailerBundle
+    - zenmagick\apps\store\bundles\ZenCartBundle\ZenCartBundle
+    - Doctrine\Bundle\DoctrineBundle\DoctrineBundle
+    - Doctrine\Bundle\MigrationsBundle\DoctrineMigrationsBundle
+    - Symfony\Bundle\SwiftmailerBundle\SwiftmailerBundle
 
 
 ## app settings

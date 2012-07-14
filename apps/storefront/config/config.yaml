@@ -106,9 +106,9 @@ zenmagick:
       addnRouteFiles: []
   ## bundles
   bundles:
-    ZenCartBundle: zenmagick\apps\store\bundles\ZenCartBundle\ZenCartBundle
-    DoctrineBundle: Doctrine\Bundle\DoctrineBundle\DoctrineBundle
-    SwiftmailerBundle: Symfony\Bundle\SwiftmailerBundle\SwiftmailerBundle
+    - zenmagick\apps\store\bundles\ZenCartBundle\ZenCartBundle
+    - Doctrine\Bundle\DoctrineBundle\DoctrineBundle
+    - Symfony\Bundle\SwiftmailerBundle\SwiftmailerBundle
 
 apps:
   store:
