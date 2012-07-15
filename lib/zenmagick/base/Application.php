@@ -47,7 +47,6 @@ use Symfony\Component\HttpFoundation\Response;
  * @todo: document all config options
  */
 class Application extends Kernel {
-    protected $bootstrap;
     protected $config;
     protected $classLoader;
     protected $profile;
@@ -61,19 +60,11 @@ class Application extends Kernel {
      * @param array config Optional config settings.
      */
     public function __construct($environment = 'prod', $debug = false, array $config=array()) {
-        $this->environment = $environment;
-        $this->debug = (bool)$debug;
-        $this->booted = false;
-        $this->name = 'zenmagick'; // @todo what?
-        $this->startTime = microtime(true);
-        $this->rootDir = $this->getRootDir();
-        $this->classes = array();
         $this->config = $config;
-
-        Toolbox::setEnvironment($this->environment);
         $this->profile = array();
-        $this->init();
-        $this->initBootstrap();
+        Toolbox::setEnvironment($environment);
+        parent::__construct($environment, $debug);
+        $this->startTime = microtime(true);
     }
 
     /**
@@ -130,8 +121,9 @@ class Application extends Kernel {
      */
     public function boot(array $keys=null) {
         if (true === $this->booted) return;
+        $bootstrap = $this->initBootstrap();
         try {
-            foreach ($this->bootstrap as $ii => $step) {
+            foreach ($bootstrap as $ii => $step) {
                 if (array_key_exists('done', $step) || (null !== $keys && !in_array($step['key'], $keys))) {
                     continue;
                 }
@@ -162,6 +154,16 @@ class Application extends Kernel {
             echo implode("\n", ZMException::formatStackTrace($e->getTrace()));
             die($msg);
         }
+    }
+
+    /**
+     * @{inheritDoc}
+     */
+    public function getName() {
+        if (null == $this->name) {
+            $this->name = 'zenmagick'; // @todo what?
+        }
+        return $this->name;
     }
 
     /**
@@ -234,7 +236,7 @@ class Application extends Kernel {
         if ('cli' !== php_sapi_name()) {
             $bootstrap[] = array('key' => 'request', 'postEvent' => 'request_ready');
         }
-        $this->bootstrap = $bootstrap;
+        return $bootstrap;
     }
 
     /**
