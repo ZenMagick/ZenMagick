@@ -23,6 +23,7 @@ use Exception;
 use ReflectionClass;
 use zenmagick\base\Runtime;
 use zenmagick\base\logging\Logging;
+use Symfony\Component\Filesystem\Filesystem;
 
 /**
  * Exception base class.
@@ -47,9 +48,10 @@ class ZMException extends Exception {
      * {@inheritDoc}
      */
     public function __toString() {
+        $filesystem = new Filesystem();
         $s =  '['.get_class($this);
         $s .= ' message='.$this->getMessage();
-        $s .= ', file='.Runtime::getContainer()->get('filesystem')->makePathRelative($this->getFile(), Runtime::getInstallationPath());
+        $s .= ', file='.$filesystem->makePathRelative($this->getFile(), Runtime::getInstallationPath());
         $s .= ', line='.$this->getLine();
         $s .= ', previous='.$this->getPrevious();
         $s .= ']';
@@ -90,7 +92,7 @@ class ZMException extends Exception {
      * @return array Formatted lines.
      */
     public static function formatStackTrace(array $lines) {
-        $filesystem = Runtime::getContainer()->get('filesystem');
+        $filesystem = new Filesystem;
         $stack = array();
         $index = 0;
         foreach ($lines as $line) {
