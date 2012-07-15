@@ -8,8 +8,6 @@
     <parameters>
         <parameter key="kernel.debug">false</parameter>
         <parameter key="kernel.bundles">%zenmagick.bundles%</parameter>
-        <parameter key="kernel.cache_dir">%zenmagick.cacheBasePath%</parameter>
-        <parameter key="zenmagick.cacheBasePath">%zenmagick.installationPath%/cache</parameter>
         <parameter key="zenmagick.bundles" type="collection">
             <parameter>Doctrine\Bundle\DoctrineBundle\DoctrineBundle</parameter>
             <parameter>Doctrine\Bundle\MigrationsBundle\DoctrineMigrationsBundle</parameter>
@@ -45,7 +43,7 @@
                 <argument>global</argument>
                 <argument type="collection">
                     <argument key="cacheTTL">300</argument>
-                    <argument key="cacheDir">%zenmagick.cacheBasePath%/files/</argument>
+                    <argument key="cacheDir">%kernel.cache_dir%/files/</argument>
                 </argument>
             </call>
         </service>
@@ -55,7 +53,7 @@
                 <argument>bootstrap</argument>
                 <argument type="collection">
                     <argument key="cacheTTL">null</argument>
-                    <argument key="cacheDir">%zenmagick.cacheBasePath%/files/</argument>
+                    <argument key="cacheDir">%kernel.cache_dir%/files/</argument>
                 </argument>
             </call>
         </service>

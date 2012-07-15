@@ -15,7 +15,7 @@
         port="%zenmagick.base.email.port%"
         logging="%zenmagick.base.email.logging%">
 
-        <!--<swiftmailer:spool type="file" path="%zenmagick.cacheBasePath%/swiftmailer/spool" />-->
+        <!--<swiftmailer:spool type="file" path="%kernel.cache_dir%/swiftmailer/spool" />-->
 
         <swiftmailer:antiflood threshold="99" sleep="0" />
     </swiftmailer:config>

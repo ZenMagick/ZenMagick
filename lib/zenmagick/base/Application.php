@@ -66,6 +66,7 @@ class Application extends Kernel {
         $this->booted = false;
         $this->name = 'zenmagick'; // @todo what?
         $this->startTime = microtime(true);
+        $this->rootDir = $this->getRootDir();
         $this->classes = array();
         $this->config = $config;
 

@@ -19,7 +19,7 @@
         <!--
         <swiftmailer:spool
             type="file"
-            path="%zenmagick.cacheBaseDir%/swiftmailer/spool"
+            path="%kernel.cache_dir%/swiftmailer/spool"
         />
         -->
         <swiftmailer:antiflood
