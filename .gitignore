@@ -7,7 +7,9 @@ local.properties
 local.xml
 global.yaml
 /build
+cache/*
 /config/store-config.yaml
 /config/store-container.yaml
 /config/store-email.xml
+logs/*
 /vendor/*
