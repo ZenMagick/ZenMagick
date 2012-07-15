@@ -26,10 +26,12 @@ use zenmagick\base\Beans;
 use zenmagick\base\classloader\ClassLoader;
 use zenmagick\base\Toolbox;
 use zenmagick\base\ZMException;
+use zenmagick\base\dependencyInjection\Container;
 use zenmagick\base\events\Event;
 use zenmagick\base\plugins\Plugins;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\Config\Loader\LoaderInterface;
+use Symfony\Component\DependencyInjection\ParameterBag\ParameterBag;
 use Symfony\Component\DependencyInjection\Loader\XmlFileLoader;
 use Symfony\Component\HttpKernel\Kernel;
 use Symfony\Component\HttpKernel\Debug\ErrorHandler;
@@ -162,15 +164,6 @@ class Application extends Kernel {
     }
 
     /**
-     * Gets a http kernel from the container
-     *
-     * @return HttpKernel
-     */
-    protected function getHttpKernel() {
-        return $this->getContainer()->get('http_kernel');
-    }
-
-    /**
      * Get the application path.
      *
      * @return string The application path or <code>null</code>.
@@ -195,14 +188,6 @@ class Application extends Kernel {
      */
     public function getRootDir() {
         return dirname(dirname(dirname(__DIR__)));
-    }
-
-    /**
-     * {@inheritDoc}
-     * @todo don't get it from runtime!
-     */
-    public function getContainer() {
-        return Runtime::getContainer();
     }
 
     /**
@@ -356,7 +341,11 @@ class Application extends Kernel {
      * Load all configured packages.
      */
     protected function loadPackages() {
-        $container = $this->getContainer();
+        $container = $this->getContainerBuilder();
+        $container->set('settingsService', $this->settingsService);
+
+        $this->container = $container;
+        Runtime::setContainer($this->container);
         $packages = array('lib/zenmagick/base', 'config');
         if ('cli' !== php_sapi_name()) {
             $packages[] =  'lib/zenmagick/http';
@@ -447,8 +436,11 @@ class Application extends Kernel {
         $this->settingsService = $settingsService;
     }
 
-        $container = Runtime::getContainer(); // @todo NO NO NO! wrong place to initialize it.
-        $container->set('settingsService', $settingsService);
+    /**
+     * {@inheritDoc}
+     */
+    public function getContainerBuilder() {
+        return new Container(new ParameterBag($this->getKernelParameters()));
     }
 
     /**
@@ -485,8 +477,8 @@ class Application extends Kernel {
      * Load bootstrap packages.
      */
     protected function loadBootstrapPackages() {
-        $container = $this->getContainer();
-        $settingsService = Runtime::getSettings();
+        $container = $this->container;
+        $settingsService = $container->get('settingsService');
         if ($settingsService->get('zenmagick.base.plugins.enabled', true)) {
             foreach ($container->get('pluginService')->getPluginPackages() as $path) {
                 $this->classLoader->addConfig($path);

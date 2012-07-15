@@ -20,10 +20,6 @@
  */
 namespace zenmagick\base;
 
-use zenmagick\base\events\EventDispatcher;
-use zenmagick\base\dependencyInjection\Container;
-use Symfony\Component\DependencyInjection\ParameterBag\ParameterBag;
-
 /**
  * Central place for runtime stuff.
  *
@@ -141,46 +137,16 @@ class Runtime {
         return self::getContainer()->get('pluginService');
     }
 
+    public static function setContainer($container) {
+        self::$container = $container;
+    }
+
     /**
      * Get the dependency injection container.
      *
      * @return Symfony\Component\DependencyInjection\ContainerInterface A <code>Symfony\Component\DependencyInjection\ContainerInterface</code> instance.
      */
     public static function getContainer() {
-        if (null == self::$container) {
-
-            self::$container = new Container(new ParameterBag(self::getRuntimeParameters()));
-        }
         return self::$container;
     }
-
-    /**
-     * Gets the environment parameters.
-     *
-     * Only the parameters starting with "SYMFONY__" are considered.
-     *
-     * @return array An array of parameters
-     */
-    protected static function getRuntimeParameters() {
-        return self::getEnvParameters();
-    }
-
-    /**
-     * Gets the environment parameters.
-     *
-     * Only the parameters starting with "SYMFONY__" are considered.
-     *
-     * @return array An array of parameters
-     */
-    protected static function getEnvParameters() {
-        $parameters = array();
-        foreach ($_SERVER as $key => $value) {
-            if (0 === strpos($key, 'SYMFONY__')) {
-                $parameters[strtolower(str_replace('__', '.', substr($key, 9)))] = $value;
-            }
-        }
-
-        return $parameters;
-    }
-
 }
