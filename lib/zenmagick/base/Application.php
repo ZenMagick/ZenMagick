@@ -49,6 +49,7 @@ class Application extends Kernel {
     protected $config;
     protected $classLoader;
     protected $profile;
+    protected $settingsService;
 
     /**
      * Create new application
@@ -78,8 +79,8 @@ class Application extends Kernel {
      * @return array instantiated bundle objects
      */
     public function registerBundles() {
-        $settingsService = Runtime::getSettings();
-        $bundleList = array_merge($settingsService->get('zenmagick.bundles', array()), $this->config['bundles']);
+        $settingsService = $this->settingsService;
+        $bundleList = $settingsService->get('zenmagick.bundles', array());
         $bundles = array();
         foreach ($bundleList as $name) {
             $bundles[] = new $name();
@@ -231,6 +232,7 @@ class Application extends Kernel {
                 'methods' => array(
                     'initClassLoader',
                     'initSettings',
+                    'initializeBundles',
                     'loadPackages',
                     'initLogging',
                     'initRuntime',
@@ -394,21 +396,14 @@ class Application extends Kernel {
      * Init some basic settings.
      */
     protected function initSettings() {
-        // brute force way of solving the chicken/egg situation re: settings being used in the container.
         $settingsService = new \zenmagick\base\settings\Settings;
-        $settingsService->set('zenmagick.environment', $this->environment);
-        $settingsService->set('zenmagick.installationPath', $this->getRootDir());
-        $settingsService->set('zenmagick.base.context', $this->config['context']);
 
-        // as default disable plugins for CLI calls
-        $enablePlugins = $this->getConfig('enablePlugins', 'cli' !== php_sapi_name());
-        $settingsService->set('zenmagick.base.plugins.enabled', $enablePlugins);
-
+        $settingsFiles = array();
         if ($applicationPath = $this->getApplicationPath()) {
-            $settingsService->setAll(Toolbox::loadWithEnv($applicationPath.'/config/config.yaml'));
+            $settingsFiles[] = $applicationPath.'/config/config.yaml';
         }
-
-        foreach ($this->getConfig('appConfig', array()) as $config) {
+        $settingsFiles = array_merge($this->getConfig('appConfig', array()), $settingsFiles);
+        foreach ($settingsFiles as $config) {
             if (file_exists($config)) {
                 $settingsService->setAll(Toolbox::loadWithEnv($config));
             }
@@ -425,10 +420,32 @@ class Application extends Kernel {
             $contextConfigLoader->apply($config);
         }
 
-        // if settings are defined here, they are the final word
-        foreach ($this->getConfig('settings', array()) as $key => $value) {
-            $settingsService->set($key, $value);
+
+        if ($this->getConfig('bundles')) {
+            $bundles = array_merge($settingsService->get('zenmagick.bundles'), (array)$this->getConfig('bundles'));
+            $settingsService->set('zenmagick.bundles', $bundles);
         }
+        // if settings are defined here, they are the final word
+        if ($this->getConfig('settings')) {
+            $settingsService->setAll((array)$this->getConfig('settings'));
+        }
+        $listeners = array();
+        if ($applicationPath = $this->getApplicationPath()) {
+            $listeners[] = sprintf('zenmagick\apps\%s\EventListener', $this->getContext());
+        }
+        $listeners[] = 'zenmagick\base\EventListener';
+        if ('cli' !== php_sapi_name()) {
+            $listeners[] = 'zenmagick\http\EventListener';
+        }
+        $listeners = array_merge($settingsService->get('zenmagick.base.events.listeners', array()), $listeners);
+        $settingsService->set('zenmagick.base.events.listeners', $listeners);
+        // as default disable plugins for CLI calls
+        $enablePlugins = $this->getConfig('enablePlugins', 'cli' !== php_sapi_name());
+        $settingsService->set('zenmagick.installationPath',$this->getRootDir());
+        $settingsService->set('zenmagick.base.context', $this->getContext());
+        $settingsService->set('zenmagick.base.plugins.enabled',$enablePlugins);
+        $this->settingsService = $settingsService;
+    }
 
         $container = Runtime::getContainer(); // @todo NO NO NO! wrong place to initialize it.
         $container->set('settingsService', $settingsService);
@@ -452,7 +469,7 @@ class Application extends Kernel {
 
         // TODO?: this might be less than HttpKernel does
         $extensions = array();
-        foreach ($this->registerBundles() as $bundle) {
+        foreach ($this->bundles as $bundle) {
             $bundle->build($container);
             if ($extension = $bundle->getContainerExtension()) {
                 $container->registerExtension($extension);
@@ -482,27 +499,7 @@ class Application extends Kernel {
      */
     protected function initEventListener() {
         $eventDispatcher = Runtime::getEventDispatcher();
-        if ($applicationPath = $this->getApplicationPath()) {
-            // always add an application event listener - if available
-            $eventListener = sprintf('zenmagick\apps\%s\EventListener', $this->getContext());
-            if (ClassLoader::classExists($eventListener)) {
-                $eventDispatcher->listen(new $eventListener());
-            }
-        }
-
-        // hook up all configured event listeners
-        $settingsService = Runtime::getSettings();
-        $eventListeners = array('zenmagick\base\EventListener');
-        if ('cli' !== php_sapi_name()) {
-            $eventListeners[] = 'zenmagick\http\EventListener';
-        }
-        $eventListeners = array_merge($eventListeners, $this->getConfig('eventListener', array()));
-        foreach ($eventListeners as $eventListener) {
-            if (null != ($eventListener = Beans::getBean(trim($eventListener)))) {
-                $eventDispatcher->listen($eventListener);
-            }
-        }
-
+        $settingsService = $this->container->get('settingsService');
         foreach ($settingsService->get('zenmagick.base.events.listeners', array()) as $eventListener) {
             if (null != ($eventListener = Beans::getBean(trim($eventListener)))) {
                 $eventDispatcher->listen($eventListener);
@@ -549,7 +546,7 @@ class Application extends Kernel {
         $settingsService = Runtime::getSettings();
 
         if ($settingsService->get('zenmagick.base.plugins.enabled', true)) {
-            $container->get('pluginService')->getPluginsForContext($this->config['context']);
+            $container->get('pluginService')->getPluginsForContext($this->getConfig('context'));
         }
     }
 
