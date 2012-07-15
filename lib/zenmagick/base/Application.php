@@ -61,47 +61,10 @@ class Application extends Kernel {
         $this->environment = $environment;
         $this->debug = (bool)$debug;
         $this->booted = false;
-        // @todo same as installationPath?
-        $this->rootDir = dirname(dirname(dirname(__DIR__)));
         $this->name = 'zenmagick'; // @todo what?
         $this->startTime = microtime(true);
         $this->classes = array();
-        $defaults = array(
-            // general stuff
-            'installationPath' => $this->rootDir,
-            'cli' => php_sapi_name() == 'cli',
-            'profile' => $this->debug,
-            'enablePlugins' => null,
-
-            // packages
-            'packageBase' => basename(dirname(dirname(dirname(__DIR__)))),
-            'packages' => array('lib/zenmagick/base', 'config'),
-            'classLoader' => 'zenmagick\base\classloader\CachingClassLoader',
-            'eventListener' => array('zenmagick\base\EventListener'),
-
-            'bundles' => array(),
-
-            // app stuff
-            'context' => null,
-            'defaultLocale' => 'en',
-            'appConfig' => array(),
-            'appContainer' => array(),
-            'settings' => array(),
-
-            // ini
-            'display_errors'=> false,
-            'error_reporting' => -1,
-            'log_errors' => true
-        );
-
-        $this->config = array_merge($defaults, $config);
-        // some derived config
-        $this->config['applicationPath'] = $this->config['context'] ? sprintf('%s/apps/%s', $this->config['installationPath'], $this->config['context']) : null;
-
-        if (!$this->getConfig('cli')) {
-            $this->config['packages'][] = 'lib/zenmagick/http';
-            $this->config['eventListener'][] = 'zenmagick\http\EventListener';
-        }
+        $this->config = $config;
 
         Toolbox::setEnvironment($this->environment);
         $this->profile = array();
@@ -141,18 +104,18 @@ class Application extends Kernel {
      * and 'error_reporting'.
      */
     public function init() {
-        ini_set('log_errors', $this->config['log_errors']);
+        ini_set('log_errors', $this->getConfig('log_errors', true));
         if ($this->debug) {
             ini_set('display_errors', true);
             error_reporting(-1);
             DebugClassLoader::enable();
-            ErrorHandler::register($this->errorReportingLevel);
+            ErrorHandler::register($this->getConfig('error_reporting'));
             if ('cli' !== php_sapi_name()) {
                 ExceptionHandler::register();
             }
         } else {
-            ini_set('display_errors', $this->config['display_errors']);
-            error_reporting($this->config['error_reporting']);
+            ini_set('display_errors', $this->getConfig('display_errors', false));
+            error_reporting($this->getConfig('error_reporting'));
         }
     }
 
@@ -212,7 +175,9 @@ class Application extends Kernel {
      * @return string The application path or <code>null</code>.
      */
     public function getApplicationPath() {
-        return $this->config['applicationPath'];
+        if ($context = $this->getContext()) {
+            return sprintf('%s/apps/%s', $this->getRootDir(), $context);
+        }
     }
 
     /**
@@ -221,7 +186,14 @@ class Application extends Kernel {
      * @return string The installation path or <code>null</code>.
      */
     public function getInstallationPath() {
-        return $this->config['installationPath'];
+        return $this->getRootDir();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getRootDir() {
+        return dirname(dirname(dirname(__DIR__)));
     }
 
     /**
@@ -237,7 +209,7 @@ class Application extends Kernel {
      * @todo adjust
      */
     public function getCharset() {
-        return 'UTF-8';
+        return $this->getConfig('charset', 'UTF-8');
     }
 
     /**
@@ -246,7 +218,7 @@ class Application extends Kernel {
      * @return string The application context.
      */
     public function getContext() {
-        return $this->config['context'];
+        return $this->getConfig('context');
     }
 
     /**
@@ -280,7 +252,7 @@ class Application extends Kernel {
             )
         );
 
-        if (!$this->getConfig('cli')) {
+        if ('cli' !== php_sapi_name()) {
             $bootstrap[] = array('key' => 'request', 'postEvent' => 'request_ready');
         }
         $this->bootstrap = $bootstrap;
@@ -291,16 +263,14 @@ class Application extends Kernel {
      *
      * @return array Map of application configuration.
      */
-    public function getConfig($key=null) {
+    public function getConfig($key=null, $default = null) {
         if (null == $key) {
             return $this->config;
         }
-
         if (array_key_exists($key, $this->config)) {
             return $this->config[$key];
         }
-
-        return null;
+        return $default;
     }
 
     /**
@@ -310,7 +280,7 @@ class Application extends Kernel {
      * @return array List of profile entries.
      */
     public function profile($text=null) {
-        if ($this->config['profile']) {
+        if ($this->getConfig('profile', $this->debug)) {
             if ($text) {
                 $this->profile[] = array('text' => $text, 'timestamp' => microtime());
             }
@@ -338,7 +308,7 @@ class Application extends Kernel {
      */
     protected function initClassLoader() {
         // set up base class loader
-        $installationPath = $this->config['installationPath'] .'/lib/zenmagick/base';
+        $installationPath = $this->getRootDir() .'/lib/zenmagick/base';
         $basephar = 'phar://'.$installationPath.'/base.phar';
 
         // NOTE: the base package has a flattened folder structure, so the path doesn't reflect the namespace
@@ -350,16 +320,17 @@ class Application extends Kernel {
             require_once $installationPath.'/classloader/CachingClassLoader.php';
         }
 
-        $this->classLoader = new $this->config['classLoader']();
+        $classLoader = $this->getConfig('classLoader', 'zenmagick\base\classloader\CachingClassLoader');
+        $this->classLoader = new $classLoader();
         $this->classLoader->register();
 
         // @todo hardcoded list until we can use composer class map.
         $classDirs = array('lib/mvc', 'shared');
-        if ($applicationName = $this->config['context']) {
+        if ($applicationName = $this->getContext()) {
             $classDirs[] = 'apps/'.$applicationName.'/lib';
         }
         foreach ($classDirs as $classDir) {
-            $classPath = $this->config['installationPath'].'/'.$classDir;
+            $classPath = $this->getRootDir().'/'.$classDir;
             $this->classLoader->addConfig($classPath);
         }
     }
@@ -372,7 +343,7 @@ class Application extends Kernel {
      */
     public function fireEvent($eventName, array $parameter=array()) {
         $parameter['kernel'] = $this;
-        if (!$this->getConfig('cli') && in_array($eventName, array('request_ready', 'container_ready'))) {
+        if (('cli' !== php_sapi_name()) && in_array($eventName, array('request_ready', 'container_ready'))) {
             $parameter['request'] = $this->getContainer()->get('request');
         }
 
@@ -384,9 +355,14 @@ class Application extends Kernel {
      */
     protected function loadPackages() {
         $container = $this->getContainer();
+        $packages = array('lib/zenmagick/base', 'config');
+        if ('cli' !== php_sapi_name()) {
+            $packages[] =  'lib/zenmagick/http';
+        }
+        $packages = array_merge($packages, $this->getConfig('packages', array()));
         // Collect all files.
-        $rootDir = $this->config['installationPath'];
-        foreach ($this->config['packages'] as $package) {
+        $rootDir = $this->getRootDir();
+        foreach ($packages as $package) {
             $packagePath = $rootDir.'/'.$package;
             if (is_dir($packagePath)) {
                 $packageConfig = $packagePath.'/container.xml';
@@ -396,11 +372,12 @@ class Application extends Kernel {
             }
         }
 
-        if ($applicationPath = $this->config['applicationPath']) {
-            $this->config['appContainer'][] = $applicationPath.'/config/container.xml';
+        $appContainerFiles = $this->getConfig('appContainer', array());
+        if ($applicationPath = $this->getApplicationPath()) {
+            $appContainerFiles[] = $applicationPath.'/config/container.xml';
         }
         // @todo the only difference between the above and below is Toolbox::resolveWithEnv!
-        foreach ($this->config['appContainer'] as $file) {
+        foreach ($appContainerFiles as $file) {
             $containerConfig = Toolbox::resolveWithEnv($file);
             if (file_exists($containerConfig)) {
                 $files[] = $containerConfig;
@@ -420,23 +397,24 @@ class Application extends Kernel {
         // brute force way of solving the chicken/egg situation re: settings being used in the container.
         $settingsService = new \zenmagick\base\settings\Settings;
         $settingsService->set('zenmagick.environment', $this->environment);
-        $settingsService->set('zenmagick.installationPath', $this->config['installationPath']);
+        $settingsService->set('zenmagick.installationPath', $this->getRootDir());
         $settingsService->set('zenmagick.base.context', $this->config['context']);
 
         // as default disable plugins for CLI calls
-        $settingsService->set('zenmagick.base.plugins.enabled', (!$this->config['cli'] || (null !== $this->config['enablePlugins'] ? $this->config['enablePlugins'] : false)));
+        $enablePlugins = $this->getConfig('enablePlugins', 'cli' !== php_sapi_name());
+        $settingsService->set('zenmagick.base.plugins.enabled', $enablePlugins);
 
-        if ($applicationPath = $this->config['applicationPath']) {
+        if ($applicationPath = $this->getApplicationPath()) {
             $settingsService->setAll(Toolbox::loadWithEnv($applicationPath.'/config/config.yaml'));
         }
 
-        foreach ($this->config['appConfig'] as $config) {
+        foreach ($this->getConfig('appConfig', array()) as $config) {
             if (file_exists($config)) {
                 $settingsService->setAll(Toolbox::loadWithEnv($config));
             }
         }
 
-        $globalFilename = realpath($this->config['installationPath'].'/global.yaml');
+        $globalFilename = realpath($this->getRootDir().'/global.yaml');
         if (file_exists($globalFilename)) {
             $contextConfigLoader = new \zenmagick\base\utils\ContextConfigLoader;
             $contextConfigLoader->setConfig(Toolbox::loadWithEnv($globalFilename));
@@ -448,9 +426,10 @@ class Application extends Kernel {
         }
 
         // if settings are defined here, they are the final word
-        foreach ($this->config['settings'] as $key => $value) {
+        foreach ($this->getConfig('settings', array()) as $key => $value) {
             $settingsService->set($key, $value);
         }
+
         $container = Runtime::getContainer(); // @todo NO NO NO! wrong place to initialize it.
         $container->set('settingsService', $settingsService);
     }
@@ -503,9 +482,9 @@ class Application extends Kernel {
      */
     protected function initEventListener() {
         $eventDispatcher = Runtime::getEventDispatcher();
-        if ($applicationPath = $this->config['applicationPath'] && $this->config['context']) {
+        if ($applicationPath = $this->getApplicationPath()) {
             // always add an application event listener - if available
-            $eventListener = sprintf('zenmagick\apps\%s\EventListener', $this->config['context']);
+            $eventListener = sprintf('zenmagick\apps\%s\EventListener', $this->getContext());
             if (ClassLoader::classExists($eventListener)) {
                 $eventDispatcher->listen(new $eventListener());
             }
@@ -513,7 +492,12 @@ class Application extends Kernel {
 
         // hook up all configured event listeners
         $settingsService = Runtime::getSettings();
-        foreach ($this->config['eventListener'] as $eventListener) {
+        $eventListeners = array('zenmagick\base\EventListener');
+        if ('cli' !== php_sapi_name()) {
+            $eventListeners[] = 'zenmagick\http\EventListener';
+        }
+        $eventListeners = array_merge($eventListeners, $this->getConfig('eventListener', array()));
+        foreach ($eventListeners as $eventListener) {
             if (null != ($eventListener = Beans::getBean(trim($eventListener)))) {
                 $eventDispatcher->listen($eventListener);
             }
@@ -547,7 +531,7 @@ class Application extends Kernel {
         $container = $this->getContainer();
         $settingsService = Runtime::getSettings();
 
-        $container->get('localeService')->init($settingsService->get('zenmagick.base.locales.locale', $this->config['defaultLocale']));
+        $container->get('localeService')->init($settingsService->get('zenmagick.base.locales.locale', $this->getConfig('defaultLocale', 'en')));
 
         // set a default timezone; NOTE: warnings are suppressed for date_default_timezone_get() in case there isn't a default at all
         date_default_timezone_set($settingsService->get('zenmagick.core.date.timezone', @date_default_timezone_get()));
