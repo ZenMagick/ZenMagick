@@ -17,7 +17,7 @@
                 <argument>ALL</argument>
             </call>
             <call method="setFilename">
-                <argument>%zenmagick.installationPath%/zenmagick-storefront.log</argument>
+                <argument>%kernel.logs_dir%/zenmagick-storefront.log</argument>
             </call>
             <tag name="zenmagick.base.logging.handler" />
         </service>
