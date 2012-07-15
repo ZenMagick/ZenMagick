@@ -176,15 +176,6 @@ class Application extends Kernel {
     }
 
     /**
-     * Get the installation path.
-     *
-     * @return string The installation path or <code>null</code>.
-     */
-    public function getInstallationPath() {
-        return $this->getRootDir();
-    }
-
-    /**
      * {@inheritDoc}
      */
     public function getRootDir() {
@@ -296,16 +287,16 @@ class Application extends Kernel {
      */
     protected function initClassLoader() {
         // set up base class loader
-        $installationPath = $this->getRootDir() .'/lib/zenmagick/base';
-        $basephar = 'phar://'.$installationPath.'/base.phar';
+        $basePath = $this->getRootDir() .'/lib/zenmagick/base';
+        $basephar = 'phar://'.$basePath.'/base.phar';
 
         // NOTE: the base package has a flattened folder structure, so the path doesn't reflect the namespace
         if (file_exists($basephar)) {
             require_once $basephar.'/classloader/ClassLoader.php';
             require_once $basephar.'/classloader/CachingClassLoader.php';
         } else {
-            require_once $installationPath.'/classloader/ClassLoader.php';
-            require_once $installationPath.'/classloader/CachingClassLoader.php';
+            require_once $basePath.'/classloader/ClassLoader.php';
+            require_once $basePath.'/classloader/CachingClassLoader.php';
         }
 
         $classLoader = $this->getConfig('classLoader', 'zenmagick\base\classloader\CachingClassLoader');
@@ -431,7 +422,6 @@ class Application extends Kernel {
         $settingsService->set('zenmagick.base.events.listeners', $listeners);
         // as default disable plugins for CLI calls
         $enablePlugins = $this->getConfig('enablePlugins', 'cli' !== php_sapi_name());
-        $settingsService->set('zenmagick.installationPath',$this->getRootDir());
         $settingsService->set('zenmagick.base.context', $this->getContext());
         $settingsService->set('zenmagick.base.plugins.enabled',$enablePlugins);
         $this->settingsService = $settingsService;

@@ -272,7 +272,7 @@
                     name="zenmagick"
                     type="annotation"
                     prefix="ZM"
-                    dir="%zenmagick.installationPath%/shared/model"
+                    dir="%kernel.root_dir%/shared/model"
                     is_bundle="false"
                 />
             </doctrine:entity-manager>

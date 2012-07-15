@@ -10,7 +10,7 @@ $application->boot();
 
 $packages = array('lib/mvc', 'shared');
 foreach ($packages as $package) {
-    $path = $application->getInstallationPath().'/'.$package;
+    $path = $application->getRootDir().'/'.$package;
     $classLoader = new CachingClassLoader();
     $classLoader->addConfig($path);
     $classLoader->exportToPath($path);
