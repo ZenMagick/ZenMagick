@@ -19,14 +19,12 @@
  */
 namespace zenmagick\apps\store\bundles\ZenCartBundle;
 
-use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 
 use zenmagick\base\Beans;
 use zenmagick\base\Runtime;
 use zenmagick\base\utils\Executor;
-use zenmagick\base\dependencyInjection\loader\YamlLoader;
 use zenmagick\apps\store\bundles\ZenCartBundle\utils\EmailEventHandler;
 
 /**
@@ -62,14 +60,6 @@ class ZenCartBundle extends Bundle {
      * Prepare db config
      */
     public function onInitConfigDone($event) {
-        $yaml = array('services' => array(
-            'zenCartThemeStatusMapBuilder' => array('parent' => 'merge:themeStatusMapBuilder', 'class' => 'zenmagick\apps\store\bundles\ZenCartBundle\mock\ZenCartThemeStatusMapBuilder'),
-            'zenCartAutoLoader' => array('class' => 'zenmagick\apps\store\bundles\ZenCartBundle\utils\ZenCartAutoLoader'),
-        ));
-
-        $yamlLoader = new YamlLoader($this->container, new FileLocator(dirname(__FILE__)));
-        $yamlLoader->load($yaml);
-
         $settingsService = $this->container->get('settingsService');
         if (Runtime::isContextMatch('admin')) {
             $settingsService->add('apps.store.admin.menus', 'shared/store/bundles/ZenCartBundle/Resources/config/admin/menu.yaml');

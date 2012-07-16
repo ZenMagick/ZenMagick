@@ -44,7 +44,10 @@
         <service id="orderService" class="ZMOrders" scope="container" />
 
         <service id="theme" class="zenmagick\apps\store\themes\Theme" scope="prototype" />
-        <service id="themeStatusMapBuilder" class="zenmagick\apps\store\themes\ThemeStatusMapBuilder" scope="container">
+
+        <!-- @todo move to bundle xml when we have one -->
+        <!-- <service id="themeStatusMapBuilder" class="zenmagick\apps\store\themes\ThemeStatusMapBuilder" scope="container"> -->
+        <service id="themeStatusMapBuilder" class="zenmagick\apps\store\bundles\ZenCartBundle\mock\ZenCartThemeStatusMapBuilder" scope="container">
             <call method="setThemeService">
                 <argument type="service" id="themeService" />
             </call>
@@ -231,6 +234,8 @@
 
         <!-- set zenmagick.base.email.transport to @zencartTransport to use the zencart legacy email system -->
         <service id="zencartTransport" class="zenmagick\apps\store\bundles\ZenCartBundle\utils\ZenCartTransport" scope="container" />
+        <!-- @todo move to bundle xml when we have one -->
+        <service id="zenCartAutoLoader" class="zenmagick\apps\store\bundles\ZenCartBundle\utils\ZenCartAutoLoader" scope="container" />
     </services>
 
     <!--
