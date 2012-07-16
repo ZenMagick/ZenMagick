@@ -343,14 +343,15 @@ class Application extends Kernel {
         if ('cli' !== php_sapi_name()) {
             $appContainerFiles[] =  'lib/zenmagick/http/container.xml';
         }
-       if ($applicationPath = $this->getApplicationPath()) {
+        if ($applicationPath = $this->getApplicationPath()) {
             $appContainerFiles[] = $applicationPath.'/config/container.xml';
         }
 
         $appContainerFiles = array_merge($appContainerFiles, $this->getConfig('appContainer', array()));
         $files = array();
+        $filesystem = $container->get('filesystem');
         foreach ($appContainerFiles as $file) {
-            if (0 !== strpos($file, '/')) { // not absolute
+            if (!$filesystem->isAbsolutePath($file)) {
                 $file = $this->getRootDir().'/'.$file;
             }
             $containerConfig = Toolbox::resolveWithEnv($file);
