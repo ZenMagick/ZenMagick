@@ -10,7 +10,7 @@ $application = new Application('prod', true,
     'enablePlugins' => true,
     'appConfig' => array(dirname(__DIR__).'/config/store-config.yaml'),
     'appContainer' => array(dirname(__DIR__).'/config/store-services.xml', dirname(__DIR__).'/lib/http/container.xml'),
-    'bundles' => array('Doctrine\Bundle\DoctrineBundle\DoctrineBundle')
+    'settings' => array('zenmagick' => array('bundles' => 'Doctrine\Bundle\DoctrineBundle\DoctrineBundle'));
 ));
 $application->boot();
 

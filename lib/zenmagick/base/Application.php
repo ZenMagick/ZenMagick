@@ -393,11 +393,6 @@ class Application extends Kernel {
             $contextConfigLoader->apply($config);
         }
 
-
-        if ($this->getConfig('bundles')) {
-            $bundles = array_merge($settingsService->get('zenmagick.bundles'), (array)$this->getConfig('bundles'));
-            $settingsService->set('zenmagick.bundles', $bundles);
-        }
         // if settings are defined here, they are the final word
         if ($this->getConfig('settings')) {
             $settingsService->setAll((array)$this->getConfig('settings'));
