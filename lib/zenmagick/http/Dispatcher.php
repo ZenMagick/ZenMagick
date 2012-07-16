@@ -21,8 +21,11 @@ namespace zenmagick\http;
 
 use Exception;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\HttpKernelInterface;
+
 use zenmagick\base\Beans;
 use zenmagick\base\Runtime;
+use zenmagick\base\Toolbox;
 use zenmagick\base\ZMException;
 use zenmagick\base\ZMObject;
 use zenmagick\base\events\Event;
@@ -35,14 +38,49 @@ use zenmagick\http\view\ModelAndView;
 use zenmagick\http\view\ResponseModelAndView;
 use zenmagick\http\view\View;
 
+
 /**
  * ZenMagick MVC request dispatcher.
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class Dispatcher extends ZMObject {
+class Dispatcher extends ZMObject implements HttpKernelInterface {
     private $parameterMapper;
     private $controllerExecutor;
+
+    /*
+     * Handle web request.
+     */
+    public function handle(\Symfony\Component\HttpFoundation\Request $request, $type = self::MASTER_REQUEST, $catch = true) {
+        try {
+            $container = $this->container;
+            $kernel = $container->get('kernel');
+            $settingsService = $container->get('settingsService');
+            $request = $container->get('request'); // @todo use it from the argument :)
+            // allow seo rewriters to fiddle with the request
+            foreach ($request->getUrlRewriter() as $rewriter) {
+                if ($rewriter->decode($request)) break; // traditional ZenMagick routing
+            }
+
+            // make sure we use the appropriate protocol (HTTPS, for example) if required
+            $container->get('sacsManager')->ensureAccessMethod($request);
+
+            // form validation
+            $validationConfig = $kernel->getApplicationPath().'/config/validation.yaml';
+            if ($container->has('validator') && file_exists($validationConfig)) {
+                $container->get('validator')->load(file_get_contents(Toolbox::resolveWithEnv($validationConfig)));
+            }
+
+            // reset as other global code migth fiddle with it...
+            $kernel->fireEvent('init_done', array('request' => $request));
+            return $this->dispatch($request);
+        } catch (Exception $e) {
+            if (false === $catch) {
+                throw $e;
+            }
+            return new Response(sprintf('serve failed: %s', $e->getMessage()), 500);
+        }
+    }
 
     /**
      * Set the parameter mapper for controller.

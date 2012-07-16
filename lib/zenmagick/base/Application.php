@@ -427,7 +427,6 @@ class Application extends Kernel {
     protected function initRuntime() {
         // register this as 'kernel'
         $this->getContainer()->set('kernel', $this);
-        $this->getContainer()->set('http_kernel', new \zenmagick\http\HttpApplication());
     }
 
 
@@ -516,7 +515,7 @@ class Application extends Kernel {
         $settingsService = Runtime::getSettings();
 
         if ($settingsService->get('zenmagick.base.plugins.enabled', true)) {
-            $container->get('pluginService')->getPluginsForContext($this->getConfig('context'));
+            $container->get('pluginService')->getPluginsForContext($this->getContext());
         }
     }
 
