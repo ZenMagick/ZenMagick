@@ -418,7 +418,7 @@ class ZMProductFinder extends ZMObject {
                       ($objects[$i+1] != 'and') &&
                       ($objects[$i+1] != 'or') &&
                       ($objects[$i+1] != ')') ) {
-                $temp[] = ADVANCED_SEARCH_DEFAULT_OPERATOR;
+                $temp[] = !defined('ADVANCED_SEARCH_DEFAULT_OPERATOR') ? 'and' : ADVANCED_SEARCH_DEFAULT_OPERATOR;
             }
         }
         $temp[] = $objects[$i];
