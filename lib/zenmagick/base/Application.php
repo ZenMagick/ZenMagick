@@ -37,6 +37,7 @@ use Symfony\Component\HttpKernel\Kernel;
 use Symfony\Component\HttpKernel\Debug\ErrorHandler;
 use Symfony\Component\HttpKernel\Debug\ExceptionHandler;
 use Symfony\Component\ClassLoader\DebugClassLoader;
+use Symfony\Component\Filesystem\Filesystem;
 
 use Symfony\Component\HttpFoundation\Response;
 
@@ -349,7 +350,7 @@ class Application extends Kernel {
 
         $appContainerFiles = array_merge($appContainerFiles, $this->getConfig('appContainer', array()));
         $files = array();
-        $filesystem = $container->get('filesystem');
+        $filesystem = new Filesystem();
         foreach ($appContainerFiles as $file) {
             if (!$filesystem->isAbsolutePath($file)) {
                 $file = $this->getRootDir().'/'.$file;
