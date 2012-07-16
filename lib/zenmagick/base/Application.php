@@ -339,7 +339,7 @@ class Application extends Kernel {
         Runtime::setContainer($this->container);
 
         // Collect all files
-        $appContainerFiles = array('lib/zenmagick/base/container.xml', 'config/container.xml');
+        $appContainerFiles = array('lib/zenmagick/base/container.xml');
         if ('cli' !== php_sapi_name()) {
             $appContainerFiles[] =  'lib/zenmagick/http/container.xml';
         }
