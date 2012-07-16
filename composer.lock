@@ -1,5 +1,5 @@
 {
-    "hash": "df926e9be14ad70db733feb7461696b4",
+    "hash": "6556af3949bb0d1eb7e94b0257216fea",
     "packages": [
         {
             "package": "buddypress/glotpress",
@@ -62,13 +62,19 @@
         {
             "package": "swiftmailer/swiftmailer",
             "version": "dev-master",
-            "source-reference": "f51b5f33c83b48faea75f1285f99a2e8f1c66f75",
-            "commit-date": "1341746460"
+            "source-reference": "8b2aa953f87da228ba413e8fb1372e49c1374050",
+            "commit-date": "1342198037"
         },
         {
             "package": "symfony/swiftmailer-bundle",
             "version": "dev-master",
-            "source-reference": "v2.1.0-BETA2",
+            "alias-pretty-version": "2.1.x-dev",
+            "alias-version": "2.1.9999999.9999999-dev"
+        },
+        {
+            "package": "symfony/swiftmailer-bundle",
+            "version": "dev-master",
+            "source-reference": "v2.1.0-BETA3",
             "commit-date": "1341509614"
         },
         {
@@ -92,8 +98,8 @@
         {
             "package": "twig/twig",
             "version": "dev-master",
-            "source-reference": "26eb0a2653eade50dffdd31b11ca454232dea8cf",
-            "commit-date": "1341423205"
+            "source-reference": "d45664045194ef62573c153c424508527105041e",
+            "commit-date": "1342424564"
         },
         {
             "package": "zenmagick/cachelite",

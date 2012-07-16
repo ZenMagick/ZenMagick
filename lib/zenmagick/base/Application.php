@@ -304,7 +304,7 @@ class Application extends Kernel {
         $this->classLoader->register();
 
         // @todo hardcoded list until we can use composer class map.
-        $classDirs = array('lib/mvc', 'shared');
+        $classDirs = array('shared');
         if ($applicationName = $this->getContext()) {
             $classDirs[] = 'apps/'.$applicationName.'/lib';
         }
