@@ -337,29 +337,22 @@ class Application extends Kernel {
 
         $this->container = $container;
         Runtime::setContainer($this->container);
-        $packages = array('lib/zenmagick/base', 'config');
-        if ('cli' !== php_sapi_name()) {
-            $packages[] =  'lib/zenmagick/http';
-        }
-        $packages = array_merge($packages, $this->getConfig('packages', array()));
-        // Collect all files.
-        $rootDir = $this->getRootDir();
-        foreach ($packages as $package) {
-            $packagePath = $rootDir.'/'.$package;
-            if (is_dir($packagePath)) {
-                $packageConfig = $packagePath.'/container.xml';
-                if (file_exists($packageConfig)) {
-                    $files[] = $packageConfig;
-                }
-            }
-        }
 
-        $appContainerFiles = $this->getConfig('appContainer', array());
-        if ($applicationPath = $this->getApplicationPath()) {
+        // Collect all files
+        $appContainerFiles = array('lib/zenmagick/base/container.xml', 'config/container.xml');
+        if ('cli' !== php_sapi_name()) {
+            $appContainerFiles[] =  'lib/zenmagick/http/container.xml';
+        }
+       if ($applicationPath = $this->getApplicationPath()) {
             $appContainerFiles[] = $applicationPath.'/config/container.xml';
         }
-        // @todo the only difference between the above and below is Toolbox::resolveWithEnv!
+
+        $appContainerFiles = array_merge($appContainerFiles, $this->getConfig('appContainer', array()));
+        $files = array();
         foreach ($appContainerFiles as $file) {
+            if (0 !== strpos($file, '/')) { // not absolute
+                $file = $this->getRootDir().'/'.$file;
+            }
             $containerConfig = Toolbox::resolveWithEnv($file);
             if (file_exists($containerConfig)) {
                 $files[] = $containerConfig;

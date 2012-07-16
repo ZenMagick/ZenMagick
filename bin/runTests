@@ -5,13 +5,11 @@ use zenmagick\base\Runtime;
 
 chdir(dirname(dirname(__FILE__)));
 include_once 'lib/base/Application.php';
-$application = new Application(
+$application = new Application('prod', true,
   array(
     'enablePlugins' => true,
-    'context' => 'cli',
     'appConfig' => array(dirname(__DIR__).'/config/store-config.yaml'),
-    'appContainer' => array(dirname(__DIR__).'/config/store-services.xml'),
-    'packages' => array('lib/zenmagick/base', 'shared', 'lib/http'),
+    'appContainer' => array(dirname(__DIR__).'/config/store-services.xml', dirname(__DIR__).'/lib/http/container.xml'),
     'bundles' => array('Doctrine\Bundle\DoctrineBundle\DoctrineBundle')
 ));
 $application->boot();
