@@ -84,7 +84,7 @@ class AdminEventHandler extends ZMObject {
     /**
      * Init menu.
      */
-    public function onInitConfigDone($event) {
+    public function initMenu() {
         $settingsService = $this->container->get('settingsService');
 
         $menuLoader = new MenuLoader();
@@ -117,6 +117,7 @@ class AdminEventHandler extends ZMObject {
         }
 
         // need db for this, so only do now
+        $this->initMenu();
         $adminMenu = $this->container->get('adminMenu');
         $legacyConfig = $adminMenu->getElement('configuration-legacy');
         $configGroups = $this->container->get('configService')->getConfigGroups();
