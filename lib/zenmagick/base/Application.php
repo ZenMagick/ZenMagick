@@ -295,14 +295,11 @@ class Application extends Kernel {
         // NOTE: the base package has a flattened folder structure, so the path doesn't reflect the namespace
         if (file_exists($basephar)) {
             require_once $basephar.'/classloader/ClassLoader.php';
-            require_once $basephar.'/classloader/CachingClassLoader.php';
         } else {
             require_once $basePath.'/classloader/ClassLoader.php';
-            require_once $basePath.'/classloader/CachingClassLoader.php';
         }
 
-        $classLoader = $this->getConfig('classLoader', 'zenmagick\base\classloader\CachingClassLoader');
-        $this->classLoader = new $classLoader();
+        $this->classLoader = new ClassLoader();
         $this->classLoader->register();
 
         // @todo hardcoded list until we can use composer class map.
