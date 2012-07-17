@@ -347,12 +347,24 @@ class Application extends Kernel {
     protected function loadPackages() {
         $container = $this->getContainerBuilder();
         $container->set('settingsService', $this->settingsService);
+        $extensions = array();
+        foreach ($this->bundles as $bundle) {
+            if ($extension = $bundle->getContainerExtension()) {
+                $container->registerExtension($extension);
+                $extensions[] = $extension->getAlias();
+            }
 
+            if ($this->debug) {
+                //$container->addObjectResource($bundle);
+            }
+        }
+        foreach ($this->bundles as $bundle) {
+            $bundle->build($container);
+        }
         $this->container = $container;
         $this->registerContainerConfiguration($this->getContainerLoader($container));
 
         Runtime::setContainer($this->container);
-
     }
 
     /**
@@ -424,19 +436,9 @@ class Application extends Kernel {
      * Load bundles.
      */
     protected function loadBundles() {
-        $container = $this->getContainer();
-
-        // TODO?: this might be less than HttpKernel does
-        $extensions = array();
-        foreach ($this->bundles as $bundle) {
-            $bundle->build($container);
-            if ($extension = $bundle->getContainerExtension()) {
-                $container->registerExtension($extension);
-                $extensions[] = $extension->getAlias();
-            }
-            $bundle->setContainer($container);
+        foreach ($this->getBundles() as $bundle) {
+            $bundle->setContainer($this->container);
             $bundle->boot();
-            $this->bundles[] = $bundle;
         }
     }
 
