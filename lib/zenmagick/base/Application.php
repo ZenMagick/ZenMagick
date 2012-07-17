@@ -226,8 +226,7 @@ class Application extends Kernel {
                     'initClassLoader',
                     'initSettings',
                     'initializeBundles',
-                    'loadPackages',
-                    'initRuntime',
+                    'initializeContainer',
                     'loadBundles',
                     'loadBootstrapPackages',
                     'initEventListener'
@@ -342,9 +341,13 @@ class Application extends Kernel {
     }
 
     /**
-     * Load all configured packages.
+     * {@inheritDoc}
+     *
+     * @todo object resources
+     * @todo caching
+     * @todo compile here
      */
-    protected function loadPackages() {
+    protected function buildContainer() {
         $container = $this->getContainerBuilder();
         $container->set('settingsService', $this->settingsService);
         $extensions = array();
@@ -361,10 +364,10 @@ class Application extends Kernel {
         foreach ($this->bundles as $bundle) {
             $bundle->build($container);
         }
-        $this->container = $container;
+        // @todo registerContainerConfiguration can also return a container!
         $this->registerContainerConfiguration($this->getContainerLoader($container));
 
-        Runtime::setContainer($this->container);
+        return $container;
     }
 
     /**
@@ -424,11 +427,16 @@ class Application extends Kernel {
     }
 
     /**
-     * Init runtime.
+     * {@inheritDoc}
+     *
+     * @todo cached container
      */
-    protected function initRuntime() {
+    protected function initializeContainer() {
+        $container = $this->buildContainer();
+        $this->container = $container;
         // register this as 'kernel'
-        $this->getContainer()->set('kernel', $this);
+        $this->container->set('kernel', $this);
+        Runtime::setContainer($this->container);
     }
 
 
