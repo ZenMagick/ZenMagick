@@ -21,7 +21,7 @@
 use zenmagick\base\Runtime;
 use zenmagick\base\ZMException;
 use zenmagick\base\events\Event;
-use zenmagick\http\HttpApplication;
+use zenmagick\http\Application;
 use zenmagick\http\Request;
 use zenmagick\apps\store\bundles\ZenCartBundle\ZenCartBundle;
 use zenmagick\apps\store\bundles\ZenCartBundle\ZenCartClassLoader;
@@ -31,7 +31,8 @@ include_once $rootDir.'/autoload.php';
 
 $config = array('context' => basename(dirname(__DIR__)));
 $environment = isset($_SERVER['ZM_ENVIRONMENT']) ? $_SERVER['ZM_ENVIRONMENT'] : 'prod';
-$application = new HttpApplication($environment, true, $config);
+$application = new Application($environment, true, $config);
+$application->loadClassCache();
 $application->boot(array('init'));
 
 try {
