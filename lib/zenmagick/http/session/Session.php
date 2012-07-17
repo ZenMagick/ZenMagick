@@ -21,6 +21,7 @@ namespace zenmagick\http\session;
 
 use RuntimeException;
 use Serializable;
+use zenmagick\base\Beans;
 use zenmagick\base\Runtime;
 use zenmagick\base\ZMObject;
 
@@ -269,6 +270,7 @@ class Session extends ZMObject {
             // list of services to restore on instance
             $restore = array();
             $context = null;
+            $type = 'service';
             foreach ($args as $elem) {
                 foreach ($elem as $key => $value) {
                     if ('restore' == $key && $value) {
@@ -277,13 +279,16 @@ class Session extends ZMObject {
                     if ('context' == $key && $value) {
                         $context = $value;
                     }
+                    if ('type' == $key && $value) {
+                        $type = $value;
+                    }
                 }
             }
 
             if (Runtime::isContextMatch($context)) {
                 $service = $this->container->get($id);
                 if ($service instanceof Serializable) {
-                    $autoSave[$id] = array('ser' => serialize($service), 'restore' => $restore);
+                    $autoSave[$id] = array('ser' => serialize($service), 'restore' => $restore, 'type' => $type);
                 }
             }
         }
@@ -294,12 +299,15 @@ class Session extends ZMObject {
      * Restore persisted services.
      */
     protected function restorePersistedServices() {
-        if ($this->container->isFrozen()) {
-            return;
-        }
         // restore persisted services
         foreach ((array)$this->getValue(self::AUTO_SAVE_KEY) as $id => $serdat) {
             $obj = unserialize($serdat['ser']);
+            $isService = !isset($serdat['type']) || 'service' == $serdat['type'];
+            if ($isService) {
+                $service = $this->container->get($id);
+                Beans::setAll($service, $obj->getSerializableProperties());
+                $obj = $service;
+            }
             foreach ($serdat['restore'] as $rid) {
                 if ($this->container->has($rid)) {
                     $rid = trim($rid);
@@ -307,10 +315,12 @@ class Session extends ZMObject {
                     $obj->$method($this->container->get($rid));
                 }
             }
-            // preserve definition
-            $definition = $this->container->getDefinition($id);
-            $this->container->set($id, $obj);
-            $this->container->setDefinition($id, $definition);
+            if (!$isService) {
+                // preserve definition
+                $definition = $this->container->getDefinition($id);
+                $this->container->set($id, $obj);
+                $this->container->setDefinition($id, $definition);
+            }
         }
     }
 
