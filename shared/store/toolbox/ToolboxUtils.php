@@ -169,7 +169,7 @@ class ToolboxUtils extends ToolboxTool {
      * @param string url2 Optional second URL; default is <code>null</code> to compare to the current URL.
      * @return boolean <code>true</code> if URLs are considered equal (based on various URL parameters).
      */
-    public static function compareStoreUrl($url1, $url2=null) {
+    public function compareStoreUrl($url1, $url2=null) {
         $request = $this->getRequest();
         // just in case
         $url1 = str_replace('&amp;', '&', $url1);
