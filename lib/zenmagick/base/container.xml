@@ -31,6 +31,9 @@
     </parameters>
 
     <services>
+        <service id="service_container" synthetic="true" />
+        <service id="kernel" synthetic="true" />
+
         <service id="transientCache" class="zenmagick\base\cache\MemoryCache" scope="container">
             <call method="init">
                 <argument>global</argument>
