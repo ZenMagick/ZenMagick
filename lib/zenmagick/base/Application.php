@@ -91,7 +91,7 @@ class Application extends Kernel {
     public function registerContainerConfiguration(LoaderInterface $loader) {
         $appContainerFiles = array('lib/zenmagick/base/container.xml');
         if ('cli' !== php_sapi_name()) {
-            $appContainerFiles[] =  'lib/zenmagick/http/container.xml';
+            $appContainerFiles[] = 'lib/zenmagick/http/container.xml';
         }
         if ($applicationPath = $this->getApplicationPath()) {
             $appContainerFiles[] = $applicationPath.'/config/container.xml';
@@ -308,16 +308,7 @@ class Application extends Kernel {
      * Init class loader.
      */
     protected function initClassLoader() {
-        // set up base class loader
-        $basePath = $this->getRootDir() .'/lib/zenmagick/base';
-        $basephar = 'phar://'.$basePath.'/base.phar';
-
-        // NOTE: the base package has a flattened folder structure, so the path doesn't reflect the namespace
-        if (file_exists($basephar)) {
-            require_once $basephar.'/classloader/ClassLoader.php';
-        } else {
-            require_once $basePath.'/classloader/ClassLoader.php';
-        }
+        require_once $this->getRootDir().'/lib/zenmagick/base/classloader/ClassLoader.php';
 
         $this->classLoader = new ClassLoader();
         $this->classLoader->register();
@@ -400,7 +391,9 @@ class Application extends Kernel {
             $contextConfigLoader = new \zenmagick\base\utils\ContextConfigLoader;
             $contextConfigLoader->setConfig(Toolbox::loadWithEnv($globalFilename));
             $config = $contextConfigLoader->resolve($this->getContext());
-            $settingsService->setAll($config['settings']);
+            if (isset($config['settings'])) {
+                $settingsService->setAll($config['settings']);
+            }
             unset($config['settings']);
             unset($config['container']); // @todo merge this with the other container configuration if we want to keep it.
             $contextConfigLoader->apply($config);
