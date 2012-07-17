@@ -31,8 +31,6 @@
             <argument type="service" id="themeResourceResolver" />
         </service>
 
-        <service id="storeMessageService" class="zenmagick\apps\store\storefront\services\MessageService" parent="merge:messageService" />
-
         <service id="ZMForwardView" class="ForwardView" scope="prototype" />
         <service id="forwardView" alias="ZMForwardView" />
 

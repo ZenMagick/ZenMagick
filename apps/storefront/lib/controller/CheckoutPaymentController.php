@@ -43,6 +43,16 @@ class CheckoutPaymentController extends \ZMController {
         $shoppingCart = $request->getShoppingCart();
         $checkoutHelper = $shoppingCart->getCheckoutHelper();
 
+
+        $net = $request->getToolbox()->net;
+        // messages from various payment methods.
+        $messageParams = array('credit_class_error', 'error', 'error_message', 'payment_error');
+        foreach ($messageParams as $messageParam) {
+            if (null != ($error = $request->query->get($messageParam))) {
+                $this->messageService->error($net->encode(urldecode($error)));
+            }
+        }
+
         if (!$checkoutHelper->verifyHash($request)) {
             return $this->findView('check_cart');
         }
