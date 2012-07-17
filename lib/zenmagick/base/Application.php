@@ -89,8 +89,30 @@ class Application extends Kernel {
      * @see Symfony\Component\HttpKernel\KernelInterface
      */
     public function registerContainerConfiguration(LoaderInterface $loader) {
-        die(var_dump(debug_backtrace()));
-        $loader->load(__DIR__.'/config/config_'.$this->getEnvironment().'.yml');
+        $appContainerFiles = array('lib/zenmagick/base/container.xml');
+        if ('cli' !== php_sapi_name()) {
+            $appContainerFiles[] =  'lib/zenmagick/http/container.xml';
+        }
+        if ($applicationPath = $this->getApplicationPath()) {
+            $appContainerFiles[] = $applicationPath.'/config/container.xml';
+        }
+
+        $appContainerFiles = array_merge($appContainerFiles, $this->getConfig('appContainer', array()));
+        $files = array();
+        $filesystem = new Filesystem();
+        foreach ($appContainerFiles as $file) {
+            if (!$filesystem->isAbsolutePath($file)) {
+                $file = $this->getRootDir().'/'.$file;
+            }
+            $containerConfig = Toolbox::resolveWithEnv($file);
+            if (file_exists($containerConfig)) {
+                $files[] = $containerConfig;
+            }
+        }
+
+        foreach ($files as $file) {
+            $loader->load($file);
+        }
     }
 
     /**
@@ -327,34 +349,10 @@ class Application extends Kernel {
         $container->set('settingsService', $this->settingsService);
 
         $this->container = $container;
+        $this->registerContainerConfiguration($this->getContainerLoader($container));
+
         Runtime::setContainer($this->container);
 
-        // Collect all files
-        $appContainerFiles = array('lib/zenmagick/base/container.xml');
-        if ('cli' !== php_sapi_name()) {
-            $appContainerFiles[] =  'lib/zenmagick/http/container.xml';
-        }
-        if ($applicationPath = $this->getApplicationPath()) {
-            $appContainerFiles[] = $applicationPath.'/config/container.xml';
-        }
-
-        $appContainerFiles = array_merge($appContainerFiles, $this->getConfig('appContainer', array()));
-        $files = array();
-        $filesystem = new Filesystem();
-        foreach ($appContainerFiles as $file) {
-            if (!$filesystem->isAbsolutePath($file)) {
-                $file = $this->getRootDir().'/'.$file;
-            }
-            $containerConfig = Toolbox::resolveWithEnv($file);
-            if (file_exists($containerConfig)) {
-                $files[] = $containerConfig;
-            }
-        }
-
-        foreach ($files as $file) {
-            $loader = new XmlFileLoader($container, new FileLocator(dirname($file)));
-            $loader->load($file);
-        }
     }
 
     /**
