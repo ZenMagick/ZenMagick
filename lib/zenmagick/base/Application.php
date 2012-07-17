@@ -26,7 +26,7 @@ use zenmagick\base\Beans;
 use zenmagick\base\classloader\ClassLoader;
 use zenmagick\base\Toolbox;
 use zenmagick\base\ZMException;
-use zenmagick\base\dependencyInjection\Container;
+use zenmagick\base\dependencyInjection\ContainerBuilder;
 use zenmagick\base\events\Event;
 use zenmagick\base\plugins\Plugins;
 use Symfony\Component\Config\FileLocator;
@@ -431,7 +431,7 @@ class Application extends Kernel {
      * {@inheritDoc}
      */
     public function getContainerBuilder() {
-        return new Container(new ParameterBag($this->getKernelParameters()));
+        return new ContainerBuilder(new ParameterBag($this->getKernelParameters()));
     }
 
     /**

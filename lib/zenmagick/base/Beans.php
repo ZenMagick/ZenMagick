@@ -22,7 +22,7 @@ namespace zenmagick\base;
 use zenmagick\base\Runtime;
 use zenmagick\base\ZMObject;
 
-use zenmagick\base\dependencyInjection\Container;
+use zenmagick\base\dependencyInjection\ContainerBuilder;
 
 /**
  * ZenMagick beans.
@@ -175,7 +175,7 @@ class Beans {
      * @return mixed An instance of the given class or <code>null</code>.
      */
     public static function map2obj($clazz, $data, $keys=null) {
-        if (null != ($obj = Runtime::getContainer()->get($clazz, Container::NULL_ON_INVALID_REFERENCE))) {
+        if (null != ($obj = Runtime::getContainer()->get($clazz, ContainerBuilder::NULL_ON_INVALID_REFERENCE))) {
             self::setAll($obj, $data, $keys);
             return $obj;
         }

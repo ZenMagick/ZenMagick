@@ -25,7 +25,7 @@ use zenmagick\base\dependencyInjection\parameterBag\SettingsParameterBag;
 use zenmagick\base\dependencyInjection\compiler\ResolveMergeDefinitionsPass;
 
 use Symfony\Component\DependencyInjection\ContainerAwareInterface;
-use Symfony\Component\DependencyInjection\ContainerBuilder;
+use Symfony\Component\DependencyInjection\ContainerBuilder as BaseContainerBuilder;
 use Symfony\Component\DependencyInjection\Definition;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 
@@ -36,7 +36,7 @@ use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class Container extends ContainerBuilder {
+class ContainerBuilder extends BaseContainerBuilder {
 
     /**
      * Create new instance.
