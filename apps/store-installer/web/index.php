@@ -25,6 +25,7 @@ include_once $rootDir.'/autoload.php';
 $config = array('context' => basename(dirname(__DIR__)));
 $environment = isset($_SERVER['ZM_ENVIRONMENT']) ? $_SERVER['ZM_ENVIRONMENT'] : 'prod';
 $application = new Application($environment, true, $config);
+$application->loadClassCache();
 $request = new Request(); // @todo use createFromGlobals
 $response = $application->handle($request);
 $response->send();

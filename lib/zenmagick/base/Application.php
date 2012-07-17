@@ -216,6 +216,14 @@ class Application extends Kernel {
     }
 
     /**
+     * {@inheritDoc}
+     *
+     * @todo remove this stub once we're ready
+     */
+    public function loadClassCache($name = 'classes', $extension = '.php') {
+    }
+
+    /**
      * Init the bootstrap config.
      */
     protected function initBootstrap() {
