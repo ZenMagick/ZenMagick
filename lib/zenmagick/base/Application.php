@@ -123,38 +123,29 @@ class Application extends Kernel {
     public function boot(array $keys=null) {
         if (true === $this->booted) return;
         $bootstrap = $this->initBootstrap();
-        try {
-            foreach ($bootstrap as $ii => $step) {
-                if (array_key_exists('done', $step) || (null !== $keys && !in_array($step['key'], $keys))) {
-                    continue;
-                }
-
-                if (array_key_exists('preEvent', $step)) {
-                    $eventName = $step['preEvent'];
-                    $this->fireEvent($eventName);
-                }
-
-                if (!array_key_exists('methods', $step)) $step['methods'] = array();
-                foreach ((array)$step['methods'] as $method) {
-                    $this->profile(sprintf('enter bootstrap method: %s', $method));
-                    $this->$method();
-                    $this->profile(sprintf('exit bootstrap method: %s', $method));
-                }
-                if (array_key_exists('postEvent', $step)) {
-                    $eventName = $step['postEvent'];
-                    $this->fireEvent($eventName);
-                }
-                $this->bootstrap[$ii]['done'] = true;
+        foreach ($bootstrap as $ii => $step) {
+            if (array_key_exists('done', $step) || (null !== $keys && !in_array($step['key'], $keys))) {
+                continue;
             }
-            $this->booted = true;
-        } catch (Exception $e) {
-            $msg = sprintf('bootstrap failed: %s', $e->getMessage());
-            if (null != ($container = $this->getContainer()) && $container->has('loggingService') && null != ($loggingService = $container->get('loggingService'))) {
-                $loggingService->dump($e, $msg);
+
+            if (array_key_exists('preEvent', $step)) {
+                $eventName = $step['preEvent'];
+                $this->fireEvent($eventName);
             }
-            echo implode("\n", ZMException::formatStackTrace($e->getTrace()));
-            die($msg);
+
+            if (!array_key_exists('methods', $step)) $step['methods'] = array();
+            foreach ((array)$step['methods'] as $method) {
+                $this->profile(sprintf('enter bootstrap method: %s', $method));
+                $this->$method();
+                $this->profile(sprintf('exit bootstrap method: %s', $method));
+            }
+            if (array_key_exists('postEvent', $step)) {
+                $eventName = $step['postEvent'];
+                $this->fireEvent($eventName);
+            }
+            $this->bootstrap[$ii]['done'] = true;
         }
+        $this->booted = true;
     }
 
     /**
@@ -214,7 +205,6 @@ class Application extends Kernel {
                     'initSettings',
                     'initializeBundles',
                     'loadPackages',
-                    'initLogging',
                     'initRuntime',
                     'loadBundles',
                     'loadBootstrapPackages',
@@ -476,20 +466,6 @@ class Application extends Kernel {
                 $eventDispatcher->listen($eventListener);
             }
         }
-    }
-
-    /**
-     * Init logging.
-     */
-    protected function initLogging() {
-        $settingsService = Runtime::getSettings();
-        if ($settingsService->get('zenmagick.base.logging.handleErrors')) {
-            $logging = Runtime::getLogging();
-            set_error_handler(array($logging, 'errorHandler'));
-            set_exception_handler(array($logging, 'exceptionHandler'));
-            register_shutdown_function(array($logging, 'shutdownHandler'));
-        }
-        Runtime::getLogging()->debug(sprintf('environment is: %s', $this->environment));
     }
 
     /**
