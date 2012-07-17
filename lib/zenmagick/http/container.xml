@@ -115,9 +115,6 @@
         </service>
 
         <!-- add tag -->
-        <service id="httpSettingsService" class="zenmagick\base\settings\Settings" parent="merge:settingsService">
-            <tag name="zenmagick.http.view.variable" key="settings" />
-        </service>
 
         <service id="booleanFormWidget" class="zenmagick\http\widgets\form\BooleanFormWidget" scope="prototype">
             <tag name="zenmagick.http.widgets.widget" />
