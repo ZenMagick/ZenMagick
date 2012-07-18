@@ -200,6 +200,14 @@ class Application extends Kernel {
 
     /**
      * {@inheritDoc}
+     */
+    public function getCacheDir() {
+        return $this->rootDir.'/cache/'.$this->getContext().'/'.$this->environment;
+    }
+
+
+    /**
+     * {@inheritDoc}
      * @todo adjust
      */
     public function getCharset() {
