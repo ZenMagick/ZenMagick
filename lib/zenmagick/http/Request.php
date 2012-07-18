@@ -106,22 +106,6 @@ class Request extends HttpFoundationRequest implements ContainerAwareInterface {
     }
 
     /**
-     * Get a list of <code>zenmagick\htt\request\rewriter\UrlRewriter</code> instances.
-     *
-     * <p>Instances are looked up in the container with a tag of <em>zenmagick.http.request.rewriter</em>.</p>
-     *
-     * @return array List of <code>zenmagick\htt\request\rewriter\UrlRewriter</code> instances.
-     */
-    public function getUrlRewriter() {
-        $urlRewriter = array();
-        foreach ($this->container->findTaggedServiceIds('zenmagick.http.request.rewriter') as $id => $args) {
-            $urlRewriter[] = $this->container->get($id);
-        }
-
-        return array_reverse($urlRewriter);
-    }
-
-    /**
      * Create a URL.
      *
      * <p>Mother of all URL related methods.</p>

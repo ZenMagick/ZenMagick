@@ -68,8 +68,8 @@ class Dispatcher implements HttpKernelInterface {
             $settingsService = $container->get('settingsService');
             $request = $container->get('request'); // @todo use it from the argument :)
             // allow seo rewriters to fiddle with the request
-            foreach ($request->getUrlRewriter() as $rewriter) {
-                if ($rewriter->decode($request)) break; // traditional ZenMagick routing
+            foreach (array_reverse($container->get('containerTagService')->findTaggedServiceIds('zenmagick.http.request.rewriter')) as $id => $args) {
+                if ($this->container->get($id)->decode($request)) break;
             }
 
             // make sure we use the appropriate protocol (HTTPS, for example) if required
