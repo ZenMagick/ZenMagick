@@ -25,6 +25,7 @@ use zenmagick\base\Toolbox;
 use zenmagick\base\ZMObject;
 use zenmagick\base\events\Event;
 use zenmagick\base\logging\Logging;
+use zenmagick\http\routing\RouteResolver;
 
 /**
  * Handle access control and security mappings.
@@ -52,7 +53,7 @@ class SacsManager extends ZMObject {
     private $mappings_;
     private $handlers_;
     private $permissionProviders_;
-
+    private $routeResolver;
 
     /**
      * Create new instance.
@@ -62,6 +63,19 @@ class SacsManager extends ZMObject {
         $this->reset();
     }
 
+    /**
+     * Set an optional RouteResolver
+     */
+    public function setRouteResolver(RouteResolver $routeResolver) {
+        $this->routeResolver = $routeResolver;
+    }
+
+    /**
+     * Get the RouteResolver
+     */
+    protected function getRouteResolver() {
+        return $this->routeResolver;
+    }
 
     /**
      * Reset all internal data structures.
@@ -215,8 +229,8 @@ class SacsManager extends ZMObject {
         $requestId = $request->getRequestId();
         $secure = Toolbox::asBoolean($this->getMappingValue($requestId, 'secure', false));
         // check router too
-        $routeResolver = $this->container->get('routeResolver');
-        if (null != ($route = $routeResolver->getRouteForId($requestId))) {
+        $routeResolver = $this->getRouteResolver();
+        if ((null != $routeResolver) && (null != ($route = $routeResolver->getRouteForId($requestId)))) {
             $requirements = $route->getRequirements();
             $secure |= (array_key_exists('_scheme', $requirements) && 'https' == $requirements['_scheme']);
         }

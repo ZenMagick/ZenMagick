@@ -28,7 +28,11 @@
             <tag name="zenmagick.http.view.variable" key="messageService" />
         </service>
 
-        <service id="sacsManager" class="zenmagick\http\sacs\SacsManager" scope="container" />
+        <service id="sacsManager" class="zenmagick\http\sacs\SacsManager" scope="container">
+            <call method="setRouteResolver">
+                <argument type="service" id="routeResolver" />
+            </call>
+        </service>
 
         <service id="defaultUrlRewriter" class="zenmagick\http\request\rewriter\DefaultUrlRewriter" scope="container">
             <tag name="zenmagick.http.request.rewriter" />
