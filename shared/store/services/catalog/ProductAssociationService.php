@@ -41,7 +41,7 @@ class ProductAssociationService extends ZMObject {
      */
     public function getHandlers() {
         $handlers = array();
-        foreach ($this->container->get('tagService')->findTaggedServiceIds('apps.store.associations.handler') as $id => $args) {
+        foreach ($this->container->get('containerTagService')->findTaggedServiceIds('apps.store.associations.handler') as $id => $args) {
             $handler = $this->container->get($id);
             $handlers[$handler->getType()] = $handler;
         }

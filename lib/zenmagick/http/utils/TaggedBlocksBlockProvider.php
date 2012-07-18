@@ -36,7 +36,7 @@ class TaggedBlocksBlockProvider extends ZMObject implements BlockProvider {
      */
     public function getBlockList($args=array()) {
         $blocks = array();
-        foreach ($this->container->findTaggedServiceIds('zenmagick.http.blocks.block') as $id => $args) {
+        foreach ($this->container->get('containerTagService')->findTaggedServiceIds('zenmagick.http.blocks.block') as $id => $args) {
             $blocks[] = 'ref::'.$id;
         }
         return $blocks;

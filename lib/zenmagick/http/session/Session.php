@@ -266,7 +266,7 @@ class Session extends ZMObject {
      */
     protected function persistServices() {
         $autoSave = array();
-        foreach ($this->container->findTaggedServiceIds('zenmagick.http.session.persist') as $id => $args) {
+        foreach ($this->container->get('containerTagService')->findTaggedServiceIds('zenmagick.http.session.persist') as $id => $args) {
             // list of services to restore on instance
             $restore = array();
             $context = null;
