@@ -333,10 +333,10 @@ class Application extends Kernel {
     public function fireEvent($eventName, array $parameter=array()) {
         $parameter['kernel'] = $this;
         if (('cli' !== php_sapi_name()) && in_array($eventName, array('request_ready', 'container_ready'))) {
-            $parameter['request'] = $this->getContainer()->get('request');
+            $parameter['request'] = $this->container->get('request');
         }
 
-        Runtime::getEventDispatcher()->dispatch($eventName, new Event($this, $parameter));
+        $this->container->get('eventDispatcher')->dispatch($eventName, new Event($this, $parameter));
     }
 
     /**
@@ -468,7 +468,7 @@ class Application extends Kernel {
      * Init event listener.
      */
     protected function initEventListener() {
-        $eventDispatcher = Runtime::getEventDispatcher();
+        $eventDispatcher = $this->container->get('eventDispatcher');
         $settingsService = $this->container->get('settingsService');
         foreach ($settingsService->get('zenmagick.base.events.listeners', array()) as $eventListener) {
             if (null != ($eventListener = Beans::getBean(trim($eventListener)))) {
@@ -481,8 +481,8 @@ class Application extends Kernel {
      * Init locale.
      */
     protected function initLocale() {
-        $container = $this->getContainer();
-        $settingsService = Runtime::getSettings();
+        $container = $this->container;
+        $settingsService = $container->get('settingsService');
 
         $container->get('localeService')->init($settingsService->get('zenmagick.base.locales.locale', $this->getConfig('defaultLocale', 'en')));
 
