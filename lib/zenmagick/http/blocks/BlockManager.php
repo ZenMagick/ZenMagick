@@ -49,7 +49,7 @@ class BlockManager extends ZMObject {
      */
     public function getProviders() {
         $providers = array();
-        foreach ($this->container->findTaggedServiceIds('zenmagick.http.blocks.provider') as $id => $args) {
+        foreach ($this->container->get('containerTagService')->findTaggedServiceIds('zenmagick.http.blocks.provider') as $id => $args) {
             $providers[] = $this->container->get($id);
         }
         return $providers;

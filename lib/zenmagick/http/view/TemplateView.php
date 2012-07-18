@@ -247,7 +247,7 @@ class TemplateView extends ZMObject implements View {
      */
     protected function getEngine() {
         $engine = new DelegatingEngine();
-        foreach ($this->container->findTaggedServiceIds('zenmagick.http.templates.engine') as $id => $args) {
+        foreach ($this->container->get('containerTagService')->findTaggedServiceIds('zenmagick.http.templates.engine') as $id => $args) {
             $engine->addEngine($this->container->get($id));
         }
         return $engine;
@@ -280,7 +280,7 @@ class TemplateView extends ZMObject implements View {
         $this->setVariable('locale', $this->container->get('localeService')->getLocale());
 
         // find services tagged as view variables
-        foreach ($this->container->findTaggedServiceIds('zenmagick.http.view.variable') as $id => $args) {
+        foreach ($this->container->get('containerTagService')->findTaggedServiceIds('zenmagick.http.view.variable') as $id => $args) {
             $key = null;
             foreach ($args as $elem) {
                 foreach ($elem as $key => $value) {

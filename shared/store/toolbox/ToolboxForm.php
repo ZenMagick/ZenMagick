@@ -150,7 +150,7 @@ class ToolboxForm extends ToolboxTool {
      * @return string A HTML form to add the given productId to the shopping cart.
      */
     public function addProduct($productId, $quantity=0, $attr=array()) {
-        $params = 'action=add_product&products_id='.$productId;
+        $params = 'products_id='.$productId;
         if (0 < $quantity) {
             $params .= '&cart_quantity='.$quantity;
         }
@@ -158,7 +158,7 @@ class ToolboxForm extends ToolboxTool {
         $attr = array_merge(array('enctype' => 'multipart/form-data', 'onsubmit' => null), $attr);
 
         // make multipart in case there are uploads
-        return $this->open(null, $params, true, $attr);
+        return $this->open('cart.add', $params, true, $attr);
     }
 
     /**

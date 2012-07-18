@@ -70,7 +70,7 @@ class Toolbox extends ContainerAware {
      */
     protected function initTools() {
         $tools = array();
-        foreach ($this->container->findTaggedServiceIds('zenmagick.http.toolbox.tool') as $id => $args) {
+        foreach ($this->container->get('containerTagService')->findTaggedServiceIds('zenmagick.http.toolbox.tool') as $id => $args) {
             $key = null;
             foreach ($args as $elem) {
                 foreach ($elem as $key => $value) {

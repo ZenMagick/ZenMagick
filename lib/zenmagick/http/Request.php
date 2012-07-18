@@ -114,7 +114,7 @@ class Request extends HttpFoundationRequest implements ContainerAwareInterface {
      */
     public function getUrlRewriter() {
         $urlRewriter = array();
-        foreach ($this->container->findTaggedServiceIds('zenmagick.http.request.rewriter') as $id => $args) {
+        foreach ($this->container->get('containerTagService')->findTaggedServiceIds('zenmagick.http.request.rewriter') as $id => $args) {
             $urlRewriter[] = $this->container->get($id);
         }
 

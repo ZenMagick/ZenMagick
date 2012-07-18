@@ -52,7 +52,7 @@ class RssController extends ZMObject {
         // find source
         $feed = null;
         $key = empty($key) ? null : $key;
-        foreach ($this->container->findTaggedServiceIds('zenmagick.http.rss.source') as $id => $args) {
+        foreach ($this->container->get('containerTagService')->findTaggedServiceIds('zenmagick.http.rss.source') as $id => $args) {
             $source = $this->container->get($id);
             if (null != ($feed = $source->getFeed($request, $channel, array('key' => $key)))) {
                 break;
