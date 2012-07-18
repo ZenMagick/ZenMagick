@@ -22,6 +22,10 @@ namespace zenmagick\http;
 use Exception;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\HttpKernelInterface;
+use Symfony\Component\HttpKernel\Controller\ControllerResolverInterface;
+use Symfony\Component\DependencyInjection\ContainerInterface;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
+
 
 use zenmagick\base\Beans;
 use zenmagick\base\Runtime;
@@ -44,9 +48,15 @@ use zenmagick\http\view\View;
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class Dispatcher extends ZMObject implements HttpKernelInterface {
+class Dispatcher implements HttpKernelInterface {
+    protected $container;
     private $parameterMapper;
     private $controllerExecutor;
+
+    public function __construct(/*EventDispatcherInterface $dispatcher,*/ContainerInterface $container/*, ControllerResolverInterface $controllerResolver*/) {
+        //parent::__construct($dispatcher, $controllerResolver);
+        $this->container = $container;
+    }
 
     /*
      * Handle web request.
@@ -58,8 +68,8 @@ class Dispatcher extends ZMObject implements HttpKernelInterface {
             $settingsService = $container->get('settingsService');
             $request = $container->get('request'); // @todo use it from the argument :)
             // allow seo rewriters to fiddle with the request
-            foreach ($request->getUrlRewriter() as $rewriter) {
-                if ($rewriter->decode($request)) break; // traditional ZenMagick routing
+            foreach (array_reverse($container->get('containerTagService')->findTaggedServiceIds('zenmagick.http.request.rewriter')) as $id => $args) {
+                if ($this->container->get($id)->decode($request)) break;
             }
 
             // make sure we use the appropriate protocol (HTTPS, for example) if required

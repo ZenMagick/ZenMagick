@@ -28,7 +28,11 @@
             <tag name="zenmagick.http.view.variable" key="messageService" />
         </service>
 
-        <service id="sacsManager" class="zenmagick\http\sacs\SacsManager" scope="container" />
+        <service id="sacsManager" class="zenmagick\http\sacs\SacsManager" scope="container">
+            <call method="setRouteResolver">
+                <argument type="service" id="routeResolver" />
+            </call>
+        </service>
 
         <service id="defaultUrlRewriter" class="zenmagick\http\request\rewriter\DefaultUrlRewriter" scope="container">
             <tag name="zenmagick.http.request.rewriter" />
@@ -150,6 +154,7 @@
         </service>
 
         <service id="http_kernel" class="zenmagick\http\Dispatcher" scope="container">
+            <argument type="service" id="service_container" />
             <call method="setParameterMapper">
                 <argument type="service" id="controllerParameterMapper" />
             </call>
@@ -185,8 +190,11 @@
             <tag name="zenmagick.http.templates.engine" />
         </service>
 
-        <service id="defaultController" class="ZMController" scope="prototype" />
-
+        <service id="defaultController" class="ZMController" scope="prototype">
+            <call method="setContainer">
+                <argument type="service" id="service_container" />
+            </call>
+        </service>
         <service id="formTokenSessionValidator" class="zenmagick\http\session\validation\FormTokenSessionValidator" scope="prototype">
             <call method="setRequestIds">
                 <argument>%zenmagick.http.session.formToken%</argument>

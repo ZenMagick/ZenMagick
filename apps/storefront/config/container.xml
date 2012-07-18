@@ -60,7 +60,11 @@
             <tag name="zenmagick.http.toolbox.tool" key="metaTags" />
         </service>
 
-        <service id="defaultController" class="zenmagick\apps\store\storefront\controller\DefaultController" scope="prototype" />
+        <service id="defaultController" class="zenmagick\apps\store\storefront\controller\DefaultController" scope="prototype">
+            <call method="setContainer">
+                <argument type="service" id="service_container" />
+            </call>
+        </service>
 
         <service id="userFactory" class="zenmagick\apps\store\storefront\services\CustomerUserFactory" scope="container" />
     </services>

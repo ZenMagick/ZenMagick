@@ -263,7 +263,7 @@ class TemplateView extends ZMObject implements View {
             return;
         }
 
-        $settingsService = Runtime::getSettings();
+        $settingsService = $this->container->get('settingsService');
 
         // set some standard things
         $this->setVariable('container', $this->container);

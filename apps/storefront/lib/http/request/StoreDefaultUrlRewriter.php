@@ -64,7 +64,9 @@ class StoreDefaultUrlRewriter extends ZMObject implements UrlRewriter {
 
         // also do process all rewriters as here we have the full context incl. add. zencart parameters
         // if called directly (as done from the override zen_href_link function...)
-        $rewriters = $request->getUrlRewriter();
+        foreach (array_reverse($container->get('containerTagService')->findTaggedServiceIds('zenmagick.http.request.rewriter')) as $id => $args) {
+            $rewriters[] = $container->get($id);
+        }
         if ($seo && 0 < count($rewriters)) {
             $rewrittenUrl = null;
             $args = array(

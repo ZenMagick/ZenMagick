@@ -36,7 +36,7 @@ use Symfony\Component\HttpKernel\Log\LoggerInterface;
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class Logging extends ZMObject {
+class Logging extends ZMObject implements LoggerInterface {
     /** Log level: Disabled. */
     const NONE = 0;
     /** Log level: Error. */
@@ -157,7 +157,7 @@ class Logging extends ZMObject {
      * @param string message The message to log.
      * @param array context (unimplemented)
      */
-    public function error($message) {
+    public function error($message, array $context = array()) {
         $this->log($message, self::ERROR);
     }
 
@@ -167,7 +167,7 @@ class Logging extends ZMObject {
      * @param string message The message to log.
      * @param array context (unimplemented)
      */
-    public function err($message) {
+    public function err($message, array $context = array()) {
         $this->log($message, self::ERROR);
     }
 
@@ -177,7 +177,7 @@ class Logging extends ZMObject {
      * @param string message The message to log.
      * @param array context (unimplemented)
      */
-    public function emerg($message) {
+    public function emerg($message, array $context = array()) {
         $this->log($message, self::ERROR);
     }
 
@@ -187,7 +187,7 @@ class Logging extends ZMObject {
      * @param string message The message to log.
      * @param array context (unimplemented)
      */
-    public function crit($message) {
+    public function crit($message, array $context = array()) {
         $this->log($message, self::ERROR);
     }
 
@@ -197,7 +197,7 @@ class Logging extends ZMObject {
      * @param string message The message to log.
      * @param array context (unimplemented)
      */
-    public function alert($message) {
+    public function alert($message, array $context = array()) {
         $this->log($message, self::ERROR);
     }
 

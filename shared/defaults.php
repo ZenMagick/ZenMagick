@@ -133,6 +133,8 @@ if (!defined('ATTRIBUTES_PRICE_FACTOR_FROM_SPECIAL')) define('ATTRIBUTES_PRICE_F
             'textOptionPrefix' => defined('TEXT_PREFIX') ? TEXT_PREFIX : 'txt_',
             'uploadOptionPrefix' => defined('UPLOAD_PREFIX') ? UPLOAD_PREFIX : 'upload_',
 
+            'apps.store.cart.uploads' => Runtime::getSettings()->get('uploadBaseDir') ?: realpath(Runtime::getInstallationPath().'/../images/uploads'),
+
             // default/store currency
             'defaultCurrency' => DEFAULT_CURRENCY,
             'textCurrencyMapping' => CURRENCIES_TRANSLATIONS,
