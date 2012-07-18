@@ -22,6 +22,7 @@ namespace zenmagick\base\dependencyInjection;
 use zenmagick\base\ZMException;
 use zenmagick\base\classloader\ClassLoader;
 use zenmagick\base\dependencyInjection\parameterBag\SettingsParameterBag;
+use zenmagick\base\dependencyInjection\compiler\ConfigureContainerTagServicePass;
 use zenmagick\base\dependencyInjection\compiler\ResolveMergeDefinitionsPass;
 
 use Symfony\Component\DependencyInjection\ContainerAwareInterface;
@@ -43,6 +44,7 @@ class ContainerBuilder extends BaseContainerBuilder {
      */
     public function __construct(ParameterBagInterface $parameterBag=null) {
         parent::__construct(null == $parameterBag? new SettingsParameterBag() : new SettingsParameterBag($parameterBag->all()));
+        $this->getCompilerPassConfig()->addPass(new ConfigureContainerTagServicePass());
         $this->getCompilerPassConfig()->addPass(new ResolveMergeDefinitionsPass());
     }
 

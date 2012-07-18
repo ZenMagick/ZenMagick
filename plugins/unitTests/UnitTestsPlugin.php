@@ -76,7 +76,7 @@ class UnitTestsPlugin extends Plugin {
      */
     public function getTests() {
         if (!$this->customDone_) {
-            foreach ($this->container->findTaggedServiceIds('plugins.unitTests.test') as $id => $args) {
+            foreach ($this->container->get('containerTagService')->findTaggedServiceIds('plugins.unitTests.test') as $id => $args) {
                 $group = UNIT_TESTS_GROUP_OTHER;
                 foreach ($args as $elem) {
                     foreach ($elem as $key => $value) {

@@ -92,7 +92,7 @@ class Dashboard extends ZMObject {
 
         // get list of all widgets
         $allWidgets = array();
-        foreach ($this->container->findTaggedServiceIds('apps.store.admin.dashboard.widget') as $id => $args) {
+        foreach ($this->container->get('containerTagService')->findTaggedServiceIds('apps.store.admin.dashboard.widget') as $id => $args) {
             $allWidgets[] = $id;
         }
 

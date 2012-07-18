@@ -154,7 +154,7 @@ class Dispatcher extends ZMObject implements HttpKernelInterface {
             $result = null;
 
             // validate session
-            foreach ($this->container->findTaggedServiceIds('zenmagick.http.session.validator') as $id => $args) {
+            foreach ($this->container->get('containerTagService')->findTaggedServiceIds('zenmagick.http.session.validator') as $id => $args) {
                 if (null != ($validator = $this->container->get($id)) && $validator instanceof SessionValidator) {
                     if (!$validator->isValidSession($request, $request->getSession())) {
                         $this->container->get('loggingService')->trace(sprintf('session validation failed %s', $validator));

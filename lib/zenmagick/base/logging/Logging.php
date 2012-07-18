@@ -115,6 +115,7 @@ class Logging extends ZMObject {
      */
     protected function getHandlers() {
         $handlers = array();
+        //foreach ($this->container->get('containerTagService')->findTaggedServiceIds('zenmagick.base.logging.handler') as $id => $args) {
         foreach ($this->container->findTaggedServiceIds('zenmagick.base.logging.handler') as $id => $args) {
             $handlers[] = $this->container->get($id);
         }

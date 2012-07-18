@@ -44,7 +44,7 @@ class CatalogController extends \ZMController {
      */
     protected function getCatalogContentControllers($request) {
         $controllers = array();
-        foreach ($this->container->findTaggedServiceIds('apps.store.admin.tabcontroller') as $id => $args) {
+        foreach ($this->container->get('containerTagService')->findTaggedServiceIds('apps.store.admin.tabcontroller') as $id => $args) {
             $controller = $this->container->get($id);
             if ($controller->isActive($request)) {
                 $controllers[] = $controller;

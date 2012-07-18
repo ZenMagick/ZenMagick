@@ -41,7 +41,7 @@ class EditorSelectFormWidget extends SelectFormWidget {
     public static function getEditorMap() {
         $container = Runtime::getContainer();
         $editorMap = array();
-        foreach ($container->findTaggedServiceIds('zenmagick.apps.store.editor') as $id => $args) {
+        foreach ($container->get('containerTagService')->findTaggedServiceIds('zenmagick.apps.store.editor') as $id => $args) {
             $label = $id;
             foreach ($args as $elem) {
                 foreach ($elem as $key => $value) {

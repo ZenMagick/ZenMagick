@@ -45,7 +45,7 @@ class AuthenticationManager extends ZMObject {
      */
     public function getProviders() {
         $providers = array();
-        foreach ($this->container->findTaggedServiceIds('zenmagick.base.security.authentication.provider') as $id => $args) {
+        foreach ($this->container->get('containerTagService')->findTaggedServiceIds('zenmagick.base.security.authentication.provider') as $id => $args) {
             $providers[] = $this->container->get($id);
         }
 
@@ -62,7 +62,7 @@ class AuthenticationManager extends ZMObject {
     public function getDefaultProvider() {
         $firstProvider = null;
         $defaultProvider = null;
-        foreach ($this->container->findTaggedServiceIds('zenmagick.base.security.authentication.provider') as $id => $args) {
+        foreach ($this->container->get('containerTagService')->findTaggedServiceIds('zenmagick.base.security.authentication.provider') as $id => $args) {
             foreach ($args as $elem) {
                 foreach ($elem as $key => $value) {
                     if ('default' == $key && $value) {
@@ -71,7 +71,7 @@ class AuthenticationManager extends ZMObject {
                 }
             }
         }
-        $services = array_keys($this->container->findTaggedServiceIds('zenmagick.base.security.authentication.provider'));
+        $services = array_keys($this->container->get('containerTagService')->findTaggedServiceIds('zenmagick.base.security.authentication.provider'));
 
         return 0 < count($services) ? $this->container->get($services[0]) : null;
     }
