@@ -23,6 +23,7 @@ use pear\cache\CacheLite;
 use zenmagick\base\Runtime;
 use zenmagick\base\ZMObject;
 
+use Symfony\Component\Filesystem\Filesystem;
 /**
  * File caching.
  *
@@ -129,8 +130,8 @@ class FileCache extends ZMObject implements Cache {
      * @return boolean <code>true</code> if the cache dir is usable, <code>false</code> if not.
      */
     private function ensureCacheDir($dir) {
-      Runtime::getContainer()->get('filesystem')->mkdir($dir, 0755);
-        //$this->container->get('filesystem')->mkdir($dir, 0755);
+        $filesystem = new Filesystem;
+        $filesystem->mkdir($dir, 0755);
         return file_exists($dir) && is_writeable($dir);
     }
 
