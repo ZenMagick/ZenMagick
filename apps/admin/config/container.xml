@@ -123,7 +123,11 @@
 
         <service id="themeBuilder" class="zenmagick\apps\store\admin\utils\ThemeBuilder" scope="prototype" />
 
-        <service id="defaultController" class="zenmagick\apps\store\admin\controller\DefaultController" scope="prototype" />
+        <service id="defaultController" class="zenmagick\apps\store\admin\controller\DefaultController" scope="prototype">
+            <call method="setContainer">
+                <argument type="service" id="service_container" />
+            </call>
+        </service>
 
         <service id="couponStatusCheck" class="zenmagick\apps\store\admin\dashboard\widgets\status\CouponStatusCheck" scope="prototype">
             <tag name="apps.store.admin.dashboard.widget.statusCheck" />

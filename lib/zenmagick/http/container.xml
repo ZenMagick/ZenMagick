@@ -190,8 +190,11 @@
             <tag name="zenmagick.http.templates.engine" />
         </service>
 
-        <service id="defaultController" class="ZMController" scope="prototype" />
-
+        <service id="defaultController" class="ZMController" scope="prototype">
+            <call method="setContainer">
+                <argument type="service" id="service_container" />
+            </call>
+        </service>
         <service id="formTokenSessionValidator" class="zenmagick\http\session\validation\FormTokenSessionValidator" scope="prototype">
             <call method="setRequestIds">
                 <argument>%zenmagick.http.session.formToken%</argument>
