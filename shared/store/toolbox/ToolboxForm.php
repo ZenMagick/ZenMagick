@@ -99,7 +99,7 @@ class ToolboxForm extends ToolboxTool {
         }
 
         // add session token if configured
-        if ($hasId && 'post' == strtolower($attr['method']) && in_array($attr['id'], $settingsService->get('zenmagick.http.session.formToken'))) {
+        if ($hasId && 'post' == strtolower($attr['method']) && in_array($attr['id'], $settingsService->get('zenmagick.http.session.formToken', array()))) {
             $hidden[FormTokenSessionValidator::SESSION_TOKEN_NAME] = $this->getRequest()->getSession()->getToken();
         }
 
@@ -112,10 +112,9 @@ class ToolboxForm extends ToolboxTool {
             // inline JS to allow PHP
             if (null != ($view = $this->getView())) {
                 $resourceManager = $view->getResourceManager();
-                $resourceManager->jsFile('js/validation.js', $resourceManager::NOW, true);
+                $resourceManager->jsFile('resource:js/validation.js', $resourceManager::NOW, true);
             }
         }
-
         echo '<form';
         foreach ($attr as $name => $value) {
             if (null !== $value) {
