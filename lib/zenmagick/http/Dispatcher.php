@@ -22,6 +22,10 @@ namespace zenmagick\http;
 use Exception;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\HttpKernelInterface;
+use Symfony\Component\HttpKernel\Controller\ControllerResolverInterface;
+use Symfony\Component\DependencyInjection\ContainerInterface;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
+
 
 use zenmagick\base\Beans;
 use zenmagick\base\Runtime;
@@ -44,9 +48,15 @@ use zenmagick\http\view\View;
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class Dispatcher extends ZMObject implements HttpKernelInterface {
+class Dispatcher implements HttpKernelInterface {
+    protected $container;
     private $parameterMapper;
     private $controllerExecutor;
+
+    public function __construct(/*EventDispatcherInterface $dispatcher,*/ContainerInterface $container/*, ControllerResolverInterface $controllerResolver*/) {
+        //parent::__construct($dispatcher, $controllerResolver);
+        $this->container = $container;
+    }
 
     /*
      * Handle web request.
