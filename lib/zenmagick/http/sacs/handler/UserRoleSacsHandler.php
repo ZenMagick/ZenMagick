@@ -19,6 +19,7 @@
  */
 namespace zenmagick\http\sacs\handler;
 
+use zenmagick\base\ZMObject;
 use zenmagick\http\sacs\SacsHandler;
 use zenmagick\http\sacs\handler\UserRoleCredentials;
 
@@ -34,7 +35,7 @@ use zenmagick\http\sacs\handler\UserRoleCredentials;
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class UserRoleSacsHandler implements SacsHandler {
+class UserRoleSacsHandler extends ZMObject implements SacsHandler {
 
     /**
      * {@inheritDoc}
