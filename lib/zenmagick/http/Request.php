@@ -164,8 +164,9 @@ class Request extends HttpFoundationRequest implements ContainerAwareInterface {
 
         // delegate generation to SEO rewriters
         $args = array('requestId' => $requestId, 'params' => $params, 'secure' => $secure);
-        foreach (array_reverse($this->container->get('containerTagService')->findTaggedServiceIds('zenmagick.http.request.rewriter')) as $id => $args) {
-            if (null != ($rewrittenUrl = $rewriter->rewrite($this, $args))) {
+        $rewriters = $this->container->get('containerTagService')->findTaggedServiceIds('zenmagick.http.request.rewriter');
+        foreach (array_keys(array_reverse($rewriters)) as $id) {
+            if (null != ($rewrittenUrl = $this->container->get($id)->rewrite($this, $args))) {
                 return $rewrittenUrl;
             }
         }
