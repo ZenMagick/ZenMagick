@@ -21,6 +21,7 @@ namespace zenmagick\base\events;
 
 use stdClass;
 use zenmagick\base\Runtime;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\EventDispatcher\Event;
 use Symfony\Component\EventDispatcher\EventDispatcher as SymfonyEventDispatcher;
 
@@ -38,6 +39,20 @@ use Symfony\Component\EventDispatcher\EventDispatcher as SymfonyEventDispatcher;
 class EventDispatcher extends SymfonyEventDispatcher {
     const LISTEN_ALL = '*';
 
+    private $container;
+
+    /**
+     * Constructor.
+     *
+     * @param ContainerInterface $container A ContainerInterface instance
+     */
+    public function __construct(ContainerInterface $container) {
+        $this->container = $container;
+    }
+
+    public function getContainer() {
+        return $this->container;
+    }
 
     /**
      * Listen to <strong>all</strong> events.
@@ -58,7 +73,7 @@ class EventDispatcher extends SymfonyEventDispatcher {
      * {@inheritDoc}
      */
     public function dispatch($eventName, Event $event = null) {
-        $application = Runtime::getContainer()->get('kernel');
+        $application = $this->container->get('kernel');
         $application->profile(sprintf('fire event: %s', $eventName));
 
         // use hasListeners rather than looking at the private listeners property

@@ -74,7 +74,9 @@
             </call>
         </service>
 
-        <service id="eventDispatcher" class="zenmagick\base\events\EventDispatcher" scope="container" />
+        <service id="eventDispatcher" class="zenmagick\base\events\EventDispatcher" scope="container">
+             <argument type="service" id="service_container" />
+        </service>
 
         <service id="localeService" class="zenmagick\base\locales\Locales" scope="container" />
         <service id="localeScanner" class="zenmagick\base\locales\LocaleScanner" scope="prototype">
