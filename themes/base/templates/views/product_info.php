@@ -93,7 +93,7 @@
 <?php if (0 < count($similarOrderProducts)) { ?>
   <h3><?php _vzm('People that bought "%s" also bought:', '<em>'.$currentProduct->getName().'</em>') ?></h3>
   <div id="similar">
-    <?php foreach ($similarOrderProducts as $assoc) { $assocProduct = $productService->getProductForId($assoc->getProductId(), $languageId) ; ?>
+    <?php foreach ($similarOrderProducts as $assoc) { $assocProduct = $productService->getProductForId($assoc->getProductId(), $session->getLanguageId()) ; ?>
       <div>
         <p><?php echo $html->productImageLink($assocProduct) ?></p>
         <p><a href="<?php echo $net->product($assocProduct->getId()) ?>"><?php echo $html->encode($assocProduct->getName()) ?></a></p>

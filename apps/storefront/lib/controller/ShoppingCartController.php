@@ -3,6 +3,9 @@
  * ZenMagick - Smart e-commerce
  * Copyright (C) 2006-2012 zenmagick.org
  *
+ * Portions Copyright (c) 2003 The zen-cart developers
+ * Portions Copyright (c) 2003 osCommerce
+ *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation; either version 2 of the License, or (at
@@ -19,7 +22,12 @@
  */
 namespace zenmagick\apps\store\storefront\controller;
 
+use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use zenmagick\base\Runtime;
+use zenmagick\base\ZMObject;
+use zenmagick\base\events\Event;
+use zenmagick\http\Request;
+use zenmagick\http\view\ModelAndView;
 use zenmagick\apps\store\utils\CheckoutHelper;
 
 /**
@@ -27,13 +35,14 @@ use zenmagick\apps\store\utils\CheckoutHelper;
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class ShoppingCartController extends \ZMController {
+class ShoppingCartController extends ZMObject {
 
     /**
-     * {@inheritDoc}
+     * Show cart.
+     *
+     * @param zenmagick\http\Request request The current request.
      */
-    public function processGet($request) {
-        $session = $request->getSession();
+    public function show(Request $request) {
         $shoppingCart = $request->getShoppingCart();
         $checkoutHelper = $shoppingCart->getCheckoutHelper();
 
@@ -57,7 +66,147 @@ class ShoppingCartController extends \ZMController {
             }
         }
 
-        return $this->findView(null, array('shoppingCart' => $shoppingCart));
+        return new ModelAndView(null, array('shoppingCart' => $shoppingCart));
+    }
+
+    /**
+     * Process optional uploads.
+     *
+     * @return array Attribute id map for uploads.
+     */
+    protected function getAttributeUploads(Request $request, $shoppingCart, array $attributes) {
+        $settingsService = $this->container->get('settingsService');
+        $destination = $settingsService->get('apps.store.cart.uploads');
+        $textOptionPrefix = $settingsService->get('textOptionPrefix');
+
+        try {
+            if ($request->files->has('id')) {
+                foreach ($request->files->get('id') as $id => $file) {
+                    $failed = null;
+                    if ($file && 0 === strpos($id, $textOptionPrefix) && $file->isValid()) {
+                        // todo: do we need/want to enfore any restrictions about size, etc?
+                        if ($file->getSize()) {
+                            // process
+                            $filename = $file->getClientOriginalName();
+                            $fileId = $this->container->get('shoppingCartService')->registerUpload(session_id(), $shoppingCart->getAccountId(), $filename);
+                            // save indexed name for display!
+                            $attributes[$id] = $fileId.'. '.$filename;
+                            // move
+                            $ext = substr($filename, strrpos($filename, '.')+1);
+                            $name = sprintf('%s.%s', $fileId, $ext);
+                            $file->move($destination, $name);
+                        }
+                    }
+                }
+            }
+        } catch (FileException $e) {
+            // todo
+            die($e->getMessage());
+        }
+
+        return $attributes;
+    }
+
+    /**
+     * Add product.
+     */
+    public function addProduct(Request $request) {
+        $shoppingCart = $request->getShoppingCart();
+        $productId = $request->request->get('products_id');
+        $productId = is_array($productId) ? $productId[0] : $productId;
+        $id = $this->getAttributeUploads($request, $shoppingCart, (array) $request->request->get('id'));
+        if ($shoppingCart->addProduct($productId, $request->request->get('cart_quantity'), $id)) {
+            $shoppingCart->getCheckoutHelper()->saveHash($request);
+            $this->container->get('eventDispatcher')->dispatch('cart_add', new Event($this, array('request' => $request, 'shoppingCart' => $shoppingCart, 'productId' => $productId)));
+            $product = $this->container->get('productService')->getProductForId($productId);
+            $this->container->get('messageService')->success(sprintf(_zm("Product '%s' added to cart"), $product->getName()));
+        } else {
+            $this->container->get('messageService')->error(_zm('Add to cart failed'));
+        }
+
+        // TODO: add support for redirect back to origin
+        return new ModelAndView('success', array('shoppingCart' => $shoppingCart));
+    }
+
+    /**
+     * Buy now product.
+     */
+    public function buyNow(Request $request) {
+        $shoppingCart = $request->getShoppingCart();
+        $productId = $request->query->get('products_id');
+        $productId = is_array($productId) ? $productId[0] : $productId;
+        if (0 < $productId) {
+            $productService = $this->container->get('productService');
+            if (null != ($product = $productService->getProductForId(ShoppingCart::getBaseProductIdFor($productId)))) {
+                if (!$product->hasAttributes()) {
+                    $qtyOrderMax = $product->getQtyOrderMax();
+                    $cartQty = $shoppingCart->getItemQuantityFor($productId, $product->isQtyMixed());
+                    if ($qtyOrderMax > $cartQty) {
+                        // FTW!
+                        $buyNowQty = 1;
+                        $qtyOrderMin = $product->getQtyOrderMin();
+                        $qtyOrderUnits = $product->getQtyOrderUnits();
+                        if (0 == $cartQty) {
+                            $buyNowQty = max($qtyOrderMin, $qtyOrderUnits);
+                        } else if ($cartQty < $qtyOrderMin) {
+                            $buyNowQty = $qtyOrderMin - $cartQty;
+                        } else if ($cartQty > $qtyOrderMin) {
+                            $adjQtyOrderUnits = $qtyOrderUnits - ZMTools::fmod_round($cartQty, $qtyOrderUnits);
+                            $buyNowQty = 0 < $adjQtyOrderUnits ? $adjQtyOrderUnits : $qtyOrderUnits;
+                        } else {
+                            $buyNowQty = $qtyOrderUnits;
+                        }
+
+                        $buyNowQty = 1 > $buyNowQty ? 1 : $buyNowQty;
+                        // limit
+                        $buyNowQty = min($qtyOrderMax, $cartQty + $buyNowQty);
+                        $shoppingCart->addProduct($productId, $buyNowQty);
+                        $shoppingCart->getCheckoutHelper()->saveHash($request);
+                        $this->container->get('eventDispatcher')->dispatch('cart_add', new Event($this, array('request' => $request, 'shoppingCart' => $shoppingCart, 'productId' => $productId)));
+                        $this->container->get('messageService')->success(sprintf(_zm("Product '%s' added to cart"), $product->getName()));
+                    }
+                } else {
+                    $this->container->get('messageService')->error(_zm('Add to cart failed'));
+                }
+            }
+        }
+
+        // TODO: add support for redirect back to origin
+        return new ModelAndView('success', array('shoppingCart' => $shoppingCart));
+    }
+
+    /**
+     * Remove product.
+     */
+    public function removeProduct(Request $request) {
+        $shoppingCart = $request->getShoppingCart();
+        $productId = $request->query->get('productId');
+        $productId = is_array($productId) ? $productId[0] : $productId;
+        $shoppingCart->removeProduct($productId);
+        $shoppingCart->getCheckoutHelper()->saveHash($request);
+        $this->container->get('eventDispatcher')->dispatch('cart_remove', new Event($this, array('request' => $request, 'shoppingCart' => $shoppingCart, 'productId' => $productId)));
+        $this->container->get('messageService')->success(_zm('Product removed from cart'));
+
+        // TODO: add support for redirect back to origin
+        return new ModelAndView('success', array('shoppingCart' => $shoppingCart));
+    }
+
+    /**
+     * Update cart.
+     * @todo: edit cart attributes
+     */
+    public function update(Request $request) {
+        $shoppingCart = $request->getShoppingCart();
+        $productIds = (array) $request->request->get('products_id');
+        $quantities = (array) $request->request->get('cart_quantity');
+        foreach ($productIds as $ii => $productId) {
+            $shoppingCart->updateProduct($productId, $quantities[$ii]);
+        }
+        $this->container->get('eventDispatcher')->dispatch('cart_update', new Event($this, array('request' => $request, 'shoppingCart' => $shoppingCart, 'productIds' => $productIds)));
+        $this->container->get('messageService')->success(_zm('Product(s) added to cart'));
+
+        // TODO: add support for redirect back to origin
+        return new ModelAndView('success', array('shoppingCart' => $shoppingCart));
     }
 
 }

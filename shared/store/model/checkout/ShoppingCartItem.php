@@ -3,6 +3,8 @@
  * ZenMagick - Smart e-commerce
  * Copyright (C) 2006-2012 zenmagick.org
  *
+ * Portions Copyright (c) 2003 The zen-cart developers
+ * Portions Copyright (c) 2003 osCommerce
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -44,6 +46,7 @@ class ShoppingCartItem extends ZMObject {
      * Create new shopping cart item
      *
      * @param ShoppingCart shoppingCart The cart this item belongs to.
+     * @todo store upload id in attribute value id
      */
     public function __construct(ShoppingCart $shoppingCart=null) {
         parent::__construct();
@@ -77,17 +80,32 @@ class ShoppingCartItem extends ZMObject {
 
         // build attribute => value list map
         $attrMap = array();
-        foreach ($attributeData['attributes'] as $option => $valueId) {
-            $tmp = explode('_', $option);
-            $attributeId = $tmp[0];
-            if (!array_key_exists($attributeId, $attrMap)) {
-                $attrMap[$attributeId] = array();
+        foreach ($attributeData['attributes'] as $option => $value) {
+            if (!empty($value)) {
+                $tmp = explode('_', $option);
+                $attributeId = $tmp[0];
+                if (!array_key_exists($attributeId, $attrMap)) {
+                    $attrMap[$attributeId] = array();
+                }
+                if (is_array($value)) {
+                    $attrMap[$attributeId] = $value;
+                } else {
+                    $attrMap[$attributeId][$value] = $value;
+                }
             }
-            $attrMap[$attributeId][$valueId] = $valueId;
         }
-
-        // values of text/upload attributes
-        $textValues = array_key_exists('attributes_values', $attributeData) ? $attributeData['attributes_values'] : array();
+        // also add values
+        foreach ($attributeData['attributes_values'] as $option => $valueId) {
+            if (!empty($valueId)) {
+                $tmp = explode('_', $option);
+                $attributeId = $tmp[0];
+                if (!array_key_exists($attributeId, $attrMap)) {
+                    $attrMap[$attributeId] = array();
+                }
+                // text/upload only ever have one value with id 0 and value as [text]/[{uploadId}. filename]
+                $attrMap[$attributeId][0] = $valueId;
+            }
+        }
 
         // now get all attributes and strip the not selected stuff
         $product = $this->getProduct();
@@ -105,9 +123,7 @@ class ShoppingCartItem extends ZMObject {
                             $tmp = clone $value;
                             if (in_array($attribute->getType(), array(PRODUCTS_OPTIONS_TYPE_TEXT, PRODUCTS_OPTIONS_TYPE_FILE))) {
                                 // these should have only a single value
-                                if (0 == $tmp->getId()) {
-                                    $tmp->setName($textValues[$attribute->getId()]);
-                                }
+                                $tmp->setName($valueIds[0]);
                             }
                             $attribute->addValue($tmp);
                         }

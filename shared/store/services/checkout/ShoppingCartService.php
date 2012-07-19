@@ -3,6 +3,9 @@
  * ZenMagick - Smart e-commerce
  * Copyright (C) 2006-2012 zenmagick.org
  *
+ * Portions Copyright (c) 2003 The zen-cart developers
+ * Portions Copyright (c) 2003 osCommerce
+ *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation; either version 2 of the License, or (at
@@ -55,9 +58,8 @@ class ShoppingCartService extends ZMObject {
         foreach (ZMRuntime::getDatabase()->fetchAll($sql, array('accountId' => $shoppingCart->getAccountId()), 'customers_basket') as $result) {
             $skuIds[] = $result['skuId'];
         }
-
         foreach ($shoppingCart->getItems() as $item) {
-            if (false && in_array($item->getId(), $skuIds)) {
+            if (in_array($item->getId(), $skuIds)) {
                 // update
                 $sql = "UPDATE %table.customers_basket%
                         SET customers_basket_quantity = :quantity
@@ -114,6 +116,10 @@ class ShoppingCartService extends ZMObject {
     public function updateCart($shoppingCart) {
         $this->clearCart($shoppingCart);
         $this->saveCart($shoppingCart);
+        // XXX: sync back to ZenCart
+        $cart =  new \shoppingCart();
+        $cart->contents = $shoppingCart->getContents();
+        $shoppingCart->session->setValue('cart', $cart);
     }
 
     /**
@@ -171,6 +177,17 @@ class ShoppingCartService extends ZMObject {
         $shoppingCart->setCheckoutHelper($this->container->get('checkoutHelper'));
         $shoppingCart->setContents($this->getContentsForAccountId($accountId));
         return $shoppingCart;
+    }
+
+    /**
+     * Register upload.
+     */
+    public function registerUpload($sessionId, $accountId, $filename) {
+        $sql = "INSERT INTO %table.files_uploaded% (sesskey, customers_id, files_uploaded_name)
+                VALUES(:sesskey, :customers_id, :files_uploaded_name)";
+        $args = array('sesskey' => $sessionId, 'customers_id' => $accountId, 'files_uploaded_name' => $filename);
+        ZMRuntime::getDatabase()->updateObj($sql, $args, 'files_uploaded');
+        return ZMRuntime::getDatabase()->lastInsertId();
     }
 
 }

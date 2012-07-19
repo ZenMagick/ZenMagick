@@ -3,6 +3,8 @@
  * ZenMagick - Smart e-commerce
  * Copyright (C) 2006-2012 zenmagick.org
  *
+ * Portions Copyright (c) 2003 The zen-cart developers
+ * Portions Copyright (c) 2003 osCommerce
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -36,8 +38,7 @@ use zenmagick\apps\store\model\TaxRate;
  * @author DerManoMann
  */
 class ShoppingCart extends ZMObject {
-    public $cart_;
-    private $session;
+    public $session;
     private $zenTotals_;
     private $items_;
     private $checkoutHelper;
@@ -52,19 +53,12 @@ class ShoppingCart extends ZMObject {
      */
     public function __construct() {
         parent::__construct();
-        $this->session = Runtime::getContainer()->get('session');
-        $cart = $this->session->getValue('cart');
-        // TODO: quick fix using 'new' until we drop zencart's shopping cart class altogether
-        $this->cart_ = (null != $cart) ? $cart : new \shoppingCart();
-        $this->setContents($this->cart_->contents);
-        // TODO: remove
-        $comments = $this->session->getValue('comments');
-        $this->setComments(null !== $comments ? $comments : '');
-        $accountId = $this->session->getValue('customer_id');
-        $this->setAccountId(null !== $accountId ? $accountId : 0);
+        $this->setContents(null);
+        $this->accountId = 0;
         $this->zenTotals_ = null;
-        $this->items_ = null;
         $this->selectedPaymentType_ = null;
+        // TODO: remove
+        $this->session = Runtime::getContainer()->get('session');
     }
 
 
@@ -110,7 +104,7 @@ class ShoppingCart extends ZMObject {
      * Clear this cart.
      */
     public function clear() {
-        $this->contents = array();
+        $this->contents = null;
         $this->items_ = null;
         $this->comments = null;
         $this->container->get('shoppingCartService')->clearCart($this);
@@ -216,6 +210,8 @@ class ShoppingCart extends ZMObject {
      * @param array contents The contents.
      */
     public function setContents($contents) {
+        // default to null if contents is empty
+        $contents = is_array($contents) && $contents ? $contents : null;
         $this->contents = $contents;
         $this->items_ = null;
     }
@@ -228,7 +224,10 @@ class ShoppingCart extends ZMObject {
     public function getItems() {
         if (null === $this->items_) {
             $this->items_ = array();
-            $this->contents = $this->cart_->contents;
+            if (null === $this->contents) {
+                $this->contents = $this->container->get('shoppingCartService')->getContentsForAccountId($this->accountId);
+            }
+
             foreach ($this->contents as $id => $itemData) {
                 if (empty($id)) { continue; }
                 $item = new ShoppingCartItem($this);
@@ -260,7 +259,6 @@ class ShoppingCart extends ZMObject {
                     $price = 0;
                 }
 
-    //echo '<hr>ZM i: '.$item->getId(); echo ' '.$price.' + '.$item->getAttributesPrice(false); echo '<hr>';
                 $item->setItemPrice($price + $item->getAttributesPrice(false));
                 // todo: cleanup item methods a bit to make more sense for this
                 $item->setOneTimeCharge($product->getOneTimeCharge() + $item->getAttributesOneTimePrice(false));
@@ -339,8 +337,6 @@ class ShoppingCart extends ZMObject {
      */
     public function setComments($comments) {
         $this->comments = $comments;
-        //TODO: remove
-        $this->session->setValue('comments', $comments);
     }
 
     /**
@@ -480,7 +476,7 @@ class ShoppingCart extends ZMObject {
      *   &lt;/form&gt;
      * </pre>
      *
-     * @param zenmagick\http\Request request The current request.
+     * @param ZMRequest request The current request.
      * @return string The URL to be used for the actual order form.
      */
     public function getOrderFormUrl($request) {
@@ -490,7 +486,7 @@ class ShoppingCart extends ZMObject {
     /**
      * Returns the order form elements.
      *
-     * @param zenmagick\http\Request request The current request.
+     * @param ZMRequest request The current request.
      * @return mixed The form content for the actual order process form.
      */
     public function getOrderFormContent($request) {
@@ -605,7 +601,7 @@ class ShoppingCart extends ZMObject {
      *
      * <p>This method is only defined in <em>storefront</em> context.</p>
      *
-     * @param zenmagick\http\Request request The current request.
+     * @param ZMRequest request The current request.
      * @return string Fully formatted JavaScript incl. of wrapping &lt;script&gt; tag.
      */
     public function getPaymentFormValidationJS($request) {
@@ -739,9 +735,9 @@ class ShoppingCart extends ZMObject {
                 $key = $textOptionPrefix.$attributeId;
                 if (array_key_exists($key, $attributeData) && !empty($attributeData[$key])) {
                     $attributesValues[$attributeId] = $attributeData[$key];
-                    $attributes[$attributeId] = '';
+                    // zc needs '0' instead of ''
+                    $attributes[$attributeId] = '0';
                 }
-                //??? $attributes[$attributeId] = '';
             } else if (array_key_exists($attributeId, $attributeData)) {
                 $attributes[$attributeId] = $attributeData[$attributeId];
             }
@@ -765,8 +761,14 @@ class ShoppingCart extends ZMObject {
      * @return boolean <code>true</code> if the product was added, <code>false</code> if not.
      */
     public function addProduct($productId, $quantity=1, $attributes=array()) {
-        if (array_key_exists($sku, $this->contents)) {
-            //return $this->updateProduct($productId, $quantity);
+        if (1 > $quantity) {
+            return false;
+        }
+
+        $sku = $this->buildSku($productId, $attributes);
+
+        if (array_key_exists($sku, (array) $this->contents)) {
+            return $this->updateProduct($productId, $quantity);
         }
 
         $product = $this->container->get('productService')->getProductForId($productId);
@@ -775,11 +777,6 @@ class ShoppingCart extends ZMObject {
             return false;
         }
         $attributes = $this->sanitizeAttributes($product, $attributes);
-        $attributes = $this->prepare_uploads($product, $attributes);
-
-        //TODO: zc: comp
-        $attributes = (0 < count($attributes) ? $attributes : '');
-        $sku = self::mkItemId($productId, $attributes);
 
         $maxOrderQty = $product->getMaxOrderQty();
         $cartQty = $this->getItemQuantityFor($sku, $product->isQtyMixed());
@@ -796,23 +793,10 @@ class ShoppingCart extends ZMObject {
             $adjustedQty = $maxOrderQty - $cartQty;
         }
 
-        // 1) update contents
-        /*
-        list($attributes, $attributesValues) =$this->splitAttributes($attributes, $product);
-        $this->contents[$sku] = array(
-            'qty' => $adjustedQty,
-            'attributes' => $attributes,
-            'attributes_values' => $attributesValues
-        );
-        */
-
-        // TODO: REMOVE
-        $this->cart_->add_cart($productId, $this->getItemQuantityFor($sku, false) + $adjustedQty, $attributes, true);
-
-        // todo:
-        // - persist
-        // - update card ID? where???
+        list($attributes, $attributesValues) = $this->splitAttributes($attributes, $product);
+        $this->contents[$sku] = array('qty' => $adjustedQty, 'attributes' => $attributes, 'attributes_values' => $attributesValues);
         $this->items_ = null;
+        $this->container->get('shoppingCartService')->updateCart($this);
 
         return true;
     }
@@ -825,8 +809,9 @@ class ShoppingCart extends ZMObject {
      */
     public function removeProduct($productId) {
         if (null !== $productId) {
+            unset($this->contents[$productId]);
             $this->items_ = null;
-            $this->cart_->remove($productId);
+            $this->container->get('shoppingCartService')->updateCart($this);
             return true;
         }
 
@@ -834,7 +819,7 @@ class ShoppingCart extends ZMObject {
     }
 
     /**
-     * Update item.
+     * Update item quantity.
      *
      * @param string sku The product sku.
      * @param int quantity The quantity.
@@ -857,16 +842,15 @@ class ShoppingCart extends ZMObject {
                 return false;
             }
 
-            $this->items_ = null;
-
             // adjust quantity if needed
             if (($adjustedQty > $maxOrderQty) && 0 != $maxOrderQty) {
                 // TODO: message
                 $adjustedQty = $maxOrderQty;
             }
 
-            $this->cart_->add_cart($sku, $adjustedQty, $attributes, true);
-
+            $this->contents[$sku]['qty'] = $adjustedQty;
+            $this->items_ = null;
+            $this->container->get('shoppingCartService')->updateCart($this);
             return true;
         }
 
@@ -896,32 +880,6 @@ class ShoppingCart extends ZMObject {
 
         $this->container->get('loggingService')->error('invalid productTaxBase!');
         return null;
-    }
-
-    /**
-     * Prepare file uploads.
-     *
-     * <p>Check for uploaded files and prepare attributes accordingly.</p>
-     *
-     * @param ZMProduct product The product.
-     * @param array attributes The given attributes.
-     * @return array A set of valid attribute values for the given product.
-     * @todo IMPLEMENT!
-     */
-    function prepare_uploads($product, $attributes=array()) {
-        $uploads = 0;
-        $uploadOptionPrefix = $this->container->get('settingsService')->get('uploadOptionPrefix');
-        foreach ($attributes as $name => $value) {
-            if (0 === strpos($name, $uploadOptionPrefix)) {
-                ++$uploads;
-            }
-        }
-
-        if (0 < $uploads) {
-            //TODO: handle file uploads
-        }
-
-        return $attributes;
     }
 
     /**
@@ -1046,17 +1004,16 @@ class ShoppingCart extends ZMObject {
      * @param string productId The full product id incl. attribute suffix.
      * @param array attrbutes Additional product attributes.
      * @return string The product id.
-     * @todo enable ksorts on attribute arrays to avoid different results for unsorted attributes
      */
-    public static function mkItemId($productId, $attributes=array()) {
+    public function buildSku($productId, $attributes=array()) {
         $fullProductId = $productId;
 
         if (is_array($attributes) && 0 < count($attributes) && !strstr($productId, ':')) {
-            //krsort($attributes);
+            krsort($attributes);
             $s = $productId;
             foreach ($attributes as $id => $value) {
-                if (is_array($value)) {
-                    //krsort($value);
+	              if (is_array($value)) {
+                    krsort($value);
                     foreach ($value as $vid => $vval) {
                         $s .= '{' . $id . '}' . trim($vid);
                     }
@@ -1065,13 +1022,6 @@ class ShoppingCart extends ZMObject {
                 }
             }
             $fullProductId .= ':' . md5($s);
-        }
-
-        if (Runtime::getContainer()->get('settingsService')->get('apps.store.assertZencart', false)) {
-            $uprid = zen_get_uprid($productId, $attributes);
-            if ($uprid != $fullProductId) {
-                echo sprintf('mkItemId differs! uprid=%s, mkItemId=%s', $uprid, $fullProductId).'<br>';
-            }
         }
 
         return $fullProductId;
