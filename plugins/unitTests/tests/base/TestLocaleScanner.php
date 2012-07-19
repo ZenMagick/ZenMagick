@@ -47,7 +47,7 @@ class TestLocaleScanner extends TestCase {
      */
     protected function getScanner() {
         $scanner = new LocaleScanner();
-        $scanner->setContainer($this->container);
+        $scanner->setFilesystem($this->container->get('filesystem'));
         return $scanner;
     }
 

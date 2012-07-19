@@ -19,6 +19,7 @@
  */
 namespace zenmagick\base\utils\packer;
 
+use Symfony\Component\Filesystem\Filesystem;
 use zenmagick\base\ZMObject;
 
 /*
@@ -65,6 +66,8 @@ class PhpCompressor extends ZMObject {
     protected $stripCode_;
     protected $stripRef_;
 
+    protected $filesystem;
+
 
     /**
      * Create new instance.
@@ -83,6 +86,15 @@ class PhpCompressor extends ZMObject {
         $this->stripRef_ = true;
 
         $this->errors_ = array();
+    }
+
+    /**
+     * Set the filesystem helper.
+     *
+     * @param Symfony\Component\Filesystem\Filesystem filesystem The helper instance.
+     */
+    public function setFilesystem(Filesystem $filesystem) {
+        $this->filesystem = $filesystem;
     }
 
     /**
@@ -169,7 +181,7 @@ class PhpCompressor extends ZMObject {
      * Clean up all temp. files.
      */
     public function clean() {
-        $this->container->get('filesystem')->remove(array(
+        $this->filesystem->remove(array(
             $this->strippedFolder_,
             $this->flatFolder_
         ));
@@ -293,7 +305,7 @@ class PhpCompressor extends ZMObject {
             }
 
             fclose($handle);
-            $this->container->get('filesystem')->chmod($out, 0644);
+            $this->filesystem->chmod($out, 0644);
         } else {
             echo $source;
         }
@@ -359,8 +371,6 @@ class PhpCompressor extends ZMObject {
 
         $files = $this->findIncludes($in, '.php', $recursive);
 
-        $filesystem = $this->container->get('filesystem');
-
         foreach ($files as $name => $infile) {
             $name = basename($infile);
             $dirbase = substr(dirname($infile), strlen($in));
@@ -370,13 +380,13 @@ class PhpCompressor extends ZMObject {
             //echo $outfile."<BR>";
             if (!file_exists($outdir)) {
                 if (!file_exists(dirname($outdir))) {
-                    $filesystem->mkdir(dirname($outdir), 0755);
+                    $this->filesystem->mkdir(dirname($outdir), 0755);
                     if (!file_exists(dirname($outdir))) {
                         array_push($this->errors_, 'could not create directory ' . dirname($outdir));
                         return;
                     }
                 }
-                $filesystem->mkdir($outdir, 0755);
+                $this->filesystem->mkdir($outdir, 0755);
                 if (!file_exists($outdir)) {
                     array_push($this->errors_, 'could not create directory ' . $outdir);
                     return;
@@ -401,8 +411,6 @@ class PhpCompressor extends ZMObject {
             $this->container->get('filesystem')->mkdir($out, 0755);
         }
 
-        $filesystem = $this->container->get('filesystem');
-
         $inpath = explode(DIRECTORY_SEPARATOR, $in);
         foreach ($files as $name => $infile) {
             $path = explode(DIRECTORY_SEPARATOR, $infile);
@@ -413,13 +421,13 @@ class PhpCompressor extends ZMObject {
             }
             if (!file_exists($outdir)) {
                 if (!file_exists(dirname($outdir))) {
-                    $filesystem->mkdir(dirname($outdir), 0755);
+                    $this->filesystem->mkdir(dirname($outdir), 0755);
                     if (!file_exists(dirname($outdir))) {
                         array_push($this->errors_, 'could not create directory ' . dirname($outdir));
                         return;
                     }
                 }
-                $filesystem->mkdir($outdir, 0755);
+                $this->filesystem->mkdir($outdir, 0755);
                 if (!file_exists($outdir)) {
                     array_push($this->errors_, 'could not create directory ' . $outdir);
                     return;
@@ -452,7 +460,7 @@ class PhpCompressor extends ZMObject {
             }
 
             fclose($handle);
-            $filesystem->chmod($outfile, 0644);
+            $this->filesystem->chmod($outfile, 0644);
         }
     }
 
@@ -535,7 +543,7 @@ class PhpCompressor extends ZMObject {
         }
 
         fclose($handle);
-        $filesystem->chmod($outfile, 0644);
+        $this->filesystem->chmod($outfile, 0644);
     }
 
 }

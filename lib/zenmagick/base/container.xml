@@ -65,17 +65,34 @@
 
         <service id="classLoader" class="zenmagick\base\classloader\ClassLoader" scope="prototype" />
 
-        <service id="loggingService" class="zenmagick\base\logging\Logging" scope="container" />
+        <service id="loggingService" class="zenmagick\base\logging\Logging" scope="container">
+            <call method="setFilesystem">
+                <argument type="service" id="filesystem" />
+            </call>
+            <call method="setContainerTagService">
+                <argument type="service" id="containerTagService" />
+            </call>
+        </service>
 
         <service id="eventDispatcher" class="zenmagick\base\events\EventDispatcher" scope="container" />
 
         <service id="localeService" class="zenmagick\base\locales\Locales" scope="container" />
+        <service id="localeScanner" class="zenmagick\base\locales\LocaleScanner" scope="prototype">
+            <call method="setFilesystem">
+                <argument type="service" id="filesystem" />
+            </call>
+        </service>
 
         <service id="settingsService" class="zenmagick\base\settings\Settings" scope="container" />
 
         <service id="contextConfigLoader" class="zenmagick\base\utils\ContextConfigLoader" scope="prototype" />
 
         <service id="pluginService" class="zenmagick\base\plugins\Plugins" scope="container">
+            <argument type="service" id="loggingService" />
+            <argument type="service" id="pluginStatusMapBuilder" />
+            <argument type="service" id="localeService" />
+            <argument type="service" id="settingsService" />
+            <argument type="service" id="contextConfigLoader" strict="false" />
             <call method="setCache">
                 <argument type="service" id="bootstrapCache" />
             </call>
@@ -104,7 +121,18 @@
 
         <service id="filesystem" class="Symfony\Component\Filesystem\Filesystem" scope="container" />
 
-        <service id="phpCompressor" class="zenmagick\base\utils\packer\PhpCompressor" scope="prototype" />
-        <service id="phpPackagePacker" class="zenmagick\base\utils\packer\PhpPackagePacker" scope="prototype" />
+        <service id="phpCompressor" class="zenmagick\base\utils\packer\PhpCompressor" scope="prototype">
+            <call method="setFilesystem">
+                <argument type="service" id="filesystem" />
+            </call>
+        </service>
+        <service id="phpPackagePacker" class="zenmagick\base\utils\packer\PhpPackagePacker" scope="prototype">
+            <call method="setFilesystem">
+                <argument type="service" id="filesystem" />
+            </call>
+            <call method="setPhPhPPCompressor">
+                <argument type="service" id="phpCompressor" />
+            </call>
+        </service>
     </services>
 </container>

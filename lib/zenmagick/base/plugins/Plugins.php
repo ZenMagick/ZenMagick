@@ -46,13 +46,23 @@ class Plugins extends ZMObject {
     protected $cache;
     protected $statusMap;
     protected $classLoader;
+    protected $loggingService;
+    protected $pluginStatusMapBuilder;
+    protected $localeService;
+    protected $settingsService;
+    protected $contextConfigLoader;
 
 
     /**
      * Create new instance.
      */
-    public function __construct() {
+    public function __construct($loggingService, $pluginStatusMapBuilder, $localeService, $settingsService, $contextConfigLoader) {
         parent::__construct();
+        $this->loggingService = $loggingService;
+        $this->pluginStatusMapBuilder = $pluginStatusMapBuilder;
+        $this->localeService = $localeService;
+        $this->settingsService = $settingsService;
+        $this->contextConfigLoader = $contextConfigLoader;
         $this->plugins = array();
         $this->cache = null;
         $this->statusMap = null;
@@ -99,9 +109,8 @@ class Plugins extends ZMObject {
             }
 
             if (!$this->statusMap || $refresh) {
-                $this->container->get('loggingService')->debug('Loading plugin status map...');
-                $statusMapBuilder = $this->container->get('pluginStatusMapBuilder');
-                $this->statusMap = $statusMapBuilder->buildStatusMap();
+                $this->loggingService->debug('Loading plugin status map...');
+                $this->statusMap = $this->pluginStatusMapBuilder->buildStatusMap();
                 if ($this->cache) {
                     $this->cache->save($this->statusMap, self::STATUS_MAP_KEY);
                 }
@@ -142,10 +151,7 @@ class Plugins extends ZMObject {
      * @return array List of initialized plugins.
      */
     public function getPluginsForContext($context=null, $enabled=true) {
-        $app = $this->container->get('kernel');
-
-        $localeService = $this->container->get('localeService');
-        $settingsService = $this->container->get('settingsService');
+        //$app = $this->container->get('kernel');
 
         $plugins = array();
         foreach ($this->getStatusMap() as $id => $status) {
@@ -175,16 +181,15 @@ class Plugins extends ZMObject {
                         }
 
                         if ($status['config']) {
-                            $configLoader = $this->container->get('contextConfigLoader');
-                            $configLoader->setConfig($status['config']);
-                            $configLoader->process();
+                            $this->contextConfigLoader->setConfig($status['config']);
+                            $this->contextConfigLoader->process();
                         }
 
                         $plugin->init();
 
                         // plugins can only contribute translations
-                        $path = $plugin->getPluginDirectory().'/locale/'.$settingsService->get('zenmagick.base.locales.locale');
-                        $localeService->getLocale()->addResource($path);
+                        $path = $plugin->getPluginDirectory().'/locale/'.$this->settingsService->get('zenmagick.base.locales.locale');
+                        $this->localeService->getLocale()->addResource($path);
                     }
 
                     if ($status['config'] && array_key_exists('meta', $status['config'])) {

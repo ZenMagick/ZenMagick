@@ -96,7 +96,7 @@ class L10nController extends \ZMController {
     protected function processInternal($request) {
         $vd = $this->getViewData($request);
 
-        $scanner = Beans::getBean('zenmagick\base\locales\LocaleScanner');
+        $scanner = $this->container->get('localeScanner');
         $themeService = $this->container->get('themeService');
 
         $defaultMap = array();

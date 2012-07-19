@@ -19,6 +19,7 @@
  */
 namespace zenmagick\base\locales;
 
+use Symfony\Component\Filesystem\Filesystem;
 use zenmagick\base\Runtime;
 use zenmagick\base\ZMObject;
 
@@ -30,7 +31,17 @@ use zenmagick\base\ZMObject;
 class LocaleScanner extends ZMObject {
     /** Locale patterns. */
     const LOCALE_PATTERNS = '_zmn,_zm,_vzm';
+    protected $filesystem;
 
+
+    /**
+     * Set the filesystem helper.
+     *
+     * @param Symfony\Component\Filesystem\Filesystem filesystem The helper instance.
+     */
+    public function setFilesystem(Filesystem $filesystem) {
+        $this->filesystem = $filesystem;
+    }
 
     /**
      * Get all parameter token for the function call pointed to by index.
@@ -61,7 +72,6 @@ class LocaleScanner extends ZMObject {
      * @return array A map of l10n strings for each file.
      */
     public function buildL10nMap($baseDir, $ext='.php') {
-        $filesystem = $this->container->get('filesystem');
         if (!is_dir($baseDir)) return array();
         $lnPatterns = explode(',', self::LOCALE_PATTERNS);
         $map = array();
@@ -72,7 +82,7 @@ class LocaleScanner extends ZMObject {
             $filename = $fileInfo->getPathname();
             $contents = file_get_contents($filename);
             // try to convert into relative path
-            $filename = $filesystem->makePathRelative($filename, dirname($baseDir));
+            $filename = $this->filesystem->makePathRelative($filename, dirname($baseDir));
 
             // use PHP tokenizer to analyze...
             $tokens = token_get_all($contents);

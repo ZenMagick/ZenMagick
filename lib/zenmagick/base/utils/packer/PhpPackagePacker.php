@@ -19,6 +19,7 @@
  */
 namespace zenmagick\base\utils\packer;
 
+use Symfony\Component\Filesystem\Filesystem;
 use zenmagick\base\Beans;
 use zenmagick\base\Runtime;
 use zenmagick\base\ZMObject;
@@ -38,6 +39,8 @@ class PhpPackagePacker extends ZMObject {
     private $debug_;
     protected $treeMap_;
     private $resolveInheritance_;
+    protected $filesystem;
+    protected $phpCompressor;
 
 
     /**
@@ -56,6 +59,24 @@ class PhpPackagePacker extends ZMObject {
         $this->resolveInheritance_ = false;
     }
 
+
+    /**
+     * Set the filesystem helper.
+     *
+     * @param Symfony\Component\Filesystem\Filesystem filesystem The helper instance.
+     */
+    public function setFilesystem(Filesystem $filesystem) {
+        $this->filesystem = $filesystem;
+    }
+
+    /**
+     * Set the PHP compressor helper.
+     *
+     * @param PhpCompressor phpCompressor The compressor instance.
+     */
+    public function setPhpCompressor(PhpCompressor $phpCompressor) {
+        $this->phpCompressor = $phpCompressor;
+    }
 
     /**
      * Set the temp folder.
@@ -140,7 +161,7 @@ class PhpPackagePacker extends ZMObject {
      * Clean up temp stuff.
      */
     public function clean() {
-        $this->container->get('filesystem')->remove(array(
+        $this->filesystem->remove(array(
             $this->tempFolder_,
             $this->outputFilename_.'.prep'
         ));
@@ -191,7 +212,7 @@ class PhpPackagePacker extends ZMObject {
                 $currentDir .= $level.DIRECTORY_SEPARATOR;
             }
 
-            $this->container->get('filesystem')->mkdir($currentDir, 0755);
+            $this->filesystem->mkdir($currentDir, 0755);
 
             foreach ($files as $filename => $details) {
                 if ($this->ignoreFile($filename)) {
@@ -243,7 +264,7 @@ class PhpPackagePacker extends ZMObject {
             }
             fclose($handle);
             if (!$fileExists) {
-                $this->container->get('filesystem')->chmod($file, 0644);
+                $this->filesystem->chmod($file, 0644);
             }
             return true;
         }
@@ -258,7 +279,7 @@ class PhpPackagePacker extends ZMObject {
      * @param boolean stripRef If <code>true</code>, strip code that uses references.
      */
     protected function compressFiles($stripCode, $stripRef) {
-        $compressor = $this->container->get('phpCompressor');
+        $compressor = $this->phpCompressor;
         $compressor->setRoot($this->outputFilename_.'.prep'.DIRECTORY_SEPARATOR);
         $compressor->setOut($this->outputFilename_);
         $compressor->setTemp($this->tempFolder_);

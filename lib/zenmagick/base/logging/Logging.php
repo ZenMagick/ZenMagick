@@ -19,11 +19,14 @@
  */
 namespace zenmagick\base\logging;
 
+use Symfony\Component\Filesystem\Filesystem;
+use Symfony\Component\HttpKernel\Log\LoggerInterface;
+
 use zenmagick\base\Beans;
 use zenmagick\base\Runtime;
 use zenmagick\base\ZMObject;
+use zenmagick\base\dependencyInjection\tags\ContainerTagService;
 
-use Symfony\Component\HttpKernel\Log\LoggerInterface;
 
 /**
  * The ZenMagick logging service.
@@ -63,6 +66,9 @@ class Logging extends ZMObject implements LoggerInterface {
         'ALL' => self::ALL
     );
 
+    protected $filesystem;
+    protected $containerTagService;
+
     /** Readable list of log level. */
     public static $LOG_LEVEL = array('NONE', 'ERROR', 'WARN', 'INFO', 'DEBUG', 'TRACE');
 
@@ -84,6 +90,24 @@ class Logging extends ZMObject implements LoggerInterface {
         16384 => "User Deprecated"
     );
 
+
+    /**
+     * Set the filesystem helper.
+     *
+     * @param Symfony\Component\Filesystem\Filesystem filesystem The helper instance.
+     */
+    public function setFilesystem(Filesystem $filesystem) {
+        $this->filesystem = $filesystem;
+    }
+
+    /**
+     * Set the container tag service.
+     *
+     * @param zenmagick\base\dependencyInjection\tags\ContainerTagService containerTagService The helper instance.
+     */
+    public function setContainerTagService(ContainerTagService $containerTagService) {
+        $this->containerTagService = $containerTagService;
+    }
 
     /**
      * Get current log level.
@@ -115,7 +139,7 @@ class Logging extends ZMObject implements LoggerInterface {
      */
     protected function getHandlers() {
         $handlers = array();
-        foreach ($this->container->get('containerTagService')->findTaggedServiceIds('zenmagick.base.logging.handler') as $id => $args) {
+        foreach ($this->containerTagService->findTaggedServiceIds('zenmagick.base.logging.handler') as $id => $args) {
             $handlers[] = $this->container->get($id);
         }
         return $handlers;
@@ -313,7 +337,7 @@ class Logging extends ZMObject implements LoggerInterface {
         }
 
         // TODO: files may be outside ZM installation path
-        $errfile = $this->container->get('filesystem')->makePathRelative($errfile, dirname(Runtime::getInstallationPath()));
+        $errfile = $this->filesystem->makePathRelative($errfile, dirname(Runtime::getInstallationPath()));
 
         return "\"$time\",\"$errfile: $errline\",\"($errlevel) $errstr\"\r\n";
     }
