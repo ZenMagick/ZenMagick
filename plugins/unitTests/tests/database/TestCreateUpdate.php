@@ -27,7 +27,7 @@ use zenmagick\plugins\unitTests\simpletest\TestCase;
  * @package org.zenmagick.plugins.unitTests.tests
  * @author DerManoMann <mano@zenmagick.org>
  */
-class TestZMDatabaseCreateUpdate extends TestCase {
+class TestCreateUpdate extends TestCase {
 
     /**
      * {@inheritDoc}
@@ -81,7 +81,7 @@ class TestZMDatabaseCreateUpdate extends TestCase {
         $obj->setClassName('class1');
         $obj->setMethodName('method1');
         $this->registerTableMapping();
-        foreach (TestZMDatabase::getProviders() as $provider => $database) {
+        foreach (TestDatabase::getProviders() as $provider => $database) {
             $database->createModel('create_update_tests', $obj);
         }
     }
@@ -95,7 +95,7 @@ class TestZMDatabaseCreateUpdate extends TestCase {
         $map['class_name'] = 'class2';
         $map['method_name'] = 'method2';
         $map['parameter_list'] = 'parameter2';
-        foreach (TestZMDatabase::getProviders() as $provider => $database) {
+        foreach (TestDatabase::getProviders() as $provider => $database) {
             $database->createModel('create_update_tests', $map);
         }
     }
@@ -112,7 +112,7 @@ class TestZMDatabaseCreateUpdate extends TestCase {
         $sql = "INSERT INTO %table.create_update_tests%
                 (name, class_name, method_name, parameter_list) VALUES
                 (:name, :class_name, :method_name, :parameter_list)";
-        foreach (TestZMDatabase::getProviders() as $provider => $database) {
+        foreach (TestDatabase::getProviders() as $provider => $database) {
             $database->updateObj($sql, $map, 'create_update_tests');
         }
     }
@@ -132,7 +132,7 @@ class TestZMDatabaseCreateUpdate extends TestCase {
         $sql = "INSERT INTO %table.create_update_tests%
                 (name, class_name, method_name, parameter_list) VALUES
                 (:name, :className, :methodName, :parameterList)";
-        foreach (TestZMDatabase::getProviders() as $provider => $database) {
+        foreach (TestDatabase::getProviders() as $provider => $database) {
             $database->updateObj($sql, $obj, 'create_update_tests');
         }
     }
@@ -152,7 +152,7 @@ class TestZMDatabaseCreateUpdate extends TestCase {
         $sql = "INSERT INTO %table.create_update_tests%
                 (name, class_name, method_name, parameter_list) VALUES
                 (:name, :className, :methodName, :parameterList)";
-        foreach (TestZMDatabase::getProviders() as $provider => $database) {
+        foreach (TestDatabase::getProviders() as $provider => $database) {
             $database->updateObj($sql, $map, 'create_update_tests');
         }
     }

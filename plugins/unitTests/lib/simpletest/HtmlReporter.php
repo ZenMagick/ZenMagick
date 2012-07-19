@@ -19,8 +19,9 @@
  */
 namespace zenmagick\plugins\unitTests\simpletest;
 
-use HtmlReporter as SimpleTestHtmlReporter;
+use HtmlReporter as BaseHtmlReporter;
 use zenmagick\base\Runtime;
+use zenmagick\base\ZMException;
 use zenmagick\base\logging\Logging;
 
 
@@ -29,7 +30,7 @@ use zenmagick\base\logging\Logging;
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class HtmlReporter extends SimpleTestHtmlReporter {
+class HtmlReporter extends BaseHtmlReporter {
     private $currentCase_;
     private $currentTest_;
     private $results_;
@@ -185,13 +186,7 @@ class HtmlReporter extends SimpleTestHtmlReporter {
 
         echo '<div class="exception"><div class="msg"><strong>'.$exception.'</strong></div>';
         echo "<pre>";
-        $filesystem = $this->container->get('filesystem');
-        foreach ($exception->getTrace() as  $level) {
-            $file = $filesystem->makePathRelative($level['file'], Runtime::getInstallationPath());
-            $file = str_replace($root, '', $file);
-            $class = array_key_exists('class', $level) ? $level['class'].'::' : '';
-            echo $class.$level['function'].' (#'.$level['line'].':'.$file.")\n";
-        }
+        echo implode("\n", ZMException::formatStackTrace($exception->getTrace()));
         echo "</pre>";
         echo "</div>";
     }

@@ -188,8 +188,8 @@ class ZMOpenIDDatabaseStore extends Auth_OpenID_OpenIDStore {
      * Reset.
      */
     public function reset() {
-        ZMRuntime::getDatabase()->updateObj("DELETE FROM %zm_openid_associations%", array(), 'zm_openid_associations');
-        ZMRuntime::getDatabase()->updateObj("DELETE FROM %zm_openid_nonces%", array(), 'zm_openid_nonces');
+        ZMRuntime::getDatabase()->updateObj("DELETE FROM %table.zm_openid_associations%", array(), 'zm_openid_associations');
+        ZMRuntime::getDatabase()->updateObj("DELETE FROM %table.zm_openid_nonces%", array(), 'zm_openid_nonces');
     }
 
 }

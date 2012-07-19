@@ -135,7 +135,7 @@ class WhoIsOnlinePlugin extends Plugin {
 
         $now = time();
         $data = array();
-        $data['customer_id'] = $accountId;
+        $data['customer_id'] = (int) $accountId;
         $data['full_name'] = $fullName;
         $data['time_last_click'] = $now;
         $data['last_page_url'] = rtrim($request->getRequestUri(), '?');

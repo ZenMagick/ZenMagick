@@ -18,30 +18,40 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-use zenmagick\http\Request;
 use zenmagick\plugins\unitTests\simpletest\TestCase;
 
 /**
- * Test zenmagick\http\Request
+ * Test database mappings.
  *
  * @package org.zenmagick.plugins.unitTests.tests
  * @author DerManoMann <mano@zenmagick.org>
  */
-class TestZMRequest extends TestCase {
+class TestMappings extends TestCase {
 
     /**
-     * Test getParameter
+     * {@inheritDoc}
      */
-    public function testGetParameter() {
-        $request = new Request(array('foo' => 'bar  bar  bar <'));
-        $this->assertEqual('bar  bar  bar <', $request->getParameter('foo', null, false));
-        $this->assertEqual('bar  bar  bar _', $request->getParameter('foo'));
+    public function skip() {
+        $this->skipIf(true, 'Skip until database API stable');
     }
 
     /**
-     * Test getParameterMap
+     * Test duplicate fields.
      */
-    public function testGetParameterMap() {
+    public function testDuplicates() {
+        $excludes = 'languageId,categoryId,productId,orderId,accountId,countryId,zoneId,attributeId,attributeValueId,siteId,orderStatusId,orderProductId,couponId';
+        $mapper = ZMRuntime::getDatabase()->getMapper();
+        $tables = $mapper->getTableNames();
+        $allFields = array();
+        foreach ($tables as $table) {
+            $tableFields = $mapper->getMapping($table);
+            foreach (array_keys($tableFields) as $property) {
+                if (in_array($property, $excludes)) {
+                    $this->assertFalse(array_key_exists($property, $allFields), '%s duplicate property: '.$property.' in table: '.$table);
+                    $allFields[$property] = $property;
+                }
+            }
+        }
     }
 
 }

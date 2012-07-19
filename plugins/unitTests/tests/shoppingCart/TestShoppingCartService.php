@@ -52,39 +52,13 @@ class TestShoppingCartService extends TestCase {
     }
 
     /**
-     * Dump cart.
-     *
-     * @param ShoppingCart shoppingCart The cart to dump.
-     * @return string The dump.
-     */
-    protected function dumpCart(ShoppingCart $shoppingCart) {
-        $html = $this->getRequest()->getToolbox()->html;
-        $utils = $this->getRequest()->getToolbox()->utils;
-        ob_start();
-        foreach ($shoppingCart->getItems() as $item) {
-            echo $item->getId().":".$html->encode($item->getName())."; qty=".$item->getQuantity().'; '.$utils->formatMoney($item->getItemPrice()).'/'.$utils->formatMoney($item->getItemTotal())."<BR>";
-            if ($item->hasAttributes()) {
-                foreach ($item->getAttributes() as $attribute) {
-                    echo '&nbsp;&nbsp;'.$html->encode($attribute->getName()).":<BR>";
-                    foreach ($attribute->getValues() as $value) {
-                        echo '&nbsp;&nbsp;&nbsp;&nbsp; *'.$html->encode($value->getName()).",<BR>";
-                    }
-                }
-            }
-        }
-        return ob_get_clean();
-    }
-
-    /**
      * Test load cart.
      */
     public function testLoadCart() {
-        $shoppingCart = $this->container->get('shoppingCartService')->loadCartForAccountId($this->getAccountId());
-        $cartDump = $this->dumpCart($shoppingCart);
+        $contents = $this->container->get('shoppingCartService')->getContentsForAccountId($this->getAccountId());
         $_SESSION['cart']->reset(false);
         $_SESSION['cart']->restore_contents();
-        $loadedCartDump = $this->dumpCart($shoppingCart);
-        $this->assertEqual($cartDump, $loadedCartDump);
+        $this->assertEqual($_SESSION['cart']->contents(), $contents);
     }
 
 }

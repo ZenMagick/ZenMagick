@@ -29,7 +29,7 @@ use zenmagick\plugins\unitTests\simpletest\TestCase;
  * @package org.zenmagick.plugins.unitTests.tests
  * @author DerManoMann <mano@zenmagick.org>
  */
-class TestZMDatabase extends TestCase {
+class TestDatabase extends TestCase {
 
     /**
      * Get all provider to test.
