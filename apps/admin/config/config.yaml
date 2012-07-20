@@ -103,7 +103,6 @@ zenmagick:
 apps:
   store:
     admin:
-      domain: null
       menus:
         - 'apps/admin/config/menu.yaml' #placeholder for apps/admin?
     dashboad:

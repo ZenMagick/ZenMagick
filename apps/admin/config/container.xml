@@ -31,7 +31,6 @@
         <service id="sacsPermissionService" class="zenmagick\apps\store\admin\services\SacsPermissionService" scope="container" />
 
         <service id="session" class="zenmagick\http\session\Session" scope="container">
-            <argument>%apps.store.admin.domain%</argument>
             <call method="setName">
                 <argument>zmAdmin</argument>
             </call>

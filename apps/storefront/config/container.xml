@@ -11,7 +11,6 @@
 
     <services>
         <service id="session" class="zenmagick\apps\store\storefront\http\Session" scope="container">
-            <argument>%apps.store.storefront.domain%</argument>
             <call method="setName">
                 <argument>zmsid</argument>
             </call>

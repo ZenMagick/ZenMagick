@@ -118,8 +118,6 @@ apps:
     isSanitizeAttributes: true
 
     staticContent: true
-    storefront:
-      domain: null
     themes:
       default: base
     # verify category path
