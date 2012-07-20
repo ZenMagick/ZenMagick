@@ -17,6 +17,11 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
+
+// @todo using filesystem ACLs is recommended, but what should we do by default?
+//umask(0002); // This will let the permissions be 0775
+umask(0000); // This will let the permissions be 0777
+
 use zenmagick\base\Application;
 use zenmagick\http\Request;
 $rootDir = realpath(__DIR__.'/../../..');

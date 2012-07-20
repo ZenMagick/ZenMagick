@@ -18,6 +18,10 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
+// @todo using filesystem ACLs is recommended, but what should we do by default?
+//umask(0002); // This will let the permissions be 0775
+umask(0000); // This will let the permissions be 0777
+
 use zenmagick\base\Runtime;
 use zenmagick\base\ZMException;
 use zenmagick\base\events\Event;
