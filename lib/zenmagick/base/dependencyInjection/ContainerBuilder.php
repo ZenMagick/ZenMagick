@@ -38,13 +38,6 @@ use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 class ContainerBuilder extends BaseContainerBuilder {
 
     /**
-     * Create new instance.
-     */
-    public function __construct(ParameterBagInterface $parameterBag=null) {
-        parent::__construct(null == $parameterBag? new SettingsParameterBag() : new SettingsParameterBag($parameterBag->all()));
-    }
-
-    /**
      * {@inheritDoc}
      */
     public function get($id, $invalidBehavior=self::EXCEPTION_ON_INVALID_REFERENCE) {

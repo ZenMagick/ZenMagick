@@ -27,8 +27,10 @@ use zenmagick\base\classloader\ClassLoader;
 use zenmagick\base\Toolbox;
 use zenmagick\base\ZMException;
 use zenmagick\base\dependencyInjection\ContainerBuilder;
+use zenmagick\base\dependencyInjection\parameterBag\SettingsParameterBag;
 use zenmagick\base\events\Event;
 use zenmagick\base\plugins\Plugins;
+
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\Config\Loader\LoaderInterface;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBag;
@@ -38,7 +40,6 @@ use Symfony\Component\HttpKernel\Debug\ErrorHandler;
 use Symfony\Component\HttpKernel\Debug\ExceptionHandler;
 use Symfony\Component\ClassLoader\DebugClassLoader;
 use Symfony\Component\Filesystem\Filesystem;
-
 use Symfony\Component\HttpFoundation\Response;
 
 /**
@@ -422,7 +423,9 @@ class Application extends Kernel {
      * {@inheritDoc}
      */
     public function getContainerBuilder() {
-        return new ContainerBuilder(new ParameterBag($this->getKernelParameters()));
+        return new ContainerBuilder(new SettingsParameterBag($this->getKernelParameters()));
+        // We'll probably go back to this later?
+        //return new ContainerBuilder(new ParameterBag($this->getKernelParameters()));
     }
 
     /**
