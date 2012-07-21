@@ -54,6 +54,9 @@
         </service>
 
         <service id="themeService" class="zenmagick\apps\store\themes\ThemeService" scope="container">
+            <call method="setContainer">
+                <argument type="service" id="service_container" />
+            </call>
             <call method="setBasePath">
               <argument>/themes</argument>
             </call>
@@ -80,9 +83,16 @@
             </call>
         </service>
 
-        <service id="themeResourceResolver" class="zenmagick\apps\store\view\ThemeResourceResolver" scope="container" />
+        <service id="themeResourceResolver" class="zenmagick\apps\store\view\ThemeResourceResolver" scope="container">
+            <call method="setContainer">
+                <argument type="service" id="service_container" />
+            </call>
+        </service>
 
         <service id="storeTemplateView" class="zenmagick\http\view\TemplateView" scope="prototype">
+            <call method="setContainer">
+                <argument type="service" id="service_container" />
+            </call>
             <call method="setResourceManager">
                 <argument type="service" id="resourceManager" />
             </call>
