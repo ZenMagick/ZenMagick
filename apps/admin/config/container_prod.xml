@@ -8,6 +8,5 @@
     <imports>
         <import resource="container.xml" />
         <import resource="../../../config/store-services.xml" />
-        <import resource="../../../config/store-container.xml" ignore-errors="true" />
     </imports>
 </container>

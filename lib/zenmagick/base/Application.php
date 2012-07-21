@@ -98,7 +98,7 @@ class Application extends Kernel {
         if ($applicationPath = $this->getApplicationPath()) {
             $appContainerFiles[] = $applicationPath.'/config/container.xml';
         }
-
+        $appContainerFiles[] = 'config/store-container.xml';
         $appContainerFiles = array_merge($appContainerFiles, $this->getConfig('appContainer', array()));
         $files = array();
         $filesystem = new Filesystem();
