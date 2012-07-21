@@ -235,63 +235,9 @@
             <tag name="apps.store.admin.dashboard.widget.statusCheck" />
         </service>
 
-        <!--
-        <service id="table_prefix" class="zenmagick\base\database\doctrine\TablePrefix" scope="container">
-          <argument>%apps.store.database.default.prefix%</argument>
-            <tag name="doctrine.event_listener" event="loadClassMetadata" />
-        </service>
-        -->
-
         <!-- set zenmagick.base.email.transport to @zencartTransport to use the zencart legacy email system -->
         <service id="zencartTransport" class="zenmagick\apps\store\bundles\ZenCartBundle\utils\ZenCartTransport" scope="container" />
         <!-- @todo move to bundle xml when we have one -->
         <service id="zenCartAutoLoader" class="zenmagick\apps\store\bundles\ZenCartBundle\utils\ZenCartAutoLoader" scope="container" />
     </services>
-
-    <!--
-    <doctrine:config>
-        <doctrine:dbal
-            driver="%apps.store.database.default.driver%"
-            dbname="%apps.store.database.default.dbname%"
-            host="%apps.store.database.default.host%"
-            port="%apps.store.database.default.port%"
-            user="%apps.store.database.default.user%"
-            password="%apps.store.database.default.password%"
-            charset="%apps.store.database.default.charset%"
-            unix_socket="%apps.store.database.default.unix_socket%"
-            logging="true"
-            collation="%apps.store.database.default.collation%"
-            wrapper_class="zenmagick\base\database\Connection"
-        >
-           <doctrine:connection>
-                <doctrine:mapping-type name="boolean">boolean</doctrine:mapping-type>
-                <doctrine:mapping-type name="enum">string</doctrine:mapping-type>
-            </doctrine:connection>
-            <doctrine:type name="date" class="zenmagick\base\database\doctrine\types\DateType" />
-            <doctrine:type name="datetime" class="zenmagick\base\database\doctrine\types\DateTimeType" />
-        </doctrine:dbal>
-
-        <doctrine:orm
-            auto-generate-proxy-classes="true"
-            proxy-namespace="zenmagick\apps\store\proxies"
-            default-entity-manager="default"
-            proxy-dir="%kernel.cache_dir%/doctrine/orm/proxies"
-        >
-            <doctrine:entity-manager
-                name="default"
-                query-cache-driver="array"
-                result-cache-driver="array"
-                connection="default"
-            >
-                <doctrine:mapping
-                    name="zenmagick"
-                    type="annotation"
-                    prefix="ZM"
-                    dir="%kernel.root_dir%/shared/model"
-                    is_bundle="false"
-                />
-            </doctrine:entity-manager>
-        </doctrine:orm>
-    </doctrine:config>
-    -->
 </container>
