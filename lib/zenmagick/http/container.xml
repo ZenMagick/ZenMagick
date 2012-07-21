@@ -52,7 +52,11 @@
             </call>
         </service>
 
-        <service id="resourceResolver" class="zenmagick\http\view\ResourceResolver" scope="container" />
+        <service id="resourceResolver" class="zenmagick\http\view\ResourceResolver" scope="container">
+            <call method="setContainer">
+                <argument type="service" id="service_container" />
+            </call>
+        </service>
 
         <service id="userSession" class="zenmagick\http\session\UserSession" scope="container">
             <call method="setSession">
@@ -67,12 +71,18 @@
         </service>
 
         <service id="simpleTemplateCache" class="zenmagick\http\templating\cache\SimpleTemplateCache" scope="container">
+            <call method="setContainer">
+                <argument type="service" id="service_container" />
+            </call>
             <call method="setCache">
                 <argument type="service" id="persistentCache" />
             </call>
         </service>
 
         <service id="templateView" class="zenmagick\http\view\TemplateView" scope="prototype">
+            <call method="setContainer">
+                <argument type="service" id="service_container" />
+            </call>
             <call method="setResourceManager">
                 <argument type="service" id="resourceManager" />
             </call>
@@ -91,6 +101,9 @@
         </service>
 
         <service id="session" class="zenmagick\http\session\Session" scope="container">
+            <call method="setContainer">
+                <argument type="service" id="service_container" />
+            </call>
             <call method="setDomain">
                 <argument>%zenmagick.http.session.domain%</argument>
             </call>
@@ -110,6 +123,9 @@
 
         <service id="routeResolver" class="zenmagick\http\routing\RouteResolver" scope="container">
             <argument type="service" id="requestContext" />
+            <call method="setContainer">
+                <argument type="service" id="service_container" />
+            </call>
         </service>
 
         <service id="redirect" class="zenmagick\http\view\RedirectView" scope="prototype">
@@ -163,6 +179,9 @@
         <service id="blockWidget" class="zenmagick\http\blocks\widgets\BlockWidget" scope="prototype" />
 
         <service id="zmPhpEngine" class="zenmagick\http\templating\ZMPhpEngine" scope="prototype">
+            <call method="setContainer">
+                <argument type="service" id="service_container" />
+            </call>
             <call method="setTemplateCache">
                 <argument type="service" id="simpleTemplateCache" />
             </call>
