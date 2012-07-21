@@ -76,6 +76,7 @@ class Application extends Kernel {
     public function registerBundles() {
         $settingsService = $this->settingsService;
         $bundleList = $settingsService->get('zenmagick.bundles', array());
+        array_unshift($bundleList, 'zenmagick\base\ZenMagickBundle');
         $bundles = array();
         foreach ($bundleList as $name) {
             $bundles[] = new $name();
