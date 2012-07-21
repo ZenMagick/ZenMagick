@@ -316,20 +316,12 @@ class Application extends Kernel {
      * Init class loader.
      */
     protected function initClassLoader() {
-        require_once $this->getRootDir().'/lib/zenmagick/base/classloader/ClassLoader.php';
-
         $this->classLoader = new ClassLoader();
         $this->classLoader->register();
-
-        // @todo hardcoded list until we can use composer class map.
-        $classDirs = array('shared');
-        if ($applicationName = $this->getContext()) {
-            $classDirs[] = 'apps/'.$applicationName.'/lib';
+        if ($this->getContext()) {
+            $this->classLoader->addConfig($this->getRootDir().'/apps/'.$this->getContext().'/lib');
         }
-        foreach ($classDirs as $classDir) {
-            $classPath = $this->getRootDir().'/'.$classDir;
-            $this->classLoader->addConfig($classPath);
-        }
+        $this->classLoader->addConfig($this->getRootDir().'/shared');
     }
 
     /**
