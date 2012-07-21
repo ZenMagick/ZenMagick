@@ -21,9 +21,8 @@ namespace zenmagick\base\events;
 
 use stdClass;
 use zenmagick\base\Runtime;
-use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\EventDispatcher\Event;
-use Symfony\Component\EventDispatcher\EventDispatcher as SymfonyEventDispatcher;
+use Symfony\Component\EventDispatcher\ContainerAwareEventDispatcher;
 
 /**
  * The ZenMagick event service.
@@ -36,23 +35,8 @@ use Symfony\Component\EventDispatcher\EventDispatcher as SymfonyEventDispatcher;
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class EventDispatcher extends SymfonyEventDispatcher {
+class EventDispatcher extends ContainerAwareEventDispatcher {
     const LISTEN_ALL = '*';
-
-    private $container;
-
-    /**
-     * Constructor.
-     *
-     * @param ContainerInterface $container A ContainerInterface instance
-     */
-    public function __construct(ContainerInterface $container) {
-        $this->container = $container;
-    }
-
-    public function getContainer() {
-        return $this->container;
-    }
 
     /**
      * Listen to <strong>all</strong> events.
@@ -73,7 +57,7 @@ class EventDispatcher extends SymfonyEventDispatcher {
      * {@inheritDoc}
      */
     public function dispatch($eventName, Event $event = null) {
-        $application = $this->container->get('kernel');
+        $application = $this->getContainer()->get('kernel');
         $application->profile(sprintf('fire event: %s', $eventName));
 
         // use hasListeners rather than looking at the private listeners property
@@ -81,14 +65,6 @@ class EventDispatcher extends SymfonyEventDispatcher {
             $application->profile(sprintf('finished event: %s', $eventName));
             return;
         }
-if (false) {
-    echo $eventName.": ".count($this->getListeners($eventName))."<BR>";
-    foreach ($this->getListeners($eventName) as $listener) {
-        if (is_array($listener) && is_object($listener[0])) {
-            echo '- '.get_class($listener[0])."<BR>";
-        }
-    }
-}
 
         if (null === $event) {
             $event = new Event();
