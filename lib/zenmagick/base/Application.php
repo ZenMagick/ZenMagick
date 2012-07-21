@@ -413,10 +413,7 @@ class Application extends Kernel {
         }
         $listeners = array_merge($settingsService->get('zenmagick.base.events.listeners', array()), $listeners);
         $settingsService->set('zenmagick.base.events.listeners', $listeners);
-        // as default disable plugins for CLI calls
-        $enablePlugins = $this->getConfig('enablePlugins', 'cli' !== php_sapi_name());
         $settingsService->set('zenmagick.base.context', $this->getContext());
-        $settingsService->set('zenmagick.base.plugins.enabled',$enablePlugins);
         $this->settingsService = $settingsService;
     }
 

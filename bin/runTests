@@ -7,7 +7,6 @@ chdir(dirname(dirname(__FILE__)));
 include_once 'lib/base/Application.php';
 $application = new Application('prod', true,
   array(
-    'enablePlugins' => true,
     'appConfig' => array(dirname(__DIR__).'/config/store-config.yaml'),
     'appContainer' => array(dirname(__DIR__).'/config/store-services.xml', dirname(__DIR__).'/lib/http/container.xml'),
     'settings' => array('zenmagick' => array('bundles' => 'Doctrine\Bundle\DoctrineBundle\DoctrineBundle'));
