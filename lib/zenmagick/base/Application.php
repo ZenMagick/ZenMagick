@@ -423,7 +423,9 @@ class Application extends Kernel {
      * {@inheritDoc}
      */
     public function getContainerBuilder() {
-        return new ContainerBuilder(new SettingsParameterBag($this->getKernelParameters()));
+        $parameterBag = new SettingsParameterBag($this->getKernelParameters());
+        $parameterBag->setSettings($this->settingsService);
+        return new ContainerBuilder($parameterBag);
         // We'll probably go back to this later?
         //return new ContainerBuilder(new ParameterBag($this->getKernelParameters()));
     }

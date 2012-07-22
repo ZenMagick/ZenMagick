@@ -20,7 +20,7 @@
 namespace zenmagick\base\dependencyInjection\parameterBag;
 
 use zenmagick\base\Runtime;
-
+use zenmagick\base\settings\Settings;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBag;
 
 /**
@@ -29,19 +29,28 @@ use Symfony\Component\DependencyInjection\ParameterBag\ParameterBag;
  * @author DerManoMann <mano@zenmagick.org>
  */
 class SettingsParameterBag extends ParameterBag {
+    private $settings;
+
+    public function setSettings(Settings $settings) {
+        $this->settings = $settings;
+    }
+
+    public function getSettings() {
+        return $this->settings;
+    }
 
     /**
      * {@inheritDoc}
      */
     public function has($name) {
-        return parent::has($name) || Runtime::getSettings()->exists($name);
+        return parent::has($name) || $this->getSettings()->exists($name);
     }
 
     /**
      * {@inheritDoc}
      */
     public function get($name) {
-        $settingsService = Runtime::getSettings();
+        $settingsService = $this->getSettings();
         if ($settingsService->exists($name)) {
             return $settingsService->get($name);
         }
@@ -54,7 +63,7 @@ class SettingsParameterBag extends ParameterBag {
      */
     public function set($name, $value) {
         parent::set($name, $value);
-        Runtime::getSettings()->set($name, $value);
+        $this->getSettings()->set($name, $value);
     }
 
     /**
@@ -65,7 +74,7 @@ class SettingsParameterBag extends ParameterBag {
             $key = strtolower($match[1]);
 
             // case sensitive lookup
-            $settingsService = Runtime::getSettings();
+            $settingsService = $this->getSettings();
             if ($settingsService->exists($match[1])) {
                 return $settingsService->get($match[1]);
             }
@@ -85,7 +94,7 @@ class SettingsParameterBag extends ParameterBag {
             $key = strtolower($match[1]);
 
             // case sensitive lookup
-            $settingsService = Runtime::getSettings();
+            $settingsService = $this->getSettings();
             if ($settingsService->exists($match[1])) {
                 return $settingsService->get($match[1]);
             }
