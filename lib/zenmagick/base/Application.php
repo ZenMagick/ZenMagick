@@ -256,16 +256,16 @@ class Application extends Kernel {
                 'methods' => array('initLocale', 'initPlugins'),
                 'postEvent' => 'bootstrap_done'
             ),
-            array(
-                'key' => 'container',
-                'methods' => array('compileContainer'),
-                'postEvent' => 'container_ready'
-            )
         );
 
         if ('cli' !== php_sapi_name()) {
             $bootstrap[] = array('key' => 'request', 'postEvent' => 'request_ready');
         }
+        $bootstrap[] = array(
+            'key' => 'container',
+            'methods' => array('compileContainer'),
+            'postEvent' => 'container_ready'
+        );
         return $bootstrap;
     }
 
@@ -291,7 +291,7 @@ class Application extends Kernel {
      * @return array List of profile entries.
      */
     public function profile($text=null) {
-        if ($this->getConfig('profile', $this->debug)) {
+        if ($this->debug) {
             if ($text) {
                 $this->profile[] = array('text' => $text, 'timestamp' => microtime());
             }
@@ -487,7 +487,7 @@ class Application extends Kernel {
         $container = $this->container;
         $settingsService = $container->get('settingsService');
 
-        $container->get('localeService')->init($settingsService->get('zenmagick.base.locales.locale', $this->getConfig('defaultLocale', 'en')));
+        $container->get('localeService')->init($settingsService->get('zenmagick.base.locales.locale', 'en'));
 
         // set a default timezone; NOTE: warnings are suppressed for date_default_timezone_get() in case there isn't a default at all
         date_default_timezone_set($settingsService->get('zenmagick.core.date.timezone', @date_default_timezone_get()));
