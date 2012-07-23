@@ -36,6 +36,8 @@ use Symfony\Component\Config\Loader\LoaderInterface;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBag;
 use Symfony\Component\DependencyInjection\Loader\XmlFileLoader;
 use Symfony\Component\HttpKernel\Kernel;
+use Symfony\Component\HttpKernel\DependencyInjection\MergeExtensionConfigurationPass;
+use Symfony\Component\HttpKernel\DependencyInjection\AddClassesToCachePass;
 use Symfony\Component\HttpKernel\Debug\ErrorHandler;
 use Symfony\Component\HttpKernel\Debug\ExceptionHandler;
 use Symfony\Component\ClassLoader\DebugClassLoader;
@@ -344,13 +346,22 @@ class Application extends Kernel {
     /**
      * {@inheritDoc}
      *
-     * @todo object resources
-     * @todo caching
+     * Just like parent::buildContainer except the compilation step is not done here.
+     *
+     * @copyright Fabien Potencier <fabien@symfony.com>
      * @todo compile here
      */
     protected function buildContainer() {
+        foreach (array('cache' => $this->getCacheDir(), 'logs' => $this->getLogDir()) as $name => $dir) {
+            if (!is_dir($dir)) {
+                if (false === @mkdir($dir, 0777, true)) {
+                    throw new \RuntimeException(sprintf("Unable to create the %s directory (%s)\n", $name, $dir));
+                }
+            } elseif (!is_writable($dir)) {
+                throw new \RuntimeException(sprintf("Unable to write in the %s directory (%s)\n", $name, $dir));
+            }
+        }
         $container = $this->getContainerBuilder();
-        $container->set('settingsService', $this->settingsService);
         $extensions = array();
         foreach ($this->bundles as $bundle) {
             if ($extension = $bundle->getContainerExtension()) {
@@ -359,15 +370,24 @@ class Application extends Kernel {
             }
 
             if ($this->debug) {
-                //$container->addObjectResource($bundle);
+                $container->addObjectResource($bundle);
             }
         }
         foreach ($this->bundles as $bundle) {
             $bundle->build($container);
         }
-        // @todo registerContainerConfiguration can also return a container!
-        $this->registerContainerConfiguration($this->getContainerLoader($container));
 
+        $container->addObjectResource($this);
+
+        // ensure these extensions are implicitly loaded
+        $container->getCompilerPassConfig()->setMergePass(new MergeExtensionConfigurationPass($extensions));
+
+        if (null !== $cont = $this->registerContainerConfiguration($this->getContainerLoader($container))) {
+            $container->merge($cont);
+        }
+
+        $container->addCompilerPass(new AddClassesToCachePass($this));
+        //$container->compile();
         return $container;
     }
 
@@ -440,6 +460,8 @@ class Application extends Kernel {
         $this->container = $container;
         // register this as 'kernel'
         $this->container->set('kernel', $this);
+
+        $container->get('settingsService')->setAll($this->settingsService);
         Runtime::setContainer($this->container);
     }
 
