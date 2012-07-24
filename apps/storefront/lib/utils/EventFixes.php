@@ -161,7 +161,6 @@ class EventFixes extends ZMObject {
         $productId = $request->query->get('productId');
         if (null !== $productId) $_GET['product_id'] = $productId;
 
-        $shoppingCart = $request->getShoppingCart();
         if ('empty_cart' == $action) $redirectTarget = true;
 
         // simulate the number of uploads parameter for add to cart
@@ -179,10 +178,10 @@ class EventFixes extends ZMObject {
         if (null != $cartMethod) {
             $productsId = $request->request->get('products_id');
             if (is_array($productsId) && !$cartActionMap[$action]['multi']) {
-                $request->request->set('products_id', $request->query->get('productId'));
+                $request->request->set('products_id', $productsId[0]);
             }
             $request->overrideGlobals();
-            call_user_func_array(array($shoppingCart->cart_, $cartMethod), array($redirectTarget, $params));
+            call_user_func_array(array($session->getValue('cart'), $cartMethod), array($redirectTarget, $params));
         }
     }
 
