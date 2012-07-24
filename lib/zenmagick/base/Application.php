@@ -34,6 +34,7 @@ use zenmagick\base\plugins\Plugins;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\Config\Loader\LoaderInterface;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBag;
+use Symfony\Component\DependencyInjection\ParameterBag\FrozenParameterBag;
 use Symfony\Component\DependencyInjection\Loader\XmlFileLoader;
 use Symfony\Component\HttpKernel\Kernel;
 use Symfony\Component\HttpKernel\DependencyInjection\MergeExtensionConfigurationPass;
@@ -526,16 +527,18 @@ class Application extends Kernel {
         $container = $this->getContainer();
         $settingsService = Runtime::getSettings();
 
-        if ($settingsService->get('zenmagick.base.plugins.enabled', true)) {
+        //if ($settingsService->get('zenmagick.base.plugins.enabled', true)) {
             $container->get('pluginService')->getPluginsForContext($this->getContext());
-        }
+        //}
     }
 
     /**
      * Compile container.
      */
     protected function compileContainer() {
-        $container = $this->getContainer()->compile();
+        if (!($this->container->getParameterBag() instanceof FrozenParameterBag)) {
+            $container = $this->container->compile();
+        }
     }
 
 }
