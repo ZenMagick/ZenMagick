@@ -470,6 +470,17 @@ class Application extends Kernel {
         Runtime::setContainer($this->container);
     }
 
+    /**
+     * {@inheritDoc}
+     *
+     * Modified to add kernel.context parameter.
+     */
+    protected function getKernelParameters() {
+        $parameters = parent::getKernelParameters();
+        if (empty($parameters)) return; // if it's empty leave it empty.
+        $parameters['kernel.context'] = $this->getContext();
+        return $parameters;
+    }
 
     /**
      * Load bundles.
