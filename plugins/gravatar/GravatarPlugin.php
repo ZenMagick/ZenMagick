@@ -68,15 +68,6 @@ class GravatarPlugin extends Plugin {
         parent::init();
         // attach method to ZMAccount
         ZMObject::attachMethod('getGravatar', 'ZMAccount', array($this, 'getGravatar'));
-        $this->container->get('eventDispatcher')->addListener('request_ready', array($this, 'onRequestReady'));
-    }
-
-    /**
-     * Adjust baseUrl.
-     */
-    public function onRequestReady($event) {
-        $request = $event->get('request');
-        $this->baseUrl = $request->isSecure() ? 'https://secure.gravatar.com/avatar/' : 'http://www.gravatar.com/avatar/';
     }
 
     /**
@@ -118,7 +109,8 @@ class GravatarPlugin extends Plugin {
      * @source http://gravatar.com/site/implement/images/php/
      */
     private function pullGravatar($email, $s=80, $d='mm', $r='g', $img=false, $atts=array()) {
-        $url = $this->baseUrl;
+        $request = $this->container->get('request');
+        $url = $request->isSecure() ? 'https://secure.gravatar.com/avatar/' : 'http://www.gravatar.com/avatar/';
         $url .= md5(strtolower(trim($email)));
         $url .= "?s=$s&d=$d&r=$r";
         if (Toolbox::asBoolean($this->get('forceReload'))) {
