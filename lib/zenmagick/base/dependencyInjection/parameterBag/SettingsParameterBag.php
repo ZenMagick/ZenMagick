@@ -70,11 +70,11 @@ class SettingsParameterBag extends ParameterBag {
      * {@inheritDoc}
      */
     public function resolveString($value, array $resolving=array()) {
+        $settingsService = $this->getSettings();
         if (preg_match('/^%([^%]+)%$/', $value, $match)) {
             $key = strtolower($match[1]);
 
             // case sensitive lookup
-            $settingsService = $this->getSettings();
             if ($settingsService->exists($match[1])) {
                 return $settingsService->get($match[1]);
             }
@@ -90,11 +90,10 @@ class SettingsParameterBag extends ParameterBag {
 
         $self = $this;
 
-        return preg_replace_callback('/(?<!%)%([^%]+)%/', function ($match) use ($self, $resolving, $value) {
+        return preg_replace_callback('/(?<!%)%([^%]+)%/', function ($match) use ($self, $settingsService, $resolving, $value) {
             $key = strtolower($match[1]);
 
             // case sensitive lookup
-            $settingsService = $this->getSettings();
             if ($settingsService->exists($match[1])) {
                 return $settingsService->get($match[1]);
             }
