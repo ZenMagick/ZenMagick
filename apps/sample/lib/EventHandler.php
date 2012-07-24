@@ -33,7 +33,7 @@ class EventHandler extends ZMObject {
     /**
      * Init done callback.
      */
-    public function onRequestReady($event) {
+    public function onDispatchStart($event) {
         $request = $event->get('request');
         if (null != ($locale = $request->query->get('locale'))) {
             $request->getSession()->setValue('uiLocale', $locale);
