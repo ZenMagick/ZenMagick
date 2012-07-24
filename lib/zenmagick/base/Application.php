@@ -422,6 +422,10 @@ class Application extends Kernel {
             $contextConfigLoader->apply($config);
         }
 
+        if (null == $settingsService->get('apps.store.zencart.path')) { // @todo or default to vendors/zencart?
+            $settingsService->set('apps.store.zencart.path', dirname($this->getRootDir()));
+        }
+
         // if settings are defined here, they are the final word
         if ($this->getConfig('settings')) {
             $settingsService->setAll((array)$this->getConfig('settings'));

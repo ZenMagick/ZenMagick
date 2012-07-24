@@ -45,11 +45,6 @@ class ZenCartBundle extends Bundle {
      * {@inheritDoc}
      */
     public function boot() {
-        $settingsService = Runtime::getSettings();
-        if (null == $settingsService->get('apps.store.zencart.path')) { // @todo or default to vendors/zencart?
-            $settingsService->set('apps.store.zencart.path', dirname(Runtime::getInstallationPath()));
-        }
-
         $eventDispatcher = Runtime::getEventDispatcher();
         $eventDispatcher->listen($this);
         $eventDispatcher->addListener('generate_email', array(Beans::getBean('zenmagick\apps\store\bundles\ZenCartBundle\utils\EmailEventHandler'), 'onGenerateEmail'));
