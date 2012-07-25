@@ -121,28 +121,6 @@ class Application extends Kernel {
     }
 
     /**
-     * {@inheritDoc}
-     *
-     * Modified to support our settings for 'display_errors'
-     * and 'error_reporting'.
-     */
-    public function init() {
-        ini_set('log_errors', $this->getConfig('log_errors', true));
-        if ($this->debug) {
-            ini_set('display_errors', true);
-            error_reporting(-1);
-            DebugClassLoader::enable();
-            ErrorHandler::register($this->getConfig('error_reporting'));
-            if ('cli' !== php_sapi_name()) {
-                ExceptionHandler::register();
-            }
-        } else {
-            ini_set('display_errors', $this->getConfig('display_errors', false));
-            error_reporting($this->getConfig('error_reporting'));
-        }
-    }
-
-    /**
      * Bootstrap application.
      *
      * @param array keys Optional list of bootstrap block keys to run; default is <code>null</code> for all.
