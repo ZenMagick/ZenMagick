@@ -112,7 +112,6 @@ if (!defined('ATTRIBUTES_PRICE_FACTOR_FROM_SPECIAL')) define('ATTRIBUTES_PRICE_F
             'downloadByRedirect' => DOWNLOAD_BY_REDIRECT == 'true',
             'downloadInChunks' => DOWNLOAD_IN_CHUNKS == 'true',
 
-            'apps.store.maxExecutionTime' => defined('GLOBAL_SET_TIME_LIMIT') ? GLOBAL_SET_TIME_LIMIT : 60,
             /**************************************
              * formatting and other defaults
              **************************************/
