@@ -52,17 +52,6 @@ class ZenCartBundle extends Bundle {
     }
 
     /**
-     * Prepare db config
-     */
-    public function onInitConfigDone($event) {
-        $settingsService = $this->container->get('settingsService');
-        if (Runtime::isContextMatch('admin')) {
-            $settingsService->add('apps.store.admin.menus', 'shared/store/bundles/ZenCartBundle/Resources/config/admin/menu.yaml');
-            $settingsService->add('zenmagick.http.routing.addnRouteFiles', __DIR__.'/Resources/config/admin/routing.xml');
-        }
-    }
-
-    /**
      * Handle things that require a request.
      */
     public function onRequestReady($event) {
@@ -82,6 +71,12 @@ class ZenCartBundle extends Bundle {
                 $session->setValue('navigation', new \navigationHistory);
             }
         }
+        $settingsService = $this->container->get('settingsService');
+        if (Runtime::isContextMatch('admin')) {
+            $settingsService->add('apps.store.admin.menus', 'shared/store/bundles/ZenCartBundle/Resources/config/admin/menu.yaml');
+            $settingsService->add('zenmagick.http.routing.addnRouteFiles', __DIR__.'/Resources/config/admin/routing.xml');
+        }
+
     }
 
     /**
