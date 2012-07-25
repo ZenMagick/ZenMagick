@@ -55,6 +55,7 @@ class Application extends Kernel {
     protected $config;
     protected $classLoader;
     protected $profile;
+    protected $context;
     protected $settingsService;
 
     /**
@@ -67,6 +68,7 @@ class Application extends Kernel {
     public function __construct($environment = 'prod', $debug = false, array $config=array()) {
         $this->config = $config;
         $this->profile = array();
+        $this->context = isset($config['context']) ? $config['context'] : null;
         Toolbox::setEnvironment($environment);
         parent::__construct($environment, $debug);
         $this->startTime = microtime(true);
@@ -203,7 +205,7 @@ class Application extends Kernel {
      * @return string The application context.
      */
     public function getContext() {
-        return $this->getConfig('context');
+        return $this->context;
     }
 
     /**
