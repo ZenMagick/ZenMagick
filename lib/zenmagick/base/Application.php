@@ -441,6 +441,11 @@ class Application extends Kernel {
         $listeners = array_merge($settingsService->get('zenmagick.base.events.listeners', array()), $listeners);
         $settingsService->set('zenmagick.base.events.listeners', $listeners);
         $settingsService->set('zenmagick.base.context', $this->getContext());
+
+        if (null != ($tz = $settingsService->get('zenmagick.core.date.timezone'))) {
+            date_default_timezone_set($tz);
+        }
+
         $this->settingsService = $settingsService;
     }
 
@@ -526,13 +531,6 @@ class Application extends Kernel {
         $settingsService = $container->get('settingsService');
 
         $container->get('localeService')->init($settingsService->get('zenmagick.base.locales.locale', 'en'));
-
-        // set a default timezone; NOTE: warnings are suppressed for date_default_timezone_get() in case there isn't a default at all
-        date_default_timezone_set($settingsService->get('zenmagick.core.date.timezone', @date_default_timezone_get()));
-        if (null != ($dateTimeZone = date_timezone_get(new DateTime()))) {
-            // set back with the actually used value
-            $settingsService->set('zenmagick.core.date.timezone', $dateTimeZone->getName());
-        }
     }
 
     /**
