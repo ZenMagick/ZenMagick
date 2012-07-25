@@ -56,13 +56,6 @@ class Session extends \zenmagick\http\session\Session {
     }
 
     /**
-     * Get the current shopping cart.
-     *
-     * @return mixed The current <strong>zen-cart</strong> shopping cart (may be empty).
-     */
-    public function getZCShoppingCart() { return $this->getValue('cart'); }
-
-    /**
      * Get the account id.
      *
      * @return int The account id for the currently logged in user or <code>0</code>.
