@@ -72,6 +72,14 @@ class Application extends Kernel {
         Toolbox::setEnvironment($environment);
         parent::__construct($environment, $debug);
         $this->startTime = microtime(true);
+
+        // @todo really move it into $rootDir/autoload.php
+        $this->classLoader = new ClassLoader();
+        $this->classLoader->register();
+        if ($this->getContext()) {
+            $this->classLoader->addConfig($this->getRootDir().'/apps/'.$this->getContext().'/lib');
+        }
+        $this->classLoader->addConfig($this->getRootDir().'/shared');
     }
 
     /**
@@ -215,7 +223,6 @@ class Application extends Kernel {
             array(
                 'key' => 'init',
                 'methods' => array(
-                    'initClassLoader',
                     'initSettings',
                     'initializeBundles',
                     'initializeContainer',
@@ -286,18 +293,6 @@ class Application extends Kernel {
         if (1 == count($endTime)) { $endTime[] = 0; }
         $executionTime = $endTime[1]+$endTime[0]-$this->startTime;
         return round($executionTime, 4);
-    }
-
-    /**
-     * Init class loader.
-     */
-    protected function initClassLoader() {
-        $this->classLoader = new ClassLoader();
-        $this->classLoader->register();
-        if ($this->getContext()) {
-            $this->classLoader->addConfig($this->getRootDir().'/apps/'.$this->getContext().'/lib');
-        }
-        $this->classLoader->addConfig($this->getRootDir().'/shared');
     }
 
     /**
