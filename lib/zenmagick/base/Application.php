@@ -190,15 +190,6 @@ class Application extends Kernel {
         return $this->rootDir.'/cache/'.$this->getContext().'/'.$this->environment;
     }
 
-
-    /**
-     * {@inheritDoc}
-     * @todo adjust
-     */
-    public function getCharset() {
-        return $this->getConfig('charset', 'UTF-8');
-    }
-
     /**
      * Get the application context.
      *
