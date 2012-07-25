@@ -194,7 +194,7 @@ class RouteResolver extends ZMObject {
         }
 
         if (!$view) {
-            $view = \ZMUrlManager::instance()->findView($request->getRequestId(), $viewId);
+            $view = $this->container->get('urlManager')->findView($request->getRequestId(), $viewId);
         }
 
         if ($view instanceof TemplateView && $data) {
