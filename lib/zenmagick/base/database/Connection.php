@@ -530,7 +530,12 @@ class Connection extends DbalConnection {
                 $result = $this->translateRow($result, $mapping);
             }
             if (null != $modelClass) {
-                $result = Beans::map2obj($modelClass, $result);
+                if (null != ($obj = new $modelClass)) {
+                    if ($obj instanceof \Symfony\Component\DependencyInjection\ContainerAwareInterface) {
+                        $obj->setContainer(Runtime::getContainer());
+                    }
+                }
+                $result = Beans::setAll($obj, $result);
             }
             $results[] = $result;
         }
