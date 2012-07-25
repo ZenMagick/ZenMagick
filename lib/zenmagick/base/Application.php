@@ -516,8 +516,11 @@ class Application extends Kernel {
     protected function initEventListener() {
         $eventDispatcher = $this->container->get('eventDispatcher');
         $settingsService = $this->container->get('settingsService');
+        // @todo switch to using tagged services for events.
         foreach ($settingsService->get('zenmagick.base.events.listeners', array()) as $eventListener) {
-            if (null != ($eventListener = Beans::getBean(trim($eventListener)))) {
+            if (!ClassLoader::classExists($eventListener)) continue;
+            if (null != ($eventListener = new $eventListener)) {
+                $eventListener->setContainer($this->container);
                 $eventDispatcher->listen($eventListener);
             }
         }
@@ -540,9 +543,9 @@ class Application extends Kernel {
         $container = $this->getContainer();
         $settingsService = Runtime::getSettings();
 
-        //if ($settingsService->get('zenmagick.base.plugins.enabled', true)) {
+        if ($settingsService->get('zenmagick.base.plugins.enabled', true)) {
             $container->get('pluginService')->getPluginsForContext($this->getContext());
-        //}
+        }
     }
 
     /**
