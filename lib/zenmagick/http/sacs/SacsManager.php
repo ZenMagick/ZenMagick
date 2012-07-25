@@ -27,6 +27,8 @@ use zenmagick\base\events\Event;
 use zenmagick\base\logging\Logging;
 use zenmagick\http\routing\RouteResolver;
 
+use Symfony\Component\DependencyInjection\ContainerInterface;
+
 /**
  * Handle access control and security mappings.
  *
@@ -50,6 +52,8 @@ use zenmagick\http\routing\RouteResolver;
  * @author DerManoMann <mano@zenmagick.org>
  */
 class SacsManager extends ZMObject {
+    protected $container;
+
     private $mappings_;
     private $handlers_;
     private $permissionProviders_;
@@ -58,7 +62,8 @@ class SacsManager extends ZMObject {
     /**
      * Create new instance.
      */
-    public function __construct() {
+    public function __construct(ContainerInterface $container) {
+        $this->container = $container;
         parent::__construct();
         $this->reset();
     }
@@ -84,8 +89,11 @@ class SacsManager extends ZMObject {
         $this->mappings_ = array('default' => array(), 'mappings' => array());
         $this->handlers_ = array();
         $this->permissionProviders_ = array();
-        foreach (Runtime::getSettings()->get('zenmagick.http.sacs.handler', array('zenmagick\http\sacs\handler\DefaultSacsHandler')) as $def) {
-            if (null != ($handler = Beans::getBean($def))) {
+        // @todo use tagged services
+        foreach ($this->container->get('settingsService')->get('zenmagick.http.sacs.handler', array('zenmagick\http\sacs\handler\DefaultSacsHandler')) as $def) {
+            if (!class_exists($def)) continue;
+            if (null != ($handler = new $def)) {
+                $handler->setContainer($this->container);
                 $this->handlers_[$handler->getName()] = $handler;
             }
         }
@@ -204,13 +212,13 @@ class SacsManager extends ZMObject {
             // secure flag: leave to net() to lookup via SacsManager if configured, but leave as default parameter to allow override
             if (!$session->isStarted()) {
                 // no valid session
-                $request->redirect($request->url(Runtime::getSettings()->get('zenmagick.http.request.invalidSession')));
+                $request->redirect($request->url($this->container->get('settingsService')->get('zenmagick.http.request.invalidSession')));
                 exit;
             }
             if (!$request->isXmlHttpRequest()) {
                 $request->saveFollowUpUrl();
             }
-            $request->redirect($request->url(Runtime::getSettings()->get('zenmagick.http.request.login', 'login'), '', true));
+            $request->redirect($request->url($this->container->get('settingsService')->get('zenmagick.http.request.login', 'login'), '', true));
             exit;
         }
 

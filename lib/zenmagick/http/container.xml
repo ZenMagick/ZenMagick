@@ -28,6 +28,7 @@
         </service>
 
         <service id="sacsManager" class="zenmagick\http\sacs\SacsManager" scope="container">
+            <argument type="service" id="service_container" />
             <call method="setRouteResolver">
                 <argument type="service" id="routeResolver" />
             </call>
