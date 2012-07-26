@@ -234,8 +234,7 @@ class Application extends Kernel {
             ),
             array(
                 'key' => 'bootstrap',
-                'preEvent' => 'init_config_done',
-                'methods' => array('initLocale', 'initPlugins', 'initEmail'),
+                'methods' => array('initConfig', 'initLocale', 'initPlugins', 'initEmail'),
                 'postEvent' => 'request_ready'
             ),
             array(
@@ -481,6 +480,29 @@ class Application extends Kernel {
     }
 
     /**
+     * Get config loaded ASAP.
+     */
+    public function initConfig() {
+        foreach ($this->container->get('configService')->loadAll() as $key => $value) {
+            if (!defined($key)) {
+                define($key, $value);
+            }
+        }
+
+        $defaults = Runtime::getInstallationPath().'/shared/defaults.php';
+        if (file_exists($defaults)) {
+            include $defaults;
+        }
+
+        // load email container config once all settings/config is loaded
+        $emailConfig = Runtime::getInstallationPath().'/config/store-email.xml';
+        if (file_exists($emailConfig)) {
+            $containerlLoader = new XmlFileLoader($this->container, new FileLocator(dirname($emailConfig)));
+            $containerlLoader->load($emailConfig);
+        }
+    }
+
+    /**
      * Initialize email.
      *
      * @todo not the final home. move it closer to the container configuration.
@@ -504,7 +526,6 @@ class Application extends Kernel {
             }
         }
     }
-
 
     /**
      * Init locale.
