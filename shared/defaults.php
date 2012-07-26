@@ -63,7 +63,7 @@ if (!defined('ATTRIBUTES_PRICE_FACTOR_FROM_SPECIAL')) define('ATTRIBUTES_PRICE_F
      *
      * @package zenmagick.store.shared
      */
-    function zm_get_default_settings() {
+    function zm_get_default_settings($settingsService) {
         $map = array(
             /*** security ***/
             'zenmagick.base.authentication.minPasswordLength' => ENTRY_PASSWORD_MIN_LENGTH < 6 ? 6 : ENTRY_PASSWORD_MIN_LENGTH,
@@ -106,9 +106,9 @@ if (!defined('ATTRIBUTES_PRICE_FACTOR_FROM_SPECIAL')) define('ATTRIBUTES_PRICE_F
 
             'apps.store.zencart.admindir' => defined('ZENCART_ADMIN_FOLDER') ? ZENCART_ADMIN_FOLDER : 'admin',
             // @todo store the path in the database (supporting both absolute and relative paths)
-            'downloadBaseDir' => Runtime::getSettings()->get('downloadBaseDir') ?: realpath(Runtime::getInstallationPath().'/../download'),
+            'downloadBaseDir' => $settingsService->get('downloadBaseDir') ?: realpath(Runtime::getInstallationPath().'/../download'),
             // @todo downloadPubDir should really just exist in a publically accessible cache directory (like minified css/js)
-            'downloadPubDir' => Runtime::getSettings()->get('downloadPubDir') ?: realpath(Runtime::getInstallationPath().'/../pub'),
+            'downloadPubDir' => $settingsService->get('downloadPubDir') ?: realpath(Runtime::getInstallationPath().'/../pub'),
             'downloadByRedirect' => DOWNLOAD_BY_REDIRECT == 'true',
             'downloadInChunks' => DOWNLOAD_IN_CHUNKS == 'true',
 
@@ -132,7 +132,7 @@ if (!defined('ATTRIBUTES_PRICE_FACTOR_FROM_SPECIAL')) define('ATTRIBUTES_PRICE_F
             'textOptionPrefix' => defined('TEXT_PREFIX') ? TEXT_PREFIX : 'txt_',
             'uploadOptionPrefix' => defined('UPLOAD_PREFIX') ? UPLOAD_PREFIX : 'upload_',
 
-            'apps.store.cart.uploads' => Runtime::getSettings()->get('uploadBaseDir') ?: realpath(Runtime::getInstallationPath().'/../images/uploads'),
+            'apps.store.cart.uploads' => $settingsService->get('uploadBaseDir') ?: realpath(Runtime::getInstallationPath().'/../images/uploads'),
 
             // default/store currency
             'defaultCurrency' => DEFAULT_CURRENCY,
@@ -320,8 +320,8 @@ if (!defined('ATTRIBUTES_PRICE_FACTOR_FROM_SPECIAL')) define('ATTRIBUTES_PRICE_F
     }
 
     $replace = true;
-    $settingsService = Runtime::getSettings();
-    foreach (zm_get_default_settings() as $name => $value) {
+    $settingsService = $this->container->get('settingsService');
+    foreach (zm_get_default_settings($settingsService) as $name => $value) {
         if ($replace || !$settingsService->exists($name)) {
             $settingsService->set($name, $value);
         }
