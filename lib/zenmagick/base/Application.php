@@ -132,21 +132,35 @@ class Application extends Kernel {
         }
     }
 
+    /*
+     * {@inheritDoc}
+     *
+     * @param array keys
+     */
+    public function boot(array $keys = null) {
+        if (true === $this->booted) {
+            return;
+        }
+
+        $this->initializeBundles();
+
+        $this->initializeContainer();
+
+        foreach ($this->getBundles() as $bundle) {
+            $bundle->setContainer($this->container);
+            $bundle->boot();
+        }
+        $this->bootZM($keys);
+        $this->booted = true;
+    }
+
     /**
      * Bootstrap application.
      *
      * @param array keys Optional list of bootstrap block keys to run; default is <code>null</code> for all.
      */
-    public function boot(array $keys=null) {
-        if (true === $this->booted) return;
-
-        $this->initializeBundles();
-        $this->initializeContainer();
+    public function bootZM(array $keys=null) {
         $settingsService = $this->container->get('settingsService');
-        foreach ($this->getBundles() as $bundle) {
-            $bundle->setContainer($this->container);
-            $bundle->boot();
-        }
         if ($settingsService->get('zenmagick.base.plugins.enabled', true)) {
             foreach ($this->container->get('pluginService')->getPluginPackages() as $path) {
                 $this->classLoader->addConfig($path);
@@ -177,7 +191,6 @@ class Application extends Kernel {
         if (empty($keys) ||in_array('bootstrap', (array)$keys)) {
             $this->fireEvent('container_ready');
         }
-        $this->booted = true;
     }
 
     /**
