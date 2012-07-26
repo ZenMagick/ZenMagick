@@ -55,8 +55,6 @@
             </call>
         </service>
 
-        <service id="classLoader" class="zenmagick\base\classloader\ClassLoader" scope="prototype" />
-
         <service id="loggingService" class="zenmagick\base\logging\Logging" scope="container">
             <call method="setFilesystem">
                 <argument type="service" id="filesystem" />
