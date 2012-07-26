@@ -16,6 +16,7 @@
         <parameter key="zenmagick.http.session.validator.sslSessionId">false</parameter>
         <parameter key="zenmagick.http.session.formToken" type="collection"></parameter>
         <parameter key="zenmagick.http.virtualPathMap" type="collection"></parameter>
+        <parameter key="zenmagick.http.sacs.mappingProviders" type="collection"></parameter>
     </parameters>
 
     <services>
@@ -29,6 +30,13 @@
 
         <service id="sacsManager" class="zenmagick\http\sacs\SacsManager" scope="container">
             <argument type="service" id="service_container" />
+            <call method="load">
+                <argument>%kernel.root_dir%/apps/%kernel.context%/config/sacs_mappings.yaml</argument>
+                <argument>false</argument>
+            </call>
+            <call method="loadProviderMappings">
+                <argument>%zenmagick.http.sacs.mappingProviders%</argument>
+            </call>
             <call method="setRouteResolver">
                 <argument type="service" id="routeResolver" />
             </call>

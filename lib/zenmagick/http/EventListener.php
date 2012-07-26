@@ -37,16 +37,6 @@ use zenmagick\http\utils\ContextConfigLoader as HttpContextConfigLoader;
 class EventListener extends ZMObject {
 
     /**
-     * Additional config loading.
-     */
-    public function onInitConfigDone($event) {
-        // sacs mappings
-        $this->container->get('sacsManager')->load(Runtime::getApplicationPath().'/config/sacs_mappings.yaml', false);
-        //TODO: use tag
-        $this->container->get('sacsManager')->loadProviderMappings(Runtime::getSettings()->get('zenmagick.http.sacs.mappingProviders', array()));
-    }
-
-    /**
      * Init things that need a request.
      */
     public function onContainerReady($event) {
