@@ -139,28 +139,43 @@ class Application extends Kernel {
      */
     public function boot(array $keys=null) {
         if (true === $this->booted) return;
-        $bootstrap = $this->initBootstrap();
-        foreach ($bootstrap as $ii => $step) {
-            if (array_key_exists('done', $step) || (null !== $keys && !in_array($step['key'], $keys))) {
-                continue;
-            }
 
-            if (array_key_exists('preEvent', $step)) {
-                $eventName = $step['preEvent'];
-                $this->fireEvent($eventName);
+        $this->initializeBundles();
+        $this->initializeContainer();
+        $settingsService = $this->container->get('settingsService');
+        foreach ($this->getBundles() as $bundle) {
+            $bundle->setContainer($this->container);
+            $bundle->boot();
+        }
+        if ($settingsService->get('zenmagick.base.plugins.enabled', true)) {
+            foreach ($this->container->get('pluginService')->getPluginPackages() as $path) {
+                $this->classLoader->addConfig($path);
             }
+        }
+        // @todo switch to using tagged services for events.
+        foreach ($settingsService->get('zenmagick.base.events.listeners', array()) as $eventListener) {
+            if (!ClassLoader::classExists($eventListener)) continue;
+            if (null != ($eventListener = new $eventListener)) {
+                $eventListener->setContainer($this->container);
+                $this->container->get('eventDispatcher')->listen($eventListener);
+            }
+        }
+        if (empty($keys) || in_array('bootstrap', (array)$keys)) {
+            $this->initConfig();
+            $this->container->get('localeService')->init($settingsService->get('zenmagick.base.locales.locale', 'en'));
+            if ($settingsService->get('zenmagick.base.plugins.enabled', true)) {
+                $this->container->get('pluginService')->getPluginsForContext($this->getContext());
+            }
+            $this->initEmail();
+            $this->fireEvent('request_ready');
+        }
 
-            if (!array_key_exists('methods', $step)) $step['methods'] = array();
-            foreach ((array)$step['methods'] as $method) {
-                $this->profile(sprintf('enter bootstrap method: %s', $method));
-                $this->$method();
-                $this->profile(sprintf('exit bootstrap method: %s', $method));
-            }
-            if (array_key_exists('postEvent', $step)) {
-                $eventName = $step['postEvent'];
-                $this->fireEvent($eventName);
-            }
-            $this->bootstrap[$ii]['done'] = true;
+        if (!($this->container->getParameterBag() instanceof FrozenParameterBag)) {
+            $this->container->compile();
+        }
+
+        if (empty($keys) ||in_array('bootstrap', (array)$keys)) {
+            $this->fireEvent('container_ready');
         }
         $this->booted = true;
     }
@@ -215,35 +230,6 @@ class Application extends Kernel {
      * @todo remove this stub once we're ready
      */
     public function loadClassCache($name = 'classes', $extension = '.php') {
-    }
-
-    /**
-     * Init the bootstrap config.
-     */
-    protected function initBootstrap() {
-        $bootstrap = array(
-            array(
-                'key' => 'init',
-                'methods' => array(
-                    'initializeBundles',
-                    'initializeContainer',
-                    'loadBundles',
-                    'loadBootstrapPackages',
-                    'initEventListener'
-                ),
-            ),
-            array(
-                'key' => 'bootstrap',
-                'methods' => array('initConfig', 'initLocale', 'initPlugins', 'initEmail'),
-                'postEvent' => 'request_ready'
-            ),
-            array(
-                'key' => 'container',
-                'methods' => array('compileContainer'),
-                'postEvent' => 'container_ready'
-            ),
-        );
-        return $bootstrap;
     }
 
     /**
@@ -441,45 +427,6 @@ class Application extends Kernel {
     }
 
     /**
-     * Load bundles.
-     */
-    protected function loadBundles() {
-        foreach ($this->getBundles() as $bundle) {
-            $bundle->setContainer($this->container);
-            $bundle->boot();
-        }
-    }
-
-    /**
-     * Load bootstrap packages.
-     */
-    protected function loadBootstrapPackages() {
-        $container = $this->container;
-        $settingsService = $container->get('settingsService');
-        if ($settingsService->get('zenmagick.base.plugins.enabled', true)) {
-            foreach ($container->get('pluginService')->getPluginPackages() as $path) {
-                $this->classLoader->addConfig($path);
-            }
-        }
-    }
-
-    /**
-     * Init event listener.
-     */
-    protected function initEventListener() {
-        $eventDispatcher = $this->container->get('eventDispatcher');
-        $settingsService = $this->container->get('settingsService');
-        // @todo switch to using tagged services for events.
-        foreach ($settingsService->get('zenmagick.base.events.listeners', array()) as $eventListener) {
-            if (!ClassLoader::classExists($eventListener)) continue;
-            if (null != ($eventListener = new $eventListener)) {
-                $eventListener->setContainer($this->container);
-                $eventDispatcher->listen($eventListener);
-            }
-        }
-    }
-
-    /**
      * Get config loaded ASAP.
      */
     public function initConfig() {
@@ -526,36 +473,4 @@ class Application extends Kernel {
             }
         }
     }
-
-    /**
-     * Init locale.
-     */
-    protected function initLocale() {
-        $container = $this->container;
-        $settingsService = $container->get('settingsService');
-
-        $container->get('localeService')->init($settingsService->get('zenmagick.base.locales.locale', 'en'));
-    }
-
-    /**
-     * Init plugins.
-     */
-    protected function initPlugins() {
-        $container = $this->getContainer();
-        $settingsService = Runtime::getSettings();
-
-        if ($settingsService->get('zenmagick.base.plugins.enabled', true)) {
-            $container->get('pluginService')->getPluginsForContext($this->getContext());
-        }
-    }
-
-    /**
-     * Compile container.
-     */
-    protected function compileContainer() {
-        if (!($this->container->getParameterBag() instanceof FrozenParameterBag)) {
-            $container = $this->container->compile();
-        }
-    }
-
 }
