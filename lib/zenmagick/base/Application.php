@@ -240,9 +240,7 @@ class Application extends Kernel {
             ),
         );
 
-        if ('cli' !== php_sapi_name()) {
-            $bootstrap[] = array('key' => 'request', 'postEvent' => 'request_ready');
-        }
+        $bootstrap[] = array('key' => 'request', 'postEvent' => 'request_ready');
         $bootstrap[] = array(
             'key' => 'container',
             'methods' => array('compileContainer'),
@@ -288,8 +286,10 @@ class Application extends Kernel {
      * @param array parameter Optional parameter; default is an empty array.
      */
     public function fireEvent($eventName, array $parameter=array()) {
+        $cli = 'cli' == php_sapi_name();
+        if ($cli && $eventName == 'request_ready') return;
         $parameter['kernel'] = $this;
-        if (('cli' !== php_sapi_name()) && in_array($eventName, array('request_ready', 'container_ready'))) {
+        if (!$cli && in_array($eventName, array('request_ready', 'container_ready'))) {
             $parameter['request'] = $this->container->get('request');
         }
 
