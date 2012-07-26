@@ -24,6 +24,7 @@ use Exception;
 use zenmagick\base\Runtime;
 use zenmagick\base\Beans;
 use zenmagick\base\classloader\ClassLoader;
+use zenmagick\base\settings\Settings;
 use zenmagick\base\Toolbox;
 use zenmagick\base\ZMException;
 use zenmagick\base\dependencyInjection\ContainerBuilder;
@@ -52,7 +53,6 @@ use Symfony\Component\HttpFoundation\Response;
  * @todo: document all config options
  */
 class Application extends Kernel {
-    protected $config;
     protected $classLoader;
     protected $profile;
     protected $context;
@@ -66,13 +66,15 @@ class Application extends Kernel {
      * @param array config Optional config settings.
      */
     public function __construct($environment = 'prod', $debug = false, array $config=array()) {
-        $this->config = $config;
+        $this->settingsService = new Settings;
         $this->profile = array();
         $this->context = isset($config['context']) ? $config['context'] : null;
         Toolbox::setEnvironment($environment);
         parent::__construct($environment, $debug);
         $this->startTime = microtime(true);
 
+        $settings = isset($config['settings']) ? $config['settings'] : null;
+        $this->initSettings($settings);
         // @todo really move it into $rootDir/autoload.php
         $this->classLoader = new ClassLoader();
         $this->classLoader->register();
@@ -112,7 +114,7 @@ class Application extends Kernel {
             $appContainerFiles[] = $applicationPath.'/config/container.xml';
         }
         $appContainerFiles[] = 'config/store-container.xml';
-        $appContainerFiles = array_merge($appContainerFiles, $this->getConfig('appContainer', array()));
+
         $files = array();
         $filesystem = new Filesystem();
         foreach ($appContainerFiles as $file) {
@@ -223,7 +225,6 @@ class Application extends Kernel {
             array(
                 'key' => 'init',
                 'methods' => array(
-                    'initSettings',
                     'initializeBundles',
                     'initializeContainer',
                     'loadBundles',
@@ -248,21 +249,6 @@ class Application extends Kernel {
             'postEvent' => 'container_ready'
         );
         return $bootstrap;
-    }
-
-    /**
-     * Get application config.
-     *
-     * @return array Map of application configuration.
-     */
-    public function getConfig($key=null, $default = null) {
-        if (null == $key) {
-            return $this->config;
-        }
-        if (array_key_exists($key, $this->config)) {
-            return $this->config[$key];
-        }
-        return $default;
     }
 
     /**
@@ -360,15 +346,21 @@ class Application extends Kernel {
 
     /**
      * Init some basic settings.
+     *
+     * @param array array of settings
+     *
+     * @todo take a Settings instance?
      */
-    protected function initSettings() {
-        $settingsService = new \zenmagick\base\settings\Settings;
-
+    protected function initSettings($settings) {
         $settingsFiles = array();
+        $settingsService = $this->settingsService;
         if ($applicationPath = $this->getApplicationPath()) {
             $settingsFiles[] = $applicationPath.'/config/config.yaml';
         }
-        $settingsFiles = array_merge($this->getConfig('appConfig', array()), $settingsFiles);
+        // @todo do something better for command line.
+        if (!in_array($this->getContext(), array('admin', 'storefront'))) {
+            $settingsFiles[] = $this->getRootDir().'/config/store-config.yaml';
+        }
         foreach ($settingsFiles as $config) {
             if (file_exists($config)) {
                 $settingsService->setAll(Toolbox::loadWithEnv($config));
@@ -393,8 +385,8 @@ class Application extends Kernel {
         }
 
         // if settings are defined here, they are the final word
-        if ($this->getConfig('settings')) {
-            $settingsService->setAll((array)$this->getConfig('settings'));
+        if (!empty($settings)) {
+            $settingsService->setAll((array)$settings);
         }
         $listeners = array();
         if ($applicationPath = $this->getApplicationPath()) {
@@ -411,8 +403,6 @@ class Application extends Kernel {
         if (null != ($tz = $settingsService->get('zenmagick.core.date.timezone'))) {
             date_default_timezone_set($tz);
         }
-
-        $this->settingsService = $settingsService;
     }
 
     /**
