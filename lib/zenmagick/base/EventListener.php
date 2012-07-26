@@ -31,29 +31,6 @@ use Symfony\Component\DependencyInjection\Loader\XmlFileLoader;
 class EventListener extends ZMObject {
 
     /**
-     * Additional config loading.
-     */
-    public function onBootstrapDone($event) {
-        $key = 'zenmagick.base.email.host';
-        // enable encryption for gmail smtp
-        if ($this->container->getParameterBag()->has($key)) {
-            if ('smtp.gmail.com' == $this->container->getParameterBag()->get($key)) {
-                $this->container->getParameterBag()->set('zenmagick.base.email.encryption', 'tls');
-            }
-        }
-
-        // load email container config unless we do have already some swiftmailer config
-        $bundles = array_keys($this->container->get('settingsService')->get('zenmagick.bundles', array()));
-        if (0 == count($this->container->getExtensionConfig('swiftmailer')) && in_array('SwiftmailerBundle', $bundles)) {
-            $emailConfig = __DIR__.'/email.xml';
-            if (file_exists($emailConfig)) {
-                $containerLoader = new XmlFileLoader($this->container, new FileLocator(dirname($emailConfig)));
-                $containerLoader->load($emailConfig);
-            }
-        }
-    }
-
-    /**
      * Cannot have a default for encryption, so need to set that explicitely.
      */
     public function onContainerReady($event) {

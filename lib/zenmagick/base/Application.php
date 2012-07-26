@@ -235,16 +235,14 @@ class Application extends Kernel {
             array(
                 'key' => 'bootstrap',
                 'preEvent' => 'init_config_done',
-                'methods' => array('initLocale', 'initPlugins'),
-                'postEvent' => 'bootstrap_done'
+                'methods' => array('initLocale', 'initPlugins', 'initEmail'),
+                'postEvent' => 'request_ready'
             ),
-        );
-
-        $bootstrap[] = array('key' => 'request', 'postEvent' => 'request_ready');
-        $bootstrap[] = array(
-            'key' => 'container',
-            'methods' => array('compileContainer'),
-            'postEvent' => 'container_ready'
+            array(
+                'key' => 'container',
+                'methods' => array('compileContainer'),
+                'postEvent' => 'container_ready'
+            ),
         );
         return $bootstrap;
     }
@@ -481,6 +479,32 @@ class Application extends Kernel {
             }
         }
     }
+
+    /**
+     * Initialize email.
+     *
+     * @todo not the final home. move it closer to the container configuration.
+     */
+    public function initEmail() {
+        $key = 'zenmagick.base.email.host';
+        // enable encryption for gmail smtp
+        if ($this->container->getParameterBag()->has($key)) {
+            if ('smtp.gmail.com' == $this->container->getParameterBag()->get($key)) {
+                $this->container->getParameterBag()->set('zenmagick.base.email.encryption', 'tls');
+            }
+        }
+
+        // load email container config unless we do have already some swiftmailer config
+        $bundles = array_keys($this->container->get('settingsService')->get('zenmagick.bundles', array()));
+        if (0 == count($this->container->getExtensionConfig('swiftmailer')) && in_array('SwiftmailerBundle', $bundles)) {
+            $emailConfig = __DIR__.'/email.xml';
+            if (file_exists($emailConfig)) {
+                $containerLoader = new XmlFileLoader($this->container, new FileLocator(dirname($emailConfig)));
+                $containerLoader->load($emailConfig);
+            }
+        }
+    }
+
 
     /**
      * Init locale.
