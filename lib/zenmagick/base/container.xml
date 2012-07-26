@@ -26,8 +26,6 @@
         <service id="service_container" synthetic="true" />
         <service id="kernel" synthetic="true" />
 
-        <service id="containerTagService" class="zenmagick\base\dependencyInjection\tags\ContainerTagService" />
-
         <service id="transientCache" class="zenmagick\base\cache\MemoryCache" scope="container">
             <call method="init">
                 <argument>global</argument>
