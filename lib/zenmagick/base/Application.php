@@ -260,7 +260,7 @@ class Application extends Kernel {
     public function profile($text=null) {
         if ($this->debug) {
             if ($text) {
-                $this->profile[] = array('text' => $text, 'timestamp' => microtime());
+                $this->profile[] = array('text' => $text, 'timestamp' => microtime(true));
             }
             return $this->profile;
         }
