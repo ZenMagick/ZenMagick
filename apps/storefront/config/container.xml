@@ -11,6 +11,10 @@
 
     <services>
         <service id="session" class="zenmagick\apps\store\storefront\http\Session" scope="container">
+            <call method="setContainer">
+                <argument type="service" id="service_container" />
+            </call>
+
             <call method="setName">
                 <argument>zmsid</argument>
             </call>
