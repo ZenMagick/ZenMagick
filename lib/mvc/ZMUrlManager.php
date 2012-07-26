@@ -91,6 +91,17 @@ class ZMUrlManager extends ZMObject {
     }
 
     /**
+     * Load mappings from a YAML file.
+     *
+     * @param string filename
+     * @param boolean override Optional flag to control whether to override existing mappings or to merge;
+     *  default is <code>true</code> to override.
+     */
+    public function loadFile($fileName, $override=true) {
+        $this->load(file_get_contents($fileName), $override);
+    }
+
+    /**
      * Load mappings from a YAML style string.
      *
      * @param string yaml The yaml style mappings.
