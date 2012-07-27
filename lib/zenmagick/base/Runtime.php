@@ -27,7 +27,7 @@ namespace zenmagick\base;
  */
 class Runtime {
     private static $container = null;
-
+    private static $context = null;
 
     /**
      * Get the application we are running.
@@ -36,6 +36,10 @@ class Runtime {
      */
     public static function getApplication() {
         return self::getContainer()->get('kernel');
+    }
+
+    public static function setContext($context) {
+        self::$context = $context;
     }
 
     /**
@@ -49,9 +53,7 @@ class Runtime {
      * @return boolean <code>true</code> if the current context is either <code>null</code> or matched inside the given string.
      */
     public static function isContextMatch($s, $context=null) {
-        if (null === $context) {
-            $context = self::getApplication()->getContext();
-        }
+        $context = $context ?: self::$context;
         if (null === $context) {
             return true;
         }

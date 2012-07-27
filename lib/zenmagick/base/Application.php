@@ -70,6 +70,7 @@ class Application extends Kernel {
         $this->profile = array();
         $this->context = isset($config['context']) ? $config['context'] : null;
         Toolbox::setEnvironment($environment);
+        Runtime::setContext($this->context);
         parent::__construct($environment, $debug);
         $this->startTime = microtime(true);
 
