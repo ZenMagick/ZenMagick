@@ -54,7 +54,6 @@ use Symfony\Component\HttpFoundation\Response;
  */
 class Application extends Kernel {
     protected $classLoader;
-    protected $profile;
     protected $context;
     protected $settingsService;
 
@@ -245,22 +244,6 @@ class Application extends Kernel {
      * @todo remove this stub once we're ready
      */
     public function loadClassCache($name = 'classes', $extension = '.php') {
-    }
-
-    /**
-     * Add entry to profile.
-     *
-     * @param string text The profile text; default is null to just return the current profile data.
-     * @return array List of profile entries.
-     */
-    public function profile($text=null) {
-        if ($this->debug) {
-            if ($text) {
-                $this->profile[] = array('text' => $text, 'timestamp' => microtime(true));
-            }
-            return $this->profile;
-        }
-        return null;
     }
 
     /**

@@ -62,8 +62,6 @@ class PageStatsPlugin extends Plugin {
         $this->addConfigValue('Limit displayed SQL', 'sqlTimingLimit', '0', 'Limit displayed SQL to the top X queries (0 for all).');
         $this->addConfigValue('Dump Queries to Error Log', 'dumpQueries', 'false', 'If set to true, all SQL queries will be dumped to error log.',
             'widget@booleanFormWidget#name=dumpQueries&default=false&label=Dump queries to error log');
-        $this->addConfigValue('Show Application Profile', 'appProfile', 'false', 'If set, display application profile data.',
-            'widget@booleanFormWidget#name=appProfile&default=false&label=Show profile data');
     }
 
     /**
@@ -244,23 +242,6 @@ class PageStatsPlugin extends Plugin {
         echo $sep.'<strong>memory:</strong> '.memory_get_usage(true);
         echo '<br'.$slash.'>';
         echo '</div>';
-        if (Toolbox::asBoolean($this->get('appProfile'))) {
-            echo '<div id="profile-log">';
-            echo '<table border="1">';
-            echo '<tr><td colspan="3">Application Profile</td>';
-            $lastElapsed = 0;
-            foreach ($application->profile() as $entry) {
-                $elapsed = $application->getElapsedTime($entry['timestamp']);
-                echo '<tr>';
-                echo '<td style="text-align:left;padding:4px;">'.$elapsed.'</td>';
-                echo '<td style="text-align:right;padding:4px;">'.round($elapsed-$lastElapsed, 4).'</td>';
-                echo '<td style="text-align:left;padding:4px;">'.$entry['text'].'</td>';
-                echo '</tr>';
-                $lastElapsed = $elapsed;
-            }
-            echo '</table>';
-            echo '</div>';
-        }
         if (Toolbox::asBoolean($this->get('showEvents'))) {
             echo '<div id="event-log">';
             echo '<table border="1">';

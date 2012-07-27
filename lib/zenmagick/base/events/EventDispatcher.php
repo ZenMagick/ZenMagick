@@ -57,12 +57,8 @@ class EventDispatcher extends ContainerAwareEventDispatcher {
      * {@inheritDoc}
      */
     public function dispatch($eventName, Event $event = null) {
-        //$application = $this->getContainer()->get('kernel');
-        //$application->profile(sprintf('fire event: %s', $eventName));
-
         // use hasListeners rather than looking at the private listeners property
         if (!$this->hasListeners($eventName)) {
-            //$application->profile(sprintf('finished event: %s', $eventName));
             return;
         }
 
@@ -74,7 +70,6 @@ class EventDispatcher extends ContainerAwareEventDispatcher {
         $event->setName($eventName);
 
         $this->doDispatch($this->getListeners($eventName), $eventName, $event);
-        //$application->profile(sprintf('finished event: %s', $eventName));
     }
 
     /**
