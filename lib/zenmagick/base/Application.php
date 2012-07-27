@@ -283,10 +283,9 @@ class Application extends Kernel {
      * @param array parameter Optional parameter; default is an empty array.
      */
     public function fireEvent($eventName, array $parameter=array()) {
-        $cli = 'cli' == php_sapi_name();
-        if ($cli && $eventName == 'request_ready') return;
+        if ('cli' == php_sapi_name()) return;
         $parameter['kernel'] = $this;
-        if (!$cli && in_array($eventName, array('request_ready', 'container_ready'))) {
+        if (in_array($eventName, array('request_ready', 'container_ready'))) {
             $parameter['request'] = $this->container->get('request');
         }
 
