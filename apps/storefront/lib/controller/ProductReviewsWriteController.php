@@ -20,6 +20,7 @@
 namespace zenmagick\apps\store\storefront\controller;
 
 use zenmagick\base\Runtime;
+use zenmagick\base\events\Event;
 
 /**
  * Request controller for write review page.
@@ -76,6 +77,9 @@ class ProductReviewsWriteController extends \ZMController {
             }
             $this->container->get('mailer')->send($message);
         }
+
+        $args = array('request' => $request, 'controller' => $this, 'account' => $account, 'review' => $review, 'product' => $product);
+        Runtime::getEventDispatcher()->dispatch('review_submitted', new Event($this, $args));
 
         $this->messageService->success(_zm("Thank you for your submission"));
         return $this->findView('success', array(), array('parameter' => 'productId='.$product->getId()));
