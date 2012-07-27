@@ -64,16 +64,14 @@ class Application extends Kernel {
      * @param boolean debug Whether to enable debugging or not
      * @param array config Optional config settings.
      */
-    public function __construct($environment = 'prod', $debug = false, array $config=array()) {
-        $this->settingsService = new Settings;
-        $this->context = isset($config['context']) ? $config['context'] : null;
+    public function __construct($environment = 'prod', $debug = false, $context = null) {
+        $this->context = $context;
         Toolbox::setEnvironment($environment);
         Runtime::setContext($this->context);
         parent::__construct($environment, $debug);
         $this->startTime = microtime(true);
 
-        $settings = isset($config['settings']) ? $config['settings'] : null;
-        $this->initSettings($settings);
+        $this->initSettings();
         // @todo really move it into $rootDir/autoload.php
         $this->classLoader = new ClassLoader();
         $this->classLoader->register();
@@ -316,7 +314,8 @@ class Application extends Kernel {
      *
      * @todo take a Settings instance?
      */
-    protected function initSettings($settings) {
+    protected function initSettings() {
+        $this->settingsService = new Settings;
         $settingsFiles = array();
         $settingsService = $this->settingsService;
         if ($applicationPath = $this->getApplicationPath()) {
@@ -344,7 +343,7 @@ class Application extends Kernel {
         if (file_exists($globalFilename)) {
             $contextConfigLoader = new \zenmagick\base\utils\ContextConfigLoader;
             $contextConfigLoader->setConfig(Toolbox::loadWithEnv($globalFilename));
-            $contextConfigLoader->setSettingsService($this->settingsService);
+            $contextConfigLoader->setSettingsService($settingsService);
             $config = $contextConfigLoader->resolve($this->getContext());
             unset($config['container']); // @todo merge this with the other container configuration if we want to keep it.
             $contextConfigLoader->apply($config);
@@ -354,10 +353,6 @@ class Application extends Kernel {
             $settingsService->set('apps.store.zencart.path', dirname($this->getRootDir()));
         }
 
-        // if settings are defined here, they are the final word
-        if (!empty($settings)) {
-            $settingsService->setAll((array)$settings);
-        }
         $listeners = array();
         if ($applicationPath = $this->getApplicationPath()) {
             $listeners[] = sprintf('zenmagick\apps\%s\EventListener', $this->getContext());

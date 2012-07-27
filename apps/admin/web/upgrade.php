@@ -33,9 +33,8 @@ use zenmagick\apps\store\bundles\ZenCartBundle\ZenCartClassLoader;
 $rootDir = realpath(__DIR__.'/../../..');
 include_once $rootDir.'/autoload.php';
 
-$config = array('context' => basename(dirname(__DIR__)));
 $environment = isset($_SERVER['ZM_ENVIRONMENT']) ? $_SERVER['ZM_ENVIRONMENT'] : 'prod';
-$application = new Application($environment, true, $config);
+$application = new Application($environment, true, basename(dirname(__DIR__)));
 $application->loadClassCache();
 $application->boot(array('init'));
 
