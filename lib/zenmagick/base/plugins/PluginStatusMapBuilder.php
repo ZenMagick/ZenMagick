@@ -36,6 +36,7 @@ use Symfony\Component\Yaml\Yaml;
 class PluginStatusMapBuilder extends ZMObject {
     const  PLUGIN_CLASS_PATTERN = 'Plugin.php';
     private $defaultPluginClass;
+    private $pluginDirs;
 
     /**
      * Set the default plugin class.
@@ -46,6 +47,9 @@ class PluginStatusMapBuilder extends ZMObject {
         $this->defaultPluginClass = $class;
     }
 
+    public function setPluginDirs(array $dirs) {
+        $this->pluginDirs = $dirs;
+    }
     /**
      * Generate a full map of plugins and their base path.
      *
@@ -53,7 +57,7 @@ class PluginStatusMapBuilder extends ZMObject {
      */
     protected function getPathIdMap() {
         $pathIdMap = array();
-        foreach (Runtime::getPluginBasePath() as $basePath) {
+        foreach ($this->pluginDirs as $basePath) {
             if (file_exists($basePath) && is_dir($basePath)){
                 $pathIdMap[$basePath] = array();
                 foreach (new DirectoryIterator($basePath) as $filename => $fileInfo) {

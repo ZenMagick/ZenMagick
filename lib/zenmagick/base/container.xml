@@ -101,6 +101,10 @@
             <call method="setDefaultPluginClass">
                 <argument>%zenmagick.base.plugins.defaultPluginClass%</argument>
             </call>
+            <call method="setPluginDirs">
+                <argument>%zenmagick.base.plugins.dirs%</argument>
+            </call>
+
         </service>
 
         <service id="defaultLoggingHandler" class="zenmagick\base\logging\handler\DefaultLoggingHandler" scope="container">

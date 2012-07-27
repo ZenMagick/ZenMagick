@@ -120,7 +120,8 @@ class L10nController extends \ZMController {
 
         $pluginsMap = array();
         if ($vd['scanPlugins']) {
-            foreach (Runtime::getPluginBasePath() as $path) {
+            $settingsService = $this->container->get('settingsService');
+            foreach ($settingsService->get('zenmagick.base.plugins.dirs') as $path) {
                 $pluginsMap = array_merge($pluginsMap, $scanner->buildL10nMap($path));
             }
         }

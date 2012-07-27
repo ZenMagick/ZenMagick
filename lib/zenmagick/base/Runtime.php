@@ -92,25 +92,6 @@ class Runtime {
     }
 
     /**
-     * Return the plugin base directory.
-     *
-     * <p>May be configured via the setting <em></em>. Default is <em>../lib/plugins</em>.</p>
-     *
-     * @return array List of base directories for plugins.
-     */
-    public static function getPluginBasePath() {
-        $settings = self::getSettings();
-        if (null === $settings->get('zenmagick.base.plugins.dirs')) {
-            // set default
-            $settings->set('zenmagick.base.plugins.dirs', array(
-                self::getInstallationPath().'/plugins',
-                self::getApplicationPath().'/plugins'
-            ));
-        }
-        return $settings->get('zenmagick.base.plugins.dirs');
-    }
-
-    /**
      * Get a logging instance.
      *
      * <p>The scope is for future use.</p>
