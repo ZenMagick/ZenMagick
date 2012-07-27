@@ -20,6 +20,14 @@
  */
 namespace zenmagick\base;
 
+class FakeLogger {
+public function log() { }
+public function debug() { }
+public function warn() { }
+public function trace() { }
+public function dump() { }
+
+}
 /**
  * Central place for runtime stuff.
  *
@@ -111,6 +119,7 @@ class Runtime {
      * @return zenmagick\base\logging\Logging A <code>zenmagick\base\logging\Logging</code> instance.
      */
     public static function getLogging($scope=null) {
+        if (null == self::getContainer()) return new FakeLogger;
         return self::getContainer()->get('loggingService');
     }
 
@@ -130,15 +139,6 @@ class Runtime {
      */
     public static function getSettings() {
         return self::getContainer()->get('settingsService');
-    }
-
-    /**
-     * Get the pugins service.
-     *
-     * @return zenmagick\base\plugins\Plugins A <code>zenmagick\base\plugins\Plugins</code> instance.
-     */
-    public static function getPlugins() {
-        return self::getContainer()->get('pluginService');
     }
 
     public static function setContainer($container) {
