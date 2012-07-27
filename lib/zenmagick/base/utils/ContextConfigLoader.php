@@ -22,6 +22,7 @@ namespace zenmagick\base\utils;
 use zenmagick\base\ZMObject;
 use zenmagick\base\Runtime;
 use zenmagick\base\Toolbox;
+use zenmagick\base\settings\Settings;
 use zenmagick\base\dependencyInjection\loader\YamlLoader;
 use zenmagick\base\dependencyInjection\compiler\ResolveMergeDefinitionsPass;
 
@@ -35,7 +36,8 @@ use Symfony\Component\Yaml\Yaml;
  */
 class ContextConfigLoader extends ZMObject {
     private $config;
-
+    private $settingsService;
+    private $context;
 
     /**
      * Create new instance.
@@ -47,6 +49,21 @@ class ContextConfigLoader extends ZMObject {
         $this->setConfig($config);
     }
 
+    public function setContext($context) {
+        $this->context = $context;
+    }
+
+    public function getContext() {
+        return $this->context;
+    }
+
+    public function setSettingsService(Settings $settingsService) {
+        $this->settingsService = $settingsService;
+    }
+
+    public function getSettingsService() {
+        return $this->settingsService;
+    }
 
     /**
      * Set config.
@@ -73,8 +90,7 @@ class ContextConfigLoader extends ZMObject {
      * @return array The complete configuration for the chosen context.
      */
     public function resolve($context=null) {
-        $context = null === $context ? Runtime::getApplication()->getContext() : $context;
-
+        $context = $context ?: $this->getContext();
         $cconfig = array();
         foreach ($this->config as $key => $data) {
             if ('meta' == $key) {
@@ -132,7 +148,7 @@ class ContextConfigLoader extends ZMObject {
 
         // settings
         if (array_key_exists('settings', $config) && is_array($config['settings'])) {
-            Runtime::getSettings()->setAll($config['settings']);
+            $this->getSettingsService()->setAll($config['settings']);
         }
 
         if (array_key_exists('container', $config) && is_array($config['container'])) {

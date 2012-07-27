@@ -184,7 +184,14 @@
             </call>
         </service>
 
-        <service id="contextConfigLoader" class="zenmagick\apps\store\utils\ContextConfigLoader" scope="prototype" />
+        <service id="contextConfigLoader" class="zenmagick\apps\store\utils\ContextConfigLoader" scope="prototype">
+            <call method="setContext">
+                <argument>%kernel.context%</argument>
+            </call>
+            <call method="setSettingsService">
+                <argument type="service" id="settingsService" />
+            </call>
+        </service>
 
         <service id="tagService" class="ZMTags" scope="container" />
 

@@ -77,7 +77,14 @@
 
         <service id="settingsService" class="zenmagick\base\settings\Settings" scope="container" />
 
-        <service id="contextConfigLoader" class="zenmagick\base\utils\ContextConfigLoader" scope="prototype" />
+        <service id="contextConfigLoader" class="zenmagick\base\utils\ContextConfigLoader" scope="prototype">
+            <call method="setContext">
+                <argument>%kernel.context%</argument>
+            </call>
+            <call method="setSettingsService">
+                <argument type="service" id="settingsService" />
+            </call>
+        </service>
 
         <service id="pluginService" class="zenmagick\base\plugins\Plugins" scope="container">
             <argument type="service" id="loggingService" />

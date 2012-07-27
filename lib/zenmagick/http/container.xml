@@ -22,8 +22,14 @@
     <services>
         <service id="request" class="zenmagick\http\Request" scope="container" />
 
-        <service id="contextConfigLoader" class="zenmagick\http\utils\ContextConfigLoader" scope="prototype" />
-
+        <service id="contextConfigLoader" class="zenmagick\http\utils\ContextConfigLoader" scope="prototype">
+            <call method="setContext">
+                <argument>%kernel.context%</argument>
+            </call>
+            <call method="setSettingsService">
+                <argument type="service" id="settingsService" />
+            </call>
+        </service>
         <service id="messageService" class="zenmagick\http\messages\Messages" scope="container">
             <tag name="zenmagick.http.view.variable" key="messageService" />
         </service>

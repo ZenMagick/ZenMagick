@@ -368,11 +368,8 @@ class Application extends Kernel {
         if (file_exists($globalFilename)) {
             $contextConfigLoader = new \zenmagick\base\utils\ContextConfigLoader;
             $contextConfigLoader->setConfig(Toolbox::loadWithEnv($globalFilename));
+            $contextConfigLoader->setSettingsService($this->settingsService);
             $config = $contextConfigLoader->resolve($this->getContext());
-            if (isset($config['settings'])) {
-                $settingsService->setAll($config['settings']);
-            }
-            unset($config['settings']);
             unset($config['container']); // @todo merge this with the other container configuration if we want to keep it.
             $contextConfigLoader->apply($config);
         }
