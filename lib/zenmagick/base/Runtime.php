@@ -75,10 +75,12 @@ class Runtime {
     /**
      * Get the full application path (if set).
      *
+     * @deprecated
+     * @todo move to container parameter.
      * @return string The application base folder or <code>null</code>.
      */
     public static function getApplicationPath() {
-        return self::getApplication()->getApplicationPath();
+        return self::getInstallationPath().'/apps/'.self::$context;
     }
 
     /**
