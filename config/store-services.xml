@@ -149,19 +149,30 @@
 
         <service id="productFeaturedService" class="zenmagick\apps\store\services\catalog\ProductFeaturedService" scope="container" />
 
-        <service id="productSpecialsService" class="zenmagick\apps\store\services\catalog\ProductSpecialsService" scope="container" />
+        <service id="productSpecialsService" class="zenmagick\apps\store\services\catalog\ProductSpecialsService" scope="container">
+           <call method="setContainer">
+                <argument type="service" id="service_container" />
+            </call>
+        </service>
 
         <service id="couponService" class="zenmagick\apps\store\services\coupons\CouponService" scope="container" />
 
         <service id="ezPageService" class="ZMEZPages" scope="container" />
 
         <service id="templateManager" class="zenmagick\apps\store\themes\TemplateManager" scope="container">
+           <call method="setContainer">
+                <argument type="service" id="service_container" />
+            </call>
             <tag name="zenmagick.http.view.variable" key="templateManager" />
         </service>
 
         <service id="currencyService" class="zenmagick\apps\store\services\locale\CurrencyService" scope="container" />
 
-        <service id="languageService" class="zenmagick\apps\store\services\locale\LanguageService" scope="container" />
+        <service id="languageService" class="zenmagick\apps\store\services\locale\LanguageService" scope="container">
+            <call method="setContainer">
+                <argument type="service" id="service_container" />
+            </call>
+        </service>
 
         <service id="paymentTypeService" class="ZMPaymentTypes" scope="container" />
 
@@ -169,7 +180,11 @@
 
         <service id="orderTotalService" class="ZMOrderTotals" scope="container" />
 
-        <service id="salemakerService" class="zenmagick\apps\store\services\catalog\SalemakerService" scope="container" />
+        <service id="salemakerService" class="zenmagick\apps\store\services\catalog\SalemakerService" scope="container">
+            <call method="setContainer">
+                <argument type="service" id="service_container" />
+            </call>
+        </service>
 
         <service id="attributeService" class="ZMAttributes" scope="container" />
 
