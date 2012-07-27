@@ -25,24 +25,30 @@ use zenmagick\base\Toolbox;
 class ZMRuntime {
     private static $databaseMap_ = array();
 
+    /**
+     * Set database connection parameters for a connection name.
+     *
+     * @param string name name of connection
+     * @param array database connection parameters
+     */
+    public static function setDatabase($name, $conf) {
+        if (!isset($conf['wrapperClass'])) {
+            $conf['wrapperClass'] = 'zenmagick\\base\\database\\Connection';
+        }
+        self::$databaseMap_[$name] = $conf;
+    }
 
+    /**
+     * Get a database connection by name.
+     *
+     * @param string name get default connection if null.
+     * @return zenmagick\base\database\Connection
+     */
     public static function getDatabase($conf='default') {
-        $settingsService = Runtime::getSettings();
-        if (is_string($conf)) {
-            $dbconf = Toolbox::toArray($settingsService->get('apps.store.database.'.$conf));
-        } else {
-            $default = Toolbox::toArray($settingsService->get('apps.store.database.default'));
-            $dbconf = array_merge($default, $conf);
+        if (is_array(self::$databaseMap_[$conf])) {
+            self::$databaseMap_[$conf] = Doctrine\DBAL\DriverManager::getConnection(self::$databaseMap_[$conf]);
         }
-
-        ksort($dbconf);
-        $key = serialize($dbconf);
-        if (!array_key_exists($key, self::$databaseMap_)) {
-            $dbconf['wrapperClass'] = 'zenmagick\\base\\database\\Connection';
-            self::$databaseMap_[$key] = Doctrine\DBAL\DriverManager::getConnection($dbconf);
-        }
-
-        return self::$databaseMap_[$key];
+        return self::$databaseMap_[$conf];
     }
 
     public static function getDatabases() {

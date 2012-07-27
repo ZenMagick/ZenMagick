@@ -68,7 +68,8 @@ class ZMVBulletinAdapter extends ZMObject {
      */
     protected function getDatabase() {
         if (null == $this->database_) {
-            $this->database_ = ZMRuntime::getDatabase($this->dbConfig_);
+            ZMRuntime::setDatabase('vbulletin', $this->dbConfig_);
+            $this->database_ = ZMRuntime::getDatabase('vbulletin');
         }
 
         return $this->database_;

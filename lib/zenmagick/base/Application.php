@@ -392,10 +392,10 @@ class Application extends Kernel {
         $listeners = array_merge($settingsService->get('zenmagick.base.events.listeners', array()), $listeners);
         $settingsService->set('zenmagick.base.events.listeners', $listeners);
         $settingsService->set('zenmagick.base.context', $this->getContext());
-
         if (null != ($tz = $settingsService->get('zenmagick.core.date.timezone'))) {
             date_default_timezone_set($tz);
         }
+        \ZMRuntime::setDatabase('default', $settingsService->get('apps.store.database.default'));
     }
 
     /**

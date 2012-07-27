@@ -64,8 +64,8 @@ class ZMPhpBB3Adapter extends ZMObject {
             if (isset($dbport)) {
                 $dbconf['port'] = $dbport;
             }
-
-            $this->database_ = ZMRuntime::getDatabase($dbconf);
+            ZMRuntime::setDatabase('phpbb', $dbconf);
+            $this->database_ = ZMRuntime::getDatabase('phpbb');
         }
 
         return $this->database_;
