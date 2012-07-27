@@ -147,7 +147,7 @@ class PageStatsPlugin extends Plugin {
         echo '  ZenMagick: '.Runtime::getSettings()->get('zenmagick.version')."\n";
         $application = Runtime::getApplication();
         echo '  environment: '.$application->getEnvironment()."\n";
-        echo '  total page execution: '.$application->getElapsedTime().' secconds;'."\n";
+        echo '  total page execution: '.$this->getElapsedTime().' secconds;'."\n";
         echo '  databases: ';
         foreach ($this->getDatabaseInfo() as $database) {
             $stats = $database['stats'];
@@ -167,7 +167,7 @@ class PageStatsPlugin extends Plugin {
             echo '<!--'."\n";
             echo '  '.'0'.' ZM_START_TIME '."\n";
             foreach ($this->eventStats_ as $eventInfo) {
-                echo '  '.$application->getElapsedTime($eventInfo['timestamp']).' '.$eventInfo['method'].' / '.$eventInfo['name'].' values: '.$eventInfo['values']."\n";
+                echo '  '.$this->getElapsedTime($eventInfo['timestamp']).' '.$eventInfo['method'].' / '.$eventInfo['name'].' values: '.$eventInfo['values']."\n";
             }
             echo '-->'."\n";
         }
@@ -230,7 +230,7 @@ class PageStatsPlugin extends Plugin {
         echo $sep.'PHP: <strong>'.phpversion().'</strong>;';
         echo $sep.'ZenMagick: <strong>'.Runtime::getSettings()->get('zenmagick.version').'</strong>;';
         echo $sep.'environment: <strong>'.$application->getEnvironment().'</strong>;';
-        echo $sep.'total page execution: <strong>'.$application->getElapsedTime().'</strong> secconds;';
+        echo $sep.'total page execution: <strong>'.$this->getElapsedTime().'</strong> secconds;';
         echo '<br'.$slash.'>';
         echo '&nbsp;&nbsp;<strong>databases:</strong> ';
         foreach ($this->getDatabaseInfo() as $database) {
@@ -251,7 +251,7 @@ class PageStatsPlugin extends Plugin {
             echo '</tr>';
             foreach ($this->eventStats_ as $eventInfo) {
                 echo '<tr>';
-                echo '<td style="text-align:right;padding:4px;">'.$application->getElapsedTime($eventInfo['timestamp']).'</td>';
+                echo '<td style="text-align:right;padding:4px;">'.$this->getElapsedTime($eventInfo['timestamp']).'</td>';
                 echo '<td style="text-align:left;padding:4px;">'.$eventInfo['name'].'</td>';
                 echo '<td style="text-align:left;padding:4px;">'.sprintf("%d", $eventInfo['memory']).'</td>';
                 echo '<td style="text-align:left;padding:4px;">'.$eventInfo['method'].'</td>';
@@ -307,6 +307,18 @@ class PageStatsPlugin extends Plugin {
             return 0;
         }
         return ($an < $bn) ? 1 : -1;
+    }
+
+    /**
+     * Get the currently elapsed page execution time.
+     *
+     * @param int timestamp time to check against.
+     * @return long The execution time in milliseconds.
+     */
+    protected function getElapsedTime($time=null) {
+        $startTime = $time ?: Runtime::getApplication()->getStartTime();
+        $elapsedTime = microtime(true) - $startTime;
+        return round($elapsedTime, 4);
     }
 
 }

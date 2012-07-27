@@ -66,7 +66,6 @@ class Application extends Kernel {
      */
     public function __construct($environment = 'prod', $debug = false, array $config=array()) {
         $this->settingsService = new Settings;
-        $this->profile = array();
         $this->context = isset($config['context']) ? $config['context'] : null;
         Toolbox::setEnvironment($environment);
         Runtime::setContext($this->context);
@@ -244,20 +243,6 @@ class Application extends Kernel {
      * @todo remove this stub once we're ready
      */
     public function loadClassCache($name = 'classes', $extension = '.php') {
-    }
-
-    /**
-     * Get the currently elapsed page execution time.
-     *
-     * @param string time Optional execution timestamp to be used instead of the current time.
-     * @return long The execution time in milliseconds.
-     */
-    public function getElapsedTime($time=null) {
-        $endTime = explode(' ', (null != $time ? $time : microtime()));
-        // $time might be float
-        if (1 == count($endTime)) { $endTime[] = 0; }
-        $executionTime = $endTime[1]+$endTime[0]-$this->startTime;
-        return round($executionTime, 4);
     }
 
     /**
