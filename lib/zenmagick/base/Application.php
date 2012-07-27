@@ -108,8 +108,9 @@ class Application extends Kernel {
      */
     public function registerContainerConfiguration(LoaderInterface $loader) {
         $appContainerFiles = array('lib/zenmagick/base/container.xml');
-        if ('cli' !== php_sapi_name()) {
-            $appContainerFiles[] = 'lib/zenmagick/http/container.xml';
+        $appContainerFiles[] = 'lib/zenmagick/http/container.xml';
+        if ('cli' == php_sapi_name()) {
+            $appContainerFiles[] = 'config/store-services.xml';
         }
         if ($applicationPath = $this->getApplicationPath()) {
             $appContainerFiles[] = $applicationPath.'/config/container.xml';
