@@ -50,6 +50,16 @@ class DefaultLoggingHandler extends ZMObject implements LoggingHandler {
         $this->logCallerId = true;
     }
 
+    /**
+     * Get the currently elapsed page execution time.
+     *
+     * @return long The execution time in milliseconds.
+     */
+    public function getElapsedTime() {
+        $startTime = Runtime::getApplication()->getStartTime();
+        $elapsedTime = microtime(true) - $startTime;
+        return round($elapsedTime, 4);
+    }
 
     /**
      * Get the caller id.
