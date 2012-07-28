@@ -17,6 +17,9 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
+
+namespace zenmagick\themes\test\utils;
+
 use zenmagick\base\database\QueryDetails;
 
 /**
@@ -25,7 +28,7 @@ use zenmagick\base\database\QueryDetails;
  * @author DerManoMann
  * @package org.zenmagick.store.utils
  */
-class ProductFinder extends ZMProductFinder {
+class ProductFinder extends \ZMProductFinder {
 
     /**
      * Build the search SQL.

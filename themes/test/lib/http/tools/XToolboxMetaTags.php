@@ -1,6 +1,9 @@
 <?php
+namespace zenmagick\themes\test\http\tools;
 
-class MetaTags extends ZMToolboxMetaTags {
+use zenmagick\apps\store\storefront\http\tools\ToolboxMetaTags as ToolboxMetaTags;
+
+class XToolboxMetaTags extends ToolboxMetaTags {
     public function getDescription() {
         if ('index' == $this->getRequest()->getRequestId()) {
             $desc = 'My custom description bla bla';

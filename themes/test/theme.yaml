@@ -28,25 +28,28 @@ storefront:
       Xproduct_info:
         layout: ""
         template: views/twig_product.twig
-        
+
     global:
       page_not_found:
         template: index
 
   ## settings
   settings:
-    zenmagick/mvc/resultlist/defaultPagination: 3
+    zenmagick:
+      mvc:
+        resultlist:
+          defaultPagination: 3
   container:
     services:
       foo:
         class: Bar
-  
+
 admin,storefront:
   container:
     services:
       XProducts:
         parent: merge:ZMProducts
-        class: XProducts
+        class: zenmagick\themes\test\model\XProducts
       MetaTags:
-        parent: merge:ZMToolboxMetaTags
-        class: MetaTags
+        parent: merge:zenmagick\apps\store\storefront\http\tools\ToolboxMetaTags
+        class: zenmagick\themes\test\http\tools\XToolboxMetaTags
