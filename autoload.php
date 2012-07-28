@@ -36,8 +36,8 @@ spl_autoload_register(function ($class) {
                 '|^apps/store-installer/|' => 'apps/store-installer/lib/',
                 '|^apps/store/storefront/|' => 'apps/storefront/lib/',
                 '|^apps/store/admin/|' => 'apps/admin/lib/',
-                '|^apps/store/themes/(\w+)/|' => 'themes/${1}/lib/',
                 '|^apps/store/|' => 'shared/store/',
+                '|^themes/(\w+)/|' => 'themes/${1}/lib/',
                 '|^plugins/(\w+)/|' => 'plugins/${1}/lib/',
             );
             $classPath = preg_replace(array_keys($fix), array_values($fix), $classPath);
