@@ -217,7 +217,6 @@ class ThemeService extends ZMObject {
         foreach ($themeChain as $theme) {
             $themeInfo = $themeList[$theme->getId()];
             if (array_key_exists('lib', $themeInfo)) {
-                $this->classLoader->addNamespace($themeInfo['namespace'], $themeInfo['lib']);
                 // allow custom class loading config
                 $this->classLoader->addConfig($themeInfo['lib']);
             }
