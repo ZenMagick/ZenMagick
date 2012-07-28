@@ -21,7 +21,6 @@ namespace zenmagick\apps\store\themes;
 
 use zenmagick\base\Runtime;
 use zenmagick\base\ZMObject;
-use zenmagick\base\classloader\ClassLoader;
 use zenmagick\base\events\Event;
 use zenmagick\base\dependencyInjection\loader\YamlFileLoader;
 
@@ -41,7 +40,6 @@ class ThemeService extends ZMObject {
     protected $statusMap;
     // theme chain override
     protected $themeChain;
-    protected $classLoader;
 
 
     /**
@@ -53,8 +51,6 @@ class ThemeService extends ZMObject {
         $this->cache = null;
         $this->statusMap = null;
         $this->themeChain = array();
-        $this->classLoader = new ClassLoader();
-        $this->classLoader->register();
     }
 
 
@@ -216,10 +212,6 @@ class ThemeService extends ZMObject {
         $eventDispatcher = $this->container->get('eventDispatcher');
         foreach ($themeChain as $theme) {
             $themeInfo = $themeList[$theme->getId()];
-            if (array_key_exists('lib', $themeInfo)) {
-                // allow custom class loading config
-                $this->classLoader->addConfig($themeInfo['lib']);
-            }
             // init l10n/i18n
             $theme->loadLocale($language);
             // custom theme.yaml settings
