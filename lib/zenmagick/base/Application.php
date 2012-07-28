@@ -71,14 +71,11 @@ class Application extends Kernel {
         parent::__construct($environment, $debug);
         $this->startTime = microtime(true);
 
-        $this->initSettings();
         // @todo really move it into $rootDir/autoload.php
         $this->classLoader = new ClassLoader();
         $this->classLoader->register();
-        if ($this->getContext()) {
-            $this->classLoader->addConfig($this->getRootDir().'/apps/'.$this->getContext().'/lib');
-        }
-        $this->classLoader->addConfig($this->getRootDir().'/shared');
+
+        $this->initSettings();
     }
 
     /**
