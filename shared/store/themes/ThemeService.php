@@ -229,7 +229,7 @@ class ThemeService extends ZMObject {
             if (array_key_exists('namespace', $themeInfo)) {
                 // always add an event listener in the theme's base namespace
                 $eventListener = sprintf('%s\EventListener', $themeInfo['namespace'], $theme->getId());
-                if (ClassLoader::classExists($eventListener)) {
+                if (class_exists($eventListener)) {
                     $listener = $this->container->get($eventListener);
                     $eventDispatcher->listen($listener);
                 }

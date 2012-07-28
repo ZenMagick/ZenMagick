@@ -380,58 +380,6 @@ class ClassLoader {
     }
 
     /**
-     * Checks whether a class with a given name exists. A class "exists" if it is either
-     * already defined in the current request or if there is an autoloader on the SPL
-     * autoload stack that is a) responsible for the class in question and b) is able to
-     * load a class file in which the class definition resides.
-     *
-     * If the class is not already defined, each autoloader in the SPL autoload stack
-     * is asked whether it is able to tell if the class exists. If the autoloader is
-     * a <tt>ClassLoader</tt>, {@link canLoadClass} is used, otherwise the autoload
-     * function of the autoloader is invoked and expected to return a value that
-     * evaluates to TRUE if the class (file) exists. As soon as one autoloader reports
-     * that the class exists, TRUE is returned.
-     *
-     * Note that, depending on what kinds of autoloaders are installed on the SPL
-     * autoload stack, the class (file) might already be loaded as a result of checking
-     * for its existence. This is not the case with a <tt>ClassLoader</tt>, who separates
-     * these responsibilities.
-     *
-     * @param string name The fully-qualified name of the class.
-     * @param boolean force Optional flag to force a check even if the class/interface already exists; default is <code>false</code>.
-     * @return boolean <code>true</code> if the class exists as per the definition given above, <code>false</code> otherwise.
-     */
-    public static function classExists($name, $force=false) {
-        if (!$force && (class_exists($name, false) || interface_exists($name, false))) {
-            return true;
-        }
-
-        foreach (spl_autoload_functions() as $loader) {
-            if (is_array($loader)) { // array(???, ???)
-                if (is_object($loader[0])) {
-                    if ($loader[0] instanceof ClassLoader) { // array($obj, 'methodName')
-                        if ($loader[0]->canResolve($name)) {
-                            return true;
-                        }
-                    } else if ($loader[0]->{$loader[1]}($name)) {
-                        return true;
-                    }
-                } else if ($loader[0]::$loader[1]($name)) { // array('ClassName', 'methodName')
-                    return true;
-                }
-            } else if ($loader instanceof \Closure) { // function($name) {..}
-                if ($loader($name)) {
-                    return true;
-                }
-            } else if (is_string($loader) && $loader($name)) { // "MyClass::loadClass"
-                return true;
-            }
-        }
-
-        return false;
-    }
-
-    /**
      * Create a normalized class names based on a name.
      *
      * <p>This is pretty much following Java conventions.</p>

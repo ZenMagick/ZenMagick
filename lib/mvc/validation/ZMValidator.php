@@ -19,7 +19,6 @@
  */
 
 use zenmagick\base\Beans;
-use zenmagick\base\classloader\ClassLoader;
 use zenmagick\base\Runtime;
 use zenmagick\base\ZMException;
 use zenmagick\base\ZMObject;
@@ -122,43 +121,41 @@ class ZMValidator extends ZMObject {
             $args = func_get_args();
             array_shift($args);
         }
-        if (ClassLoader::classExists($name)) {
-            $clazz = $name;
-            if (!class_exists($clazz)) {
-                throw new ZMException('class not found ' . $clazz);
-            }
-            $obj = null;
-            switch (count($args)) {
-                case 0:
-                    $obj = new $clazz();
-                    break;
-                case 1:
-                    $obj = new $clazz($args[0]);
-                    break;
-                case 2:
-                    $obj = new $clazz($args[0], $args[1]);
-                    break;
-                case 3:
-                    $obj = new $clazz($args[0], $args[1], $args[2]);
-                    break;
-                case 4:
-                    $obj = new $clazz($args[0], $args[1], $args[2], $args[3]);
-                    break;
-                case 5:
-                    $obj = new $clazz($args[0], $args[1], $args[2], $args[3], $args[4]);
-                    break;
-                default:
-                    throw new ZMException('unsupported number of constructor arguments ' . $clazz);
-            }
 
-            if (null != $obj && $obj instanceof ContainerAwareInterface) {
-                $obj->setContainer($this->container);
-            }
-
-            return $obj;
-
+        if (!class_exists($name)) {
+            return null;
         }
-        return null;
+
+        $clazz = $name;
+        $obj = null;
+        switch (count($args)) {
+            case 0:
+                $obj = new $clazz();
+                break;
+            case 1:
+                $obj = new $clazz($args[0]);
+                break;
+            case 2:
+                $obj = new $clazz($args[0], $args[1]);
+                break;
+            case 3:
+                $obj = new $clazz($args[0], $args[1], $args[2]);
+                break;
+            case 4:
+                $obj = new $clazz($args[0], $args[1], $args[2], $args[3]);
+                break;
+            case 5:
+                $obj = new $clazz($args[0], $args[1], $args[2], $args[3], $args[4]);
+                break;
+            default:
+                throw new ZMException('unsupported number of constructor arguments ' . $clazz);
+        }
+
+        if (null != $obj && $obj instanceof ContainerAwareInterface) {
+            $obj->setContainer($this->container);
+        }
+
+        return $obj;
     }
 
     /**

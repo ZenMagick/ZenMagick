@@ -20,7 +20,6 @@
 namespace zenmagick\base\dependencyInjection;
 
 use zenmagick\base\ZMException;
-use zenmagick\base\classloader\ClassLoader;
 use zenmagick\base\dependencyInjection\parameterBag\SettingsParameterBag;
 
 use Symfony\Component\DependencyInjection\ContainerAwareInterface;
@@ -44,7 +43,7 @@ class ContainerBuilder extends BaseContainerBuilder {
         $service = null;
         if ($this->has($id)) {
             $service = parent::get($id, $invalidBehavior);
-        } else if (ClassLoader::classExists($id) && class_exists($id)) {
+        } else if (class_exists($id)) {
             // try to default to the id as class name (with scope prototype)
             $service = new $id();
         } else if ('Z' == $id[0] && 'M' == $id[1]) {

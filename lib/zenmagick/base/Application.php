@@ -166,7 +166,7 @@ class Application extends Kernel {
         }
         // @todo switch to using tagged services for events.
         foreach ($settingsService->get('zenmagick.base.events.listeners', array()) as $eventListener) {
-            if (!ClassLoader::classExists($eventListener)) continue;
+            if (!class_exists($eventListener)) continue;
             if (null != ($eventListener = new $eventListener)) {
                 $eventListener->setContainer($this->container);
                 $this->container->get('eventDispatcher')->listen($eventListener);
