@@ -27,8 +27,6 @@ use zenmagick\base\ZMException;
 use zenmagick\base\events\Event;
 use zenmagick\http\Application;
 use zenmagick\http\Request;
-use zenmagick\apps\store\bundles\ZenCartBundle\ZenCartBundle;
-use zenmagick\apps\store\bundles\ZenCartBundle\ZenCartClassLoader;
 
 $rootDir = realpath(__DIR__.'/../../..');
 include_once $rootDir.'/autoload.php';

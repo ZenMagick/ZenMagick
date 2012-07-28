@@ -42,7 +42,6 @@ use Symfony\Component\HttpKernel\DependencyInjection\MergeExtensionConfiguration
 use Symfony\Component\HttpKernel\DependencyInjection\AddClassesToCachePass;
 use Symfony\Component\HttpKernel\Debug\ErrorHandler;
 use Symfony\Component\HttpKernel\Debug\ExceptionHandler;
-use Symfony\Component\ClassLoader\DebugClassLoader;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\HttpFoundation\Response;
 
