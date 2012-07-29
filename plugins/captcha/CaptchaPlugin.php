@@ -89,9 +89,11 @@ class CaptchaPlugin extends Plugin {
      * <p>Setup additional validation rules; this is done here to avoid getting in the way of
      * custom global/theme validation rule setups.</p>
      */
-    public function onContainerReady($event) {
+    public function onDispatchStart($event) {
+        if (Runtime::isContextMatch('admin')) return;
         $request = $event->get('request');
         $session = $request->getSession();
+
         // check if we need to do anything for this request...
         $disableRegistered = Toolbox::asBoolean($this->get('disableRegistered'));
         if ($disableRegistered && $session->isRegistered()) {
