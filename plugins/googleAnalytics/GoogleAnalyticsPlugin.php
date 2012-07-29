@@ -150,8 +150,10 @@ class GoogleAnalyticsPlugin extends Plugin {
         switch ($this->get('pagenameFormat')) {
         case 'custom':
             // TODO: make this smarter??
-            if (class_exists('CustomGoogleAnalytics')) {
-                $custom = new CustomGoogleAnalytics();
+            $themeId = $this->container->get('themeService')->getActiveThemeId();
+            $customClass = 'zenmagick\\themes\\'.$themeId.'\\CustomGoogleAnalytics';
+            if (class_exists($customClass)) {
+                $custom = new $customClass;
                 if (null !== ($view = $custom->getPageview($request))) {
                     // done
                     break;
