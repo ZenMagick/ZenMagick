@@ -7,6 +7,9 @@
  * @license http://www.zen-cart.com/license/2_0.txt GNU Public License V2.0
  */
 
+namespace zenmagick\plugins\fualSlimbox;
+
+use zenmagick\base\Runtime;
 
 /*
  * @class FualSlimboxOptions
@@ -175,7 +178,7 @@ class FualSlimboxOptions {
 	 * @brief Writes the javascript which sets the lightbox options to the page
 	 */
 	function jscript() {
-        $theme = \zenmagick\base\Runtime::getContainer()->get('themeService')->getActiveThemeId();
+        $theme = Runtime::getContainer()->get('themeService')->getActiveThemeId();
         $themeDir = 'includes/templates/' . $theme;
 		// There is no point in doing anything if Slimbox is turned off and if zenbox is turned on this will just cause conflicts
 		if( FUAL_SLIMBOX == 'true' && ZEN_LIGHTBOX_STATUS != 'true' ) {
@@ -213,5 +216,3 @@ class FualSlimboxOptions {
 		}
 	}
 }
-
-?>
