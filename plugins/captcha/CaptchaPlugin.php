@@ -25,7 +25,6 @@ use Plugin;
 use zenmagick\base\Runtime;
 use zenmagick\base\Toolbox;
 
-use PCaptcha;
 
 /**
  * Plugin to enable support for CAPTCHA in ZenMagick.
@@ -36,17 +35,7 @@ class CaptchaPlugin extends Plugin {
     private $captcha_;
     // page => (status, form_name)
     private $pageConfig_;
-    private $captchaEnabled_;
-
-
-    /**
-     * Create new instance.
-     */
-    public function __construct() {
-        parent::__construct('CAPTCHA Plugin', 'CAPTCHA for ZenMagick', '${plugin.version}');
-        $this->captchaEnabled_ = false;
-    }
-
+    private $captchaEnabled_ = false;
 
     /**
      * {@inheritDoc}
@@ -151,7 +140,7 @@ class CaptchaPlugin extends Plugin {
      */
     public function showImage($width='', $height='', $parameters='') {
         $alt = _zm("Click image to re-generate");
-        $parameters .= ' onclick="document.getElementById(\'captcha-img\').src=\''.$this->captcha_->img_href.'&amp;rand=\'+Math.random();return false;"';
+        $parameters .= ' onclick="document.getElementById(\'captcha-img\').src=\''.$this->captcha_->img_href.'?rand=\'+Math.random();return false;"';
         $parameters .= ' style="cursor:pointer;cursor:hand;"';
         echo $this->captcha_->img($alt, $width, $height, $parameters);
     }

@@ -1,0 +1,11 @@
+meta:
+  name: 'CAPTCHA Plugin'
+  version: '${plugin.version}'
+  author: 'zenmagick.org'
+  description: 'CAPTCHA for ZenMagick'
+
+storefront:
+  routing:
+    captchaImg:
+      pattern: /captchaImg
+      defaults: { _controller: zenmagick\plugins\captcha\CaptchaImgController }

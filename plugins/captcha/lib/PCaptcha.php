@@ -8,6 +8,7 @@
  * @license http://www.zen-cart.com/license/2_0.txt GNU Public License V2.0
  * @version $Id$
  */
+namespace zenmagick\plugins\captcha;
 
 use zenmagick\base\Runtime;
 
@@ -69,7 +70,7 @@ class PCaptcha {
     if(!$request->getSession()->isStarted()) die(ERROR_CAPTCHA_SESSION);
 
     $this->ttf_list = $this->_getFileList($this->dir_fs_fonts, 'ttf');
-    $this->img_href = $request->url('captcha_img', session_name() . '=' . session_id(), true);
+    $this->img_href = $request->absoluteUrl('captchaImg', '', true);
     if ($this->debug) {
         ini_set('display_errors', true);
         error_reporting(-1);
@@ -84,7 +85,7 @@ class PCaptcha {
     if(trim($height) == '') $height = $this->img_height;
     $alt = htmlspecialchars(trim($alt));
     if($alt == '') $alt = IMAGE_CAPTCHA_ALT;
-    $image = '<img id="captcha-img" src="' . $this->img_href . '&amp;rand=' . str_replace(' ', '', microtime()) . '" alt="' . $alt . '"';
+    $image = '<img id="captcha-img" src="' . $this->img_href . '?' . str_replace(' ', '', microtime()) . '" alt="' . $alt . '"';
     if ($alt != '') {
       $image .= ' title=" ' . $alt . ' "';
     }
