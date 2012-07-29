@@ -483,6 +483,7 @@ class SQLRunner {
      //[2]=,
      //[3]=key
      //[4]=blah blah
+    if(!isset($values[1])) return; // Can't search for what we don't have!
     $title = $values[1];
     $key  =  $values[3];
     $sql = "select configuration_title from " . self::$prefix . "configuration where configuration_key='".$key."'";
