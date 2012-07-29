@@ -17,9 +17,9 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-namespace apps\store\promotions\conditions\cart;
+namespace zenmagick\plugins\rules\promotions\conditions\cart;
 
-use apps\store\promotions\CatalogPromotionElement;
+use zenmagick\plugins\rules\promotions\CatalogPromotionElement;
 use phprules\Operator;
 use phprules\SingleRule;
 use phprules\RuleContext;
@@ -27,7 +27,6 @@ use phprules\RuleContext;
 /**
  * Manufacturer catalog promotion condition.
  *
- * @package apps.store.promotions.conditions.catalog
  * @author DerManoMann <mano@zenmagick.org>
  */
 class Manufacturer extends CatalogPromotionElement {

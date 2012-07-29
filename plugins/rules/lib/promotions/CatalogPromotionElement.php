@@ -17,12 +17,11 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-namespace apps\store\promotions;
+namespace zenmagick\plugins\rules\promotions;
 
 /**
  * Base catalog promotion element.
  *
- * @package apps.store.promotions
  * @author DerManoMann <mano@zenmagick.org>
  */
 abstract class CatalogPromotionElement extends AbstractPromotionElement {

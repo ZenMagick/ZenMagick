@@ -17,14 +17,13 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-namespace apps\store\promotions;
+namespace zenmagick\plugins\rules\promotions;
 
 use zenmagick\apps\store\model\checkout\ShoppingCart;
 
 /**
  * Base class for promotional elements.
  *
- * @package apps.store.promotions
  * @author DerManoMann <mano@zenmagick.org>
  */
 abstract class AbstractPromotionElement implements PromotionElement {

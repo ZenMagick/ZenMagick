@@ -17,36 +17,13 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-namespace apps\store\promotions\qualifications;
-
-use apps\store\promotions\AbstractPromotionElement;
-use phprules\SingleRule;
-use phprules\RuleContext;
+namespace zenmagick\plugins\rules\promotions;
 
 /**
- * Registered account promotion qualification.
+ * Base shopping cart promotion element.
  *
- * @package apps.store.promotions.qualifications
  * @author DerManoMann <mano@zenmagick.org>
  */
-class RegisteredAccount extends AbstractPromotionElement {
-
-    /**
-     * {@inheritDoc}
-     */
-    public function getRules() {
-        $rule = new Rule('registeredAccountRule');
-        $rule->addProposition('isRegistered');
-        return array($rule);
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function getRuleContexts($parameter) {
-        $ruleContext = new RuleContext('manufacturerInCartRuleContext');
-        $ruleContext->addVariable('isRegistered', ZMAccount::REGISTERED == $this->getAccount()->getType());
-        return array($ruleContext);
-    }
+abstract class CartPromotionElement extends AbstractPromotionElement {
 
 }

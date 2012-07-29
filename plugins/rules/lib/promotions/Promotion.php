@@ -17,38 +17,21 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-namespace apps\store\promotions;
+namespace zenmagick\plugins\rules\promotions;
 
 /**
- * Element in a promotion.
+ * A promotion.
  *
- * <p>Container for <code>Rule</code> and <code>RuleContext</code> for a specific promotion element.</p>
- *
- * @package apps.store.promotions
  * @author DerManoMann <mano@zenmagick.org>
  */
-interface PromotionElement {
-
-    /**
-     * Get parameter config.
-     *
-     * @return array List of widgets to configure this element.
-     */
-    public function getParameterConfig();
-
-    /**
-     * Get rules.
-     *
-     * @return array List of <code>Rule</code> elements that make up this element.
-     */
-    public function getRules();
-
-    /**
-     * Get context.
-     *
-     * @param array parameter The parameter to configure this context.
-     * @return array List of <code>RuleContext</code>s.
-     */
-    public function getRuleContexts($parameter);
-
+class Promotion {
+    private $name;
+    private $startDate;
+    private $endDate;
+    // map: promotion element class (optionally bean) => config
+    private $qualifications;
+    // map: promotion element class (optionally bean) => config
+    private $conditions;
+    // list of actions if promotion applies
+    private $actions;
 }

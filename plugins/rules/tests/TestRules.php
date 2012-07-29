@@ -1,4 +1,5 @@
 <?php
+namespace zenmagick\plugins\rules\tests;
 
 use phprules\SingleRule;
 use phprules\RuleContext;
