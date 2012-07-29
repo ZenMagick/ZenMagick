@@ -162,11 +162,6 @@ class Plugins extends ZMObject {
 
             if (($status['enabled'] || !$enabled) && (null === $context || Runtime::isContextMatch($status['context'], $context))) {
                 $this->classLoader->addNamespace($status['namespace'], sprintf('%s@%s', $status['pluginDir'], $status['namespace']));
-                if ('ZM' == substr($status['class'], 0, 2)) {
-                    // todo: remove
-                    $this->classLoader->addDefault($status['class'], sprintf('%s/%s.php', $status['pluginDir'], $status['class']));
-                }
-
                 if ($plugin = Beans::getBean($status['class'])) {
                     $plugin->setId($id);
                     $plugin->setPluginDirectory($status['pluginDir']);
