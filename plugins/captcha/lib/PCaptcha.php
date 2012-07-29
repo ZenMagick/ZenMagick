@@ -43,10 +43,10 @@ class PCaptcha {
   var $img;
   var $_gd_version;
   var $debug = false;
+  var $request;
 
   function __construct($request) {
-    global $session_started;
-
+    $this->request = $request;
     $plugin = Runtime::getContainer()->get('pluginService')->getPluginForId('captcha');
 
     if(defined('CAPTCHA_CODE_LENGTH')) $this->captchaCode_length = CAPTCHA_CODE_LENGTH;
@@ -66,7 +66,7 @@ class PCaptcha {
     if($this->img_type == 'gif' && !$this->_gd_version['GIF Create Support']) die(ERROR_CAPTCHA_GIF);
     if($this->img_type == 'png' && !$this->_gd_version['PNG Support']) die(ERROR_CAPTCHA_PNG);
     if($this->img_type == 'jpeg' && !$this->_gd_version['JPG Support']) die(ERROR_CAPTCHA_JPG);
-    if(!$session_started) die(ERROR_CAPTCHA_SESSION);
+    if(!$request->getSession()->isStarted()) die(ERROR_CAPTCHA_SESSION);
 
     $this->ttf_list = $this->_getFileList($this->dir_fs_fonts, 'ttf');
     $this->img_href = $request->url('captcha_img', session_name() . '=' . session_id(), true);
@@ -102,7 +102,7 @@ class PCaptcha {
     $field = '<input type="text" name="' . $name . '"';
     if (null !== $parameters && !empty($parameters)) $field .= ' ' . $parameters;
     $field .= ' />';
-    $_SESSION['captcha_field'] = $name;
+    $this->request->getSession()->setValue('captcha_field', $name);
     return $field;
   }
 
@@ -110,10 +110,13 @@ class PCaptcha {
  * Validate the Captcha Code
  */
   function validateCaptchaCode() {
-    if(!isset($_POST[$_SESSION['captcha_field']])) return false;
-    $captcha_code = strtoupper($_POST[$_SESSION['captcha_field']]);
+    $session = $this->request->getSession();
+    $field = $session->getValue('captcha_field');
+    if (null == $field) return false;
+    if (!$this->request->request->has($field)) return false;
+    $captcha_code = strtoupper($this->request->request->get($field));
     $captcha_code = str_replace("0", "O", $captcha_code);
-    $valid = ($_SESSION['captcha_code'] == md5($captcha_code));
+    $valid = ($session->getValue('captcha_code') == md5($captcha_code));
     if(!$valid) {
       if(!isset($_SESSION['captcha_validations'])) $_SESSION['captcha_validations'] = array();
       $_SESSION['captcha_validations'][] = time();
@@ -143,7 +146,7 @@ class PCaptcha {
       $j = intval(mt_rand(0, $chars_count));
       $this->captchaCode .= $this->chars[$j];
     }
-    $_SESSION['captcha_code'] = md5($this->captchaCode);
+    $this->request->getSession()->setValue('captcha_code', md5($this->captchaCode));
 
     if($this->_gd_version['version'] >= 2) {
       $this->img = imagecreatetruecolor($this->img_width, $this->img_height);
