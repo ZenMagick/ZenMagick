@@ -30,7 +30,7 @@ use zenmagick\apps\store\admin\installation\patches\SQLPatch;
  */
 class SacsPermissionsPatch extends SQLPatch {
     var $sqlFiles_ = array(
-        "/shared/etc/sql/mysql/sacs_perms_install.sql"
+        "/apps/admin/lib/installation/etc/sacs_perms_install.sql"
     );
 
     /**

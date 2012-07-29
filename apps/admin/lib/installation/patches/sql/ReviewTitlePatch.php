@@ -30,10 +30,10 @@ use zenmagick\apps\store\admin\installation\patches\SQLPatch;
  */
 class ReviewTitlePatch extends SQLPatch {
     var $sqlFiles_ = array(
-        "/shared/etc/sql/mysql/review_title_install.sql"
+        "/apps/admin/lib/installation/etc/review_title_install.sql"
     );
     var $sqlUndoFiles_ = array(
-        "/shared/etc/sql/mysql/review_title_uninstall.sql"
+        "/apps/admin/lib/installation/etc/review_title_uninstall.sql"
     );
 
 

@@ -30,10 +30,10 @@ use zenmagick\apps\store\admin\installation\patches\SQLPatch;
  */
 class FulltextPatch extends SQLPatch {
     var $sqlFiles_ = array(
-        "/shared/etc/sql/mysql/fulltext_install.sql"
+        "/apps/admin/lib/installation/etc/fulltext_install.sql"
     );
     var $sqlUndoFiles_ = array(
-        "/shared/etc/sql/mysql/fulltext_uninstall.sql"
+        "/apps/admin/lib/installation/etc/fulltext_uninstall.sql"
     );
 
 
