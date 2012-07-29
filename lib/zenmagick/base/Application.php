@@ -155,11 +155,6 @@ class Application extends Kernel {
      */
     public function bootZM(array $keys=null) {
         $settingsService = $this->container->get('settingsService');
-        if ($settingsService->get('zenmagick.base.plugins.enabled', true)) {
-            foreach ($this->container->get('pluginService')->getPluginPackages() as $path) {
-                $this->classLoader->addConfig($path);
-            }
-        }
         // @todo switch to using tagged services for events.
         foreach ($settingsService->get('zenmagick.base.events.listeners', array()) as $eventListener) {
             if (!class_exists($eventListener)) continue;
@@ -172,6 +167,9 @@ class Application extends Kernel {
             $this->initConfig();
             $this->container->get('localeService')->init($settingsService->get('zenmagick.base.locales.locale', 'en'));
             if ($settingsService->get('zenmagick.base.plugins.enabled', true)) {
+                foreach ($this->container->get('pluginService')->getPluginPackages() as $path) {
+                    $this->classLoader->addConfig($path);
+                }
                 $this->container->get('pluginService')->getPluginsForContext($this->getContext());
             }
             $this->initEmail();
