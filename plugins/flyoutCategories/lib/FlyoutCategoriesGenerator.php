@@ -21,10 +21,12 @@
 // Fix for line 48 provided by Paulm, uploaded by Kelvyn
 // Adapted for ZenMagick by DerManoMann <mano@zenmagick.org>
 
+namespace zenmagick\plugins\flyoutCategories;
+
 use zenmagick\base\Runtime;
 
 
-class ZMFlyoutCategoriesGenerator {
+class FlyoutCategoriesGenerator {
    var $root_category_id = 0,
        $max_level = 6,
        $data = array(),

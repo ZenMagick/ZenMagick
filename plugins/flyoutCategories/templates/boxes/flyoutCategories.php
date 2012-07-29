@@ -19,12 +19,14 @@
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
- */ if (isset($flyoutCategories) && class_exists('ZMFlyoutCategoriesGenerator')) { ?>
+ *
+ */
+if (isset($flyoutCategories) && class_exists('zenmagick\plugins\flyoutCategories\FlyoutCategoriesGenerator')) { ?>
 <?php $resources->cssFile('css/categories_menu.css'); ?>
 <div class="box flyoutCategories" style="overflow:visible;"> <!-- re-enable overflow as disabled in default theme on .box -->
     <div id="nav-cat">
     <?php
-        $generator = new ZMFlyoutCategoriesGenerator($request);
+        $generator = new \zenmagick\plugins\flyoutCategories\FlyoutCategoriesGenerator($request);
         echo $generator->buildTree(true);
     ?>
     <?php
