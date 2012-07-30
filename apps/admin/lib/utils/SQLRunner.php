@@ -5,7 +5,7 @@
  * @license http://www.zen-cart.com/license/2_0.txt GNU Public License V2.0
  * @version $Id$
  */
-namespace zenmagick\apps\store\admin\utils;
+namespace zenmagick\apps\admin\utils;
 
 use zenmagick\base\Beans;
 use zenmagick\base\Runtime;

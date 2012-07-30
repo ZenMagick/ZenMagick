@@ -18,10 +18,10 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-namespace zenmagick\apps\store\admin\installation\patches\file;
+namespace zenmagick\apps\admin\installation\patches\file;
 
 use zenmagick\base\Runtime;
-use zenmagick\apps\store\admin\installation\patches\FilePatch;
+use zenmagick\apps\admin\installation\patches\FilePatch;
 
 
 /**

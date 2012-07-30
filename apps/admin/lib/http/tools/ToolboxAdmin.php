@@ -17,7 +17,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-namespace zenmagick\apps\store\admin\http\tools;
+namespace zenmagick\apps\admin\http\tools;
 
 use zenmagick\base\Runtime;
 use zenmagick\http\toolbox\ToolboxTool;

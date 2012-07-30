@@ -171,8 +171,8 @@ class Plugin extends zenmagick\http\plugins\HttpPlugin {
      */
     public function executePatch($sql, $messages, $debug=false) {
         if (!empty($sql)) {
-            $results = zenmagick\apps\store\admin\utils\SQLRunner::execute_sql($sql, $debug);
-            foreach (zenmagick\apps\store\admin\utils\SQLRunner::process_patch_results($results) as $msg) {
+            $results = zenmagick\apps\admin\utils\SQLRunner::execute_sql($sql, $debug);
+            foreach (zenmagick\apps\admin\utils\SQLRunner::process_patch_results($results) as $msg) {
                 $messages[] = $msg;
             }
             return empty($results['error']);

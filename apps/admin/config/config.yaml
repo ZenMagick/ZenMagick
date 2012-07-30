@@ -31,7 +31,7 @@ zenmagick:
     events:
       listeners:
         - zenmagick\apps\store\StoreEventListener
-        - zenmagick\apps\store\admin\AdminEventHandler
+        - zenmagick\apps\admin\AdminEventHandler
     ## logging
     logging:
       level: ALL
@@ -83,14 +83,14 @@ zenmagick:
       addnRouteFiles: []
     controller:
       namespaces:
-        - zenmagick\apps\store\admin\controller
+        - zenmagick\apps\admin\controller
 
     ## sacs
     sacs:
       handler:
         - zenmagick\http\sacs\handler\UserRoleSacsHandler
       mappingProviders:
-        - zenmagick\apps\store\admin\services\DBSacsPermissionProvider
+        - zenmagick\apps\admin\services\DBSacsPermissionProvider
   ## bundles
   bundles:
     - zenmagick\apps\store\bundles\ZenCartBundle\ZenCartBundle

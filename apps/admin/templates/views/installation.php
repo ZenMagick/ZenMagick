@@ -21,7 +21,7 @@
 use zenmagick\base\Beans;
 use zenmagick\base\Runtime;
 
-    $installer = new zenmagick\apps\store\admin\installation\InstallationPatcher();
+    $installer = new zenmagick\apps\admin\installation\InstallationPatcher();
     $needRefresh = false;
 
     // install
@@ -115,7 +115,7 @@ if (null != $request->request->get('optimizeDb')) {
  * Show patch group.
  */
 function _zm_patch_group($groupId, $buttonClasses, $checkall=true) {
-    $installer = new zenmagick\apps\store\admin\installation\InstallationPatcher();
+    $installer = new zenmagick\apps\admin\installation\InstallationPatcher();
     foreach ($installer->getPatches($groupId) as $id => $patch) {
         if ('sqlFulltext' == $patch->getId()) {
             continue;

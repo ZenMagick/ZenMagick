@@ -37,7 +37,7 @@ $application->loadClassCache();
 $application->boot(array('init'));
 
 try {
-    $installer = new zenmagick\apps\store\admin\installation\InstallationPatcher();
+    $installer = new zenmagick\apps\admin\installation\InstallationPatcher();
 
     $messageService = $application->getContainer()->get('messageService');
     // Get DB Config first!

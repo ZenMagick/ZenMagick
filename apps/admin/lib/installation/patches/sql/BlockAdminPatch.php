@@ -17,10 +17,10 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-namespace zenmagick\apps\store\admin\installation\patches\sql;
+namespace zenmagick\apps\admin\installation\patches\sql;
 
 use zenmagick\base\Runtime;
-use zenmagick\apps\store\admin\installation\patches\SQLPatch;
+use zenmagick\apps\admin\installation\patches\SQLPatch;
 
 
 /**

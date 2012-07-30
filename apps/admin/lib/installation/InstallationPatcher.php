@@ -17,7 +17,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-namespace zenmagick\apps\store\admin\installation;
+namespace zenmagick\apps\admin\installation;
 
 use zenmagick\base\Beans;
 use zenmagick\base\Runtime;
@@ -53,7 +53,7 @@ class InstallationPatcher extends ZMObject {
                 $filename = $fileInfo->getPathname();
                 $parent = basename(dirname($filename));
                 if (in_array($parent, array('file', 'sql'))) {
-                    $class = sprintf('zenmagick\apps\store\admin\installation\patches\%s\%s', $parent, substr($fileInfo->getFilename(), 0, strlen($fileInfo->getFilename())-strlen($ext)));
+                    $class = sprintf('zenmagick\apps\admin\installation\patches\%s\%s', $parent, substr($fileInfo->getFilename(), 0, strlen($fileInfo->getFilename())-strlen($ext)));
                     $patch = Beans::getBean($class);
                     $this->patches_[$patch->getId()] = $patch;
                 }

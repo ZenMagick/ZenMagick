@@ -17,7 +17,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-namespace zenmagick\apps\store\admin\services;
+namespace zenmagick\apps\admin\services;
 
 use zenmagick\base\Runtime;
 use zenmagick\base\ZMObject;
@@ -59,7 +59,7 @@ class AdminUserService extends ZMObject {
                 FROM %table.admin%
                 WHERE admin_id = :id";
         $args = array('id' => $id);
-        return $this->finalizeUser(\ZMRuntime::getDatabase()->querySingle($sql, $args, 'admin', 'zenmagick\apps\store\admin\entities\AdminUser'));
+        return $this->finalizeUser(\ZMRuntime::getDatabase()->querySingle($sql, $args, 'admin', 'zenmagick\apps\admin\entities\AdminUser'));
     }
 
     /**
@@ -73,7 +73,7 @@ class AdminUserService extends ZMObject {
                 FROM %table.admin%
                 WHERE admin_name = :name";
         $args = array('name' => $name);
-        return $this->finalizeUser(\ZMRuntime::getDatabase()->querySingle($sql, $args, 'admin', 'zenmagick\apps\store\admin\entities\AdminUser'));
+        return $this->finalizeUser(\ZMRuntime::getDatabase()->querySingle($sql, $args, 'admin', 'zenmagick\apps\admin\entities\AdminUser'));
     }
 
     /**
@@ -89,7 +89,7 @@ class AdminUserService extends ZMObject {
             $sql .= " WHERE admin_level = :live";
         }
         $users = array();
-        foreach (\ZMRuntime::getDatabase()->fetchAll($sql, array('live' => false), 'admin', 'zenmagick\apps\store\admin\entities\AdminUser') as $adminUser) {
+        foreach (\ZMRuntime::getDatabase()->fetchAll($sql, array('live' => false), 'admin', 'zenmagick\apps\admin\entities\AdminUser') as $adminUser) {
             $users[] = $this->finalizeUser($adminUser);
         }
 
@@ -107,7 +107,7 @@ class AdminUserService extends ZMObject {
                 FROM %table.admin%
                 WHERE admin_email = :email";
         $args = array('email' => $email);
-        return $this->finalizeUser(\ZMRuntime::getDatabase()->querySingle($sql, $args, 'admin', 'zenmagick\apps\store\admin\entities\AdminUser'));
+        return $this->finalizeUser(\ZMRuntime::getDatabase()->querySingle($sql, $args, 'admin', 'zenmagick\apps\admin\entities\AdminUser'));
     }
 
     /**
