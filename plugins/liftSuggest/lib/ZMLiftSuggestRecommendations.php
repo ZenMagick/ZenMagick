@@ -18,13 +18,14 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
+namespace zenmagick\plugins\liftSuggest;
+
 use zenmagick\base\ZMObject;
 
 /**
  * ZenMagick Lift Suggest Recommendation.
  *
  * @author DerManoMann <mano@zenmagick.org>
- * @package org.zenmagick.plugins.liftSuggest
  */
 class ZMLiftSuggestRecommendations extends ZMObject {
 

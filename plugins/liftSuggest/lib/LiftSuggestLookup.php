@@ -22,6 +22,8 @@
 *
 */
 
+namespace zenmagick\plugins\liftSuggest;
+
 /**
  * Lift Suggest Recommendations interface.
  *
