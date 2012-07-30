@@ -18,6 +18,9 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
+namespace zenmagick\plugins\phpbb3;
+
+use ZMRuntime;
 use zenmagick\base\ZMObject;
 
 /**
@@ -26,10 +29,9 @@ use zenmagick\base\ZMObject;
  * <p>Methods prefixed with <em>v</em> are validation rules that are wrapped in a
  * <copde>ZMWrapperRule</code>.</p>
  *
- * @package org.zenmagick.plugins.phpbb3
  * @author DerManoMann <mano@zenmagick.org>
  */
-class ZMPhpBB3Adapter extends ZMObject {
+class PhpBB3Adapter extends ZMObject {
     private $database_;
 
     /**
@@ -150,7 +152,7 @@ class ZMPhpBB3Adapter extends ZMObject {
         $nickName = $account->getNickName();
         $email = $account->getEmail();
         if (false !== ($groupId = $this->getDefaultGroupId())) {
-            $authentication = new ZMPhpBB3Authentication();
+            $authentication = new PhpBB3Authentication();
             $data = array(
                 'username'          => $nickName,
                 'username_clean'    => strtolower($nickName),
@@ -231,7 +233,7 @@ class ZMPhpBB3Adapter extends ZMObject {
     public function updateAccount($nickName, $password, $email) {
         $data = $this->getAccountForEmail($email);
         if (null !== $data) {
-            $authentication = new ZMPhpBB3Authentication();
+            $authentication = new PhpBB3Authentication();
             $updates = array(
                 'username' => $nickName,
                 'username_clean' => strtolower($nickName),

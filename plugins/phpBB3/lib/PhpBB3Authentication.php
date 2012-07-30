@@ -18,6 +18,8 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
+namespace zenmagick\plugins\phpbb3;
+
 use Phpass\Hash;
 use Phpass\Hash\Adapter\Portable;
 use zenmagick\base\security\authentication\provider\PhPassAuthenticationProvider;
@@ -26,9 +28,8 @@ use zenmagick\base\security\authentication\provider\PhPassAuthenticationProvider
  * phpBB3 authentication provider.
  *
  * @author DerManoMann <mano@zenmagick.org>
- * @package org.zenmagick.plugins.phpbb3
  */
-class ZMPhpBB3Authentication extends PhPassAuthenticationProvider {
+class PhpBB3Authentication extends PhPassAuthenticationProvider {
 
     /**
      * Create instance.

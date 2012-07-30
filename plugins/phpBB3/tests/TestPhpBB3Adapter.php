@@ -18,15 +18,19 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
+namespace zenmagick\plugins\phpbb3\tests;
+
+use ZMAccount;
+use ZMRuntime;
+use zenmagick\plugins\phpbb3\PhpBB3Adaptor;
 use zenmagick\plugins\unitTests\simpletest\TestCase;
 
 /**
- * Test TestZMPhpBB3 adapter class.
+ * Test TestPhpBB3 adapter class.
  *
- * @package org.zenmagick.plugins.phpbb3
  * @author DerManoMann <mano@zenmagick.org>
  */
-class TestZMPhpBB3Adapter extends TestCase {
+class TestPhpBB3Adapter extends TestCase {
     private $adapter_ = null;
 
 
@@ -62,7 +66,7 @@ class TestZMPhpBB3Adapter extends TestCase {
      */
     protected function getAdapter() {
         if (null == $this->adapter_) {
-            $this->adapter_ = new ZMPhpBB3Adapter();
+            $this->adapter_ = new PhpBB3Adapter();
         }
 
         return $this->adapter_;
