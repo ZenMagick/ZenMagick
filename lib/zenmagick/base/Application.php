@@ -411,8 +411,7 @@ class Application extends Kernel {
                 define($key, $value);
             }
         }
-
-        $defaults = Runtime::getInstallationPath().'/shared/defaults.php';
+        $defaults = $this->getRootDir().'/apps/store/config/defaults.php';
         if (file_exists($defaults)) {
             include $defaults;
         }
