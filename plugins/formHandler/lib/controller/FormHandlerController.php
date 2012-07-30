@@ -17,16 +17,17 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
+namespace zenmagick\plugins\formHandler\controller;
 
+use ZMController;
 use zenmagick\base\ZMObject;
 
 /**
  * Generic form handler controller.
  *
  * @author DerManoMann <mano@zenmagick.org>
- * @package org.zenmagick.plugins.formHandler
  */
-class ZMFormHandlerController extends ZMController {
+class FormHandlerController extends ZMController {
 
     /**
      * Create the form data object.

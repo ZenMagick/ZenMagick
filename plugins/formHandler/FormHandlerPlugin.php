@@ -70,8 +70,9 @@ class FormHandlerPlugin extends Plugin {
             $ext = $settingsService->get('zenmagick.http.templates.ext', '.php');
             $routeResolver = $this->container->get('routeResolver');
             $routeList = array();
+            $controller = 'zenmagick\plugins\formHandler\controller\FormHandlerController';
             foreach ($pages as $page) {
-                $routeList[] = array($page, new Route('/'.$page, array('_controller' => 'ZMFormHandlerController'), array(), array('view' => 'views/'.$page.$ext, 'view:success' => 'redirect://'.$page)));
+                $routeList[] = array($page, new Route('/'.$page, array('_controller' => $controller), array(), array('view' => 'views/'.$page.$ext, 'view:success' => 'redirect://'.$page)));
             }
             $routeResolver->addRoutes($routeList);
 
