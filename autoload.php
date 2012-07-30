@@ -32,8 +32,6 @@ spl_autoload_register(function ($class) {
             $className = substr($class, $pos + 1);
             $classPath .= $className.'.php';
             $fix = array( // @todo having the melded apps\store makes things difficult.
-                '|^apps/sample/|' => 'apps/sample/lib/',
-                '|^apps/store-installer/|' => 'apps/store-installer/lib/',
                 '|^apps/store/|' => 'shared/store/',
             );
             $classPath = preg_replace(array_keys($fix), array_values($fix), $classPath);
