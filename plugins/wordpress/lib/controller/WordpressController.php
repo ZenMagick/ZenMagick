@@ -17,15 +17,16 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
+namespace zenmagick\plugins\wordpress\controller;
 
+use ZMController;
 
 /**
  * WP controller.
  *
  * @author DerManoMann <mano@zenmagick.org>
- * @package org.zenmagick.plugins.wordpress
  */
-class ZMWordpressController extends ZMController {
+class WordpressController extends ZMController {
 
     /**
      * {@inheritDoc}

@@ -18,6 +18,8 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
+namespace zenmagick\plugins\wordpress;
+
 use zenmagick\base\Toolbox;
 use zenmagick\base\ZMObject;
 
@@ -27,10 +29,9 @@ use zenmagick\base\ZMObject;
  * <p>Methods prefixed with <em>v</em> are validation rules that are wrapped in a
  * <copde>ZMWrapperRule</code>.</p>
  *
- * @package org.zenmagick.plugins.zm_wordpress
  * @author DerManoMann <mano@zenmagick.org>
  */
-class ZMWordpressAdapter extends ZMObject {
+class WordpressAdapter extends ZMObject {
 
     /**
      * Create new instance.

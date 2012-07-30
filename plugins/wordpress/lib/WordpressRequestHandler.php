@@ -18,15 +18,17 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
+namespace zenmagick\plugins\wordpress;
+
+use ZMController;
 use zenmagick\base\Toolbox;
 
 /**
  * WP request handler.
  *
  * @author DerManoMann <mano@zenmagick.org>
- * @package org.zenmagick.plugins.wordpress
  */
-class ZMWordpressRequestHandler extends ZMController {
+class WordpressRequestHandler extends ZMController {
     public $wp_filter_id;
     private $plugin_;
     private $request_;
