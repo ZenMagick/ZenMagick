@@ -17,6 +17,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
+namespace zenmagick\plugins\vBulletin\tests;
 
 use zenmagick\base\Runtime;
 use zenmagick\plugins\unitTests\simpletest\TestCase;
@@ -24,10 +25,9 @@ use zenmagick\plugins\unitTests\simpletest\TestCase;
 /**
  * ZMVBulletin adapter test class.
  *
- * @package org.zenmagick.plugins.vbulletin
  * @author DerManoMann <mano@zenmagick.org>
  */
-class TestZMVBulletinAdapter extends TestCase {
+class TestVBulletinAdapter extends TestCase {
     private $adapter_ = null;
 
 
@@ -52,7 +52,7 @@ class TestZMVBulletinAdapter extends TestCase {
      */
     protected function getAdapter() {
         if (null == $this->adapter_) {
-            $this->adapter_ = Runtime::getContainer()->get('ZMVBulletinAdapter');
+            $this->adapter_ = Runtime::getContainer()->get('zenmagick\plugins\vBulletin\VBulletinAdapter');
         }
 
         return $this->adapter_;

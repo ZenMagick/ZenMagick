@@ -17,7 +17,9 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
+namespace zenmagick\plugins\vBulletin;
 
+use ZMRuntime;
 use zenmagick\base\Toolbox;
 use zenmagick\base\ZMException;
 use zenmagick\base\ZMObject;
@@ -28,10 +30,9 @@ use zenmagick\base\ZMObject;
  * <p>Methods prefixed with <em>v</em> are validation rules that are wrapped in a
  * <copde>ZMWrapperRule</code>.</p>
  *
- * @package org.zenmagick.plugins.vbulletin
  * @author DerManoMann <mano@zenmagick.org>
  */
-class ZMVBulletinAdapter extends ZMObject {
+class VBulletinAdapter extends ZMObject {
     private $database_;
     private $dbConfig_;
     private $userTable_;

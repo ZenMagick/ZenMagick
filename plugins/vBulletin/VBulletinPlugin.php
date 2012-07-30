@@ -64,7 +64,7 @@ class VBulletinPlugin extends Plugin {
      */
     protected function getAdapter() {
         if (null == $this->adapter_) {
-            $this->adapter_ = Beans::getBean('ZMVBulletinAdapter');
+            $this->adapter_ = Beans::getBean('zenmagick\plugins\vBulletin\VBulletinAdapter');
         }
 
         return $this->adapter_;
