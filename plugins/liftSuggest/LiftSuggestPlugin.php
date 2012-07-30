@@ -196,7 +196,7 @@ EOT;
      * @return array List of maps with product recommendation details or <code>null</code> on failure.
      */
     public function getProductRecommendations($productId, $limit=null) {
-        $lsr = $this->container->get('ZMLiftSuggestLookup');
+        $lsr = $this->container->get('zenmagick\plugins\liftSuggest\ZMLiftSuggestLookup');
         if (null === $this->recommendationsLoadedFor) {
             // grab first
             $this->recommendationsLoadedFor = $productId;

@@ -63,7 +63,7 @@ class PhpBB3Plugin extends Plugin {
      */
     protected function getAdapter() {
         if (null == $this->adapter_) {
-            $this->adapter_ = new \ZMPhpBB3Adapter();
+            $this->adapter_ = new PhpBB3Adapter();
         }
 
         return $this->adapter_;

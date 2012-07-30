@@ -35,14 +35,6 @@ define('ID_SOURCE_OTHER', 9999);
 class HowDidYouHearPlugin extends Plugin {
 
     /**
-     * Create new instance.
-     */
-    public function __construct() {
-        parent::__construct('How did you hear about us', 'Adds a drop down to the register page asking: "How did you hear about us"', '${plugin.version}');
-    }
-
-
-    /**
      * {@inheritDoc}
      */
     public function install() {
@@ -106,7 +98,7 @@ class HowDidYouHearPlugin extends Plugin {
                 // add validation rules
                 $rules = array(
                     array("ZMRequiredRule", 'sourceId', 'Please select/provide the source where you first heard about us.'),
-                    array("ZMSourceOtherRule", 'sourceOther', 'Please provide a description about where you first heard about us.')
+                    array("zenmagick\\\plugins\\\howDidYouHear\\validation\\rules\\SourceOtherRule", 'sourceOther', 'Please provide a description about where you first heard about us.')
                 );
                 $this->container->get('validator')->addRules('registration', $rules);
                 $this->container->get('validator')->addRules('shippingAddress', $rules);

@@ -1,0 +1,11 @@
+meta:
+  name: 'Cron'
+  version: '${zenmagick.version}'
+  author: 'zenmagick.org'
+  description: 'Allows to configure and execute cron jobs.'
+
+storefront,admin:
+  routing:
+    cron_image:
+      pattern: /cron_image
+      defaults: { _controller: zenmagick\plugins\cron\controller\CronImageController }

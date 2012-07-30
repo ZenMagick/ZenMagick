@@ -23,7 +23,7 @@ use zenmagick\http\sacs\handler\UserRoleSacsHandler;
 use zenmagick\http\sacs\handler\UserRoleCredentials;
 use zenmagick\apps\store\model\mock\MockAccount;
 use zenmagick\plugins\unitTests\simpletest\TestCase;
-use zenmagick\apps\store\storefront\http\sacs\StorefrontAccountSacsHandler;
+use zenmagick\apps\storefront\http\sacs\StorefrontAccountSacsHandler;
 
 /**
  * Test StorefrontAccountSacsHandler

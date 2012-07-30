@@ -3,4 +3,4 @@ admin,storefront:
     services:
       ImageInfo:
         parent: merge:ZMImageInfo
-        class: ImageInfo
+        class: zenmagick\plugins\imageHandler2\model\catalog\ImageInfo

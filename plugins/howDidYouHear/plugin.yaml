@@ -1,0 +1,13 @@
+meta:
+  name: 'How did you hear about us'
+  version: '${plugin.version}'
+  author: 'zenmagick.org'
+  description: 'Adds a drop down to the register page asking: "How did you hear about us"'
+
+admin:
+  router:
+    page:
+      howDidYouHearSourcesStats:
+        controller: zenmagick\plugins\howDidYouHear\controller\HowDidYouHearSourcesStatsController
+      howDidYouHearSourcesAdmin:
+        controller: zenmagick\plugins\howDidYouhear\controller\HowDidYouHearSourcesAdminController

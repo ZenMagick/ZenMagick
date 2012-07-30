@@ -35,7 +35,7 @@ use Symfony\Component\Yaml\Yaml;
 class ContextConfigLoader extends BaseContextConfigLoader {
     // collect all loaded routings to be processed later
     private static $routing = array();
-
+    private static $urlManagerRoutes = array();
 
     /**
      * {@inheritDoc}
@@ -45,8 +45,8 @@ class ContextConfigLoader extends BaseContextConfigLoader {
 
         // traditional router
         if (array_key_exists('router', $config) && is_array($config['router'])) {
-            // merge
-            \ZMUrlManager::instance()->setMappings($config['router'], false);
+            // keep for later
+            self::$urlManagerRoutes[] = $config['router'];
         }
         if (array_key_exists('routing', $config) && is_array($config['routing'])) {
             // keep for later
@@ -61,6 +61,15 @@ class ContextConfigLoader extends BaseContextConfigLoader {
      */
     public function getRouting() {
         return self::$routing;
+    }
+
+    /**
+     * Get legacy urlManager routes.
+     *
+     * @return array List of routing maps.
+     */
+    public function getUrlManagerRoutes() {
+        return self::$urlManagerRoutes;
     }
 
 }

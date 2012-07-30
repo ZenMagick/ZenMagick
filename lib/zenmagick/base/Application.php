@@ -102,7 +102,7 @@ class Application extends Kernel {
         $appContainerFiles = array('lib/zenmagick/base/container.xml');
         $appContainerFiles[] = 'lib/zenmagick/http/container.xml';
         if ('cli' == php_sapi_name()) {
-            $appContainerFiles[] = 'config/store-services.xml';
+            $appContainerFiles[] = 'apps/store/config/container.xml';
         }
         if ($applicationPath = $this->getApplicationPath()) {
             $appContainerFiles[] = $applicationPath.'/config/container.xml';
@@ -411,8 +411,7 @@ class Application extends Kernel {
                 define($key, $value);
             }
         }
-
-        $defaults = Runtime::getInstallationPath().'/shared/defaults.php';
+        $defaults = $this->getRootDir().'/apps/store/config/defaults.php';
         if (file_exists($defaults)) {
             include $defaults;
         }

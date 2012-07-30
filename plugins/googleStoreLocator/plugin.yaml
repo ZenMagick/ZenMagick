@@ -1,0 +1,11 @@
+meta:
+  name: 'Google Store Locator'
+  version: '${plugin.version}'
+  author: 'zenmagick.org'
+  description: 'Google Maps Store Locator'
+
+admin:
+  router:
+    page:
+      googleStoreLocator:
+        controller: zenmagick\plugins\googleStoreLocator\controller\GoogleStoreLocatorAdminController

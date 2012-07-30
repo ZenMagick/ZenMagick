@@ -1,14 +1,20 @@
+admin,storefront:
+  container:
+    services:
+      tagService:
+        class: zenmagick\plugins\productTags\service\TagService
+        scope: container
 admin:
   container:
     services:
       productTagsTabController:
-        class: ZMProductTagsTabController
+        class: zenmagick\plugins\productTags\controller\ProductTagsTabController
         scope: container
         tags:
           - { name: apps.store.admin.tabcontroller }
 
       productTagsProductAssociationHandler:
-        class: ZMProductTagsProductAssociationHandler
+        class: zenmagick\plugins\productTags\services\ProductTagsProductAssociationHandler
         scope: container
         tags:
           - { name: apps.store.associations.handler }

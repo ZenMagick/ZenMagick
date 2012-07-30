@@ -2,7 +2,7 @@ admin:
   container:
     services:
       productGroupPricingTabController:
-        class: ZMProductGroupPricingTabController
+        class: zenmagick\plugins\productGroupPricing\controller\ProductGroupPricingTabController
         scope: container
         tags:
           - { name: apps.store.admin.tabcontroller }

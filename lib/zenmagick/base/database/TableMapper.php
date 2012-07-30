@@ -82,7 +82,7 @@ class TableMapper extends ZMObject {
         $this->tableMap_ = array();
         $this->tablePrefix_ = '';
         // load from file
-        eval('$mappings = '.file_get_contents(Runtime::getInstallationPath().'/config/db_mappings.txt'));
+        eval('$mappings = '.file_get_contents(Runtime::getInstallationPath().'/apps/store/config/db_mappings.txt'));
         foreach ($mappings as $table => $mapping) {
             $this->setMappingForTable($table, $mapping);
         }

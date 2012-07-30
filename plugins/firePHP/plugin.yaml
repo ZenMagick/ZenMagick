@@ -7,7 +7,7 @@ admin,storefront:
   container:
     services:
       firePHPLoggingHandler:
-        class: zenmagick\plugins\firePHP\FirePHPLoggingHandler
+        class: zenmagick\plugins\firePHP\logging\handlers\FirePHPLoggingHandler
         scope: container
         calls:
           - [setLogLevel, ['NONE']]

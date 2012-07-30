@@ -25,6 +25,7 @@ use zenmagick\base\Runtime;
 use zenmagick\base\Toolbox;
 use zenmagick\http\sacs\SacsManager;
 use zenmagick\apps\store\model\checkout\ShoppingCart;
+use zenmagick\plugins\subscriptions\cron\UpdateSubscriptionsCronJob;
 
 /**
  * Subscriptions.
@@ -198,7 +199,7 @@ class SubscriptionsPlugin extends Plugin {
      * Order created event handler.
      */
     public function onCreateOrder($event) {
-        if ($event->getSubject() instanceof \ZMUpdateSubscriptionsCronJob) {
+        if ($event->getSubject() instanceof UpdateSubscriptionsCronJob) {
             // do not process orders created by our cron job
             return;
         }

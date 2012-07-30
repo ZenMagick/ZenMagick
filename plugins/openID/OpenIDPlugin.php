@@ -100,7 +100,7 @@ class OpenIDPlugin extends Plugin {
         $this->container->get('validator')->addRules('openid_login', $rules);
 
         // add validation rule for account edit
-        $this->container->get('validator')->addRule('edit_account', array('ZMUniqueOpenIDRule', 'openid'));
+        $this->container->get('validator')->addRule('edit_account', array('zenmagick\plugins\openID\validation\rules\UniqueOpenIDRule', 'openid'));
     }
 
 

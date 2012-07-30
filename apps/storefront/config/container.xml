@@ -10,7 +10,7 @@
     </parameters>
 
     <services>
-        <service id="session" class="zenmagick\apps\store\storefront\http\Session" scope="container">
+        <service id="session" class="zenmagick\apps\storefront\http\Session" scope="container">
             <call method="setContainer">
                 <argument type="service" id="service_container" />
             </call>
@@ -43,7 +43,7 @@
             </call>
         </service>
 
-        <service id="storeDefaultUrlRewriter" class="zenmagick\apps\store\storefront\http\request\StoreDefaultUrlRewriter" scope="container">
+        <service id="storeDefaultUrlRewriter" class="zenmagick\apps\storefront\http\request\StoreDefaultUrlRewriter" scope="container">
             <tag name="zenmagick.http.request.rewriter" />
         </service>
 
@@ -55,20 +55,20 @@
             <tag name="zenmagick.http.rss.source" />
         </service>
 
-        <service id="crumbtrailTool" class="zenmagick\apps\store\storefront\http\tools\ToolboxCrumbtrail" scope="prototype">
+        <service id="crumbtrailTool" class="zenmagick\apps\storefront\http\tools\ToolboxCrumbtrail" scope="prototype">
             <tag name="zenmagick.http.toolbox.tool" key="crumbtrail" />
         </service>
 
-        <service id="metaTagsTool" class="zenmagick\apps\store\storefront\http\tools\ToolboxMetaTags" scope="prototype">
+        <service id="metaTagsTool" class="zenmagick\apps\storefront\http\tools\ToolboxMetaTags" scope="prototype">
             <tag name="zenmagick.http.toolbox.tool" key="metaTags" />
         </service>
 
-        <service id="defaultController" class="zenmagick\apps\store\storefront\controller\DefaultController" scope="prototype">
+        <service id="defaultController" class="zenmagick\apps\storefront\controller\DefaultController" scope="prototype">
             <call method="setContainer">
                 <argument type="service" id="service_container" />
             </call>
         </service>
 
-        <service id="userFactory" class="zenmagick\apps\store\storefront\services\CustomerUserFactory" scope="container" />
+        <service id="userFactory" class="zenmagick\apps\storefront\services\CustomerUserFactory" scope="container" />
     </services>
 </container>

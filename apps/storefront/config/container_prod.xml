@@ -7,6 +7,6 @@
 
     <imports>
         <import resource="container.xml" />
-        <import resource="../../../config/store-services.xml" />
+        <import resource="../../store/config/container.xml" />
     </imports>
 </container>

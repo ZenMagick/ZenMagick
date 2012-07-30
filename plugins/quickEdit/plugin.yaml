@@ -2,7 +2,7 @@ admin:
   container:
     services:
       quickEditTabController:
-        class: ZMQuickEditTabController
+        class: zenmagick\plugins\quickEdit\controller\QuickEditTabController
         scope: container
         tags:
           - { name: apps.store.admin.tabcontroller }

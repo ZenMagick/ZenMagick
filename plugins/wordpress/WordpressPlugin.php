@@ -106,7 +106,7 @@ class WordpressPlugin extends Plugin {
      */
     protected function getAdapter() {
         if (null == $this->adapter_) {
-            $this->adapter_ = Beans::getBean('ZMWordpressAdapter');
+            $this->adapter_ = Beans::getBean('zenmagick\plugins\wordpress\WordpressAdapter');
         }
 
         return $this->adapter_;
@@ -265,7 +265,7 @@ class WordpressPlugin extends Plugin {
      */
     public function getRequestHandler($request) {
         if (null == $this->requestHandler_) {
-            $this->requestHandler_ = new \ZMWordpressRequestHandler($this, $request);
+            $this->requestHandler_ = new WordpressRequestHandler($this, $request);
         }
 
         return $this->requestHandler_;

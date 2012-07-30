@@ -37,6 +37,7 @@ use zenmagick\http\Request;
  * </ol>
  *
  * <p>If none of the above applies, the parameter will be <code>null</code>.</p>
+ *
  * @author DerManoMann <mano@zenmagick.org>
  */
 class ControllerParameterMapper extends ZMObject implements ParameterMapper {

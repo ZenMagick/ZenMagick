@@ -90,8 +90,6 @@ class PluginStatusMapBuilder extends ZMObject {
 
         foreach ($this->getPathIdMap() as $basePath => $pathInfo) {
             foreach ($pathInfo as $info) {
-                $classLoader->addNamespace(Plugins::PLUGIN_BASE_NAMESPACE, sprintf('%s@%s', $basePath, Plugins::PLUGIN_BASE_NAMESPACE));
-
                 $id = $info['id'];
                 $pluginDir = $info['pluginDir'];
 
@@ -100,15 +98,10 @@ class PluginStatusMapBuilder extends ZMObject {
                 $namespace = Plugins::PLUGIN_BASE_NAMESPACE;
                 if ($info['standalone']) {
                     $pluginClasses[] = sprintf('zenmagick\plugins\%sPlugin', $pluginClassBase);
-                    $classLoader->addNamespace($namespace, sprintf('%s@%s', $pluginDir, $namespace));
                 } else {
                     $namespace = sprintf('zenmagick\plugins\%s', $id);
                     $pluginClasses[] = sprintf('%s\%sPlugin', $namespace, $pluginClassBase);
-                    $classLoader->addNamespace($namespace, sprintf('%s@%s', $pluginDir, $namespace));
                 }
-                // todo: drop ZM stuff
-                $defaultClass = $pluginClasses[] = sprintf('ZM%sPlugin', $pluginClassBase);
-                $classLoader->addDefault($defaultClass, sprintf('%s/%s.php', $pluginDir, $defaultClass));
                 $pluginClasses[] = $this->defaultPluginClass;
 
                 foreach ($pluginClasses as $pluginClass) {

@@ -1,0 +1,11 @@
+meta:
+  name: 'DataExporter'
+  version: '${plugin.version}'
+  author: 'zenmagick.org'
+  description: 'Export data from the database.'
+
+admin:
+  router:
+    page:
+      exportOrders:
+        controller: zenmagick\plugins\dataExporter\controller\ExportOrdersController

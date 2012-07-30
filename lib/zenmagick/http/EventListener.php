@@ -87,6 +87,11 @@ class EventListener extends ZMObject {
             }
         }
 
+        // Legacy Routing.
+        foreach ($contextConfigLoader->getUrlManagerRoutes() as $routeMaps) {
+            \ZMUrlManager::instance()->setMappings($routeMaps, false); // merge
+        }
+
         if (null != ($userSession = $session->getUserSession())) {
             if (null != ($localeCode = $userSession->getLocaleCode())) {
                 // init with user locale
