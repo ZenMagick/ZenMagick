@@ -1,6 +1,6 @@
 meta:
   name: 'Settings'
-  version: '${zenmagick.version}'
+  version: '${plugin.version}'
   author: 'zenmagick.org'
   description: 'Manage (custom) settings'
 
