@@ -128,7 +128,7 @@ class ZencartStorefrontController extends \ZMController {
         foreach ($files as $file) {
             include $file;
         }
-        require Runtime::getInstallationPath().'/shared/store/bundles/ZenCartBundle/bridge/includes/autoload_func.php';
+        require Runtime::getInstallationPath().'/apps/store/bundles/ZenCartBundle/bridge/includes/autoload_func.php';
 
         require($controllerFile);
 
