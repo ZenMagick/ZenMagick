@@ -22,16 +22,14 @@
  * A simple cron job interface.
  *
  * @author DerManoMann <mano@zenmagick.org>
- * @package org.zenmagick.plugins.cron
  */
-class ZMSimpleCronJob implements ZMCronJob {
+interface CronJobInterface {
 
     /**
-     * {@inheritDoc}
+     * Execute the job.
+     *
+     * @return boolean The execution status.
      */
-    public function execute() {
-        echo "foooooooooooooooooooo";
-        return true;
-    }
+    public function execute();
 
 }

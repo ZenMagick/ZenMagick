@@ -18,32 +18,21 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
+namespace zenmagick\plugins\cron\jobs;
 
 /**
- * Cron image controller.
+ * A simple cron job interface.
  *
  * @author DerManoMann <mano@zenmagick.org>
- * @package org.zenmagick.plugins.cron
  */
-class ZMCronImageController extends ZMController {
+class SimpleCronJob implements CronJobInterface {
 
     /**
      * {@inheritDoc}
      */
-    public function processGet($request) {
-        $plugin = $this->container->get('pluginService')->getPluginForId('cron');
-        header("Content-Type: image/gif");
-
-        if (null != $plugin) {
-            // execute configured jobs
-            $plugin->runCron();
-        }
-
-        // create 1x1 image
-        echo base64_decode("R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==");
-
-        // no more output
-        return null;
+    public function execute() {
+        echo "foooooooooooooooooooo";
+        return true;
     }
 
 }

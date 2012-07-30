@@ -31,14 +31,6 @@ use zenmagick\base\Toolbox;
 class CronPlugin extends Plugin {
 
     /**
-     * Create new instance.
-     */
-    public function __construct() {
-        parent::__construct('CronJobs', 'Allows to configure and execute cron jobs', '${plugin.version}');
-    }
-
-
-    /**
      * Install this plugin.
      */
     public function install() {

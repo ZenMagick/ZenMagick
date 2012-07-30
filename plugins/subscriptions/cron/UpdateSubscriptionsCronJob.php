@@ -20,18 +20,19 @@
 
 namespace zenmagick\plugins\subscriptions\cron;
 
-use ZMCronJob;
 use zenmagick\base\Beans;
 use zenmagick\base\Runtime;
 use zenmagick\base\Toolbox;
 use zenmagick\base\events\Event;
+
+use zenmagick\plugins\cron\jobs\CronJobInterface;
 
 /**
  * A cron job to create new subscription orders.
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class UpdateSubscriptionsCronJob implements ZMCronJob {
+class UpdateSubscriptionsCronJob implements CronJobInterface {
 
     /**
      * {@inheritDoc}

@@ -17,6 +17,9 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
+namespace zenmagick\plugins\cron\jobs;
+
+use ZMRuntime;
 
 /**
  * A cron job to send birthday emails to registered users.
@@ -37,9 +40,8 @@
  * </dl>
  *
  * @author DerManoMann <mano@zenmagick.org>
- * @package org.zenmagick.plugins.cron
  */
-class ZMBirthdayEmailCronJob implements ZMCronJob {
+class BirthdayEmailCronJob implements CronJobInterface {
 
     /**
      * {@inheritDoc}

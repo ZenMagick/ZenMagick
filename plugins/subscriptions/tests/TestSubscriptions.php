@@ -80,7 +80,7 @@ class TestSubscriptions extends TestCase {
      * Test regular cron run.
      */
     public function testRegularCronRun() {
-        if (!class_exists('ZMCronJob')) {
+        if (!interface_exists('zenmagick\plugins\cron\jobs\CronJobInterface')) {
             $this->skipIf(true, 'Cron not available');
             return;
         }

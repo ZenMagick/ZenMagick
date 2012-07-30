@@ -17,6 +17,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
+namespace zenmagick\plugins\cron\tests;
 
 use zenmagick\base\Beans;
 use zenmagick\plugins\unitTests\simpletest\TestCase;
@@ -24,16 +25,15 @@ use zenmagick\plugins\unitTests\simpletest\TestCase;
 /**
  * Test the cron parser.
  *
- * @package org.zenmagick.plugins.cron.tests
  * @author DerManoMann <mano@zenmagick.org>
  */
-class TestZMCronParser extends TestCase {
+class TestCronParser extends TestCase {
     protected static $TEXT_CRONTAB = array(
-        '0    5    0    *    Sun      ZMSimpleCronJob         # every sunday at 5 am',
-        '40   5    2    *    -        ZMSimpleCronJob         # 5:40 am on the second day of each month',
-        '*    8-19 *    *    Mon-Fri  ZMSimpleCronJob         # Every minute on workdays between 8am and 7pm',
-        '0-59 *    1-15 3,4  Mon-Fri  ZMSimpleCronJob         # Every minute of every day, in the first half of March and April',
-        '*/15 *    *    *    -        ZMUpdateFacetsCronJob   # every 15 minutes'
+        '0    5    0    *    Sun      zenmagick\plugins\cron\jobs\SimpleCronJob         # every sunday at 5 am',
+        '40   5    2    *    -        zenmagick\plugins\cron\jobs\SimpleCronJob         # 5:40 am on the second day of each month',
+        '*    8-19 *    *    Mon-Fri  zenmagick\plugins\cron\jobs\SimpleCronJob         # Every minute on workdays between 8am and 7pm',
+        '0-59 *    1-15 3,4  Mon-Fri  zenmagick\plugins\cron\jobs\SimpleCronJob         # Every minute of every day, in the first half of March and April',
+        '*/15 *    *    *    -        zenmagick\plugins\cron\jobs\UpdateFacetsCronJob   # every 15 minutes'
     );
 
     /**
@@ -42,7 +42,7 @@ class TestZMCronParser extends TestCase {
      * @retun ZMCronParser A parser instance.
      */
     protected function getParser() {
-        $parser = Beans::getBean('ZMCronParser');
+        $parser = Beans::getBean('zenmagick\plugins\cron\CronParser');
         $this->assertNotNull($parser);
         return $parser;
     }
@@ -52,15 +52,15 @@ class TestZMCronParser extends TestCase {
      */
     public function testSunday() {
         $parser = $this->getParser();
-        $result = $this->getParser()->parseCronTab(TestZMCronParser::$TEXT_CRONTAB[0]);
+        $result = $this->getParser()->parseCronTab(TestCronParser::$TEXT_CRONTAB[0]);
         $this->assertTrue(is_array($result));
         $this->assertEqual(1, count($result));
         $this->assertEqual(0, $result[0]['minutes']);
         $this->assertEqual(5, $result[0]['hours']);
         $this->assertEqual(0, $result[0]['mday']);
         $this->assertEqual('Sun', $result[0]['wday']);
-        $this->assertEqual('ZMSimpleCronJob', $result[0]['task']);
-        $this->assertEqual(TestZMCronParser::$TEXT_CRONTAB[0], $result[0]['line']);
+        $this->assertEqual('zenmagick\plugins\cron\jobs\SimpleCronJob', $result[0]['task']);
+        $this->assertEqual(TestCronParser::$TEXT_CRONTAB[0], $result[0]['line']);
     }
 
     /**
@@ -68,7 +68,7 @@ class TestZMCronParser extends TestCase {
      */
     public function testRange() {
         $parser = $this->getParser();
-        $result = $this->getParser()->parseCronTab(TestZMCronParser::$TEXT_CRONTAB[4]);
+        $result = $this->getParser()->parseCronTab(TestCronParser::$TEXT_CRONTAB[4]);
         $this->assertTrue(is_array($result));
         $this->assertEqual(1, count($result));
         $this->assertEqual('*/15', $result[0]['minutes']);
@@ -76,7 +76,7 @@ class TestZMCronParser extends TestCase {
         $this->assertEqual('*', $result[0]['mday']);
         $this->assertEqual('-', $result[0]['wday']);
         $this->assertEqual('ZMUpdateFacetsCronJob', $result[0]['task']);
-        $this->assertEqual(TestZMCronParser::$TEXT_CRONTAB[4], $result[0]['line']);
+        $this->assertEqual(TestCronParser::$TEXT_CRONTAB[4], $result[0]['line']);
 
         // schedule tests
         foreach ($result[0]['schedule']['minutes'] as $ii => $value) {

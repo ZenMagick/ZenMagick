@@ -52,7 +52,8 @@ The crontab.txt file
 ====================
 As explained above, the file to configure jobs is called crontab. The actual file is ../cron/etc/crontab.txt.
 In contrast to a *proper* crontab file there is no user column. Also, the actual job/task is assumed to be the name
-of a class that implements the included ZMCronJob interface.
+of a class that implements the included
+zenmagick\plugins\cron\jobs\CronJobInterface interface.
 
 If scheduled, an instance of that class will be created and the execute() method called.
 
@@ -66,7 +67,7 @@ sure that the etc folder is writeable by your webserver.
 Creating new jobs
 =================
 A cron job as defined by this plugin is the name of a class (accessible via class loader) that implements the included
-interface ZMCronJob.
+interface zenmagick\plugins\cron\jobs\CronJobInterface.
 There is a sample class included in the jobs folder to illustrate this.
 
 
@@ -127,7 +128,7 @@ Default value is 'birthday'.
 crontab:
 One possible crontab entry to run the job once a day could be:
 
-0    5    0    *    *        ZMBirthdayEmailCronJob  # every day at 5 am
+0    5    0    *    *        zenmagick\plugins\cron\jobs\BirthdayEmailCronJob  # every day at 5 am
 
 email template
 The template will have access to a variable $account as the customer to process.
