@@ -17,6 +17,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
+namespace zenmagick\plugins\quickEdit\controller;
 
 use zenmagick\base\Beans;
 use zenmagick\http\widgets\form\FormWidget;
@@ -26,9 +27,8 @@ use zenmagick\apps\store\controller\CatalogContentController;
  * Admin controller.
  *
  * @author DerManoMann <mano@zenmagick.org>
- * @package org.zenmagick.plugins.quickEdit
  */
-class ZMQuickEditTabController extends CatalogContentController {
+class QuickEditTabController extends CatalogContentController {
     const STALE_CHECK_FIELD_PREFIX = '@_';
 
 
