@@ -17,16 +17,18 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
+namespace zenmagick\plugins\settings\controller;
 
+use ZMPluginAdminController;
 use zenmagick\http\widgets\form\FormWidget;
+use zenmagick\http\widgets\form\WysiwygEditor;
 
 /**
  * Admin controller.
  *
  * @author DerManoMann <mano@zenmagick.org>
- * @package org.zenmagick.plugins.settings
  */
-class ZMSettingsAdminController extends ZMPluginAdminController {
+class SettingsAdminController extends ZMPluginAdminController {
 
     /**
      * Create new instance.
@@ -59,7 +61,7 @@ class ZMSettingsAdminController extends ZMPluginAdminController {
             }
         } else if ('update' == $action) {
             foreach ($plugin->getConfigValues() as $widget) {
-                $sanitize = !($widget instanceof ZMWysiwygFormWidget);
+                $sanitize = !($widget instanceof WysiwygEditor);
                 if ($widget instanceof FormWidget && null != ($value = $request->request->get($widget->getName(), null, $sanitize))) {
                     if (!$widget->compare($value)) {
                         // value changed, use widget to (optionally) format value

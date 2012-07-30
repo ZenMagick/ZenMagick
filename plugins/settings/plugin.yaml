@@ -1,0 +1,13 @@
+meta:
+  name: 'Settings'
+  version: '${zenmagick.version}'
+  author: 'zenmagick.org'
+  description: 'Manage (custom) settings'
+
+admin:
+  router:
+    page:
+      settingsShow:
+        controller: zenmagick\plugins\settings\controller\SettingsShowController
+      settingsAdmin:
+        controller: zenmagick\plugins\settings\controller\SettingsAdminController

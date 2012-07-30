@@ -18,6 +18,9 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
+namespace zenmagick\plugins\settings\controller;
+
+use ZMPluginAdminController;
 use zenmagick\base\Runtime;
 use zenmagick\base\Toolbox;
 
@@ -25,9 +28,8 @@ use zenmagick\base\Toolbox;
  * Show settings controlller.
  *
  * @author DerManoMann <mano@zenmagick.org>
- * @package org.zenmagick.plugins.settings
  */
-class ZMSettingsShowController extends ZMPluginAdminController {
+class SettingsShowController extends ZMPluginAdminController {
 
     /**
      * Create new instance.
@@ -103,6 +105,7 @@ class ZMSettingsShowController extends ZMPluginAdminController {
         foreach (zm_get_settings_details() as $group => $groupDetails) {
             foreach ($groupDetails as $sub => $subDetails) {
                 foreach ($subDetails as $subKey => $details) {
+                    if (!isset($details['key'])) continue;
                     $key = $group.'.'.$sub.'.'.$details['key'];
                     $typeList = explode(':', $details['type']);
                     $type = array_pop($typeList);
