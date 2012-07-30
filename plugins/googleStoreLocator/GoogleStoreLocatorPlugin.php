@@ -31,14 +31,6 @@ use zenmagick\base\Toolbox;
 class GoogleStoreLocatorPlugin extends Plugin {
 
     /**
-     * Create new instance.
-     */
-    public function __construct() {
-        parent::__construct('Google Store Locator', 'Google Maps Store Locator.', '${plugin.version}');
-    }
-
-
-    /**
      * {@inheritDoc}
      */
     public function install() {

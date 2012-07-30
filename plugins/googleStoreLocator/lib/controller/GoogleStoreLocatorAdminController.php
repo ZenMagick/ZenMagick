@@ -17,15 +17,16 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
+namespace zenmagick\plugins\googleStoreLocator\controller;
 
+use ZMPluginAdminController;
 
 /**
  * Admin controller.
  *
  * @author DerManoMann <mano@zenmagick.org>
- * @package org.zenmagick.plugins.googleStoreLocator
  */
-class ZMGoogleStoreLocatorAdminController extends ZMPluginAdminController {
+class GoogleStoreLocatorAdminController extends ZMPluginAdminController {
 
     /**
      * Create new instance.
@@ -33,7 +34,6 @@ class ZMGoogleStoreLocatorAdminController extends ZMPluginAdminController {
     public function __construct() {
         parent::__construct('googleStoreLocator');
     }
-
 
     /**
      * {@inheritDoc}
