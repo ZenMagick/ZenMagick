@@ -208,8 +208,6 @@
             </call>
         </service>
 
-        <service id="tagService" class="ZMTags" scope="container" />
-
         <service id="defaultStoreBlockProvider" class="zenmagick\apps\store\widgets\StoreBlockProvider" scope="container">
             <tag name="zenmagick.http.blocks.provider" />
         </service>

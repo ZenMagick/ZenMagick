@@ -17,7 +17,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-
+namespace zenmagick\plugins\productTags\controller;
 
 use zenmagick\apps\store\controller\CatalogContentController;
 
@@ -25,9 +25,8 @@ use zenmagick\apps\store\controller\CatalogContentController;
  * Admin controller.
  *
  * @author DerManoMann <mano@zenmagick.org>
- * @package org.zenmagick.plugins.productTags
  */
-class ZMProductTagsTabController extends CatalogContentController {
+class ProductTagsTabController extends CatalogContentController {
 
     /**
      * Create new instance.

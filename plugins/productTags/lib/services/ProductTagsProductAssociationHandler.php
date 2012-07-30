@@ -18,6 +18,9 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
+namespace zenmagick\plugins\productTags\services;
+
+use ZMProductAssociationHandler;
 use zenmagick\base\ZMException;
 
 /**
@@ -26,9 +29,8 @@ use zenmagick\base\ZMException;
  * <p>Supports <em>languageId</em> parameter in the <code>$args</code> map.</p>
  *
  * @author DerManoMann <mano@zenmagick.org>
- * @package org.zenmagick.plugins.productTags
  */
-class ZMProductTagsProductAssociationHandler implements ZMProductAssociationHandler {
+class ProductTagsProductAssociationHandler implements ZMProductAssociationHandler {
 
     /**
      * {@inheritDoc}

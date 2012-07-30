@@ -17,16 +17,16 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
+namespace zenmagick\plugins\productTags\tests;
 
 use zenmagick\plugins\unitTests\simpletest\TestCase;
 
 /**
- * Test ZMTags store implementation.
+ * Test TagService store implementation.
  *
- * @package org.zenmagick.plugins.productTags
  * @author DerManoMann <mano@zenmagick.org>
  */
-class TestZMTags extends TestCase {
+class TestTagService extends TestCase {
 
     /**
      * Test getTagsForProductId.

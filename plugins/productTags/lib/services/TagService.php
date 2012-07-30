@@ -18,6 +18,9 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
+namespace zenmagick\plugins\productTags\services;
+
+use ZMRuntime;
 use zenmagick\base\Runtime;
 use zenmagick\base\ZMObject;
 
@@ -25,9 +28,8 @@ use zenmagick\base\ZMObject;
  * <em>Tags</em>.
  *
  * @author DerManoMann <mano@zenmagick.org>
- * @package org.zenmagick.plugins.productTags
  */
-class ZMTags extends ZMObject {
+class TagService extends ZMObject {
 
     /**
      * Get all tags for the given product id.
