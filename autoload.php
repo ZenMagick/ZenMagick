@@ -37,7 +37,6 @@ spl_autoload_register(function ($class) {
                 '|^apps/store/storefront/|' => 'apps/storefront/lib/',
                 '|^apps/store/admin/|' => 'apps/admin/lib/',
                 '|^apps/store/|' => 'shared/store/',
-                '|^themes/(\w+)/|' => 'themes/${1}/lib/',
             );
             $classPath = preg_replace(array_keys($fix), array_values($fix), $classPath);
             $file = __DIR__.DIRECTORY_SEPARATOR.$classPath;
