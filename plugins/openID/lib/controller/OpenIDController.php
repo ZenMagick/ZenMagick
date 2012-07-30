@@ -17,15 +17,17 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
+namespace zenmagick\plugins\openID\controller;
 
+use ZMController;
+use zenmagick\plugins\openID\OpenIDDatabaseStore;
 
 /**
  * OpenID authentication controller.
  *
  * @author DerManoMann <mano@zenmagick.org>
- * @package org.zenmagick.plugins.openID
  */
-class ZMOpenIDController extends ZMController {
+class OpenIDController extends ZMController {
     private $plugin_;
     private $returnTo_;
     private $sRegRequired_;
@@ -112,7 +114,7 @@ class ZMOpenIDController extends ZMController {
      * @param string openid The OpenID to authenticate.
      */
     private function initAuthentication($request, $openid) {
-        $store = new ZMOpenIDDatabaseStore();
+        $store = new OpenIDDatabaseStore();
         $consumer = new Auth_OpenID_Consumer($store);
         $auth_request = $consumer->begin($openid);
 
@@ -173,7 +175,7 @@ class ZMOpenIDController extends ZMController {
      * @return array OpenID details map or <code>null</code>.
      */
     private function finishAuthentication() {
-        $store = new ZMOpenIDDatabaseStore();
+        $store = new OpenIDDatabaseStore();
         $consumer = new Auth_OpenID_Consumer($store);
 
         // Complete the authentication process using the server's response.

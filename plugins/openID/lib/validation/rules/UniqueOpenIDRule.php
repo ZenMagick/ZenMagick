@@ -18,14 +18,16 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
+namespace zenmagick\plugins\openID\validation\rules;
+
+use ZMRule;
 
 /**
  * Check for unique openID.
  *
  * @author DerManoMann <mano@zenmagick.org>
- * @package org.zenmagick.plugins.openID
  */
-class ZMUniqueOpenIDRule extends ZMRule {
+class UniqueOpenIDRule extends ZMRule {
 
     /**
      * Create new required rule.

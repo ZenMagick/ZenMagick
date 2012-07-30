@@ -17,22 +17,24 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
+namespace zenmagick\plugins\openID\tests;
 
+use Auth_OpenID_Asssocation;
+use zenmagick\plugins\openID\OpenIDDatabaseStore;
 use zenmagick\plugins\unitTests\simpletest\TestCase;
 
 /**
  * Test OpenID store implementation.
  *
- * @package org.zenmagick.plugins.openID
  * @author DerManoMann <mano@zenmagick.org>
  */
-class TestZMOpenIDDatabaseStore extends TestCase {
+class TestOpenIDDatabaseStore extends TestCase {
 
     /**
      * Test store.
      */
     public function testStore() {
-        $store = new ZMOpenIDDatabaseStore();
+        $store = new OpenIDDatabaseStore();
         $this->assertNotNull($store);
         $ass = new Auth_OpenID_Association('foo', 'secret', 1, (time()+100000), 'HMAC-SHA1');
         $store->storeAssociation('bar', $ass);

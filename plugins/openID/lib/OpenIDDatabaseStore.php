@@ -1,5 +1,4 @@
 <?php
-
 /**
  * ZenMagick - Smart e-commerce
  * Copyright (C) 2006-2012 zenmagick.org
@@ -25,7 +24,14 @@
  * @author S. Alexandre Lemaire, saeven.net consulting inc. saeven@saeven.net
  * @author DerManoMann <mano@zenmagick.org>
  */
-class ZMOpenIDDatabaseStore extends Auth_OpenID_OpenIDStore {
+
+namespace zenmagick\plugins\openID;
+
+use ZMRuntime;
+use Auth_OpenID_Association;
+use Auth_OpenID_OpenIDStore;
+
+class OpenIDDatabaseStore extends Auth_OpenID_OpenIDStore {
     private $nonceLifetime;
 
 
