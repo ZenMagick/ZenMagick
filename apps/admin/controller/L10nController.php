@@ -115,7 +115,7 @@ class L10nController extends \ZMController {
 
         $sharedMap = array();
         if ($vd['scanShared']) {
-            $sharedMap = $scanner->buildL10nMap(Runtime::getInstallationPath().'shared');
+            $sharedMap = $scanner->buildL10nMap(Runtime::getInstallationPath().'/shared');
         }
 
         $pluginsMap = array();
@@ -128,21 +128,19 @@ class L10nController extends \ZMController {
 
         $adminMap = array();
         if ($vd['scanAdmin']) {
-            $adminLibMap = $scanner->buildL10nMap(Runtime::getApplicationPath().'lib');
-            $adminTemplatesMap = $scanner->buildL10nMap(Runtime::getApplicationPath().'templates');
-            $adminMap = array_merge($adminLibMap, $adminTemplatesMap);
+            $adminLibMap = $scanner->buildL10nMap(Runtime::getApplicationPath());
         }
 
         $mvcMap = array();
         if ($vd['scanMvc']) {
-            $mvcMap = $scanner->buildL10nMap(Runtime::getInstallationPath().'lib');
+            $mvcMap = $scanner->buildL10nMap(Runtime::getInstallationPath().'/lib');
         }
 
         $fileMap = array();
         if (null != $vd['themeId']) {
             $theme = $themeService->getThemeForId($vd['themeId']);
             $themeMap = $scanner->buildL10nMap($theme->getBaseDir());
-            $storeMap = $scanner->buildL10nMap(Runtime::getInstallationPath().'apps/store');
+            $storeMap = $scanner->buildL10nMap(Runtime::getInstallationPath().'/apps/store');
             $fileMap = array_merge($themeMap, $storeMap);
         }
 
