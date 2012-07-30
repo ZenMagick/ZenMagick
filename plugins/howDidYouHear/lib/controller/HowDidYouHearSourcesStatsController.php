@@ -18,6 +18,10 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
+namespace zenmagick\plugins\howDidYouHear\controller;
+
+use ZMController;
+use ZMRuntime;
 use zenmagick\base\Runtime;
 use zenmagick\base\Toolbox;
 
@@ -25,9 +29,8 @@ use zenmagick\base\Toolbox;
  * Display sources stats.
  *
  * @author DerManoMann <mano@zenmagick.org>
- * @package org.zenmagick.plugins.howDidYouHear
  */
-class ZMHowDidYouHearSourcesStatsController extends ZMController {
+class HowDidYouHearSourcesStatsController extends ZMController {
 
     /**
      * {@inheritDoc}

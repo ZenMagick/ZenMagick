@@ -17,16 +17,18 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
+namespace zenmagick\plugins\howDidYouHear\controller;
 
+use ZMController;
+use ZMRuntime;
 use zenmagick\base\Runtime;
 
 /**
  * Sources admin.
  *
  * @author DerManoMann <mano@zenmagick.org>
- * @package org.zenmagick.plugins.howDidYouHear
  */
-class ZMHowDidYouHearSourcesAdminController extends ZMController {
+class HowDidYouHearSourcesAdminController extends ZMController {
 
     /**
      * {@inheritDoc}
