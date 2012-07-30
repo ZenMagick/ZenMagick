@@ -8,6 +8,6 @@ admin:
   routing:
     examplePluginAdmin:
       pattern: /examplePluginAdmin
-      defaults: { _controller: zenmagick\plugins\examplePlugin\ExamplePluginAdminController }
+      defaults: { _controller: zenmagick\plugins\examplePlugin\controller\ExamplePluginAdminController }
       options:
         'view': views/examplePluginAdmin.php

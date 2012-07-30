@@ -161,7 +161,6 @@ class Plugins extends ZMObject {
             }
 
             if (($status['enabled'] || !$enabled) && (null === $context || Runtime::isContextMatch($status['context'], $context))) {
-                $this->classLoader->addNamespace($status['namespace'], sprintf('%s@%s', $status['pluginDir'], $status['namespace']));
                 if ($plugin = Beans::getBean($status['class'])) {
                     $plugin->setId($id);
                     $plugin->setPluginDirectory($status['pluginDir']);
@@ -170,7 +169,6 @@ class Plugins extends ZMObject {
                         // no matter what, if disabled or not installed we'll never init
                         if ($status['lib']) {
                             $libDir = $status['pluginDir'].'/lib';
-                            $this->classLoader->addNamespace($status['namespace'], $libDir);
                             // allow custom class loading config
                             $this->classLoader->addConfig($libDir);
                         }

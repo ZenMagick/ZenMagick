@@ -10,6 +10,6 @@ admin:
   routing:
     master_password_admin:
       pattern: /masterPasswordAdmin
-      defaults: { _controller: zenmagick\plugins\masterPassword\MasterPasswordAdminController }
+      defaults: { _controller: zenmagick\plugins\masterPassword\controller\MasterPasswordAdminController }
       options:
         'view': views/master_password_admin.php
