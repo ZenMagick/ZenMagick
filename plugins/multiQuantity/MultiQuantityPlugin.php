@@ -60,8 +60,10 @@ class MultiQuantityPlugin extends Plugin {
             $request->query->remove('action');
             $request->request->remove('action');
 
+            $urlManager = $this->container->get('urlManager');
             // create mapping for lookup
-            \ZMUrlManager::instance()->setMapping('product_info', array('controller' => 'ZMMultiQuantityProductInfoController'));
+            $urlManager->setMapping('product_info',
+                array('controller' => 'zenmagick\plugins\multiQuantity\controller\MultiQuantityProductInfoController'));
 
             // add own mapping
             if ($this->container->get('settingsService')->get('isShowCartAfterAddProduct', true)) {
@@ -74,7 +76,7 @@ class MultiQuantityPlugin extends Plugin {
                 ));
             }
 
-            \ZMUrlManager::instance()->setMapping('multi_quantity_product_info', $mapping);
+            $urlManager->setMapping('multi_quantity_product_info', $mapping);
         }
     }
 
