@@ -24,16 +24,16 @@ use zenmagick\apps\admin\installation\patches\SQLPatch;
 
 
 /**
- * Patch to create the theme variation column.
+ * Patch to create fulltext indexes for product search.
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class ThemeVariationPatch extends SQLPatch {
+class FulltextPatch extends SQLPatch {
     var $sqlFiles_ = array(
-        "/apps/admin/lib/installation/etc/theme_chaining_install.sql"
+        "/apps/admin/installation/etc/fulltext_install.sql"
     );
     var $sqlUndoFiles_ = array(
-        "/apps/admin/lib/installation/etc/theme_chaining_uninstall.sql"
+        "/apps/admin/installation/etc/fulltext_uninstall.sql"
     );
 
 
@@ -41,8 +41,8 @@ class ThemeVariationPatch extends SQLPatch {
      * Create new instance.
      */
     public function __construct() {
-        parent::__construct('sqlThemeVariation');
-        $this->label_ = 'Create additional column for theme variation selection';
+        parent::__construct('sqlFulltext');
+        $this->label_ = 'Create indices for fulltext product search';
     }
 
 
@@ -52,8 +52,8 @@ class ThemeVariationPatch extends SQLPatch {
      * @return boolean <code>true</code> if this patch can still be applied.
      */
     function isOpen() {
-        $meta = \ZMRuntime::getDatabase()->getMetaData('template_select');
-        return !array_key_exists('variation_dir', $meta);
+        // the SQL doesn't break if re-applied
+        return true;
     }
 
     /**

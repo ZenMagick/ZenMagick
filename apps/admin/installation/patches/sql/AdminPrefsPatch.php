@@ -24,25 +24,22 @@ use zenmagick\apps\admin\installation\patches\SQLPatch;
 
 
 /**
- * Patch to create fulltext indexes for product search.
+ * Patch to create the admin prefs tables.
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class FulltextPatch extends SQLPatch {
+class AdminPrefsPatch extends SQLPatch {
     var $sqlFiles_ = array(
-        "/apps/admin/lib/installation/etc/fulltext_install.sql"
+        "/apps/admin/installation/etc/admin_prefs_install.sql"
     );
-    var $sqlUndoFiles_ = array(
-        "/apps/admin/lib/installation/etc/fulltext_uninstall.sql"
-    );
-
 
     /**
      * Create new instance.
      */
     public function __construct() {
-        parent::__construct('sqlFulltext');
-        $this->label_ = 'Create indices for fulltext product search';
+        parent::__construct('sqlAdminPrefs');
+        $this->label_ = 'Create new admin preferences table';
+        $this->setTables('admin_prefs');
     }
 
 
@@ -52,8 +49,7 @@ class FulltextPatch extends SQLPatch {
      * @return boolean <code>true</code> if this patch can still be applied.
      */
     function isOpen() {
-        // the SQL doesn't break if re-applied
-        return true;
+        return !$this->tablesExist();
     }
 
     /**
@@ -66,7 +62,7 @@ class FulltextPatch extends SQLPatch {
     function patch($force=false) {
         $baseDir = Runtime::getInstallationPath();
         // do only interactive
-        if ($force) {
+        if ($force || $this->isOpen()) {
             $status = true;
             foreach ($this->sqlFiles_ as $file) {
                 $sql = file($baseDir.$file);
@@ -77,24 +73,4 @@ class FulltextPatch extends SQLPatch {
 
         return true;
     }
-
-    /**
-     * Revert the patch.
-     *
-     * @return boolean <code>true</code> if patching was successful, <code>false</code> if not.
-     */
-    function undo() {
-        if ($this->isOpen()) {
-            return true;
-        }
-
-        $baseDir = Runtime::getInstallationPath();
-        $status = true;
-        foreach ($this->sqlUndoFiles_ as $file) {
-            $sql = file($baseDir.$file);
-            $status |= $this->_runSQL($sql);
-        }
-        return $status;
-    }
-
 }

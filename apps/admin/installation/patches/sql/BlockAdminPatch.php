@@ -24,22 +24,23 @@ use zenmagick\apps\admin\installation\patches\SQLPatch;
 
 
 /**
- * Patch to create the token service database table.
+ * Patch to create ZenMagick block admin tables.
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class TokenPatch extends SQLPatch {
+class BlockAdminPatch extends SQLPatch {
     var $sqlFiles_ = array(
-        "/apps/admin/lib/installation/etc/token_install.sql"
+        "/apps/admin/installation/etc/block_admin_install.sql"
     );
 
     /**
      * Create new instance.
      */
     public function __construct() {
-        parent::__construct('sqlToken');
-        $this->label_ = 'Create the database table used by the token service';
-        $this->setTables('token');
+        parent::__construct('blockAdmin');
+        $this->label_ = 'Create new tables for block admin';
+        $this->setTables(array('blocks_to_groups', 'block_groups', 'block_config'));
+
     }
 
 

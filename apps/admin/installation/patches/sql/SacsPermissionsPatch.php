@@ -24,23 +24,22 @@ use zenmagick\apps\admin\installation\patches\SQLPatch;
 
 
 /**
- * Patch to create ZenMagick block admin tables.
+ * Patch to create the sacs permission tables.
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class BlockAdminPatch extends SQLPatch {
+class SacsPermissionsPatch extends SQLPatch {
     var $sqlFiles_ = array(
-        "/apps/admin/lib/installation/etc/block_admin_install.sql"
+        "/apps/admin/installation/etc/sacs_perms_install.sql"
     );
 
     /**
      * Create new instance.
      */
     public function __construct() {
-        parent::__construct('blockAdmin');
-        $this->label_ = 'Create new tables for block admin';
-        $this->setTables(array('blocks_to_groups', 'block_groups', 'block_config'));
-
+        parent::__construct('sacsPermissions');
+        $this->label_ = 'Create new table to store custom admin access rules';
+        $this->setTables('sacs_permissions');
     }
 
 
@@ -71,7 +70,6 @@ class BlockAdminPatch extends SQLPatch {
             }
             return $status;
         }
-
         return true;
     }
 }

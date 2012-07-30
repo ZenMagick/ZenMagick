@@ -24,22 +24,22 @@ use zenmagick\apps\admin\installation\patches\SQLPatch;
 
 
 /**
- * Patch to create the sacs permission tables.
+ * Patch to create the token service database table.
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class SacsPermissionsPatch extends SQLPatch {
+class TokenPatch extends SQLPatch {
     var $sqlFiles_ = array(
-        "/apps/admin/lib/installation/etc/sacs_perms_install.sql"
+        "/apps/admin/installation/etc/token_install.sql"
     );
 
     /**
      * Create new instance.
      */
     public function __construct() {
-        parent::__construct('sacsPermissions');
-        $this->label_ = 'Create new table to store custom admin access rules';
-        $this->setTables('sacs_permissions');
+        parent::__construct('sqlToken');
+        $this->label_ = 'Create the database table used by the token service';
+        $this->setTables('token');
     }
 
 
@@ -70,6 +70,7 @@ class SacsPermissionsPatch extends SQLPatch {
             }
             return $status;
         }
+
         return true;
     }
 }

@@ -24,22 +24,22 @@ use zenmagick\apps\admin\installation\patches\SQLPatch;
 
 
 /**
- * Patch to create the admin prefs tables.
+ * Patch to create the admin group tables.
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class AdminPrefsPatch extends SQLPatch {
+class AdminRolesPatch extends SQLPatch {
     var $sqlFiles_ = array(
-        "/apps/admin/lib/installation/etc/admin_prefs_install.sql"
+        "/apps/admin/installation/etc/admin_roles_install.sql"
     );
 
     /**
      * Create new instance.
      */
     public function __construct() {
-        parent::__construct('sqlAdminPrefs');
-        $this->label_ = 'Create new admin preferences table';
-        $this->setTables('admin_prefs');
+        parent::__construct('sqlAdminRoles');
+        $this->label_ = 'Create tables for new role based admin access control';
+        $this->setTables(array('admins_to_roles', 'admin_roles'));
     }
 
 

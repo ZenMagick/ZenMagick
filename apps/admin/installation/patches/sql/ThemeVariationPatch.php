@@ -24,22 +24,25 @@ use zenmagick\apps\admin\installation\patches\SQLPatch;
 
 
 /**
- * Patch to create the admin group tables.
+ * Patch to create the theme variation column.
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class AdminRolesPatch extends SQLPatch {
+class ThemeVariationPatch extends SQLPatch {
     var $sqlFiles_ = array(
-        "/apps/admin/lib/installation/etc/admin_roles_install.sql"
+        "/apps/admin/installation/etc/theme_chaining_install.sql"
     );
+    var $sqlUndoFiles_ = array(
+        "/apps/admin/installation/etc/theme_chaining_uninstall.sql"
+    );
+
 
     /**
      * Create new instance.
      */
     public function __construct() {
-        parent::__construct('sqlAdminRoles');
-        $this->label_ = 'Create tables for new role based admin access control';
-        $this->setTables(array('admins_to_roles', 'admin_roles'));
+        parent::__construct('sqlThemeVariation');
+        $this->label_ = 'Create additional column for theme variation selection';
     }
 
 
@@ -49,7 +52,8 @@ class AdminRolesPatch extends SQLPatch {
      * @return boolean <code>true</code> if this patch can still be applied.
      */
     function isOpen() {
-        return !$this->tablesExist();
+        $meta = \ZMRuntime::getDatabase()->getMetaData('template_select');
+        return !array_key_exists('variation_dir', $meta);
     }
 
     /**
@@ -62,7 +66,7 @@ class AdminRolesPatch extends SQLPatch {
     function patch($force=false) {
         $baseDir = Runtime::getInstallationPath();
         // do only interactive
-        if ($force || $this->isOpen()) {
+        if ($force) {
             $status = true;
             foreach ($this->sqlFiles_ as $file) {
                 $sql = file($baseDir.$file);
@@ -73,4 +77,24 @@ class AdminRolesPatch extends SQLPatch {
 
         return true;
     }
+
+    /**
+     * Revert the patch.
+     *
+     * @return boolean <code>true</code> if patching was successful, <code>false</code> if not.
+     */
+    function undo() {
+        if ($this->isOpen()) {
+            return true;
+        }
+
+        $baseDir = Runtime::getInstallationPath();
+        $status = true;
+        foreach ($this->sqlUndoFiles_ as $file) {
+            $sql = file($baseDir.$file);
+            $status |= $this->_runSQL($sql);
+        }
+        return $status;
+    }
+
 }

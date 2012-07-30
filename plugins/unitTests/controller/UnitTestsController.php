@@ -67,7 +67,6 @@ class UnitTestsController extends \ZMController {
         $classLoader = new ClassLoader();
         $classLoader->register();
         $classLoader->addPath($this->getTestPlugin()->getPluginDirectory().'/tests');
-        $classLoader->addConfig(Runtime::getInstallationPath().'/apps/admin/lib');
 
         // add tests folder to class path
         $testBaseDir = $this->getTestPlugin()->getPluginDirectory().'/tests';
