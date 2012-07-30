@@ -28,7 +28,7 @@ spl_autoload_register(function ($class) {
     if (0 === strpos($class, 'zenmagick')) {
         $class = substr($class, 10);
         if (false !== $pos = strrpos($class, '\\')) {
-            $classPath = str_replace('\\', DIRECTORY_SEPARATOR, substr($class, 0, $pos)) . DIRECTORY_SEPARATOR;
+            $classPath = str_replace('\\', '/', substr($class, 0, $pos)) . '/';
             $className = substr($class, $pos + 1);
             $classPath .= $className.'.php';
             $fix = array( // @todo having the melded apps\store makes things difficult.
