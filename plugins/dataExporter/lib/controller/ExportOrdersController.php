@@ -18,15 +18,19 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
+namespace zenmagick\plugins\dataExporter\controller;
+
+use ZMController;
+use ZMRuntime;
+use ZMOrder;
 use zenmagick\base\Beans;
 
 /**
  * Export orders controller.
  *
  * @author DerManoMann <mano@zenmagick.org>
- * @package org.zenmagick.plugins.dataExporter
  */
-class ZMExportOrdersController extends ZMController {
+class ExportOrdersController extends ZMController {
 
     /**
      * Get the date format.
