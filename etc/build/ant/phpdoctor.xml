@@ -3,7 +3,7 @@
     <!-- properties -->
     <property name="phpdoctor.dir" location="${integration.base.dir}/phpdoctor" />
     <property name="phpdoctor.ini.dir" location="etc/phpdoctor" />
-    <property name="phpdoctor.source.path" value="${basedir}/lib,${basedir}/shared,${basedir}/apps/admin/lib,${basedir}/apps/storefront/lib" />
+    <property name="phpdoctor.source.path" value="${basedir}/lib,${basedir}/shared,${basedir}/apps/admin/lib,${basedir}/apps/storefront" />
     <property name="phpdoctor.apidocs.path" location="${build.dir}/docs/apidocs/${zenmagick.version}" />
 
 
