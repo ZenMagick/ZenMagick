@@ -18,6 +18,9 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
+namespace zenmagick\plugins\subscriptions\cron;
+
+use ZMCronJob;
 use zenmagick\base\Beans;
 use zenmagick\base\Runtime;
 use zenmagick\base\Toolbox;
@@ -27,9 +30,8 @@ use zenmagick\base\events\Event;
  * A cron job to create new subscription orders.
  *
  * @author DerManoMann <mano@zenmagick.org>
- * @package org.zenmagick.plugins.subscriptions
  */
-class ZMUpdateSubscriptionsCronJob implements ZMCronJob {
+class UpdateSubscriptionsCronJob implements ZMCronJob {
 
     /**
      * {@inheritDoc}

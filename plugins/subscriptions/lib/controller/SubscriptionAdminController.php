@@ -17,17 +17,19 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
+namespace zenmagick\plugins\subscriptions\controller;
 
+use ZMController;
+use ZMRuntime;
 use zenmagick\base\Runtime;
 use zenmagick\base\Toolbox;
 
 /**
  * Admin controller.
  *
- * @author DerManoMann <mano@zenmagick.org>
  * @package org.zenmagick.plugins.subscriptions
  */
-class ZMSubscriptionAdminController extends ZMPluginAdminController {
+class SubscriptionAdminController extends ZMPluginAdminController {
 
     /**
      * Create new instance.
@@ -53,7 +55,7 @@ class ZMSubscriptionAdminController extends ZMPluginAdminController {
             }
         }
 
-        $resultSource = new ZMArrayResultSource('ZMOrder', $orderIds);
+        $resultSource = new \ZMArrayResultSource('ZMOrder', $orderIds);
         $resultList = $this->container->get('ZMResultList');
         $resultList->setResultSource($resultSource);
         $resultList->setPageNumber($request->query->getInt('page'));

@@ -18,16 +18,17 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
+namespace zenmagick\plugins\subscriptions\tests;
+
 use zenmagick\base\Beans;
 use zenmagick\plugins\unitTests\simpletest\TestCase;
 
 /**
  * Test subscriptions.
  *
- * @package org.zenmagick.plugins.subscriptions
  * @author DerManoMann <mano@zenmagick.org>
  */
-class ZMTestSubscriptions extends TestCase {
+class TestSubscriptions extends TestCase {
 
     /**
      * Get the plugin.
@@ -84,7 +85,7 @@ class ZMTestSubscriptions extends TestCase {
             return;
         }
 
-        $job = Beans::getBean('ZMUpdateSubscriptionsCronJob');
+        $job = Beans::getBean('zenmagick\plugins\subscriptions\cron\UpdateSubscriptionsCronJob');
         $this->assertNotNull($job);
         $status = $job->execute();
         $this->assertTrue($status);

@@ -17,7 +17,10 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
+namespace zenmagick\plugins\subscriptions\controller;
 
+use ZMController;
+use ZMRuntime;
 use zenmagick\base\Runtime;
 use zenmagick\base\ZMObject;
 
