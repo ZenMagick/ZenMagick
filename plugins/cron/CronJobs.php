@@ -18,6 +18,10 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
+namespace zenmagick\plugins\cron;
+
+use zenmagick\plugins\cron\jobs\CronJobInterface;
+
 use zenmagick\base\Beans;
 use zenmagick\base\Runtime;
 use zenmagick\base\ZMObject;
@@ -26,9 +30,8 @@ use zenmagick\base\ZMObject;
  * A cron service.
  *
  * @author DerManoMann <mano@zenmagick.org>
- * @package org.zenmagick.plugins.cron
  */
-class ZMCronJobs extends ZMObject {
+class CronJobs extends ZMObject {
     private $parser;
     private $cronfile;
     private $cronhistory;
@@ -55,7 +58,7 @@ class ZMCronJobs extends ZMObject {
         }
         // load on demand
         $this->history = null;
-        $this->parser = new ZMCronParser();
+        $this->parser = new CronParser();
     }
 
 
@@ -180,16 +183,16 @@ class ZMCronJobs extends ZMObject {
      */
     public function runJob($job) {
         try {
-            Runtime::getLogging()->debug("ZMCronJobs: Running: ".$job['line']);
+            Runtime::getLogging()->debug("CronJobs: Running: ".$job['line']);
             $obj = Beans::getBean($job['task']);
-            if ($obj instanceof ZMCronJob) {
+            if ($obj instanceof CronJobInterface) {
                 $status = $obj->execute();
             }
             $this->saveLastRunTime($job);
-            Runtime::getLogging()->log("ZMCronJobs: Completed ".$job['line']." with status: ".($status?"OK":"FAILED"));
+            Runtime::getLogging()->log("CronJobs: Completed ".$job['line']." with status: ".($status?"OK":"FAILED"));
             return true;
         } catch (Exception $e) {
-            Runtime::getLogging()->log("ZMCronJobs: Failed ".$job['line']." with exception: ".$e);
+            Runtime::getLogging()->log("CronJobs: Failed ".$job['line']." with exception: ".$e);
             return false;
         }
     }

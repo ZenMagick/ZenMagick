@@ -24,7 +24,7 @@ use zenmagick\base\Runtime;
 use zenmagick\base\Toolbox;
 
 /**
- * Plugin to allow cron like execution of <code>ZMCronJob</code> classes.
+ * Plugin to allow cron like execution of <code>CronJobInterface</code> classes.
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
@@ -98,7 +98,7 @@ class CronPlugin extends Plugin {
      */
     public function runCron() {
         ob_start();
-        $cron = new \ZMCronJobs($this->getConfigPath('etc/crontab.txt'), $this->getConfigPath('etc/cronhistory.txt'));
+        $cron = new CronJobs($this->getConfigPath('etc/crontab.txt'), $this->getConfigPath('etc/cronhistory.txt'));
         if ($cron->isTimeToRun()) {
             // update timestamp to stop other instances from running
             $cron->updateTimestamp();
@@ -106,7 +106,7 @@ class CronPlugin extends Plugin {
                 $cron->runJob($job);
             }
         }
-        Runtime::getLogging()->debug('ZMCron: '.ob_get_clean());
+        Runtime::getLogging()->debug('Cron: '.ob_get_clean());
     }
 
 }

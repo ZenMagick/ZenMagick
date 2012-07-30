@@ -39,7 +39,7 @@ class TestCronParser extends TestCase {
     /**
      * Get a parser instance.
      *
-     * @retun ZMCronParser A parser instance.
+     * @retun CronParser A parser instance.
      */
     protected function getParser() {
         $parser = Beans::getBean('zenmagick\plugins\cron\CronParser');
