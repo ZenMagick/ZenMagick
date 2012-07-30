@@ -17,7 +17,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-namespace zenmagick\apps\store\storefront\http\tools;
+namespace zenmagick\apps\storefront\http\tools;
 
 use zenmagick\base\Runtime;
 use zenmagick\http\toolbox\ToolboxTool;
@@ -115,7 +115,7 @@ class ToolboxCrumbtrail extends ToolboxTool {
         if (!is_array($this->crumbs_)) {
             $this->reset();
         }
-        $crumb = Runtime::getContainer()->get('zenmagick\apps\store\storefront\http\tools\Crumb');
+        $crumb = Runtime::getContainer()->get('zenmagick\apps\storefront\http\tools\Crumb');
         $crumb->setName($name);
         $crumb->setUrl($url);
         $this->crumbs_[] = $crumb;

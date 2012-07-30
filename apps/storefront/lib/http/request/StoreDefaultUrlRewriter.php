@@ -17,7 +17,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-namespace zenmagick\apps\store\storefront\http\request;
+namespace zenmagick\apps\storefront\http\request;
 
 use zenmagick\base\Runtime;
 use zenmagick\base\Toolbox;

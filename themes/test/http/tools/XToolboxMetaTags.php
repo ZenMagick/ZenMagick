@@ -1,7 +1,7 @@
 <?php
 namespace zenmagick\themes\test\http\tools;
 
-use zenmagick\apps\store\storefront\http\tools\ToolboxMetaTags as ToolboxMetaTags;
+use zenmagick\apps\storefront\http\tools\ToolboxMetaTags as ToolboxMetaTags;
 
 class XToolboxMetaTags extends ToolboxMetaTags {
     public function getDescription() {

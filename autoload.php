@@ -34,7 +34,7 @@ spl_autoload_register(function ($class) {
             $fix = array( // @todo having the melded apps\store makes things difficult.
                 '|^apps/sample/|' => 'apps/sample/lib/',
                 '|^apps/store-installer/|' => 'apps/store-installer/lib/',
-                '|^apps/store/storefront/|' => 'apps/storefront/lib/',
+                '|^apps/storefront/|' => 'apps/storefront/lib/',
                 '|^apps/store/admin/|' => 'apps/admin/lib/',
                 '|^apps/store/|' => 'shared/store/',
             );

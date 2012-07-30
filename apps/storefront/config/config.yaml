@@ -31,7 +31,7 @@ zenmagick:
     events:
       listeners:
         - zenmagick\apps\store\StoreEventListener
-        - zenmagick\apps\store\storefront\utils\EventFixes
+        - zenmagick\apps\storefront\utils\EventFixes
     ## logging
     logging:
       level: INFO
@@ -76,11 +76,11 @@ zenmagick:
 
     controller:
       namespaces:
-        - zenmagick\apps\store\storefront\controller
+        - zenmagick\apps\storefront\controller
     ## sacs
     sacs:
       handler:
-        - zenmagick\apps\store\storefront\http\sacs\StorefrontAccountSacsHandler
+        - zenmagick\apps\storefront\http\sacs\StorefrontAccountSacsHandler
     routing:
       alias:
         create_account: account.create

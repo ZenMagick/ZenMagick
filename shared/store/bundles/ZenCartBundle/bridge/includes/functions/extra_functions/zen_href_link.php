@@ -23,7 +23,7 @@
 
 use zenmagick\base\Runtime;
 use zenmagick\base\ZMException;
-use zenmagick\apps\store\storefront\http\request\StoreDefaultUrlRewriter;
+use zenmagick\apps\storefront\http\request\StoreDefaultUrlRewriter;
 
 /**
  * zen_href_link wrapper that delegates to the Zenmagick implementation (for storefront).

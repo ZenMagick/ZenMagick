@@ -20,7 +20,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-namespace zenmagick\apps\store\storefront\controller;
+namespace zenmagick\apps\storefront\controller;
 
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use zenmagick\base\Runtime;

@@ -154,7 +154,7 @@ page:
   ## alias to have a neutral point to start the checkout process
   checkout:
     template: views/checkout_shipping.php
-    controller: zenmagick\apps\store\storefront\controller\CheckoutShippingController
+    controller: zenmagick\apps\storefront\controller\CheckoutShippingController
     skip_shipping:
       view: redirect#requestId=checkout_payment
     success:
@@ -163,7 +163,7 @@ page:
   empty_cart:
     view: redirect#requestId=shopping_cart
   checkout_shipping_address:
-    controller: 'zenmagick\apps\store\storefront\controller\CheckoutAddressController#mode=shipping'
+    controller: 'zenmagick\apps\storefront\controller\CheckoutAddressController#mode=shipping'
     formId: shippingAddress
     form: ZMAddress
     success:
@@ -172,7 +172,7 @@ page:
     success:
       view: redirect#requestId=checkout_confirmation
   checkout_payment_address:
-    controller: 'zenmagick\apps\store\storefront\controller\CheckoutAddressController#mode=billing'
+    controller: 'zenmagick\apps\storefront\controller\CheckoutAddressController#mode=billing'
     formId: billingAddress
     form: ZMAddress
     success:
@@ -180,7 +180,7 @@ page:
   checkout_process:
     controller: 'zenmagick\apps\store\bundles\ZenCartBundle\controller\ZencartStorefrontController'
   checkout_success:
-    controller: 'zenmagick\apps\store\storefront\controller\CheckoutSuccessController'
+    controller: 'zenmagick\apps\storefront\controller\CheckoutSuccessController'
   ipn_handler:
     controller: 'zenmagick\apps\store\bundles\ZenCartBundle\controller\ZencartStorefrontController'
   redirect:
@@ -207,6 +207,6 @@ page:
     formId: searchCriteria
     form: ZMSearchCriteria
   advanced_search:
-    controller: 'zenmagick\apps\store\storefront\controller\SearchController#autoSearch=false'
+    controller: 'zenmagick\apps\storefront\controller\SearchController#autoSearch=false'
     formId: searchCriteria
     form: ZMSearchCriteria
