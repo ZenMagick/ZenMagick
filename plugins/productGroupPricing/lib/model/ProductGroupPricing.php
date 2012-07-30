@@ -18,6 +18,9 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
+namespace zenmagick\plugins\productGroupPricing\model;
+
+use DateTime;
 use zenmagick\base\Toolbox;
 use zenmagick\base\ZMObject;
 
@@ -25,9 +28,8 @@ use zenmagick\base\ZMObject;
  * A product price group.
  *
  * @author DerManoMann <mano@zenmagick.org>
- * @package org.zenmagick.plugins.productGroupPricing
  */
-class ZMProductGroupPricing extends ZMObject {
+class ProductGroupPricing extends ZMObject {
     private $id_;
     private $productId_;
     private $groupId_;

@@ -18,6 +18,8 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
+namespace zenmagick\plugins\productGroupPricing\controller;
+
 use zenmagick\base\Beans;
 use zenmagick\base\Toolbox;
 use zenmagick\apps\store\controller\CatalogContentController;
@@ -26,9 +28,8 @@ use zenmagick\apps\store\controller\CatalogContentController;
  * Admin controller.
  *
  * @author DerManoMann <mano@zenmagick.org>
- * @package org.zenmagick.plugins.productGroupPricing
  */
-class ZMProductGroupPricingTabController extends CatalogContentController {
+class ProductGroupPricingTabController extends CatalogContentController {
 
     /**
      * Create new instance.
@@ -46,7 +47,7 @@ class ZMProductGroupPricingTabController extends CatalogContentController {
         $productGroupPricingService = $this->container->get('productGroupPricingService');
         $groupId = $request->getParameter('groupId', $priceGroups[0]->getId());
         $productGroupPricings = $productGroupPricingService->getProductGroupPricings($request->get('productId'), $groupId, false);
-        $productGroupPricing = Beans::getBean("ZMProductGroupPricing");
+        $productGroupPricing = Beans::getBean('zenmagick\plugins\productGroupPricing\model\ProductGroupPricing');
         // TODO: should not need to check for delete - viewData should not override findView(.., data) data
         if (null != ($groupPricingId = $request->getParameter('groupPricingId')) && 0 < $groupPricingId && null == $request->getParameter('delete')) {
             $productGroupPricing = $productGroupPricingService->getProductGroupPricingForId($groupPricingId);
@@ -64,20 +65,20 @@ class ZMProductGroupPricingTabController extends CatalogContentController {
      */
     public function processGet($request) {
         //TODO: this should be POST!!
+        $productGroupPricing = Beans::getBean('zenmagick\plugins\productGroupPricing\model\ProductGroupPricing');
         if (Toolbox::asBoolean($request->getParameter('delete'))) {
-            $productGroupPricing = Beans::getBean("ZMProductGroupPricing");
             $productGroupPricing->populate($request);
             // delete
             $this->container->get('productGroupPricingService')->updateProductGroupPricing($productGroupPricing);
         }
-        return $this->findView(null, array('productGroupPricing' => Beans::getBean("ZMProductGroupPricing")));
+        return $this->findView(null, array('productGroupPricing' => $productGroupPricing));
     }
 
     /**
      * {@inheritDoc}
      */
     public function processPost($request) {
-        $productGroupPricing = Beans::getBean("ZMProductGroupPricing");
+        $productGroupPricing = Beans::getBean('zenmagick\plugins\productGroupPricing\model\ProductGroupPricing');
         $productGroupPricingService = $this->container->get('productGroupPricingService');
         $productGroupPricing->populate($request);
         if (0 == $productGroupPricing->getId()) {

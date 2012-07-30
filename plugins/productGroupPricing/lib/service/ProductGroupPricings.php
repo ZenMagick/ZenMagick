@@ -18,6 +18,9 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
+namespace zenmagick\plugins\productGroupPricing\service;
+
+use ZMRuntime;
 use zenmagick\base\Runtime;
 use zenmagick\base\ZMObject;
 
@@ -26,9 +29,8 @@ use zenmagick\base\ZMObject;
  * Service class for product based group pricing
  *
  * @author DerManoMann <mano@zenmagick.org>
- * @package org.zenmagick.plugins.productGroupPricing
  */
-class ZMProductGroupPricings extends ZMObject {
+class ProductGroupPricings extends ZMObject {
 
     /**
      * Create new instance.
@@ -74,7 +76,7 @@ class ZMProductGroupPricings extends ZMObject {
                 AND group_id = :groupId".$dateLimit;
         $sql .= " ORDER BY start_date ASC";
         $args = array('productId' => $productId, 'groupId' => $groupId, 'endDate' => null);
-        return ZMRuntime::getDatabase()->fetchAll($sql, $args, 'product_group_pricing', 'ZMProductGroupPricing');
+        return ZMRuntime::getDatabase()->fetchAll($sql, $args, 'product_group_pricing', 'zenmagick\plugins\productGroupPricing\model\ProductGroupPricing');
     }
 
     /**
@@ -87,7 +89,7 @@ class ZMProductGroupPricings extends ZMObject {
         $sql = "SELECT * FROM %table.product_group_pricing%
                 WHERE group_pricing_id = :id";
         $args = array('id' => $groupPricingId);
-        return ZMRuntime::getDatabase()->querySingle($sql, $args, 'product_group_pricing', 'ZMProductGroupPricing');
+        return ZMRuntime::getDatabase()->querySingle($sql, $args, 'product_group_pricing', 'zenmagick\plugins\productGroupPricing\model\ProductGroupPricing');
     }
 
     /**

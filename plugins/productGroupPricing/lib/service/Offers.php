@@ -18,12 +18,14 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
+namespace zenmagick\plugins\productGroupPricing\service;
+
+use ZMOffers;
 
 /**
  * Add logic to transparently apply discounts.
  *
  * @author DerManoMann <mano@zenmagick.org>
- * @package org.zenmagick.plugins.productGroupPricing
  */
 class Offers extends ZMOffers {
     private $productGroupPricing_;
