@@ -100,7 +100,7 @@ class L10nController extends \ZMController {
         $themeService = $this->container->get('themeService');
 
         $defaultMap = array();
-        $defaultThemeId = Runtime::getSettings()->get('apps.store.themes.default');
+        $defaultThemeId = $this->container->get('settingsService')->get('apps.store.themes.default');
         if ($vd['includeDefaults']) {
             $theme = $themeService->getThemeForId($defaultThemeId);
             $defaultMap = $scanner->buildL10nMap($theme->getBasePath());
@@ -113,34 +113,35 @@ class L10nController extends \ZMController {
             $existingMap = $themeMap;
         }
 
+        $kernel = $this->container->get('kernel');
         $sharedMap = array();
         if ($vd['scanShared']) {
-            $sharedMap = $scanner->buildL10nMap(Runtime::getInstallationPath().'/shared');
+            $sharedMap = $scanner->buildL10nMap($kernel->getRootDir().'/shared');
         }
 
         $pluginsMap = array();
         if ($vd['scanPlugins']) {
-            $settingsService = $this->container->get('settingsService');
-            foreach ($settingsService->get('zenmagick.base.plugins.dirs') as $path) {
+            $pluginDirs = $this->container->getParameterBag()->get('zenmagick.base.plugins.dirs');
+            foreach ($pluginDirs as $path) {
                 $pluginsMap = array_merge($pluginsMap, $scanner->buildL10nMap($path));
             }
         }
 
         $adminMap = array();
         if ($vd['scanAdmin']) {
-            $adminLibMap = $scanner->buildL10nMap(Runtime::getApplicationPath());
+            $adminLibMap = $scanner->buildL10nMap($kernel->getApplicationPath());
         }
 
         $mvcMap = array();
         if ($vd['scanMvc']) {
-            $mvcMap = $scanner->buildL10nMap(Runtime::getInstallationPath().'/lib');
+            $mvcMap = $scanner->buildL10nMap($kernel->getInstallationPath().'/lib');
         }
 
         $fileMap = array();
         if (null != $vd['themeId']) {
             $theme = $themeService->getThemeForId($vd['themeId']);
             $themeMap = $scanner->buildL10nMap($theme->getBaseDir());
-            $storeMap = $scanner->buildL10nMap(Runtime::getInstallationPath().'/apps/store');
+            $storeMap = $scanner->buildL10nMap($kernel->getRootDir().'/apps/store');
             $fileMap = array_merge($themeMap, $storeMap);
         }
 
