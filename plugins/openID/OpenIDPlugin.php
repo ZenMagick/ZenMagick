@@ -68,8 +68,6 @@ class OpenIDPlugin extends Plugin {
      */
     public function init() {
         parent::init();
-        Runtime::getEventDispatcher()->listen($this);
-
         // add OpenID field to accounts fields list
         $info = array('column' => 'openid', 'type' => 'string');
         \ZMRuntime::getDatabase()->getMapper()->addPropertyForTable('customers', 'openid', $info);

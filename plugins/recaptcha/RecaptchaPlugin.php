@@ -71,14 +71,6 @@ class RecaptchaPlugin extends Plugin {
     }
 
     /**
-     * {@inheritDoc}
-     */
-    public function init() {
-        parent::init();
-        Runtime::getEventDispatcher()->listen($this);
-    }
-
-    /**
      * Init done callback.
      *
      * <p>Setup additional validation rules; this is done here to avoid getting in the way of

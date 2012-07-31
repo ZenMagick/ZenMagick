@@ -43,15 +43,6 @@ class ThemeSwitcherPlugin extends Plugin {
         $this->setContext('storefront');
     }
 
-
-    /**
-     * {@inheritDoc}
-     */
-    public function init() {
-        parent::init();
-        Runtime::getEventDispatcher()->listen($this);
-    }
-
     /**
      * Switch.
      */

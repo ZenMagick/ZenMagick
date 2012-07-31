@@ -73,14 +73,6 @@ class LiftSuggestPlugin extends Plugin {
     }
 
     /**
-     * {@inheritDoc}
-     */
-    public function init() {
-        parent::init();
-        Runtime::getEventDispatcher()->listen($this);
-    }
-
-    /**
      * Get config for the Lift Suggest adapter.
      *
      * @return array Config map.

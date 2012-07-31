@@ -98,8 +98,6 @@ class SubscriptionsPlugin extends Plugin {
     public function init() {
         parent::init();
 
-        Runtime::getEventDispatcher()->listen($this);
-
         $sacsManager = $this->container->get('sacsManager');
 
         // set mappings and permissions of custom pages

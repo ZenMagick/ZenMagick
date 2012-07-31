@@ -67,7 +67,6 @@ class HowDidYouHearPlugin extends Plugin {
      */
     public function init() {
         parent::init();
-        Runtime::getEventDispatcher()->listen($this);
 
         $info = array('column' => 'customers_info_source_id', 'type' => 'integer');
         \ZMRuntime::getDatabase()->getMapper()->addPropertyForTable('customers_info', 'sourceId', $info);

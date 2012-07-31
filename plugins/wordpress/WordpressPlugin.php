@@ -72,14 +72,6 @@ class WordpressPlugin extends Plugin {
     }
 
     /**
-     * {@inheritDoc}
-     */
-    public function init() {
-        parent::init();
-        Runtime::getEventDispatcher()->listen($this);
-    }
-
-    /**
      * Prepare WP.
      */
     protected function prepareWP() {

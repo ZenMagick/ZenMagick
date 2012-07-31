@@ -50,9 +50,6 @@ class ExamplePluginPlugin extends Plugin {
          * this is the place to do init stuff other than just setting up the infrastructure
          */
 
-        // set up as event subscriber
-        Runtime::getEventDispatcher()->listen($this);
-
         // add admin page
         $this->addMenuItem(_zm('Example Plugin Admin Page'), 'examplePluginAdmin');
     }

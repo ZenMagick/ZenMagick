@@ -66,7 +66,6 @@ class PageCachePlugin extends \Plugin {
      */
     public function init() {
         parent::init();
-        Runtime::getEventDispatcher()->listen($this);
         $this->cache_ = Runtime::getContainer()->get('persistentCache');
         $this->cache_->setOption('cacheTTL', $this->get('ttl'));
     }

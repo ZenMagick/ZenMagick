@@ -79,14 +79,6 @@ class GoogleAnalyticsPlugin extends Plugin {
     }
 
     /**
-     * Init this plugin.
-     */
-    public function init() {
-        parent::init();
-        Runtime::getEventDispatcher()->listen($this);
-    }
-
-    /**
      * Event handler.
      */
     public function onViewStart($event) {
