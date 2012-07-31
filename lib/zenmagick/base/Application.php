@@ -23,7 +23,6 @@ use DateTime;
 use Exception;
 use zenmagick\base\Runtime;
 use zenmagick\base\Beans;
-use zenmagick\base\classloader\ClassLoader;
 use zenmagick\base\settings\Settings;
 use zenmagick\base\Toolbox;
 use zenmagick\base\ZMException;
@@ -52,7 +51,6 @@ use Symfony\Component\HttpFoundation\Response;
  * @todo: document all config options
  */
 class Application extends Kernel {
-    protected $classLoader;
     protected $context;
     protected $settingsService;
 
@@ -69,10 +67,6 @@ class Application extends Kernel {
         Runtime::setContext($this->context);
         parent::__construct($environment, $debug);
         $this->startTime = microtime(true);
-
-        // @todo really move it into $rootDir/autoload.php
-        $this->classLoader = new ClassLoader();
-        $this->classLoader->register();
 
         $this->initSettings();
     }
@@ -163,12 +157,9 @@ class Application extends Kernel {
         if (empty($keys) || in_array('bootstrap', (array)$keys)) {
             $this->initConfig();
             $this->container->get('localeService')->init($settingsService->get('zenmagick.base.locales.locale', 'en'));
-            if ($settingsService->get('zenmagick.base.plugins.enabled', true)) {
-                foreach ($this->container->get('pluginService')->getPluginPackages() as $path) {
-                    $this->classLoader->addConfig($path);
-                }
-                $this->container->get('pluginService')->getPluginsForContext($this->getContext());
-            }
+
+            $this->container->get('pluginService')->getPluginsForContext($this->getContext());
+
             $this->initEmail();
             $this->fireEvent('request_ready');
         }
