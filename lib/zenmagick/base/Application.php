@@ -327,16 +327,6 @@ class Application extends Kernel {
             $settingsService->set('apps.store.zencart.path', dirname($this->getRootDir()));
         }
 
-        $listeners = array();
-        if ($applicationPath = $this->getApplicationPath()) {
-            $listeners[] = sprintf('zenmagick\apps\%s\EventListener', $this->getContext());
-        }
-        $listeners[] = 'zenmagick\base\EventListener';
-        if ('cli' !== php_sapi_name()) {
-            $listeners[] = 'zenmagick\http\EventListener';
-        }
-        $listeners = array_merge($settingsService->get('zenmagick.base.events.listeners', array()), $listeners);
-        $settingsService->set('zenmagick.base.events.listeners', $listeners);
         if (null != ($tz = $settingsService->get('zenmagick.core.date.timezone'))) {
             date_default_timezone_set($tz);
         }

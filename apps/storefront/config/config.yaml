@@ -32,6 +32,9 @@ zenmagick:
       listeners:
         - zenmagick\apps\store\StoreEventListener
         - zenmagick\apps\storefront\utils\EventFixes
+        - zenmagick\apps\storefront\EventListener #rename EventFixes to this!
+        - zenmagick\base\EventListener
+        - zenmagick\http\EventListener
     ## logging
     logging:
       level: INFO
