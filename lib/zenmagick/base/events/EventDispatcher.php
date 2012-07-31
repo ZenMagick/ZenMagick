@@ -55,19 +55,22 @@ class EventDispatcher extends ContainerAwareEventDispatcher {
 
     /**
      * {@inheritDoc}
+     *
+     * @todo this method matches the parent entirely!
+     *       Commenting it out causes our getListeners not to fire though.
      */
     public function dispatch($eventName, Event $event = null) {
-        // use hasListeners rather than looking at the private listeners property
-        if (!$this->hasListeners($eventName)) {
-            return;
-        }
-
         if (null === $event) {
             $event = new Event();
         }
 
         $event->setDispatcher($this);
         $event->setName($eventName);
+
+        // use hasListeners rather than looking at the private listeners property
+        if (!$this->hasListeners($eventName)) {
+            return $event;
+        }
 
         $this->doDispatch($this->getListeners($eventName), $eventName, $event);
     }
