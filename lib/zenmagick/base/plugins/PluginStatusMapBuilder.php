@@ -82,10 +82,6 @@ class PluginStatusMapBuilder extends ZMObject {
      * @return array Plugin status map.
      */
     public function buildStatusMap() {
-        // temp. classloader
-        $classLoader = new ClassLoader();
-        $classLoader->register();
-
         $statusMap = array();
 
         foreach ($this->getPathIdMap() as $basePath => $pathInfo) {
@@ -133,8 +129,6 @@ class PluginStatusMapBuilder extends ZMObject {
                 }
             }
         }
-
-        $classLoader->unregister();
 
         return $statusMap;
     }
