@@ -72,8 +72,6 @@ class PageStatsPlugin extends Plugin {
         // register to log events
         $eventDispatcher = $this->container->get('eventDispatcher');
         $eventDispatcher->listen(array($this, 'logEvent'));
-        // register for method mapped events
-        $eventDispatcher->listen($this);
     }
 
     /**
