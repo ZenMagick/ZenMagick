@@ -31,11 +31,8 @@ use zenmagick\apps\store\utils\ContextConfigLoader;
 /**
  * Basic plugin service.
  *
- * <p>Plugins may consist of either:</p>
- * <ul>
- *  <li>a single file</li>
- *  <li>a directory containing multiple files</li>
- * <ul>
+ * Plugins consist of a directory containing either
+ * a plugin.yaml file or a named like FooBarPlugin.php
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
