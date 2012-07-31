@@ -313,14 +313,6 @@ class Application extends Kernel {
             }
         }
 
-
-        if (null == $settingsService->get('zenmagick.base.plugins.dirs')) {
-            // set default
-            $settingsService->set('zenmagick.base.plugins.dirs', array(
-                $this->getRootDir().'/plugins',
-                $this->getApplicationPath().'/plugins'
-            ));
-        }
         $globalFilename = realpath($this->getRootDir().'/global.yaml');
         if (file_exists($globalFilename)) {
             $contextConfigLoader = new \zenmagick\base\utils\ContextConfigLoader;

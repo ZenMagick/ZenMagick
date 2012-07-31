@@ -20,6 +20,11 @@
         <parameter key="zenmagick.base.email.encryption">tcp</parameter>
         <parameter key="zenmagick.base.email.disabled">false</parameter>
         <parameter key="zenmagick.base.email.logging">false</parameter>
+
+        <parameter key="zenmagick.base.plugins.dirs" type="collection">
+            <parameter>%kernel.root_dir%/plugins</parameter>
+            <parameter>%kernel.root_dir%/apps/%kernel.context%/plugins</parameter>
+        </parameter>
     </parameters>
 
     <services>
