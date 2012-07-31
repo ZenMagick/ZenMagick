@@ -49,15 +49,6 @@ class ProductGroupPricings extends ZMObject {
         ));
     }
 
-
-    /**
-     * Get instance.
-     */
-    public static function instance() {
-        return Runtime::getContainer()->get('productGroupPricingService');
-    }
-
-
     /**
      * Get product group pricings for the given product and group.
      *
