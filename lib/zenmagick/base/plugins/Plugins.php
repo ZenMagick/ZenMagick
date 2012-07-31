@@ -127,7 +127,7 @@ class Plugins extends ZMObject {
      * @return array List of initialized plugins.
      */
     public function getPluginsForContext($context=null, $enabled=true) {
-        //$app = $this->container->get('kernel');
+        $context = $context ?: $this->contextConfigLoader->getContext();
 
         $plugins = array();
         foreach ($this->getStatusMap() as $id => $status) {
