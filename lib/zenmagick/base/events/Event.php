@@ -27,7 +27,6 @@ use Symfony\Component\EventDispatcher\Event as SymfonyEvent;
  * @author DerManoMann <mano@zenmagick.org>
  */
 class Event extends SymfonyEvent {
-    protected $name;
     protected $source;
     protected $parameters;
     private $timestamp;
@@ -41,31 +40,12 @@ class Event extends SymfonyEvent {
      * @param array parameters An array of parameters; default is an empty <code>array</code>.
      */
     public function __construct($source=null, $parameters=array()) {
-        $this->name = '';
+        $this->setName('');
         $this->source = $source;
         $this->parameters = (array)$parameters;
 
         $this->timestamp = microtime(true);
         $this->memory = memory_get_usage(true);
-    }
-
-
-    /**
-     * Set the event name.
-     *
-     * @param string name The name.
-     */
-    public function setName($name) {
-        $this->name = $name;
-    }
-
-    /**
-     * Get the event name.
-     *
-     * @return string The name.
-     */
-    public function getName() {
-        return $this->name;
     }
 
     /**
@@ -105,7 +85,7 @@ class Event extends SymfonyEvent {
      */
     public function get($name) {
         if (!array_key_exists($name, $this->parameters)) {
-            throw new \InvalidArgumentException(sprintf('The event "%s" has no "%s" parameter.', $this->name, $name));
+            throw new \InvalidArgumentException(sprintf('The event "%s" has no "%s" parameter.', $this->getName(), $name));
         }
 
         return $this->parameters[$name];
