@@ -43,7 +43,7 @@ class EventListener extends ZMObject {
         $request = $event->get('request');
         $session = $request->getSession();
 
-        $settingsService = Runtime::getSettings();
+        $settingsService = $this->container->get('settingsService');
 
         // load application routing
         $routeResolver = $this->container->get('routeResolver');
@@ -89,7 +89,7 @@ class EventListener extends ZMObject {
 
         // Legacy Routing.
         foreach ($contextConfigLoader->getUrlManagerRoutes() as $routeMaps) {
-            \ZMUrlManager::instance()->setMappings($routeMaps, false); // merge
+            $this->container->get('urlManager')->setMappings($routeMaps, false); // merge
         }
 
         if (null != ($userSession = $session->getUserSession())) {

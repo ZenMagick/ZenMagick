@@ -71,15 +71,6 @@ class ZMUrlManager extends ZMObject {
         }
     }
 
-
-    /**
-     * Get instance.
-     */
-    public static function instance() {
-        return Runtime::getContainer()->get('urlManager');
-    }
-
-
     /**
      * Clear all mappings.
      */

@@ -28,6 +28,9 @@ use zenmagick\plugins\unitTests\simpletest\TestCase;
  */
 class TestZMUrlManager extends TestCase {
 
+    public function getUrlManager() {
+        return Runtime::getContainer()->get('urlManager');
+    }
     /**
      * Test global.
      */
@@ -38,11 +41,11 @@ class TestZMUrlManager extends TestCase {
         $this->assertEqual(array('controller'=>null,'formId'=>null,'form'=>null,'view'=>null,'template'=>'views/error.php', 'layout' => 'foo.php'), $mapping);
 
         // test store mapping
-        $mapping = ZMUrlManager::instance()->findMapping('foo', 'cart_not_ready');
+        $mapping = $this->getUrlManager()->findMapping('foo', 'cart_not_ready');
         $this->assertEqual(array('controller'=>null,'formId'=>null,'form'=>null,'view'=>'redirect#requestId=shopping_cart','template'=>'', 'layout' => null), $mapping);
 
         // test store mapping
-        $mapping = ZMUrlManager::instance()->findMapping(null, 'low_stock');
+        $mapping = $this->getUrlManager()->findMapping(null, 'low_stock');
         $this->assertEqual(array('controller'=>null,'formId'=>null,'form'=>null,'view'=>'redirect#requestId=shopping_cart','template'=>'', 'layout' => null), $mapping);
     }
 
@@ -50,7 +53,7 @@ class TestZMUrlManager extends TestCase {
      * Test global default.
      */
     public function testGlobalDefault() {
-        $mapping = ZMUrlManager::instance()->findMapping('checkout_shipping', 'check_cart');
+        $mapping = $this->getUrlManager()->findMapping('checkout_shipping', 'check_cart');
         $this->assertEqual(array('controller'=>null,'formId'=>null,'form'=>null,'view'=>'redirect#requestId=shopping_cart','template'=>'', 'layout' => null), $mapping);
     }
 
@@ -58,7 +61,7 @@ class TestZMUrlManager extends TestCase {
      * Test checkout_guest:success.
      */
     public function testCheckoutGuestSuccess() {
-        $manager = ZMUrlManager::instance();
+        $manager = $this->getUrlManager();
         $mapping = $manager->findMapping('checkout_guest', 'success');
         $this->assertEqual(array('controller'=>null,'formId'=>null,'form'=>null,'view'=>'redirect#requestId=checkout_shipping','template'=>'views/login.php', 'layout' => null), $mapping);
     }

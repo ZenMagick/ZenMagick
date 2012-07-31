@@ -302,7 +302,7 @@ class HttpKernel implements HttpKernelInterface {
             }
         } else {
             //TODO: default controller
-            $controller = \ZMUrlManager::instance()->findController($request->getRequestId());
+            $controller = $this->container->get('urlManager')->findController($request->getRequestId());
             return new Executor(array($controller, 'process'), array($request));
         }
     }
