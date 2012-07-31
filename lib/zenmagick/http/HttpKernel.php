@@ -48,7 +48,7 @@ use zenmagick\http\view\View;
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class Dispatcher implements HttpKernelInterface {
+class HttpKernel implements HttpKernelInterface {
     protected $container;
     protected $dispatcher;
     private $parameterMapper;
