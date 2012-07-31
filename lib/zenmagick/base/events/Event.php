@@ -19,42 +19,29 @@
  */
 namespace zenmagick\base\events;
 
-use Symfony\Component\EventDispatcher\Event as SymfonyEvent;
+use Symfony\Component\EventDispatcher\GenericEvent;
 
 /**
  * A ZenMagick event service event.
  *
+ * This class adds timestamp and memory usage
+ * to each event for profiling.
+ *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class Event extends SymfonyEvent {
-    protected $source;
-    protected $parameters;
+class Event extends GenericEvent {
     private $timestamp;
     private $memory;
 
 
     /**
-     * Constructs a new Event.
-     *
-     * @param mixed source The event origin; default is <code>null</code>.
-     * @param array parameters An array of parameters; default is an empty <code>array</code>.
+     * {@inheritDoc}
      */
-    public function __construct($source=null, $parameters=array()) {
+    public function __construct($subject = null, array $arguments = array()) {
+        parent::__construct($subject, $arguments);
         $this->setName('');
-        $this->source = $source;
-        $this->parameters = (array)$parameters;
-
         $this->timestamp = microtime(true);
         $this->memory = memory_get_usage(true);
-    }
-
-    /**
-     * Returns the event origin.
-     *
-     * @return mixed The source.
-     */
-    public function getSource() {
-        return $this->source;
     }
 
     /**
@@ -63,7 +50,7 @@ class Event extends SymfonyEvent {
      * @return array The event parameters.
      */
     public function all() {
-        return $this->parameters;
+        return parent::getArguments();
     }
 
     /**
@@ -73,7 +60,7 @@ class Event extends SymfonyEvent {
      * @return boolean Return <code>true</code> if the parameter exists, <code>false</code> otherwise.
      */
     public function has($name) {
-        return array_key_exists($name, $this->parameters);
+        return parent::hasArgument($name);
     }
 
     /**
@@ -84,11 +71,7 @@ class Event extends SymfonyEvent {
      * @throws \InvalidArgumentException When parameter doesn't exists for this event.
      */
     public function get($name) {
-        if (!array_key_exists($name, $this->parameters)) {
-            throw new \InvalidArgumentException(sprintf('The event "%s" has no "%s" parameter.', $this->getName(), $name));
-        }
-
-        return $this->parameters[$name];
+        return parent::getArgument($name);
     }
 
     /**
@@ -98,7 +81,7 @@ class Event extends SymfonyEvent {
      * @param mixed value The parameter value.
      */
     public function set($name, $value) {
-        $this->parameters[$name] = $value;
+        return parent::setArgument($name, $value);
     }
 
     /**

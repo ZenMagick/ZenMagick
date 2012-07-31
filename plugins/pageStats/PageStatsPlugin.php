@@ -81,7 +81,7 @@ class PageStatsPlugin extends Plugin {
      * @param mixed value Optional value for filter events.
      */
     public function logEvent($event, $value=null) {
-        $source = $event->getSource();
+        $source = $event->getSubject();
         if (!$source) {
             $source = 'N/A';
         } else if (is_object($source)) {
