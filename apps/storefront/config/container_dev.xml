@@ -7,7 +7,7 @@
 
     <imports>
         <import resource="container.xml" />
-        <import resource="../../store/container.xml" />
+        <import resource="../../store/config/container.xml" />
     </imports>
 
     <services>
