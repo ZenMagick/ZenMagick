@@ -39,7 +39,7 @@ class AutoLoginPlugin extends Plugin {
      * Create new instance.
      */
     public function __construct() {
-        parent::__construct('Auto Login', 'Automatically login returning customers.', '${plugin.version}');
+        parent::__construct();
         $this->setContext('storefront');
         $this->cookieUpdated = false;
     }
