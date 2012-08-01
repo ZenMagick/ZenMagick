@@ -13,3 +13,6 @@ admin,storefront:
           - [setLogLevel, ['NONE']]
         tags:
           - { name: zenmagick.base.logging.handler }
+  autoload:
+    psr-0:
+      FirePHPCore: vendor
