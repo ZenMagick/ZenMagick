@@ -45,17 +45,6 @@ class UnitTestsPlugin extends Plugin {
         $this->customDone_ = false;
     }
 
-
-    /**
-     * {@inheritDoc}
-     */
-    public function init() {
-        parent::init();
-
-        // TODO: manually load lib for now
-        require_once dirname(__FILE__).'/lib/simpletest-trunk-20110128.packed.php';
-    }
-
     /**
      * Add test.
      *
