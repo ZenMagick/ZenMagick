@@ -24,8 +24,6 @@ use zenmagick\base\Runtime;
 use zenmagick\base\Toolbox;
 use zenmagick\base\ZMObject;
 use zenmagick\base\cache\Cache;
-use zenmagick\base\classloader\ClassLoader;
-
 use zenmagick\apps\store\utils\ContextConfigLoader;
 
 /**
@@ -42,7 +40,6 @@ class Plugins extends ZMObject {
     protected $plugins;
     protected $cache;
     protected $statusMap;
-    protected $classLoader;
     protected $loggingService;
     protected $pluginStatusMapBuilder;
     protected $localeService;
@@ -63,8 +60,6 @@ class Plugins extends ZMObject {
         $this->plugins = array();
         $this->cache = null;
         $this->statusMap = null;
-        $this->classLoader = new ClassLoader();
-        $this->classLoader->register();
     }
 
 
@@ -139,16 +134,12 @@ class Plugins extends ZMObject {
                     $plugin->setPluginDirectory($status['pluginDir']);
 
                     if ($status['enabled'] && $status['installed'] && Runtime::isContextMatch($status['context'], $context)) {
-                        // no matter what, if disabled or not installed we'll never init
-                        if ($status['lib']) {
-                            $libDir = $status['pluginDir'].'/lib';
-                            // allow custom class loading config
-                            $this->classLoader->addConfig($libDir);
-                        }
-
                         if ($status['config']) {
                             $this->contextConfigLoader->setConfig($status['config']);
-                            $this->contextConfigLoader->process();
+                            $config = $this->contextConfigLoader->process();
+                            if (array_key_exists('autoload', $config)) { // Fold this into process() once it knows about pluginDir
+                                $this->contextConfigLoader->registerAutoLoaders($config['autoload'], $status['pluginDir']);
+                            }
                         }
 
                         $plugin->init();

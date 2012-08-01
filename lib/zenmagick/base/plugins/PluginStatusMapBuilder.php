@@ -113,7 +113,6 @@ class PluginStatusMapBuilder extends ZMObject {
                         'context' => $plugin->getContext(),
                         'order' => $plugin->getSortOrder(),
                         'namespace' => $namespace,
-                        'lib' => file_exists($pluginDir.'/lib'),
                         'config' => $config
                     ));
                 }
