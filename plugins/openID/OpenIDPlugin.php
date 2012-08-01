@@ -74,9 +74,6 @@ class OpenIDPlugin extends Plugin {
 
         // make openid_login use session token
         $this->container->get('settingsService')->add('zenmagick.http.session.formToken', 'openid_login');
-
-        // TODO: manually load lib for now
-        require_once dirname(__FILE__).'/lib/openid-2.1.3-php53.packed.php';
     }
 
     /**
