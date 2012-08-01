@@ -11,3 +11,5 @@ admin:
         controller: zenmagick\plugins\settings\controller\SettingsShowController
       settingsAdmin:
         controller: zenmagick\plugins\settings\controller\SettingsAdminController
+  autoload:
+    files: [lib/settings_details.php]
