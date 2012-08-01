@@ -23,8 +23,8 @@ use DirectoryIterator;
 
 use zenmagick\base\Beans;
 use zenmagick\base\Runtime;
+use zenmagick\base\Toolbox;
 use zenmagick\base\ZMObject;
-use zenmagick\base\classloader\ClassLoader;
 
 use Symfony\Component\Yaml\Yaml;
 
@@ -85,7 +85,7 @@ class PluginStatusMapBuilder extends ZMObject {
                 $id = $info['id'];
                 $pluginDir = $info['pluginDir'];
 
-                $pluginClassBase = ClassLoader::className($id);
+                $pluginClassBase = Toolbox::className($id);
                 $namespace = sprintf(Plugins::PLUGIN_BASE_NAMESPACE.'\%s', $id);
 
                 $pluginClasses = array();

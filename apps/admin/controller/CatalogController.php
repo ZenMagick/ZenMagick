@@ -21,7 +21,7 @@ namespace zenmagick\apps\admin\controller;
 
 use zenmagick\base\Beans;
 use zenmagick\base\Runtime;
-use zenmagick\base\classloader\ClassLoader;
+use zenmagick\base\Toolbox;
 use zenmagick\base\logging\Logging;
 use zenmagick\http\Request;
 use zenmagick\http\sacs\SacsManager;
@@ -73,7 +73,7 @@ class CatalogController extends \ZMController {
             }
         } else {
             // let's see if we have a controller for this...
-            $definition = ClassLoader::className($catalogRequestId.'Controller');
+            $definition = Toolbox::className($catalogRequestId.'Controller');
             $controller = Beans::getBean($definition);
             Runtime::getLogging()->debug('delegating to controller : '.get_class($controller));
 

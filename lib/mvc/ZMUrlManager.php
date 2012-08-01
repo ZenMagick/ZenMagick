@@ -23,7 +23,6 @@ use zenmagick\base\Runtime;
 use zenmagick\base\Toolbox;
 use zenmagick\base\ZMException;
 use zenmagick\base\ZMObject;
-use zenmagick\base\classloader\ClassLoader;
 use zenmagick\base\logging\Logging;
 
 /**
@@ -261,7 +260,7 @@ class ZMUrlManager extends ZMObject {
             // configured
             $definitions[] = $mapping['controller'];
         } else {
-            $class = ClassLoader::className($requestId.'Controller');
+            $class = Toolbox::className($requestId.'Controller');
             // allow custom namespaces
             foreach (Runtime::getSettings()->get('zenmagick.http.controller.namespaces', array()) as $namespace) {
                 $definitions[] = sprintf('%s\%s', $namespace, $class);

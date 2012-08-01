@@ -279,4 +279,24 @@ class Toolbox {
         $endLen = strlen($end);
         return $end == substr($s, -$endLen);
     }
+
+    /**
+     * Create a normalized class names based on a name.
+     *
+     * <p>This is pretty much following Java conventions.</p>
+     *
+     * @param string name The name (file name, etc).
+     * @return string A corresponding class name.
+     */
+    public static function className($name) {
+        // strip potential file extension and dir
+        $classname = str_replace('.php', '', basename($name));
+        // '_' == word boundary
+        $classname = str_replace(array('_', '-'), ' ', $classname);
+        // capitalise words
+        $classname = ucwords($classname);
+        // cuddle together :)
+        $classname = str_replace(' ', '', $classname);
+        return $classname;
+    }
 }
