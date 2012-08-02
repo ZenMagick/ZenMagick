@@ -42,10 +42,6 @@ zenmagick:
 
   ## mvc
   mvc:
-    # enable/disable transaction support in request processing
-    transactions:
-      enabled: false
-
     ## templates
     templates:
       ext: .php

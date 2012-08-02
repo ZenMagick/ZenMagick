@@ -233,13 +233,6 @@ class HttpKernel implements HttpKernelInterface {
      * @return mixed The result.
      */
     protected function executeController(Request $request) {
-        $settingsService = $this->container->get('settingsService');
-        $enableTransactions = $settingsService->get('zenmagick.http.transactions.enabled', false);
-
-        if ($enableTransactions) {
-            ZMRuntime::getDatabase()->beginTransaction();
-        }
-
         $controller = null;
         $dispatcher = $this->dispatcher;
         $dispatcher->dispatch('controller_process_start', new Event($this, array('request' => $request, 'controller' => $controller)));
@@ -249,19 +242,11 @@ class HttpKernel implements HttpKernelInterface {
             $executor = $this->getControllerExecutor($request);
             $result = $executor->execute();
         } catch (Exception $e) {
-            if ($enableTransactions) {
-                ZMRuntime::getDatabase()->rollback();
-            }
             // re-throw
             throw $e;
         }
 
         $dispatcher->dispatch('controller_process_end', new Event($this, array('request' => $request, 'controller' => $controller, 'result' => $result)));
-
-        if ($enableTransactions) {
-            ZMRuntime::getDatabase()->commit();
-        }
-
         return $result;
     }
 
