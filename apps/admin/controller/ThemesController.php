@@ -44,31 +44,7 @@ class ThemesController extends \ZMController {
 
         // all themes
         $themeConfigList = $themeService->getThemeConfigList();
-
-        // strip already mapped languages
-        $unmappedLanguages = array();
-        $defaultLanguageMapped = false;
-        foreach ($this->container->get('languageService')->getLanguages() as $language) {
-            $used = false;
-            foreach ($themeConfigList as $config) {
-                if ($config->getLanguageId() == 0) {
-                    $defaultLanguageMapped = true;
-                }
-                if ($config->getLanguageId() == $language->getId()) {
-                    $used = true;
-                    break;
-                }
-            }
-            if (!$used) {
-                $unmappedLanguages[] = $language;
-            }
-        }
-        // if default not mapped, add
-        if (!$defaultLanguageMapped) {
-            $unmappedLanguages = array_merge(array(new ZMObject(array('id' => 0, 'name' => _zm('Default (All)')))), $unmappedLanguages);
-        }
-
-        return $this->findView(null, array('themes' => $themes, 'themeConfigList' => $themeConfigList, 'unmappedLanguages' => $unmappedLanguages));
+        return $this->findView(null, array('themes' => $themes, 'themeConfigList' => $themeConfigList));
     }
 
     /**
@@ -77,40 +53,35 @@ class ThemesController extends \ZMController {
     public function processPost($request) {
         $themeService = $this->container->get('themeService');
 
-        // arrays
-        $update = array_flip($request->request->get('update', array()));
-        $delete = array_flip($request->request->get('delete', array()));
-        // single
+        $update = $request->request->get('update');
+        $delete = $request->request->get('delete');
         $create = $request->request->get('create');
 
         $action = null;
-        if (1 == count($update)) {
-            // update, so let's find the language
-            $languageId = array_pop($update);
+        if (null != $update) {
             $action = 'update';
-        } else if (1 == count($delete)) {
-            // delete, so let's find the language
-            $languageId = array_pop($delete);
+        }
+        if (null != $delete) {
             $action = 'delete';
-        } else if (null != $create) {
-            $action = 'create';
+        }
+        if (null != $create) {
+            $action = 'delete';
         }
 
         switch ($action) {
         case  'update':
-            if (null != ($config = $this->getConfigForLanguageId($languageId))) {
-                // arrays
+            if (null != ($config = $this->getConfigForLanguageId())) {
                 $themeId = $request->request->get('themeId');
                 $variationId = $request->request->get('variationId');
 
-                $config->setThemeId($themeId[$languageId]);
-                $config->setVariationId($variationId[$languageId]);
+                $config->setThemeId($themeId);
+                $config->setVariationId($variationId);
                 $themeService->updateThemeConfig($config);
                 $this->messageService->success(_zm('Theme mapping updated.'));
             }
             break;
         case  'delete':
-            if (null != ($config = $this->getConfigForLanguageId($languageId))) {
+            if (null != ($config = $this->getConfigForLanguageId())) {
                 $themeService->deleteThemeConfig($config);
                 $this->messageService->success(_zm('Theme mapping deleted.'));
             }
@@ -118,8 +89,7 @@ class ThemesController extends \ZMController {
         case  'create':
             $themeId = $request->request->get('newThemeId');
             $variationId = $request->request->get('newVariationId');
-            $languageId = $request->request->get('newLanguageId', 0);
-            $config = new ZMObject(array('themeId' => $themeId, 'variationId' => $variationId, 'languageId' => $languageId));
+            $config = new ZMObject(array('themeId' => $themeId, 'variationId' => $variationId));
             $themeService->createThemeConfig($config);
             $this->messageService->success(_zm('Theme mapping created.'));
             break;
@@ -135,10 +105,10 @@ class ThemesController extends \ZMController {
      * @param int languageId The language id.
      * @return mixed Config or <code>null</code>.
      */
-    protected function getConfigForLanguageId($languageId) {
+    protected function getConfigForLanguageId($languageId=0) {
         $themeConfig = $this->container->get('themeService')->getThemeConfigList();
         foreach ($themeConfig as $config) {
-            if ($config->getLanguageId() == $languageId) {
+            if (true) {
                 return $config;
             }
         }

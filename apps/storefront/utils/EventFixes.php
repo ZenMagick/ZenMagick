@@ -86,17 +86,12 @@ class EventFixes extends ZMObject {
 
         $this->sanitizeRequest($request);
 
-        $session = $request->getSession();
-
         $settingsService = $this->container->get('settingsService');
-        $language = $session->getLanguage();
-        if (null == $language) {
-            // default language
-            $language = $this->container->get('languageService')->getLanguageForCode($settingsService->get('defaultLanguageCode'));
-        }
+        $defaultLocale = $settingsService->get('defaultLanguageCode');
+        $request->setDefaultLocale($defaultLocale);
         $themeService = $this->container->get('themeService');
-        $theme = $themeService->initThemes($language);
-        $args = array_merge($event->all(), array('theme' => $theme, 'themeId' => $theme->getId(), 'themeChain' => $themeService->getThemeChain($language->getId())));
+        $theme = $themeService->initThemes($request->getLocale());
+        $args = array_merge($event->all(), array('theme' => $theme, 'themeId' => $theme->getId(), 'themeChain' => $themeService->getThemeChain()));
         Runtime::getEventDispatcher()->dispatch('theme_resolved', new Event($this, $args));
 
     }

@@ -33,8 +33,7 @@ class BlockGroupAdminController extends \ZMController {
      */
     public function getViewData($request) {
         // need themes initialized
-        $language = $request->getSession()->getLanguage();
-        $this->container->get('themeService')->initThemes($language);
+        $this->container->get('themeService')->initThemes();
 
         $blocks = array();
         $blockManager = $this->container->get('blockManager');

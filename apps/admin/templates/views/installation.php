@@ -66,7 +66,7 @@ use zenmagick\base\Runtime;
         $languageService = $container->get('languageService');
         foreach ($languageService->getLanguages() as $language) {
             $languageId = $language->getId();
-            $themeChain = $container->get('themeService')->getThemeChain($languageId);
+            $themeChain = $container->get('themeService')->getThemeChain();
             foreach ($themeChain as $theme) {
                 foreach ($languageService->getLanguages() as $subLang) {
                     $subLangId = $subLang->getId();

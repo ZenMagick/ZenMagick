@@ -91,10 +91,10 @@ class ThemeStatusMapBuilder extends ZMObject {
      */
     public function buildStatusMap() {
         $themeList = $this->buildThemeList();
-        $themeChains = $this->buildThemeChains($themeList);
+        $themeChain = $this->buildThemeChain($themeList);
         return array(
             'themeList' => $themeList,
-            'themeChains' => $themeChains
+            'themeChain' => $themeChain
         );
     }
 
@@ -162,11 +162,10 @@ class ThemeStatusMapBuilder extends ZMObject {
      * @param array themeList List of themes.
      * @return array List of theme chains in increasing order of importance.
      */
-    public function buildThemeChains($themeList) {
+    public function buildThemeChain($themeList) {
         $baseThemeId = $this->container->get('settingsService')->get('apps.store.themes.default');
-        $themeChains = array();
+        $themeChain = array($baseThemeId);
         foreach ($this->themeService->getThemeConfigList() as $themeConfig) {
-            $themeChain = array($baseThemeId);
             $themeId = $themeConfig->getThemeId();
             if (array_key_exists($themeId, $themeList)) {
                 $themeChain[] = $themeId;
@@ -175,14 +174,8 @@ class ThemeStatusMapBuilder extends ZMObject {
             if (array_key_exists($themeId, $themeList)) {
                 $themeChain[] = $themeId;
             }
-            $themeChains[$themeConfig->getLanguageId()] = $themeChain;
         }
-
-        // ensure we always have a chain for 0
-        if (!array_key_exists(0, $themeChains)) {
-            $themeChains[0] = array($baseThemeId);
-        }
-        return $themeChains;
+        return $themeChain;
     }
 
 }
