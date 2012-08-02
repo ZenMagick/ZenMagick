@@ -34,12 +34,9 @@ class ThemesController extends \ZMController {
      */
     public function processGet($request) {
         $themeService = $this->container->get('themeService');
-        // strip default theme
         $themes = array();
         foreach ($themeService->getAvailableThemes() as $theme) {
-            if (Runtime::getSettings()->get('apps.store.themes.default') != $theme->getId()) {
                 $themes[] = $theme;
-            }
         }
 
         // all themes
