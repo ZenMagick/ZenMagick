@@ -21,7 +21,6 @@ namespace zenmagick\apps\store\themes;
 
 use zenmagick\base\Runtime;
 use zenmagick\base\ZMObject;
-use zenmagick\base\events\Event;
 use zenmagick\base\dependencyInjection\loader\YamlFileLoader;
 
 use Symfony\Component\Config\FileLocator;
@@ -213,10 +212,7 @@ class ThemeService extends ZMObject {
                 $listener = $this->container->get($eventListener);
                 $eventDispatcher->listen($listener);
             }
-            $args = array('theme' => $theme, 'themeId' => $theme->getId());
-            $eventDispatcher->dispatch('theme_loaded', new Event($this, $args));
         }
-
         return $themeChain[count($themeChain)-1];
     }
 

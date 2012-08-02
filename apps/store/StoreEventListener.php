@@ -25,6 +25,7 @@ use Symfony\Component\DependencyInjection\Loader\XmlFileLoader;
 use zenmagick\base\Runtime;
 use zenmagick\base\ZMObject;
 use zenmagick\http\messages\Messages;
+use zenmagick\base\events\Event;
 use zenmagick\apps\store\widgets\StatusCheck;
 
 /**
@@ -75,6 +76,10 @@ class StoreEventListener extends ZMObject {
         $request = $event->get('request');
 
         if (Runtime::isContextMatch('storefront')) {
+            $theme = $this->container->get('themeService')->getActiveTheme();
+            $args = array('theme' => $theme, 'themeId' => $theme->getId());
+            $event->getDispatcher()->dispatch('theme_loaded', new Event($this, $args));
+
             $templateManager = $this->container->get('templateManager');
             // TODO: do via admin and just load mapping from somewhere
             // sidebox blocks
