@@ -79,6 +79,9 @@ class HttpKernel implements HttpKernelInterface {
 
             // form validation
             $validationConfig = $kernel->getApplicationPath().'/config/validation.yaml';
+            if (file_exists($validationPhp = $kernel->getApplicationPath().'/config/validation.php')) {
+                require $validationPhp; // @todo merge with real validation config
+            }
             if ($container->has('validator') && file_exists($validationConfig)) {
                 $container->get('validator')->load(file_get_contents(Toolbox::resolveWithEnv($validationConfig)));
             }
