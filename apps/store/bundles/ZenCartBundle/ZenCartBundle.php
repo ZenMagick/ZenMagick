@@ -46,7 +46,6 @@ class ZenCartBundle extends Bundle {
      */
     public function boot() {
         $eventDispatcher = Runtime::getEventDispatcher();
-        $eventDispatcher->listen($this);
         $eventDispatcher->addListener('generate_email', array(Beans::getBean('zenmagick\apps\store\bundles\ZenCartBundle\utils\EmailEventHandler'), 'onGenerateEmail'));
 
     }
