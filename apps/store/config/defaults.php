@@ -320,7 +320,6 @@ if (!defined('ATTRIBUTES_PRICE_FACTOR_FROM_SPECIAL')) define('ATTRIBUTES_PRICE_F
     }
 
     $replace = true;
-    $settingsService = $this->container->get('settingsService');
     foreach (zm_get_default_settings($settingsService) as $name => $value) {
         if ($replace || !$settingsService->exists($name)) {
             $settingsService->set($name, $value);

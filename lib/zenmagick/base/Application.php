@@ -93,6 +93,19 @@ class Application extends Kernel {
      * @see Symfony\Component\HttpKernel\KernelInterface
      */
     public function registerContainerConfiguration(LoaderInterface $loader) {
+        // @todo fold this into a store only database loader
+        $configService = new \zenmagick\apps\store\services\ConfigService;
+        foreach ($configService->loadAll() as $key => $value) {
+            if (!defined($key)) {
+                define($key, $value);
+            }
+        }
+        $defaults = $this->getRootDir().'/apps/store/config/defaults.php';
+        if (file_exists($defaults)) {
+            $settingsService = $this->settingsService;
+            include $defaults;
+            $this->settingsService = $settingsService;
+        }
         $appContainerFiles = array('lib/zenmagick/base/container.xml');
         $appContainerFiles[] = 'lib/zenmagick/http/container.xml';
         if ($applicationPath = $this->getApplicationPath()) {
@@ -155,12 +168,10 @@ class Application extends Kernel {
             }
         }
         if (empty($keys) || in_array('bootstrap', (array)$keys)) {
-            $this->initConfig();
+            $this->initEmail();
             $this->container->get('localeService')->init($settingsService->get('zenmagick.base.locales.locale', 'en'));
 
             $this->container->get('pluginService')->getPluginsForContext($this->getContext());
-
-            $this->initEmail();
             $this->fireEvent('request_ready');
         }
 
@@ -372,38 +383,29 @@ class Application extends Kernel {
     }
 
     /**
-     * Get config loaded ASAP.
+     * Initialize email.
+     *
+     * @todo not the final home. move it closer to the container configuration.
      */
-    public function initConfig() {
-        foreach ($this->container->get('configService')->loadAll() as $key => $value) {
-            if (!defined($key)) {
-                define($key, $value);
-            }
-        }
-        $defaults = $this->getRootDir().'/apps/store/config/defaults.php';
-        if (file_exists($defaults)) {
-            include $defaults;
-        }
-
+    public function initEmail() {
         // load email container config once all settings/config is loaded
         $emailConfig = Runtime::getInstallationPath().'/config/store-email.xml';
         if (file_exists($emailConfig)) {
             $containerlLoader = new XmlFileLoader($this->container, new FileLocator(dirname($emailConfig)));
             $containerlLoader->load($emailConfig);
         }
-    }
 
-    /**
-     * Initialize email.
-     *
-     * @todo not the final home. move it closer to the container configuration.
-     */
-    public function initEmail() {
         $key = 'zenmagick.base.email.host';
         // enable encryption for gmail smtp
         if ($this->container->getParameterBag()->has($key)) {
             if ('smtp.gmail.com' == $this->container->getParameterBag()->get($key)) {
                 $this->container->getParameterBag()->set('zenmagick.base.email.encryption', 'tls');
+            }
+        }
+
+        if ($this->container->has('swiftmailer.transport')) {
+            if (null != ($transport = $this->container->get('swiftmailer.transport')) && $transport instanceof Swift_Transport_EsmtpTransport) {
+                $transport->setEncryption($this->container->getParameterBag()->get('zenmagick.base.email.encryption'));
             }
         }
 
