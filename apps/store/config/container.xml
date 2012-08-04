@@ -259,7 +259,7 @@
             <tag name="apps.store.admin.dashboard.widget.statusCheck" />
         </service>
 
-        <!-- set zenmagick.base.email.transport to @zencartTransport to use the zencart legacy email system -->
+        <!-- set siwftmailer.transport to @zencartTransport to use the zencart legacy email system -->
         <service id="zencartTransport" class="zenmagick\apps\store\bundles\ZenCartBundle\utils\ZenCartTransport" scope="container" />
         <!-- @todo move to bundle xml when we have one -->
         <service id="zenCartAutoLoader" class="zenmagick\apps\store\bundles\ZenCartBundle\utils\ZenCartAutoLoader" scope="container">

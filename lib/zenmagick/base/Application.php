@@ -89,25 +89,19 @@ class Application extends Kernel {
 
     /**
      * {@inheritDoc}
-     * @copyright see symfony.com
      * @see Symfony\Component\HttpKernel\KernelInterface
+     * @todo move most this into "a" bundle.
      */
     public function registerContainerConfiguration(LoaderInterface $loader) {
-        // @todo fold this into a store only database loader
-        $configService = new \zenmagick\apps\store\services\ConfigService;
-        foreach ($configService->loadAll() as $key => $value) {
-            if (!defined($key)) {
-                define($key, $value);
-            }
-        }
-        $defaults = $this->getRootDir().'/apps/store/config/defaults.php';
-        if (file_exists($defaults)) {
-            $settingsService = $this->settingsService;
-            include $defaults;
-            $this->settingsService = $settingsService;
-        }
-        $appContainerFiles = array('lib/zenmagick/base/container.xml');
+        $this->loadDatabaseConfiguration();
+
+        $appContainerFiles = array();
+        $appContainerFiles[] = 'lib/zenmagick/base/container.xml';
         $appContainerFiles[] = 'lib/zenmagick/http/container.xml';
+
+        if (defined('SEND_EMAILS')) { // @todo move all zc param detection elsewhere
+            $appContainerFiles[] = $this->getRootDir().'/apps/store/config/email.php';
+        }
         if ($applicationPath = $this->getApplicationPath()) {
             $appContainerFiles[] = $applicationPath.'/config/container.xml';
         }
@@ -127,6 +121,30 @@ class Application extends Kernel {
 
         foreach ($files as $file) {
             $loader->load($file);
+        }
+    }
+
+    /**
+     * Load container configuration from database
+     *
+     * @todo fold this into a store only database loader
+     */
+    public function loadDatabaseConfiguration() {
+        if (!in_array($this->getContext(), array('admin', 'storefront', 'store'))) {
+            return;
+        }
+        $configService = new \zenmagick\apps\store\services\ConfigService;
+        foreach ($configService->loadAll() as $key => $value) {
+            if (!defined($key)) {
+                define($key, $value);
+            }
+        }
+
+        $defaults = $this->getRootDir().'/apps/store/config/defaults.php';
+        if (file_exists($defaults)) {
+            $settingsService = $this->settingsService;
+            include $defaults;
+            $this->settingsService = $settingsService;
         }
     }
 
@@ -168,7 +186,6 @@ class Application extends Kernel {
             }
         }
         if (empty($keys) || in_array('bootstrap', (array)$keys)) {
-            $this->initEmail();
             $this->container->get('localeService')->init($settingsService->get('zenmagick.base.locales.locale', 'en'));
 
             $this->container->get('pluginService')->getPluginsForContext($this->getContext());
@@ -380,43 +397,5 @@ class Application extends Kernel {
         if (empty($parameters)) return; // if it's empty leave it empty.
         $parameters['kernel.context'] = $this->getContext();
         return $parameters;
-    }
-
-    /**
-     * Initialize email.
-     *
-     * @todo not the final home. move it closer to the container configuration.
-     */
-    public function initEmail() {
-        // load email container config once all settings/config is loaded
-        $emailConfig = Runtime::getInstallationPath().'/config/store-email.xml';
-        if (file_exists($emailConfig)) {
-            $containerlLoader = new XmlFileLoader($this->container, new FileLocator(dirname($emailConfig)));
-            $containerlLoader->load($emailConfig);
-        }
-
-        $key = 'zenmagick.base.email.host';
-        // enable encryption for gmail smtp
-        if ($this->container->getParameterBag()->has($key)) {
-            if ('smtp.gmail.com' == $this->container->getParameterBag()->get($key)) {
-                $this->container->getParameterBag()->set('zenmagick.base.email.encryption', 'tls');
-            }
-        }
-
-        if ($this->container->has('swiftmailer.transport')) {
-            if (null != ($transport = $this->container->get('swiftmailer.transport')) && $transport instanceof Swift_Transport_EsmtpTransport) {
-                $transport->setEncryption($this->container->getParameterBag()->get('zenmagick.base.email.encryption'));
-            }
-        }
-
-        // load email container config unless we do have already some swiftmailer config
-        $bundles = array_keys($this->container->get('settingsService')->get('zenmagick.bundles', array()));
-        if (0 == count($this->container->getExtensionConfig('swiftmailer')) && in_array('SwiftmailerBundle', $bundles)) {
-            $emailConfig = __DIR__.'/email.xml';
-            if (file_exists($emailConfig)) {
-                $containerLoader = new XmlFileLoader($this->container, new FileLocator(dirname($emailConfig)));
-                $containerLoader->load($emailConfig);
-            }
-        }
     }
 }

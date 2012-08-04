@@ -11,16 +11,6 @@
         <!-- main logging level -->
         <parameter key="zenmagick.base.logging.level">INFO</parameter>
 
-        <!-- some email defaults -->
-        <parameter key="zenmagick.base.email.transport">smtp</parameter>
-        <parameter key="zenmagick.base.email.user"></parameter>
-        <parameter key="zenmagick.base.email.password"></parameter>
-        <parameter key="zenmagick.base.email.host">localhost</parameter>
-        <parameter key="zenmagick.base.email.port">25</parameter>
-        <parameter key="zenmagick.base.email.encryption">tcp</parameter>
-        <parameter key="zenmagick.base.email.disabled">false</parameter>
-        <parameter key="zenmagick.base.email.logging">false</parameter>
-
         <parameter key="zenmagick.base.plugins.dirs" type="collection">
             <parameter>%kernel.root_dir%/plugins</parameter>
             <parameter>%kernel.root_dir%/apps/%kernel.context%/plugins</parameter>
