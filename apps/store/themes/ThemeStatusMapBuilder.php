@@ -163,7 +163,7 @@ class ThemeStatusMapBuilder extends ZMObject {
      * @return array List of theme chains in increasing order of importance.
      */
     public function buildThemeChain($themeList) {
-        $baseThemeId = $this->container->get('settingsService')->get('apps.store.themes.default');
+        $baseThemeId = $this->themeService->getDefaultThemeId();
         $themeChain = array($baseThemeId);
         foreach ($this->themeService->getThemeConfigList() as $themeConfig) {
             $themeId = $themeConfig->getThemeId();

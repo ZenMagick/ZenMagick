@@ -58,7 +58,8 @@ class ThemeSwitcherPlugin extends Plugin {
         if (null != ($themeId = $session->getValue(self::SESS_THEME_KEY))) {
             $themeService = $this->container->get('themeService');
             $themeChain = array();
-            $themeChain[] = $themeService->getThemeForId($this->container->get('settingsService')->get('apps.store.themes.default'));
+            $defaultThemeId = $themeService->getDefaultThemeId();
+            $themeChain[] = $themeService->getThemeForId($defaultThemeId);
             $theme = $themeChain[] = $themeService->getThemeForId($themeId);
             $themeService->setThemeChain($themeChain);
             $themeService->initThemes($language->getCode());

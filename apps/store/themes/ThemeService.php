@@ -39,6 +39,7 @@ class ThemeService extends ZMObject {
     protected $statusMap;
     // theme chain override
     protected $themeChain;
+    protected $defaultThemeId;
 
 
     /**
@@ -50,8 +51,26 @@ class ThemeService extends ZMObject {
         $this->cache = null;
         $this->statusMap = null;
         $this->themeChain = array();
+        $this->defaultThemeId = null;
     }
 
+    /**
+     * Set the default theme id.
+     *
+     * @param string theme theme id
+     */
+    public function setDefaultThemeId($defaultThemeId = null) {
+        $this->defaultThemeId = $defaultThemeId;
+    }
+
+    /**
+     * Get the default theme id.
+     *
+     * @return string theme id
+     */
+    public function getDefaultThemeId() {
+        return $this->defaultThemeId;
+    }
 
     /**
      * Set the cache.

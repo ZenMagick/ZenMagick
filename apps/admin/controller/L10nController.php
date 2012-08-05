@@ -62,8 +62,9 @@ class L10nController extends \ZMController {
         $downloadParamsPo = http_build_query(array_merge(array('download' => 'po'), $options));
         $downloadParamsPot = http_build_query(array_merge(array('download' => 'pot'), $options));
 
+        $themeService = $this->container->get('themeService');
         $vd = array_merge(array(
-              'themes' => $this->container->get('themeService')->getAvailableThemes(),
+              'themes' => $themeService->getAvailableThemes(),
               'source' => $source,
               'sources' => $sources,
               'downloadParamsYaml' => $downloadParamsYaml,
@@ -82,7 +83,7 @@ class L10nController extends \ZMController {
             $vd['scanAdmin'] = false;
             $vd['includeDefaults'] = $vd['mergeExisting'] = $vd['scanShared'] = $vd['scanPlugins'] = $vd['scanMvc'] = true;
             if (null == $vd['themeId']) {
-                $vd['themeId'] = 'default';
+                $vd['themeId'] = $themeService->getDefaultThemeId();
             }
             break;
         }
@@ -100,7 +101,7 @@ class L10nController extends \ZMController {
         $themeService = $this->container->get('themeService');
 
         $defaultMap = array();
-        $defaultThemeId = $this->container->get('settingsService')->get('apps.store.themes.default');
+        $defaultThemeId = $themeService->getDefaultThemeId();
         if ($vd['includeDefaults']) {
             $theme = $themeService->getThemeForId($defaultThemeId);
             $defaultMap = $scanner->buildL10nMap($theme->getBasePath());
