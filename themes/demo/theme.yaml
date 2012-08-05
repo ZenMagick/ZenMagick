@@ -7,7 +7,7 @@ meta:
 storefront:
   locale:
     en:
-      date: 
+      date:
         'short': 'd/m/Y'
         'short-ui-format': 'dd/mm/yy'
         'short-ui-example': '09/08/66'
@@ -15,7 +15,7 @@ storefront:
       time:
         'short': 'H:i:s'
         'long': 'H:i:s u'
-      
+
 
   ## optional url mappings
   router:
@@ -26,9 +26,9 @@ storefront:
           layout:
       ## for ajax login success
       login:
-        ajax_success: 
+        ajax_success:
           template: ajax/login_success
-        ajax_account: 
+        ajax_account:
           template: ajax/login_success
       ## re-use category-list
       products_new:
@@ -37,3 +37,4 @@ storefront:
   ## optional settngs
   settings:
     zenmagick.mvc.resultlist.defaultPagination: 5
+    resultListProductFilter: [AlphaFilter,PriceRangeFilter]
