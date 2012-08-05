@@ -85,7 +85,6 @@
             <argument type="service" id="loggingService" />
             <argument type="service" id="pluginStatusMapBuilder" />
             <argument type="service" id="localeService" />
-            <argument type="service" id="settingsService" />
             <argument type="service" id="contextConfigLoader" strict="false" />
             <call method="setCache">
                 <argument type="service" id="bootstrapCache" />

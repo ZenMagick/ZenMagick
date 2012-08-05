@@ -43,19 +43,17 @@ class Plugins extends ZMObject {
     protected $loggingService;
     protected $pluginStatusMapBuilder;
     protected $localeService;
-    protected $settingsService;
     protected $contextConfigLoader;
 
 
     /**
      * Create new instance.
      */
-    public function __construct($loggingService, $pluginStatusMapBuilder, $localeService, $settingsService, $contextConfigLoader) {
+    public function __construct($loggingService, $pluginStatusMapBuilder, $localeService, $contextConfigLoader) {
         parent::__construct();
         $this->loggingService = $loggingService;
         $this->pluginStatusMapBuilder = $pluginStatusMapBuilder;
         $this->localeService = $localeService;
-        $this->settingsService = $settingsService;
         $this->contextConfigLoader = $contextConfigLoader;
         $this->plugins = array();
         $this->cache = null;
@@ -146,7 +144,7 @@ class Plugins extends ZMObject {
                         // @tod very temporary. we really want to use the container tags
                         Runtime::getEventDispatcher()->listen($plugin);
                         // plugins can only contribute translations
-                        $path = $plugin->getPluginDirectory().'/locale/'.$this->settingsService->get('zenmagick.base.locales.locale');
+                        $path = $plugin->getPluginDirectory().'/locale/'.$this->localeService->getLocale()->getCode();
                         $this->localeService->getLocale()->addResource($path);
                     }
 
