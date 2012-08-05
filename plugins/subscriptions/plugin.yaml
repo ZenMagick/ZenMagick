@@ -18,3 +18,8 @@ admin:
       defaults: { _controller: zenmagick\plugins\subscriptions\controller\SubscriptionAdminController }
       options:
         "view:success": redirect://subscriptionAdmin
+  menu:
+    subscriptions:
+      parent: configuration-plugins
+      requestId: subscriptionsAdmin
+      name: 'Subscriptions'

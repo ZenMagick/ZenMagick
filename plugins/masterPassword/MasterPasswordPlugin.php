@@ -48,16 +48,6 @@ class MasterPasswordPlugin extends Plugin {
     /**
      * {@inheritDoc}
      */
-    public function init() {
-        parent::init();
-
-        // add admin page
-        $this->addMenuItem(_zm('Master Password'), 'master_password_admin');
-    }
-
-    /**
-     * {@inheritDoc}
-     */
     public function hasOptions() {
         // only do separate dialog
         return false;

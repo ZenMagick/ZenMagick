@@ -11,3 +11,15 @@ admin:
         controller: zenmagick\plugins\howDidYouHear\controller\HowDidYouHearSourcesStatsController
       howDidYouHearSourcesAdmin:
         controller: zenmagick\plugins\howDidYouhear\controller\HowDidYouHearSourcesAdminController
+  menu:
+    referral-sources:
+      parent: configuration
+      name: 'Referral Sources'
+    referral-stats:
+      parent: referral-sources
+      requestId: howDidYouHearSourcesStats
+      name: 'Referral Stats'
+    referral-admin:
+      parent: referral-sources
+      requestId: howDidYouHearSourcesAdmin
+      name: 'Referral Admin'

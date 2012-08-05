@@ -43,11 +43,6 @@ class SettingsPlugin extends Plugin {
      */
     public function init() {
         parent::init();
-        // add admin pages
-        $menuKey = $this->addMenuGroup(_zm('Settings'));
-        $this->addMenuItem(_zm('Manage Settings'), 'settingsAdmin', $menuKey);
-        $this->addMenuItem(_zm('Show Settings'), 'settingsShow', $menuKey);
-
         // make all config values proper settings
         $settingsService = $this->container->get('settingsService');
         foreach ($this->getConfigValues() as $value) {

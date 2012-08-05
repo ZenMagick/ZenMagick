@@ -70,11 +70,6 @@ class HowDidYouHearPlugin extends Plugin {
 
         $info = array('column' => 'customers_info_source_id', 'type' => 'integer');
         \ZMRuntime::getDatabase()->getMapper()->addPropertyForTable('customers_info', 'sourceId', $info);
-
-        // add admin pages
-        $menuKey = $this->addMenuGroup(_zm('Referral Sources'));
-        $this->addMenuItem(_zm('Referral Stats'), 'howDidYouHearSourcesStats', $menuKey);
-        $this->addMenuItem(_zm('Referral Admin'), 'howDidYouHearSourcesAdmin', $menuKey);
     }
 
     /**

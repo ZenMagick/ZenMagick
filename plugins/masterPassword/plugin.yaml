@@ -13,3 +13,8 @@ admin:
       defaults: { _controller: zenmagick\plugins\masterPassword\controller\MasterPasswordAdminController }
       options:
         'view': views/master_password_admin.php
+  menu:
+    master-password:
+      parent: configuration-plugins
+      requestId: master_password_admin
+      name: 'Master Password'

@@ -45,13 +45,9 @@ class ExamplePluginPlugin extends Plugin {
      */
     public function init() {
         parent::init();
-
         /*
          * this is the place to do init stuff other than just setting up the infrastructure
          */
-
-        // add admin page
-        $this->addMenuItem(_zm('Example Plugin Admin Page'), 'examplePluginAdmin');
     }
 
     /**

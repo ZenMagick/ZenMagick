@@ -38,13 +38,4 @@ class DataExporterPlugin extends Plugin {
     }
 
 
-    /**
-     * {@inheritDoc}
-     */
-    public function init() {
-        parent::init();
-        $menuKey = $this->addMenuGroup(_zm('Data Export'), 'tools');
-        $this->addMenuItem(_zm('Orders'), 'export_orders', $menuKey);
-    }
-
 }

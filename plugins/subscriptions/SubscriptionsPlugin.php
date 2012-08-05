@@ -109,9 +109,6 @@ class SubscriptionsPlugin extends Plugin {
             array('ZMListRule', 'type', array_keys($this->getRequestTypes())),
             array('ZMRequiredRule', 'message', _zm("Please enter a message")),
         ));
-
-        // add admin page
-        $this->addMenuItem(_zm('Subscriptions'), 'subscriptionAdmin');
     }
 
     /**
