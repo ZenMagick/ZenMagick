@@ -65,6 +65,6 @@ class ToolboxGlobalVariables extends ToolboxTool {
      */
     public function getEnvironment()
     {
-        return Runtime::getApplication()->getEnvironment();
+        return $this->container->get('kernel')->getEnvironment();
     }
 }

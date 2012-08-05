@@ -233,8 +233,11 @@
             <tag name="zenmagick.base.security.authentication.provider" default="true" />
         </service>
 
-        <!-- Impersonate FrameworkBundle provided GlobalVariables class -->
+        <!-- Impersonate FrameworkBundle provided GlobalVariables class although it takes it in the ctor -->
         <service id="globalVariablesTool" class="zenmagick\apps\store\toolbox\ToolboxGlobalVariables" scope="prototype">
+            <call method="setContainer">
+                <argument type="service" id="service_container" />
+            </call>
             <tag name="zenmagick.http.toolbox.tool" key="app" />
         </service>
 
