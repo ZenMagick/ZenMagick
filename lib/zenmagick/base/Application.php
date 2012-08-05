@@ -355,9 +355,6 @@ class Application extends Kernel {
             $settingsService->set('apps.store.zencart.path', dirname($this->getRootDir()));
         }
 
-        if (null != ($tz = $settingsService->get('zenmagick.core.date.timezone'))) {
-            date_default_timezone_set($tz);
-        }
         \ZMRuntime::setDatabase('default', $settingsService->get('apps.store.database.default'));
     }
 
