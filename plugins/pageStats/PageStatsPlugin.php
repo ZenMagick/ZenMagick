@@ -91,7 +91,7 @@ class PageStatsPlugin extends Plugin {
         } else {
             $source = 'unknown';
         }
-        Runtime::getLogging()->info('event:('.$source.'):' . $event->getName() . '/'.EventDispatcher::n2m($event->getName()));
+        Runtime::getLogging()->info('event:('.$source.'):' . $event->getName() . '/'.Toolbox::className($event->getName()));
         // compress values
         $values = array();
         foreach (array_keys($event->all()) as $key) {
@@ -113,7 +113,7 @@ class PageStatsPlugin extends Plugin {
           'name' => $event->getName(),
           'memory' => $event->getMemory(),
           'timestamp' => $event->getTimestamp(),
-          'method' => EventDispatcher::n2m($event->getName()),
+          'method' => Toolbox::className($event->getName()),
           'values' => implode('; ', $values)
         );
         return $value;
