@@ -224,6 +224,9 @@
         <service id="productGroupPricingService" class="ZMProductGroupPricings" scope="container" />
 
         <service id="urlManager" class="ZMUrlManager" scope="container">
+            <call method="setContainer">
+                <argument type="service" id="service_container" />
+            </call>
             <call method="loadFile">
                 <argument>%kernel.root_dir%/apps/%kernel.context%/config/url_mappings.yaml</argument>
             </call>

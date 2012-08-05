@@ -261,11 +261,7 @@ class ZMUrlManager extends ZMObject {
             $definitions[] = $mapping['controller'];
         } else {
             $class = Toolbox::className($requestId.'Controller');
-            // allow custom namespaces
-            foreach (Runtime::getSettings()->get('zenmagick.http.controller.namespaces', array()) as $namespace) {
-                $definitions[] = sprintf('%s\%s', $namespace, $class);
-            }
-            $definitions[] = sprintf('zenmagick\apps\%s\controller\%s', Runtime::getApplication()->getContext(), $class);
+            $definitions[] = sprintf('zenmagick\apps\%s\controller\%s', $this->container->get('kernel')->getContext(), $class);
             $definitions[] = 'ZM'.$class;
         }
         // as defined in the container
@@ -303,7 +299,7 @@ class ZMUrlManager extends ZMObject {
         }
         if (!array_key_exists('template', $mapping) || null == $mapping['template']) {
             // default template name to requestId
-            $mapping['template'] = 'views/'.$requestId.Runtime::getSettings()->get('zenmagick.http.templates.ext', '.php');
+            $mapping['template'] = 'views/'.$requestId.$this->container->get('settingsService')->get('zenmagick.http.templates.ext', '.php');
         }
         $view = null;
         if (array_key_exists('view', $mapping) && null != $mapping['view']) {
@@ -318,7 +314,7 @@ class ZMUrlManager extends ZMObject {
             $parameter = http_build_query($parameter);
         }
         $layout = ((array_key_exists('layout', $mapping) && null !== $mapping['layout'])
-              ? $mapping['layout'] : Runtime::getSettings()->get('zenmagick.http.view.defaultLayout', null));
+              ? $mapping['layout'] : $this->container->get('settingsService')->get('zenmagick.http.view.defaultLayout', null));
         $definition = $parameter.'&template='.$mapping['template'].'&layout='.$layout.'&viewId='.$viewId;
         Runtime::getLogging()->debug('view: '.$definition);
 
