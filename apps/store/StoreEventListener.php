@@ -65,13 +65,6 @@ class StoreEventListener extends ZMObject {
     public function onContainerReady($event) {
 
         $settingsService = $this->container->get('settingsService');
-        // Override transport command for qmail and the like
-        $transportCommand = $settingsService->get('zenmagick.base.email.transportCommand');
-        if ($this->container->has('swiftmailer.transport') && null != $transportCommand) {
-            if (null != ($transport = $this->container->get('swiftmailer.transport'))) {
-                $transport->setCommand(escapeshellcmd($transportCommand));
-            }
-        }
 
         $request = $event->get('request');
 
@@ -120,7 +113,7 @@ class StoreEventListener extends ZMObject {
         );
         foreach ($defaultBannerGroupNames as $blockGroupName) {
             // the banner group name is configured as setting..
-            $bannerGroup = Runtime::getSettings()->get($blockGroupName);
+            $bannerGroup = $settingsService->get($blockGroupName);
             $mappings[$blockGroupName] = array('zenmagick\apps\store\widgets\BannerBlockWidget#group='.$bannerGroup);
         }
 
@@ -136,7 +129,6 @@ class StoreEventListener extends ZMObject {
         if (Runtime::isContextMatch('storefront')) {
 
             // check DFM
-            $settingsService = $this->container->get('settingsService');
             $downForMaintenance = $settingsService->get('apps.store.downForMaintenance', false);
             $adminIps = $settingsService->get('apps.store.adminOverrideIPs');
 
