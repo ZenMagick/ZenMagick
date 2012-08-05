@@ -143,9 +143,9 @@ class PageStatsPlugin extends Plugin {
         echo '  Client IP: '.$request->getClientIp()."\n";
         echo '  PHP: '.phpversion()."\n";
         echo '  ZenMagick: '.Runtime::getSettings()->get('zenmagick.version')."\n";
-        $application = Runtime::getApplication();
+        $application = $this->container->get('kernel');
         echo '  environment: '.$application->getEnvironment()."\n";
-        echo '  total page execution: '.$this->getElapsedTime().' secconds;'."\n";
+        echo '  total page execution: '.$this->getElapsedTime($application->getStartTime()).' secconds;'."\n";
         echo '  databases: ';
         foreach ($this->getDatabaseInfo() as $database) {
             $stats = $database['stats'];
@@ -219,7 +219,7 @@ class PageStatsPlugin extends Plugin {
             return;
         }
 
-        $application = Runtime::getApplication();
+        $application = $this->container->get('application');
         ob_start();
         $slash = $this->container->get('settingsService')->get('zenmagick.http.html.xhtml') ? '/' : '';
         $sep = '&nbsp;&nbsp;&nbsp;';
@@ -228,7 +228,7 @@ class PageStatsPlugin extends Plugin {
         echo $sep.'PHP: <strong>'.phpversion().'</strong>;';
         echo $sep.'ZenMagick: <strong>'.Runtime::getSettings()->get('zenmagick.version').'</strong>;';
         echo $sep.'environment: <strong>'.$application->getEnvironment().'</strong>;';
-        echo $sep.'total page execution: <strong>'.$this->getElapsedTime().'</strong> secconds;';
+        echo $sep.'total page execution: <strong>'.$this->getElapsedTime($application->getStartTime()).'</strong> secconds;';
         echo '<br'.$slash.'>';
         echo '&nbsp;&nbsp;<strong>databases:</strong> ';
         foreach ($this->getDatabaseInfo() as $database) {
@@ -313,9 +313,8 @@ class PageStatsPlugin extends Plugin {
      * @param int timestamp time to check against.
      * @return long The execution time in milliseconds.
      */
-    protected function getElapsedTime($time=null) {
-        $startTime = $time ?: Runtime::getApplication()->getStartTime();
-        $elapsedTime = microtime(true) - $startTime;
+    protected function getElapsedTime($time) {
+        $elapsedTime = microtime(true) - $time;
         return round($elapsedTime, 4);
     }
 
