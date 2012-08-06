@@ -27,11 +27,11 @@ use zenmagick\base\ZMObject;
 use Symfony\Component\Yaml\Yaml;
 
 /**
- * Abstract <code>Locale</code>.
+ * Locale.
  *
  * @author DerManoMann <mano@zenmagick.org> <mano@zenmagick.org>
  */
-abstract class Locale extends ZMObject {
+class Locale extends ZMObject {
     private $locale_;
     private $name_;
     private $formats_;
@@ -113,7 +113,9 @@ abstract class Locale extends ZMObject {
      *  for exampe <em>de_DE</em>, <em>en_NZ</em> or <em>es</code>; default is <code>null</code> to use the current locale.
      * @param string domain The translation domain; default is <code>null</code>.
      */
-    public abstract function addResource($resource, $locale=null, $domain=null);
+    public function addResource($resource, $locale=null, $domain=null) {
+        // nothing by default.
+    }
 
     /**
      * Init locale.
@@ -173,7 +175,9 @@ abstract class Locale extends ZMObject {
      * @param string domain The translation domain; default is <code>null</code>.
      * @return string The translated text.
      */
-    public abstract function translate($text, $context=null, $domain=null);
+    public function translate($text, $context=null, $domain=null) {
+        return $text;
+    }
 
     /**
      * Translate the given text with plural option.
@@ -185,7 +189,9 @@ abstract class Locale extends ZMObject {
      * @param string domain The translation domain; default is <code>null</code>.
      * @return string The translated text or, if no translation found, the original text.
      */
-    public abstract function translatePlural($single, $number, $plural=null, $context=null, $domain=null);
+    public function translatePlural($single, $number, $plural=null, $context=null, $domain=null) {
+         return (1 < $number && null != $plural) ? $plural : $single;
+    }
 
     /**
      * Get a format.
