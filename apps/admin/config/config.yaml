@@ -80,10 +80,6 @@ zenmagick:
       enforceSecure: false
     routing:
       addnRouteFiles: []
-    controller:
-      namespaces:
-        - zenmagick\apps\admin\controller
-
     ## sacs
     sacs:
       handler:

@@ -73,10 +73,6 @@ zenmagick:
       # POST validatd with session token
       formToken:
         - login
-
-    controller:
-      namespaces:
-        - zenmagick\apps\storefront\controller
     ## sacs
     sacs:
       handler:
