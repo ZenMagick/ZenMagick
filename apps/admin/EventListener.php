@@ -34,7 +34,7 @@ use zenmagick\apps\store\menu\MenuLoader;
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class AdminEventHandler extends ZMObject {
+class EventListener extends ZMObject {
     const DEFAULT_EDITOR_SERVICE_ID = 'plainEditorWidget';
 
     /**

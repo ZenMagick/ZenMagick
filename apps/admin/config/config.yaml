@@ -31,8 +31,7 @@ zenmagick:
       listeners:
         - zenmagick\apps\store\bundles\ZenCartBundle\ZenCartBundle
         - zenmagick\apps\store\StoreEventListener
-        - zenmagick\apps\admin\AdminEventHandler
-        - zenmagick\apps\admin\EventListener #rename AdminEventHandler to this!
+        - zenmagick\apps\admin\EventListener
         - zenmagick\http\EventListener
     ## logging
     logging:
