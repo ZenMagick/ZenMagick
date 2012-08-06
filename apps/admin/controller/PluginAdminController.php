@@ -18,14 +18,16 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
+namespace zenmagick\apps\admin\controller;
+
+use ZMController;
 
 /**
  * Plugin admin controller base class.
  *
  * @author DerManoMann
- * @package zenmagick.store.shared.services.plugins
  */
-class ZMPluginAdminController extends ZMController {
+class PluginAdminController extends ZMController {
     private $plugin_;
 
 

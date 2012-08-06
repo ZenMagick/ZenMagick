@@ -20,16 +20,16 @@
 
 namespace zenmagick\plugins\settings\controller;
 
-use ZMPluginAdminController;
 use zenmagick\base\Runtime;
 use zenmagick\base\Toolbox;
+use zenmagick\apps\admin\controller\PluginAdminController;
 
 /**
  * Show settings controlller.
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class SettingsShowController extends ZMPluginAdminController {
+class SettingsShowController extends PluginAdminController {
 
     /**
      * Create new instance.

@@ -19,14 +19,14 @@
  */
 namespace zenmagick\plugins\googleStoreLocator\controller;
 
-use ZMPluginAdminController;
+use zenmagick\apps\admin\controller\PluginAdminController;
 
 /**
  * Admin controller.
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class GoogleStoreLocatorAdminController extends ZMPluginAdminController {
+class GoogleStoreLocatorAdminController extends PluginAdminController {
 
     /**
      * Create new instance.

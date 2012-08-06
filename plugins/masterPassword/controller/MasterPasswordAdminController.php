@@ -19,14 +19,14 @@
  */
 namespace zenmagick\plugins\masterPassword\controller;
 
-use ZMPluginAdminController;
+use zenmagick\apps\admin\controller\PluginAdminController;
 
 /**
  * Admin controller.
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class MasterPasswordAdminController extends ZMPluginAdminController {
+class MasterPasswordAdminController extends PluginAdminController {
 
     /**
      * Create new instance.

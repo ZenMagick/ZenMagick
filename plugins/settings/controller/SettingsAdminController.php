@@ -19,7 +19,7 @@
  */
 namespace zenmagick\plugins\settings\controller;
 
-use ZMPluginAdminController;
+use zenmagick\apps\admin\controller\PluginAdminController;
 use zenmagick\http\widgets\form\FormWidget;
 use zenmagick\http\widgets\form\WysiwygEditor;
 
@@ -28,7 +28,7 @@ use zenmagick\http\widgets\form\WysiwygEditor;
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class SettingsAdminController extends ZMPluginAdminController {
+class SettingsAdminController extends PluginAdminController {
 
     /**
      * Create new instance.
