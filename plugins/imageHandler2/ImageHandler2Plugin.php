@@ -50,14 +50,6 @@ class ImageHandler2Plugin extends Plugin {
     }
 
     /**
-     * {@inheritDoc}
-     */
-    public function init() {
-        parent::init();
-        Runtime::getEventDispatcher()->listen($this);
-    }
-
-    /**
      * Add resources.
      */
     public function onViewStart($event) {

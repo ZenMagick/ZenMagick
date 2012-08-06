@@ -183,7 +183,8 @@
             </call>
         </service>
 
-        <service id="http_kernel" class="zenmagick\http\Dispatcher" scope="container">
+        <service id="http_kernel" class="zenmagick\http\HttpKernel" scope="container">
+            <argument type="service" id="eventDispatcher" />
             <argument type="service" id="service_container" />
             <call method="setParameterMapper">
                 <argument type="service" id="controllerParameterMapper" />

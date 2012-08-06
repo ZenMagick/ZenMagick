@@ -98,8 +98,6 @@ class SubscriptionsPlugin extends Plugin {
     public function init() {
         parent::init();
 
-        Runtime::getEventDispatcher()->listen($this);
-
         $sacsManager = $this->container->get('sacsManager');
 
         // set mappings and permissions of custom pages
@@ -111,9 +109,6 @@ class SubscriptionsPlugin extends Plugin {
             array('ZMListRule', 'type', array_keys($this->getRequestTypes())),
             array('ZMRequiredRule', 'message', _zm("Please enter a message")),
         ));
-
-        // add admin page
-        $this->addMenuItem(_zm('Subscriptions'), 'subscriptionAdmin');
     }
 
     /**

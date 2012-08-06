@@ -7,5 +7,13 @@ meta:
 admin:
   router:
     page:
-      exportOrders:
+      export_orders:
         controller: zenmagick\plugins\dataExporter\controller\ExportOrdersController
+  menu:
+    data-exporter:
+      parent: tools
+      name: 'Data Export'
+    export-orders:
+      parent: data-exporter
+      requestId: export_orders
+      name: 'Orders'

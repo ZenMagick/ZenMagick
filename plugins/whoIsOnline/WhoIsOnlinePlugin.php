@@ -56,7 +56,6 @@ class WhoIsOnlinePlugin extends Plugin {
             'hostAddress' => array('column' => 'host_address', 'type' => 'string'),
             'userAgent' => array('column' => 'user_agent', 'type' => 'string'),
         ));
-        Runtime::getEventDispatcher()->listen($this);
     }
 
     /**

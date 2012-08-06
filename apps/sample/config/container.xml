@@ -12,12 +12,6 @@
 
         <service id="templateManager" class="zenmagick\apps\store\themes\TemplateManager" scope="container" />
 
-        <service id="urlManager" class="ZMUrlManager" scope="container">
-            <call method="loadFile">
-                <argument>%kernel.root_dir%/apps/%kernel.context%/config/url_mappings.yaml</argument>
-            </call>
-        </service>
-
         <service id="validator" class="ZMValidator" scope="container">
             <tag name="zenmagick.http.view.variable" key="validator" />
         </service>

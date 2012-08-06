@@ -290,7 +290,7 @@ class ZMController extends ZMObject {
         }
 
         // TODO: drop
-        if (null == $this->formData_ && null !== ($mapping = ZMUrlManager::instance()->findMapping($this->requestId_))) {
+        if (null == $this->formData_ && null !== ($mapping = $this->container->get('urlManager')->findMapping($this->requestId_))) {
             $formDef = null != $formDef ? $formDef : (array_key_exists('form', $mapping) ? $mapping['form'] : null);
             $formId = null != $formId ? $formId : (array_key_exists('formId', $mapping) ? $mapping['formId'] : null);
             if (null != $formDef && null != $formId) {

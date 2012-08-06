@@ -1,0 +1,5 @@
+meta:
+  name: 'Auto Login'
+  version: '${plugin.version}'
+  author: 'zenmagick.org'
+  description: 'Automatically login returning customers.'

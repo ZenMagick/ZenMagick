@@ -48,13 +48,15 @@ use zenmagick\http\view\View;
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class Dispatcher implements HttpKernelInterface {
+class HttpKernel implements HttpKernelInterface {
     protected $container;
+    protected $dispatcher;
     private $parameterMapper;
     private $controllerExecutor;
 
-    public function __construct(/*EventDispatcherInterface $dispatcher,*/ContainerInterface $container/*, ControllerResolverInterface $controllerResolver*/) {
+    public function __construct(EventDispatcherInterface $dispatcher, ContainerInterface $container/*, ControllerResolverInterface $controllerResolver*/) {
         //parent::__construct($dispatcher, $controllerResolver);
+        $this->dispatcher = $dispatcher;
         $this->container = $container;
     }
 
@@ -77,12 +79,15 @@ class Dispatcher implements HttpKernelInterface {
 
             // form validation
             $validationConfig = $kernel->getApplicationPath().'/config/validation.yaml';
+            if (file_exists($validationPhp = $kernel->getApplicationPath().'/config/validation.php')) {
+                require $validationPhp; // @todo merge with real validation config
+            }
             if ($container->has('validator') && file_exists($validationConfig)) {
                 $container->get('validator')->load(file_get_contents(Toolbox::resolveWithEnv($validationConfig)));
             }
 
             // reset as other global code migth fiddle with it...
-            $kernel->fireEvent('init_done', array('request' => $request));
+            $this->dispatcher->dispatch('init_done', new Event($this, array('request' => $request)));
             return $this->dispatch($request);
         } catch (Exception $e) {
             if (false === $catch) {
@@ -110,25 +115,25 @@ class Dispatcher implements HttpKernelInterface {
         $request->setDispatcher($this);
 
         $messageService = $this->container->get('messageService');
-        $eventDispatcher = $this->container->get('eventDispatcher');
+        $dispatcher = $this->dispatcher;
 
         // load saved messages
         $messageService->loadMessages($request->getSession());
 
-        $eventDispatcher->dispatch('dispatch_start', new Event($this, array('request' => $request)));
+        $dispatcher->dispatch('dispatch_start', new Event($this, array('request' => $request)));
         ob_start();
         list($response, $view) = $this->handleRequest($request);
         $content = ob_get_clean();
         if (!empty($content) && !$view) {
             $response->setContent($content);
         }
-        $eventDispatcher->dispatch('dispatch_done', new Event($this, array('request' => $request)));
+        $dispatcher->dispatch('dispatch_done', new Event($this, array('request' => $request)));
 
         // ensure we do have a view if we got this far
         $view = null !== $view ? $view : $this->container->get('defaultView');
         // allow plugins and event subscribers to filter/modify the final contents; corresponds with ob_start() in init.php
         $event = new Event($this, array('request' => $request, 'view' => $view, 'content' => $response->getContent()));
-        $eventDispatcher->dispatch('finalise_content', $event);
+        $dispatcher->dispatch('finalise_content', $event);
 
         $response->setContent($event->get('content'));
 
@@ -138,7 +143,7 @@ class Dispatcher implements HttpKernelInterface {
 
         // all done
         // @todo CHECKME: how late does this have to be?
-        $eventDispatcher->dispatch('all_done', new Event($this, array('request' => $request, 'view' => $view, 'content' => $event->get('content'))));
+        $dispatcher->dispatch('all_done', new Event($this, array('request' => $request, 'view' => $view, 'content' => $event->get('content'))));
         $request->closeSession();
 
         return $response;
@@ -151,7 +156,7 @@ class Dispatcher implements HttpKernelInterface {
      * @return Response The response or <code>null</code>.
      */
     public function handleRequest($request) {
-        $eventDispatcher = $this->container->get('eventDispatcher');
+        $dispatcher = $this->dispatcher;
 
         $view = null;
         $response = null;
@@ -202,10 +207,10 @@ class Dispatcher implements HttpKernelInterface {
         // populate response
         if (null != $view) {
             try {
-                $eventDispatcher->dispatch('view_start', new Event(null, array('request' => $request, 'view' => $view)));
+                $dispatcher->dispatch('view_start', new Event(null, array('request' => $request, 'view' => $view)));
                 // generate response
                 $content = $view->generate($request);
-                $eventDispatcher->dispatch('view_done', new Event(null, array('request' => $request, 'view' => $view)));
+                $dispatcher->dispatch('view_done', new Event(null, array('request' => $request, 'view' => $view)));
             } catch (ZMException $e) {
                 $this->container->get('loggingService')->dump($e, sprintf('view::generate failed: %s', $e), Logging::ERROR);
             } catch (Exception $e) {
@@ -228,35 +233,20 @@ class Dispatcher implements HttpKernelInterface {
      * @return mixed The result.
      */
     protected function executeController(Request $request) {
-        $settingsService = $this->container->get('settingsService');
-        $enableTransactions = $settingsService->get('zenmagick.http.transactions.enabled', false);
-
-        if ($enableTransactions) {
-            ZMRuntime::getDatabase()->beginTransaction();
-        }
-
         $controller = null;
-        $eventDispatcher = $this->container->get('eventDispatcher');
-        $eventDispatcher->dispatch('controller_process_start', new Event($this, array('request' => $request, 'controller' => $controller)));
+        $dispatcher = $this->dispatcher;
+        $dispatcher->dispatch('controller_process_start', new Event($this, array('request' => $request, 'controller' => $controller)));
 
         try {
             // execute
             $executor = $this->getControllerExecutor($request);
             $result = $executor->execute();
         } catch (Exception $e) {
-            if ($enableTransactions) {
-                ZMRuntime::getDatabase()->rollback();
-            }
             // re-throw
             throw $e;
         }
 
-        $eventDispatcher->dispatch('controller_process_end', new Event($this, array('request' => $request, 'controller' => $controller, 'result' => $result)));
-
-        if ($enableTransactions) {
-            ZMRuntime::getDatabase()->commit();
-        }
-
+        $dispatcher->dispatch('controller_process_end', new Event($this, array('request' => $request, 'controller' => $controller, 'result' => $result)));
         return $result;
     }
 
@@ -300,7 +290,7 @@ class Dispatcher implements HttpKernelInterface {
             }
         } else {
             //TODO: default controller
-            $controller = \ZMUrlManager::instance()->findController($request->getRequestId());
+            $controller = $this->container->get('urlManager')->findController($request->getRequestId());
             return new Executor(array($controller, 'process'), array($request));
         }
     }

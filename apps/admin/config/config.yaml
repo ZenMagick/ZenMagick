@@ -26,12 +26,15 @@ zenmagick:
     locales:
       locale: en_NZ
       handler: zenmagick\base\locales\handler\PomoLocale
-
     ## events
     events:
       listeners:
+        - zenmagick\apps\store\bundles\ZenCartBundle\ZenCartBundle
         - zenmagick\apps\store\StoreEventListener
         - zenmagick\apps\admin\AdminEventHandler
+        - zenmagick\apps\admin\EventListener #rename AdminEventHandler to this!
+        - zenmagick\base\EventListener
+        - zenmagick\http\EventListener
     ## logging
     logging:
       level: ALL
@@ -40,10 +43,6 @@ zenmagick:
 
   ## mvc
   mvc:
-    # enable/disable transaction support in request processing
-    transactions:
-      enabled: false
-
     ## templates
     templates:
       ext: .php

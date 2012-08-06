@@ -11,3 +11,17 @@ admin:
         controller: zenmagick\plugins\settings\controller\SettingsShowController
       settingsAdmin:
         controller: zenmagick\plugins\settings\controller\SettingsAdminController
+  menu:
+    settings-plugin:
+      parent: configuration
+      name: 'Settings'
+    settings-admin:
+      parent: settings-plugin
+      requestId: settingsAdmin
+      name: 'Manage Settings'
+    settings-show:
+      parent: settings-plugin
+      requestId: settingsShow
+      name: 'Show Settings'
+  autoload:
+    files: [lib/settings_details.php]

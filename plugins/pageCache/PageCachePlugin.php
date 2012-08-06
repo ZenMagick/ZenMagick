@@ -66,7 +66,6 @@ class PageCachePlugin extends \Plugin {
      */
     public function init() {
         parent::init();
-        Runtime::getEventDispatcher()->listen($this);
         $this->cache_ = Runtime::getContainer()->get('persistentCache');
         $this->cache_->setOption('cacheTTL', $this->get('ttl'));
     }
@@ -127,7 +126,7 @@ class PageCachePlugin extends \Plugin {
                 echo $contents;
                 Runtime::getEventDispatcher()->dispatch(ZM_EVENT_PLUGINS_PAGE_CACHE_CONTENTS_DONE, new Event($this, $event->all()));
                 if ($this->get('loadStats')) {
-                    $time = round(microtime(true) - Runtime::getApplication()->getStartTime(), 4);
+                    $time = round(microtime(true) - $this->container->get('kernel')->getStartTime(), 4);
                     echo '<!-- pageCache stats: page: ' . $time . ' sec.; ';
                     echo 'lastModified: ' . $this->cache_->lastModified() . ' -->';
                 }

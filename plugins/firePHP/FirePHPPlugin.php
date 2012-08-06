@@ -60,14 +60,6 @@ class FirePHPPlugin extends Plugin {
     }
 
     /**
-     * {@inheritDoc}
-     */
-    public function init() {
-        parent::init();
-        Runtime::getEventDispatcher()->listen($this);
-    }
-
-    /**
      * Set log level.
      */
     public function onContainerReady($event) {

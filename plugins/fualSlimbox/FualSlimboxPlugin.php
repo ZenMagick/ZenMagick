@@ -58,14 +58,6 @@ class FualSlimboxPlugin extends Plugin {
     }
 
     /**
-     * {@inheritDoc}
-     */
-    public function init() {
-        parent::init();
-        Runtime::getEventDispatcher()->listen($this);
-    }
-
-    /**
      * Event handler.
      */
     public function onFinaliseContent($event) {

@@ -49,16 +49,6 @@ class GoogleStoreLocatorPlugin extends Plugin {
     }
 
     /**
-     * {@inheritDoc}
-     */
-    public function init() {
-        parent::init();
-        Runtime::getEventDispatcher()->listen($this);
-        // add admin page
-        $this->addMenuItem(_zm('Google Store Locator'), 'googleStoreLocatorAdmin');
-    }
-
-    /**
      * Event callback to add required JS.
      */
     public function onFinaliseContent($event) {

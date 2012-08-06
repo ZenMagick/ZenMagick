@@ -21,6 +21,7 @@ namespace zenmagick\base\events;
 
 use stdClass;
 use zenmagick\base\Runtime;
+use zenmagick\base\Toolbox;
 use Symfony\Component\EventDispatcher\Event;
 use Symfony\Component\EventDispatcher\ContainerAwareEventDispatcher;
 
@@ -55,19 +56,22 @@ class EventDispatcher extends ContainerAwareEventDispatcher {
 
     /**
      * {@inheritDoc}
+     *
+     * @todo this method matches the parent entirely!
+     *       Commenting it out causes our getListeners not to fire though.
      */
     public function dispatch($eventName, Event $event = null) {
-        // use hasListeners rather than looking at the private listeners property
-        if (!$this->hasListeners($eventName)) {
-            return;
-        }
-
         if (null === $event) {
             $event = new Event();
         }
 
         $event->setDispatcher($this);
         $event->setName($eventName);
+
+        // use hasListeners rather than looking at the private listeners property
+        if (!$this->hasListeners($eventName)) {
+            return $event;
+        }
 
         $this->doDispatch($this->getListeners($eventName), $eventName, $event);
     }
@@ -82,7 +86,7 @@ class EventDispatcher extends ContainerAwareEventDispatcher {
         if (null !== $eventName && EventDispatcher::LISTEN_ALL != $eventName) {
             $all = parent::getListeners(EventDispatcher::LISTEN_ALL);
             // universal listener with method name matching
-            $method = self::n2m($eventName);
+            $method = 'on'.Toolbox::className($eventName);
             $tmp = array();
             foreach ($all as $listener) {
                 if (is_callable($listener)) {
@@ -101,32 +105,4 @@ class EventDispatcher extends ContainerAwareEventDispatcher {
         $listeners = array_merge($plisteners, $alisteners);
         return $listeners;
     }
-
-    /**
-     * Convert an event name to a method name.
-     *
-     * <p>Callback method names must follow the following conventions:</p>
-     * <ul>
-     *  <li>all methods start with the prefix <em>on</em></li>
-     *  <li>the reminder of the method name is based on capitalized words of the original event name</li>
-     * </ul>
-     *
-     * <p>For example, to handle the event <em>start_view</em>, the method name would be
-     * <code>onStartView(..)</code>.</p>
-     *
-     * @param string eventName The event name.
-     * @return string The method name.
-     */
-    public static function n2m($eventName) {
-        // split into words for ucwords
-        $method = str_replace(array('-', '_'), ' ', $eventName);
-        // force camel case
-        $method = strtolower($method);
-        // capitalise words
-        $method = ucwords($method);
-        // cuddle together :)
-        $method = str_replace(' ', '', $method);
-        return 'on'.$method;
-    }
-
 }

@@ -11,7 +11,9 @@ zenmagick:
     events:
       listeners:
         - zenmagick\apps\sample\EventHandler
-
+        - zenmagick\apps\sample\EventListener #rename EventHandler to this!
+        - zenmagick\base\EventListener
+        - zenmagick\http\EventListener
   http:
     view:
       defaultLayout: default_layout.php

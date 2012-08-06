@@ -43,15 +43,6 @@ class ThemeSwitcherPlugin extends Plugin {
         $this->setContext('storefront');
     }
 
-
-    /**
-     * {@inheritDoc}
-     */
-    public function init() {
-        parent::init();
-        Runtime::getEventDispatcher()->listen($this);
-    }
-
     /**
      * Switch.
      */
@@ -67,10 +58,11 @@ class ThemeSwitcherPlugin extends Plugin {
         if (null != ($themeId = $session->getValue(self::SESS_THEME_KEY))) {
             $themeService = $this->container->get('themeService');
             $themeChain = array();
-            $themeChain[] = $themeService->getThemeForId($this->container->get('settingsService')->get('apps.store.themes.default'));
+            $defaultThemeId = $themeService->getDefaultThemeId();
+            $themeChain[] = $themeService->getThemeForId($defaultThemeId);
             $theme = $themeChain[] = $themeService->getThemeForId($themeId);
-            $themeService->setThemeChain($themeChain, $language->getId());
-            $themeService->initThemes($language);
+            $themeService->setThemeChain($themeChain);
+            $themeService->initThemes($language->getCode());
             $args = array_merge($event->all(), array('theme' => $theme, 'themeId' => $themeId, 'themeChain' => $themeChain));
             $this->container->get('eventDispatcher')->dispatch('theme_resolved', new Event($this, $args));
         }

@@ -39,7 +39,7 @@ class AutoLoginPlugin extends Plugin {
      * Create new instance.
      */
     public function __construct() {
-        parent::__construct('Auto Login', 'Automatically login returning customers.', '${plugin.version}');
+        parent::__construct();
         $this->setContext('storefront');
         $this->cookieUpdated = false;
     }
@@ -59,14 +59,6 @@ class AutoLoginPlugin extends Plugin {
         $this->addConfigValue('Expire URL token', 'expireUrlToken', 'true', 'Invalidate URL token after use',
             'widget@booleanFormWidget#name=expireUrlToken&default=true&label=Expire URL token after use&style=checkbox');
         $this->addConfigValue('URL token name', 'urlTokenName', 'token', 'Name of the URL token parameter');
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function init() {
-        parent::init();
-        $this->container->get('eventDispatcher')->listen($this);
     }
 
     /**

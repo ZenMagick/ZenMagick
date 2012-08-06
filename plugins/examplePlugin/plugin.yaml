@@ -11,3 +11,8 @@ admin:
       defaults: { _controller: zenmagick\plugins\examplePlugin\controller\ExamplePluginAdminController }
       options:
         'view': views/examplePluginAdmin.php
+  menu:
+    example:
+      parent: configuration-plugins
+      requestId: examplePluginAdmin
+      name: 'Example Plugin Admin Page'

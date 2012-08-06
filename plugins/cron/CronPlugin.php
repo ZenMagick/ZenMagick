@@ -44,14 +44,6 @@ class CronPlugin extends Plugin {
     }
 
     /**
-     * Init this plugin.
-     */
-    public function init() {
-        parent::init();
-        Runtime::getEventDispatcher()->listen($this);
-    }
-
-    /**
      * Handle event.
      */
     public function onFinaliseContent($event) {

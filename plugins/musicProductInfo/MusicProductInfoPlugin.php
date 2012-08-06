@@ -79,17 +79,9 @@ class MusicProductInfoPlugin extends Plugin {
     public function init() {
         parent::init();
 
-        Runtime::getEventDispatcher()->listen($this);
-
         // attach mediaUrl method to the $net toolbox tool
         ZMObject::attachMethod('mediaUrl', 'zenmagick\apps\store\toolbox\ToolboxNet',
             array($this, 'mediaUrl'));
-
-        // todo: drop once we have proper routing set up
-        // add mapping for this product type
-        \ZMUrlManager::instance()->setMapping('product_info', array(
-            'product_music_info' => array('template' => 'views/product_music_info.php')
-          ), false);
     }
 
     /**

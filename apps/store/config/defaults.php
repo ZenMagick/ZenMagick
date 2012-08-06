@@ -204,21 +204,7 @@ if (!defined('ATTRIBUTES_PRICE_FACTOR_FROM_SPECIAL')) define('ATTRIBUTES_PRICE_F
             /**************************************
              * EMAIL
              **************************************/
-
-            // transport - the last 'sendmail' is not a mistake, but the case for Qmail - for that we use sendmail and change the binary path later on the configured swift transport
-            'zenmagick.base.email.transport' => ('PHP' == EMAIL_TRANSPORT ? 'mail' : (0 === strpos(EMAIL_TRANSPORT, 'smtp') ? 'smtp' : (0 === strpos(EMAIL_TRANSPORT, 'sendmail') ? 'sendmail' : 'sendmail'))),
-            'zenmagick.base.email.transportCommand' => EMAIL_TRANSPORT == 'Qmail' ? '/var/qmail/bin/sendmail -t' : null,
-            'zenmagick.base.email.host' => EMAIL_SMTPAUTH_MAIL_SERVER,
-            'zenmagick.base.email.port' => EMAIL_SMTPAUTH_MAIL_SERVER_PORT,
-            'zenmagick.base.email.user' => EMAIL_SMTPAUTH_MAILBOX,
-            'zenmagick.base.email.password' => EMAIL_SMTPAUTH_PASSWORD,
-            'zenmagick.base.email.disabled' => SEND_EMAILS != 'true',
-
-
-            // email
-            'isEmailEnabled' => SEND_EMAILS == 'true',
             'emailSkipList' => defined('EMAIL_MODULES_TO_SKIP') ? explode(",", constant('EMAIL_MODULES_TO_SKIP')) : array(),
-            'emailTestReceiver' => (defined('DEVELOPER_OVERRIDE_EMAIL_ADDRESS') && DEVELOPER_OVERRIDE_EMAIL_ADDRESS != '') ? DEVELOPER_OVERRIDE_EMAIL_ADDRESS : null,
             'isEmailAdminExtraHtml' => ADMIN_EXTRA_EMAIL_FORMAT != 'TEXT',
             'isEmailAdminCreateAccount' => SEND_EXTRA_CREATE_ACCOUNT_EMAILS_TO_STATUS == '1' && SEND_EXTRA_CREATE_ACCOUNT_EMAILS_TO != '',
             'emailAdminCreateAccount' => zm_split_email_addresses(SEND_EXTRA_CREATE_ACCOUNT_EMAILS_TO),
@@ -320,7 +306,6 @@ if (!defined('ATTRIBUTES_PRICE_FACTOR_FROM_SPECIAL')) define('ATTRIBUTES_PRICE_F
     }
 
     $replace = true;
-    $settingsService = $this->container->get('settingsService');
     foreach (zm_get_default_settings($settingsService) as $name => $value) {
         if ($replace || !$settingsService->exists($name)) {
             $settingsService->set($name, $value);

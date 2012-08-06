@@ -48,10 +48,6 @@ class VisitCounterPlugin extends Plugin {
             'counter' => array('column' => 'counter', 'type' => 'integer'),
             'session_counter' => array('column' => 'session_counter', 'type' => 'integer')
         ));
-
-        if (Runtime::isContextMatch('storefront')) {
-            Runtime::getEventDispatcher()->listen($this);
-        }
     }
 
     /**
@@ -59,6 +55,7 @@ class VisitCounterPlugin extends Plugin {
      *
      */
     public function onControllerProcessEnd($event) {
+        if (!Runtime::isContextMatch('storefront')) return;
         $conn = \ZMRuntime::getDatabase();
         $session = $event->get('request')->getSession();
 

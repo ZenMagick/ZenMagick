@@ -238,7 +238,8 @@ class Theme extends ZMObject {
 
         if ($includeDefaults) {
             // TODO: deprecated
-            $path = $this->container->get('themeService')->getThemesDir().Runtime::getSettings()->get('apps.store.themes.default').'/lang/'.$languageDir.'/static/';
+            $themeService = $this->container->get('themeService');
+            $path = $themeService->getThemesDir().'/'.$themeService->getDefaultThemeId().'/lang/'.$languageDir.'/static/';
             if (is_dir($path)) {
                 foreach ((array)glob($path.'*.php') as $file) {
                     $page = basename(str_replace('.php', '', $file));
@@ -320,17 +321,11 @@ class Theme extends ZMObject {
      *
      * @param Language language The language.
      */
-    public function loadLocale($language) {
-        if (null === $language) {
-            // this may happen if the i18n patch hasn't been updated
-            $language = $this->container->get('languageService')->getDefaultLanguage();
-        }
-
-        $code = $language->getCode();
-        $path = $this->getBasePath().'/locale/'.$code;
+    public function loadLocale($locale = 'en') {
+        $path = $this->getBasePath().'/locale/'.$locale;
 
         // re-init with next file
-        $this->container->get('localeService')->getLocale()->init($code, $path);
+        $this->container->get('localeService')->getLocale()->init($locale, $path);
     }
 
     /**

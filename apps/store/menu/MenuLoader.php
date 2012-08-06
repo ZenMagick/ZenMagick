@@ -38,7 +38,11 @@ class MenuLoader {
     public function load($source, $menu=null) {
         $menu = null != $menu ? $menu: new Menu();
 
-        $items = Yaml::parse($source);
+        if (is_array($source)) {
+            $items = $source;
+        } else {
+            $items = Yaml::parse($source);
+        }
         foreach ($items as $id => $item) {
             if (array_key_exists('type', $item) && 'sep' == $item['type']) {
                 $element = new MenuSeparator($id);

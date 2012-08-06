@@ -20,6 +20,7 @@
 
 namespace zenmagick\plugins\dataExporter\controller;
 
+use DateTime;
 use ZMController;
 use ZMRuntime;
 use ZMOrder;

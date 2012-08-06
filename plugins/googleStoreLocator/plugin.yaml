@@ -9,3 +9,9 @@ admin:
     page:
       googleStoreLocator:
         controller: zenmagick\plugins\googleStoreLocator\controller\GoogleStoreLocatorAdminController
+
+  menu:
+    google-store-locator:
+      parent: configuration-plugins
+      requestId: googleStoreLocatorAdmin
+      name: 'Google Store Locator'

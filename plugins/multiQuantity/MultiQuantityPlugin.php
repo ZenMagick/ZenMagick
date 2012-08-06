@@ -40,15 +40,6 @@ class MultiQuantityPlugin extends Plugin {
         parent::__construct('Multi Quantity', 'Multi Quantity "Add Product" on a single attribute', '${plugin.version}');
     }
 
-
-    /**
-     * {@inheritDoc}
-     */
-    public function init() {
-        parent::init();
-        Runtime::getEventDispatcher()->listen($this);
-    }
-
     /**
      * Stop zen-cart processing multi quantity requests.
      */

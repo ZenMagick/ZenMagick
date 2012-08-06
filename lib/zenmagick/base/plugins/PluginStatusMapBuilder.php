@@ -23,8 +23,8 @@ use DirectoryIterator;
 
 use zenmagick\base\Beans;
 use zenmagick\base\Runtime;
+use zenmagick\base\Toolbox;
 use zenmagick\base\ZMObject;
-use zenmagick\base\classloader\ClassLoader;
 
 use Symfony\Component\Yaml\Yaml;
 
@@ -61,13 +61,9 @@ class PluginStatusMapBuilder extends ZMObject {
             if (file_exists($basePath) && is_dir($basePath)){
                 $pathIdMap[$basePath] = array();
                 foreach (new DirectoryIterator($basePath) as $filename => $fileInfo) {
-                    if ($fileInfo->isFile() && false !== strpos($fileInfo->getFilename(), self::PLUGIN_CLASS_PATTERN)) {
-                        $id = str_replace(self::PLUGIN_CLASS_PATTERN, '', $fileInfo->getFilename());
-                        $id[0] = strtolower($id[0]);
-                        $pathIdMap[$basePath][] = array('id' => $id, 'pluginDir' => $basePath, 'standalone' => true);
-                    } else if ($fileInfo->isDir() && !$fileInfo->isDot()) {
+                    if ($fileInfo->isDir() && !$fileInfo->isDot()) {
                         $id = $fileInfo->getFilename();
-                        $pathIdMap[$basePath][] = array('id' => $fileInfo->getFilename(), 'pluginDir' => $fileInfo->getPathname(), 'standalone' => false);
+                        $pathIdMap[$basePath][] = array('id' => $fileInfo->getFilename(), 'pluginDir' => $fileInfo->getPathname());
                     }
                 }
             }
@@ -82,10 +78,6 @@ class PluginStatusMapBuilder extends ZMObject {
      * @return array Plugin status map.
      */
     public function buildStatusMap() {
-        // temp. classloader
-        $classLoader = new ClassLoader();
-        $classLoader->register();
-
         $statusMap = array();
 
         foreach ($this->getPathIdMap() as $basePath => $pathInfo) {
@@ -93,24 +85,18 @@ class PluginStatusMapBuilder extends ZMObject {
                 $id = $info['id'];
                 $pluginDir = $info['pluginDir'];
 
-                $pluginClasses = array();
-                $pluginClassBase = ClassLoader::className($id);
-                $namespace = Plugins::PLUGIN_BASE_NAMESPACE;
-                if ($info['standalone']) {
-                    $pluginClasses[] = sprintf('zenmagick\plugins\%sPlugin', $pluginClassBase);
-                } else {
-                    $namespace = sprintf('zenmagick\plugins\%s', $id);
-                    $pluginClasses[] = sprintf('%s\%sPlugin', $namespace, $pluginClassBase);
-                }
-                $pluginClasses[] = $this->defaultPluginClass;
+                $pluginClassBase = Toolbox::className($id);
+                $namespace = sprintf(Plugins::PLUGIN_BASE_NAMESPACE.'\%s', $id);
 
+                $pluginClasses = array();
+                $pluginClasses[] = sprintf('%s\%sPlugin', $namespace, $pluginClassBase);
+                $pluginClasses[] = $this->defaultPluginClass;
                 foreach ($pluginClasses as $pluginClass) {
                     if (class_exists($pluginClass)) {
                         break;
                     }
                     $pluginClass = null;
                 }
-
                 if ($pluginClass && ($plugin = Beans::getBean($pluginClass))) {
                     $plugin->setId($id);
 
@@ -127,14 +113,11 @@ class PluginStatusMapBuilder extends ZMObject {
                         'context' => $plugin->getContext(),
                         'order' => $plugin->getSortOrder(),
                         'namespace' => $namespace,
-                        'lib' => !$info['standalone'] && file_exists($pluginDir.'/lib'),
                         'config' => $config
                     ));
                 }
             }
         }
-
-        $classLoader->unregister();
 
         return $statusMap;
     }

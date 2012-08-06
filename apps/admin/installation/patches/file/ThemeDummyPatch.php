@@ -29,14 +29,12 @@ use zenmagick\apps\admin\installation\patches\FilePatch;
  */
 class ThemeDummyPatch extends FilePatch {
     protected $catalogTemplatePath;
-    private $includeDefault_;
 
     /**
      * Create new instance.
      */
     public function __construct() {
         parent::__construct('themeDummies');
-        $this->includeDefault_ = true;
         $this->label_ = 'Create admin dummy files for all installed ZenMagick themes';
         $this->catalogTemplatePath = Runtime::getSettings()->get('apps.store.zencart.path').'/includes/templates/';
     }
@@ -49,9 +47,6 @@ class ThemeDummyPatch extends FilePatch {
      */
     function isOpen() {
         foreach ($this->container->get('themeService')->getAvailableThemes() as $theme) {
-            if (Runtime::getSettings()->get('apps.store.themes.default') == $theme->getId() && !$this->includeDefault_) {
-                continue;
-            }
             if (!file_exists($this->catalogTemplatePath.$theme->getId())) {
                 return true;
             }
@@ -98,10 +93,6 @@ class ThemeDummyPatch extends FilePatch {
      */
     function patch($force=false) {
         foreach ($this->container->get('themeService')->getAvailableThemes() as $theme) {
-            if (Runtime::getSettings()->get('apps.store.themes.default') == $theme->getId() && !$this->includeDefault_) {
-                continue;
-            }
-
             $filesystem = $this->container->get('filesystem');
             $themeId = $theme->getId();
             if (!file_exists($this->catalogTemplatePath.$themeId)) {

@@ -34,7 +34,6 @@ use zenmagick\base\Toolbox;
 class CaptchaPlugin extends Plugin {
     private $captcha_;
     // page => (status, form_name)
-    private $pageConfig_;
     private $captchaEnabled_ = false;
 
     /**
@@ -46,21 +45,6 @@ class CaptchaPlugin extends Plugin {
 
         $this->addConfigValue('Disable for registered users', 'disableRegistered', false, 'Disable the captcha for registered (logged in) users',
             'widget@booleanFormWidget#name=disableRegistered&default=false&label=Disable&style=checkbox');
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function init() {
-        parent::init();
-        Runtime::getEventDispatcher()->listen($this);
-        // page => (status, form_name)
-        $this->pageConfig_ = array(
-            'create_account' => array('true'==CAPTCHA_CREATE_ACCOUNT, 'registration'),
-            'contact_us' => array('true'==CAPTCHA_CONTACT_US, 'contactUs'),
-            'tell_a_friend' => array('true'==CAPTCHA_TELL_A_FRIEND, 'tellAFriend'),
-            'product_reviews_write' => array('true'==CAPTCHA_REVIEWS_WRITE, 'newReview')
-        );
     }
 
     /**
@@ -80,6 +64,14 @@ class CaptchaPlugin extends Plugin {
      */
     public function onDispatchStart($event) {
         if (Runtime::isContextMatch('admin')) return;
+        // page => (status, form_name)
+        $pageConfig = array(
+            'create_account' => array('true'==CAPTCHA_CREATE_ACCOUNT, 'registration'),
+            'contact_us' => array('true'==CAPTCHA_CONTACT_US, 'contactUs'),
+            'tell_a_friend' => array('true'==CAPTCHA_TELL_A_FRIEND, 'tellAFriend'),
+            'product_reviews_write' => array('true'==CAPTCHA_REVIEWS_WRITE, 'newReview')
+        );
+
         $request = $event->get('request');
         $session = $request->getSession();
 
@@ -90,12 +82,12 @@ class CaptchaPlugin extends Plugin {
         }
 
         $requestId = $request->getRequestId();
-        if (array_key_exists($requestId, $this->pageConfig_)) {
+        if (array_key_exists($requestId, $pageConfig)) {
             $this->captcha_ = new PCaptcha($request);
             $session->setValue('captcha_field', CAPTCHA_FIELD);
-            $config = $this->pageConfig_[$requestId];
+            $config = $pageConfig[$requestId];
             if ($config[0]) {
-                $form = $this->pageConfig_[$requestId][1];
+                $form = $pageConfig[$requestId][1];
                 // active for this page
                 $this->captchaEnabled_ = true;
                 $rules = array(

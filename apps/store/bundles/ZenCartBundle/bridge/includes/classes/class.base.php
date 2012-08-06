@@ -62,32 +62,10 @@ class base {
      * @param array params paramters to pass to the observer, useful for passing stuff which is outside of the 'scope' of the observed class.
      */
     public function notify($eventId, $params = array()) {
-        // Tell ZenMagick about the event
-        //$this->notifyZenMagick($eventId, $params);
         $observers = (array)self::getStaticObserver();
         foreach ($observers as $hash => $observer) {
             if ($observer['eventId'] == $eventId) {
                 $observer['obs']->update($this, $eventId, $params);
-            }
-        }
-    }
-
-    /**
-     * Tell ZenMagick too
-     * @todo do we want to know about any other events?
-     */
-    public function notifyZenmagick($eventId, $params = array()) {
-        $container = zenmagick\base\Runtime::getContainer();
-        if (!$container->has('themeService')) return;
-        if ($container->get('themeService')->getActiveTheme()->getMeta('zencart')) {
-            if (0 === strpos($eventId, 'NOTIFY_HEADER_START_')) {
-                $controllerId = str_replace('NOTIFY_HEADER_START_', '', $eventId);
-                $params = array_merge($params, array('controllerId' => $controllerId, 'request' => $container->get('request')));
-                zenmagick\base\Runtime::getEventDispatcher()->dispatch('controller_process_start', new zenmagick\base\events\Event($this, $params));
-            } else if (0 === strpos($eventId, 'NOTIFY_HEADER_END_')) {
-                $controllerId = str_replace('NOTIFY_HEADER_END_', '', $eventId);
-                $params = array_merge($params, array('controllerId' => $controllerId, 'request' => $container->get('request')));
-                zenmagick\base\Runtime::getEventDispatcher()->dispatch('controller_process_end', new zenmagick\base\events\Event($this, $params));
             }
         }
     }

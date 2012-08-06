@@ -90,7 +90,7 @@ class ResourceResolver extends ZMObject {
             }
 
             // add plugins as fallback fallback
-            foreach ($this->container->get('pluginService')->getPluginsForContext(Runtime::getSettings()->get('zenmagick.base.context')) as $plugin) {
+            foreach ($this->container->get('pluginService')->getPluginsForContext() as $plugin) {
                 if ($plugin instanceof HttpPlugin) {
                     $locations[] = $plugin->getTemplatePath();
                     foreach ($localeCodes as $code) {
@@ -137,7 +137,7 @@ class ResourceResolver extends ZMObject {
             }
 
             // add plugins as fallback fallback
-            foreach ($this->container->get('pluginService')->getPluginsForContext(Runtime::getSettings()->get('zenmagick.base.context')) as $plugin) {
+            foreach ($this->container->get('pluginService')->getPluginsForContext() as $plugin) {
                 if ($plugin instanceof HttpPlugin) {
                     $locations[] = $plugin->getResourcePath();
                     foreach ($localeCodes as $code) {

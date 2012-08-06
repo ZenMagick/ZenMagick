@@ -72,8 +72,6 @@ class PageStatsPlugin extends Plugin {
         // register to log events
         $eventDispatcher = $this->container->get('eventDispatcher');
         $eventDispatcher->listen(array($this, 'logEvent'));
-        // register for method mapped events
-        $eventDispatcher->listen($this);
     }
 
     /**
@@ -83,7 +81,7 @@ class PageStatsPlugin extends Plugin {
      * @param mixed value Optional value for filter events.
      */
     public function logEvent($event, $value=null) {
-        $source = $event->getSource();
+        $source = $event->getSubject();
         if (!$source) {
             $source = 'N/A';
         } else if (is_object($source)) {
@@ -93,7 +91,7 @@ class PageStatsPlugin extends Plugin {
         } else {
             $source = 'unknown';
         }
-        Runtime::getLogging()->info('event:('.$source.'):' . $event->getName() . '/'.EventDispatcher::n2m($event->getName()));
+        Runtime::getLogging()->info('event:('.$source.'):' . $event->getName() . '/'.Toolbox::className($event->getName()));
         // compress values
         $values = array();
         foreach (array_keys($event->all()) as $key) {
@@ -115,7 +113,7 @@ class PageStatsPlugin extends Plugin {
           'name' => $event->getName(),
           'memory' => $event->getMemory(),
           'timestamp' => $event->getTimestamp(),
-          'method' => EventDispatcher::n2m($event->getName()),
+          'method' => Toolbox::className($event->getName()),
           'values' => implode('; ', $values)
         );
         return $value;
@@ -145,9 +143,9 @@ class PageStatsPlugin extends Plugin {
         echo '  Client IP: '.$request->getClientIp()."\n";
         echo '  PHP: '.phpversion()."\n";
         echo '  ZenMagick: '.Runtime::getSettings()->get('zenmagick.version')."\n";
-        $application = Runtime::getApplication();
+        $application = $this->container->get('kernel');
         echo '  environment: '.$application->getEnvironment()."\n";
-        echo '  total page execution: '.$this->getElapsedTime().' secconds;'."\n";
+        echo '  total page execution: '.$this->getElapsedTime($application->getStartTime()).' secconds;'."\n";
         echo '  databases: ';
         foreach ($this->getDatabaseInfo() as $database) {
             $stats = $database['stats'];
@@ -221,7 +219,7 @@ class PageStatsPlugin extends Plugin {
             return;
         }
 
-        $application = Runtime::getApplication();
+        $application = $this->container->get('application');
         ob_start();
         $slash = $this->container->get('settingsService')->get('zenmagick.http.html.xhtml') ? '/' : '';
         $sep = '&nbsp;&nbsp;&nbsp;';
@@ -230,7 +228,7 @@ class PageStatsPlugin extends Plugin {
         echo $sep.'PHP: <strong>'.phpversion().'</strong>;';
         echo $sep.'ZenMagick: <strong>'.Runtime::getSettings()->get('zenmagick.version').'</strong>;';
         echo $sep.'environment: <strong>'.$application->getEnvironment().'</strong>;';
-        echo $sep.'total page execution: <strong>'.$this->getElapsedTime().'</strong> secconds;';
+        echo $sep.'total page execution: <strong>'.$this->getElapsedTime($application->getStartTime()).'</strong> secconds;';
         echo '<br'.$slash.'>';
         echo '&nbsp;&nbsp;<strong>databases:</strong> ';
         foreach ($this->getDatabaseInfo() as $database) {
@@ -315,9 +313,8 @@ class PageStatsPlugin extends Plugin {
      * @param int timestamp time to check against.
      * @return long The execution time in milliseconds.
      */
-    protected function getElapsedTime($time=null) {
-        $startTime = $time ?: Runtime::getApplication()->getStartTime();
-        $elapsedTime = microtime(true) - $startTime;
+    protected function getElapsedTime($time) {
+        $elapsedTime = microtime(true) - $time;
         return round($elapsedTime, 4);
     }
 

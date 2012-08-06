@@ -51,14 +51,6 @@ class RecentlyViewedPlugin extends Plugin {
     }
 
     /**
-     * {@inheritDoc}
-     */
-    public function init() {
-        parent::init();
-        $this->container->get('eventDispatcher')->listen($this);
-    }
-
-    /**
      * Handle auto login.
      */
     public function onViewStart($event) {

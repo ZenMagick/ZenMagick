@@ -35,6 +35,7 @@ use Symfony\Component\Yaml\Yaml;
  */
 class ContextConfigLoader extends HttpContextConfigLoader {
 
+    private static $menus = array();
     /**
      * {@inheritDoc}
      */
@@ -51,6 +52,13 @@ class ContextConfigLoader extends HttpContextConfigLoader {
                 }
             }
         }
+        if (array_key_exists('menu', $config) && is_array($config['menu'])) {
+            self::$menus[] = $config['menu'];
+        }
+    }
+
+    public function getMenus() {
+        return self::$menus;
     }
 
 }

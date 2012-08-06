@@ -21,7 +21,6 @@ namespace zenmagick\apps\store\themes;
 
 use zenmagick\base\Runtime;
 use zenmagick\base\ZMObject;
-use zenmagick\base\events\Event;
 use zenmagick\base\dependencyInjection\loader\YamlFileLoader;
 
 use Symfony\Component\Config\FileLocator;
@@ -40,6 +39,7 @@ class ThemeService extends ZMObject {
     protected $statusMap;
     // theme chain override
     protected $themeChain;
+    protected $defaultThemeId;
 
 
     /**
@@ -51,8 +51,26 @@ class ThemeService extends ZMObject {
         $this->cache = null;
         $this->statusMap = null;
         $this->themeChain = array();
+        $this->defaultThemeId = null;
     }
 
+    /**
+     * Set the default theme id.
+     *
+     * @param string theme theme id
+     */
+    public function setDefaultThemeId($defaultThemeId = null) {
+        $this->defaultThemeId = $defaultThemeId;
+    }
+
+    /**
+     * Get the default theme id.
+     *
+     * @return string theme id
+     */
+    public function getDefaultThemeId() {
+        return $this->defaultThemeId;
+    }
 
     /**
      * Set the cache.
@@ -121,11 +139,10 @@ class ThemeService extends ZMObject {
     /**
      * Get the active theme.
      *
-     * @param int languageId Optional language id; default is <code>0</code>.
      * @return Theme The active theme.
      */
-    public function getActiveTheme($languageId=0) {
-        $themeChain = $this->getThemeChain($languageId);
+    public function getActiveTheme() {
+        $themeChain = $this->getThemeChain();
         $length = count($themeChain);
         return $themeChain[$length-1];
     }
@@ -134,10 +151,9 @@ class ThemeService extends ZMObject {
      * Override the dynamic theme chain.
      *
      * @param array themeChain The theme chain to use.
-     * @param int languageId Optional language id; default is <code>0</code>.
      */
-    public function setThemeChain($themeChain, $languageId=0) {
-        $this->themeChain[$languageId] = $themeChain;
+    public function setThemeChain($themeChain) {
+        $this->themeChain = $themeChain;
     }
 
     /**
@@ -165,23 +181,16 @@ class ThemeService extends ZMObject {
     /**
      * Get theme chain.
      *
-     * @param int languageId Optional language id; default is <code>0</code>.
      * @return array List of active themes in increasing order of importance.
      */
-    public function getThemeChain($languageId=0) {
-        if (array_key_exists($languageId, $this->themeChain)) {
-            return $this->themeChain[$languageId];
+    public function getThemeChain() {
+        if (!empty($this->themeChain)) {
+            return $this->themeChain;
         }
 
         $statusMap = $this->getStatusMap();
-        $themeChains = $statusMap['themeChains'];
-        if (!array_key_exists($languageId, $themeChains)) {
-            // default
-            $languageId = 0;
-        }
-
         $themeChain = array();
-        foreach ($themeChains[$languageId] as $themeId) {
+        foreach ($statusMap['themeChain'] as $themeId) {
             $themeChain[] = $this->getThemeForId($themeId);
         }
         return $themeChain;
@@ -199,12 +208,11 @@ class ThemeService extends ZMObject {
      *  <li>Load custome theme settings from <em>theme.yaml</em></li>
      * </ol>
      *
-     * @param Language language The language.
+     * @param string locale
      * @return Theme The final active theme.
      */
-    public function initThemes($language) {
-        $languageId = $language->getId();
-        $themeChain = $this->getThemeChain($languageId);
+    public function initThemes($locale = 'en') {
+        $themeChain = $this->getThemeChain();
 
         $statusMap = $this->getStatusMap();
         $themeList = $statusMap['themeList'];
@@ -213,33 +221,27 @@ class ThemeService extends ZMObject {
         foreach ($themeChain as $theme) {
             $themeInfo = $themeList[$theme->getId()];
             // init l10n/i18n
-            $theme->loadLocale($language);
+            $theme->loadLocale($locale);
             // custom theme.yaml settings
             $theme->loadSettings();
 
-            if (array_key_exists('namespace', $themeInfo)) {
-                // always add an event listener in the theme's base namespace
-                $eventListener = sprintf('%s\EventListener', $themeInfo['namespace'], $theme->getId());
-                if (class_exists($eventListener)) {
-                    $listener = $this->container->get($eventListener);
-                    $eventDispatcher->listen($listener);
-                }
+            // always add an event listener in the theme's base namespace
+            $eventListener = sprintf('zenmagick\themes\%s\EventListener', $theme->getId());
+            if (class_exists($eventListener)) {
+                $listener = $this->container->get($eventListener);
+                $eventDispatcher->listen($listener);
             }
-            $args = array('language' => $language, 'theme' => $theme, 'themeId' => $theme->getId(), 'languageId' => $languageId);
-            $eventDispatcher->dispatch('theme_loaded', new Event($this, $args));
         }
-
         return $themeChain[count($themeChain)-1];
     }
 
     /**
      * Get the active theme id (aka the template directory name).
      *
-     * @param int languageId Optional language id; default is <code>0</code>.
      * @return string The configured theme id.
      */
-    public function getActiveThemeId($languageId=0) {
-        $theme = $this->getActiveTheme($languageId);
+    public function getActiveThemeId() {
+        $theme = $this->getActiveTheme();
         return null != $theme ? $theme->getId() : null;
     }
 

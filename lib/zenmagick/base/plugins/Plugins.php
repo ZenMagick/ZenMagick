@@ -24,18 +24,13 @@ use zenmagick\base\Runtime;
 use zenmagick\base\Toolbox;
 use zenmagick\base\ZMObject;
 use zenmagick\base\cache\Cache;
-use zenmagick\base\classloader\ClassLoader;
-
 use zenmagick\apps\store\utils\ContextConfigLoader;
 
 /**
  * Basic plugin service.
  *
- * <p>Plugins may consist of either:</p>
- * <ul>
- *  <li>a single file</li>
- *  <li>a directory containing multiple files</li>
- * <ul>
+ * Plugins consist of a directory containing either
+ * a plugin.yaml file or a named like FooBarPlugin.php
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
@@ -45,29 +40,24 @@ class Plugins extends ZMObject {
     protected $plugins;
     protected $cache;
     protected $statusMap;
-    protected $classLoader;
     protected $loggingService;
     protected $pluginStatusMapBuilder;
     protected $localeService;
-    protected $settingsService;
     protected $contextConfigLoader;
 
 
     /**
      * Create new instance.
      */
-    public function __construct($loggingService, $pluginStatusMapBuilder, $localeService, $settingsService, $contextConfigLoader) {
+    public function __construct($loggingService, $pluginStatusMapBuilder, $localeService, $contextConfigLoader) {
         parent::__construct();
         $this->loggingService = $loggingService;
         $this->pluginStatusMapBuilder = $pluginStatusMapBuilder;
         $this->localeService = $localeService;
-        $this->settingsService = $settingsService;
         $this->contextConfigLoader = $contextConfigLoader;
         $this->plugins = array();
         $this->cache = null;
         $this->statusMap = null;
-        $this->classLoader = new ClassLoader();
-        $this->classLoader->register();
     }
 
 
@@ -120,30 +110,6 @@ class Plugins extends ZMObject {
     }
 
     /**
-     * Get packages for all enabled plugins.
-     *
-     * <p>This method will only return data if the bootstrap cache is populated.</p>
-     *
-     * @param int context Optional context flag; default is <code>null</code> for all.
-     * @return array List of plugin lib folders.
-     */
-    public function getPluginPackages($context=null) {
-        if (null == $this->cache || !$this->cache->lookup(self::STATUS_MAP_KEY)) {
-            return array();
-        }
-
-        $statusMap = $this->getStatusMap();
-        $pluginPackages = array();
-        foreach ($statusMap as $id => $status) {
-            if ($status['enabled'] && $status['lib']) {
-                $pluginPackages[] = $status['pluginDir'].'/lib';
-            }
-        }
-
-        return $pluginPackages;
-    }
-
-    /**
      * Get all plugins for the given context.
      *
      * @param int context Optional context flag; default is <code>null</code> for all.
@@ -151,7 +117,7 @@ class Plugins extends ZMObject {
      * @return array List of initialized plugins.
      */
     public function getPluginsForContext($context=null, $enabled=true) {
-        //$app = $this->container->get('kernel');
+        $context = $context ?: $this->contextConfigLoader->getContext();
 
         $plugins = array();
         foreach ($this->getStatusMap() as $id => $status) {
@@ -166,22 +132,19 @@ class Plugins extends ZMObject {
                     $plugin->setPluginDirectory($status['pluginDir']);
 
                     if ($status['enabled'] && $status['installed'] && Runtime::isContextMatch($status['context'], $context)) {
-                        // no matter what, if disabled or not installed we'll never init
-                        if ($status['lib']) {
-                            $libDir = $status['pluginDir'].'/lib';
-                            // allow custom class loading config
-                            $this->classLoader->addConfig($libDir);
-                        }
-
                         if ($status['config']) {
                             $this->contextConfigLoader->setConfig($status['config']);
-                            $this->contextConfigLoader->process();
+                            $config = $this->contextConfigLoader->process();
+                            if (array_key_exists('autoload', $config)) { // Fold this into process() once it knows about pluginDir
+                                $this->contextConfigLoader->registerAutoLoaders($config['autoload'], $status['pluginDir']);
+                            }
                         }
 
                         $plugin->init();
-
+                        // @tod very temporary. we really want to use the container tags
+                        Runtime::getEventDispatcher()->listen($plugin);
                         // plugins can only contribute translations
-                        $path = $plugin->getPluginDirectory().'/locale/'.$this->settingsService->get('zenmagick.base.locales.locale');
+                        $path = $plugin->getPluginDirectory().'/locale/'.$this->localeService->getLocale()->getCode();
                         $this->localeService->getLocale()->addResource($path);
                     }
 

@@ -15,6 +15,7 @@
         </parameter>
         <parameter key="zenmagick.base.plugins.defaultPluginClass">Plugin</parameter>
         <parameter key="apps.store.reviews.useNickName">false</parameter>
+        <parameter key="zenmagick.themes.default_theme">base</parameter>
     </parameters>
 
     <services>
@@ -60,6 +61,10 @@
             <call method="setBasePath">
               <argument>/themes</argument>
             </call>
+            <call method="setDefaultThemeId">
+              <argument>%zenmagick.themes.default_theme%</argument>
+            </call>
+
             <call method="setCache">
                 <argument type="service" id="bootstrapCache" />
             </call>
@@ -219,6 +224,9 @@
         <service id="productGroupPricingService" class="ZMProductGroupPricings" scope="container" />
 
         <service id="urlManager" class="ZMUrlManager" scope="container">
+            <call method="setContainer">
+                <argument type="service" id="service_container" />
+            </call>
             <call method="loadFile">
                 <argument>%kernel.root_dir%/apps/%kernel.context%/config/url_mappings.yaml</argument>
             </call>
@@ -228,8 +236,11 @@
             <tag name="zenmagick.base.security.authentication.provider" default="true" />
         </service>
 
-        <!-- Impersonate FrameworkBundle provided GlobalVariables class -->
+        <!-- Impersonate FrameworkBundle provided GlobalVariables class although it takes it in the ctor -->
         <service id="globalVariablesTool" class="zenmagick\apps\store\toolbox\ToolboxGlobalVariables" scope="prototype">
+            <call method="setContainer">
+                <argument type="service" id="service_container" />
+            </call>
             <tag name="zenmagick.http.toolbox.tool" key="app" />
         </service>
 
@@ -259,7 +270,7 @@
             <tag name="apps.store.admin.dashboard.widget.statusCheck" />
         </service>
 
-        <!-- set zenmagick.base.email.transport to @zencartTransport to use the zencart legacy email system -->
+        <!-- set siwftmailer.transport to @zencartTransport to use the zencart legacy email system -->
         <service id="zencartTransport" class="zenmagick\apps\store\bundles\ZenCartBundle\utils\ZenCartTransport" scope="container" />
         <!-- @todo move to bundle xml when we have one -->
         <service id="zenCartAutoLoader" class="zenmagick\apps\store\bundles\ZenCartBundle\utils\ZenCartAutoLoader" scope="container">

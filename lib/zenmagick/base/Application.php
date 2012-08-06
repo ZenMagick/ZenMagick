@@ -23,7 +23,6 @@ use DateTime;
 use Exception;
 use zenmagick\base\Runtime;
 use zenmagick\base\Beans;
-use zenmagick\base\classloader\ClassLoader;
 use zenmagick\base\settings\Settings;
 use zenmagick\base\Toolbox;
 use zenmagick\base\ZMException;
@@ -52,7 +51,6 @@ use Symfony\Component\HttpFoundation\Response;
  * @todo: document all config options
  */
 class Application extends Kernel {
-    protected $classLoader;
     protected $context;
     protected $settingsService;
 
@@ -69,10 +67,6 @@ class Application extends Kernel {
         Runtime::setContext($this->context);
         parent::__construct($environment, $debug);
         $this->startTime = microtime(true);
-
-        // @todo really move it into $rootDir/autoload.php
-        $this->classLoader = new ClassLoader();
-        $this->classLoader->register();
 
         $this->initSettings();
     }
@@ -95,14 +89,18 @@ class Application extends Kernel {
 
     /**
      * {@inheritDoc}
-     * @copyright see symfony.com
      * @see Symfony\Component\HttpKernel\KernelInterface
+     * @todo move most this into "a" bundle.
      */
     public function registerContainerConfiguration(LoaderInterface $loader) {
-        $appContainerFiles = array('lib/zenmagick/base/container.xml');
+        $this->loadDatabaseConfiguration();
+
+        $appContainerFiles = array();
+        $appContainerFiles[] = 'lib/zenmagick/base/container.xml';
         $appContainerFiles[] = 'lib/zenmagick/http/container.xml';
-        if ('cli' == php_sapi_name()) {
-            $appContainerFiles[] = 'apps/store/config/container.xml';
+
+        if (defined('SEND_EMAILS')) { // @todo move all zc param detection elsewhere
+            $appContainerFiles[] = $this->getRootDir().'/apps/store/config/email.php';
         }
         if ($applicationPath = $this->getApplicationPath()) {
             $appContainerFiles[] = $applicationPath.'/config/container.xml';
@@ -123,6 +121,30 @@ class Application extends Kernel {
 
         foreach ($files as $file) {
             $loader->load($file);
+        }
+    }
+
+    /**
+     * Load container configuration from database
+     *
+     * @todo fold this into a store only database loader
+     */
+    public function loadDatabaseConfiguration() {
+        if (!in_array($this->getContext(), array('admin', 'storefront', 'store'))) {
+            return;
+        }
+        $configService = new \zenmagick\apps\store\services\ConfigService;
+        foreach ($configService->loadAll() as $key => $value) {
+            if (!defined($key)) {
+                define($key, $value);
+            }
+        }
+
+        $defaults = $this->getRootDir().'/apps/store/config/defaults.php';
+        if (file_exists($defaults)) {
+            $settingsService = $this->settingsService;
+            include $defaults;
+            $this->settingsService = $settingsService;
         }
     }
 
@@ -164,15 +186,9 @@ class Application extends Kernel {
             }
         }
         if (empty($keys) || in_array('bootstrap', (array)$keys)) {
-            $this->initConfig();
             $this->container->get('localeService')->init($settingsService->get('zenmagick.base.locales.locale', 'en'));
-            if ($settingsService->get('zenmagick.base.plugins.enabled', true)) {
-                foreach ($this->container->get('pluginService')->getPluginPackages() as $path) {
-                    $this->classLoader->addConfig($path);
-                }
-                $this->container->get('pluginService')->getPluginsForContext($this->getContext());
-            }
-            $this->initEmail();
+
+            $this->container->get('pluginService')->getPluginsForContext($this->getContext());
             $this->fireEvent('request_ready');
         }
 
@@ -325,14 +341,6 @@ class Application extends Kernel {
             }
         }
 
-
-        if (null == $settingsService->get('zenmagick.base.plugins.dirs')) {
-            // set default
-            $settingsService->set('zenmagick.base.plugins.dirs', array(
-                $this->getRootDir().'/plugins',
-                $this->getApplicationPath().'/plugins'
-            ));
-        }
         $globalFilename = realpath($this->getRootDir().'/global.yaml');
         if (file_exists($globalFilename)) {
             $contextConfigLoader = new \zenmagick\base\utils\ContextConfigLoader;
@@ -347,20 +355,6 @@ class Application extends Kernel {
             $settingsService->set('apps.store.zencart.path', dirname($this->getRootDir()));
         }
 
-        $listeners = array();
-        if ($applicationPath = $this->getApplicationPath()) {
-            $listeners[] = sprintf('zenmagick\apps\%s\EventListener', $this->getContext());
-        }
-        $listeners[] = 'zenmagick\base\EventListener';
-        if ('cli' !== php_sapi_name()) {
-            $listeners[] = 'zenmagick\http\EventListener';
-        }
-        $listeners = array_merge($settingsService->get('zenmagick.base.events.listeners', array()), $listeners);
-        $settingsService->set('zenmagick.base.events.listeners', $listeners);
-        $settingsService->set('zenmagick.base.context', $this->getContext());
-        if (null != ($tz = $settingsService->get('zenmagick.core.date.timezone'))) {
-            date_default_timezone_set($tz);
-        }
         \ZMRuntime::setDatabase('default', $settingsService->get('apps.store.database.default'));
     }
 
@@ -400,52 +394,5 @@ class Application extends Kernel {
         if (empty($parameters)) return; // if it's empty leave it empty.
         $parameters['kernel.context'] = $this->getContext();
         return $parameters;
-    }
-
-    /**
-     * Get config loaded ASAP.
-     */
-    public function initConfig() {
-        foreach ($this->container->get('configService')->loadAll() as $key => $value) {
-            if (!defined($key)) {
-                define($key, $value);
-            }
-        }
-        $defaults = $this->getRootDir().'/apps/store/config/defaults.php';
-        if (file_exists($defaults)) {
-            include $defaults;
-        }
-
-        // load email container config once all settings/config is loaded
-        $emailConfig = Runtime::getInstallationPath().'/config/store-email.xml';
-        if (file_exists($emailConfig)) {
-            $containerlLoader = new XmlFileLoader($this->container, new FileLocator(dirname($emailConfig)));
-            $containerlLoader->load($emailConfig);
-        }
-    }
-
-    /**
-     * Initialize email.
-     *
-     * @todo not the final home. move it closer to the container configuration.
-     */
-    public function initEmail() {
-        $key = 'zenmagick.base.email.host';
-        // enable encryption for gmail smtp
-        if ($this->container->getParameterBag()->has($key)) {
-            if ('smtp.gmail.com' == $this->container->getParameterBag()->get($key)) {
-                $this->container->getParameterBag()->set('zenmagick.base.email.encryption', 'tls');
-            }
-        }
-
-        // load email container config unless we do have already some swiftmailer config
-        $bundles = array_keys($this->container->get('settingsService')->get('zenmagick.bundles', array()));
-        if (0 == count($this->container->getExtensionConfig('swiftmailer')) && in_array('SwiftmailerBundle', $bundles)) {
-            $emailConfig = __DIR__.'/email.xml';
-            if (file_exists($emailConfig)) {
-                $containerLoader = new XmlFileLoader($this->container, new FileLocator(dirname($emailConfig)));
-                $containerLoader->load($emailConfig);
-            }
-        }
     }
 }

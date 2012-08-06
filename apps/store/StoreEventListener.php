@@ -25,6 +25,7 @@ use Symfony\Component\DependencyInjection\Loader\XmlFileLoader;
 use zenmagick\base\Runtime;
 use zenmagick\base\ZMObject;
 use zenmagick\http\messages\Messages;
+use zenmagick\base\events\Event;
 use zenmagick\apps\store\widgets\StatusCheck;
 
 /**
@@ -64,17 +65,14 @@ class StoreEventListener extends ZMObject {
     public function onContainerReady($event) {
 
         $settingsService = $this->container->get('settingsService');
-        // Override transport command for qmail and the like
-        $transportCommand = $settingsService->get('zenmagick.base.email.transportCommand');
-        if ($this->container->has('swiftmailer.transport') && null != $transportCommand) {
-            if (null != ($transport = $this->container->get('swiftmailer.transport'))) {
-                $transport->setCommand(escapeshellcmd($transportCommand));
-            }
-        }
 
         $request = $event->get('request');
 
         if (Runtime::isContextMatch('storefront')) {
+            $theme = $this->container->get('themeService')->getActiveTheme();
+            $args = array('theme' => $theme, 'themeId' => $theme->getId());
+            $event->getDispatcher()->dispatch('theme_loaded', new Event($this, $args));
+
             $templateManager = $this->container->get('templateManager');
             // TODO: do via admin and just load mapping from somewhere
             // sidebox blocks
@@ -115,7 +113,7 @@ class StoreEventListener extends ZMObject {
         );
         foreach ($defaultBannerGroupNames as $blockGroupName) {
             // the banner group name is configured as setting..
-            $bannerGroup = Runtime::getSettings()->get($blockGroupName);
+            $bannerGroup = $settingsService->get($blockGroupName);
             $mappings[$blockGroupName] = array('zenmagick\apps\store\widgets\BannerBlockWidget#group='.$bannerGroup);
         }
 
@@ -131,7 +129,6 @@ class StoreEventListener extends ZMObject {
         if (Runtime::isContextMatch('storefront')) {
 
             // check DFM
-            $settingsService = $this->container->get('settingsService');
             $downForMaintenance = $settingsService->get('apps.store.downForMaintenance', false);
             $adminIps = $settingsService->get('apps.store.adminOverrideIPs');
 

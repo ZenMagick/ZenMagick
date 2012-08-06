@@ -71,14 +71,6 @@ class VBulletinPlugin extends Plugin {
     }
 
     /**
-     * {@inheritDoc}
-     */
-    public function init() {
-        parent::init();
-        Runtime::getEventDispatcher()->listen($this);
-    }
-
-    /**
      * Handle init that requires the request.
      *
      * <p>Setup additional validation rules; this is done here to avoid getting in the way of

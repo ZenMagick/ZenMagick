@@ -38,6 +38,8 @@ class ContextConfigLoader extends ZMObject {
     private $config;
     private $settingsService;
     private $context;
+    private $classLoader;
+
 
     /**
      * Create new instance.
@@ -63,6 +65,18 @@ class ContextConfigLoader extends ZMObject {
 
     public function getSettingsService() {
         return $this->settingsService;
+    }
+
+    public function setClassLoader($classLoader) {
+        $this->classLoader = $classLoader;
+    }
+
+    public function getClassLoader() {
+        if (null == $this->classLoader) {
+            $this->classLoader = new \Composer\AutoLoad\ClassLoader();
+            $this->classLoader->register();
+        }
+        return $this->classLoader;
     }
 
     /**
@@ -164,4 +178,35 @@ class ContextConfigLoader extends ZMObject {
         }
     }
 
+    /**
+     * Registers class/file autoloaders like Composer
+     *
+     * @see http://getcomposer.org/doc/04-schema.md#autoload
+     * @todo move actual registration so we can interact with
+     *       composer classmap generation.
+     * @todo integrate into process()
+     * @todo absolute paths too probably?
+     * @param string $baseDir base path for autoloading (since contextConfigLoader doesn't know)
+     */
+    public function registerAutoLoaders(array $autoLoaders, $pathBase) {
+        if (array_key_exists('psr-0', $autoLoaders)) {
+            foreach ($autoLoaders['psr-0'] as $namespace => $path) {
+                $this->getClassLoader()->add($namespace, $pathBase.DIRECTORY_SEPARATOR.$path);
+            }
+        }
+        if (array_key_exists('classmap', $autoLoaders)) {
+            $classMap = array();
+            foreach($autoLoaders['classmap'] as $class => $file) {
+                $classMap[$class] = $pathBase.DIRECTORY_SEPARATOR.$file;
+            }
+            $this->getClassLoader()->addClassMap($classMap);
+        }
+        if (array_key_exists('files', $autoLoaders)) {
+            foreach ($autoLoaders['files'] as $file) {
+                if (file_exists($file)) {
+                    require_once $pathBase.DIRECTORY_SEPARATOR.$file;
+                }
+            }
+        }
+    }
 }
