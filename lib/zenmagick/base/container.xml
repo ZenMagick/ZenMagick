@@ -63,7 +63,9 @@
              <argument type="service" id="service_container" />
         </service>
 
-        <service id="localeService" class="zenmagick\base\locales\Locales" scope="container" />
+        <service id="localeService" class="zenmagick\base\locales\Locales" scope="container">
+            <file>%kernel.root_dir%/lib/zenmagick/base/locales/functions.php</file>
+        </service>
         <service id="localeScanner" class="zenmagick\base\locales\LocaleScanner" scope="prototype">
             <call method="setFilesystem">
                 <argument type="service" id="filesystem" />
