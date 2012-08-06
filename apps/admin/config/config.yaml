@@ -106,8 +106,6 @@ apps:
         - 'apps/admin/config/menu.yaml' #placeholder for apps/admin?
     dashboad:
       default: '{"layout":"col2r","widgets":[["ref::storeStatusDashboardWidget", "ref::latestOrdersDashboardWidget"], ["ref::orderStatsDashboardWidget","ref::latestAccountsDashboardWidget"]]}'
-    themes:
-      default: base
     zencart:
       skipLayout:
         - packingslip
