@@ -219,7 +219,7 @@ class PageStatsPlugin extends Plugin {
             return;
         }
 
-        $application = $this->container->get('application');
+        $application = $this->container->get('kernel');
         ob_start();
         $slash = $this->container->get('settingsService')->get('zenmagick.http.html.xhtml') ? '/' : '';
         $sep = '&nbsp;&nbsp;&nbsp;';
