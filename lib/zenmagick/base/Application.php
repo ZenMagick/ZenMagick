@@ -162,7 +162,7 @@ class Application extends Kernel {
                 $this->container->get('eventDispatcher')->listen($eventListener);
             }
         }
-        $this->container->get('localeService')->init('de');
+        $this->container->get('localeService')->init($settingsService->get('zenmagick.base.locales.locale', 'en'));
 
         $this->container->get('pluginService')->getPluginsForContext($this->getContext());
         $this->fireEvent('request_ready');
