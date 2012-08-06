@@ -58,11 +58,6 @@ class EventListener extends ZMObject {
             }
         }
 
-        // adjust front controller parameter
-        if (basename($request->getScriptName()) != $settingsService->get('zenmagick.http.request.handler')) {
-             $settingsService->set('zenmagick.http.request.handler', basename($request->getScriptName()));
-        }
-
         // load additional routing
         $contextConfigLoader = $this->container->get('contextConfigLoader');
         if ($contextConfigLoader instanceof HttpContextConfigLoader) {
