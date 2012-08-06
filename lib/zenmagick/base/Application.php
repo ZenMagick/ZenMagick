@@ -148,34 +148,11 @@ class Application extends Kernel {
         }
     }
 
-    /*
-     * {@inheritDoc}
-     *
-     * @param array keys
-     */
-    public function boot(array $keys = null) {
-        if (true === $this->booted) {
-            return;
-        }
-
-        $this->initializeBundles();
-
-        $this->initializeContainer();
-
-        foreach ($this->getBundles() as $bundle) {
-            $bundle->setContainer($this->container);
-            $bundle->boot();
-        }
-        $this->bootZM($keys);
-        $this->booted = true;
-    }
-
     /**
      * Bootstrap application.
      *
-     * @param array keys Optional list of bootstrap block keys to run; default is <code>null</code> for all.
      */
-    public function bootZM(array $keys=null) {
+    public function bootZM() {
         $settingsService = $this->container->get('settingsService');
         // @todo switch to using tagged services for events.
         foreach ($settingsService->get('zenmagick.base.events.listeners', array()) as $eventListener) {
@@ -185,20 +162,15 @@ class Application extends Kernel {
                 $this->container->get('eventDispatcher')->listen($eventListener);
             }
         }
-        if (empty($keys) || in_array('bootstrap', (array)$keys)) {
-            $this->container->get('localeService')->init($settingsService->get('zenmagick.base.locales.locale', 'en'));
+        $this->container->get('localeService')->init('de');
 
-            $this->container->get('pluginService')->getPluginsForContext($this->getContext());
-            $this->fireEvent('request_ready');
-        }
+        $this->container->get('pluginService')->getPluginsForContext($this->getContext());
+        $this->fireEvent('request_ready');
 
         if (!($this->container->getParameterBag() instanceof FrozenParameterBag)) {
             $this->container->compile();
         }
-
-        if (empty($keys) ||in_array('bootstrap', (array)$keys)) {
-            $this->fireEvent('container_ready');
-        }
+        $this->fireEvent('container_ready');
     }
 
     /**
@@ -382,6 +354,7 @@ class Application extends Kernel {
 
         $container->get('settingsService')->setAll($this->settingsService);
         Runtime::setContainer($this->container);
+        $this->bootZM();
     }
 
     /**
