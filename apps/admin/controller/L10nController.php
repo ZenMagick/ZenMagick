@@ -58,7 +58,6 @@ class L10nController extends \ZMController {
             $options[$name] = $value;
         }
 
-        $downloadParamsYaml = http_build_query(array_merge(array('download' => 'yaml'), $options));
         $downloadParamsPo = http_build_query(array_merge(array('download' => 'po'), $options));
         $downloadParamsPot = http_build_query(array_merge(array('download' => 'pot'), $options));
 
@@ -67,7 +66,6 @@ class L10nController extends \ZMController {
               'themes' => $themeService->getAvailableThemes(),
               'source' => $source,
               'sources' => $sources,
-              'downloadParamsYaml' => $downloadParamsYaml,
               'downloadParamsPo' => $downloadParamsPo,
               'downloadParamsPot' => $downloadParamsPot
             ),
@@ -159,12 +157,7 @@ class L10nController extends \ZMController {
     public function processGet($request) {
         $data = $this->processInternal($request);
         $scanner = new LocaleScanner();
-        if ('yaml' == $request->getParameter('download')) {
-            header('Content-Type: text/YAML');
-            header('Content-Disposition: attachment; filename=locale.yaml;');
-            echo $scanner->map2yaml($data['translations']);
-            return null;
-        } else if ('po' == $request->getParameter('download')) {
+        if ('po' == $request->getParameter('download')) {
             header('Content-Type: text/plain');
             header('Content-Disposition: attachment; filename=messages.po;');
             echo $scanner->map2po($data['translations']);

@@ -66,7 +66,6 @@
 </form>
 <?php if (isset($translations)) { ?>
   <strong>Download: </strong>
-  <a href="<?php echo $net->url(null, $downloadParamsYaml) ?>">.yaml</a>
   <a href="<?php echo $net->url(null, $downloadParamsPo) ?>">.po</a>
   <a href="<?php echo $net->url(null, $downloadParamsPot) ?>">.pot</a>
   <?php foreach ($translations as $file => $strings) { ?>
