@@ -49,7 +49,7 @@ class FirePHPPlugin extends Plugin {
             'widget@booleanFormWidget#name=isOnDemand&default=false&label=Enable on demand only&style=checkbox');
         $this->addConfigValue('On demand query parameter name', 'onDemandName', 'firephp', 'The name of the query parameter to enable FirePHP.');
         $this->addConfigValue('Log level', 'logLevel', Logging::TRACE, 'The log level to be used.',
-            'widget@selectFormWidget#name=logLevel&default='.Logging::TRACE.'false&options='.urlencode(
+            'widget@selectFormWidget#name=logLevel&default='.Logging::TRACE.'&options='.urlencode(
                 LOGGING::ERROR.'=Error&'.
                 LOGGING::WARN.'=Warn&'.
                 LOGGING::INFO.'=Info&'.
