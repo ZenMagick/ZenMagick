@@ -180,16 +180,6 @@ class Theme extends ZMObject {
     }
 
     /**
-     * Return the path of the extra directory.
-     *
-     * @return string A full filename denoting the themes extra directory.
-     * @deprecated
-     */
-    public function getExtraDir() {
-        return $this->getBasePath() . '/extra';
-    }
-
-    /**
      * Return the path of the boxes directory.
      *
      * @return string A full filename denoting the themes boxes directory.
