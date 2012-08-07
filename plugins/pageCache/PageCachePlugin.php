@@ -38,7 +38,7 @@ define('ZM_EVENT_PLUGINS_PAGE_CACHE_CONTENTS_DONE', 'plugins_page_cache_contents
  */
 class PageCachePlugin extends \Plugin {
     private $cache_;
-    protected $activeThemeId
+    protected $activeThemeId;
 
     /**
      * Create new instance.
@@ -125,7 +125,7 @@ class PageCachePlugin extends \Plugin {
             if (false !== ($contents = $this->cache_->lookup($this->getRequestKey($request))) && $this->isCacheable($request)) {
                 Runtime::getLogging()->debug('cache hit for requestId: '.$request->getRequestId());
                 echo $contents;
-                $event->dispatch(ZM_EVENT_PLUGINS_PAGE_CACHE_CONTENTS_DONE, new Event($this, $event->all()));
+                $event->getDispatcher()->dispatch(ZM_EVENT_PLUGINS_PAGE_CACHE_CONTENTS_DONE, new Event($this, $event->all()));
                 if ($this->get('loadStats')) {
                     $time = round(microtime(true) - $this->container->get('kernel')->getStartTime(), 4);
                     echo '<!-- pageCache stats: page: ' . $time . ' sec.; ';
