@@ -3,11 +3,7 @@
 #
 
 zenmagick:
-  bundles: {}
-
   base:
-    locales:
-      handler: zenmagick\base\locales\handler\PomoLocale
     events:
       listeners:
         - zenmagick\apps\sample\EventHandler

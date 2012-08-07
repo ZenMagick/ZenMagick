@@ -60,7 +60,7 @@ class Locales extends ZMObject {
      */
     public function getLocale($reload=false, $locale=null, $path=null) {
         if (null === $this->locale_ || $reload) {
-            $this->locale_ = Beans::getBean(Runtime::getSettings()->get('zenmagick.base.locales.handler', 'zenmagick\base\locales\Locale'));
+            $this->locale_ = Beans::getBean('zenmagick\base\locales\handler\PomoLocale');
             if (null !== $locale) {
                 $this->locale_->init($locale, $path);
             }
