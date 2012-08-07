@@ -56,7 +56,9 @@ class DefaultLoggingHandler extends ZMObject implements LoggingHandler {
      * @return long The execution time in milliseconds.
      */
     public function getElapsedTime() {
-        $startTime = Runtime::getApplication()->getStartTime();
+        $container = Runtime::getContainer();
+        if (null == $container) return 0;
+        $startTime = $container->get('kernel')->getStartTime();
         $elapsedTime = microtime(true) - $startTime;
         return round($elapsedTime, 4);
     }
