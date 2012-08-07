@@ -307,15 +307,14 @@ class Theme extends ZMObject {
     }
 
     /**
-     * Load locale (l10n/i18n).
+     * Load Translations (l10n/i18n).
      *
      * @param Language language The language.
      */
-    public function loadLocale($locale = 'en') {
+    public function loadTranslations($locale = 'en') {
         $path = $this->getBasePath().'/locale/'.$locale;
 
-        // re-init with next file
-        $this->container->get('localeService')->init($locale, $path);
+        $this->container->get('localeService')->getLocale()->addResource($path);
     }
 
     /**
