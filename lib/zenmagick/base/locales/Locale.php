@@ -145,14 +145,14 @@ class Locale extends ZMObject {
         if (null == $path) {
             $path = realpath(Runtime::getApplicationPath()).'/locale/'.$locale;
             if (null == ($path = Locale::resolvePath($path, $locale))) {
-                Runtime::getLogging()->debug('unable to resolve path for locale = "'.$locale.'"');
                 return null;
             }
         }
 
         $yaml = array();
-        $filename = realpath($path).'/locale.yaml';
-        if (!empty($filename) && file_exists($filename)) {
+        $ypath = realpath(Runtime::getInstallationPath()).'/apps/base/locale/'.$locale;
+        $filename = realpath($ypath).'/locale.yaml';
+        if (file_exists($filename)) {
             $yaml = Yaml::parse($filename);
             if (is_array($yaml)) {
                 if (array_key_exists('name', $yaml)) {
@@ -162,6 +162,8 @@ class Locale extends ZMObject {
                     $this->formats_ = Toolbox::arrayMergeRecursive($this->formats_, $yaml['formats']);
                 }
             }
+        } else {
+            Runtime::getLogging()->debug('unable to resolve path for locale = "'.$locale.'"');
         }
 
         return array($path, $yaml);
