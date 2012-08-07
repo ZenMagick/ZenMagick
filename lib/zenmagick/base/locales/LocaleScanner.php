@@ -123,63 +123,6 @@ class LocaleScanner extends ZMObject {
     }
 
     /**
-     * Convert yaml back to map.
-     *
-     * <p>NOTE: This is temporary to allow conversions for when yaml support is dropped.</p>
-     *
-     * @param string filename The filename.
-     * @return array A translation map.
-     */
-    public function yaml2map($filename) {
-        $seps = array('": "', "': '", '":"', "':'");
-        $map = array();
-        $file = 'unknown';
-        foreach (file($filename) as $line) {
-            $line = trim($line);
-            if (empty($line)) {
-                continue;
-            }
-            if ('#' == $line[0]) {
-                if (':' == $line[1]) {
-                    // file
-                    $nextfile = trim(str_replace('#: ', '', $line));
-                    if (empty($nextfile)) {
-                        $nextfile = 'unknown';
-                    }
-                    if ($file != $nextfile) {
-                        $file = $nextfile;
-                        if (!array_key_exists($file, $map)) {
-                            $map[$file] = array();
-                        }
-                    }
-                } else if ('.' == $line[1]) {
-                    // comment
-                }
-                continue;
-            } else {
-                // find sep pos
-                foreach ($seps as $sep) {
-                    if (false !== ($pos = strpos($line, $sep))) {
-                        break;
-                    }
-                }
-
-                if (false !== $pos) {
-                    // strip quotes
-                    $key = trim(substr($line, 1, $pos-1));
-                    $text = trim(substr($line, $pos+3, strlen($line)-1));
-                    if ($text[0] == $text[strlen($text)-1] && ("'" == $text[0] || '"' == $text[0])) {
-                        $text = substr($text, 1, -1);
-                    }
-                    // mapping
-                    $map[$file][$key] = array('msg' => $text, 'plural' => null, 'context' => null, 'filename' => $file, 'line' => 0);
-                }
-            }
-        }
-        return $map;
-    }
-
-    /**
      * Format a po string.
      *
      */
