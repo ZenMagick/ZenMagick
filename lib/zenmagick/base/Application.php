@@ -300,6 +300,7 @@ class Application extends Kernel {
         $this->settingsService = new Settings;
         $settingsFiles = array();
         $settingsService = $this->settingsService;
+        $settingsFiles[] = $this->getRootDir().'/apps/base/config/config.yaml';
         if ($applicationPath = $this->getApplicationPath()) {
             $settingsFiles[] = $applicationPath.'/config/config.yaml';
         }

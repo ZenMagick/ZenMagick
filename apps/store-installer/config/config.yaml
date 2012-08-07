@@ -1,7 +1,0 @@
-#
-# store-installer settings
-#
-zenmagick:
-  http:
-    view:
-      defaultLayout: page.php

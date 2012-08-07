@@ -54,13 +54,6 @@ zenmagick:
       format: JSON
 
   http:
-    ## html
-    html:
-      xhtml: false
-      charset: utf-8
-    ## view
-    view:
-      defaultLayout: default_layout.php
     ## session
     session:
       useFqdn: false

@@ -55,10 +55,7 @@ zenmagick:
   http:
     #html
     html:
-      charset: utf-8
       xhtml: true
-    view:
-      defaultLayout: default_layout.php
     ## request
     request:
       idName: main_page
