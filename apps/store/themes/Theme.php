@@ -325,7 +325,7 @@ class Theme extends ZMObject {
         $path = $this->getBasePath().'/locale/'.$locale;
 
         // re-init with next file
-        $this->container->get('localeService')->getLocale()->init($locale, $path);
+        $this->container->get('localeService')->init($locale, $path);
     }
 
     /**
