@@ -38,7 +38,7 @@ define('ZM_EVENT_PLUGINS_PAGE_CACHE_CONTENTS_DONE', 'plugins_page_cache_contents
  */
 class PageCachePlugin extends \Plugin {
     private $cache_;
-
+    protected $activeThemeId
 
     /**
      * Create new instance.
@@ -86,7 +86,7 @@ class PageCachePlugin extends \Plugin {
         ksort($parameters);
         $accountId = $request->getAccount() ? $request->getAccount()->getId() : 0;
         return $request->getRequestId() . '-' . http_build_query($parameters) . '-' . $accountId . '-' .
-                  $session->getLanguageId() . '-' . $this->container->get('themeService')->getActiveThemeId();
+                  $session->getLanguageId() . '-' . $this->activeThemeId;
     }
 
     /**
@@ -117,6 +117,7 @@ class PageCachePlugin extends \Plugin {
      * use the page cache or not.</p>
      */
     public function onThemeResolved($event) {
+        $this->activeThemeId = $event->get('themeId');
         $request = $event->get('request');
 
         // handle page caching
@@ -124,7 +125,7 @@ class PageCachePlugin extends \Plugin {
             if (false !== ($contents = $this->cache_->lookup($this->getRequestKey($request))) && $this->isCacheable($request)) {
                 Runtime::getLogging()->debug('cache hit for requestId: '.$request->getRequestId());
                 echo $contents;
-                Runtime::getEventDispatcher()->dispatch(ZM_EVENT_PLUGINS_PAGE_CACHE_CONTENTS_DONE, new Event($this, $event->all()));
+                $event->dispatch(ZM_EVENT_PLUGINS_PAGE_CACHE_CONTENTS_DONE, new Event($this, $event->all()));
                 if ($this->get('loadStats')) {
                     $time = round(microtime(true) - $this->container->get('kernel')->getStartTime(), 4);
                     echo '<!-- pageCache stats: page: ' . $time . ' sec.; ';
