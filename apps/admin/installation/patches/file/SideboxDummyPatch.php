@@ -154,6 +154,7 @@ class SideboxDummyPatch extends FilePatch {
         // list of boxes dirs to process
         $boxPathList = array();
 
+        $boxPathList[] = Runtime::getInstallationPath().'/apps/storefront/templates/boxes';
         // 1) themes
         foreach ($this->container->get('themeService')->getAvailableThemes() as $theme) {
             $boxPathList[] = $theme->getBoxesDir();
