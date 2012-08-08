@@ -91,8 +91,8 @@ class EventListener extends ZMObject {
         $request->setDefaultLocale($defaultLocale);
         $themeService = $this->container->get('themeService');
         $theme = $themeService->initThemes($request->getLocale());
-        $args = array_merge($event->all(), array('theme' => $theme, 'themeId' => $theme->getId(), 'themeChain' => $themeService->getThemeChain()));
-        Runtime::getEventDispatcher()->dispatch('theme_resolved', new Event($this, $args));
+        $args = array_merge($event->all(), array('theme' => $theme, 'themeId' => $theme->getId()));
+        $event->getDispatcher()->dispatch('theme_resolved', new Event($this, $args));
 
     }
 
