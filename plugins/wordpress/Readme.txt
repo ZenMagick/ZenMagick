@@ -39,10 +39,11 @@ Theme view files always take precedence over the plugin version.
 
 Sidebar
 =======
-To only show wp-sidebar.php when in the blog add the following to your theme's local.php:
+To only show wp-sidebar.php when in the blog add the following to your theme's
+EventListener onThemeLoaded event:
 
     if ('' == $request->getRequestId()) {
-        Runtime::getContainer()->get('templateManager')->setRightColBoxes(array('wp-sidebar.php'));
+        $this->container->get('templateManager')->setRightColBoxes(array('wp-sidebar.php'));
     }
 
 
