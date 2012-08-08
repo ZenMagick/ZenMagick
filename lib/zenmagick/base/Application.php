@@ -352,8 +352,7 @@ class Application extends Kernel {
         $this->container = $container;
         // register this as 'kernel'
         $this->container->set('kernel', $this);
-
-        $container->get('settingsService')->setAll($this->settingsService);
+        $this->container->get('settingsService')->setAll($this->settingsService);
         Runtime::setContainer($this->container);
         $this->bootZM();
     }
