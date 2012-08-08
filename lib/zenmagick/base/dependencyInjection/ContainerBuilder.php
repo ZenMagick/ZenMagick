@@ -46,12 +46,6 @@ class ContainerBuilder extends BaseContainerBuilder {
         } else if (class_exists($id)) {
             // try to default to the id as class name (with scope prototype)
             $service = new $id();
-        } else if ('Z' == $id[0] && 'M' == $id[1]) {
-            // possibly old class name that now exists as service id without the prefix
-            $npid = substr($id, 2);
-            if ($this->has($npid)) {
-                $service = parent::get($npid, $invalidBehavior);
-            }
         }
 
         if (null != $service && $service instanceof ContainerAwareInterface) {
