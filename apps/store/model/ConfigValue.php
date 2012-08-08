@@ -240,7 +240,7 @@ class ConfigValue extends ZMObject {
      *
      * @param integer $groupId
      */
-    public function setgroupId($groupId) { $this->groupId = $groupId; }
+    public function setGroupId($groupId) { $this->groupId = $groupId; }
 
     /**
      * Set sortOrder
