@@ -19,6 +19,7 @@
  */
 namespace zenmagick\base\dependencyInjection\compiler;
 
+use Symfony\Component\DependencyInjection\Definition;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use zenmagick\base\dependencyInjection\tags\ContainerTagService;
@@ -40,6 +41,11 @@ class ConfigureContainerTagServicePass implements CompilerPassInterface {
         }
 
         $container->set('containerTagService', new ContainerTagService($tags));
+        return;
+        $container->setDefinition('containerTagService', new Definition(
+            'zenmagick\base\dependencyInjection\tags\ContainerTagService',
+            array($tags)
+        ));
     }
 
 }
