@@ -221,7 +221,7 @@ class ThemeService extends ZMObject {
         foreach ($themeChain as $theme) {
             $themeInfo = $themeList[$theme->getId()];
             // init l10n/i18n
-            $theme->loadTranslations($locale);
+            $theme->loadTranslations();
             // custom theme.yaml settings
             $theme->loadSettings();
 
