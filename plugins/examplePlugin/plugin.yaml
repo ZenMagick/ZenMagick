@@ -16,3 +16,17 @@ admin:
       parent: configuration-plugins
       requestId: examplePluginAdmin
       name: 'Example Plugin Admin Page'
+  # 3rd party code autoloading
+  #
+  # See http://getcomposer.org/doc/04-schema.md#autoload for supported options
+  #
+  # All paths are relative to this file
+  #autoload:
+  #  psr-0:
+  #    NameSpacePrefixed: vendor
+  #  classmap:
+  #   SomeClass: class.php
+  #
+  #  files:
+  #    - file.php
+
