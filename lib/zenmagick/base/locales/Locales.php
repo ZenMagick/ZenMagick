@@ -226,4 +226,30 @@ class Locales extends ZMObject {
         }
     }
 
+    /**
+     * Translate the given text.
+     *
+     * @param string text The text to translate.
+     * @param mixed context Optional translation context; default is <code>null</code>.
+     * @param string domain The translation domain; default is <code>null</code>.
+     * @return string The translated text.
+     */
+    public function translate($text, $context=null, $domain=null) {
+        return $this->getLocale()->translate($text, $context, $domain);
+    }
+
+    /**
+     * Translate the given text with plural option.
+     *
+     * @param string single The text to translate for single case.
+     * @param int number The number.
+     * @param string plural The text to translate for plural case; default is <code>null</code> to default to the single case.
+     * @param mixed context Optional translation context; default is <code>null</code>.
+     * @param string domain The translation domain; default is <code>null</code>.
+     * @return string The translated text or, if no translation found, the original text.
+     */
+    public function translatePlural($single, $number, $plural=null, $context=null, $domain=null) {
+        return $this->getLocale()->translatePlural($single, $number, $plural, $context, $domain);
+    }
+
 }

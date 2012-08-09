@@ -28,7 +28,7 @@ use zenmagick\base\Runtime;
  * @return string The translated text or, if no translation found, the original text.
  */
 function _zm($text, $domain=null) {
-    return Runtime::getContainer()->get('localeService')->getLocale()->translate($text, $domain);
+    return Runtime::getContainer()->get('localeService')->translate($text, $domain);
 }
 
 
@@ -42,7 +42,7 @@ function _zm($text, $domain=null) {
  * @return string The translated text or, if no translation found, the original text.
  */
 function _zmn($single, $number, $plural=null, $domain=null) {
-    return Runtime::getContainer()->get('localeService')->getLocale()->translatePlural($single, $number, $plural, $domain);
+    return Runtime::getContainer()->get('localeService')->translatePlural($single, $number, $plural, $domain);
 }
 
 /**
@@ -58,7 +58,7 @@ function _vzm($text) {
     // get the remaining args
     $args = func_get_args();
     array_shift($args);
-    $translated = Runtime::getContainer()->get('localeService')->getLocale()->translate($text, null);
+    $translated = Runtime::getContainer()->get('localeService')->translate($text, null);
     echo null != $args ? vsprintf($translated, $args) : $translated;
 }
 
