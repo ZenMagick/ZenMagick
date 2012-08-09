@@ -69,6 +69,7 @@ class PomoLocale extends Locale {
      */
     public function addResource($resource, $locale=null, $domain=null) {
         $locale = null != $locale ? $locale : Runtime::getSettings()->get('zenmagick.base.locales.locale', 'en');
+        $resource .= '/'.$locale;
         $this->registerMOForLocale($resource, $locale, self::DEFAULT_MO_NAME, $domain);
     }
 
