@@ -36,8 +36,8 @@
 
 <p><a href="<?php echo $net->url(null, 'clear=true', true) ?>"><?php _vzm('Clear session') ?></a></p>
 <p>
-  <?php foreach ($languages as $locale => $name) { if ($locale == $currentLocale) { continue; } ?>
-    <a href="<?php echo $net->url(null, 'locale='.$locale) ?>"><?php echo $name ?></a>
+  <?php foreach ($languages as $localeCode => $name) { if ($localeCode == $currentLocale) { continue; } ?>
+    <a href="<?php echo $net->url(null, 'locale='.$localeCode) ?>"><?php echo $name ?></a>
   <?php } ?>
 </p>
 <p><a href="<?php echo $net->url('about') ?>"><?php _vzm('About') ?></a></p>
