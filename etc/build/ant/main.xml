@@ -140,7 +140,6 @@
                 <exclude name="build.xml" />
                 <exclude name="local.properties" />
                 <exclude name="local.xml" />
-                <exclude name="vendor/local/**" />
                 <exclude name="config/store-config.yaml" />
             </fileset>
 
@@ -155,7 +154,7 @@
 
         <!-- enabled admin locale -->
         <foreach list="${locale.admin}" target="copy-prepare" param="path">
-            <param name="base.path" value="apps/admin/locale" />
+            <param name="base.path" value="apps/base/locale" />
             <param name="path.to" value="${build.dir}/zenmagick" />
         </foreach>
 
@@ -182,8 +181,6 @@
             <fileset dir="${build.dir}" includes="**/.git*" />
             <!-- generated files, phpdoc and local files -->
             <fileset dir="${build.dir}" includes="zenmagick/global.yaml" />
-            <fileset dir="${build.dir}" includes="zenmagick/core.php" />
-            <fileset dir="${build.dir}" includes="zenmagick/local.php" />
             <fileset dir="${build.dir}" includes="zenmagick/lib/*.html" />
             <fileset dir="${build.dir}" includes="zenmagick/lib/**/*.html" />
             <!-- editor / tmp files -->
@@ -193,7 +190,6 @@
             <fileset dir="${build.dir}" includes="**/*.db" />
             <!-- all vendor -->
             <fileset dir="${build.dir}/zenmagick/vendor">
-                <exclude name="classloader.ini" />
                 <exclude name="*.phar" />
             </fileset>
         </delete>
