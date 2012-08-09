@@ -107,7 +107,7 @@ class ZMSearchCriteria extends ZMObject {
      * @param string date The from date.
      */
     public function setDateFrom($date) {
-        if ($this->container->get('localeService')->getLocale()->getFormat('date', 'short-ui-format') == $date) {
+        if ($this->container->get('localeService')->getFormat('date', 'short-ui-format') == $date) {
             $date = '';
         }
         $this->set('dateFrom', $date);
@@ -119,7 +119,7 @@ class ZMSearchCriteria extends ZMObject {
      * param return string date The to date.
      */
     public function setDateTo($date) {
-        if ($this->container->get('localeService')->getLocale()->getFormat('date', 'short-ui-format') == $date) {
+        if ($this->container->get('localeService')->getFormat('date', 'short-ui-format') == $date) {
             $date = '';
         }
         $this->set('dateTo', $date);

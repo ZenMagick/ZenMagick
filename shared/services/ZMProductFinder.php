@@ -209,7 +209,7 @@ class ZMProductFinder extends ZMObject {
         }
         $where .= ')';
 
-        $dateFormat = $this->container->get('localeService')->getLocale()->getFormat('date', 'short');
+        $dateFormat = $this->container->get('localeService')->getFormat('date', 'short');
         if (!Toolbox::isEmpty($criteria->getDateFrom())) {
             $where .= " AND p.products_date_added >= :1#dateAdded";
             $args['1#dateAdded'] = DateTime::createFromFormat($dateFormat, $criteria->getDateFrom());

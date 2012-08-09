@@ -37,7 +37,7 @@ class ExportOrdersController extends ZMController {
      * Get the date format.
      */
     protected function getDateFormat() {
-        return $this->container->get('localeService')->getLocale()->getFormat('date', 'short');
+        return $this->container->get('localeService')->getFormat('date', 'short');
     }
 
     /**
@@ -177,7 +177,7 @@ class ExportOrdersController extends ZMController {
             $lastRow = $ii == count($orderItems)-1;
             $row = array();
             if ($firstRow) {
-                $row[] = $this->container->get('localeService')->getLocale()->shortDate($order->getOrderDate());
+                $row[] = $this->container->get('localeService')->shortDate($order->getOrderDate());
                 $row[] = $order->getId();
                 $row[] = trim($order->getAccount()->getFullName());
                 $row[] = (null != $shippingCountry ? $shippingCountry->getName() : '');

@@ -19,12 +19,8 @@
  */
 namespace zenmagick\base\locales;
 
-use DateTime;
 use zenmagick\base\Runtime;
-use zenmagick\base\Toolbox;
 use zenmagick\base\ZMObject;
-
-use Symfony\Component\Yaml\Yaml;
 
 /**
  * Locale.
@@ -34,7 +30,6 @@ use Symfony\Component\Yaml\Yaml;
 class Locale extends ZMObject {
     private $locale_;
     private $name_;
-    private $formats_;
 
 
     /**
@@ -43,17 +38,6 @@ class Locale extends ZMObject {
     public function __construct() {
         $this->locale_ = null;
         $this->name_ = null;
-        // absolute defaults for DateTime::format()
-        $this->formats_ = array(
-            'date' => array(
-                'short' => 'd/m/Y',
-                'long' => 'D, d M Y'
-            ),
-            'time' => array(
-                'short' => 'H:i:s',
-                'long' => 'H:i:s u'
-            )
-        );
     }
 
 
@@ -149,24 +133,7 @@ class Locale extends ZMObject {
             }
         }
 
-        $yaml = array();
-        $ypath = realpath(Runtime::getInstallationPath()).'/apps/base/locale/'.$locale;
-        $filename = realpath($ypath).'/locale.yaml';
-        if (file_exists($filename)) {
-            $yaml = Yaml::parse($filename);
-            if (is_array($yaml)) {
-                if (array_key_exists('name', $yaml)) {
-                    $this->name_ = $yaml['name'];
-                }
-                if (array_key_exists('formats', $yaml)) {
-                    $this->formats_ = Toolbox::arrayMergeRecursive($this->formats_, $yaml['formats']);
-                }
-            }
-        } else {
-            Runtime::getLogging()->debug('unable to resolve path for locale = "'.$locale.'"');
-        }
-
-        return array($path, $yaml);
+        return $path;
     }
 
     /**
@@ -194,83 +161,4 @@ class Locale extends ZMObject {
     public function translatePlural($single, $number, $plural=null, $context=null, $domain=null) {
          return (1 < $number && null != $plural) ? $plural : $single;
     }
-
-    /**
-     * Get a format.
-     *
-     * <p>Formats can be anything that should be handled different for different languages/locale. The <code>type</code> is optional and
-     * only required if the <code>group</code> has subgroups.</p>
-     *
-     * <p>The date/time related format strings are expected to be used in conjunction with the <code>DateTime</code> class.</p>
-     *
-     * <p>Predefined groups/types are:</p>
-     * <ul>
-     *  <li><p>date</p>
-     *    <ul>
-     *      <li>short - a short date</li>
-     *      <li>long - a long date</li>
-     *    </ul>
-     *  </li>
-     *  <li><p>time</p>
-     *    <ul>
-     *      <li>short - a short time</li>
-     *      <li>long - a long time</li>
-     *    </ul>
-     *  </li>
-     * </ul>
-     *
-     * @param string group The format group.
-     * @param string type The subtype if required; default is <code>null</code>.
-     * @return string A format string or <code>null</code>.
-     */
-    public function getFormat($group, $type=null) {
-        if (array_key_exists($group, $this->formats_)) {
-            if (null == $type) {
-                return $this->formats_[$group];
-            } else if (array_key_exists($type, $this->formats_[$group])) {
-                return $this->formats_[$group][$type];
-            }
-        }
-        return null;
-    }
-
-    /**
-     * Set formats.
-     *
-     * <p>Merge additional formats into this locale.</p>
-     *
-     * @param array formats Nested map of format definitions.
-     */
-    public function setFormats($formats) {
-        $this->formats_ = Toolbox::arrayMergeRecursive($this->formats_, $formats);
-    }
-
-    /**
-     * Format a date as short date according to this locales format.
-     *
-     * @param DateTime date A date.
-     * @return string A short version.
-     */
-    public function shortDate($date) {
-        if ($date instanceof DateTime) {
-            return $date->format($this->getFormat('date', 'short'));
-        }
-
-        return $date;
-    }
-
-    /**
-     * Format a date as long date according to this locales format.
-     *
-     * @param DateTime date A date.
-     * @return string A long version.
-     */
-    public function longDate($date) {
-        if ($date instanceof DateTime) {
-            return $date->format($this->getFormat('date', 'long'));
-        }
-
-        return $date;
-    }
-
 }

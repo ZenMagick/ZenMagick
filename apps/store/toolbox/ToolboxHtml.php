@@ -85,7 +85,7 @@ class ToolboxHtml extends ToolboxTool {
      * @return string Either <em>ltr</em> or <em>rtl<em>, depending on the locale.
      */
     public function getDir() {
-        $dir = $this->container->get('localeService')->getLocale()->getFormat('dir');
+        $dir = $this->container->get('localeService')->getFormat('dir');
         return null != $dir ? $dir : Runtime::getSettings()->get('zenmagick.mvc.html.dir', 'ltr');
     }
 

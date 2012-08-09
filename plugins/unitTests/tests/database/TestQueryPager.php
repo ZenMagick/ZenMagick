@@ -58,7 +58,7 @@ class TestQueryPager extends TestCase {
             $orders = $resultList->getResults();
             echo 'is final source: ' . $resultSource->isFinal()."<BR>";
             echo "# of pages: " . $resultList->getNumberOfPages()."<BR>";
-            $locale = $this->container->get('localeService')->getLocale();
+            $locale = $this->container->get('localeService');
             foreach ($orders as $order) {
                 echo $order->getId() . ' ' . $locale->longDate($order->getOrderDate())."<BR>";
             }

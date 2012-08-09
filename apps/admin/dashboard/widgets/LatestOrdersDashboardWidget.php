@@ -56,7 +56,7 @@ class LatestOrdersDashboardWidget extends DashboardWidget {
             }
             $contents .= '    <td><a href="'.$net->url('orders', 'action=edit&oID='.$order->getId()).'">'.$order->getId().'</a></td>';
             $contents .= '    <td><a href="'.$net->url('customers', 'action=edit&cID='.$order->getAccountId()).'">'.$name.'</a></td>';
-            $contents .= '    <td>'.$this->container->get('localeService')->getLocale()->shortDate($order->getOrderDate()).'</td>';
+            $contents .= '    <td>'.$this->container->get('localeService')->shortDate($order->getOrderDate()).'</td>';
             $contents .= '    <td>'.$utils->formatMoney($order->getTotal()).'</td>';
             $contents .= '  </tr>';
         }

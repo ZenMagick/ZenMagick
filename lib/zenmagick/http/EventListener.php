@@ -87,13 +87,13 @@ class EventListener extends ZMObject {
             $this->container->get('urlManager')->setMappings($routeMaps, false); // merge
         }
 
-        if (null != ($userSession = $session->getUserSession())) {
+        /*if (null != ($userSession = $session->getUserSession())) {
             if (null != ($localeCode = $userSession->getLocaleCode())) {
                 // init with user locale
                 $localeService = $this->container->get('localeService');
                 $localeService->init($localeCode, null, true);
             }
-        }
+        }*/
     }
 
 }

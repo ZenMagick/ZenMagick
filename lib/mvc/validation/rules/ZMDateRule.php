@@ -46,7 +46,7 @@ class ZMDateRule extends ZMRule {
      * Get the format string.
      */
     public function getFormat() {
-        return null != $this->format_ ? $this->format_ : $this->container->get('localeService')->getLocale()->getFormat('date', 'short');
+        return null != $this->format_ ? $this->format_ : $this->container->get('localeService')->getFormat('date', 'short');
     }
 
     /**

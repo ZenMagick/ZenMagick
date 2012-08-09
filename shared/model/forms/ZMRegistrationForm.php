@@ -45,7 +45,7 @@ class ZMRegistrationForm extends FormData {
         }
 
         // special treatment
-        $properties['dob'] = DateTime::createFromFormat($this->container->get('localeService')->getLocale()->getFormat('date', 'short'), $properties['dob']);
+        $properties['dob'] = DateTime::createFromFormat($this->container->get('localeService')->getFormat('date', 'short'), $properties['dob']);
 
         $account = Beans::setAll($account, $properties);
         return $account;

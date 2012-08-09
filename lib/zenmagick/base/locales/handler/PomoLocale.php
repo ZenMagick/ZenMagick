@@ -48,12 +48,19 @@ class PomoLocale extends Locale {
         $this->translations_ = array();
     }
 
+    public function setDefaultDomain($context) {
+        $this->defaultDomain;
+    }
+
+    public function getDefaultDomain() {
+        $this->defaultDomain;
+    }
 
     /**
      * {@inheritDoc}
      */
     public function init($locale, $path=null, $domain=null) {
-        list($path, $yaml) = parent::init($locale, $path);
+        $path  = parent::init($locale, $path);
         $this->registerMOForLocale($path, $locale, self::DEFAULT_MO_NAME, $domain);
     }
 

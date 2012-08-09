@@ -75,6 +75,6 @@ define('SQL_CACHE_METHOD', 'none'); // none,database,file
 define('CHARSET', $settings->get('zenmagick.http.html.charset'));
 
 // used by some zen-cart validation code
-if (null != ($shortUIFormat = Runtime::getContainer()->get('localeService')->getLocale()->getFormat('date', 'short-ui-format'))) {
+if (null != ($shortUIFormat = Runtime::getContainer()->get('localeService')->getFormat('date', 'short-ui-format'))) {
     define('DOB_FORMAT_STRING', $shortUIFormat);
 }

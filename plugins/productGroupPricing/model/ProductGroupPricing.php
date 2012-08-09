@@ -77,8 +77,8 @@ class ProductGroupPricing extends ZMObject {
             $startDate = new DateTime();
         }
         $localeService = $this->container->get('localeService');
-        $this->startDate_ = DateTime::createFromFormat($localeService->getLocale()->getFormat('date', 'short'), $startDate);
-        $this->endDate_ = DateTime::createFromFormat($localeService->getLocale()->getFormat('date', 'short'), $request->getParameter('endDate'));
+        $this->startDate_ = DateTime::createFromFormat($localeService->getFormat('date', 'short'), $startDate);
+        $this->endDate_ = DateTime::createFromFormat($localeService->getFormat('date', 'short'), $request->getParameter('endDate'));
     }
 
 
