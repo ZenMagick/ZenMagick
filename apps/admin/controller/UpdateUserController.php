@@ -37,7 +37,7 @@ class UpdateUserController extends \ZMController {
 
         // WYSIWYG
         $currentEditor = $this->container->get('adminUserPrefService')->getPrefForName($user->getId(), 'wysiwygEditor');
-        $widgets[] = Beans::getBean('ZMEditorSelectFormWidget#title='._zm('Preferred Editor').'&value='.$currentEditor.'&name=wysiwygEditor');
+        $widgets[] = Beans::getBean('EditorSelectFormWidget#title='._zm('Preferred Editor').'&value='.$currentEditor.'&name=wysiwygEditor');
 
         // uiLocale
         $locales = $this->container->get('localeService')->getLocalesList();

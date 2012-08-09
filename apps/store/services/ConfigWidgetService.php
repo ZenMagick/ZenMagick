@@ -106,7 +106,7 @@ class ConfigWidgetService extends ConfigService {
                 case 'zen_cfg_pull_down_htmleditors':
                     $widget = Beans::getBean('textFormWidget');
                     $widget->set('readonly', true);
-                    //$widget = Beans::getBean('ZMEditorSelectFormWidget');
+                    //$widget = Beans::getBean('EditorSelectFormWidget');
                     break;
                 case 'zen_cfg_pull_down_zone_list';
                     $widget = Beans::getBean('zoneSelectFormWidget');
