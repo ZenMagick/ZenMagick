@@ -162,7 +162,7 @@ class Application extends Kernel {
                 $this->container->get('eventDispatcher')->listen($eventListener);
             }
         }
-        $this->container->get('localeService')->init($settingsService->get('zenmagick.base.locales.locale', 'en'));
+        $this->container->get('localeService')->init();
 
         $this->container->get('pluginService')->getPluginsForContext($this->getContext());
         $this->fireEvent('request_ready');
@@ -326,6 +326,10 @@ class Application extends Kernel {
 
         if (null == $settingsService->get('apps.store.zencart.path')) { // @todo or default to vendors/zencart?
             $settingsService->set('apps.store.zencart.path', dirname($this->getRootDir()));
+        }
+
+        if (null != ($locale = $settingsService->get('zenmagick.base.locales.locale'))) { // @todo how can we really rename it.
+            $settingsService->set('kernel.default_locale', $locale);
         }
 
         \ZMRuntime::setDatabase('default', $settingsService->get('apps.store.database.default'));

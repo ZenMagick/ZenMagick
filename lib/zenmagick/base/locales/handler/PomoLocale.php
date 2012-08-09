@@ -37,7 +37,7 @@ class PomoLocale extends Locale {
     const DEFAULT_MO_NAME = 'messages';
 
     // loaded translations per domain and for the current locale
-    private $translations_;
+    private $translations_ = array();
     protected $defaultDomain;
 
     /**
@@ -68,7 +68,7 @@ class PomoLocale extends Locale {
      * {@inheritDoc}
      */
     public function addResource($resource, $locale=null, $domain=null) {
-        $locale = null != $locale ? $locale : Runtime::getSettings()->get('zenmagick.base.locales.locale', 'en');
+        $locale = null != $locale ? $locale : Runtime::getSettings()->get('kernel.default_locale', 'en');
         $resource .= '/'.$locale;
         $this->registerMOForLocale($resource, $locale, self::DEFAULT_MO_NAME, $domain);
     }

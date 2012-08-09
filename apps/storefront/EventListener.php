@@ -183,11 +183,6 @@ class EventListener extends ZMObject {
             exit;
         }
 
-        // set locale
-        if (null != ($language = $request->getSession()->getLanguage())) {
-            $settingsService->set('zenmagick.base.locales.locale', $language->getCode());
-        }
-
         $session = $request->getSession();
         // in case we came from paypal or some other external location.
         // @todo it should probably be some sort of session attribute.

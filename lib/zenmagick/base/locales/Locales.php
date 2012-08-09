@@ -41,10 +41,12 @@ class Locales extends ZMObject {
 
     /**
      * Create new instance.
+     *
+     * @param string locale The locale
      */
-    public function __construct() {
+    public function __construct($locale) {
         parent::__construct();
-        $this->locale = null;
+        $this->locale = $locale;
         $this->loader = null;
         $this->formats = array(
             'date' => array(
@@ -89,6 +91,7 @@ class Locales extends ZMObject {
         if (empty($locale) && !empty($this->locale)) {
             $locale = $this->locale;
         }
+        $this->locale = $locale;
         if (null === $this->loader || $reload) {
             $this->loader = new \zenmagick\base\locales\handler\PomoLocale;
             if (null !== $locale) {
@@ -108,7 +111,7 @@ class Locales extends ZMObject {
      * @return array List of locale codes.
      */
     public function getValidLocaleCodes() {
-        $code = $this->getLocale()->getLocale();
+        $code = $this->locale;
         $codes = array($code);
         $token = explode('_', $code);
         if (1 < count($token)) {
@@ -124,7 +127,8 @@ class Locales extends ZMObject {
      * @param string path Optional path to override the default path generation based on the locale name; default is <code>null</code>.
      * @param boolean reload Optional flag to force a reload; default is <code>false</code>.
      */
-    public function init($locale, $path=null, $reload=false) {
+    public function init($locale=null, $path=null, $reload=false) {
+        $locale = $locale ?: $this->locale;
         $this->getLocale($reload, $locale)->init($locale, $path);
     }
 
