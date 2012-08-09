@@ -145,7 +145,7 @@ class Plugins extends ZMObject {
                         Runtime::getEventDispatcher()->listen($plugin);
                         // plugins can only contribute translations
                         $path = $plugin->getPluginDirectory().'/locale';
-                        $this->localeService->getLocale()->addResource($path);
+                        $this->localeService->addResource($path);
                     }
 
                     if ($status['config'] && array_key_exists('meta', $status['config'])) {

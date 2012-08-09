@@ -61,6 +61,18 @@ class Locales extends ZMObject {
         );
     }
 
+    /**
+     * Add resource.
+     *
+     * @param mixed resource The resource to add.
+     * @param string locale The locale to be used in the form: <code>[language code]_[country code]</code> or just <code>[language code]</code>;
+     *  for exampe <em>de_DE</em>, <em>en_NZ</em> or <em>es</code>; default is <code>null</code> to use the current locale.
+     * @param string domain The translation domain; default is <code>null</code>.
+     */
+    public function addResource($resource, $locale=null, $domain=null) {
+        $this->getLocale()->addResource($resource, $locale, $domain);
+    }
+
 
     /**
      * Get the active locale.
