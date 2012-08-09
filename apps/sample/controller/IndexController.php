@@ -32,7 +32,7 @@ class IndexController extends \ZMController {
      * {@inheritDoc}
      */
     public function getViewData($request) {
-        return array('currentLocale' => $this->container->get('localeService')->getLocale()->getCode(), 'languages' => array('en' => 'English', 'de_DE' => 'Deutsch'));
+        return array('currentLocale' => $request->getLocale(), 'languages' => array('en' => 'English', 'de_DE' => 'Deutsch'));
     }
 
     /**
