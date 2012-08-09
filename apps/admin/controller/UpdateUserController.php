@@ -20,6 +20,7 @@
 namespace zenmagick\apps\admin\controller;
 
 use zenmagick\base\Beans;
+use Symfony\Component\Locale\Locale;
 
 /**
  * Request controller for updating own admin user details.
@@ -39,11 +40,12 @@ class UpdateUserController extends \ZMController {
         $currentEditor = $this->container->get('adminUserPrefService')->getPrefForName($user->getId(), 'wysiwygEditor');
         $widgets[] = Beans::getBean('EditorSelectFormWidget#title='._zm('Preferred Editor').'&value='.$currentEditor.'&name=wysiwygEditor');
 
-        // uiLocale
-        $locales = $this->container->get('localeService')->getLocalesList();
-        $uiLocaleWidget = Beans::getBean('selectFormWidget#name=uiLocale&title='._zm('Admin Language'));
-        foreach ($locales as $locale => $name) {
-            $uiLocaleWidget->addOption($name, $locale);
+        // uiLocale  (@todo fold into widget)
+        $currentLocale = $this->container->get('adminUserPrefService')->getPrefForName($user->getId(), 'uiLocale');
+        $locales = Locale::getDisplayLocales($currentLocale);
+        $uiLocaleWidget = Beans::getBean('selectFormWidget#name=uiLocale&title='._zm('Admin Locale').'&value='.$currentLocale);
+        foreach ($locales as $locale => $name) { // @todo decide whether to show the localized names here at all.
+            $uiLocaleWidget->addOption('('.$locale.') '.$name, $locale);
         }
         $uiLocaleWidget->setValue($this->container->get('adminUserPrefService')->getPrefForName($user->getId(), 'uiLocale'));
         $widgets[] = $uiLocaleWidget;
