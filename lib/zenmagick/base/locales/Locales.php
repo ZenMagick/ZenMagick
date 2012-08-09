@@ -34,7 +34,6 @@ use Symfony\Component\Yaml\Yaml;
  */
 class Locales extends ZMObject {
     private $locale_;
-    private $localesList;
 
 
     /**
@@ -43,7 +42,6 @@ class Locales extends ZMObject {
     public function __construct() {
         parent::__construct();
         $this->locale_ = null;
-        $this->localesList = null;
     }
 
 
@@ -94,31 +92,4 @@ class Locales extends ZMObject {
     public function init($locale, $path=null, $reload=false) {
         $this->getLocale($reload)->init($locale, $path);
     }
-
-    /**
-     * Get locales.
-     *
-     * @return array Map of all available locales with the locale as key and the name as value.
-     */
-    public function getLocalesList() {
-        if (null === $this->localesList) {
-            $this->localesList = array();
-            $path = realpath(Runtime::getInstallationPath()).'/apps/base/locale/';
-            $handle = opendir($path);
-            while (false !== ($file = readdir($handle))) {
-                $yamlFile = $path.$file.'/locale.yaml';
-                if (is_dir($path.$file) && file_exists($yamlFile)) {
-                    $yaml = Yaml::parse($yamlFile);
-                    if (is_array($yaml)) {
-                        $name = array_key_exists('name', $yaml) ? $yaml['name'] : $file;
-                        $this->localesList[$file] = $name;
-                    }
-                }
-            }
-            closedir($handle);
-        }
-
-        return $this->localesList;
-    }
-
 }
