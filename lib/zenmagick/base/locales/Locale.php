@@ -28,18 +28,33 @@ use zenmagick\base\ZMObject;
  * @author DerManoMann <mano@zenmagick.org> <mano@zenmagick.org>
  */
 class Locale extends ZMObject {
-    private $locale_;
-    private $name_;
+    private $locale;
 
 
     /**
      * Create new instance.
      */
     public function __construct() {
-        $this->locale_ = null;
-        $this->name_ = null;
+        $this->locale = null;
     }
 
+    /**
+     * Set Locale
+     *
+     * @param string locale
+     */
+    public function setLocale($locale) {
+        $this->locale = $locale;
+    }
+
+    /**
+     * Get Locale
+     *
+     * return string locale
+     */
+    public function getLocale() {
+        return $this->locale;
+    }
 
     /**
      * Resolve a locale path.
@@ -69,24 +84,6 @@ class Locale extends ZMObject {
         }
 
         return null;
-    }
-
-    /**
-     * Get the locale code.
-     *
-     * @return string The locale code.
-     */
-    public function getCode() {
-        return $this->locale_;
-    }
-
-    /**
-     * Get the locale name.
-     *
-     * @return string The name.
-     */
-    public function getName() {
-        return $this->name_;
     }
 
     /**
@@ -123,8 +120,7 @@ class Locale extends ZMObject {
             setlocale(LC_ALL, $token[0]);
         }
 
-        $this->locale_ = $locale;
-        $this->name_ = $locale;
+        $this->locale = $locale;
 
         if (null == $path) {
             $path = realpath(Runtime::getApplicationPath()).'/locale/'.$locale;

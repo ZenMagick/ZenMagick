@@ -96,7 +96,7 @@ class Locales extends ZMObject {
      * @return array List of locale codes.
      */
     public function getValidLocaleCodes() {
-        $code = $this->getLocale()->getCode();
+        $code = $this->getLocale()->getLocale();
         $codes = array($code);
         $token = explode('_', $code);
         if (1 < count($token)) {
