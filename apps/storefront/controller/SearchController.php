@@ -20,7 +20,6 @@
 namespace zenmagick\apps\storefront\controller;
 
 use zenmagick\base\Beans;
-use zenmagick\base\Runtime;
 use zenmagick\base\Toolbox;
 use zenmagick\base\events\Event;
 
@@ -91,7 +90,7 @@ class SearchController extends \ZMController {
             $resultList->setResultSource($resultSource);
             $resultList->setPageNumber($request->query->getInt('page'));
             $args = array('request' => $request, 'searchCriteria' => $searchCriteria, 'resultList' => $resultList, 'autoSearch' => $this->isAutoSearch());
-            Runtime::getEventDispatcher()->dispatch('search', new Event($this, $args));
+            $this->container->get('eventDispatcher')->dispatch('search', new Event($this, $args));
             return $this->findView('results', array('resultList' => $resultList));
         }
 

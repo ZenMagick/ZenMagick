@@ -19,7 +19,6 @@
  */
 namespace zenmagick\plugins\tinyMCE;
 
-use zenmagick\base\Runtime;
 use zenmagick\http\widgets\form\TextAreaFormWidget;
 use zenmagick\http\widgets\form\WysiwygEditor;
 use zenmagick\http\view\ResourceManager;
@@ -54,7 +53,7 @@ class TinyMCEFormWidget extends TextAreaFormWidget implements WysiwygEditor {
         // add required js
         $resourceManager->jsFile('tinymce/jscripts/tiny_mce/jquery.tinymce.js', ResourceManager::HEADER);
         // create init script code at the end once we know all the ids
-        Runtime::getEventDispatcher()->listen($this);
+        $this->container->get('eventDispatcher')->listen($this);
     }
 
     /**

@@ -33,7 +33,7 @@ class CheckoutSuccessController extends \ZMController {
      */
     public function processGet($request) {
         // see: onViewDone()
-        Runtime::getEventDispatcher()->listen($this);
+        $this->container->get('eventDispatcher')->listen($this);
         $account = $this->getUser();
         $orders = $this->container->get('orderService')->getOrdersForAccountId($account->getId(), $request->getSession()->getLanguageId(), 1);
 

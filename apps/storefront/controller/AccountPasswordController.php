@@ -57,7 +57,7 @@ class AccountPasswordController extends \ZMController {
         $newEncrpytedPassword = $authenticationManager->encryptPassword($newPassword);
         $this->container->get('accountService')->setAccountPassword($account->getId(), $newEncrpytedPassword);
 
-        Runtime::getEventDispatcher()->dispatch('password_changed', new Event($this, array('controller' => $this, 'account' => $account, 'clearPassword' => $newPassword)));
+        $this->container->get('eventDispatcher')->dispatch('password_changed', new Event($this, array('controller' => $this, 'account' => $account, 'clearPassword' => $newPassword)));
 
         $this->messageService->success(_zm('Your password has been updated.'));
 

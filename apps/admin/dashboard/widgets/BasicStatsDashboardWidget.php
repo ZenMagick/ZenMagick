@@ -19,7 +19,6 @@
  */
 namespace zenmagick\apps\admin\dashboard\widgets;
 
-use zenmagick\base\Runtime;
 use zenmagick\base\events\Event;
 use zenmagick\apps\admin\dashboard\DashboardWidget;
 
@@ -89,7 +88,7 @@ class BasicStatsDashboardWidget extends DashboardWidget {
         $data[_zm('Sales Active')] = $result['count'];
 
         $event = new Event($this, array('data' => $data));
-        Runtime::getEventDispatcher()->dispatch('build_basic_stats', $event);
+        $this->container->get('eventDispatcher')->dispatch('build_basic_stats', $event);
 
         return $event->get('data');
     }

@@ -22,7 +22,6 @@ namespace zenmagick\plugins\wordpress;
 use Plugin;
 use zenmagick\base\Beans;
 use zenmagick\base\Toolbox;
-use zenmagick\base\Runtime;
 
 
 /**
@@ -85,7 +84,7 @@ class WordpressPlugin extends Plugin {
         }
         define('ZM_WORDPRESS_ROOT', $wordpressDir);
 
-        Runtime::getEventDispatcher()->listen($this);
+        $this->container->get('eventDispatcher')->listen($this);
 
         if ($this->get('requireNickname')) {
             // enable nick name field

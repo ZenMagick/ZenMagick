@@ -19,7 +19,6 @@
  */
 namespace zenmagick\plugins\ckEditor;
 
-use zenmagick\base\Runtime;
 use zenmagick\http\widgets\form\TextAreaFormWidget;
 use zenmagick\http\widgets\form\WysiwygEditor;
 use zenmagick\http\view\ResourceManager;
@@ -61,7 +60,7 @@ class CkEditorFormWidget extends TextAreaFormWidget implements WysiwygEditor {
         // add required js
         $resourceManager->jsFile('ckeditor/jquery.CKEditor.pack.js', ResourceManager::HEADER);
         // create init script code at the end once we know all the ids
-        Runtime::getEventDispatcher()->listen($this);
+        $this->container->get('eventDispatcher')->listen($this);
     }
 
     /**

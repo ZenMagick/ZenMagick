@@ -19,7 +19,6 @@
  */
 namespace zenmagick\apps\storefront\controller;
 
-use zenmagick\base\Runtime;
 use zenmagick\base\events\Event;
 
 
@@ -48,7 +47,7 @@ class LogoffController extends \ZMController {
 
         if ($loggedIn) {
             // logged in
-            Runtime::getEventDispatcher()->dispatch('logoff_success', new Event($this, array('request' => $request, 'controller' => $this, 'account' => $account)));
+            $this->container->get('eventDispatcher')->dispatch('logoff_success', new Event($this, array('request' => $request, 'controller' => $this, 'account' => $account)));
             // redisplay to allow update of state
             return $this->findView('success', array(), array('url' => $lastUrl));
         }

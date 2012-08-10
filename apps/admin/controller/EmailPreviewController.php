@@ -19,7 +19,6 @@
  */
 namespace zenmagick\apps\admin\controller;
 
-use zenmagick\base\Runtime;
 use zenmagick\base\events\Event;
 use zenmagick\http\view\View;
 
@@ -71,7 +70,7 @@ class EmailPreviewController extends \ZMController {
 
             $context = $this->getInitialContext($request);
             $event = new Event($this, array('template' => $template, 'format' => $format, 'type' => $type, 'request' => $request, 'context' => $context));
-            Runtime::getEventDispatcher()->dispatch('email_preview', $event);
+            $this->container->get('eventDispatcher')->dispatch('email_preview', $event);
             $context = $event->get('context');
 
             $content = $messageBuilder->createContents($template, 'html'==$format, $request, $context);

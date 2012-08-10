@@ -208,7 +208,7 @@ class EventListener extends ZMObject {
      */
     public function onNotifyCheckoutProcessAfterOrderCreateAddProducts($event) {
         $args = array_merge($event->all(), array('request' => $this->container->get('request'), 'orderId' => $_SESSION['order_number_created']));
-        Runtime::getEventDispatcher()->dispatch('create_order', new Event($this, $args));
+        $event->getDispatcher()->dispatch('create_order', new Event($this, $args));
     }
 
     /**

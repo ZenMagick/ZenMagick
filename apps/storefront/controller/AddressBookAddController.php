@@ -19,7 +19,6 @@
  */
 namespace zenmagick\apps\storefront\controller;
 
-use zenmagick\base\Runtime;
 use zenmagick\base\events\Event;
 
 /**
@@ -40,7 +39,7 @@ class AddressBookAddController extends \ZMController {
         $address = $addressService->createAddress($address);
 
         $args = array('request' => $request, 'controller' => $this, 'account' => $account, 'address' => $address, 'type' => 'addressBook');
-        Runtime::getEventDispatcher()->dispatch('create_address', new Event($this, $args));
+        $this->container->get('eventDispatcher')->dispatch('create_address', new Event($this, $args));
 
         $session = $request->getSession();
         // process primary setting

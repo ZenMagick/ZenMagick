@@ -206,7 +206,7 @@ class SacsManager extends ZMObject {
                 return false;
             }
             // fire event
-            Runtime::getEventDispatcher()->dispatch('insufficient_credentials', new Event($this, array('request' => $request, 'credentials' => $credentials)));
+            $this->container->get('eventDispatcher')->dispatch('insufficient_credentials', new Event($this, array('request' => $request, 'credentials' => $credentials)));
             // not required level of authentication
             $session = $request->getSession();
             // secure flag: leave to net() to lookup via SacsManager if configured, but leave as default parameter to allow override

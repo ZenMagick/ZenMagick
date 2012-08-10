@@ -304,7 +304,7 @@ class Request extends HttpFoundationRequest implements ContainerAwareInterface {
     public function redirect($url, $status=302) {
         $url = str_replace('&amp;', '&', $url);
         $event = new VetoableEvent($this, array('request' => $this, 'url' => $url));
-        Runtime::getEventDispatcher()->dispatch('redirect', $event);
+        $this->container->get('eventDispatcher')->dispatch('redirect', $event);
         Runtime::getLogging()->trace(sprintf('redirect url: "%s"; canceled: %s', $url, ($event->isCanceled() ? 'true' : 'false')), Logging::TRACE);
         if ($event->isCanceled()) {
             return;

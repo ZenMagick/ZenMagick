@@ -19,7 +19,6 @@
  */
 namespace zenmagick\apps\storefront\controller;
 
-use zenmagick\base\Runtime;
 use zenmagick\base\events\Event;
 
 /**
@@ -136,7 +135,7 @@ class CheckoutAddressController extends \ZMController {
             $address = $addressService->createAddress($address);
 
             $args = array('request' => $request, 'controller' => $this, 'account' => $account, 'address' => $address, 'type' => $this->settings_['mode']);
-            Runtime::getEventDispatcher()->dispatch('create_address', new Event($this, $args));
+            $this->container->get('eventDispatcher')->dispatch('create_address', new Event($this, $args));
 
             // process primary setting
             if ($address->isPrimary() || 1 == count($addressService->getAddressesForAccountId($account->getId()))) {

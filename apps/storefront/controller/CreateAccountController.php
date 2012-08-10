@@ -85,7 +85,7 @@ class CreateAccountController extends \ZMController {
 
         // here we have a proper account, so time to let other know about it
         $args = array('request' => $request, 'controller' => $this, 'account' => $account, 'address' => $address, 'clearPassword' => $clearPassword);
-        Runtime::getEventDispatcher()->dispatch('create_account', new Event($this, $args));
+        $this->container->get('eventDispatcher')->dispatch('create_account', new Event($this, $args));
 
         // in case it got changed
         $this->container->get('accountService')->updateAccount($account);
