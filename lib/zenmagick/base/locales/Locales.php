@@ -61,6 +61,7 @@ class Locales extends ZMObject {
             ),
             'dir' => 'ltr'
         );
+        $this->init($locale);
     }
 
     /**

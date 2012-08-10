@@ -152,7 +152,6 @@ class Application extends Kernel {
      *
      */
     public function bootZM() {
-        $this->container->get('localeService')->init();
         $settingsService = $this->container->get('settingsService');
 
         // @todo switch to using tagged services for events.
