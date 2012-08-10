@@ -114,12 +114,6 @@ class Locale extends ZMObject {
      * @return array Two element array with path and 'locale.yaml' content (as yaml) as data.
      */
     public function init($locale, $path=null, $domain=null) {
-        $token = explode('_', $locale);
-        if (false == setlocale(LC_ALL, $locale)) {
-            // try first token
-            setlocale(LC_ALL, $token[0]);
-        }
-
         $this->locale = $locale;
 
         if (null == $path) {
