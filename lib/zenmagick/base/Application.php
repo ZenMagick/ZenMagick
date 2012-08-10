@@ -28,7 +28,6 @@ use zenmagick\base\Toolbox;
 use zenmagick\base\ZMException;
 use zenmagick\base\dependencyInjection\ContainerBuilder;
 use zenmagick\base\dependencyInjection\parameterBag\SettingsParameterBag;
-use zenmagick\base\events\Event;
 use zenmagick\base\plugins\Plugins;
 
 use Symfony\Component\Config\FileLocator;
@@ -155,6 +154,7 @@ class Application extends Kernel {
     public function bootZM() {
         $this->container->get('localeService')->init();
         $settingsService = $this->container->get('settingsService');
+
         // @todo switch to using tagged services for events.
         $listeners = $settingsService->get('zenmagick.base.events.listeners', array());
         $plugins = $this->container->get('pluginService')->getPluginsForContext($this->getContext());
@@ -182,9 +182,6 @@ class Application extends Kernel {
                 $this->container->get('eventDispatcher')->listen($eventListener);
             }
         }
-
-        $this->fireEvent('request_ready');
-        $this->fireEvent('container_ready');
     }
 
     /**
@@ -237,22 +234,6 @@ class Application extends Kernel {
      * @todo remove this stub once we're ready
      */
     public function loadClassCache($name = 'classes', $extension = '.php') {
-    }
-
-    /**
-     * Fire event.
-     *
-     * @param string eventName The event name.
-     * @param array parameter Optional parameter; default is an empty array.
-     */
-    public function fireEvent($eventName, array $parameter=array()) {
-        if ('cli' == php_sapi_name()) return;
-        $parameter['kernel'] = $this;
-        if (in_array($eventName, array('request_ready', 'container_ready'))) {
-            $parameter['request'] = $this->container->get('request');
-        }
-
-        $this->container->get('eventDispatcher')->dispatch($eventName, new Event($this, $parameter));
     }
 
     /**

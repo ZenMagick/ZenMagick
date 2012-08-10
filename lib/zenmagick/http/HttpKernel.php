@@ -42,7 +42,6 @@ use zenmagick\http\view\ModelAndView;
 use zenmagick\http\view\ResponseModelAndView;
 use zenmagick\http\view\View;
 
-
 /**
  * ZenMagick MVC request dispatcher.
  *
@@ -69,6 +68,10 @@ class HttpKernel implements HttpKernelInterface {
             $kernel = $container->get('kernel');
             $settingsService = $container->get('settingsService');
             $request = $container->get('request'); // @todo use it from the argument :)
+
+            $this->dispatcher->dispatch('request_ready', new Event($this, array('request' => $request)));
+            $this->dispatcher->dispatch('container_ready', new Event($this, array('request' => $request)));
+
             // allow seo rewriters to fiddle with the request
             foreach (array_reverse($container->get('containerTagService')->findTaggedServiceIds('zenmagick.http.request.rewriter')) as $id => $args) {
                 if ($this->container->get($id)->decode($request)) break;
