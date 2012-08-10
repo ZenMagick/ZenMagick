@@ -19,8 +19,6 @@
  */
 namespace zenmagick\apps\storefront\controller;
 
-use zenmagick\base\Runtime;
-
 /**
  * Request controller for product details.
  *
@@ -46,7 +44,7 @@ class ProductInfoController extends \ZMController {
             return $this->findView('product_not_found', $data);
         }
 
-        if (Runtime::getSettings()->get('isLogPageStats')) {
+        if ($this->container->get('settingsService')->get('isLogPageStats')) {
             $productService->updateViewCount($product->getId(), $languageId);
         }
 

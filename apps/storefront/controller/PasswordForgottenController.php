@@ -19,7 +19,6 @@
  */
 namespace zenmagick\apps\storefront\controller;
 
-use zenmagick\base\Runtime;
 use zenmagick\base\events\Event;
 
 /**
@@ -48,8 +47,9 @@ class PasswordForgottenController extends \ZMController {
         $this->container->get('accountService')->setAccountPassword($account->getId(), $newEncrpytedPassword);
 
         // send email (clear text)
+        $settingsService = $this->container->get('settingsService');
         $message = $this->container->get('messageBuilder')->createMessage('password_forgotten', true, $request, array('password' => $newPassword));
-        $message->setSubject(sprintf(_zm("Forgotten Password - %s"), Runtime::getSettings()->get('storeName')))->setTo($emailAddress, $account->getFullName())->setFrom(Runtime::getSettings()->get('storeEmail'));
+        $message->setSubject(sprintf(_zm("Forgotten Password - %s"), $settingsService->get('storeName')))->setTo($emailAddress, $account->getFullName())->setFrom($settingsService->get('storeEmail'));
         $this->container->get('mailer')->send($message);
 
         $this->container->get('eventDispatcher')->dispatch('password_changed', new Event($this, array('controller' => $this, 'account' => $account, 'clearPassword' => $newPassword)));

@@ -19,8 +19,6 @@
  */
 namespace zenmagick\apps\storefront\controller;
 
-use zenmagick\base\Runtime;
-
 /**
  * Request controller for checkout success page.
  *
@@ -73,7 +71,7 @@ class CheckoutSuccessController extends \ZMController {
     public function onViewDone($event) {
         $request = $event->get('request');
         $session = $request->getSession();
-        if (Runtime::getSettings()->get('isLogoffGuestAfterOrder') && $session->isGuest()) {
+        if ($this->container->get('settingsService')->get('isLogoffGuestAfterOrder') && $session->isGuest()) {
             $session->clear();
         }
     }

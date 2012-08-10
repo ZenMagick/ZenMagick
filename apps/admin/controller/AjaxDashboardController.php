@@ -19,8 +19,6 @@
  */
 namespace zenmagick\apps\admin\controller;
 
-use zenmagick\base\Runtime;
-
 /**
  * Ajax dashboard controller.
  *
@@ -50,10 +48,12 @@ class AjaxDashboardController extends \ZMRpcController {
      */
     public function getUpdateInfo($rpcRequest) {
         $versionUrl = 'http://www.zenmagick.org/version';
-        if (Runtime::getSettings()->exists('apps.store.update.channel')) {
-            $versionUrl .= '/'.Runtime::getSettings()->get('apps.store.update.channel');
+        $settingsService = $this->container->get('settingsService');
+
+        if ($settingsService->exists('apps.store.update.channel')) {
+            $versionUrl .= '/'.$settingsService->get('apps.store.update.channel');
         }
-        $versionUrl .= '?current='.Runtime::getSettings()->get('zenmagick.version');
+        $versionUrl .= '?current='.$settingsService->get('zenmagick.version');
         $latest = file_get_contents($versionUrl);
 
         $rpcResponse = $rpcRequest->createResponse();

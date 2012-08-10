@@ -20,7 +20,6 @@
 namespace zenmagick\apps\storefront\controller;
 
 use zenmagick\base\Beans;
-use zenmagick\base\Runtime;
 
 /**
  * Request controller for manufacturer.
@@ -50,23 +49,23 @@ class ManufacturerController extends \ZMController {
                 return $this->findView('manufacturer_not_found');
             }
         }
-
+        $settingsService = $this->container->get('settingsService');
         $resultList = null;
         if (null !== $method) {
             $resultSource = new \ZMObjectResultSource('ZMProduct', 'productService', $method, $args);
             $resultList = $this->container->get('ZMResultList');
             $resultList->setResultSource($resultSource);
-            foreach (explode(',', Runtime::getSettings()->get('resultListProductFilter')) as $filter) {
+            foreach (explode(',', $settingsService->get('resultListProductFilter')) as $filter) {
                 $resultList->addFilter(Beans::getBean($filter));
             }
-            foreach (explode(',', Runtime::getSettings()->get('resultListProductSorter')) as $sorter) {
+            foreach (explode(',', $settingsService->get('resultListProductSorter')) as $sorter) {
                 $resultList->addSorter(Beans::getBean($sorter));
             }
             $resultList->setPageNumber($request->query->getInt('page'));
             $data['resultList'] = $resultList;
         }
 
-        if (null != $resultList && 1 == $resultList->getNumberOfResults() && Runtime::getSettings()->get('isSkipSingleProductCategory')) {
+        if (null != $resultList && 1 == $resultList->getNumberOfResults() && $settingsService->get('isSkipSingleProductCategory')) {
             $results = $resultList->getResults();
             $product = array_pop($results);
             $request->query->set('productId', $product->getId());

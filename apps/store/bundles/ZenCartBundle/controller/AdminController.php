@@ -19,8 +19,6 @@
  */
 namespace zenmagick\apps\store\bundles\ZenCartBundle\controller;
 
-use zenmagick\base\Runtime;
-
 /**
  * ZenCart admin controller
  *
@@ -54,7 +52,7 @@ class AdminController extends \ZMController {
         $session->setValue('languages_code', $language->getCode());
 
         // strangely whos_online is the only user. @todo test ZM version of whos_online
-        $session->setValue('currency', Runtime::getSettings()->get('defaultCurrency'));
+        $session->setValue('currency', $this->container->get('settingsService')->get('defaultCurrency'));
 
         if (null == $session->getValue('selected_box')) {
             $session->setValue('selected_box', 'configuration');
@@ -81,7 +79,7 @@ class AdminController extends \ZMController {
         $view = $this->findView('zc_admin', $tpl);
         $view->setTemplate('views/zc_admin.php');
         // no layout for invoice/packaging slip
-        if (in_array($request->getRequestId(), Runtime::getSettings()->get('apps.store.zencart.skipLayout', array()))) {
+        if (in_array($request->getRequestId(), $this->container->get('settingsService')->get('apps.store.zencart.skipLayout', array()))) {
             $view->setLayout(null);
         }
         return $view;

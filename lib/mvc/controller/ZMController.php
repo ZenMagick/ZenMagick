@@ -101,7 +101,7 @@ class ZMController extends ZMObject {
         $this->requestId_ = null != $this->requestId_ ? $this->requestId_ : $request->getRequestId();
         $this->isAjax_ = $request->isXmlHttpRequest();
 
-        $settingsService = Runtime::getSettings();
+        $settingsService = $this->container->get('settingsService');
 
         // method independant (pre-)processing
         $this->preProcess($request);

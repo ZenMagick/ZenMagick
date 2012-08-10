@@ -19,7 +19,6 @@
  */
 namespace zenmagick\apps\storefront\controller;
 
-use zenmagick\base\Runtime;
 use zenmagick\base\Toolbox;
 
 /**
@@ -93,7 +92,7 @@ class CheckoutPaymentController extends \ZMController {
             $shoppingCart->setComments($comments);
         }
 
-        if (Runtime::getSettings()->get('isConditionsMessage') && !Toolbox::asBoolean($request->request->get('conditions'))) {
+        if ($this->container->get('settingsService')->get('isConditionsMessage') && !Toolbox::asBoolean($request->request->get('conditions'))) {
             $this->messageService->error(_zm('Please confirm the terms and conditions bound to this order by ticking the box below.'));
             return $this->findView();
         }

@@ -19,8 +19,6 @@
  */
 namespace zenmagick\apps\storefront\controller;
 
-use zenmagick\base\Runtime;
-
 /**
  * Controller for contact us age.
  *
@@ -49,9 +47,10 @@ class ContactUsController extends \ZMController {
     public function processPost($request) {
         $contactInfo = $this->getFormData($request);
 
+        $settingsService = $this->container->get('settingsService');
         // send email
         $message = $this->container->get('messageBuilder')->createMessage('contact_us', true, $request, array('contactInfo' => $contactInfo));
-        $message->setSubject(sprintf(_zm("Message from %s"), Runtime::getSettings()->get('storeName')))->setTo($contactInfo->getEmail(), $contactInfo->getName())->setFrom(Runtime::getSettings()->get('storeEmail'));
+        $message->setSubject(sprintf(_zm("Message from %s"), $settingsService->get('storeName')))->setTo($contactInfo->getEmail(), $contactInfo->getName())->setFrom($settingsService->get('storeEmail'));
         $this->container->get('mailer')->send($message);
 
         $this->messageService->success(_zm('Your message has been successfully sent.'));

@@ -59,8 +59,9 @@ class RedirectController extends \ZMController {
 
                 if (null == $manufacturer || null == $manufacturer->getUrl()) {
                     // try default language if different from session language
-                    if (Runtime::getSettings()->get('defaultLanguageCode') != $request->getSession()->getLanguageCode()) {
-                        $defaultLanguage = $this->container->get('languageService')->getLanguageForCode(Runtime::getSettings()->get('defaultLanguageCode'));
+                    $settingsService = $this->container->get('settingsService');
+                    if ($settingsService->get('defaultLanguageCode') != $request->getSession()->getLanguageCode()) {
+                        $defaultLanguage = $this->container->get('languageService')->getLanguageForCode($settingsService->get('defaultLanguageCode'));
                         $manufacturer = $manufacturerService->getManufacturerForId($manufacturerId, $defaultLanguage->getId());
                     }
                 }

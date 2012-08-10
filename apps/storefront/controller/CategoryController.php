@@ -19,7 +19,6 @@
  */
 namespace zenmagick\apps\storefront\controller;
 
-use zenmagick\base\Runtime;
 use zenmagick\base\Beans;
 
 /**
@@ -58,15 +57,16 @@ class CategoryController extends \ZMController {
             }
         }
 
+        $settingsService = $this->container->get('settingsService');
         $resultList = null;
         if (null !== $method) {
             $resultSource = new \ZMObjectResultSource('ZMProduct', 'productService', $method, $args);
             $resultList = $this->container->get('ZMResultList');
             $resultList->setResultSource($resultSource);
-            foreach (explode(',', Runtime::getSettings()->get('resultListProductFilter')) as $filter) {
+            foreach (explode(',', $settingsService->get('resultListProductFilter')) as $filter) {
                 $resultList->addFilter(Beans::getBean($filter));
             }
-            foreach (explode(',', Runtime::getSettings()->get('resultListProductSorter')) as $sorter) {
+            foreach (explode(',', $settingsService->get('resultListProductSorter')) as $sorter) {
                 $resultList->addSorter(Beans::getBean($sorter));
             }
             $resultList->setPageNumber($request->query->getInt('page'));
@@ -76,7 +76,7 @@ class CategoryController extends \ZMController {
 
         if ($viewName == "category_list"
             && ((null == $resultList || !$resultList->hasResults() || (null != $category && $category->hasChildren()))
-                && Runtime::getSettings()->get('isUseCategoryPage'))) {
+                && $settingsService->get('isUseCategoryPage'))) {
             $viewName = 'category';
         }
 
@@ -84,7 +84,7 @@ class CategoryController extends \ZMController {
             $data['currentCategory'] = $category;
         }
 
-        if (null != $resultList && 1 == $resultList->getNumberOfResults() && Runtime::getSettings()->get('isSkipSingleProductCategory')) {
+        if (null != $resultList && 1 == $resultList->getNumberOfResults() && $settingsService->get('isSkipSingleProductCategory')) {
             $results = $resultList->getResults();
             $product = array_pop($results);
             $request->query->set('productId', $product->getId());

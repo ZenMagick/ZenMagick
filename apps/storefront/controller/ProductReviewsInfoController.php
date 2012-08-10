@@ -19,8 +19,6 @@
  */
 namespace zenmagick\apps\storefront\controller;
 
-use zenmagick\base\Runtime;
-
 /**
  * Request controller for product review pages.
  *
@@ -44,7 +42,7 @@ class ProductReviewsInfoController extends \ZMController {
 
         $data['currentReview'] = $review;
 
-        if (Runtime::getSettings()->get('isLogPageStats')) {
+        if ($this->container->get('settingsService')->get('isLogPageStats')) {
             $reviewService->updateViewCount($request->query->get('reviews_id'));
         }
 

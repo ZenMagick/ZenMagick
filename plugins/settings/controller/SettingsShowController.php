@@ -20,7 +20,6 @@
 
 namespace zenmagick\plugins\settings\controller;
 
-use zenmagick\base\Runtime;
 use zenmagick\base\Toolbox;
 use zenmagick\apps\admin\controller\PluginAdminController;
 
@@ -47,7 +46,7 @@ class SettingsShowController extends PluginAdminController {
      * @return string The value as string.
      */
     protected function getStringValue($key, $type) {
-        if (null === ($value = Runtime::getSettings()->get($key))) {
+        if (null === ($value = $this->container->get('settingsService')->get($key))) {
             return '-- NOT SET --';
         }
 
@@ -101,6 +100,8 @@ class SettingsShowController extends PluginAdminController {
      */
     public function processGet($request) {
         $settingDetails = array();
+        $settingsService = $this->container->get('settingsService');
+
         // prepare values
         foreach (zm_get_settings_details() as $group => $groupDetails) {
             foreach ($groupDetails as $sub => $subDetails) {
@@ -121,7 +122,7 @@ class SettingsShowController extends PluginAdminController {
                         $bits = explode($dynVar, $key);
                         $prefix = $bits[0];
                         $suffix = $bits[1];
-                        foreach (Runtime::getSettings()->getAll() as $akey => $avalue) {
+                        foreach ($settingsService->getAll() as $akey => $avalue) {
                             if (0 === strpos($akey, $prefix) && Toolbox::endsWith($akey, $suffix)) {
                                 // potential match
                                 $dynVal = substr($akey, strlen($prefix), -strlen($suffix));
@@ -144,7 +145,7 @@ class SettingsShowController extends PluginAdminController {
         }
 
         // check for settings without details
-        foreach (Runtime::getSettings()->getAll() as $key => $value) {
+        foreach ($settingsService->getAll() as $key => $value) {
             foreach ($settingDetails as $group => $groupDetails) {
                 if (0 === strpos($key, $group.'.')) {
                     $found = false;

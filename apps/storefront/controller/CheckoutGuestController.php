@@ -19,8 +19,6 @@
  */
 namespace zenmagick\apps\storefront\controller;
 
-use zenmagick\base\Runtime;
-
 /**
  * Request controller for guest checkout.
  *
@@ -32,7 +30,9 @@ class CheckoutGuestController extends \ZMController {
      * {@inheritDoc}
      */
     public function processPost($request) {
-        if (!Runtime::getSettings()->get('isGuestCheckout')) {
+        $settingsService = $this->container->get('settingsService');
+
+        if (!$settingsService->get('isGuestCheckout')) {
             $this->messageService->warn(_zm('Guest checkout not allowed at this time'));
             return $this->findView('guest_checkout_disabled');
         }
@@ -63,7 +63,7 @@ class CheckoutGuestController extends \ZMController {
         $session->regenerate();
         $session->setAccount($account);
 
-        if (Runtime::getSettings()->get('isGuestCheckoutAskAddress')) {
+        if ($settingsService->get('isGuestCheckoutAskAddress')) {
             // double check
             $lastName = $address->getLastName();
             if (!empty($lastName)) {

@@ -20,8 +20,6 @@
 namespace zenmagick\plugins\subscriptions\controller;
 
 use ZMController;
-use ZMRuntime;
-use zenmagick\base\Runtime;
 use zenmagick\base\ZMObject;
 
 /**
@@ -63,7 +61,7 @@ class ZMSubscriptionRequestController extends ZMController {
         }
 
         $plugin = $this->getPlugin();
-        $emailTemplate = Runtime::getSettings()->get('plugins.subscriptions.email.templates.request', 'subscription_request');
+        $emailTemplate = $this->container->get('settingsService')->get('plugins.subscriptions.email.templates.request', 'subscription_request');
         $this->sendNotificationEmail($request->request->all(), $emailTemplate, $plugin->get('adminEmail'));
 
         $this->messageService->success(_zm("Request submitted!"));
@@ -78,12 +76,13 @@ class ZMSubscriptionRequestController extends ZMController {
      * @param string email The email address.
      */
     protected function sendNotificationEmail($context, $template, $email) {
+        $settingsService = $this->container->get('settingsService');
         if (empty($email)) {
-            $email = Runtime::getSettings()->get('storeEmail');
+            $email = $settingsService->get('storeEmail');
         }
 
         $message = $this->container->get('messageBuilder')->createMessage($template, true, $request, $context);
-        $message->setSubject(sprintf(_zm("Subscription request notification"), Runtime::getSettings()->get('storeName')))->setTo($email)->setFrom(Runtime::getSettings()->get('storeEmail'));
+        $message->setSubject(sprintf(_zm("Subscription request notification"), $settingsService->get('storeName')))->setTo($email)->setFrom($settingsService->get('storeEmail'));
         $this->container->get('mailer')->send($message);
     }
 

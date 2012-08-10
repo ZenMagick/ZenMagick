@@ -81,7 +81,7 @@ class SearchController extends \ZMController {
         if (!Toolbox::isEmpty($searchCriteria->getKeywords()) && $this->autoSearch_) {
             $resultList = Beans::getBean('ZMResultList');
             //TODO: filter??
-            foreach (explode(',', Runtime::getSettings()->get('resultListProductSorter')) as $sorter) {
+            foreach (explode(',', $this->container->get('settingsService')->get('resultListProductSorter')) as $sorter) {
                 $resultList->addSorter(Beans::getBean($sorter));
             }
 

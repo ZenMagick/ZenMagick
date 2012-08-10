@@ -20,7 +20,6 @@
 namespace zenmagick\apps\storefront\controller;
 
 use zenmagick\base\Beans;
-use zenmagick\base\Runtime;
 
 /**
  * Request controller for featured products.
@@ -33,13 +32,15 @@ class FeaturedProductsController extends \ZMController {
      * {@inheritDoc}
      */
     public function processGet($request) {
+        $settingsService = $this->container->get('settingsService');
+
         $resultSource = new \ZMObjectResultSource('ZMProduct', 'productService', "getFeaturedProducts", array($request->attributes->get('categoryId'), 0));
         $resultList = $this->container->get("ZMResultList");
         $resultList->setResultSource($resultSource);
-        foreach (explode(',', Runtime::getSettings()->get('resultListProductFilter')) as $filter) {
+        foreach (explode(',', $settingsService->get('resultListProductFilter')) as $filter) {
             $resultList->addFilter(Beans::getBean($filter));
         }
-        foreach (explode(',', Runtime::getSettings()->get('resultListProductSorter')) as $sorter) {
+        foreach (explode(',', $settingsService->get('resultListProductSorter')) as $sorter) {
             $resultList->addSorter(Beans::getBean($sorter));
         }
         $resultList->setPageNumber($request->query->getInt('page'));
