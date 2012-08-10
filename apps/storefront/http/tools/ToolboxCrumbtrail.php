@@ -36,15 +36,6 @@ class ToolboxCrumbtrail extends ToolboxTool {
      */
     public function __construct() {
         parent::__construct();
-        Runtime::getEventDispatcher()->listen($this);
-    }
-
-
-    /**
-     * Reset.
-     */
-    public function onContainerReady($event) {
-        $this->reset();
     }
 
     /**
