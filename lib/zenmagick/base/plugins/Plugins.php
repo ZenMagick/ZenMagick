@@ -141,8 +141,6 @@ class Plugins extends ZMObject {
                         }
 
                         $plugin->init();
-                        // @tod very temporary. we really want to use the container tags
-                        Runtime::getEventDispatcher()->listen($plugin);
                         // plugins can only contribute translations
                         $path = $plugin->getPluginDirectory().'/locale';
                         $this->localeService->addResource($path);

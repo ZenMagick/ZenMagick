@@ -153,23 +153,37 @@ class Application extends Kernel {
      *
      */
     public function bootZM() {
+        $this->container->get('localeService')->init();
         $settingsService = $this->container->get('settingsService');
         // @todo switch to using tagged services for events.
-        foreach ($settingsService->get('zenmagick.base.events.listeners', array()) as $eventListener) {
-            if (!class_exists($eventListener)) continue;
-            if (null != ($eventListener = new $eventListener)) {
-                $eventListener->setContainer($this->container);
-                $this->container->get('eventDispatcher')->listen($eventListener);
+        $listeners = $settingsService->get('zenmagick.base.events.listeners', array());
+        $plugins = $this->container->get('pluginService')->getPluginsForContext($this->getContext());
+        $listeners = array_merge($listeners, $plugins);
+        if ('storefront' == $this->getContext()) {
+            $this->container->get('themeService')->initThemes();
+            foreach ($this->container->get('themeService')->getThemeChain() as $theme) {
+                $eventListener = sprintf('zenmagick\themes\%s\EventListener', $theme->getId());
+                $listeners[] = $theme;
             }
         }
-        $this->container->get('localeService')->init();
-
-        $this->container->get('pluginService')->getPluginsForContext($this->getContext());
-        $this->fireEvent('request_ready');
 
         if (!($this->container->getParameterBag() instanceof FrozenParameterBag)) {
             $this->container->compile();
         }
+        // @todo switch to using tagged services for events.
+        foreach ($listeners as $eventListener) {
+            if (is_string($eventListener)) {
+                if (!class_exists($eventListener)) continue;
+                if (null != ($eventListener = new $eventListener)) {
+                    $eventListener->setContainer($this->container);
+                }
+            }
+            if (is_object($eventListener)) {
+                $this->container->get('eventDispatcher')->listen($eventListener);
+            }
+        }
+
+        $this->fireEvent('request_ready');
         $this->fireEvent('container_ready');
     }
 

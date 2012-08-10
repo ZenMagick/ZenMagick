@@ -223,13 +223,6 @@ class ThemeService extends ZMObject {
             $theme->loadTranslations();
             // custom theme.yaml settings
             $theme->loadSettings();
-
-            // always add an event listener in the theme's base namespace
-            $eventListener = sprintf('zenmagick\themes\%s\EventListener', $theme->getId());
-            if (class_exists($eventListener)) {
-                $listener = $this->container->get($eventListener);
-                $eventDispatcher->listen($listener);
-            }
         }
         return $themeChain[count($themeChain)-1];
     }
