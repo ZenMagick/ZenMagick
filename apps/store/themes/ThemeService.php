@@ -208,10 +208,9 @@ class ThemeService extends ZMObject {
      *  <li>Load custome theme settings from <em>theme.yaml</em></li>
      * </ol>
      *
-     * @param string locale
      * @return Theme The final active theme.
      */
-    public function initThemes($locale = 'en') {
+    public function initThemes() {
         $themeChain = $this->getThemeChain();
 
         $statusMap = $this->getStatusMap();
