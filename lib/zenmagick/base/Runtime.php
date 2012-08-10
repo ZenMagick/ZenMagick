@@ -29,15 +29,6 @@ class Runtime {
     private static $container = null;
     private static $context = null;
 
-    /**
-     * Get the application we are running.
-     *
-     * @return Application The application or <code>null</code>.
-     */
-    public static function getApplication() {
-        return self::getContainer()->get('kernel');
-    }
-
     public static function setContext($context) {
         self::$context = $context;
     }
