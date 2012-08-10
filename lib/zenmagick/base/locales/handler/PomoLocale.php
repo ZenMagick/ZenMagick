@@ -57,10 +57,48 @@ class PomoLocale extends Locale {
     }
 
     /**
+     * Resolve a locale path.
+     *
+     * <p>The path given is assumed to contain the full locale as specified in the <code>$locale</code> parameter.</p>
+     * <p>The function will validate the path and if not valid will default to using just the language.</p>
+     *
+     * @param string path The full path.
+     * @param string locale The locale.
+     * @return string A valid path or <code>null</code>.
+     *
+     */
+    public function resolvePath($path, $locale) {
+        if (file_exists($path)) {
+            return $path;
+        }
+
+        $lt = explode('_', $locale);
+        if (2 > count($lt)) {
+            return null;
+        }
+
+        // try language
+        $path = str_replace($locale, $lt[0], $path);
+        if (file_exists($path)) {
+            return $path;
+        }
+
+        return null;
+    }
+
+
+    /**
      * {@inheritDoc}
      */
     public function init($locale, $path=null, $domain=null) {
-        $path  = parent::init($locale, $path);
+        if (null == $path) {
+            $path = realpath(Runtime::getApplicationPath()).'/locale/'.$locale;
+            if (null == ($path = $this->resolvePath($path, $locale))) {
+                return null;
+            }
+        }
+
+        $this->locale = $locale;
         $this->registerMOForLocale($path, $locale, self::DEFAULT_MO_NAME, $domain);
     }
 
@@ -101,7 +139,7 @@ class PomoLocale extends Locale {
         $domain = $domain ?: $this->getDefaultDomain();
         $filename = (null == $filename ? $domain : $filename).'.mo';
         $path = realpath($basedir).'/'.$filename;
-        if (!file_exists($basedir) || null == ($path = Locale::resolvePath($path, $locale))) {
+        if (!file_exists($basedir) || null == ($path = $this->resolvePath($path, $locale))) {
             Runtime::getLogging()->log('unable to resolve locale path for locale="'.$locale.'"; basedir='.$basedir, Logging::TRACE);
             return;
         }

@@ -75,6 +75,14 @@ class Locales extends ZMObject {
         $this->getLocale()->addResource($resource, $locale, $domain);
     }
 
+    /**
+     * Set locale
+     *
+     * @param string locale
+     */
+    public function setLocale($locale) {
+        $this->locale = $locale;
+    }
 
     /**
      * Get the active locale.

@@ -139,7 +139,7 @@ class EventListener extends ZMObject {
 
         $user = $request->getAccount();
         if (null != $user && null != ($uiLocale = $this->container->get('adminUserPrefService')->getPrefForName($user->getId(), 'uiLocale'))) {
-            $this->container->get('localeService')->getLocale(true, $uiLocale);
+            $this->container->get('localeService')->init($uiLocale, null, true);
         }
         $settingsService = $this->container->get('settingsService');
         $settingsService->set('apps.store.baseUrl', 'http://'.$request->getHost().str_replace('zenmagick/apps/admin/web', '', $request->getContext()));

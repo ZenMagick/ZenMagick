@@ -19,7 +19,6 @@
  */
 namespace zenmagick\base\locales;
 
-use zenmagick\base\Runtime;
 use zenmagick\base\ZMObject;
 
 /**
@@ -57,36 +56,6 @@ class Locale extends ZMObject {
     }
 
     /**
-     * Resolve a locale path.
-     *
-     * <p>The path given is assumed to contain the full locale as specified in the <code>$locale</code> parameter.</p>
-     * <p>The function will validate the path and if not valid will default to using just the language.</p>
-     *
-     * @param string path The full path.
-     * @param string locale The locale.
-     * @return string A valid path or <code>null</code>.
-     *
-     */
-    public static function resolvePath($path, $locale) {
-        if (file_exists($path)) {
-            return $path;
-        }
-
-        $lt = explode('_', $locale);
-        if (2 > count($lt)) {
-            return null;
-        }
-
-        // try language
-        $path = str_replace($locale, $lt[0], $path);
-        if (file_exists($path)) {
-            return $path;
-        }
-
-        return null;
-    }
-
-    /**
      * Add resource.
      *
      * @param mixed resource The resource to add.
@@ -115,15 +84,6 @@ class Locale extends ZMObject {
      */
     public function init($locale, $path=null, $domain=null) {
         $this->locale = $locale;
-
-        if (null == $path) {
-            $path = realpath(Runtime::getApplicationPath()).'/locale/'.$locale;
-            if (null == ($path = Locale::resolvePath($path, $locale))) {
-                return null;
-            }
-        }
-
-        return $path;
     }
 
     /**
