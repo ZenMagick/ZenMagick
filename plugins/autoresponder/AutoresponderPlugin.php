@@ -33,7 +33,6 @@ class AutoresponderPlugin extends Plugin {
      * Create new instance.
      */
     public function __construct() {
-        parent::__construct('Autoresponder', 'Auto emails based on account events.', '${plugin.version}');
         $this->setContext('storefront');
     }
 

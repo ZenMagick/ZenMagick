@@ -1,0 +1,5 @@
+meta:
+  name: 'Autoresponder'
+  version: '${plugin.version}'
+  author: 'zenmagick.org'
+  description: 'Auto emails based on acccount events.'
