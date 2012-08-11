@@ -41,9 +41,6 @@ class ThemeStatusMapBuilder extends ZMObject {
      */
     public function __construct() {
         parent::__construct();
-        $this->basePath = array(
-            Runtime::getInstallationPath().'/themes'
-        );
         $this->defaultThemeClass = self::DEFAULT_THEME_CLASS;
     }
 
