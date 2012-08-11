@@ -323,10 +323,6 @@ class Application extends Kernel {
             $contextConfigLoader->apply($config);
         }
 
-        if (null == $settingsService->get('apps.store.zencart.path')) { // @todo or default to vendors/zencart?
-            $settingsService->set('apps.store.zencart.path', dirname($this->getRootDir()));
-        }
-
         if (null != ($locale = $settingsService->get('zenmagick.base.locales.locale'))) { // @todo how can we really rename it.
             $settingsService->set('kernel.default_locale', $locale);
         }
