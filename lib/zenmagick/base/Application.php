@@ -19,7 +19,6 @@
  */
 namespace zenmagick\base;
 
-use DateTime;
 use Exception;
 use zenmagick\base\Runtime;
 use zenmagick\base\Beans;
@@ -28,7 +27,6 @@ use zenmagick\base\Toolbox;
 use zenmagick\base\ZMException;
 use zenmagick\base\dependencyInjection\ContainerBuilder;
 use zenmagick\base\dependencyInjection\parameterBag\SettingsParameterBag;
-use zenmagick\base\plugins\Plugins;
 
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\Config\Loader\LoaderInterface;
@@ -38,10 +36,7 @@ use Symfony\Component\DependencyInjection\Loader\XmlFileLoader;
 use Symfony\Component\HttpKernel\Kernel;
 use Symfony\Component\HttpKernel\DependencyInjection\MergeExtensionConfigurationPass;
 use Symfony\Component\HttpKernel\DependencyInjection\AddClassesToCachePass;
-use Symfony\Component\HttpKernel\Debug\ErrorHandler;
-use Symfony\Component\HttpKernel\Debug\ExceptionHandler;
 use Symfony\Component\Filesystem\Filesystem;
-use Symfony\Component\HttpFoundation\Response;
 
 /**
  * Base application.
