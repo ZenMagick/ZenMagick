@@ -1,0 +1,5 @@
+meta:
+  name: 'Multi Quantity'
+  version: '${plugin.version}'
+  author: 'zenmagick.org'
+  description: 'Multi Quantity "Add Product" on a single attribute'

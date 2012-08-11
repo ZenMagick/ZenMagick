@@ -44,7 +44,7 @@ class PageCachePlugin extends \Plugin {
      * Create new instance.
      */
     public function __construct() {
-        parent::__construct('Page Cache', 'ZenMagick page caching', '${plugin.version}');
+        parent::__construct();
         $this->setContext('admin,storefront');
         $this->setPreferredSortOrder(9999);
         $this->cache_ = null;

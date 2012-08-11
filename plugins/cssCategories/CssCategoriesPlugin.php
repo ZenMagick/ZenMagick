@@ -33,7 +33,7 @@ class CssCategoriesPlugin extends Plugin {
      * Create new instance.
      */
     public function __construct() {
-        parent::__construct('CSS Categories', 'CSS Categories menu.', '${plugin.version}');
+        parent::__construct();
         $this->setContext('storefront');
     }
 

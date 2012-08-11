@@ -32,8 +32,8 @@ define('RECAPTCHA_FIELD', 'recaptcha_response_field');
  * @author DerManoMann <mano@zenmagick.org>
  */
 class RecaptchaPlugin extends Plugin {
-    private $captchaEnabled_;
-    private $error_;
+    private $captchaEnabled_ = false;
+    private $error_ = null;
     // page => (name, form)
     private $pageConfig_ = array(
         'create_account' => array('Create Account', 'registration'),
@@ -41,17 +41,6 @@ class RecaptchaPlugin extends Plugin {
         'tell_a_friend' => array('Tell A Friend', 'tellAFriend'),
         'product_reviews_write' => array('Write Review', 'newReview')
     );
-
-
-    /**
-     * Create new instance.
-     */
-    public function __construct() {
-        parent::__construct('ReCAPTCHA Plugin', 'ReCAPTCHA for ZenMagick');
-        $this->captchaEnabled_ = false;
-        $this->error_ = null;
-    }
-
 
     /**
      * {@inheritDoc}

@@ -1,0 +1,5 @@
+meta:
+  name: 'Lift Suggest'
+  version: '${plugin.version}'
+  author: 'zenmagick.org'
+  description: 'Lift suggest product suggestions.'

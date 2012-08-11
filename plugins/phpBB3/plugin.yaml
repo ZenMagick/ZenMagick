@@ -1,0 +1,5 @@
+meta:
+  name: 'phpBB'
+  version: '${plugin.version}'
+  author: 'zenmagick.org'
+  description: 'phpBB3 for ZenMagick'

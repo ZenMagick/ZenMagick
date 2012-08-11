@@ -43,7 +43,7 @@ class GoogleAnalyticsPlugin extends Plugin {
      * Create new instance.
      */
     public function __construct() {
-        parent::__construct('Google Analytics', 'Adds Google Analytics.', '${plugin.version}');
+        parent::__construct();
         $this->setContext('storefront');
         $this->eol_ = "\n";
         $this->order_ = null;

@@ -1,0 +1,5 @@
+meta:
+  name: 'Fual Slimbox'
+  version: '${plugin.version}'
+  author: 'zenmagick.org'
+  description: 'Fual Slimbox support for ZenMagick'

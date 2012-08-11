@@ -1,0 +1,5 @@
+meta:
+  name: 'Who''s Online'
+  version: '${plugin.version}'
+  author: 'zenmagick.org'
+  description: 'Provide information about current site users'

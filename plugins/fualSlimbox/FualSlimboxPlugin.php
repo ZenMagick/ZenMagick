@@ -36,7 +36,7 @@ class FualSlimboxPlugin extends Plugin {
      * Create new instance.
      */
     public function __construct() {
-        parent::__construct('Fual Slimbox', 'Fual Slimbox support for ZenMagick', '${plugin.version}');
+        parent::__construct();
         $this->setContext('storefront');
     }
 

@@ -32,7 +32,7 @@ class JscrollerSideboxesPlugin extends Plugin {
      * Create new instance.
      */
     public function __construct() {
-        parent::__construct('jscroller sideboxes', 'jscroller product sideboxes.', '${plugin.version}');
+        parent::__construct();
         $this->setContext('storefront');
     }
 

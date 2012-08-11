@@ -34,14 +34,6 @@ use zenmagick\http\sacs\SacsManager;
 class FormHandlerPlugin extends Plugin {
 
     /**
-     * Create new instance.
-     */
-    public function __construct() {
-        parent::__construct('Form Handler', 'Generic form handler with email notification', '${plugin.version}');
-    }
-
-
-    /**
      * Install this plugin.
      */
     public function install() {

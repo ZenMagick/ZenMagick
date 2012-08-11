@@ -32,14 +32,6 @@ use zenmagick\apps\store\model\checkout\ShoppingCart;
 class PaymentSurchargePlugin extends Plugin implements \ZMOrderTotal {
 
     /**
-     * Create new instance.
-     */
-    public function __construct() {
-        parent::__construct('Payment Surcharge', 'Conditional payment surcharge/discount', '${plugin.version}');
-    }
-
-
-    /**
      * {@inheritDoc}
      */
     public function calculate($request, ShoppingCart $shoppingCart) {

@@ -32,20 +32,9 @@ use zenmagick\base\logging\Logging;
  * @author DerManoMann <mano@zenmagick.org>
  */
 class PageStatsPlugin extends Plugin {
-    private $pageCache_;
-    private $eventStats_;
-
-
-    /**
-     * Create new instance.
-     */
-    public function __construct() {
-        parent::__construct('Page Stats', 'Show page stats', '${plugin.version}');
-        $this->pageCache_ = null;
-        $this->event_ = array();
-        $this->eventStats_ = array();
-    }
-
+    private $pageCache_ = null;
+    private $event = array();
+    private $eventStats_ = array();
 
     /**
      * {@inheritDoc}

@@ -1,0 +1,5 @@
+meta:
+  name: 'Google Analytics'
+  version: '${plugin.version}'
+  author: 'zenmagick.org'
+  description: 'Adds Google Analytics.'

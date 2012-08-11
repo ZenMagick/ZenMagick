@@ -1,0 +1,5 @@
+meta:
+  name: 'Recaptcha Plugin'
+  version: '${plugin.version}'
+  author: 'zenmagick.org'
+  description: 'ReCAPTCHA for ZenMagick'

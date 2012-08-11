@@ -1,0 +1,5 @@
+meta:
+  name: 'vBulletin'
+  version: '${plugin.version}'
+  author: 'zenmagick.org'
+  description: 'vBulletin for ZenMagick'

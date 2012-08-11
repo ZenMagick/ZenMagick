@@ -29,21 +29,9 @@ use zenmagick\base\Runtime;
  * @author DerManoMann <mano@zenmagick.org>
  */
 class PhpBB3Plugin extends Plugin {
-    private $page_;
-    private $prePostAccount_;
-    private $adapter_;
-
-
-    /**
-     * Create new instance.
-     */
-    public function __construct() {
-        parent::__construct('phpBB3', 'phpBB3 for ZenMagick', '${plugin.version}');
-        $this->page_ = '';
-        $this->prePostAccount_ = null;
-        $this->adapter_ = null;
-    }
-
+    private $page_ = '';
+    private $prePostAccount_ = null;
+    private $adapter_ = null;
 
     /**
      * Install this plugin.

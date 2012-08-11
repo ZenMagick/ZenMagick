@@ -37,7 +37,7 @@ class LiftSuggestPlugin extends Plugin {
      * Create new instance.
      */
     public function __construct() {
-        parent::__construct('Lift Suggest', 'Lift suggest product suggestions.', '${plugin.version}');
+        parent::__construct();
         $this->setContext('storefront');
         $this->recommendationsLoadedFor = null;
         $this->view = null;

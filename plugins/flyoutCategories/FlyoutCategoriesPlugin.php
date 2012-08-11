@@ -33,7 +33,7 @@ class FlyoutCategoriesPlugin extends Plugin {
      * Create new instance.
      */
     public function __construct() {
-        parent::__construct('Flyout Categories', 'Flyout Categories menu.', '${plugin.version}');
+        parent::__construct();
         $this->setContext('storefront');
     }
 

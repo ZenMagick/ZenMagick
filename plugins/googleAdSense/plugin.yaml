@@ -1,0 +1,5 @@
+meta:
+  name: 'Google AdSense'
+  version: '${plugin.version}'
+  author: 'zenmagick.org'
+  description: 'Plugin to manage Google AdSense JS (including four sideboxes).'

@@ -31,15 +31,6 @@ class GoogleAdSensePlugin extends Plugin {
     const ADSENSE_PREFIX = 'adsense-';
     private $totalAds_;
 
-
-    /**
-     * Create new instance.
-     */
-    public function __construct() {
-        parent::__construct('Google AdSense', 'Plugin to manage Google AdSense JS (including four sideboxes).', '${plugin.version}');
-    }
-
-
     /**
      * {@inheritDoc}
      */

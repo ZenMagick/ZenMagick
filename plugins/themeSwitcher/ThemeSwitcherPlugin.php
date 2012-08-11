@@ -20,7 +20,6 @@
 namespace zenmagick\plugins\themeSwitcher;
 
 use Plugin;
-use zenmagick\base\Runtime;
 use zenmagick\base\Toolbox;
 use zenmagick\base\events\Event;
 use zenmagick\http\view\TemplateView;
@@ -39,7 +38,7 @@ class ThemeSwitcherPlugin extends Plugin {
      * Create new instance.
      */
     public function __construct() {
-        parent::__construct('Theme Switcher', 'Allow users to select a theme');
+        parent::__construct();
         $this->setContext('storefront');
     }
 

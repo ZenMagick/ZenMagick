@@ -37,7 +37,7 @@ class GravatarPlugin extends Plugin {
      * Create new instance.
      */
     public function __construct() {
-        parent::__construct('Gravatar', 'Adds gravatar support to accounts.', '${plugin.version}');
+        parent::__construct();
         $this->setContext('storefront');
         $this->baseUrl = 'http://www.gravatar.com/avatar/';
     }

@@ -1,0 +1,5 @@
+meta:
+  name: 'Css Categories'
+  version: '${plugin.version}'
+  author: 'zenmagick.org'
+  description: 'Css Categories menu.'

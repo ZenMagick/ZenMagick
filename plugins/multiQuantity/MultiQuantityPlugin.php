@@ -34,13 +34,6 @@ define('MULTI_QUANTITY_ID', 'multi_qty_id');
 class MultiQuantityPlugin extends Plugin {
 
     /**
-     * Create new instance.
-     */
-    public function __construct() {
-        parent::__construct('Multi Quantity', 'Multi Quantity "Add Product" on a single attribute', '${plugin.version}');
-    }
-
-    /**
      * Stop zen-cart processing multi quantity requests.
      */
     public function onContainerReady($event) {

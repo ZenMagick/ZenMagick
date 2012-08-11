@@ -1,0 +1,5 @@
+meta:
+  name: 'Page Cache'
+  version: '${plugin.version}'
+  author: 'zenmagick.org'
+  description: 'ZenMagick page caching'

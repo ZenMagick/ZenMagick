@@ -1,0 +1,5 @@
+meta:
+  name: 'Gravatar'
+  version: '${plugin.version}'
+  author: 'zenmagick.org'
+  description: 'Adds gravatar support to accounts.'

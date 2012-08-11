@@ -30,21 +30,9 @@ use zenmagick\base\Runtime;
  * @author DerManoMann <mano@zenmagick.org>
  */
 class VBulletinPlugin extends Plugin {
-    private $page_;
-    private $prePostAccount_;
-    private $adapter_;
-
-
-    /**
-     * Create new instance.
-     */
-    public function __construct() {
-        parent::__construct('vBulletin', 'vBulletin for ZenMagick');
-        $this->page_ = '';
-        $this->prePostAccount_ = null;
-        $this->adapter_ = null;
-    }
-
+    private $page_ = '';
+    private $prePostAccount_ = null;
+    private $adapter_ = null;
 
     /**
      * {@inheritDoc}

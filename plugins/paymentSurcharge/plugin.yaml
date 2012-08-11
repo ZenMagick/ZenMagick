@@ -1,0 +1,5 @@
+meta:
+  name: 'Payment Surcharge'
+  version: '${plugin.version}'
+  author: 'zenmagick.org'
+  description: 'Conditional payment surcharge/discount'
