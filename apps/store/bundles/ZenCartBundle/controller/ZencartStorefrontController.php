@@ -64,7 +64,6 @@ class ZencartStorefrontController extends \ZMController {
             $request->query->set('products_id', $request->query->get('productId'));
             $request->query->remove('productId');
         }
-
     }
 
     /**
@@ -119,7 +118,8 @@ class ZencartStorefrontController extends \ZMController {
          */
         $cwd = getcwd();
         $autoLoader->setErrorLevel();
-        chdir($settingsService->get('apps.store.zencart.path'));
+        $request->overrideGlobals();
+        chdir($settingsService->get('zencart.root_dir'));
         extract($this->getZcViewData($request));
         $autoLoadConfig = array();
         $files = $autoLoader->resolveFiles('includes/auto_loaders/config.*.php');
@@ -129,12 +129,10 @@ class ZencartStorefrontController extends \ZMController {
             include $file;
         }
         require Runtime::getInstallationPath().'/apps/store/bundles/ZenCartBundle/bridge/includes/autoload_func.php';
-
         require($controllerFile);
 
         // is this really required? we got here because the bundle checked this already, it seems
-        $language = $request->getSession()->getLanguage();
-        if ($this->container->get('themeService')->getActiveTheme($language->getId())->getMeta('zencart')) {
+        if ($this->container->get('themeService')->getActiveTheme()->getMeta('zencart')) {
             require($template->get_template_dir('html_header.php',DIR_WS_TEMPLATE, $request->getRequestId(),'common'). '/html_header.php');
             require($template->get_template_dir('main_template_vars.php',DIR_WS_TEMPLATE, $request->getRequestId(),'common'). '/main_template_vars.php');
             require($template->get_template_dir('tpl_main_page.php',DIR_WS_TEMPLATE, $request->getRequestId(),'common'). '/tpl_main_page.php');

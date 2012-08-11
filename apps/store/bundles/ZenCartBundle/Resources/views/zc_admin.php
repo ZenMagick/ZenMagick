@@ -24,7 +24,7 @@ $resourceManager->cssFile('zc_admin.css');
 $resourceManager->jsFile('zc_admin.js');
 
 $adminDir = $settingsService->get('apps.store.zencart.admindir');
-$zcPath = $settingsService->get('apps.store.zencart.path');
+$zcPath = $settingsService->get('zencart.root_dir');
 $baseContext = trim(str_replace('/zenmagick/apps/admin/web', '', $request->getContext()));
 $adminWeb = substr(sprintf('%s/%s', $baseContext, $adminDir), 1);
 //$adminWeb = trim(str_replace(Runtime::getInstallationPath(), '', $zcPath).'/'.$adminDir, '/');

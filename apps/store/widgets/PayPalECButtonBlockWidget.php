@@ -47,7 +47,7 @@ class PayPalECButtonBlockWidget extends Widget {
 
         if (defined('MODULE_PAYMENT_PAYPALWPP_STATUS') && MODULE_PAYMENT_PAYPALWPP_STATUS == 'True') {
             global $order, $db, $currencies;
-            include $settingsService->get('apps.store.zencart.path').'/includes/modules/payment/paypal/tpl_ec_button.php';
+            include $settingsService->get('zencart.root_dir').'/includes/modules/payment/paypal/tpl_ec_button.php';
         }
 
         return ob_get_clean();

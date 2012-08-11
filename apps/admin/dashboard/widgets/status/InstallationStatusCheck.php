@@ -36,7 +36,7 @@ class InstallationStatusCheck implements StatusCheck {
     public function getStatusMessages() {
         $messages = array();
         $settingsService = Runtime::getSettings();
-        $zcPath = $settingsService->get('apps.store.zencart.path');
+        $zcPath = $settingsService->get('zencart.root_dir');
         $installDir = $zcPath.'/zc_install';
         if (is_dir($installDir)) {
             $messages[] = array(StatusCheck::STATUS_NOTICE, sprintf(_zm('Installation directory exists at: %s. Please remove this directory for security reasons.'), $installDir));

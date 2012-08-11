@@ -48,7 +48,7 @@ class ZMPaymentTypes extends ZMObject {
      */
     public function getPaymentTypes($all=false) {
         if (null === $this->paymentTypes_) {
-            $zcPath = Runtime::getSettings()->get('apps.store.zencart.path');
+            $zcPath = Runtime::getSettings()->get('zencart.root_dir');
             $this->paymentTypes_ = array();
             if (defined('MODULE_PAYMENT_INSTALLED') && !Toolbox::isEmpty(MODULE_PAYMENT_INSTALLED)) {
                 // get a list of modules and stuff

@@ -113,6 +113,12 @@ class Application extends Kernel {
             }
         }
 
+        // @todo move all zencart specific parameteres to bundle
+        $zcDir = realpath(dirname($this->getRootDir()));
+        $files[] = function($container) use ($zcDir) {
+            $container->setParameter('zencart.root_dir', $zcDir);
+        };
+
         foreach ($files as $file) {
             $loader->load($file);
         }
