@@ -37,30 +37,30 @@ class ZenCartThemeStatusMapBuilder extends ThemeStatusMapBuilder {
     protected function getPathIdMap() {
         $pathIdMap = parent::getPathIdMap();
 
-        $zcPath = $this->container->get('settingsService')->get('apps.store.zencart.path');
-        $templatePath = $zcPath.'/includes/templates';
-        foreach (new DirectoryIterator($templatePath) as $templateInfo) {
-            if ($templateInfo->isDir() && !$templateInfo->isDot()) {
-                $id = $templateInfo->getFilename();
-                $path = $templateInfo->getPathname();
-                $infoFile = $path.'/template_info.php';
-                if (!array_key_exists($id, $pathIdMap) && file_exists($infoFile)) {
-                    include $infoFile;
-                    if (isset($template_name)) {
-                        $config = array();
-                        $config['meta'] = array();
-                        $config['meta']['name'] = $template_name.' (Zen Cart)';
-                        $config['meta']['version'] = $template_version;
-                        $config['meta']['author'] = $template_author;
-                        $config['meta']['description'] = $template_description;
-                        $config['meta']['zencart'] = true;
-                        $pathIdMap[$id] = array(
-                            'path' => $path,
-                            'id' => $id,
-                            'class' => $this->defaultThemeClass,
-                            'config' => $config,
-                            'locales' => array()
-                        );
+        foreach ($this->getBasePath() as $basePath) {
+            foreach (new DirectoryIterator($basePath) as $templateInfo) {
+                if ($templateInfo->isDir() && !$templateInfo->isDot()) {
+                    $id = $templateInfo->getFilename();
+                    $path = $templateInfo->getPathname();
+                    $infoFile = $path.'/template_info.php';
+                    if (!array_key_exists($id, $pathIdMap) && file_exists($infoFile)) {
+                        include $infoFile;
+                        if (isset($template_name)) {
+                            $config = array();
+                            $config['meta'] = array();
+                            $config['meta']['name'] = $template_name.' (Zen Cart)';
+                            $config['meta']['version'] = $template_version;
+                            $config['meta']['author'] = $template_author;
+                            $config['meta']['description'] = $template_description;
+                            $config['meta']['zencart'] = true;
+                            $pathIdMap[$id] = array(
+                                'path' => $path,
+                                'id' => $id,
+                                'class' => $this->defaultThemeClass,
+                                'config' => $config,
+                                'locales' => array()
+                            );
+                        }
                     }
                 }
             }
