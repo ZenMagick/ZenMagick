@@ -164,6 +164,10 @@ class Application extends Kernel {
         if (!($this->container->getParameterBag() instanceof FrozenParameterBag)) {
             $this->container->compile();
         }
+        foreach($this->container->getParameterBag()->all()  as $param => $value) {
+            $this->container->get('settingsService')->set($param, $value);
+        }
+
         // @todo switch to using tagged services for events.
         foreach ($listeners as $eventListener) {
             if (is_string($eventListener)) {
@@ -328,11 +332,7 @@ class Application extends Kernel {
      * {@inheritDoc}
      */
     public function getContainerBuilder() {
-        $parameterBag = new SettingsParameterBag($this->getKernelParameters());
-        $parameterBag->setSettings($this->settingsService);
-        return new ContainerBuilder($parameterBag);
-        // We'll probably go back to this later?
-        //return new ContainerBuilder(new ParameterBag($this->getKernelParameters()));
+        return new ContainerBuilder(new ParameterBag($this->getKernelParameters()));
     }
 
     /**
