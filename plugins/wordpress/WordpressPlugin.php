@@ -38,7 +38,7 @@ class WordpressPlugin extends Plugin {
      * Create new instance.
      */
     public function __construct() {
-        parent::__construct('Wordpress', 'Allows to display Wordpress content in ZenMagick', '${plugin.version}');
+        parent::__construct();
         $this->setContext('storefront');
         $this->requestHandler_ = null;
         $this->adapter_ = null;

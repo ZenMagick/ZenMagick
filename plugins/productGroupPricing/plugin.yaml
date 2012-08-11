@@ -1,3 +1,9 @@
+meta:
+  name: 'Product Group Pricing'
+  version: '${plugin.version}'
+  author: 'zenmagick.org'
+  description: 'Product Group Pricing'
+
 admin:
   container:
     services:

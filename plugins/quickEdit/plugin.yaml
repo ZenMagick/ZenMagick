@@ -1,3 +1,9 @@
+meta:
+  name: 'Quick Edit'
+  version: '${plugin.version}'
+  author: 'zenmagick.org'
+  description: 'Quickly edit product properties'
+
 admin:
   container:
     services:

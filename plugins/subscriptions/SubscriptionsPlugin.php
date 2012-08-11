@@ -38,7 +38,7 @@ class SubscriptionsPlugin extends Plugin {
      * Create new instance.
      */
     public function __construct() {
-        parent::__construct('Subscriptions', 'Allow users to subscribe products/orders', '${plugin.version}');
+        parent::__construct();
 
         // the new prices and customer flag
         $customFields = array(

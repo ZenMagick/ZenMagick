@@ -1,3 +1,9 @@
+meta:
+  name: 'Music Product Extras'
+  version: '${plugin.version}'
+  author: 'zenmagick.org'
+  description: 'Code for product_music_info product template.'
+
 admin,storefront:
   container:
     services:
@@ -14,4 +20,3 @@ storefront:
       product_info:
         product_music_info:
           template: views/product_music_info.php
-

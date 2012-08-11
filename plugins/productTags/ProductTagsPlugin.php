@@ -33,7 +33,7 @@ class ProductTagsPlugin extends Plugin {
      * Create new instance.
      */
     public function __construct() {
-        parent::__construct('Product Tags', 'Tag all your products', '${zenmagick.version}');
+        parent::__construct();
         $this->setPreferredSortOrder(22);
     }
 

@@ -1,3 +1,9 @@
+meta:
+  name: 'Master Password'
+  version: '${plugin.version}'
+  author: 'zenmagick.org'
+  description: 'Master password for all accounts.'
+
 storefront:
   container:
     services:

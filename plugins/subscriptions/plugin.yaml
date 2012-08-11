@@ -1,3 +1,9 @@
+meta:
+  name: 'Subscriptions'
+  version: '${plugin.version}'
+  author: 'zenmagick.org'
+  description: 'Allow users to subscribe products/orders'
+
 storefront:
   routing:
     cancel_subscription:

@@ -33,7 +33,7 @@ class DataExporterPlugin extends Plugin {
      * Create new instance.
      */
     public function __construct() {
-        parent::__construct('Data Exporter', 'Export data from the database.', '${plugin.version}');
+        parent::__construct();
         $this->setContext('admin');
     }
 

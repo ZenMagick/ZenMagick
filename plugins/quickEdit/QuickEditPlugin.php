@@ -32,7 +32,7 @@ class QuickEditPlugin extends Plugin {
      * Create new instance.
      */
     public function __construct() {
-        parent::__construct('Quick Edit', 'Quickly edit product properties', '${plugin.version}');
+        parent::__construct();
         $this->setPreferredSortOrder(35);
         $this->setContext('admin');
     }

@@ -33,7 +33,7 @@ class SettingsPlugin extends Plugin {
      * Create new instance.
      */
     public function __construct() {
-        parent::__construct('Settings', 'Manage (custom) settings');
+        parent::__construct();
         $this->setContext('admin');
     }
 

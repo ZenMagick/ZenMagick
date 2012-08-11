@@ -1,3 +1,9 @@
+meta:
+  name: 'Wordpress'
+  version: '${plugin.version}'
+  author: 'zenmagick.org'
+  description: 'Allows to display Wordpress content in ZenMagick'
+
 storefront:
   routing:
     wp:

@@ -34,14 +34,6 @@ define('Auth_OpenID_RAND_SOURCE', null);
 class OpenIDPlugin extends Plugin {
 
     /**
-     * Create new instance.
-     */
-    public function __construct() {
-        parent::__construct('OpenID', 'Allows to login using OpenID', '${plugin.version}');
-    }
-
-
-    /**
      * {@inheritDoc}
      */
     public function install() {

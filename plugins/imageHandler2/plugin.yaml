@@ -1,3 +1,8 @@
+meta:
+  name: 'Image Handler2'
+  version: '0.3.4'
+  author: 'zenmagick.org'
+  description: 'ImageHandler2 support for ZenMagick'
 admin,storefront:
   container:
     services:

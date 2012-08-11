@@ -32,18 +32,8 @@ define('UNIT_TESTS_GROUP_OTHER', '@other');
  * @author DerManoMann <mano@zenmagick.org>
  */
 class UnitTestsPlugin extends Plugin {
-    private $tests_;
-    private $customDone_;
-
-
-    /**
-     * Create new instance.
-     */
-    public function __construct() {
-        parent::__construct('Unit Testing', 'Run unit tests using SimpleTest.');
-        $this->tests_ = array();
-        $this->customDone_ = false;
-    }
+    private $tests_ = array();
+    private $customDone_ = false;
 
     /**
      * Add test.

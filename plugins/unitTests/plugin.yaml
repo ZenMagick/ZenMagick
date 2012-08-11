@@ -1,3 +1,9 @@
+meta:
+  name: 'Unit Testing'
+  version: '${plugin.version}'
+  author: 'zenmagick.org'
+  description: 'Run unit tests using SimpleTest.'
+
 imports:
     ## app container
     - { resource: tests/service/container.yaml }

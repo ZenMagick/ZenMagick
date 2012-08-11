@@ -29,14 +29,6 @@ use Plugin;
 class MasterPasswordPlugin extends Plugin {
 
     /**
-     * Create new instance.
-     */
-    public function __construct() {
-        parent::__construct('Master Password', 'Master password for all accounts.', '${plugin.version}');
-    }
-
-
-    /**
      * {@inheritDoc}
      */
     public function install() {

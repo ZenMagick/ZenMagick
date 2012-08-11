@@ -1,3 +1,9 @@
+meta:
+  name: 'OpenID'
+  version: '${plugin.version}'
+  author: 'zenmagick.org'
+  description: 'Allows to login using OpenID'
+
 storefront,admin:
   routing:
     openID:

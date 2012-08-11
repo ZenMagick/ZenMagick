@@ -1,3 +1,9 @@
+meta:
+  name: 'Minify'
+  version: '${plugin.version}'
+  author: 'zenmagick.org'
+  description: 'Minify for ZenMagick'
+
 admin,storefront:
   container:
     services:

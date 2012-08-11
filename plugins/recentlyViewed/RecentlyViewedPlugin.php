@@ -36,7 +36,7 @@ class RecentlyViewedPlugin extends Plugin {
      * Create new instance.
      */
     public function __construct() {
-        parent::__construct('Recently Viewed', 'Track and display recently viewed products.', '${plugin.version}');
+        parent::__construct();
         $this->setContext('storefront');
     }
 

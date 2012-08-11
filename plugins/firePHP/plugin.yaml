@@ -1,7 +1,8 @@
-##
-## Set up FirePHP logging handler
-##
-
+meta:
+  name: 'FirePHP'
+  version: '${plugin.version}'
+  author: 'zenmagick.org'
+  description: 'Adds FirePHP support to ZenMagick'
 ## shared settings that apply to both admin and storefront
 admin,storefront:
   container:

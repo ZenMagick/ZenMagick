@@ -1,3 +1,9 @@
+meta:
+  name: 'Product Tags'
+  version: '${plugin.version}'
+  author: 'zenmagick.org'
+  description: 'Tag all your products'
+
 admin,storefront:
   container:
     services:

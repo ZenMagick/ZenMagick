@@ -33,7 +33,7 @@ class ProductGroupPricingPlugin extends Plugin {
      * Create new instance.
      */
     public function __construct() {
-        parent::__construct('Product Group Pricing', 'Product Group Pricing', '${zenmagick.version}');
+        parent::__construct();
         $this->setPreferredSortOrder(15);
     }
 
