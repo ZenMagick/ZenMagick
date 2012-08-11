@@ -45,6 +45,14 @@ class ZenCartAutoLoader extends ZMObject {
         return $this->container->get('themeService');
     }
 
+    public function setRootDir($rootDir) {
+        $this->rootDir = realpath($rootDir);
+    }
+
+    public function getRootDir() {
+        return $this->rootDir;
+    }
+
     /**
      * Commonly used ZenCart request related globals.
      *
@@ -130,8 +138,6 @@ class ZenCartAutoLoader extends ZMObject {
         foreach ($this->initFiles() as $filePattern) {
             $this->includeFiles($filePattern, $data);
         }
-        $settingsService = Runtime::getSettings();
-
 
         // Common classes
 
@@ -197,8 +203,7 @@ class ZenCartAutoLoader extends ZMObject {
      * @param string base Relative path from ZenCart root directory
      */
     public function buildSearchPaths($base = '') {
-        $settingsService = Runtime::getSettings();
-        $zcPath = $settingsService->get('apps.store.zencart.path');
+        $zcPath = $this->getRootDir();
         $dirs = array(dirname(__DIR__).'/bridge', $zcPath);
         if (Runtime::isContextMatch('admin')) {
             $adminDir = $settingsService->get('apps.store.zencart.admindir');
