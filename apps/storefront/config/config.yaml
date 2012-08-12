@@ -90,11 +90,6 @@ zenmagick:
         advanced_search: search.advanced
         shopping_cart: cart
       addnRouteFiles: []
-  ## bundles
-  bundles:
-    - zenmagick\apps\store\bundles\ZenCartBundle\ZenCartBundle
-    - Doctrine\Bundle\DoctrineBundle\DoctrineBundle
-    - Symfony\Bundle\SwiftmailerBundle\SwiftmailerBundle
 
 apps:
   store:

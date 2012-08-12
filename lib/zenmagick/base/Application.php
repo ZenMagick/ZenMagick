@@ -71,13 +71,13 @@ class Application extends Kernel {
      * @return array instantiated bundle objects
      */
     public function registerBundles() {
-        $settingsService = $this->settingsService;
-        $bundleList = $settingsService->get('zenmagick.bundles', array());
-        array_unshift($bundleList, 'zenmagick\base\ZenMagickBundle');
-        $bundles = array();
-        foreach ($bundleList as $name) {
-            $bundles[] = new $name();
-        }
+        $bundles = array(
+            new \zenmagick\base\ZenMagickBundle,
+            new \zenmagick\apps\store\bundles\ZenCartBundle\ZenCartBundle,
+            new \Doctrine\Bundle\DoctrineBundle\DoctrineBundle,
+            new \Doctrine\Bundle\MigrationsBundle\DoctrineMigrationsBundle,
+            new \Symfony\Bundle\SwiftmailerBundle\SwiftmailerBundle,
+        );
         return $bundles;
     }
 

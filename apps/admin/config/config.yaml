@@ -73,13 +73,6 @@ zenmagick:
         - zenmagick\http\sacs\handler\UserRoleSacsHandler
       mappingProviders:
         - zenmagick\apps\admin\services\DBSacsPermissionProvider
-  ## bundles
-  bundles:
-    - zenmagick\apps\store\bundles\ZenCartBundle\ZenCartBundle
-    - Doctrine\Bundle\DoctrineBundle\DoctrineBundle
-    - Doctrine\Bundle\MigrationsBundle\DoctrineMigrationsBundle
-    - Symfony\Bundle\SwiftmailerBundle\SwiftmailerBundle
-
 
 ## app settings
 apps:
