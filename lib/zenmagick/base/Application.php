@@ -150,6 +150,11 @@ class Application extends Kernel {
         }
     }
 
+    public function boot() {
+        parent::boot();
+        $this->initEvents();
+    }
+
     /**
      * Bootstrap application.
      *
@@ -351,7 +356,7 @@ class Application extends Kernel {
         foreach($this->container->getParameterBag()->all()  as $param => $value) {
             $this->container->get('settingsService')->set($param, $value);
         }
-        $this->initEvents();
+
     }
 
     /**
