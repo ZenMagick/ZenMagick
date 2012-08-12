@@ -20,7 +20,6 @@
 namespace zenmagick\base;
 
 use InvalidArgumentException;
-use Symfony\Component\Yaml\Yaml;
 
 /**
  * Shared tools.
