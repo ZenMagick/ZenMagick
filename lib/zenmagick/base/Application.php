@@ -154,26 +154,16 @@ class Application extends Kernel {
      * Bootstrap application.
      *
      */
-    public function bootZM() {
+    public function initEvents() {
         $settingsService = $this->container->get('settingsService');
 
         // @todo switch to using tagged services for events.
         $listeners = $settingsService->get('zenmagick.base.events.listeners', array());
         $plugins = $this->container->get('pluginService')->getPluginsForContext($this->getContext());
         $listeners = array_merge($listeners, $plugins);
-        if ('storefront' == $this->getContext()) {
-            $this->container->get('themeService')->initThemes();
-            foreach ($this->container->get('themeService')->getThemeChain() as $theme) {
-                $eventListener = sprintf('zenmagick\themes\%s\EventListener', $theme->getId());
-                $listeners[] = $theme;
-            }
-        }
 
-        if (!($this->container->getParameterBag() instanceof FrozenParameterBag)) {
-            $this->container->compile();
-        }
-        foreach($this->container->getParameterBag()->all()  as $param => $value) {
-            $this->container->get('settingsService')->set($param, $value);
+        if ('storefront' == $this->getContext()) {
+            $listeners[] = sprintf('zenmagick\themes\%s\EventListener', $this->container->get('themeService')->getActiveThemeId());
         }
 
         // @todo switch to using tagged services for events.
@@ -351,7 +341,17 @@ class Application extends Kernel {
         $this->container->set('kernel', $this);
         $this->container->get('settingsService')->setAll($this->settingsService);
         Runtime::setContainer($this->container);
-        $this->bootZM();
+        $plugins = $this->container->get('pluginService')->getPluginsForContext($this->getContext());
+        if ('storefront' == $this->getContext()) {
+            $this->container->get('themeService')->initThemes();
+        }
+
+        $this->container->compile();
+
+        foreach($this->container->getParameterBag()->all()  as $param => $value) {
+            $this->container->get('settingsService')->set($param, $value);
+        }
+        $this->initEvents();
     }
 
     /**
