@@ -28,6 +28,7 @@ use zenmagick\base\logging\Logging;
 use zenmagick\http\routing\RouteResolver;
 
 use Symfony\Component\DependencyInjection\ContainerInterface;
+use Symfony\Component\Yaml\Yaml;
 
 /**
  * Handle access control and security mappings.
@@ -107,7 +108,7 @@ class SacsManager extends ZMObject {
      *  default is <code>true</code> to override.
      */
     public function load($filename, $override=true) {
-        $mappings = Toolbox::loadWithEnv($filename);
+        $mappings = Yaml::parse($filename);
         if ($override) {
             $this->mappings_ = $mappings;
         } else {
