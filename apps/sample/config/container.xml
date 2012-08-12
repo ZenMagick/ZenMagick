@@ -13,6 +13,10 @@
         <service id="templateManager" class="zenmagick\apps\store\themes\TemplateManager" scope="container" />
 
         <service id="validator" class="ZMValidator" scope="container">
+            <call method="load">
+                <argument>%kernel.context_dir%/config/validation.yaml</argument>
+            </call>
+
             <tag name="zenmagick.http.view.variable" key="validator" />
         </service>
 
