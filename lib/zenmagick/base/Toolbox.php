@@ -108,23 +108,6 @@ class Toolbox {
     }
 
     /**
-     * Explode on multiple chars.
-     *
-     * @param string delims The delimiter chars.
-     * @param string s The string to explode.
-     * @return array A token list.
-     */
-    public static function mexplode($delims, $s) {
-        $tokens = array();
-        $token = strtok($s, $delims);
-        while (false !== $token) {
-            $tokens[] = $token;
-            $token = strtok($delims);
-        }
-        return $tokens;
-    }
-
-    /**
      * Evaluate a string value as boolean.
      *
      * @param mixed value The value.
