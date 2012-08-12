@@ -22,9 +22,6 @@ zenmagick:
 
   ## base
   base:
-    ## locales
-    locales:
-      locale: en_NZ
     ## events
     events:
       listeners:

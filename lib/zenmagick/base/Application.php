@@ -320,10 +320,6 @@ class Application extends Kernel {
             $contextConfigLoader->apply($config);
         }
 
-        if (null != ($locale = $settingsService->get('zenmagick.base.locales.locale'))) { // @todo how can we really rename it.
-            $settingsService->set('kernel.default_locale', $locale);
-        }
-
         \ZMRuntime::setDatabase('default', $settingsService->get('apps.store.database.default'));
     }
 
