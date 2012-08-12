@@ -364,6 +364,7 @@ class Application extends Kernel {
         $parameters = parent::getKernelParameters();
         if (empty($parameters)) return; // if it's empty leave it empty.
         $parameters['kernel.context'] = $this->getContext();
+        $parameters['kernel.context_dir'] = $this->getApplicationPath();
         return $parameters;
     }
 }

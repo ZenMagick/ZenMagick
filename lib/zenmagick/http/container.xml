@@ -37,7 +37,7 @@
         <service id="sacsManager" class="zenmagick\http\sacs\SacsManager" scope="container">
             <argument type="service" id="service_container" />
             <call method="load">
-                <argument>%kernel.root_dir%/apps/%kernel.context%/config/sacs_mappings.yaml</argument>
+                <argument>%kernel.context_dir%/config/sacs_mappings.yaml</argument>
                 <argument>false</argument>
             </call>
             <call method="loadProviderMappings">

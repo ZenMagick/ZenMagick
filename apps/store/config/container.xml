@@ -230,7 +230,7 @@
                 <argument type="service" id="service_container" />
             </call>
             <call method="loadFile">
-                <argument>%kernel.root_dir%/apps/%kernel.context%/config/url_mappings.yaml</argument>
+                <argument>%kernel.context_dir%/config/url_mappings.yaml</argument>
             </call>
         </service>
 
