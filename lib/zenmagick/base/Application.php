@@ -57,7 +57,6 @@ class Application extends Kernel {
      */
     public function __construct($environment = 'prod', $debug = false, $context = null) {
         $this->context = $context;
-        Toolbox::setEnvironment($environment);
         Runtime::setContext($this->context);
         parent::__construct($environment, $debug);
         $this->startTime = microtime(true);
@@ -107,7 +106,7 @@ class Application extends Kernel {
             if (!$filesystem->isAbsolutePath($file)) {
                 $file = $this->getRootDir().'/'.$file;
             }
-            $containerConfig = Toolbox::resolveWithEnv($file);
+            $containerConfig = Toolbox::resolveWithEnv($file, $this->getEnvironment());
             if (file_exists($containerConfig)) {
                 $files[] = $containerConfig;
             }

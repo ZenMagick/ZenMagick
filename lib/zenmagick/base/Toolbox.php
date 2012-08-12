@@ -38,7 +38,6 @@ class Toolbox {
     const RANDOM_HEX = 'hex';
 
     private static $seedDone_;
-    private static $environment = null;
 
     /**
      * Generate a random value.
@@ -108,59 +107,6 @@ class Toolbox {
         return $base;
     }
 
-    public static function setEnvironment($environment) {
-        if (null != self::$environment) return;
-        self::$environment = $environment;
-    }
-
-    public static function getEnvironment() {
-        if (null == self::$environment) return 'prod';
-        return self::$environment;
-    }
-    /**
-     * Load a <em>YAML</em> file, respecting the environment setting.
-     *
-     * @param string filename The file to load.
-     * @param string environment Optional environment; default is the value of <code>Application::getEnvironment()</code>.
-     * @param boolean useEnvFile Optional flag to load the <em>file_[$environemnt].yaml</em> file if available; default is <code>true</code>.
-     * @return mixed The parsed data.
-     */
-    public static function loadWithEnv($filename, $environment = null, $useEnvFile = true) {
-        $environment = $environment ?: self::getEnvironment();
-
-        if ($useEnvFile) {
-            $filename = self::resolveWithEnv($filename, $environment);
-        }
-
-        $data = array();
-        if (!file_exists($filename)) {
-            Runtime::getLogging()->trace("skipping missing file: ".$filename);
-            return $data;
-        }
-
-        $filename = realpath($filename);
-
-        try {
-            $data = Yaml::parse($filename);
-        } catch (InvalidArgumentException $e) {
-            Runtime::getLogging()->dump($e);
-        }
-
-        // check for imports:
-        if (array_key_exists('imports', (array)$data)) {
-            $currentDir = dirname($filename).'/';
-
-            $imports = $data['imports'];
-            // split into prepend/append mode
-            foreach ($imports as $import) {
-                $data = self::arrayMergeRecursive($data, self::loadWithEnv($currentDir.$import['resource'], $environment, false));
-            }
-            unset($data['imports']);
-        }
-
-        return $data;
-    }
-
     /**
      * Explode on multiple chars.
      *
@@ -199,11 +145,10 @@ class Toolbox {
      * Resolve a filename with respect to the given environment.
      *
      * @param string filename The file to load.
-     * @param string environment Optional environment; default is the value of <code>Application::getEnvironment()</code>.
+     * @param string environment environment to resolve against
      * @return string The most specific filename with respect to the given <em>environment</em>.
      */
-    public static function resolveWithEnv($filename, $environment = null) {
-        $environment = $environment ?: self::getEnvironment();
+    public static function resolveWithEnv($filename, $environment) {
         $filename = realpath($filename);
         $envFilename = preg_replace('/(.*)\.(.*)/', '$1_'.$environment.'.$2', $filename);
         if (file_exists($envFilename)) {
