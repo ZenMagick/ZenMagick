@@ -17,7 +17,6 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-use zenmagick\base\Runtime;
 
     /*
      * The central place for all form validation. The validations configured here
@@ -30,8 +29,8 @@ use zenmagick\base\Runtime;
 
 
     $validator = $this->container->get('validator');
-
     $settingsService = $this->container->get('settingsService');
+
     /* edit account */
     $validator->addRules('account', array(
         array('ZMRequiredRule' ,'firstName', 'Please enter your first name.'),

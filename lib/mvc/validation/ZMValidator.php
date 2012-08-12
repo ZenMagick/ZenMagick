@@ -20,6 +20,7 @@
 
 use zenmagick\base\Beans;
 use zenmagick\base\Runtime;
+use zenmagick\base\Toolbox;
 use zenmagick\base\ZMException;
 use zenmagick\base\ZMObject;
 use zenmagick\base\logging\Logging;
@@ -212,14 +213,21 @@ class ZMValidator extends ZMObject {
     }
 
     /**
-     * Load rules from a YAML style string.
+     * Load rules
      *
-     * @param string yaml The yaml style validation rules.
+     * @param mixed resource yaml data or filename
      * @param boolean override Optional flag to control whether to override existing mappings or to merge;
      *  default is <code>true</code> to override.
+     *
+     * @todo use a real loader
      */
-    public function load($yaml, $override=true) {
-        if (null != ($rules = Yaml::parse($yaml)) && is_array($rules)) {
+    public function load($resource, $override=true) {
+        if (Toolbox::endsWith($resource, '.php')) {
+            include $resource;
+            return;
+        }
+
+        if (null != ($rules = Yaml::parse($resource)) && is_array($rules)) {
             foreach ($rules as $id => $fieldRules) {
                 foreach ($fieldRules as $field => $rules) {
                     foreach ($rules as $rule => $params) {

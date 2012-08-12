@@ -28,8 +28,6 @@ use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 
 use zenmagick\base\Beans;
-use zenmagick\base\Runtime;
-use zenmagick\base\Toolbox;
 use zenmagick\base\ZMException;
 use zenmagick\base\ZMObject;
 use zenmagick\base\events\Event;
@@ -80,12 +78,6 @@ class HttpKernel implements HttpKernelInterface {
             // make sure we use the appropriate protocol (HTTPS, for example) if required
             $container->get('sacsManager')->ensureAccessMethod($request);
 
-            // form validation
-            if (file_exists($validationPhp = $kernel->getApplicationPath().'/config/validation.php')) {
-                require $validationPhp; // @todo merge with real validation config
-            }
-
-            // reset as other global code migth fiddle with it...
             $this->dispatcher->dispatch('init_done', new Event($this, array('request' => $request)));
             return $this->dispatch($request);
         } catch (Exception $e) {
