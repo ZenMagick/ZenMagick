@@ -51,7 +51,7 @@ class ImportZencartConfigurePatch extends FilePatch {
      */
     function isOpen() {
         if (!file_exists(_ZM_STORE_CONFIG_YAML)) return true;
-        $config = Toolbox::loadWithEnv(_ZM_STORE_CONFIG_YAML);
+        $config = Yaml::parse(_ZM_STORE_CONFIG_YAML);
         // doesn't exist in etc/build/store-config.yaml
         return !isset($config['apps']['store']['database']['default']['dbname']);
     }
