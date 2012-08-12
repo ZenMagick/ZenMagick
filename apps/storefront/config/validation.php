@@ -31,6 +31,7 @@ use zenmagick\base\Runtime;
 
     $validator = $this->container->get('validator');
 
+    $settingsService = $this->container->get('settingsService');
     /* edit account */
     $validator->addRules('account', array(
         array('ZMRequiredRule' ,'firstName', 'Please enter your first name.'),
@@ -44,10 +45,10 @@ use zenmagick\base\Runtime;
         array('ZMMaxFieldLengthRule' ,'phone', 'customers', 'customers_telephone'),
         array('ZMMinRule' ,'phone', ENTRY_TELEPHONE_MIN_LENGTH, 'Your Telephone Number must contain a minimum of %2$s characters.')
     ));
-    if (Runtime::getSettings()->get('isAccountGender')) {
+    if ($settingsService->get('isAccountGender')) {
         $validator->addRule('account', array('ZMRequiredRule' ,'gender', 'Please choose a gender.'));
     }
-    if (Runtime::getSettings()->get('isAccountDOB')) {
+    if ($settingsService->get('isAccountDOB')) {
         $validator->addRule('account', array('ZMRequiredRule' ,'dob', 'Please enter your date of birth.'));
         $validator->addRule('account', array('ZMDateRule' ,'dob', null, 'Please enter a valid date of birth.'));
     }
@@ -57,7 +58,7 @@ use zenmagick\base\Runtime;
     $validator->addRules('account_password', array(
         array('ZMRequiredRule' ,'password_current', 'Please enter you current password.'),
         array('ZMRequiredRule' ,'password_new', 'Please enter the new password.'),
-        array('ZMMinRule' ,'password_new', Runtime::getSettings()->get('zenmagick.base.authentication.minPasswordLength'), 'Your password must contain a minimum of %2$s characters.'),
+        array('ZMMinRule' ,'password_new', $settingsService->get('zenmagick.base.authentication.minPasswordLength'), 'Your password must contain a minimum of %2$s characters.'),
         array('ZMRequiredRule' ,'password_confirmation', 'Please confirm the new password.'),
         array('ZMFieldMatchRule' ,'password_new', 'password_confirmation', 'The new password and confirm password must match.')
     ));
@@ -77,10 +78,10 @@ use zenmagick\base\Runtime;
         array('ZMMaxFieldLengthRule' ,'postcode', 'address_book', 'entry_postcode'),
         array('ZMRequiredRule' ,'countryId', 'Please select a country.')
     ));
-    if (Runtime::getSettings()->get('isAccountGender')) {
+    if ($settingsService->get('isAccountGender')) {
         $validator->addRule('address', array('ZMRequiredRule' ,'gender', 'Please choose a gender.'));
     }
-    if (Runtime::getSettings()->get('isAccountState')) {
+    if ($settingsService->get('isAccountState')) {
         $validator->addRule('address', array('ZMStateOrZoneIdRule' ,'state,zoneId', 'Please enter a state.'));
         $validator->addRule('address', array('ZMMaxFieldLengthRule' ,'state', 'address_book', 'entry_state'));
     }
@@ -115,7 +116,7 @@ use zenmagick\base\Runtime;
         array('ZMMaxFieldLengthRule' ,'email', 'customers', 'customers_email_address'),
         array('ZMUniqueEmailRule' ,'email', 'The entered email address is already in use.'),
         array('ZMRequiredRule' ,'password', 'Please enter you password.'),
-        array('ZMMinRule' ,'password', Runtime::getSettings()->get('zenmagick.base.authentication.minPasswordLength'), 'Your password must contain a minimum of %2$s characters.'),
+        array('ZMMinRule' ,'password', $settingsService->get('zenmagick.base.authentication.minPasswordLength'), 'Your password must contain a minimum of %2$s characters.'),
         array('ZMRequiredRule' ,'confirmation', 'Please confirm the password.'),
         array('ZMFieldMatchRule' ,'password', 'confirmation', 'The password and confirm password must match.'),
         array('ZMRequiredRule' ,'addressLine1', 'Please enter your address.'),
@@ -128,17 +129,17 @@ use zenmagick\base\Runtime;
         array('ZMRequiredRule' ,'phone', "Please enter your telephone details."),
         array('ZMMaxFieldLengthRule' ,'phone', 'customers', 'customers_telephone')
     ));
-    if (Runtime::getSettings()->get('isPrivacyMessage')) {
+    if ($settingsService->get('isPrivacyMessage')) {
         $validator->addRule('registration', array('ZMRequiredRule' ,'privacy', 'You must agree to the privacy policy.'));
     }
-    if (Runtime::getSettings()->get('isAccountGender')) {
+    if ($settingsService->get('isAccountGender')) {
         $validator->addRule('registration', array('ZMRequiredRule' ,'gender', 'Please choose a gender.'));
     }
-    if (Runtime::getSettings()->get('isAccountDOB')) {
+    if ($settingsService->get('isAccountDOB')) {
         $validator->addRule('registration', array('ZMRequiredRule' ,'dob', 'Please enter your date of birth.'));
         $validator->addRule('registration', array('ZMDateRule' ,'dob', null, 'Please enter a valid date of birth.'));
     }
-    if (Runtime::getSettings()->get('isAccountState')) {
+    if ($settingsService->get('isAccountState')) {
         $validator->addRule('registration', array('ZMStateOrZoneIdRule' ,'state,zoneId', 'Please enter a valid state/province.'));
         $validator->addRule('registration', array('ZMMaxFieldLengthRule' ,'state', 'address_book', 'entry_state'));
     }
@@ -157,7 +158,7 @@ use zenmagick\base\Runtime;
         array('ZMRequiredRule' ,'email_address', 'Please enter your email address.'),
         array('ZMEmailRule' ,'email_address', 'Please enter a valid email address.')
     ));
-    if (Runtime::getSettings()->get('isGuestCheckoutAskAddress')) {
+    if ($settingsService->get('isGuestCheckoutAskAddress')) {
         $validator->addRules('checkout_guest', $validator->getRuleSet('address', false));
     }
 
