@@ -6,7 +6,6 @@ zenmagick:
   base:
     events:
       listeners:
-        - zenmagick\apps\sample\EventHandler
-        - zenmagick\apps\sample\EventListener #rename EventHandler to this!
+        - zenmagick\apps\sample\EventListener
         - zenmagick\base\EventListener
         - zenmagick\http\EventListener

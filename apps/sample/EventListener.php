@@ -24,11 +24,9 @@ use zenmagick\base\ZMObject;
 /**
  * Handle a few events.
  *
- * <p>Hooked up automatically via config.yaml.</p>
- *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class EventHandler extends ZMObject {
+class EventListener extends ZMObject {
 
     /**
      * Init done callback.
