@@ -115,8 +115,10 @@ class Application extends Kernel {
 
         // @todo move all zencart specific parameteres to bundle
         $zcDir = realpath(dirname($this->getRootDir()));
+
         $files[] = function($container) use ($zcDir) {
             $container->setParameter('zencart.root_dir', $zcDir);
+            $container->setParameter('zencart.admin_dir', defined('ZENCART_ADMIN_FOLDER') ? ZENCART_ADMIN_FOLDER : 'admin');
         };
 
         foreach ($files as $file) {

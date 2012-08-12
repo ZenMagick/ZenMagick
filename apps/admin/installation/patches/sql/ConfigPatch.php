@@ -93,7 +93,7 @@ class ConfigPatch extends SQLPatch {
         if (null == $adminDir) {
             $configService->createConfigValue('zencart admin folder', 'ZENCART_ADMIN_FOLDER', $guessedDir, $groupId);
             $adminDir = $guessedDir;
-            Runtime::getSettings()->set('apps.store.zencart.admindir', $adminDir);
+            Runtime::getSettings()->set('zencart.admin_dir', $adminDir);
         }
         if ($adminDir != $guessedDir) { // Update
             $configService->updateConfigValue('ZENCART_ADMIN_FOLDER', $guessedDir);

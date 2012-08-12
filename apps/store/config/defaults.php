@@ -104,7 +104,6 @@ if (!defined('ATTRIBUTES_PRICE_FACTOR_FROM_SPECIAL')) define('ATTRIBUTES_PRICE_F
             // show cart after product added
             'isShowCartAfterAddProduct' => DISPLAY_CART == 'true',
 
-            'apps.store.zencart.admindir' => defined('ZENCART_ADMIN_FOLDER') ? ZENCART_ADMIN_FOLDER : 'admin',
             // @todo store the path in the database (supporting both absolute and relative paths)
             'downloadBaseDir' => $settingsService->get('downloadBaseDir') ?: realpath(Runtime::getInstallationPath().'/../download'),
             // @todo downloadPubDir should really just exist in a publically accessible cache directory (like minified css/js)

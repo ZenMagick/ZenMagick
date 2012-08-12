@@ -206,7 +206,7 @@ class ZenCartAutoLoader extends ZMObject {
         $zcPath = $this->getRootDir();
         $dirs = array(dirname(__DIR__).'/bridge', $zcPath);
         if (Runtime::isContextMatch('admin')) {
-            $adminDir = $settingsService->get('apps.store.zencart.admindir');
+            $adminDir = $settingsService->get('zencart.admin_dir');
             $adminDirs = array(dirname(__DIR__).'/bridge/admin', $zcPath.'/'.$adminDir);
             $dirs = false !== strpos($base, 'classes') ? array_merge($adminDirs, $dirs) : $adminDirs;
         }

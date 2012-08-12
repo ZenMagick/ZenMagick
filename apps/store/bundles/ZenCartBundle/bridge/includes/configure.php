@@ -3,7 +3,7 @@ use zenmagick\base\Runtime;
 
 $settings = Runtime::getSettings();
 $zcPath = $settings->get('zencart.root_dir'));
-$adminDir = $settings->get('apps.store.zencart.admindir', 'admin');
+$adminDir = $settings->get('zencart.admin_dir', 'admin');
 /**
  * admin/storefront configure.php defines
  */
@@ -53,7 +53,7 @@ define('DIR_WS_TEMPLATES', DIR_WS_INCLUDES.'templates/');
 define('DIR_WS_DOWNLOAD_PUBLIC', 'pub/');
 
 define('DIR_FS_CATALOG', $zcPath.'/');
-define('DIR_FS_ADMIN', $zcPath.'/'.$settings->get('apps.store.zencart.admindir').'/');
+define('DIR_FS_ADMIN', $zcPath.'/'.$settings->get('zencart.admin_dir').'/');
 define('DIR_FS_CACHE', $zcPath.'/cache/');
 define('DIR_FS_CATALOG_LANGUAGES', DIR_FS_CATALOG.'includes/languages/');
 define('DIR_FS_CATALOG_IMAGES', DIR_FS_CATALOG.'images/');
