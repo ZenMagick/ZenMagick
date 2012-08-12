@@ -20,7 +20,7 @@
 namespace zenmagick\base\settings;
 
 use zenmagick\base\Toolbox;
-
+use Symfony\Component\Yaml\Yaml;
 
 /**
  * A hierarchical settings repository.
@@ -30,6 +30,10 @@ use zenmagick\base\Toolbox;
 class Settings {
     protected $settings_ = array();
 
+
+    public function load($resource) {
+        $this->setAll(Yaml::parse($resource));
+    }
 
     /**
      * Lookup a given path.

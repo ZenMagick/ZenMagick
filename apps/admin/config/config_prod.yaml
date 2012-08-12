@@ -1,3 +1,0 @@
-imports:
-    - { resource: config.yaml }
-    - { resource: ../../../config/store-config.yaml }

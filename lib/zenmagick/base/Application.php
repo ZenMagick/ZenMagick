@@ -289,31 +289,25 @@ class Application extends Kernel {
      * Init some basic settings.
      *
      * @param array array of settings
-     *
-     * @todo take a Settings instance?
      */
     protected function initSettings() {
         $this->settingsService = new Settings;
         $settingsFiles = array();
         $settingsService = $this->settingsService;
         $settingsFiles[] = $this->getRootDir().'/apps/base/config/config.yaml';
-        if ($applicationPath = $this->getApplicationPath()) {
-            $settingsFiles[] = $applicationPath.'/config/config.yaml';
-        }
-        // @todo do something better for command line.
-        if (!in_array($this->getContext(), array('admin', 'storefront'))) {
-            $settingsFiles[] = $this->getRootDir().'/config/store-config.yaml';
-        }
+        $settingsFiles[] = $this->getApplicationPath().'/config/config.yaml';
+        // @todo do something better for non store apps
+        $settingsFiles[] = $this->getRootDir().'/config/store-config.yaml';
         foreach ($settingsFiles as $config) {
             if (file_exists($config)) {
-                $settingsService->setAll(Toolbox::loadWithEnv($config));
+                $settingsService->load($config);
             }
         }
 
         $globalFilename = realpath($this->getRootDir().'/global.yaml');
         if (file_exists($globalFilename)) {
             $contextConfigLoader = new \zenmagick\base\utils\ContextConfigLoader;
-            $contextConfigLoader->setConfig(Toolbox::loadWithEnv($globalFilename));
+            $contextConfigLoader->setConfig($globalFilename);
             $contextConfigLoader->setSettingsService($settingsService);
             $config = $contextConfigLoader->resolve($this->getContext());
             unset($config['container']); // @todo merge this with the other container configuration if we want to keep it.
