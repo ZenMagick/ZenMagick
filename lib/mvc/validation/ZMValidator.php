@@ -222,7 +222,7 @@ class ZMValidator extends ZMObject {
      * @todo use a real loader
      */
     public function load($resource, $override=true) {
-        if (Toolbox::endsWith($resource, '.php')) {
+        if (Toolbox::endsWith($resource, '.php') && file_exists($resource)) {
             include $resource;
             return;
         }
