@@ -28,6 +28,7 @@ use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 
 use zenmagick\base\Beans;
+use zenmagick\base\Runtime;
 use zenmagick\base\ZMException;
 use zenmagick\base\ZMObject;
 use zenmagick\base\events\Event;
@@ -63,8 +64,6 @@ class HttpKernel implements HttpKernelInterface {
     public function handle(\Symfony\Component\HttpFoundation\Request $request, $type = self::MASTER_REQUEST, $catch = true) {
         try {
             $container = $this->container;
-            $kernel = $container->get('kernel');
-            $settingsService = $container->get('settingsService');
             $request = $container->get('request'); // @todo use it from the argument :)
 
             $this->dispatcher->dispatch('request_ready', new Event($this, array('request' => $request)));
@@ -259,8 +258,13 @@ class HttpKernel implements HttpKernelInterface {
      * @return Executor The executor.
      */
     protected function getControllerExecutor(Request $request) {
-        if ($this->controllerExecutor) {
-            return $this->controllerExecutor;
+        // @todo move this to the  onKernelController event.
+        if (Runtime::isContextMatch('storefront')) {
+            if ($this->container->get('themeService')->getActiveTheme()->getMeta('zencart')) {
+                $settingsService = $this->container->get('settingsService');
+                $settingsService->set('zenmagick.http.view.defaultLayout', null);
+                return new Executor(array($this->container->get('zenmagick\apps\store\bundles\ZenCartBundle\controller\ZencartStorefrontController'), 'process'), array($request));
+            }
         }
 
         if ($routerMatch = $this->container->get('routeResolver')->getRouterMatch($request->getRequestUri())) {

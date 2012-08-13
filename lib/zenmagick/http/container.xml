@@ -15,6 +15,7 @@
         <parameter key="zenmagick.http.session.validator.ip">false</parameter>
         <parameter key="zenmagick.http.session.validator.sslSessionId">false</parameter>
         <parameter key="zenmagick.http.session.formToken" type="collection"></parameter>
+        <parameter key="zenmagick.http.session.timeout">1440</parameter>
         <parameter key="zenmagick.http.virtualPathMap" type="collection"></parameter>
         <parameter key="zenmagick.http.sacs.mappingProviders" type="collection"></parameter>
     </parameters>

@@ -102,25 +102,4 @@ class ZenCartBundle extends Bundle {
         );
         $autoLoader->restoreErrorLevel();
     }
-
-    /**
-     * Switch over to ZenCartStorefrontController if required.
-     *
-     * @todo this is the wrong place because error templates show
-     * the "base" template.
-     */
-    public function onControllerProcessStart($event) {
-        if (!Runtime::isContextMatch('storefront')) return;
-
-        $request = $event->get('request');
-        $needsZC = $this->container->get('themeService')->getActiveTheme()->getMeta('zencart');
-        // @todo <johnny> we want to use the route instead right?
-        // || in_array($request->getRequestId(), (array)$this->container->get('settingsService')->get('apps.store.request.enableZCRequestHandling));
-        if ($needsZC && null != ($dispatcher = $request->getDispatcher())) {
-            $settingsService = $this->container->get('settingsService');
-            $settingsService->set('zenmagick.http.view.defaultLayout', null);
-            $executor = new Executor(array($this->container->get('zenmagick\apps\store\bundles\ZenCartBundle\controller\ZencartStorefrontController'), 'process'), array($request));
-            $dispatcher->setControllerExecutor($executor);
-        }
-     }
 }
