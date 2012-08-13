@@ -105,9 +105,9 @@ if (!defined('ATTRIBUTES_PRICE_FACTOR_FROM_SPECIAL')) define('ATTRIBUTES_PRICE_F
             'isShowCartAfterAddProduct' => DISPLAY_CART == 'true',
 
             // @todo store the path in the database (supporting both absolute and relative paths)
-            'downloadBaseDir' => $settingsService->get('downloadBaseDir') ?: realpath(Runtime::getInstallationPath().'/../download'),
+            'downloadBaseDir' => $settingsService->exists('downloadBaseDir') ? $settingsService->get('downloadBaseDir') : realpath(Runtime::getInstallationPath().'/../download'),
             // @todo downloadPubDir should really just exist in a publically accessible cache directory (like minified css/js)
-            'downloadPubDir' => $settingsService->get('downloadPubDir') ?: realpath(Runtime::getInstallationPath().'/../pub'),
+            'downloadPubDir' => $settingsService->exists('downloadPubDir') ? $settingsService->get('downloadPubDir') : realpath(Runtime::getInstallationPath().'/../pub'),
             'downloadByRedirect' => DOWNLOAD_BY_REDIRECT == 'true',
             'downloadInChunks' => DOWNLOAD_IN_CHUNKS == 'true',
 
@@ -131,7 +131,7 @@ if (!defined('ATTRIBUTES_PRICE_FACTOR_FROM_SPECIAL')) define('ATTRIBUTES_PRICE_F
             'textOptionPrefix' => defined('TEXT_PREFIX') ? TEXT_PREFIX : 'txt_',
             'uploadOptionPrefix' => defined('UPLOAD_PREFIX') ? UPLOAD_PREFIX : 'upload_',
 
-            'apps.store.cart.uploads' => $settingsService->get('uploadBaseDir') ?: realpath(Runtime::getInstallationPath().'/../images/uploads'),
+            'apps.store.cart.uploads' => $settingsService->exists('uploadBaseDir') ? $settingsService->get('uploadBaseDir'): realpath(Runtime::getInstallationPath().'/../images/uploads'),
 
             // default/store currency
             'defaultCurrency' => DEFAULT_CURRENCY,
