@@ -36,7 +36,6 @@ use Symfony\Component\DependencyInjection\Loader\XmlFileLoader;
 use Symfony\Component\HttpKernel\Kernel;
 use Symfony\Component\HttpKernel\DependencyInjection\MergeExtensionConfigurationPass;
 use Symfony\Component\HttpKernel\DependencyInjection\AddClassesToCachePass;
-use Symfony\Component\Filesystem\Filesystem;
 
 /**
  * Base application.
@@ -84,9 +83,8 @@ class Application extends Kernel {
      * @todo move most this into "a" bundle.
      */
     public function registerContainerConfiguration(LoaderInterface $loader) {
-        $this->settingsService = new Settings;
+        $settingsService = new Settings;
         $settingsFiles = array();
-        $settingsService = $this->settingsService;
         $settingsFiles[] = $this->getRootDir().'/apps/base/config/config.yaml';
         $settingsFiles[] = $this->getApplicationPath().'/config/config.yaml';
         // @todo do something better for non store apps
@@ -107,6 +105,7 @@ class Application extends Kernel {
             $contextConfigLoader->apply($config);
         }
 
+        $this->settingsService = $settingsService;
         \ZMRuntime::setDatabase('default', $settingsService->get('apps.store.database.default'));
 
         if (in_array($this->getContext(), array('admin', 'storefront', 'store'))) {
@@ -119,36 +118,22 @@ class Application extends Kernel {
 
             $defaults = $this->getRootDir().'/apps/store/config/defaults.php';
             if (file_exists($defaults)) {
-                $settingsService = $this->settingsService;
                 include $defaults;
-                $this->settingsService = $settingsService;
             }
         }
 
         $appContainerFiles = array();
-        $appContainerFiles[] = 'lib/zenmagick/base/container.xml';
-        $appContainerFiles[] = 'lib/zenmagick/http/container.xml';
-
-        if (defined('SEND_EMAILS')) { // @todo move all zc param detection elsewhere
-            $appContainerFiles[] = $this->getRootDir().'/apps/store/config/email.php';
-        }
-        if ($applicationPath = $this->getApplicationPath()) {
-            $appContainerFiles[] = $applicationPath.'/config/container.xml';
-        }
-        $appContainerFiles[] = 'config/store-container.xml';
+        $appContainerFiles[] = $this->getRootDir().'/lib/zenmagick/base/container.xml';
+        $appContainerFiles[] = $this->getRootDir().'/lib/zenmagick/http/container.xml';
+        $appContainerFiles[] = $this->getRootDir().'/apps/store/config/email.php';
+        $appContainerFiles[] = $this->getApplicationPath().'/config/container_'.$this->getEnvironment().'.xml';
 
         $files = array();
-        $filesystem = new Filesystem();
         foreach ($appContainerFiles as $file) {
-            if (!$filesystem->isAbsolutePath($file)) {
-                $file = $this->getRootDir().'/'.$file;
-            }
-            $containerConfig = Toolbox::resolveWithEnv($file, $this->getEnvironment());
-            if (file_exists($containerConfig)) {
-                $files[] = $containerConfig;
+            if (file_exists($file)) {
+                $files[] = $file;
             }
         }
-
         // @todo move all zencart specific parameteres to bundle
         $zcDir = realpath(dirname($this->getRootDir()));
 
