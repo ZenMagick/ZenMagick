@@ -46,7 +46,6 @@ class Request extends HttpFoundationRequest implements ContainerAwareInterface {
      */
     const DEFAULT_REQUEST_ID = 'rid';
 
-    private $dispatcher = null;
     private $shoppingCart_ = null;
 
     /**
@@ -72,24 +71,6 @@ class Request extends HttpFoundationRequest implements ContainerAwareInterface {
      */
     public function setContainer(ContainerInterface $container=null) {
         $this->container = $container;
-    }
-
-    /**
-     * Set the dispatcher for this request.
-     *
-     * @param Dispatcher dispatcher The dispatcher.
-     */
-    public function setDispatcher($dispatcher) {
-        $this->dispatcher = $dispatcher;
-    }
-
-    /**
-     * Get the dispatcher for this request.
-     *
-     * @return Dispatcher The dispatcher.
-     */
-    public function getDispatcher() {
-        return $this->dispatcher;
     }
 
     /**
