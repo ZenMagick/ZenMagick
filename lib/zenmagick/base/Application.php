@@ -126,6 +126,7 @@ class Application extends Kernel {
         $appContainerFiles[] = $this->getRootDir().'/lib/zenmagick/base/container.xml';
         $appContainerFiles[] = $this->getRootDir().'/lib/zenmagick/http/container.xml';
         $appContainerFiles[] = $this->getRootDir().'/apps/store/config/email.php';
+        $appContainerFiles[] = $this->getRootDir().'/apps/store/config/configuration.php';
         $appContainerFiles[] = $this->getApplicationPath().'/config/container_'.$this->getEnvironment().'.xml';
 
         $files = array();
@@ -134,14 +135,6 @@ class Application extends Kernel {
                 $files[] = $file;
             }
         }
-        // @todo move all zencart specific parameteres to bundle
-        $zcDir = realpath(dirname($this->getRootDir()));
-
-        $files[] = function($container) use ($zcDir) {
-            $container->setParameter('zencart.root_dir', $zcDir);
-            $container->setParameter('zencart.admin_dir', defined('ZENCART_ADMIN_FOLDER') ? ZENCART_ADMIN_FOLDER : 'admin');
-        };
-
         foreach ($files as $file) {
             $loader->load($file);
         }
