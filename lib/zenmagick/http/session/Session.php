@@ -58,9 +58,8 @@ class Session extends ZMObject {
      *
      * @param string domain Optional cookie domain; default is <code>null</code>.
      * @param string name Optional session name; default is <code>Session::DEFAULT_NAME</code>.
-     * @param boolean secure Indicate whether the session cookie should be secure or not; default is <code>true</code>.
      */
-    public function __construct($domain=null, $name=self::DEFAULT_NAME, $secure=false) {
+    public function __construct($domain=null, $name=self::DEFAULT_NAME) {
         parent::__construct();
         $this->domain = null != $domain ? $domain : $_SERVER['HTTP_HOST'];
         $this->setName(null !== $name ? $name : self::DEFAULT_NAME);
@@ -70,9 +69,10 @@ class Session extends ZMObject {
         $this->data = array();
         $this->sessionHandler = null;
         $this->closed = false;
-        $this->cookiePath = '/';
 
         if (!$this->isStarted()) {
+
+            ini_set('session.cookie_path', '/');
             // disable transparent sid support
             ini_set('session.use_trans_sid', false);
 
@@ -90,11 +90,11 @@ class Session extends ZMObject {
             ini_set('session.cookie_lifetime', 0);
 
             // XSS protection
-            ini_set("session.cookie_httponly", true);
+            ini_set('session.cookie_httponly', true);
 
             // general protection
-            $this->setSecureCookie($secure);
-            ini_set("session.use_only_cookies", true);
+            ini_set('session.cookie_secure', false);
+            ini_set('session.use_only_cookies', true);
         }
     }
 
@@ -173,25 +173,12 @@ class Session extends ZMObject {
      * @param string path The cookie path.
      */
     public function setCookieParams($domain, $path) {
-        ini_set('session.cookie_path', $path);
         if ($this->isStarted()) {
             $this->container->get('loggingService')->warn(sprintf('session already started - ignoring; domain: %s, path: %s', $domain, $path));
             return;
         }
         session_set_cookie_params(0, $path, $domain);
         $this->cookiePath = $path;
-    }
-
-    /**
-     * Control whether the cookie should be secure or not.
-     *
-     * @param boolean value The new value.
-     */
-    public function setSecureCookie($value) {
-        if ($this->isStarted()) {
-            throw new RuntimeException('session already started');
-        }
-        ini_set("session.cookie_secure", $value);
     }
 
     /**
