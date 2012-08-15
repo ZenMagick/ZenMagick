@@ -398,17 +398,4 @@ class Session extends ZMObject {
 
         return $this->getValue($tokenKey);
     }
-
-
-    /**
-     * Get user session.
-     *
-     * <p>Get a custmizable object wrapping user session values.</p>.
-     *
-     * @return UserSession The user session object or <code>null</code>.
-     */
-    public function getUserSession() {
-        return $this->container->has('userSession') ? $this->container->get('userSession') : null;
-    }
-
 }

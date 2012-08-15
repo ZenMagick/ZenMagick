@@ -88,7 +88,7 @@ class EventListener extends ZMObject {
         }
 
         // @todo This competes with admin EventListener!
-        if (null != ($userSession = $session->getUserSession())) {
+        if (null != ($userSession = $this->container->get('userSession'))) {
             if (null != ($localeCode = $userSession->getLocaleCode())) {
                 // init with user locale
                 $localeService = $this->container->get('localeService');
