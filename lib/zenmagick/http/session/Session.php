@@ -33,8 +33,6 @@ use zenmagick\base\ZMObject;
  * @todo allow to expire session after a given time (will need cookie update for each request)
  */
 class Session extends ZMObject {
-    /** The default session name. */
-    const DEFAULT_NAME = 'zmid';
     /** A magic session key used to validate forms. */
     const SESSION_TOKEN_KEY = '__ZM_TOKEN__';
     /** The auto save namespace prefix for session keys. */
@@ -44,61 +42,26 @@ class Session extends ZMObject {
     protected $sessionHandler;
     private $cookiePath;
     private $closed;
-    private $domain;
-
 
     /**
      * Create new instance.
      *
      * <p>If an existing session is detected, the session is automatically started.</p>
      *
-     * @param string domain Optional cookie domain; default is <code>null</code>.
-     * @param string name Optional session name; default is <code>Session::DEFAULT_NAME</code>.
      */
-    public function __construct($domain=null, $name=self::DEFAULT_NAME) {
+    public function __construct($options = array()) {
         parent::__construct();
-        $domain = $domain ?: Runtime::getSettings()->get('zenmagick.http.session.domain', $_SERVER['HTTP_HOST']);
-
+        if (!isset($options['cookie_domain'])) {
+            $options['cookie_domain'] = $_SERVER['HTTP_HOST'];
+        }
         $this->data = array();
         $this->sessionHandler = null;
         $this->closed = false;
-        $this->cookiePath = '/';
+        $this->cookiePath = isset($options['cookie_path']) ? $options['cookie_path'] : '/';
 
-        if (!$this->isStarted()) {
-            ini_set('session.name', $name);
-            ini_set('session.cookie_path', $this->cookiePath);
-            ini_set('session.cookie_domain', $domain);
-            // disable transparent sid support
-            ini_set('session.use_trans_sid', false);
-
-            // no rewrite
-            ini_set('url_rewriter.tags', '');
-
-            // do not automatically start a session (just in case)
-            ini_set('session.auto_start', 0);
-
-            // set up gc
-            ini_set('session.gc_probability', 1);
-            ini_set('session.gc_divisor', 2);
-            ini_set('session.gc_lifetime', Runtime::getSettings()->get('zenmagick.http.session.timeout'));
-
-            // session cookie
-            ini_set('session.cookie_lifetime', 0);
-
-            // XSS protection
-            ini_set('session.cookie_httponly', true);
-
-            // general protection
-            ini_set('session.cookie_secure', false);
-            ini_set('session.use_only_cookies', true);
+        foreach($options as $k => $v) {
+            ini_set('session.'.$k, $v);
         }
-    }
-
-    /**
-     * Destruct instance.
-     */
-    public function __destruct() {
-        $this->close();
     }
 
     /**

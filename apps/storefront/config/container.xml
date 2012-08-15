@@ -7,8 +7,7 @@
 
     <services>
         <service id="session" class="zenmagick\apps\storefront\http\Session" scope="container">
-            <argument>%zenmagick.http.session.domain%</argument>
-            <argument>zmsid</argument>
+            <argument>%zenmagick.http.session.options%</argument>
             <call method="setContainer">
                 <argument type="service" id="service_container" />
             </call>
