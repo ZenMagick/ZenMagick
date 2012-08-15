@@ -45,6 +45,9 @@ class ConfigWidgetService extends ConfigService {
                 $widgetDefinition = $value['setFunction'].'&'.$value['useFunction'];
                 // build definition from both function values (just in case)
                 $definition = str_replace('widget@', '', $widgetDefinition);
+                if (0 === strpos($definition, 'ZM')) {
+                    $definition = lcfirst(substr($definition, 2));
+                }
                 $widget = Beans::getBean($definition);
                 if (null !== $widget) {
                     $widget->setTitle($value['name']);
