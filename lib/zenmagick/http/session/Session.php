@@ -37,8 +37,6 @@ class Session extends ZMObject {
     const DEFAULT_NAME = 'zmid';
     /** A magic session key used to validate forms. */
     const SESSION_TOKEN_KEY = '__ZM_TOKEN__';
-    /** The default namespace for session keys. */
-    const DEFAULT_NAMESPACE = null;//'__ZM_NSP__';
     /** The auto save namespace prefix for session keys. */
     const AUTO_SAVE_KEY = '__ZM_AUTO_SAVE_KEY__';
 
@@ -406,41 +404,21 @@ class Session extends ZMObject {
      *
      * @param string name The name; default is <code>null</code> to clear all data.
      * @param mxied value The value; use <code>null</code> to remove; default is <code>null</code>.
-     * @param string namespace Optional namespace; default is <code>DEFAULT_NAMESPACE</code>.
      * @return mixed The old value or <code>null</code>.
      */
-    public function setValue($name, $value=null, $namespace=self::DEFAULT_NAMESPACE) {
+    public function setValue($name, $value=null) {
         $old = null;
         if (null !== $name) {
-            if (null === $namespace) {
-                $old = isset($this->data[$name]) ? $this->data[$name] : null;
-                if (null === $value) {
-                    unset($this->data[$name]);
-                } else {
-                    $this->data[$name] = $value;
-                }
+            $old = isset($this->data[$name]) ? $this->data[$name] : null;
+            if (null === $value) {
+                unset($this->data[$name]);
             } else {
-                if (isset($this->data[$namespace])) {
-                    $old = isset($this->data[$namespace][$name]) ? $this->data[$namespace][$name] : null;
-                    if (null === $value) {
-                        unset($this->data[$namespace][$name]);
-                        if (0 == count($this->data[$namespace])) {
-                            unset($this->data[$namespace]);
-                        }
-                    } else {
-                        $this->data[$namespace][$name] = $value;
-                    }
-                } else {
-                    if (null !== $value) {
-                        $this->data[$namespace] = array($name => $value);
-                    }
-                }
+                $this->data[$name] = $value;
             }
         } else {
             // clear all
             $this->data = array();
         }
-
         return $old;
     }
 
@@ -448,27 +426,15 @@ class Session extends ZMObject {
      * Get a session value.
      *
      * @param string name The name; if <code>null</code> and namespace set, return all namespace data.
-     * @param string namespace Optional namespace; default is <code>null</code> for none.
-     * @param mixed default Optional default value if <code>$name</code> doesn't exist; default is <code>DEFAULT_NAMESPACE</code>.
+     * @param mixed default Optional default value if <code>$name</code> doesn't exist;
      * @return mixed The value or <code>$default</code>.
      */
-    public function getValue($name, $namespace=self::DEFAULT_NAMESPACE, $default=null) {
+    public function getValue($name, $default=null) {
         if (!$this->isStarted() && !$this->isNew()) {
             // start only if not a new session
             $this->start();
         }
-        if (null === $namespace) {
-            return isset($this->data[$name]) ? $this->data[$name] : $default;
-        } else {
-            if (isset($this->data[$namespace])) {
-                if (null === $name) {
-                    return $this->data[$namespace];
-                }
-                return isset($this->data[$namespace][$name]) ? $this->data[$namespace][$name] : $default;
-            } else {
-                return $default;
-            }
-        }
+        return isset($this->data[$name]) ? $this->data[$name] : $default;
     }
 
     /**
