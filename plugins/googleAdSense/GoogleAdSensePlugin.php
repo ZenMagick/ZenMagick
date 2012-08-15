@@ -35,7 +35,7 @@ class GoogleAdSensePlugin extends Plugin {
      */
     public function install() {
         parent::install();
-        $totalAds = $this->container->get('settingsService')->get('plugins.googleAdSense.totalAds', 6)
+        $totalAds = $this->container->get('settingsService')->get('plugins.googleAdSense.totalAds', 6);
         for ($ii=1; $ii <= $totalAds; ++$ii) {
             $name = self::ADSENSE_PREFIX.$ii;
             $this->addConfigValue('Google AdSense JavaScript #'.$ii, $name, '',
