@@ -40,7 +40,6 @@ class Session extends ZMObject {
     /** The auto save namespace prefix for session keys. */
     const AUTO_SAVE_KEY = '__ZM_AUTO_SAVE_KEY__';
 
-    protected $internalStart;
     protected $data;
     protected $sessionHandler;
     private $cookiePath;
@@ -58,17 +57,17 @@ class Session extends ZMObject {
      */
     public function __construct($domain=null, $name=self::DEFAULT_NAME) {
         parent::__construct();
-        $this->domain = null != $domain ? $domain : $_SERVER['HTTP_HOST'];
+        $domain = $domain ?: Runtime::getSettings()->get('zenmagick.http.session.domain', $_SERVER['HTTP_HOST']);
         $this->setName(null !== $name ? $name : self::DEFAULT_NAME);
 
-        $this->internalStart = false;
         $this->data = array();
         $this->sessionHandler = null;
         $this->closed = false;
+        $this->cookiePath = '/';
 
         if (!$this->isStarted()) {
-
-            ini_set('session.cookie_path', '/');
+            ini_set('session.cookie_path', $this->cookiePath);
+            ini_set('session.cookie_domain', $domain);
             // disable transparent sid support
             ini_set('session.use_trans_sid', false);
 
@@ -100,25 +99,6 @@ class Session extends ZMObject {
      */
     public function __destruct() {
         $this->close();
-    }
-
-
-    /**
-     * Set the domain.
-     *
-     * @param string domain The domain to use.
-     */
-    public function setDomain($domain) {
-        $this->domain = $domain;
-    }
-
-    /**
-     * Get the domain.
-     *
-     * @return string The domain to use.
-     */
-    public function getDomain() {
-        return $this->domain;
     }
 
     /**
@@ -194,8 +174,6 @@ class Session extends ZMObject {
         session_cache_limiter('must-revalidate');
         $id = session_id();
         if (empty($id) || $force) {
-            $this->internalStart = true;
-            $this->setCookieParams($this->domain, $this->cookiePath);
             session_start();
             // allow setting / getting data before/without starting session
             $this->data = array_merge($_SESSION, $this->data);
