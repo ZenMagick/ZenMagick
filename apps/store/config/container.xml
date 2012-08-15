@@ -19,6 +19,16 @@
     </parameters>
 
     <services>
+        <service id="bootstrapCache" class="zenmagick\base\cache\FileCache" scope="container">
+            <call method="init">
+                <argument>bootstrap</argument>
+                <argument type="collection">
+                    <argument key="cacheTTL">null</argument>
+                    <argument key="cacheDir">%kernel.root_dir%/cache/%kernel.environment%/bootstrap/</argument>
+                </argument>
+            </call>
+        </service>
+
         <service id="servicesCache" class="zenmagick\base\cache\MemoryCache" scope="container">
             <call method="init">
                 <argument>services</argument>
