@@ -50,7 +50,7 @@ class Session extends ZMObject {
     /**
      * Create new instance.
      *
-     * <p>If an existing session is detected (via <code>isNew()</code>), the session is automatically started.</p>
+     * <p>If an existing session is detected, the session is automatically started.</p>
      *
      * @param string domain Optional cookie domain; default is <code>null</code>.
      * @param string name Optional session name; default is <code>Session::DEFAULT_NAME</code>.
@@ -122,17 +122,6 @@ class Session extends ZMObject {
     public function isStarted() {
         $id = session_id();
         return !empty($id);
-    }
-
-    /**
-     * Check if starting this session would create a new session or if a session exists.
-     *
-     * <p>This will just check for a cookie with the configured session name.</p>
-     *
-     * @return boolean <code>true</code> if starting this session would result in a new session.
-     */
-    public function isNew() {
-        return !isset($_COOKIE[session_name()]);
     }
 
     /**
@@ -347,7 +336,7 @@ class Session extends ZMObject {
      * @return mixed The value or <code>$default</code>.
      */
     public function getValue($name, $default=null) {
-        if (!$this->isStarted() && !$this->isNew()) {
+        if (!$this->isStarted() && isset($_COOKIE[session_name()])) {
             // start only if not a new session
             $this->start();
         }
