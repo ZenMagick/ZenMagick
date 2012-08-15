@@ -92,12 +92,11 @@ class SubscriptionsPlugin extends Plugin {
         $this->executePatch(file($this->getPluginDirectory()."/sql/uninstall.sql"), $this->messages_);
     }
 
-    /**
-     * {@inheritDoc}
-     */
-    public function init() {
-        parent::init();
 
+    /**
+     * Event handler to pick up subscription checkout options.
+     */
+    public function onContainerReady($event) {
         $sacsManager = $this->container->get('sacsManager');
 
         // set mappings and permissions of custom pages
@@ -109,12 +108,7 @@ class SubscriptionsPlugin extends Plugin {
             array('ZMListRule', 'type', array_keys($this->getRequestTypes())),
             array('ZMRequiredRule', 'message', _zm("Please enter a message")),
         ));
-    }
 
-    /**
-     * Event handler to pick up subscription checkout options.
-     */
-    public function onContainerReady($event) {
         $request = $event->get('request');
         if ('checkout_shipping' == $request->getRequestId() && 'POST' == $request->getMethod()) {
             if (Toolbox::asBoolean($request->request->get('subscription'))) {

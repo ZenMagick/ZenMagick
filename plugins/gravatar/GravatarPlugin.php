@@ -62,10 +62,9 @@ class GravatarPlugin extends Plugin {
     }
 
     /**
-     * {@inheritDoc}
+     * Attach getGravatar method to Account.
      */
-    public function init() {
-        parent::init();
+    public function onContainerReady($event) {
         // attach method to ZMAccount
         ZMObject::attachMethod('getGravatar', 'ZMAccount', array($this, 'getGravatar'));
     }

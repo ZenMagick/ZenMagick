@@ -40,15 +40,6 @@ class ExamplePluginPlugin extends Plugin {
         $this->addConfigValue('Plugin text config', 'rq1key2', 'doh', 'Some text');
     }
 
-    /**
-     * {@inheritDoc}
-     */
-    public function init() {
-        parent::init();
-        /*
-         * this is the place to do init stuff other than just setting up the infrastructure
-         */
-    }
 
     /**
      * Handle container ready event.

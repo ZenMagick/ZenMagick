@@ -29,23 +29,14 @@ use Plugin;
  */
 class GoogleAdSensePlugin extends Plugin {
     const ADSENSE_PREFIX = 'adsense-';
-    private $totalAds_;
-
-    /**
-     * {@inheritDoc}
-     */
-    public function init() {
-        parent::init();
-        $this->totalAds_ = $this->container->get('settingsService')->get('plugins.googleAdSense.totalAds', 6);
-    }
 
     /**
      * Install this plugin.
      */
     public function install() {
         parent::install();
-
-        for ($ii=1; $ii <= $this->totalAds_; ++$ii) {
+        $totalAds = $this->container->get('settingsService')->get('plugins.googleAdSense.totalAds', 6)
+        for ($ii=1; $ii <= $totalAds; ++$ii) {
             $name = self::ADSENSE_PREFIX.$ii;
             $this->addConfigValue('Google AdSense JavaScript #'.$ii, $name, '',
               'The JavaScript provided by Google to display your ads for box #'.$ii,

@@ -54,10 +54,9 @@ class PageStatsPlugin extends Plugin {
     }
 
     /**
-     * {@inheritDoc}
+     * Set up catch all to log events.
      */
-    public function init() {
-        parent::init();
+    public function onContainerReady($event) {
         // register to log events
         $eventDispatcher = $this->container->get('eventDispatcher');
         $eventDispatcher->listen(array($this, 'logEvent'));

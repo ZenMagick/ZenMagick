@@ -66,11 +66,9 @@ class MusicProductInfoPlugin extends Plugin {
     }
 
     /**
-     * {@inheritDoc}
+     * Attach mediaUrl method to toolbox.
      */
-    public function init() {
-        parent::init();
-
+    public function onContainerReady($event) {
         // attach mediaUrl method to the $net toolbox tool
         ZMObject::attachMethod('mediaUrl', 'zenmagick\apps\store\toolbox\ToolboxNet',
             array($this, 'mediaUrl'));

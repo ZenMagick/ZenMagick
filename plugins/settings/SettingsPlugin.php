@@ -39,10 +39,9 @@ class SettingsPlugin extends Plugin {
 
 
     /**
-     * {@inheritDoc}
+     * Update all settings we manage.
      */
-    public function init() {
-        parent::init();
+    public function onContainerReady($event) {
         // make all config values proper settings
         $settingsService = $this->container->get('settingsService');
         foreach ($this->getConfigValues() as $value) {
