@@ -160,7 +160,7 @@ class Session extends ZMObject {
     /**
      * Get the current session data.
      */
-    public function getData() {
+    public function all() {
         return $this->data;
     }
 

@@ -378,7 +378,7 @@ class Request extends HttpFoundationRequest implements ContainerAwareInterface {
      */
     public function closeSession() {
         $session = $this->getSession();
-        if ($session->getData()) {
+        if ($session->all()) {
             if ($session->isStarted()) {
                 $session->start();
                 $session->close();
