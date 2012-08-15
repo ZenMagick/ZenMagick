@@ -34,9 +34,6 @@
             <call method="registerSessionHandler">
                 <argument type="service" id="sessionHandler" />
             </call>
-            <call method="setUseFqdn">
-                <argument>%zenmagick.http.session.useFqdn%</argument>
-            </call>
         </service>
 
         <service id="plainEditorWidget" class="zenmagick\http\widgets\form\TextAreaFormWidget" scope="prototype">

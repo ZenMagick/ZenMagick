@@ -46,7 +46,6 @@ class Session extends ZMObject {
     private $cookiePath;
     private $closed;
     private $domain;
-    private $useFqdn;
 
 
     /**
@@ -63,7 +62,6 @@ class Session extends ZMObject {
         $this->setName(null !== $name ? $name : self::DEFAULT_NAME);
 
         $this->internalStart = false;
-        $this->useFqdn = true;
         $this->data = array();
         $this->sessionHandler = null;
         $this->closed = false;
@@ -111,45 +109,16 @@ class Session extends ZMObject {
      * @param string domain The domain to use.
      */
     public function setDomain($domain) {
-        if (null === $domain || !empty($domain)) {
-            $this->domain = $domain;
-        }
+        $this->domain = $domain;
     }
 
     /**
      * Get the domain.
      *
-     * @param boolean fqdn Optional flag to request either the fully qualified domain name or a shortened version; default is <code>true</code>.
      * @return string The domain to use.
      */
-    public function getDomain($fqdn=true) {
-        return $this->adjustDomain($this->domain, $fqdn);
-    }
-
-    /**
-     * Adjust domain with respect to <em>useFqdn</em> flag.
-     *
-     * @param string domain The domain.
-     * @param boolean fqdn Optional flag to request either the fully qualified domain name or a shortened version; default is <code>true</code>.
-     * @return string The adjusted domain.
-     */
-    protected function adjustDomain($domain, $fqdn) {
-        if (null == $domain) {
-            return null;
-        }
-
-        $domainToken = explode('.', $domain);
-        if (2 > count($domainToken) || $fqdn) {
-            return $domain;
-        } else {
-            $tld = '';
-            foreach ($domainToken as $ii => $dt) {
-                if (!in_array($dt, array('www'))) {
-                    $tld .= '.'.$dt;
-                }
-            }
-            return substr($tld, $fqdn ? 1 : 0);
-        }
+    public function getDomain() {
+        return $this->domain;
     }
 
     /**
@@ -178,15 +147,6 @@ class Session extends ZMObject {
         }
         session_set_cookie_params(0, $path, $domain);
         $this->cookiePath = $path;
-    }
-
-    /**
-     * Set the use <em>fqdn</em> flag.
-     *
-     * @param boolean value The new value.
-     */
-    public function setUseFqdn($value) {
-        $this->useFqdn = $value;
     }
 
     /**
@@ -234,8 +194,8 @@ class Session extends ZMObject {
         session_cache_limiter('must-revalidate');
         $id = session_id();
         if (empty($id) || $force) {
-            $this->setCookieParams($this->adjustDomain($this->domain, $this->useFqdn), $this->cookiePath);
             $this->internalStart = true;
+            $this->setCookieParams($this->domain, $this->cookiePath);
             session_start();
             // allow setting / getting data before/without starting session
             $this->data = array_merge($_SESSION, $this->data);

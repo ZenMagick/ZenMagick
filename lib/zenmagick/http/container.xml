@@ -8,7 +8,6 @@
     <parameters>
         <parameter key="zenmagick.http.httpPort">80</parameter>
         <parameter key="zenmagick.http.httpsPort">443</parameter>
-        <parameter key="zenmagick.http.session.useFqdn">true</parameter>
         <!-- empty domain is ignored and session will default to $_SESSION['HTTP_HOST'] -->
         <parameter key="zenmagick.http.session.domain"></parameter>
         <parameter key="zenmagick.http.session.validator.userAgent">false</parameter>
