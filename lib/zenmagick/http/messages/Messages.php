@@ -199,7 +199,7 @@ class Messages extends ZMObject {
         foreach ($this->getMessages() as $msg) {
             $data[] = array('text' => $msg->getText(), 'type' => $msg->getType(), 'ref' => $msg->getRef());
         }
-        $session->setValue('messages', $data, 'zenmagick.http');
+        $session->setValue('http.messages', $data);
     }
 
     /**
@@ -208,11 +208,11 @@ class Messages extends ZMObject {
      * @param zenmagick\http\session\Session session The current session.
      */
     public function loadMessages($session) {
-        if (null !== ($data = $session->getValue('messages', 'zenmagick.http')) && is_array($data)) {
+        if (null !== ($data = $session->getValue('http.messages')) && is_array($data)) {
             foreach ($data as $msg) {
                 $this->add($msg['text'], $msg['type'], $msg['ref']);
             }
-            $session->setValue('messages', null, 'zenmagick.http');
+            $session->setValue('http.messages', null);
         }
     }
 

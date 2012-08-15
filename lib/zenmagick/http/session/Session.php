@@ -357,7 +357,7 @@ class Session extends ZMObject {
             // regenerate token too
             $this->getToken(true);
             // keep old session id for reference
-            $this->setValue('lastSessionId', $lastSessionId, 'session');
+            $this->setValue('lastSessionId', $lastSessionId);
         }
     }
 

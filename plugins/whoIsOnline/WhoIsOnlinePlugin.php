@@ -180,7 +180,7 @@ class WhoIsOnlinePlugin extends Plugin {
      */
     public function updateSessionId($event) {
         $session = $event->get('request')->getSession();
-        if (null != ($lastId = $session->getValue('lastSessionId', 'session'))) {
+        if (null != ($lastId = $session->getValue('lastSessionId'))) {
             \ZMRuntime::getDatabase()->update('whos_online',
                 array('session_id' => $session->getId(), 'customer_id' => $event->get('account')->getId()),
                 array('session_id' => $lastId)
