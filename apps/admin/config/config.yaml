@@ -53,7 +53,6 @@ zenmagick:
   http:
     ## session
     session:
-      useFqdn: false
       # POST validatd with session token
       formToken:
         - login

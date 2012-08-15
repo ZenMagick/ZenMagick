@@ -188,7 +188,6 @@ if (!defined('ATTRIBUTES_PRICE_FACTOR_FROM_SPECIAL')) define('ATTRIBUTES_PRICE_F
              *                                      defined('HTTPS_COOKIE_DOMAIN') ? HTTPS_COOKIE_DOMAIN : null)),
              */
             'zenmagick.http.session.domain' => null,
-            'zenmagick.http.session.useFqdn' => SESSION_USE_FQDN == 'True',
 
             // recreate sessions?
             'isSessionRecreate' => SESSION_RECREATE == 'True',

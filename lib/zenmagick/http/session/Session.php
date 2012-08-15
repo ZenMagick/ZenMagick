@@ -33,161 +33,35 @@ use zenmagick\base\ZMObject;
  * @todo allow to expire session after a given time (will need cookie update for each request)
  */
 class Session extends ZMObject {
-    /** The default session name. */
-    const DEFAULT_NAME = 'zmid';
     /** A magic session key used to validate forms. */
     const SESSION_TOKEN_KEY = '__ZM_TOKEN__';
-    /** The default namespace for session keys. */
-    const DEFAULT_NAMESPACE = null;//'__ZM_NSP__';
     /** The auto save namespace prefix for session keys. */
     const AUTO_SAVE_KEY = '__ZM_AUTO_SAVE_KEY__';
 
-    protected $internalStart;
     protected $data;
     protected $sessionHandler;
     private $cookiePath;
     private $closed;
-    private $domain;
-    private $useFqdn;
-
 
     /**
      * Create new instance.
      *
-     * <p>If an existing session is detected (via <code>isNew()</code>), the session is automatically started.</p>
+     * <p>If an existing session is detected, the session is automatically started.</p>
      *
-     * @param string domain Optional cookie domain; default is <code>null</code>.
-     * @param string name Optional session name; default is <code>Session::DEFAULT_NAME</code>.
      */
-    public function __construct($domain=null, $name=self::DEFAULT_NAME) {
+    public function __construct($options = array()) {
         parent::__construct();
-        $this->domain = null != $domain ? $domain : $_SERVER['HTTP_HOST'];
-        $this->setName(null !== $name ? $name : self::DEFAULT_NAME);
-
-        $this->internalStart = false;
-        $this->useFqdn = true;
+        if (!isset($options['cookie_domain'])) {
+            $options['cookie_domain'] = $_SERVER['HTTP_HOST'];
+        }
         $this->data = array();
         $this->sessionHandler = null;
         $this->closed = false;
+        $this->cookiePath = isset($options['cookie_path']) ? $options['cookie_path'] : '/';
 
-        if (!$this->isStarted()) {
-
-            ini_set('session.cookie_path', '/');
-            // disable transparent sid support
-            ini_set('session.use_trans_sid', false);
-
-            // no rewrite
-            ini_set('url_rewriter.tags', '');
-
-            // do not automatically start a session (just in case)
-            ini_set('session.auto_start', 0);
-
-            // set up gc
-            ini_set('session.gc_probability', 1);
-            ini_set('session.gc_divisor', 2);
-
-            // session cookie
-            ini_set('session.cookie_lifetime', 0);
-
-            // XSS protection
-            ini_set('session.cookie_httponly', true);
-
-            // general protection
-            ini_set('session.cookie_secure', false);
-            ini_set('session.use_only_cookies', true);
+        foreach($options as $k => $v) {
+            ini_set('session.'.$k, $v);
         }
-    }
-
-    /**
-     * Destruct instance.
-     */
-    public function __destruct() {
-        $this->close();
-    }
-
-
-    /**
-     * Set the domain.
-     *
-     * @param string domain The domain to use.
-     */
-    public function setDomain($domain) {
-        if (null === $domain || !empty($domain)) {
-            $this->domain = $domain;
-        }
-    }
-
-    /**
-     * Get the domain.
-     *
-     * @param boolean fqdn Optional flag to request either the fully qualified domain name or a shortened version; default is <code>true</code>.
-     * @return string The domain to use.
-     */
-    public function getDomain($fqdn=true) {
-        return $this->adjustDomain($this->domain, $fqdn);
-    }
-
-    /**
-     * Adjust domain with respect to <em>useFqdn</em> flag.
-     *
-     * @param string domain The domain.
-     * @param boolean fqdn Optional flag to request either the fully qualified domain name or a shortened version; default is <code>true</code>.
-     * @return string The adjusted domain.
-     */
-    protected function adjustDomain($domain, $fqdn) {
-        if (null == $domain) {
-            return null;
-        }
-
-        $domainToken = explode('.', $domain);
-        if (2 > count($domainToken) || $fqdn) {
-            return $domain;
-        } else {
-            $tld = '';
-            foreach ($domainToken as $ii => $dt) {
-                if (!in_array($dt, array('www'))) {
-                    $tld .= '.'.$dt;
-                }
-            }
-            return substr($tld, $fqdn ? 1 : 0);
-        }
-    }
-
-    /**
-     * Set the session name.
-     *
-     * @param string name The session name.
-     */
-    public function setName($name) {
-        if ($this->isStarted()) {
-            Runtime::getLogging()->warn(sprintf('session already started - ignoring; name: %s', $name));
-            return;
-        }
-        session_name($name);
-    }
-
-    /**
-     * Set the session cookie params name.
-     *
-     * @param string domain The cookie domain name.
-     * @param string path The cookie path.
-     */
-    public function setCookieParams($domain, $path) {
-        if ($this->isStarted()) {
-            $this->container->get('loggingService')->warn(sprintf('session already started - ignoring; domain: %s, path: %s', $domain, $path));
-            return;
-        }
-        session_set_cookie_params(0, $path, $domain);
-        $this->cookiePath = $path;
-    }
-
-    /**
-     * Set the use <em>fqdn</em> flag.
-     *
-     * @param boolean value The new value.
-     */
-    public function setUseFqdn($value) {
-        $this->useFqdn = $value;
     }
 
     /**
@@ -197,31 +71,13 @@ class Session extends ZMObject {
      */
     public function isStarted() {
         $id = session_id();
-        $isStarted = !empty($id);
-
-        if ($isStarted && !$this->internalStart) {
-            // started elsewhere, so sync data
-            $this->data = array_merge($_SESSION, $this->data);
-        }
-
-        return $isStarted;
-    }
-
-    /**
-     * Check if starting this session would create a new session or if a session exists.
-     *
-     * <p>This will just check for a cookie with the configured session name.</p>
-     *
-     * @return boolean <code>true</code> if starting this session would result in a new session.
-     */
-    public function isNew() {
-        return !isset($_COOKIE[session_name()]);
+        return !empty($id);
     }
 
     /**
      * Get the current session data.
      */
-    public function getData() {
+    public function all() {
         return $this->data;
     }
 
@@ -235,8 +91,6 @@ class Session extends ZMObject {
         session_cache_limiter('must-revalidate');
         $id = session_id();
         if (empty($id) || $force) {
-            $this->setCookieParams($this->adjustDomain($this->domain, $this->useFqdn), $this->cookiePath);
-            $this->internalStart = true;
             session_start();
             // allow setting / getting data before/without starting session
             $this->data = array_merge($_SESSION, $this->data);
@@ -357,7 +211,7 @@ class Session extends ZMObject {
             // regenerate token too
             $this->getToken(true);
             // keep old session id for reference
-            $this->setValue('lastSessionId', $lastSessionId, 'session');
+            $this->setValue('lastSessionId', $lastSessionId);
         }
     }
 
@@ -406,41 +260,21 @@ class Session extends ZMObject {
      *
      * @param string name The name; default is <code>null</code> to clear all data.
      * @param mxied value The value; use <code>null</code> to remove; default is <code>null</code>.
-     * @param string namespace Optional namespace; default is <code>DEFAULT_NAMESPACE</code>.
      * @return mixed The old value or <code>null</code>.
      */
-    public function setValue($name, $value=null, $namespace=self::DEFAULT_NAMESPACE) {
+    public function setValue($name, $value=null) {
         $old = null;
         if (null !== $name) {
-            if (null === $namespace) {
-                $old = isset($this->data[$name]) ? $this->data[$name] : null;
-                if (null === $value) {
-                    unset($this->data[$name]);
-                } else {
-                    $this->data[$name] = $value;
-                }
+            $old = isset($this->data[$name]) ? $this->data[$name] : null;
+            if (null === $value) {
+                unset($this->data[$name]);
             } else {
-                if (isset($this->data[$namespace])) {
-                    $old = isset($this->data[$namespace][$name]) ? $this->data[$namespace][$name] : null;
-                    if (null === $value) {
-                        unset($this->data[$namespace][$name]);
-                        if (0 == count($this->data[$namespace])) {
-                            unset($this->data[$namespace]);
-                        }
-                    } else {
-                        $this->data[$namespace][$name] = $value;
-                    }
-                } else {
-                    if (null !== $value) {
-                        $this->data[$namespace] = array($name => $value);
-                    }
-                }
+                $this->data[$name] = $value;
             }
         } else {
             // clear all
             $this->data = array();
         }
-
         return $old;
     }
 
@@ -448,27 +282,15 @@ class Session extends ZMObject {
      * Get a session value.
      *
      * @param string name The name; if <code>null</code> and namespace set, return all namespace data.
-     * @param string namespace Optional namespace; default is <code>null</code> for none.
-     * @param mixed default Optional default value if <code>$name</code> doesn't exist; default is <code>DEFAULT_NAMESPACE</code>.
+     * @param mixed default Optional default value if <code>$name</code> doesn't exist;
      * @return mixed The value or <code>$default</code>.
      */
-    public function getValue($name, $namespace=self::DEFAULT_NAMESPACE, $default=null) {
-        if (!$this->isStarted() && !$this->isNew()) {
+    public function getValue($name, $default=null) {
+        if (!$this->isStarted() && isset($_COOKIE[session_name()])) {
             // start only if not a new session
             $this->start();
         }
-        if (null === $namespace) {
-            return isset($this->data[$name]) ? $this->data[$name] : $default;
-        } else {
-            if (isset($this->data[$namespace])) {
-                if (null === $name) {
-                    return $this->data[$namespace];
-                }
-                return isset($this->data[$namespace][$name]) ? $this->data[$namespace][$name] : $default;
-            } else {
-                return $default;
-            }
-        }
+        return isset($this->data[$name]) ? $this->data[$name] : $default;
     }
 
     /**
@@ -476,23 +298,14 @@ class Session extends ZMObject {
      *
      * @param SessionHandler sessionHandler A session handler instance.
      */
-    public function registerSessionHandler(SessionHandler $sessionHandler) {
-        if (null !== $sessionHandler && is_object($sessionHandler) && $sessionHandler instanceof SessionHandler) {
+    public function registerSessionHandler(\SessionHandlerInterface $sessionHandler) {
+        if (null !== $sessionHandler && is_object($sessionHandler) && $sessionHandler instanceof \SessionHandlerInterface) {
             ini_set('session.save_handler', 'user');
             session_set_save_handler(array($sessionHandler, 'open'), array($sessionHandler, 'close'), array($sessionHandler, 'read'),
                 array($sessionHandler, 'write'), array($sessionHandler, 'destroy'), array($sessionHandler, 'gc'));
             $this->sessionHandler = $sessionHandler;
             register_shutdown_function('session_write_close');
         }
-    }
-
-    /**
-     * Get the current session handler.
-     *
-     * @return SessionHandler A session handler or <code>null</code>.
-     */
-    public function getSessionHandler() {
-        return $this->sessionHandler;
     }
 
     /**
@@ -515,17 +328,4 @@ class Session extends ZMObject {
 
         return $this->getValue($tokenKey);
     }
-
-
-    /**
-     * Get user session.
-     *
-     * <p>Get a custmizable object wrapping user session values.</p>.
-     *
-     * @return UserSession The user session object or <code>null</code>.
-     */
-    public function getUserSession() {
-        return $this->container->has('userSession') ? $this->container->get('userSession') : null;
-    }
-
 }

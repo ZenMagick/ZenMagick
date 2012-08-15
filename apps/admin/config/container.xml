@@ -6,10 +6,9 @@
     xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
 
     <services>
-        <service id="sessionHandler" class="zenmagick\apps\store\session\StoreSessionHandler" scope="container">
-            <call method="setExpiryTime">
-                <argument>%zenmagick.http.session.timeout%</argument>
-            </call>
+        <service id="sessionHandler" class="Symfony\Component\HttpFoundation\Session\Storage\Handler\PdoSessionHandler" scope="container">
+            <argument type="service" id="pdo" />
+            <argument>%pdo.db_options%</argument>
         </service>
 
         <service id="storeEmailView" alias="storeTemplateView" />
@@ -26,17 +25,12 @@
         <service id="sacsPermissionService" class="zenmagick\apps\admin\services\SacsPermissionService" scope="container" />
 
         <service id="session" class="zenmagick\http\session\Session" scope="container">
+            <argument>%zenmagick.http.session.options%</argument>
             <call method="setContainer">
                 <argument type="service" id="service_container" />
             </call>
-            <call method="setName">
-                <argument>zmAdmin</argument>
-            </call>
             <call method="registerSessionHandler">
                 <argument type="service" id="sessionHandler" />
-            </call>
-            <call method="setUseFqdn">
-                <argument>%zenmagick.http.session.useFqdn%</argument>
             </call>
         </service>
 

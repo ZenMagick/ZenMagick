@@ -64,7 +64,7 @@ class AdminController extends \ZMController {
         }
 
         // @todo add option to store data in $_SESSION for zc admin too so the values can be used bidirectionally
-        $_SESSION = $session->getData();
+        $_SESSION = $session->all();
 
         $autoLoader = $this->container->get('zenCartAutoLoader');
         $autoLoader->initCommon();

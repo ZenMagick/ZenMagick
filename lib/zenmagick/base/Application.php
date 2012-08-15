@@ -106,7 +106,18 @@ class Application extends Kernel {
         }
 
         $this->settingsService = $settingsService;
-        \ZMRuntime::setDatabase('default', $settingsService->get('apps.store.database.default'));
+        $dbParams = $settingsService->get('apps.store.database.default');
+        \ZMRuntime::setDatabase('default', $dbParams);
+
+        $files = array();
+        $files[] = function($container) use($dbParams) {
+            $container->setParameter('database_driver', $dbParams['driver']);
+            $container->setParameter('database_host', $dbParams['host']);
+            $container->setParameter('database_name', $dbParams['dbname']);
+            $container->setParameter('database_user', $dbParams['user']);
+            $container->setParameter('database_password', $dbParams['password']);
+            $container->setParameter('database_prefix', $dbParams['prefix']);
+        };
 
         if (in_array($this->getContext(), array('admin', 'storefront', 'store'))) {
             $configService = new \zenmagick\apps\store\services\ConfigService;
@@ -129,7 +140,6 @@ class Application extends Kernel {
         $appContainerFiles[] = $this->getRootDir().'/apps/store/config/configuration.php';
         $appContainerFiles[] = $this->getApplicationPath().'/config/container_'.$this->getEnvironment().'.xml';
 
-        $files = array();
         foreach ($appContainerFiles as $file) {
             if (file_exists($file)) {
                 $files[] = $file;

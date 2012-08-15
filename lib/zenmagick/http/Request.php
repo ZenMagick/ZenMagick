@@ -349,7 +349,7 @@ class Request extends HttpFoundationRequest implements ContainerAwareInterface {
         }
 
         $data = array('requestId' => $this->getRequestId(), 'params' => $params, 'secure' => $this->isSecure());
-        $this->getSession()->setValue('followUpUrl', $data, 'zenmagick.http');
+        $this->getSession()->setValue('http.followUpUrl', $data);
     }
 
     /**
@@ -359,13 +359,13 @@ class Request extends HttpFoundationRequest implements ContainerAwareInterface {
      * @return string The url to go to or <code>null</code>.
      */
     public function getFollowUpUrl($clear=true) {
-        if (null != ($data = $this->getSession()->getValue('followUpUrl', 'zenmagick.http'))) {
+        if (null != ($data = $this->getSession()->getValue('http.followUpUrl'))) {
             $params = array();
             foreach ($data['params'] as $key => $value) {
                 $params[] = $key.'='.$value;
             }
             if ($clear) {
-                $this->getSession()->setValue('followUpUrl', null, 'zenmagick.http');
+                $this->getSession()->setValue('http.followUpUrl', null);
             }
             return $this->url($data['requestId'], implode('&', $params), $data['secure']);
         }
@@ -378,7 +378,7 @@ class Request extends HttpFoundationRequest implements ContainerAwareInterface {
      */
     public function closeSession() {
         $session = $this->getSession();
-        if ($session->getData()) {
+        if ($session->all()) {
             if ($session->isStarted()) {
                 $session->start();
                 $session->close();
