@@ -83,6 +83,7 @@ class Session extends ZMObject {
             // set up gc
             ini_set('session.gc_probability', 1);
             ini_set('session.gc_divisor', 2);
+            ini_set('session.gc_lifetime', Runtime::getSettings()->get('zenmagick.http.session.timeout'));
 
             // session cookie
             ini_set('session.cookie_lifetime', 0);
@@ -442,8 +443,8 @@ class Session extends ZMObject {
      *
      * @param SessionHandler sessionHandler A session handler instance.
      */
-    public function registerSessionHandler(SessionHandler $sessionHandler) {
-        if (null !== $sessionHandler && is_object($sessionHandler) && $sessionHandler instanceof SessionHandler) {
+    public function registerSessionHandler(\SessionHandlerInterface $sessionHandler) {
+        if (null !== $sessionHandler && is_object($sessionHandler) && $sessionHandler instanceof \SessionHandlerInterface) {
             ini_set('session.save_handler', 'user');
             session_set_save_handler(array($sessionHandler, 'open'), array($sessionHandler, 'close'), array($sessionHandler, 'read'),
                 array($sessionHandler, 'write'), array($sessionHandler, 'destroy'), array($sessionHandler, 'gc'));

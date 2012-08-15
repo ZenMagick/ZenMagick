@@ -33,10 +33,9 @@
         <service id="ZMForwardView" class="ForwardView" scope="prototype" />
         <service id="forwardView" alias="ZMForwardView" />
 
-        <service id="sessionHandler" class="zenmagick\apps\store\session\StoreSessionHandler" scope="container">
-            <call method="setExpiryTime">
-                <argument>%zenmagick.http.session.timeout%</argument>
-            </call>
+        <service id="sessionHandler" class="Symfony\Component\HttpFoundation\Session\Storage\Handler\PdoSessionHandler" scope="container">
+            <argument type="service" id="pdo" />
+            <argument>%pdo.db_options%</argument>
         </service>
 
         <service id="storeDefaultUrlRewriter" class="zenmagick\apps\storefront\http\request\StoreDefaultUrlRewriter" scope="container">
