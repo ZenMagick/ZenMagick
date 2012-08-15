@@ -25,11 +25,10 @@
         <service id="sacsPermissionService" class="zenmagick\apps\admin\services\SacsPermissionService" scope="container" />
 
         <service id="session" class="zenmagick\http\session\Session" scope="container">
+            <argument>%zenmagick.http.session.domain%</argument>
+            <argument>zmAdmin</argument>
             <call method="setContainer">
                 <argument type="service" id="service_container" />
-            </call>
-            <call method="setName">
-                <argument>zmAdmin</argument>
             </call>
             <call method="registerSessionHandler">
                 <argument type="service" id="sessionHandler" />

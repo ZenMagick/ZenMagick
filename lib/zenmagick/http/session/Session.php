@@ -58,7 +58,6 @@ class Session extends ZMObject {
     public function __construct($domain=null, $name=self::DEFAULT_NAME) {
         parent::__construct();
         $domain = $domain ?: Runtime::getSettings()->get('zenmagick.http.session.domain', $_SERVER['HTTP_HOST']);
-        $this->setName(null !== $name ? $name : self::DEFAULT_NAME);
 
         $this->data = array();
         $this->sessionHandler = null;
@@ -66,6 +65,7 @@ class Session extends ZMObject {
         $this->cookiePath = '/';
 
         if (!$this->isStarted()) {
+            ini_set('session.name', $name);
             ini_set('session.cookie_path', $this->cookiePath);
             ini_set('session.cookie_domain', $domain);
             // disable transparent sid support
@@ -99,19 +99,6 @@ class Session extends ZMObject {
      */
     public function __destruct() {
         $this->close();
-    }
-
-    /**
-     * Set the session name.
-     *
-     * @param string name The session name.
-     */
-    public function setName($name) {
-        if ($this->isStarted()) {
-            Runtime::getLogging()->warn(sprintf('session already started - ignoring; name: %s', $name));
-            return;
-        }
-        session_name($name);
     }
 
     /**
