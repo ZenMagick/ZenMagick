@@ -1,5 +1,5 @@
 {
-    "hash": "6556af3949bb0d1eb7e94b0257216fea",
+    "hash": "d694681966eb64e9f0f4b4e81fcaef00",
     "packages": [
         {
             "package": "buddypress/glotpress",
@@ -20,14 +20,14 @@
         {
             "package": "doctrine/dbal",
             "version": "2.2.x-dev",
-            "source-reference": "b961a3fce6bf220f1dca47d7d747b9074bea4730",
-            "commit-date": "1341779435"
+            "source-reference": "da4b7b4d965db0c1c1d23333e87ee5ae8994e249",
+            "commit-date": "1344978731"
         },
         {
             "package": "doctrine/doctrine-bundle",
             "version": "dev-master",
-            "source-reference": "c9ea46d1f0c48bb88bb87b44214fe44e03c0c692",
-            "commit-date": "1341405737"
+            "source-reference": "4d9bb0f3af470556983eb41a7d19ede23401ef0b",
+            "commit-date": "1344549563"
         },
         {
             "package": "doctrine/doctrine-migrations-bundle",
@@ -38,20 +38,26 @@
         {
             "package": "doctrine/migrations",
             "version": "dev-master",
-            "source-reference": "fe98141b1e460baf5ab52f9139e1ae238101b28b",
-            "commit-date": "1336330359"
+            "source-reference": "b86b4cc0a39714f0aa53b908d495beacfa0e4011",
+            "commit-date": "1343202693"
         },
         {
             "package": "doctrine/orm",
             "version": "2.2.x-dev",
-            "source-reference": "5d2a3bcb3b467f41ee58575764f3ba84937f76e4",
-            "commit-date": "1341676080"
+            "source-reference": "7d343302a8f886be9cfb2a9c8345a95740dcfde9",
+            "commit-date": "1343560954"
         },
         {
             "package": "rych/phpass",
             "version": "dev-master",
-            "source-reference": "0b17b14e5712e48591d5f8656ff26bd1d5b59daa",
-            "commit-date": "1341549439"
+            "alias-pretty-version": "2.1.x-dev",
+            "alias-version": "2.1.9999999.9999999-dev"
+        },
+        {
+            "package": "rych/phpass",
+            "version": "dev-master",
+            "source-reference": "1174a7a5b1c95ef8d4b7d861f3bc208913803645",
+            "commit-date": "1344141053"
         },
         {
             "package": "swiftmailer/swiftmailer",
@@ -62,8 +68,8 @@
         {
             "package": "swiftmailer/swiftmailer",
             "version": "dev-master",
-            "source-reference": "8b2aa953f87da228ba413e8fb1372e49c1374050",
-            "commit-date": "1342198037"
+            "source-reference": "19045c3692f6f6ddb4abc5ebfaf3f86f1c57d265",
+            "commit-date": "1343980916"
         },
         {
             "package": "symfony/swiftmailer-bundle",
@@ -74,8 +80,8 @@
         {
             "package": "symfony/swiftmailer-bundle",
             "version": "dev-master",
-            "source-reference": "v2.1.0-BETA3",
-            "commit-date": "1341509614"
+            "source-reference": "v2.1.0-RC1",
+            "commit-date": "1342684512"
         },
         {
             "package": "symfony/symfony",
@@ -86,8 +92,8 @@
         {
             "package": "symfony/symfony",
             "version": "dev-master",
-            "source-reference": "2367668ecb6f148bd60c2f5540d09e13e7725940",
-            "commit-date": "1341458232"
+            "source-reference": "d06246cd39243d5e90c709f83fc2627d25a166bc",
+            "commit-date": "1344819434"
         },
         {
             "package": "twig/twig",
@@ -98,8 +104,8 @@
         {
             "package": "twig/twig",
             "version": "dev-master",
-            "source-reference": "d45664045194ef62573c153c424508527105041e",
-            "commit-date": "1342424564"
+            "source-reference": "f2f698c820d4396f519ef4175ad6fe79fcfb9ecf",
+            "commit-date": "1344328685"
         },
         {
             "package": "zenmagick/cachelite",
