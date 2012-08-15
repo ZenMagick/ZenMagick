@@ -115,21 +115,6 @@ class Session extends ZMObject {
     }
 
     /**
-     * Set the session cookie params name.
-     *
-     * @param string domain The cookie domain name.
-     * @param string path The cookie path.
-     */
-    public function setCookieParams($domain, $path) {
-        if ($this->isStarted()) {
-            $this->container->get('loggingService')->warn(sprintf('session already started - ignoring; domain: %s, path: %s', $domain, $path));
-            return;
-        }
-        session_set_cookie_params(0, $path, $domain);
-        $this->cookiePath = $path;
-    }
-
-    /**
      * Check if we have a session yet.
      *
      * @return boolean <code>true<code> if the session has been already started.
