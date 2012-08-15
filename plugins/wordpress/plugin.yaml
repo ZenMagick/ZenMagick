@@ -4,6 +4,8 @@ meta:
   author: 'zenmagick.org'
   description: 'Allows to display Wordpress content in ZenMagick'
 
+context: storefront
+
 storefront:
   routing:
     wp:

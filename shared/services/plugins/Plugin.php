@@ -157,7 +157,7 @@ class Plugin extends zenmagick\http\plugins\HttpPlugin {
     public function install() {
         $this->addConfigValue('Plugin Enabled', self::KEY_ENABLED, 'true', 'Enable/disable this plugin',
             'widget@booleanFormWidget#name='.self::KEY_ENABLED.'&default=true&label.true=Enabled&label.false=Disabled&style=checkbox', 0);
-        $this->addConfigValue('Plugin sort order', self::KEY_SORT_ORDER, $this->getPreferredSortOrder(), 'Controls the execution order of plugins',
+        $this->addConfigValue('Plugin sort order', self::KEY_SORT_ORDER, 0, 'Controls the execution order of plugins',
             'widget@textFormWidget#name='.self::KEY_SORT_ORDER.'&default=0&size=6&maxlength=5', 0);
     }
 
@@ -207,6 +207,44 @@ class Plugin extends zenmagick\http\plugins\HttpPlugin {
         $this->remove(true);
         $this->install();
         return true;
+    }
+
+    /**
+     */
+    protected function prepOptions() {
+        $groups = array();
+        $properties = array();
+        foreach ($this->getConfigValues() as $key => $value) {
+            if ('SORT_ORDER' == $key) { continue; }
+            if ('ENABLED' == $key) { continue; }
+            $property = array(
+                'name' => $value->getTitle(),
+                'description' => $value->getDescription(),
+                'type' => lcfirst(str_replace(array('FormWidget', 'Widget'), '', basename(get_class($value)))),
+            );
+
+            $config = array();
+            if ($value->getDefault()) { $config['default'] = $value->getDefault(); }
+            // fix booleans
+            foreach ($config as $ckey => $cvalue) {
+                if ('true' == $cvalue) { $config[$ckey] = true;
+                } else if ('false' == $cvalue) { $config[$ckey] = false;
+                }
+            }
+            if ($value instanceof \zenmagick\http\widgets\form\SelectFormWidget && $value->getOptions(null)) { $config['options'] = $value->getOptions(null); }
+            if ($value->getLabel()) { $config['label'] = $value->getLabel(); }
+            if ($value->getStyle()) { $config['style'] = $value->getStyle(); }
+            // within each group
+            $config['sortOrder'] = $value->getSortOrder() ?: 0;
+            if (0 == $config['sortOrder']) { unset($config['sortOrder']); }
+            if ($config) { $property['config'] = $config; }
+
+            $properties[$key] = $property;
+        }
+        $options = array('groups' => $groups, 'properties' => $properties);
+        // default group is 'default'
+        if (!$groups) { unset($options['groups']); }
+        return $options;
     }
 
     /**

@@ -3,6 +3,9 @@ meta:
   version: '0.3.4'
   author: 'zenmagick.org'
   description: 'ImageHandler2 support for ZenMagick'
+
+context: storefront
+
 admin,storefront:
   container:
     services:

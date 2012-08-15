@@ -21,7 +21,6 @@ namespace zenmagick\base\plugins;
 
 use DirectoryIterator;
 
-use zenmagick\base\Beans;
 use zenmagick\base\Runtime;
 use zenmagick\base\Toolbox;
 use zenmagick\base\ZMObject;
@@ -37,6 +36,7 @@ class PluginStatusMapBuilder extends ZMObject {
     const  PLUGIN_CLASS_PATTERN = 'Plugin.php';
     private $defaultPluginClass;
     private $pluginDirs;
+    private $pluginOptionsLoader;
 
     /**
      * Set the default plugin class.
@@ -47,9 +47,19 @@ class PluginStatusMapBuilder extends ZMObject {
         $this->defaultPluginClass = $class;
     }
 
+    /**
+     * Set the plugin options loader.
+     *
+     * @param PluginOptionsLoader pluginOptionsLoader The loader.
+     */
+    public function setPluginOptionsLoader(PluginOptionsLoader $pluginOptionsLoader) {
+        $this->pluginOptionsLoader = $pluginOptionsLoader;
+    }
+
     public function setPluginDirs(array $dirs) {
         $this->pluginDirs = $dirs;
     }
+
     /**
      * Generate a full map of plugins and their base path.
      *
@@ -97,23 +107,23 @@ class PluginStatusMapBuilder extends ZMObject {
                     }
                     $pluginClass = null;
                 }
-                if ($pluginClass && ($plugin = Beans::getBean($pluginClass))) {
-                    $plugin->setId($id);
-
-                    $config = null;
+                if ($pluginClass && class_exists($pluginClass)) {
+                    $config = array();
                     $pluginConfig = $pluginDir.'/plugin.yaml';
                     if (file_exists($pluginConfig)) {
                         $config = Yaml::parse($pluginConfig);
                     }
 
+                    list($enabled, $sortOrder, $options, $config) = $this->pluginOptionsLoader->getOptionsForId($id, $config);
+
                     $statusMap[$id] = array_merge($info, array(
                         'class' => $pluginClass,
-                        'installed' => $plugin->isInstalled(),
-                        'enabled' => $plugin->isEnabled(),
-                        'context' => $plugin->getContext(),
-                        'order' => $plugin->getSortOrder(),
+                        'enabled' => $enabled,
+                        'context' => isset($config['context']) ? $config['context'] : null,
+                        'sortOrder' => $sortOrder,
                         'namespace' => $namespace,
-                        'config' => $config
+                        'config' => $config,
+                        'options' => $options
                     ));
                 }
             }

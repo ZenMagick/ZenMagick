@@ -34,7 +34,6 @@ class QuickEditPlugin extends Plugin {
     public function __construct() {
         parent::__construct();
         $this->setPreferredSortOrder(35);
-        $this->setContext('admin');
     }
 
 }

@@ -38,7 +38,6 @@ class LiftSuggestPlugin extends Plugin {
      */
     public function __construct() {
         parent::__construct();
-        $this->setContext('storefront');
         $this->recommendationsLoadedFor = null;
         $this->view = null;
     }

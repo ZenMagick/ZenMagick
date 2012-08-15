@@ -32,15 +32,6 @@ use zenmagick\http\view\ResourceManager;
 class ImageHandler2Plugin extends Plugin {
 
     /**
-     * Create new instance.
-     */
-    public function __construct() {
-        parent::__construct();
-        $this->setContext('storefront');
-    }
-
-
-    /**
      * {@inheritDoc}
      */
     public function install() {

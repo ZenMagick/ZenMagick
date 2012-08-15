@@ -40,7 +40,6 @@ class AutoLoginPlugin extends Plugin {
      */
     public function __construct() {
         parent::__construct();
-        $this->setContext('storefront');
         $this->cookieUpdated = false;
     }
 

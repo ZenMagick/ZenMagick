@@ -4,6 +4,8 @@ meta:
   author: 'zenmagick.org'
   description: 'Export data from the database.'
 
+context: admin
+
 admin:
   router:
     page:

@@ -44,7 +44,6 @@ class GoogleAnalyticsPlugin extends Plugin {
      */
     public function __construct() {
         parent::__construct();
-        $this->setContext('storefront');
         $this->eol_ = "\n";
         $this->order_ = null;
     }

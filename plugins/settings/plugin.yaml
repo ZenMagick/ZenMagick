@@ -4,6 +4,8 @@ meta:
   author: 'zenmagick.org'
   description: 'Manage (custom) settings'
 
+context: admin
+
 admin:
   router:
     page:

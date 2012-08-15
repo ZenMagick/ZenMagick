@@ -3,3 +3,5 @@ meta:
   version: '${plugin.version}'
   author: 'zenmagick.org'
   description: 'Lift suggest product suggestions.'
+
+context: storefront

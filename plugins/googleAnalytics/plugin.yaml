@@ -3,3 +3,5 @@ meta:
   version: '${plugin.version}'
   author: 'zenmagick.org'
   description: 'Adds Google Analytics.'
+
+context: storefront

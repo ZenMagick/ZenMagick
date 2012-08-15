@@ -45,7 +45,6 @@ class PageCachePlugin extends \Plugin {
      */
     public function __construct() {
         parent::__construct();
-        $this->setContext('admin,storefront');
         $this->setPreferredSortOrder(9999);
         $this->cache_ = null;
     }

@@ -30,15 +30,6 @@ use zenmagick\http\widgets\Widget;
 class SettingsPlugin extends Plugin {
 
     /**
-     * Create new instance.
-     */
-    public function __construct() {
-        parent::__construct();
-        $this->setContext('admin');
-    }
-
-
-    /**
      * Update all settings we manage.
      */
     public function onContainerReady($event) {

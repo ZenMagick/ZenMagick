@@ -33,15 +33,6 @@ class RecentlyViewedPlugin extends Plugin {
     const RECENTLY_VIEWED_KEY = 'recentlyViewedProducts';
 
     /**
-     * Create new instance.
-     */
-    public function __construct() {
-        parent::__construct();
-        $this->setContext('storefront');
-    }
-
-
-    /**
      * {@inheritDoc}
      */
     public function install() {

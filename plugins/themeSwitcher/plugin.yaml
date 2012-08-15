@@ -3,3 +3,5 @@ meta:
   version: '${plugin.version}'
   author: 'zenmagick.org'
   description: 'Allow users to select a theme'
+
+context: storefront

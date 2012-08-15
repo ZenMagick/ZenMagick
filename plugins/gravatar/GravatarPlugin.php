@@ -38,7 +38,6 @@ class GravatarPlugin extends Plugin {
      */
     public function __construct() {
         parent::__construct();
-        $this->setContext('storefront');
         $this->baseUrl = 'http://www.gravatar.com/avatar/';
     }
 

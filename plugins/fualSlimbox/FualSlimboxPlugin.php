@@ -33,15 +33,6 @@ use zenmagick\base\Runtime;
 class FualSlimboxPlugin extends Plugin {
 
     /**
-     * Create new instance.
-     */
-    public function __construct() {
-        parent::__construct();
-        $this->setContext('storefront');
-    }
-
-
-    /**
      * {@inheritDoc}
      */
     public function install() {

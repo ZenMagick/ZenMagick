@@ -13,3 +13,6 @@ cache/*
 /config/store-email.xml
 logs/*
 /vendor/*
+
+/config
+/vendor

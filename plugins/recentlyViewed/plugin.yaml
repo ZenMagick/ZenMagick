@@ -3,3 +3,5 @@ meta:
   version: '${zenmagick.version}'
   author: 'zenmagick.org'
   description: 'Track and display recently viewed products'
+
+context: storefront

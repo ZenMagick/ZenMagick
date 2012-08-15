@@ -83,7 +83,24 @@ class Plugins extends ZMObject {
      * Refresh plugin status map.
      */
     public function refreshStatusMap() {
-        $this->getStatusMap(true);
+        $this->loggingService->debug('Building plugin status map...');
+        // update the instance var as we'll need a status map for getPluginsForContext()
+        $this->statusMap = $this->pluginStatusMapBuilder->buildStatusMap();
+        // keep values
+        foreach ($this->getPluginsForContext(null, false) as $pluginId => $plugin) {
+            // values
+            if ($options = $plugin->getOptions()) {
+                $values = array();
+                foreach (array_keys($options) as $key) {
+                    $values[$key] = $plugin->get($key);
+                }
+                $this->statusMap[$pluginId]['values'] = $values;
+            }
+        }
+        if ($this->cache) {
+            // store values
+            $this->cache->save($this->statusMap, self::STATUS_MAP_KEY);
+        }
     }
 
     /**
@@ -99,11 +116,7 @@ class Plugins extends ZMObject {
             }
 
             if (!$this->statusMap || $refresh) {
-                $this->loggingService->debug('Loading plugin status map...');
-                $this->statusMap = $this->pluginStatusMapBuilder->buildStatusMap();
-                if ($this->cache) {
-                    $this->cache->save($this->statusMap, self::STATUS_MAP_KEY);
-                }
+                $this->refreshStatusMap();
             }
         }
         return $this->statusMap;
@@ -126,12 +139,12 @@ class Plugins extends ZMObject {
                 continue;
             }
 
-            if (($status['enabled'] || !$enabled) && (null === $context || Runtime::isContextMatch($status['context'], $context))) {
+            if (($status['enabled'] || !$enabled) && (null === $context || null == $status['context'] || Runtime::isContextMatch($status['context'], $context))) {
                 if ($plugin = Beans::getBean($status['class'])) {
                     $plugin->setId($id);
                     $plugin->setPluginDirectory($status['pluginDir']);
 
-                    if ($status['enabled'] && $status['installed'] && Runtime::isContextMatch($status['context'], $context)) {
+                    if ($status['enabled'] && Runtime::isContextMatch($status['context'], $context)) {
                         if ($status['config']) {
                             $this->contextConfigLoader->setConfig($status['config']);
                             $config = $this->contextConfigLoader->process();

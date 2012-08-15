@@ -3,3 +3,5 @@ meta:
   version: '${plugin.version}'
   author: 'zenmagick.org'
   description: 'Automatically login returning customers.'
+
+context: storefront

@@ -95,6 +95,8 @@
             </call>
         </service>
 
+        <service id="pluginOptionsLoader" class="zenmagick\base\plugins\PluginOptionsLoader" scope="container" />
+
         <service id="pluginStatusMapBuilder" class="zenmagick\base\plugins\PluginStatusMapBuilder" scope="container">
             <call method="setDefaultPluginClass">
                 <argument>%zenmagick.base.plugins.defaultPluginClass%</argument>
@@ -102,7 +104,9 @@
             <call method="setPluginDirs">
                 <argument>%zenmagick.base.plugins.dirs%</argument>
             </call>
-
+            <call method="setPluginOptionsLoader">
+                <argument type="service" id="pluginOptionsLoader" />
+            </call>
         </service>
 
         <service id="defaultLoggingHandler" class="zenmagick\base\logging\handler\DefaultLoggingHandler" scope="container">

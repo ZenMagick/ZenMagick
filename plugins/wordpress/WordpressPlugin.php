@@ -39,7 +39,6 @@ class WordpressPlugin extends Plugin {
      */
     public function __construct() {
         parent::__construct();
-        $this->setContext('storefront');
         $this->requestHandler_ = null;
         $this->adapter_ = null;
     }

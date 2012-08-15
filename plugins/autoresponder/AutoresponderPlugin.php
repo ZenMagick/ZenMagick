@@ -29,14 +29,6 @@ use Plugin;
 class AutoresponderPlugin extends Plugin {
     private $cookieUpdated;
 
-    /**
-     * Create new instance.
-     */
-    public function __construct() {
-        parent::__construct();
-        $this->setContext('storefront');
-    }
-
 
     /**
      * {@inheritDoc}

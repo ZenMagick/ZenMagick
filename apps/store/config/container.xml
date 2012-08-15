@@ -121,6 +121,12 @@
             </call>
         </service>
 
+        <service id="pluginOptionsLoader" class="zenmagick\apps\store\plugins\PluginOptionsLoader" scope="container">
+            <call method="setConfigWidgetService">
+                <argument type="service" id="configWidgetService" />
+            </call>
+        </service>
+
         <service id="rssLoader" class="zenmagick\http\rss\RssFeedLoader" scope="container">
             <call method="setCache">
                 <argument type="service" id="persistentCache" />
