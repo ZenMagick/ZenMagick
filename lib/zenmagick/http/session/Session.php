@@ -121,14 +121,7 @@ class Session extends ZMObject {
      */
     public function isStarted() {
         $id = session_id();
-        $isStarted = !empty($id);
-
-        if ($isStarted && !$this->internalStart) {
-            // started elsewhere, so sync data
-            $this->data = array_merge($_SESSION, $this->data);
-        }
-
-        return $isStarted;
+        return !empty($id);
     }
 
     /**
