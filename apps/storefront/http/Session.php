@@ -33,10 +33,10 @@ class Session extends \zenmagick\http\session\Session {
      * {@inheritDoc}
      * @todo: drop
      */
-    public function setValue($name, $value=null, $namespace=null) {
+    public function setValue($name, $value=null) {
         // ZCSMELL
         if (!$this->isStarted()) $this->start();
-        parent::setValue($name, $value, $namespace);
+        parent::setValue($name, $value);
         if (isset($_SESSION)) {
             $_SESSION[$name] = $value;
         }
@@ -45,14 +45,14 @@ class Session extends \zenmagick\http\session\Session {
      * {@inheritDoc}
      * @todo: drop
      */
-    public function getValue($name, $namespace=null, $default=null) {
-        if (null != ($value = parent::getValue($name, $namespace))) {
+    public function getValue($name, $default=null) {
+        if (null != ($value = parent::getValue($name, $default))) {
             return $value;
         }
         if (isset($_SESSION) && array_key_exists($name, $_SESSION)) {
             return $_SESSION[$name];
         }
-        return null;
+        return $default;
     }
 
     /**
