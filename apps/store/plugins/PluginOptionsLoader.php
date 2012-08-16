@@ -51,7 +51,7 @@ class PluginOptionsLoader extends BasePluginOptionsLoader {
         $config = parent::load($id, $config);
 
         // default
-        $config['meta']['context'] = isset($config['meta']['context']) ?: 'admin,storefront';
+        $config['meta']['context'] = isset($config['meta']['context']) ? $config['meta']['context'] : 'admin,storefront';
         $config['meta']['installed'] = false;
         $config['meta']['enabled'] = false;
 

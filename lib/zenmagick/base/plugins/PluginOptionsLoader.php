@@ -36,8 +36,8 @@ class PluginOptionsLoader {
     public function load($id, $config) {
         $options = isset($config['meta']) && isset($config['meta']['options']) ? $config['meta']['options'] : array();
 
-        $config['meta']['enabled'] = isset($config['meta']['enabled']) ?: true;
-        $config['meta']['context'] = isset($config['meta']['context']) ?: null;
+        $config['meta']['enabled'] = isset($config['meta']['enabled']) ? $config['meta']['enabled'] : true;
+        $config['meta']['context'] = isset($config['meta']['context']) ? $config['meta']['context'] : null;
 
         // populate option values based on set values, set defaults and type defaults
         $values = array();
