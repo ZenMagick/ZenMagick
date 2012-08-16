@@ -45,5 +45,5 @@ function zen_session_save_path($path = '') {
 }
 
 function zen_session_recreate() {
-    \zenmagick\base\Runtime::getContainer()->get('session')->regenerate();
+    \zenmagick\base\Runtime::getContainer()->get('session')->migrate();
 }

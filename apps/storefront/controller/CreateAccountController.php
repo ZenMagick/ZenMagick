@@ -94,7 +94,7 @@ class CreateAccountController extends \ZMController {
         }
 
         $session = $request->getSession();
-        $session->regenerate();
+        $session->migrate();
         $session->setAccount($account);
         $session->restoreCart();
 

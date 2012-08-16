@@ -60,7 +60,7 @@ class LoginController extends \ZMController {
         if (null != ($uiLocale = $this->container->get('adminUserPrefService')->getPrefForName($user->getId(), 'uiLocale'))) {
             $session->setValue('uiLocale', $uiLocale);
         }
-        $session->regenerate();
+        $session->migrate();
 
         return $this->findView('success', array(), array('url' => $request->getFollowUpUrl()));
     }

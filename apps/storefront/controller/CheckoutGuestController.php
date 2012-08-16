@@ -60,7 +60,7 @@ class CheckoutGuestController extends \ZMController {
         $account = $this->container->get('accountService')->createAccount($account);
 
         // update session with valid account
-        $session->regenerate();
+        $session->migrate();
         $session->setAccount($account);
 
         if ($settingsService->get('isGuestCheckoutAskAddress')) {

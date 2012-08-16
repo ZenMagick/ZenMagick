@@ -161,16 +161,14 @@ class HttpKernel implements HttpKernelInterface {
                     if (!$validator->isValidSession($request, $request->getSession())) {
                         $this->container->get('loggingService')->trace(sprintf('session validation failed %s', $validator));
                         $this->container->get('messageService')->error('Invalid session');
-                        $request->getSession()->regenerate();
+                        $request->getSession()->migrate();
                         $result = '';
                     }
                 }
             }
-
             if (null === $result) {
                 $result = $this->executeController($request);
             }
-
             // make sure we end up with a View instance
             $routeResolver = $this->container->get('routeResolver');
             if (is_string($result)) {

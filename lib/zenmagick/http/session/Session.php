@@ -189,7 +189,7 @@ class Session extends ZMObject {
      *
      * <p>This will create a new session id while keeping existing session data.</p>
      */
-    public function regenerate() {
+    public function migrate() {
         $lastSessionId = session_id();
         if (!empty($lastSessionId)) {
             if (isset($_COOKIE[session_name()])) {
