@@ -168,7 +168,7 @@ class Session extends ZMObject {
     /**
      * Destroy the current session.
      */
-    public function destroy() {
+    public function invalidate() {
         if (isset($_COOKIE[session_name()])) {
             setcookie(session_name(), '', 0, $this->cookiePath);
             unset($_COOKIE[session_name()]);

@@ -48,7 +48,7 @@ class IndexController extends \ZMController {
 
         if (Toolbox::asBoolean($request->query->get('clear'))) {
             $data = array();
-            $request->getSession()->destroy();
+            $request->getSession()->invalidate();
             $viewId = 'success';
         }
 

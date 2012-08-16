@@ -38,7 +38,7 @@ function zen_session_close() {
 }
 
 function zen_session_destroy() {
-    \zenmagick\base\Runtime::getContainer()->get('session')->destroy();
+    \zenmagick\base\Runtime::getContainer()->get('session')->invalidate();
 }
 
 function zen_session_save_path($path = '') {

@@ -43,7 +43,7 @@ class LogoffController extends \ZMController {
 
         // check state first!
         $loggedIn = !$session->isAnonymous();
-        $session->destroy();
+        $session->invalidate();
 
         if ($loggedIn) {
             // logged in
