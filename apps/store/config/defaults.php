@@ -189,9 +189,6 @@ if (!defined('ATTRIBUTES_PRICE_FACTOR_FROM_SPECIAL')) define('ATTRIBUTES_PRICE_F
              */
             'zenmagick.http.session.domain' => null,
 
-            // recreate sessions?
-            'isSessionRecreate' => SESSION_RECREATE == 'True',
-
             'isResolveClientIP' => SESSION_IP_TO_HOST_ADDRESS == 'true',
 
             'zenmagick.http.session.validator.userAgent' => SESSION_CHECK_USER_AGENT == 'True',

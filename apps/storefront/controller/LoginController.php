@@ -84,7 +84,7 @@ class LoginController extends \ZMController {
             return $this->findView();
         }
 
-        $session->regenerate();
+        $session->migrate();
 
         if (!$session->registerAccount($account, $request, $this)) {
             return $this->findView();

@@ -63,8 +63,9 @@ class AdminController extends \ZMController {
             $session->setValue('selected_box', $selectedBox);
         }
 
-        // @todo add option to store data in $_SESSION for zc admin too so the values can be used bidirectionally
-        $_SESSION = $session->all();
+        foreach($session->all() as $k => $v) {
+            $_SESSION[$k] = $v;
+        }
 
         $autoLoader = $this->container->get('zenCartAutoLoader');
         $autoLoader->initCommon();

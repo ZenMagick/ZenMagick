@@ -73,6 +73,7 @@ class Application extends Kernel {
             new \Doctrine\Bundle\DoctrineBundle\DoctrineBundle,
             new \Doctrine\Bundle\MigrationsBundle\DoctrineMigrationsBundle,
             new \Symfony\Bundle\SwiftmailerBundle\SwiftmailerBundle,
+            new \Symfony\Bundle\MonologBundle\MonologBundle,
         );
         return $bundles;
     }

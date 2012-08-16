@@ -168,7 +168,7 @@ class Session extends ZMObject {
     /**
      * Destroy the current session.
      */
-    public function destroy() {
+    public function invalidate() {
         if (isset($_COOKIE[session_name()])) {
             setcookie(session_name(), '', 0, $this->cookiePath);
             unset($_COOKIE[session_name()]);
@@ -179,7 +179,7 @@ class Session extends ZMObject {
 
         session_unset();
         if ($this->isStarted()) {
-            $this->close(false);
+            $this->save(false);
             session_destroy();
         }
     }
@@ -189,7 +189,7 @@ class Session extends ZMObject {
      *
      * <p>This will create a new session id while keeping existing session data.</p>
      */
-    public function regenerate() {
+    public function migrate() {
         $lastSessionId = session_id();
         if (!empty($lastSessionId)) {
             if (isset($_COOKIE[session_name()])) {
@@ -201,7 +201,7 @@ class Session extends ZMObject {
             $newId = session_id();
 
             // persist old session
-            $this->close(false);
+            $this->save(false);
 
             // switch back to new session id
             session_id($newId);
@@ -220,7 +220,7 @@ class Session extends ZMObject {
      *
      * @param boolean final Optional flag to indicate whether this is a final close; default is <code>true</code>.
      */
-    public function close($final=true) {
+    public function save($final=true) {
         if ($this->isStarted() && !$this->closed) {
             foreach ($this->data as $name => $value) {
                 $_SESSION[$name] = $value;

@@ -291,7 +291,7 @@ class Request extends HttpFoundationRequest implements ContainerAwareInterface {
             return;
         }
         $this->container->get('messageService')->saveMessages($this->getSession());
-        $this->closeSession();
+        $this->getSession()->save();
         if (!empty($status)) {
             header('Location: ' . $url, true, $status);
         } else {
@@ -371,20 +371,6 @@ class Request extends HttpFoundationRequest implements ContainerAwareInterface {
         }
 
         return null;
-    }
-
-    /**
-     * Close session if required.
-     */
-    public function closeSession() {
-        $session = $this->getSession();
-        if ($session->all()) {
-            if ($session->isStarted()) {
-                $session->start();
-                $session->close();
-            }
-        }
-        session_write_close();
     }
 
     /**

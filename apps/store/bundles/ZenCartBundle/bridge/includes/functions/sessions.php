@@ -34,16 +34,16 @@ function zen_session_name($name = '') {
 }
 
 function zen_session_close() {
-    \zenmagick\base\Runtime::getContainer()->get('session')->close();
+    \zenmagick\base\Runtime::getContainer()->get('session')->save();
 }
 
 function zen_session_destroy() {
-    \zenmagick\base\Runtime::getContainer()->get('session')->destroy();
+    \zenmagick\base\Runtime::getContainer()->get('session')->invalidate();
 }
 
 function zen_session_save_path($path = '') {
 }
 
 function zen_session_recreate() {
-    \zenmagick\base\Runtime::getContainer()->get('session')->regenerate();
+    \zenmagick\base\Runtime::getContainer()->get('session')->migrate();
 }
