@@ -339,7 +339,7 @@ class ZMController extends ZMObject {
             $formData = $request->getParameterMap();
         }
 
-        $validator = $this->container->get('validator');
+        $validator = $this->container->get('zmvalidator');
         if (!$validator->hasRuleSet($formId)) {
             return true;
         }

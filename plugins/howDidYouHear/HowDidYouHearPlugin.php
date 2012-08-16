@@ -94,8 +94,8 @@ class HowDidYouHearPlugin extends Plugin {
                     array("ZMRequiredRule", 'sourceId', 'Please select/provide the source where you first heard about us.'),
                     array("zenmagick\\\plugins\\\howDidYouHear\\validation\\rules\\SourceOtherRule", 'sourceOther', 'Please provide a description about where you first heard about us.')
                 );
-                $this->container->get('validator')->addRules('registration', $rules);
-                $this->container->get('validator')->addRules('shippingAddress', $rules);
+                $this->container->get('zmvalidator')->addRules('registration', $rules);
+                $this->container->get('zmvalidator')->addRules('shippingAddress', $rules);
             }
         }
     }

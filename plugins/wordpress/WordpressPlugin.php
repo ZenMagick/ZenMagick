@@ -159,7 +159,7 @@ class WordpressPlugin extends Plugin {
                 if ($this->get('requireNickname')) {
                     $rules[] = array('ZMRequiredRule', 'nickName', 'Please enter a nick name.');
                 }
-                $this->container->get('validator')->addRules('registration', $rules);
+                $this->container->get('zmvalidator')->addRules('registration', $rules);
             } else if ('account_password' == $requestId) {
                 // nothing
             } else if ('account_edit' == $requestId) {
@@ -172,7 +172,7 @@ class WordpressPlugin extends Plugin {
                 if ($this->get('requireNickname')) {
                     $rules[] = array('ZMRequiredRule', 'nickName', 'Please enter a nick name.');
                 }
-                $this->container->get('validator')->addRules('account', $rules);
+                $this->container->get('zmvalidator')->addRules('account', $rules);
             }
         }
     }

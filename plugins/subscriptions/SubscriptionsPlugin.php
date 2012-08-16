@@ -105,7 +105,7 @@ class SubscriptionsPlugin extends Plugin {
         $sacsManager->setMapping('subscription_request', \ZMAccount::REGISTERED);
 
         // set up request form validation
-        $this->container->get('validator')->addRules('subscription_request', array(
+        $this->container->get('zmvalidator')->addRules('subscription_request', array(
             array('ZMListRule', 'type', array_keys($this->getRequestTypes())),
             array('ZMRequiredRule', 'message', _zm("Please enter a message")),
         ));
