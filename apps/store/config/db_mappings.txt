@@ -650,7 +650,7 @@ array(
     'sessions' => array(
         'sesskey' => array('column' => 'sesskey', 'type' => 'string', 'key' => true),
         'expiry' => array('column' => 'expiry', 'type' => 'integer'),
-        'value' => array('column' => 'value', 'type' => 'text')
+        'value' => array('column' => 'value', 'type' => 'blob')
     ),
     'specials' => array(
         'id' => array('column' => 'specials_id', 'type' => 'integer', 'key' => true, 'auto' => true),
