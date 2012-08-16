@@ -19,7 +19,7 @@
  */
 namespace zenmagick\plugins\pageCache;
 
-use Plugin;
+use zenmagick\apps\store\plugins\Plugin;
 use zenmagick\base\Runtime;
 use zenmagick\base\events\Event;
 
@@ -36,16 +36,15 @@ define('ZM_EVENT_PLUGINS_PAGE_CACHE_CONTENTS_DONE', 'plugins_page_cache_contents
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class PageCachePlugin extends \Plugin {
+class PageCachePlugin extends Plugin {
     private $cache_;
     protected $activeThemeId;
 
     /**
      * Create new instance.
      */
-    public function __construct() {
-        parent::__construct();
-        $this->setPreferredSortOrder(9999);
+    public function __construct(array $config) {
+        parent::__construct($config);
         $this->cache_ = null;
     }
 

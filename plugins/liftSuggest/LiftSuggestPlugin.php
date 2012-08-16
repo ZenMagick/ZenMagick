@@ -19,7 +19,7 @@
  */
 namespace zenmagick\plugins\liftSuggest;
 
-use Plugin;
+use zenmagick\apps\store\plugins\Plugin;
 use zenmagick\base\Runtime;
 use zenmagick\base\Toolbox;
 
@@ -36,8 +36,8 @@ class LiftSuggestPlugin extends Plugin {
     /**
      * Create new instance.
      */
-    public function __construct() {
-        parent::__construct();
+    public function __construct(array $config) {
+        parent::__construct($config);
         $this->recommendationsLoadedFor = null;
         $this->view = null;
     }

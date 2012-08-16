@@ -4,6 +4,28 @@ meta:
   author: 'zenmagick.org'
   description: 'Allows to configure and execute cron jobs.'
 
+  options:
+      properties:
+          image:
+              name: Trigger
+              description: 'Enable image trigger'
+              type: boolean
+              config:
+                  default: false
+                  label: 'Enable image trigger'
+                  style: checkbox
+          triggerPages:
+              name: 'Image trigger pages'
+              description: 'List of pages (separated by comma '','') to be used for imger trigger'
+              type: text
+          missedRuns:
+              name: 'Missed run policy'
+              description: 'Select what should happen when one or more runs have been missed'
+              type: boolean
+              config:
+                  default: false
+                  style: select
+
 storefront,admin:
   routing:
     cron_image:

@@ -21,6 +21,7 @@ namespace zenmagick\apps\store\plugins;
 
 use zenmagick\base\plugins\PluginOptionsLoader as BasePluginOptionsLoader;
 use zenmagick\apps\store\services\ConfigWidgetService;
+use zenmagick\base\plugins\Plugin;
 
 /**
  * Loader for store plugin options.
@@ -46,26 +47,29 @@ class PluginOptionsLoader extends BasePluginOptionsLoader {
     /**
      * {@inheritDoc}
      */
-    public function getOptionsForId($id, $config) {
-        list($enabled, $sortOrder, $options, $config) = parent::getOptionsForId($id, $config);
+    public function load($id, $config) {
+        $config = parent::load($id, $config);
 
         // default
-        $config['context'] = 'admin,storefront';
+        $config['meta']['context'] = isset($config['meta']['context']) ?: 'admin,storefront';
+        $config['meta']['installed'] = false;
+        $config['meta']['enabled'] = false;
 
         $configPrefix = strtoupper(self::KEY_PREFIX . $id . '_');
 
         foreach ($this->configWidgetService->getConfigValues($configPrefix.'%') as $configValue) {
+            $config['meta']['installed'] = true;
             $name = $configValue->getName();
             if (self::KEY_ENABLED == $name) {
-                $enabled = $configValue->getValue();
+                $config['meta']['enabled'] = $configValue->getValue();
             } else if (self::KEY_SORT_ORDER == $name) {
-                $sortOrder = $configValue->getValue();
+                $config['meta']['sortOrder'] = $configValue->getValue();
             } else {
-                $options['properties'][$name]['value'] = $configValue->getValue();
+                $config['meta']['options']['properties'][$name]['value'] = $configValue->getValue();
             }
         }
 
-        return array($enabled, $sortOrder, $options, $config);
+        return $config;
     }
 
 }

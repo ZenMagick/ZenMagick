@@ -4,6 +4,13 @@ meta:
   author: 'zenmagick.org'
   description: 'Allows to login using OpenID'
 
+  options:
+      properties:
+          openIDProvider:
+              name: 'Allowed OpenID provider'
+              description: 'A list of allowed OpenID identity providers (separated by ''|'').'
+              type: text
+
 storefront,admin:
   routing:
     openID:

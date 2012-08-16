@@ -104,6 +104,7 @@ class ConfigWidgetService extends ConfigService {
                     break;
                 case 'zen_cfg_pull_down_country_list_none':
                     $widget = Beans::getBean('countrySelectFormWidget');
+                    $e = new \Exception(); echo '<pre>'.$e->getTraceAsString();die();
                     $widget->setOptions(array('' => _zm('None')));
                     break;
                 case 'zen_cfg_pull_down_htmleditors':

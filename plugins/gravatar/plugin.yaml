@@ -4,4 +4,46 @@ meta:
   author: 'zenmagick.org'
   description: 'Adds gravatar support to accounts.'
 
-context: storefront
+  context: storefront
+  options:
+      properties:
+          defaultSize:
+              name: 'Image Size'
+              description: 'Default avatar size'
+              type: text
+          imageSet:
+              name: 'Default Image Set'
+              description: 'Default image if no avatar found'
+              type: select
+              config:
+                  options:
+                      404: '404'
+                      mm: 'Mystery Man'
+                      identicon: 'Identicon geometrical pattern'
+                      monsterid: Monster
+                      wavartar: 'Generated faces'
+                      retro: 'Retro Pixels'
+                  style: select
+          rating:
+              name: 'Raximum Rating'
+              description: 'Maximum rating of avatar images allowed'
+              type: select
+              config:
+                  options:
+                      g: 'G - General'
+                      pg: 'PG - Rude, mild violence'
+                      r: 'R - Rated'
+                      x: 'X - Rated'
+                  style: select
+          defaultImage:
+              name: 'Default Image'
+              description: 'Default avatar to be used when none available (imageSet=custom)'
+              type: text
+          forceReload:
+              name: 'Force reload'
+              description: 'Add a timestamp to the image url to force a refresh every time'
+              type: boolean
+              config:
+                  default: false
+                  label: 'Force reload'
+                  style: checkbox

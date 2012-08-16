@@ -3,3 +3,50 @@ meta:
   version: '${plugin.version}'
   author: 'zenmagick.org'
   description: 'Show page stats'
+
+  options:
+      properties:
+          hideStats:
+              name: 'Hidden Stats'
+              description: 'If set to true, page stats will be hidden (as HTML comment).'
+              type: boolean
+              config:
+                  default: false
+                  label: 'Hide stats'
+                  style: checkbox
+          showEvents:
+              name: Events
+              description: 'Enable to display all fired events.'
+              type: boolean
+              config:
+                  default: false
+                  label: 'Show events'
+                  style: checkbox
+          showSQLtiming:
+              name: SQL
+              description: 'Enable to display all executed SQL and related timings.'
+              type: boolean
+              config:
+                  default: false
+                  label: 'Show SQL'
+                  style: checkbox
+          sqlTimingLimit:
+              name: 'Limit displayed SQL'
+              description: 'Limit displayed SQL to the top X queries (0 for all).'
+              type: text
+          dumpQueries:
+              name: 'Dump Queries to Error Log'
+              description: 'If set to true, all SQL queries will be dumped to error log.'
+              type: boolean
+              config:
+                  default: false
+                  label: 'Dump queries to error log'
+                  style: checkbox
+          appProfile:
+              name: 'Show Application Profile'
+              description: 'If set, display application profile data.'
+              type: boolean
+              config:
+                  default: false
+                  label: 'Show profile data'
+                  style: checkbox

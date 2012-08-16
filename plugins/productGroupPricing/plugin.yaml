@@ -4,6 +4,8 @@ meta:
   author: 'zenmagick.org'
   description: 'Product Group Pricing'
 
+  preferredSortOrder: 15
+
 admin:
   container:
     services:

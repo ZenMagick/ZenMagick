@@ -19,7 +19,7 @@
  */
 namespace zenmagick\plugins\subscriptions;
 
-use Plugin;
+use zenmagick\apps\store\plugins\Plugin;
 use zenmagick\base\Beans;
 use zenmagick\base\Runtime;
 use zenmagick\base\Toolbox;
@@ -37,8 +37,8 @@ class SubscriptionsPlugin extends Plugin {
     /**
      * Create new instance.
      */
-    public function __construct() {
-        parent::__construct();
+    public function __construct(array $config) {
+        parent::__construct($config);
 
         // the new prices and customer flag
         $customFields = array(

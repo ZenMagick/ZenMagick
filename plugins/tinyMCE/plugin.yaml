@@ -12,4 +12,3 @@ storefront,admin:
         scope: container
         tags:
           -  { name: zenmagick.apps.store.editor, label: TinyMCE }
-

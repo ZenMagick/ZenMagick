@@ -4,6 +4,21 @@ meta:
   author: 'zenmagick.org'
   description: 'This is a basic ZenMagick Example Plugin'
 
+  options:
+      properties:
+          rq1key1:
+              name: 'Plugin true/false'
+              description: 'Select true or false'
+              type: boolean
+              config:
+                  default: false
+                  label: 'Select true or false'
+                  style: radio
+          rq1key2:
+              name: 'Plugin text config'
+              description: 'Some text'
+              type: text
+
 admin:
   routing:
     examplePluginAdmin:
@@ -29,4 +44,3 @@ admin:
   #
   #  files:
   #    - file.php
-

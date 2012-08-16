@@ -4,7 +4,8 @@ meta:
   author: 'zenmagick.org'
   description: 'Quickly edit product properties'
 
-context: admin
+  context: admin
+  preferredSortOrder: 35
 
 admin:
   container:

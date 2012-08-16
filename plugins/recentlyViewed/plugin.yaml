@@ -4,4 +4,10 @@ meta:
   author: 'zenmagick.org'
   description: 'Track and display recently viewed products'
 
-context: storefront
+  context: storefront
+  options:
+      properties:
+          maxProducts:
+              name: 'History Maximum'
+              description: 'Maximum number of products to keep'
+              type: text

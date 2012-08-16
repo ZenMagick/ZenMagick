@@ -19,7 +19,7 @@
  */
 namespace zenmagick\plugins\themeSwitcher;
 
-use Plugin;
+use zenmagick\apps\store\plugins\Plugin;
 use zenmagick\base\Toolbox;
 use zenmagick\base\events\Event;
 use zenmagick\http\view\TemplateView;

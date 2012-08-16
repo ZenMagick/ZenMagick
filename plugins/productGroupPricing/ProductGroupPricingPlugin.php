@@ -19,7 +19,7 @@
  */
 namespace zenmagick\plugins\productGroupPricing;
 
-use Plugin;
+use zenmagick\apps\store\plugins\Plugin;
 
 
 /**
@@ -28,15 +28,6 @@ use Plugin;
  * @author DerManoMann <mano@zenmagick.org>
  */
 class ProductGroupPricingPlugin extends Plugin {
-
-    /**
-     * Create new instance.
-     */
-    public function __construct() {
-        parent::__construct();
-        $this->setPreferredSortOrder(15);
-    }
-
 
     /**
      * {@inheritDoc}

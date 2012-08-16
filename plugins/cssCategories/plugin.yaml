@@ -4,4 +4,4 @@ meta:
   author: 'zenmagick.org'
   description: 'Css Categories menu.'
 
-context: storefront
+  context: storefront

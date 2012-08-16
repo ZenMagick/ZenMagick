@@ -3,3 +3,18 @@ meta:
   version: '${plugin.version}'
   author: 'zenmagick.org'
   description: 'vBulletin for ZenMagick'
+
+  options:
+      properties:
+          vBulletinDir:
+              name: 'vBulletin Installation Folder'
+              description: 'Path to your vBulletin installation'
+              type: text
+          requireNickname:
+              name: 'Nickname policy'
+              description: 'Make nickname mandatory (If disabled, automatic vBulletin registration will be skipped)'
+              type: boolean
+              config:
+                  default: true
+                  label: 'Require nickname'
+                  style: checkbox

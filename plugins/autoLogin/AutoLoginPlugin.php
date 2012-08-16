@@ -19,7 +19,7 @@
  */
 namespace zenmagick\plugins\autoLogin;
 
-use Plugin;
+use zenmagick\apps\store\plugins\Plugin;
 use zenmagick\base\Toolbox;
 
 define('AUTO_LOGIN_COOKIE', 'auto_login');
@@ -38,8 +38,8 @@ class AutoLoginPlugin extends Plugin {
     /**
      * Create new instance.
      */
-    public function __construct() {
-        parent::__construct();
+    public function __construct(array $config) {
+        parent::__construct($config);
         $this->cookieUpdated = false;
     }
 

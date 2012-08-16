@@ -4,4 +4,4 @@ meta:
   author: 'zenmagick.org'
   description: 'jscroller product sideboxes.'
 
-context: storefront
+  context: storefront

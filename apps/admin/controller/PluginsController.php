@@ -35,7 +35,7 @@ class PluginsController extends \ZMController {
      * {@inheritDoc}
      */
     public function getViewData($request) {
-        $pluginList = $this->container->get('pluginService')->getPluginsForContext(null, false);
+        $pluginList = $this->container->get('pluginService')->getAllPlugins(false);
         return array('pluginList' => $pluginList);
     }
 

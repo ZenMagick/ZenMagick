@@ -19,7 +19,7 @@
  */
 namespace zenmagick\plugins\autoresponder;
 
-use Plugin;
+use zenmagick\apps\store\plugins\Plugin;
 
 /**
  * Plugin to automtically generate emails based on account events.
@@ -94,7 +94,7 @@ class AutoresponderPlugin extends Plugin {
      *
      * @param array config The config data.
      */
-    public function setConfig($config) {
+    public function XXsetConfig($config) {
         $this->set('config', serialize($config));
     }
 

@@ -3,3 +3,54 @@ meta:
   version: '${plugin.version}'
   author: 'zenmagick.org'
   description: 'ReCAPTCHA for ZenMagick'
+
+  options:
+      properties:
+          publicKey:
+              name: 'Public Key'
+              description: 'ReCAPTCHA public key'
+              type: text
+          privateKey:
+              name: 'Private Key'
+              description: 'ReCAPTCHA private key'
+              type: text
+          disableRegistered:
+              name: 'Disable for registered users'
+              description: 'Disable the captcha for registered (logged in) users'
+              type: boolean
+              config:
+                  default: false
+                  label: Disable
+                  style: checkbox
+          create_account:
+              name: 'Create Account page'
+              description: 'Use ReCAPTCHA on Create Account page'
+              type: boolean
+              config:
+                  default: true
+                  label: Enable
+                  style: checkbox
+          contact_us:
+              name: 'Contact Us page'
+              description: 'Use ReCAPTCHA on Contact Us page'
+              type: boolean
+              config:
+                  default: true
+                  label: Enable
+                  style: checkbox
+          tell_a_friend:
+              name: 'Tell A Friend page'
+              description: 'Use ReCAPTCHA on Tell A Friend page'
+              type: boolean
+              config:
+                  default: true
+                  label: Enable
+                  style: checkbox
+          product_reviews_write:
+              name: 'Write Review page'
+              description: 'Use ReCAPTCHA on Write Review page'
+              type: boolean
+              config:
+                  default: true
+                  label: Enable
+                  style: checkbox

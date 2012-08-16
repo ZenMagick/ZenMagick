@@ -19,7 +19,7 @@
  */
 namespace zenmagick\plugins\gravatar;
 
-use Plugin;
+use zenmagick\apps\store\plugins\Plugin;
 use ZMAccount;
 use zenmagick\base\Toolbox;
 use zenmagick\base\ZMObject;
@@ -36,8 +36,8 @@ class GravatarPlugin extends Plugin {
     /**
      * Create new instance.
      */
-    public function __construct() {
-        parent::__construct();
+    public function __construct(array $config) {
+        parent::__construct($config);
         $this->baseUrl = 'http://www.gravatar.com/avatar/';
     }
 

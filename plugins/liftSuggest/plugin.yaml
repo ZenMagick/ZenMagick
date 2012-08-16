@@ -4,4 +4,22 @@ meta:
   author: 'zenmagick.org'
   description: 'Lift suggest product suggestions.'
 
-context: storefront
+  context: storefront
+  options:
+      properties:
+          userToken:
+              name: 'User Token'
+              description: 'The Lift Suggest User Token.'
+              type: text
+          customerId:
+              name: 'Customer ID'
+              description: 'Your Customer ID provided by LiftSuggest.'
+              type: text
+          recommendationLimit:
+              name: 'Default limit for Recommendations'
+              description: 'Maximum number of recommendations to retreive.'
+              type: text
+          domainName:
+              name: 'Domain Name'
+              description: 'Your Domain Name; example: www.zenmagick.com.'
+              type: text

@@ -90,6 +90,7 @@ class PluginStatusMapBuilder extends ZMObject {
     public function buildStatusMap() {
         $statusMap = array();
 
+        echo '<pre>';
         foreach ($this->getPathIdMap() as $basePath => $pathInfo) {
             foreach ($pathInfo as $info) {
                 $id = $info['id'];
@@ -112,23 +113,21 @@ class PluginStatusMapBuilder extends ZMObject {
                     $pluginConfig = $pluginDir.'/plugin.yaml';
                     if (file_exists($pluginConfig)) {
                         $config = Yaml::parse($pluginConfig);
+                    } else {
+                        // todo: warn and ignore
+                        continue;
                     }
 
-                    list($enabled, $sortOrder, $options, $config) = $this->pluginOptionsLoader->getOptionsForId($id, $config);
-
-                    $statusMap[$id] = array_merge($info, array(
-                        'class' => $pluginClass,
-                        'enabled' => $enabled,
-                        'context' => isset($config['context']) ? $config['context'] : null,
-                        'sortOrder' => $sortOrder,
-                        'namespace' => $namespace,
-                        'config' => $config,
-                        'options' => $options
-                    ));
+                    // add some stuff
+                    $config['meta']['id'] = $id;
+                    $config['meta']['pluginDir'] = $pluginDir;
+                    $config['meta']['class'] = $pluginClass;
+                    $config['meta']['namespace'] = $namespace;
+                    // final adjustments
+                    $statusMap[$id] = $this->pluginOptionsLoader->load($id, $config);
                 }
             }
         }
-
         return $statusMap;
     }
 

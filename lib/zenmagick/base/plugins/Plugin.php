@@ -22,62 +22,55 @@ namespace zenmagick\base\plugins;
 use zenmagick\base\ZMObject;
 
 /**
- * Base class for plugins.
+ * Plugin base class.
  *
- * <p>Plugins are a simple way to add custom code to ZenMagick.</p>
- *
- * <p>This base class comes with the following defaults:</p>
- * <dl>
- *  <dt>id</dt>
- *  <dd>The plugin's class name.</dd>
- *  <dt>name</dt>
- *  <dd>Empty string.</dd>
- *  <dt>description</dt>
- *  <dd>Empty string.</dd>
- *  <dt>version</dt>
- *  <dd><em>0.0</em>.</dd>
- *  <dt>enabled</dt>
- *  <dd><code>null<code>; unless the status is explicitely set, the setting
- *   <em>zenmagick.base.plugins.[id].enabled</em> will be checked instead.</dd>
- *  <dt>pluginDirectory</dt>
- *  <dd>Location of the plugin class file.</dd>
- *  <dt>context</dt>
- *  <dd>Generic code to allow to configure different context values where the plugin allowed; default is <code>null</code>.</dd>
- * </dl>
- *
- * @author DerManoMann <mano@zenmagick.org> <mano@zenmagick.org>
+ * @author DerManoMann <mano@zenmagick.org>
  */
 class Plugin extends ZMObject {
-    private $id;
-    private $name;
-    private $description;
-    private $version;
-    private $enabled_;
-    private $pluginDirectory;
-    private $context;
-    private $sortOrder;
-    private $preferredSortOrder;
-    private $options;
+    protected $config;
 
 
     /**
-     * Create new plugin with some defaults.
+     * Create new plugin instance.
+     *
+     * @param array config The plugin configuration; default is an empty array.
      */
-    public function __construct() {
+    public function __construct(array $config = array()) {
         parent::__construct();
-        // default
-        $this->id = get_class($this);
-        $this->name = '';
-        $this->description = '';
-        $this->version = '0.0';
-        $this->enabled_ = null;
-        $this->pluginDirectory = null;
-        $this->context = null;
-        $this->sortOrder = 0;
-        $this->preferredSortOrder = 0;
-        $this->options = array();
+        $this->setConfig($config);
     }
 
+
+    /**
+     * Set plugin config.
+     *
+     * @param array config The configuration.
+     */
+    public function setConfig(array $config) {
+        $this->config = $config;
+        if ($options = $this->getMeta('options')) {
+            if (isset($options['properties'])) {
+                foreach ($options['properties'] as $name => $property) {
+                    $this->set($name, $property['value']);
+                }
+            }
+        }
+    }
+
+    /**
+     * Get the meta data.
+     *
+     * @param string key Optional meta data key; default is <code>null</code> for all.
+     * @return mixed Either the whole meta data or a single meta data value.
+     */
+    public function getMeta($key = null) {
+        if (null == $key) {
+            return $this->config['meta'];
+        } else if (isset($this->config['meta'][$key])) {
+            return $this->config['meta'][$key];
+        }
+        return null;
+    }
 
     /**
      * Get the id.
@@ -85,16 +78,7 @@ class Plugin extends ZMObject {
      * @return string A unique id.
      */
     public function getId() {
-        return $this->id;
-    }
-
-    /**
-     * Set the id.
-     *
-     * @param string id A unique id.
-     */
-    public function setId($id) {
-        $this->id = $id;
+        return $this->getMeta('id');
     }
 
    /**
@@ -103,16 +87,7 @@ class Plugin extends ZMObject {
      * @return string The name.
      */
     public function getName() {
-        return $this->name;
-    }
-
-    /**
-     * Set the name.
-     *
-     * @param string name The name.
-     */
-    public function setName($name) {
-        $this->name = $name;
+        return $this->getMeta('name');
     }
 
     /**
@@ -121,16 +96,7 @@ class Plugin extends ZMObject {
      * @return string The description.
      */
     public function getDescription() {
-        return $this->description;
-    }
-
-    /**
-     * Set the description.
-     *
-     * @param string description The description.
-     */
-    public function setDescription($description) {
-        $this->description = $description;
+        return $this->getMeta('description');
     }
 
     /**
@@ -139,16 +105,7 @@ class Plugin extends ZMObject {
      * @return string The version.
      */
     public function getVersion() {
-        return $this->version;
-    }
-
-    /**
-     * Set the version.
-     *
-     * @param string version The version.
-     */
-    public function setVersion($version) {
-        $this->version = $version;
+        return $this->getMeta('version');
     }
 
     /**
@@ -157,16 +114,7 @@ class Plugin extends ZMObject {
      * @return string The plugin directoryr.
      */
     public function getPluginDirectory() {
-        return $this->pluginDirectory;
-    }
-
-    /**
-     * Set the plugin directory.
-     *
-     * @param string directory The installation folder.
-     */
-    public function setPluginDirectory($directory) {
-        $this->pluginDirectory = $directory;
+        return $this->getMeta('pluginDir');
     }
 
     /**
@@ -175,24 +123,8 @@ class Plugin extends ZMObject {
      * @return boolean <code>true</code> if the plugin is enabled, <code>false</code> if not.
      */
     public function isEnabled() {
-        return null !== $this->enabled_ ? $this->enabled_ : $this->container->get('settingsService')->get('zenmagick.base.plugins.'.$this->getId().'.enabled', false);
+        return $this->getMeta('enabled');
     }
-
-    /**
-     * Enable/disable this plugin.
-     *
-     * @param boolean status The new status.
-     */
-    public function setEnabled($status) {
-        $this->enabled_ = $status;
-    }
-
-    /**
-     * Init this plugin.
-     *
-     * <p>Code to set up internal resources, etc. should be called here, rather than in the * constructor.</p>
-     */
-    public function init() {}
 
     /**
      * Get the context flags.
@@ -200,36 +132,8 @@ class Plugin extends ZMObject {
      * @return string The context string.
      */
     public function getContext() {
-        return $this->context;
+        return $this->getMeta('context');
     }
-
-    /**
-     * Set the context string.
-     *
-     * @param string s The context string.
-     */
-    public function setContext($s) {
-        $this->context = $s;
-    }
-
-    /**
-     * Get the preferred sort order value.
-     *
-     * @return int The preferred sort order value.
-     */
-    public function getPreferredSortOrder() {
-        return $this->preferredSortOrder;
-    }
-
-    /**
-     * Set the preferred sort order value.
-     *
-     * @param int preferredSortOrder The preferred sort order value.
-     */
-    public function setPreferredSortOrder($preferredSortOrder) {
-        $this->preferredSortOrder = $preferredSortOrder;
-    }
-
 
     /**
      * Get the sort order value.
@@ -237,16 +141,7 @@ class Plugin extends ZMObject {
      * @return int The sort order value.
      */
     public function getSortOrder() {
-        return $this->sortOrder;
-    }
-
-    /**
-     * Set the sort order value.
-     *
-     * @param int sortOrder The sort order value.
-     */
-    public function setSortOrder($sortOrder) {
-        $this->sortOrder = $sortOrder;
+        return $this->getMeta('sortOrder');
     }
 
     /**
@@ -255,16 +150,16 @@ class Plugin extends ZMObject {
      * @return array Map of configuration options.
      */
     public function getOptions() {
-        return $this->options;
+        return (array) $this->getMeta('options');
     }
 
     /**
-     * Set the map of configuration options.
+     * Check if this plugin has options.
      *
-     * @param array options Map of configuration options.
+     * @return boolean <code>true</code> if options are available.
      */
-    public function setOptions(array $options) {
-        $this->options = $options;
+    public function hasOptions() {
+        return 0 < count($this->getOptions());
     }
 
 }

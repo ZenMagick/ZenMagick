@@ -3,3 +3,20 @@ meta:
   version: '${plugin.version}'
   author: 'zenmagick.org'
   description: 'ZenMagick page caching'
+
+  preferredSortOrder: 9999;
+
+  options:
+      properties:
+          ttl:
+              name: 'Cache TTL'
+              description: '(T)ime (T)o (L)ive for cache entries in seconds.'
+              type: text
+          loadStats:
+              name: 'Load stats'
+              description: 'If set to true, add some hidden (HTML comment) page load stats'
+              type: boolean
+              config:
+                  default: false
+                  label: 'Add hidden page load stats.'
+                  style: checkbox

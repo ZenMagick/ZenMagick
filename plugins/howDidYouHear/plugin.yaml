@@ -4,6 +4,33 @@ meta:
   author: 'zenmagick.org'
   description: 'Adds a drop down to the register page asking: "How did you hear about us"'
 
+  options:
+      properties:
+          displayOther:
+              name: 'Display "Other'
+              description: 'Display "Other - please specify" with text box in referral source in account creation'
+              type: boolean
+              config:
+                  default: true
+                  label: 'Allow other'
+                  style: checkbox
+          requireSource:
+              name: 'Require Source'
+              description: 'Is the Referral Source mandatory or optional?'
+              type: boolean
+              config:
+                  default: true
+                  label: 'Require Source'
+                  style: checkbox
+          enableOnGuestCheckout:
+              name: 'Enable on guest checkout'
+              description: 'Handle referral data during guest checkout'
+              type: boolean
+              config:
+                  default: true
+                  label: 'Enable on guest checkout'
+                  style: checkbox
+
 admin:
   router:
     page:

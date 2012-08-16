@@ -4,4 +4,12 @@ meta:
   author: 'zenmagick.org'
   description: 'Auto emails based on acccount events.'
 
-context: storefront
+  context: storefront
+  options:
+      properties:
+          config:
+              name: Config
+              description: 'Config data'
+              type: text
+              config:
+                  default: 'a:0:{}'

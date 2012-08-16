@@ -19,7 +19,7 @@
  */
 namespace zenmagick\plugins\recentlyViewed;
 
-use Plugin;
+use zenmagick\apps\store\plugins\Plugin;
 use zenmagick\base\Toolbox;
 use zenmagick\http\view\TemplateView;
 

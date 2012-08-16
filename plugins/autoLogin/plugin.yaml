@@ -4,4 +4,38 @@ meta:
   author: 'zenmagick.org'
   description: 'Automatically login returning customers.'
 
-context: storefront
+  context: storefront
+  options:
+      properties:
+          optIn:
+              name: 'Opt In'
+              description: 'Allow users to opt in'
+              type: boolean
+              config:
+                  default: true
+                  label: 'Allow opt in'
+                  style: checkbox
+          lifetime:
+              name: Lifetime
+              description: 'Cookie/hash lifetime in days'
+              type: text
+          urlToken:
+              name: 'URL token'
+              description: 'Accept token in URL query parameters'
+              type: boolean
+              config:
+                  default: false
+                  label: 'Accept URL token'
+                  style: checkbox
+          expireUrlToken:
+              name: 'Expire URL token'
+              description: 'Invalidate URL token after use'
+              type: boolean
+              config:
+                  default: true
+                  label: 'Expire URL token after use'
+                  style: checkbox
+          urlTokenName:
+              name: 'URL token name'
+              description: 'Name of the URL token parameter'
+              type: text

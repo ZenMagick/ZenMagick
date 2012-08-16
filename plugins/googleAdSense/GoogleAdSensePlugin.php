@@ -20,7 +20,7 @@
  */
 namespace zenmagick\plugins\googleAdSense;
 
-use Plugin;
+use zenmagick\apps\store\plugins\Plugin;
 
 /**
  * Plugin providing functionallity to manage Google AdSense content, including four sideboxes.

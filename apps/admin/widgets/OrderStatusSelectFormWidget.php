@@ -68,7 +68,9 @@ class OrderStatusSelectFormWidget extends SelectFormWidget {
      */
     public function getOptions($request) {
         $options = parent::getOptions($request);
-        foreach ($this->container->get('orderService')->getOrderStatusList($request->getSelectedLanguage()->getId()) as $idp) {
+        // @todo remove  dependency on language and request
+        $languageId = null != $request ? $request->getSelectedLanguage()->getId() : 1;
+        foreach ($this->container->get('orderService')->getOrderStatusList($languageId) as $idp) {
             $options[$idp->getOrderStatusId()] = $idp->getName() . ($this->showKey_ ? ' ('.$idp->getOrderStatusId().')': '');
         }
         return $options;

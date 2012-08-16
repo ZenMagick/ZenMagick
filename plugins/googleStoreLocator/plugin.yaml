@@ -4,6 +4,37 @@ meta:
   author: 'zenmagick.org'
   description: 'Google Maps Store Locator'
 
+  options:
+      properties:
+          storeKey:
+              name: 'Google Maps storefront key'
+              description: 'Your Google Maps key for the storefront'
+              type: text
+          adminKey:
+              name: 'Google Maps admin key'
+              description: 'Your Google Maps key for the admin page'
+              type: text
+          location:
+              name: 'Store Location'
+              description: 'The store location (Lat,Lng)'
+              type: text
+          zoom:
+              name: 'Zoom Level'
+              description: 'The initial zoom level'
+              type: text
+          marker_text:
+              name: 'Marker Text'
+              description: 'Optional text for the store marker'
+              type: textArea
+          controls:
+              name: 'Add Controls'
+              description: 'Enable/disable map controls'
+              type: boolean
+              config:
+                  default: true
+                  label: 'Enable controls'
+                  style: checkbox
+
 admin:
   router:
     page:

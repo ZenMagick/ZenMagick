@@ -19,7 +19,7 @@
  */
 namespace zenmagick\plugins\settings;
 
-use Plugin;
+use zenmagick\apps\store\plugins\Plugin;
 use zenmagick\http\widgets\Widget;
 
 /**
@@ -33,6 +33,8 @@ class SettingsPlugin extends Plugin {
      * Update all settings we manage.
      */
     public function onContainerReady($event) {
+    // TODO: how to dothis?
+    return;
         // make all config values proper settings
         $settingsService = $this->container->get('settingsService');
         foreach ($this->getConfigValues() as $value) {

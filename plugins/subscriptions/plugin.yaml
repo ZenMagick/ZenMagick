@@ -4,6 +4,63 @@ meta:
   author: 'zenmagick.org'
   description: 'Allow users to subscribe products/orders'
 
+  options:
+      properties:
+          minAmount:
+              name: 'Qualifying amount'
+              description: 'The minimum amount to qualify for a subscription'
+              type: text
+          minOrders:
+              name: 'Minimum orders'
+              description: 'The minimum number of orders before the subscription can be canceled'
+              type: text
+          cancelDeadline:
+              name: 'Cancel dealline'
+              description: 'Days before the next order the user can cancel the subscription'
+              type: text
+          adminEmail:
+              name: 'Admin notification email address'
+              description: 'Email address for admin notifications (use store email if empty)'
+              type: text
+          subscriptionComment:
+              name: 'Subscription comment'
+              description: 'Create subscription comment on original order'
+              type: boolean
+              config:
+                  default: true
+                  label: 'Add comment'
+                  style: checkbox
+          orderHistory:
+              name: 'Order history'
+              description: 'Create subscription order history on schedule'
+              type: boolean
+              config:
+                  default: true
+                  label: 'Create schedule history'
+                  style: checkbox
+          addressPolicy:
+              name: 'Shipping Address'
+              description: 'use either the original shipping addres, or the current default address'
+              type: select
+              config:
+                  default: order
+                  options:
+                      order: 'Order Address'
+                      account: 'Account Address'
+                  style: select
+          scheduleOffset:
+              name: 'Schedule offset'
+              description: 'Optional offset (in days) to schedule subscription earlier that actually required'
+              type: text
+          customerCancen:
+              name: 'Customer cancel'
+              description: 'Allow customers to cancel subscriptions directly'
+              type: boolean
+              config:
+                  default: false
+                  label: 'Allow customer cancel'
+                  style: checkbox
+
 storefront:
   routing:
     cancel_subscription:

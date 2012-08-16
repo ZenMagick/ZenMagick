@@ -125,47 +125,58 @@ class Plugins extends ZMObject {
     /**
      * Get all plugins for the given context.
      *
-     * @param int context Optional context flag; default is <code>null</code> for all.
+     * @param int context Optional context flag; default is <code>null</code> for current context.
      * @param boolean enabled If <code>true</code>, return only enabled plugins; default is <code>true</code>.
      * @return array List of initialized plugins.
      */
     public function getPluginsForContext($context=null, $enabled=true) {
         $context = $context ?: $this->contextConfigLoader->getContext();
+        return $this->getPlugins($context, $enabled);
+    }
 
+    /**
+     * Get all plugins.
+     *
+     * @param boolean enabled If <code>true</code>, return only enabled plugins; default is <code>true</code>.
+     * @return array List of initialized plugins.
+     */
+    public function getAllPlugins($enabled=true) {
+        return $this->getPlugins(null, $enabled);
+    }
+
+    /**
+     * Get plugins for the given context.
+     *
+     * @param int context Optional context flag; default is <code>null</code> for all.
+     * @param boolean enabled If <code>true</code>, return only enabled plugins; default is <code>true</code>.
+     * @return array List of initialized plugins.
+     */
+    protected function getPlugins($context=null, $enabled=true) {
         $plugins = array();
         foreach ($this->getStatusMap() as $id => $status) {
             if (array_key_exists($id, $this->plugins)) {
                 $plugins[$id] = $this->plugins[$id];
                 continue;
             }
-
-            if (($status['enabled'] || !$enabled) && (null === $context || null == $status['context'] || Runtime::isContextMatch($status['context'], $context))) {
-                if ($plugin = Beans::getBean($status['class'])) {
-                    $plugin->setId($id);
-                    $plugin->setPluginDirectory($status['pluginDir']);
-
-                    if ($status['enabled'] && Runtime::isContextMatch($status['context'], $context)) {
-                        if ($status['config']) {
-                            $this->contextConfigLoader->setConfig($status['config']);
-                            $config = $this->contextConfigLoader->process();
-                            if (array_key_exists('autoload', $config)) { // Fold this into process() once it knows about pluginDir
-                                $this->contextConfigLoader->registerAutoLoaders($config['autoload'], $status['pluginDir']);
-                            }
-                        }
-
-                        $plugin->init();
-                        // plugins can only contribute translations
-                        $path = $plugin->getPluginDirectory().'/locale';
-                        $this->localeService->addResource($path);
+            $meta = $status['meta'];
+            if (($meta['enabled'] || !$enabled) && (null === $context || Runtime::isContextMatch($meta['context'], $context))) {
+                $plugin = new $meta['class']($status);
+                $plugin->setContainer($this->container);
+                if ($plugin->isEnabled() && Runtime::isContextMatch($plugin->getContext(), $context)) {
+                    $this->contextConfigLoader->setConfig($status);
+                    $config = $this->contextConfigLoader->process();
+                    if (array_key_exists('autoload', $config)) { // Fold this into process() once it knows about pluginDir
+                        $this->contextConfigLoader->registerAutoLoaders($config['autoload'], $plugin->getPluginDirectory());
                     }
 
-                    if ($status['config'] && array_key_exists('meta', $status['config'])) {
-                        $meta = $status['config']['meta'];
-                        Beans::setAll($plugin, $meta);
-                    }
-
-                    $this->plugins[$id] = $plugins[$id] = $plugin;
+                    // @todo make obsolete
+                    $plugin->init();
+                    // plugins can only contribute translations
+                    $path = $plugin->getPluginDirectory().'/locale';
+                    $this->localeService->addResource($path);
                 }
+
+                $this->plugins[$id] = $plugins[$id] = $plugin;
             }
         }
 

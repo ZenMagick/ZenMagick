@@ -19,7 +19,7 @@
  */
 namespace zenmagick\plugins\imageHandler2;
 
-use Plugin;
+use zenmagick\apps\store\plugins\Plugin;
 use zenmagick\base\Runtime;
 use zenmagick\base\Toolbox;
 use zenmagick\http\view\ResourceManager;

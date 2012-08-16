@@ -22,7 +22,7 @@
  */
 namespace zenmagick\plugins\fualSlimbox;
 
-use Plugin;
+use zenmagick\apps\store\plugins\Plugin;
 use zenmagick\base\Runtime;
 
 /**

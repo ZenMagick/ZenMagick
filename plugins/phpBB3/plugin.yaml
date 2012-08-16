@@ -3,3 +3,18 @@ meta:
   version: '${plugin.version}'
   author: 'zenmagick.org'
   description: 'phpBB3 for ZenMagick'
+
+  options:
+      properties:
+          phpBB3Dir:
+              name: 'phpBB3 Installation Folder'
+              description: 'Path to your phpBB3 installation'
+              type: text
+          requireNickname:
+              name: 'Nickname policy'
+              description: 'Make nickname mandatory (If disabled, automatic phpBB registration will be skipped)'
+              type: boolean
+              config:
+                  default: true
+                  label: 'Require nickname'
+                  style: checkbox

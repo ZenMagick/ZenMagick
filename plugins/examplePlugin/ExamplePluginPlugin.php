@@ -19,7 +19,7 @@
  */
 namespace zenmagick\plugins\examplePlugin;
 
-use Plugin;
+use zenmagick\apps\store\plugins\Plugin;
 use zenmagick\base\Runtime;
 
 /**

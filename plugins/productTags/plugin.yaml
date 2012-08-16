@@ -4,6 +4,8 @@ meta:
   author: 'zenmagick.org'
   description: 'Tag all your products'
 
+  preferredSortOrder: 22
+
 admin,storefront:
   container:
     services:

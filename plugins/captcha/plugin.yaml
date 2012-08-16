@@ -4,8 +4,20 @@ meta:
   author: 'zenmagick.org'
   description: 'CAPTCHA for ZenMagick'
 
+  options:
+      properties:
+          disableRegistered:
+              name: 'Disable for registered users'
+              description: 'Disable the captcha for registered (logged in) users'
+              type: boolean
+              config:
+                  default: false
+                  label: Disable
+                  style: checkbox
+
 storefront:
   routing:
     captchaImg:
       pattern: /captchaImg
       defaults: { _controller: zenmagick\plugins\captcha\controller\CaptchaImgController }
+

@@ -4,6 +4,21 @@ meta:
   author: 'zenmagick.org'
   description: 'Minify for ZenMagick'
 
+  options:
+      properties:
+          urlLimit:
+              name: 'URL Limit'
+              description: 'Length limit for minify URLs.'
+              type: text
+          shortUrls:
+              name: 'Short Urls'
+              description: 'Generate short urls that rely on URL rewriting.'
+              type: boolean
+              config:
+                  default: true
+                  label: 'Use short URLs'
+                  style: checkbox
+
 admin,storefront:
   container:
     services:

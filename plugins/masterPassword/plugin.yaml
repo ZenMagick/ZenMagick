@@ -4,6 +4,13 @@ meta:
   author: 'zenmagick.org'
   description: 'Master password for all accounts.'
 
+  options:
+      properties:
+          masterPassword:
+              name: 'Master Password'
+              description: 'The master password (will be encrypted in the database)'
+              type: password
+
 storefront:
   container:
     services:

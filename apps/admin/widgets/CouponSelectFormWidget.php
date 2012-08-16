@@ -34,7 +34,9 @@ class CouponSelectFormWidget extends SelectFormWidget {
     public function getOptions($request) {
         $options = parent::getOptions($request);
 
-        foreach ($this->container->get('couponService')->getCoupons($request->getSelectedLanguage()->getId()) as $coupon) {
+        // @todo remove  dependency on language and request
+        $languageId = null != $request ? $request->getSelectedLanguage()->getId() : 1;
+        foreach ($this->container->get('couponService')->getCoupons($languageId) as $coupon) {
             $options[$coupon->getId()] = $coupon->getName();
         }
         return $options;

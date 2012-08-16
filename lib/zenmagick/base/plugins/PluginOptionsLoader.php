@@ -27,35 +27,33 @@ namespace zenmagick\base\plugins;
 class PluginOptionsLoader {
 
     /**
-     * Get options and stuff for the given id and config.
+     * Load options and stuff for the given id and config.
      *
-     * @return array List of [enabled], [sortOrder], [options], [config].
+     * @param string id The plugin id.
+     * @param array config The configuration so far.
+     * @return array The full configuration.
      */
-    public function getOptionsForId($id, $config) {
+    public function load($id, $config) {
         $options = isset($config['meta']) && isset($config['meta']['options']) ? $config['meta']['options'] : array();
-        $enabled = false;
-        $sortOrder = 0;
 
+        $config['meta']['enabled'] = isset($config['meta']['enabled']) ?: true;
+        $config['meta']['context'] = isset($config['meta']['context']) ?: null;
+
+        // populate option values based on set values, set defaults and type defaults
         $values = array();
         if (isset($options['properties'])) {
             // setup initial values
             foreach ($options['properties'] as $name => $property) {
                 $type = isset($property['type']) ? $property['type'] : 'text';
-                $config = isset($property['config']) ? $property['config'] : array();
-                $value = isset($property['value']) ? $value : (isset($config['default']) ? $config['default'] : ('boolean' == $type ? false : ''));
+                $pconfig = isset($property['config']) ? $property['config'] : array();
+                $value = isset($property['value']) ? $value : (isset($pconfig['default']) ? $pconfig['default'] : ('boolean' == $type ? false : ''));
                 $options['properties'][$name]['value'] = $value;
-                switch ($name) {
-                case 'enabled':
-                    $enabled = $value;
-                    break;
-                case 'sortOrder':
-                    $sortOrder = $value;
-                    break;
-                }
             }
         }
 
-        return array($enabled, $sortOrder, $options, $config);
+        $config['meta']['options'] = $options;
+
+        return $config;
     }
 
 }
