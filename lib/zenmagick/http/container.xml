@@ -81,6 +81,9 @@
         </service>
 
         <service id="resourceManager" class="zenmagick\http\view\ResourceManager" scope="prototype">
+            <call method="setContainer">
+                <argument type="service" id="service_container" />
+            </call>
             <call method="setVirtualPathMap">
                 <argument>%zenmagick.http.virtualPathMap%</argument>
             </call>
