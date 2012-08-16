@@ -381,7 +381,7 @@ class Request extends HttpFoundationRequest implements ContainerAwareInterface {
         if ($session->all()) {
             if ($session->isStarted()) {
                 $session->start();
-                $session->close();
+                $session->save();
             }
         }
         session_write_close();

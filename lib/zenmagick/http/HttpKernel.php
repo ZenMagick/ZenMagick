@@ -131,7 +131,7 @@ class HttpKernel implements HttpKernelInterface {
         // all done
         // @todo CHECKME: how late does this have to be?
         $dispatcher->dispatch('all_done', new Event($this, array('request' => $request, 'view' => $view, 'content' => $event->get('content'))));
-        $request->closeSession();
+        $request->getSession()->save();
 
         return $response;
     }

@@ -179,7 +179,7 @@ class Session extends ZMObject {
 
         session_unset();
         if ($this->isStarted()) {
-            $this->close(false);
+            $this->save(false);
             session_destroy();
         }
     }
@@ -201,7 +201,7 @@ class Session extends ZMObject {
             $newId = session_id();
 
             // persist old session
-            $this->close(false);
+            $this->save(false);
 
             // switch back to new session id
             session_id($newId);
@@ -220,7 +220,7 @@ class Session extends ZMObject {
      *
      * @param boolean final Optional flag to indicate whether this is a final close; default is <code>true</code>.
      */
-    public function close($final=true) {
+    public function save($final=true) {
         if ($this->isStarted() && !$this->closed) {
             foreach ($this->data as $name => $value) {
                 $_SESSION[$name] = $value;

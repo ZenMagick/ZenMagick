@@ -34,7 +34,7 @@ function zen_session_name($name = '') {
 }
 
 function zen_session_close() {
-    \zenmagick\base\Runtime::getContainer()->get('session')->close();
+    \zenmagick\base\Runtime::getContainer()->get('session')->save();
 }
 
 function zen_session_destroy() {
