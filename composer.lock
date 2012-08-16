@@ -1,5 +1,5 @@
 {
-    "hash": "d694681966eb64e9f0f4b4e81fcaef00",
+    "hash": "5b5e5f69d78e1f8ce3b9183af32c58d3",
     "packages": [
         {
             "package": "buddypress/glotpress",
@@ -48,10 +48,8 @@
             "commit-date": "1343560954"
         },
         {
-            "package": "rych/phpass",
-            "version": "dev-master",
-            "alias-pretty-version": "2.1.x-dev",
-            "alias-version": "2.1.9999999.9999999-dev"
+            "package": "monolog/monolog",
+            "version": "1.1.0"
         },
         {
             "package": "rych/phpass",
@@ -72,10 +70,16 @@
             "commit-date": "1343980916"
         },
         {
-            "package": "symfony/swiftmailer-bundle",
+            "package": "symfony/monolog-bundle",
             "version": "dev-master",
             "alias-pretty-version": "2.1.x-dev",
             "alias-version": "2.1.9999999.9999999-dev"
+        },
+        {
+            "package": "symfony/monolog-bundle",
+            "version": "dev-master",
+            "source-reference": "aed4d742838d2a7350633fed7afe18dbfd3415de",
+            "commit-date": "1344949802"
         },
         {
             "package": "symfony/swiftmailer-bundle",
@@ -129,6 +133,7 @@
         "doctrine/doctrine-migrations-bundle": 20,
         "rych/phpass": 20,
         "symfony/swiftmailer-bundle": 20,
+        "symfony/monolog-bundle": 20,
         "zenmagick/zencart": 5,
         "zenmagick/cachelite": 20,
         "buddypress/glotpress": 20,
