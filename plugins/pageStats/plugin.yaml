@@ -7,7 +7,7 @@ meta:
   options:
       properties:
           hideStats:
-              name: 'Hidden Stats'
+              title: 'Hidden Stats'
               description: 'If set to true, page stats will be hidden (as HTML comment).'
               type: boolean
               config:
@@ -15,7 +15,7 @@ meta:
                   label: 'Hide stats'
                   style: checkbox
           showEvents:
-              name: Events
+              title: Events
               description: 'Enable to display all fired events.'
               type: boolean
               config:
@@ -23,7 +23,7 @@ meta:
                   label: 'Show events'
                   style: checkbox
           showSQLtiming:
-              name: SQL
+              title: SQL
               description: 'Enable to display all executed SQL and related timings.'
               type: boolean
               config:
@@ -31,11 +31,11 @@ meta:
                   label: 'Show SQL'
                   style: checkbox
           sqlTimingLimit:
-              name: 'Limit displayed SQL'
+              title: 'Limit displayed SQL'
               description: 'Limit displayed SQL to the top X queries (0 for all).'
               type: text
           dumpQueries:
-              name: 'Dump Queries to Error Log'
+              title: 'Dump Queries to Error Log'
               description: 'If set to true, all SQL queries will be dumped to error log.'
               type: boolean
               config:
@@ -43,7 +43,7 @@ meta:
                   label: 'Dump queries to error log'
                   style: checkbox
           appProfile:
-              name: 'Show Application Profile'
+              title: 'Show Application Profile'
               description: 'If set, display application profile data.'
               type: boolean
               config:

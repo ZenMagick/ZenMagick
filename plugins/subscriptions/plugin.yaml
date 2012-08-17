@@ -7,23 +7,23 @@ meta:
   options:
       properties:
           minAmount:
-              name: 'Qualifying amount'
+              title: 'Qualifying amount'
               description: 'The minimum amount to qualify for a subscription'
               type: text
           minOrders:
-              name: 'Minimum orders'
+              title: 'Minimum orders'
               description: 'The minimum number of orders before the subscription can be canceled'
               type: text
           cancelDeadline:
-              name: 'Cancel dealline'
+              title: 'Cancel dealline'
               description: 'Days before the next order the user can cancel the subscription'
               type: text
           adminEmail:
-              name: 'Admin notification email address'
+              title: 'Admin notification email address'
               description: 'Email address for admin notifications (use store email if empty)'
               type: text
           subscriptionComment:
-              name: 'Subscription comment'
+              title: 'Subscription comment'
               description: 'Create subscription comment on original order'
               type: boolean
               config:
@@ -31,7 +31,7 @@ meta:
                   label: 'Add comment'
                   style: checkbox
           orderHistory:
-              name: 'Order history'
+              title: 'Order history'
               description: 'Create subscription order history on schedule'
               type: boolean
               config:
@@ -39,7 +39,7 @@ meta:
                   label: 'Create schedule history'
                   style: checkbox
           addressPolicy:
-              name: 'Shipping Address'
+              title: 'Shipping Address'
               description: 'use either the original shipping addres, or the current default address'
               type: select
               config:
@@ -49,11 +49,11 @@ meta:
                       account: 'Account Address'
                   style: select
           scheduleOffset:
-              name: 'Schedule offset'
+              title: 'Schedule offset'
               description: 'Optional offset (in days) to schedule subscription earlier that actually required'
               type: text
           customerCancen:
-              name: 'Customer cancel'
+              title: 'Customer cancel'
               description: 'Allow customers to cancel subscriptions directly'
               type: boolean
               config:

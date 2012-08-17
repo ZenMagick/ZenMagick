@@ -7,11 +7,11 @@ meta:
   options:
       properties:
           phpBB3Dir:
-              name: 'phpBB3 Installation Folder'
+              title: 'phpBB3 Installation Folder'
               description: 'Path to your phpBB3 installation'
               type: text
           requireNickname:
-              name: 'Nickname policy'
+              title: 'Nickname policy'
               description: 'Make nickname mandatory (If disabled, automatic phpBB registration will be skipped)'
               type: boolean
               config:

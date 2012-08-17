@@ -8,11 +8,11 @@ meta:
   options:
       properties:
           defaultSize:
-              name: 'Image Size'
+              title: 'Image Size'
               description: 'Default avatar size'
               type: text
           imageSet:
-              name: 'Default Image Set'
+              title: 'Default Image Set'
               description: 'Default image if no avatar found'
               type: select
               config:
@@ -25,7 +25,7 @@ meta:
                       retro: 'Retro Pixels'
                   style: select
           rating:
-              name: 'Raximum Rating'
+              title: 'Raximum Rating'
               description: 'Maximum rating of avatar images allowed'
               type: select
               config:
@@ -36,11 +36,11 @@ meta:
                       x: 'X - Rated'
                   style: select
           defaultImage:
-              name: 'Default Image'
+              title: 'Default Image'
               description: 'Default avatar to be used when none available (imageSet=custom)'
               type: text
           forceReload:
-              name: 'Force reload'
+              title: 'Force reload'
               description: 'Add a timestamp to the image url to force a refresh every time'
               type: boolean
               config:

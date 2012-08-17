@@ -7,15 +7,15 @@ meta:
   options:
       properties:
           publicKey:
-              name: 'Public Key'
+              title: 'Public Key'
               description: 'ReCAPTCHA public key'
               type: text
           privateKey:
-              name: 'Private Key'
+              title: 'Private Key'
               description: 'ReCAPTCHA private key'
               type: text
           disableRegistered:
-              name: 'Disable for registered users'
+              title: 'Disable for registered users'
               description: 'Disable the captcha for registered (logged in) users'
               type: boolean
               config:
@@ -23,7 +23,7 @@ meta:
                   label: Disable
                   style: checkbox
           create_account:
-              name: 'Create Account page'
+              title: 'Create Account page'
               description: 'Use ReCAPTCHA on Create Account page'
               type: boolean
               config:
@@ -31,7 +31,7 @@ meta:
                   label: Enable
                   style: checkbox
           contact_us:
-              name: 'Contact Us page'
+              title: 'Contact Us page'
               description: 'Use ReCAPTCHA on Contact Us page'
               type: boolean
               config:
@@ -39,7 +39,7 @@ meta:
                   label: Enable
                   style: checkbox
           tell_a_friend:
-              name: 'Tell A Friend page'
+              title: 'Tell A Friend page'
               description: 'Use ReCAPTCHA on Tell A Friend page'
               type: boolean
               config:
@@ -47,7 +47,7 @@ meta:
                   label: Enable
                   style: checkbox
           product_reviews_write:
-              name: 'Write Review page'
+              title: 'Write Review page'
               description: 'Use ReCAPTCHA on Write Review page'
               type: boolean
               config:

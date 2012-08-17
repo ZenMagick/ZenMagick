@@ -7,7 +7,7 @@ meta:
   options:
       properties:
           displayOther:
-              name: 'Display "Other'
+              title: 'Display "Other'
               description: 'Display "Other - please specify" with text box in referral source in account creation'
               type: boolean
               config:
@@ -15,7 +15,7 @@ meta:
                   label: 'Allow other'
                   style: checkbox
           requireSource:
-              name: 'Require Source'
+              title: 'Require Source'
               description: 'Is the Referral Source mandatory or optional?'
               type: boolean
               config:
@@ -23,7 +23,7 @@ meta:
                   label: 'Require Source'
                   style: checkbox
           enableOnGuestCheckout:
-              name: 'Enable on guest checkout'
+              title: 'Enable on guest checkout'
               description: 'Handle referral data during guest checkout'
               type: boolean
               config:

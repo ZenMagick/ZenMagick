@@ -8,27 +8,27 @@ meta:
   options:
       properties:
           wordpressDir:
-              name: 'Wordpress Installation Folder'
+              title: 'Wordpress Installation Folder'
               description: 'Path to your Wordpress installation'
               type: text
           permaPrefix:
-              name: 'Permalink Path Prefix'
+              title: 'Permalink Path Prefix'
               description: 'Path prefix for Wordpress permalinks; leave empty if not using permalinks'
               type: text
           wordpressEnabledPages:
-              name: 'WP enabled pages'
+              title: 'WP enabled pages'
               description: 'Comma separated list of pages that can display WP content (leave empty for all).'
               type: text
           syncUser:
-              name: 'User syncing'
+              title: 'User syncing'
               description: 'Automatically create WP account (and update)'
               type: boolean
               config:
                   default: false
                   label: 'Update WP'
                   style: checkbox
-          requireNickname:
-              name: 'Nickname policy'
+          requireNicktitle:
+              title: 'Nickname policy'
               description: 'Make nick name mandatory (empty nickname will skip automatic WP registration)'
               type: boolean
               config:
@@ -36,7 +36,7 @@ meta:
                   label: 'Require nickname'
                   style: checkbox
           urlRewrite:
-              name: 'URL rewriting'
+              title: 'URL rewriting'
               description: 'Convert Wordpress URLs to store URLs pointing to the plugin templates'
               type: boolean
               config:

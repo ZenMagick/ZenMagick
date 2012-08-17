@@ -8,7 +8,7 @@ meta:
   options:
       properties:
           disableIH2Attributes:
-              name: 'Disable IH img attributes'
+              title: 'Disable IH img attributes'
               description: 'Disable IH2 showtrail/hidetrail mouseover handler and styles on img elements'
               type: boolean
               config:

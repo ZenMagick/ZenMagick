@@ -7,7 +7,7 @@ meta:
   options:
       properties:
           isOnDemand:
-              name: 'Enable on demand only'
+              title: 'Enable on demand only'
               description: 'If set, the plugin will be inactive unless the configured query parameter is set'
               type: boolean
               config:
@@ -15,11 +15,11 @@ meta:
                   label: 'Enable on demand only'
                   style: checkbox
           onDemandName:
-              name: 'On demand query parameter name'
+              title: 'On demand query parameter name'
               description: 'The name of the query parameter to enable FirePHP.'
               type: text
           logLevel:
-              name: 'Log level'
+              title: 'Log level'
               description: 'The log level to be used.'
               type: select
               config:

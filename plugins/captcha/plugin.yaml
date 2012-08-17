@@ -7,7 +7,7 @@ meta:
   options:
       properties:
           disableRegistered:
-              name: 'Disable for registered users'
+              title: 'Disable for registered users'
               description: 'Disable the captcha for registered (logged in) users'
               type: boolean
               config:

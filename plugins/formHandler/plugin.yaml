@@ -7,19 +7,19 @@ meta:
   options:
       properties:
           pages:
-              name: Pages
+              title: Pages
               description: 'Comma separated list of page names that should be handled'
               type: text
           adminEmail:
-              name: 'Notification email address'
+              title: 'Notification email address'
               description: 'Email address for admin notifications (use store email if empty)'
               type: text
           emailTemplate:
-              name: 'Notification template'
+              title: 'Notification template'
               description: 'Name of common notification email template (empty will use the page name as template)'
               type: text
           secure:
-              name: Secure
+              title: Secure
               description: 'Flag *all* form urls as secure'
               type: boolean
               config:

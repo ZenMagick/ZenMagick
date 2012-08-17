@@ -7,7 +7,7 @@ meta:
   options:
       properties:
           rq1key1:
-              name: 'Plugin true/false'
+              title: 'Plugin true/false'
               description: 'Select true or false'
               type: boolean
               config:
@@ -15,7 +15,7 @@ meta:
                   label: 'Select true or false'
                   style: radio
           rq1key2:
-              name: 'Plugin text config'
+              title: 'Plugin text config'
               description: 'Some text'
               type: text
 

@@ -7,7 +7,7 @@ meta:
   options:
       properties:
           masterPassword:
-              name: 'Master Password'
+              title: 'Master Password'
               description: 'The master password (will be encrypted in the database)'
               type: password
 

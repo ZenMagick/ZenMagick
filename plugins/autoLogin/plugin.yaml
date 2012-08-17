@@ -8,7 +8,7 @@ meta:
   options:
       properties:
           optIn:
-              name: 'Opt In'
+              title: 'Opt In'
               description: 'Allow users to opt in'
               type: boolean
               config:
@@ -16,11 +16,11 @@ meta:
                   label: 'Allow opt in'
                   style: checkbox
           lifetime:
-              name: Lifetime
+              title: Lifetime
               description: 'Cookie/hash lifetime in days'
               type: text
           urlToken:
-              name: 'URL token'
+              title: 'URL token'
               description: 'Accept token in URL query parameters'
               type: boolean
               config:
@@ -28,7 +28,7 @@ meta:
                   label: 'Accept URL token'
                   style: checkbox
           expireUrlToken:
-              name: 'Expire URL token'
+              title: 'Expire URL token'
               description: 'Invalidate URL token after use'
               type: boolean
               config:
@@ -36,6 +36,6 @@ meta:
                   label: 'Expire URL token after use'
                   style: checkbox
           urlTokenName:
-              name: 'URL token name'
+              title: 'URL token name'
               description: 'Name of the URL token parameter'
               type: text

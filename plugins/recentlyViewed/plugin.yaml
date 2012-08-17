@@ -8,6 +8,6 @@ meta:
   options:
       properties:
           maxProducts:
-              name: 'History Maximum'
+              title: 'History Maximum'
               description: 'Maximum number of products to keep'
               type: text

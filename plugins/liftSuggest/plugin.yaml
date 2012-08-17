@@ -8,18 +8,18 @@ meta:
   options:
       properties:
           userToken:
-              name: 'User Token'
+              title: 'User Token'
               description: 'The Lift Suggest User Token.'
               type: text
           customerId:
-              name: 'Customer ID'
+              title: 'Customer ID'
               description: 'Your Customer ID provided by LiftSuggest.'
               type: text
           recommendationLimit:
-              name: 'Default limit for Recommendations'
+              title: 'Default limit for Recommendations'
               description: 'Maximum number of recommendations to retreive.'
               type: text
           domainName:
-              name: 'Domain Name'
+              title: 'Domain Name'
               description: 'Your Domain Name; example: www.zenmagick.com.'
               type: text

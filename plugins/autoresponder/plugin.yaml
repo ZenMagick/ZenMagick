@@ -8,7 +8,7 @@ meta:
   options:
       properties:
           config:
-              name: Config
+              title: Config
               description: 'Config data'
               type: text
               config:

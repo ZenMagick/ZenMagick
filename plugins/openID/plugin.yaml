@@ -7,7 +7,7 @@ meta:
   options:
       properties:
           openIDProvider:
-              name: 'Allowed OpenID provider'
+              title: 'Allowed OpenID provider'
               description: 'A list of allowed OpenID identity providers (separated by ''|'').'
               type: text
 

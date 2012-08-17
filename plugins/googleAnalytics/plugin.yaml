@@ -8,23 +8,23 @@ meta:
   options:
       properties:
           uacct:
-              name: Account
+              title: Account
               description: 'Your Google Analytics account number'
               type: text
           affiliation:
-              name: 'Store affiliation'
+              title: 'Store affiliation'
               description: 'Optional partner or store affiliation'
               type: text
           conversionId:
-              name: 'AdWords Conversion id'
+              title: 'AdWords Conversion id'
               description: 'Optional AdWords conversion id (leave empty to ignore)'
               type: text
           conversionLang:
-              name: 'AdWords Conversion language'
+              title: 'AdWords Conversion language'
               description: 'Optional AdWords conversion language'
               type: text
           identifier:
-              name: 'Product identifier'
+              title: 'Product identifier'
               description: 'Select whether to use productId or model to identify products'
               type: select
               config:
@@ -33,7 +33,7 @@ meta:
                       model: Model
                   style: select
           pagenameFormat:
-              name: 'Page name format'
+              title: 'Page name format'
               description: 'Select the formt to use to track individual URLs'
               type: select
               config:
@@ -44,7 +44,7 @@ meta:
                       none: None
                   style: select
           address:
-              name: 'Transaction Address'
+              title: 'Transaction Address'
               description: 'Select which address to use for transaction (order) logging'
               type: select
               config:
@@ -53,7 +53,7 @@ meta:
                       billing: Billing
                   style: select
           debug:
-              name: Debug
+              title: Debug
               description: 'Generate code, but make inactive.'
               type: boolean
               config:

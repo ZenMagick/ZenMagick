@@ -7,11 +7,11 @@ meta:
   options:
       properties:
           urlLimit:
-              name: 'URL Limit'
+              title: 'URL Limit'
               description: 'Length limit for minify URLs.'
               type: text
           shortUrls:
-              name: 'Short Urls'
+              title: 'Short Urls'
               description: 'Generate short urls that rely on URL rewriting.'
               type: boolean
               config:

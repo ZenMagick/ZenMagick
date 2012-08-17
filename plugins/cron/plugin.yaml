@@ -7,7 +7,7 @@ meta:
   options:
       properties:
           image:
-              name: Trigger
+              title: Trigger
               description: 'Enable image trigger'
               type: boolean
               config:
@@ -15,11 +15,11 @@ meta:
                   label: 'Enable image trigger'
                   style: checkbox
           triggerPages:
-              name: 'Image trigger pages'
+              title: 'Image trigger pages'
               description: 'List of pages (separated by comma '','') to be used for imger trigger'
               type: text
           missedRuns:
-              name: 'Missed run policy'
+              title: 'Missed run policy'
               description: 'Select what should happen when one or more runs have been missed'
               type: boolean
               config:

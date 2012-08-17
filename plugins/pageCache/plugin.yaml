@@ -9,11 +9,11 @@ meta:
   options:
       properties:
           ttl:
-              name: 'Cache TTL'
+              title: 'Cache TTL'
               description: '(T)ime (T)o (L)ive for cache entries in seconds.'
               type: text
           loadStats:
-              name: 'Load stats'
+              title: 'Load stats'
               description: 'If set to true, add some hidden (HTML comment) page load stats'
               type: boolean
               config:
