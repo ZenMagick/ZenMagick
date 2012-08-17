@@ -62,7 +62,7 @@ class ToolboxForm extends ToolboxTool {
      * @return string A HTML form tag plus optional hidden form fields.
      */
     public function open($page=null, $params='', $secure=true, $attr=null) {
-        $validator = $this->container->get('validator');
+        $validator = $this->container->get('zmvalidator');
         $defaults = array('method' => 'post');
         $hasId = isset($attr['id']);
         $settingsService = $this->container->get('settingsService');

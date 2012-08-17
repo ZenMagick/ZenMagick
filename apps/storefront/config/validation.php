@@ -28,7 +28,7 @@
      */
 
 
-    $validator = $this->container->get('validator');
+    $validator = $this->container->get('zmvalidator');
     $settingsService = $this->container->get('settingsService');
 
     /* edit account */

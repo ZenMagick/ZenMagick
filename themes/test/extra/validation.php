@@ -30,7 +30,7 @@ use zenmagick\base\Runtime;
      */
 
 
-    $validator = $container->get('validator');
+    $validator = $container->get('zmvalidator');
 
     /* create account */
     $validator->addRules('registration', array(

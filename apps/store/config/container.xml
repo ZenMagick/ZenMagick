@@ -154,7 +154,7 @@
 
         <service id="shoppingCartService" class="zenmagick\apps\store\services\checkout\ShoppingCartService" scope="container" />
 
-        <service id="validator" class="ZMValidator" scope="container">
+        <service id="zmvalidator" class="ZMValidator" scope="container">
            <call method="setContainer">
                 <argument type="service" id="service_container" />
             </call>

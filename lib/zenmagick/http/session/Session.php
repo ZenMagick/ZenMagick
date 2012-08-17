@@ -19,87 +19,43 @@
  */
 namespace zenmagick\http\session;
 
-use RuntimeException;
 use Serializable;
 use zenmagick\base\Beans;
 use zenmagick\base\Runtime;
-use zenmagick\base\ZMObject;
 
+use Symfony\Component\DependencyInjection\ContainerAwareInterface;
+use Symfony\Component\DependencyInjection\ContainerInterface;
+use Symfony\Component\HttpFoundation\Session\Session as BaseSession;
 
 /**
- * A basic, cookies only, session class.
+ * {@inheritDoc}
  *
  * @author DerManoMann <mano@zenmagick.org>
  * @todo allow to expire session after a given time (will need cookie update for each request)
  */
-class Session extends ZMObject {
+class Session extends BaseSession implements ContainerAwareInterface {
     /** A magic session key used to validate forms. */
     const SESSION_TOKEN_KEY = '__ZM_TOKEN__';
     /** The auto save namespace prefix for session keys. */
     const AUTO_SAVE_KEY = '__ZM_AUTO_SAVE_KEY__';
 
-    protected $data;
-    protected $sessionHandler;
-    private $cookiePath;
-    private $closed;
+    protected $container;
 
     /**
-     * Create new instance.
+     * {@inheritDoc}
      *
-     * <p>If an existing session is detected, the session is automatically started.</p>
-     *
+     * This method restores persisted services.
      */
-    public function __construct($options = array()) {
-        parent::__construct();
-        if (!isset($options['cookie_domain'])) {
-            $options['cookie_domain'] = $_SERVER['HTTP_HOST'];
-        }
-        $this->data = array();
-        $this->sessionHandler = null;
-        $this->closed = false;
-        $this->cookiePath = isset($options['cookie_path']) ? $options['cookie_path'] : '/';
-
-        foreach($options as $k => $v) {
-            ini_set('session.'.$k, $v);
-        }
-    }
-
-    /**
-     * Check if we have a session yet.
-     *
-     * @return boolean <code>true<code> if the session has been already started.
-     */
-    public function isStarted() {
-        $id = session_id();
-        return !empty($id);
-    }
-
-    /**
-     * Get the current session data.
-     */
-    public function all() {
-        return $this->data;
-    }
-
-    /**
-     * Start session.
-     *
-     * @param boolean force Optional flag to force a start; default is <code>false</code>.
-     * @return boolean <code>true</code> if a session was started, <code>false</code> if not.
-     */
-    public function start($force=false) {
-        session_cache_limiter('must-revalidate');
-        $id = session_id();
-        if (empty($id) || $force) {
-            session_start();
-            // allow setting / getting data before/without starting session
-            $this->data = array_merge($_SESSION, $this->data);
-            $this->closed = false;
+    public function start() {
+        $started = parent::start();
+        if ($started) {
             $this->restorePersistedServices();
-            return true;
         }
+        return $started;
+    }
 
-        return false;
+    public function setContainer(ContainerInterface $container = null) {
+        $this->container = $container;
     }
 
     /**
@@ -125,7 +81,6 @@ class Session extends ZMObject {
                     }
                 }
             }
-
             if (Runtime::isContextMatch($context)) {
                 $service = $this->container->get($id);
                 if ($service instanceof Serializable) {
@@ -139,7 +94,7 @@ class Session extends ZMObject {
     /**
      * Restore persisted services.
      */
-    protected function restorePersistedServices() {
+    public function restorePersistedServices() {
         // restore persisted services
         foreach ((array)$this->getValue(self::AUTO_SAVE_KEY) as $id => $serdat) {
             $obj = unserialize($serdat['ser']);
@@ -166,48 +121,21 @@ class Session extends ZMObject {
     }
 
     /**
-     * Destroy the current session.
-     */
-    public function invalidate() {
-        if (isset($_COOKIE[session_name()])) {
-            setcookie(session_name(), '', 0, $this->cookiePath);
-            unset($_COOKIE[session_name()]);
-        }
-
-        $this->data = array();
-        $_SESSION = array();
-
-        session_unset();
-        if ($this->isStarted()) {
-            $this->save(false);
-            session_destroy();
-        }
-    }
-
-    /**
-     * Regenerate session.
+     * {@inheritDoc}
      *
-     * <p>This will create a new session id while keeping existing session data.</p>
+     * This method also regenerates a session token and persists
+     * session container services
+     *
+     * @see persistServices()
+     * @see parent::migrate()
      */
-    public function migrate() {
+    public function migrate($destroy = false, $lifetime = null) {
         $lastSessionId = session_id();
-        if (!empty($lastSessionId)) {
-            if (isset($_COOKIE[session_name()])) {
-                setcookie(session_name(), '', 0, $this->cookiePath);
-                unset($_COOKIE[session_name()]);
-            }
-
-            session_regenerate_id(false);
-            $newId = session_id();
-
-            // persist old session
-            $this->save(false);
-
-            // switch back to new session id
-            session_id($newId);
-            $this->registerSessionHandler($this->sessionHandler);
-            // and start
-            $this->start(true);
+        if (!$destroy) {
+            $this->persistServices();
+        }
+        parent::migrate();
+        if (!$destroy && !empty($lastSessionId)) {
             // regenerate token too
             $this->getToken(true);
             // keep old session id for reference
@@ -216,96 +144,29 @@ class Session extends ZMObject {
     }
 
     /**
-     * Close session rather than wait for the end of request handling.
+     * {@inheritDoc}
      *
-     * @param boolean final Optional flag to indicate whether this is a final close; default is <code>true</code>.
+     * Also persists container services.
+     *
+     * @see peristServices
      */
-    public function save($final=true) {
-        if ($this->isStarted() && !$this->closed) {
-            foreach ($this->data as $name => $value) {
-                $_SESSION[$name] = $value;
-            }
-            if (0 == count($_SESSION)) {
-                // get a new token
-                $this->getToken(true);
-            }
-            if ($final) {
-                $this->persistServices();
-            }
-            session_write_close();
-            $this->closed = true;
-        }
+    public function save() {
+        $this->persistServices();
+        parent::save();
     }
 
     /**
-     * Get the session id.
-     *
-     * @return string The session id or <code>null</code>.
-     */
-    public function getId() {
-        return $this->isStarted() ? session_id() : null;
-    }
-
-    /**
-     * Get the session name.
-     *
-     * @return string The session name.
-     */
-    public function getName() {
-        return session_name();
-    }
-
-    /**
-     * Set a session value.
-     *
-     * @param string name The name; default is <code>null</code> to clear all data.
-     * @param mxied value The value; use <code>null</code> to remove; default is <code>null</code>.
-     * @return mixed The old value or <code>null</code>.
+     * @see parent:set()
      */
     public function setValue($name, $value=null) {
-        $old = null;
-        if (null !== $name) {
-            $old = isset($this->data[$name]) ? $this->data[$name] : null;
-            if (null === $value) {
-                unset($this->data[$name]);
-            } else {
-                $this->data[$name] = $value;
-            }
-        } else {
-            // clear all
-            $this->data = array();
-        }
-        return $old;
+        $this->set($name, $value);
     }
 
     /**
-     * Get a session value.
-     *
-     * @param string name The name; if <code>null</code> and namespace set, return all namespace data.
-     * @param mixed default Optional default value if <code>$name</code> doesn't exist;
-     * @return mixed The value or <code>$default</code>.
+     * @see parent::get()
      */
     public function getValue($name, $default=null) {
-        if (!$this->isStarted() && isset($_COOKIE[session_name()])) {
-            // start only if not a new session
-            $this->start();
-        }
-        return isset($this->data[$name]) ? $this->data[$name] : $default;
-    }
-
-    /**
-     * Register a session handler.
-     *
-     * @param SessionHandler sessionHandler A session handler instance.
-     */
-    public function registerSessionHandler(\SessionHandlerInterface $sessionHandler) {
-        if (null !== $sessionHandler && is_object($sessionHandler) && $sessionHandler instanceof \SessionHandlerInterface) {
-            ini_set('session.save_handler', 'user');
-            session_set_save_handler(array($sessionHandler, 'open'), array($sessionHandler, 'close'), array($sessionHandler, 'read'),
-                array($sessionHandler, 'write'), array($sessionHandler, 'destroy'), array($sessionHandler, 'gc'));
-            $this->sessionHandler = $sessionHandler;
-            register_shutdown_function('session_write_close');
-        }
+        return $this->get($name, $default);
     }
 
     /**

@@ -45,6 +45,13 @@ class ZenCartBundle extends Bundle {
      * {@inheritDoc}
      */
     public function boot() {
+        $classLoader = new \Composer\AutoLoad\ClassLoader();
+        $classLoader->register();
+        $map = array(
+            'base' => __DIR__.'/bridge/includes/classes/class.base.php',
+            'shoppingCart' => $this->container->getParameter('zencart.root_dir').'/includes/classes/shopping_cart.php'
+        );
+        $classLoader->addClassMap($map);
 
     }
 
@@ -53,6 +60,8 @@ class ZenCartBundle extends Bundle {
      */
     public function onRequestReady($event) {
         $request = $event->get('request');
+        // @todo doesn't really belong here. it just needs to be this early
+        $request->getSession()->restorePersistedServices();
 
         $event->getDispatcher()->addListener('generate_email', array(Beans::getBean('zenmagick\apps\store\bundles\ZenCartBundle\utils\EmailEventHandler'), 'onGenerateEmail'));
 

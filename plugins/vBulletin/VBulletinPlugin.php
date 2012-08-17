@@ -92,7 +92,7 @@ class VBulletinPlugin extends Plugin {
             if (Toolbox::asBoolean($this->get('requireNickname'))) {
                 $rules[] = array('ZMRequiredRule', 'nickName', 'Please enter a nick name.');
             }
-            $this->container->get('validator')->addRules('registration', $rules);
+            $this->container->get('zmvalidator')->addRules('registration', $rules);
         } else if ('account_password' == $this->page_) {
             // ??
         } else if ('account_edit' == $this->page_) {
@@ -105,7 +105,7 @@ class VBulletinPlugin extends Plugin {
             if (Toolbox::asBoolean($this->get('requireNickname'))) {
                 $rules[] = array('ZMRequiredRule', 'nickName', 'Please enter a nick name.');
             }
-            $this->container->get('validator')->addRules('account', $rules);
+            $this->container->get('zmvalidator')->addRules('account', $rules);
         }
     }
 

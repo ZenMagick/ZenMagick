@@ -83,7 +83,7 @@ class RecaptchaPlugin extends Plugin {
                 array('ZMRequiredRule', RECAPTCHA_FIELD, 'Please enter the captcha.'),
                 array("ZMWrapperRule", RECAPTCHA_FIELD, 'The entered captcha is not correct.', array($this, 'vRecaptcha'))
             );
-            $this->container->get('validator')->addRules($form, $rules);
+            $this->container->get('zmvalidator')->addRules($form, $rules);
         }
     }
 
