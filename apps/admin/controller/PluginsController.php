@@ -19,6 +19,7 @@
  */
 namespace zenmagick\apps\admin\controller;
 
+use zenmagick\base\Beans;
 use zenmagick\base\Runtime;
 use zenmagick\base\Toolbox;
 use zenmagick\base\logging\Logging;
@@ -40,6 +41,32 @@ class PluginsController extends \ZMController {
     }
 
     /**
+     * Prepare widgets for editing.
+     *
+     * @param array options The widget options.
+     * @return array Widget map.
+     * @todo make more generic?
+     */
+    protected function widgets(array $options) {
+        $widgets = array();
+        foreach ($options['properties'] as $name => $property) {
+            $type = isset($property['type']) ? $property['type'] : 'text';
+            // @todo: allow class, id as-is
+            $id = sprintf('%sFormWidget', $type);
+            if ($this->container->has($id)) {
+                $widget = $this->container->get($id);
+                Beans::setAll($widget, $property);
+                if (isset($property['config'])) {
+                    Beans::setAll($widget, $property['config']);
+                }
+                $widget->setName($name);
+                $widgets[] = $widget;
+            }
+        }
+        return $widgets;
+    }
+
+    /**
      * {@inheritDoc}
      */
     public function processGet($request) {
@@ -52,17 +79,20 @@ class PluginsController extends \ZMController {
         $pluginService->getPluginsForContext(null);
 
         if ('upgrade' == $action) {
-            if (null != ($plugin = $pluginService->getPluginForId($pluginId)) && $plugin->isInstalled()) {
+            if (null != ($plugin = $pluginService->getPluginForId($pluginId, true)) && $plugin->isInstalled()) {
                 Runtime::getLogging()->log('upgrade plugin: '.$plugin->getId(), Logging::TRACE);
-                $plugin->upgrade();
+                // TODO: write code that does this:
+                //$plugin->remove(true);
+                //$plugin->install();
                 $this->messageService->success(sprintf(_zm('Plugin %s upgraded successfully'), $plugin->getName()));
                 $this->messageService->addAll($plugin->getMessages());
                 $viewId = 'success-upgrade';
             }
         } else if ('edit' == $action) {
-            if (null != ($plugin = $pluginService->getPluginForId($pluginId)) && $plugin->isInstalled()) {
-                return $this->findView('plugin-conf', array('plugin' => $plugin));
+            if (null != ($plugin = $pluginService->getPluginForId($pluginId, true)) && $plugin->isInstalled()) {
+                return $this->findView('plugin-conf', array('plugin' => $plugin, 'widgets' => $this->widgets($plugin->getOptions())));
             }
+            // @todo: message?
         }
 
         $pluginService->refreshStatusMap();

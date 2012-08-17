@@ -21,13 +21,12 @@
 
 <form id="ajax-form" action="<?php echo $net->url() ?>" method="POST">
   <input type="hidden" name="pluginId" value="<?php echo $plugin->getId() ?>">
-  <input type="hidden" name="group" value="<?php echo $plugin->getGroup() ?>">
   <input type="hidden" name="action" value="update">
-  <?php foreach ($plugin->getConfigValues(false) as $value) { if ($value->isHidden() || in_array($value->getName(), array('ENABLED', 'SORT_ORDER'))) { continue; } ?>
+  <?php foreach ($widgets as $widget) { ?>
     <fieldset style="width:94%;">
-      <legend><?php echo $value->getTitle() ?></legend>
-      <p><?php echo $value->getDescription() ?></p>
-      <p><?php echo $value->render($request, $view) ?></p>
+      <legend><?php echo $widget->getTitle() ?></legend>
+      <p><?php echo $widget->getDescription() ?></p>
+      <p><?php echo $widget->render($request, $view) ?></p>
     </fieldset>
   <?php } ?>
   <input class="<?php echo $buttonClasses ?>" type="submit" value="<?php _vzm("Update Settings") ?>">
