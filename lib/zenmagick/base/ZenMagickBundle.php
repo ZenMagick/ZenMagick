@@ -65,7 +65,7 @@ class ZenMagickBundle extends Bundle {
                 }
             }
             if (is_object($eventListener)) {
-                $this->container->get('eventDispatcher')->listen($eventListener);
+                $this->container->get('event_dispatcher')->listen($eventListener);
             }
         }
     }

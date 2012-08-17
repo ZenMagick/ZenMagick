@@ -129,7 +129,7 @@ class MessageBuilder extends ZMObject {
         // event to allow additions to context or view or...
         $args = array('template' => $template, 'request' => $request, 'context' => $context);
         $event = new Event(null, $args);
-        $this->container->get('eventDispatcher')->dispatch('generate_email', $event);
+        $this->container->get('event_dispatcher')->dispatch('generate_email', $event);
         $context = $event->get('context');
         // TODO: drop! save context for legacy HTML generation...
         $GLOBALS['ZM_EMAIL_CONTEXT'] = $context;

@@ -39,7 +39,7 @@ class AddressBookAddController extends \ZMController {
         $address = $addressService->createAddress($address);
 
         $args = array('request' => $request, 'controller' => $this, 'account' => $account, 'address' => $address, 'type' => 'addressBook');
-        $this->container->get('eventDispatcher')->dispatch('create_address', new Event($this, $args));
+        $this->container->get('event_dispatcher')->dispatch('create_address', new Event($this, $args));
 
         $session = $request->getSession();
         // process primary setting

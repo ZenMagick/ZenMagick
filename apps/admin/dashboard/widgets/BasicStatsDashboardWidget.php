@@ -88,7 +88,7 @@ class BasicStatsDashboardWidget extends DashboardWidget {
         $data[_zm('Sales Active')] = $result['count'];
 
         $event = new Event($this, array('data' => $data));
-        $this->container->get('eventDispatcher')->dispatch('build_basic_stats', $event);
+        $this->container->get('event_dispatcher')->dispatch('build_basic_stats', $event);
 
         return $event->get('data');
     }

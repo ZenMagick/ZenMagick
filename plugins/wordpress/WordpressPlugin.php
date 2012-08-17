@@ -84,7 +84,7 @@ class WordpressPlugin extends Plugin {
         }
         define('ZM_WORDPRESS_ROOT', $wordpressDir);
 
-        $this->container->get('eventDispatcher')->listen($this);
+        $this->container->get('event_dispatcher')->listen($this);
 
         if ($this->get('requireNickname')) {
             // enable nick name field

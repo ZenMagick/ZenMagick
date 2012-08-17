@@ -62,7 +62,7 @@ class ThemeSwitcherPlugin extends Plugin {
             $themeService->setThemeChain($themeChain);
             $themeService->initThemes();
             $args = array_merge($event->all(), array('theme' => $theme, 'themeId' => $themeId, 'themeChain' => $themeChain));
-            $this->container->get('eventDispatcher')->dispatch('theme_resolved', new Event($this, $args));
+            $this->container->get('event_dispatcher')->dispatch('theme_resolved', new Event($this, $args));
         }
     }
 

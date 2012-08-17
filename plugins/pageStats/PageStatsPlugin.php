@@ -59,7 +59,7 @@ class PageStatsPlugin extends Plugin {
     public function init() {
         parent::init();
         // register to log events
-        $eventDispatcher = $this->container->get('eventDispatcher');
+        $eventDispatcher = $this->container->get('event_dispatcher');
         $eventDispatcher->listen(array($this, 'logEvent'));
     }
 

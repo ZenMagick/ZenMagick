@@ -54,7 +54,7 @@ class AccountEditController extends \ZMController {
         $this->messageService->success(_zm('Your account has been updated.'));
 
         $args = array('request' => $request, 'controller' => $this, 'account' => $account);
-        $this->container->get('eventDispatcher')->dispatch('account_updated', new Event($this, $args));
+        $this->container->get('event_dispatcher')->dispatch('account_updated', new Event($this, $args));
 
         return $this->findView('success');
     }

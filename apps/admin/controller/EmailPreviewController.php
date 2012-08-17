@@ -70,7 +70,7 @@ class EmailPreviewController extends \ZMController {
 
             $context = $this->getInitialContext($request);
             $event = new Event($this, array('template' => $template, 'format' => $format, 'type' => $type, 'request' => $request, 'context' => $context));
-            $this->container->get('eventDispatcher')->dispatch('email_preview', $event);
+            $this->container->get('event_dispatcher')->dispatch('email_preview', $event);
             $context = $event->get('context');
 
             $content = $messageBuilder->createContents($template, 'html'==$format, $request, $context);

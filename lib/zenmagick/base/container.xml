@@ -60,7 +60,7 @@
             </call>
         </service>
 
-        <service id="eventDispatcher" class="zenmagick\base\events\EventDispatcher" scope="container">
+        <service id="event_dispatcher" class="zenmagick\base\events\EventDispatcher" scope="container">
              <argument type="service" id="service_container" />
         </service>
 

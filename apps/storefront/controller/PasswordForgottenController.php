@@ -52,7 +52,7 @@ class PasswordForgottenController extends \ZMController {
         $message->setSubject(sprintf(_zm("Forgotten Password - %s"), $settingsService->get('storeName')))->setTo($emailAddress, $account->getFullName())->setFrom($settingsService->get('storeEmail'));
         $this->container->get('mailer')->send($message);
 
-        $this->container->get('eventDispatcher')->dispatch('password_changed', new Event($this, array('controller' => $this, 'account' => $account, 'clearPassword' => $newPassword)));
+        $this->container->get('event_dispatcher')->dispatch('password_changed', new Event($this, array('controller' => $this, 'account' => $account, 'clearPassword' => $newPassword)));
 
         // report success
         $this->messageService->success(_zm('A new password has been sent to your email address.'));
