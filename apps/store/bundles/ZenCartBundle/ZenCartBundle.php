@@ -45,6 +45,13 @@ class ZenCartBundle extends Bundle {
      * {@inheritDoc}
      */
     public function boot() {
+        $classLoader = new \Composer\AutoLoad\ClassLoader();
+        $classLoader->register();
+        $map = array(
+            'base' => __DIR__.'/bridge/includes/classes/class.base.php',
+            'shoppingCart' => $this->container->getParameter('zencart.root_dir').'/includes/classes/shopping_cart.php'
+        );
+        $classLoader->addClassMap($map);
 
     }
 
