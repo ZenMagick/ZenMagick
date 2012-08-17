@@ -187,10 +187,11 @@ class Plugins extends ZMObject {
      * Get the plugin for the given id.
      *
      * @param string id The plugin id.
+     * @param boolean force Optional flag to bypass context/enabled restrictions; default is <code>false</code>.
      * @return Plugin A plugin instance or <code>null</code>.
      */
-    public function getPluginForId($id) {
-        $plugins = $this->getPluginsForContext();
+    public function getPluginForId($id, $force = false) {
+        $plugins = $force ? $this->getPlugins(null, false) : $this->getPluginsForContext();
         if (array_key_exists($id, $plugins)) {
             return $plugins[$id];
         }
