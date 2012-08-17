@@ -19,12 +19,12 @@
  */
 namespace zenmagick\http\session;
 
-use RuntimeException;
 use Serializable;
 use zenmagick\base\Beans;
 use zenmagick\base\Runtime;
-use zenmagick\base\ZMObject;
 
+use Symfony\Component\DependencyInjection\ContainerAwareInterface;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
  * A basic, cookies only, session class.
@@ -32,7 +32,7 @@ use zenmagick\base\ZMObject;
  * @author DerManoMann <mano@zenmagick.org>
  * @todo allow to expire session after a given time (will need cookie update for each request)
  */
-class Session extends ZMObject {
+class Session implements ContainerAwareInterface {
     /** A magic session key used to validate forms. */
     const SESSION_TOKEN_KEY = '__ZM_TOKEN__';
     /** The auto save namespace prefix for session keys. */
@@ -50,7 +50,6 @@ class Session extends ZMObject {
      *
      */
     public function __construct($options = array()) {
-        parent::__construct();
         if (!isset($options['cookie_domain'])) {
             $options['cookie_domain'] = $_SERVER['HTTP_HOST'];
         }
@@ -62,6 +61,10 @@ class Session extends ZMObject {
         foreach($options as $k => $v) {
             ini_set('session.'.$k, $v);
         }
+    }
+
+    public function setContainer(ContainerInterface $container = null) {
+        $this->container = $container;
     }
 
     /**
