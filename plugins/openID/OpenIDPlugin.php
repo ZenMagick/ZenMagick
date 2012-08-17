@@ -65,7 +65,7 @@ class OpenIDPlugin extends Plugin {
         \ZMRuntime::getDatabase()->getMapper()->addPropertyForTable('customers', 'openid', $info);
 
         // make openid_login use session token
-        $this->container->get('settingsService')->add('zenmagick.http.session.formToken', 'openid_login');
+        $this->container->get('settingsService')->add('zenmagick.http.session.formtoken', 'openid_login');
     }
 
     /**

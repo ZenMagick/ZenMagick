@@ -27,7 +27,7 @@
         <parameter key="zenmagick.http.session.validator.ip">false</parameter>
         <parameter key="zenmagick.http.session.validator.sslSessionId">false</parameter>
         <!-- @todo set these by default until all forms are secured by default -->
-        <parameter key="zenmagick.http.session.formToken" type="collection">
+        <parameter key="zenmagick.http.session.formtoken" type="collection">
             <parameter>login</parameter>
             <parameter>reset_password</parameter>
         </parameter>
@@ -262,7 +262,7 @@
         </service>
         <service id="formTokenSessionValidator" class="zenmagick\http\session\validation\FormTokenSessionValidator" scope="prototype">
             <call method="setRequestIds">
-                <argument>%zenmagick.http.session.formToken%</argument>
+                <argument>%zenmagick.http.session.formtoken%</argument>
             </call>
             <tag name="zenmagick.http.session.validator" />
         </service>
