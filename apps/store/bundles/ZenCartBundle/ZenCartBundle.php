@@ -45,6 +45,7 @@ class ZenCartBundle extends Bundle {
      * {@inheritDoc}
      */
     public function boot() {
+        define('IS_ADMIN_FLAG', Runtime::isContextMatch('admin'));
         $classLoader = new \Composer\AutoLoad\ClassLoader();
         $classLoader->register();
         $map = array(

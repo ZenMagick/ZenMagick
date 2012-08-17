@@ -8,7 +8,7 @@ $adminDir = $settings->get('zencart.admin_dir', 'admin');
  * admin/storefront configure.php defines
  */
 define('DB_TYPE', 'mysql');
-define('IS_ADMIN_FLAG', Runtime::isContextMatch('admin'));
+if (!defined('IS_ADMIN_FLAG')) define('IS_ADMIN_FLAG', Runtime::isContextMatch('admin'));
 
 // @todo we want this to be here!
 define('DB_PREFIX', $settings->get('apps.store.database.default.prefix'));
