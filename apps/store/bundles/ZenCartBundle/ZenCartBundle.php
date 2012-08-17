@@ -60,6 +60,8 @@ class ZenCartBundle extends Bundle {
      */
     public function onRequestReady($event) {
         $request = $event->get('request');
+        // @todo doesn't really belong here. it just needs to be this early
+        $request->getSession()->restorePersistedServices();
 
         $event->getDispatcher()->addListener('generate_email', array(Beans::getBean('zenmagick\apps\store\bundles\ZenCartBundle\utils\EmailEventHandler'), 'onGenerateEmail'));
 

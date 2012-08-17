@@ -24,13 +24,15 @@
 
         <service id="sacsPermissionService" class="zenmagick\apps\admin\services\SacsPermissionService" scope="container" />
 
-        <service id="session" class="zenmagick\http\session\Session" scope="container">
+        <service id="sessionStorage" class="Symfony\Component\HttpFoundation\Session\Storage\NativeSessionStorage">
             <argument>%zenmagick.http.session.options%</argument>
+            <argument type="service" id="sessionHandler" />
+        </service>
+
+        <service id="session" class="zenmagick\http\session\Session" scope="container">
+            <argument type="service" id="sessionStorage" />
             <call method="setContainer">
                 <argument type="service" id="service_container" />
-            </call>
-            <call method="registerSessionHandler">
-                <argument type="service" id="sessionHandler" />
             </call>
         </service>
 
