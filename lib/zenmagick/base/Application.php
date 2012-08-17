@@ -66,12 +66,12 @@ class Application extends Kernel {
      */
     public function registerBundles() {
         $bundles = array(
-            new \zenmagick\base\ZenMagickBundle,
             new \zenmagick\apps\store\bundles\ZenCartBundle\ZenCartBundle,
             new \Doctrine\Bundle\DoctrineBundle\DoctrineBundle,
             new \Doctrine\Bundle\MigrationsBundle\DoctrineMigrationsBundle,
             new \Symfony\Bundle\SwiftmailerBundle\SwiftmailerBundle,
             new \Symfony\Bundle\MonologBundle\MonologBundle,
+            new \zenmagick\base\ZenMagickBundle,
         );
         return $bundles;
     }
@@ -151,42 +151,6 @@ class Application extends Kernel {
                 continue;
             }
             $loader->load($resource);
-        }
-    }
-
-
-    public function boot() {
-        parent::boot();
-        $this->initEvents();
-    }
-
-    /**
-     * Bootstrap application.
-     *
-     */
-    public function initEvents() {
-        $settingsService = $this->container->get('settingsService');
-
-        // @todo switch to using tagged services for events.
-        $listeners = $settingsService->get('zenmagick.base.events.listeners', array());
-        $plugins = $this->container->get('pluginService')->getPluginsForContext($this->getContext());
-        $listeners = array_merge($listeners, $plugins);
-
-        if ('storefront' == $this->getContext()) {
-            $listeners[] = sprintf('zenmagick\themes\%s\EventListener', $this->container->get('themeService')->getActiveThemeId());
-        }
-
-        // @todo switch to using tagged services for events.
-        foreach ($listeners as $eventListener) {
-            if (is_string($eventListener)) {
-                if (!class_exists($eventListener)) continue;
-                if (null != ($eventListener = new $eventListener)) {
-                    $eventListener->setContainer($this->container);
-                }
-            }
-            if (is_object($eventListener)) {
-                $this->container->get('eventDispatcher')->listen($eventListener);
-            }
         }
     }
 
@@ -315,10 +279,6 @@ class Application extends Kernel {
         }
 
         $this->container->compile();
-
-        foreach($this->container->getParameterBag()->all()  as $param => $value) {
-            $this->container->get('settingsService')->set($param, $value);
-        }
 
     }
 
