@@ -23,8 +23,6 @@ use Exception;
 use zenmagick\base\Runtime;
 use zenmagick\base\Beans;
 use zenmagick\base\settings\Settings;
-use zenmagick\base\Toolbox;
-use zenmagick\base\ZMException;
 use zenmagick\base\dependencyInjection\ContainerBuilder;
 use zenmagick\base\dependencyInjection\parameterBag\SettingsParameterBag;
 
@@ -107,17 +105,17 @@ class Application extends Kernel {
         }
 
         $this->settingsService = $settingsService;
-        $dbParams = $settingsService->get('apps.store.database.default');
-        \ZMRuntime::setDatabase('default', $dbParams);
+        $parameters = $settingsService->get('apps.store.database.default');
+        \ZMRuntime::setDatabase('default', $parameters);
 
-        $files = array();
-        $files[] = function($container) use($dbParams) {
-            $container->setParameter('database_driver', $dbParams['driver']);
-            $container->setParameter('database_host', $dbParams['host']);
-            $container->setParameter('database_name', $dbParams['dbname']);
-            $container->setParameter('database_user', $dbParams['user']);
-            $container->setParameter('database_password', $dbParams['password']);
-            $container->setParameter('database_prefix', $dbParams['prefix']);
+        $resources = array();
+        $resources[] = function($container) use($parameters) {
+            $container->setParameter('database_driver', $parameters['driver']);
+            $container->setParameter('database_host', $parameters['host']);
+            $container->setParameter('database_name', $parameters['dbname']);
+            $container->setParameter('database_user', $parameters['user']);
+            $container->setParameter('database_password', $parameters['password']);
+            $container->setParameter('database_prefix', $parameters['prefix']);
         };
 
         if (in_array($this->getContext(), array('admin', 'storefront', 'store'))) {
@@ -134,20 +132,17 @@ class Application extends Kernel {
             }
         }
 
-        $appContainerFiles = array();
-        $appContainerFiles[] = $this->getRootDir().'/lib/zenmagick/base/container.xml';
-        $appContainerFiles[] = $this->getRootDir().'/lib/zenmagick/http/container.xml';
-        $appContainerFiles[] = $this->getRootDir().'/apps/store/config/email.php';
-        $appContainerFiles[] = $this->getRootDir().'/apps/store/config/configuration.php';
-        $appContainerFiles[] = $this->getApplicationPath().'/config/container_'.$this->getEnvironment().'.xml';
+        $resources[] = $this->getRootDir().'/lib/zenmagick/base/container.xml';
+        $resources[] = $this->getRootDir().'/lib/zenmagick/http/container.xml';
+        $resources[] = $this->getRootDir().'/apps/store/config/email.php';
+        $resources[] = $this->getRootDir().'/apps/store/config/configuration.php';
+        $resources[] = $this->getApplicationPath().'/config/container_'.$this->getEnvironment().'.xml';
 
-        foreach ($appContainerFiles as $file) {
-            if (file_exists($file)) {
-                $files[] = $file;
+        foreach ($resources as $resource) {
+            if (is_string($resources) && !file_exists($resource)) {
+                continue;
             }
-        }
-        foreach ($files as $file) {
-            $loader->load($file);
+            $loader->load($resource);
         }
     }
 
