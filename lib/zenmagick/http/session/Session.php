@@ -38,6 +38,7 @@ class Session implements ContainerAwareInterface {
     /** The auto save namespace prefix for session keys. */
     const AUTO_SAVE_KEY = '__ZM_AUTO_SAVE_KEY__';
 
+    protected $container;
     protected $data;
     protected $sessionHandler;
     private $cookiePath;
