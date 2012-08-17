@@ -108,6 +108,8 @@ class Application extends Kernel {
         $parameters = $settingsService->get('apps.store.database.default');
         \ZMRuntime::setDatabase('default', $parameters);
 
+        $parameters['kernel.context'] = $this->getContext();
+
         $resources = array();
         $resources[] = function($container) use($parameters) {
             $container->setParameter('database_driver', $parameters['driver']);
@@ -134,6 +136,12 @@ class Application extends Kernel {
 
         $resources[] = $this->getRootDir().'/lib/zenmagick/base/container.xml';
         $resources[] = $this->getRootDir().'/lib/zenmagick/http/container.xml';
+        $resources[] = function($container) use($parameters) {
+            if ('admin' == $parameters['kernel.context']) {
+                $container->setParameter('zenmagick.http.sacs.mappingProviders', array('zenmagick\apps\admin\services\DBSacsPermissionProvider'));
+            }
+        };
+
         $resources[] = $this->getRootDir().'/apps/store/config/email.php';
         $resources[] = $this->getRootDir().'/apps/store/config/configuration.php';
         $resources[] = $this->getApplicationPath().'/config/container_'.$this->getEnvironment().'.xml';

@@ -51,12 +51,6 @@ zenmagick:
       format: JSON
 
   http:
-    ## session
-    session:
-      # POST validatd with session token
-      formToken:
-        - login
-        - reset_password
     ## request
     request:
       invalidSession: login
@@ -70,8 +64,6 @@ zenmagick:
     sacs:
       handler:
         - zenmagick\http\sacs\handler\UserRoleSacsHandler
-      mappingProviders:
-        - zenmagick\apps\admin\services\DBSacsPermissionProvider
 
 ## app settings
 apps:
