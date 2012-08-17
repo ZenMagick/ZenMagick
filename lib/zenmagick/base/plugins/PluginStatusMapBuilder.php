@@ -90,7 +90,6 @@ class PluginStatusMapBuilder extends ZMObject {
     public function buildStatusMap() {
         $statusMap = array();
 
-        echo '<pre>';
         foreach ($this->getPathIdMap() as $basePath => $pathInfo) {
             foreach ($pathInfo as $info) {
                 $id = $info['id'];
