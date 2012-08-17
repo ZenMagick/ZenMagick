@@ -203,7 +203,7 @@ class ZMObject extends ContainerAware implements Serializable {
      *
      * @return array Map of key/value data.
      */
-    protected function getSerializableProperties() {
+    public function getSerializableProperties() {
         return $this->getProperties();
     }
 

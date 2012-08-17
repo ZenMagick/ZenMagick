@@ -84,7 +84,7 @@ class ShoppingCart extends ZMObject {
     /**
      * {@inheritDoc}
      */
-    protected function getSerializableProperties() {
+    public function getSerializableProperties() {
         $properties = parent::getSerializableProperties();
         // all we need to persist for the cart
         $properties['contents'] = $this->contents;
