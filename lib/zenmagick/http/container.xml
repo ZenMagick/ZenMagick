@@ -130,14 +130,11 @@
             <call method="setResourceResolver">
                 <argument type="service" id="resourceResolver" />
             </call>
-            <call method="setRequest">
-                <argument type="service" id="request" />
-            </call>
         </service>
 
         <service id="forward" class="zenmagick\http\view\ForwardView" scope="prototype">
-            <call method="setRequest">
-                <argument type="service" id="request" />
+            <call method="setContainer">
+                <argument type="service" id="service_container" />
             </call>
         </service>
 
@@ -157,7 +154,7 @@
         <service id="defaultView" alias="templateView" />
 
         <service id="requestContext" class="zenmagick\http\routing\RequestContext" scope="container">
-            <argument type="service" id="request" />
+            <argument type="service" id="service_container" />
             <call method="setHttpPort">
               <argument>%zenmagick.http.httpPort%</argument>
             </call>
@@ -174,8 +171,8 @@
         </service>
 
         <service id="redirect" class="zenmagick\http\view\RedirectView" scope="prototype">
-            <call method="setRequest">
-                <argument type="service" id="request" />
+            <call method="setContainer">
+                <argument type="service" id="service_container" />
             </call>
         </service>
 
@@ -202,15 +199,15 @@
         </service>
 
         <service id="toolbox" class="zenmagick\http\toolbox\Toolbox" scope="container">
-            <call method="setRequest">
-                <argument type="service" id="request" />
+            <call method="setContainer">
+                <argument type="service" id="service_container" />
             </call>
             <tag name="zenmagick.http.view.variable" key="toolbox" />
         </service>
 
         <service id="controllerParameterMapper" class="zenmagick\http\controller\ControllerParameterMapper" scope="container">
-            <call method="setRequest">
-                <argument type="service" id="request" />
+            <call method="setContainer">
+                <argument type="service" id="service_container" />
             </call>
         </service>
 

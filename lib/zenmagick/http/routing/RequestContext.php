@@ -20,8 +20,7 @@
 namespace zenmagick\http\routing;
 
 use Symfony\Component\Routing\RequestContext as SymfonyRequestContext;
-
-use zenmagick\base\Runtime;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
  * ZenMagick request context, populated from <code>zenmagick\http\Request</code>.
@@ -33,9 +32,10 @@ class RequestContext extends SymfonyRequestContext {
     /**
      * Create new instance.
      */
-    public function __construct($request) {
+    public function __construct(ContainerInterface $container) {
         $frontendController = '';
-        $settingsService = Runtime::getSettings();
+        $request = $container->get('request');
+        $settingsService = $container->get('settingsService');
         if ('path' == $settingsService->get('zenmagick.http.request.urlType', 'default')) {
             $frontendController = '/'.basename($request->getScriptName());
         }

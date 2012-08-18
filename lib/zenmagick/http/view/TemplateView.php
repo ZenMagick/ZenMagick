@@ -117,21 +117,12 @@ class TemplateView extends ZMObject implements View {
     }
 
     /**
-     * Set the request.
-     *
-     * @param zenmagick\http\Request request The request.
-     */
-    public function setRequest(Request $request) {
-        $this->request = $request;
-    }
-
-    /**
      * Get the request.
      *
      * @return zenmagick\http\Request The request.
      */
     public function getRequest() {
-        return $this->request;
+        return $this->container->get('request');
     }
 
     /**

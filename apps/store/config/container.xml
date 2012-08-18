@@ -106,9 +106,6 @@
             <call method="setResourceResolver">
                 <argument type="service" id="themeResourceResolver" />
             </call>
-            <call method="setRequest">
-                <argument type="service" id="request" />
-            </call>
         </service>
 
         <service id="rssLoader" class="zenmagick\http\rss\RssFeedLoader" scope="container">
