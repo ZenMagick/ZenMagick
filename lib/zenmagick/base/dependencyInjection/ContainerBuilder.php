@@ -40,20 +40,9 @@ class ContainerBuilder extends BaseContainerBuilder {
      * {@inheritDoc}
      */
     public function get($id, $invalidBehavior=self::EXCEPTION_ON_INVALID_REFERENCE) {
-        $service = null;
-        if ($this->has($id)) {
-            $service = parent::get($id, $invalidBehavior);
-        } else if (class_exists($id)) {
-            // try to default to the id as class name (with scope prototype)
-            $service = new $id();
-        }
-
+        $service = parent::get($id, $invalidBehavior);
         if (null != $service && $service instanceof ContainerAwareInterface) {
             $service->setContainer($this);
-        }
-
-        if (null == $service && self::EXCEPTION_ON_INVALID_REFERENCE === $invalidBehavior) {
-            throw new \InvalidArgumentException(sprintf('The service "%s" does not exist.', $id));
         }
 
         return $service;
