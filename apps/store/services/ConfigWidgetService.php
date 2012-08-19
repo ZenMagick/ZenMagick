@@ -54,7 +54,7 @@ class ConfigWidgetService extends ConfigService {
                     $widget->set('configurationKey', $value['key']);
                     $values[] = $widget;
                 } else {
-                    Runtime::getLogging()->warn('failed to create widget: '.$widgetDefinition);
+                    $this->container->get('loggingService')->warn('failed to create widget: '.$widgetDefinition);
                 }
             } else {
                 // try to convert into widget...
