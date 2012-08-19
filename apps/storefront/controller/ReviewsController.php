@@ -19,7 +19,7 @@
  */
 namespace zenmagick\apps\storefront\controller;
 
-use zenmagick\base\Runtime;
+use zenmagick\base\Beans;
 
 /**
  * Request controller for reviews list.
@@ -33,7 +33,7 @@ class ReviewsController extends \ZMController {
      */
     public function processGet($request) {
         $resultSource = new \ZMObjectResultSource('zenmagick\apps\store\entities\catalog\Review', 'reviewService', "getAllReviews", array($request->getSession()->getLanguageId()));
-        $resultList = $this->container->get('ZMResultList');
+        $resultList = Beans::getBean('ZMResultList');
         $resultList->setResultSource($resultSource);
         $resultList->setPageNumber($request->query->getInt('page'));
 

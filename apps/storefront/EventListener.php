@@ -19,6 +19,7 @@
  */
 namespace zenmagick\apps\storefront;
 
+use zenmagick\base\Beans;
 use zenmagick\base\Runtime;
 use zenmagick\base\Toolbox;
 use zenmagick\base\ZMObject;
@@ -48,9 +49,9 @@ class EventListener extends ZMObject {
                     $resultList->setPagination(0);
                 }
             }
-            if ('login' == $requestId && Runtime::getSettings()->get('isGuestCheckoutAskAddress')) {
+            if ('login' == $requestId && $this->container->get('settingsService')->get('isGuestCheckoutAskAddress')) {
                 if (null == $view->getVariable('guestCheckoutAddress')) {
-                    $address = $this->container->get('ZMAddress');
+                    $address = Beans::getBean('ZMAddress');
                     $address->setPrimary(true);
                     $view->setVariable('guestCheckoutAddress', $address);
                 }
@@ -121,7 +122,7 @@ class EventListener extends ZMObject {
 
         if (!in_array($action, array_keys($cartActionMap))) return;
         if (!$session->isStarted()) {
-            $request->redirect($request->url(Runtime::getSettings()->get('zenmagick.http.request.invalidSession')));
+            $request->redirect($request->url($this->container->get('settingsService')->get('zenmagick.http.request.invalidSession')));
         }
 
         if ($settingsService->get('isShowCartAfterAddProduct')) {
@@ -178,7 +179,7 @@ class EventListener extends ZMObject {
         // now we can check for a static homepage
         if (!Toolbox::isEmpty($settingsService->get('staticHome')) && 'index' == $request->getRequestId()
             && (!$request->attributes->has('categoryIds') && !$request->query->has('manufacturers_id'))) {
-            require Runtime::getSettings()->get('staticHome');
+            require $this->container->get('settingsService')->get('staticHome');
             exit;
         }
 
@@ -307,7 +308,7 @@ class EventListener extends ZMObject {
             }
         }
 
-        if (Runtime::getSettings()->get('apps.store.verifyCategoryPath')) {
+        if ($this->container->get('settingsService')->get('apps.store.verifyCategoryPath')) {
             if ($request->attributes->has('categoryIds')) {
                 $path = array_reverse((array)$request->attributes->get('categoryIds'));
                 $last = count($path) - 1;

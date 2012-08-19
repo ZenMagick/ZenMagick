@@ -20,7 +20,7 @@
  */
 namespace zenmagick\apps\store\model\catalog;
 
-use zenmagick\base\Runtime;
+use zenmagick\base\Beans;
 use zenmagick\base\ZMObject;
 
 use Doctrine\ORM\Mapping AS ORM;
@@ -139,7 +139,7 @@ class Manufacturer extends ZMObject {
      * @return ZMImageInfo The image info.
      */
     public function getImageInfo() {
-        $imageInfo = Runtime::getContainer()->get("ZMImageInfo");
+        $imageInfo = Beans::getBean('ZMImageInfo');
         $imageInfo->setAltText($this->name);
         $imageInfo->setDefaultImage($this->image);
         return $imageInfo;

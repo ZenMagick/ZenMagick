@@ -20,7 +20,7 @@
  */
 namespace zenmagick\apps\storefront\controller;
 
-use zenmagick\base\Runtime;
+use zenmagick\base\Beans;
 
 /**
  * Request controller for account history page.
@@ -34,7 +34,7 @@ class AccountHistoryController extends \ZMController {
      */
     public function processGet($request) {
         $resultSource = new \ZMObjectResultSource('ZMOrder', 'orderService', "getOrdersForAccountId", array($this->getUser()->getId(), $request->getSession()->getLanguageId()));
-        $resultList = $this->container->get("ZMResultList");
+        $resultList = Beans::getBean('ZMResultList');
         $resultList->setResultSource($resultSource);
         $resultList->setPageNumber($request->query->getInt('page'));
 

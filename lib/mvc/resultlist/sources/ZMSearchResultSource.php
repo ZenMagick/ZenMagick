@@ -19,7 +19,6 @@
  */
 
 use zenmagick\base\Beans;
-use zenmagick\base\Runtime;
 use zenmagick\base\ZMObject;
 
 /**
@@ -84,7 +83,7 @@ class ZMSearchResultSource extends ZMObject implements ZMResultSource {
                 }
             }
             $queryDetails = $finder->execute();
-            $queryPager = Runtime::getContainer()->get('zenmagick\base\database\QueryPager');
+            $queryPager = Beans::getBean('zenmagick\base\database\QueryPager');
             $queryPager->setQueryDetails($queryDetails);
             $productIds = array();
             foreach ($queryPager->getResults($this->resultList_->getPageNumber(), $this->resultList_->getPagination()) as $result) {

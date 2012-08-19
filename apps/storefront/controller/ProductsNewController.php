@@ -33,7 +33,7 @@ class ProductsNewController extends \ZMController {
      */
     public function processGet($request) {
         $resultSource = new \ZMObjectResultSource('ZMProduct', 'productService', "getNewProducts");
-        $resultList = $this->container->get('ZMResultList');
+        $resultList = Beans::getBean('ZMResultList');
         $resultList->setResultSource($resultSource);
         $settingsService = $this->container->get('settingsService');
         foreach (explode(',', $settingsService->get('resultListProductFilter')) as $filter) {

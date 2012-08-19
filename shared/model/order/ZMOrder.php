@@ -18,7 +18,7 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-use zenmagick\base\Runtime;
+use zenmagick\base\Beans;
 use zenmagick\base\Toolbox;
 use zenmagick\base\ZMObject;
 
@@ -134,7 +134,7 @@ class ZMOrder extends ZMObject {
      */
     public function getAccount() {
         if (null === $this->account_) {
-            $this->account_ = Runtime::getContainer()->get("ZMAccount");
+            $this->account_ = Beans::getBean('ZMAccount');
             $this->account_->setAccountId($this->accountId_);
             // orders has only name, not first/last...
             $this->account_->setLastName($this->get('customers_name'));
@@ -159,7 +159,7 @@ class ZMOrder extends ZMObject {
      * Create address instance.
      */
     private function mkAddress($prefix) {
-        $address = Runtime::getContainer()->get("ZMAddress");
+        $address = Beans::getBean('ZMAddress');
         $address->setAddressId(0);
         // orders has only name, not first/last...
         $address->setLastName($this->get($prefix.'_name'));

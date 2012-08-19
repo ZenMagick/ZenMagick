@@ -19,6 +19,7 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
+use zenmagick\base\Beans;
 use zenmagick\base\Runtime;
 use zenmagick\base\Toolbox;
 use zenmagick\base\ZMObject;
@@ -245,7 +246,7 @@ class ZMImageInfo extends ZMObject {
         // create ZMImageInfo list...
         $imageInfoList = array();
         foreach ($imageList as $aimg) {
-            $imageInfo = Runtime::getContainer()->get('ZMImageInfo');
+            $imageInfo = Beans::getBean('ZMImageInfo');
             $imageInfo->setDefaultImage($subdir.$aimg);
             $imageInfoList[] = $imageInfo;
         }

@@ -18,13 +18,12 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-use zenmagick\base\Runtime;
+use zenmagick\base\Beans;
 
 /**
  * RPC request using JSON.
  *
  * @author DerManoMann <mano@zenmagick.org>
- * @package org.zenmagick.mvc.rpc.json
  */
 class ZMRpcRequestJSON implements ZMRpcRequest {
     private $request_;
@@ -83,7 +82,7 @@ class ZMRpcRequestJSON implements ZMRpcRequest {
      * {@inheritDoc}
      */
     public function createResponse() {
-        $rpcResponse = Runtime::getContainer()->get('ZMRpcResponseJSON');
+        $rpcResponse = Beans::getBean('ZMRpcResponseJSON');
         $rpcResponse->setRpcRequest($this);
         return $rpcResponse;
     }

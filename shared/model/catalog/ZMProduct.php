@@ -19,7 +19,7 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-use zenmagick\base\Runtime;
+use zenmagick\base\Beans;
 use zenmagick\base\ZMObject;
 
 use Doctrine\ORM\Mapping AS ORM;
@@ -386,7 +386,7 @@ class ZMProduct extends ZMObject {
      * @return string $image The default image.
      */
     public function getDefaultImage() {
-        return (empty($this->image) && Runtime::getSettings()->get('isShowNoPicture')) ? Runtime::getSettings()->get('imgNotFound') : $this->image;
+        return (empty($this->image) && $this->container->get('settingsService')->get('isShowNoPicture')) ? $this->container->get('settingsService')->get('imgNotFound') : $this->image;
     }
 
     /**
@@ -777,7 +777,7 @@ class ZMProduct extends ZMObject {
      */
     public function getOffers() {
         if (null == $this->offers) {
-            $this->offers = $this->container->get('ZMOffers');
+            $this->offers = Beans::getBean('ZMOffers');
             $this->offers->setProduct($this);
         }
         return $this->offers;
@@ -810,7 +810,7 @@ class ZMProduct extends ZMObject {
      * @return ZMImageInfo The product image info.
      */
     public function getImageInfo() {
-        $imageInfo = Runtime::getContainer()->get("ZMImageInfo");
+        $imageInfo = Beans::getBean('ZMImageInfo');
         $imageInfo->setAltText($this->name);
         $imageInfo->setDefaultImage($this->image);
         return $imageInfo;

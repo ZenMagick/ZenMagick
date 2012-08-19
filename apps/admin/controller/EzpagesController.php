@@ -35,7 +35,7 @@ class EzpagesController extends \ZMController {
         $language = $request->getSelectedLanguage();
         $languageId = $request->getParameter('languageId', $language->getId());
         $resultSource = new \ZMObjectResultSource('ZMEZPage', 'ezPageService', "getAllPages", array($languageId));
-        $resultList = $this->container->get("ZMResultList");
+        $resultList = Beans::getBean('ZMResultList');
         $resultList->setResultSource($resultSource);
         $resultList->setPageNumber($request->query->get('page', 1));
         return array('resultList' => $resultList);

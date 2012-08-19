@@ -19,7 +19,7 @@
  */
 namespace zenmagick\apps\storefront\controller;
 
-use zenmagick\base\Runtime;
+use zenmagick\base\Beans;
 use zenmagick\base\Toolbox;
 use zenmagick\base\logging\Logging;
 use zenmagick\base\events\Event;
@@ -55,7 +55,7 @@ class CreateAccountController extends \ZMController {
     public function setCreateDefaultAddress($value) {
         // make sure we convert to boolean; typically this would be set via a bean definition
         $this->createDefaultAddress_ = Toolbox::asBoolean($value);
-        Runtime::getLogging()->log('createDefaultAddress set to: '.$this->createDefaultAddress_, Logging::TRACE);
+        $this->container->get('loggingService')->log('createDefaultAddress set to: '.$this->createDefaultAddress_, Logging::TRACE);
     }
 
     /**
@@ -109,10 +109,10 @@ class CreateAccountController extends \ZMController {
             $couponCode = $couponService->createCouponCode($account->getEmail());
             $coupon = $couponService->createCoupon($couponCode, $newAccountGVAmount, Coupon::TYPPE_GV);
             // the receiver of the gv
-            $gvReceiver = $this->container->get('ZMGVReceiver');
+            $gvReceiver = Beans::getBean('ZMGVReceiver');
             $gvReceiver->setEmail($account->getEmail());
             // the sender
-            $senderAccount = $this->container->get('ZMAccount');
+            $senderAccount = Beans::getBean('ZMAccount');
             $senderAccount->setFirstName($settingsService->get('storeName'));
             $couponService->createCouponTracker($coupon, $senderAccount, $gvReceiver);
             $newAccountGVAmountCoupon = $coupon;

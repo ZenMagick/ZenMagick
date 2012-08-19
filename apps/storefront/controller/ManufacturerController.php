@@ -53,7 +53,7 @@ class ManufacturerController extends \ZMController {
         $resultList = null;
         if (null !== $method) {
             $resultSource = new \ZMObjectResultSource('ZMProduct', 'productService', $method, $args);
-            $resultList = $this->container->get('ZMResultList');
+            $resultList = Beans::getBean('ZMResultList');
             $resultList->setResultSource($resultSource);
             foreach (explode(',', $settingsService->get('resultListProductFilter')) as $filter) {
                 $resultList->addFilter(Beans::getBean($filter));

@@ -19,6 +19,7 @@
  */
 
 use zenmagick\base\Runtime;
+use zenmagick\base\Beans;
 use zenmagick\base\database\QueryDetails;
 use zenmagick\base\database\SqlAware;
 
@@ -56,7 +57,7 @@ class ZMManufacturerFilter extends ZMResultListFilter implements SqlAware {
         foreach ($this->list_->getAllResults() as $result) {
             $manufacturer = $result->getManufacturer();
             if (null != $manufacturer) {
-                $option = Runtime::getContainer()->get('ZMFilterOption');
+                $option = Beans::getBean('ZMFilterOption');
                 $option->setId($manufacturer->getId());
                 $option->setName($manufacturer->getName());
                 $option->setActive($manufacturer->getId() == $this->filterValues_[0]);

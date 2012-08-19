@@ -18,7 +18,7 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-use zenmagick\base\Runtime;
+use zenmagick\base\Beans;
 use zenmagick\base\ZMObject;
 use zenmagick\base\database\SqlAware;
 
@@ -52,7 +52,7 @@ class ZMObjectResultSource extends ZMObject implements ZMResultSource {
         $this->resultClass_ = $resultClass;
         $this->object_ = $object;
         if (is_string($object)) {
-            $this->object_ = Runtime::getContainer()->get($object);
+            $this->object_ = Beans::getBean($object);
         }
         $this->method_ = $method;
         $this->args_ = $args;
@@ -81,7 +81,7 @@ class ZMObjectResultSource extends ZMObject implements ZMResultSource {
                 if (null != ($queryDetails = $this->object_->getQueryDetails($this->method_, $this->args_))) {
                     // potentially final, so check sorter and filter
                     $this->isFinal_ = true;
-                    $queryPager = Runtime::getContainer()->get('zenmagick\base\database\QueryPager');
+                    $queryPager = Beans::getBean('zenmagick\base\database\QueryPager');
                     $queryPager->setQueryDetails($queryDetails);
                     $sorters = $this->resultList_->getSorters(true);
                     if (0 < count($sorters)) {

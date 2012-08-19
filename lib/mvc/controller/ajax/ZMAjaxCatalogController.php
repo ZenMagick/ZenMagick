@@ -18,6 +18,7 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
+use zenmagick\base\Beans;
 use zenmagick\base\Runtime;
 
 /**
@@ -96,7 +97,7 @@ class ZMAjaxCatalogController extends ZMAjaxController {
             // use result list to paginate
             $args = array($categoryId, $activeOnly, $languageId);
             $resultSource = new ZMObjectResultSource('ZMProduct', 'productService', "getProductsForCategoryId", $args);
-            $resultList = $this->container->get('ZMResultList');
+            $resultList = Beans::getBean('ZMResultList');
             $resultList->setResultSource($resultSource);
             $resultList->setPageNumber($page);
             if (null !== ($pagination = $request->getParameter('pagination'))) {
@@ -138,7 +139,7 @@ class ZMAjaxCatalogController extends ZMAjaxController {
             // use result list to paginate
             $args = array($manufacturerId, $activeOnly, $languageId);
             $resultSource = new ZMObjectResultSource('ZMProduct', 'productService', "getProductsForManufacturerId", $args);
-            $resultList = $this->container->get('ZMResultList');
+            $resultList = Beans::getBean('ZMResultList');
             $resultList->setResultSource($resultSource);
             $resultList->setPageNumber($page);
             if (null !== ($pagination = $request->getParameter('pagination'))) {

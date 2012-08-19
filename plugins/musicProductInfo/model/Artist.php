@@ -19,7 +19,7 @@
  */
 namespace zenmagick\plugins\musicProductInfo\model;
 
-use zenmagick\base\Runtime;
+use zenmagick\base\Beans;
 use zenmagick\base\ZMObject;
 
 /**
@@ -90,7 +90,7 @@ class Artist extends ZMObject {
      * @return ZMImageInfo The image info.
      */
     public function getImageInfo() {
-        $imageInfo = Runtime::getContainer()->get("ZMImageInfo");
+        $imageInfo = Beans::getBean('ZMImageInfo');
         $imageInfo->setAltText($this->name_);
         $imageInfo->setDefaultImage($this->image_);
         return $imageInfo;

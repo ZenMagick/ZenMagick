@@ -19,7 +19,7 @@
  */
 namespace zenmagick\apps\storefront\http\tools;
 
-use zenmagick\base\Runtime;
+use zenmagick\base\Beans;
 use zenmagick\http\toolbox\ToolboxTool;
 
 /**
@@ -106,7 +106,7 @@ class ToolboxCrumbtrail extends ToolboxTool {
         if (!is_array($this->crumbs_)) {
             $this->reset();
         }
-        $crumb = Runtime::getContainer()->get('zenmagick\apps\storefront\http\tools\Crumb');
+        $crumb = Beans::getBean('zenmagick\apps\storefront\http\tools\Crumb');
         $crumb->setName($name);
         $crumb->setUrl($url);
         $this->crumbs_[] = $crumb;
