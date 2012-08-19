@@ -166,11 +166,15 @@ class ContextConfigLoader extends ZMObject {
         }
 
         if (array_key_exists('container', $config) && is_array($config['container'])) {
-            $containerYamlLoader = new YamlLoader($this->container, new FileLocator(dirname(__FILE__)));
-            $containerYamlLoader->load($config['container']);
-            // resolve parent: merge:xxx
-            $parentMergeCompilerPass = new ResolveMergeDefinitionsPass();
-            $parentMergeCompilerPass->process($this->container);
+            if (!$this->container->isFrozen()) {
+                $containerYamlLoader = new YamlLoader($this->container, new FileLocator(dirname(__FILE__)));
+                $containerYamlLoader->load($config['container']);
+                // resolve parent: merge:xxx
+                $parentMergeCompilerPass = new ResolveMergeDefinitionsPass();
+                $parentMergeCompilerPass->process($this->container);
+            } else {
+                Runtime::getLogging()->warn('skipping container config - container is frozen');
+            }
         }
     }
 
