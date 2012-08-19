@@ -155,6 +155,13 @@ class Application extends Kernel {
     }
 
     /**
+     * {@inheritDoc}
+     */
+    protected function getContainerBaseClass() {
+        return 'zenmagick\base\dependencyInjection\Container';
+    }
+
+    /**
      * @{inheritDoc}
      */
     public function getName() {
