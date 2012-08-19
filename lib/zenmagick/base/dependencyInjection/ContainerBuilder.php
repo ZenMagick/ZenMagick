@@ -19,13 +19,8 @@
  */
 namespace zenmagick\base\dependencyInjection;
 
-use zenmagick\base\ZMException;
-use zenmagick\base\dependencyInjection\parameterBag\SettingsParameterBag;
-
 use Symfony\Component\DependencyInjection\ContainerAwareInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder as BaseContainerBuilder;
-use Symfony\Component\DependencyInjection\Definition;
-use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 
 /**
  * Dependency injection container.
