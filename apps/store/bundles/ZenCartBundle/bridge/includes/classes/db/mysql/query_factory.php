@@ -46,7 +46,7 @@ class queryFactory {
         if(!function_exists('mysql_connect')) {
             throw new \zenmagick\base\database\DatabaseException('Install `ext/mysql` extension to enable mysql_* functions.');
         }
-        $defaults = zenmagick\base\Runtime::getSettings()->get('apps.store.database.default');
+        $defaults = ZMRuntime::getDatabase()->getParams();
         $params = array_merge($defaults, (array)$params);
         $link = mysql_connect($params['host'], $params['user'], $params['password'], true);
 
