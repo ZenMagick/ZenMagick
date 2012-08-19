@@ -66,54 +66,56 @@ class ConfigWidgetService extends ConfigService {
                 }
                 switch ($setFunction) {
                 case null:
-                    $widget = Beans::getBean('textFormWidget');
+                    $widget = $this->container->get('textFormWidget');
                     $size = strlen($value['value'])+3;
                     $size = 64 < $size ? 64 : $size;
                     $widget->set('size', $size);
                     break;
                 case 'zen_cfg_textarea':
-                    $widget = Beans::getBean('textAreaFormWidget');
+                    $widget = $this->container->get('textAreaFormWidget');
                     $widget->setRows(5);
                     $widget->setCols(60);
                     break;
                 case 'zen_cfg_textarea_small':
-                    $widget = Beans::getBean('textAreaFormWidget');
+                    $widget = $this->container->get('textAreaFormWidget');
                     $widget->setRows(1);
                     $widget->setCols(35);
                     break;
                 case 'zen_cfg_select_option':
                     // XXX: perhaps make radio group
-                    $widget = Beans::getBean('selectFormWidget#style=radio');
+                    $widget = $this->container->get('selectFormWidget');
                     $widget->setOptions($this->splitOptions($value['setFunction']));
                     if (3 < count($widget->getOptions(null))) {
                         $widget->setStyle('select');
+                    } else {
+                        $widget->setStyle('radio');
                     }
                     break;
                 case 'zen_cfg_select_drop_down':
-                    $widget = Beans::getBean('selectFormWidget');
+                    $widget = $this->container->get('selectFormWidget');
                     $widget->setOptions($this->splitOptions($value['setFunction']));
                     break;
                 case 'zen_cfg_pull_down_order_statuses':
-                    $widget = Beans::getBean('orderStatusSelectFormWidget');
+                    $widget = $this->container->get('orderStatusSelectFormWidget');
                     break;
                 case 'zen_cfg_pull_down_country_list':
-                    $widget = Beans::getBean('countrySelectFormWidget');
+                    $widget = $this->container->get('countrySelectFormWidget');
                     break;
                 case 'zen_cfg_pull_down_country_list_none':
-                    $widget = Beans::getBean('countrySelectFormWidget');
+                    $widget = $this->container->get('countrySelectFormWidget');
                     $widget->setOptions(array('' => _zm('None')));
                     break;
                 case 'zen_cfg_pull_down_htmleditors':
-                    $widget = Beans::getBean('textFormWidget');
+                    $widget = $this->container->get('textFormWidget');
                     $widget->set('readonly', true);
-                    //$widget = Beans::getBean('EditorSelectFormWidget');
+                    //$widget = $this->container->get('EditorSelectFormWidget');
                     break;
                 case 'zen_cfg_pull_down_zone_list';
-                    $widget = Beans::getBean('zoneSelectFormWidget');
+                    $widget = $this->container->get('zoneSelectFormWidget');
                     $widget->setOptions(array('' => _zm('None')));
                     break;
                 case 'zen_cfg_select_coupon_id';
-                    $widget = Beans::getBean('couponSelectFormWidget');
+                    $widget = $this->container->get('couponSelectFormWidget');
                     $widget->setOptions(array('' => _zm('None')));
                     break;
 
