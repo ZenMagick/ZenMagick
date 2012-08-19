@@ -20,7 +20,7 @@
 namespace zenmagick\plugins\subscriptions\controller;
 
 use ZMRuntime;
-use zenmagick\base\Runtime;
+use zenmagick\base\Beans;
 use zenmagick\base\Toolbox;
 use zenmagick\apps\admin\controller\PluginAdminController;
 
@@ -56,7 +56,7 @@ class SubscriptionAdminController extends PluginAdminController {
         }
 
         $resultSource = new \ZMArrayResultSource('ZMOrder', $orderIds);
-        $resultList = $this->container->get('ZMResultList');
+        $resultList = Beans::getBean('ZMResultList');
         $resultList->setResultSource($resultSource);
         $resultList->setPageNumber($request->query->getInt('page'));
 

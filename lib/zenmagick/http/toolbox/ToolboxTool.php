@@ -27,18 +27,8 @@ use zenmagick\base\ZMObject;
  * @author DerManoMann <mano@zenmagick.org>
  */
 class ToolboxTool extends ZMObject {
-    protected $request_;
     protected $toolbox_;
     protected $view_;
-
-    /**
-     * Set the request.
-     *
-     * @param zenmagick\http\Request request The current request.
-     */
-    public function setRequest($request) {
-        $this->request_ = $request;
-    }
 
     /**
      * Get the request.
@@ -46,7 +36,7 @@ class ToolboxTool extends ZMObject {
      * @return zenmagick\http\Request The current request.
      */
     public function getRequest() {
-        return $this->request_;
+        return $this->container->get('request');
     }
 
     /**

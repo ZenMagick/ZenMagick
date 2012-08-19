@@ -113,30 +113,11 @@
                         'desc' => 'Default permissions to be set for files.'
                     )
                 ),
-                'date' => array(
-                    array(
-                        'key' => 'timezone',
-                        'type' => 'string',
-                        'desc' => 'Default timezone. Needs to be set in defaults.yaml'
-                    )
-                ),
                 'events' => array(
                     array(
                         'key' => 'listeners',
                         'type' => 'string',
                         'desc' => 'List of comma separated class names of default event listeners.'
-                    )
-                ),
-                'locales' => array(
-                    array(
-                        'key' => 'provider',
-                        'type' => 'string',
-                        'desc' => 'Name of the class implementing ZMLocale that should be used to lookup translations.'
-                    ),
-                    array(
-                        'key' => 'locale',
-                        'type' => 'string',
-                        'desc' => 'Active locale.'
                     )
                 ),
                 'beans' => array(
@@ -151,33 +132,6 @@
                         'desc' => 'Active locale.'
                     )
                 ),
-                'email' => array(
-                    array(
-                        'key' => 'transport',
-                        'type' => 'string',
-                        'desc' => 'The configured email transport.'
-                    ),
-                    array(
-                        'key' => 'smtp.host',
-                        'type' => 'string',
-                        'desc' => 'Hostname for the SMTP transport.'
-                    ),
-                    array(
-                        'key' => 'smtp.port',
-                        'type' => 'string',
-                        'desc' => 'Port number for the SMTP transport.'
-                    ),
-                    array(
-                        'key' => 'smtp.user',
-                        'type' => 'string',
-                        'desc' => 'Optional SMTP user.'
-                    ),
-                    array(
-                        'key' => 'smtp.password',
-                        'type' => 'password',
-                        'desc' => 'Optional SMTP password.'
-                    )
-                )
             ),
             'zenmagick.mvc' => array(
                 'html' => array(
@@ -203,11 +157,6 @@
                     )
                 ),
                 'sacs' => array(
-                    array(
-                        'key' => 'mappingProviders',
-                        'type' => 'array',
-                        'desc' => 'List of SACS permission providers.'
-                    ),
                     array(
                         'key' => 'handler',
                         'type' => 'array',
@@ -258,13 +207,6 @@
                         'key' => 'enforceSecure',
                         'type' => 'boolean',
                         'desc' => 'Are secure requests to be enforced. This will create redirects from http:// to https:// if a secure page is loaded via http://'
-                    )
-                ),
-                'transactions' => array(
-                    array(
-                        'key' => 'enabled',
-                        'type' => 'boolean',
-                        'desc' => 'Execute the controller in the context of a database transaction.'
                     )
                 ),
                 'ajax' => array(
@@ -331,13 +273,6 @@
                         'desc' => 'Type of url format; either "default", "path" or "realpath".'
                     )
                 ),
-                'session' => array(
-                    array(
-                        'key' => 'formToken',
-                        'type' => 'array',
-                        'desc' => 'List of request ids (POST) to be secured with a dynamic session token.'
-                    )
-                ),
                 'view' => array(
                     'key' => 'defaultLayout',
                     'type' => 'string',
@@ -345,13 +280,6 @@
                 )
             ),
             'apps.store' => array(
-                'request' => array(
-                    array(
-                        'key' => 'enableZCRequestHandling',
-                        'type' => 'string',
-                        'desc' => 'Comma separated list of request ids to be processed by Zen Cart.'
-                    )
-                ),
                 'update' => array(
                     array(
                         'key' => 'channel',
@@ -384,67 +312,6 @@
                     'desc' => 'Connection settings for symbolic name "@name@".'
                 )
             ),
-            'doctrine' => array(
-                'dbal' => array(
-                    array(
-                        'key' => 'logging',
-                        'type' => 'boolean',
-                        'desc' => 'Enable SQL query logging. (required by pageStats plugin)'
-                    ),
-                    array(
-                        'key' => 'logger_class',
-                        'type' => 'string',
-                        'desc' => 'SQL query logging handler.'
-                    ),
-                    array(
-                        'key' => 'connections.default',
-                        'type' => 'array',
-                        'desc' => 'Default connection settings.'
-                    ),
-                    array( // @todo how does this work?
-                        'key' => 'connections.@name@',
-                        'type' => 'dynamic:name:string',
-                        'desc' => 'Connection settings for symbolic name "@name@".'
-                    ),
-                ),
-                'orm' => array(
-                    array(
-                        'key' => 'auto_generate_proxy_classes',
-                        'type' => 'boolean',
-                        'desc' => 'Enable/disable generation of proxy classes for the ORM.'
-                    ),
-                    array(
-                        'key' => 'proxy_dir',
-                        'type' => 'string',
-                        'desc' => 'Directory used to store generated ORM proxy classes. (relative to the file cache)'
-                    ),
-                    array(
-                        'key' => 'proxy_namespace',
-                        'type' => 'string',
-                        'desc' => 'Namespace for generated proxy classes.'
-                    ),
-                    array(
-                        'key' => 'metadata_cache_driver',
-                        'type' => 'string',
-                        'desc' => 'Cache storage handler for ORM metadata.'
-                    ),
-                    array(
-                        'key' => 'query_cache_driver',
-                        'type' => 'string',
-                        'desc' => 'Cache storage handler for ORM queries.'
-                    ),
-                    array(
-                        'key' => 'result_cache_driver',
-                        'type' => 'string',
-                        'desc' => 'cache storage handler for ORM query results.'
-                    ),
-                    array(
-                        'key' => 'mappings',
-                        'type' => 'array',
-                        'desc' => 'A list of ORM table mappings.'
-                    ),
-                ),
-            )
         );
     }
 

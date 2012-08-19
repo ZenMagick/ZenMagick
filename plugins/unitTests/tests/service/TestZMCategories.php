@@ -18,6 +18,7 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
+use zenmagick\base\Beans;
 use zenmagick\plugins\unitTests\simpletest\TestCase;
 
 /**
@@ -52,7 +53,7 @@ class TestZMCategories extends TestCase {
     public function testCreateDelete() {
         $categoryService = $this->container->get('categoryService');
 
-        $newCategory = $this->container->get('ZMCategory');
+        $newCategory = Beans::getBean('ZMCategory');
         $newCategory->setLanguageId(1);
         $newCategory->setName('Foo');
         $newCategory->setDescription('A foo category');

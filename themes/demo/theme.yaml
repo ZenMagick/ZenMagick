@@ -37,4 +37,4 @@ storefront:
   ## optional settngs
   settings:
     zenmagick.mvc.resultlist.defaultPagination: 5
-    resultListProductFilter: [AlphaFilter,PriceRangeFilter]
+    resultListProductFilter: [ZMAlphaFilter,ZMPriceRangeFilter]

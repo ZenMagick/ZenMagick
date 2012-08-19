@@ -167,6 +167,26 @@ class Beans {
     }
 
     /**
+     * Get an object.
+     *
+     * If class beings with ZM or zenmagick then instantiate
+     * and set the container.
+     *
+     * @param string clazz The class name.
+     * @return mixed An instance of the given class or <code>null</code>.
+     */
+    public static function getobj($clazz) {
+
+        if ((0 === strpos($clazz, 'Plugin')) || (0 === strpos($clazz, 'ZM')) || (0 === strpos(ltrim($clazz, '\\'), 'zenmagick'))) {
+            if (!class_exists($clazz)) return;
+            $obj = new $clazz;
+            $obj->setContainer(Runtime::getContainer());
+            return $obj;
+        }
+        return Runtime::getContainer()->get($clazz, ContainerBuilder::NULL_ON_INVALID_REFERENCE);
+    }
+
+    /**
      * Create a new instance of the given class and populate with the provided data.
      *
      * @param string clazz The class name.
@@ -175,7 +195,7 @@ class Beans {
      * @return mixed An instance of the given class or <code>null</code>.
      */
     public static function map2obj($clazz, $data, $keys=null) {
-        if (null != ($obj = Runtime::getContainer()->get($clazz, ContainerBuilder::NULL_ON_INVALID_REFERENCE))) {
+        if (null != ($obj = self::getobj($clazz))) {
             self::setAll($obj, $data, $keys);
             return $obj;
         }
@@ -219,7 +239,7 @@ class Beans {
             $properties = array();
         }
 
-        if ($isRef && null != ($ref = Runtime::getContainer()->get($tokens[0]))) {
+        if ($isRef && null != ($ref = self::getobj($tokens[0]))) {
             self::setAll($ref, $properties);
             return $ref;
         }

@@ -19,7 +19,7 @@
  */
 namespace zenmagick\apps\admin\controller;
 
-use zenmagick\base\Runtime;
+use zenmagick\base\Beans;
 
 /**
  * Admin controller for accounts page.
@@ -33,7 +33,7 @@ class AccountsController extends \ZMController {
      */
     public function processGet($request) {
         $resultSource = new \ZMObjectResultSource('ZMAccount', 'accountService', "getAllAccounts");
-        $resultList = $this->container->get('ZMResultList');
+        $resultList = Beans::getBean('ZMResultList');
         $resultList->setResultSource($resultSource);
         $resultList->setPageNumber($request->query->get('page', 1));
 

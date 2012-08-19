@@ -45,9 +45,12 @@ class ConfigWidgetService extends ConfigService {
                 $widgetDefinition = $value['setFunction'].'&'.$value['useFunction'];
                 // build definition from both function values (just in case)
                 $definition = str_replace('widget@', '', $widgetDefinition);
+
+                // handle old definition ids in the db
                 if (0 === strpos($definition, 'ZM')) {
                     $definition = lcfirst(substr($definition, 2));
                 }
+
                 $widget = Beans::getBean($definition);
                 if (null !== $widget) {
                     $widget->setTitle($value['name']);
@@ -57,7 +60,7 @@ class ConfigWidgetService extends ConfigService {
                     $widget->set('configurationKey', $value['key']);
                     $values[] = $widget;
                 } else {
-                    Runtime::getLogging()->warn('failed to create widget: '.$widgetDefinition);
+                    $this->container->get('loggingService')->warn('failed to create widget: '.$widgetDefinition);
                 }
             } else {
                 // try to convert into widget...
@@ -69,60 +72,60 @@ class ConfigWidgetService extends ConfigService {
                 }
                 switch ($setFunction) {
                 case null:
-                    $widget = Beans::getBean('textFormWidget');
+                    $widget = $this->container->get('textFormWidget');
                     $size = strlen($value['value'])+3;
                     $size = 64 < $size ? 64 : $size;
                     $widget->set('size', $size);
                     break;
                 case 'zen_cfg_textarea':
-                    $widget = Beans::getBean('textAreaFormWidget');
+                    $widget = $this->container->get('textAreaFormWidget');
                     $widget->setRows(5);
                     $widget->setCols(60);
                     break;
                 case 'zen_cfg_textarea_small':
-                    $widget = Beans::getBean('textAreaFormWidget');
+                    $widget = $this->container->get('textAreaFormWidget');
                     $widget->setRows(1);
                     $widget->setCols(35);
                     break;
                 case 'zen_cfg_select_option':
                     // XXX: perhaps make radio group
-                    $widget = Beans::getBean('selectFormWidget#style=radio');
+                    $widget = $this->container->get('selectFormWidget');
                     $widget->setOptions($this->splitOptions($value['setFunction']));
                     if (3 < count($widget->getOptions(null))) {
                         $widget->setStyle('select');
+                    } else {
+                        $widget->setStyle('radio');
                     }
                     break;
                 case 'zen_cfg_select_drop_down':
-                    $widget = Beans::getBean('selectFormWidget');
+                    $widget = $this->container->get('selectFormWidget');
                     $widget->setOptions($this->splitOptions($value['setFunction']));
                     break;
                 case 'zen_cfg_pull_down_order_statuses':
-                    $widget = Beans::getBean('orderStatusSelectFormWidget');
+                    $widget = $this->container->get('orderStatusSelectFormWidget');
                     break;
                 case 'zen_cfg_pull_down_country_list':
-                    $widget = Beans::getBean('countrySelectFormWidget');
+                    $widget = $this->container->get('countrySelectFormWidget');
                     break;
                 case 'zen_cfg_pull_down_country_list_none':
-                    $widget = Beans::getBean('countrySelectFormWidget');
-                    $e = new \Exception(); echo '<pre>'.$e->getTraceAsString();die();
+                    $widget = $this->container->get('countrySelectFormWidget');
                     $widget->setOptions(array('' => _zm('None')));
                     break;
                 case 'zen_cfg_pull_down_htmleditors':
-                    $widget = Beans::getBean('textFormWidget');
+                    $widget = $this->container->get('textFormWidget');
                     $widget->set('readonly', true);
-                    //$widget = Beans::getBean('EditorSelectFormWidget');
+                    //$widget = $this->container->get('EditorSelectFormWidget');
                     break;
                 case 'zen_cfg_pull_down_zone_list';
-                    $widget = Beans::getBean('zoneSelectFormWidget');
+                    $widget = $this->container->get('zoneSelectFormWidget');
                     $widget->setOptions(array('' => _zm('None')));
                     break;
                 case 'zen_cfg_select_coupon_id';
-                    $widget = Beans::getBean('couponSelectFormWidget');
+                    $widget = $this->container->get('couponSelectFormWidget');
                     $widget->setOptions(array('' => _zm('None')));
                     break;
 
                 default:
-                    //echo $setFunction.": ".$value['setFunction']."<BR>";
                     $widget = Beans::map2obj('zenmagick\apps\store\model\ConfigValue', $value);
                     break;
                 }

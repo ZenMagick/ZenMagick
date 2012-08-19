@@ -33,7 +33,7 @@ class SpecialsController extends \ZMController {
      */
     public function processGet($request) {
         $resultSource = new \ZMObjectResultSource('ZMProduct', 'productService', "getSpecials", 0);
-        $resultList = $this->container->get('ZMResultList');
+        $resultList = Beans::getBean('ZMResultList');
         $resultList->setResultSource($resultSource);
         $settingsService = $this->container->get('settingsService');
 

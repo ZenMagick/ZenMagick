@@ -214,7 +214,7 @@ class Session extends \zenmagick\http\session\Session {
         }
 
         // info only
-        $this->container->get('eventDispatcher')->dispatch('login_success', new Event($this, array('controller' => $this, 'account' => $account, 'request' => $request)));
+        $this->container->get('event_dispatcher')->dispatch('login_success', new Event($this, array('controller' => $this, 'account' => $account, 'request' => $request)));
 
         // update session with valid account
         $this->setAccount($account);

@@ -19,7 +19,7 @@
  */
 namespace zenmagick\plugins\vBulletin\tests;
 
-use zenmagick\base\Runtime;
+use zenmagick\base\Beans;
 use zenmagick\plugins\unitTests\simpletest\TestCase;
 
 /**
@@ -52,7 +52,7 @@ class TestVBulletinAdapter extends TestCase {
      */
     protected function getAdapter() {
         if (null == $this->adapter_) {
-            $this->adapter_ = Runtime::getContainer()->get('zenmagick\plugins\vBulletin\VBulletinAdapter');
+            $this->adapter_ = Beans::getBean('zenmagick\plugins\vBulletin\VBulletinAdapter');
         }
 
         return $this->adapter_;

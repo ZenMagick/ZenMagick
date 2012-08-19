@@ -39,4 +39,34 @@ class ZenMagickBundle extends Bundle {
         $container->addCompilerPass(new ConfigureContainerTagServicePass());
         $container->addCompilerPass(new ResolveMergeDefinitionsPass());
     }
+
+    public function boot() {
+        foreach($this->container->getParameterBag()->all()  as $param => $value) {
+            $this->container->get('settingsService')->set($param, $value);
+        }
+
+        $context = $this->container->getParameter('kernel.context');
+        // @todo switch to using tagged services for events.
+        $settingsService = $this->container->get('settingsService');
+        $listeners = $settingsService->get('zenmagick.base.events.listeners', array());
+        $plugins = $this->container->get('pluginService')->getPluginsForContext($context);
+        $listeners = array_merge($listeners, $plugins);
+
+        if ('storefront' == $context) {
+            $listeners[] = sprintf('zenmagick\themes\%s\EventListener', $this->container->get('themeService')->getActiveThemeId());
+        }
+
+        // @todo switch to using tagged services for events.
+        foreach ($listeners as $eventListener) {
+            if (is_string($eventListener)) {
+                if (!class_exists($eventListener)) continue;
+                if (null != ($eventListener = new $eventListener)) {
+                    $eventListener->setContainer($this->container);
+                }
+            }
+            if (is_object($eventListener)) {
+                $this->container->get('event_dispatcher')->listen($eventListener);
+            }
+        }
+    }
 }

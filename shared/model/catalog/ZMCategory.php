@@ -19,7 +19,7 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-use zenmagick\base\Runtime;
+use zenmagick\base\Beans;
 use zenmagick\base\ZMObject;
 
 /**
@@ -182,7 +182,7 @@ class ZMCategory extends ZMObject {
             return null;
         }
 
-        $imageInfo = Runtime::getContainer()->get("ZMImageInfo");
+        $imageInfo = Beans::getBean('ZMImageInfo');
         $imageInfo->setAltText($this->name_);
         $imageInfo->setDefaultImage($this->image_);
         return $imageInfo;

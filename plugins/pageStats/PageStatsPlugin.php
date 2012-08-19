@@ -58,7 +58,7 @@ class PageStatsPlugin extends Plugin {
      */
     public function onContainerReady($event) {
         // register to log events
-        $eventDispatcher = $this->container->get('eventDispatcher');
+        $eventDispatcher = $this->container->get('event_dispatcher');
         $eventDispatcher->listen(array($this, 'logEvent'));
     }
 

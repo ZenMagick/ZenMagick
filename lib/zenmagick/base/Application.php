@@ -23,8 +23,6 @@ use Exception;
 use zenmagick\base\Runtime;
 use zenmagick\base\Beans;
 use zenmagick\base\settings\Settings;
-use zenmagick\base\Toolbox;
-use zenmagick\base\ZMException;
 use zenmagick\base\dependencyInjection\ContainerBuilder;
 use zenmagick\base\dependencyInjection\parameterBag\SettingsParameterBag;
 
@@ -68,12 +66,12 @@ class Application extends Kernel {
      */
     public function registerBundles() {
         $bundles = array(
-            new \zenmagick\base\ZenMagickBundle,
             new \zenmagick\apps\store\bundles\ZenCartBundle\ZenCartBundle,
             new \Doctrine\Bundle\DoctrineBundle\DoctrineBundle,
             new \Doctrine\Bundle\MigrationsBundle\DoctrineMigrationsBundle,
             new \Symfony\Bundle\SwiftmailerBundle\SwiftmailerBundle,
             new \Symfony\Bundle\MonologBundle\MonologBundle,
+            new \zenmagick\base\ZenMagickBundle,
         );
         return $bundles;
     }
@@ -107,17 +105,19 @@ class Application extends Kernel {
         }
 
         $this->settingsService = $settingsService;
-        $dbParams = $settingsService->get('apps.store.database.default');
-        \ZMRuntime::setDatabase('default', $dbParams);
+        $parameters = $settingsService->get('apps.store.database.default');
+        \ZMRuntime::setDatabase('default', $parameters);
 
-        $files = array();
-        $files[] = function($container) use($dbParams) {
-            $container->setParameter('database_driver', $dbParams['driver']);
-            $container->setParameter('database_host', $dbParams['host']);
-            $container->setParameter('database_name', $dbParams['dbname']);
-            $container->setParameter('database_user', $dbParams['user']);
-            $container->setParameter('database_password', $dbParams['password']);
-            $container->setParameter('database_prefix', $dbParams['prefix']);
+        $parameters['kernel.context'] = $this->getContext();
+
+        $resources = array();
+        $resources[] = function($container) use($parameters) {
+            $container->setParameter('database_driver', $parameters['driver']);
+            $container->setParameter('database_host', $parameters['host']);
+            $container->setParameter('database_name', $parameters['dbname']);
+            $container->setParameter('database_user', $parameters['user']);
+            $container->setParameter('database_password', $parameters['password']);
+            $container->setParameter('database_prefix', $parameters['prefix']);
         };
 
         if (in_array($this->getContext(), array('admin', 'storefront', 'store'))) {
@@ -134,57 +134,31 @@ class Application extends Kernel {
             }
         }
 
-        $appContainerFiles = array();
-        $appContainerFiles[] = $this->getRootDir().'/lib/zenmagick/base/container.xml';
-        $appContainerFiles[] = $this->getRootDir().'/lib/zenmagick/http/container.xml';
-        $appContainerFiles[] = $this->getRootDir().'/apps/store/config/email.php';
-        $appContainerFiles[] = $this->getRootDir().'/apps/store/config/configuration.php';
-        $appContainerFiles[] = $this->getApplicationPath().'/config/container_'.$this->getEnvironment().'.xml';
-
-        foreach ($appContainerFiles as $file) {
-            if (file_exists($file)) {
-                $files[] = $file;
+        $resources[] = $this->getRootDir().'/lib/zenmagick/base/container.xml';
+        $resources[] = $this->getRootDir().'/lib/zenmagick/http/container.xml';
+        $resources[] = function($container) use($parameters) {
+            if ('admin' == $parameters['kernel.context']) {
+                $container->setParameter('zenmagick.http.sacs.mappingProviders', array('zenmagick\apps\admin\services\DBSacsPermissionProvider'));
             }
-        }
-        foreach ($files as $file) {
-            $loader->load($file);
-        }
-    }
+        };
 
+        $resources[] = $this->getRootDir().'/apps/store/config/email.php';
+        $resources[] = $this->getRootDir().'/apps/store/config/configuration.php';
+        $resources[] = $this->getApplicationPath().'/config/container_'.$this->getEnvironment().'.xml';
 
-    public function boot() {
-        parent::boot();
-        $this->initEvents();
+        foreach ($resources as $resource) {
+            if (is_string($resources) && !file_exists($resource)) {
+                continue;
+            }
+            $loader->load($resource);
+        }
     }
 
     /**
-     * Bootstrap application.
-     *
+     * {@inheritDoc}
      */
-    public function initEvents() {
-        $settingsService = $this->container->get('settingsService');
-
-        // @todo switch to using tagged services for events.
-        $listeners = $settingsService->get('zenmagick.base.events.listeners', array());
-        $plugins = $this->container->get('pluginService')->getPluginsForContext($this->getContext());
-        $listeners = array_merge($listeners, $plugins);
-
-        if ('storefront' == $this->getContext()) {
-            $listeners[] = sprintf('zenmagick\themes\%s\EventListener', $this->container->get('themeService')->getActiveThemeId());
-        }
-
-        // @todo switch to using tagged services for events.
-        foreach ($listeners as $eventListener) {
-            if (is_string($eventListener)) {
-                if (!class_exists($eventListener)) continue;
-                if (null != ($eventListener = new $eventListener)) {
-                    $eventListener->setContainer($this->container);
-                }
-            }
-            if (is_object($eventListener)) {
-                $this->container->get('eventDispatcher')->listen($eventListener);
-            }
-        }
+    protected function getContainerBaseClass() {
+        return 'zenmagick\base\dependencyInjection\Container';
     }
 
     /**
@@ -312,10 +286,6 @@ class Application extends Kernel {
         }
 
         $this->container->compile();
-
-        foreach($this->container->getParameterBag()->all()  as $param => $value) {
-            $this->container->get('settingsService')->set($param, $value);
-        }
 
     }
 

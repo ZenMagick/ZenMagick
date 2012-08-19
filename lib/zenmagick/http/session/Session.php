@@ -35,7 +35,7 @@ use Symfony\Component\HttpFoundation\Session\Session as BaseSession;
  */
 class Session extends BaseSession implements ContainerAwareInterface {
     /** A magic session key used to validate forms. */
-    const SESSION_TOKEN_KEY = '__ZM_TOKEN__';
+    const SESSION_TOKEN_KEY = 'securityToken';
     /** The auto save namespace prefix for session keys. */
     const AUTO_SAVE_KEY = '__ZM_AUTO_SAVE_KEY__';
 

@@ -19,8 +19,8 @@
  */
 namespace zenmagick\plugins\liftSuggest;
 
-use zenmagick\apps\store\plugins\Plugin;
-use zenmagick\base\Runtime;
+use Plugin;
+use zenmagick\base\Beans;
 use zenmagick\base\Toolbox;
 
 /**
@@ -187,7 +187,7 @@ EOT;
      * @return array List of maps with product recommendation details or <code>null</code> on failure.
      */
     public function getProductRecommendations($productId, $limit=null) {
-        $lsr = $this->container->get('zenmagick\plugins\liftSuggest\ZMLiftSuggestLookup');
+        $lsr = Beans::getBean('zenmagick\plugins\liftSuggest\ZMLiftSuggestLookup');
         if (null === $this->recommendationsLoadedFor) {
             // grab first
             $this->recommendationsLoadedFor = $productId;

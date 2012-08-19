@@ -35,7 +35,7 @@ class ContentEditorController extends \ZMController {
         $language = $request->getSelectedLanguage();
         $languageId = $request->query->get('languageId', $language->getId());
         $resultSource = new \ZMObjectResultSource('ZMEZPage', 'ezPageService', "getAllPages", array($languageId, 'static'));
-        $resultList = $this->container->get("ZMResultList");
+        $resultList = Beans::getBean('ZMResultList');
         $resultList->setResultSource($resultSource);
         $resultList->setPageNumber($request->query->get('page', 1));
         return array('resultList' => $resultList);

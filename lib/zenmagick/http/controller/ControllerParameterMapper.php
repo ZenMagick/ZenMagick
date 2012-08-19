@@ -41,16 +41,6 @@ use zenmagick\http\Request;
  * @author DerManoMann <mano@zenmagick.org>
  */
 class ControllerParameterMapper extends ZMObject implements ParameterMapper {
-    protected $request;
-
-    /**
-     * Set the request.
-     *
-     * @param zenmagick\http\Request request The request.
-     */
-    public function setRequest(Request $request) {
-        $this->request = $request;
-    }
 
     /**
      * {@inheritDoc}

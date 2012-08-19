@@ -19,6 +19,7 @@
  */
 
 use zenmagick\base\Runtime;
+use zenmagick\base\Beans;
 use zenmagick\base\database\QueryDetails;
 use zenmagick\base\database\SqlAware;
 
@@ -72,7 +73,7 @@ class ZMCategoryFilter extends ZMResultListFilter implements SqlAware {
         foreach ($this->list_->getAllResults() as $result) {
             $category = $result->getDefaultCategory($this->container->get('session')->getLanguageId());
             if (null != $category) {
-                $option = Runtime::getContainer()->get('ZMFilterOption');
+                $option = Beans::getBean('ZMFilterOption');
                 $option->setId($category->getId());
                 $option->setName($category->getName());
                 $option->setActive($category->getId() == $this->filterValues_[0]);

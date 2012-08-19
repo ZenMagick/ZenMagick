@@ -216,9 +216,9 @@ class ThemeService extends ZMObject {
         $statusMap = $this->getStatusMap();
         $themeList = $statusMap['themeList'];
 
-        $eventDispatcher = $this->container->get('eventDispatcher');
         foreach ($themeChain as $theme) {
             $themeInfo = $themeList[$theme->getId()];
+            $theme->setContainer($this->container);
             // init l10n/i18n
             $theme->loadTranslations();
             // custom theme.yaml settings

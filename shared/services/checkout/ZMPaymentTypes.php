@@ -19,7 +19,7 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-use zenmagick\base\Runtime;
+use zenmagick\base\Beans;
 use zenmagick\base\Toolbox;
 use zenmagick\base\ZMObject;
 
@@ -48,7 +48,7 @@ class ZMPaymentTypes extends ZMObject {
      */
     public function getPaymentTypes($all=false) {
         if (null === $this->paymentTypes_) {
-            $zcPath = Runtime::getSettings()->get('zencart.root_dir');
+            $zcPath = $this->container->get('settingsService')->get('zencart.root_dir');
             $this->paymentTypes_ = array();
             if (defined('MODULE_PAYMENT_INSTALLED') && !Toolbox::isEmpty(MODULE_PAYMENT_INSTALLED)) {
                 // get a list of modules and stuff
@@ -65,7 +65,7 @@ class ZMPaymentTypes extends ZMObject {
                     if (isset($GLOBALS[$info['class']])) {
                         $module = $GLOBALS[$info['class']];
                         if ($all || $module->enabled) {
-                            $wrapper = Runtime::getContainer()->get('zenmagick\apps\store\bundles\ZenCartBundle\wrapper\PaymentTypeWrapper');
+                            $wrapper = Beans::getBean('zenmagick\apps\store\bundles\ZenCartBundle\wrapper\PaymentTypeWrapper');
                             $wrapper->setModule($module);
                             $this->paymentTypes_[$module->code] = $wrapper;
                         }
@@ -80,7 +80,7 @@ class ZMPaymentTypes extends ZMObject {
                     $module = new $info['class'];
                     $module->update_status();
                     if ($all || $module->enabled) {
-                        $wrapper = Runtime::getContainer()->get('zenmagick\apps\store\bundles\ZenCartBundle\wrapper\PaymentTypeWrapper');
+                        $wrapper = Beans::getBean('zenmagick\apps\store\bundles\ZenCartBundle\wrapper\PaymentTypeWrapper');
                         $wrapper->setModule($module);
                         $this->paymentTypes_[$module->code] = $wrapper;
                     }

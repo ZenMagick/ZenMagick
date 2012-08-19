@@ -19,7 +19,7 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-use zenmagick\base\Runtime;
+use zenmagick\base\Beans;
 use zenmagick\base\Toolbox;
 use zenmagick\base\ZMObject;
 use zenmagick\apps\store\model\checkout\ShoppingCart;
@@ -135,7 +135,7 @@ class ZMShippingProviders extends ZMObject {
                 $module = new $moduleInfo['class']();
                 // either all or enabled (installed+enabled as per config option) - (is this different from $module->enabled?)
                 if (!$configured || (0 < $module->check() && $module->enabled)) {
-                    $wrapper = Runtime::getContainer()->get('zenmagick\apps\store\bundles\ZenCartBundle\wrapper\ShippingProviderWrapper');
+                    $wrapper = Beans::getBean('zenmagick\apps\store\bundles\ZenCartBundle\wrapper\ShippingProviderWrapper');
                     $wrapper->setModule($module);
                     $this->providers_[$configured][] = $wrapper;
                 }

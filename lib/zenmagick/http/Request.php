@@ -134,7 +134,7 @@ class Request extends HttpFoundationRequest implements ContainerAwareInterface {
         $requestId = $requestId === null ? $this->getRequestId() : $requestId;
 
         // adjust according to settings
-        $settingService = Runtime::getSettings();
+        $settingService = $this->container->get('settingsService');
         if ($settingService->get('zenmagick.http.request.secure', true)) {
             // check if always secure
             $secure = $settingService->get('zenmagick.http.request.allSecure', false) || $secure;
@@ -152,7 +152,7 @@ class Request extends HttpFoundationRequest implements ContainerAwareInterface {
             }
         }
 
-        Runtime::getLogging()->trace('unresolved URL: '.$requestId);
+        $this->container->get('loggingService')->trace('unresolved URL: '.$requestId);
         return null;
     }
 
@@ -166,7 +166,7 @@ class Request extends HttpFoundationRequest implements ContainerAwareInterface {
      */
     public function absoluteUrl($url, $full=false, $secure=false) {
         $url = (!empty($url) && ('/' == $url[0] || false !== strpos($url, '://'))) ? $url : $this->getContext().'/'.$url;
-        $secure = Runtime::getSettings()->get('zenmagick.http.request.enforceSecure') && $secure;
+        $secure = $this->container->get('settingsService')->get('zenmagick.http.request.enforceSecure') && $secure;
         if ($full || ($secure && !$this->isSecure())) {
             // full requested or we need a full URL to ensure it will be secure
             $isSecure = ($this->isSecure() || $secure);
@@ -227,7 +227,7 @@ class Request extends HttpFoundationRequest implements ContainerAwareInterface {
      */
     public function getRequestIdKey() {
         // called inside c'tor, so no container yet
-        return Runtime::getSettings()->get('zenmagick.http.request.idName', self::DEFAULT_REQUEST_ID);
+        return $this->container->get('settingsService')->get('zenmagick.http.request.idName', self::DEFAULT_REQUEST_ID);
     }
 
     /**
@@ -285,8 +285,8 @@ class Request extends HttpFoundationRequest implements ContainerAwareInterface {
     public function redirect($url, $status=302) {
         $url = str_replace('&amp;', '&', $url);
         $event = new VetoableEvent($this, array('request' => $this, 'url' => $url));
-        $this->container->get('eventDispatcher')->dispatch('redirect', $event);
-        Runtime::getLogging()->trace(sprintf('redirect url: "%s"; canceled: %s', $url, ($event->isCanceled() ? 'true' : 'false')), Logging::TRACE);
+        $this->container->get('event_dispatcher')->dispatch('redirect', $event);
+        $this->container->get('loggingService')->trace(sprintf('redirect url: "%s"; canceled: %s', $url, ($event->isCanceled() ? 'true' : 'false')), Logging::TRACE);
         if ($event->isCanceled()) {
             return;
         }
@@ -407,7 +407,7 @@ class Request extends HttpFoundationRequest implements ContainerAwareInterface {
         if (null == $this->shoppingCart_) {
             // TODO: enable
             if ($this->getSession()->isAnonymous() || true) {
-                $this->shoppingCart_ = Runtime::getContainer()->get('shoppingCart');
+                $this->shoppingCart_ = $this->container->get('shoppingCart');
             } else {
                 $this->shoppingCart_ = $this->container->get('shoppingCartService')->loadCartForAccountId($this->getAccountId());
             }
@@ -432,12 +432,12 @@ class Request extends HttpFoundationRequest implements ContainerAwareInterface {
             // try session language code
             if (null == ($language = $languageService->getLanguageForId($id))) {
                 // try store default
-                $language = $languageService->getLanguageForId(Runtime::getSettings()->get('storeDefaultLanguageId'));
+                $language = $languageService->getLanguageForId($this->container->get('settingsService')->get('storeDefaultLanguageId'));
             }
         }
 
         if (null == $language) {
-            Runtime::getLogging()->warn('no default language found - using en as fallback');
+            $this->container->get('loggingService')->warn('no default language found - using en as fallback');
             $language = Beans::getBean('apps\\store\\entities\\locale\\Language');
             $language->setId(1);
             $language->setDirectory('english');

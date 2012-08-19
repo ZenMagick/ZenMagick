@@ -59,10 +59,6 @@ zenmagick:
       invalidSession: cookie_usage
       login: login
       enforceSecure: true
-    session:
-      # POST validatd with session token
-      formToken:
-        - login
     ## sacs
     sacs:
       handler:

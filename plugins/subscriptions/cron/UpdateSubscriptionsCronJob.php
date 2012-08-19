@@ -97,7 +97,7 @@ class UpdateSubscriptionsCronJob implements CronJobInterface {
             }
 
             // event
-            $this->container->get('eventDispatcher')->dispatch('create_order', new Event($this, array('orderId' => $order->getId())));
+            $this->container->get('event_dispatcher')->dispatch('create_order', new Event($this, array('orderId' => $order->getId())));
         }
 
         return true;

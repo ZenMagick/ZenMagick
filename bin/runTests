@@ -3,9 +3,8 @@
 use zenmagick\base\Application;
 use zenmagick\base\Runtime;
 
-chdir(dirname(dirname(__FILE__)));
-include_once 'lib/base/Application.php';
-$application = new Application('prod', true, 'admin');
+include_once dirname(__DIR__).'/autoload.php';
+$application = new Application('prod', true, 'storefront');
 $application->boot();
 
 $container = $application->getContainer();

@@ -19,7 +19,7 @@
  */
 namespace zenmagick\apps\admin\controller;
 
-use zenmagick\base\Runtime;
+use zenmagick\base\Beans;
 
 /**
  * Admin controller for orders page.
@@ -51,7 +51,7 @@ class OrdersController extends \ZMController {
         } else {
             $resultSource = new \ZMObjectResultSource('ZMOrder', 'orderService', "getAllOrders", array($languageId));
         }
-        $resultList = $this->container->get('ZMResultList');
+        $resultList = Beans::getBean('ZMResultList');
         $resultList->setResultSource($resultSource);
         $resultList->setPageNumber($request->query->get('page', 1));
 

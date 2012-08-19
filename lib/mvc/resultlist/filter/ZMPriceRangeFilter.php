@@ -18,7 +18,7 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-use zenmagick\base\Runtime;
+use zenmagick\base\Beans;
 
 /**
  * Price range filter for products.
@@ -27,7 +27,7 @@ use zenmagick\base\Runtime;
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class PriceRangeFilter extends ZMResultListFilter {
+class ZMPriceRangeFilter extends ZMResultListFilter {
     private $ranges_;
 
 
@@ -98,7 +98,7 @@ class PriceRangeFilter extends ZMResultListFilter {
             $start += $diff;
             $name = $toolbox->utils->formatMoney($from) . ' - ' . $toolbox->utils->formatMoney($to);
             $key = $from.'-'.$to;
-            $option = Runtime::getContainer()->get('ZMFilterOption');
+            $option = Beans::getBean('ZMFilterOption');
             $option->setName($name);
             $option->setKey($key);
             $option->setActive(array_key_exists($key, $this->ranges_));

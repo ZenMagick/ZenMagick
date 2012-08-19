@@ -22,7 +22,7 @@ namespace zenmagick\plugins\howDidYouHear\controller;
 
 use ZMController;
 use ZMRuntime;
-use zenmagick\base\Runtime;
+use zenmagick\base\Beans;
 use zenmagick\base\Toolbox;
 
 /**
@@ -53,7 +53,7 @@ class HowDidYouHearSourcesStatsController extends ZMController {
 
         $sourceStats = ZMRuntime::getDatabase()->fetchAll($sql, array(), array('sources'), 'zenmagick\base\ZMObject');
         $resultSource = new ZMArrayResultSource('zenmagick\base\ZMObject', $sourceStats);
-        $resultList = $this->container->get('ZMResultList');
+        $resultList = Beans::getBean('ZMResultList');
         $resultList->setResultSource($resultSource);
         $resultList->setPageNumber($request->query->get('page', 1));
         return array('resultList' => $resultList, 'isOther' => $isOther);

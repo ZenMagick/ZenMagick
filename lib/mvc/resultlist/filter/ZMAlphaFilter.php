@@ -18,14 +18,14 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-use zenmagick\base\Runtime;
+use zenmagick\base\Beans;
 
 /**
  * Alpha key filter for products.
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class AlphaFilter extends ZMResultListFilter {
+class ZMAlphaFilter extends ZMResultListFilter {
 
     /**
      * Create new instance.
@@ -62,7 +62,7 @@ class AlphaFilter extends ZMResultListFilter {
         // buld options list
         $options = array();
         foreach ($keys as $key => $name) {
-            $option = Runtime::getContainer()->get('ZMFilterOption');
+            $option = Beans::getBean('ZMFilterOption');
             $option->setName($name);
             $option->setKey($key);
             $option->setActive($key == $this->filterValues_[0]);

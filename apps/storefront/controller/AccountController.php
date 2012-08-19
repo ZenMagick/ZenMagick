@@ -19,7 +19,7 @@
  */
 namespace zenmagick\apps\storefront\controller;
 
-use zenmagick\base\Runtime;
+use zenmagick\base\Beans;
 
 /**
  * Request controller for account page.
@@ -35,7 +35,7 @@ class AccountController extends \ZMController {
         // orders are sorted desc...
         $account = $this->getUser();
         $resultSource = new \ZMObjectResultSource('ZMOrder', 'orderService', "getOrdersForAccountId", array($account->getId(), $request->getSession()->getLanguageId()));
-        $resultList = $this->container->get('ZMResultList');
+        $resultList = Beans::getBean('ZMResultList');
         $resultList->setResultSource($resultSource);
         $resultList->setPageNumber($request->query->getInt('page'));
 

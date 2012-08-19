@@ -20,27 +20,29 @@
 namespace zenmagick\base\dependencyInjection;
 
 use Symfony\Component\DependencyInjection\ContainerAwareInterface;
-use Symfony\Component\DependencyInjection\ContainerBuilder as BaseContainerBuilder;
+use Symfony\Component\DependencyInjection\Container as BaseContainer;
 
 /**
- * Dependency injection container.
- *
- * <p>Based on the <em>symfony2</em> dependency injection component.</p>
- *
- * @author DerManoMann <mano@zenmagick.org>
+ * Temporary subclass of the container to keep code
+ * that relies on an automatic container (usually via
+ * ZMObject) working.
  */
-class ContainerBuilder extends BaseContainerBuilder {
+class Container extends BaseContainer {
 
     /**
      * {@inheritDoc}
      */
     public function get($id, $invalidBehavior=self::EXCEPTION_ON_INVALID_REFERENCE) {
         $service = parent::get($id, $invalidBehavior);
-        if (null != $service && $service instanceof ContainerAwareInterface) {
+
+        if (null == $service && self::EXCEPTION_ON_INVALID_REFERENCE === $invalidBehavior) {
+            throw new \InvalidArgumentException(sprintf('The service "%s" does not exist.', $id));
+        }
+
+        if ($service instanceof ContainerAwareInterface) {
             $service->setContainer($this);
         }
 
         return $service;
     }
-
 }
