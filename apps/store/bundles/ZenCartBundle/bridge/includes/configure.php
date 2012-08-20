@@ -1,7 +1,6 @@
 <?php
 use zenmagick\base\Runtime;
 
-$settings = Runtime::getSettings();
 $zcPath = $settings->get('zencart.root_dir');
 $adminDir = $settings->get('zencart.admin_dir', 'admin');
 /**
@@ -75,6 +74,6 @@ define('SQL_CACHE_METHOD', 'none'); // none,database,file
 define('CHARSET', $settings->get('zenmagick.http.html.charset'));
 
 // used by some zen-cart validation code
-if (null != ($shortUIFormat = Runtime::getContainer()->get('localeService')->getFormat('date', 'short-ui-format'))) {
+if (null != $shortUIFormat) {
     define('DOB_FORMAT_STRING', $shortUIFormat);
 }

@@ -129,11 +129,15 @@ class ZenCartAutoLoader extends ZMObject {
         $zcClassLoader->setBaseDirectories($this->buildSearchPaths('includes/classes'));
         $zcClassLoader->register();
 
+        // @todo really make a setting out of these formats?
+        $uiFormat = $this->container->get('localeService')->getFormat('date', 'short-ui-format');
 
         $request = $this->getRequest();
         $data = array(
             'requestContext' => $request->getContext(),
-            'httpServer' => $request->getHttpHost()
+            'httpServer' => $request->getHttpHost(),
+            'settings' => $this->container->get('settingsService'),
+            'shortUIFormat' => $uiFormat
         );
         foreach ($this->initFiles() as $filePattern) {
             $this->includeFiles($filePattern, $data);
