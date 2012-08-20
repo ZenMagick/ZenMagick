@@ -56,15 +56,25 @@ class PluginOptionsLoader extends BasePluginOptionsLoader {
         $config['meta']['enabled'] = false;
 
         $configPrefix = strtoupper(self::KEY_PREFIX . $id . '_');
+        $config['meta']['options'] = isset($config['meta']['options']) ? $config['meta']['options'] : array();
+        $config['meta']['options']['properties'] = isset($config['meta']['options']['properties']) ? $config['meta']['options']['properties'] : array();
 
         foreach ($this->configWidgetService->getConfigValues($configPrefix.'%') as $configValue) {
             $config['meta']['installed'] = true;
-            $name = $configValue->getName();
+            // once values are stored as-is, the prefix will come back...
+            $name = str_replace($configPrefix, '', $configValue->getName());
             if (self::KEY_ENABLED == $name) {
                 $config['meta']['enabled'] = $configValue->getValue();
             } else if (self::KEY_SORT_ORDER == $name) {
                 $config['meta']['sortOrder'] = $configValue->getValue();
             } else {
+                // find matching name
+                foreach (array_keys($config['meta']['options']['properties']) as $pname) {
+                    if (strtoupper($pname) == strtoupper($name)) {
+                        $name = $pname;
+                        break;
+                    }
+                }
                 $config['meta']['options']['properties'][$name]['value'] = $configValue->getValue();
             }
         }

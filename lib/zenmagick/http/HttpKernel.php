@@ -257,6 +257,9 @@ class HttpKernel implements HttpKernelInterface {
 
             $result = $executor->execute();
         } catch (Exception $e) {
+        echo $e->getMessage();
+        echo $e->getTraceAsString();
+        die();
             // re-throw
             throw $e;
         }

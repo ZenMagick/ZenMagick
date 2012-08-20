@@ -56,6 +56,15 @@ class PluginStatusMapBuilder extends ZMObject {
         $this->pluginOptionsLoader = $pluginOptionsLoader;
     }
 
+    /**
+     * Get the plugin options loader.
+     *
+     * @return PluginOptionsLoader The loader.
+     */
+    public function getPluginOptionsLoader() {
+        return $this->pluginOptionsLoader;
+    }
+
     public function setPluginDirs(array $dirs) {
         $this->pluginDirs = $dirs;
     }

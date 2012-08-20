@@ -19,6 +19,8 @@ meta:
               title: Lifetime
               description: 'Cookie/hash lifetime in days'
               type: text
+              config:
+                default: 7
           urlToken:
               title: 'URL token'
               description: 'Accept token in URL query parameters'

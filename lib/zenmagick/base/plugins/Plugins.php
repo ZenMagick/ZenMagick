@@ -84,10 +84,10 @@ class Plugins extends ZMObject {
      */
     public function refreshStatusMap() {
         $this->loggingService->debug('Building plugin status map...');
-        // update the instance var as we'll need a status map for getPluginsForContext()
+        // update the instance var as we'll need a status map for getPlugins()
         $this->statusMap = $this->pluginStatusMapBuilder->buildStatusMap();
         // keep values
-        foreach ($this->getPluginsForContext(null, false) as $pluginId => $plugin) {
+        foreach ($this->getPlugins(null, false) as $pluginId => $plugin) {
             // values
             if ($options = $plugin->getOptions()) {
                 $values = array();
@@ -109,7 +109,7 @@ class Plugins extends ZMObject {
      * @param boolean refresh Optional flag to force a refresh; default is <code>false</code>.
      * @return array Plugin status map.
      */
-    protected function getStatusMap($refresh=false) {
+    public function getStatusMap($refresh=false) {
         if (null === $this->statusMap || $refresh) {
             if (null != $this->cache) {
                 $this->statusMap = $this->cache->lookup(self::STATUS_MAP_KEY);
