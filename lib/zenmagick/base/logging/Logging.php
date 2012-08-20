@@ -115,7 +115,7 @@ class Logging extends ZMObject implements LoggerInterface {
      * @return int The current log level.
      */
     public function getLogLevel() {
-        return $this->translateLogLevel(Runtime::getSettings()->get('zenmagick.base.logging.level', Logging::INFO));
+        return $this->translateLogLevel($this->container->get('settingsService')->get('zenmagick.base.logging.level', Logging::INFO));
     }
 
     /**
@@ -244,7 +244,7 @@ class Logging extends ZMObject implements LoggerInterface {
      * @param int level Optional level; default: <code>INFO</code>.
      */
     public function log($message, $level=self::INFO) {
-        if (Runtime::getSettings()->get('zenmagick.base.logging.enabled', true)) {
+        if ($this->container->get('settingsService')->get('zenmagick.base.logging.enabled', true)) {
             $logLevel = $this->getLogLevel();
             foreach ($this->getHandlers() as $handler) {
                 if ((null === ($customLevel = $handler->getLogLevel()) && $level <= $logLevel) || $level <= $this->translateLogLevel($customLevel)) {
@@ -262,7 +262,7 @@ class Logging extends ZMObject implements LoggerInterface {
      * @param int level Optional level; default: <code>TRACE</code>.
      */
     public function dump($obj, $message=null, $level=self::TRACE) {
-        if (Runtime::getSettings()->get('zenmagick.base.logging.enabled', true)) {
+        if ($this->container->get('settingsService')->get('zenmagick.base.logging.enabled', true)) {
             $logLevel = $this->getLogLevel();
             foreach ($this->getHandlers() as $handler) {
                 if ((null === ($customLevel = $handler->getLogLevel()) && $level <= $logLevel) || $level <= $this->translateLogLevel($customLevel)) {
@@ -279,7 +279,7 @@ class Logging extends ZMObject implements LoggerInterface {
      * @param int level Optional level; default: <code>TRACE</code>.
      */
     public function trace($message=null, $level=self::TRACE) {
-        if (Runtime::getSettings()->get('zenmagick.base.logging.enabled', true)) {
+        if ($this->container->get('settingsService')->get('zenmagick.base.logging.enabled', true)) {
             $logLevel = $this->getLogLevel();
             foreach ($this->getHandlers() as $handler) {
                 if ((null === ($customLevel = $handler->getLogLevel()) && $level <= $logLevel) || $level <= $this->translateLogLevel($customLevel)) {
@@ -349,7 +349,7 @@ class Logging extends ZMObject implements LoggerInterface {
      * @param array info All available log information.
      */
     public function logError($line, $info) {
-        if (Runtime::getSettings()->get('zenmagick.base.logging.enabled', true)) {
+        if ($this->container->get('settingsService')->get('zenmagick.base.logging.enabled', true)) {
             $logLevel = $this->getLogLevel();
             foreach ($this->getHandlers() as $handler) {
                 if ((null === ($customLevel = $handler->getLogLevel()) && self::ERROR <= $logLevel) || self::ERROR <= $this->translateLogLevel($customLevel)) {
