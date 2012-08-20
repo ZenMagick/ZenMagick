@@ -143,6 +143,7 @@
         <service id="checkoutHelper" class="zenmagick\apps\store\utils\CheckoutHelper" scope="container" />
 
         <service id="shoppingCart" class="zenmagick\apps\store\model\checkout\ShoppingCart" scope="container">
+            <property name="session" type="service" id="session" />
             <call method="setCheckoutHelper">
                 <argument type="service" id="checkoutHelper" />
             </call>

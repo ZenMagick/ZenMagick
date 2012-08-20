@@ -57,8 +57,6 @@ class ShoppingCart extends ZMObject {
         $this->accountId = 0;
         $this->zenTotals_ = null;
         $this->selectedPaymentType_ = null;
-        // TODO: remove
-        $this->session = Runtime::getContainer()->get('session');
     }
 
 
