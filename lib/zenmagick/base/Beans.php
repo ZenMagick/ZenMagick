@@ -179,7 +179,7 @@ class Beans {
      */
     public static function getobj($clazz) {
 
-        if ((0 === strpos($clazz, 'Plugin')) || (0 === strpos($clazz, 'ZM')) || (0 === strpos(ltrim($clazz, '\\'), 'zenmagick'))) {
+        if ((0 === strpos($clazz, 'ZM')) || (0 === strpos(ltrim($clazz, '\\'), 'zenmagick'))) {
             if (!class_exists($clazz)) return;
             $obj = new $clazz;
             if ($obj instanceof ContainerAwareInterface) {
