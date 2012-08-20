@@ -77,6 +77,9 @@
         <service id="settingsService" class="zenmagick\base\settings\Settings" scope="container" />
 
         <service id="contextConfigLoader" class="zenmagick\base\utils\ContextConfigLoader" scope="prototype">
+            <call method="setContainer">
+                <argument type="service" id="service_container" />
+            </call>
             <call method="setContext">
                 <argument>%kernel.context%</argument>
             </call>
@@ -93,6 +96,11 @@
             <call method="setCache">
                 <argument type="service" id="bootstrapCache" />
             </call>
+            <call method="setContainer">
+                <argument type="service" id="service_container" />
+            </call>
+
+
         </service>
 
         <service id="pluginOptionsLoader" class="zenmagick\base\plugins\PluginOptionsLoader" scope="container" />
