@@ -64,18 +64,20 @@ class BlockManager extends ZMObject {
      * @return array List of <code>BlockWidget</code> instances.
      */
     public function getBlocksForId($request, $groupId, $args) {
+
         if (array_key_exists($groupId, $this->mappings_)) {
             // ensure bean definitions are resolved first...
             $group = array();
+
             foreach ($this->mappings_[$groupId] as $block) {
                 $widget = null;
                 if (is_string($block)) {
-                    $widget = Beans::getBean($block);
+                    $widget = Beans::getBean($block, $this->container);
                 } else if (is_object($block) && $block instanceof BlockWidget) {
                     $widget = $block;
+                    Beans::setAll($widget, $args);
                 }
                 if (null != $widget) {
-                    Beans::setAll($widget, $args);
                     $group[] = $widget;
                 }
             }
