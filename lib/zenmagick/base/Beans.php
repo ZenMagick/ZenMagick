@@ -19,6 +19,8 @@
  */
 namespace zenmagick\base;
 
+use Symfony\Component\DependencyInjection\ContainerAwareInterface;
+
 use zenmagick\base\Runtime;
 use zenmagick\base\ZMObject;
 
@@ -180,7 +182,9 @@ class Beans {
         if ((0 === strpos($clazz, 'Plugin')) || (0 === strpos($clazz, 'ZM')) || (0 === strpos(ltrim($clazz, '\\'), 'zenmagick'))) {
             if (!class_exists($clazz)) return;
             $obj = new $clazz;
-            $obj->setContainer(Runtime::getContainer());
+            if ($obj instanceof ContainerAwareInterface) {
+                $obj->setContainer(Runtime::getContainer());
+            }
             return $obj;
         }
         return Runtime::getContainer()->get($clazz, ContainerBuilder::NULL_ON_INVALID_REFERENCE);
