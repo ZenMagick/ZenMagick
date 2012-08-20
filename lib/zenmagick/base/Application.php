@@ -94,16 +94,6 @@ class Application extends Kernel {
             }
         }
 
-        $globalFilename = realpath($this->getRootDir().'/global.yaml');
-        if (file_exists($globalFilename)) {
-            $contextConfigLoader = new \zenmagick\base\utils\ContextConfigLoader;
-            $contextConfigLoader->setConfig($globalFilename);
-            $contextConfigLoader->setSettingsService($settingsService);
-            $config = $contextConfigLoader->resolve($this->getContext());
-            unset($config['container']); // @todo merge this with the other container configuration if we want to keep it.
-            $contextConfigLoader->apply($config);
-        }
-
         $this->settingsService = $settingsService;
         $parameters = $settingsService->get('apps.store.database.default');
         \ZMRuntime::setDatabase('default', $parameters);

@@ -19,7 +19,6 @@
  */
 namespace zenmagick\base;
 
-//use zenmagick\base\dependencyInjection\ContainerBuilder;
 use zenmagick\base\dependencyInjection\compiler\ConfigureContainerTagServicePass;
 use zenmagick\base\dependencyInjection\compiler\ResolveMergeDefinitionsPass;
 
@@ -36,16 +35,28 @@ class ZenMagickBundle extends Bundle {
      */
     public function build(ContainerBuilder $container) {
         parent::build($container);
+        $container->addScope(new Scope('request'));
+
         $container->addCompilerPass(new ConfigureContainerTagServicePass());
         $container->addCompilerPass(new ResolveMergeDefinitionsPass());
     }
 
     public function boot() {
-        foreach($this->container->getParameterBag()->all()  as $param => $value) {
+        $parameterBag = $this->container->getParameterBag();
+        foreach ($parameterBag->all()  as $param => $value) {
             $this->container->get('settingsService')->set($param, $value);
         }
 
-        $context = $this->container->getParameter('kernel.context');
+        $globalFilename = realpath($parameterBag->get('kernel.root_dir').'/global.yaml');
+        if (file_exists($globalFilename)) {
+            $contextConfigLoader = $this->container->get('contextConfigLoader');
+            $contextConfigLoader->setConfig($globalFilename);
+            $config = $contextConfigLoader->resolve();
+            unset($config['container']); // @todo remove when contextConfigLoader no longer has it
+            $contextConfigLoader->apply($config);
+        }
+
+        $context = $parameterBag->get('kernel.context');
         // @todo switch to using tagged services for events.
         $settingsService = $this->container->get('settingsService');
         $listeners = $settingsService->get('zenmagick.base.events.listeners', array());
