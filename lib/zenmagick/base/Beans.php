@@ -177,17 +177,18 @@ class Beans {
      * @param string clazz The class name.
      * @return mixed An instance of the given class or <code>null</code>.
      */
-    public static function getobj($clazz) {
+    public static function getobj($clazz, $container = null) {
+        $container = $container ?: Runtime::getContainer();
 
         if ((0 === strpos($clazz, 'ZM')) || (0 === strpos(ltrim($clazz, '\\'), 'zenmagick'))) {
             if (!class_exists($clazz)) return;
             $obj = new $clazz;
             if ($obj instanceof ContainerAwareInterface) {
-                $obj->setContainer(Runtime::getContainer());
+                $obj->setContainer($container);
             }
             return $obj;
         }
-        return Runtime::getContainer()->get($clazz, ContainerBuilder::NULL_ON_INVALID_REFERENCE);
+        return $container->get($clazz, ContainerBuilder::NULL_ON_INVALID_REFERENCE);
     }
 
     /**
@@ -214,11 +215,11 @@ class Beans {
      * @param string definition The bean definition.
      * @return mixed An object or <code>null</code>.
      */
-    public static function getBean($definition) {
+    public static function getBean($definition, $container = null) {
         if (empty($definition)) {
             return null;
         }
-
+        $container = $container ?: Runtime::getContainer();
         $isRef = false;
         $isPlugin = false;
         if (0 === strpos($definition, 'bean::')) {
@@ -243,17 +244,17 @@ class Beans {
             $properties = array();
         }
 
-        if ($isRef && null != ($ref = self::getobj($tokens[0]))) {
-            self::setAll($ref, $properties);
-            return $ref;
-        }
 
-        if ($isPlugin && null != ($plugin = Runtime::getContainer()->get('pluginService')->getPluginForId($tokens[0]))) {
+        if ($isPlugin && null != ($plugin = $container->get('pluginService')->getPluginForId($tokens[0]))) {
             self::setAll($plugin, $properties);
             return $plugin;
         }
 
-        return self::map2obj($tokens[0], $properties);
+        if (null != ($obj = self::getobj($tokens[0], $container))) {
+            self::setAll($obj, $properties);
+            return $obj;
+        }
+
     }
 
 }
