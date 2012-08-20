@@ -49,7 +49,7 @@
         },
         {
             "package": "monolog/monolog",
-            "version": "1.1.0"
+            "version": "1.2.0"
         },
         {
             "package": "rych/phpass",
@@ -72,12 +72,6 @@
         {
             "package": "symfony/monolog-bundle",
             "version": "dev-master",
-            "alias-pretty-version": "2.1.x-dev",
-            "alias-version": "2.1.9999999.9999999-dev"
-        },
-        {
-            "package": "symfony/monolog-bundle",
-            "version": "dev-master",
             "source-reference": "aed4d742838d2a7350633fed7afe18dbfd3415de",
             "commit-date": "1344949802"
         },
@@ -96,8 +90,8 @@
         {
             "package": "symfony/symfony",
             "version": "dev-master",
-            "source-reference": "d06246cd39243d5e90c709f83fc2627d25a166bc",
-            "commit-date": "1344819434"
+            "source-reference": "6bdd3f6a0ce3de5463d32d6fc8aaa0a250940bab",
+            "commit-date": "1345427377"
         },
         {
             "package": "twig/twig",
@@ -108,8 +102,8 @@
         {
             "package": "twig/twig",
             "version": "dev-master",
-            "source-reference": "f2f698c820d4396f519ef4175ad6fe79fcfb9ecf",
-            "commit-date": "1344328685"
+            "source-reference": "3e4057b4b14a2f90db7c895e3e9bcbd3d23875e8",
+            "commit-date": "1345222881"
         },
         {
             "package": "zenmagick/cachelite",
