@@ -19,7 +19,7 @@
  */
 namespace zenmagick\plugins\liftSuggest;
 
-use Plugin;
+use zenmagick\apps\store\plugins\Plugin;
 use zenmagick\base\Beans;
 use zenmagick\base\Toolbox;
 
