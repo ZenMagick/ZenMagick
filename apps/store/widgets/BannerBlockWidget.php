@@ -105,10 +105,9 @@ class BannerBlockWidget extends Widget {
      * {@inheritDoc}
      */
     public function render($request, TemplateView $templateView) {
-        if (!Runtime::getSettings()->get('apps.store.banners.enabled', true)) {
+        if (!$this->container->get('settingsService')->get('apps.store.banners.enabled', true)) {
             return '';
         }
-
         $bannerService = $this->container->get('bannerService');
         // try to load banners for the given group
         if (empty($this->group_) || null == ($banners = $bannerService->getBannersForGroupName($this->group_, $request->isSecure()))) {
