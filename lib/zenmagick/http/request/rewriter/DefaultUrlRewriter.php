@@ -48,7 +48,7 @@ class DefaultUrlRewriter extends ZMObject implements UrlRewriter {
         parent::__construct();
         $this->index_ = basename($_SERVER['SCRIPT_FILENAME']);
         // resolve once only
-        $this->requestIdKey_ = Runtime::getSettings()->get('zenmagick.http.request.idName', Request::DEFAULT_REQUEST_ID);
+        $this->requestIdKey_ = Runtime::isContextMatch('storefront') ? 'main_page' : Request::DEFAULT_REQUEST_ID;
         $type = Runtime::getSettings()->get('zenmagick.http.request.urlType', 'default');
         if (!array_key_exists($type, self::$methodList_)) {
             $type = 'default';

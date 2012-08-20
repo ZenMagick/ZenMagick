@@ -37,10 +37,6 @@ zenmagick:
 
   ## mvc
   mvc:
-    ## templates
-    templates:
-      ext: .php
-
     ## request
     request:
       index: views/index.php
@@ -59,11 +55,15 @@ zenmagick:
       secure: false
       enforceSecure: false
     routing:
+      alias: {}
       addnRouteFiles: []
     ## sacs
     sacs:
       handler:
         - zenmagick\http\sacs\handler\UserRoleSacsHandler
+    ## templates
+    templates:
+      ext: .php
 
 ## app settings
 apps:

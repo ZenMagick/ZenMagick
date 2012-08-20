@@ -281,7 +281,10 @@ class ZenCartAutoLoader extends ZMObject {
      * This is equivalent to STRICT_ERROR_REPORTING
      */
     public function setErrorLevel() {
-        if (!Runtime::getSettings()->get('apps.store.zencart.strictErrorReporting', false)) {
+        $settingsService = $this->container->get('settingsService');
+
+        $exists = $settingsService->exists('apps.store.zencart.strictErrorReporting');
+        if ($exists && !$settingsService->get('apps.store.zencart.strictErrorReporting')) {
             error_reporting(version_compare(PHP_VERSION, 5.4, '>=') ? E_ALL ^ E_DEPRECATED ^ E_NOTICE ^ E_STRICT : E_ALL ^ E_DEPRECATED ^ E_NOTICE);
         }
     }

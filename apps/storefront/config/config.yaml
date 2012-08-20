@@ -37,10 +37,6 @@ zenmagick:
 
   ## mvc
   mvc:
-    ## templates
-    templates:
-      ext: .php
-
     ## request
     request:
       missingPage: page_not_found.php
@@ -55,6 +51,7 @@ zenmagick:
       xhtml: true
     ## request
     request:
+      urlType: default
       idName: main_page
       invalidSession: cookie_usage
       login: login
@@ -86,6 +83,9 @@ zenmagick:
         advanced_search: search.advanced
         shopping_cart: cart
       addnRouteFiles: []
+    ## templates
+    templates:
+      ext: .php
 
 apps:
   store:

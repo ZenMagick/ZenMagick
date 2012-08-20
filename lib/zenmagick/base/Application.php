@@ -34,11 +34,9 @@ use Symfony\Component\HttpKernel\DependencyInjection\AddClassesToCachePass;
  * Base application.
  *
  * @author DerManoMann <mano@zenmagick.org>
- * @todo: document all config options
  */
 class Application extends Kernel {
     protected $context;
-    protected $settingsService;
 
     /**
      * Create new application
@@ -247,7 +245,6 @@ class Application extends Kernel {
         $this->container = $container;
         // register this as 'kernel'
         $this->container->set('kernel', $this);
-        $this->container->get('settingsService')->setAll($this->settingsService);
         Runtime::setContainer($this->container);
         $plugins = $this->container->get('pluginService')->getPluginsForContext($this->getContext());
         if ('storefront' == $this->getContext()) {

@@ -42,7 +42,6 @@ class Request extends HttpFoundationRequest implements ContainerAwareInterface {
     /**
      * Default paramter name containing the request id.
      *
-     * <p>Will be used if the 'zenmagick.http.request.idName' is not set.</p>
      */
     const DEFAULT_REQUEST_ID = 'rid';
 
@@ -226,8 +225,7 @@ class Request extends HttpFoundationRequest implements ContainerAwareInterface {
      * @return string The request id key.
      */
     public function getRequestIdKey() {
-        // called inside c'tor, so no container yet
-        return $this->container->get('settingsService')->get('zenmagick.http.request.idName', self::DEFAULT_REQUEST_ID);
+        return Runtime::isContextMatch('storefront') ? 'main_page' : self::DEFAULT_REQUEST_ID;
     }
 
     /**
