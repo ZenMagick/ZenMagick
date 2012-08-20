@@ -245,7 +245,6 @@ class Application extends Kernel {
         $this->container = $container;
         // register this as 'kernel'
         $this->container->set('kernel', $this);
-        Runtime::setContainer($this->container);
         $plugins = $this->container->get('pluginService')->getPluginsForContext($this->getContext());
         if ('storefront' == $this->getContext()) {
             $this->container->get('themeService')->initThemes();

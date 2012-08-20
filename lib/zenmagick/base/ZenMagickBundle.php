@@ -84,6 +84,8 @@ class ZenMagickBundle extends Bundle {
             $contextConfigLoader->apply($config);
         }
 
+        // @todo never do this
+        Runtime::setContainer($this->container);
         $context = $kernel->getContext();
         // @todo switch to using tagged services for events.
         $settingsService = $this->container->get('settingsService');
