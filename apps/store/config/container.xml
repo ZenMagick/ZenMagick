@@ -217,8 +217,16 @@
 
         <service id="groupPricingService" class="ZMGroupPricing" scope="container" />
 
-        <service id="configService" class="zenmagick\apps\store\services\ConfigService" scope="container" />
-        <service id="configWidgetService" class="zenmagick\apps\store\services\ConfigWidgetService" scope="container" parent="configService" />
+        <service id="configService" class="zenmagick\apps\store\services\ConfigService" scope="container">
+            <call method="setContainer">
+                <argument type="service" id="service_container" />
+            </call>
+        </service>
+        <service id="configWidgetService" class="zenmagick\apps\store\services\ConfigWidgetService" scope="container">
+            <call method="setContainer">
+                <argument type="service" id="service_container" />
+            </call>
+        </service>
 
         <service id="messageBuilder" class="zenmagick\http\utils\MessageBuilder" scope="prototype">
             <call method="setView">
@@ -233,6 +241,10 @@
             <call method="setSettingsService">
                 <argument type="service" id="settingsService" />
             </call>
+            <call method="setContainer">
+                <argument type="service" id="service_container" />
+            </call>
+
         </service>
 
         <service id="defaultStoreBlockProvider" class="zenmagick\apps\store\widgets\StoreBlockProvider" scope="container">
