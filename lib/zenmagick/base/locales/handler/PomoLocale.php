@@ -106,7 +106,7 @@ class PomoLocale extends Locale {
      * {@inheritDoc}
      */
     public function addResource($resource, $locale=null, $domain=null) {
-        $locale = null != $locale ? $locale : Runtime::getSettings()->get('kernel.default_locale', 'en');
+        $locale = null != $locale ? $locale : 'en';
         $resource .= '/'.$locale;
         $this->registerMOForLocale($resource, $locale, self::DEFAULT_MO_NAME, $domain);
     }
