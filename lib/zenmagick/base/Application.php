@@ -20,11 +20,9 @@
 namespace zenmagick\base;
 
 use zenmagick\base\Runtime;
-use zenmagick\base\dependencyInjection\ContainerBuilder;
 
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\Config\Loader\LoaderInterface;
-use Symfony\Component\DependencyInjection\ParameterBag\ParameterBag;
 use Symfony\Component\DependencyInjection\Loader\XmlFileLoader;
 use Symfony\Component\HttpKernel\Kernel;
 use Symfony\Component\HttpKernel\DependencyInjection\MergeExtensionConfigurationPass;
@@ -129,16 +127,6 @@ class Application extends Kernel {
     }
 
     /**
-     * @{inheritDoc}
-     */
-    public function getName() {
-        if (null == $this->name) {
-            $this->name = 'zenmagick'; // @todo what?
-        }
-        return $this->name;
-    }
-
-    /**
      * Get the application path.
      *
      * @return string The application path or <code>null</code>.
@@ -226,13 +214,6 @@ class Application extends Kernel {
         $container->addCompilerPass(new AddClassesToCachePass($this));
         //$container->compile();
         return $container;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function getContainerBuilder() {
-        return new ContainerBuilder(new ParameterBag($this->getKernelParameters()));
     }
 
     /**
