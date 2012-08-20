@@ -19,17 +19,12 @@
  */
 namespace zenmagick\base;
 
-use Exception;
 use zenmagick\base\Runtime;
-use zenmagick\base\Beans;
-use zenmagick\base\settings\Settings;
 use zenmagick\base\dependencyInjection\ContainerBuilder;
-use zenmagick\base\dependencyInjection\parameterBag\SettingsParameterBag;
 
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\Config\Loader\LoaderInterface;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBag;
-use Symfony\Component\DependencyInjection\ParameterBag\FrozenParameterBag;
 use Symfony\Component\DependencyInjection\Loader\XmlFileLoader;
 use Symfony\Component\HttpKernel\Kernel;
 use Symfony\Component\HttpKernel\DependencyInjection\MergeExtensionConfigurationPass;
@@ -82,15 +77,11 @@ class Application extends Kernel {
      * @todo move most this into "a" bundle.
      */
     public function registerContainerConfiguration(LoaderInterface $loader) {
-        $settingsService = new Settings;
         $config = $this->getRootDir().'/config/store-config.yaml';
-        if (file_exists($config)) {
-            $settingsService->load($config);
-        }
+        $yaml = \Symfony\Component\Yaml\Yaml::parse($config);
 
-        $parameters = $settingsService->get('apps.store.database.default');
+        $parameters = $yaml['apps']['store']['database']['default'];
         \ZMRuntime::setDatabase('default', $parameters);
-
         $parameters['kernel.context'] = $this->getContext();
 
         $resources = array();
