@@ -90,8 +90,8 @@
         {
             "package": "symfony/symfony",
             "version": "dev-master",
-            "source-reference": "6c52e8480d0afbaa9faa518ad30f63fbe4d08979",
-            "commit-date": "1345423629"
+            "source-reference": "6bdd3f6a0ce3de5463d32d6fc8aaa0a250940bab",
+            "commit-date": "1345427377"
         },
         {
             "package": "twig/twig",
