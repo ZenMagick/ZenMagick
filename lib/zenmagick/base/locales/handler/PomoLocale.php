@@ -140,7 +140,7 @@ class PomoLocale extends Locale {
         $filename = (null == $filename ? $domain : $filename).'.mo';
         $path = realpath($basedir).'/'.$filename;
         if (!file_exists($basedir) || null == ($path = $this->resolvePath($path, $locale))) {
-            Runtime::getLogging()->log('unable to resolve locale path for locale="'.$locale.'"; basedir='.$basedir, Logging::TRACE);
+            //Runtime::getLogging()->log('unable to resolve locale path for locale="'.$locale.'"; basedir='.$basedir, Logging::TRACE);
             return;
         }
         $this->registerMO($path, $domain);
@@ -155,10 +155,10 @@ class PomoLocale extends Locale {
      */
     public function registerMO($filename, $domain=null) {
         $domain = $domain ?: $this->getDefaultDomain();
-        Runtime::getLogging()->debug(sprintf('registering MO: %s for domain: %s', $filename, $domain));
+        //Runtime::getLogging()->debug(sprintf('registering MO: %s for domain: %s', $filename, $domain));
         $mo = new MO();
         if (!$mo->import_from_file($filename)) {
-            Runtime::getLogging()->warn(sprintf('import from MO: %s failed!', $filename));
+            //Runtime::getLogging()->warn(sprintf('import from MO: %s failed!', $filename));
             return false;
         }
 
