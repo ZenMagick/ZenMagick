@@ -83,28 +83,11 @@ class Application extends Kernel {
      */
     public function registerContainerConfiguration(LoaderInterface $loader) {
         $settingsService = new Settings;
-        $settingsFiles = array();
-        $settingsFiles[] = $this->getRootDir().'/apps/base/config/config.yaml';
-        $settingsFiles[] = $this->getApplicationPath().'/config/config.yaml';
-        // @todo do something better for non store apps
-        $settingsFiles[] = $this->getRootDir().'/config/store-config.yaml';
-        foreach ($settingsFiles as $config) {
-            if (file_exists($config)) {
-                $settingsService->load($config);
-            }
+        $config = $this->getRootDir().'/config/store-config.yaml';
+        if (file_exists($config)) {
+            $settingsService->load($config);
         }
 
-        $globalFilename = realpath($this->getRootDir().'/global.yaml');
-        if (file_exists($globalFilename)) {
-            $contextConfigLoader = new \zenmagick\base\utils\ContextConfigLoader;
-            $contextConfigLoader->setConfig($globalFilename);
-            $contextConfigLoader->setSettingsService($settingsService);
-            $config = $contextConfigLoader->resolve($this->getContext());
-            unset($config['container']); // @todo merge this with the other container configuration if we want to keep it.
-            $contextConfigLoader->apply($config);
-        }
-
-        $this->settingsService = $settingsService;
         $parameters = $settingsService->get('apps.store.database.default');
         \ZMRuntime::setDatabase('default', $parameters);
 
@@ -126,11 +109,6 @@ class Application extends Kernel {
                 if (!defined($key)) {
                     define($key, $value);
                 }
-            }
-
-            $defaults = $this->getRootDir().'/apps/store/config/defaults.php';
-            if (file_exists($defaults)) {
-                include $defaults;
             }
         }
 

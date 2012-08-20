@@ -19,7 +19,6 @@
  */
 namespace zenmagick\base;
 
-//use zenmagick\base\dependencyInjection\ContainerBuilder;
 use zenmagick\base\dependencyInjection\compiler\ConfigureContainerTagServicePass;
 use zenmagick\base\dependencyInjection\compiler\ResolveMergeDefinitionsPass;
 
@@ -36,16 +35,56 @@ class ZenMagickBundle extends Bundle {
      */
     public function build(ContainerBuilder $container) {
         parent::build($container);
+        $container->addScope(new Scope('request'));
+
         $container->addCompilerPass(new ConfigureContainerTagServicePass());
         $container->addCompilerPass(new ResolveMergeDefinitionsPass());
     }
 
     public function boot() {
-        foreach($this->container->getParameterBag()->all()  as $param => $value) {
-            $this->container->get('settingsService')->set($param, $value);
+        $parameterBag = $this->container->getParameterBag();
+        $settingsService = $this->container->get('settingsService');
+        foreach ($parameterBag->all()  as $param => $value) {
+            $settingsService->set($param, $value);
         }
 
-        $context = $this->container->getParameter('kernel.context');
+        $kernel = $this->container->get('kernel');
+        $settingsFiles = array();
+        $settingsFiles[] = $kernel->getRootDir().'/apps/base/config/config.yaml';
+        $settingsFiles[] = $kernel->getApplicationPath().'/config/config.yaml';
+        // @todo do something better for non store apps
+        $settingsFiles[] = $kernel->getRootDir().'/config/store-config.yaml';
+        foreach ($settingsFiles as $config) {
+            if (file_exists($config)) {
+                $settingsService->load($config);
+            }
+        }
+
+        \ZMRuntime::setDatabase('default', $settingsService->get('apps.store.database.default'));
+
+        if ($this->container->has('configService')) {
+            foreach ($this->container->get('configService')->loadAll() as $key => $value) {
+                if (!defined($key)) {
+                    define($key, $value);
+                }
+            }
+
+            $defaults = $kernel->getRootDir().'/apps/store/config/defaults.php';
+            if (file_exists($defaults)) {
+                include $defaults;
+            }
+        }
+
+        $globalFilename = realpath($kernel->getRootDir().'/global.yaml');
+        if (file_exists($globalFilename)) {
+            $contextConfigLoader = $this->container->get('contextConfigLoader');
+            $contextConfigLoader->setConfig($globalFilename);
+            $config = $contextConfigLoader->resolve();
+            unset($config['container']); // @todo remove when contextConfigLoader no longer has it
+            $contextConfigLoader->apply($config);
+        }
+
+        $context = $kernel->getContext();
         // @todo switch to using tagged services for events.
         $settingsService = $this->container->get('settingsService');
         $listeners = $settingsService->get('zenmagick.base.events.listeners', array());
