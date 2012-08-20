@@ -68,28 +68,34 @@
           <?php if ($plugin->isInstalled()) { ?>
             <span id="plugin-<?php echo $plugin->getId() ?>" class="plugin-status ui-icon ui-icon-circle-<?php echo ($plugin->isEnabled() ? 'check enabled' : 'close disabled') ?>"></span>
           <?php } else { ?>
-            N/A
+            <?php _vzm('N/A') ?>
           <?php } ?>
         </td>
-        <td>
+        <td class="pactions">
           <?php /** TODO: install/remove via ajax */ ?>
           <?php $msg = ($plugin->isInstalled() ? 'Remove ' : 'Install ').'plugin: '.$plugin->getName(); ?>
           <form action="<?php echo $net->url() ?>" method="POST" onsubmit="return ZenMagick.confirm('<?php echo $msg ?>', this);">
-          <input type="hidden" name="pluginId" value="<?php echo $plugin->getId() ?>">
-          <?php if (!$plugin->isInstalled()) { ?>
-            <input type="hidden" name="action" value="install">
-            <button class="<?php echo $buttonClasses ?>" type="submit">Install</button>
-          <?php } else { ?>
-            <input type="hidden" name="action" value="uninstall">
-            <?php $cid = 'keepSettings-'.$plugin->getId(); ?>
-            <input type="checkbox" id="<?php echo $cid ?>" name="keepSettings" value="true" checked> <label for="<?php echo $cid ?>"><?php _vzm('Keep plugin options') ?></label>
-            <button class="<?php echo $buttonClasses ?>" type="submit">Uninstall</button>
-            <a class="<?php echo $buttonClasses ?>" href="<?php echo $net->url(null, 'action=upgrade&pluginId='.$plugin->getId()) ?>#<?php echo $plugin->getId() ?>">Upgrade</a>
+            <input type="hidden" name="pluginId" value="<?php echo $plugin->getId() ?>">
+            <?php if (!$plugin->isInstalled()) { ?>
+              <input type="hidden" name="action" value="install">
+              <button class="<?php echo $buttonClasses ?>" type="submit"><?php _vzm('Install') ?></button>
+            </form>
+            <?php } else { ?>
+              <input type="hidden" name="action" value="uninstall">
+              <?php $cid = 'keepSettings-'.$plugin->getId(); ?>
+              <input type="checkbox" id="<?php echo $cid ?>" name="keepSettings" value="true" checked> <label for="<?php echo $cid ?>"><?php _vzm('Keep plugin options') ?></label>
+              <button class="<?php echo $buttonClasses ?>" type="submit"><?php _vzm('Uninstall') ?></button>
+            </form>
+            <?php $msg = sprintf(_zm('Upgrade plugin: %s?'), $plugin->getName()); ?>
+            <form action="<?php echo $net->url() ?>" method="POST" onsubmit="return ZenMagick.confirm('<?php echo $msg ?>', this);">
+              <input type="hidden" name="pluginId" value="<?php echo $plugin->getId() ?>">
+              <input type="hidden" name="action" value="upgrade">
+              <button class="<?php echo $buttonClasses ?>" type="submit"><?php _vzm('Upgrade') ?></button>
+            </form>
             <?php if ($plugin->hasOptions()) { /* enabled/disabled and sort order are handled by this page */ ?>
-            <a class="<?php echo $buttonClasses ?>" href="<?php echo $net->url(null, 'ajax=false&action=edit&pluginId='.$plugin->getId()) ?>#<?php echo $plugin->getId() ?>" onclick="return ZenMagick.ajaxFormDialog(this.href, {title:'<?php echo sprintf(_zm('Edit Plugin Options: %s'), $plugin->getName()) ?>', formId: 'ajax-form'});">Edit</a>
+              <a class="<?php echo $buttonClasses ?>" href="<?php echo $net->url(null, 'ajax=false&action=edit&pluginId='.$plugin->getId()) ?>#<?php echo $plugin->getId() ?>" onclick="return ZenMagick.ajaxFormDialog(this.href, {title:'<?php echo sprintf(_zm('Edit Plugin Options: %s'), $plugin->getName()) ?>', formId: 'ajax-form'});"><?php _vzm('Edit') ?></a>
+            <?php } ?>
           <?php } ?>
-          <?php } ?>
-          </form>
         </td>
       </tr>
     <?php } ?>

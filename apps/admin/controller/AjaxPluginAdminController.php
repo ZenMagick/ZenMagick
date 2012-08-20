@@ -20,6 +20,7 @@
 namespace zenmagick\apps\admin\controller;
 
 use zenmagick\base\Toolbox;
+use zenmagick\apps\store\plugins\PluginOptionsLoader;
 
 /**
  * Ajax plugin admin controller.
@@ -27,79 +28,6 @@ use zenmagick\base\Toolbox;
  * @author DerManoMann <mano@zenmagick.org>
  */
 class AjaxPluginAdminController extends \ZMRpcController {
-
-    /**
-     * Install plugin.
-     */
-    public function installPlugin($rpcRequest) {
-        $pluginId = $rpcRequest->getData()->pluginId;
-
-        $rpcResponse = $rpcRequest->createResponse();
-
-        $pluginService = $this->container->get('pluginService');
-        // force loading all
-        $pluginService->getPluginsForContext(null, false);
-
-        if (null != ($plugin = $pluginService->getPluginForId($pluginId))) {
-            if (!$plugin->isInstalled()) {
-                $plugin->install();
-                foreach ($plugin->getMessages() as $msg) {
-                    $rpcResponse->addMessage($msg, 'info');
-                }
-                $rpcResponse->setStatus(true);
-                $rpcResponse->setData(array('pluginId' => $pluginId, 'hasOptions', $plugin->hasOptions()));
-                $rpcResponse->addMessage(_zm('Plugin installed'), 'success');
-            } else {
-                $rpcResponse->setStatus(false);
-                $rpcResponse->addMessage(_zm('Plugin already installed'), 'error');
-            }
-        } else {
-            $rpcResponse->setStatus(false);
-            $rpcResponse->addMessage(_zm('Invalid plugin id'), 'error');
-        }
-
-        $pluginService->refreshStatusMap();
-        return $rpcResponse;
-    }
-
-    /**
-     * Remove plugin.
-     */
-    public function removePlugin($rpcRequest) {
-        $pluginId = $rpcRequest->getData()->pluginId;
-
-        $rpcResponse = $rpcRequest->createResponse();
-
-        $pluginService = $this->container->get('pluginService');
-        // force loading all
-        $pluginService->getPluginsForContext(null, false);
-
-        if (null != ($plugin = $pluginService->getPluginForId($remove)) && $plugin->isInstalled()) {
-            $plugin->remove();
-            foreach ($plugin->getMessages() as $msg) {
-                $rpcResponse->addMessage($msg, 'info');
-            }
-        }
-        if (null != ($plugin = $pluginService->getPluginForId($pluginId))) {
-            if ($plugin->isInstalled()) {
-                $plugin->remove();
-                $rpcResponse->setStatus(true);
-                foreach ($plugin->getMessages() as $msg) {
-                    $rpcResponse->addMessage($msg, 'info');
-                }
-                $rpcResponse->addMessage(_zm('Plugin removed'), 'success');
-            } else {
-                $rpcResponse->setStatus(false);
-                $rpcResponse->addMessage(_zm('Plugin not installed'), 'error');
-            }
-        } else {
-            $rpcResponse->setStatus(false);
-            $rpcResponse->addMessage(_zm('Invalid plugin id'), 'error');
-        }
-
-        $pluginService->refreshStatusMap();
-        return $rpcResponse;
-    }
 
     /**
      * Update plugin status.
@@ -112,15 +40,14 @@ class AjaxPluginAdminController extends \ZMRpcController {
         $rpcResponse = $rpcRequest->createResponse();
 
         $pluginService = $this->container->get('pluginService');
-        // force loading all
-        $pluginService->getPluginsForContext(null, false);
 
-        if (null == ($plugin = $pluginService->getPluginForId($pluginId))) {
+        if (null == ($plugin = $pluginService->getPluginForId($pluginId, true))) {
             $rpcResponse->setStatus(false);
             $rpcResponse->addMessage(_zm('Invalid plugin id'), 'error');
         } else {
-            $rpcResponse->setStatus(true);
-            $plugin->setEnabled($status);
+            $configPrefix = PluginsController::prefix($plugin);
+            $configService = $this->container->get('configService');
+            $this->container->get('configService')->updateConfigValue($configPrefix.PluginOptionsLoader::KEY_ENABLED, $status);
             $rpcResponse->addMessage(_zm('Status updated'), 'success');
         }
 

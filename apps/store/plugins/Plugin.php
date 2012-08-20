@@ -79,6 +79,12 @@ class Plugin extends HttpPlugin {
     }
 
     /**
+     * Remove this plugin.
+     */
+    public function remove() {
+    }
+
+    /**
      * Get the preferred sort order (if any).
      *
      * @return int The sort order value.
