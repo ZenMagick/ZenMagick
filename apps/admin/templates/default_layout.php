@@ -28,6 +28,7 @@
     <?php $resources->cssFile('style/zenmagick.css') ?>
     <?php $resources->cssFile('style/jquery-ui/jquery-ui-1.8.15.custom.css') ?>
     <?php $resources->cssFile('style/jquery.cluetip.css') ?>
+    <?php $resources->cssFile('style/views/'.$request->getRequestId().'.css') ?>
     <?php $resources->jsFile('js/jquery-1.6.2.min.js') ?>
     <?php $resources->jsFile('style/jquery-ui/jquery-ui-1.8.15.custom.min.js') ?>
     <?php $resources->jsFile('js/jquery.form.js') ?>
