@@ -51,7 +51,7 @@ class ConfigWidgetService extends ConfigService {
                     $definition = lcfirst(substr($definition, 2));
                 }
 
-                $widget = Beans::getBean($definition);
+                $widget = Beans::getBean($definition, $this->container);
                 if (null !== $widget) {
                     $widget->setTitle($value['name']);
                     $widget->setDescription($value['description']);
