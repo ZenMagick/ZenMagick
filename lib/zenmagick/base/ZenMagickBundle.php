@@ -35,7 +35,6 @@ class ZenMagickBundle extends Bundle {
      */
     public function build(ContainerBuilder $container) {
         parent::build($container);
-        $container->addScope(new Scope('request'));
 
         $container->addCompilerPass(new ConfigureContainerTagServicePass());
         $container->addCompilerPass(new ResolveMergeDefinitionsPass());
