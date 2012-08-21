@@ -130,6 +130,8 @@ class Plugin extends HttpPlugin {
      *
      * <p>This method is part of the lifecylce of a plugin during storefront request handling.</p>
      * <p>Code to set up internal resources should be placed here, rather than in the * constructor.</p>
+     *
+     * @deprecated Use event callbacks instead.
      */
     public function init() {
     }
