@@ -169,7 +169,7 @@ class WhoIsOnlinePlugin extends Plugin {
      */
     public function onLogoffSuccess($event) {
         if ($event->has('account') && null != ($account = $event->get('account'))) {
-            if (0 < ($accountId == $account->getId())) {
+            if (0 < ($accountId = $account->getId())) {
                 \ZMRuntime::getDatabase()->delete('whos_online', array('customer_id' => $accountId));
             }
         }
