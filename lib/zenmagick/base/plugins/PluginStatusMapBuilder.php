@@ -104,11 +104,10 @@ class PluginStatusMapBuilder extends ZMObject {
                 $id = $info['id'];
                 $pluginDir = $info['pluginDir'];
 
-                $pluginClassBase = Toolbox::className($id);
-                $namespace = sprintf(Plugins::PLUGIN_BASE_NAMESPACE.'\%s', $id);
+                $pluginClass = Toolbox::className($id);
 
                 $pluginClasses = array();
-                $pluginClasses[] = sprintf('%s\%sPlugin', $namespace, $pluginClassBase);
+                $pluginClasses[] = sprintf(Plugins::PLUGIN_BASE_NAMESPACE.'\%s\%sPlugin', $id, $pluginClass);
                 $pluginClasses[] = $this->defaultPluginClass;
                 foreach ($pluginClasses as $pluginClass) {
                     if (class_exists($pluginClass)) {
@@ -130,7 +129,6 @@ class PluginStatusMapBuilder extends ZMObject {
                     $config['meta']['id'] = $id;
                     $config['meta']['pluginDir'] = $pluginDir;
                     $config['meta']['class'] = $pluginClass;
-                    $config['meta']['namespace'] = $namespace;
                     // final adjustments
                     $statusMap[$id] = $this->pluginOptionsLoader->load($id, $config);
                 }

@@ -146,47 +146,6 @@ class Plugin extends HttpPlugin {
     }
 
     /**
-     * Add new plugin menu group.
-     *
-     * @param string title The page title.
-     * @param string parentid Optional parent id; default is <em>plugins</em>.
-     * @return string The menu key to be used to add items to this group.
-     * @todo: fix and allow optional other parameter, etc...
-     */
-    public function addMenuGroup($title, $parentId='configuration') {
-        if ($this->container->has('adminMenu')) {
-            $adminMenu = $this->container->get('adminMenu');
-            if (null != ($parent = $adminMenu->getElement($parentId))) {
-                $id = $parentId.'-'.$this->getId().microtime();
-                $item = new MenuElement($id, $title);
-                $parent->addChild($item);
-                return $id;
-            }
-        }
-        return null;
-    }
-
-    /**
-     * Add custom plugin admin page to admin navigation.
-     *
-     * <p>Plugins are expected to implement a corresponding controller for the configured reuqestId.</p>
-     *
-     * @param string title The page title.
-     * @param string requestId The corresponding requestId.
-     * @param string menuKey Optional key determining where the menu item should appear; default is <em>'configuration-plugins'</em>.
-     */
-    public function addMenuItem($title, $requestId, $menuKey='configuration-plugins') {
-        if ($this->container->has('adminMenu')) {
-            $adminMenu = $this->container->get('adminMenu');
-            if (null != ($parent = $adminMenu->getElement($menuKey))) {
-                $item = new MenuElement($menuKey.'-'.$requestId, $title);
-                $item->setRequestId($requestId);
-                $parent->addChild($item);
-            }
-        }
-    }
-
-    /**
      * Resolve a plugin relative URI.
      *
      * <p>The given <code>uri</code> is assumed to be relative to the plugin folder.</p>
