@@ -111,6 +111,16 @@ class Application extends Kernel {
         $resources[] = $this->getRootDir().'/apps/store/config/configuration.php';
         $resources[] = $this->getApplicationPath().'/config/container_'.$this->getEnvironment().'.xml';
 
+        // @todo still in the wrong place!
+        $resources[] = function($container) use ($parameters) {
+            $context = $parameters['kernel.context'];
+            $container->get('pluginService')->getPluginsForContext($context);
+            if ('storefront' == $context) {
+                $container->get('themeService')->initThemes();
+            }
+        };
+
+
         foreach ($resources as $resource) {
             if (is_string($resources) && !file_exists($resource)) {
                 continue;
@@ -166,58 +176,6 @@ class Application extends Kernel {
      * @todo remove this stub once we're ready
      */
     public function loadClassCache($name = 'classes', $extension = '.php') {
-    }
-
-    /**
-     * {@inheritDoc}
-     *
-     * Just like parent::buildContainer except the compilation step is not done here.
-     *
-     * @copyright Fabien Potencier <fabien@symfony.com>
-     * @todo remove local modifications
-     */
-    protected function buildContainer() {
-        foreach (array('cache' => $this->getCacheDir(), 'logs' => $this->getLogDir()) as $name => $dir) {
-            if (!is_dir($dir)) {
-                if (false === @mkdir($dir, 0777, true)) {
-                    throw new \RuntimeException(sprintf("Unable to create the %s directory (%s)\n", $name, $dir));
-                }
-            } elseif (!is_writable($dir)) {
-                throw new \RuntimeException(sprintf("Unable to write in the %s directory (%s)\n", $name, $dir));
-            }
-        }
-        $container = $this->getContainerBuilder();
-        $extensions = array();
-        foreach ($this->bundles as $bundle) {
-            if ($extension = $bundle->getContainerExtension()) {
-                $container->registerExtension($extension);
-                $extensions[] = $extension->getAlias();
-            }
-
-            if ($this->debug) {
-                $container->addObjectResource($bundle);
-            }
-        }
-        foreach ($this->bundles as $bundle) {
-            $bundle->build($container);
-        }
-
-        $container->addObjectResource($this);
-
-        // ensure these extensions are implicitly loaded
-        $container->getCompilerPassConfig()->setMergePass(new MergeExtensionConfigurationPass($extensions));
-
-        if (null !== $cont = $this->registerContainerConfiguration($this->getContainerLoader($container))) {
-            $container->merge($cont);
-        }
-
-        $container->addCompilerPass(new AddClassesToCachePass($this));
-        $plugins = $container->get('pluginService')->getPluginsForContext($this->getContext());
-        if ('storefront' == $this->getContext()) {
-            $container->get('themeService')->initThemes();
-        }
-        $container->compile();
-        return $container;
     }
 
     /**
