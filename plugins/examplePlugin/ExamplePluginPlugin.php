@@ -40,7 +40,7 @@ class ExamplePluginPlugin extends Plugin {
      * As event listener a class is also automatically registered as listener for zen-cart zco events.
      */
     public function onNotifyHeaderStartIndex($event) {
-        echo "Start of Zen Cart's index page event callback in " . $this->getName() . " ...<br>";
+        echo sprintf(_zm("Start of Zen Cart's index page event callback in %s ...<br>"), $this->getName());
     }
 
     /**
@@ -51,7 +51,7 @@ class ExamplePluginPlugin extends Plugin {
         $request = $event->get('request');
 
         if ('login' == $request->getRequestId()) {
-            $content = preg_replace('/<\/h1>/', ' (modified by ' . $this->getName() . ')</h1>', $content, 1);
+            $content = preg_replace('/<h1>(.*)<\/h1>/', sprintf(_zm('<h1>\\1 (modified by %s)</h1>'), $this->getName()), $content, 1);
             $event->set('content', $content);
         }
     }
