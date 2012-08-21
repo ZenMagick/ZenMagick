@@ -171,14 +171,6 @@ class Application extends Kernel {
     /**
      * {@inheritDoc}
      *
-     * @todo remove this stub once we're ready
-     */
-    public function loadClassCache($name = 'classes', $extension = '.php') {
-    }
-
-    /**
-     * {@inheritDoc}
-     *
      * Modified to add kernel.context parameter.
      */
     protected function getKernelParameters() {
