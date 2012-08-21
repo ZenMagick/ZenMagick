@@ -22,7 +22,6 @@ namespace zenmagick\base\dependencyInjection\compiler;
 use Symfony\Component\DependencyInjection\Definition;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
-use zenmagick\base\dependencyInjection\tags\ContainerTagService;
 
 /**
  * Set up a tag service that can be used instead of <code>ContainerBuilder::findTaggedServiceIds()</code>.
@@ -40,8 +39,6 @@ class ConfigureContainerTagServicePass implements CompilerPassInterface {
             $tags[$id] = $definition->getTags();
         }
 
-        $container->set('containerTagService', new ContainerTagService($tags));
-        return;
         $container->setDefinition('containerTagService', new Definition(
             'zenmagick\base\dependencyInjection\tags\ContainerTagService',
             array($tags)
