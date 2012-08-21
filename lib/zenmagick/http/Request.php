@@ -38,14 +38,9 @@ use zenmagick\base\events\VetoableEvent;
  * @author DerManoMann <mano@zenmagick.org>
  */
 class Request extends HttpFoundationRequest implements ContainerAwareInterface {
-
-    /**
-     * Default paramter name containing the request id.
-     *
-     */
+    /** Default paramter name containing the request id.  */
     const DEFAULT_REQUEST_ID = 'rid';
 
-    private $shoppingCart_ = null;
 
     /**
      * Populate ParameterBag instances from superglobals
@@ -402,16 +397,7 @@ class Request extends HttpFoundationRequest implements ContainerAwareInterface {
      * @todo REMOVE! very temporary
      */
     public function getShoppingCart() {
-        if (null == $this->shoppingCart_) {
-            // TODO: enable
-            if ($this->getSession()->isAnonymous() || true) {
-                $this->shoppingCart_ = $this->container->get('shoppingCart');
-            } else {
-                $this->shoppingCart_ = $this->container->get('shoppingCartService')->loadCartForAccountId($this->getAccountId());
-            }
-        }
-
-        return $this->shoppingCart_;
+        return $this->container->get('shoppingCart');
     }
 
     /**
