@@ -10,14 +10,20 @@ meta:
               title: 'Qualifying amount'
               description: 'The minimum amount to qualify for a subscription'
               type: text
+              config:
+                  default: 0
           minOrders:
               title: 'Minimum orders'
               description: 'The minimum number of orders before the subscription can be canceled'
               type: text
+              config:
+                  default: 0
           cancelDeadline:
               title: 'Cancel dealline'
               description: 'Days before the next order the user can cancel the subscription'
               type: text
+              config:
+                  default: 0
           adminEmail:
               title: 'Admin notification email address'
               description: 'Email address for admin notifications (use store email if empty)'
@@ -52,7 +58,9 @@ meta:
               title: 'Schedule offset'
               description: 'Optional offset (in days) to schedule subscription earlier that actually required'
               type: text
-          customerCancen:
+              config:
+                  default: 0
+          customerCancel:
               title: 'Customer cancel'
               description: 'Allow customers to cancel subscriptions directly'
               type: boolean

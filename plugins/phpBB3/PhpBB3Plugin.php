@@ -33,18 +33,6 @@ class PhpBB3Plugin extends Plugin {
     private $prePostAccount_ = null;
     private $adapter_ = null;
 
-    /**
-     * Install this plugin.
-     */
-    public function install() {
-        parent::install();
-
-        $this->addConfigValue('phpBB3 Installation Folder', 'phpBB3Dir', '', 'Path to your phpBB3 installation',
-              'widget@textFormWidget#name=phpBB3Dir&default=&size=24&maxlength=255');
-        $this->addConfigValue('Nickname policy', 'requireNickname', true, 'Make nickname mandatory (If disabled, automatic phpBB registration will be skipped)',
-            'widget@booleanFormWidget#name=requireNickname&default=true&label=Require nickname');
-    }
-
 
     /**
      * Get the phpBB3 adapter.

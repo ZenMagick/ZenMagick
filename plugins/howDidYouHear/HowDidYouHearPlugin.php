@@ -37,29 +37,12 @@ class HowDidYouHearPlugin extends Plugin {
     /**
      * {@inheritDoc}
      */
-    public function install() {
-        parent::install();
-        $this->executePatch(file($this->getPluginDirectory()."/sql/install.sql"), $this->messages_);
-        $this->addConfigValue('Display "Other', 'displayOther', 'true',
-            'Display "Other - please specify" with text box in referral source in account creation',
-            'widget@booleanFormWidget#name=displayOther&default=true&label=Allow other&style=checkbox');
-        $this->addConfigValue('Require Source', 'requireSource', 'true', 'Is the Referral Source mandatory or optional?',
-            'widget@booleanFormWidget#name=requireSource&default=true&label=Require Source&style=checkbox');
-        $this->addConfigValue('Enable on guest checkout', 'enableOnGuestCheckout', 'true', 'Handle referral data during guest checkout',
-            'widget@booleanFormWidget#name=enableOnGuestCheckout&default=true&label=Enable on guest checkout&style=checkbox');
-    }
-
-    /**
-     * {@inheritDoc}
-     */
     public function remove($keepSettings=false) {
-        parent::remove($keepSettings);
         $conn = \ZMRuntime::getDatabase();
         $sm = $conn->getSchemaManager();
         $sm->dropTable($conn->getPrefix().'sources');
         $sm->dropTable($conn->getPrefix().'sources_other');
-
-        $this->executePatch(file($this->getPluginDirectory()."/sql/uninstall.sql"), $this->messages_);
+        //parent::remove($keepSettings);
     }
 
     /**

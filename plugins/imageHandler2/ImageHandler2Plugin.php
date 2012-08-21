@@ -32,15 +32,6 @@ use zenmagick\http\view\ResourceManager;
 class ImageHandler2Plugin extends Plugin {
 
     /**
-     * {@inheritDoc}
-     */
-    public function install() {
-        parent::install();
-        $this->addConfigValue('Disable IH img attributes', 'disableIH2Attributes', false, 'Disable IH2 showtrail/hidetrail mouseover handler and styles on img elements',
-            'widget@booleanFormWidget#name=disableIH2Attributes&default=false&label=Disable&style=checkbox');
-    }
-
-    /**
      * Add resources.
      */
     public function onViewStart($event) {

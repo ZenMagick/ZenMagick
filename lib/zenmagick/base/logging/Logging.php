@@ -244,7 +244,7 @@ class Logging extends ZMObject implements LoggerInterface {
      * @param int level Optional level; default: <code>INFO</code>.
      */
     public function log($message, $level=self::INFO) {
-        if ($this->container->get('settingsService')->get('zenmagick.base.logging.enabled', true)) {
+        if ($this->container && $this->container->get('settingsService')->get('zenmagick.base.logging.enabled', true)) {
             $logLevel = $this->getLogLevel();
             foreach ($this->getHandlers() as $handler) {
                 if ((null === ($customLevel = $handler->getLogLevel()) && $level <= $logLevel) || $level <= $this->translateLogLevel($customLevel)) {

@@ -11,3 +11,5 @@ meta:
               title: 'History Maximum'
               description: 'Maximum number of products to keep'
               type: text
+              config:
+                  default: 10

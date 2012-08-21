@@ -19,6 +19,8 @@ meta:
               title: 'Default limit for Recommendations'
               description: 'Maximum number of recommendations to retreive.'
               type: text
+              config:
+                  default: 5
           domainName:
               title: 'Domain Name'
               description: 'Your Domain Name; example: www.zenmagick.com.'

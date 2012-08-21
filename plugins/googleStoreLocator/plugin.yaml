@@ -22,6 +22,8 @@ meta:
               title: 'Zoom Level'
               description: 'The initial zoom level'
               type: text
+              config:
+                  default: 13
           marker_text:
               title: 'Marker Text'
               description: 'Optional text for the store marker'

@@ -31,20 +31,6 @@ class GoogleAdSensePlugin extends Plugin {
     const ADSENSE_PREFIX = 'adsense-';
 
     /**
-     * Install this plugin.
-     */
-    public function install() {
-        parent::install();
-        $totalAds = $this->container->get('settingsService')->get('plugins.googleAdSense.totalAds', 6);
-        for ($ii=1; $ii <= $totalAds; ++$ii) {
-            $name = self::ADSENSE_PREFIX.$ii;
-            $this->addConfigValue('Google AdSense JavaScript #'.$ii, $name, '',
-              'The JavaScript provided by Google to display your ads for box #'.$ii,
-              'widget@textAreaFormWidget#name='.$name);
-        }
-    }
-
-    /**
      * Get Google AdSense (JavaScript) code for the given index.
      *
      * @param int index The ad index.

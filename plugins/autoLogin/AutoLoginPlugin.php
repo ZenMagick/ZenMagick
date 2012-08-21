@@ -45,22 +45,6 @@ class AutoLoginPlugin extends Plugin {
 
 
     /**
-     * {@inheritDoc}
-     */
-    public function install() {
-        parent::install();
-
-        $this->addConfigValue('Opt In', 'optIn', 'true', 'Allow users to opt in',
-            'widget@booleanFormWidget#name=optIn&default=true&label=Allow opt in&style=checkbox');
-        $this->addConfigValue('Lifetime', 'lifetime', '7', 'Cookie/hash lifetime in days');
-        $this->addConfigValue('URL token', 'urlToken', 'false', 'Accept token in URL query parameters',
-            'widget@booleanFormWidget#name=urlToken&default=false&label=Accept URL token&style=checkbox');
-        $this->addConfigValue('Expire URL token', 'expireUrlToken', 'true', 'Invalidate URL token after use',
-            'widget@booleanFormWidget#name=expireUrlToken&default=true&label=Expire URL token after use&style=checkbox');
-        $this->addConfigValue('URL token name', 'urlTokenName', 'token', 'Name of the URL token parameter');
-    }
-
-    /**
      * Handle auto login.
      */
     public function onContainerReady($event) {

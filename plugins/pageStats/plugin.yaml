@@ -34,6 +34,8 @@ meta:
               title: 'Limit displayed SQL'
               description: 'Limit displayed SQL to the top X queries (0 for all).'
               type: text
+              config:
+                  default: 0
           dumpQueries:
               title: 'Dump Queries to Error Log'
               description: 'If set to true, all SQL queries will be dumped to error log.'

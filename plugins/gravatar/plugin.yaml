@@ -11,11 +11,14 @@ meta:
               title: 'Image Size'
               description: 'Default avatar size'
               type: text
+              config:
+                  default: 80
           imageSet:
               title: 'Default Image Set'
               description: 'Default image if no avatar found'
               type: select
               config:
+                  default: mm
                   options:
                       404: '404'
                       mm: 'Mystery Man'
@@ -29,6 +32,7 @@ meta:
               description: 'Maximum rating of avatar images allowed'
               type: select
               config:
+                  default: g
                   options:
                       g: 'G - General'
                       pg: 'PG - Rude, mild violence'

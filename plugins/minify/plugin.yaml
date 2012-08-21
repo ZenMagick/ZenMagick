@@ -10,6 +10,8 @@ meta:
               title: 'URL Limit'
               description: 'Length limit for minify URLs.'
               type: text
+              config:
+                  default: 900
           shortUrls:
               title: 'Short Urls'
               description: 'Generate short urls that rely on URL rewriting.'

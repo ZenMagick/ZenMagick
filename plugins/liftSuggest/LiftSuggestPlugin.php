@@ -44,34 +44,6 @@ class LiftSuggestPlugin extends Plugin {
 
 
     /**
-     * {@inheritDoc}
-     */
-    public function install() {
-        parent::install();
-        // see if we can get some defaults
-        $uacct = '';
-        $trackingType = 'as';
-        if (null != ($googleAnalytics = $this->container->get('pluginService')->getPluginForId('googleAnalytics'))) {
-            $uacct = $googleAnalytics->get('uacct');
-            $trackingType = 'ga';
-        }
-
-        $this->addConfigValue('User Token', 'userToken', '', 'The Lift Suggest User Token.');
-        $this->addConfigValue('Customer ID', 'customerId', '', 'Your Customer ID provided by LiftSuggest.');
-        $this->addConfigValue('Default limit for Recommendations', 'recommendationLimit', '5', 'Maximum number of recommendations to retreive.');
-        // TODO: prepopulate ?
-        $this->addConfigValue('Domain Name', 'domainName', '', 'Your Domain Name; example: www.zenmagick.com.');
-
-        $this->addConfigValue('Google Analytics Account ID', 'uacct', $uacct, 'Type in your Google Analytics Account ID. For example, UA-XXXXXXX-X.');
-        $this->addConfigValue('Google Analytics Tracking Type', 'trackingType', $trackingType,
-            'Select the type of Google Analytics tracking that you have on your site.',
-            'widget@selectFormWidget#name=trackingType&default='.$trackingType.'&options='.urlencode('as=Asynchronous&ga=Traditional'));
-
-        $this->addConfigValue('Debug', "debug", 'true', 'Generate code, but make inactive.',
-            'widget@booleanFormWidget#name=debug&default=true&label=Debug&style=checkbox');
-    }
-
-    /**
      * Get config for the Lift Suggest adapter.
      *
      * @return array Config map.

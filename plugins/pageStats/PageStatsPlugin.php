@@ -36,22 +36,6 @@ class PageStatsPlugin extends Plugin {
     private $event = array();
     private $eventStats_ = array();
 
-    /**
-     * {@inheritDoc}
-     */
-    public function install() {
-        parent::install();
-
-        $this->addConfigValue('Hidden Stats', 'hideStats', 'false', 'If set to true, page stats will be hidden (as HTML comment).',
-            'widget@booleanFormWidget#name=hideStats&default=false&label=Hide stats');
-        $this->addConfigValue('Events', 'showEvents', 'false', 'Enable to display all fired events.',
-            'widget@booleanFormWidget#name=showEvents&default=false&label=Show events');
-        $this->addConfigValue('SQL', 'showSQLtiming', 'false', 'Enable to display all executed SQL and related timings.',
-            'widget@booleanFormWidget#name=showSQLtiming&default=false&label=Show SQL');
-        $this->addConfigValue('Limit displayed SQL', 'sqlTimingLimit', '0', 'Limit displayed SQL to the top X queries (0 for all).');
-        $this->addConfigValue('Dump Queries to Error Log', 'dumpQueries', 'false', 'If set to true, all SQL queries will be dumped to error log.',
-            'widget@booleanFormWidget#name=dumpQueries&default=false&label=Dump queries to error log');
-    }
 
     /**
      * Set up catch all to log events.

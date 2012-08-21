@@ -40,8 +40,8 @@ class ConfigureContainerTagServicePass implements CompilerPassInterface {
             $tags[$id] = $definition->getTags();
         }
 
-        $container->set('containerTagService', new ContainerTagService($tags));
-        return;
+        //$container->set('containerTagService', new ContainerTagService($tags));
+        //return;
         $container->setDefinition('containerTagService', new Definition(
             'zenmagick\base\dependencyInjection\tags\ContainerTagService',
             array($tags)

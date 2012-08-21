@@ -3,3 +3,31 @@ meta:
   version: '${plugin.version}'
   author: 'zenmagick.org'
   description: 'Plugin to manage Google AdSense JS (including four sideboxes).'
+
+  options:
+      properties:
+          'adsense-1':
+              title: 'Google AdSense JavaScript #1'
+              description: 'The JavaScript provided by Google to display your ads for box #1'
+              type: textArea
+          'adsense-2':
+              title: 'Google AdSense JavaScript #2'
+              description: 'The JavaScript provided by Google to display your ads for box #2'
+              type: textArea
+          'adsense-3':
+              title: 'Google AdSense JavaScript #3'
+              description: 'The JavaScript provided by Google to display your ads for box #3'
+              type: textArea
+          'adsense-4':
+              title: 'Google AdSense JavaScript #4'
+              description: 'The JavaScript provided by Google to display your ads for box #4'
+              type: textArea
+          'adsense-5':
+              title: 'Google AdSense JavaScript #5'
+              description: 'The JavaScript provided by Google to display your ads for box #5'
+              type: textArea
+          'adsense-6':
+              title: 'Google AdSense JavaScript #6'
+              description: 'The JavaScript provided by Google to display your ads for box #6'
+              type: textArea
+

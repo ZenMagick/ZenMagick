@@ -11,6 +11,8 @@ meta:
               title: Account
               description: 'Your Google Analytics account number'
               type: text
+              config:
+                  default: 'UA-XXXXXX-X'
           affiliation:
               title: 'Store affiliation'
               description: 'Optional partner or store affiliation'
@@ -28,6 +30,7 @@ meta:
               description: 'Select whether to use productId or model to identify products'
               type: select
               config:
+                  default: productId
                   options:
                       productId: 'Product Id'
                       model: Model
@@ -37,6 +40,7 @@ meta:
               description: 'Select the formt to use to track individual URLs'
               type: select
               config:
+                  default: pagename
                   options:
                       pagename: Pagename
                       uri: Uri
@@ -48,6 +52,7 @@ meta:
               description: 'Select which address to use for transaction (order) logging'
               type: select
               config:
+                  default: shipping
                   options:
                       shipping: Shipping
                       billing: Billing

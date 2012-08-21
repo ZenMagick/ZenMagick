@@ -41,3 +41,5 @@ meta:
               title: 'URL token name'
               description: 'Name of the URL token parameter'
               type: text
+              config:
+                  default: token

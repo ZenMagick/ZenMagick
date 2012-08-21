@@ -43,24 +43,6 @@ class GravatarPlugin extends Plugin {
 
 
     /**
-     * {@inheritDoc}
-     */
-    public function install() {
-        parent::install();
-
-        $this->addConfigValue('Image Size', 'defaultSize', '80', 'Default avatar size');
-        $this->addConfigValue('Maximum Rating', 'rating', 'g', 'Maximum rating of avatar images allowed',
-            'widget@selectFormWidget#name=rating&options='.urlencode('g=G - General&pg=PG - Rude, mild violence&r=R - Rated&x=X - Rated'));
-        $this->addConfigValue('Default Image Set', 'imageSet', 'mm', 'Default image if no avatar found',
-            'widget@selectFormWidget#name=imageSet&options='.urlencode('404=404&mm=Mystery Man&identicon=Identicon geometrical pattern&monsterid=Monster&wavartar=Generated faces&retro=Retro Pixels&custom=Custom Image'));
-        $this->addConfigValue('Default Image', 'defaultImage', '', 'Default avatar to be used when none available (imageSet=custom)',
-              'widget@textFormWidget#name=defaultImage&default=&size=24&maxlength=255');
-        $this->addConfigValue('Force reload', 'forceReload', 'false', 'Add a timestamp to the image url to force a refresh every time',
-            'widget@booleanFormWidget#name=forceReload&default=false&label=Force reload&style=checkbox');
-
-    }
-
-    /**
      * Attach getGravatar method to Account.
      */
     public function onContainerReady($event) {

@@ -212,7 +212,11 @@ class Application extends Kernel {
         }
 
         $container->addCompilerPass(new AddClassesToCachePass($this));
-        //$container->compile();
+        $plugins = $container->get('pluginService')->getPluginsForContext($this->getContext());
+        if ('storefront' == $this->getContext()) {
+            $container->get('themeService')->initThemes();
+        }
+        $container->compile();
         return $container;
     }
 
@@ -221,9 +225,8 @@ class Application extends Kernel {
      *
      * @todo cached container
      */
-    protected function initializeContainer() {
+    /*protected function initializeContainer() {
         $container = $this->buildContainer();
-        $this->container = $container;
         // register this as 'kernel'
         $this->container->set('kernel', $this);
         $plugins = $this->container->get('pluginService')->getPluginsForContext($this->getContext());
@@ -233,7 +236,7 @@ class Application extends Kernel {
 
         $this->container->compile();
 
-    }
+    }*/
 
     /**
      * {@inheritDoc}

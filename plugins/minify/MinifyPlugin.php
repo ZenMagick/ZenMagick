@@ -35,11 +35,6 @@ class MinifyPlugin extends Plugin {
     public function install() {
         parent::install();
 
-        $this->addConfigValue('URL Limit', 'urlLimit', '900', 'Length limit for minify URLs.');
-
-        $this->addConfigValue('Short Urls', "shortUrls", 'true', 'Generate short urls that rely on URL rewriting.',
-            'widget@booleanFormWidget#name=shortUrls&default=true&label=Use short URLs&style=checkbox');
-
         // create minify cache dir
         $this->container->get('filesystem')->mkdir(dirname(Runtime::getInstallationPath()).'/cache/zenmagick/minify', 0755);
     }

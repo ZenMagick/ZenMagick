@@ -32,14 +32,6 @@ use zenmagick\http\view\TemplateView;
 class RecentlyViewedPlugin extends Plugin {
     const RECENTLY_VIEWED_KEY = 'recentlyViewedProducts';
 
-    /**
-     * {@inheritDoc}
-     */
-    public function install() {
-        parent::install();
-
-        $this->addConfigValue('History Maximum', 'maxProducts', 10, 'Maximum number of products to keep');
-    }
 
     /**
      * Handle auto login.

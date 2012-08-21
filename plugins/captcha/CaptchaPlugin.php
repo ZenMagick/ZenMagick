@@ -36,25 +36,6 @@ class CaptchaPlugin extends Plugin {
     // page => (status, form_name)
     private $captchaEnabled_ = false;
 
-    /**
-     * {@inheritDoc}
-     */
-    public function install() {
-        parent::install();
-        $this->executePatch(file($this->getPluginDirectory()."/sql/install.sql"), $this->messages_);
-
-        $this->addConfigValue('Disable for registered users', 'disableRegistered', false, 'Disable the captcha for registered (logged in) users',
-            'widget@booleanFormWidget#name=disableRegistered&default=false&label=Disable&style=checkbox');
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function remove($keepSettings=false) {
-        parent::remove($keepSettings);
-        $this->executePatch(file($this->getPluginDirectory()."/sql/uninstall.sql"), $this->messages_);
-    }
-
 
     /**
      * Init done callback.

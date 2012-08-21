@@ -32,16 +32,8 @@ class ProductTagsPlugin extends Plugin {
     /**
      * {@inheritDoc}
      */
-    public function install() {
-        parent::install();
-        $this->executePatch(file($this->getPluginDirectory()."/sql/install.sql"), $this->messages_);
-    }
-
-    /**
-     * {@inheritDoc}
-     */
     public function remove($keepSettings=false) {
-        parent::remove($keepSettings);
+        //parent::remove($keepSettings);
         $conn = \ZMRuntime::getDatabase();
         $sm = $conn->getSchemaManager();
         $sm->dropTable($conn->getPrefix().'tags');

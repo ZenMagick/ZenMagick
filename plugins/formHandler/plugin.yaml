@@ -18,6 +18,8 @@ meta:
               title: 'Notification template'
               description: 'Name of common notification email template (empty will use the page name as template)'
               type: text
+              config:
+                  default: form_handler
           secure:
               title: Secure
               description: 'Flag *all* form urls as secure'

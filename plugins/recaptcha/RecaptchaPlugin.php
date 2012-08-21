@@ -42,22 +42,6 @@ class RecaptchaPlugin extends Plugin {
         'product_reviews_write' => array('Write Review', 'newReview')
     );
 
-    /**
-     * {@inheritDoc}
-     */
-    public function install() {
-        parent::install();
-
-        $this->addConfigValue('Public Key', 'publicKey', '', 'ReCAPTCHA public key');
-        $this->addConfigValue('Private Key', 'privateKey', '', 'ReCAPTCHA private key');
-        $this->addConfigValue('Disable for registered users', 'disableRegistered', false, 'Disable the captcha for registered (logged in) users',
-            'widget@booleanFormWidget#name=disableRegistered&default=false&label=Disable&style=checkbox');
-        foreach ($this->pageConfig_ as $key => $config) {
-            $this->addConfigValue($config[0].' page', $key, true,
-                'Use ReCAPTCHA on '.$config[0].' page',
-                'widget@booleanFormWidget#name='.$key.'&default=true&label=Enable&style=checkbox');
-        }
-    }
 
     /**
      * Init done callback.

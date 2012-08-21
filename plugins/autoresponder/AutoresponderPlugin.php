@@ -40,7 +40,7 @@ class AutoresponderPlugin extends Plugin {
     /**
      * {@inheritDoc}
      */
-    public function install() {
+    public function Xinstall() {
         parent::install();
 
         //add one hidden field to store al setups

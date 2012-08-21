@@ -50,19 +50,10 @@ class PageCachePlugin extends Plugin {
 
 
     /**
-     * {@inheritDoc}
-     */
-    public function install() {
-        parent::install();
-        $this->addConfigValue('Cache TTL', 'ttl', 300, '(T)ime (T)o (L)ive for cache entries in seconds.');
-        $this->addConfigValue('Load stats', 'loadStats', 'false', 'If set to true, add some hidden (HTML comment) page load stats',
-            'widget@booleanFormWidget#name=loadStats&default=false&label=Add hidden page load stats.');
-    }
-
-    /**
      * Set up cache.
      */
     public function onContainerReady($event) {
+        // TODO: we can't just change the TTL of an existing cache!
         $this->cache_ = Runtime::getContainer()->get('persistentCache');
         $this->cache_->setOption('cacheTTL', $this->get('ttl'));
     }

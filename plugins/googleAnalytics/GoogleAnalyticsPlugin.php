@@ -50,34 +50,6 @@ class GoogleAnalyticsPlugin extends Plugin {
 
 
     /**
-     * Install this plugin.
-     */
-    public function install() {
-        parent::install();
-
-        $this->addConfigValue('Account', 'uacct', 'UA-XXXXXX-X', 'Your Google Analytics account number');
-
-        $this->addConfigValue('Store affiliation', 'affiliation', '', 'Optional partner or store affiliation');
-
-        $this->addConfigValue('AdWords Conversion id', 'conversionId', '', 'Optional AdWords conversion id (leave empty to ignore)');
-        $this->addConfigValue('AdWords Conversion language', 'conversionLang', 'en_US', 'Optional AdWords conversion language');
-
-        $this->addConfigValue('Domain Name', 'domainName', '', 'Optional domain name if, for example, subdomain tracking is required');
-
-        $this->addConfigValue('Product identifier', 'identifier', 'productId', 'Select whether to use productId or model to identify products',
-            'widget@selectFormWidget#name=identifier&options='.urlencode('productId=Product Id&model=Model'));
-
-        $this->addConfigValue('Page name format', 'pagenameFormat', 'pagename', 'Select the formt to use to track individual URLs',
-            'widget@selectFormWidget#name=pagenameFormat&options='.urlencode('pagename=Pagename&uri=Uri&custom=Custom&none=None'));
-
-        $this->addConfigValue('Transaction Address', 'address', 'shipping', 'Select which address to use for transaction (order) logging',
-            'widget@selectFormWidget#name=address&options='.urlencode('shipping=Shipping&billing=Billing'));
-
-        $this->addConfigValue('Debug', "debug", 'true', 'Generate code, but make inactive.',
-            'widget@booleanFormWidget#name=debug&default=true&label=Debug&style=checkbox');
-    }
-
-    /**
      * Event handler.
      */
     public function onViewStart($event) {

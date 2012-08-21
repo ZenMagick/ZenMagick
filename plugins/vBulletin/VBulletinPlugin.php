@@ -34,18 +34,6 @@ class VBulletinPlugin extends Plugin {
     private $prePostAccount_ = null;
     private $adapter_ = null;
 
-    /**
-     * {@inheritDoc}
-     */
-    public function install() {
-        parent::install();
-
-        $this->addConfigValue('vBulletin Installation Folder', 'vBulletinDir', '', 'Path to your vBulletin installation',
-              'widget@textFormWidget#name=vBulletinDir&default=&size=24&maxlength=255');
-        $this->addConfigValue('Nickname policy', 'requireNickname', true, 'Make nickname mandatory (If disabled, automatic vBulletin registration will be skipped)',
-            'widget@booleanFormWidget#name=requireNickname&default=true&label=Require nickname');
-    }
-
 
     /**
      * Get the vBulletin adapter.

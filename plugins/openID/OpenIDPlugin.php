@@ -36,23 +36,12 @@ class OpenIDPlugin extends Plugin {
     /**
      * {@inheritDoc}
      */
-    public function install() {
-        parent::install();
-        $this->executePatch(file($this->getPluginDirectory()."/sql/install.sql"), $this->messages_);
-        $this->addConfigValue('Allowed OpenID provider', 'openIDProvider', '', 'A list of allowed OpenID identity providers (separated by \'|\').');
-    }
-
-    /**
-     * {@inheritDoc}
-     */
     public function remove($keepSettings=false) {
-        parent::remove($keepSettings);
         $conn = \ZMRuntime::getDatabase();
         $sm = $conn->getSchemaManager();
         $sm->dropTable($conn->getPrefix().'zm_openid_associations');
         $sm->dropTable($conn->getPrefix().'zm_openid_nonces');
-
-        $this->executePatch(file($this->getPluginDirectory()."/sql/uninstall.sql"), $this->messages_);
+        parent::remove($keepSettings);
     }
 
     /**

@@ -74,14 +74,26 @@ class Plugin extends HttpPlugin {
 
     /**
      * Install this plugin.
+     *
+     * <p>This default implementation will check for a <code>sql/install.sql</code> script and run it if found.</p>
      */
     public function install() {
+        $file = $this->getPluginDirectory()."/sql/install.sql";
+        if (file_exists($file)) {
+            $this->executePatch(file($file), $this->messages_);
+        }
     }
 
     /**
      * Remove this plugin.
+     *
+     * <p>This default implementation will check for a <code>sql/uninstall.sql</code> script and run it if found.</p>
      */
     public function remove() {
+        $file = $this->getPluginDirectory()."/sql/uninstall.sql";
+        if (file_exists($file)) {
+            $this->executePatch(file($file), $this->messages_);
+        }
     }
 
     /**
@@ -103,8 +115,8 @@ class Plugin extends HttpPlugin {
      */
     public function executePatch($sql, $messages, $debug=false) {
         if (!empty($sql)) {
-            $results = zenmagick\apps\admin\utils\SQLRunner::execute_sql($sql, $debug);
-            foreach (zenmagick\apps\admin\utils\SQLRunner::process_patch_results($results) as $msg) {
+            $results = \zenmagick\apps\admin\utils\SQLRunner::execute_sql($sql, $debug);
+            foreach (\zenmagick\apps\admin\utils\SQLRunner::process_patch_results($results) as $msg) {
                 $messages[] = $msg;
             }
             return empty($results['error']);

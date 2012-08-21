@@ -18,6 +18,8 @@ meta:
               title: 'Image trigger pages'
               description: 'List of pages (separated by comma '','') to be used for imger trigger'
               type: text
+              config:
+                  default: 'index'
           missedRuns:
               title: 'Missed run policy'
               description: 'Select what should happen when one or more runs have been missed'

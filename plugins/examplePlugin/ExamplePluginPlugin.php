@@ -30,18 +30,6 @@ use zenmagick\base\Runtime;
 class ExamplePluginPlugin extends Plugin {
 
     /**
-     * {@inheritDoc}
-     */
-    public function install() {
-        parent::install();
-
-        $this->addConfigValue('Plugin true/false', 'rq1key1', 'true', 'Select true or false',
-            'widget@booleanFormWidget#name=rq1key1&default=false&label=Select true or false&style=radio');
-        $this->addConfigValue('Plugin text config', 'rq1key2', 'doh', 'Some text');
-    }
-
-
-    /**
      * Handle container ready event.
      */
     public function onContainerReady($event) {

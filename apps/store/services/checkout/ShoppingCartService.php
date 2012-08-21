@@ -97,7 +97,7 @@ class ShoppingCartService extends ZMObject {
      *
      * <p>This will remove all cart data fom the database.</p>
      *
-     * @param ShoppingCart shoppingCart The cart to save.
+     * @param ShoppingCart shoppingCart The cart to clear.
      */
     public function clearCart($shoppingCart) {
         $sql = "DELETE FROM %table.customers_basket%
@@ -111,7 +111,7 @@ class ShoppingCartService extends ZMObject {
     /**
      * Update the given cart.
      *
-     * @param ShoppingCart shoppingCart The cart to save.
+     * @param ShoppingCart shoppingCart The cart to update.
      */
     public function updateCart($shoppingCart) {
         $this->clearCart($shoppingCart);

@@ -31,24 +31,6 @@ use zenmagick\base\Toolbox;
 class GoogleStoreLocatorPlugin extends Plugin {
 
     /**
-     * {@inheritDoc}
-     */
-    public function install() {
-        parent::install();
-
-        $this->addConfigValue('Google Maps storefront key', 'storeKey', '', 'Your Google Maps key for the storefront',
-              'widget@textFormWidget#name=storeKey&default=&size=24&maxlength=255');
-        $this->addConfigValue('Google Maps admin key', 'adminKey', '', 'Your Google Maps key for the admin page',
-              'widget@textFormWidget#name=adminKey&default=&size=24&maxlength=255');
-        $this->addConfigValue('Store Location', 'location', '37.4419, -122.1419', 'The store location (Lat,Lng)');
-        $this->addConfigValue('Zoom Level', 'zoom', '13', 'The initial zoom level');
-        $this->addConfigValue('Marker Text', 'marker_text', $this->container->get('settingsService')->get('storeName'), 'Optional text for the store marker',
-            'widget@textAreaFormWidget#name=marker_text');
-        $this->addConfigValue('Add Controls', 'controls', 'true', 'Enable/disable map controls',
-            'widget@booleanFormWidget#name=controls&default=true&label=Enable controls&style=checkbox');
-    }
-
-    /**
      * Event callback to add required JS.
      */
     public function onFinaliseContent($event) {

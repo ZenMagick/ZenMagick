@@ -88,11 +88,23 @@ class PluginsController extends \ZMController {
         $plugin->remove($keepSettings);
         $configService = $this->container->get('configService');
         $configPrefix = self::prefix($plugin);
+
         // always remove
         $configService->removeConfigValue($configPrefix.PluginOptionsLoader::KEY_ENABLED);
+
         if (!$keepSettings) {
             $configService->removeConfigValues($configPrefix.'%');
         }
+    }
+
+    /**
+     * Upgrade plugin.
+     *
+     * @param Plugin plugin The plugin.
+     */
+    protected function upgrade($plugin) {
+        $this->remove($plugin, true);
+        $this->install($plugin);
     }
 
     /**
@@ -104,16 +116,34 @@ class PluginsController extends \ZMController {
         $configPrefix = self::prefix($plugin);
         $configService = $this->container->get('configService');
 
-        // hidden system settings
-        $configService->createConfigValue('', $configPrefix.PluginOptionsLoader::KEY_ENABLED, true, ZENMAGICK_PLUGIN_GROUP_ID);
-        $configService->createConfigValue('', $configPrefix.PluginOptionsLoader::KEY_SORT_ORDER, 0, ZENMAGICK_PLUGIN_GROUP_ID);
+        // @todo db define!
+        $group = ZENMAGICK_PLUGIN_GROUP_ID;
 
         // custom plugin install
         $plugin->install();
 
+        // values for db
+        $values = array(
+            // system settings
+            array('', $configPrefix.PluginOptionsLoader::KEY_ENABLED, true, $group),
+            array('', $configPrefix.PluginOptionsLoader::KEY_SORT_ORDER, 0, $group)
+        );
+
         // add options to db
         foreach ($this->widgets($plugin->getOptions()) as $widget) {
-            $configService->createConfigValue('', $configPrefix.$widget->getName(), $widget->getValue(), ZENMAGICK_PLUGIN_GROUP_ID);
+            $values[] = array('', $configPrefix.$widget->getName(), $widget->getValue(), $group);
+        }
+
+        // check for existing values...
+        $currentKeys = array();
+        foreach ($configService->getConfigValues($configPrefix.'%') as $value) {
+            $currentKeys[] = $value->getKey();
+        }
+
+        foreach ($values as $value) {
+            if (!in_array(strtoupper($value[1]), $currentKeys)) {
+                call_user_func_array(array($configService, 'createConfigValue'), $value);
+            }
         }
     }
 
@@ -200,8 +230,7 @@ class PluginsController extends \ZMController {
             } else if ('upgrade' == $action) {
                 if (null != ($plugin = $pluginService->getPluginForId($pluginId)) && $plugin->isInstalled()) {
                     $loggingService->log('upgrade plugin: '.$plugin->getId(), Logging::TRACE);
-                    $this->remove($plugin, true);
-                    $plugin->install();
+                    $this->upgrade($plugin);
                     $this->messageService->success(sprintf(_zm('Plugin %s upgraded successfully'), $plugin->getName()));
                     $this->messageService->addAll($plugin->getMessages());
                     $viewId = 'success-upgrade';

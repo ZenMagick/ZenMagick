@@ -33,22 +33,6 @@ use zenmagick\base\Runtime;
 class FualSlimboxPlugin extends Plugin {
 
     /**
-     * {@inheritDoc}
-     */
-    public function install() {
-        parent::install();
-        $this->executePatch(file($this->getPluginDirectory()."/sql/install.sql"), $this->messages_);
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function remove($keepSettings=false) {
-        parent::remove($keepSettings);
-        $this->executePatch(file($this->getPluginDirectory()."/sql/uninstall.sql"), $this->messages_);
-    }
-
-    /**
      * Event handler.
      */
     public function onFinaliseContent($event) {
