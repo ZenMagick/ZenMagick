@@ -174,7 +174,7 @@ class Application extends Kernel {
      * Just like parent::buildContainer except the compilation step is not done here.
      *
      * @copyright Fabien Potencier <fabien@symfony.com>
-     * @todo compile here
+     * @todo remove local modifications
      */
     protected function buildContainer() {
         foreach (array('cache' => $this->getCacheDir(), 'logs' => $this->getLogDir()) as $name => $dir) {
@@ -212,27 +212,12 @@ class Application extends Kernel {
         }
 
         $container->addCompilerPass(new AddClassesToCachePass($this));
-        //$container->compile();
-        return $container;
-    }
-
-    /**
-     * {@inheritDoc}
-     *
-     * @todo cached container
-     */
-    protected function initializeContainer() {
-        $container = $this->buildContainer();
-        $this->container = $container;
-        // register this as 'kernel'
-        $this->container->set('kernel', $this);
-        $plugins = $this->container->get('pluginService')->getPluginsForContext($this->getContext());
+        $plugins = $container->get('pluginService')->getPluginsForContext($this->getContext());
         if ('storefront' == $this->getContext()) {
-            $this->container->get('themeService')->initThemes();
+            $container->get('themeService')->initThemes();
         }
-
-        $this->container->compile();
-
+        $container->compile();
+        return $container;
     }
 
     /**
