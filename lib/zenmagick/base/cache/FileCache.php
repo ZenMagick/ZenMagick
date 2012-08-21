@@ -131,7 +131,7 @@ class FileCache extends ZMObject implements Cache {
      */
     private function ensureCacheDir($dir) {
         $filesystem = new Filesystem;
-        $filesystem->mkdir($dir, 0755);
+        $filesystem->mkdir($dir);
         return file_exists($dir) && is_writeable($dir);
     }
 
