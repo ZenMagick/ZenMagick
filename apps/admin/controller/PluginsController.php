@@ -237,12 +237,14 @@ class PluginsController extends \ZMController {
                 }
             } else if ('update' == $action) {
                 if (null != ($plugin = $pluginService->getPluginForId($pluginId)) && $plugin->isInstalled()) {
-                    foreach ($plugin->getConfigValues() as $widget) {
+                    $configPrefix = self::prefix($plugin);
+                    $configService = $this->container->get('configWidgetService');
+                    foreach ($this->widgets($plugin->getOptions()) as $widget) {
                         if ($widget instanceof FormWidget && null !== ($value = $request->request->get($widget->getName()))) {
                             if (!$widget->compare($value)) {
                                 // value changed, use widget to (optionally) format value
                                 $widget->setValue($value);
-                                $plugin->set($widget->getName(), $widget->getStringValue());
+                                $configService->updateConfigValue(strtoupper($configPrefix.$widget->getName()), $widget->getStringValue());
                             }
                         }
                     }
