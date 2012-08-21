@@ -288,7 +288,7 @@ class ZenCartAutoLoader extends ZMObject {
         $settingsService = $this->container->get('settingsService');
 
         $exists = $settingsService->exists('apps.store.zencart.strictErrorReporting');
-        if ($exists && !$settingsService->get('apps.store.zencart.strictErrorReporting')) {
+        if (!$exists || !$settingsService->get('apps.store.zencart.strictErrorReporting')) {
             error_reporting(version_compare(PHP_VERSION, 5.4, '>=') ? E_ALL ^ E_DEPRECATED ^ E_NOTICE ^ E_STRICT : E_ALL ^ E_DEPRECATED ^ E_NOTICE);
         }
     }
