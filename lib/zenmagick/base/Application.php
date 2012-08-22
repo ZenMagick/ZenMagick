@@ -60,6 +60,7 @@ class Application extends Kernel {
             new \Doctrine\Bundle\MigrationsBundle\DoctrineMigrationsBundle,
             new \Symfony\Bundle\SwiftmailerBundle\SwiftmailerBundle,
             new \Symfony\Bundle\MonologBundle\MonologBundle,
+            new \Symfony\Bundle\FrameworkBundle\FrameworkBundle,
             new \zenmagick\base\ZenMagickBundle,
         );
         return $bundles;
@@ -96,6 +97,12 @@ class Application extends Kernel {
                 }
             }
         }
+
+        $resources[] = function($container) {
+            $container->loadFromExtension('framework', array(
+                'secret' => 'notsecret',
+            ));
+        };
 
         $resources[] = $this->getRootDir().'/lib/zenmagick/base/container.xml';
         $resources[] = $this->getRootDir().'/lib/zenmagick/http/container.xml';

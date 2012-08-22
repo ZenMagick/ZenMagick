@@ -36,19 +36,7 @@ use zenmagick\apps\store\menu\MenuElement;
  * @author DerManoMann <mano@zenmagick.org>
  */
 class Plugin extends HttpPlugin {
-    private $messages_ = null;
-
-
-    /**
-     * Create new plugin instance.
-     *
-     * @param array config The plugin configuration.
-     */
-    public function __construct(array $config) {
-        parent::__construct($config);
-        $this->messages_ = array();
-    }
-
+    private $messages_ = array();
 
     /**
      * Get optional installation messages.
@@ -57,19 +45,6 @@ class Plugin extends HttpPlugin {
      */
     public function getMessages() {
         return $this->messages_;
-    }
-
-    /**
-     * Get optional files to be loaded in global scope.
-     *
-     * <p>Files returned here would typically have an extension different to <em>.php</em> as otherwise
-     * the loader will load them as static.</p>
-     *
-     * @param zenmagick\http\Request request The current request.
-     * @return array List of filenames relative to the plugin location.
-     */
-    public function getGlobal($request) {
-        return array();
     }
 
     /**

@@ -30,7 +30,7 @@ include_once $rootDir.'/autoload.php';
 $environment = isset($_SERVER['ZM_ENVIRONMENT']) ? $_SERVER['ZM_ENVIRONMENT'] : 'prod';
 $application = new Application($environment, true, basename(dirname(__DIR__)));
 $application->loadClassCache();
-$request = new Request(); // @todo use createFromGlobals
+$request = Request::createFromGlobals();
 $response = $application->handle($request);
 $response->send();
 $application->terminate($request, $response);
