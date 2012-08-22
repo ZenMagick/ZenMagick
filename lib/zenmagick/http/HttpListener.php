@@ -22,10 +22,9 @@ namespace zenmagick\http;
 use Exception;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\HttpKernelInterface;
-use Symfony\Component\HttpKernel\Controller\ControllerResolverInterface;
+use Symfony\Component\HttpKernel\Event\GetResponseEvent;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
-
 
 use zenmagick\base\Beans;
 use zenmagick\base\Runtime;
@@ -46,13 +45,12 @@ use zenmagick\http\view\View;
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class HttpKernel implements HttpKernelInterface {
+class HttpListener extends ZMObject {
     protected $container;
     protected $dispatcher;
     private $parameterMapper;
 
-    public function __construct(EventDispatcherInterface $dispatcher, ContainerInterface $container/*, ControllerResolverInterface $controllerResolver*/) {
-        //parent::__construct($dispatcher, $controllerResolver);
+    public function __construct(EventDispatcherInterface $dispatcher, ContainerInterface $container) {
         $this->dispatcher = $dispatcher;
         $this->container = $container;
     }
@@ -60,12 +58,10 @@ class HttpKernel implements HttpKernelInterface {
     /*
      * Handle web request.
      */
-    public function handle(\Symfony\Component\HttpFoundation\Request $request, $type = self::MASTER_REQUEST, $catch = true) {
+    public function onKernelRequest(GetResponseEvent $event) {
         try {
             $container = $this->container;
-            $container->enterScope('request');
-            $container->set('request', $request, 'request');
-
+            $request = $event->getRequest();
             $request->setContainer($this->container);
             $this->dispatcher->dispatch('request_ready', new Event($this, array('request' => $request)));
             $this->dispatcher->dispatch('container_ready', new Event($this, array('request' => $request)));
@@ -79,13 +75,12 @@ class HttpKernel implements HttpKernelInterface {
             $container->get('sacsManager')->ensureAccessMethod($request);
 
             $this->dispatcher->dispatch('init_done', new Event($this, array('request' => $request)));
-            return $this->dispatch($request);
+            return $this->dispatch($request, $event);
         } catch (Exception $e) {
             if (false === $catch) {
                 throw $e;
             }
-            $this->container->leaveScope('request');
-            return new Response(sprintf('serve failed: %s', $e->getMessage()), 500);
+            return $event->setResponse(new Response(sprintf('serve failed: %s', $e->getMessage()), 500));
         }
     }
 
@@ -103,7 +98,7 @@ class HttpKernel implements HttpKernelInterface {
      *
      * @param zenmagick\http\Request request The request to dispatch.
      */
-    public function dispatch($request) {
+    public function dispatch($request, $event) {
         $messageService = $this->container->get('messageService');
         $dispatcher = $this->dispatcher;
 
@@ -122,10 +117,10 @@ class HttpKernel implements HttpKernelInterface {
         // ensure we do have a view if we got this far
         $view = null !== $view ? $view : $this->container->get('defaultView');
         // allow plugins and event subscribers to filter/modify the final contents; corresponds with ob_start() in init.php
-        $event = new Event($this, array('request' => $request, 'view' => $view, 'content' => $response->getContent()));
-        $dispatcher->dispatch('finalise_content', $event);
+        $zmevent = new Event($this, array('request' => $request, 'view' => $view, 'content' => $response->getContent()));
+        $dispatcher->dispatch('finalise_content', $zmevent);
 
-        $response->setContent($event->get('content'));
+        $response->setContent($zmevent->get('content'));
 
         // if we get to here all messages have been displayed
         $messageService->clear();
@@ -133,11 +128,10 @@ class HttpKernel implements HttpKernelInterface {
 
         // all done
         // @todo CHECKME: how late does this have to be?
-        $dispatcher->dispatch('all_done', new Event($this, array('request' => $request, 'view' => $view, 'content' => $event->get('content'))));
+        $dispatcher->dispatch('all_done', new Event($this, array('request' => $request, 'view' => $view, 'content' => $zmevent->get('content'))));
         $request->getSession()->save();
 
-        $this->container->leaveScope('request');
-        return $response;
+        $event->setResponse($response);
     }
 
     /**
