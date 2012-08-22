@@ -23,7 +23,6 @@ use zenmagick\base\Beans;
 use zenmagick\base\Runtime;
 use zenmagick\base\Toolbox;
 use zenmagick\base\ZMObject;
-use zenmagick\base\cache\Cache;
 use zenmagick\apps\store\utils\ContextConfigLoader;
 
 /**
@@ -36,9 +35,7 @@ use zenmagick\apps\store\utils\ContextConfigLoader;
  */
 class Plugins extends ZMObject {
     const PLUGIN_BASE_NAMESPACE = 'zenmagick\plugins';
-    const STATUS_MAP_KEY = 'zenmagick.plugins.status_map';
     protected $plugins;
-    protected $cache;
     protected $statusMap;
     protected $loggingService;
     protected $pluginStatusMapBuilder;
@@ -56,68 +53,18 @@ class Plugins extends ZMObject {
         $this->localeService = $localeService;
         $this->contextConfigLoader = $contextConfigLoader;
         $this->plugins = array();
-        $this->cache = null;
         $this->statusMap = null;
     }
 
 
     /**
-     * Set the cache.
-     *
-     * @param zenmagick\base\cache\Cache cache The cache.
-     */
-    public function setCache(Cache $cache) {
-        $this->cache = $cache;
-    }
-
-    /**
-     * Get the cache.
-     *
-     * @return zenmagick\base\cache\Cache The cache.
-     */
-    public function getCache() {
-        return $this->cache;
-    }
-
-    /**
-     * Refresh plugin status map.
-     */
-    public function refreshStatusMap() {
-        $this->loggingService->debug('Building plugin status map...');
-        // update the instance var as we'll need a status map for getPlugins()
-        $this->statusMap = $this->pluginStatusMapBuilder->buildStatusMap();
-        // keep values
-        foreach ($this->getPlugins(null, false) as $pluginId => $plugin) {
-            // values
-            if ($options = $plugin->getOptions()) {
-                $values = array();
-                foreach (array_keys($options) as $key) {
-                    $values[$key] = $plugin->get($key);
-                }
-                $this->statusMap[$pluginId]['values'] = $values;
-            }
-        }
-        if ($this->cache) {
-            // store values
-            $this->cache->save($this->statusMap, self::STATUS_MAP_KEY);
-        }
-    }
-
-    /**
      * Get plugin status map.
      *
-     * @param boolean refresh Optional flag to force a refresh; default is <code>false</code>.
      * @return array Plugin status map.
      */
-    public function getStatusMap($refresh=false) {
-        if (null === $this->statusMap || $refresh) {
-            if (null != $this->cache) {
-                $this->statusMap = $this->cache->lookup(self::STATUS_MAP_KEY);
-            }
-
-            if (!$this->statusMap || $refresh) {
-                $this->refreshStatusMap();
-            }
+    protected function getStatusMap() {
+        if (null === $this->statusMap) {
+            $this->statusMap = $this->pluginStatusMapBuilder->getStatusMap();
         }
         return $this->statusMap;
     }

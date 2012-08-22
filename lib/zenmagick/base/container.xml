@@ -99,22 +99,16 @@
             <call method="setContainer">
                 <argument type="service" id="service_container" />
             </call>
-
-
         </service>
 
         <service id="pluginOptionsLoader" class="zenmagick\base\plugins\PluginOptionsLoader" scope="container" />
 
         <service id="pluginStatusMapBuilder" class="zenmagick\base\plugins\PluginStatusMapBuilder" scope="container">
-            <call method="setDefaultPluginClass">
-                <argument>%zenmagick.base.plugins.defaultPluginClass%</argument>
-            </call>
-            <call method="setPluginDirs">
-                <argument>%zenmagick.base.plugins.dirs%</argument>
-            </call>
-            <call method="setPluginOptionsLoader">
-                <argument type="service" id="pluginOptionsLoader" />
-            </call>
+            <argument>%zenmagick.base.plugins.defaultPluginClass%</argument>
+            <argument>%zenmagick.base.plugins.dirs%</argument>
+            <argument type="service" id="pluginOptionsLoader" />
+            <argument type="service" id="bootstrapCache" />
+            <tag name="kernel.cache_warmer">
         </service>
 
         <service id="defaultLoggingHandler" class="zenmagick\base\logging\handler\DefaultLoggingHandler" scope="container">

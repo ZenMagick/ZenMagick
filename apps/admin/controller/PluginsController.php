@@ -177,7 +177,7 @@ class PluginsController extends \ZMController {
             // @todo: message?
         }
 
-        $pluginService->refreshStatusMap();
+        $this->container->get('pluginStatusMapBuilder')->getStatusMap(true);
         return $this->findView($viewId);
     }
 
@@ -269,7 +269,7 @@ class PluginsController extends \ZMController {
         }
 
         // do this last once all changes are made
-        $pluginService->refreshStatusMap();
+        $this->container->get('pluginStatusMapBuilder')->getStatusMap(true);
         return $this->findView($viewId);
     }
 

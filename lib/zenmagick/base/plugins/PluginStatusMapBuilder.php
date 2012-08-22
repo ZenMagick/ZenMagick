@@ -20,75 +20,99 @@
 namespace zenmagick\base\plugins;
 
 use DirectoryIterator;
-
+use Symfony\Component\HttpKernel\CacheWarmer\CacheWarmerInterface;
+use Symfony\Component\Yaml\Yaml;
 use zenmagick\base\Runtime;
 use zenmagick\base\Toolbox;
 use zenmagick\base\ZMObject;
+use zenmagick\base\cache\Cache;
 
-use Symfony\Component\Yaml\Yaml;
+
 
 /**
  * Builder for a cacheable plugin status map.
  *
  * @author DerManoMann <mano@zenmagick.org> <mano@zenmagick.org>
  */
-class PluginStatusMapBuilder extends ZMObject {
+class PluginStatusMapBuilder extends ZMObject implements CacheWarmerInterface {
+    const STATUS_MAP_KEY = 'zenmagick.plugins.status_map';
     const  PLUGIN_CLASS_PATTERN = 'Plugin.php';
     private $defaultPluginClass;
     private $pluginDirs;
     private $pluginOptionsLoader;
 
-    /**
-     * Set the default plugin class.
-     *
-     * @param string class The class name.
-     */
-    public function setDefaultPluginClass($class) {
-        $this->defaultPluginClass = $class;
-    }
 
     /**
-     * Set the plugin options loader.
+     * Create new instance.
      *
-     * @param PluginOptionsLoader pluginOptionsLoader The loader.
+     * @param string defaultPluginClass The default plugin class name.
+     * @param array pluginDirs List of plugin base directories.
+     * @param PluginOptionsLoader pluginOptionsLoader The plugin options loader.
+     * @param Cache cache Cache to be used.
      */
-    public function setPluginOptionsLoader(PluginOptionsLoader $pluginOptionsLoader) {
+    public function __construct($defaultPluginClass, array $pluginDirs, PluginOptionsLoader $pluginOptionsLoader, Cache $cache) {
+        parent::__construct();
+        $this->defaultPluginClass = $defaultPluginClass;
+        $this->pluginDirs = $pluginDirs;
         $this->pluginOptionsLoader = $pluginOptionsLoader;
+        $this->cache = $cache;
+    }
+
+
+    /**
+     * {@inheritDoc}
+     */
+    public function isOptional() {
+        return false;
     }
 
     /**
-     * Get the plugin options loader.
-     *
-     * @return PluginOptionsLoader The loader.
+     * {@inheritDoc}
      */
-    public function getPluginOptionsLoader() {
-        return $this->pluginOptionsLoader;
+    public function warmUp($cacheDir) {
+        $this->getStatusMap(true);
     }
 
-    public function setPluginDirs(array $dirs) {
-        $this->pluginDirs = $dirs;
-    }
 
     /**
-     * Generate a full map of plugins and their base path.
+     * Get status map.
      *
-     * @return array Map of plugin ids with the plugin base path as key.
+     * @param boolean force Optional flag to force a rebuild; default is <code>false</code.
+     * @return array Plugin status map.
      */
-    protected function getPathIdMap() {
-        $pathIdMap = array();
-        foreach ($this->pluginDirs as $basePath) {
-            if (file_exists($basePath) && is_dir($basePath)){
-                $pathIdMap[$basePath] = array();
-                foreach (new DirectoryIterator($basePath) as $filename => $fileInfo) {
-                    if ($fileInfo->isDir() && !$fileInfo->isDot()) {
-                        $id = $fileInfo->getFilename();
-                        $pathIdMap[$basePath][] = array('id' => $fileInfo->getFilename(), 'pluginDir' => $fileInfo->getPathname());
-                    }
-                }
+    public function getStatusMap($force = false) {
+        $statusMap = null;
+        if ($force || !$statusMap = $this->fromCache()) {
+            $statusMap = $this->buildStatusMap();
+            $this->toCache($statusMap);
+        } else {
+            if (!$statusMap = $this->fromCache()) {
+                $statusMap = $this->buildStatusMap();
+                $this->toCache($statusMap);
             }
         }
 
-        return $pathIdMap;
+        return $statusMap;
+    }
+
+    /**
+     * Get the status map from cache.
+     *
+     * @return array A status map or <code>null</code.
+     */
+    protected function fromCache() {
+        return $this->cache ? $this->cache->lookup(self::STATUS_MAP_KEY) : null;
+    }
+
+    /**
+     * Save the status map in cache.
+     *
+     * @param array statusMap A status map.
+     */
+    protected function toCache(array $statusMap) {
+        if ($this->cache) {
+            $this->cache->save($statusMap, self::STATUS_MAP_KEY);
+        }
     }
 
     /**
@@ -96,10 +120,23 @@ class PluginStatusMapBuilder extends ZMObject {
      *
      * @return array Plugin status map.
      */
-    public function buildStatusMap() {
-        $statusMap = array();
+    protected function buildStatusMap() {
+        // this could be merged, but it seems simpler to avoid more nesting...
+        $pathIdMap = array();
+        foreach ($this->pluginDirs as $basePath) {
+            if (file_exists($basePath) && is_dir($basePath)){
+                $pathIdMap[$basePath] = array();
+                foreach (new DirectoryIterator($basePath) as $filename => $fileInfo) {
+                    if ($fileInfo->isDir() && !$fileInfo->isDot() && file_exists($fileInfo->getPathname().'/plugin.yaml')) {
+                        $id = $fileInfo->getFilename();
+                        $pathIdMap[$basePath][] = array('id' => $fileInfo->getFilename(), 'pluginDir' => $fileInfo->getPathname());
+                    }
+                }
+            }
+        }
 
-        foreach ($this->getPathIdMap() as $basePath => $pathInfo) {
+        $statusMap = array();
+        foreach ($pathIdMap as $basePath => $pathInfo) {
             foreach ($pathInfo as $info) {
                 $id = $info['id'];
                 $pluginDir = $info['pluginDir'];
@@ -118,12 +155,7 @@ class PluginStatusMapBuilder extends ZMObject {
                 if ($pluginClass && class_exists($pluginClass)) {
                     $config = array();
                     $pluginConfig = $pluginDir.'/plugin.yaml';
-                    if (file_exists($pluginConfig)) {
-                        $config = Yaml::parse($pluginConfig);
-                    } else {
-                        // todo: warn and ignore
-                        continue;
-                    }
+                    $config = Yaml::parse($pluginConfig);
 
                     // add some stuff
                     $config['meta']['id'] = $id;

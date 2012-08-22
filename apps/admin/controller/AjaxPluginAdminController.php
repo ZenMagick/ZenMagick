@@ -51,7 +51,7 @@ class AjaxPluginAdminController extends \ZMRpcController {
             $rpcResponse->addMessage(_zm('Status updated'), 'success');
         }
 
-        $pluginService->refreshStatusMap();
+        $this->container->get('pluginStatusMapBuilder')->getStatusMap(true);
         return $rpcResponse;
     }
 
