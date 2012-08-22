@@ -19,6 +19,7 @@
  */
 namespace zenmagick\plugins\pageStats;
 
+use Symfony\Component\EventDispatcher\GenericEvent;
 use zenmagick\apps\store\plugins\Plugin;
 use zenmagick\base\Runtime;
 use zenmagick\base\Toolbox;
@@ -53,7 +54,16 @@ class PageStatsPlugin extends Plugin {
      * @param mixed value Optional value for filter events.
      */
     public function logEvent($event, $value=null) {
-        $source = $event->getSubject();
+        $source = null;
+        $all = array();
+        $memory = 'N/A';
+        $timestamp = 0;
+        if ($event instanceof GenericEvent) {
+            $source = $event->getSubject();
+            $all = $event->all();
+            $memory = $event->getMemory();
+            $timestamp = $event->getTimestamp();
+        }
         if (!$source) {
             $source = 'N/A';
         } else if (is_object($source)) {
@@ -66,7 +76,7 @@ class PageStatsPlugin extends Plugin {
         Runtime::getLogging()->info('event:('.$source.'):' . $event->getName() . '/'.Toolbox::className($event->getName()));
         // compress values
         $values = array();
-        foreach (array_keys($event->all()) as $key) {
+        foreach (array_keys($all) as $key) {
             if ('content' == $key) {
                 $value = '***content***';
             } else {
@@ -83,8 +93,8 @@ class PageStatsPlugin extends Plugin {
 
         $this->eventStats_[] = array(
           'name' => $event->getName(),
-          'memory' => $event->getMemory(),
-          'timestamp' => $event->getTimestamp(),
+          'memory' => $memory,
+          'timestamp' => $timestamp,
           'method' => Toolbox::className($event->getName()),
           'values' => implode('; ', $values)
         );
