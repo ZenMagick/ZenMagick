@@ -108,7 +108,7 @@
             <argument>%zenmagick.base.plugins.dirs%</argument>
             <argument type="service" id="pluginOptionsLoader" />
             <argument type="service" id="bootstrapCache" />
-            <tag name="kernel.cache_warmer">
+            <tag name="kernel.cache_warmer" />
         </service>
 
         <service id="defaultLoggingHandler" class="zenmagick\base\logging\handler\DefaultLoggingHandler" scope="container">
