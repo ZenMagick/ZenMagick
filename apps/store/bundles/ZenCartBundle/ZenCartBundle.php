@@ -50,7 +50,8 @@ class ZenCartBundle extends Bundle {
         $classLoader->register();
         $map = array(
             'base' => __DIR__.'/bridge/includes/classes/class.base.php',
-            'shoppingCart' => $this->container->getParameter('zencart.root_dir').'/includes/classes/shopping_cart.php'
+            'shoppingCart' => $this->container->getParameter('zencart.root_dir').'/includes/classes/shopping_cart.php',
+            'navigationHistory' => $this->container->getParameter('zencart.root_dir').'/includes/classes/navigation_history.php'
         );
         $classLoader->addClassMap($map);
 
