@@ -111,9 +111,10 @@ class Application extends Kernel {
                 ),
                 'templating' => array('engines' => array('php', 'twig')),
             ));
-            $container->loadFromExtension('web_profiler', array(
+
+            /*$container->loadFromExtension('web_profiler', array(
                 'toolbar' => true,
-            ));
+            ));*/
 
         };
 
