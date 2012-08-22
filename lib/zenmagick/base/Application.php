@@ -60,9 +60,13 @@ class Application extends Kernel {
             new \Doctrine\Bundle\MigrationsBundle\DoctrineMigrationsBundle,
             new \Symfony\Bundle\SwiftmailerBundle\SwiftmailerBundle,
             new \Symfony\Bundle\MonologBundle\MonologBundle,
+            new \Symfony\Bundle\TwigBundle\TwigBundle,
             new \Symfony\Bundle\FrameworkBundle\FrameworkBundle,
             new \zenmagick\base\ZenMagickBundle,
         );
+        if (in_array($this->getEnvironment(), array('dev', 'test'))) {
+            $bundles[] = new \Symfony\Bundle\WebProfilerBundle\WebProfilerBundle;
+        }
         return $bundles;
     }
 
@@ -78,6 +82,7 @@ class Application extends Kernel {
         $parameters = $yaml['apps']['store']['database']['default'];
         \ZMRuntime::setDatabase('default', $parameters);
         $parameters['kernel.context'] = $this->getContext();
+        $parameters['kernel.context_dir'] = $this->getApplicationPath();
 
         $resources = array();
         $resources[] = function($container) use($parameters) {
@@ -97,11 +102,19 @@ class Application extends Kernel {
                 }
             }
         }
-
-        $resources[] = function($container) {
+        $resources[] = function($container) use($parameters) {
             $container->loadFromExtension('framework', array(
                 'secret' => 'notsecret',
+                'router' => array(
+                    // @todo use a real file :)
+                    'resource' => $parameters['kernel.context_dir'].'/config/routing.xml',
+                ),
+                'templating' => array('engines' => array('php', 'twig')),
             ));
+            $container->loadFromExtension('web_profiler', array(
+                'toolbar' => true,
+            ));
+
         };
 
         $resources[] = $this->getRootDir().'/lib/zenmagick/base/container.xml';
