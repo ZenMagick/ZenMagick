@@ -44,7 +44,7 @@
     </parameters>
 
     <services>
-        <service id="request" class="zenmagick\http\Request" scope="container" />
+        <service id="request" synthetic="true" scope="request" />
 
         <service id="contextConfigLoader" class="zenmagick\http\utils\ContextConfigLoader" scope="prototype">
             <call method="setContext">

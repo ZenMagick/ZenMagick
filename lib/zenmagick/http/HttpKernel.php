@@ -63,8 +63,10 @@ class HttpKernel implements HttpKernelInterface {
     public function handle(\Symfony\Component\HttpFoundation\Request $request, $type = self::MASTER_REQUEST, $catch = true) {
         try {
             $container = $this->container;
-            $request = $container->get('request'); // @todo use it from the argument :)
+            $container->enterScope('request');
+            $container->set('request', $request, 'request');
 
+            $request->setContainer($this->container);
             $this->dispatcher->dispatch('request_ready', new Event($this, array('request' => $request)));
             $this->dispatcher->dispatch('container_ready', new Event($this, array('request' => $request)));
 
@@ -82,6 +84,7 @@ class HttpKernel implements HttpKernelInterface {
             if (false === $catch) {
                 throw $e;
             }
+            $this->container->leaveScope('request');
             return new Response(sprintf('serve failed: %s', $e->getMessage()), 500);
         }
     }
@@ -133,6 +136,7 @@ class HttpKernel implements HttpKernelInterface {
         $dispatcher->dispatch('all_done', new Event($this, array('request' => $request, 'view' => $view, 'content' => $event->get('content'))));
         $request->getSession()->save();
 
+        $this->container->leaveScope('request');
         return $response;
     }
 
