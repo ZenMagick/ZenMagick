@@ -36,19 +36,7 @@ use zenmagick\apps\store\menu\MenuElement;
  * @author DerManoMann <mano@zenmagick.org>
  */
 class Plugin extends HttpPlugin {
-    private $messages_ = null;
-
-
-    /**
-     * Create new plugin instance.
-     *
-     * @param array config The plugin configuration.
-     */
-    public function __construct(array $config) {
-        parent::__construct($config);
-        $this->messages_ = array();
-    }
-
+    private $messages_ = array();
 
     /**
      * Get optional installation messages.
