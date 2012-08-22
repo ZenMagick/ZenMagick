@@ -129,10 +129,6 @@ class Plugin extends HttpPlugin {
      * @return string An absolute URI or <code>null</code>.
      */
     public function pluginURL($uri) {
-        if (null == $this->getPluginDirectory()) {
-            throw new ZMException('pluginDirectory missing');
-        }
-
         $path = $this->getPluginDirectory().'/'.$uri;
         $templateView = $this->container->get('defaultView');
         return $templateView->getResourceManager()->file2uri($path);
