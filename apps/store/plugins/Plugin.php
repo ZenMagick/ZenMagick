@@ -48,19 +48,6 @@ class Plugin extends HttpPlugin {
     }
 
     /**
-     * Get optional files to be loaded in global scope.
-     *
-     * <p>Files returned here would typically have an extension different to <em>.php</em> as otherwise
-     * the loader will load them as static.</p>
-     *
-     * @param zenmagick\http\Request request The current request.
-     * @return array List of filenames relative to the plugin location.
-     */
-    public function getGlobal($request) {
-        return array();
-    }
-
-    /**
      * Install this plugin.
      *
      * <p>This default implementation will check for a <code>sql/install.sql</code> script and run it if found.</p>
