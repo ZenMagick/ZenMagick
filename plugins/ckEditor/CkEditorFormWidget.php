@@ -60,7 +60,7 @@ class CkEditorFormWidget extends TextAreaFormWidget implements WysiwygEditor {
         // add required js
         $resourceManager->jsFile('ckeditor/jquery.CKEditor.pack.js', ResourceManager::HEADER);
         // create init script code at the end once we know all the ids
-        $this->container->get('event_dispatcher')->addListener('onFinaliseContent', array($this, 'onFinaliseContent'));
+        $this->container->get('event_dispatcher')->addListener('finalise_content', array($this, 'onFinaliseContent'));
     }
 
     /**
