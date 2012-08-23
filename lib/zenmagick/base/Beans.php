@@ -20,11 +20,10 @@
 namespace zenmagick\base;
 
 use Symfony\Component\DependencyInjection\ContainerAwareInterface;
+use Symfony\Component\DependencyInjection\ContainerBuilder;
 
 use zenmagick\base\Runtime;
 use zenmagick\base\ZMObject;
-
-use zenmagick\base\dependencyInjection\ContainerBuilder;
 
 /**
  * ZenMagick beans.
