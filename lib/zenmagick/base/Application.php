@@ -21,9 +21,7 @@ namespace zenmagick\base;
 
 use zenmagick\base\Runtime;
 
-use Symfony\Component\Config\FileLocator;
 use Symfony\Component\Config\Loader\LoaderInterface;
-use Symfony\Component\DependencyInjection\Loader\XmlFileLoader;
 use Symfony\Component\HttpKernel\Kernel;
 
 /**
@@ -103,6 +101,9 @@ class Application extends Kernel {
             }
         }
         $resources[] = function($container) use($parameters) {
+            $container->loadFromExtension('zenmagick', array(
+            ));
+
             $container->loadFromExtension('framework', array(
                 'secret' => 'notsecret',
                 'router' => array(
@@ -118,27 +119,8 @@ class Application extends Kernel {
 
         };
 
-        $resources[] = $this->getRootDir().'/lib/zenmagick/base/container.xml';
-        $resources[] = $this->getRootDir().'/lib/zenmagick/http/container.xml';
-        $resources[] = function($container) use($parameters) {
-            if ('admin' == $parameters['kernel.context']) {
-                $container->setParameter('zenmagick.http.sacs.mappingProviders', array('zenmagick\apps\admin\services\DBSacsPermissionProvider'));
-            }
-        };
-
         $resources[] = $this->getRootDir().'/apps/store/config/email.php';
         $resources[] = $this->getRootDir().'/apps/store/config/configuration.php';
-        $resources[] = $this->getApplicationPath().'/config/container_'.$this->getEnvironment().'.xml';
-
-        // @todo still in the wrong place!
-        $resources[] = function($container) use ($parameters) {
-            $context = $parameters['kernel.context'];
-            $container->get('pluginService')->getPluginsForContext($context);
-            if ('storefront' == $context) {
-                $container->get('themeService')->initThemes();
-            }
-        };
-
 
         foreach ($resources as $resource) {
             if (is_string($resources) && !file_exists($resource)) {
