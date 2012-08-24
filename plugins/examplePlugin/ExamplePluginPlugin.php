@@ -30,13 +30,6 @@ use zenmagick\base\Runtime;
 class ExamplePluginPlugin extends Plugin {
 
     /**
-     * Handle container ready event.
-     */
-    public function onContainerReady($event) {
-        $request = $event->get('request');
-    }
-
-    /**
      * As event listener a class is also automatically registered as listener for zen-cart zco events.
      */
     public function onNotifyHeaderStartIndex($event) {
