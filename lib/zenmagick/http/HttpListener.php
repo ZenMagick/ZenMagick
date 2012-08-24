@@ -254,7 +254,6 @@ class HttpListener extends ZMObject {
             throw $e;
         }
 
-        $dispatcher->dispatch('controller_process_end', new Event($this, array('request' => $request, 'controller' => $controller, 'result' => $result)));
         return $result;
     }
 }
