@@ -24,13 +24,6 @@
     function zm_get_settings_details() {
         return array(
             'zenmagick.base' => array(
-                'logging' => array(
-                    array(
-                        'key' => 'handler',
-                        'type' => 'string',
-                        'desc' => 'List of configured logging handler.'
-                    ),
-                ),
                 'authentication' => array(
                     array(
                         'key' => 'minPasswordLength',
@@ -51,28 +44,6 @@
                         'type' => 'array',
                         'desc' => 'Default provider for persistent and transient caching.'
                     ),
-                ),
-                'logging' => array(
-                    array(
-                        'key' => 'enabled',
-                        'type' => 'boolean',
-                        'desc' => 'Enable/disable logging.'
-                    ),
-                    array(
-                        'key' => 'level',
-                        'type' => 'int',
-                        'desc' => 'Current log level.'
-                    ),
-                    array(
-                        'key' => 'filename',
-                        'type' => 'string',
-                        'desc' => 'Filename for custom logging.'
-                    ),
-                    array(
-                        'key' => 'handleErrors',
-                        'type' => 'boolean',
-                        'desc' => 'Enable error handling by the configured logging service.'
-                    )
                 ),
                 'plugins' => array(
                     array(

@@ -37,7 +37,6 @@ class Plugins extends ZMObject {
     const PLUGIN_BASE_NAMESPACE = 'zenmagick\plugins';
     protected $plugins;
     protected $statusMap;
-    protected $loggingService;
     protected $pluginStatusMapBuilder;
     protected $localeService;
     protected $contextConfigLoader;
@@ -46,9 +45,8 @@ class Plugins extends ZMObject {
     /**
      * Create new instance.
      */
-    public function __construct($loggingService, $pluginStatusMapBuilder, $localeService, $contextConfigLoader) {
+    public function __construct($pluginStatusMapBuilder, $localeService, $contextConfigLoader) {
         parent::__construct();
-        $this->loggingService = $loggingService;
         $this->pluginStatusMapBuilder = $pluginStatusMapBuilder;
         $this->localeService = $localeService;
         $this->contextConfigLoader = $contextConfigLoader;

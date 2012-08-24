@@ -272,7 +272,7 @@ class CouponService extends ZMObject {
             }
         }
 
-        $this->container->get('loggingService')->error('could not create coupon code');
+        $this->container->get('logger')->error('could not create coupon code');
         return null;
     }
 

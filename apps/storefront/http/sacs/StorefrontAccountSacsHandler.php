@@ -77,7 +77,7 @@ class StorefrontAccountSacsHandler extends ZMObject implements SacsHandler {
         }
 
         if (!in_array($level, $this->levelMap_[$requiredLevel])) {
-            $this->container->get('loggingService')->debug('missing authorization for '.$requestId.'; current='.$level.', required='.$requiredLevel);
+            $this->container->get('logger')->debug('missing authorization for '.$requestId.'; current='.$level.', required='.$requiredLevel);
             return false;
         }
 

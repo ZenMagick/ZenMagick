@@ -207,7 +207,7 @@ class PluginsController extends \ZMController {
         $pluginService->getAllPlugins(false);
 
         $viewId = null;
-        $loggingService = $this->container->get('loggingService');
+        $loggingService = $this->container->get('logger');
 
         foreach ($multiPluginId as $pluginId) {
             if ('install' == $action) {

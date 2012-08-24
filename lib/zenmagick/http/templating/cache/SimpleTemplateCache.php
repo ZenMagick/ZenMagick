@@ -38,7 +38,7 @@ class SimpleTemplateCache extends ZMObject implements TemplateCache {
      * {@inheritDoc}
      */
     public function eligible($template) {
-        $this->container->get('loggingService')->log('check if eligible: '.$template, LOGGING::TRACE);
+        $this->container->get('logger')->log('check if eligible: '.$template, LOGGING::TRACE);
         $settingsService = $this->container->get('settingsService');
         if (!$settingsService->exists('zenmagick.http.templating.cache.simple')) return;
         return in_array($template, (array)$settingsService->get('zenmagick.http.templating.cache.simple', array()));

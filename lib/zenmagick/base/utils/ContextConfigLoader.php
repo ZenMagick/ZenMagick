@@ -173,7 +173,7 @@ class ContextConfigLoader extends ZMObject {
                 $parentMergeCompilerPass = new ResolveMergeDefinitionsPass();
                 $parentMergeCompilerPass->process($this->container);
             } else {
-                Runtime::getLogging()->warn('skipping container config - container is frozen');
+                //Runtime::getLogging()->warn('skipping container config - container is frozen');
             }
         }
     }

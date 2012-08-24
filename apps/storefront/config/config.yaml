@@ -29,12 +29,6 @@ zenmagick:
         - zenmagick\apps\store\StoreEventListener
         - zenmagick\apps\storefront\EventListener
         - zenmagick\http\EventListener
-    ## logging
-    logging:
-      level: INFO
-      enabled: false
-      handleErrors: true
-
   ## mvc
   mvc:
     ## request

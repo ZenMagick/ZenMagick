@@ -771,7 +771,7 @@ class ShoppingCart extends ZMObject {
 
         $product = $this->container->get('productService')->getProductForId($productId);
         if (null == $product) {
-            $this->container->get('loggingService')->error('failed to add product to cart; productId='.$productId);
+            $this->container->get('logger')->error('failed to add product to cart; productId='.$productId);
             return false;
         }
         $attributes = $this->sanitizeAttributes($product, $attributes);
@@ -876,7 +876,7 @@ class ShoppingCart extends ZMObject {
                 return $address;
         }
 
-        $this->container->get('loggingService')->error('invalid productTaxBase!');
+        $this->container->get('logger')->error('invalid productTaxBase!');
         return null;
     }
 

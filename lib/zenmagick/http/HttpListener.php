@@ -189,7 +189,7 @@ class HttpListener extends ZMObject {
                 //TODO: what to do?
             }
         } else {
-            $this->container->get('loggingService')->debug('null view, skipping $view->generate()');
+            $this->container->get('logger')->debug('null view, skipping $view->generate()');
         }
 
         // convert view stuff to response...

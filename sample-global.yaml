@@ -13,41 +13,10 @@ admin,storefront:
       # display errors in browser
       display_errors: true
 
-  container:
-    services:
-      # display logging in the browser; requires 'display_errors' to be set to true
-      echoLoggingHandler:
-        class: zenmagick\base\logging\handler\EchoLoggingHandler
-        scope: container
-        calls:
-          - [setLogLevel, ['INFO']]
-        tags:
-          - { name: zenmagick.base.logging.handler }
-      # log into configured file
-      fileLoggingHandler:
-        class: zenmagick\base\logging\handler\FileLoggingHandler
-        scope: container
-        calls:
-          - [setLogLevel, ['ALL']]
-          - [setFilename, ['%kernel.logs_dir%/zenmagick.log']]
-        tags:
-          - { name: zenmagick.base.logging.handler }
-
   settings:
     zenmagick:
       base:
-        logging:
-          # enable logging
-          enabled: true
-          # log level; one of: ERROR, WARN, INFO, DEBUG, TRACE or ALL
-          level: ALL
-          # register ZenMagick log system to handle errors/exceptions
-          handleErrors: true
-        plugins:
-          # enable plugins
-          enabled: true
-
-      http:
+        http:
         request:
           # enable secure links
           secure: true

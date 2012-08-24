@@ -7,10 +7,6 @@
 
     <parameters>
         <parameter key="zenmagick.base.plugins.defaultPluginClass">zenmagick\base\plugins\Plugin</parameter>
-
-        <!-- main logging level -->
-        <parameter key="zenmagick.base.logging.level">INFO</parameter>
-
         <parameter key="zenmagick.base.plugins.dirs" type="collection">
             <parameter>%kernel.root_dir%/plugins</parameter>
             <parameter>%kernel.root_dir%/apps/%kernel.context%/plugins</parameter>
@@ -48,15 +44,6 @@
             </call>
         </service>
 
-        <service id="loggingService" class="zenmagick\base\logging\Logging" scope="container">
-            <call method="setFilesystem">
-                <argument type="service" id="filesystem" />
-            </call>
-            <call method="setContainerTagService">
-                <argument type="service" id="containerTagService" />
-            </call>
-        </service>
-
         <service id="localeService" class="zenmagick\base\locales\Locales" scope="container">
             <argument>%kernel.default_locale%</argument>
             <file>%kernel.root_dir%/lib/zenmagick/base/locales/functions.php</file>
@@ -82,7 +69,6 @@
         </service>
 
         <service id="pluginService" class="zenmagick\base\plugins\Plugins" scope="container">
-            <argument type="service" id="loggingService" />
             <argument type="service" id="pluginStatusMapBuilder" />
             <argument type="service" id="localeService" />
             <argument type="service" id="contextConfigLoader" strict="false" />
@@ -102,13 +88,6 @@
             <argument type="service" id="pluginOptionsLoader" />
             <argument type="service" id="bootstrapCache" />
             <tag name="kernel.cache_warmer" />
-        </service>
-
-        <service id="defaultLoggingHandler" class="zenmagick\base\logging\handler\DefaultLoggingHandler" scope="container">
-            <call method="setLogLevel">
-                <argument>%zenmagick.base.logging.level%</argument>
-            </call>
-            <tag name="zenmagick.base.logging.handler" />
         </service>
 
         <service id="sha1AuthenticationProvider" class="zenmagick\base\security\authentication\provider\Sha1AuthenticationProvider" scope="container">

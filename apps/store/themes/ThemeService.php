@@ -110,7 +110,8 @@ class ThemeService extends ZMObject {
             }
 
             if (!$this->statusMap || $refresh) {
-                $this->container->get('loggingService')->debug('Loading theme status map...');
+                // @todo can't log here!
+                //$this->container->get('logger')->debug('Loading theme status map...');
                 $statusMapBuilder = $this->container->get('themeStatusMapBuilder');
                 $this->statusMap = $statusMapBuilder->buildStatusMap();
                 if ($this->cache) {

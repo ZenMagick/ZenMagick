@@ -410,7 +410,7 @@ class Request extends HttpFoundationRequest implements ContainerAwareInterface {
         }
 
         if (null == $language) {
-            $this->container->get('loggingService')->warn('no default language found - using en as fallback');
+            $this->container->get('logger')->warn('no default language found - using en as fallback');
             $language = Beans::getBean('apps\\store\\entities\\locale\\Language');
             $language->setId(1);
             $language->setDirectory('english');

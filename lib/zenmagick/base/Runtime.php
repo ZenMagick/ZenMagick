@@ -83,7 +83,7 @@ class Runtime {
      * @return zenmagick\base\logging\Logging A <code>zenmagick\base\logging\Logging</code> instance.
      */
     public static function getLogging($scope=null) {
-        return self::getContainer()->get('loggingService');
+        return self::getContainer()->get('logger');
     }
 
     /**

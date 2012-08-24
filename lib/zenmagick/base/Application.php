@@ -132,6 +132,39 @@ class Application extends Kernel {
                     'engines' => array('php', 'twig')),
             ));
 
+            // Monolog configuration is equivalent to config in symfony-standard.
+            if ('prod' == $container->getParameter('kernel.environment')) {
+                $monolog = array(
+                    'handlers' => array(
+                        'main' => array(
+                            'type' => 'fingers_crossed',
+                            'action_level' => 'error',
+                            'handler' => 'nested',
+                        ),
+                        'nested' => array(
+                            'type' => 'stream',
+                            'path' => '%kernel.logs_dir%/%kernel.context%-%kernel.environment%.log',
+                            'level' => 'debug',
+                        ),
+                    ),
+                );
+            } else {
+                $monolog = array(
+                    'handlers' => array(
+                        'main' => array(
+                            'type' => 'stream',
+                            'path' => '%kernel.logs_dir%/%kernel.context%-%kernel.environment%.log',
+                            'level' => 'debug',
+                        ),
+                        'firephp' => array(
+                            'type' => 'firephp',
+                            'level' => 'info',
+                        )
+                    )
+                );
+            }
+            $container->setParameter('monolog.logger.class', 'zenmagick\base\logging\Logging');
+            $container->loadFromExtension('monolog', $monolog);
             /*$container->loadFromExtension('web_profiler', array(
                 'toolbar' => true,
             ));*/
