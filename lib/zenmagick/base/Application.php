@@ -92,6 +92,8 @@ class Application extends Kernel {
             $container->setParameter('database_prefix', $parameters['prefix']);
         };
 
+        $session = array();
+
         if (in_array($this->getContext(), array('admin', 'storefront', 'store'))) {
             $configService = new \zenmagick\apps\store\services\ConfigService;
             foreach ($configService->loadAll() as $key => $value) {
@@ -99,28 +101,45 @@ class Application extends Kernel {
                     define($key, $value);
                 }
             }
-        }
-        $resources[] = function($container) use($parameters) {
-            $container->loadFromExtension('zenmagick', array(
-            ));
 
+            $session['handler_id'] = 'session.handler.pdo';
+        }
+
+        $resources[] = $this->getRootDir().'/apps/store/config/configuration.php';
+
+        $session['name'] = 'zm-%kernel.context%';
+        $session['gc_probability'] = 1;
+        $session['gc_divisor'] = 2;
+        $session['gc_maxlifetime'] = '%zenmagick.http.session.timeout%';
+        $session['cookie_lifetime'] = 0;
+        $session['cookie_path'] = '/';
+        $session['cookie_httponly'] = true;
+        $session['cookie_secure'] = false;
+
+        $parameters['session'] = $session;
+
+        $resources[] = function($container) use($parameters) {
             $container->loadFromExtension('framework', array(
                 'secret' => 'notsecret',
                 'router' => array(
                     // @todo use a real file :)
                     'resource' => $parameters['kernel.context_dir'].'/config/routing.xml',
                 ),
-                'templating' => array('engines' => array('php', 'twig')),
+                'session' => $parameters['session'],
+                'templating' => array(
+                    'engines' => array('php', 'twig')),
             ));
 
             /*$container->loadFromExtension('web_profiler', array(
                 'toolbar' => true,
             ));*/
+            $container->loadFromExtension('zenmagick', array(
+            ));
+
 
         };
 
         $resources[] = $this->getRootDir().'/apps/store/config/email.php';
-        $resources[] = $this->getRootDir().'/apps/store/config/configuration.php';
 
         foreach ($resources as $resource) {
             if (is_string($resources) && !file_exists($resource)) {

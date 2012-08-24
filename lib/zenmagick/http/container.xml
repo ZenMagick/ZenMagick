@@ -6,20 +6,6 @@
     xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
 
     <parameters>
-        <parameter key="zenmagick.http.session.options" type="collection">
-            <parameter key="name">zm-%kernel.context%</parameter>
-            <parameter key="use_trans_sid">false</parameter>
-            <parameter key="url_rewriter.tags"></parameter>
-            <parameter key="gc_probability">1</parameter>
-            <parameter key="gc_divisor">2</parameter>
-            <parameter key="gc_lifetime">%zenmagick.http.session.timeout%</parameter>
-            <parameter key="cookie_lifetime">0</parameter>
-            <parameter key="cookie_domain"></parameter>
-            <parameter key="cookie_path">/</parameter>
-            <parameter key="cookie_httponly">true</parameter>
-            <parameter key="cookie_secure">false</parameter>
-            <parameter key="use_only_cookies">true</parameter>
-        </parameter>
 
         <parameter key="zenmagick.http.httpPort">80</parameter>
         <parameter key="zenmagick.http.httpsPort">443</parameter>
@@ -31,7 +17,6 @@
             <parameter>login</parameter>
             <parameter>reset_password</parameter>
         </parameter>
-        <parameter key="zenmagick.http.session.timeout">1440</parameter>
         <parameter key="zenmagick.http.virtualPathMap" type="collection"></parameter>
         <parameter key="zenmagick.http.sacs.mappingProviders" type="collection"></parameter>
 
@@ -44,6 +29,11 @@
     </parameters>
 
     <services>
+        <service id="session.handler.pdo" class="Symfony\Component\HttpFoundation\Session\Storage\Handler\PdoSessionHandler" scope="container">
+            <argument type="service" id="pdo" />
+            <argument>%pdo.db_options%</argument>
+        </service>
+
         <service id="request" synthetic="true" scope="request" />
 
         <service id="contextConfigLoader" class="zenmagick\http\utils\ContextConfigLoader" scope="prototype">
@@ -142,13 +132,6 @@
             <argument>mysql:dbname=%database_name%</argument>
             <argument>%database_user%</argument>
             <argument>%database_password%</argument>
-        </service>
-
-        <service id="session" class="zenmagick\http\session\Session" scope="container">
-            <argument>%zenmagick.http.session.options%</argument>
-            <call method="setContainer">
-                <argument type="service" id="service_container" />
-            </call>
         </service>
 
         <service id="defaultView" alias="templateView" />

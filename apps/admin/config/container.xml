@@ -9,11 +9,6 @@
     </imports>
 
     <services>
-        <service id="sessionHandler" class="Symfony\Component\HttpFoundation\Session\Storage\Handler\PdoSessionHandler" scope="container">
-            <argument type="service" id="pdo" />
-            <argument>%pdo.db_options%</argument>
-        </service>
-
         <service id="storeEmailView" alias="storeTemplateView" />
 
         <!-- TODO: drop when moving to using view instead of defaultView -->
@@ -26,18 +21,6 @@
         <service id="adminUserService" class="zenmagick\apps\admin\services\AdminUserService" scope="container" />
 
         <service id="sacsPermissionService" class="zenmagick\apps\admin\services\SacsPermissionService" scope="container" />
-
-        <service id="sessionStorage" class="Symfony\Component\HttpFoundation\Session\Storage\NativeSessionStorage">
-            <argument>%zenmagick.http.session.options%</argument>
-            <argument type="service" id="sessionHandler" />
-        </service>
-
-        <service id="session" class="zenmagick\http\session\Session" scope="container">
-            <argument type="service" id="sessionStorage" />
-            <call method="setContainer">
-                <argument type="service" id="service_container" />
-            </call>
-        </service>
 
         <service id="plainEditorWidget" class="zenmagick\http\widgets\form\TextAreaFormWidget" scope="prototype">
             <tag name="zenmagick.apps.store.editor" label="Plain" />
