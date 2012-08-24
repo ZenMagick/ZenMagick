@@ -11,18 +11,15 @@ admin,storefront:
     services:
       tagService:
         class: zenmagick\plugins\productTags\service\TagService
-        scope: container
 admin:
   container:
     services:
       productTagsTabController:
         class: zenmagick\plugins\productTags\controller\ProductTagsTabController
-        scope: container
         tags:
           - { name: apps.store.admin.tabcontroller }
 
       productTagsProductAssociationHandler:
         class: zenmagick\plugins\productTags\services\ProductTagsProductAssociationHandler
-        scope: container
         tags:
           - { name: apps.store.associations.handler }

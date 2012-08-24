@@ -13,25 +13,25 @@
         <!-- TODO: drop when moving to using view instead of defaultView -->
         <service id="defaultView" alias="templateView" />
 
-        <service id="adminUserPrefService" class="zenmagick\apps\admin\services\AdminUserPrefService" scope="container" />
+        <service id="adminUserPrefService" class="zenmagick\apps\admin\services\AdminUserPrefService" />
 
-        <service id="adminUserRoleService" class="zenmagick\apps\admin\services\AdminUserRoleService" scope="container" />
+        <service id="adminUserRoleService" class="zenmagick\apps\admin\services\AdminUserRoleService" />
 
-        <service id="adminUserService" class="zenmagick\apps\admin\services\AdminUserService" scope="container" />
+        <service id="adminUserService" class="zenmagick\apps\admin\services\AdminUserService" />
 
-        <service id="sacsPermissionService" class="zenmagick\apps\admin\services\SacsPermissionService" scope="container" />
+        <service id="sacsPermissionService" class="zenmagick\apps\admin\services\SacsPermissionService" />
 
         <service id="plainEditorWidget" class="zenmagick\http\widgets\form\TextAreaFormWidget" scope="prototype">
             <tag name="zenmagick.apps.store.editor" label="Plain" />
         </service>
 
-        <service id="adminMenu" class="zenmagick\apps\store\menu\Menu" scope="container" />
+        <service id="adminMenu" class="zenmagick\apps\store\menu\Menu" />
 
-        <service id="catalogDefaultTabController" class="zenmagick\apps\admin\controller\CatalogDefaultTabController" scope="container">
+        <service id="catalogDefaultTabController" class="zenmagick\apps\admin\controller\CatalogDefaultTabController">
             <tag name="apps.store.admin.tabcontroller" />
         </service>
 
-        <service id="userFactory" class="zenmagick\apps\admin\services\AdminUserFactory" scope="container" />
+        <service id="userFactory" class="zenmagick\apps\admin\services\AdminUserFactory" />
 
         <service id="countrySelectFormWidget" class="zenmagick\apps\admin\widgets\CountrySelectFormWidget" scope="prototype">
             <tag name="zenmagick.http.widgets.widget" />

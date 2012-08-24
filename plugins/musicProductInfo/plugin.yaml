@@ -9,7 +9,6 @@ admin,storefront:
     services:
       musicManager:
         class: zenmagick\plugins\musicProductInfo\services\MusicManager
-        scope: container
 storefront:
   routing:
     product_info:

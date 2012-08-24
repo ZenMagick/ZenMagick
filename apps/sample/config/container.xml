@@ -6,9 +6,9 @@
     xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
 
     <services>
-        <service id="templateManager" class="zenmagick\apps\store\themes\TemplateManager" scope="container" />
+        <service id="templateManager" class="zenmagick\apps\store\themes\TemplateManager" />
 
-        <service id="zmvalidator" class="ZMValidator" scope="container">
+        <service id="zmvalidator" class="ZMValidator">
             <call method="load">
                 <argument>%kernel.context_dir%/config/validation.yaml</argument>
             </call>

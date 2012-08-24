@@ -19,7 +19,7 @@
     </parameters>
 
     <services>
-        <service id="bootstrapCache" class="zenmagick\base\cache\FileCache" scope="container">
+        <service id="bootstrapCache" class="zenmagick\base\cache\FileCache">
             <call method="init">
                 <argument>bootstrap</argument>
                 <argument type="collection">
@@ -29,14 +29,14 @@
             </call>
         </service>
 
-        <service id="servicesCache" class="zenmagick\base\cache\MemoryCache" scope="container">
+        <service id="servicesCache" class="zenmagick\base\cache\MemoryCache">
             <call method="init">
                 <argument>services</argument>
                 <argument type="collection" />
             </call>
         </service>
 
-        <service id="templateCache" class="zenmagick\base\cache\FileCache" scope="container">
+        <service id="templateCache" class="zenmagick\base\cache\FileCache">
             <call method="init">
                 <argument>services</argument>
                 <argument type="collection">
@@ -46,19 +46,19 @@
             </call>
         </service>
 
-        <service id="accountService" class="ZMAccounts" scope="container" />
+        <service id="accountService" class="ZMAccounts" />
 
-        <service id="addressService" class="ZMAddresses" scope="container" />
+        <service id="addressService" class="ZMAddresses" />
 
-        <service id="countryService" class="zenmagick\apps\store\services\location\CountryService" scope="container" />
+        <service id="countryService" class="zenmagick\apps\store\services\location\CountryService" />
 
-        <service id="orderService" class="ZMOrders" scope="container" />
+        <service id="orderService" class="ZMOrders" />
 
         <service id="theme" class="zenmagick\apps\store\themes\Theme" scope="prototype" />
 
         <!-- @todo move to bundle xml when we have one -->
-        <!-- <service id="themeStatusMapBuilder" class="zenmagick\apps\store\themes\ThemeStatusMapBuilder" scope="container"> -->
-        <service id="themeStatusMapBuilder" class="zenmagick\apps\store\bundles\ZenCartBundle\mock\ZenCartThemeStatusMapBuilder" scope="container">
+        <!-- <service id="themeStatusMapBuilder" class="zenmagick\apps\store\themes\ThemeStatusMapBuilder"> -->
+        <service id="themeStatusMapBuilder" class="zenmagick\apps\store\bundles\ZenCartBundle\mock\ZenCartThemeStatusMapBuilder">
             <call method="setThemeService">
                 <argument type="service" id="themeService" />
             </call>
@@ -70,7 +70,7 @@
             </call>
         </service>
 
-        <service id="themeService" class="zenmagick\apps\store\themes\ThemeService" scope="container">
+        <service id="themeService" class="zenmagick\apps\store\themes\ThemeService">
             <call method="setContainer">
                 <argument type="service" id="service_container" />
             </call>
@@ -82,25 +82,25 @@
             </call>
         </service>
 
-        <service id="manufacturerService" class="zenmagick\apps\store\services\catalog\ManufacturerService" scope="container">
+        <service id="manufacturerService" class="zenmagick\apps\store\services\catalog\ManufacturerService">
             <call method="setCache">
                 <argument type="service" id="servicesCache" />
             </call>
         </service>
 
-        <service id="productService" class="ZMProducts" scope="container">
+        <service id="productService" class="ZMProducts">
             <call method="setCache">
                 <argument type="service" id="servicesCache" />
             </call>
         </service>
 
-        <service id="categoryService" class="ZMCategories" scope="container">
+        <service id="categoryService" class="ZMCategories">
             <call method="setCache">
                 <argument type="service" id="servicesCache" />
             </call>
         </service>
 
-        <service id="themeResourceResolver" class="zenmagick\apps\store\view\ThemeResourceResolver" scope="container">
+        <service id="themeResourceResolver" class="zenmagick\apps\store\view\ThemeResourceResolver">
             <call method="setContainer">
                 <argument type="service" id="service_container" />
             </call>
@@ -118,31 +118,31 @@
             </call>
         </service>
 
-        <service id="pluginOptionsLoader" class="zenmagick\apps\store\plugins\PluginOptionsLoader" scope="container">
+        <service id="pluginOptionsLoader" class="zenmagick\apps\store\plugins\PluginOptionsLoader">
             <call method="setConfigWidgetService">
                 <argument type="service" id="configWidgetService" />
             </call>
         </service>
 
-        <service id="rssLoader" class="zenmagick\http\rss\RssFeedLoader" scope="container">
+        <service id="rssLoader" class="zenmagick\http\rss\RssFeedLoader">
             <call method="setCache">
                 <argument type="service" id="persistentCache" />
             </call>
         </service>
 
-        <service id="authenticationManager" class="zenmagick\base\security\authentication\AuthenticationManager" scope="container" />
+        <service id="authenticationManager" class="zenmagick\base\security\authentication\AuthenticationManager" />
 
-        <service id="blockService" class="ZMBlocks" scope="container" />
+        <service id="blockService" class="ZMBlocks" />
 
-        <service id="blockManager" class="zenmagick\http\blocks\BlockManager" scope="container" />
+        <service id="blockManager" class="zenmagick\http\blocks\BlockManager" />
 
-        <service id="productAssociationService" class="zenmagick\apps\store\services\catalog\ProductAssociationService" scope="container" />
+        <service id="productAssociationService" class="zenmagick\apps\store\services\catalog\ProductAssociationService" />
 
-        <service id="productTypeLayoutService" class="zenmagick\apps\store\services\catalog\ProductTypeLayoutService" scope="container" />
+        <service id="productTypeLayoutService" class="zenmagick\apps\store\services\catalog\ProductTypeLayoutService" />
 
-        <service id="checkoutHelper" class="zenmagick\apps\store\utils\CheckoutHelper" scope="container" />
+        <service id="checkoutHelper" class="zenmagick\apps\store\utils\CheckoutHelper" />
 
-        <service id="shoppingCart" class="zenmagick\apps\store\model\checkout\ShoppingCart" scope="container">
+        <service id="shoppingCart" class="zenmagick\apps\store\model\checkout\ShoppingCart">
             <property name="session" type="service" id="session" />
             <call method="setCheckoutHelper">
                 <argument type="service" id="checkoutHelper" />
@@ -150,9 +150,9 @@
             <tag name="zenmagick.http.session.persist" restore="checkoutHelper" context="storefront" />
         </service>
 
-        <service id="shoppingCartService" class="zenmagick\apps\store\services\checkout\ShoppingCartService" scope="container" />
+        <service id="shoppingCartService" class="zenmagick\apps\store\services\checkout\ShoppingCartService" />
 
-        <service id="zmvalidator" class="ZMValidator" scope="container">
+        <service id="zmvalidator" class="ZMValidator">
            <call method="setContainer">
                 <argument type="service" id="service_container" />
             </call>
@@ -162,67 +162,67 @@
             <tag name="zenmagick.http.view.variable" key="validator" />
         </service>
 
-        <service id="reviewService" class="zenmagick\apps\store\services\catalog\ReviewService" scope="container">
+        <service id="reviewService" class="zenmagick\apps\store\services\catalog\ReviewService">
             <call method="setUseNickName">
                 <argument>%apps.store.reviews.useNickName%</argument>
             </call>
         </service>
 
-        <service id="taxService" class="zenmagick\apps\store\services\TaxService" scope="container" />
+        <service id="taxService" class="zenmagick\apps\store\services\TaxService" />
 
-        <service id="tokenService" class="zenmagick\apps\store\services\TokenService" scope="container" />
+        <service id="tokenService" class="zenmagick\apps\store\services\TokenService" />
 
-        <service id="bannerService" class="zenmagick\apps\store\services\templating\Banners" scope="container" />
+        <service id="bannerService" class="zenmagick\apps\store\services\templating\Banners" />
 
-        <service id="productFeaturedService" class="zenmagick\apps\store\services\catalog\ProductFeaturedService" scope="container" />
+        <service id="productFeaturedService" class="zenmagick\apps\store\services\catalog\ProductFeaturedService" />
 
-        <service id="productSpecialsService" class="zenmagick\apps\store\services\catalog\ProductSpecialsService" scope="container">
+        <service id="productSpecialsService" class="zenmagick\apps\store\services\catalog\ProductSpecialsService">
            <call method="setContainer">
                 <argument type="service" id="service_container" />
             </call>
         </service>
 
-        <service id="couponService" class="zenmagick\apps\store\services\coupons\CouponService" scope="container" />
+        <service id="couponService" class="zenmagick\apps\store\services\coupons\CouponService" />
 
-        <service id="ezPageService" class="ZMEZPages" scope="container" />
+        <service id="ezPageService" class="ZMEZPages" />
 
-        <service id="templateManager" class="zenmagick\apps\store\themes\TemplateManager" scope="container">
+        <service id="templateManager" class="zenmagick\apps\store\themes\TemplateManager">
            <call method="setContainer">
                 <argument type="service" id="service_container" />
             </call>
             <tag name="zenmagick.http.view.variable" key="templateManager" />
         </service>
 
-        <service id="currencyService" class="zenmagick\apps\store\services\locale\CurrencyService" scope="container" />
+        <service id="currencyService" class="zenmagick\apps\store\services\locale\CurrencyService" />
 
-        <service id="languageService" class="zenmagick\apps\store\services\locale\LanguageService" scope="container">
+        <service id="languageService" class="zenmagick\apps\store\services\locale\LanguageService">
             <call method="setContainer">
                 <argument type="service" id="service_container" />
             </call>
         </service>
 
-        <service id="paymentTypeService" class="ZMPaymentTypes" scope="container" />
+        <service id="paymentTypeService" class="ZMPaymentTypes" />
 
-        <service id="shippingProviderService" class="ZMShippingProviders" scope="container" />
+        <service id="shippingProviderService" class="ZMShippingProviders" />
 
-        <service id="orderTotalService" class="ZMOrderTotals" scope="container" />
+        <service id="orderTotalService" class="ZMOrderTotals" />
 
-        <service id="salemakerService" class="zenmagick\apps\store\services\catalog\SalemakerService" scope="container">
+        <service id="salemakerService" class="zenmagick\apps\store\services\catalog\SalemakerService">
             <call method="setContainer">
                 <argument type="service" id="service_container" />
             </call>
         </service>
 
-        <service id="attributeService" class="ZMAttributes" scope="container" />
+        <service id="attributeService" class="ZMAttributes" />
 
-        <service id="groupPricingService" class="ZMGroupPricing" scope="container" />
+        <service id="groupPricingService" class="ZMGroupPricing" />
 
-        <service id="configService" class="zenmagick\apps\store\services\ConfigService" scope="container">
+        <service id="configService" class="zenmagick\apps\store\services\ConfigService">
             <call method="setContainer">
                 <argument type="service" id="service_container" />
             </call>
         </service>
-        <service id="configWidgetService" class="zenmagick\apps\store\services\ConfigWidgetService" scope="container">
+        <service id="configWidgetService" class="zenmagick\apps\store\services\ConfigWidgetService">
             <call method="setContainer">
                 <argument type="service" id="service_container" />
             </call>
@@ -247,17 +247,17 @@
 
         </service>
 
-        <service id="defaultStoreBlockProvider" class="zenmagick\apps\store\widgets\StoreBlockProvider" scope="container">
+        <service id="defaultStoreBlockProvider" class="zenmagick\apps\store\widgets\StoreBlockProvider">
             <tag name="zenmagick.http.blocks.provider" />
         </service>
 
-        <service id="similarOrderProductAssociationHandler" class="zenmagick\apps\store\model\catalog\associations\SimilarOrderProductAssociationHandler" scope="container">
+        <service id="similarOrderProductAssociationHandler" class="zenmagick\apps\store\model\catalog\associations\SimilarOrderProductAssociationHandler">
             <tag name="apps.store.associations.handler" />
         </service>
 
-        <service id="productGroupPricingService" class="ZMProductGroupPricings" scope="container" />
+        <service id="productGroupPricingService" class="ZMProductGroupPricings" />
 
-        <service id="urlManager" class="ZMUrlManager" scope="container">
+        <service id="urlManager" class="ZMUrlManager">
             <call method="setContainer">
                 <argument type="service" id="service_container" />
             </call>
@@ -266,7 +266,7 @@
             </call>
         </service>
 
-        <service id="zenCartAuthenticationProvider" class="zenmagick\apps\store\bundles\ZenCartBundle\utils\ZenCartAuthenticationProvider" scope="container">
+        <service id="zenCartAuthenticationProvider" class="zenmagick\apps\store\bundles\ZenCartBundle\utils\ZenCartAuthenticationProvider">
             <tag name="zenmagick.base.security.authentication.provider" default="true" />
         </service>
 
@@ -298,16 +298,16 @@
             <tag name="zenmagick.http.toolbox.tool" key="utils" />
         </service>
 
-        <service id="annotation_reader" class="Doctrine\Common\Annotations\AnnotationReader" scope="container" />
+        <service id="annotation_reader" class="Doctrine\Common\Annotations\AnnotationReader" />
 
         <service id="moduleStatusCheck" class="zenmagick\apps\store\widgets\status\MaintenanceStatusCheck" scope="prototype">
             <tag name="apps.store.admin.dashboard.widget.statusCheck" />
         </service>
 
         <!-- set siwftmailer.transport to @zencartTransport to use the zencart legacy email system -->
-        <service id="zencartTransport" class="zenmagick\apps\store\bundles\ZenCartBundle\utils\ZenCartTransport" scope="container" />
+        <service id="zencartTransport" class="zenmagick\apps\store\bundles\ZenCartBundle\utils\ZenCartTransport" />
         <!-- @todo move to bundle xml when we have one -->
-        <service id="zenCartAutoLoader" class="zenmagick\apps\store\bundles\ZenCartBundle\utils\ZenCartAutoLoader" scope="container">
+        <service id="zenCartAutoLoader" class="zenmagick\apps\store\bundles\ZenCartBundle\utils\ZenCartAutoLoader">
             <call method="setRootDir">
                 <argument>%zencart.root_dir%</argument>
             </call>

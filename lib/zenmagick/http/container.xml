@@ -29,7 +29,7 @@
     </parameters>
 
     <services>
-        <service id="session.handler.pdo" class="Symfony\Component\HttpFoundation\Session\Storage\Handler\PdoSessionHandler" scope="container">
+        <service id="session.handler.pdo" class="Symfony\Component\HttpFoundation\Session\Storage\Handler\PdoSessionHandler">
             <argument type="service" id="pdo" />
             <argument>%pdo.db_options%</argument>
         </service>
@@ -44,11 +44,11 @@
                 <argument type="service" id="settingsService" />
             </call>
         </service>
-        <service id="messageService" class="zenmagick\http\messages\Messages" scope="container">
+        <service id="messageService" class="zenmagick\http\messages\Messages">
             <tag name="zenmagick.http.view.variable" key="messageService" />
         </service>
 
-        <service id="sacsManager" class="zenmagick\http\sacs\SacsManager" scope="container">
+        <service id="sacsManager" class="zenmagick\http\sacs\SacsManager">
             <argument type="service" id="service_container" />
             <call method="load">
                 <argument>%kernel.context_dir%/config/sacs_mappings.yaml</argument>
@@ -62,15 +62,15 @@
             </call>
         </service>
 
-        <service id="defaultUrlRewriter" class="zenmagick\http\request\rewriter\DefaultUrlRewriter" scope="container">
+        <service id="defaultUrlRewriter" class="zenmagick\http\request\rewriter\DefaultUrlRewriter">
             <tag name="zenmagick.http.request.rewriter" />
         </service>
 
-        <service id="routingUrlRewriter" class="zenmagick\http\request\rewriter\RoutingUrlRewriter" scope="container">
+        <service id="routingUrlRewriter" class="zenmagick\http\request\rewriter\RoutingUrlRewriter">
             <tag name="zenmagick.http.request.rewriter" />
         </service>
 
-        <service id="taggedBlocksBlockProvider" class="zenmagick\http\utils\TaggedBlocksBlockProvider" scope="container">
+        <service id="taggedBlocksBlockProvider" class="zenmagick\http\utils\TaggedBlocksBlockProvider">
             <tag name="zenmagick.http.blocks.provider" />
         </service>
 
@@ -83,13 +83,13 @@
             </call>
         </service>
 
-        <service id="resourceResolver" class="zenmagick\http\view\ResourceResolver" scope="container">
+        <service id="resourceResolver" class="zenmagick\http\view\ResourceResolver">
             <call method="setContainer">
                 <argument type="service" id="service_container" />
             </call>
         </service>
 
-        <service id="userSession" class="zenmagick\http\session\UserSession" scope="container">
+        <service id="userSession" class="zenmagick\http\session\UserSession">
             <call method="setSession">
                 <argument type="service" id="session" />
             </call>
@@ -101,7 +101,7 @@
             </call>
         </service>
 
-        <service id="simpleTemplateCache" class="zenmagick\http\templating\cache\SimpleTemplateCache" scope="container">
+        <service id="simpleTemplateCache" class="zenmagick\http\templating\cache\SimpleTemplateCache">
             <call method="setContainer">
                 <argument type="service" id="service_container" />
             </call>
@@ -136,7 +136,7 @@
 
         <service id="defaultView" alias="templateView" />
 
-        <service id="requestContext" class="zenmagick\http\routing\RequestContext" scope="container">
+        <service id="requestContext" class="zenmagick\http\routing\RequestContext">
             <argument type="service" id="service_container" />
             <call method="setHttpPort">
               <argument>%zenmagick.http.httpPort%</argument>
@@ -146,7 +146,7 @@
             </call>
         </service>
 
-        <service id="routeResolver" class="zenmagick\http\routing\RouteResolver" scope="container">
+        <service id="routeResolver" class="zenmagick\http\routing\RouteResolver">
             <argument type="service" id="requestContext" />
             <call method="setContainer">
                 <argument type="service" id="service_container" />
@@ -181,21 +181,21 @@
             <tag name="zenmagick.http.widgets.widget" />
         </service>
 
-        <service id="toolbox" class="zenmagick\http\toolbox\Toolbox" scope="container">
+        <service id="toolbox" class="zenmagick\http\toolbox\Toolbox">
             <call method="setContainer">
                 <argument type="service" id="service_container" />
             </call>
             <tag name="zenmagick.http.view.variable" key="toolbox" />
         </service>
 
-        <service id="controllerParameterMapper" class="zenmagick\http\controller\ControllerParameterMapper" scope="container">
+        <service id="controllerParameterMapper" class="zenmagick\http\controller\ControllerParameterMapper">
             <call method="setContainer">
                 <argument type="service" id="service_container" />
             </call>
         </service>
 
         <!-- @todo don't depend on all this code in one listener -->
-        <service id="zenmagick.http_listener" class="zenmagick\http\HttpListener" scope="container">
+        <service id="zenmagick.http_listener" class="zenmagick\http\HttpListener">
             <tag name="kernel.event_listener" event="kernel.request" method="onKernelRequest" priority="127" />
             <argument type="service" id="event_dispatcher" />
             <argument type="service" id="service_container" />

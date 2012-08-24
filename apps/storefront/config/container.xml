@@ -21,15 +21,15 @@
         <service id="ZMForwardView" class="ForwardView" scope="prototype" />
         <service id="forwardView" alias="ZMForwardView" />
 
-        <service id="storeDefaultUrlRewriter" class="zenmagick\apps\storefront\http\request\StoreDefaultUrlRewriter" scope="container">
+        <service id="storeDefaultUrlRewriter" class="zenmagick\apps\storefront\http\request\StoreDefaultUrlRewriter">
             <tag name="zenmagick.http.request.rewriter" />
         </service>
 
-        <service id="defaultRssFeedSource" class="zenmagick\apps\store\rss\DefaultRssFeedSource" scope="container">
+        <service id="defaultRssFeedSource" class="zenmagick\apps\store\rss\DefaultRssFeedSource">
             <tag name="zenmagick.http.rss.source" />
         </service>
 
-        <service id="catalogRssFeedSource" class="zenmagick\apps\store\rss\CatalogRssFeedSource" scope="container">
+        <service id="catalogRssFeedSource" class="zenmagick\apps\store\rss\CatalogRssFeedSource">
             <tag name="zenmagick.http.rss.source" />
         </service>
 
@@ -47,6 +47,6 @@
             </call>
         </service>
 
-        <service id="userFactory" class="zenmagick\apps\storefront\services\CustomerUserFactory" scope="container" />
+        <service id="userFactory" class="zenmagick\apps\storefront\services\CustomerUserFactory" />
     </services>
 </container>

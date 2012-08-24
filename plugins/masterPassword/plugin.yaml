@@ -16,7 +16,6 @@ storefront:
     services:
       masterPasswordAuthenticationProvider:
         class: zenmagick\plugins\masterPassword\MasterPasswordAuthenticationProvider
-        scope: container
         tags:
           -  { name: zenmagick.base.security.authentication.provider }
 admin:

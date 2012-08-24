@@ -3,18 +3,14 @@ storefront:
     services:
       simpleProductAssociationHandler:
         class: SimpleProductAssociationHandler
-        scope: container
         tags:
           - { name: apps.store.associations.handler }
 
       adminUserPrefService:
         class: zenmagick\apps\admin\services\AdminUserPrefService
-        scope: container
 
       adminUserRoleService:
         class: zenmagick\apps\admin\services\AdminUserRoleService
-        scope: container
 
       adminUserService:
         class: zenmagick\apps\admin\services\AdminUserService
-        scope: container

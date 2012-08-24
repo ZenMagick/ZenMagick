@@ -9,6 +9,5 @@ storefront,admin:
     services:
       tinyMCEEditorWidget:
         class: zenmagick\plugins\tinyMCE\TinyMCEFormWidget
-        scope: container
         tags:
           -  { name: zenmagick.apps.store.editor, label: TinyMCE }

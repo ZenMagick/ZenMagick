@@ -17,14 +17,14 @@
 
         <service id="containerTagService" class="zenmagick\base\dependencyInjection\tags\ContainerTagService" />
 
-        <service id="transientCache" class="zenmagick\base\cache\MemoryCache" scope="container">
+        <service id="transientCache" class="zenmagick\base\cache\MemoryCache">
             <call method="init">
                 <argument>global</argument>
                 <argument type="collection" />
             </call>
         </service>
 
-        <service id="persistentCache" class="zenmagick\base\cache\FileCache" scope="container">
+        <service id="persistentCache" class="zenmagick\base\cache\FileCache">
             <call method="init">
                 <argument>global</argument>
                 <argument type="collection">
@@ -34,7 +34,7 @@
             </call>
         </service>
 
-        <service id="bootstrapCache" class="zenmagick\base\cache\FileCache" scope="container">
+        <service id="bootstrapCache" class="zenmagick\base\cache\FileCache">
             <call method="init">
                 <argument>bootstrap</argument>
                 <argument type="collection">
@@ -44,7 +44,7 @@
             </call>
         </service>
 
-        <service id="localeService" class="zenmagick\base\locales\Locales" scope="container">
+        <service id="localeService" class="zenmagick\base\locales\Locales">
             <argument>%kernel.default_locale%</argument>
             <file>%kernel.root_dir%/lib/zenmagick/base/locales/functions.php</file>
         </service>
@@ -54,7 +54,7 @@
             </call>
         </service>
 
-        <service id="settingsService" class="zenmagick\base\settings\Settings" scope="container" />
+        <service id="settingsService" class="zenmagick\base\settings\Settings" />
 
         <service id="contextConfigLoader" class="zenmagick\base\utils\ContextConfigLoader" scope="prototype">
             <call method="setContainer">
@@ -68,7 +68,7 @@
             </call>
         </service>
 
-        <service id="pluginService" class="zenmagick\base\plugins\Plugins" scope="container">
+        <service id="pluginService" class="zenmagick\base\plugins\Plugins">
             <argument type="service" id="pluginStatusMapBuilder" />
             <argument type="service" id="localeService" />
             <argument type="service" id="contextConfigLoader" strict="false" />
@@ -80,9 +80,9 @@
             </call>
         </service>
 
-        <service id="pluginOptionsLoader" class="zenmagick\base\plugins\PluginOptionsLoader" scope="container" />
+        <service id="pluginOptionsLoader" class="zenmagick\base\plugins\PluginOptionsLoader" />
 
-        <service id="pluginStatusMapBuilder" class="zenmagick\base\plugins\PluginStatusMapBuilder" scope="container">
+        <service id="pluginStatusMapBuilder" class="zenmagick\base\plugins\PluginStatusMapBuilder">
             <argument>%zenmagick.base.plugins.defaultPluginClass%</argument>
             <argument>%zenmagick.base.plugins.dirs%</argument>
             <argument type="service" id="pluginOptionsLoader" />
@@ -90,15 +90,15 @@
             <tag name="kernel.cache_warmer" />
         </service>
 
-        <service id="sha1AuthenticationProvider" class="zenmagick\base\security\authentication\provider\Sha1AuthenticationProvider" scope="container">
+        <service id="sha1AuthenticationProvider" class="zenmagick\base\security\authentication\provider\Sha1AuthenticationProvider">
             <tag name="zenmagick.base.security.authentication.provider" />
         </service>
 
-        <service id="phPassAuthenticationProvider" class="zenmagick\base\security\authentication\provider\PhPassAuthenticationProvider" scope="container">
+        <service id="phPassAuthenticationProvider" class="zenmagick\base\security\authentication\provider\PhPassAuthenticationProvider">
             <tag name="zenmagick.base.security.authentication.provider" />
         </service>
 
-        <service id="filesystem" class="Symfony\Component\Filesystem\Filesystem" scope="container" />
+        <service id="filesystem" class="Symfony\Component\Filesystem\Filesystem" />
 
         <service id="phpCompressor" class="zenmagick\base\utils\packer\PhpCompressor" scope="prototype">
             <call method="setFilesystem">
