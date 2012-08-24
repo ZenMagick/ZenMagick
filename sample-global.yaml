@@ -15,8 +15,7 @@ admin,storefront:
 
   settings:
     zenmagick:
-      base:
-        http:
+      http:
         request:
           # enable secure links
           secure: true
