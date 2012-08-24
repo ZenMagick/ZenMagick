@@ -90,6 +90,7 @@ class Application extends Kernel {
             $container->setParameter('database_user', $parameters['user']);
             $container->setParameter('database_password', $parameters['password']);
             $container->setParameter('database_prefix', $parameters['prefix']);
+            $container->setParameter('locale', isset($parameters['locale']) ? $parameters['locale'] : 'en');
         };
 
         $session = array();
@@ -120,6 +121,7 @@ class Application extends Kernel {
 
         $resources[] = function($container) use($parameters) {
             $container->loadFromExtension('framework', array(
+                'default_locale' => '%locale%',
                 'secret' => 'notsecret',
                 'router' => array(
                     // @todo use a real file :)
