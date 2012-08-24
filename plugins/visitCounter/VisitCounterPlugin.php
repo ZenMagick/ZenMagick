@@ -26,29 +26,12 @@ use zenmagick\base\Runtime;
  * Visit Counter plugin.
  *
  * This reimplements the ZenCart site visit counter.
+ *
+ * @todo create the tables ourselves or completely drop this support.
+ * @todo add index on startdate field in counter table
+ * @todo convert startdate to an actual date field instead of char for both tables
  */
 class VisitCounterPlugin extends Plugin {
-
-    /**
-     * {@inheritDoc}
-     *
-     * @todo create the tables ourselves or completely drop this support.
-     * @todo add index on startdate field in counter table
-     * @todo convert startdate to an actual date field instead of char for both tables
-     */
-    public function init() {
-        parent::init();
-        \ZMRuntime::getDatabase()->getMapper()->setMappingForTable('counter', array(
-            'startdate' => array('column' => 'startdate', 'type' => 'string'),
-            'counter' => array('column' => 'counter', 'type' => 'integer'),
-        ));
-        \ZMRuntime::getDatabase()->getMapper()->setMappingForTable('counter_history', array(
-            'id' => array('column' => 'id', 'type' => 'bigint', 'key' => true, 'auto' => true),
-            'startdate' => array('column' => 'startdate', 'type' => 'string'),
-            'counter' => array('column' => 'counter', 'type' => 'integer'),
-            'session_counter' => array('column' => 'session_counter', 'type' => 'integer')
-        ));
-    }
 
     /**
      * Handle ZenCart page and session counting
