@@ -210,7 +210,6 @@ class HttpListener extends ZMObject {
     protected function executeController(Request $request) {
         $controller = null;
         $dispatcher = $this->dispatcher;
-        $dispatcher->dispatch('controller_process_start', new Event($this, array('request' => $request, 'controller' => $controller)));
 
         try {
             // @todo move this to the  onKernelController event.
