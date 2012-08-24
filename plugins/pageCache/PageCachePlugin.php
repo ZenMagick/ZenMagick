@@ -37,17 +37,8 @@ define('ZM_EVENT_PLUGINS_PAGE_CACHE_CONTENTS_DONE', 'plugins_page_cache_contents
  * @author DerManoMann <mano@zenmagick.org>
  */
 class PageCachePlugin extends Plugin {
-    private $cache_;
+    private $cache_ = null;
     protected $activeThemeId;
-
-    /**
-     * Create new instance.
-     */
-    public function __construct(array $config) {
-        parent::__construct($config);
-        $this->cache_ = null;
-    }
-
 
     /**
      * Set up cache.

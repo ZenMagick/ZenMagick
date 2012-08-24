@@ -29,19 +29,8 @@ use zenmagick\base\Toolbox;
  * @author DerManoMann <mano@zenmagick.org>
  */
 class LiftSuggestPlugin extends Plugin {
-    private $recomendationsLoadedFor;
-    private $view;
-
-
-    /**
-     * Create new instance.
-     */
-    public function __construct(array $config) {
-        parent::__construct($config);
-        $this->recommendationsLoadedFor = null;
-        $this->view = null;
-    }
-
+    private $recomendationsLoadedFor = null;
+    private $view = null;
 
     /**
      * Get config for the Lift Suggest adapter.

@@ -35,19 +35,8 @@ use zenmagick\base\Toolbox;
  * @author DerManoMann <mano@zenmagick.org>
  */
 class GoogleAnalyticsPlugin extends Plugin {
-    private $eol_;
-    private $order_;
-
-
-    /**
-     * Create new instance.
-     */
-    public function __construct(array $config) {
-        parent::__construct($config);
-        $this->eol_ = "\n";
-        $this->order_ = null;
-    }
-
+    private $eol_ = "\n";
+    private $order_ = null;
 
     /**
      * Event handler.

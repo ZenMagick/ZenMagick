@@ -32,17 +32,7 @@ define('AUTO_LOGIN_OPT_IN', 'autoLogin');
  * @author DerManoMann <mano@zenmagick.org>
  */
 class AutoLoginPlugin extends Plugin {
-    private $cookieUpdated;
-
-
-    /**
-     * Create new instance.
-     */
-    public function __construct(array $config) {
-        parent::__construct($config);
-        $this->cookieUpdated = false;
-    }
-
+    private $cookieUpdated = false;
 
     /**
      * Handle auto login.

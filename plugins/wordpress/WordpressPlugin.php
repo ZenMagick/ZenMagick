@@ -30,19 +30,8 @@ use zenmagick\base\Toolbox;
  * @author DerManoMann <mano@zenmagick.org>
  */
 class WordpressPlugin extends Plugin {
-    private $requestHandler_;
-    private $adapter_;
-
-
-    /**
-     * Create new instance.
-     */
-    public function __construct(array $config) {
-        parent::__construct($config);
-        $this->requestHandler_ = null;
-        $this->adapter_ = null;
-    }
-
+    private $requestHandler_ = null;
+    private $adapter_ = null;
 
     /**
      * {@inheritDoc}

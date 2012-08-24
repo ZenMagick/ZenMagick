@@ -30,17 +30,7 @@ use zenmagick\base\ZMObject;
  * @author DerManoMann <mano@zenmagick.org>
  */
 class GravatarPlugin extends Plugin {
-    private $baseUrl;
-
-
-    /**
-     * Create new instance.
-     */
-    public function __construct(array $config) {
-        parent::__construct($config);
-        $this->baseUrl = 'http://www.gravatar.com/avatar/';
-    }
-
+    private $baseUrl = 'http://www.gravatar.com/avatar/';
 
     /**
      * Attach getGravatar method to Account.
