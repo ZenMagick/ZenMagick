@@ -87,15 +87,6 @@ class Runtime {
     }
 
     /**
-     * Get an event dispatcher instance.
-     *
-     * @return zenmagick\base\events\EventDispatcher A <code>zenmagick\base\events\EventDispatcher</code> instance.
-     */
-    public static function getEventDispatcher() {
-        return self::getContainer()->get('event_dispatcher');
-    }
-
-    /**
      * Get the settings service.
      *
      * @return zenmagick\base\settings\Settings A <code>zenmagick\base\settings\Settings</code> instance.
