@@ -37,7 +37,7 @@ class VisitCounterPlugin extends Plugin {
      * Handle ZenCart page and session counting
      *
      */
-    public function onControllerProcessEnd($event) {
+    public function onAllDone($event) {
         if (!Runtime::isContextMatch('storefront')) return;
         $conn = \ZMRuntime::getDatabase();
         $session = $event->get('request')->getSession();
