@@ -32,11 +32,10 @@ use zenmagick\base\Runtime;
 class WhoIsOnlinePlugin extends Plugin {
 
     /**
-     * Init this plugin.
+     * Get Table Mapper mappings
+     *
      */
-    function init() {
-        parent::init();
-
+    public function setTableMappings() {
         \ZMRuntime::getDatabase()->getMapper()->setMappingForTable('whos_online', array(
             'accountId' => array('column' => 'customer_id', 'type' => 'integer'),
             'fullName' => array('column' => 'full_name', 'type' => 'string'),
@@ -95,6 +94,7 @@ class WhoIsOnlinePlugin extends Plugin {
      * @todo Can we differentiate between spiders and regular guest users without using HTTP_USER_AGENT?
      */
     public function onContainerReady($event) {
+        $this->setTableMappings();
         $this->removeExpired(); // @todo cron!
 
         if (Runtime::isContextMatch('admin')) return;
