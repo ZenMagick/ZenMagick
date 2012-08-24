@@ -23,6 +23,7 @@ use zenmagick\base\dependencyInjection\compiler\ConfigureContainerTagServicePass
 use zenmagick\base\dependencyInjection\compiler\ResolveMergeDefinitionsPass;
 use zenmagick\base\dependencyInjection\ZenMagickExtension;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
+use Symfony\Component\DependencyInjection\Container;
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 
 /**
@@ -100,6 +101,7 @@ class ZenMagickBundle extends Bundle {
         }
 
         // @todo switch to using tagged services for events.
+        $dispatcher = $this->container->get('event_dispatcher');
         foreach ($listeners as $eventListener) {
             if (is_string($eventListener)) {
                 if (!class_exists($eventListener)) continue;
@@ -107,8 +109,16 @@ class ZenMagickBundle extends Bundle {
                     $eventListener->setContainer($this->container);
                 }
             }
+
             if (is_object($eventListener)) {
-                $this->container->get('event_dispatcher')->listen($eventListener);
+                $events = array();
+                foreach (get_class_methods($eventListener) as $method) {
+                    if (0 === strpos($method, 'on')) {
+                        $eventName = Container::underscore(substr($method, 2));
+                        $dispatcher->addListener($eventName, array($eventListener, $method));
+                    }
+
+                }
             }
         }
     }

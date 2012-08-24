@@ -24,7 +24,6 @@ use zenmagick\apps\store\plugins\Plugin;
 use zenmagick\base\Runtime;
 use zenmagick\base\Toolbox;
 use zenmagick\base\ZMObject;
-use zenmagick\base\events\EventDispatcher;
 use zenmagick\base\logging\Logging;
 
 /**
@@ -44,7 +43,10 @@ class PageStatsPlugin extends Plugin {
     public function onContainerReady($event) {
         // register to log events
         $eventDispatcher = $this->container->get('event_dispatcher');
-        $eventDispatcher->listen(array($this, 'logEvent'));
+        $events = array_keys($eventDispatcher->getListeners());
+        foreach ($events as $event) {
+            $eventDispatcher->addListener($event, array($this, 'logEvent'));
+        }
     }
 
     /**
