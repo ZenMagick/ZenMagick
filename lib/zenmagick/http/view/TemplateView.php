@@ -333,7 +333,6 @@ class TemplateView extends ZMObject implements View {
 
             return $output;
         } catch (Exception $e) {
-            Runtime::getLogging()->dump($e, 'failed to fetch template: '.$template, Logging::ERROR);
             throw new ZMException('failed to fetch template: '.$template, 0, $e);
         }
     }

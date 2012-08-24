@@ -90,7 +90,7 @@ class RouteResolver extends ZMObject {
             $nuri = preg_replace('#^'.$this->requestContext->getBaseUrl().'#', '', $uri);
             $routerMatch = $this->getRouter()->match($nuri);
         } catch (Exception $e) {
-            Runtime::getLogging()->dump($e, 'no route found', Logging::TRACE);
+
         }
         $this->routes[$uri] = $routerMatch;
 

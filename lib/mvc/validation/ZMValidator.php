@@ -182,7 +182,6 @@ class ZMValidator extends ZMObject {
             foreach ($rules as $ruleDef) {
                 // XXX ugly fix as rules might have variable length c'tor args
                 if (null == ($rule = $this->makeClass($ruleDef))) {
-                    Runtime::getLogging()->dump($ruleDef, "can't instantiate rule", Logging::WARN);
                 }
                 $ruleSet->addRule($rule);
             }

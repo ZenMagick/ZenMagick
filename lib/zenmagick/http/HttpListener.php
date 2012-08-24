@@ -172,7 +172,6 @@ class HttpListener extends ZMObject {
                 $response = $result;
             }
         } catch (Exception $e) {
-            $this->container->get('loggingService')->dump($e, sprintf('controller::process failed: %s', $e->getMessage()), Logging::ERROR);
             //TODO: why is this a classic controller only?
             $controller = $this->container->get('defaultController');
             $view = $controller->findView('error', array('exception' => $e));
@@ -187,9 +186,7 @@ class HttpListener extends ZMObject {
                 $content = $view->generate($request);
                 $dispatcher->dispatch('view_done', new Event(null, array('request' => $request, 'view' => $view)));
             } catch (ZMException $e) {
-                $this->container->get('loggingService')->dump($e, sprintf('view::generate failed: %s', $e), Logging::ERROR);
             } catch (Exception $e) {
-                $this->container->get('loggingService')->dump($e, sprintf('view::generate failed: %s', $e->getMessage()), Logging::ERROR);
                 //TODO: what to do?
             }
         } else {

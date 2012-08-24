@@ -98,7 +98,6 @@ class CatalogController extends \ZMController {
             $catalogContentView->setLayout(null);
             $catalogViewContent = $catalogContentView->generate($request);
         } catch (Exception $e) {
-            Runtime::getLogging()->dump($e, 'view::generate failed', Logging::ERROR);
             $catalogViewContent = null;
         }
 
