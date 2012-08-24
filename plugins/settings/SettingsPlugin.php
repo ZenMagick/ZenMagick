@@ -31,10 +31,10 @@ class SettingsPlugin extends Plugin {
 
     /**
      * Update all settings we manage.
+     *
+     * @todo how to do this.
      */
-    public function onContainerReady($event) {
-    // TODO: how to dothis?
-    return;
+    public function onSettingsUpdate($event) {
         // make all config values proper settings
         $settingsService = $this->container->get('settingsService');
         foreach ($this->getConfigValues() as $value) {
