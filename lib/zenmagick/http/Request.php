@@ -146,7 +146,6 @@ class Request extends HttpFoundationRequest implements ContainerAwareInterface {
             }
         }
 
-        $this->container->get('loggingService')->trace('unresolved URL: '.$requestId);
         return null;
     }
 
@@ -270,7 +269,6 @@ class Request extends HttpFoundationRequest implements ContainerAwareInterface {
         $url = str_replace('&amp;', '&', $url);
         $event = new VetoableEvent($this, array('request' => $this, 'url' => $url));
         $this->container->get('event_dispatcher')->dispatch('redirect', $event);
-        $this->container->get('loggingService')->trace(sprintf('redirect url: "%s"; canceled: %s', $url, ($event->isCanceled() ? 'true' : 'false')), Logging::TRACE);
         if ($event->isCanceled()) {
             return;
         }

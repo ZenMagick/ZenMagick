@@ -28,8 +28,6 @@ use zenmagick\base\Runtime;
  * version of it.
  */
 function zen_mail($toName, $toAddress, $subject, $text, $fromName, $fromAddress, $block=array(), $module='default', $attachments_list='') {
-    // uncomment to trace mail calls and figure out module names (ie template names)
-    //Runtime::getLogging()->trace('mail: '.$module);
     $container = Runtime::getContainer();
     $messageBuilder = $container->get('messageBuilder');
 

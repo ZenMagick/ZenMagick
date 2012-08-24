@@ -41,7 +41,6 @@ class ZMException extends Exception {
      */
     public function __construct($message=null, $code=0, $previous=null) {
         parent::__construct((string)$message, (int)$code, $previous);
-        Runtime::getLogging()->trace($message, Logging::TRACE);
     }
 
     /**
