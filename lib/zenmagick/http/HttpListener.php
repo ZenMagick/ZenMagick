@@ -122,7 +122,6 @@ class HttpListener extends ZMObject {
         // all done
         // @todo CHECKME: how late does this have to be?
         $dispatcher->dispatch('all_done', new Event($this, array('request' => $request, 'view' => $view, 'content' => $zmevent->get('content'))));
-        $request->getSession()->save();
 
         $event->setResponse($response);
     }

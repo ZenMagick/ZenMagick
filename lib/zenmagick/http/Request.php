@@ -188,15 +188,6 @@ class Request extends HttpFoundationRequest implements ContainerAwareInterface {
     }
 
     /**
-     * Get the current session.
-     *
-     * @return zenmagick\http\session\Session The session.
-     */
-    public function getSession() {
-        return $this->container->get("session");
-    }
-
-    /**
      * Get the complete parameter map.
      *
      * GET and POST.
