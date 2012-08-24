@@ -59,29 +59,22 @@ class HttpListener extends ZMObject {
      * Handle web request.
      */
     public function onKernelRequest(GetResponseEvent $event) {
-        try {
-            $container = $this->container;
-            $request = $event->getRequest();
-            $request->setContainer($this->container);
-            $this->dispatcher->dispatch('request_ready', new Event($this, array('request' => $request)));
-            $this->dispatcher->dispatch('container_ready', new Event($this, array('request' => $request)));
+        $container = $this->container;
+        $request = $event->getRequest();
+        $request->setContainer($this->container);
+        $this->dispatcher->dispatch('request_ready', new Event($this, array('request' => $request)));
+        $this->dispatcher->dispatch('container_ready', new Event($this, array('request' => $request)));
 
-            // allow seo rewriters to fiddle with the request
-            foreach (array_reverse($container->get('containerTagService')->findTaggedServiceIds('zenmagick.http.request.rewriter')) as $id => $args) {
-                if ($this->container->get($id)->decode($request)) break;
-            }
-
-            // make sure we use the appropriate protocol (HTTPS, for example) if required
-            $container->get('sacsManager')->ensureAccessMethod($request);
-
-            $this->dispatcher->dispatch('init_done', new Event($this, array('request' => $request)));
-            return $this->dispatch($request, $event);
-        } catch (Exception $e) {
-            if (false === $catch) {
-                throw $e;
-            }
-            return $event->setResponse(new Response(sprintf('serve failed: %s', $e->getMessage()), 500));
+        // allow seo rewriters to fiddle with the request
+        foreach (array_reverse($container->get('containerTagService')->findTaggedServiceIds('zenmagick.http.request.rewriter')) as $id => $args) {
+            if ($this->container->get($id)->decode($request)) break;
         }
+
+        // make sure we use the appropriate protocol (HTTPS, for example) if required
+        $container->get('sacsManager')->ensureAccessMethod($request);
+
+        $this->dispatcher->dispatch('init_done', new Event($this, array('request' => $request)));
+        return $this->dispatch($request, $event);
     }
 
     /**
