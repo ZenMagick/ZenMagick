@@ -70,108 +70,25 @@ class Application extends Kernel {
 
     /**
      * {@inheritDoc}
-     * @see Symfony\Component\HttpKernel\KernelInterface
-     * @todo move most this into "a" bundle.
      */
     public function registerContainerConfiguration(LoaderInterface $loader) {
-        $config = $this->getRootDir().'/config/store-config.yaml';
-        $yaml = \Symfony\Component\Yaml\Yaml::parse($config);
+        $context = $this->getContext();
 
-        $parameters = $yaml['apps']['store']['database']['default'];
-        \ZMRuntime::setDatabase('default', $parameters);
-        $parameters['kernel.context'] = $this->getContext();
-        $parameters['kernel.context_dir'] = $this->getApplicationPath();
-
-        $resources = array();
-        $resources[] = function($container) use($parameters) {
-            $container->setParameter('database_driver', $parameters['driver']);
-            $container->setParameter('database_host', $parameters['host']);
-            $container->setParameter('database_name', $parameters['dbname']);
-            $container->setParameter('database_user', $parameters['user']);
-            $container->setParameter('database_password', $parameters['password']);
-            $container->setParameter('database_prefix', $parameters['prefix']);
-            $container->setParameter('locale', isset($parameters['locale']) ? $parameters['locale'] : 'en');
+        $resources[] = function($container) {
+            $container->setParameter('session_handler', 'session.handler.native_file');
+            // needed for storefront session override later
+            $container->setParameter('session.class', 'zenmagick\http\session\Session');
         };
-
-        $session = array();
-
-        if (in_array($this->getContext(), array('admin', 'storefront', 'store'))) {
-            $configService = new \zenmagick\apps\store\services\ConfigService;
-            foreach ($configService->loadAll() as $key => $value) {
-                if (!defined($key)) {
-                    define($key, $value);
-                }
-            }
-
-            $session['handler_id'] = 'session.handler.pdo';
-        }
-
+        // used to set the basic parameters to fill config_$env.yml files
         $resources[] = $this->getRootDir().'/apps/store/config/configuration.php';
+        // extension configuration
+        $resources[] = $this->getRootDir().'/apps/base/config/config_'.$this->getEnvironment().'.yml';
 
-        $session['name'] = 'zm-%kernel.context%';
-        $session['gc_probability'] = 1;
-        $session['gc_divisor'] = 2;
-        $session['gc_maxlifetime'] = '%zenmagick.http.session.timeout%';
-        $session['cookie_lifetime'] = 0;
-        $session['cookie_path'] = '/';
-        $session['cookie_httponly'] = true;
-        $session['cookie_secure'] = false;
-
-        $parameters['session'] = $session;
-
-        $resources[] = function($container) use($parameters) {
-            $container->loadFromExtension('framework', array(
-                'default_locale' => '%locale%',
-                'secret' => 'notsecret',
-                'router' => array(
-                    // @todo use a real file :)
-                    'resource' => $parameters['kernel.context_dir'].'/config/routing.xml',
-                ),
-                'session' => $parameters['session'],
-                'templating' => array(
-                    'engines' => array('php', 'twig')),
-            ));
-
-            // Monolog configuration is equivalent to config in symfony-standard.
-            if ('prod' == $container->getParameter('kernel.environment')) {
-                $monolog = array(
-                    'handlers' => array(
-                        'main' => array(
-                            'type' => 'fingers_crossed',
-                            'action_level' => 'error',
-                            'handler' => 'nested',
-                        ),
-                        'nested' => array(
-                            'type' => 'stream',
-                            'path' => '%kernel.logs_dir%/%kernel.context%-%kernel.environment%.log',
-                            'level' => 'debug',
-                        ),
-                    ),
-                );
-            } else {
-                $monolog = array(
-                    'handlers' => array(
-                        'main' => array(
-                            'type' => 'stream',
-                            'path' => '%kernel.logs_dir%/%kernel.context%-%kernel.environment%.log',
-                            'level' => 'debug',
-                        ),
-                        'firephp' => array(
-                            'type' => 'firephp',
-                            'level' => 'info',
-                        )
-                    )
-                );
+        // @todo remove this when we we can prove we don't need $_SESSION
+        $resources[] = function($container) use($context) {
+            if ('storefront' == $context) {
+                $container->setParameter('session.class', 'zenmagick\apps\storefront\http\Session');
             }
-            $container->setParameter('monolog.logger.class', 'zenmagick\base\logging\Logging');
-            $container->loadFromExtension('monolog', $monolog);
-            /*$container->loadFromExtension('web_profiler', array(
-                'toolbar' => true,
-            ));*/
-            $container->loadFromExtension('zenmagick', array(
-            ));
-
-
         };
 
         $resources[] = $this->getRootDir().'/apps/store/config/email.php';
@@ -232,7 +149,6 @@ class Application extends Kernel {
      */
     protected function getKernelParameters() {
         $parameters = parent::getKernelParameters();
-        if (empty($parameters)) return; // if it's empty leave it empty.
         $parameters['kernel.context'] = $this->getContext();
         $parameters['kernel.context_dir'] = $this->getApplicationPath();
         return $parameters;
