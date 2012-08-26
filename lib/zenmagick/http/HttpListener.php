@@ -55,28 +55,6 @@ class HttpListener extends ZMObject {
         $this->container = $container;
     }
 
-    /*
-     * Handle web request.
-     */
-    public function onKernelRequest(GetResponseEvent $event) {
-        $container = $this->container;
-        $request = $event->getRequest();
-        $request->setContainer($this->container);
-        $this->dispatcher->dispatch('request_ready', new Event($this, array('request' => $request)));
-        $this->dispatcher->dispatch('container_ready', new Event($this, array('request' => $request)));
-
-        // allow seo rewriters to fiddle with the request
-        foreach (array_reverse($container->get('containerTagService')->findTaggedServiceIds('zenmagick.http.request.rewriter')) as $id => $args) {
-            if ($this->container->get($id)->decode($request)) break;
-        }
-
-        // make sure we use the appropriate protocol (HTTPS, for example) if required
-        $container->get('sacsManager')->ensureAccessMethod($request);
-
-        $this->dispatcher->dispatch('init_done', new Event($this, array('request' => $request)));
-        return $this->dispatch($request, $event);
-    }
-
     /**
      * Set the parameter mapper for controller.
      *
@@ -86,14 +64,26 @@ class HttpListener extends ZMObject {
         $this->parameterMapper = $parameterMapper;
     }
 
-    /**
-     * Dispatch a request.
-     *
-     * @param zenmagick\http\Request request The request to dispatch.
+    /*
+     * Handle web request.
      */
-    public function dispatch($request, $event) {
-        $messageService = $this->container->get('messageService');
+    public function onKernelRequest(GetResponseEvent $event) {
+        $request = $event->getRequest();
+        $request->setContainer($this->container);
+
         $dispatcher = $this->dispatcher;
+        $dispatcher->dispatch('request_ready', new Event($this, array('request' => $request)));
+        $dispatcher->dispatch('container_ready', new Event($this, array('request' => $request)));
+
+        // allow seo rewriters to fiddle with the request
+        foreach (array_reverse($this->container->get('containerTagService')->findTaggedServiceIds('zenmagick.http.request.rewriter')) as $id => $args) {
+            if ($this->container->get($id)->decode($request)) break;
+        }
+
+        // make sure we use the appropriate protocol (HTTPS, for example) if required
+        $this->container->get('sacsManager')->ensureAccessMethod($request);
+
+        $messageService = $this->container->get('messageService');
 
         // load saved messages
         $messageService->loadMessages($request->getSession());
