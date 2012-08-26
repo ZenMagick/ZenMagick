@@ -96,78 +96,6 @@ class EventListener extends ZMObject {
 
     }
 
-    /**
-     * Handle ZC style cart actions.
-     *
-     * MUST HAPPEN AFTER sanitizeRequest()!
-     */
-    public function handleCart($event) {
-        $request = $event->get('request');
-        $session = $request->getSession();
-        $settingsService = $this->container->get('settingsService');
-        $action = $request->getParameter('action');
-
-        $cartActionMap = array(
-            'update_product' => array('method' => 'actionUpdateProduct', 'multi' => true),
-            'add_product' => array('method' => 'actionAddProduct', 'multi' => false),
-            'buy_now' => array('method' => 'actionBuyNow', 'multi' => false),
-            'multiple_products_add_product' => array('method' => 'actionMultipleAddProduct', 'multi' => true),
-            'notify' => array('method' => 'actionNotify', 'multi' => false),
-            'notify_remove' => array('method' => 'actionNotifyRemove', 'multi' => false),
-            'cust_order' => array('method' => 'actionCustomerOrder', 'multi' => false),
-            'remove_product' => array('method' => 'actionRemoveProduct', 'multi' => false),
-            'cart' => array('method' => 'actionCartUserAction', 'multi' => false),
-            'empty_cart' => array('method' => 'reset', 'multi' => false)
-        );
-
-        if (!in_array($action, array_keys($cartActionMap))) return;
-        if (!$session->isStarted()) {
-            $request->redirect($request->url($this->container->get('settingsService')->get('zenmagick.http.request.invalidSession')));
-        }
-
-        if ($settingsService->get('isShowCartAfterAddProduct')) {
-            $redirectTarget =  'shopping_cart';
-            $params = array('action', 'cPath', 'products_id', 'pid', 'main_page', 'productId');
-        } else {
-            $redirectTarget = $request->getRequestId();
-            if ($action == 'buy_now') {
-                if (strpos($redirectTarget, 'reviews') > 1) {
-                    $params = array('action');
-                    $redirectTarget = 'product_reviews';
-                } else {
-                    $params = array('action', 'products_id', 'productId');
-                }
-            } else {
-                $params = array('action', 'pid', 'main_page');
-            }
-        }
-
-        $productId = $request->query->get('productId');
-        if (null !== $productId) $_GET['product_id'] = $productId;
-
-        if ('empty_cart' == $action) $redirectTarget = true;
-
-        // simulate the number of uploads parameter for add to cart
-        if ('add_product' == $action) {
-            $uploads = 0;
-            foreach ($request->query->all() as $name => $value) {
-                if (0 === strpos($name, $settingsService->get('uploadOptionPrefix'))) {
-                    ++$uploads;
-                }
-            }
-            $request->query->set('number_of_uploads', $uploads);
-        }
-
-        $cartMethod = isset($cartActionMap[$action]) ? $cartActionMap[$action]['method'] : null;
-        if (null != $cartMethod) {
-            $productsId = $request->request->get('products_id');
-            if (is_array($productsId) && !$cartActionMap[$action]['multi']) {
-                $request->request->set('products_id', $productsId[0]);
-            }
-            $request->overrideGlobals();
-            call_user_func_array(array($session->getValue('cart'), $cartMethod), array($redirectTarget, $params));
-        }
-    }
 
     /**
      * More store startup code.
@@ -193,15 +121,6 @@ class EventListener extends ZMObject {
         $this->fixCategoryPath($request);
         $this->checkAuthorization($request);
         $this->configureLocale($request);
-    }
-
-    /**
-     * Remove ajax requests from navigation history, grab zencart messages and fix free shipping.
-     */
-    public function onDispatchStart($event) {
-        $request = $event->get('request');
-
-        $this->handleCart($event);
     }
 
     /**
