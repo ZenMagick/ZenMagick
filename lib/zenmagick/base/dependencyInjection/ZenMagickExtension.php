@@ -68,9 +68,6 @@ class ZenMagickExtension extends Extension {
 
         // @todo still in the wrong place!
         $container->get('pluginService')->getPluginsForContext($context);
-        if ('storefront' == $context) {
-            $container->get('themeService')->initThemes();
-        }
     }
 
     /**
