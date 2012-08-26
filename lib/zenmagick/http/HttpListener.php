@@ -47,11 +47,9 @@ use zenmagick\http\view\View;
  */
 class HttpListener extends ZMObject {
     protected $container;
-    protected $dispatcher;
     private $parameterMapper;
 
-    public function __construct(EventDispatcherInterface $dispatcher, ContainerInterface $container) {
-        $this->dispatcher = $dispatcher;
+    public function __construct(ContainerInterface $container) {
         $this->container = $container;
     }
 
@@ -71,7 +69,7 @@ class HttpListener extends ZMObject {
         $request = $event->getRequest();
         $request->setContainer($this->container);
 
-        $dispatcher = $this->dispatcher;
+        $dispatcher = $event->getDispatcher();
         $dispatcher->dispatch('request_ready', new Event($this, array('request' => $request)));
         $dispatcher->dispatch('container_ready', new Event($this, array('request' => $request)));
 
@@ -90,7 +88,7 @@ class HttpListener extends ZMObject {
 
         $dispatcher->dispatch('dispatch_start', new Event($this, array('request' => $request)));
         ob_start();
-        list($response, $view) = $this->handleRequest($request);
+        list($response, $view) = $this->handleRequest($request, $event);
         $content = ob_get_clean();
         if (!empty($content) && !$view) {
             $response->setContent($content);
@@ -119,11 +117,10 @@ class HttpListener extends ZMObject {
     /**
      * Handle a request.
      *
-     * @param zenmagick\http\Request request The request to dispatch.
      * @return Response The response or <code>null</code>.
      */
-    public function handleRequest($request) {
-        $dispatcher = $this->dispatcher;
+    public function handleRequest($request, $event) {
+        $dispatcher = $event->getDispatcher();
 
         $view = null;
         $response = null;
@@ -195,7 +192,6 @@ class HttpListener extends ZMObject {
      */
     protected function executeController(Request $request) {
         $controller = null;
-        $dispatcher = $this->dispatcher;
 
         try {
             // @todo move this to the  onKernelController event.
