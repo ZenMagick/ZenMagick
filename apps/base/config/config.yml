@@ -23,7 +23,7 @@ framework:
         name: 'zm-%kernel.context%'
         gc_probability: 1
         gc_divisor: 2
-        gc_maxlifetime: %zenmagick.http.session.timeout%
+        gc_maxlifetime: %session_timeout%
         cookie_lifetime: 0
         cookie_httponly: true
 
@@ -58,11 +58,15 @@ twig:
 #        auto_generate_proxy_classes: %kernel.debug%
 #        auto_mapping: true
 
-#swiftmailer:
-#    transport: %mailer_transport%
-#    host:      %mailer_host%
-#    username:  %mailer_user%
-#    password:  %mailer_password%
-#    spool:     { type: memory }
-#
+swiftmailer:
+    transport: %mailer_transport%
+    host:      %mailer_host%
+    username:  %mailer_user%
+    password:  %mailer_password%
+    port:      %mailer_port%
+    encryption: %mailer_encryption%
+    disable_delivery: %mailer_disable_delivery%
+    delivery_address: %mailer_delivery_address%
+    spool:     { type: memory }
+
 zenmagick: ~

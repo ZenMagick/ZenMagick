@@ -32,13 +32,10 @@ foreach ($configService->loadAll() as $key => $value) {
 
 $container->setParameter('session_handler', 'session.handler.pdo');
 
-$container->setParameter('locale', 'en'); // @todo store in db
-
 $container->setParameter('zencart.root_dir', realpath(dirname($rootDir)));
 $container->setParameter('zencart.admin_dir', defined('ZENCART_ADMIN_FOLDER') ? ZENCART_ADMIN_FOLDER : 'admin');
 
-$container->setParameter('zenmagick.http.session.timeout',  1440);
 if ('admin' == $context) {
-    $container->setParameter('zenmagick.http.session.timeout',  SESSION_TIMEOUT_ADMIN);
+    $container->setParameter('session_timeout',  SESSION_TIMEOUT_ADMIN);
 }
 

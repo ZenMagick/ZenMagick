@@ -74,13 +74,10 @@ class Application extends Kernel {
     public function registerContainerConfiguration(LoaderInterface $loader) {
         $context = $this->getContext();
 
-        $resources[] = function($container) {
-            $container->setParameter('session_handler', 'session.handler.native_file');
-            // needed for storefront session override later
-            $container->setParameter('session.class', 'zenmagick\http\session\Session');
-        };
+        $resources[] = $this->getRootDir().'/apps/base/config/parameters.yml';
         // used to set the basic parameters to fill config_$env.yml files
         $resources[] = $this->getRootDir().'/apps/store/config/configuration.php';
+        $resources[] = $this->getRootDir().'/apps/store/config/email.php';
         // extension configuration
         $resources[] = $this->getRootDir().'/apps/base/config/config_'.$this->getEnvironment().'.yml';
 
@@ -90,8 +87,6 @@ class Application extends Kernel {
                 $container->setParameter('session.class', 'zenmagick\apps\storefront\http\Session');
             }
         };
-
-        $resources[] = $this->getRootDir().'/apps/store/config/email.php';
 
         foreach ($resources as $resource) {
             if (is_string($resources) && !file_exists($resource)) {

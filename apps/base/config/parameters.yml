@@ -1,0 +1,23 @@
+parameters:
+    database_driver:   pdo_mysql
+    database_host:     localhost
+    database_port:     ~
+    database_name:     symfony
+    database_user:     root
+    database_password: ~
+
+    mailer_transport:  smtp
+    mailer_host:       localhost
+    mailer_user:       ~
+    mailer_password:   ~
+    mailer_port:       ~
+    mailer_encryption: ~
+    mailer_disable_delivery: false
+    mailer_delivery_address: ~
+
+    locale:            en
+    secret:            ThisTokenIsNotSoSecretChangeIt
+
+    session_timeout: 1440
+    session_handler: session.handler.native_file
+    session.class: 'zenmagick\http\session\Session'

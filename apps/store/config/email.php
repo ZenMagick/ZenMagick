@@ -23,38 +23,37 @@ if (!defined('SEND_EMAILS')) {
     return;
 }
 
-$config['disable_delivery'] = SEND_EMAILS != 'true';
+$container->setParameter('mailer_disable_delivery', SEND_EMAILS != 'true');
 
 // @todo we should make this available with the rest of the email parameters.
 if (defined('DEVELOPER_OVERRIDE_EMAIL_ADDRESS') && '' != DEVELOPER_OVERRIDE_EMAIL_ADDRESS) {
-    $config['delivery_address'] =  DEVELOPER_OVERRIDE_EMAIL_ADDRESS;
+    $container->setParameter('mailer_delivery_address', DEVELOPER_OVERRIDE_EMAIL_ADDRESS);
 }
 
 $transport = EMAIL_TRANSPORT;
 if ('PHP' == $transport) {
-    $config['transport'] = 'mail';
+    $transport = 'mail';
 }
 if (in_array($transport, array('sendmail', 'sendmail-f', 'Qmail'))) {
-    $config['transport'] = 'sendmail';
+    $transport = 'sendmail';
 };
 if ('smtp.gmail.com' == EMAIL_SMTPAUTH_MAIL_SERVER) {
-    $config['transport'] = 'gmail';
+    $transport = 'gmail';
 }
 if (in_array($transport, array('smtp', 'smtpauth'))) {
-    $config['transport'] = 'smtp';
-    $config['host'] = EMAIL_SMTPAUTH_MAIL_SERVER;
-    $config['port'] = false;
-    if ('' != ($port = EMAIL_SMTPAUTH_MAIL_SERVER_PORT)) {
-        $config['port'] = $port;
-    }
+    $transport = 'smtp';
+    $container->setParameter('mailer_host', EMAIL_SMTPAUTH_MAIL_SERVER);
+    $port = EMAIL_SMTPAUTH_MAIL_SERVER_PORT;
+    if ('' == trim($port)) $port = false;
+
+    $container->setParameter('mailer_port', $port);
     if (in_array($port, array(465, 587))) {
-        $config['encryption'] = 'ssl';
+        $container->setParameter('encryption', 'ssl');
     }
 }
 
+$container->setParameter('mailer_transport', $transport);
 if ('' != trim(EMAIL_SMTPAUTH_MAILBOX)) {
-    $config['username'] =  EMAIL_SMTPAUTH_MAILBOX;
-    $config['password'] =  EMAIL_SMTPAUTH_PASSWORD;
-
+    $container->setParameter('mailer_username', EMAIL_SMTPAUTH_MAILBOX);
+    $container->setParameter('mailer_password', EMAIL_SMTPAUTH_PASSWORD);
 }
-$container->loadFromExtension('swiftmailer', $config);
