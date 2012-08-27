@@ -27,8 +27,8 @@ zenmagick:
       listeners:
         - zenmagick\apps\store\bundles\ZenCartBundle\ZenCartBundle
         - zenmagick\apps\store\StoreEventListener
-        - zenmagick\apps\admin\EventListener
         - zenmagick\http\EventListener
+        - zenmagick\apps\admin\EventListener
   ## mvc
   mvc:
     ## request
