@@ -62,6 +62,7 @@ class Application extends Kernel {
             new \Symfony\Bundle\FrameworkBundle\FrameworkBundle,
             new \zenmagick\base\ZenMagickBundle,
             new \zenmagick\apps\admin\AdminBundle,
+            new \zenmagick\apps\storefront\StorefrontBundle,
         );
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {
             $bundles[] = new \Symfony\Bundle\WebProfilerBundle\WebProfilerBundle;
