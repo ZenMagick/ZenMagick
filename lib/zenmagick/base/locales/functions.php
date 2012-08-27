@@ -25,9 +25,9 @@
  * @param string domain The translation domain; default is <code>null</code>.
  * @return string The translated text or, if no translation found, the original text.
  */
-function _zm($text, $domain=null) {
+function _zm($text, $domain = 'messages') {
     if (null != ($container = \zenmagick\base\Runtime::getContainer())) {
-        $trans = $container->get('localeService')->translate($text, $domain);
+        $trans = $container->get('translator')->trans($text, array(), $domain);
         if ('' != $trans) return $trans;
     }
     return $text;
@@ -44,7 +44,7 @@ function _zm($text, $domain=null) {
  * @return string The translated text or, if no translation found, the original text.
  */
 function _zmn($single, $number, $plural=null, $domain=null) {
-    return Runtime::getContainer()->get('localeService')->translatePlural($single, $number, $plural, $domain);
+    return Runtime::getContainer()->get('translator')->translatePlural($single, $number, $plural, $domain);
 }
 
 /**
@@ -61,7 +61,7 @@ function _vzm($text) {
     $args = func_get_args();
     array_shift($args);
     if (null != ($container = \zenmagick\base\Runtime::getContainer())) {
-        $translated = $container->get('localeService')->translate($text, null);
+        $translated = $container->get('translator')->trans($text, array(), 'messages');
         if ('' == $translated) $translated = $text;
     }
     echo null != $args ? vsprintf($translated, $args) : $translated;
