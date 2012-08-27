@@ -66,8 +66,6 @@ class ZenMagickExtension extends Extension {
             $container->setParameter('zenmagick.http.sacs.mappingProviders', array('zenmagick\apps\admin\services\DBSacsPermissionProvider'));
         }
 
-        // @todo still in the wrong place!
-        $container->get('pluginService')->getPluginsForContext($context);
     }
 
     /**
