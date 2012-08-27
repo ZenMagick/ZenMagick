@@ -43,8 +43,8 @@ class ExamplePluginPlugin extends Plugin {
         $content = $event->get('content');
         $request = $event->get('request');
 
-        if ('login' == $request->getRequestId()) {
-            $content = preg_replace('/<h1>(.*)<\/h1>/', sprintf(_zm('<h1>\\1 (modified by %s)</h1>'), $this->getName()), $content, 1);
+        if ('index' == $request->getRequestId()) {
+            $content = preg_replace('/<h1>(.*)<\/h1>/', '<h1>\\1'.sprintf(_zm('(modified by %s)'), $this->getName()).'</h1>', $content, 1);
             $event->set('content', $content);
         }
     }

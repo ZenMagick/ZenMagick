@@ -10,5 +10,5 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 
 #: plugins\examplePlugin\ExamplePluginPlugin.php:54
-msgid "<h1>\\1 (modified by %s)</h1>"
+msgid "(modified by %s)"
 msgstr ""
