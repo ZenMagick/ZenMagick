@@ -7,7 +7,7 @@ parameters:
 #    - { resource: security.yml }
 
 framework:
-    #translator:      { fallback: %locale% }
+    translator:      { fallback: en }
     secret:          %secret%
     router:
         resource: '%kernel.context_dir%/config/routing.xml'
