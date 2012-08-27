@@ -312,7 +312,7 @@ class Theme extends ZMObject {
      * @param Language language The language.
      */
     public function loadTranslations() {
-        $this->container->get('localeService')->addResource($this->getBasePath().'/locale');
+        // @todo bring back theme translations when we have some.
     }
 
     /**

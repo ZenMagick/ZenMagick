@@ -38,17 +38,15 @@ class Plugins extends ZMObject {
     protected $plugins;
     protected $statusMap;
     protected $pluginStatusMapBuilder;
-    protected $localeService;
     protected $contextConfigLoader;
 
 
     /**
      * Create new instance.
      */
-    public function __construct($pluginStatusMapBuilder, $localeService, $contextConfigLoader) {
+    public function __construct($pluginStatusMapBuilder, $contextConfigLoader) {
         parent::__construct();
         $this->pluginStatusMapBuilder = $pluginStatusMapBuilder;
-        $this->localeService = $localeService;
         $this->contextConfigLoader = $contextConfigLoader;
         $this->plugins = array();
         $this->statusMap = null;
@@ -116,9 +114,6 @@ class Plugins extends ZMObject {
 
                     // @todo make obsolete
                     $plugin->init();
-                    // plugins can only contribute translations
-                    $path = $plugin->getPluginDirectory().'/locale';
-                    $this->localeService->addResource($path);
                 }
 
                 $this->plugins[$id] = $plugins[$id] = $plugin;

@@ -61,19 +61,6 @@ class Locales extends ZMObject {
             ),
             'dir' => 'ltr'
         );
-        $this->init($locale);
-    }
-
-    /**
-     * Add resource.
-     *
-     * @param mixed resource The resource to add.
-     * @param string locale The locale to be used in the form: <code>[language code]_[country code]</code> or just <code>[language code]</code>;
-     *  for exampe <em>de_DE</em>, <em>en_NZ</em> or <em>es</code>; default is <code>null</code> to use the current locale.
-     * @param string domain The translation domain; default is <code>null</code>.
-     */
-    public function addResource($resource, $locale=null, $domain=null) {
-        $this->getLocale()->addResource($resource, $locale, $domain);
     }
 
     /**
@@ -83,35 +70,6 @@ class Locales extends ZMObject {
      */
     public function setLocale($locale) {
         $this->locale = $locale;
-    }
-
-    /**
-     * Get the active locale.
-     *
-     * <p>The reload flag is mainly to allow applications to switch to a different locale implementation at a later stage during
-     * startup.</p>
-     *
-     * @param boolean reload Optional flag to force a reload; default is <code>false</code>.
-     * @param string locale Optional locale to init the locale if a new one is created; default is <code>null</code>.
-     * @param string path Optional path to override the default path generation based on the locale name; default is <code>null</code>.
-     * @return Locale The locale.
-     */
-    public function getLocale($reload=false, $locale=null, $path=null) {
-        if (empty($locale) && !empty($this->locale)) {
-            $locale = $this->locale;
-        }
-        $this->locale = $locale;
-        if (null === $this->loader || $reload) {
-            $this->loader = new \zenmagick\base\locales\handler\PomoLocale;
-            if (null !== $locale) {
-                $this->loader->setDefaultDomain('messages');
-                $this->loader->init($locale, $path);
-            }
-        }
-        if (empty($this->formats) || ($locale != $this->locale)) {
-            $this->initFormats($locale);
-        }
-        return $this->loader;
     }
 
     /**
@@ -127,18 +85,6 @@ class Locales extends ZMObject {
             $codes[] = $token[0];
         }
         return $codes;
-    }
-
-    /**
-     * Init locale.
-     *
-     * @param string locale The locale name, for example: <em>en_NZ</em>.
-     * @param string path Optional path to override the default path generation based on the locale name; default is <code>null</code>.
-     * @param boolean reload Optional flag to force a reload; default is <code>false</code>.
-     */
-    public function init($locale=null, $path=null, $reload=false) {
-        $locale = $locale ?: $this->locale;
-        $this->getLocale($reload, $locale)->init($locale, $path);
     }
 
     /**
@@ -238,31 +184,4 @@ class Locales extends ZMObject {
             return $date->format($this->getFormat('date', 'long'));
         }
     }
-
-    /**
-     * Translate the given text.
-     *
-     * @param string text The text to translate.
-     * @param mixed context Optional translation context; default is <code>null</code>.
-     * @param string domain The translation domain; default is <code>null</code>.
-     * @return string The translated text.
-     */
-    public function translate($text, $context=null, $domain=null) {
-        return $this->getLocale()->translate($text, $context, $domain);
-    }
-
-    /**
-     * Translate the given text with plural option.
-     *
-     * @param string single The text to translate for single case.
-     * @param int number The number.
-     * @param string plural The text to translate for plural case; default is <code>null</code> to default to the single case.
-     * @param mixed context Optional translation context; default is <code>null</code>.
-     * @param string domain The translation domain; default is <code>null</code>.
-     * @return string The translated text or, if no translation found, the original text.
-     */
-    public function translatePlural($single, $number, $plural=null, $context=null, $domain=null) {
-        return $this->getLocale()->translatePlural($single, $number, $plural, $context, $domain);
-    }
-
 }
