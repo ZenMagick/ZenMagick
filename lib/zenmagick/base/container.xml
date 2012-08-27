@@ -46,7 +46,6 @@
 
         <service id="localeService" class="zenmagick\base\locales\Locales">
             <argument>%kernel.default_locale%</argument>
-            <file>%kernel.root_dir%/lib/zenmagick/base/locales/functions.php</file>
         </service>
         <service id="localeScanner" class="zenmagick\base\locales\LocaleScanner" scope="prototype">
             <call method="setFilesystem">

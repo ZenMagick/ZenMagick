@@ -18,8 +18,6 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-use zenmagick\base\Runtime;
-
 /**
  * Translate the given text.
  *
@@ -28,7 +26,11 @@ use zenmagick\base\Runtime;
  * @return string The translated text or, if no translation found, the original text.
  */
 function _zm($text, $domain=null) {
-    return Runtime::getContainer()->get('localeService')->translate($text, $domain);
+    if (null != ($container = \zenmagick\base\Runtime::getContainer())) {
+        $trans = $container->get('localeService')->translate($text, $domain);
+        if ('' != $trans) return $trans;
+    }
+    return $text;
 }
 
 
@@ -58,7 +60,10 @@ function _vzm($text) {
     // get the remaining args
     $args = func_get_args();
     array_shift($args);
-    $translated = Runtime::getContainer()->get('localeService')->translate($text, null);
+    if (null != ($container = \zenmagick\base\Runtime::getContainer())) {
+        $translated = $container->get('localeService')->translate($text, null);
+        if ('' == $translated) $translated = $text;
+    }
     echo null != $args ? vsprintf($translated, $args) : $translated;
 }
 

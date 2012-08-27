@@ -34,7 +34,7 @@ spl_autoload_register(function ($class) {
  * Preload Locales class to make translation functions available.
  */
 class_exists('zenmagick\base\locales\handler\pomo\POMO');
-class_exists('zenmagick\base\locales\Locales');
+require_once __DIR__.'/lib/zenmagick/base/locales/functions.php';
 
 AnnotationRegistry::registerLoader(array($loader, 'loadClass'));
 
