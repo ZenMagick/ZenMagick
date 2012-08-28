@@ -2,12 +2,6 @@
     "hash": "5b5e5f69d78e1f8ce3b9183af32c58d3",
     "packages": [
         {
-            "package": "buddypress/glotpress",
-            "version": "dev-master",
-            "source-reference": "master",
-            "commit-date": "1340040428"
-        },
-        {
             "package": "dermanomann/phprules",
             "version": "dev-master",
             "source-reference": "master",
