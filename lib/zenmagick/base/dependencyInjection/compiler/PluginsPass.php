@@ -58,12 +58,13 @@ class PluginsPass implements CompilerPassInterface {
                 $dirs[] = $dir;
             }
         }
+        if (empty($dirs)) return;
+
         $finder = Finder::create()
             ->files()
             ->filter(function (\SplFileInfo $file) {
                 return 2 === substr_count($file->getBasename(), '.') && preg_match('/\.\w+$/', $file->getBasename());
-            })
-            ->in($dirs);
+            })->in($dirs);
 
         foreach ($finder as $file) {
             // filename is domain.locale.format
