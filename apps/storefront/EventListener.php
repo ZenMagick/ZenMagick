@@ -30,9 +30,6 @@ use zenmagick\http\view\TemplateView;
  * Fixes and stuff that are (can be) event driven.
  *
  * @author DerManoMann <mano@zenmagick.org>
- * @todo move all code only required by ZenCart to ZenCartBundle.
- * @todo handle all direct superglobal modifications in a more sane and centralized fashion
- *       so we don't actually make ZenCart more insecure on accident.
  */
 class EventListener extends ZMObject {
 
@@ -85,8 +82,6 @@ class EventListener extends ZMObject {
     public function onRequestReady($event) {
         $request = $event->get('request');
 
-        $this->sanitizeRequest($request);
-
         $settingsService = $this->container->get('settingsService');
         $defaultLocale = $settingsService->get('defaultLanguageCode');
         $request->setDefaultLocale($defaultLocale);
@@ -130,83 +125,6 @@ class EventListener extends ZMObject {
     public function onNotifyCheckoutProcessAfterOrderCreateAddProducts($event) {
         $args = array_merge($event->all(), array('request' => $this->container->get('request'), 'orderId' => $_SESSION['order_number_created']));
         $event->getDispatcher()->dispatch('create_order', new Event($this, $args));
-    }
-
-    /**
-     * Fix $_POST[products_id] keys and values.
-     *
-     * Reimplementation of extra_configures/security_patch_v138_20080919.php
-     * for CVE-2008-6985.
-     *
-     * Required for all users of the zencart version of shoppingCart
-     *
-     * @todo make it only required while using ZenCart templates
-     */
-    protected function fixProductIds($ids) {
-        $pattern = '/^[0-9]+(:[0-9a-f]{32})?$/';
-        $ids = new \ArrayIterator((array)$ids);
-        $iter = new \RegexIterator($ids, $pattern, \RegexIterator::MATCH, \RegexIterator::USE_KEY);
-        return iterator_to_array(new \RegexIterator($iter, $pattern, \RegexIterator::MATCH));
-    }
-
-    /**
-     * Fix $_POST['id'] keys and values
-     *
-     * Reimplementation of extra_configures/security_patch_v138_20080919.php
-     * for CVE-2008-6985.
-     *
-     * Required for all users of the zencart version of shoppingCart
-     *
-     * @todo make it only required while using ZenCart templates
-     */
-
-    function fixPostIds($ids) {
-        foreach ($ids as $k => $v) {
-            if (is_int($k)) {
-                $ids[$k] = is_array($ids[$k]) ? $this->fixPostIds($ids[$k]) : (int)$v;
-            } else {
-                if (!preg_match('/[0-9a-zA-Z:._]/', $k)) unset($ids[$k]);
-            }
-        }
-        return $ids;
-    }
-
-    /**
-     * Fix a number of things...
-     *
-     * @param zenmagick\http\Request request The current request.
-     *
-     * @todo find a better way/place to add these sanitizers
-     */
-    protected function sanitizeRequest($request) {
-        // START CVE-2008-6985 (includes/extra_configures/security_patch_v138_20080919.php)
-        if ($request->request->has('products_id')) {
-            $request->request->set('products_id', $this->fixProductIds($request->request->get('products_id')));
-        }
-        if ($request->request->has('notify')) {
-            $request->request->set('notify', $this->fixProductIds($request->request->get('notify')));
-        }
-        if ($request->request->has('id')) {
-            $request->request->set('id', $this->fixPostIds($request->request->get('id')));
-        }
-        // END CVE-2008-6985
-
-        // init_sanitize
-        $sanitizeList = array(
-            'products_id' => '/^[0-9]+(:[0-9a-f]{32})?$/',
-            'productId' => '/^[0-9]+(:[0-9a-f]{32})?$/',
-            'manufacturers_id' => '/^\d+$/',
-            'categories_id' => '/^\d+$/',
-            'cPath' => '/^[0-9_]+$/',
-            'sort' => '/^\w+$/'
-        );
-        foreach ($sanitizeList as $name => $pattern) {
-            if ($request->query->has($name) && !preg_match($pattern, $request->query->get($name))) {
-                $request->query->remove($name);
-            }
-        }
-        // end init_sanitize
-        $request->overrideGlobals(); // @todo do it only for zc controller
     }
 
     /**
