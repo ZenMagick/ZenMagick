@@ -24,10 +24,10 @@
 class messageStack {
     function add($message, $type = 'error') {
         $type = in_array($type, array('caution', 'warning')) ? 'warn' : $type;
-        \zenmagick\base\Runtime::getContainer()->get('messageService')->add($type, $message);
+        \zenmagick\base\Runtime::getContainer()->get('messageService')->add($message, $type);
     }
     function add_session($message, $type = 'error') {
-        $this->add($type, $message);
+        $this->add($message, $type);
     }
     function reset() { }
 }

@@ -160,7 +160,7 @@ class StoreEventListener extends ZMObject {
             );
             $messageService = $this->container->get('messageService');
             foreach ($messages as $details) {
-                $messageService->add($statusMap[$details[0]], $details[1]);
+                $messageService->add($details[1], $statusMap[$details[0]]);
             }
         }
     }
