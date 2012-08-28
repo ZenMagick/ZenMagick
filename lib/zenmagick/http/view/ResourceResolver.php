@@ -93,6 +93,9 @@ class ResourceResolver extends ZMObject {
             foreach ($this->container->get('pluginService')->getPluginsForContext() as $plugin) {
                 if ($plugin instanceof HttpPlugin) {
                     $locations[] = $plugin->getTemplatePath();
+                    foreach ($localeCodes as $code) {
+                        $locations[] = sprintf('%s/locale/%s', $plugin->getTemplatePath(), $code);
+                    }
                 }
             }
 
@@ -123,6 +126,7 @@ class ResourceResolver extends ZMObject {
         if (null === $this->locations[View::RESOURCE]) {
             $locations = array();
 
+            // available locale
             $localeCodes = array_reverse($this->container->get('localeService')->getValidLocaleCodes());
 
             // add bundles as fallback fallback fallback
@@ -136,6 +140,9 @@ class ResourceResolver extends ZMObject {
             foreach ($this->container->get('pluginService')->getPluginsForContext() as $plugin) {
                 if ($plugin instanceof HttpPlugin) {
                     $locations[] = $plugin->getResourcePath();
+                    foreach ($localeCodes as $code) {
+                        $locations[] = sprintf('%s/locale/%s', $plugin->getResourcePath(), $code);
+                    }
                 }
             }
 
