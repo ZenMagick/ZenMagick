@@ -33,20 +33,6 @@ function _zm($text, $domain = 'messages') {
     return $text;
 }
 
-
-/**
- * Translate the given text with plural option.
- *
- * @param string single The text to translate for single case.
- * @param int number The number.
- * @param string plural The text to translate for plural case; default is <code>null</code> to default to the single case.
- * @param string domain The translation domain; default is <code>null</code>.
- * @return string The translated text or, if no translation found, the original text.
- */
-function _zmn($single, $number, $plural=null, $domain=null) {
-    return Runtime::getContainer()->get('translator')->translatePlural($single, $number, $plural, $domain);
-}
-
 /**
  * Convenience version of <code>_zm</code> using the the default domain.
  *
