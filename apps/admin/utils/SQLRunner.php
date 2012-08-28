@@ -161,7 +161,7 @@ class SQLRunner {
             // RENAME TABLE command cannot be parsed to insert table prefixes, so skip if zen is using prefixes
             if (!Toolbox::isEmpty(self::$prefix)) {
               self::write_to_upgrade_exceptions_table($line, 'RENAME TABLE command not supported by upgrader. Please use phpMyAdmin instead.', $sql_file);
-              $messageStack->add('RENAME TABLE command not supported by upgrader. Please use phpMyAdmin instead.', 'caution');
+              $messageStack->addMessage('RENAME TABLE command not supported by upgrader. Please use phpMyAdmin instead.', 'caution');
 
               $ignore_line=true;
             }

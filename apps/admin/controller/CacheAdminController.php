@@ -73,7 +73,7 @@ class CacheAdminController extends \ZMController {
                     $cache = \ZMCaches::instance()->getCache($group, $config, $type);
                     $result = $cache->clear();
                     $msg = 'Clear cache \'%s\' ' . ($result ? 'successful' : 'failed');
-                    $this->messageService->add(sprintf(_zm($msg), $type.'/'.$group), ($result ? 'success' : 'error'));
+                    $this->messageService->addMessage(sprintf(_zm($msg), $type.'/'.$group), ($result ? 'success' : 'error'));
                 }
             }
         }

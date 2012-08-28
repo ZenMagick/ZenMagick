@@ -24,7 +24,7 @@
         $themeBuilder->setName($request->request->get('name'));
         $buildOK = $themeBuilder->build();
         foreach ($themeBuilder->getMessages() as $msgInfo) {
-            $messageService->add($msgInfo[1], $msgInfo[0]);
+            $messageService->addMessage($msgInfo[1], $msgInfo[0]);
         }
     }
 
