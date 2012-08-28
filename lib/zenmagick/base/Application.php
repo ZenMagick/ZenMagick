@@ -60,7 +60,7 @@ class Application extends Kernel {
             new \Symfony\Bundle\MonologBundle\MonologBundle,
             new \Symfony\Bundle\TwigBundle\TwigBundle,
             new \Symfony\Bundle\FrameworkBundle\FrameworkBundle,
-            new \zenmagick\base\ZenMagickBundle,
+            new \zenmagick\base\ZenmagickBundle,
             new \zenmagick\apps\admin\AdminBundle,
             new \zenmagick\apps\storefront\StorefrontBundle,
         );
