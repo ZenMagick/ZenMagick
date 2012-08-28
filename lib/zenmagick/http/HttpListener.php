@@ -24,7 +24,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\HttpKernelInterface;
 use Symfony\Component\HttpKernel\Event\GetResponseEvent;
 use Symfony\Component\DependencyInjection\ContainerInterface;
-use Symfony\Component\EventDispatcher\EventDispatcherInterface;
+use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 use zenmagick\base\Beans;
 use zenmagick\base\Runtime;
@@ -45,7 +45,7 @@ use zenmagick\http\view\View;
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class HttpListener extends ZMObject {
+class HttpListener extends ZMObject implements EventSubscriberInterface {
     protected $container;
     private $parameterMapper;
 
@@ -236,5 +236,13 @@ class HttpListener extends ZMObject {
         }
 
         return $result;
+    }
+
+    public static function getSubscribedEvents() {
+        return array(
+            'kernel.request' => array(
+                array('onKernelRequest', 15),
+            )
+        );
     }
 }

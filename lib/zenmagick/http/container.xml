@@ -196,7 +196,7 @@
 
         <!-- @todo don't depend on all this code in one listener -->
         <service id="zenmagick.http_listener" class="zenmagick\http\HttpListener">
-            <tag name="kernel.event_listener" event="kernel.request" method="onKernelRequest" priority="15" />
+            <tag name="kernel.event_subscriber" />
             <argument type="service" id="service_container" />
             <call method="setParameterMapper">
                 <argument type="service" id="controllerParameterMapper" />
