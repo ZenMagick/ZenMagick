@@ -65,12 +65,11 @@ class Messages extends ZMObject {
     /**
      * Generic add a message.
      *
-     * @param string text The message text.
      * @param string type The message type; default is <code>Messages::T_MESSAGE</code>.
+     * @param string text The message text.
      * @param string ref The referencing resource; default is <code>Messages::REF_GLOBAL</code>.
      */
-    public function add($text, $type=self::T_MESSAGE, $ref=self::REF_GLOBAL) {
-        //$key = $type.':'.trim($text);
+    public function add($type=self::T_MESSAGE, $text, $ref=self::REF_GLOBAL) {
         $key = trim($text);
         if (array_key_exists($key, $this->uniqueMsgRef_)) {
             return;
@@ -91,7 +90,7 @@ class Messages extends ZMObject {
      * @param string ref The referencing resource; default is <code>Messages::REF_GLOBAL</code>.
      */
     public function error($text, $ref=self::REF_GLOBAL) {
-        $this->add($text, self::T_ERROR, $ref);
+        $this->add(self::T_ERROR, $text, $ref);
     }
 
     /**
@@ -101,7 +100,7 @@ class Messages extends ZMObject {
      * @param string ref The referencing resource; default is <code>Messages::REF_GLOBAL</code>.
      */
     public function warn($text, $ref=self::REF_GLOBAL) {
-        $this->add($text, self::T_WARN, $ref);
+        $this->add(self::T_WARN, $text, $ref);
     }
 
     /**
@@ -111,7 +110,7 @@ class Messages extends ZMObject {
      * @param string ref The referencing resource; default is <code>Messages::REF_GLOBAL</code>.
      */
     public function msg($text, $ref=self::REF_GLOBAL) {
-        $this->add($text, self::T_MESSAGE, $ref);
+        $this->add(self::T_MESSAGE, $text, $ref);
     }
 
     /**
@@ -121,7 +120,7 @@ class Messages extends ZMObject {
      * @param string ref The referencing resource; default is <code>Messages::REF_GLOBAL</code>.
      */
     public function success($text, $ref=self::REF_GLOBAL) {
-        $this->add($text, self::T_SUCCESS, $ref);
+        $this->add(self::T_SUCCESS, $text, $ref);
     }
 
     /**
@@ -131,7 +130,7 @@ class Messages extends ZMObject {
      */
     public function addAll($messages) {
         foreach ($messages as $msg) {
-            $this->add($msg->getText(), $msg->getType(), $msg->getRef());
+            $this->add($msg->getType(),$msg->getText(), $msg->getRef());
         }
     }
 
@@ -210,7 +209,7 @@ class Messages extends ZMObject {
     public function loadMessages($session) {
         if (null !== ($data = $session->getValue('http.messages')) && is_array($data)) {
             foreach ($data as $msg) {
-                $this->add($msg['text'], $msg['type'], $msg['ref']);
+                $this->add($msg['type'], $msg['text'], $msg['ref']);
             }
             $session->setValue('http.messages', null);
         }

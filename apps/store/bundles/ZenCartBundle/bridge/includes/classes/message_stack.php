@@ -59,7 +59,7 @@ class messageStack {
      */
     public function add($class, $message, $type = 'error') {
         $type = in_array($type, array('caution', 'warning')) ? 'warn' : $type;
-        $this->getService()->add($message, $type, $class);
+        $this->getService()->add($type, $message, $class);
     }
 
     /**
@@ -70,7 +70,7 @@ class messageStack {
      * @param string type message type
      */
     public function add_session($class, $message, $type = 'error') {
-        $this->add($class, $message, $type);
+        $this->add($type, $message, $class);
     }
 
     /**
@@ -140,12 +140,12 @@ class messageStack {
      *
      * @param string class named stack to count
      * @return int (0 or 1 only)
-     */ 
+     */
     public function size($class) {
         $hasMessages = $this->getService()->hasMessages($class);
         if ('header' == $class) {
            $hasMessages = $hasMessages || $this->getService()->hasMessages('global');
         }
-        return (int)$hasMessages; 
+        return (int)$hasMessages;
     }
 }
