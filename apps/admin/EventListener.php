@@ -54,6 +54,23 @@ class EventListener extends ZMObject {
     public function onViewStart($event) {
         $request = $event->get('request');
         $view = $event->get('view');
+
+        $this->initMenu();
+        $adminMenu = $this->container->get('adminMenu');
+        $legacyConfig = $adminMenu->getElement('configuration-legacy');
+        $configGroups = $this->container->get('configService')->getConfigGroups();
+        foreach ($configGroups as $group) {
+            if ($group->isVisible()) {
+                $id = strtolower($group->getName());
+                $id = str_replace(' ', '', $id);
+                $id = str_replace('/', '-', $id);
+                $element = new MenuElement($id, $group->getName());
+                $element->setRequestId('legacy-config');
+                $element->setParams('groupId='.$group->getId());
+                $legacyConfig->addChild($element);
+            }
+        }
+
         if ($view instanceof TemplateView) {
             $view->setVariable('currentLanguage', $request->getSelectedLanguage());
             $view->setVariable('currentEditor', $this->getCurrentEditor($request));
@@ -118,23 +135,6 @@ class EventListener extends ZMObject {
         }
         if (null == $session->getValue('languages_id')) {
             $session->setValue('languages_id', Runtime::getSettings()->get('storeDefaultLanguageId'));
-        }
-
-        // need db for this, so only do now
-        $this->initMenu();
-        $adminMenu = $this->container->get('adminMenu');
-        $legacyConfig = $adminMenu->getElement('configuration-legacy');
-        $configGroups = $this->container->get('configService')->getConfigGroups();
-        foreach ($configGroups as $group) {
-            if ($group->isVisible()) {
-                $id = strtolower($group->getName());
-                $id = str_replace(' ', '', $id);
-                $id = str_replace('/', '-', $id);
-                $element = new MenuElement($id, $group->getName());
-                $element->setRequestId('legacy-config');
-                $element->setParams('groupId='.$group->getId());
-                $legacyConfig->addChild($element);
-            }
         }
 
         $user = $request->getAccount();

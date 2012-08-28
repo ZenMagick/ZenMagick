@@ -81,12 +81,6 @@ class ZenCartBundle extends Bundle {
                 $session->setValue('navigation', new \navigationHistory);
             }
         }
-        $settingsService = $this->container->get('settingsService');
-        if (Runtime::isContextMatch('admin')) {
-            $settingsService->add('apps.store.admin.menus', 'apps/store/bundles/ZenCartBundle/Resources/config/admin/menu.yaml');
-            $settingsService->add('zenmagick.http.routing.addnRouteFiles', __DIR__.'/Resources/config/admin/routing.xml');
-        }
-
     }
 
     /**
@@ -112,5 +106,13 @@ class ZenCartBundle extends Bundle {
             'includes/languages/%language%/extra_definitions/*.php')
         );
         $autoLoader->restoreErrorLevel();
+    }
+
+    public function onViewStart($event) {
+        $settingsService = $this->container->get('settingsService');
+        if (Runtime::isContextMatch('admin')) {
+            $settingsService->add('apps.store.admin.menus', 'apps/store/bundles/ZenCartBundle/Resources/config/admin/menu.yaml');
+            $settingsService->add('zenmagick.http.routing.addnRouteFiles', __DIR__.'/Resources/config/admin/routing.xml');
+        }
     }
 }
