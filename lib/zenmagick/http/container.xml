@@ -6,7 +6,6 @@
     xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
 
     <parameters>
-
         <parameter key="zenmagick.http.httpPort">80</parameter>
         <parameter key="zenmagick.http.httpsPort">443</parameter>
         <parameter key="zenmagick.http.session.validator.userAgent">false</parameter>
@@ -33,8 +32,6 @@
             <argument type="service" id="pdo" />
             <argument>%pdo.db_options%</argument>
         </service>
-
-        <service id="request" synthetic="true" scope="request" />
 
         <service id="contextConfigLoader" class="zenmagick\http\utils\ContextConfigLoader" scope="prototype">
             <call method="setContext">
