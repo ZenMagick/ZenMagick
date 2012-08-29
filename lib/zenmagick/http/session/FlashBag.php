@@ -17,11 +17,10 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-namespace zenmagick\http\messages;
+namespace zenmagick\http\session;
 
-use Symfony\Component\HttpFoundation\Session\SessionInterface;
-
-use zenmagick\base\ZMObject;
+use zenmagick\http\messages\Message;
+use Symfony\Component\HttpFoundation\Session\Flash\FlashBag as BaseFlashBag;
 
 /**
  * Application message services.
@@ -38,7 +37,7 @@ use zenmagick\base\ZMObject;
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class Messages extends ZMObject {
+class FlashBag extends BaseFlashBag {
     /** Catch all (global) message reference type. */
     const REF_GLOBAL = 'global';
     /** Message type <em>success</em>. */
@@ -51,15 +50,6 @@ class Messages extends ZMObject {
     const T_ERROR = 'error';
 
     private $uniqueMsgRef_ = array();
-    private $session;
-
-    /**
-     * Create new instance.
-     */
-    public function __construct(SessionInterface $session) {
-        $this->session = $session;
-    }
-
 
     /**
      * Generic add a message.
@@ -76,7 +66,7 @@ class Messages extends ZMObject {
 
         $this->uniqueMsgRef_[$key] = $text;
         $message = array('text' => $text, 'type' => $type, 'ref' => $ref);
-        $this->session->getFlashBag()->add('zenmagick', $message);
+        $this->add('zenmagick', $message);
     }
 
     /**
@@ -138,10 +128,10 @@ class Messages extends ZMObject {
      */
     public function hasMessages($ref=null) {
         if (null === $ref) {
-            return $this->session->getFlashBag()->has('zenmagick');
+            return $this->has('zenmagick');
         }
 
-        foreach ($this->session->getFlashBag()->peek('zenmagick') as $message) {
+        foreach ($this->peek('zenmagick') as $message) {
             if ($ref == $message['ref']) {
                 return true;
               }
@@ -155,7 +145,7 @@ class Messages extends ZMObject {
      */
     public function clear() {
         $this->uniqueMsgRef_ = array();
-        $this->session->getFlashBag()->clear();
+        parent::clear();
     }
 
     /**
@@ -167,7 +157,7 @@ class Messages extends ZMObject {
      */
     public function getMessages($ref=null, $clear=false) {
         $messages = array();
-        foreach ($this->session->getFlashBag()->peek('zenmagick') as $ii => $msg) {
+        foreach ($this->peek('zenmagick') as $ii => $msg) {
             if (null == $ref || $ref == $msg['ref']) {
                 $message = new Message();
                 $message->setText($msg['text']);

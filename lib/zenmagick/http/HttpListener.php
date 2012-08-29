@@ -81,7 +81,6 @@ class HttpListener extends ZMObject implements EventSubscriberInterface {
         // make sure we use the appropriate protocol (HTTPS, for example) if required
         $this->container->get('sacsManager')->ensureAccessMethod($request);
 
-        $messageService = $this->container->get('messageService');
         $dispatcher->dispatch('dispatch_start', new Event($this, array('request' => $request)));
         ob_start();
         list($response, $view) = $this->handleRequest($request, $event);
@@ -100,7 +99,7 @@ class HttpListener extends ZMObject implements EventSubscriberInterface {
         $response->setContent($zmevent->get('content'));
 
         // if we get to here all messages have been displayed
-        $messageService->clear();
+        $request->getSession()->getFlashBag()->clear();
 
         // all done
         // @todo CHECKME: how late does this have to be?
@@ -130,9 +129,10 @@ class HttpListener extends ZMObject implements EventSubscriberInterface {
             // validate session
             foreach ($this->container->get('containerTagService')->findTaggedServiceIds('zenmagick.http.session.validator') as $id => $args) {
                 if (null != ($validator = $this->container->get($id)) && $validator instanceof SessionValidator) {
-                    if (!$validator->isValidSession($request, $request->getSession())) {
-                        $this->container->get('messageService')->error('Invalid session');
-                        $request->getSession()->migrate();
+                    $session = $request->getSession();
+                    if (!$validator->isValidSession($request, $session)) {
+                        $session->getFlashBag()->error('Invalid session');
+                        $session->migrate();
                         $result = '';
                     }
                 }

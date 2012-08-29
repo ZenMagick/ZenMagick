@@ -43,6 +43,7 @@ class ShoppingCartController extends ZMObject {
      * @param zenmagick\http\Request request The current request.
      */
     public function show(Request $request) {
+        $flashBag = $request->getSession()->getFlashBag();
         $shoppingCart = $request->getShoppingCart();
         $checkoutHelper = $shoppingCart->getCheckoutHelper();
 
@@ -54,13 +55,13 @@ class ShoppingCartController extends ZMObject {
                 $product = $item->getProduct();
                 switch ($status) {
                 case CheckoutHelper::CART_PRODUCT_STATUS:
-                    $this->messageService->warn(sprintf('%s: We are sorry but this product has been removed from our inventory at this time.', $product->getName()));
+                    $flashBag->warn(sprintf('%s: We are sorry but this product has been removed from our inventory at this time.', $product->getName()));
                     break;
                 case CheckoutHelper::CART_PRODUCT_QUANTITY:
-                    $this->messageService->warn(sprintf('%s: has a minimum quantity restriction; minimum order quantity is: %s', $product->getName(), $product->getMinOrderQty()));
+                    $flashBag->warn(sprintf('%s: has a minimum quantity restriction; minimum order quantity is: %s', $product->getName(), $product->getMinOrderQty()));
                     break;
                 case CheckoutHelper::CART_PRODUCT_UNITS:
-                    $this->messageService->warn(sprintf('%s: has a quantity units restriction; minimum order units: %s', $product->getName(), $product->getQtyOrderUnits()));
+                    $flashBag->warn(sprintf('%s: has a quantity units restriction; minimum order units: %s', $product->getName(), $product->getQtyOrderUnits()));
                     break;
                 }
             }
@@ -114,14 +115,15 @@ class ShoppingCartController extends ZMObject {
         $shoppingCart = $request->getShoppingCart();
         $productId = $request->request->get('products_id');
         $productId = is_array($productId) ? $productId[0] : $productId;
+        $flashBag = $request->getSession()->getFlashBag();
         $id = $this->getAttributeUploads($request, $shoppingCart, (array) $request->request->get('id'));
         if ($shoppingCart->addProduct($productId, $request->request->get('cart_quantity'), $id)) {
             $shoppingCart->getCheckoutHelper()->saveHash($request);
             $this->container->get('event_dispatcher')->dispatch('cart_add', new Event($this, array('request' => $request, 'shoppingCart' => $shoppingCart, 'productId' => $productId)));
             $product = $this->container->get('productService')->getProductForId($productId);
-            $this->messageService->success(sprintf(_zm("Product '%s' added to cart"), $product->getName()));
+            $flashBag->success(sprintf(_zm("Product '%s' added to cart"), $product->getName()));
         } else {
-            $this->messageService->error(_zm('Add to cart failed'));
+            $flashBag->error(_zm('Add to cart failed'));
         }
 
         // TODO: add support for redirect back to origin
@@ -135,6 +137,7 @@ class ShoppingCartController extends ZMObject {
         $shoppingCart = $request->getShoppingCart();
         $productId = $request->query->get('products_id');
         $productId = is_array($productId) ? $productId[0] : $productId;
+        $flashBag = $request->getSession()->getFlashBag();
         if (0 < $productId) {
             $productService = $this->container->get('productService');
             if (null != ($product = $productService->getProductForId(ShoppingCart::getBaseProductIdFor($productId)))) {
@@ -163,10 +166,10 @@ class ShoppingCartController extends ZMObject {
                         $shoppingCart->addProduct($productId, $buyNowQty);
                         $shoppingCart->getCheckoutHelper()->saveHash($request);
                         $this->container->get('event_dispatcher')->dispatch('cart_add', new Event($this, array('request' => $request, 'shoppingCart' => $shoppingCart, 'productId' => $productId)));
-                        $this->messageService->success(sprintf(_zm("Product '%s' added to cart"), $product->getName()));
+                        $flashBag->success(sprintf(_zm("Product '%s' added to cart"), $product->getName()));
                     }
                 } else {
-                    $this->messageService->error(_zm('Add to cart failed'));
+                    $flashBag->error(_zm('Add to cart failed'));
                 }
             }
         }
@@ -180,12 +183,13 @@ class ShoppingCartController extends ZMObject {
      */
     public function removeProduct(Request $request) {
         $shoppingCart = $request->getShoppingCart();
+        $flashBag = $request->getSession()->getFlashBag();
         $productId = $request->query->get('productId');
         $productId = is_array($productId) ? $productId[0] : $productId;
         $shoppingCart->removeProduct($productId);
         $shoppingCart->getCheckoutHelper()->saveHash($request);
         $this->container->get('event_dispatcher')->dispatch('cart_remove', new Event($this, array('request' => $request, 'shoppingCart' => $shoppingCart, 'productId' => $productId)));
-        $this->messageService->success(_zm('Product removed from cart'));
+        $flashBag->success(_zm('Product removed from cart'));
 
         // TODO: add support for redirect back to origin
         return new ModelAndView('success', array('shoppingCart' => $shoppingCart));
@@ -196,6 +200,7 @@ class ShoppingCartController extends ZMObject {
      * @todo: edit cart attributes
      */
     public function update(Request $request) {
+        $flashBag = $request->getSession()->getFlashBag();
         $shoppingCart = $request->getShoppingCart();
         $productIds = (array) $request->request->get('products_id');
         $quantities = (array) $request->request->get('cart_quantity');
@@ -203,7 +208,7 @@ class ShoppingCartController extends ZMObject {
             $shoppingCart->updateProduct($productId, $quantities[$ii]);
         }
         $this->container->get('event_dispatcher')->dispatch('cart_update', new Event($this, array('request' => $request, 'shoppingCart' => $shoppingCart, 'productIds' => $productIds)));
-        $this->messageService->success(_zm('Product(s) added to cart'));
+        $flashBag->success(_zm('Product(s) added to cart'));
 
         // TODO: add support for redirect back to origin
         return new ModelAndView('success', array('shoppingCart' => $shoppingCart));

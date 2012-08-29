@@ -267,6 +267,7 @@ class TemplateView extends ZMObject implements View {
         }
         $this->setVariable('request', $request);
         $this->setVariable('session', $request->getSession());
+        $this->setVariable('messageService', $request->getSession()->getFlashBag());
         $this->setVariable('settingsService', $settingsService);
         $this->setVariable('locale', $this->container->get('localeService'));
 

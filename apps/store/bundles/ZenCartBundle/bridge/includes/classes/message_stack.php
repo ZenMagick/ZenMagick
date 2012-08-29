@@ -32,10 +32,10 @@ class messageStack {
     /**
      * Get ZenMagick message service.
      *
-     * @return object zenmagick\http\messages\Messages
+     * @return object
      */
     private function getService() {
-        return Runtime::getContainer()->get('messageService');
+        return Runtime::getContainer()->get('session')->getFlashBag();
     }
 
     /**

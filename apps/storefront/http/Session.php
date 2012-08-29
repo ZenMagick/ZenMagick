@@ -209,7 +209,7 @@ class Session extends \zenmagick\http\session\Session {
      */
     public function registerAccount($account, $request, $source=null) {
         if (\ZMAccounts::AUTHORIZATION_BLOCKED == $account->getAuthorization()) {
-            $this->container->get('messageService')->error(_zm('Access denied.'));
+            $this->getFlashBag()->error(_zm('Access denied.'));
             return false;
         }
 

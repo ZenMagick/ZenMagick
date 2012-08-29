@@ -17,16 +17,16 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-use zenmagick\http\messages\Messages;
+use zenmagick\http\session\FlashBag;
 
 if ($messageService->hasMessages()) { ?>
     <ul id="messages" class="ui-widget">
     <?php
       $messageClass = array(
-          Messages::T_SUCCESS => array('ui-state-default', 'ui-icon ui-icon-check'),
-          Messages::T_MESSAGE => array('ui-state-default', 'ui-icon ui-icon-info'),
-          Messages::T_WARN => array('ui-state-highlight', 'ui-icon ui-icon-alert'),
-          Messages::T_ERROR => array('ui-state-error', 'ui-icon ui-icon-alert')
+          FlashBag::T_SUCCESS => array('ui-state-default', 'ui-icon ui-icon-check'),
+          FlashBag::T_MESSAGE => array('ui-state-default', 'ui-icon ui-icon-info'),
+          FlashBag::T_WARN => array('ui-state-highlight', 'ui-icon ui-icon-alert'),
+          FlashBag::T_ERROR => array('ui-state-error', 'ui-icon ui-icon-alert')
       );
     ?>
     <?php foreach ($messageService->getMessages() as $message) { ?>

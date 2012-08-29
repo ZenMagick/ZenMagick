@@ -39,7 +39,8 @@ $application->boot(array('init'));
 try {
     $installer = new zenmagick\apps\admin\installation\InstallationPatcher();
 
-    $messageService = $application->getContainer()->get('messageService');
+    $request = $application->getContainer()->get('request');
+    $messageService = $request->getSession()->getFlashBag();
     // Get DB Config first!
     $status = $installer->getPatchForId('importZencartConfigure')->patch();
 
@@ -67,7 +68,6 @@ try {
             .'patches in the \'installation\' page.';
         $messageService->success($msg);
     }
-    $request = $application->getContainer()->get('request');
     $request->redirect($request->url('installation'));
 } catch (Exception $e) {
     echo $e->getTraceAsString();

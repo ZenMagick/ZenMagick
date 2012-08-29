@@ -24,7 +24,7 @@ use Symfony\Component\DependencyInjection\Loader\XmlFileLoader;
 
 use zenmagick\base\Runtime;
 use zenmagick\base\ZMObject;
-use zenmagick\http\messages\Messages;
+use zenmagick\http\session\FlashBag;
 use zenmagick\base\events\Event;
 use zenmagick\apps\store\widgets\StatusCheck;
 
@@ -153,12 +153,12 @@ class StoreEventListener extends ZMObject {
                 $messages = array_merge($messages, $statusCheck->getStatusMessages());
             }
             $statusMap = array(
-                StatusCheck::STATUS_DEFAULT => Messages::T_MESSAGE,
-                StatusCheck::STATUS_INFO => Messages::T_MESSAGE,
-                StatusCheck::STATUS_NOTICE => Messages::T_WARN,
-                StatusCheck::STATUS_WARN => Messages::T_WARN,
+                StatusCheck::STATUS_DEFAULT => FlashBag::T_MESSAGE,
+                StatusCheck::STATUS_INFO => FlashBag::T_MESSAGE,
+                StatusCheck::STATUS_NOTICE => FlashBag::T_WARN,
+                StatusCheck::STATUS_WARN => FlashBag::T_WARN,
             );
-            $messageService = $this->container->get('messageService');
+            $messageService = $request->getSession()->getFlashBag();
             foreach ($messages as $details) {
                 $messageService->addMessage($details[1], $statusMap[$details[0]]);
             }

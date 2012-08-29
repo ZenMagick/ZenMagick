@@ -1,5 +1,6 @@
 parameters:
     monolog.logger.class: 'zenmagick\base\logging\Logging'
+    session.flashbag.class: 'zenmagick\http\session\FlashBag'
 
     secret: notsecret
 #imports:

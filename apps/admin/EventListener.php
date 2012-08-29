@@ -44,7 +44,7 @@ class EventListener extends ZMObject {
         $request = $event->get('request');
         if (null != $request->getAccount()) {
             // only if we still have a valid session
-            $this->container->get('messageService')->warn(sprintf(_zm('You are not allowed to access the page with id: <em>%s</em>'), $request->getRequestId()));
+            $request->getSession()->getFlashBag()->warn(sprintf(_zm('You are not allowed to access the page with id: <em>%s</em>'), $request->getRequestId()));
         }
     }
 

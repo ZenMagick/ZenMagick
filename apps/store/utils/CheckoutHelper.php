@@ -307,14 +307,15 @@ class CheckoutHelper extends ZMObject {
      */
     public function checkStock($messages=true) {
         if (Runtime::getSettings()->get('isEnableStock') && $this->shoppingCart_->hasOutOfStockItems()) {
+            $flashBag = $this->container->get('session')->getFlashBag();
             if (Runtime::getSettings()->get('isAllowLowStockCheckout')) {
                 if ($messages) {
-                    $this->container->get('messageService')->warn('Products marked as "Out Of Stock" will be placed on backorder.');
+                    $flashBag->warn('Products marked as "Out Of Stock" will be placed on backorder.');
                 }
                 return true;
             } else {
                 if ($messages) {
-                    $this->container->get('messageService')->error('The shopping cart contains products currently out of stock. To checkout you may either lower the quantity or remove those products from the cart.');
+                    $flashBag->error('The shopping cart contains products currently out of stock. To checkout you may either lower the quantity or remove those products from the cart.');
                 }
                 return false;
             }
@@ -348,7 +349,7 @@ class CheckoutHelper extends ZMObject {
 
         if (!$this->readyForCheckout()) {
             if ($showMessages) {
-                $this->container->get('messageService')->error(_zm('Please update your order ...'));
+                $session->getFlashBag()->error(_zm('Please update your order ...'));
             }
             return "cart_not_ready";
         }
@@ -396,7 +397,7 @@ class CheckoutHelper extends ZMObject {
                 // TODO: reset selected shipping method as address changed (if addressId set in session is invalid)
             } else {
                 if ($showMessages) {
-                    $this->container->get('messageService')->error(_zm('Please provide a shipping address'));
+                    $session->getFlashBag()->error(_zm('Please provide a shipping address'));
                 }
                 return "require_shipping_address";
             }
@@ -406,7 +407,7 @@ class CheckoutHelper extends ZMObject {
                 $this->shoppingCart_->setBillingAddressId($account->getDefaultAddressId());
             } else {
                 if ($showMessages) {
-                    $this->container->get('messageService')->error(_zm('Please provide a billing address'));
+                    $session->getFlashBag()->error(_zm('Please provide a billing address'));
                 }
                 return "require_billing_address";
             }

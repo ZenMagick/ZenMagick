@@ -278,12 +278,13 @@ class ToolboxHtml extends ToolboxTool {
      * @return string HTML unordered list of messages or <code>null</code>.
      */
     public function fieldMessages($name) {
-        if (!$this->container->get('messageService')->hasMessages($name)) {
+        $flashBag = $this->getRequest()->getSession()->getFlashBag();
+        if (!$flashBag->hasMessages($name)) {
             return null;
         }
 
         $html = '<ul id="'.$name.'Info" class="fieldMsg">';
-        foreach ($this->container->get('messageService')->getMessages($name) as $msg) {
+        foreach ($flashBag->getMessages($name) as $msg) {
             $html .= '<li class="'.$msg->getType().'">'.$this->encode($msg->getText()).'</li>';
         }
         $html .= '</ul>';

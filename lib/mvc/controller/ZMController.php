@@ -56,7 +56,7 @@ class ZMController extends ZMObject {
         $this->method_ = null;
         $this->formData_ = null;
         // a little bit of convenience
-        $this->messageService = Runtime::getContainer()->get('messageService');
+        $this->messageService = Runtime::getContainer()->get('session')->getFlashBag();
     }
 
 

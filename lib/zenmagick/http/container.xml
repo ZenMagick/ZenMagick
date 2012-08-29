@@ -41,10 +41,6 @@
                 <argument type="service" id="settingsService" />
             </call>
         </service>
-        <service id="messageService" class="zenmagick\http\messages\Messages">
-            <argument type="service" id="session" />
-            <tag name="zenmagick.http.view.variable" key="messageService" />
-        </service>
 
         <service id="sacsManager" class="zenmagick\http\sacs\SacsManager">
             <argument type="service" id="service_container" />

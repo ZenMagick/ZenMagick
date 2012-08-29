@@ -239,7 +239,7 @@ class WordpressPlugin extends Plugin {
             if (!Toolbox::isEmpty($account->getNickName())) {
                 $password = $event->get('clearPassword');
                 if (!$this->getAdapter()->createAccount($account, $password)) {
-                    $this->container->get('messageService')->info(_zm('Could not create wordpress account - please contact the store administrator.'));
+                    $event->get('request')->getSession()->getFlashBag()->info(_zm('Could not create wordpress account - please contact the store administrator.'));
                 }
             }
         }
