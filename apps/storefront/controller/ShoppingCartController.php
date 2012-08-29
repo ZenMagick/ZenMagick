@@ -119,9 +119,9 @@ class ShoppingCartController extends ZMObject {
             $shoppingCart->getCheckoutHelper()->saveHash($request);
             $this->container->get('event_dispatcher')->dispatch('cart_add', new Event($this, array('request' => $request, 'shoppingCart' => $shoppingCart, 'productId' => $productId)));
             $product = $this->container->get('productService')->getProductForId($productId);
-            $this->container->get('messageService')->success(sprintf(_zm("Product '%s' added to cart"), $product->getName()));
+            $this->messageService->success(sprintf(_zm("Product '%s' added to cart"), $product->getName()));
         } else {
-            $this->container->get('messageService')->error(_zm('Add to cart failed'));
+            $this->messageService->error(_zm('Add to cart failed'));
         }
 
         // TODO: add support for redirect back to origin
@@ -163,10 +163,10 @@ class ShoppingCartController extends ZMObject {
                         $shoppingCart->addProduct($productId, $buyNowQty);
                         $shoppingCart->getCheckoutHelper()->saveHash($request);
                         $this->container->get('event_dispatcher')->dispatch('cart_add', new Event($this, array('request' => $request, 'shoppingCart' => $shoppingCart, 'productId' => $productId)));
-                        $this->container->get('messageService')->success(sprintf(_zm("Product '%s' added to cart"), $product->getName()));
+                        $this->messageService->success(sprintf(_zm("Product '%s' added to cart"), $product->getName()));
                     }
                 } else {
-                    $this->container->get('messageService')->error(_zm('Add to cart failed'));
+                    $this->messageService->error(_zm('Add to cart failed'));
                 }
             }
         }
@@ -185,7 +185,7 @@ class ShoppingCartController extends ZMObject {
         $shoppingCart->removeProduct($productId);
         $shoppingCart->getCheckoutHelper()->saveHash($request);
         $this->container->get('event_dispatcher')->dispatch('cart_remove', new Event($this, array('request' => $request, 'shoppingCart' => $shoppingCart, 'productId' => $productId)));
-        $this->container->get('messageService')->success(_zm('Product removed from cart'));
+        $this->messageService->success(_zm('Product removed from cart'));
 
         // TODO: add support for redirect back to origin
         return new ModelAndView('success', array('shoppingCart' => $shoppingCart));
@@ -203,7 +203,7 @@ class ShoppingCartController extends ZMObject {
             $shoppingCart->updateProduct($productId, $quantities[$ii]);
         }
         $this->container->get('event_dispatcher')->dispatch('cart_update', new Event($this, array('request' => $request, 'shoppingCart' => $shoppingCart, 'productIds' => $productIds)));
-        $this->container->get('messageService')->success(_zm('Product(s) added to cart'));
+        $this->messageService->success(_zm('Product(s) added to cart'));
 
         // TODO: add support for redirect back to origin
         return new ModelAndView('success', array('shoppingCart' => $shoppingCart));

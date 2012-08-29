@@ -65,7 +65,7 @@
     <h1>ZenMagick Unit Testing</h1>
     <div>
         <ul id="messages">
-        <?php foreach ($this->container->get('messageService')->getMessages() as $message) { ?>
+        <?php foreach ($messageService->getMessages() as $message) { ?>
             <li class="<?php echo $message->getType() ?>"><?php echo $message->getText() ?></li>
         <?php } ?>
         </ul>

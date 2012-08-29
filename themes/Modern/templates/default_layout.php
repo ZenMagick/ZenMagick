@@ -55,9 +55,9 @@
       <div id="contentMainWrapper">
         <div id="crumbtrail"><?php echo $this->fragment('crumbtrail') ?></div>
 
-       	 <?php if ($container->get('messageService')->hasMessages()) { ?>
+       	 <?php if ($messageService->hasMessages()) { ?>
             <ul id="messages">
-           		<?php foreach ($container->get('messageService')->getMessages() as $message) { ?>
+           		<?php foreach ($messageService->getMessages() as $message) { ?>
                 	<li class="<?php echo $message->getType() ?>"><?php echo $message->getText() ?></li>
             	<?php } ?>
             </ul>
