@@ -141,23 +141,15 @@ class FlashBag extends BaseFlashBag {
     }
 
     /**
-     * Clear all messages.
-     */
-    public function clear() {
-        $this->uniqueMsgRef_ = array();
-        parent::clear();
-    }
-
-    /**
      * Get all messages.
      *
      * @param string ref The referring resource; default is <code>null</code> for all.
      * @Param boolean clear Optional flag to clear the internal buffer; default is <code>false</code>.
      * @return array List of <code>Message</code> instances.
      */
-    public function getMessages($ref=null, $clear=false) {
+    public function getMessages($ref=null) {
         $messages = array();
-        foreach ($this->peek('zenmagick') as $ii => $msg) {
+        foreach ($this->get('zenmagick') as $ii => $msg) {
             if (null == $ref || $ref == $msg['ref']) {
                 $message = new Message();
                 $message->setText($msg['text']);
@@ -165,9 +157,6 @@ class FlashBag extends BaseFlashBag {
                 $message->setRef($msg['ref']);
                 $messages[] = $message;
             }
-        }
-        if ($clear) {
-            $this->clear();
         }
 
         return $messages;

@@ -97,10 +97,6 @@ class HttpListener extends ZMObject implements EventSubscriberInterface {
         $dispatcher->dispatch('finalise_content', $zmevent);
 
         $response->setContent($zmevent->get('content'));
-
-        // if we get to here all messages have been displayed
-        $request->getSession()->getFlashBag()->clear();
-
         // all done
         // @todo CHECKME: how late does this have to be?
         $dispatcher->dispatch('all_done', new Event($this, array('request' => $request, 'view' => $view, 'content' => $zmevent->get('content'))));
