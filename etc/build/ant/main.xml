@@ -141,6 +141,16 @@
                 <exclude name="local.properties" />
                 <exclude name="local.xml" />
                 <exclude name="config/store-config.yaml" />
+
+                <exclude name=".editorconfig" />
+                <exclude name=".travis.yml" />
+
+                <exclude name="vendor/**/.DS_STORE" />
+                <exclude name="vendor/**/.git" />
+                <exclude name="vendor/**/phpunit.xml.*" />
+                <exclude name="vendor/**/Tests" />
+                <exclude name="vendor/**/tests" />
+                <exclude name="vendor/**/doc" />
             </fileset>
 
             <!-- copy default and demo theme -->
@@ -190,7 +200,12 @@
             <fileset dir="${build.dir}" includes="**/*.db" />
             <!-- all vendor -->
             <fileset dir="${build.dir}/zenmagick/vendor">
-                <exclude name="*.phar" />
+                <include name=".DS_STORE" />
+                <include name=".git" />
+                <include name="phpunit.xml.*" />
+                <include name="**/Tests" />
+                <include name="**/tests" />
+                <include name="**/doc" />
             </fileset>
         </delete>
     </target>
