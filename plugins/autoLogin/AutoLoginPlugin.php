@@ -134,7 +134,7 @@ class AutoLoginPlugin extends Plugin {
     /**
      * Event handler to update the cookie if required.
      */
-    public function onFinaliseContent($event) {
+    public function onAllDone($event) {
         $request = $event->get('request');
         $session = $request->getSession();
         if ('GET' == $request->getMethod() && $session->isRegistered()) {
