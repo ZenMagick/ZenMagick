@@ -272,7 +272,6 @@ class Request extends HttpFoundationRequest implements ContainerAwareInterface {
         if ($event->isCanceled()) {
             return;
         }
-        $this->container->get('messageService')->saveMessages($this->getSession());
         $this->getSession()->save();
         if (!empty($status)) {
             header('Location: ' . $url, true, $status);

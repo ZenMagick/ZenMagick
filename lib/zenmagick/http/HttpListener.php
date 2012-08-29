@@ -82,10 +82,6 @@ class HttpListener extends ZMObject implements EventSubscriberInterface {
         $this->container->get('sacsManager')->ensureAccessMethod($request);
 
         $messageService = $this->container->get('messageService');
-
-        // load saved messages
-        $messageService->loadMessages($request->getSession());
-
         $dispatcher->dispatch('dispatch_start', new Event($this, array('request' => $request)));
         ob_start();
         list($response, $view) = $this->handleRequest($request, $event);
@@ -105,7 +101,6 @@ class HttpListener extends ZMObject implements EventSubscriberInterface {
 
         // if we get to here all messages have been displayed
         $messageService->clear();
-        $messageService->saveMessages($request->getSession());
 
         // all done
         // @todo CHECKME: how late does this have to be?

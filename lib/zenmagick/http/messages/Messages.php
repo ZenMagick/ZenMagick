@@ -19,7 +19,8 @@
  */
 namespace zenmagick\http\messages;
 
-use zenmagick\base\Runtime;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
+
 use zenmagick\base\ZMObject;
 
 /**
@@ -49,16 +50,14 @@ class Messages extends ZMObject {
     /** Message type <em>error</em>. */
     const T_ERROR = 'error';
 
-    private $messages_;
-    private $uniqueMsgRef_;
-
+    private $uniqueMsgRef_ = array();
+    private $session;
 
     /**
      * Create new instance.
      */
-    public function __construct() {
-        parent::__construct();
-        $this->clear();
+    public function __construct(SessionInterface $session) {
+        $this->session = $session;
     }
 
 
@@ -70,18 +69,14 @@ class Messages extends ZMObject {
      * @param string ref The referencing resource; default is <code>Messages::REF_GLOBAL</code>.
      */
     public function addMessage($text, $type=self::T_MESSAGE, $ref=self::REF_GLOBAL) {
-        //$key = $type.':'.trim($text);
         $key = trim($text);
         if (array_key_exists($key, $this->uniqueMsgRef_)) {
             return;
         }
 
         $this->uniqueMsgRef_[$key] = $text;
-        $message = new Message();
-        $message->setText($text);
-        $message->setType($type);
-        $message->setRef($ref);
-        $this->messages_[] = $message;
+        $message = array('text' => $text, 'type' => $type, 'ref' => $ref);
+        $this->session->getFlashBag()->add('zenmagick', $message);
     }
 
     /**
@@ -143,11 +138,11 @@ class Messages extends ZMObject {
      */
     public function hasMessages($ref=null) {
         if (null === $ref) {
-            return 0 != count($this->messages_);
+            return $this->session->getFlashBag()->has('zenmagick');
         }
 
-        foreach ($this->messages_ as $message) {
-            if ($ref == $message->getRef()) {
+        foreach ($this->session->getFlashBag()->peek('zenmagick') as $message) {
+            if ($ref == $message['ref']) {
                 return true;
               }
         }
@@ -159,8 +154,8 @@ class Messages extends ZMObject {
      * Clear all messages.
      */
     public function clear() {
-        $this->messages_ = array();
         $this->uniqueMsgRef_ = array();
+        $this->session->getFlashBag()->clear();
     }
 
     /**
@@ -171,49 +166,20 @@ class Messages extends ZMObject {
      * @return array List of <code>Message</code> instances.
      */
     public function getMessages($ref=null, $clear=false) {
-        if (null === $ref) {
-            return $this->messages_;
-        }
-
         $messages = array();
-        foreach ($this->messages_ as $ii => $msg) {
-            if ($ref == $msg->getRef()) {
-                $messages[] = $msg;
+        foreach ($this->session->getFlashBag()->peek('zenmagick') as $ii => $msg) {
+            if (null == $ref || $ref == $msg['ref']) {
+                $message = new Message();
+                $message->setText($msg['text']);
+                $message->setType($msg['type']);
+                $message->setRef($msg['ref']);
+                $messages[] = $message;
             }
         }
-
         if ($clear) {
             $this->clear();
         }
 
         return $messages;
     }
-
-    /**
-     * Save messages in session.
-     *
-     * @param zenmagick\http\session\Session session The current session.
-     */
-    public function saveMessages($session) {
-        $data = array();
-        foreach ($this->getMessages() as $msg) {
-            $data[] = array('text' => $msg->getText(), 'type' => $msg->getType(), 'ref' => $msg->getRef());
-        }
-        $session->setValue('http.messages', $data);
-    }
-
-    /**
-     * Load messages from session.
-     *
-     * @param zenmagick\http\session\Session session The current session.
-     */
-    public function loadMessages($session) {
-        if (null !== ($data = $session->getValue('http.messages')) && is_array($data)) {
-            foreach ($data as $msg) {
-                $this->addMessage($msg['text'], $msg['type'], $msg['ref']);
-            }
-            $session->setValue('http.messages', null);
-        }
-    }
-
 }

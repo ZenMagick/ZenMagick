@@ -19,8 +19,6 @@
  */
 namespace zenmagick\http\messages;
 
-use zenmagick\base\ZMObject;
-
 /**
  * A single message.
  *
@@ -31,7 +29,7 @@ use zenmagick\base\ZMObject;
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class Message extends ZMObject {
+class Message {
     private $text_;
     private $type_;
     private $ref_;
@@ -45,7 +43,6 @@ class Message extends ZMObject {
      * @param string ref The referencing resource; default is <code>Messages::REF_GLOBAL</code>.
      */
     public function __construct($text='', $type=Messages::T_MESSAGE, $ref=Messages::REF_GLOBAL) {
-        parent::__construct();
         $this->text_ = $text;
         $this->type_ = $type;
         $this->ref_ = $ref;

@@ -42,6 +42,7 @@
             </call>
         </service>
         <service id="messageService" class="zenmagick\http\messages\Messages">
+            <argument type="service" id="session" />
             <tag name="zenmagick.http.view.variable" key="messageService" />
         </service>
 
