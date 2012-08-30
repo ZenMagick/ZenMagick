@@ -1,5 +1,5 @@
 {
-    "hash": "5b5e5f69d78e1f8ce3b9183af32c58d3",
+    "hash": "c6f04ff977151a1fdc860372e381806a",
     "packages": [
         {
             "package": "dermanomann/phprules",
@@ -9,13 +9,19 @@
         },
         {
             "package": "doctrine/common",
-            "version": "2.2.2"
+            "version": "2.2.3"
         },
         {
             "package": "doctrine/dbal",
             "version": "2.2.x-dev",
             "source-reference": "da4b7b4d965db0c1c1d23333e87ee5ae8994e249",
             "commit-date": "1344978731"
+        },
+        {
+            "package": "doctrine/doctrine-bundle",
+            "version": "dev-master",
+            "alias-pretty-version": "1.0.x-dev",
+            "alias-version": "1.0.9999999.9999999-dev"
         },
         {
             "package": "doctrine/doctrine-bundle",
@@ -38,12 +44,26 @@
         {
             "package": "doctrine/orm",
             "version": "2.2.x-dev",
-            "source-reference": "7d343302a8f886be9cfb2a9c8345a95740dcfde9",
-            "commit-date": "1343560954"
+            "source-reference": "11faa7e49d77e559e4e376d3b927d2e742fbcf8b",
+            "commit-date": "1346246267"
         },
         {
             "package": "monolog/monolog",
-            "version": "1.2.0"
+            "version": "dev-master",
+            "alias-pretty-version": "1.3.x-dev",
+            "alias-version": "1.3.9999999.9999999-dev"
+        },
+        {
+            "package": "monolog/monolog",
+            "version": "dev-master",
+            "source-reference": "1.2.1",
+            "commit-date": "1346241200"
+        },
+        {
+            "package": "rych/phpass",
+            "version": "dev-master",
+            "alias-pretty-version": "2.1.x-dev",
+            "alias-version": "2.1.9999999.9999999-dev"
         },
         {
             "package": "rych/phpass",
@@ -66,14 +86,26 @@
         {
             "package": "symfony/monolog-bundle",
             "version": "dev-master",
-            "source-reference": "10c3d6fcda8d73eb1a35860eeea2933d1ab2c1f6",
+            "alias-pretty-version": "2.1.x-dev",
+            "alias-version": "2.1.9999999.9999999-dev"
+        },
+        {
+            "package": "symfony/monolog-bundle",
+            "version": "dev-master",
+            "source-reference": "v2.1.0-RC2",
             "commit-date": "1345557954"
         },
         {
             "package": "symfony/swiftmailer-bundle",
             "version": "dev-master",
-            "source-reference": "v2.1.0-RC1",
-            "commit-date": "1342684512"
+            "alias-pretty-version": "2.1.x-dev",
+            "alias-version": "2.1.9999999.9999999-dev"
+        },
+        {
+            "package": "symfony/swiftmailer-bundle",
+            "version": "dev-master",
+            "source-reference": "d2eae9385c029cbac031a90e6d2abc74b889a562",
+            "commit-date": "1346243146"
         },
         {
             "package": "symfony/symfony",
@@ -96,8 +128,8 @@
         {
             "package": "twig/twig",
             "version": "dev-master",
-            "source-reference": "11e91f63e94a4fce9e65ddbda44ed00ba22a2171",
-            "commit-date": "1345724338"
+            "source-reference": "f76ed618c890165fd107a9cd4a06c7d73da75b9c",
+            "commit-date": "1346324412"
         },
         {
             "package": "zenmagick/cachelite",
@@ -124,7 +156,6 @@
         "symfony/monolog-bundle": 20,
         "zenmagick/zencart": 5,
         "zenmagick/cachelite": 20,
-        "buddypress/glotpress": 20,
         "dermanomann/phprules": 20
     }
 }
