@@ -28,13 +28,9 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 use zenmagick\base\Beans;
 use zenmagick\base\Runtime;
-use zenmagick\base\ZMException;
-use zenmagick\base\ZMObject;
 use zenmagick\base\events\Event;
 use zenmagick\base\logging\Logging;
 use zenmagick\base\utils\Executor;
-use zenmagick\base\utils\ParameterMapper;
-use zenmagick\http\Request;
 use zenmagick\http\session\SessionValidator;
 use zenmagick\http\view\ModelAndView;
 use zenmagick\http\view\ResponseModelAndView;
@@ -45,7 +41,7 @@ use zenmagick\http\view\View;
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class HttpListener extends ZMObject implements EventSubscriberInterface {
+class HttpListener implements EventSubscriberInterface {
     protected $container;
 
     public function __construct(ContainerInterface $container) {
@@ -69,12 +65,11 @@ class HttpListener extends ZMObject implements EventSubscriberInterface {
 
         $dispatcher->dispatch('dispatch_start', new Event($this, array('request' => $request)));
         ob_start();
-        list($response, $view) = $this->handleRequest($request, $event);
+        list($response, $view) = $this->handleRequest($request, $event->getDispatcher());
         $content = ob_get_clean();
         if (!empty($content) && !$view) {
             $response->setContent($content);
         }
-        $dispatcher->dispatch('dispatch_done', new Event($this, array('request' => $request)));
 
         // ensure we do have a view if we got this far
         $view = null !== $view ? $view : $this->container->get('defaultView');
@@ -88,22 +83,11 @@ class HttpListener extends ZMObject implements EventSubscriberInterface {
         $event->setResponse($response);
     }
 
-    /**
-     * Handle a request.
-     *
-     * @return Response The response or <code>null</code>.
-     */
-    public function handleRequest($request, $event) {
-        $dispatcher = $event->getDispatcher();
-
-        $view = null;
-        $response = null;
+    public function handleRequest($request, $dispatcher) {
+        $result = $response = $view = null;
         $content = '';
         try {
-            $sacsManager = $this->container->get('sacsManager');
-            $sacsManager->authorize($request, $request->getRequestId(), $request->getAccount());
-
-            $result = null;
+            $this->container->get('sacsManager')->authorize($request, $request->getRequestId(), $request->getAccount());
 
             foreach ($this->container->get('containerTagService')->findTaggedServiceIds('zenmagick.http.session.validator') as $id => $args) {
                 if (null != ($validator = $this->container->get($id)) && $validator instanceof SessionValidator) {
@@ -142,11 +126,7 @@ class HttpListener extends ZMObject implements EventSubscriberInterface {
             $dispatcher->dispatch('view_start', new Event(null, array('request' => $request, 'view' => $view)));
             $content = $view->generate($request);
             $dispatcher->dispatch('view_done', new Event(null, array('request' => $request, 'view' => $view)));
-        } else {
-            $this->container->get('logger')->debug('null view, skipping $view->generate()');
         }
-
-        // convert view stuff to response...
         $response = $response ?: new Response($content);
         return array($response, $view);
     }
@@ -165,10 +145,8 @@ class HttpListener extends ZMObject implements EventSubscriberInterface {
         }
 
         if ($routerMatch = $this->container->get('routeResolver')->getRouterMatch($request->getRequestUri())) {
-            // class:method ?
-            $token = explode(':', $routerMatch['_controller']);
-            if (1 == count($token)) {
-                // traditional controller
+            $token = explode(':', $routerMatch['_controller']); // class:method ?
+            if (1 == count($token)) { // traditional controller
                 $controller = Beans::getBean($routerMatch['_controller']);
                 $executor = new Executor(array($controller, 'process'), array($request));
             } else {
