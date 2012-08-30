@@ -76,12 +76,12 @@ class Application extends Kernel {
     public function registerContainerConfiguration(LoaderInterface $loader) {
         $context = $this->getContext();
 
-        $resources[] = $this->getRootDir().'/apps/base/config/parameters.yml';
+        $resources[] = $this->getRootDir().'/app/config/parameters.yml';
         // used to set the basic parameters to fill config_$env.yml files
         $resources[] = $this->getRootDir().'/apps/store/config/configuration.php';
         $resources[] = $this->getRootDir().'/apps/store/config/email.php';
         // extension configuration
-        $resources[] = $this->getRootDir().'/apps/base/config/config_'.$this->getEnvironment().'.yml';
+        $resources[] = $this->getRootDir().'/app/config/config_'.$this->getEnvironment().'.yml';
 
         // @todo remove this when we we can prove we don't need $_SESSION
         $resources[] = function($container) use($context) {

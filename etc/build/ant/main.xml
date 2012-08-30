@@ -162,12 +162,6 @@
             </fileset>
         </copy>
 
-        <!-- enabled admin locale -->
-        <foreach list="${locale.admin}" target="copy-prepare" param="path">
-            <param name="base.path" value="apps/base/locale" />
-            <param name="path.to" value="${build.dir}/zenmagick" />
-        </foreach>
-
         <!-- copy default plugins -->
         <foreach list="${plugins.defaults}" target="copy-prepare" param="path">
             <param name="base.path" value="${zenmagick.src.dir}/plugins/" />
