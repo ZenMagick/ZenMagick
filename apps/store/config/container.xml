@@ -304,17 +304,5 @@
             <tag name="apps.store.admin.dashboard.widget.statusCheck" />
         </service>
 
-        <!-- set siwftmailer.transport to @zencartTransport to use the zencart legacy email system -->
-        <service id="zencartTransport" class="zenmagick\apps\store\bundles\ZenCartBundle\utils\ZenCartTransport" />
-        <!-- @todo move to bundle xml when we have one -->
-        <service id="zenCartAutoLoader" class="zenmagick\apps\store\bundles\ZenCartBundle\utils\ZenCartAutoLoader">
-            <call method="setRootDir">
-                <argument>%zencart.root_dir%</argument>
-            </call>
-
-            <call method="setContainer">
-                <argument type="service" id="service_container" />
-            </call>
-        </service>
     </services>
 </container>

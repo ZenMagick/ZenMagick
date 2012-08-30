@@ -26,6 +26,7 @@ use zenmagick\base\Beans;
 use zenmagick\base\Runtime;
 use zenmagick\base\utils\Executor;
 use zenmagick\apps\store\bundles\ZenCartBundle\utils\EmailEventHandler;
+use zenmagick\apps\store\bundles\ZenCartBundle\DependencyInjection\ZencartExtension;
 
 /**
  * Zencart support bundle.
@@ -39,6 +40,7 @@ class ZenCartBundle extends Bundle {
      */
     public function build(ContainerBuilder $container) {
         parent::build($container);
+        $container->registerExtension(new ZencartExtension());
     }
 
     /**

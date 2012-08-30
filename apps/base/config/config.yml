@@ -71,3 +71,4 @@ swiftmailer:
     spool:     { type: memory }
 
 zenmagick: ~
+zencart: ~
