@@ -72,14 +72,6 @@ class ZenCartBundle extends Bundle {
             $autoLoader->initCommon();
             $autoLoader->setGlobalValue('currencies', new \currencies);
 
-            $session = $request->getSession();
-
-            if (null == $session->getValue('cart')) {
-                $session->setValue('cart', new \shoppingCart);
-            }
-            if (null == $session->getValue('navigation')) {
-                $session->setValue('navigation', new \navigationHistory);
-            }
         }
     }
 

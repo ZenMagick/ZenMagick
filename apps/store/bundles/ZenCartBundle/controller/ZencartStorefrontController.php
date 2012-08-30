@@ -367,6 +367,13 @@ class ZencartStorefrontController extends \ZMController {
             $request->redirect($request->url($this->container->get('settingsService')->get('zenmagick.http.request.invalidSession')));
         }
 
+        if (null == $session->getValue('cart')) {
+            $session->setValue('cart', new \shoppingCart);
+        }
+        if (null == $session->getValue('navigation')) {
+            $session->setValue('navigation', new \navigationHistory);
+        }
+
         if ($settingsService->get('isShowCartAfterAddProduct')) {
             $redirectTarget =  'shopping_cart';
             $params = array('action', 'cPath', 'products_id', 'pid', 'main_page', 'productId');
