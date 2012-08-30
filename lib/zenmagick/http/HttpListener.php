@@ -157,15 +157,10 @@ class HttpListener extends ZMObject implements EventSubscriberInterface {
 
         // populate response
         if (null != $view) {
-            try {
-                $dispatcher->dispatch('view_start', new Event(null, array('request' => $request, 'view' => $view)));
-                // generate response
-                $content = $view->generate($request);
-                $dispatcher->dispatch('view_done', new Event(null, array('request' => $request, 'view' => $view)));
-            } catch (ZMException $e) {
-            } catch (Exception $e) {
-                //TODO: what to do?
-            }
+            $dispatcher->dispatch('view_start', new Event(null, array('request' => $request, 'view' => $view)));
+            // generate response
+            $content = $view->generate($request);
+            $dispatcher->dispatch('view_done', new Event(null, array('request' => $request, 'view' => $view)));
         } else {
             $this->container->get('logger')->debug('null view, skipping $view->generate()');
         }
@@ -184,47 +179,39 @@ class HttpListener extends ZMObject implements EventSubscriberInterface {
     protected function executeController(Request $request) {
         $controller = null;
 
-        try {
-            // @todo move this to the  onKernelController event.
-            if (Runtime::isContextMatch('storefront')) {
-                if ($this->container->get('themeService')->getActiveTheme()->getMeta('zencart')) {
-                    $settingsService = $this->container->get('settingsService');
-                    $settingsService->set('zenmagick.http.view.defaultLayout', null);
-                    $executor = new Executor(array(Beans::getBean('zenmagick\apps\store\bundles\ZenCartBundle\controller\ZencartStorefrontController'), 'process'), array($request));
-                    return $executor->execute();
-                }
+        // @todo move this to the  onKernelController event.
+        if (Runtime::isContextMatch('storefront')) {
+            if ($this->container->get('themeService')->getActiveTheme()->getMeta('zencart')) {
+                $settingsService = $this->container->get('settingsService');
+                $settingsService->set('zenmagick.http.view.defaultLayout', null);
+                $executor = new Executor(array(Beans::getBean('zenmagick\apps\store\bundles\ZenCartBundle\controller\ZencartStorefrontController'), 'process'), array($request));
+                return $executor->execute();
             }
-
-            if ($routerMatch = $this->container->get('routeResolver')->getRouterMatch($request->getRequestUri())) {
-                // class:method ?
-                $token = explode(':', $routerMatch['_controller']);
-                if (1 == count($token)) {
-                    // traditional controller
-                    $controller = Beans::getBean($routerMatch['_controller']);
-                    $executor = new Executor(array($controller, 'process'), array($request));
-                } else {
-                    // wrap to allow custom method with variable parameter
-                    // TODO: remove once all controller use type hints for $request
-                    if (!array_key_exists('request', $routerMatch)) {
-                        // allow $request as mappable parameter too
-                        $routerMatch['request'] = $request;
-                    }
-                    $executor =  new Executor(array(Beans::getBean($token[0]), $token[1]), $routerMatch, $this->parameterMapper);
-                }
-            } else {
-                //TODO: default controller
-                $controller = $this->container->get('urlManager')->findController($request->getRequestId());
-                $executor = new Executor(array($controller, 'process'), array($request));
-            }
-
-            $result = $executor->execute();
-        } catch (Exception $e) {
-        echo $e->getMessage();
-        echo $e->getTraceAsString();
-        die();
-            // re-throw
-            throw $e;
         }
+
+        if ($routerMatch = $this->container->get('routeResolver')->getRouterMatch($request->getRequestUri())) {
+            // class:method ?
+            $token = explode(':', $routerMatch['_controller']);
+            if (1 == count($token)) {
+                // traditional controller
+                $controller = Beans::getBean($routerMatch['_controller']);
+                $executor = new Executor(array($controller, 'process'), array($request));
+            } else {
+                // wrap to allow custom method with variable parameter
+                // TODO: remove once all controller use type hints for $request
+                if (!array_key_exists('request', $routerMatch)) {
+                    // allow $request as mappable parameter too
+                    $routerMatch['request'] = $request;
+                }
+                $executor =  new Executor(array(Beans::getBean($token[0]), $token[1]), $routerMatch, $this->parameterMapper);
+            }
+        } else {
+            //TODO: default controller
+            $controller = $this->container->get('urlManager')->findController($request->getRequestId());
+            $executor = new Executor(array($controller, 'process'), array($request));
+        }
+
+        $result = $executor->execute();
 
         return $result;
     }
