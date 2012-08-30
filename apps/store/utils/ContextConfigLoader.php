@@ -41,16 +41,6 @@ class ContextConfigLoader extends HttpContextConfigLoader {
      */
     public function apply(array $config) {
         parent::apply($config);
-
-        // locale
-        if (array_key_exists('locale', $config) && is_array($config['locale'])) {
-            $localeService = $this->container->get('localeService');
-            foreach ($localeService->getValidLocaleCodes() as $code) {
-                if (array_key_exists($code, $config['locale'])) {
-                    $locale->setFormats($config['locale'][$code]);
-                }
-            }
-        }
         if (array_key_exists('menu', $config) && is_array($config['menu'])) {
             self::$menus[] = $config['menu'];
         }

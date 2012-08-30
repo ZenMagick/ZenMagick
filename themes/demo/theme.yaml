@@ -5,18 +5,6 @@ meta:
   description: 'ZenMagick demo theme including additional product pages and extra code'
 
 storefront:
-  locale:
-    en:
-      date:
-        'short': 'd/m/Y'
-        'short-ui-format': 'dd/mm/yy'
-        'short-ui-example': '09/08/66'
-        'long': 'd/m/Y'
-      time:
-        'short': 'H:i:s'
-        'long': 'H:i:s u'
-
-
   ## optional url mappings
   router:
     page:

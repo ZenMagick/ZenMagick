@@ -3,21 +3,3 @@ meta:
   version: '${zenmagick.version}'
   author: 'zenmagick.org'
   description: 'ZenMagick base/default theme; based on andreas08 from http://andreasviklund.com/templates/'
-
-storefront:
-  locale:
-    english:
-      ## system locale
-      LC_TIME: 'en_US.ISO_8859-1'
-      ## charset
-      HTML_CHARSET: 'iso-8859-1'
-      ## to format dates
-      DATE_FORMAT: 'd/m/Y'
-      ## to parse user input 
-      UI_DATE_FORMAT: 'dd/mm/yyyy'
-      UI_DATE_FORMAT_SAMPLE: '16/11/1967'
-      ## various date/time formats used
-      DATE_FORMAT_LONG: '%A %d %B, %Y'
-      DATE_TIME_FORMAT: '%d/%m/%Y %H:%M:%S'
-      ## NOTE: This is *NOT* used in ZenMagick, however zen-cart uses it in some places...
-      HTML_PARAMS: 'dir="ltr" lang="en"'
