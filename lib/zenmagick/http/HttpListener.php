@@ -47,24 +47,11 @@ use zenmagick\http\view\View;
  */
 class HttpListener extends ZMObject implements EventSubscriberInterface {
     protected $container;
-    private $parameterMapper;
 
     public function __construct(ContainerInterface $container) {
         $this->container = $container;
     }
 
-    /**
-     * Set the parameter mapper for controller.
-     *
-     * @param ParameterMapper parameterMapper The parameter mapper.
-     */
-    public function setParameterMapper(ParameterMapper $parameterMapper) {
-        $this->parameterMapper = $parameterMapper;
-    }
-
-    /*
-     * Handle web request.
-     */
     public function onKernelRequest(GetResponseEvent $event) {
         $request = $event->getRequest();
         $request->setContainer($this->container);
@@ -78,7 +65,6 @@ class HttpListener extends ZMObject implements EventSubscriberInterface {
             if ($this->container->get($id)->decode($request)) break;
         }
 
-        // make sure we use the appropriate protocol (HTTPS, for example) if required
         $this->container->get('sacsManager')->ensureAccessMethod($request);
 
         $dispatcher->dispatch('dispatch_start', new Event($this, array('request' => $request)));
@@ -92,13 +78,11 @@ class HttpListener extends ZMObject implements EventSubscriberInterface {
 
         // ensure we do have a view if we got this far
         $view = null !== $view ? $view : $this->container->get('defaultView');
-        // allow plugins and event subscribers to filter/modify the final contents; corresponds with ob_start() in init.php
+
         $zmevent = new Event($this, array('request' => $request, 'view' => $view, 'content' => $response->getContent()));
         $dispatcher->dispatch('finalise_content', $zmevent);
 
         $response->setContent($zmevent->get('content'));
-        // all done
-        // @todo CHECKME: how late does this have to be?
         $dispatcher->dispatch('all_done', new Event($this, array('request' => $request, 'view' => $view, 'content' => $zmevent->get('content'))));
 
         $event->setResponse($response);
@@ -116,13 +100,11 @@ class HttpListener extends ZMObject implements EventSubscriberInterface {
         $response = null;
         $content = '';
         try {
-            // check authorization
             $sacsManager = $this->container->get('sacsManager');
             $sacsManager->authorize($request, $request->getRequestId(), $request->getAccount());
 
             $result = null;
 
-            // validate session
             foreach ($this->container->get('containerTagService')->findTaggedServiceIds('zenmagick.http.session.validator') as $id => $args) {
                 if (null != ($validator = $this->container->get($id)) && $validator instanceof SessionValidator) {
                     $session = $request->getSession();
@@ -158,7 +140,6 @@ class HttpListener extends ZMObject implements EventSubscriberInterface {
         // populate response
         if (null != $view) {
             $dispatcher->dispatch('view_start', new Event(null, array('request' => $request, 'view' => $view)));
-            // generate response
             $content = $view->generate($request);
             $dispatcher->dispatch('view_done', new Event(null, array('request' => $request, 'view' => $view)));
         } else {
@@ -170,12 +151,6 @@ class HttpListener extends ZMObject implements EventSubscriberInterface {
         return array($response, $view);
     }
 
-    /**
-     * Execute controller.
-     *
-     * @param zenmagick\http\Request request The request.
-     * @return mixed The result.
-     */
     protected function executeController(Request $request) {
         $controller = null;
 
@@ -203,7 +178,8 @@ class HttpListener extends ZMObject implements EventSubscriberInterface {
                     // allow $request as mappable parameter too
                     $routerMatch['request'] = $request;
                 }
-                $executor =  new Executor(array(Beans::getBean($token[0]), $token[1]), $routerMatch, $this->parameterMapper);
+                $parameterMapper = $this->container->get('controllerParameterMapper');
+                $executor =  new Executor(array(Beans::getBean($token[0]), $token[1]), $routerMatch, $parameterMapper);
             }
         } else {
             //TODO: default controller

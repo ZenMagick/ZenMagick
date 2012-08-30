@@ -192,9 +192,6 @@
         <service id="zenmagick.http_listener" class="zenmagick\http\HttpListener">
             <tag name="kernel.event_subscriber" />
             <argument type="service" id="service_container" />
-            <call method="setParameterMapper">
-                <argument type="service" id="controllerParameterMapper" />
-            </call>
         </service>
 
         <service id="blockWidget" class="zenmagick\http\blocks\widgets\BlockWidget" scope="prototype" />
