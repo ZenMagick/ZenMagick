@@ -27,7 +27,7 @@
         "psr-0": {
             "zenmagick": "lib/"
         },
-        "classmap": ["lib/mvc", "shared/model", "shared/services"]
+        "classmap": ["lib/shared"]
     },
     "minimum-stability": "dev",
     "require": {
