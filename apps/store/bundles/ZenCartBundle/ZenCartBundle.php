@@ -22,10 +22,7 @@ namespace zenmagick\apps\store\bundles\ZenCartBundle;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 
-use zenmagick\base\Beans;
 use zenmagick\base\Runtime;
-use zenmagick\base\utils\Executor;
-use zenmagick\apps\store\bundles\ZenCartBundle\utils\EmailEventHandler;
 use zenmagick\apps\store\bundles\ZenCartBundle\DependencyInjection\ZencartExtension;
 
 /**
@@ -57,56 +54,5 @@ class ZenCartBundle extends Bundle {
         );
         $classLoader->addClassMap($map);
 
-    }
-
-    /**
-     * Handle things that require a request.
-     */
-    public function onRequestReady($event) {
-        $request = $event->get('request');
-        // @todo doesn't really belong here. it just needs to be this early
-        $request->getSession()->restorePersistedServices();
-
-        $event->getDispatcher()->addListener('generate_email', array(Beans::getBean('zenmagick\apps\store\bundles\ZenCartBundle\utils\EmailEventHandler'), 'onGenerateEmail'));
-
-        if (Runtime::isContextMatch('storefront')) {
-            $autoLoader = $this->container->get('zenCartAutoLoader');
-            $autoLoader->initCommon();
-            $autoLoader->setGlobalValue('currencies', new \currencies);
-
-        }
-    }
-
-    /**
-     * Boot ZenCart template and language
-     */
-    public function onDispatchStart($event) {
-        // @todo all this code should go somewhere else
-        if (defined('DIR_WS_TEMPLATE') || !Runtime::isContextMatch('storefront')) return;
-        $autoLoader = $this->container->get('zenCartAutoLoader');
-        $themeId = $this->container->get('themeService')->getActiveThemeId();
-        $autoLoader->setGlobalValue('template_dir', $themeId);
-        define('DIR_WS_TEMPLATE', DIR_WS_TEMPLATES.$themeId.'/');
-        define('DIR_WS_TEMPLATE_IMAGES', DIR_WS_TEMPLATE.'images/');
-        define('DIR_WS_TEMPLATE_ICONS', DIR_WS_TEMPLATE_IMAGES.'icons/');
-
-        // required for the payment,checkout,shipping modules
-        $autoLoader->setErrorLevel();
-        $autoLoader->includeFiles('includes/classes/db/mysql/define_queries.php');
-        $autoLoader->includeFiles('includes/languages/%template_dir%/%language%.php');
-        $autoLoader->includeFiles('includes/languages/%language%.php');
-        $autoLoader->includeFiles(array(
-            'includes/languages/%language%/extra_definitions/%template_dir%/*.php',
-            'includes/languages/%language%/extra_definitions/*.php')
-        );
-        $autoLoader->restoreErrorLevel();
-    }
-
-    public function onViewStart($event) {
-        $settingsService = $this->container->get('settingsService');
-        if (Runtime::isContextMatch('admin')) {
-            $settingsService->add('apps.store.admin.menus', 'apps/store/bundles/ZenCartBundle/Resources/config/admin/menu.yaml');
-            $settingsService->add('zenmagick.http.routing.addnRouteFiles', __DIR__.'/Resources/config/admin/routing.xml');
-        }
     }
 }

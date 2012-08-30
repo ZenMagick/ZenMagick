@@ -17,18 +17,69 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-namespace zenmagick\apps\store\bundles\ZenCartBundle\utils;
+namespace zenmagick\apps\store\bundles\ZenCartBundle;
 
 use zenmagick\base\Runtime;
-use zenmagick\base\ZMObject;
 use zenmagick\apps\store\model\coupons\Coupon;
 
+use Symfony\Component\DependencyInjection\ContainerInterface;
+use Symfony\Component\EventDispatcher\EventSubscriberInterface;
+
 /**
- * Fix email context.
+ * Event Listener
  *
  * @author DerManoMann
  */
-class EmailEventHandler extends ZMObject {
+class ZenCartListener implements EventSubscriberInterface {
+    protected $container;
+
+    public function __construct(ContainerInterface $container) {
+        $this->container = $container;
+    }
+
+    /**
+     * Handle things that require a request.
+     */
+    public function onRequestReady($event) {
+        if (Runtime::isContextMatch('storefront')) {
+            $autoLoader = $this->container->get('zenCartAutoLoader');
+            $autoLoader->initCommon();
+            $autoLoader->setGlobalValue('currencies', new \currencies);
+        }
+    }
+
+    /**
+     * Boot ZenCart template and language
+     */
+    public function onDispatchStart($event) {
+        // @todo all this code should go somewhere else
+        if (defined('DIR_WS_TEMPLATE') || !Runtime::isContextMatch('storefront')) return;
+        $autoLoader = $this->container->get('zenCartAutoLoader');
+        $themeId = $this->container->get('themeService')->getActiveThemeId();
+        $autoLoader->setGlobalValue('template_dir', $themeId);
+        define('DIR_WS_TEMPLATE', DIR_WS_TEMPLATES.$themeId.'/');
+        define('DIR_WS_TEMPLATE_IMAGES', DIR_WS_TEMPLATE.'images/');
+        define('DIR_WS_TEMPLATE_ICONS', DIR_WS_TEMPLATE_IMAGES.'icons/');
+
+        // required for the payment,checkout,shipping modules
+        $autoLoader->setErrorLevel();
+        $autoLoader->includeFiles('includes/classes/db/mysql/define_queries.php');
+        $autoLoader->includeFiles('includes/languages/%template_dir%/%language%.php');
+        $autoLoader->includeFiles('includes/languages/%language%.php');
+        $autoLoader->includeFiles(array(
+            'includes/languages/%language%/extra_definitions/%template_dir%/*.php',
+            'includes/languages/%language%/extra_definitions/*.php')
+        );
+        $autoLoader->restoreErrorLevel();
+    }
+
+    public function onViewStart($event) {
+        $settingsService = $this->container->get('settingsService');
+        if (Runtime::isContextMatch('admin')) {
+            $settingsService->add('apps.store.admin.menus', 'apps/store/bundles/ZenCartBundle/Resources/config/admin/menu.yaml');
+            $settingsService->add('zenmagick.http.routing.addnRouteFiles', __DIR__.'/Resources/config/admin/routing.xml');
+        }
+    }
 
     /**
      * Fix email context for various emails.
@@ -131,6 +182,15 @@ class EmailEventHandler extends ZMObject {
         }
 
         $event->set('context', $context);
+    }
+
+    public static function getSubscribedEvents() {
+        return array(
+            'request_ready' => array(array('onRequestReady', 100)),
+            'dispatch_start' => array(array('onDispatchStart', 100)),
+            'view_start' => array(array('onViewStart', 100)),
+            'generate_email' => array(array('onGenerateEmail')),
+        );
     }
 
 }

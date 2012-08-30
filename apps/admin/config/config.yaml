@@ -25,7 +25,6 @@ zenmagick:
     ## events
     events:
       listeners:
-        - zenmagick\apps\store\bundles\ZenCartBundle\ZenCartBundle
         - zenmagick\apps\store\StoreEventListener
         - zenmagick\http\EventListener
         - zenmagick\apps\admin\EventListener

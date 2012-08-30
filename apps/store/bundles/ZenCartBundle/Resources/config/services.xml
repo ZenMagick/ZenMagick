@@ -17,5 +17,9 @@
                 <argument type="service" id="service_container" />
             </call>
         </service>
+        <service id="zencart.listener" class="zenmagick\apps\store\bundles\ZenCartBundle\ZencartListener">
+            <tag name="kernel.event_subscriber" />
+            <argument type="service" id="service_container" />
+        </service>
     </services>
 </container>
