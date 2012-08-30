@@ -52,7 +52,7 @@ class ZenmagickBundle extends Bundle {
 
         $kernel = $this->container->get('kernel');
         $settingsFiles = array();
-        $settingsFiles[] = $kernel->getRootDir().'/apps/base/config/config.yaml';
+        $settingsFiles[] = $kernel->getRootDir().'/apps/store/config/config.yaml';
         $settingsFiles[] = $kernel->getApplicationPath().'/config/config.yaml';
         // @todo do something better for non store apps
         $settingsFiles[] = $kernel->getRootDir().'/config/store-config.yaml';
