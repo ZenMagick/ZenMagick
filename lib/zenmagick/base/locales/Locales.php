@@ -20,18 +20,14 @@
 namespace zenmagick\base\locales;
 
 use DateTime;
-use zenmagick\base\Beans;
-use zenmagick\base\Runtime;
 use zenmagick\base\Toolbox;
 use zenmagick\base\ZMObject;
-
-use Symfony\Component\Yaml\Yaml;
 
 /**
  * Locale service.
  *
- * <p>Delegates translations to an instance of <code>Locale</code>.</p>
- *
+ * @todo use the IntlDateFormmatter for this.
+ * @todo use something other than the locale to pick the format
  * @author DerManoMann <mano@zenmagick.org> <mano@zenmagick.org>
  */
 class Locales extends ZMObject {
@@ -47,7 +43,6 @@ class Locales extends ZMObject {
     public function __construct($locale) {
         parent::__construct();
         $this->locale = $locale;
-        $this->loader = null;
         $this->formats = array(
             'date' => array(
                 'short' => 'd/m/Y',
@@ -61,6 +56,21 @@ class Locales extends ZMObject {
             ),
             'dir' => 'ltr'
         );
+        if ('en_US' == $locale) {
+            $this->formats = array(
+                'date' => array(
+                    'short' =>  'm/d/Y',
+                    'short-ui-format' => 'mm/dd/yy',
+                    'short-ui-example' => '11/16/67',
+                    'long' => 'm/d/Y'
+                ),
+                'time' => array(
+                    'short' => 'H:i:s',
+                    'long' => 'H:i:s u'
+                ),
+                'dir' => 'ltr'
+            );
+        }
     }
 
     /**
@@ -85,28 +95,6 @@ class Locales extends ZMObject {
             $codes[] = $token[0];
         }
         return $codes;
-    }
-
-    /**
-     * Load the formats for a particular locale.
-     *
-     * @param string locale
-     */
-    public function initFormats($locale = '') {
-        $yaml = array();
-        $ypath = realpath(Runtime::getInstallationPath()).'/apps/base/locale/'.$locale;
-        $filename = realpath($ypath).'/locale.yaml';
-        if (file_exists($filename)) {
-            $yaml = Yaml::parse($filename);
-            if (is_array($yaml)) {
-                if (array_key_exists('formats', $yaml)) {
-                    $this->formats = Toolbox::arrayMergeRecursive($this->formats, $yaml['formats']);
-                }
-            }
-        } else {
-            Runtime::getLogging()->debug('unable to resolve path for locale = "'.$locale.'"');
-        }
-
     }
 
     /**
