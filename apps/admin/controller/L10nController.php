@@ -40,7 +40,7 @@ class L10nController extends \ZMController {
     public function getViewData($request) {
         $params = array(
           'themeId' => 's', 'languageId' => 's:1',
-          'includeDefaults' => 'b', 'mergeExisting' => 'b', 'scanShared' => 'b', 'scanPlugins' => 'b', 'scanAdmin' => 'b', 'scanMvc' => 'b'
+          'includeDefaults' => 'b', 'mergeExisting' => 'b', 'scanShared' => 'b', 'scanPlugins' => 'b', 'scanAdmin' => 'b'
         );
         $sources = array('storefront' => 'Storefront', 'admin' => 'Admin');
         $source = $request->getParameter('source');
@@ -74,12 +74,12 @@ class L10nController extends \ZMController {
         switch ($vd['source']) {
         case 'admin':
             $vd['includeDefaults'] = $vd['mergeExisting'] = false;
-            $vd['scanShared'] = $vd['scanPlugins'] = $vd['scanAdmin'] = $vd['scanMvc'] = true;
+            $vd['scanShared'] = $vd['scanPlugins'] = $vd['scanAdmin'] = true;
             $vd['themeId'] = null;
             break;
         case 'storefront':
             $vd['scanAdmin'] = false;
-            $vd['includeDefaults'] = $vd['mergeExisting'] = $vd['scanShared'] = $vd['scanPlugins'] = $vd['scanMvc'] = true;
+            $vd['includeDefaults'] = $vd['mergeExisting'] = $vd['scanShared'] = $vd['scanPlugins'] = true;
             if (null == $vd['themeId']) {
                 $vd['themeId'] = $themeService->getDefaultThemeId();
             }
@@ -115,7 +115,7 @@ class L10nController extends \ZMController {
         $kernel = $this->container->get('kernel');
         $sharedMap = array();
         if ($vd['scanShared']) {
-            $sharedMap = $scanner->buildL10nMap($kernel->getRootDir().'/shared');
+            $sharedMap = $scanner->buildL10nMap($kernel->getRootDir().'/lib/shared');
         }
 
         $pluginsMap = array();
@@ -131,11 +131,6 @@ class L10nController extends \ZMController {
             $adminLibMap = $scanner->buildL10nMap($kernel->getApplicationPath());
         }
 
-        $mvcMap = array();
-        if ($vd['scanMvc']) {
-            $mvcMap = $scanner->buildL10nMap($kernel->getInstallationPath().'/lib');
-        }
-
         $fileMap = array();
         if (null != $vd['themeId']) {
             $theme = $themeService->getThemeForId($vd['themeId']);
@@ -144,7 +139,7 @@ class L10nController extends \ZMController {
             $fileMap = array_merge($themeMap, $storeMap);
         }
 
-        $translations = array_merge($pluginsMap, $sharedMap, $defaultMap, $existingMap, $adminMap, $mvcMap, $fileMap);
+        $translations = array_merge($pluginsMap, $sharedMap, $defaultMap, $existingMap, $adminMap, $fileMap);
         if (0 < count($translations)) {
             $vd['translations'] = $translations;
         }

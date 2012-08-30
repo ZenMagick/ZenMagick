@@ -58,7 +58,6 @@
     <input type="checkbox" id="scanShared" name="scanShared" value="true"<?php echo ($scanShared?' checked="checked"':'')?>><label for="scanShared">Add shared code strings</label><br>
     <input type="checkbox" id="scanPlugins" name="scanPlugins" value="true"<?php echo ($scanPlugins?' checked="checked"':'')?>><label for="scanPlugins">Add plugin(s) code strings</label><br>
     <input type="checkbox" id="scanAdmin" name="scanAdmin" value="true"<?php echo ($scanAdmin?' checked="checked"':'')?>><label for="scanAdmin">Add admin code strings</label><br>
-    <input type="checkbox" id="scanMvc" name="scanMvc" value="true"<?php echo ($scanMvc?' checked="checked"':'')?>><label for="scanMvc">Add core/mvc code strings</label><br>
 <?php /*
 */ ?>
     <input type="submit" class="<?php echo $buttonClasses ?>" value="Display Mapping">
