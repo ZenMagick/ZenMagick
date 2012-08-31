@@ -19,7 +19,7 @@
  */
 namespace ZenMagick\apps\storefront\http\tools;
 
-use ZenMagick\base\Beans;
+use ZenMagick\Base\Beans;
 use ZenMagick\http\toolbox\ToolboxTool;
 
 /**

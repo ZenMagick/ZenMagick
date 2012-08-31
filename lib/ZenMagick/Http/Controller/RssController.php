@@ -20,7 +20,7 @@
 namespace ZenMagick\http\controller;
 
 use Symfony\Component\HttpFoundation\Response;
-use ZenMagick\base\ZMObject;
+use ZenMagick\Base\ZMObject;
 use ZenMagick\http\Request;
 use ZenMagick\http\rss\RssSource;
 use ZenMagick\http\rss\RssFeedGenerator;

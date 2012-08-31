@@ -19,7 +19,7 @@
  */
 namespace ZenMagick\http\plugins;
 
-use ZenMagick\base\plugins\Plugin;
+use ZenMagick\Base\Plugins\Plugin;
 
 /**
  * Base HTTP plugins.

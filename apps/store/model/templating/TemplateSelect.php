@@ -19,7 +19,7 @@
  */
 namespace ZenMagick\apps\store\model\templating;
 
-use ZenMagick\base\ZMObject;
+use ZenMagick\Base\ZMObject;
 
 use Doctrine\ORM\Mapping AS ORM;
 

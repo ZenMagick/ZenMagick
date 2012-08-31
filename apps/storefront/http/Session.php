@@ -19,8 +19,8 @@
  */
 namespace ZenMagick\apps\storefront\http;
 
-use ZenMagick\base\Runtime;
-use ZenMagick\base\events\Event;
+use ZenMagick\Base\Runtime;
+use ZenMagick\Base\Events\Event;
 
 /**
  * Custom session class that adds a number of convenience methods.

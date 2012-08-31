@@ -20,7 +20,7 @@
 namespace ZenMagick\plugins\imageHandler2\model\catalog;
 
 use ZMImageInfo;
-use ZenMagick\base\Runtime;
+use ZenMagick\Base\Runtime;
 
 /**
  * Image information implementation for ImageHandler2 support.

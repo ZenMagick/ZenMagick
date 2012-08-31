@@ -17,13 +17,13 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-namespace ZenMagick\base\classloader;
+namespace ZenMagick\Base\Classloader;
 
 use FilesystemIterator;
 use RecursiveDirectoryIterator;
 use RecursiveIteratorIterator;
 
-use ZenMagick\base\utils\FolderWhitelistFilterIterator;
+use ZenMagick\Base\Utils\FolderWhitelistFilterIterator;
 
 /**
  * <code>Phar</code> builder for directories controlled by a <em>classloader.ini</em> file.

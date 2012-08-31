@@ -19,9 +19,9 @@
  */
 namespace ZenMagick\apps\store\plugins;
 
-use ZenMagick\base\plugins\PluginOptionsLoader as BasePluginOptionsLoader;
+use ZenMagick\Base\Plugins\PluginOptionsLoader as BasePluginOptionsLoader;
 use ZenMagick\apps\store\services\ConfigWidgetService;
-use ZenMagick\base\plugins\Plugin;
+use ZenMagick\Base\Plugins\Plugin;
 
 /**
  * Loader for store plugin options.

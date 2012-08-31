@@ -19,7 +19,7 @@
  */
 namespace ZenMagick\apps\store\toolbox;
 
-use ZenMagick\base\Runtime;
+use ZenMagick\Base\Runtime;
 use ZenMagick\http\toolbox\ToolboxTool;
 use ZenMagick\http\session\validation\FormTokenSessionValidator;
 

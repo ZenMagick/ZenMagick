@@ -23,7 +23,7 @@
 
 namespace ZenMagick\plugins\flyoutCategories;
 
-use ZenMagick\base\Runtime;
+use ZenMagick\Base\Runtime;
 
 
 class FlyoutCategoriesGenerator {

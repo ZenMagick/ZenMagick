@@ -19,10 +19,10 @@
  */
 namespace ZenMagick\apps\admin\controller;
 
-use ZenMagick\base\Beans;
-use ZenMagick\base\Runtime;
-use ZenMagick\base\Toolbox;
-use ZenMagick\base\logging\Logging;
+use ZenMagick\Base\Beans;
+use ZenMagick\Base\Runtime;
+use ZenMagick\Base\Toolbox;
+use ZenMagick\Base\Logging\Logging;
 use ZenMagick\http\Request;
 use ZenMagick\http\sacs\SacsManager;
 use ZenMagick\apps\store\controller\CatalogContentController;

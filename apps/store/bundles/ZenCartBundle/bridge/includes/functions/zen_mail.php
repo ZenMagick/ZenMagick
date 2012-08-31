@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-use ZenMagick\base\Runtime;
+use ZenMagick\Base\Runtime;
 
 /**
  * zen_mail wrapper that delegates to either the Zenmagick implementation or the renamed original

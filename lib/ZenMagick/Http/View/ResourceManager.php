@@ -19,9 +19,9 @@
  */
 namespace ZenMagick\http\view;
 
-use ZenMagick\base\Runtime;
-use ZenMagick\base\ZMObject;
-use ZenMagick\base\logging\Logging;
+use ZenMagick\Base\Runtime;
+use ZenMagick\Base\ZMObject;
+use ZenMagick\Base\Logging\Logging;
 
 
 /**

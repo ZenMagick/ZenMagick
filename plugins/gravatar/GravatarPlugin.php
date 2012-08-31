@@ -21,8 +21,8 @@ namespace ZenMagick\plugins\gravatar;
 
 use ZenMagick\apps\store\plugins\Plugin;
 use ZMAccount;
-use ZenMagick\base\Toolbox;
-use ZenMagick\base\ZMObject;
+use ZenMagick\Base\Toolbox;
+use ZenMagick\Base\ZMObject;
 
 /**
  * Gravatar plugin.

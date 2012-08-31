@@ -19,7 +19,7 @@
  * <http://www.doctrine-project.org>.
  */
 
-namespace ZenMagick\base\database\doctrine;
+namespace ZenMagick\Base\Database\Doctrine;
 
 /**
  * Includes executed SQLs in a Debug Stack

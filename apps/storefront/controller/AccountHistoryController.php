@@ -20,7 +20,7 @@
  */
 namespace ZenMagick\apps\storefront\controller;
 
-use ZenMagick\base\Beans;
+use ZenMagick\Base\Beans;
 
 /**
  * Request controller for account history page.

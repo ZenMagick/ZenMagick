@@ -20,9 +20,9 @@
 namespace ZenMagick\plugins\unitTests\simpletest;
 
 use HtmlReporter as BaseHtmlReporter;
-use ZenMagick\base\Runtime;
-use ZenMagick\base\ZMException;
-use ZenMagick\base\logging\Logging;
+use ZenMagick\Base\Runtime;
+use ZenMagick\Base\ZMException;
+use ZenMagick\Base\Logging\Logging;
 
 
 /**

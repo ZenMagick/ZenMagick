@@ -23,7 +23,7 @@ use ZenMagick\apps\store\plugins\Plugin;
 
 use Symfony\Component\Routing\Route;
 use Symfony\Component\Routing\RouteCollection;
-use ZenMagick\base\Toolbox;
+use ZenMagick\Base\Toolbox;
 use ZenMagick\http\sacs\SacsManager;
 
 /**

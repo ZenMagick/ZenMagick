@@ -19,7 +19,7 @@
  */
 namespace ZenMagick\http\session\validation;
 
-use ZenMagick\base\ZMObject;
+use ZenMagick\Base\ZMObject;
 use ZenMagick\http\Request;
 use ZenMagick\http\session\Session;
 use ZenMagick\http\session\SessionValidator;

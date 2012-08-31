@@ -19,10 +19,10 @@
  */
 namespace ZenMagick\apps\storefront\http\request;
 
-use ZenMagick\base\Runtime;
-use ZenMagick\base\Toolbox;
-use ZenMagick\base\ZMObject;
-use ZenMagick\base\ZMException;
+use ZenMagick\Base\Runtime;
+use ZenMagick\Base\Toolbox;
+use ZenMagick\Base\ZMObject;
+use ZenMagick\Base\ZMException;
 use ZenMagick\http\request\UrlRewriter;
 
 /**

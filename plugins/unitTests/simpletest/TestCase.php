@@ -20,8 +20,8 @@
 namespace ZenMagick\plugins\unitTests\simpletest;
 
 use UnitTestCase;
-use ZenMagick\base\Runtime;
-use ZenMagick\base\Toolbox;
+use ZenMagick\Base\Runtime;
+use ZenMagick\Base\Toolbox;
 
 /**
  * TestCase base class.

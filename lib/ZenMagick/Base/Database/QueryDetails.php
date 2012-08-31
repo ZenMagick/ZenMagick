@@ -17,12 +17,12 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-namespace ZenMagick\base\database;
+namespace ZenMagick\Base\Database;
 
-use ZenMagick\base\ZMObject;
+use ZenMagick\Base\ZMObject;
 
 /**
- * Query details as returned by the <code>ZenMagick\base\database\SqlAware</code> interface method.
+ * Query details as returned by the <code>ZenMagick\Base\Database\SqlAware</code> interface method.
  *
  * @author DerManoMann <mano@zenmagick.org> <mano@zenmagick.org>
  */
@@ -38,9 +38,9 @@ class QueryDetails extends ZMObject {
     /**
      * Create new instance.
      *
-     * <p>The parameters here correspond to <code>ZenMagick\base\database\Connection#fetchAll()</code>.</p>
+     * <p>The parameters here correspond to <code>ZenMagick\Base\Database\Connection#fetchAll()</code>.</p>
      *
-     * @param ZenMagick\base\database\Connection database The database.
+     * @param ZenMagick\Base\Database\Connection database The database.
      * @param string sql The sql.
      * @param array args Database query parameter; default is <code>array()</code>.
      * @param mixed mapping The field mappings; default is <code>null</code>.

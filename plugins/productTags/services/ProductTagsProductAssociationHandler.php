@@ -21,7 +21,7 @@
 namespace ZenMagick\plugins\productTags\services;
 
 use ZMProductAssociationHandler;
-use ZenMagick\base\ZMException;
+use ZenMagick\Base\ZMException;
 
 /**
  * Product association handler for <em>tags</em>.

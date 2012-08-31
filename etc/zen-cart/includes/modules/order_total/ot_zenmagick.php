@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-use ZenMagick\base\Runtime;
+use ZenMagick\Base\Runtime;
 
 /**
  * A proxy module to allow ZenMagick plugins to act as order total.

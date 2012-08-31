@@ -19,7 +19,7 @@
  */
 namespace ZenMagick\http\session;
 
-use ZenMagick\base\ZMObject;
+use ZenMagick\Base\ZMObject;
 
 
 /**

@@ -20,7 +20,7 @@
 namespace ZenMagick\http\rss;
 
 use DateTime;
-use ZenMagick\base\ZMObject;
+use ZenMagick\Base\ZMObject;
 
 /**
  * A RSS feed item.

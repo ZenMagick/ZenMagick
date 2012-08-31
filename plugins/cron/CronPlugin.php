@@ -20,8 +20,8 @@
 namespace ZenMagick\plugins\cron;
 
 use ZenMagick\apps\store\plugins\Plugin;
-use ZenMagick\base\Runtime;
-use ZenMagick\base\Toolbox;
+use ZenMagick\Base\Runtime;
+use ZenMagick\Base\Toolbox;
 
 /**
  * Plugin to allow cron like execution of <code>CronJobInterface</code> classes.

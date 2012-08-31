@@ -17,12 +17,12 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-namespace ZenMagick\base\utils\packer;
+namespace ZenMagick\Base\Utils\packer;
 
 use Symfony\Component\Filesystem\Filesystem;
-use ZenMagick\base\Beans;
-use ZenMagick\base\Runtime;
-use ZenMagick\base\ZMObject;
+use ZenMagick\Base\Beans;
+use ZenMagick\Base\Runtime;
+use ZenMagick\Base\ZMObject;
 
 /**
  * Analyze dependencies of a given PHP package (folder tree), resolve and compress.

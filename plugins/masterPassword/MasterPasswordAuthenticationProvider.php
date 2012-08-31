@@ -19,8 +19,8 @@
  */
 namespace ZenMagick\plugins\masterPassword;
 
-use ZenMagick\base\ZMObject;
-use ZenMagick\base\security\authentication\AuthenticationProvider;
+use ZenMagick\Base\ZMObject;
+use ZenMagick\Base\Security\Authentication\AuthenticationProvider;
 
 /**
  * Master password authentication provider.

@@ -19,8 +19,8 @@
  */
 namespace ZenMagick\apps\admin\installation\patches\sql;
 
-use ZenMagick\base\Runtime;
-use ZenMagick\base\Beans;
+use ZenMagick\Base\Runtime;
+use ZenMagick\Base\Beans;
 use ZenMagick\apps\admin\installation\patches\SQLPatch;
 
 

@@ -20,7 +20,7 @@
 namespace ZenMagick\plugins\visitCounter;
 
 use ZenMagick\apps\store\plugins\Plugin;
-use ZenMagick\base\Runtime;
+use ZenMagick\Base\Runtime;
 
 /**
  * Visit Counter plugin.

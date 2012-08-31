@@ -17,9 +17,9 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-namespace ZenMagick\base;
+namespace ZenMagick\Base;
 
-use ZenMagick\base\Runtime;
+use ZenMagick\Base\Runtime;
 
 use Symfony\Component\Config\Loader\LoaderInterface;
 use Symfony\Component\HttpKernel\Kernel;
@@ -60,7 +60,7 @@ class Application extends Kernel {
             new \Symfony\Bundle\MonologBundle\MonologBundle,
             new \Symfony\Bundle\TwigBundle\TwigBundle,
             new \Symfony\Bundle\FrameworkBundle\FrameworkBundle,
-            new \ZenMagick\base\ZenmagickBundle,
+            new \ZenMagick\Base\ZenmagickBundle,
             new \ZenMagick\apps\admin\AdminBundle,
             new \ZenMagick\apps\storefront\StorefrontBundle,
         );
@@ -102,7 +102,7 @@ class Application extends Kernel {
      * {@inheritDoc}
      */
     protected function getContainerBaseClass() {
-        return 'ZenMagick\base\dependencyInjection\Container';
+        return 'ZenMagick\Base\DependencyInjection\Container';
     }
 
     /**

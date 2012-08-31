@@ -19,7 +19,7 @@
  */
 namespace ZenMagick\apps\sample;
 
-use ZenMagick\base\ZMObject;
+use ZenMagick\Base\ZMObject;
 
 /**
  * Handle a few events.

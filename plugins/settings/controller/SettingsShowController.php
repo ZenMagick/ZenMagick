@@ -20,7 +20,7 @@
 
 namespace ZenMagick\plugins\settings\controller;
 
-use ZenMagick\base\Toolbox;
+use ZenMagick\Base\Toolbox;
 use ZenMagick\apps\admin\controller\PluginAdminController;
 
 /**

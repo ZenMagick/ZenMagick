@@ -19,7 +19,7 @@
  */
 namespace ZenMagick\apps\store\view;
 
-use ZenMagick\base\Runtime;
+use ZenMagick\Base\Runtime;
 use ZenMagick\http\Request;
 use ZenMagick\http\view\ResourceResolver;
 

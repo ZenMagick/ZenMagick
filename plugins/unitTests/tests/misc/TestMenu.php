@@ -19,7 +19,7 @@
  */
 
 use Symfony\Component\Yaml\Yaml;
-use ZenMagick\base\Runtime;
+use ZenMagick\Base\Runtime;
 use ZenMagick\apps\store\menu\Menu;
 use ZenMagick\apps\store\menu\MenuLoader;
 use ZenMagick\apps\store\menu\MenuElement;

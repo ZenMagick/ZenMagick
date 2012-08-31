@@ -20,8 +20,8 @@
 namespace ZenMagick\plugins\themeSwitcher;
 
 use ZenMagick\apps\store\plugins\Plugin;
-use ZenMagick\base\Toolbox;
-use ZenMagick\base\events\Event;
+use ZenMagick\Base\Toolbox;
+use ZenMagick\Base\Events\Event;
 use ZenMagick\http\view\TemplateView;
 
 /**

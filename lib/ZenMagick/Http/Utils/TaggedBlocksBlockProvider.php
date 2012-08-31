@@ -19,7 +19,7 @@
  */
 namespace ZenMagick\http\utils;
 
-use ZenMagick\base\ZMObject;
+use ZenMagick\Base\ZMObject;
 use ZenMagick\http\blocks\BlockProvider;
 
 /**

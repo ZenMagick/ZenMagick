@@ -18,12 +18,12 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-use ZenMagick\base\Beans;
-use ZenMagick\base\Runtime;
-use ZenMagick\base\ZMException;
-use ZenMagick\base\ZMObject;
-use ZenMagick\base\events\Event;
-use ZenMagick\base\logging\Logging;
+use ZenMagick\Base\Beans;
+use ZenMagick\Base\Runtime;
+use ZenMagick\Base\ZMException;
+use ZenMagick\Base\ZMObject;
+use ZenMagick\Base\Events\Event;
+use ZenMagick\Base\Logging\Logging;
 use ZenMagick\http\Request;
 use ZenMagick\http\forms\Form;
 use ZenMagick\http\sacs\SacsManager;

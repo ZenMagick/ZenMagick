@@ -19,12 +19,12 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-use ZenMagick\base\Runtime;
-use ZenMagick\base\Toolbox;
-use ZenMagick\base\ZMObject;
-use ZenMagick\base\database\Connection;
-use ZenMagick\base\database\QueryDetails;
-use ZenMagick\base\database\SqlAware;
+use ZenMagick\Base\Runtime;
+use ZenMagick\Base\Toolbox;
+use ZenMagick\Base\ZMObject;
+use ZenMagick\Base\Database\Connection;
+use ZenMagick\Base\Database\QueryDetails;
+use ZenMagick\Base\Database\SqlAware;
 
 /**
  * Product access.
@@ -53,7 +53,7 @@ class ZMProducts extends ZMObject implements SqlAware {
     /**
      * Set the cache.
      *
-     * @param ZenMagick\base\cache\Cache cache The cache.
+     * @param ZenMagick\Base\Cache\Cache cache The cache.
      */
     public function setCache($cache) {
         $this->cache_ = $cache;
@@ -62,7 +62,7 @@ class ZMProducts extends ZMObject implements SqlAware {
     /**
      * Get the cache.
      *
-     * @return ZenMagick\base\cache\Cache The cache.
+     * @return ZenMagick\Base\Cache\Cache The cache.
      */
     public function getCache() {
         return $this->cache_;
@@ -84,7 +84,7 @@ class ZMProducts extends ZMObject implements SqlAware {
      *
      * @param boolean active If <code>true</code> return only active products; default is <code>true</code>.
      * @param int languageId Optional language id.
-     * @return ZenMagick\base\database\QueryDetails Query details.
+     * @return ZenMagick\Base\Database\QueryDetails Query details.
      */
     protected function getAllProductsQueryDetails($active=true, $languageId) {
         $sql = "SELECT p.*, pd.*, s.specials_new_products_price

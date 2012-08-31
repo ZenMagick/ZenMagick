@@ -27,7 +27,7 @@
 // query all products to categories and then using recursive PHP to fetch counts.
 namespace ZenMagick\plugins\cssCategories;
 
-use ZenMagick\base\Runtime;
+use ZenMagick\Base\Runtime;
 
 
 class CategoriesUlGenerator {

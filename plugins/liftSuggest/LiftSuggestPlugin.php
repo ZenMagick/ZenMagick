@@ -20,8 +20,8 @@
 namespace ZenMagick\plugins\liftSuggest;
 
 use ZenMagick\apps\store\plugins\Plugin;
-use ZenMagick\base\Beans;
-use ZenMagick\base\Toolbox;
+use ZenMagick\Base\Beans;
+use ZenMagick\Base\Toolbox;
 
 /**
  * Plugin adding support for liftsuggest product suggestions.

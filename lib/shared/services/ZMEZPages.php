@@ -18,10 +18,10 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-use ZenMagick\base\Runtime;
-use ZenMagick\base\ZMObject;
-use ZenMagick\base\database\QueryDetails;
-use ZenMagick\base\database\SqlAware;
+use ZenMagick\Base\Runtime;
+use ZenMagick\Base\ZMObject;
+use ZenMagick\Base\Database\QueryDetails;
+use ZenMagick\Base\Database\SqlAware;
 
 /**
  * EZ-pages.

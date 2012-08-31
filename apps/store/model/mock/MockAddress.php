@@ -19,7 +19,7 @@
  */
 namespace ZenMagick\apps\store\model\mock;
 
-use ZenMagick\base\Runtime;
+use ZenMagick\Base\Runtime;
 
 /**
  * Mock address.

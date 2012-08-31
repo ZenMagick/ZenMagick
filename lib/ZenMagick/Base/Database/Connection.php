@@ -17,15 +17,15 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-namespace ZenMagick\base\database;
+namespace ZenMagick\Base\Database;
 
 use PDO;
-use ZenMagick\base\Beans;
-use ZenMagick\base\Runtime;
-use ZenMagick\base\Toolbox;
-use ZenMagick\base\ZMObject;
-use ZenMagick\base\database\TableMapper;
-use ZenMagick\base\database\DatabaseException;
+use ZenMagick\Base\Beans;
+use ZenMagick\Base\Runtime;
+use ZenMagick\Base\Toolbox;
+use ZenMagick\Base\ZMObject;
+use ZenMagick\Base\Database\TableMapper;
+use ZenMagick\Base\Database\DatabaseException;
 use Doctrine\Common\EventManager;
 use Doctrine\DBAL\Connection as DbalConnection;
 use Doctrine\DBAL\Cache\QueryCacheProfile;
@@ -89,8 +89,8 @@ class Connection extends DbalConnection {
     public function __construct(array $params, Driver $driver, Configuration $config = null, EventManager $eventManager = null) {
         parent::__construct($params, $driver, $config, $eventManager);
 
-        Type::overrideType('datetime', 'ZenMagick\base\database\doctrine\types\DateTimeType');
-        Type::overrideType('date', 'ZenMagick\base\database\doctrine\types\DateType');
+        Type::overrideType('datetime', 'ZenMagick\Base\Database\Doctrine\types\DateTimeType');
+        Type::overrideType('date', 'ZenMagick\Base\Database\Doctrine\types\DateType');
 
         // @todo don't tie logging to the pageStats plugin
         // @todo look at doctrine.dbal.logging (boolean) and doctrine.dbal.logger_class
@@ -150,7 +150,7 @@ class Connection extends DbalConnection {
      *
      * <p>If the database provider (and database driver) allow, nested transaction are possible.</p>
      *
-     * @throws ZenMagick\base\database\DatabaseException
+     * @throws ZenMagick\Base\Database\DatabaseException
      */
     public function beginTransaction() {
         try {
@@ -163,7 +163,7 @@ class Connection extends DbalConnection {
     /**
      * Commits statements in a transaction.
      *
-     * @throws ZenMagick\base\database\DatabaseException
+     * @throws ZenMagick\Base\Database\DatabaseException
      */
     public function commit() {
         try {
@@ -176,7 +176,7 @@ class Connection extends DbalConnection {
     /**
      * Rollback changes in a transaction.
      *
-     * @throws ZenMagick\base\database\DatabaseException
+     * @throws ZenMagick\Base\Database\DatabaseException
      */
     public function rollback() {
         try {
@@ -264,7 +264,7 @@ class Connection extends DbalConnection {
      * @param string modelClass The class name to be used to build result obects; default is <code>null</code>.
      * @param mixed mapping The field mappings; default is <code>null</code>.
      * @return mixed The model with the updated primary key.
-     * @throws ZenMagick\base\database\DatabaseException
+     * @throws ZenMagick\Base\Database\DatabaseException
      */
     public function loadModel($table, $key, $modelClass, $mapping = null) {
         $table = $this->resolveTable($table);
@@ -292,7 +292,7 @@ class Connection extends DbalConnection {
      * @param mixed model The model instance.
      * @param mixed mapping The field mappings; default is <code>null</code>.
      * @return mixed The model with the updated primary key.
-     * @throws ZenMagick\base\database\DatabaseException
+     * @throws ZenMagick\Base\Database\DatabaseException
      */
     public function createModel($table, $model, $mapping = null) {
         if (null === $model) return null;
@@ -349,7 +349,7 @@ class Connection extends DbalConnection {
      * @param string table The table to update.
      * @param mixed model The model instance.
      * @param mixed mapping The field mappings; default is <code>null</code>.
-     * @throws ZenMagick\base\database\DatabaseException
+     * @throws ZenMagick\Base\Database\DatabaseException
      */
     public function removeModel($table, $model, $mapping = null) {
         if (null === $model) return null;
@@ -398,7 +398,7 @@ class Connection extends DbalConnection {
      * @param string table The table to update.
      * @param mixed model The model instance.
      * @param mixed mapping The field mappings; default is <code>null</code>.
-     * @throws ZenMagick\base\database\DatabaseException
+     * @throws ZenMagick\Base\Database\DatabaseException
      */
     public function updateModel($table, $model, $mapping = null) {
         if (null === $model) return null;
@@ -455,7 +455,7 @@ class Connection extends DbalConnection {
      * @param mixed data A model instance or array; default is an empty array.
      * @param mixed mapping The field mappings or table name (list); default is <code>null</code>.
      * @return int affected rows
-     * @throws ZenMagick\base\database\DatabaseException
+     * @throws ZenMagick\Base\Database\DatabaseException
      */
     public function updateObj($query, $params = array(), $mapping = null) {
         $mapping = $this->getMapper()->ensureMapping($mapping);
@@ -487,7 +487,7 @@ class Connection extends DbalConnection {
      * @param mixed mapping The field mappings or table name (list); default is <code>null</code>.
      * @param string modelClass The class name to be used to build result obects; default is <code>null</code>.
      * @return mixed The (expected) single result or <code>null</code>
-     * @throws ZenMagick\base\database\DatabaseException
+     * @throws ZenMagick\Base\Database\DatabaseException
      */
     public function querySingle($sql, array $params = array(), $mapping = null, $modelClass = null) {
         $results = $this->fetchAll($sql, $params, $mapping, $modelClass);
@@ -508,7 +508,7 @@ class Connection extends DbalConnection {
      * @param mixed mapping The field mappings or table name (list); default is <code>null</code>.
      * @param string modelClass The class name to be used to build result obects; default is <code>null</code>.
      * @return array List of populated objects of class <code>$resultClass</code> or map if <em>modelClass</em> is <code>null</code>.
-     * @throws ZenMagick\base\database\DatabaseException
+     * @throws ZenMagick\Base\Database\DatabaseException
      */
     public function fetchAll($sql, array $params = array(), $mapping = null, $modelClass = null) {
         $mapping = $this->getMapper()->ensureMapping($mapping);
@@ -667,7 +667,7 @@ class Connection extends DbalConnection {
      *
      * @param string table table to get metadata from
      * @return array Context dependent meta data.
-     * @throws ZenMagick\base\database\DatabaseException
+     * @throws ZenMagick\Base\Database\DatabaseException
      */
     public function getMetaData($table) {
         $table = $this->resolveTable($table);

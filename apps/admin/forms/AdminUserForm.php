@@ -19,7 +19,7 @@
  */
 namespace ZenMagick\apps\admin\forms;
 
-use ZenMagick\base\ZMObject;
+use ZenMagick\Base\ZMObject;
 
 /**
  * Admin user form data.

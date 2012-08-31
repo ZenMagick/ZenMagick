@@ -20,8 +20,8 @@
 
 namespace ZenMagick\apps\store\bundles\ZenCartBundle\controller;
 
-use ZenMagick\base\Runtime;
-use ZenMagick\base\Toolbox;
+use ZenMagick\Base\Runtime;
+use ZenMagick\Base\Toolbox;
 
 /**
  * ZenCart storefront controller

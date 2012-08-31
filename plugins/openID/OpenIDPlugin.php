@@ -20,7 +20,7 @@
 namespace ZenMagick\plugins\openID;
 
 use ZenMagick\apps\store\plugins\Plugin;
-use ZenMagick\base\Runtime;
+use ZenMagick\Base\Runtime;
 
 define('OPENID_ENABLED', true);
 define('Auth_OpenID_RAND_SOURCE', null);

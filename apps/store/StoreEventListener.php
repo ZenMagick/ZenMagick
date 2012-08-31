@@ -22,10 +22,10 @@ namespace ZenMagick\apps\store;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\Loader\XmlFileLoader;
 
-use ZenMagick\base\Runtime;
-use ZenMagick\base\ZMObject;
+use ZenMagick\Base\Runtime;
+use ZenMagick\Base\ZMObject;
 use ZenMagick\http\session\FlashBag;
-use ZenMagick\base\events\Event;
+use ZenMagick\Base\Events\Event;
 use ZenMagick\apps\store\widgets\StatusCheck;
 
 /**

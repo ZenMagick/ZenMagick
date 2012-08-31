@@ -19,8 +19,8 @@
  */
 namespace ZenMagick\apps\store\model\catalog;
 
-use ZenMagick\base\ZMObject;
-use ZenMagick\base\database\Connection;
+use ZenMagick\Base\ZMObject;
+use ZenMagick\Base\Database\Connection;
 use Doctrine\ORM\Mapping AS ORM;
 
 /**

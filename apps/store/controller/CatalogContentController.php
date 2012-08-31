@@ -19,7 +19,7 @@
  */
 namespace ZenMagick\apps\store\controller;
 
-use ZenMagick\base\Beans;
+use ZenMagick\Base\Beans;
 use ZenMagick\http\Request;
 use ZenMagick\http\view\RedirectView;
 

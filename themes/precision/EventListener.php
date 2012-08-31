@@ -19,7 +19,7 @@
  */
 namespace ZenMagick\themes\precision;
 
-use ZenMagick\base\Runtime;
+use ZenMagick\Base\Runtime;
 use ZenMagick\apps\store\themes\ThemeEventListener;
 
 /**

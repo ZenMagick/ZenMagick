@@ -19,7 +19,7 @@
  */
 namespace ZenMagick\themes\KeepItSimple;
 
-use ZenMagick\base\Runtime;
+use ZenMagick\Base\Runtime;
 use ZenMagick\apps\store\themes\ThemeEventListener;
 
 /**

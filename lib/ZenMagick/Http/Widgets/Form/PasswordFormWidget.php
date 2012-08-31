@@ -19,7 +19,7 @@
  */
 namespace ZenMagick\http\widgets\form;
 
-use ZenMagick\base\Runtime;
+use ZenMagick\Base\Runtime;
 use ZenMagick\http\view\TemplateView;
 
 /**

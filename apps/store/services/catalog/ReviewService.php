@@ -21,9 +21,9 @@
 namespace ZenMagick\apps\store\services\catalog;
 
 use DateTime;
-use ZenMagick\base\Runtime;
-use ZenMagick\base\ZMObject;
-use ZenMagick\base\database\Connection;
+use ZenMagick\Base\Runtime;
+use ZenMagick\Base\ZMObject;
+use ZenMagick\Base\Database\Connection;
 
 /**
  * Review service.

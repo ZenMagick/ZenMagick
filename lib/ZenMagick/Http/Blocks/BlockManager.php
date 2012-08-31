@@ -19,9 +19,9 @@
  */
 namespace ZenMagick\http\blocks;
 
-use ZenMagick\base\Beans;
-use ZenMagick\base\Runtime;
-use ZenMagick\base\ZMObject;
+use ZenMagick\Base\Beans;
+use ZenMagick\Base\Runtime;
+use ZenMagick\Base\ZMObject;
 use ZenMagick\http\blocks\widgets\BlockWidget;
 
 /**

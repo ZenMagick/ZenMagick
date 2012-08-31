@@ -19,8 +19,8 @@
  */
 namespace ZenMagick\apps\admin\installation\patches\file;
 
-use ZenMagick\base\Runtime;
-use ZenMagick\base\Toolbox;
+use ZenMagick\Base\Runtime;
+use ZenMagick\Base\Toolbox;
 use ZenMagick\apps\admin\installation\patches\FilePatch;
 use Symfony\Component\Yaml\Yaml;
 

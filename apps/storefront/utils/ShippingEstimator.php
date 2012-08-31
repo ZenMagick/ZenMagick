@@ -22,8 +22,8 @@
  */
 namespace ZenMagick\apps\storefront\utils;
 
-use ZenMagick\base\Runtime;
-use ZenMagick\base\ZMObject;
+use ZenMagick\Base\Runtime;
+use ZenMagick\Base\ZMObject;
 
 /**
  * Shipping estimator.

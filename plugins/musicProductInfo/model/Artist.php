@@ -19,8 +19,8 @@
  */
 namespace ZenMagick\plugins\musicProductInfo\model;
 
-use ZenMagick\base\Beans;
-use ZenMagick\base\ZMObject;
+use ZenMagick\Base\Beans;
+use ZenMagick\Base\ZMObject;
 
 /**
  * An artist.

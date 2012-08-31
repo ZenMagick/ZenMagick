@@ -21,8 +21,8 @@
  */
 namespace ZenMagick\apps\store\bundles\ZenCartBundle\utils;
 
-use ZenMagick\base\Runtime;
-use ZenMagick\base\events\Event;
+use ZenMagick\Base\Runtime;
+use ZenMagick\Base\Events\Event;
 
 use Swift_Transport_NullTransport;
 use Swift_DependencyContainer;

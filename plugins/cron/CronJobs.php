@@ -22,9 +22,9 @@ namespace ZenMagick\plugins\cron;
 
 use ZenMagick\plugins\cron\jobs\CronJobInterface;
 
-use ZenMagick\base\Beans;
-use ZenMagick\base\Runtime;
-use ZenMagick\base\ZMObject;
+use ZenMagick\Base\Beans;
+use ZenMagick\Base\Runtime;
+use ZenMagick\Base\ZMObject;
 
 /**
  * A cron service.

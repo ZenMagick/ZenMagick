@@ -25,7 +25,7 @@ class language {
     public $catalog_languages = array(); // this tends to be accessed directly, so it must stay public
 
     function __construct() {
-        $languages = ZenMagick\base\Runtime::getContainer()->get('languageService')->getLanguages();
+        $languages = ZenMagick\Base\Runtime::getContainer()->get('languageService')->getLanguages();
         foreach ($languages as $language) {
             $this->catalog_languages[$language->getCode()] =
                 array('id' => $language->getId(),

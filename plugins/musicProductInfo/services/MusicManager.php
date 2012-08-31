@@ -19,8 +19,8 @@
  */
 namespace ZenMagick\plugins\musicProductInfo\services;
 
-use ZenMagick\base\Runtime;
-use ZenMagick\base\ZMObject;
+use ZenMagick\Base\Runtime;
+use ZenMagick\Base\ZMObject;
 use ZenMagick\plugins\musicProductInfo\model\Artist;
 use ZenMagick\plugins\musicProductInfo\model\MediaCollection;
 use ZenMagick\plugins\musicProductInfo\model\MediaItem;

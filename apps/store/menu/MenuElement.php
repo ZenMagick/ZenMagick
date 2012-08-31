@@ -19,7 +19,7 @@
  */
 namespace ZenMagick\apps\store\menu;
 
-use ZenMagick\base\utils\Node;
+use ZenMagick\Base\Utils\Node;
 
 
 /**

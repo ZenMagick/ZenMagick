@@ -20,8 +20,8 @@
  */
 namespace ZenMagick\apps\store\model\catalog;
 
-use ZenMagick\base\Beans;
-use ZenMagick\base\ZMObject;
+use ZenMagick\Base\Beans;
+use ZenMagick\Base\ZMObject;
 
 use Doctrine\ORM\Mapping AS ORM;
 

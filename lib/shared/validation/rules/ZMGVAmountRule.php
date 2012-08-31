@@ -18,7 +18,7 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-use ZenMagick\base\Runtime;
+use ZenMagick\Base\Runtime;
 
 /**
  * Validate the amount against the current account's gv balance.

@@ -19,7 +19,7 @@
  */
 namespace ZenMagick\apps\store\bundles\ZenCartBundle\Mock;
 
-use ZenMagick\base\Runtime;
+use ZenMagick\Base\Runtime;
 use ZenMagick\apps\store\model\checkout\ShoppingCart;
 use ZenMagick\apps\store\bundles\ZenCartBundle\mock\ZenCartCheckoutOrder;
 use ZenMagick\apps\store\bundles\ZenCartBundle\mock\ZenCartOrderTotal;

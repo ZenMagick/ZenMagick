@@ -21,8 +21,8 @@
 namespace ZenMagick\plugins\productGroupPricing\model;
 
 use DateTime;
-use ZenMagick\base\Toolbox;
-use ZenMagick\base\ZMObject;
+use ZenMagick\Base\Toolbox;
+use ZenMagick\Base\ZMObject;
 
 /**
  * A product price group.

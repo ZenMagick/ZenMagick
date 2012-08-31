@@ -19,9 +19,9 @@
  */
 namespace ZenMagick\apps\store\themes;
 
-use ZenMagick\base\Runtime;
-use ZenMagick\base\ZMObject;
-use ZenMagick\base\dependencyInjection\loader\YamlFileLoader;
+use ZenMagick\Base\Runtime;
+use ZenMagick\Base\ZMObject;
+use ZenMagick\Base\DependencyInjection\loader\YamlFileLoader;
 
 use Symfony\Component\Config\FileLocator;
 
@@ -75,7 +75,7 @@ class ThemeService extends ZMObject {
     /**
      * Set the cache.
      *
-     * @param ZenMagick\base\cache\Cache cache The cache.
+     * @param ZenMagick\Base\Cache\Cache cache The cache.
      */
     public function setCache($cache) {
         $this->cache = $cache;
@@ -84,7 +84,7 @@ class ThemeService extends ZMObject {
     /**
      * Get the cache.
      *
-     * @return ZenMagick\base\cache\Cache The cache.
+     * @return ZenMagick\Base\Cache\Cache The cache.
      */
     public function getCache() {
         return $this->cache;

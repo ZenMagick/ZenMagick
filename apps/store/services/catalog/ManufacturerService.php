@@ -20,9 +20,9 @@
  */
 namespace ZenMagick\apps\store\services\catalog;
 
-use ZenMagick\base\Runtime;
-use ZenMagick\base\Toolbox;
-use ZenMagick\base\ZMObject;
+use ZenMagick\Base\Runtime;
+use ZenMagick\Base\Toolbox;
+use ZenMagick\Base\ZMObject;
 
 /**
  * Manufacturer service.
@@ -45,7 +45,7 @@ class ManufacturerService extends ZMObject {
     /**
      * Set the cache.
      *
-     * @param ZenMagick\base\cache\Cache cache The cache.
+     * @param ZenMagick\Base\Cache\Cache cache The cache.
      */
     public function setCache($cache) {
         $this->cache_ = $cache;
@@ -54,7 +54,7 @@ class ManufacturerService extends ZMObject {
     /**
      * Get the cache.
      *
-     * @return ZenMagick\base\cache\Cache The cache.
+     * @return ZenMagick\Base\Cache\Cache The cache.
      */
     public function getCache() {
         return $this->cache_;

@@ -20,8 +20,8 @@
  */
 namespace ZenMagick\apps\storefront\controller;
 
-use ZenMagick\base\Runtime;
-use ZenMagick\base\Toolbox;
+use ZenMagick\Base\Runtime;
+use ZenMagick\Base\Toolbox;
 
 /**
  * Request controller for checkout shipping page.

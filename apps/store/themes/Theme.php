@@ -19,9 +19,9 @@
  */
 namespace ZenMagick\apps\store\themes;
 
-use ZenMagick\base\Runtime;
-use ZenMagick\base\ZMObject;
-use ZenMagick\base\dependencyInjection\loader\YamlLoader;
+use ZenMagick\Base\Runtime;
+use ZenMagick\Base\ZMObject;
+use ZenMagick\Base\DependencyInjection\loader\YamlLoader;
 use ZenMagick\apps\store\utils\ContextConfigLoader;
 
 use Symfony\Component\Config\FileLocator;

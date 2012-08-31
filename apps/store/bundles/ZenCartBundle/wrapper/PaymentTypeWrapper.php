@@ -19,8 +19,8 @@
  */
 namespace ZenMagick\apps\store\bundles\ZenCartBundle\wrapper;
 
-use ZenMagick\base\ZMObject;
-use ZenMagick\base\Toolbox;
+use ZenMagick\Base\ZMObject;
+use ZenMagick\Base\Toolbox;
 
 use ZenMagick\apps\store\bundles\ZenCartBundle\mock\ZenCartMock;
 

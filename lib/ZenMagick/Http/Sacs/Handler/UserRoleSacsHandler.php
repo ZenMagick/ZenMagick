@@ -19,7 +19,7 @@
  */
 namespace ZenMagick\http\sacs\handler;
 
-use ZenMagick\base\ZMObject;
+use ZenMagick\Base\ZMObject;
 use ZenMagick\http\sacs\SacsHandler;
 use ZenMagick\http\sacs\handler\UserRoleCredentials;
 

@@ -19,9 +19,9 @@
  */
 namespace ZenMagick\apps\admin\installation;
 
-use ZenMagick\base\Beans;
-use ZenMagick\base\Runtime;
-use ZenMagick\base\ZMObject;
+use ZenMagick\Base\Beans;
+use ZenMagick\Base\Runtime;
+use ZenMagick\Base\ZMObject;
 
 /**
  * Provides support for all file patching of zen-cart files ZenMagick might need.

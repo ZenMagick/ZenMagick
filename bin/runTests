@@ -1,7 +1,7 @@
 #!/usr/bin/env php
 <?php
-use ZenMagick\base\Application;
-use ZenMagick\base\Runtime;
+use ZenMagick\Base\Application;
+use ZenMagick\Base\Runtime;
 
 include_once dirname(__DIR__).'/autoload.php';
 $application = new Application('prod', true, 'storefront');

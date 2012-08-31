@@ -23,9 +23,9 @@ use RecursiveDirectoryIterator;
 use RecursiveIteratorIterator;
 use ReflectionClass;
 use RegexIterator;
-use ZenMagick\base\Runtime;
-use ZenMagick\base\ZMException;
-use ZenMagick\base\ZMObject;
+use ZenMagick\Base\Runtime;
+use ZenMagick\Base\ZMException;
+use ZenMagick\Base\ZMObject;
 use ZenMagick\http\plugins\HttpPlugin;
 
 /**

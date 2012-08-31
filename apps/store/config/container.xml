@@ -19,7 +19,7 @@
     </parameters>
 
     <services>
-        <service id="bootstrapCache" class="ZenMagick\base\cache\FileCache">
+        <service id="bootstrapCache" class="ZenMagick\Base\Cache\FileCache">
             <call method="init">
                 <argument>bootstrap</argument>
                 <argument type="collection">
@@ -29,14 +29,14 @@
             </call>
         </service>
 
-        <service id="servicesCache" class="ZenMagick\base\cache\MemoryCache">
+        <service id="servicesCache" class="ZenMagick\Base\Cache\MemoryCache">
             <call method="init">
                 <argument>services</argument>
                 <argument type="collection" />
             </call>
         </service>
 
-        <service id="templateCache" class="ZenMagick\base\cache\FileCache">
+        <service id="templateCache" class="ZenMagick\Base\Cache\FileCache">
             <call method="init">
                 <argument>services</argument>
                 <argument type="collection">
@@ -130,7 +130,7 @@
             </call>
         </service>
 
-        <service id="authenticationManager" class="ZenMagick\base\security\authentication\AuthenticationManager" />
+        <service id="authenticationManager" class="ZenMagick\Base\Security\Authentication\AuthenticationManager" />
 
         <service id="blockService" class="ZMBlocks" />
 

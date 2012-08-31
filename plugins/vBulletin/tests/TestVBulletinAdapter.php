@@ -19,7 +19,7 @@
  */
 namespace ZenMagick\plugins\vBulletin\tests;
 
-use ZenMagick\base\Beans;
+use ZenMagick\Base\Beans;
 use ZenMagick\plugins\unitTests\simpletest\TestCase;
 
 /**

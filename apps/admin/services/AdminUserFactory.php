@@ -19,7 +19,7 @@
  */
 namespace ZenMagick\apps\admin\services;
 
-use ZenMagick\base\ZMObject;
+use ZenMagick\Base\ZMObject;
 use ZenMagick\http\session\UserFactory;
 
 /**

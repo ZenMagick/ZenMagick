@@ -20,8 +20,8 @@
 namespace ZenMagick\apps\admin\dashboard\widgets\status;
 
 use DateTime;
-use ZenMagick\base\Runtime;
-use ZenMagick\base\ZMObject;
+use ZenMagick\Base\Runtime;
+use ZenMagick\Base\ZMObject;
 use ZenMagick\apps\store\widgets\StatusCheck;
 
 /**

@@ -19,7 +19,7 @@
  */
 namespace ZenMagick\apps\storefront\controller;
 
-use ZenMagick\base\events\Event;
+use ZenMagick\Base\Events\Event;
 
 
 /**

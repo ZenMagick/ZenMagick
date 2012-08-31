@@ -18,10 +18,10 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-use ZenMagick\base\Runtime;
-use ZenMagick\base\Beans;
-use ZenMagick\base\database\QueryDetails;
-use ZenMagick\base\database\SqlAware;
+use ZenMagick\Base\Runtime;
+use ZenMagick\Base\Beans;
+use ZenMagick\Base\Database\QueryDetails;
+use ZenMagick\Base\Database\SqlAware;
 
 /**
  * Filter products by manufacturer.

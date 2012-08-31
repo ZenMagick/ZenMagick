@@ -20,7 +20,7 @@
 
 namespace ZenMagick\plugins\liftSuggest;
 
-use ZenMagick\base\ZMObject;
+use ZenMagick\Base\ZMObject;
 
 /**
  * ZenMagick Lift Suggest Recommendation.

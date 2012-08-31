@@ -18,7 +18,7 @@
  * and is licensed under the LGPL. For more information, see
  * <http://www.doctrine-project.org>.
  */
-namespace ZenMagick\base\database\doctrine;
+namespace ZenMagick\Base\Database\Doctrine;
 
 use Doctrine\ORM\Event\LoadClassMetadataEventArgs;
 

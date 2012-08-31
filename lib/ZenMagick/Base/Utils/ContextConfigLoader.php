@@ -17,14 +17,14 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-namespace ZenMagick\base\utils;
+namespace ZenMagick\Base\Utils;
 
-use ZenMagick\base\ZMObject;
-use ZenMagick\base\Runtime;
-use ZenMagick\base\Toolbox;
-use ZenMagick\base\settings\Settings;
-use ZenMagick\base\dependencyInjection\loader\YamlLoader;
-use ZenMagick\base\dependencyInjection\compiler\ResolveMergeDefinitionsPass;
+use ZenMagick\Base\ZMObject;
+use ZenMagick\Base\Runtime;
+use ZenMagick\Base\Toolbox;
+use ZenMagick\Base\Settings\Settings;
+use ZenMagick\Base\DependencyInjection\loader\YamlLoader;
+use ZenMagick\Base\DependencyInjection\Compiler\ResolveMergeDefinitionsPass;
 
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\Yaml\Yaml;

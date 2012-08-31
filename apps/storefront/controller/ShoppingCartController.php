@@ -23,9 +23,9 @@
 namespace ZenMagick\apps\storefront\controller;
 
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
-use ZenMagick\base\Runtime;
-use ZenMagick\base\ZMObject;
-use ZenMagick\base\events\Event;
+use ZenMagick\Base\Runtime;
+use ZenMagick\Base\ZMObject;
+use ZenMagick\Base\Events\Event;
 use ZenMagick\http\Request;
 use ZenMagick\http\view\ModelAndView;
 use ZenMagick\apps\store\utils\CheckoutHelper;

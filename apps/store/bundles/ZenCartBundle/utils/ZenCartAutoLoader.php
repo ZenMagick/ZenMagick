@@ -20,8 +20,8 @@
 
 namespace ZenMagick\apps\store\bundles\ZenCartBundle\utils;
 
-use ZenMagick\base\Runtime;
-use ZenMagick\base\ZMObject;
+use ZenMagick\Base\Runtime;
+use ZenMagick\Base\ZMObject;
 
 /**
  * ZenCart auto loader utility

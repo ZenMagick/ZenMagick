@@ -19,7 +19,7 @@
  */
 
 
-use ZenMagick\base\Toolbox;
+use ZenMagick\Base\Toolbox;
 
   // get selections and defaults
   $editor = $request->getParameter('editor');

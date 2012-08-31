@@ -1,5 +1,5 @@
 <?php
-use ZenMagick\base\Runtime;
+use ZenMagick\Base\Runtime;
 
 $zcPath = $settings->get('zencart.root_dir');
 $adminDir = $settings->get('zencart.admin_dir', 'admin');

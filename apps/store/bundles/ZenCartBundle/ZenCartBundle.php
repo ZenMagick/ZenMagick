@@ -22,7 +22,7 @@ namespace ZenMagick\apps\store\bundles\ZenCartBundle;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 
-use ZenMagick\base\Runtime;
+use ZenMagick\Base\Runtime;
 use ZenMagick\apps\store\bundles\ZenCartBundle\DependencyInjection\ZencartExtension;
 
 /**

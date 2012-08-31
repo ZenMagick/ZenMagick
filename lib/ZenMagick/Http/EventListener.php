@@ -22,8 +22,8 @@ namespace ZenMagick\http;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\Routing\Loader\XmlFileLoader;
 
-use ZenMagick\base\Runtime;
-use ZenMagick\base\ZMObject;
+use ZenMagick\Base\Runtime;
+use ZenMagick\Base\ZMObject;
 use ZenMagick\http\sacs\SacsManager;
 use ZenMagick\http\routing\loader\YamlLoader;
 use ZenMagick\http\utils\ContextConfigLoader as HttpContextConfigLoader;

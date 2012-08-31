@@ -20,8 +20,8 @@
 namespace ZenMagick\plugins\subscriptions\controller;
 
 use ZMRuntime;
-use ZenMagick\base\Beans;
-use ZenMagick\base\Toolbox;
+use ZenMagick\Base\Beans;
+use ZenMagick\Base\Toolbox;
 use ZenMagick\apps\admin\controller\PluginAdminController;
 
 /**

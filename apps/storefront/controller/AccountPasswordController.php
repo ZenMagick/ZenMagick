@@ -19,8 +19,8 @@
  */
 namespace ZenMagick\apps\storefront\controller;
 
-use ZenMagick\base\Runtime;
-use ZenMagick\base\events\Event;
+use ZenMagick\Base\Runtime;
+use ZenMagick\Base\Events\Event;
 
 /**
  * Request controller for account password page.

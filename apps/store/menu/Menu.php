@@ -19,7 +19,7 @@
  */
 namespace ZenMagick\apps\store\menu;
 
-use ZenMagick\base\ZMObject;
+use ZenMagick\Base\ZMObject;
 
 
 /**

@@ -17,7 +17,7 @@
  * <http://www.doctrine-project.org>.
  */
 
-namespace ZenMagick\base\database\doctrine\types;
+namespace ZenMagick\Base\Database\Doctrine\types;
 
 use Doctrine\DBAL\Types\DateType as DbalDateType;
 use Doctrine\DBAL\Platforms\AbstractPlatform;

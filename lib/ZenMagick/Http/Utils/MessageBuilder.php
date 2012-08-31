@@ -20,9 +20,9 @@
 namespace ZenMagick\http\utils;
 
 use Swift_Message;
-use ZenMagick\base\Runtime;
-use ZenMagick\base\ZMObject;
-use ZenMagick\base\events\Event;
+use ZenMagick\Base\Runtime;
+use ZenMagick\Base\ZMObject;
+use ZenMagick\Base\Events\Event;
 use ZenMagick\http\view\View;
 
 /**

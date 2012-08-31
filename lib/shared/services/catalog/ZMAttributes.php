@@ -19,8 +19,8 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-use ZenMagick\base\Runtime;
-use ZenMagick\base\ZMObject;
+use ZenMagick\Base\Runtime;
+use ZenMagick\Base\ZMObject;
 
 /**
  * Attribute service.
@@ -110,7 +110,7 @@ class ZMAttributes extends ZMObject {
                   WHERE pa.products_id = :productId
                     AND pa.options_values_id in (:attributeValueId)
                     AND pa.products_attributes_id = pad.products_attributes_id";
-        $result = ZMRuntime::getDatabase()->querySingle($sql, $args, array('products_attributes', 'products_attributes_download'), \ZenMagick\base\database\Connection::MODEL_RAW);
+        $result = ZMRuntime::getDatabase()->querySingle($sql, $args, array('products_attributes', 'products_attributes_download'), \ZenMagick\Base\Database\Connection::MODEL_RAW);
         return 0 != $result['total'];
     }
 

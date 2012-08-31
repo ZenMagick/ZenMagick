@@ -21,8 +21,8 @@ namespace ZenMagick\apps\store\themes;
 
 use DirectoryIterator;
 use Symfony\Component\Yaml\Yaml;
-use ZenMagick\base\Runtime;
-use ZenMagick\base\ZMObject;
+use ZenMagick\Base\Runtime;
+use ZenMagick\Base\ZMObject;
 
 /**
  * Builder for cacheable theme status map.

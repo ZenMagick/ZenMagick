@@ -21,11 +21,11 @@ namespace ZenMagick\http\templating;
 
 use Symfony\Component\Templating\EngineInterface;
 use Symfony\Component\Templating\TemplateNameParserInterface;
-use ZenMagick\base\Beans;
-use ZenMagick\base\Runtime;
-use ZenMagick\base\ZMException;
-use ZenMagick\base\ZMObject;
-use ZenMagick\base\Logging\Logging;
+use ZenMagick\Base\Beans;
+use ZenMagick\Base\Runtime;
+use ZenMagick\Base\ZMException;
+use ZenMagick\Base\ZMObject;
+use ZenMagick\Base\Logging\Logging;
 use ZenMagick\http\view\ResourceResolver;
 use ZenMagick\http\view\View;
 use ZenMagick\http\widgets\Widget;

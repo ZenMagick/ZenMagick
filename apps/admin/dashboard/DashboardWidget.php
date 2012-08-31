@@ -19,7 +19,7 @@
  */
 namespace ZenMagick\apps\admin\dashboard;
 
-use ZenMagick\base\Toolbox;
+use ZenMagick\Base\Toolbox;
 use ZenMagick\http\view\TemplateView;
 use ZenMagick\http\widgets\Widget;
 

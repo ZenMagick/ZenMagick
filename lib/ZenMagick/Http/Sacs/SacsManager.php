@@ -19,12 +19,12 @@
  */
 namespace ZenMagick\http\sacs;
 
-use ZenMagick\base\Beans;
-use ZenMagick\base\Runtime;
-use ZenMagick\base\Toolbox;
-use ZenMagick\base\ZMObject;
-use ZenMagick\base\events\Event;
-use ZenMagick\base\logging\Logging;
+use ZenMagick\Base\Beans;
+use ZenMagick\Base\Runtime;
+use ZenMagick\Base\Toolbox;
+use ZenMagick\Base\ZMObject;
+use ZenMagick\Base\Events\Event;
+use ZenMagick\Base\Logging\Logging;
 use ZenMagick\http\routing\RouteResolver;
 
 use Symfony\Component\DependencyInjection\ContainerInterface;

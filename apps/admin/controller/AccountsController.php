@@ -19,7 +19,7 @@
  */
 namespace ZenMagick\apps\admin\controller;
 
-use ZenMagick\base\Beans;
+use ZenMagick\Base\Beans;
 
 /**
  * Admin controller for accounts page.

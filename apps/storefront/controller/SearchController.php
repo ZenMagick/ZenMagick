@@ -19,9 +19,9 @@
  */
 namespace ZenMagick\apps\storefront\controller;
 
-use ZenMagick\base\Beans;
-use ZenMagick\base\Toolbox;
-use ZenMagick\base\events\Event;
+use ZenMagick\Base\Beans;
+use ZenMagick\Base\Toolbox;
+use ZenMagick\Base\Events\Event;
 
 /**
  * Search controller.

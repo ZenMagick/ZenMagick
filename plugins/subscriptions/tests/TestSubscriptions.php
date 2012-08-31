@@ -20,7 +20,7 @@
 
 namespace ZenMagick\plugins\subscriptions\tests;
 
-use ZenMagick\base\Beans;
+use ZenMagick\Base\Beans;
 use ZenMagick\plugins\unitTests\simpletest\TestCase;
 
 /**

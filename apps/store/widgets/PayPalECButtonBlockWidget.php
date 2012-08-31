@@ -19,7 +19,7 @@
  */
 namespace ZenMagick\apps\store\widgets;
 
-use ZenMagick\base\Runtime;
+use ZenMagick\Base\Runtime;
 use ZenMagick\http\widgets\Widget;
 use ZenMagick\http\view\TemplateView;
 

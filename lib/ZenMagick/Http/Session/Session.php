@@ -20,8 +20,8 @@
 namespace ZenMagick\http\session;
 
 use Serializable;
-use ZenMagick\base\Beans;
-use ZenMagick\base\Runtime;
+use ZenMagick\Base\Beans;
+use ZenMagick\Base\Runtime;
 
 use Symfony\Component\DependencyInjection\ContainerAwareInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;

@@ -51,7 +51,7 @@
 <form action="<?php echo get_option('siteurl'); ?>/wp-comments-post.php" method="post" id="commentform">
 <?php
     /* we are in a function here (get_comments()), so ZenMagick template vars are not visible */
-    $request = ZenMagick\base\Runtime::getContainer()->get('request');
+    $request = ZenMagick\Base\Runtime::getContainer()->get('request');
 ?>
 <input type="hidden" name="redirect_to" value="<?php echo $request->url('wp', 'p='.$request->query->get('p'), false) ?>">
 

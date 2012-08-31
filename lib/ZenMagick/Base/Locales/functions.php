@@ -26,7 +26,7 @@
  * @return string The translated text or, if no translation found, the original text.
  */
 function _zm($text, $domain = 'messages') {
-    if (null != ($container = \ZenMagick\base\Runtime::getContainer())) {
+    if (null != ($container = \ZenMagick\Base\Runtime::getContainer())) {
         $trans = $container->get('translator')->trans($text, array(), $domain);
         if ('' != $trans) return $trans;
     }
@@ -46,7 +46,7 @@ function _vzm($text) {
     // get the remaining args
     $args = func_get_args();
     array_shift($args);
-    if (null != ($container = \ZenMagick\base\Runtime::getContainer())) {
+    if (null != ($container = \ZenMagick\Base\Runtime::getContainer())) {
         $translated = $container->get('translator')->trans($text, array(), 'messages');
         if ('' == $translated) $translated = $text;
     }

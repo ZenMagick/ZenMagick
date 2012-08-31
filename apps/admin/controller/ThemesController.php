@@ -19,8 +19,8 @@
  */
 namespace ZenMagick\apps\admin\controller;
 
-use ZenMagick\base\Runtime;
-use ZenMagick\base\ZMObject;
+use ZenMagick\Base\Runtime;
+use ZenMagick\Base\ZMObject;
 
 /**
  * Admin controller for themes page.

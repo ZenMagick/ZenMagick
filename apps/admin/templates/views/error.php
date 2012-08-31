@@ -26,7 +26,7 @@
   <?php
      if (isset($exception)) {
         echo '<h2>'.$exception->getMessage()."</h2>\n";
-        if ($exception instanceof ZenMagick\base\ZMException) {
+        if ($exception instanceof ZenMagick\Base\ZMException) {
             echo $exception;
         } else {
             echo $exception->getTraceAsString();

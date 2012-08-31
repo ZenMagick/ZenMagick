@@ -20,7 +20,7 @@
 namespace ZenMagick\plugins\formHandler\controller;
 
 use ZMController;
-use ZenMagick\base\ZMObject;
+use ZenMagick\Base\ZMObject;
 
 /**
  * Generic form handler controller.

@@ -20,8 +20,8 @@
 namespace ZenMagick\plugins\pageCache;
 
 use ZenMagick\apps\store\plugins\Plugin;
-use ZenMagick\base\Runtime;
-use ZenMagick\base\events\Event;
+use ZenMagick\Base\Runtime;
+use ZenMagick\Base\Events\Event;
 
 
 define('ZM_PLUGINS_PAGE_CACHE_ALLOWED_DEFAULT', 'index,category,product_info,page,static,products_new,featured_products,specials,product_reviews');

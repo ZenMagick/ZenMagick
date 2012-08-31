@@ -20,9 +20,9 @@
 namespace ZenMagick\plugins\subscriptions;
 
 use ZenMagick\apps\store\plugins\Plugin;
-use ZenMagick\base\Beans;
-use ZenMagick\base\Runtime;
-use ZenMagick\base\Toolbox;
+use ZenMagick\Base\Beans;
+use ZenMagick\Base\Runtime;
+use ZenMagick\Base\Toolbox;
 use ZenMagick\http\sacs\SacsManager;
 use ZenMagick\apps\store\model\checkout\ShoppingCart;
 use ZenMagick\plugins\subscriptions\cron\UpdateSubscriptionsCronJob;

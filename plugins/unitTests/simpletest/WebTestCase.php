@@ -20,7 +20,7 @@
 namespace ZenMagick\plugins\unitTests\simpletest;
 
 use WebTestCase as SimpletestWebTestCase;
-use ZenMagick\base\Runtime;
+use ZenMagick\Base\Runtime;
 
 /**
  * WebTestCase base class.

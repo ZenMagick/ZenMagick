@@ -17,12 +17,12 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-namespace ZenMagick\base;
+namespace ZenMagick\Base;
 
-use ZenMagick\base\dependencyInjection\compiler\ConfigureContainerTagServicePass;
-use ZenMagick\base\dependencyInjection\compiler\ResolveMergeDefinitionsPass;
-use ZenMagick\base\dependencyInjection\compiler\PluginsPass;
-use ZenMagick\base\dependencyInjection\ZenmagickExtension;
+use ZenMagick\Base\DependencyInjection\Compiler\ConfigureContainerTagServicePass;
+use ZenMagick\Base\DependencyInjection\Compiler\ResolveMergeDefinitionsPass;
+use ZenMagick\Base\DependencyInjection\Compiler\PluginsPass;
+use ZenMagick\Base\DependencyInjection\ZenmagickExtension;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Container;
 use Symfony\Component\HttpKernel\Bundle\Bundle;

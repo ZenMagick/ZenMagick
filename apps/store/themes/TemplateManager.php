@@ -19,8 +19,8 @@
  */
 namespace ZenMagick\apps\store\themes;
 
-use ZenMagick\base\Runtime;
-use ZenMagick\base\ZMObject;
+use ZenMagick\Base\Runtime;
+use ZenMagick\Base\ZMObject;
 
 /**
  * Template stuff.

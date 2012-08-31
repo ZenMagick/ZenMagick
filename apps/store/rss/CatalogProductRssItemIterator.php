@@ -20,7 +20,7 @@
 namespace ZenMagick\apps\store\rss;
 
 use Iterator;
-use ZenMagick\base\ZMObject;
+use ZenMagick\Base\ZMObject;
 use ZenMagick\http\rss\RssItem;
 
 /**

@@ -21,8 +21,8 @@
 namespace ZenMagick\plugins\productGroupPricing\service;
 
 use ZMRuntime;
-use ZenMagick\base\Runtime;
-use ZenMagick\base\ZMObject;
+use ZenMagick\Base\Runtime;
+use ZenMagick\Base\ZMObject;
 
 
 /**

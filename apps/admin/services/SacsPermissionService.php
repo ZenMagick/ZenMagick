@@ -19,8 +19,8 @@
  */
 namespace ZenMagick\apps\admin\services;
 
-use ZenMagick\base\Runtime;
-use ZenMagick\base\ZMObject;
+use ZenMagick\Base\Runtime;
+use ZenMagick\Base\ZMObject;
 
 /**
  * Sacs permissions service.

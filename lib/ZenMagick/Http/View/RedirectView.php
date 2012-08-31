@@ -19,9 +19,9 @@
  */
 namespace ZenMagick\http\view;
 
-use ZenMagick\base\Toolbox;
-use ZenMagick\base\ZMException;
-use ZenMagick\base\ZMObject;
+use ZenMagick\Base\Toolbox;
+use ZenMagick\Base\ZMException;
+use ZenMagick\Base\ZMObject;
 
 /**
  * Redirect view.

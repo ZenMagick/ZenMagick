@@ -19,7 +19,7 @@
  */
 namespace ZenMagick\apps\store\bundles\ZenCartBundle;
 
-use ZenMagick\base\Runtime;
+use ZenMagick\Base\Runtime;
 use ZenMagick\apps\store\model\coupons\Coupon;
 
 use Symfony\Component\DependencyInjection\ContainerInterface;

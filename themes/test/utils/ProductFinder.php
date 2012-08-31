@@ -20,7 +20,7 @@
 
 namespace ZenMagick\themes\test\utils;
 
-use ZenMagick\base\database\QueryDetails;
+use ZenMagick\Base\Database\QueryDetails;
 
 /**
  * Simple custom product search.
@@ -34,7 +34,7 @@ class ProductFinder extends \ZMProductFinder {
      * Build the search SQL.
      *
      * @param ZMSearchCriteria criteria Search criteria.
-     * @return ZenMagick\base\database\QueryDetails The search SQL.
+     * @return ZenMagick\Base\Database\QueryDetails The search SQL.
      */
     protected function buildQuery($criteria) {
         $select = "SELECT pd.products_id, ";

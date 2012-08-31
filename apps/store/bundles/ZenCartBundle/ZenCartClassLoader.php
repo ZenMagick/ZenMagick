@@ -19,8 +19,8 @@
  */
 namespace ZenMagick\apps\store\bundles\ZenCartBundle;
 
-use ZenMagick\base\classloader\ClassLoader;
-use ZenMagick\base\Runtime;
+use ZenMagick\Base\Classloader\ClassLoader;
+use ZenMagick\Base\Runtime;
 
 /**
  * Zencart class loader.

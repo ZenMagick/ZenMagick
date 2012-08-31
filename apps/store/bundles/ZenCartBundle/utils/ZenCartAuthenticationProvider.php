@@ -19,8 +19,8 @@
  */
 namespace ZenMagick\apps\store\bundles\ZenCartBundle\utils;
 
-use ZenMagick\base\Toolbox;
-use ZenMagick\base\security\authentication\AuthenticationProvider;
+use ZenMagick\Base\Toolbox;
+use ZenMagick\Base\Security\Authentication\AuthenticationProvider;
 
 /**
  * Authentication provider compatible with zencart generated passwords.

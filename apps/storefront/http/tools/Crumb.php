@@ -19,7 +19,7 @@
  */
 namespace ZenMagick\apps\storefront\http\tools;
 
-use ZenMagick\base\ZMObject;
+use ZenMagick\Base\ZMObject;
 
 /**
  * A crumbtrail crumb.

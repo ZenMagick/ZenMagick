@@ -26,11 +26,11 @@ use Symfony\Component\HttpFoundation\Request as HttpFoundationRequest;
 use Symfony\Component\Routing\Router;
 use Symfony\Component\Routing\RequestContext;
 
-use ZenMagick\base\Beans;
-use ZenMagick\base\Runtime;
-use ZenMagick\base\Toolbox;
-use ZenMagick\base\logging\Logging;
-use ZenMagick\base\events\VetoableEvent;
+use ZenMagick\Base\Beans;
+use ZenMagick\Base\Runtime;
+use ZenMagick\Base\Toolbox;
+use ZenMagick\Base\Logging\Logging;
+use ZenMagick\Base\Events\VetoableEvent;
 
 /**
  * A wrapper around Symfony 2's <code>Symfony\Component\HttpFoundation\Request</code>

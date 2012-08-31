@@ -19,7 +19,7 @@
  */
 namespace ZenMagick\apps\admin\dashboard\widgets;
 
-use ZenMagick\base\events\Event;
+use ZenMagick\Base\Events\Event;
 use ZenMagick\apps\admin\dashboard\DashboardWidget;
 
 

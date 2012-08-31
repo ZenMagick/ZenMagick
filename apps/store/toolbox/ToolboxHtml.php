@@ -19,8 +19,8 @@
  */
 namespace ZenMagick\apps\store\toolbox;
 
-use ZenMagick\base\Runtime;
-use ZenMagick\base\ZMException;
+use ZenMagick\Base\Runtime;
+use ZenMagick\Base\ZMException;
 use ZenMagick\http\toolbox\ToolboxTool;
 
 /**

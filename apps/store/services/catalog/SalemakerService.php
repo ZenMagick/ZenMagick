@@ -21,8 +21,8 @@
 namespace ZenMagick\apps\store\services\catalog;
 
 use DateTime;
-use ZenMagick\base\Runtime;
-use ZenMagick\base\ZMObject;
+use ZenMagick\Base\Runtime;
+use ZenMagick\Base\ZMObject;
 
 /**
  * Sale maker.
@@ -59,7 +59,7 @@ class SalemakerService extends ZMObject {
             $sql = "SELECT *
                     FROM %table.salemaker_sales%
                     WHERE sale_status = '1'";
-            $this->sales_ = \ZMRuntime::getDatabase()->fetchAll($sql, array(), 'salemaker_sales', \ZenMagick\base\database\Connection::MODEL_RAW);
+            $this->sales_ = \ZMRuntime::getDatabase()->fetchAll($sql, array(), 'salemaker_sales', \ZenMagick\Base\Database\Connection::MODEL_RAW);
         }
 
         $hasSale = false;

@@ -20,8 +20,8 @@
 
 namespace ZenMagick\plugins\wordpress;
 
-use ZenMagick\base\Toolbox;
-use ZenMagick\base\ZMObject;
+use ZenMagick\Base\Toolbox;
+use ZenMagick\Base\ZMObject;
 
 /**
  * Wordpress adapter.

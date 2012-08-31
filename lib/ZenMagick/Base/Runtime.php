@@ -18,7 +18,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-namespace ZenMagick\base;
+namespace ZenMagick\Base;
 
 /**
  * Central place for runtime stuff.
@@ -80,7 +80,7 @@ class Runtime {
      * <p>The scope is for future use.</p>
      *
      * @param mixed scope The scope of the logging instance; default is <code>null</code>.
-     * @return ZenMagick\base\logging\Logging A <code>zenmagick\base\logging\Logging</code> instance.
+     * @return ZenMagick\Base\Logging\Logging A <code>zenmagick\base\logging\Logging</code> instance.
      */
     public static function getLogging($scope=null) {
         return self::getContainer()->get('logger');
@@ -89,7 +89,7 @@ class Runtime {
     /**
      * Get the settings service.
      *
-     * @return ZenMagick\base\settings\Settings A <code>zenmagick\base\settings\Settings</code> instance.
+     * @return ZenMagick\Base\Settings\Settings A <code>zenmagick\base\settings\Settings</code> instance.
      */
     public static function getSettings() {
         return self::getContainer()->get('settingsService');

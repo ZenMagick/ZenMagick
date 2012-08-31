@@ -19,8 +19,8 @@
  */
 namespace ZenMagick\apps\storefront\http\tools;
 
-use ZenMagick\base\Runtime;
-use ZenMagick\base\Toolbox;
+use ZenMagick\Base\Runtime;
+use ZenMagick\Base\Toolbox;
 use ZenMagick\http\toolbox\ToolboxTool;
 
 /**

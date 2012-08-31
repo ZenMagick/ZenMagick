@@ -21,7 +21,7 @@
 namespace ZenMagick\apps\store\model\catalog;
 
 use DateTime;
-use ZenMagick\base\ZMObject;
+use ZenMagick\Base\ZMObject;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping AS ORM;

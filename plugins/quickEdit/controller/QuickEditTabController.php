@@ -19,7 +19,7 @@
  */
 namespace ZenMagick\plugins\quickEdit\controller;
 
-use ZenMagick\base\Beans;
+use ZenMagick\Base\Beans;
 use ZenMagick\http\widgets\form\FormWidget;
 use ZenMagick\apps\store\controller\CatalogContentController;
 

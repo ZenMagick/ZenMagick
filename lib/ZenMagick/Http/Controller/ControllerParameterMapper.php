@@ -20,9 +20,9 @@
 namespace ZenMagick\http\controller;
 
 use ReflectionClass;
-use ZenMagick\base\Beans;
-use ZenMagick\base\ZMObject;
-use ZenMagick\base\utils\ParameterMapper;
+use ZenMagick\Base\Beans;
+use ZenMagick\Base\ZMObject;
+use ZenMagick\Base\Utils\ParameterMapper;
 use ZenMagick\http\Request;
 
 /**

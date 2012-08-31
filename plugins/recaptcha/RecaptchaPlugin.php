@@ -20,8 +20,8 @@
 namespace ZenMagick\plugins\recaptcha;
 
 use ZenMagick\apps\store\plugins\Plugin;
-use ZenMagick\base\Runtime;
-use ZenMagick\base\Toolbox;
+use ZenMagick\Base\Runtime;
+use ZenMagick\Base\Toolbox;
 
 
 define('RECAPTCHA_FIELD', 'recaptcha_response_field');

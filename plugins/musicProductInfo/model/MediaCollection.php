@@ -19,7 +19,7 @@
  */
 namespace ZenMagick\plugins\musicProductInfo\model;
 
-use ZenMagick\base\ZMObject;
+use ZenMagick\Base\ZMObject;
 
 /**
  * A collection of media items.

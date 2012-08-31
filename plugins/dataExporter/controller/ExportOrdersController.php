@@ -24,7 +24,7 @@ use DateTime;
 use ZMController;
 use ZMRuntime;
 use ZMOrder;
-use ZenMagick\base\Beans;
+use ZenMagick\Base\Beans;
 
 /**
  * Export orders controller.

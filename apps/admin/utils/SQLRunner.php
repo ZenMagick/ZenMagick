@@ -7,9 +7,9 @@
  */
 namespace ZenMagick\apps\admin\utils;
 
-use ZenMagick\base\Beans;
-use ZenMagick\base\Runtime;
-use ZenMagick\base\Toolbox;
+use ZenMagick\Base\Beans;
+use ZenMagick\Base\Runtime;
+use ZenMagick\Base\Toolbox;
 
 if (!defined('ZC_UPG_DEBUG3')) define('ZC_UPG_DEBUG3', false);
 if (!defined('REASON_TABLE_ALREADY_EXISTS')) {

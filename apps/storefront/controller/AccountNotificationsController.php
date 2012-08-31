@@ -19,7 +19,7 @@
  */
 namespace ZenMagick\apps\storefront\controller;
 
-use ZenMagick\base\Toolbox;
+use ZenMagick\Base\Toolbox;
 
 /**
  * Request controller for account newsletter subscription page.

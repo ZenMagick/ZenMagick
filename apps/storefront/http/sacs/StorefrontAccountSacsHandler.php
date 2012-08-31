@@ -20,7 +20,7 @@
 namespace ZenMagick\apps\storefront\http\sacs;
 
 use ZMAccount;
-use ZenMagick\base\ZMObject;
+use ZenMagick\Base\ZMObject;
 use ZenMagick\http\sacs\SacsHandler;
 
 /**

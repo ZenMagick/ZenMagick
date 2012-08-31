@@ -17,12 +17,12 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-namespace ZenMagick\base;
+namespace ZenMagick\Base;
 
 use Exception;
 use ReflectionClass;
-use ZenMagick\base\Runtime;
-use ZenMagick\base\logging\Logging;
+use ZenMagick\Base\Runtime;
+use ZenMagick\Base\Logging\Logging;
 use Symfony\Component\Filesystem\Filesystem;
 
 /**

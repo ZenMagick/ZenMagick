@@ -18,7 +18,7 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 $admin->title();
-use ZenMagick\base\Toolbox;
+use ZenMagick\Base\Toolbox;
 ?>
 
 <h2><?php _vzm('Manage Settings') ?></h2>

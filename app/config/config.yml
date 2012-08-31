@@ -1,5 +1,5 @@
 parameters:
-    monolog.logger.class: 'ZenMagick\base\logging\Logging'
+    monolog.logger.class: 'ZenMagick\Base\Logging\Logging'
     session.flashbag.class: 'ZenMagick\http\session\FlashBag'
 
     secret: notsecret

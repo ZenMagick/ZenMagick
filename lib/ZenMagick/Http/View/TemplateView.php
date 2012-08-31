@@ -21,12 +21,12 @@ namespace ZenMagick\http\view;
 
 use Exception;
 use Symfony\Component\Templating\DelegatingEngine;
-use ZenMagick\base\Beans;
-use ZenMagick\base\Runtime;
-use ZenMagick\base\ZMException;
-use ZenMagick\base\ZMObject;
-use ZenMagick\base\logging\Logging;
-use ZenMagick\base\events\Event;
+use ZenMagick\Base\Beans;
+use ZenMagick\Base\Runtime;
+use ZenMagick\Base\ZMException;
+use ZenMagick\Base\ZMObject;
+use ZenMagick\Base\Logging\Logging;
+use ZenMagick\Base\Events\Event;
 use ZenMagick\http\Request;
 use ZenMagick\http\widgets\Widget;
 use ZenMagick\http\toolbox\Toolbox;

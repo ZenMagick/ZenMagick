@@ -19,7 +19,7 @@
  */
 namespace ZenMagick\apps\admin\installation\patches;
 
-use ZenMagick\base\Runtime;
+use ZenMagick\Base\Runtime;
 use ZenMagick\apps\admin\installation\InstallationPatch;
 use ZenMagick\apps\admin\utils\SQLRunner;
 

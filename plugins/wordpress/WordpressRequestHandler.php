@@ -21,7 +21,7 @@
 namespace ZenMagick\plugins\wordpress;
 
 use ZMController;
-use ZenMagick\base\Toolbox;
+use ZenMagick\Base\Toolbox;
 
 /**
  * WP request handler.

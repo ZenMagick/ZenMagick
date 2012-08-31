@@ -22,7 +22,7 @@ namespace ZenMagick\plugins\phpbb3;
 
 use Phpass\Hash;
 use Phpass\Hash\Adapter\Portable;
-use ZenMagick\base\security\authentication\provider\PhPassAuthenticationProvider;
+use ZenMagick\Base\Security\Authentication\Provider\PhPassAuthenticationProvider;
 
 /**
  * phpBB3 authentication provider.

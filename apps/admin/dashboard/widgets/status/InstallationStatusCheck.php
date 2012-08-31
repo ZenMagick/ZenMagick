@@ -20,7 +20,7 @@
 namespace ZenMagick\apps\admin\dashboard\widgets\status;
 
 use DateTime;
-use ZenMagick\base\Runtime;
+use ZenMagick\Base\Runtime;
 use ZenMagick\apps\store\widgets\StatusCheck;
 
 /**

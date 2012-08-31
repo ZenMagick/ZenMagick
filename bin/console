@@ -23,7 +23,7 @@
 //umask(0002); // This will let the permissions be 0775
 umask(0000); // This will let the permissions be 0777
 
-use ZenMagick\base\Application as AppKernel;
+use ZenMagick\Base\Application as AppKernel;
 use Symfony\Component\Console\Input\ArgvInput;
 use Symfony\Bundle\FrameworkBundle\Console\Application;
 chdir(dirname(__DIR__));

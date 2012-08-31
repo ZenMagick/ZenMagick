@@ -20,7 +20,7 @@
 namespace ZenMagick\plugins\multiQuantity;
 
 use ZenMagick\apps\store\plugins\Plugin;
-use ZenMagick\base\Runtime;
+use ZenMagick\Base\Runtime;
 
 // The form field name indicating the attribute id used for multi qty
 define('MULTI_QUANTITY_ID', 'multi_qty_id');

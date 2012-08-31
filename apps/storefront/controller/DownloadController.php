@@ -24,8 +24,8 @@ namespace ZenMagick\apps\storefront\controller;
 
 use RecursiveIteratorIterator;
 use RecursiveDirectoryIterator;
-use ZenMagick\base\Runtime;
-use ZenMagick\base\Toolbox;
+use ZenMagick\Base\Runtime;
+use ZenMagick\Base\Toolbox;
 
 /**
  * Download controller.

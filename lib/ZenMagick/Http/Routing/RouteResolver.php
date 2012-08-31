@@ -25,10 +25,10 @@ use Symfony\Component\Routing\RouteCollection;
 use Symfony\Component\Routing\Router;
 use Symfony\Component\Routing\RequestContext as SymfonyRequestContext;
 
-use ZenMagick\base\Beans;
-use ZenMagick\base\Runtime;
-use ZenMagick\base\ZMObject;
-use ZenMagick\base\logging\Logging;
+use ZenMagick\Base\Beans;
+use ZenMagick\Base\Runtime;
+use ZenMagick\Base\ZMObject;
+use ZenMagick\Base\Logging\Logging;
 use ZenMagick\http\routing\loader\YamlLoader;
 use ZenMagick\http\view\TemplateView;
 

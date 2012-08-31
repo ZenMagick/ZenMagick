@@ -21,7 +21,7 @@
  */
 namespace ZenMagick\apps\store\bundles\ZenCartBundle\utils;
 
-use ZenMagick\base\ZMObject;
+use ZenMagick\Base\ZMObject;
 
 /**
  * Assertations for shopping cart.

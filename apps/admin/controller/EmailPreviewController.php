@@ -19,7 +19,7 @@
  */
 namespace ZenMagick\apps\admin\controller;
 
-use ZenMagick\base\events\Event;
+use ZenMagick\Base\Events\Event;
 use ZenMagick\http\view\View;
 
 use ZenMagick\apps\store\model\mock\MockAccount;

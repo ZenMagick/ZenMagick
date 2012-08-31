@@ -19,7 +19,7 @@
  */
 namespace ZenMagick\http\toolbox;
 
-use ZenMagick\base\ZMObject;
+use ZenMagick\Base\ZMObject;
 
 /**
  * Toolbx tool base class.

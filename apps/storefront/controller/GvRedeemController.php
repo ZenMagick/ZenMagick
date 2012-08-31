@@ -19,7 +19,7 @@
  */
 namespace ZenMagick\apps\storefront\controller;
 
-use ZenMagick\base\Toolbox;
+use ZenMagick\Base\Toolbox;
 use ZenMagick\apps\store\model\coupons\Coupon;
 
 /**

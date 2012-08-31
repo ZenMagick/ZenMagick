@@ -20,7 +20,7 @@
 namespace ZenMagick\plugins\autoLogin;
 
 use ZenMagick\apps\store\plugins\Plugin;
-use ZenMagick\base\Toolbox;
+use ZenMagick\Base\Toolbox;
 
 define('AUTO_LOGIN_COOKIE', 'auto_login');
 define('AUTO_LOGIN_OPT_IN', 'autoLogin');

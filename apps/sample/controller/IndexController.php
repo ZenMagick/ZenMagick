@@ -19,7 +19,7 @@
  */
 namespace ZenMagick\apps\sample\controller;
 
-use ZenMagick\base\Toolbox;
+use ZenMagick\Base\Toolbox;
 
 /**
  * Empty default controller.

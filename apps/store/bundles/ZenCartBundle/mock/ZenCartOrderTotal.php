@@ -22,8 +22,8 @@
  */
 namespace ZenMagick\apps\store\bundles\ZenCartBundle\Mock;
 
-use ZenMagick\base\Runtime;
-use ZenMagick\base\ZMObject;
+use ZenMagick\Base\Runtime;
+use ZenMagick\Base\ZMObject;
 
 /**
  * zencart order totals.

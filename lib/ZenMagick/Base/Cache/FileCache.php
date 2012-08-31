@@ -17,11 +17,11 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-namespace ZenMagick\base\cache;
+namespace ZenMagick\Base\Cache;
 
 use pear\cache\CacheLite;
-use ZenMagick\base\Runtime;
-use ZenMagick\base\ZMObject;
+use ZenMagick\Base\Runtime;
+use ZenMagick\Base\ZMObject;
 
 use Symfony\Component\Filesystem\Filesystem;
 /**

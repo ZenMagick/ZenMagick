@@ -19,9 +19,9 @@
  */
 namespace ZenMagick\apps\store\plugins;
 
-use ZenMagick\base\Runtime;
-use ZenMagick\base\Toolbox;
-use ZenMagick\base\ZMException;
+use ZenMagick\Base\Runtime;
+use ZenMagick\Base\Toolbox;
+use ZenMagick\Base\ZMException;
 use ZenMagick\http\plugins\HttpPlugin;
 
 use ZenMagick\apps\store\menu\MenuElement;

@@ -19,10 +19,10 @@
  */
 namespace ZenMagick\apps\admin;
 
-use ZenMagick\base\Beans;
-use ZenMagick\base\Runtime;
-use ZenMagick\base\Toolbox;
-use ZenMagick\base\ZMObject;
+use ZenMagick\Base\Beans;
+use ZenMagick\Base\Runtime;
+use ZenMagick\Base\Toolbox;
+use ZenMagick\Base\ZMObject;
 use ZenMagick\http\view\TemplateView;
 
 use ZenMagick\apps\store\menu\MenuElement;

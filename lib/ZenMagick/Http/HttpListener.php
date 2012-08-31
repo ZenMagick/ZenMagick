@@ -26,11 +26,11 @@ use Symfony\Component\HttpKernel\Event\GetResponseEvent;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
-use ZenMagick\base\Beans;
-use ZenMagick\base\Runtime;
-use ZenMagick\base\events\Event;
-use ZenMagick\base\logging\Logging;
-use ZenMagick\base\utils\Executor;
+use ZenMagick\Base\Beans;
+use ZenMagick\Base\Runtime;
+use ZenMagick\Base\Events\Event;
+use ZenMagick\Base\Logging\Logging;
+use ZenMagick\Base\Utils\Executor;
 use ZenMagick\http\session\SessionValidator;
 use ZenMagick\http\view\ModelAndView;
 use ZenMagick\http\view\ResponseModelAndView;

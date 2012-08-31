@@ -18,7 +18,7 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-use ZenMagick\base\Beans;
+use ZenMagick\Base\Beans;
 
 /**
  * RPC request using JSON.

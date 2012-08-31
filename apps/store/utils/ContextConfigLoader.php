@@ -19,10 +19,10 @@
  */
 namespace ZenMagick\apps\store\utils;
 
-use ZenMagick\base\ZMObject;
-use ZenMagick\base\Runtime;
-use ZenMagick\base\Toolbox;
-use ZenMagick\base\dependencyInjection\loader\YamlLoader;
+use ZenMagick\Base\ZMObject;
+use ZenMagick\Base\Runtime;
+use ZenMagick\Base\Toolbox;
+use ZenMagick\Base\DependencyInjection\loader\YamlLoader;
 use ZenMagick\http\utils\ContextConfigLoader as HttpContextConfigLoader;
 
 use Symfony\Component\Config\FileLocator;

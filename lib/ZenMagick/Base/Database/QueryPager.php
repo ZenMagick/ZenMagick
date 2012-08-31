@@ -17,9 +17,9 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-namespace ZenMagick\base\database;
+namespace ZenMagick\Base\Database;
 
-use ZenMagick\base\ZMObject;
+use ZenMagick\Base\ZMObject;
 
 /**
  * Paginate a query.
@@ -36,7 +36,7 @@ class QueryPager extends ZMObject {
     /**
      * Create new instance for the given query.
      *
-     * @param ZenMagick\base\database\QueryDetails queryDetails The query details; default is <code>null</code>.
+     * @param ZenMagick\Base\Database\QueryDetails queryDetails The query details; default is <code>null</code>.
      */
     public function __construct($queryDetails=null) {
         $this->queryDetails_ = $queryDetails;
@@ -49,7 +49,7 @@ class QueryPager extends ZMObject {
     /**
      * Set query details.
      *
-     * @param ZenMagick\base\database\QueryDetails queryDetails The query details.
+     * @param ZenMagick\Base\Database\QueryDetails queryDetails The query details.
      */
     public function setQueryDetails($queryDetails) {
         $this->queryDetails_ = $queryDetails;
@@ -149,7 +149,7 @@ class QueryPager extends ZMObject {
                 }
             }
 
-            $result = $queryDetails->getDatabase()->querySingle($getTotalSql, $queryDetails->getArgs(), $queryDetails->getMapping(), \ZenMagick\base\database\Connection::MODEL_RAW);
+            $result = $queryDetails->getDatabase()->querySingle($getTotalSql, $queryDetails->getArgs(), $queryDetails->getMapping(), \ZenMagick\Base\Database\Connection::MODEL_RAW);
             $this->totalResultsCount_ = (int)$result['total'];
         }
 

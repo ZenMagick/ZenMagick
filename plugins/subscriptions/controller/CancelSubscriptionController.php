@@ -21,8 +21,8 @@ namespace ZenMagick\plugins\subscriptions\controller;
 
 use ZMController;
 use ZMRuntime;
-use ZenMagick\base\Toolbox;
-use ZenMagick\base\database\Connection;
+use ZenMagick\Base\Toolbox;
+use ZenMagick\Base\Database\Connection;
 
 /**
  * Request controller to cancel a subscription.

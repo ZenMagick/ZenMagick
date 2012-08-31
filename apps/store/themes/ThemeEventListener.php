@@ -19,7 +19,7 @@
  */
 namespace ZenMagick\apps\store\themes;
 
-use ZenMagick\base\ZMObject;
+use ZenMagick\Base\ZMObject;
 
 /**
  * Base theme event listener.

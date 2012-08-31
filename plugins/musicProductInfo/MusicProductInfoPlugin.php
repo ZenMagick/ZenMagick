@@ -20,8 +20,8 @@
 namespace ZenMagick\plugins\musicProductInfo;
 
 use ZenMagick\apps\store\plugins\Plugin;
-use ZenMagick\base\Runtime;
-use ZenMagick\base\ZMObject;
+use ZenMagick\Base\Runtime;
+use ZenMagick\Base\ZMObject;
 
 /**
  * Plugin for <em>product_music_info</em> product template.

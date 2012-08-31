@@ -21,10 +21,10 @@ namespace ZenMagick\plugins\pageStats;
 
 use Symfony\Component\EventDispatcher\GenericEvent;
 use ZenMagick\apps\store\plugins\Plugin;
-use ZenMagick\base\Runtime;
-use ZenMagick\base\Toolbox;
-use ZenMagick\base\ZMObject;
-use ZenMagick\base\logging\Logging;
+use ZenMagick\Base\Runtime;
+use ZenMagick\Base\Toolbox;
+use ZenMagick\Base\ZMObject;
+use ZenMagick\Base\Logging\Logging;
 
 /**
  * Plugin to show page stats.

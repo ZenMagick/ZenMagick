@@ -19,7 +19,7 @@
  */
 namespace ZenMagick\apps\admin\dashboard\widgets;
 
-use ZenMagick\base\Runtime;
+use ZenMagick\Base\Runtime;
 use ZenMagick\apps\admin\dashboard\DashboardWidget;
 
 /**

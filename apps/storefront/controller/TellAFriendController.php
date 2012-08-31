@@ -19,8 +19,8 @@
  */
 namespace ZenMagick\apps\storefront\controller;
 
-use ZenMagick\base\Beans;
-use ZenMagick\base\Runtime;
+use ZenMagick\Base\Beans;
+use ZenMagick\Base\Runtime;
 
 /**
  * Request controller for tell a friend form.

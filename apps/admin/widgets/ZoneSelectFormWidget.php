@@ -19,7 +19,7 @@
  */
 namespace ZenMagick\apps\admin\widgets;
 
-use ZenMagick\base\Runtime;
+use ZenMagick\Base\Runtime;
 use ZenMagick\http\widgets\form\SelectFormWidget;
 
 /**

@@ -22,8 +22,8 @@ namespace ZenMagick\http\routing\loader;
 use Symfony\Component\Config\FileLocatorInterface;
 use Symfony\Component\Routing\RouteCollection;
 
-use ZenMagick\base\config\EchoFileLocator;
-use ZenMagick\base\Toolbox;
+use ZenMagick\Base\Config\EchoFileLocator;
+use ZenMagick\Base\Toolbox;
 
 /**
  * Yaml loader for routing mappings.

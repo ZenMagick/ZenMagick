@@ -19,9 +19,9 @@
  */
 namespace ZenMagick\http\widgets\form;
 
-use ZenMagick\base\Runtime;
-use ZenMagick\base\Toolbox;
-use ZenMagick\base\logging\Logging;
+use ZenMagick\Base\Runtime;
+use ZenMagick\Base\Toolbox;
+use ZenMagick\Base\Logging\Logging;
 use ZenMagick\http\view\TemplateView;
 
 /**

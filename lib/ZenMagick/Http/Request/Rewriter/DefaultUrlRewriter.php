@@ -19,8 +19,8 @@
  */
 namespace ZenMagick\http\request\rewriter;
 
-use ZenMagick\base\Runtime;
-use ZenMagick\base\ZMObject;
+use ZenMagick\Base\Runtime;
+use ZenMagick\Base\ZMObject;
 use ZenMagick\http\Request;
 use ZenMagick\http\request\UrlRewriter;
 

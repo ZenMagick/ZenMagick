@@ -20,9 +20,9 @@
 namespace ZenMagick\plugins\vBulletin;
 
 use ZMRuntime;
-use ZenMagick\base\Toolbox;
-use ZenMagick\base\ZMException;
-use ZenMagick\base\ZMObject;
+use ZenMagick\Base\Toolbox;
+use ZenMagick\Base\ZMException;
+use ZenMagick\Base\ZMObject;
 
 /**
  * Adapter class for vBulletin data.
@@ -65,7 +65,7 @@ class VBulletinAdapter extends ZMObject {
     /**
      * Get database.
      *
-     * @return ZenMagick\base\database\Connection A database handle.
+     * @return ZenMagick\Base\Database\Connection A database handle.
      */
     protected function getDatabase() {
         if (null == $this->database_) {

@@ -22,8 +22,8 @@
 namespace ZenMagick\apps\store\services\coupons;
 
 use ZMRuntime;
-use ZenMagick\base\ZMObject;
-use ZenMagick\base\database\Connection;
+use ZenMagick\Base\ZMObject;
+use ZenMagick\Base\Database\Connection;
 use ZenMagick\apps\store\model\coupons\Coupon;
 use ZenMagick\apps\store\model\coupons\CouponQueue;
 use ZenMagick\apps\store\model\coupons\restrictions\CouponRestrictions;

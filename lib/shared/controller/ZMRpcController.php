@@ -18,9 +18,9 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-use ZenMagick\base\Runtime;
-use ZenMagick\base\Beans;
-use ZenMagick\base\logging\Logging;
+use ZenMagick\Base\Runtime;
+use ZenMagick\Base\Beans;
+use ZenMagick\Base\Logging\Logging;
 use ZenMagick\http\Request;
 use ZenMagick\http\sacs\SacsManager;
 

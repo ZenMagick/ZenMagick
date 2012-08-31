@@ -22,8 +22,8 @@ namespace ZenMagick\plugins\captcha;
 define('CAPTCHA_FIELD', 'captcha');
 
 use ZenMagick\apps\store\plugins\Plugin;
-use ZenMagick\base\Runtime;
-use ZenMagick\base\Toolbox;
+use ZenMagick\Base\Runtime;
+use ZenMagick\Base\Toolbox;
 
 
 /**

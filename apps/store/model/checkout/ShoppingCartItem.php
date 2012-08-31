@@ -22,8 +22,8 @@
  */
 namespace ZenMagick\apps\store\model\checkout;
 
-use ZenMagick\base\Runtime;
-use ZenMagick\base\ZMObject;
+use ZenMagick\Base\Runtime;
+use ZenMagick\Base\ZMObject;
 
 /**
  * A single shopping cart item.

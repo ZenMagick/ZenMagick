@@ -21,7 +21,7 @@
 namespace ZenMagick\plugins\phpbb3;
 
 use ZMRuntime;
-use ZenMagick\base\ZMObject;
+use ZenMagick\Base\ZMObject;
 
 /**
  * Access class for phpBB3 data.
@@ -48,7 +48,7 @@ class PhpBB3Adapter extends ZMObject {
     /**
      * Get database.
      *
-     * @return ZenMagick\base\database\Connection A database handle.
+     * @return ZenMagick\Base\Database\Connection A database handle.
      */
     protected function getDatabase() {
         if (null == $this->database_) {
@@ -125,7 +125,7 @@ class PhpBB3Adapter extends ZMObject {
                 WHERE group_name = 'REGISTERED'
                   AND group_type = " . GROUP_SPECIAL;
 
-        $result = $this->getDatabase()->querySingle($sql, array(), null, \ZenMagick\base\database\Connection::MODEL_RAW);
+        $result = $this->getDatabase()->querySingle($sql, array(), null, \ZenMagick\Base\Database\Connection::MODEL_RAW);
         return null !== $result ? (int)$result['group_id'] : false;
     }
 

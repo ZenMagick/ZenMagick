@@ -19,8 +19,8 @@
  */
 namespace ZenMagick\http\templating\cache;
 
-use ZenMagick\base\logging\Logging;
-use ZenMagick\base\ZMObject;
+use ZenMagick\Base\Logging\Logging;
+use ZenMagick\Base\ZMObject;
 use ZenMagick\http\templating\TemplateCache;
 
 /**
@@ -61,7 +61,7 @@ class SimpleTemplateCache extends ZMObject implements TemplateCache {
     /**
      * Set the cache.
      *
-     * @param ZenMagick\base\cache\Cache cache The cache.
+     * @param ZenMagick\Base\Cache\Cache cache The cache.
      */
     public function setCache($cache) {
         $this->cache_ = $cache;
@@ -70,7 +70,7 @@ class SimpleTemplateCache extends ZMObject implements TemplateCache {
     /**
      * Get the cache.
      *
-     * @return ZenMagick\base\cache\Cache The cache.
+     * @return ZenMagick\Base\Cache\Cache The cache.
      */
     public function getCache() {
         return $this->cache_;

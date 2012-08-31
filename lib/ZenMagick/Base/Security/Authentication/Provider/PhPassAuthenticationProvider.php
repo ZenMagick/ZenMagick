@@ -17,10 +17,10 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-namespace ZenMagick\base\security\authentication\provider;
+namespace ZenMagick\Base\Security\Authentication\Provider;
 
 use Phpass\Hash;
-use ZenMagick\base\security\authentication\AuthenticationProvider;
+use ZenMagick\Base\Security\Authentication\AuthenticationProvider;
 
 
 /**

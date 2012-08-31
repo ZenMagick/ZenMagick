@@ -19,10 +19,10 @@
  */
 namespace ZenMagick\http\utils;
 
-use ZenMagick\base\Runtime;
-use ZenMagick\base\Toolbox;
-use ZenMagick\base\dependencyInjection\loader\YamlLoader;
-use ZenMagick\base\utils\ContextConfigLoader as BaseContextConfigLoader;
+use ZenMagick\Base\Runtime;
+use ZenMagick\Base\Toolbox;
+use ZenMagick\Base\DependencyInjection\loader\YamlLoader;
+use ZenMagick\Base\Utils\ContextConfigLoader as BaseContextConfigLoader;
 
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\Yaml\Yaml;

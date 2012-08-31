@@ -20,7 +20,7 @@
 namespace ZenMagick\plugins\examplePlugin;
 
 use ZenMagick\apps\store\plugins\Plugin;
-use ZenMagick\base\Runtime;
+use ZenMagick\Base\Runtime;
 
 /**
  * Example plugin to illustrate a few key points of the ZenMagick plugin architecture.

@@ -19,9 +19,9 @@
  */
 namespace ZenMagick\http\view;
 
-use ZenMagick\base\Beans;
-use ZenMagick\base\ZMException;
-use ZenMagick\base\ZMObject;
+use ZenMagick\Base\Beans;
+use ZenMagick\Base\ZMException;
+use ZenMagick\Base\ZMObject;
 
 /**
  * Forward view.

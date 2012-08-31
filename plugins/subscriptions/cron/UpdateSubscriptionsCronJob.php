@@ -20,10 +20,10 @@
 
 namespace ZenMagick\plugins\subscriptions\cron;
 
-use ZenMagick\base\Beans;
-use ZenMagick\base\Runtime;
-use ZenMagick\base\Toolbox;
-use ZenMagick\base\events\Event;
+use ZenMagick\Base\Beans;
+use ZenMagick\Base\Runtime;
+use ZenMagick\Base\Toolbox;
+use ZenMagick\Base\Events\Event;
 
 use ZenMagick\plugins\cron\jobs\CronJobInterface;
 
@@ -141,7 +141,7 @@ class UpdateSubscriptionsCronJob implements CronJobInterface {
      * Copy order.
      *
      * @param int orderId The order to copy.
-     * @param ZenMagick\base\ZMObject The new order.
+     * @param ZenMagick\Base\ZMObject The new order.
      */
     public static function copyOrder($orderId) {
         $tables = array(
@@ -154,7 +154,7 @@ class UpdateSubscriptionsCronJob implements CronJobInterface {
         $orderData = array();
         foreach ($tables as $table) {
             $sql = "SELECT * from %table.".$table."% WHERE orders_id = :orderId";
-            $orderData[$table] = ZMRuntime::getDatabase()->fetchAll($sql, array('orderId' => $orderId), $table, 'ZenMagick\base\ZMObject');
+            $orderData[$table] = ZMRuntime::getDatabase()->fetchAll($sql, array('orderId' => $orderId), $table, 'ZenMagick\Base\ZMObject');
         }
 
         $orderData['orders'][0]->setOrderDate(new \DateTime());

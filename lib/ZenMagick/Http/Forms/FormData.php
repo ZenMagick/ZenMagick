@@ -19,8 +19,8 @@
  */
 namespace ZenMagick\http\forms;
 
-use ZenMagick\base\Beans;
-use ZenMagick\base\ZMObject;
+use ZenMagick\Base\Beans;
+use ZenMagick\Base\ZMObject;
 use ZenMagick\http\Request;
 
 /**

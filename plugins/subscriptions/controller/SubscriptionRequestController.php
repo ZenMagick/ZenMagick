@@ -20,7 +20,7 @@
 namespace ZenMagick\plugins\subscriptions\controller;
 
 use ZMController;
-use ZenMagick\base\ZMObject;
+use ZenMagick\Base\ZMObject;
 
 /**
  * Request controller for customer requests.

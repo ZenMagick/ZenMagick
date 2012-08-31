@@ -17,7 +17,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-use ZenMagick\base\Beans;
+use ZenMagick\Base\Beans;
 ?>
 <?php $lastIndex = count($fieldList)-1; ?>
 <h2><?php _vzm('Quick Edit: <em>%s</em>', $html->encode($category->getName())) ?></h2>

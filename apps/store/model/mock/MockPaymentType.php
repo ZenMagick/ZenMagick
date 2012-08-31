@@ -19,7 +19,7 @@
  */
 namespace ZenMagick\apps\store\model\mock;
 
-use ZenMagick\base\ZMObject;
+use ZenMagick\Base\ZMObject;
 
 /**
  * Mock payment type.

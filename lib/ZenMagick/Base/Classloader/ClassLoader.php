@@ -19,7 +19,7 @@
 * and is licensed under the LGPL. For more information, see
 * <http://www.gnu.org/licenses/lgpl.html>.
 */
-namespace ZenMagick\base\classloader;
+namespace ZenMagick\Base\Classloader;
 
 /**
  * A PHP5.3 class loader.

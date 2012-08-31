@@ -19,7 +19,7 @@
  */
 namespace ZenMagick\apps\admin\http\tools;
 
-use ZenMagick\base\Runtime;
+use ZenMagick\Base\Runtime;
 use ZenMagick\http\toolbox\ToolboxTool;
 use ZenMagick\apps\store\controller\CatalogContentController;
 

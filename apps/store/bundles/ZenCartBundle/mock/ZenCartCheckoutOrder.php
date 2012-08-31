@@ -19,8 +19,8 @@
  */
 namespace ZenMagick\apps\store\bundles\ZenCartBundle\Mock;
 
-use ZenMagick\base\Runtime;
-use ZenMagick\base\ZMObject;
+use ZenMagick\Base\Runtime;
+use ZenMagick\Base\ZMObject;
 use ZenMagick\apps\store\model\checkout\ShoppingCart;
 /**
  * A zencart order based on the shopping cart.

@@ -19,12 +19,12 @@
  */
 namespace ZenMagick\apps\admin\controller;
 
-use ZenMagick\base\Beans;
-use ZenMagick\base\Runtime;
-use ZenMagick\base\Toolbox;
+use ZenMagick\Base\Beans;
+use ZenMagick\Base\Runtime;
+use ZenMagick\Base\Toolbox;
 
 use Symfony\Component\Yaml\Yaml;
-use ZenMagick\base\locales\LocaleScanner;
+use ZenMagick\Base\Locales\LocaleScanner;
 
 
 /**

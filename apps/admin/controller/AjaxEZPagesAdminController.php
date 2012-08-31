@@ -19,8 +19,8 @@
  */
 namespace ZenMagick\apps\admin\controller;
 
-use ZenMagick\base\Beans;
-use ZenMagick\base\Toolbox;
+use ZenMagick\Base\Beans;
+use ZenMagick\Base\Toolbox;
 
 /**
  * Ajax EZPages admin controller.

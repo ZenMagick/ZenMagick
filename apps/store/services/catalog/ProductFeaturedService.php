@@ -20,8 +20,8 @@
 namespace ZenMagick\apps\store\services\catalog;
 
 use DateTime;
-use ZenMagick\base\Runtime;
-use ZenMagick\base\ZMObject;
+use ZenMagick\Base\Runtime;
+use ZenMagick\Base\ZMObject;
 
 /**
  * Featured Products.

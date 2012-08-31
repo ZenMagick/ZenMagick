@@ -20,7 +20,7 @@
 namespace ZenMagick\apps\store\rss;
 
 use DateTime;
-use ZenMagick\base\ZMObject;
+use ZenMagick\Base\ZMObject;
 use ZenMagick\http\rss\RssChannel;
 use ZenMagick\http\rss\RssFeed;
 use ZenMagick\http\rss\RssItem;

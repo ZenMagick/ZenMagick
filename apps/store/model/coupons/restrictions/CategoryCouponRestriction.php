@@ -21,7 +21,7 @@
 
 namespace ZenMagick\apps\store\model\coupons\restrictions;
 
-use ZenMagick\base\ZMObject;
+use ZenMagick\Base\ZMObject;
 
 /**
  * Single coupon restriction.

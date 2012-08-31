@@ -19,10 +19,10 @@
  */
 namespace ZenMagick\apps\storefront\controller;
 
-use ZenMagick\base\Beans;
-use ZenMagick\base\Toolbox;
-use ZenMagick\base\logging\Logging;
-use ZenMagick\base\events\Event;
+use ZenMagick\Base\Beans;
+use ZenMagick\Base\Toolbox;
+use ZenMagick\Base\Logging\Logging;
+use ZenMagick\Base\Events\Event;
 use ZenMagick\apps\store\model\coupons\Coupon;
 
 /**

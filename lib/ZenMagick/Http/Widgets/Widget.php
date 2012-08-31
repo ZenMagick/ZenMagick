@@ -19,7 +19,7 @@
  */
 namespace ZenMagick\http\widgets;
 
-use ZenMagick\base\ZMObject;
+use ZenMagick\Base\ZMObject;
 use ZenMagick\http\view\TemplateView;
 
 /**

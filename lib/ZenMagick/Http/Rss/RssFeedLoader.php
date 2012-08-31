@@ -22,9 +22,9 @@
 namespace ZenMagick\http\rss;
 
 use ArrayIterator;
-use ZenMagick\base\Runtime;
-use ZenMagick\base\Toolbox;
-use ZenMagick\base\ZMObject;
+use ZenMagick\Base\Runtime;
+use ZenMagick\Base\Toolbox;
+use ZenMagick\Base\ZMObject;
 
 /**
  * A RSS feed loader.
@@ -52,7 +52,7 @@ class RssFeedLoader extends ZMObject {
     /**
      * Set the cache.
      *
-     * @param ZenMagick\base\cache\Cache cache The cache.
+     * @param ZenMagick\Base\Cache\Cache cache The cache.
      */
     public function setCache($cache) {
         $this->cache = $cache;

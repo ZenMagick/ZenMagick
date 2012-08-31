@@ -19,8 +19,8 @@
  */
 namespace ZenMagick\apps\store\bundles\ZenCartBundle\wrapper;
 
-use ZenMagick\base\ZMObject;
-use ZenMagick\base\Beans;
+use ZenMagick\Base\ZMObject;
+use ZenMagick\Base\Beans;
 
 /**
  * Shipping method wrapper for zencart shipping.

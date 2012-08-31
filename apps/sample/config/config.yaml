@@ -7,5 +7,5 @@ zenmagick:
     events:
       listeners:
         - ZenMagick\apps\sample\EventListener
-        - ZenMagick\base\EventListener
+        - ZenMagick\Base\EventListener
         - ZenMagick\http\EventListener

@@ -10,7 +10,7 @@
  */
 namespace ZenMagick\plugins\captcha;
 
-use ZenMagick\base\Runtime;
+use ZenMagick\Base\Runtime;
 
 define('CAPCHA_USE_OB', 'true');
 define('CAPCHA_NOISE', '30');
