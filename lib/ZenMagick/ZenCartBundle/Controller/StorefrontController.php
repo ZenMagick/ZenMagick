@@ -27,9 +27,8 @@ use ZenMagick\Base\Toolbox;
  * ZenCart storefront controller
  *
  * @author Johnny Robeson
- * @package org.zenmagick.plugins.zenCart
  */
-class ZencartStorefrontController extends \ZMController {
+class StorefrontController extends \ZMController {
     /**
      * Override getFormData() for ZenCart pages
      */
