@@ -19,7 +19,7 @@
  */
 namespace ZenMagick\plugins\pageCache;
 
-use ZenMagick\apps\store\plugins\Plugin;
+use ZenMagick\apps\store\Plugins\Plugin;
 use ZenMagick\Base\Runtime;
 use ZenMagick\Base\Events\Event;
 

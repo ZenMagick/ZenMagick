@@ -19,7 +19,7 @@
  */
 namespace ZenMagick\plugins\formHandler;
 
-use ZenMagick\apps\store\plugins\Plugin;
+use ZenMagick\apps\store\Plugins\Plugin;
 
 use Symfony\Component\Routing\Route;
 use Symfony\Component\Routing\RouteCollection;

@@ -23,7 +23,7 @@ use ZenMagick\Base\Beans;
 use ZenMagick\Base\Toolbox;
 use ZenMagick\Base\Logging\Logging;
 use ZenMagick\Base\Events\Event;
-use ZenMagick\apps\store\model\coupons\Coupon;
+use ZenMagick\apps\store\Model\Coupons\Coupon;
 
 /**
  * Request controller for account creation page.

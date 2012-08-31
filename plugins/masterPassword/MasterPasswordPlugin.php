@@ -19,7 +19,7 @@
  */
 namespace ZenMagick\plugins\masterPassword;
 
-use ZenMagick\apps\store\plugins\Plugin;
+use ZenMagick\apps\store\Plugins\Plugin;
 
 /**
  * Plugin adding master password functionality.

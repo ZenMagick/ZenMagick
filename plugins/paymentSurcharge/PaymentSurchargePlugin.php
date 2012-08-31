@@ -19,10 +19,10 @@
  */
 namespace ZenMagick\plugins\paymentSurcharge;
 
-use ZenMagick\apps\store\plugins\Plugin;
+use ZenMagick\apps\store\Plugins\Plugin;
 use ZenMagick\Base\Beans;
 use ZenMagick\Base\Runtime;
-use ZenMagick\apps\store\model\checkout\ShoppingCart;
+use ZenMagick\apps\store\Model\Checkout\ShoppingCart;
 
 /**
  * ZenMagick order total module to add a payment surcharge totals based on configurable conditions.

@@ -21,7 +21,7 @@ namespace ZenMagick\plugins\quickEdit\controller;
 
 use ZenMagick\Base\Beans;
 use ZenMagick\Http\Widgets\Form\FormWidget;
-use ZenMagick\apps\store\controller\CatalogContentController;
+use ZenMagick\apps\store\Controller\CatalogContentController;
 
 /**
  * Admin controller.

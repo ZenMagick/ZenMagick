@@ -19,7 +19,7 @@
  */
 namespace ZenMagick\plugins\phpbb3;
 
-use ZenMagick\apps\store\plugins\Plugin;
+use ZenMagick\apps\store\Plugins\Plugin;
 use ZenMagick\Base\Toolbox;
 use ZenMagick\Base\Runtime;
 

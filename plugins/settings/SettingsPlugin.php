@@ -19,7 +19,7 @@
  */
 namespace ZenMagick\plugins\settings;
 
-use ZenMagick\apps\store\plugins\Plugin;
+use ZenMagick\apps\store\Plugins\Plugin;
 use ZenMagick\Http\Widgets\Widget;
 
 /**

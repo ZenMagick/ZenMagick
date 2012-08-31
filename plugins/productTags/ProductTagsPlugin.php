@@ -19,7 +19,7 @@
  */
 namespace ZenMagick\plugins\productTags;
 
-use ZenMagick\apps\store\plugins\Plugin;
+use ZenMagick\apps\store\Plugins\Plugin;
 
 
 /**

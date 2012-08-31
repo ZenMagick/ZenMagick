@@ -19,7 +19,7 @@
  */
 namespace ZenMagick\plugins\rules\promotions;
 
-use ZenMagick\apps\store\model\checkout\ShoppingCart;
+use ZenMagick\apps\store\Model\Checkout\ShoppingCart;
 
 /**
  * Base class for promotional elements.

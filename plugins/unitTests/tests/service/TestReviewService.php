@@ -20,7 +20,7 @@
 
 use ZenMagick\Base\Beans;
 use ZenMagick\Base\Runtime;
-use ZenMagick\apps\store\model\catalog\Review;
+use ZenMagick\apps\store\Model\Catalog\Review;
 use ZenMagick\plugins\unitTests\simpletest\TestCase;
 
 /**
@@ -131,7 +131,7 @@ class TestReviewService extends TestCase {
         Runtime::getSettings()->set('isApproveReviews', false);
         $account = $this->container->get('accountService')->getAccountForId(1);
         if (null != $account) {
-            $review = Beans::getBean('ZenMagick\apps\store\model\catalog\Review');
+            $review = Beans::getBean('ZenMagick\apps\store\Model\Catalog\Review');
             $review->setProductId(3);
             $review->setRating(4);
             $review->setDescription('some foo', 1);
@@ -164,7 +164,7 @@ class TestReviewService extends TestCase {
         $reviewService = $this->container->get('reviewService');
         $account = $this->container->get('accountService')->getAccountForId(1);
         if (null != $account) {
-            $review = Beans::getBean('ZenMagick\apps\store\model\catalog\Review');
+            $review = Beans::getBean('ZenMagick\apps\store\Model\Catalog\Review');
             $review->setProductId(3);
             $review->setRating(4);
             $review->setLanguageId(1);

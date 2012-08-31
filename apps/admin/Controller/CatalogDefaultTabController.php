@@ -19,7 +19,7 @@
  */
 namespace ZenMagick\apps\admin\Controller;
 
-use ZenMagick\apps\store\controller\CatalogContentController;
+use ZenMagick\apps\store\Controller\CatalogContentController;
 
 
 /**

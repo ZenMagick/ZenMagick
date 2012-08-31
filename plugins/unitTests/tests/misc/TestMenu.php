@@ -20,10 +20,10 @@
 
 use Symfony\Component\Yaml\Yaml;
 use ZenMagick\Base\Runtime;
-use ZenMagick\apps\store\menu\Menu;
-use ZenMagick\apps\store\menu\MenuLoader;
-use ZenMagick\apps\store\menu\MenuElement;
-use ZenMagick\apps\store\menu\MenuSeparator;
+use ZenMagick\apps\store\Menu\Menu;
+use ZenMagick\apps\store\Menu\MenuLoader;
+use ZenMagick\apps\store\Menu\MenuElement;
+use ZenMagick\apps\store\Menu\MenuSeparator;
 use ZenMagick\plugins\unitTests\simpletest\TestCase;
 
 /**

@@ -22,7 +22,7 @@ namespace ZenMagick\apps\admin\Dashboard\Widgets\Status;
 use DateTime;
 use ZenMagick\Base\Runtime;
 use ZenMagick\Base\ZMObject;
-use ZenMagick\apps\store\widgets\StatusCheck;
+use ZenMagick\apps\store\Widgets\StatusCheck;
 
 /**
  * Coupon status check.

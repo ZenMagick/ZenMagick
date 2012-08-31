@@ -20,7 +20,7 @@
 namespace ZenMagick\apps\admin\Controller;
 
 use ZenMagick\Base\Toolbox;
-use ZenMagick\apps\store\plugins\PluginOptionsLoader;
+use ZenMagick\apps\store\Plugins\PluginOptionsLoader;
 
 /**
  * Ajax plugin admin controller.

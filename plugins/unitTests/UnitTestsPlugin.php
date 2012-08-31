@@ -19,7 +19,7 @@
  */
 namespace ZenMagick\plugins\unitTests;
 
-use ZenMagick\apps\store\plugins\Plugin;
+use ZenMagick\apps\store\Plugins\Plugin;
 
 
 define('UNIT_TESTS_GROUP_DEFAULT', '@default');

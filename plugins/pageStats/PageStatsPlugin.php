@@ -20,7 +20,7 @@
 namespace ZenMagick\plugins\pageStats;
 
 use Symfony\Component\EventDispatcher\GenericEvent;
-use ZenMagick\apps\store\plugins\Plugin;
+use ZenMagick\apps\store\Plugins\Plugin;
 use ZenMagick\Base\Runtime;
 use ZenMagick\Base\Toolbox;
 use ZenMagick\Base\ZMObject;

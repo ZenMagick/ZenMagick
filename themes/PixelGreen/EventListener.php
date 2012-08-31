@@ -20,7 +20,7 @@
 namespace ZenMagick\themes\PixelGreen;
 
 use ZenMagick\Base\Runtime;
-use ZenMagick\apps\store\themes\ThemeEventListener;
+use ZenMagick\apps\store\Themes\ThemeEventListener;
 
 /**
  * Theme event listener.

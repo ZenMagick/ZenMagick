@@ -23,7 +23,7 @@ use ZenMagick\Base\Beans;
 use ZenMagick\Base\Runtime;
 use ZenMagick\Base\Toolbox;
 use ZenMagick\Base\ZMObject;
-use ZenMagick\apps\store\utils\ContextConfigLoader;
+use ZenMagick\apps\store\Utils\ContextConfigLoader;
 
 /**
  * Basic plugin service.

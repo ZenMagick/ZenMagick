@@ -19,7 +19,7 @@
  */
 namespace ZenMagick\plugins\minify;
 
-use ZenMagick\apps\store\plugins\Plugin;
+use ZenMagick\apps\store\Plugins\Plugin;
 use ZenMagick\Base\Runtime;
 
 /**

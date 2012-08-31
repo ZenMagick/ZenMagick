@@ -20,7 +20,7 @@
 namespace ZenMagick\ZenCartBundle;
 
 use ZenMagick\Base\Runtime;
-use ZenMagick\apps\store\model\coupons\Coupon;
+use ZenMagick\apps\store\Model\Coupons\Coupon;
 
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;

@@ -98,7 +98,7 @@ class ZMOrderItem extends ZMObject {
      */
     public function getTaxRate() {
         if (null == $this->taxRate_) {
-            $this->taxRate_ = Beans::getBean('ZenMagick\apps\store\model\TaxRate');
+            $this->taxRate_ = Beans::getBean('ZenMagick\apps\store\Model\TaxRate');
             $this->taxRate_->setRate($this->get('taxValue'));
         }
 

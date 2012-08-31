@@ -26,7 +26,7 @@ use ZenMagick\Base\Runtime;
 use ZenMagick\Base\ZMObject;
 use ZenMagick\Http\Session\FlashBag;
 use ZenMagick\Base\Events\Event;
-use ZenMagick\apps\store\widgets\StatusCheck;
+use ZenMagick\apps\store\Widgets\StatusCheck;
 
 /**
  * Shared store event listener.
@@ -102,7 +102,7 @@ class StoreEventListener extends ZMObject {
 
         // general banners block group - if used, the group needs to be passed into fetchBlockGroup()
         $mappings['banners'] = array();
-        $mappings['banners'][] = 'ZenMagick\apps\store\widgets\BannerBlockWidget';
+        $mappings['banners'][] = 'ZenMagick\apps\store\Widgets\BannerBlockWidget';
 
         // individual banner groups as per current convention
         $defaultBannerGroupNames = array(
@@ -114,12 +114,12 @@ class StoreEventListener extends ZMObject {
         foreach ($defaultBannerGroupNames as $blockGroupName) {
             // the banner group name is configured as setting..
             $bannerGroup = $settingsService->get($blockGroupName);
-            $mappings[$blockGroupName] = array('ZenMagick\apps\store\widgets\BannerBlockWidget#group='.$bannerGroup);
+            $mappings[$blockGroupName] = array('ZenMagick\apps\store\Widgets\BannerBlockWidget#group='.$bannerGroup);
         }
 
         // shopping cart options
         $mappings['shoppingCart.options'] = array();
-        $mappings['shoppingCart.options'][] = 'ZenMagick\apps\store\widgets\PayPalECButtonBlockWidget';
+        $mappings['shoppingCart.options'][] = 'ZenMagick\apps\store\Widgets\PayPalECButtonBlockWidget';
         $mappings['mainMenu'] = array();
         $mappings['mainMenu'][] = 'ref::browserIDLogin';
 

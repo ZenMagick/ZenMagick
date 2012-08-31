@@ -25,7 +25,7 @@
             <tag name="zenmagick.apps.store.editor" label="Plain" />
         </service>
 
-        <service id="adminMenu" class="ZenMagick\apps\store\menu\Menu" />
+        <service id="adminMenu" class="ZenMagick\apps\store\Menu\Menu" />
 
         <service id="catalogDefaultTabController" class="ZenMagick\apps\admin\Controller\CatalogDefaultTabController">
             <tag name="apps.store.admin.tabcontroller" />

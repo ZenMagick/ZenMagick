@@ -21,7 +21,7 @@
 
 use ZenMagick\Base\Runtime;
 use ZenMagick\Base\ZMObject;
-use ZenMagick\apps\store\model\checkout\ShoppingCart;
+use ZenMagick\apps\store\Model\Checkout\ShoppingCart;
 
 /**
  * Order totals.

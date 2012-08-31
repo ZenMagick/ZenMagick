@@ -25,11 +25,11 @@
             <tag name="zenmagick.http.request.rewriter" />
         </service>
 
-        <service id="defaultRssFeedSource" class="ZenMagick\apps\store\rss\DefaultRssFeedSource">
+        <service id="defaultRssFeedSource" class="ZenMagick\apps\store\Rss\DefaultRssFeedSource">
             <tag name="zenmagick.http.rss.source" />
         </service>
 
-        <service id="catalogRssFeedSource" class="ZenMagick\apps\store\rss\CatalogRssFeedSource">
+        <service id="catalogRssFeedSource" class="ZenMagick\apps\store\Rss\CatalogRssFeedSource">
             <tag name="zenmagick.http.rss.source" />
         </service>
 

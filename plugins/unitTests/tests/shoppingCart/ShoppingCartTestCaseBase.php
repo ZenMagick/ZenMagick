@@ -19,8 +19,8 @@
  */
 
 use ZenMagick\Base\ZMObject;
-use ZenMagick\apps\store\model\checkout\ShoppingCart;
-use ZenMagick\apps\store\utils\CheckoutHelper;
+use ZenMagick\apps\store\Model\Checkout\ShoppingCart;
+use ZenMagick\apps\store\Utils\CheckoutHelper;
 use ZenMagick\plugins\unitTests\simpletest\TestCase;
 
 /**

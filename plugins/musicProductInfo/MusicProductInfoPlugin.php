@@ -19,7 +19,7 @@
  */
 namespace ZenMagick\plugins\musicProductInfo;
 
-use ZenMagick\apps\store\plugins\Plugin;
+use ZenMagick\apps\store\Plugins\Plugin;
 use ZenMagick\Base\Runtime;
 use ZenMagick\Base\ZMObject;
 
@@ -59,7 +59,7 @@ class MusicProductInfoPlugin extends Plugin {
      */
     public function onContainerReady($event) {
         // attach mediaUrl method to the $net toolbox tool
-        ZMObject::attachMethod('mediaUrl', 'ZenMagick\apps\store\toolbox\ToolboxNet',
+        ZMObject::attachMethod('mediaUrl', 'ZenMagick\apps\store\Toolbox\ToolboxNet',
             array($this, 'mediaUrl'));
     }
 

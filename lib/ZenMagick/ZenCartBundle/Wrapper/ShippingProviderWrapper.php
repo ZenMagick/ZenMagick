@@ -22,7 +22,7 @@ namespace ZenMagick\ZenCartBundle\Wrapper;
 use ZenMagick\Base\Beans;
 use ZenMagick\Base\Toolbox;
 use ZenMagick\Base\ZMObject;
-use ZenMagick\apps\store\model\checkout\ShoppingCart;
+use ZenMagick\apps\store\Model\Checkout\ShoppingCart;
 
 use ZenMagick\ZenCartBundle\Mock\ZenCartMock;
 use ZenMagick\ZenCartBundle\Wrapper\ShippingMethodWrapper;
@@ -128,7 +128,7 @@ class ShippingProviderWrapper extends ZMObject implements \ZMShippingProvider {
         }
 
         // capture tax
-        $taxRate = Beans::getBean('ZenMagick\apps\store\model\TaxRate');
+        $taxRate = Beans::getBean('ZenMagick\apps\store\Model\TaxRate');
         $taxRate->setRate(isset($quotes['tax']) ? $quotes['tax'] : 0);
 
         $methods = array();
