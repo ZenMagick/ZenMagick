@@ -59,13 +59,13 @@ class AppKernel extends Kernel {
             new Symfony\Bundle\MonologBundle\MonologBundle,
             new Symfony\Bundle\TwigBundle\TwigBundle,
             new Symfony\Bundle\FrameworkBundle\FrameworkBundle,
-            new Sensio\Bundle\DistributionBundle\SensioDistributionBundle,
             new ZenMagick\Base\ZenMagickBundle,
             new ZenMagick\apps\admin\AdminBundle,
             new ZenMagick\apps\storefront\StorefrontBundle,
         );
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {
             $bundles[] = new Symfony\Bundle\WebProfilerBundle\WebProfilerBundle;
+            $bundles[] = new Sensio\Bundle\DistributionBundle\SensioDistributionBundle;
         }
         return $bundles;
     }

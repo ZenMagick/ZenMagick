@@ -1,5 +1,5 @@
 {
-    "hash": "3a1441f91406f0b3b5a2a3693384bf86",
+    "hash": "f7bf7933be73506fe8153de6ef5aa3dc",
     "packages": [
         {
             "package": "dermanomann/phprules",
@@ -16,12 +16,6 @@
             "version": "2.2.x-dev",
             "source-reference": "da4b7b4d965db0c1c1d23333e87ee5ae8994e249",
             "commit-date": "1344978731"
-        },
-        {
-            "package": "doctrine/doctrine-bundle",
-            "version": "dev-master",
-            "alias-pretty-version": "1.0.x-dev",
-            "alias-version": "1.0.9999999.9999999-dev"
         },
         {
             "package": "doctrine/doctrine-bundle",
@@ -62,14 +56,20 @@
         {
             "package": "rych/phpass",
             "version": "dev-master",
+            "source-reference": "1174a7a5b1c95ef8d4b7d861f3bc208913803645",
+            "commit-date": "1344141053"
+        },
+        {
+            "package": "sensio/distribution-bundle",
+            "version": "dev-master",
             "alias-pretty-version": "2.1.x-dev",
             "alias-version": "2.1.9999999.9999999-dev"
         },
         {
-            "package": "rych/phpass",
+            "package": "sensio/distribution-bundle",
             "version": "dev-master",
-            "source-reference": "1174a7a5b1c95ef8d4b7d861f3bc208913803645",
-            "commit-date": "1344141053"
+            "source-reference": "a86d2c0d7212851cc4e971abdff13b89eb063861",
+            "commit-date": "1346246961"
         },
         {
             "package": "swiftmailer/swiftmailer",
@@ -86,20 +86,8 @@
         {
             "package": "symfony/monolog-bundle",
             "version": "dev-master",
-            "alias-pretty-version": "2.1.x-dev",
-            "alias-version": "2.1.9999999.9999999-dev"
-        },
-        {
-            "package": "symfony/monolog-bundle",
-            "version": "dev-master",
             "source-reference": "v2.1.0-RC2",
             "commit-date": "1345557954"
-        },
-        {
-            "package": "symfony/swiftmailer-bundle",
-            "version": "dev-master",
-            "alias-pretty-version": "2.1.x-dev",
-            "alias-version": "2.1.9999999.9999999-dev"
         },
         {
             "package": "symfony/swiftmailer-bundle",
