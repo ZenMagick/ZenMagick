@@ -49,7 +49,7 @@ class ZenMagickExtension extends Extension {
      */
     public function load(array $configs, ContainerBuilder $container) {
         $context = $container->getParameter('kernel.context');
-        $rootDir = $container->getParameter('kernel.root_dir');
+        $rootDir = dirname($container->getParameter('kernel.root_dir'));
         $loader = $this->getLoader($container, new FileLocator($rootDir));
         $files = array();
         $files[] = 'lib/ZenMagick/Base/container.xml';

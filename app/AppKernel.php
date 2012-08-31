@@ -17,7 +17,6 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-namespace ZenMagick\Base;
 
 use ZenMagick\Base\Runtime;
 
@@ -29,7 +28,7 @@ use Symfony\Component\HttpKernel\Kernel;
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class Application extends Kernel {
+class AppKernel extends Kernel {
     protected $context;
 
     /**
@@ -53,19 +52,20 @@ class Application extends Kernel {
      */
     public function registerBundles() {
         $bundles = array(
-            new \ZenMagick\ZenCartBundle\ZenCartBundle,
-            new \Doctrine\Bundle\DoctrineBundle\DoctrineBundle,
-            new \Doctrine\Bundle\MigrationsBundle\DoctrineMigrationsBundle,
-            new \Symfony\Bundle\SwiftmailerBundle\SwiftmailerBundle,
-            new \Symfony\Bundle\MonologBundle\MonologBundle,
-            new \Symfony\Bundle\TwigBundle\TwigBundle,
-            new \Symfony\Bundle\FrameworkBundle\FrameworkBundle,
-            new \ZenMagick\Base\ZenMagickBundle,
-            new \ZenMagick\apps\admin\AdminBundle,
-            new \ZenMagick\apps\storefront\StorefrontBundle,
+            new ZenMagick\ZenCartBundle\ZenCartBundle,
+            new Doctrine\Bundle\DoctrineBundle\DoctrineBundle,
+            new Doctrine\Bundle\MigrationsBundle\DoctrineMigrationsBundle,
+            new Symfony\Bundle\SwiftmailerBundle\SwiftmailerBundle,
+            new Symfony\Bundle\MonologBundle\MonologBundle,
+            new Symfony\Bundle\TwigBundle\TwigBundle,
+            new Symfony\Bundle\FrameworkBundle\FrameworkBundle,
+            new Sensio\Bundle\DistributionBundle\SensioDistributionBundle,
+            new ZenMagick\Base\ZenMagickBundle,
+            new ZenMagick\apps\admin\AdminBundle,
+            new ZenMagick\apps\storefront\StorefrontBundle,
         );
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {
-            $bundles[] = new \Symfony\Bundle\WebProfilerBundle\WebProfilerBundle;
+            $bundles[] = new Symfony\Bundle\WebProfilerBundle\WebProfilerBundle;
         }
         return $bundles;
     }
@@ -76,12 +76,12 @@ class Application extends Kernel {
     public function registerContainerConfiguration(LoaderInterface $loader) {
         $context = $this->getContext();
 
-        $resources[] = $this->getRootDir().'/app/config/parameters.yml';
+        $resources[] = $this->getRootDir().'/config/parameters.yml';
         // used to set the basic parameters to fill config_$env.yml files
-        $resources[] = $this->getRootDir().'/apps/store/config/configuration.php';
-        $resources[] = $this->getRootDir().'/apps/store/config/email.php';
+        $resources[] = dirname($this->getRootDir()).'/apps/store/config/configuration.php';
+        $resources[] = dirname($this->getRootDir()).'/apps/store/config/email.php';
         // extension configuration
-        $resources[] = $this->getRootDir().'/app/config/config_'.$this->getEnvironment().'.yml';
+        $resources[] = $this->getRootDir().'/config/config_'.$this->getEnvironment().'.yml';
 
         // @todo remove this when we we can prove we don't need $_SESSION
         $resources[] = function($container) use($context) {
@@ -112,22 +112,22 @@ class Application extends Kernel {
      */
     public function getApplicationPath() {
         if ($context = $this->getContext()) {
-            return sprintf('%s/apps/%s', $this->getRootDir(), $context);
+            return sprintf('%s/apps/%s', dirname($this->getRootDir()), $context);
         }
     }
 
     /**
      * {@inheritDoc}
      */
-    public function getRootDir() {
-        return dirname(dirname(dirname(__DIR__)));
+    public function getLogDir() {
+        return dirname($this->rootDir).'/logs';
     }
 
     /**
      * {@inheritDoc}
      */
     public function getCacheDir() {
-        return $this->rootDir.'/cache/'.$this->getContext().'/'.$this->environment;
+        return dirname($this->rootDir).'/cache/'.$this->getContext().'/'.$this->environment;
     }
 
     /**
@@ -147,6 +147,7 @@ class Application extends Kernel {
     protected function getKernelParameters() {
         $parameters = parent::getKernelParameters();
         $parameters['kernel.context'] = $this->getContext();
+        $parameters['zenmagick.root_dir'] = dirname($this->getRootDir()); // @todo remove this
         $parameters['kernel.context_dir'] = $this->getApplicationPath();
         return $parameters;
     }

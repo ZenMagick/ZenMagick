@@ -1,12 +1,12 @@
 <?php
 use Doctrine\Common\Annotations\AnnotationRegistry;
 
-$loader = require __DIR__.'/vendor/autoload.php';
+$loader = require __DIR__.'/../vendor/autoload.php';
 
 // intl
 if (!function_exists('intl_get_error_code')) {
-    require_once __DIR__.'/vendor/symfony/symfony/src/Symfony/Component/Locale/Resources/stubs/functions.php';
-    $loader->add('', __DIR__.'/vendor/symfony/symfony/src/Symfony/Component/Locale/Resources/stubs');
+    require_once __DIR__.'/../vendor/symfony/symfony/src/Symfony/Component/Locale/Resources/stubs/functions.php';
+    $loader->add('', __DIR__.'/../vendor/symfony/symfony/src/Symfony/Component/Locale/Resources/stubs');
 }
 /**
  * ZenMagick modified PSR-0 class loader.
@@ -23,7 +23,7 @@ spl_autoload_register(function ($class) {
         if (false !== $pos = strrpos($class, '\\')) {
             $classPath = str_replace('\\', DIRECTORY_SEPARATOR, substr($class, 0, $pos)) . DIRECTORY_SEPARATOR;
             $classPath .= substr($class, $pos + 1).'.php';
-            $file = __DIR__.DIRECTORY_SEPARATOR.$classPath;
+            $file = __DIR__.'/../'.$classPath;
             if (file_exists($file)) {
                 require_once $file;
             }
@@ -33,7 +33,7 @@ spl_autoload_register(function ($class) {
 /**
  * Preload Locales class to make translation functions available.
  */
-require_once __DIR__.'/lib/ZenMagick/Base/Locales/functions.php';
+require_once __DIR__.'/../lib/ZenMagick/Base/Locales/functions.php';
 
 AnnotationRegistry::registerLoader(array($loader, 'loadClass'));
 

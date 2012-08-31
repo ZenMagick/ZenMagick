@@ -22,13 +22,13 @@
 //umask(0002); // This will let the permissions be 0775
 umask(0000); // This will let the permissions be 0777
 
-use ZenMagick\Base\Application;
 use ZenMagick\Http\Request;
-$rootDir = realpath(__DIR__.'/../../..');
+$rootDir = realpath(__DIR__.'/../../../app');
 include_once $rootDir.'/autoload.php';
+include_once $rootDir.'/AppKernel.php';
 
 $environment = isset($_SERVER['ZM_ENVIRONMENT']) ? $_SERVER['ZM_ENVIRONMENT'] : 'prod';
-$application = new Application($environment, true, basename(dirname(__DIR__)));
+$application = new AppKernel($environment, true, basename(dirname(__DIR__)));
 $application->loadClassCache();
 $request = Request::createFromGlobals();
 $response = $application->handle($request);

@@ -5,7 +5,7 @@
  *
  */
 
-$rootDir = $container->getParameter('kernel.root_dir');
+$rootDir = dirname($container->getParameter('kernel.root_dir'));
 $context = $container->getParameter('kernel.context');
 
 // @todo use parameters.yaml for db parameters.

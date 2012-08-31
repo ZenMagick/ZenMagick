@@ -50,12 +50,13 @@ class ZenMagickBundle extends Bundle {
             $settingsService->set($param, $value);
         }
 
-        $kernel = $this->container->get('kernel');
+        $parameterBag = $this->container->getParameterBag();
+        $rootDir = $parameterBag->get('zenmagick.root_dir');
         $settingsFiles = array();
-        $settingsFiles[] = $kernel->getRootDir().'/apps/store/config/config.yaml';
-        $settingsFiles[] = $kernel->getApplicationPath().'/config/config.yaml';
+        $settingsFiles[] = $rootDir.'/apps/store/config/config.yaml';
+        $settingsFiles[] = $parameterBag->get('kernel.context_dir').'/config/config.yaml';
         // @todo do something better for non store apps
-        $settingsFiles[] = $kernel->getRootDir().'/config/store-config.yaml';
+        $settingsFiles[] = $rootDir.'/config/store-config.yaml';
         foreach ($settingsFiles as $config) {
             if (file_exists($config)) {
                 $settingsService->load($config);
@@ -71,13 +72,13 @@ class ZenMagickBundle extends Bundle {
                 }
             }
 
-            $defaults = $kernel->getRootDir().'/apps/store/config/defaults.php';
+            $defaults = $rootDir.'/apps/store/config/defaults.php';
             if (file_exists($defaults)) {
                 include $defaults;
             }
         }
 
-        $globalFilename = realpath($kernel->getRootDir().'/global.yaml');
+        $globalFilename = realpath($rootDir.'/global.yaml');
         if (file_exists($globalFilename)) {
             $contextConfigLoader = $this->container->get('contextConfigLoader');
             $contextConfigLoader->setConfig($globalFilename);
@@ -88,7 +89,7 @@ class ZenMagickBundle extends Bundle {
 
         // @todo never do this
         Runtime::setContainer($this->container);
-        $context = $kernel->getContext();
+        $context = $parameterBag->get('kernel.context');
         // @todo switch to using tagged services for events.
         $settingsService = $this->container->get('settingsService');
         $listeners = $settingsService->get('zenmagick.base.events.listeners', array());

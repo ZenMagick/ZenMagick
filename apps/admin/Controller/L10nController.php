@@ -112,10 +112,11 @@ class L10nController extends \ZMController {
             $existingMap = $themeMap;
         }
 
-        $kernel = $this->container->get('kernel');
+        $rootDir = $this->container->getParameter('zenmagick.root_dir');
+        $contextDir = $this->container->getParameter('kernel.context_dir');
         $sharedMap = array();
         if ($vd['scanShared']) {
-            $sharedMap = $scanner->buildL10nMap($kernel->getRootDir().'/lib/shared');
+            $sharedMap = $scanner->buildL10nMap($rootDir.'/lib/shared');
         }
 
         $pluginsMap = array();
@@ -128,7 +129,7 @@ class L10nController extends \ZMController {
 
         $adminMap = array();
         if ($vd['scanAdmin']) {
-            $adminLibMap = $scanner->buildL10nMap($kernel->getApplicationPath());
+            $adminLibMap = $scanner->buildL10nMap($contextDir);
         }
 
         $fileMap = array();

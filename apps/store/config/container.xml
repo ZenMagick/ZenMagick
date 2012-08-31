@@ -24,7 +24,7 @@
                 <argument>bootstrap</argument>
                 <argument type="collection">
                     <argument key="cacheTTL">null</argument>
-                    <argument key="cacheDir">%kernel.root_dir%/cache/%kernel.environment%/bootstrap/</argument>
+                    <argument key="cacheDir">%zenmagick.root_dir%/cache/%kernel.environment%/bootstrap/</argument>
                 </argument>
             </call>
         </service>
