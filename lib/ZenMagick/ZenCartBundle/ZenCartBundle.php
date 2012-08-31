@@ -17,13 +17,13 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-namespace ZenMagick\apps\store\bundles\ZenCartBundle;
+namespace ZenMagick\ZenCartBundle;
 
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 
 use ZenMagick\Base\Runtime;
-use ZenMagick\apps\store\bundles\ZenCartBundle\DependencyInjection\ZencartExtension;
+use ZenMagick\ZenCartBundle\DependencyInjection\ZenCartExtension;
 
 /**
  * Zencart support bundle.
@@ -37,7 +37,7 @@ class ZenCartBundle extends Bundle {
      */
     public function build(ContainerBuilder $container) {
         parent::build($container);
-        $container->registerExtension(new ZencartExtension());
+        $container->registerExtension(new ZenCartExtension());
     }
 
     /**
@@ -55,4 +55,12 @@ class ZenCartBundle extends Bundle {
         $classLoader->addClassMap($map);
 
     }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getContainerExtension() {
+        return new DependencyInjection\ZenCartExtension;
+    }
+
 }

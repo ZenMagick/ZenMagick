@@ -63,4 +63,4 @@ page:
       controller: ZenMagick\apps\admin\controller\EzpagesController
       template: views/ezpages-overview.php
   zc_admin:
-    controller: ZenMagick\apps\store\bundles\ZenCartBundle\controller\AdminController
+    controller: ZenMagick\ZenCartBundle\controller\AdminController

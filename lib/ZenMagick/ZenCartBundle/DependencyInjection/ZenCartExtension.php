@@ -18,7 +18,7 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-namespace ZenMagick\apps\store\bundles\ZenCartBundle\DependencyInjection;
+namespace ZenMagick\ZenCartBundle\DependencyInjection;
 
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\HttpKernel\DependencyInjection\Extension;
@@ -27,7 +27,7 @@ use Symfony\Component\DependencyInjection\ContainerBuilder;
 
 /**
  */
-class ZencartExtension extends Extension {
+class ZenCartExtension extends Extension {
 
     /**
      * {@inheritDoc}

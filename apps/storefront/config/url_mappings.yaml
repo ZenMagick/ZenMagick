@@ -178,11 +178,11 @@ page:
     success:
       view: redirect#requestId=checkout_payment
   checkout_process:
-    controller: 'ZenMagick\apps\store\bundles\ZenCartBundle\controller\ZencartStorefrontController'
+    controller: 'ZenMagick\ZenCartBundle\controller\ZencartStorefrontController'
   checkout_success:
     controller: 'ZenMagick\apps\storefront\controller\CheckoutSuccessController'
   ipn_handler:
-    controller: 'ZenMagick\apps\store\bundles\ZenCartBundle\controller\ZencartStorefrontController'
+    controller: 'ZenMagick\ZenCartBundle\controller\ZencartStorefrontController'
   redirect:
     success:
       view: redirect#requestId=index

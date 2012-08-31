@@ -17,7 +17,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-namespace ZenMagick\apps\store\bundles\ZenCartBundle;
+namespace ZenMagick\ZenCartBundle;
 
 use ZenMagick\Base\Runtime;
 use ZenMagick\apps\store\model\coupons\Coupon;
@@ -76,7 +76,7 @@ class ZenCartListener implements EventSubscriberInterface {
     public function onViewStart($event) {
         $settingsService = $this->container->get('settingsService');
         if (Runtime::isContextMatch('admin')) {
-            $settingsService->add('apps.store.admin.menus', 'apps/store/bundles/ZenCartBundle/Resources/config/admin/menu.yaml');
+            $settingsService->add('apps.store.admin.menus', 'lib/ZenMagick/ZenCartBundle/Resources/config/admin/menu.yaml');
             $settingsService->add('zenmagick.http.routing.addnRouteFiles', __DIR__.'/Resources/config/admin/routing.xml');
         }
     }

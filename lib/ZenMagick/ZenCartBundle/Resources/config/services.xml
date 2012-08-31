@@ -7,9 +7,9 @@
 
     <services>
         <!-- set siwftmailer.transport to @zencartTransport to use the zencart legacy email system -->
-        <service id="zencartTransport" class="ZenMagick\apps\store\bundles\ZenCartBundle\utils\ZenCartTransport" />
+        <service id="zencartTransport" class="ZenMagick\ZenCartBundle\utils\ZenCartTransport" />
         <!-- @todo move to bundle xml when we have one -->
-        <service id="zenCartAutoLoader" class="ZenMagick\apps\store\bundles\ZenCartBundle\utils\ZenCartAutoLoader">
+        <service id="zenCartAutoLoader" class="ZenMagick\ZenCartBundle\utils\ZenCartAutoLoader">
             <call method="setRootDir">
                 <argument>%zencart.root_dir%</argument>
             </call>
@@ -17,7 +17,7 @@
                 <argument type="service" id="service_container" />
             </call>
         </service>
-        <service id="zencart.listener" class="ZenMagick\apps\store\bundles\ZenCartBundle\ZencartListener">
+        <service id="zencart.listener" class="ZenMagick\ZenCartBundle\ZenCartListener">
             <tag name="kernel.event_subscriber" />
             <argument type="service" id="service_container" />
         </service>

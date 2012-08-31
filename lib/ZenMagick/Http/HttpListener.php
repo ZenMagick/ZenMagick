@@ -141,7 +141,7 @@ class HttpListener implements EventSubscriberInterface {
             if ($this->container->get('themeService')->getActiveTheme()->getMeta('zencart')) {
                 $settingsService = $this->container->get('settingsService');
                 $settingsService->set('zenmagick.http.view.defaultLayout', null);
-                $executor = new Executor(array(Beans::getBean('ZenMagick\apps\store\bundles\ZenCartBundle\controller\ZencartStorefrontController'), 'process'), array($request));
+                $executor = new Executor(array(Beans::getBean('ZenMagick\ZenCartBundle\controller\ZencartStorefrontController'), 'process'), array($request));
                 return $executor->execute();
             }
         }

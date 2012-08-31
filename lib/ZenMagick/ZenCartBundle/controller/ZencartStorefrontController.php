@@ -18,7 +18,7 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-namespace ZenMagick\apps\store\bundles\ZenCartBundle\controller;
+namespace ZenMagick\ZenCartBundle\controller;
 
 use ZenMagick\Base\Runtime;
 use ZenMagick\Base\Toolbox;
@@ -129,7 +129,7 @@ class ZencartStorefrontController extends \ZMController {
         foreach ($files as $file) {
             include $file;
         }
-        require Runtime::getInstallationPath().'/apps/store/bundles/ZenCartBundle/bridge/includes/autoload_func.php';
+        require Runtime::getInstallationPath().'/lib/ZenMagick/ZenCartBundle/bridge/includes/autoload_func.php';
         require($controllerFile);
 
         // is this really required? we got here because the bundle checked this already, it seems

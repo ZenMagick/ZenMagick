@@ -17,12 +17,12 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-namespace ZenMagick\apps\store\bundles\ZenCartBundle\Mock;
+namespace ZenMagick\ZenCartBundle\Mock;
 
 use ZenMagick\Base\Runtime;
 use ZenMagick\apps\store\model\checkout\ShoppingCart;
-use ZenMagick\apps\store\bundles\ZenCartBundle\mock\ZenCartCheckoutOrder;
-use ZenMagick\apps\store\bundles\ZenCartBundle\mock\ZenCartOrderTotal;
+use ZenMagick\ZenCartBundle\mock\ZenCartCheckoutOrder;
+use ZenMagick\ZenCartBundle\mock\ZenCartOrderTotal;
 
 /**
  * ZenCart mock tools.

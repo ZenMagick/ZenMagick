@@ -53,7 +53,7 @@ class Application extends Kernel {
      */
     public function registerBundles() {
         $bundles = array(
-            new \ZenMagick\apps\store\bundles\ZenCartBundle\ZenCartBundle,
+            new \ZenMagick\ZenCartBundle\ZenCartBundle,
             new \Doctrine\Bundle\DoctrineBundle\DoctrineBundle,
             new \Doctrine\Bundle\MigrationsBundle\DoctrineMigrationsBundle,
             new \Symfony\Bundle\SwiftmailerBundle\SwiftmailerBundle,
