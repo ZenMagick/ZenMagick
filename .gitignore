@@ -2,11 +2,9 @@ app/bootstrap.php.cache
 app/cache/*
 app/logs/*
 bin
-cache/*
-config/*
-logs/*
-web/bundles/
 build/
+config/*
+web/bundles/
 vendor/*
 *~
 *.swp
