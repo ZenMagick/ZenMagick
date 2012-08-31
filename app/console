@@ -23,11 +23,10 @@
 //umask(0002); // This will let the permissions be 0775
 umask(0000); // This will let the permissions be 0777
 
-use ZenMagick\Base\Application as AppKernel;
 use Symfony\Component\Console\Input\ArgvInput;
 use Symfony\Bundle\FrameworkBundle\Console\Application;
-chdir(dirname(__DIR__));
 include_once 'autoload.php';
+include_once 'AppKernel.php';
 $input = new ArgvInput();
 $env = $input->getParameterOption(array('--env', '-e'), getenv('SYMFONY_ENV') ?: 'dev');
 $debug = getenv('SYMFONY_DEBUG') !== '0' && !$input->hasParameterOption(array('--no-debug', '')) && $env !== 'prod';
