@@ -13,13 +13,13 @@
         <!-- TODO: drop when moving to using view instead of defaultView -->
         <service id="defaultView" alias="templateView" />
 
-        <service id="adminUserPrefService" class="ZenMagick\apps\admin\services\AdminUserPrefService" />
+        <service id="adminUserPrefService" class="ZenMagick\apps\admin\Services\AdminUserPrefService" />
 
-        <service id="adminUserRoleService" class="ZenMagick\apps\admin\services\AdminUserRoleService" />
+        <service id="adminUserRoleService" class="ZenMagick\apps\admin\Services\AdminUserRoleService" />
 
-        <service id="adminUserService" class="ZenMagick\apps\admin\services\AdminUserService" />
+        <service id="adminUserService" class="ZenMagick\apps\admin\Services\AdminUserService" />
 
-        <service id="sacsPermissionService" class="ZenMagick\apps\admin\services\SacsPermissionService" />
+        <service id="sacsPermissionService" class="ZenMagick\apps\admin\Services\SacsPermissionService" />
 
         <service id="plainEditorWidget" class="ZenMagick\Http\Widgets\Form\TextAreaFormWidget" scope="prototype">
             <tag name="zenmagick.apps.store.editor" label="Plain" />
@@ -27,47 +27,47 @@
 
         <service id="adminMenu" class="ZenMagick\apps\store\menu\Menu" />
 
-        <service id="catalogDefaultTabController" class="ZenMagick\apps\admin\controller\CatalogDefaultTabController">
+        <service id="catalogDefaultTabController" class="ZenMagick\apps\admin\Controller\CatalogDefaultTabController">
             <tag name="apps.store.admin.tabcontroller" />
         </service>
 
-        <service id="userFactory" class="ZenMagick\apps\admin\services\AdminUserFactory" />
+        <service id="userFactory" class="ZenMagick\apps\admin\Services\AdminUserFactory" />
 
-        <service id="countrySelectFormWidget" class="ZenMagick\apps\admin\widgets\CountrySelectFormWidget" scope="prototype">
+        <service id="countrySelectFormWidget" class="ZenMagick\apps\admin\Widgets\CountrySelectFormWidget" scope="prototype">
             <tag name="zenmagick.http.widgets.widget" />
         </service>
 
-        <service id="manufacturerSelectFormWidget" class="ZenMagick\apps\admin\widgets\ManufacturerSelectFormWidget" scope="prototype">
+        <service id="manufacturerSelectFormWidget" class="ZenMagick\apps\admin\Widgets\ManufacturerSelectFormWidget" scope="prototype">
             <tag name="zenmagick.http.widgets.widget" />
         </service>
 
-        <service id="editorSelectFormWidget" class="ZenMagick\apps\admin\widgets\EditorSelectFormWidget" scope="prototype">
+        <service id="editorSelectFormWidget" class="ZenMagick\apps\admin\Widgets\EditorSelectFormWidget" scope="prototype">
             <tag name="zenmagick.http.widgets.widget" />
         </service>
 
-        <service id="couponSelectFormWidget" class="ZenMagick\apps\admin\widgets\CouponSelectFormWidget" scope="prototype">
+        <service id="couponSelectFormWidget" class="ZenMagick\apps\admin\Widgets\CouponSelectFormWidget" scope="prototype">
             <tag name="zenmagick.http.widgets.widget" />
         </service>
 
-        <service id="orderStatusSelectFormWidget" class="ZenMagick\apps\admin\widgets\OrderStatusSelectFormWidget" scope="prototype">
+        <service id="orderStatusSelectFormWidget" class="ZenMagick\apps\admin\Widgets\OrderStatusSelectFormWidget" scope="prototype">
             <tag name="zenmagick.http.widgets.widget" />
         </service>
 
-        <service id="reservedQtyWidget" class="ZenMagick\apps\admin\widgets\ReservedQtyWidget" scope="prototype">
+        <service id="reservedQtyWidget" class="ZenMagick\apps\admin\Widgets\ReservedQtyWidget" scope="prototype">
             <tag name="zenmagick.http.widgets.widget" />
         </service>
 
-        <service id="zoneSelectFormWidget" class="ZenMagick\apps\admin\widgets\ZoneSelectFormWidget" scope="prototype">
+        <service id="zoneSelectFormWidget" class="ZenMagick\apps\admin\Widgets\ZoneSelectFormWidget" scope="prototype">
             <tag name="zenmagick.http.widgets.widget" />
         </service>
 
-        <service id="adminTool" class="ZenMagick\apps\admin\http\tools\ToolboxAdmin" scope="prototype">
+        <service id="adminTool" class="ZenMagick\apps\admin\Http\Tools\ToolboxAdmin" scope="prototype">
             <tag name="zenmagick.http.toolbox.tool" key="admin" />
         </service>
 
-        <service id="themeBuilder" class="ZenMagick\apps\admin\utils\ThemeBuilder" scope="prototype" />
+        <service id="themeBuilder" class="ZenMagick\apps\admin\Utils\ThemeBuilder" scope="prototype" />
 
-        <service id="defaultController" class="ZenMagick\apps\admin\controller\DefaultController" scope="prototype">
+        <service id="defaultController" class="ZenMagick\apps\admin\Controller\DefaultController" scope="prototype">
             <call method="setContainer">
                 <argument type="service" id="service_container" />
             </call>

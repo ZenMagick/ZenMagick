@@ -19,7 +19,7 @@
  */
 namespace ZenMagick\plugins\visitCounter;
 
-use ZenMagick\apps\admin\dashboard\DashboardWidget;
+use ZenMagick\apps\admin\Dashboard\DashboardWidget;
 
 /**
  * Visit counter history dashboard widget.

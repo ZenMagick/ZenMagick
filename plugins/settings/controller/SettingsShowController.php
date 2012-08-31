@@ -21,7 +21,7 @@
 namespace ZenMagick\plugins\settings\controller;
 
 use ZenMagick\Base\Toolbox;
-use ZenMagick\apps\admin\controller\PluginAdminController;
+use ZenMagick\apps\admin\Controller\PluginAdminController;
 
 /**
  * Show settings controlller.

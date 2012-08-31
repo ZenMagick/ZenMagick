@@ -19,7 +19,7 @@
  */
 namespace ZenMagick\plugins\settings\controller;
 
-use ZenMagick\apps\admin\controller\PluginAdminController;
+use ZenMagick\apps\admin\Controller\PluginAdminController;
 use ZenMagick\Http\Widgets\Form\FormWidget;
 use ZenMagick\Http\Widgets\Form\WysiwygEditor;
 

@@ -19,7 +19,7 @@
  */
 namespace ZenMagick\plugins\masterPassword\controller;
 
-use ZenMagick\apps\admin\controller\PluginAdminController;
+use ZenMagick\apps\admin\Controller\PluginAdminController;
 
 /**
  * Admin controller.

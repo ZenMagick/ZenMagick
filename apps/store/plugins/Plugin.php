@@ -90,8 +90,8 @@ class Plugin extends HttpPlugin {
      */
     public function executePatch($sql, $messages, $debug=false) {
         if (!empty($sql)) {
-            $results = \ZenMagick\apps\admin\utils\SQLRunner::execute_sql($sql, $debug);
-            foreach (\ZenMagick\apps\admin\utils\SQLRunner::process_patch_results($results) as $msg) {
+            $results = \ZenMagick\apps\admin\Utils\SQLRunner::execute_sql($sql, $debug);
+            foreach (\ZenMagick\apps\admin\Utils\SQLRunner::process_patch_results($results) as $msg) {
                 $messages[] = $msg;
             }
             return empty($results['error']);

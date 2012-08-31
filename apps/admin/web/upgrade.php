@@ -37,7 +37,7 @@ $application->loadClassCache();
 $application->boot(array('init'));
 
 try {
-    $installer = new ZenMagick\apps\admin\installation\InstallationPatcher();
+    $installer = new ZenMagick\apps\admin\Installation\InstallationPatcher();
 
     $request = $application->getContainer()->get('request');
     $messageService = $request->getSession()->getFlashBag();
