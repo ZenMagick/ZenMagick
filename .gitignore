@@ -1,3 +1,13 @@
+app/bootstrap.php.cache
+app/cache/*
+app/logs/*
+bin
+cache/*
+config/*
+logs/*
+web/bundles/
+build/
+vendor/*
 *~
 *.swp
 *.cache
@@ -6,13 +16,3 @@ composer.phar
 local.properties
 local.xml
 global.yaml
-/build
-cache/*
-/config/store-config.yaml
-/config/store-container.yaml
-/config/store-email.xml
-logs/*
-/vendor/*
-
-/config
-/vendor
