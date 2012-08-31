@@ -21,8 +21,8 @@ namespace ZenMagick\ZenCartBundle\Mock;
 
 use ZenMagick\Base\Runtime;
 use ZenMagick\apps\store\model\checkout\ShoppingCart;
-use ZenMagick\ZenCartBundle\mock\ZenCartCheckoutOrder;
-use ZenMagick\ZenCartBundle\mock\ZenCartOrderTotal;
+use ZenMagick\ZenCartBundle\Mock\ZenCartCheckoutOrder;
+use ZenMagick\ZenCartBundle\Mock\ZenCartOrderTotal;
 
 /**
  * ZenCart mock tools.

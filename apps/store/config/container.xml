@@ -58,7 +58,7 @@
 
         <!-- @todo move to bundle xml when we have one -->
         <!-- <service id="themeStatusMapBuilder" class="ZenMagick\apps\store\themes\ThemeStatusMapBuilder"> -->
-        <service id="themeStatusMapBuilder" class="ZenMagick\ZenCartBundle\mock\ZenCartThemeStatusMapBuilder">
+        <service id="themeStatusMapBuilder" class="ZenMagick\ZenCartBundle\Mock\ZenCartThemeStatusMapBuilder">
             <call method="setThemeService">
                 <argument type="service" id="themeService" />
             </call>
@@ -266,7 +266,7 @@
             </call>
         </service>
 
-        <service id="zenCartAuthenticationProvider" class="ZenMagick\ZenCartBundle\utils\ZenCartAuthenticationProvider">
+        <service id="zenCartAuthenticationProvider" class="ZenMagick\ZenCartBundle\Utils\ZenCartAuthenticationProvider">
             <tag name="zenmagick.base.security.authentication.provider" default="true" />
         </service>
 

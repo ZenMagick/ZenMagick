@@ -18,7 +18,7 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-namespace ZenMagick\ZenCartBundle\controller;
+namespace ZenMagick\ZenCartBundle\Controller;
 
 use ZenMagick\Base\Runtime;
 use ZenMagick\Base\Toolbox;

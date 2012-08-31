@@ -17,12 +17,12 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-namespace ZenMagick\ZenCartBundle\wrapper;
+namespace ZenMagick\ZenCartBundle\Wrapper;
 
 use ZenMagick\Base\ZMObject;
 use ZenMagick\Base\Toolbox;
 
-use ZenMagick\ZenCartBundle\mock\ZenCartMock;
+use ZenMagick\ZenCartBundle\Mock\ZenCartMock;
 
 /**
  * A payment type wrapper for Zen Cart payment modules.

@@ -265,7 +265,7 @@ class ShoppingCart extends ZMObject {
             }
 
             if ($this->container->get('settingsService')->get('apps.store.assertZencart', false)) {
-                $asserter = new \ZenMagick\ZenCartBundle\utils\ShoppingCartAssert();
+                $asserter = new \ZenMagick\ZenCartBundle\Utils\ShoppingCartAssert();
                 $asserter->assertCart($this);
             }
         }
