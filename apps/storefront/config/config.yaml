@@ -52,7 +52,7 @@ zenmagick:
     ## sacs
     sacs:
       handler:
-        - ZenMagick\apps\storefront\http\sacs\StorefrontAccountSacsHandler
+        - ZenMagick\apps\storefront\Http\Sacs\StorefrontAccountSacsHandler
     routing:
       alias:
         create_account: account.create

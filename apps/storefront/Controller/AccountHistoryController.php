@@ -3,8 +3,6 @@
  * ZenMagick - Smart e-commerce
  * Copyright (C) 2006-2012 zenmagick.org
  *
- * Portions Copyright (c) 2003 The zen-cart developers
- * Portions Copyright (c) 2003 osCommerce
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -20,19 +18,27 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
+namespace ZenMagick\apps\storefront\Controller;
 
-use ZenMagick\Base\Runtime;
-use ZenMagick\Base\ZMException;
-use ZenMagick\apps\storefront\Http\Request\StoreDefaultUrlRewriter;
+use ZenMagick\Base\Beans;
 
 /**
- * zen_href_link wrapper that delegates to the Zenmagick implementation (for storefront).
+ * Request controller for account history page.
  *
+ * @author DerManoMann <mano@zenmagick.org>
  */
-function zen_href_link($page='', $params='', $transport='NONSSL', $addSessionId=true, $seo=true, $isStatic=false, $useContext=true) {
-    if (!Runtime::getSettings()->get('apps.store.zencart.useNativeHrefLink', false)) {
-        return StoreDefaultUrlRewriter::furl($page, $params, $transport, $addSessionId, $seo, $isStatic, $useContext);
-    } else {
-        return zen_href_link_DISABLED($page, $params, $transport, $addSessionId, $seo, $isStatic, $useContext);
+class AccountHistoryController extends \ZMController {
+
+    /**
+     * {@inheritDoc}
+     */
+    public function processGet($request) {
+        $resultSource = new \ZMObjectResultSource('ZMOrder', 'orderService', "getOrdersForAccountId", array($this->getUser()->getId(), $request->getSession()->getLanguageId()));
+        $resultList = Beans::getBean('ZMResultList');
+        $resultList->setResultSource($resultSource);
+        $resultList->setPageNumber($request->query->getInt('page'));
+
+        return $this->findView(null, array('resultList' => $resultList));
     }
+
 }

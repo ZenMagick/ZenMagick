@@ -20,7 +20,7 @@
  */
 
   $shoppingCart = $request->getShoppingCart();
-  $shippingEstimator = new ZenMagick\apps\storefront\utils\ShippingEstimator();
+  $shippingEstimator = new ZenMagick\apps\storefront\Utils\ShippingEstimator();
   $shippingEstimator->prepare();
 
 ?>

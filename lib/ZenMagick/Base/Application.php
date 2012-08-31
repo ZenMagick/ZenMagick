@@ -86,7 +86,7 @@ class Application extends Kernel {
         // @todo remove this when we we can prove we don't need $_SESSION
         $resources[] = function($container) use($context) {
             if ('storefront' == $context) {
-                $container->setParameter('session.class', 'ZenMagick\apps\storefront\http\Session');
+                $container->setParameter('session.class', 'ZenMagick\apps\storefront\Http\Session');
             }
         };
 

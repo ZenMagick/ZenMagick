@@ -3,9 +3,6 @@
  * ZenMagick - Smart e-commerce
  * Copyright (C) 2006-2012 zenmagick.org
  *
- * Portions Copyright (c) 2003 The zen-cart developers
- * Portions Copyright (c) 2003 osCommerce
- *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation; either version 2 of the License, or (at
@@ -20,19 +17,25 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
+namespace ZenMagick\apps\storefront\Controller;
 
-use ZenMagick\Base\Runtime;
-use ZenMagick\Base\ZMException;
-use ZenMagick\apps\storefront\Http\Request\StoreDefaultUrlRewriter;
+use ZenMagick\Http\Request;
+use ZenMagick\Http\Session\Session;
+use ZenMagick\Http\View\ModelAndView;
 
 /**
- * zen_href_link wrapper that delegates to the Zenmagick implementation (for storefront).
+ * Coupon help controller.
  *
+ * @author DerManoMann <mano@zenmagick.org>
  */
-function zen_href_link($page='', $params='', $transport='NONSSL', $addSessionId=true, $seo=true, $isStatic=false, $useContext=true) {
-    if (!Runtime::getSettings()->get('apps.store.zencart.useNativeHrefLink', false)) {
-        return StoreDefaultUrlRewriter::furl($page, $params, $transport, $addSessionId, $seo, $isStatic, $useContext);
-    } else {
-        return zen_href_link_DISABLED($page, $params, $transport, $addSessionId, $seo, $isStatic, $useContext);
+class CouponHelpController extends \ZMController {
+
+    /**
+     * Show.
+     */
+    public function show($cID, Request $request, Session $session) {
+        $coupon = $this->container->get('couponService')->getCouponForId($request->getParameter('cID'), $session->getLanguageId());
+        return new ModelAndView(null, array('coupon' => $coupon));
     }
+
 }
