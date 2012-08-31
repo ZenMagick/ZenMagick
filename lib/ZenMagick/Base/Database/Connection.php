@@ -89,8 +89,8 @@ class Connection extends DbalConnection {
     public function __construct(array $params, Driver $driver, Configuration $config = null, EventManager $eventManager = null) {
         parent::__construct($params, $driver, $config, $eventManager);
 
-        Type::overrideType('datetime', 'ZenMagick\Base\Database\Doctrine\types\DateTimeType');
-        Type::overrideType('date', 'ZenMagick\Base\Database\Doctrine\types\DateType');
+        Type::overrideType('datetime', 'ZenMagick\Base\Database\Doctrine\Types\DateTimeType');
+        Type::overrideType('date', 'ZenMagick\Base\Database\Doctrine\Types\DateType');
 
         // @todo don't tie logging to the pageStats plugin
         // @todo look at doctrine.dbal.logging (boolean) and doctrine.dbal.logger_class

@@ -17,9 +17,9 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-namespace ZenMagick\http\forms;
+namespace ZenMagick\Http\forms;
 
-use ZenMagick\http\Request;
+use ZenMagick\Http\Request;
 
 /**
  * Form container.
@@ -35,7 +35,7 @@ interface Form {
     /**
      * Populate this form from the given request.
      *
-     * @param ZenMagick\http\Request request The current request.
+     * @param ZenMagick\Http\Request request The current request.
      */
     public function populate(Request $request);
 

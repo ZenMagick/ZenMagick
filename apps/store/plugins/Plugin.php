@@ -22,7 +22,7 @@ namespace ZenMagick\apps\store\plugins;
 use ZenMagick\Base\Runtime;
 use ZenMagick\Base\Toolbox;
 use ZenMagick\Base\ZMException;
-use ZenMagick\http\plugins\HttpPlugin;
+use ZenMagick\Http\Plugins\HttpPlugin;
 
 use ZenMagick\apps\store\menu\MenuElement;
 
@@ -41,7 +41,7 @@ class Plugin extends HttpPlugin {
     /**
      * Get optional installation messages.
      *
-     * @return array List of <code>ZenMagick\http\messages\Message</code> instances.
+     * @return array List of <code>ZenMagick\Http\Messages\Message</code> instances.
      */
     public function getMessages() {
         return $this->messages_;

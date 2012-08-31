@@ -77,7 +77,7 @@ use ZenMagick\Base\Toolbox;
                 <?php foreach ($plugin->getConfigValues() as $value) { ?>
                     <?php if (Toolbox::endsWith($value->getKey(), Plugin::KEY_ENABLED) || Toolbox::endsWith($value->getKey(), Plugin::KEY_SORT_ORDER)) { continue; } ?>
 
-                    <?php if ($value instanceof ZenMagick\http\widgets\Widget) { ?>
+                    <?php if ($value instanceof ZenMagick\Http\Widgets\Widget) { ?>
                         <?php if (Toolbox::endsWith($value->getName(), Plugin::KEY_ENABLED) || Toolbox::endsWith($value->getName(), Plugin::KEY_SORT_ORDER)) { continue; } ?>
                         <tr>
                             <td><?php echo $value->getTitle() ?></td>

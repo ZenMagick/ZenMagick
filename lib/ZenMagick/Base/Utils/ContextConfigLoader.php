@@ -23,7 +23,7 @@ use ZenMagick\Base\ZMObject;
 use ZenMagick\Base\Runtime;
 use ZenMagick\Base\Toolbox;
 use ZenMagick\Base\Settings\Settings;
-use ZenMagick\Base\DependencyInjection\loader\YamlLoader;
+use ZenMagick\Base\DependencyInjection\Loader\YamlLoader;
 use ZenMagick\Base\DependencyInjection\Compiler\ResolveMergeDefinitionsPass;
 
 use Symfony\Component\Config\FileLocator;

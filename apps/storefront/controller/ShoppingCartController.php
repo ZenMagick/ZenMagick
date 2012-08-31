@@ -26,8 +26,8 @@ use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use ZenMagick\Base\Runtime;
 use ZenMagick\Base\ZMObject;
 use ZenMagick\Base\Events\Event;
-use ZenMagick\http\Request;
-use ZenMagick\http\view\ModelAndView;
+use ZenMagick\Http\Request;
+use ZenMagick\Http\View\ModelAndView;
 use ZenMagick\apps\store\utils\CheckoutHelper;
 
 /**
@@ -40,7 +40,7 @@ class ShoppingCartController extends ZMObject {
     /**
      * Show cart.
      *
-     * @param ZenMagick\http\Request request The current request.
+     * @param ZenMagick\Http\Request request The current request.
      */
     public function show(Request $request) {
         $flashBag = $request->getSession()->getFlashBag();

@@ -21,7 +21,7 @@ namespace ZenMagick\apps\store\toolbox;
 
 use ZenMagick\Base\Runtime;
 use ZenMagick\Base\Beans;
-use ZenMagick\http\toolbox\ToolboxTool;
+use ZenMagick\Http\Toolbox\ToolboxTool;
 use ZenMagick\apps\store\model\checkout\ShoppingCart;
 
 /**

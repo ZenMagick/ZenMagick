@@ -20,7 +20,7 @@
 namespace ZenMagick\apps\admin\controller;
 
 use ZenMagick\Base\Toolbox;
-use ZenMagick\http\sacs\SacsManager;
+use ZenMagick\Http\Sacs\SacsManager;
 
 /**
  * Admin controller to edit role permissions.

@@ -20,7 +20,7 @@
 namespace ZenMagick\apps\admin\controller;
 
 use ZenMagick\Base\Events\Event;
-use ZenMagick\http\view\View;
+use ZenMagick\Http\View\View;
 
 use ZenMagick\apps\store\model\mock\MockAccount;
 use ZenMagick\apps\store\model\mock\MockOrder;
@@ -87,7 +87,7 @@ class EmailPreviewController extends \ZMController {
     /**
      * Set up an initial context for emails with everything we might need.
      *
-     * @param ZenMagick\http\Request request The current request.
+     * @param ZenMagick\Http\Request request The current request.
      * @return array The context map.
      */
     protected function getInitialContext($request) {

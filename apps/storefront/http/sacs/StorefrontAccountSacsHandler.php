@@ -21,7 +21,7 @@ namespace ZenMagick\apps\storefront\http\sacs;
 
 use ZMAccount;
 use ZenMagick\Base\ZMObject;
-use ZenMagick\http\sacs\SacsHandler;
+use ZenMagick\Http\Sacs\SacsHandler;
 
 /**
  * Handle access control and security mappings.

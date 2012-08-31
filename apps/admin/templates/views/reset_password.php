@@ -21,7 +21,7 @@
 <form action="<?php echo $net->url() ?>" method="POST">
 <p><?php _vzm('Please enter your admin email address and a new password will be emailed to you.') ?></p>
 
-<input type="hidden" name="<?php echo ZenMagick\http\session\validation\FormTokenSessionValidator::SESSION_TOKEN_NAME; ?>" value="<?php echo $session->getToken() ?>">
+<input type="hidden" name="<?php echo ZenMagick\Http\Session\Validation\FormTokenSessionValidator::SESSION_TOKEN_NAME; ?>" value="<?php echo $session->getToken() ?>">
 
 <p>
 <label for="email"><?php _vzm('Email') ?></label><br>

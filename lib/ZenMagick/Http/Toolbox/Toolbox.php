@@ -17,7 +17,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-namespace ZenMagick\http\toolbox;
+namespace ZenMagick\Http\Toolbox;
 
 use ZenMagick\Base\Beans;
 use ZenMagick\Base\Runtime;
@@ -48,7 +48,7 @@ class Toolbox extends ContainerAware {
     /**
      * Set the request.
      *
-     * @param ZenMagick\http\Request request The current request.
+     * @param ZenMagick\Http\Request request The current request.
      */
     public function setRequest($request) {
         $this->request = $request;

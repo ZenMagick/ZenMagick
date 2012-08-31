@@ -8,4 +8,4 @@ zenmagick:
       listeners:
         - ZenMagick\apps\sample\EventListener
         - ZenMagick\Base\EventListener
-        - ZenMagick\http\EventListener
+        - ZenMagick\Http\EventListener

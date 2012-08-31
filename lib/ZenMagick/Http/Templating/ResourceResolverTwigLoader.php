@@ -17,14 +17,14 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-namespace ZenMagick\http\templating;
+namespace ZenMagick\Http\Templating;
 
 use Symfony\Component\Templating\Loader\LoaderInterface;
 use Symfony\Component\Templating\Storage\FileStorage;
 use Symfony\Component\Templating\TemplateReferenceInterface;
 use Twig_LoaderInterface;
-use ZenMagick\http\view\ResourceResolver;
-use ZenMagick\http\view\View;
+use ZenMagick\Http\View\ResourceResolver;
+use ZenMagick\Http\View\View;
 
 
 /**

@@ -17,13 +17,13 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-namespace ZenMagick\http\routing;
+namespace ZenMagick\Http\Routing;
 
 use Symfony\Component\Routing\RequestContext as SymfonyRequestContext;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
- * ZenMagick request context, populated from <code>ZenMagick\http\Request</code>.
+ * ZenMagick request context, populated from <code>ZenMagick\Http\Request</code>.
  *
  * @author DerManoMann <mano@zenmagick.org>
  */

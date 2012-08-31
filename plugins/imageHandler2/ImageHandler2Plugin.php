@@ -22,7 +22,7 @@ namespace ZenMagick\plugins\imageHandler2;
 use ZenMagick\apps\store\plugins\Plugin;
 use ZenMagick\Base\Runtime;
 use ZenMagick\Base\Toolbox;
-use ZenMagick\http\view\ResourceManager;
+use ZenMagick\Http\View\ResourceManager;
 
 /**
  * Plugin to enable support for ImageHandler2 in ZenMagick.

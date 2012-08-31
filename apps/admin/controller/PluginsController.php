@@ -23,7 +23,7 @@ use ZenMagick\Base\Beans;
 use ZenMagick\Base\Runtime;
 use ZenMagick\Base\Toolbox;
 use ZenMagick\Base\Logging\Logging;
-use ZenMagick\http\widgets\form\FormWidget;
+use ZenMagick\Http\Widgets\Form\FormWidget;
 use ZenMagick\apps\store\plugins\Plugin;
 use ZenMagick\apps\store\plugins\PluginOptionsLoader;
 

@@ -22,7 +22,7 @@ namespace ZenMagick\apps\store\toolbox;
 use ZenMagick\Base\Runtime;
 use ZenMagick\Base\Toolbox;
 use ZenMagick\Base\ZMException;
-use ZenMagick\http\toolbox\ToolboxTool;
+use ZenMagick\Http\Toolbox\ToolboxTool;
 
 /**
  * Macro utilities.
@@ -236,7 +236,7 @@ class ToolboxMacro extends ToolboxTool {
      *
      * @param string name The sender name.
      * @param string email The sender email.
-     * @param ZenMagick\http\session\Session session The current session.
+     * @param ZenMagick\Http\Session\Session session The current session.
      * @return array Hash of extra information.
      */
     public function officeOnlyEmailFooter($name, $email, $session) {

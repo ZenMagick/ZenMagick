@@ -24,7 +24,7 @@ use ZenMagick\Base\Runtime;
 use ZenMagick\Base\Toolbox;
 use ZenMagick\Base\ZMObject;
 use ZenMagick\Base\Events\Event;
-use ZenMagick\http\view\TemplateView;
+use ZenMagick\Http\View\TemplateView;
 
 /**
  * Fixes and stuff that are (can be) event driven.

@@ -17,7 +17,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-namespace ZenMagick\http\view;
+namespace ZenMagick\Http\View;
 
 use ZenMagick\Base\Toolbox;
 use ZenMagick\Base\ZMException;
@@ -130,7 +130,7 @@ class RedirectView extends ZMObject implements View {
     /**
      * Get the evaluated redirect url.
      *
-     * @param ZenMagick\http\Request request The current request.
+     * @param ZenMagick\Http\Request request The current request.
      * @return string The redirect url.
      */
     public function getRedirectUrl($request) {

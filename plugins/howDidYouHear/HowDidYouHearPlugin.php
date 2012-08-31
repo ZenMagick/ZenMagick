@@ -23,7 +23,7 @@ use ZenMagick\apps\store\plugins\Plugin;
 use ZenMagick\Base\Runtime;
 use ZenMagick\Base\Toolbox;
 use ZenMagick\Base\ZMObject;
-use ZenMagick\http\view\TemplateView;
+use ZenMagick\Http\View\TemplateView;
 
 define('ID_SOURCE_OTHER', 9999);
 

@@ -21,7 +21,7 @@ namespace ZenMagick\plugins\recentlyViewed;
 
 use ZenMagick\apps\store\plugins\Plugin;
 use ZenMagick\Base\Toolbox;
-use ZenMagick\http\view\TemplateView;
+use ZenMagick\Http\View\TemplateView;
 
 
 /**

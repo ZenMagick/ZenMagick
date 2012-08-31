@@ -17,13 +17,13 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-namespace ZenMagick\http\utils;
+namespace ZenMagick\Http\Utils;
 
 use Swift_Message;
 use ZenMagick\Base\Runtime;
 use ZenMagick\Base\ZMObject;
 use ZenMagick\Base\Events\Event;
-use ZenMagick\http\view\View;
+use ZenMagick\Http\View\View;
 
 /**
  * Message builder for emails.
@@ -83,7 +83,7 @@ class MessageBuilder extends ZMObject {
      *
      * @param string template The template name.
      * @param boolean html Indicate whether to create <em>HTML</em> or <em>text</em> content; default is <code>false</code>.
-     * @param ZenMagick\http\Request request The current request.
+     * @param ZenMagick\Http\Request request The current request.
      * @param array context Optional context parameter; default is an empty array.
      * @return strintg The content.
      * @deprecated use createMessage(...) instead
@@ -121,7 +121,7 @@ class MessageBuilder extends ZMObject {
      *
      * @param string template The template name.
      * @param boolean html Indicate whether to create <em>HTML</em> or <em>text</em> content; default is <code>false</code>.
-     * @param ZenMagick\http\Request request The current request.
+     * @param ZenMagick\Http\Request request The current request.
      * @param array context Optional context parameter; default is an empty array.
      * @return mixed The message.
      */

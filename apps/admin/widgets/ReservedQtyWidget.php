@@ -19,8 +19,8 @@
  */
 namespace ZenMagick\apps\admin\widgets;
 
-use ZenMagick\http\widgets\Widget;
-use ZenMagick\http\view\TemplateView;
+use ZenMagick\Http\Widgets\Widget;
+use ZenMagick\Http\View\TemplateView;
 
 /**
  * <p>Display reserved qty.</p>

@@ -26,7 +26,7 @@ zenmagick:
     events:
       listeners:
         - ZenMagick\apps\store\StoreEventListener
-        - ZenMagick\http\EventListener
+        - ZenMagick\Http\EventListener
         - ZenMagick\apps\admin\EventListener
   ## mvc
   mvc:
@@ -53,7 +53,7 @@ zenmagick:
     ## sacs
     sacs:
       handler:
-        - ZenMagick\http\sacs\handler\UserRoleSacsHandler
+        - ZenMagick\Http\Sacs\Handler\UserRoleSacsHandler
     ## templates
     templates:
       ext: .php

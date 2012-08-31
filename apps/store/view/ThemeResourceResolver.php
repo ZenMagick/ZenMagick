@@ -20,8 +20,8 @@
 namespace ZenMagick\apps\store\view;
 
 use ZenMagick\Base\Runtime;
-use ZenMagick\http\Request;
-use ZenMagick\http\view\ResourceResolver;
+use ZenMagick\Http\Request;
+use ZenMagick\Http\View\ResourceResolver;
 
 /**
  * Theme resource resolver.
@@ -46,7 +46,7 @@ class ThemeResourceResolver extends ResourceResolver {
     /**
      * Set the request.
      *
-     * @param ZenMagick\http\Request request The request.
+     * @param ZenMagick\Http\Request request The request.
      */
     public function setRequest(Request $request) {
         $this->request = $request;
@@ -56,7 +56,7 @@ class ThemeResourceResolver extends ResourceResolver {
     /**
      * Get the request.
      *
-     * @return ZenMagick\http\Request The request.
+     * @return ZenMagick\Http\Request The request.
      */
     public function getRequest() {
         return $this->request;

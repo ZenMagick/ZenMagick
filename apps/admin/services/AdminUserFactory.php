@@ -20,7 +20,7 @@
 namespace ZenMagick\apps\admin\services;
 
 use ZenMagick\Base\ZMObject;
-use ZenMagick\http\session\UserFactory;
+use ZenMagick\Http\Session\UserFactory;
 
 /**
  * User factory for admin users.

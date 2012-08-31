@@ -17,13 +17,13 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-namespace ZenMagick\http\sacs\handler;
+namespace ZenMagick\Http\Sacs\Handler;
 
 
 /**
  * User/role credentials.
  *
- * <p>Interface to be implemented by user classes when using the <code>ZenMagick\http\sacs\handler\UserRoleSacsHandler</code> for authorization.</p>
+ * <p>Interface to be implemented by user classes when using the <code>ZenMagick\Http\Sacs\Handler\UserRoleSacsHandler</code> for authorization.</p>
  *
  * @author DerManoMann <mano@zenmagick.org>
  */

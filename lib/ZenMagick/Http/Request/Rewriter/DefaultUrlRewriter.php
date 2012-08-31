@@ -17,12 +17,12 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-namespace ZenMagick\http\request\rewriter;
+namespace ZenMagick\Http\Request\Rewriter;
 
 use ZenMagick\Base\Runtime;
 use ZenMagick\Base\ZMObject;
-use ZenMagick\http\Request;
-use ZenMagick\http\request\UrlRewriter;
+use ZenMagick\Http\Request;
+use ZenMagick\Http\Request\UrlRewriter;
 
 /**
  * Default URL rewriter.
@@ -91,7 +91,7 @@ class DefaultUrlRewriter extends ZMObject implements UrlRewriter {
     /**
      * Rewrite default implementation using query parameter.
      *
-     * @param ZenMagick\http\Request request The current request.
+     * @param ZenMagick\Http\Request request The current request.
      * @param string requestId The request id.
      * @param string params Optional parameter.
      * @param boolean secure Indicate whether to create a secure or non secure URL.
@@ -108,7 +108,7 @@ class DefaultUrlRewriter extends ZMObject implements UrlRewriter {
     /**
      * Decode path implementation.
      *
-     * @param ZenMagick\http\Request request The current request.
+     * @param ZenMagick\Http\Request request The current request.
      * @return boolean <code>true</code> if decoded, <code>false</code> if not.
      */
     protected function decodePath($request) {
@@ -140,7 +140,7 @@ class DefaultUrlRewriter extends ZMObject implements UrlRewriter {
     /**
      * Rewrite path implementation using something like '[index.php/]foo/value-of-foo/bar/value-of-bar'.
      *
-     * @param ZenMagick\http\Request request The current request.
+     * @param ZenMagick\Http\Request request The current request.
      * @param string requestId The request id.
      * @param string params Optional parameter.
      * @param boolean secure Indicate whether to create a secure or non secure URL.

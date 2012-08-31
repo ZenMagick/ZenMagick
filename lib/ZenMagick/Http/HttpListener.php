@@ -17,7 +17,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-namespace ZenMagick\http;
+namespace ZenMagick\Http;
 
 use Exception;
 use Symfony\Component\HttpFoundation\Response;
@@ -31,10 +31,10 @@ use ZenMagick\Base\Runtime;
 use ZenMagick\Base\Events\Event;
 use ZenMagick\Base\Logging\Logging;
 use ZenMagick\Base\Utils\Executor;
-use ZenMagick\http\session\SessionValidator;
-use ZenMagick\http\view\ModelAndView;
-use ZenMagick\http\view\ResponseModelAndView;
-use ZenMagick\http\view\View;
+use ZenMagick\Http\Session\SessionValidator;
+use ZenMagick\Http\View\ModelAndView;
+use ZenMagick\Http\View\ResponseModelAndView;
+use ZenMagick\Http\View\View;
 
 /**
  * ZenMagick MVC request dispatcher.

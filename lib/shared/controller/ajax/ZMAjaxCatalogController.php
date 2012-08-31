@@ -55,7 +55,7 @@ class ZMAjaxCatalogController extends ZMAjaxController {
      *  <li>productd - The product id</li>
      * </ul>
      *
-     * @param ZenMagick\http\Request request The current request.
+     * @param ZenMagick\Http\Request request The current request.
      * @return void
      */
     public function getProductForIdJSON($request) {
@@ -78,7 +78,7 @@ class ZMAjaxCatalogController extends ZMAjaxController {
      *  <li>active - Admin only parameter to allow to also retrieve inactive products</li>
      * </ul>
      *
-     * @param ZenMagick\http\Request request The current request.
+     * @param ZenMagick\Http\Request request The current request.
      * @return void
      */
     public function getProductsForCategoryIdJSON($request) {
@@ -120,7 +120,7 @@ class ZMAjaxCatalogController extends ZMAjaxController {
      *  <li>active - Admin only parameter to allow to also retrieve inactive products</li>
      * </ul>
      *
-     * @param ZenMagick\http\Request request The current request.
+     * @param ZenMagick\Http\Request request The current request.
      * @return void
      */
     public function getProductsForManufacturerIdJSON($request) {

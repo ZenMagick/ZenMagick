@@ -79,7 +79,7 @@ class VBulletinAdapter extends ZMObject {
     /**
      * Check for duplicate nickname.
      *
-     * @param ZenMagick\http\Request request The current request.
+     * @param ZenMagick\Http\Request request The current request.
      * @param array data The data.
      * @return boolean <code>true</code> if the nickname is valid, <code>false</code> if not.
      */
@@ -90,7 +90,7 @@ class VBulletinAdapter extends ZMObject {
     /**
      * Check for duplicate email address.
      *
-     * @param ZenMagick\http\Request request The current request.
+     * @param ZenMagick\Http\Request request The current request.
      * @param array data The data.
      * @return boolean <code>true</code> if the email is valid, <code>false</code> if not.
      */
@@ -101,7 +101,7 @@ class VBulletinAdapter extends ZMObject {
     /**
      * Check for duplicate email address if different from current account email address.
      *
-     * @param ZenMagick\http\Request request The current request.
+     * @param ZenMagick\Http\Request request The current request.
      * @param array data The data.
      * @return boolean <code>true</code> if the email is valid, <code>false</code> if not.
      */
@@ -118,7 +118,7 @@ class VBulletinAdapter extends ZMObject {
     /**
      * Check for duplicate nickname if different from current account nickname.
      *
-     * @param ZenMagick\http\Request request The current request.
+     * @param ZenMagick\Http\Request request The current request.
      * @param array data The data.
      * @return boolean <code>true</code> if the nickname is valid, <code>false</code> if not.
      */

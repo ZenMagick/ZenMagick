@@ -17,7 +17,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-use ZenMagick\http\session\FlashBag;
+use ZenMagick\Http\Session\FlashBag;
 
 if ($messageService->hasMessages()) { ?>
     <ul id="messages" class="ui-widget">

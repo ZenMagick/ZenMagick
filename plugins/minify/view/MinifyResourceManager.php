@@ -19,7 +19,7 @@
  */
 namespace ZenMagick\plugins\minify\view;
 
-use ZenMagick\http\view\ResourceManager;
+use ZenMagick\Http\View\ResourceManager;
 
 /**
  * Minify resource manager.

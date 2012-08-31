@@ -32,7 +32,7 @@ class FormHandlerController extends ZMController {
     /**
      * Create the form data object.
      *
-     * @param ZenMagick\http\Request request The current request.
+     * @param ZenMagick\Http\Request request The current request.
      * @return ZMObject The model.
      */
     protected function createFormData($request) {
@@ -79,7 +79,7 @@ class FormHandlerController extends ZMController {
      * @param array data The form data.
      * @param string template The template.
      * @param string email The email address.
-     * @param ZenMagick\http\Request request The current request.
+     * @param ZenMagick\Http\Request request The current request.
      */
     protected function sendNotificationEmail($data, $template, $email, $request) {
         $settingsService = $this->container->get('settingsService');

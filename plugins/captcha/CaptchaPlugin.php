@@ -121,7 +121,7 @@ class CaptchaPlugin extends Plugin {
     /**
      * Validate the captcha value.
      *
-     * @param ZenMagick\http\Request request The current request.
+     * @param ZenMagick\Http\Request request The current request.
      * @param array data The data.
      * @return boolean <code>true</code> if the captcha is valid, <code>false</code> if not.
      */

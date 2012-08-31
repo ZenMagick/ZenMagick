@@ -19,7 +19,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-namespace ZenMagick\http\rss;
+namespace ZenMagick\Http\Rss;
 
 use DateTime;
 
@@ -36,7 +36,7 @@ class RssFeedGenerator extends ZMObject {
     /**
      * Generate feed data.
      *
-     * @param ZenMagick\http\Request request The current request.
+     * @param ZenMagick\Http\Request request The current request.
      * @param RssFeed feed The feed.
      * @return string The feed data.
      */
@@ -95,7 +95,7 @@ class RssFeedGenerator extends ZMObject {
      *  <li>lastBuildDate</li>
      * <ul>
      *
-     * @param ZenMagick\http\Request request The current request.
+     * @param ZenMagick\Http\Request request The current request.
      * @param RssChannel channel The channel data.
      */
     protected function rssHeader($request, $channel) {
@@ -166,7 +166,7 @@ class RssFeedGenerator extends ZMObject {
      *  <li>description</li>
      * <ul>
      *
-     * @param ZenMagick\http\Request request The current request.
+     * @param ZenMagick\Http\Request request The current request.
      * @param RssItem item The item to render.
      */
     protected function rssItem($request, $item) {

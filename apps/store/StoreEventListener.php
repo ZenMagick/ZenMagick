@@ -24,7 +24,7 @@ use Symfony\Component\DependencyInjection\Loader\XmlFileLoader;
 
 use ZenMagick\Base\Runtime;
 use ZenMagick\Base\ZMObject;
-use ZenMagick\http\session\FlashBag;
+use ZenMagick\Http\Session\FlashBag;
 use ZenMagick\Base\Events\Event;
 use ZenMagick\apps\store\widgets\StatusCheck;
 

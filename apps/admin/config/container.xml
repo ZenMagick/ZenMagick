@@ -21,7 +21,7 @@
 
         <service id="sacsPermissionService" class="ZenMagick\apps\admin\services\SacsPermissionService" />
 
-        <service id="plainEditorWidget" class="ZenMagick\http\widgets\form\TextAreaFormWidget" scope="prototype">
+        <service id="plainEditorWidget" class="ZenMagick\Http\Widgets\Form\TextAreaFormWidget" scope="prototype">
             <tag name="zenmagick.apps.store.editor" label="Plain" />
         </service>
 

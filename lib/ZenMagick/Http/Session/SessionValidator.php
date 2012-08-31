@@ -17,9 +17,9 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-namespace ZenMagick\http\session;
+namespace ZenMagick\Http\Session;
 
-use ZenMagick\http\Request;
+use ZenMagick\Http\Request;
 
 /**
  * Session validator interface.
@@ -32,7 +32,7 @@ interface SessionValidator {
     /**
      * Validate session for the given request.
      *
-     * @param ZenMagick\http\Request request The request.
+     * @param ZenMagick\Http\Request request The request.
      * @param Session Session session The session.
      * @return boolean <code>true</code> if, and only if the session is considered valid.
      */

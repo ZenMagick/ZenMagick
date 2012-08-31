@@ -19,7 +19,7 @@
  */
 namespace ZenMagick\apps\admin\widgets;
 
-use ZenMagick\http\widgets\form\SelectFormWidget;
+use ZenMagick\Http\Widgets\Form\SelectFormWidget;
 
 /**
  * <p>A order status select form widget.</p>

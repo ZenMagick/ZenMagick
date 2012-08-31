@@ -17,11 +17,11 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-namespace ZenMagick\http\sacs\handler;
+namespace ZenMagick\Http\Sacs\Handler;
 
 use ZenMagick\Base\ZMObject;
-use ZenMagick\http\sacs\SacsHandler;
-use ZenMagick\http\sacs\handler\UserRoleCredentials;
+use ZenMagick\Http\Sacs\SacsHandler;
+use ZenMagick\Http\Sacs\Handler\UserRoleCredentials;
 
 /**
  * SACS handler that supports user and role based authorization.
@@ -31,7 +31,7 @@ use ZenMagick\http\sacs\handler\UserRoleCredentials;
  * <p>The <em>*</em> user can be set to grant access to <strong>all</strong> users.</p>
  * <p>The <em>*</em> role can be set to grant access to <strong>authenticated</strong> users.</p>
  *
- * <p>Credentials are expected to implement the <code>ZenMagick\http\sacs\handler\UserRoleCredentials</code> interface.</p>
+ * <p>Credentials are expected to implement the <code>ZenMagick\Http\Sacs\Handler\UserRoleCredentials</code> interface.</p>
  *
  * @author DerManoMann <mano@zenmagick.org>
  */

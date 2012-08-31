@@ -17,10 +17,10 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-namespace ZenMagick\http\blocks\widgets;
+namespace ZenMagick\Http\Blocks\Widgets;
 
-use ZenMagick\http\widgets\Widget;
-use ZenMagick\http\view\TemplateView;
+use ZenMagick\Http\Widgets\Widget;
+use ZenMagick\Http\View\TemplateView;
 
 /**
  * A block widget.

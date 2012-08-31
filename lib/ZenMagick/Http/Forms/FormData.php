@@ -17,11 +17,11 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-namespace ZenMagick\http\forms;
+namespace ZenMagick\Http\forms;
 
 use ZenMagick\Base\Beans;
 use ZenMagick\Base\ZMObject;
-use ZenMagick\http\Request;
+use ZenMagick\Http\Request;
 
 /**
  * Basic form container.

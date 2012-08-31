@@ -17,11 +17,11 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-namespace ZenMagick\http\sacs\handler;
+namespace ZenMagick\Http\Sacs\Handler;
 
 use ZenMagick\Base\ZMObject;
-use ZenMagick\http\sacs\SacsHandler;
-use ZenMagick\http\sacs\handler\UserRoleCredentials;
+use ZenMagick\Http\Sacs\SacsHandler;
+use ZenMagick\Http\Sacs\Handler\UserRoleCredentials;
 
 /**
  * Default SACS handler providing unrestricted access.

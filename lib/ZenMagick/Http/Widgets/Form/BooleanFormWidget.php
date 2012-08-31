@@ -17,11 +17,11 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-namespace ZenMagick\http\widgets\form;
+namespace ZenMagick\Http\Widgets\Form;
 
 use ZenMagick\Base\Runtime;
 use ZenMagick\Base\Toolbox;
-use ZenMagick\http\view\TemplateView;
+use ZenMagick\Http\View\TemplateView;
 
 /**
  * A widget to make a boolean selection (true/false).
@@ -77,7 +77,7 @@ class BooleanFormWidget extends FormWidget {
     /**
      * Render as checkbox.
      *
-     * @param ZenMagick\http\Request request The current request.
+     * @param ZenMagick\Http\Request request The current request.
      * @return The rendered HTML.
      */
     protected function renderCheckbox($request) {
@@ -108,7 +108,7 @@ class BooleanFormWidget extends FormWidget {
     /**
      * Render as radiobox group.
      *
-     * @param ZenMagick\http\Request request The current request.
+     * @param ZenMagick\Http\Request request The current request.
      * @return The rendered HTML.
      */
     protected function renderRadio($request) {
@@ -134,7 +134,7 @@ class BooleanFormWidget extends FormWidget {
     /**
      * Render as select box.
      *
-     * @param ZenMagick\http\Request request The current request.
+     * @param ZenMagick\Http\Request request The current request.
      * @return The rendered HTML.
      */
     protected function renderSelect($request) {

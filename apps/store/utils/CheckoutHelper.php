@@ -326,7 +326,7 @@ class CheckoutHelper extends ZMObject {
     /**
      * Validate the current checkout request.
      *
-     * @param ZenMagick\http\Request request The current request.
+     * @param ZenMagick\Http\Request request The current request.
      * @param boolean showMessages Optional flag to enable/hide messages related to validation issues; default is <code>true</code>.
      * @return string Either a <em>viewId</em>, which would indicate an error/issue, or <code>null</code>
      *  if everything is ok.
@@ -382,7 +382,7 @@ class CheckoutHelper extends ZMObject {
     /**
      * Validate checkout addresses.
      *
-     * @param ZenMagick\http\Request request The current request.
+     * @param ZenMagick\Http\Request request The current request.
      * @param boolean showMessages Optional flag to enable/hide messages related to validation issues; default is <code>true</code>.
      * @return string Either a <em>viewId</em>, which would indicate an error/issue, or <code>null</code>
      *  if everything is ok.
@@ -421,7 +421,7 @@ class CheckoutHelper extends ZMObject {
      *
      * <p>A failed hash save typically indicates that either the shopping cart is empty or the session invalid/timed out.</p>
      *
-     * @param ZenMagick\http\Request request The current request.
+     * @param ZenMagick\Http\Request request The current request.
      * @return boolean <code>true</code> if a valid hash was saved, <code>false</code> if not.
      */
     public function saveHash($request) {
@@ -445,7 +445,7 @@ class CheckoutHelper extends ZMObject {
     /**
      * Validate the cart hash.
      *
-     * @param ZenMagick\http\Request request The current request.
+     * @param ZenMagick\Http\Request request The current request.
      * @return boolean <code>true</code> if, and only if, the session cart hash and the current hash are the same.
      */
     public function verifyHash($request) {

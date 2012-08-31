@@ -21,7 +21,7 @@ namespace ZenMagick\apps\store\toolbox;
 
 use ZenMagick\Base\Runtime;
 use ZenMagick\Base\ZMException;
-use ZenMagick\http\toolbox\ToolboxTool;
+use ZenMagick\Http\Toolbox\ToolboxTool;
 
 /**
  * HTML utilities.

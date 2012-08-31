@@ -22,7 +22,7 @@ namespace ZenMagick\plugins\themeSwitcher;
 use ZenMagick\apps\store\plugins\Plugin;
 use ZenMagick\Base\Toolbox;
 use ZenMagick\Base\Events\Event;
-use ZenMagick\http\view\TemplateView;
+use ZenMagick\Http\View\TemplateView;
 
 /**
  * Allow users to switch between themes.

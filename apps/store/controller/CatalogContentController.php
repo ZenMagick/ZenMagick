@@ -20,8 +20,8 @@
 namespace ZenMagick\apps\store\controller;
 
 use ZenMagick\Base\Beans;
-use ZenMagick\http\Request;
-use ZenMagick\http\view\RedirectView;
+use ZenMagick\Http\Request;
+use ZenMagick\Http\View\RedirectView;
 
 /**
  * Catalog content controller.
@@ -60,7 +60,7 @@ abstract class CatalogContentController extends \ZMController {
      * <p>Subclasses can control this by either setting the active (bit-)flags in the constructor or by
      * overriding this method.</p>
      *
-     * @param ZenMagick\http\Request request The current request.
+     * @param ZenMagick\Http\Request request The current request.
      * @return boolean <code>true</code> if the plugin requests to be rendered for this request.
      */
     public function isActive($request) {

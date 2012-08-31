@@ -33,7 +33,7 @@ class ZMRuntime {
      */
     public static function setDatabase($name, $conf) {
         if (!isset($conf['wrapperClass'])) {
-            $conf['wrapperClass'] = 'ZenMagick\\base\\database\\Connection';
+            $conf['wrapperClass'] = 'ZenMagick\\Base\\Database\\Connection';
         }
         self::$databaseMap_[$name] = $conf;
     }

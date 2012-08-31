@@ -21,7 +21,7 @@ namespace ZenMagick\apps\store\toolbox;
 
 use ZenMagick\Base\Runtime;
 use ZenMagick\Base\Toolbox;
-use ZenMagick\http\toolbox\ToolboxTool;
+use ZenMagick\Http\Toolbox\ToolboxTool;
 
 /**
  * Networking/URL related functions.
@@ -33,7 +33,7 @@ class ToolboxNet extends ToolboxTool {
     /**
      * Create a URL.
      *
-     * <p>Convenience/compatibility method calling <code>url()</code> on ZenMagick\http\Request.</p>
+     * <p>Convenience/compatibility method calling <code>url()</code> on ZenMagick\Http\Request.</p>
      *
      * @param string requestId The request id.
      * @param string params Query string style parameter; if <code>null</code> add all current parameter

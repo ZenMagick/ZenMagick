@@ -17,7 +17,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-namespace ZenMagick\http\session;
+namespace ZenMagick\Http\Session;
 
 
 /**
@@ -30,7 +30,7 @@ interface UserFactory {
     /**
      * Get the current user (if any).
      *
-     * @param ZenMagick\http\Request request The current request.
+     * @param ZenMagick\Http\Request request The current request.
      * @return mixed A user object or <code>null</code>.
      */
     public function getUser($request);

@@ -20,7 +20,7 @@
 namespace ZenMagick\apps\admin\http\tools;
 
 use ZenMagick\Base\Runtime;
-use ZenMagick\http\toolbox\ToolboxTool;
+use ZenMagick\Http\Toolbox\ToolboxTool;
 use ZenMagick\apps\store\controller\CatalogContentController;
 
 /**
@@ -126,7 +126,7 @@ class ToolboxAdmin extends ToolboxTool {
     /**
      * Build category tree as simple unordered list.
      *
-     * @param ZenMagick\http\Request request The current request.
+     * @param ZenMagick\Http\Request request The current request.
      * @param array categories List of root categories; default is <code>null</code>.
      * @param boolean start Flag to indicate start of recursion; default is <code>true</code>.
      * @return string The created HTML.

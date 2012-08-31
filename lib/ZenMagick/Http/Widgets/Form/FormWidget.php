@@ -17,11 +17,11 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-namespace ZenMagick\http\widgets\form;
+namespace ZenMagick\Http\Widgets\Form;
 
 use ZenMagick\Base\Runtime;
 use ZenMagick\Base\Toolbox;
-use ZenMagick\http\widgets\Widget;
+use ZenMagick\Http\Widgets\Widget;
 
 /**
  * Form widget base class.
@@ -189,7 +189,7 @@ abstract class FormWidget extends Widget {
     /**
      * Get the formatted attribute string.
      *
-     * @param ZenMagick\http\Request request The current request.
+     * @param ZenMagick\Http\Request request The current request.
      * @param boolean addValue Optional flag to include/exclude the value; default is <code>true</code>.
      * @param boolean addName Optional flag to include/exclude the name; default is <code>true</code>.
      * @return string All set (and allowed) attributes as formatted HTML string.

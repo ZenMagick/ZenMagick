@@ -19,10 +19,10 @@
  */
 namespace ZenMagick\plugins\ckEditor;
 
-use ZenMagick\http\widgets\form\TextAreaFormWidget;
-use ZenMagick\http\widgets\form\WysiwygEditor;
-use ZenMagick\http\view\ResourceManager;
-use ZenMagick\http\view\TemplateView;
+use ZenMagick\Http\Widgets\Form\TextAreaFormWidget;
+use ZenMagick\Http\Widgets\Form\WysiwygEditor;
+use ZenMagick\Http\View\ResourceManager;
+use ZenMagick\Http\View\TemplateView;
 
 /**
  * CKEditor textarea form widget.

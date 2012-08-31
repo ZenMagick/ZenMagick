@@ -17,12 +17,12 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-namespace ZenMagick\http\session\validation;
+namespace ZenMagick\Http\Session\Validation;
 
 use ZenMagick\Base\ZMObject;
-use ZenMagick\http\Request;
-use ZenMagick\http\session\Session;
-use ZenMagick\http\session\SessionValidator;
+use ZenMagick\Http\Request;
+use ZenMagick\Http\Session\Session;
+use ZenMagick\Http\Session\SessionValidator;
 
 /**
  * SSL Session Id validator.

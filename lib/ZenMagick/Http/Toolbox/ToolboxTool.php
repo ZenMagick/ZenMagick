@@ -17,7 +17,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-namespace ZenMagick\http\toolbox;
+namespace ZenMagick\Http\Toolbox;
 
 use ZenMagick\Base\ZMObject;
 
@@ -33,7 +33,7 @@ class ToolboxTool extends ZMObject {
     /**
      * Get the request.
      *
-     * @return ZenMagick\http\Request The current request.
+     * @return ZenMagick\Http\Request The current request.
      */
     public function getRequest() {
         return $this->container->get('request');

@@ -22,10 +22,10 @@ namespace ZenMagick\apps\store\rss;
 use ArrayIterator;
 use DateTime;
 use ZenMagick\Base\ZMObject;
-use ZenMagick\http\rss\RssChannel;
-use ZenMagick\http\rss\RssFeed;
-use ZenMagick\http\rss\RssItem;
-use ZenMagick\http\rss\RssSource;
+use ZenMagick\Http\Rss\RssChannel;
+use ZenMagick\Http\Rss\RssFeed;
+use ZenMagick\Http\Rss\RssItem;
+use ZenMagick\Http\Rss\RssSource;
 
 /**
  * RSS source for default feeds.
@@ -57,7 +57,7 @@ class DefaultRssFeedSource extends ZMObject implements RssSource {
     /**
      * Generate RSS feed for reviews.
      *
-     * @param ZenMagick\http\Request request The current request.
+     * @param ZenMagick\Http\Request request The current request.
      * @param string key Optional product id.
      * @return RssFeed The feed.
      */
@@ -117,7 +117,7 @@ class DefaultRssFeedSource extends ZMObject implements RssSource {
     /**
      * Generate RSS feed for EZPages chapter.
      *
-     * @param ZenMagick\http\Request request The current request.
+     * @param ZenMagick\Http\Request request The current request.
      * @param string key EZPages chapter.
      * @return RssFeed The feed data.
      */
@@ -148,7 +148,7 @@ class DefaultRssFeedSource extends ZMObject implements RssSource {
     /**
      * Generate RSS feed for products.
      *
-     * @param ZenMagick\http\Request request The current request.
+     * @param ZenMagick\Http\Request request The current request.
      * @param string key Optional key value for various product types; supported: 'new'
      * @return RssFeed The feed data.
      */

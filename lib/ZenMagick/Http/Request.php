@@ -18,7 +18,7 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-namespace ZenMagick\http;
+namespace ZenMagick\Http;
 
 use Symfony\Component\DependencyInjection\ContainerAwareInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
@@ -173,7 +173,7 @@ class Request extends HttpFoundationRequest implements ContainerAwareInterface {
     /**
      * Get the user (if any) for authentication.
      *
-     * <p>Creation of the user object is delegated to the configured <code>ZenMagick\http\session\UserFactory</code> instance.
+     * <p>Creation of the user object is delegated to the configured <code>ZenMagick\Http\Session\UserFactory</code> instance.
      * The factory may be configured as bean defintion via the setting 'zenmagick.http.session.userFactory'.</p>
      *
      * @return mixed A user/credentials object. Default is <code>null</code>.

@@ -17,9 +17,9 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-namespace ZenMagick\http\session;
+namespace ZenMagick\Http\Session;
 
-use ZenMagick\http\messages\Message;
+use ZenMagick\Http\Messages\Message;
 use Symfony\Component\HttpFoundation\Session\Flash\FlashBag as BaseFlashBag;
 
 /**

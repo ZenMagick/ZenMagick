@@ -62,7 +62,7 @@ class ProductGroupPricing extends ZMObject {
     /**
      * Populate all available fields from the given request.
      *
-     * @param ZenMagick\http\Request request The current request.
+     * @param ZenMagick\Http\Request request The current request.
      */
     public function populate($request) {
         $this->id_ = $request->getParameter('groupPricingId', '0');

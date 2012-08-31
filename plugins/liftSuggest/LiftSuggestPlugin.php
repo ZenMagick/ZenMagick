@@ -49,7 +49,7 @@ class LiftSuggestPlugin extends Plugin {
     /**
      * Generate the required JS code for success tracking.
      *
-     * @param ZenMagick\http\Request request The current request.
+     * @param ZenMagick\Http\Request request The current request.
      * @return string The complete code.
      */
     protected function getTrackerCode($request) {

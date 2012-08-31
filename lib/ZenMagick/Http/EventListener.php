@@ -17,16 +17,16 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-namespace ZenMagick\http;
+namespace ZenMagick\Http;
 
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\Routing\Loader\XmlFileLoader;
 
 use ZenMagick\Base\Runtime;
 use ZenMagick\Base\ZMObject;
-use ZenMagick\http\sacs\SacsManager;
-use ZenMagick\http\routing\loader\YamlLoader;
-use ZenMagick\http\utils\ContextConfigLoader as HttpContextConfigLoader;
+use ZenMagick\Http\Sacs\SacsManager;
+use ZenMagick\Http\Routing\Loader\YamlLoader;
+use ZenMagick\Http\Utils\ContextConfigLoader as HttpContextConfigLoader;
 
 
 /**

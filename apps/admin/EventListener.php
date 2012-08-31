@@ -23,7 +23,7 @@ use ZenMagick\Base\Beans;
 use ZenMagick\Base\Runtime;
 use ZenMagick\Base\Toolbox;
 use ZenMagick\Base\ZMObject;
-use ZenMagick\http\view\TemplateView;
+use ZenMagick\Http\View\TemplateView;
 
 use ZenMagick\apps\store\menu\MenuElement;
 use ZenMagick\apps\store\menu\MenuLoader;
@@ -82,7 +82,7 @@ class EventListener extends ZMObject {
     /**
      * Get instance of the current editor.
      *
-     * @param ZenMagick\http\Request request The current request.
+     * @param ZenMagick\Http\Request request The current request.
      * @return TextAreaFormWidget A text editor widget.
      */
     protected function getCurrentEditor($request) {

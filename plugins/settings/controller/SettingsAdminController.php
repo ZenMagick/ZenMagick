@@ -20,8 +20,8 @@
 namespace ZenMagick\plugins\settings\controller;
 
 use ZenMagick\apps\admin\controller\PluginAdminController;
-use ZenMagick\http\widgets\form\FormWidget;
-use ZenMagick\http\widgets\form\WysiwygEditor;
+use ZenMagick\Http\Widgets\Form\FormWidget;
+use ZenMagick\Http\Widgets\Form\WysiwygEditor;
 
 /**
  * Admin controller.

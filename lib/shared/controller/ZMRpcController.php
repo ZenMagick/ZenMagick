@@ -21,8 +21,8 @@
 use ZenMagick\Base\Runtime;
 use ZenMagick\Base\Beans;
 use ZenMagick\Base\Logging\Logging;
-use ZenMagick\http\Request;
-use ZenMagick\http\sacs\SacsManager;
+use ZenMagick\Http\Request;
+use ZenMagick\Http\Sacs\SacsManager;
 
 /**
  * RPC controller.

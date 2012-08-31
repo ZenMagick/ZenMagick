@@ -65,7 +65,7 @@ class ZMListRule extends ZMRule {
     /**
      * Validate the given request data.
      *
-     * @param ZenMagick\http\Request request The current request.
+     * @param ZenMagick\Http\Request request The current request.
      * @param array data The data.
      * @return boolean <code>true</code> if the regular expression does match.
      */

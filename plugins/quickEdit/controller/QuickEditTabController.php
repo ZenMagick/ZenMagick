@@ -20,7 +20,7 @@
 namespace ZenMagick\plugins\quickEdit\controller;
 
 use ZenMagick\Base\Beans;
-use ZenMagick\http\widgets\form\FormWidget;
+use ZenMagick\Http\Widgets\Form\FormWidget;
 use ZenMagick\apps\store\controller\CatalogContentController;
 
 /**

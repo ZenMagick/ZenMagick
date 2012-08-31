@@ -17,7 +17,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-namespace ZenMagick\http\sacs;
+namespace ZenMagick\Http\Sacs;
 
 
 /**
@@ -43,7 +43,7 @@ interface SacsHandler {
     /**
      * Evaluate the given credentials in the context of the request.
      *
-     * @param ZenMagick\http\Request request The current request.
+     * @param ZenMagick\Http\Request request The current request.
      * @param mixed credentials The user credentials.
      * @param SacsManager manager The delegating manager.
      * @return mixed Either <code>null</code> to indicate that the given request can't be handled, or

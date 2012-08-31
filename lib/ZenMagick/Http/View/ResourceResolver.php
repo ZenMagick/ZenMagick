@@ -17,7 +17,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-namespace ZenMagick\http\view;
+namespace ZenMagick\Http\View;
 
 use RecursiveDirectoryIterator;
 use RecursiveIteratorIterator;
@@ -26,7 +26,7 @@ use RegexIterator;
 use ZenMagick\Base\Runtime;
 use ZenMagick\Base\ZMException;
 use ZenMagick\Base\ZMObject;
-use ZenMagick\http\plugins\HttpPlugin;
+use ZenMagick\Http\Plugins\HttpPlugin;
 
 /**
  * Resource resolver.

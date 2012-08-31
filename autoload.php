@@ -20,13 +20,10 @@ if (!function_exists('intl_get_error_code')) {
 spl_autoload_register(function ($class) {
     if (0 === strpos($class, 'ZenMagick')) {
         $class = substr($class, 10);
-//        var_dump($class);
         if (false !== $pos = strrpos($class, '\\')) {
             $classPath = str_replace('\\', DIRECTORY_SEPARATOR, substr($class, 0, $pos)) . DIRECTORY_SEPARATOR;
             $classPath .= substr($class, $pos + 1).'.php';
             $file = __DIR__.DIRECTORY_SEPARATOR.$classPath;
-
-  //          var_dump($file);
             if (file_exists($file)) {
                 require_once $file;
             }
@@ -36,7 +33,7 @@ spl_autoload_register(function ($class) {
 /**
  * Preload Locales class to make translation functions available.
  */
-require_once __DIR__.'/lib/ZenMagick/base/locales/functions.php';
+require_once __DIR__.'/lib/ZenMagick/Base/Locales/functions.php';
 
 AnnotationRegistry::registerLoader(array($loader, 'loadClass'));
 

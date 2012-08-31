@@ -17,7 +17,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-namespace ZenMagick\http\view;
+namespace ZenMagick\Http\View;
 
 /**
  * A view.
@@ -31,7 +31,7 @@ interface View {
     /**
      * Generate the view.
      *
-     * @param ZenMagick\http\Request request The current request.
+     * @param ZenMagick\Http\Request request The current request.
      * @param string template Optional template override; default is <code>null</code>.
      * @param array variables Optional additional template variables; default is an empty array.
      * @return string The contents.

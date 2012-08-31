@@ -17,13 +17,13 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-namespace ZenMagick\http\controller;
+namespace ZenMagick\Http\Controller;
 
 use Symfony\Component\HttpFoundation\Response;
 use ZenMagick\Base\ZMObject;
-use ZenMagick\http\Request;
-use ZenMagick\http\rss\RssSource;
-use ZenMagick\http\rss\RssFeedGenerator;
+use ZenMagick\Http\Request;
+use ZenMagick\Http\Rss\RssSource;
+use ZenMagick\Http\Rss\RssFeedGenerator;
 
 /**
  * Request controller for RSS feeds.
@@ -35,7 +35,7 @@ use ZenMagick\http\rss\RssFeedGenerator;
  * <p>Routing for this controller should look something like this:</p>
  * <pre>
  *   &lt;route id="rss" pattern="/rss/{channel}/{key}">
- *      &lt;default key="_controller">ZenMagick\http\controller\RssController:generate&lt;default>
+ *      &lt;default key="_controller">ZenMagick\Http\Controller\RssController:generate&lt;default>
  *      &lt;default key="key">&lt;default>
  *   &lt;route>
  * </pre>

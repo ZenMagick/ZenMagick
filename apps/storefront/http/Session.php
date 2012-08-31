@@ -27,7 +27,7 @@ use ZenMagick\Base\Events\Event;
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class Session extends \ZenMagick\http\session\Session {
+class Session extends \ZenMagick\Http\Session\Session {
 
     /**
      * {@inheritDoc}
@@ -203,7 +203,7 @@ class Session extends \ZenMagick\http\session\Session {
      * <p>This operation will fail, for example, if the account is blocked/disabled.</p>
      *
      * @param ZMAccount account The account.
-     * @param ZenMagick\http\Request request The current request.
+     * @param ZenMagick\Http\Request request The current request.
      * @param mixed source The event source; default is <code>null</code>.
      * @return boolean <code>true</code> if ok, <code>false</code> if not.
      */

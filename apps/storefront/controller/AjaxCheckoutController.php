@@ -51,7 +51,7 @@ class AjaxCheckoutController extends \ZMAjaxController {
      *  <li>Any address proerty (<em>countryId, zoneId, postcode, etc.</em>)</li>
      * </ul>
      *
-     * @param ZenMagick\http\Request request The current request.
+     * @param ZenMagick\Http\Request request The current request.
      */
     public function getShippingMethodsJSON($request) {
         // try to set up an address using request information

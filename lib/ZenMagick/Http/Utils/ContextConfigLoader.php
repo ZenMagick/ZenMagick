@@ -17,11 +17,11 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-namespace ZenMagick\http\utils;
+namespace ZenMagick\Http\Utils;
 
 use ZenMagick\Base\Runtime;
 use ZenMagick\Base\Toolbox;
-use ZenMagick\Base\DependencyInjection\loader\YamlLoader;
+use ZenMagick\Base\DependencyInjection\Loader\YamlLoader;
 use ZenMagick\Base\Utils\ContextConfigLoader as BaseContextConfigLoader;
 
 use Symfony\Component\Config\FileLocator;

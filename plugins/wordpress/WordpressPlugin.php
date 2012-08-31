@@ -216,7 +216,7 @@ class WordpressPlugin extends Plugin {
     /**
      * Get the request handler.
      *
-     * @param ZenMagick\http\Request request The current request.
+     * @param ZenMagick\Http\Request request The current request.
      * @return ZMWpRequestHandler The single request handler for this request.
      */
     public function getRequestHandler($request) {

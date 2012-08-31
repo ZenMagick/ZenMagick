@@ -103,7 +103,7 @@ class AdminController extends \ZMController {
      * Most of this code is only useful for 1.3.9 and not 1.5.0
      *
      * @todo require 1.5.0? we could drop all of thise code if we implemented the above
-     * @todo should we dynamically add to tokenSecuredForms instead and let ZenMagick\http\Request handle it?
+     * @todo should we dynamically add to tokenSecuredForms instead and let ZenMagick\Http\Request handle it?
      */
     public function validateSecurityToken($request) {
         $action = $request->request->get('action', '');

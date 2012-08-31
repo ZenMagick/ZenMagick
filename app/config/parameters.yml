@@ -20,4 +20,4 @@ parameters:
 
     session_timeout: 1440
     session_handler: session.handler.native_file
-    session.class: 'ZenMagick\http\session\Session'
+    session.class: 'ZenMagick\Http\Session\Session'

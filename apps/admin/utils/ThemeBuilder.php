@@ -21,7 +21,7 @@ namespace ZenMagick\apps\admin\utils;
 
 use ZenMagick\Base\Runtime;
 use ZenMagick\Base\ZMObject;
-use ZenMagick\http\session\FlashBag;
+use ZenMagick\Http\Session\FlashBag;
 
 /**
  * Build the skelton of a new theme.

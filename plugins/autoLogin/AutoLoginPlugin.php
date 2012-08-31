@@ -69,7 +69,7 @@ class AutoLoginPlugin extends Plugin {
     /**
      * Try to get a token from the current request.
      *
-     * @param ZenMagick\http\Request request The current request.
+     * @param ZenMagick\Http\Request request The current request.
      * @return Token A token or <code>null</code>.
      */
     protected function getRequestToken($request) {

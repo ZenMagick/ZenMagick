@@ -17,7 +17,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-namespace ZenMagick\http\routing\loader;
+namespace ZenMagick\Http\Routing\Loader;
 
 use Symfony\Component\Config\FileLocatorInterface;
 use Symfony\Component\Routing\RouteCollection;

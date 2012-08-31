@@ -19,9 +19,9 @@
  */
 namespace ZenMagick\apps\storefront\controller;
 
-use ZenMagick\http\Request;
-use ZenMagick\http\session\Session;
-use ZenMagick\http\view\ModelAndView;
+use ZenMagick\Http\Request;
+use ZenMagick\Http\Session\Session;
+use ZenMagick\Http\View\ModelAndView;
 
 /**
  * Coupon help controller.

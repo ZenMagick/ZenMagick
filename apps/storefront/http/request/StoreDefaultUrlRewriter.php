@@ -23,7 +23,7 @@ use ZenMagick\Base\Runtime;
 use ZenMagick\Base\Toolbox;
 use ZenMagick\Base\ZMObject;
 use ZenMagick\Base\ZMException;
-use ZenMagick\http\request\UrlRewriter;
+use ZenMagick\Http\Request\UrlRewriter;
 
 /**
  * Default rewriter implementing the original zencart URL scheme.

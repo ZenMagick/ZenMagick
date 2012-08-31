@@ -21,7 +21,7 @@ namespace ZenMagick\apps\store\rss;
 
 use Iterator;
 use ZenMagick\Base\ZMObject;
-use ZenMagick\http\rss\RssItem;
+use ZenMagick\Http\Rss\RssItem;
 
 /**
  * Category RSS item iterator.

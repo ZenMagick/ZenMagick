@@ -17,7 +17,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-namespace ZenMagick\http\view;
+namespace ZenMagick\Http\View;
 
 use Exception;
 use Symfony\Component\Templating\DelegatingEngine;
@@ -27,10 +27,10 @@ use ZenMagick\Base\ZMException;
 use ZenMagick\Base\ZMObject;
 use ZenMagick\Base\Logging\Logging;
 use ZenMagick\Base\Events\Event;
-use ZenMagick\http\Request;
-use ZenMagick\http\widgets\Widget;
-use ZenMagick\http\toolbox\Toolbox;
-use ZenMagick\http\toolbox\ToolboxTool;
+use ZenMagick\Http\Request;
+use ZenMagick\Http\Widgets\Widget;
+use ZenMagick\Http\Toolbox\Toolbox;
+use ZenMagick\Http\Toolbox\ToolboxTool;
 
 /**
  * A template view.
@@ -119,7 +119,7 @@ class TemplateView extends ZMObject implements View {
     /**
      * Get the request.
      *
-     * @return ZenMagick\http\Request The request.
+     * @return ZenMagick\Http\Request The request.
      */
     public function getRequest() {
         return $this->container->get('request');
@@ -247,7 +247,7 @@ class TemplateView extends ZMObject implements View {
     /**
      * Init variables.
      *
-     * @param ZenMagick\http\Request request The current request.
+     * @param ZenMagick\Http\Request request The current request.
      */
     protected function initVariables($request) {
         if (array_key_exists('view', $this->variables)) {

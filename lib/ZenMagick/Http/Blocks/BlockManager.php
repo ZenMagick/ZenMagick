@@ -17,12 +17,12 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-namespace ZenMagick\http\blocks;
+namespace ZenMagick\Http\Blocks;
 
 use ZenMagick\Base\Beans;
 use ZenMagick\Base\Runtime;
 use ZenMagick\Base\ZMObject;
-use ZenMagick\http\blocks\widgets\BlockWidget;
+use ZenMagick\Http\Blocks\Widgets\BlockWidget;
 
 /**
  * Manage template blocks.
@@ -58,7 +58,7 @@ class BlockManager extends ZMObject {
     /**
      * Get all blocks for the given block group id.
      *
-     * @param ZenMagick\http\Request request The current request.
+     * @param ZenMagick\Http\Request request The current request.
      * @param string groupId The block group id.
      * @param array args Optional parameter; default is an empty array.
      * @return array List of <code>BlockWidget</code> instances.

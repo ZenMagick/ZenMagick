@@ -24,7 +24,7 @@ use ZenMagick\apps\store\plugins\Plugin;
 use Symfony\Component\Routing\Route;
 use Symfony\Component\Routing\RouteCollection;
 use ZenMagick\Base\Toolbox;
-use ZenMagick\http\sacs\SacsManager;
+use ZenMagick\Http\Sacs\SacsManager;
 
 /**
  * Generic form handler.

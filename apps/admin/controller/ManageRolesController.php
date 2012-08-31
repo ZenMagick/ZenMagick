@@ -19,7 +19,7 @@
  */
 namespace ZenMagick\apps\admin\controller;
 
-use ZenMagick\http\sacs\SacsManager;
+use ZenMagick\Http\Sacs\SacsManager;
 
 /**
  * Admin controller to manage roles.

@@ -19,7 +19,7 @@
  */ $admin->title(_zm('Login')) ?>
 
 <form action="<?php echo $net->url() ?>" method="POST">
-<input type="hidden" name="<?php echo ZenMagick\http\session\validation\FormTokenSessionValidator::SESSION_TOKEN_NAME; ?>" value="<?php echo $session->getToken() ?>">
+<input type="hidden" name="<?php echo ZenMagick\Http\Session\Validation\FormTokenSessionValidator::SESSION_TOKEN_NAME; ?>" value="<?php echo $session->getToken() ?>">
 
 <p>
 <label for="name"><?php _vzm('User Name') ?></label><br>

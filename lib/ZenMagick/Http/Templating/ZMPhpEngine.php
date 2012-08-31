@@ -17,7 +17,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-namespace ZenMagick\http\templating;
+namespace ZenMagick\Http\Templating;
 
 use Symfony\Component\Templating\EngineInterface;
 use Symfony\Component\Templating\TemplateNameParserInterface;
@@ -26,9 +26,9 @@ use ZenMagick\Base\Runtime;
 use ZenMagick\Base\ZMException;
 use ZenMagick\Base\ZMObject;
 use ZenMagick\Base\Logging\Logging;
-use ZenMagick\http\view\ResourceResolver;
-use ZenMagick\http\view\View;
-use ZenMagick\http\widgets\Widget;
+use ZenMagick\Http\View\ResourceResolver;
+use ZenMagick\Http\View\View;
+use ZenMagick\Http\Widgets\Widget;
 
 
 /**

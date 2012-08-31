@@ -20,7 +20,7 @@
 namespace ZenMagick\plugins\settings;
 
 use ZenMagick\apps\store\plugins\Plugin;
-use ZenMagick\http\widgets\Widget;
+use ZenMagick\Http\Widgets\Widget;
 
 /**
  * A UI plugin to manage (custom) settings.

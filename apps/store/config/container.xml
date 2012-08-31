@@ -106,7 +106,7 @@
             </call>
         </service>
 
-        <service id="storeTemplateView" class="ZenMagick\http\view\TemplateView" scope="prototype">
+        <service id="storeTemplateView" class="ZenMagick\Http\View\TemplateView" scope="prototype">
             <call method="setContainer">
                 <argument type="service" id="service_container" />
             </call>
@@ -124,7 +124,7 @@
             </call>
         </service>
 
-        <service id="rssLoader" class="ZenMagick\http\rss\RssFeedLoader">
+        <service id="rssLoader" class="ZenMagick\Http\Rss\RssFeedLoader">
             <call method="setCache">
                 <argument type="service" id="persistentCache" />
             </call>
@@ -134,7 +134,7 @@
 
         <service id="blockService" class="ZMBlocks" />
 
-        <service id="blockManager" class="ZenMagick\http\blocks\BlockManager" />
+        <service id="blockManager" class="ZenMagick\Http\Blocks\BlockManager" />
 
         <service id="productAssociationService" class="ZenMagick\apps\store\services\catalog\ProductAssociationService" />
 
@@ -228,7 +228,7 @@
             </call>
         </service>
 
-        <service id="messageBuilder" class="ZenMagick\http\utils\MessageBuilder" scope="prototype">
+        <service id="messageBuilder" class="ZenMagick\Http\Utils\MessageBuilder" scope="prototype">
             <call method="setView">
                 <argument type="service" id="storeTemplateView" />
             </call>

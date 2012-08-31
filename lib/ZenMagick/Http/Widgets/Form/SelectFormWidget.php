@@ -17,12 +17,12 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-namespace ZenMagick\http\widgets\form;
+namespace ZenMagick\Http\Widgets\Form;
 
 use ZenMagick\Base\Runtime;
 use ZenMagick\Base\Toolbox;
 use ZenMagick\Base\Logging\Logging;
-use ZenMagick\http\view\TemplateView;
+use ZenMagick\Http\View\TemplateView;
 
 /**
  * A select form widget.
@@ -79,7 +79,7 @@ class SelectFormWidget extends FormWidget {
     /**
      * Get the options map.
      *
-     * @param ZenMagick\http\Request request The current request.
+     * @param ZenMagick\Http\Request request The current request.
      * @return array Map of value/name pairs.
      */
     public function getOptions($request) {
@@ -139,7 +139,7 @@ class SelectFormWidget extends FormWidget {
     /**
      * Render as seclect drop down.
      *
-     * @param ZenMagick\http\Request request The current request.
+     * @param ZenMagick\Http\Request request The current request.
      */
     public function renderSelect($request) {
         $values = $this->getValue();
@@ -166,7 +166,7 @@ class SelectFormWidget extends FormWidget {
     /**
      * Render as group of radio buttons.
      *
-     * @param ZenMagick\http\Request request The current request.
+     * @param ZenMagick\Http\Request request The current request.
      */
     public function renderRadio($request) {
         $slash = Runtime::getSettings()->get('zenmagick.http.html.xhtml') ? '/' : '';

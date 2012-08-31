@@ -10,7 +10,7 @@
     </route>
 
     <route id="rss" pattern="/rss/{channel}/{key}">
-        <default key="_controller">ZenMagick\http\controller\RssController:generate</default>
+        <default key="_controller">ZenMagick\Http\Controller\RssController:generate</default>
         <default key="key"></default>
     </route>
 

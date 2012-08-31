@@ -23,7 +23,7 @@
  *
  * <p>Generic (R)emote (P)rocedure (C)all request interface, irrespective of the underlying format.</p>
  *
- * <p>Implementations are expected to accept an instance of <code>ZenMagick\http\Request</code> as single constructor
+ * <p>Implementations are expected to accept an instance of <code>ZenMagick\Http\Request</code> as single constructor
  * argument.</p>
  *
  * @author DerManoMann <mano@zenmagick.org>
@@ -34,7 +34,7 @@ interface ZMRpcRequest {
     /**
      * Get the underlying request.
      *
-     * @return ZenMagick\http\Request The request.
+     * @return ZenMagick\Http\Request The request.
      */
     public function getRequest();
 

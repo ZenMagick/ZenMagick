@@ -20,7 +20,7 @@
 namespace ZenMagick\apps\admin\widgets;
 
 use ZenMagick\Base\Runtime;
-use ZenMagick\http\widgets\form\SelectFormWidget;
+use ZenMagick\Http\Widgets\Form\SelectFormWidget;
 
 /**
  * <p>A zone select form widget.</p>

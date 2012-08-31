@@ -23,7 +23,7 @@
 umask(0000); // This will let the permissions be 0777
 
 use ZenMagick\Base\Application;
-use ZenMagick\http\Request;
+use ZenMagick\Http\Request;
 $rootDir = realpath(__DIR__.'/../../..');
 include_once $rootDir.'/autoload.php';
 

@@ -20,8 +20,8 @@
 namespace ZenMagick\apps\store\widgets;
 
 use ZenMagick\Base\Runtime;
-use ZenMagick\http\widgets\Widget;
-use ZenMagick\http\view\TemplateView;
+use ZenMagick\Http\Widgets\Widget;
+use ZenMagick\Http\View\TemplateView;
 
 /**
  * PayPal express checkout block widget.

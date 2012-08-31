@@ -27,7 +27,7 @@ zenmagick:
       listeners:
         - ZenMagick\apps\store\StoreEventListener
         - ZenMagick\apps\storefront\EventListener
-        - ZenMagick\http\EventListener
+        - ZenMagick\Http\EventListener
   ## mvc
   mvc:
     ## request

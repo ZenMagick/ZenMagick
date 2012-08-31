@@ -17,7 +17,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-namespace ZenMagick\http\routing;
+namespace ZenMagick\Http\Routing;
 
 use Exception;
 use Symfony\Component\Routing\Route;
@@ -29,8 +29,8 @@ use ZenMagick\Base\Beans;
 use ZenMagick\Base\Runtime;
 use ZenMagick\Base\ZMObject;
 use ZenMagick\Base\Logging\Logging;
-use ZenMagick\http\routing\loader\YamlLoader;
-use ZenMagick\http\view\TemplateView;
+use ZenMagick\Http\Routing\Loader\YamlLoader;
+use ZenMagick\Http\View\TemplateView;
 
 /**
  * ZenMagick routing API.
@@ -51,7 +51,7 @@ class RouteResolver extends ZMObject {
         parent::__construct();
         $this->requestContext = $requestContext;
         $this->options = array(
-            'generator_class' => 'ZenMagick\http\routing\generator\UrlGenerator',
+            'generator_class' => 'ZenMagick\Http\Routing\Generator\UrlGenerator',
             //'matcher_class' => 'Symfony\\Component\\Routing\\Matcher\\RedirectableUrlMatcher'
         );
         $this->router = null;
@@ -130,7 +130,7 @@ class RouteResolver extends ZMObject {
      * Get a view for the given request and view id.
      *
      * @param string viewId The view id.
-     * @param ZenMagick\http\Request request The current request.
+     * @param ZenMagick\Http\Request request The current request.
      * @param array Optional view data; default is an empty array.
      * @return View A view.
      * @todo: move into dispatcher and fix controller to return just string/string/data from process

@@ -20,7 +20,7 @@
 namespace ZenMagick\apps\admin\entities;
 
 use ZenMagick\Base\ZMObject;
-use ZenMagick\http\sacs\handler\UserRoleCredentials;
+use ZenMagick\Http\Sacs\Handler\UserRoleCredentials;
 
 use Doctrine\ORM\Mapping AS ORM;
 

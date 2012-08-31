@@ -533,7 +533,7 @@ class SQLRunner {
   }
 
   static function create_message($msg, $type) {
-    $message = Beans::getBean('ZenMagick\http\messages\Message');
+    $message = Beans::getBean('ZenMagick\Http\Messages\Message');
     $message->setText($msg);
     $message->setType($type);
     return $message;

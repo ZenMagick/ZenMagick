@@ -20,8 +20,8 @@
 
 use ZenMagick\Base\Beans;
 use ZenMagick\Base\Runtime;
-use ZenMagick\http\Request;
-use ZenMagick\http\forms\FormData;
+use ZenMagick\Http\Request;
+use ZenMagick\Http\forms\FormData;
 
 /**
  * An account form (bean).

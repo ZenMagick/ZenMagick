@@ -17,9 +17,9 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-namespace ZenMagick\http\widgets\form;
+namespace ZenMagick\Http\Widgets\Form;
 
-use ZenMagick\http\view\TemplateView;
+use ZenMagick\Http\View\TemplateView;
 
 /**
  * A wysiwyg editor.
@@ -33,7 +33,7 @@ interface WysiwygEditor {
     /**
      * Apply editor to the given element ids.
      *
-     * @param ZenMagick\http\Request request The current request.
+     * @param ZenMagick\Http\Request request The current request.
      * @param TemplateView templateView The current view.
      * @param array idList List of element ids to convert as Wysiwyg editor; default is <code>null</code> for all on the page.
      * @return string Generated code or <code>null</code>.

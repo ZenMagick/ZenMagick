@@ -94,7 +94,7 @@ class GoogleAnalyticsPlugin extends Plugin {
     /**
      * Generate usable pageview identifiers.
      *
-     * @param ZenMagick\http\Request request The current request.
+     * @param ZenMagick\Http\Request request The current request.
      * @return string A string.
      */
     protected function getPageview($request) {
@@ -143,7 +143,7 @@ class GoogleAnalyticsPlugin extends Plugin {
     /**
      * Format the generic tracking code using the ga format.
      *
-     * @param ZenMagick\http\Request request The current request.
+     * @param ZenMagick\Http\Request request The current request.
      * @return string The tracking code.
      */
     protected function getTrackerCodeGa($request) {
@@ -174,7 +174,7 @@ EOT;
     /**
      * Format the checkout order tracking code using the ga format.
      *
-     * @param ZenMagick\http\Request request The current request.
+     * @param ZenMagick\Http\Request request The current request.
      * @return string The order tracking code or empty string if not applicable.
      */
     protected function getCheckoutCodeGa($request) {
@@ -263,7 +263,7 @@ EOT;
     /**
      * Create code for conversion tracking.
      *
-     * @param ZenMagick\http\Request request The current request.
+     * @param ZenMagick\Http\Request request The current request.
      * @return string The conversion code.
      */
     protected function getConversionCode($request) {

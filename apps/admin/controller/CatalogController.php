@@ -23,8 +23,8 @@ use ZenMagick\Base\Beans;
 use ZenMagick\Base\Runtime;
 use ZenMagick\Base\Toolbox;
 use ZenMagick\Base\Logging\Logging;
-use ZenMagick\http\Request;
-use ZenMagick\http\sacs\SacsManager;
+use ZenMagick\Http\Request;
+use ZenMagick\Http\Sacs\SacsManager;
 use ZenMagick\apps\store\controller\CatalogContentController;
 
 /**
@@ -39,7 +39,7 @@ class CatalogController extends \ZMController {
     /**
      * Create list of all active catalog content controllers.
      *
-     * @param ZenMagick\http\Request request The current request.
+     * @param ZenMagick\Http\Request request The current request.
      * @return array List of controller instances.
      */
     protected function getCatalogContentControllers($request) {

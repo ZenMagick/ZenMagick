@@ -21,7 +21,7 @@ namespace ZenMagick\apps\storefront\http\tools;
 
 use ZenMagick\Base\Runtime;
 use ZenMagick\Base\Toolbox;
-use ZenMagick\http\toolbox\ToolboxTool;
+use ZenMagick\Http\Toolbox\ToolboxTool;
 
 /**
  * Page meta tag data generator.

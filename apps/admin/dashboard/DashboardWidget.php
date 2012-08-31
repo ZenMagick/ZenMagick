@@ -20,8 +20,8 @@
 namespace ZenMagick\apps\admin\dashboard;
 
 use ZenMagick\Base\Toolbox;
-use ZenMagick\http\view\TemplateView;
-use ZenMagick\http\widgets\Widget;
+use ZenMagick\Http\View\TemplateView;
+use ZenMagick\Http\Widgets\Widget;
 
 /**
  * A dashboard widget.
@@ -76,7 +76,7 @@ abstract class DashboardWidget extends Widget {
     /**
      * Get the (HTML) contents.
      *
-     * @param ZenMagick\http\Request request The current request.
+     * @param ZenMagick\Http\Request request The current request.
      * @return string The contents.
      */
     public abstract function getContents($request);

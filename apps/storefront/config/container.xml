@@ -14,7 +14,7 @@
         <service id="defaultView" alias="storeTemplateView" />
 
         <!-- redefine for storefront -->
-        <service id="resourceResolverTwigLoader" class="ZenMagick\http\templating\ResourceResolverTwigLoader" scope="prototype">
+        <service id="resourceResolverTwigLoader" class="ZenMagick\Http\Templating\ResourceResolverTwigLoader" scope="prototype">
             <argument type="service" id="themeResourceResolver" />
         </service>
 

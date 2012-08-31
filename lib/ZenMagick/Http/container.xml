@@ -33,7 +33,7 @@
             <argument>%pdo.db_options%</argument>
         </service>
 
-        <service id="contextConfigLoader" class="ZenMagick\http\utils\ContextConfigLoader" scope="prototype">
+        <service id="contextConfigLoader" class="ZenMagick\Http\Utils\ContextConfigLoader" scope="prototype">
             <call method="setContext">
                 <argument>%kernel.context%</argument>
             </call>
@@ -42,7 +42,7 @@
             </call>
         </service>
 
-        <service id="sacsManager" class="ZenMagick\http\sacs\SacsManager">
+        <service id="sacsManager" class="ZenMagick\Http\Sacs\SacsManager">
             <argument type="service" id="service_container" />
             <call method="load">
                 <argument>%kernel.context_dir%/config/sacs_mappings.yaml</argument>
@@ -56,19 +56,19 @@
             </call>
         </service>
 
-        <service id="defaultUrlRewriter" class="ZenMagick\http\request\rewriter\DefaultUrlRewriter">
+        <service id="defaultUrlRewriter" class="ZenMagick\Http\Request\Rewriter\DefaultUrlRewriter">
             <tag name="zenmagick.http.request.rewriter" />
         </service>
 
-        <service id="routingUrlRewriter" class="ZenMagick\http\request\rewriter\RoutingUrlRewriter">
+        <service id="routingUrlRewriter" class="ZenMagick\Http\Request\Rewriter\RoutingUrlRewriter">
             <tag name="zenmagick.http.request.rewriter" />
         </service>
 
-        <service id="taggedBlocksBlockProvider" class="ZenMagick\http\utils\TaggedBlocksBlockProvider">
+        <service id="taggedBlocksBlockProvider" class="ZenMagick\Http\Utils\TaggedBlocksBlockProvider">
             <tag name="zenmagick.http.blocks.provider" />
         </service>
 
-        <service id="resourceManager" class="ZenMagick\http\view\ResourceManager" scope="prototype">
+        <service id="resourceManager" class="ZenMagick\Http\View\ResourceManager" scope="prototype">
             <call method="setContainer">
                 <argument type="service" id="service_container" />
             </call>
@@ -77,25 +77,25 @@
             </call>
         </service>
 
-        <service id="resourceResolver" class="ZenMagick\http\view\ResourceResolver">
+        <service id="resourceResolver" class="ZenMagick\Http\View\ResourceResolver">
             <call method="setContainer">
                 <argument type="service" id="service_container" />
             </call>
         </service>
 
-        <service id="userSession" class="ZenMagick\http\session\UserSession">
+        <service id="userSession" class="ZenMagick\Http\Session\UserSession">
             <call method="setSession">
                 <argument type="service" id="session" />
             </call>
         </service>
 
-        <service id="messageBuilder" class="ZenMagick\http\utils\MessageBuilder" scope="prototype">
+        <service id="messageBuilder" class="ZenMagick\Http\Utils\MessageBuilder" scope="prototype">
             <call method="setView">
                 <argument type="service" id="templateView" />
             </call>
         </service>
 
-        <service id="simpleTemplateCache" class="ZenMagick\http\templating\cache\SimpleTemplateCache">
+        <service id="simpleTemplateCache" class="ZenMagick\Http\Templating\Cache\SimpleTemplateCache">
             <call method="setContainer">
                 <argument type="service" id="service_container" />
             </call>
@@ -104,7 +104,7 @@
             </call>
         </service>
 
-        <service id="templateView" class="ZenMagick\http\view\TemplateView" scope="prototype">
+        <service id="templateView" class="ZenMagick\Http\View\TemplateView" scope="prototype">
             <call method="setContainer">
                 <argument type="service" id="service_container" />
             </call>
@@ -116,7 +116,7 @@
             </call>
         </service>
 
-        <service id="forward" class="ZenMagick\http\view\ForwardView" scope="prototype">
+        <service id="forward" class="ZenMagick\Http\View\ForwardView" scope="prototype">
             <call method="setContainer">
                 <argument type="service" id="service_container" />
             </call>
@@ -130,7 +130,7 @@
 
         <service id="defaultView" alias="templateView" />
 
-        <service id="requestContext" class="ZenMagick\http\routing\RequestContext">
+        <service id="requestContext" class="ZenMagick\Http\Routing\RequestContext">
             <argument type="service" id="service_container" />
             <call method="setHttpPort">
               <argument>%zenmagick.http.httpPort%</argument>
@@ -140,14 +140,14 @@
             </call>
         </service>
 
-        <service id="routeResolver" class="ZenMagick\http\routing\RouteResolver">
+        <service id="routeResolver" class="ZenMagick\Http\Routing\RouteResolver">
             <argument type="service" id="requestContext" />
             <call method="setContainer">
                 <argument type="service" id="service_container" />
             </call>
         </service>
 
-        <service id="redirect" class="ZenMagick\http\view\RedirectView" scope="prototype">
+        <service id="redirect" class="ZenMagick\Http\View\RedirectView" scope="prototype">
             <call method="setContainer">
                 <argument type="service" id="service_container" />
             </call>
@@ -155,48 +155,48 @@
 
         <!-- add tag -->
 
-        <service id="booleanFormWidget" class="ZenMagick\http\widgets\form\BooleanFormWidget" scope="prototype">
+        <service id="booleanFormWidget" class="ZenMagick\Http\Widgets\Form\BooleanFormWidget" scope="prototype">
             <tag name="zenmagick.http.widgets.widget" />
         </service>
 
-        <service id="passwordFormWidget" class="ZenMagick\http\widgets\form\PasswordFormWidget" scope="prototype">
+        <service id="passwordFormWidget" class="ZenMagick\Http\Widgets\Form\PasswordFormWidget" scope="prototype">
             <tag name="zenmagick.http.widgets.widget" />
         </service>
 
-        <service id="selectFormWidget" class="ZenMagick\http\widgets\form\SelectFormWidget" scope="prototype">
+        <service id="selectFormWidget" class="ZenMagick\Http\Widgets\Form\SelectFormWidget" scope="prototype">
             <tag name="zenmagick.http.widgets.widget" />
         </service>
 
-        <service id="textFormWidget" class="ZenMagick\http\widgets\form\TextFormWidget" scope="prototype">
+        <service id="textFormWidget" class="ZenMagick\Http\Widgets\Form\TextFormWidget" scope="prototype">
             <tag name="zenmagick.http.widgets.widget" />
         </service>
 
-        <service id="textAreaFormWidget" class="ZenMagick\http\widgets\form\TextAreaFormWidget" scope="prototype">
+        <service id="textAreaFormWidget" class="ZenMagick\Http\Widgets\Form\TextAreaFormWidget" scope="prototype">
             <tag name="zenmagick.http.widgets.widget" />
         </service>
 
-        <service id="toolbox" class="ZenMagick\http\toolbox\Toolbox">
+        <service id="toolbox" class="ZenMagick\Http\Toolbox\Toolbox">
             <call method="setContainer">
                 <argument type="service" id="service_container" />
             </call>
             <tag name="zenmagick.http.view.variable" key="toolbox" />
         </service>
 
-        <service id="controllerParameterMapper" class="ZenMagick\http\controller\ControllerParameterMapper">
+        <service id="controllerParameterMapper" class="ZenMagick\Http\Controller\ControllerParameterMapper">
             <call method="setContainer">
                 <argument type="service" id="service_container" />
             </call>
         </service>
 
         <!-- @todo don't depend on all this code in one listener -->
-        <service id="zenmagick.http_listener" class="ZenMagick\http\HttpListener">
+        <service id="zenmagick.http_listener" class="ZenMagick\Http\HttpListener">
             <tag name="kernel.event_subscriber" />
             <argument type="service" id="service_container" />
         </service>
 
-        <service id="blockWidget" class="ZenMagick\http\blocks\widgets\BlockWidget" scope="prototype" />
+        <service id="blockWidget" class="ZenMagick\Http\Blocks\Widgets\BlockWidget" scope="prototype" />
 
-        <service id="zmPhpEngine" class="ZenMagick\http\templating\ZMPhpEngine" scope="prototype">
+        <service id="zmPhpEngine" class="ZenMagick\Http\Templating\ZMPhpEngine" scope="prototype">
             <call method="setContainer">
                 <argument type="service" id="service_container" />
             </call>
@@ -208,11 +208,11 @@
 
         <service id="fileExtensionTemplateNameParser" class="Symfony\Component\Templating\TemplateNameParser" scope="prototype" />
 
-        <service id="resourceResolverTwigLoader" class="ZenMagick\http\templating\ResourceResolverTwigLoader" scope="prototype">
+        <service id="resourceResolverTwigLoader" class="ZenMagick\Http\Templating\ResourceResolverTwigLoader" scope="prototype">
             <argument type="service" id="resourceResolver" />
         </service>
 
-        <service id="resourceResolverFileLocator" class="ZenMagick\http\templating\ResourceResolverFileLocator" scope="prototype">
+        <service id="resourceResolverFileLocator" class="ZenMagick\Http\Templating\ResourceResolverFileLocator" scope="prototype">
             <argument type="service" id="resourceResolver" />
         </service>
 
@@ -232,28 +232,28 @@
                 <argument type="service" id="service_container" />
             </call>
         </service>
-        <service id="formTokenSessionValidator" class="ZenMagick\http\session\validation\FormTokenSessionValidator" scope="prototype">
+        <service id="formTokenSessionValidator" class="ZenMagick\Http\Session\Validation\FormTokenSessionValidator" scope="prototype">
             <call method="setRequestIds">
                 <argument>%zenmagick.http.session.formtoken%</argument>
             </call>
             <tag name="zenmagick.http.session.validator" />
         </service>
 
-        <service id="userAgentSessionValidator" class="ZenMagick\http\session\validation\UserAgentSessionValidator" scope="prototype">
+        <service id="userAgentSessionValidator" class="ZenMagick\Http\Session\Validation\UserAgentSessionValidator" scope="prototype">
             <call method="setEnabled">
                 <argument>%zenmagick.http.session.validator.userAgent%</argument>
             </call>
             <tag name="zenmagick.http.session.validator" />
         </service>
 
-        <service id="ipSessionValidator" class="ZenMagick\http\session\validation\IPSessionValidator" scope="prototype">
+        <service id="ipSessionValidator" class="ZenMagick\Http\Session\Validation\IPSessionValidator" scope="prototype">
             <call method="setEnabled">
                 <argument>%zenmagick.http.session.validator.ip%</argument>
             </call>
             <tag name="zenmagick.http.session.validator" />
         </service>
 
-        <service id="sslSessionIdSessionValidator" class="ZenMagick\http\session\validation\SSLSessionIdSessionValidator" scope="prototype">
+        <service id="sslSessionIdSessionValidator" class="ZenMagick\Http\Session\Validation\SSLSessionIdSessionValidator" scope="prototype">
             <call method="setEnabled">
                 <argument>%zenmagick.http.session.validator.sslSessionId%</argument>
             </call>

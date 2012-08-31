@@ -20,7 +20,7 @@
 namespace ZenMagick\apps\storefront\http\tools;
 
 use ZenMagick\Base\Beans;
-use ZenMagick\http\toolbox\ToolboxTool;
+use ZenMagick\Http\Toolbox\ToolboxTool;
 
 /**
  * Crumbtrail.

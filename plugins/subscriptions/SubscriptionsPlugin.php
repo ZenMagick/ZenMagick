@@ -23,7 +23,7 @@ use ZenMagick\apps\store\plugins\Plugin;
 use ZenMagick\Base\Beans;
 use ZenMagick\Base\Runtime;
 use ZenMagick\Base\Toolbox;
-use ZenMagick\http\sacs\SacsManager;
+use ZenMagick\Http\Sacs\SacsManager;
 use ZenMagick\apps\store\model\checkout\ShoppingCart;
 use ZenMagick\plugins\subscriptions\cron\UpdateSubscriptionsCronJob;
 

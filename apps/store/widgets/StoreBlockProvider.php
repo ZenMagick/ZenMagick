@@ -21,7 +21,7 @@ namespace ZenMagick\apps\store\widgets;
 
 use ZenMagick\Base\ZMObject;
 
-use ZenMagick\http\blocks\BlockProvider;
+use ZenMagick\Http\Blocks\BlockProvider;
 
 /**
  * Store block provider.

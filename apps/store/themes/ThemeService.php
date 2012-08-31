@@ -21,7 +21,7 @@ namespace ZenMagick\apps\store\themes;
 
 use ZenMagick\Base\Runtime;
 use ZenMagick\Base\ZMObject;
-use ZenMagick\Base\DependencyInjection\loader\YamlFileLoader;
+use ZenMagick\Base\DependencyInjection\Loader\YamlFileLoader;
 
 use Symfony\Component\Config\FileLocator;
 

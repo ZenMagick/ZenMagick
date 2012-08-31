@@ -22,7 +22,7 @@ namespace ZenMagick\apps\store\services;
 
 use ZenMagick\Base\Beans;
 use ZenMagick\Base\Runtime;
-use ZenMagick\http\widgets\Widget;
+use ZenMagick\Http\Widgets\Widget;
 use ZenMagick\apps\store\model\ConfigValue;
 
 /**

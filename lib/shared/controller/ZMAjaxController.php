@@ -19,8 +19,8 @@
  */
 
 use ZenMagick\Base\Runtime;
-use ZenMagick\http\Request;
-use ZenMagick\http\sacs\SacsManager;
+use ZenMagick\Http\Request;
+use ZenMagick\Http\Sacs\SacsManager;
 
 /**
  * Request controller for ajax requests.

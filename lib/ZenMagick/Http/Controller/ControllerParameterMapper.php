@@ -17,13 +17,13 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-namespace ZenMagick\http\controller;
+namespace ZenMagick\Http\Controller;
 
 use ReflectionClass;
 use ZenMagick\Base\Beans;
 use ZenMagick\Base\ZMObject;
 use ZenMagick\Base\Utils\ParameterMapper;
-use ZenMagick\http\Request;
+use ZenMagick\Http\Request;
 
 /**
  * ParameterMapper for controller classes.
@@ -31,7 +31,7 @@ use ZenMagick\http\Request;
  * <p>Parameters will be resolved in the following order:</p>
  * <ol>
  *   <li>Does the parameter name match a value key in router match data</li>
- *   <li>Does a type hint class exist and does that implement <code>ZenMagick\http\forms\Form</code></li>
+ *   <li>Does a type hint class exist and does that implement <code>ZenMagick\Http\forms\Form</code></li>
  *   <li>Is the parameter name a valid contaier service id</li>
  *   <li>Create new instance based on type hint and populate with request data</li>
  * </ol>
@@ -63,7 +63,7 @@ class ControllerParameterMapper extends ZMObject implements ParameterMapper {
                 $hintClass = $rp->getClass();
                 if ($hintClass) {
                     // check for special classes/interfaces
-                    if ('ZenMagick\http\forms\Form' == $hintClass->name || $hintClass->isSubclassOf('zenmagick\http\forms\Form')) {
+                    if ('ZenMagick\Http\forms\Form' == $hintClass->name || $hintClass->isSubclassOf('zenmagick\http\forms\Form')) {
                         $value = Beans::getBean($hintClass->name);
                         $value->populate($this->request);
                     } else if ($this->container->has($rp->name)) {

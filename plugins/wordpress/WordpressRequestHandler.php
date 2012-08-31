@@ -40,7 +40,7 @@ class WordpressRequestHandler extends ZMController {
      * Create new instance.
      *
      * @param ZMPlugin plugin The parent plugin reference.
-     * @param ZenMagick\http\Request request The current request.
+     * @param ZenMagick\Http\Request request The current request.
      */
     public function __construct($plugin, $request) {
         parent::__construct();

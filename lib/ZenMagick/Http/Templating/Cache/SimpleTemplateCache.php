@@ -17,11 +17,11 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-namespace ZenMagick\http\templating\cache;
+namespace ZenMagick\Http\Templating\Cache;
 
 use ZenMagick\Base\Logging\Logging;
 use ZenMagick\Base\ZMObject;
-use ZenMagick\http\templating\TemplateCache;
+use ZenMagick\Http\Templating\TemplateCache;
 
 /**
  * Simple cache.

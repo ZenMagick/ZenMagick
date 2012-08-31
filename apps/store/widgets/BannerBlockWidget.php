@@ -21,8 +21,8 @@ namespace ZenMagick\apps\store\widgets;
 
 use ZenMagick\Base\Runtime;
 use ZenMagick\Base\Toolbox;
-use ZenMagick\http\widgets\Widget;
-use ZenMagick\http\view\TemplateView;
+use ZenMagick\Http\Widgets\Widget;
+use ZenMagick\Http\View\TemplateView;
 
 /**
  * A banner block widget.

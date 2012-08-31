@@ -17,7 +17,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-namespace ZenMagick\http\sacs;
+namespace ZenMagick\Http\Sacs;
 
 use ZenMagick\Base\Beans;
 use ZenMagick\Base\Runtime;
@@ -25,7 +25,7 @@ use ZenMagick\Base\Toolbox;
 use ZenMagick\Base\ZMObject;
 use ZenMagick\Base\Events\Event;
 use ZenMagick\Base\Logging\Logging;
-use ZenMagick\http\routing\RouteResolver;
+use ZenMagick\Http\Routing\RouteResolver;
 
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\Yaml\Yaml;
@@ -91,7 +91,7 @@ class SacsManager extends ZMObject {
         $this->handlers_ = array();
         $this->permissionProviders_ = array();
         // @todo use tagged services
-        foreach ($this->container->get('settingsService')->get('zenmagick.http.sacs.handler', array('ZenMagick\http\sacs\handler\DefaultSacsHandler')) as $def) {
+        foreach ($this->container->get('settingsService')->get('zenmagick.http.sacs.handler', array('ZenMagick\Http\Sacs\Handler\DefaultSacsHandler')) as $def) {
             if (!class_exists($def)) continue;
             if (null != ($handler = new $def)) {
                 $handler->setContainer($this->container);
