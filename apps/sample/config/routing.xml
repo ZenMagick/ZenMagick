@@ -11,7 +11,7 @@
     </route>
 
     <route id="index" pattern="/index/{clear}">
-        <default key="_controller">ZenMagick\apps\sample\controller\IndexController</default>
+        <default key="_controller">ZenMagick\apps\sample\Controller\IndexController</default>
         <default key="clear">false</default>
         <option key="form">ZenMagick\Base\ZMObject#formId=mynameForm</option>
         <option key="view:success">redirect://index</option>
