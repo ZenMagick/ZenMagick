@@ -64,7 +64,7 @@
             </call>
             <call method="setBasePath">
               <argument type="collection">
-                <argument>%kernel.root_dir%/themes</argument>
+                <argument>%zenmagick.root_dir%/themes</argument>
                 <argument>%zencart.root_dir%/includes/templates</argument>
               </argument>
             </call>
