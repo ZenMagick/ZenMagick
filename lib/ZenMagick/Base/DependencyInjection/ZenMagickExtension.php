@@ -30,7 +30,7 @@ use Symfony\Component\DependencyInjection\Loader\PhpFileLoader;
 
 /**
  */
-class ZenmagickExtension extends Extension {
+class ZenMagickExtension extends Extension {
 
     /**
      * @todo seems like this functionality should already be

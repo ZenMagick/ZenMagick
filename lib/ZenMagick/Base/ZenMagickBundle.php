@@ -22,22 +22,22 @@ namespace ZenMagick\Base;
 use ZenMagick\Base\DependencyInjection\Compiler\ConfigureContainerTagServicePass;
 use ZenMagick\Base\DependencyInjection\Compiler\ResolveMergeDefinitionsPass;
 use ZenMagick\Base\DependencyInjection\Compiler\PluginsPass;
-use ZenMagick\Base\DependencyInjection\ZenmagickExtension;
+use ZenMagick\Base\DependencyInjection\ZenMagickExtension;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Container;
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 
 /**
- * Zenmagick Bundle.
+ * ZenMagick Bundle.
  */
-class ZenmagickBundle extends Bundle {
+class ZenMagickBundle extends Bundle {
 
     /**
      * {@inheritDoc}
      */
     public function build(ContainerBuilder $container) {
         parent::build($container);
-        $container->registerExtension(new ZenmagickExtension());
+        $container->registerExtension(new ZenMagickExtension());
         $container->addCompilerPass(new ConfigureContainerTagServicePass());
         $container->addCompilerPass(new ResolveMergeDefinitionsPass());
         $container->addCompilerPass(new PluginsPass());
@@ -123,5 +123,12 @@ class ZenmagickBundle extends Bundle {
                 }
             }
         }
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getContainerExtension() {
+        return new DependencyInjection\ZenMagickExtension();
     }
 }
