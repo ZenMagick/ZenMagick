@@ -17,15 +17,15 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-namespace zenmagick\apps\store\rss;
+namespace ZenMagick\apps\store\rss;
 
 use ArrayIterator;
 use DateTime;
-use zenmagick\base\ZMObject;
-use zenmagick\http\rss\RssChannel;
-use zenmagick\http\rss\RssFeed;
-use zenmagick\http\rss\RssItem;
-use zenmagick\http\rss\RssSource;
+use ZenMagick\base\ZMObject;
+use ZenMagick\http\rss\RssChannel;
+use ZenMagick\http\rss\RssFeed;
+use ZenMagick\http\rss\RssItem;
+use ZenMagick\http\rss\RssSource;
 
 /**
  * RSS source for default feeds.
@@ -57,7 +57,7 @@ class DefaultRssFeedSource extends ZMObject implements RssSource {
     /**
      * Generate RSS feed for reviews.
      *
-     * @param zenmagick\http\Request request The current request.
+     * @param ZenMagick\http\Request request The current request.
      * @param string key Optional product id.
      * @return RssFeed The feed.
      */
@@ -117,7 +117,7 @@ class DefaultRssFeedSource extends ZMObject implements RssSource {
     /**
      * Generate RSS feed for EZPages chapter.
      *
-     * @param zenmagick\http\Request request The current request.
+     * @param ZenMagick\http\Request request The current request.
      * @param string key EZPages chapter.
      * @return RssFeed The feed data.
      */
@@ -148,7 +148,7 @@ class DefaultRssFeedSource extends ZMObject implements RssSource {
     /**
      * Generate RSS feed for products.
      *
-     * @param zenmagick\http\Request request The current request.
+     * @param ZenMagick\http\Request request The current request.
      * @param string key Optional key value for various product types; supported: 'new'
      * @return RssFeed The feed data.
      */

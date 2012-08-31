@@ -17,11 +17,11 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-namespace zenmagick\plugins\wordpress;
+namespace ZenMagick\plugins\wordpress;
 
-use zenmagick\apps\store\plugins\Plugin;
-use zenmagick\base\Beans;
-use zenmagick\base\Toolbox;
+use ZenMagick\apps\store\plugins\Plugin;
+use ZenMagick\base\Beans;
+use ZenMagick\base\Toolbox;
 
 
 /**
@@ -65,7 +65,7 @@ class WordpressPlugin extends Plugin {
      */
     protected function getAdapter() {
         if (null == $this->adapter_) {
-            $this->adapter_ = Beans::getBean('zenmagick\plugins\wordpress\WordpressAdapter');
+            $this->adapter_ = Beans::getBean('ZenMagick\plugins\wordpress\WordpressAdapter');
         }
 
         return $this->adapter_;
@@ -216,7 +216,7 @@ class WordpressPlugin extends Plugin {
     /**
      * Get the request handler.
      *
-     * @param zenmagick\http\Request request The current request.
+     * @param ZenMagick\http\Request request The current request.
      * @return ZMWpRequestHandler The single request handler for this request.
      */
     public function getRequestHandler($request) {

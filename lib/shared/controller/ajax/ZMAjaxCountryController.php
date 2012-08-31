@@ -40,7 +40,7 @@ class ZMAjaxCountryController extends ZMAjaxController {
     /**
      * Generates a JSON list of all countries.
      *
-     * @param zenmagick\http\Request request The current request.
+     * @param ZenMagick\http\Request request The current request.
      */
     public function getCountryListJSON($request) {
         $utilsTool = $this->container->get('utilsTool');
@@ -57,7 +57,7 @@ class ZMAjaxCountryController extends ZMAjaxController {
      *  <li>countryId - A valid country id</li>
      * </ul>
      *
-     * @param zenmagick\http\Request request The current request.
+     * @param ZenMagick\http\Request request The current request.
      */
     public function getZonesForCountryIdJSON($request) {
         $countryId = $request->getParameter('countryId', null);

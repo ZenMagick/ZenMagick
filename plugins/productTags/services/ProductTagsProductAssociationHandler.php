@@ -18,10 +18,10 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-namespace zenmagick\plugins\productTags\services;
+namespace ZenMagick\plugins\productTags\services;
 
 use ZMProductAssociationHandler;
-use zenmagick\base\ZMException;
+use ZenMagick\base\ZMException;
 
 /**
  * Product association handler for <em>tags</em>.

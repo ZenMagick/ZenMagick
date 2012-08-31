@@ -18,8 +18,8 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-use zenmagick\base\Beans;
-use zenmagick\plugins\unitTests\simpletest\TestCase;
+use ZenMagick\base\Beans;
+use ZenMagick\plugins\unitTests\simpletest\TestCase;
 
 /**
  * Test manufacturer service.
@@ -77,7 +77,7 @@ class TestManufacturerService extends TestCase {
      */
     public function testNoInfo() {
         // create new manufacturer without info record
-        $newManufacturer = Beans::getBean('zenmagick\apps\store\model\catalog\Manufacturer');
+        $newManufacturer = Beans::getBean('ZenMagick\apps\store\model\catalog\Manufacturer');
         $newManufacturer->setName('Foo');
         $newManufacturer->setDateAdded(new \DateTime());
         $newManufacturer->setLastModified(new \DateTime());

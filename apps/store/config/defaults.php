@@ -18,7 +18,7 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-use zenmagick\base\Runtime;
+use ZenMagick\base\Runtime;
 
 // NOTE: this isn't actually set anywhere in zencart, it's only used in functions_prices. Must require extra_configures?
 if (!defined('ATTRIBUTES_PRICE_FACTOR_FROM_SPECIAL')) define('ATTRIBUTES_PRICE_FACTOR_FROM_SPECIAL', 0);

@@ -14,39 +14,39 @@
         <service id="defaultView" alias="storeTemplateView" />
 
         <!-- redefine for storefront -->
-        <service id="resourceResolverTwigLoader" class="zenmagick\http\templating\ResourceResolverTwigLoader" scope="prototype">
+        <service id="resourceResolverTwigLoader" class="ZenMagick\http\templating\ResourceResolverTwigLoader" scope="prototype">
             <argument type="service" id="themeResourceResolver" />
         </service>
 
         <service id="ZMForwardView" class="ForwardView" scope="prototype" />
         <service id="forwardView" alias="ZMForwardView" />
 
-        <service id="storeDefaultUrlRewriter" class="zenmagick\apps\storefront\http\request\StoreDefaultUrlRewriter">
+        <service id="storeDefaultUrlRewriter" class="ZenMagick\apps\storefront\http\request\StoreDefaultUrlRewriter">
             <tag name="zenmagick.http.request.rewriter" />
         </service>
 
-        <service id="defaultRssFeedSource" class="zenmagick\apps\store\rss\DefaultRssFeedSource">
+        <service id="defaultRssFeedSource" class="ZenMagick\apps\store\rss\DefaultRssFeedSource">
             <tag name="zenmagick.http.rss.source" />
         </service>
 
-        <service id="catalogRssFeedSource" class="zenmagick\apps\store\rss\CatalogRssFeedSource">
+        <service id="catalogRssFeedSource" class="ZenMagick\apps\store\rss\CatalogRssFeedSource">
             <tag name="zenmagick.http.rss.source" />
         </service>
 
-        <service id="crumbtrailTool" class="zenmagick\apps\storefront\http\tools\ToolboxCrumbtrail" scope="prototype">
+        <service id="crumbtrailTool" class="ZenMagick\apps\storefront\http\tools\ToolboxCrumbtrail" scope="prototype">
             <tag name="zenmagick.http.toolbox.tool" key="crumbtrail" />
         </service>
 
-        <service id="metaTagsTool" class="zenmagick\apps\storefront\http\tools\ToolboxMetaTags" scope="prototype">
+        <service id="metaTagsTool" class="ZenMagick\apps\storefront\http\tools\ToolboxMetaTags" scope="prototype">
             <tag name="zenmagick.http.toolbox.tool" key="metaTags" />
         </service>
 
-        <service id="defaultController" class="zenmagick\apps\storefront\controller\DefaultController" scope="prototype">
+        <service id="defaultController" class="ZenMagick\apps\storefront\controller\DefaultController" scope="prototype">
             <call method="setContainer">
                 <argument type="service" id="service_container" />
             </call>
         </service>
 
-        <service id="userFactory" class="zenmagick\apps\storefront\services\CustomerUserFactory" />
+        <service id="userFactory" class="ZenMagick\apps\storefront\services\CustomerUserFactory" />
     </services>
 </container>

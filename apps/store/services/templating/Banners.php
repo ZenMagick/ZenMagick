@@ -17,12 +17,12 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-namespace zenmagick\apps\store\services\templating;
+namespace ZenMagick\apps\store\services\templating;
 
 use ZMRuntime;
-use zenmagick\base\Runtime;
-use zenmagick\base\ZMObject;
-use zenmagick\base\database\Connection;
+use ZenMagick\base\Runtime;
+use ZenMagick\base\ZMObject;
+use ZenMagick\base\database\Connection;
 
 /**
  * Banner.
@@ -79,7 +79,7 @@ class Banners extends ZMObject {
         }
         $sql .= " ORDER BY banners_sort_order";
 
-        return ZMRuntime::getDatabase()->fetchAll($sql, array('group' => $groupList), 'banners', 'zenmagick\apps\store\model\templating\Banner');
+        return ZMRuntime::getDatabase()->fetchAll($sql, array('group' => $groupList), 'banners', 'ZenMagick\apps\store\model\templating\Banner');
     }
 
     /**
@@ -92,7 +92,7 @@ class Banners extends ZMObject {
         $sql = "SELECT *
                 FROM %table.banners%
                 WHERE status = 1 AND banners_id = :id";
-        return ZMRuntime::getDatabase()->querySingle($sql, array('id' => $id), 'banners', 'zenmagick\apps\store\model\templating\Banner');
+        return ZMRuntime::getDatabase()->querySingle($sql, array('id' => $id), 'banners', 'ZenMagick\apps\store\model\templating\Banner');
     }
 
     /**
@@ -168,7 +168,7 @@ class Banners extends ZMObject {
     public function scheduleBanners() {
         $sql = "SELECT banners_id, date_scheduled, expires_date
                 FROM %table.banners%";
-        foreach (ZMRuntime::getDatabase()->fetchAll($sql, array(), 'banners', 'zenmagick\apps\store\model\templating\Banner') as $banner) {
+        foreach (ZMRuntime::getDatabase()->fetchAll($sql, array(), 'banners', 'ZenMagick\apps\store\model\templating\Banner') as $banner) {
             $dateScheduled = $banner->getDateScheduled();
             $expiryDate = $banner->getExpiryDate();
             if (null != $dateScheduled && new \DateTime() >= $dateScheduled) {

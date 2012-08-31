@@ -17,11 +17,11 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-namespace zenmagick\apps\store\services\locale;
+namespace ZenMagick\apps\store\services\locale;
 
 use ZMRuntime;
-use zenmagick\base\Runtime;
-use zenmagick\base\ZMObject;
+use ZenMagick\base\Runtime;
+use ZenMagick\base\ZMObject;
 
 /**
  * Currency service.
@@ -47,7 +47,7 @@ class CurrencyService extends ZMObject {
     private function load() {
         $sql = "SELECT * FROM %table.currencies%";
         $this->currencies = array();
-        foreach (ZMRuntime::getDatabase()->fetchAll($sql, array(), 'currencies', 'zenmagick\apps\store\model\locale\Currency') as $currency) {
+        foreach (ZMRuntime::getDatabase()->fetchAll($sql, array(), 'currencies', 'ZenMagick\apps\store\model\locale\Currency') as $currency) {
             $this->currencies[$currency->getCode()] = $currency;
         }
     }

@@ -19,12 +19,12 @@
  */
 
 use Symfony\Component\Yaml\Yaml;
-use zenmagick\base\Runtime;
-use zenmagick\apps\store\menu\Menu;
-use zenmagick\apps\store\menu\MenuLoader;
-use zenmagick\apps\store\menu\MenuElement;
-use zenmagick\apps\store\menu\MenuSeparator;
-use zenmagick\plugins\unitTests\simpletest\TestCase;
+use ZenMagick\base\Runtime;
+use ZenMagick\apps\store\menu\Menu;
+use ZenMagick\apps\store\menu\MenuLoader;
+use ZenMagick\apps\store\menu\MenuElement;
+use ZenMagick\apps\store\menu\MenuSeparator;
+use ZenMagick\plugins\unitTests\simpletest\TestCase;
 
 /**
  * Test Menu.

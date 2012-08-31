@@ -20,8 +20,8 @@
 // $Id$
 //
 ?>
-<?php if (isset($cssCategories) && class_exists('zenmagick\plugins\cssCategories\CategoriesUlGenerator')) {
-    $categoriesULGenerator = new \zenmagick\plugins\cssCategories\CategoriesUlGenerator($request);
+<?php if (isset($cssCategories) && class_exists('ZenMagick\plugins\cssCategories\CategoriesUlGenerator')) {
+    $categoriesULGenerator = new \ZenMagick\plugins\cssCategories\CategoriesUlGenerator($request);
     $resources->cssFile('css/categories_css.css');
     ?>
     <ul class="bullet-menu" id="siteMenu">

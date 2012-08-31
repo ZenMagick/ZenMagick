@@ -17,10 +17,10 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-namespace zenmagick\plugins\openID\controller;
+namespace ZenMagick\plugins\openID\controller;
 
 use ZMController;
-use zenmagick\plugins\openID\OpenIDDatabaseStore;
+use ZenMagick\plugins\openID\OpenIDDatabaseStore;
 
 /**
  * OpenID authentication controller.
@@ -110,7 +110,7 @@ class OpenIDController extends ZMController {
     /**
      * Initiate OpenID authentication.
      *
-     * @param zenmagick\http\Request request The current request.
+     * @param ZenMagick\http\Request request The current request.
      * @param string openid The OpenID to authenticate.
      */
     private function initAuthentication($request, $openid) {

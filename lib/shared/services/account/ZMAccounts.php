@@ -18,10 +18,10 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-use zenmagick\base\Runtime;
-use zenmagick\base\Toolbox;
-use zenmagick\base\ZMObject;
-use zenmagick\base\database\Connection;
+use ZenMagick\base\Runtime;
+use ZenMagick\base\Toolbox;
+use ZenMagick\base\ZMObject;
+use ZenMagick\base\database\Connection;
 
 /**
  * Accounts.

@@ -19,11 +19,11 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-use zenmagick\base\Beans;
-use zenmagick\base\Runtime;
-use zenmagick\base\ZMObject;
-use zenmagick\base\database\QueryDetails;
-use zenmagick\base\database\SqlAware;
+use ZenMagick\base\Beans;
+use ZenMagick\base\Runtime;
+use ZenMagick\base\ZMObject;
+use ZenMagick\base\database\QueryDetails;
+use ZenMagick\base\database\SqlAware;
 
 /**
  * Orders.
@@ -49,7 +49,7 @@ class ZMOrders extends ZMObject implements SqlAware {
      *
      * @param int languageId Language id.
      * @param int limit Optional limit; default is <code>0</code> for all.
-     * @return zenmagick\base\database\QueryDetails Query details.
+     * @return ZenMagick\base\database\QueryDetails Query details.
      */
     protected function getAllOrdersQueryDetails($languageId, $limit=0) {
         $sql = "SELECT o.*, s.orders_status_name
@@ -105,7 +105,7 @@ class ZMOrders extends ZMObject implements SqlAware {
      * @param int accountId The account id.
      * @param int languageId Language id.
      * @param int limit Optional result limit.
-     * @return zenmagick\base\database\QueryDetails Query details.
+     * @return ZenMagick\base\database\QueryDetails Query details.
      */
     protected function getOrdersForAccountIdQueryDetails($accountId, $languageId, $limit=0) {
         // order only
@@ -140,7 +140,7 @@ class ZMOrders extends ZMObject implements SqlAware {
      *
      * @param int statusId The order status.
      * @param int languageId Language id.
-     * @return zenmagick\base\database\QueryDetails Query details.
+     * @return ZenMagick\base\database\QueryDetails Query details.
      */
     protected function getOrdersForStatusIdQueryDetails($statusId, $languageId) {
         // order only

@@ -17,11 +17,11 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-namespace zenmagick\apps\store\rss;
+namespace ZenMagick\apps\store\rss;
 
 use Iterator;
-use zenmagick\base\ZMObject;
-use zenmagick\http\rss\RssItem;
+use ZenMagick\base\ZMObject;
+use ZenMagick\http\rss\RssItem;
 
 /**
  * Category RSS item iterator.

@@ -19,9 +19,9 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-use zenmagick\base\Runtime;
-use zenmagick\base\ZMException;
-use zenmagick\base\ZMObject;
+use ZenMagick\base\Runtime;
+use ZenMagick\base\ZMException;
+use ZenMagick\base\ZMObject;
 
 /**
  * All stuff related to product prices and offers.

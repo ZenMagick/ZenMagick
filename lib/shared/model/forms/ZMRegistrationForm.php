@@ -18,9 +18,9 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-use zenmagick\base\Beans;
-use zenmagick\base\Runtime;
-use zenmagick\http\forms\FormData;
+use ZenMagick\base\Beans;
+use ZenMagick\base\Runtime;
+use ZenMagick\http\forms\FormData;
 
 /**
  * A registration form (bean).

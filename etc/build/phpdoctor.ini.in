@@ -53,7 +53,7 @@ doclet = standard
 ; have package tags, use this setting to place unbound elements into a
 ; particular package.
 
-default_package = "zenmagick\misc"
+default_package = "ZenMagick\misc"
 
 ; Specifies the name of a HTML file containing text for the overview
 ; documentation to be placed on the overview page. The path is relative to

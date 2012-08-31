@@ -17,53 +17,53 @@
     </route>
 
     <route id="login" pattern="/login">
-        <default key="_controller">zenmagick\apps\admin\controller\LoginController</default>
+        <default key="_controller">ZenMagick\apps\admin\controller\LoginController</default>
         <option key="view:logged-in">redirect://index</option>
         <option key="view:success">redirect://index</option>
     </route>
     <route id="logoff" pattern="/logoff">
-        <default key="_controller">zenmagick\apps\admin\controller\LogoffController</default>
+        <default key="_controller">ZenMagick\apps\admin\controller\LogoffController</default>
         <option key="view:success">redirect://login</option>
     </route>
     <route id="reset_password" pattern="/password/reset">
-        <default key="_controller">zenmagick\apps\admin\controller\ResetPasswordController</default>
+        <default key="_controller">ZenMagick\apps\admin\controller\ResetPasswordController</default>
         <option key="view:success">redirect://login</option>
     </route>
     <route id="update_user" pattern="/user/update">
-        <default key="_controller">zenmagick\apps\admin\controller\UpdateUserController</default>
+        <default key="_controller">ZenMagick\apps\admin\controller\UpdateUserController</default>
         <option key="view:success">redirect://index</option>
-        <option key="form">zenmagick\apps\admin\forms\AdminUserForm#formId=updateUser</option>
+        <option key="form">ZenMagick\apps\admin\forms\AdminUserForm#formId=updateUser</option>
     </route>
     <route id="ezpages" pattern="/ezpages/{languageId}">
-        <default key="_controller">zenmagick\apps\admin\controller\EzpagesController</default>
+        <default key="_controller">ZenMagick\apps\admin\controller\EzpagesController</default>
         <default key="languageId">1</default>
         <option key="view">views/ezpages-overview.php</option>
     </route>
     <route id="ezpage" pattern="/ezpage?{slug}">
-        <default key="_controller">zenmagick\apps\admin\controller\EzpagesController</default>
+        <default key="_controller">ZenMagick\apps\admin\controller\EzpagesController</default>
         <default key="slug"></default>
         <option key="view">views/ezpages-details.php</option>
         <option key="view:success">redirect://ezpages</option>
     </route>
     <route id="content_edit" pattern="/content/edit?{slug}">
-        <default key="_controller">zenmagick\apps\admin\controller\ContentEditorController</default>
+        <default key="_controller">ZenMagick\apps\admin\controller\ContentEditorController</default>
         <default key="slug"></default>
         <option key="view">views/ezpages-details.php</option>
         <option key="view:success">redirect://content_editor</option>
     </route>
     <route id="content_editor" pattern="/content/{languageId}">
-        <default key="_controller">zenmagick\apps\admin\controller\ContentEditorController</default>
+        <default key="_controller">ZenMagick\apps\admin\controller\ContentEditorController</default>
         <default key="languageId">1</default>
         <option key="view">views/content_overview.php</option>
     </route>
     <!--
     <route id="admin_users" pattern="/manage/users">
-        <default key="_controller">zenmagick\apps\admin\controller\AdminUsersController</default>
+        <default key="_controller">ZenMagick\apps\admin\controller\AdminUsersController</default>
     </route>
     <route id="edit_admin_user" pattern="/user/edit/{adminUserId}">
-        <default key="_controller">zenmagick\apps\admin\controller\EditAdminUserController</default>
+        <default key="_controller">ZenMagick\apps\admin\controller\EditAdminUserController</default>
         <option key="view:success">redirect://admin_users</option>
-        <option key="form">zenmagick\apps\admin\forms\AdminUserForm#formId=adminUser</option>
+        <option key="form">ZenMagick\apps\admin\forms\AdminUserForm#formId=adminUser</option>
     </route>
     -->
 

@@ -18,7 +18,7 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 ?><?php
-use zenmagick\base\Runtime;
+use ZenMagick\base\Runtime;
 
     /*
      * The central place for all form validation. The validations configured here

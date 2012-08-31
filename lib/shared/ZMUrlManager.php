@@ -18,12 +18,12 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-use zenmagick\base\Beans;
-use zenmagick\base\Runtime;
-use zenmagick\base\Toolbox;
-use zenmagick\base\ZMException;
-use zenmagick\base\ZMObject;
-use zenmagick\base\logging\Logging;
+use ZenMagick\base\Beans;
+use ZenMagick\base\Runtime;
+use ZenMagick\base\Toolbox;
+use ZenMagick\base\ZMException;
+use ZenMagick\base\ZMObject;
+use ZenMagick\base\logging\Logging;
 
 /**
  * Central storage of url mappings.
@@ -261,7 +261,7 @@ class ZMUrlManager extends ZMObject {
             $definitions[] = $mapping['controller'];
         } else {
             $class = Toolbox::className($requestId.'Controller');
-            $definitions[] = sprintf('zenmagick\apps\%s\controller\%s', $this->container->get('kernel')->getContext(), $class);
+            $definitions[] = sprintf('ZenMagick\apps\%s\controller\%s', $this->container->get('kernel')->getContext(), $class);
             $definitions[] = 'ZM'.$class;
         }
         // as defined in the container

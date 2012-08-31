@@ -10,16 +10,16 @@ admin,storefront:
   container:
     services:
       tagService:
-        class: zenmagick\plugins\productTags\service\TagService
+        class: ZenMagick\plugins\productTags\service\TagService
 admin:
   container:
     services:
       productTagsTabController:
-        class: zenmagick\plugins\productTags\controller\ProductTagsTabController
+        class: ZenMagick\plugins\productTags\controller\ProductTagsTabController
         tags:
           - { name: apps.store.admin.tabcontroller }
 
       productTagsProductAssociationHandler:
-        class: zenmagick\plugins\productTags\services\ProductTagsProductAssociationHandler
+        class: ZenMagick\plugins\productTags\services\ProductTagsProductAssociationHandler
         tags:
           - { name: apps.store.associations.handler }

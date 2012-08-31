@@ -8,7 +8,7 @@ admin,storefront:
   container:
     services:
       musicManager:
-        class: zenmagick\plugins\musicProductInfo\services\MusicManager
+        class: ZenMagick\plugins\musicProductInfo\services\MusicManager
 storefront:
   routing:
     product_info:

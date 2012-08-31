@@ -7,10 +7,10 @@ storefront:
           - { name: apps.store.associations.handler }
 
       adminUserPrefService:
-        class: zenmagick\apps\admin\services\AdminUserPrefService
+        class: ZenMagick\apps\admin\services\AdminUserPrefService
 
       adminUserRoleService:
-        class: zenmagick\apps\admin\services\AdminUserRoleService
+        class: ZenMagick\apps\admin\services\AdminUserRoleService
 
       adminUserService:
-        class: zenmagick\apps\admin\services\AdminUserService
+        class: ZenMagick\apps\admin\services\AdminUserService

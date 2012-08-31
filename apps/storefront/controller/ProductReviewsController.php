@@ -17,9 +17,9 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-namespace zenmagick\apps\storefront\controller;
+namespace ZenMagick\apps\storefront\controller;
 
-use zenmagick\base\Beans;
+use ZenMagick\base\Beans;
 
 /**
  * Request controller for product reviews pages.
@@ -39,7 +39,7 @@ class ProductReviewsController extends \ZMController {
         $data = array();
         $data['currentProduct'] = $product;
 
-        $resultSource = new \ZMObjectResultSource('zenmagick\apps\store\entities\catalog\Review', 'reviewService', "getReviewsForProductId", array($product->getId(), $request->getSession()->getLanguageId()));
+        $resultSource = new \ZMObjectResultSource('ZenMagick\apps\store\entities\catalog\Review', 'reviewService', "getReviewsForProductId", array($product->getId(), $request->getSession()->getLanguageId()));
         $resultList = Beans::getBean('ZMResultList');
         $resultList->setResultSource($resultSource);
         $resultList->setPageNumber($request->query->getInt('page'));

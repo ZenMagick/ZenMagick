@@ -18,8 +18,8 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-use zenmagick\base\utils\BigDecimal;
-use zenmagick\plugins\unitTests\simpletest\TestCase;
+use ZenMagick\base\utils\BigDecimal;
+use ZenMagick\plugins\unitTests\simpletest\TestCase;
 
 /**
  * Test BigDecimal.

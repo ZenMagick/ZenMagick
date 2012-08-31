@@ -17,10 +17,10 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-namespace zenmagick\plugins\imageHandler2\model\catalog;
+namespace ZenMagick\plugins\imageHandler2\model\catalog;
 
 use ZMImageInfo;
-use zenmagick\base\Runtime;
+use ZenMagick\base\Runtime;
 
 /**
  * Image information implementation for ImageHandler2 support.

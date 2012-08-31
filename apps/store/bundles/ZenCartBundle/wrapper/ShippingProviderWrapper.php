@@ -17,15 +17,15 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-namespace zenmagick\apps\store\bundles\ZenCartBundle\wrapper;
+namespace ZenMagick\apps\store\bundles\ZenCartBundle\wrapper;
 
-use zenmagick\base\Beans;
-use zenmagick\base\Toolbox;
-use zenmagick\base\ZMObject;
-use zenmagick\apps\store\model\checkout\ShoppingCart;
+use ZenMagick\base\Beans;
+use ZenMagick\base\Toolbox;
+use ZenMagick\base\ZMObject;
+use ZenMagick\apps\store\model\checkout\ShoppingCart;
 
-use zenmagick\apps\store\bundles\ZenCartBundle\mock\ZenCartMock;
-use zenmagick\apps\store\bundles\ZenCartBundle\wrapper\ShippingMethodWrapper;
+use ZenMagick\apps\store\bundles\ZenCartBundle\mock\ZenCartMock;
+use ZenMagick\apps\store\bundles\ZenCartBundle\wrapper\ShippingMethodWrapper;
 
 /**
  * Shipping provider wrapper for zen cart shipping modules.
@@ -128,7 +128,7 @@ class ShippingProviderWrapper extends ZMObject implements \ZMShippingProvider {
         }
 
         // capture tax
-        $taxRate = Beans::getBean('zenmagick\apps\store\model\TaxRate');
+        $taxRate = Beans::getBean('ZenMagick\apps\store\model\TaxRate');
         $taxRate->setRate(isset($quotes['tax']) ? $quotes['tax'] : 0);
 
         $methods = array();

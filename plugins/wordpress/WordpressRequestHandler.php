@@ -18,10 +18,10 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-namespace zenmagick\plugins\wordpress;
+namespace ZenMagick\plugins\wordpress;
 
 use ZMController;
-use zenmagick\base\Toolbox;
+use ZenMagick\base\Toolbox;
 
 /**
  * WP request handler.
@@ -40,7 +40,7 @@ class WordpressRequestHandler extends ZMController {
      * Create new instance.
      *
      * @param ZMPlugin plugin The parent plugin reference.
-     * @param zenmagick\http\Request request The current request.
+     * @param ZenMagick\http\Request request The current request.
      */
     public function __construct($plugin, $request) {
         parent::__construct();

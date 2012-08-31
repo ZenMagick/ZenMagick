@@ -17,11 +17,11 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-namespace zenmagick\apps\admin\dashboard;
+namespace ZenMagick\apps\admin\dashboard;
 
-use zenmagick\base\Toolbox;
-use zenmagick\http\view\TemplateView;
-use zenmagick\http\widgets\Widget;
+use ZenMagick\base\Toolbox;
+use ZenMagick\http\view\TemplateView;
+use ZenMagick\http\widgets\Widget;
 
 /**
  * A dashboard widget.
@@ -76,7 +76,7 @@ abstract class DashboardWidget extends Widget {
     /**
      * Get the (HTML) contents.
      *
-     * @param zenmagick\http\Request request The current request.
+     * @param ZenMagick\http\Request request The current request.
      * @return string The contents.
      */
     public abstract function getContents($request);

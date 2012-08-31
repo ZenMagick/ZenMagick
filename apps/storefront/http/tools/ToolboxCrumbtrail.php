@@ -17,10 +17,10 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-namespace zenmagick\apps\storefront\http\tools;
+namespace ZenMagick\apps\storefront\http\tools;
 
-use zenmagick\base\Beans;
-use zenmagick\http\toolbox\ToolboxTool;
+use ZenMagick\base\Beans;
+use ZenMagick\http\toolbox\ToolboxTool;
 
 /**
  * Crumbtrail.
@@ -103,10 +103,12 @@ class ToolboxCrumbtrail extends ToolboxTool {
      * @return ToolboxCrumbtrail <code>$this</code> for chaining.
      */
     public function addCrumb($name, $url = null) {
+        return $this;
         if (!is_array($this->crumbs_)) {
             $this->reset();
         }
-        $crumb = Beans::getBean('zenmagick\apps\storefront\http\tools\Crumb');
+        $crumb = Beans::getBean('ZenMagick\apps\storefront\http\tools\Crumb');
+        //die(var_dump($crumb));
         $crumb->setName($name);
         $crumb->setUrl($url);
         $this->crumbs_[] = $crumb;

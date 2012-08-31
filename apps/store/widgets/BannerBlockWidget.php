@@ -17,12 +17,12 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-namespace zenmagick\apps\store\widgets;
+namespace ZenMagick\apps\store\widgets;
 
-use zenmagick\base\Runtime;
-use zenmagick\base\Toolbox;
-use zenmagick\http\widgets\Widget;
-use zenmagick\http\view\TemplateView;
+use ZenMagick\base\Runtime;
+use ZenMagick\base\Toolbox;
+use ZenMagick\http\widgets\Widget;
+use ZenMagick\http\view\TemplateView;
 
 /**
  * A banner block widget.

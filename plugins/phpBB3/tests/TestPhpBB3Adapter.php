@@ -18,12 +18,12 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-namespace zenmagick\plugins\phpbb3\tests;
+namespace ZenMagick\plugins\phpbb3\tests;
 
 use ZMAccount;
 use ZMRuntime;
-use zenmagick\plugins\phpbb3\PhpBB3Adaptor;
-use zenmagick\plugins\unitTests\simpletest\TestCase;
+use ZenMagick\plugins\phpbb3\PhpBB3Adaptor;
+use ZenMagick\plugins\unitTests\simpletest\TestCase;
 
 /**
  * Test TestPhpBB3 adapter class.

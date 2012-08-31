@@ -17,9 +17,9 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-namespace zenmagick\apps\storefront\controller;
+namespace ZenMagick\apps\storefront\controller;
 
-use zenmagick\base\Beans;
+use ZenMagick\base\Beans;
 
 /**
  * Request controller for guest checkout.
@@ -57,7 +57,7 @@ class CheckoutGuestController extends \ZMController {
         $account = Beans::getBean('ZMAccount');
         $account->setEmail($request->request->get('email_address'));
         $account->setPassword('');
-        $account->setDob(\zenmagick\base\database\Connection::NULL_DATETIME);
+        $account->setDob(\ZenMagick\base\database\Connection::NULL_DATETIME);
         $account->setType(\ZMAccount::GUEST);
         $account = $this->container->get('accountService')->createAccount($account);
 

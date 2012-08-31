@@ -17,12 +17,12 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-namespace zenmagick\plugins\imageHandler2;
+namespace ZenMagick\plugins\imageHandler2;
 
-use zenmagick\apps\store\plugins\Plugin;
-use zenmagick\base\Runtime;
-use zenmagick\base\Toolbox;
-use zenmagick\http\view\ResourceManager;
+use ZenMagick\apps\store\plugins\Plugin;
+use ZenMagick\base\Runtime;
+use ZenMagick\base\Toolbox;
+use ZenMagick\http\view\ResourceManager;
 
 /**
  * Plugin to enable support for ImageHandler2 in ZenMagick.

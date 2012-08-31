@@ -18,7 +18,7 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-use zenmagick\base\Beans;
+use ZenMagick\base\Beans;
 
 /**
  * RPC request using JSON.
@@ -33,7 +33,7 @@ class ZMRpcRequestJSON implements ZMRpcRequest {
     /**
      * Create new instance
      *
-     * @param zenmagick\http\Request request The current request; default is <code>null</code>.
+     * @param ZenMagick\http\Request request The current request; default is <code>null</code>.
      */
     function __construct($request=null) {
         $this->request_ = $request;
@@ -45,7 +45,7 @@ class ZMRpcRequestJSON implements ZMRpcRequest {
     /**
      * Set the request.
      *
-     * @param zenmagick\http\Request request The current request.
+     * @param ZenMagick\http\Request request The current request.
      */
     public function setRequest($request) {
         $this->request_ = $request;

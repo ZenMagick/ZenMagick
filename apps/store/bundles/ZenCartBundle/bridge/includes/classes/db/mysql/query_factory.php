@@ -44,7 +44,7 @@ class queryFactory {
      */
     public function mysql_connect($params = null) {
         if(!function_exists('mysql_connect')) {
-            throw new \zenmagick\base\database\DatabaseException('Install `ext/mysql` extension to enable mysql_* functions.');
+            throw new \ZenMagick\base\database\DatabaseException('Install `ext/mysql` extension to enable mysql_* functions.');
         }
         $defaults = ZMRuntime::getDatabase()->getParams();
         $params = array_merge($defaults, (array)$params);
@@ -57,7 +57,7 @@ class queryFactory {
             $this->link = $link;
             return $this->link;
         } else {
-            throw new \zenmagick\base\database\DatabaseException(mysql_error(), mysql_errno());
+            throw new \ZenMagick\base\database\DatabaseException(mysql_error(), mysql_errno());
         }
     }
 
@@ -81,7 +81,7 @@ class queryFactory {
             try {
                 return  ZMRuntime::getDatabase()->executeUpdate($sql);
             } catch (PDOException $e) {
-               throw new \zenmagick\base\database\DatabaseException($e->getMessage(), $e->getCode(), $e);
+               throw new \ZenMagick\base\database\DatabaseException($e->getMessage(), $e->getCode(), $e);
             }
         }
         if ($limit) $sql .= ' LIMIT ' . $limit;
@@ -93,7 +93,7 @@ class queryFactory {
         try {
             $stmt = ZMRuntime::getDatabase()->executeQuery($sql, array(), array(), $qcp);
         } catch (PDOException $e) {
-            throw new \zenmagick\base\database\DatabaseException($e->getMessage(), $e->getCode(), $e);
+            throw new \ZenMagick\base\database\DatabaseException($e->getMessage(), $e->getCode(), $e);
         }
 
         $obj = new queryFactoryResult($stmt);
@@ -237,7 +237,7 @@ class queryFactory {
                 }
                 return $this->prepare_input($value);
             default:
-                throw new \zenmagick\base\database\DatabaseException('var-type undefined: ' . $type . '('.$value.')');
+                throw new \ZenMagick\base\database\DatabaseException('var-type undefined: ' . $type . '('.$value.')');
         }
     }
 

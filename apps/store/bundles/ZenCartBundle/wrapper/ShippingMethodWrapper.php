@@ -17,10 +17,10 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-namespace zenmagick\apps\store\bundles\ZenCartBundle\wrapper;
+namespace ZenMagick\apps\store\bundles\ZenCartBundle\wrapper;
 
-use zenmagick\base\ZMObject;
-use zenmagick\base\Beans;
+use ZenMagick\base\ZMObject;
+use ZenMagick\base\Beans;
 
 /**
  * Shipping method wrapper for zencart shipping.
@@ -43,7 +43,7 @@ class ShippingMethodWrapper extends ZMObject implements \ZMShippingMethod {
         parent::__construct();
         $this->provider_ = $provider;
         $this->zenMethod_ = $zenMethod;
-        $this->taxRate_ = Beans::getBean('zenmagick\apps\store\model\TaxRate');
+        $this->taxRate_ = Beans::getBean('ZenMagick\apps\store\model\TaxRate');
     }
 
 

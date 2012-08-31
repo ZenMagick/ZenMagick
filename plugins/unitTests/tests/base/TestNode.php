@@ -19,9 +19,9 @@
  */
 
 use Symfony\Component\Yaml\Yaml;
-use zenmagick\base\Runtime;
-use zenmagick\base\utils\Node;
-use zenmagick\plugins\unitTests\simpletest\TestCase;
+use ZenMagick\base\Runtime;
+use ZenMagick\base\utils\Node;
+use ZenMagick\plugins\unitTests\simpletest\TestCase;
 
 /**
  * Test Node.

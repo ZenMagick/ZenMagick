@@ -11,7 +11,7 @@ Installation
 3) Configure the cron plugin to execute the cron job UpdateSubscriptionsCronJob once a day
 Example configuration:
 #mi  h    d    m    dow      job                                  comment
-0    5    *    *    *        zenmagick\plugins\subscriptions\cron\UpdateSubscriptionsCronJob         # every sunday at 5 am
+0    5    *    *    *        ZenMagick\plugins\subscriptions\cron\UpdateSubscriptionsCronJob         # every sunday at 5 am
 
 
 File Permissions

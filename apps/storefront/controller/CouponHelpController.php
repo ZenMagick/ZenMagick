@@ -17,11 +17,11 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-namespace zenmagick\apps\storefront\controller;
+namespace ZenMagick\apps\storefront\controller;
 
-use zenmagick\http\Request;
-use zenmagick\http\session\Session;
-use zenmagick\http\view\ModelAndView;
+use ZenMagick\http\Request;
+use ZenMagick\http\session\Session;
+use ZenMagick\http\view\ModelAndView;
 
 /**
  * Coupon help controller.

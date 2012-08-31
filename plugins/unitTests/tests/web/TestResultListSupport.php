@@ -18,9 +18,9 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-use zenmagick\base\Beans;
-use zenmagick\base\Runtime;
-use zenmagick\plugins\unitTests\simpletest\TestCase;
+use ZenMagick\base\Beans;
+use ZenMagick\base\Runtime;
+use ZenMagick\plugins\unitTests\simpletest\TestCase;
 
 /**
  * Test result list related code.

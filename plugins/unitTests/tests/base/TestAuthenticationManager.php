@@ -18,11 +18,11 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-use zenmagick\base\Runtime;
-use zenmagick\base\settings\Settings;
-use zenmagick\base\Toolbox;
-use zenmagick\base\security\authentication\AuthenticationProvider;
-use zenmagick\plugins\unitTests\simpletest\TestCase;
+use ZenMagick\base\Runtime;
+use ZenMagick\base\settings\Settings;
+use ZenMagick\base\Toolbox;
+use ZenMagick\base\security\authentication\AuthenticationProvider;
+use ZenMagick\plugins\unitTests\simpletest\TestCase;
 
 /**
  * Test authentication manager and provider.

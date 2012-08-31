@@ -1,4 +1,4 @@
-<?php use zenmagick\base\Toolbox; ?>
+<?php use ZenMagick\base\Toolbox; ?>
 
 <?php if (!Toolbox::isEmpty($order->getSchedule())) { ?>
     <?php _vzm("(S)") ?>

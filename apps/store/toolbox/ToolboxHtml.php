@@ -17,11 +17,11 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-namespace zenmagick\apps\store\toolbox;
+namespace ZenMagick\apps\store\toolbox;
 
-use zenmagick\base\Runtime;
-use zenmagick\base\ZMException;
-use zenmagick\http\toolbox\ToolboxTool;
+use ZenMagick\base\Runtime;
+use ZenMagick\base\ZMException;
+use ZenMagick\http\toolbox\ToolboxTool;
 
 /**
  * HTML utilities.

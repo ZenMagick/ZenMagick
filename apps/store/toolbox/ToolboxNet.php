@@ -17,11 +17,11 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-namespace zenmagick\apps\store\toolbox;
+namespace ZenMagick\apps\store\toolbox;
 
-use zenmagick\base\Runtime;
-use zenmagick\base\Toolbox;
-use zenmagick\http\toolbox\ToolboxTool;
+use ZenMagick\base\Runtime;
+use ZenMagick\base\Toolbox;
+use ZenMagick\http\toolbox\ToolboxTool;
 
 /**
  * Networking/URL related functions.
@@ -33,7 +33,7 @@ class ToolboxNet extends ToolboxTool {
     /**
      * Create a URL.
      *
-     * <p>Convenience/compatibility method calling <code>url()</code> on zenmagick\http\Request.</p>
+     * <p>Convenience/compatibility method calling <code>url()</code> on ZenMagick\http\Request.</p>
      *
      * @param string requestId The request id.
      * @param string params Query string style parameter; if <code>null</code> add all current parameter

@@ -10,7 +10,7 @@ admin:
   router:
     page:
       export_orders:
-        controller: zenmagick\plugins\dataExporter\controller\ExportOrdersController
+        controller: ZenMagick\plugins\dataExporter\controller\ExportOrdersController
   menu:
     data-exporter:
       parent: tools

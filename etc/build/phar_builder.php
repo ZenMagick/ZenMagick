@@ -19,8 +19,8 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-use zenmagick\base\Application;
-use zenmagick\base\classloader\PharBuilder;
+use ZenMagick\base\Application;
+use ZenMagick\base\classloader\PharBuilder;
 
 
     /**

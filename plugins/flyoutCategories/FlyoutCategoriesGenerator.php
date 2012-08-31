@@ -21,9 +21,9 @@
 // Fix for line 48 provided by Paulm, uploaded by Kelvyn
 // Adapted for ZenMagick by DerManoMann <mano@zenmagick.org>
 
-namespace zenmagick\plugins\flyoutCategories;
+namespace ZenMagick\plugins\flyoutCategories;
 
-use zenmagick\base\Runtime;
+use ZenMagick\base\Runtime;
 
 
 class FlyoutCategoriesGenerator {

@@ -1,0 +1,115 @@
+<?xml version="1.0" ?>
+
+<!-- base container -->
+<container xmlns="http://symfony.com/schema/dic/services"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <parameters>
+        <parameter key="zenmagick.base.plugins.defaultPluginClass">ZenMagick\base\plugins\Plugin</parameter>
+        <parameter key="zenmagick.base.plugins.dirs" type="collection">
+            <parameter>%kernel.root_dir%/plugins</parameter>
+            <parameter>%kernel.root_dir%/apps/%kernel.context%/plugins</parameter>
+        </parameter>
+    </parameters>
+
+    <services>
+
+        <service id="containerTagService" class="ZenMagick\base\dependencyInjection\tags\ContainerTagService" />
+
+        <service id="transientCache" class="ZenMagick\base\cache\MemoryCache">
+            <call method="init">
+                <argument>global</argument>
+                <argument type="collection" />
+            </call>
+        </service>
+
+        <service id="persistentCache" class="ZenMagick\base\cache\FileCache">
+            <call method="init">
+                <argument>global</argument>
+                <argument type="collection">
+                    <argument key="cacheTTL">300</argument>
+                    <argument key="cacheDir">%kernel.cache_dir%/files/</argument>
+                </argument>
+            </call>
+        </service>
+
+        <service id="bootstrapCache" class="ZenMagick\base\cache\FileCache">
+            <call method="init">
+                <argument>bootstrap</argument>
+                <argument type="collection">
+                    <argument key="cacheTTL">null</argument>
+                    <argument key="cacheDir">%kernel.cache_dir%/files/</argument>
+                </argument>
+            </call>
+        </service>
+
+        <service id="localeService" class="ZenMagick\base\locales\Locales">
+            <argument>%kernel.default_locale%</argument>
+        </service>
+        <service id="localeScanner" class="ZenMagick\base\locales\LocaleScanner" scope="prototype">
+            <call method="setFilesystem">
+                <argument type="service" id="filesystem" />
+            </call>
+        </service>
+
+        <service id="settingsService" class="ZenMagick\base\settings\Settings" />
+
+        <service id="contextConfigLoader" class="ZenMagick\base\utils\ContextConfigLoader" scope="prototype">
+            <call method="setContainer">
+                <argument type="service" id="service_container" />
+            </call>
+            <call method="setContext">
+                <argument>%kernel.context%</argument>
+            </call>
+            <call method="setSettingsService">
+                <argument type="service" id="settingsService" />
+            </call>
+        </service>
+
+        <service id="pluginService" class="ZenMagick\base\plugins\Plugins">
+            <argument type="service" id="pluginStatusMapBuilder" />
+            <argument type="service" id="contextConfigLoader" strict="false" />
+            <call method="setCache">
+                <argument type="service" id="bootstrapCache" />
+            </call>
+            <call method="setContainer">
+                <argument type="service" id="service_container" />
+            </call>
+        </service>
+
+        <service id="pluginOptionsLoader" class="ZenMagick\base\plugins\PluginOptionsLoader" />
+
+        <service id="pluginStatusMapBuilder" class="ZenMagick\base\plugins\PluginStatusMapBuilder">
+            <argument>%zenmagick.base.plugins.defaultPluginClass%</argument>
+            <argument>%zenmagick.base.plugins.dirs%</argument>
+            <argument type="service" id="pluginOptionsLoader" />
+            <argument type="service" id="bootstrapCache" />
+            <tag name="kernel.cache_warmer" />
+        </service>
+
+        <service id="sha1AuthenticationProvider" class="ZenMagick\base\security\authentication\provider\Sha1AuthenticationProvider">
+            <tag name="zenmagick.base.security.authentication.provider" />
+        </service>
+
+        <service id="phPassAuthenticationProvider" class="ZenMagick\base\security\authentication\provider\PhPassAuthenticationProvider">
+            <tag name="zenmagick.base.security.authentication.provider" />
+        </service>
+
+        <service id="filesystem" class="Symfony\Component\Filesystem\Filesystem" />
+
+        <service id="phpCompressor" class="ZenMagick\base\utils\packer\PhpCompressor" scope="prototype">
+            <call method="setFilesystem">
+                <argument type="service" id="filesystem" />
+            </call>
+        </service>
+        <service id="phpPackagePacker" class="ZenMagick\base\utils\packer\PhpPackagePacker" scope="prototype">
+            <call method="setFilesystem">
+                <argument type="service" id="filesystem" />
+            </call>
+            <call method="setPhPhPPCompressor">
+                <argument type="service" id="phpCompressor" />
+            </call>
+        </service>
+    </services>
+</container>

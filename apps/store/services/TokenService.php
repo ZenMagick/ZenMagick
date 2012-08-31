@@ -17,13 +17,13 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-namespace zenmagick\apps\store\services;
+namespace ZenMagick\apps\store\services;
 
 use DateTime;
 use ZMRuntime;
-use zenmagick\base\Beans;
-use zenmagick\base\Runtime;
-use zenmagick\base\ZMObject;
+use ZenMagick\base\Beans;
+use ZenMagick\base\Runtime;
+use ZenMagick\base\ZMObject;
 
 /**
  * Token service.
@@ -58,7 +58,7 @@ class TokenService extends ZMObject {
      * @return Token A token.
      */
     public function getNewToken($resource, $lifetime) {
-        $token = Beans::getBean('zenmagick\apps\store\model\Token');
+        $token = Beans::getBean('ZenMagick\apps\store\model\Token');
         $token->setHash($this->createToken());
         $token->setResource($resource);
         $now = new DateTime();
@@ -91,7 +91,7 @@ class TokenService extends ZMObject {
     public function validateHash($resource, $hash, $expire=true) {
         $sql = "SELECT * FROM %table.token%
                 WHERE hash = :hash AND resource = :resource AND expires >= now()";
-        $token = ZMRuntime::getDatabase()->querySingle($sql, array('hash' => $hash, 'resource' => $resource), 'token', 'zenmagick\apps\store\model\Token');
+        $token = ZMRuntime::getDatabase()->querySingle($sql, array('hash' => $hash, 'resource' => $resource), 'token', 'ZenMagick\apps\store\model\Token');
         if ($expire && null !== $token) {
             $sql = "DELETE FROM %table.token%
                     WHERE hash = :hash AND resource = :resource";
@@ -109,7 +109,7 @@ class TokenService extends ZMObject {
     public function getTokenForResource($resource) {
         $sql = "SELECT * FROM %table.token%
                 WHERE resource = :resource AND expires >= now()";
-        return ZMRuntime::getDatabase()->fetchAll($sql, array('resource' => $resource), 'token', 'zenmagick\apps\store\model\Token');
+        return ZMRuntime::getDatabase()->fetchAll($sql, array('resource' => $resource), 'token', 'ZenMagick\apps\store\model\Token');
     }
 
     /**
@@ -121,7 +121,7 @@ class TokenService extends ZMObject {
     public function getTokenForHash($hash) {
         $sql = "SELECT * FROM %table.token%
                 WHERE hash = :hash AND expires >= now()";
-        $results = ZMRuntime::getDatabase()->fetchAll($sql, array('hash' => $hash), 'token', 'zenmagick\apps\store\model\Token');
+        $results = ZMRuntime::getDatabase()->fetchAll($sql, array('hash' => $hash), 'token', 'ZenMagick\apps\store\model\Token');
         if (1 < count($results)) {
             Runtime::getLogging()->warn('duplicate token for hash: '.$hash);
             // expire all

@@ -18,8 +18,8 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-use zenmagick\http\Request;
-use zenmagick\plugins\unitTests\simpletest\TestCase;
+use ZenMagick\http\Request;
+use ZenMagick\plugins\unitTests\simpletest\TestCase;
 
 /**
  * Test validation rules.

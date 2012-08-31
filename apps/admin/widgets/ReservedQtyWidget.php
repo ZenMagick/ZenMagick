@@ -17,10 +17,10 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-namespace zenmagick\apps\admin\widgets;
+namespace ZenMagick\apps\admin\widgets;
 
-use zenmagick\http\widgets\Widget;
-use zenmagick\http\view\TemplateView;
+use ZenMagick\http\widgets\Widget;
+use ZenMagick\http\view\TemplateView;
 
 /**
  * <p>Display reserved qty.</p>

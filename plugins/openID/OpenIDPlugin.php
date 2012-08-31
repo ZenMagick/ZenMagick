@@ -17,10 +17,10 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-namespace zenmagick\plugins\openID;
+namespace ZenMagick\plugins\openID;
 
-use zenmagick\apps\store\plugins\Plugin;
-use zenmagick\base\Runtime;
+use ZenMagick\apps\store\plugins\Plugin;
+use ZenMagick\base\Runtime;
 
 define('OPENID_ENABLED', true);
 define('Auth_OpenID_RAND_SOURCE', null);
@@ -76,7 +76,7 @@ class OpenIDPlugin extends Plugin {
         $this->container->get('zmvalidator')->addRules('openid_login', $rules);
 
         // add validation rule for account edit
-        $this->container->get('zmvalidator')->addRule('edit_account', array('zenmagick\plugins\openID\validation\rules\UniqueOpenIDRule', 'openid'));
+        $this->container->get('zmvalidator')->addRule('edit_account', array('ZenMagick\plugins\openID\validation\rules\UniqueOpenIDRule', 'openid'));
     }
 
 

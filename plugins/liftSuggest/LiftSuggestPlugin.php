@@ -17,11 +17,11 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-namespace zenmagick\plugins\liftSuggest;
+namespace ZenMagick\plugins\liftSuggest;
 
-use zenmagick\apps\store\plugins\Plugin;
-use zenmagick\base\Beans;
-use zenmagick\base\Toolbox;
+use ZenMagick\apps\store\plugins\Plugin;
+use ZenMagick\base\Beans;
+use ZenMagick\base\Toolbox;
 
 /**
  * Plugin adding support for liftsuggest product suggestions.
@@ -49,7 +49,7 @@ class LiftSuggestPlugin extends Plugin {
     /**
      * Generate the required JS code for success tracking.
      *
-     * @param zenmagick\http\Request request The current request.
+     * @param ZenMagick\http\Request request The current request.
      * @return string The complete code.
      */
     protected function getTrackerCode($request) {
@@ -148,7 +148,7 @@ EOT;
      * @return array List of maps with product recommendation details or <code>null</code> on failure.
      */
     public function getProductRecommendations($productId, $limit=null) {
-        $lsr = Beans::getBean('zenmagick\plugins\liftSuggest\ZMLiftSuggestLookup');
+        $lsr = Beans::getBean('ZenMagick\plugins\liftSuggest\ZMLiftSuggestLookup');
         if (null === $this->recommendationsLoadedFor) {
             // grab first
             $this->recommendationsLoadedFor = $productId;

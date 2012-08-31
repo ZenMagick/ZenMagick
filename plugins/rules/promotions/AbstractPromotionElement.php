@@ -17,9 +17,9 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-namespace zenmagick\plugins\rules\promotions;
+namespace ZenMagick\plugins\rules\promotions;
 
-use zenmagick\apps\store\model\checkout\ShoppingCart;
+use ZenMagick\apps\store\model\checkout\ShoppingCart;
 
 /**
  * Base class for promotional elements.

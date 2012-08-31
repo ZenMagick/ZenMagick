@@ -18,7 +18,7 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-use zenmagick\base\utils\packer\PhpPackagePacker;
+use ZenMagick\base\utils\packer\PhpPackagePacker;
 
 
 /**

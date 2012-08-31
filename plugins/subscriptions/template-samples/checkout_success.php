@@ -1,4 +1,4 @@
-<?php use zenmagick\base\Toolbox; ?>
+<?php use ZenMagick\base\Toolbox; ?>
 
 <?php $schedule = $currentOrder->getSchedule(); ?>
 <?php if (!Toolbox::isEmpty($schedule)) { ?>

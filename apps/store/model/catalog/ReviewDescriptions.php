@@ -18,9 +18,9 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-namespace zenmagick\apps\store\model\catalog;
+namespace ZenMagick\apps\store\model\catalog;
 
-use zenmagick\base\ZMObject;
+use ZenMagick\base\ZMObject;
 
 use Doctrine\ORM\Mapping AS ORM;
 
@@ -34,7 +34,7 @@ class ReviewDescriptions extends ZMObject {
     /**
      * @var object $review
      * @ORM\Id
-     * @ORM\ManyToOne(targetEntity="zenmagick\apps\store\model\catalog\Review", inversedBy="descriptions")
+     * @ORM\ManyToOne(targetEntity="ZenMagick\apps\store\model\catalog\Review", inversedBy="descriptions")
      * @ORM\JoinColumn(name="reviews_id", referencedColumnName="reviews_id")
      */
     private $review;

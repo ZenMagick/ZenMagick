@@ -5,11 +5,11 @@
  * @license http://www.zen-cart.com/license/2_0.txt GNU Public License V2.0
  * @version $Id$
  */
-namespace zenmagick\apps\admin\utils;
+namespace ZenMagick\apps\admin\utils;
 
-use zenmagick\base\Beans;
-use zenmagick\base\Runtime;
-use zenmagick\base\Toolbox;
+use ZenMagick\base\Beans;
+use ZenMagick\base\Runtime;
+use ZenMagick\base\Toolbox;
 
 if (!defined('ZC_UPG_DEBUG3')) define('ZC_UPG_DEBUG3', false);
 if (!defined('REASON_TABLE_ALREADY_EXISTS')) {
@@ -533,7 +533,7 @@ class SQLRunner {
   }
 
   static function create_message($msg, $type) {
-    $message = Beans::getBean('zenmagick\http\messages\Message');
+    $message = Beans::getBean('ZenMagick\http\messages\Message');
     $message->setText($msg);
     $message->setType($type);
     return $message;

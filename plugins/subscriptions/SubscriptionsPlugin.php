@@ -17,15 +17,15 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-namespace zenmagick\plugins\subscriptions;
+namespace ZenMagick\plugins\subscriptions;
 
-use zenmagick\apps\store\plugins\Plugin;
-use zenmagick\base\Beans;
-use zenmagick\base\Runtime;
-use zenmagick\base\Toolbox;
-use zenmagick\http\sacs\SacsManager;
-use zenmagick\apps\store\model\checkout\ShoppingCart;
-use zenmagick\plugins\subscriptions\cron\UpdateSubscriptionsCronJob;
+use ZenMagick\apps\store\plugins\Plugin;
+use ZenMagick\base\Beans;
+use ZenMagick\base\Runtime;
+use ZenMagick\base\Toolbox;
+use ZenMagick\http\sacs\SacsManager;
+use ZenMagick\apps\store\model\checkout\ShoppingCart;
+use ZenMagick\plugins\subscriptions\cron\UpdateSubscriptionsCronJob;
 
 /**
  * Subscriptions.

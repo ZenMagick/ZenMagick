@@ -18,10 +18,10 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-namespace zenmagick\apps\store\bundles\ZenCartBundle\utils;
+namespace ZenMagick\apps\store\bundles\ZenCartBundle\utils;
 
-use zenmagick\base\Runtime;
-use zenmagick\base\ZMObject;
+use ZenMagick\base\Runtime;
+use ZenMagick\base\ZMObject;
 
 /**
  * ZenCart auto loader utility
@@ -125,7 +125,7 @@ class ZenCartAutoLoader extends ZMObject {
      */
     public function initCommon() {
         $this->overrideRequestGlobals();
-        $zcClassLoader = new \zenmagick\apps\store\bundles\ZenCartBundle\ZenCartClassLoader();
+        $zcClassLoader = new \ZenMagick\apps\store\bundles\ZenCartBundle\ZenCartClassLoader();
         $zcClassLoader->setBaseDirectories($this->buildSearchPaths('includes/classes'));
         $zcClassLoader->register();
 

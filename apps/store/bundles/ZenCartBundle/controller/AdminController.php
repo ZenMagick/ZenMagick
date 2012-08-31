@@ -17,7 +17,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-namespace zenmagick\apps\store\bundles\ZenCartBundle\controller;
+namespace ZenMagick\apps\store\bundles\ZenCartBundle\controller;
 
 /**
  * ZenCart admin controller
@@ -103,7 +103,7 @@ class AdminController extends \ZMController {
      * Most of this code is only useful for 1.3.9 and not 1.5.0
      *
      * @todo require 1.5.0? we could drop all of thise code if we implemented the above
-     * @todo should we dynamically add to tokenSecuredForms instead and let zenmagick\http\Request handle it?
+     * @todo should we dynamically add to tokenSecuredForms instead and let ZenMagick\http\Request handle it?
      */
     public function validateSecurityToken($request) {
         $action = $request->request->get('action', '');

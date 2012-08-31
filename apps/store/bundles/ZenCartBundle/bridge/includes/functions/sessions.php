@@ -19,31 +19,31 @@
  */
 
 function zen_session_start() {
-    return \zenmagick\base\Runtime::getContainer()->get('session')->start();
+    return \ZenMagick\base\Runtime::getContainer()->get('session')->start();
 }
 
 /**
  * @todo shared certificates! support switching the id.
  */
 function zen_session_id($sessid = '') {
-    return (string)\zenmagick\base\Runtime::getContainer()->get('session')->getId();
+    return (string)\ZenMagick\base\Runtime::getContainer()->get('session')->getId();
 }
 
 function zen_session_name($name = '') {
-    \zenmagick\base\Runtime::getContainer()->get('session')->getName();
+    \ZenMagick\base\Runtime::getContainer()->get('session')->getName();
 }
 
 function zen_session_close() {
-    \zenmagick\base\Runtime::getContainer()->get('session')->save();
+    \ZenMagick\base\Runtime::getContainer()->get('session')->save();
 }
 
 function zen_session_destroy() {
-    \zenmagick\base\Runtime::getContainer()->get('session')->invalidate();
+    \ZenMagick\base\Runtime::getContainer()->get('session')->invalidate();
 }
 
 function zen_session_save_path($path = '') {
 }
 
 function zen_session_recreate() {
-    \zenmagick\base\Runtime::getContainer()->get('session')->migrate();
+    \ZenMagick\base\Runtime::getContainer()->get('session')->migrate();
 }

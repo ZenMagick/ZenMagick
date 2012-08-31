@@ -49,7 +49,7 @@ admin,storefront:
     services:
       XProducts:
         parent: merge:ZMProducts
-        class: zenmagick\themes\test\model\XProducts
+        class: ZenMagick\themes\test\model\XProducts
       MetaTags:
-        parent: merge:zenmagick\apps\storefront\http\tools\ToolboxMetaTags
-        class: zenmagick\themes\test\http\tools\XToolboxMetaTags
+        parent: merge:ZenMagick\apps\storefront\http\tools\ToolboxMetaTags
+        class: ZenMagick\themes\test\http\tools\XToolboxMetaTags

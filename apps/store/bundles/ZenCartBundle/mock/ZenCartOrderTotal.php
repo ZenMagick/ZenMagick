@@ -20,10 +20,10 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-namespace zenmagick\apps\store\bundles\ZenCartBundle\Mock;
+namespace ZenMagick\apps\store\bundles\ZenCartBundle\Mock;
 
-use zenmagick\base\Runtime;
-use zenmagick\base\ZMObject;
+use ZenMagick\base\Runtime;
+use ZenMagick\base\ZMObject;
 
 /**
  * zencart order totals.

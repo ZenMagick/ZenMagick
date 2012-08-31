@@ -17,10 +17,10 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-namespace zenmagick\apps\store\bundles\ZenCartBundle;
+namespace ZenMagick\apps\store\bundles\ZenCartBundle;
 
-use zenmagick\base\classloader\ClassLoader;
-use zenmagick\base\Runtime;
+use ZenMagick\base\classloader\ClassLoader;
+use ZenMagick\base\Runtime;
 
 /**
  * Zencart class loader.

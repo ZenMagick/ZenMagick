@@ -21,4 +21,4 @@ admin,storefront:
     services:
       ImageInfo:
         parent: merge:ZMImageInfo
-        class: zenmagick\plugins\imageHandler2\model\catalog\ImageInfo
+        class: ZenMagick\plugins\imageHandler2\model\catalog\ImageInfo

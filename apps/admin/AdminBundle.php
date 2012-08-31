@@ -1,5 +1,5 @@
 <?php
-namespace zenmagick\apps\admin;
+namespace ZenMagick\apps\admin;
 
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 

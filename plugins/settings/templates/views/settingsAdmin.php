@@ -18,7 +18,7 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 $admin->title();
-use zenmagick\base\Toolbox;
+use ZenMagick\base\Toolbox;
 ?>
 
 <h2><?php _vzm('Manage Settings') ?></h2>
@@ -77,7 +77,7 @@ use zenmagick\base\Toolbox;
                 <?php foreach ($plugin->getConfigValues() as $value) { ?>
                     <?php if (Toolbox::endsWith($value->getKey(), Plugin::KEY_ENABLED) || Toolbox::endsWith($value->getKey(), Plugin::KEY_SORT_ORDER)) { continue; } ?>
 
-                    <?php if ($value instanceof zenmagick\http\widgets\Widget) { ?>
+                    <?php if ($value instanceof ZenMagick\http\widgets\Widget) { ?>
                         <?php if (Toolbox::endsWith($value->getName(), Plugin::KEY_ENABLED) || Toolbox::endsWith($value->getName(), Plugin::KEY_SORT_ORDER)) { continue; } ?>
                         <tr>
                             <td><?php echo $value->getTitle() ?></td>

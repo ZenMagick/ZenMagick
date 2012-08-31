@@ -17,19 +17,19 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-namespace zenmagick\plugins\unitTests\controller;
+namespace ZenMagick\plugins\unitTests\controller;
 
 use Exception;
 use RecursiveIteratorIterator;
 use RecursiveDirectoryIterator;
 use TestSuite;
 use UnitTestCase;
-use zenmagick\base\Beans;
-use zenmagick\base\classloader\ClassLoader;
-use zenmagick\base\Runtime;
-use zenmagick\base\Toolbox;
-use zenmagick\plugins\unitTests\UnitTestsPlugin;
-use zenmagick\plugins\unitTests\simpletest\HtmlReporter;
+use ZenMagick\base\Beans;
+use ZenMagick\base\classloader\ClassLoader;
+use ZenMagick\base\Runtime;
+use ZenMagick\base\Toolbox;
+use ZenMagick\plugins\unitTests\UnitTestsPlugin;
+use ZenMagick\plugins\unitTests\simpletest\HtmlReporter;
 
 /**
  * Unit testing controller.

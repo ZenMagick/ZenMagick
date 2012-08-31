@@ -19,5 +19,5 @@ storefront:
   routing:
     captchaImg:
       pattern: /captchaImg
-      defaults: { _controller: zenmagick\plugins\captcha\controller\CaptchaImgController }
+      defaults: { _controller: ZenMagick\plugins\captcha\controller\CaptchaImgController }
 

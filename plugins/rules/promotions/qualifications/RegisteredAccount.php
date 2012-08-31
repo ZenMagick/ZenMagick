@@ -17,9 +17,9 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-namespace zenmagick\plugins\rules\promotions\qualifications;
+namespace ZenMagick\plugins\rules\promotions\qualifications;
 
-use zenmagick\plugins\rules\promotions\AbstractPromotionElement;
+use ZenMagick\plugins\rules\promotions\AbstractPromotionElement;
 use phprules\SingleRule;
 use phprules\RuleContext;
 

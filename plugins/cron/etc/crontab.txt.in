@@ -1,6 +1,6 @@
 #comments start with '#'
 #mi  h    d    m    dow      job                     comment
-0    5    0    *    Sun      zenmagick\plugins\cron\jobs\SimpleCronJob         # every sunday at 5 am
-40   5    2    *    -        zenmagick\plugins\cron\jobs\SimpleCronJob         # 5:40 am on the second day of each month
-*    8-19 *    *    Mon-Fri  zenmagick\plugins\cron\jobs\SimpleCronJob         # Every minute on workdays between 8am and 7pm
-0-59 *    1-15 3,4  Mon-Fri  zenmagick\plugins\cron\jobs\SimpleCronJob         # Every minute of every day, in the first half of March and April
+0    5    0    *    Sun      ZenMagick\plugins\cron\jobs\SimpleCronJob         # every sunday at 5 am
+40   5    2    *    -        ZenMagick\plugins\cron\jobs\SimpleCronJob         # 5:40 am on the second day of each month
+*    8-19 *    *    Mon-Fri  ZenMagick\plugins\cron\jobs\SimpleCronJob         # Every minute on workdays between 8am and 7pm
+0-59 *    1-15 3,4  Mon-Fri  ZenMagick\plugins\cron\jobs\SimpleCronJob         # Every minute of every day, in the first half of March and April

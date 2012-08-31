@@ -17,11 +17,11 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-namespace zenmagick\apps\admin\http\tools;
+namespace ZenMagick\apps\admin\http\tools;
 
-use zenmagick\base\Runtime;
-use zenmagick\http\toolbox\ToolboxTool;
-use zenmagick\apps\store\controller\CatalogContentController;
+use ZenMagick\base\Runtime;
+use ZenMagick\http\toolbox\ToolboxTool;
+use ZenMagick\apps\store\controller\CatalogContentController;
 
 /**
  * Admin related functions.
@@ -126,7 +126,7 @@ class ToolboxAdmin extends ToolboxTool {
     /**
      * Build category tree as simple unordered list.
      *
-     * @param zenmagick\http\Request request The current request.
+     * @param ZenMagick\http\Request request The current request.
      * @param array categories List of root categories; default is <code>null</code>.
      * @param boolean start Flag to indicate start of recursion; default is <code>true</code>.
      * @return string The created HTML.

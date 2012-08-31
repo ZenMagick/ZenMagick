@@ -18,11 +18,11 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-namespace zenmagick\plugins\phpbb3;
+namespace ZenMagick\plugins\phpbb3;
 
 use Phpass\Hash;
 use Phpass\Hash\Adapter\Portable;
-use zenmagick\base\security\authentication\provider\PhPassAuthenticationProvider;
+use ZenMagick\base\security\authentication\provider\PhPassAuthenticationProvider;
 
 /**
  * phpBB3 authentication provider.

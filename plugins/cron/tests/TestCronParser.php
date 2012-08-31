@@ -17,10 +17,10 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-namespace zenmagick\plugins\cron\tests;
+namespace ZenMagick\plugins\cron\tests;
 
-use zenmagick\base\Beans;
-use zenmagick\plugins\unitTests\simpletest\TestCase;
+use ZenMagick\base\Beans;
+use ZenMagick\plugins\unitTests\simpletest\TestCase;
 
 /**
  * Test the cron parser.
@@ -29,11 +29,11 @@ use zenmagick\plugins\unitTests\simpletest\TestCase;
  */
 class TestCronParser extends TestCase {
     protected static $TEXT_CRONTAB = array(
-        '0    5    0    *    Sun      zenmagick\plugins\cron\jobs\SimpleCronJob         # every sunday at 5 am',
-        '40   5    2    *    -        zenmagick\plugins\cron\jobs\SimpleCronJob         # 5:40 am on the second day of each month',
-        '*    8-19 *    *    Mon-Fri  zenmagick\plugins\cron\jobs\SimpleCronJob         # Every minute on workdays between 8am and 7pm',
-        '0-59 *    1-15 3,4  Mon-Fri  zenmagick\plugins\cron\jobs\SimpleCronJob         # Every minute of every day, in the first half of March and April',
-        '*/15 *    *    *    -        zenmagick\plugins\cron\jobs\UpdateFacetsCronJob   # every 15 minutes'
+        '0    5    0    *    Sun      ZenMagick\plugins\cron\jobs\SimpleCronJob         # every sunday at 5 am',
+        '40   5    2    *    -        ZenMagick\plugins\cron\jobs\SimpleCronJob         # 5:40 am on the second day of each month',
+        '*    8-19 *    *    Mon-Fri  ZenMagick\plugins\cron\jobs\SimpleCronJob         # Every minute on workdays between 8am and 7pm',
+        '0-59 *    1-15 3,4  Mon-Fri  ZenMagick\plugins\cron\jobs\SimpleCronJob         # Every minute of every day, in the first half of March and April',
+        '*/15 *    *    *    -        ZenMagick\plugins\cron\jobs\UpdateFacetsCronJob   # every 15 minutes'
     );
 
     /**
@@ -42,7 +42,7 @@ class TestCronParser extends TestCase {
      * @retun CronParser A parser instance.
      */
     protected function getParser() {
-        $parser = Beans::getBean('zenmagick\plugins\cron\CronParser');
+        $parser = Beans::getBean('ZenMagick\plugins\cron\CronParser');
         $this->assertNotNull($parser);
         return $parser;
     }
@@ -59,7 +59,7 @@ class TestCronParser extends TestCase {
         $this->assertEqual(5, $result[0]['hours']);
         $this->assertEqual(0, $result[0]['mday']);
         $this->assertEqual('Sun', $result[0]['wday']);
-        $this->assertEqual('zenmagick\plugins\cron\jobs\SimpleCronJob', $result[0]['task']);
+        $this->assertEqual('ZenMagick\plugins\cron\jobs\SimpleCronJob', $result[0]['task']);
         $this->assertEqual(TestCronParser::$TEXT_CRONTAB[0], $result[0]['line']);
     }
 

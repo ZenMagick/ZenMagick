@@ -17,14 +17,14 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-namespace zenmagick\apps\store\plugins;
+namespace ZenMagick\apps\store\plugins;
 
-use zenmagick\base\Runtime;
-use zenmagick\base\Toolbox;
-use zenmagick\base\ZMException;
-use zenmagick\http\plugins\HttpPlugin;
+use ZenMagick\base\Runtime;
+use ZenMagick\base\Toolbox;
+use ZenMagick\base\ZMException;
+use ZenMagick\http\plugins\HttpPlugin;
 
-use zenmagick\apps\store\menu\MenuElement;
+use ZenMagick\apps\store\menu\MenuElement;
 
 /**
  * Store plugin base class.
@@ -41,7 +41,7 @@ class Plugin extends HttpPlugin {
     /**
      * Get optional installation messages.
      *
-     * @return array List of <code>zenmagick\http\messages\Message</code> instances.
+     * @return array List of <code>ZenMagick\http\messages\Message</code> instances.
      */
     public function getMessages() {
         return $this->messages_;
@@ -90,8 +90,8 @@ class Plugin extends HttpPlugin {
      */
     public function executePatch($sql, $messages, $debug=false) {
         if (!empty($sql)) {
-            $results = \zenmagick\apps\admin\utils\SQLRunner::execute_sql($sql, $debug);
-            foreach (\zenmagick\apps\admin\utils\SQLRunner::process_patch_results($results) as $msg) {
+            $results = \ZenMagick\apps\admin\utils\SQLRunner::execute_sql($sql, $debug);
+            foreach (\ZenMagick\apps\admin\utils\SQLRunner::process_patch_results($results) as $msg) {
                 $messages[] = $msg;
             }
             return empty($results['error']);

@@ -17,10 +17,10 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-namespace zenmagick\apps\storefront\controller;
+namespace ZenMagick\apps\storefront\controller;
 
-use zenmagick\base\Beans;
-use zenmagick\base\Runtime;
+use ZenMagick\base\Beans;
+use ZenMagick\base\Runtime;
 
 /**
  * Ajax controller for JSON shopping cart.
@@ -42,7 +42,7 @@ class AjaxShoppingCartController extends \ZMAjaxController {
     /**
      * Estimate shipping.
      *
-     * @param zenmagick\http\Request request The current request.
+     * @param ZenMagick\http\Request request The current request.
      * @deprecated Use ZMAjaxCheckoutController instead
      */
     public function estimateShippingJSON($request) {
@@ -83,7 +83,7 @@ class AjaxShoppingCartController extends \ZMAjaxController {
     /**
      * Get cart content.
      *
-     * @param zenmagick\http\Request request The current request.
+     * @param ZenMagick\http\Request request The current request.
      */
     public function getContentsJSON($request) {
         $shoppingCart = $request->getShoppingCart();
@@ -116,7 +116,7 @@ class AjaxShoppingCartController extends \ZMAjaxController {
      *
      * <p>Will return the new cart contents.</p>
      *
-     * @param zenmagick\http\Request request The current request.
+     * @param ZenMagick\http\Request request The current request.
      */
     public function addProductJSON($request) {
         $shoppingCart = $request->getShoppingCart();
@@ -141,7 +141,7 @@ class AjaxShoppingCartController extends \ZMAjaxController {
      *  <dt>productId</dt><dd>The product id</dd>
      * </dl>
      *
-     * @param zenmagick\http\Request request The current request.
+     * @param ZenMagick\http\Request request The current request.
      */
     public function removeProductJSON($request) {
         $productId = $request->query->get('productId');
@@ -167,7 +167,7 @@ class AjaxShoppingCartController extends \ZMAjaxController {
      *
      * <p>Will return the new cart contents.</p>
      *
-     * @param zenmagick\http\Request request The current request.
+     * @param ZenMagick\http\Request request The current request.
      */
     public function updateProductJSON($request) {
         $productId = $request->query->get('productId');

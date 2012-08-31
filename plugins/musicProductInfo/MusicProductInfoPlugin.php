@@ -17,11 +17,11 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-namespace zenmagick\plugins\musicProductInfo;
+namespace ZenMagick\plugins\musicProductInfo;
 
-use zenmagick\apps\store\plugins\Plugin;
-use zenmagick\base\Runtime;
-use zenmagick\base\ZMObject;
+use ZenMagick\apps\store\plugins\Plugin;
+use ZenMagick\base\Runtime;
+use ZenMagick\base\ZMObject;
 
 /**
  * Plugin for <em>product_music_info</em> product template.
@@ -59,7 +59,7 @@ class MusicProductInfoPlugin extends Plugin {
      */
     public function onContainerReady($event) {
         // attach mediaUrl method to the $net toolbox tool
-        ZMObject::attachMethod('mediaUrl', 'zenmagick\apps\store\toolbox\ToolboxNet',
+        ZMObject::attachMethod('mediaUrl', 'ZenMagick\apps\store\toolbox\ToolboxNet',
             array($this, 'mediaUrl'));
     }
 

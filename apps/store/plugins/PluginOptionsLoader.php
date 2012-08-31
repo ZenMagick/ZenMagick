@@ -17,11 +17,11 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-namespace zenmagick\apps\store\plugins;
+namespace ZenMagick\apps\store\plugins;
 
-use zenmagick\base\plugins\PluginOptionsLoader as BasePluginOptionsLoader;
-use zenmagick\apps\store\services\ConfigWidgetService;
-use zenmagick\base\plugins\Plugin;
+use ZenMagick\base\plugins\PluginOptionsLoader as BasePluginOptionsLoader;
+use ZenMagick\apps\store\services\ConfigWidgetService;
+use ZenMagick\base\plugins\Plugin;
 
 /**
  * Loader for store plugin options.

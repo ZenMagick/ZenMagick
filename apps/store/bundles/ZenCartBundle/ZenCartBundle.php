@@ -17,13 +17,13 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-namespace zenmagick\apps\store\bundles\ZenCartBundle;
+namespace ZenMagick\apps\store\bundles\ZenCartBundle;
 
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 
-use zenmagick\base\Runtime;
-use zenmagick\apps\store\bundles\ZenCartBundle\DependencyInjection\ZencartExtension;
+use ZenMagick\base\Runtime;
+use ZenMagick\apps\store\bundles\ZenCartBundle\DependencyInjection\ZencartExtension;
 
 /**
  * Zencart support bundle.

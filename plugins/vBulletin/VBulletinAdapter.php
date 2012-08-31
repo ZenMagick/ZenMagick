@@ -17,12 +17,12 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-namespace zenmagick\plugins\vBulletin;
+namespace ZenMagick\plugins\vBulletin;
 
 use ZMRuntime;
-use zenmagick\base\Toolbox;
-use zenmagick\base\ZMException;
-use zenmagick\base\ZMObject;
+use ZenMagick\base\Toolbox;
+use ZenMagick\base\ZMException;
+use ZenMagick\base\ZMObject;
 
 /**
  * Adapter class for vBulletin data.
@@ -65,7 +65,7 @@ class VBulletinAdapter extends ZMObject {
     /**
      * Get database.
      *
-     * @return zenmagick\base\database\Connection A database handle.
+     * @return ZenMagick\base\database\Connection A database handle.
      */
     protected function getDatabase() {
         if (null == $this->database_) {
@@ -79,7 +79,7 @@ class VBulletinAdapter extends ZMObject {
     /**
      * Check for duplicate nickname.
      *
-     * @param zenmagick\http\Request request The current request.
+     * @param ZenMagick\http\Request request The current request.
      * @param array data The data.
      * @return boolean <code>true</code> if the nickname is valid, <code>false</code> if not.
      */
@@ -90,7 +90,7 @@ class VBulletinAdapter extends ZMObject {
     /**
      * Check for duplicate email address.
      *
-     * @param zenmagick\http\Request request The current request.
+     * @param ZenMagick\http\Request request The current request.
      * @param array data The data.
      * @return boolean <code>true</code> if the email is valid, <code>false</code> if not.
      */
@@ -101,7 +101,7 @@ class VBulletinAdapter extends ZMObject {
     /**
      * Check for duplicate email address if different from current account email address.
      *
-     * @param zenmagick\http\Request request The current request.
+     * @param ZenMagick\http\Request request The current request.
      * @param array data The data.
      * @return boolean <code>true</code> if the email is valid, <code>false</code> if not.
      */
@@ -118,7 +118,7 @@ class VBulletinAdapter extends ZMObject {
     /**
      * Check for duplicate nickname if different from current account nickname.
      *
-     * @param zenmagick\http\Request request The current request.
+     * @param ZenMagick\http\Request request The current request.
      * @param array data The data.
      * @return boolean <code>true</code> if the nickname is valid, <code>false</code> if not.
      */

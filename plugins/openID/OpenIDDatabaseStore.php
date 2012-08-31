@@ -25,7 +25,7 @@
  * @author DerManoMann <mano@zenmagick.org>
  */
 
-namespace zenmagick\plugins\openID;
+namespace ZenMagick\plugins\openID;
 
 use ZMRuntime;
 use Auth_OpenID_Association;

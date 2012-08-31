@@ -21,10 +21,10 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-use zenmagick\base\Runtime;
-use zenmagick\base\Toolbox;
-use zenmagick\base\ZMObject;
-use zenmagick\base\database\QueryDetails;
+use ZenMagick\base\Runtime;
+use ZenMagick\base\Toolbox;
+use ZenMagick\base\ZMObject;
+use ZenMagick\base\database\QueryDetails;
 
 /**
  * Product search.
@@ -86,7 +86,7 @@ class ZMProductFinder extends ZMObject {
     /**
      * Execute a product search for the given criteria.
      *
-     * @return zenmagick\base\database\QueryDetails Query details for a product id search.
+     * @return ZenMagick\base\database\QueryDetails Query details for a product id search.
      */
     public function execute() {
         $queryDetails = $this->buildQuery($this->criteria_);
@@ -97,7 +97,7 @@ class ZMProductFinder extends ZMObject {
      * Build the search SQL.
      *
      * @param ZMSearchCriteria criteria Search criteria.
-     * @return zenmagick\base\database\QueryDetails The search SQL.
+     * @return ZenMagick\base\database\QueryDetails The search SQL.
      */
     protected function buildQuery($criteria) {
         $args = array();

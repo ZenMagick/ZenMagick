@@ -18,10 +18,10 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-namespace zenmagick\apps\store\bundles\ZenCartBundle\controller;
+namespace ZenMagick\apps\store\bundles\ZenCartBundle\controller;
 
-use zenmagick\base\Runtime;
-use zenmagick\base\Toolbox;
+use ZenMagick\base\Runtime;
+use ZenMagick\base\Toolbox;
 
 /**
  * ZenCart storefront controller

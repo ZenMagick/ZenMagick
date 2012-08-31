@@ -26,7 +26,7 @@ admin,storefront:
     services:
       MinifyResourceManager:
         parent: merge:resourceManager
-        class: zenmagick\plugins\minify\view\MinifyResourceManager
+        class: ZenMagick\plugins\minify\view\MinifyResourceManager
       MinifyStoreResourceManager:
         parent: merge:resourceManager
-        class: zenmagick\plugins\minify\view\MinifyResourceManager
+        class: ZenMagick\plugins\minify\view\MinifyResourceManager

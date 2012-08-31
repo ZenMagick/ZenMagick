@@ -28,12 +28,12 @@ page:
       view: redirect#requestId=login
   update_user:
     formId: updateUser
-    form: zenmagick\apps\admin\forms\AdminUserForm
+    form: ZenMagick\apps\admin\forms\AdminUserForm
     success:
       view: redirect#requestId=index
   edit_admin_user:
     formId: adminUser
-    form: zenmagick\apps\admin\forms\AdminUserForm
+    form: ZenMagick\apps\admin\forms\AdminUserForm
     success:
       view: redirect#requestId=admin_users
   cache_admin:
@@ -57,10 +57,10 @@ page:
     success:
       view: redirect#requestId=legacy-config
   ezpage:
-      controller: zenmagick\apps\admin\controller\EzpagesController
+      controller: ZenMagick\apps\admin\controller\EzpagesController
       template: views/ezpages-details.php
   ezpages:
-      controller: zenmagick\apps\admin\controller\EzpagesController
+      controller: ZenMagick\apps\admin\controller\EzpagesController
       template: views/ezpages-overview.php
   zc_admin:
-    controller: zenmagick\apps\store\bundles\ZenCartBundle\controller\AdminController
+    controller: ZenMagick\apps\store\bundles\ZenCartBundle\controller\AdminController

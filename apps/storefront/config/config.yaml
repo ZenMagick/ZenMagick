@@ -25,9 +25,9 @@ zenmagick:
     ## events
     events:
       listeners:
-        - zenmagick\apps\store\StoreEventListener
-        - zenmagick\apps\storefront\EventListener
-        - zenmagick\http\EventListener
+        - ZenMagick\apps\store\StoreEventListener
+        - ZenMagick\apps\storefront\EventListener
+        - ZenMagick\http\EventListener
   ## mvc
   mvc:
     ## request
@@ -52,7 +52,7 @@ zenmagick:
     ## sacs
     sacs:
       handler:
-        - zenmagick\apps\storefront\http\sacs\StorefrontAccountSacsHandler
+        - ZenMagick\apps\storefront\http\sacs\StorefrontAccountSacsHandler
     routing:
       alias:
         create_account: account.create

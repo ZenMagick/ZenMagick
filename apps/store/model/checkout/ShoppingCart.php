@@ -20,15 +20,15 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-namespace zenmagick\apps\store\model\checkout;
+namespace ZenMagick\apps\store\model\checkout;
 
 use ZMCreditTypeWrapper;
 use ZMOrderTotalLine;
 use ZMPaymentField;
-use zenmagick\base\Runtime;
-use zenmagick\base\ZMObject;
-use zenmagick\apps\store\utils\CheckoutHelper;
-use zenmagick\apps\store\model\TaxRate;
+use ZenMagick\base\Runtime;
+use ZenMagick\base\ZMObject;
+use ZenMagick\apps\store\utils\CheckoutHelper;
+use ZenMagick\apps\store\model\TaxRate;
 
 /**
  * Shopping cart.
@@ -265,7 +265,7 @@ class ShoppingCart extends ZMObject {
             }
 
             if ($this->container->get('settingsService')->get('apps.store.assertZencart', false)) {
-                $asserter = new \zenmagick\apps\store\bundles\ZenCartBundle\utils\ShoppingCartAssert();
+                $asserter = new \ZenMagick\apps\store\bundles\ZenCartBundle\utils\ShoppingCartAssert();
                 $asserter->assertCart($this);
             }
         }

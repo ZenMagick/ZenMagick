@@ -18,12 +18,12 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-use zenmagick\base\Beans;
-use zenmagick\base\Runtime;
-use zenmagick\base\Toolbox;
-use zenmagick\base\ZMException;
-use zenmagick\base\ZMObject;
-use zenmagick\base\logging\Logging;
+use ZenMagick\base\Beans;
+use ZenMagick\base\Runtime;
+use ZenMagick\base\Toolbox;
+use ZenMagick\base\ZMException;
+use ZenMagick\base\ZMObject;
+use ZenMagick\base\logging\Logging;
 
 use Symfony\Component\DependencyInjection\ContainerAwareInterface;
 use Symfony\Component\Yaml\Yaml;
@@ -243,7 +243,7 @@ class ZMValidator extends ZMObject {
      * <p>If the request parameter is an object, it will be added to the
      * internally used data map using the <em>magic key</em> <code>__obj</code>.</p>
      *
-     * @param zenmagick\http\Request request The current request.
+     * @param ZenMagick\http\Request request The current request.
      * @param mixed data The data (map or object) to validate.
      * @param string id The ruleset id.
      * @return boolean <code>true</code> if the validation was successful, <code>false</code> if not.

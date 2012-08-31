@@ -25,9 +25,9 @@
 // Showing category counts will use default Zen function, which generates massive
 // recusive database queries. Could be improved by instead retrieving in a single
 // query all products to categories and then using recursive PHP to fetch counts.
-namespace zenmagick\plugins\cssCategories;
+namespace ZenMagick\plugins\cssCategories;
 
-use zenmagick\base\Runtime;
+use ZenMagick\base\Runtime;
 
 
 class CategoriesUlGenerator {

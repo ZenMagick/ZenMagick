@@ -17,14 +17,14 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-namespace zenmagick\plugins\formHandler;
+namespace ZenMagick\plugins\formHandler;
 
-use zenmagick\apps\store\plugins\Plugin;
+use ZenMagick\apps\store\plugins\Plugin;
 
 use Symfony\Component\Routing\Route;
 use Symfony\Component\Routing\RouteCollection;
-use zenmagick\base\Toolbox;
-use zenmagick\http\sacs\SacsManager;
+use ZenMagick\base\Toolbox;
+use ZenMagick\http\sacs\SacsManager;
 
 /**
  * Generic form handler.
@@ -47,7 +47,7 @@ class FormHandlerPlugin extends Plugin {
             $ext = $settingsService->get('zenmagick.http.templates.ext', '.php');
             $routeResolver = $this->container->get('routeResolver');
             $routeList = array();
-            $controller = 'zenmagick\plugins\formHandler\controller\FormHandlerController';
+            $controller = 'ZenMagick\plugins\formHandler\controller\FormHandlerController';
             foreach ($pages as $page) {
                 $routeList[] = array($page, new Route('/'.$page, array('_controller' => $controller), array(), array('view' => 'views/'.$page.$ext, 'view:success' => 'redirect://'.$page)));
             }

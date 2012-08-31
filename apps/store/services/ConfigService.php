@@ -17,14 +17,14 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-namespace zenmagick\apps\store\services;
+namespace ZenMagick\apps\store\services;
 
 use ZMRuntime;
-use zenmagick\base\Beans;
-use zenmagick\base\Runtime;
-use zenmagick\base\ZMObject;
-use zenmagick\apps\store\model\ConfigGroup;
-use zenmagick\apps\store\model\ConfigValue;
+use ZenMagick\base\Beans;
+use ZenMagick\base\Runtime;
+use ZenMagick\base\ZMObject;
+use ZenMagick\apps\store\model\ConfigGroup;
+use ZenMagick\apps\store\model\ConfigValue;
 
 /**
  * Config service.
@@ -109,7 +109,7 @@ class ConfigService extends ZMObject {
     protected function buildObjects($configValues) {
         $values = array();
         foreach ($configValues as $value) {
-            $values[] = Beans::map2obj('zenmagick\apps\store\model\ConfigValue', $value);
+            $values[] = Beans::map2obj('ZenMagick\apps\store\model\ConfigValue', $value);
         }
         return $values;
     }
@@ -192,7 +192,7 @@ class ConfigService extends ZMObject {
         $sql = "SELECT *
                 FROM %table.configuration_group%
                 WHERE configuration_group_id = :id";
-        return ZMRuntime::getDatabase()->querySingle($sql, array('id' => $groupId), 'configuration_group', 'zenmagick\apps\store\model\ConfigGroup');
+        return ZMRuntime::getDatabase()->querySingle($sql, array('id' => $groupId), 'configuration_group', 'ZenMagick\apps\store\model\ConfigGroup');
     }
 
     /**
@@ -206,7 +206,7 @@ class ConfigService extends ZMObject {
         $sql = "SELECT *
                 FROM %table.configuration_group%
                 WHERE configuration_group_title = :name";
-        return ZMRuntime::getDatabase()->querySingle($sql, array('name' => $name), 'configuration_group', 'zenmagick\apps\store\model\ConfigGroup');
+        return ZMRuntime::getDatabase()->querySingle($sql, array('name' => $name), 'configuration_group', 'ZenMagick\apps\store\model\ConfigGroup');
     }
 
     /**
@@ -218,7 +218,7 @@ class ConfigService extends ZMObject {
         $sql = "SELECT *
                 FROM %table.configuration_group%
                 ORDER BY sort_order";
-        return ZMRuntime::getDatabase()->fetchAll($sql, array(), 'configuration_group', 'zenmagick\apps\store\model\ConfigGroup');
+        return ZMRuntime::getDatabase()->fetchAll($sql, array(), 'configuration_group', 'ZenMagick\apps\store\model\ConfigGroup');
     }
 
     /**

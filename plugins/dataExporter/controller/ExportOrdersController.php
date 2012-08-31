@@ -18,13 +18,13 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-namespace zenmagick\plugins\dataExporter\controller;
+namespace ZenMagick\plugins\dataExporter\controller;
 
 use DateTime;
 use ZMController;
 use ZMRuntime;
 use ZMOrder;
-use zenmagick\base\Beans;
+use ZenMagick\base\Beans;
 
 /**
  * Export orders controller.

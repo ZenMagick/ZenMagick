@@ -18,9 +18,9 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-use zenmagick\base\Beans;
-use zenmagick\base\ZMObject;
-use zenmagick\plugins\unitTests\simpletest\TestCase;
+use ZenMagick\base\Beans;
+use ZenMagick\base\ZMObject;
+use ZenMagick\plugins\unitTests\simpletest\TestCase;
 
 /**
  * Test Beans.
@@ -95,14 +95,14 @@ class TestBeans extends TestCase {
 
         // test all
         $expectAll = array('foo' => 'bar', 'doh' => 'nut', 'properties' => array('foo' => 'bar', 'doh' => 'nut'), 'propertyNames' => array('foo', 'doh'), 'attachedMethods' => array());
-        $obj = Beans::map2obj('zenmagick\base\ZMObject', $data);
+        $obj = Beans::map2obj('ZenMagick\base\ZMObject', $data);
         $map = Beans::obj2map($obj);
         $this->assertEqual($expectAll, $map);
         $this->assertTrue($obj instanceof ZMObject);
 
         // test some
         $expectSome = array('foo' => 'bar', 'properties' => array('foo' => 'bar'), 'propertyNames' => array('foo'), 'attachedMethods' => array());
-        $obj = Beans::map2obj('zenmagick\base\ZMObject', $data, array('foo'));
+        $obj = Beans::map2obj('ZenMagick\base\ZMObject', $data, array('foo'));
         $map = Beans::obj2map($obj);
         $this->assertEqual($expectSome, $map);
         $this->assertTrue($obj instanceof ZMObject);
@@ -113,7 +113,7 @@ class TestBeans extends TestCase {
      */
     public function testGetBean() {
         $expect = array('foo' => 'bar', 'doh' => 'nut', 'properties' => array('foo' => 'bar', 'doh' => 'nut'), 'propertyNames' => array('foo', 'doh'), 'attachedMethods' => array());
-        $definition = 'zenmagick\base\ZMObject#foo=bar&doh=nut';
+        $definition = 'ZenMagick\base\ZMObject#foo=bar&doh=nut';
         $obj = Beans::getBean($definition);
         $map = Beans::obj2map($obj);
         $this->assertEqual($expect, $map);
@@ -121,7 +121,7 @@ class TestBeans extends TestCase {
 
         // test empty properties
         $expect = array('properties' => array(), 'propertyNames' => array(), 'attachedMethods' => array());
-        $definition = 'zenmagick\base\ZMObject';
+        $definition = 'ZenMagick\base\ZMObject';
         $obj = Beans::getBean($definition);
         $map = Beans::obj2map($obj);
         $this->assertEqual($expect, $map);
@@ -136,7 +136,7 @@ class TestBeans extends TestCase {
         $this->assertEqual(null, Beans::getBean('bean::null'));
 
         // test property bean
-        $bean = Beans::getBean('zenmagick\base\ZMObject#someBean=bean::ZMAddress');
+        $bean = Beans::getBean('ZenMagick\base\ZMObject#someBean=bean::ZMAddress');
         if ($this->assertNotNull($bean) && $this->assertTrue($bean instanceof ZMObject)) {
             $someBean = $bean->getSomeBean();
             if ($this->assertNotNull($someBean)) {
@@ -162,7 +162,7 @@ class TestBeans extends TestCase {
      * Test magic value
      */
     public function testMagicValue() {
-        $bean = Beans::getBean('zenmagick\base\ZMObject#handler='.urlencode('bean::ZMProduct#name=foo'));
+        $bean = Beans::getBean('ZenMagick\base\ZMObject#handler='.urlencode('bean::ZMProduct#name=foo'));
         if ($this->assertNotNull($bean)) {
             $handler = $bean->getHandler();
             if ($this->assertNotNull($handler)) {

@@ -6,6 +6,6 @@ zenmagick:
   base:
     events:
       listeners:
-        - zenmagick\apps\sample\EventListener
-        - zenmagick\base\EventListener
-        - zenmagick\http\EventListener
+        - ZenMagick\apps\sample\EventListener
+        - ZenMagick\base\EventListener
+        - ZenMagick\http\EventListener

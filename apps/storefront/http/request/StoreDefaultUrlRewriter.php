@@ -17,13 +17,13 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-namespace zenmagick\apps\storefront\http\request;
+namespace ZenMagick\apps\storefront\http\request;
 
-use zenmagick\base\Runtime;
-use zenmagick\base\Toolbox;
-use zenmagick\base\ZMObject;
-use zenmagick\base\ZMException;
-use zenmagick\http\request\UrlRewriter;
+use ZenMagick\base\Runtime;
+use ZenMagick\base\Toolbox;
+use ZenMagick\base\ZMObject;
+use ZenMagick\base\ZMException;
+use ZenMagick\http\request\UrlRewriter;
 
 /**
  * Default rewriter implementing the original zencart URL scheme.

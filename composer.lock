@@ -1,5 +1,5 @@
 {
-    "hash": "c6f04ff977151a1fdc860372e381806a",
+    "hash": "3a1441f91406f0b3b5a2a3693384bf86",
     "packages": [
         {
             "package": "dermanomann/phprules",
@@ -26,8 +26,8 @@
         {
             "package": "doctrine/doctrine-bundle",
             "version": "dev-master",
-            "source-reference": "4d9bb0f3af470556983eb41a7d19ede23401ef0b",
-            "commit-date": "1344549563"
+            "source-reference": "8e1149b0ac01e8f9441a523bec81011803485602",
+            "commit-date": "1346369162"
         },
         {
             "package": "doctrine/doctrine-migrations-bundle",

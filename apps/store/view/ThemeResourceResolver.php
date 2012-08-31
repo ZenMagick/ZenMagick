@@ -17,11 +17,11 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-namespace zenmagick\apps\store\view;
+namespace ZenMagick\apps\store\view;
 
-use zenmagick\base\Runtime;
-use zenmagick\http\Request;
-use zenmagick\http\view\ResourceResolver;
+use ZenMagick\base\Runtime;
+use ZenMagick\http\Request;
+use ZenMagick\http\view\ResourceResolver;
 
 /**
  * Theme resource resolver.
@@ -46,7 +46,7 @@ class ThemeResourceResolver extends ResourceResolver {
     /**
      * Set the request.
      *
-     * @param zenmagick\http\Request request The request.
+     * @param ZenMagick\http\Request request The request.
      */
     public function setRequest(Request $request) {
         $this->request = $request;
@@ -56,7 +56,7 @@ class ThemeResourceResolver extends ResourceResolver {
     /**
      * Get the request.
      *
-     * @return zenmagick\http\Request The request.
+     * @return ZenMagick\http\Request The request.
      */
     public function getRequest() {
         return $this->request;

@@ -17,10 +17,10 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-namespace zenmagick\plugins\musicProductInfo\model;
+namespace ZenMagick\plugins\musicProductInfo\model;
 
-use zenmagick\base\Beans;
-use zenmagick\base\ZMObject;
+use ZenMagick\base\Beans;
+use ZenMagick\base\ZMObject;
 
 /**
  * An artist.

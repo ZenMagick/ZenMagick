@@ -17,16 +17,16 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-namespace zenmagick\apps\admin;
+namespace ZenMagick\apps\admin;
 
-use zenmagick\base\Beans;
-use zenmagick\base\Runtime;
-use zenmagick\base\Toolbox;
-use zenmagick\base\ZMObject;
-use zenmagick\http\view\TemplateView;
+use ZenMagick\base\Beans;
+use ZenMagick\base\Runtime;
+use ZenMagick\base\Toolbox;
+use ZenMagick\base\ZMObject;
+use ZenMagick\http\view\TemplateView;
 
-use zenmagick\apps\store\menu\MenuElement;
-use zenmagick\apps\store\menu\MenuLoader;
+use ZenMagick\apps\store\menu\MenuElement;
+use ZenMagick\apps\store\menu\MenuLoader;
 
 
 /**
@@ -82,7 +82,7 @@ class EventListener extends ZMObject {
     /**
      * Get instance of the current editor.
      *
-     * @param zenmagick\http\Request request The current request.
+     * @param ZenMagick\http\Request request The current request.
      * @return TextAreaFormWidget A text editor widget.
      */
     protected function getCurrentEditor($request) {

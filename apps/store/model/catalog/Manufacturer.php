@@ -18,10 +18,10 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-namespace zenmagick\apps\store\model\catalog;
+namespace ZenMagick\apps\store\model\catalog;
 
-use zenmagick\base\Beans;
-use zenmagick\base\ZMObject;
+use ZenMagick\base\Beans;
+use ZenMagick\base\ZMObject;
 
 use Doctrine\ORM\Mapping AS ORM;
 

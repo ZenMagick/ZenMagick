@@ -18,8 +18,8 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-use zenmagick\http\sacs\SacsManager;
-use zenmagick\plugins\unitTests\simpletest\TestCase;
+use ZenMagick\http\sacs\SacsManager;
+use ZenMagick\plugins\unitTests\simpletest\TestCase;
 
 /**
  * Test SACS manager

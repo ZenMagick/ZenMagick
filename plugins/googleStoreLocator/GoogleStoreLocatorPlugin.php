@@ -17,11 +17,11 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-namespace zenmagick\plugins\googleStoreLocator;
+namespace ZenMagick\plugins\googleStoreLocator;
 
-use zenmagick\apps\store\plugins\Plugin;
-use zenmagick\base\Runtime;
-use zenmagick\base\Toolbox;
+use ZenMagick\apps\store\plugins\Plugin;
+use ZenMagick\base\Runtime;
+use ZenMagick\base\Toolbox;
 
 /**
  * Plugin adding a Google Maps based store locator.

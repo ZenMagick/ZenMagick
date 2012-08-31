@@ -17,11 +17,11 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-namespace zenmagick\apps\store\themes;
+namespace ZenMagick\apps\store\themes;
 
-use zenmagick\base\Runtime;
-use zenmagick\base\ZMObject;
-use zenmagick\base\dependencyInjection\loader\YamlFileLoader;
+use ZenMagick\base\Runtime;
+use ZenMagick\base\ZMObject;
+use ZenMagick\base\dependencyInjection\loader\YamlFileLoader;
 
 use Symfony\Component\Config\FileLocator;
 
@@ -75,7 +75,7 @@ class ThemeService extends ZMObject {
     /**
      * Set the cache.
      *
-     * @param zenmagick\base\cache\Cache cache The cache.
+     * @param ZenMagick\base\cache\Cache cache The cache.
      */
     public function setCache($cache) {
         $this->cache = $cache;
@@ -84,7 +84,7 @@ class ThemeService extends ZMObject {
     /**
      * Get the cache.
      *
-     * @return zenmagick\base\cache\Cache The cache.
+     * @return ZenMagick\base\cache\Cache The cache.
      */
     public function getCache() {
         return $this->cache;
@@ -246,7 +246,7 @@ class ThemeService extends ZMObject {
     public function getThemeConfigList() {
         $sql = "SELECT *
                 FROM %table.template_select%";
-        return \ZMRuntime::getDatabase()->fetchAll($sql, array(), 'template_select', 'zenmagick\apps\store\model\templating\TemplateSelect');
+        return \ZMRuntime::getDatabase()->fetchAll($sql, array(), 'template_select', 'ZenMagick\apps\store\model\templating\TemplateSelect');
     }
 
     /**

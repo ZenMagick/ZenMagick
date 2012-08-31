@@ -18,8 +18,8 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-use zenmagick\base\Toolbox;
-use zenmagick\base\ZMObject;
+use ZenMagick\base\Toolbox;
+use ZenMagick\base\ZMObject;
 
 use Doctrine\ORM\Mapping AS ORM;
 

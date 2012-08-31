@@ -17,12 +17,12 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-namespace zenmagick\apps\store\themes;
+namespace ZenMagick\apps\store\themes;
 
-use zenmagick\base\Runtime;
-use zenmagick\base\ZMObject;
-use zenmagick\base\dependencyInjection\loader\YamlLoader;
-use zenmagick\apps\store\utils\ContextConfigLoader;
+use ZenMagick\base\Runtime;
+use ZenMagick\base\ZMObject;
+use ZenMagick\base\dependencyInjection\loader\YamlLoader;
+use ZenMagick\apps\store\utils\ContextConfigLoader;
 
 use Symfony\Component\Config\FileLocator;
 

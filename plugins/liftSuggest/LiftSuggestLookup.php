@@ -22,7 +22,7 @@
 *
 */
 
-namespace zenmagick\plugins\liftSuggest;
+namespace ZenMagick\plugins\liftSuggest;
 
 /**
  * Lift Suggest Recommendations interface.

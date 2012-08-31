@@ -17,10 +17,10 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-namespace zenmagick\plugins\minify;
+namespace ZenMagick\plugins\minify;
 
-use zenmagick\apps\store\plugins\Plugin;
-use zenmagick\base\Runtime;
+use ZenMagick\apps\store\plugins\Plugin;
+use ZenMagick\base\Runtime;
 
 /**
  * Plugin to use minify.

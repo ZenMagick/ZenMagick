@@ -23,7 +23,7 @@ $container->setParameter('database_prefix', $parameters['prefix']);
 
 
 \ZMRuntime::setDatabase('default', $parameters);
-$configService = new \zenmagick\apps\store\services\ConfigService;
+$configService = new \ZenMagick\apps\store\services\ConfigService;
 foreach ($configService->loadAll() as $key => $value) {
     if (!defined($key)) { // @todo define at the last possible moment
         define($key, $value);

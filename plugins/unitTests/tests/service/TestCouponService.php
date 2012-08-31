@@ -18,9 +18,9 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-use zenmagick\base\Beans;
-use zenmagick\apps\store\model\coupons\Coupon;
-use zenmagick\plugins\unitTests\simpletest\TestCase;
+use ZenMagick\base\Beans;
+use ZenMagick\apps\store\model\coupons\Coupon;
+use ZenMagick\plugins\unitTests\simpletest\TestCase;
 
 /**
  * Test coupon service.
@@ -210,7 +210,7 @@ class TestCouponService extends TestCase {
             // manually check database
             $sql = "SELECT * FROM %table.coupon_email_track%
                     WHERE coupon_id = :couponId";
-            $result = ZMRuntime::getDatabase()->querySingle($sql, array('couponId' => $coupon->getId()), 'coupon_email_track', 'zenmagick\base\ZMObject');
+            $result = ZMRuntime::getDatabase()->querySingle($sql, array('couponId' => $coupon->getId()), 'coupon_email_track', 'ZenMagick\base\ZMObject');
             $this->assertNotNull($result);
             $this->assertEqual('foo@bar.com', $result->getEmailTo());
         } else {
@@ -232,7 +232,7 @@ class TestCouponService extends TestCase {
         // manually check database
         $sql = "SELECT * FROM %table.coupon_redeem_track%
                 WHERE coupon_id = :couponId";
-        $result = ZMRuntime::getDatabase()->querySingle($sql, array('couponId' => $coupon->getId()), 'coupon_redeem_track', 'zenmagick\base\ZMObject');
+        $result = ZMRuntime::getDatabase()->querySingle($sql, array('couponId' => $coupon->getId()), 'coupon_redeem_track', 'ZenMagick\base\ZMObject');
         $this->assertNotNull($result);
         $this->assertEqual('127.0.0.1', $result->getRedeemIp());
 

@@ -17,13 +17,13 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-namespace zenmagick\apps\admin\dashboard\widgets;
+namespace ZenMagick\apps\admin\dashboard\widgets;
 
 use DateTime;
-use zenmagick\base\Beans;
-use zenmagick\base\Runtime;
-use zenmagick\apps\store\widgets\StatusCheck;
-use zenmagick\apps\admin\dashboard\DashboardWidget;
+use ZenMagick\base\Beans;
+use ZenMagick\base\Runtime;
+use ZenMagick\apps\store\widgets\StatusCheck;
+use ZenMagick\apps\admin\dashboard\DashboardWidget;
 
 /**
  * Store status widget.

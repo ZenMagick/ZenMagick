@@ -17,18 +17,18 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-namespace zenmagick\apps\admin\controller;
+namespace ZenMagick\apps\admin\controller;
 
-use zenmagick\base\events\Event;
-use zenmagick\http\view\View;
+use ZenMagick\base\events\Event;
+use ZenMagick\http\view\View;
 
-use zenmagick\apps\store\model\mock\MockAccount;
-use zenmagick\apps\store\model\mock\MockOrder;
-use zenmagick\apps\store\model\mock\MockProduct;
-use zenmagick\apps\store\model\mock\MockCoupon;
-use zenmagick\apps\store\model\mock\MockReview;
-use zenmagick\apps\store\model\mock\MockEmailMessage;
-use zenmagick\apps\store\model\mock\MockGVReceiver;
+use ZenMagick\apps\store\model\mock\MockAccount;
+use ZenMagick\apps\store\model\mock\MockOrder;
+use ZenMagick\apps\store\model\mock\MockProduct;
+use ZenMagick\apps\store\model\mock\MockCoupon;
+use ZenMagick\apps\store\model\mock\MockReview;
+use ZenMagick\apps\store\model\mock\MockEmailMessage;
+use ZenMagick\apps\store\model\mock\MockGVReceiver;
 
 /**
  * Admin controller for email previews.
@@ -87,7 +87,7 @@ class EmailPreviewController extends \ZMController {
     /**
      * Set up an initial context for emails with everything we might need.
      *
-     * @param zenmagick\http\Request request The current request.
+     * @param ZenMagick\http\Request request The current request.
      * @return array The context map.
      */
     protected function getInitialContext($request) {

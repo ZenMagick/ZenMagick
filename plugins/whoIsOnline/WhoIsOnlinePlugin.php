@@ -17,10 +17,10 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-namespace zenmagick\plugins\whoIsOnline;
+namespace ZenMagick\plugins\whoIsOnline;
 
-use zenmagick\apps\store\plugins\Plugin;
-use zenmagick\base\Runtime;
+use ZenMagick\apps\store\plugins\Plugin;
+use ZenMagick\base\Runtime;
 
 
 /**
@@ -59,7 +59,7 @@ class WhoIsOnlinePlugin extends Plugin {
      */
     public function getStats() {
         $sql = "SELECT customer_id FROM %table.whos_online%";
-        $results = \ZMRuntime::getDatabase()->fetchAll($sql, array(), 'whos_online', \zenmagick\base\database\Connection::MODEL_RAW);
+        $results = \ZMRuntime::getDatabase()->fetchAll($sql, array(), 'whos_online', \ZenMagick\base\database\Connection::MODEL_RAW);
         $anonymous = 0;
         $registered = 0;
         foreach ($results as $result) {

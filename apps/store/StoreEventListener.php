@@ -17,16 +17,16 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-namespace zenmagick\apps\store;
+namespace ZenMagick\apps\store;
 
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\Loader\XmlFileLoader;
 
-use zenmagick\base\Runtime;
-use zenmagick\base\ZMObject;
-use zenmagick\http\session\FlashBag;
-use zenmagick\base\events\Event;
-use zenmagick\apps\store\widgets\StatusCheck;
+use ZenMagick\base\Runtime;
+use ZenMagick\base\ZMObject;
+use ZenMagick\http\session\FlashBag;
+use ZenMagick\base\events\Event;
+use ZenMagick\apps\store\widgets\StatusCheck;
 
 /**
  * Shared store event listener.
@@ -102,7 +102,7 @@ class StoreEventListener extends ZMObject {
 
         // general banners block group - if used, the group needs to be passed into fetchBlockGroup()
         $mappings['banners'] = array();
-        $mappings['banners'][] = 'zenmagick\apps\store\widgets\BannerBlockWidget';
+        $mappings['banners'][] = 'ZenMagick\apps\store\widgets\BannerBlockWidget';
 
         // individual banner groups as per current convention
         $defaultBannerGroupNames = array(
@@ -114,12 +114,12 @@ class StoreEventListener extends ZMObject {
         foreach ($defaultBannerGroupNames as $blockGroupName) {
             // the banner group name is configured as setting..
             $bannerGroup = $settingsService->get($blockGroupName);
-            $mappings[$blockGroupName] = array('zenmagick\apps\store\widgets\BannerBlockWidget#group='.$bannerGroup);
+            $mappings[$blockGroupName] = array('ZenMagick\apps\store\widgets\BannerBlockWidget#group='.$bannerGroup);
         }
 
         // shopping cart options
         $mappings['shoppingCart.options'] = array();
-        $mappings['shoppingCart.options'][] = 'zenmagick\apps\store\widgets\PayPalECButtonBlockWidget';
+        $mappings['shoppingCart.options'][] = 'ZenMagick\apps\store\widgets\PayPalECButtonBlockWidget';
         $mappings['mainMenu'] = array();
         $mappings['mainMenu'][] = 'ref::browserIDLogin';
 

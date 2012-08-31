@@ -18,10 +18,10 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-use zenmagick\base\Runtime;
-use zenmagick\apps\store\view\ThemeResourceResolver;
-use zenmagick\plugins\minify\view\MinifyResourceManager;
-use zenmagick\plugins\unitTests\simpletest\TestCase;
+use ZenMagick\base\Runtime;
+use ZenMagick\apps\store\view\ThemeResourceResolver;
+use ZenMagick\plugins\minify\view\MinifyResourceManager;
+use ZenMagick\plugins\unitTests\simpletest\TestCase;
 
 /**
  * Test MinifyResourceManager implementation.

@@ -8,9 +8,9 @@
  * @license http://www.zen-cart.com/license/2_0.txt GNU Public License V2.0
  * @version $Id$
  */
-namespace zenmagick\plugins\captcha;
+namespace ZenMagick\plugins\captcha;
 
-use zenmagick\base\Runtime;
+use ZenMagick\base\Runtime;
 
 define('CAPCHA_USE_OB', 'true');
 define('CAPCHA_NOISE', '30');

@@ -18,14 +18,14 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-namespace zenmagick\plugins\subscriptions\cron;
+namespace ZenMagick\plugins\subscriptions\cron;
 
-use zenmagick\base\Beans;
-use zenmagick\base\Runtime;
-use zenmagick\base\Toolbox;
-use zenmagick\base\events\Event;
+use ZenMagick\base\Beans;
+use ZenMagick\base\Runtime;
+use ZenMagick\base\Toolbox;
+use ZenMagick\base\events\Event;
 
-use zenmagick\plugins\cron\jobs\CronJobInterface;
+use ZenMagick\plugins\cron\jobs\CronJobInterface;
 
 /**
  * A cron job to create new subscription orders.
@@ -141,7 +141,7 @@ class UpdateSubscriptionsCronJob implements CronJobInterface {
      * Copy order.
      *
      * @param int orderId The order to copy.
-     * @param zenmagick\base\ZMObject The new order.
+     * @param ZenMagick\base\ZMObject The new order.
      */
     public static function copyOrder($orderId) {
         $tables = array(
@@ -154,7 +154,7 @@ class UpdateSubscriptionsCronJob implements CronJobInterface {
         $orderData = array();
         foreach ($tables as $table) {
             $sql = "SELECT * from %table.".$table."% WHERE orders_id = :orderId";
-            $orderData[$table] = ZMRuntime::getDatabase()->fetchAll($sql, array('orderId' => $orderId), $table, 'zenmagick\base\ZMObject');
+            $orderData[$table] = ZMRuntime::getDatabase()->fetchAll($sql, array('orderId' => $orderId), $table, 'ZenMagick\base\ZMObject');
         }
 
         $orderData['orders'][0]->setOrderDate(new \DateTime());

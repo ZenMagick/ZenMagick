@@ -17,11 +17,11 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-namespace zenmagick\apps\storefront\http\tools;
+namespace ZenMagick\apps\storefront\http\tools;
 
-use zenmagick\base\Runtime;
-use zenmagick\base\Toolbox;
-use zenmagick\http\toolbox\ToolboxTool;
+use ZenMagick\base\Runtime;
+use ZenMagick\base\Toolbox;
+use ZenMagick\http\toolbox\ToolboxTool;
 
 /**
  * Page meta tag data generator.

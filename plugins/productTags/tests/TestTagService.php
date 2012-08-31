@@ -17,9 +17,9 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-namespace zenmagick\plugins\productTags\tests;
+namespace ZenMagick\plugins\productTags\tests;
 
-use zenmagick\plugins\unitTests\simpletest\TestCase;
+use ZenMagick\plugins\unitTests\simpletest\TestCase;
 
 /**
  * Test TagService store implementation.

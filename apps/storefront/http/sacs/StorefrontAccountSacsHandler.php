@@ -17,11 +17,11 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-namespace zenmagick\apps\storefront\http\sacs;
+namespace ZenMagick\apps\storefront\http\sacs;
 
 use ZMAccount;
-use zenmagick\base\ZMObject;
-use zenmagick\http\sacs\SacsHandler;
+use ZenMagick\base\ZMObject;
+use ZenMagick\http\sacs\SacsHandler;
 
 /**
  * Handle access control and security mappings.

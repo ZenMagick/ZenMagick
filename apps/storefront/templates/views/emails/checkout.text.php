@@ -19,7 +19,7 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-use zenmagick\base\Toolbox;
+use ZenMagick\base\Toolbox;
 
 ?><?php _vzm("%s Order Confirmation", $settingsService->get('storeName')) ?>
 

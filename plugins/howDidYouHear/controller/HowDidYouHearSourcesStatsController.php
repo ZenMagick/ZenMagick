@@ -18,12 +18,12 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-namespace zenmagick\plugins\howDidYouHear\controller;
+namespace ZenMagick\plugins\howDidYouHear\controller;
 
 use ZMController;
 use ZMRuntime;
-use zenmagick\base\Beans;
-use zenmagick\base\Toolbox;
+use ZenMagick\base\Beans;
+use ZenMagick\base\Toolbox;
 
 /**
  * Display sources stats.
@@ -51,8 +51,8 @@ class HowDidYouHearSourcesStatsController extends ZMController {
             $isOther = true;
         }
 
-        $sourceStats = ZMRuntime::getDatabase()->fetchAll($sql, array(), array('sources'), 'zenmagick\base\ZMObject');
-        $resultSource = new ZMArrayResultSource('zenmagick\base\ZMObject', $sourceStats);
+        $sourceStats = ZMRuntime::getDatabase()->fetchAll($sql, array(), array('sources'), 'ZenMagick\base\ZMObject');
+        $resultSource = new ZMArrayResultSource('ZenMagick\base\ZMObject', $sourceStats);
         $resultList = Beans::getBean('ZMResultList');
         $resultList->setResultSource($resultSource);
         $resultList->setPageNumber($request->query->get('page', 1));

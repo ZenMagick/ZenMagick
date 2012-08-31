@@ -18,7 +18,7 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-use zenmagick\apps\store\model\checkout\ShoppingCart;
+use ZenMagick\apps\store\model\checkout\ShoppingCart;
 
 /**
  * Order total interface.
@@ -31,7 +31,7 @@ interface ZMOrderTotal {
     /**
      * Evaluate the given cart and return resulting order totals.
      *
-     * @param zenmagick\http\Request request The current request.
+     * @param ZenMagick\http\Request request The current request.
      * @param ShoppingCart shoppingCart The current shopping cart.
      * @return mixed Either a single <code>ZMOrderTotalLineDetails</code>, a list of order total line details
      *  (<code>ZMOrderTotalLineDetails</code>) or <code>null</code>.

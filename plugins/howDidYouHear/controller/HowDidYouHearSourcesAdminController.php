@@ -17,11 +17,11 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-namespace zenmagick\plugins\howDidYouHear\controller;
+namespace ZenMagick\plugins\howDidYouHear\controller;
 
 use ZMController;
 use ZMRuntime;
-use zenmagick\base\Beans;
+use ZenMagick\base\Beans;
 
 /**
  * Sources admin.
@@ -37,8 +37,8 @@ class HowDidYouHearSourcesAdminController extends ZMController {
         $sql = "SELECT s.sources_name AS name, s.sources_id as sourceId
                 FROM %table.sources% s
                 ORDER BY s.sources_name ASC";
-        $sourceStats = ZMRuntime::getDatabase()->fetchAll($sql, array(), array('sources'), 'zenmagick\base\ZMObject');
-        $resultSource = new ZMArrayResultSource('zenmagick\base\ZMObject', $sourceStats);
+        $sourceStats = ZMRuntime::getDatabase()->fetchAll($sql, array(), array('sources'), 'ZenMagick\base\ZMObject');
+        $resultSource = new ZMArrayResultSource('ZenMagick\base\ZMObject', $sourceStats);
         $resultList = Beans::getBean('ZMResultList');
         $resultList->setResultSource($resultSource);
         $resultList->setPageNumber($request->query->get('page', 1));

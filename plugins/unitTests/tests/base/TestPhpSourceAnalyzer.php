@@ -18,8 +18,8 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-use zenmagick\base\utils\packer\PhpSourceAnalyzer;
-use zenmagick\plugins\unitTests\simpletest\TestCase;
+use ZenMagick\base\utils\packer\PhpSourceAnalyzer;
+use ZenMagick\plugins\unitTests\simpletest\TestCase;
 
 /**
  * Test PHP source analyzer.

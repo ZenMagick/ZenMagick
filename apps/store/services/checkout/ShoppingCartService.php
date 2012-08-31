@@ -20,13 +20,13 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-namespace zenmagick\apps\store\services\checkout;
+namespace ZenMagick\apps\store\services\checkout;
 
 use ZMRuntime;
-use zenmagick\base\Beans;
-use zenmagick\base\Runtime;
-use zenmagick\base\ZMObject;
-use zenmagick\apps\store\model\checkout\ShoppingCart;
+use ZenMagick\base\Beans;
+use ZenMagick\base\Runtime;
+use ZenMagick\base\ZMObject;
+use ZenMagick\apps\store\model\checkout\ShoppingCart;
 
 /**
  * Shopping cart service.
@@ -173,7 +173,7 @@ class ShoppingCartService extends ZMObject {
      * @deprecated Use getContentsForAccountId($accountId) to load the contents and set that on the shared shopping cart instance instead
      */
     public function loadCartForAccountId($accountId) {
-        $shoppingCart = Beans::getBean('zenmagick\apps\store\model\checkout\ShoppingCart');
+        $shoppingCart = Beans::getBean('ZenMagick\apps\store\model\checkout\ShoppingCart');
         $shoppingCart->setCheckoutHelper($this->container->get('checkoutHelper'));
         $shoppingCart->setContents($this->getContentsForAccountId($accountId));
         return $shoppingCart;

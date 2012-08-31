@@ -17,12 +17,12 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-namespace zenmagick\apps\store\toolbox;
+namespace ZenMagick\apps\store\toolbox;
 
-use zenmagick\base\Runtime;
-use zenmagick\base\Beans;
-use zenmagick\http\toolbox\ToolboxTool;
-use zenmagick\apps\store\model\checkout\ShoppingCart;
+use ZenMagick\base\Runtime;
+use ZenMagick\base\Beans;
+use ZenMagick\http\toolbox\ToolboxTool;
+use ZenMagick\apps\store\model\checkout\ShoppingCart;
 
 /**
  * Generic utilities.

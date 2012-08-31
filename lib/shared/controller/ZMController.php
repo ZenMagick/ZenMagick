@@ -18,16 +18,16 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-use zenmagick\base\Beans;
-use zenmagick\base\Runtime;
-use zenmagick\base\ZMException;
-use zenmagick\base\ZMObject;
-use zenmagick\base\events\Event;
-use zenmagick\base\logging\Logging;
-use zenmagick\http\Request;
-use zenmagick\http\forms\Form;
-use zenmagick\http\sacs\SacsManager;
-use zenmagick\http\view\TemplateView;
+use ZenMagick\base\Beans;
+use ZenMagick\base\Runtime;
+use ZenMagick\base\ZMException;
+use ZenMagick\base\ZMObject;
+use ZenMagick\base\events\Event;
+use ZenMagick\base\logging\Logging;
+use ZenMagick\http\Request;
+use ZenMagick\http\forms\Form;
+use ZenMagick\http\sacs\SacsManager;
+use ZenMagick\http\view\TemplateView;
 
 /**
  * Request controller base class.
@@ -64,7 +64,7 @@ class ZMController extends ZMObject {
      * Init view vars.
      *
      * @param View view The view to init.
-     * @param zenmagick\http\Request request The current request.
+     * @param ZenMagick\http\Request request The current request.
      * @param mixed formData Optional form data; default is <code>null</code>.
      */
     public function initViewVars($view, $request, $formData=null) {
@@ -93,7 +93,7 @@ class ZMController extends ZMObject {
      * <p>Supported request methods are <code>GET</code> and <code>POST</code>.</p>
      * <p><strong>This method should not be overridded!</strong>.</p>
      *
-     * @param zenmagick\http\Request request The request to process.
+     * @param ZenMagick\http\Request request The request to process.
      * @return View A <code>View</code> instance or <code>null</code>.
      */
     public function process(Request $request) {
@@ -167,7 +167,7 @@ class ZMController extends ZMObject {
      * <p>Good to override if a custom controller needs to provide some data for both <em>GET</em> and <em>POST</em>
      * requests.</p>
      *
-     * @param zenmagick\http\Request request The current request.
+     * @param ZenMagick\http\Request request The current request.
      * @return array Some data map.
      */
     public function getViewData($request) {
@@ -180,7 +180,7 @@ class ZMController extends ZMObject {
      * <p>Despite the name this is called as part of the controllers <code>process($request)</code> method.
      * That ensures that all processing is within the boundaries of a single transaction (if enabled).</p>
      *
-     * @param zenmagick\http\Request request The request to process.
+     * @param ZenMagick\http\Request request The request to process.
      */
     public function preProcess($request) {
         // nothing
@@ -191,7 +191,7 @@ class ZMController extends ZMObject {
      *
      * <p>This default implementation will return <code>true</code> for all <em>POST</em> requests.</p>
      *
-     * @param zenmagick\http\Request request The request to process.
+     * @param ZenMagick\http\Request request The request to process.
      * @return boolean <code>true</code> if this is a form submit request.
      */
     public function isFormSubmit($request) {
@@ -201,7 +201,7 @@ class ZMController extends ZMObject {
     /**
      * Process a HTTP HEAD request.
      *
-     * @param zenmagick\http\Request request The request to process.
+     * @param ZenMagick\http\Request request The request to process.
      * @return View A <code>View</code> that handles presentation or <code>null</code>
      * if the controller generates the contents itself.
      */
@@ -212,7 +212,7 @@ class ZMController extends ZMObject {
     /**
      * Process a HTTP GET request.
      *
-     * @param zenmagick\http\Request request The request to process.
+     * @param ZenMagick\http\Request request The request to process.
      * @return View A <code>View</code> that handles presentation or <code>null</code>
      * if the controller generates the contents itself.
      */
@@ -224,7 +224,7 @@ class ZMController extends ZMObject {
     /**
      * Process a HTTP POST request.
      *
-     * @param zenmagick\http\Request request The request to process.
+     * @param ZenMagick\http\Request request The request to process.
      * @return View A <code>View</code> that handles presentation or <code>null</code>
      * if the controller generates the contents itself.
      */
@@ -271,7 +271,7 @@ class ZMController extends ZMObject {
     /**
      * Get the form data object (if any) for this request.
      *
-     * @param zenmagick\http\Request request The request to process.
+     * @param ZenMagick\http\Request request The request to process.
      * @param string formDef Optional form container definition; default is <code>null</code> to use the global mapping.
      * @param string formId Optional form id; default is <code>null</code> to use the global mapping.
      * @return ZMObject An object instance or <code>null</code>
@@ -309,7 +309,7 @@ class ZMController extends ZMObject {
     /**
      * Validate the given form bean.
      *
-     * @param zenmagick\http\Request request The request to process.
+     * @param ZenMagick\http\Request request The request to process.
      * @param mixed formData An object.
      * @return View Either the error view (in case of validation errors), or <code>null</code> for success.
      */
@@ -329,7 +329,7 @@ class ZMController extends ZMObject {
     /**
      * Validate the current request using the given rule id.
      *
-     * @param zenmagick\http\Request request The request to process.
+     * @param ZenMagick\http\Request request The request to process.
      * @param string formId The <code>ZMRuleSet</code> id.
      * @param mixed formData A map, (bean) object instance or <code>null</code> for all current request parameter.
      * @return boolean <code>true</code> if the validation was successful, <code>false</code> if not.
@@ -397,7 +397,7 @@ class ZMController extends ZMObject {
     /**
      * Get the user (if any) for authentication.
      *
-     * <p>Creation of the user object is delegated to the configured <code>zenmagick\http\session\UserFactory</code> instance.
+     * <p>Creation of the user object is delegated to the configured <code>ZenMagick\http\session\UserFactory</code> instance.
      * The factory may be configured as bean defintion via the setting 'zenmagick.http.session.userFactory'.</p>
      *
      * @return mixed A user/credentials object. Default is <code>null</code>.

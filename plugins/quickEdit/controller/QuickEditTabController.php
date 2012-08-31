@@ -17,11 +17,11 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-namespace zenmagick\plugins\quickEdit\controller;
+namespace ZenMagick\plugins\quickEdit\controller;
 
-use zenmagick\base\Beans;
-use zenmagick\http\widgets\form\FormWidget;
-use zenmagick\apps\store\controller\CatalogContentController;
+use ZenMagick\base\Beans;
+use ZenMagick\http\widgets\form\FormWidget;
+use ZenMagick\apps\store\controller\CatalogContentController;
 
 /**
  * Admin controller.

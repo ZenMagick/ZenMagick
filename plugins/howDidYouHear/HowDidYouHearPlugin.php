@@ -17,13 +17,13 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-namespace zenmagick\plugins\howDidYouHear;
+namespace ZenMagick\plugins\howDidYouHear;
 
-use zenmagick\apps\store\plugins\Plugin;
-use zenmagick\base\Runtime;
-use zenmagick\base\Toolbox;
-use zenmagick\base\ZMObject;
-use zenmagick\http\view\TemplateView;
+use ZenMagick\apps\store\plugins\Plugin;
+use ZenMagick\base\Runtime;
+use ZenMagick\base\Toolbox;
+use ZenMagick\base\ZMObject;
+use ZenMagick\http\view\TemplateView;
 
 define('ID_SOURCE_OTHER', 9999);
 
@@ -75,7 +75,7 @@ class HowDidYouHearPlugin extends Plugin {
                 // add validation rules
                 $rules = array(
                     array("ZMRequiredRule", 'sourceId', 'Please select/provide the source where you first heard about us.'),
-                    array("zenmagick\\\plugins\\\howDidYouHear\\validation\\rules\\SourceOtherRule", 'sourceOther', 'Please provide a description about where you first heard about us.')
+                    array("ZenMagick\\\plugins\\\howDidYouHear\\validation\\rules\\SourceOtherRule", 'sourceOther', 'Please provide a description about where you first heard about us.')
                 );
                 $this->container->get('zmvalidator')->addRules('registration', $rules);
                 $this->container->get('zmvalidator')->addRules('shippingAddress', $rules);

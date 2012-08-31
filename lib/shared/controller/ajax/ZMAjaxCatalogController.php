@@ -18,8 +18,8 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-use zenmagick\base\Beans;
-use zenmagick\base\Runtime;
+use ZenMagick\base\Beans;
+use ZenMagick\base\Runtime;
 
 /**
  * Ajax controller for JSON catalog data.
@@ -55,7 +55,7 @@ class ZMAjaxCatalogController extends ZMAjaxController {
      *  <li>productd - The product id</li>
      * </ul>
      *
-     * @param zenmagick\http\Request request The current request.
+     * @param ZenMagick\http\Request request The current request.
      * @return void
      */
     public function getProductForIdJSON($request) {
@@ -78,7 +78,7 @@ class ZMAjaxCatalogController extends ZMAjaxController {
      *  <li>active - Admin only parameter to allow to also retrieve inactive products</li>
      * </ul>
      *
-     * @param zenmagick\http\Request request The current request.
+     * @param ZenMagick\http\Request request The current request.
      * @return void
      */
     public function getProductsForCategoryIdJSON($request) {
@@ -120,7 +120,7 @@ class ZMAjaxCatalogController extends ZMAjaxController {
      *  <li>active - Admin only parameter to allow to also retrieve inactive products</li>
      * </ul>
      *
-     * @param zenmagick\http\Request request The current request.
+     * @param ZenMagick\http\Request request The current request.
      * @return void
      */
     public function getProductsForManufacturerIdJSON($request) {

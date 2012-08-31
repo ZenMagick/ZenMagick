@@ -18,11 +18,11 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-namespace zenmagick\apps\store\services\catalog;
+namespace ZenMagick\apps\store\services\catalog;
 
 use DateTime;
-use zenmagick\base\Runtime;
-use zenmagick\base\ZMObject;
+use ZenMagick\base\Runtime;
+use ZenMagick\base\ZMObject;
 
 /**
  * Products on special.
@@ -46,7 +46,7 @@ class ProductSpecialsService extends ZMObject {
         $sql = "SELECT specials_id, products_id, status, expires_date, specials_date_available
                 FROM %table.specials%";
         $productService = $this->container->get('productService');
-        foreach (\ZMRuntime::getDatabase()->fetchAll($sql, array(), 'specials', 'zenmagick\apps\store\model\catalog\Special') as $special) {
+        foreach (\ZMRuntime::getDatabase()->fetchAll($sql, array(), 'specials', 'ZenMagick\apps\store\model\catalog\Special') as $special) {
             $availableDate = $special->getAvailableDate();
             $expiryDate = $special->getExpiryDate();
             $active = $special->getStatus();

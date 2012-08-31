@@ -17,9 +17,9 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-namespace zenmagick\apps\storefront\controller;
+namespace ZenMagick\apps\storefront\controller;
 
-use zenmagick\base\Beans;
+use ZenMagick\base\Beans;
 
 /**
  * Ajax controller for JSON checkout.
@@ -51,7 +51,7 @@ class AjaxCheckoutController extends \ZMAjaxController {
      *  <li>Any address proerty (<em>countryId, zoneId, postcode, etc.</em>)</li>
      * </ul>
      *
-     * @param zenmagick\http\Request request The current request.
+     * @param ZenMagick\http\Request request The current request.
      */
     public function getShippingMethodsJSON($request) {
         // try to set up an address using request information

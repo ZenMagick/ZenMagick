@@ -35,9 +35,9 @@ admin:
   router:
     page:
       howDidYouHearSourcesStats:
-        controller: zenmagick\plugins\howDidYouHear\controller\HowDidYouHearSourcesStatsController
+        controller: ZenMagick\plugins\howDidYouHear\controller\HowDidYouHearSourcesStatsController
       howDidYouHearSourcesAdmin:
-        controller: zenmagick\plugins\howDidYouhear\controller\HowDidYouHearSourcesAdminController
+        controller: ZenMagick\plugins\howDidYouhear\controller\HowDidYouHearSourcesAdminController
   menu:
     referral-sources:
       parent: configuration

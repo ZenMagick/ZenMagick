@@ -17,15 +17,15 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-namespace zenmagick\apps\admin\controller;
+namespace ZenMagick\apps\admin\controller;
 
-use zenmagick\base\Beans;
-use zenmagick\base\Runtime;
-use zenmagick\base\Toolbox;
-use zenmagick\base\logging\Logging;
-use zenmagick\http\Request;
-use zenmagick\http\sacs\SacsManager;
-use zenmagick\apps\store\controller\CatalogContentController;
+use ZenMagick\base\Beans;
+use ZenMagick\base\Runtime;
+use ZenMagick\base\Toolbox;
+use ZenMagick\base\logging\Logging;
+use ZenMagick\http\Request;
+use ZenMagick\http\sacs\SacsManager;
+use ZenMagick\apps\store\controller\CatalogContentController;
 
 /**
  * Admin controller for catalog page(s).
@@ -39,7 +39,7 @@ class CatalogController extends \ZMController {
     /**
      * Create list of all active catalog content controllers.
      *
-     * @param zenmagick\http\Request request The current request.
+     * @param ZenMagick\http\Request request The current request.
      * @return array List of controller instances.
      */
     protected function getCatalogContentControllers($request) {

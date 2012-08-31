@@ -17,10 +17,10 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-namespace zenmagick\apps\store\bundles\ZenCartBundle;
+namespace ZenMagick\apps\store\bundles\ZenCartBundle;
 
-use zenmagick\base\Runtime;
-use zenmagick\apps\store\model\coupons\Coupon;
+use ZenMagick\base\Runtime;
+use ZenMagick\apps\store\model\coupons\Coupon;
 
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;

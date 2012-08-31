@@ -17,12 +17,12 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-namespace zenmagick\plugins\tinyMCE;
+namespace ZenMagick\plugins\tinyMCE;
 
-use zenmagick\http\widgets\form\TextAreaFormWidget;
-use zenmagick\http\widgets\form\WysiwygEditor;
-use zenmagick\http\view\ResourceManager;
-use zenmagick\http\view\TemplateView;
+use ZenMagick\http\widgets\form\TextAreaFormWidget;
+use ZenMagick\http\widgets\form\WysiwygEditor;
+use ZenMagick\http\view\ResourceManager;
+use ZenMagick\http\view\TemplateView;
 
 /**
  * TinyMCE textarea form widget.

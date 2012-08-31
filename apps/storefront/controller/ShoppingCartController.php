@@ -20,15 +20,15 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-namespace zenmagick\apps\storefront\controller;
+namespace ZenMagick\apps\storefront\controller;
 
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
-use zenmagick\base\Runtime;
-use zenmagick\base\ZMObject;
-use zenmagick\base\events\Event;
-use zenmagick\http\Request;
-use zenmagick\http\view\ModelAndView;
-use zenmagick\apps\store\utils\CheckoutHelper;
+use ZenMagick\base\Runtime;
+use ZenMagick\base\ZMObject;
+use ZenMagick\base\events\Event;
+use ZenMagick\http\Request;
+use ZenMagick\http\view\ModelAndView;
+use ZenMagick\apps\store\utils\CheckoutHelper;
 
 /**
  * Request controller for shopping cart.
@@ -40,7 +40,7 @@ class ShoppingCartController extends ZMObject {
     /**
      * Show cart.
      *
-     * @param zenmagick\http\Request request The current request.
+     * @param ZenMagick\http\Request request The current request.
      */
     public function show(Request $request) {
         $flashBag = $request->getSession()->getFlashBag();

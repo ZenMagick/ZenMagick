@@ -17,12 +17,12 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-namespace zenmagick\plugins\vbulletin;
+namespace ZenMagick\plugins\vbulletin;
 
-use zenmagick\apps\store\plugins\Plugin;
-use zenmagick\base\Beans;
-use zenmagick\base\Toolbox;
-use zenmagick\base\Runtime;
+use ZenMagick\apps\store\plugins\Plugin;
+use ZenMagick\base\Beans;
+use ZenMagick\base\Toolbox;
+use ZenMagick\base\Runtime;
 
 /**
  * Plugin to enable vBulletin support in ZenMagick.
@@ -40,7 +40,7 @@ class VBulletinPlugin extends Plugin {
      */
     protected function getAdapter() {
         if (null == $this->adapter_) {
-            $this->adapter_ = Beans::getBean('zenmagick\plugins\vBulletin\VBulletinAdapter');
+            $this->adapter_ = Beans::getBean('ZenMagick\plugins\vBulletin\VBulletinAdapter');
         }
 
         return $this->adapter_;

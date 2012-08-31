@@ -18,8 +18,8 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-use zenmagick\base\Beans;
-use zenmagick\base\ZMObject;
+use ZenMagick\base\Beans;
+use ZenMagick\base\ZMObject;
 
 /**
  * A single order item
@@ -98,7 +98,7 @@ class ZMOrderItem extends ZMObject {
      */
     public function getTaxRate() {
         if (null == $this->taxRate_) {
-            $this->taxRate_ = Beans::getBean('zenmagick\apps\store\model\TaxRate');
+            $this->taxRate_ = Beans::getBean('ZenMagick\apps\store\model\TaxRate');
             $this->taxRate_->setRate($this->get('taxValue'));
         }
 

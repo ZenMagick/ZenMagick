@@ -8,7 +8,7 @@ admin:
   container:
     services:
       counterHistoryDashboardWidget:
-        class: zenmagick\plugins\visitCounter\CounterHistoryDashboardWidget
+        class: ZenMagick\plugins\visitCounter\CounterHistoryDashboardWidget
         scope: prototype
         tags:
           -  { name: apps.store.admin.dashboard.widget }

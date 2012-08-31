@@ -17,10 +17,10 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-namespace zenmagick\plugins\formHandler\controller;
+namespace ZenMagick\plugins\formHandler\controller;
 
 use ZMController;
-use zenmagick\base\ZMObject;
+use ZenMagick\base\ZMObject;
 
 /**
  * Generic form handler controller.
@@ -32,7 +32,7 @@ class FormHandlerController extends ZMController {
     /**
      * Create the form data object.
      *
-     * @param zenmagick\http\Request request The current request.
+     * @param ZenMagick\http\Request request The current request.
      * @return ZMObject The model.
      */
     protected function createFormData($request) {
@@ -79,7 +79,7 @@ class FormHandlerController extends ZMController {
      * @param array data The form data.
      * @param string template The template.
      * @param string email The email address.
-     * @param zenmagick\http\Request request The current request.
+     * @param ZenMagick\http\Request request The current request.
      */
     protected function sendNotificationEmail($data, $template, $email, $request) {
         $settingsService = $this->container->get('settingsService');

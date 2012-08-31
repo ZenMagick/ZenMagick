@@ -18,8 +18,8 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-use zenmagick\base\Beans;
-use zenmagick\base\ZMObject;
+use ZenMagick\base\Beans;
+use ZenMagick\base\ZMObject;
 
 /**
  * A product search source.
@@ -83,7 +83,7 @@ class ZMSearchResultSource extends ZMObject implements ZMResultSource {
                 }
             }
             $queryDetails = $finder->execute();
-            $queryPager = Beans::getBean('zenmagick\base\database\QueryPager');
+            $queryPager = Beans::getBean('ZenMagick\base\database\QueryPager');
             $queryPager->setQueryDetails($queryDetails);
             $productIds = array();
             foreach ($queryPager->getResults($this->resultList_->getPageNumber(), $this->resultList_->getPagination()) as $result) {

@@ -19,9 +19,9 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-namespace zenmagick\apps\store\bundles\ZenCartBundle\utils;
+namespace ZenMagick\apps\store\bundles\ZenCartBundle\utils;
 
-use zenmagick\base\ZMObject;
+use ZenMagick\base\ZMObject;
 
 /**
  * Assertations for shopping cart.

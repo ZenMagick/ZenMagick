@@ -11,19 +11,22 @@ if (!function_exists('intl_get_error_code')) {
 /**
  * ZenMagick modified PSR-0 class loader.
  *
- * It simply strips the zenmagick prefix so we can work inside a directory
+ * It simply strips the ZenMagick prefix so we can work inside a directory
  * not named zenmagick.
  *
  * @todo revaluate once the classmap generation pull request is merged
  *       <link>https://github.com/composer/composer/pull/811</link>
  */
 spl_autoload_register(function ($class) {
-    if (0 === strpos($class, 'zenmagick')) {
+    if (0 === strpos($class, 'ZenMagick')) {
         $class = substr($class, 10);
+//        var_dump($class);
         if (false !== $pos = strrpos($class, '\\')) {
             $classPath = str_replace('\\', DIRECTORY_SEPARATOR, substr($class, 0, $pos)) . DIRECTORY_SEPARATOR;
             $classPath .= substr($class, $pos + 1).'.php';
             $file = __DIR__.DIRECTORY_SEPARATOR.$classPath;
+
+  //          var_dump($file);
             if (file_exists($file)) {
                 require_once $file;
             }
@@ -33,7 +36,7 @@ spl_autoload_register(function ($class) {
 /**
  * Preload Locales class to make translation functions available.
  */
-require_once __DIR__.'/lib/zenmagick/base/locales/functions.php';
+require_once __DIR__.'/lib/ZenMagick/base/locales/functions.php';
 
 AnnotationRegistry::registerLoader(array($loader, 'loadClass'));
 

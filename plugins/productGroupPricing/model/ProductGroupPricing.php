@@ -18,11 +18,11 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-namespace zenmagick\plugins\productGroupPricing\model;
+namespace ZenMagick\plugins\productGroupPricing\model;
 
 use DateTime;
-use zenmagick\base\Toolbox;
-use zenmagick\base\ZMObject;
+use ZenMagick\base\Toolbox;
+use ZenMagick\base\ZMObject;
 
 /**
  * A product price group.
@@ -62,7 +62,7 @@ class ProductGroupPricing extends ZMObject {
     /**
      * Populate all available fields from the given request.
      *
-     * @param zenmagick\http\Request request The current request.
+     * @param ZenMagick\http\Request request The current request.
      */
     public function populate($request) {
         $this->id_ = $request->getParameter('groupPricingId', '0');

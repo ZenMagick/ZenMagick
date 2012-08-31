@@ -17,10 +17,10 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-namespace zenmagick\plugins\multiQuantity;
+namespace ZenMagick\plugins\multiQuantity;
 
-use zenmagick\apps\store\plugins\Plugin;
-use zenmagick\base\Runtime;
+use ZenMagick\apps\store\plugins\Plugin;
+use ZenMagick\base\Runtime;
 
 // The form field name indicating the attribute id used for multi qty
 define('MULTI_QUANTITY_ID', 'multi_qty_id');
@@ -47,7 +47,7 @@ class MultiQuantityPlugin extends Plugin {
             $urlManager = $this->container->get('urlManager');
             // create mapping for lookup
             $urlManager->setMapping('product_info',
-                array('controller' => 'zenmagick\plugins\multiQuantity\controller\MultiQuantityProductInfoController'));
+                array('controller' => 'ZenMagick\plugins\multiQuantity\controller\MultiQuantityProductInfoController'));
 
             // add own mapping
             if ($this->container->get('settingsService')->get('isShowCartAfterAddProduct', true)) {

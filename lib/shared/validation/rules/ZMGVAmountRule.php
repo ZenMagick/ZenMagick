@@ -18,7 +18,7 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-use zenmagick\base\Runtime;
+use ZenMagick\base\Runtime;
 
 /**
  * Validate the amount against the current account's gv balance.
@@ -45,7 +45,7 @@ class ZMGVAmountRule extends ZMRule {
     /**
      * Validate the given request data.
      *
-     * @param zenmagick\http\Request request The current request.
+     * @param ZenMagick\http\Request request The current request.
      * @param array data The data.
      * @return boolean <code>true</code> if the value for <code>$name</code> is valid, <code>false</code> if not.
      */

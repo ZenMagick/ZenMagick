@@ -15,14 +15,14 @@ storefront:
   container:
     services:
       masterPasswordAuthenticationProvider:
-        class: zenmagick\plugins\masterPassword\MasterPasswordAuthenticationProvider
+        class: ZenMagick\plugins\masterPassword\MasterPasswordAuthenticationProvider
         tags:
           -  { name: zenmagick.base.security.authentication.provider }
 admin:
   routing:
     master_password_admin:
       pattern: /masterPasswordAdmin
-      defaults: { _controller: zenmagick\plugins\masterPassword\controller\MasterPasswordAdminController }
+      defaults: { _controller: ZenMagick\plugins\masterPassword\controller\MasterPasswordAdminController }
       options:
         'view': views/master_password_admin.php
   menu:

@@ -17,14 +17,14 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-namespace zenmagick\apps\store\services;
+namespace ZenMagick\apps\store\services;
 
 use ZMAccount;
 use ZMRuntime;
-use zenmagick\base\Beans;
-use zenmagick\base\Runtime;
-use zenmagick\base\ZMObject;
-use zenmagick\apps\store\model\TaxRate;
+use ZenMagick\base\Beans;
+use ZenMagick\base\Runtime;
+use ZenMagick\base\ZMObject;
+use ZenMagick\apps\store\model\TaxRate;
 
 /**
  * Tax rate service.
@@ -84,7 +84,7 @@ class TaxService extends ZMObject {
 
         if (TaxRate::TAX_BASE_STORE == $settingsService->get('productTaxBase')) {
             if ($settingsService->get('storeZone') != $zoneId) {
-                $taxRate = Beans::getBean('zenmagick\apps\store\model\TaxRate');
+                $taxRate = Beans::getBean('ZenMagick\apps\store\model\TaxRate');
                 $taxRate->setId($taxRateId);
                 $taxRate->setClassId($taxClassId);
                 $taxRate->setCountryId($countryId);
@@ -112,7 +112,7 @@ class TaxService extends ZMObject {
                 $multiplier *= 1.0 + ($result['rate'] / 100);
             }
 
-            $taxRate = Beans::getBean('zenmagick\apps\store\model\TaxRate');
+            $taxRate = Beans::getBean('ZenMagick\apps\store\model\TaxRate');
             $taxRate->setId($taxRateId);
             $taxRate->setClassId($taxClassId);
             $taxRate->setCountryId($countryId);
@@ -122,7 +122,7 @@ class TaxService extends ZMObject {
             return $taxRate;
         }
 
-        $taxRate = Beans::getBean('zenmagick\apps\store\model\TaxRate');
+        $taxRate = Beans::getBean('ZenMagick\apps\store\model\TaxRate');
         $taxRate->setId($taxRateId);
         $taxRate->setClassId($taxClassId);
         $taxRate->setCountryId($countryId);
@@ -191,7 +191,7 @@ class TaxService extends ZMObject {
     public function getTaxClassForId($id) {
         $sql = "SELECT * FROM %table.tax_class%
                 WHERE tax_class_id = :taxClassId";
-        return ZMRuntime::getDatabase()->querySingle($sql, array('taxClassId' => $id), 'tax_class', 'zenmagick\apps\store\model\TaxClass');
+        return ZMRuntime::getDatabase()->querySingle($sql, array('taxClassId' => $id), 'tax_class', 'ZenMagick\apps\store\model\TaxClass');
     }
 
     /**
@@ -256,7 +256,7 @@ class TaxService extends ZMObject {
                 $rateFactor = $priorRate * ( 1 + ($result['rate'] / 100));
             }
 
-            $taxRate = Beans::getBean('zenmagick\apps\store\model\TaxRate');
+            $taxRate = Beans::getBean('ZenMagick\apps\store\model\TaxRate');
             $taxRate->setDescription($result['description']);
             $taxRate->setRate(100 * ($rateFactor - $priorRate));
 

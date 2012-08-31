@@ -18,9 +18,9 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-namespace zenmagick\themes\test\utils;
+namespace ZenMagick\themes\test\utils;
 
-use zenmagick\base\database\QueryDetails;
+use ZenMagick\base\database\QueryDetails;
 
 /**
  * Simple custom product search.
@@ -34,7 +34,7 @@ class ProductFinder extends \ZMProductFinder {
      * Build the search SQL.
      *
      * @param ZMSearchCriteria criteria Search criteria.
-     * @return zenmagick\base\database\QueryDetails The search SQL.
+     * @return ZenMagick\base\database\QueryDetails The search SQL.
      */
     protected function buildQuery($criteria) {
         $select = "SELECT pd.products_id, ";

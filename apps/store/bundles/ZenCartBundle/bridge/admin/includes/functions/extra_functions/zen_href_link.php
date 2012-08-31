@@ -21,8 +21,8 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-use zenmagick\base\Runtime;
-use zenmagick\base\ZMException;
+use ZenMagick\base\Runtime;
+use ZenMagick\base\ZMException;
 
 /**
  * zen_href_link wrapper that delegates to the Zenmagick implementation (for storefront).

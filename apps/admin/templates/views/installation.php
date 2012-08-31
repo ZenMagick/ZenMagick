@@ -18,10 +18,10 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-use zenmagick\base\Beans;
-use zenmagick\base\Runtime;
+use ZenMagick\base\Beans;
+use ZenMagick\base\Runtime;
 
-    $installer = new zenmagick\apps\admin\installation\InstallationPatcher();
+    $installer = new ZenMagick\apps\admin\installation\InstallationPatcher();
     $needRefresh = false;
 
     // install
@@ -115,7 +115,7 @@ if (null != $request->request->get('optimizeDb')) {
  * Show patch group.
  */
 function _zm_patch_group($groupId, $buttonClasses, $checkall=true) {
-    $installer = new zenmagick\apps\admin\installation\InstallationPatcher();
+    $installer = new ZenMagick\apps\admin\installation\InstallationPatcher();
     foreach ($installer->getPatches($groupId) as $id => $patch) {
         if ('sqlFulltext' == $patch->getId()) {
             continue;

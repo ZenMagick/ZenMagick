@@ -18,10 +18,10 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-use zenmagick\base\Beans;
-use zenmagick\base\Runtime;
-use zenmagick\apps\store\model\catalog\Review;
-use zenmagick\plugins\unitTests\simpletest\TestCase;
+use ZenMagick\base\Beans;
+use ZenMagick\base\Runtime;
+use ZenMagick\apps\store\model\catalog\Review;
+use ZenMagick\plugins\unitTests\simpletest\TestCase;
 
 /**
  * Test reviews service.
@@ -131,7 +131,7 @@ class TestReviewService extends TestCase {
         Runtime::getSettings()->set('isApproveReviews', false);
         $account = $this->container->get('accountService')->getAccountForId(1);
         if (null != $account) {
-            $review = Beans::getBean('zenmagick\apps\store\model\catalog\Review');
+            $review = Beans::getBean('ZenMagick\apps\store\model\catalog\Review');
             $review->setProductId(3);
             $review->setRating(4);
             $review->setDescription('some foo', 1);
@@ -164,7 +164,7 @@ class TestReviewService extends TestCase {
         $reviewService = $this->container->get('reviewService');
         $account = $this->container->get('accountService')->getAccountForId(1);
         if (null != $account) {
-            $review = Beans::getBean('zenmagick\apps\store\model\catalog\Review');
+            $review = Beans::getBean('ZenMagick\apps\store\model\catalog\Review');
             $review->setProductId(3);
             $review->setRating(4);
             $review->setLanguageId(1);

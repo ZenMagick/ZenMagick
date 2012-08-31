@@ -17,15 +17,15 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-namespace zenmagick\plugins\musicProductInfo\services;
+namespace ZenMagick\plugins\musicProductInfo\services;
 
-use zenmagick\base\Runtime;
-use zenmagick\base\ZMObject;
-use zenmagick\plugins\musicProductInfo\model\Artist;
-use zenmagick\plugins\musicProductInfo\model\MediaCollection;
-use zenmagick\plugins\musicProductInfo\model\MediaItem;
-use zenmagick\plugins\musicProductInfo\model\MediaType;
-use zenmagick\plugins\musicProductInfo\model\RecordCompany;
+use ZenMagick\base\Runtime;
+use ZenMagick\base\ZMObject;
+use ZenMagick\plugins\musicProductInfo\model\Artist;
+use ZenMagick\plugins\musicProductInfo\model\MediaCollection;
+use ZenMagick\plugins\musicProductInfo\model\MediaItem;
+use ZenMagick\plugins\musicProductInfo\model\MediaType;
+use ZenMagick\plugins\musicProductInfo\model\RecordCompany;
 
 
 /**
@@ -127,15 +127,15 @@ class MusicManager extends ZMObject {
             // all media collections
             $sql = "SELECT * FROM %table.media_manager% WHERE media_id = :collectionId";
             $args = array('collectionId' => $mediaId['mediaId']);
-            foreach (\ZMRuntime::getDatabase()->fetchAll($sql, $args, 'media_manager', 'zenmagick\plugins\musicProductInfo\model\MediaCollection') as $collection) {
+            foreach (\ZMRuntime::getDatabase()->fetchAll($sql, $args, 'media_manager', 'ZenMagick\plugins\musicProductInfo\model\MediaCollection') as $collection) {
                 // populate collection
                 $sql = "SELECT * FROM %table.media_clips% WHERE media_id = :mediaId";
-                foreach (\ZMRuntime::getDatabase()->fetchAll($sql, array('mediaId' => $mediaId['mediaId']), 'media_clips', 'zenmagick\plugins\musicProductInfo\model\MediaItem') as $mediaItem) {
+                foreach (\ZMRuntime::getDatabase()->fetchAll($sql, array('mediaId' => $mediaId['mediaId']), 'media_clips', 'ZenMagick\plugins\musicProductInfo\model\MediaItem') as $mediaItem) {
                     // plus clip types
                     $sql = "SELECT * FROM %table.media_types% WHERE type_id = :mediaTypeId";
                     $args = array('mediaTypeId' => $mediaItem->getMediaTypeId());
                     // maybe null
-                    $mediaType = \ZMRuntime::getDatabase()->querySingle($sql, $args, 'media_types', 'zenmagick\plugins\musicProductInfo\model\MediaType');
+                    $mediaType = \ZMRuntime::getDatabase()->querySingle($sql, $args, 'media_types', 'ZenMagick\plugins\musicProductInfo\model\MediaType');
                     $mediaItem->setType($mediaType);
                     $collection->addItem($mediaItem);
                 }
@@ -158,7 +158,7 @@ class MusicManager extends ZMObject {
         $extraInfo = \ZMRuntime::getDatabase()->querySingle($sql, array('productId' => $productId), 'product_music_extra');
 
         $sql = "SELECT * FROM %table.record_artists% WHERE artists_id = :artistId";
-        $artist = \ZMRuntime::getDatabase()->querySingle($sql, array('artistId' => $extraInfo['artistId']), 'record_artists', 'zenmagick\plugins\musicProductInfo\model\Artist');
+        $artist = \ZMRuntime::getDatabase()->querySingle($sql, array('artistId' => $extraInfo['artistId']), 'record_artists', 'ZenMagick\plugins\musicProductInfo\model\Artist');
 
         if (null == $artist) {
             return null;
@@ -171,7 +171,7 @@ class MusicManager extends ZMObject {
 
         $sql = "SELECT * FROM %table.record_company% WHERE record_company_id = :recordCompanyId";
         $args = array('recordCompanyId' => $extraInfo['recordCompanyId']);
-        $recordCompany = \ZMRuntime::getDatabase()->querySingle($sql, $args, 'record_company', 'zenmagick\plugins\musicProductInfo\model\RecordCompany');
+        $recordCompany = \ZMRuntime::getDatabase()->querySingle($sql, $args, 'record_company', 'ZenMagick\plugins\musicProductInfo\model\RecordCompany');
 
         if (null != $recordCompany) {
             $sql = "SELECT * FROM %table.record_company_info% WHERE record_company_id = :recordCompanyId AND languages_id = :languageId";

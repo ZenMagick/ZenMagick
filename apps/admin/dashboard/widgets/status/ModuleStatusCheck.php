@@ -17,12 +17,12 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-namespace zenmagick\apps\admin\dashboard\widgets\status;
+namespace ZenMagick\apps\admin\dashboard\widgets\status;
 
 use DateTime;
-use zenmagick\base\Runtime;
-use zenmagick\base\ZMObject;
-use zenmagick\apps\store\widgets\StatusCheck;
+use ZenMagick\base\Runtime;
+use ZenMagick\base\ZMObject;
+use ZenMagick\apps\store\widgets\StatusCheck;
 
 /**
  * Module status check.

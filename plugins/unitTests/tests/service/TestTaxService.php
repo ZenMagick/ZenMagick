@@ -18,9 +18,9 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-use zenmagick\base\Runtime;
-use zenmagick\plugins\unitTests\simpletest\TestCase;
-use zenmagick\apps\store\model\TaxRate;
+use ZenMagick\base\Runtime;
+use ZenMagick\plugins\unitTests\simpletest\TestCase;
+use ZenMagick\apps\store\model\TaxRate;
 
 /**
  * Test layout service.

@@ -17,11 +17,11 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-namespace zenmagick\apps\store\services\catalog;
+namespace ZenMagick\apps\store\services\catalog;
 
 use DateTime;
-use zenmagick\base\Runtime;
-use zenmagick\base\ZMObject;
+use ZenMagick\base\Runtime;
+use ZenMagick\base\ZMObject;
 
 /**
  * Featured Products.
@@ -41,7 +41,7 @@ class ProductFeaturedService extends ZMObject {
     public function scheduleFeatured() {
         $sql = "SELECT featured_id, status, expires_date, featured_date_available
                 FROM %table.featured%";
-        foreach (\ZMRuntime::getDatabase()->fetchAll($sql, array(), 'featured', 'zenmagick\apps\store\model\catalog\Feature') as $feature) {
+        foreach (\ZMRuntime::getDatabase()->fetchAll($sql, array(), 'featured', 'ZenMagick\apps\store\model\catalog\Feature') as $feature) {
             $availableDate = $feature->getAvailableDate();
             $expiryDate = $feature->getExpiryDate();
             $active = $feature->getStatus();

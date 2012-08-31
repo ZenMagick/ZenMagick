@@ -17,9 +17,9 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-namespace zenmagick\plugins\productTags\controller;
+namespace ZenMagick\plugins\productTags\controller;
 
-use zenmagick\apps\store\controller\CatalogContentController;
+use ZenMagick\apps\store\controller\CatalogContentController;
 
 /**
  * Admin controller.

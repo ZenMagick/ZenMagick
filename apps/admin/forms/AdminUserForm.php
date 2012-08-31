@@ -17,9 +17,9 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-namespace zenmagick\apps\admin\forms;
+namespace ZenMagick\apps\admin\forms;
 
-use zenmagick\base\ZMObject;
+use ZenMagick\base\ZMObject;
 
 /**
  * Admin user form data.

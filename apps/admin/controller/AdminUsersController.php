@@ -17,9 +17,9 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-namespace zenmagick\apps\admin\controller;
+namespace ZenMagick\apps\admin\controller;
 
-use zenmagick\base\Beans;
+use ZenMagick\base\Beans;
 
 /**
  * Admin controller for admin user management.
@@ -33,7 +33,7 @@ class AdminUsersController extends \ZMController {
      */
     public function processGet($request) {
         $user = $this->getUser();
-        $resultSource = new \ZMObjectResultSource('zenmagick\\apps\\admin\\entities\\AdminUser', 'adminUserService', "getAllUsers", !$user->isLive());
+        $resultSource = new \ZMObjectResultSource('ZenMagick\\apps\\admin\\entities\\AdminUser', 'adminUserService', "getAllUsers", !$user->isLive());
         $resultList = Beans::getBean('ZMResultList');
         $resultList->setResultSource($resultSource);
         $resultList->setPageNumber($request->query->get('page', 1));

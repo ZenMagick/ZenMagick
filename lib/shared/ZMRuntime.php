@@ -18,8 +18,8 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-use zenmagick\base\Runtime;
-use zenmagick\base\Toolbox;
+use ZenMagick\base\Runtime;
+use ZenMagick\base\Toolbox;
 
 
 class ZMRuntime {
@@ -33,7 +33,7 @@ class ZMRuntime {
      */
     public static function setDatabase($name, $conf) {
         if (!isset($conf['wrapperClass'])) {
-            $conf['wrapperClass'] = 'zenmagick\\base\\database\\Connection';
+            $conf['wrapperClass'] = 'ZenMagick\\base\\database\\Connection';
         }
         self::$databaseMap_[$name] = $conf;
     }
@@ -42,7 +42,7 @@ class ZMRuntime {
      * Get a database connection by name.
      *
      * @param string name get default connection if null.
-     * @return zenmagick\base\database\Connection
+     * @return ZenMagick\base\database\Connection
      */
     public static function getDatabase($conf='default') {
         if (is_array(self::$databaseMap_[$conf])) {

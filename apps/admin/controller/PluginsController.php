@@ -17,15 +17,15 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-namespace zenmagick\apps\admin\controller;
+namespace ZenMagick\apps\admin\controller;
 
-use zenmagick\base\Beans;
-use zenmagick\base\Runtime;
-use zenmagick\base\Toolbox;
-use zenmagick\base\logging\Logging;
-use zenmagick\http\widgets\form\FormWidget;
-use zenmagick\apps\store\plugins\Plugin;
-use zenmagick\apps\store\plugins\PluginOptionsLoader;
+use ZenMagick\base\Beans;
+use ZenMagick\base\Runtime;
+use ZenMagick\base\Toolbox;
+use ZenMagick\base\logging\Logging;
+use ZenMagick\http\widgets\form\FormWidget;
+use ZenMagick\apps\store\plugins\Plugin;
+use ZenMagick\apps\store\plugins\PluginOptionsLoader;
 
 /**
  * Admin controller for plugins.

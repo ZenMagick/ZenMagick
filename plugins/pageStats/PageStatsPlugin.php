@@ -17,14 +17,14 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-namespace zenmagick\plugins\pageStats;
+namespace ZenMagick\plugins\pageStats;
 
 use Symfony\Component\EventDispatcher\GenericEvent;
-use zenmagick\apps\store\plugins\Plugin;
-use zenmagick\base\Runtime;
-use zenmagick\base\Toolbox;
-use zenmagick\base\ZMObject;
-use zenmagick\base\logging\Logging;
+use ZenMagick\apps\store\plugins\Plugin;
+use ZenMagick\base\Runtime;
+use ZenMagick\base\Toolbox;
+use ZenMagick\base\ZMObject;
+use ZenMagick\base\logging\Logging;
 
 /**
  * Plugin to show page stats.
@@ -118,7 +118,7 @@ class PageStatsPlugin extends Plugin {
     /**
      * Generate hidden stats.
      *
-     * @param zenmagick\http\Request request The current request.
+     * @param ZenMagick\http\Request request The current request.
      * @param View view The current view.
      */
     private function hiddenStats($request, $view) {

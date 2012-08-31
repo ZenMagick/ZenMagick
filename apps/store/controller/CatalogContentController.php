@@ -17,11 +17,11 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-namespace zenmagick\apps\store\controller;
+namespace ZenMagick\apps\store\controller;
 
-use zenmagick\base\Beans;
-use zenmagick\http\Request;
-use zenmagick\http\view\RedirectView;
+use ZenMagick\base\Beans;
+use ZenMagick\http\Request;
+use ZenMagick\http\view\RedirectView;
 
 /**
  * Catalog content controller.
@@ -60,7 +60,7 @@ abstract class CatalogContentController extends \ZMController {
      * <p>Subclasses can control this by either setting the active (bit-)flags in the constructor or by
      * overriding this method.</p>
      *
-     * @param zenmagick\http\Request request The current request.
+     * @param ZenMagick\http\Request request The current request.
      * @return boolean <code>true</code> if the plugin requests to be rendered for this request.
      */
     public function isActive($request) {

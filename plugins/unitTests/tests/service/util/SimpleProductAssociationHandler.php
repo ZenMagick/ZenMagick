@@ -18,9 +18,9 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-use zenmagick\apps\store\model\catalog\ProductAssociation;
-use zenmagick\apps\store\services\catalog\ProductAssociationHandler;
-use zenmagick\plugins\unitTests\simpletest\TestCase;
+use ZenMagick\apps\store\model\catalog\ProductAssociation;
+use ZenMagick\apps\store\services\catalog\ProductAssociationHandler;
+use ZenMagick\plugins\unitTests\simpletest\TestCase;
 
 /**
  * Simple <code>ZMProductAssociationHandler</code> implementation.

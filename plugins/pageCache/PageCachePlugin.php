@@ -17,11 +17,11 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-namespace zenmagick\plugins\pageCache;
+namespace ZenMagick\plugins\pageCache;
 
-use zenmagick\apps\store\plugins\Plugin;
-use zenmagick\base\Runtime;
-use zenmagick\base\events\Event;
+use ZenMagick\apps\store\plugins\Plugin;
+use ZenMagick\base\Runtime;
+use ZenMagick\base\events\Event;
 
 
 define('ZM_PLUGINS_PAGE_CACHE_ALLOWED_DEFAULT', 'index,category,product_info,page,static,products_new,featured_products,specials,product_reviews');
@@ -56,7 +56,7 @@ class PageCachePlugin extends Plugin {
      * <p>Depending on whether the user is logged in or not, a user
      * specifc keu will be generated, to avoid session leaks.</p>
      *
-     * @param zenmagick\http\Request request The current request.
+     * @param ZenMagick\http\Request request The current request.
      * @return string A cache id.
      */
     protected function getRequestKey($request) {
@@ -73,7 +73,7 @@ class PageCachePlugin extends Plugin {
      *
      * <p>Evaluation is delegated to the configured strategy function (<em>pageCacheStrategyCallback</em>).</p>
      *
-     * @param zenmagick\http\Request request The current request.
+     * @param ZenMagick\http\Request request The current request.
      * @return boolean <code>true</code> if the current request is cacheable, <code>false</code> if not.
      */
     protected function isCacheable($request) {

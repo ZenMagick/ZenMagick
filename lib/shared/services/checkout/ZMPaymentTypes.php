@@ -19,9 +19,9 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-use zenmagick\base\Beans;
-use zenmagick\base\Toolbox;
-use zenmagick\base\ZMObject;
+use ZenMagick\base\Beans;
+use ZenMagick\base\Toolbox;
+use ZenMagick\base\ZMObject;
 
 /**
  * Payments.
@@ -65,7 +65,7 @@ class ZMPaymentTypes extends ZMObject {
                     if (isset($GLOBALS[$info['class']])) {
                         $module = $GLOBALS[$info['class']];
                         if ($all || $module->enabled) {
-                            $wrapper = Beans::getBean('zenmagick\apps\store\bundles\ZenCartBundle\wrapper\PaymentTypeWrapper');
+                            $wrapper = Beans::getBean('ZenMagick\apps\store\bundles\ZenCartBundle\wrapper\PaymentTypeWrapper');
                             $wrapper->setModule($module);
                             $this->paymentTypes_[$module->code] = $wrapper;
                         }
@@ -80,7 +80,7 @@ class ZMPaymentTypes extends ZMObject {
                     $module = new $info['class'];
                     $module->update_status();
                     if ($all || $module->enabled) {
-                        $wrapper = Beans::getBean('zenmagick\apps\store\bundles\ZenCartBundle\wrapper\PaymentTypeWrapper');
+                        $wrapper = Beans::getBean('ZenMagick\apps\store\bundles\ZenCartBundle\wrapper\PaymentTypeWrapper');
                         $wrapper->setModule($module);
                         $this->paymentTypes_[$module->code] = $wrapper;
                     }
@@ -107,7 +107,7 @@ class ZMPaymentTypes extends ZMObject {
      *
      * <p>This method is only defined in <em>storefront</em> context.</p>
      *
-     * @param zenmagick\http\Request request The current request.
+     * @param ZenMagick\http\Request request The current request.
      * @return string Fully formatted JavaScript incl. of wrapping &lt;script&gt; tag.
      */
     public function getPaymentFormValidationJS($request) {

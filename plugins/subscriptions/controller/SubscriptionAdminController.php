@@ -17,12 +17,12 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-namespace zenmagick\plugins\subscriptions\controller;
+namespace ZenMagick\plugins\subscriptions\controller;
 
 use ZMRuntime;
-use zenmagick\base\Beans;
-use zenmagick\base\Toolbox;
-use zenmagick\apps\admin\controller\PluginAdminController;
+use ZenMagick\base\Beans;
+use ZenMagick\base\Toolbox;
+use ZenMagick\apps\admin\controller\PluginAdminController;
 
 /**
  * Admin controller.

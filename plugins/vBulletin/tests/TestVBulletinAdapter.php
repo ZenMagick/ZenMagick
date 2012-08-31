@@ -17,10 +17,10 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-namespace zenmagick\plugins\vBulletin\tests;
+namespace ZenMagick\plugins\vBulletin\tests;
 
-use zenmagick\base\Beans;
-use zenmagick\plugins\unitTests\simpletest\TestCase;
+use ZenMagick\base\Beans;
+use ZenMagick\plugins\unitTests\simpletest\TestCase;
 
 /**
  * ZMVBulletin adapter test class.
@@ -52,7 +52,7 @@ class TestVBulletinAdapter extends TestCase {
      */
     protected function getAdapter() {
         if (null == $this->adapter_) {
-            $this->adapter_ = Beans::getBean('zenmagick\plugins\vBulletin\VBulletinAdapter');
+            $this->adapter_ = Beans::getBean('ZenMagick\plugins\vBulletin\VBulletinAdapter');
         }
 
         return $this->adapter_;

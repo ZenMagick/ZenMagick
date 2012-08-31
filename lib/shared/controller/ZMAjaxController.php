@@ -18,9 +18,9 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-use zenmagick\base\Runtime;
-use zenmagick\http\Request;
-use zenmagick\http\sacs\SacsManager;
+use ZenMagick\base\Runtime;
+use ZenMagick\http\Request;
+use ZenMagick\http\sacs\SacsManager;
 
 /**
  * Request controller for ajax requests.

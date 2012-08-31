@@ -19,15 +19,15 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-use zenmagick\base\Runtime;
-use zenmagick\base\Toolbox;
-use zenmagick\base\ZMObject;
+use ZenMagick\base\Runtime;
+use ZenMagick\base\Toolbox;
+use ZenMagick\base\ZMObject;
 
 /**
  * Category DAO.
  *
  * <p>The cache implementation used can be configured via the setting '<em>apps.store.categories.cache</em>'.
- * Default is <code>zenmagick\base\cache\Cache::TRANSIENT</code>.</p>
+ * Default is <code>ZenMagick\base\cache\Cache::TRANSIENT</code>.</p>
  *
  * @author DerManoMann
  * @package zenmagick.store.shared.services.catalog
@@ -58,7 +58,7 @@ class ZMCategories extends ZMObject {
     /**
      * Set the cache.
      *
-     * @param zenmagick\base\cache\Cache cache The cache.
+     * @param ZenMagick\base\cache\Cache cache The cache.
      */
     public function setCache($cache) {
         $this->cache_ = $cache;
@@ -67,7 +67,7 @@ class ZMCategories extends ZMObject {
     /**
      * Get the cache.
      *
-     * @return zenmagick\base\cache\Cache The cache.
+     * @return ZenMagick\base\cache\Cache The cache.
      */
     public function getCache() {
         return $this->cache_;

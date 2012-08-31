@@ -12,7 +12,7 @@ storefront,admin:
   routing:
     unitTests:
       pattern: /unitTests
-      defaults: { _controller: zenmagick\plugins\unitTests\controller\UnitTestsController }
+      defaults: { _controller: ZenMagick\plugins\unitTests\controller\UnitTestsController }
       options: { view: views/tests.php?layout= }
   autoload:
     files: [lib/simpletest-trunk-20110128.packed.php]

@@ -10,9 +10,9 @@ admin:
   router:
     page:
       settingsShow:
-        controller: zenmagick\plugins\settings\controller\SettingsShowController
+        controller: ZenMagick\plugins\settings\controller\SettingsShowController
       settingsAdmin:
-        controller: zenmagick\plugins\settings\controller\SettingsAdminController
+        controller: ZenMagick\plugins\settings\controller\SettingsAdminController
   menu:
     settings-plugin:
       parent: configuration

@@ -1,0 +1,264 @@
+<?xml version="1.0" ?>
+
+<!-- http container -->
+<container xmlns="http://symfony.com/schema/dic/services"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <parameters>
+        <parameter key="zenmagick.http.httpPort">80</parameter>
+        <parameter key="zenmagick.http.httpsPort">443</parameter>
+        <parameter key="zenmagick.http.session.validator.userAgent">false</parameter>
+        <parameter key="zenmagick.http.session.validator.ip">false</parameter>
+        <parameter key="zenmagick.http.session.validator.sslSessionId">false</parameter>
+        <!-- @todo set these by default until all forms are secured by default -->
+        <parameter key="zenmagick.http.session.formtoken" type="collection">
+            <parameter>login</parameter>
+            <parameter>reset_password</parameter>
+        </parameter>
+        <parameter key="zenmagick.http.virtualPathMap" type="collection"></parameter>
+        <parameter key="zenmagick.http.sacs.mappingProviders" type="collection"></parameter>
+
+        <parameter key="pdo.db_options" type="collection">
+            <parameter key="db_table">%database_prefix%sessions</parameter>
+            <parameter key="db_id_col">sesskey</parameter>
+            <parameter key="db_data_col">value</parameter>
+            <parameter key="db_time_col">expiry</parameter>
+        </parameter>
+    </parameters>
+
+    <services>
+        <service id="session.handler.pdo" class="Symfony\Component\HttpFoundation\Session\Storage\Handler\PdoSessionHandler">
+            <argument type="service" id="pdo" />
+            <argument>%pdo.db_options%</argument>
+        </service>
+
+        <service id="contextConfigLoader" class="ZenMagick\http\utils\ContextConfigLoader" scope="prototype">
+            <call method="setContext">
+                <argument>%kernel.context%</argument>
+            </call>
+            <call method="setSettingsService">
+                <argument type="service" id="settingsService" />
+            </call>
+        </service>
+
+        <service id="sacsManager" class="ZenMagick\http\sacs\SacsManager">
+            <argument type="service" id="service_container" />
+            <call method="load">
+                <argument>%kernel.context_dir%/config/sacs_mappings.yaml</argument>
+                <argument>false</argument>
+            </call>
+            <call method="loadProviderMappings">
+                <argument>%zenmagick.http.sacs.mappingProviders%</argument>
+            </call>
+            <call method="setRouteResolver">
+                <argument type="service" id="routeResolver" />
+            </call>
+        </service>
+
+        <service id="defaultUrlRewriter" class="ZenMagick\http\request\rewriter\DefaultUrlRewriter">
+            <tag name="zenmagick.http.request.rewriter" />
+        </service>
+
+        <service id="routingUrlRewriter" class="ZenMagick\http\request\rewriter\RoutingUrlRewriter">
+            <tag name="zenmagick.http.request.rewriter" />
+        </service>
+
+        <service id="taggedBlocksBlockProvider" class="ZenMagick\http\utils\TaggedBlocksBlockProvider">
+            <tag name="zenmagick.http.blocks.provider" />
+        </service>
+
+        <service id="resourceManager" class="ZenMagick\http\view\ResourceManager" scope="prototype">
+            <call method="setContainer">
+                <argument type="service" id="service_container" />
+            </call>
+            <call method="setVirtualPathMap">
+                <argument>%zenmagick.http.virtualPathMap%</argument>
+            </call>
+        </service>
+
+        <service id="resourceResolver" class="ZenMagick\http\view\ResourceResolver">
+            <call method="setContainer">
+                <argument type="service" id="service_container" />
+            </call>
+        </service>
+
+        <service id="userSession" class="ZenMagick\http\session\UserSession">
+            <call method="setSession">
+                <argument type="service" id="session" />
+            </call>
+        </service>
+
+        <service id="messageBuilder" class="ZenMagick\http\utils\MessageBuilder" scope="prototype">
+            <call method="setView">
+                <argument type="service" id="templateView" />
+            </call>
+        </service>
+
+        <service id="simpleTemplateCache" class="ZenMagick\http\templating\cache\SimpleTemplateCache">
+            <call method="setContainer">
+                <argument type="service" id="service_container" />
+            </call>
+            <call method="setCache">
+                <argument type="service" id="persistentCache" />
+            </call>
+        </service>
+
+        <service id="templateView" class="ZenMagick\http\view\TemplateView" scope="prototype">
+            <call method="setContainer">
+                <argument type="service" id="service_container" />
+            </call>
+            <call method="setResourceManager">
+                <argument type="service" id="resourceManager" />
+            </call>
+            <call method="setResourceResolver">
+                <argument type="service" id="resourceResolver" />
+            </call>
+        </service>
+
+        <service id="forward" class="ZenMagick\http\view\ForwardView" scope="prototype">
+            <call method="setContainer">
+                <argument type="service" id="service_container" />
+            </call>
+        </service>
+
+        <service id="pdo" class="PDO">
+            <argument>mysql:dbname=%database_name%</argument>
+            <argument>%database_user%</argument>
+            <argument>%database_password%</argument>
+        </service>
+
+        <service id="defaultView" alias="templateView" />
+
+        <service id="requestContext" class="ZenMagick\http\routing\RequestContext">
+            <argument type="service" id="service_container" />
+            <call method="setHttpPort">
+              <argument>%zenmagick.http.httpPort%</argument>
+            </call>
+            <call method="setHttpsPort">
+              <argument>%zenmagick.http.httpsPort%</argument>
+            </call>
+        </service>
+
+        <service id="routeResolver" class="ZenMagick\http\routing\RouteResolver">
+            <argument type="service" id="requestContext" />
+            <call method="setContainer">
+                <argument type="service" id="service_container" />
+            </call>
+        </service>
+
+        <service id="redirect" class="ZenMagick\http\view\RedirectView" scope="prototype">
+            <call method="setContainer">
+                <argument type="service" id="service_container" />
+            </call>
+        </service>
+
+        <!-- add tag -->
+
+        <service id="booleanFormWidget" class="ZenMagick\http\widgets\form\BooleanFormWidget" scope="prototype">
+            <tag name="zenmagick.http.widgets.widget" />
+        </service>
+
+        <service id="passwordFormWidget" class="ZenMagick\http\widgets\form\PasswordFormWidget" scope="prototype">
+            <tag name="zenmagick.http.widgets.widget" />
+        </service>
+
+        <service id="selectFormWidget" class="ZenMagick\http\widgets\form\SelectFormWidget" scope="prototype">
+            <tag name="zenmagick.http.widgets.widget" />
+        </service>
+
+        <service id="textFormWidget" class="ZenMagick\http\widgets\form\TextFormWidget" scope="prototype">
+            <tag name="zenmagick.http.widgets.widget" />
+        </service>
+
+        <service id="textAreaFormWidget" class="ZenMagick\http\widgets\form\TextAreaFormWidget" scope="prototype">
+            <tag name="zenmagick.http.widgets.widget" />
+        </service>
+
+        <service id="toolbox" class="ZenMagick\http\toolbox\Toolbox">
+            <call method="setContainer">
+                <argument type="service" id="service_container" />
+            </call>
+            <tag name="zenmagick.http.view.variable" key="toolbox" />
+        </service>
+
+        <service id="controllerParameterMapper" class="ZenMagick\http\controller\ControllerParameterMapper">
+            <call method="setContainer">
+                <argument type="service" id="service_container" />
+            </call>
+        </service>
+
+        <!-- @todo don't depend on all this code in one listener -->
+        <service id="zenmagick.http_listener" class="ZenMagick\http\HttpListener">
+            <tag name="kernel.event_subscriber" />
+            <argument type="service" id="service_container" />
+        </service>
+
+        <service id="blockWidget" class="ZenMagick\http\blocks\widgets\BlockWidget" scope="prototype" />
+
+        <service id="zmPhpEngine" class="ZenMagick\http\templating\ZMPhpEngine" scope="prototype">
+            <call method="setContainer">
+                <argument type="service" id="service_container" />
+            </call>
+            <call method="setTemplateCache">
+                <argument type="service" id="simpleTemplateCache" />
+            </call>
+            <tag name="zenmagick.http.templates.engine" />
+        </service>
+
+        <service id="fileExtensionTemplateNameParser" class="Symfony\Component\Templating\TemplateNameParser" scope="prototype" />
+
+        <service id="resourceResolverTwigLoader" class="ZenMagick\http\templating\ResourceResolverTwigLoader" scope="prototype">
+            <argument type="service" id="resourceResolver" />
+        </service>
+
+        <service id="resourceResolverFileLocator" class="ZenMagick\http\templating\ResourceResolverFileLocator" scope="prototype">
+            <argument type="service" id="resourceResolver" />
+        </service>
+
+        <service id="twigEnvironment" class="Twig_Environment" scope="prototype">
+            <argument type="service" id="resourceResolverTwigLoader" />
+        </service>
+
+        <service id="twigEngine" class="Symfony\Bundle\TwigBundle\TwigEngine" scope="prototype">
+            <argument type="service" id="twigEnvironment" />
+            <argument type="service" id="fileExtensionTemplateNameParser" />
+            <argument type="service" id="resourceResolverFileLocator" />
+            <tag name="zenmagick.http.templates.engine" />
+        </service>
+
+        <service id="defaultController" class="ZMController" scope="prototype">
+            <call method="setContainer">
+                <argument type="service" id="service_container" />
+            </call>
+        </service>
+        <service id="formTokenSessionValidator" class="ZenMagick\http\session\validation\FormTokenSessionValidator" scope="prototype">
+            <call method="setRequestIds">
+                <argument>%zenmagick.http.session.formtoken%</argument>
+            </call>
+            <tag name="zenmagick.http.session.validator" />
+        </service>
+
+        <service id="userAgentSessionValidator" class="ZenMagick\http\session\validation\UserAgentSessionValidator" scope="prototype">
+            <call method="setEnabled">
+                <argument>%zenmagick.http.session.validator.userAgent%</argument>
+            </call>
+            <tag name="zenmagick.http.session.validator" />
+        </service>
+
+        <service id="ipSessionValidator" class="ZenMagick\http\session\validation\IPSessionValidator" scope="prototype">
+            <call method="setEnabled">
+                <argument>%zenmagick.http.session.validator.ip%</argument>
+            </call>
+            <tag name="zenmagick.http.session.validator" />
+        </service>
+
+        <service id="sslSessionIdSessionValidator" class="ZenMagick\http\session\validation\SSLSessionIdSessionValidator" scope="prototype">
+            <call method="setEnabled">
+                <argument>%zenmagick.http.session.validator.sslSessionId%</argument>
+            </call>
+            <tag name="zenmagick.http.session.validator" />
+        </service>
+
+    </services>
+</container>

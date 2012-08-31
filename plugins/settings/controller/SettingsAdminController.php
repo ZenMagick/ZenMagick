@@ -17,11 +17,11 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-namespace zenmagick\plugins\settings\controller;
+namespace ZenMagick\plugins\settings\controller;
 
-use zenmagick\apps\admin\controller\PluginAdminController;
-use zenmagick\http\widgets\form\FormWidget;
-use zenmagick\http\widgets\form\WysiwygEditor;
+use ZenMagick\apps\admin\controller\PluginAdminController;
+use ZenMagick\http\widgets\form\FormWidget;
+use ZenMagick\http\widgets\form\WysiwygEditor;
 
 /**
  * Admin controller.

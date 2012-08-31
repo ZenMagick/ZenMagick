@@ -26,7 +26,7 @@ if (!defined('IS_ADMIN_FLAG')) {
 */
   function zen_redirect($url, $httpResponseCode = '') {
     // ZENMAGICK MODIFICATION: allow vetoing of redirects
-    zenmagick\base\Runtime::getContainer()->get('request')->redirect($url, $httpResponseCode); return;
+    ZenMagick\base\Runtime::getContainer()->get('request')->redirect($url, $httpResponseCode); return;
     global $request_type;
     // Are we loading an SSL page?
     if ( (ENABLE_SSL == 'true') && ($request_type == 'SSL') ) {

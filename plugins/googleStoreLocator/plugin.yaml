@@ -41,7 +41,7 @@ admin:
   router:
     page:
       googleStoreLocator:
-        controller: zenmagick\plugins\googleStoreLocator\controller\GoogleStoreLocatorAdminController
+        controller: ZenMagick\plugins\googleStoreLocator\controller\GoogleStoreLocatorAdminController
 
   menu:
     google-store-locator:

@@ -17,10 +17,10 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-namespace zenmagick\apps\admin\entities;
+namespace ZenMagick\apps\admin\entities;
 
-use zenmagick\base\ZMObject;
-use zenmagick\http\sacs\handler\UserRoleCredentials;
+use ZenMagick\base\ZMObject;
+use ZenMagick\http\sacs\handler\UserRoleCredentials;
 
 use Doctrine\ORM\Mapping AS ORM;
 

@@ -18,10 +18,10 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-namespace zenmagick\apps\store\services\location;
+namespace ZenMagick\apps\store\services\location;
 
-use zenmagick\base\Runtime;
-use zenmagick\base\ZMObject;
+use ZenMagick\base\Runtime;
+use ZenMagick\base\ZMObject;
 
 /**
  * Countries.
@@ -69,7 +69,7 @@ class CountryService extends ZMObject {
         $sql = "SELECT *
                 FROM %table.countries%
                 ORDER BY countries_name";
-        $this->countries = \ZMRuntime::getDatabase()->fetchAll($sql, array(), 'countries', 'zenmagick\apps\store\model\location\Country');
+        $this->countries = \ZMRuntime::getDatabase()->fetchAll($sql, array(), 'countries', 'ZenMagick\apps\store\model\location\Country');
         return $this->countries;
     }
 
@@ -139,7 +139,7 @@ class CountryService extends ZMObject {
                 FROM %table.zones%
                 WHERE zone_country_id = :countryId
                 ORDER BY zone_name";
-        $zones = \ZMRuntime::getDatabase()->fetchAll($sql, array('countryId' => $countryId), 'zones', 'zenmagick\apps\store\model\location\Zone');
+        $zones = \ZMRuntime::getDatabase()->fetchAll($sql, array('countryId' => $countryId), 'zones', 'ZenMagick\apps\store\model\location\Zone');
         return $zones;
     }
 

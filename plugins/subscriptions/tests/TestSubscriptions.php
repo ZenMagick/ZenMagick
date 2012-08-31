@@ -18,10 +18,10 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-namespace zenmagick\plugins\subscriptions\tests;
+namespace ZenMagick\plugins\subscriptions\tests;
 
-use zenmagick\base\Beans;
-use zenmagick\plugins\unitTests\simpletest\TestCase;
+use ZenMagick\base\Beans;
+use ZenMagick\plugins\unitTests\simpletest\TestCase;
 
 /**
  * Test subscriptions.
@@ -80,12 +80,12 @@ class TestSubscriptions extends TestCase {
      * Test regular cron run.
      */
     public function testRegularCronRun() {
-        if (!interface_exists('zenmagick\plugins\cron\jobs\CronJobInterface')) {
+        if (!interface_exists('ZenMagick\plugins\cron\jobs\CronJobInterface')) {
             $this->skipIf(true, 'Cron not available');
             return;
         }
 
-        $job = Beans::getBean('zenmagick\plugins\subscriptions\cron\UpdateSubscriptionsCronJob');
+        $job = Beans::getBean('ZenMagick\plugins\subscriptions\cron\UpdateSubscriptionsCronJob');
         $this->assertNotNull($job);
         $status = $job->execute();
         $this->assertTrue($status);

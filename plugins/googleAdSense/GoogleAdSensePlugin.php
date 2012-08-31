@@ -18,9 +18,9 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  *
  */
-namespace zenmagick\plugins\googleAdSense;
+namespace ZenMagick\plugins\googleAdSense;
 
-use zenmagick\apps\store\plugins\Plugin;
+use ZenMagick\apps\store\plugins\Plugin;
 
 /**
  * Plugin providing functionallity to manage Google AdSense content, including four sideboxes.

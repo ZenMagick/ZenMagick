@@ -17,12 +17,12 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-namespace zenmagick\plugins\paymentSurcharge;
+namespace ZenMagick\plugins\paymentSurcharge;
 
-use zenmagick\apps\store\plugins\Plugin;
-use zenmagick\base\Beans;
-use zenmagick\base\Runtime;
-use zenmagick\apps\store\model\checkout\ShoppingCart;
+use ZenMagick\apps\store\plugins\Plugin;
+use ZenMagick\base\Beans;
+use ZenMagick\base\Runtime;
+use ZenMagick\apps\store\model\checkout\ShoppingCart;
 
 /**
  * ZenMagick order total module to add a payment surcharge totals based on configurable conditions.

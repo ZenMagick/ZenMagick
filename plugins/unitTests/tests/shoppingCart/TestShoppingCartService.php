@@ -18,8 +18,8 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-use zenmagick\plugins\unitTests\simpletest\TestCase;
-use zenmagick\apps\store\model\checkout\ShoppingCart;
+use ZenMagick\plugins\unitTests\simpletest\TestCase;
+use ZenMagick\apps\store\model\checkout\ShoppingCart;
 
 /**
  * Test cart service.

@@ -17,10 +17,10 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-namespace zenmagick\plugins\autoLogin;
+namespace ZenMagick\plugins\autoLogin;
 
-use zenmagick\apps\store\plugins\Plugin;
-use zenmagick\base\Toolbox;
+use ZenMagick\apps\store\plugins\Plugin;
+use ZenMagick\base\Toolbox;
 
 define('AUTO_LOGIN_COOKIE', 'auto_login');
 define('AUTO_LOGIN_OPT_IN', 'autoLogin');
@@ -69,7 +69,7 @@ class AutoLoginPlugin extends Plugin {
     /**
      * Try to get a token from the current request.
      *
-     * @param zenmagick\http\Request request The current request.
+     * @param ZenMagick\http\Request request The current request.
      * @return Token A token or <code>null</code>.
      */
     protected function getRequestToken($request) {

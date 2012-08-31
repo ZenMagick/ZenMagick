@@ -19,8 +19,8 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-use zenmagick\base\Beans;
-use zenmagick\base\Runtime;
+use ZenMagick\base\Beans;
+use ZenMagick\base\Runtime;
 
 /**
  * Check for either state or zone.
@@ -47,7 +47,7 @@ class ZMStateOrZoneIdRule extends ZMRule {
     /**
      * Validate the given request data.
      *
-     * @param zenmagick\http\Request request The current request.
+     * @param ZenMagick\http\Request request The current request.
      * @param array data The data.
      * @return boolean <code>true</code> if the value for <code>$name</code> is valid, <code>false</code> if not.
      */

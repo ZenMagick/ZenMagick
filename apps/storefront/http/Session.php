@@ -17,17 +17,17 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-namespace zenmagick\apps\storefront\http;
+namespace ZenMagick\apps\storefront\http;
 
-use zenmagick\base\Runtime;
-use zenmagick\base\events\Event;
+use ZenMagick\base\Runtime;
+use ZenMagick\base\events\Event;
 
 /**
  * Custom session class that adds a number of convenience methods.
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class Session extends \zenmagick\http\session\Session {
+class Session extends \ZenMagick\http\session\Session {
 
     /**
      * {@inheritDoc}
@@ -203,7 +203,7 @@ class Session extends \zenmagick\http\session\Session {
      * <p>This operation will fail, for example, if the account is blocked/disabled.</p>
      *
      * @param ZMAccount account The account.
-     * @param zenmagick\http\Request request The current request.
+     * @param ZenMagick\http\Request request The current request.
      * @param mixed source The event source; default is <code>null</code>.
      * @return boolean <code>true</code> if ok, <code>false</code> if not.
      */

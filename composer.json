@@ -25,7 +25,7 @@
     },
     "autoload": {
         "psr-0": {
-            "zenmagick": "lib/"
+            "ZenMagick": "lib/"
         },
         "classmap": ["lib/shared"]
     },

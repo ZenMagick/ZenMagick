@@ -18,9 +18,9 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-use zenmagick\base\database\QueryPager;
-use zenmagick\base\database\QueryDetails;
-use zenmagick\plugins\unitTests\simpletest\TestCase;
+use ZenMagick\base\database\QueryPager;
+use ZenMagick\base\database\QueryDetails;
+use ZenMagick\plugins\unitTests\simpletest\TestCase;
 
 /**
  * Test query pager.

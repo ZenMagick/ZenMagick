@@ -19,9 +19,9 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-namespace zenmagick\apps\store\model\coupons;
+namespace ZenMagick\apps\store\model\coupons;
 
-use zenmagick\base\ZMObject;
+use ZenMagick\base\ZMObject;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;

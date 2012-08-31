@@ -19,16 +19,16 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-namespace zenmagick\apps\store\services\coupons;
+namespace ZenMagick\apps\store\services\coupons;
 
 use ZMRuntime;
-use zenmagick\base\ZMObject;
-use zenmagick\base\database\Connection;
-use zenmagick\apps\store\model\coupons\Coupon;
-use zenmagick\apps\store\model\coupons\CouponQueue;
-use zenmagick\apps\store\model\coupons\restrictions\CouponRestrictions;
-use zenmagick\apps\store\model\coupons\restrictions\ProductCouponRestriction;
-use zenmagick\apps\store\model\coupons\restrictions\CategoryCouponRestriction;
+use ZenMagick\base\ZMObject;
+use ZenMagick\base\database\Connection;
+use ZenMagick\apps\store\model\coupons\Coupon;
+use ZenMagick\apps\store\model\coupons\CouponQueue;
+use ZenMagick\apps\store\model\coupons\restrictions\CouponRestrictions;
+use ZenMagick\apps\store\model\coupons\restrictions\ProductCouponRestriction;
+use ZenMagick\apps\store\model\coupons\restrictions\CategoryCouponRestriction;
 
 /**
  * Coupons service.
@@ -51,7 +51,7 @@ class CouponService extends ZMObject {
                   LEFT JOIN %table.coupons_description% cd ON (c.coupon_id = cd.coupon_id AND cd.language_id = :languageId)
                 WHERE c.coupon_code = :code";
         $args = array('code' => $code, 'languageId' => $languageId);
-        return ZMRuntime::getDatabase()->querySingle($sql, $args, array('coupons', 'coupons_description'), 'zenmagick\apps\store\model\coupons\Coupon');
+        return ZMRuntime::getDatabase()->querySingle($sql, $args, array('coupons', 'coupons_description'), 'ZenMagick\apps\store\model\coupons\Coupon');
     }
 
     /**
@@ -68,7 +68,7 @@ class CouponService extends ZMObject {
                   LEFT JOIN %table.coupons_description% cd ON (c.coupon_id = cd.coupon_id AND cd.language_id = :languageId)
                 WHERE c.coupon_id = :id";
         $args = array('id' => $id, 'languageId' => $languageId);
-        return ZMRuntime::getDatabase()->querySingle($sql, $args, array('coupons', 'coupons_description'), 'zenmagick\apps\store\model\coupons\Coupon');
+        return ZMRuntime::getDatabase()->querySingle($sql, $args, array('coupons', 'coupons_description'), 'ZenMagick\apps\store\model\coupons\Coupon');
     }
 
     /**
@@ -213,7 +213,7 @@ class CouponService extends ZMObject {
         $sql = "SELECT *
                 FROM %table.coupon_gv_queue%
                 WHERE unique_id = :id";
-        return ZMRuntime::getDatabase()->querySingle($sql, array('id' => $queueId), 'coupon_gv_queue', 'zenmagick\apps\store\model\coupons\CouponQueue');
+        return ZMRuntime::getDatabase()->querySingle($sql, array('id' => $queueId), 'coupon_gv_queue', 'ZenMagick\apps\store\model\coupons\CouponQueue');
     }
 
     /**
@@ -226,7 +226,7 @@ class CouponService extends ZMObject {
         $sql = "SELECT *
                 FROM %table.coupon_gv_queue%
                 WHERE release_flag = :released";
-        return ZMRuntime::getDatabase()->fetchAll($sql, array('released' => $flag), 'coupon_gv_queue', 'zenmagick\apps\store\model\coupons\CouponQueue');
+        return ZMRuntime::getDatabase()->fetchAll($sql, array('released' => $flag), 'coupon_gv_queue', 'ZenMagick\apps\store\model\coupons\CouponQueue');
     }
 
     /**
@@ -312,7 +312,7 @@ class CouponService extends ZMObject {
     public function getCoupons($languageId, $active=true) {
         $sql = "SELECT * FROM %table.coupons% c, %table.coupons_description% cd
                 WHERE cd.coupon_id = c.coupon_id AND cd.language_id = :languageId";
-        return ZMRuntime::getDatabase()->fetchAll($sql, array('languageId' => $languageId), array('coupons', 'coupons_description'), 'zenmagick\apps\store\model\coupons\Coupon');
+        return ZMRuntime::getDatabase()->fetchAll($sql, array('languageId' => $languageId), array('coupons', 'coupons_description'), 'ZenMagick\apps\store\model\coupons\Coupon');
     }
 
 }

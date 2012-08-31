@@ -13,13 +13,13 @@
             <parameter>templateCache</parameter>
             <parameter>bootstrapCache</parameter>
         </parameter>
-        <parameter key="zenmagick.base.plugins.defaultPluginClass">zenmagick\apps\store\plugins\Plugin</parameter>
+        <parameter key="zenmagick.base.plugins.defaultPluginClass">ZenMagick\apps\store\plugins\Plugin</parameter>
         <parameter key="apps.store.reviews.useNickName">false</parameter>
         <parameter key="zenmagick.themes.default_theme">base</parameter>
     </parameters>
 
     <services>
-        <service id="bootstrapCache" class="zenmagick\base\cache\FileCache">
+        <service id="bootstrapCache" class="ZenMagick\base\cache\FileCache">
             <call method="init">
                 <argument>bootstrap</argument>
                 <argument type="collection">
@@ -29,14 +29,14 @@
             </call>
         </service>
 
-        <service id="servicesCache" class="zenmagick\base\cache\MemoryCache">
+        <service id="servicesCache" class="ZenMagick\base\cache\MemoryCache">
             <call method="init">
                 <argument>services</argument>
                 <argument type="collection" />
             </call>
         </service>
 
-        <service id="templateCache" class="zenmagick\base\cache\FileCache">
+        <service id="templateCache" class="ZenMagick\base\cache\FileCache">
             <call method="init">
                 <argument>services</argument>
                 <argument type="collection">
@@ -50,15 +50,15 @@
 
         <service id="addressService" class="ZMAddresses" />
 
-        <service id="countryService" class="zenmagick\apps\store\services\location\CountryService" />
+        <service id="countryService" class="ZenMagick\apps\store\services\location\CountryService" />
 
         <service id="orderService" class="ZMOrders" />
 
-        <service id="theme" class="zenmagick\apps\store\themes\Theme" scope="prototype" />
+        <service id="theme" class="ZenMagick\apps\store\themes\Theme" scope="prototype" />
 
         <!-- @todo move to bundle xml when we have one -->
-        <!-- <service id="themeStatusMapBuilder" class="zenmagick\apps\store\themes\ThemeStatusMapBuilder"> -->
-        <service id="themeStatusMapBuilder" class="zenmagick\apps\store\bundles\ZenCartBundle\mock\ZenCartThemeStatusMapBuilder">
+        <!-- <service id="themeStatusMapBuilder" class="ZenMagick\apps\store\themes\ThemeStatusMapBuilder"> -->
+        <service id="themeStatusMapBuilder" class="ZenMagick\apps\store\bundles\ZenCartBundle\mock\ZenCartThemeStatusMapBuilder">
             <call method="setThemeService">
                 <argument type="service" id="themeService" />
             </call>
@@ -70,7 +70,7 @@
             </call>
         </service>
 
-        <service id="themeService" class="zenmagick\apps\store\themes\ThemeService">
+        <service id="themeService" class="ZenMagick\apps\store\themes\ThemeService">
             <call method="setContainer">
                 <argument type="service" id="service_container" />
             </call>
@@ -82,7 +82,7 @@
             </call>
         </service>
 
-        <service id="manufacturerService" class="zenmagick\apps\store\services\catalog\ManufacturerService">
+        <service id="manufacturerService" class="ZenMagick\apps\store\services\catalog\ManufacturerService">
             <call method="setCache">
                 <argument type="service" id="servicesCache" />
             </call>
@@ -100,13 +100,13 @@
             </call>
         </service>
 
-        <service id="themeResourceResolver" class="zenmagick\apps\store\view\ThemeResourceResolver">
+        <service id="themeResourceResolver" class="ZenMagick\apps\store\view\ThemeResourceResolver">
             <call method="setContainer">
                 <argument type="service" id="service_container" />
             </call>
         </service>
 
-        <service id="storeTemplateView" class="zenmagick\http\view\TemplateView" scope="prototype">
+        <service id="storeTemplateView" class="ZenMagick\http\view\TemplateView" scope="prototype">
             <call method="setContainer">
                 <argument type="service" id="service_container" />
             </call>
@@ -118,31 +118,31 @@
             </call>
         </service>
 
-        <service id="pluginOptionsLoader" class="zenmagick\apps\store\plugins\PluginOptionsLoader">
+        <service id="pluginOptionsLoader" class="ZenMagick\apps\store\plugins\PluginOptionsLoader">
             <call method="setConfigWidgetService">
                 <argument type="service" id="configWidgetService" />
             </call>
         </service>
 
-        <service id="rssLoader" class="zenmagick\http\rss\RssFeedLoader">
+        <service id="rssLoader" class="ZenMagick\http\rss\RssFeedLoader">
             <call method="setCache">
                 <argument type="service" id="persistentCache" />
             </call>
         </service>
 
-        <service id="authenticationManager" class="zenmagick\base\security\authentication\AuthenticationManager" />
+        <service id="authenticationManager" class="ZenMagick\base\security\authentication\AuthenticationManager" />
 
         <service id="blockService" class="ZMBlocks" />
 
-        <service id="blockManager" class="zenmagick\http\blocks\BlockManager" />
+        <service id="blockManager" class="ZenMagick\http\blocks\BlockManager" />
 
-        <service id="productAssociationService" class="zenmagick\apps\store\services\catalog\ProductAssociationService" />
+        <service id="productAssociationService" class="ZenMagick\apps\store\services\catalog\ProductAssociationService" />
 
-        <service id="productTypeLayoutService" class="zenmagick\apps\store\services\catalog\ProductTypeLayoutService" />
+        <service id="productTypeLayoutService" class="ZenMagick\apps\store\services\catalog\ProductTypeLayoutService" />
 
-        <service id="checkoutHelper" class="zenmagick\apps\store\utils\CheckoutHelper" />
+        <service id="checkoutHelper" class="ZenMagick\apps\store\utils\CheckoutHelper" />
 
-        <service id="shoppingCart" class="zenmagick\apps\store\model\checkout\ShoppingCart">
+        <service id="shoppingCart" class="ZenMagick\apps\store\model\checkout\ShoppingCart">
             <property name="session" type="service" id="session" />
             <call method="setCheckoutHelper">
                 <argument type="service" id="checkoutHelper" />
@@ -150,7 +150,7 @@
             <tag name="zenmagick.http.session.persist" restore="checkoutHelper" context="storefront" />
         </service>
 
-        <service id="shoppingCartService" class="zenmagick\apps\store\services\checkout\ShoppingCartService" />
+        <service id="shoppingCartService" class="ZenMagick\apps\store\services\checkout\ShoppingCartService" />
 
         <service id="zmvalidator" class="ZMValidator">
            <call method="setContainer">
@@ -162,40 +162,40 @@
             <tag name="zenmagick.http.view.variable" key="validator" />
         </service>
 
-        <service id="reviewService" class="zenmagick\apps\store\services\catalog\ReviewService">
+        <service id="reviewService" class="ZenMagick\apps\store\services\catalog\ReviewService">
             <call method="setUseNickName">
                 <argument>%apps.store.reviews.useNickName%</argument>
             </call>
         </service>
 
-        <service id="taxService" class="zenmagick\apps\store\services\TaxService" />
+        <service id="taxService" class="ZenMagick\apps\store\services\TaxService" />
 
-        <service id="tokenService" class="zenmagick\apps\store\services\TokenService" />
+        <service id="tokenService" class="ZenMagick\apps\store\services\TokenService" />
 
-        <service id="bannerService" class="zenmagick\apps\store\services\templating\Banners" />
+        <service id="bannerService" class="ZenMagick\apps\store\services\templating\Banners" />
 
-        <service id="productFeaturedService" class="zenmagick\apps\store\services\catalog\ProductFeaturedService" />
+        <service id="productFeaturedService" class="ZenMagick\apps\store\services\catalog\ProductFeaturedService" />
 
-        <service id="productSpecialsService" class="zenmagick\apps\store\services\catalog\ProductSpecialsService">
+        <service id="productSpecialsService" class="ZenMagick\apps\store\services\catalog\ProductSpecialsService">
            <call method="setContainer">
                 <argument type="service" id="service_container" />
             </call>
         </service>
 
-        <service id="couponService" class="zenmagick\apps\store\services\coupons\CouponService" />
+        <service id="couponService" class="ZenMagick\apps\store\services\coupons\CouponService" />
 
         <service id="ezPageService" class="ZMEZPages" />
 
-        <service id="templateManager" class="zenmagick\apps\store\themes\TemplateManager">
+        <service id="templateManager" class="ZenMagick\apps\store\themes\TemplateManager">
            <call method="setContainer">
                 <argument type="service" id="service_container" />
             </call>
             <tag name="zenmagick.http.view.variable" key="templateManager" />
         </service>
 
-        <service id="currencyService" class="zenmagick\apps\store\services\locale\CurrencyService" />
+        <service id="currencyService" class="ZenMagick\apps\store\services\locale\CurrencyService" />
 
-        <service id="languageService" class="zenmagick\apps\store\services\locale\LanguageService">
+        <service id="languageService" class="ZenMagick\apps\store\services\locale\LanguageService">
             <call method="setContainer">
                 <argument type="service" id="service_container" />
             </call>
@@ -207,7 +207,7 @@
 
         <service id="orderTotalService" class="ZMOrderTotals" />
 
-        <service id="salemakerService" class="zenmagick\apps\store\services\catalog\SalemakerService">
+        <service id="salemakerService" class="ZenMagick\apps\store\services\catalog\SalemakerService">
             <call method="setContainer">
                 <argument type="service" id="service_container" />
             </call>
@@ -217,24 +217,24 @@
 
         <service id="groupPricingService" class="ZMGroupPricing" />
 
-        <service id="configService" class="zenmagick\apps\store\services\ConfigService">
+        <service id="configService" class="ZenMagick\apps\store\services\ConfigService">
             <call method="setContainer">
                 <argument type="service" id="service_container" />
             </call>
         </service>
-        <service id="configWidgetService" class="zenmagick\apps\store\services\ConfigWidgetService">
+        <service id="configWidgetService" class="ZenMagick\apps\store\services\ConfigWidgetService">
             <call method="setContainer">
                 <argument type="service" id="service_container" />
             </call>
         </service>
 
-        <service id="messageBuilder" class="zenmagick\http\utils\MessageBuilder" scope="prototype">
+        <service id="messageBuilder" class="ZenMagick\http\utils\MessageBuilder" scope="prototype">
             <call method="setView">
                 <argument type="service" id="storeTemplateView" />
             </call>
         </service>
 
-        <service id="contextConfigLoader" class="zenmagick\apps\store\utils\ContextConfigLoader" scope="prototype">
+        <service id="contextConfigLoader" class="ZenMagick\apps\store\utils\ContextConfigLoader" scope="prototype">
             <call method="setContext">
                 <argument>%kernel.context%</argument>
             </call>
@@ -247,11 +247,11 @@
 
         </service>
 
-        <service id="defaultStoreBlockProvider" class="zenmagick\apps\store\widgets\StoreBlockProvider">
+        <service id="defaultStoreBlockProvider" class="ZenMagick\apps\store\widgets\StoreBlockProvider">
             <tag name="zenmagick.http.blocks.provider" />
         </service>
 
-        <service id="similarOrderProductAssociationHandler" class="zenmagick\apps\store\model\catalog\associations\SimilarOrderProductAssociationHandler">
+        <service id="similarOrderProductAssociationHandler" class="ZenMagick\apps\store\model\catalog\associations\SimilarOrderProductAssociationHandler">
             <tag name="apps.store.associations.handler" />
         </service>
 
@@ -266,41 +266,41 @@
             </call>
         </service>
 
-        <service id="zenCartAuthenticationProvider" class="zenmagick\apps\store\bundles\ZenCartBundle\utils\ZenCartAuthenticationProvider">
+        <service id="zenCartAuthenticationProvider" class="ZenMagick\apps\store\bundles\ZenCartBundle\utils\ZenCartAuthenticationProvider">
             <tag name="zenmagick.base.security.authentication.provider" default="true" />
         </service>
 
         <!-- Impersonate FrameworkBundle provided GlobalVariables class although it takes it in the ctor -->
-        <service id="globalVariablesTool" class="zenmagick\apps\store\toolbox\ToolboxGlobalVariables" scope="prototype">
+        <service id="globalVariablesTool" class="ZenMagick\apps\store\toolbox\ToolboxGlobalVariables" scope="prototype">
             <call method="setContainer">
                 <argument type="service" id="service_container" />
             </call>
             <tag name="zenmagick.http.toolbox.tool" key="app" />
         </service>
 
-        <service id="formTool" class="zenmagick\apps\store\toolbox\ToolboxForm" scope="prototype">
+        <service id="formTool" class="ZenMagick\apps\store\toolbox\ToolboxForm" scope="prototype">
             <tag name="zenmagick.http.toolbox.tool" key="form" />
         </service>
 
-        <service id="htmlTool" class="zenmagick\apps\store\toolbox\ToolboxHtml" scope="prototype">
+        <service id="htmlTool" class="ZenMagick\apps\store\toolbox\ToolboxHtml" scope="prototype">
             <tag name="zenmagick.http.toolbox.tool" key="html" />
         </service>
 
-        <service id="macroTool" class="zenmagick\apps\store\toolbox\ToolboxMacro" scope="prototype">
+        <service id="macroTool" class="ZenMagick\apps\store\toolbox\ToolboxMacro" scope="prototype">
             <tag name="zenmagick.http.toolbox.tool" key="macro" />
         </service>
 
-        <service id="netTool" class="zenmagick\apps\store\toolbox\ToolboxNet" scope="prototype">
+        <service id="netTool" class="ZenMagick\apps\store\toolbox\ToolboxNet" scope="prototype">
             <tag name="zenmagick.http.toolbox.tool" key="net" />
         </service>
 
-        <service id="utilsTool" class="zenmagick\apps\store\toolbox\ToolboxUtils" scope="prototype">
+        <service id="utilsTool" class="ZenMagick\apps\store\toolbox\ToolboxUtils" scope="prototype">
             <tag name="zenmagick.http.toolbox.tool" key="utils" />
         </service>
 
         <service id="annotation_reader" class="Doctrine\Common\Annotations\AnnotationReader" />
 
-        <service id="moduleStatusCheck" class="zenmagick\apps\store\widgets\status\MaintenanceStatusCheck" scope="prototype">
+        <service id="moduleStatusCheck" class="ZenMagick\apps\store\widgets\status\MaintenanceStatusCheck" scope="prototype">
             <tag name="apps.store.admin.dashboard.widget.statusCheck" />
         </service>
 

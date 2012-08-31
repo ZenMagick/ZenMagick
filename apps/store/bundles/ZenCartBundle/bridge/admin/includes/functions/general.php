@@ -11,7 +11,7 @@
 // Redirect to another page or site
   function zen_redirect($url) {
     // ZENMAGICK MODIFICATION allow vetoing the redirection
-    zenmagick\base\Runtime::getContainer()->get('request')->redirect($url); return;
+    ZenMagick\base\Runtime::getContainer()->get('request')->redirect($url); return;
     global $logger;
 
 // clean up URL before executing it

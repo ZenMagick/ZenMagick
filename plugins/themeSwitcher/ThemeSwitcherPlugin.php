@@ -17,12 +17,12 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-namespace zenmagick\plugins\themeSwitcher;
+namespace ZenMagick\plugins\themeSwitcher;
 
-use zenmagick\apps\store\plugins\Plugin;
-use zenmagick\base\Toolbox;
-use zenmagick\base\events\Event;
-use zenmagick\http\view\TemplateView;
+use ZenMagick\apps\store\plugins\Plugin;
+use ZenMagick\base\Toolbox;
+use ZenMagick\base\events\Event;
+use ZenMagick\http\view\TemplateView;
 
 /**
  * Allow users to switch between themes.

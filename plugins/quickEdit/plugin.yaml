@@ -11,6 +11,6 @@ admin:
   container:
     services:
       quickEditTabController:
-        class: zenmagick\plugins\quickEdit\controller\QuickEditTabController
+        class: ZenMagick\plugins\quickEdit\controller\QuickEditTabController
         tags:
           - { name: apps.store.admin.tabcontroller }

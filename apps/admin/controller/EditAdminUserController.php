@@ -17,10 +17,10 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-namespace zenmagick\apps\admin\controller;
+namespace ZenMagick\apps\admin\controller;
 
-use zenmagick\base\Beans;
-use zenmagick\base\Toolbox;
+use ZenMagick\base\Beans;
+use ZenMagick\base\Toolbox;
 
 /**
  * Request controller for editing (other) admin user details.
@@ -70,7 +70,7 @@ class EditAdminUserController extends \ZMController {
         if (null != ($editUserId = $request->request->get('adminUserId'))) {
             $adminUserForm = $this->getFormData($request);
 
-            $user = Beans::getBean('zenmagick\\apps\\admin\\entities\\AdminUser');
+            $user = Beans::getBean('ZenMagick\\apps\\admin\\entities\\AdminUser');
             $user->setId($adminUserForm->getAdminUserId());
             $user->setName($adminUserForm->getName());
             $user->setEmail($adminUserForm->getEmail());

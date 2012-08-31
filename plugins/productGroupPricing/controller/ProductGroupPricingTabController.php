@@ -18,11 +18,11 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-namespace zenmagick\plugins\productGroupPricing\controller;
+namespace ZenMagick\plugins\productGroupPricing\controller;
 
-use zenmagick\base\Beans;
-use zenmagick\base\Toolbox;
-use zenmagick\apps\store\controller\CatalogContentController;
+use ZenMagick\base\Beans;
+use ZenMagick\base\Toolbox;
+use ZenMagick\apps\store\controller\CatalogContentController;
 
 /**
  * Admin controller.
@@ -47,7 +47,7 @@ class ProductGroupPricingTabController extends CatalogContentController {
         $productGroupPricingService = $this->container->get('productGroupPricingService');
         $groupId = $request->getParameter('groupId', $priceGroups[0]->getId());
         $productGroupPricings = $productGroupPricingService->getProductGroupPricings($request->get('productId'), $groupId, false);
-        $productGroupPricing = Beans::getBean('zenmagick\plugins\productGroupPricing\model\ProductGroupPricing');
+        $productGroupPricing = Beans::getBean('ZenMagick\plugins\productGroupPricing\model\ProductGroupPricing');
         // TODO: should not need to check for delete - viewData should not override findView(.., data) data
         if (null != ($groupPricingId = $request->getParameter('groupPricingId')) && 0 < $groupPricingId && null == $request->getParameter('delete')) {
             $productGroupPricing = $productGroupPricingService->getProductGroupPricingForId($groupPricingId);
@@ -65,7 +65,7 @@ class ProductGroupPricingTabController extends CatalogContentController {
      */
     public function processGet($request) {
         //TODO: this should be POST!!
-        $productGroupPricing = Beans::getBean('zenmagick\plugins\productGroupPricing\model\ProductGroupPricing');
+        $productGroupPricing = Beans::getBean('ZenMagick\plugins\productGroupPricing\model\ProductGroupPricing');
         if (Toolbox::asBoolean($request->getParameter('delete'))) {
             $productGroupPricing->populate($request);
             // delete
@@ -78,7 +78,7 @@ class ProductGroupPricingTabController extends CatalogContentController {
      * {@inheritDoc}
      */
     public function processPost($request) {
-        $productGroupPricing = Beans::getBean('zenmagick\plugins\productGroupPricing\model\ProductGroupPricing');
+        $productGroupPricing = Beans::getBean('ZenMagick\plugins\productGroupPricing\model\ProductGroupPricing');
         $productGroupPricingService = $this->container->get('productGroupPricingService');
         $productGroupPricing->populate($request);
         if (0 == $productGroupPricing->getId()) {

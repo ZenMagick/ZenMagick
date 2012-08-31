@@ -17,11 +17,11 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-namespace zenmagick\plugins\recaptcha;
+namespace ZenMagick\plugins\recaptcha;
 
-use zenmagick\apps\store\plugins\Plugin;
-use zenmagick\base\Runtime;
-use zenmagick\base\Toolbox;
+use ZenMagick\apps\store\plugins\Plugin;
+use ZenMagick\base\Runtime;
+use ZenMagick\base\Toolbox;
 
 
 define('RECAPTCHA_FIELD', 'recaptcha_response_field');
@@ -111,7 +111,7 @@ class RecaptchaPlugin extends Plugin {
     /**
      * Validate the captcha value.
      *
-     * @param zenmagick\http\Request request The current request.
+     * @param ZenMagick\http\Request request The current request.
      * @param array data The data.
      * @return boolean <code>true</code> if the captcha is valid, <code>false</code> if not.
      */

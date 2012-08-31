@@ -154,7 +154,7 @@ page:
   ## alias to have a neutral point to start the checkout process
   checkout:
     template: views/checkout_shipping.php
-    controller: zenmagick\apps\storefront\controller\CheckoutShippingController
+    controller: ZenMagick\apps\storefront\controller\CheckoutShippingController
     skip_shipping:
       view: redirect#requestId=checkout_payment
     success:
@@ -163,7 +163,7 @@ page:
   empty_cart:
     view: redirect#requestId=shopping_cart
   checkout_shipping_address:
-    controller: 'zenmagick\apps\storefront\controller\CheckoutAddressController#mode=shipping'
+    controller: 'ZenMagick\apps\storefront\controller\CheckoutAddressController#mode=shipping'
     formId: shippingAddress
     form: ZMAddress
     success:
@@ -172,17 +172,17 @@ page:
     success:
       view: redirect#requestId=checkout_confirmation
   checkout_payment_address:
-    controller: 'zenmagick\apps\storefront\controller\CheckoutAddressController#mode=billing'
+    controller: 'ZenMagick\apps\storefront\controller\CheckoutAddressController#mode=billing'
     formId: billingAddress
     form: ZMAddress
     success:
       view: redirect#requestId=checkout_payment
   checkout_process:
-    controller: 'zenmagick\apps\store\bundles\ZenCartBundle\controller\ZencartStorefrontController'
+    controller: 'ZenMagick\apps\store\bundles\ZenCartBundle\controller\ZencartStorefrontController'
   checkout_success:
-    controller: 'zenmagick\apps\storefront\controller\CheckoutSuccessController'
+    controller: 'ZenMagick\apps\storefront\controller\CheckoutSuccessController'
   ipn_handler:
-    controller: 'zenmagick\apps\store\bundles\ZenCartBundle\controller\ZencartStorefrontController'
+    controller: 'ZenMagick\apps\store\bundles\ZenCartBundle\controller\ZencartStorefrontController'
   redirect:
     success:
       view: redirect#requestId=index
@@ -190,7 +190,7 @@ page:
       view: forward#requestId=index
   product_reviews_write:
     formId: newReview
-    form: zenmagick\apps\store\model\catalog\Review
+    form: ZenMagick\apps\store\model\catalog\Review
     success:
       view: redirect#requestId=product_reviews
   contact_us:
@@ -207,6 +207,6 @@ page:
     formId: searchCriteria
     form: ZMSearchCriteria
   advanced_search:
-    controller: 'zenmagick\apps\storefront\controller\SearchController#autoSearch=false'
+    controller: 'ZenMagick\apps\storefront\controller\SearchController#autoSearch=false'
     formId: searchCriteria
     form: ZMSearchCriteria

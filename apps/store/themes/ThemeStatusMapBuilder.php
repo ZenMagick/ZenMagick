@@ -17,12 +17,12 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-namespace zenmagick\apps\store\themes;
+namespace ZenMagick\apps\store\themes;
 
 use DirectoryIterator;
 use Symfony\Component\Yaml\Yaml;
-use zenmagick\base\Runtime;
-use zenmagick\base\ZMObject;
+use ZenMagick\base\Runtime;
+use ZenMagick\base\ZMObject;
 
 /**
  * Builder for cacheable theme status map.
@@ -30,7 +30,7 @@ use zenmagick\base\ZMObject;
  * @author DerManoMann <mano@zenmagick.org>
  */
 class ThemeStatusMapBuilder extends ZMObject {
-    const DEFAULT_THEME_CLASS = 'zenmagick\apps\store\themes\Theme';
+    const DEFAULT_THEME_CLASS = 'ZenMagick\apps\store\themes\Theme';
     protected $basePath;
     protected $themeService;
     protected $defaultThemeClass;

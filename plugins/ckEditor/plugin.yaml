@@ -8,6 +8,6 @@ storefront,admin:
   container:
     services:
       ckEditorEditorWidget:
-        class: zenmagick\plugins\ckEditor\CkEditorFormWidget
+        class: ZenMagick\plugins\ckEditor\CkEditorFormWidget
         tags:
           -  { name: zenmagick.apps.store.editor, label: CKEditor }

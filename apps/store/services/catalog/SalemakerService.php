@@ -18,11 +18,11 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-namespace zenmagick\apps\store\services\catalog;
+namespace ZenMagick\apps\store\services\catalog;
 
 use DateTime;
-use zenmagick\base\Runtime;
-use zenmagick\base\ZMObject;
+use ZenMagick\base\Runtime;
+use ZenMagick\base\ZMObject;
 
 /**
  * Sale maker.
@@ -59,7 +59,7 @@ class SalemakerService extends ZMObject {
             $sql = "SELECT *
                     FROM %table.salemaker_sales%
                     WHERE sale_status = '1'";
-            $this->sales_ = \ZMRuntime::getDatabase()->fetchAll($sql, array(), 'salemaker_sales', \zenmagick\base\database\Connection::MODEL_RAW);
+            $this->sales_ = \ZMRuntime::getDatabase()->fetchAll($sql, array(), 'salemaker_sales', \ZenMagick\base\database\Connection::MODEL_RAW);
         }
 
         $hasSale = false;
@@ -109,7 +109,7 @@ class SalemakerService extends ZMObject {
         $languageCode = $container->get('settingsService')->get('defaultLanguageCode');
         $languageId = $container->get('languageService')->getLanguageForCode($languageCode)->getLanguageId();
         $now = new DateTime();
-        foreach (\ZMRuntime::getDatabase()->fetchAll($sql, array(), 'salemaker_sales', 'zenmagick\apps\store\model\catalog\SaleMakerSale') as $sale) {
+        foreach (\ZMRuntime::getDatabase()->fetchAll($sql, array(), 'salemaker_sales', 'ZenMagick\apps\store\model\catalog\SaleMakerSale') as $sale) {
             $dateStart = $sale->getDateStart();
             $dateEnd = $sale->getDateEnd();
             $active = $sale->getStatus();

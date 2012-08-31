@@ -17,11 +17,11 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-namespace zenmagick\apps\store\widgets;
+namespace ZenMagick\apps\store\widgets;
 
-use zenmagick\base\ZMObject;
+use ZenMagick\base\ZMObject;
 
-use zenmagick\http\blocks\BlockProvider;
+use ZenMagick\http\blocks\BlockProvider;
 
 /**
  * Store block provider.
@@ -52,10 +52,10 @@ class StoreBlockProvider extends ZMObject implements BlockProvider {
         }
 
         // banners
-        $blocks['bannerBlockWidget'] = 'zenmagick\apps\store\widgets\BannerBlockWidget';
+        $blocks['bannerBlockWidget'] = 'ZenMagick\apps\store\widgets\BannerBlockWidget';
 
         // paypal ec button
-        $blocks['payPalECButtonBlockWidget'] = 'zenmagick\apps\store\widgets\PayPalECButtonBlockWidget';
+        $blocks['payPalECButtonBlockWidget'] = 'ZenMagick\apps\store\widgets\PayPalECButtonBlockWidget';
 
         return $blocks;
     }

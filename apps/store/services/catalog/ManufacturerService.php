@@ -18,11 +18,11 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-namespace zenmagick\apps\store\services\catalog;
+namespace ZenMagick\apps\store\services\catalog;
 
-use zenmagick\base\Runtime;
-use zenmagick\base\Toolbox;
-use zenmagick\base\ZMObject;
+use ZenMagick\base\Runtime;
+use ZenMagick\base\Toolbox;
+use ZenMagick\base\ZMObject;
 
 /**
  * Manufacturer service.
@@ -45,7 +45,7 @@ class ManufacturerService extends ZMObject {
     /**
      * Set the cache.
      *
-     * @param zenmagick\base\cache\Cache cache The cache.
+     * @param ZenMagick\base\cache\Cache cache The cache.
      */
     public function setCache($cache) {
         $this->cache_ = $cache;
@@ -54,7 +54,7 @@ class ManufacturerService extends ZMObject {
     /**
      * Get the cache.
      *
-     * @return zenmagick\base\cache\Cache The cache.
+     * @return ZenMagick\base\cache\Cache The cache.
      */
     public function getCache() {
         return $this->cache_;
@@ -76,7 +76,7 @@ class ManufacturerService extends ZMObject {
 
         $cacheKey = Toolbox::hash('manufacturer', $id, $languageId);
         if (false === ($manufacturer = $this->cache_->lookup($cacheKey))) {
-            $manufacturer = \ZMRuntime::getDatabase()->querySingle($sql, $args, array('manufacturers', 'manufacturers_info'), 'zenmagick\apps\store\model\catalog\Manufacturer');
+            $manufacturer = \ZMRuntime::getDatabase()->querySingle($sql, $args, array('manufacturers', 'manufacturers_info'), 'ZenMagick\apps\store\model\catalog\Manufacturer');
             $this->cache_->save($manufacturer, $cacheKey);
         }
 
@@ -99,7 +99,7 @@ class ManufacturerService extends ZMObject {
 
         $cacheKey = Toolbox::hash('manufacturer', $name, $languageId);
         if (false === ($manufacturer = $this->cache_->lookup($cacheKey))) {
-            $manufacturer = \ZMRuntime::getDatabase()->querySingle($sql, $args, array('manufacturers', 'manufacturers_info'), 'zenmagick\apps\store\model\catalog\Manufacturer');
+            $manufacturer = \ZMRuntime::getDatabase()->querySingle($sql, $args, array('manufacturers', 'manufacturers_info'), 'ZenMagick\apps\store\model\catalog\Manufacturer');
             $this->cache_->save($manufacturer, $cacheKey);
         }
 
@@ -155,7 +155,7 @@ class ManufacturerService extends ZMObject {
 
         $cacheKey = Toolbox::hash('manufacturer', $languageId);
         if (false === ($manufacturers = $this->cache_->lookup($cacheKey))) {
-            $manufacturers = \ZMRuntime::getDatabase()->fetchAll($sql, $args, array('manufacturers', 'manufacturers_info'), 'zenmagick\apps\store\model\catalog\Manufacturer');
+            $manufacturers = \ZMRuntime::getDatabase()->fetchAll($sql, $args, array('manufacturers', 'manufacturers_info'), 'ZenMagick\apps\store\model\catalog\Manufacturer');
             $this->cache_->save($manufacturers, $cacheKey);
         }
 

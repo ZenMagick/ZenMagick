@@ -17,11 +17,11 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-namespace zenmagick\plugins\unitTests\simpletest;
+namespace ZenMagick\plugins\unitTests\simpletest;
 
 use UnitTestCase;
-use zenmagick\base\Runtime;
-use zenmagick\base\Toolbox;
+use ZenMagick\base\Runtime;
+use ZenMagick\base\Toolbox;
 
 /**
  * TestCase base class.
@@ -44,7 +44,7 @@ class TestCase extends UnitTestCase {
     /**
      * Get the current request.
      *
-     * @return zenmagick\http\Request The current request.
+     * @return ZenMagick\http\Request The current request.
      */
     public function getRequest() {
         return Runtime::getContainer()->get('request');

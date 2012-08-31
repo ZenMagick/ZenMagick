@@ -18,10 +18,10 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-use zenmagick\base\ZMObject;
-use zenmagick\apps\store\model\checkout\ShoppingCart;
-use zenmagick\apps\store\utils\CheckoutHelper;
-use zenmagick\plugins\unitTests\simpletest\TestCase;
+use ZenMagick\base\ZMObject;
+use ZenMagick\apps\store\model\checkout\ShoppingCart;
+use ZenMagick\apps\store\utils\CheckoutHelper;
+use ZenMagick\plugins\unitTests\simpletest\TestCase;
 
 /**
  * Test shopping cart base class.

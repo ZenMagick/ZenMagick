@@ -18,12 +18,12 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-namespace zenmagick\apps\store\services;
+namespace ZenMagick\apps\store\services;
 
-use zenmagick\base\Beans;
-use zenmagick\base\Runtime;
-use zenmagick\http\widgets\Widget;
-use zenmagick\apps\store\model\ConfigValue;
+use ZenMagick\base\Beans;
+use ZenMagick\base\Runtime;
+use ZenMagick\http\widgets\Widget;
+use ZenMagick\apps\store\model\ConfigValue;
 
 /**
  * Config service.
@@ -126,7 +126,7 @@ class ConfigWidgetService extends ConfigService {
                     break;
 
                 default:
-                    $widget = Beans::map2obj('zenmagick\apps\store\model\ConfigValue', $value);
+                    $widget = Beans::map2obj('ZenMagick\apps\store\model\ConfigValue', $value);
                     break;
                 }
                 if ($widget instanceof Widget) {

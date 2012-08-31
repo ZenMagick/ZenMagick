@@ -18,10 +18,10 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-namespace zenmagick\plugins\phpbb3;
+namespace ZenMagick\plugins\phpbb3;
 
 use ZMRuntime;
-use zenmagick\base\ZMObject;
+use ZenMagick\base\ZMObject;
 
 /**
  * Access class for phpBB3 data.
@@ -48,7 +48,7 @@ class PhpBB3Adapter extends ZMObject {
     /**
      * Get database.
      *
-     * @return zenmagick\base\database\Connection A database handle.
+     * @return ZenMagick\base\database\Connection A database handle.
      */
     protected function getDatabase() {
         if (null == $this->database_) {
@@ -76,7 +76,7 @@ class PhpBB3Adapter extends ZMObject {
     /**
      * Check for duplicate nickname.
      *
-     * @param zenmagick\http\Request request The current request.
+     * @param ZenMagick\http\Request request The current request.
      * @param array data The request data.
      * @return boolean <code>true</code> if the nickname is valid, <code>false</code> if not.
      */
@@ -89,7 +89,7 @@ class PhpBB3Adapter extends ZMObject {
     /**
      * Check for duplicate email address.
      *
-     * @param zenmagick\http\Request request The current request.
+     * @param ZenMagick\http\Request request The current request.
      * @param array req The request data.
      * @return boolean <code>true</code> if the email is valid, <code>false</code> if not.
      */
@@ -100,7 +100,7 @@ class PhpBB3Adapter extends ZMObject {
     /**
      * Check for duplicate email address if different from current account email address.
      *
-     * @param zenmagick\http\Request request The current request.
+     * @param ZenMagick\http\Request request The current request.
      * @param array req The request data.
      * @return boolean <code>true</code> if the email is valid, <code>false</code> if not.
      */
@@ -125,7 +125,7 @@ class PhpBB3Adapter extends ZMObject {
                 WHERE group_name = 'REGISTERED'
                   AND group_type = " . GROUP_SPECIAL;
 
-        $result = $this->getDatabase()->querySingle($sql, array(), null, \zenmagick\base\database\Connection::MODEL_RAW);
+        $result = $this->getDatabase()->querySingle($sql, array(), null, \ZenMagick\base\database\Connection::MODEL_RAW);
         return null !== $result ? (int)$result['group_id'] : false;
     }
 

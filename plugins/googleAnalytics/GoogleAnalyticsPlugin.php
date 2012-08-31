@@ -17,11 +17,11 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-namespace zenmagick\plugins\googleAnalytics;
+namespace ZenMagick\plugins\googleAnalytics;
 
-use zenmagick\apps\store\plugins\Plugin;
-use zenmagick\base\Runtime;
-use zenmagick\base\Toolbox;
+use ZenMagick\apps\store\plugins\Plugin;
+use ZenMagick\base\Runtime;
+use ZenMagick\base\Toolbox;
 
 /**
  * Plugin providing functionallity to add Goggle Analytics code to the store.
@@ -94,7 +94,7 @@ class GoogleAnalyticsPlugin extends Plugin {
     /**
      * Generate usable pageview identifiers.
      *
-     * @param zenmagick\http\Request request The current request.
+     * @param ZenMagick\http\Request request The current request.
      * @return string A string.
      */
     protected function getPageview($request) {
@@ -103,7 +103,7 @@ class GoogleAnalyticsPlugin extends Plugin {
         case 'custom':
             // TODO: make this smarter??
             $themeId = $this->container->get('themeService')->getActiveThemeId();
-            $customClass = 'zenmagick\\themes\\'.$themeId.'\\CustomGoogleAnalytics';
+            $customClass = 'ZenMagick\\themes\\'.$themeId.'\\CustomGoogleAnalytics';
             if (class_exists($customClass)) {
                 $custom = new $customClass;
                 if (null !== ($view = $custom->getPageview($request))) {
@@ -143,7 +143,7 @@ class GoogleAnalyticsPlugin extends Plugin {
     /**
      * Format the generic tracking code using the ga format.
      *
-     * @param zenmagick\http\Request request The current request.
+     * @param ZenMagick\http\Request request The current request.
      * @return string The tracking code.
      */
     protected function getTrackerCodeGa($request) {
@@ -174,7 +174,7 @@ EOT;
     /**
      * Format the checkout order tracking code using the ga format.
      *
-     * @param zenmagick\http\Request request The current request.
+     * @param ZenMagick\http\Request request The current request.
      * @return string The order tracking code or empty string if not applicable.
      */
     protected function getCheckoutCodeGa($request) {
@@ -263,7 +263,7 @@ EOT;
     /**
      * Create code for conversion tracking.
      *
-     * @param zenmagick\http\Request request The current request.
+     * @param ZenMagick\http\Request request The current request.
      * @return string The conversion code.
      */
     protected function getConversionCode($request) {

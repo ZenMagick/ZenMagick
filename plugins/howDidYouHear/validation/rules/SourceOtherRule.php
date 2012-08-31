@@ -17,7 +17,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-namespace zenmagick\plugins\howDidYouHear\validation\rules;
+namespace ZenMagick\plugins\howDidYouHear\validation\rules;
 
 use ZMRequiredRule;
 
@@ -42,7 +42,7 @@ class SourceOtherRule extends ZMRequiredRule {
     /**
      * Validate the given request data.
      *
-     * @param zenmagick\http\Request request The current request.
+     * @param ZenMagick\http\Request request The current request.
      * @param array data The data.
      * @return boolean <code>true</code> if other is valid, <code>false</code> if not.
      */

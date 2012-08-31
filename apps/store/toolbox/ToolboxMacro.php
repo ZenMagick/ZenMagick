@@ -17,12 +17,12 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-namespace zenmagick\apps\store\toolbox;
+namespace ZenMagick\apps\store\toolbox;
 
-use zenmagick\base\Runtime;
-use zenmagick\base\Toolbox;
-use zenmagick\base\ZMException;
-use zenmagick\http\toolbox\ToolboxTool;
+use ZenMagick\base\Runtime;
+use ZenMagick\base\Toolbox;
+use ZenMagick\base\ZMException;
+use ZenMagick\http\toolbox\ToolboxTool;
 
 /**
  * Macro utilities.
@@ -236,7 +236,7 @@ class ToolboxMacro extends ToolboxTool {
      *
      * @param string name The sender name.
      * @param string email The sender email.
-     * @param zenmagick\http\session\Session session The current session.
+     * @param ZenMagick\http\session\Session session The current session.
      * @return array Hash of extra information.
      */
     public function officeOnlyEmailFooter($name, $email, $session) {

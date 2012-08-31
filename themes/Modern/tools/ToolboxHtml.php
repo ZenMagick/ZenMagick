@@ -17,7 +17,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-namespace zenmagick\themes\modern\tools;
+namespace ZenMagick\themes\modern\tools;
 
 
 /**
@@ -25,7 +25,7 @@ namespace zenmagick\themes\modern\tools;
  *
  * @author DerManoMann
  */
-class ToolboxHtml extends \zenmagick\apps\store\toolbox\ToolboxHtml {
+class ToolboxHtml extends \ZenMagick\apps\store\toolbox\ToolboxHtml {
 
    /**
      * Create a full HTML &lt;a&gt; tag pointig to an ezpage.

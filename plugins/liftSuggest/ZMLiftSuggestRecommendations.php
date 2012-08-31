@@ -18,9 +18,9 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-namespace zenmagick\plugins\liftSuggest;
+namespace ZenMagick\plugins\liftSuggest;
 
-use zenmagick\base\ZMObject;
+use ZenMagick\base\ZMObject;
 
 /**
  * ZenMagick Lift Suggest Recommendation.

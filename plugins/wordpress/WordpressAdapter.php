@@ -18,10 +18,10 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-namespace zenmagick\plugins\wordpress;
+namespace ZenMagick\plugins\wordpress;
 
-use zenmagick\base\Toolbox;
-use zenmagick\base\ZMObject;
+use ZenMagick\base\Toolbox;
+use ZenMagick\base\ZMObject;
 
 /**
  * Wordpress adapter.
@@ -46,7 +46,7 @@ class WordpressAdapter extends ZMObject {
     /**
      * Check for duplicate nickname.
      *
-     * @param zenmagick\http\Request request The current request.
+     * @param ZenMagick\http\Request request The current request.
      * @param array data The data.
      * @return boolean <code>true</code> if the nickname is valid, <code>false</code> if not.
      */
@@ -57,7 +57,7 @@ class WordpressAdapter extends ZMObject {
     /**
      * Check for duplicate email address.
      *
-     * @param zenmagick\http\Request request The current request.
+     * @param ZenMagick\http\Request request The current request.
      * @param array data The data.
      * @return boolean <code>true</code> if the email is valid, <code>false</code> if not.
      */
@@ -68,7 +68,7 @@ class WordpressAdapter extends ZMObject {
     /**
      * Check for duplicate email address if different from current account email address.
      *
-     * @param zenmagick\http\Request request The current request.
+     * @param ZenMagick\http\Request request The current request.
      * @param array data The data.
      * @return boolean <code>true</code> if the email is valid, <code>false</code> if not.
      */

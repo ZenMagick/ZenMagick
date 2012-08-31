@@ -17,10 +17,10 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-namespace zenmagick\apps\admin\installation\patches\file;
+namespace ZenMagick\apps\admin\installation\patches\file;
 
-use zenmagick\base\Runtime;
-use zenmagick\apps\admin\installation\patches\FilePatch;
+use ZenMagick\base\Runtime;
+use ZenMagick\apps\admin\installation\patches\FilePatch;
 
 /**
  * Patch to enable editing customers if the same email exists as guest checkout.

@@ -18,11 +18,11 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-namespace zenmagick\apps\store\model\catalog\associations;
+namespace ZenMagick\apps\store\model\catalog\associations;
 
 use ZMRuntime;
-use zenmagick\apps\store\model\catalog\ProductAssociation;
-use zenmagick\apps\store\services\catalog\ProductAssociationHandler;
+use ZenMagick\apps\store\model\catalog\ProductAssociation;
+use ZenMagick\apps\store\services\catalog\ProductAssociationHandler;
 
 /**
  * Product association handler for <em>also purchased</em> products.

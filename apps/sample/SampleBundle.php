@@ -1,5 +1,5 @@
 <?php
-namespace zenmagick\apps\sample;
+namespace ZenMagick\apps\sample;
 
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 

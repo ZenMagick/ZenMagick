@@ -1,5 +1,5 @@
 <?php
-namespace zenmagick\apps\storefront;
+namespace ZenMagick\apps\storefront;
 
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 

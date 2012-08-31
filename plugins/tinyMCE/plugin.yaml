@@ -8,6 +8,6 @@ storefront,admin:
   container:
     services:
       tinyMCEEditorWidget:
-        class: zenmagick\plugins\tinyMCE\TinyMCEFormWidget
+        class: ZenMagick\plugins\tinyMCE\TinyMCEFormWidget
         tags:
           -  { name: zenmagick.apps.store.editor, label: TinyMCE }

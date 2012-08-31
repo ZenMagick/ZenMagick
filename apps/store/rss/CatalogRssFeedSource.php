@@ -17,14 +17,14 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-namespace zenmagick\apps\store\rss;
+namespace ZenMagick\apps\store\rss;
 
 use DateTime;
-use zenmagick\base\ZMObject;
-use zenmagick\http\rss\RssChannel;
-use zenmagick\http\rss\RssFeed;
-use zenmagick\http\rss\RssItem;
-use zenmagick\http\rss\RssSource;
+use ZenMagick\base\ZMObject;
+use ZenMagick\http\rss\RssChannel;
+use ZenMagick\http\rss\RssFeed;
+use ZenMagick\http\rss\RssItem;
+use ZenMagick\http\rss\RssSource;
 
 /**
  * RSS source to create a full catalog feed.
@@ -113,7 +113,7 @@ class CatalogRssFeedSource extends ZMObject implements RssSource {
     /**
      * Generate RSS feed for all products.
      *
-     * @param zenmagick\http\Request request The current request.
+     * @param ZenMagick\http\Request request The current request.
      * @param boolean full Indicates whether to generate a full feed or not; default is <code>false</code>.
      * @return RssFeed The feed.
      */
@@ -148,7 +148,7 @@ class CatalogRssFeedSource extends ZMObject implements RssSource {
     /**
      * Generate RSS feed for all categories.
      *
-     * @param zenmagick\http\Request request The current request.
+     * @param ZenMagick\http\Request request The current request.
      * @param boolean full Indicates whether to generate a full feed or not; default is <code>false</code>.
      * @return RssFeed The feed.
      */

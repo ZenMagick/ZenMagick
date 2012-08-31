@@ -1,10 +1,10 @@
 <?php
-namespace zenmagick\plugins\rules\tests;
+namespace ZenMagick\plugins\rules\tests;
 
 use phprules\SingleRule;
 use phprules\RuleContext;
 use phprules\CompositeRule;
-use zenmagick\plugins\unitTests\simpletest\TestCase;
+use ZenMagick\plugins\unitTests\simpletest\TestCase;
 
 class TestRules extends TestCase {
 

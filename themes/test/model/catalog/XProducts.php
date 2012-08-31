@@ -1,5 +1,5 @@
 <?php
-namespace zenmagick\themes\test\model\catalog;
+namespace ZenMagick\themes\test\model\catalog;
 
 class XProducts extends \ZMProducts {
 }
