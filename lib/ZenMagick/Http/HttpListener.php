@@ -50,6 +50,10 @@ class HttpListener implements EventSubscriberInterface {
 
     public function onKernelRequest(GetResponseEvent $event) {
         $request = $event->getRequest();
+
+        // If we have a somebody elses controller, just exit (for now)
+        if (false === strpos($request->attributes->get('_controller'), 'ZenMagick')) return;
+
         $request->setContainer($this->container);
 
         $dispatcher = $event->getDispatcher();
