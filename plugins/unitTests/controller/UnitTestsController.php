@@ -25,7 +25,6 @@ use RecursiveDirectoryIterator;
 use TestSuite;
 use UnitTestCase;
 use ZenMagick\Base\Beans;
-use ZenMagick\Base\Classloader\ClassLoader;
 use ZenMagick\Base\Runtime;
 use ZenMagick\Base\Toolbox;
 use ZenMagick\plugins\unitTests\UnitTestsPlugin;
@@ -63,11 +62,6 @@ class UnitTestsController extends \ZMController {
      */
     public function processGet($request) {
 
-        // XXX: for adminusers testcase...
-        $classLoader = new ClassLoader();
-        $classLoader->register();
-        $classLoader->addPath($this->getTestPlugin()->getPluginDirectory().'/tests');
-
         // add tests folder to class path
         $testBaseDir = $this->getTestPlugin()->getPluginDirectory().'/tests';
         $tests = $this->findTests($testBaseDir);
@@ -95,7 +89,6 @@ class UnitTestsController extends \ZMController {
                 continue;
             }
             $ptests = $plugin->getPluginDirectory().'/tests';
-            $classLoader->addPath($ptests);
             if (is_dir($ptests)) {
                 foreach ($this->findTests($ptests) as $className => $file) {
                     $this->getTestPlugin()->addTest($className);
