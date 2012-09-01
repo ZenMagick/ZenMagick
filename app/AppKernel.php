@@ -55,6 +55,7 @@ class AppKernel extends Kernel {
             new ZenMagick\ZenCartBundle\ZenCartBundle,
             new Doctrine\Bundle\DoctrineBundle\DoctrineBundle,
             new Doctrine\Bundle\MigrationsBundle\DoctrineMigrationsBundle,
+            new Symfony\Bundle\AsseticBundle\AsseticBundle,
             new Symfony\Bundle\SwiftmailerBundle\SwiftmailerBundle,
             new Symfony\Bundle\MonologBundle\MonologBundle,
             new Symfony\Bundle\TwigBundle\TwigBundle,

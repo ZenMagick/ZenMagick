@@ -33,6 +33,8 @@
     "require": {
         "php": ">=5.3.3",
         "symfony/symfony": "2.1.*",
+        "twig/extensions": "1.0.*",
+        "symfony/assetic-bundle": "2.1.*",
         "doctrine/doctrine-bundle": "dev-master",
         "doctrine/orm": "2.2.*",
         "doctrine/migrations": "dev-master",

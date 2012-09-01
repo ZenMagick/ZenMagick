@@ -1,5 +1,5 @@
 {
-    "hash": "f7bf7933be73506fe8153de6ef5aa3dc",
+    "hash": "ec8e0bc7b64c8b91af6157a419f658b6",
     "packages": [
         {
             "package": "dermanomann/phprules",
@@ -40,6 +40,18 @@
             "version": "2.2.x-dev",
             "source-reference": "11faa7e49d77e559e4e376d3b927d2e742fbcf8b",
             "commit-date": "1346246267"
+        },
+        {
+            "package": "kriswallsmith/assetic",
+            "version": "dev-master",
+            "alias-pretty-version": "1.1.x-dev",
+            "alias-version": "1.1.9999999.9999999-dev"
+        },
+        {
+            "package": "kriswallsmith/assetic",
+            "version": "dev-master",
+            "source-reference": "0410297526eacc3aa2146b55bc4e30e6fd3a50ed",
+            "commit-date": "1346167888"
         },
         {
             "package": "monolog/monolog",
@@ -84,6 +96,18 @@
             "commit-date": "1345630910"
         },
         {
+            "package": "symfony/assetic-bundle",
+            "version": "dev-master",
+            "alias-pretty-version": "2.1.x-dev",
+            "alias-version": "2.1.9999999.9999999-dev"
+        },
+        {
+            "package": "symfony/assetic-bundle",
+            "version": "dev-master",
+            "source-reference": "4e7e8a039fa19434f04558473adbb201118af942",
+            "commit-date": "1346199949"
+        },
+        {
             "package": "symfony/monolog-bundle",
             "version": "dev-master",
             "source-reference": "v2.1.0-RC2",
@@ -106,6 +130,18 @@
             "version": "dev-master",
             "source-reference": "6bdd3f6a0ce3de5463d32d6fc8aaa0a250940bab",
             "commit-date": "1345427377"
+        },
+        {
+            "package": "twig/extensions",
+            "version": "dev-master",
+            "alias-pretty-version": "1.0.x-dev",
+            "alias-version": "1.0.9999999.9999999-dev"
+        },
+        {
+            "package": "twig/extensions",
+            "version": "dev-master",
+            "source-reference": "v1.0.0-alpha",
+            "commit-date": "1346166263"
         },
         {
             "package": "twig/twig",
