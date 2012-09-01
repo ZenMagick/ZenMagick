@@ -5,9 +5,7 @@ umask(0000); // This will let the permissions be 0777
 
 use ZenMagick\Http\Request;
 
-//$loader = require_once __DIR__.'/../app/bootstrap.php.cache';
-require_once __DIR__.'/../app/autoload.php';
-require_once __DIR__.'/../app/AppKernel.php';
+$loader = require_once __DIR__.'/../app/bootstrap.php.cache';
 
 $application = new AppKernel('prod', false, 'admin');
 $application->loadClassCache();
