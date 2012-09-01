@@ -345,6 +345,19 @@ class StorefrontController extends \ZMController {
     public function handleCart($request) {
         $action = $request->getParameter('action');
 
+        $session = $request->getSession();
+        $settingsService = $this->container->get('settingsService');
+        if (!$session->isStarted()) {
+            $request->redirect($request->url($this->container->get('settingsService')->get('zenmagick.http.request.invalidSession')));
+        }
+
+        if (null == $session->getValue('cart')) {
+            $session->setValue('cart', new \shoppingCart);
+        }
+        if (null == $session->getValue('navigation')) {
+            $session->setValue('navigation', new \navigationHistory);
+        }
+
         $cartActionMap = array(
             'update_product' => array('method' => 'actionUpdateProduct', 'multi' => true),
             'add_product' => array('method' => 'actionAddProduct', 'multi' => false),
@@ -359,19 +372,6 @@ class StorefrontController extends \ZMController {
         );
 
         if (!in_array($action, array_keys($cartActionMap))) return;
-
-        $session = $request->getSession();
-        $settingsService = $this->container->get('settingsService');
-        if (!$session->isStarted()) {
-            $request->redirect($request->url($this->container->get('settingsService')->get('zenmagick.http.request.invalidSession')));
-        }
-
-        if (null == $session->getValue('cart')) {
-            $session->setValue('cart', new \shoppingCart);
-        }
-        if (null == $session->getValue('navigation')) {
-            $session->setValue('navigation', new \navigationHistory);
-        }
 
         if ($settingsService->get('isShowCartAfterAddProduct')) {
             $redirectTarget =  'shopping_cart';
