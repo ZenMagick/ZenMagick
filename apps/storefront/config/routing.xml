@@ -32,29 +32,29 @@
     </route>
 
     <route id="cart.add" pattern="/cart/add">
-        <default key="_controller">ZenMagick\apps\storefront\Controller\ShoppingCartController:addProduct</default>
+        <default key="_controller">ZenMagick\apps\storefront\Controller\ShoppingCartController::addProduct</default>
         <option key="view:success">redirect://shopping_cart</option>
     </route>
 
     <!-- TODO: this should be POST -->
     <route id="cart.remove" pattern="/cart/remove/{productId}">
-        <default key="_controller">ZenMagick\apps\storefront\Controller\ShoppingCartController:removeProduct</default>
+        <default key="_controller">ZenMagick\apps\storefront\Controller\ShoppingCartController::removeProduct</default>
         <option key="view:success">redirect://shopping_cart</option>
     </route>
 
     <route id="cart.update" pattern="/cart/update">
-        <default key="_controller">ZenMagick\apps\storefront\Controller\ShoppingCartController:update</default>
+        <default key="_controller">ZenMagick\apps\storefront\Controller\ShoppingCartController::update</default>
         <option key="view:success">redirect://shopping_cart</option>
     </route>
 
     <route id="cart" pattern="/cart">
-        <default key="_controller">ZenMagick\apps\storefront\Controller\ShoppingCartController:show</default>
+        <default key="_controller">ZenMagick\apps\storefront\Controller\ShoppingCartController::show</default>
         <requirement key="_method">GET</requirement>
         <option key="view">views/shopping_cart.php</option>
     </route>
 
     <route id="shopping_cart" pattern="/cart">
-        <default key="_controller">ZenMagick\apps\storefront\Controller\ShoppingCartController:show</default>
+        <default key="_controller">ZenMagick\apps\storefront\Controller\ShoppingCartController::show</default>
         <requirement key="_method">GET</requirement>
     </route>
 
@@ -155,7 +155,7 @@
 
     <!-- TODO: coupon lookup should be in a controller; rename cID to couponId  -->
     <route id="help.coupon" pattern="/help/coupon/{cID}">
-        <default key="_controller">ZenMagick\apps\storefront\Controller\CouponHelpController:show</default>
+        <default key="_controller">ZenMagick\apps\storefront\Controller\CouponHelpController::show</default>
         <option key="view">views/popup/coupon_help.php</option>
     </route>
 

@@ -151,7 +151,8 @@ class HttpListener implements EventSubscriberInterface {
         }
 
         if ($routerMatch = $this->container->get('routeResolver')->getRouterMatch($request->getRequestUri())) {
-            $token = explode(':', $routerMatch['_controller']); // class:method ?
+            $token = explode('::', $routerMatch['_controller']); // class::method ?
+
             if (1 == count($token)) { // traditional controller
                 $controller = Beans::getBean($routerMatch['_controller']);
                 $executor = new Executor(array($controller, 'process'), array($request));
