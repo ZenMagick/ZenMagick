@@ -261,7 +261,7 @@ class ZMUrlManager extends ZMObject {
             $definitions[] = $mapping['controller'];
         } else {
             $class = Toolbox::className($requestId.'Controller');
-            $definitions[] = sprintf('ZenMagick\apps\%s\controller\%s', $this->container->get('kernel')->getContext(), $class);
+            $definitions[] = sprintf('ZenMagick\apps\%s\Controller\%s', $this->container->get('kernel')->getContext(), $class);
             $definitions[] = 'ZM'.$class;
         }
         // as defined in the container
