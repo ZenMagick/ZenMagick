@@ -125,9 +125,6 @@ class ZenCartAutoLoader extends ZMObject {
      */
     public function initCommon() {
         $this->overrideRequestGlobals();
-        $zcClassLoader = new \ZenMagick\ZenCartBundle\ZenCartClassLoader();
-        $zcClassLoader->setBaseDirectories($this->buildSearchPaths('includes/classes'));
-        $zcClassLoader->register();
 
         // @todo really make a setting out of these formats?
         $uiFormat = $this->container->get('localeService')->getFormat('date', 'short-ui-format');
