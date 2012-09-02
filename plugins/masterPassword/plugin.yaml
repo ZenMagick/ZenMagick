@@ -22,7 +22,7 @@ admin:
   routing:
     master_password_admin:
       pattern: /masterPasswordAdmin
-      defaults: { _controller: ZenMagick\plugins\masterPassword\controller\MasterPasswordAdminController }
+      defaults: { _controller: ZenMagick\plugins\masterPassword\controller\MasterPasswordAdminController::process }
       options:
         'view': views/master_password_admin.php
   menu:

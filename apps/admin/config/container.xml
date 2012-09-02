@@ -66,12 +66,5 @@
         </service>
 
         <service id="themeBuilder" class="ZenMagick\apps\admin\Utils\ThemeBuilder" scope="prototype" />
-
-        <service id="defaultController" class="ZenMagick\apps\admin\Controller\DefaultController" scope="prototype">
-            <call method="setContainer">
-                <argument type="service" id="service_container" />
-            </call>
-        </service>
-
     </services>
 </container>

@@ -13,55 +13,55 @@
     </route>
 
     <route id="index" pattern="/index">
-        <default key="_controller">defaultController</default>
+        <default key="_controller">ZMController::process</default>
     </route>
 
     <route id="login" pattern="/login">
-        <default key="_controller">ZenMagick\apps\admin\Controller\LoginController</default>
+        <default key="_controller">ZenMagick\apps\admin\Controller\LoginController::process</default>
         <option key="view:logged-in">redirect://index</option>
         <option key="view:success">redirect://index</option>
     </route>
     <route id="logoff" pattern="/logoff">
-        <default key="_controller">ZenMagick\apps\admin\Controller\LogoffController</default>
+        <default key="_controller">ZenMagick\apps\admin\Controller\LogoffController::process</default>
         <option key="view:success">redirect://login</option>
     </route>
     <route id="reset_password" pattern="/password/reset">
-        <default key="_controller">ZenMagick\apps\admin\Controller\ResetPasswordController</default>
+        <default key="_controller">ZenMagick\apps\admin\Controller\ResetPasswordController::process</default>
         <option key="view:success">redirect://login</option>
     </route>
     <route id="update_user" pattern="/user/update">
-        <default key="_controller">ZenMagick\apps\admin\Controller\UpdateUserController</default>
+        <default key="_controller">ZenMagick\apps\admin\Controller\UpdateUserController::process</default>
         <option key="view:success">redirect://index</option>
         <option key="form">ZenMagick\apps\admin\Forms\AdminUserForm#formId=updateUser</option>
     </route>
     <route id="ezpages" pattern="/ezpages/{languageId}">
-        <default key="_controller">ZenMagick\apps\admin\Controller\EzpagesController</default>
+        <default key="_controller">ZenMagick\apps\admin\Controller\EzpagesController::process</default>
         <default key="languageId">1</default>
         <option key="view">views/ezpages-overview.php</option>
     </route>
     <route id="ezpage" pattern="/ezpage?{slug}">
-        <default key="_controller">ZenMagick\apps\admin\Controller\EzpagesController</default>
+        <default key="_controller">ZenMagick\apps\admin\Controller\EzpagesController::process</default>
         <default key="slug"></default>
         <option key="view">views/ezpages-details.php</option>
         <option key="view:success">redirect://ezpages</option>
     </route>
     <route id="content_edit" pattern="/content/edit?{slug}">
-        <default key="_controller">ZenMagick\apps\admin\Controller\ContentEditorController</default>
+        <default key="_controller">ZenMagick\apps\admin\Controller\ContentEditorController::process</default>
         <default key="slug"></default>
         <option key="view">views/ezpages-details.php</option>
         <option key="view:success">redirect://content_editor</option>
     </route>
     <route id="content_editor" pattern="/content/{languageId}">
-        <default key="_controller">ZenMagick\apps\admin\Controller\ContentEditorController</default>
+        <default key="_controller">ZenMagick\apps\admin\Controller\ContentEditorController::process</default>
         <default key="languageId">1</default>
         <option key="view">views/content_overview.php</option>
     </route>
     <!--
     <route id="admin_users" pattern="/manage/users">
-        <default key="_controller">ZenMagick\apps\admin\Controller\AdminUsersController</default>
+        <default key="_controller">ZenMagick\apps\admin\Controller\AdminUsersController::process</default>
     </route>
     <route id="edit_admin_user" pattern="/user/edit/{adminUserId}">
-        <default key="_controller">ZenMagick\apps\admin\Controller\EditAdminUserController</default>
+        <default key="_controller">ZenMagick\apps\admin\Controller\EditAdminUserController::process</default>
         <option key="view:success">redirect://admin_users</option>
         <option key="form">ZenMagick\apps\admin\Forms\AdminUserForm#formId=adminUser</option>
     </route>

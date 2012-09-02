@@ -32,4 +32,4 @@ storefront,admin:
   routing:
     cron_image:
       pattern: /cron_image
-      defaults: { _controller: ZenMagick\plugins\cron\controller\CronImageController }
+      defaults: { _controller: ZenMagick\plugins\cron\controller\CronImageController::process }

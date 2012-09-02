@@ -23,7 +23,7 @@ admin:
   routing:
     examplePluginAdmin:
       pattern: /examplePluginAdmin
-      defaults: { _controller: ZenMagick\plugins\examplePlugin\controller\ExamplePluginAdminController }
+      defaults: { _controller: ZenMagick\plugins\examplePlugin\controller\ExamplePluginAdminController::process }
       options:
         'view': views/examplePluginAdmin.php
   menu:

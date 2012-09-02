@@ -41,12 +41,6 @@
             <tag name="zenmagick.http.toolbox.tool" key="metaTags" />
         </service>
 
-        <service id="defaultController" class="ZenMagick\apps\storefront\Controller\DefaultController" scope="prototype">
-            <call method="setContainer">
-                <argument type="service" id="service_container" />
-            </call>
-        </service>
-
         <service id="userFactory" class="ZenMagick\apps\storefront\Services\CustomerUserFactory" />
     </services>
 </container>
