@@ -71,14 +71,14 @@ class ZenCartBundle extends Bundle {
             'navigationHistory' => $zc.'navigation_history.php',
             'currencies' => ($isAdmin ? $zca : $zc).'currencies.php',
             'httpClient' => $zc.'http_client.php',
-            'messageStack' => ($isAdmin ? $b : $ba).'message_stack.php',
+            'messageStack' => ($isAdmin ? $ba : $b).'message_stack.php',
             'notifier' => $zc.'class.notifier.php',
             'queryFactory' => $b.'db/mysql/query_factory.php',
             'queryFactoryResult' => $b.'db/mysql/query_factory.php',
             // ZenCart admin/storefront
             'breadcrumb' => $zc.'breadcrumb.php',
             'category_tree' => $zc.'category_tree.php',
-            'language' => ($isAdmin ? $zca : $zc).'language.php',
+            'language' => ($isAdmin ? $ba : $b).'language.php',
             'products' => $zca.'products.php',
             'sniffer' => $zc.'sniffer.php',
             'splitPageResults' => ($isAdmin ? $zca : $zc).'split_page_results.php', // admin overrides storefront
