@@ -2,14 +2,8 @@
 # ZenMagick full installer other SQL
 #
 
-## disable missing page check
-UPDATE configuration set configuration_value = 'Off' WHERE configuration_key = 'MISSING_PAGE_CHECK';
-## force cookie to avoid SID urls
-UPDATE configuration set configuration_value = 'True' WHERE configuration_key = 'SESSION_FORCE_COOKIE_USE';
-## disable downloads
-UPDATE configuration set configuration_value = 'false' WHERE configuration_key = 'DOWNLOAD_ENABLED';
 ## set default theme to 'default'
-UPDATE template_select set template_dir = 'default' WHERE template_dir = 'classic';
+UPDATE template_select set template_dir = 'base' WHERE template_dir = 'classic';
 
 
 ## remove zen cart banners - these should be demo only
