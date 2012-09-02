@@ -78,15 +78,6 @@ class ZenMagickBundle extends Bundle {
             }
         }
 
-        $globalFilename = realpath($rootDir.'/global.yaml');
-        if (file_exists($globalFilename)) {
-            $contextConfigLoader = $this->container->get('contextConfigLoader');
-            $contextConfigLoader->setConfig($globalFilename);
-            $config = $contextConfigLoader->resolve();
-            unset($config['container']); // @todo remove when contextConfigLoader no longer has it
-            $contextConfigLoader->apply($config);
-        }
-
         // @todo never do this
         Runtime::setContainer($this->container);
         $context = $parameterBag->get('kernel.context');
