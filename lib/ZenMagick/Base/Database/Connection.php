@@ -223,7 +223,6 @@ class Connection extends DbalConnection {
      * @param string modelClass The class name to be used to build result obects; default is <code>null</code>.
      * @param mixed mapping The field mappings; default is <code>null</code>.
      * @return mixed The model with the updated primary key.
-     * @throws ZenMagick\Base\Database\DatabaseException
      */
     public function loadModel($table, $key, $modelClass, $mapping = null) {
         $table = $this->resolveTable($table);
@@ -251,7 +250,6 @@ class Connection extends DbalConnection {
      * @param mixed model The model instance.
      * @param mixed mapping The field mappings; default is <code>null</code>.
      * @return mixed The model with the updated primary key.
-     * @throws ZenMagick\Base\Database\DatabaseException
      */
     public function createModel($table, $model, $mapping = null) {
         if (null === $model) return null;
@@ -284,14 +282,10 @@ class Connection extends DbalConnection {
             }
         }
 
-        try {
-            $stmt = $this->prepareStatement($sql, $modelData, $mapping);
-            $stmt->execute();
-            $newId = $this->lastInsertId();
-            $stmt->closeCursor();
-        } catch (PDOException $e) {
-            throw new DatabaseException($e->getMessage(), $e->getCode(), $e);
-        }
+        $stmt = $this->prepareStatement($sql, $modelData, $mapping);
+        $stmt->execute();
+        $newId = $this->lastInsertId();
+        $stmt->closeCursor();
 
         foreach ($mapping as $property => $field) {
             if ($field['auto']) {
@@ -308,7 +302,6 @@ class Connection extends DbalConnection {
      * @param string table The table to update.
      * @param mixed model The model instance.
      * @param mixed mapping The field mappings; default is <code>null</code>.
-     * @throws ZenMagick\Base\Database\DatabaseException
      */
     public function removeModel($table, $model, $mapping = null) {
         if (null === $model) return null;
@@ -342,13 +335,9 @@ class Connection extends DbalConnection {
         }
         $sql .= $where;
 
-        try {
-            $stmt = $this->prepareStatement($sql, $modelData, $mapping);
-            $stmt->execute();
-            $stmt->closeCursor();
-        } catch (PDOException $e) {
-            throw new DatabaseException($e->getMessage(), $e->getCode(), $e);
-        }
+        $stmt = $this->prepareStatement($sql, $modelData, $mapping);
+        $stmt->execute();
+        $stmt->closeCursor();
     }
 
     /**
@@ -357,7 +346,6 @@ class Connection extends DbalConnection {
      * @param string table The table to update.
      * @param mixed model The model instance.
      * @param mixed mapping The field mappings; default is <code>null</code>.
-     * @throws ZenMagick\Base\Database\DatabaseException
      */
     public function updateModel($table, $model, $mapping = null) {
         if (null === $model) return null;
@@ -398,13 +386,9 @@ class Connection extends DbalConnection {
         }
         $sql .= $where;
 
-        try {
-            $stmt = $this->prepareStatement($sql, $model, $mapping);
-            $stmt->execute();
-            $stmt->closeCursor();
-        } catch (PDOException $e) {
-            throw new DatabaseException($e->getMessage(), $e->getCode(), $e);
-        }
+        $stmt = $this->prepareStatement($sql, $model, $mapping);
+        $stmt->execute();
+        $stmt->closeCursor();
     }
 
     /**
@@ -414,7 +398,6 @@ class Connection extends DbalConnection {
      * @param mixed data A model instance or array; default is an empty array.
      * @param mixed mapping The field mappings or table name (list); default is <code>null</code>.
      * @return int affected rows
-     * @throws ZenMagick\Base\Database\DatabaseException
      */
     public function updateObj($query, $params = array(), $mapping = null) {
         $mapping = $this->getMapper()->ensureMapping($mapping);
@@ -423,14 +406,10 @@ class Connection extends DbalConnection {
         if (is_object($params)) {
             $params = Beans::obj2map($params, array_keys($mapping));
         }
-        try {
-            $stmt = $this->prepareStatement($query, $params, $mapping);
-            $stmt->execute();
-            $rows = $stmt->rowCount();
-            $stmt->closeCursor();
-        } catch (PDOException $e) {
-            throw new DatabaseException($e->getMessage(), $e->getCode(), $e);
-        }
+        $stmt = $this->prepareStatement($query, $params, $mapping);
+        $stmt->execute();
+        $rows = $stmt->rowCount();
+        $stmt->closeCursor();
 
         return $rows;
     }
@@ -446,7 +425,6 @@ class Connection extends DbalConnection {
      * @param mixed mapping The field mappings or table name (list); default is <code>null</code>.
      * @param string modelClass The class name to be used to build result obects; default is <code>null</code>.
      * @return mixed The (expected) single result or <code>null</code>
-     * @throws ZenMagick\Base\Database\DatabaseException
      */
     public function querySingle($sql, array $params = array(), $mapping = null, $modelClass = null) {
         $results = $this->fetchAll($sql, $params, $mapping, $modelClass);
@@ -467,19 +445,14 @@ class Connection extends DbalConnection {
      * @param mixed mapping The field mappings or table name (list); default is <code>null</code>.
      * @param string modelClass The class name to be used to build result obects; default is <code>null</code>.
      * @return array List of populated objects of class <code>$resultClass</code> or map if <em>modelClass</em> is <code>null</code>.
-     * @throws ZenMagick\Base\Database\DatabaseException
      */
     public function fetchAll($sql, array $params = array(), $mapping = null, $modelClass = null) {
         $mapping = $this->getMapper()->ensureMapping($mapping);
 
-        try {
-            $stmt = $this->prepareStatement($sql, $params, $mapping);
-            $stmt->execute();
-            $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
-            $stmt->closeCursor();
-        } catch (PDOException $e) {
-            throw new DatabaseException($e->getMessage(), $e->getCode(), $e);
-        }
+        $stmt = $this->prepareStatement($sql, $params, $mapping);
+        $stmt->execute();
+        $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $stmt->closeCursor();
 
         if (self::MODEL_RAW == $modelClass) return $rows;
 
@@ -563,11 +536,7 @@ class Connection extends DbalConnection {
                    $value = self::NULL_DATE;
                 }
 
-                try {
-                    $dbalType = $this->getDatabasePlatform()->getDoctrineTypeMapping($type);
-                } catch(\Doctrine\DBAL\DBALException $e) {
-                    throw new DatabaseException('unsupported data(prepare) type='.$type.' for name='.$name);
-                }
+                $dbalType = $this->getDatabasePlatform()->getDoctrineTypeMapping($type);
                 $x = $stmt->bindValue(':'.$name, $value, $dbalType);
             }
         }
@@ -626,7 +595,6 @@ class Connection extends DbalConnection {
      *
      * @param string table table to get metadata from
      * @return array Context dependent meta data.
-     * @throws ZenMagick\Base\Database\DatabaseException
      */
     public function getMetaData($table) {
         $table = $this->resolveTable($table);
@@ -634,11 +602,7 @@ class Connection extends DbalConnection {
 
         $meta = array();
 
-        try {
-            $tableDetails = $sm->listTableDetails($table);
-        } catch(Doctrine\DBAL\Schema\SchemaException $e) {
-            throw new DatabaseException($e->getMessage(), $e->getCode(), $e);
-        }
+        $tableDetails = $sm->listTableDetails($table);
 
         // TODO: yes we have a table without a primary key :(
         $primaryKey = $tableDetails->getPrimaryKey();
