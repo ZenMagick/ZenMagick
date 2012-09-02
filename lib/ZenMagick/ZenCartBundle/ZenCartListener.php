@@ -19,11 +19,14 @@
  */
 namespace ZenMagick\ZenCartBundle;
 
+use ZenMagick\Base\Beans;
 use ZenMagick\Base\Runtime;
 use ZenMagick\apps\store\Model\Coupons\Coupon;
 
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
+use Symfony\Component\HttpKernel\Event\FilterControllerEvent;
+use Symfony\Component\HttpKernel\HttpKernelInterface;
 
 /**
  * Event Listener
@@ -71,6 +74,22 @@ class ZenCartListener implements EventSubscriberInterface {
             'includes/languages/%language%/extra_definitions/*.php')
         );
         $autoLoader->restoreErrorLevel();
+    }
+
+    /**
+     * Switch to ZenCart theme if in a storefront context.
+     */
+    public function onKernelController(FilterControllerEvent $event) {
+        if (HttpKernelInterface::MASTER_REQUEST === $event->getRequestType()) {
+            if (Runtime::isContextMatch('storefront')) {
+                if ($this->container->get('themeService')->getActiveTheme()->getMeta('zencart')) {
+                    $settingsService = $this->container->get('settingsService');
+                    $settingsService->set('zenmagick.http.view.defaultLayout', null);
+                    $event->setController(array(Beans::getBean('ZenMagick\ZenCartBundle\Controller\StorefrontController'), 'process'));
+                    $event->stopPropagation();
+                }
+            }
+        }
     }
 
     public function onViewStart($event) {
@@ -190,6 +209,7 @@ class ZenCartListener implements EventSubscriberInterface {
             'dispatch_start' => array(array('onDispatchStart', 100)),
             'view_start' => array(array('onViewStart', 100)),
             'generate_email' => array(array('onGenerateEmail')),
+            'kernel.controller' => array(array('onKernelController', 30)),
         );
     }
 

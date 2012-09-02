@@ -140,16 +140,6 @@ class HttpListener implements EventSubscriberInterface {
     protected function executeController(Request $request) {
         $controller = null;
 
-        // @todo move this to the  onKernelController event.
-        if (Runtime::isContextMatch('storefront')) {
-            if ($this->container->get('themeService')->getActiveTheme()->getMeta('zencart')) {
-                $settingsService = $this->container->get('settingsService');
-                $settingsService->set('zenmagick.http.view.defaultLayout', null);
-                $executor = new Executor(array(Beans::getBean('ZenMagick\ZenCartBundle\Controller\StorefrontController'), 'process'), array($request));
-                return $executor->execute();
-            }
-        }
-
         if ($routerMatch = $this->container->get('routeResolver')->getRouterMatch($request->getRequestUri())) {
             $token = explode('::', $routerMatch['_controller']); // class::method ?
 

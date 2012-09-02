@@ -22,6 +22,7 @@ namespace ZenMagick\ZenCartBundle\Controller;
 
 use ZenMagick\Base\Runtime;
 use ZenMagick\Base\Toolbox;
+use Symfony\Component\HttpFoundation\Response;
 
 /**
  * ZenCart storefront controller
@@ -143,7 +144,7 @@ class StorefrontController extends \ZMController {
         foreach ($_SESSION as $k => $v) {
             $session->setValue($k, $v);
         }
-        return null;
+        return new Response;
     }
 
     /**
