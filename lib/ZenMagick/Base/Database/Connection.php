@@ -146,47 +146,6 @@ class Connection extends DbalConnection {
     }
 
     /**
-     * Start a transaction.
-     *
-     * <p>If the database provider (and database driver) allow, nested transaction are possible.</p>
-     *
-     * @throws ZenMagick\Base\Database\DatabaseException
-     */
-    public function beginTransaction() {
-        try {
-            parent::beginTransaction();
-        } catch (ConnectionException $e) {
-            throw new DatabaseException($e->getMessage(), $e->getCode(), $e);
-        }
-    }
-
-    /**
-     * Commits statements in a transaction.
-     *
-     * @throws ZenMagick\Base\Database\DatabaseException
-     */
-    public function commit() {
-        try {
-            parent::commit();
-        } catch (ConnectionException $e) {
-            throw new DatabaseException($e->getMessage(), $e->getCode(), $e);
-        }
-    }
-
-    /**
-     * Rollback changes in a transaction.
-     *
-     * @throws ZenMagick\Base\Database\DatabaseException
-     */
-    public function rollback() {
-        try {
-            parent::rollback();
-        } catch (ConnectionException $e) {
-            throw new DatabaseException($e->getMessage(), $e->getCode(), $e);
-        }
-    }
-
-    /**
      * {@inheritDoc}
      */
     public function delete($tableName, array $identifier = array()) {
