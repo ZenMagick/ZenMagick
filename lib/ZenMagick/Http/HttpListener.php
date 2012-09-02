@@ -52,7 +52,9 @@ class HttpListener implements EventSubscriberInterface {
         $request = $event->getRequest();
 
         // If we have a somebody elses controller, just exit (for now)
-        if (false === strpos($request->attributes->get('_controller'), 'ZenMagick')) return;
+        $controller = $request->attributes->get('_controller');
+        if ((false === strpos($controller, 'ZM')) && (false === strpos($controller, 'ZenMagick'))) return;
+
 
         $request->setContainer($this->container);
 
