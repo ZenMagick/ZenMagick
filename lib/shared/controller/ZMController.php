@@ -21,21 +21,19 @@
 use ZenMagick\Base\Beans;
 use ZenMagick\Base\Runtime;
 use ZenMagick\Base\ZMException;
-use ZenMagick\Base\ZMObject;
-use ZenMagick\Base\Events\Event;
 use ZenMagick\Base\Logging\Logging;
 use ZenMagick\Http\Request;
 use ZenMagick\Http\forms\Form;
-use ZenMagick\Http\Sacs\SacsManager;
 use ZenMagick\Http\View\TemplateView;
+
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 /**
  * Request controller base class.
  *
  * @author DerManoMann <mano@zenmagick.org>
- * @package org.zenmagick.mvc.controller
  */
-class ZMController extends ZMObject {
+class ZMController extends Controller {
     protected $messageService;
     private $requestId_;
     private $isAjax_;
@@ -50,7 +48,6 @@ class ZMController extends ZMObject {
      * @param string requestId Optional requestId; default is <code>null</code> to use the request id.
      */
     function __construct($requestId=null) {
-        parent::__construct();
         $this->requestId_ = $requestId;
         $this->view_ = null;
         $this->method_ = null;
