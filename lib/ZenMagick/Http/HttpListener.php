@@ -70,6 +70,19 @@ class HttpListener implements EventSubscriberInterface {
         $this->container->get('sacsManager')->ensureAccessMethod($request);
 
         $dispatcher->dispatch('dispatch_start', new Event($this, array('request' => $request)));
+
+        $this->container->get('sacsManager')->authorize($request, $request->getRequestId(), $request->getAccount());
+        foreach ($this->container->get('containerTagService')->findTaggedServiceIds('zenmagick.http.session.validator') as $id => $args) {
+            if (null != ($validator = $this->container->get($id)) && $validator instanceof SessionValidator) {
+                $session = $request->getSession();
+                if (!$validator->isValidSession($request, $session)) {
+                    $session->getFlashBag()->error('Invalid session');
+                    $session->migrate();
+                    $request->redirect($request->server->get('HTTP_REFERER'));
+                }
+            }
+        }
+
         ob_start();
         list($response, $view) = $this->handleRequest($request, $event->getDispatcher());
         $content = ob_get_clean();
@@ -90,24 +103,10 @@ class HttpListener implements EventSubscriberInterface {
     }
 
     public function handleRequest($request, $dispatcher) {
-        $result = $response = $view = null;
+        $response = $view = null;
         $content = '';
         try {
-            $this->container->get('sacsManager')->authorize($request, $request->getRequestId(), $request->getAccount());
-
-            foreach ($this->container->get('containerTagService')->findTaggedServiceIds('zenmagick.http.session.validator') as $id => $args) {
-                if (null != ($validator = $this->container->get($id)) && $validator instanceof SessionValidator) {
-                    $session = $request->getSession();
-                    if (!$validator->isValidSession($request, $session)) {
-                        $session->getFlashBag()->error('Invalid session');
-                        $session->migrate();
-                        $result = '';
-                    }
-                }
-            }
-            if (null === $result) {
-                $result = $this->executeController($request);
-            }
+            $result = $this->executeController($request);
             // make sure we end up with a View instance
             $routeResolver = $this->container->get('routeResolver');
             if (is_string($result)) {
