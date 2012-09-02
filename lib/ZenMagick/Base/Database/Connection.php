@@ -24,8 +24,8 @@ use ZenMagick\Base\Beans;
 use ZenMagick\Base\Runtime;
 use ZenMagick\Base\Toolbox;
 use ZenMagick\Base\ZMObject;
+use ZenMagick\Base\ZMException;
 use ZenMagick\Base\Database\TableMapper;
-use ZenMagick\Base\Database\DatabaseException;
 use Doctrine\Common\EventManager;
 use Doctrine\DBAL\Connection as DbalConnection;
 use Doctrine\DBAL\Cache\QueryCacheProfile;
@@ -331,7 +331,7 @@ class Connection extends DbalConnection {
             }
         }
         if (8 > strlen($where)) {
-            throw new DatabaseException('missing key');
+            throw new ZMException('missing key');
         }
         $sql .= $where;
 
@@ -382,7 +382,7 @@ class Connection extends DbalConnection {
             }
         }
         if (8 > strlen($where)) {
-            throw new DatabaseException('missing key');
+            throw new ZMException('missing key');
         }
         $sql .= $where;
 
