@@ -81,6 +81,10 @@ class EventListener extends ZMObject {
      */
     public function onRequestReady($event) {
         $request = $event->get('request');
+        $session = $request->getSession();
+        if (null == $session->getValue('cart')) {
+            $session->setValue('cart', new \shoppingCart);
+        }
 
         $settingsService = $this->container->get('settingsService');
         $defaultLocale = $settingsService->get('defaultLanguageCode');
@@ -89,6 +93,7 @@ class EventListener extends ZMObject {
         $theme = $this->container->get('themeService')->getActiveTheme();
         $args = array_merge($event->all(), array('theme' => $theme, 'themeId' => $theme->getId()));
         $event->getDispatcher()->dispatch('theme_resolved', new Event($this, $args));
+
 
     }
 
