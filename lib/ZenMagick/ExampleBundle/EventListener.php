@@ -17,8 +17,25 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
+namespace ZenMagick\ExampleBundle;
 
-if (array_key_exists('ZM_ENVIRONMENT', $_GET)) {
-    $_SERVER['ZM_ENVIRONMENT'] = $_GET['ZM_ENVIRONMENT'];
+use ZenMagick\Base\ZMObject;
+
+/**
+ * Handle a few events.
+ *
+ * @author DerManoMann <mano@zenmagick.org>
+ */
+class EventListener extends ZMObject {
+
+    /**
+     * Init done callback.
+     */
+    public function onDispatchStart($event) {
+        $request = $event->get('request');
+        if (null != ($locale = $request->query->get('locale'))) {
+            $request->getSession()->setValue('uiLocale', $locale);
+        }
+    }
+
 }
-require 'index.php';
