@@ -14,12 +14,6 @@
         <default key="key"></default>
     </route>
 
-    <route id="index" pattern="/">
-        <default key="_controller">ZenMagick\apps\storefront\Controller\IndexController::process</default>
-        <option key="view">views/index.php</option>
-        <option key="view:category">forward://category</option>
-    </route>
-
     <route id="login" pattern="/login">
         <default key="_controller">ZenMagick\apps\storefront\Controller\LoginController::process</default>
         <option key="view:account">redirect://account</option>
@@ -303,6 +297,12 @@
         <default key="_controller">ZenMagick\apps\storefront\Controller\SearchController::process</default>
         <option key="form">ZMSearchCriteria#formId:searchCriteria</option>
         <option key="view">views/search.php</option>
+    </route>
+
+    <route id="index" pattern="/">
+        <default key="_controller">ZenMagick\apps\storefront\Controller\IndexController::process</default>
+        <option key="view">views/index.php</option>
+        <option key="view:category">forward://category</option>
     </route>
 
 </routes>
