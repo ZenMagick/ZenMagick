@@ -283,8 +283,8 @@
         <option key="form">ZMEmailMessage#formId:tellAFriend</option>
     </route>
 
-    <route id="product" pattern="/product">
-        <default key="_controller">ZenMagick\apps\storefront\Controller\ProductInfoController::process</default>
+    <route id="product" pattern="/product/{productId}">
+        <default key="_controller">ZenMagick\apps\storefront\Controller\ProductInfoController::showAction</default>
     </route>
 
     <route id="search.advanced" pattern="/search/advanced">

@@ -28,17 +28,19 @@ class ProductInfoController extends \ZMController {
 
     /**
      * {@inheritDoc}
+     *
+     * Show a product based on a id or model.
      */
-    public function processGet($request) {
+    public function showAction($productId) {
         $product = null;
         $productService = $this->container->get('productService');
-        $languageId = $request->getSession()->getLanguageId();
-        if ($request->query->get('productId')) {
-            $product = $productService->getProductForId($request->query->get('productId'), $languageId);
-        } else if ($request->query->has('model')) {
-            $product = $productService->getProductForModel($request->query->get('model'), $languageId);
+        $languageId = $this->getRequest()->getSession()->getLanguageId();
+        if (is_numeric($productId)) {
+            $product = $productService->getProductForId($productId, $languageId);
         }
-
+        if (!$product) { // try model
+            $product = $productService->getProductForModel($productId, $languageId);
+        }
         $data = array('currentProduct' => $product);
         if (null == $product || !$product->getStatus()) {
             return $this->findView('product_not_found', $data);
@@ -49,6 +51,7 @@ class ProductInfoController extends \ZMController {
         }
 
         $viewName = $this->container->get('templateManager')->getProductTemplate($product->getId());
+
         return $this->findView($viewName, $data);
     }
 

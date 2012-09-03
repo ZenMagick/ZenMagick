@@ -71,6 +71,7 @@ zenmagick:
         popup_search_help: help.search
         popup_coupon_help: help.coupon
         contact_us: store.contact
+        product_info: product
         privacy: store.privacy
         site_map: store.sitemap
         advanced_search: search.advanced
