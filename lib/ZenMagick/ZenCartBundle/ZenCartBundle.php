@@ -79,7 +79,7 @@ class ZenCartBundle extends Bundle {
             'breadcrumb' => $zc.'breadcrumb.php',
             'category_tree' => $zc.'category_tree.php',
             'language' => ($isAdmin ? $ba : $b).'language.php',
-            'products' => $zca.'products.php',
+            'products' => $zc.'products.php',
             'sniffer' => $zc.'sniffer.php',
             'splitPageResults' => ($isAdmin ? $zca : $zc).'split_page_results.php', // admin overrides storefront
             'template_func' => $zc.'template_func.php',
