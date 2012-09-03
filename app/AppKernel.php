@@ -118,6 +118,12 @@ class AppKernel extends Kernel {
     }
 
     /**
+     * {@inheritDoc}
+     */
+    public function getCacheDir() {
+        return $this->getRootDir().'/cache/'.$this->getContext().'/'.$this->environment;
+    }
+    /**
      * Get the application context.
      *
      * @return string The application context.
