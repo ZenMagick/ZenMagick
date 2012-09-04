@@ -20,7 +20,7 @@
         <parameter key="zenmagick.http.sacs.mappingProviders" type="collection"></parameter>
 
         <parameter key="pdo.db_options" type="collection">
-            <parameter key="db_table">%database_prefix%sessions</parameter>
+            <parameter key="db_table">%table_prefix%sessions</parameter>
             <parameter key="db_id_col">sesskey</parameter>
             <parameter key="db_data_col">value</parameter>
             <parameter key="db_time_col">expiry</parameter>
@@ -122,11 +122,6 @@
             </call>
         </service>
 
-        <service id="pdo" class="PDO">
-            <argument>mysql:dbname=%database_name%</argument>
-            <argument>%database_user%</argument>
-            <argument>%database_password%</argument>
-        </service>
 
         <service id="defaultView" alias="templateView" />
 

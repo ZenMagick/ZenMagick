@@ -63,8 +63,8 @@ class ZenMagickBundle extends Bundle {
             }
         }
 
-        \ZMRuntime::setDatabase('default', $settingsService->get('apps.store.database.default'));
-
+        // @todo never do this
+        Runtime::setContainer($this->container);
         if ($this->container->has('configService')) {
             foreach ($this->container->get('configService')->loadAll() as $key => $value) {
                 if (!defined($key)) {
@@ -78,8 +78,6 @@ class ZenMagickBundle extends Bundle {
             }
         }
 
-        // @todo never do this
-        Runtime::setContainer($this->container);
         $context = $parameterBag->get('kernel.context');
         // @todo switch to using tagged services for events.
         $settingsService = $this->container->get('settingsService');

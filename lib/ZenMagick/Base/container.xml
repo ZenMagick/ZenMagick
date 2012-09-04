@@ -15,6 +15,12 @@
 
     <services>
 
+        <service id="pdo" class="PDO">
+            <argument>mysql:dbname=%database_name%</argument>
+            <argument>%database_user%</argument>
+            <argument>%database_password%</argument>
+        </service>
+
         <service id="containerTagService" class="ZenMagick\Base\DependencyInjection\Tags\ContainerTagService" />
 
         <service id="transientCache" class="ZenMagick\Base\Cache\MemoryCache">

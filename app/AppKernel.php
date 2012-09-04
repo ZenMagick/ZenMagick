@@ -77,9 +77,23 @@ class AppKernel extends Kernel {
         $context = $this->getContext();
 
         $resources[] = $this->getRootDir().'/config/parameters.yml';
+        // @todo drop store-config.yaml parsing
+        $rootDir = dirname($this->getRootDir());
+        $resources[] = function($container) use($rootDir) {
+            $config = $rootDir.'/config/store-config.yaml';
+            $yaml = \Symfony\Component\Yaml\Yaml::parse($config);
+
+            $parameters = $yaml['apps']['store']['database']['default'];
+            $container->setParameter('database_driver', $parameters['driver']);
+            $container->setParameter('database_host', $parameters['host']);
+            $container->setParameter('database_name', $parameters['dbname']);
+            $container->setParameter('database_user', $parameters['user']);
+            $container->setParameter('database_password', $parameters['password']);
+            $container->setParameter('table_prefix', $parameters['prefix']);
+        };
+
         // used to set the basic parameters to fill config_$env.yml files
         $resources[] = dirname($this->getRootDir()).'/apps/store/config/configuration.php';
-        $resources[] = dirname($this->getRootDir()).'/apps/store/config/email.php';
         // extension configuration
         $resources[] = $this->getRootDir().'/config/config_'.$this->getEnvironment().'.yml';
 
