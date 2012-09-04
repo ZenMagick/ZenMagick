@@ -93,7 +93,7 @@ class AppKernel extends Kernel {
         };
 
         // used to set the basic parameters to fill config_$env.yml files
-        $resources[] = dirname($this->getRootDir()).'/apps/store/config/configuration.php';
+        $resources[] = $this->getRootDir().'/config/configuration.php';
         // extension configuration
         $resources[] = $this->getRootDir().'/config/config_'.$this->getEnvironment().'.yml';
 
