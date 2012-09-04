@@ -144,25 +144,6 @@ class Connection extends DbalConnection {
     }
 
     /**
-     * Get some stats about database usage.
-     *
-     * @return array A map with statistical data.
-     */
-    public function getStats() {
-        $stats = array();
-        $time = 0;
-        $logger = $this->getConfiguration()->getSQLLogger();
-        foreach ($logger->queries as $key => $query) {
-            $logger->queries[$key]['time'] = $query['executionMS'];
-            $time += $query['executionMS'];
-        }
-        $stats['time'] = $time;
-        $stats['queries'] = count($logger->queries);
-        $stats['details'] = $logger->queries;
-        return $stats;
-    }
-
-    /**
      * Load a single row using the given model and mapping.
      *
      * @param string table The table to update.

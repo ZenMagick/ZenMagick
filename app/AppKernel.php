@@ -42,7 +42,6 @@ class AppKernel extends Kernel {
         $this->context = $context;
         Runtime::setContext($this->context);
         parent::__construct($environment, $debug);
-        $this->startTime = microtime(true);
     }
 
     /**
