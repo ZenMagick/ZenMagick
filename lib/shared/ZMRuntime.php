@@ -34,6 +34,7 @@ class ZMRuntime {
     public static function setDatabase($name, $conf) {
         if (!isset($conf['wrapperClass'])) {
             $conf['wrapperClass'] = 'ZenMagick\\Base\\Database\\Connection';
+            $conf['driverOptions'] = array('table_prefix' => $conf['prefix']);
         }
         self::$databaseMap_[$name] = $conf;
     }
@@ -45,6 +46,10 @@ class ZMRuntime {
      * @return ZenMagick\Base\Database\Connection
      */
     public static function getDatabase($conf='default') {
+
+        if (null !== Runtime::getContainer()) {
+            return Runtime::getContainer()->get('doctrine.dbal.'.$conf.'_connection');
+        }
         if (is_array(self::$databaseMap_[$conf])) {
             self::$databaseMap_[$conf] = Doctrine\DBAL\DriverManager::getConnection(self::$databaseMap_[$conf]);
         }

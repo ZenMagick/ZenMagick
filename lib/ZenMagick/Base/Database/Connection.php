@@ -23,41 +23,14 @@ use PDO;
 use ZenMagick\Base\Beans;
 use ZenMagick\Base\Runtime;
 use ZenMagick\Base\Toolbox;
-use ZenMagick\Base\ZMObject;
 use ZenMagick\Base\ZMException;
 use ZenMagick\Base\Database\TableMapper;
-use Doctrine\Common\EventManager;
 use Doctrine\DBAL\Connection as DbalConnection;
 use Doctrine\DBAL\Cache\QueryCacheProfile;
 use Doctrine\DBAL\ConnectionException;
-use Doctrine\DBAL\Configuration;
-use Doctrine\DBAL\Driver;
-use Doctrine\DBAL\Logging\DebugStack;
-use Doctrine\DBAL\Types\Type;
-use \Doctrine\DBAL\Event\Listeners\MysqlSessionInit;
 
 /**
- * ZenMagick database abstractation.
- *
- * <p>A generic, lightweight database layer.</p>
- *
- * <p>Support for the following array keys is required:</p>
- * <dl>
- *  <dt>driver</dt>
- *  <dd>The database type; typical values would be: <em>pdo_mysql</em>, <em>pdo_sqlite</em> or <em>pdo_pgsql</em>.</dd>
- *  <dt>host</dt>
- *  <dd>The database host (and port).</dd>
- *  <dt>port</dt>
- *  <dd>The database port.</dd>
- *  <dt>user</dt>
- *  <dd>The database username.</dd>
- *  <dt>password</dt>
- *  <dd>The password for the database user.</dd>
- *  <dt>dbname</dt>
- *  <dd>The name of the database to connect to.</dd>
- *  <dt>prefix</dt>
- *  <dd>Optional table prefix.</dd>
- * </dl>
+ * ZenMagick database abstractation based on Doctrine DBAL
  *
  * <p>The data will be bound to the SQL using the configured table mappings.</p>
  *
@@ -81,41 +54,14 @@ class Connection extends DbalConnection {
 
     protected $mapper_;
 
-    /**
-     * Create a new instance.
-     *
-     * @param array params Configuration properties.
-     */
-    public function __construct(array $params, Driver $driver, Configuration $config = null, EventManager $eventManager = null) {
-        parent::__construct($params, $driver, $config, $eventManager);
-
-        Type::overrideType('datetime', 'ZenMagick\Base\Database\Doctrine\Types\DateTimeType');
-        Type::overrideType('date', 'ZenMagick\Base\Database\Doctrine\Types\DateType');
-
-        // @todo don't tie logging to the pageStats plugin
-        // @todo look at doctrine.dbal.logging (boolean) and doctrine.dbal.logger_class
-        $this->getConfiguration()->setSQLLogger(new DebugStack);
-
-        $this->getEventManager()->addEventSubscriber(new MysqlSessionInit($params['charset'], $params['collation']));
-
-        // @todo enum: remove or add doctrine mapping type
-        $this->getDatabasePlatform()->registerDoctrineTypeMapping('enum', 'string');
-        // alias boolean to boolean so TableMapper maps continue to work
-        $this->getDatabasePlatform()->registerDoctrineTypeMapping('boolean', 'boolean');
-
-        // @todo ask DBAL if the driver/db type supports nested transactions
-        $this->setNestTransactionsWithSavepoints(true);
-    }
-
    /**
-     * Gets the prefix used by this connection.
+     * Gets the table prefix used by this connection.
      *
      * @return string
      */
     public function getPrefix() {
         $params = $this->getParams();
-        return isset($params['prefix']) ? $params['prefix'] : null;
-        //return isset($this->_params['prefix']) ? $this->_params['prefix'] : null;
+        return isset($params['driverOptions']['table_prefix']) ? $params['driverOptions']['table_prefix'] : null;
     }
 
     /**
@@ -128,7 +74,7 @@ class Connection extends DbalConnection {
         $prefix = $this->getPrefix();
         if (null != $prefix && 0 !== strpos($table, $prefix)) {
             $table = $prefix.$table;
-        }
+            }
         return $table;
     }
 
@@ -141,6 +87,7 @@ class Connection extends DbalConnection {
         if (null == $this->mapper_) {
             $this->mapper_ = new TableMapper();
             $this->mapper_->setTablePrefix($this->getPrefix());
+            $this->getDatabasePlatform()->registerDoctrineTypeMapping('boolean', 'boolean');
         }
         return $this->mapper_;
     }

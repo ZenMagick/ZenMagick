@@ -54,7 +54,14 @@ doctrine:
         user:     %database_user%
         password: %database_password%
         charset:  UTF8
-
+        wrapper_class: ZenMagick\Base\Database\Connection
+        mapping_types:
+            enum: string
+        types:
+            datetime: ZenMagick\Base\Database\Doctrine\Types\DateTimeType
+            date: ZenMagick\Base\Database\Doctrine\Types\DateType
+        options:
+            table_prefix: %database_prefix%
     orm:
         auto_generate_proxy_classes: %kernel.debug%
         auto_mapping: true
