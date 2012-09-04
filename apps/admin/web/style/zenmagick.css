@@ -98,11 +98,6 @@ ul#messages li {margin:2px 0;padding:2px;}
 div#vakata-contextmenu, div#vakata-contextmenu ul {text-align:left;min-width:120px;width:120px;}
 #catalog-tabs {overflow:auto;}
 
-/* console */
-#b_console label {display:block;font-weight:bold; margin-bottom:4px;}
-#b_console textarea {margin-bottom:8px;border:4px solid gray;font-size:115%;width:80em;font-family:monospace;padding:4px;}
-#b_console #console {color:white;background-color:black;width:80em;margin:20px 0;padding:4px;height:25em;overflow:scroll;border:4px solid gray;font-size:115%;font-family:monospace;}
-
 /* fancy tables */
 table.grid {text-align:left;border-collapse:collapse;border-color:#9a9a9a;}
 table.grid th {padding:3px 4px;background:-moz-linear-gradient(top,#F3F5F7 10%,#CACCD4);background:-webkit-gradient(linear,left top,left bottom,color-stop(0.10,#F3F5F7),to(#CACCD4));text-shadow:0 1px 1px #fff;color:#1a1a1a;}

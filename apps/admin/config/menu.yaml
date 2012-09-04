@@ -25,7 +25,6 @@ installation: { parent: configuration-installation, requestId: installation, nam
 configuration-dev: { parent: configuration, name: Development }
 l10n: { parent: configuration-dev, requestId: l10n, name: Translation Helper }
 theme-builder: { parent: configuration-dev, requestId: theme_builder, name: Theme Builder }
-console: { parent: configuration-dev, requestId: console, name: Console }
 fulfilment-accounts: { parent: fulfilment, name: Accounts }
 accounts: { parent: fulfilment-accounts, requestId: accounts, name: Overview, alias: [account] }
 fulfilment-orders: { parent: fulfilment, name: Orders }
