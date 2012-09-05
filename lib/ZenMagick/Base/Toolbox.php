@@ -124,22 +124,6 @@ class Toolbox {
     }
 
     /**
-     * Resolve a filename with respect to the given environment.
-     *
-     * @param string filename The file to load.
-     * @param string environment environment to resolve against
-     * @return string The most specific filename with respect to the given <em>environment</em>.
-     */
-    public static function resolveWithEnv($filename, $environment) {
-        $filename = realpath($filename);
-        $envFilename = preg_replace('/(.*)\.(.*)/', '$1_'.$environment.'.$2', $filename);
-        if (file_exists($envFilename)) {
-            $filename = $envFilename;
-        }
-        return $filename;
-    }
-
-    /**
      * Convert values to array where reasonable.
      *
      * @param mixed value The value to convert; either already an array or a URL query form string.
