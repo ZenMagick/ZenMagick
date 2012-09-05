@@ -49,11 +49,12 @@ class ZenMagickExtension extends Extension {
      */
     public function load(array $configs, ContainerBuilder $container) {
         $context = $container->getParameter('kernel.context');
+        // @todo use bundle Resources for all all these files.
         $rootDir = dirname($container->getParameter('kernel.root_dir'));
         $loader = $this->getLoader($container, new FileLocator($rootDir));
         $files = array();
-        $files[] = 'lib/ZenMagick/Base/container.xml';
-        $files[] = 'lib/ZenMagick/Http/container.xml';
+        $files[] = 'lib/ZenMagick/ZenMagickBundle/Resources/config/base.xml';
+        $files[] = 'lib/ZenMagick/ZenMagickBundle/Resources/config/http.xml';
         $files[] = 'apps/'.$context.'/config/container.xml';
         if (file_exists($rootDir.'/config/container.xml')) {
             $files[] = 'config/container.xml';
