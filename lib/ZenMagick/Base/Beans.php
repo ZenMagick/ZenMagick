@@ -34,8 +34,6 @@ use ZenMagick\Base\ZMObject;
  *  <dt>bean::</dt>
  *  <dd>The string (without the prefix) will be taken as bean definition; special case is a bean definition of <em>null</em> which
  *   will be converted to a PHP <code>null</code>.</dd>
- *  <dt>plugin::</dt>
- *  <dd>The string (without the prefix) will be taken as plugin id and the plugin for that id looked up and used.</dd>
  *  <dt>ref::</dt>
  *  <dd>This prefix indicates that the following string is to be taken as bean definition. However, the instance created/obtained
  *   will first be looked up as singleton instance. It is important to remember that by setting properties on references these settings
@@ -241,12 +239,6 @@ class Beans {
             parse_str($tokens[1], $properties);
         } else {
             $properties = array();
-        }
-
-
-        if ($isPlugin && null != ($plugin = $container->get('pluginService')->getPluginForId($tokens[0]))) {
-            self::setAll($plugin, $properties);
-            return $plugin;
         }
 
         if (null != ($obj = self::getobj($tokens[0], $container))) {
