@@ -13,7 +13,6 @@
             <parameter>templateCache</parameter>
             <parameter>bootstrapCache</parameter>
         </parameter>
-        <parameter key="zenmagick.base.plugins.defaultPluginClass">ZenMagick\apps\store\Plugins\Plugin</parameter>
         <parameter key="apps.store.reviews.useNickName">false</parameter>
         <parameter key="zenmagick.themes.default_theme">base</parameter>
     </parameters>

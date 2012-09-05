@@ -19,7 +19,7 @@
  */
 namespace ZenMagick\plugins\subscriptions;
 
-use ZenMagick\apps\store\Plugins\Plugin;
+use ZenMagick\Base\Plugins\Plugin;
 use ZenMagick\Base\Beans;
 use ZenMagick\Base\Runtime;
 use ZenMagick\Base\Toolbox;

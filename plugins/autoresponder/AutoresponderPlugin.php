@@ -19,7 +19,7 @@
  */
 namespace ZenMagick\plugins\autoresponder;
 
-use ZenMagick\apps\store\Plugins\Plugin;
+use ZenMagick\Base\Plugins\Plugin;
 
 /**
  * Plugin to automtically generate emails based on account events.

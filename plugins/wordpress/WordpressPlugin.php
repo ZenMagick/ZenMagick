@@ -19,7 +19,7 @@
  */
 namespace ZenMagick\plugins\wordpress;
 
-use ZenMagick\apps\store\Plugins\Plugin;
+use ZenMagick\Base\Plugins\Plugin;
 use ZenMagick\Base\Beans;
 use ZenMagick\Base\Toolbox;
 

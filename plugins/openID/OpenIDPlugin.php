@@ -19,7 +19,7 @@
  */
 namespace ZenMagick\plugins\openID;
 
-use ZenMagick\apps\store\Plugins\Plugin;
+use ZenMagick\Base\Plugins\Plugin;
 use ZenMagick\Base\Runtime;
 
 define('OPENID_ENABLED', true);

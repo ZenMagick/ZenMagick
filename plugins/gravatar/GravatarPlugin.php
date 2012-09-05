@@ -19,7 +19,7 @@
  */
 namespace ZenMagick\plugins\gravatar;
 
-use ZenMagick\apps\store\Plugins\Plugin;
+use ZenMagick\Base\Plugins\Plugin;
 use ZMAccount;
 use ZenMagick\Base\Toolbox;
 use ZenMagick\Base\ZMObject;

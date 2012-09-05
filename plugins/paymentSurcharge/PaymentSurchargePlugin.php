@@ -19,7 +19,7 @@
  */
 namespace ZenMagick\plugins\paymentSurcharge;
 
-use ZenMagick\apps\store\Plugins\Plugin;
+use ZenMagick\Base\Plugins\Plugin;
 use ZenMagick\Base\Beans;
 use ZenMagick\Base\Runtime;
 use ZenMagick\apps\store\Model\Checkout\ShoppingCart;

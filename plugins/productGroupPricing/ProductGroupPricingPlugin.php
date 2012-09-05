@@ -19,7 +19,7 @@
  */
 namespace ZenMagick\plugins\productGroupPricing;
 
-use ZenMagick\apps\store\Plugins\Plugin;
+use ZenMagick\Base\Plugins\Plugin;
 
 
 /**

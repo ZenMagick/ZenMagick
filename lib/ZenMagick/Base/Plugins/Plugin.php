@@ -27,6 +27,7 @@ use ZenMagick\Base\ZMObject;
  * @author DerManoMann <mano@zenmagick.org>
  */
 class Plugin extends ZMObject {
+    private $messages;
     protected $config;
 
 
@@ -38,6 +39,7 @@ class Plugin extends ZMObject {
     public function __construct(array $config = array()) {
         parent::__construct();
         $this->setConfig($config);
+        $this->messages = array();
     }
 
 
@@ -145,6 +147,15 @@ class Plugin extends ZMObject {
     }
 
     /**
+     * Get the preferred sort order (if any).
+     *
+     * @return int The sort order value.
+     */
+    public function getPreferredSortOrder() {
+        return (int) $this->getMeta('preferredSortOrder');
+    }
+
+    /**
      * Get the map of configuration options.
      *
      * @return array Map of configuration options.
@@ -160,6 +171,112 @@ class Plugin extends ZMObject {
      */
     public function hasOptions() {
         return 0 < count($this->getOptions());
+    }
+
+
+    /**
+     * Get optional installation messages.
+     *
+     * @return array List of <code>ZenMagick\Http\Messages\Message</code> instances.
+     */
+    public function getMessages() {
+        return $this->messages;
+    }
+
+    /**
+     * Install this plugin.
+     *
+     * <p>This default implementation will check for a <code>sql/install.sql</code> script and run it if found.</p>
+     */
+    public function install() {
+        $file = $this->getPluginDirectory()."/sql/install.sql";
+        if (file_exists($file)) {
+            $this->executePatch(file($file), $this->messages);
+        }
+    }
+
+    /**
+     * Remove this plugin.
+     *
+     * <p>This default implementation will check for a <code>sql/uninstall.sql</code> script and run it if found.</p>
+     */
+    public function remove() {
+        $file = $this->getPluginDirectory()."/sql/uninstall.sql";
+        if (file_exists($file)) {
+            $this->executePatch(file($file), $this->messages);
+        }
+    }
+
+    /**
+     * Execute a SQL patch.
+     *
+     * @param string sql The sql.
+     * @param array Result message list.
+     * @param boolean Debug flag.
+     * @return boolean <code>true</code> for success, <code>false</code> if the execution fails.
+     */
+    public function executePatch($sql, $messages, $debug=false) {
+        if (!empty($sql)) {
+            $results = \ZenMagick\apps\admin\Utils\SQLRunner::execute_sql($sql, $debug);
+            foreach (\ZenMagick\apps\admin\Utils\SQLRunner::process_patch_results($results) as $msg) {
+                $messages[] = $msg;
+            }
+            return empty($results['error']);
+        }
+
+        return true;
+    }
+
+    /**
+     * Init this plugin.
+     *
+     * <p>This method is part of the lifecylce of a plugin during storefront request handling.</p>
+     * <p>Code to set up internal resources should be placed here, rather than in the * constructor.</p>
+     *
+     * @deprecated Use event callbacks instead.
+     */
+    public function init() {
+    }
+
+    /**
+     * Check if the plugin is installed.
+     *
+     * @return boolean <code>true</code> if the plugin is installed, <code>false</code> if not.
+     */
+    public function isInstalled() {
+        return (boolean) $this->getMeta('installed');
+    }
+
+    /**
+     * Return the path of the plugin's template directory.
+     *
+     * @return string A full path to the plugin's template folder.
+     */
+    public function getTemplatePath() {
+        return $this->getPluginDirectory() . '/templates';
+    }
+
+    /**
+     * Return the path of the resources directory.
+     *
+     * @return string A full path to the plugin's resources folder.
+     */
+    public function getResourcePath() {
+        return $this->getPluginDirectory() . '/public';
+    }
+
+    /**
+     * Resolve a plugin relative URI.
+     *
+     * <p>The given <code>uri</code> is assumed to be relative to the plugin folder.</p>
+     *
+     * @param string uri The relative URI.
+     * @return string An absolute URI or <code>null</code>.
+     */
+    public function pluginURL($uri) {
+        $path = $this->getPluginDirectory().'/'.$uri;
+        $templateView = $this->container->get('defaultView');
+        return $templateView->getResourceManager()->file2uri($path);
     }
 
 }
