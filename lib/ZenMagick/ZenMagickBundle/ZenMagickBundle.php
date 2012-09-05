@@ -82,11 +82,14 @@ class ZenMagickBundle extends Bundle {
         // @todo switch to using tagged services for events.
         $settingsService = $this->container->get('settingsService');
         $listeners = $settingsService->get('zenmagick.base.events.listeners', array());
-        $plugins = $this->container->get('pluginService')->getPluginsForContext($context, true);
-        foreach ($plugins as $plugin) {
-            // @todo the plugin list will continue disabled plugins on the requests that build the cache.
-            if (!$plugin->isEnabled()) continue;
-            $listeners[] = $plugin;
+
+        if ($this->container->has('pluginService')) {
+            $plugins = $this->container->get('pluginService')->getPluginsForContext($context, true);
+            foreach ($plugins as $plugin) {
+                // @todo the plugin list will continue disabled plugins on the requests that build the cache.
+                if (!$plugin->isEnabled()) continue;
+                $listeners[] = $plugin;
+            }
         }
         if ('storefront' == $context) {
             $listeners[] = sprintf('ZenMagick\themes\%s\EventListener', $this->container->get('themeService')->getActiveThemeId());

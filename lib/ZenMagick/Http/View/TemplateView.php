@@ -295,8 +295,10 @@ class TemplateView extends ZMObject implements View {
         }
 
         // set all plugins
-        foreach ($this->container->get('pluginService')->getPluginsForContext() as $plugin) {
-            $this->setVariable($plugin->getId(), $plugin);
+        if ($this->container->has('pluginService')) { // @todo inject this instead
+            foreach ($this->container->get('pluginService')->getPluginsForContext() as $plugin) {
+                $this->setVariable($plugin->getId(), $plugin);
+            }
         }
 
     }

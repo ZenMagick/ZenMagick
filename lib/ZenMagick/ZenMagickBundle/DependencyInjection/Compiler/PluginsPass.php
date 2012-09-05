@@ -32,9 +32,11 @@ use Symfony\Component\Finder\Finder;
 class PluginsPass implements CompilerPassInterface {
 
     /**
-     * {@inheritDoc}
+     * Process container configuration for plugins (if enabled)
      */
     public function process(ContainerBuilder $container) {
+        if (!$container->has('pluginService')) return;
+
         // @todo still wrong place.
         $context = $container->getParameter('kernel.context');
         $plugins = $container->get('pluginService')->getPluginsForContext($context);

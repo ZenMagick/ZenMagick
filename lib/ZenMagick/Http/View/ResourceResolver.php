@@ -90,11 +90,13 @@ class ResourceResolver extends ZMObject {
             }
 
             // add plugins as fallback fallback
-            foreach ($this->container->get('pluginService')->getPluginsForContext() as $plugin) {
-                if ($plugin instanceof HttpPlugin) {
-                    $locations[] = $plugin->getTemplatePath();
-                    foreach ($localeCodes as $code) {
-                        $locations[] = sprintf('%s/locale/%s', $plugin->getTemplatePath(), $code);
+            if ($this->container->has('pluginService')) { // @todo inject this instead
+                foreach ($this->container->get('pluginService')->getPluginsForContext() as $plugin) {
+                    if ($plugin instanceof HttpPlugin) {
+                        $locations[] = $plugin->getTemplatePath();
+                        foreach ($localeCodes as $code) {
+                            $locations[] = sprintf('%s/locale/%s', $plugin->getTemplatePath(), $code);
+                        }
                     }
                 }
             }
@@ -137,11 +139,13 @@ class ResourceResolver extends ZMObject {
             }
 
             // add plugins as fallback fallback
-            foreach ($this->container->get('pluginService')->getPluginsForContext() as $plugin) {
-                if ($plugin instanceof HttpPlugin) {
-                    $locations[] = $plugin->getResourcePath();
-                    foreach ($localeCodes as $code) {
-                        $locations[] = sprintf('%s/locale/%s', $plugin->getResourcePath(), $code);
+            if ($this->container->has('pluginService')) { // @todo inject this instead
+                foreach ($this->container->get('pluginService')->getPluginsForContext() as $plugin) {
+                    if ($plugin instanceof HttpPlugin) {
+                        $locations[] = $plugin->getResourcePath();
+                        foreach ($localeCodes as $code) {
+                            $locations[] = sprintf('%s/locale/%s', $plugin->getResourcePath(), $code);
+                        }
                     }
                 }
             }
