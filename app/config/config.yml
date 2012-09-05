@@ -77,5 +77,7 @@ swiftmailer:
     delivery_address: %mailer_delivery_address%
     spool:     { type: memory }
 
-zenmagick: ~
+zenmagick:
+    plugins:
+        enabled: %zenmagick.plugins.enabled%
 zencart: ~

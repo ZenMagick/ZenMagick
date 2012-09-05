@@ -25,6 +25,7 @@ try {
     if ($e->getCode() != 1049) {
         throw $e;
     }
+    $container->setParameter('zenmagick.plugins.enabled', false);
 }
 
 $container->setParameter('zencart.root_dir', realpath(dirname($rootDir)));

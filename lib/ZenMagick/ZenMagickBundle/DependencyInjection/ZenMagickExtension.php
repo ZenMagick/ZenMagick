@@ -51,10 +51,19 @@ class ZenMagickExtension extends Extension {
         $context = $container->getParameter('kernel.context');
         // @todo use bundle Resources for all all these files.
         $rootDir = dirname($container->getParameter('kernel.root_dir'));
+
+        // define in Configuration class
+        $config = array('plugins' => array('enabled' => false));
+        foreach ($configs as $subConfig) {
+            $config = array_merge($config, $subConfig);
+        }
         $loader = $this->getLoader($container, new FileLocator($rootDir));
         $files = array();
         $files[] = 'lib/ZenMagick/ZenMagickBundle/Resources/config/base.xml';
         $files[] = 'lib/ZenMagick/ZenMagickBundle/Resources/config/http.xml';
+        if ($config['plugins']['enabled']) {
+            $files[] = 'lib/ZenMagick/ZenMagickBundle/Resources/config/plugins.xml';
+        }
         $files[] = 'apps/'.$context.'/config/container.xml';
         if (file_exists($rootDir.'/config/container.xml')) {
             $files[] = 'config/container.xml';

@@ -5,16 +5,7 @@
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
 
-    <parameters>
-        <parameter key="zenmagick.base.plugins.defaultPluginClass">ZenMagick\Base\Plugins\Plugin</parameter>
-        <parameter key="zenmagick.base.plugins.dirs" type="collection">
-            <parameter>%zenmagick.root_dir%/plugins</parameter>
-            <parameter>%zenmagick.root_dir%/apps/%kernel.context%/plugins</parameter>
-        </parameter>
-    </parameters>
-
     <services>
-
         <service id="pdo" class="PDO">
             <argument>mysql:dbname=%database_name%</argument>
             <argument>%database_user%</argument>
@@ -71,27 +62,6 @@
             <call method="setSettingsService">
                 <argument type="service" id="settingsService" />
             </call>
-        </service>
-
-        <service id="pluginService" class="ZenMagick\Base\Plugins\Plugins">
-            <argument type="service" id="pluginStatusMapBuilder" />
-            <argument type="service" id="contextConfigLoader" strict="false" />
-            <call method="setCache">
-                <argument type="service" id="bootstrapCache" />
-            </call>
-            <call method="setContainer">
-                <argument type="service" id="service_container" />
-            </call>
-        </service>
-
-        <service id="pluginOptionsLoader" class="ZenMagick\Base\Plugins\PluginOptionsLoader" />
-
-        <service id="pluginStatusMapBuilder" class="ZenMagick\Base\Plugins\PluginStatusMapBuilder">
-            <argument>%zenmagick.base.plugins.defaultPluginClass%</argument>
-            <argument>%zenmagick.base.plugins.dirs%</argument>
-            <argument type="service" id="pluginOptionsLoader" />
-            <argument type="service" id="bootstrapCache" />
-            <tag name="kernel.cache_warmer" />
         </service>
 
         <service id="sha1AuthenticationProvider" class="ZenMagick\Base\Security\Authentication\Provider\Sha1AuthenticationProvider">
