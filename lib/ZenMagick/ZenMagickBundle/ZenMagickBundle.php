@@ -65,6 +65,10 @@ class ZenMagickBundle extends Bundle {
 
         // @todo never do this
         \Zenmagick\Base\Runtime::setContainer($this->container);
+
+        // @todo don't just exit if no plugins
+        if (!$this->container->has('pluginService')) return;
+
         if ($this->container->has('configService')) {
             foreach ($this->container->get('configService')->loadAll() as $key => $value) {
                 if (!defined($key)) {
