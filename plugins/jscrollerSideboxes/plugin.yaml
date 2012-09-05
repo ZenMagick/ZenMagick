@@ -1,7 +1,0 @@
-meta:
-  name: 'jscroller sideboxes'
-  version: '${plugin.version}'
-  author: 'zenmagick.org'
-  description: 'jscroller product sideboxes.'
-
-  context: storefront
