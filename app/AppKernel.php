@@ -59,7 +59,7 @@ class AppKernel extends Kernel {
             new Symfony\Bundle\MonologBundle\MonologBundle,
             new Symfony\Bundle\TwigBundle\TwigBundle,
             new Symfony\Bundle\FrameworkBundle\FrameworkBundle,
-            new ZenMagick\Base\ZenMagickBundle,
+            new ZenMagick\ZenMagickBundle\ZenMagickBundle,
             new ZenMagick\apps\admin\AdminBundle,
             new ZenMagick\apps\storefront\StorefrontBundle,
         );
@@ -116,7 +116,7 @@ class AppKernel extends Kernel {
      * {@inheritDoc}
      */
     protected function getContainerBaseClass() {
-        return 'ZenMagick\Base\DependencyInjection\Container';
+        return 'ZenMagick\ZenMagickBundle\DependencyInjection\Container';
     }
 
     /**

@@ -17,7 +17,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-namespace ZenMagick\Base\DependencyInjection\Tags;
+namespace ZenMagick\ZenMagickBundle\DependencyInjection\Tags;
 
 /**
  * Tag service to allow to query container tags.

@@ -17,12 +17,12 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-namespace ZenMagick\Base;
+namespace ZenMagick\ZenMagickBundle;
 
-use ZenMagick\Base\DependencyInjection\Compiler\ConfigureContainerTagServicePass;
-use ZenMagick\Base\DependencyInjection\Compiler\ResolveMergeDefinitionsPass;
-use ZenMagick\Base\DependencyInjection\Compiler\PluginsPass;
-use ZenMagick\Base\DependencyInjection\ZenMagickExtension;
+use ZenMagick\ZenMagickBundle\DependencyInjection\Compiler\ConfigureContainerTagServicePass;
+use ZenMagick\ZenMagickBundle\DependencyInjection\Compiler\ResolveMergeDefinitionsPass;
+use ZenMagick\ZenMagickBundle\DependencyInjection\Compiler\PluginsPass;
+use ZenMagick\ZenMagickBundle\DependencyInjection\ZenMagickExtension;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Container;
 use Symfony\Component\HttpKernel\Bundle\Bundle;
@@ -64,7 +64,7 @@ class ZenMagickBundle extends Bundle {
         }
 
         // @todo never do this
-        Runtime::setContainer($this->container);
+        \Zenmagick\Base\Runtime::setContainer($this->container);
         if ($this->container->has('configService')) {
             foreach ($this->container->get('configService')->loadAll() as $key => $value) {
                 if (!defined($key)) {
