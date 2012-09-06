@@ -20,7 +20,7 @@
 namespace ZenMagick\apps\admin\Controller;
 
 use ZenMagick\Base\Beans;
-use ZenMagick\StoreBundle\Entity\Block;
+use ZenMagick\StoreBundle\Entity\Blocks\Block;
 
 /**
  * Ajax block group admin controller.
