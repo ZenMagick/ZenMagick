@@ -306,7 +306,6 @@ class Banner extends ZMObject {
      */
     public function setGroup($group) { $this->group = $group; }
 
-
     /**
      * Set expiryImpressions
      *
@@ -355,4 +354,60 @@ class Banner extends ZMObject {
      * @param integer $sortOrder
      */
     public function setBannersSortOrder($sortOrder) { $this->sortOrder = $sortOrder; }
+
+    /**
+     * Set isNewWin
+     *
+     * @param integer $isNewWin
+     */
+    public function setIsNewWin($isNewWin) { $this->isNewWin = $isNewWin; }
+
+    /**
+     * Get isNewWin
+     *
+     * @return integer
+     */
+    public function getIsNewWin() { return $this->isNewWin; }
+
+    /**
+     * Get active
+     *
+     * @return integer
+     */
+    public function getActive() { return $this->active; }
+
+    /**
+     * Set lastModified
+     *
+     * @param datetime $lastModified
+     */
+    public function setLastModified($lastModified) { $this->lastModified = $lastModified; }
+
+    /**
+     * Get lastModified
+     *
+     * @return datetime
+     */
+    public function getLastModified() { return $this->lastModified; }
+
+    /**
+     * Set isShowOnSsl
+     *
+     * @param integer $isShowOnSsl
+     */
+    public function setIsShowOnSsl($isShowOnSsl) { $this->isShowOnSsl = $isShowOnSsl; }
+
+    /**
+     * Get isShowOnSsl
+     *
+     * @return integer
+     */
+    public function getIsShowOnSsl() { return $this->isShowOnSsl; }
+
+    /**
+     * Set sortOrder
+     *
+     * @param integer $sortOrder
+     */
+    public function setSortOrder($sortOrder) { $this->sortOrder = $sortOrder; }
 }
