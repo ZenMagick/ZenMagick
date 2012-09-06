@@ -59,7 +59,7 @@ class AdminUserService extends ZMObject {
                 FROM %table.admin%
                 WHERE admin_id = :id";
         $args = array('id' => $id);
-        return $this->finalizeUser(\ZMRuntime::getDatabase()->querySingle($sql, $args, 'admin', 'ZenMagick\apps\admin\Entities\AdminUser'));
+        return $this->finalizeUser(\ZMRuntime::getDatabase()->querySingle($sql, $args, 'admin', 'ZenMagick\apps\admin\Entity\AdminUser'));
     }
 
     /**
@@ -73,7 +73,7 @@ class AdminUserService extends ZMObject {
                 FROM %table.admin%
                 WHERE admin_name = :name";
         $args = array('name' => $name);
-        return $this->finalizeUser(\ZMRuntime::getDatabase()->querySingle($sql, $args, 'admin', 'ZenMagick\apps\admin\Entities\AdminUser'));
+        return $this->finalizeUser(\ZMRuntime::getDatabase()->querySingle($sql, $args, 'admin', 'ZenMagick\apps\admin\Entity\AdminUser'));
     }
 
     /**
@@ -89,7 +89,7 @@ class AdminUserService extends ZMObject {
             $sql .= " WHERE admin_level = :live";
         }
         $users = array();
-        foreach (\ZMRuntime::getDatabase()->fetchAll($sql, array('live' => false), 'admin', 'ZenMagick\apps\admin\Entities\AdminUser') as $adminUser) {
+        foreach (\ZMRuntime::getDatabase()->fetchAll($sql, array('live' => false), 'admin', 'ZenMagick\apps\admin\Entity\AdminUser') as $adminUser) {
             $users[] = $this->finalizeUser($adminUser);
         }
 
@@ -107,7 +107,7 @@ class AdminUserService extends ZMObject {
                 FROM %table.admin%
                 WHERE admin_email = :email";
         $args = array('email' => $email);
-        return $this->finalizeUser(\ZMRuntime::getDatabase()->querySingle($sql, $args, 'admin', 'ZenMagick\apps\admin\Entities\AdminUser'));
+        return $this->finalizeUser(\ZMRuntime::getDatabase()->querySingle($sql, $args, 'admin', 'ZenMagick\apps\admin\Entity\AdminUser'));
     }
 
     /**

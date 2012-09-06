@@ -60,6 +60,7 @@ class AppKernel extends Kernel {
             new Symfony\Bundle\TwigBundle\TwigBundle,
             new Symfony\Bundle\FrameworkBundle\FrameworkBundle,
             new ZenMagick\ZenMagickBundle\ZenMagickBundle,
+            new ZenMagick\apps\store\StoreBundle,
             new ZenMagick\apps\admin\AdminBundle,
             new ZenMagick\apps\storefront\StorefrontBundle,
         );
