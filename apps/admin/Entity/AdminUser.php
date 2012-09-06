@@ -28,7 +28,11 @@ use Doctrine\ORM\Mapping AS ORM;
  * A admin user.
  *
  * @author DerManoMann <mano@zenmagick.org>
- * @ORM\Table(name="admin")
+ * @ORM\Table(name="admin",
+ *  indexes={
+ *      @ORM\Index(name="idx_admin_name_zen", columns={"admin_name"}),
+ *      @ORM\Index(name="idx_admin_email_zen", columns={"admin_email"})
+ *  })
  * @ORM\Entity
  */
 class AdminUser extends ZMObject implements UserRoleCredentials {
@@ -59,7 +63,7 @@ class AdminUser extends ZMObject implements UserRoleCredentials {
      */
     private $password;
     /**
-     * @var boolean $adminLevel
+     * @var boolean $live
      *
      * @ORM\Column(name="admin_level", type="boolean", nullable=false)
      */

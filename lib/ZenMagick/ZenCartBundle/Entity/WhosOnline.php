@@ -7,7 +7,15 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * ZenMagick\StoreBundle\Entity\WhosOnline
  *
- * @ORM\Table(name="whos_online")
+ * @ORM\Table(name="whos_online",
+ *  indexes={
+ *      @ORM\Index(name="idx_ip_address_zen", columns={"ip_address"}),
+ *      @ORM\Index(name="idx_session_id_zen", columns={"session_id"}),
+ *      @ORM\Index(name="idx_customer_id_zen", columns={"customer_id"}),
+ *      @ORM\Index(name="idx_time_entry_zen", columns={"time_entry"}),
+ *      @ORM\Index(name="idx_time_last_click_zen", columns={"time_last_click"}),
+ *      @ORM\Index(name="idx_last_page_url_zen", columns={"last_page_url"}),
+ *  })
  * @ORM\Entity
  */
 class WhosOnline
@@ -87,7 +95,7 @@ class WhosOnline
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -109,7 +117,7 @@ class WhosOnline
     /**
      * Get customerId
      *
-     * @return integer 
+     * @return integer
      */
     public function getCustomerId()
     {
@@ -131,7 +139,7 @@ class WhosOnline
     /**
      * Get fullName
      *
-     * @return string 
+     * @return string
      */
     public function getFullName()
     {
@@ -153,7 +161,7 @@ class WhosOnline
     /**
      * Get sessionId
      *
-     * @return string 
+     * @return string
      */
     public function getSessionId()
     {
@@ -175,7 +183,7 @@ class WhosOnline
     /**
      * Get ipAddress
      *
-     * @return string 
+     * @return string
      */
     public function getIpAddress()
     {
@@ -197,7 +205,7 @@ class WhosOnline
     /**
      * Get timeEntry
      *
-     * @return string 
+     * @return string
      */
     public function getTimeEntry()
     {
@@ -219,7 +227,7 @@ class WhosOnline
     /**
      * Get timeLastClick
      *
-     * @return string 
+     * @return string
      */
     public function getTimeLastClick()
     {
@@ -241,7 +249,7 @@ class WhosOnline
     /**
      * Get lastPageUrl
      *
-     * @return string 
+     * @return string
      */
     public function getLastPageUrl()
     {
@@ -263,7 +271,7 @@ class WhosOnline
     /**
      * Get hostAddress
      *
-     * @return text 
+     * @return text
      */
     public function getHostAddress()
     {
@@ -285,7 +293,7 @@ class WhosOnline
     /**
      * Get userAgent
      *
-     * @return string 
+     * @return string
      */
     public function getUserAgent()
     {

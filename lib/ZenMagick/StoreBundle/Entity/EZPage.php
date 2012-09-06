@@ -29,7 +29,14 @@ use Doctrine\ORM\Mapping AS ORM;
  * EZ-page.
  *
  * @author DerManoMann
- * @ORM\Table(name="ezpages")
+ * @ORM\Table(name="ezpages",
+ *  indexes={
+ *      @ORM\Index(name="idx_lang_id_zen", columns={"languages_id"}),
+ *      @ORM\Index(name="idx_ezp_status_header_zen", columns={"status_header"}),
+ *      @ORM\Index(name="idx_ezp_status_footer_zen", columns={"status_footer"}),
+ *      @ORM\Index(name="idx_ezp_status_sidebox_zen", columns={"status_sidebox"}),
+ *      @ORM\Index(name="idx_ezp_status_toc_zen", columns={"status_toc"})
+ *  })
  * @ORM\Entity
  */
 class EZPage extends ZMObject {

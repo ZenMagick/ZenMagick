@@ -7,7 +7,10 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * ZenMagick\ZenCartBundle\Entity\ProjectVersion
  *
- * @ORM\Table(name="project_version")
+ * @ORM\Table(name="project_version",
+ *  indexes={
+ *      @ORM\Index(name="idx_project_version_key_zen", columns={"project_version_key"})
+ *  })
  * @ORM\Entity
  */
 class ProjectVersion
@@ -24,7 +27,7 @@ class ProjectVersion
     /**
      * @var string versionKey
      *
-     * @ORM\Column(name="project_version_key", type="string", length=40, nullable=false)
+     * @ORM\Column(name="project_version_key", type="string", unique=true, length=40, nullable=false)
      */
     private $versionKey;
 
@@ -89,7 +92,7 @@ class ProjectVersion
     /**
      * Get id
      *
-     * @return boolean 
+     * @return boolean
      */
     public function getId()
     {
@@ -111,7 +114,7 @@ class ProjectVersion
     /**
      * Get versionKey
      *
-     * @return string 
+     * @return string
      */
     public function getVersionKey()
     {
@@ -133,7 +136,7 @@ class ProjectVersion
     /**
      * Get versionMajor
      *
-     * @return string 
+     * @return string
      */
     public function getVersionMajor()
     {
@@ -155,7 +158,7 @@ class ProjectVersion
     /**
      * Get versionMinor
      *
-     * @return string 
+     * @return string
      */
     public function getVersionMinor()
     {
@@ -177,7 +180,7 @@ class ProjectVersion
     /**
      * Get versionPatch1
      *
-     * @return string 
+     * @return string
      */
     public function getVersionPatch1()
     {
@@ -199,7 +202,7 @@ class ProjectVersion
     /**
      * Get versionPatch2
      *
-     * @return string 
+     * @return string
      */
     public function getVersionPatch2()
     {
@@ -221,7 +224,7 @@ class ProjectVersion
     /**
      * Get versionPatch1Source
      *
-     * @return string 
+     * @return string
      */
     public function getVersionPatch1Source()
     {
@@ -243,7 +246,7 @@ class ProjectVersion
     /**
      * Get versionPatch2Source
      *
-     * @return string 
+     * @return string
      */
     public function getVersionPatch2Source()
     {
@@ -265,7 +268,7 @@ class ProjectVersion
     /**
      * Get versionComment
      *
-     * @return string 
+     * @return string
      */
     public function getVersionComment()
     {
@@ -287,7 +290,7 @@ class ProjectVersion
     /**
      * Get versionDateApplied
      *
-     * @return datetime 
+     * @return datetime
      */
     public function getVersionDateApplied()
     {
