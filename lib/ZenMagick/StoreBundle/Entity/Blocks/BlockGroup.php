@@ -17,6 +17,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
+namespace ZenMagick\StoreBundle\Entity\Blocks;
 
 use ZenMagick\Base\ZMObject;
 
@@ -26,19 +27,18 @@ use Doctrine\ORM\Mapping as ORM;
  * Block group model class.
  *
  * @author DerManoMann
- * @package zenmagick.store.shared.model.blocks
  * @ORM\Table(name="block_groups")
  * @ORM\Entity
  */
-class ZMBlockGroup extends ZMObject {
+class BlockGroup extends ZMObject {
     /**
-     * @var integer $blockGroupId
+     * @var integer $id
      *
      * @ORM\Column(name="block_group_id", type="integer", nullable=false)
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="IDENTITY")
      */
-    private $blockGroupId;
+    private $id;
     /**
      * @var string $name
      *
@@ -57,7 +57,7 @@ class ZMBlockGroup extends ZMObject {
      *
      * @return int The group id.
      */
-    public function getGroupId() { return $this->groupId; }
+    public function getId() { return $this->idd; }
 
     /**
      * Get the name
@@ -78,7 +78,7 @@ class ZMBlockGroup extends ZMObject {
      *
      * @param int id The new group id.
      */
-    public function setGroupId($id) { $this->groupId = $id; }
+    public function setId($id) { $this->id = $id; }
 
     /**
      * Set the name.
@@ -93,5 +93,4 @@ class ZMBlockGroup extends ZMObject {
      * @param string description The description.
      */
     public function setDescription($description) { $this->description = $description; }
-
 }

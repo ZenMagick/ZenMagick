@@ -20,12 +20,12 @@
 
 use ZenMagick\Base\Runtime;
 use ZenMagick\Base\ZMObject;
+use ZenMagick\StoreBundle\Blocks\BlockGroup;
 
 /**
  * Blocks.
  *
  * @author DerManoMann
- * @package zenmagick.store.shared.services
  */
 class ZMBlocks extends ZMObject {
 
@@ -46,10 +46,10 @@ class ZMBlocks extends ZMObject {
     /**
      * Create a new block group.
      *
-     * @param ZMBlockGroup blockGroup The block group.
-     * @return ZMBlockGroup The updated block group (incl. id).
+     * @param ZenMagick\StoreBundle\Blocks\BlockGroup blockGroup The block group.
+     * @return ZenMagick\StoreBundle\Blocks\BlockGroup The updated block group (incl. id).
      */
-    public function createBlockGroup(ZMBlockGroup $blockGroup) {
+    public function createBlockGroup(BlockGroup $blockGroup) {
         $sql = 'INSERT INTO %table.block_groups% (group_name, description) VALUES (:group_name, :description)';
         $args = array('group_name' => $blockGroup->getName(), 'description' => $blockGroup->getDescription());
         $conn = ZMRuntime::getDatabase();
