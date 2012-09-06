@@ -20,6 +20,7 @@
 namespace ZenMagick\apps\admin\Controller;
 
 use ZenMagick\Base\Beans;
+use ZenMagick\StoreBundle\Entity\EZPage;
 
 /**
  * Content editor controller.
@@ -34,7 +35,7 @@ class ContentEditorController extends \ZMController {
     public function getViewData($request) {
         $language = $request->getSelectedLanguage();
         $languageId = $request->query->get('languageId', $language->getId());
-        $resultSource = new \ZMObjectResultSource('ZMEZPage', 'ezPageService', "getAllPages", array($languageId, 'static'));
+        $resultSource = new \ZMObjectResultSource('ZenMagick\StoreBundle\Entity\EZPage', 'ezPageService', "getAllPages", array($languageId, 'static'));
         $resultList = Beans::getBean('ZMResultList');
         $resultList->setResultSource($resultSource);
         $resultList->setPageNumber($request->query->get('page', 1));
@@ -51,7 +52,7 @@ class ContentEditorController extends \ZMController {
             $ezPageId = (int)$ezPageId;
             if (0 == $ezPageId) {
                 // new
-                $ezPage = Beans::getBean('ZMEZPage');
+                $ezPage = Beans::getBean('ZenMagick\StoreBundle\Entity\EZPage');
                 $ezPage->setStatic(true);
             } else {
                 $ezPage = $this->container->get('ezPageService')->getPageForId($ezPageId, $languageId);
@@ -80,7 +81,7 @@ class ContentEditorController extends \ZMController {
         if (null !== ($ezPageId = $request->request->get('updateId'))) {
             if (0 == $ezPageId) {
                 // create
-                $ezPage = Beans::getBean('ZMEZPage');
+                $ezPage = Beans::getBean('ZenMagick\StoreBundle\Entity\EZPage');
                 Beans::setAll($ezPage, $request->request->all());
                 $ezPage->setStatic(true);
                 $ezPage = $ezPageService->createPage($ezPage);

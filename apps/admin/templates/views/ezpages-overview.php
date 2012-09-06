@@ -75,7 +75,7 @@
           <a href="#<?php echo $ezPage->getId().'-NewWin' ?>" onclick="toggle_status(this); return false;" id="<?php echo $ezPage->getId() ?>-NewWin" class="ezpage-status-<?php echo ($ezPage->isNewWin() ? 'on' : 'off') ?>"><span class="ui-icon <?php echo ($ezPage->isNewWin() ? 'ui-icon-circle-check' : 'ui-icon-circle-close') ?>"></a>
       </td>
       <td>
-          <a href="#<?php echo $ezPage->getId().'-SSL' ?>" onclick="toggle_status(this); return false;" id="<?php echo $ezPage->getId() ?>-SSL" class="ezpage-status-<?php echo ($ezPage->isSSL() ? 'on' : 'off') ?>"><span class="ui-icon <?php echo ($ezPage->isSSL() ? 'ui-icon-circle-check' : 'ui-icon-circle-close') ?>"></a>
+          <a href="#<?php echo $ezPage->getId().'-SSL' ?>" onclick="toggle_status(this); return false;" id="<?php echo $ezPage->getId() ?>-SSL" class="ezpage-status-<?php echo ($ezPage->isSsl() ? 'on' : 'off') ?>"><span class="ui-icon <?php echo ($ezPage->isSsl() ? 'ui-icon-circle-check' : 'ui-icon-circle-close') ?>"></a>
       </td>
       <td>
           <a href="#<?php echo $ezPage->getId().'-header' ?>" onclick="toggle_status(this); return false;" id="<?php echo $ezPage->getId() ?>-header" class="ezpage-status-<?php echo ($ezPage->isHeader() ? 'on' : 'off') ?>"><span class="ui-icon <?php echo ($ezPage->isHeader() ? 'ui-icon-circle-check' : 'ui-icon-circle-close') ?>"></a>

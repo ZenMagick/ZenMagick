@@ -102,7 +102,7 @@ class ToolboxNet extends ToolboxTool {
     /**
      * Build an ez-page URL.
      *
-     * @param ZMEZPage page A <code>ZMEZPage</code> instance.
+     * @param ZenMagick\StoreBundle\Entity\EZPage an EZPage instance
      * @return string A complete URL for the given ez-page.
      */
     public function ezPage($page) {
@@ -116,7 +116,7 @@ class ToolboxNet extends ToolboxTool {
             $params .= '&chapter='.$page->getTocChapter();
         }
 
-        $href = $this->url('page', $params, $page->isSSL());
+        $href = $this->url('page', $params, $page->isSsl());
         if (!Toolbox::isEmpty($page->getAltUrl())) {
             $url = parse_url($page->getAltUrl());
             parse_str($url['query'], $query);
@@ -126,7 +126,7 @@ class ToolboxNet extends ToolboxTool {
             foreach ($query as $name => $value) {
                 $params .= "&".$name."=".$value;
             }
-            $href = $this->url($view, $params, $page->isSSL());
+            $href = $this->url($view, $params, $page->isSsl());
         } else if (!Toolbox::isEmpty($page->getAltUrlExternal())) {
             $href = $page->getAltUrlExternal();
         }

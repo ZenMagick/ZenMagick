@@ -77,7 +77,7 @@ use ZenMagick\Base\Beans;
           $select->setOptions(array(false => _zm('Same Window'), true => _zm('New Window')));
           echo $select->render($request, $view);
       ?>
-      <?php echo Beans::getBean('booleanFormWidget#id=SSL&name=SSL&title='._zm('Secure Link').'&value='.$ezPage->isSSL())->render($request, $view) ?>
+      <?php echo Beans::getBean('booleanFormWidget#id=SSL&name=SSL&title='._zm('Secure Link').'&value='.$ezPage->isSsl())->render($request, $view) ?>
     </p>
     <p>
       <label for="altUrl"><?php _vzm('Internal URL') ?></label>

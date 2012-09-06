@@ -18,6 +18,8 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
+namespace ZenMagick\StoreBundle\Entity;
+
 use ZenMagick\Base\Toolbox;
 use ZenMagick\Base\ZMObject;
 
@@ -27,11 +29,10 @@ use Doctrine\ORM\Mapping AS ORM;
  * EZ-page.
  *
  * @author DerManoMann
- * @package zenmagick.store.shared.model
  * @ORM\Table(name="ezpages")
  * @ORM\Entity
  */
-class ZMEZPage extends ZMObject {
+class EZPage extends ZMObject {
     /**
      * @var integer $id
      *
@@ -199,8 +200,11 @@ class ZMEZPage extends ZMObject {
     }
 
     public function isHeader() { return $this->header; }
+    public function getHeader() { return $this->header; }
     public function isSidebox() { return $this->sidebox; }
+    public function getSidebox() { return $this->sidebox; }
     public function isFooter() { return $this->footer; }
+    public function getFooter() { return $this->footer; }
     public function getToc() { return $this->toc; }
     public function isToc() { return 1 == $this->toc; }
     public function isStatic() { return 2 == $this->toc; }
@@ -209,7 +213,9 @@ class ZMEZPage extends ZMObject {
     public function getFooterSort() { return $this->footerSort; }
     public function getTocSort() { return $this->tocSort; }
     public function isNewWin() { return $this->newWin; }
-    public function isSSL() { return $this->ssl; }
+    public function getNewWin() { return $this->newWin; }
+    public function isSsl() { return $this->ssl; }
+    public function getSsl() { return $this->ssl; }
     public function getTocChapter() { return $this->tocChapter; }
 
     public function setId($id) { $this->id = $id; }
@@ -228,6 +234,6 @@ class ZMEZPage extends ZMObject {
     public function setFooterSort($sortOrder) { $this->footerSort = $sortOrder; }
     public function setTocSort($value) { $this->tocSort = $value; }
     public function setNewWin($value) { $this->newWin = Toolbox::asBoolean($value); }
-    public function setSSL($value) { $this->ssl = Toolbox::asBoolean($value); }
+    public function setSsl($value) { $this->ssl = Toolbox::asBoolean($value); }
     public function setTocChapter($chapter) { $this->tocChapter = $chapter; }
 }

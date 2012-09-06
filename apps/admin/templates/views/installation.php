@@ -81,7 +81,7 @@ use ZenMagick\Base\Runtime;
                             $ezPage->setStatic(true);
                             $ezPage = $ezPageService->updatePage($ezPage);
                         } else {
-                            $ezPage = Beans::getBean('ZMEZPage');
+                            $ezPage = Beans::getBean('ZenMagick\StoreBundle\Entity\EZPage');
                             $ezPage->setStatic(true);
                             $ezPage->setTitle($staticPage);
                             $ezPage->setHtmlText($contents);

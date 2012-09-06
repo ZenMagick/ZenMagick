@@ -47,7 +47,7 @@ class ZMEZPages extends ZMObject implements SqlAware {
      *
      * @param int languageId The languageId.
      * @param string mode Optional mode to define what to load - <em>all</em>, <em>pages</em> or <em>static</em>; default is <em>pages</em>.
-     * @return array List of <code>ZMEZPage</code> instances.
+     * @return array List of <code>ZenMagick\StoreBundle\Entity\EZPage</code> instances.
      */
     protected function getAllPagesQueryDetails($languageId, $mode='pages') {
         $sql = "SELECT *
@@ -66,7 +66,7 @@ class ZMEZPages extends ZMObject implements SqlAware {
         }
         $sql .= " ORDER BY toc_sort_order, pages_title";
         $args = array('languageId' => $languageId);
-        return new QueryDetails(ZMRuntime::getDatabase(), $sql, $args, array('ezpages'), 'ZMEZPage', 'pages_id');
+        return new QueryDetails(ZMRuntime::getDatabase(), $sql, $args, array('ezpages'), 'ZenMagick\StoreBundle\Entity\EZPage', 'pages_id');
     }
 
     /**
@@ -74,7 +74,7 @@ class ZMEZPages extends ZMObject implements SqlAware {
      *
      * @param int languageId The languageId.
      * @param string mode Optional mode to define what to load - <em>all</em>, <em>pages</em> or <em>static</em>; default is <em>pages</em>.
-     * @return array List of <code>ZMEZPage</code> instances.
+     * @return array List of <code>ZenMagick\StoreBundle\Entity\EZPage</code> instances.
      */
     public function getAllPages($languageId, $mode='pages') {
         $details = $this->getAllPagesQueryDetails($languageId, $mode);
@@ -86,14 +86,14 @@ class ZMEZPages extends ZMObject implements SqlAware {
      *
      * @param int pageId The page id.
      * @param int languageId The languageId.
-     * @return ZMEZPage A new instance or <code>null</code>.
+     * @return ZenMagick\StoreBundle\Entity\EZPage A new instance or <code>null</code>.
      */
     public function getPageForId($pageId, $languageId) {
         $sql = "SELECT *
                 FROM %table.ezpages%
                 WHERE pages_id = :id";
         $sql .= " AND languages_id = :languageId";
-        return ZMRuntime::getDatabase()->querySingle($sql, array('id' => $pageId, 'languageId' => $languageId), 'ezpages', 'ZMEZPage');
+        return ZMRuntime::getDatabase()->querySingle($sql, array('id' => $pageId, 'languageId' => $languageId), 'ezpages', 'ZenMagick\StoreBundle\Entity\EZPage');
     }
 
     /**
@@ -101,14 +101,14 @@ class ZMEZPages extends ZMObject implements SqlAware {
      *
      * @param string name The page name.
      * @param int languageId The languageId.
-     * @return ZMEZPage A new instance or <code>null</code>.
+     * @return ZenMagick\StoreBundle\Entity\EZPage A new instance or <code>null</code>.
      */
     public function getPageForName($name, $languageId) {
         $sql = "SELECT *
                 FROM %table.ezpages%
                 WHERE pages_title = :title";
         $sql .= " AND languages_id = :languageId";
-        return ZMRuntime::getDatabase()->querySingle($sql, array('title' => $name, 'languageId' => $languageId), 'ezpages', 'ZMEZPage');
+        return ZMRuntime::getDatabase()->querySingle($sql, array('title' => $name, 'languageId' => $languageId), 'ezpages', 'ZenMagick\StoreBundle\Entity\EZPage');
     }
 
     /**
@@ -116,7 +116,7 @@ class ZMEZPages extends ZMObject implements SqlAware {
      *
      * @param int chapterId The chapter id.
      * @param int languageId The languageId.
-     * @return array List of <code>ZMEZPage</code> instances.
+     * @return array List of <code>ZenMagick\StoreBundle\Entity\EZPage</code> instances.
      */
     public function getPagesForChapterId($chapterId, $languageId) {
         $sql = "SELECT *
@@ -125,14 +125,14 @@ class ZMEZPages extends ZMObject implements SqlAware {
                 AND alt_url_external = '' AND alt_url = ''";
         $sql .= " AND languages_id = :languageId";
         $sql .= " ORDER BY toc_sort_order, pages_title";
-        return ZMRuntime::getDatabase()->fetchAll($sql, array('tocChapter' => $chapterId, 'languageId' => $languageId), 'ezpages', 'ZMEZPage');
+        return ZMRuntime::getDatabase()->fetchAll($sql, array('tocChapter' => $chapterId, 'languageId' => $languageId), 'ezpages', 'ZenMagick\StoreBundle\Entity\EZPage');
     }
 
     /**
      * Get all header pages.
      *
      * @param int languageId The languageId.
-     * @return array List of <code>ZMEZPage</code> instances.
+     * @return array List of <code>ZenMagick\StoreBundle\Entity\EZPage</code> instances.
      */
     public function getPagesForHeader($languageId) {
         $sql = "SELECT *
@@ -141,14 +141,14 @@ class ZMEZPages extends ZMObject implements SqlAware {
                   AND header_sort_order > 0";
         $sql .= " AND languages_id = :languageId";
         $sql .= " ORDER BY header_sort_order, pages_title";
-        return ZMRuntime::getDatabase()->fetchAll($sql, array('languageId' => $languageId), 'ezpages', 'ZMEZPage');
+        return ZMRuntime::getDatabase()->fetchAll($sql, array('languageId' => $languageId), 'ezpages', 'ZenMagick\StoreBundle\Entity\EZPage');
     }
 
     /**
      * Get all sidebar pages.
      *
      * @param int languageId The languageId.
-     * @return array List of <code>ZMEZPage</code> instances.
+     * @return array List of <code>ZenMagick\StoreBundle\Entity\EZPage</code> instances.
      */
     public function getPagesForSidebar($languageId) {
         $sql = "SELECT *
@@ -157,14 +157,14 @@ class ZMEZPages extends ZMObject implements SqlAware {
                   AND sidebox_sort_order > 0";
         $sql .= " AND languages_id = :languageId";
         $sql .= " ORDER BY sidebox_sort_order, pages_title";
-        return ZMRuntime::getDatabase()->fetchAll($sql, array('languageId' => $languageId), 'ezpages', 'ZMEZPage');
+        return ZMRuntime::getDatabase()->fetchAll($sql, array('languageId' => $languageId), 'ezpages', 'ZenMagick\StoreBundle\Entity\EZPage');
     }
 
     /**
      * Get all footer pages.
      *
      * @param int languageId The languageId.
-     * @return array List of <code>ZMEZPage</code> instances.
+     * @return array List of <code>ZenMagick\StoreBundle\Entity\EZPage</code> instances.
      */
     public function getPagesForFooter($languageId) {
         $sql = "SELECT *
@@ -173,14 +173,14 @@ class ZMEZPages extends ZMObject implements SqlAware {
                   AND footer_sort_order > 0";
         $sql .= " AND languages_id = :languageId";
         $sql .= " ORDER BY footer_sort_order, pages_title";
-        return ZMRuntime::getDatabase()->fetchAll($sql, array('languageId' => $languageId), 'ezpages', 'ZMEZPage');
+        return ZMRuntime::getDatabase()->fetchAll($sql, array('languageId' => $languageId), 'ezpages', 'ZenMagick\StoreBundle\Entity\EZPage');
     }
 
     /**
      * Create a new page.
      *
-     * @param ZMEZPage page The page to create.
-     * @return ZMEZPage The updated (keys, etc) instance.
+     * @param ZenMagick\StoreBundle\Entity\EZPage page The page to create.
+     * @return ZenMagick\StoreBundle\Entity\EZPage The updated (keys, etc) instance.
      */
     public function createPage($page) {
         return ZMRuntime::getDatabase()->createModel('ezpages', $page);
@@ -189,7 +189,7 @@ class ZMEZPages extends ZMObject implements SqlAware {
     /**
      * Update an existing page.
      *
-     * @param ZMEZPage page The page to update.
+     * @param ZenMagick\StoreBundle\Entity\EZPage page The page to update.
      * @return boolean <code>true</code> for success.
      */
     public function updatePage($page) {
@@ -200,7 +200,7 @@ class ZMEZPages extends ZMObject implements SqlAware {
     /**
      * Delete an existing page.
      *
-     * @param ZMEZPage page The page to delete.
+     * @param ZenMagick\StoreBundle\Entity\EZPage page The page to delete.
      * @return boolean <code>true</code> for success.
      */
     public function removePage($page) {
