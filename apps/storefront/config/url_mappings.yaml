@@ -190,7 +190,7 @@ page:
       view: forward#requestId=index
   product_reviews_write:
     formId: newReview
-    form: ZenMagick\apps\store\Model\Catalog\Review
+    form: ZenMagick\apps\store\Entity\Catalog\Review
     success:
       view: redirect#requestId=product_reviews
   contact_us:

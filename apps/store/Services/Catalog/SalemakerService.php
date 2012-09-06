@@ -109,7 +109,7 @@ class SalemakerService extends ZMObject {
         $languageCode = $container->get('settingsService')->get('defaultLanguageCode');
         $languageId = $container->get('languageService')->getLanguageForCode($languageCode)->getLanguageId();
         $now = new DateTime();
-        foreach (\ZMRuntime::getDatabase()->fetchAll($sql, array(), 'salemaker_sales', 'ZenMagick\apps\store\Model\Catalog\SaleMakerSale') as $sale) {
+        foreach (\ZMRuntime::getDatabase()->fetchAll($sql, array(), 'salemaker_sales', 'ZenMagick\apps\store\Entity\Catalog\SaleMakerSale') as $sale) {
             $dateStart = $sale->getDateStart();
             $dateEnd = $sale->getDateEnd();
             $active = $sale->getStatus();

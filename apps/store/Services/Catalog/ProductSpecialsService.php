@@ -46,7 +46,7 @@ class ProductSpecialsService extends ZMObject {
         $sql = "SELECT specials_id, products_id, status, expires_date, specials_date_available
                 FROM %table.specials%";
         $productService = $this->container->get('productService');
-        foreach (\ZMRuntime::getDatabase()->fetchAll($sql, array(), 'specials', 'ZenMagick\apps\store\Model\Catalog\Special') as $special) {
+        foreach (\ZMRuntime::getDatabase()->fetchAll($sql, array(), 'specials', 'ZenMagick\apps\store\Entity\Catalog\Special') as $special) {
             $availableDate = $special->getAvailableDate();
             $expiryDate = $special->getExpiryDate();
             $active = $special->getStatus();

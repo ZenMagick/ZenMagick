@@ -24,7 +24,7 @@ use ZMRuntime;
 use ZenMagick\Base\Beans;
 use ZenMagick\Base\Runtime;
 use ZenMagick\Base\ZMObject;
-use ZenMagick\apps\store\Model\TaxRate;
+use ZenMagick\apps\store\Entity\TaxRate;
 
 /**
  * Tax rate service.
@@ -84,7 +84,7 @@ class TaxService extends ZMObject {
 
         if (TaxRate::TAX_BASE_STORE == $settingsService->get('productTaxBase')) {
             if ($settingsService->get('storeZone') != $zoneId) {
-                $taxRate = Beans::getBean('ZenMagick\apps\store\Model\TaxRate');
+                $taxRate = Beans::getBean('ZenMagick\apps\store\Entity\TaxRate');
                 $taxRate->setId($taxRateId);
                 $taxRate->setClassId($taxClassId);
                 $taxRate->setCountryId($countryId);
@@ -112,7 +112,7 @@ class TaxService extends ZMObject {
                 $multiplier *= 1.0 + ($result['rate'] / 100);
             }
 
-            $taxRate = Beans::getBean('ZenMagick\apps\store\Model\TaxRate');
+            $taxRate = Beans::getBean('ZenMagick\apps\store\Entity\TaxRate');
             $taxRate->setId($taxRateId);
             $taxRate->setClassId($taxClassId);
             $taxRate->setCountryId($countryId);
@@ -122,7 +122,7 @@ class TaxService extends ZMObject {
             return $taxRate;
         }
 
-        $taxRate = Beans::getBean('ZenMagick\apps\store\Model\TaxRate');
+        $taxRate = Beans::getBean('ZenMagick\apps\store\Entity\TaxRate');
         $taxRate->setId($taxRateId);
         $taxRate->setClassId($taxClassId);
         $taxRate->setCountryId($countryId);
@@ -191,7 +191,7 @@ class TaxService extends ZMObject {
     public function getTaxClassForId($id) {
         $sql = "SELECT * FROM %table.tax_class%
                 WHERE tax_class_id = :taxClassId";
-        return ZMRuntime::getDatabase()->querySingle($sql, array('taxClassId' => $id), 'tax_class', 'ZenMagick\apps\store\Model\TaxClass');
+        return ZMRuntime::getDatabase()->querySingle($sql, array('taxClassId' => $id), 'tax_class', 'ZenMagick\apps\store\Entity\TaxClass');
     }
 
     /**
@@ -256,7 +256,7 @@ class TaxService extends ZMObject {
                 $rateFactor = $priorRate * ( 1 + ($result['rate'] / 100));
             }
 
-            $taxRate = Beans::getBean('ZenMagick\apps\store\Model\TaxRate');
+            $taxRate = Beans::getBean('ZenMagick\apps\store\Entity\TaxRate');
             $taxRate->setDescription($result['description']);
             $taxRate->setRate(100 * ($rateFactor - $priorRate));
 

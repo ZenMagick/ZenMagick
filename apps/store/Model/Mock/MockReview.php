@@ -19,7 +19,7 @@
  */
 namespace ZenMagick\apps\store\Model\Mock;
 
-use ZenMagick\apps\store\Model\Catalog\Review;
+use ZenMagick\apps\store\Entity\Catalog\Review;
 
 /**
  * Mock review.

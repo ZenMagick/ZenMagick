@@ -19,7 +19,7 @@
  */
 namespace ZenMagick\apps\store\Model\Mock;
 
-use ZenMagick\apps\store\Model\Coupons\Coupon;
+use ZenMagick\apps\store\Entity\Coupons\Coupon;
 
 /**
  * Mock coupon.

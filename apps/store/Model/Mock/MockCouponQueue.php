@@ -19,7 +19,7 @@
  */
 namespace ZenMagick\apps\store\Model\Mock;
 
-use ZenMagick\apps\store\Model\Coupons\CouponQueue;
+use ZenMagick\apps\store\Entity\Coupons\CouponQueue;
 
 /**
  * Mock coupon queue entry.

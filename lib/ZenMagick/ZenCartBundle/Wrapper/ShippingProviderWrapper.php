@@ -128,7 +128,7 @@ class ShippingProviderWrapper extends ZMObject implements \ZMShippingProvider {
         }
 
         // capture tax
-        $taxRate = Beans::getBean('ZenMagick\apps\store\Model\TaxRate');
+        $taxRate = Beans::getBean('ZenMagick\apps\store\Entity\TaxRate');
         $taxRate->setRate(isset($quotes['tax']) ? $quotes['tax'] : 0);
 
         $methods = array();

@@ -23,8 +23,8 @@ use ZMRuntime;
 use ZenMagick\Base\Beans;
 use ZenMagick\Base\Runtime;
 use ZenMagick\Base\ZMObject;
-use ZenMagick\apps\store\Model\ConfigGroup;
-use ZenMagick\apps\store\Model\ConfigValue;
+use ZenMagick\apps\store\Entity\ConfigGroup;
+use ZenMagick\apps\store\Entity\ConfigValue;
 
 /**
  * Config service.
@@ -109,7 +109,7 @@ class ConfigService extends ZMObject {
     protected function buildObjects($configValues) {
         $values = array();
         foreach ($configValues as $value) {
-            $values[] = Beans::map2obj('ZenMagick\apps\store\Model\ConfigValue', $value);
+            $values[] = Beans::map2obj('ZenMagick\apps\store\Entity\ConfigValue', $value);
         }
         return $values;
     }
@@ -192,7 +192,7 @@ class ConfigService extends ZMObject {
         $sql = "SELECT *
                 FROM %table.configuration_group%
                 WHERE configuration_group_id = :id";
-        return ZMRuntime::getDatabase()->querySingle($sql, array('id' => $groupId), 'configuration_group', 'ZenMagick\apps\store\Model\ConfigGroup');
+        return ZMRuntime::getDatabase()->querySingle($sql, array('id' => $groupId), 'configuration_group', 'ZenMagick\apps\store\Entity\ConfigGroup');
     }
 
     /**
@@ -206,7 +206,7 @@ class ConfigService extends ZMObject {
         $sql = "SELECT *
                 FROM %table.configuration_group%
                 WHERE configuration_group_title = :name";
-        return ZMRuntime::getDatabase()->querySingle($sql, array('name' => $name), 'configuration_group', 'ZenMagick\apps\store\Model\ConfigGroup');
+        return ZMRuntime::getDatabase()->querySingle($sql, array('name' => $name), 'configuration_group', 'ZenMagick\apps\store\Entity\ConfigGroup');
     }
 
     /**
@@ -218,7 +218,7 @@ class ConfigService extends ZMObject {
         $sql = "SELECT *
                 FROM %table.configuration_group%
                 ORDER BY sort_order";
-        return ZMRuntime::getDatabase()->fetchAll($sql, array(), 'configuration_group', 'ZenMagick\apps\store\Model\ConfigGroup');
+        return ZMRuntime::getDatabase()->fetchAll($sql, array(), 'configuration_group', 'ZenMagick\apps\store\Entity\ConfigGroup');
     }
 
     /**

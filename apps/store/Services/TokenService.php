@@ -58,7 +58,7 @@ class TokenService extends ZMObject {
      * @return Token A token.
      */
     public function getNewToken($resource, $lifetime) {
-        $token = Beans::getBean('ZenMagick\apps\store\Model\Token');
+        $token = Beans::getBean('ZenMagick\apps\store\Entity\Token');
         $token->setHash($this->createToken());
         $token->setResource($resource);
         $now = new DateTime();
@@ -91,7 +91,7 @@ class TokenService extends ZMObject {
     public function validateHash($resource, $hash, $expire=true) {
         $sql = "SELECT * FROM %table.token%
                 WHERE hash = :hash AND resource = :resource AND expires >= now()";
-        $token = ZMRuntime::getDatabase()->querySingle($sql, array('hash' => $hash, 'resource' => $resource), 'token', 'ZenMagick\apps\store\Model\Token');
+        $token = ZMRuntime::getDatabase()->querySingle($sql, array('hash' => $hash, 'resource' => $resource), 'token', 'ZenMagick\apps\store\Entity\Token');
         if ($expire && null !== $token) {
             $sql = "DELETE FROM %table.token%
                     WHERE hash = :hash AND resource = :resource";
@@ -109,7 +109,7 @@ class TokenService extends ZMObject {
     public function getTokenForResource($resource) {
         $sql = "SELECT * FROM %table.token%
                 WHERE resource = :resource AND expires >= now()";
-        return ZMRuntime::getDatabase()->fetchAll($sql, array('resource' => $resource), 'token', 'ZenMagick\apps\store\Model\Token');
+        return ZMRuntime::getDatabase()->fetchAll($sql, array('resource' => $resource), 'token', 'ZenMagick\apps\store\Entity\Token');
     }
 
     /**
@@ -121,7 +121,7 @@ class TokenService extends ZMObject {
     public function getTokenForHash($hash) {
         $sql = "SELECT * FROM %table.token%
                 WHERE hash = :hash AND expires >= now()";
-        $results = ZMRuntime::getDatabase()->fetchAll($sql, array('hash' => $hash), 'token', 'ZenMagick\apps\store\Model\Token');
+        $results = ZMRuntime::getDatabase()->fetchAll($sql, array('hash' => $hash), 'token', 'ZenMagick\apps\store\Entity\Token');
         if (1 < count($results)) {
             Runtime::getLogging()->warn('duplicate token for hash: '.$hash);
             // expire all

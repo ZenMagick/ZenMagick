@@ -20,7 +20,7 @@
 namespace ZenMagick\apps\storefront\Controller;
 
 use ZenMagick\Base\Runtime;
-use ZenMagick\apps\store\Model\Coupons\Coupon;
+use ZenMagick\apps\store\Entity\Coupons\Coupon;
 
 
 /**

@@ -23,7 +23,7 @@ namespace ZenMagick\apps\store\Services;
 use ZenMagick\Base\Beans;
 use ZenMagick\Base\Runtime;
 use ZenMagick\Http\Widgets\Widget;
-use ZenMagick\apps\store\Model\ConfigValue;
+use ZenMagick\apps\store\Entity\ConfigValue;
 
 /**
  * Config service.
@@ -126,7 +126,7 @@ class ConfigWidgetService extends ConfigService {
                     break;
 
                 default:
-                    $widget = Beans::map2obj('ZenMagick\apps\store\Model\ConfigValue', $value);
+                    $widget = Beans::map2obj('ZenMagick\apps\store\Entity\ConfigValue', $value);
                     break;
                 }
                 if ($widget instanceof Widget) {

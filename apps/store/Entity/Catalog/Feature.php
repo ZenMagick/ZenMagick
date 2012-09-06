@@ -17,22 +17,22 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-namespace ZenMagick\apps\store\Model\Catalog;
+namespace ZenMagick\apps\store\Entity\Catalog;
 
 use ZenMagick\Base\ZMObject;
 use Doctrine\ORM\Mapping AS ORM;
 
 /**
- * A Special.
+ * A featured product.
  *
- * @ORM\Table(name="specials")
+ * @ORM\Table(name="featured")
  * @ORM\Entity
  */
-class Special extends ZMObject {
+class Feature extends ZMObject {
     /**
      * @var integer $id
      *
-     * @ORM\Column(name="specials_id", type="integer", nullable=false)
+     * @ORM\Column(name="featured_id", type="integer", nullable=false)
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="IDENTITY")
      */
@@ -44,21 +44,15 @@ class Special extends ZMObject {
      */
     private $productId;
     /**
-     * @var decimal $specialPrice
-     *
-     * @ORM\Column(name="specials_new_products_price", type="decimal", nullable=false)
-     */
-    private $specialPrice;
-    /**
      * @var datetime $dateAdded
      *
-     * @ORM\Column(name="specials_date_added", type="datetime", nullable=true)
+     * @ORM\Column(name="featured_date_added", type="datetime", nullable=true)
      */
     private $dateAdded;
     /**
      * @var datetime $lastModified
      *
-     * @ORM\Column(name="specials_last_modified", type="datetime", nullable=true)
+     * @ORM\Column(name="featured_last_modified", type="datetime", nullable=true)
      */
     private $lastModified;
     /**
@@ -70,129 +64,122 @@ class Special extends ZMObject {
     /**
      * @var datetime $statusChangeDate
      *
-     * @ORM\Column(name="date_status_change", type="datetime", nullable=true)
+     * @Column(name="date_status_change", type="datetime", nullable=true)
      */
     private $statusChangeDate;
     /**
-     * @var boolean $status
+     * @var integer $status
      *
-     * @ORM\Column(name="status", type="boolean", nullable=false)
+     * @Column(name="status", type="boolean", nullable=false)
      */
     private $status;
     /**
      * @var date $availableDate
      *
-     * @ORM\Column(name="specials_date_available", type="date", nullable=false)
+     * @Column(name="featured_date_available", type="date", nullable=false)
      */
     private $availableDate;
 
     /**
-     * Get id
+     * Get the featured id.
      *
      * @return integer $id
      */
     public function getId() { return $this->id; }
 
     /**
-     * Get productId
+     * Get the featured producdt id
      *
      * @return integer $productId
      */
     public function getProductId() { return $this->productId; }
 
     /**
-     * Get specialPrice
-     *
-     * @return decimal $specialPrice
-     */
-    public function getSpecialPrice() { return $this->specialPrice; }
-
-    /**
-     * Get dateAdded
+     * Get the date the featured product was added.
      *
      * @return datetime $dateAdded
      */
     public function getDateAdded() { return $this->dateAdded; }
 
     /**
-     * Get lastModified
+     * Get the date the featured product was last modified.
      *
      * @return datetime $lastModified
      */
     public function getLastModified() { return $this->lastModified; }
 
     /**
-     * Get expiryDate
+     * Get the date the featured product expires.
      *
      * @return date $expiryDate
      */
     public function getExpiryDate() { return $this->expiryDate; }
 
     /**
-     * Get statusChangeDate
+     * Get dateStatusChange
      *
-     * @return datetime $statusChangeDate
+     * @return datetime $dateStatusChange
      */
-    public function getStatusChangeDate() { return $this->statusChangeDate; }
+    public function getDateStatusChange() { return $this->dateStatusChange; }
 
     /**
-     * Get status
-     *
-     * @return integer $status
-     */
-    public function getStatus() { return $this->status; }
-
-    /**
-     * Get availableDate
+     * Get the date the featured product is available.
      *
      * @return date $availableDate
      */
     public function getAvailableDate() { return $this->availableDate; }
 
     /**
-     * Set productId
+     * Get the featured product status.
+     *
+     * @return integer $status
+     */
+    public function getStatus() { return $this->status; }
+
+    /**
+     * Set the featured id.
+     *
+     * @param string $id The id.
+     */
+    public function setId($id) { $this->id = $id; }
+
+    /**
+     * Set the featured product id
      *
      * @param integer $productId
      */
     public function setProductId($productId) { $this->productId = $productId; }
 
     /**
-     * Set specialPrice
-     *
-     * @param decimal $specialPrice
-     */
-    public function setSpecialPrice($specialPrice) { $this->specialPrice = $specialPrice; }
-
-    /**
-     * Set dateAdded
+     * Set the date the featured product was added.
      *
      * @param datetime $dateAdded
      */
     public function setDateAdded($dateAdded) { $this->dateAdded = $dateAdded; }
 
     /**
-     * Set lastModified
+     * Set the date the featured product was last modified.
      *
      * @param datetime $lastModified
      */
     public function setLastModified($lastModified) { $this->lastModified = $lastModified; }
 
     /**
-     * Set expiryDate
+     * Set the date the featured product will expire.
      *
      * @param date $expiryDate
      */
     public function setExpiryDate($expiryDate) { $this->expiryDate = $expiryDate; }
 
     /**
-     * Set statusChangeDate
+     * Set the the date the featured product status has changed.
      *
      * @param datetime $statusChangeDate
      */
     public function setStatusChangeDate($statusChangeDate) { $this->statusChangeDate = $statusChangeDate; }
 
     /**
-     * Set status and log the date the status changed.
+     * Set the featured product status.
      *
      * @param integer $status
      */
@@ -202,7 +189,7 @@ class Special extends ZMObject {
     }
 
     /**
-     * Set availableDate
+     * Set the date the featured product will be available.
      *
      * @param date $availableDate
      */

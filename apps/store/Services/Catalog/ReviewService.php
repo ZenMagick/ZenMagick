@@ -124,7 +124,7 @@ class ReviewService extends ZMObject {
                   AND r.reviews_id in (:reviewId)
                 ORDER BY date_added DESC";
         $args = array('productId' => $productId, 'languageId' => $languageId, 'reviewId' => $reviewIds);
-        return \ZMRuntime::getDatabase()->fetchAll($sql, $args, array('reviews', 'reviews_description', 'products', 'products_description'), 'ZenMagick\apps\store\Model\Catalog\Review');
+        return \ZMRuntime::getDatabase()->fetchAll($sql, $args, array('reviews', 'reviews_description', 'products', 'products_description'), 'ZenMagick\apps\store\Entity\Catalog\Review');
     }
 
     /**
@@ -167,7 +167,7 @@ class ReviewService extends ZMObject {
                   AND p.products_id = :productId
                 ORDER BY date_added DESC";
         $args = array('productId' => $productId, 'languageId' => $languageId);
-        return \ZMRuntime::getDatabase()->fetchAll($sql, $args, array('reviews', 'reviews_description', 'products', 'products_description'), 'ZenMagick\apps\store\Model\Catalog\Review');
+        return \ZMRuntime::getDatabase()->fetchAll($sql, $args, array('reviews', 'reviews_description', 'products', 'products_description'), 'ZenMagick\apps\store\Entity\Catalog\Review');
     }
 
     /**
@@ -189,7 +189,7 @@ class ReviewService extends ZMObject {
                   AND r.status = 1
                 ORDER BY date_added DESC";
         $args = array('languageId' => $languageId);
-        return \ZMRuntime::getDatabase()->fetchAll($sql, $args, array('reviews', 'reviews_description', 'products', 'products_description'), 'ZenMagick\apps\store\Model\Catalog\Review');
+        return \ZMRuntime::getDatabase()->fetchAll($sql, $args, array('reviews', 'reviews_description', 'products', 'products_description'), 'ZenMagick\apps\store\Entity\Catalog\Review');
     }
 
     /**
@@ -212,7 +212,7 @@ class ReviewService extends ZMObject {
                   AND r.status = 1
                   AND r.reviews_id = :reviewId";
         $args = array('reviewId' => $reviewId, 'languageId' => $languageId);
-        return \ZMRuntime::getDatabase()->querySingle($sql, $args, array('reviews', 'reviews_description', 'products', 'products_description'), 'ZenMagick\apps\store\Model\Catalog\Review');
+        return \ZMRuntime::getDatabase()->querySingle($sql, $args, array('reviews', 'reviews_description', 'products', 'products_description'), 'ZenMagick\apps\store\Entity\Catalog\Review');
     }
 
     /**

@@ -20,7 +20,7 @@
 
 use ZenMagick\Base\Runtime;
 use ZenMagick\plugins\unitTests\simpletest\TestCase;
-use ZenMagick\apps\store\Model\TaxRate;
+use ZenMagick\apps\store\Entity\TaxRate;
 
 /**
  * Test layout service.

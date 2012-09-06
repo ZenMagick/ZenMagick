@@ -19,7 +19,7 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-namespace ZenMagick\apps\store\Model\Coupons\Restrictions;
+namespace ZenMagick\apps\store\Entity\Coupons\Restrictions;
 
 use ZenMagick\Base\ZMObject;
 

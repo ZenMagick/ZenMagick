@@ -28,7 +28,7 @@ use ZMPaymentField;
 use ZenMagick\Base\Runtime;
 use ZenMagick\Base\ZMObject;
 use ZenMagick\apps\store\Utils\CheckoutHelper;
-use ZenMagick\apps\store\Model\TaxRate;
+use ZenMagick\apps\store\Entity\TaxRate;
 
 /**
  * Shopping cart.

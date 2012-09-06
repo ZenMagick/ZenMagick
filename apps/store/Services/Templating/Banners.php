@@ -79,7 +79,7 @@ class Banners extends ZMObject {
         }
         $sql .= " ORDER BY banners_sort_order";
 
-        return ZMRuntime::getDatabase()->fetchAll($sql, array('group' => $groupList), 'banners', 'ZenMagick\apps\store\Model\Templating\Banner');
+        return ZMRuntime::getDatabase()->fetchAll($sql, array('group' => $groupList), 'banners', 'ZenMagick\apps\store\Entity\Templating\Banner');
     }
 
     /**
@@ -92,7 +92,7 @@ class Banners extends ZMObject {
         $sql = "SELECT *
                 FROM %table.banners%
                 WHERE status = 1 AND banners_id = :id";
-        return ZMRuntime::getDatabase()->querySingle($sql, array('id' => $id), 'banners', 'ZenMagick\apps\store\Model\Templating\Banner');
+        return ZMRuntime::getDatabase()->querySingle($sql, array('id' => $id), 'banners', 'ZenMagick\apps\store\Entity\Templating\Banner');
     }
 
     /**
@@ -168,7 +168,7 @@ class Banners extends ZMObject {
     public function scheduleBanners() {
         $sql = "SELECT banners_id, date_scheduled, expires_date
                 FROM %table.banners%";
-        foreach (ZMRuntime::getDatabase()->fetchAll($sql, array(), 'banners', 'ZenMagick\apps\store\Model\Templating\Banner') as $banner) {
+        foreach (ZMRuntime::getDatabase()->fetchAll($sql, array(), 'banners', 'ZenMagick\apps\store\Entity\Templating\Banner') as $banner) {
             $dateScheduled = $banner->getDateScheduled();
             $expiryDate = $banner->getExpiryDate();
             if (null != $dateScheduled && new \DateTime() >= $dateScheduled) {

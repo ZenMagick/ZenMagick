@@ -41,7 +41,7 @@ class ProductFeaturedService extends ZMObject {
     public function scheduleFeatured() {
         $sql = "SELECT featured_id, status, expires_date, featured_date_available
                 FROM %table.featured%";
-        foreach (\ZMRuntime::getDatabase()->fetchAll($sql, array(), 'featured', 'ZenMagick\apps\store\Model\Catalog\Feature') as $feature) {
+        foreach (\ZMRuntime::getDatabase()->fetchAll($sql, array(), 'featured', 'ZenMagick\apps\store\Entity\Catalog\Feature') as $feature) {
             $availableDate = $feature->getAvailableDate();
             $expiryDate = $feature->getExpiryDate();
             $active = $feature->getStatus();

@@ -47,7 +47,7 @@ class CurrencyService extends ZMObject {
     private function load() {
         $sql = "SELECT * FROM %table.currencies%";
         $this->currencies = array();
-        foreach (ZMRuntime::getDatabase()->fetchAll($sql, array(), 'currencies', 'ZenMagick\apps\store\Model\Locale\Currency') as $currency) {
+        foreach (ZMRuntime::getDatabase()->fetchAll($sql, array(), 'currencies', 'ZenMagick\apps\store\Entity\Locale\Currency') as $currency) {
             $this->currencies[$currency->getCode()] = $currency;
         }
     }

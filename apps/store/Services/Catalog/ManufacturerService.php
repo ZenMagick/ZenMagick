@@ -76,7 +76,7 @@ class ManufacturerService extends ZMObject {
 
         $cacheKey = Toolbox::hash('manufacturer', $id, $languageId);
         if (false === ($manufacturer = $this->cache_->lookup($cacheKey))) {
-            $manufacturer = \ZMRuntime::getDatabase()->querySingle($sql, $args, array('manufacturers', 'manufacturers_info'), 'ZenMagick\apps\store\Model\Catalog\Manufacturer');
+            $manufacturer = \ZMRuntime::getDatabase()->querySingle($sql, $args, array('manufacturers', 'manufacturers_info'), 'ZenMagick\apps\store\Entity\Catalog\Manufacturer');
             $this->cache_->save($manufacturer, $cacheKey);
         }
 
@@ -99,7 +99,7 @@ class ManufacturerService extends ZMObject {
 
         $cacheKey = Toolbox::hash('manufacturer', $name, $languageId);
         if (false === ($manufacturer = $this->cache_->lookup($cacheKey))) {
-            $manufacturer = \ZMRuntime::getDatabase()->querySingle($sql, $args, array('manufacturers', 'manufacturers_info'), 'ZenMagick\apps\store\Model\Catalog\Manufacturer');
+            $manufacturer = \ZMRuntime::getDatabase()->querySingle($sql, $args, array('manufacturers', 'manufacturers_info'), 'ZenMagick\apps\store\Entity\Catalog\Manufacturer');
             $this->cache_->save($manufacturer, $cacheKey);
         }
 
@@ -155,7 +155,7 @@ class ManufacturerService extends ZMObject {
 
         $cacheKey = Toolbox::hash('manufacturer', $languageId);
         if (false === ($manufacturers = $this->cache_->lookup($cacheKey))) {
-            $manufacturers = \ZMRuntime::getDatabase()->fetchAll($sql, $args, array('manufacturers', 'manufacturers_info'), 'ZenMagick\apps\store\Model\Catalog\Manufacturer');
+            $manufacturers = \ZMRuntime::getDatabase()->fetchAll($sql, $args, array('manufacturers', 'manufacturers_info'), 'ZenMagick\apps\store\Entity\Catalog\Manufacturer');
             $this->cache_->save($manufacturers, $cacheKey);
         }
 

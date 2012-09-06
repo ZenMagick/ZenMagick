@@ -273,7 +273,7 @@
     <route id="product.review.write" pattern="/product/review/write">
         <default key="_controller">ZenMagick\apps\storefront\Controller\RedirectController::process</default>
         <option key="view">redirect://product.reviews</option>
-        <option key="form">ZenMagick\apps\store\Model\Catalog\Review#formId:newReview</option>
+        <option key="form">ZenMagick\apps\store\Entity\Catalog\Review#formId:newReview</option>
     </route>
 
     <route id="tell_a_friend" pattern="/tell-a-friend/{productId}">
