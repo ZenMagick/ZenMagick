@@ -64,19 +64,19 @@ class Feature extends ZMObject {
     /**
      * @var datetime $statusChangeDate
      *
-     * @Column(name="date_status_change", type="datetime", nullable=true)
+     * @ORM\Column(name="date_status_change", type="datetime", nullable=true)
      */
     private $statusChangeDate;
     /**
      * @var integer $status
      *
-     * @Column(name="status", type="boolean", nullable=false)
+     * @ORM\Column(name="status", type="boolean", nullable=false)
      */
     private $status;
     /**
      * @var date $availableDate
      *
-     * @Column(name="featured_date_available", type="date", nullable=false)
+     * @ORM\Column(name="featured_date_available", type="date", nullable=false)
      */
     private $availableDate;
 
