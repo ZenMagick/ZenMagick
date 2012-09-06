@@ -166,6 +166,7 @@ class PluginStatusMapBuilder extends ZMObject implements CacheWarmerInterface {
                 }
             }
         }
+
         return $statusMap;
     }
 

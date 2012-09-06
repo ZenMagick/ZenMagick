@@ -19,6 +19,7 @@
  */
 namespace ZenMagick\apps\store\Entity;
 
+use ZenMagick\Base\Toolbox;
 use ZenMagick\Base\ZMObject;
 
 use Doctrine\ORM\Mapping AS ORM;
@@ -137,9 +138,18 @@ class ConfigValue extends ZMObject {
     /**
      * Get the value.
      *
+     * @param string type Optional type for type casting; default is <code>null</code> for none.
      * @return mixed $value The value.
      */
-    public function getValue() { return $this->value; }
+    public function getValue($type = null) {
+        $value = $this->value;
+        switch ($type) {
+        case 'boolean':
+            $value = Toolbox::asBoolean($value);
+            break;
+        }
+        return $this->value;
+    }
 
     /**
      * Get the description.
