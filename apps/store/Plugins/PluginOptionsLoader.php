@@ -20,7 +20,7 @@
 namespace ZenMagick\apps\store\Plugins;
 
 use ZenMagick\Base\Plugins\PluginOptionsLoader as BasePluginOptionsLoader;
-use ZenMagick\apps\store\Services\ConfigWidgetService;
+use ZenMagick\apps\store\Services\ConfigService;
 use ZenMagick\Base\Plugins\Plugin;
 
 /**
@@ -32,16 +32,16 @@ class PluginOptionsLoader extends BasePluginOptionsLoader {
     const KEY_PREFIX = 'PLUGIN_';
     const KEY_ENABLED = 'ENABLED';
     const KEY_SORT_ORDER = 'SORT_ORDER';
-    protected $configWidgetService;
+    protected $configService;
 
 
     /**
-     * Set the config widget service.
+     * Set the config service.
      *
-     * @param ConfigWidgetService configWidgetService The service.
+     * @param ConfigService configService The service.
      */
-    public function setConfigWidgetService(ConfigWidgetService $configWidgetService) {
-        $this->configWidgetService = $configWidgetService;
+    public function setConfigService(ConfigService $configService) {
+        $this->configService = $configService;
     }
 
     /**
@@ -59,24 +59,27 @@ class PluginOptionsLoader extends BasePluginOptionsLoader {
         $config['meta']['options'] = isset($config['meta']['options']) ? $config['meta']['options'] : array();
         $config['meta']['options']['properties'] = isset($config['meta']['options']['properties']) ? $config['meta']['options']['properties'] : array();
 
-        foreach ($this->configWidgetService->getConfigValues($configPrefix.'%') as $configValue) {
+        foreach ($this->configService->getConfigValues($configPrefix.'%') as $configValue) {
             // once values are stored as-is, the prefix will come back...
-            $name = str_replace($configPrefix, '', $configValue->getName());
+            $name = str_replace($configPrefix, '', $configValue->getKey());
             if (self::KEY_ENABLED == $name) {
-                $config['meta']['enabled'] = $configValue->getValue();
+                $config['meta']['enabled'] = $configValue->getValue('boolean');
                 // enabled key in the db is the indicator for installed plugins
                 $config['meta']['installed'] = true;
             } else if (self::KEY_SORT_ORDER == $name) {
                 $config['meta']['sortOrder'] = $configValue->getValue();
             } else {
-                // find matching name
-                foreach (array_keys($config['meta']['options']['properties']) as $pname) {
+                // find matching name and type
+                $type = null;
+                $properties = $config['meta']['options']['properties'];
+                foreach ($properties as $pname => $property) {
                     if (strtoupper($pname) == strtoupper($name)) {
                         $name = $pname;
+                        $type = isset($property['type']) ? $property['type'] : null;
                         break;
                     }
                 }
-                $config['meta']['options']['properties'][$name]['value'] = $configValue->getValue();
+                $config['meta']['options']['properties'][$name]['value'] = $configValue->getValue($type);
             }
         }
 

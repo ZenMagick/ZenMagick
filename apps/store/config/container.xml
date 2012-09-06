@@ -118,8 +118,8 @@
         </service>
 
         <service id="pluginOptionsLoader" class="ZenMagick\apps\store\Plugins\PluginOptionsLoader">
-            <call method="setConfigWidgetService">
-                <argument type="service" id="configWidgetService" />
+            <call method="setConfigService">
+                <argument type="service" id="configService" />
             </call>
         </service>
 
