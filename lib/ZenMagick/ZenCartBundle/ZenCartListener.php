@@ -21,7 +21,7 @@ namespace ZenMagick\ZenCartBundle;
 
 use ZenMagick\Base\Beans;
 use ZenMagick\Base\Runtime;
-use ZenMagick\apps\store\Entity\Coupons\Coupon;
+use ZenMagick\StoreBundle\Entity\Coupons\Coupon;
 
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;

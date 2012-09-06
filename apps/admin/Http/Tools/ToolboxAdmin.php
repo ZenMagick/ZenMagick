@@ -21,7 +21,7 @@ namespace ZenMagick\apps\admin\Http\Tools;
 
 use ZenMagick\Base\Runtime;
 use ZenMagick\Http\Toolbox\ToolboxTool;
-use ZenMagick\apps\store\Controller\CatalogContentController;
+use ZenMagick\StoreBundle\Controller\CatalogContentController;
 
 /**
  * Admin related functions.

@@ -19,7 +19,7 @@
  */
 
 use ZenMagick\Base\Runtime;
-use ZenMagick\apps\store\View\ThemeResourceResolver;
+use ZenMagick\StoreBundle\View\ThemeResourceResolver;
 use ZenMagick\plugins\minify\view\MinifyResourceManager;
 use ZenMagick\plugins\unitTests\simpletest\TestCase;
 

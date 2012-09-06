@@ -53,7 +53,7 @@ class ZenMagickBundle extends Bundle {
         $parameterBag = $this->container->getParameterBag();
         $rootDir = $parameterBag->get('zenmagick.root_dir');
         $settingsFiles = array();
-        $settingsFiles[] = $rootDir.'/apps/store/config/config.yaml';
+        $settingsFiles[] = $rootDir.'/lib/ZenMagick/StoreBundle/config/config.yaml';
         $settingsFiles[] = $parameterBag->get('kernel.context_dir').'/config/config.yaml';
         // @todo do something better for non store apps
         $settingsFiles[] = $rootDir.'/config/store-config.yaml';
@@ -76,7 +76,7 @@ class ZenMagickBundle extends Bundle {
                 }
             }
 
-            $defaults = $rootDir.'/apps/store/config/defaults.php';
+            $defaults = $rootDir.'/lib/ZenMagick/StoreBundle/config/defaults.php';
             if (file_exists($defaults)) {
                 include $defaults;
             }

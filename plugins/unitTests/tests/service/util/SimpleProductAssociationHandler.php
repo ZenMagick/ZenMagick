@@ -18,8 +18,8 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-use ZenMagick\apps\store\Model\Catalog\ProductAssociation;
-use ZenMagick\apps\store\Services\Catalog\ProductAssociationHandler;
+use ZenMagick\StoreBundle\Model\Catalog\ProductAssociation;
+use ZenMagick\StoreBundle\Services\Catalog\ProductAssociationHandler;
 use ZenMagick\plugins\unitTests\simpletest\TestCase;
 
 /**

@@ -20,7 +20,7 @@
 namespace ZenMagick\themes\precision;
 
 use ZenMagick\Base\Runtime;
-use ZenMagick\apps\store\Themes\ThemeEventListener;
+use ZenMagick\StoreBundle\Themes\ThemeEventListener;
 
 /**
  * Theme event listener.

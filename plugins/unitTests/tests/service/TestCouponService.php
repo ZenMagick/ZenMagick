@@ -19,7 +19,7 @@
  */
 
 use ZenMagick\Base\Beans;
-use ZenMagick\apps\store\Entity\Coupons\Coupon;
+use ZenMagick\StoreBundle\Entity\Coupons\Coupon;
 use ZenMagick\plugins\unitTests\simpletest\TestCase;
 
 /**

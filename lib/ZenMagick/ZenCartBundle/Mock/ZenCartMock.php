@@ -20,7 +20,7 @@
 namespace ZenMagick\ZenCartBundle\Mock;
 
 use ZenMagick\Base\Runtime;
-use ZenMagick\apps\store\Model\Checkout\ShoppingCart;
+use ZenMagick\StoreBundle\Model\Checkout\ShoppingCart;
 use ZenMagick\ZenCartBundle\Mock\ZenCartCheckoutOrder;
 use ZenMagick\ZenCartBundle\Mock\ZenCartOrderTotal;
 

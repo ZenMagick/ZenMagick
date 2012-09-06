@@ -136,7 +136,7 @@ class L10nController extends \ZMController {
         if (null != $vd['themeId']) {
             $theme = $themeService->getThemeForId($vd['themeId']);
             $themeMap = $scanner->buildL10nMap($theme->getBaseDir());
-            $storeMap = $scanner->buildL10nMap($kernel->getRootDir().'/apps/store');
+            $storeMap = $scanner->buildL10nMap($kernel->getRootDir().'/lib/ZenMagick/StoreBundle');
             $fileMap = array_merge($themeMap, $storeMap);
         }
 

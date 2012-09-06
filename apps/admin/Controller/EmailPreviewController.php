@@ -22,13 +22,13 @@ namespace ZenMagick\apps\admin\Controller;
 use ZenMagick\Base\Events\Event;
 use ZenMagick\Http\View\View;
 
-use ZenMagick\apps\store\Model\Mock\MockAccount;
-use ZenMagick\apps\store\Model\Mock\MockOrder;
-use ZenMagick\apps\store\Model\Mock\MockProduct;
-use ZenMagick\apps\store\Model\Mock\MockCoupon;
-use ZenMagick\apps\store\Model\Mock\MockReview;
-use ZenMagick\apps\store\Model\Mock\MockEmailMessage;
-use ZenMagick\apps\store\Model\Mock\MockGVReceiver;
+use ZenMagick\StoreBundle\Model\Mock\MockAccount;
+use ZenMagick\StoreBundle\Model\Mock\MockOrder;
+use ZenMagick\StoreBundle\Model\Mock\MockProduct;
+use ZenMagick\StoreBundle\Model\Mock\MockCoupon;
+use ZenMagick\StoreBundle\Model\Mock\MockReview;
+use ZenMagick\StoreBundle\Model\Mock\MockEmailMessage;
+use ZenMagick\StoreBundle\Model\Mock\MockGVReceiver;
 
 /**
  * Admin controller for email previews.

@@ -32,7 +32,7 @@ class ReviewsController extends \ZMController {
      * {@inheritDoc}
      */
     public function processGet($request) {
-        $resultSource = new \ZMObjectResultSource('ZenMagick\apps\store\entities\catalog\Review', 'reviewService', "getAllReviews", array($request->getSession()->getLanguageId()));
+        $resultSource = new \ZMObjectResultSource('ZenMagick\StoreBundle\entities\catalog\Review', 'reviewService', "getAllReviews", array($request->getSession()->getLanguageId()));
         $resultList = Beans::getBean('ZMResultList');
         $resultList->setResultSource($resultSource);
         $resultList->setPageNumber($request->query->getInt('page'));

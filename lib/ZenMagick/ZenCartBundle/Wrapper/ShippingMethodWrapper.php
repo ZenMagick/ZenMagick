@@ -43,7 +43,7 @@ class ShippingMethodWrapper extends ZMObject implements \ZMShippingMethod {
         parent::__construct();
         $this->provider_ = $provider;
         $this->zenMethod_ = $zenMethod;
-        $this->taxRate_ = Beans::getBean('ZenMagick\apps\store\Entity\TaxRate');
+        $this->taxRate_ = Beans::getBean('ZenMagick\StoreBundle\Entity\TaxRate');
     }
 
 

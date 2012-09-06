@@ -77,7 +77,7 @@ class TestManufacturerService extends TestCase {
      */
     public function testNoInfo() {
         // create new manufacturer without info record
-        $newManufacturer = Beans::getBean('ZenMagick\apps\store\Entity\Catalog\Manufacturer');
+        $newManufacturer = Beans::getBean('ZenMagick\StoreBundle\Entity\Catalog\Manufacturer');
         $newManufacturer->setName('Foo');
         $newManufacturer->setDateAdded(new \DateTime());
         $newManufacturer->setLastModified(new \DateTime());

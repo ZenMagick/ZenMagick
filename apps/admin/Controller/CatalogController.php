@@ -25,7 +25,7 @@ use ZenMagick\Base\Toolbox;
 use ZenMagick\Base\Logging\Logging;
 use ZenMagick\Http\Request;
 use ZenMagick\Http\Sacs\SacsManager;
-use ZenMagick\apps\store\Controller\CatalogContentController;
+use ZenMagick\StoreBundle\Controller\CatalogContentController;
 
 /**
  * Admin controller for catalog page(s).

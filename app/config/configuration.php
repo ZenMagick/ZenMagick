@@ -17,7 +17,7 @@ $prefix = $container->getParameter('table_prefix');
 
 \ZMRuntime::setDatabase('default', compact('host', 'port', 'user', 'password', 'dbname', 'prefix'));
 try {
-    $configService = new \ZenMagick\apps\store\Services\ConfigService;
+    $configService = new \ZenMagick\StoreBundle\Services\ConfigService;
     $configService->loadAll();
     $container->setParameter('session_handler', 'session.handler.pdo');
 } catch(\Exception $e) {

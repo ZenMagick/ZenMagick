@@ -18,7 +18,7 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-use ZenMagick\apps\store\Model\Checkout\ShoppingCart;
+use ZenMagick\StoreBundle\Model\Checkout\ShoppingCart;
 
 /**
  * Order total interface.

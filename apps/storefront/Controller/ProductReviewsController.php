@@ -39,7 +39,7 @@ class ProductReviewsController extends \ZMController {
         $data = array();
         $data['currentProduct'] = $product;
 
-        $resultSource = new \ZMObjectResultSource('ZenMagick\apps\store\entities\catalog\Review', 'reviewService', "getReviewsForProductId", array($product->getId(), $request->getSession()->getLanguageId()));
+        $resultSource = new \ZMObjectResultSource('ZenMagick\StoreBundle\entities\catalog\Review', 'reviewService', "getReviewsForProductId", array($product->getId(), $request->getSession()->getLanguageId()));
         $resultList = Beans::getBean('ZMResultList');
         $resultList->setResultSource($resultSource);
         $resultList->setPageNumber($request->query->getInt('page'));

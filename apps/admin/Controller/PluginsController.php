@@ -25,7 +25,7 @@ use ZenMagick\Base\Toolbox;
 use ZenMagick\Base\Logging\Logging;
 use ZenMagick\Base\Plugins\Plugin;
 use ZenMagick\Http\Widgets\Form\FormWidget;
-use ZenMagick\apps\store\Plugins\PluginOptionsLoader;
+use ZenMagick\StoreBundle\Plugins\PluginOptionsLoader;
 
 /**
  * Admin controller for plugins.

@@ -21,7 +21,7 @@ namespace ZenMagick\ZenCartBundle\Mock;
 
 use ZenMagick\Base\Runtime;
 use ZenMagick\Base\ZMObject;
-use ZenMagick\apps\store\Model\Checkout\ShoppingCart;
+use ZenMagick\StoreBundle\Model\Checkout\ShoppingCart;
 /**
  * A zencart order based on the shopping cart.
  *

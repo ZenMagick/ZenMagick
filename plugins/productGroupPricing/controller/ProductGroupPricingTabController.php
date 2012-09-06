@@ -22,7 +22,7 @@ namespace ZenMagick\plugins\productGroupPricing\controller;
 
 use ZenMagick\Base\Beans;
 use ZenMagick\Base\Toolbox;
-use ZenMagick\apps\store\Controller\CatalogContentController;
+use ZenMagick\StoreBundle\Controller\CatalogContentController;
 
 /**
  * Admin controller.

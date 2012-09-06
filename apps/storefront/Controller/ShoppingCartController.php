@@ -28,7 +28,7 @@ use ZenMagick\Base\ZMObject;
 use ZenMagick\Base\Events\Event;
 use ZenMagick\Http\Request;
 use ZenMagick\Http\View\ModelAndView;
-use ZenMagick\apps\store\Utils\CheckoutHelper;
+use ZenMagick\StoreBundle\Utils\CheckoutHelper;
 
 /**
  * Request controller for shopping cart.

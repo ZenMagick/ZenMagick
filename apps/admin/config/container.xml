@@ -3,7 +3,7 @@
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
     <imports>
-        <import resource="../../store/config/container.xml" />
+        <import resource="../../../lib/ZenMagick/StoreBundle/config/container.xml" />
         <import resource="dashboard.xml" />
     </imports>
 
@@ -25,7 +25,7 @@
             <tag name="zenmagick.apps.store.editor" label="Plain" />
         </service>
 
-        <service id="adminMenu" class="ZenMagick\apps\store\Menu\Menu" />
+        <service id="adminMenu" class="ZenMagick\StoreBundle\Menu\Menu" />
 
         <service id="catalogDefaultTabController" class="ZenMagick\apps\admin\Controller\CatalogDefaultTabController">
             <tag name="apps.store.admin.tabcontroller" />

@@ -5,7 +5,7 @@
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
     <imports>
-        <import resource="../../store/config/container.xml" />
+        <import resource="../../../lib/ZenMagick/StoreBundle/config/container.xml" />
     </imports>
 
     <services>
@@ -25,11 +25,11 @@
             <tag name="zenmagick.http.request.rewriter" />
         </service>
 
-        <service id="defaultRssFeedSource" class="ZenMagick\apps\store\Rss\DefaultRssFeedSource">
+        <service id="defaultRssFeedSource" class="ZenMagick\StoreBundle\Rss\DefaultRssFeedSource">
             <tag name="zenmagick.http.rss.source" />
         </service>
 
-        <service id="catalogRssFeedSource" class="ZenMagick\apps\store\Rss\CatalogRssFeedSource">
+        <service id="catalogRssFeedSource" class="ZenMagick\StoreBundle\Rss\CatalogRssFeedSource">
             <tag name="zenmagick.http.rss.source" />
         </service>
 

@@ -19,7 +19,7 @@
  */
 namespace ZenMagick\plugins\productTags\controller;
 
-use ZenMagick\apps\store\Controller\CatalogContentController;
+use ZenMagick\StoreBundle\Controller\CatalogContentController;
 
 /**
  * Admin controller.

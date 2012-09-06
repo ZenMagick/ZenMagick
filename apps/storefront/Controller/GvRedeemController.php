@@ -20,7 +20,7 @@
 namespace ZenMagick\apps\storefront\Controller;
 
 use ZenMagick\Base\Toolbox;
-use ZenMagick\apps\store\Entity\Coupons\Coupon;
+use ZenMagick\StoreBundle\Entity\Coupons\Coupon;
 
 /**
  * Request controller for gv redeem page.

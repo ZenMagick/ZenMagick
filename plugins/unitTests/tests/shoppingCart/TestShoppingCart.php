@@ -19,7 +19,7 @@
  */
 
 use ZenMagick\Base\ZMObject;
-use ZenMagick\apps\store\Utils\CheckoutHelper;
+use ZenMagick\StoreBundle\Utils\CheckoutHelper;
 use ZenMagick\plugins\unitTests\simpletest\TestCase;
 
 /**

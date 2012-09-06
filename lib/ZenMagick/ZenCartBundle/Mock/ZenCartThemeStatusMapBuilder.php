@@ -20,7 +20,7 @@
 namespace ZenMagick\ZenCartBundle\Mock;
 
 use DirectoryIterator;
-use ZenMagick\apps\store\Themes\ThemeStatusMapBuilder;
+use ZenMagick\StoreBundle\Themes\ThemeStatusMapBuilder;
 
 /**
  * Theme service with with zencart support.

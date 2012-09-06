@@ -25,8 +25,8 @@ use ZenMagick\Base\Toolbox;
 use ZenMagick\Base\ZMObject;
 use ZenMagick\Http\View\TemplateView;
 
-use ZenMagick\apps\store\Menu\MenuElement;
-use ZenMagick\apps\store\Menu\MenuLoader;
+use ZenMagick\StoreBundle\Menu\MenuElement;
+use ZenMagick\StoreBundle\Menu\MenuLoader;
 
 
 /**

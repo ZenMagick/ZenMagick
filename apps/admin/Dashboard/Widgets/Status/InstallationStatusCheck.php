@@ -21,7 +21,7 @@ namespace ZenMagick\apps\admin\Dashboard\Widgets\Status;
 
 use DateTime;
 use ZenMagick\Base\Runtime;
-use ZenMagick\apps\store\Widgets\StatusCheck;
+use ZenMagick\StoreBundle\Widgets\StatusCheck;
 
 /**
  * Installation status check.

@@ -25,7 +25,7 @@ namespace ZenMagick\themes\modern\tools;
  *
  * @author DerManoMann
  */
-class ToolboxHtml extends \ZenMagick\apps\store\Toolbox\ToolboxHtml {
+class ToolboxHtml extends \ZenMagick\StoreBundle\Toolbox\ToolboxHtml {
 
    /**
      * Create a full HTML &lt;a&gt; tag pointig to an ezpage.

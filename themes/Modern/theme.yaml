@@ -9,7 +9,7 @@ storefront:
     services:
       modernHtmlTool:
         parent: merge:htmlTool
-        class: ZenMagick\apps\store\Themes\modern\tools\ToolboxHtml
+        class: ZenMagick\StoreBundle\Themes\modern\tools\ToolboxHtml
       modernMacroTool:
         parent: merge:macroTool
-        class: ZenMagick\apps\store\Themes\modern\tools\ToolboxMacro
+        class: ZenMagick\StoreBundle\Themes\modern\tools\ToolboxMacro
