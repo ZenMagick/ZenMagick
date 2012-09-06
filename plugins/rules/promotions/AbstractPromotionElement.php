@@ -34,7 +34,7 @@ abstract class AbstractPromotionElement implements PromotionElement {
     /**
      * Set the current product.
      *
-     * @param ZMProduct product The product.
+     * @param ZenMagick\StoreBundle\Entity\Catalog\Product product The product.
      */
     public function setProduct($product) {
         $this->product = $product;
@@ -43,7 +43,7 @@ abstract class AbstractPromotionElement implements PromotionElement {
     /**
      * Get the current product.
      *
-     * @return ZMProduct The product or <code>null</code>.
+     * @return ZenMagick\StoreBundle\Entity\Catalog\Product The product or <code>null</code>.
      */
     public function getProduct() {
         return $this->product;

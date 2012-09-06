@@ -18,6 +18,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
+namespace ZenMagick\StoreBundle\Entity\Catalog;
 
 use ZenMagick\Base\Beans;
 use ZenMagick\Base\ZMObject;
@@ -28,11 +29,10 @@ use Doctrine\ORM\Mapping AS ORM;
  * A product.
  *
  * @author DerManoMann
- * @package zenmagick.store.shared.model.catalog
  * @ORM\Table(name="products")
  * @ORM\Entity
  */
-class ZMProduct extends ZMObject {
+class Product extends ZMObject {
     const SHIPPING_NORMAL = 0;
     const SHIPPING_ALWAYS_FREE = 1;
     const SHIPPING_SPECIAL = 2;
@@ -221,11 +221,11 @@ class ZMProduct extends ZMObject {
      */
     private $metaTagsTitleStatus;
     /**
-     * @var boolean $metaTagsProductsNameStatus
+     * @var boolean $metaTagsProductNameStatus
      *
      * @ORM\Column(name="metatags_products_name_status", type="boolean", nullable=false)
      */
-    private $metaTagsProductsNameStatus;
+    private $metaTagsProductNameStatus;
     /**
      * @var boolean $metaTagsModelStatus
      *
@@ -510,6 +510,13 @@ class ZMProduct extends ZMObject {
     public function isQtyMixed() { return $this->qtyMixed; }
 
     /**
+     * Checks if the product quantity is calculated across product variations or not.
+     *
+     * @return boolean
+     */
+    public function getQtyMixed() { return $this->qtyMixed; }
+
+    /**
      * Set the product quantity mixed flag.
      *
      * @param int $qtyMixed
@@ -550,6 +557,21 @@ class ZMProduct extends ZMObject {
      * @param float $productsQuantityOrderMax
      */
     public function setMaxOrderQty($qtyOrderMax) { $this->qtyOrderMax = $qtyOrderMax; }
+
+    /**
+     * Set qtyOrderMax
+     *
+     * @param float $qtyOrderMax
+     */
+    public function setQtyOrderMax($qtyOrderMax) { $this->qtyOrderMax = $qtyOrderMax; }
+
+    /**
+     * Get qtyOrderMax
+     *
+     * @return float
+     */
+    public function getQtyOrderMax() { return $this->qtyOrderMax; }
+
     /**
      * Get the min quantity per order.
      *
@@ -563,6 +585,20 @@ class ZMProduct extends ZMObject {
      * @param float $qtyOrderMin
      */
     public function setMinOrderQty($qtyOrderMin) { $this->qtyOrderMin = $qtyOrderMin; }
+
+    /**
+     * Set qtyOrderMin
+     *
+     * @param float $qtyOrderMin
+     */
+    public function setQtyOrderMin($qtyOrderMin) { $this->qtyOrderMin = $qtyOrderMin; }
+
+    /**
+     * Get qtyOrderMin
+     *
+     * @return float
+     */
+    public function getQtyOrderMin() { return $this->qtyOrderMin; }
 
     /**
      * Get the quantity units.
@@ -585,7 +621,6 @@ class ZMProduct extends ZMObject {
      */
     public function getQtyMixedDiscount() { return $this->qtyMixedDiscount; }
 
-
     /**
      * Set qtyMixedDiscount
      *
@@ -601,6 +636,13 @@ class ZMProduct extends ZMObject {
     public function isFree() { return $this->free; }
 
     /**
+     * Get free
+     *
+     * @return boolean
+     */
+    public function getFree() { return $this->free; }
+
+    /**
      * Set the product is free flag.
      *
      * @param boolean value <code>true</code> if the product is free, <code>false</code> if not.
@@ -613,6 +655,13 @@ class ZMProduct extends ZMObject {
      * @return boolean <code>true</code> if the product is virtual, <code>false</code> if not.
      */
     public function isVirtual() { return $this->virtual; }
+
+    /**
+     * Checks if the product is virtual.
+     *
+     * @return boolean <code>true</code> if the product is virtual, <code>false</code> if not.
+     */
+    public function getVirtual() { return $this->virtual; }
 
     /**
      * Set the product is virtual flag.
@@ -650,6 +699,13 @@ class ZMProduct extends ZMObject {
     public function isCall() { return $this->call; }
 
     /**
+     * Checks if the user needs to call for this product.
+     *
+     * @return boolean <code>true</code> if the user must call, <code>false</code> if not.
+     */
+    public function getCall() { return $this->call; }
+
+    /**
      * Sets the flag to indicate that the user needs to call for this product.
      *
      * @param boolean value <code>true</code> if the user must call, <code>false</code> if not.
@@ -685,6 +741,13 @@ class ZMProduct extends ZMObject {
     public function getDiscountType() { return $this->discountType; }
 
     /**
+     * Set discountType
+     *
+     * @param boolean $discountType
+     */
+    public function setDiscountType($discountType) { $this->discountType = $discountType; }
+
+    /**
      * Get the discount type from.
      *
      * <p>Legal values:</p>
@@ -696,6 +759,13 @@ class ZMProduct extends ZMObject {
      * @return int The discount type from.
      */
     public function getDiscountTypeFrom() { return $this->discountTypeFrom; }
+
+    /**
+     * Set discountTypeFrom
+     *
+     * @param boolean $discountTypeFrom
+     */
+    public function setDiscountTypeFrom($discountTypeFrom) { $this->discountTypeFrom = $discountTypeFrom; }
 
     /**
      * Get the tax rate.
@@ -931,52 +1001,14 @@ class ZMProduct extends ZMObject {
      *
      * @return boolean <code>true</code> if priced by attributes.
      */
+    public function getPricedByAttributes() { return $this->pricedByAttributes; }
+
+    /**
+     * Check if the product is priced by attributes.
+     *
+     * @return boolean <code>true</code> if priced by attributes.
+     */
     public function isPricedByAttributes() { return $this->pricedByAttributes; }
-
-    /**
-     * Set the discount type.
-     *
-     * @param int type The discount type.
-     */
-    public function setDiscountType($type) { $this->discountType = $type; }
-
-    /**
-     * Set the discount type from.
-     *
-     * @param int The discount type from.
-     */
-    public function setDiscountTypeFrom($typeFrom) { $this->discountTypeFrom = $typeFrom; }
-
-    /**
-     * Get the language id.
-     *
-     * @return int The language id.
-     */
-    public function getLanguageId() { return $this->languageId; }
-
-    /**
-     * Set the language id.
-     *
-     * @param int id The language id.
-     */
-    public function setLanguageId($id) { $this->languageId = $id; }
-
-    /**
-     * Get product associations for the given type(s) and parameter.
-     *
-     * @param string type The association type.
-     * @param array args Optional parameter that might be required by the used type; default is an empty array.
-     * @param boolean all Optional flag to load all configured products, regardless of start/end date, etc; default is <code>false</code>.
-     * @return array A list of <code>ZMProductAssociation</code> instances.
-     */
-    public function getProductAssociations($type, $args=array(), $all=false) {
-        // some defaults
-        if (!array_key_exists('languageId', $args)) {
-            $args['languageId'] = $this->getLanguageId();
-        }
-        return $this->container->get('productAssociationService')->getProductAssociationsForProductId($this->getId(), $type, $args, $all);
-    }
-
 
     /**
      * Get meta tag details if available.
@@ -1057,4 +1089,18 @@ class ZMProduct extends ZMObject {
      * @param boolean $metaTagsTitleTaglineStatus
      */
     public function setMetaTagsTitleTaglineStatus($metaTagsTitleTaglineStatus) { $this->metaTagsTitleTaglineStatus = $metaTagsTitleTaglineStatus; }
+
+    /**
+     * Set ordered
+     *
+     * @param float $ordered
+     */
+    public function setOrdered($ordered) { $this->ordered = $ordered; }
+
+    /**
+     * Get ordered
+     *
+     * @return float
+     */
+    public function getOrdered() { return $this->ordered; }
 }

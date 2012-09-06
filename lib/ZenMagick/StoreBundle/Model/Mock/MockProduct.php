@@ -19,13 +19,14 @@
  */
 namespace ZenMagick\StoreBundle\Model\Mock;
 
+use ZenMagick\StoreBundle\Entity\Catalog\Product;
 
 /**
  * Mock product.
  *
  * @author DerManoMann
  */
-class MockProduct extends \ZMProduct {
+class MockProduct extends Product {
 
     /**
      * Create new instance.

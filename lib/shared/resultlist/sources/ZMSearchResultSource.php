@@ -99,7 +99,7 @@ class ZMSearchResultSource extends ZMObject implements ZMResultSource {
      * {@inheritDoc}
      */
     public function getResultClass() {
-        return 'ZMProduct';
+        return 'ZenMagick\StoreBundle\Entity\Catalog\Product';
     }
 
     /**

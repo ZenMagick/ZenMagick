@@ -88,7 +88,7 @@ class ProductReviewsWriteController extends \ZMController {
      * Get the product.
      *
      * @param ZenMagick\Http\Request request The current request.
-     * @return ZMProduct The product or <code>null</code>.
+     * @return ZenMagick\StoreBundle\Entity\Catalog\Product The product or <code>null</code>.
      */
     protected function getProduct($request) {
         $product = null;

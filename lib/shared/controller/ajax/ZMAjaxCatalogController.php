@@ -96,7 +96,7 @@ class ZMAjaxCatalogController extends ZMAjaxController {
         } else {
             // use result list to paginate
             $args = array($categoryId, $activeOnly, $languageId);
-            $resultSource = new ZMObjectResultSource('ZMProduct', 'productService', "getProductsForCategoryId", $args);
+            $resultSource = new ZMObjectResultSource('ZenMagick\StoreBundle\Entity\Catalog\Product', 'productService', "getProductsForCategoryId", $args);
             $resultList = Beans::getBean('ZMResultList');
             $resultList->setResultSource($resultSource);
             $resultList->setPageNumber($page);
@@ -138,7 +138,7 @@ class ZMAjaxCatalogController extends ZMAjaxController {
         } else {
             // use result list to paginate
             $args = array($manufacturerId, $activeOnly, $languageId);
-            $resultSource = new ZMObjectResultSource('ZMProduct', 'productService', "getProductsForManufacturerId", $args);
+            $resultSource = new ZMObjectResultSource('ZenMagick\StoreBundle\Entity\Catalog\Product', 'productService', "getProductsForManufacturerId", $args);
             $resultList = Beans::getBean('ZMResultList');
             $resultList->setResultSource($resultSource);
             $resultList->setPageNumber($page);

@@ -162,11 +162,11 @@ class TestBeans extends TestCase {
      * Test magic value
      */
     public function testMagicValue() {
-        $bean = Beans::getBean('ZenMagick\Base\ZMObject#handler='.urlencode('bean::ZMProduct#name=foo'));
+        $bean = Beans::getBean('ZenMagick\Base\ZMObject#handler='.urlencode('bean::ZenMagick\StoreBundle\Entity\Catalog\Product#name=foo'));
         if ($this->assertNotNull($bean)) {
             $handler = $bean->getHandler();
             if ($this->assertNotNull($handler)) {
-                if ($this->assertTrue($handler instanceof ZMProduct)) {
+                if ($this->assertTrue($handler instanceof ZenMagick\StoreBundle\Entity\Catalog\Product)) {
                     $this->assertEqual('foo', $handler->getName());
                 }
             }

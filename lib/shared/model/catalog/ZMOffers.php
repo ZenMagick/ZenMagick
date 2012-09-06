@@ -55,7 +55,7 @@ class ZMOffers extends ZMObject {
     /**
      * Create new instance.
      *
-     * @param ZMProduct product The product; default is <code>null</code>.
+     * @param ZenMagick\StoreBundle\Entity\Catalog\Product product The product; default is <code>null</code>.
      */
     public function __construct($product=null) {
         parent::__construct();
@@ -89,7 +89,7 @@ class ZMOffers extends ZMObject {
     /**
      * Set the product.
      *
-     * @param ZMProduct product The product.
+     * @param ZenMagick\StoreBundle\Entity\Catalog\Product product The product.
      */
     public function setProduct($product) {
         $this->product_ = $product;

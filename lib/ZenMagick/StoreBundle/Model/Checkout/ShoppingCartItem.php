@@ -219,7 +219,7 @@ class ShoppingCartItem extends ZMObject {
     /**
      * Get the product this item is associated with.
      *
-     * @return ZMProduct The product.
+     * @return ZenMagick\StoreBundle\Entity\Catalog\Product The product.
      */
     public function getProduct() {
         return $this->container->get('productService')->getProductForId($this->getProductId());

@@ -21,6 +21,7 @@ namespace ZenMagick\StoreBundle\Utils;
 
 use ZenMagick\Base\Runtime;
 use ZenMagick\Base\ZMObject;
+use ZenMagick\StoreBundle\Entity\Catalog\Product;
 use ZenMagick\ZenCartBundle\Mock\ZenCartMock;
 
 /**
@@ -184,7 +185,7 @@ class CheckoutHelper extends ZMObject {
 
             $product = $item->getProduct();
             // do only check if not special shipping
-            if ($item->hasAttributes() && \ZMProduct::SHIPPING_SPECIAL != $product->getAlwaysFreeShipping()) {
+            if ($item->hasAttributes() && Product::SHIPPING_SPECIAL != $product->getAlwaysFreeShipping()) {
                 // check attributes too
                 foreach ($item->getAttributes() as $attribute) {
                     if ($attribute->isVirtual()) {

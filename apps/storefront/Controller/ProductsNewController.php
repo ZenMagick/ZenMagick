@@ -32,7 +32,7 @@ class ProductsNewController extends \ZMController {
      * {@inheritDoc}
      */
     public function processGet($request) {
-        $resultSource = new \ZMObjectResultSource('ZMProduct', 'productService', "getNewProducts");
+        $resultSource = new \ZMObjectResultSource('ZenMagick\StoreBundle\Entity\Catalog\Product', 'productService', "getNewProducts");
         $resultList = Beans::getBean('ZMResultList');
         $resultList->setResultSource($resultSource);
         $settingsService = $this->container->get('settingsService');

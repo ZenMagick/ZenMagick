@@ -13,7 +13,7 @@ admin:
   
 
 Each field is configured separately, and requires the following information:
-- name: The property name of ZMProduct
+- name: The property name of ZenMagick\StoreBundle\Entity\Catalog\Product
 - widget: The widget to handle the data
 
 NOTE: For custom database fields you also have to configure ZMProducts in order to actually read/write those columns. This is done

@@ -98,7 +98,7 @@ class ZMProducts extends ZMObject implements SqlAware {
         }
         $sql .= " ORDER BY p.products_sort_order, pd.products_name";
         $args = array('languageId' => $languageId);
-        return new QueryDetails(ZMRuntime::getDatabase(), $sql, $args, array('products', 'specials', 'products_description'), 'ZMProduct', 'p.products_id');
+        return new QueryDetails(ZMRuntime::getDatabase(), $sql, $args, array('products', 'specials', 'products_description'), 'ZenMagick\StoreBundle\Entity\Catalog\Product', 'p.products_id');
     }
 
     /**
@@ -131,7 +131,7 @@ class ZMProducts extends ZMObject implements SqlAware {
      *
      * @param boolean active If <code>true</code> return only active products; default is <code>true</code>.
      * @param int languageId Language id.
-     * @return array A list of <code>ZMProduct</code> instances.
+     * @return array A list of <code>ZenMagick\StoreBundle\Entity\Catalog\Product</code> instances.
      */
     public function getAllProducts($active=true, $languageId) {
         $sql = "SELECT p.products_id
@@ -212,7 +212,7 @@ class ZMProducts extends ZMObject implements SqlAware {
      * @param int categoryId The category id.
      * @param boolean active If <code>true</code> return only active products.
      * @param int languageId Language id.
-     * @return array A list of <code>ZMProduct</code> instances.
+     * @return array A list of <code>ZenMagick\StoreBundle\Entity\Catalog\Product</code> instances.
      */
     protected function getProductsForCategoryIdQueryDetails($categoryId, $active, $languageId) {
         $sql = "SELECT p.*, pd.*, m.*, s.specials_new_products_price
@@ -228,7 +228,7 @@ class ZMProducts extends ZMObject implements SqlAware {
         }
         $sql .= " ORDER BY p.products_sort_order, pd.products_name";
         $args = array('categoryId' => $categoryId, 'languageId' => $languageId);
-        return new QueryDetails(ZMRuntime::getDatabase(), $sql, $args, array('products', 'specials', 'products_description', 'products_to_categories'), 'ZMProduct', 'p.products_id');
+        return new QueryDetails(ZMRuntime::getDatabase(), $sql, $args, array('products', 'specials', 'products_description', 'products_to_categories'), 'ZenMagick\StoreBundle\Entity\Catalog\Product', 'p.products_id');
     }
 
     /**
@@ -237,7 +237,7 @@ class ZMProducts extends ZMObject implements SqlAware {
      * @param int categoryId The category id.
      * @param boolean active If <code>true</code> return only active products; default is <code>true</code>.
      * @param int languageId Optional language id; default is <code>null</code> for session language.
-     * @return array A list of <code>ZMProduct</code> instances.
+     * @return array A list of <code>ZenMagick\StoreBundle\Entity\Catalog\Product</code> instances.
      */
     public function getProductsForCategoryId($categoryId, $active=true, $languageId=null) {
         return $this->getProductsForIds($this->getProductIdsForCategoryId($categoryId, $languageId, $active), true, $languageId);
@@ -249,7 +249,7 @@ class ZMProducts extends ZMObject implements SqlAware {
      * @param int manufacturerId The manufacturers id.
      * @param boolean active If <code>true</code> return only active products; default is <code>true</code>.
      * @param int languageId Language id.
-     * @return array A list of <code>ZMProduct</code> instances.
+     * @return array A list of <code>ZenMagick\StoreBundle\Entity\Catalog\Product</code> instances.
      */
     public function getProductsForManufacturerId($manufacturerId, $active=true, $languageId) {
         $sql = "SELECT p.products_id
@@ -322,7 +322,7 @@ class ZMProducts extends ZMObject implements SqlAware {
      * @param int max The maximum number of results; default is <code>0</code> for all.
      * @param boolean includeChildren Optional flag to include child categories in the search; default is <code>false</code>.
      * @param int languageId Optional language id; default is <code>null</code> for session language.
-     * @return array A list of <code>ZMProduct</code> instances.
+     * @return array A list of <code>ZenMagick\StoreBundle\Entity\Catalog\Product</code> instances.
      */
     public function getFeaturedProducts($categoryId=null, $max=0, $includeChildren=false, $languageId=null) {
         $sql = null;
@@ -360,7 +360,7 @@ class ZMProducts extends ZMObject implements SqlAware {
      * @param int timeLimit Optional time limit in days (or first of month for using <em>1</em);
      *  default is <code>null</code> to use the setting 'maxNewProducts'.
      * @param int languageId Optional language id; default is <code>null</code> for session language.
-     * @return array A list of <code>ZMProduct</code> instances.
+     * @return array A list of <code>ZenMagick\StoreBundle\Entity\Catalog\Product</code> instances.
      */
     public function getNewProducts($categoryId=null, $max=0, $timeLimit=null, $languageId=null) {
         $timeLimit = (int)(null === $timeLimit ? Runtime::getSettings()->get('maxNewProducts') : $timeLimit);
@@ -417,7 +417,7 @@ class ZMProducts extends ZMObject implements SqlAware {
      * @param int categoryId Optional category id to narrow down results; default is <code>null</code> for all.
      * @param int max The maximum number of results; default is <code>null</code> to use the setting <em>maxBestSellers</em>.
      * @param int languageId Optional language id; default is <code>null</code> for session language.
-     * @return array A list of <code>ZMProduct</code> instances.
+     * @return array A list of <code>ZenMagick\StoreBundle\Entity\Catalog\Product</code> instances.
      */
     public function getBestSellers($categoryId=null, $max=null, $languageId=null) {
         $max = null === $max ? Runtime::getSettings()->get('maxBestSellers') : $max;
@@ -455,7 +455,7 @@ class ZMProducts extends ZMObject implements SqlAware {
      *
      * @param int max The maximum number of results; default is <code>null</code> to use the setting <em>maxSpecialProducts</em>.
      * @param int languageId Optional language id; default is <code>null</code> for session language.
-     * @return array A list of <code>ZMProduct</code> instances.
+     * @return array A list of <code>ZenMagick\StoreBundle\Entity\Catalog\Product</code> instances.
      */
     public function getSpecials($max=null, $languageId=null) {
         $max = null === $max ? Runtime::getSettings()->get('maxSpecialProducts') : $max;
@@ -475,7 +475,7 @@ class ZMProducts extends ZMObject implements SqlAware {
      *
      * @param string model The model name.
      * @param int languageId Language id.
-     * @return ZMProduct The product or <code>null</code>.
+     * @return ZenMagick\StoreBundle\Entity\Catalog\Product The product or <code>null</code>.
      */
     public function getProductForModel($model, $languageId) {
         $sql = "SELECT p.*, pd.*, s.specials_new_products_price
@@ -488,7 +488,7 @@ class ZMProducts extends ZMObject implements SqlAware {
                   AND pd.language_id = :languageId";
         $args = array('model' => $model, 'languageId' => $languageId);
 
-        $product = ZMRuntime::getDatabase()->querySingle($sql, $args, array('products', 'products_description', 'specials'), 'ZMProduct');
+        $product = ZMRuntime::getDatabase()->querySingle($sql, $args, array('products', 'products_description', 'specials'), 'ZenMagick\StoreBundle\Entity\Catalog\Product');
         if (null != $product && null != $this->cache_) {
             $this->cache_->save($product, Toolbox::hash('product', $product->getId(), $product->getLanguageId()));
         }
@@ -501,7 +501,7 @@ class ZMProducts extends ZMObject implements SqlAware {
      *
      * @param int productId The product id.
      * @param int languageId Optional language id; default is <code>null</code> for session language.
-     * @return ZMProduct The product or <code>null</code>.
+     * @return ZenMagick\StoreBundle\Entity\Catalog\Product The product or <code>null</code>.
      */
     public function getProductForId($productId, $languageId=null) {
         if (null === $languageId) {
@@ -521,7 +521,7 @@ class ZMProducts extends ZMObject implements SqlAware {
                   AND pd.products_id = p.products_id
                   AND pd.language_id = :languageId";
         $args = array('productId' => $productId, 'languageId' => $languageId);
-        $product = ZMRuntime::getDatabase()->querySingle($sql, $args, array('products', 'products_description', 'specials'), 'ZMProduct');
+        $product = ZMRuntime::getDatabase()->querySingle($sql, $args, array('products', 'products_description', 'specials'), 'ZenMagick\StoreBundle\Entity\Catalog\Product');
 
         if (null != $this->cache_ && null != $product) {
             $this->cache_->save($product, Toolbox::hash('product', $productId, $languageId));
@@ -537,7 +537,7 @@ class ZMProducts extends ZMObject implements SqlAware {
      * @param boolean preserveOrder Optional flag to return the products in the order of the given id list, rather
      *  than using the default product sort order; default is <code>false</code>.
      * @param int languageId Optional language id; default is <code>null</code> for session language.
-     * @return ZMProduct The product or <code>null</code>.
+     * @return ZenMagick\StoreBundle\Entity\Catalog\Product The product or <code>null</code>.
      */
     public function getProductsForIds($productIds, $preserveOrder=false, $languageId=null) {
         if (null === $languageId) {
@@ -572,7 +572,7 @@ class ZMProducts extends ZMObject implements SqlAware {
                 $sql .= " ORDER BY p.products_sort_order, pd.products_name";
             }
             $args = array('productId' => $needLoadIds, 'languageId' => $languageId);
-            $results = ZMRuntime::getDatabase()->fetchAll($sql, $args, array('products', 'products_description', 'specials'), 'ZMProduct');
+            $results = ZMRuntime::getDatabase()->fetchAll($sql, $args, array('products', 'products_description', 'specials'), 'ZenMagick\StoreBundle\Entity\Catalog\Product');
             foreach ($results as $product) {
                 $products[] = $product;
                 // put in cache
@@ -599,8 +599,8 @@ class ZMProducts extends ZMObject implements SqlAware {
     /**
      * Update an existing product.
      *
-     * @param ZMProduct product The product.
-     * @return ZMProduct The updated product.
+     * @param ZenMagick\StoreBundle\Entity\Catalog\Product product The product.
+     * @return ZenMagick\StoreBundle\Entity\Catalog\Product The updated product.
      */
     public function updateProduct($product) {
         ZMRuntime::getDatabase()->updateModel('products', $product);
@@ -699,7 +699,7 @@ class ZMProducts extends ZMObject implements SqlAware {
      *
      * @param string sql Some SQL.
      * @param int languageId Optional language id; default is <code>null</code> for session language.
-     * @return array A list of <code>ZMProduct</code> instances.
+     * @return array A list of <code>ZenMagick\StoreBundle\Entity\Catalog\Product</code> instances.
      */
     public function getProductsForSQL($sql, $languageId=null) {
         $productIds = $this->getProductIds($sql);

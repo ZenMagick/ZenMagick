@@ -34,7 +34,7 @@ class FeaturedProductsController extends \ZMController {
     public function processGet($request) {
         $settingsService = $this->container->get('settingsService');
 
-        $resultSource = new \ZMObjectResultSource('ZMProduct', 'productService', "getFeaturedProducts", array($request->attributes->get('categoryId'), 0));
+        $resultSource = new \ZMObjectResultSource('ZenMagick\StoreBundle\Entity\Catalog\Product', 'productService', "getFeaturedProducts", array($request->attributes->get('categoryId'), 0));
         $resultList = Beans::getBean('ZMResultList');
         $resultList->setResultSource($resultSource);
         foreach (explode(',', $settingsService->get('resultListProductFilter')) as $filter) {

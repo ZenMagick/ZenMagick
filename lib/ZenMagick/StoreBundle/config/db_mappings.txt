@@ -372,7 +372,7 @@ array(
         'masterCategoryId' => array('column' => 'master_categories_id', 'type' => 'integer'),
         'qtyMixedDiscount' => array('column' => 'products_mixed_discount_quantity', 'type' => 'boolean'),
         'metaTagsTitleStatus' => array('column' => 'metatags_title_status', 'type' => 'boolean'),
-        'metaTagsProductsNameStatus' => array('column' => 'metatags_products_name_status', 'type' => 'boolean'),
+        'metaTagsProductNameStatus' => array('column' => 'metatags_products_name_status', 'type' => 'boolean'),
         'metaTagsModelStatus' => array('column' => 'metatags_model_status', 'type' => 'boolean'),
         'metaTagsPriceStatus' => array('column' => 'metatags_price_status', 'type' => 'boolean'),
         'metaTagsTitleTaglineStatus' => array('column' => 'metatags_title_tagline_status', 'type' => 'boolean')

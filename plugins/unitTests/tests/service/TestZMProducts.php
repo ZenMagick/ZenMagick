@@ -155,7 +155,7 @@ class TestZMProducts extends TestCase {
     public function testGetProductForModel() {
         $product = $this->container->get('productService')->getProductForModel('MG200MMS', 1);
         if ($this->assertNotNull($product)) {
-            $this->assertTrue($product instanceof ZMProduct);
+            $this->assertTrue($product instanceof ZenMagick\StoreBundle\Entity\Catalog\Product);
             $this->assertEqual(1, $product->getId());
         }
     }
