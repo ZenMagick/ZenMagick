@@ -33,13 +33,13 @@ use Doctrine\ORM\Mapping AS ORM;
  */
 class Currency extends ZMObject {
     /**
-     * @var integer $currencyId
+     * @var integer $id
      *
      * @ORM\Column(name="currencies_id", type="integer", nullable=false)
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="IDENTITY")
      */
-    private $currencyId;
+    private $id;
     /**
      * @var string $code
      *
@@ -115,7 +115,7 @@ class Currency extends ZMObject {
      *
      * @return integer $currencyId The currency id.
      */
-    public function getId() { return $this->currencyId; }
+    public function getId() { return $this->id; }
 
     /**
      * Get the currency code.
@@ -188,7 +188,7 @@ class Currency extends ZMObject {
      *
      * @param int id The currency id.
      */
-    public function setId($id) { $this->currencyId = $id; }
+    public function setId($id) { $this->id = $id; }
 
     /**
      * Set the currency code.

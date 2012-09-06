@@ -403,4 +403,46 @@ class Coupon extends ZMObject {
         $this->translations[$languageId] = new CouponTranslations($this, $name, $description, $languageId);
     }
 
+
+    /**
+     * Get active
+     *
+     * @return string 
+     */
+    public function getActive()
+    {
+        return $this->active;
+    }
+
+    /**
+     * Add translations
+     *
+     * @param ZenMagick\StoreBundle\Entity\Coupons\CouponTranslations $translations
+     * @return Coupon
+     */
+    public function addTranslation(\ZenMagick\StoreBundle\Entity\Coupons\CouponTranslations $translations)
+    {
+        $this->translations[] = $translations;
+        return $this;
+    }
+
+    /**
+     * Remove translations
+     *
+     * @param ZenMagick\StoreBundle\Entity\Coupons\CouponTranslations $translations
+     */
+    public function removeTranslation(\ZenMagick\StoreBundle\Entity\Coupons\CouponTranslations $translations)
+    {
+        $this->translations->removeElement($translations);
+    }
+
+    /**
+     * Get translations
+     *
+     * @return Doctrine\Common\Collections\Collection 
+     */
+    public function getTranslations()
+    {
+        return $this->translations;
+    }
 }

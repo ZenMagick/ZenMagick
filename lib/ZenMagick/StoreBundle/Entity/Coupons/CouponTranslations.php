@@ -122,4 +122,26 @@ class CouponTranslations extends ZMObject {
      * @param text $description
      */
     public function setDescription($description) { $this->description = $description; }
+
+    /**
+     * Set coupon
+     *
+     * @param ZenMagick\StoreBundle\Entity\Coupons\Coupon $coupon
+     * @return CouponTranslations
+     */
+    public function setCoupon(\ZenMagick\StoreBundle\Entity\Coupons\Coupon $coupon)
+    {
+        $this->coupon = $coupon;
+        return $this;
+    }
+
+    /**
+     * Get coupon
+     *
+     * @return ZenMagick\StoreBundle\Entity\Coupons\Coupon 
+     */
+    public function getCoupon()
+    {
+        return $this->coupon;
+    }
 }

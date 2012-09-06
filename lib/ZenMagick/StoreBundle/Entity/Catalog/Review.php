@@ -343,4 +343,48 @@ class Review extends ZMObject {
         $this->setDescription('', $languageId);
     }
 
+
+    /**
+     * Set status
+     *
+     * @param boolean $status
+     * @return Review
+     */
+    public function setStatus($status)
+    {
+        $this->status = $status;
+        return $this;
+    }
+
+    /**
+     * Get status
+     *
+     * @return boolean 
+     */
+    public function getStatus()
+    {
+        return $this->status;
+    }
+
+    /**
+     * Add descriptions
+     *
+     * @param ZenMagick\StoreBundle\Entity\Catalog\ReviewDescriptions $descriptions
+     * @return Review
+     */
+    public function addDescription(\ZenMagick\StoreBundle\Entity\Catalog\ReviewDescriptions $descriptions)
+    {
+        $this->descriptions[] = $descriptions;
+        return $this;
+    }
+
+    /**
+     * Remove descriptions
+     *
+     * @param ZenMagick\StoreBundle\Entity\Catalog\ReviewDescriptions $descriptions
+     */
+    public function removeDescription(\ZenMagick\StoreBundle\Entity\Catalog\ReviewDescriptions $descriptions)
+    {
+        $this->descriptions->removeElement($descriptions);
+    }
 }

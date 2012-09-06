@@ -195,7 +195,7 @@ array(
         'restriction' => array('column' => 'coupon_restrict', 'type' => 'string')
     ),
     'currencies' => array(
-        'currencyId' => array('column' => 'currencies_id', 'type' => 'integer', 'key' => true, 'auto' => true),
+        'id' => array('column' => 'currencies_id', 'type' => 'integer', 'key' => true, 'auto' => true),
         'name' => array('column' => 'title', 'type' => 'string'),
         'code' => array('column' => 'code', 'type' => 'string'),
         'symbolLeft' => array('column' => 'symbol_left', 'type' => 'string'),

@@ -194,4 +194,14 @@ class Feature extends ZMObject {
      * @param date $availableDate
      */
     public function setAvailableDate($availableDate) { $this->availableDate = $availableDate; }
+
+    /**
+     * Get statusChangeDate
+     *
+     * @return datetime 
+     */
+    public function getStatusChangeDate()
+    {
+        return $this->statusChangeDate;
+    }
 }

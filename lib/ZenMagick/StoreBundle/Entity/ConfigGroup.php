@@ -146,4 +146,14 @@ class ConfigGroup extends ZMObject {
      * @param boolean $visible The new value.
      */
     public function setVisible($visible) { $this->visible = $visible; }
+
+    /**
+     * Get visible
+     *
+     * @return boolean 
+     */
+    public function getVisible()
+    {
+        return $this->visible;
+    }
 }
