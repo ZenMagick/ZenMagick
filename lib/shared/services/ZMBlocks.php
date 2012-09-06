@@ -21,6 +21,7 @@
 use ZenMagick\Base\Runtime;
 use ZenMagick\Base\ZMObject;
 use ZenMagick\StoreBundle\Blocks\BlockGroup;
+use ZenMagick\StoreBundle\Blocks\Block;
 
 /**
  * Blocks.
@@ -77,7 +78,7 @@ class ZMBlocks extends ZMObject {
      * Get blocks for block group.
      *
      * @param string groupName The group name.
-     * @return array List of <code>ZMBlock</code> instances.
+     * @return array List of <code>ZenMagick\StoreBundle\Entity\Block</code> instances.
      */
     public function getBlocksForGroupName($groupName) {
         // TODO: cache loading all groups when first accessed
@@ -85,15 +86,15 @@ class ZMBlocks extends ZMObject {
         $result = ZMRuntime::getDatabase()->querySingle($sql, array('group_name' => $groupName), 'block_groups');
 
         $sql = "SELECT * FROM %table.blocks_to_groups% WHERE block_group_id = :block_group_id ORDER BY sort_order";
-        return ZMRuntime::getDatabase()->fetchAll($sql, array('block_group_id' => $result['block_group_id']), 'blocks_to_groups', 'ZMBlock');
+        return ZMRuntime::getDatabase()->fetchAll($sql, array('block_group_id' => $result['block_group_id']), 'blocks_to_groups', 'ZenMagick\StoreBundle\Entity\Block');
     }
 
     /**
      * Add blocks to block group.
      *
      * @param string groupName The group name.
-     * @param ZMBlock block The new block.
-     * @return ZMBlock The block (incl. id).
+     * @param ZenMagick\StoreBundle\Entity\Block block The new block.
+     * @return ZenMagick\StoreBundle\Entity\Block The block (incl. id).
      */
     public function addBlockToBlockGroup($groupName, $block) {
         // TODO: cache loading all groups when first accessed
@@ -114,7 +115,7 @@ class ZMBlocks extends ZMObject {
     /**
      * Update the given block.
      *
-     * @param ZMBlock block The block to update.
+     * @param ZenMagick\StoreBundle\Entity\Block block The block to update.
      */
     public function updateBlock($block) {
         $data = array(

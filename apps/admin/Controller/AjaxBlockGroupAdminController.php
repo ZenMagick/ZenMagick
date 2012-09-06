@@ -20,6 +20,7 @@
 namespace ZenMagick\apps\admin\Controller;
 
 use ZenMagick\Base\Beans;
+use ZenMagick\StoreBundle\Entity\Block;
 
 /**
  * Ajax block group admin controller.
@@ -116,7 +117,7 @@ class AjaxBlockGroupAdminController extends \ZMRpcController {
             } else {
                 // new
                 $blockWidget = Beans::getBean($token[0]);
-                $block = new \ZMBlock();
+                $block = new Block();
                 $block->setName($blockWidget->getTitle());
                 $block->setDefinition($token[0]);
                 $block->setSortOrder($index);
