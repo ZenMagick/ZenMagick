@@ -28,7 +28,13 @@ use Doctrine\ORM\Mapping AS ORM;
  * A single country.
  *
  * @author DerManoMann
- * @ORM\Table(name="countries")
+ * @ORM\Table(name="countries",
+ *  indexes={
+ *      @ORM\Index(name="idx_countries_name_zen", columns={"countries_name"}),
+ *      @ORM\Index(name="idx_address_format_id_zen", columns={"address_format_id"}),
+ *      @ORM\Index(name="idx_iso_2_zen", columns={"countries_iso_code_2"}),
+ *      @ORM\Index(name="idx_iso_3_zen", columns={"countries_iso_code_3"}),
+ * })
  * @ORM\Entity
  */
 class Country extends ZMObject {

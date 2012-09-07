@@ -27,7 +27,10 @@ use Doctrine\ORM\Mapping AS ORM;
  * Configuration group.
  *
  * @author DerManoMann
- * @ORM\Table(name="configuration_group")
+ * @ORM\Table(name="configuration_group",
+ *  indexes={
+ *      @ORM\Index(name="idx_visible_zen", columns={"visible"}),
+ * })
  * @ORM\Entity
  */
 class ConfigGroup extends ZMObject {
@@ -150,7 +153,7 @@ class ConfigGroup extends ZMObject {
     /**
      * Get visible
      *
-     * @return boolean 
+     * @return boolean
      */
     public function getVisible()
     {

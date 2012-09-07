@@ -27,7 +27,12 @@ use Doctrine\ORM\Mapping AS ORM;
  * A single banner.
  *
  * @author DerManoMann
- * @ORM\Table(name="banners")
+ * @ORM\Table(name="banners",
+ *  indexes={
+ *      @ORM\Index(name="idx_status_group_zen", columns={"status", "banners_group"}),
+ *      @ORM\Index(name="idx_expires_date_zen", columns={"expires_date"}),
+ *      @ORM\Index(name="idx_date_scheduled_zen", columns={"date_scheduled"}),
+ *  })
  * @ORM\Entity
  */
 class Banner extends ZMObject {

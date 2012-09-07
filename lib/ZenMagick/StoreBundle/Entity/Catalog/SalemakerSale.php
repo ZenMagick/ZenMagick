@@ -26,7 +26,12 @@ use Doctrine\ORM\Mapping AS ORM;
 /**
  * An individual sale.
  *
- * @ORM\Table(name="salemaker_sales")
+ * @ORM\Table(name="salemaker_sales",
+ *  indexes={
+ *      @ORM\Index(name="idx_sale_status_zen", columns={"sale_status"}),
+ *      @ORM\Index(name="idx_sale_date_start_zen", columns={"sale_date_start"}),
+ *      @ORM\Index(name="idx_sale_date_end_zen", columns={"sale_date_end"}),
+ *  })
  * @ORM\Entity
  */
 class SalemakerSale extends ZMObject {

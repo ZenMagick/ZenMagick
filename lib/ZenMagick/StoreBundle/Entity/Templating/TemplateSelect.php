@@ -26,7 +26,10 @@ use Doctrine\ORM\Mapping AS ORM;
 /**
  * TemplateSelect
  *
- * @ORM\Table(name="template_select")
+ * @ORM\Table(name="template_select",
+ *  indexes={
+ *      @ORM\Index(name="idx_tpl_lang_zen", columns={"template_language"}),
+ *  })
  * @ORM\Entity
  */
 class TemplateSelect extends ZMObject {

@@ -29,7 +29,18 @@ use Doctrine\ORM\Mapping AS ORM;
  * A product.
  *
  * @author DerManoMann
- * @ORM\Table(name="products")
+ * @ORM\Table(name="products",
+ *  indexes={
+ *      @ORM\Index(name="idx_products_date_added_zen", columns={"products_date_added"}),
+ *      @ORM\Index(name="idx_products_status_zen", columns={"products_status"}),
+ *      @ORM\Index(name="idx_products_date_available_zen", columns={"products_date_available"}),
+ *      @ORM\Index(name="idx_products_ordered_zen", columns={"products_ordered"}),
+ *      @ORM\Index(name="idx_products_model_zen", columns={"products_model"}),
+ *      @ORM\Index(name="idx_products_price_sorter_zen", columns={"products_price_sorter"}),
+ *      @ORM\Index(name="idx_master_categories_id_zen", columns={"master_categories_id"}),
+ *      @ORM\Index(name="idx_products_sort_order_zen", columns={"products_sort_order"}),
+ *      @ORM\Index(name="idx_manufacturers_id_zen", columns={"manufacturers_id"}),
+ *  })
  * @ORM\Entity
  */
 class Product extends ZMObject {

@@ -34,7 +34,12 @@ use Doctrine\ORM\Mapping as ORM;
  * <p>For example, gift vouchers do only have a <em>code</em> and <em>amount</em>.</p>
  *
  * @author DerManoMann
- * @ORM\Table(name="coupons")
+ * @ORM\Table(name="coupons",
+ *  indexes={
+ *      @ORM\Index(name="idx_active_type_zen", columns={"coupon_active", "coupon_type"}),
+ *      @ORM\Index(name="idx_coupon_code_zen", columns={"coupon_code"}),
+ *      @ORM\Index(name="idx_coupon_type_zen", columns={"coupon_type"}),
+ *  })
  * @ORM\Entity
  */
 class Coupon extends ZMObject {
@@ -407,7 +412,7 @@ class Coupon extends ZMObject {
     /**
      * Get active
      *
-     * @return string 
+     * @return string
      */
     public function getActive()
     {
@@ -439,7 +444,7 @@ class Coupon extends ZMObject {
     /**
      * Get translations
      *
-     * @return Doctrine\Common\Collections\Collection 
+     * @return Doctrine\Common\Collections\Collection
      */
     public function getTranslations()
     {

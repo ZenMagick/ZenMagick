@@ -28,7 +28,11 @@ use Doctrine\ORM\Mapping AS ORM;
  * A address zone.
  *
  * @author DerManoMann
- * @ORM\Table(name="zones")
+ * @ORM\Table(name="zones",
+ *  indexes={
+ *      @ORM\Index(name="idx_zone_country_id_zen", columns={"zone_country_id"}),
+ *      @ORM\Index(name="idx_zone_code_zen", columns={"zone_code"}),
+ *  })
  * @ORM\Entity
  */
 class Zone extends ZMObject {

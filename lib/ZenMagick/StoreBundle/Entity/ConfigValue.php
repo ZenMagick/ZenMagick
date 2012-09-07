@@ -28,7 +28,12 @@ use Doctrine\ORM\Mapping AS ORM;
  * Configuration value.
  *
  * @author DerManoMann
- * @ORM\Table(name="configuration")
+ * @ORM\Table(name="configuration",
+ *  indexes={
+ *      @ORM\Index(name="unq_config_key_zen", columns={"configuration_key"}),
+ *      @ORM\Index(name="idx_key_value_zen", columns={"configuration_key", "configuration_value"}),
+ *      @ORM\Index(name="idx_cfg_grp_id_zen", columns={"configuration_group_id"}),
+ * })
  * @ORM\Entity
  */
 class ConfigValue extends ZMObject {
@@ -49,7 +54,7 @@ class ConfigValue extends ZMObject {
     /**
      * @var string $key
      *
-     * @ORM\Column(name="configuration_key", type="string", length=255, nullable=false)
+     * @ORM\Column(name="configuration_key", type="string", length=255, nullable=false, unique=true)
      */
     private $key;
     /**

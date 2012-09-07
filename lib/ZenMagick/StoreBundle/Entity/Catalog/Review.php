@@ -30,7 +30,13 @@ use Doctrine\ORM\Mapping AS ORM;
  * A single review.
  *
  * @author DerManoMann <mano@zenmagick.org>
- * @ORM\Table(name="reviews")
+ * @ORM\Table(name="reviews",
+ *  indexes={
+ *      @ORM\Index(name="idx_products_id_zen", columns={"products_id"}),
+ *      @ORM\Index(name="idx_customers_id_zen", columns={"customers_id"}),
+ *      @ORM\Index(name="idx_status_zen", columns={"status"}),
+ *      @ORM\Index(name="idx_date_added_zen", columns={"date_added"}),
+ * })
  * @ORM\Entity
  */
 class Review extends ZMObject {
@@ -359,7 +365,7 @@ class Review extends ZMObject {
     /**
      * Get status
      *
-     * @return boolean 
+     * @return boolean
      */
     public function getStatus()
     {

@@ -31,7 +31,7 @@ class QueryBuilder
     /**
      * @var string $queryName
      *
-     * @ORM\Column(name="query_name", type="string", length=80, nullable=false)
+     * @ORM\Column(name="query_name", type="string", length=80, nullable=false, unique=true)
      */
     private $queryName;
 
@@ -56,12 +56,10 @@ class QueryBuilder
      */
     private $keysList;
 
-
-
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -83,7 +81,7 @@ class QueryBuilder
     /**
      * Get category
      *
-     * @return string 
+     * @return string
      */
     public function getCategory()
     {
@@ -105,7 +103,7 @@ class QueryBuilder
     /**
      * Get queryName
      *
-     * @return string 
+     * @return string
      */
     public function getQueryName()
     {
@@ -127,7 +125,7 @@ class QueryBuilder
     /**
      * Get description
      *
-     * @return text 
+     * @return text
      */
     public function getDescription()
     {
@@ -149,7 +147,7 @@ class QueryBuilder
     /**
      * Get queryString
      *
-     * @return text 
+     * @return text
      */
     public function getQueryString()
     {
@@ -171,7 +169,7 @@ class QueryBuilder
     /**
      * Get keysList
      *
-     * @return text 
+     * @return text
      */
     public function getKeysList()
     {

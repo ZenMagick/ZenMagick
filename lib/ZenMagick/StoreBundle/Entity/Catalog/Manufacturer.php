@@ -29,7 +29,10 @@ use Doctrine\ORM\Mapping AS ORM;
  * Manufacturer.
  *
  * @author DerManoMann <mano@zenmagick.org>
- * @ORM\Table(name="manufacturers")
+ * @ORM\Table(name="manufacturers",
+ *  indexes={
+ *      @ORM\Index(name="idx_mfg_name_zen", columns={"manufacturers_name"}),
+ * })
  * @ORM\Entity
  */
 class Manufacturer extends ZMObject {

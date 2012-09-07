@@ -42,7 +42,7 @@ class BlockGroup extends ZMObject {
     /**
      * @var string $name
      *
-     * @ORM\Column(name="group_name", type="string", length=32, nullable=false)
+     * @ORM\Column(name="group_name", type="string", length=32, nullable=false, unique=true)
      */
     private $name;
     /**

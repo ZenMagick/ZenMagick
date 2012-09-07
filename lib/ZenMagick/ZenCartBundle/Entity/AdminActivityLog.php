@@ -7,7 +7,12 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * ZenMagick\ZenCartBundle\Entity\AdminActivityLog
  *
- * @ORM\Table(name="admin_activity_log")
+ * @ORM\Table(name="admin_activity_log",
+ *  indexes={
+ *      @ORM\Index(name="idx_page_accessed_zen", columns={"page_accessed"}),
+ *      @ORM\Index(name="idx_access_date_zen", columns={"access_date"}),
+ *      @ORM\Index(name="idx_ip_zen", columns={"ip_address"})
+ *  })
  * @ORM\Entity
  */
 class AdminActivityLog
@@ -61,7 +66,7 @@ class AdminActivityLog
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -83,7 +88,7 @@ class AdminActivityLog
     /**
      * Get accessDate
      *
-     * @return datetime 
+     * @return datetime
      */
     public function getAccessDate()
     {
@@ -105,7 +110,7 @@ class AdminActivityLog
     /**
      * Get adminId
      *
-     * @return integer 
+     * @return integer
      */
     public function getAdminId()
     {
@@ -127,7 +132,7 @@ class AdminActivityLog
     /**
      * Get pageAccessed
      *
-     * @return string 
+     * @return string
      */
     public function getPageAccessed()
     {
@@ -149,7 +154,7 @@ class AdminActivityLog
     /**
      * Get pageParameters
      *
-     * @return text 
+     * @return text
      */
     public function getPageParameters()
     {
@@ -171,7 +176,7 @@ class AdminActivityLog
     /**
      * Get ipAddress
      *
-     * @return string 
+     * @return string
      */
     public function getIpAddress()
     {

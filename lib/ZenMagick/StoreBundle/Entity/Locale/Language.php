@@ -28,7 +28,10 @@ use Doctrine\ORM\Mapping AS ORM;
  * A single language.
  *
  * @author DerManoMann
- * @ORM\Table(name="languages")
+ * @ORM\Table(name="languages",
+ *  indexes={
+ *      @ORM\Index(name="idx_languages_name_zen", columns={"name"})
+ *  })
  * @ORM\Entity
  */
 class Language extends ZMObject {

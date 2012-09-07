@@ -31,7 +31,12 @@ use Doctrine\ORM\Mapping AS ORM;
  * <p>The tax rate id is build from the tax classId, countryId and zoneId to make it unique.</p>
  *
  * @author DerManoMann
- * @ORM\Table(name="tax_rates")
+ * @ORM\Table(name="tax_rates",
+ *  indexes={
+ *      @ORM\Index(name="idx_tax_zone_id_zen", columns={"tax_zone_id"}),
+ *      @ORM\Index(name="idx_tax_class_id_zen", columns={"tax_class_id"}),
+ *  })
+
  * @ORM\Entity
  */
 class TaxRate extends ZMObject {

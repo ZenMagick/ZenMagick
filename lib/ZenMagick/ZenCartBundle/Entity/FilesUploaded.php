@@ -7,7 +7,10 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * ZenMagick\ZenCartBundle\Entity\FilesUploaded
  *
- * @ORM\Table(name="files_uploaded")
+ * @ORM\Table(name="files_uploaded",
+ *  indexes={
+ *      @ORM\Index(name="idx_customers_id_zen", columns={"customers_id"}),
+ *  })
  * @ORM\Entity
  */
 class FilesUploaded
@@ -47,7 +50,7 @@ class FilesUploaded
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -69,7 +72,7 @@ class FilesUploaded
     /**
      * Get sessKey
      *
-     * @return string 
+     * @return string
      */
     public function getSessKey()
     {
@@ -91,7 +94,7 @@ class FilesUploaded
     /**
      * Get accounId
      *
-     * @return integer 
+     * @return integer
      */
     public function getAccounId()
     {
@@ -113,7 +116,7 @@ class FilesUploaded
     /**
      * Get fileName
      *
-     * @return string 
+     * @return string
      */
     public function getFileName()
     {

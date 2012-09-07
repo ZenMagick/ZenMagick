@@ -25,7 +25,13 @@ use Doctrine\ORM\Mapping AS ORM;
 /**
  * A Special.
  *
- * @ORM\Table(name="specials")
+ * @ORM\Table(name="specials",
+ *  indexes={
+ *      @ORM\Index(name="idx_status_zen", columns={"status"}),
+ *      @ORM\Index(name="idx_products_id_zen", columns={"products_id"}),
+ *      @ORM\Index(name="idx_date_avail_zen", columns={"specials_date_available"}),
+ *      @ORM\Index(name="idx_expires_date_zen", columns={"expires_date"}),
+ *  })
  * @ORM\Entity
  */
 class Special extends ZMObject {
