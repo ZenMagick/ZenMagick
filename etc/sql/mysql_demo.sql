@@ -223,47 +223,6 @@ INSERT INTO manufacturers_info (manufacturers_id, languages_id, manufacturers_ur
 (9, 1, 'http://www.hewlettpackard.com', 0, NULL);
 
 #
-# Dumping data for table `media_clips`
-#
-
-INSERT INTO media_clips (clip_id, media_id, clip_type, clip_filename, date_added, last_modified) VALUES (1, 1, 1, 'thehunter.mp3', '2004-06-01 20:57:43', '0000-00-00 00:00:00'),
-(6, 2, 1, 'thehunter.mp3', '2004-07-13 00:45:09', '0000-00-00 00:00:00');
-
-#
-# Dumping data for table `media_manager`
-#
-
-INSERT INTO media_manager (media_id, media_name, last_modified, date_added) VALUES (1, 'Russ Tippins - The Hunter', '2004-06-01 20:57:43', '2004-06-01 20:42:53'),
-(2, 'Help!', '2004-07-13 01:01:14', '2004-07-12 17:57:45');
-
-#
-# Dumping data for table `media_to_products`
-#
-
-INSERT INTO media_to_products (media_id, product_id) VALUES (1, 166),
-(2, 169);
-
-#
-# Dumping data for table `media_types`
-#
-
-#INSERT INTO media_types (type_id, type_name, type_ext) VALUES (1, 'MP3', '.mp3');
-
-#
-# Dumping data for table `music_genre`
-#
-
-INSERT INTO music_genre (music_genre_id, music_genre_name, date_added, last_modified) VALUES (1, 'Rock', '2004-06-01 20:53:26', NULL),
-(2, 'Jazz', '2004-06-01 20:53:45', NULL);
-
-#
-# Dumping data for table `product_music_extra`
-#
-
-INSERT INTO product_music_extra (products_id, artists_id, record_company_id, music_genre_id) VALUES (166, 1, 0, 1),
-(169, 1, 1, 2);
-
-#
 # Dumping data for table `product_types_to_category`
 #
 
@@ -1063,7 +1022,6 @@ INSERT INTO products_description (products_id, language_id, products_name, produ
 (166, 1, 'Russ Tippins Band - The Hunter', '', '', 0),
 (167, 1, 'Test Document', 'This is a test document', '', 0),
 (168, 1, 'Sample of Product General Type', 'Product General Type are your regular products.\r\n\r\nThere are no special needs or layout issues to work with.', '', 0),
-(169, 1, 'Sample of Product Music Type', 'The Product Music Type is specially designed for music media.\r\n\r\nThis can offer a lot more flexibility than the Product General.', '', 0),
 (170, 1, 'Sample of Document General Type', 'Document General Type is used for Products that are actually Documents.\r\n\r\nThese cannot be added to the cart but can be configured for the Document Sidebox. If your Document Sidebox is not showing, go to the Layout Controller and turn it on for your template.', '', 0),
 (171, 1, 'Sample of Document Product Type', 'Document Product Type is used for Documents that are also available for sale. <br /><br />You might wish to display brief peices of the Document then offer it for sale. <br /><br />This Product Type is also handy for downloadable Documents or Documents available either on CD or by download. <br /><br />The Document Product Type could be used in the Document Sidebox or the Categories Sidebox depending on how you configure its master categories id. <br /><br />This product has also been added as a linked product to the Document Category. This will allow it to show in both the Category and Document Sidebox. While not marked specifically for the master product type id related to the Product Types, it now is in a Product Type set for Document General so it will show in both boxes.', '', 0),
 (172, 1, 'Sample of Product Free Shipping Type', '<p>Product Free Shipping can be setup to highlight the Free Shipping aspect of the product. <br /><br />These pages include a Free Shipping Image on them. <br /><br />You can define the ALWAYS_FREE_SHIPPING_ICON in the language file. This can be Text, Image, Text/Image Combo or nothing. <br /><br />The weight does not matter on Always Free Shipping if you set Always Free Shipping to Yes. <br /><br />Be sure to have the Free Shipping Module Turned on! Otherwise, if this is the only product in the cart, it will not be able to be shipped. <br /><br />Notice that this is defined with a weight of 5lbs. But because of the Always Free Shipping being set to Y there will be no shipping charges for this product. <br /><br />You do not have to use the Product Free Shipping product type just to use Always Free Shipping. But the reason you may want to do this is so that the layout of the Product Free Shipping product info page can be layout specifically for the Free Shipping aspect of the product. <br /><br />This includes a READONLY attribute for Option Name: Shipping and Option Value: Free Shipping Included. READONLY attributes do not show on the options for the order.</p>', '', 0),
@@ -1438,30 +1396,6 @@ INSERT INTO products_to_categories (products_id, categories_id) VALUES (1, 4),
 (177, 55),
 (178, 55),
 (179, 60);
-
-#
-# Dumping data for table `record_artists`
-#
-
-INSERT INTO record_artists (artists_id, artists_name, artists_image, date_added, last_modified) VALUES (1, 'The Russ Tippins Band', 'sooty.jpg', '2004-06-01 20:53:00', NULL);
-
-#
-# Dumping data for table `record_artists_info`
-#
-
-INSERT INTO record_artists_info (artists_id, languages_id, artists_url, url_clicked, date_last_click) VALUES (1, 1, 'russtippinsband.users.btopenworld.com/', 0, NULL);
-
-#
-# Dumping data for table `record_company`
-#
-
-INSERT INTO record_company (record_company_id, record_company_name, record_company_image, date_added, last_modified) VALUES (1, 'HMV Group', NULL, '2004-07-09 14:11:52', NULL);
-
-#
-# Dumping data for table `record_company_info`
-#
-
-INSERT INTO record_company_info (record_company_id, languages_id, record_company_url, url_clicked, date_last_click) VALUES (1, 1, 'www.hmvgroup.com', 0, NULL);
 
 #
 # Dumping data for table `reviews`
