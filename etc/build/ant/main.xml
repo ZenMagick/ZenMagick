@@ -174,9 +174,6 @@
         <!-- disabled as those files are in the repo -->
         <!--antcall target="pack-libraries" /-->
 
-        <!-- build before deleting stuff -->
-        <antcall target="pack-phars" />
-
         <!-- remove various files we do not want included -->
         <delete includeemptydirs="true">
             <!-- source control files -->
