@@ -24,7 +24,6 @@
     <import file="plugins.xml" />
     <import file="themes.xml" />
     <import file="phpdoctor.xml" />
-    <import file="libraries.xml" />
 
     <!-- This is used to compare zip files; see http://zipdiff.sourceforge.net/ for details -->
     <taskdef name="zipdiff" classname="zipdiff.ant.ZipDiffTask">

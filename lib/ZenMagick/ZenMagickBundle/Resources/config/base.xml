@@ -74,18 +74,5 @@
 
         <service id="filesystem" class="Symfony\Component\Filesystem\Filesystem" />
 
-        <service id="phpCompressor" class="ZenMagick\Base\Utils\packer\PhpCompressor" scope="prototype">
-            <call method="setFilesystem">
-                <argument type="service" id="filesystem" />
-            </call>
-        </service>
-        <service id="phpPackagePacker" class="ZenMagick\Base\Utils\packer\PhpPackagePacker" scope="prototype">
-            <call method="setFilesystem">
-                <argument type="service" id="filesystem" />
-            </call>
-            <call method="setPhPhPPCompressor">
-                <argument type="service" id="phpCompressor" />
-            </call>
-        </service>
     </services>
 </container>
