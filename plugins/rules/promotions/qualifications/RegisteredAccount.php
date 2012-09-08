@@ -20,7 +20,6 @@
 namespace ZenMagick\plugins\rules\promotions\qualifications;
 
 use ZenMagick\plugins\rules\promotions\AbstractPromotionElement;
-use phprules\SingleRule;
 use phprules\RuleContext;
 
 /**

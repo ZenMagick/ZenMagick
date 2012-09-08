@@ -23,7 +23,6 @@ use Symfony\Component\Config\FileLocatorInterface;
 use Symfony\Component\Routing\RouteCollection;
 
 use ZenMagick\Base\Config\EchoFileLocator;
-use ZenMagick\Base\Toolbox;
 
 /**
  * Yaml loader for routing mappings.

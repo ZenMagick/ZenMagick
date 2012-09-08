@@ -20,7 +20,6 @@
 namespace ZenMagick\plugins\imageHandler2;
 
 use ZenMagick\Base\Plugins\Plugin;
-use ZenMagick\Base\Runtime;
 use ZenMagick\Base\Toolbox;
 use ZenMagick\Http\View\ResourceManager;
 

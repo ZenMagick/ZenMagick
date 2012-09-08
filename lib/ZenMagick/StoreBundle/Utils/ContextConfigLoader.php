@@ -19,14 +19,8 @@
  */
 namespace ZenMagick\StoreBundle\Utils;
 
-use ZenMagick\Base\ZMObject;
-use ZenMagick\Base\Runtime;
-use ZenMagick\Base\Toolbox;
-use ZenMagick\Base\DependencyInjection\Loader\YamlLoader;
 use ZenMagick\Http\Utils\ContextConfigLoader as HttpContextConfigLoader;
 
-use Symfony\Component\Config\FileLocator;
-use Symfony\Component\Yaml\Yaml;
 
 /**
  * Store loader for multi-content config files.

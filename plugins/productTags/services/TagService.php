@@ -21,7 +21,6 @@
 namespace ZenMagick\plugins\productTags\services;
 
 use ZMRuntime;
-use ZenMagick\Base\Runtime;
 use ZenMagick\Base\ZMObject;
 
 /**

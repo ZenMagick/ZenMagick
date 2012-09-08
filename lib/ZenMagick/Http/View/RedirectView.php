@@ -20,7 +20,6 @@
 namespace ZenMagick\Http\View;
 
 use ZenMagick\Base\Toolbox;
-use ZenMagick\Base\ZMException;
 use ZenMagick\Base\ZMObject;
 
 /**

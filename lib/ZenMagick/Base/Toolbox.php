@@ -19,7 +19,6 @@
  */
 namespace ZenMagick\Base;
 
-use InvalidArgumentException;
 
 /**
  * Shared tools.

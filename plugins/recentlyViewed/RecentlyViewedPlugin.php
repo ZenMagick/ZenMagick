@@ -20,7 +20,6 @@
 namespace ZenMagick\plugins\recentlyViewed;
 
 use ZenMagick\Base\Plugins\Plugin;
-use ZenMagick\Base\Toolbox;
 use ZenMagick\Http\View\TemplateView;
 
 

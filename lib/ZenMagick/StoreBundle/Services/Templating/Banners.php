@@ -20,7 +20,6 @@
 namespace ZenMagick\StoreBundle\Services\Templating;
 
 use ZMRuntime;
-use ZenMagick\Base\Runtime;
 use ZenMagick\Base\ZMObject;
 use ZenMagick\Base\Database\Connection;
 

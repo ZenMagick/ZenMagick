@@ -20,13 +20,10 @@
 namespace ZenMagick\Http\Templating;
 
 use Symfony\Component\Templating\EngineInterface;
-use Symfony\Component\Templating\TemplateNameParserInterface;
 use ZenMagick\Base\Beans;
 use ZenMagick\Base\Runtime;
 use ZenMagick\Base\ZMException;
 use ZenMagick\Base\ZMObject;
-use ZenMagick\Base\Logging\Logging;
-use ZenMagick\Http\View\ResourceResolver;
 use ZenMagick\Http\View\View;
 use ZenMagick\Http\Widgets\Widget;
 

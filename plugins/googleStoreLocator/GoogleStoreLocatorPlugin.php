@@ -20,7 +20,6 @@
 namespace ZenMagick\plugins\googleStoreLocator;
 
 use ZenMagick\Base\Plugins\Plugin;
-use ZenMagick\Base\Runtime;
 use ZenMagick\Base\Toolbox;
 
 /**

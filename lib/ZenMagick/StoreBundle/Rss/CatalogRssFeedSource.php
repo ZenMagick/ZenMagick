@@ -23,7 +23,6 @@ use DateTime;
 use ZenMagick\Base\ZMObject;
 use ZenMagick\Http\Rss\RssChannel;
 use ZenMagick\Http\Rss\RssFeed;
-use ZenMagick\Http\Rss\RssItem;
 use ZenMagick\Http\Rss\RssSource;
 
 /**

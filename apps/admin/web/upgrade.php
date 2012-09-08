@@ -22,9 +22,6 @@
 //umask(0002); // This will let the permissions be 0775
 umask(0000); // This will let the permissions be 0777
 
-use ZenMagick\Base\Runtime;
-use ZenMagick\Base\ZMException;
-use ZenMagick\Base\Events\Event;
 use ZenMagick\Http\Application;
 use ZenMagick\Http\Request;
 

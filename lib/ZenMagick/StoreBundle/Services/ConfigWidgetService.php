@@ -21,7 +21,6 @@
 namespace ZenMagick\StoreBundle\Services;
 
 use ZenMagick\Base\Beans;
-use ZenMagick\Base\Runtime;
 use ZenMagick\Http\Widgets\Widget;
 use ZenMagick\StoreBundle\Entity\ConfigValue;
 

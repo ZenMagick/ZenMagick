@@ -22,7 +22,6 @@ namespace ZenMagick\Base\Plugins;
 use DirectoryIterator;
 use Symfony\Component\HttpKernel\CacheWarmer\CacheWarmerInterface;
 use Symfony\Component\Yaml\Yaml;
-use ZenMagick\Base\Runtime;
 use ZenMagick\Base\Toolbox;
 use ZenMagick\Base\ZMObject;
 use ZenMagick\Base\Cache\Cache;

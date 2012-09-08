@@ -19,11 +19,8 @@
  */
 namespace ZenMagick\StoreBundle\Themes;
 
-use ZenMagick\Base\Runtime;
 use ZenMagick\Base\ZMObject;
-use ZenMagick\Base\DependencyInjection\Loader\YamlFileLoader;
 
-use Symfony\Component\Config\FileLocator;
 
 /**
  * Theme service.

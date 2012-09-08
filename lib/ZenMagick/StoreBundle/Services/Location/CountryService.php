@@ -20,7 +20,6 @@
  */
 namespace ZenMagick\StoreBundle\Services\Location;
 
-use ZenMagick\Base\Runtime;
 use ZenMagick\Base\ZMObject;
 
 /**

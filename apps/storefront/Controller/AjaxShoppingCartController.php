@@ -20,7 +20,6 @@
 namespace ZenMagick\apps\storefront\Controller;
 
 use ZenMagick\Base\Beans;
-use ZenMagick\Base\Runtime;
 
 /**
  * Ajax controller for JSON shopping cart.

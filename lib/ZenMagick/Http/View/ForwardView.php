@@ -19,8 +19,6 @@
  */
 namespace ZenMagick\Http\View;
 
-use ZenMagick\Base\Beans;
-use ZenMagick\Base\ZMException;
 use ZenMagick\Base\ZMObject;
 
 /**

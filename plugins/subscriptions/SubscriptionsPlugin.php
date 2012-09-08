@@ -21,7 +21,6 @@ namespace ZenMagick\plugins\subscriptions;
 
 use ZenMagick\Base\Plugins\Plugin;
 use ZenMagick\Base\Beans;
-use ZenMagick\Base\Runtime;
 use ZenMagick\Base\Toolbox;
 use ZenMagick\Http\Sacs\SacsManager;
 use ZenMagick\StoreBundle\Model\Checkout\ShoppingCart;

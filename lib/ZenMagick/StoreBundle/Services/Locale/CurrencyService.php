@@ -20,7 +20,6 @@
 namespace ZenMagick\StoreBundle\Services\Locale;
 
 use ZMRuntime;
-use ZenMagick\Base\Runtime;
 use ZenMagick\Base\ZMObject;
 
 /**

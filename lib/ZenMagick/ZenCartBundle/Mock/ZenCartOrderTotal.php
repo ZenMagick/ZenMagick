@@ -22,7 +22,6 @@
  */
 namespace ZenMagick\ZenCartBundle\Mock;
 
-use ZenMagick\Base\Runtime;
 use ZenMagick\Base\ZMObject;
 
 /**

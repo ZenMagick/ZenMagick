@@ -24,7 +24,6 @@ namespace ZenMagick\apps\storefront\Controller;
 
 use RecursiveIteratorIterator;
 use RecursiveDirectoryIterator;
-use ZenMagick\Base\Runtime;
 use ZenMagick\Base\Toolbox;
 
 /**

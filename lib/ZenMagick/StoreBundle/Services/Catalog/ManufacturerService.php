@@ -20,7 +20,6 @@
  */
 namespace ZenMagick\StoreBundle\Services\Catalog;
 
-use ZenMagick\Base\Runtime;
 use ZenMagick\Base\Toolbox;
 use ZenMagick\Base\ZMObject;
 

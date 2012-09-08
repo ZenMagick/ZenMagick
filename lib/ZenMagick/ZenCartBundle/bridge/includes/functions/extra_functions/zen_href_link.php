@@ -22,7 +22,6 @@
  */
 
 use ZenMagick\Base\Runtime;
-use ZenMagick\Base\ZMException;
 use ZenMagick\apps\storefront\Http\Request\StoreDefaultUrlRewriter;
 
 /**

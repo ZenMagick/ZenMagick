@@ -22,7 +22,6 @@
  */
 namespace ZenMagick\StoreBundle\Model\Checkout;
 
-use ZenMagick\Base\Runtime;
 use ZenMagick\Base\ZMObject;
 
 /**

@@ -19,7 +19,6 @@
  */
 namespace ZenMagick\apps\admin\Utils;
 
-use ZenMagick\Base\Runtime;
 use ZenMagick\Base\ZMObject;
 use ZenMagick\Http\Session\FlashBag;
 

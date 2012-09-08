@@ -22,7 +22,6 @@ namespace ZenMagick\plugins\vbulletin;
 use ZenMagick\Base\Plugins\Plugin;
 use ZenMagick\Base\Beans;
 use ZenMagick\Base\Toolbox;
-use ZenMagick\Base\Runtime;
 
 /**
  * Plugin to enable vBulletin support in ZenMagick.

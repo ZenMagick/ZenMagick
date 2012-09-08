@@ -19,7 +19,6 @@
  */
 namespace ZenMagick\StoreBundle\Services\Catalog;
 
-use ZenMagick\Base\Runtime;
 use ZenMagick\Base\ZMObject;
 
 /**

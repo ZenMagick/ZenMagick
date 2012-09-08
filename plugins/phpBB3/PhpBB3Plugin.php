@@ -21,7 +21,6 @@ namespace ZenMagick\plugins\phpbb3;
 
 use ZenMagick\Base\Plugins\Plugin;
 use ZenMagick\Base\Toolbox;
-use ZenMagick\Base\Runtime;
 
 /**
  * Plugin to enable phpBB3 support in ZenMagick.

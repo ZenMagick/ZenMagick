@@ -21,7 +21,6 @@ namespace ZenMagick\StoreBundle\Themes;
 
 use DirectoryIterator;
 use Symfony\Component\Yaml\Yaml;
-use ZenMagick\Base\Runtime;
 use ZenMagick\Base\ZMObject;
 
 /**

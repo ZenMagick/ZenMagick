@@ -19,9 +19,7 @@
  */
 namespace ZenMagick\Base\Plugins;
 
-use ZenMagick\Base\Beans;
 use ZenMagick\Base\Runtime;
-use ZenMagick\Base\Toolbox;
 use ZenMagick\Base\ZMObject;
 use ZenMagick\StoreBundle\Utils\ContextConfigLoader;
 

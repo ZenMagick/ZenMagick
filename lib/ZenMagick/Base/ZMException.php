@@ -22,7 +22,6 @@ namespace ZenMagick\Base;
 use Exception;
 use ReflectionClass;
 use ZenMagick\Base\Runtime;
-use ZenMagick\Base\Logging\Logging;
 use Symfony\Component\Filesystem\Filesystem;
 
 /**

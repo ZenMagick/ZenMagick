@@ -19,11 +19,9 @@
  */
 
 use ZenMagick\Base\Beans;
-use ZenMagick\Base\Runtime;
 use ZenMagick\Base\Toolbox;
 use ZenMagick\Base\ZMException;
 use ZenMagick\Base\ZMObject;
-use ZenMagick\Base\Logging\Logging;
 
 use Symfony\Component\DependencyInjection\ContainerAwareInterface;
 use Symfony\Component\Yaml\Yaml;

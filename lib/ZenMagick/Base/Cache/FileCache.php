@@ -20,7 +20,6 @@
 namespace ZenMagick\Base\Cache;
 
 use pear\cache\CacheLite;
-use ZenMagick\Base\Runtime;
 use ZenMagick\Base\ZMObject;
 
 use Symfony\Component\Filesystem\Filesystem;

@@ -20,7 +20,6 @@
 namespace ZenMagick\apps\admin\Installation\Patches\Sql;
 
 use ZenMagick\Base\Runtime;
-use ZenMagick\Base\Beans;
 use ZenMagick\apps\admin\Installation\Patches\SQLPatch;
 
 

@@ -19,7 +19,6 @@
  */
 namespace ZenMagick\apps\admin\Installation\Patches;
 
-use ZenMagick\Base\Runtime;
 use ZenMagick\apps\admin\Installation\InstallationPatch;
 use ZenMagick\apps\admin\Utils\SQLRunner;
 

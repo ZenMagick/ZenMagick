@@ -19,7 +19,6 @@
  */
 namespace ZenMagick\themes\precision;
 
-use ZenMagick\Base\Runtime;
 use ZenMagick\StoreBundle\Themes\ThemeEventListener;
 
 /**

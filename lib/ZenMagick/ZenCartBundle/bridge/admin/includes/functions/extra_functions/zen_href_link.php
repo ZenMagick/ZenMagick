@@ -22,7 +22,6 @@
  */
 
 use ZenMagick\Base\Runtime;
-use ZenMagick\Base\ZMException;
 
 /**
  * zen_href_link wrapper that delegates to the Zenmagick implementation (for storefront).

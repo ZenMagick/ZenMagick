@@ -19,7 +19,6 @@
  */
 namespace ZenMagick\ZenCartBundle\Mock;
 
-use ZenMagick\Base\Runtime;
 use ZenMagick\Base\ZMObject;
 use ZenMagick\StoreBundle\Model\Checkout\ShoppingCart;
 /**

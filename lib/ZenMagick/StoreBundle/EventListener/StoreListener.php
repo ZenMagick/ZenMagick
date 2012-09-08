@@ -19,8 +19,6 @@
  */
 namespace ZenMagick\StoreBundle\EventListener;
 
-use Symfony\Component\Config\FileLocator;
-use Symfony\Component\DependencyInjection\Loader\XmlFileLoader;
 
 use ZenMagick\Base\Runtime;
 use ZenMagick\Base\ZMObject;

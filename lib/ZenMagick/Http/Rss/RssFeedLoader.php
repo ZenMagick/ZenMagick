@@ -22,7 +22,6 @@
 namespace ZenMagick\Http\Rss;
 
 use ArrayIterator;
-use ZenMagick\Base\Runtime;
 use ZenMagick\Base\Toolbox;
 use ZenMagick\Base\ZMObject;
 

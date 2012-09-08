@@ -19,13 +19,8 @@
  */
 namespace ZenMagick\Http\Utils;
 
-use ZenMagick\Base\Runtime;
-use ZenMagick\Base\Toolbox;
-use ZenMagick\Base\DependencyInjection\Loader\YamlLoader;
 use ZenMagick\Base\Utils\ContextConfigLoader as BaseContextConfigLoader;
 
-use Symfony\Component\Config\FileLocator;
-use Symfony\Component\Yaml\Yaml;
 
 /**
  * Loader for multi-content config files.

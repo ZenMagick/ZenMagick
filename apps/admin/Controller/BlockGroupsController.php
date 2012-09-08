@@ -19,7 +19,6 @@
  */
 namespace ZenMagick\apps\admin\Controller;
 
-use ZenMagick\StoreBundle\Entities\Blocks;
 
 /**
  * Admin controller for block groups.

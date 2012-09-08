@@ -19,7 +19,6 @@
  */
 namespace ZenMagick\apps\storefront\Controller;
 
-use ZenMagick\Base\Runtime;
 use ZenMagick\StoreBundle\Entity\Coupons\Coupon;
 
 /**

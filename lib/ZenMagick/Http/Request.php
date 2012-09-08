@@ -23,13 +23,10 @@ namespace ZenMagick\Http;
 use Symfony\Component\DependencyInjection\ContainerAwareInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpFoundation\Request as HttpFoundationRequest;
-use Symfony\Component\Routing\Router;
-use Symfony\Component\Routing\RequestContext;
 
 use ZenMagick\Base\Beans;
 use ZenMagick\Base\Runtime;
 use ZenMagick\Base\Toolbox;
-use ZenMagick\Base\Logging\Logging;
 use ZenMagick\Base\Events\VetoableEvent;
 
 /**

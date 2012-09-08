@@ -19,7 +19,6 @@
  */
 namespace ZenMagick\apps\admin\Services;
 
-use ZenMagick\Base\Runtime;
 use ZenMagick\Base\ZMObject;
 
 /**

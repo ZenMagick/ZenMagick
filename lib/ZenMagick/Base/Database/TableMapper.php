@@ -22,7 +22,6 @@ namespace ZenMagick\Base\Database;
 use ZMRuntime;
 use ZenMagick\Base\Runtime;
 use ZenMagick\Base\ZMObject;
-use ZenMagick\Base\Logging\Logging;
 
 
 /**

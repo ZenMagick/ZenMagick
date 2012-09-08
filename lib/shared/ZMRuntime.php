@@ -19,7 +19,6 @@
  */
 
 use ZenMagick\Base\Runtime;
-use ZenMagick\Base\Toolbox;
 
 
 class ZMRuntime {

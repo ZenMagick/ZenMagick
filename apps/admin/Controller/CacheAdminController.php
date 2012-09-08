@@ -19,7 +19,6 @@
  */
 namespace ZenMagick\apps\admin\Controller;
 
-use ZenMagick\Base\Runtime;
 
 /**
  * Admin controller for cache admin.

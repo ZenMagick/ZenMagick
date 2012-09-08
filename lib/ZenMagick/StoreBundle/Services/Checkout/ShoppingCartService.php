@@ -24,7 +24,6 @@ namespace ZenMagick\StoreBundle\Services\Checkout;
 
 use ZMRuntime;
 use ZenMagick\Base\Beans;
-use ZenMagick\Base\Runtime;
 use ZenMagick\Base\ZMObject;
 use ZenMagick\StoreBundle\Model\Checkout\ShoppingCart;
 

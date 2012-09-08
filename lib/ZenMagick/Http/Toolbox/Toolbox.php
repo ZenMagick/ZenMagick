@@ -19,9 +19,6 @@
  */
 namespace ZenMagick\Http\Toolbox;
 
-use ZenMagick\Base\Beans;
-use ZenMagick\Base\Runtime;
-use ZenMagick\Base\ZMObject;
 
 use Symfony\Component\DependencyInjection\ContainerAware;
 use Symfony\Component\DependencyInjection\ContainerInterface;

@@ -21,7 +21,6 @@ namespace ZenMagick\Http\Sacs\Handler;
 
 use ZenMagick\Base\ZMObject;
 use ZenMagick\Http\Sacs\SacsHandler;
-use ZenMagick\Http\Sacs\Handler\UserRoleCredentials;
 
 /**
  * Default SACS handler providing unrestricted access.

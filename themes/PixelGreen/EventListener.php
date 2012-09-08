@@ -19,7 +19,6 @@
  */
 namespace ZenMagick\themes\PixelGreen;
 
-use ZenMagick\Base\Runtime;
 use ZenMagick\StoreBundle\Themes\ThemeEventListener;
 
 /**

@@ -22,12 +22,10 @@ namespace ZenMagick\Base\Database;
 use PDO;
 use ZenMagick\Base\Beans;
 use ZenMagick\Base\Runtime;
-use ZenMagick\Base\Toolbox;
 use ZenMagick\Base\ZMException;
 use ZenMagick\Base\Database\TableMapper;
 use Doctrine\DBAL\Connection as DbalConnection;
 use Doctrine\DBAL\Cache\QueryCacheProfile;
-use Doctrine\DBAL\ConnectionException;
 
 /**
  * ZenMagick database abstractation based on Doctrine DBAL

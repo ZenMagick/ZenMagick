@@ -20,7 +20,6 @@
 namespace ZenMagick\plugins\howDidYouHear;
 
 use ZenMagick\Base\Plugins\Plugin;
-use ZenMagick\Base\Runtime;
 use ZenMagick\Base\Toolbox;
 use ZenMagick\Base\ZMObject;
 use ZenMagick\Http\View\TemplateView;

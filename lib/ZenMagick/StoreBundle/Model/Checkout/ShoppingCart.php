@@ -25,7 +25,6 @@ namespace ZenMagick\StoreBundle\Model\Checkout;
 use ZMCreditTypeWrapper;
 use ZMOrderTotalLine;
 use ZMPaymentField;
-use ZenMagick\Base\Runtime;
 use ZenMagick\Base\ZMObject;
 use ZenMagick\StoreBundle\Utils\CheckoutHelper;
 use ZenMagick\StoreBundle\Entity\TaxRate;

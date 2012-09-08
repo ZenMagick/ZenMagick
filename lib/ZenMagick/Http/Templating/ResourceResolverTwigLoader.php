@@ -19,9 +19,6 @@
  */
 namespace ZenMagick\Http\Templating;
 
-use Symfony\Component\Templating\Loader\LoaderInterface;
-use Symfony\Component\Templating\Storage\FileStorage;
-use Symfony\Component\Templating\TemplateReferenceInterface;
 use Twig_LoaderInterface;
 use ZenMagick\Http\View\ResourceResolver;
 use ZenMagick\Http\View\View;

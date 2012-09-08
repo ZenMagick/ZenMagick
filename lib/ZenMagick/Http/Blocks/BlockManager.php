@@ -20,7 +20,6 @@
 namespace ZenMagick\Http\Blocks;
 
 use ZenMagick\Base\Beans;
-use ZenMagick\Base\Runtime;
 use ZenMagick\Base\ZMObject;
 use ZenMagick\Http\Blocks\Widgets\BlockWidget;
 

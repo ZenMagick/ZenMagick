@@ -21,7 +21,6 @@
 namespace ZenMagick\StoreBundle\Services\Catalog;
 
 use DateTime;
-use ZenMagick\Base\Runtime;
 use ZenMagick\Base\ZMObject;
 use ZenMagick\Base\Database\Connection;
 
