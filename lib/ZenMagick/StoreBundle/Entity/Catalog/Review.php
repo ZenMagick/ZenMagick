@@ -20,6 +20,7 @@
  */
 namespace ZenMagick\StoreBundle\Entity\Catalog;
 
+use ZMImageInfo;
 use DateTime;
 use ZenMagick\Base\ZMObject;
 

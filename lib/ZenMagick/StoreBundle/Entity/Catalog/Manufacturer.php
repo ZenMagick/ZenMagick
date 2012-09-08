@@ -20,6 +20,7 @@
  */
 namespace ZenMagick\StoreBundle\Entity\Catalog;
 
+use ZMImageInfo;
 use ZenMagick\Base\Beans;
 use ZenMagick\Base\ZMObject;
 
