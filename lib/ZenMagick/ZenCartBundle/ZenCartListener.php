@@ -32,6 +32,7 @@ use Symfony\Component\HttpKernel\HttpKernelInterface;
  * Event Listener
  *
  * @author DerManoMann
+ * @todo split admin/storefront events.
  */
 class ZenCartListener implements EventSubscriberInterface {
     protected $container;
@@ -203,10 +204,30 @@ class ZenCartListener implements EventSubscriberInterface {
         $event->set('context', $context);
     }
 
+    public function logAdminPageAccess($event) {
+        if (Runtime::isContextMatch('admin')) {
+            $request = $event->get('request');
+            if ('index' != $request->getRequestId()) {
+                $params = $request->query->all();
+                $idName = $request->getRequestIdKey();
+                if (isset($params[$idName])) unset($params[$idName]);
+                $data = array(
+                    'admin_id' => (null !== $request->getAccount()) ? $request->getAccount()->getId() : 0,
+                    'access_date' => new \DateTime(),
+                    'page_accessed' => $request->getRequestId(),
+                    'page_parameters' => http_build_query($params),
+                    'ip_address' => $request->getClientIp()
+                );
+                \ZMRuntime::getDatabase()->createModel('admin_activity_log', $data);
+            }
+        }
+    }
+
     public static function getSubscribedEvents() {
         return array(
             'request_ready' => array(array('onRequestReady', 100)),
             'dispatch_start' => array(array('onDispatchStart', 100)),
+            'all_done' => array(array('logAdminPageAccess', 30)),
             'view_start' => array(array('onViewStart', 100)),
             'generate_email' => array(array('onGenerateEmail')),
             'kernel.controller' => array(array('onKernelController', 30)),

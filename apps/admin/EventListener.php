@@ -142,18 +142,5 @@ class EventListener extends ZMObject {
             $request->setLocale($uiLocale);
         }
 
-        if ('index' != $request->getRequestId()) {
-            $params = $request->query->all();
-            $idName = $request->getRequestIdKey();
-            if (isset($params[$idName])) unset($params[$idName]);
-            $data = array(
-                'admin_id' => (null !== $request->getAccount()) ? $request->getAccount()->getId() : 0,
-                'access_date' => new \DateTime(),
-                'page_accessed' => $request->getRequestId(),
-                'page_parameters' => http_build_query($params),
-                'ip_address' => $request->getClientIp()
-            );
-            \ZMRuntime::getDatabase()->createModel('admin_activity_log', $data);
-        }
     }
 }
