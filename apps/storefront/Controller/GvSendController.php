@@ -32,7 +32,7 @@ class GvSendController extends \ZMController {
      * {@inheritDoc}
      */
     public function processGet($request) {
-        return $this->findView(null, array('currentAccount' => $this->getUser());
+        return $this->findView(null, array('currentAccount' => $this->getUser()));
     }
 
     /**
