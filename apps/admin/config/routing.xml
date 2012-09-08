@@ -12,7 +12,7 @@
         <option key="view:success-demo">redirect://index</option>
     </route>
 
-    <route id="index" pattern="/index">
+    <route id="dashboard" pattern="/index">
         <default key="_controller">ZMController::process</default>
     </route>
 
@@ -66,5 +66,9 @@
         <option key="form">ZenMagick\apps\admin\Forms\AdminUserForm#formId=adminUser</option>
     </route>
     -->
+
+    <route id="index" pattern="/">
+        <default key="_controller">ZMController::process</default>
+    </route>
 
 </routes>
