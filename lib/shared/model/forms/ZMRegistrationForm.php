@@ -20,7 +20,7 @@
 
 use ZenMagick\Base\Beans;
 use ZenMagick\Base\Runtime;
-use ZenMagick\Http\forms\FormData;
+use ZenMagick\Http\Forms\FormData;
 
 /**
  * A registration form (bean).

@@ -23,7 +23,7 @@ use ZenMagick\Base\Runtime;
 use ZenMagick\Base\ZMException;
 use ZenMagick\Base\Logging\Logging;
 use ZenMagick\Http\Request;
-use ZenMagick\Http\forms\Form;
+use ZenMagick\Http\Forms\Form;
 use ZenMagick\Http\View\TemplateView;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -275,7 +275,7 @@ class ZMController extends Controller {
      */
     public function getFormData($request, $formDef=null, $formId=null) {
         $routeResolver = $this->container->get('routeResolver');
-        if (null != ($route = $routeResolver->getRouteForUri($request->getRequestUri()))) {
+        if (null != ($route = $routeResolver->getRouteForUri($request->getPathInfo()))) {
             if (null != ($options = $route->getOptions()) && array_key_exists('form', $options)) {
                 $this->formData_ = Beans::getBean($options['form']);
                 if ($this->formData_ instanceof Form) {

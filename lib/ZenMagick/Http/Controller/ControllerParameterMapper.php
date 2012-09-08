@@ -31,7 +31,7 @@ use ZenMagick\Http\Request;
  * <p>Parameters will be resolved in the following order:</p>
  * <ol>
  *   <li>Does the parameter name match a value key in router match data</li>
- *   <li>Does a type hint class exist and does that implement <code>ZenMagick\Http\forms\Form</code></li>
+ *   <li>Does a type hint class exist and does that implement <code>ZenMagick\Http\Forms\Form</code></li>
  *   <li>Is the parameter name a valid contaier service id</li>
  *   <li>Create new instance based on type hint and populate with request data</li>
  * </ol>
@@ -63,7 +63,7 @@ class ControllerParameterMapper extends ZMObject implements ParameterMapper {
                 $hintClass = $rp->getClass();
                 if ($hintClass) {
                     // check for special classes/interfaces
-                    if ('ZenMagick\Http\forms\Form' == $hintClass->name || $hintClass->isSubclassOf('zenmagick\http\forms\Form')) {
+                    if ('ZenMagick\Http\Forms\Form' == $hintClass->name || $hintClass->isSubclassOf('ZenMagick\Http\Forms\Form')) {
                         $value = Beans::getBean($hintClass->name);
                         $value->populate($this->request);
                     } else if ($this->container->has($rp->name)) {
