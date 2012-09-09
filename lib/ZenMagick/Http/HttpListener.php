@@ -23,6 +23,8 @@ use Exception;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\HttpKernelInterface;
 use Symfony\Component\HttpKernel\Event\GetResponseEvent;
+use Symfony\Component\HttpKernel\Event\FilterControllerEvent;
+use Symfony\Component\HttpKernel\Event\GetResponseForControllerResultEvent;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
@@ -52,6 +54,7 @@ class HttpListener implements EventSubscriberInterface {
         $controller = $request->attributes->get('_controller');
         if ((false === strpos($controller, 'ZM')) && (false === strpos($controller, 'ZenMagick'))) return;
 
+        $request->setRequestId($request->attributes->get('_route'));
         $request->setContainer($this->container);
 
         if (HttpKernelInterface::MASTER_REQUEST !== $event->getRequestType()) return;
@@ -81,9 +84,15 @@ class HttpListener implements EventSubscriberInterface {
                 }
             }
         }
+    }
 
+    public function onKernelView(GetResponseForControllerResultEvent $event) {
+        $request = $event->getRequest();
+
+
+        $dispatcher = $event->getDispatcher();
         ob_start();
-        list($response, $view) = $this->handleRequest($request, $event->getDispatcher());
+        list($response, $view) = $this->handleRequest($request, $event);
         $content = ob_get_clean();
         if (!empty($content) && !$view) {
             $response->setContent($content);
@@ -101,11 +110,12 @@ class HttpListener implements EventSubscriberInterface {
         $event->setResponse($response);
     }
 
-    public function handleRequest($request, $dispatcher) {
+    public function handleRequest($request, $event) {
         $response = $view = null;
         $content = '';
+        $dispatcher = $event->getDispatcher();
         try {
-            $result = $this->executeController($request);
+            $result = $event->getControllerResult();
             // make sure we end up with a View instance
             $routeResolver = $this->container->get('routeResolver');
             if (is_string($result)) {
@@ -135,40 +145,13 @@ class HttpListener implements EventSubscriberInterface {
         return array($response, $view);
     }
 
-    protected function executeController(Request $request) {
-        $controller = null;
-
-        if ($routerMatch = $this->container->get('routeResolver')->getRouterMatch($request->getRequestUri())) {
-            $token = explode('::', $routerMatch['_controller']); // class::method ?
-
-            if (1 == count($token)) { // traditional controller
-                $controller = Beans::getBean($routerMatch['_controller']);
-                $executor = new Executor(array($controller, 'process'), array($request));
-            } else {
-                // wrap to allow custom method with variable parameter
-                // TODO: remove once all controller use type hints for $request
-                if (!array_key_exists('request', $routerMatch)) {
-                    // allow $request as mappable parameter too
-                    $routerMatch['request'] = $request;
-                }
-                $parameterMapper = $this->container->get('controllerParameterMapper');
-                $executor =  new Executor(array(Beans::getBean($token[0]), $token[1]), $routerMatch, $parameterMapper);
-            }
-        } else {
-            //TODO: default controller
-            $controller = $this->container->get('urlManager')->findController($request->getRequestId());
-            $executor = new Executor(array($controller, 'process'), array($request));
-        }
-
-        $result = $executor->execute();
-
-        return $result;
-    }
-
     public static function getSubscribedEvents() {
         return array(
             'kernel.request' => array(
                 array('onKernelRequest', 14),
+            ),
+            'kernel.view' => array(
+                array('onKernelView'),
             )
         );
     }
