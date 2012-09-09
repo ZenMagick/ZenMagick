@@ -6,10 +6,7 @@
     xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
 
     <parameters>
-
         <parameter key="zenmagick.resource_manager.class">ZenMagick\Http\View\ResourceManager</parameter>
-        <parameter key="zenmagick.http.httpPort">80</parameter>
-        <parameter key="zenmagick.http.httpsPort">443</parameter>
         <parameter key="zenmagick.http.session.validator.userAgent">false</parameter>
         <parameter key="zenmagick.http.session.validator.ip">false</parameter>
         <parameter key="zenmagick.http.session.validator.sslSessionId">false</parameter>
@@ -56,10 +53,6 @@
             <call method="setRouteResolver">
                 <argument type="service" id="routeResolver" />
             </call>
-        </service>
-
-        <service id="defaultUrlRewriter" class="ZenMagick\Http\Request\Rewriter\DefaultUrlRewriter">
-            <tag name="zenmagick.http.request.rewriter" />
         </service>
 
         <service id="routingUrlRewriter" class="ZenMagick\Http\Request\Rewriter\RoutingUrlRewriter">
@@ -127,18 +120,7 @@
 
         <service id="defaultView" alias="templateView" />
 
-        <service id="requestContext" class="ZenMagick\Http\Routing\RequestContext">
-            <argument type="service" id="service_container" />
-            <call method="setHttpPort">
-              <argument>%zenmagick.http.httpPort%</argument>
-            </call>
-            <call method="setHttpsPort">
-              <argument>%zenmagick.http.httpsPort%</argument>
-            </call>
-        </service>
-
         <service id="routeResolver" class="ZenMagick\Http\Routing\RouteResolver">
-            <argument type="service" id="requestContext" />
             <call method="setContainer">
                 <argument type="service" id="service_container" />
             </call>

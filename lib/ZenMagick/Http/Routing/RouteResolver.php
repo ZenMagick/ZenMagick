@@ -23,7 +23,6 @@ use Exception;
 use Symfony\Component\Routing\Route;
 use Symfony\Component\Routing\RouteCollection;
 use Symfony\Component\Routing\Router;
-use Symfony\Component\Routing\RequestContext as SymfonyRequestContext;
 
 use ZenMagick\Base\Beans;
 use ZenMagick\Base\ZMObject;
@@ -37,24 +36,6 @@ use ZenMagick\Http\View\TemplateView;
  */
 class RouteResolver extends ZMObject {
     const GLOBAL_ROUTING_KEY = 'zenmagick_global_routing';
-    private $requestContext;
-    private $options;
-    private $router;
-    private $routes;
-
-    /**
-     * Create new instance.
-     */
-    public function __construct(SymfonyRequestContext $requestContext) {
-        parent::__construct();
-        $this->requestContext = $requestContext;
-        $this->options = array(
-            'generator_class' => 'ZenMagick\Http\Routing\Generator\UrlGenerator',
-            //'matcher_class' => 'Symfony\\Component\\Routing\\Matcher\\RedirectableUrlMatcher'
-        );
-        $this->router = null;
-        $this->routes = array();
-    }
 
     /**
      * Get the router.
@@ -62,11 +43,7 @@ class RouteResolver extends ZMObject {
      * @return Router The router.
      */
     public function getRouter() {
-        if (null == $this->router) {
-            $this->router = new Router(new YamlLoader(), '', $this->options, $this->requestContext);
-            $this->router->getGenerator()->setContainer($this->container);
-        }
-        return $this->router;
+        return $this->container->get('router');
     }
 
     /**
@@ -76,23 +53,7 @@ class RouteResolver extends ZMObject {
      * @return array The match or <code>null</code>.
      */
     public function getRouterMatch($uri) {
-        // check for cache hit
-        if (array_key_exists($uri, $this->routes)) {
-            return $this->routes[$uri];
-        }
-
-        // try router first
-        $routerMatch = null;
-        try {
-            // this doesn't feel right
-            $nuri = preg_replace('#^'.$this->requestContext->getBaseUrl().'#', '', $uri);
-            $routerMatch = $this->getRouter()->match($nuri);
-        } catch (Exception $e) {
-
-        }
-        $this->routes[$uri] = $routerMatch;
-
-        return $this->routes[$uri];
+        return $this->getRouter()->match($uri);
     }
 
     /**
@@ -132,7 +93,7 @@ class RouteResolver extends ZMObject {
         $view = null;
         // build list of routes to look at
         $routeIds = array();
-        if (null != ($routerMatch = $this->getRouterMatch($request->getRequestUri()))) {
+        if (null != ($routerMatch = $this->getRouterMatch($request->getPathInfo()))) {
             $routeIds[] = $routerMatch['_route'];
         }
         $routeIds[] = self::GLOBAL_ROUTING_KEY;
