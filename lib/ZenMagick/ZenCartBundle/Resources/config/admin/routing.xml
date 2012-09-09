@@ -172,6 +172,15 @@
         <default key="_controller">ZenMagick\ZenCartBundle\Controller\AdminController::process</default>
         <option key="view">views/zc_admin.php</option>
     </route>
+    <route id="invoice" pattern="/invoice">
+        <default key="_controller">ZenMagick\ZenCartBundle\Controller\AdminController::process</default>
+        <option key="view">views/zc_admin.php</option>
+    </route>
+    <route id="packingslip" pattern="/packingslip">
+        <default key="_controller">ZenMagick\ZenCartBundle\Controller\AdminController::process</default>
+        <option key="view">views/zc_admin.php</option>
+    </route>
+
     <route id="gv_queue" pattern="/gv_queue">
         <default key="_controller">ZenMagick\ZenCartBundle\Controller\AdminController::process</default>
         <option key="view">views/zc_admin.php</option>
