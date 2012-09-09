@@ -27,7 +27,6 @@ zenmagick:
       listeners:
         - ZenMagick\StoreBundle\EventListener\StoreListener
         - ZenMagick\apps\storefront\EventListener
-        - ZenMagick\Http\EventListener
   ## mvc
   mvc:
     ## request
@@ -53,8 +52,6 @@ zenmagick:
     sacs:
       handler:
         - ZenMagick\apps\storefront\Http\Sacs\StorefrontAccountSacsHandler
-    routing:
-      addnRouteFiles: []
     ## templates
     templates:
       ext: .php

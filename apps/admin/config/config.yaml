@@ -26,7 +26,6 @@ zenmagick:
     events:
       listeners:
         - ZenMagick\StoreBundle\EventListener\StoreListener
-        - ZenMagick\Http\EventListener
         - ZenMagick\apps\admin\EventListener
   ## mvc
   mvc:
@@ -49,7 +48,6 @@ zenmagick:
       enforceSecure: false
     routing:
       alias: {}
-      addnRouteFiles: []
     ## sacs
     sacs:
       handler:

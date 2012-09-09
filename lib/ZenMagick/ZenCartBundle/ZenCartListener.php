@@ -100,7 +100,6 @@ class ZenCartListener implements EventSubscriberInterface {
         $settingsService = $this->container->get('settingsService');
         if (Runtime::isContextMatch('admin')) {
             $settingsService->add('apps.store.admin.menus', 'lib/ZenMagick/ZenCartBundle/Resources/config/admin/menu.yaml');
-            $settingsService->add('zenmagick.http.routing.addnRouteFiles', __DIR__.'/Resources/config/admin/routing.xml');
         }
     }
 
