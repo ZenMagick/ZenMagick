@@ -136,7 +136,6 @@ class ZMPhpEngine extends ZMObject implements EngineInterface {
         ob_start();
         require $__fetchVars['path'];
         $result = ob_get_clean();
-
         // if we have a cache, keep it
         if (null != $this->templateCache && $this->templateCache->eligible($__fetchVars['template'])) {
             $this->templateCache->save($__fetchVars['template'], $result);
@@ -169,7 +168,7 @@ class ZMPhpEngine extends ZMObject implements EngineInterface {
     public function fetchBlockGroup($groupId, $args=array()) {
         $contents = '';
         foreach ($this->container->get('blockManager')->getBlocksForId($this->request, $groupId, $args) as $block) {
-            Runtime::getLogging()->debug(sprintf('render block, template: %s', $block->getTemplate()));
+//            Runtime::getLogging()->debug(sprintf('render block, template: %s', $block->getTemplate()));
             $contents .= $block->render($this->request, $this->view);
         }
         return $contents;
