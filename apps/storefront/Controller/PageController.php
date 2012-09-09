@@ -29,12 +29,12 @@ class PageController extends \ZMController {
     /**
      * {@inheritDoc}
      */
-    public function processGet($request) {
-        $languageId = $request->getSession()->getLanguageId();
-        $page = $this->container->get('ezPageService')->getPageForId($request->query->get("id"), $languageId);
+    public function showAction($id, $chapter = null) {
+        $languageId = $this->getRequest()->getSession()->getLanguageId();
+        $page = $this->container->get('ezPageService')->getPageForId($id, $languageId);
         if (null == $page) {
             // do we have a chapter
-            if (null != ($chapter = $request->query->get('chapter'))) {
+            if (null != $chapter) {
                 $toc = $this->container->get('ezPageService')->getPagesForChapterId($chapter, $languageId);
                 if (0 < count($toc)) {
                     $page = $toc[0];

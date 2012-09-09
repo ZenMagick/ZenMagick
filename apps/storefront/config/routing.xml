@@ -56,6 +56,10 @@
         <requirement key="_method">GET</requirement>
     </route>
 
+    <route id="customers_authorization" pattern="/customers_authorization">
+        <default key="_controller">ZMController::process</default>
+    </route>
+
     <route id="create_account" pattern="/account/create">
         <default key="_controller">ZenMagick\apps\storefront\Controller\CreateAccountController::process</default>
         <option key="form">ZMRegistrationForm#formId=registration</option>
@@ -164,6 +168,20 @@
         <option key="view:success">redirect://contact_us</option>
     </route>
 
+    <route id="unsubscribe" pattern="/unsubscribe">
+        <default key="_controller">ZenMagick\apps\storefront\Controller\UnsubscribeController::process</default>
+    </route>
+
+    <route id="conditions" pattern="/conditions">
+        <default key="_controller">ZMController::process</default>
+        <option key="view">views/conditions.php</option>
+    </route>
+
+    <route id="shippinginfo" pattern="/shipping_info">
+        <default key="_controller">ZMController::process</default>
+        <option key="view">views/shippinginfo.php</option>
+    </route>
+
     <route id="privacy" pattern="/privacy">
         <default key="_controller">ZMController::process</default>
         <option key="view">views/privacy.php</option>
@@ -214,6 +232,11 @@
     <route id="checkout_billing" pattern="/checkout/billing">
         <default key="_controller">ZenMagick\apps\storefront\Controller\CheckoutPaymentController::process</default>
         <option key="view">redirect://checkout_confirmation</option>
+    </route>
+
+
+    <route id="checkout_confirmation" pattern="/checkout/confirmation">
+        <default key="_controller">ZenMagick\apps\storefront\Controller\CheckoutConfirmationController::process</default>
     </route>
 
     <route id="checkout_success" pattern="/checkout/success">
@@ -298,8 +321,8 @@
     </route>
 
     <route id="advanced_search" pattern="/search/advanced">
-        <default key="_controller">ZenMagick\apps\storefront\Controller\AdvancedSearchController::process</default>
-        <option key="form">ZMSearchCriteria#formId=searchCriteria</option>
+        <default key="_controller">ZenMagick\apps\storefront\Controller\SearchController::process</default>
+        <option key="form">ZMSearchCriteria#formId:searchCriteria</option>
         <option key="view">views/advanced_search.php</option>
     </route>
 
@@ -315,6 +338,43 @@
 
     <route id="checkout_success" pattern="/checkout/success">
         <default key="_controller">ZenMagick\apps\storefront\Controller\CheckoutSuccessController::process</default>
+    </route>
+
+    <route id="static" pattern="/static">
+        <default key="_controller">ZMController::process</default>
+    </route>
+
+    <route id="featured_products" pattern="/featured">
+        <default key="_controller">ZenMagick\apps\storefront\Controller\FeaturedProductsController::process</default>
+    </route>
+
+    <route id="specials" pattern="/specials">
+        <default key="_controller">ZenMagick\apps\storefront\Controller\SpecialsController::process</default>
+    </route>
+
+    <route id="manufacturer" pattern="/manufacturers">
+        <default key="_controller">ZenMagick\apps\storefront\Controller\ManufacturerController::process</default>
+    </route>
+
+    <route id="products_all" pattern="/products/all">
+        <default key="_controller">ZMController::process</default>
+    </route>
+
+    <route id="products_new" pattern="/products/new">
+        <default key="_controller">ZenMagick\apps\storefront\Controller\ProductsNewController::process</default>
+    </route>
+
+    <route id="page" pattern="/page/{id}">
+        <default key="_controller">ZenMagick\apps\storefront\Controller\PageController::showAction</default>
+    </route>
+
+    <route id="page" pattern="/page/{chapter}/{id}">
+        <default key="chapter">0</default>
+        <default key="_controller">ZenMagick\apps\storefront\Controller\PageController::showAction</default>
+    </route>
+
+    <route id="time_out" pattern="/time_out">
+        <default key="_controller">ZMController::process</default>
     </route>
 
     <route id="index" pattern="/">
