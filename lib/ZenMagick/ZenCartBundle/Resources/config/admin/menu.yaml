@@ -51,3 +51,5 @@ stats-products-purchased: { parent: reports-reports, requestId: stats_products_p
 stats-products-lowstock: { parent: reports-reports, requestId: stats_products_lowstock, name: Products Low Stock }
 stats-customers: { parent: reports-reports, requestId: stats_customers, name: Customer Order Totals }
 stats-customers-referrals: { parent: reports-reports, requestId: stats_customers_referrals, name: Customer Referrals }
+whos-online: { parent: tools-misc, requestId: whos_online, name: 'Online Users' }
+
