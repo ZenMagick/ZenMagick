@@ -26,6 +26,7 @@ use ZenMagick\Http\Request;
 use ZenMagick\Http\Forms\Form;
 use ZenMagick\Http\View\TemplateView;
 
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 /**
@@ -139,6 +140,9 @@ class ZMController extends Controller {
             }
         }
 
+        if ($view instanceof Response) {
+            return $view;
+        }
         if (null != $view) {
             $this->initViewVars($view, $request, $formData);
             if (!$view->isValid()) {
@@ -275,6 +279,7 @@ class ZMController extends Controller {
      */
     public function getFormData($request, $formDef=null, $formId=null) {
         $routeResolver = $this->container->get('routeResolver');
+
         if (null != ($route = $routeResolver->getRouteForUri($request->getPathInfo()))) {
             if (null != ($options = $route->getOptions()) && array_key_exists('form', $options)) {
                 $this->formData_ = Beans::getBean($options['form']);
@@ -285,9 +290,8 @@ class ZMController extends Controller {
                 }
             }
         }
-
         // TODO: drop
-        if (null == $this->formData_ && null !== ($mapping = $this->container->get('urlManager')->findMapping($this->requestId_))) {
+        /*if (null == $this->formData_ && null !== ($mapping = $this->container->get('urlManager')->findMapping($this->requestId_))) {
             $formDef = null != $formDef ? $formDef : (array_key_exists('form', $mapping) ? $mapping['form'] : null);
             $formId = null != $formId ? $formId : (array_key_exists('formId', $mapping) ? $mapping['formId'] : null);
             if (null != $formDef && null != $formId) {
@@ -298,7 +302,7 @@ class ZMController extends Controller {
                     $this->formData_ = Beans::setAll($this->formData_, $request->getParameterMap());
                 }
             }
-        }
+        }*/
 
         return $this->formData_;
     }
