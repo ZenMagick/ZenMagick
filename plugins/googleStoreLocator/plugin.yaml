@@ -38,11 +38,10 @@ meta:
                   style: checkbox
 
 admin:
-  router:
-    page:
-      googleStoreLocator:
-        controller: ZenMagick\plugins\googleStoreLocator\controller\GoogleStoreLocatorAdminController
-
+  routing:
+    google_store_locator:
+      pattern: /googleStoreLocator
+      defaults: { _controller: ZenMagick\plugins\googleStoreLocator\controller\GoogleStoreLocatorAdminController::process }
   menu:
     google-store-locator:
       parent: configuration-plugins

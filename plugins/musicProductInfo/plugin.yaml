@@ -14,8 +14,3 @@ storefront:
     product_info:
       options:
         'view:product_music_info': views/product_music_info.php
-  router:
-    page:
-      product_info:
-        product_music_info:
-          template: views/product_music_info.php

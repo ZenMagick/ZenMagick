@@ -7,10 +7,10 @@ meta:
   context: admin
 
 admin:
-  router:
-    page:
-      export_orders:
-        controller: ZenMagick\plugins\dataExporter\controller\ExportOrdersController
+  routing:
+    export_orders:
+      pattern: /export_orders
+      defaults: { _controller: ZenMagick\plugins\dataExporter\controller\ExportOrdersController::process }
   menu:
     data-exporter:
       parent: tools

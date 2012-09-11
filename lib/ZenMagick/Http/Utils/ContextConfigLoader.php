@@ -30,19 +30,12 @@ use ZenMagick\Base\Utils\ContextConfigLoader as BaseContextConfigLoader;
 class ContextConfigLoader extends BaseContextConfigLoader {
     // collect all loaded routings to be processed later
     private static $routing = array();
-    private static $urlManagerRoutes = array();
 
     /**
      * {@inheritDoc}
      */
     public function apply(array $config) {
         parent::apply($config);
-
-        // traditional router
-        if (array_key_exists('router', $config) && is_array($config['router'])) {
-            // keep for later
-            self::$urlManagerRoutes[] = $config['router'];
-        }
         if (array_key_exists('routing', $config) && is_array($config['routing'])) {
             // keep for later
             self::$routing[] = $config['routing'];
@@ -57,14 +50,4 @@ class ContextConfigLoader extends BaseContextConfigLoader {
     public function getRouting() {
         return self::$routing;
     }
-
-    /**
-     * Get legacy urlManager routes.
-     *
-     * @return array List of routing maps.
-     */
-    public function getUrlManagerRoutes() {
-        return self::$urlManagerRoutes;
-    }
-
 }

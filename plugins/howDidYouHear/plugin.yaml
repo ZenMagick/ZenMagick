@@ -32,12 +32,13 @@ meta:
                   style: checkbox
 
 admin:
-  router:
-    page:
-      howDidYouHearSourcesStats:
-        controller: ZenMagick\plugins\howDidYouHear\controller\HowDidYouHearSourcesStatsController
-      howDidYouHearSourcesAdmin:
-        controller: ZenMagick\plugins\howDidYouhear\controller\HowDidYouHearSourcesAdminController
+  routing:
+    howDidYouHearSourcesStats:
+      pattern: /howDidYouHearSourcesStats
+      defaults: { _controller: ZenMagick\plugins\howDidYouHear\controller\HowDidYouHearSourcesStatsController::process }
+    howDidYouHearSourcesStats:
+      pattern: /howDidYouHearSourcesAdmin
+      defaults: { _controller: ZenMagick\plugins\howDidYouHear\controller\HowDidYouHearSourcesAdminController::process }
   menu:
     referral-sources:
       parent: configuration
