@@ -55,6 +55,7 @@ class HttpListener implements EventSubscriberInterface {
 
         $request->setContainer($this->container);
 
+        if (HttpKernelInterface::MASTER_REQUEST !== $event->getRequestType()) return;
         $dispatcher = $event->getDispatcher();
         $request->getSession()->restorePersistedServices();
 
