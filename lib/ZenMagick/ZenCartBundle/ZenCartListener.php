@@ -87,7 +87,6 @@ class ZenCartListener implements EventSubscriberInterface {
                     $settingsService = $this->container->get('settingsService');
                     $settingsService->set('zenmagick.http.view.defaultLayout', null);
                     $event->setController(array(Beans::getBean('ZenMagick\ZenCartBundle\Controller\StorefrontController'), 'process'));
-                    $event->stopPropagation();
                 }
             }
         }
