@@ -383,4 +383,5 @@
         <option key="view:category">forward://category</option>
     </route>
 
+    <import resource="." type="context" />
 </routes>

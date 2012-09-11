@@ -134,6 +134,7 @@
         <option key="form">ZenMagick\apps\admin\Forms\AdminUserForm#formId=adminUser</option>
     </route>
 
+    <import resource="." type="context" />
     <import resource="@ZenCartBundle/Resources/config/admin/routing.xml" />
     <route id="index" pattern="/">
         <default key="_controller">ZMController::process</default>

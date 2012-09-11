@@ -247,5 +247,9 @@
             <tag name="zenmagick.http.session.validator" />
         </service>
 
+        <service id="zenmagick.context_routing_loader" class="ZenMagick\ZenMagickBundle\Routing\Loader\ContextLoader">
+            <argument type="service" id="contextConfigLoader" strict="false" />
+            <tag name="routing.loader" />
+        </service>
     </services>
 </container>
