@@ -132,19 +132,22 @@ class StorefrontController extends \ZMController {
         require Runtime::getInstallationPath().'/lib/ZenMagick/ZenCartBundle/bridge/includes/autoload_func.php';
         require($controllerFile);
 
+        $content = '';
         // is this really required? we got here because the bundle checked this already, it seems
         if ($this->container->get('themeService')->getActiveTheme()->getMeta('zencart')) {
+            ob_start();
             require($template->get_template_dir('html_header.php',DIR_WS_TEMPLATE, $request->getRequestId(),'common'). '/html_header.php');
             require($template->get_template_dir('main_template_vars.php',DIR_WS_TEMPLATE, $request->getRequestId(),'common'). '/main_template_vars.php');
             require($template->get_template_dir('tpl_main_page.php',DIR_WS_TEMPLATE, $request->getRequestId(),'common'). '/tpl_main_page.php');
             echo '</html>';
+            $content = ob_get_clean();
         }
         chdir($cwd);
         $autoLoader->restoreErrorLevel();
         foreach ($_SESSION as $k => $v) {
             $session->setValue($k, $v);
         }
-        return new Response;
+        return new Response($content);
     }
 
     /**
