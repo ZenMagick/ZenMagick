@@ -63,15 +63,6 @@ class MusicProductInfoPlugin extends Plugin {
     }
 
     /**
-     * Update route.
-     */
-    public function onDispatchStart($event) {
-        if (null != ($route = $this->container->get('routeResolver')->getRouteForId('product_info'))) {
-            $route->addOptions(array('view:product_music_info' => 'views/product_music_info.php'));
-        }
-    }
-
-    /**
      * Event handler.
      */
     public function onViewStart($event) {
