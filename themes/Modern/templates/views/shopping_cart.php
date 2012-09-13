@@ -23,7 +23,7 @@
 ?>
 
 <?php $crumbtrail->addCrumb(_zm('Shopping Cart')) ?>
-<?php echo $form->open('cart', '', true) ?>
+<?php echo $form->open('shopping_cart', '', true) ?>
     <table cellpadding="0" cellspacing="0" width="100%">
         <tr class="tableHeading">
             <th><?php _vzm('Qty.') ?></th>

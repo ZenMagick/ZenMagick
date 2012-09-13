@@ -41,12 +41,6 @@
         <option key="view:success">redirect://shopping_cart</option>
     </route>
 
-    <route id="cart" pattern="/cart">
-        <default key="_controller">ZenMagick\apps\storefront\Controller\ShoppingCartController::show</default>
-        <requirement key="_method">GET</requirement>
-        <option key="view">views/shopping_cart.php</option>
-    </route>
-
     <route id="shopping_cart" pattern="/cart">
         <default key="_controller">ZenMagick\apps\storefront\Controller\ShoppingCartController::show</default>
         <requirement key="_method">GET</requirement>

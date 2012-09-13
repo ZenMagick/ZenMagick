@@ -22,7 +22,7 @@ $crumbtrail->addCrumb(_zm('Shopping Cart'));
 if ($shoppingCart->isEmpty()) { ?>
     <h2><?php _vzm("Your Shopping Cart is empty") ?></h2>
 <?php } else { ?>
-    <?php echo $form->open('cart', '', true) ?>
+    <?php echo $form->open('shopping_cart', '', true) ?>
         <table cellpadding="0" cellspacing="0">
             <tbody>
             <?php $odd = true; $first = true; foreach ($shoppingCart->getItems() as $item) { ?>
