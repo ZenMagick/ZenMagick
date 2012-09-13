@@ -323,7 +323,7 @@ class StorefrontController extends \ZMController {
         $languageId = $request->getSession()->getLanguageId();
 
         foreach ((array)$categories as $category) {
-                $breadcrumb->add($category->getName(), zen_href_link(FILENAME_DEFAULT, implode('_', $category->getPath())));
+                $breadcrumb->add($category->getName(), zen_href_link(FILENAME_DEFAULT, 'cPath='.implode('_', $category->getPath())));
         }
 
         if (null != $manufacturer) {
@@ -332,7 +332,7 @@ class StorefrontController extends \ZMController {
 
         // Add Product
         if (null != $product) {
-            $breadcrumb->add($product->getName(), $request->url(zen_get_info_page($product->getId()), 'cPath='.(string)$request->query->get('cPath').'&products_id='.$product->getId()));
+            $breadcrumb->add($product->getName(), $request->url(zen_get_info_page($product->getId()), 'cPath='.(string)$request->query->get('cPath').'&productId='.$product->getId()));
         }
 
         return $breadcrumb;
