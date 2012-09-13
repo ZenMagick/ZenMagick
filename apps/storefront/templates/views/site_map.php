@@ -31,7 +31,7 @@
         <li><a href="<?php echo $net->url('address_book', '', true); ?>"><?php _vzm("My Address Book") ?></a></li>
         <li><a href="<?php echo $net->url('account_password', '', true); ?>"><?php _vzm("Change My Password") ?></a></li>
         <li><a href="<?php echo $net->url('account_history', '', true) ?>"><?php _vzm("Order History") ?></a></li>
-        <li><a href="<?php echo $net->url('account_newsletter', '', true); ?>"><?php _vzm("Change Newsletter Subscriptions") ?></a></li>
+        <li><a href="<?php echo $net->url('account_newsletters', '', true); ?>"><?php _vzm("Change Newsletter Subscriptions") ?></a></li>
         <li><a href="<?php echo $net->url('account_notifications', '', true); ?>"><?php _vzm("Change Product Notifications") ?></a></li>
       </ul></li>
         <?php if (!$request->getShoppingCart()->isEmpty()) { ?>
