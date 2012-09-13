@@ -383,5 +383,6 @@
         <option key="view:category">forward://category</option>
     </route>
 
+    <import resource="@ZenCartBundle/Resources/config/routing/storefront.yml" />
     <import resource="." type="context" />
 </routes>
