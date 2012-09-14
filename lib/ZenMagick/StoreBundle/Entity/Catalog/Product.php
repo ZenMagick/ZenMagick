@@ -1024,6 +1024,36 @@ class Product extends ZMObject {
     public function isPricedByAttributes() { return $this->pricedByAttributes; }
 
     /**
+     * Get the language id.
+     *
+     * @return int The language id.
+     */
+    public function getLanguageId() { return $this->languageId; }
+
+    /**
+     * Set the language id.
+     *
+     * @param int id The language id.
+     */
+    public function setLanguageId($id) { $this->languageId = $id; }
+
+    /**
+     * Get product associations for the given type(s) and parameter.
+     *
+     * @param string type The association type.
+     * @param array args Optional parameter that might be required by the used type; default is an empty array.
+     * @param boolean all Optional flag to load all configured products, regardless of start/end date, etc; default is <code>false</code>.
+     * @return array A list of <code>ZMProductAssociation</code> instances.
+     */
+    public function getProductAssociations($type, $args=array(), $all=false) {
+        // some defaults
+        if (!array_key_exists('languageId', $args)) {
+            $args['languageId'] = $this->getLanguageId();
+        }
+        return $this->container->get('productAssociationService')->getProductAssociationsForProductId($this->getId(), $type, $args, $all);
+    }
+
+    /**
      * Get meta tag details if available.
      *
      * @param int languageId Optional language id; default is <code>null</code> to use the current language id of this instance.
