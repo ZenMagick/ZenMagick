@@ -57,9 +57,6 @@ doctrine:
         wrapper_class: ZenMagick\Base\Database\Connection
         mapping_types:
             enum: string
-        types:
-            datetime: ZenMagick\Base\Database\Doctrine\Types\DateTimeType
-            date: ZenMagick\Base\Database\Doctrine\Types\DateType
         options:
             table_prefix: %table_prefix%
     orm:
