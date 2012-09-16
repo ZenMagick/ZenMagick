@@ -69,14 +69,14 @@ class TaxRate extends ZMObject {
     /**
      * @var integer $priority
      *
-     * @ORM\Column(name="tax_priority", type="integer", nullable=true)
+     * @ORM\Column(name="tax_priority", type="integer", precision=5, nullable=true)
      */
     private $priority;
 
     /**
      * @var decimal $rate
      *
-     * @ORM\Column(name="tax_rate", type="decimal", nullable=false)
+     * @ORM\Column(name="tax_rate", type="decimal", precision=7, scale=4, nullable=false)
      */
     private $rate;
     /**
@@ -111,8 +111,8 @@ class TaxRate extends ZMObject {
         $this->classId = 0;
         $this->countryId = 0;
         $this->zoneId = 0;
-        $this->priority = 0;
-        $this->setDateAdded(null);
+        $this->priority = 1;
+        $this->setDateAdded('0001-01-00 00:00:00');
         $this->setLastModified(null);
     }
 

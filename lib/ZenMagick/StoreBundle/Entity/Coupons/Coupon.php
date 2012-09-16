@@ -75,13 +75,13 @@ class Coupon extends ZMObject {
      /**
      * @var decimal $amount
      *
-     * @ORM\Column(name="coupon_amount", type="decimal", nullable=false)
+     * @ORM\Column(name="coupon_amount", type="decimal", precision=15, scale=4, nullable=false)
      */
     private $amount;
     /**
      * @var decimal $minOrderAmount
      *
-     * @ORM\Column(name="coupon_minimum_order", type="decimal", nullable=false)
+     * @ORM\Column(name="coupon_minimum_order", type="decimal", precision=15, scale=4, nullable=false)
      */
     private $minOrderAmount;
     /**
@@ -109,6 +109,24 @@ class Coupon extends ZMObject {
      */
     private $usesPerUser;
     /**
+     * @var string $restrictToProducts
+     *
+     * @ORM\Column(name="restrict_to_products", type="string", length=255, nullable=true)
+     */
+    private $restrictToProducts;
+    /**
+     * @var string $restrictToCategories
+     *
+     * @ORM\Column(name="restrict_to_categories", type="string", length=255, nullable=true)
+     */
+    private $restrictToCategories;
+    /**
+     * @var text $restrictToCustomers
+     *
+     * @ORM\Column(name="restrict_to_customers", type="text", nullable=true)
+     */
+    private $restrictToCustomers;
+    /**
      * @var string $active
      *
      * @ORM\Column(name="coupon_active", type="string", length=1, nullable=false)
@@ -127,6 +145,13 @@ class Coupon extends ZMObject {
      */
     private $dateModified;
     /**
+     * @var integer $restrictToZone
+     *
+     * @ORM\Column(name="coupon_zone_restriction", type="integer", nullable=false)
+     */
+    private $restrictToZone;
+
+    /**
      * @var object $translations
      * @ORM\OneToMany(targetEntity="CouponTranslations", mappedBy="coupon", cascade={"persist", "remove"})
      */
@@ -144,17 +169,20 @@ class Coupon extends ZMObject {
      *
      * @param int id The coupon id; default is <em>0</em>.
      * @param string code The coupon code; default is <em>''</em>.
-     * @param string type The coupon type; default is <em>''</em>.
+     * @param string type The coupon type; default is <em>'F'</em>.
      */
-    public function __construct($id=0, $code='', $type='') {
+    public function __construct($id=0, $code='', $type = self::TYPPE_FIXED) {
         parent::__construct();
         $this->setId($id);
         $this->code = $code;
         $this->type = $type;
         $this->active = 'Y';
         $this->minOrderAmount = 0;
+        $this->startDate = '0001-01-01 00:00:00';
+        $this->expiryDate = '0001-01-01 00:00:00';
         $this->usesPerCoupon = 1;
         $this->usesPerUser = 0;
+        $this->restrictToZone = 0;
         $this->translations = new ArrayCollection();
     }
 

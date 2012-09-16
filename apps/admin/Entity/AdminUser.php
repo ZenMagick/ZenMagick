@@ -29,9 +29,10 @@ use Doctrine\ORM\Mapping AS ORM;
  *
  * @author DerManoMann <mano@zenmagick.org>
  * @ORM\Table(name="admin",
+ *  uniqueConstraints={@ORM\UniqueConstraint(name="idx_admin_name_zen",columns={"admin_name"})},
  *  indexes={
  *      @ORM\Index(name="idx_admin_name_zen", columns={"admin_name"}),
- *      @ORM\Index(name="idx_admin_email_zen", columns={"admin_email"})
+ *      @ORM\Index(name="idx_admin_email_zen", columns={"admin_email"}),
  *  })
  * @ORM\Entity
  */
@@ -47,7 +48,7 @@ class AdminUser extends ZMObject implements UserRoleCredentials {
     /**
      * @var string $name
      *
-     * @ORM\Column(name="admin_name", type="string", length=32, nullable=false)
+     * @ORM\Column(name="admin_name", type="string", length=32, nullable=false, unique=true)
      */
     private $name;
     /**

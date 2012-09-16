@@ -52,7 +52,7 @@ class Special extends ZMObject {
     /**
      * @var decimal $specialPrice
      *
-     * @ORM\Column(name="specials_new_products_price", type="decimal", nullable=false)
+     * @ORM\Column(name="specials_new_products_price", type="decimal", precision=15, scale=4, nullable=false)
      */
     private $specialPrice;
     /**
@@ -91,6 +91,12 @@ class Special extends ZMObject {
      * @ORM\Column(name="specials_date_available", type="date", nullable=false)
      */
     private $availableDate;
+
+    public function __construct() {
+        $this->status = 1;
+        $this->expiryDate = '0001-01-01';
+        $this->availableDate = '0001-01-01';
+    }
 
     /**
      * Get id

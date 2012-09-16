@@ -42,7 +42,7 @@ class Block extends ZMObject {
     /**
      * @var integer $groupId
      *
-     * @ORM\Column(name="block_group_id", type="integer", nullable=false)
+     * @ORM\Column(name="block_group_id", type="integer", nullable=true)
      * @todo foreign key
      */
     private $groupId;
@@ -53,11 +53,23 @@ class Block extends ZMObject {
      */
     private $name;
     /**
-     * @var string $definition
+     * @var text $definition
      *
      * @ORM\Column(name="definition", type="text")
      */
     private $definition;
+    /**
+     * @var string $template
+     *
+     * @ORM\Column(name="template", type="string", length=48, nullable=true)
+     */
+    private $template;
+    /**
+     * @var string $format
+     *
+     * @ORM\Column(name="format", type="string", length=64, nullable=true)
+     */
+    private $format;
     /**
      * @var string $sortOrder
      *
@@ -65,11 +77,9 @@ class Block extends ZMObject {
      */
     private $sortOrder;
 
-    /*
-     * TODO:
-     * - template
-     * - format
-     */
+    public function __construct() {
+        $this->sortOrder = 0;
+    }
 
     /**
      * Get the block id.

@@ -76,7 +76,7 @@ class ConfigGroup extends ZMObject {
         $this->name = null;
         $this->description = null;
         $this->sortOrder = 0;
-        $this->visible = false;
+        $this->visible = true;
     }
 
 

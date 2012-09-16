@@ -40,7 +40,7 @@ class CounterHistory
     /**
      * Get startDate
      *
-     * @return string 
+     * @return string
      */
     public function getStartDate()
     {
@@ -62,7 +62,7 @@ class CounterHistory
     /**
      * Get counter
      *
-     * @return integer 
+     * @return integer
      */
     public function getCounter()
     {
@@ -84,7 +84,7 @@ class CounterHistory
     /**
      * Get sessionCounter
      *
-     * @return integer 
+     * @return integer
      */
     public function getSessionCounter()
     {

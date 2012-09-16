@@ -60,7 +60,7 @@ class CouponQueue extends ZMObject {
     /**
      * @var decimal $amount
      *
-     * @ORM\Column(name="amount", type="decimal", nullable=false)
+     * @ORM\Column(name="amount", type="decimal", precision=15, scale=4, nullable=false)
      */
     private $amount;
     /**
@@ -91,6 +91,7 @@ class CouponQueue extends ZMObject {
         $this->id = 0;
         $this->accountId = 0;
         $this->orderId = 0;
+        $this->dateCreated = '0001-01-01 00:00:00';
         $this->amount = 0;
         $this->released = 'N';
     }

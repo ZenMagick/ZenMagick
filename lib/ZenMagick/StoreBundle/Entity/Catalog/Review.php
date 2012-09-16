@@ -108,7 +108,6 @@ class Review extends ZMObject {
     private $productImage;
     private $languageId;
 
-
     /**
      * Create new instance.
      */

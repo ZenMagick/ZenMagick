@@ -116,6 +116,7 @@ class ConfigValue extends ZMObject {
         $this->description = null;
         $this->key = null;
         $this->value = null;
+        $this->dateAdded = '0001-01-01 00:00:00';
     }
 
 

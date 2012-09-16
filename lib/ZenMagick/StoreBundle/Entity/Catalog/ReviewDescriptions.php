@@ -58,9 +58,10 @@ class ReviewDescriptions extends ZMObject {
      */
     private $text;
 
-    public function __construct($review, $languageId, $text = '')
+    public function __construct($review, $languageId = 1, $text = '')
     {
         $this->review = $review;
+        $this->title = '';
         $this->setLanguageId($languageId);
         $this->setText($text);
     }
@@ -145,7 +146,7 @@ class ReviewDescriptions extends ZMObject {
     /**
      * Get review
      *
-     * @return ZenMagick\StoreBundle\Entity\Catalog\Review 
+     * @return ZenMagick\StoreBundle\Entity\Catalog\Review
      */
     public function getReview()
     {

@@ -165,11 +165,11 @@ class EZPage extends ZMObject {
         parent::__construct();
 
         $this->id = $id;
-        $this->languageId = 0;
+        $this->languageId = 1;
         $this->title = $title;
         $this->altUrl = '';
         $this->altUrlExternal = '';
-        $this->htmlText = null;
+        $this->htmlText = '';
         $this->header = false;
         $this->sidebox = false;
         $this->footer = false;

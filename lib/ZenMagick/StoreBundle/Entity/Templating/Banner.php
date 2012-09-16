@@ -65,7 +65,7 @@ class Banner extends ZMObject {
     /**
      * @var integer $isNewWin
      *
-     * @ORM\Column(name="banners_open_new_windows", type="integer", nullable=false)
+     * @ORM\Column(name="banners_open_new_windows", type="boolean", nullable=false)
      */
     private $isNewWin;
     /**
@@ -77,7 +77,7 @@ class Banner extends ZMObject {
     /**
      * @var integer $active
      *
-     * @ORM\Column(name="status", type="integer", nullable=false)
+     * @ORM\Column(name="status", type="boolean", nullable=false)
      */
     private $active;
     /**
@@ -89,7 +89,7 @@ class Banner extends ZMObject {
     /**
      * @var integer $expiryImpressions
      *
-     * @ORM\Column(name="expires_impressions", type="integer", nullable=true)
+     * @ORM\Column(name="expires_impressions", type="integer", nullable=false)
      */
     private $expiryImpressions;
     /**
@@ -119,7 +119,7 @@ class Banner extends ZMObject {
     /**
      * @var integer $isShowOnSsl
      *
-     * @ORM\Column(name="banners_on_ssl", type="integer", nullable=false)
+     * @ORM\Column(name="banners_on_ssl", type="boolean", nullable=false)
      */
     private $isShowOnSsl;
 
@@ -139,11 +139,14 @@ class Banner extends ZMObject {
         $this->title = null;
         $this->image = null;
         $this->text = null;
+        $this->expiryImpressions = 0;
         $this->isNewWin = false;
+        $this->isShowOnSsl = false;
         $this->url = null;
         $this->active = true;
-        $this->setDateAdded(null);
+        $this->setDateAdded('0001-01-01 00:00:00');
         $this->setLastModified(null);
+        $this->sortOrder = 0;
     }
 
 

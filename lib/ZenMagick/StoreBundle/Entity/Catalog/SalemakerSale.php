@@ -58,31 +58,31 @@ class SalemakerSale extends ZMObject {
     /**
      * @var decimal $deductionValue
      *
-     * @ORM\Column(name="sale_deduction_value", type="decimal", nullable=false)
+     * @ORM\Column(name="sale_deduction_value", type="decimal", precision=15, scale=4, nullable=false)
      */
     private $deductionValue;
     /**
      * @var boolean $deductionType
      *
-     * @ORM\Column(name="sale_deduction_type", type="boolean", nullable=false)
+     * @ORM\Column(name="sale_deduction_type", type="smallint", nullable=false)
      */
     private $deductionType;
     /**
      * @var decimal $priceFrom
      *
-     * @ORM\Column(name="sale_pricerange_from", type="decimal", nullable=false)
+     * @ORM\Column(name="sale_pricerange_from", type="decimal", precision=15, scale=4, nullable=false)
      */
     private $priceFrom;
     /**
      * @var decimal $priceTo
      *
-     * @ORM\Column(name="sale_pricerange_to", type="decimal", nullable=false)
+     * @ORM\Column(name="sale_pricerange_to", type="decimal", precision=15, scale=4, nullable=false)
      */
     private $priceTo;
     /**
      * @var boolean $specialsCondition
      *
-     * @ORM\Column(name="sale_specials_condition", type="boolean", nullable=false)
+     * @ORM\Column(name="sale_specials_condition", type="smallint", nullable=false)
      */
     private $specialsCondition;
 
@@ -130,6 +130,20 @@ class SalemakerSale extends ZMObject {
      * @ORM\Column(name="sale_date_status_change", type="date", nullable=false)
      */
     private $dateStatusChange;
+
+    public function __construct() {
+        $this->status = false;
+        $this->deductionValue = 0;
+        $this->deductionType = 0;
+        $this->priceFrom = 0;
+        $this->priceTo = 0;
+        $this->specialsCondition = 0;
+        $this->dateStart = Connection::NULL_DATE;
+        $this->dateEnd = Connection::NULL_DATE;
+        $this->dateAdded = Connection::NULL_DATE;
+        $this->dateLastModified = Connection::NULL_DATE;
+        $this->dateStatusChange = Connection::NULL_DATE;
+    }
 
     /**
      * Get id of sale.

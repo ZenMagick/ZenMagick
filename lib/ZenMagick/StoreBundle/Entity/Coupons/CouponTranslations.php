@@ -59,7 +59,6 @@ class CouponTranslations extends ZMObject {
      */
     private $description;
 
-
     /**
      * Create new instance
      *
@@ -138,7 +137,7 @@ class CouponTranslations extends ZMObject {
     /**
      * Get coupon
      *
-     * @return ZenMagick\StoreBundle\Entity\Coupons\Coupon 
+     * @return ZenMagick\StoreBundle\Entity\Coupons\Coupon
      */
     public function getCoupon()
     {

@@ -43,7 +43,7 @@ class Currency extends ZMObject {
     /**
      * @var string $code
      *
-     * @ORM\Column(name="code", type="string", length=3, nullable=false)
+     * @ORM\Column(name="code", type="string", length=3, unique=true, nullable=false)
      */
     private $code;
     /**

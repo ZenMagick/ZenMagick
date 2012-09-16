@@ -76,7 +76,7 @@ class TaxClass extends ZMObject {
         $this->title = '';
         $this->description = '';
         $this->lastModified = null;
-        $this->dateAdded = null;
+        $this->dateAdded = '0001-01-01 00:00:00';
     }
 
 

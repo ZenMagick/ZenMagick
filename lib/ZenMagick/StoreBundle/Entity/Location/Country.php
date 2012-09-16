@@ -29,11 +29,13 @@ use Doctrine\ORM\Mapping AS ORM;
  *
  * @author DerManoMann
  * @ORM\Table(name="countries",
+ *  uniqueConstraints={
+ *      @ORM\UniqueConstraint(name="idx_iso_2",columns={"countries_iso_code_2"}),
+ *      @ORM\UniqueConstraint(name="idx_iso_3",columns={"countries_iso_code_3"})
+ *  },
  *  indexes={
  *      @ORM\Index(name="idx_countries_name_zen", columns={"countries_name"}),
  *      @ORM\Index(name="idx_address_format_id_zen", columns={"address_format_id"}),
- *      @ORM\Index(name="idx_iso_2_zen", columns={"countries_iso_code_2"}),
- *      @ORM\Index(name="idx_iso_3_zen", columns={"countries_iso_code_3"}),
  * })
  * @ORM\Entity
  */
@@ -55,13 +57,13 @@ class Country extends ZMObject {
     /**
      * @var string $isoCode2
      *
-     * @ORM\Column(name="countries_iso_code_2", type="string", length=2, nullable=false)
+     * @ORM\Column(name="countries_iso_code_2", type="string", length=2, unique=true, nullable=false)
      */
     private $isoCode2;
     /**
      * @var string $isoCode3
      *
-     * @ORM\Column(name="countries_iso_code_3", type="string", length=3, nullable=false)
+     * @ORM\Column(name="countries_iso_code_3", type="string", length=3, unique=true, nullable=false)
      */
     private $isoCode3;
     /**
@@ -77,7 +79,6 @@ class Country extends ZMObject {
      */
     public function __construct() {
         parent::__construct();
-
         $this->setId(0);
         $this->name = null;
         $this->isoCode2 = null;

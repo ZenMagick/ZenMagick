@@ -86,6 +86,12 @@ class Feature extends ZMObject {
      */
     private $availableDate;
 
+    public function __construct() {
+        $this->status = true;
+        $this->expiryDate = '0001-01-01';
+        $this->availableDate = '0001-01-01';
+    }
+
     /**
      * Get the featured id.
      *

@@ -63,6 +63,9 @@ class TemplateSelect extends ZMObject {
      */
     private $variationId;
 
+    public function __construct() {
+        $this->languageId = 0;
+    }
 
     public function getId() { return $this->id; }
     public function getThemeId() { return $this->themeId; }

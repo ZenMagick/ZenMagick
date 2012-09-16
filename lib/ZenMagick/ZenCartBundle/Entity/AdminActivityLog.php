@@ -61,7 +61,9 @@ class AdminActivityLog
      */
     private $ipAddress;
 
-
+    public function __construct() {
+        $this->adminId = 0;
+    }
 
     /**
      * Get id

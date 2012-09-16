@@ -158,7 +158,7 @@ class Product extends ZMObject {
     /**
      * @var boolean $qtyMixedDiscount
      *
-     * @ORM\Column(name="products_mixed_discount_quantity", type="float", nullable=false)
+     * @ORM\Column(name="products_mixed_discount_quantity", type="boolean", nullable=false)
      */
     private $qtyMixedDiscount;
     /**
@@ -192,21 +192,21 @@ class Product extends ZMObject {
      */
     private $taxClassId;
     /**
-     * @var boolean $discountType
+     * @var smallint $discountType
      *
-     * @ORM\Column(name="products_discount_type", type="boolean", nullable=false)
+     * @ORM\Column(name="products_discount_type", type="smallint", nullable=false)
      */
     private $discountType;
     /**
-     * @var boolean $discountTypeFrom
+     * @var smallint $discountTypeFrom
      *
-     * @ORM\Column(name="products_discount_type_from", type="boolean", nullable=false)
+     * @ORM\Column(name="products_discount_type_from", type="smallint", nullable=false)
      */
     private $discountTypeFrom;
     /**
      * @var decimal $priceSorter
      *
-     * @ORM\Column(name="products_price_sorter", type="decimal", nullable=false)
+     * @ORM\Column(name="products_price_sorter", type="decimal", precision=15, scale=4, nullable=false)
      */
     private $priceSorter;
     /**
@@ -261,7 +261,7 @@ class Product extends ZMObject {
      * Raw product price
      * @var decimal $productPrice
      *
-     * @ORM\Column(name="products_price", type="decimal", nullable=false)
+     * @ORM\Column(name="products_price", type="decimal", precision=15, scale=4, nullable=false)
      */
     private $productPrice;
 
@@ -289,20 +289,42 @@ class Product extends ZMObject {
         parent::__construct();
         $this->setId($id);
         $this->name = $name;
+        $this->type = 1;
+        $this->quantity = 0;
+        $this->status = false;
         $this->description = $description;
+        $this->masterCategoryId = 0;
         $this->productPrice = 0;
+        $this->free = false;
+        $this->pricedByAttributes = false;
+        $this->call = false;
+        $this->virtual = false;
+        $this->alwaysFreeShipping = false;
+        $this->weight = 0;
         $this->specialPrice = 0;
+        $this->discountType = 0;
+        $this->discountTypeFrom = 0;
         $this->sortOrder = 0;
         $this->attributes = null;
         $this->offers = null;
         $this->qtyMixed = false;
-        $this->qtyBoxStatus = 1;
+        $this->qtyMixedDiscount = true;
+        $this->qtyOrderMin = 1;
+        $this->qtyOrderMax = 0;
+        $this->qtyOrderUnits = 1;
+        $this->qtyBoxStatus = true;
         $this->priceSorter = 0;
-        $this->languageId = 0;
-        $this->setDateAdded(null);
+        $this->languageId = 1;
+        $this->taxClassId = 0;
+        $this->ordered = 0;
+        $this->setDateAdded('0001-01-01 00:00:00');
         $this->setLastModified(null);
+        $this->metaTagsTitleStatus = false;
+        $this->metaTagsProductNameStatus = false;
+        $this->metaTagsModelStatus = false;
+        $this->metaTagsPriceStatus = false;
+        $this->metaTagsTitleTaglineStatus = false;
     }
-
 
     /**
      * Get the product id.
