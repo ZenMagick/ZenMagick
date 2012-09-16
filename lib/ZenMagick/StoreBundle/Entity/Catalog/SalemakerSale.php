@@ -44,9 +44,9 @@ class SalemakerSale extends ZMObject {
      */
     private $saleId;
     /**
-     * @var boolean $status
+     * @var smallint $status
      *
-     * @ORM\Column(name="sale_status", type="boolean", nullable=false)
+     * @ORM\Column(name="sale_status", type="smallint", nullable=false)
      */
     private $status;
     /**

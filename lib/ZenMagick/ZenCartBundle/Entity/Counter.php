@@ -25,12 +25,8 @@ class Counter
      * @var integer $counter
      *
      * @ORM\Column(name="counter", type="integer", nullable=false)
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="NONE")
      */
     private $counter;
-
-
 
     /**
      * Set startDate
@@ -47,7 +43,7 @@ class Counter
     /**
      * Get startDate
      *
-     * @return string 
+     * @return string
      */
     public function getStartDate()
     {
@@ -69,7 +65,7 @@ class Counter
     /**
      * Get counter
      *
-     * @return integer 
+     * @return integer
      */
     public function getCounter()
     {

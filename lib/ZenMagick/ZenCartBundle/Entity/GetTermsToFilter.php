@@ -17,7 +17,7 @@ class GetTermsToFilter
      *
      * @ORM\Column(name="get_term_name", type="string", length=255, nullable=false)
      * @ORM\Id
-     * @ORM\GeneratedValue(strategy="IDENTITY")
+     * @ORM\GeneratedValue(strategy="NONE")
      */
     private $termName;
 
@@ -40,7 +40,7 @@ class GetTermsToFilter
     /**
      * Get termName
      *
-     * @return string 
+     * @return string
      */
     public function getTermName()
     {
@@ -62,7 +62,7 @@ class GetTermsToFilter
     /**
      * Get termTable
      *
-     * @return string 
+     * @return string
      */
     public function getTermTable()
     {
@@ -84,7 +84,7 @@ class GetTermsToFilter
     /**
      * Get termField
      *
-     * @return string 
+     * @return string
      */
     public function getTermField()
     {

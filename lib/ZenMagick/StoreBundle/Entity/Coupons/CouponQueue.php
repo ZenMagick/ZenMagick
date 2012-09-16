@@ -31,7 +31,7 @@ use Doctrine\ORM\Mapping AS ORM;
  * @author DerManoMann
  * @ORM\Table(name="coupon_gv_queue",
  *  indexes={
- *      @ORM\Index(name="idx_cust_order_id_zen", columns={"customer_id", "order_id"}),
+ *      @ORM\Index(name="idx_cust_id_order_id_zen", columns={"customer_id", "order_id"}),
  *      @ORM\Index(name="idx_release_flag_zen", columns={"release_flag"}),
  *  })
  * @ORM\Entity

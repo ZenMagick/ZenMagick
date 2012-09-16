@@ -33,8 +33,8 @@ use Doctrine\ORM\Mapping AS ORM;
  *  indexes={
  *      @ORM\Index(name="idx_lang_id_zen", columns={"languages_id"}),
  *      @ORM\Index(name="idx_ezp_status_header_zen", columns={"status_header"}),
- *      @ORM\Index(name="idx_ezp_status_footer_zen", columns={"status_footer"}),
  *      @ORM\Index(name="idx_ezp_status_sidebox_zen", columns={"status_sidebox"}),
+ *      @ORM\Index(name="idx_ezp_status_footer_zen", columns={"status_footer"}),
  *      @ORM\Index(name="idx_ezp_status_toc_zen", columns={"status_toc"})
  *  })
  * @ORM\Entity
@@ -87,45 +87,68 @@ class EZPage extends ZMObject {
     /**
      * @var boolean $header
      *
-     * @ORM\Column(name="status_header", type="integer", nullable=false)
+     * @ORM\Column(name="status_header", type="boolean", nullable=false)
      */
     private $header;
-    /**
-     * @var integer $headerSort
-     *
-     * @ORM\Column(name="header_sort_order", type="integer", nullable=false)
-     */
-    private $headerSort;
-    /**
+
+   /**
      * @var integer $sidebox
      *
-     * @ORM\Column(name="status_sidebox", type="integer", nullable=false)
+     * @ORM\Column(name="status_sidebox", type="boolean", nullable=false)
      */
     private $sidebox;
     /**
-     * @var integer $sideboxSort
-     *
-     * @ORM\Column(name="sidebox_sort_order", type="integer", nullable=false)
-     */
-    private $sideboxSort;
-    /**
      * @var boolean $footer
      *
-     * @ORM\Column(name="status_footer", type="integer", nullable=false)
+     * @ORM\Column(name="status_footer", type="boolean", nullable=false)
      */
     private $footer;
     /**
-     * @var integer $footerSort
-     *
-     * @ORM\Column(name="footer_sort_order", type="integer", nullable=false)
-     */
-    private $footerSort;
-    /**
      * @var boolean $toc
      *
-     * @ORM\Column(name="status_toc", type="integer", nullable=false)
+     * @ORM\Column(name="status_toc", type="boolean", nullable=false)
      */
     private $toc;
+
+    /**
+     * @var integer $headerSort
+     *
+     * @ORM\Column(name="header_sort_order", type="smallint", nullable=false)
+     */
+    private $headerSort;
+     /**
+     * @var integer $sideboxSort
+     *
+     * @ORM\Column(name="sidebox_sort_order", type="smallint", nullable=false)
+     */
+    private $sideboxSort;
+    /**
+     * @var integer $footerSort
+     *
+     * @ORM\Column(name="footer_sort_order", type="smallint", nullable=false)
+     */
+    private $footerSort;
+
+    /**
+     * @var integer $tocSort
+     *
+     * @ORM\Column(name="toc_sort_order", type="smallint", nullable=false)
+     */
+    private $tocSort;
+
+    /**
+     * @var boolean $newWin
+     *
+     * @ORM\Column(name="page_open_new_window", type="boolean", nullable=false)
+     */
+    private $newWin;
+
+    /**
+     * @var boolean $ssl
+     *
+     * @ORM\Column(name="page_is_ssl", type="boolean", nullable=false)
+     */
+    private $ssl;
 
     /**
      * @var integer $tocChapter
@@ -133,26 +156,7 @@ class EZPage extends ZMObject {
      * @ORM\Column(name="toc_chapter", type="integer", nullable=false)
      */
     private $tocChapter;
-    /**
-     * @var integer $tocSort
-     *
-     * @ORM\Column(name="toc_sort_order", type="integer", nullable=false)
-     */
-    private $tocSort;
 
-    /**
-     * @var boolean $newWin
-     *
-     * @ORM\Column(name="page_open_new_window", type="integer", nullable=false)
-     */
-    private $newWin;
-
-    /**
-     * @var integer $ssl
-     *
-     * @ORM\Column(name="page_is_ssl", type="integer", nullable=false)
-     */
-    private $ssl;
 
 
     /**

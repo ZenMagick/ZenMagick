@@ -64,11 +64,11 @@ class Product extends ZMObject {
      */
     private $type;
     /**
-     * @var boolean $status
+     * @var float $quantity
      *
-     * @ORM\Column(name="products_status", type="boolean", nullable=false)
+     * @ORM\Column(name="products_quantity", type="float", nullable=false)
      */
-    private $status;
+    private $quantity;
     /**
      * @var string $model
      *
@@ -82,11 +82,18 @@ class Product extends ZMObject {
      */
     private $image;
     /**
-     * @var datetime $dateAvailable
+     * Raw product price
+     * @var decimal $productPrice
      *
-     * @ORM\Column(name="products_date_available", type="datetime", nullable=true)
+     * @ORM\Column(name="products_price", type="decimal", precision=15, scale=4, nullable=false)
      */
-    private $dateAvailable;
+    private $productPrice;
+    /**
+     * @var boolean $virtual
+     *
+     * @ORM\Column(name="products_virtual", type="boolean", nullable=false)
+     */
+    private $virtual;
     /**
      * @var datetime $dateAdded
      *
@@ -100,11 +107,11 @@ class Product extends ZMObject {
      */
     private $lastModified;
     /**
-     * @var integer $manufacturerId
+     * @var datetime $dateAvailable
      *
-     * @ORM\Column(name="manufacturers_id", type="integer", nullable=true)
+     * @ORM\Column(name="products_date_available", type="datetime", nullable=true)
      */
-    private $manufacturerId;
+    private $dateAvailable;
     /**
      * @var float $weight
      *
@@ -112,11 +119,23 @@ class Product extends ZMObject {
      */
     private $weight;
     /**
-     * @var float $quantity
+     * @var boolean $status
      *
-     * @ORM\Column(name="products_quantity", type="float", nullable=false)
+     * @ORM\Column(name="products_status", type="boolean", nullable=false)
      */
-    private $quantity;
+    private $status;
+    /**
+     * @var integer $taxClassId
+     *
+     * @ORM\Column(name="products_tax_class_id", type="integer", nullable=false)
+     */
+    private $taxClassId;
+    /**
+     * @var integer $manufacturerId
+     *
+     * @ORM\Column(name="manufacturers_id", type="integer", nullable=true)
+     */
+    private $manufacturerId;
     /**
      * @var int $ordered
      *
@@ -126,29 +145,11 @@ class Product extends ZMObject {
      */
     private $ordered;
     /**
-     * @var boolean $qtyMixed
-     *
-     * @ORM\Column(name="products_quantity_mixed", type="boolean", nullable=false)
-     */
-    private $qtyMixed;
-    /**
-     * @var boolean $qtyBoxStatus
-     *
-     * @ORM\Column(name="products_qty_box_status", type="boolean", nullable=false)
-     */
-    private $qtyBoxStatus;
-    /**
      * @var float $qtyOrderMin
      *
      * @ORM\Column(name="products_quantity_order_min", type="float", nullable=false)
      */
     private $qtyOrderMin;
-    /**
-     * @var float $qtyOrderMax
-     *
-     * @ORM\Column(name="products_quantity_order_max", type="float", nullable=false)
-     */
-    private $qtyOrderMax;
     /**
      * @var float $qtyOrderUnits
      *
@@ -156,11 +157,11 @@ class Product extends ZMObject {
      */
     private $qtyOrderUnits;
     /**
-     * @var boolean $qtyMixedDiscount
+     * @var boolean $pricedByAttributes
      *
-     * @ORM\Column(name="products_mixed_discount_quantity", type="boolean", nullable=false)
+     * @ORM\Column(name="products_priced_by_attribute", type="boolean", nullable=false)
      */
-    private $qtyMixedDiscount;
+    private $pricedByAttributes;
     /**
      * @var boolean $free
      *
@@ -168,29 +169,41 @@ class Product extends ZMObject {
      */
     private $free;
     /**
-     * @var boolean $alwaysFreeShipping
-     *
-     * @ORM\Column(name="product_is_always_free_shipping", type="integer", nullable=false)
-     */
-    private $alwaysFreeShipping;
-    /**
      * @var boolean $call
      *
      * @ORM\Column(name="product_is_call", type="boolean", nullable=false)
      */
     private $call;
     /**
-     * @var boolean $virtual
+     * @var boolean $qtyMixed
      *
-     * @ORM\Column(name="products_virtual", type="boolean", nullable=false)
+     * @ORM\Column(name="products_quantity_mixed", type="boolean", nullable=false)
      */
-    private $virtual;
+    private $qtyMixed;
     /**
-     * @var integer $taxClassId
+     * @var boolean $alwaysFreeShipping
      *
-     * @ORM\Column(name="products_tax_class_id", type="integer", nullable=false)
+     * @ORM\Column(name="product_is_always_free_shipping", type="boolean", nullable=false)
      */
-    private $taxClassId;
+    private $alwaysFreeShipping;
+    /**
+     * @var boolean $qtyBoxStatus
+     *
+     * @ORM\Column(name="products_qty_box_status", type="boolean", nullable=false)
+     */
+    private $qtyBoxStatus;
+    /**
+     * @var float $qtyOrderMax
+     *
+     * @ORM\Column(name="products_quantity_order_max", type="float", nullable=false)
+     */
+    private $qtyOrderMax;
+    /**
+     * @var integer $sortOrder
+     *
+     * @ORM\Column(name="products_sort_order", type="integer", nullable=false)
+     */
+    private $sortOrder;
     /**
      * @var smallint $discountType
      *
@@ -210,23 +223,17 @@ class Product extends ZMObject {
      */
     private $priceSorter;
     /**
-     * @var boolean $pricedByAttributes
-     *
-     * @ORM\Column(name="products_priced_by_attribute", type="boolean", nullable=false)
-     */
-    private $pricedByAttributes;
-    /**
      * @var integer $masterCategoryId
      *
      * @ORM\Column(name="master_categories_id", type="integer", nullable=false)
      */
     private $masterCategoryId;
     /**
-     * @var integer $sortOrder
+     * @var boolean $qtyMixedDiscount
      *
-     * @ORM\Column(name="products_sort_order", type="integer", nullable=false)
+     * @ORM\Column(name="products_mixed_discount_quantity", type="boolean", nullable=false)
      */
-    private $sortOrder;
+    private $qtyMixedDiscount;
     /**
      * @var boolean $metaTagsTitleStatus
      *
@@ -257,13 +264,6 @@ class Product extends ZMObject {
      * @ORM\Column(name="metatags_title_tagline_status", type="boolean", nullable=false)
      */
     private $metaTagsTitleTaglineStatus;
-    /**
-     * Raw product price
-     * @var decimal $productPrice
-     *
-     * @ORM\Column(name="products_price", type="decimal", precision=15, scale=4, nullable=false)
-     */
-    private $productPrice;
 
     // Info comes from other tables
 

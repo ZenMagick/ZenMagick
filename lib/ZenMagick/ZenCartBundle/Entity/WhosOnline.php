@@ -81,7 +81,7 @@ class WhosOnline
     /**
      * @var text $hostAddress
      *
-     * @ORM\Column(name="host_address", type="text", nullable=false)
+     * @ORM\Column(name="host_address", type="string", length=512, nullable=false)
      */
     private $hostAddress;
 

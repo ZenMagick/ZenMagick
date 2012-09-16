@@ -17,7 +17,7 @@ class CounterHistory
      *
      * @ORM\Column(name="startdate", type="string", length=8, nullable=false)
      * @ORM\Id
-     * @ORM\GeneratedValue(strategy="IDENTITY")
+     * @ORM\GeneratedValue(strategy="NONE")
      */
     private $startDate;
 

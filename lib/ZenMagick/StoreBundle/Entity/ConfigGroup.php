@@ -57,7 +57,7 @@ class ConfigGroup extends ZMObject {
     /**
      * @var integer $sortOrder
      *
-     * @ORM\Column(name="sort_order", type="integer", nullable=true)
+     * @ORM\Column(name="sort_order", type="smallint", nullable=true)
      */
     private $sortOrder;
     /**

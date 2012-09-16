@@ -29,7 +29,6 @@ use Doctrine\ORM\Mapping AS ORM;
  * @ORM\Table(name="product_type_layout",
  *  indexes={
  *      @ORM\Index(name="unq_config_key_zen", columns={"configuration_key"}),
- *      @ORM\Index(name="idx_key_value_zen", columns={"configuration_key", "configuration_value"}),
  *      @ORM\Index(name="idx_type_id_sort_order_zen", columns={"product_type_id", "sort_order"}),
  * })
  * @ORM\Entity
@@ -47,7 +46,7 @@ class ProductTypeLayout extends ZMObject {
     /**
      * @var text $title
      *
-     * @ORM\Column(name="configuration_title", type="text", nullable=false)
+     * @ORM\Column(name="configuration_title", type="string", length=255, nullable=false)
      */
     private $title;
 
@@ -82,7 +81,7 @@ class ProductTypeLayout extends ZMObject {
     /**
      * @var integer $sortOrder
      *
-     * @ORM\Column(name="sort_order", type="integer", nullable=true)
+     * @ORM\Column(name="sort_order", type="smallint", nullable=true)
      */
     private $sortOrder;
 

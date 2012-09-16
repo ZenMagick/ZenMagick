@@ -52,12 +52,7 @@ class TaxRate extends ZMObject {
      * @ORM\GeneratedValue(strategy="IDENTITY")
      */
     private $id;
-    /**
-     * @var integer $classId
-     *
-     * @ORM\Column(name="tax_class_id", type="integer", nullable=false)
-     */
-    private $classId;
+
     private $countryId;
     /**
      * @var integer $zoneId
@@ -67,9 +62,16 @@ class TaxRate extends ZMObject {
     private $zoneId;
 
     /**
+     * @var integer $classId
+     *
+     * @ORM\Column(name="tax_class_id", type="integer", nullable=false)
+     */
+    private $classId;
+
+    /**
      * @var integer $priority
      *
-     * @ORM\Column(name="tax_priority", type="integer", precision=5, nullable=true)
+     * @ORM\Column(name="tax_priority", type="smallint", nullable=true)
      */
     private $priority;
 

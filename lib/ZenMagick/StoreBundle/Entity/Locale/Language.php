@@ -50,17 +50,17 @@ class Language extends ZMObject {
      */
     private $name;
     /**
-     * @var string $image
-     *
-     * @ORM\Column(name="image", type="string", length=64, nullable=true)
-     */
-    private $image;
-    /**
      * @var string $code
      *
      * @ORM\Column(name="code", type="string", length=2, nullable=false)
      */
     private $code;
+    /**
+     * @var string $image
+     *
+     * @ORM\Column(name="image", type="string", length=64, nullable=true)
+     */
+    private $image;
     /**
      * @var string $directory
      *
@@ -70,7 +70,7 @@ class Language extends ZMObject {
     /**
      * @var integer $sortOrder
      *
-     * @ORM\Column(name="sort_order", type="integer", nullable=true)
+     * @ORM\Column(name="sort_order", type="smallint", nullable=true)
      */
     private $sortOrder;
 

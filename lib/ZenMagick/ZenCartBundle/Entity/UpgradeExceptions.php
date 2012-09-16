@@ -45,7 +45,7 @@ class UpgradeExceptions
     /**
      * @var text $sqlStatement
      *
-     * @ORM\Column(name="sqlStatement", type="text", nullable=true)
+     * @ORM\Column(name="sqlstatement", type="text", nullable=true)
      */
     private $sqlStatement;
 

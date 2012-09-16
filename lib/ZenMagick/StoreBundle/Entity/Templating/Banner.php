@@ -51,35 +51,17 @@ class Banner extends ZMObject {
      */
     private $title;
     /**
-     * @var string $image
-     *
-     * @ORM\Column(name="banners_image", type="string", length=64, nullable=false)
-     */
-    private $image;
-    /**
-     * @var text $text
-     *
-     * @ORM\Column(name="banners_html_text", type="text", nullable=true)
-     */
-    private $text;
-    /**
-     * @var integer $isNewWin
-     *
-     * @ORM\Column(name="banners_open_new_windows", type="boolean", nullable=false)
-     */
-    private $isNewWin;
-    /**
      * @var string $url
      *
      * @ORM\Column(name="banners_url", type="string", length=255, nullable=false)
      */
     private $url;
     /**
-     * @var integer $active
+     * @var string $image
      *
-     * @ORM\Column(name="status", type="boolean", nullable=false)
+     * @ORM\Column(name="banners_image", type="string", length=64, nullable=false)
      */
-    private $active;
+    private $image;
     /**
      * @var string $group
      *
@@ -87,9 +69,15 @@ class Banner extends ZMObject {
      */
     private $group;
     /**
+     * @var text $text
+     *
+     * @ORM\Column(name="banners_html_text", type="text", nullable=true)
+     */
+    private $text;
+    /**
      * @var integer $expiryImpressions
      *
-     * @ORM\Column(name="expires_impressions", type="integer", nullable=false)
+     * @ORM\Column(name="expires_impressions", type="integer", nullable=true)
      */
     private $expiryImpressions;
     /**
@@ -117,12 +105,23 @@ class Banner extends ZMObject {
      */
     private $lastModified;
     /**
+     * @var integer $active
+     *
+     * @ORM\Column(name="status", type="boolean", nullable=false)
+     */
+    private $active;
+    /**
+     * @var integer $isNewWin
+     *
+     * @ORM\Column(name="banners_open_new_windows", type="boolean", nullable=false)
+     */
+    private $isNewWin;
+    /**
      * @var integer $isShowOnSsl
      *
      * @ORM\Column(name="banners_on_ssl", type="boolean", nullable=false)
      */
     private $isShowOnSsl;
-
     /**
      * @var integer $sortOrder
      *
@@ -138,6 +137,7 @@ class Banner extends ZMObject {
         parent::__construct();
         $this->title = null;
         $this->image = null;
+        $this->group = '';
         $this->text = null;
         $this->expiryImpressions = 0;
         $this->isNewWin = false;

@@ -41,17 +41,17 @@ class Currency extends ZMObject {
      */
     private $id;
     /**
-     * @var string $code
-     *
-     * @ORM\Column(name="code", type="string", length=3, unique=true, nullable=false)
-     */
-    private $code;
-    /**
      * @var string $name
      *
      * @ORM\Column(name="title", type="string", length=32, nullable=false)
      */
     private $name;
+    /**
+     * @var string $code
+     *
+     * @ORM\Column(name="code", type="string", length=3, unique=true, nullable=false)
+     */
+    private $code;
     /**
      * @var string $symbolLeft
      *
@@ -85,7 +85,7 @@ class Currency extends ZMObject {
     /**
      * @var float $rate
      *
-     * @ORM\Column(name="value", type="float", nullable=true)
+     * @ORM\Column(name="value", type="float", precision=13, scale=8, nullable=true)
      */
     private $rate;
     /**

@@ -49,11 +49,11 @@ class Review extends ZMObject {
      */
     private $id;
     /**
-     * @var integer $rating
+     * @var integer $productId
      *
-     * @ORM\Column(name="reviews_rating", type="integer", nullable=true)
+     * @ORM\Column(name="products_id", type="integer", nullable=false)
      */
-    private $rating;
+    private $productId;
     /**
      * @var integer $accountId
      *
@@ -61,16 +61,22 @@ class Review extends ZMObject {
      */
     private $accountId;
     /**
+     * @var string $author
+     * @todo nullable=true?
+     * @ORM\Column(name="customers_name", type="string", length=64, nullable=false)
+     */
+    private $author;
+    /**
+     * @var integer $rating
+     *
+     * @ORM\Column(name="reviews_rating", type="smallint", nullable=true)
+     */
+    private $rating;
+    /**
      * @var object $descriptions
      * @ORM\OneToMany(targetEntity="ReviewDescriptions", mappedBy="review", cascade={"persist", "remove"})
      */
     private $descriptions;
-    /**
-     * @var integer $productId
-     *
-     * @ORM\Column(name="products_id", type="integer", nullable=false)
-     */
-    private $productId;
     /**
      * @var datetime $dateAdded
      *
@@ -84,12 +90,6 @@ class Review extends ZMObject {
      */
     private $lastModified;
 
-    /**
-     * @var string $author
-     * @todo nullable=true?
-     * @ORM\Column(name="customers_name", type="string", length=64, nullable=false)
-     */
-    private $author;
     /**
      * @var integer $viewCount
      *

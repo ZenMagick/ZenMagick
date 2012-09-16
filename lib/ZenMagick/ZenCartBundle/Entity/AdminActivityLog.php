@@ -50,7 +50,7 @@ class AdminActivityLog
     /**
      * @var text $pageParameters
      *
-     * @ORM\Column(name="page_parameters", type="text", nullable=true)
+     * @ORM\Column(name="page_parameters", type="string", length=1024, nullable=true)
      */
     private $pageParameters;
 

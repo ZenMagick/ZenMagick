@@ -52,7 +52,7 @@ class TemplateSelect extends ZMObject {
     /**
      * @var string $languageId
      *
-     * @ORM\Column(name="template_language", type="integer", nullable=false)
+     * @ORM\Column(name="template_language", type="smallint", nullable=false)
      */
     private $languageId;
 
