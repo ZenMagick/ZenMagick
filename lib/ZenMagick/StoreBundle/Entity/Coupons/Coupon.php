@@ -442,8 +442,7 @@ class Coupon extends ZMObject {
      *
      * @return string
      */
-    public function getActive()
-    {
+    public function getActive() {
         return $this->active;
     }
 
@@ -453,8 +452,7 @@ class Coupon extends ZMObject {
      * @param ZenMagick\StoreBundle\Entity\Coupons\CouponTranslations $translations
      * @return Coupon
      */
-    public function addTranslation(\ZenMagick\StoreBundle\Entity\Coupons\CouponTranslations $translations)
-    {
+    public function addTranslation(\ZenMagick\StoreBundle\Entity\Coupons\CouponTranslations $translations) {
         $this->translations[] = $translations;
         return $this;
     }
@@ -464,8 +462,7 @@ class Coupon extends ZMObject {
      *
      * @param ZenMagick\StoreBundle\Entity\Coupons\CouponTranslations $translations
      */
-    public function removeTranslation(\ZenMagick\StoreBundle\Entity\Coupons\CouponTranslations $translations)
-    {
+    public function removeTranslation(\ZenMagick\StoreBundle\Entity\Coupons\CouponTranslations $translations) {
         $this->translations->removeElement($translations);
     }
 
@@ -474,8 +471,87 @@ class Coupon extends ZMObject {
      *
      * @return Doctrine\Common\Collections\Collection
      */
-    public function getTranslations()
-    {
+    public function getTranslations() {
         return $this->translations;
+    }
+
+    /**
+     * Set restrictToProducts
+     *
+     * @param string $restrictToProducts
+     * @return Coupon
+     */
+    public function setRestrictToProducts($restrictToProducts) {
+        $this->restrictToProducts = $restrictToProducts;
+        return $this;
+    }
+
+    /**
+     * Get restrictToProducts
+     *
+     * @return string
+     */
+    public function getRestrictToProducts() {
+        return $this->restrictToProducts;
+    }
+
+    /**
+     * Set restrictToCategories
+     *
+     * @param string $restrictToCategories
+     * @return Coupon
+     */
+    public function setRestrictToCategories($restrictToCategories) {
+        $this->restrictToCategories = $restrictToCategories;
+        return $this;
+    }
+
+    /**
+     * Get restrictToCategories
+     *
+     * @return string
+     */
+    public function getRestrictToCategories() {
+        return $this->restrictToCategories;
+    }
+
+    /**
+     * Set restrictToCustomers
+     *
+     * @param string $restrictToCustomers
+     * @return Coupon
+     */
+    public function setRestrictToCustomers($restrictToCustomers) {
+        $this->restrictToCustomers = $restrictToCustomers;
+        return $this;
+    }
+
+    /**
+     * Get restrictToCustomers
+     *
+     * @return string
+     */
+    public function getRestrictToCustomers() {
+        return $this->restrictToCustomers;
+    }
+
+    /**
+     * Set restrictToZone
+     *
+     * @param integer $restrictToZone
+     * @return Coupon
+     */
+    public function setRestrictToZone($restrictToZone) {
+        $this->restrictToZone = $restrictToZone;
+        return $this;
+    }
+
+    /**
+     * Get restrictToZone
+     *
+     * @return integer
+     */
+    public function getRestrictToZone() {
+        return $this->restrictToZone;
     }
 }

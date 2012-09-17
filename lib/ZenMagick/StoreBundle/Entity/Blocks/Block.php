@@ -158,4 +158,44 @@ class Block extends ZMObject {
     public function setBlock_name($name) { $this->name = $name; }
     public function setSort_order($sortOrder) { $this->sortOrder = $sortOrder; }
 
+
+    /**
+     * Set template
+     *
+     * @param string $template
+     * @return Block
+     */
+    public function setTemplate($template) {
+        $this->template = $template;
+        return $this;
+    }
+
+    /**
+     * Get template
+     *
+     * @return string
+     */
+    public function getTemplate() {
+        return $this->template;
+    }
+
+    /**
+     * Set format
+     *
+     * @param string $format
+     * @return Block
+     */
+    public function setFormat($format) {
+        $this->format = $format;
+        return $this;
+    }
+
+    /**
+     * Get format
+     *
+     * @return string
+     */
+    public function getFormat() {
+        return $this->format;
+    }
 }
