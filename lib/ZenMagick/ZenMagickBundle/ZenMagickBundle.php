@@ -46,11 +46,10 @@ class ZenMagickBundle extends Bundle {
     public function boot() {
         $parameterBag = $this->container->getParameterBag();
         $settingsService = $this->container->get('settingsService');
-        foreach ($parameterBag->all()  as $param => $value) {
-            $settingsService->set($param, $value);
-        }
 
-        $parameterBag = $this->container->getParameterBag();
+        $settingsService->set('zencart.root_dir', $parameterBag->get('zencart.root_dir'));
+        $settingsService->set('zencart.admin_dir', $parameterBag->get('zencart.admin_dir'));
+
         $rootDir = $parameterBag->get('zenmagick.root_dir');
         $settingsFiles = array();
         $settingsFiles[] = $rootDir.'/lib/ZenMagick/StoreBundle/config/config.yaml';
