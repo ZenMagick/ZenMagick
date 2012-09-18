@@ -34,12 +34,8 @@ class RoutingUrlRewriter extends ZMObject implements UrlRewriter {
      */
     public function decode($request) {
         $routeResolver = $this->container->get('routeResolver');
-        if (null != ($routerMatch = $routeResolver->getRouterMatch($request->getRequestUri()))) {
-            $alias = array_flip((array) $this->container->get('settingsService')->get('zenmagick.http.routing.alias'));
+        if (null != ($routerMatch = $routeResolver->getRouterMatch($request->getPathInfo()))) {
             $requestId = $routerMatch['_route'];
-            if (array_key_exists($requestId, $alias)) {
-                $requestId = $alias[$requestId];
-            }
             $request->setRequestId($requestId);
             $parameterMap = $request->query->all();
             // grab things not set and not prefixed with '_'

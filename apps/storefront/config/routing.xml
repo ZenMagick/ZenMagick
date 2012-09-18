@@ -46,7 +46,7 @@
         <requirement key="_method">GET</requirement>
     </route>
 
-    <route id="account.create" pattern="/account/create">
+    <route id="create_account" pattern="/account/create">
         <default key="_controller">ZenMagick\apps\storefront\Controller\CreateAccountController::process</default>
         <option key="form">ZMRegistrationForm#formId=registration</option>
         <option key="view">views/create_account.php</option>
@@ -58,108 +58,108 @@
         <option key="view">views/account.php</option>
     </route>
 
-    <route id="account.edit" pattern="/account/edit">
+    <route id="account_edit" pattern="/account/edit">
         <default key="_controller">ZenMagick\apps\storefront\Controller\AccountEditController::process</default>
         <option key="view:success">redirect://account</option>
         <option key="form">ZMAccountForm#formId=account</option>
     </route>
 
-    <route id="account.orders" pattern="/account/orders">
+    <route id="account_history" pattern="/account/orders">
         <default key="_controller">ZenMagick\apps\storefront\Controller\AccountHistoryController::process</default>
         <option key="view">views/account_history.php</option>
     </route>
 
     <!-- TODO: map to orderId -->
-    <route id="account.order.details" pattern="/account/order/details/{order_id}">
+    <route id="account_history_info" pattern="/account/order/details/{order_id}">
         <default key="_controller">ZenMagick\apps\storefront\Controller\AccountHistoryInfoController::process</default>
         <option key="view">views/account_history_info.php</option>
     </route>
 
-    <route id="account.password.edit" pattern="/account/password/edit">
+    <route id="account_password" pattern="/account/password/edit">
         <default key="_controller">ZenMagick\apps\storefront\Controller\AccountPasswordController::process</default>
         <option key="view">views/account_password.php</option>
         <option key="view:success">redirect://account</option>
     </route>
 
-    <route id="account.newsletter" pattern="/account/newsletter">
+    <route id="account_newsletters" pattern="/account/newsletter">
         <default key="_controller">ZenMagick\apps\storefront\Controller\AccountNewslettersController::process</default>
         <option key="view">views/account_newsletters.php</option>
         <option key="view:success">redirect://account</option>
     </route>
 
-    <route id="account.notifications" pattern="/account/notifications">
+    <route id="account_notifications" pattern="/account/notifications">
         <default key="_controller">ZenMagick\apps\storefront\Controller\AccountNotificationsController::process</default>
         <option key="view">views/account_notifications.php</option>
         <option key="view:success">redirect://account</option>
     </route>
 
-    <route id="account.password.recover" pattern="/account/password/recover">
+    <route id="password_forgotten" pattern="/account/password/recover">
         <default key="_controller">ZenMagick\apps\storefront\Controller\PasswordForgottenController::process</default>
         <option key="view">views/password_forgotten.php</option>
         <option key="view:success">redirect://login</option>
     </route>
 
-    <route id="account.addresses" pattern="/account/addresses">
+    <route id="address_book" pattern="/account/addresses">
         <default key="_controller">ZenMagick\apps\storefront\Controller\AddressBookController::process</default>
         <option key="view">views/address_book.php</option>
     </route>
 
-    <route id="account.address.new" pattern="/account/address/new">
+    <route id="address_book_add" pattern="/account/address/new">
         <default key="_controller">ZenMagick\apps\storefront\Controller\AddressBookAddController::process</default>
         <option key="form">ZMAddress#formId=address</option>
         <option key="view">views/address_book_create.php</option>
-        <option key="view:success">redirect://account.addresses</option>
+        <option key="view:success">redirect://address_book</option>
     </route>
 
     <!-- TODO: rename to addressId -->
-    <route id="account.address.edit" pattern="/account/address/edit/{id}">
+    <route id="address_book_edit" pattern="/account/address/edit/{id}">
         <default key="_controller">ZenMagick\apps\storefront\Controller\AddressBookEditController::process</default>
         <!-- The actual update is POST; that means the id is a POST value rather than url parameter -->
         <default key="id"></default>
         <option key="form">ZMAddress#formId=address</option>
         <option key="view">views/address_book_edit.php</option>
-        <option key="view:error">redirect://account.addresses</option>
-        <option key="view:success">redirect://account.addresses</option>
+        <option key="view:error">redirect://address_book</option>
+        <option key="view:success">redirect://address_book</option>
     </route>
 
     <!-- TODO: rename to addressId -->
-    <route id="account.address.delete" pattern="/account/address/delete/{id}">
+    <route id="address_book_delete" pattern="/account/address/delete/{id}">
         <default key="_controller">ZenMagick\apps\storefront\Controller\AddressBookDeleteController::process</default>
         <!-- The actual delete is POST; that means the id is a POST value rather than url parameter -->
         <default key="id"></default>
         <option key="view">views/address_book_delete.php</option>
-        <option key="view:success">redirect://account.addresses</option>
+        <option key="view:success">redirect://address_book</option>
     </route>
 
-    <route id="help.cvv" pattern="/help/cvv">
+    <route id="popup_cvv_help" pattern="/help/cvv">
         <default key="_controller">ZMController::process</default>
         <option key="view">views/popup/cvv_help.php</option>
     </route>
 
-    <route id="help.search" pattern="/help/search">
+    <route id="popup_search_help" pattern="/help/search">
         <default key="_controller">ZMController::process</default>
         <option key="view">views/popup/search_help.php</option>
     </route>
 
     <!-- TODO: coupon lookup should be in a controller; rename cID to couponId  -->
-    <route id="help.coupon" pattern="/help/coupon/{cID}">
+    <route id="popup_coupon_help" pattern="/help/coupon/{cID}">
         <default key="_controller">ZenMagick\apps\storefront\Controller\CouponHelpController::show</default>
         <option key="view">views/popup/coupon_help.php</option>
     </route>
 
-    <route id="store.contact" pattern="/contact-us">
+    <route id="contact_us" pattern="/contact-us">
         <default key="_controller">ZenMagick\apps\storefront\Controller\ContactUsController::process</default>
         <option key="form">ZMContactInfo#formId:contactUs</option>
         <option key="view">views/contact_us.php</option>
         <option key="view:success">redirect://contact_us</option>
     </route>
 
-    <route id="store.privacy" pattern="/privacy">
+    <route id="privacy" pattern="/privacy">
         <default key="_controller">ZMController::process</default>
         <option key="view">views/privacy.php</option>
     </route>
 
-    <route id="store.sitemap" pattern="/sitemap">
+    <route id="site_map" pattern="/sitemap">
         <default key="_controller">ZMController::process</default>
         <option key="view">views/site_map.php</option>
     </route>
@@ -171,9 +171,7 @@
         <option key="view:info">views/discount_coupon_info.php</option>
     </route>
 
-    <!-- ***********************mano tested up to here -->
-
-    <route id="shipping.estimator" pattern="/shipping/estimator">
+    <route id="popup_shipping_estimator" pattern="/shipping/estimator">
         <default key="_controller">ZMController::process</default>
         <option key="view">views/popup/shipping_estimator.php</option>
     </route>
@@ -182,33 +180,33 @@
         <default key="_controller">ZenMagick\apps\storefront\Controller\CategoryController::process</default>
         <option key="view:category_list">views/category_list.php</option>
         <option key="view:manufacturer">views/manufacturer.php</option>
-        <option key="view:product_info">forward://product</option>
+        <option key="view:product_info">forward://product_info</option>
     </route>
 
     <route id="checkout.shipping.address" pattern="/checkout/shipping/address">
         <default key="_controller">ZenMagick\apps\storefront\Controller\CheckoutAddressController#mode=shipping</default>
         <option key="form">ZMAddress#formId=shippingAddress</option>
-        <option key="view">redirect://checkout.shipping</option>
+        <option key="view">redirect://checkout_shipping</option>
     </route>
 
-    <route id="checkout.shipping" pattern="/checkout/shipping">
+    <route id="checkout_shipping" pattern="/checkout/shipping">
         <default key="_controller">ZenMagick\apps\storefront\Controller\CheckoutShippingController::process</default>
         <option key="view:skip_shipping">redirect://checkout.billing</option>
-        <option key="view">redirect://checkout.billing</option>
+        <option key="view">redirect://checkout_billing</option>
     </route>
 
     <route id="checkout.billing.address" pattern="/checkout/billing/address">
         <default key="_controller">ZenMagick\apps\storefront\Controller\CheckoutAddressController#mode=billing</default>
         <option key="form">ZMAddress#formId=billingAddress</option>
-        <option key="view">redirect://checkout.billing</option>
+        <option key="view">redirect://checkout_billing</option>
     </route>
 
-    <route id="checkout.billing" pattern="/checkout/billing">
+    <route id="checkout_billing" pattern="/checkout/billing">
         <default key="_controller">ZenMagick\apps\storefront\Controller\CheckoutPaymentController::process</default>
-        <option key="view">redirect://checkout.confirmation</option>
+        <option key="view">redirect://checkout_confirmation</option>
     </route>
 
-    <route id="checkout.success" pattern="/checkout/success">
+    <route id="checkout_success" pattern="/checkout/success">
         <default key="_controller">ZenMagick\apps\storefront\Controller\CheckoutSuccessController::process</default>
     </route>
 
@@ -216,43 +214,43 @@
         <default key="_controller">ZenMagick\apps\storefront\Controller\CheckoutGuestController::process</default>
         <option key="view">views/login.php</option>
         <option key="view:guest_checkout_disabled">views/login.php</option>
-        <option key="view:success">redirect://checkout.shipping</option>
+        <option key="view:success">redirect://checkout_shipping</option>
     </route>
 
     <route id="checkout" pattern="/checkout">
         <default key="_controller">ZenMagick\apps\storefront\Controller\CheckoutShippingController::process</default>
         <option key="view">views/checkout_shipping.php</option>
-        <option key="view:skip_shipping">redirect://checkout.billing</option>
-        <option key="view:success">redirect://checkout.billing</option>
+        <option key="view:skip_shipping">redirect://checkout_billing</option>
+        <option key="view:success">redirect://checkout_billing</option>
     </route>
 
     <route id="download" pattern="/download/{order}/{id}">
         <default key="_controller">ZenMagick\apps\storefront\Controller\DownloadController::process</default>
     </route>
 
-    <route id="guest.history" pattern="/guest/history">
+    <route id="guest_history" pattern="/guest/history">
         <default key="_controller">ZenMagick\apps\storefront\Controller\GuestHistoryController::process</default>
         <option key="view">views/account_history_info.php</option>
     </route>
 
-    <route id="gv_voucher.redeem" pattern="/gift-voucher/redeem">
+    <route id="gv_redeem" pattern="/gift-voucher/redeem">
         <default key="_controller">ZenMagick\apps\storefront\Controller\GvRedeemController::process</default>
         <option key="form">ZMGVRedeem#formId=gvRedeem</option>
     </route>
 
-    <route id="gv_voucher.faq" pattern="/gift-voucher/faq">
+    <route id="gv_faq" pattern="/gift-voucher/faq">
         <default key="_controller">ZenMagick\apps\storefront\Controller\GvFaqController::process</default>
         <option key="form">ZMGVRedeem#formId=gvRedeem</option>
     </route>
 
-    <route id="gv_voucher.send.confirm" pattern="/gift-voucher/send/confirm">
+    <route id="gv_send_confirm" pattern="/gift-voucher/send/confirm">
         <default key="_controller">ZenMagick\apps\storefront\Controller\GvSendConfirmController::process</default>
         <option key="form">ZMGVReceiver#formId=gvReceiver</option>
         <option key="view">redirect://account</option>
-        <option key="view:edit">redirect://gv_voucher.send</option>
+        <option key="view:edit">redirect://gv_send</option>
     </route>
 
-    <route id="gv_voucher.send" pattern="/gift-voucher/send">
+    <route id="gv_send" pattern="/gift-voucher/send">
         <default key="_controller">ZenMagick\apps\storefront\Controller\GvSendController::process</default>
         <option key="form">ZMGVReceiver#formId=gvReceiver</option>
         <option key="view">views/gv_send.php</option>
@@ -264,24 +262,32 @@
         <option key="view:error">redirect://index</option>
     </route>
 
-    <route id="product.review.write" pattern="/product/review/write">
+    <route id="product_reviews_write" pattern="/product/review/write">
         <default key="_controller">ZenMagick\apps\storefront\Controller\RedirectController::process</default>
-        <option key="view">redirect://product.reviews</option>
+        <option key="view">redirect://reviews</option>
         <option key="form">ZenMagick\StoreBundle\Entity\Catalog\Review#formId:newReview</option>
+    </route>
+
+    <route id="reviews" pattern="/reviews">
+        <default key="_controller">ZenMagick\apps\storefront\Controller\ProductReviewsController::process</default>
+    </route>
+
+    <route id="product_reviews_info" pattern="/product_reviews_info">
+        <default key="_controller">ZenMagick\apps\storefront\Controller\ProductReviewsInfoController::process</default>
     </route>
 
     <route id="tell_a_friend" pattern="/tell-a-friend/{productId}">
         <default key="_controller">ZenMagick\apps\storefront\Controller\TellAFriendController::process</default>
         <default key="productId"></default>
-        <option key="view">redirect://product</option>
+        <option key="view">redirect://product_info</option>
         <option key="form">ZMEmailMessage#formId:tellAFriend</option>
     </route>
 
-    <route id="product" pattern="/product/{productId}">
+    <route id="product_info" pattern="/product/{productId}">
         <default key="_controller">ZenMagick\apps\storefront\Controller\ProductInfoController::showAction</default>
     </route>
 
-    <route id="search.advanced" pattern="/search/advanced">
+    <route id="advanced_search" pattern="/search/advanced">
         <default key="_controller">ZenMagick\apps\storefront\Controller\AdvancedSearchController::process</default>
         <option key="form">ZMSearchCriteria#formId:searchCriteria</option>
         <option key="view">views/advanced_search.php</option>
