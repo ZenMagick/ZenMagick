@@ -43,13 +43,3 @@ storefront:
     services:
       foo:
         class: Bar
-
-admin,storefront:
-  container:
-    services:
-      XProducts:
-        parent: merge:ZMProducts
-        class: ZenMagick\themes\test\model\XProducts
-      MetaTags:
-        parent: merge:ZenMagick\apps\storefront\Http\Tools\ToolboxMetaTags
-        class: ZenMagick\themes\test\http\tools\XToolboxMetaTags
