@@ -293,6 +293,14 @@
         <option key="view">views/search.php</option>
     </route>
 
+    <route id="ipn_main_handler" pattern="/ipn">
+        <default key="_controller">ZenMagick\ZenCartBundle\Controller\StorefrontController::process</default>
+    </route>
+
+    <route id="checkout_success" pattern="/checkout/success">
+        <default key="_controller">ZenMagick\apps\storefront\Controller\CheckoutSuccessController::process</default>
+    </route>
+
     <route id="index" pattern="/">
         <default key="_controller">ZenMagick\apps\storefront\Controller\IndexController::process</default>
         <option key="view">views/index.php</option>
