@@ -51,11 +51,6 @@ class InstallationStatusCheck implements StatusCheck {
             $messages[] = array(StatusCheck::STATUS_WARN, sprintf(_zm('Admin configuration file: %s should be read-only.'), $configure));
         }
 
-        $installApp = realpath(Runtime::getInstallationPath().'/apps/store-installer');
-        if (is_dir($installApp)) {
-            $messages[] = array(StatusCheck::STATUS_WARN, sprintf(_zm('ZenMagick store installer exists at: %s. Please remove or rename this directory for security reasons.'), $installApp));
-        }
-
         return $messages;
     }
 
