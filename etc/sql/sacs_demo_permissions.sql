@@ -6,7 +6,7 @@ INSERT INTO sacs_permissions (rid, type, name) VALUES
 ('tools', 'role', 'demo'),
 ('configuration', 'role', 'demo'),
 ('zc_admin', 'role', 'demo'),
-('legacy-config', 'role', 'demo'),
+('legacy_config', 'role', 'demo'),
 ('static-page-editor', 'role', 'demo'),
 ('ezpages', 'role', 'demo'),
 ('email_preview', 'role', 'demo');

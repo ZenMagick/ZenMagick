@@ -63,7 +63,7 @@ class EventListener extends ZMObject {
                 $id = str_replace(' ', '', $id);
                 $id = str_replace('/', '-', $id);
                 $element = new MenuElement($id, $group->getName());
-                $element->setRequestId('legacy-config');
+                $element->setRequestId('legacy_config');
                 $element->setParams('groupId='.$group->getId());
                 $legacyConfig->addChild($element);
             }

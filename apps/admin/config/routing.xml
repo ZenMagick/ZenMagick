@@ -56,6 +56,11 @@
         <default key="languageId">1</default>
         <option key="view">views/content_overview.php</option>
     </route>
+
+    <route id="legacy_config" pattern="/legacy-config/{groupId}">
+        <default key="_controller">ZenMagick\apps\admin\Controller\LegacyConfigController::indexAction</default>
+    </route>
+
     <!--
     <route id="admin_users" pattern="/manage/users">
         <default key="_controller">ZenMagick\apps\admin\Controller\AdminUsersController::process</default>
