@@ -111,6 +111,64 @@ class EventListener extends ZMObject {
         $this->fixCategoryPath($request);
         $this->checkAuthorization($request);
         $this->configureLocale($request);
+
+        $theme = $this->container->get('themeService')->getActiveTheme();
+        $args = array('theme' => $theme, 'themeId' => $theme->getId());
+        $event->getDispatcher()->dispatch('theme_loaded', new Event($this, $args));
+    }
+
+    /**
+     * Set up theme and block manager.
+     *
+     * @todo how much closer can we move it to the view layer?
+     */
+    public function onThemeLoaded($event) {
+
+        $settingsService = $this->container->get('settingsService');
+        $templateManager = $this->container->get('templateManager');
+        // TODO: do via admin and just load mapping from somewhere
+        // sidebox blocks
+        $mappings = array();
+        if ($templateManager->isLeftColEnabled()) {
+            $index = 1;
+            $mappings['leftColumn'] = array();
+            foreach ($templateManager->getLeftColBoxNames() as $boxName) {
+                // avoid duplicates by using $box as key
+                $mappings['leftColumn'][$boxName] = 'blockWidget#template=boxes/'.$boxName.'.php&sortOrder='.$index++;
+            }
+        }
+        if ($templateManager->isRightColEnabled()) {
+            $index = 1;
+            $mappings['rightColumn'] = array();
+            foreach ($templateManager->getRightColBoxNames() as $boxName) {
+                // avoid duplicates by using $box as key
+                $mappings['rightColumn'][$boxName] = 'blockWidget#template=boxes/'.$boxName.'.php&sortOrder='.$index++;
+            }
+        }
+        // general banners block group - if used, the group needs to be passed into fetchBlockGroup()
+        $mappings['banners'] = array();
+        $mappings['banners'][] = 'ZenMagick\StoreBundle\Widgets\BannerBlockWidget';
+
+        // individual banner groups as per current convention
+        $defaultBannerGroupNames = array(
+            'banners.header1', 'banners.header2', 'banners.header3',
+            'banners.footer1', 'banners.footer2', 'banners.footer3',
+            'banners.box1', 'banners.box2',
+            'banners.all'
+        );
+        foreach ($defaultBannerGroupNames as $blockGroupName) {
+            // the banner group name is configured as setting..
+            $bannerGroup = $settingsService->get($blockGroupName);
+            $mappings[$blockGroupName] = array('ZenMagick\StoreBundle\Widgets\BannerBlockWidget#group='.$bannerGroup);
+        }
+
+        // shopping cart options
+        $mappings['shoppingCart.options'] = array();
+        $mappings['shoppingCart.options'][] = 'ZenMagick\StoreBundle\Widgets\PayPalECButtonBlockWidget';
+        $mappings['mainMenu'] = array();
+        $mappings['mainMenu'][] = 'ref::browserIDLogin';
+
+        $this->container->get('blockManager')->setMappings($mappings);
     }
 
     /**
