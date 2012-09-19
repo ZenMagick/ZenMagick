@@ -86,9 +86,6 @@ class EventListener extends ZMObject {
             $session->setValue('cart', new \shoppingCart);
         }
 
-        $settingsService = $this->container->get('settingsService');
-        $defaultLocale = $settingsService->get('defaultLanguageCode');
-        $request->setDefaultLocale($defaultLocale);
         $this->container->get('themeService')->initThemes();
         $theme = $this->container->get('themeService')->getActiveTheme();
         $args = array_merge($event->all(), array('theme' => $theme, 'themeId' => $theme->getId()));
@@ -240,49 +237,6 @@ class EventListener extends ZMObject {
            $request->redirect($request->url());
         }
 
-        if (null == $session->getLanguage()) {
-            if ($settingsService->get('isUseBrowserLanguage')) {
-                $language = $this->getClientLanguage($request);
-            } else {
-                $language = $languageService->getLanguageForCode($settingsService->get('defaultLanguageCode'));
-            }
-            if (null == $language) {
-                $language = $languageService->getDefaultLanguage();
-                Runtime::getLogging()->warn('invalid or missing language - using default language');
-            }
-            $session->setLanguage($language);
-        }
-    }
-
-    /**
-     * Determine the browser language.
-     *
-     * Allow substituting a user agent provided language for an internal one via
-     * the setting apps.store.browserLanguageSubstitutions
-     * @return ZMLanguage The preferred language based on request headers or <code>null</code>.
-     */
-    private function getClientLanguage($request) {
-        if ($request->server->has('HTTP_ACCEPT_LANGUAGE')) {
-            $clientLanguages = $request->getLanguages();
-            $substitutions = $this->container->get('settingsService')->get('apps.store.browserLanguageSubstitutions');
-
-            foreach($clientLanguages as $clientLanguage) {
-                $code = substr($clientLanguage, 0, 2); // 2 letter language code
-                if (null != ($language = ($this->container->get('languageService')->getLanguageForCode($code)))) {
-                    // found!
-                    return $language;
-                } elseif (isset($substitutions[$code])) {
-                    // try fallback to substitue
-                    $code = $substitutions[$code];
-                    if (null != ($language = ($this->container->get('languageService')->getLanguageForCode($code)))) {
-                        // found!
-                        return $language;
-                    }
-                }
-            }
-        }
-
-        return null;
     }
 
 }

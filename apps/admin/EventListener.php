@@ -131,10 +131,6 @@ class EventListener extends ZMObject {
         if ($request->query->has('languageId')) {
             $session->setValue('languages_id', $request->query->get('languageId'));
         }
-        if (null == $session->getValue('languages_id')) {
-            $session->setValue('languages_id', Runtime::getSettings()->get('storeDefaultLanguageId'));
-        }
-
         $user = $request->getAccount();
         if (null != $user && null != ($uiLocale = $this->container->get('adminUserPrefService')->getPrefForName($user->getId(), 'uiLocale'))) {
             $request->setLocale($uiLocale);

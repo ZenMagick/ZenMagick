@@ -189,6 +189,14 @@
             <argument type="service" id="service_container" />
         </service>
 
+        <service id="zenmagick.locale_listener" class="ZenMagick\ZenMagickBundle\EventListener\LocaleSessionListener">
+            <argument>%kernel.default_locale%</argument>
+             <call method="setLanguageService">
+                <argument type="service" id="languageService" on-invalid="null" />
+            </call>
+            <tag name="kernel.event_subscriber" />
+        </service>
+
         <service id="blockWidget" class="ZenMagick\Http\Blocks\Widgets\BlockWidget" scope="prototype" />
 
         <service id="zmPhpEngine" class="ZenMagick\Http\Templating\ZMPhpEngine" scope="prototype">
