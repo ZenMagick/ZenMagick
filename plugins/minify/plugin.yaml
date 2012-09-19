@@ -23,10 +23,5 @@ meta:
 
 admin,storefront:
   container:
-    services:
-      MinifyResourceManager:
-        parent: merge:resourceManager
-        class: ZenMagick\plugins\minify\view\MinifyResourceManager
-      MinifyStoreResourceManager:
-        parent: merge:resourceManager
-        class: ZenMagick\plugins\minify\view\MinifyResourceManager
+    parameters:
+      zenmagick.resource_manager.class: ZenMagick\plugins\minify\view\MinifyResourceManager
