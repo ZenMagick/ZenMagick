@@ -19,6 +19,5 @@ meta:
 admin,storefront:
   container:
     services:
-      ImageInfo:
-        parent: merge:ZMImageInfo
+     ZMImageInfo:
         class: ZenMagick\plugins\imageHandler2\model\catalog\ImageInfo
