@@ -54,13 +54,6 @@ class StoreListener extends ZMObject {
         $currentCategoryId = end($cPath);
         $request->attributes->set('categoryId', (int)$currentCategoryId);
 
-        // @todo This competes with admin EventListener!
-        if (null != ($userSession = $this->container->get('userSession'))) {
-            if (null != ($localeCode = $userSession->getLocaleCode())) {
-                // init with user locale
-                $request->setLocale($localeCode);
-            }
-        }
     }
 
     /**
