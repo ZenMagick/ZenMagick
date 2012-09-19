@@ -54,15 +54,6 @@ class MusicProductInfoPlugin extends Plugin {
     }
 
     /**
-     * Attach mediaUrl method to toolbox.
-     */
-    public function onContainerReady($event) {
-        // attach mediaUrl method to the $net toolbox tool
-        ZMObject::attachMethod('mediaUrl', 'ZenMagick\StoreBundle\Toolbox\ToolboxNet',
-            array($this, 'mediaUrl'));
-    }
-
-    /**
      * Event handler.
      */
     public function onViewStart($event) {
@@ -86,7 +77,7 @@ class MusicProductInfoPlugin extends Plugin {
      * @param string filename The media filename, relative to the media folder.
      * @return A URL.
      */
-    public function mediaUrl($tool, $filename) {
+    public function mediaUrl($filename) {
         $url = 'media/'.$filename;
         return $url;
     }

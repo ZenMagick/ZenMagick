@@ -67,7 +67,7 @@
                   <h4><?php echo $collection->getName() ?></h4>
                   <ul>
                       <?php foreach($collection->getItems() as $media) { $type = $media->getType(); ?>
-                      <li><a href="<?php echo $net->mediaUrl($media->getFilename()) ?>"><?php echo $media->getFilename() ?></a> (<?php echo $type->getName() ?>)</li>
+                      <li><a href="<?php echo $net->absoluteUrl($musicProductInfo->mediaUrl($mediaItem->getFilename())) ?>"><?php echo $media->getFilename() ?></a> (<?php echo $type->getName() ?>)</li>
                       <?php } ?>
                   </ul>
               </div>
