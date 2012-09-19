@@ -100,14 +100,6 @@ class EventListener extends ZMObject {
      */
     public function onContainerReady($event) {
         $request = $event->get('request');
-        $settingsService = $this->container->get('settingsService');
-
-        // now we can check for a static homepage
-        if (!Toolbox::isEmpty($settingsService->get('staticHome')) && 'index' == $request->getRequestId()
-            && (!$request->attributes->has('categoryIds') && !$request->query->has('manufacturers_id'))) {
-            require $this->container->get('settingsService')->get('staticHome');
-            exit;
-        }
 
         $session = $request->getSession();
         // in case we came from paypal or some other external location.
