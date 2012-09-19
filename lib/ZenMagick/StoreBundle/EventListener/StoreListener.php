@@ -22,9 +22,7 @@ namespace ZenMagick\StoreBundle\EventListener;
 
 use ZenMagick\Base\Runtime;
 use ZenMagick\Base\ZMObject;
-use ZenMagick\Http\Session\FlashBag;
 use ZenMagick\Base\Events\Event;
-use ZenMagick\StoreBundle\Widgets\StatusCheck;
 
 /**
  * Shared store event listener.
@@ -57,54 +55,10 @@ class StoreListener extends ZMObject {
     }
 
     public function onContainerReady($event) {
-        $settingsService = $this->container->get('settingsService');
-
-        $request = $event->get('request');
-
-
         $this->container->get('bannerService')->runTasks();
         $this->container->get('salemakerService')->runTasks();
         $this->container->get('productFeaturedService')->runTasks();
         $this->container->get('productSpecialsService')->runTasks();
-
-        // status messages
-        if (Runtime::isContextMatch('storefront')) {
-
-            // check DFM
-            $downForMaintenance = $settingsService->get('apps.store.downForMaintenance', false);
-            $adminIps = $settingsService->get('apps.store.adminOverrideIPs');
-
-            if ($downForMaintenance && !in_array($request->getClientIp(), $adminIps)) {
-                // @todo this would be more appropriately placed in the controller or dispatcher,
-                // but also needs to work if  don't get that far due to application errors and
-                // should only work on storefront.
-                header('HTTP/1.1 503 Service Unavailable');
-                $dfmPages = $settingsService->get('apps.store.downForMaintenancePages');
-                $dfmRoute = $settingsService->get('apps.store.downForMaintenanceRoute');
-                $dfmPages[] = $dfmRoute;
-                if (!in_array($request->getRequestId(), $dfmPages)) {
-                    $url = $request->url($dfmRoute);
-                    $request->redirect($url);
-                    exit;
-                }
-            }
-
-            $messages = array();
-            foreach ($this->container->get('containerTagService')->findTaggedServiceIds('apps.store.admin.dashboard.widget.statusCheck') as $id => $args) {
-                $statusCheck = $this->container->get($id);
-                $messages = array_merge($messages, $statusCheck->getStatusMessages());
-            }
-            $statusMap = array(
-                StatusCheck::STATUS_DEFAULT => FlashBag::T_MESSAGE,
-                StatusCheck::STATUS_INFO => FlashBag::T_MESSAGE,
-                StatusCheck::STATUS_NOTICE => FlashBag::T_WARN,
-                StatusCheck::STATUS_WARN => FlashBag::T_WARN,
-            );
-            $messageService = $request->getSession()->getFlashBag();
-            foreach ($messages as $details) {
-                $messageService->addMessage($details[1], $statusMap[$details[0]]);
-            }
-        }
     }
 
 }

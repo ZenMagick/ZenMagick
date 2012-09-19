@@ -20,11 +20,12 @@
 namespace ZenMagick\apps\storefront;
 
 use ZenMagick\Base\Beans;
-use ZenMagick\Base\Runtime;
 use ZenMagick\Base\Toolbox;
 use ZenMagick\Base\ZMObject;
 use ZenMagick\Base\Events\Event;
 use ZenMagick\Http\View\TemplateView;
+use ZenMagick\Http\Session\FlashBag;
+use ZenMagick\StoreBundle\Widgets\StatusCheck;
 
 /**
  * Fixes and stuff that are (can be) event driven.
@@ -94,7 +95,6 @@ class EventListener extends ZMObject {
 
     }
 
-
     /**
      * More store startup code.
      */
@@ -112,9 +112,57 @@ class EventListener extends ZMObject {
         $this->checkAuthorization($request);
         $this->configureLocale($request);
 
+        $this->dfm($request);
+        $this->addStatusMessages($request);
+
         $theme = $this->container->get('themeService')->getActiveTheme();
         $args = array('theme' => $theme, 'themeId' => $theme->getId());
         $event->getDispatcher()->dispatch('theme_loaded', new Event($this, $args));
+    }
+
+    /**
+     * Handle down for maintenance
+     */
+    public function dfm($request) {
+        $settingsService = $this->container->get('settingsService');
+        $downForMaintenance = $settingsService->get('apps.store.downForMaintenance', false);
+        $adminIps = $settingsService->get('apps.store.adminOverrideIPs');
+
+        if ($downForMaintenance && !in_array($request->getClientIp(), $adminIps)) {
+            // @todo this would be more appropriately placed in the controller or dispatcher,
+            // but also needs to work if  don't get that far due to application errors and
+            // should only work on storefront.
+            header('HTTP/1.1 503 Service Unavailable');
+            $dfmPages = $settingsService->get('apps.store.downForMaintenancePages');
+            $dfmRoute = $settingsService->get('apps.store.downForMaintenanceRoute');
+            $dfmPages[] = $dfmRoute;
+            if (!in_array($request->getRequestId(), $dfmPages)) {
+                $url = $request->url($dfmRoute);
+                $request->redirect($url);
+                exit;
+            }
+        }
+    }
+
+    /**
+     * Add storefront status messages
+     */
+    public function addStatusMessages($request) {
+        $messages = array();
+        foreach ($this->container->get('containerTagService')->findTaggedServiceIds('apps.store.admin.dashboard.widget.statusCheck') as $id => $args) {
+            $statusCheck = $this->container->get($id);
+            $messages = array_merge($messages, $statusCheck->getStatusMessages());
+        }
+        $statusMap = array(
+            StatusCheck::STATUS_DEFAULT => FlashBag::T_MESSAGE,
+            StatusCheck::STATUS_INFO => FlashBag::T_MESSAGE,
+            StatusCheck::STATUS_NOTICE => FlashBag::T_WARN,
+            StatusCheck::STATUS_WARN => FlashBag::T_WARN,
+        );
+        $messageService = $request->getSession()->getFlashBag();
+        foreach ($messages as $details) {
+            $messageService->addMessage($details[1], $statusMap[$details[0]]);
+        }
     }
 
     /**
@@ -228,7 +276,7 @@ class EventListener extends ZMObject {
                         $request->query->set('cPath', implode('_', $category->getPath()));
                         $request->attributes->set('categoryIds', $category->getPath());
                     } else {
-                        Runtime::getLogging()->error('invalid cPath: ' . $cPath);
+                        $this->container->get('logger')->error('invalid cPath: ' . $cPath);
                     }
                 }
             }
