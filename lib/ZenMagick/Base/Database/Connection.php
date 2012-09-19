@@ -485,6 +485,13 @@ class Connection extends DbalConnection {
         $mappedFields = array();
         foreach ($mapping as $field) {
             if (array_key_exists($field['column'], $row)) {
+                if ($field['type'] == 'date' && $row[$field['column']] == self::NULL_DATE) {
+                    $row[$field['column']] = null;
+                }
+                if ($field['type'] == 'datetime' && $row[$field['column']] == self::NULL_DATETIME) {
+                    $row[$field['column']] = null;
+                }
+
                 $mappedRow[$field['property']] = $this->convertToPHPValue($row[$field['column']], $field['type']);
                 $mappedFields[$field['column']] = $field['column'];
             }
