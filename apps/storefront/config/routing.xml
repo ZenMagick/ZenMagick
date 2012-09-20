@@ -149,7 +149,7 @@
 
     <route id="contact_us" pattern="/contact-us">
         <default key="_controller">ZenMagick\apps\storefront\Controller\ContactUsController::process</default>
-        <option key="form">ZMContactInfo#formId:contactUs</option>
+        <option key="form">ZMContactInfo#formId=contactUs</option>
         <option key="view">views/contact_us.php</option>
         <option key="view:success">redirect://contact_us</option>
     </route>
@@ -265,7 +265,7 @@
     <route id="product_reviews_write" pattern="/product/review/write">
         <default key="_controller">ZenMagick\apps\storefront\Controller\RedirectController::process</default>
         <option key="view">redirect://reviews</option>
-        <option key="form">ZenMagick\StoreBundle\Entity\Catalog\Review#formId:newReview</option>
+        <option key="form">ZenMagick\StoreBundle\Entity\Catalog\Review#formId=newReview</option>
     </route>
 
     <route id="reviews" pattern="/reviews">
@@ -280,7 +280,7 @@
         <default key="_controller">ZenMagick\apps\storefront\Controller\TellAFriendController::process</default>
         <default key="productId"></default>
         <option key="view">redirect://product_info</option>
-        <option key="form">ZMEmailMessage#formId:tellAFriend</option>
+        <option key="form">ZMEmailMessage#formId=tellAFriend</option>
     </route>
 
     <route id="product_info" pattern="/product/{productId}">
@@ -289,13 +289,13 @@
 
     <route id="advanced_search" pattern="/search/advanced">
         <default key="_controller">ZenMagick\apps\storefront\Controller\AdvancedSearchController::process</default>
-        <option key="form">ZMSearchCriteria#formId:searchCriteria</option>
+        <option key="form">ZMSearchCriteria#formId=searchCriteria</option>
         <option key="view">views/advanced_search.php</option>
     </route>
 
     <route id="search" pattern="/search">
         <default key="_controller">ZenMagick\apps\storefront\Controller\SearchController::process</default>
-        <option key="form">ZMSearchCriteria#formId:searchCriteria</option>
+        <option key="form">ZMSearchCriteria#formId=searchCriteria</option>
         <option key="view">views/search.php</option>
     </route>
 
