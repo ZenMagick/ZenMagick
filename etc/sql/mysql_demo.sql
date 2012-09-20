@@ -3,6 +3,7 @@
 # $Id: mysql_demo.sql 14152 2009-08-11 20:11:44Z wilt $
 #
 
+SET foreign_key_checks = 0;
 # Configuration Settings:
 UPDATE configuration SET configuration_value='true' WHERE configuration_key='DOWNLOAD_ENABLED';
 
