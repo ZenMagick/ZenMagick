@@ -317,7 +317,7 @@ class EventListener extends ZMObject {
             }
             // @todo better way to do this? perhaps we'd be better off setting a redirect_url form key or always set SetLastUrl?
             $request->query->remove('currency');
-            $request->redirect($request->url());
+            $request->redirect($request->headers->get('referer'));
         }
         if (null == $session->get('currency')) {
             $session->set('currency', $settingsService->get('defaultCurrency'));
@@ -332,7 +332,7 @@ class EventListener extends ZMObject {
             }
            // @todo better way to do this? perhaps we'd be better off setting a redirect_url form key or always set SetLastUrl?
            $params = $request->query->remove('language');
-           $request->redirect($request->url());
+           $request->redirect($request->headers->get('referer'));
         }
 
     }
