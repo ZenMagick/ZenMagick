@@ -65,7 +65,7 @@ class CaptchaPlugin extends Plugin {
         $requestId = $request->getRequestId();
         if (array_key_exists($requestId, $pageConfig)) {
             $this->captcha_ = new PCaptcha($request);
-            $session->setValue('captcha_field', CAPTCHA_FIELD);
+            $session->set('captcha_field', CAPTCHA_FIELD);
             $config = $pageConfig[$requestId];
             if ($config[0]) {
                 $form = $pageConfig[$requestId][1];

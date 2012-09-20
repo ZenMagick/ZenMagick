@@ -69,7 +69,7 @@ class LiftSuggestPlugin extends Plugin {
             $price = $product->getPrice();
 
             $rec = 'N';
-            if (null != ($recommended = $session->getValue('reco_prods')) && is_array($recommended)) {
+            if (null != ($recommended = $session->get('reco_prods')) && is_array($recommended)) {
                 if (in_array($product->getId(), $recommended)) {
                     $rec= 'R';
                 }

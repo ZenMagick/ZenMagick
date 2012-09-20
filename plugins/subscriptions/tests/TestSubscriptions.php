@@ -70,7 +70,7 @@ class TestSubscriptions extends TestCase {
         $plugin = $this->getPlugin();
 
         // fake subscription checkout
-        $this->getRequest()->getSession()->setValue('subscription_schedule', '1d');
+        $this->getRequest()->getSession()->set('subscription_schedule', '1d');
 
         $args = array('orderId' => 1);
         $plugin->onZMCreateOrder($args);

@@ -41,7 +41,7 @@ class LoginController extends \ZMController {
 
         $redirect = $request->getParameter('redirect');
         if (null != $redirect) {
-            $session->setValue(self::KEY_REDIRECT, $redirect);
+            $session->set(self::KEY_REDIRECT, $redirect);
         }
 
         return parent::processGet($request);
@@ -55,16 +55,16 @@ class LoginController extends \ZMController {
         $session = $request->getSession();
 
         // get before doing anything with the session!
-        $lastUrl = $session->getValue('lastUrl');
+        $lastUrl = $session->get('lastUrl');
 
         if (!$session->isStarted()) {
-            $session->setValue(self::KEY_REDIRECT);
+            $session->set(self::KEY_REDIRECT);
             return $this->findView('cookie_usage');
         }
 
         if ($session->isRegistered()) {
             // already logged in
-            $session->setValue(self::KEY_REDIRECT);
+            $session->set(self::KEY_REDIRECT);
             return $this->findView('account');
         }
         if (!$this->validate($request, 'login')) {
@@ -92,8 +92,8 @@ class LoginController extends \ZMController {
 
         $stickyUrl = $request->getFollowUpUrl();
         if (null == $stickyUrl) {
-            $stickyUrl = $session->getValue(self::KEY_REDIRECT);
-            $session->setValue(self::KEY_REDIRECT);
+            $stickyUrl = $session->get(self::KEY_REDIRECT);
+            $session->set(self::KEY_REDIRECT);
         }
         if (null == $stickyUrl) {
             $stickyUrl = $lastUrl;

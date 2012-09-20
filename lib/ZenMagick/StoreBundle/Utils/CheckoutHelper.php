@@ -432,11 +432,11 @@ class CheckoutHelper extends ZMObject {
 
         // TODO: here for zc compatibility
         if (isset($this->shoppingCart_->cart_->cartID)) {
-            $request->getSession()->setValue('cartID', $this->shoppingCart_->cart_->cartID);
+            $request->getSession()->set('cartID', $this->shoppingCart_->cart_->cartID);
         }
 
         if (null != ($hash = $this->shoppingCart_->getHash())) {
-            $request->getSession()->setValue('shoppingCartHash', $hash);
+            $request->getSession()->set('shoppingCartHash', $hash);
             return true;
         }
 
@@ -450,7 +450,7 @@ class CheckoutHelper extends ZMObject {
      * @return boolean <code>true</code> if, and only if, the session cart hash and the current hash are the same.
      */
     public function verifyHash($request) {
-        return $request->getSession()->getValue('shoppingCartHash') == $this->shoppingCart_->getHash();
+        return $request->getSession()->get('shoppingCartHash') == $this->shoppingCart_->getHash();
     }
 
     /**

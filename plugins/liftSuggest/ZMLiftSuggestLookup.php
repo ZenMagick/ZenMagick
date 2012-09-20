@@ -63,7 +63,7 @@ class ZMLiftSuggestLookup extends LiftSuggestLookup implements ContainerAwareInt
      */
     public function storeInSession($key, $value) {
         $session = $this->container->get('session');
-        $session->setValue(self::SESSION_NAMESPACE.'.'.$key, $value);
+        $session->set(self::SESSION_NAMESPACE.'.'.$key, $value);
     }
 
     /**
@@ -71,7 +71,7 @@ class ZMLiftSuggestLookup extends LiftSuggestLookup implements ContainerAwareInt
      */
     public function getFromSession($key, $default=null) {
         $session = $this->container->get('session');
-        $session->getValue(self::SESSION_NAMESPACE.'.'.$key, $default);
+        $session->get(self::SESSION_NAMESPACE.'.'.$key, $default);
     }
 
     /**

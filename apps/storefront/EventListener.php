@@ -69,9 +69,9 @@ class EventListener extends ZMObject {
         // save url to be used as redirect in some cases
         if ('login' != $request->getRequestId() && 'logoff' != $request->getRequestId()) {
             if ('GET' == $request->getMethod()) {
-                $request->getSession()->setValue('lastUrl', $request->url());
+                $request->getSession()->set('lastUrl', $request->url());
             } else {
-                $request->getSession()->setValue('lastUrl', null);
+                $request->getSession()->set('lastUrl', null);
             }
         }
     }
@@ -83,8 +83,8 @@ class EventListener extends ZMObject {
     public function onRequestReady($event) {
         $request = $event->get('request');
         $session = $request->getSession();
-        if (null == $session->getValue('cart')) {
-            $session->setValue('cart', new \shoppingCart);
+        if (null == $session->get('cart')) {
+            $session->set('cart', new \shoppingCart);
         }
 
         $this->container->get('themeService')->initThemes();
@@ -104,8 +104,8 @@ class EventListener extends ZMObject {
         $session = $request->getSession();
         // in case we came from paypal or some other external location.
         // @todo it should probably be some sort of session attribute.
-        if (null == $session->getValue('customers_ip_address')) {
-            $session->setValue('customers_ip_address', $request->getClientIp());
+        if (null == $session->get('customers_ip_address')) {
+            $session->set('customers_ip_address', $request->getClientIp());
         }
 
         $this->fixCategoryPath($request);
@@ -313,14 +313,14 @@ class EventListener extends ZMObject {
         if (null != ($currencyCode = $request->query->get('currency'))) {
             // @todo error on bad request currency?
             if (null != $this->container->get('currencyService')->getCurrencyForCode($currencyCode)) {
-                $session->setValue('currency', $currencyCode);
+                $session->set('currency', $currencyCode);
             }
             // @todo better way to do this? perhaps we'd be better off setting a redirect_url form key or always set SetLastUrl?
             $request->query->remove('currency');
             $request->redirect($request->url());
         }
-        if (null == $session->getValue('currency')) {
-            $session->setValue('currency', $settingsService->get('defaultCurrency'));
+        if (null == $session->get('currency')) {
+            $session->set('currency', $settingsService->get('defaultCurrency'));
         }
 
         // ** language **

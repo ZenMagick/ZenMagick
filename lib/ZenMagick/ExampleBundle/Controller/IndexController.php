@@ -39,7 +39,7 @@ class IndexController extends \ZMController {
     public function processGet($request) {
         $data = array();
         $viewId = null;
-        $name = $request->getSession()->getValue('name');
+        $name = $request->getSession()->get('name');
         if (!empty($name)) {
             $data['name'] = $name;
         }
@@ -63,7 +63,7 @@ class IndexController extends \ZMController {
         if (empty($name)) {
             $this->messageService->error('Don\'t be shy!');
         } else {
-            $request->getSession()->setValue('name', $name);
+            $request->getSession()->set('name', $name);
             $data['name'] = $name;
             $viewId = 'success';
         }

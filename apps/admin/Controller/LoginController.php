@@ -56,7 +56,7 @@ class LoginController extends \ZMController {
         }
 
         $session = $request->getSession();
-        $session->setValue('admin_id', $user->getId());
+        $session->set('admin_id', $user->getId());
         if (null != ($uiLocale = $this->container->get('adminUserPrefService')->getPrefForName($user->getId(), 'uiLocale'))) {
             $session->set('_locale', $uiLocale);
         }

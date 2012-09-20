@@ -33,10 +33,10 @@ class Session extends \ZenMagick\Http\Session\Session {
      * {@inheritDoc}
      * @todo: drop
      */
-    public function setValue($name, $value=null) {
+    public function set($name, $value=null) {
         // ZCSMELL
         if (!$this->isStarted()) $this->start();
-        parent::setValue($name, $value);
+        parent::set($name, $value);
         if (isset($_SESSION)) {
             $_SESSION[$name] = $value;
         }
@@ -45,8 +45,8 @@ class Session extends \ZenMagick\Http\Session\Session {
      * {@inheritDoc}
      * @todo: drop
      */
-    public function getValue($name, $default=null) {
-        if (null != ($value = parent::getValue($name, $default))) {
+    public function get($name, $default=null) {
+        if (null != ($value = parent::get($name, $default))) {
             return $value;
         }
         if (isset($_SESSION) && array_key_exists($name, $_SESSION)) {
@@ -61,7 +61,7 @@ class Session extends \ZenMagick\Http\Session\Session {
      * @return int The account id for the currently logged in user or <code>0</code>.
      */
     public function getAccountId() {
-        $accountId = $this->getValue('customer_id');
+        $accountId = $this->get('customer_id');
         return null !== $accountId ? $accountId : 0;
     }
 
@@ -73,7 +73,7 @@ class Session extends \ZenMagick\Http\Session\Session {
      * @return char The session type.
      */
     public function getType() {
-        $type = $this->getValue('account_type');
+        $type = $this->get('account_type');
         return null === $type ? \ZMAccount::ANONYMOUS : $type;
     }
 
@@ -118,17 +118,17 @@ class Session extends \ZenMagick\Http\Session\Session {
      */
     public function setAccount($account) {
         if (null == $account) {
-            $this->setValue('customer_id', '');
+            $this->set('customer_id', '');
         } else {
-            $this->setValue('customer_id', $account->getId());
-            $this->setValue('customer_default_address_id', $account->getDefaultAddressId());
-            $this->setValue('customers_authorization', $account->getAuthorization());
-            $this->setValue('customer_first_name', $account->getFirstName());
-            $this->setValue('account_type', $account->getType());
+            $this->set('customer_id', $account->getId());
+            $this->set('customer_default_address_id', $account->getDefaultAddressId());
+            $this->set('customers_authorization', $account->getAuthorization());
+            $this->set('customer_first_name', $account->getFirstName());
+            $this->set('account_type', $account->getType());
             $address = $this->container->get('addressService')->getAddressForId($account->getDefaultAddressId());
             if (null != $address) {
-                $this->setValue('customer_country_id', $address->getCountryId());
-                $this->setValue('customer_zone_id', $address->getZoneId());
+                $this->set('customer_country_id', $address->getCountryId());
+                $this->set('customer_zone_id', $address->getZoneId());
             }
         }
     }
@@ -137,7 +137,7 @@ class Session extends \ZenMagick\Http\Session\Session {
      * Restore the shopping cart contents.
      */
     public function restoreCart() {
-        $cart = $this->getValue('cart');
+        $cart = $this->get('cart');
         if (null != $cart) {
             //TODO:
             $cart->restore_contents();
@@ -150,9 +150,9 @@ class Session extends \ZenMagick\Http\Session\Session {
      * @param Language language The language.
      */
     public function setLanguage($language) {
-        $this->setValue('language', $language->getDirectory());
-        $this->setValue('languages_id', $language->getId());
-        $this->setValue('languages_code', $language->getCode());
+        $this->set('language', $language->getDirectory());
+        $this->set('languages_id', $language->getId());
+        $this->set('languages_code', $language->getCode());
     }
 
     /**
@@ -161,7 +161,7 @@ class Session extends \ZenMagick\Http\Session\Session {
      * @return Language The language or <code>null</code>.
      */
     public function getLanguage() {
-        $languageCode = $this->getValue('languages_code');
+        $languageCode = $this->get('languages_code');
         $languageService = $this->container->get('languageService');
         return $languageService->getLanguageForCode($languageCode);
     }
@@ -172,7 +172,7 @@ class Session extends \ZenMagick\Http\Session\Session {
      * @return int The current language id.
      */
     public function getLanguageId() {
-        $languageId = $this->getValue('languages_id');
+        $languageId = $this->get('languages_id');
         return (null !== $languageId ? (int)$languageId : (int)Runtime::getSettings()->get('storeDefaultLanguageId'));
     }
 
@@ -182,7 +182,7 @@ class Session extends \ZenMagick\Http\Session\Session {
      * @return string The current currency code.
      */
     public function getCurrencyCode() {
-        return $this->getValue('currency');
+        return $this->get('currency');
     }
 
     /**

@@ -76,13 +76,13 @@ class SubscriptionsPlugin extends Plugin {
         $request = $event->get('request');
         if ('checkout_shipping' == $request->getRequestId() && 'POST' == $request->getMethod()) {
             if (Toolbox::asBoolean($request->request->get('subscription'))) {
-                $request->getSession()->setValue('subscription_schedule', $request->request->get('schedule'));
+                $request->getSession()->set('subscription_schedule', $request->request->get('schedule'));
             } else {
-                $request->getSession()->setValue('subscription_schedule');
+                $request->getSession()->set('subscription_schedule');
             }
         }
         if ('checkout_success' == $request->getRequestId()) {
-            $request->getSession()->setValue('subscription_schedule');
+            $request->getSession()->set('subscription_schedule');
         }
     }
 
@@ -111,7 +111,7 @@ class SubscriptionsPlugin extends Plugin {
      * @return string The subscription schedule key or <code>null</code>.
      */
     public function getSelectedSchedule() {
-        $schedule = $this->container->get('session')->getValue('subscription_schedule');
+        $schedule = $this->container->get('session')->get('subscription_schedule');
         return empty($schedule) ? null : $schedule;
     }
 

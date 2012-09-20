@@ -90,26 +90,26 @@ class StorefrontController extends \ZMController {
         global $order, $total_count, $total_weight;
         global $credit_covers, $country_info, $discount_coupon, $insert_id;
         global $isECtransaction, $isDPtransaction;
-        $zcShipping = $session->getValue('shipping', null);
+        $zcShipping = $session->get('shipping', null);
         if (null != $zcShipping) {
             if (is_array($zcShipping)) $zcShipping = $zcShipping['id'];
             list($module, $method) = explode('_', $zcShipping);
             global $$module;
         }
-        if (null != ($sPayment = $session->getValue('payment', null))) {
+        if (null != ($sPayment = $session->get('payment', null))) {
             global $$sPayment;
         }
 
-        if (null == $session->getValue('securityToken')) {
-            $session->setValue('securityToken', $session->getToken());
+        if (null == $session->get('securityToken')) {
+            $session->set('securityToken', $session->getToken());
         }
 
-        if (null == $session->getValue('navigation')) {
-            $session->setValue('navigation', new \navigationHistory);
+        if (null == $session->get('navigation')) {
+            $session->set('navigation', new \navigationHistory);
         }
 
         if (!$request->isXmlHttpRequest()) {
-            $session->getValue('navigation')->add_current_page();
+            $session->get('navigation')->add_current_page();
         }
 
 
@@ -145,7 +145,7 @@ class StorefrontController extends \ZMController {
         chdir($cwd);
         $autoLoader->restoreErrorLevel();
         foreach ($_SESSION as $k => $v) {
-            $session->setValue($k, $v);
+            $session->set($k, $v);
         }
         return new Response($content);
     }
@@ -355,11 +355,11 @@ class StorefrontController extends \ZMController {
             $request->redirect($request->url($this->container->get('settingsService')->get('zenmagick.http.request.invalidSession')));
         }
 
-        if (null == $session->getValue('cart')) {
-            $session->setValue('cart', new \shoppingCart);
+        if (null == $session->get('cart')) {
+            $session->set('cart', new \shoppingCart);
         }
-        if (null == $session->getValue('navigation')) {
-            $session->setValue('navigation', new \navigationHistory);
+        if (null == $session->get('navigation')) {
+            $session->set('navigation', new \navigationHistory);
         }
 
         $cartActionMap = array(
@@ -417,7 +417,7 @@ class StorefrontController extends \ZMController {
                 $request->request->set('products_id', $productsId[0]);
             }
             $request->overrideGlobals();
-            call_user_func_array(array($session->getValue('cart'), $cartMethod), array($redirectTarget, $params));
+            call_user_func_array(array($session->get('cart'), $cartMethod), array($redirectTarget, $params));
         }
     }
 

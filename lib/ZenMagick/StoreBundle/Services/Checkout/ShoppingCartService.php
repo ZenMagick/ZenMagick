@@ -118,7 +118,7 @@ class ShoppingCartService extends ZMObject {
         // XXX: sync back to ZenCart
         $cart =  new \shoppingCart();
         $cart->contents = $shoppingCart->getContents();
-        $shoppingCart->session->setValue('cart', $cart);
+        $shoppingCart->session->set('cart', $cart);
     }
 
     /**

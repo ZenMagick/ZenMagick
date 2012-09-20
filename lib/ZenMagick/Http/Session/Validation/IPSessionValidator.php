@@ -53,8 +53,8 @@ class IPSessionValidator extends ZMObject implements SessionValidator {
         $valid = true;
         if ($this->enabled) {
             $ip = $request->getClientIp();
-            if (null == ($sessionIP = $session->getValue(self::SESSION_VALIDATOR_NAMESPACE.'.'.self::SESSION_IP_KEY))) {
-                $session->setValue(self::SESSION_VALIDATOR_NAMESPACE.'.'.self::SESSION_IP_KEY, $ip);
+            if (null == ($sessionIP = $session->get(self::SESSION_VALIDATOR_NAMESPACE.'.'.self::SESSION_IP_KEY))) {
+                $session->set(self::SESSION_VALIDATOR_NAMESPACE.'.'.self::SESSION_IP_KEY, $ip);
             } else {
                 $valid = $ip == $sessionIP;
             }

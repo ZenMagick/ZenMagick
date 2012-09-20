@@ -44,8 +44,8 @@ class VisitCounterPlugin extends Plugin {
 
         $newSession = false;
         if ($session->isStarted()) {
-            $newSession = !$session->getValue('session_counter');
-            if ($newSession) $session->setValue('session_counter', true);
+            $newSession = !$session->get('session_counter');
+            if ($newSession) $session->set('session_counter', true);
         }
         $today  = date('Ymd');
         $query = "INSERT INTO %table.counter_history% (startdate, counter, session_counter) values (:today, 1, 1)

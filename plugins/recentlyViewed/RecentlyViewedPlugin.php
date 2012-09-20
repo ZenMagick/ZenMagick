@@ -41,7 +41,7 @@ class RecentlyViewedPlugin extends Plugin {
 
         if ($view instanceof TemplateView) {
             $session = $request->getSession();
-            if (null == ($recentlyViewedProducts = $session->getValue(self::RECENTLY_VIEWED_KEY))) {
+            if (null == ($recentlyViewedProducts = $session->get(self::RECENTLY_VIEWED_KEY))) {
                 $recentlyViewedProducts = array();
             }
             if (0 < ($productId = $request->query->get('productId'))) {
@@ -52,7 +52,7 @@ class RecentlyViewedPlugin extends Plugin {
                 $recentlyViewedProducts = array_slice($recentlyViewedProducts, 0, (int)$this->get('maxProducts'));
 
                 // save in original order
-                $session->setValue(self::RECENTLY_VIEWED_KEY, array_reverse($recentlyViewedProducts));
+                $session->set(self::RECENTLY_VIEWED_KEY, array_reverse($recentlyViewedProducts));
             }
             // tell view
             $view->setVariable('recentlyViewedProducts', $recentlyViewedProducts);

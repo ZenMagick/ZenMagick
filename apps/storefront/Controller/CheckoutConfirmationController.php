@@ -88,7 +88,7 @@ class CheckoutConfirmationController extends \ZMController {
         }
 
         if (null != ($paymentMethod = $request->request->get('payment'))) {
-            $request->getSession()->setValue('payment', $paymentMethod);
+            $request->getSession()->set('payment', $paymentMethod);
         }
         return $this->processGet($request);
     }

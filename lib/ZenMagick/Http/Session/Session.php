@@ -88,7 +88,7 @@ class Session extends BaseSession implements ContainerAwareInterface {
                 }
             }
         }
-        $this->setValue(self::AUTO_SAVE_KEY, $autoSave);
+        $this->set(self::AUTO_SAVE_KEY, $autoSave);
     }
 
     /**
@@ -96,7 +96,7 @@ class Session extends BaseSession implements ContainerAwareInterface {
      */
     public function restorePersistedServices() {
         // restore persisted services
-        foreach ((array)$this->getValue(self::AUTO_SAVE_KEY) as $id => $serdat) {
+        foreach ((array)$this->get(self::AUTO_SAVE_KEY) as $id => $serdat) {
             $obj = unserialize($serdat['ser']);
             $isService = !isset($serdat['type']) || 'service' == $serdat['type'];
             if ($isService) {
@@ -139,7 +139,7 @@ class Session extends BaseSession implements ContainerAwareInterface {
             // regenerate token too
             $this->getToken(true);
             // keep old session id for reference
-            $this->setValue('lastSessionId', $lastSessionId);
+            $this->set('lastSessionId', $lastSessionId);
         }
     }
 
@@ -179,14 +179,14 @@ class Session extends BaseSession implements ContainerAwareInterface {
      * @return string The token.
      */
     public function getToken($renew=false, $tokenKey=self::SESSION_TOKEN_KEY) {
-        if ($renew || null == $this->getValue($tokenKey)) {
+        if ($renew || null == $this->get($tokenKey)) {
             // in this case we really want a session!
             if (!$this->isStarted()) {
                 $this->start();
             }
-            $this->setValue($tokenKey, md5(uniqid(rand(), true)));
+            $this->set($tokenKey, md5(uniqid(rand(), true)));
         }
 
-        return $this->getValue($tokenKey);
+        return $this->get($tokenKey);
     }
 }
