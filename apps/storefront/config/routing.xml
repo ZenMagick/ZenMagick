@@ -14,6 +14,16 @@
         <default key="key"></default>
     </route>
 
+    <!-- really handled by configureLocale method in storefront event listener -->
+    <route id="set_language" pattern="/set_language">
+        <default key="_controller">ZMController::process</default>
+    </route>
+
+    <!-- really handled by configureLocale method in storefront event listener -->
+    <route id="set_currency" pattern="/set_currency">
+        <default key="_controller">ZMController::process</default>
+    </route>
+
     <route id="login" pattern="/login">
         <default key="_controller">ZenMagick\apps\storefront\Controller\LoginController::process</default>
         <option key="view:account">redirect://account</option>

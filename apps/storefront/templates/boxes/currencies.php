@@ -24,7 +24,7 @@
 <?php if (0 < count($currencyList) && 0 !== strpos($request->getRequestId(), 'checkout')) { ?>
     <h3><?php _vzm("Currencies") ?></h3>
     <div id="sb_currencies" class="box">
-        <?php echo $form->open(null, '', $request->isSecure(), array('method'=>'get')) ?>
+        <?php echo $form->open('set_currency', '', $request->isSecure(), array('method'=>'get')) ?>
             <div>
                 <?php echo $form->idpSelect('currency', $currencyList, $session->getCurrencyCode(), array('onchange'=>'this.form.submit()', 'oValue'=>'getCode')) ?>
                 <noscript>
