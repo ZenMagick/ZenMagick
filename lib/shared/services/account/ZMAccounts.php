@@ -268,10 +268,6 @@ class ZMAccounts extends ZMObject {
      * @return ZMAccount The updated account.
      */
     public function setSubscribedProductIds($account, $productIds) {
-        if (0 == count($productIds)) {
-            return $account;
-        }
-
         $currentList = $account->getSubscribedProducts();
         $remove = array();
         $add = array();
