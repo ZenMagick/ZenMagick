@@ -49,14 +49,30 @@ class AccountNotificationsController extends \ZMController {
             $isGlobalUpdate = true;
         }
 
-        if (!$isGlobalUpdate) {
+
+        $notifyType = $request->request->get('notify_type');
+        $subscribedProducts = $request->request->get('notify', array());
+        if (!$isGlobalUpdate && 'set' == $notifyType) {
             // if global update is on, products are not listed in the form,
             // therefore, they would all be removed if updated!
-            $subscribedProducts = $request->request->get('notify', array());
             $account = $this->container->get('accountService')->setSubscribedProductIds($account, $subscribedProducts);
         }
 
         $this->messageService->success(_zm('Your product subscriptions have been updated.'));
+
+        switch($notifyType) {
+            case 'add':
+                $account = $this->container->get('accountService')->addSubscribedProductIds($account, $subscribedProducts);
+                // @todo don't redirect like this
+                $request->redirect($request->headers->get('referer'));
+                break;
+            case 'remove':
+                $account = $this->container->get('accountService')->removeSubscribedProductIds($account, $subscribedProducts);
+                // @todo don't redirect like this
+                $request->redirect($request->headers->get('referer'));
+                break;
+        }
+
         return $this->findView('success', array('currentAccount' => $account));
     }
 
