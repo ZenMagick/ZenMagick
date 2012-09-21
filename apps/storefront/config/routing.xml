@@ -204,8 +204,9 @@
         <option key="view">views/popup/shipping_estimator.php</option>
     </route>
 
-    <route id="category" pattern="/category">
+    <route id="category" pattern="/category/{cPath}">
         <default key="_controller">ZenMagick\apps\storefront\Controller\CategoryController::process</default>
+        <requirement key="cPath">\w+</requirement>
         <option key="view:category_list">views/category_list.php</option>
         <option key="view:manufacturer">views/manufacturer.php</option>
         <option key="view:product_info">forward://product_info</option>
