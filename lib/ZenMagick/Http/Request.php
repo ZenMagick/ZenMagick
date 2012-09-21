@@ -206,7 +206,7 @@ class Request extends HttpFoundationRequest implements ContainerAwareInterface {
     public function getParameter($name, $default=null, $sanitize=true) {
         // try GET, then POST
         // @todo we could also just rely on parent::get() as it searches these as well
-        foreach (array('query', 'request') as $parameterBag) {
+        foreach (array('query', 'request', 'attributes') as $parameterBag) {
             if ($this->$parameterBag->has($name)) {
                 return $sanitize ? self::sanitize($this->$parameterBag->get($name)) : $this->$parameterBag->get($name);
             }
