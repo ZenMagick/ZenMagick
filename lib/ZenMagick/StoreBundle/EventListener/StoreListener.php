@@ -39,7 +39,7 @@ class StoreListener extends ZMObject {
         $request = $event->get('request');
 
         $cPath = array();
-        if (null !== ($path = $request->query->get('cPath'))) {
+        if (null !== ($path = $request->get('cPath'))) {
             $path = explode('_', $path);
             foreach ($path as $categoryId) {
                 $categoryId = (int)$categoryId;
