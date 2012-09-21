@@ -150,7 +150,7 @@ class ToolboxCrumbtrail extends ToolboxTool {
         }
         $manufacturer = $this->container->get('manufacturerService')->getManufacturerForId($manufacturerId, $this->getRequest()->getSession()->getLanguageId());
         if (null != $manufacturer) {
-            $this->addCrumb($manufacturer->getName(), $this->getToolbox()->net->url('category', 'manufacturers_id=' . $manufacturerId));
+            $this->addCrumb($manufacturer->getName(), $this->getToolbox()->net->url('manufacturer', 'manufacturers_id=' . $manufacturerId));
         }
         return $this;
     }
