@@ -211,25 +211,25 @@
         <option key="view:product_info">forward://product_info</option>
     </route>
 
-    <route id="checkout.shipping.address" pattern="/checkout/shipping/address">
-        <default key="_controller">ZenMagick\apps\storefront\Controller\CheckoutAddressController#mode=shipping</default>
+    <route id="checkout_shipping_address" pattern="/checkout/shipping/address">
+        <default key="_controller">ZenMagick\apps\storefront\Controller\CheckoutAddressController::process</default>
         <option key="form">ZMAddress#formId=shippingAddress</option>
         <option key="view">redirect://checkout_shipping</option>
     </route>
 
     <route id="checkout_shipping" pattern="/checkout/shipping">
         <default key="_controller">ZenMagick\apps\storefront\Controller\CheckoutShippingController::process</default>
-        <option key="view:skip_shipping">redirect://checkout.billing</option>
-        <option key="view">redirect://checkout_billing</option>
+        <option key="view:skip_shipping">redirect://checkout_payment</option>
+        <option key="view">redirect://checkout_payment</option>
     </route>
 
-    <route id="checkout.billing.address" pattern="/checkout/billing/address">
-        <default key="_controller">ZenMagick\apps\storefront\Controller\CheckoutAddressController#mode=billing</default>
+    <route id="checkout_payment_address" pattern="/checkout/billing/address">
+        <default key="_controller">ZenMagick\apps\storefront\Controller\CheckoutAddressController::process</default>
         <option key="form">ZMAddress#formId=billingAddress</option>
-        <option key="view">redirect://checkout_billing</option>
+        <option key="view">redirect://checkout_payment</option>
     </route>
 
-    <route id="checkout_billing" pattern="/checkout/billing">
+    <route id="checkout_payment" pattern="/checkout/billing">
         <default key="_controller">ZenMagick\apps\storefront\Controller\CheckoutPaymentController::process</default>
         <option key="view">redirect://checkout_confirmation</option>
     </route>
@@ -253,8 +253,8 @@
     <route id="checkout" pattern="/checkout">
         <default key="_controller">ZenMagick\apps\storefront\Controller\CheckoutShippingController::process</default>
         <option key="view">views/checkout_shipping.php</option>
-        <option key="view:skip_shipping">redirect://checkout_billing</option>
-        <option key="view:success">redirect://checkout_billing</option>
+        <option key="view:skip_shipping">redirect://checkout_payment</option>
+        <option key="view:success">redirect://checkout_payment</option>
     </route>
 
     <route id="download" pattern="/download/{order}/{id}">
