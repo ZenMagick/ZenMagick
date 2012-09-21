@@ -51,107 +51,41 @@ class StoreDefaultUrlRewriter extends ZMObject implements UrlRewriter {
 
     /**
      * ZenMagick implementation of zen-cart's zen_href_link function.
+     *
+     * @todo improve this entirely!
      */
-    public static function furl($page=null, $params='', $transport='NONSSL', $addSessionId=true, $seo=true, $isStatic=false, $useContext=true, $request=null) {
+    public static function furl($page, $params='', $transport='NONSSL', $addSessionId=true, $seo=true, $isStatic=false, $useContext=true) {
+
         $container = Runtime::getContainer();
-        if (null == $request) { $request = $container->get('request'); }
+        $request = $container->get('request');
 
-        $page = null !== $page ? $page : 'index';
+        $page = trim($page, '&?');
+        $page = str_replace('&amp;', '&', $page);
 
-        if (empty($page)) {
-            throw new ZMException('missing page parameter');
-        }
+        $params = trim(trim($params), '&?');
+        $params = str_replace('&amp;', '&', $params);
 
-        // also do process all rewriters as here we have the full context incl. add. zencart parameters
-        // if called directly (as done from the override zen_href_link function...)
-        foreach (array_reverse($container->get('containerTagService')->findTaggedServiceIds('zenmagick.http.request.rewriter')) as $id => $args) {
-            $rewriters[] = $container->get($id);
-        }
-        if ($seo && 0 < count($rewriters)) {
-            $rewrittenUrl = null;
-            $args = array(
-              'requestId' => $page,
-              'params' => $params,
-              'secure' => 'SSL'==$transport,
-              'addSessionId' => $addSessionId,
-              'isStatic' => $isStatic,
-              'useContext' => $useContext
-            );
-            foreach ($rewriters as $rewriter) {
-                if ($rewriter instanceof StoreDefaultUrlRewriter) {
-                    // ignore self
-                    continue;
-                }
-                if (null != ($rewrittenUrl = $rewriter->rewrite($request, $args))) {
-                    return $rewrittenUrl;
-                }
+        if ('index.php' == $page) $page = 'index';
+        if ('ipn_main_handler.php' == $page) $page = 'ipn';
+
+        $requestId = $page;
+        parse_str($params, $parameters);
+        if (0 === strpos($page, 'index.php?')) { // EZPage altUrl
+            $page = str_replace('index.php?', '', $page);
+            parse_str($page, $extra);
+            if (array_key_exists('main_page', $extra)) {
+                $requestId = $extra['main_page'];
+                unset($extra['main_page']);
             }
+            $parameters = array_merge($extra, $parameters);
+        }
+        // @todo if we still keep someting like this.. wrong place!
+        if (array_key_exists('products_id', $parameters)) {
+            $parameters['productId'] = $parameters['products_id'];
+            unset ($parameters['products_id']);
         }
 
-        // default to non ssl
-        $hostname = $request->getHost();
-        $httpServer = 'http://'.$hostname;
-        $httpsServer = 'https://'.$hostname;
-
-        $settingsService = $container->get('settingsService');
-        $server = $httpServer;
-        if ($transport == 'SSL' && $settingsService->get('zenmagick.http.request.secure', true)) {
-            $server = $httpsServer;
-        }
-
-        $path = '';
-        if ($useContext) {
-            $path = $request->getContext().'/';
-        }
-
-        // trim '?' and '&' from params
-        while ('?' == ($char = substr($params, 0, 1)) || '&' == $char) $params = substr($params, 1);
-        while ('?' == ($char = substr($params, -1)) || '&' == $char) $params = substr($params, 0, -1);
-
-        $query = '?';
-        if ($isStatic) {
-            $path .= $page;
-        } else {
-            $path .= 'index.php';
-            $query .= $settingsService->get('zenmagick.http.request.idName') . '=' . $page;
-        }
-
-        if (!empty($params)) {
-            if ( $query !== '?' ) {
-                $query .= '&';
-            }
-            $query .= strtr(trim($params), array('"' => '&quot;'));
-        }
-
-        // trim trailing '?' and '&' from path
-        while ('?' == ($char = substr($path, -1)) || '&' == $char) $path = substr($path, 0, -1);
-
-        // Add the session ID when moving from different HTTP and HTTPS servers, or when SID is defined
-        $sid = null;
-        $session = $request->getSession();
-        if ($addSessionId && ($session->isStarted()) && !$settingsService->get('isForceCookieUse')) {
-            if (defined('SID') && !Toolbox::isEmpty(SID)) {
-                // defined, so use it
-                $sid = SID;
-            } elseif (($transport == 'NONSSL' && $httpsServer == $server) || ($transport == 'SSL' && $httpServer == $server)) {
-                // switch from http to https or vice versa
-                // @todo revisit this if we really want to support shared certificates
-                $http_domain = isset($GLOBALS['http_domain']) ? $GLOBALS['http_domain'] : $hostname;
-                $https_domain = isset($GLOBALS['https_domain']) ? $GLOBALS['https_domain'] : $hostname;
-                if ($http_domain != $https_domain) {
-                    $sid = $session->getName() . '=' . $session->getId();
-                }
-            }
-        }
-
-        if (null !== $sid) {
-            $query .= '&' . strtr(trim($sid), array('"' => '&quot;'));
-        }
-
-        while (false !== strpos($path, '//')) $path = str_replace('//', '/', $path);
-        $query = (1 < strlen($query)) ? $query : '';
-
-        return $request->getToolbox()->net->encode($server.$path.$query);
+        return $container->get('router')->generate($requestId, $parameters);
     }
 
 }
