@@ -41,7 +41,7 @@ class CategoryController extends \ZMController {
         // get category
 
         // decide what to do
-        if ($request->query->has('cPath')) {
+        if ($request->attributes->has('cPath')) {
             $method = "getProductsForCategoryId";
             $args = array($request->attributes->get('categoryId'), true, $request->getSession()->getLanguageId());
             $viewName = 'category_list';
