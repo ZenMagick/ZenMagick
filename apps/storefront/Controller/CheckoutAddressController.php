@@ -27,38 +27,20 @@ use ZenMagick\Base\Events\Event;
  * @author DerManoMann <mano@zenmagick.org>
  */
 class CheckoutAddressController extends \ZMController {
-    private $modeSettings_;
-    private $viewData_;
+    private $modeSettings_ = array();
+    private $viewData_ = array();
 
-
-    /**
-     * Create new instance.
-     */
-    public function __construct() {
-        parent::__construct();
-        $this->modeSettings_ = array();
-        $this->viewData_ = array();
-        $this->setMode('shipping');
-    }
-
-
-    /**
-     * Set mode.
-     *
-     * @param string mode Either <em>shipping</em> or <em>billing</em>; other values will be ignored.
-     */
-    public function setMode($mode) {
-        if ('shipping' == $mode) {
-            $this->modeSettings_ = array('method' => 'setShippingAddressId', 'ignoreCheckId' => 'require_shipping', 'mode' => $mode);
-        } else if ('billing' == $mode) {
-            $this->modeSettings_ = array('method' => 'setBillingAddressId', 'ignoreCheckId' => 'require_payment', 'mode' => $mode);
-        }
-    }
 
     /**
      * {@inheritDoc}
      */
     public function preProcess($request) {
+        $routeId = $request->attributes->get('_route');
+        if (0 === strpos($routeId, 'checkout_shipping')) {
+            $this->modeSettings_ = array('method' => 'setShippingAddressId', 'ignoreCheckId' => 'require_shipping', 'mode' => 'shipping');
+        } else {
+            $this->modeSettings_ = array('method' => 'setBillingAddressId', 'ignoreCheckId' => 'require_payment', 'mode' => 'billing');
+        }
         $shoppingCart = $request->getShoppingCart();
         $this->viewData_['shoppingCart'] = $shoppingCart;
 
