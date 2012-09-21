@@ -46,7 +46,7 @@ class UserSession extends ZMObject {
      * @return string The locale code or <code>null</code>.
      */
     public function getLocaleCode() {
-        return $this->session->getValue('uiLocale');
+        return $this->session->get('_locale');
     }
 
 }

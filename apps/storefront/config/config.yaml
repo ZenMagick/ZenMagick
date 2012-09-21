@@ -54,28 +54,6 @@ zenmagick:
       handler:
         - ZenMagick\apps\storefront\Http\Sacs\StorefrontAccountSacsHandler
     routing:
-      alias:
-        create_account: account.create
-        account_edit: account.edit
-        account_history: account.orders
-        account_history_info: account.order.details
-        account_password: account.password.edit
-        account_newsletters: account.newsletter
-        account_notifications: account.notifications
-        password_forgotten: account.password.recover
-        address_book: account.addresses
-        address_book_add: account.address.new
-        address_book_edit: account.address.edit
-        address_book_delete: account.address.delete
-        popup_cvv_help: help.cvv
-        popup_search_help: help.search
-        popup_coupon_help: help.coupon
-        contact_us: store.contact
-        product_info: product
-        privacy: store.privacy
-        site_map: store.sitemap
-        advanced_search: search.advanced
-        shopping_cart: cart
       addnRouteFiles: []
     ## templates
     templates:

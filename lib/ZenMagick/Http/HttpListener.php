@@ -52,7 +52,6 @@ class HttpListener implements EventSubscriberInterface {
         $controller = $request->attributes->get('_controller');
         if ((false === strpos($controller, 'ZM')) && (false === strpos($controller, 'ZenMagick'))) return;
 
-
         $request->setContainer($this->container);
 
         if (HttpKernelInterface::MASTER_REQUEST !== $event->getRequestType()) return;
@@ -169,7 +168,7 @@ class HttpListener implements EventSubscriberInterface {
     public static function getSubscribedEvents() {
         return array(
             'kernel.request' => array(
-                array('onKernelRequest', 15),
+                array('onKernelRequest', 14),
             )
         );
     }

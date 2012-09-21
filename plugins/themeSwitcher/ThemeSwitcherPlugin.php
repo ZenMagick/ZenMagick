@@ -42,10 +42,10 @@ class ThemeSwitcherPlugin extends Plugin {
 
         $session = $request->getSession();
         if (null != ($themeId = $request->query->get('themeId'))) {
-            $session->setValue(self::SESS_THEME_KEY, $themeId);
+            $session->set(self::SESS_THEME_KEY, $themeId);
         }
 
-        if (null != ($themeId = $session->getValue(self::SESS_THEME_KEY))) {
+        if (null != ($themeId = $session->get(self::SESS_THEME_KEY))) {
             $themeService = $this->container->get('themeService');
             $themeChain = array();
             $defaultThemeId = $themeService->getDefaultThemeId();

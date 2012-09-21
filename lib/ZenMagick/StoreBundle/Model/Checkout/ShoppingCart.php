@@ -373,7 +373,7 @@ class ShoppingCart extends ZMObject {
      * @return int The shipping method id or <code>null</code>.
      */
     public function getSelectedShippingMethodId() {
-        if (null !== ($shipping = $this->session->getValue('shipping')) && is_array($shipping)) {
+        if (null !== ($shipping = $this->session->get('shipping')) && is_array($shipping)) {
             return $shipping['id'];
         }
         return null;
@@ -408,7 +408,7 @@ class ShoppingCart extends ZMObject {
         // invalidate totals
         $this->zenTotals_ = null;
 
-        $this->session->setValue('shipping', array(
+        $this->session->set('shipping', array(
             'id' => $method->getShippingId(),
             'title' => $method->getName(),
             'cost' => $method->getCost()
@@ -430,7 +430,7 @@ class ShoppingCart extends ZMObject {
      * @return int The payment type id.
      */
     public function getSelectedPaymentTypeId() {
-        return $this->session->getValue('payment');
+        return $this->session->get('payment');
     }
 
     /**
@@ -459,7 +459,7 @@ class ShoppingCart extends ZMObject {
 
         $this->selectedPaymentType_ = $paymentType;
         $this->selectedPaymentType_->prepare();
-        $this->session->setValue('payment', $paymentType->getId());
+        $this->session->set('payment', $paymentType->getId());
     }
 
     /**
@@ -495,14 +495,14 @@ class ShoppingCart extends ZMObject {
      *
      * @return boolean <code>true</code> if there is a shipping address, <code>false</code> if not.
      */
-    public function hasShippingAddress() { return null !== $this->session->getValue('sendto'); }
+    public function hasShippingAddress() { return null !== $this->session->get('sendto'); }
 
     /**
      * Checks if the cart has a billing address.
      *
      * @return boolean <code>true</code> if there is a billing address, <code>false</code> if not.
      */
-    public function hasBillingAddress() { return null !== $this->session->getValue('billto'); }
+    public function hasBillingAddress() { return null !== $this->session->get('billto'); }
 
     /**
      * Get the current shipping address.
@@ -510,7 +510,7 @@ class ShoppingCart extends ZMObject {
      * @return ZMAddress The shipping address.
      */
     public function getShippingAddress() {
-        return $this->container->get('addressService')->getAddressForId($this->session->getValue('sendto'));
+        return $this->container->get('addressService')->getAddressForId($this->session->get('sendto'));
     }
 
     /**
@@ -522,8 +522,8 @@ class ShoppingCart extends ZMObject {
         // invalidate totals
         $this->zenTotals_ = null;
 
-        $this->session->setValue('sendto', $addressId);
-        $this->session->setValue('shipping', '');
+        $this->session->set('sendto', $addressId);
+        $this->session->set('shipping', '');
     }
 
     /**
@@ -532,7 +532,7 @@ class ShoppingCart extends ZMObject {
      * @return ZMAddress The billing address.
      */
     public function getBillingAddress() {
-        return $this->container->get('addressService')->getAddressForId($this->session->getValue('billto'));
+        return $this->container->get('addressService')->getAddressForId($this->session->get('billto'));
     }
 
     /**
@@ -541,11 +541,11 @@ class ShoppingCart extends ZMObject {
      * @param int addressId The billing address id.
      */
     public function setBillingAddressId($addressId) {
-        $billto = $this->session->getValue('billto');
+        $billto = $this->session->get('billto');
         if (null !== $billto && $billto != $addressId) {
-            $this->session->setValue('payment', '');
+            $this->session->set('payment', '');
         }
-        $this->session->setValue('billto', $addressId);
+        $this->session->set('billto', $addressId);
     }
 
     /**

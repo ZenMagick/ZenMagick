@@ -62,7 +62,7 @@ class OpenIDController extends ZMController {
             $info = $this->finishAuthentication($openid);
             if (null !== $info) {
                 $session = $request->getSession();
-                if ($session->getValue('openid') == $info['openid']) {
+                if ($session->get('openid') == $info['openid']) {
                     $account = $this->plugin_->getAccountForOpenID($info['openid']);
 
                     if (!$session->registerAccount($account, $request, $this)) {
@@ -94,7 +94,7 @@ class OpenIDController extends ZMController {
             $session = $request->getSession();
             if ('initAuth' == $action && null != $openid) {
                 // save to compare with response
-                $session->setValue('openid', $openid);
+                $session->set('openid', $openid);
                 return $this->initAuthentication($request, $openid);
             } else {
                 $this->messageService->error(_zm('The provided OpenID does not seem to be valid'));

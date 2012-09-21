@@ -34,13 +34,12 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class ProductDescription {
     /**
-     * @var integer $productId
-     *
-     * @ORM\Column(name="products_id", type="integer", nullable=false)
+     * @var object $product
      * @ORM\Id
-     * @ORM\GeneratedValue(strategy="NONE")
+     * @ORM\ManyToOne(targetEntity="Product", inversedBy="descriptions")
+     * @ORM\JoinColumn(name="products_id", referencedColumnName="products_id")
      */
-    private $productId;
+    private $product;
 
     /**
      * @var integer $languageId
@@ -199,5 +198,26 @@ class ProductDescription {
      */
     public function getViewed() {
         return $this->viewed;
+    }
+
+    /**
+     * Set product
+     *
+     * @param ZenMagick\StoreBundle\Entity\Catalog\Product $product
+     * @return ProductDescription
+     */
+    public function setProduct(\ZenMagick\StoreBundle\Entity\Catalog\Product $product) {
+        $this->product = $product;
+
+        return $this;
+    }
+
+    /**
+     * Get product
+     *
+     * @return ZenMagick\StoreBundle\Entity\Catalog\Product
+     */
+    public function getProduct() {
+        return $this->product;
     }
 }

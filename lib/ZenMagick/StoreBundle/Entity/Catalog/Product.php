@@ -265,6 +265,12 @@ class Product extends ZMObject {
      */
     private $metaTagsTitleTaglineStatus;
 
+    /**
+     * @var object $descriptions
+     * @ORM\OneToMany(targetEntity="ProductDescription", mappedBy="product", cascade={"persist", "remove"})
+     */
+    private $descriptions;
+
     // Info comes from other tables
 
     private $specialPrice;
@@ -276,7 +282,6 @@ class Product extends ZMObject {
 
     private $attributes;
     private $offers;
-
 
     /**
      * Create new product.
@@ -324,6 +329,7 @@ class Product extends ZMObject {
         $this->metaTagsModelStatus = false;
         $this->metaTagsPriceStatus = false;
         $this->metaTagsTitleTaglineStatus = false;
+        $this->descriptions = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     /**
@@ -1168,4 +1174,33 @@ class Product extends ZMObject {
      * @return float
      */
     public function getOrdered() { return $this->ordered; }
+
+    /**
+     * Add descriptions
+     *
+     * @param ZenMagick\StoreBundle\Entity\Catalog\ProductDescription $descriptions
+     * @return Product
+     */
+    public function addDescription(\ZenMagick\StoreBundle\Entity\Catalog\ProductDescription $descriptions) {
+        $this->descriptions[] = $descriptions;
+        return $this;
+    }
+
+    /**
+     * Remove descriptions
+     *
+     * @param ZenMagick\StoreBundle\Entity\Catalog\ProductDescription $descriptions
+     */
+    public function removeDescription(\ZenMagick\StoreBundle\Entity\Catalog\ProductDescription $descriptions){
+        $this->descriptions->removeElement($descriptions);
+    }
+
+    /**
+     * Get descriptions
+     *
+     * @return Doctrine\Common\Collections\Collection
+     */
+    public function getDescriptions() {
+        return $this->descriptions;
+    }
 }

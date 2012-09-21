@@ -20,11 +20,12 @@
 namespace ZenMagick\apps\storefront;
 
 use ZenMagick\Base\Beans;
-use ZenMagick\Base\Runtime;
 use ZenMagick\Base\Toolbox;
 use ZenMagick\Base\ZMObject;
 use ZenMagick\Base\Events\Event;
 use ZenMagick\Http\View\TemplateView;
+use ZenMagick\Http\Session\FlashBag;
+use ZenMagick\StoreBundle\Widgets\StatusCheck;
 
 /**
  * Fixes and stuff that are (can be) event driven.
@@ -68,9 +69,9 @@ class EventListener extends ZMObject {
         // save url to be used as redirect in some cases
         if ('login' != $request->getRequestId() && 'logoff' != $request->getRequestId()) {
             if ('GET' == $request->getMethod()) {
-                $request->getSession()->setValue('lastUrl', $request->url());
+                $request->getSession()->set('lastUrl', $request->url());
             } else {
-                $request->getSession()->setValue('lastUrl', null);
+                $request->getSession()->set('lastUrl', null);
             }
         }
     }
@@ -82,13 +83,10 @@ class EventListener extends ZMObject {
     public function onRequestReady($event) {
         $request = $event->get('request');
         $session = $request->getSession();
-        if (null == $session->getValue('cart')) {
-            $session->setValue('cart', new \shoppingCart);
+        if (null == $session->get('cart')) {
+            $session->set('cart', new \shoppingCart);
         }
 
-        $settingsService = $this->container->get('settingsService');
-        $defaultLocale = $settingsService->get('defaultLanguageCode');
-        $request->setDefaultLocale($defaultLocale);
         $this->container->get('themeService')->initThemes();
         $theme = $this->container->get('themeService')->getActiveTheme();
         $args = array_merge($event->all(), array('theme' => $theme, 'themeId' => $theme->getId()));
@@ -97,31 +95,128 @@ class EventListener extends ZMObject {
 
     }
 
-
     /**
      * More store startup code.
      */
     public function onContainerReady($event) {
         $request = $event->get('request');
-        $settingsService = $this->container->get('settingsService');
-
-        // now we can check for a static homepage
-        if (!Toolbox::isEmpty($settingsService->get('staticHome')) && 'index' == $request->getRequestId()
-            && (!$request->attributes->has('categoryIds') && !$request->query->has('manufacturers_id'))) {
-            require $this->container->get('settingsService')->get('staticHome');
-            exit;
-        }
 
         $session = $request->getSession();
         // in case we came from paypal or some other external location.
         // @todo it should probably be some sort of session attribute.
-        if (null == $session->getValue('customers_ip_address')) {
-            $session->setValue('customers_ip_address', $request->getClientIp());
+        if (null == $session->get('customers_ip_address')) {
+            $session->set('customers_ip_address', $request->getClientIp());
         }
 
         $this->fixCategoryPath($request);
         $this->checkAuthorization($request);
         $this->configureLocale($request);
+
+        $this->dfm($request);
+        $this->addStatusMessages($request);
+
+        $theme = $this->container->get('themeService')->getActiveTheme();
+        $args = array('theme' => $theme, 'themeId' => $theme->getId());
+        $event->getDispatcher()->dispatch('theme_loaded', new Event($this, $args));
+    }
+
+    /**
+     * Handle down for maintenance
+     */
+    public function dfm($request) {
+        $settingsService = $this->container->get('settingsService');
+        $downForMaintenance = $settingsService->get('apps.store.downForMaintenance', false);
+        $adminIps = $settingsService->get('apps.store.adminOverrideIPs');
+
+        if ($downForMaintenance && !in_array($request->getClientIp(), $adminIps)) {
+            // @todo this would be more appropriately placed in the controller or dispatcher,
+            // but also needs to work if  don't get that far due to application errors and
+            // should only work on storefront.
+            header('HTTP/1.1 503 Service Unavailable');
+            $dfmPages = $settingsService->get('apps.store.downForMaintenancePages');
+            $dfmRoute = $settingsService->get('apps.store.downForMaintenanceRoute');
+            $dfmPages[] = $dfmRoute;
+            if (!in_array($request->getRequestId(), $dfmPages)) {
+                $url = $request->url($dfmRoute);
+                $request->redirect($url);
+                exit;
+            }
+        }
+    }
+
+    /**
+     * Add storefront status messages
+     */
+    public function addStatusMessages($request) {
+        $messages = array();
+        foreach ($this->container->get('containerTagService')->findTaggedServiceIds('apps.store.admin.dashboard.widget.statusCheck') as $id => $args) {
+            $statusCheck = $this->container->get($id);
+            $messages = array_merge($messages, $statusCheck->getStatusMessages());
+        }
+        $statusMap = array(
+            StatusCheck::STATUS_DEFAULT => FlashBag::T_MESSAGE,
+            StatusCheck::STATUS_INFO => FlashBag::T_MESSAGE,
+            StatusCheck::STATUS_NOTICE => FlashBag::T_WARN,
+            StatusCheck::STATUS_WARN => FlashBag::T_WARN,
+        );
+        $messageService = $request->getSession()->getFlashBag();
+        foreach ($messages as $details) {
+            $messageService->addMessage($details[1], $statusMap[$details[0]]);
+        }
+    }
+
+    /**
+     * Set up theme and block manager.
+     *
+     * @todo how much closer can we move it to the view layer?
+     */
+    public function onThemeLoaded($event) {
+
+        $settingsService = $this->container->get('settingsService');
+        $templateManager = $this->container->get('templateManager');
+        // TODO: do via admin and just load mapping from somewhere
+        // sidebox blocks
+        $mappings = array();
+        if ($templateManager->isLeftColEnabled()) {
+            $index = 1;
+            $mappings['leftColumn'] = array();
+            foreach ($templateManager->getLeftColBoxNames() as $boxName) {
+                // avoid duplicates by using $box as key
+                $mappings['leftColumn'][$boxName] = 'blockWidget#template=boxes/'.$boxName.'.php&sortOrder='.$index++;
+            }
+        }
+        if ($templateManager->isRightColEnabled()) {
+            $index = 1;
+            $mappings['rightColumn'] = array();
+            foreach ($templateManager->getRightColBoxNames() as $boxName) {
+                // avoid duplicates by using $box as key
+                $mappings['rightColumn'][$boxName] = 'blockWidget#template=boxes/'.$boxName.'.php&sortOrder='.$index++;
+            }
+        }
+        // general banners block group - if used, the group needs to be passed into fetchBlockGroup()
+        $mappings['banners'] = array();
+        $mappings['banners'][] = 'ZenMagick\StoreBundle\Widgets\BannerBlockWidget';
+
+        // individual banner groups as per current convention
+        $defaultBannerGroupNames = array(
+            'banners.header1', 'banners.header2', 'banners.header3',
+            'banners.footer1', 'banners.footer2', 'banners.footer3',
+            'banners.box1', 'banners.box2',
+            'banners.all'
+        );
+        foreach ($defaultBannerGroupNames as $blockGroupName) {
+            // the banner group name is configured as setting..
+            $bannerGroup = $settingsService->get($blockGroupName);
+            $mappings[$blockGroupName] = array('ZenMagick\StoreBundle\Widgets\BannerBlockWidget#group='.$bannerGroup);
+        }
+
+        // shopping cart options
+        $mappings['shoppingCart.options'] = array();
+        $mappings['shoppingCart.options'][] = 'ZenMagick\StoreBundle\Widgets\PayPalECButtonBlockWidget';
+        $mappings['mainMenu'] = array();
+        $mappings['mainMenu'][] = 'ref::browserIDLogin';
+
+        $this->container->get('blockManager')->setMappings($mappings);
     }
 
     /**
@@ -181,7 +276,7 @@ class EventListener extends ZMObject {
                         $request->query->set('cPath', implode('_', $category->getPath()));
                         $request->attributes->set('categoryIds', $category->getPath());
                     } else {
-                        Runtime::getLogging()->error('invalid cPath: ' . $cPath);
+                        $this->container->get('logger')->error('invalid cPath: ' . $cPath);
                     }
                 }
             }
@@ -218,14 +313,14 @@ class EventListener extends ZMObject {
         if (null != ($currencyCode = $request->query->get('currency'))) {
             // @todo error on bad request currency?
             if (null != $this->container->get('currencyService')->getCurrencyForCode($currencyCode)) {
-                $session->setValue('currency', $currencyCode);
+                $session->set('currency', $currencyCode);
             }
             // @todo better way to do this? perhaps we'd be better off setting a redirect_url form key or always set SetLastUrl?
             $request->query->remove('currency');
-            $request->redirect($request->url());
+            $request->redirect($request->headers->get('referer'));
         }
-        if (null == $session->getValue('currency')) {
-            $session->setValue('currency', $settingsService->get('defaultCurrency'));
+        if (null == $session->get('currency')) {
+            $session->set('currency', $settingsService->get('defaultCurrency'));
         }
 
         // ** language **
@@ -237,52 +332,9 @@ class EventListener extends ZMObject {
             }
            // @todo better way to do this? perhaps we'd be better off setting a redirect_url form key or always set SetLastUrl?
            $params = $request->query->remove('language');
-           $request->redirect($request->url());
+           $request->redirect($request->headers->get('referer'));
         }
 
-        if (null == $session->getLanguage()) {
-            if ($settingsService->get('isUseBrowserLanguage')) {
-                $language = $this->getClientLanguage($request);
-            } else {
-                $language = $languageService->getLanguageForCode($settingsService->get('defaultLanguageCode'));
-            }
-            if (null == $language) {
-                $language = $languageService->getDefaultLanguage();
-                Runtime::getLogging()->warn('invalid or missing language - using default language');
-            }
-            $session->setLanguage($language);
-        }
-    }
-
-    /**
-     * Determine the browser language.
-     *
-     * Allow substituting a user agent provided language for an internal one via
-     * the setting apps.store.browserLanguageSubstitutions
-     * @return ZMLanguage The preferred language based on request headers or <code>null</code>.
-     */
-    private function getClientLanguage($request) {
-        if ($request->server->has('HTTP_ACCEPT_LANGUAGE')) {
-            $clientLanguages = $request->getLanguages();
-            $substitutions = $this->container->get('settingsService')->get('apps.store.browserLanguageSubstitutions');
-
-            foreach($clientLanguages as $clientLanguage) {
-                $code = substr($clientLanguage, 0, 2); // 2 letter language code
-                if (null != ($language = ($this->container->get('languageService')->getLanguageForCode($code)))) {
-                    // found!
-                    return $language;
-                } elseif (isset($substitutions[$code])) {
-                    // try fallback to substitue
-                    $code = $substitutions[$code];
-                    if (null != ($language = ($this->container->get('languageService')->getLanguageForCode($code)))) {
-                        // found!
-                        return $language;
-                    }
-                }
-            }
-        }
-
-        return null;
     }
 
 }

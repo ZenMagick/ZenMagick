@@ -53,9 +53,9 @@ page:
     plugin-conf:
       layout:
       template: views/plugin_conf.php
-  legacy-config:
+  legacy_config:
     success:
-      view: redirect#requestId=legacy-config
+      view: redirect#requestId=legacy_config
   ezpage:
       controller: ZenMagick\apps\admin\Controller\EzpagesController
       template: views/ezpages-details.php

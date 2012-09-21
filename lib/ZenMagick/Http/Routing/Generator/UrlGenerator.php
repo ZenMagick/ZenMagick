@@ -42,12 +42,6 @@ class UrlGenerator extends \Symfony\Component\Routing\Generator\UrlGenerator imp
      * {@inheritDoc}
      */
     public function generate($name, $parameters=array(), $absolute=false, $requirements=array()) {
-        // try alias first
-        $alias = (array) $this->container->get('settingsService')->get('zenmagick.http.routing.alias');
-        if (array_key_exists($name, $alias)) {
-            $name = $alias[$name];
-        }
-
         if (null === $route = $this->routes->get($name)) {
             throw new RouteNotFoundException(sprintf('Route "%s" does not exist.', $name));
         }

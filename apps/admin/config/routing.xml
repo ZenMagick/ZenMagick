@@ -12,7 +12,25 @@
         <option key="view:success-demo">redirect://index</option>
     </route>
 
+    <route id="about" pattern="/about">
+        <default key="_controller">ZMController::process</default>
+    </route>
+    <route id="catalog" pattern="/catalog">
+        <default key="_controller">ZenMagick\apps\admin\Controller\CatalogController::process</default>
+    </route>
+    <route id="configuration" pattern="/configuration">
+        <default key="_controller">ZMController::process</default>
+    </route>
     <route id="dashboard" pattern="/index">
+        <default key="_controller">ZMController::process</default>
+    </route>
+    <route id="fulfilment" pattern="/fulfilment">
+        <default key="_controller">ZMController::process</default>
+    </route>
+    <route id="reports" pattern="/reports">
+        <default key="_controller">ZMController::process</default>
+    </route>
+    <route id="tools" pattern="/tools">
         <default key="_controller">ZMController::process</default>
     </route>
 
@@ -56,6 +74,11 @@
         <default key="languageId">1</default>
         <option key="view">views/content_overview.php</option>
     </route>
+
+    <route id="legacy_config" pattern="/legacy-config/{groupId}">
+        <default key="_controller">ZenMagick\apps\admin\Controller\LegacyConfigController::indexAction</default>
+    </route>
+
     <!--
     <route id="admin_users" pattern="/manage/users">
         <default key="_controller">ZenMagick\apps\admin\Controller\AdminUsersController::process</default>

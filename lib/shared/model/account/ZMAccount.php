@@ -372,6 +372,24 @@ class ZMAccount extends ZMObject {
     }
 
     /**
+     * Add subscribed product ids.
+     *
+     * @param array products A list of product ids.
+     */
+    public function addSubscribedProducts($products) {
+        $this->subscribedProducts_ = array_unique(array_merge((array)$this->subscribedProducts_, $products));
+    }
+
+    /**
+     * Remove subscribed product ids.
+     *
+     * @param array products A list of product ids.
+     */
+    public function removeSubscribedProducts($products) {
+        $this->subscribedProducts_ = array_diff((array)$this->subscribedProducts_, $products);
+    }
+
+    /**
      * Set the account type.
      *
      * @param char type The account type.

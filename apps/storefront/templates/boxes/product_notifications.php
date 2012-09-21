@@ -34,13 +34,24 @@
     <?php if ($session->isAnonymous() || !$isSubscribed) { ?>
         <h3><?php _vzm("Notifications") ?></h3>
         <div id="sb_product_notifications" class="box">
-            <a href="<?php echo $net->url(null, 'action=notify') ?>"><img src="<?php echo $this->asUrl("images/big_tick.gif") ?>" alt="<?php _vzm("Notify me of updates to this product") ?>" title="<?php _vzm("Notify me of updates to this product") ?>" /><br /><?php _vzm("Notify me of updates to <strong>%s</strong>", $currentProduct->getName())?></a>
+            <?php echo $form->open('account_notifications', '', true, array('onsubmit'=>null)) ?>
+            <input type="hidden" name="notify_type" value="add" />
+            <input type="hidden" name="notify[]" value="<?php echo $currentProduct->getId() ?>" />
+            <input type="image" src="<?php echo $this->asUrl("images/big_tick.gif") ?>" alt="<?php _vzm("Notify me of updates to this product") ?>" title="<?php _vzm("Notify me of updates to this product") ?>" />
+            <br />
+            <?php _vzm("Notify me of updates to <strong>%s</strong>", $currentProduct->getName())?>
+            </form>
         </div>
     <?php } else if ($isSubscribed) { ?>
         <h3><?php _vzm("Notifications") ?></h3>
         <div id="sb_product_notifications" class="box">
-            <a href="<?php echo $net->url(null, 'action=notify_remove') ?>"><img src="<?php echo $this->asUrl("images/big_remove.gif") ?>" alt="<?php _vzm("Remove product notification") ?>" title="<?php _vzm("Remove product notification") ?>" /><br /><?php _vzm("Do not notify me of updates to <strong>%s</strong>", $currentProduct->getName())?></a>
+            <?php echo $form->open('account_notifications', '', true, array('onsubmit'=>null)) ?>
+            <input type="hidden" name="notify_type" value="remove" />
+            <input type="hidden" name="notify[]" value="<?php echo $currentProduct->getId() ?>" />
+            <input type="image" src="<?php echo $this->asUrl("images/big_remove.gif") ?>" alt="<?php _vzm("Do not notify me of updates to this product") ?>" title="<?php _vzm("Do not notify me of updates to this product") ?>" />
+            <br />
+            <?php _vzm("Do not notify me of updates to <strong>%s</strong>", $currentProduct->getName())?>
+            </form>
         </div>
-    <?php } else if ($isSubscribed) { ?>
     <?php } ?>
 <?php } ?>

@@ -3,13 +3,3 @@ meta:
   version: '0.1'
   author: 'RubikIntegration'
   description: 'Modern / RI0007'
-
-storefront:
-  container:
-    services:
-      modernHtmlTool:
-        parent: merge:htmlTool
-        class: ZenMagick\StoreBundle\Themes\modern\tools\ToolboxHtml
-      modernMacroTool:
-        parent: merge:macroTool
-        class: ZenMagick\StoreBundle\Themes\modern\tools\ToolboxMacro

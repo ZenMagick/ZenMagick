@@ -38,8 +38,8 @@ foreach ($autoLoadConfig as $actionPoint => $row) {
                 $objectName = $entry['objectName'];
                 $className = $entry['className'];
                 if ($entry['classSession']) {
-                    if (!is_object($session->getValue($objectName)) || !$entry['checkInstantiated']) {
-                        $session->setValue($objectName, new $className());
+                    if (!is_object($session->get($objectName)) || !$entry['checkInstantiated']) {
+                        $session->set($objectName, new $className());
                     }
                 } else {
                     $$objectName = new $className();
@@ -49,7 +49,7 @@ foreach ($autoLoadConfig as $actionPoint => $row) {
             case 'objectMethod':
                 $objectName = $entry['objectName'];
                 $methodName = $entry['methodName'];
-                $object = $session->getValue($objectName);
+                $object = $session->get($objectName);
                 if (is_object($object)) {
                     $object->$methodName();
                 } else {

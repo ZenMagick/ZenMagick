@@ -63,7 +63,7 @@ class EventListener extends ZMObject {
                 $id = str_replace(' ', '', $id);
                 $id = str_replace('/', '-', $id);
                 $element = new MenuElement($id, $group->getName());
-                $element->setRequestId('legacy-config');
+                $element->setRequestId('legacy_config');
                 $element->setParams('groupId='.$group->getId());
                 $legacyConfig->addChild($element);
             }
@@ -129,12 +129,8 @@ class EventListener extends ZMObject {
         // @todo languages setting not really supposed to be here
         $session = $request->getSession();
         if ($request->query->has('languageId')) {
-            $session->setValue('languages_id', $request->query->get('languageId'));
+            $session->set('languages_id', $request->query->get('languageId'));
         }
-        if (null == $session->getValue('languages_id')) {
-            $session->setValue('languages_id', Runtime::getSettings()->get('storeDefaultLanguageId'));
-        }
-
         $user = $request->getAccount();
         if (null != $user && null != ($uiLocale = $this->container->get('adminUserPrefService')->getPrefForName($user->getId(), 'uiLocale'))) {
             $request->setLocale($uiLocale);

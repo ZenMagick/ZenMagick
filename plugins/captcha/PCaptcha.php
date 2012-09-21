@@ -103,7 +103,7 @@ class PCaptcha {
     $field = '<input type="text" name="' . $name . '"';
     if (null !== $parameters && !empty($parameters)) $field .= ' ' . $parameters;
     $field .= ' />';
-    $this->request->getSession()->setValue('captcha_field', $name);
+    $this->request->getSession()->set('captcha_field', $name);
     return $field;
   }
 
@@ -112,12 +112,12 @@ class PCaptcha {
  */
   function validateCaptchaCode() {
     $session = $this->request->getSession();
-    $field = $session->getValue('captcha_field');
+    $field = $session->get('captcha_field');
     if (null == $field) return false;
     if (!$this->request->request->has($field)) return false;
     $captcha_code = strtoupper($this->request->request->get($field));
     $captcha_code = str_replace("0", "O", $captcha_code);
-    $valid = ($session->getValue('captcha_code') == md5($captcha_code));
+    $valid = ($session->get('captcha_code') == md5($captcha_code));
     if(!$valid) {
       if(!isset($_SESSION['captcha_validations'])) $_SESSION['captcha_validations'] = array();
       $_SESSION['captcha_validations'][] = time();
@@ -147,7 +147,7 @@ class PCaptcha {
       $j = intval(mt_rand(0, $chars_count));
       $this->captchaCode .= $this->chars[$j];
     }
-    $this->request->getSession()->setValue('captcha_code', md5($this->captchaCode));
+    $this->request->getSession()->set('captcha_code', md5($this->captchaCode));
 
     if($this->_gd_version['version'] >= 2) {
       $this->img = imagecreatetruecolor($this->img_width, $this->img_height);

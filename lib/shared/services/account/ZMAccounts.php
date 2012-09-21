@@ -254,10 +254,44 @@ class ZMAccounts extends ZMObject {
                 FROM %table.products_notifications%
                 WHERE customers_id = :accountId";
         $productIds = array();
+
         foreach (ZMRuntime::getDatabase()->fetchAll($sql, array('accountId' => $accountId), 'products_notifications') as $result) {
             $productIds[] = $result['productId'];
         }
         return $productIds;
+    }
+
+    /**
+     * Add subscribed product ids.
+     *
+     * @param ZMAccount account The account.
+     * @param arrray productIds A list of product ids to subscribe to.
+     * @return ZMAccount The updated account.
+     */
+    public function addSubscribedProductIds($account, $productIds) {
+        $sql = "INSERT INTO %table.products_notifications%
+                (products_id, customers_id) VALUES (:productId, :accountId)";
+        foreach ($productIds as $id) {
+            ZMRuntime::getDatabase()->updateObj($sql, array('accountId' => $account->getId(), 'productId' => $id), 'products_notifications');
+        }
+        $account->addSubscribedProducts($productIds);
+        return $account;
+    }
+
+    /**
+     * Remove subscribed product ids.
+     *
+     * @param ZMAccount account The account.
+     * @param arrray productIds A list of product ids to remove subscriptions.
+     * @return ZMAccount The updated account.
+     */
+    public function removeSubscribedProductIds($account, $productIds) {
+        $sql = "DELETE FROM %table.products_notifications%
+                WHERE  customers_id = :accountId
+                AND products_id in (:productId)";
+        ZMRuntime::getDatabase()->updateObj($sql, array('accountId' => $account->getId(), 'productId' => $productIds), 'products_notifications');
+        $account->removeSubscribedProducts($productIds);
+        return $account;
     }
 
     /**
@@ -268,10 +302,6 @@ class ZMAccounts extends ZMObject {
      * @return ZMAccount The updated account.
      */
     public function setSubscribedProductIds($account, $productIds) {
-        if (0 == count($productIds)) {
-            return $account;
-        }
-
         $currentList = $account->getSubscribedProducts();
         $remove = array();
         $add = array();

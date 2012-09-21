@@ -34,7 +34,7 @@ class AdminUserFactory extends ZMObject implements UserFactory {
      */
     public function getUser($request) {
         $session = $request->getSession();
-        if (null != ($adminId = $session->getValue('admin_id'))) {
+        if (null != ($adminId = $session->get('admin_id'))) {
             return $this->container->get('adminUserService')->getUserForId($adminId);
         }
 

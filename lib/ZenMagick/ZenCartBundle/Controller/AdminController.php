@@ -43,24 +43,24 @@ class AdminController extends \ZMController {
         $themeService = $this->container->get('themeService');
         $themeService->initThemes();
 
-        if (null == $session->getValue('securityToken')) {
-            $session->setValue('securityToken', $session->getToken());
+        if (null == $session->get('securityToken')) {
+            $session->set('securityToken', $session->getToken());
         }
 
-        $session->setValue('language', $language->getDirectory());
-        $session->setValue('languages_id', $language->getId());
-        $session->setValue('languages_code', $language->getCode());
+        $session->set('language', $language->getDirectory());
+        $session->set('languages_id', $language->getId());
+        $session->set('languages_code', $language->getCode());
 
         // strangely whos_online is the only user. @todo test ZM version of whos_online
-        $session->setValue('currency', $this->container->get('settingsService')->get('defaultCurrency'));
+        $session->set('currency', $this->container->get('settingsService')->get('defaultCurrency'));
 
-        if (null == $session->getValue('selected_box')) {
-            $session->setValue('selected_box', 'configuration');
+        if (null == $session->get('selected_box')) {
+            $session->set('selected_box', 'configuration');
         }
 
         $selectedBox = $request->query->get('selected_box');
         if (null != $selectedBox) {
-            $session->setValue('selected_box', $selectedBox);
+            $session->set('selected_box', $selectedBox);
         }
 
         foreach($session->all() as $k => $v) {

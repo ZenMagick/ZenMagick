@@ -132,6 +132,7 @@ class SalemakerSale extends ZMObject {
     private $dateStatusChange;
 
     public function __construct() {
+        parent::__construct();
         $this->status = false;
         $this->deductionValue = 0;
         $this->deductionType = 0;
