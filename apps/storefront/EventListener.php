@@ -69,7 +69,7 @@ class EventListener extends ZMObject {
         // save url to be used as redirect in some cases
         if ('login' != $request->getRequestId() && 'logoff' != $request->getRequestId()) {
             if ('GET' == $request->getMethod()) {
-                $request->getSession()->set('lastUrl', $request->url());
+                $request->getSession()->set('lastUrl', $request->getRequestUri());
             } else {
                 $request->getSession()->set('lastUrl', null);
             }
