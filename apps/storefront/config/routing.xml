@@ -147,18 +147,18 @@
 
     <route id="popup_cvv_help" pattern="/help/cvv">
         <default key="_controller">ZMController::process</default>
-        <option key="view">views/popup/cvv_help.php</option>
+        <option key="view">views/popup/cvv_help.php?layout=popup_layout.php</option>
     </route>
 
     <route id="popup_search_help" pattern="/help/search">
         <default key="_controller">ZMController::process</default>
-        <option key="view">views/popup/search_help.php</option>
+        <option key="view">views/popup/search_help.php?layout=popup_layout.php</option>
     </route>
 
     <!-- TODO: coupon lookup should be in a controller; rename cID to couponId  -->
     <route id="popup_coupon_help" pattern="/help/coupon/{cID}">
         <default key="_controller">ZenMagick\apps\storefront\Controller\CouponHelpController::show</default>
-        <option key="view">views/popup/coupon_help.php</option>
+        <option key="view">views/popup/coupon_help.php?layout=popup_layout.php</option>
     </route>
 
     <route id="contact_us" pattern="/contact-us">
@@ -201,7 +201,7 @@
 
     <route id="popup_shipping_estimator" pattern="/shipping/estimator">
         <default key="_controller">ZMController::process</default>
-        <option key="view">views/popup/shipping_estimator.php</option>
+        <option key="view">views/popup/shipping_estimator.php?layout=popup_layout.php</option>
     </route>
 
     <route id="category" pattern="/category/{cPath}">
