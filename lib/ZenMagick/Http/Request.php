@@ -96,54 +96,12 @@ class Request extends HttpFoundationRequest implements ContainerAwareInterface {
      * @return string A full URL.
      */
     public function url($requestId=null, $params='', $secure=false) {
-        // custom params handling
-        // @todo don't be app specific here (i don't know why this is so in any case, but it does break admin.
-        $check = Runtime::isContextMatch('storefront') ? (null == $requestId || null === $params) : (null == $params);
-        if ($check) {
-            // if requestId null, keep current and also current params
-            $query = $this->query->all();
-            unset($query[$this->getRequestIdKey()]);
-            unset($query[$this->getSession()->getName()]);
-            if (null != $params) {
-                parse_str($params, $arr);
-                $query = array_merge($query, $arr);
-            }
-            // rebuild
-            $params = array();
-            foreach ($query as $name => $value) {
-                if (is_array($value)) {
-                    foreach ($value as $subValue) {
-                        $params[] = $name.'[]='.$subValue;
-                    }
-                } else {
-                    $params[] = $name.'='.$value;
-                }
-            }
-            $params = implode('&', $params);
-        }
         // default to current requestId
         $requestId = $requestId === null ? $this->getRequestId() : $requestId;
 
-        // adjust according to settings
-        $settingService = $this->container->get('settingsService');
-        if ($settingService->get('zenmagick.http.request.secure', true)) {
-            // check if always secure
-            $secure = $settingService->get('zenmagick.http.request.allSecure', false) || $secure;
-        } else {
-            // disabled
-            $secure = false;
-        }
-
-        // delegate generation to SEO rewriters
-        $args = array('requestId' => $requestId, 'params' => $params, 'secure' => $secure);
-        $rewriters = $this->container->get('containerTagService')->findTaggedServiceIds('zenmagick.http.request.rewriter');
-        foreach (array_keys(array_reverse($rewriters)) as $id) {
-            if (null != ($rewrittenUrl = $this->container->get($id)->rewrite($this, $args))) {
-                return $rewrittenUrl;
-            }
-        }
-
-        return null;
+        parse_str(ltrim($params, '&'), $parameters);
+        $url = $this->container->get('router')->generate($requestId, $parameters);
+        return $url;
     }
 
     /**
