@@ -93,9 +93,8 @@ class RouteResolver extends ZMObject {
         $view = null;
         // build list of routes to look at
         $routeIds = array();
-        if (null != ($routerMatch = $this->getRouterMatch($request->getPathInfo()))) {
-            $routeIds[] = $routerMatch['_route'];
-        }
+        $routeIds[] = $viewId;
+        $routeIds[] = $request->attributes->get('_route');
         $routeIds[] = self::GLOBAL_ROUTING_KEY;
 
         // check until match or we run out of routeIds
@@ -139,7 +138,7 @@ class RouteResolver extends ZMObject {
         }
 
         // TODO: enable once we have all current url mappings converted
-        if (false && !$view) {
+        if (!$view) {
             // use conventions and defaults
             $templateName = sprintf('views/%s%s', $request->getRequestId(), $settingsService->get('zenmagick.http.templates.ext', '.php'));
             $view = Beans::getBean('defaultView');
