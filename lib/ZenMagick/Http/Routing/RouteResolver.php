@@ -146,11 +146,7 @@ class RouteResolver extends ZMObject {
             $view->setLayout($layoutName);
         }
 
-        if (!$view) {
-            $view = $this->container->get('urlManager')->findView($request->getRequestId(), $viewId);
-        }
-
-        if ($view instanceof TemplateView && $data) {
+         if ($view instanceof TemplateView && $data) {
             $view->setVariables($data);
         }
 

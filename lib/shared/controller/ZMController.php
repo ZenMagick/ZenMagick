@@ -290,19 +290,6 @@ class ZMController extends Controller {
                 }
             }
         }
-        // TODO: drop
-        /*if (null == $this->formData_ && null !== ($mapping = $this->container->get('urlManager')->findMapping($this->requestId_))) {
-            $formDef = null != $formDef ? $formDef : (array_key_exists('form', $mapping) ? $mapping['form'] : null);
-            $formId = null != $formId ? $formId : (array_key_exists('formId', $mapping) ? $mapping['formId'] : null);
-            if (null != $formDef && null != $formId) {
-                $this->formData_ =  Beans::getBean($formDef.(false === strpos($mapping['view'], '#') ? '#' : '&').'formId='.$formId);
-                if ($this->formData_ instanceof Form) {
-                    $this->formData_->populate($request);
-                } else {
-                    $this->formData_ = Beans::setAll($this->formData_, $request->getParameterMap());
-                }
-            }
-        }*/
 
         return $this->formData_;
     }

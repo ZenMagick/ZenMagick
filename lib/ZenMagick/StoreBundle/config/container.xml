@@ -256,15 +256,6 @@
 
         <service id="productGroupPricingService" class="ZMProductGroupPricings" />
 
-        <service id="urlManager" class="ZMUrlManager">
-            <call method="setContainer">
-                <argument type="service" id="service_container" />
-            </call>
-            <call method="loadFile">
-                <argument>%kernel.context_dir%/config/url_mappings.yaml</argument>
-            </call>
-        </service>
-
         <service id="zenCartAuthenticationProvider" class="ZenMagick\ZenCartBundle\Utils\ZenCartAuthenticationProvider">
             <tag name="zenmagick.base.security.authentication.provider" default="true" />
         </service>
