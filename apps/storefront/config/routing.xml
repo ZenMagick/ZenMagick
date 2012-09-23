@@ -245,7 +245,7 @@
         <default key="_controller">ZenMagick\apps\storefront\Controller\CheckoutSuccessController::process</default>
     </route>
 
-    <route id="checkout.guest" pattern="/checkout/guest">
+    <route id="checkout_guest" pattern="/checkout/guest">
         <default key="_controller">ZenMagick\apps\storefront\Controller\CheckoutGuestController::process</default>
         <option key="view">views/login.php</option>
         <option key="view:guest_checkout_disabled">views/login.php</option>
