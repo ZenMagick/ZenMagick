@@ -44,7 +44,6 @@ zenmagick:
     ## request
     request:
       urlType: default
-      idName: main_page
       invalidSession: cookie_usage
       login: login
       enforceSecure: true

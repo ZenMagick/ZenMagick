@@ -211,8 +211,6 @@ class ZenCartListener implements EventSubscriberInterface {
             $request = $event->get('request');
             if ('index' != $request->getRequestId()) {
                 $params = $request->query->all();
-                $idName = $request->getRequestIdKey();
-                if (isset($params[$idName])) unset($params[$idName]);
                 $data = array(
                     'admin_id' => (null !== $request->getAccount()) ? $request->getAccount()->getId() : 0,
                     'access_date' => new \DateTime(),

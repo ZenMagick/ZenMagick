@@ -90,13 +90,6 @@ class ToolboxForm extends ToolboxTool {
 
         // parse params AND action params
         parse_str($params.'&'.html_entity_decode(parse_url($attr['action'], PHP_URL_QUERY)), $hidden);
-        // set best requestId value
-        if (!isset($hidden[$settingsService->get('zenmagick.http.request.idName')])) {
-            $page = null === $page ? $this->getRequest()->getRequestId() : $page;
-            if (null !== $page) {
-                $hidden[$settingsService->get('zenmagick.http.request.idName')] = $page;
-            }
-        }
 
         // add session token if configured
         if ($hasId && 'post' == strtolower($attr['method']) && in_array($attr['id'], $this->container->getParameter('zenmagick.http.session.formtoken', array()))) {

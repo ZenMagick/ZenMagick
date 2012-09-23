@@ -120,8 +120,8 @@ class ToolboxNet extends ToolboxTool {
         if (!Toolbox::isEmpty($page->getAltUrl())) {
             $url = parse_url($page->getAltUrl());
             parse_str($url['query'], $query);
-            $view = $query[Runtime::getSettings()->get('zenmagick.http.request.idName')];
-            unset($query[Runtime::getSettings()->get('zenmagick.http.request.idName')]);
+            $view = $query['main_page'];
+            unset($query['main_page']);
             $params = '';
             foreach ($query as $name => $value) {
                 $params .= "&".$name."=".$value;

@@ -214,7 +214,7 @@ class ToolboxUtils extends ToolboxTool {
             return false;
         }
 
-        $idName = Runtime::getSettings()->get('zenmagick.http.request.idName');
+        $idName = 'main_page'; // not really sure if ths can work here anymore.
         $query1[$idName] = (array_key_exists($idName, $query1) && !empty($query1[$idName])) ? $query1[$idName] : 'index';
         $query2[$idName] = (array_key_exists($idName, $query2) && !empty($query2[$idName])) ? $query2[$idName] : 'index';
 

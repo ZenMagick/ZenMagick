@@ -40,7 +40,7 @@ class ZMRegistrationForm extends FormData {
         $properties = $this->getProperties();
 
         // don't need these
-        foreach (array(Runtime::getSettings()->get('zenmagick.http.request.idName'), 'formId', 'action', 'confirmation') as $name) {
+        foreach (array('formId', 'action', 'confirmation') as $name) {
             unset($properties[$name]);
         }
 
@@ -61,7 +61,7 @@ class ZMRegistrationForm extends FormData {
         $properties = $this->getProperties();
 
         // don't need these
-        foreach (array(Runtime::getSettings()->get('zenmagick.http.request.idName'), 'formId', 'action', 'password', 'confirmation') as $name) {
+        foreach (array('formId', 'action', 'password', 'confirmation') as $name) {
             unset($properties[$name]);
         }
 
