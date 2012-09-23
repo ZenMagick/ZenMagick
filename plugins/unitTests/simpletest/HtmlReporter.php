@@ -22,7 +22,6 @@ namespace ZenMagick\plugins\unitTests\simpletest;
 use HtmlReporter as BaseHtmlReporter;
 use ZenMagick\Base\Runtime;
 use ZenMagick\Base\ZMException;
-use ZenMagick\Base\Logging\Logging;
 
 
 /**

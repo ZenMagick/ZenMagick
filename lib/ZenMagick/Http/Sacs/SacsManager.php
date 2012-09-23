@@ -19,12 +19,12 @@
  */
 namespace ZenMagick\Http\Sacs;
 
+use Monolog\Logger;
 use ZenMagick\Base\Beans;
 use ZenMagick\Base\Runtime;
 use ZenMagick\Base\Toolbox;
 use ZenMagick\Base\ZMObject;
 use ZenMagick\Base\Events\Event;
-use ZenMagick\Base\Logging\Logging;
 use ZenMagick\Http\Routing\RouteResolver;
 
 use Symfony\Component\DependencyInjection\ContainerInterface;
@@ -191,7 +191,7 @@ class SacsManager extends ZMObject {
      * @return boolean <code>true</code> if authorization was sucessful.
      */
     public function authorize($request, $requestId, $credentials, $action=true) {
-        Runtime::getLogging()->log('authorizing requestId: '.$requestId, Logging::TRACE);
+        Runtime::getLogging()->log('authorizing requestId: '.$requestId, Logger::DEBUG);
         // no responsible handler means fail
         $result = null;
         foreach ($this->handlers_ as $handler) {
@@ -200,7 +200,7 @@ class SacsManager extends ZMObject {
             }
         }
 
-        Runtime::getLogging()->log('evaluated by: '.get_class($handler).', result: '.($result ? 'true' : 'false'), Logging::TRACE);
+        Runtime::getLogging()->log('evaluated by: '.get_class($handler).', result: '.($result ? 'true' : 'false'), Logger::DEBUG);
         if (!$result) {
             // null | false
             if (!$action) {
@@ -245,7 +245,7 @@ class SacsManager extends ZMObject {
         }
         $settings = Runtime::getSettings();
         if ($secure && !$request->isSecure() && $settings->get('zenmagick.http.request.secure', true) && $settings->get('zenmagick.http.request.enforceSecure')) {
-            Runtime::getLogging()->log('redirecting to enforce secure access: '.$requestId, Logging::TRACE);
+            Runtime::getLogging()->log('redirecting to enforce secure access: '.$requestId, Logger::DEBUG);
             $request->redirect($request->url(null, null, true));
         }
     }

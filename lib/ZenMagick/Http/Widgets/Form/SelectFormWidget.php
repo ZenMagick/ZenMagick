@@ -19,9 +19,9 @@
  */
 namespace ZenMagick\Http\Widgets\Form;
 
+use Monolog\Logger;
 use ZenMagick\Base\Runtime;
 use ZenMagick\Base\Toolbox;
-use ZenMagick\Base\Logging\Logging;
 use ZenMagick\Http\View\TemplateView;
 
 /**
@@ -123,7 +123,7 @@ class SelectFormWidget extends FormWidget {
      */
     public function render($request, TemplateView $templateView) {
         if ($this->isMultiValue()) {
-            Runtime::getLogging()->log('multi-value: defaulting style to select', Logging::TRACE);
+            Runtime::getLogging()->log('multi-value: defaulting style to select', Logger::DEBUG);
             $this->set('style', 'select');
         }
         switch ($this->get('style')) {

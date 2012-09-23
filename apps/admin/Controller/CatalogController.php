@@ -22,7 +22,6 @@ namespace ZenMagick\apps\admin\Controller;
 use ZenMagick\Base\Beans;
 use ZenMagick\Base\Runtime;
 use ZenMagick\Base\Toolbox;
-use ZenMagick\Base\Logging\Logging;
 use ZenMagick\Http\Request;
 use ZenMagick\Http\Sacs\SacsManager;
 use ZenMagick\StoreBundle\Controller\CatalogContentController;

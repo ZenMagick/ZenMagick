@@ -19,9 +19,9 @@
  */
 namespace ZenMagick\apps\storefront\Controller;
 
+use Monolog\Logger;
 use ZenMagick\Base\Beans;
 use ZenMagick\Base\Toolbox;
-use ZenMagick\Base\Logging\Logging;
 use ZenMagick\Base\Events\Event;
 use ZenMagick\StoreBundle\Entity\Coupons\Coupon;
 
@@ -55,7 +55,7 @@ class CreateAccountController extends \ZMController {
     public function setCreateDefaultAddress($value) {
         // make sure we convert to boolean; typically this would be set via a bean definition
         $this->createDefaultAddress_ = Toolbox::asBoolean($value);
-        $this->container->get('logger')->log('createDefaultAddress set to: '.$this->createDefaultAddress_, Logging::TRACE);
+        $this->container->get('logger')->log('createDefaultAddress set to: '.$this->createDefaultAddress_, Logger::DEBUG);
     }
 
     /**

@@ -19,7 +19,6 @@
  */
 namespace ZenMagick\Http\Templating\Cache;
 
-use ZenMagick\Base\Logging\Logging;
 use ZenMagick\Base\ZMObject;
 use ZenMagick\Http\Templating\TemplateCache;
 

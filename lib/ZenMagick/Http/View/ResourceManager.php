@@ -19,9 +19,9 @@
  */
 namespace ZenMagick\Http\View;
 
+use Monolog\Logger;
 use ZenMagick\Base\Runtime;
 use ZenMagick\Base\ZMObject;
-use ZenMagick\Base\Logging\Logging;
 
 
 /**
@@ -155,12 +155,12 @@ class ResourceManager extends ZMObject {
         if (array_key_exists($filename, $this->resources_['js'])) {
             // check if we need to do anything else or update the position
             if ($this->resources_['js'][$filename]['done']) {
-                Runtime::getLogging()->log('skipping '.$filename.' as already done', Logging::TRACE);
+                Runtime::getLogging()->log('skipping '.$filename.' as already done', Logger::DEBUG);
                 return;
             }
             if (self::FOOTER == $this->resources_['js'][$filename]['position']) {
                 if (self::HEADER == $position) {
-                    Runtime::getLogging()->log('upgrading '.$filename.' to HEADER', Logging::TRACE);
+                    Runtime::getLogging()->log('upgrading '.$filename.' to HEADER', Logger::DEBUG);
                     return;
                 }
             }
@@ -210,7 +210,7 @@ class ResourceManager extends ZMObject {
             if (null != ($path = $this->view->getResourceResolver()->findResource($resource, $type))) {
                 if (null != ($uri= $this->file2uri($path))) {
                     $url = $this->view->getRequest()->absoluteUrl($uri);
-                    Runtime::getLogging()->log(sprintf('resolved file "%s" as url: %s; path=%s', $resource, $url, $path), Logging::TRACE);
+                    Runtime::getLogging()->log(sprintf('resolved file "%s" as url: %s; path=%s', $resource, $url, $path), Logger::DEBUG);
                     return $url;
                 }
             }
