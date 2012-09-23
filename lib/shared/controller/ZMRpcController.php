@@ -18,7 +18,6 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-use Monolog\Logger;
 use ZenMagick\Base\Runtime;
 use ZenMagick\Base\Beans;
 use ZenMagick\Http\Request;
@@ -60,7 +59,7 @@ class ZMRpcController extends ZMController {
 
         if (!$rpcResponse) {
             if (method_exists($this, $method) || in_array($method, $this->getAttachedMethods())) {
-                $this->get('logger')->log('calling method: '.$method, Logger::DEBUG);
+                $this->get('logger')->debug('calling method: '.$method);
                 $rpcResponse = $this->$method($rpcRequest);
             } else {
                 $rpcResponse = $rpcRequest->createResponse();

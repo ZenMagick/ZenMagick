@@ -18,7 +18,6 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-use Monolog\Logger;
 use ZenMagick\Base\Beans;
 use ZenMagick\Base\Runtime;
 use ZenMagick\Base\ZMException;
@@ -112,7 +111,7 @@ class ZMController extends Controller {
         if (null == $view && null != $formData && $this->isFormSubmit($request)) {
             // move to function
             if (null != ($view = $this->validateFormData($request, $formData))) {
-                $this->get('logger')->log('validation failed for : '.$formData. '; returning: '.$view, Logger::DEBUG);
+                $this->get('logger')->debug('validation failed for : '.$formData. '; returning: '.$view);
             }
         }
 

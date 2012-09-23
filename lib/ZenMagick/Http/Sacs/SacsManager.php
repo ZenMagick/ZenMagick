@@ -19,7 +19,6 @@
  */
 namespace ZenMagick\Http\Sacs;
 
-use Monolog\Logger;
 use ZenMagick\Base\Beans;
 use ZenMagick\Base\Runtime;
 use ZenMagick\Base\Toolbox;
@@ -191,7 +190,7 @@ class SacsManager extends ZMObject {
      * @return boolean <code>true</code> if authorization was sucessful.
      */
     public function authorize($request, $requestId, $credentials, $action=true) {
-        Runtime::getLogging()->log('authorizing requestId: '.$requestId, Logger::DEBUG);
+        $this->container->get('logger')->info('authorizing requestId: '.$requestId);
         // no responsible handler means fail
         $result = null;
         foreach ($this->handlers_ as $handler) {
@@ -200,7 +199,7 @@ class SacsManager extends ZMObject {
             }
         }
 
-        Runtime::getLogging()->log('evaluated by: '.get_class($handler).', result: '.($result ? 'true' : 'false'), Logger::DEBUG);
+        $this->container->get('logger')->debug('evaluated by: '.get_class($handler).', result: '.($result ? 'true' : 'false'));
         if (!$result) {
             // null | false
             if (!$action) {
@@ -245,7 +244,7 @@ class SacsManager extends ZMObject {
         }
         $settings = Runtime::getSettings();
         if ($secure && !$request->isSecure() && $settings->get('zenmagick.http.request.secure', true) && $settings->get('zenmagick.http.request.enforceSecure')) {
-            Runtime::getLogging()->log('redirecting to enforce secure access: '.$requestId, Logger::DEBUG);
+            $this->container->get('logger')->debug('redirecting to enforce secure access: '.$requestId);
             $request->redirect($request->url(null, null, true));
         }
     }
@@ -260,7 +259,7 @@ class SacsManager extends ZMObject {
      */
     public function getMappingValue($requestId, $key, $default=null) {
         if (null == $requestId) {
-            Runtime::getLogging()->debug('null is not a valid requestId');
+            $this->container->get('logger')->debug('null is not a valid requestId');
             return null;
         }
 

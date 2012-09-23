@@ -183,16 +183,16 @@ class CronJobs extends ZMObject {
      */
     public function runJob($job) {
         try {
-            Runtime::getLogging()->debug("CronJobs: Running: ".$job['line']);
+            Runtime::getLogging()->info("CronJobs: Running: ".$job['line']);
             $obj = Beans::getBean($job['task']);
             if ($obj instanceof CronJobInterface) {
                 $status = $obj->execute();
             }
             $this->saveLastRunTime($job);
-            Runtime::getLogging()->log("CronJobs: Completed ".$job['line']." with status: ".($status?"OK":"FAILED"));
+            Runtime::getLogging()->info("CronJobs: Completed ".$job['line']." with status: ".($status?"OK":"FAILED"));
             return true;
         } catch (Exception $e) {
-            Runtime::getLogging()->log("CronJobs: Failed ".$job['line']." with exception: ".$e);
+            Runtime::getLogging()->info("CronJobs: Failed ".$job['line']." with exception: ".$e);
             return false;
         }
     }
