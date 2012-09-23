@@ -37,7 +37,7 @@ a.ui-button, button.ui-button {padding:0.5em 1em;color:#555555;}
 label span {color:#D4A84B;margin:0 3px;font-weight:bold;}
 
 /* header */
-#logo {float:left;padding:3px 8px;margin-bottom:4px;}
+#logo {float:left }
 #header-box {float:right;text-align:right;padding-right:8px;}
 #header-box a {color:#3561a5;font-weight:bold;}
 #header-box #header-state {margin-top:3px;}
