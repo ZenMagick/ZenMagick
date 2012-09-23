@@ -21,10 +21,6 @@
         <service id="ZMForwardView" class="ForwardView" scope="prototype" />
         <service id="forwardView" alias="ZMForwardView" />
 
-        <service id="storeDefaultUrlRewriter" class="ZenMagick\apps\storefront\Http\Request\StoreDefaultUrlRewriter">
-            <tag name="zenmagick.http.request.rewriter" />
-        </service>
-
         <service id="defaultRssFeedSource" class="ZenMagick\StoreBundle\Rss\DefaultRssFeedSource">
             <tag name="zenmagick.http.rss.source" />
         </service>

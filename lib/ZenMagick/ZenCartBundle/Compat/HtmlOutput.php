@@ -17,44 +17,24 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-namespace ZenMagick\apps\storefront\Http\Request;
+namespace ZenMagick\ZenCartBundle\Compat;
 
 use ZenMagick\Base\Runtime;
 use ZenMagick\Base\Toolbox;
-use ZenMagick\Base\ZMObject;
-use ZenMagick\Base\ZMException;
-use ZenMagick\Http\Request\UrlRewriter;
 
 /**
- * Default rewriter implementing the original zencart URL scheme.
+ * html_output.php helpers
  *
  * @author DerManoMann
  */
-class StoreDefaultUrlRewriter extends ZMObject implements UrlRewriter {
-
-    /**
-     * {@inheritDoc}
-     */
-    public function decode($request) {
-        return false;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function rewrite($request, $args) {
-        $secure = $args['secure'];
-        // provide the full set of parameters to SEO plugins
-        // this means that in practice this will be the only rewriter called...
-        return self::furl($args['requestId'], $args['params'], $secure ? 'SSL' : 'NONSSL', true, true, false, true, $request);
-    }
+class HtmlOutput {
 
     /**
      * ZenMagick implementation of zen-cart's zen_href_link function.
      *
      * @todo improve this entirely!
      */
-    public static function furl($page, $params='', $transport='NONSSL', $addSessionId=true, $seo=true, $isStatic=false, $useContext=true) {
+    public static function zenHrefLink($page, $params='', $transport='NONSSL', $addSessionId=true, $seo=true, $isStatic=false, $useContext=true) {
 
         $container = Runtime::getContainer();
         $request = $container->get('request');
