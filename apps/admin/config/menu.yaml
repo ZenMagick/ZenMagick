@@ -30,3 +30,5 @@ accounts: { parent: fulfilment-accounts, requestId: accounts, name: Overview, al
 fulfilment-orders: { parent: fulfilment, name: Orders }
 orders: { parent: fulfilment-orders, requestId: orders, name: Overview, alias: [order] }
 configuration-legacy: { parent: configuration, name: Zen-Cart Config }
+configuration-help: { parent: configuration, name: Help }
+about: { parent: configuration-help, requestId: about, name: About }
