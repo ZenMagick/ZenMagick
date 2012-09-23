@@ -324,7 +324,7 @@
 
     <route id="advanced_search" pattern="/search/advanced">
         <default key="_controller">ZenMagick\apps\storefront\Controller\SearchController::process</default>
-        <option key="form">ZMSearchCriteria#formId:searchCriteria</option>
+        <option key="form">ZMSearchCriteria#formId=searchCriteria</option>
         <option key="view">views/advanced_search.php</option>
     </route>
 
