@@ -141,7 +141,7 @@ class CronJobs extends ZMObject {
             $lines = file($this->cronfile);
             $jobs = $this->parser->parseCrontab($lines);
         } else {
-            Runtime::getLogging()->error('crontab not found: '.$this->crontab);
+            Runtime::getLogging()->err('crontab not found: '.$this->crontab);
             return array();
         }
 

@@ -65,7 +65,7 @@ class ZMRpcController extends ZMController {
             } else {
                 $rpcResponse = $rpcRequest->createResponse();
                 $rpcResponse->setStatus(false);
-                Runtime::getLogging()->error("Invalid request - method '".$request->getParameter('method')."' not found!");
+                $this->container->get('logger')->err("Invalid request - method '".$request->getParameter('method')."' not found!");
             }
         }
 

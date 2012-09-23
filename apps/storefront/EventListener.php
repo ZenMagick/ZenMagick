@@ -276,7 +276,7 @@ class EventListener extends ZMObject {
                         $request->query->set('cPath', implode('_', $category->getPath()));
                         $request->attributes->set('categoryIds', $category->getPath());
                     } else {
-                        $this->container->get('logger')->error('invalid cPath: ' . $cPath);
+                        $this->container->get('logger')->err('invalid cPath: ' . $cPath);
                     }
                 }
             }

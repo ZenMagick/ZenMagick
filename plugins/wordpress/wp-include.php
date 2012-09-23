@@ -36,6 +36,6 @@ use ZenMagick\Base\Runtime;
           $wp->query_posts();
           $wp->register_globals();
       } else {
-          Runtime::getLogging()->error('cannot find WP config');
+          Runtime::getLogging()->err('cannot find WP config');
       }
   }

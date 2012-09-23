@@ -111,7 +111,7 @@ class CouponAdminMailPatch extends FilePatch {
 
             return $this->putFileLines($this->couponAdminFile, $patchedLines);
         } else {
-            Runtime::getLogging()->error("** ZenMagick: no permission to patch coupon admin mail fix into coupon_admin.php");
+            Runtime::getLogging()->err("** ZenMagick: no permission to patch coupon admin mail fix into coupon_admin.php");
             return false;
         }
     }
@@ -138,7 +138,7 @@ class CouponAdminMailPatch extends FilePatch {
 
             return $this->putFileLines($this->couponAdminFile, $unpatchedLines);
         } else {
-            Runtime::getLogging()->error("** ZenMagick: no permission to patch coupon_admin.php for uninstall");
+            Runtime::getLogging()->err("** ZenMagick: no permission to patch coupon_admin.php for uninstall");
             return false;
         }
 

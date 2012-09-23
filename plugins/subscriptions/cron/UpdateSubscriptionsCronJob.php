@@ -51,7 +51,7 @@ class UpdateSubscriptionsCronJob implements CronJobInterface {
             // load the new order as proper ZMOrder instance for further use
             $order = $orderService->getOrderForId($newOrder->getOrderId(), $this->container->get('session')->getLanguageId());
             if (null === $order) {
-                Runtime::getLogging()->error('copy order failed for scheduled order: '.$scheduledOrderId);
+                $this->container->get('logger')->err('copy order failed for scheduled order: '.$scheduledOrderId);
                 continue;
             }
 

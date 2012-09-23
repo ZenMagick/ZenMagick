@@ -39,7 +39,7 @@ class ZMAjaxController extends ZMController {
      * <p>Just return <code>null</code>.</p>
      */
     public function processGet($request) {
-        Runtime::getLogging()->error("Invalid Ajax request - method '".$request->getParameter('method')."' not found!");
+        $this->container->get('logger')->err("Invalid Ajax request - method '".$request->getParameter('method')."' not found!");
         return null;
     }
 

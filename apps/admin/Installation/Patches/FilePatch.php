@@ -200,7 +200,7 @@ class FilePatch extends InstallationPatch {
                 if (is_writeable($file)) {
                     $this->putFileLines($file, $lines);
                 } else {
-                    Runtime::getLogging()->error("** ZenMagick: no permission to patch ".basename($file));
+                    Runtime::getLogging()->err("** ZenMagick: no permission to patch ".basename($file));
                     $patchOk = false;
                 }
             }
@@ -238,7 +238,7 @@ class FilePatch extends InstallationPatch {
                 if (is_writeable($file)) {
                     $this->putFileLines($file, $lines);
                 } else {
-                    Runtime::getLogging()->error("** ZenMagick: no permission to patch ".basename($file)." for uninstall");
+                    Runtime::getLogging()->err("** ZenMagick: no permission to patch ".basename($file)." for uninstall");
                     $undoOk = false;
                 }
             }
