@@ -249,7 +249,7 @@ class PluginsController extends \ZMController {
                 }
             } else if ('enable' == $action) {
                 if (null != ($plugin = $pluginService->getPluginForId($pluginId)) && $plugin->isInstalled()) {
-                    $loggingService->debug('enable plugin: '.$plugin->getId();
+                    $loggingService->debug('enable plugin: '.$plugin->getId());
                     $this->setStatus($plugin, true);
                     $this->messageService->success(sprintf(_zm('Plugin %s enabled successfully'), $plugin->getName()));
                     $this->messageService->addAll($plugin->getMessages());
