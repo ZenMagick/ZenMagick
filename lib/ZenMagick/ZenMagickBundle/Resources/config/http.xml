@@ -161,12 +161,6 @@
             <tag name="zenmagick.http.view.variable" key="toolbox" />
         </service>
 
-        <service id="controllerParameterMapper" class="ZenMagick\Http\Controller\ControllerParameterMapper">
-            <call method="setContainer">
-                <argument type="service" id="service_container" />
-            </call>
-        </service>
-
         <!-- @todo don't depend on all this code in one listener -->
         <service id="zenmagick.http_listener" class="ZenMagick\Http\HttpListener">
             <tag name="kernel.event_subscriber" />
