@@ -26,9 +26,8 @@
 <?php else : ?>
 
   <h2 style="text-align:left;">No posts found. Try a different search?</h2>
-  <form method="get" id="searchform" action="">
+  <form method="get" id="searchform" action="/wp">
       <div>
-          <input type="hidden" value="<?php echo '' ?>" name="<?php echo ZenMagick\Base\Runtime::getSettings()->get('zenmagick.http.request.idName'); ?>">
           <input type="text" value="<?php the_search_query(); ?>" name="s" id="s">
           <input type="submit" id="searchsubmit" value="Search">
       </div>

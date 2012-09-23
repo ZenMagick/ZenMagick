@@ -47,8 +47,8 @@ meta:
 storefront:
   routing:
     wp:
-      pattern: /wp?{slug}
-      defaults: { _controller: ZenMagick\plugins\wordpress\controller\WordpressController::process, slug: "" }
+      pattern: /wp
+      defaults: { _controller: ZenMagick\plugins\wordpress\controller\WordpressController::process }
       options:
         "view:wp_index": views/wp/index.php
         "view:wp_single": views/wp/single.php
