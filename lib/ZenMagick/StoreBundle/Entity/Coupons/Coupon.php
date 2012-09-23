@@ -69,7 +69,7 @@ class Coupon extends ZMObject {
     /**
      * @var string $code
      *
-     * @ORM\Column(name="coupon_code", type="string", length=32, nullable=false)
+     * @ORM\Column(name="coupon_code", type="string", length=32, unique=true, nullable=false)
      */
     private $code;
      /**
