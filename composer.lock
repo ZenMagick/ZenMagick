@@ -430,7 +430,7 @@
                 "symfony/framework-bundle": "2.*",
                 "jms/cg": "1.0.0"
             },
-            "time": "2012-01-03 20:50:26",
+            "time": "2012-01-04 04:50:26",
             "type": "symfony-bundle",
             "installation-source": "dist",
             "autoload": {
@@ -472,7 +472,7 @@
             "require": {
                 "php": ">=5.3.0"
             },
-            "time": "2012-01-03 20:40:52",
+            "time": "2012-01-04 04:40:52",
             "type": "library",
             "installation-source": "dist",
             "autoload": {
@@ -503,12 +503,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/schmittjoh/JMSDiExtraBundle",
-                "reference": "b94feeee8f57060598fdc7a3ef2527182b3946b5"
+                "reference": "1.1.1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://github.com/schmittjoh/JMSDiExtraBundle/zipball/b94feeee8f57060598fdc7a3ef2527182b3946b5",
-                "reference": "b94feeee8f57060598fdc7a3ef2527182b3946b5",
+                "url": "https://github.com/schmittjoh/JMSDiExtraBundle/zipball/1.1.1",
+                "reference": "1.1.1",
                 "shasum": ""
             },
             "require": {
@@ -531,7 +531,7 @@
                 "doctrine/doctrine-bundle": "*",
                 "doctrine/orm": "*"
             },
-            "time": "1347872946",
+            "time": "1348217792",
             "type": "symfony-bundle",
             "installation-source": "source",
             "autoload": {
@@ -546,7 +546,7 @@
                 {
                     "name": "Johannes M. Schmitt",
                     "email": "schmittjoh@gmail.com",
-                    "homepage": "http://jmsyst.com",
+                    "homepage": "https://github.com/schmittjoh",
                     "role": "Developer of wrapped JMSSerializerBundle"
                 }
             ],
@@ -574,7 +574,7 @@
             "require": {
                 "php": ">=5.3.0"
             },
-            "time": "2012-01-03 21:32:49",
+            "time": "2012-01-04 05:32:49",
             "type": "library",
             "installation-source": "dist",
             "autoload": {
@@ -853,36 +853,33 @@
         },
         {
             "name": "sensio/generator-bundle",
-            "version": "dev-master",
+            "version": "2.1.x-dev",
             "target-dir": "Sensio/Bundle/GeneratorBundle",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sensio/SensioGeneratorBundle",
-                "reference": "f5bda1014f5f124a0fd881644664493e36a09ad0"
+                "reference": "3a65c9bf7d31aecacffc15a48f5eb2ece3615ef0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://github.com/sensio/SensioGeneratorBundle/zipball/f5bda1014f5f124a0fd881644664493e36a09ad0",
-                "reference": "f5bda1014f5f124a0fd881644664493e36a09ad0",
+                "url": "https://github.com/sensio/SensioGeneratorBundle/zipball/3a65c9bf7d31aecacffc15a48f5eb2ece3615ef0",
+                "reference": "3a65c9bf7d31aecacffc15a48f5eb2ece3615ef0",
                 "shasum": ""
             },
             "require": {
-                "symfony/framework-bundle": "2.2.*",
-                "symfony/console": "2.2.*"
+                "symfony/framework-bundle": "2.1.*",
+                "symfony/console": "2.1.*"
             },
             "require-dev": {
+                "symfony/doctrine-bridge": "2.1.*",
                 "doctrine/orm": ">=2.1,<2.4-dev",
-                "twig/twig": ">=1.8,<2.0-dev",
-                "symfony/doctrine-bridge": "2.2.*"
+                "twig/twig": ">=1.8,<2.0-dev"
             },
-            "suggest": {
-                "doctrine/doctrine-bundle": "to generate entities and their crud controller"
-            },
-            "time": "1348070473",
+            "time": "1348030981",
             "type": "symfony-bundle",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "2.2.x-dev"
+                    "dev-master": "2.1.x-dev"
                 }
             },
             "installation-source": "source",
