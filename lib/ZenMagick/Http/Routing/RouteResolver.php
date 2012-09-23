@@ -26,7 +26,6 @@ use Symfony\Component\Routing\Router;
 
 use ZenMagick\Base\Beans;
 use ZenMagick\Base\ZMObject;
-use ZenMagick\Http\Routing\Loader\YamlLoader;
 use ZenMagick\Http\View\TemplateView;
 
 /**
