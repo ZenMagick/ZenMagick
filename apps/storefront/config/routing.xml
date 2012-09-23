@@ -338,8 +338,8 @@
         <default key="_controller">ZenMagick\ZenCartBundle\Controller\StorefrontController::process</default>
     </route>
 
-    <route id="checkout_success" pattern="/checkout/success">
-        <default key="_controller">ZenMagick\apps\storefront\Controller\CheckoutSuccessController::process</default>
+    <route id="checkout_process" pattern="/checkout/process">
+        <default key="_controller">ZenMagick\ZenCartBundle\Controller\StorefrontController::process</default>
     </route>
 
     <route id="static" pattern="/static">
