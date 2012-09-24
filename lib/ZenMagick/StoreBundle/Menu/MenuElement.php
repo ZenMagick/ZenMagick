@@ -19,9 +19,6 @@
  */
 namespace ZenMagick\StoreBundle\Menu;
 
-use ZenMagick\Base\Utils\Node;
-
-
 /**
  * Basic menu element.
  *

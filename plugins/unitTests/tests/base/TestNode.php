@@ -20,7 +20,7 @@
 
 use Symfony\Component\Yaml\Yaml;
 use ZenMagick\Base\Runtime;
-use ZenMagick\Base\Utils\Node;
+use ZenMagick\StoreBundle\Menu\Node;
 use ZenMagick\plugins\unitTests\simpletest\TestCase;
 
 /**
