@@ -63,11 +63,6 @@ class HttpListener implements EventSubscriberInterface {
         $dispatcher->dispatch('request_ready', new Event($this, array('request' => $request)));
         $dispatcher->dispatch('container_ready', new Event($this, array('request' => $request)));
 
-        // allow seo rewriters to fiddle with the request
-        foreach (array_reverse($this->container->get('containerTagService')->findTaggedServiceIds('zenmagick.http.request.rewriter')) as $id => $args) {
-            if ($this->container->get($id)->decode($request)) break;
-        }
-
         $this->container->get('sacsManager')->ensureAccessMethod($request);
 
         $dispatcher->dispatch('dispatch_start', new Event($this, array('request' => $request)));

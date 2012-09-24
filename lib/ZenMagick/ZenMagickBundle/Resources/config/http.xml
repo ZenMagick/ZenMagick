@@ -46,10 +46,6 @@
             </call>
         </service>
 
-        <service id="routingUrlRewriter" class="ZenMagick\Http\Request\Rewriter\RoutingUrlRewriter">
-            <tag name="zenmagick.http.request.rewriter" />
-        </service>
-
         <service id="taggedBlocksBlockProvider" class="ZenMagick\Http\Utils\TaggedBlocksBlockProvider">
             <tag name="zenmagick.http.blocks.provider" />
         </service>
