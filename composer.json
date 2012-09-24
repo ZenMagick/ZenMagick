@@ -83,22 +83,6 @@
                     "reference": "master"
                 }
             }
-        },
-        {
-            "type": "package",
-            "package": {
-                "name": "zenmagick/cachelite",
-                "version" : "dev-master",
-                "source": {
-                    "url": "git://github.com/ZenMagick/CacheLite.git",
-                    "type": "git",
-                    "reference": "master"
-                },
-                "autoload": {
-                    "psr-0": {"pear\\cache": "lib/"}
-                }
-            }
         }
-
     ]
 }

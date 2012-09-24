@@ -1,5 +1,5 @@
 {
-    "hash": "076d3335f8ee543cb87a28b670ebe454",
+    "hash": "75c3dd7bd445c68350dcb163d698286f",
     "packages": [
         {
             "name": "doctrine/common",
@@ -430,7 +430,7 @@
                 "symfony/framework-bundle": "2.*",
                 "jms/cg": "1.0.0"
             },
-            "time": "2012-01-05 04:50:26",
+            "time": "2012-01-05 12:50:26",
             "type": "symfony-bundle",
             "installation-source": "dist",
             "autoload": {
@@ -472,7 +472,7 @@
             "require": {
                 "php": ">=5.3.0"
             },
-            "time": "2012-01-05 04:40:52",
+            "time": "2012-01-05 12:40:52",
             "type": "library",
             "installation-source": "dist",
             "autoload": {
@@ -574,7 +574,7 @@
             "require": {
                 "php": ">=5.3.0"
             },
-            "time": "2012-01-05 05:32:49",
+            "time": "2012-01-05 13:32:49",
             "type": "library",
             "installation-source": "dist",
             "autoload": {

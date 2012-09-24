@@ -19,7 +19,7 @@
  */
 namespace ZenMagick\Base\Cache;
 
-use pear\cache\CacheLite;
+use PEAR\Cache\CacheLite;
 
 /**
  * Memory caching.
