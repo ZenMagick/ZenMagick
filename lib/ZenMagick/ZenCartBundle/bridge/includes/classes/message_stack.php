@@ -91,7 +91,7 @@ class messageStack {
         if (defined('ICON_IMAGE_'.$type) && isset($GLOBALS['template'])) {
             $file = constant('ICON_IMAGE_'.$type);
             $alt = constant('ICON_'.$type.'_ALT');
-            $path = $GLOBALS['template']->get_template_dir($file, DIR_WS_TEMPLATE, $GLOBALS['current_page_page'], 'images/icons');
+            $path = $GLOBALS['template']->get_template_dir($file, DIR_WS_TEMPLATE, $GLOBALS['current_page_base'], 'images/icons');
             return zen_image($path.'/'.$file, $alt) . '  ';
         }
         return '';
@@ -124,7 +124,7 @@ class messageStack {
 
         }
         if (isset($GLOBALS['template'])) {
-            $path = $GLOBALS['template']->get_template_dir('tpl_message_stack_default.php',DIR_WS_TEMPLATE, $GLOBALS['current_page_page'],'templates');
+            $path = $GLOBALS['template']->get_template_dir('tpl_message_stack_default.php',DIR_WS_TEMPLATE, $GLOBALS['current_page_base'],'templates');
             require($path.'/tpl_message_stack_default.php');
         }
     }
