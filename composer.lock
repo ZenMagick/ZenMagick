@@ -1,5 +1,5 @@
 {
-    "hash": "06b035e82abdb4ae2424908b72f5acd0",
+    "hash": "076d3335f8ee543cb87a28b670ebe454",
     "packages": [
         {
             "name": "doctrine/common",
@@ -430,7 +430,7 @@
                 "symfony/framework-bundle": "2.*",
                 "jms/cg": "1.0.0"
             },
-            "time": "2012-01-04 04:50:26",
+            "time": "2012-01-05 04:50:26",
             "type": "symfony-bundle",
             "installation-source": "dist",
             "autoload": {
@@ -472,7 +472,7 @@
             "require": {
                 "php": ">=5.3.0"
             },
-            "time": "2012-01-04 04:40:52",
+            "time": "2012-01-05 04:40:52",
             "type": "library",
             "installation-source": "dist",
             "autoload": {
@@ -574,7 +574,7 @@
             "require": {
                 "php": ">=5.3.0"
             },
-            "time": "2012-01-04 05:32:49",
+            "time": "2012-01-05 05:32:49",
             "type": "library",
             "installation-source": "dist",
             "autoload": {
@@ -1185,16 +1185,16 @@
         },
         {
             "name": "symfony/symfony",
-            "version": "dev-master",
+            "version": "2.1.x-dev",
             "source": {
                 "type": "git",
-                "url": "git://github.com/ZenMagick/symfony.git",
-                "reference": "0aa7930d34b87679aac27464dded7cb4e1660102"
+                "url": "git://github.com/symfony/symfony.git",
+                "reference": "7273311e1fb663ae7f5501f57a52ba9bd4db2ec3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://github.com/ZenMagick/symfony/zipball/0aa7930d34b87679aac27464dded7cb4e1660102",
-                "reference": "0aa7930d34b87679aac27464dded7cb4e1660102",
+                "url": "https://github.com/symfony/symfony/zipball/7273311e1fb663ae7f5501f57a52ba9bd4db2ec3",
+                "reference": "7273311e1fb663ae7f5501f57a52ba9bd4db2ec3",
                 "shasum": ""
             },
             "require": {
@@ -1243,7 +1243,7 @@
                 "propel/propel1": "dev-master",
                 "monolog/monolog": "dev-master"
             },
-            "time": "1346830104",
+            "time": "1348414301",
             "type": "library",
             "extra": {
                 "branch-alias": {
@@ -1274,10 +1274,7 @@
             "homepage": "http://symfony.com",
             "keywords": [
                 "framework"
-            ],
-            "support": {
-                "source": "https://github.com/ZenMagick/symfony/tree/master"
-            }
+            ]
         },
         {
             "name": "twig/extensions",

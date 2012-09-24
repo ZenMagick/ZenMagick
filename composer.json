@@ -73,10 +73,6 @@
     },
     "repositories": [
         {
-            "type": "vcs",
-            "url": "git://github.com/ZenMagick/symfony.git"
-        },
-        {
             "type": "package",
             "package": {
                 "name": "zenmagick/zencart",
