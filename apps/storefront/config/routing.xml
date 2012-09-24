@@ -120,7 +120,7 @@
 
     <route id="address_book_add" pattern="/account/address/new">
         <default key="_controller">ZenMagick\apps\storefront\Controller\AddressBookAddController::process</default>
-        <option key="form">ZMAddress#formId=address</option>
+        <option key="form">ZenMagick\StoreBundle\Entity\Address#formId=address</option>
         <option key="view">views/address_book_create.php</option>
         <option key="view:success">redirect://address_book</option>
     </route>
@@ -130,7 +130,7 @@
         <default key="_controller">ZenMagick\apps\storefront\Controller\AddressBookEditController::process</default>
         <!-- The actual update is POST; that means the id is a POST value rather than url parameter -->
         <default key="id"></default>
-        <option key="form">ZMAddress#formId=address</option>
+        <option key="form">ZenMagick\StoreBundle\Entity\Address#formId=address</option>
         <option key="view">views/address_book_edit.php</option>
         <option key="view:error">redirect://address_book</option>
         <option key="view:success">redirect://address_book</option>
@@ -215,7 +215,7 @@
 
     <route id="checkout_shipping_address" pattern="/checkout/shipping/address">
         <default key="_controller">ZenMagick\apps\storefront\Controller\CheckoutAddressController::process</default>
-        <option key="form">ZMAddress#formId=shippingAddress</option>
+        <option key="form">ZenMagick\StoreBundle\Entity\Address#formId=shippingAddress</option>
         <option key="view">redirect://checkout_shipping</option>
     </route>
 
@@ -227,7 +227,7 @@
 
     <route id="checkout_payment_address" pattern="/checkout/billing/address">
         <default key="_controller">ZenMagick\apps\storefront\Controller\CheckoutAddressController::process</default>
-        <option key="form">ZMAddress#formId=billingAddress</option>
+        <option key="form">ZenMagick\StoreBundle\Entity\Address#formId=billingAddress</option>
         <option key="view">redirect://checkout_payment</option>
     </route>
 

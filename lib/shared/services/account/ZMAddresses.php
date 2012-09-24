@@ -33,7 +33,7 @@ class ZMAddresses extends ZMObject {
      *
      * @param int addressId The address id.
      * @param int accountId Optional account id to make it easy to verify access; default is <code>null</code>.
-     * @return ZMAddress The address or <code>null</code>.
+     * @return ZenMagick\StoreBundle\Entity\Address The address or <code>null</code>.
      */
     public function getAddressForId($addressId, $accountId=null) {
         $sql = "SELECT *
@@ -42,7 +42,7 @@ class ZMAddresses extends ZMObject {
         if (null !== $accountId) {
             $sql .= " AND customers_id = :accountId";
         }
-        $address = ZMRuntime::getDatabase()->querySingle($sql, array('id' => $addressId, 'accountId' => $accountId), 'address_book', 'ZMAddress');
+        $address = ZMRuntime::getDatabase()->querySingle($sql, array('id' => $addressId, 'accountId' => $accountId), 'address_book', 'ZenMagick\StoreBundle\Entity\Address');
         if (null != $address) {
             $defaultAddressId = $this->getDefaultAddressId($address->getAccountId());
             $address->setPrimary($address->getId() == $defaultAddressId);
@@ -56,13 +56,13 @@ class ZMAddresses extends ZMObject {
      * Get all addresses for the given account id.
      *
      * @param int accountId The account id.
-     * @return array A list of <code>ZMAddress</code> instances.
+     * @return array A list of <code>ZenMagick\StoreBundle\Entity\Address</code> instances.
      */
     public function getAddressesForAccountId($accountId) {
         $sql = "SELECT *
                 FROM %table.address_book%
                 WHERE customers_id = :accountId";
-        $addresses = ZMRuntime::getDatabase()->fetchAll($sql, array('accountId' => $accountId), 'address_book', 'ZMAddress');
+        $addresses = ZMRuntime::getDatabase()->fetchAll($sql, array('accountId' => $accountId), 'address_book', 'ZenMagick\StoreBundle\Entity\Address');
 
         $defaultAddressId = $this->getDefaultAddressId($accountId);
         foreach ($addresses as $address) {
@@ -76,8 +76,8 @@ class ZMAddresses extends ZMObject {
     /**
      * Update the given address.
      *
-     * @param ZMAddress account The address.
-     * @return ZMAddress The updated address.
+     * @param ZenMagick\StoreBundle\Entity\Address account The address.
+     * @return ZenMagick\StoreBundle\Entity\Address The updated address.
      */
     public function updateAddress($address) {
         return ZMRuntime::getDatabase()->updateModel('address_book', $address);
@@ -87,8 +87,8 @@ class ZMAddresses extends ZMObject {
     /**
      * Create a new address.
      *
-     * @param ZMAddress The new address.
-     * @return ZMAddress The created address incl. the new address id.
+     * @param ZenMagick\StoreBundle\Entity\Address The new address.
+     * @return ZenMagick\StoreBundle\Entity\Address The created address incl. the new address id.
      */
     public function createAddress($address) {
         return ZMRuntime::getDatabase()->createModel('address_book', $address);

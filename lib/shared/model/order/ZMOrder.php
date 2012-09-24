@@ -159,7 +159,7 @@ class ZMOrder extends ZMObject {
      * Create address instance.
      */
     private function mkAddress($prefix) {
-        $address = Beans::getBean('ZMAddress');
+        $address = Beans::getBean('ZenMagick\StoreBundle\Entity\Address');
         $address->setAddressId(0);
         // orders has only name, not first/last...
         $address->setLastName($this->get($prefix.'_name'));
@@ -197,7 +197,7 @@ class ZMOrder extends ZMObject {
     /**
      * Get the shipping address.
      *
-     * @return ZMAddress The shipping address or <code>null</code>.
+     * @return ZenMagick\StoreBundle\Entity\Address The shipping address or <code>null</code>.
      */
     public function getShippingAddress() {
         if (null === $this->shippingAddress_) {
@@ -209,7 +209,7 @@ class ZMOrder extends ZMObject {
     /**
      * Set the shipping address.
      *
-     * @param ZMAddress address The shipping address.
+     * @param ZenMagick\StoreBundle\Entity\Address address The shipping address.
      */
     public function setShippingAddress($address) {
         $this->shippingAddress_ = $address;
@@ -219,7 +219,7 @@ class ZMOrder extends ZMObject {
     /**
      * Get the billing address.
      *
-     * @return ZMAddress The billing address or <code>null</code>.
+     * @return ZenMagick\StoreBundle\Entity\Address The billing address or <code>null</code>.
      */
     public function getBillingAddress() {
         if (null === $this->billingAddress_) {
@@ -231,7 +231,7 @@ class ZMOrder extends ZMObject {
     /**
      * Set the billing address.
      *
-     * @param ZMAddress address The billing address.
+     * @param ZenMagick\StoreBundle\Entity\Address address The billing address.
      */
     public function setBillingAddress($address) {
         $this->billingAddress_ = $address;

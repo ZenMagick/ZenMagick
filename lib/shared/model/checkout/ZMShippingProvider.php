@@ -86,7 +86,7 @@ interface ZMShippingProvider {
      *
      * @param string id The method id.
      * @param ShoppingCart shoppingCart The shopping cart.
-     * @param ZMAddress address Optional shipping address; default is <code>null</code>.
+     * @param ZenMagick\StoreBundle\Entity\Address address Optional shipping address; default is <code>null</code>.
      * @return ZMShippingMethod A shipping method or <code>null</code>.
      */
     public function getShippingMethodForId($id, ShoppingCart $shoppingCart, $address=null);
@@ -95,7 +95,7 @@ interface ZMShippingProvider {
      * Get available shipping methods for the given address.
      *
      * @param ShoppingCart shoppingCart The shopping cart.
-     * @param ZMAddress address Optional shipping address; default is <code>null</code>.
+     * @param ZenMagick\StoreBundle\Entity\Address address Optional shipping address; default is <code>null</code>.
      * @return array A list of <code>ZMShippingMethod</code> instances.
      */
     public function getShippingMethods(ShoppingCart $shoppingCart, $address=null);

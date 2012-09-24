@@ -74,7 +74,7 @@ class GoogleAnalyticsPlugin extends Plugin {
     /**
      * Get the address object to be used for order logging.
      *
-     * @return mixed Either a <code>ZMAddress</code> or <code>ZMAccound</code> instance.
+     * @return mixed Either a <code>ZenMagick\StoreBundle\Entity\Address</code> or <code>ZMAccound</code> instance.
      */
     protected function getAddress($order) {
         $address = $order->hasShippingAddress() ? $order->getShippingAddress() : $order->getBillingAddress();

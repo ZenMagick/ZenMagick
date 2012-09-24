@@ -47,7 +47,7 @@ class CheckoutGuestController extends \ZMController {
             return $this->findView('success');
         }
 
-        $address = $this->getFormData($request, 'ZMAddress', 'checkout_guest');
+        $address = $this->getFormData($request, 'ZenMagick\StoreBundle\Entity\Address', 'checkout_guest');
         $address->setPrimary(true);
         if (!$this->validate($request, 'checkout_guest')) {
             return $this->findView(null, array('guestCheckoutAddress' => $address));

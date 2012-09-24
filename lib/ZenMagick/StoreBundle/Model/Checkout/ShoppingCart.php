@@ -507,7 +507,7 @@ class ShoppingCart extends ZMObject {
     /**
      * Get the current shipping address.
      *
-     * @return ZMAddress The shipping address.
+     * @return ZenMagick\StoreBundle\Entity\Address The shipping address.
      */
     public function getShippingAddress() {
         return $this->container->get('addressService')->getAddressForId($this->session->get('sendto'));
@@ -529,7 +529,7 @@ class ShoppingCart extends ZMObject {
     /**
      * Get the selected billing address.
      *
-     * @return ZMAddress The billing address.
+     * @return ZenMagick\StoreBundle\Entity\Address The billing address.
      */
     public function getBillingAddress() {
         return $this->container->get('addressService')->getAddressForId($this->session->get('billto'));
@@ -857,7 +857,7 @@ class ShoppingCart extends ZMObject {
     /**
      * Get the tax address for this cart.
      *
-     * @return ZMAddress The tax address.
+     * @return ZenMagick\StoreBundle\Entity\Address The tax address.
      */
     public function getTaxAddress() {
         $settingsService = $this->container->get('settingsService');

@@ -152,7 +152,7 @@ class ZMShippingProviders extends ZMObject {
      * Get a list of all shipping providers for the given address.
      *
      * @param ShoppingCart shoppingCart The shopping cart.
-     * @param ZMAddress address The address.
+     * @param ZenMagick\StoreBundle\Entity\Address address The address.
      * @return array List of <code>ZMShippingProvider</code> instances.
      */
     public function getShippingProvidersForAddress(ShoppingCart $shoppingCart, $address) {

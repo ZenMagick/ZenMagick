@@ -52,12 +52,12 @@ class ZMRegistrationForm extends FormData {
     }
 
     /**
-     * Get a populated <code>ZMAddress</code> instance.
+     * Get a populated <code>ZenMagick\StoreBundle\Entity\Address</code> instance.
      *
-     * @return ZMAddress An address.
+     * @return ZenMagick\StoreBundle\Entity\Address An address.
      */
     public function getAddress() {
-        $address = Beans::getBean('ZMAddress');
+        $address = Beans::getBean('ZenMagick\StoreBundle\Entity\Address');
         $properties = $this->getProperties();
 
         // don't need these

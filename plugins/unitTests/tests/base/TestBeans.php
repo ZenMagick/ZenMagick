@@ -136,11 +136,11 @@ class TestBeans extends TestCase {
         $this->assertEqual(null, Beans::getBean('bean::null'));
 
         // test property bean
-        $bean = Beans::getBean('ZenMagick\Base\ZMObject#someBean=bean::ZMAddress');
+        $bean = Beans::getBean('ZenMagick\Base\ZMObject#someBean=bean::ZenMagick\StoreBundle\Entity\Address');
         if ($this->assertNotNull($bean) && $this->assertTrue($bean instanceof ZMObject)) {
             $someBean = $bean->getSomeBean();
             if ($this->assertNotNull($someBean)) {
-                $this->assertTrue($someBean instanceof ZMAddress);
+                $this->assertTrue($someBean instanceof \ZenMagick\StoreBundle\Entity\Address);
             }
         }
     }

@@ -71,7 +71,7 @@ class ToolboxMacro extends ToolboxTool {
      *
      * <p>If address is <code>null</code>, the localized version of <em>N/A</em> will be returned.</p>
      *
-     * @param ZMAddress address The address to format.
+     * @param ZenMagick\StoreBundle\Entity\Address address The address to format.
      * @param boolean html If <code>true</code>, format as HTML, otherwise plain text.
      * @return string A fully formatted address that, depending on the <em>html</code> flag, is either HTML or ASCII formatted.
      */

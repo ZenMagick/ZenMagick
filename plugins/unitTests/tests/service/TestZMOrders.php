@@ -81,7 +81,7 @@ class TestZMOrders extends TestCase {
     public function testChangeAddress() {
         $order = $this->container->get('orderService')->getOrderForId(1, 1);
         if (null != $order) {
-            $address = Beans::getBean('ZMAddress');
+            $address = Beans::getBean('ZenMagick\StoreBundle\Entity\Address');
             $address->setFirstName('foo');
             $address->setLastName('bar');
             $address->setCompanyName('dooh inc.');

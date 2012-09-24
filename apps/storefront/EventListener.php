@@ -49,7 +49,7 @@ class EventListener extends ZMObject {
             }
             if ('login' == $requestId && $this->container->get('settingsService')->get('isGuestCheckoutAskAddress')) {
                 if (null == $view->getVariable('guestCheckoutAddress')) {
-                    $address = Beans::getBean('ZMAddress');
+                    $address = Beans::getBean('ZenMagick\StoreBundle\Entity\Address');
                     $address->setPrimary(true);
                     $view->setVariable('guestCheckoutAddress', $address);
                 }

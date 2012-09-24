@@ -38,7 +38,7 @@ class ZenCartMock {
      * Start mocking around.
      *
      * @param ShoppingCart shoppingCart The current shopping cart.
-     * @param ZMAddress shippingAddress Optional shipping address; default is <code>null</code>.
+     * @param ZenMagick\StoreBundle\Entity\Address shippingAddress Optional shipping address; default is <code>null</code>.
      */
     public static function startMock(ShoppingCart $shoppingCart, $shippingAddress=null) {
     global $order, $shipping_weight, $shipping_quoted, $shipping_num_boxes, $total_count, $order_total_modules;

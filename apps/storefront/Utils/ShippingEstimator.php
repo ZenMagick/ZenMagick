@@ -187,7 +187,7 @@ class ShippingEstimator extends ZMObject {
     /**
      * Get current address (if any)
      *
-     * @return ZMAddress The curretn address or <code>null</code>.
+     * @return ZenMagick\StoreBundle\Entity\Address The curretn address or <code>null</code>.
      */
     function getAddress() {
         return Runtime::getContainer()->get('addressService')->getAddressForId($this->_getAddressId());

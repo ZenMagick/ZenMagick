@@ -91,7 +91,7 @@ class ZenCartCheckoutOrder extends ZMObject {
     /**
      * Address to array.
      *
-     * @param ZMAddress address The address.
+     * @param ZenMagick\StoreBundle\Entity\Address address The address.
      * @return array Address array.
      */
     protected function address2array($address) {
@@ -370,7 +370,7 @@ class ZenCartCheckoutOrder extends ZMObject {
     /**
      * Set shipping address.
      *
-     * @param ZMAddress address The shipping address.
+     * @param ZenMagick\StoreBundle\Entity\Address address The shipping address.
      */
     public function setShippingAddress($address) {
         $this->delivery = $this->address2array($address);
@@ -379,7 +379,7 @@ class ZenCartCheckoutOrder extends ZMObject {
     /**
      * Set billing address.
      *
-     * @param ZMAddress address The billing address.
+     * @param ZenMagick\StoreBundle\Entity\Address address The billing address.
      */
     public function setBillingAddress($address) {
         $this->billing = $this->address2array($address);

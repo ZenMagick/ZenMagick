@@ -35,7 +35,7 @@ class TestZMShippingProviders extends TestCase {
     public function testGetProvider() {
         $el = error_reporting(0);
         $providers = $this->container->get('shippingProviderService')->getShippingProviders(true);
-        $address = Beans::getBean('ZMAddress');
+        $address = Beans::getBean('ZenMagick\StoreBundle\Entity\Address');
         $address->setCountryId(153);
         foreach ($providers as $provider) {
             echo "provider id: ".$provider->getId().", name: ".$provider->getName()."<BR>";

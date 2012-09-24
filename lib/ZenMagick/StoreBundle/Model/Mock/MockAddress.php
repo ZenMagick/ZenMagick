@@ -20,13 +20,13 @@
 namespace ZenMagick\StoreBundle\Model\Mock;
 
 use ZenMagick\Base\Runtime;
-
+use ZenMagick\StoreBundle\Entity\Address;
 /**
  * Mock address.
  *
  * @author DerManoMann
  */
-class MockAddress extends \ZMAddress {
+class MockAddress extends Address {
 
     /**
      * Create new instance.

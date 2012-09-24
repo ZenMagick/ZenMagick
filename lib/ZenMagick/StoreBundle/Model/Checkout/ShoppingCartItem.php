@@ -141,7 +141,7 @@ class ShoppingCartItem extends ZMObject {
     /**
      * Get the tax rate for this item.
      *
-     * @param ZMAddress address Optional tax address; default is <code>null</code> to default to the shopping cart tax address.
+     * @param ZenMagick\StoreBundle\Entity\Address address Optional tax address; default is <code>null</code> to default to the shopping cart tax address.
      * @return TaxRate The tax rate or <code>null</code>.
      */
     public function getTaxRate($address=null) {
@@ -154,7 +154,7 @@ class ShoppingCartItem extends ZMObject {
     /**
      * Get all tax rates for this item.
      *
-     * @param ZMAddress address Optional tax address; default is <code>null</code> to default to the shopping cart tax address.
+     * @param ZenMagick\StoreBundle\Entity\Address address Optional tax address; default is <code>null</code> to default to the shopping cart tax address.
      * @return array List of <code>TaxRate</code> instances.
      */
     public function getTaxRates($address=null) {
