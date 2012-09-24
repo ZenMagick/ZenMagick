@@ -20,7 +20,6 @@
 namespace ZenMagick\ZenMagickBundle\DependencyInjection\Loader;
 
 use Symfony\Component\Yaml\Yaml;
-use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
 
 /**
  * Yaml loader for context dependent container configuration.

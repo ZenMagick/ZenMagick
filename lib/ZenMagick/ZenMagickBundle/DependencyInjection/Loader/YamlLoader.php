@@ -32,7 +32,7 @@ use Symfony\Component\Config\FileLocator;
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class YamlLoader extends \Symfony\Component\DependencyInjection\Loader\YamlFileLoader {
+class YamlLoader extends YamlFileLoader {
 
     /**
      * {@inheritDoc}
