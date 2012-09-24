@@ -21,7 +21,7 @@ namespace ZenMagick\StoreBundle\Themes;
 
 use ZenMagick\Base\Runtime;
 use ZenMagick\Base\ZMObject;
-use ZenMagick\StoreBundle\Utils\ContextConfigLoader;
+use ZenMagick\Base\Utils\ContextConfigLoader;
 
 
 /**

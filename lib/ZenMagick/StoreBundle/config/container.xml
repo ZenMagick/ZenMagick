@@ -233,19 +233,6 @@
             </call>
         </service>
 
-        <service id="contextConfigLoader" class="ZenMagick\StoreBundle\Utils\ContextConfigLoader" scope="prototype">
-            <call method="setContext">
-                <argument>%kernel.context%</argument>
-            </call>
-            <call method="setSettingsService">
-                <argument type="service" id="settingsService" />
-            </call>
-            <call method="setContainer">
-                <argument type="service" id="service_container" />
-            </call>
-
-        </service>
-
         <service id="defaultStoreBlockProvider" class="ZenMagick\StoreBundle\Widgets\StoreBlockProvider">
             <tag name="zenmagick.http.blocks.provider" />
         </service>

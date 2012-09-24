@@ -32,15 +32,6 @@
             <argument>%pdo.db_options%</argument>
         </service>
 
-        <service id="contextConfigLoader" class="ZenMagick\Http\Utils\ContextConfigLoader" scope="prototype">
-            <call method="setContext">
-                <argument>%kernel.context%</argument>
-            </call>
-            <call method="setSettingsService">
-                <argument type="service" id="settingsService" />
-            </call>
-        </service>
-
         <service id="sacsManager" class="ZenMagick\Http\Sacs\SacsManager">
             <argument type="service" id="service_container" />
             <call method="load">

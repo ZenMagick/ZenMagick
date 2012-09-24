@@ -39,6 +39,9 @@ class ContextConfigLoader extends ZMObject {
     private $context;
     private $classLoader;
 
+    private static $menus = array();
+    // collect all loaded routings to be processed later
+    private static $routing = array();
 
     /**
      * Create new instance.
@@ -172,6 +175,16 @@ class ContextConfigLoader extends ZMObject {
                 //Runtime::getLogging()->warn('skipping container config - container is frozen');
             }
         }
+
+        if (array_key_exists('routing', $config) && is_array($config['routing'])) {
+            // keep for later
+            self::$routing[] = $config['routing'];
+        }
+
+        if (array_key_exists('menu', $config) && is_array($config['menu'])) {
+            self::$menus[] = $config['menu'];
+        }
+
     }
 
     /**
@@ -205,4 +218,18 @@ class ContextConfigLoader extends ZMObject {
             }
         }
     }
+
+    public function getMenus() {
+        return self::$menus;
+    }
+
+    /**
+     * Get additional routing maps.
+     *
+     * @return array List of routing maps.
+     */
+    public function getRouting() {
+        return self::$routing;
+    }
+
 }

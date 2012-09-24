@@ -20,7 +20,7 @@
 
 namespace ZenMagick\ZenMagickBundle\Routing\Loader;
 
-use ZenMagick\Http\Utils\ContextConfigLoader;
+use ZenMagick\Base\Utils\ContextConfigLoader;
 use Symfony\Component\Config\Loader\LoaderInterface;
 use Symfony\Component\Config\Loader\LoaderResolverInterface;
 use Symfony\Component\Routing\Route;
@@ -31,7 +31,7 @@ class ContextLoader implements LoaderInterface
     private $loaded = false;
     protected $contextConfigLoader;
 
-    public function __construct(ContextConfigLoader$contextConfigLoader) {
+    public function __construct(ContextConfigLoader $contextConfigLoader) {
         $this->contextConfigLoader = $contextConfigLoader;
     }
 
