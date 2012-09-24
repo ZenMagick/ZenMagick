@@ -45,7 +45,7 @@ class ConfigGroup extends ZMObject {
     /**
      * @var string $name
      *
-     * @ORM\Column(name="configuration_group_title", type="string", length=64, nullable=false)
+     * @ORM\Column(name="configuration_group_title", type="string", length=64, unique=true, nullable=false)
      */
     private $name;
     /**
