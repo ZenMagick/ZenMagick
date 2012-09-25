@@ -70,8 +70,23 @@ class AdminUser extends ZMObject implements UserRoleCredentials {
      */
     private $live;
 
+    // @todo use adminRoles!
     private $roles;
 
+    /**
+     * @var \Doctrine\Common\Collections\ArrayCollection
+     *
+     * @ORM\ManyToMany(targetEntity="AdminRole", inversedBy="admin")
+     * @ORM\JoinTable(name="admins_to_roles",
+     *   joinColumns={
+     *     @ORM\JoinColumn(name="admin_id", referencedColumnName="admin_id")
+     *   },
+     *   inverseJoinColumns={
+     *     @ORM\JoinColumn(name="admin_role_id", referencedColumnName="admin_role_id")
+     *   }
+     * )
+     */
+    private $adminRole;
 
     /**
      * Create new user.
@@ -84,6 +99,7 @@ class AdminUser extends ZMObject implements UserRoleCredentials {
         $this->password = null;
         $this->live = false;
         $this->roles = array();
+        $this->adminRole = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     /**
