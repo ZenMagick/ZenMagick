@@ -30,7 +30,7 @@ use Doctrine\ORM\Mapping as ORM;
  * })
  * @ORM\Entity
  */
-class Paypal {
+class PaypalTesting {
     /**
      * @var integer $ipnId
      *
