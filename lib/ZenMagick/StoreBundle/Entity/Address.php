@@ -31,7 +31,10 @@ use Doctrine\ORM\Mapping as ORM;
  * value and zoneId is the state selected from a dropdown.</p>
  *
  * @author DerManoMann
- * @ORM\Table(name="address_book")
+ * @ORM\Table(name="address_book",
+ *    indexes={
+ *     @ORM\Index(name="idx_address_book_customers_id_zen", columns={"customers_id"})
+ * })
  * @ORM\Entity
  */
 class Address extends ZMObject {

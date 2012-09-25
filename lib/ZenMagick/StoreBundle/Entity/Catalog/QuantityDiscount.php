@@ -19,6 +19,8 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
+namespace ZenMagick\StoreBundle\Entity\Catalog;
+
 use ZenMagick\Base\ZMObject;
 
 use Doctrine\ORM\Mapping AS ORM;
@@ -27,11 +29,13 @@ use Doctrine\ORM\Mapping AS ORM;
  * A quantity discount.
  *
  * @author DerManoMann
- * @package zenmagick.store.shared.model.catalog
- * @ORM\Table(name="products_discount_quantity")
+ * @ORM\Table(name="products_discount_quantity",
+ *   indexes={
+ *     @ORM\Index(name="idx_id_qty_zen", columns={"products_id", "discount_qty"})
+ * })
  * @ORM\Entity
  */
-class ZMQuantityDiscount extends ZMObject {
+class QuantityDiscount extends ZMObject {
     /**
      * @var integer $productId
      *
@@ -51,13 +55,15 @@ class ZMQuantityDiscount extends ZMObject {
     /**
      * @var float $quantity
      *
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="NONE")
      * @ORM\Column(name="discount_qty", type="float", nullable=false)
      */
     private $quantity;
     /**
      * @var decimal $value
      *
-     * @ORM\Column(name="discount_price", type="decimal", nullable=false)
+     * @ORM\Column(name="discount_price", type="decimal", precision=15, scale=4, nullable=false)
      */
     private $value;
     private $price;
