@@ -355,7 +355,7 @@ class ZMOrder extends ZMObject {
     /**
      * Get downloads.
      *
-     * @return array List of <code>ZMDownload</code> instances.
+     * @return array List of <code>ZenMagick\StoreBundle\Entity\Order\Download</code> instances.
      */
     public function getDownloads() {
         return $this->container->get('orderService')->getDownloadsForOrderId($this->getId());

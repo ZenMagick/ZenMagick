@@ -19,24 +19,77 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
+namespace ZenMagick\StoreBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
 use ZenMagick\Base\Runtime;
 use ZenMagick\Base\ZMObject;
 
 /**
  * A single download.
  *
+ * @ORM\Table(name="orders_products_download",
+ *  indexes={
+ *      @ORM\Index(name="idx_orders_id_zen", columns={"orders_id"}),
+ *      @ORM\Index(name="idx_orders_products_id_zen", columns={"orders_products_id"}),
+ *  })
+ * @ORM\Entity
  * @author DerManoMann
- * @package zenmagick.store.shared.model.order
  */
-class ZMDownload extends ZMObject {
+class Download extends ZMObject {
+    /**
+     * @var integer $id
+     *
+     * @ORM\Column(name="orders_products_download_id", type="integer", nullable=false)
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="IDENTITY")
+     */
     private $id;
+
+    /**
+     * @var integer $orderId
+     *
+     * @ORM\Column(name="orders_id", type="integer", nullable=false)
+     */
     private $orderId;
+
+    /**
+     * @var integer $orderItemId
+     *
+     * @ORM\Column(name="orders_products_id", type="integer", nullable=false)
+     */
     private $orderItemId;
-    private $productId;
-    private $orderDate;
-    private $maxDays;
+
+    /**
+     * @var string $filename
+     *
+     * @ORM\Column(name="orders_products_filename", type="string", length=255, nullable=false)
+     */
     private $filename;
+
+    /**
+     * @var integer $maxDays
+     *
+     * @ORM\Column(name="download_maxdays", type="smallint", nullable=false)
+     */
+    private $maxDays;
+
+    /**
+     * @var integer $downloadCount
+     *
+     * @ORM\Column(name="download_count", type="integer", nullable=false)
+     */
     private $downloadCount;
+
+    /**
+     * @var string $productId
+     *
+     * @ORM\Column(name="products_prid", type="text", nullable=false)
+     */
+    private $productId;
+
+    private $orderDate;
+
     private $status;
 
 
@@ -184,7 +237,7 @@ class ZMDownload extends ZMObject {
      * @return boolean <code>true</code> if this download is expired.
      */
     public function isExpired() {
-        $now = new DateTime();
+        $now = new \DateTime();
         $snow = $now->format('d-m-Y');
         $sexpiry = $this->getExpiryDate()->format('d-m-Y');
         return $snow > $sexpiry;

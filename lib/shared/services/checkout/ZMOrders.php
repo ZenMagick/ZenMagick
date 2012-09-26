@@ -306,7 +306,7 @@ class ZMOrders extends ZMObject implements SqlAware {
      *
      * @param int orderId The order id.
      * @param array orderStatusList Optional array of order stati to check; default is null to use the configured range, (empty array will load all).
-     * @return array A list of <code>ZMDownload</code> instances.
+     * @return array A list of <code>ZenMagick\StoreBundle\Entity\Order\Download</code> instances.
      */
     public function getDownloadsForOrderId($orderId, $orderStatusList=null) {
         if (null === $orderStatusList) {
@@ -324,7 +324,7 @@ class ZMOrders extends ZMObject implements SqlAware {
         }
 
         $mapping = array('orders_products_download', 'orders_products', 'orders');
-        return ZMRuntime::getDatabase()->fetchAll($sql, array('orderId' => $orderId, 'orderStatusId' => $orderStatusList), $mapping, 'ZMDownload');
+        return ZMRuntime::getDatabase()->fetchAll($sql, array('orderId' => $orderId, 'orderStatusId' => $orderStatusList), $mapping, 'ZenMagick\StoreBundle\Entity\Order\Download');
     }
 
     /**
