@@ -624,7 +624,7 @@ class Order extends ZMObject {
     /**
      * Get the order items.
      *
-     * @return array A list of <code>ZMOrderItem<code> instances.
+     * @return array A list of <code>ZenMagick\StoreBundle\Entity\Order\OrderItem<code> instances.
      */
     public function getOrderItems() {
         return $this->container->get('orderService')->getOrderItems($this->getId());

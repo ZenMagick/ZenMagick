@@ -19,13 +19,13 @@
  */
 namespace ZenMagick\StoreBundle\Model\Mock;
 
-
+use ZenMagick\StoreBundle\Entity\Order\OrderItem;
 /**
  * Mock order item.
  *
  * @author DerManoMann
  */
-class MockOrderItem extends \ZMOrderItem {
+class MockOrderItem extends OrderItem {
     private $index_;
 
 

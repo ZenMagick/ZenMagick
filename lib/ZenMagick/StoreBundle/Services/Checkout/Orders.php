@@ -205,7 +205,7 @@ class Orders extends ZMObject implements SqlAware {
      * Get order items.
      *
      * @param int orderId The order id.
-     * @return array List of <code>ZMOrderItem</code> instances.
+     * @return array List of <code>ZenMagick\StoreBundle\Entity\Order\OrderItem</code> instances.
      */
     public function getOrderItems($orderId) {
         $sql = "SELECT *
@@ -214,7 +214,7 @@ class Orders extends ZMObject implements SqlAware {
                 ORDER BY orders_products_id";
         $items = array();
         $attributes = array();
-        foreach (ZMRuntime::getDatabase()->fetchAll($sql, array('orderId' => $orderId), 'orders_products', 'ZMOrderItem') as $item) {
+        foreach (ZMRuntime::getDatabase()->fetchAll($sql, array('orderId' => $orderId), 'orders_products', 'ZenMagick\StoreBundle\Entity\Order\OrderItem') as $item) {
             // lookup selected attributes as well
             $sql = "SELECT *
                     FROM %table.orders_products_attributes%

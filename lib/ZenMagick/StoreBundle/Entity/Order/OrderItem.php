@@ -18,6 +18,8 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
+namespace ZenMagick\StoreBundle\Entity\Order;
+
 use ZenMagick\Base\Beans;
 use ZenMagick\Base\ZMObject;
 
@@ -25,16 +27,15 @@ use ZenMagick\Base\ZMObject;
  * A single order item
  *
  * @author DerManoMann
- * @package zenmagick.store.shared.model.order
  */
-class ZMOrderItem extends ZMObject {
-    private $productId_;
-    private $qty_;
-    private $name_;
-    private $model_;
-    private $taxRate_;
-    private $calculatedPrice_;
-    private $attributes_;
+class OrderItem extends ZMObject {
+    private $productId;
+    private $qty;
+    private $name;
+    private $model;
+    private $taxRate;
+    private $calculatedPrice;
+    private $attributes;
 
 
     /**
@@ -42,8 +43,8 @@ class ZMOrderItem extends ZMObject {
      */
     public function __construct() {
         parent::__construct();
-        $this->taxRate_ = null;
-        $this->attributes_ = array();
+        $this->taxRate = null;
+        $this->attributes = array();
     }
 
 
@@ -59,7 +60,7 @@ class ZMOrderItem extends ZMObject {
      *
      * @return int The order item product id.
      */
-    public function getProductId() { return $this->productId_; }
+    public function getProductId() { return $this->productId; }
 
     /**
      * Get the product this item is associated to.
@@ -75,21 +76,21 @@ class ZMOrderItem extends ZMObject {
      *
      * @return int The quantity for this item.
      */
-    public function getQuantity() { return $this->qty_; }
+    public function getQuantity() { return $this->qty; }
 
     /**
      * Get the item name.
      *
      * @return string The item name.
      */
-    public function getName() { return $this->name_; }
+    public function getName() { return $this->name; }
 
     /**
      * Get the model.
      *
      * @return string The item model.
      */
-    public function getModel() { return $this->model_; }
+    public function getModel() { return $this->model; }
 
     /**
      * Get the tax rate.
@@ -97,12 +98,12 @@ class ZMOrderItem extends ZMObject {
      * @return float The tax rate.
      */
     public function getTaxRate() {
-        if (null == $this->taxRate_) {
-            $this->taxRate_ = Beans::getBean('ZenMagick\StoreBundle\Entity\TaxRate');
-            $this->taxRate_->setRate($this->get('taxValue'));
+        if (null == $this->taxRate) {
+            $this->taxRate = Beans::getBean('ZenMagick\StoreBundle\Entity\TaxRate');
+            $this->taxRate->setRate($this->get('taxValue'));
         }
 
-        return $this->taxRate_;
+        return $this->taxRate;
     }
 
     /**
@@ -112,7 +113,7 @@ class ZMOrderItem extends ZMObject {
      * @return float The calculated price.
      */
     public function getCalculatedPrice($tax=true) {
-        return $tax ? $this->getTaxRate()->addTax($this->calculatedPrice_) : $this->calculatedPrice_;
+        return $tax ? $this->getTaxRate()->addTax($this->calculatedPrice) : $this->calculatedPrice;
     }
 
     /**
@@ -120,14 +121,14 @@ class ZMOrderItem extends ZMObject {
      *
      * @return boolean </code>true</code> if attributes exist, <code>false</code> if not.
      */
-    public function hasAttributes() { return 0 < count($this->attributes_); }
+    public function hasAttributes() { return 0 < count($this->attributes); }
 
     /**
      * Get the item attributes.
      *
      * @return array A list of <code>ZMAttribute</code> instances.
      */
-    public function getAttributes() { return $this->attributes_; }
+    public function getAttributes() { return $this->attributes; }
 
     /**
      * Set the order item id.
@@ -141,55 +142,55 @@ class ZMOrderItem extends ZMObject {
      *
      * @param int productId The order item product id.
      */
-    public function setProductId($productId) { $this->productId_ = $productId; }
+    public function setProductId($productId) { $this->productId = $productId; }
 
     /**
      * Set the quantity.
      *
      * @param int qty The quantity for this item.
      */
-    public function setQty($qty) { $this->qty_ = $qty; }
+    public function setQty($qty) { $this->qty = $qty; }
 
     /**
      * Set the item name.
      *
      * @param string name The item name.
      */
-    public function setName($name) { $this->name_ = $name; }
+    public function setName($name) { $this->name = $name; }
 
     /**
      * Set the model.
      *
      * @param string model The item model.
      */
-    public function setModel($model) { $this->model_ = $model; }
+    public function setModel($model) { $this->model = $model; }
 
     /**
      * Set the tax rate.
      *
      * @param float taxRate The tax rate.
      */
-    public function setTaxRate($taxRate) { $this->taxRate_ = $taxRate; }
+    public function setTaxRate($taxRate) { $this->taxRate = $taxRate; }
 
     /**
      * Set the calculated price.
      *
      * @param float price The calculated price.
      */
-    public function setCalculatedPrice($price) { $this->calculatedPrice_ = $price; }
+    public function setCalculatedPrice($price) { $this->calculatedPrice = $price; }
 
     /**
      * Add an item attribute.
      *
      * @param ZMAttribute attribute A <code>ZMAttribute</code>.
      */
-    public function addAttribute($attribute) { $this->attributes_[] = $attribute; }
+    public function addAttribute($attribute) { $this->attributes[] = $attribute; }
 
     /**
      * Set item attributes.
      *
      * @param array attributes A list of <code>ZMAttribute</code> instances.
      */
-    public function setAttributes($attributes) { $this->attributes_ = $attributes; }
+    public function setAttributes($attributes) { $this->attributes = $attributes; }
 
 }
