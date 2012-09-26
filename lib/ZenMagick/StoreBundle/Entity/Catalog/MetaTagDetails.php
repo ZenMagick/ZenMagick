@@ -19,18 +19,19 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
+namespace ZenMagick\StoreBundle\Entity\Catalog;
+
 use ZenMagick\Base\ZMObject;
 
 /**
  * Meta tag details.
  *
  * @author DerManoMann
- * @package zenmagick.store.shared.model.catalog
  */
-class ZMMetaTagDetails extends ZMObject {
-    private $title_;
-    private $keywords_;
-    private $description_;
+class MetaTagDetails extends ZMObject {
+    private $title;
+    private $keywords;
+    private $description;
 
 
     /**
@@ -38,41 +39,41 @@ class ZMMetaTagDetails extends ZMObject {
      *
      * @return string The title.
      */
-    public function getTitle() { return $this->title_; }
+    public function getTitle() { return $this->title; }
 
     /**
      * Get the keywords.
      *
      * @return string The keywords.
      */
-    public function getKeywords() { return $this->keywords_; }
+    public function getKeywords() { return $this->keywords; }
 
     /**
      * Get the description.
      *
      * @return string The description.
      */
-    public function getDescription() { return $this->description_; }
+    public function getDescription() { return $this->description; }
 
     /**
      * Set the title.
      *
      * @param string title The title.
      */
-    public function setTitle($title) { $this->title_ = $title; }
+    public function setTitle($title) { $this->title = $title; }
 
     /**
      * Set the keywords.
      *
      * @param string keywords The keywords.
      */
-    public function setKeywords($keywords) { $this->keywords_ = $keywords; }
+    public function setKeywords($keywords) { $this->keywords = $keywords; }
 
     /**
      * Set the description.
      *
      * @param string description The description.
      */
-    public function setDescription($description) { $this->description_ = $description; }
+    public function setDescription($description) { $this->description = $description; }
 
 }

@@ -295,7 +295,7 @@ class ZMCategory extends ZMObject {
      * Get meta tag details if available.
      *
      * @param int languageId The language id.
-     * @return ZMMetaTagDetails The details or <code>null</code>.
+     * @return ZenMagick\StoreBundle\Entity\Catalog\MetaTagDetails The details or <code>null</code>.
      */
     public function getMetaTagDetails($languageId) {
         return $this->container->get('categoryService')->getMetaTagDetailsForId($this->getId(), $languageId);

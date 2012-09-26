@@ -711,14 +711,14 @@ class ZMProducts extends ZMObject implements SqlAware {
      *
      * @param int productId The product id.
      * @param int languageId Language id.
-     * @return ZMMetaTagDetails The details or <code>null</code>.
+     * @return ZenMagick\StoreBundle\Entity\Catalog\MetaTagDetails The details or <code>null</code>.
      */
     public function getMetaTagDetailsForId($productId, $languageId) {
         $sql = "SELECT * from %table.meta_tags_products_description%
                 WHERE products_id = :productId
                   AND language_id = :languageId";
         $args = array('productId' => $productId, 'languageId' => $languageId);
-        return ZMRuntime::getDatabase()->querySingle($sql, $args, 'meta_tags_products_description', 'ZMMetaTagDetails');
+        return ZMRuntime::getDatabase()->querySingle($sql, $args, 'meta_tags_products_description', 'ZenMagick\StoreBundle\Entity\Catalog\MetaTagDetails');
     }
 
     /**

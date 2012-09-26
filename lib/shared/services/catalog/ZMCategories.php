@@ -419,14 +419,14 @@ class ZMCategories extends ZMObject {
      *
      * @param int categoryId The category id.
      * @param int languageId Language id.
-     * @return ZMMetaTagDetails The details or <code>null</code>.
+     * @return ZenMagick\StoreBundle\Entity\Catalog\MetaTagDetails The details or <code>null</code>.
      */
     public function getMetaTagDetailsForId($categoryId, $languageId) {
         $sql = "SELECT * from %table.meta_tags_categories_description%
                 WHERE categories_id = :categoryId
                   AND language_id = :languageId";
         $args = array('categoryId' => $categoryId, 'languageId' => $languageId);
-        return ZMRuntime::getDatabase()->querySingle($sql, $args, 'meta_tags_categories_description', 'ZMMetaTagDetails');
+        return ZMRuntime::getDatabase()->querySingle($sql, $args, 'meta_tags_categories_description', 'ZenMagick\StoreBundle\Entity\Catalog\MetaTagDetails');
     }
 
 }

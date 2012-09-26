@@ -1085,7 +1085,7 @@ class Product extends ZMObject {
      * Get meta tag details if available.
      *
      * @param int languageId Optional language id; default is <code>null</code> to use the current language id of this instance.
-     * @return ZMMetaTagDetails The details or <code>null</code>.
+     * @return ZenMagick\StoreBundle\Entity\Catalog\MetaTagDetails The details or <code>null</code>.
      */
     public function getMetaTagDetails($languageId=null) {
         return $this->container->get('productService')->getMetaTagDetailsForId($this->getId(), null != $languageId ? $languageId : $this->getLanguageId());
