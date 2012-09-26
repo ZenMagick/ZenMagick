@@ -20,21 +20,130 @@
 
 namespace ZenMagick\StoreBundle\Entity\Order;
 
+use Doctrine\ORM\Mapping as ORM;
 use ZenMagick\Base\Beans;
 use ZenMagick\Base\ZMObject;
 
 /**
  * A single order item
  *
+ * @ORM\Table(name="orders_products",
+ *  indexes={
+ *      @ORM\Index(name="idx_orders_id_prod_id_zen", columns={"orders_id", "products_id"}),
+ *      @ORM\Index(name="idx_prod_id_orders_id_zen", columns={"products_id", "orders_id"}),
+ *  })
+ * @ORM\Entity
  * @author DerManoMann
  */
 class OrderItem extends ZMObject {
+    /**
+     * @var integer $orderItemId
+     *
+     * @ORM\Column(name="orders_products_id", type="integer", nullable=false)
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="IDENTITY")
+     */
+    private $orderItemId;
+
+    /**
+     * @var integer $orderId
+     *
+     * @ORM\Column(name="orders_id", type="integer", nullable=false)
+     */
+    private $orderId;
+
+    /**
+     * @var integer $productId
+     *
+     * @ORM\Column(name="products_id", type="integer", nullable=false)
+     */
     private $productId;
-    private $qty;
-    private $name;
+
+    /**
+     * @var string $model
+     *
+     * @ORM\Column(name="products_model", type="string", length=32, nullable=true)
+     */
     private $model;
-    private $taxRate;
+
+    /**
+     * @var string $name
+     *
+     * @ORM\Column(name="products_name", type="string", length=64, nullable=false)
+     */
+    private $name;
+
+    /**
+     * @var float $productPrice
+     *
+     * @ORM\Column(name="products_price", type="decimal", precision=15, scale=4, nullable=false)
+     */
+    private $productPrice;
+
+    /**
+     * @var float $calculatedPrice
+     *
+     * @ORM\Column(name="final_price", type="decimal", precision=15, scale=4, nullable=false)
+     */
     private $calculatedPrice;
+
+    /**
+     * @var float $taxValue
+     *
+     * @ORM\Column(name="products_tax", type="decimal", precision=7, scale=4, nullable=false)
+     */
+    private $taxValue;
+
+    /**
+     * @var float $qty
+     *
+     * @ORM\Column(name="products_quantity", type="float", nullable=false)
+     */
+    private $qty;
+
+   /**
+     * @var float $oneTimeCharges
+     *
+     * @ORM\Column(name="onetime_charges", type="decimal", precision=15, scale=4, nullable=false)
+     */
+    private $oneTimeCharges;
+
+    /**
+     * @var boolean $pricedByAttribute
+     *
+     * @ORM\Column(name="products_priced_by_attribute", type="boolean", nullable=false)
+     */
+    private $pricedByAttribute;
+
+    /**
+     * @var boolean $free
+     *
+     * @ORM\Column(name="product_is_free", type="boolean", nullable=false)
+     */
+    private $free;
+
+    /**
+     * @var boolean $discountType
+     *
+     * @ORM\Column(name="products_discount_type", type="smallint", nullable=false)
+     */
+    private $discountType;
+
+    /**
+     * @var boolean $discountTypeFrom
+     *
+     * @ORM\Column(name="products_discount_type_from", type="smallint", nullable=false)
+     */
+    private $discountTypeFrom;
+
+    /**
+     * @var string $sku
+     *
+     * @ORM\Column(name="products_prid", type="text", nullable=false)
+     */
+    private $sku;
+
+    private $taxRate;
     private $attributes;
 
 
@@ -53,7 +162,7 @@ class OrderItem extends ZMObject {
      *
      * @return int The order item id.
      */
-    public function getId() { return $this->get('orderItemId'); }
+    public function getId() { return $this->orderItemId; }
 
     /**
      * Get the order item product id.
@@ -135,7 +244,7 @@ class OrderItem extends ZMObject {
      *
      * @param int id The order item id.
      */
-    public function setId($id) { $this->set('orderItemId', $id); }
+    public function setId($id) { $this->orderItemId = $id; }
 
     /**
      * Set the order item product id.
