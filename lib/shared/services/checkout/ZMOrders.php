@@ -173,7 +173,7 @@ class ZMOrders extends ZMObject implements SqlAware {
      *
      * @param int orderId The order id.
      * @param int languageId Language id.
-     * @return array List of <code>ZMOrderStatus</code> instances.
+     * @return array List of <code>ZenMagick\StoreBundle\Entity\Order\OrderStatusHistory</code> instances.
      */
     public function getOrderStatusHistoryForId($orderId, $languageId) {
         $sql = "SELECT os.orders_status_name, osh.*
@@ -183,14 +183,14 @@ class ZMOrders extends ZMObject implements SqlAware {
                   AND os.language_id = :languageId
                 ORDER BY osh.date_added";
         $args = array('orderId' => $orderId, 'languageId' => $languageId);
-        return ZMRuntime::getDatabase()->fetchAll($sql, $args, array('orders_status_history', 'orders_status'), 'ZMOrderStatus');
+        return ZMRuntime::getDatabase()->fetchAll($sql, $args, array('orders_status_history', 'orders_status'), 'ZenMagick\StoreBundle\Entity\Order\OrderStatusHistory');
     }
 
     /**
      * Create new order status history entry.
      *
-     * @param ZMOrderStatus orderStatus The new order status.
-     * @return ZMOrderStatus The created order status (incl id).
+     * @param ZenMagick\StoreBundle\Entity\Order\OrderStatusHistory orderStatus The new order status.
+     * @return ZenMagick\StoreBundle\Entity\Order\OrderStatusHistory The created order status (incl id).
      */
     public function createOrderStatusHistory($orderStatus) {
         if (null == $orderStatus->getDateAdded()) {
@@ -339,7 +339,7 @@ class ZMOrders extends ZMObject implements SqlAware {
                 WHERE language_id = :languageId
                 ORDER BY orders_status_id";
 
-        return ZMRuntime::getDatabase()->fetchAll($sql, array('languageId' => $languageId), 'orders_status', 'ZMOrderStatus');
+        return ZMRuntime::getDatabase()->fetchAll($sql, array('languageId' => $languageId), 'orders_status', 'ZenMagick\StoreBundle\Entity\Order\OrderStatusHistory');
     }
 
     /**

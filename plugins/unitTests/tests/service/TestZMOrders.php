@@ -153,7 +153,7 @@ class TestZMOrders extends TestCase {
             $this->assertTrue(is_array($orderStatusHistory));
             $oldCount = count($orderStatusHistory);
 
-            $newOrderStatus = Beans::getBean('ZMOrderStatus');
+            $newOrderStatus = Beans::getBean('ZenMagick\StoreBundle\Entity\Order\OrderStatusHistory');
             $newOrderStatus->setOrderId(1);
             $newOrderStatus->setOrderStatusId(2);
             $newOrderStatus = $orderService->createOrderStatusHistory($newOrderStatus);

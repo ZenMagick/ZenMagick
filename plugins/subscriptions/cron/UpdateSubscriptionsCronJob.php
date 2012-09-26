@@ -76,7 +76,7 @@ class UpdateSubscriptionsCronJob implements CronJobInterface {
 
             // 4) Create history entry if enabled
             if (Toolbox::asBoolean($plugin->get('orderHistory'))) {
-                $status = Beans::getBean('ZMOrderStatus');
+                $status = Beans::getBean('ZenMagick\StoreBundle\Entity\Order\OrderStatusHistory');
                 $status->setId($plugin->get('orderStatus'));
                 $status->setOrderId($order->getId());
                 $status->setOrderStatusId($order->getOrderStatusId());

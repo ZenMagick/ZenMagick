@@ -169,7 +169,7 @@ class SubscriptionsPlugin extends Plugin {
 
             if (Toolbox::asBoolean($this->get('subscriptionComment'))) {
                 if (null != ($order = $this->container->get('orderService')->getOrderForId($orderId, $request->getSession()->getLanguageId()))) {
-                    $status = Beans::getBean('ZMOrderStatus');
+                    $status = Beans::getBean('ZenMagick\StoreBundle\Entity\Order\OrderStatusHistory');
                     $status->setOrderStatusId($order->getOrderStatusId());
                     $status->setOrderId($order->getId());
                     $status->setCustomerNotified(false);
