@@ -21,20 +21,104 @@
 
 namespace ZenMagick\StoreBundle\Entity\Catalog;
 
+use Doctrine\ORM\Mapping as ORM;
 use ZenMagick\Base\ZMObject;
 
 /**
  * A single attribute.
  *
+ * @ORM\Table(name="products_options",
+ *  indexes={
+ *      @ORM\Index(name="idx_lang_id_zen", columns={"language_id"}),
+ *      @ORM\Index(name="idx_products_options_sort_order_zen", columns={"products_options_sort_order"}),
+ * *      @ORM\Index(name="idx_products_options_name_zen", columns={"products_options_name"}),
+ *  })
+ * @ORM\Entity
  * @author DerManoMann
  */
 class Attribute extends ZMObject {
-    //private $attributeId;
-    private $productId;
+    /**
+     * @var integer $attributeId
+     *
+     * @ORM\Column(name="products_options_id", type="integer", nullable=false)
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="NONE")
+     */
+    private $attributeId;
+
+    /**
+     * @var integer $languageId
+     *
+     * @ORM\Column(name="language_id", type="integer", nullable=false)
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="NONE")
+     */
+    private $languageId;
+
+    /**
+     * @var string $name
+     *
+     * @ORM\Column(name="products_options_name", type="string", length=32, nullable=false)
+     */
     private $name;
-    private $type;
+
+    /**
+     * @var integer $sortOrder
+     *
+     * @ORM\Column(name="products_options_sort_order", type="integer", nullable=false)
+     */
     private $sortOrder;
+
+    /**
+     * @var integer $type
+     *
+     * @ORM\Column(name="products_options_type", type="integer", nullable=false)
+     */
+    private $type;
+
+    /**
+     * @var integer $length
+     *
+     * @ORM\Column(name="products_options_length", type="smallint", nullable=false)
+     */
+    private $length;
+
+    /**
+     * @var string $comment
+     *
+     * @ORM\Column(name="products_options_comment", type="string", length=64, nullable=true)
+     */
     private $comment;
+
+    /**
+     * @var integer $size
+     *
+     * @ORM\Column(name="products_options_size", type="smallint", nullable=false)
+     */
+    private $size;
+
+    /**
+     * @var integer $imagesPerRow
+     *
+     * @ORM\Column(name="products_options_images_per_row", type="smallint", nullable=true)
+     */
+    private $imagesPerRow;
+
+    /**
+     * @var integer $imageStyle
+     *
+     * @ORM\Column(name="products_options_images_style", type="smallint", nullable=true)
+     */
+    private $imageStyle;
+
+    /**
+     * @var integer $rows
+     *
+     * @ORM\Column(name="products_options_rows", type="smallint", nullable=false)
+     */
+    private $rows;
+
+    private $productId;
     private $values;
 
 
