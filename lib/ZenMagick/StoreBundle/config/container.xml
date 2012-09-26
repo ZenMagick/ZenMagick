@@ -51,7 +51,7 @@
 
         <service id="countryService" class="ZenMagick\StoreBundle\Services\Location\CountryService" />
 
-        <service id="orderService" class="ZMOrders" />
+        <service id="orderService" class="ZenMagick\StoreBundle\Services\Checkout\Orders" />
 
         <service id="theme" class="ZenMagick\StoreBundle\Themes\Theme" scope="prototype" />
 

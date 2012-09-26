@@ -19,6 +19,9 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
+namespace ZenMagick\StoreBundle\Services\Checkout;
+
+use ZMRuntime;
 use ZenMagick\Base\Beans;
 use ZenMagick\Base\Runtime;
 use ZenMagick\Base\ZMObject;
@@ -29,9 +32,8 @@ use ZenMagick\Base\Database\SqlAware;
  * Orders.
  *
  * @author DerManoMann
- * @package zenmagick.store.shared.services.checkout
  */
-class ZMOrders extends ZMObject implements SqlAware {
+class Orders extends ZMObject implements SqlAware {
 
     /**
      * {@inheritDoc}
