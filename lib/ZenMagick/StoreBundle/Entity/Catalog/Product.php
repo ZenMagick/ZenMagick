@@ -905,7 +905,7 @@ class Product extends ZMObject {
     /**
      * Get the product attributes.
      *
-     * @return array A list of {@link org.zenmagick.model.catalog.ZMAttribute ZMAttribute} instances.
+     * @return array A list of {@link ZenMagick\StoreBundle\Entity\Catalog\Attribute} instances.
      */
     public function getAttributes() {
         if (null === $this->attributes) {

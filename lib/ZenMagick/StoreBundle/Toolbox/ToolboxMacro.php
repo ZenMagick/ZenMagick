@@ -319,7 +319,7 @@ class ToolboxMacro extends ToolboxTool {
      * Generate HTML for a <em>RADIO</em> attribute.
      *
      * @param ZenMagick\StoreBundle\Entity\Catalog\Product product The product.
-     * @param ZMAttribute attribute The attribute.
+     * @param ZenMagick\StoreBundle\Entity\Catalog\Attribute attribute The attribute.
      * @return array Attribute info plus HTML to render this attribute.
      */
     protected function productRadioAttribute($product, $attribute) {
@@ -346,7 +346,7 @@ class ToolboxMacro extends ToolboxTool {
      * Generate HTML for a <em>CHECKBOX</em> attribute.
      *
      * @param ZenMagick\StoreBundle\Entity\Catalog\Product product The product.
-     * @param ZMAttribute attribute The attribute.
+     * @param ZenMagick\StoreBundle\Entity\Catalog\Attribute attribute The attribute.
      * @return array Attribute info plus HTML to render this attribute.
      */
     protected function productCheckboxAttribute($product, $attribute) {
@@ -373,7 +373,7 @@ class ToolboxMacro extends ToolboxTool {
      * Generate HTML for a <em>TEXT</em> attribute.
      *
      * @param ZenMagick\StoreBundle\Entity\Catalog\Product product The product.
-     * @param ZMAttribute attribute The attribute.
+     * @param ZenMagick\StoreBundle\Entity\Catalog\Attribute attribute The attribute.
      * @return array Attribute info plus HTML to render this attribute.
      */
     protected function productTextAttribute($product, $attribute) {
@@ -399,7 +399,7 @@ class ToolboxMacro extends ToolboxTool {
      * Generate HTML for a <em>FILE</em> attribute.
      *
      * @param ZenMagick\StoreBundle\Entity\Catalog\Product product The product.
-     * @param ZMAttribute attribute The attribute.
+     * @param ZenMagick\StoreBundle\Entity\Catalog\Attribute attribute The attribute.
      * @return array Attribute info plus HTML to render this attribute.
      */
     protected function productUploadAttribute($product, $attribute, $uploadIndex) {
@@ -427,7 +427,7 @@ class ToolboxMacro extends ToolboxTool {
      * Generate HTML for a <em>READONLY</em> attribute.
      *
      * @param ZenMagick\StoreBundle\Entity\Catalog\Product product The product.
-     * @param ZMAttribute attribute The attribute.
+     * @param ZenMagick\StoreBundle\Entity\Catalog\Attribute attribute The attribute.
      * @return array Attribute info plus HTML to render this attribute.
      */
     protected function productReadonlyAttribute($attribute) {
@@ -447,7 +447,7 @@ class ToolboxMacro extends ToolboxTool {
      * Generate HTML for a <em>SELECT</em> attribute.
      *
      * @param ZenMagick\StoreBundle\Entity\Catalog\Product product The product.
-     * @param ZMAttribute attribute The attribute.
+     * @param ZenMagick\StoreBundle\Entity\Catalog\Attribute attribute The attribute.
      * @return array Attribute info plus HTML to render this attribute.
      */
     protected function productSelectAttribute($product, $attribute) {

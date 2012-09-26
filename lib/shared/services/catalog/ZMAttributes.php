@@ -21,6 +21,7 @@
 
 use ZenMagick\Base\Runtime;
 use ZenMagick\Base\ZMObject;
+use ZenMagick\StoreBundle\Entity\Catalog\Attribute;
 
 /**
  * Attribute service.
@@ -54,7 +55,7 @@ class ZMAttributes extends ZMObject {
                   AND po.language_id = :languageId" .
                 $attributesOrderBy;
         $args = array('productId' => $product->getId(), 'languageId' => $product->getLanguageId());
-        $attributes = ZMRuntime::getDatabase()->fetchAll($sql, $args, array('products_options', 'products_attributes'), 'ZMAttribute');
+        $attributes = ZMRuntime::getDatabase()->fetchAll($sql, $args, array('products_options', 'products_attributes'), 'ZenMagick\StoreBundle\Entity\Catalog\Attribute');
         if (0 == count($attributes)) {
             return $attributes;
         }
@@ -94,10 +95,10 @@ class ZMAttributes extends ZMObject {
     /**
      * Check if there are downloadable files for the given attribute.
      *
-     * @param ZMAttribute attribute The attribute.
+     * @param ZenMagick\StoreBundle\Entity\Catalog\Attribute attribute The attribute.
      * @return boolean <code>true</code> if, and only if, the attribute represents a downloadable file.
      */
-    public function hasDownloads(ZMAttribute $attribute) {
+    public function hasDownloads(Attribute $attribute) {
         // collect all selected values
         $attributeValueIds = array();
         foreach ($attribute->getValues() as $value) {

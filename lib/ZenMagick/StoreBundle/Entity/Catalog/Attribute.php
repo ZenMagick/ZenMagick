@@ -19,21 +19,23 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
+namespace ZenMagick\StoreBundle\Entity\Catalog;
+
 use ZenMagick\Base\ZMObject;
 
 /**
  * A single attribute.
  *
  * @author DerManoMann
- * @package zenmagick.store.shared.model.catalog
  */
-class ZMAttribute extends ZMObject {
-    private $productId_;
-    private $name_;
-    private $type_;
-    private $sortOrder_;
-    private $comment_;
-    private $values_;
+class Attribute extends ZMObject {
+    //private $attributeId;
+    private $productId;
+    private $name;
+    private $type;
+    private $sortOrder;
+    private $comment;
+    private $values;
 
 
     /**
@@ -45,116 +47,125 @@ class ZMAttribute extends ZMObject {
      */
     public function __construct($id=0, $name=null, $type=null) {
         parent::__construct();
-        $this->set('attributeId', $id);
-        $this->name_ = $name;
-        $this->type_ = $type;
-        $this->values_ = array();
+        $this->attributeId = $id;
+        $this->name = $name;
+        $this->type = $type;
+        $this->values = array();
     }
 
+    public function getAttributeId() { return $this->attributeId; }
 
     /**
      * Get the attribute id.
      *
      * @return int The attribute id.
      */
-    public function getId() { return $this->get('attributeId'); }
+    public function getId() { return $this->attributeId; }
 
     /**
      * Get the product id.
      *
      * @return int The product id.
      */
-    public function getProductId() { return $this->productId_; }
+    public function getProductId() { return $this->productId; }
 
     /**
      * Get the attribute name.
      *
      * @return string The attribute name.
      */
-    public function getName() { return $this->name_; }
+    public function getName() { return $this->name; }
 
     /**
      * Get the attribute type.
      *
      * @return string The attribute type.
      */
-    public function getType() { return $this->type_; }
+    public function getType() { return $this->type; }
 
     /**
      * Get the attribute sort order.
      *
      * @return int The attribute sort order.
      */
-    public function getSortOrder() { return $this->sortOrder_; }
+    public function getSortOrder() { return $this->sortOrder; }
 
     /**
      * Get the attribute comment.
      *
      * @return string The attribute comment.
      */
-    public function getComment() { return $this->comment_; }
+    public function getComment() { return $this->comment; }
 
     /**
      * Get the attribute values.
      *
      * @return array A list of <code>ZMAttributeValue</code> objects.
      */
-    public function getValues() { return $this->values_; }
+    public function getValues() { return $this->values; }
 
     /**
      * Set the attribute id.
      *
-     * @param int id The attribute id.
+     * @param int id the attribute id.
      */
-    public function setId($id) { $this->set('attributeId', $id); }
+    public function setAttributeId($id) { $this->attributeId = $id; }
+
+    /**
+     * Set the attribute id.
+     *
+     * @param int id the attribute id.
+     */
+    public function setId($id) { $this->attributeId = $id; }
+
 
     /**
      * Set the product id.
      *
      * @param int productId The product id.
      */
-    public function setProductId($productId) { $this->productId_ = $productId; }
+    public function setProductId($productId) { $this->productId = $productId; }
 
     /**
      * Set the attribute name.
      *
      * @param string name The attribute name.
      */
-    public function setName($name) { $this->name_ = $name; }
+    public function setName($name) { $this->name = $name; }
 
     /**
      * Set the attribute type.
      *
      * @return string The attribute type.
      */
-    public function setType($type) { $this->type_ = $type; }
+    public function setType($type) { $this->type = $type; }
 
     /**
      * Set the attribute sort order.
      *
      * @param int sortOrder The attribute sort order.
      */
-    public function setSortOrder($sortOrder) { $this->sortOrder_ = $sortOrder; }
+    public function setSortOrder($sortOrder) { $this->sortOrder = $sortOrder; }
 
     /**
      * Set the attribute comment.
      *
      * @param string comment The attribute comment.
      */
-    public function setComment($comment) { $this->comment_ = $comment; }
+    public function setComment($comment) { $this->comment = $comment; }
 
     /**
      * Add an attribute value.
      *
      * @param ZMAttributeValue value A <code>ZMAttributeValue</code>.
      */
-    public function addValue($value) { $this->values_[] = $value; }
+    public function addValue($value) { $this->values[] = $value; }
 
     /**
      * Clear all values.
      */
     public function clearValues() {
-        $this->values_ = array();
+        $this->values = array();
     }
 
     /**
@@ -163,9 +174,9 @@ class ZMAttribute extends ZMObject {
      * @param mixed value Either a <code>ZMAttributeValue</code> instance or a value id.
      */
     public function removeValue($value) {
-        for ($ii=0, $size=count($this->values_); $ii < $size; ++$ii) {
-            if ((is_object($value) && $value === $this->values_[$ii] ) || (is_numeric($value) && (int)$value == $this->values_[$ii]->getId())) {
-                array_splice($this->values_, $ii, 1);
+        for ($ii=0, $size=count($this->values); $ii < $size; ++$ii) {
+            if ((is_object($value) && $value === $this->values[$ii] ) || (is_numeric($value) && (int)$value == $this->values[$ii]->getId())) {
+                array_splice($this->values, $ii, 1);
                 break;
             }
         }

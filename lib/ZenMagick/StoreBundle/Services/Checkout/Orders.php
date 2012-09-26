@@ -223,7 +223,7 @@ class Orders extends ZMObject implements SqlAware {
             $args = array('orderId' => $orderId, 'orderItemId' => $item->getId());
             foreach (ZMRuntime::getDatabase()->fetchAll($sql, $args, 'orders_products_attributes', 'ZMAttributeValue') as $value) {
                 if (!array_key_exists($value->getAttributeId(), $attributes)) {
-                    $attribute = Beans::getBean("ZMAttribute");
+                    $attribute = Beans::getBean("ZenMagick\StoreBundle\Entity\Catalog\Attribute");
                     $attribute->setName($value->getAttributeName());
                     $attributes[$value->getAttributeId()] = $attribute;
                 }

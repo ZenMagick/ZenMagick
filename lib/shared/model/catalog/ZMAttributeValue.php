@@ -71,7 +71,7 @@ class ZMAttributeValue extends ZMObject {
     /**
      * Get the parent attribute.
      *
-     * @return ZMAttribute The attribute.
+     * @return ZenMagick\StoreBundle\Entity\Catalog\Attribute The attribute.
      */
     public function getAttribute() { return $this->attribute_; }
 
@@ -319,7 +319,7 @@ class ZMAttributeValue extends ZMObject {
     /**
      * Set the parent attribute.
      *
-     * @param ZMAttribute attribute The attribute.
+     * @param ZenMagick\StoreBundle\Entity\Catalog\Attribute attribute The attribute.
      */
     public function setAttribute($attribute ) { $this->attribute_ = $attribute; }
 

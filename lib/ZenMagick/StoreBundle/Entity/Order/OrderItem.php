@@ -235,7 +235,7 @@ class OrderItem extends ZMObject {
     /**
      * Get the item attributes.
      *
-     * @return array A list of <code>ZMAttribute</code> instances.
+     * @return array A list of <code>ZenMagick\StoreBundle\Entity\Catalog\Attribute</code> instances.
      */
     public function getAttributes() { return $this->attributes; }
 
@@ -291,14 +291,14 @@ class OrderItem extends ZMObject {
     /**
      * Add an item attribute.
      *
-     * @param ZMAttribute attribute A <code>ZMAttribute</code>.
+     * @param ZenMagick\StoreBundle\Entity\Catalog\Attribute attribute A <code>ZenMagick\StoreBundle\Entity\Catalog\Attribute</code>.
      */
     public function addAttribute($attribute) { $this->attributes[] = $attribute; }
 
     /**
      * Set item attributes.
      *
-     * @param array attributes A list of <code>ZMAttribute</code> instances.
+     * @param array attributes A list of <code>ZenMagick\StoreBundle\Entity\Catalog\Attribute</code> instances.
      */
     public function setAttributes($attributes) { $this->attributes = $attributes; }
 
