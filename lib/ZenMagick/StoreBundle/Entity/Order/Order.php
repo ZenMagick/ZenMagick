@@ -18,17 +18,17 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
+namespace ZenMagick\StoreBundle\Entity\Order;
 use ZenMagick\Base\Beans;
 use ZenMagick\Base\Toolbox;
 use ZenMagick\Base\ZMObject;
-use Zenmagick\StoreBundle\Entity\Order\OrderTotalLine;
+use OrderTotalLine;
 /**
  * A single order.
  *
  * @author DerManoMann
- * @package zenmagick.store.shared.model.order
  */
-class ZMOrder extends ZMObject {
+class Order extends ZMObject {
     private $accountId_;
     private $orderStatusId_;
     private $orderDate_;

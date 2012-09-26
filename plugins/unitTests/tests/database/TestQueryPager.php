@@ -45,7 +45,7 @@ class TestQueryPager extends TestCase {
      */
     public function testSQLAware() {
             $resultList = new ZMResultList();
-            $resultSource = new ZMObjectResultSource('ZMOrder', 'orderService', 'getAllOrders', array(1));
+            $resultSource = new ZMObjectResultSource('ZenMagick\StoreBundle\Entity\Order\Order', 'orderService', 'getAllOrders', array(1));
             $resultList->setResultSource($resultSource);
             $sorter = new ZMOrderSorter();
             $sorter->setSortId('date');

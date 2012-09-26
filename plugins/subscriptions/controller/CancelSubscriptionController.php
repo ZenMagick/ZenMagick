@@ -100,7 +100,7 @@ class ZMCancelSubscriptionController extends ZMController {
     /**
      * Send cancel email.
      *
-     * @param ZMOrder order The order.
+     * @param ZenMagick\StoreBundle\Entity\Order\Order order The order.
      * @param string template The template.
      * @param string email The email address.
      */

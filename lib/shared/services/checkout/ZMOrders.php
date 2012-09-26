@@ -63,7 +63,7 @@ class ZMOrders extends ZMObject implements SqlAware {
             $sql .= " LIMIT ".$limit;
         }
         $args = array('languageId' => $languageId);
-        return new QueryDetails(ZMRuntime::getDatabase(), $sql, $args, array('orders', 'orders_total', 'orders_status'), 'ZMOrder', 'o.orders_id');
+        return new QueryDetails(ZMRuntime::getDatabase(), $sql, $args, array('orders', 'orders_total', 'orders_status'), 'ZenMagick\StoreBundle\Entity\Order\Order', 'o.orders_id');
     }
 
     /**
@@ -71,7 +71,7 @@ class ZMOrders extends ZMObject implements SqlAware {
      *
      * @param int languageId Language id.
      * @param int limit Optional limit; default is <code>0</code> for all.
-     * @return array List of <code>ZMOrder</code> instances.
+     * @return array List of <code>ZenMagick\StoreBundle\Entity\Order\Order</code> instances.
      */
     public function getAllOrders($languageId, $limit=0) {
         $details = $this->getAllOrdersQueryDetails($languageId, $limit);
@@ -83,7 +83,7 @@ class ZMOrders extends ZMObject implements SqlAware {
      *
      * @param int id The order id.
      * @param int languageId Language id.
-     * @return ZMOrder A order or <code>null</code>.
+     * @return ZenMagick\StoreBundle\Entity\Order\Order A order or <code>null</code>.
      */
     public function getOrderForId($orderId, $languageId) {
         $sql = "SELECT o.*, s.orders_status_name
@@ -94,7 +94,7 @@ class ZMOrders extends ZMObject implements SqlAware {
                   AND o.orders_status = s.orders_status_id
                   AND s.language_id = :languageId";
         $args = array('orderId' => $orderId, 'languageId' => $languageId);
-        $order = ZMRuntime::getDatabase()->querySingle($sql, $args, array('orders', 'orders_total', 'orders_status'), 'ZMOrder');
+        $order = ZMRuntime::getDatabase()->querySingle($sql, $args, array('orders', 'orders_total', 'orders_status'), 'ZenMagick\StoreBundle\Entity\Order\Order');
 
         return $order;
     }
@@ -119,7 +119,7 @@ class ZMOrders extends ZMObject implements SqlAware {
                   AND s.language_id = :languageId
                 ORDER BY orders_id DESC".$sqlLimit;
         $args = array('accountId' => $accountId, 'languageId' => $languageId);
-        return new QueryDetails(ZMRuntime::getDatabase(), $sql, $args, array('orders', 'orders_total', 'orders_status'), 'ZMOrder', 'o.orders_id');
+        return new QueryDetails(ZMRuntime::getDatabase(), $sql, $args, array('orders', 'orders_total', 'orders_status'), 'ZenMagick\StoreBundle\Entity\Order\Order', 'o.orders_id');
     }
 
     /**
@@ -128,7 +128,7 @@ class ZMOrders extends ZMObject implements SqlAware {
      getOrdersForAccountId* @param int accountId The account id.
      * @param int languageId Language id.
      * @param int limit Optional result limit.
-     * @return array List of <code>ZMOrder</code> instances.
+     * @return array List of <code>ZenMagick\StoreBundle\Entity\Order\Order</code> instances.
      */
     public function getOrdersForAccountId($accountId, $languageId, $limit=0) {
         $details = $this->getOrdersForAccountIdQueryDetails($accountId, $languageId, $limit);
@@ -153,7 +153,7 @@ class ZMOrders extends ZMObject implements SqlAware {
                   AND s.language_id = :languageId
                 ORDER BY orders_id DESC";
         $args = array('orderStatusId' => $statusId, 'languageId' => $languageId);
-        return new QueryDetails(ZMRuntime::getDatabase(), $sql, $args, array('orders', 'orders_total', 'orders_status'), 'ZMOrder', 'o.orders_id');
+        return new QueryDetails(ZMRuntime::getDatabase(), $sql, $args, array('orders', 'orders_total', 'orders_status'), 'ZenMagick\StoreBundle\Entity\Order\Order', 'o.orders_id');
     }
 
     /**
@@ -161,7 +161,7 @@ class ZMOrders extends ZMObject implements SqlAware {
      *
      * @param int statusId The order status.
      * @param int languageId Language id.
-     * @return array List of <code>ZMOrder</code> instances.
+     * @return array List of <code>ZenMagick\StoreBundle\Entity\Order\Order</code> instances.
      */
     public function getOrdersForStatusId($statusId, $languageId) {
         $details = $this->getOrdersForStatusIdQueryDetails($statusId, $languageId);
@@ -259,8 +259,8 @@ class ZMOrders extends ZMObject implements SqlAware {
      *
      * <p><strong>NOTE: Currently this will update the orders table only!</strong></p>
      *
-     * @param ZMOrder The order.
-     * @return ZMOrder The updated order.
+     * @param ZenMagick\StoreBundle\Entity\Order\Order The order.
+     * @return ZenMagick\StoreBundle\Entity\Order\Order The updated order.
      */
     public function updateOrder($order) {
         return ZMRuntime::getDatabase()->updateModel('orders', $order);
@@ -377,7 +377,7 @@ class ZMOrders extends ZMObject implements SqlAware {
                   AND s.language_id = :languageId
                 ORDER BY orders_id DESC";
         $args = array('languageId' => $languageId, '1#orderDate' => $from, '2#orderDate' => $to);
-        return new QueryDetails(ZMRuntime::getDatabase(), $sql, $args, array('orders', 'orders_total', 'orders_status'), 'ZMOrder', 'o.orders_id');
+        return new QueryDetails(ZMRuntime::getDatabase(), $sql, $args, array('orders', 'orders_total', 'orders_status'), 'ZenMagick\StoreBundle\Entity\Order\Order', 'o.orders_id');
     }
 
     /**

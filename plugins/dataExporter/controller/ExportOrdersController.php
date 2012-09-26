@@ -23,7 +23,7 @@ namespace ZenMagick\plugins\dataExporter\controller;
 use DateTime;
 use ZMController;
 use ZMRuntime;
-use ZMOrder;
+use ZenMagick\StoreBundle\Entity\Order\Order;
 use ZenMagick\Base\Beans;
 
 /**
@@ -107,7 +107,7 @@ class ExportOrdersController extends ZMController {
             );
 
             $rows = array();
-            $order = Beans::getBean('ZMOrder');
+            $order = Beans::getBean('ZenMagick\StoreBundle\Entity\Order\Order');
             foreach ($results as $ii => $orderData) {
                 $order->reset();
                 Beans::setAll($order, $orderData);
@@ -141,10 +141,10 @@ class ExportOrdersController extends ZMController {
     /**
      * Process a single order
      *
-     * @param ZMOrder order The order.
+     * @param ZenMagick\StoreBundle\Entity\Order\Order order The order.
      * @return array List of rows.
      */
-    protected function processOrder(ZMOrder $order) {
+    protected function processOrder(Order $order) {
         $orderTotalLines = $order->getOrderTotalLines();
         $shippingAmount = 0;
         $couponAmount = 0;

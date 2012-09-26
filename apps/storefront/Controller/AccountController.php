@@ -34,7 +34,7 @@ class AccountController extends \ZMController {
     public function processGet($request) {
         // orders are sorted desc...
         $account = $this->getUser();
-        $resultSource = new \ZMObjectResultSource('ZMOrder', 'orderService', "getOrdersForAccountId", array($account->getId(), $request->getSession()->getLanguageId()));
+        $resultSource = new \ZMObjectResultSource('ZenMagick\StoreBundle\Entity\Order\Order', 'orderService', "getOrdersForAccountId", array($account->getId(), $request->getSession()->getLanguageId()));
         $resultList = Beans::getBean('ZMResultList');
         $resultList->setResultSource($resultSource);
         $resultList->setPageNumber($request->query->getInt('page'));

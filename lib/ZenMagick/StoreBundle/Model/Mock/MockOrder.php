@@ -20,13 +20,14 @@
 namespace ZenMagick\StoreBundle\Model\Mock;
 
 use ZenMagick\StoreBundle\Entity\Order\OrderTotalLine;
+use ZenMagick\StoreBundle\Entity\Order\Order;
 
 /**
  * Mock order.
  *
  * @author DerManoMann
  */
-class MockOrder extends \ZMOrder {
+class MockOrder extends Order {
 
     /**
      * Create new instance.

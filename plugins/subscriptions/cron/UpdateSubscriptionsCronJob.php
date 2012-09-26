@@ -48,7 +48,7 @@ class UpdateSubscriptionsCronJob implements CronJobInterface {
         foreach ($scheduledOrders as $scheduledOrderId) {
             // 1) copy
             $newOrder = self::copyOrder($scheduledOrderId);
-            // load the new order as proper ZMOrder instance for further use
+            // load the new order as proper ZenMagick\StoreBundle\Entity\Order\Order instance for further use
             $order = $orderService->getOrderForId($newOrder->getOrderId(), $this->container->get('session')->getLanguageId());
             if (null === $order) {
                 $this->container->get('logger')->err('copy order failed for scheduled order: '.$scheduledOrderId);
@@ -106,7 +106,7 @@ class UpdateSubscriptionsCronJob implements CronJobInterface {
     /**
      * Email.
      *
-     * @param ZMOrder order The order.
+     * @param ZenMagick\StoreBundle\Entity\Order\Order order The order.
      */
     protected function sendOrderEmail($order, $template) {
         $shippingAddress = $order->getShippingAddress();

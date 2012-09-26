@@ -55,7 +55,7 @@ class SubscriptionAdminController extends PluginAdminController {
             }
         }
 
-        $resultSource = new \ZMArrayResultSource('ZMOrder', $orderIds);
+        $resultSource = new \ZMArrayResultSource('ZenMagick\StoreBundle\Entity\Order\Order', $orderIds);
         $resultList = Beans::getBean('ZMResultList');
         $resultList->setResultSource($resultSource);
         $resultList->setPageNumber($request->query->getInt('page'));
@@ -92,7 +92,7 @@ class SubscriptionAdminController extends PluginAdminController {
     /**
      * Send cancel email.
      *
-     * @param ZMOrder order The order.
+     * @param ZenMagick\StoreBundle\Entity\Order\Order order The order.
      * @param string template The template.
      * @param string email The email address.
      */

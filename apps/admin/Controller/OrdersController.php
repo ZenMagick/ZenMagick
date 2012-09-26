@@ -47,9 +47,9 @@ class OrdersController extends \ZMController {
         }
 
         if (null != $orderStatus) {
-            $resultSource = new \ZMObjectResultSource('ZMOrder', 'orderService', "getOrdersForStatusId", array($orderStatusId, $languageId));
+            $resultSource = new \ZMObjectResultSource('ZenMagick\StoreBundle\Entity\Order\Order', 'orderService', "getOrdersForStatusId", array($orderStatusId, $languageId));
         } else {
-            $resultSource = new \ZMObjectResultSource('ZMOrder', 'orderService', "getAllOrders", array($languageId));
+            $resultSource = new \ZMObjectResultSource('ZenMagick\StoreBundle\Entity\Order\Order', 'orderService', "getAllOrders", array($languageId));
         }
         $resultList = Beans::getBean('ZMResultList');
         $resultList->setResultSource($resultSource);
