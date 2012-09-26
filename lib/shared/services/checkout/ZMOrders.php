@@ -339,7 +339,7 @@ class ZMOrders extends ZMObject implements SqlAware {
                 WHERE language_id = :languageId
                 ORDER BY orders_status_id";
 
-        return ZMRuntime::getDatabase()->fetchAll($sql, array('languageId' => $languageId), 'orders_status', 'ZenMagick\StoreBundle\Entity\Order\OrderStatusHistory');
+        return ZMRuntime::getDatabase()->fetchAll($sql, array('languageId' => $languageId), 'orders_status', 'ZenMagick\StoreBundle\Entity\Order\OrderStatus');
     }
 
     /**
