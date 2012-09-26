@@ -438,7 +438,7 @@ class ZMAccount extends ZMObject {
     /**
      * Get a price group.
      *
-     * @return ZMPriceGroup The group or <code>null</code>.
+     * @return ZenMagick\StoreBundle\Entity\Account\PriceGroup The group or <code>null</code>.
      */
     public function getPriceGroup() {
         return $this->container->get('groupPricingService')->getPriceGroupForId($this->priceGroupId_);

@@ -19,20 +19,55 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
+namespace ZenMagick\StoreBundle\Entity\Account;
+
+use Doctrine\ORM\Mapping as ORM;
 use ZenMagick\Base\ZMObject;
 
 /**
  * A price group.
  *
+ * @ORM\Table(name="group_pricing")
+ * @ORM\Entity
  * @author DerManoMann
- * @package zenmagick.store.shared.model.account
  */
-class ZMPriceGroup extends ZMObject {
-    private $id_;
-    private $name_;
-    private $discount_;
-    private $dateAdded_;
-    private $lastModified_;
+class PriceGroup extends ZMObject {
+    /**
+     * @var integer $id
+     *
+     * @ORM\Column(name="group_id", type="integer", nullable=false)
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="IDENTITY")
+     */
+    private $id;
+
+    /**
+     * @var string $name
+     *
+     * @ORM\Column(name="group_name", type="string", length=32, nullable=false)
+     */
+    private $name;
+
+    /**
+     * @var float $discount
+     *
+     * @ORM\Column(name="group_percentage", type="decimal", precision=5, scale=2, nullable=false)
+     */
+    private $discount;
+
+    /**
+     * @var \DateTime $lastModified
+     *
+     * @ORM\Column(name="last_modified", type="datetime", nullable=true)
+     */
+    private $lastModified;
+
+    /**
+     * @var \DateTime $dateAdded
+     *
+     * @ORM\Column(name="date_added", type="datetime", nullable=false)
+     */
+    private $dateAdded;
 
 
     /**
@@ -41,11 +76,11 @@ class ZMPriceGroup extends ZMObject {
     public function __construct() {
         parent::__construct();
 
-        $this->id_ = 0;
-        $this->name_ = 0;
-        $this->discount_ = 0;
-        $this->dateAdded_ = null;
-        $this->lastModified_ = null;
+        $this->id = 0;
+        $this->name = 0;
+        $this->discount = 0;
+        $this->dateAdded = null;
+        $this->lastModified = null;
     }
 
 
@@ -54,69 +89,69 @@ class ZMPriceGroup extends ZMObject {
      *
      * @return int The group id.
      */
-    public function getId() { return $this->id_; }
+    public function getId() { return $this->id; }
 
     /**
      * Get the name.
      *
      * @return string The group name.
      */
-    public function getName() { return $this->name_; }
+    public function getName() { return $this->name; }
 
     /**
      * Get the discount.
      *
      * @return float The discount.
      */
-    public function getDiscount() { return $this->discount_; }
+    public function getDiscount() { return $this->discount; }
 
     /**
      * Get the date the group was added.
      *
      * @return string The added date.
      */
-    public function getDateAdded() { return $this->dateAdded_; }
+    public function getDateAdded() { return $this->dateAdded; }
 
     /**
      * Get the last modified date.
      *
      * @return string The last modified date.
      */
-    public function getLastModified() { return $this->lastModified_; }
+    public function getLastModified() { return $this->lastModified; }
 
     /**
      * Set the group id.
      *
      * @param int id The group id.
      */
-    public function setId($id) { $this->id_ = $id; }
+    public function setId($id) { $this->id = $id; }
 
     /**
      * Set the name.
      *
      * @param string name The group name.
      */
-    public function setName($name) { $this->name_ = $name; }
+    public function setName($name) { $this->name = $name; }
 
     /**
      * Set the discount.
      *
      * @param float discount The discount.
      */
-    public function setDiscount($discount) { $this->discount_ = $discount; }
+    public function setDiscount($discount) { $this->discount = $discount; }
 
     /**
      * Set the date the group was added.
      *
      * @param string dateAdded The added date.
      */
-    public function setDateAdded($dateAdded) { $this->dateAdded_ = $dateAdded; }
+    public function setDateAdded($dateAdded) { $this->dateAdded = $dateAdded; }
 
     /**
      * Set the last modified date.
      *
      * @param string lastModified The last modified date.
      */
-    public function setLastModified($lastModified) { $this->lastModified_ = $lastModified; }
+    public function setLastModified($lastModified) { $this->lastModified = $lastModified; }
 
 }

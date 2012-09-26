@@ -32,25 +32,25 @@ class ZMGroupPricing extends ZMObject {
     /**
      * Get all price groups.
      *
-     * @return array List of ZMPriceGroup objects.
+     * @return array List of ZenMagick\StoreBundle\Entity\Account\PriceGroup objects.
      */
     function getPriceGroups() {
         $sql = "SELECT *
                 FROM %table.group_pricing%";
-        return ZMRuntime::getDatabase()->fetchAll($sql, array(), 'group_pricing', 'ZMPriceGroup');
+        return ZMRuntime::getDatabase()->fetchAll($sql, array(), 'group_pricing', 'ZenMagick\StoreBundle\Entity\Account\PriceGroup');
     }
 
     /**
      * Get a price group for the given id.
      *
      * @param int priceGroupId The id.
-     * @return ZMPriceGroup The group or <code>null</code>.
+     * @return ZenMagick\StoreBundle\Entity\Account\PriceGroup The group or <code>null</code>.
      */
     function getPriceGroupForId($priceGroupId) {
         $sql = "SELECT *
                 FROM %table.group_pricing%
                 WHERE  group_id = :id";
-        return ZMRuntime::getDatabase()->querySingle($sql, array('id' => $priceGroupId), 'group_pricing', 'ZMPriceGroup');
+        return ZMRuntime::getDatabase()->querySingle($sql, array('id' => $priceGroupId), 'group_pricing', 'ZenMagick\StoreBundle\Entity\Account\PriceGroup');
     }
 
 }
