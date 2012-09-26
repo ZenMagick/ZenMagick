@@ -131,7 +131,7 @@
 
         <service id="authenticationManager" class="ZenMagick\Base\Security\Authentication\AuthenticationManager" />
 
-        <service id="blockService" class="ZMBlocks" />
+        <service id="blockService" class="ZenMagick\StoreBundle\Services\Blocks" />
 
         <service id="blockManager" class="ZenMagick\Http\Blocks\BlockManager" />
 

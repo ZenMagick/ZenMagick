@@ -18,16 +18,19 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
+namespace ZenMagick\StoreBundle\Services\Blocks.php
+
+use ZMRuntime;
 use ZenMagick\Base\ZMObject;
-use ZenMagick\StoreBundle\Blocks\BlockGroup;
-use ZenMagick\StoreBundle\Blocks\Block;
+use ZenMagick\StoreBundle\Entity\Blocks\BlockGroup;
+use ZenMagick\StoreBundle\Entity\Blocks\Block;
 
 /**
  * Blocks.
  *
  * @author DerManoMann
  */
-class ZMBlocks extends ZMObject {
+class Blocks extends ZMObject {
 
     /**
      * Get a list of all block group names.
@@ -46,8 +49,8 @@ class ZMBlocks extends ZMObject {
     /**
      * Create a new block group.
      *
-     * @param ZenMagick\StoreBundle\Blocks\BlockGroup blockGroup The block group.
-     * @return ZenMagick\StoreBundle\Blocks\BlockGroup The updated block group (incl. id).
+     * @param ZenMagick\StoreBundle\Entity\Blocks\BlockGroup blockGroup The block group.
+     * @return ZenMagick\StoreBundle\Entity\Blocks\BlockGroup The updated block group (incl. id).
      */
     public function createBlockGroup(BlockGroup $blockGroup) {
         $sql = 'INSERT INTO %table.block_groups% (group_name, description) VALUES (:group_name, :description)';
