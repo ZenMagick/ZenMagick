@@ -21,7 +21,7 @@
 use ZenMagick\Base\Beans;
 use ZenMagick\Base\Toolbox;
 use ZenMagick\Base\ZMObject;
-
+use Zenmagick\StoreBundle\Entity\Order\OrderTotalLine;
 /**
  * A single order.
  *
@@ -284,7 +284,7 @@ class ZMOrder extends ZMObject {
     /**
      * Get all order total lines.
      *
-     * @return array A list of <code>ZMOrderTotalLine</code> instances.
+     * @return array A list of <code>ZenMagick\StoreBundle\Entity\Order\OrderTotalLine</code> instances.
      */
     public function getOrderTotalLines() { return $this->container->get('orderService')->getOrderTotalLines($this->getId()); }
 
@@ -294,7 +294,7 @@ class ZMOrder extends ZMObject {
      * @param string type The total type (without the <em>ot_</em> prefix).
      * @param boolean force If set, a new order total will be created in case the order
      *  does not contain the one requested.
-     * @return ZMOrderTotalLine A <code>ZMOrderTotalLine</code> or <code>null</code>.
+     * @return ZenMagick\StoreBundle\Entity\Order\OrderTotalLine A <code>ZenMagick\StoreBundle\Entity\Order\OrderTotalLine</code> or <code>null</code>.
      */
     public function getOrderTotalLinesForType($type, $force=false) {
         $rawtype = 'ot_'.$type;
@@ -306,7 +306,7 @@ class ZMOrder extends ZMObject {
         }
 
         if ($force && 0 == count($lines)) {
-            $lines[] = new ZMOrderTotalLine(ucwords($name), 0, 0, $rawtype);
+            $lines[] = new OrderTotalLine(ucwords($name), 0, 0, $rawtype);
         }
 
         return $lines;

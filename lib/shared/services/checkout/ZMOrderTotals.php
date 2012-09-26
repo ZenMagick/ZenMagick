@@ -21,6 +21,7 @@
 
 use ZenMagick\Base\ZMObject;
 use ZenMagick\StoreBundle\Model\Checkout\ShoppingCart;
+use ZenMagick\StoreBundle\Entity\Order\OrderTotalLine;
 
 /**
  * Order totals.
@@ -93,7 +94,7 @@ class ZMOrderTotals extends ZMObject {
                     $output = $GLOBALS[$class]->output;
                     $type = substr($class, 3);
                     foreach ($output as $zenTotal) {
-                        $this->orderTotals[] = new ZMOrderTotalLine($zenTotal['title'], $zenTotal['text'], $zenTotal['value'], $type);
+                        $this->orderTotals[] = new OrderTotalLine($zenTotal['title'], $zenTotal['text'], $zenTotal['value'], $type);
                     }
                 }
             }

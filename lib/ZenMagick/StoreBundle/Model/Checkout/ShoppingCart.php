@@ -23,7 +23,7 @@
 namespace ZenMagick\StoreBundle\Model\Checkout;
 
 use ZMCreditTypeWrapper;
-use ZMOrderTotalLine;
+use ZenMagick\StoreBundle\Entity\Order\OrderTotalLine;
 use ZMPaymentField;
 use ZenMagick\Base\ZMObject;
 use ZenMagick\StoreBundle\Utils\CheckoutHelper;
@@ -576,7 +576,7 @@ class ShoppingCart extends ZMObject {
     /**
      * Get the order totals.
      *
-     * @return array List of <code>ZMOrderTotalLine</code> instances.
+     * @return array List of <code>ZenMagick\StoreBundle\Entity\Order\OrderTotalLine</code> instances.
      */
     public function getTotals() {
         $totals = array();
@@ -586,7 +586,7 @@ class ShoppingCart extends ZMObject {
                 $output = $GLOBALS[$class]->output;
                 $type = substr($class, 3);
                 foreach ($output as $zenTotal) {
-                    $totals[] = new ZMOrderTotalLine($zenTotal['title'], $zenTotal['text'], $zenTotal['value'], $type);
+                    $totals[] = new OrderTotalLine($zenTotal['title'], $zenTotal['text'], $zenTotal['value'], $type);
                 }
             }
         }

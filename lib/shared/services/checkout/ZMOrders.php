@@ -240,14 +240,14 @@ class ZMOrders extends ZMObject implements SqlAware {
      * Get order total lines.
      *
      * @param int orderId The order id.
-     * @return array Map of <code>ZMOrderTotalLine</code> instances with the type as key.
+     * @return array Map of <code>ZenMagick\StoreBundle\Entity\Order\OrderTotalLine</code> instances with the type as key.
      */
     public function getOrderTotalLines($orderId) {
         $sql = "SELECT * FROM %table.orders_total%
                 WHERE orders_id = :orderId
                 ORDER BY sort_order";
         $totals = array();
-        foreach (ZMRuntime::getDatabase()->fetchAll($sql, array('orderId' => $orderId), 'orders_total', 'ZMOrderTotalLine') as $total) {
+        foreach (ZMRuntime::getDatabase()->fetchAll($sql, array('orderId' => $orderId), 'orders_total', 'ZenMagick\StoreBundle\Entity\Order\OrderTotalLine') as $total) {
             $totals[] = $total;
         }
 

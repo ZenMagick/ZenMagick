@@ -19,6 +19,7 @@
  */
 namespace ZenMagick\StoreBundle\Model\Mock;
 
+use ZenMagick\StoreBundle\Entity\Order\OrderTotalLine;
 
 /**
  * Mock order.
@@ -69,7 +70,7 @@ class MockOrder extends \ZMOrder {
      * {@inheritDoc}
      */
     public function getOrderTotalLines() {
-        return array(new \ZMOrderTotalLine('Tax', 9, '$9.00'), new \ZMOrderTotalLine('Subtotal', 119.20, '$119.20'), new \ZMOrderTotalLine('Total', 119.20, '$119.20'));
+        return array(new OrderTotalLine('Tax', 9, '$9.00'), new OrderTotalLine('Subtotal', 119.20, '$119.20'), new OrderTotalLine('Total', 119.20, '$119.20'));
     }
 
     /**
