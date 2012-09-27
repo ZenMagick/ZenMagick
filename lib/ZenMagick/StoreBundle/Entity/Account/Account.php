@@ -23,11 +23,21 @@ namespace ZenMagick\StoreBundle\Entity\Account;
 use ZenMagick\Base\Runtime;
 use ZenMagick\Base\Toolbox;
 use ZenMagick\Base\ZMObject;
+use Doctrine\ORM\Mapping as ORM;
 use ZMAccounts;
 
 /**
  * A single user account.
  *
+ * @ORM\Table(name="customers",
+ *  indexes={
+ *      @ORM\Index(name="idx_email_address_zen", columns={"customers_email_address"}),
+ *      @ORM\Index(name="idx_referral_zen", columns={"customers_referral"}),
+ *      @ORM\Index(name="idx_grp_pricing_zen", columns={"customers_group_pricing"}),
+ *      @ORM\Index(name="idx_nick_zen", columns={"customers_nick"}),
+ *      @ORM\Index(name="idx_newsletter_zen", columns={"customers_newsletter"}),
+ *  })
+ * @ORM\Entity
  * @author DerManoMann
  */
 class Account extends ZMObject {
@@ -38,24 +48,138 @@ class Account extends ZMObject {
     /** Access level anonymous. */
     const ANONYMOUS = 'anonymous';
 
-    private $firstName;
-    private $lastName;
-    private $dob;
-    private $nickName;
+    /**
+     * @var integer $id
+     *
+     * @ORM\Column(name="customers_id", type="integer", nullable=false)
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="IDENTITY")
+     */
+    private $accountId;
+
+    /**
+     * @var string $gender
+     *
+     * @ORM\Column(name="customers_gender", type="string", length=1, nullable=false)
+     */
     private $gender;
+
+    /**
+     * @var string $firstName
+     *
+     * @ORM\Column(name="customers_firstname", type="string", length=32, nullable=false)
+     */
+    private $firstName;
+
+    /**
+     * @var string $lastName
+     *
+     * @ORM\Column(name="customers_lastname", type="string", length=32, nullable=false)
+     */
+    private $lastName;
+
+    /**
+     * @var \DateTime $dob
+     *
+     * @ORM\Column(name="customers_dob", type="datetime", nullable=false)
+     */
+    private $dob;
+
+    /**
+     * @var string $email
+     *
+     * @ORM\Column(name="customers_email_address", type="string", length=96, nullable=false)
+     */
     private $email;
-    private $phone;
-    private $fax;
-    private $emailFormat;
-    private $referral;
+
+    /**
+     * @var string $nickName
+     *
+     * @ORM\Column(name="customers_nick", type="string", length=96, nullable=false)
+     */
+    private $nickName;
+
+    /**
+     * @var integer $defaultAddressId
+     *
+     * @ORM\Column(name="customers_default_address_id", type="integer", nullable=false)
+     */
     private $defaultAddressId;
+
+    /**
+     * @var string $phone
+     *
+     * @ORM\Column(name="customers_telephone", type="string", length=32, nullable=false)
+     */
+    private $phone;
+
+    /**
+     * @var string $fax
+     *
+     * @ORM\Column(name="customers_fax", type="string", length=32, nullable=true)
+     */
+    private $fax;
+
+    /**
+     * @var string $password
+     *
+     * @ORM\Column(name="customers_password", type="string", length=40, nullable=false)
+     */
     private $password;
-    private $authorization;
+
+    /**
+     * @var string $newsletter
+     *
+     * @ORM\Column(name="customers_newsletter", type="string", length=1, nullable=true)
+     */
     private $newsletter;
+
+    /**
+     * @var integer $priceGroupId
+     *
+     * @ORM\Column(name="customers_group_pricing", type="integer", nullable=false)
+     */
+    private $priceGroupId;
+
+    /**
+     * @var string $emailFormat
+     *
+     * @ORM\Column(name="customers_email_format", type="string", length=4, nullable=false)
+     */
+    private $emailFormat;
+
+    /**
+     * @var integer $authorization
+     *
+     * @ORM\Column(name="customers_authorization", type="smallint", nullable=false)
+     */
+    private $authorization;
+
+    /**
+     * @var string $referral
+     *
+     * @ORM\Column(name="customers_referral", type="string", length=32, nullable=false)
+     */
+    private $referral;
+
+    /**
+     * @var string $payPalPayerId
+     *
+     * @ORM\Column(name="customers_paypal_payerid", type="string", length=20, nullable=false)
+     */
+    private $payPalPayerId;
+
+    /**
+     * @var boolean $payPalEc
+     *
+     * @ORM\Column(name="customers_paypal_ec", type="boolean", nullable=false)
+     */
+    private $payPalEc;
+
     private $globalSubscriber;
     private $subscribedProducts;
     private $type;
-    private $priceGroupId;
+
 
 
     /**
@@ -86,20 +210,34 @@ class Account extends ZMObject {
         $this->authorization = ZMAccounts::AUTHORIZATION_ENABLED;
     }
 
+    /**
+     * Get the account id.
+     *
+     * @return int The account id.
+     */
+    public function getAccountId() { return $this->accountId; }
+
 
     /**
      * Get the account id.
      *
      * @return int The account id.
      */
-    public function getId() { return $this->get('accountId'); }
+    public function getId() { return $this->accountId; }
 
     /**
-     * Set the account id.
+     * set the account id.
      *
-     * @param int id The account id.
+     * @param int id the account id.
      */
-    public function setId($id) { $this->set('accountId', $id); }
+    public function setAccountId($id) { $this->accountId = $id; }
+
+    /**
+     * set the account id.
+     *
+     * @param int id the account id.
+     */
+    public function setId($id) { $this->accountId = $id; }
 
     /**
      * Get the first name.
