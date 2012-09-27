@@ -21,22 +21,95 @@
 
 namespace ZenMagick\StoreBundle\Entity\Catalog;
 
+use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\ArrayCollection;
 use ZenMagick\Base\Beans;
 use ZenMagick\Base\ZMObject;
 
 /**
  * A single category
  *
+ * @ORM\Table(name="categories",
+ *  indexes={
+ *      @ORM\Index(name="idx_parent_id_cat_id_zen", columns={"parent_id", "categories_id"}),
+ *      @ORM\Index(name="idx_status_zen", columns={"categories_status"}),
+ *      @ORM\Index(name="idx_sort_order_zen", columns={"sort_order"}),
+ *  })
+ * @ORM\Entity
  * @author DerManoMann
  */
 class Category extends ZMObject {
+    /**
+     * @var integer $categoryId
+     *
+     * @ORM\Column(name="categories_id", type="integer", nullable=false)
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="IDENTITY")
+     */
+    private $categoryId;
+
+    /**
+     * @var string $image
+     *
+     * @ORM\Column(name="categories_image", type="string", length=64, nullable=false)
+     */
+    private $image;
+
+    /**
+     * @var integer $parentId
+     *
+     * @ORM\Column(name="parent_id", type="integer", nullable=true)
+     */
     private $parentId;
-    private $name;
+
+    /**
+     * @var integer $sortOrder
+     *
+     * @ORM\Column(name="sort_order", type="integer", nullable=true)
+     */
+    private $sortOrder;
+
+    /**
+     * @var \DateTime $dateAdded
+     *
+     * @ORM\Column(name="date_added", type="datetime", nullable=true)
+     */
+    private $dateAdded;
+
+    /**
+     * @var \DateTime $lastModified
+     *
+     * @ORM\Column(name="last_modified", type="datetime", nullable=true)
+     */
+    private $lastModified;
+
+    /**
+     * @var boolean active
+     *
+     * @ORM\Column(name="categories_status", type="boolean", nullable=false)
+     */
     private $active;
+
+    /**
+     * @ORM\OneToMany(targetEntity="Category", mappedBy="parent")
+     */
+    private $children;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="Category", inversedBy="children")
+     * @ORM\JoinColumn(name="parent_id", referencedColumnName="categories_id")
+     **/
+    private $parent;
+
+    /**
+     * @var object $descriptions
+     * @ORM\OneToMany(targetEntity="CategoryDescriptions", mappedBy="category", cascade={"persist", "remove"})
+     */
+    private $descriptions;
+
+    private $name;
     private $childrenIds;
     private $description;
-    private $sortOrder;
-    private $image;
     private $languageId;
 
 
@@ -45,24 +118,34 @@ class Category extends ZMObject {
      */
     public function __construct() {
         parent::__construct();
+
+        $this->children = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->descriptions = new \Doctrine\Common\Collections\ArrayCollection();
+
         $this->setId(0);
         $this->parentId = 0;
         $this->name = null;
         $this->active = false;
         $this->childrenIds = array();
         $this->image = null;
-        $this->languageId = 0;
+        $this->languageId = 1;
         $this->setDateAdded(null);
         $this->setLastModified(null);
     }
-
 
     /**
      * Get the id.
      *
      * @return int The category id.
      */
-    public function getId() { return $this->get('categoryId'); }
+    public function getId() { return $this->categoryId; }
+
+    /**
+     * Get the id.
+     *
+     * @return int The category id.
+     */
+    public function getCategoryId() { return $this->categoryId; }
 
     /**
      * Get the parent category (if any).
@@ -196,7 +279,7 @@ class Category extends ZMObject {
      */
     public function getPath() {
         $path = array();
-        array_push($path, $this->properties['categoryId']);
+        array_push($path, $this->categoryId);
         $parent = $this->getParent();
         while (null !== $parent) {
             array_push($path, $parent->getId());
@@ -210,7 +293,14 @@ class Category extends ZMObject {
      *
      * @param int id The category id.
      */
-    public function setId($id) { $this->set('categoryId', $id); }
+    public function setId($id) { $this->categoryId = $id; }
+
+    /**
+     * Set the id.
+     *
+     * @param int id The category id.
+     */
+    public function setCategoryId($id) { $this->categoryId = $id; }
 
     /**
      * Set the parent category id.
@@ -272,7 +362,7 @@ class Category extends ZMObject {
     public function getDecendantIds($includeSelf=true) {
         $ids = array();
         if ($includeSelf) {
-            $ids[] = $this->properties['categoryId'];
+            $ids[] = $this->categoryId;
         }
         foreach ($this->getChildren() as $child) {
             $childIds = $child->getDecendantIds(true);
