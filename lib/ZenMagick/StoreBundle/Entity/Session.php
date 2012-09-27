@@ -17,7 +17,7 @@ class Session
      *
      * @ORM\Column(name="sesskey", type="string", length=255, nullable=false)
      * @ORM\Id
-     * @ORM\GeneratedValue(strategy="IDENTITY")
+     * @ORM\GeneratedValue(strategy="NONE")
      */
     private $id;
 
