@@ -20,6 +20,7 @@
 namespace ZenMagick\plugins\rules\promotions\qualifications;
 
 use ZenMagick\plugins\rules\promotions\AbstractPromotionElement;
+use ZenMagick\StoreBundle\Entity\Account\Account;
 use phprules\RuleContext;
 
 /**
@@ -43,7 +44,7 @@ class RegisteredAccount extends AbstractPromotionElement {
      */
     public function getRuleContexts($parameter) {
         $ruleContext = new RuleContext('manufacturerInCartRuleContext');
-        $ruleContext->addVariable('isRegistered', ZMAccount::REGISTERED == $this->getAccount()->getType());
+        $ruleContext->addVariable('isRegistered', Account::REGISTERED == $this->getAccount()->getType());
         return array($ruleContext);
     }
 

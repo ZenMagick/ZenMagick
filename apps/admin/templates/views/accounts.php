@@ -16,7 +16,10 @@
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
- */ $admin->title() ?>
+ */
+use ZenMagick\StoreBundle\Entity\Account\Account;
+
+$admin->title() ?>
 
 <table class="grid">
   <tr>
@@ -28,7 +31,7 @@
   <?php foreach ($resultList->getResults() as $account) { ?>
     <tr>
       <td><?php echo $account->getId() ?></td>
-      <?php $name = $account->getType() == ZMAccount::REGISTERED ? $account->getFullName() : _zm('** Guest **'); ?>
+      <?php $name = $account->getType() == Account::REGISTERED ? $account->getFullName() : _zm('** Guest **'); ?>
       <td><a href="<?php echo $net->url('account', 'accountId='.$account->getId()) ?>"><?php echo $name ?></a></td>
       <td><?php echo $locale->shortDate($account->getAccountCreateDate()) ?></td>
       <td><?php echo ($account->getAuthorization() ? _vzm('Pending') : _vzm('Approved')) ?></td>

@@ -20,6 +20,7 @@
 namespace ZenMagick\plugins\rules\promotions;
 
 use ZenMagick\StoreBundle\Model\Checkout\ShoppingCart;
+use ZenMagick\StoreBundle\Entity\Account\Account;
 
 /**
  * Base class for promotional elements.
@@ -70,16 +71,16 @@ abstract class AbstractPromotionElement implements PromotionElement {
     /**
      * Set the current account.
      *
-     * @param ZMAccount account The current account.
+     * @param ZenMagick\StoreBundle\Entity\Account\Account account The current account.
      */
-    public function setAccount(ZMAccount $account) {
+    public function setAccount(Account $account) {
         $this->account = $account;
     }
 
     /**
      * Get the current account.
      *
-     * @return ZMAccount The current account.
+     * @return ZenMagick\StoreBundle\Entity\Account\Account The current account.
      */
     public function getAccount() {
         return $this->account;

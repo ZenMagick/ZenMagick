@@ -23,6 +23,7 @@ use ZenMagick\Base\Plugins\Plugin;
 use ZenMagick\Base\Toolbox;
 use ZenMagick\Base\ZMObject;
 use ZenMagick\Http\View\TemplateView;
+use ZenMagick\StoreBundle\Entity\Account\Account;
 
 define('ID_SOURCE_OTHER', 9999);
 
@@ -120,7 +121,7 @@ class HowDidYouHearPlugin extends Plugin {
                     // if we have an address we should have got the source as well...
                     $account = $request->getAccount();
                     $addressList = $this->container->get('addressService')->getAddressesForAccountId($account->getId());
-                    if ($this->isEnableOnGuestCheckout() && \ZMAccount::GUEST == $account->getType() && 0 == count($addressList)) {
+                    if ($this->isEnableOnGuestCheckout() && Account::GUEST == $account->getType() && 0 == count($addressList)) {
                         $view->setVariable('howDidYouHearForm', $shippingAddress);
                     }
                 }
@@ -133,7 +134,7 @@ class HowDidYouHearPlugin extends Plugin {
      */
     public function onCreateAccount($event) {
         $account = $event->get('account');
-        if (ID_SOURCE_OTHER == $account->getSourceId() && \ZMAccount::GUEST != $account->getType()) {
+        if (ID_SOURCE_OTHER == $account->getSourceId() && Account::GUEST != $account->getType()) {
             // need to store sourceOther
             $sql = "INSERT INTO %table.sources_other%
                     VALUES (:customers_id, :sources_other_name)";

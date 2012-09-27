@@ -354,7 +354,7 @@ class ZenCartCheckoutOrder extends ZMObject {
     /**
      * Set the account.
      *
-     * @param ZMAccount account The account.
+     * @param ZenMagick\StoreBundle\Entity\Account\Account account The account.
      */
     public function setAccount($account) {
         if (null != $account) {

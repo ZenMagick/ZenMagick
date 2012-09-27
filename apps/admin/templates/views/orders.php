@@ -16,7 +16,10 @@
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
- */ $admin->title(sprintf(_zm("%s Orders"), (null != $orderStatus ? $orderStatus->getName() : ''))) ?></h1>
+ */
+use ZenMagick\StoreBundle\Entity\Account\Account;
+
+$admin->title(sprintf(_zm("%s Orders"), (null != $orderStatus ? $orderStatus->getName() : ''))) ?></h1>
 
 <table class="grid">
   <tr>
@@ -32,7 +35,7 @@
     <tr>
       <td><a href="<?php echo $net->url('order', 'orderId='.$order->getId()) ?>"><?php echo $order->getId() ?></a></td>
       <?php $actualAccount = $container->get('accountService')->getAccountForId($order->getAccountId()); ?>
-      <?php $name = $actualAccount->getType() == ZMAccount::REGISTERED ? $order->getAccount()->getFullName() : _zm('** Guest **'); ?>
+      <?php $name = $actualAccount->getType() == Account::REGISTERED ? $order->getAccount()->getFullName() : _zm('** Guest **'); ?>
       <td><a href="<?php echo $net->url('account', 'accountId='.$order->getAccountId()) ?>"><?php echo $name ?></a></td>
       <td><?php echo $order->getOrderDate() ?></td>
       <td><?php echo $order->get('payment_method') ?></td>

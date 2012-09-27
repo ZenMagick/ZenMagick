@@ -20,6 +20,7 @@
 
 use ZenMagick\Base\Beans;
 use ZenMagick\plugins\unitTests\simpletest\TestCase;
+use ZenMagick\StoreBundle\Entity\Account\Account;
 
 /**
  * Test <em>How did you hear about us</em> plugin.
@@ -45,7 +46,7 @@ class TestZMHowDidYouHear extends TestCase {
             'NewsletterSubscriber' => false,
             'GlobalProductSubscriber' => true,
             'SubscribedProducts' => null,
-            'Type' => ZMAccount::REGISTERED,
+            'Type' => Account::REGISTERED,
             'PriceGroupId' => 0,
             'sourceId' => 1,
             'sourceOther' => '',
@@ -67,7 +68,7 @@ class TestZMHowDidYouHear extends TestCase {
             'NewsletterSubscriber' => false,
             'GlobalProductSubscriber' => true,
             'SubscribedProducts' => null,
-            'Type' => ZMAccount::REGISTERED,
+            'Type' => Account::REGISTERED,
             'PriceGroupId' => 0,
             'sourceId' => 9999,
             'sourceOther' => 'other',
@@ -78,7 +79,7 @@ class TestZMHowDidYouHear extends TestCase {
      * Create test account.
      */
     public function createAccount($data) {
-        $account = Beans::getBean('ZMAccount');
+        $account = Beans::getBean('ZenMagick\StoreBundle\Entity\Account\Account');
         foreach ($data as $key => $value) {
             $method = 'set'.ucwords($key);
             if ('Dob' == $key) {

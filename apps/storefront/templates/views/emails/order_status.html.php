@@ -18,7 +18,8 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-?><!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+?>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
 <html lang="<?php echo $language->getCode() ?>">
 <head>
 <title><?php _vzm("Order update #%s", $currentOrder->getId()) ?></title>
@@ -29,7 +30,7 @@
 <p><?php _vzm("Dear %s %s,", $currentAccount->getFirstName(), $currentAccount->getLastName()) ?></p>
 
 <p><?php _vzm("This is to inform you that your order #%s has been updated.", $currentOrder->getId()) ?></p>
-<?php if (ZMAccount::REGISTERED == $currentAccount->getType()) {
+<?php if (ZenMagick\StoreBundle\Entity\Account\Account::REGISTERED == $currentAccount->getType()) {
     $href = '<a href="'.$net->absoluteUrl($net->url('account_history_info', 'order_id='.$currentOrder->getId(), true), true, true).'">'.sprintf(_zm("order #%s"), $currentOrder->getId()).'</a>';
 } else {
     $href = '<a href="'.$net->absoluteUrl($net->url('guest_history', '', true), true, true).'">'.sprintf(_zm("order #%s"), $currentOrder->getId()).'</a>';

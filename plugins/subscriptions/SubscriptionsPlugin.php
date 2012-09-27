@@ -24,6 +24,7 @@ use ZenMagick\Base\Beans;
 use ZenMagick\Base\Toolbox;
 use ZenMagick\Http\Sacs\SacsManager;
 use ZenMagick\StoreBundle\Model\Checkout\ShoppingCart;
+use ZenMagick\StoreBundle\Entity\Account\Account;
 use ZenMagick\plugins\subscriptions\cron\UpdateSubscriptionsCronJob;
 
 /**
@@ -64,8 +65,8 @@ class SubscriptionsPlugin extends Plugin {
         $sacsManager = $this->container->get('sacsManager');
 
         // set mappings and permissions of custom pages
-        $sacsManager->setMapping('cancel_subscription', \ZMAccount::REGISTERED);
-        $sacsManager->setMapping('subscription_request', \ZMAccount::REGISTERED);
+        $sacsManager->setMapping('cancel_subscription', Account::REGISTERED);
+        $sacsManager->setMapping('subscription_request', Account::REGISTERED);
 
         // set up request form validation
         $this->container->get('zmvalidator')->addRules('subscription_request', array(

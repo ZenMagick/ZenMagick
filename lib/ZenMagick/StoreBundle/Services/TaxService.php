@@ -19,7 +19,7 @@
  */
 namespace ZenMagick\StoreBundle\Services;
 
-use ZMAccount;
+use ZenMagick\StoreBundle\Entity\Account\Account;
 use ZMRuntime;
 use ZenMagick\Base\Beans;
 use ZenMagick\Base\ZMObject;
@@ -60,7 +60,7 @@ class TaxService extends ZMObject {
         $settingsService = $this->container->get('settingsService');
         if (0 == $countryId && 0 == $zoneId) {
             $account = $this->container->get('request')->getAccount();
-            if (null != $account && ZMAccount::ANONYMOUS == $account->getType()) {
+            if (null != $account && Account::ANONYMOUS == $account->getType()) {
                 $defaultAddress = $this->container->get('addressService')->getAddressForId($account->getDefaultAddressId());
                 if (null != $defaultAddress) {
                     $zoneId = $defaultAddress->getZoneId();
@@ -208,7 +208,7 @@ class TaxService extends ZMObject {
         $settingsService = $this->container->get('settingsService');
         if (0 == $countryId && 0 == $zoneId) {
             $account = $this->container->get('request')->getAccount();
-            if (null != $account && ZMAccount::ANONYMOUS == $account->getType()) {
+            if (null != $account && Account::ANONYMOUS == $account->getType()) {
                 $defaultAddress = $this->container->get('addressService')->getAddressForId($account->getDefaultAddressId());
                 if (null != $defaultAddress) {
                     $zoneId = $defaultAddress->getZoneId();

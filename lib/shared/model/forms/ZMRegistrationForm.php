@@ -31,12 +31,12 @@ use ZenMagick\Http\Forms\FormData;
 class ZMRegistrationForm extends FormData {
 
     /**
-     * Get a populated <code>ZMAccount</code> instance.
+     * Get a populated <code>ZenMagick\StoreBundle\Entity\Account\Account</code> instance.
      *
-     * @return ZMAccount An account.
+     * @return ZenMagick\StoreBundle\Entity\Account\Account An account.
      */
     public function getAccount() {
-        $account = Beans::getBean('ZMAccount');
+        $account = Beans::getBean('ZenMagick\StoreBundle\Entity\Account\Account');
         $properties = $this->getProperties();
 
         // don't need these

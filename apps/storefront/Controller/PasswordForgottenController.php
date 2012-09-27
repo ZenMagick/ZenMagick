@@ -20,6 +20,7 @@
 namespace ZenMagick\apps\storefront\Controller;
 
 use ZenMagick\Base\Events\Event;
+use ZenMagick\StoreBundle\Entity\Account\Account;
 
 /**
  * Request controller for forgotten passwords.
@@ -34,7 +35,7 @@ class PasswordForgottenController extends \ZMController {
     public function processPost($request) {
         $emailAddress = $request->request->get('email_address');
         $account = $this->container->get('accountService')->getAccountForEmailAddress($emailAddress);
-        if (null === $account || \ZMAccount::REGISTERED != $account->getType()) {
+        if (null === $account || Account::REGISTERED != $account->getType()) {
             $this->messageService->error(sprintf(_zm("Sorry, there is no account with the email address '%s'."), $emailAddress));
             return $this->findView();
         }

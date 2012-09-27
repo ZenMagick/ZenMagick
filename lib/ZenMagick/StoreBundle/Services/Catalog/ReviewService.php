@@ -230,7 +230,7 @@ class ReviewService extends ZMObject {
      * Create a new review.
      *
      * @param ZMReview review The new review.
-     * @param ZMAccount author The review author.
+     * @param ZenMagick\StoreBundle\Entity\Account\Account author The review author.
      * @param int languageId The language for this review.
      * @return ZMReview The inserted review (incl. the new id).
      */

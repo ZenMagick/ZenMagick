@@ -19,13 +19,14 @@
  */
 namespace ZenMagick\StoreBundle\Model\Mock;
 
+use ZenMagick\StoreBundle\Entity\Account\Account;
 
 /**
  * Mock account.
  *
  * @author DerManoMann
  */
-class MockAccount extends \ZMAccount {
+class MockAccount extends Account {
 
     /**
      * Create new instance.

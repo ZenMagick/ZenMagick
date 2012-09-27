@@ -19,7 +19,7 @@
  */
 namespace ZenMagick\apps\storefront\Http\Sacs;
 
-use ZMAccount;
+use ZenMagick\StoreBundle\Entity\Account\Account;
 use ZenMagick\Base\ZMObject;
 use ZenMagick\Http\Sacs\SacsHandler;
 
@@ -44,9 +44,9 @@ class StorefrontAccountSacsHandler extends ZMObject implements SacsHandler {
     public function __construct() {
         // which level allows what
         $this->levelMap_ = array(
-            ZMAccount::ANONYMOUS => array(ZMAccount::ANONYMOUS, ZMAccount::GUEST, ZMAccount::REGISTERED),
-            ZMAccount::GUEST => array(ZMAccount::GUEST, ZMAccount::REGISTERED),
-            ZMAccount::REGISTERED => array(ZMAccount::REGISTERED)
+            Account::ANONYMOUS => array(Account::ANONYMOUS, Account::GUEST, Account::REGISTERED),
+            Account::GUEST => array(Account::GUEST, Account::REGISTERED),
+            Account::REGISTERED => array(Account::REGISTERED)
         );
     }
 
@@ -63,16 +63,16 @@ class StorefrontAccountSacsHandler extends ZMObject implements SacsHandler {
      */
     public function evaluate($requestId, $credentials, $manager) {
         $requiredLevel = $manager->getMappingValue($requestId, 'level', $this->container->get('settingsService')->get('apps.store.defaultAccessLevel'));
-        if (null == $requiredLevel || ZMAccount::ANONYMOUS == $requiredLevel) {
+        if (null == $requiredLevel || Account::ANONYMOUS == $requiredLevel) {
             return true;
         }
 
-        if (null == $credentials || !($credentials instanceof ZMAccount)) {
+        if (null == $credentials || !($credentials instanceof Account)) {
             return null;
         }
 
-        $level = ZMAccount::ANONYMOUS;
-        if (null != $credentials && $credentials instanceof ZMAccount) {
+        $level = Account::ANONYMOUS;
+        if (null != $credentials && $credentials instanceof Account) {
             $level = $credentials->getType();
         }
 

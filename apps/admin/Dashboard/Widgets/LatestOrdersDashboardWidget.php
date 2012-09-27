@@ -20,6 +20,7 @@
 namespace ZenMagick\apps\admin\Dashboard\Widgets;
 
 use ZenMagick\apps\admin\Dashboard\DashboardWidget;
+use ZenMagick\StoreBundle\Entity\Account\Account;
 
 /**
  * Latest orders dashboard widget.
@@ -52,7 +53,7 @@ class LatestOrdersDashboardWidget extends DashboardWidget {
             $actualAccount =$accountService->getAccountForId($order->getAccountId());
             $name = '???';
             if (null != ($actualAccount = $accountService->getAccountForId($order->getAccountId()))) {
-                $name = $actualAccount->getType() == \ZMAccount::REGISTERED ? $order->getAccount()->getFullName() : _zm('** Guest **');
+                $name = $actualAccount->getType() == Account::REGISTERED ? $order->getAccount()->getFullName() : _zm('** Guest **');
             }
             $contents .= '    <td><a href="'.$net->url('orders', 'action=edit&oID='.$order->getId()).'">'.$order->getId().'</a></td>';
             $contents .= '    <td><a href="'.$net->url('customers', 'action=edit&cID='.$order->getAccountId()).'">'.$name.'</a></td>';

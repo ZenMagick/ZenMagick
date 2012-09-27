@@ -20,6 +20,7 @@
 namespace ZenMagick\apps\admin\Dashboard\Widgets;
 
 use ZenMagick\apps\admin\Dashboard\DashboardWidget;
+use ZenMagick\StoreBundle\Entity\Account\Account;
 
 /**
  * Latest accounts dashboard widget.
@@ -46,7 +47,7 @@ class LatestAccountsDashboardWidget extends DashboardWidget {
         $contents .= '<tr><th>'._zm('Name').'</th><th>'._zm('Registered').'</th></tr>';
         foreach ($this->container->get('accountService')->getAllAccounts(null, 5) as $account) {
             $contents .= '<tr>';
-            $name = $account->getType() == \ZMAccount::REGISTERED ? $account->getFullName() : _zm('** Guest **');
+            $name = $account->getType() == Account::REGISTERED ? $account->getFullName() : _zm('** Guest **');
             $contents .= '<td><a href="'.$net->url('account', 'accountId='.$account->getId()).'">'.$name.'</a></td>';
             $contents .= '<td>'.$this->container->get('localeService')->shortDate($account->getAccountCreateDate()).'</td>';
             $contents .= '</tr>';

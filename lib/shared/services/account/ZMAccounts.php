@@ -21,6 +21,7 @@
 use ZenMagick\Base\Toolbox;
 use ZenMagick\Base\ZMObject;
 use ZenMagick\Base\Database\Connection;
+use ZenMagick\StoreBundle\Entity\Account\Account;
 
 /**
  * Accounts.
@@ -38,7 +39,7 @@ class ZMAccounts extends ZMObject {
      * Get account for the given account id.
      *
      * @param int accountId The account id.
-     * @return ZMAccount A <code>ZMAccount</code> instance or <code>null</code>.
+     * @return ZenMagick\StoreBundle\Entity\Account\Account A <code>ZenMagick\StoreBundle\Entity\Account\Account</code> instance or <code>null</code>.
      */
     public function getAccountForId($accountId) {
         $sql = "SELECT c.*, ci.*
@@ -46,9 +47,9 @@ class ZMAccounts extends ZMObject {
                   LEFT JOIN %table.customers_info% ci ON (c.customers_id = ci.customers_info_id)
                 WHERE c.customers_id = :accountId";
         $args = array('accountId' => $accountId);
-        if (null != ($account = ZMRuntime::getDatabase()->querySingle($sql, $args, array('customers', 'customers_info'), 'ZMAccount'))) {
+        if (null != ($account = ZMRuntime::getDatabase()->querySingle($sql, $args, array('customers', 'customers_info'), 'ZenMagick\StoreBundle\Entity\Account\Account'))) {
             if (Toolbox::isEmpty($account->getPassword())) {
-                $account->setType(ZMAccount::GUEST);
+                $account->setType(Account::GUEST);
             }
         }
         return $account;
@@ -58,7 +59,7 @@ class ZMAccounts extends ZMObject {
      * Get account for the given email address.
      *
      * @param string emailAddress The email address.
-     * @return ZMAccount A <code>ZMAccount</code> instance or <code>null</code>.
+     * @return ZenMagick\StoreBundle\Entity\Account\Account A <code>ZenMagick\StoreBundle\Entity\Account\Account</code> instance or <code>null</code>.
      */
     public function getAccountForEmailAddress($emailAddress) {
         $sql = "SELECT c.*, ci.*
@@ -67,9 +68,9 @@ class ZMAccounts extends ZMObject {
                 WHERE customers_email_address = :email
                 AND NOT (customers_password = '')";
         $args = array('email' => $emailAddress);
-        if (null != ($account = ZMRuntime::getDatabase()->querySingle($sql, $args, array('customers', 'customers_info'), 'ZMAccount'))) {
+        if (null != ($account = ZMRuntime::getDatabase()->querySingle($sql, $args, array('customers', 'customers_info'), 'ZenMagick\StoreBundle\Entity\Account\Account'))) {
             if (Toolbox::isEmpty($account->getPassword())) {
-                $account->setType(ZMAccount::GUEST);
+                $account->setType(Account::GUEST);
             }
         }
         return $account;
@@ -79,7 +80,7 @@ class ZMAccounts extends ZMObject {
      * Get all accounts (guest and registered) for the given email address.
      *
      * @param string emailAddress The email address.
-     * @return array A <st of code>ZMAccount</code> instances.
+     * @return array A <st of code>ZenMagick\StoreBundle\Entity\Account\Account</code> instances.
      */
     public function getAccountsForEmailAddress($emailAddress) {
         $sql = "SELECT c.*, ci.*
@@ -88,9 +89,9 @@ class ZMAccounts extends ZMObject {
                 WHERE customers_email_address = :email";
         $args = array('email' => $emailAddress);
         $accounts = array();
-        foreach (ZMRuntime::getDatabase()->fetchAll($sql, $args, array('customers', 'customers_info'), 'ZMAccount') as $account) {
+        foreach (ZMRuntime::getDatabase()->fetchAll($sql, $args, array('customers', 'customers_info'), 'ZenMagick\StoreBundle\Entity\Account\Account') as $account) {
             if (Toolbox::isEmpty($account->getPassword())) {
-                $account->setType(ZMAccount::GUEST);
+                $account->setType(Account::GUEST);
             }
             $accounts[] = $account;
         }
@@ -100,17 +101,17 @@ class ZMAccounts extends ZMObject {
     /**
      * Get all accounts.
      *
-     * @param string type Optional type (<code>ZMAccount::REGISTERED<code>, <code>ZMAccount::GUEST<code>); default is <code>null</code> for all.
+     * @param string type Optional type (<code>Account::REGISTERED<code>, <code>Account::GUEST<code>); default is <code>null</code> for all.
      * @param int limit Optional limit; default is <em>0</em> for all.
-     * @return array A <st of code>ZMAccount</code> instances.
+     * @return array A <st of code>ZenMagick\StoreBundle\Entity\Account\Account</code> instances.
      */
     public function getAllAccounts($type=null, $limit=0) {
         $sql = "SELECT c.*, ci.*
                 FROM %table.customers% c
                   LEFT JOIN %table.customers_info% ci ON (c.customers_id = ci.customers_info_id)";
-        if (ZMAccount::REGISTERED == $type) {
+        if (Account::REGISTERED == $type) {
             $sql .= " WHERE NOT (customers_password = '')";
-        } else if (ZMAccount::GUEST == $type) {
+        } else if (Account::GUEST == $type) {
             $sql .= " WHERE (customers_password = '')";
         }
         $sql .= " ORDER BY c.customers_id DESC";
@@ -119,9 +120,9 @@ class ZMAccounts extends ZMObject {
         }
 
         $accounts = array();
-        foreach (ZMRuntime::getDatabase()->fetchAll($sql, array(), array('customers', 'customers_info'), 'ZMAccount') as $account) {
+        foreach (ZMRuntime::getDatabase()->fetchAll($sql, array(), array('customers', 'customers_info'), 'ZenMagick\StoreBundle\Entity\Account\Account') as $account) {
             if (Toolbox::isEmpty($account->getPassword())) {
-                $account->setType(ZMAccount::GUEST);
+                $account->setType(Account::GUEST);
             }
             $accounts[] = $account;
         }
@@ -162,8 +163,8 @@ class ZMAccounts extends ZMObject {
     /**
      * Create a new account.
      *
-     * @param ZMAccount account The new account.
-     * @return ZMAccount The created account incl. the new account id.
+     * @param ZenMagick\StoreBundle\Entity\Account\Account account The new account.
+     * @return ZenMagick\StoreBundle\Entity\Account\Account The created account incl. the new account id.
      */
     public function createAccount($account) {
         $account = ZMRuntime::getDatabase()->createModel('customers', $account);
@@ -180,8 +181,8 @@ class ZMAccounts extends ZMObject {
      * <p><strong>NOTE:</strong> This will not update product notification changes!</p>
      * <p>Use <code>setGlobalProductSubscriber(..)</code> and <code>setSubscribedProductIds(..)</code> * to update product subscriptions.</p>
      *
-     * @param ZMAccount The account.
-     * @return ZMAccount The updated account.
+     * @param ZenMagick\StoreBundle\Entity\Account\Account The account.
+     * @return ZenMagick\StoreBundle\Entity\Account\Account The updated account.
      */
     public function updateAccount($account) {
         ZMRuntime::getDatabase()->updateModel('customers', $account);
@@ -264,9 +265,9 @@ class ZMAccounts extends ZMObject {
     /**
      * Add subscribed product ids.
      *
-     * @param ZMAccount account The account.
+     * @param ZenMagick\StoreBundle\Entity\Account\Account account The account.
      * @param arrray productIds A list of product ids to subscribe to.
-     * @return ZMAccount The updated account.
+     * @return ZenMagick\StoreBundle\Entity\Account\Account The updated account.
      */
     public function addSubscribedProductIds($account, $productIds) {
         $sql = "INSERT INTO %table.products_notifications%
@@ -281,9 +282,9 @@ class ZMAccounts extends ZMObject {
     /**
      * Remove subscribed product ids.
      *
-     * @param ZMAccount account The account.
+     * @param ZenMagick\StoreBundle\Entity\Account\Account account The account.
      * @param arrray productIds A list of product ids to remove subscriptions.
-     * @return ZMAccount The updated account.
+     * @return ZenMagick\StoreBundle\Entity\Account\Account The updated account.
      */
     public function removeSubscribedProductIds($account, $productIds) {
         $sql = "DELETE FROM %table.products_notifications%
@@ -297,9 +298,9 @@ class ZMAccounts extends ZMObject {
     /**
      * Set subscribed product ids.
      *
-     * @param ZMAccount account The account.
+     * @param ZenMagick\StoreBundle\Entity\Account\Account account The account.
      * @param array productIds The new list of subscribed product ids.
-     * @return ZMAccount The updated account.
+     * @return ZenMagick\StoreBundle\Entity\Account\Account The updated account.
      */
     public function setSubscribedProductIds($account, $productIds) {
         $currentList = $account->getSubscribedProducts();

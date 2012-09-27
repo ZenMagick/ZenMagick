@@ -85,7 +85,7 @@ class WordpressAdapter extends ZMObject {
     /**
      * Create a new account.
      *
-     * @param ZMAccount account The store account.
+     * @param ZenMagick\StoreBundle\Entity\Account\Account account The store account.
      * @param string password The clear text password.
      * @return boolean <code>true</code> if the account was created.
      */

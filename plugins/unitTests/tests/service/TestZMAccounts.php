@@ -20,6 +20,7 @@
 
 use ZenMagick\Base\Beans;
 use ZenMagick\plugins\unitTests\simpletest\TestCase;
+use ZenMagick\StoreBundle\Entity\Account\Account;
 
 /**
  * Test accounts service.
@@ -45,7 +46,7 @@ class TestZMAccounts extends TestCase {
         'NewsletterSubscriber' => false,
         'GlobalProductSubscriber' => true,
         'SubscribedProducts' => null,
-        'Type' => ZMAccount::REGISTERED,
+        'Type' => Account::REGISTERED,
         'PriceGroupId' => 0
     );
 
@@ -54,7 +55,7 @@ class TestZMAccounts extends TestCase {
      * Create test account.
      */
     public function createAccount($data) {
-        $account = Beans::getBean('ZMAccount');
+        $account = Beans::getBean('ZenMagick\StoreBundle\Entity\Account\Account');
         foreach ($data as $key => $value) {
             if ('Dob' == $key) {
                 $value = new DateTime($value);
@@ -145,10 +146,10 @@ class TestZMAccounts extends TestCase {
         $accountService = $this->container->get('accountService');
         // gets us at least two guest accounts
         $account1 = $this->createAccount($this->accountData1);
-        $account1->setType(ZMAccount::GUEST);
+        $account1->setType(Account::GUEST);
         $account1 = $accountService->createAccount($account1);
         $account2 = $this->createAccount($this->accountData1);
-        $account2->setType(ZMAccount::GUEST);
+        $account2->setType(Account::GUEST);
         $account2 = $accountService->createAccount($account2);
 
         $accounts = $accountService->getAccountsForEmailAddress($account2->getEmail());

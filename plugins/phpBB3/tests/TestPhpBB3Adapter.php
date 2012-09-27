@@ -20,7 +20,7 @@
 
 namespace ZenMagick\plugins\phpbb3\tests;
 
-use ZMAccount;
+use ZenMagick\StoreBundle\Entity\Account\Account;
 use ZMRuntime;
 use ZenMagick\plugins\phpbb3\PhpBB3Adaptor;
 use ZenMagick\plugins\unitTests\simpletest\TestCase;
@@ -40,7 +40,7 @@ class TestPhpBB3Adapter extends TestCase {
     public function setUp() {
         parent::setUp();
         $this->getAdapter()->removeAccount('martin@mixedmatter.co.nz');
-        $account = new ZMAccount();
+        $account = new Account();
         $account->setEmail('martin@mixedmatter.co.nz');
         $account->setGender('m');
         $account->setFirstName('mano');

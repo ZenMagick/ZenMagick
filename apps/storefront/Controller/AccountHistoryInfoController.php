@@ -31,7 +31,7 @@ class AccountHistoryInfoController extends \ZMController {
      * {@inheritDoc}
      */
     public function processGet($request) {
-        $order = $this->container->get('orderService')->getOrderForId($request->query->getInt('order_id'), $request->getSession()->getLanguageId());
+        $order = $this->container->get('orderService')->getOrderForId($request->attributes->getInt('order_id'), $request->getSession()->getLanguageId());
         $account = $this->getUser();
         if ($account->getId() != $order->getAccountId()) {
             $this->messageService->error(_zm('Order not found'));

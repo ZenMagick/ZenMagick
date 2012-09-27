@@ -139,7 +139,7 @@ class CouponService extends ZMObject {
      * Create a new coupon tracker record.
      *
      * @param Coupon coupon The coupon.
-     * @param ZMAccount account The sender account.
+     * @param ZenMagick\StoreBundle\Entity\Account\Account account The sender account.
      * @param ZMGVReceiver gvreceiver The receiver.
      */
     public function createCouponTracker($coupon, $account, $gvreceiver) {

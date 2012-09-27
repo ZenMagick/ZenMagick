@@ -24,6 +24,7 @@ use ZenMagick\Base\Plugins\Plugin;
 use Symfony\Component\Routing\Route;
 use ZenMagick\Base\Toolbox;
 use ZenMagick\Http\Sacs\SacsManager;
+use ZenMagick\StoreBundle\Entity\Account\Account;
 
 /**
  * Generic form handler.
@@ -55,7 +56,7 @@ class FormHandlerPlugin extends Plugin {
             if (Toolbox::asBoolean($this->get('secure'))) {
                 // mark as secure
                 foreach ($pages as $page) {
-                    $this->container->get('sacsManager')->setMapping($page, \ZMAccount::ANONYMOUS);
+                    $this->container->get('sacsManager')->setMapping($page, Account::ANONYMOUS);
                 }
             }
 

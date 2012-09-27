@@ -83,7 +83,7 @@ class OpenIDPlugin extends Plugin {
      * Find account for a given OpenID.
      *
      * @param string openid The OpenID.
-     * @return ZMAccount The account or <code>null</code>.
+     * @return ZenMagick\StoreBundle\Entity\Account\Account The account or <code>null</code>.
      */
     public function getAccountForOpenID($openid) {
         $sql = "SELECT customers_id from %table.customers%

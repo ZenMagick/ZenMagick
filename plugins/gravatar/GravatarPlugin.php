@@ -20,7 +20,7 @@
 namespace ZenMagick\plugins\gravatar;
 
 use ZenMagick\Base\Plugins\Plugin;
-use ZMAccount;
+use ZenMagick\StoreBundle\Entity\Account\Account;
 use ZenMagick\Base\Toolbox;
 use ZenMagick\Base\ZMObject;
 
@@ -36,20 +36,20 @@ class GravatarPlugin extends Plugin {
      * Attach getGravatar method to Account.
      */
     public function onContainerReady($event) {
-        // attach method to ZMAccount
-        ZMObject::attachMethod('getGravatar', 'ZMAccount', array($this, 'getGravatar'));
+        // attach method to Account
+        ZMObject::attachMethod('getGravatar', 'ZenMagick\StoreBundle\Entity\Account\Account', array($this, 'getGravatar'));
     }
 
     /**
      * Get avatar.
      *
-     * @param mixed email The email address or <code>ZMAccount</code> instance.
+     * @param mixed email The email address or <code>ZenMagick\StoreBundle\Entity\Account\Account</code> instance.
      * @param string size Size in pixels; default is null to use the system default.
      * @param boole img <code>true</code> to return a complete <code>IMG</code> tag, <code>false</code> for just the URL; default is <code>true</code>.
      * @param array attributes Optional, additional key/value attributes to include in the IMG tag; default is an empty array.
      */
     public function getGravatar($email, $size=null, $img=true, array $attributes=array()) {
-        if ($email instanceof ZMAccount) {
+        if ($email instanceof Account) {
             $email = $email->getEmail();
         }
         $size = null != $size ? $size : $this->get('defaultSize');

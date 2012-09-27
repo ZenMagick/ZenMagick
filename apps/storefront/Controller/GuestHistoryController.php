@@ -19,6 +19,7 @@
  */
 namespace ZenMagick\apps\storefront\Controller;
 
+use ZenMagick\StoreBundle\Entity\Account\Account;
 
 /**
  * Request controller for guest history lookup.
@@ -50,7 +51,7 @@ class GuestHistoryController extends \ZMController {
             }
         }
 
-        if (null != $account && null != $order && \ZMAccount::GUEST == $account->getType() && $account->getEmail() == $email) {
+        if (null != $account && null != $order && Account::GUEST == $account->getType() && $account->getEmail() == $email) {
             return $this->findView('success', array('currentOrder' => $order));
         } else {
             $this->messageService->warn(_zm('No order information found'));

@@ -21,6 +21,7 @@ namespace ZenMagick\apps\storefront\Http;
 
 use ZenMagick\Base\Runtime;
 use ZenMagick\Base\Events\Event;
+use ZenMagick\StoreBundle\Entity\Account\Account;
 
 /**
  * Custom session class that adds a number of convenience methods.
@@ -74,7 +75,7 @@ class Session extends \ZenMagick\Http\Session\Session {
      */
     public function getType() {
         $type = $this->get('account_type');
-        return null === $type ? \ZMAccount::ANONYMOUS : $type;
+        return null === $type ? Account::ANONYMOUS : $type;
     }
 
     /**
@@ -84,7 +85,7 @@ class Session extends \ZenMagick\Http\Session\Session {
      *
      * @return boolean <code>true</code> if the current user is anonymous, <code>false</code> if not.
      */
-    public function isAnonymous() { return $this->getType() == \ZMAccount::ANONYMOUS; }
+    public function isAnonymous() { return $this->getType() == Account::ANONYMOUS; }
 
     /**
      * Returns <code>true</code> if the user is a guest user.
@@ -93,7 +94,7 @@ class Session extends \ZenMagick\Http\Session\Session {
      *
      * @return boolean <code>true</code> if the current user is an guest, <code>false</code> if not.
      */
-    public function isGuest() { return $this->getType() == \ZMAccount::GUEST; }
+    public function isGuest() { return $this->getType() == Account::GUEST; }
 
     /**
      * Returns <code>true</code> if the user is a registered user.
@@ -102,19 +103,19 @@ class Session extends \ZenMagick\Http\Session\Session {
      *
      * @return boolean <code>true</code> if the current user is registered, <code>false</code> if not.
      */
-    public function isRegistered() { return $this->getType() == \ZMAccount::REGISTERED; }
+    public function isRegistered() { return $this->getType() == Account::REGISTERED; }
 
     /**
      * Returns <code>true</code> if the user is logged in.
      *
      * @return boolean <code>true</code> if the current user is logged in, <code>false</code> if not.
      */
-    public function isLoggedIn() { return $this->getType() != \ZMAccount::ANONYMOUS; }
+    public function isLoggedIn() { return $this->getType() != Account::ANONYMOUS; }
 
     /**
      * Set the account for the current session.
      *
-     * @param ZMAccount account The account.
+     * @param ZenMagick\StoreBundle\Entity\Account\Account account The account.
      */
     public function setAccount($account) {
         if (null == $account) {
@@ -202,7 +203,7 @@ class Session extends \ZenMagick\Http\Session\Session {
      *
      * <p>This operation will fail, for example, if the account is blocked/disabled.</p>
      *
-     * @param ZMAccount account The account.
+     * @param ZenMagick\StoreBundle\Entity\Account\Account account The account.
      * @param ZenMagick\Http\Request request The current request.
      * @param mixed source The event source; default is <code>null</code>.
      * @return boolean <code>true</code> if ok, <code>false</code> if not.
