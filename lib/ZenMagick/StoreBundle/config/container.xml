@@ -183,7 +183,7 @@
 
         <service id="couponService" class="ZenMagick\StoreBundle\Services\Coupons\CouponService" />
 
-        <service id="ezPageService" class="ZMEZPages" />
+        <service id="ezPageService" class="ZenMagick\StoreBundle\Services\EZPages" />
 
         <service id="templateManager" class="ZenMagick\StoreBundle\Themes\TemplateManager">
            <call method="setContainer">

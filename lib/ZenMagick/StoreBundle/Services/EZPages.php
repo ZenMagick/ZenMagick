@@ -18,6 +18,9 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
+namespace ZenMagick\StoreBundle\Services;
+
+use ZMRuntime;
 use ZenMagick\Base\ZMObject;
 use ZenMagick\Base\Database\QueryDetails;
 use ZenMagick\Base\Database\SqlAware;
@@ -26,9 +29,8 @@ use ZenMagick\Base\Database\SqlAware;
  * EZ-pages.
  *
  * @author DerManoMann
- * @package zenmagick.store.shared.services
  */
-class ZMEZPages extends ZMObject implements SqlAware {
+class EZPages extends ZMObject implements SqlAware {
 
     /**
      * {@inheritDoc}
