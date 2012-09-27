@@ -19,6 +19,8 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
+namespace ZenMagick\StoreBundle\Entity\Catalog;
+
 use ZenMagick\Base\Beans;
 use ZenMagick\Base\ZMObject;
 
@@ -26,17 +28,16 @@ use ZenMagick\Base\ZMObject;
  * A single category
  *
  * @author DerManoMann
- * @package zenmagick.store.shared.model.catalog
  */
-class ZMCategory extends ZMObject {
-    private $parentId_;
-    private $name_;
-    private $active_;
-    private $childrenIds_;
-    private $description_;
-    private $sortOrder_;
-    private $image_;
-    private $languageId_;
+class Category extends ZMObject {
+    private $parentId;
+    private $name;
+    private $active;
+    private $childrenIds;
+    private $description;
+    private $sortOrder;
+    private $image;
+    private $languageId;
 
 
     /**
@@ -45,12 +46,12 @@ class ZMCategory extends ZMObject {
     public function __construct() {
         parent::__construct();
         $this->setId(0);
-        $this->parentId_ = 0;
-        $this->name_ = null;
-        $this->active_ = false;
-        $this->childrenIds_ = array();
-        $this->image_ = null;
-        $this->languageId_ = 0;
+        $this->parentId = 0;
+        $this->name = null;
+        $this->active = false;
+        $this->childrenIds = array();
+        $this->image = null;
+        $this->languageId = 0;
         $this->setDateAdded(null);
         $this->setLastModified(null);
     }
@@ -66,10 +67,10 @@ class ZMCategory extends ZMObject {
     /**
      * Get the parent category (if any).
      *
-     * @return ZMCategory The parent category or <code>null</code>.
+     * @return ZenMagick\StoreBundle\Entity\Catalog\Category The parent category or <code>null</code>.
      */
     public function getParent() {
-        return 0 != $this->parentId_ ? $this->container->get('categoryService')->getCategoryForId($this->parentId_, $this->languageId_) : null;
+        return 0 != $this->parentId ? $this->container->get('categoryService')->getCategoryForId($this->parentId, $this->languageId) : null;
     }
 
     /**
@@ -77,50 +78,50 @@ class ZMCategory extends ZMObject {
      *
      * @return int The parent category id or <code>0</code>.
      */
-    public function getParentId() { return $this->parentId_; }
+    public function getParentId() { return $this->parentId; }
 
     /**
      * Checks if the catgory has a parent.
      *
      * @return boolean <code>true</code> if this category has a parent, <code>false</code> if not.
      */
-    public function hasParent() { return 0 != $this->parentId_; }
+    public function hasParent() { return 0 != $this->parentId; }
 
     /**
      * Get the category name.
      *
      * @return string The category name.
      */
-    public function getName() { return $this->name_; }
+    public function getName() { return $this->name; }
 
     /**
      * Checks if this category is active; ie. visible in the storefront.
      *
      * @return boolean <code>true</code> if this category is active, <code>false</code> if not.
      */
-    public function isActive() { return $this->active_; }
+    public function isActive() { return $this->active; }
 
     /**
      * Set the active flag.
      *
      * @param boolean active <code>true</code> if this category is active, <code>false</code> if not.
      */
-    public function setActive($active) { $this->active_ = $active; }
+    public function setActive($active) { $this->active = $active; }
 
     /**
      * Checks if this category has children.
      *
      * @return boolean <code>true</code> if this category has children, <code>false</code> if not.
      */
-    public function hasChildren() { return 0 < count($this->childrenIds_); }
+    public function hasChildren() { return 0 < count($this->childrenIds); }
 
     /**
      * Get the child categories of this category.
      *
-     * @return array A list of <code>ZMCategory</code> instances.
+     * @return array A list of <code>ZenMagick\StoreBundle\Entity\Catalog\Category</code> instances.
      */
     public function getChildren() {
-        return $this->container->get('categoryService')->getCategories($this->languageId_, $this->childrenIds_);
+        return $this->container->get('categoryService')->getCategories($this->languageId, $this->childrenIds);
     }
 
     /**
@@ -129,9 +130,9 @@ class ZMCategory extends ZMObject {
      * @param mixed child Either a category or category id.
      */
     public function addChild($child) {
-        $id = ($child instanceof ZMCategory)  ? $child->getId() : $child;
-        if (!in_array($id, $this->childrenIds_)) {
-            $this->childrenIds_[] = $id;
+        $id = ($child instanceof Category)  ? $child->getId() : $child;
+        if (!in_array($id, $this->childrenIds)) {
+            $this->childrenIds[] = $id;
         }
     }
 
@@ -141,14 +142,14 @@ class ZMCategory extends ZMObject {
      * @param mixed child Either a category or category id.
      */
     public function removeChild($child) {
-        $cid = ($child instanceof ZMCategory)  ? $child->getId() : $child;
+        $cid = ($child instanceof Category)  ? $child->getId() : $child;
         $tmp = array();
-        foreach ($this->childrenIds_ as $id) {
+        foreach ($this->childrenIds as $id) {
             if ($id != $cid) {
                 $tmp[] = $id;
             }
         }
-        $this->childrenIds_ = $tmp;
+        $this->childrenIds = $tmp;
     }
 
     /**
@@ -156,21 +157,21 @@ class ZMCategory extends ZMObject {
      *
      * @return string The description.
      */
-    public function getDescription() { return $this->description_; }
+    public function getDescription() { return $this->description; }
 
     /**
      * Get the sort order.
      *
      * @return int The sort order.
      */
-    public function getSortOrder() { return $this->sortOrder_; }
+    public function getSortOrder() { return $this->sortOrder; }
 
     /**
      * Get the category image (if any).
      *
      * @return string The image name.
      */
-    public function getImage() { return $this->image_; }
+    public function getImage() { return $this->image; }
 
     /**
      * Get the categories image ino instance (if any).
@@ -178,13 +179,13 @@ class ZMCategory extends ZMObject {
      * @return ZMImageInfo The <code>ZMImageInfo</code> for this categorie's image, or <code>null</code>.
      */
     public function getImageInfo() {
-        if (null == $this->image_) {
+        if (null == $this->image) {
             return null;
         }
 
         $imageInfo = Beans::getBean('ZMImageInfo');
-        $imageInfo->setAltText($this->name_);
-        $imageInfo->setDefaultImage($this->image_);
+        $imageInfo->setAltText($this->name);
+        $imageInfo->setDefaultImage($this->image);
         return $imageInfo;
     }
 
@@ -216,49 +217,49 @@ class ZMCategory extends ZMObject {
      *
      * @param int parentId The parent category id.
      */
-    public function setParentId($parentId) { $this->parentId_ = $parentId; }
+    public function setParentId($parentId) { $this->parentId = $parentId; }
 
     /**
      * Set the category name.
      *
      * @param string name The category name.
      */
-    public function setName($name) { $this->name_ = $name; }
+    public function setName($name) { $this->name = $name; }
 
     /**
      * Set the category description.
      *
      * @param string description The description.
      */
-    public function setDescription($description) { $this->description_ = $description; }
+    public function setDescription($description) { $this->description = $description; }
 
     /**
      * Set the sort order.
      *
      * @param int sortOrder The sort order.
      */
-    public function setSortOrder($sortOrder) { $this->sortOrder_ = $sortOrder; }
+    public function setSortOrder($sortOrder) { $this->sortOrder = $sortOrder; }
 
     /**
      * Set the category image (if any).
      *
      * @param string image The image name.
      */
-    public function setImage($image) { $this->image_ = $image; }
+    public function setImage($image) { $this->image = $image; }
 
     /**
      * Get the language id.
      *
      * @return int The language id.
      */
-    public function getLanguageId() { return $this->languageId_; }
+    public function getLanguageId() { return $this->languageId; }
 
     /**
      * Set the language id.
      *
      * @param int languageId The language id.
      */
-    public function setLanguageId($languageId) { $this->languageId_ = $languageId; }
+    public function setLanguageId($languageId) { $this->languageId = $languageId; }
 
     /**
      * Get a list of <strong>all</strong> decendant category ids.

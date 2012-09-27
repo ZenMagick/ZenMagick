@@ -34,7 +34,7 @@ use ZenMagick\Base\ZMObject;
  */
 class ZMCategories extends ZMObject {
     /**
-     * Flat list of <code>ZMCategory</code> instances.
+     * Flat list of <code>ZenMagick\StoreBundle\Entity\Catalog\Category</code> instances.
      *
      * <p>This gets loaded on demand, so subclasses have to ensure this is populated before
      * using it.</p>
@@ -79,7 +79,7 @@ class ZMCategories extends ZMObject {
      *
      * @param int productId The product id.
      * @param int languageId Language id.
-     * @return ZMCategory The default category (or <code>null</code>).
+     * @return ZenMagick\StoreBundle\Entity\Catalog\Category The default category (or <code>null</code>).
      */
     public function getDefaultCategoryForProductId($productId, $languageId) {
         $sql = "SELECT categories_id, products_id
@@ -103,7 +103,7 @@ class ZMCategories extends ZMObject {
      *
      * @param int languageId Language id.
      * @param boolean includeChildren Optional flag to also populate child categories; default is <code>false</code>.
-     * @return array A list of <code>ZMCategory</code> instances.
+     * @return array A list of <code>ZenMagick\StoreBundle\Entity\Catalog\Category</code> instances.
      */
     public function getRootCategories($languageId, $includeChildren=false) {
         $rootCategoriesKey = $languageId.'-'.($includeChildren ? 'true' : 'false');
@@ -125,7 +125,7 @@ class ZMCategories extends ZMObject {
                     AND c.parent_id = 0
                   ORDER BY c.parent_id, c.sort_order, cd.categories_name";
         $args = array('languageId' => $languageId);
-        foreach (ZMRuntime::getDatabase()->fetchAll($sql, $args, array('categories', 'categories_description'), 'ZMCategory') as $category) {
+        foreach (ZMRuntime::getDatabase()->fetchAll($sql, $args, array('categories', 'categories_description'), 'ZenMagick\StoreBundle\Entity\Catalog\Category') as $category) {
             $rootCategories[$category->getId()] = $category;
         }
 
@@ -137,7 +137,7 @@ class ZMCategories extends ZMObject {
                         AND c.parent_id IN (:categoryId)
                       ORDER BY c.parent_id, c.sort_order, cd.categories_name";
             $args = array('categoryId' => array_keys($rootCategories), 'languageId' => $languageId);
-            foreach (ZMRuntime::getDatabase()->fetchAll($sql, $args, array('categories', 'categories_description'), 'ZMCategory') as $category) {
+            foreach (ZMRuntime::getDatabase()->fetchAll($sql, $args, array('categories', 'categories_description'), 'ZenMagick\StoreBundle\Entity\Catalog\Category') as $category) {
                 $rootCategories[$category->getParentId()]->addChild($category);
             }
         }
@@ -153,7 +153,7 @@ class ZMCategories extends ZMObject {
      * Get all categories.
      *
      * @param int languageId Language id.
-     * @return array A list of <code>ZMCategory</code> instances.
+     * @return array A list of <code>ZenMagick\StoreBundle\Entity\Catalog\Category</code> instances.
      */
     public function getAllCategories($languageId) {
         return $this->getCategories($languageId);
@@ -164,7 +164,7 @@ class ZMCategories extends ZMObject {
      *
      * @param int languageId Language id.
      * @param array ids Optional list of category ids; default is <code>null</code>.
-     * @return array A list of <code>ZMCategory</code> instances.
+     * @return array A list of <code>ZenMagick\StoreBundle\Entity\Catalog\Category</code> instances.
      */
     public function getCategories($languageId, $ids=null) {
         if (array_key_exists($languageId, $this->categories_)) {
@@ -212,7 +212,7 @@ class ZMCategories extends ZMObject {
      *
      * @param int categoryId The category id.
      * @param int languageId Language id.
-     * @return ZMCategory A <code>ZMCategory</code> instance or <code>null</code>.
+     * @return ZenMagick\StoreBundle\Entity\Catalog\Category A <code>ZenMagick\StoreBundle\Entity\Catalog\Category</code> instance or <code>null</code>.
      */
     public function getCategoryForId($categoryId, $languageId) {
         $categories = $this->getCategories($languageId);
@@ -228,7 +228,7 @@ class ZMCategories extends ZMObject {
      * Invalidate all cache entries.
      *
      * @param int languageId The language id.
-     * @param ZMCategory category Optional category to update in runtime cache; default is <code>null</code>.
+     * @param ZenMagick\StoreBundle\Entity\Catalog\Category category Optional category to update in runtime cache; default is <code>null</code>.
      */
     protected function invalidateCache($languageId, $category=null) {
         $this->cache_->remove(Toolbox::hash('categories', 'categories', $languageId));
@@ -243,7 +243,7 @@ class ZMCategories extends ZMObject {
     /**
      * Create a new category.
      *
-     * @param ZMCategory category The category.
+     * @param ZenMagick\StoreBundle\Entity\Catalog\Category category The category.
      * @return Category The updated category.
      */
     public function createCategory($category) {
@@ -286,7 +286,7 @@ class ZMCategories extends ZMObject {
     /**
      * Update an existing category.
      *
-     * @param ZMCategory category The category.
+     * @param ZenMagick\StoreBundle\Entity\Catalog\Category category The category.
      * @return Category The updated category.
      */
     public function updateCategory($category) {
@@ -320,7 +320,7 @@ class ZMCategories extends ZMObject {
     /**
      * Delete a category.
      *
-     * @param ZMCategory category The category.
+     * @param ZenMagick\StoreBundle\Entity\Catalog\Category category The category.
      */
     public function deleteCategory($category) {
         $languageId = $category->getLanguageId();
@@ -398,7 +398,7 @@ class ZMCategories extends ZMObject {
         $sql .= " ORDER BY c.parent_id, c.sort_order, cd.categories_name";
 
         $categories = array();
-        foreach (ZMRuntime::getDatabase()->fetchAll($sql, $args, array('categories', 'categories_description'), 'ZMCategory') as $category) {
+        foreach (ZMRuntime::getDatabase()->fetchAll($sql, $args, array('categories', 'categories_description'), 'ZenMagick\StoreBundle\Entity\Catalog\Category') as $category) {
             $categories[$category->getId()] = $category;
         }
 

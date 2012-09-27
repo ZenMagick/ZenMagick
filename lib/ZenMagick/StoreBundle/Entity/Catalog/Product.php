@@ -995,7 +995,7 @@ class Product extends ZMObject {
      * product.</p>
      *
      * @param int languageId The languageId; default is <code>null</code> for session setting.
-     * @return ZMCategory The default category.
+     * @return ZenMagick\StoreBundle\Entity\Catalog\Category The default category.
      */
     public function getDefaultCategory($languageId=null) {
         $languageId = null !== $languageId ? $languageId : $this->container->get('session')->getLanguageId();

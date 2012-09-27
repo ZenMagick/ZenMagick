@@ -177,7 +177,7 @@ class ToolboxMacro extends ToolboxTool {
      *
      * <p>Please note that the last three parameter are used internally and should not bet set.</p>
      *
-     * @param array categories An <code>array</code> of <code>ZMCategory</code> instances.
+     * @param array categories An <code>array</code> of <code>ZenMagick\StoreBundle\Entity\Catalog\Category</code> instances.
      * @param boolean showProductCount If true, show the product count per category; default is <code>false</code>.
      * @param boolean $useCategoryPage If true, create links for empty categories; default is <code>false</code>.
      * @param boolean activeParent If true, the parent category is considered in the current category path; default is <code>false</code>.

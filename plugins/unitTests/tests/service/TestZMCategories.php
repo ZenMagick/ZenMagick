@@ -53,7 +53,7 @@ class TestZMCategories extends TestCase {
     public function testCreateDelete() {
         $categoryService = $this->container->get('categoryService');
 
-        $newCategory = Beans::getBean('ZMCategory');
+        $newCategory = Beans::getBean('ZenMagick\StoreBundle\Entity\Catalog\Category');
         $newCategory->setLanguageId(1);
         $newCategory->setName('Foo');
         $newCategory->setDescription('A foo category');
