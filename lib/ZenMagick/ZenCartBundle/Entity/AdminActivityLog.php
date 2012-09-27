@@ -57,7 +57,7 @@ class AdminActivityLog
     /**
      * @var string $ipAddress
      *
-     * @ORM\Column(name="ip_address", type="string", length=15, nullable=false)
+     * @ORM\Column(name="ip_address", type="string", length=45, nullable=false)
      */
     private $ipAddress;
 

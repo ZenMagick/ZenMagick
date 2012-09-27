@@ -64,7 +64,7 @@ class CouponRedeemTrack {
     /**
      * @var string $redeemIp
      *
-     * @ORM\Column(name="redeem_ip", type="string", length=32, nullable=false)
+     * @ORM\Column(name="redeem_ip", type="string", length=45, nullable=false)
      */
     private $redeemIp;
 

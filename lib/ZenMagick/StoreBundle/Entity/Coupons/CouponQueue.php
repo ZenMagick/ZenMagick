@@ -72,7 +72,7 @@ class CouponQueue extends ZMObject {
     /**
      * @var string $ipAddr
      *
-     * @ORM\Column(name="ipaddr", type="string", length=32, nullable=false)
+     * @ORM\Column(name="ipaddr", type="string", length=45, nullable=false)
      */
     private $ipAddr;
     /**
