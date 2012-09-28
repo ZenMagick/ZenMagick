@@ -48,7 +48,7 @@ class LatestAccountsDashboardWidget extends DashboardWidget {
         foreach ($this->container->get('accountService')->getAllAccounts(null, 5) as $account) {
             $contents .= '<tr>';
             $name = $account->getType() == Account::REGISTERED ? $account->getFullName() : _zm('** Guest **');
-            $contents .= '<td><a href="'.$net->url('account', 'accountId='.$account->getId()).'">'.$name.'</a></td>';
+            $contents .= '<td><a href="'.$net->url('account_show', 'accountId='.$account->getId()).'">'.$name.'</a></td>';
             $contents .= '<td>'.$this->container->get('localeService')->shortDate($account->getAccountCreateDate()).'</td>';
             $contents .= '</tr>';
         }

@@ -51,7 +51,7 @@
     <route id="accounts" pattern="/accounts">
         <default key="_controller">ZenMagick\apps\admin\Controller\AccountsController::process</default>
     </route>
-    <route id="account" pattern="/account">
+    <route id="account_show" pattern="/account">
         <default key="_controller">ZenMagick\apps\admin\Controller\AccountController::process</default>
     </route>
     <route id="update_user" pattern="/user/update">
