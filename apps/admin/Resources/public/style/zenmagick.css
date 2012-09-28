@@ -89,8 +89,8 @@ ul#messages li {margin:2px 0;padding:2px;}
 .cluetip-default {text-align:left;}
 
 /* login */
-#p-login #content form {width:220px;margin:60px auto;}
-#p-reset_password #content form {width:420px;margin:60px auto;}
+#p-admin_login #content form {width:220px;margin:60px auto;}
+#p-admin_reset_password #content form {width:420px;margin:60px auto;}
 
 /* catalog tree */
 .ui-widget-content ins.ui-icon-empty {background:none;display:none;}

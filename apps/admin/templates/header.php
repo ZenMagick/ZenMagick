@@ -20,7 +20,7 @@
 ?>
 <div id="header">
   <div id="logo">
-    <a href="<?php echo $net->url('index') ?>"><img src="<?php echo $this->asUrl('resource:images/logo-small.png') ?>" alt="ZenMagick" title="ZenMagick"></a>
+    <a href="<?php echo $net->url('admin_index') ?>"><img src="<?php echo $this->asUrl('resource:images/logo-small.png') ?>" alt="ZenMagick" title="ZenMagick"></a>
   </div>
   <?php if ($app->getUser()) { ?>
     <div id="header-box">
@@ -32,7 +32,7 @@
         <?php } ?>
         | <a href="<?php echo $request->getSchemeAndHttpHost() ?>" target="_blank">Storefront</a>
         | <?php echo date('l, F d, Y') ?>
-        | <a href="<?php echo $net->url('logoff') ?>"><?php _vzm('Log Out') ?></a>
+        | <a href="<?php echo $net->url('admin_logoff') ?>"><?php _vzm('Log Out') ?></a>
       </p>
       <!-- <a href="http://forum.zenmagick.org/" target="_blank"><?php _vzm('Get Help') ?></a> -->
     </div>

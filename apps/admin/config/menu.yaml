@@ -1,5 +1,5 @@
 # basic admin menu
-index: { requestId: index, name: Dashboard }
+index: { requestId: admin_index, name: Dashboard }
 catalog: { requestId: catalog, name: Catalog }
 fulfilment: { requestId: fulfilment, name: Fulfilment }
 reports: { requestId: reports, name: Reports }

@@ -41,8 +41,8 @@ zenmagick:
   http:
     ## request
     request:
-      invalidSession: login
-      login: login
+      invalidSession: admin_login
+      login: admin_login
       urlType: path
       secure: false
       enforceSecure: false

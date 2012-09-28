@@ -13,7 +13,9 @@
         <!-- @todo set these by default until all forms are secured by default -->
         <parameter key="zenmagick.http.session.formtoken" type="collection">
             <parameter>login</parameter>
+            <parameter>admin_login</parameter>
             <parameter>reset_password</parameter>
+            <parameter>admin_reset_password</parameter>
         </parameter>
         <parameter key="zenmagick.http.virtualPathMap" type="collection"></parameter>
         <parameter key="zenmagick.http.sacs.mappingProviders" type="collection"></parameter>

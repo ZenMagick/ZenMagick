@@ -30,6 +30,6 @@
 
 <p>
   <input class="<?php echo $buttonClasses ?>" type="submit" value="<?php _vzm('Reset') ?>">
-  <a class="<?php echo $buttonClasses ?>" href="<?php echo $net->url('login') ?>"><?php _vzm('Back to Login') ?></a>
+  <a class="<?php echo $buttonClasses ?>" href="<?php echo $net->url('admin_login') ?>"><?php _vzm('Back to Login') ?></a>
 </p>
 </form>

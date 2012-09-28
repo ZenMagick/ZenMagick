@@ -8,8 +8,8 @@
     <route id="zenmagick_global_routing" pattern="^^">
         <option key="view:success">redirect://%routeId%</option>
         <option key="view:error">views/error.php?layout=</option>
-        <option key="view:login-demo">redirect://login</option>
-        <option key="view:success-demo">redirect://index</option>
+        <option key="view:login-demo">redirect://admin_login</option>
+        <option key="view:success-demo">redirect://admin_index</option>
     </route>
 
     <route id="about" pattern="/about">
@@ -34,18 +34,18 @@
         <default key="_controller">ZMController::process</default>
     </route>
 
-    <route id="login" pattern="/login">
+    <route id="admin_login" pattern="/login">
         <default key="_controller">ZenMagick\apps\admin\Controller\LoginController::process</default>
-        <option key="view:logged-in">redirect://index</option>
-        <option key="view:success">redirect://index</option>
+        <option key="view:logged-in">redirect://admin_index</option>
+        <option key="view:success">redirect://admin_index</option>
     </route>
-    <route id="logoff" pattern="/logoff">
+    <route id="admin_logoff" pattern="/logoff">
         <default key="_controller">ZenMagick\apps\admin\Controller\LogoffController::process</default>
-        <option key="view:success">redirect://login</option>
+        <option key="view:success">redirect://admin_login</option>
     </route>
-    <route id="reset_password" pattern="/password/reset">
+    <route id="admin_reset_password" pattern="/password/reset">
         <default key="_controller">ZenMagick\apps\admin\Controller\ResetPasswordController::process</default>
-        <option key="view:success">redirect://login</option>
+        <option key="view:success">redirect://admin_login</option>
     </route>
 
     <route id="accounts" pattern="/accounts">
@@ -56,7 +56,7 @@
     </route>
     <route id="update_user" pattern="/user/update">
         <default key="_controller">ZenMagick\apps\admin\Controller\UpdateUserController::process</default>
-        <option key="view:success">redirect://index</option>
+        <option key="view:success">redirect://admin_index</option>
         <option key="form">ZenMagick\apps\admin\Forms\AdminUserForm#formId=updateUser</option>
     </route>
     <route id="ezpages" pattern="/ezpages/{languageId}">
@@ -153,7 +153,7 @@
 
     <import resource="." type="context" />
     <import resource="@ZenCartBundle/Resources/config/admin/routing.xml" />
-    <route id="index" pattern="/">
+    <route id="admin_index" pattern="/">
         <default key="_controller">ZMController::process</default>
     </route>
 

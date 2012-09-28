@@ -15,13 +15,13 @@ mappings:
   ###########################################
   ## allowed for all (wildcard users)
   ##
-  login:
+  admin_login:
     users:
       - '*'
-  logoff:
+  admin_logoff:
     users:
       - '*'
-  reset_password:
+  admin_reset_password:
     users:
       - '*'
 
@@ -34,6 +34,6 @@ mappings:
   ajax_dashboard:
     roles:
       - '*'
-  index:
+  admin_index:
     roles:
       - '*'
