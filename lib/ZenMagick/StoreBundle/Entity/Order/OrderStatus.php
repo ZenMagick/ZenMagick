@@ -57,6 +57,9 @@ class OrderStatus {
     private $statusName;
 
 
+    public function getId() {
+        return $this->orderStatusId;
+    }
 
     /**
      * Set orderStatusId
@@ -101,6 +104,18 @@ class OrderStatus {
     }
 
     /**
+     * Set Name
+     *
+     * @param string $name
+     * @return OrderStatus
+     */
+    public function setName($name) {
+        $this->statusName = $name;
+
+        return $this;
+    }
+
+    /**
      * Set statusName
      *
      * @param string $statusName
@@ -110,6 +125,15 @@ class OrderStatus {
         $this->statusName = $statusName;
 
         return $this;
+    }
+
+    /**
+     * Get statusName
+     *
+     * @return string
+     */
+    public function getName() {
+        return $this->statusName;
     }
 
     /**
