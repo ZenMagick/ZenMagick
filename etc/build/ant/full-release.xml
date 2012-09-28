@@ -116,7 +116,7 @@
         <antcall target="insert-before">
             <param name="insert.file" value="${release.full.dir}/index.php" />
             <param name="insert.regexp" value="includes/application_top.php" />
-            <param name="insert.substitution" value="  require 'zenmagick/apps/storefront/web/index.php'; return;" />
+            <param name="insert.substitution" value="  require 'zenmagick/web/app.php'; return;" />
         </antcall>
 
         <!-- create theme dummy files -->

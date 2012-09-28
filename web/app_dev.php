@@ -21,7 +21,12 @@ if (isset($_SERVER['HTTP_CLIENT_IP'])
 require_once __DIR__.'/../app/autoload.php';
 require_once __DIR__.'/../app/AppKernel.php';
 
-$application = new AppKernel('dev', true, 'admin');
+// @todo remove context from here altogether!
+$context = 'storefront';
+if (0 === strpos($_SERVER['REQUEST_URI'], '/admin')) {
+    $context = 'admin';
+}
+$application = new AppKernel('dev', true, $context);
 //$application->loadClassCache();
 $request = Request::createFromGlobals();
 $response = $application->handle($request);

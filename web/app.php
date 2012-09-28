@@ -10,7 +10,12 @@ $loader = require_once __DIR__.'/../app/bootstrap.php.cache';
 require_once __DIR__.'/../app/AppKernel.php';
 //require_once __DIR__.'/../app/AppCache.php';
 
-$application = new AppKernel('prod', false, 'admin');
+// @todo remove context from here altogether!
+$context = 'storefront';
+if (0 === strpos($_SERVER['REQUEST_URI'], '/admin')) {
+    $context = 'admin';
+}
+$application = new AppKernel('prod', false, $context);
 $application->loadClassCache();
 $request = Request::createFromGlobals();
 $response = $application->handle($request);

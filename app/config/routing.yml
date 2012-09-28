@@ -1,0 +1,7 @@
+zenmagick_admin:
+    resource: "@AdminBundle/config/routing.xml"
+    prefix:   /admin
+zenmagick_storefront:
+    resource: "@StorefrontBundle/config/routing.xml"
+    prefix: /
+
