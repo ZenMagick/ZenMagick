@@ -61,7 +61,7 @@ class ZenCartAutoLoader extends ZMObject {
     public function overrideRequestGlobals() {
         $request = $this->getRequest();
 
-        $requestId = $request->getRequestId();
+        $requestId = str_replace('zc_admin_','', $request->getRequestId());
         // needed throughout sadly
         $globals = array(
             'code_page_directory' => 'includes/modules/pages/'.$requestId,

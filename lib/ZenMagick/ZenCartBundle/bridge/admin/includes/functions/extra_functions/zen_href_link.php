@@ -33,5 +33,5 @@ function zen_href_link($page='', $params='', $transport='NONSSL', $addSessionId=
     parse_str($params, $tmp);
     unset($tmp['rid']);
     $params = http_build_query($tmp);
-    return $request->url($page, $params);
+    return $request->url('zc_admin_'.$page, $params);
 }

@@ -25,11 +25,9 @@ $resourceManager->jsFile('zc_admin.js');
 
 $adminDir = $settingsService->get('zencart.admin_dir');
 $zcPath = $settingsService->get('zencart.root_dir');
-$baseContext = trim(str_replace('/zenmagick/apps/admin/web', '', $request->getContext()));
-$adminWeb = substr(sprintf('%s/%s', $baseContext, $adminDir), 1);
-//$adminWeb = trim(str_replace(Runtime::getInstallationPath(), '', $zcPath).'/'.$adminDir, '/');
+$adminWeb = $adminDir;
 $zcAdminPath = $zcPath.'/'.$adminDir.'/';
-$zcPage = $request->getRequestId().'.php';
+$zcPage = str_replace('zc_admin_', '',$request->getRequestId()).'.php';
 chdir($zcAdminPath);
 
 //$autoLoader->setErrorLevel();
@@ -39,7 +37,7 @@ global $currencies;
 // Might want to actually load it completely local instead.
 $autoLoader->setErrorLevel();
 $autoLoader->includeFiles('includes/languages/%language%.php');
-$autoLoader->includeFiles('includes/languages/%language%/%current_page%.php');
+$autoLoader->includeFiles('includes/languages/%language%/'.$zcPage);
 $autoLoader->includeFiles('includes/languages/%language%/extra_definitions/*.php');
 
 $PHP_SELF = $zcAdminPath.$zcPage;
