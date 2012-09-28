@@ -43,7 +43,6 @@
         "sensio/framework-extra-bundle": "2.1.*",
         "sensio/generator-bundle": "2.1.*",
         "jms/di-extra-bundle": "1.1.*",
-        "doctrine/migrations": "dev-master",
         "doctrine/doctrine-migrations-bundle": "dev-master",
         "rych/phpass": "dev-master",
         "stof/doctrine-extensions-bundle": "dev-master",

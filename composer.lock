@@ -1,5 +1,5 @@
 {
-    "hash": "75c3dd7bd445c68350dcb163d698286f",
+    "hash": "c863067bab9b485888920e14395bd8bb",
     "packages": [
         {
             "name": "doctrine/common",
@@ -138,12 +138,12 @@
             "source": {
                 "type": "git",
                 "url": "git://github.com/doctrine/DoctrineBundle.git",
-                "reference": "d3c930599723c8343472a5791b0f5909a4111a73"
+                "reference": "274c24f8ddc8924cc9cbe63b937e031a9068db5a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://github.com/doctrine/DoctrineBundle/zipball/d3c930599723c8343472a5791b0f5909a4111a73",
-                "reference": "d3c930599723c8343472a5791b0f5909a4111a73",
+                "url": "https://github.com/doctrine/DoctrineBundle/zipball/274c24f8ddc8924cc9cbe63b937e031a9068db5a",
+                "reference": "274c24f8ddc8924cc9cbe63b937e031a9068db5a",
                 "shasum": ""
             },
             "require": {
@@ -160,7 +160,7 @@
             "suggest": {
                 "doctrine/orm": "The Doctrine ORM integration is optional in the bundle."
             },
-            "time": "1347289964",
+            "time": "1348752376",
             "type": "symfony-bundle",
             "extra": {
                 "branch-alias": {
@@ -430,7 +430,7 @@
                 "symfony/framework-bundle": "2.*",
                 "jms/cg": "1.0.0"
             },
-            "time": "2012-01-05 12:50:26",
+            "time": "2012-01-05 20:50:26",
             "type": "symfony-bundle",
             "installation-source": "dist",
             "autoload": {
@@ -472,7 +472,7 @@
             "require": {
                 "php": ">=5.3.0"
             },
-            "time": "2012-01-05 12:40:52",
+            "time": "2012-01-05 20:40:52",
             "type": "library",
             "installation-source": "dist",
             "autoload": {
@@ -574,7 +574,7 @@
             "require": {
                 "php": ">=5.3.0"
             },
-            "time": "2012-01-05 13:32:49",
+            "time": "2012-01-05 21:32:49",
             "type": "library",
             "installation-source": "dist",
             "autoload": {
@@ -967,18 +967,18 @@
             "source": {
                 "type": "git",
                 "url": "git://github.com/swiftmailer/swiftmailer.git",
-                "reference": "1e5482485f30a2431f9b8eb19a091eef4b57008c"
+                "reference": "1a987b45ea8dcbbe9680499800c67fc97a2d07f6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://github.com/swiftmailer/swiftmailer/zipball/1e5482485f30a2431f9b8eb19a091eef4b57008c",
-                "reference": "1e5482485f30a2431f9b8eb19a091eef4b57008c",
+                "url": "https://github.com/swiftmailer/swiftmailer/zipball/1a987b45ea8dcbbe9680499800c67fc97a2d07f6",
+                "reference": "1a987b45ea8dcbbe9680499800c67fc97a2d07f6",
                 "shasum": ""
             },
             "require": {
                 "php": ">=5.2.4"
             },
-            "time": "1347542176",
+            "time": "1348747908",
             "type": "library",
             "extra": {
                 "branch-alias": {
@@ -1189,12 +1189,12 @@
             "source": {
                 "type": "git",
                 "url": "git://github.com/symfony/symfony.git",
-                "reference": "7273311e1fb663ae7f5501f57a52ba9bd4db2ec3"
+                "reference": "f62fa8a79edc94240a7fd3ef3096ddd789eced4f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://github.com/symfony/symfony/zipball/7273311e1fb663ae7f5501f57a52ba9bd4db2ec3",
-                "reference": "7273311e1fb663ae7f5501f57a52ba9bd4db2ec3",
+                "url": "https://github.com/symfony/symfony/zipball/f62fa8a79edc94240a7fd3ef3096ddd789eced4f",
+                "reference": "f62fa8a79edc94240a7fd3ef3096ddd789eced4f",
                 "shasum": ""
             },
             "require": {
@@ -1243,7 +1243,7 @@
                 "propel/propel1": "dev-master",
                 "monolog/monolog": "dev-master"
             },
-            "time": "1348414301",
+            "time": "1348749927",
             "type": "library",
             "extra": {
                 "branch-alias": {
@@ -1313,18 +1313,18 @@
             "source": {
                 "type": "git",
                 "url": "git://github.com/fabpot/Twig.git",
-                "reference": "b4d1d62b82e83c6fd3d5a6cd46a186de64275bb4"
+                "reference": "b8c917972f74da88f0e930ea32a90566739d87ac"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://github.com/fabpot/Twig/zipball/b4d1d62b82e83c6fd3d5a6cd46a186de64275bb4",
-                "reference": "b4d1d62b82e83c6fd3d5a6cd46a186de64275bb4",
+                "url": "https://github.com/fabpot/Twig/zipball/b8c917972f74da88f0e930ea32a90566739d87ac",
+                "reference": "b8c917972f74da88f0e930ea32a90566739d87ac",
                 "shasum": ""
             },
             "require": {
                 "php": ">=5.2.4"
             },
-            "time": "1347961095",
+            "time": "1348667791",
             "type": "library",
             "extra": {
                 "branch-alias": {
@@ -1357,23 +1357,6 @@
             ]
         },
         {
-            "name": "zenmagick/cachelite",
-            "version": "dev-master",
-            "source": {
-                "type": "git",
-                "url": "git://github.com/ZenMagick/CacheLite.git",
-                "reference": "master"
-            },
-            "type": "library",
-            "installation-source": "source",
-            "autoload": {
-                "psr-0": {
-                    "pear\\cache": "lib/"
-                }
-            },
-            "time": "1341821632"
-        },
-        {
             "name": "zenmagick/zencart",
             "version": "1.3.9-RC8",
             "source": {
@@ -1391,11 +1374,9 @@
     ],
     "minimum-stability": "dev",
     "stability-flags": {
-        "doctrine/migrations": 20,
         "doctrine/doctrine-migrations-bundle": 20,
         "rych/phpass": 20,
         "stof/doctrine-extensions-bundle": 20,
-        "zenmagick/zencart": 5,
-        "zenmagick/cachelite": 20
+        "zenmagick/zencart": 5
     }
 }
