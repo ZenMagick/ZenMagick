@@ -18,7 +18,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-
+use ZenMagick\StoreBundle\Services\Products;
 $resourceManager->jsFile('lightbox/prototype.js', $resourceManager::FOOTER) ?>
 <?php $resourceManager->jsFile('lightbox/scriptaculous.js?load=effects', $resourceManager::FOOTER) ?>
 <?php $resourceManager->jsFile('lightbox/lightbox.js', $resourceManager::FOOTER) ?>
@@ -32,9 +32,9 @@ $resourceManager->jsFile('lightbox/prototype.js', $resourceManager::FOOTER) ?>
   <?php $imageInfo = $currentProduct->getImageInfo() ?>
   <div>
       <?php if ($imageInfo->hasLargeImage()) { ?>
-          <a href="<?php echo $net->absoluteUrl($imageInfo->getLargeImage()) ?>" rel="lightbox" title="<?php echo $html->encode($currentProduct->getName()) ?>"><?php echo $html->image($imageInfo, ZMProducts::IMAGE_MEDIUM) ?></a>
+          <a href="<?php echo $net->absoluteUrl($imageInfo->getLargeImage()) ?>" rel="lightbox" title="<?php echo $html->encode($currentProduct->getName()) ?>"><?php echo $html->image($imageInfo, Products::IMAGE_MEDIUM) ?></a>
       <?php } else { ?>
-          <?php echo $html->image($imageInfo, ZMProducts::IMAGE_MEDIUM) ?>
+          <?php echo $html->image($imageInfo, Products::IMAGE_MEDIUM) ?>
       <?php } ?>
       <div id="desc"><?php echo $currentProduct->getDescription() ?></div>
       <?php if (null != $manufacturer) { ?>

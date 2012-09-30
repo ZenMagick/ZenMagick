@@ -17,6 +17,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
+use ZenMagick\StoreBundle\Services\Products;
 ?>
 
 <?php $crumbtrail->addCategoryPath()->addManufacturer()->addProduct($currentProduct->getId()) ?>
@@ -28,11 +29,11 @@
   <?php $imageInfo = $currentProduct->getImageInfo() ?>
   <div>
       <?php if ($imageInfo->hasLargeImage()) { ?>
-          <a href="<?php echo $net->absoluteUrl($imageInfo->getLargeImage()) ?>" rel="lightbox[gallery]" title="lightbox[gallery]"><?php echo $html->image($imageInfo, ZMProducts::IMAGE_MEDIUM) ?></a><br>
+          <a href="<?php echo $net->absoluteUrl($imageInfo->getLargeImage()) ?>" rel="lightbox[gallery]" title="lightbox[gallery]"><?php echo $html->image($imageInfo, Products::IMAGE_MEDIUM) ?></a><br>
           |<a href="<?php echo $net->absoluteUrl($imageInfo->getLargeImage()) ?>" rel="lightbox[gallery]">Click to enlarge (lightbox[gallery]) - FTW!</a>|<br>
           |<?php if (function_exists('hover3_product_image_link')) { hover3_product_image_link($this, $currentProduct, $imageInfo); } ?>|
       <?php } else { ?>
-          <?php echo $html->image($imageInfo, ZMProducts::IMAGE_MEDIUM) ?>
+          <?php echo $html->image($imageInfo, Products::IMAGE_MEDIUM) ?>
       <?php } ?>
       <div id="desc"><?php echo $currentProduct->getDescription() ?></div>
       <?php if (null != $manufacturer) { ?>

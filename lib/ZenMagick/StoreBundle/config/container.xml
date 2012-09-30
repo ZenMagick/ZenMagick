@@ -87,7 +87,7 @@
             </call>
         </service>
 
-        <service id="productService" class="ZMProducts">
+        <service id="productService" class="ZenMagick\StoreBundle\Services\Products">
             <call method="setCache">
                 <argument type="service" id="servicesCache" />
             </call>

@@ -20,6 +20,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
+use ZenMagick\StoreBundle\Services\Products;
 ?>
 
 <?php $crumbtrail->addCategoryPath()->addManufacturer()->addProduct($currentProduct->getId()) ?>
@@ -29,9 +30,9 @@
 	  <?php $imageInfo = $currentProduct->getImageInfo() ?>
 	  <div id="productMainImage" class="back">
 	      <?php if ($imageInfo->hasLargeImage()) { ?>
-	          <a href="<?php echo $net->absoluteUrl($imageInfo->getLargeImage()) ?>" onclick="productPopup(event, this); return false;"><?php echo $html->image($imageInfo, ZMProducts::IMAGE_MEDIUM) ?></a>
+	          <a href="<?php echo $net->absoluteUrl($imageInfo->getLargeImage()) ?>" onclick="productPopup(event, this); return false;"><?php echo $html->image($imageInfo, Products::IMAGE_MEDIUM) ?></a>
 	      <?php } else { ?>
-	          <?php echo $html->image($imageInfo, ZMProducts::IMAGE_MEDIUM) ?>
+	          <?php echo $html->image($imageInfo, Products::IMAGE_MEDIUM) ?>
 	      <?php } ?>
 	  </div>
 

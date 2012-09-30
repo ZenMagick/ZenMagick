@@ -151,7 +151,7 @@ class TestBeans extends TestCase {
     public function testMagicRef() {
         $ref = Beans::getBean('ref::productService#foo=bar');
         if ($this->assertNotNull($ref)) {
-            $this->assertTrue($ref instanceof ZMProducts);
+            $this->assertTrue($ref instanceof ZenMagick\StoreBundle\Services\Products);
             // now test that we actually got the singleton
             $foo = $this->container->get('productService')->getFoo();
             $this->assertEqual('bar', $foo);

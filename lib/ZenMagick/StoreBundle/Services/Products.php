@@ -19,6 +19,9 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
+namespace ZenMagick\StoreBundle\Services;
+
+use ZMRuntime;
 use ZenMagick\Base\Runtime;
 use ZenMagick\Base\Toolbox;
 use ZenMagick\Base\ZMObject;
@@ -30,9 +33,8 @@ use ZenMagick\Base\Database\SqlAware;
  * Product access.
  *
  * @author DerManoMann
- * @package zenmagick.store.shared.services.catalog
  */
-class ZMProducts extends ZMObject implements SqlAware {
+class Products extends ZMObject implements SqlAware {
     // image size constants
     const IMAGE_SMALL = 'small';
     const IMAGE_MEDIUM = 'medium';
@@ -375,13 +377,13 @@ class ZMProducts extends ZMObject implements SqlAware {
                 break;
             case 1:
                 // this month
-                $date = new DateTime();
+                $date = new \DateTime();
                 $date->modify('first day of this month');
                 $queryLimit = ' AND p.products_date_added >= :dateAdded';
                 break;
             default:
                 // X days; 24 hours; 60 mins; 60secs
-                $date = new DateTime();
+                $date = new \DateTime();
                 $date->modify(sprintf('-%s days', $timeLimit));
                 $queryLimit = ' AND p.products_date_added >= :dateAdded';
                 break;

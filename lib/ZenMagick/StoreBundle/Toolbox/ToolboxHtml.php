@@ -22,6 +22,7 @@ namespace ZenMagick\StoreBundle\Toolbox;
 use ZenMagick\Base\Runtime;
 use ZenMagick\Base\ZMException;
 use ZenMagick\Http\Toolbox\ToolboxTool;
+use ZenMagick\StoreBundle\Services\Products;
 
 /**
  * HTML utilities.
@@ -93,27 +94,27 @@ class ToolboxHtml extends ToolboxTool {
      * Creates a HTML <code>&lt;img&gt;</code> tag for the given <code>ZMImageInfo</code>.
      *
      * @param ZMImageInfo imageInfo The image info.
-     * @param string format Can be either of <code>ZMProducts::IMAGE_SMALL</code>, <code>ZMProducts::IMAGE_MEDIUM</code>
-     *  or <code>ZMProducts::IMAGE_LARGE</code>; default is <code>>ZMProducts::IMAGE_SMALL</code>.
+     * @param string format Can be either of <code>Products::IMAGE_SMALL</code>, <code>Products::IMAGE_MEDIUM</code>
+     *  or <code>Products::IMAGE_LARGE</code>; default is <code>>Products::IMAGE_SMALL</code>.
      * @param mixed parameter Additional parameter for the <code>&lt;mg&gt;</code> tag; can be either
      *  a query string style list of name/value pairs or a map.
      * @return string A fully formated HTML <code>&lt;img&gt;</code> tag.
      */
-    public function image($imageInfo, $format=\ZMProducts::IMAGE_SMALL, $parameter='') {
+    public function image($imageInfo, $format=Products::IMAGE_SMALL, $parameter='') {
         if (null === $imageInfo) {
             return;
         }
 
         $imageInfo->setParameter($parameter);
         switch ($format) {
-        case \ZMProducts::IMAGE_LARGE:
+        case Products::IMAGE_LARGE:
             $imgSrc = $imageInfo->getLargeImage();
             break;
-        case \ZMProducts::IMAGE_MEDIUM:
+        case Products::IMAGE_MEDIUM:
         default:
             $imgSrc = $imageInfo->getMediumImage();
             break;
-        case \ZMProducts::IMAGE_SMALL:
+        case Products::IMAGE_SMALL:
             $imgSrc = $imageInfo->getDefaultImage();
             break;
         default:
@@ -225,11 +226,11 @@ class ToolboxHtml extends ToolboxTool {
      * @param ZenMagick\StoreBundle\Entity\Catalog\Product product A product.
      * @param int categoryId Optional category id.
      * @param array attr Optional HTML attribute map; default is <code>null</code>.
-     * @param string format Can be either of <code>ZMProducts::IMAGE_SMALL</code>, <code>ZMProducts::IMAGE_MEDIUM</code>
-     *  or <code>ZMProducts::IMAGE_LARGE</code>; default is <code>ZMProducts::IMAGE_SMALL</code>.
+     * @param string format Can be either of <code>Products::IMAGE_SMALL</code>, <code>Products::IMAGE_MEDIUM</code>
+     *  or <code>Products::IMAGE_LARGE</code>; default is <code>Products::IMAGE_SMALL</code>.
      * @return string A fully formated HTML <code>&lt;a&gt;</code> tag.
      */
-    public function productImageLink($product, $categoryId=null, $attr=null, $format=\ZMProducts::IMAGE_SMALL) {
+    public function productImageLink($product, $categoryId=null, $attr=null, $format=Products::IMAGE_SMALL) {
         $defaults = array('class' => 'product');
         if (!is_array($attr)) {
             $attr = $defaults;
