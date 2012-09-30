@@ -18,7 +18,9 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
+namespace ZenMagick\StoreBundle\Services;
 
+use ZMRuntime;
 use ZenMagick\Base\Runtime;
 use ZenMagick\Base\Toolbox;
 use ZenMagick\Base\ZMObject;
@@ -30,9 +32,8 @@ use ZenMagick\Base\ZMObject;
  * Default is <code>ZenMagick\Base\Cache\Cache::TRANSIENT</code>.</p>
  *
  * @author DerManoMann
- * @package zenmagick.store.shared.services.catalog
  */
-class ZMCategories extends ZMObject {
+class Categories extends ZMObject {
     /**
      * Flat list of <code>ZenMagick\StoreBundle\Entity\Catalog\Category</code> instances.
      *

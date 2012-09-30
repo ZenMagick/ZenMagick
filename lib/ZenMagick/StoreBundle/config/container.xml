@@ -93,7 +93,7 @@
             </call>
         </service>
 
-        <service id="categoryService" class="ZMCategories">
+        <service id="categoryService" class="ZenMagick\StoreBundle\Services\Categories">
             <call method="setCache">
                 <argument type="service" id="servicesCache" />
             </call>
