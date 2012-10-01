@@ -5,7 +5,6 @@
 #
 
 TRUNCATE TABLE address_book;
-TRUNCATE TABLE categories;
 TRUNCATE TABLE customers;
 TRUNCATE TABLE customers_info;
 TRUNCATE TABLE orders;
