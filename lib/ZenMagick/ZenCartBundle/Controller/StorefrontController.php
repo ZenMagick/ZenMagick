@@ -60,9 +60,8 @@ class StorefrontController extends \ZMController {
                 }
             }
         }
-        if ($request->query->has('productId')) {
-            $request->query->set('products_id', $request->query->get('productId'));
-            $request->query->remove('productId');
+        if ($request->attributes->has('productId')) {
+            $request->query->set('products_id', $request->attributes->get('productId'));
         }
         $this->handleCart($request);
     }
@@ -287,7 +286,7 @@ class StorefrontController extends \ZMController {
 
         if ($this->isHomePage()) {
             $url = $request->getBaseUrl();
-        } else if (Toolbox::endsWith($requestId, 'info') && null != ($productId = $request->query->get('products_id'))) {
+        } else if (Toolbox::endsWith($requestId, 'info') && null != ($productId = $request->attributes->get('productId'))) {
             $url = $request->getToolbox()->net->product($productId, null);
         } else {
             $url = $request->url($requestId, rtrim(zen_get_all_get_params($exclusionList), '&'));
