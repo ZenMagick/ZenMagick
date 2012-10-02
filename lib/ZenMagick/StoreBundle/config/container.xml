@@ -275,8 +275,6 @@
             <tag name="zenmagick.http.toolbox.tool" key="utils" />
         </service>
 
-        <service id="annotation_reader" class="Doctrine\Common\Annotations\AnnotationReader" />
-
         <service id="moduleStatusCheck" class="ZenMagick\StoreBundle\Widgets\Status\MaintenanceStatusCheck" scope="prototype">
             <tag name="apps.store.admin.dashboard.widget.statusCheck" />
         </service>
