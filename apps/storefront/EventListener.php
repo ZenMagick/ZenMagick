@@ -26,7 +26,7 @@ use ZenMagick\Base\Events\Event;
 use ZenMagick\Http\View\TemplateView;
 use ZenMagick\Http\Session\FlashBag;
 use ZenMagick\StoreBundle\Widgets\StatusCheck;
-
+use ZenMagick\StoreBundle\Services\Account\Accounts;
 /**
  * Fixes and stuff that are (can be) event driven.
  *
@@ -288,7 +288,7 @@ class EventListener extends ZMObject {
      */
     protected function checkAuthorization($request) {
         $account = $request->getAccount();
-        if (null != $account && \ZMAccounts::AUTHORIZATION_PENDING == $account->getAuthorization()) {
+        if (null != $account && Accounts::AUTHORIZATION_PENDING == $account->getAuthorization()) {
             // @todo shouldn't use a hardcoded list.
             $unrestrictedPaged = array('conditions', 'cookie_usage', 'down_for_maintenance', 'contact_us',
                 'customers_authorization', 'login', 'logoff', 'password_forgotten', 'privacy',

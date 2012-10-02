@@ -45,7 +45,7 @@
             </call>
         </service>
 
-        <service id="accountService" class="ZMAccounts" />
+        <service id="accountService" class="ZenMagick\StoreBundle\Services\Account\Accounts" />
 
         <service id="addressService" class="ZMAddresses" />
 

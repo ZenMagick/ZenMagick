@@ -18,6 +18,9 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
+namespace ZenMagick\StoreBundle\Services;
+
+use ZMRuntime;
 use ZenMagick\Base\Toolbox;
 use ZenMagick\Base\ZMObject;
 use ZenMagick\Base\Database\Connection;
@@ -27,9 +30,8 @@ use ZenMagick\StoreBundle\Entity\Account\Account;
  * Accounts.
  *
  * @author DerManoMann
- * @package zenmagick.store.shared.services.account
  */
-class ZMAccounts extends ZMObject {
+class Accounts extends ZMObject {
     // authorization status constants
     const AUTHORIZATION_ENABLED = 0;
     const AUTHORIZATION_PENDING = 1;

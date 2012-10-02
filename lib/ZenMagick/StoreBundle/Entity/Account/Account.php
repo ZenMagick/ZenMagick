@@ -24,7 +24,7 @@ use ZenMagick\Base\Runtime;
 use ZenMagick\Base\Toolbox;
 use ZenMagick\Base\ZMObject;
 use Doctrine\ORM\Mapping as ORM;
-use ZMAccounts;
+use ZenMagick\StoreBundle\Services\Account\Accounts;
 
 /**
  * A single user account.
@@ -207,7 +207,7 @@ class Account extends ZMObject {
         $this->subscribedProducts = null;
         $this->type = self::REGISTERED;
         $this->priceGroupId = 0;
-        $this->authorization = ZMAccounts::AUTHORIZATION_ENABLED;
+        $this->authorization = Accounts::AUTHORIZATION_ENABLED;
     }
 
     /**

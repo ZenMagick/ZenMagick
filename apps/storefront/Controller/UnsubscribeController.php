@@ -47,7 +47,7 @@ class UnsubscribeController extends \ZMController {
         }
 
         $emailAddress = $request->request->get('email_address');
-        $account = \ZMAccounts::getAccountForEmailAddress($emailAddress);
+        $account = $this->get('accountService')->getAccountForEmailAddress($emailAddress);
 
         if (null == $account) {
             $this->messageService->error(_zm('Email address not found.'));

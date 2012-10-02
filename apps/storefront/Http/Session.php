@@ -22,6 +22,7 @@ namespace ZenMagick\apps\storefront\Http;
 use ZenMagick\Base\Runtime;
 use ZenMagick\Base\Events\Event;
 use ZenMagick\StoreBundle\Entity\Account\Account;
+use ZenMagick\StoreBundle\Services\Account\Accounts;
 
 /**
  * Custom session class that adds a number of convenience methods.
@@ -209,7 +210,7 @@ class Session extends \ZenMagick\Http\Session\Session {
      * @return boolean <code>true</code> if ok, <code>false</code> if not.
      */
     public function registerAccount($account, $request, $source=null) {
-        if (\ZMAccounts::AUTHORIZATION_BLOCKED == $account->getAuthorization()) {
+        if (Accounts::AUTHORIZATION_BLOCKED == $account->getAuthorization()) {
             $this->getFlashBag()->error(_zm('Access denied.'));
             return false;
         }
