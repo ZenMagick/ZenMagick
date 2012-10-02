@@ -200,7 +200,7 @@
             </call>
         </service>
 
-        <service id="paymentTypeService" class="ZMPaymentTypes" />
+        <service id="paymentTypeService" class="ZenMagick\StoreBundle\Services\PaymentTypes" />
 
         <service id="shippingProviderService" class="ZMShippingProviders" />
 

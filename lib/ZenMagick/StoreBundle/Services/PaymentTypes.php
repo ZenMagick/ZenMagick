@@ -19,6 +19,8 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
+namespace ZenMagick\StoreBundle\Services;
+
 use ZenMagick\Base\Beans;
 use ZenMagick\Base\Toolbox;
 use ZenMagick\Base\ZMObject;
@@ -27,9 +29,8 @@ use ZenMagick\Base\ZMObject;
  * Payments.
  *
  * @author DerManoMann
- * @package zenmagick.store.shared.services.checkout
  */
-class ZMPaymentTypes extends ZMObject {
+class PaymentTypes extends ZMObject {
     private $paymentTypes_;
 
 
