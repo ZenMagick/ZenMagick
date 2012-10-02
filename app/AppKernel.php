@@ -51,21 +51,21 @@ class AppKernel extends Kernel {
      */
     public function registerBundles() {
         $bundles = array(
-            new ZenMagick\ZenCartBundle\ZenCartBundle,
-            new Doctrine\Bundle\DoctrineBundle\DoctrineBundle,
-            new Doctrine\Bundle\MigrationsBundle\DoctrineMigrationsBundle,
-            new Symfony\Bundle\AsseticBundle\AsseticBundle,
-            new Symfony\Bundle\SwiftmailerBundle\SwiftmailerBundle,
-            new Symfony\Bundle\MonologBundle\MonologBundle,
-            new Symfony\Bundle\TwigBundle\TwigBundle,
-            new Symfony\Bundle\FrameworkBundle\FrameworkBundle,
+            new ZenMagick\ZenCartBundle\ZenCartBundle(),
+            new Doctrine\Bundle\DoctrineBundle\DoctrineBundle(),
+            new Doctrine\Bundle\MigrationsBundle\DoctrineMigrationsBundle(),
+            new Symfony\Bundle\AsseticBundle\AsseticBundle(),
+            new Symfony\Bundle\SwiftmailerBundle\SwiftmailerBundle(),
+            new Symfony\Bundle\MonologBundle\MonologBundle(),
+            new Symfony\Bundle\TwigBundle\TwigBundle(),
+            new Symfony\Bundle\FrameworkBundle\FrameworkBundle(),
             new Sensio\Bundle\FrameworkExtraBundle\SensioFrameworkExtraBundle(),
             new JMS\AopBundle\JMSAopBundle(),
             new JMS\DiExtraBundle\JMSDiExtraBundle($this),
-            new ZenMagick\ZenMagickBundle\ZenMagickBundle,
-            new ZenMagick\StoreBundle\StoreBundle,
-            new ZenMagick\apps\admin\AdminBundle,
-            new ZenMagick\apps\storefront\StorefrontBundle,
+            new ZenMagick\ZenMagickBundle\ZenMagickBundle(),
+            new ZenMagick\StoreBundle\StoreBundle(),
+            new ZenMagick\apps\admin\AdminBundle(),
+            new ZenMagick\apps\storefront\StorefrontBundle(),
         );
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {
             $bundles[] = new Symfony\Bundle\WebProfilerBundle\WebProfilerBundle;
