@@ -18,15 +18,17 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
+namespace ZenMagick\StoreBundle\Services\Account;
+
+use ZMRuntime;
 use ZenMagick\Base\ZMObject;
 
 /**
  * Addresses.
  *
  * @author DerManoMann
- * @package zenmagick.store.shared.services.account
  */
-class ZMAddresses extends ZMObject {
+class Addresses extends ZMObject {
 
     /**
      * Get the address for the given id.

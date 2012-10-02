@@ -47,7 +47,7 @@
 
         <service id="accountService" class="ZenMagick\StoreBundle\Services\Account\Accounts" />
 
-        <service id="addressService" class="ZMAddresses" />
+        <service id="addressService" class="ZenMagick\StoreBundle\Services\Account\Addresses" />
 
         <service id="countryService" class="ZenMagick\StoreBundle\Services\Location\CountryService" />
 
