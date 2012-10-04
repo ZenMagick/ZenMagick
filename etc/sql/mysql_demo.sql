@@ -3,7 +3,8 @@
 # $Id: mysql_demo.sql 14152 2009-08-11 20:11:44Z wilt $
 #
 
-SET foreign_key_checks = 0;
+SET SESSION SQL_MODE='NO_AUTO_VALUE_ON_ZERO';
+SET FOREIGN_KEY_CHECKS = 0;
 # Configuration Settings:
 UPDATE configuration SET configuration_value='true' WHERE configuration_key='DOWNLOAD_ENABLED';
 
@@ -17,7 +18,9 @@ INSERT INTO address_book (address_book_id, customers_id, entry_gender, entry_com
 # Dumping data for table `categories`
 #
 
-INSERT INTO categories (categories_id, categories_image, parent_id, sort_order, date_added, last_modified, categories_status) VALUES (1, 'categories/category_hardware.gif', 0, 1, '2003-12-23 03:18:19', '2004-05-21 00:32:17', 1),
+INSERT IGNORE INTO categories (categories_id, categories_image, parent_id, sort_order, date_added, last_modified, categories_status) VALUES
+(0, '', 0, NULL, '2003-12-23 03:18:19', '2004-05-21 00:32:17', 0),
+(1, 'categories/category_hardware.gif', 0, 1, '2003-12-23 03:18:19', '2004-05-21 00:32:17', 1),
 (2, 'categories/category_software.gif', 0, 2, '2003-12-23 03:18:19', '2004-05-22 21:14:57', 1),
 (3, 'categories/category_dvd_movies.gif', 0, 3, '2003-12-23 03:18:19', '2004-05-21 00:22:39', 1),
 (4, 'categories/subcategory_graphic_cards.gif', 1, 0, '2003-12-23 03:18:19', NULL, 1),
