@@ -1,10 +1,10 @@
 # Remove product/category data.
 #
 # This script will clean out *ALL* product related data except the music product
+SET SESSION SQL_MODE='NO_AUTO_VALUE_ON_ZERO';
 TRUNCATE TABLE categories_description;
-UPDATE categories SET parent_id = null;
-DELETE FROM categories;
 TRUNCATE TABLE categories;
+INSERT INTO categories (categories_id, parent_id, categories_image, categories_status) VALUES (0, NULL, '', 0);
 TRUNCATE TABLE featured;
 TRUNCATE TABLE group_pricing;
 TRUNCATE TABLE manufacturers;
