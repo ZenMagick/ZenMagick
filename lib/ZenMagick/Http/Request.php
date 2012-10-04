@@ -257,21 +257,6 @@ class Request extends HttpFoundationRequest implements ContainerAwareInterface {
     }
 
     /**
-     * Get the document root path.
-     *
-     * @return string The document root.
-     */
-    public function getDocRoot() {
-        $docRoot = $this->server->get('DOCUMENT_ROOT');
-        $scriptFileName = $this->server->get('SCRIPT_FILENAME');
-        if (empty($docRoot) || 0 !== strpos($scriptFileName, $docRoot)) {
-            $phpSelf = $this->server->get('PHP_SELF');
-            $docRoot = str_replace(DIRECTORY_SEPARATOR, '/', substr($scriptFileName, 0, 0-strlen($phpSelf)));
-        }
-        return $docRoot;
-    }
-
-    /**
      * Save this request as follow up URL.
      *
      * <p>Typically this happends when a request is received without valid authority.

@@ -479,11 +479,12 @@ class ToolboxMacro extends ToolboxTool {
      */
     protected function buildAttributeValueLabel($product, $value, $enableImage=true) {
         $toolbox = $this->getToolbox();
-        $slash = $this->container->get('settingsService')->get('zenmagick.http.html.xhtml') ? '/' : '';
+        $settingsService = $this->container->get('settingsService');
+        $slash = $settingsService->get('zenmagick.http.html.xhtml') ? '/' : '';
         $label = '';
         if ($value->hasImage() && $enableImage) {
             // TODO: where are images coming from in the future??
-            $path = realpath($this->getRequest()->getDocRoot().$this->getRequest()->getContext().DIRECTORY_SEPARATOR.'images/'.$value->getImage());
+            $path = realpath($settingsService->get('zencart.root_dir').'/images/'.$value->getImage());
             if (file_exists($path)) {
                 $label = '<img src="' . $toolbox->net->image($value->getImage()) . '" alt="'.$value->getName().'" title="'.$value->getName().'"'.$slash.'>';
             }
