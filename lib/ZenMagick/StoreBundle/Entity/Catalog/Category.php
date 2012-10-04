@@ -97,8 +97,8 @@ class Category extends ZMObject {
 
     /**
      * @ORM\ManyToOne(targetEntity="Category", inversedBy="children")
-     * @ORM\JoinColumn(name="parent_id", referencedColumnName="categories_id")
-     **/
+     * @ORM\JoinColumn(name="parent_id", referencedColumnName="categories_id", onDelete="CASCADE")
+     */
     private $parent;
 
     /**

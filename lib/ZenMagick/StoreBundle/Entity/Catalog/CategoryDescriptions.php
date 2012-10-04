@@ -35,7 +35,7 @@ class CategoryDescriptions
      * @var object $category
      * @ORM\Id
      * @ORM\ManyToOne(targetEntity="ZenMagick\StoreBundle\Entity\Catalog\Category", inversedBy="descriptions")
-     * @ORM\JoinColumn(name="categories_id", referencedColumnName="categories_id")
+     * @ORM\JoinColumn(name="categories_id", referencedColumnName="categories_id", onDelete="CASCADE")
      */
     private $category;
 
