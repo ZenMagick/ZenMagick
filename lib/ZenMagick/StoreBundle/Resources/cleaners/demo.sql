@@ -3,12 +3,13 @@
 #
 # This script will clean out *ALL* product related data plus the the demo customer
 #
+SET SESSION SQL_MODE='NO_AUTO_VALUE_ON_ZERO';
 
 UPDATE configuration SET configuration_value='false' WHERE configuration_key='DOWNLOAD_ENABLED';
 DELETE FROM address_book where customers_id = 1;
 TRUNCATE TABLE categories_description;
-UPDATE categories SET parent_id = NULL;
 TRUNCATE TABLE categories;
+INSERT INTO categories (categories_id, parent_id, categories_image, categories_status) VALUES (0, NULL, '', 0);
 DELETE FROM customers WHERE customers_id = 1;
 DELETE FROM customers_info WHERE customers_info_id = 1;
 ALTER TABLE customers AUTO_INCREMENT = 1;
