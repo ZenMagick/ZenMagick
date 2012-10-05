@@ -214,7 +214,7 @@
 
         <service id="attributeService" class="ZMAttributes" />
 
-        <service id="groupPricingService" class="ZMGroupPricing" />
+        <service id="groupPricingService" class="ZenMagick\StoreBundle\Services\Catalog\GroupPricing" />
 
         <service id="configService" class="ZenMagick\StoreBundle\Services\ConfigService">
             <call method="setContainer">

@@ -19,15 +19,16 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
+namespace ZenMagick\StoreBundle\Services\Catalog;
+
 use ZenMagick\Base\ZMObject;
 
 /**
  * Group pricing.
  *
  * @author DerManoMann
- * @package zenmagick.store.shared.services.catalog
  */
-class ZMGroupPricing extends ZMObject {
+class GroupPricing extends ZMObject {
 
     /**
      * Get all price groups.
@@ -37,7 +38,7 @@ class ZMGroupPricing extends ZMObject {
     function getPriceGroups() {
         $sql = "SELECT *
                 FROM %table.group_pricing%";
-        return ZMRuntime::getDatabase()->fetchAll($sql, array(), 'group_pricing', 'ZenMagick\StoreBundle\Entity\Account\PriceGroup');
+        return \ZMRuntime::getDatabase()->fetchAll($sql, array(), 'group_pricing', 'ZenMagick\StoreBundle\Entity\Account\PriceGroup');
     }
 
     /**
@@ -50,7 +51,7 @@ class ZMGroupPricing extends ZMObject {
         $sql = "SELECT *
                 FROM %table.group_pricing%
                 WHERE  group_id = :id";
-        return ZMRuntime::getDatabase()->querySingle($sql, array('id' => $priceGroupId), 'group_pricing', 'ZenMagick\StoreBundle\Entity\Account\PriceGroup');
+        return \ZMRuntime::getDatabase()->querySingle($sql, array('id' => $priceGroupId), 'group_pricing', 'ZenMagick\StoreBundle\Entity\Account\PriceGroup');
     }
 
 }
