@@ -182,7 +182,7 @@ class EventListener extends ZMObject {
             $mappings['leftColumn'] = array();
             foreach ($templateManager->getLeftColBoxNames() as $boxName) {
                 // avoid duplicates by using $box as key
-                $mappings['leftColumn'][$boxName] = 'blockWidget#template=boxes/'.$boxName.'.php&sortOrder='.$index++;
+                $mappings['leftColumn'][$boxName] = 'blockWidget#template=boxes/'.$boxName.'.html.php&sortOrder='.$index++;
             }
         }
         if ($templateManager->isRightColEnabled()) {
@@ -190,7 +190,7 @@ class EventListener extends ZMObject {
             $mappings['rightColumn'] = array();
             foreach ($templateManager->getRightColBoxNames() as $boxName) {
                 // avoid duplicates by using $box as key
-                $mappings['rightColumn'][$boxName] = 'blockWidget#template=boxes/'.$boxName.'.php&sortOrder='.$index++;
+                $mappings['rightColumn'][$boxName] = 'blockWidget#template=boxes/'.$boxName.'.html.php&sortOrder='.$index++;
             }
         }
         // general banners block group - if used, the group needs to be passed into fetchBlockGroup()
