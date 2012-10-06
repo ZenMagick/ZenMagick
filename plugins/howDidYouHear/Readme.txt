@@ -23,17 +23,17 @@ INSTALLAION
 
 TEMPALTE CHANGES
 ================
-The plugin includes a small template file to be included into the create_account.php template.
+The plugin includes a small template file to be included into the create_account.html.php template.
 
-In your create_account.php, after the last closing fieldset element, add the following line:
+In your create_account.html.php, after the last closing fieldset element, add the following line:
 
-    <?php echo $this->fetch('views/howDidYouHearOptions.php') ?>
+    <?php echo $this->fetch('views/howDidYouHearOptions.html.php') ?>
 
-In address.php (for guest checkout), add the same line to the end of the template:
+In address.html.php (for guest checkout), add the same line to the end of the template:
 
-    <?php echo $this->fetch('views/howDidYouHearOptions.php') ?>
+    <?php echo $this->fetch('views/howDidYouHearOptions.html.php') ?>
 
 
 CUSTOMISATION
 =============
-To customize howDidYouHearOptions.php, copy the file into your theme's views folder and edit away.
+To customize howDidYouHearOptions.html.php, copy the file into your theme's views folder and edit away.

@@ -53,7 +53,7 @@ zenmagick:
         - ZenMagick\apps\storefront\Http\Sacs\StorefrontAccountSacsHandler
     ## templates
     templates:
-      ext: .php
+      ext: .html.php
 
 apps:
   store:

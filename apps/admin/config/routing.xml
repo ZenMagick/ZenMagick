@@ -7,7 +7,7 @@
     <!-- global routes -->
     <route id="zenmagick_global_routing" pattern="^^">
         <option key="view:success">redirect://%routeId%</option>
-        <option key="view:error">views/error.php?layout=</option>
+        <option key="view:error">views/error.html.php?layout=</option>
         <option key="view:login-demo">redirect://admin_login</option>
         <option key="view:success-demo">redirect://admin_index</option>
     </route>
@@ -62,23 +62,23 @@
     <route id="ezpages" pattern="/ezpages/{languageId}">
         <default key="_controller">ZenMagick\apps\admin\Controller\EzpagesController::process</default>
         <default key="languageId">1</default>
-        <option key="view">views/ezpages-overview.php</option>
+        <option key="view">views/ezpages-overview.html.php</option>
     </route>
     <route id="ezpage" pattern="/ezpage">
         <default key="_controller">ZenMagick\apps\admin\Controller\EzpagesController::process</default>
-        <option key="view">views/ezpages-details.php</option>
+        <option key="view">views/ezpages-details.html.php</option>
         <option key="view:success">redirect://ezpages</option>
     </route>
     <route id="content_edit" pattern="/content">
         <default key="_controller">ZenMagick\apps\admin\Controller\ContentEditorController::process</default>
         <default key="slug"></default>
-        <option key="view">views/ezpages-details.php</option>
+        <option key="view">views/ezpages-details.html.php</option>
         <option key="view:success">redirect://content_editor</option>
     </route>
     <route id="content_editor" pattern="/content/{languageId}">
         <default key="_controller">ZenMagick\apps\admin\Controller\ContentEditorController::process</default>
         <default key="languageId">1</default>
-        <option key="view">views/content_overview.php</option>
+        <option key="view">views/content_overview.html.php</option>
     </route>
 
     <route id="legacy_config" pattern="/legacy_config">
@@ -146,7 +146,7 @@
     <route id="contact_us" pattern="/contact-us">
         <default key="_controller">ZenMagick\apps\storefront\Controller\ContactUsController::process</default>
         <option key="form">ZMContactInfo#formId=contactUs</option>
-        <option key="view">views/contact_us.php</option>
+        <option key="view">views/contact_us.html.php</option>
         <option key="view:success">redirect://contact_us</option>
     </route>
     <!-- used in some payment modules -->

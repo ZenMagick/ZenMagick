@@ -1,7 +1,7 @@
 ZenMagick Lift Suggest Plugin
 =============================
 Lift Suggest support for ZenMagick. Based on the Lift Suggest zencart mod v1.4.
-(http://www.zen-cart.com/index.php?main_page=product_contrib_info&cPath=40_60&products_id=1907)
+(http://www.zen-cart.com/index.html.php?main_page=product_contrib_info&cPath=40_60&products_id=1907)
 
 
 NOTE
@@ -34,4 +34,4 @@ Example:
 
 Include the basic lift suggest template in your product page or shopping cart:
 
-<?php echo $this->fetch('views/lift-suggestions.php') ?>
+<?php echo $this->fetch('views/lift-suggestions.html.php') ?>

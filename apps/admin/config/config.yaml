@@ -54,7 +54,7 @@ zenmagick:
         - ZenMagick\Http\Sacs\Handler\UserRoleSacsHandler
     ## templates
     templates:
-      ext: .php
+      ext: .html.php
 
 ## app settings
 apps:
