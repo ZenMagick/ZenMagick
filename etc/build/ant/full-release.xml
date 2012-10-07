@@ -149,11 +149,7 @@
         <mkdir dir="${build.dir}/zenmagick/etc" />
         <zip zipfile="${build.dir}/zenmagick/etc/zencart-patched-${zenmagick.version}.zip">
             <fileset dir="${release.full.dir}">
-                <include name="includes/functions/html_output.php" />
-                <!--include name="admin/includes/functions/html_output.php" /-->
-                <include name="includes/functions/functions_email.php" />
                 <include name="admin/customers.php" />
-                <include name="includes/application_bottom.php" />
                 <include name="index.php" />
                 <include name="admin/coupon_admin.php" />
                 <include name="includes/templates/base/**" />
