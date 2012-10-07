@@ -57,28 +57,6 @@ class ThemeVariationPatch extends SQLPatch {
     }
 
     /**
-     * Execute this patch.
-     *
-     * @param boolean force If set to <code>true</code> it will force patching even if
-     *  disabled as per settings.
-     * @return boolean <code>true</code> if patching was successful, <code>false</code> if not.
-     */
-    function patch($force=false) {
-        $baseDir = Runtime::getInstallationPath();
-        // do only interactive
-        if ($force) {
-            $status = true;
-            foreach ($this->sqlFiles_ as $file) {
-                $sql = file($baseDir.$file);
-                $status |= $this->_runSQL($sql);
-            }
-            return $status;
-        }
-
-        return true;
-    }
-
-    /**
      * Revert the patch.
      *
      * @return boolean <code>true</code> if patching was successful, <code>false</code> if not.
