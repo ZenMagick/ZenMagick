@@ -30,10 +30,10 @@ use ZenMagick\apps\admin\Installation\Patches\SQLPatch;
  */
 class ThemeVariationPatch extends SQLPatch {
     var $sqlFiles_ = array(
-        "/apps/admin/installation/etc/theme_chaining_install.sql"
+        "theme_chaining_install.sql"
     );
     var $sqlUndoFiles_ = array(
-        "/apps/admin/installation/etc/theme_chaining_uninstall.sql"
+        "theme_chaining_uninstall.sql"
     );
 
 

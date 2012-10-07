@@ -30,7 +30,7 @@ use ZenMagick\apps\admin\Installation\Patches\SQLPatch;
  */
 class AdminPrefsPatch extends SQLPatch {
     var $sqlFiles_ = array(
-        "/apps/admin/installation/etc/admin_prefs_install.sql"
+        "admin_prefs_install.sql"
     );
 
     /**

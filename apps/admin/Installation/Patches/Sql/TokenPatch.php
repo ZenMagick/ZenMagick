@@ -30,7 +30,7 @@ use ZenMagick\apps\admin\Installation\Patches\SQLPatch;
  */
 class TokenPatch extends SQLPatch {
     var $sqlFiles_ = array(
-        "/apps/admin/installation/etc/token_install.sql"
+        "token_install.sql"
     );
 
     /**

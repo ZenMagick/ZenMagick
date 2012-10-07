@@ -30,7 +30,7 @@ use ZenMagick\apps\admin\Installation\Patches\SQLPatch;
  */
 class BlockAdminPatch extends SQLPatch {
     var $sqlFiles_ = array(
-        "/apps/admin/installation/etc/block_admin_install.sql"
+        "block_admin_install.sql"
     );
 
     /**

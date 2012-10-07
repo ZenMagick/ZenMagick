@@ -29,7 +29,7 @@ use ZenMagick\apps\admin\Utils\SQLRunner;
  */
 class SQLPatch extends InstallationPatch {
     protected $tables;
-
+    protected $patchRoot;
     /**
      * Create new patch.
      *
@@ -38,6 +38,7 @@ class SQLPatch extends InstallationPatch {
     public function __construct($id) {
         parent::__construct($id);
         $this->tables = array();
+        $this->patchRoot = dirname(__DIR__).'/etc';
     }
 
 
@@ -92,7 +93,7 @@ class SQLPatch extends InstallationPatch {
         }
 
         if (isset($this->sqlUndoFiles_)) {
-            $baseDir = Runtime::getInstallationPath();
+            $baseDir = $this->patchRoot;
             $status = true;
             foreach ($this->sqlUndoFiles_ as $file) {
                 $sql = file($baseDir.$file);
@@ -135,7 +136,7 @@ class SQLPatch extends InstallationPatch {
      * @return boolean <code>true</code> if patching was successful, <code>false</code> if not.
      */
     function patch($force=false) {
-        $baseDir = Runtime::getInstallationPath();
+        $baseDir = $this->patchRoot;
         // do only interactive
         if ($force || $this->isOpen()) {
             $status = true;

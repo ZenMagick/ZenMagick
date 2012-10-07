@@ -30,7 +30,7 @@ use ZenMagick\apps\admin\Installation\Patches\SQLPatch;
  */
 class AdminRolesPatch extends SQLPatch {
     var $sqlFiles_ = array(
-        "/apps/admin/installation/etc/admin_roles_install.sql"
+        "admin_roles_install.sql"
     );
 
     /**
