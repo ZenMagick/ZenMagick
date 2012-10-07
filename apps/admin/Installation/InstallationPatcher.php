@@ -45,7 +45,7 @@ class InstallationPatcher extends ZMObject {
      * Load all patches.
      */
     public function _loadPatches() {
-        $path = Runtime::getInstallationPath().'/apps/admin/Installation/Patches';
+        $path = __DIR__.'/Patches';
         $ext = '.php';
         $this->patches_ = array();
         foreach (new \RecursiveIteratorIterator(new \RecursiveDirectoryIterator($path)) as $filename => $fileInfo) {
