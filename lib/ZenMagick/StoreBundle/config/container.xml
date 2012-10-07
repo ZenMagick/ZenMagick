@@ -3,6 +3,10 @@
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
 
+    <imports>
+        <import resource="widgets.xml" />
+    </imports>
+
     <parameters>
         <parameter key="zenmagick.cacheIds" type="collection">
             <parameter>transientCache</parameter>
@@ -14,10 +18,6 @@
         <parameter key="apps.store.reviews.useNickName">false</parameter>
         <parameter key="zenmagick.themes.default_theme">base</parameter>
     </parameters>
-
-    <imports>
-        <import resource="widgets.xml" />
-    </imports>
 
     <services>
         <service id="bootstrapCache" class="ZenMagick\Base\Cache\FileCache">
