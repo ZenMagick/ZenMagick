@@ -131,6 +131,14 @@
             </call>
         </service>
 
+        <service id="defaultRssFeedSource" class="ZenMagick\StoreBundle\Rss\DefaultRssFeedSource">
+            <tag name="zenmagick.http.rss.source" />
+        </service>
+
+        <service id="catalogRssFeedSource" class="ZenMagick\StoreBundle\Rss\CatalogRssFeedSource">
+            <tag name="zenmagick.http.rss.source" />
+        </service>
+
         <service id="authenticationManager" class="ZenMagick\Base\Security\Authentication\AuthenticationManager" />
 
         <service id="blockService" class="ZenMagick\StoreBundle\Services\Blocks" />

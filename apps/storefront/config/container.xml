@@ -18,14 +18,6 @@
             <argument type="service" id="themeResourceResolver" />
         </service>
 
-        <service id="defaultRssFeedSource" class="ZenMagick\StoreBundle\Rss\DefaultRssFeedSource">
-            <tag name="zenmagick.http.rss.source" />
-        </service>
-
-        <service id="catalogRssFeedSource" class="ZenMagick\StoreBundle\Rss\CatalogRssFeedSource">
-            <tag name="zenmagick.http.rss.source" />
-        </service>
-
         <service id="crumbtrailTool" class="ZenMagick\apps\storefront\Http\Tools\ToolboxCrumbtrail" scope="prototype">
             <tag name="zenmagick.http.toolbox.tool" key="crumbtrail" />
         </service>
