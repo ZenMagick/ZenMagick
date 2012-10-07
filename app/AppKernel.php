@@ -98,7 +98,7 @@ class AppKernel extends Kernel {
         };
 
         foreach ($resources as $resource) {
-            if (is_string($resources) && !file_exists($resource)) {
+            if (is_string($resource) && !file_exists($resource)) {
                 continue;
             }
             $loader->load($resource);
