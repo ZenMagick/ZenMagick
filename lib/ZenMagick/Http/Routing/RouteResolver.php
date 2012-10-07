@@ -20,9 +20,6 @@
 namespace ZenMagick\Http\Routing;
 
 use Exception;
-use Symfony\Component\Routing\Route;
-use Symfony\Component\Routing\RouteCollection;
-use Symfony\Component\Routing\Router;
 
 use ZenMagick\Base\Beans;
 use ZenMagick\Base\ZMObject;
@@ -46,16 +43,6 @@ class RouteResolver extends ZMObject {
     }
 
     /**
-     * Get match for the fiven uri.
-     *
-     * @param string uri The uri to match.
-     * @return array The match or <code>null</code>.
-     */
-    public function getRouterMatch($uri) {
-        return $this->getRouter()->match($uri);
-    }
-
-    /**
      * Get a route for the given route/request id.
      *
      * @param string routeId The id.
@@ -72,7 +59,7 @@ class RouteResolver extends ZMObject {
      * @return mixed The route or <code>null</code>.
      */
     public function getRouteForUri($uri) {
-        if (null != ($routerMatch = $this->getRouterMatch($uri))) {
+        if (null != ($routerMatch = $this->getRouter()->match($uri))) {
             return $this->getRouteForId($routerMatch['_route']);
         }
 
@@ -150,31 +137,6 @@ class RouteResolver extends ZMObject {
         }
 
         return $view;
-    }
-
-    /**
-     * Add route.
-     *
-     * @param string routeId The route id.
-     * @param Route route The route.
-     */
-    public function addRoute($routeId, Route $route) {
-        $routeCollection = new RouteCollection();
-        $routeCollection->add('routeId', $route);
-        $this->getRouter()->getRouteCollection()->addCollection($routeCollection);
-    }
-
-    /**
-     * Add routes.
-     *
-     * @param array routeList List of arrays containing routeId/route.
-     */
-    public function addRoutes(array $routeList) {
-        $routeCollection = new RouteCollection();
-        foreach ($routeList as $routeDetails) {
-            $routeCollection->add($routeDetails[0], $routeDetails[1]);
-        }
-        $this->getRouter()->getRouteCollection()->addCollection($routeCollection);
     }
 
 }

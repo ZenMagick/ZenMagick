@@ -22,6 +22,7 @@ namespace ZenMagick\plugins\formHandler;
 use ZenMagick\Base\Plugins\Plugin;
 
 use Symfony\Component\Routing\Route;
+use Symfony\Component\Routing\RouteCollection;
 use ZenMagick\Base\Toolbox;
 use ZenMagick\Http\Sacs\SacsManager;
 use ZenMagick\StoreBundle\Entity\Account\Account;
@@ -45,13 +46,14 @@ class FormHandlerPlugin extends Plugin {
             $pages = explode(',', $pages);
             $settingsService = $this->container->get('settingsService');
             $ext = $settingsService->get('zenmagick.http.templates.ext', '.php');
-            $routeResolver = $this->container->get('routeResolver');
-            $routeList = array();
+            $router = $this->container->get('router');
+            $routeCollection = new RouteCollection();
             $controller = 'ZenMagick\plugins\formHandler\controller\FormHandlerController::process';
             foreach ($pages as $page) {
-                $routeList[] = array($page, new Route('/'.$page, array('_controller' => $controller), array(), array('view' => 'views/'.$page.$ext, 'view:success' => 'redirect://'.$page)));
+                $routeCollection->add($page, new Route('/'.$page, array('_controller' => $controller), array(), array('view' => 'views/'.$page.$ext, 'view:success' => 'redirect://'.$page)));
             }
-            $routeResolver->addRoutes($routeList);
+            $router->getRouteCollection()->addCollection($routeCollection);
+
 
             if (Toolbox::asBoolean($this->get('secure'))) {
                 // mark as secure
