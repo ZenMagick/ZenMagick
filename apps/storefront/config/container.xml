@@ -18,9 +18,6 @@
             <argument type="service" id="themeResourceResolver" />
         </service>
 
-        <service id="ZMForwardView" class="ForwardView" scope="prototype" />
-        <service id="forwardView" alias="ZMForwardView" />
-
         <service id="defaultRssFeedSource" class="ZenMagick\StoreBundle\Rss\DefaultRssFeedSource">
             <tag name="zenmagick.http.rss.source" />
         </service>
