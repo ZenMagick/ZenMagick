@@ -85,9 +85,7 @@ $content = str_replace('src="includes', 'src="/'.$adminWeb.'/includes', $content
 
 $content = str_replace('src="images', 'src="/'.$adminWeb.'/images', $content);
 $content = str_replace(array('onmouseover="rowOverEffect(this)"', 'onmouseout="rowOutEffect(this)"'), '', $content);
-//action="/zmdev/zenmagick/apps/admin/web/index.php?rid=categories&" method="get">
 $content = preg_replace('|<select([^>]*)name="reset_editor"(.*?)>(.*?)</select>|sm', '', $content);
-$content = preg_replace('/(action="[^"]*index.php\?rid=)([^&"]*)([^>]*>)/', '$1$2$3<input type="hidden" name="rid" value="$2">', $content);
 //echo $content;return;
 ?>
 <script type="text/javascript">
