@@ -17,36 +17,51 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-namespace ZenMagick\apps\admin\Widgets;
+namespace ZenMagick\StoreBundle\Widgets;
 
+use ZenMagick\Base\Runtime;
 use ZenMagick\Http\Widgets\Form\SelectFormWidget;
 
 /**
- * <p>A manufacturer select form widget.</p>
+ * <p>A editor select form widget.</p>
  *
- * <p>This widget will append a list of all available manufacturers to the options list. That
+ * <p>This widget will add a list of all available editors to the options list. That
  * means the generic <em>options</em> propert may be used to set custom options that will show
  * up at the top of the list.</p>
  *
- * <p>One typical use is to prepend an empty option if no manufactuer is set/available.</p>
- *
- * <p>Example:</p>
- *
- * <p><code>'ManufacturerSelectFormWidget#title=Manufacturer&options=0= --- '</code></p>
- *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class ManufacturerSelectFormWidget extends SelectFormWidget {
+class EditorSelectFormWidget extends SelectFormWidget {
+
+    /**
+     * Get a list of all available editors.
+     *
+     * @return array A class/name map of editors.
+     */
+    public static function getEditorMap() {
+        $container = Runtime::getContainer();
+        $editorMap = array();
+        foreach ($container->get('containerTagService')->findTaggedServiceIds('zenmagick.apps.store.editor') as $id => $args) {
+            $label = $id;
+            foreach ($args as $elem) {
+                foreach ($elem as $key => $value) {
+                    if ('label' == $key) {
+                        $label = $value;
+                        break;
+                    }
+                }
+            }
+            $editorMap[$id] = $label;
+        }
+
+        return $editorMap;
+    }
 
     /**
      * {@inheritDoc}
      */
     public function getOptions($request) {
-        $options = parent::getOptions($request);
-        foreach ($this->container->get('manufacturerService')->getManufacturers($request->getSelectedLanguage()->getId()) as $manufacturer) {
-            $options[$manufacturer->getId()] = $manufacturer->getName();
-        }
-        return $options;
+        return array_merge(parent::getOptions($request), self::getEditorMap());
     }
 
 }

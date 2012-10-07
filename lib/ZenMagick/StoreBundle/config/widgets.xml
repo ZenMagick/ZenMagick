@@ -1,0 +1,39 @@
+<?xml version="1.0" ?>
+<container xmlns="http://symfony.com/schema/dic/services"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <services>
+        <service id="plainEditorWidget" class="ZenMagick\Http\Widgets\Form\TextAreaFormWidget" scope="prototype">
+            <tag name="zenmagick.apps.store.editor" label="Plain" />
+        </service>
+
+        <service id="countrySelectFormWidget" class="ZenMagick\StoreBundle\Widgets\CountrySelectFormWidget" scope="prototype">
+            <tag name="zenmagick.http.widgets.widget" />
+        </service>
+
+        <service id="manufacturerSelectFormWidget" class="ZenMagick\StoreBundle\Widgets\ManufacturerSelectFormWidget" scope="prototype">
+            <tag name="zenmagick.http.widgets.widget" />
+        </service>
+
+        <service id="editorSelectFormWidget" class="ZenMagick\StoreBundle\Widgets\EditorSelectFormWidget" scope="prototype">
+            <tag name="zenmagick.http.widgets.widget" />
+        </service>
+
+        <service id="couponSelectFormWidget" class="ZenMagick\StoreBundle\Widgets\CouponSelectFormWidget" scope="prototype">
+            <tag name="zenmagick.http.widgets.widget" />
+        </service>
+
+        <service id="orderStatusSelectFormWidget" class="ZenMagick\StoreBundle\Widgets\OrderStatusSelectFormWidget" scope="prototype">
+            <tag name="zenmagick.http.widgets.widget" />
+        </service>
+
+        <service id="reservedQtyWidget" class="ZenMagick\StoreBundle\Widgets\ReservedQtyWidget" scope="prototype">
+            <tag name="zenmagick.http.widgets.widget" />
+        </service>
+
+        <service id="zoneSelectFormWidget" class="ZenMagick\StoreBundle\Widgets\ZoneSelectFormWidget" scope="prototype">
+            <tag name="zenmagick.http.widgets.widget" />
+        </service>
+    </services>
+</container>

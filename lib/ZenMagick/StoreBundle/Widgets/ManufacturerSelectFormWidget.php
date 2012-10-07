@@ -17,27 +17,34 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-namespace ZenMagick\apps\admin\Widgets;
+namespace ZenMagick\StoreBundle\Widgets;
 
 use ZenMagick\Http\Widgets\Form\SelectFormWidget;
 
 /**
- * <p>A coupon select form widget.</p>
+ * <p>A manufacturer select form widget.</p>
+ *
+ * <p>This widget will append a list of all available manufacturers to the options list. That
+ * means the generic <em>options</em> propert may be used to set custom options that will show
+ * up at the top of the list.</p>
+ *
+ * <p>One typical use is to prepend an empty option if no manufactuer is set/available.</p>
+ *
+ * <p>Example:</p>
+ *
+ * <p><code>'ManufacturerSelectFormWidget#title=Manufacturer&options=0= --- '</code></p>
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class CouponSelectFormWidget extends SelectFormWidget {
+class ManufacturerSelectFormWidget extends SelectFormWidget {
 
     /**
      * {@inheritDoc}
      */
     public function getOptions($request) {
         $options = parent::getOptions($request);
-
-        // @todo remove  dependency on language and request
-        $languageId = null != $request ? $request->getSelectedLanguage()->getId() : 1;
-        foreach ($this->container->get('couponService')->getCoupons($languageId) as $coupon) {
-            $options[$coupon->getId()] = $coupon->getName();
+        foreach ($this->container->get('manufacturerService')->getManufacturers($request->getSelectedLanguage()->getId()) as $manufacturer) {
+            $options[$manufacturer->getId()] = $manufacturer->getName();
         }
         return $options;
     }

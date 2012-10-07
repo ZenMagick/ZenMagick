@@ -17,24 +17,27 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-namespace ZenMagick\apps\admin\Widgets;
+namespace ZenMagick\StoreBundle\Widgets;
 
 use ZenMagick\Http\Widgets\Form\SelectFormWidget;
 
 /**
- * <p>A country select form widget.</p>
+ * <p>A coupon select form widget.</p>
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class CountrySelectFormWidget extends SelectFormWidget {
+class CouponSelectFormWidget extends SelectFormWidget {
 
     /**
      * {@inheritDoc}
      */
     public function getOptions($request) {
         $options = parent::getOptions($request);
-        foreach ($this->container->get('countryService')->getCountries() as $country) {
-            $options[$country->getId()] = $country->getName();
+
+        // @todo remove  dependency on language and request
+        $languageId = null != $request ? $request->getSelectedLanguage()->getId() : 1;
+        foreach ($this->container->get('couponService')->getCoupons($languageId) as $coupon) {
+            $options[$coupon->getId()] = $coupon->getName();
         }
         return $options;
     }

@@ -21,10 +21,6 @@
 
         <service id="sacsPermissionService" class="ZenMagick\apps\admin\Services\SacsPermissionService" />
 
-        <service id="plainEditorWidget" class="ZenMagick\Http\Widgets\Form\TextAreaFormWidget" scope="prototype">
-            <tag name="zenmagick.apps.store.editor" label="Plain" />
-        </service>
-
         <service id="adminMenu" class="ZenMagick\StoreBundle\Menu\Menu" />
 
         <service id="catalogDefaultTabController" class="ZenMagick\apps\admin\Controller\CatalogDefaultTabController">
@@ -32,34 +28,6 @@
         </service>
 
         <service id="userFactory" class="ZenMagick\apps\admin\Services\AdminUserFactory" />
-
-        <service id="countrySelectFormWidget" class="ZenMagick\apps\admin\Widgets\CountrySelectFormWidget" scope="prototype">
-            <tag name="zenmagick.http.widgets.widget" />
-        </service>
-
-        <service id="manufacturerSelectFormWidget" class="ZenMagick\apps\admin\Widgets\ManufacturerSelectFormWidget" scope="prototype">
-            <tag name="zenmagick.http.widgets.widget" />
-        </service>
-
-        <service id="editorSelectFormWidget" class="ZenMagick\apps\admin\Widgets\EditorSelectFormWidget" scope="prototype">
-            <tag name="zenmagick.http.widgets.widget" />
-        </service>
-
-        <service id="couponSelectFormWidget" class="ZenMagick\apps\admin\Widgets\CouponSelectFormWidget" scope="prototype">
-            <tag name="zenmagick.http.widgets.widget" />
-        </service>
-
-        <service id="orderStatusSelectFormWidget" class="ZenMagick\apps\admin\Widgets\OrderStatusSelectFormWidget" scope="prototype">
-            <tag name="zenmagick.http.widgets.widget" />
-        </service>
-
-        <service id="reservedQtyWidget" class="ZenMagick\apps\admin\Widgets\ReservedQtyWidget" scope="prototype">
-            <tag name="zenmagick.http.widgets.widget" />
-        </service>
-
-        <service id="zoneSelectFormWidget" class="ZenMagick\apps\admin\Widgets\ZoneSelectFormWidget" scope="prototype">
-            <tag name="zenmagick.http.widgets.widget" />
-        </service>
 
         <service id="adminTool" class="ZenMagick\apps\admin\Http\Tools\ToolboxAdmin" scope="prototype">
             <tag name="zenmagick.http.toolbox.tool" key="admin" />

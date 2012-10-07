@@ -17,28 +17,24 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-namespace ZenMagick\apps\admin\Widgets;
+namespace ZenMagick\StoreBundle\Widgets;
 
-use ZenMagick\Base\Runtime;
 use ZenMagick\Http\Widgets\Form\SelectFormWidget;
 
 /**
- * <p>A zone select form widget.</p>
+ * <p>A country select form widget.</p>
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class ZoneSelectFormWidget extends SelectFormWidget {
+class CountrySelectFormWidget extends SelectFormWidget {
 
     /**
      * {@inheritDoc}
      */
     public function getOptions($request) {
         $options = parent::getOptions($request);
-        // try to find a useful countryId, defaulting to store country Id
-        $countryId = Runtime::getSettings()->get('storeCountry');
-        //XXX: where else to look ??
-        foreach ($this->container->get('countryService')->getZonesForCountryId($countryId) as $zone) {
-            $options[$zone->getId()] = $zone->getName();
+        foreach ($this->container->get('countryService')->getCountries() as $country) {
+            $options[$country->getId()] = $country->getName();
         }
         return $options;
     }
