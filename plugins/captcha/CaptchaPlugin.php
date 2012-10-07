@@ -43,7 +43,7 @@ class CaptchaPlugin extends Plugin {
      * <p>Setup additional validation rules; this is done here to avoid getting in the way of
      * custom global/theme validation rule setups.</p>
      */
-    public function onDispatchStart($event) {
+    public function onRequestReady($event) {
         if (Runtime::isContextMatch('admin')) return;
         // page => (status, form_name)
         $pageConfig = array(

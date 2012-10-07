@@ -64,10 +64,8 @@ class HttpListener implements EventSubscriberInterface {
         $dispatcher->dispatch('container_ready', new Event($this, array('request' => $request)));
 
         $this->container->get('sacsManager')->ensureAccessMethod($request);
-
-        $dispatcher->dispatch('dispatch_start', new Event($this, array('request' => $request)));
-
         $this->container->get('sacsManager')->authorize($request, $request->getRequestId(), $request->getAccount());
+
         foreach ($this->container->get('containerTagService')->findTaggedServiceIds('zenmagick.http.session.validator') as $id => $args) {
             if (null != ($validator = $this->container->get($id)) && $validator instanceof SessionValidator) {
                 $session = $request->getSession();

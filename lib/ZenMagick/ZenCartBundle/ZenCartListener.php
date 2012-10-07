@@ -49,15 +49,16 @@ class ZenCartListener implements EventSubscriberInterface {
             $autoLoader = $this->container->get('zenCartAutoLoader');
             $autoLoader->initCommon();
             $autoLoader->setGlobalValue('currencies', new \currencies);
+            $this->initTemplate();
         }
     }
 
     /**
      * Boot ZenCart template and language
      */
-    public function onDispatchStart($event) {
+    public function initTemplate() {
         // @todo all this code should go somewhere else
-        if (defined('DIR_WS_TEMPLATE') || !Runtime::isContextMatch('storefront')) return;
+        if (defined('DIR_WS_TEMPLATE')) return;
         $autoLoader = $this->container->get('zenCartAutoLoader');
         $themeId = $this->container->get('themeService')->getActiveThemeId();
         $autoLoader->setGlobalValue('template_dir', $themeId);
@@ -226,7 +227,6 @@ class ZenCartListener implements EventSubscriberInterface {
     public static function getSubscribedEvents() {
         return array(
             'request_ready' => array(array('onRequestReady', 100)),
-            'dispatch_start' => array(array('onDispatchStart', 100)),
             'all_done' => array(array('logAdminPageAccess', 30)),
             'view_start' => array(array('onViewStart', 100)),
             'generate_email' => array(array('onGenerateEmail')),
