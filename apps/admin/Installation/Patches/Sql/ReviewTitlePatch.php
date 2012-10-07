@@ -55,24 +55,4 @@ class ReviewTitlePatch extends SQLPatch {
         $meta = \ZMRuntime::getDatabase()->getMetaData('reviews_description');
         return !array_key_exists('title', $meta);
     }
-
-    /**
-     * Revert the patch.
-     *
-     * @return boolean <code>true</code> if patching was successful, <code>false</code> if not.
-     */
-    function undo() {
-        if ($this->isOpen()) {
-            return true;
-        }
-
-        $baseDir = Runtime::getInstallationPath();
-        $status = true;
-        foreach ($this->sqlUndoFiles_ as $file) {
-            $sql = file($baseDir.$file);
-            $status |= $this->_runSQL($sql);
-        }
-        return $status;
-    }
-
 }

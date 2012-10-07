@@ -140,18 +140,4 @@ class ConfigPatch extends SQLPatch {
         return true;
     }
 
-    /**
-     * Revert the patch.
-     *
-     * @return boolean <code>true</code> if patching was successful, <code>false</code> if not.
-     */
-    function undo() {
-        $baseDir = Runtime::getInstallationPath();
-        $status = true;
-        foreach ($this->sqlUndoFiles_ as $file) {
-            $sql = file($baseDir.$file);
-            $status |= $this->_runSQL($sql);
-        }
-        return $status;
-    }
 }

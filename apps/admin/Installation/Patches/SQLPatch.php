@@ -90,6 +90,17 @@ class SQLPatch extends InstallationPatch {
         foreach ($this->getTables() as $table) {
             $sm->dropTable($table);
         }
+
+        if (isset($this->sqlUndoFiles_)) {
+            $baseDir = Runtime::getInstallationPath();
+            $status = true;
+            foreach ($this->sqlUndoFiles_ as $file) {
+                $sql = file($baseDir.$file);
+                $status |= $this->_runSQL($sql);
+            }
+            return $status;
+        }
+
         return parent::undo();
     }
 
