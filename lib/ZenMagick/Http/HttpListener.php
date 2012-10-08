@@ -117,8 +117,6 @@ class HttpListener implements EventSubscriberInterface {
                 $view->setVariables($result->getModel());
             } else if ($result instanceof View) {
                 $view = $result;
-            } else if ($result instanceof Response) {
-                $response = $result;
             }
         } catch (Exception $e) {
             //TODO: why is this a classic controller only?
