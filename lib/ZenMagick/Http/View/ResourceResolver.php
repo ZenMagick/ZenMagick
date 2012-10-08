@@ -187,7 +187,7 @@ class ResourceResolver extends ZMObject {
      * @return string The path to the application doc root.
      */
     public function getApplicationDocRoot() {
-        return Runtime::getApplicationPath().'/web/';
+        return Runtime::getInstallationPath().'/web/';
     }
 
     /**
