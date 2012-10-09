@@ -13,11 +13,6 @@
         <!-- TODO: drop when moving to using view instead of defaultView -->
         <service id="defaultView" alias="storeTemplateView" />
 
-        <!-- redefine for storefront -->
-        <service id="resourceResolverTwigLoader" class="ZenMagick\Http\Templating\ResourceResolverTwigLoader" scope="prototype">
-            <argument type="service" id="themeResourceResolver" />
-        </service>
-
         <service id="crumbtrailTool" class="ZenMagick\apps\storefront\Http\Tools\ToolboxCrumbtrail" scope="prototype">
             <tag name="zenmagick.http.toolbox.tool" key="crumbtrail" />
         </service>
