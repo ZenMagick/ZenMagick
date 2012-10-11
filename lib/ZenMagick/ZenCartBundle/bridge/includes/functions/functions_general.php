@@ -4,10 +4,10 @@
  * General functions used throughout Zen Cart
  *
  * @package functions
- * @copyright Copyright 2003-2011 Zen Cart Development Team
+ * @copyright Copyright 2003-2012 Zen Cart Development Team
  * @copyright Portions Copyright 2003 osCommerce
  * @license http://www.zen-cart.com/license/2_0.txt GNU Public License V2.0
- * @version $Id: functions_general.php 19726 2011-10-07 19:05:18Z drbyte $
+ * @version GIT: $Id: Author: Ian Wilson  Wed Sep 5 13:57:12 2012 +0100 Modified in v1.5.1 $
  */
 if (!defined('IS_ADMIN_FLAG')) {
   die('Illegal Access');
@@ -73,7 +73,7 @@ if (!defined('IS_ADMIN_FLAG')) {
 */
   function zen_output_string($string, $translate = false, $protected = false) {
     if ($protected == true) {
-      return htmlspecialchars($string);
+      return htmlspecialchars($string, ENT_COMPAT, CHARSET, TRUE);
     } else {
       if ($translate == false) {
         return zen_parse_input_field_data($string, array('"' => '&quot;'));
@@ -142,22 +142,17 @@ if (!defined('IS_ADMIN_FLAG')) {
  *
  * @param mixed either a single or array of parameter names to be excluded from output
 */
-// Return all HTTP GET variables, except those passed as a parameter
   function zen_get_all_get_params($exclude_array = '', $search_engine_safe = true) {
 
     if (!is_array($exclude_array)) $exclude_array = array();
-
+    $exclude_array = array_merge($exclude_array, array(zen_session_name(), 'main_page', 'error', 'x', 'y'));
     $get_url = '';
     if (is_array($_GET) && (sizeof($_GET) > 0)) {
       reset($_GET);
       while (list($key, $value) = each($_GET)) {
-        if ( (!in_array($key, $exclude_array)) && (strlen($value) > 0) && ($key != 'main_page') && ($key != zen_session_name()) && ($key != 'error') && ($key != 'x') && ($key != 'y') ) {
-          if ( (SEARCH_ENGINE_FRIENDLY_URLS == 'true') && ($search_engine_safe == true) ) {
-//    die ('here');
-            $get_url .= $key . '/' . rawurlencode(stripslashes($value)) . '/';
-          } else {
-            $get_url .= zen_sanitize_string($key) . '=' . rawurlencode(stripslashes($value)) . '&';
-          }
+        if (is_array($value) || in_array($key, $exclude_array)) continue;
+        if (strlen($value) > 0) {
+          $get_url .= zen_sanitize_string($key) . '=' . rawurlencode(stripslashes($value)) . '&';
         }
       }
     }
@@ -166,7 +161,6 @@ if (!defined('IS_ADMIN_FLAG')) {
 
     return $get_url;
   }
-
 
 ////
 // Returns the clients browser
@@ -372,7 +366,7 @@ if (!defined('IS_ADMIN_FLAG')) {
       if ($objects[$i] == ')') $balance ++;
       if ( ($objects[$i] == 'and') || ($objects[$i] == 'or') ) {
         $operator_count ++;
-      } elseif ( ($objects[$i]) && ($objects[$i] != '(') && ($objects[$i] != ')') ) {
+      } elseif ( (is_string($objects[$i]) && $objects[$i] == '0') || ($objects[$i]) && ($objects[$i] != '(') && ($objects[$i] != ')') ) {
         $keyword_count ++;
       }
     }
@@ -613,29 +607,6 @@ if (!defined('IS_ADMIN_FLAG')) {
   }
 
 ////
-  function zen_create_random_value($length, $type = 'mixed') {
-    if ( ($type != 'mixed') && ($type != 'chars') && ($type != 'digits')) return false;
-
-    $rand_value = '';
-    while (strlen($rand_value) < $length) {
-      if ($type == 'digits') {
-        $char = zen_rand(0,9);
-      } else {
-        $char = chr(zen_rand(0,255));
-      }
-      if ($type == 'mixed') {
-        if (preg_match('/^[a-z0-9]$/i', $char)) $rand_value .= $char;
-      } elseif ($type == 'chars') {
-        if (preg_match('/^[a-z]$/i', $char)) $rand_value .= $char;
-      } elseif ($type == 'digits') {
-        if (preg_match('/^[0-9]$/', $char)) $rand_value .= $char;
-      }
-    }
-
-    return $rand_value;
-  }
-
-////
   function zen_array_to_string($array, $exclude = '', $equals = '=', $separator = '&') {
     if (!is_array($exclude)) $exclude = array();
     if (!is_array($array)) $array = array();
@@ -767,6 +738,14 @@ if (!defined('IS_ADMIN_FLAG')) {
         $ip = $_SERVER['HTTP_X_FORWARDED_FOR'];
       } elseif (isset($_SERVER['HTTP_CLIENT_IP'])) {
         $ip = $_SERVER['HTTP_CLIENT_IP'];
+      } elseif (isset($_SERVER['HTTP_X_FORWARDED'])) {
+        $ip = $_SERVER['HTTP_X_FORWARDED'];
+      } elseif (isset($_SERVER['HTTP_X_CLUSTER_CLIENT_IP'])) {
+        $ip = $_SERVER['HTTP_X_CLUSTER_CLIENT_IP'];
+      } elseif (isset($_SERVER['HTTP_FORWARDED_FOR'])) {
+        $ip = $_SERVER['HTTP_FORWARDED_FOR'];
+      } elseif (isset($_SERVER['HTTP_FORWARDED'])) {
+        $ip = $_SERVER['HTTP_FORWARDED'];
       } else {
         $ip = $_SERVER['REMOTE_ADDR'];
       }
@@ -783,14 +762,8 @@ if (!defined('IS_ADMIN_FLAG')) {
     return $ip;
   }
 
-
-// nl2br() prior PHP 4.2.0 did not convert linefeeds on all OSs (it only converted \n)
   function zen_convert_linefeeds($from, $to, $string) {
-    if ((PHP_VERSION < "4.0.5") && is_array($from)) {
-      return preg_replace('/(' . implode('|', $from) . ')/', $to, $string);
-    } else {
-      return str_replace($from, $to, $string);
-    }
+    return str_replace($from, $to, $string);
   }
 
 
@@ -1474,7 +1447,7 @@ if (!defined('IS_ADMIN_FLAG')) {
  */
   function replace_accents($s) {
     $skipPreg = (defined('OVERRIDE_REPLACE_ACCENTS_WITH_HTMLENTITIES') && OVERRIDE_REPLACE_ACCENTS_WITH_HTMLENTITIES == 'TRUE') ? TRUE : FALSE;
-    $s = htmlentities($s);
+    $s = htmlentities($s, ENT_COMPAT, CHARSET);
     if ($skipPreg == FALSE) {
       $s = preg_replace ('/&([a-zA-Z])(uml|acute|elig|grave|circ|tilde|cedil|ring|quest|slash|caron);/', '$1', $s);
     }
@@ -1536,6 +1509,32 @@ if (!defined('IS_ADMIN_FLAG')) {
     $string = htmlentities($string, ENT_QUOTES, 'UTF-8');
     $string = html_entity_decode($string, ENT_QUOTES, CHARSET);
     return $string;
+  }
+
+  // Helper function to check whether the current instance is using SSL or not.
+  // Returns SSL or NONSSL
+  function getConnectionType() {
+    global $request_type;
+    return $request_type;
+  }
+
+  // debug utility only
+  function utilDumpRequest($mode='p', $out = 'log') {
+    if ($mode =='p') {
+      $val = '<pre>DEBUG request: ' . print_r($_REQUEST, TRUE);
+    } else {
+      @ob_start();
+      var_dump('DEBUG request: ', $_REQUEST);
+      $val = @ob_get_contents();
+      @ob_end_clean();
+    }
+    if ($out == 'log' || $out == 'l') {
+      error_log($val);
+    } else if ($out == 'die' || $out == 'd') {
+      die($val);
+    } else if ($out == 'echo' || $out == 'e') {
+      echo $val;
+    }
   }
 
 /////////////////////////////////////////////

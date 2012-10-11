@@ -1,10 +1,10 @@
 <?php
 /**
  * @package admin
- * @copyright Copyright 2003-2011 Zen Cart Development Team
+ * @copyright Copyright 2003-2012 Zen Cart Development Team
  * @copyright Portions Copyright 2003 osCommerce
  * @license http://www.zen-cart.com/license/2_0.txt GNU Public License V2.0
- * @version $Id: general.php 19330 2011-08-07 06:32:56Z drbyte $
+ * @version GIT: $Id: Author: DrByte  Tue Aug 28 17:40:54 2012 -0400 Modified in v1.5.1 $
  */
 
 ////
@@ -124,7 +124,8 @@
 
     reset($_GET);
     while (list($key, $value) = each($_GET)) {
-      if (($key != zen_session_name()) && ($key != 'error') && (!in_array($key, $exclude_array))) $get_url .= $key . '=' . $value . '&';
+        if (($key != zen_session_name()) && ($key != 'error') && (!in_array($key, $exclude_array)))
+             $get_url .= zen_sanitize_string($key) . '=' . rawurlencode(stripslashes($value)) . '&';
     }
 
     return $get_url;
@@ -933,7 +934,7 @@
 // Function to read in text area in admin
  function zen_cfg_textarea($text, $key = '') {
     $name = (($key) ? 'configuration[' . $key . ']' : 'configuration_value');
-    return zen_draw_textarea_field($name, false, 60, 5, htmlspecialchars($text, ENT_COMPAT, CHARSET, TRUE));
+    return zen_draw_textarea_field($name, false, 60, 5, htmlspecialchars($text, ENT_COMPAT, CHARSET, FALSE));
   }
 
 
@@ -941,7 +942,7 @@
 // Function to read in text area in admin
  function zen_cfg_textarea_small($text, $key = '') {
     $name = (($key) ? 'configuration[' . $key . ']' : 'configuration_value');
-    return zen_draw_textarea_field($name, false, 35, 1, htmlspecialchars($text, ENT_COMPAT, CHARSET, TRUE));
+    return zen_draw_textarea_field($name, false, 35, 1, htmlspecialchars($text, ENT_COMPAT, CHARSET, FALSE));
   }
 
 
@@ -970,6 +971,9 @@
   }
 
   function zen_cfg_password_input($value, $key = '') {
+    if (function_exists('dbenc_is_encrypted_value_key') && dbenc_is_encrypted_value_key($key)) {
+      $value = dbenc_decrypt($value);
+    }
     return zen_draw_password_field('configuration[' . $key . ']', $value);
   }
 
@@ -2944,25 +2948,6 @@ function zen_copy_products_attributes($products_id_from, $products_id_to) {
     $check_products_type = $db->Execute("select products_type from " . TABLE_PRODUCTS . " where products_id='" . (int)$product_id . "'");
     return $check_products_type->fields['products_type'];
   }
-  // ZENMAGICK MODIFICATION: this function was removed in 1.5.0 as it is no longer used
-  function zen_draw_admin_box($zf_header, $zf_content) {
-    $zp_boxes = '<li class="submenu"><a target="_top" href="' . $zf_header['link'] . '">' . $zf_header['text'] . '</a>';
-    $zp_boxes .= '<UL>' . "\n";
-    for ($i=0; $i<sizeof($zf_content); $i++) {
-      $zp_boxes .= '<li>';
-      $zp_boxes .= '<a href="' . $zf_content[$i]['link'] . '">' . $zf_content[$i]['text'] . '</a>';
-      $zp_boxes .= '</li>' . "\n";
-    }
-    $zp_boxes .= '</UL>' . "\n";
-    $zp_boxes .= '</li>' . "\n";
-    return $zp_boxes;
-  }
-
-
-
-
-
-
 
 ////
 //  ++++ modified for UPS Choice 1.8 and USPS Methods 2.5 by Brad Waite and Fritz Clapp ++++
