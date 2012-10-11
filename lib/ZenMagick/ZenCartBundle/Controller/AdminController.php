@@ -99,20 +99,10 @@ class AdminController extends \ZMController {
 
     /**
      * Implementation of ZenCart's init_session securityToken checking code
-     *
-     * Most of this code is only useful for 1.3.9 and not 1.5.0
-     *
-     * @todo require 1.5.0? we could drop all of thise code if we implemented the above
-     * @todo should we dynamically add to tokenSecuredForms instead and let ZenMagick\Http\Request handle it?
      */
     public function validateSecurityToken($request) {
-        $action = $request->request->get('action', '');
-        $valid = true; // yuck. need 1.5.0 or all these options implemented ourselves
-        if (in_array($action, array('copy_options_values', 'update_options_values', 'update_value', 'add_product_option_values', 'copy_options_values_one_to_another_options_id', 'delete_options_values_of_option_name', 'copy_options_values_one_to_another', 'copy_categories_products_to_another_category_linked', 'remove_categories_products_to_another_category_linked', 'reset_categories_products_to_another_category_master', 'update_counter', 'update_orders_id', 'locate_configuration_key', 'locate_configuration', 'update_categories_attributes', 'update_product', 'locate_configuration', 'locate_function', 'locate_class', 'locate_template', 'locate_all_files', 'add_product', 'add_category', 'update_product_attribute', 'add_product_attributes', 'update_attributes_copy_to_category', 'update_attributes_copy_to_product', 'delete_option_name_values','delete_all_attributes', 'save', 'layout_save', 'update', 'update_sort_order', 'update_confirm', 'copyconfirm', 'deleteconfirm', 'insert', 'move_category_confirm', 'delete_category_confirm', 'update_category_meta_tags', 'insert_category' ))) {
-            if (!in_array($request->getRequestId(), array('products_price_manager', 'option_name', 'currencies', 'languages', 'specials', 'featured', 'salemaker'))) {
-                $valid = $request->getSession()->getToken() == $request->request->get('securityToken');
-            }
-        }
-        return $valid;
+        $needsToken = $request->get('action') && 'POST' === $request->getMethod();
+        if(!$needsToken) return true;
+        return $request->getSession()->getToken() === $request->request->get('securityToken', '');
     }
 }
