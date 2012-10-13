@@ -23,6 +23,8 @@ use ZenMagick\Base\Toolbox;
 
 use ZenMagick\Base\Locales\LocaleScanner;
 
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\ResponseHeaderBag;
 
 /**
  * Admin controller for l10n page.
@@ -118,7 +120,7 @@ class L10nController extends \ZMController {
 
         $pluginsMap = array();
         if ($vd['scanPlugins']) {
-            $pluginDirs = $this->container->getParameterBag()->get('zenmagick.base.plugins.dirs');
+            $pluginDirs = $this->container->getParameterBag()->get('zenmagick.plugins.dirs');
             foreach ($pluginDirs as $path) {
                 $pluginsMap = array_merge($pluginsMap, $scanner->buildL10nMap($path));
             }
@@ -151,15 +153,19 @@ class L10nController extends \ZMController {
         $data = $this->processInternal($request);
         $scanner = new LocaleScanner();
         if ('po' == $request->getParameter('download')) {
-            header('Content-Type: text/plain');
-            header('Content-Disposition: attachment; filename=messages.po;');
-            echo $scanner->map2po($data['translations']);
-            return null;
+            $response = new Response();
+            $d = $response->headers->makeDisposition(ResponseHeaderBag::DISPOSITION_ATTACHMENT, 'messages.po');
+            $response->headers->set('Content-Type', 'text/plain');
+            $response->headers->set('Content-Disposition', $d);
+            $response->setContent($scanner->map2po($data['translations']));
+            return $response;
         } else if ('pot' == $request->getParameter('download')) {
-            header('Content-Type: text/plain');
-            header('Content-Disposition: attachment; filename=messages.pot;');
-            echo $scanner->map2po($data['translations'], true);
-            return null;
+            $response = new Response();
+            $d = $response->headers->makeDisposition(ResponseHeaderBag::DISPOSITION_ATTACHMENT, 'messages.pot');
+            $response->headers->set('Content-Type', 'text/plain');
+            $response->headers->set('Content-Disposition', $d);
+            $response->setContent($scanner->map2po($data['translations'], true));
+            return $response;
         }
 
         return $this->findView(null, $data);

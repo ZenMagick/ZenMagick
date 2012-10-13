@@ -30,6 +30,8 @@ use ZenMagick\StoreBundle\Model\Mock\MockReview;
 use ZenMagick\StoreBundle\Model\Mock\MockEmailMessage;
 use ZenMagick\StoreBundle\Model\Mock\MockGVReceiver;
 
+use Symfony\Component\HttpFoundation\Response;
+
 /**
  * Admin controller for email previews.
  *
@@ -77,8 +79,7 @@ class EmailPreviewController extends \ZMController {
             if ('text' == $format) {
                 $this->setContentType('text/plain');
             }
-            echo $content;
-            return null;
+            return new Response($content);
         }
 
         return $this->findView();

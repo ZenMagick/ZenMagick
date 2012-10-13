@@ -21,6 +21,8 @@ namespace ZenMagick\plugins\cron\controller;
 
 use ZMController;
 
+use Symfony\Component\HttpFoundation\Response;
+
 /**
  * Cron image controller.
  *
@@ -33,7 +35,8 @@ class CronImageController extends ZMController {
      */
     public function processGet($request) {
         $plugin = $this->container->get('pluginService')->getPluginForId('cron');
-        header("Content-Type: image/gif");
+        $response = new Response();
+        $response->headers->set('Content-Type', 'image/gif');
 
         if (null != $plugin) {
             // execute configured jobs
@@ -41,10 +44,8 @@ class CronImageController extends ZMController {
         }
 
         // create 1x1 image
-        echo base64_decode("R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==");
-
-        // no more output
-        return null;
+        $response->setContent(base64_decode('R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw=='));
+        return $response;
     }
 
 }

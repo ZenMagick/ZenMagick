@@ -22,6 +22,8 @@ use ZenMagick\Base\Runtime;
 use ZenMagick\Http\Request;
 use ZenMagick\Http\Sacs\SacsManager;
 
+use Symfony\Component\HttpFoundation\Response;
+
 /**
  * Request controller for ajax requests.
  *
@@ -87,8 +89,10 @@ class ZMAjaxController extends ZMController {
      * @param string json The JSON data.
      */
     public function setJSONHeader($json) {
-        $this->setContentType('text/plain');
-        echo $json;
+        $response = new Response();
+        $response->headers->set('Content-Type', 'text/plain');
+        $response->setContent($json);
+        return $response;
     }
 
     /**

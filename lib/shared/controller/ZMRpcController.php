@@ -23,6 +23,8 @@ use ZenMagick\Base\Beans;
 use ZenMagick\Http\Request;
 use ZenMagick\Http\Sacs\SacsManager;
 
+use Symfony\Component\HttpFoundation\Response;
+
 /**
  * RPC controller.
  *
@@ -68,11 +70,10 @@ class ZMRpcController extends ZMController {
             }
         }
 
-        // set content type
-        $this->setContentType($rpcResponse->getContentType());
-        // the response
-        echo $rpcResponse;
-        return null;
+        $response = new Response();
+        $response->headers->set('Content-Type', $rpcResponse->getContentType());
+        $response->setContent($rpcResponse);
+        return $response;
     }
 
     /**
