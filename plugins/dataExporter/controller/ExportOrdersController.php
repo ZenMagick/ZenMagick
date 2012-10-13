@@ -26,6 +26,9 @@ use ZMRuntime;
 use ZenMagick\StoreBundle\Entity\Order\Order;
 use ZenMagick\Base\Beans;
 
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\ResponseHeaderBag;
+
 /**
  * Export orders controller.
  *
@@ -117,9 +120,12 @@ class ExportOrdersController extends ZMController {
             // additional view data
             $viewData = array('header' => $header, 'rows' => $rows, 'toDate' => $toDate);
 
-            if ('csv' == $exportFormat) {
-                header("Content-type: application/csv");
-                header("Content-Disposition: inline; filename=orders.csv");
+            if ('csv' == $exportFormat) { // @todo should use StreamedResponse
+                $response = new Response();
+                $d = $response->headers->makeDisposition(ResponseHeaderBag::DISPOSITION_ATTACHMENT, 'orders.csv');
+                $response->headers->set('Content-Type', 'application/csv');
+                $response->headers->set('Content-Disposition', $d);
+
                 ob_start();
                 $fp = fopen('php://output', 'w');
                 fputcsv($fp, $header);
@@ -129,9 +135,8 @@ class ExportOrdersController extends ZMController {
                     }
                 }
                 fclose($fp);
-                $csv = ob_get_clean();
-                echo $csv;
-                return null;
+                $response->setContent(ob_get_clean());
+                return $response;
             }
         }
 
