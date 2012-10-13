@@ -35,9 +35,6 @@ use ZenMagick\Base\Events\VetoableEvent;
  * @author DerManoMann <mano@zenmagick.org>
  */
 class Request extends HttpFoundationRequest implements ContainerAwareInterface {
-    /** Default paramter name containing the request id.  */
-    const DEFAULT_REQUEST_ID = 'rid';
-
 
     /**
      * Populate ParameterBag instances from superglobals
@@ -160,15 +157,6 @@ class Request extends HttpFoundationRequest implements ContainerAwareInterface {
     }
 
     /**
-     * Get the name of the request parameter that contains the request id.
-     *
-     * @return string The request id key.
-     */
-    public function getRequestIdKey() {
-        return Runtime::isContextMatch('storefront') ? 'main_page' : self::DEFAULT_REQUEST_ID;
-    }
-
-    /**
      * Get the request id.
      *
      * <p>The request id is the main criteria for selecting the controller and view to process this
@@ -177,7 +165,7 @@ class Request extends HttpFoundationRequest implements ContainerAwareInterface {
      * @return string The request id of this request.
      */
     public function getRequestId() {
-        return $this->query->get($this->getRequestIdKey(), 'index');
+        return $this->attributes->get('_route');
     }
 
     /**
@@ -186,7 +174,7 @@ class Request extends HttpFoundationRequest implements ContainerAwareInterface {
      * @param string requestId The new request id.
      */
     public function setRequestId($requestId) {
-        $this->query->set($this->getRequestIdKey(), $requestId);
+        $this->attributes->set('_route', $requestId);
     }
 
     /**
@@ -254,10 +242,7 @@ class Request extends HttpFoundationRequest implements ContainerAwareInterface {
      */
     public function saveFollowUpUrl() {
         $params = $this->query->all();
-        $ridKey = $this->getRequestIdKey();
-        if (array_key_exists($ridKey, $params)) {
-            unset($params[$ridKey]);
-        }
+        // @todo unpack route attributes?
 
         $data = array('requestId' => $this->getRequestId(), 'params' => $params, 'secure' => $this->isSecure());
         $this->getSession()->set('http.followUpUrl', $data);

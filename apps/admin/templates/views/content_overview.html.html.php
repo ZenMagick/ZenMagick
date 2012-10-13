@@ -20,7 +20,6 @@
 
 <?php $admin->title() ?>
 <form action="<?php echo $net->url() ?>" method="GET">
-  <input type="hidden" name="rid" value="content_editor">
   <h2><?php _vzm('Content Manager') ?> (
           <select id="languageId" name="languageId" onchange="this.form.submit();">
             <?php foreach ($this->container->get('languageService')->getLanguages() as $lang) { ?>
