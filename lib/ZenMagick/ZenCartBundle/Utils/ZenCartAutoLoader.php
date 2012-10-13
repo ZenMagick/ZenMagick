@@ -131,7 +131,7 @@ class ZenCartAutoLoader extends ZMObject {
 
         $request = $this->getRequest();
         $data = array(
-            'requestContext' => $request->getContext(),
+            'requestContext' => $request->getBaseUrl(),
             'httpServer' => $request->getHttpHost(),
             'settings' => $this->container->get('settingsService'),
             'shortUIFormat' => $uiFormat

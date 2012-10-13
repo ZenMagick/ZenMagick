@@ -122,14 +122,14 @@ class WordpressRequestHandler extends ZMController {
             }
 
             // fix path
-            $path = $this->request_->getContext().$this->plugin_->get('permaPrefix').'/';
+            $path = $this->request_->getBaseUrl().$this->plugin_->get('permaPrefix').'/';
             // does url path start with WP installation folder?
             $wpDir = basename($this->plugin_->get('wordpressDir'));
             if (!Toolbox::isEmpty($wpDir) && 0 === strpos($urlToken['path'], '/'.$wpDir.'/')) {
                 return str_replace('/'.$wpDir.'/', $path, $arg);
             } else {
                 //TODO:
-                //$_SERVER['REQUEST_URI'] = str_replace($this->request_->getContext().$this->plugin_->get('permaPrefix').'/', '', $_SERVER['REQUEST_URI']);
+                //$_SERVER['REQUEST_URI'] = str_replace($this->request_->getBaseUrl().$this->plugin_->get('permaPrefix').'/', '', $_SERVER['REQUEST_URI']);
             }
         } else {
             return $this->request_->url('wp', $urlToken['query']);

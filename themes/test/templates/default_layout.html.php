@@ -22,7 +22,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
   <head>
     <?php echo $this->fetch('head.html.php'); ?>
-    <?php $resourceManager->cssFile($request->getContext().'/zenmagick/themes/base/public/css/site.css') ?>
+    <?php $resourceManager->cssFile($request->getBaseUrl().'/zenmagick/themes/base/public/css/site.css') ?>
     <?php $resourceManager->cssFile('css/ie.css', array('prefix' => '<!--[if IE]>', 'suffix' => '<![endif]-->')) ?>
     <?php $resourceManager->jsFile('js/common.js', $resourceManager::FOOTER) ?>
     <?php $resourceManager->jsFile('//ajax.googleapis.com/ajax/libs/jquery/1.6.1/jquery.min.js', $resourceManager::HEADER) ?>

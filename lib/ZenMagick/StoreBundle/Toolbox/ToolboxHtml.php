@@ -121,7 +121,7 @@ class ToolboxHtml extends ToolboxTool {
             throw new ZMException('invalid image format: '.$format);
         }
         if (0 !== strpos($imgSrc, '/')) {
-            $imgSrc = $this->getRequest()->getContext() . '/' . $imgSrc;
+            $imgSrc = $this->getRequest()->getBaseUrl() . '/' . $imgSrc;
         }
         $slash = Runtime::getSettings()->get('zenmagick.http.html.xhtml') ? '/' : '';
         $html = '<img src="'.$imgSrc.'" alt="'.$this->encode($imageInfo->getAltText()).'" ';

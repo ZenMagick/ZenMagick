@@ -174,7 +174,7 @@ class WordpressPlugin extends Plugin {
         $wordpressEnabledPages = explode(',', $this->get('wordpressEnabledPages'));
         if (empty($wordpressEnabledPages) || (!Toolbox::isEmpty($request->getRequestId()) && in_array($request->getRequestId(), $wordpressEnabledPages))) {
             if ($this->isPermalinksEnabled()) {
-                $path = $request->getContext().$this->get('permaPrefix');
+                $path = $request->getBaseUrl().$this->get('permaPrefix');
                 // simulate empty query arg to make WP homepage work
                 $requestUri = rtrim($request->getRequestUri(), '?').'?';
                 // make WP permalink parsing work

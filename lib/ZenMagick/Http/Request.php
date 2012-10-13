@@ -113,7 +113,7 @@ class Request extends HttpFoundationRequest implements ContainerAwareInterface {
      * @return string The absolute URL.
      */
     public function absoluteUrl($url, $full=false, $secure=false) {
-        $url = (!empty($url) && ('/' == $url[0] || false !== strpos($url, '://'))) ? $url : $this->getContext().'/'.$url;
+        $url = (!empty($url) && ('/' == $url[0] || false !== strpos($url, '://'))) ? $url : $this->getBaseUrl().'/'.$url;
         $secure = $this->container->get('settingsService')->get('zenmagick.http.request.enforceSecure') && $secure;
         if ($full || ($secure && !$this->isSecure())) {
             // full requested or we need a full URL to ensure it will be secure
@@ -244,16 +244,6 @@ class Request extends HttpFoundationRequest implements ContainerAwareInterface {
      */
     public function getToolbox() {
         return $this->container->get('toolbox');
-    }
-
-    /**
-     * Get the URL context for this request.
-     *
-     * @return string The URL context.
-     */
-    public function getContext() {
-        $context = str_replace('\\', '/', dirname($this->server->get('SCRIPT_NAME')));
-        return '/' == $context ? '' : $context;
     }
 
     /**
