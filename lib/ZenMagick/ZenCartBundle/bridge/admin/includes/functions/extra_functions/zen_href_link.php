@@ -25,13 +25,16 @@ use ZenMagick\Base\Runtime;
 
 /**
  * zen_href_link wrapper that delegates to the Zenmagick implementation (for storefront).
- *
  */
 function zen_href_link($page='', $params='', $transport='NONSSL', $addSessionId=true, $seo=true, $isStatic=false, $useContext=true) {
     $request = Runtime::getContainer()->get('request');
     $page = str_replace('.php', '', $page);
     parse_str($params, $tmp);
-    unset($tmp['rid']);
     $params = http_build_query($tmp);
-    return $request->url('zc_admin_'.$page, $params);
+    try {
+        return $request->url('zc_admin_'.$page, $params);
+     } catch (\Symfony\Component\Routing\Exception\RouteNotFoundException $e) {
+     }
+    // try without
+    return $request->url($page, $params);
 }
