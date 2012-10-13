@@ -103,6 +103,7 @@ class ZenCartAutoLoader extends ZMObject {
             $filePatterns[] = 'includes/functions/{localization.php,password_funcs.php}';
             $filePatterns[] = '../includes/functions/{audience.php,banner.php,featured.php}';
             $filePatterns[] = '../includes/functions/{functions_email.php,salemaker.php,sessions.php,specials.php,zen_mail.php}';
+            $filePatterns[] = 'includes/functions/admin_access.php';
         } else {
             $filePatterns[] = 'includes/version.php';
             $filePatterns[] = 'includes/configure.php';
