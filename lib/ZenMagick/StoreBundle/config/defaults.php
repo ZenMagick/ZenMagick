@@ -23,6 +23,7 @@ use ZenMagick\Base\Runtime;
 // NOTE: this isn't actually set anywhere in zencart, it's only used in functions_prices. Must require extra_configures?
 if (!defined('ATTRIBUTES_PRICE_FACTOR_FROM_SPECIAL')) define('ATTRIBUTES_PRICE_FACTOR_FROM_SPECIAL', 0);
 
+if (!function_exists('zm_split_email_addresses')) {
     /**
      * Split email addresses as per zc convention.
      */
@@ -298,6 +299,7 @@ if (!defined('ATTRIBUTES_PRICE_FACTOR_FROM_SPECIAL')) define('ATTRIBUTES_PRICE_F
 
         return $map;
     }
+}
 
     $replace = true;
     foreach (zm_get_default_settings($settingsService) as $name => $value) {
