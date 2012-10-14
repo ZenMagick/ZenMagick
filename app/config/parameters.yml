@@ -4,7 +4,7 @@ parameters:
     database_port:     ~
     database_name:     zenmagick
     database_user:     root
-    database_password: root
+    database_password: ~
     table_prefix:      ''
 
     mailer_transport:  mail
