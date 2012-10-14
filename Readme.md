@@ -1,6 +1,8 @@
 ZenMagick
 =========
 
+[![Build Status](https://travis-ci.org/ZenMagick/ZenMagick.png)](https://travis-ci.org/ZenMagick/ZenMagick)
+
 A reliable, flexible Open Source e-commerce solution for internet retailers of all trades.
 
 Originally based on [Zen Cart](http://www.zen-cart.com/), it has evolved into a flexible and robust system of its own, that allows you to get the shopping cart you want.
