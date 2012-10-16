@@ -86,7 +86,7 @@ class TellAFriendController extends \ZMController {
         if ($settingsService->get('isEmailAdminTellAFriend')) {
             // store copy
             $session = $request->getSession();
-            $context = $request->getToolbox()->macro->officeOnlyEmailFooter($emailMessage->getFromName(), $emailMessage->getFromEmail(), $session);
+            $context = $this->get('macroTool')->officeOnlyEmailFooter($emailMessage->getFromName(), $emailMessage->getFromEmail(), $session);
             $context['emailMessage'] = $emailMessage;
             $context['currentProduct'] = $this->product_;
 

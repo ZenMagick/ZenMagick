@@ -100,7 +100,7 @@ class GvSendConfirmController extends \ZMController {
         if ($settingsService->get('isEmailAdminGvSend')) {
             // store copy
             $session = $request->getSession();
-            $context = $request->getToolbox()->macro->officeOnlyEmailFooter($account->getFullName(), $account->getEmail(), $session);
+            $context = $this->get('macroTool')->officeOnlyEmailFooter($account->getFullName(), $account->getEmail(), $session);
             $context['currentAccount'] = $account;
             $context['gvReceiver'] = $gvReceiver;
             $context['currentCoupon'] = $coupon;

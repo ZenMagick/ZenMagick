@@ -136,7 +136,7 @@ class OpenIDController extends ZMController {
         }
 
         //TODO: make configurable
-        //$pape_request->addPolicyURI($request->getToolbox()->net->staticPage('privacy'));
+        //$pape_request->addPolicyURI($container->get('netTool')->staticPage('privacy'));
 
         // For OpenID 1, send a redirect.  For OpenID 2, use a Javascript
         // form to send a POST request to the server.

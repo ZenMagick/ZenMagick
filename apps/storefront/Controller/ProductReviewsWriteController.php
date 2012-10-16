@@ -64,7 +64,7 @@ class ProductReviewsWriteController extends \ZMController {
         // account email
         if ($settingsService->get('isApproveReviews') && $settingsService->get('isEmailAdminReview')) {
             $subject = sprintf(_zm("Product Review Pending Approval: %s"), $product->getName());
-            $context = $request->getToolbox()->macro->officeOnlyEmailFooter($account->getFullName(), $account->getEmail(), $request->getSession());
+            $context = $this->get('macroTool')->officeOnlyEmailFooter($account->getFullName(), $account->getEmail(), $request->getSession());
             $context['currentAccount'] = $account;
             $context['currentReview'] = $review;
             $context['currentProduct'] = $product;

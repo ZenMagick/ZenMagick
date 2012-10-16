@@ -127,7 +127,7 @@ class DefaultRssFeedSource extends ZMObject implements RssSource {
         foreach ($toc as $page) {
             $item = new RssItem();
             $item->setTitle($page->getTitle());
-            $item->setLink($request->getToolbox()->net->ezPage($page));
+            $item->setLink($this->container->get('netTool')->ezPage($page));
             $item->setDescription($page->getTitle());
             $items[] = $item;
         }
@@ -157,7 +157,7 @@ class DefaultRssFeedSource extends ZMObject implements RssSource {
             return null;
         }
 
-        $toolbox = $request->getToolbox();
+        $toolbox = $this->container->get('toolbox');
         $lastPubDate = null;
         $items = array();
         $products = array_slice(array_reverse($this->container->get('productService')->getNewProducts()), 0, 20);

@@ -83,7 +83,7 @@ class BooleanFormWidget extends FormWidget {
     protected function renderCheckbox($request) {
         $slash = Runtime::getSettings()->get('zenmagick.http.html.xhtml') ? '/' : '';
         $checked = Runtime::getSettings()->get('zenmagick.http.html.xhtml') ? ' checked="checked"' : ' checked';
-        $html = $request->getToolbox()->html;
+        $html = Runtime::getContainer()->get('htmlTool');
         $idBase = $html->encode($this->get('id'));
         $name = $this->getName();
         if (empty($idBase)) {
@@ -114,7 +114,7 @@ class BooleanFormWidget extends FormWidget {
     protected function renderRadio($request) {
         $slash = Runtime::getSettings()->get('zenmagick.http.html.xhtml') ? '/' : '';
         $checked = Runtime::getSettings()->get('zenmagick.http.html.xhtml') ? ' checked="checked"' : ' checked';
-        $html = $request->getToolbox()->html;
+        $html = Runtime::getContainer()->get('htmlTool');
         $idBase = $html->encode($this->get('id'));
         $name = $this->getName();
         if (empty($idBase)) {
@@ -140,7 +140,7 @@ class BooleanFormWidget extends FormWidget {
     protected function renderSelect($request) {
         $slash = Runtime::getSettings()->get('zenmagick.http.html.xhtml') ? '/' : '';
         $selected = Runtime::getSettings()->get('zenmagick.http.html.xhtml') ? ' selected="selected"' : ' selected';
-        $html = $request->getToolbox()->html;
+        $html = Runtime::getContainer()->get('htmlTool');
         $id = $html->encode($this->get('id'));
         $name = $this->getName();
         $value = $this->getValue();

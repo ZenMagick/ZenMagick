@@ -41,7 +41,7 @@ class LatestAccountsDashboardWidget extends DashboardWidget {
      * {@inheritDoc}
      */
     public function getContents($request) {
-        $net = $request->getToolbox()->net;
+        $net = $this->container->get('netTool');
         $contents = '';
         $contents .= '<table class="grid" cellspacing="0">';
         $contents .= '<tr><th>'._zm('Name').'</th><th>'._zm('Registered').'</th></tr>';

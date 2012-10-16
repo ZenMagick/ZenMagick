@@ -64,15 +64,15 @@ class ZMImageInfo extends ZMObject {
             $ext = $comp[1];
             $imageBase = $comp[2];
 
-            $toolbox = $this->container->get('request')->getToolbox();
+            $netTool = $this->container->get('netTool');
             $settingsService = $this->container->get('settingsService');
             // @todo we don't really want to use images from where zencart is, but from where the app is
             $zcPath = $settingsService->get('zencart.root_dir');
             // set default image
             if (empty($image) || !file_exists($zcPath.'/images/'.$image) || !is_file($zcPath.'/images/'.$image)) {
-                $this->imageDefault_ = $toolbox->net->image($settingsService->get('imgNotFound'));
+                $this->imageDefault_ = $netTool->image($settingsService->get('imgNotFound'));
             } else {
-                $this->imageDefault_ = $toolbox->net->image($image);
+                $this->imageDefault_ = $netTool->image($image);
             }
 
             // evaluate optional medium image
@@ -81,7 +81,7 @@ class ZMImageInfo extends ZMObject {
                 // default to next smaller version
                 $this->imageMedium_ = $this->imageDefault_;
             } else {
-                $this->imageMedium_ = $toolbox->net->image('medium/'.$medium);
+                $this->imageMedium_ = $netTool->image('medium/'.$medium);
             }
 
             // evaluate optional large image
@@ -90,7 +90,7 @@ class ZMImageInfo extends ZMObject {
                 // default to next smaller version
                 $this->imageLarge_ = $this->imageMedium_;
             } else {
-                $this->imageLarge_ = $toolbox->net->image('large/'.$large);
+                $this->imageLarge_ = $netTool->image('large/'.$large);
             }
         }
     }

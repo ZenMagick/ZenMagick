@@ -40,7 +40,7 @@ class OrderStatsDashboardWidget extends DashboardWidget {
      * {@inheritDoc}
      */
     public function getContents($request) {
-        $net = $request->getToolbox()->net;
+        $net = $this->container->get('netTool');
         $contents = '<table class="grid" cellspacing="0">';
         $contents .= '<tr><th>'._zm('Status').'</th><th>'._zm('Number of Orders').'</th></tr>';
         $language = $request->getSelectedLanguage();

@@ -287,7 +287,7 @@ class StorefrontController extends \ZMController {
         if ($this->isHomePage()) {
             $url = $request->getBaseUrl();
         } else if (Toolbox::endsWith($requestId, 'info') && null != ($productId = $request->attributes->get('productId'))) {
-            $url = $request->getToolbox()->net->product($productId, null);
+            $url = $this->get('netTool')->product($productId, null);
         } else {
             $url = $request->url($requestId, rtrim(zen_get_all_get_params($exclusionList), '&'));
         }

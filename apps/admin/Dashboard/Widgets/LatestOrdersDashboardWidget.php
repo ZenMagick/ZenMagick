@@ -41,8 +41,8 @@ class LatestOrdersDashboardWidget extends DashboardWidget {
      * {@inheritDoc}
      */
     public function getContents($request) {
-        $net = $request->getToolbox()->net;
-        $utils = $request->getToolbox()->utils;
+        $net = $this->container->get('toolbox')->net;
+        $utils = $this->container->get('toolbox')->utils;
         $language = $request->getSelectedLanguage();
         $contents = '';
         $contents .= '<table class="grid" cellspacing="0">';

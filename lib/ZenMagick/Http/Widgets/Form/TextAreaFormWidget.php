@@ -19,6 +19,7 @@
  */
 namespace ZenMagick\Http\Widgets\Form;
 
+use ZenMagick\Base\Runtime;
 use ZenMagick\Http\View\TemplateView;
 
 /**
@@ -52,7 +53,7 @@ class TextAreaFormWidget extends FormWidget implements WysiwygEditor {
      * {@inheritDoc}
      */
     public function render($request, TemplateView $templateView) {
-        $value = $this->isEncode() ?$request->getToolbox()->html->encode($this->getValue()) : $this->getValue();
+        $value = $this->isEncode() ?Runtime::getContainer()->get('htmlTool')->encode($this->getValue()) : $this->getValue();
         return '<textarea'.$this->getAttributeString($request, false).'>'.$value.'</textarea>';
     }
 

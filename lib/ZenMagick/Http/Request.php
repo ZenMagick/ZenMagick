@@ -225,16 +225,6 @@ class Request extends HttpFoundationRequest implements ContainerAwareInterface {
     }
 
     /**
-     * Get the toolbox for this request.
-     *
-     * @return Toolbox A toolbox instance.
-     * @deprecated use container directly
-     */
-    public function getToolbox() {
-        return $this->container->get('toolbox');
-    }
-
-    /**
      * Save this request as follow up URL.
      *
      * <p>Typically this happends when a request is received without valid authority.

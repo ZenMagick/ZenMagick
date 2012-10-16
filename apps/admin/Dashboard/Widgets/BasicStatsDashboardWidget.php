@@ -44,7 +44,7 @@ class BasicStatsDashboardWidget extends DashboardWidget {
     protected function getData($request) {
         $data = array();
         $database = \ZMRuntime::getDatabase();
-        $net = $request->getToolbox()->net;
+        $net = $this->container->get('netTool');
         // counter
         $result = $database->querySingle("SELECT startdate, counter FROM %table.counter%");
         $counter_startdate = $result['startdate'];

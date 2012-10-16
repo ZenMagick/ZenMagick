@@ -123,7 +123,7 @@ class TestZMOffers extends TestCase {
 
         foreach ($tests as $productId => $expected) {
             $product = $this->container->get('productService')->getProductForId($productId, 1);
-            $details = $this->getRequest()->getToolbox()->macro->buildQuantityDiscounts($product, false);
+            $details = $this->container->get('macroTool')->buildQuantityDiscounts($product, false);
             if (!$this->assertEqual($expected, $details, '%s: productId: '.$productId))
                 var_dump($details);
         }

@@ -197,7 +197,7 @@ abstract class FormWidget extends Widget {
     public function getAttributeString($request, $addValue=true, $addName=true) {
         $isXhtml = Runtime::getSettings()->get('zenmagick.http.html.xhtml');
 
-        $html = $request->getToolbox()->html;
+        $html = Runtime::getContainer()->get('htmlTool');
         $attr = '';
         if ($addName) {
             $attr = ' name="'.$this->getName().($this->isMultiValue() ? '[]' : '').'"';

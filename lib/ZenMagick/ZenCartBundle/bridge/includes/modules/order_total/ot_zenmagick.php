@@ -108,14 +108,14 @@ class ot_zenmagick {
         }
 
         // now convert to $output style
-        $toolbox = $request->getToolbox();
+        $utils = Runtime::getContainer()->get('utilsTool');
         foreach ($detailsList as $detail) {
             $order->info['total'] += $detail->getAmount();
             $order->info['subtotal'] += $detail->getSubtotal();
             $order->info['tax'] += $detail->getTax();
             $this->output[] = array(
                 'title' => $detail->getTitle(),
-                'text' => $toolbox->utils->formatMoney($detail->getDisplayValue()),
+                'text' => $utils->formatMoney($detail->getDisplayValue()),
                 'value' => $detail->getAmount()
             );
         }

@@ -131,7 +131,7 @@ class CreateAccountController extends \ZMController {
 
         if ($settingsService->get('isEmailAdminCreateAccount')) {
             // store copy
-            $context = $request->getToolbox()->macro->officeOnlyEmailFooter($account->getFullName(), $account->getEmail(), $session);
+            $context = $this->get('macroTool')->officeOnlyEmailFooter($account->getFullName(), $account->getEmail(), $session);
             $context['currentAccount'] = $account;
 
             $message = $this->container->get('messageBuilder')->createMessage('welcome', $settingsService->get('isEmailAdminExtraHtml', false), $request, $context);

@@ -41,7 +41,7 @@ class PendingDashboardWidget extends DashboardWidget {
      */
     public function getContents($request) {
         // TODO: convert into ajax pull
-        $net = $request->getToolbox()->net;
+        $net = $this->container->get('netTool');
         $contents = '';
         $gvApprovalQueue = $this->container->get('couponService')->getCouponsForFlag('N');
         if (0 < count($gvApprovalQueue)) {

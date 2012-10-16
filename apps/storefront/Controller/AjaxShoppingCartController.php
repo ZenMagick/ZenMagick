@@ -67,7 +67,7 @@ class AjaxShoppingCartController extends \ZMAjaxController {
                     $ma = array();
                     $ma['id'] = $id;
                     $ma['name'] = $provider->getName() . " " . $shippingMethod->getName();
-                    $ma['cost'] = $request->getToolbox()->utils->formatMoney($shippingMethod->getCost());
+                    $ma['cost'] = $utilsTool->formatMoney($shippingMethod->getCost());
                     $methods[] = $ma;
                 }
             }
@@ -88,8 +88,8 @@ class AjaxShoppingCartController extends \ZMAjaxController {
         $shoppingCart = $this->get('shoppingCart');
         $cartDetails  = array();
         $items = array();
-        $formatter = create_function('$obj,$name,$value', 'return $name=="itemTotal" ? $this->container->get(\'request\')->getToolbox()->utils->formatMoney($value) : $value;');
         $utilsTool = $this->container->get('utilsTool');
+        $formatter = create_function('$obj,$name,$value', 'return $name=="itemTotal" ? $utilsTool->formatMoney($value) : $value;');
         foreach ($shoppingCart->getItems() as $item) {
             array_push($items, $utilsTool->flattenObject($item, $this->get('ajaxCartItemMap'), $formatter));
         }

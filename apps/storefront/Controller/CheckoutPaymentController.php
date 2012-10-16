@@ -43,7 +43,7 @@ class CheckoutPaymentController extends \ZMController {
         $checkoutHelper = $shoppingCart->getCheckoutHelper();
 
 
-        $net = $request->getToolbox()->net;
+        $net = $this->get('netTool');
         // messages from various payment methods.
         $messageParams = array('credit_class_error', 'error', 'error_message', 'payment_error');
         foreach ($messageParams as $messageParam) {

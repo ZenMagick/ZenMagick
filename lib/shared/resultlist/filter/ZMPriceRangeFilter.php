@@ -91,12 +91,12 @@ class ZMPriceRangeFilter extends ZMResultListFilter {
         // buld options list
         $options = array();
         $start = 0;
-        $toolbox = $this->container->get('request')->getToolbox();
+        $utils = $this->container->get('utilsTool');
         for ($ii=0; $ii < 8; $ii++ ) {
             $from = $start;
             $to = $start + $diff;
             $start += $diff;
-            $name = $toolbox->utils->formatMoney($from) . ' - ' . $toolbox->utils->formatMoney($to);
+            $name = $utils->formatMoney($from) . ' - ' . $utils->formatMoney($to);
             $key = $from.'-'.$to;
             $option = Beans::getBean('ZMFilterOption');
             $option->setName($name);

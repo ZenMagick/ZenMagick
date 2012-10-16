@@ -98,7 +98,7 @@ abstract class CatalogContentController extends \ZMController {
     public function process(Request $request) {
         $view = parent::process($request);
         if ($view instanceof RedirectView) {
-            $view->setUrl($request->getToolbox()->admin->catalog($this));
+            $view->setUrl($this->get('adminTool')->catalog($this));
         }
         return $view;
     }

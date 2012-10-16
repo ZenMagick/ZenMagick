@@ -145,7 +145,7 @@ class SelectFormWidget extends FormWidget {
         if (!is_array($values)) {
             $values = array($values);
         }
-        $html = $request->getToolbox()->html;
+        $html = Runtime::getContainer()->get('htmlTool');
         $output = '<select'.$this->getAttributeString($request, false).'>';
         foreach ($this->getOptions($request) as $oval => $name) {
             $selected = '';
@@ -175,7 +175,7 @@ class SelectFormWidget extends FormWidget {
         if (!is_array($values)) {
             $values = array($values);
         }
-        $html = $request->getToolbox()->html;
+        $html = Runtime::getContainer()->get('htmlTool');
         $idBase = $html->encode($this->get('id'));
         if (empty($idBase)) {
             // default to name; we need this to make label work

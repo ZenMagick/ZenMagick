@@ -128,7 +128,7 @@ class CatalogRssFeedSource extends ZMObject implements RssSource {
         $feed->setChannel($channel);
 
         // set up item iterator
-        $net = $request->getToolbox()->net;
+        $net = $this->container->get('netTool');
         $languageId = $request->getSession()->getLanguageId();
         $productService = $this->container->get('productService');
         // do not cache products for this
