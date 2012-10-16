@@ -136,7 +136,7 @@ if (!function_exists('zm_split_email_addresses')) {
 
             // default/store currency
             'defaultCurrency' => DEFAULT_CURRENCY,
-            'textCurrencyMapping' => CURRENCIES_TRANSLATIONS,
+            'textCurrencyMapping' => defined('CURRENCIES_TRANSLATIONS') ? CURRENCIES_TRANSLATIONS : '',
 
             // discount decimals
             'discountDecimals' => SHOW_SALE_DISCOUNT_DECIMALS,
@@ -203,8 +203,8 @@ if (!function_exists('zm_split_email_addresses')) {
             'isEmailAdminExtraHtml' => ADMIN_EXTRA_EMAIL_FORMAT != 'TEXT',
             'isEmailAdminCreateAccount' => SEND_EXTRA_CREATE_ACCOUNT_EMAILS_TO_STATUS == '1' && SEND_EXTRA_CREATE_ACCOUNT_EMAILS_TO != '',
             'emailAdminCreateAccount' => zm_split_email_addresses(SEND_EXTRA_CREATE_ACCOUNT_EMAILS_TO),
-            'isEmailAdminTellAFriend' => SEND_EXTRA_TELL_A_FRIEND_EMAILS_TO_STATUS == '1' and SEND_EXTRA_TELL_A_FRIEND_EMAILS_TO != '',
-            'emailAdminTellAFriend' => zm_split_email_addresses(SEND_EXTRA_TELL_A_FRIEND_EMAILS_TO),
+            'isEmailAdminTellAFriend' => defined('SEND_EXTRA_TELL_A_FRIEND_EMAILS_TO_STATUS') && SEND_EXTRA_TELL_A_FRIEND_EMAILS_TO_STATUS == '1' and SEND_EXTRA_TELL_A_FRIEND_EMAILS_TO != '',
+            'emailAdminTellAFriend' => zm_split_email_addresses(defined('SEND_EXTRA_TELL_A_FRIEND_EMAILS_TO') ? SEND_EXTRA_TELL_A_FRIEND_EMAILS_TO : ''),
             'isEmailAdminReview' => SEND_EXTRA_REVIEW_NOTIFICATION_EMAILS_TO_STATUS == '1' && SEND_EXTRA_REVIEW_NOTIFICATION_EMAILS_TO != '',
             'emailAdminReview' => zm_split_email_addresses(SEND_EXTRA_REVIEW_NOTIFICATION_EMAILS_TO),
             'isEmailAdminGvSend' => SEND_EXTRA_GV_CUSTOMER_EMAILS_TO_STATUS == '1' && SEND_EXTRA_GV_CUSTOMER_EMAILS_TO != '',
