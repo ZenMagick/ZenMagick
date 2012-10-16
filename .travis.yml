@@ -6,7 +6,7 @@ php:
 
 before_script:
   - composer --dev install
-  - mysql -e zenmagick
+  - mysql -e 'create database zenmagick;'
   #- php app/console doctrine:database:create zenmagick
   # the doctrine schema breaks the original SQL and also means we are missing the
   # default configuration settings that are loaded from the zc_install file
