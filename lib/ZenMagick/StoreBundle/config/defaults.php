@@ -76,7 +76,7 @@ if (!function_exists('zm_split_email_addresses')) {
             'isEnabledCoupons' => defined('MODULE_ORDER_TOTAL_COUPON_STATUS') && MODULE_ORDER_TOTAL_COUPON_STATUS == 'true',
 
             // allow anonymous tell a friend; good for spamming ;)
-            'isTellAFriendAnonymousAllow' => ALLOW_GUEST_TO_TELL_A_FRIEND == 'true',
+            'isTellAFriendAnonymousAllow' => defined('ALLOW_GUEST_TO_TELL_A_FRIEND') && ALLOW_GUEST_TO_TELL_A_FRIEND == 'true',
 
             // do reviews need to be approved
             'isApproveReviews' => REVIEWS_APPROVAL == '1',
