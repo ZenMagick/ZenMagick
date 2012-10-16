@@ -43,11 +43,8 @@ zenmagick:
     request:
       invalidSession: admin_login
       login: admin_login
-      urlType: path
       secure: false
       enforceSecure: false
-    routing:
-      alias: {}
     ## sacs
     sacs:
       handler:

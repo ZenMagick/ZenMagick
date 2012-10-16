@@ -43,7 +43,6 @@ zenmagick:
       xhtml: true
     ## request
     request:
-      urlType: default
       invalidSession: cookie_usage
       login: login
       enforceSecure: true
