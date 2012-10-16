@@ -23,7 +23,7 @@ try {
 } catch(\Exception $e) {
     // Couldn't connect... this is arguably the wrong place to do this.
     if ($e->getCode() != 1049) {
-        //throw $e;
+        throw $e;
     }
     $container->setParameter('zenmagick.plugins.enabled', false);
 }
