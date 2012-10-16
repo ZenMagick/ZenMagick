@@ -6,9 +6,10 @@ php:
 
 before_script:
   - composer --dev install
-  - mysql -e 'create database zenmagick;'
-  - mysql zenmagick < vendor/zenmagick/zencart/zc_install/sql/mysql_zencart.sql
+  - mysql -e zenmagick
+  #- php app/console doctrine:database:create zenmagick
   # the doctrine schema breaks the original SQL and also means we are missing the
-  # default configuration settings
+  # default configuration settings that are loaded from the zc_install file
   #- php app/console doctrine:schema:update --force 
-  - mysql zenmagick < etc/sql/mysql_demo.sql
+  - php app/console dbal:import vendor/zenmagick/zencart/zc_install/sql/mysql_zencart.sql
+  - php app/console dbal:import etc/sql/mysql_demo.sql
