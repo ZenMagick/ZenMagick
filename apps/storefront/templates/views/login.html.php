@@ -41,7 +41,7 @@
   <a href="<?php echo $net->url('create_account', '', true); ?>"><?php _vzm("Not registered yet?") ?></a>
 </p>
 
-<?php if ($settingsService->get('isGuestCheckout') && !$request->getShoppingCart()->isEmpty() && $session->isAnonymous()) { ?>
+<?php if ($settingsService->get('isGuestCheckout') && !$container->get('shoppingCart')->isEmpty() && $session->isAnonymous()) { ?>
   <h3><?php _vzm("Don't need an account?") ?></h3>
   <?php echo $form->open('checkout_guest', '', true, array('id'=>'checkout_guest')) ?>
     <p><?php _vzm("Checkout without registering") ?></p>

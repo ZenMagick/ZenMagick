@@ -54,7 +54,7 @@ class MultiQuantityProductInfoController extends ZMController {
             if (!empty($qty) && 0 < $qty) {
                 $addedSome = true;
                 $attributes[$multiQuantityId] = $id;
-                $request->getShoppingCart()->addProduct($productId, $qty, $attributes);
+                $this->get('shoppingCart')->addProduct($productId, $qty, $attributes);
             }
         }
 

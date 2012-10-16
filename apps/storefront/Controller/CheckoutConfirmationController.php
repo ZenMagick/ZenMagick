@@ -39,7 +39,7 @@ class CheckoutConfirmationController extends \ZMController {
         $orderFormContent =  '';
         $orderFormUrl = $request->url('checkout_process', '', true);
 
-        $shoppingCart = $request->getShoppingCart();
+        $shoppingCart = $this->get('shoppingCart');
         if (null != ($paymentType = $shoppingCart->getSelectedPaymentType())) {
             $orderFormContent = $paymentType->getOrderFormContent($request);
             $orderFormUrl = $paymentType->getOrderFormUrl($request);
@@ -58,7 +58,7 @@ class CheckoutConfirmationController extends \ZMController {
      * {@inheritDoc}
      */
     public function processPost($request) {
-        $shoppingCart = $request->getShoppingCart();
+        $shoppingCart = $this->get('shoppingCart');
         $checkoutHelper = $shoppingCart->getCheckoutHelper();
         $settingsService = $this->container->get('settingsService');
 

@@ -45,7 +45,7 @@ class AjaxShoppingCartController extends \ZMAjaxController {
      * @deprecated Use ZMAjaxCheckoutController instead
      */
     public function estimateShippingJSON($request) {
-        $shoppingCart = $request->getShoppingCart();
+        $shoppingCart = $this->get('shoppingCart');
         $shippingEstimator = Beans::getBean("ZMShippingEstimator");
         $shippingEstimator->prepare();
         $response = array();
@@ -85,7 +85,7 @@ class AjaxShoppingCartController extends \ZMAjaxController {
      * @param ZenMagick\Http\Request request The current request.
      */
     public function getContentsJSON($request) {
-        $shoppingCart = $request->getShoppingCart();
+        $shoppingCart = $this->get('shoppingCart');
         $cartDetails  = array();
         $items = array();
         $formatter = create_function('$obj,$name,$value', 'return $name=="itemTotal" ? $this->container->get(\'request\')->getToolbox()->utils->formatMoney($value) : $value;');
@@ -118,7 +118,7 @@ class AjaxShoppingCartController extends \ZMAjaxController {
      * @param ZenMagick\Http\Request request The current request.
      */
     public function addProductJSON($request) {
-        $shoppingCart = $request->getShoppingCart();
+        $shoppingCart = $this->get('shoppingCart');
         $productId = $request->get('productId');
         $quantity = $request->getParameter('quantity', 0);
         $id = $request->getParameter('id', array());
@@ -146,7 +146,7 @@ class AjaxShoppingCartController extends \ZMAjaxController {
         $productId = $request->query->get('productId');
 
         if (null !== $productId) {
-            $shoppingCart = $request->getShoppingCart();
+            $shoppingCart = $this->get('shoppingCart');
             $shoppingCart->removeProduct($productId);
         }
 
@@ -173,7 +173,7 @@ class AjaxShoppingCartController extends \ZMAjaxController {
         $quantity = $request->getParameter('quantity', 0);
 
         if (null !== $productId && 0 != $quantity) {
-            $shoppingCart = $request->getShoppingCart();
+            $shoppingCart = $this->get('shoppingCart');
             $shoppingCart->updateProduct($productId, $quantity);
         }
 

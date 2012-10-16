@@ -43,7 +43,7 @@ class ShoppingCartController extends ZMObject {
      */
     public function show(Request $request) {
         $flashBag = $request->getSession()->getFlashBag();
-        $shoppingCart = $request->getShoppingCart();
+        $shoppingCart = $this->get('shoppingCart');
         $checkoutHelper = $shoppingCart->getCheckoutHelper();
 
         $checkoutHelper->checkStock();
@@ -111,7 +111,7 @@ class ShoppingCartController extends ZMObject {
      * Add product.
      */
     public function addProduct(Request $request) {
-        $shoppingCart = $request->getShoppingCart();
+        $shoppingCart = $this->get('shoppingCart');
         $productId = $request->request->get('products_id');
         $productId = is_array($productId) ? $productId[0] : $productId;
         $flashBag = $request->getSession()->getFlashBag();
@@ -133,7 +133,7 @@ class ShoppingCartController extends ZMObject {
      * Buy now product.
      */
     public function buyNow(Request $request) {
-        $shoppingCart = $request->getShoppingCart();
+        $shoppingCart = $this->get('shoppingCart');
         $productId = $request->query->get('products_id');
         $productId = is_array($productId) ? $productId[0] : $productId;
         $flashBag = $request->getSession()->getFlashBag();
@@ -181,7 +181,7 @@ class ShoppingCartController extends ZMObject {
      * Remove product.
      */
     public function removeProduct(Request $request) {
-        $shoppingCart = $request->getShoppingCart();
+        $shoppingCart = $this->get('shoppingCart');
         $flashBag = $request->getSession()->getFlashBag();
         $productId = $request->query->get('productId');
         $productId = is_array($productId) ? $productId[0] : $productId;
@@ -200,7 +200,7 @@ class ShoppingCartController extends ZMObject {
      */
     public function update(Request $request) {
         $flashBag = $request->getSession()->getFlashBag();
-        $shoppingCart = $request->getShoppingCart();
+        $shoppingCart = $this->get('shoppingCart');
         $productIds = (array) $request->request->get('products_id');
         $quantities = (array) $request->request->get('cart_quantity');
         foreach ($productIds as $ii => $productId) {

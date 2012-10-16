@@ -154,7 +154,7 @@ class ShippingEstimator extends ZMObject {
     global $db, $order;
         $request = Runtime::getContainer()->get('request');
         // Only do when something is in the cart
-        if (!$request->getShoppingCart()->isEmpty()) {
+        if (!Runtime::getContainer()->get('shoppingCart')->isEmpty()) {
           $session = $request->getSession();
           if ($session->isRegistered()) {
               $sendto = $this->_getAddressId();
@@ -182,7 +182,7 @@ class ShippingEstimator extends ZMObject {
     /**
      * Returns <code>true</code> if anything to calculate.
      */
-    function isCartEmpty() { return Runtime::getContainer()->get('request')->getShoppingCart()->isEmpty(); }
+    function isCartEmpty() { return Runtime::getContainer()->get('shoppingCart')->isEmpty(); }
 
     /**
      * Get current address (if any)

@@ -294,16 +294,6 @@ class Request extends HttpFoundationRequest implements ContainerAwareInterface {
     }
 
     /**
-     * Get the current shopping cart.
-     *
-     * @return ShoppingCart The current shopping cart (may be empty).
-     * @todo REMOVE! very temporary
-     */
-    public function getShoppingCart() {
-        return $this->container->get('shoppingCart');
-    }
-
-    /**
      * Get the selected language.
      *
      * <p>Determine the currently active language, with respect to potentially selected language from a dropdown in admin UI.</p>

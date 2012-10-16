@@ -11,7 +11,7 @@
     if (!$session->isAnonymous()) {
         $menu[] = array($net->url('logoff', '', true), _zm("Logoff"));
     }
-    if (!$request->getShoppingCart()->isEmpty() && !$isCheckout) {
+    if (!$container->get('shoppingCart')->isEmpty() && !$isCheckout) {
         $menu[] = array($net->url('shopping_cart', '', true), _zm("Cart"));
         $menu[] = array($net->url('checkout_shipping', '', true), _zm("Checkout"));
     }

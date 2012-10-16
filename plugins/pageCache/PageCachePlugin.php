@@ -149,7 +149,7 @@ class PageCachePlugin extends Plugin {
      */
     protected function defaultStrategy($request) {
         return 'POST' != $request->getMethod()
-          && (null == $request->getShoppingCart() || $request->getShoppingCart()->isEmpty())
+          && (null == $this->container->get('shoppingCart') || $this->container->get('shoppingCart')->isEmpty())
           && !$request->getSession()->getFlashBag()->hasMessages()
           && in_array($request->getRequestId(), $this->container->get('settingsService')->get('plugins.pageCache.strategy.allowed', explode(',', ZM_PLUGINS_PAGE_CACHE_ALLOWED_DEFAULT)));
     }

@@ -70,7 +70,7 @@ class AjaxCheckoutController extends \ZMAjaxController {
             }
         }
 
-        $shoppingCart = $request->getShoppingCart();
+        $shoppingCart = $this->get('shoppingCart');
         if (null == $address) {
             $address = $shoppingCart->getShippingAddress();
         }

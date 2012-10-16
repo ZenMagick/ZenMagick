@@ -19,7 +19,7 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-  $shoppingCart = $request->getShoppingCart();
+  $shoppingCart = $container->get('shoppingCart');
   $shippingEstimator = new ZenMagick\apps\storefront\Utils\ShippingEstimator();
   $shippingEstimator->prepare();
 

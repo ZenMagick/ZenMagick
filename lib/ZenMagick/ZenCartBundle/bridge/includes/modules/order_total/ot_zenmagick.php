@@ -93,7 +93,7 @@ class ot_zenmagick {
     global $order;
 
         $request = $this->container->get('request');
-        $shoppingCart = $request->getShoppingCart();
+        $shoppingCart = Runtime::getContainer()->get('shoppingCart');
         $detailsList = array();
         foreach ($this->plugins_ as $plugin) {
             if (null != ($details = $plugin->calculate($request, $shoppingCart))) {

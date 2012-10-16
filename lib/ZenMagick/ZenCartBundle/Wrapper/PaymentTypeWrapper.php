@@ -21,6 +21,7 @@ namespace ZenMagick\ZenCartBundle\Wrapper;
 
 use ZenMagick\Base\ZMObject;
 use ZenMagick\Base\Toolbox;
+use ZenMagick\Base\Runtime;
 
 use ZenMagick\ZenCartBundle\Mock\ZenCartMock;
 
@@ -143,7 +144,7 @@ class PaymentTypeWrapper extends ZMObject implements \ZMPaymentType {
      */
     public function getOrderFormContent($request) {
         // TODO: move into controller
-        ZenCartMock::startMock($request->getShoppingCart());
+        ZenCartMock::startMock(Runtime::getContainer()->get('shoppingCart'));
         $this->prepare();
         $button =  $this->module_->process_button();
         ZenCartMock::cleanupMock();

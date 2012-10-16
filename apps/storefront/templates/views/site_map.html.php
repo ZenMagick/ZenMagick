@@ -34,7 +34,7 @@
         <li><a href="<?php echo $net->url('account_newsletters', '', true); ?>"><?php _vzm("Change Newsletter Subscriptions") ?></a></li>
         <li><a href="<?php echo $net->url('account_notifications', '', true); ?>"><?php _vzm("Change Product Notifications") ?></a></li>
       </ul></li>
-        <?php if (!$request->getShoppingCart()->isEmpty()) { ?>
+        <?php if (!$container->get('shoppingCart')->isEmpty()) { ?>
             <li><a href="<?php echo $net->url('shopping_cart', '', true); ?>"><?php _vzm("Shopping cart") ?></a></li>
             <li><a href="<?php echo $net->url('checkout_shipping', '', true); ?>"><?php _vzm("Checkout") ?></a></li>
         <?php } ?>

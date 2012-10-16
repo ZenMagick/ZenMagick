@@ -31,14 +31,14 @@ class CheckoutShippingController extends \ZMController {
      * {@inheritDoc}
      */
     public function getViewData($request) {
-        return array('shoppingCart' => $request->getShoppingCart());
+        return array('shoppingCart' => $this->get('shoppingCart'));
     }
 
     /**
      * {@inheritDoc}
      */
     public function processGet($request) {
-        $shoppingCart = $request->getShoppingCart();
+        $shoppingCart = $this->get('shoppingCart');
         $checkoutHelper = $shoppingCart->getCheckoutHelper();
 
         // set cart hash
@@ -70,7 +70,7 @@ class CheckoutShippingController extends \ZMController {
      * {@inheritDoc}
      */
     public function processPost($request) {
-        $shoppingCart = $request->getShoppingCart();
+        $shoppingCart = $this->get('shoppingCart');
         $checkoutHelper = $shoppingCart->getCheckoutHelper();
 
         if (!$checkoutHelper->verifyHash($request)) {

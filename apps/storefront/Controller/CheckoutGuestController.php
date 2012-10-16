@@ -75,7 +75,7 @@ class CheckoutGuestController extends \ZMController {
                 $account->setDefaultAddressId($address->getId());
                 $this->container->get('accountService')->updateAccount($account);
                 // use as shipping/billing address
-                $shoppingCart = $request->getShoppingCart();
+                $shoppingCart = $this->get('shoppingCart');
                 $shoppingCart->setShippingAddressId($address->getId());
                 $shoppingCart->setBillingAddressId($address->getId());
             }

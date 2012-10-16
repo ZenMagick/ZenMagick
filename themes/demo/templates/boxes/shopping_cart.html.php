@@ -50,13 +50,13 @@
 <?php if (!$isCheckout) { ?>
 <h3><a href="<?php echo $net->url('shopping_cart', '', true) ?>"><?php _vzm("[More]") ?></a><?php _vzm("Shopping Cart") ?></h3>
     <div id="sb_cart" class="box">
-        <?php if ($request->getShoppingCart()->isEmpty()) { ?>
+        <?php if ($container->get('shoppingCart')->isEmpty()) { ?>
             <?php _vzm("Cart is Empty") ?>
         <?php } ?>
-        <?php foreach ($request->getShoppingCart()->getItems() as $item) { ?>
+        <?php foreach ($container->get('shoppingCart')->getItems() as $item) { ?>
             <?php echo $item->getQuantity(); ?> x <a href="<?php echo $net->product($item->getId()) ?>"><?php echo $html->encode($item->getProduct()->getName()); ?></a><br />
         <?php } ?>
         <hr/>
-        <p><img id="cart_progress" src="<?php echo $this->asUrl('images/circle-ball-dark-antialiased.gif') ?>" style="display:none;float:left;" alt="progress" /><?php echo $utils->formatMoney($request->getShoppingCart()->getTotal()) ?></p>
+        <p><img id="cart_progress" src="<?php echo $this->asUrl('images/circle-ball-dark-antialiased.gif') ?>" style="display:none;float:left;" alt="progress" /><?php echo $utils->formatMoney($container->get('shoppingCart')->getTotal()) ?></p>
     </div>
 <?php } ?>

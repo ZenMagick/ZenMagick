@@ -112,7 +112,7 @@ class PaymentTypes extends ZMObject {
      * @return string Fully formatted JavaScript incl. of wrapping &lt;script&gt; tag.
      */
     public function getPaymentFormValidationJS($request) {
-        $shoppingCart = $request->getShoppingCart();
+        $shoppingCart = $this->container->get('shoppingCart');
         $paymentTypes = $shoppingCart->getPaymentTypes();
         $js = '';
         if (0 < count($paymentTypes)) {

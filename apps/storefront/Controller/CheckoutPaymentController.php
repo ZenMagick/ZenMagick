@@ -32,14 +32,14 @@ class CheckoutPaymentController extends \ZMController {
      * {@inheritDoc}
      */
     public function getViewData($request) {
-        return array('shoppingCart' => $request->getShoppingCart());
+        return array('shoppingCart' => $this->get('shoppingCart'));
     }
 
     /**
      * {@inheritDoc}
      */
     public function processGet($request) {
-        $shoppingCart = $request->getShoppingCart();
+        $shoppingCart = $this->get('shoppingCart');
         $checkoutHelper = $shoppingCart->getCheckoutHelper();
 
 
@@ -74,7 +74,7 @@ class CheckoutPaymentController extends \ZMController {
      * <p><strong>NOTE: This is currently not used as the payments form points to checkout_confirmation</strong>.</p>
      */
     public function processPost($request) {
-        $shoppingCart = $request->getShoppingCart();
+        $shoppingCart = $this->get('shoppingCart');
         $checkoutHelper = $shoppingCart->getCheckoutHelper();
 
         if (!$checkoutHelper->verifyHash($request)) {

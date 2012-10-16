@@ -41,7 +41,7 @@ class CheckoutAddressController extends \ZMController {
         } else {
             $this->modeSettings_ = array('method' => 'setBillingAddressId', 'ignoreCheckId' => 'require_payment', 'mode' => 'billing');
         }
-        $shoppingCart = $request->getShoppingCart();
+        $shoppingCart = $this->get('shoppingCart');
         $this->viewData_['shoppingCart'] = $shoppingCart;
 
         $addressList = $this->container->get('addressService')->getAddressesForAccountId($this->getUser()->getId());
@@ -73,7 +73,7 @@ class CheckoutAddressController extends \ZMController {
      * Custom cart checker
      */
     protected function checkCart($request) {
-        $checkoutHelper = $request->getShoppingCart()->getCheckoutHelper();
+        $checkoutHelper = $this->get('shoppingCart')->getCheckoutHelper();
         if (null !== ($viewId = $checkoutHelper->validateCheckout($request, false)) && $this->modeSettings_['ignoreCheckId'] != $viewId) {
             return $this->findView($viewId, $this->viewData_);
         }
@@ -100,7 +100,7 @@ class CheckoutAddressController extends \ZMController {
             return $result;
         }
 
-        $shoppingCart = $request->getShoppingCart();
+        $shoppingCart = $this->get('shoppingCart');
         $addressService = $this->container->get('addressService');
         // which addres do we update?
         $method = $this->modeSettings_['method'];
