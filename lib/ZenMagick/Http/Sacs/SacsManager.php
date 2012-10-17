@@ -212,13 +212,13 @@ class SacsManager extends ZMObject {
             // secure flag: leave to net() to lookup via SacsManager if configured, but leave as default parameter to allow override
             if (!$session->isStarted()) {
                 // no valid session
-                $request->redirect($request->url($this->container->get('settingsService')->get('zenmagick.http.request.invalidSession')));
+                $request->redirect($this->container->get('netTool')->url($this->container->get('settingsService')->get('zenmagick.http.request.invalidSession')));
                 exit;
             }
             if (!$request->isXmlHttpRequest()) {
                 $request->saveFollowUpUrl();
             }
-            $request->redirect($request->url($this->container->get('settingsService')->get('zenmagick.http.request.login', 'login'), '', true));
+            $request->redirect($this->container->get('netTool')->url($this->container->get('settingsService')->get('zenmagick.http.request.login', 'login'), '', true));
             exit;
         }
 
@@ -245,7 +245,7 @@ class SacsManager extends ZMObject {
         $settings = Runtime::getSettings();
         if ($secure && !$request->isSecure() && $settings->get('zenmagick.http.request.secure', true) && $settings->get('zenmagick.http.request.enforceSecure')) {
             $this->container->get('logger')->debug('redirecting to enforce secure access: '.$requestId);
-            $request->redirect($request->url(null, null, true));
+            $request->redirect($this->container->get('netTool')->url(null, null, true));
         }
     }
 

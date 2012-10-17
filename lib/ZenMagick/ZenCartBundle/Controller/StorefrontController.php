@@ -271,7 +271,7 @@ class StorefrontController extends \ZMController {
      *   just placeholders for future editors (as noted above).
      *
      *   Exclusion list has been shortened by parameters already fixed
-     *   by $request->url()
+     *   by $this->get('netTool')->url()
      *
      */
     private function getCanonicalUrl() {
@@ -289,7 +289,7 @@ class StorefrontController extends \ZMController {
         } else if (Toolbox::endsWith($requestId, 'info') && null != ($productId = $request->attributes->get('productId'))) {
             $url = $this->get('netTool')->product($productId, null);
         } else {
-            $url = $request->url($requestId, rtrim(zen_get_all_get_params($exclusionList), '&'));
+            $url = $this->get('netTool')->url($requestId, rtrim(zen_get_all_get_params($exclusionList), '&'));
         }
         return $url;
     }
@@ -334,7 +334,7 @@ class StorefrontController extends \ZMController {
 
         // Add Product
         if (null != $product) {
-            $breadcrumb->add($product->getName(), $request->url(zen_get_info_page($product->getId()), 'cPath='.(string)$request->query->get('cPath').'&productId='.$product->getId()));
+            $breadcrumb->add($product->getName(), $this->get('netTool')->url(zen_get_info_page($product->getId()), 'cPath='.(string)$request->query->get('cPath').'&productId='.$product->getId()));
         }
 
         return $breadcrumb;
@@ -351,7 +351,7 @@ class StorefrontController extends \ZMController {
         $session = $request->getSession();
         $settingsService = $this->container->get('settingsService');
         if (!$session->isStarted()) {
-            $request->redirect($request->url($this->container->get('settingsService')->get('zenmagick.http.request.invalidSession')));
+            $request->redirect($this->get('netTool')->url($this->container->get('settingsService')->get('zenmagick.http.request.invalidSession')));
         }
 
         if (null == $session->get('cart')) {

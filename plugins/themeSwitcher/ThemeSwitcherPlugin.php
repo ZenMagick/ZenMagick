@@ -99,7 +99,8 @@ class ThemeSwitcherPlugin extends Plugin {
                 }
 
                 // create url
-                $url = $request->url(null, null, $request->isSecure());
+                $net = $this->container->get('netTool');
+                $url = $net->url(null, null, $request->isSecure());
                 $hasParams = false !== strpos($url, '?');
                 $url .= ($hasParams ? '&' : '?') . 'themeId='.$details[0];
 

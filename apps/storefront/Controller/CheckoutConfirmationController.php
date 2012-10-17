@@ -37,7 +37,7 @@ class CheckoutConfirmationController extends \ZMController {
 
     public function getViewData($request) {
         $orderFormContent =  '';
-        $orderFormUrl = $request->url('checkout_process', '', true);
+        $orderFormUrl = $this->get('netTool')->url('checkout_process', '', true);
 
         $shoppingCart = $this->get('shoppingCart');
         if (null != ($paymentType = $shoppingCart->getSelectedPaymentType())) {

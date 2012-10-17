@@ -118,9 +118,11 @@ class CatalogRssFeedSource extends ZMObject implements RssSource {
      */
     protected function getProductsFeed($request, $full=false) {
         $settingsService = $this->container->get('settingsService');
+        $net = $this->container->get('netTool');
+
         $channel = new RssChannel();
         $channel->setTitle(sprintf(_zm("Products at %s"), $settingsService->get('storeName')));
-        $channel->setLink($request->url('index'));
+        $channel->setLink($net->url('index'));
         $channel->setDescription(sprintf(_zm("All products at %s"), $settingsService->get('storeName')));
         $channel->setLastBuildDate(new DateTime());
 
@@ -128,7 +130,6 @@ class CatalogRssFeedSource extends ZMObject implements RssSource {
         $feed->setChannel($channel);
 
         // set up item iterator
-        $net = $this->container->get('netTool');
         $languageId = $request->getSession()->getLanguageId();
         $productService = $this->container->get('productService');
         // do not cache products for this
@@ -153,9 +154,10 @@ class CatalogRssFeedSource extends ZMObject implements RssSource {
      */
     protected function getCategoriesFeed($request, $full) {
         $settingsService = $this->container->get('settingsService');
+        $net = $this->container->get('netTool');
         $channel = new RssChannel();
         $channel->setTitle(sprintf(_zm("Categories at %s"), $settingsService->get('storeName')));
-        $channel->setLink($request->url('index'));
+        $channel->setLink($net->url('index'));
         $channel->setDescription(sprintf(_zm("All categories at %s"), $settingsService->get('storeName')));
         $channel->setLastBuildDate($lastPubDate);
 
@@ -169,7 +171,7 @@ class CatalogRssFeedSource extends ZMObject implements RssSource {
         $categoryInfo = array();
         foreach ($categoryService->getAllCategories($languageId) as $category) {
             if ($category->isActive()) {
-                $categoryInfo[] = array('id' => $category->getId(), 'url' => $request->url('category', 'cPath='.implode('_', $category->getPath()), false));
+                $categoryInfo[] = array('id' => $category->getId(), 'url' => $net->url('category', 'cPath='.implode('_', $category->getPath()), false));
             }
         }
         $itemIterator = new CatalogCategoryRssItemIterator($categoryInfo, $languageId, $this->fullFeed);

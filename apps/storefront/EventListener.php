@@ -137,7 +137,7 @@ class EventListener extends ZMObject {
             $dfmRoute = $settingsService->get('apps.store.downForMaintenanceRoute');
             $dfmPages[] = $dfmRoute;
             if (!in_array($request->getRequestId(), $dfmPages)) {
-                $url = $request->url($dfmRoute);
+                $url = $this->container->get('netTool')->url($dfmRoute);
                 $request->redirect($url);
                 exit;
             }
@@ -294,7 +294,7 @@ class EventListener extends ZMObject {
                 'customers_authorization', 'login', 'logoff', 'password_forgotten', 'privacy',
                 'shippinginfo', 'unsubscribe');
             if (!in_array($request->getRequestId(), $unrestrictedPages)) {
-                $request->redirect($request->url('customers_authorization'));
+                $request->redirect($this->container->get('netTool')->url('customers_authorization'));
             }
         }
     }

@@ -55,7 +55,7 @@ class AutoLoginPlugin extends Plugin {
 
                 if (null != $account) {
                     if ($session->registerAccount($account, $request, $this)) {
-                        $request->redirect($request->url(null, '', $request->isSecure()));
+                        $request->redirect($this->container->get('netTool')->url(null, '', $request->isSecure()));
                     }
                 } else {
                     // remove cookie

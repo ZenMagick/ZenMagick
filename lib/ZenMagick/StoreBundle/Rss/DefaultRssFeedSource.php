@@ -77,6 +77,7 @@ class DefaultRssFeedSource extends ZMObject implements RssSource {
 
         $items = array();
         $html = $this->container->get('htmlTool');
+        $net = $this->container->get('netTool');
         $lastPubDate = null;
         foreach ($reviews as $review) {
             if (null == $key) {
@@ -86,7 +87,7 @@ class DefaultRssFeedSource extends ZMObject implements RssSource {
             $item->setTitle(sprintf(_zm("Review: %s"), $product->getName()));
 
             $params = 'productId='.$review->getProductId().'&reviews_id='.$review->getId();
-            $item->setLink($request->url('product_reviews_info', $params));
+            $item->setLink($net->url('product_reviews_info', $params));
             $item->setDescription($html->more($review->getText(), 60));
             $item->setPubDate($review->getDateAdded());
             $items[] = $item;
@@ -99,7 +100,7 @@ class DefaultRssFeedSource extends ZMObject implements RssSource {
         $settingsService = $this->container->get('settingsService');
         $channel = new RssChannel();
         $channel->setTitle(_zm("Product Reviews"));
-        $channel->setLink($request->url('reviews'));
+        $channel->setLink($net->url('reviews'));
         if (null != $key)  {
             $channel->setDescription(sprintf(_zm("Product Reviews for %s at %s"), $product->getName(), $settingsService->get('storeName')));
         } else {
@@ -124,17 +125,18 @@ class DefaultRssFeedSource extends ZMObject implements RssSource {
     protected function getChapterFeed($request, $key=null) {
         $items = array();
         $toc = $this->container->get('ezPageService')->getPagesForChapterId($key, $request->getSession()->getLanguageId());
+        $net = $this->container->get('netTool');
         foreach ($toc as $page) {
             $item = new RssItem();
             $item->setTitle($page->getTitle());
-            $item->setLink($this->container->get('netTool')->ezPage($page));
+            $item->setLink($net->ezPage($page));
             $item->setDescription($page->getTitle());
             $items[] = $item;
         }
 
         $channel = new RssChannel();
         $channel->setTitle(sprintf(_zm("Chapter %s"), $key));
-        $channel->setLink($request->url('page', 'chapter='.$key));
+        $channel->setLink($net->url('page', 'chapter='.$key));
         $channel->setDescription(sprintf(_zm("All pages of Chapter %s"), $key));
         $channel->setLastBuildDate(new DateTime());
 
@@ -177,7 +179,7 @@ class DefaultRssFeedSource extends ZMObject implements RssSource {
         $settingsService = $this->container->get('settingsService');
         $channel = new RssChannel();
         $channel->setTitle(sprintf(_zm("New Products at %s"), $settingsService->get('storeName')));
-        $channel->setLink($request->url('index'));
+        $channel->setLink($toolbox->net->url('index'));
         $channel->setDescription(sprintf(_zm("The latest updates to %s's product list"), $settingsService->get('storeName')));
         $channel->setLastBuildDate($lastPubDate);
 

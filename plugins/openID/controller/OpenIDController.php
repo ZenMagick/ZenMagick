@@ -50,7 +50,7 @@ class OpenIDController extends ZMController {
      * {@inheritDoc}
      */
     public function preProcess($request) {
-        $this->returnTo_ = str_replace('&amp;', '&', $request->url('', 'action=finishAuth', true));
+        $this->returnTo_ = str_replace('&amp;', '&', $this->container->get('netTool')->url('', 'action=finishAuth', true));
     }
 
     /**

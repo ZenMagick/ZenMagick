@@ -52,8 +52,9 @@
 <?php
     /* we are in a function here (get_comments()), so ZenMagick template vars are not visible */
     $request = ZenMagick\Base\Runtime::getContainer()->get('request');
+    $net = ZenMagick\Base\Runtime::getContainer()->get('netTool');
 ?>
-<input type="hidden" name="redirect_to" value="<?php echo $request->url('wp', 'p='.$request->query->get('p'), false) ?>">
+<input type="hidden" name="redirect_to" value="<?php echo $net->url('wp', 'p='.$request->query->get('p'), false) ?>">
 
 <?php if ( $user_ID ) : ?>
 

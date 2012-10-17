@@ -73,33 +73,6 @@ class Request extends HttpFoundationRequest implements ContainerAwareInterface {
     }
 
     /**
-     * Create a URL.
-     *
-     * <p>Mother of all URL related methods.</p>
-     *
-     * <p>If the <code>requestId</code> parameter is <code>null</code>, the current requestId will be
-     * used. The provided parameter(s) will be merged into the current query string.</p>
-     *
-     * <p>If the <code>params</code> parameter is <code>null</code>, all parameters of the
-     * current request will be added.</p>
-     *
-     * <p>This default implementation relies on at least a single (default) SEO rewriter being configured.</p>
-     *
-     * @param string requestId The request id; default is <code>null</code> to use the value of the current request.
-     * @param string params Query string style parameter; if <code>null</code> add all current parameters; default is an empty string for none.
-     * @param boolean secure Flag indicating whether to create a secure or non secure URL; default is <code>false</code>.
-     * @return string A full URL.
-     */
-    public function url($requestId=null, $params='', $secure=false) {
-        // default to current requestId
-        $requestId = $requestId === null ? $this->getRequestId() : $requestId;
-
-        parse_str(ltrim($params, '&'), $parameters);
-        $url = $this->container->get('router')->generate($requestId, $parameters);
-        return $url;
-    }
-
-    /**
      * Get the user (if any) for authentication.
      *
      * @see ZenMagick\Http\Session\Session::getAccount()
