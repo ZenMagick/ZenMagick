@@ -19,33 +19,20 @@
  */
 namespace ZenMagick\StoreBundle\Tests\Entity;
 
+use ZenMagick\ZenMagickBundle\Tests\ZenMagickTestCase;
+
 /**
  * Test currency.
  *
- * @package org.zenmagick.plugins.unitTests.tests
  * @author DerManoMann <mano@zenmagick.org>
  */
-class CurrencyTest extends \PHPUnit_Framework_TestCase {
-
-    /**
-     * Get $app.
-     */
-    protected function getApp() {
-        $appDir = realpath(__DIR__.'/../../../../../app');
-        require_once $appDir.'/bootstrap.php.cache';
-        require_once $appDir.'/AppKernel.php';
-        $app = new \AppKernel('prod', false, 'storefront');
-        $app->loadClassCache();
-        $app->boot();
-        return $app;
-    }
+class CurrencyTest extends ZenMagickTestCase {
 
     /**
      * Test currency parsing.
      */
     public function testParse() {
-        $app = $this->getApp();
-        $currency = $app->getContainer()->get('currencyService')->getCurrencyForCode('USD');
+        $currency = $this->get('currencyService')->getCurrencyForCode('USD');
         if ($this->assertNotNull($currency)) {
             $this->assertEqual(3.15, $currency->parse('$3.15'));
         }
@@ -55,8 +42,7 @@ class CurrencyTest extends \PHPUnit_Framework_TestCase {
      * Test currency formatting.
      */
     public function testFormat() {
-        $app = $this->getApp();
-        $currency = $app->getContainer()->get('currencyService')->getCurrencyForCode('USD');
+        $currency = $this->get('currencyService')->getCurrencyForCode('USD');
         if ($this->assertNotNull($currency)) {
             $this->assertEqual('$3.15', $currency->format(3.15));
         }
