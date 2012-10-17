@@ -78,17 +78,17 @@ class HttpListener implements EventSubscriberInterface {
     public function onKernelView(GetResponseForControllerResultEvent $event) {
         $request = $event->getRequest();
 
-
         $dispatcher = $event->getDispatcher();
-        ob_start();
-        list($response, $view) = $this->handleRequest($request, $event);
-        $content = ob_get_clean();
-        if (!empty($content) && !$view) {
-            $response->setContent($content);
-        }
+        $view = $this->getView($event);
 
         // ensure we do have a view if we got this far
         $view = null !== $view ? $view : $this->container->get('defaultView');
+
+        // populate response
+        $response = new Response();
+        $dispatcher->dispatch('view_start', new Event(null, array('request' => $request, 'view' => $view)));
+        $response->setContent($view->generate($request));
+        $dispatcher->dispatch('view_done', new Event(null, array('request' => $request, 'view' => $view)));
 
         $zmevent = new Event($this, array('request' => $request, 'view' => $view, 'content' => $response->getContent()));
         $dispatcher->dispatch('finalise_content', $zmevent);
@@ -99,10 +99,8 @@ class HttpListener implements EventSubscriberInterface {
         $event->setResponse($response);
     }
 
-    public function handleRequest($request, $event) {
-        $response = $view = null;
-        $content = '';
-        $dispatcher = $event->getDispatcher();
+    public function getView($event) {
+        $view = null;
         try {
             $result = $event->getControllerResult();
             // make sure we end up with a View instance
@@ -122,14 +120,7 @@ class HttpListener implements EventSubscriberInterface {
             $controller->initViewVars($view, $request);
         }
 
-        // populate response
-        if (null != $view) {
-            $dispatcher->dispatch('view_start', new Event(null, array('request' => $request, 'view' => $view)));
-            $content = $view->generate($request);
-            $dispatcher->dispatch('view_done', new Event(null, array('request' => $request, 'view' => $view)));
-        }
-        $response = $response ?: new Response($content);
-        return array($response, $view);
+        return $view;
     }
 
     public static function getSubscribedEvents() {
