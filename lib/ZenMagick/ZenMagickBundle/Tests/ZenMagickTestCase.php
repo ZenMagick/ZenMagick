@@ -37,7 +37,7 @@ class ZenMagickTestCase extends \PHPUnit_Framework_TestCase {
             $appDir = realpath(__DIR__.'/../../../../app');
             require_once $appDir.'/bootstrap.php.cache';
             require_once $appDir.'/AppKernel.php';
-            $this->app = new \AppKernel('prod', false, 'storefront');
+            $this->app = new \AppKernel('test', false, 'storefront');
             $this->app->loadClassCache();
             $this->app->boot();
         }
