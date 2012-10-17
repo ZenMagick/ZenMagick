@@ -206,4 +206,35 @@ class Session extends BaseSession implements ContainerAwareInterface {
         return null;
     }
 
+    /**
+     * Get the selected language.
+     *
+     * <p>Determine the currently active language, with respect to potentially selected language from a dropdown in admin UI.</p>
+     *
+     * @return ZMLanguage The selected language.
+     * @todo REMOVE! very temporary
+     */
+    public function getSelectedLanguage() {
+        $language = null;
+        if (null != ($id = $this->get('languages_id'))) {
+            $languageService = $this->container->get('languageService');
+            // try session language code
+            if (null == ($language = $languageService->getLanguageForId($id))) {
+                // try store default
+                $language = $languageService->getLanguageForId($this->container->get('settingsService')->get('storeDefaultLanguageId'));
+            }
+        }
+
+        if (null == $language) {
+            $this->container->get('logger')->warn('no default language found - using en as fallback');
+            $language = Beans::getBean('apps\\store\\entities\\locale\\Language');
+            $language->setId(1);
+            $language->setDirectory('english');
+            $language->setCode('en');
+        }
+        return $language;
+    }
+
+
+
 }
