@@ -20,8 +20,6 @@
 
 namespace ZenMagick\Http;
 
-use Symfony\Component\DependencyInjection\ContainerAwareInterface;
-use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpFoundation\Request as HttpFoundationRequest;
 
 use ZenMagick\Base\Toolbox;
@@ -32,7 +30,7 @@ use ZenMagick\Base\Events\VetoableEvent;
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class Request extends HttpFoundationRequest implements ContainerAwareInterface {
+class Request extends HttpFoundationRequest {
 
     /**
      * Populate ParameterBag instances from superglobals
@@ -50,13 +48,6 @@ class Request extends HttpFoundationRequest implements ContainerAwareInterface {
                 }
             }
         }
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function setContainer(ContainerInterface $container=null) {
-        $this->container = $container;
     }
 
     /**
@@ -150,13 +141,18 @@ class Request extends HttpFoundationRequest implements ContainerAwareInterface {
      *
      * @param string url A fully qualified url.
      * @param int status Optional status; default is <em>302 - FOUND</em>.
+     * @todo use RedirectResponse throughout.
+     * @deprecated
      */
     public function redirect($url, $status=302) {
         $url = str_replace('&amp;', '&', $url);
-        $event = new VetoableEvent($this, array('request' => $this, 'url' => $url));
-        $this->container->get('event_dispatcher')->dispatch('redirect', $event);
-        if ($event->isCanceled()) {
-            return;
+
+        if (null != ($container = \ZenMagick\Base\Runtime::getContainer())) {
+            $event = new VetoableEvent($this, array('request' => $this, 'url' => $url));
+            $container->get('event_dispatcher')->dispatch('redirect', $event);
+            if ($event->isCanceled()) {
+                return;
+            }
         }
         $this->getSession()->save();
         if (!empty($status)) {
