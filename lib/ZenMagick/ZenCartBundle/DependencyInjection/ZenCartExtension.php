@@ -35,8 +35,24 @@ class ZenCartExtension extends Extension {
      * @todo we should be setting the zencart.root_dir param here, but we can't yet.
      */
     public function load(array $configs, ContainerBuilder $container) {
+
+        $config = array();
+        foreach ($configs as $subConfig) {
+            $config = array_merge($config, $subConfig);
+        }
+
         $loader = new XmlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
+
+        $rootDir = $container->getParameter('kernel.root_dir');
+
+        // @todo we can autodetect!
+        $container->setParameter('zencart.root_dir', realpath(dirname(dirname($rootDir))));
+
+        if (isset($config['root_dir']) && !empty($config['root_dir'])) {
+            $container->setParameter('zencart.root_dir', $config['root_dir']);
+        }
         $loader->load('services.xml');
+
     }
 
     /**

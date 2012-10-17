@@ -5,7 +5,6 @@
  *
  */
 
-$rootDir = dirname($container->getParameter('kernel.root_dir'));
 $context = $container->getParameter('kernel.context');
 
 $host = $container->getParameter('database_host');
@@ -27,8 +26,6 @@ try {
     }
     $container->setParameter('zenmagick.plugins.enabled', false);
 }
-
-$container->setParameter('zencart.root_dir', realpath(dirname($rootDir)));
 $container->setParameter('zencart.admin_dir', defined('ZENCART_ADMIN_FOLDER') ? ZENCART_ADMIN_FOLDER : 'admin');
 
 if ('admin' == $context) {

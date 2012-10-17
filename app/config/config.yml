@@ -76,4 +76,6 @@ swiftmailer:
 zenmagick:
     plugins:
         enabled: %zenmagick.plugins.enabled%
-zencart: ~
+
+zencart:
+    root_dir: ~
