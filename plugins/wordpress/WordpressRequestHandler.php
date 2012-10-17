@@ -21,6 +21,7 @@
 namespace ZenMagick\plugins\wordpress;
 
 use ZMController;
+use ZenMagick\Base\Runtime;
 use ZenMagick\Base\Toolbox;
 
 /**
@@ -115,8 +116,9 @@ class WordpressRequestHandler extends ZMController {
     public function link_filter($arg) {
         $urlToken = parse_url($arg);
         if ($this->plugin_->isPermalinksEnabled()) {
+            $netTool = Runtime::getContainer()->get('netTool');
             // make sure we stay on the same server
-            $selfUrlToken = parse_url($this->request_->absoluteUrl('', true));
+            $selfUrlToken = parse_url($netTool->absoluteUrl('', true));
             if ($urlToken['host'] != $selfUrlToken['host']) {
                 $arg =  str_replace($urlToken['host'], $selfUrlToken['host'], $arg);
             }
@@ -132,7 +134,7 @@ class WordpressRequestHandler extends ZMController {
                 //$_SERVER['REQUEST_URI'] = str_replace($this->request_->getBaseUrl().$this->plugin_->get('permaPrefix').'/', '', $_SERVER['REQUEST_URI']);
             }
         } else {
-            return $this->request_->url('wp', $urlToken['query']);
+            return $netTool->url('wp', $urlToken['query']);
         }
     }
 

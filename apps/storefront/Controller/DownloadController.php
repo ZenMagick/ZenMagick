@@ -94,7 +94,7 @@ class DownloadController extends \ZMController {
             mkdir($pubDir.'/'.$pubLocalDir, 0777, true);
             $link = @symlink($filePath, $pubDir.'/'.$pubLocalDir.'/'.$outputFileName);
             if ($link) {
-                $url = $request->absoluteUrl('pub/'.$pubLocalDir.'/'.$outputFileName, true);
+                $url = $this->get('netTool')->absoluteUrl('pub/'.$pubLocalDir.'/'.$outputFileName, true);
                 $request->redirect($url, 303);
             }
         }

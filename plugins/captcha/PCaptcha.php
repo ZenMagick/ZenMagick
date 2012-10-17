@@ -70,7 +70,7 @@ class PCaptcha {
     if(!$request->getSession()->isStarted()) die(ERROR_CAPTCHA_SESSION);
 
     $this->ttf_list = $this->_getFileList($this->dir_fs_fonts, 'ttf');
-    $this->img_href = $request->absoluteUrl('captchaImg', '', true);
+    $this->img_href = $this->container->get('netTool')->absoluteUrl('captchaImg', '', true);
     if ($this->debug) {
         ini_set('display_errors', true);
         error_reporting(-1);

@@ -170,11 +170,12 @@ class RssFeedGenerator extends ZMObject {
      * @param RssItem item The item to render.
      */
     protected function rssItem($request, $item) {
+        $netTool = Runtime::getContainer()->get('netTool');
         echo "  <item>\n";
         echo "   <title>".$this->encode($item->getTitle())."</title>\n";
-        echo "   <link>".$this->encode($request->absoluteUrl($item->getLink(), true))."</link>\n";
+        echo "   <link>".$this->encode($netTool->absoluteUrl($item->getLink(), true))."</link>\n";
         echo "   <description>".$this->encode($item->getDescription())."</description>\n";
-        echo "   <guid>".$this->encode($request->absoluteUrl($item->getLink(), true))."</guid>\n";
+        echo "   <guid>".$this->encode($netTool->absoluteUrl($item->getLink(), true))."</guid>\n";
         if (null !== $item->getPubDate()) {
             echo "   <pubDate>".$item->getPubDate()->format(DateTime::RSS)."</pubDate>\n";
         }
