@@ -32,8 +32,7 @@ class CustomerUserFactory extends ZMObject implements UserFactory {
     /**
      * {@inheritDoc}
      */
-    public function getUser($request) {
-        $session = $request->getSession();
+    public function getUser($session) {
         if (null != ($accountId = $session->get('customer_id'))) {
             return $this->container->get('accountService')->getAccountForId($accountId);
         }

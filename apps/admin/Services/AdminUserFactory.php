@@ -32,8 +32,7 @@ class AdminUserFactory extends ZMObject implements UserFactory {
     /**
      * {@inheritDoc}
      */
-    public function getUser($request) {
-        $session = $request->getSession();
+    public function getUser($session) {
         if (null != ($adminId = $session->get('admin_id'))) {
             return $this->container->get('adminUserService')->getUserForId($adminId);
         }

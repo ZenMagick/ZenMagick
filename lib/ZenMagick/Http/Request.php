@@ -104,17 +104,10 @@ class Request extends HttpFoundationRequest implements ContainerAwareInterface {
     /**
      * Get the user (if any) for authentication.
      *
-     * <p>Creation of the user object is delegated to the configured <code>ZenMagick\Http\Session\UserFactory</code> instance.
-     * The factory may be configured as bean defintion via the setting 'zenmagick.http.session.userFactory'.</p>
-     *
-     * @return mixed A user/credentials object. Default is <code>null</code>.
+     * @see ZenMagick\Http\Session\Session::getAccount()
      */
     public function getAccount() {
-        if ($this->container->has('userFactory') && null != ($userFactory = $this->container->get('userFactory'))) {
-            return $userFactory->getUser($this);
-        }
-
-        return null;
+        return $this->getSession()->getAccount();
     }
 
     /**
