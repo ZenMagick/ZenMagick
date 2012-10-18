@@ -9,7 +9,9 @@ Originally based on [Zen Cart](http://www.zen-cart.com/), it has evolved into a 
 
 Overview
 --------
-Despite the fact that ZenMagick has a history of evolution, all ZenMagick code has been written from scratch. The result is a flexible, reliable architecture that is the foundation of ZenMagick e-commerce. Current development aims to use and integrate existing proven PHP libraries such as [doctrine](http://www.doctrine-project.org/).
+Despite the fact that ZenMagick has a history of evolution, all ZenMagick code has been written from scratch. The result is a flexible, reliable architecture
+that is the foundation of ZenMagick e-commerce.
+Current development aims to use and integrate existing proven PHP libraries such as [Symfony](http://symfony.com/) and [doctrine](http://www.doctrine-project.org/).
 
 Features
 --------
