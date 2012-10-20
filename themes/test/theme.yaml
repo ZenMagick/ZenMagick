@@ -16,18 +16,18 @@ storefront:
     page:
       ## show conditions as homepage!
       index:
-        template: views/conditions.php
+        template: conditions.php
       ## change redirect view after sucessful login
       login:
         success:
-          template: views/conditions.php
+          template: conditions.php
       ## redirect externally
       privacy:
         view: redirect#url=http://www.dilbert.com/
       ## product_info
       Xproduct_info:
         layout: ""
-        template: views/twig_product.twig
+        template: twig_product.twig
 
     global:
       page_not_found:

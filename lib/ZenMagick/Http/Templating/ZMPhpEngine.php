@@ -111,6 +111,7 @@ class ZMPhpEngine extends ZMObject implements EngineInterface {
      * @return string The template output.
      */
     public function fetch($template, array $variables=array()) {
+        $template = str_replace('/views', '', $template);
         if (null != $this->templateCache && $this->templateCache->eligible($template)) {
             // check for cache hit
             if (null != ($result = $this->templateCache->lookup($template))) {

@@ -31,7 +31,7 @@ zenmagick:
   mvc:
     ## request
     request:
-      missingPage: page_not_found.php
+      missingPage: page_not_found.html.php
 
     ## resultlist
     resultlist:

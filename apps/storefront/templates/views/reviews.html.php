@@ -22,18 +22,18 @@
 <?php $crumbtrail->addCategoryPath()->addManufacturer()->addProduct()->addCrumb(_zm('Reviews')) ?>
 <?php if ($resultList->hasResults()) { ?>
     <div class="rnblk">
-        <?php echo $this->fetch('views/resultlist/nav.html.php') ?>
+        <?php echo $this->fetch('resultlist/nav.html.php') ?>
     </div>
 
     <div class="rlist">
         <table cellspacing="0" cellpadding="0"><tbody>
             <?php $first = true; $odd = true; foreach ($resultList->getResults() as $review) { ?>
-              <?php echo $this->fetch('views/resultlist/review.html.php', array('review' => $review, 'first' => $first, 'odd' => $odd)) ?>
+              <?php echo $this->fetch('resultlist/review.html.php', array('review' => $review, 'first' => $first, 'odd' => $odd)) ?>
             <?php $first = false; $odd = !$odd; } ?>
         </tbody></table>
     </div>
     <div class="rnblk">
-        <?php echo $this->fetch('views/resultlist/nav.html.php') ?>
+        <?php echo $this->fetch('resultlist/nav.html.php') ?>
     </div>
 <?php } else { ?>
     <h2><?php _vzm("There are no reviews available at this time") ?></h2>

@@ -70,6 +70,7 @@ class ThemeResourceResolver extends ResourceResolver {
 
         foreach ($this->container->get('themeService')->getThemeChain($this->languageId) as $theme) {
             $locations[] = $theme->getTemplatePath();
+            $locations[] = $theme->getViewsPath();
             foreach ($theme->getLocales() as $code) {
                 $locations[] = sprintf('%s/locale/%s', $theme->getTemplatePath(), $code);
             }

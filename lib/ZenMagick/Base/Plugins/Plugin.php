@@ -253,7 +253,7 @@ class Plugin extends ZMObject {
      * @return string A full path to the plugin's template folder.
      */
     public function getTemplatePath() {
-        return $this->getPluginDirectory() . '/templates';
+        return $this->getPluginDirectory() . '/templates/views';
     }
 
     /**

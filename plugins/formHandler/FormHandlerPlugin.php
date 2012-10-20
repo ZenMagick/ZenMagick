@@ -50,7 +50,7 @@ class FormHandlerPlugin extends Plugin {
             $routeCollection = new RouteCollection();
             $controller = 'ZenMagick\plugins\formHandler\controller\FormHandlerController::process';
             foreach ($pages as $page) {
-                $routeCollection->add($page, new Route('/'.$page, array('_controller' => $controller), array(), array('view' => 'views/'.$page.$ext, 'view:success' => 'redirect://'.$page)));
+                $routeCollection->add($page, new Route('/'.$page, array('_controller' => $controller), array(), array('view' => ''.$page.$ext, 'view:success' => 'redirect://'.$page)));
             }
             $router->getRouteCollection()->addCollection($routeCollection);
 

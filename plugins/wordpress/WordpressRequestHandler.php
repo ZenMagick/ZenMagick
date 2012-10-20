@@ -142,7 +142,7 @@ class WordpressRequestHandler extends ZMController {
      * WP filter to adjust comments include.
      */
     public function comments_template_filter($arg) {
-        return $this->resourceResolver->findResource('template:views/wp/comments.php');
+        return $this->resourceResolver->findResource('template:wp/comments.php');
     }
 
 }

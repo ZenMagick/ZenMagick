@@ -25,7 +25,7 @@ admin:
       pattern: /examplePluginAdmin
       defaults: { _controller: ZenMagick\plugins\examplePlugin\controller\ExamplePluginAdminController::process }
       options:
-        'view': views/examplePluginAdmin.php
+        'view': examplePluginAdmin.php
   menu:
     example:
       parent: configuration-plugins

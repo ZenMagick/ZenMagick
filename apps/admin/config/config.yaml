@@ -31,8 +31,8 @@ zenmagick:
   mvc:
     ## request
     request:
-      index: views/index.php
-      missingPage: views/error.php
+      index: index.html.php
+      missingPage: error.html.php
 
     ## rpc
     rpc:

@@ -85,7 +85,7 @@ class ResourceResolver extends ZMObject {
             foreach ($this->container->getParameterBag()->get('kernel.bundles') as $bundleName => $bundleClass) {
                 $rclass = new ReflectionClass($bundleClass);
                 $bundlePath = dirname($rclass->getFilename());
-                $locations[] = $bundlePath.'/Resources';
+                $locations[] = $bundlePath.'/Resources/views';
             }
 
             // add plugins as fallback fallback
@@ -178,7 +178,7 @@ class ResourceResolver extends ZMObject {
      * @return string The path to the application templates.
      */
     public function getApplicationTemplatePath() {
-        return Runtime::getApplicationPath().'/templates/';
+        return Runtime::getApplicationPath().'/templates/views/';
     }
 
     /**

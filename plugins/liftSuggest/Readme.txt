@@ -34,4 +34,4 @@ Example:
 
 Include the basic lift suggest template in your product page or shopping cart:
 
-<?php echo $this->fetch('views/lift-suggestions.html.php') ?>
+<?php echo $this->fetch('lift-suggestions.html.php') ?>

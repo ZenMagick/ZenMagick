@@ -40,7 +40,7 @@ URL and view
 ============
 The URL for the store locator is index.php?main_page=store_locator
 
-The default view used is views/store_locator.php in the plugin folder. To customize, just copy it into
+The default view used is store_locator.php in the plugin folder. To customize, just copy it into
 your theme's views folder and edit.
 
 NOTE: The "locator_map" id on the map div is required for the map to load. Everything else may be customized.

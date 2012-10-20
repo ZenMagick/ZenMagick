@@ -126,7 +126,7 @@ class RouteResolver extends ZMObject {
         // TODO: enable once we have all current url mappings converted
         if (!$view) {
             // use conventions and defaults
-            $templateName = sprintf('views/%s%s', $request->getRequestId(), $settingsService->get('zenmagick.http.templates.ext', '.html.php'));
+            $templateName = sprintf('%s%s', $request->getRequestId(), $settingsService->get('zenmagick.http.templates.ext', '.html.php'));
             $view = Beans::getBean('defaultView');
             $view->setTemplate($templateName);
             $view->setLayout($layoutName);

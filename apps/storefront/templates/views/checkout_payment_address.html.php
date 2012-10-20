@@ -44,6 +44,6 @@
     <h3><?php _vzm("... or create a new one") ?></h3>
 <?php } ?>
 <?php echo $form->open('checkout_payment_address', 'action=create', true, array('id'=>'paymentAddress')) ?>
-    <?php echo $this->fetch('views/address.html.php', array('address' => $billingAddress)) ?>
+    <?php echo $this->fetch('address.html.php', array('address' => $billingAddress)) ?>
     <div class="btn"><input type="submit" class="btn" value="<?php _vzm("Continue") ?>" /></div>
 </form>

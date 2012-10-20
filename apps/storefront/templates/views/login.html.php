@@ -55,7 +55,7 @@
                   'field'=>'<input type="text" id="email_address_guest" name="email_address" '.$form->fieldLength('customers', 'customers_email_address').'/>'
               ))
           );
-          echo $this->fetch('views/address.html.php', $guestAddressInfo);
+          echo $this->fetch('address.html.php', $guestAddressInfo);
         ?>
       <?php } else { ?>
         <label for="email_address_guest"><?php _vzm("E-Mail Address") ?></label>

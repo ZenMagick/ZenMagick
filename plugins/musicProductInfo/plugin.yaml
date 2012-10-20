@@ -13,4 +13,4 @@ storefront:
   routing:
     product_info:
       options:
-        'view:product_music_info': views/product_music_info.php
+        'view:product_music_info': product_music_info.php

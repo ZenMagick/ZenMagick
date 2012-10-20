@@ -50,9 +50,9 @@ storefront:
       pattern: /wp
       defaults: { _controller: ZenMagick\plugins\wordpress\controller\WordpressController::process }
       options:
-        "view:wp_index": views/wp/index.php
-        "view:wp_single": views/wp/single.php
-        "view:wp_page": views/wp/page.php
-        "view:wp_archive": views/wp/archive.php
-        "view:wp_archives": views/wp/archives.php
-        "view:wp_search": views/wp/search.php
+        "view:wp_index": wp/index.php
+        "view:wp_single": wp/single.php
+        "view:wp_page": wp/page.php
+        "view:wp_archive": wp/archive.php
+        "view:wp_archives": wp/archives.php
+        "view:wp_search": wp/search.php

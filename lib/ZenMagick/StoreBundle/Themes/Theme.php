@@ -187,6 +187,15 @@ class Theme extends ZMObject {
     }
 
     /**
+     * Return the path of the views directory.
+     *
+     * @return string A full path to the theme views  folder.
+     */
+    public function getViewsPath() {
+        return $this->getBasePath() . '/templates/views';
+    }
+
+    /**
      * Return the path of the template directory.
      *
      * @return string A full path to the theme's template folder.

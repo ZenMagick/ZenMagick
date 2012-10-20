@@ -22,6 +22,6 @@
 
 <?php $crumbtrail->addCrumb(_zm('Account'), $net->url('account', '', true))->addCrumb(_zm('Addresses'), $net->url('address_book', '', true))->addCrumb(_zm('New')) ?>
 <?php echo $form->open('address_book_add', '', true, array('id'=>'address')) ?>
-    <?php echo $this->fetch('views/address.html.php') ?>
+    <?php echo $this->fetch('address.html.php') ?>
     <div class="btn"><input type="submit" class="btn" value="<?php _vzm("Submit") ?>" /></div>
 </form>

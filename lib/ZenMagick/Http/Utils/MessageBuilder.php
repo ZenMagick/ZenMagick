@@ -66,7 +66,7 @@ class MessageBuilder extends ZMObject {
         $resourceResolver = $this->view->getResourceResolver();
         $formats = array();
 
-        foreach ($resourceResolver->find('views/emails', '/'.$template.'/', View::TEMPLATE) as $template) {
+        foreach ($resourceResolver->find('emails', '/'.$template.'/', View::TEMPLATE) as $template) {
             $tokens = explode('.', $template);
             if (3 == count($tokens)) {
                 list($template, $format, $type) = $tokens;
@@ -104,7 +104,7 @@ class MessageBuilder extends ZMObject {
         }
 
         // set up view
-        $this->view->setTemplate('views/emails/'.$template.'.'.$format.'.'.$formats[$format]);
+        $this->view->setTemplate('emails/'.$template.'.'.$format.'.'.$formats[$format]);
         // disable layout for now
         $this->view->setLayout(null);
 

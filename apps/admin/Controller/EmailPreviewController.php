@@ -47,7 +47,7 @@ class EmailPreviewController extends \ZMController {
         $templateInfo = array();
         // get a store view to lookup all email templates...
         $view = $this->container->get('storeEmailView');
-        foreach ($view->getResourceResolver()->find('views/emails', null, View::TEMPLATE) as $template) {
+        foreach ($view->getResourceResolver()->find('emails', null, View::TEMPLATE) as $template) {
             $file = basename($template);
             $tokens = explode('.', $file);
             if (3 == count($tokens)) {
