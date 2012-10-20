@@ -39,12 +39,12 @@ class ExamplePluginPlugin extends Plugin {
      * Handle final content.
      */
     public function onFinaliseContent($event) {
-        $content = $event->get('content');
-        $request = $event->get('request');
+        $content = $event->getArgument('content');
+        $request = $event->getArgument('request');
 
         if ('login' == $request->getRequestId()) {
             $content = preg_replace('/<h1>(.*)<\/h1>/', '<h1>\\1 '.sprintf(_zm('(modified by %s)'), $this->getName()).'</h1>', $content, 1);
-            $event->set('content', $content);
+            $event->setArgument('content', $content);
         }
     }
 

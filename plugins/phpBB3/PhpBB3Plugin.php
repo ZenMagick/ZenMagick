@@ -51,7 +51,7 @@ class PhpBB3Plugin extends Plugin {
      * custom global/theme validation rule setups.</p>
      */
     public function onContainerReady($event) {
-        $request = $event->get('request');
+        $request = $event->getArgument('request');
         $this->page_ = $request->getRequestId();
         $this->prePostAccount_ = $request->getAccount();
 
@@ -102,9 +102,9 @@ class PhpBB3Plugin extends Plugin {
      * ZenMagick controller will use the viewId 'success' if POST processing was successful.</p>
      */
     public function onCreateAccount($event) {
-        $account = $event->get('account');
+        $account = $event->getArgument('account');
         if (!Toolbox::isEmpty($account->getNickName())) {
-            $password = $event->get('clearPassword');
+            $password = $event->getArgument('clearPassword');
             $this->getAdapter()->createAccount($account, $password);
         }
     }
@@ -116,9 +116,9 @@ class PhpBB3Plugin extends Plugin {
      * ZenMagick controller will use the viewId 'success' if POST processing was successful.</p>
      */
     public function onPasswordChanged($event) {
-        $account = $event->get('account');
+        $account = $event->getArgument('account');
         if (!Toolbox::isEmpty($account->getNickName())) {
-            $password = $event->get('clearPassword');
+            $password = $event->getArgument('clearPassword');
             $this->getAdapter()->updateAccount($account->getNickName(), $password, $account->getEmail());
         }
     }
@@ -127,7 +127,7 @@ class PhpBB3Plugin extends Plugin {
      * Event callback for syncing users.
      */
     public function onAccountUpdated($event) {
-        $account = $event->get('account');
+        $account = $event->getArgument('account');
         if (null != $account && !Toolbox::isEmpty($account->getNickName())) {
             $this->getAdapter()->updateAccount($account->getNickName(), null, $account->getEmail());
         }

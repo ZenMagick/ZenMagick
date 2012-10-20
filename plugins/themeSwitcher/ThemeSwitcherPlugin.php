@@ -21,8 +21,9 @@ namespace ZenMagick\plugins\themeSwitcher;
 
 use ZenMagick\Base\Plugins\Plugin;
 use ZenMagick\Base\Toolbox;
-use ZenMagick\Base\Events\Event;
 use ZenMagick\Http\View\TemplateView;
+
+use Symfony\Component\EventDispatcher\GenericEvent;
 
 /**
  * Allow users to switch between themes.
@@ -38,7 +39,7 @@ class ThemeSwitcherPlugin extends Plugin {
      * Switch.
      */
     public function onContainerReady($event) {
-        $request = $event->get('request');
+        $request = $event->getArgument('request');
 
         $session = $request->getSession();
         if (null != ($themeId = $request->query->get('themeId'))) {
@@ -53,8 +54,8 @@ class ThemeSwitcherPlugin extends Plugin {
             $theme = $themeChain[] = $themeService->getThemeForId($themeId);
             $themeService->setThemeChain($themeChain);
             $themeService->initThemes();
-            $args = array_merge($event->all(), array('theme' => $theme, 'themeId' => $themeId, 'themeChain' => $themeChain));
-            $this->container->get('event_dispatcher')->dispatch('theme_resolved', new Event($this, $args));
+            $args = array_merge($event->getArguments(), array('theme' => $theme, 'themeId' => $themeId, 'themeChain' => $themeChain));
+            $this->container->get('event_dispatcher')->dispatch('theme_resolved', new GenericEvent($this, $args));
         }
     }
 
@@ -62,7 +63,7 @@ class ThemeSwitcherPlugin extends Plugin {
      * Inject html.
      */
     public function onFinaliseContent($event) {
-        $content = $event->get('content');
+        $content = $event->getArgument('content');
 
         // id on main div
         if (false !== strpos($content, 'theme-switcher')) {
@@ -70,7 +71,7 @@ class ThemeSwitcherPlugin extends Plugin {
             return;
         }
 
-        $request = $event->get('request');
+        $request = $event->getArgument('request');
         $themeService = $this->container->get('themeService');
         $settingsService = $this->container->get('settingsService');
 
@@ -112,11 +113,11 @@ class ThemeSwitcherPlugin extends Plugin {
             }
         }
 
-        if (null != ($view = $event->get('view')) && $view instanceof TemplateView) {
+        if (null != ($view = $event->getArgument('view')) && $view instanceof TemplateView) {
             $switcherMarkup = $view->fetch('theme-switcher.html.php', array('themeList' => $themeList));
             if (!empty($switcherMarkup)) {
                 $content =  preg_replace('/(<body[^>]*>)/', '\1'.$switcherMarkup, $content, 1);
-                $event->set('content', $content);
+                $event->setArgument('content', $content);
             }
         }
     }

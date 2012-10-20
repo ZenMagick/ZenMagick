@@ -26,10 +26,10 @@ use Symfony\Component\HttpKernel\Event\GetResponseEvent;
 use Symfony\Component\HttpKernel\Event\FilterControllerEvent;
 use Symfony\Component\HttpKernel\Event\GetResponseForControllerResultEvent;
 use Symfony\Component\DependencyInjection\ContainerInterface;
+use Symfony\Component\EventDispatcher\GenericEvent;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 use ZenMagick\Base\Beans;
-use ZenMagick\Base\Events\Event;
 use ZenMagick\Http\Session\SessionValidator;
 use ZenMagick\Http\View\ModelAndView;
 use ZenMagick\Http\View\View;
@@ -57,8 +57,8 @@ class HttpListener implements EventSubscriberInterface {
         $dispatcher = $event->getDispatcher();
         $request->getSession()->restorePersistedServices();
 
-        $dispatcher->dispatch('request_ready', new Event($this, array('request' => $request)));
-        $dispatcher->dispatch('container_ready', new Event($this, array('request' => $request)));
+        $dispatcher->dispatch('request_ready', new GenericEvent($this, array('request' => $request)));
+        $dispatcher->dispatch('container_ready', new GenericEvent($this, array('request' => $request)));
 
         $this->container->get('sacsManager')->ensureAccessMethod($request);
         $this->container->get('sacsManager')->authorize($request, $request->getRequestId(), $request->getAccount());
@@ -86,15 +86,15 @@ class HttpListener implements EventSubscriberInterface {
 
         // populate response
         $response = new Response();
-        $dispatcher->dispatch('view_start', new Event(null, array('request' => $request, 'view' => $view)));
+        $dispatcher->dispatch('view_start', new GenericEvent(null, array('request' => $request, 'view' => $view)));
         $response->setContent($view->generate($request));
-        $dispatcher->dispatch('view_done', new Event(null, array('request' => $request, 'view' => $view)));
+        $dispatcher->dispatch('view_done', new GenericEvent(null, array('request' => $request, 'view' => $view)));
 
-        $zmevent = new Event($this, array('request' => $request, 'view' => $view, 'content' => $response->getContent()));
+        $zmevent = new GenericEvent($this, array('request' => $request, 'view' => $view, 'content' => $response->getContent()));
         $dispatcher->dispatch('finalise_content', $zmevent);
 
-        $response->setContent($zmevent->get('content'));
-        $dispatcher->dispatch('all_done', new Event($this, array('request' => $request, 'view' => $view, 'content' => $zmevent->get('content'))));
+        $response->setContent($zmevent->getArgument('content'));
+        $dispatcher->dispatch('all_done', new GenericEvent($this, array('request' => $request, 'view' => $view, 'content' => $zmevent->getArgument('content'))));
 
         $event->setResponse($response);
     }

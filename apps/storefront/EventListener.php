@@ -22,11 +22,13 @@ namespace ZenMagick\apps\storefront;
 use ZenMagick\Base\Beans;
 use ZenMagick\Base\Toolbox;
 use ZenMagick\Base\ZMObject;
-use ZenMagick\Base\Events\Event;
 use ZenMagick\Http\View\TemplateView;
 use ZenMagick\Http\Session\FlashBag;
 use ZenMagick\StoreBundle\Widgets\StatusCheck;
 use ZenMagick\StoreBundle\Services\Account\Accounts;
+
+use Symfony\Component\EventDispatcher\GenericEvent;
+
 /**
  * Fixes and stuff that are (can be) event driven.
  *
@@ -38,8 +40,8 @@ class EventListener extends ZMObject {
      * Handle 'showAll' parameter for result lists and provide empty address for guest checkout if needed.
      */
     public function onViewStart($event) {
-        $request = $event->get('request');
-        $view = $event->get('view');
+        $request = $event->getArgument('request');
+        $view = $event->getArgument('view');
         if ($view instanceof TemplateView) {
             $requestId = $request->getRequestId();
             if (null !== $request->query->get('showAll')) {
@@ -65,7 +67,7 @@ class EventListener extends ZMObject {
      * Final cleanup.
      */
     public function onAllDone($event) {
-        $request = $event->get('request');
+        $request = $event->getArgument('request');
         // save url to be used as redirect in some cases
         if ('login' != $request->getRequestId() && 'logoff' != $request->getRequestId()) {
             if ('GET' == $request->getMethod()) {
@@ -81,7 +83,7 @@ class EventListener extends ZMObject {
      * @todo: what to do???
      */
     public function onRequestReady($event) {
-        $request = $event->get('request');
+        $request = $event->getArgument('request');
         $session = $request->getSession();
         if (null == $session->get('cart')) {
             $session->set('cart', new \shoppingCart);
@@ -89,8 +91,8 @@ class EventListener extends ZMObject {
 
         $this->container->get('themeService')->initThemes();
         $theme = $this->container->get('themeService')->getActiveTheme();
-        $args = array_merge($event->all(), array('theme' => $theme, 'themeId' => $theme->getId()));
-        $event->getDispatcher()->dispatch('theme_resolved', new Event($this, $args));
+        $args = array_merge($event->getArguments(), array('theme' => $theme, 'themeId' => $theme->getId()));
+        $event->getDispatcher()->dispatch('theme_resolved', new GenericEvent($this, $args));
 
 
     }
@@ -99,7 +101,7 @@ class EventListener extends ZMObject {
      * More store startup code.
      */
     public function onContainerReady($event) {
-        $request = $event->get('request');
+        $request = $event->getArgument('request');
 
         $session = $request->getSession();
         // in case we came from paypal or some other external location.
@@ -117,7 +119,7 @@ class EventListener extends ZMObject {
 
         $theme = $this->container->get('themeService')->getActiveTheme();
         $args = array('theme' => $theme, 'themeId' => $theme->getId());
-        $event->getDispatcher()->dispatch('theme_loaded', new Event($this, $args));
+        $event->getDispatcher()->dispatch('theme_loaded', new GenericEvent($this, $args));
     }
 
     /**
@@ -223,8 +225,8 @@ class EventListener extends ZMObject {
      * Create ZenMagick order created event that contains the order id.
      */
     public function onNotifyCheckoutProcessAfterOrderCreateAddProducts($event) {
-        $args = array_merge($event->all(), array('request' => $this->container->get('request'), 'orderId' => $_SESSION['order_number_created']));
-        $event->getDispatcher()->dispatch('create_order', new Event($this, $args));
+        $args = array_merge($event->getArguments(), array('request' => $this->container->get('request'), 'orderId' => $_SESSION['order_number_created']));
+        $event->getDispatcher()->dispatch('create_order', new GenericEvent($this, $args));
     }
 
     /**

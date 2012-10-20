@@ -22,9 +22,10 @@
  */
 namespace ZenMagick\apps\storefront\Controller;
 
+use Symfony\Component\EventDispatcher\GenericEvent;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
+
 use ZenMagick\Base\ZMObject;
-use ZenMagick\Base\Events\Event;
 use ZenMagick\Http\Request;
 use ZenMagick\Http\View\ModelAndView;
 use ZenMagick\StoreBundle\Utils\CheckoutHelper;
@@ -118,7 +119,7 @@ class ShoppingCartController extends ZMObject {
         $id = $this->getAttributeUploads($request, $shoppingCart, (array) $request->request->get('id'));
         if ($shoppingCart->addProduct($productId, $request->request->get('cart_quantity'), $id)) {
             $shoppingCart->getCheckoutHelper()->saveHash($request);
-            $this->container->get('event_dispatcher')->dispatch('cart_add', new Event($this, array('request' => $request, 'shoppingCart' => $shoppingCart, 'productId' => $productId)));
+            $this->container->get('event_dispatcher')->dispatch('cart_add', new GenericEvent($this, array('request' => $request, 'shoppingCart' => $shoppingCart, 'productId' => $productId)));
             $product = $this->container->get('productService')->getProductForId($productId);
             $flashBag->success(sprintf(_zm("Product '%s' added to cart"), $product->getName()));
         } else {
@@ -164,7 +165,7 @@ class ShoppingCartController extends ZMObject {
                         $buyNowQty = min($qtyOrderMax, $cartQty + $buyNowQty);
                         $shoppingCart->addProduct($productId, $buyNowQty);
                         $shoppingCart->getCheckoutHelper()->saveHash($request);
-                        $this->container->get('event_dispatcher')->dispatch('cart_add', new Event($this, array('request' => $request, 'shoppingCart' => $shoppingCart, 'productId' => $productId)));
+                        $this->container->get('event_dispatcher')->dispatch('cart_add', new GenericEvent($this, array('request' => $request, 'shoppingCart' => $shoppingCart, 'productId' => $productId)));
                         $flashBag->success(sprintf(_zm("Product '%s' added to cart"), $product->getName()));
                     }
                 } else {
@@ -187,7 +188,7 @@ class ShoppingCartController extends ZMObject {
         $productId = is_array($productId) ? $productId[0] : $productId;
         $shoppingCart->removeProduct($productId);
         $shoppingCart->getCheckoutHelper()->saveHash($request);
-        $this->container->get('event_dispatcher')->dispatch('cart_remove', new Event($this, array('request' => $request, 'shoppingCart' => $shoppingCart, 'productId' => $productId)));
+        $this->container->get('event_dispatcher')->dispatch('cart_remove', new GenericEvent($this, array('request' => $request, 'shoppingCart' => $shoppingCart, 'productId' => $productId)));
         $flashBag->success(_zm('Product removed from cart'));
 
         // TODO: add support for redirect back to origin
@@ -206,7 +207,7 @@ class ShoppingCartController extends ZMObject {
         foreach ($productIds as $ii => $productId) {
             $shoppingCart->updateProduct($productId, $quantities[$ii]);
         }
-        $this->container->get('event_dispatcher')->dispatch('cart_update', new Event($this, array('request' => $request, 'shoppingCart' => $shoppingCart, 'productIds' => $productIds)));
+        $this->container->get('event_dispatcher')->dispatch('cart_update', new GenericEvent($this, array('request' => $request, 'shoppingCart' => $shoppingCart, 'productIds' => $productIds)));
         $flashBag->success(_zm('Product(s) added to cart'));
 
         // TODO: add support for redirect back to origin

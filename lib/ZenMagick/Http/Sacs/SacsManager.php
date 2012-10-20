@@ -23,10 +23,10 @@ use ZenMagick\Base\Beans;
 use ZenMagick\Base\Runtime;
 use ZenMagick\Base\Toolbox;
 use ZenMagick\Base\ZMObject;
-use ZenMagick\Base\Events\Event;
 use ZenMagick\Http\Routing\RouteResolver;
 
 use Symfony\Component\DependencyInjection\ContainerInterface;
+use Symfony\Component\EventDispatcher\GenericEvent;
 use Symfony\Component\Yaml\Yaml;
 
 /**
@@ -206,7 +206,7 @@ class SacsManager extends ZMObject {
                 return false;
             }
             // fire event
-            $this->container->get('event_dispatcher')->dispatch('insufficient_credentials', new Event($this, array('request' => $request, 'credentials' => $credentials)));
+            $this->container->get('event_dispatcher')->dispatch('insufficient_credentials', new GenericEvent($this, array('request' => $request, 'credentials' => $credentials)));
             // not required level of authentication
             $session = $request->getSession();
             // secure flag: leave to net() to lookup via SacsManager if configured, but leave as default parameter to allow override

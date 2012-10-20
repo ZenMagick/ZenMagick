@@ -19,7 +19,6 @@
  */
 namespace ZenMagick\apps\admin\Controller;
 
-use ZenMagick\Base\Events\Event;
 use ZenMagick\Http\View\View;
 
 use ZenMagick\StoreBundle\Model\Mock\MockAccount;
@@ -30,7 +29,9 @@ use ZenMagick\StoreBundle\Model\Mock\MockReview;
 use ZenMagick\StoreBundle\Model\Mock\MockEmailMessage;
 use ZenMagick\StoreBundle\Model\Mock\MockGVReceiver;
 
+use Symfony\Component\EventDispatcher\GenericEvent;
 use Symfony\Component\HttpFoundation\Response;
+
 
 /**
  * Admin controller for email previews.
@@ -71,9 +72,9 @@ class EmailPreviewController extends \ZMController {
             $messageBuilder = $this->container->get('messageBuilder');
 
             $context = $this->getInitialContext($request);
-            $event = new Event($this, array('template' => $template, 'format' => $format, 'type' => $type, 'request' => $request, 'context' => $context));
+            $event = new GenericEvent($this, array('template' => $template, 'format' => $format, 'type' => $type, 'request' => $request, 'context' => $context));
             $this->container->get('event_dispatcher')->dispatch('email_preview', $event);
-            $context = $event->get('context');
+            $context = $event->getArgument('context');
 
             $content = $messageBuilder->createContents($template, 'html'==$format, $request, $context);
             if ('text' == $format) {

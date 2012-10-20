@@ -22,8 +22,9 @@ namespace ZenMagick\Http\Utils;
 use Swift_Message;
 use ZenMagick\Base\Runtime;
 use ZenMagick\Base\ZMObject;
-use ZenMagick\Base\Events\Event;
 use ZenMagick\Http\View\View;
+
+use Symfony\Component\EventDispatcher\GenericEvent;
 
 /**
  * Message builder for emails.
@@ -128,9 +129,9 @@ class MessageBuilder extends ZMObject {
     public function createMessage($template, $html=false, $request, $context=array()) {
         // event to allow additions to context or view or...
         $args = array('template' => $template, 'request' => $request, 'context' => $context);
-        $event = new Event(null, $args);
+        $event = new GenericEvent(null, $args);
         $this->container->get('event_dispatcher')->dispatch('generate_email', $event);
-        $context = $event->get('context');
+        $context = $event->getArgument('context');
         // TODO: drop! save context for legacy HTML generation...
         $GLOBALS['ZM_EMAIL_CONTEXT'] = $context;
 

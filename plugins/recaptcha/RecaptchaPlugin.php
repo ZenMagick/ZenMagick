@@ -49,7 +49,7 @@ class RecaptchaPlugin extends Plugin {
      * custom global/theme validation rule setups.</p>
      */
     public function onContainerReady($event) {
-        $request = $event->get('request');
+        $request = $event->getArgument('request');
         $disableRegistered = Toolbox::asBoolean($this->get('disableRegistered'));
         if ($disableRegistered && $request->getSession()->isRegistered()) {
             // skip

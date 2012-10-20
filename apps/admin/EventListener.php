@@ -39,7 +39,7 @@ class EventListener extends ZMObject {
      * Display message about invalid/insufficient credentional
      */
     public function onInsufficientCredentials($event) {
-        $request = $event->get('request');
+        $request = $event->getArgument('request');
         if (null != $request->getAccount()) {
             // only if we still have a valid session
             $request->getSession()->getFlashBag()->warn(sprintf(_zm('You are not allowed to access the page with id: <em>%s</em>'), $request->getRequestId()));
@@ -50,8 +50,8 @@ class EventListener extends ZMObject {
      * Add <em>currentLanguage</em> to all views.
      */
     public function onViewStart($event) {
-        $request = $event->get('request');
-        $view = $event->get('view');
+        $request = $event->getArgument('request');
+        $view = $event->getArgument('view');
 
         $this->initMenu();
         $adminMenu = $this->container->get('adminMenu');
@@ -124,7 +124,7 @@ class EventListener extends ZMObject {
      * Final init.
      */
     public function onContainerReady($event) {
-        $request = $event->get('request');
+        $request = $event->getArgument('request');
 
         // @todo languages setting not really supposed to be here
         $session = $request->getSession();

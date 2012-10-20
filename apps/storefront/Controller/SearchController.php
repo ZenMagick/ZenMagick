@@ -21,7 +21,8 @@ namespace ZenMagick\apps\storefront\Controller;
 
 use ZenMagick\Base\Beans;
 use ZenMagick\Base\Toolbox;
-use ZenMagick\Base\Events\Event;
+
+use Symfony\Component\EventDispatcher\GenericEvent;
 
 /**
  * Search controller.
@@ -90,7 +91,7 @@ class SearchController extends \ZMController {
             $resultList->setResultSource($resultSource);
             $resultList->setPageNumber($request->query->getInt('page'));
             $args = array('request' => $request, 'searchCriteria' => $searchCriteria, 'resultList' => $resultList, 'autoSearch' => $this->isAutoSearch());
-            $this->container->get('event_dispatcher')->dispatch('search', new Event($this, $args));
+            $this->container->get('event_dispatcher')->dispatch('search', new GenericEvent($this, $args));
             return $this->findView('results', array('resultList' => $resultList));
         }
 

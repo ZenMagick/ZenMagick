@@ -19,9 +19,9 @@
  */
 namespace ZenMagick\apps\admin\Dashboard\Widgets;
 
-use ZenMagick\Base\Events\Event;
 use ZenMagick\apps\admin\Dashboard\DashboardWidget;
 
+use Symfony\Component\EventDispatcher\GenericEvent;
 
 /**
  * Basic stats dashboard widget.
@@ -87,10 +87,10 @@ class BasicStatsDashboardWidget extends DashboardWidget {
         $result = $database->querySingle("SELECT count(*) AS count FROM %table.salemaker_sales% WHERE sale_status= '1'");
         $data[_zm('Sales Active')] = $result['count'];
 
-        $event = new Event($this, array('data' => $data));
+        $event = new GenericEvent($this, array('data' => $data));
         $this->container->get('event_dispatcher')->dispatch('build_basic_stats', $event);
 
-        return $event->get('data');
+        return $event->getArgument('data');
     }
 
     /**

@@ -19,8 +19,9 @@
  */
 namespace ZenMagick\apps\storefront\Controller;
 
-use ZenMagick\Base\Events\Event;
 use ZenMagick\StoreBundle\Entity\Account\Account;
+
+use Symfony\Component\EventDispatcher\GenericEvent;
 
 /**
  * Request controller for forgotten passwords.
@@ -53,7 +54,7 @@ class PasswordForgottenController extends \ZMController {
         $message->setSubject(sprintf(_zm("Forgotten Password - %s"), $settingsService->get('storeName')))->setTo($emailAddress, $account->getFullName())->setFrom($settingsService->get('storeEmail'));
         $this->container->get('mailer')->send($message);
 
-        $this->container->get('event_dispatcher')->dispatch('password_changed', new Event($this, array('controller' => $this, 'account' => $account, 'clearPassword' => $newPassword)));
+        $this->container->get('event_dispatcher')->dispatch('password_changed', new GenericEvent($this, array('controller' => $this, 'account' => $account, 'clearPassword' => $newPassword)));
 
         // report success
         $this->messageService->success(_zm('A new password has been sent to your email address.'));

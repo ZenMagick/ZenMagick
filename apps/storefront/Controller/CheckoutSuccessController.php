@@ -69,7 +69,7 @@ class CheckoutSuccessController extends \ZMController {
      * Event handler to logout guest users only *after* the view is done.
      */
     public function onViewDone($event) {
-        $request = $event->get('request');
+        $request = $event->getArgument('request');
         $session = $request->getSession();
         if ($this->container->get('settingsService')->get('isLogoffGuestAfterOrder') && $session->isGuest()) {
             $session->clear();

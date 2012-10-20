@@ -104,14 +104,14 @@ EOT;
      * Get resources reference.
      */
     public function onViewDone($event) {
-        $this->view = $event->get('view');
+        $this->view = $event->getArgument('view');
     }
 
     /**
      * Event callback to inject the required JS.
      */
     public function onFinaliseContent($event) {
-        $request = $event->get('request');
+        $request = $event->getArgument('request');
         $trackingType = $this->get('trackingType');
 
         if (in_array($request->getRequestId(), array('product_info', 'shopping_cart')) && null !== $this->recommendationsLoadedFor) {
@@ -129,14 +129,14 @@ EOT;
                 $code2 = str_replace('</script>', '/script-->', $code2);
             }
 
-            $content = $event->get('content');
+            $content = $event->getArgument('content');
             if ('ga' == $trackingType) {
                 $content = preg_replace('/<\/head>/', $code1 . '</head>', $content, 1);
                 $content = preg_replace('/pageTracker._trackPageview\(/', $code2 . 'pageTracker._trackPageview(', $content, 1);
             } else if ('as' == $trackingType) {
                 $content = preg_replace('/<\/body>/', $code1.$code2 . '</body>', $content, 1);
             }
-            $event->set('content', $content);
+            $event->setArgument('content', $content);
         }
     }
 

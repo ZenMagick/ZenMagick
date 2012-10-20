@@ -19,7 +19,7 @@
  */
 namespace ZenMagick\apps\storefront\Controller;
 
-use ZenMagick\Base\Events\Event;
+use Symfony\Component\EventDispatcher\GenericEvent;
 
 /**
  * Request controller for checkout address change (shipping/billing).
@@ -117,7 +117,7 @@ class CheckoutAddressController extends \ZMController {
             $address = $addressService->createAddress($address);
 
             $args = array('request' => $request, 'controller' => $this, 'account' => $account, 'address' => $address, 'type' => $this->settings_['mode']);
-            $this->container->get('event_dispatcher')->dispatch('create_address', new Event($this, $args));
+            $this->container->get('event_dispatcher')->dispatch('create_address', new GenericEvent($this, $args));
 
             // process primary setting
             if ($address->isPrimary() || 1 == count($addressService->getAddressesForAccountId($account->getId()))) {

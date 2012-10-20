@@ -74,7 +74,7 @@ class SubscriptionsPlugin extends Plugin {
             array('ZMRequiredRule', 'message', _zm("Please enter a message")),
         ));
 
-        $request = $event->get('request');
+        $request = $event->getArgument('request');
         if ('checkout_shipping' == $request->getRequestId() && 'POST' == $request->getMethod()) {
             if (Toolbox::asBoolean($request->request->get('subscription'))) {
                 $request->getSession()->set('subscription_schedule', $request->request->get('schedule'));
@@ -158,8 +158,8 @@ class SubscriptionsPlugin extends Plugin {
             return;
         }
 
-        $request = $event->get('request');
-        $orderId = $event->get('orderId');
+        $request = $event->getArgument('request');
+        $orderId = $event->getArgument('orderId');
         if (null != ($schedule = $this->getSelectedSchedule())) {
             $sql = "UPDATE %table.orders%
                     SET subscription_next_order = DATE_ADD(date_purchased, INTERVAL " . self::schedule2SQL($schedule) . "),

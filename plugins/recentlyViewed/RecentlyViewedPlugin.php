@@ -36,8 +36,8 @@ class RecentlyViewedPlugin extends Plugin {
      * Handle auto login.
      */
     public function onViewStart($event) {
-        $request = $event->get('request');
-        $view = $event->get('view');
+        $request = $event->getArgument('request');
+        $view = $event->getArgument('view');
 
         if ($view instanceof TemplateView) {
             $session = $request->getSession();

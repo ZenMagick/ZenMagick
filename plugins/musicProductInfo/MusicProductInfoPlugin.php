@@ -57,8 +57,8 @@ class MusicProductInfoPlugin extends Plugin {
      * Event handler.
      */
     public function onViewStart($event) {
-        $view = $event->get('view');
-        $request = $event->get('request');
+        $view = $event->getArgument('view');
+        $request = $event->getArgument('request');
         if ('product_info' == $request->getRequestId()) {
             $musicManager = $this->container->get('musicManager');
             // artist information

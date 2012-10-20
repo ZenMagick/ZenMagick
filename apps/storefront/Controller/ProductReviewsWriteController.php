@@ -19,7 +19,7 @@
  */
 namespace ZenMagick\apps\storefront\Controller;
 
-use ZenMagick\Base\Events\Event;
+use Symfony\Component\EventDispatcher\GenericEvent;
 
 /**
  * Request controller for write review page.
@@ -78,7 +78,7 @@ class ProductReviewsWriteController extends \ZMController {
         }
 
         $args = array('request' => $request, 'controller' => $this, 'account' => $account, 'review' => $review, 'product' => $product);
-        $this->container->get('event_dispatcher')->dispatch('review_submitted', new Event($this, $args));
+        $this->container->get('event_dispatcher')->dispatch('review_submitted', new GenericEvent($this, $args));
 
         $this->messageService->success(_zm("Thank you for your submission"));
         return $this->findView('success', array(), array('parameter' => 'productId='.$product->getId()));

@@ -40,7 +40,7 @@ class VisitCounterPlugin extends Plugin {
     public function onAllDone($event) {
         if (!Runtime::isContextMatch('storefront')) return;
         $conn = \ZMRuntime::getDatabase();
-        $session = $event->get('request')->getSession();
+        $session = $event->getArgument('request')->getSession();
 
         $newSession = false;
         if ($session->isStarted()) {

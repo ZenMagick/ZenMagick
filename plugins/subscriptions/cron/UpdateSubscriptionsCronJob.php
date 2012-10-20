@@ -23,9 +23,10 @@ namespace ZenMagick\plugins\subscriptions\cron;
 use ZenMagick\Base\Beans;
 use ZenMagick\Base\Runtime;
 use ZenMagick\Base\Toolbox;
-use ZenMagick\Base\Events\Event;
 
 use ZenMagick\plugins\cron\jobs\CronJobInterface;
+
+use Symfony\Component\EventDispatcher\GenericEvent;
 
 /**
  * A cron job to create new subscription orders.
@@ -97,7 +98,7 @@ class UpdateSubscriptionsCronJob implements CronJobInterface {
             }
 
             // event
-            $this->container->get('event_dispatcher')->dispatch('create_order', new Event($this, array('orderId' => $order->getId())));
+            $this->container->get('event_dispatcher')->dispatch('create_order', new GenericEvent($this, array('orderId' => $order->getId())));
         }
 
         return true;

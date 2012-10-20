@@ -21,8 +21,8 @@ namespace ZenMagick\plugins\pageCache;
 
 use ZenMagick\Base\Plugins\Plugin;
 use ZenMagick\Base\Runtime;
-use ZenMagick\Base\Events\Event;
 
+use Symfony\Component\EventDispatcher\GenericEvent;
 
 define('ZM_PLUGINS_PAGE_CACHE_ALLOWED_DEFAULT', 'index,category,product_info,page,static,products_new,featured_products,specials,product_reviews');
 define('ZM_EVENT_PLUGINS_PAGE_CACHE_CONTENTS_DONE', 'plugins_page_cache_contents_done');
@@ -96,15 +96,15 @@ class PageCachePlugin extends Plugin {
      * use the page cache or not.</p>
      */
     public function onThemeResolved($event) {
-        $this->activeThemeId = $event->get('themeId');
-        $request = $event->get('request');
+        $this->activeThemeId = $event->getArgument('themeId');
+        $request = $event->getArgument('request');
 
         // handle page caching
         if ($this->isEnabled() && Runtime::isContextMatch('storefront')) {
             if (false !== ($contents = $this->cache_->lookup($this->getRequestKey($request))) && $this->isCacheable($request)) {
                 Runtime::getLogging()->debug('cache hit for requestId: '.$request->getRequestId());
                 echo $contents;
-                $event->getDispatcher()->dispatch(ZM_EVENT_PLUGINS_PAGE_CACHE_CONTENTS_DONE, new Event($this, $event->all()));
+                $event->getDispatcher()->dispatch(ZM_EVENT_PLUGINS_PAGE_CACHE_CONTENTS_DONE, new GenericEvent($this, $event->getArguments()));
                 if ($this->get('loadStats')) {
                     $time = round(microtime(true) - $this->container->get('kernel')->getStartTime(), 4);
                     echo '<!-- pageCache stats: page: ' . $time . ' sec.; ';
@@ -123,8 +123,8 @@ class PageCachePlugin extends Plugin {
      * Event handler
      */
     public function onAllDone($event) {
-        $request = $event->get('request');
-        $content = $event->get('content');
+        $request = $event->getArgument('request');
+        $content = $event->getArgument('content');
 
         if ($this->isEnabled() && $this->isCacheable($request)) {
             $this->cache_->save($content, $this->getRequestKey($request));

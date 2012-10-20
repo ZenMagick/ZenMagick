@@ -42,9 +42,9 @@ class GoogleAnalyticsPlugin extends Plugin {
      * Event handler.
      */
     public function onViewStart($event) {
-        $request = $event->get('request');
+        $request = $event->getArgument('request');
         if ('checkout_success' == $request->getRequestId()) {
-            $view = $event->get('view');
+            $view = $event->getArgument('view');
             $vars = $view->getVariables();
             $this->order_ = $vars['currentOrder'];
         }
@@ -54,7 +54,7 @@ class GoogleAnalyticsPlugin extends Plugin {
      * Event handler.
      */
     public function onFinaliseContent($event) {
-        $request = $event->get('request');
+        $request = $event->getArgument('request');
 
         $trackerCode = $this->getTrackerCodeGa($request);
         $checkoutCode = $this->getCheckoutCodeGa($request);
@@ -66,9 +66,9 @@ class GoogleAnalyticsPlugin extends Plugin {
             $code = str_replace('</script>', '/script-->', $code);
         }
 
-        $content = $event->get('content');
+        $content = $event->getArgument('content');
         $content = preg_replace('/<\/body>/', $code . '</body>', $content, 1);
-        $event->set('content', $content);
+        $event->setArgument('content', $content);
     }
 
     /**

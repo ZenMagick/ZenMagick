@@ -33,7 +33,7 @@ class GoogleStoreLocatorPlugin extends Plugin {
      * Event callback to add required JS.
      */
     public function onFinaliseContent($event) {
-        $request = $event->get('request');
+        $request = $event->getArgument('request');
 
         if ('store_locator' == $request->getRequestId()) {
             $storeKey = $this->get('storeKey');
@@ -57,9 +57,9 @@ class GoogleStoreLocatorPlugin extends Plugin {
   google.setOnLoadCallback(load_locator_map);
 </script>
 ';
-            $content = $event->get('content');
+            $content = $event->getArgument('content');
             $content = preg_replace('/<\/body>/', $script.'</body>', $content, 1);
-            $event->set('content', $content);
+            $event->setArgument('content', $content);
         }
     }
 

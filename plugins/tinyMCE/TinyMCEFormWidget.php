@@ -120,9 +120,9 @@ jQuery(function() {
 });
 </script>
 EOT;
-            $content = $event->get('content');
+            $content = $event->getArgument('content');
             $content = preg_replace('/<\/body>/', $jsInit . '</body>', $content, 1);
-            $event->set('content', $content);
+            $event->setArgument('content', $content);
             // clear to create js only once
             $this->idList = array();
         }

@@ -19,8 +19,7 @@
  */
 namespace ZenMagick\apps\storefront\Controller;
 
-use ZenMagick\Base\Events\Event;
-
+use Symfony\Component\EventDispatcher\GenericEvent;
 
 /**
  * Request controller for logoff page.
@@ -47,7 +46,7 @@ class LogoffController extends \ZMController {
 
         if ($loggedIn) {
             // logged in
-            $this->container->get('event_dispatcher')->dispatch('logoff_success', new Event($this, array('request' => $request, 'controller' => $this, 'account' => $account)));
+            $this->container->get('event_dispatcher')->dispatch('logoff_success', new GenericEvent($this, array('request' => $request, 'controller' => $this, 'account' => $account)));
             // redisplay to allow update of state
             return $this->findView('success', array(), array('url' => $lastUrl));
         }

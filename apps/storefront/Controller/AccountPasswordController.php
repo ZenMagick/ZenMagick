@@ -20,7 +20,8 @@
 namespace ZenMagick\apps\storefront\Controller;
 
 use ZenMagick\Base\Runtime;
-use ZenMagick\Base\Events\Event;
+
+use Symfony\Component\EventDispatcher\GenericEvent;
 
 /**
  * Request controller for account password page.
@@ -57,7 +58,7 @@ class AccountPasswordController extends \ZMController {
         $newEncrpytedPassword = $authenticationManager->encryptPassword($newPassword);
         $this->container->get('accountService')->setAccountPassword($account->getId(), $newEncrpytedPassword);
 
-        $this->container->get('event_dispatcher')->dispatch('password_changed', new Event($this, array('controller' => $this, 'account' => $account, 'clearPassword' => $newPassword)));
+        $this->container->get('event_dispatcher')->dispatch('password_changed', new GenericEvent($this, array('controller' => $this, 'account' => $account, 'clearPassword' => $newPassword)));
 
         $this->messageService->success(_zm('Your password has been updated.'));
 

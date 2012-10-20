@@ -35,7 +35,7 @@ class ImageHandler2Plugin extends Plugin {
      */
     public function onViewStart($event) {
         if (!Toolbox::asBoolean($this->get('disableIH2Attributes'))) {
-            if (null != ($resources = $event->get('view')->getResourceManager())) {
+            if (null != ($resources = $event->getArgument('view')->getResourceManager())) {
                 $resources->cssFile('ih2/style_imagehover.css');
                 $resources->jsFile('ih2/jscript_imagehover.js', ResourceManager::HEADER);
             }

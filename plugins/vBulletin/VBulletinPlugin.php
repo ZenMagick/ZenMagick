@@ -52,7 +52,7 @@ class VBulletinPlugin extends Plugin {
      * custom global/theme validation rule setups.</p>
      */
     public function onContainerReady($event) {
-        $request = $event->get('request');
+        $request = $event->getArgument('request');
         $this->page_ = $request->getRequestId();
         $this->prePostAccount_ = $request->getAccount();
 
@@ -103,9 +103,9 @@ class VBulletinPlugin extends Plugin {
      * ZenMagick controller will use the viewId 'success' if POST processing was successful.</p>
      */
     public function onCreateAccount($event) {
-        $account = $event->get('account');
+        $account = $event->getArgument('account');
         if (!Toolbox::isEmpty($account->getNickName())) {
-            $password = $event->get('clearPassword');
+            $password = $event->getArgument('clearPassword');
             $this->getAdapter()->createAccount($account, $password);
         }
     }
@@ -117,9 +117,9 @@ class VBulletinPlugin extends Plugin {
      * ZenMagick controller will use the viewId 'success' if POST processing was successful.</p>
      */
     public function onPasswordChanged($event) {
-        $account = $event->get('account');
+        $account = $event->getArgument('account');
         if (!Toolbox::isEmpty($account->getNickName())) {
-            $password = $event->get('clearPassword');
+            $password = $event->getArgument('clearPassword');
             $this->getAdapter()->updateAccount($account->getNickName(), $password, $account->getEmail());
         }
     }
@@ -128,8 +128,8 @@ class VBulletinPlugin extends Plugin {
      * Event handler for login.
      */
     public function onLoginSuccess($event) {
-        $request = $event->get('request');
-        $account = $event->get('account');
+        $request = $event->getArgument('request');
+        $account = $event->getArgument('account');
         // check if nickname set and no matching forum user
         if (!Toolbox::isEmpty($account->getNickName())) {
             if (null == $this->getAdapter()->getAccountForNickName($account->getNickName())) {
@@ -144,7 +144,7 @@ class VBulletinPlugin extends Plugin {
      * Event callback for syncing users.
      */
     public function onAccountUpdated($event) {
-        $account = $event->get('account');
+        $account = $event->getArgument('account');
         $vbAccount = $this->getAdapter()->getAccountForNickName($account->getNickName());
         if (null != $account && !Toolbox::isEmpty($account->getNickName())) {
             if (null != $vbAccount) {

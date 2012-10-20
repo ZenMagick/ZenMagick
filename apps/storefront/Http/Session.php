@@ -20,9 +20,10 @@
 namespace ZenMagick\apps\storefront\Http;
 
 use ZenMagick\Base\Runtime;
-use ZenMagick\Base\Events\Event;
 use ZenMagick\StoreBundle\Entity\Account\Account;
 use ZenMagick\StoreBundle\Services\Account\Accounts;
+
+use Symfony\Component\EventDispatcher\GenericEvent;
 
 /**
  * Custom session class that adds a number of convenience methods.
@@ -216,7 +217,7 @@ class Session extends \ZenMagick\Http\Session\Session {
         }
 
         // info only
-        $this->container->get('event_dispatcher')->dispatch('login_success', new Event($this, array('controller' => $this, 'account' => $account, 'request' => $request)));
+        $this->container->get('event_dispatcher')->dispatch('login_success', new GenericEvent($this, array('controller' => $this, 'account' => $account, 'request' => $request)));
 
         // update session with valid account
         $this->setAccount($account);

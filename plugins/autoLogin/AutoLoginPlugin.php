@@ -38,7 +38,7 @@ class AutoLoginPlugin extends Plugin {
      * Handle auto login.
      */
     public function onContainerReady($event) {
-        $request = $event->get('request');
+        $request = $event->getArgument('request');
 
         $session = $request->getSession();
         if ('GET' == $request->getMethod() && 'logoff' != $request->getRequestId() && $session->isAnonymous()) {
@@ -135,7 +135,7 @@ class AutoLoginPlugin extends Plugin {
      * Event handler to update the cookie if required.
      */
     public function onAllDone($event) {
-        $request = $event->get('request');
+        $request = $event->getArgument('request');
         $session = $request->getSession();
         if ('GET' == $request->getMethod() && $session->isRegistered()) {
             if (!$this->cookieUpdated) {
@@ -148,14 +148,14 @@ class AutoLoginPlugin extends Plugin {
      * Event handler for create account.
      */
     public function onCreateAccount($event) {
-        $this->onOptIn($event->get('account'), $event->get('request')->request->get(AUTO_LOGIN_OPT_IN));
+        $this->onOptIn($event->getArgument('account'), $event->getArgument('request')->request->get(AUTO_LOGIN_OPT_IN));
     }
 
     /**
      * Event handler for login.
      */
     public function onLoginSuccess($event) {
-        $this->onOptIn($event->get('account'), $event->get('request')->request->get(AUTO_LOGIN_OPT_IN));
+        $this->onOptIn($event->getArgument('account'), $event->getArgument('request')->request->get(AUTO_LOGIN_OPT_IN));
     }
 
     /**

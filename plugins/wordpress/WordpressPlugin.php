@@ -75,7 +75,7 @@ class WordpressPlugin extends Plugin {
      * Handle view start.
      */
     public function onViewStart($event) {
-        $request = $event->get('request');
+        $request = $event->getArgument('request');
 
         // create single request handler
         $wordpressEnabledPages = explode(',', $this->get('wordpressEnabledPages'));
@@ -83,7 +83,7 @@ class WordpressPlugin extends Plugin {
             // need to do this on all enabled pages, not just wp
             $requestHandler = $this->getRequestHandler($request);
             if (Toolbox::asBoolean($this->get('urlRewrite'))) {
-                $requestHandler->registerFilter($event->get('view'));
+                $requestHandler->registerFilter($event->getArgument('view'));
             }
         }
     }
@@ -92,7 +92,7 @@ class WordpressPlugin extends Plugin {
      * Handle init done event.
      */
     public function onContainerReady($event) {
-        $request = $event->get('request');
+        $request = $event->getArgument('request');
         $requestId = $request->getRequestId();
 
         $this->prepareWP();
@@ -146,15 +146,15 @@ class WordpressPlugin extends Plugin {
      * Handle final content.
      */
     public function onFinaliseContent($event) {
-        $request = $event->get('request');
+        $request = $event->getArgument('request');
 
         if ('' == $request->getRequestId()) {
             ob_start();
             wp_head();
             $wp_head = ob_get_clean();
-            $content = $event->get('content');
+            $content = $event->getArgument('content');
             $content = preg_replace('/<\/head>/', $wp_head . '</head>', $content, 1);
-            $event->set('content', $content);
+            $event->setArgument('content', $content);
         }
     }
 
@@ -235,11 +235,11 @@ class WordpressPlugin extends Plugin {
      */
     public function onCreateAccount($event) {
         if (Toolbox::asBoolean($this->get('syncUser'))) {
-            $account = $event->get('account');
+            $account = $event->getArgument('account');
             if (!Toolbox::isEmpty($account->getNickName())) {
-                $password = $event->get('clearPassword');
+                $password = $event->getArgument('clearPassword');
                 if (!$this->getAdapter()->createAccount($account, $password)) {
-                    $event->get('request')->getSession()->getFlashBag()->info(_zm('Could not create wordpress account - please contact the store administrator.'));
+                    $event->getArgument('request')->getSession()->getFlashBag()->info(_zm('Could not create wordpress account - please contact the store administrator.'));
                 }
             }
         }
@@ -253,9 +253,9 @@ class WordpressPlugin extends Plugin {
      */
     public function onPasswordChanged($event) {
         if (Toolbox::asBoolean($this->get('syncUser'))) {
-            $account = $event->get('account');
+            $account = $event->getArgument('account');
             if (!Toolbox::isEmpty($account->getNickName())) {
-                $password = $event->get('clearPassword');
+                $password = $event->getArgument('clearPassword');
                 $this->getAdapter()->updateAccount($account->getNickName(), $password, $account->getEmail());
             }
         }
@@ -266,8 +266,8 @@ class WordpressPlugin extends Plugin {
      */
     public function onAccountUpdated($event) {
         if (Toolbox::asBoolean($this->get('syncUser'))) {
-            $request = $event->get('request');
-            $account = $event->get('account');
+            $request = $event->getArgument('request');
+            $account = $event->getArgument('account');
             if (null != $account && !Toolbox::isEmpty($account->getNickName())) {
                 $this->getAdapter()->updateAccount($account->getNickName(), null, $account->getEmail());
             }

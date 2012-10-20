@@ -69,7 +69,7 @@ class HowDidYouHearPlugin extends Plugin {
      * Add validation rules.
      */
     public function onContainerReady($event) {
-        $request = $event->get('request');
+        $request = $event->getArgument('request');
         if ($this->handleRequest($request->getRequestId())) {
             if ($this->isRequired()) {
                 // add validation rules
@@ -87,7 +87,7 @@ class HowDidYouHearPlugin extends Plugin {
      * Add custom view data.
      */
     public function onViewStart($event) {
-        $request = $event->get('request');
+        $request = $event->getArgument('request');
         if ($this->handleRequest($request->getRequestId())) {
             // create sources list
             $howDidYouHearSources = array();
@@ -113,7 +113,7 @@ class HowDidYouHearPlugin extends Plugin {
             }
 
             // create reliable form reference
-            if (null != ($view = $event->get('view')) && $view instanceof TemplateView) {
+            if (null != ($view = $event->getArgument('view')) && $view instanceof TemplateView) {
                 $view->setVariable('howDidYouHearSources', $howDidYouHearSources);
                 if (null != ($registration = $view->getVariable('registration'))) {
                     $view->setVariable('howDidYouHearForm', $registration);
@@ -133,7 +133,7 @@ class HowDidYouHearPlugin extends Plugin {
      * Custom create account processing
      */
     public function onCreateAccount($event) {
-        $account = $event->get('account');
+        $account = $event->getArgument('account');
         if (ID_SOURCE_OTHER == $account->getSourceId() && Account::GUEST != $account->getType()) {
             // need to store sourceOther
             $sql = "INSERT INTO %table.sources_other%

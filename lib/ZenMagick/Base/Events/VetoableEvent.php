@@ -19,12 +19,14 @@
  */
 namespace ZenMagick\Base\Events;
 
+use Symfony\Component\EventDispatcher\GenericEvent;
+
 /**
  * A veto-able event.
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class VetoableEvent extends Event {
+class VetoableEvent extends GenericEvent {
     private $cancel = false;
 
 

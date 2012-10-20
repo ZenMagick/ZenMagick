@@ -22,7 +22,8 @@ namespace ZenMagick\StoreBundle\EventListener;
 
 use ZenMagick\Base\Runtime;
 use ZenMagick\Base\ZMObject;
-use ZenMagick\Base\Events\Event;
+
+use Symfony\Component\EventDispatcher\GenericEvent;
 
 /**
  * Shared store event listener.
@@ -36,7 +37,7 @@ class StoreListener extends ZMObject {
      * {@inheritDoc}
      */
     public function onRequestReady($event) {
-        $request = $event->get('request');
+        $request = $event->getArgument('request');
 
         $cPath = array();
         if (null !== ($path = $request->get('cPath'))) {

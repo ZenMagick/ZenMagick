@@ -34,16 +34,16 @@ class CronPlugin extends Plugin {
      * Handle event.
      */
     public function onFinaliseContent($event) {
-        $request = $event->get('request');
+        $request = $event->getArgument('request');
 
         if ($this->isEnabled() && Toolbox::asBoolean($this->get('image'))) {
             $pages = explode(',', $this->get('triggerPages'));
             if (empty($pages) || in_array($request->getRequestId(), $pages)) {
                 $slash = $this->container->get('settingsService')->get('zenmagick.http.html.xhtml') ? '/' : '';
                 $img = '<div><img src="'.$this->container->get('netTool')->url('cron_image').'" alt=""'.$slash.'></div>';
-                $content = $event->get('content');
+                $content = $event->getArgument('content');
                 $content = preg_replace('/<\/body>/', $img . '</body>', $content, 1);
-                $event->set('content', $content);
+                $event->setArgument('content', $content);
             }
         }
     }

@@ -100,7 +100,7 @@ class WhoIsOnlinePlugin extends Plugin {
         if (Runtime::isContextMatch('admin')) return;
 
         $settingsService = $this->container->get('settingsService');
-        $request = $event->get('request');
+        $request = $event->getArgument('request');
         $session = $request->getSession();
         $accountId = $session->getAccountId();
         $sessionId = $session->getId();
@@ -168,7 +168,7 @@ class WhoIsOnlinePlugin extends Plugin {
      *
      */
     public function onLogoffSuccess($event) {
-        if ($event->has('account') && null != ($account = $event->get('account'))) {
+        if ($event->hasArgument('account') && null != ($account = $event->getArgument('account'))) {
             if (0 < ($accountId = $account->getId())) {
                 \ZMRuntime::getDatabase()->delete('whos_online', array('customer_id' => $accountId));
             }
@@ -179,10 +179,10 @@ class WhoIsOnlinePlugin extends Plugin {
      * Update the session id if it changed.
      */
     public function updateSessionId($event) {
-        $session = $event->get('request')->getSession();
+        $session = $event->getArgument('request')->getSession();
         if (null != ($lastId = $session->get('lastSessionId'))) {
             \ZMRuntime::getDatabase()->update('whos_online',
-                array('session_id' => $session->getId(), 'customer_id' => $event->get('account')->getId()),
+                array('session_id' => $session->getId(), 'customer_id' => $event->getArgument('account')->getId()),
                 array('session_id' => $lastId)
             );
         }

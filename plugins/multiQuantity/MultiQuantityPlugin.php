@@ -36,7 +36,7 @@ class MultiQuantityPlugin extends Plugin {
      * Stop zen-cart processing multi quantity requests.
      */
     public function onContainerReady($event) {
-        $request = $event->get('request');
+        $request = $event->getArgument('request');
         if (null != $request->getParameter(MULTI_QUANTITY_ID)) {
             // this is a multi quantity request, so leave it to the custom controller to handle
             //

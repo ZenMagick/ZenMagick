@@ -108,9 +108,9 @@ class ZenCartListener implements EventSubscriberInterface {
      * Fix email context for various emails.
      */
     public function onGenerateEmail($event) {
-        $context = $event->get('context');
-        $template = $event->get('template');
-        $request =  $event->get('request');
+        $context = $event->getArgument('context');
+        $template = $event->getArgument('template');
+        $request =  $event->getArgument('request');
 
         $settingsService = $this->container->get('settingsService');
         // set for all
@@ -204,12 +204,12 @@ class ZenCartListener implements EventSubscriberInterface {
             $context['htmlMessage'] = $context['EMAIL_MESSAGE_HTML'];
         }
 
-        $event->set('context', $context);
+        $event->setArgument('context', $context);
     }
 
     public function logAdminPageAccess($event) {
         if (Runtime::isContextMatch('admin')) {
-            $request = $event->get('request');
+            $request = $event->getArgument('request');
             if ('index' != $request->getRequestId()) {
                 $params = $request->query->all();
                 $data = array(
