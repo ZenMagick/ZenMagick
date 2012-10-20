@@ -90,6 +90,7 @@ class AppKernel extends Kernel {
         // extension configuration
         $resources[] = $this->getRootDir().'/config/config_'.$this->getEnvironment().'.yml';
 
+        $resources[] = $rootDir.'/config/container.xml';
         // @todo remove this when we we can prove we don't need $_SESSION
         $resources[] = function($container) use($context) {
             if ('storefront' == $context) {
