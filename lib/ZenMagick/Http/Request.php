@@ -23,7 +23,6 @@ namespace ZenMagick\Http;
 use Symfony\Component\HttpFoundation\Request as HttpFoundationRequest;
 
 use ZenMagick\Base\Toolbox;
-use ZenMagick\Base\Events\VetoableEvent;
 
 /**
  * A wrapper around Symfony 2's <code>Symfony\Component\HttpFoundation\Request</code>
@@ -147,13 +146,6 @@ class Request extends HttpFoundationRequest {
     public function redirect($url, $status=302) {
         $url = str_replace('&amp;', '&', $url);
 
-        if (null != ($container = \ZenMagick\Base\Runtime::getContainer())) {
-            $event = new VetoableEvent($this, array('request' => $this, 'url' => $url));
-            $container->get('event_dispatcher')->dispatch('redirect', $event);
-            if ($event->isCanceled()) {
-                return;
-            }
-        }
         $this->getSession()->save();
         if (!empty($status)) {
             header('Location: ' . $url, true, $status);
