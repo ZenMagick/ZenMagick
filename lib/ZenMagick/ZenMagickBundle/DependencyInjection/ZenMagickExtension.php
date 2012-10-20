@@ -66,7 +66,7 @@ class ZenMagickExtension extends Extension {
         }
 
         $files[] = 'lib/ZenMagick/StoreBundle/config/container.xml';
-        $files[] = 'apps/'.$context.'/config/container.xml';
+        $files[] = 'apps/'.$context.'/Resources/config/services.xml';
         foreach ($files as $file) {
             $loader->load($file);
         }
