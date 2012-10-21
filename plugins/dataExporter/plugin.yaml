@@ -10,7 +10,7 @@ admin:
   routing:
     export_orders:
       pattern: /export_orders
-      defaults: { _controller: ZenMagick\plugins\dataExporter\controller\ExportOrdersController::process }
+      defaults: { _controller: ZenMagick\plugins\dataExporter\Controller\ExportOrdersController::process }
   menu:
     data-exporter:
       parent: tools

@@ -46,7 +46,7 @@ class MultiQuantityPlugin extends Plugin {
             $urlManager = $this->container->get('urlManager');
             // create mapping for lookup
             $urlManager->setMapping('product_info',
-                array('controller' => 'ZenMagick\plugins\multiQuantity\controller\MultiQuantityProductInfoController'));
+                array('controller' => 'ZenMagick\plugins\multiQuantity\Controller\MultiQuantityProductInfoController'));
 
             // add own mapping
             if ($this->container->get('settingsService')->get('isShowCartAfterAddProduct', true)) {

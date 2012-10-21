@@ -41,7 +41,7 @@ admin:
   routing:
     google_store_locator:
       pattern: /googleStoreLocator
-      defaults: { _controller: ZenMagick\plugins\googleStoreLocator\controller\GoogleStoreLocatorAdminController::process }
+      defaults: { _controller: ZenMagick\plugins\googleStoreLocator\Controller\GoogleStoreLocatorAdminController::process }
   menu:
     google-store-locator:
       parent: configuration-plugins

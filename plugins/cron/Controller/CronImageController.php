@@ -17,24 +17,35 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-namespace ZenMagick\plugins\wordpress\controller;
+namespace ZenMagick\plugins\cron\Controller;
 
 use ZMController;
 
+use Symfony\Component\HttpFoundation\Response;
+
 /**
- * WP controller.
+ * Cron image controller.
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class WordpressController extends ZMController {
+class CronImageController extends ZMController {
 
     /**
      * {@inheritDoc}
      */
     public function processGet($request) {
-        $plugin = $this->container->get('pluginService')->getPluginForId('wordpress');
-        $viewName = $plugin->getRequestHandler($request)->preProcess($request);
-        return $this->findView($viewName);
+        $plugin = $this->container->get('pluginService')->getPluginForId('cron');
+        $response = new Response();
+        $response->headers->set('Content-Type', 'image/gif');
+
+        if (null != $plugin) {
+            // execute configured jobs
+            $plugin->runCron();
+        }
+
+        // create 1x1 image
+        $response->setContent(base64_decode('R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw=='));
+        return $response;
     }
 
 }

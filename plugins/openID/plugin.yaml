@@ -15,7 +15,7 @@ storefront,admin:
   routing:
     openID:
       pattern: /openID
-      defaults: { _controller: ZenMagick\plugins\openId\controller\OpenIDController::process }
+      defaults: { _controller: ZenMagick\plugins\openId\Controller\OpenIDController::process }
       options:
         "view:success": redirect://account
 

@@ -18,7 +18,7 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-namespace ZenMagick\plugins\productGroupPricing\controller;
+namespace ZenMagick\plugins\productGroupPricing\Controller;
 
 use ZenMagick\Base\Beans;
 use ZenMagick\Base\Toolbox;

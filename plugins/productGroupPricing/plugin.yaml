@@ -10,6 +10,6 @@ admin:
   container:
     services:
       productGroupPricingTabController:
-        class: ZenMagick\plugins\productGroupPricing\controller\ProductGroupPricingTabController
+        class: ZenMagick\plugins\productGroupPricing\Controller\ProductGroupPricingTabController
         tags:
           - { name: apps.store.admin.tabcontroller }

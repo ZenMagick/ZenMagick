@@ -73,12 +73,12 @@ storefront:
   routing:
     cancel_subscription:
       pattern: /order/subscription/cancel/{orderId}
-      defaults: { _controller: ZenMagick\plugins\subscriptions\controller\CancelSubscriptionController::process, orderId: 0 }
+      defaults: { _controller: ZenMagick\plugins\subscriptions\Controller\CancelSubscriptionController::process, orderId: 0 }
       options:
         view: redirect://account
     subscription_request:
       pattern: /order/subscription/subscribe
-      defaults: { _controller: ZenMagick\plugins\subscriptions\controller\SubscriptionRequestController::process }
+      defaults: { _controller: ZenMagick\plugins\subscriptions\Controller\SubscriptionRequestController::process }
       options:
         "view:success": redirect://subscription_request
 
@@ -86,7 +86,7 @@ admin:
   routing:
     subscriptionAdmin:
       pattern: /orders/subscriptions
-      defaults: { _controller: ZenMagick\plugins\subscriptions\controller\SubscriptionAdminController::process }
+      defaults: { _controller: ZenMagick\plugins\subscriptions\Controller\SubscriptionAdminController::process }
       options:
         "view:success": redirect://subscriptionAdmin
   menu:

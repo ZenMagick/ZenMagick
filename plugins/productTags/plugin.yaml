@@ -15,7 +15,7 @@ admin:
   container:
     services:
       productTagsTabController:
-        class: ZenMagick\plugins\productTags\controller\ProductTagsTabController
+        class: ZenMagick\plugins\productTags\Controller\ProductTagsTabController
         tags:
           - { name: apps.store.admin.tabcontroller }
 
