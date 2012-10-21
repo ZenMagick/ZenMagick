@@ -7,7 +7,6 @@
         <parameter key="zenmagick.plugins.plugin_class">ZenMagick\Base\Plugins\Plugin</parameter>
         <parameter key="zenmagick.plugins.dirs" type="collection">
             <parameter>%zenmagick.root_dir%/plugins</parameter>
-            <parameter>%zenmagick.root_dir%/apps/%kernel.context%/plugins</parameter>
         </parameter>
     </parameters>
 

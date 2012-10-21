@@ -120,7 +120,7 @@ class AppKernel extends Kernel {
      */
     public function getApplicationPath() {
         if ($context = $this->getContext()) {
-            return sprintf('%s/apps/%s', dirname($this->getRootDir()), $context);
+            return sprintf('%s/lib/ZenMagick/%sBundle', dirname($this->getRootDir()), ucfirst($context);
         }
     }
 

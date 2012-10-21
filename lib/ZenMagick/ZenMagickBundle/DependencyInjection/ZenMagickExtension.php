@@ -66,13 +66,13 @@ class ZenMagickExtension extends Extension {
         }
 
         $files[] = 'lib/ZenMagick/StoreBundle/config/container.xml';
-        $files[] = 'apps/'.$context.'/Resources/config/services.xml';
+        $files[] = 'lib/ZenMagick/'.ucfirst($context).'Bundle/Resources/config/services.xml';
         foreach ($files as $file) {
             $loader->load($file);
         }
 
         if ('admin' == $context) {
-            $container->setParameter('zenmagick.http.sacs.mappingProviders', array('ZenMagick\apps\admin\Services\DBSacsPermissionProvider'));
+            $container->setParameter('zenmagick.http.sacs.mappingProviders', array('ZenMagick\AdminBundle\Services\DBSacsPermissionProvider'));
         }
 
     }

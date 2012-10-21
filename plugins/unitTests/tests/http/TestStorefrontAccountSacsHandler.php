@@ -23,7 +23,7 @@ use ZenMagick\Http\Sacs\Handler\UserRoleSacsHandler;
 use ZenMagick\Http\Sacs\Handler\UserRoleCredentials;
 use ZenMagick\StoreBundle\Model\Mock\MockAccount;
 use ZenMagick\plugins\unitTests\simpletest\TestCase;
-use ZenMagick\apps\storefront\Http\Sacs\StorefrontAccountSacsHandler;
+use ZenMagick\StorefrontBundle\Http\Sacs\StorefrontAccountSacsHandler;
 use ZenMagick\StoreBundle\Entity\Account\Account;
 
 /**

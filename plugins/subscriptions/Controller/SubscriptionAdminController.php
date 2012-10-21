@@ -22,7 +22,7 @@ namespace ZenMagick\plugins\subscriptions\Controller;
 use ZMRuntime;
 use ZenMagick\Base\Beans;
 use ZenMagick\Base\Toolbox;
-use ZenMagick\apps\admin\Controller\PluginAdminController;
+use ZenMagick\AdminBundle\Controller\PluginAdminController;
 
 /**
  * Admin controller.

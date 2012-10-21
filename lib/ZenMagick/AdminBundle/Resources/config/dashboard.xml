@@ -1,0 +1,47 @@
+<?xml version="1.0" ?>
+<container xmlns="http://symfony.com/schema/dic/services"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+    <services>
+        <service id="dashboard" class="ZenMagick\AdminBundle\Dashboard\Dashboard" />
+
+        <!-- Dashboard Widgets -->
+        <service id="orderStatsDashboardWidget" class="ZenMagick\AdminBundle\Dashboard\Widgets\OrderStatsDashboardWidget" scope="prototype">
+            <tag name="apps.store.admin.dashboard.widget" />
+        </service>
+        <service id="latestOrdersDashboardWidget" class="ZenMagick\AdminBundle\Dashboard\Widgets\LatestOrdersDashboardWidget" scope="prototype">
+            <tag name="apps.store.admin.dashboard.widget" />
+        </service>
+        <service id="latestAccountsDashboardWidget" class="ZenMagick\AdminBundle\Dashboard\Widgets\LatestAccountsDashboardWidget" scope="prototype">
+            <tag name="apps.store.admin.dashboard.widget" />
+        </service>
+        <service id="recentSearchesDashboardWidget" class="ZenMagick\AdminBundle\Dashboard\Widgets\RecentSearchesDashboardWidget" scope="prototype">
+            <tag name="apps.store.admin.dashboard.widget" />
+        </service>
+        <service id="updateCheckerDashboardWidget" class="ZenMagick\AdminBundle\Dashboard\Widgets\UpdateCheckerDashboardWidget" scope="prototype">
+            <tag name="apps.store.admin.dashboard.widget" />
+        </service>
+        <service id="pendingDashboardWidget" class="ZenMagick\AdminBundle\Dashboard\Widgets\PendingDashboardWidget" scope="prototype">
+            <tag name="apps.store.admin.dashboard.widget" />
+        </service>
+        <service id="basicStatsDashboardWidget" class="ZenMagick\AdminBundle\Dashboard\Widgets\BasicStatsDashboardWidget" scope="prototype">
+            <tag name="apps.store.admin.dashboard.widget" />
+        </service>
+        <service id="storeStatusDashboardWidget" class="ZenMagick\AdminBundle\Dashboard\Widgets\StoreStatusDashboardWidget" scope="prototype">
+            <tag name="apps.store.admin.dashboard.widget" />
+        </service>
+        <!-- Status Check Widgets -->
+        <service id="couponStatusCheck" class="ZenMagick\AdminBundle\Dashboard\Widgets\Status\CouponStatusCheck" scope="prototype">
+            <tag name="apps.store.admin.dashboard.widget.statusCheck" />
+        </service>
+        <service id="installationStatusCheck" class="ZenMagick\AdminBundle\Dashboard\Widgets\Status\InstallationStatusCheck" scope="prototype">
+            <tag name="apps.store.admin.dashboard.widget.statusCheck" />
+        </service>
+        <service id="miscStatusCheck" class="ZenMagick\AdminBundle\Dashboard\Widgets\Status\MiscStatusCheck" scope="prototype">
+            <tag name="apps.store.admin.dashboard.widget.statusCheck" />
+        </service>
+        <service id="moduleStatusCheck" class="ZenMagick\AdminBundle\Dashboard\Widgets\Status\ModuleStatusCheck" scope="prototype">
+            <tag name="apps.store.admin.dashboard.widget.statusCheck" />
+        </service>
+    </services>
+</container>

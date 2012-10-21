@@ -19,7 +19,7 @@
  */
 namespace ZenMagick\plugins\googleStoreLocator\Controller;
 
-use ZenMagick\apps\admin\Controller\PluginAdminController;
+use ZenMagick\AdminBundle\Controller\PluginAdminController;
 
 /**
  * Admin controller.

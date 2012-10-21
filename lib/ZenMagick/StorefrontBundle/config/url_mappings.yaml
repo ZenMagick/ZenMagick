@@ -1,0 +1,212 @@
+#
+# ZenMagick storefront URL mappings
+#
+#
+
+## global mappings
+global:
+  error:
+    template: views/error.php
+
+  category_not_found:
+    template: views/page_not_found.php
+  manufacturer_not_found:
+    template: views/page_not_found.php
+  page_not_found:
+    template: views/page_not_found.php
+  product_not_found:
+    template: views/product_not_found.php
+
+  index:
+    template: views/index.php
+
+  login:
+    view: redirect#requestId=login
+  empty_cart:
+    view: redirect#requestId=shopping_cart
+  cart_not_ready:
+    view: redirect#requestId=shopping_cart
+  cart_is_virtual:
+    view: redirect#requestId=checkout_payment
+  check_cart:
+    view: redirect#requestId=shopping_cart
+  low_stock:
+    view: redirect#requestId=shopping_cart
+  require_shipping:
+    view: redirect#requestId=checkout_shipping
+  require_shipping_address:
+    view: redirect#requestId=checkout_shipping_address
+  require_billing:
+    view: redirect#requestId=checkout_payment
+  require_billing_address:
+    view: redirect#requestId=checkout_payment_address
+
+## page mappings
+page:
+  # view without classname# prefix will be completed to: [default-view-classname]#[value]
+  popup_cvv_help:
+    layout: popup_layout.php
+    template: views/popup/cvv_help.php
+  popup_search_help:
+    layout: popup_layout.php
+    template: views/popup/search_help.php
+  popup_shipping_estimator:
+    layout: popup_layout.php
+    template: views/popup/shipping_estimator.php
+  popup_coupon_help:
+    layout: popup_layout.php
+    template: views/popup/coupon_help.php
+
+  account_history_info:
+    error:
+      view: redirect#requestId=account
+  address_book_edit:
+    formId: address
+    form: ZMAddress
+    success:
+      view: redirect#requestId=account
+    error:
+      view: redirect#requestId=account
+  address_book_add:
+    formId: address
+    form: ZMAddress
+    template: views/address_book_create.php
+    success:
+      view: redirect#requestId=account
+  address_book_delete:
+    success:
+      view: redirect#requestId=account
+  index:
+    category:
+      view: forward#requestId=category
+  discount_coupon:
+    info:
+      template: views/discount_coupon_info.php
+  category:
+    category_list:
+      template: views/category_list.php
+    manufacturer:
+      template: views/manufacturer.php
+    product_info:
+      view: forward#requestId=product_info
+  login:
+    success:
+      view: redirect#requestId=account
+    account:
+      view: redirect#requestId=account
+  logoff:
+    success:
+      view: redirect#requestId=logoff
+  password_forgotten:
+    success:
+      view: redirect#requestId=login
+  checkout_guest:
+    template: views/login.php
+    guest_checkout_disabled:
+      template: views/login.php
+    success:
+      view: redirect#requestId=checkout_shipping
+  guest_history:
+    success:
+      template: views/account_history_info.php
+  gv_redeem:
+    formId: gvRedeem
+    form: ZMGVRedeem
+  gv_faq:
+    formId: gvRedeem
+    form: ZMGVRedeem
+  gv_send:
+    formId: gvReceiver
+    form: ZMGVReceiver
+    success:
+      template: views/gv_send_confirm.php
+  gv_send_confirm:
+    formId: gvReceiver
+    form: ZMGVReceiver
+    edit:
+      view: forward#requestId=gv_send
+    success:
+      view: redirect#requestId=account
+  create_account:
+    formId: registration
+    form: ZMRegistrationForm
+    success:
+      view: redirect#requestId=create_account_success
+  account_edit:
+    formId: account
+    form: ZMAccountForm
+    success:
+      view: redirect#requestId=account
+  account_password:
+    success:
+      view: redirect#requestId=account
+  account_newsletters:
+    success:
+      view: redirect#requestId=account
+  account_notifications:
+    success:
+      view: redirect#requestId=account
+  checkout_shipping:
+    skip_shipping:
+      view: redirect#requestId=checkout_payment
+    success:
+      view: redirect#requestId=checkout_payment
+  ## alias to have a neutral point to start the checkout process
+  checkout:
+    template: views/checkout_shipping.php
+    controller: ZenMagick\StorefrontBundle\Controller\CheckoutShippingController
+    skip_shipping:
+      view: redirect#requestId=checkout_payment
+    success:
+      view: redirect#requestId=checkout_payment
+  ## avoid redirect loop
+  empty_cart:
+    view: redirect#requestId=shopping_cart
+  checkout_shipping_address:
+    controller: 'ZenMagick\StorefrontBundle\Controller\CheckoutAddressController#mode=shipping'
+    formId: shippingAddress
+    form: ZMAddress
+    success:
+      view: redirect#requestId=checkout_shipping
+  checkout_payment:
+    success:
+      view: redirect#requestId=checkout_confirmation
+  checkout_payment_address:
+    controller: 'ZenMagick\StorefrontBundle\Controller\CheckoutAddressController#mode=billing'
+    formId: billingAddress
+    form: ZMAddress
+    success:
+      view: redirect#requestId=checkout_payment
+  checkout_process:
+    controller: 'ZenMagick\ZenCartBundle\Controller\ZencartStorefrontController'
+  checkout_success:
+    controller: 'ZenMagick\StorefrontBundle\Controller\CheckoutSuccessController'
+  ipn_handler:
+    controller: 'ZenMagick\ZenCartBundle\Controller\ZencartStorefrontController'
+  redirect:
+    success:
+      view: redirect#requestId=index
+    error:
+      view: forward#requestId=index
+  product_reviews_write:
+    formId: newReview
+    form: ZenMagick\StoreBundle\Entity\Catalog\Review
+    success:
+      view: redirect#requestId=product_reviews
+  contact_us:
+    formId: contactUs
+    form: ZMContactInfo
+    success:
+      view: redirect#requestId=contact_us
+  tell_a_friend:
+    formId: tellAFriend
+    form: ZMEmailMessage
+    success:
+      view: redirect#requestId=product_info
+  search:
+    formId: searchCriteria
+    form: ZMSearchCriteria
+  advanced_search:
+    controller: 'ZenMagick\StorefrontBundle\Controller\SearchController#autoSearch=false'
+    formId: searchCriteria
+    form: ZMSearchCriteria

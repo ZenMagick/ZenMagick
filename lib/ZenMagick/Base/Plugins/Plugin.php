@@ -217,8 +217,8 @@ class Plugin extends ZMObject {
      */
     public function executePatch($sql, $messages, $debug=false) {
         if (!empty($sql)) {
-            $results = \ZenMagick\apps\admin\Utils\SQLRunner::execute_sql($sql, $debug);
-            foreach (\ZenMagick\apps\admin\Utils\SQLRunner::process_patch_results($results) as $msg) {
+            $results = \ZenMagick\AdminBundle\Utils\SQLRunner::execute_sql($sql, $debug);
+            foreach (\ZenMagick\AdminBundle\Utils\SQLRunner::process_patch_results($results) as $msg) {
                 $messages[] = $msg;
             }
             return empty($results['error']);

@@ -1,0 +1,37 @@
+<?xml version="1.0" ?>
+<container xmlns="http://symfony.com/schema/dic/services"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+    <imports>
+        <import resource="dashboard.xml" />
+    </imports>
+
+    <services>
+        <service id="storeEmailView" alias="storeTemplateView" />
+
+        <!-- TODO: drop when moving to using view instead of defaultView -->
+        <service id="defaultView" alias="templateView" />
+
+        <service id="adminUserPrefService" class="ZenMagick\AdminBundle\Services\AdminUserPrefService" />
+
+        <service id="adminUserRoleService" class="ZenMagick\AdminBundle\Services\AdminUserRoleService" />
+
+        <service id="adminUserService" class="ZenMagick\AdminBundle\Services\AdminUserService" />
+
+        <service id="sacsPermissionService" class="ZenMagick\AdminBundle\Services\SacsPermissionService" />
+
+        <service id="adminMenu" class="ZenMagick\StoreBundle\Menu\Menu" />
+
+        <service id="catalogDefaultTabController" class="ZenMagick\AdminBundle\Controller\CatalogDefaultTabController">
+            <tag name="apps.store.admin.tabcontroller" />
+        </service>
+
+        <service id="userFactory" class="ZenMagick\AdminBundle\Services\AdminUserFactory" />
+
+        <service id="adminTool" class="ZenMagick\AdminBundle\Http\Tools\ToolboxAdmin" scope="prototype">
+            <tag name="zenmagick.http.toolbox.tool" key="admin" />
+        </service>
+
+        <service id="themeBuilder" class="ZenMagick\AdminBundle\Utils\ThemeBuilder" scope="prototype" />
+    </services>
+</container>

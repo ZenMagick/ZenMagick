@@ -71,7 +71,7 @@ class Runtime {
      * @return string The application base folder or <code>null</code>.
      */
     public static function getApplicationPath() {
-        return self::getInstallationPath().'/apps/'.self::$context;
+        return self::getInstallationPath().'/lib/ZenMagick/'.ucfirst(self::$context).'Bundle';
     }
 
     /**

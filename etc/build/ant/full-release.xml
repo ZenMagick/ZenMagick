@@ -28,14 +28,14 @@
         <antcall target="dump-phpbb-install"></antcall>
 
         <!-- move ZenMagick SQL to the right place -->
-        <copy file="${zenmagick.src.dir}/apps/admin/installation/etc/config.sql" tofile="${release.full.dir}/zc_install/sql/plugins/mysql_config.sql" />
-        <copy file="${zenmagick.src.dir}/apps/admin/installation/etc/token_install.sql" tofile="${release.full.dir}/zc_install/sql/plugins/mysql_token_install.sql" />
-        <copy file="${zenmagick.src.dir}/apps/admin/installation/etc/admin_roles_install.sql" tofile="${release.full.dir}/zc_install/sql/plugins/mysql_admin_roles_install.sql" />
-        <copy file="${zenmagick.src.dir}/apps/admin/installation/etc/admin_prefs_install.sql" tofile="${release.full.dir}/zc_install/sql/plugins/mysql_admin_prefs_install.sql" />
-        <copy file="${zenmagick.src.dir}/apps/admin/installation/etc/sacs_perms_install.sql" tofile="${release.full.dir}/zc_install/sql/plugins/mysql_sacs_perms_install.sql" />
-        <copy file="${zenmagick.src.dir}/apps/admin/installation/etc/theme_chaining_install.sql" tofile="${release.full.dir}/zc_install/sql/plugins/mysql_theme_chaining_install.sql" />
-        <copy file="${zenmagick.src.dir}/apps/admin/installation/etc/review_title_install.sql" tofile="${release.full.dir}/zc_install/sql/plugins/mysql_review_title_install.sql" />
-        <copy file="${zenmagick.src.dir}/apps/admin/installation/etc/static_pages_install.sql" tofile="${release.full.dir}/zc_install/sql/plugins/mysql_static_pages_install.sql" />
+        <copy file="${zenmagick.src.dir}/lib/ZenMagick/AdminBundle/installation/etc/config.sql" tofile="${release.full.dir}/zc_install/sql/plugins/mysql_config.sql" />
+        <copy file="${zenmagick.src.dir}/lib/ZenMagick/AdminBundle/installation/etc/token_install.sql" tofile="${release.full.dir}/zc_install/sql/plugins/mysql_token_install.sql" />
+        <copy file="${zenmagick.src.dir}/lib/ZenMagick/AdminBundle/installation/etc/admin_roles_install.sql" tofile="${release.full.dir}/zc_install/sql/plugins/mysql_admin_roles_install.sql" />
+        <copy file="${zenmagick.src.dir}/lib/ZenMagick/AdminBundle/installation/etc/admin_prefs_install.sql" tofile="${release.full.dir}/zc_install/sql/plugins/mysql_admin_prefs_install.sql" />
+        <copy file="${zenmagick.src.dir}/lib/ZenMagick/AdminBundle/installation/etc/sacs_perms_install.sql" tofile="${release.full.dir}/zc_install/sql/plugins/mysql_sacs_perms_install.sql" />
+        <copy file="${zenmagick.src.dir}/lib/ZenMagick/AdminBundle/installation/etc/theme_chaining_install.sql" tofile="${release.full.dir}/zc_install/sql/plugins/mysql_theme_chaining_install.sql" />
+        <copy file="${zenmagick.src.dir}/lib/ZenMagick/AdminBundle/installation/etc/review_title_install.sql" tofile="${release.full.dir}/zc_install/sql/plugins/mysql_review_title_install.sql" />
+        <copy file="${zenmagick.src.dir}/lib/ZenMagick/AdminBundle/installation/etc/static_pages_install.sql" tofile="${release.full.dir}/zc_install/sql/plugins/mysql_static_pages_install.sql" />
         <copy file="${basedir}/etc/build/full/sql/mysql_default_sideboxes.sql" todir="${release.full.dir}/zc_install/sql/plugins/" />
         <copy file="${basedir}/etc/build/full/sql/mysql_other.sql" todir="${release.full.dir}/zc_install/sql/plugins/" />
 
@@ -241,7 +241,7 @@
         <mkdir dir="${build.dir}/dummies"/>
         <foreach target="create-sidebox-dummy" param="filename">
             <path>
-              <fileset dir="${zenmagick.src.dir}/apps/storefront/templates/boxes" includes="*.php" />
+                <fileset dir="${zenmagick.src.dir}/lib/ZenMagick/StorefrontBundle/Resources/views/boxes" includes="*.php" />
               <fileset dir="${zenmagick.src.dir}/themes/demo/templates/boxes" includes="*.php" />
             </path>
         </foreach>
