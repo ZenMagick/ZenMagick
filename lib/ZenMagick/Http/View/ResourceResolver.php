@@ -81,13 +81,6 @@ class ResourceResolver extends ZMObject {
             // available locale
             $localeCodes = array_reverse($this->container->get('localeService')->getValidLocaleCodes());
 
-            // add bundles as fallback fallback fallback
-            foreach ($this->container->getParameterBag()->get('kernel.bundles') as $bundleName => $bundleClass) {
-                $rclass = new ReflectionClass($bundleClass);
-                $bundlePath = dirname($rclass->getFilename());
-                $locations[] = $bundlePath.'/Resources/views';
-            }
-
             // add plugins as fallback fallback
             if ($this->container->has('pluginService')) { // @todo inject this instead
                 foreach ($this->container->get('pluginService')->getPluginsForContext() as $plugin) {
@@ -111,7 +104,7 @@ class ResourceResolver extends ZMObject {
      * @return array List of template locations.
      */
     protected function getApplicationTemplateLocations() {
-        return array($this->getApplicationTemplatePath());
+        return array($this->getApplicationTemplatePath(), Runtime::getInstallationPath().'/lib/ZenMagick/ZenCartBundle/Resources/views');
     }
 
     /**
@@ -127,13 +120,6 @@ class ResourceResolver extends ZMObject {
 
             // available locale
             $localeCodes = array_reverse($this->container->get('localeService')->getValidLocaleCodes());
-
-            // add bundles as fallback fallback fallback
-            foreach ($this->container->getParameterBag()->get('kernel.bundles') as $bundleName => $bundleClass) {
-                $rclass = new ReflectionClass($bundleClass);
-                $bundlePath = dirname($rclass->getFilename());
-                $locations[] = $bundlePath.'/Resources/public';
-            }
 
             // add plugins as fallback fallback
             if ($this->container->has('pluginService')) { // @todo inject this instead
@@ -167,7 +153,7 @@ class ResourceResolver extends ZMObject {
      * @return array List of resource locations.
      */
     protected function getApplicationResourceLocations() {
-        return array($this->getApplicationDocRoot());
+        return array($this->getApplicationDocRoot(), Runtime::getInstallationPath().'/lib/ZenMagick/ZenCartBundle/Resources/public/');
     }
 
     /**
@@ -187,7 +173,7 @@ class ResourceResolver extends ZMObject {
      * @return string The path to the application doc root.
      */
     public function getApplicationDocRoot() {
-        return Runtime::getInstallationPath().'/web/';
+        return Runtime::getApplicationPath().'/Resources/public/';
     }
 
     /**
