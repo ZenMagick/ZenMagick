@@ -178,7 +178,7 @@ class ResourceResolver extends ZMObject {
      * @return string The path to the application templates.
      */
     public function getApplicationTemplatePath() {
-        return Runtime::getApplicationPath().'/templates/views/';
+        return Runtime::getApplicationPath().'/Resources/views/';
     }
 
     /**
