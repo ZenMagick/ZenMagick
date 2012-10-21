@@ -14,5 +14,3 @@ storefront,admin:
       pattern: /unitTests
       defaults: { _controller: ZenMagick\plugins\unitTests\Controller\UnitTestsController::process }
       options: { view: tests.php?layout= }
-  autoload:
-    files: [lib/simpletest-trunk-20110128.packed.php]
