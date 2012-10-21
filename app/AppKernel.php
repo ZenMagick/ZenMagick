@@ -64,8 +64,8 @@ class AppKernel extends Kernel {
             new JMS\DiExtraBundle\JMSDiExtraBundle($this),
             new ZenMagick\ZenMagickBundle\ZenMagickBundle(),
             new ZenMagick\StoreBundle\StoreBundle(),
-            new ZenMagick\apps\admin\AdminBundle(),
-            new ZenMagick\apps\storefront\StorefrontBundle(),
+            new ZenMagick\AdminBundle\AdminBundle(),
+            new ZenMagick\StorefrontBundle\StorefrontBundle(),
         );
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {
             $bundles[] = new Symfony\Bundle\WebProfilerBundle\WebProfilerBundle;
@@ -94,7 +94,7 @@ class AppKernel extends Kernel {
         // @todo remove this when we we can prove we don't need $_SESSION
         $resources[] = function($container) use($context) {
             if ('storefront' == $context) {
-                $container->setParameter('session.class', 'ZenMagick\apps\storefront\Http\Session');
+                $container->setParameter('session.class', 'ZenMagick\StorefrontBundle\Http\Session');
             }
         };
 
@@ -120,7 +120,7 @@ class AppKernel extends Kernel {
      */
     public function getApplicationPath() {
         if ($context = $this->getContext()) {
-            return sprintf('%s/lib/ZenMagick/%sBundle', dirname($this->getRootDir()), ucfirst($context);
+            return sprintf('%s/lib/ZenMagick/%sBundle', dirname($this->getRootDir()), ucfirst($context));
         }
     }
 
