@@ -22,6 +22,7 @@ namespace ZenMagick\Http;
 use Exception;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\HttpKernelInterface;
+use Symfony\Component\HttpKernel\KernelEvents;
 use Symfony\Component\HttpKernel\Event\GetResponseEvent;
 use Symfony\Component\HttpKernel\Event\FilterControllerEvent;
 use Symfony\Component\HttpKernel\Event\GetResponseForControllerResultEvent;
@@ -125,10 +126,10 @@ class HttpListener implements EventSubscriberInterface {
 
     public static function getSubscribedEvents() {
         return array(
-            'kernel.request' => array(
+            KernelEvents::REQUEST => array(
                 array('onKernelRequest', 14),
             ),
-            'kernel.view' => array(
+            KernelEvents::VIEW => array(
                 array('onKernelView'),
             )
         );

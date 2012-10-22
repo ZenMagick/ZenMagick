@@ -26,6 +26,7 @@ use ZenMagick\Base\ZMObject;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\EventDispatcher\GenericEvent;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
+use Symfony\Component\HttpKernel\KernelEvents;
 use Symfony\Component\HttpKernel\Event\GetResponseEvent;
 use Symfony\Component\HttpKernel\Event\PostResponseEvent;
 
@@ -79,10 +80,10 @@ use Symfony\Component\HttpKernel\Event\PostResponseEvent;
 
     public static function getSubscribedEvents() {
         return array(
-            'kernel.request' => array(
+            KernelEvents::REQUEST => array(
                 array('onKernelRequest'),
             ),
-            'kernel.terminate' => array(
+            KernelEvents::TERMINATE => array(
                 array('onKernelTerminate'),
             )
         );

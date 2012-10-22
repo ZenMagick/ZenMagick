@@ -25,6 +25,7 @@ use ZenMagick\StoreBundle\Entity\Coupons\Coupon;
 
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
+use Symfony\Component\HttpKernel\KernelEvents;
 use Symfony\Component\HttpKernel\Event\FilterControllerEvent;
 use Symfony\Component\HttpKernel\HttpKernelInterface;
 
@@ -230,7 +231,7 @@ class ZenCartListener implements EventSubscriberInterface {
             'all_done' => array(array('logAdminPageAccess', 30)),
             'view_start' => array(array('onViewStart', 100)),
             'generate_email' => array(array('onGenerateEmail')),
-            'kernel.controller' => array(array('onKernelController', 30)),
+            KernelEvents::CONTROLLER => array(array('onKernelController', 30)),
         );
     }
 
