@@ -25,7 +25,6 @@ zenmagick:
     ## events
     events:
       listeners:
-        - ZenMagick\StoreBundle\EventListener\StoreListener
         - ZenMagick\AdminBundle\EventListener
   ## mvc
   mvc:

@@ -23,7 +23,11 @@ namespace ZenMagick\StoreBundle\EventListener;
 use ZenMagick\Base\Runtime;
 use ZenMagick\Base\ZMObject;
 
+use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\EventDispatcher\GenericEvent;
+use Symfony\Component\EventDispatcher\EventSubscriberInterface;
+use Symfony\Component\HttpKernel\Event\GetResponseEvent;
+use Symfony\Component\HttpKernel\Event\PostResponseEvent;
 
 /**
  * Shared store event listener.
@@ -32,12 +36,19 @@ use Symfony\Component\EventDispatcher\GenericEvent;
  *
  * @author DerManoMann
  */
-class StoreListener extends ZMObject {
+ class StoreListener extends ZMObject implements EventSubscriberInterface {
+
+    protected $container;
+
+    public function __construct(ContainerInterface $container) {
+        $this->container = $container;
+    }
+
     /**
      * {@inheritDoc}
      */
-    public function onRequestReady($event) {
-        $request = $event->getArgument('request');
+    public function onKernelRequest(GetResponseEvent $event) {
+        $request = $event->getRequest();
 
         $cPath = array();
         if (null !== ($path = $request->get('cPath'))) {
@@ -55,11 +66,26 @@ class StoreListener extends ZMObject {
 
     }
 
-    public function onContainerReady($event) {
+    /**
+     * Run various post termination events.
+     * @todo pass in list of services to run tasks on (perhaps via cron)
+     */
+    public function onKernelTerminate(PostResponseEvent $event) {
         $this->container->get('bannerService')->runTasks();
         $this->container->get('salemakerService')->runTasks();
         $this->container->get('productFeaturedService')->runTasks();
         $this->container->get('productSpecialsService')->runTasks();
+    }
+
+    public static function getSubscribedEvents() {
+        return array(
+            'kernel.request' => array(
+                array('onKernelRequest'),
+            ),
+            'kernel.terminate' => array(
+                array('onKernelTerminate'),
+            )
+        );
     }
 
 }

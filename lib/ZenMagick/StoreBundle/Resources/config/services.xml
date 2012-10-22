@@ -289,5 +289,10 @@
             <tag name="apps.store.admin.dashboard.widget.statusCheck" />
         </service>
 
+        <service id="zenmagick.store_listener" class="ZenMagick\StoreBundle\EventListener\StoreListener">
+            <tag name="kernel.event_subscriber" />
+            <argument type="service" id="service_container" />
+        </service>
+
     </services>
 </container>
