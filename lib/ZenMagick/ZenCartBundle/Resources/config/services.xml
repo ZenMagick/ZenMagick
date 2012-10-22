@@ -17,7 +17,7 @@
                 <argument type="service" id="service_container" />
             </call>
         </service>
-        <service id="zencart.listener" class="ZenMagick\ZenCartBundle\ZenCartListener">
+        <service id="zencart.listener" class="ZenMagick\ZenCartBundle\EventListener\ZenCartListener">
             <tag name="kernel.event_subscriber" />
             <argument type="service" id="service_container" />
         </service>
