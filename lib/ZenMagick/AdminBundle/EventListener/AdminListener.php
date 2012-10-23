@@ -17,7 +17,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-namespace ZenMagick\AdminBundle;
+namespace ZenMagick\AdminBundle\EventListener;
 
 use ZenMagick\Base\Runtime;
 use ZenMagick\Base\ZMObject;
@@ -32,7 +32,7 @@ use ZenMagick\StoreBundle\Menu\MenuLoader;
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class EventListener extends ZMObject {
+class AdminListener extends ZMObject {
     const DEFAULT_EDITOR_SERVICE_ID = 'plainEditorWidget';
 
     /**

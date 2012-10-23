@@ -151,7 +151,7 @@
         </service>
 
         <!-- @todo don't depend on all this code in one listener -->
-        <service id="zenmagick.http_listener" class="ZenMagick\Http\HttpListener">
+        <service id="zenmagick.http_listener" class="ZenMagick\ZenMagickBundle\EventListener\HttpListener">
             <tag name="kernel.event_subscriber" />
             <argument type="service" id="service_container" />
         </service>

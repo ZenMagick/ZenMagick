@@ -17,7 +17,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-namespace ZenMagick\StorefrontBundle;
+namespace ZenMagick\StorefrontBundle\EventListener;
 
 use ZenMagick\Base\Beans;
 use ZenMagick\Base\Toolbox;
@@ -34,7 +34,7 @@ use Symfony\Component\EventDispatcher\GenericEvent;
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class EventListener extends ZMObject {
+class StorefrontListener extends ZMObject {
 
     /**
      * Handle 'showAll' parameter for result lists and provide empty address for guest checkout if needed.

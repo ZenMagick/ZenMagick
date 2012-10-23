@@ -25,7 +25,7 @@ zenmagick:
     ## events
     events:
       listeners:
-        - ZenMagick\StorefrontBundle\EventListener
+        - ZenMagick\StorefrontBundle\EventListener\StorefrontListener
   ## mvc
   mvc:
     ## request
