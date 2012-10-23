@@ -87,16 +87,6 @@ class ConfigPatch extends SQLPatch {
             $configService->createConfigValue('ZenMagick Plugins Group Id', 'ZENMAGICK_PLUGIN_GROUP_ID', $pluginGroupId, $groupId);
         }
 
-        $adminDir = $configService->getConfigValue('ZENCART_ADMIN_FOLDER');
-        $guessedDir = basename($this->guessZcAdminPath());
-        if (null == $adminDir) {
-            $configService->createConfigValue('zencart admin folder', 'ZENCART_ADMIN_FOLDER', $guessedDir, $groupId);
-            $adminDir = $guessedDir;
-        }
-        if ($adminDir != $guessedDir) { // Update
-            $configService->updateConfigValue('ZENCART_ADMIN_FOLDER', $guessedDir);
-        }
-
         $sessionGroupId = $configService->getConfigGroupForName('Sessions')->getId();
 
         if (null == $configService->getConfigValue('SESSION_USE_ROOT_COOKIE_PATH')) {

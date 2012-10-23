@@ -24,11 +24,9 @@ $resourceManager->cssFile('zc_admin.css');
 $resourceManager->jsFile('zc_admin.js');
 
 $adminDir = $settingsService->get('zencart.admin_dir');
-$zcPath = $settingsService->get('zencart.root_dir');
-$adminWeb = $adminDir;
-$zcAdminPath = $zcPath.'/'.$adminDir.'/';
+$adminWeb = basename($adminDir);
 $zcPage = str_replace('zc_admin_', '',$request->getRequestId()).'.php';
-chdir($zcAdminPath);
+chdir($adminDir);
 
 //$autoLoader->setErrorLevel();
 // needed in a local context
@@ -40,8 +38,8 @@ $autoLoader->includeFiles('includes/languages/%language%.php');
 $autoLoader->includeFiles('includes/languages/%language%/'.$zcPage);
 $autoLoader->includeFiles('includes/languages/%language%/extra_definitions/*.php');
 
-$PHP_SELF = $zcAdminPath.$zcPage;
-$code = file_get_contents($zcAdminPath.$zcPage);
+$PHP_SELF = $adminDir.'/'.$zcPage;
+$code = file_get_contents($adminDir.'/'.$zcPage);
 $code = preg_replace("/<!doctype[^>]*>/s", '', $code);
 $code = preg_replace("/require\(.*application_top.php'\s*\);/", '', $code);
 $code = preg_replace("/require\(.*header.php'\s*\);/", '', $code);

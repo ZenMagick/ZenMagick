@@ -26,7 +26,6 @@ try {
     }
     $container->setParameter('zenmagick.plugins.enabled', false);
 }
-$container->setParameter('zencart.admin_dir', defined('ZENCART_ADMIN_FOLDER') ? ZENCART_ADMIN_FOLDER : 'admin');
 
 if ('admin' == $context) {
     $container->setParameter('session_timeout',  defined('SESSION_TIMEOUT_ADMIN') ? SESSION_TIMEOUT_ADMIN : 1440);

@@ -52,7 +52,7 @@ define('DIR_WS_TEMPLATES', DIR_WS_INCLUDES.'templates/');
 define('DIR_WS_DOWNLOAD_PUBLIC', DIR_WS_CATALOG.'pub/');
 
 define('DIR_FS_CATALOG', $zcPath.'/');
-define('DIR_FS_ADMIN', $zcPath.'/'.$settings->get('zencart.admin_dir').'/');
+define('DIR_FS_ADMIN', $settings->get('zencart.admin_dir').'/');
 define('DIR_FS_CACHE', $zcPath.'/cache/');
 define('DIR_FS_CATALOG_LANGUAGES', DIR_FS_CATALOG.'includes/languages/');
 define('DIR_FS_CATALOG_IMAGES', DIR_FS_CATALOG.'images/');

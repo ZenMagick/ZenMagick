@@ -62,7 +62,7 @@ class ZenCartBundle extends Bundle {
         $container = $this->container;
         $zcRoot = $this->container->getParameter('zencart.root_dir');
         $zc = $zcRoot.'/includes/classes/';
-        $zca = $zcRoot.'/'.$this->container->getParameter('zencart.admin_dir').'/includes/classes/';
+        $zca = $this->container->getParameter('zencart.admin_dir').'/includes/classes/';
         $b  = __DIR__.'/bridge/includes/classes/';
         $ba  = __DIR__.'/bridge/admin/includes/classes/';
         $map = array(

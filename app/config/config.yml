@@ -79,3 +79,4 @@ zenmagick:
 
 zencart:
     root_dir: ~
+    admin_dir: ~

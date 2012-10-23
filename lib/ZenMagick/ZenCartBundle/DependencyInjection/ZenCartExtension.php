@@ -21,6 +21,7 @@
 namespace ZenMagick\ZenCartBundle\DependencyInjection;
 
 use Symfony\Component\Config\FileLocator;
+use Symfony\Component\Finder\Finder;
 use Symfony\Component\HttpKernel\DependencyInjection\Extension;
 use Symfony\Component\DependencyInjection\Loader\XmlFileLoader;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
@@ -31,8 +32,6 @@ class ZenCartExtension extends Extension {
 
     /**
      * {@inheritDoc}
-     *
-     * @todo we should be setting the zencart.root_dir param here, but we can't yet.
      */
     public function load(array $configs, ContainerBuilder $container) {
 
@@ -51,8 +50,37 @@ class ZenCartExtension extends Extension {
         if (isset($config['root_dir']) && !empty($config['root_dir'])) {
             $container->setParameter('zencart.root_dir', $config['root_dir']);
         }
-        $loader->load('services.xml');
 
+        // Set path to zencart admin directory.
+        $adminDir = null;
+        if (isset($config['admin_dir']) && !empty($config['admin_dir'])) {
+            $adminDir = $config['admin_dir'];
+        }
+
+        if (null == $adminDir) {
+            $adminDir = $this->guessZcAdminDir($container->getParameter('zencart.root_dir'));
+        }
+
+        $container->setParameter('zencart.admin_dir', $adminDir);
+
+        $loader->load('services.xml');
+    }
+
+    /**
+     * Get ZenCart admin directory.
+     *
+     * @param string zcRootDir path to zencart root
+     * @return string
+     */
+    protected function guessZcAdminDir($zcRootDir) {
+        $finder = Finder::create()->files()->in($zcRootDir)->depth('== 1')
+            ->name('featured.php')->name('specials.php');
+
+        if (2 != count($finder)) return;
+        foreach($finder as $file) {
+            $adminDir = dirname($file->getRealpath());
+        }
+        return $adminDir;
     }
 
     /**
