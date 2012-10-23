@@ -41,16 +41,6 @@ class InstallationStatusCheck implements StatusCheck {
             $messages[] = array(StatusCheck::STATUS_NOTICE, sprintf(_zm('Installation directory exists at: %s. Please remove this directory for security reasons.'), $installDir));
         }
 
-        $configure = $zcPath.'/includes/configure.php';
-        if (file_exists($configure) && is_writeable($configure)) {
-            $messages[] = array(StatusCheck::STATUS_WARN, sprintf(_zm('Store configuration file: %s should be read-only.'), $configure));
-        }
-
-        $configure = $zcPath.'/'.$settingsService->get('zencart.admin_dir').'/includes/configure.php';
-        if (file_exists($configure) && is_writeable($configure)) {
-            $messages[] = array(StatusCheck::STATUS_WARN, sprintf(_zm('Admin configuration file: %s should be read-only.'), $configure));
-        }
-
         return $messages;
     }
 
