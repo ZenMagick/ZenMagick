@@ -18,13 +18,11 @@ $prefix = $container->getParameter('table_prefix');
 try {
     $configService = new \ZenMagick\StoreBundle\Services\ConfigService;
     $configService->loadAll();
-    $container->setParameter('session_handler', 'session.handler.pdo');
 } catch(\Exception $e) {
     // Couldn't connect... this is arguably the wrong place to do this.
     if ($e->getCode() != 1049) {
         throw $e;
     }
-    $container->setParameter('zenmagick.plugins.enabled', false);
 }
 
 if ('admin' == $context) {
