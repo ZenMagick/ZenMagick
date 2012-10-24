@@ -5,7 +5,7 @@ parameters:
     database_name:     zenmagick
     database_user:     root
     database_password: ~
-    table_prefix:      ''
+    table_prefix:      ""
 
     mailer_transport:  mail
     mailer_host:       localhost
@@ -21,4 +21,4 @@ parameters:
 
     session_timeout: 1440
     session_handler: session.handler.pdo
-    session.class: 'ZenMagick\Http\Session\Session'
+    session.class: "ZenMagick\Http\Session\Session"

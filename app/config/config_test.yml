@@ -12,4 +12,4 @@ web_profiler:
 swiftmailer:
     disable_delivery: true
 zencart:
-   root_dir: %zenmagick.root_dir%/vendor/zenmagick/zencart/
+   root_dir: "%zenmagick.root_dir%/vendor/zenmagick/zencart/"
