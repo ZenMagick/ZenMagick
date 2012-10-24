@@ -67,6 +67,3 @@ mappings:
   create_account: 
     level: anonymous
     secure: true
-  tell_a_friend: 
-    level: registered
-    secure: true

@@ -198,11 +198,6 @@ page:
     form: ZMContactInfo
     success:
       view: redirect#requestId=contact_us
-  tell_a_friend:
-    formId: tellAFriend
-    form: ZMEmailMessage
-    success:
-      view: redirect#requestId=product_info
   search:
     formId: searchCriteria
     form: ZMSearchCriteria

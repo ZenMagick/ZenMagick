@@ -72,7 +72,6 @@ class TestZMProducts extends TestCase {
         $fieldData = array(
             'starting_at' => true,
             'reviews' => true,
-            'tell_a_friend' => true
         );
         $product = $this->container->get('productService')->getProductForId(2, 1);
         foreach ($fieldData as $field => $value) {

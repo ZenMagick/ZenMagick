@@ -38,14 +38,6 @@ meta:
                   default: true
                   label: Enable
                   style: checkbox
-          tell_a_friend:
-              title: 'Tell A Friend page'
-              description: 'Use ReCAPTCHA on Tell A Friend page'
-              type: boolean
-              config:
-                  default: true
-                  label: Enable
-                  style: checkbox
           product_reviews_write:
               title: 'Write Review page'
               description: 'Use ReCAPTCHA on Write Review page'

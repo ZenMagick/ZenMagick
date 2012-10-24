@@ -37,7 +37,6 @@ class RecaptchaPlugin extends Plugin {
     private $pageConfig_ = array(
         'create_account' => array('Create Account', 'registration'),
         'contact_us' => array('Contact Us', 'contactUs'),
-        'tell_a_friend' => array('Tell A Friend', 'tellAFriend'),
         'product_reviews_write' => array('Write Review', 'newReview')
     );
 

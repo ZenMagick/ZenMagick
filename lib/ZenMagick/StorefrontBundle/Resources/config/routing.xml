@@ -311,13 +311,6 @@
         <default key="_controller">ZenMagick\StorefrontBundle\Controller\ProductReviewsInfoController::process</default>
     </route>
 
-    <route id="tell_a_friend" pattern="/tell-a-friend/{productId}">
-        <default key="_controller">ZenMagick\StorefrontBundle\Controller\TellAFriendController::process</default>
-        <default key="productId"></default>
-        <option key="view">redirect://product_info</option>
-        <option key="form">ZMEmailMessage#formId=tellAFriend</option>
-    </route>
-
     <route id="product_info" pattern="/product/{productId}">
         <default key="_controller">ZenMagick\StorefrontBundle\Controller\ProductInfoController::showAction</default>
     </route>

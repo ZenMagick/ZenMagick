@@ -315,11 +315,6 @@ div#eztoc p a:hover {text-decoration:none;}
 #b_product_reviews_write #author {margin:5px 0 8px;font-weight:bold;}
 #b_product_reviews_write textarea {display:block;}
 
-/* tell a friend */
-#b_tell_a_friend label {width:11em;float:left;}
-#b_tell_a_friend fieldset br {clear:left;}
-#b_tell_a_friend .advisory {margin-top:24px;}
-
 /* music */
 div.mcol {border:1px solid gray;background-color:#fafbfc;padding:2px;}
 

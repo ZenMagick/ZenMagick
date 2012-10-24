@@ -73,8 +73,6 @@ isLogPageStats: true
 isEnabledGV: false
 # enable coupons
 isEnabledCoupons: false
-# allow anonymous tell a friend; good for spamming ;)
-isTellAFriendAnonymousAllow: false
 # do reviews need to be approved
 isApproveReviews: true
 # customer approval default value

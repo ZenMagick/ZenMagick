@@ -99,7 +99,7 @@ use ZenMagick\StoreBundle\Services\Products;
           <?php } ?>
       </fieldset>
   <?php } ?>
-  <?php if ($currentProduct->hasReviews() || $currentProduct->getTypeSetting('reviews') || $currentProduct->getTypeSetting('tell_a_friend')) { ?>
+  <?php if ($currentProduct->hasReviews() || $currentProduct->getTypeSetting('reviews')) { ?>
       <fieldset>
           <legend><?php _vzm("Other Options") ?></legend>
           <?php if ($currentProduct->hasReviews()) { ?>
@@ -107,9 +107,6 @@ use ZenMagick\StoreBundle\Services\Products;
           <?php } ?>
           <?php if ($currentProduct->getTypeSetting('reviews')) { ?>
               <a class="btn" href="<?php echo $net->url('product_reviews_write', "productId=".$currentProduct->getId()) ?>"><?php _vzm("Write a Review") ?></a>
-          <?php } ?>
-          <?php if ($currentProduct->getTypeSetting('tell_a_friend')) { ?>
-              <a class="btn" href="<?php echo $net->url('tell_a_friend', "productId=".$currentProduct->getId()) ?>"><?php _vzm("Tell a friend about this product") ?></a>
           <?php } ?>
       </fieldset>
   <?php } ?>
