@@ -54,7 +54,7 @@ class ProductOptionValue {
     /**
      * @var string $optionValueName
      *
-     * @ORM\Column(name="products_options_values_name", type="string", length=64, nullable=false)
+     * @ORM\Column(name="products_options_values_name", type="string", length=255, nullable=false)
      */
     private $optionsValueName;
 
