@@ -230,7 +230,7 @@
 
       // set the reply-to address.  If none set yet, then use Store's default email name/address.
       // If sending from contact-us or tell-a-friend page, use the supplied info
-      $email_reply_to_address = (isset($email_reply_to_address) && $email_reply_to_address != '') ? $email_reply_to_address : (in_array($module, array('contact_us') ? $from_email_address : EMAIL_FROM);
+      $email_reply_to_address = (isset($email_reply_to_address) && $email_reply_to_address != '') ? $email_reply_to_address : (in_array($module, array('contact_us')) ? $from_email_address : EMAIL_FROM);
       $email_reply_to_name    = (isset($email_reply_to_name) && $email_reply_to_name != '')    ? $email_reply_to_name    : (in_array($module, array('contact_us')) ? $from_email_name    : STORE_NAME);
       $mail->AddReplyTo($email_reply_to_address, $email_reply_to_name);
 
