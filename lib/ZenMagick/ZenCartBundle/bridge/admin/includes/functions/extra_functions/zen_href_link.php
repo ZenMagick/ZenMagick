@@ -29,6 +29,11 @@ use ZenMagick\Base\Runtime;
 function zen_href_link($page='', $params='', $transport='NONSSL', $addSessionId=true, $seo=true, $isStatic=false, $useContext=true) {
     $net = Runtime::getContainer()->get('netTool');
     $page = str_replace('.php', '', $page);
+
+    if (false !== strpos($page, '?')) {
+        list($page, $pageParams) = explode('?', $page);
+        $params .= $pageParams;
+    }
     parse_str($params, $tmp);
     $params = http_build_query($tmp);
     try {
