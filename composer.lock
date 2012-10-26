@@ -385,12 +385,12 @@
             "source": {
                 "type": "git",
                 "url": "git://github.com/l3pp4rd/DoctrineExtensions.git",
-                "reference": "fbf4a3ea7b2b561d90923878083ef5140a7952fb"
+                "reference": "c1b29053224b7ddf5496e434e2bd7dc258db4731"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://github.com/l3pp4rd/DoctrineExtensions/zipball/fbf4a3ea7b2b561d90923878083ef5140a7952fb",
-                "reference": "fbf4a3ea7b2b561d90923878083ef5140a7952fb",
+                "url": "https://github.com/l3pp4rd/DoctrineExtensions/zipball/c1b29053224b7ddf5496e434e2bd7dc258db4731",
+                "reference": "c1b29053224b7ddf5496e434e2bd7dc258db4731",
                 "shasum": ""
             },
             "require": {
@@ -401,7 +401,7 @@
                 "doctrine/orm": ">=2.1",
                 "doctrine/mongodb-odm": "*"
             },
-            "time": "1351018399",
+            "time": "1351233998",
             "type": "library",
             "extra": {
                 "branch-alias": {
@@ -1007,22 +1007,22 @@
         },
         {
             "name": "swiftmailer/swiftmailer",
-            "version": "dev-master",
+            "version": "v4.2.2",
             "source": {
                 "type": "git",
                 "url": "git://github.com/swiftmailer/swiftmailer.git",
-                "reference": "84845f0fa8e38e1c4411c5fb26ba5b80bf5666c9"
+                "reference": "v4.2.2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://github.com/swiftmailer/swiftmailer/zipball/84845f0fa8e38e1c4411c5fb26ba5b80bf5666c9",
-                "reference": "84845f0fa8e38e1c4411c5fb26ba5b80bf5666c9",
+                "url": "https://github.com/swiftmailer/swiftmailer/zipball/v4.2.2",
+                "reference": "v4.2.2",
                 "shasum": ""
             },
             "require": {
                 "php": ">=5.2.4"
             },
-            "time": "1351090951",
+            "time": "2012-10-25 01:30:40",
             "type": "library",
             "extra": {
                 "branch-alias": {
@@ -1233,12 +1233,12 @@
             "source": {
                 "type": "git",
                 "url": "git://github.com/symfony/symfony.git",
-                "reference": "562d3516fd1cea5932585a17702b2876db7fa668"
+                "reference": "5155aecb3ac85597d7a70ac57899c860a6031501"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://github.com/symfony/symfony/zipball/562d3516fd1cea5932585a17702b2876db7fa668",
-                "reference": "562d3516fd1cea5932585a17702b2876db7fa668",
+                "url": "https://github.com/symfony/symfony/zipball/5155aecb3ac85597d7a70ac57899c860a6031501",
+                "reference": "5155aecb3ac85597d7a70ac57899c860a6031501",
                 "shasum": ""
             },
             "require": {
@@ -1287,7 +1287,7 @@
                 "propel/propel1": "dev-master",
                 "monolog/monolog": "1.*"
             },
-            "time": "1351091568",
+            "time": "1351255755",
             "type": "library",
             "extra": {
                 "branch-alias": {
