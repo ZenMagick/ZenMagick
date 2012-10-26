@@ -500,19 +500,19 @@ class AdminUser extends ZMObject implements UserRoleCredentials {
      * Add adminRole
      *
      * @todo rename to roles once we can use it
-     * @param ZenMagick\ZenCartBundle\Entity\AdminRole $adminRole
+     * @param ZenMagick\AdminBundle\Entity\AdminRole $adminRole
      */
-    public function addAdminRole(\ZenMagick\ZenCartBundle\Entity\AdminRole $adminRole) {
+    public function addAdminRole(\ZenMagick\AdminBundle\Entity\AdminRole $adminRole) {
         $this->adminRole[] = $adminRole;
     }
 
     /**
      * Remove adminRole
      *
-     * @param ZenMagick\ZenCartBundle\Entity\AdminRole $adminRole
+     * @param ZenMagick\AdminBundle\Entity\AdminRole $adminRole
      * @todo rename to role once we can use it
      */
-    public function removeAdminRole(\ZenMagick\ZenCartBundle\Entity\AdminRole $adminRole) {
+    public function removeAdminRole(\ZenMagick\AdminBundle\Entity\AdminRole $adminRole) {
         $this->adminRole->removeElement($adminRole);
     }
 
