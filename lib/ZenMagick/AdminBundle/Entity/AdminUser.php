@@ -22,17 +22,19 @@ namespace ZenMagick\AdminBundle\Entity;
 use ZenMagick\Base\ZMObject;
 use ZenMagick\Http\Sacs\Handler\UserRoleCredentials;
 
-use Doctrine\ORM\Mapping AS ORM;
+use Doctrine\ORM\Mapping as ORM;
 
 /**
- * A admin user.
+ * An admin user.
  *
+ * @tod remove admin_level from here
  * @author DerManoMann <mano@zenmagick.org>
  * @ORM\Table(name="admin",
  *  uniqueConstraints={@ORM\UniqueConstraint(name="idx_admin_name_zen",columns={"admin_name"})},
  *  indexes={
  *      @ORM\Index(name="idx_admin_name_zen", columns={"admin_name"}),
  *      @ORM\Index(name="idx_admin_email_zen", columns={"admin_email"}),
+ *      @ORM\Index(name="idx_admin_profile_zen", columns={"admin_profile"}),
  *  })
  * @ORM\Entity
  */
@@ -69,6 +71,96 @@ class AdminUser extends ZMObject implements UserRoleCredentials {
      * @ORM\Column(name="admin_level", type="boolean", nullable=false)
      */
     private $live;
+    /**
+     * @var integer $profile
+     *
+     * @ORM\Column(name="admin_profile", type="integer", nullable=false)
+     */
+    private $profile;
+
+    /**
+     * @var string $prevPass1
+     *
+     * @ORM\Column(name="prev_pass1", type="string", length=40, nullable=false)
+     */
+    private $prevPass1;
+
+    /**
+     * @var string $prevPass2
+     *
+     * @ORM\Column(name="prev_pass2", type="string", length=40, nullable=false)
+     */
+    private $prevPass2;
+
+    /**
+     * @var string $prevPass3
+     *
+     * @ORM\Column(name="prev_pass3", type="string", length=40, nullable=false)
+     */
+    private $prevPass3;
+
+    /**
+     * @var \DateTime $pwdLastChangeDate
+     *
+     * @ORM\Column(name="pwd_last_change_date", type="datetime", nullable=false)
+     */
+    private $pwdLastChangeDate;
+
+    /**
+     * @var string $resetToken
+     *
+     * @ORM\Column(name="reset_token", type="string", length=60, nullable=false)
+     */
+    private $resetToken;
+
+    /**
+     * @var \DateTime $lastModified
+     *
+     * @ORM\Column(name="last_modified", type="datetime", nullable=false)
+     */
+    private $lastModified;
+
+    /**
+     * @var \DateTime $lastLoginDate
+     *
+     * @ORM\Column(name="last_login_date", type="datetime", nullable=false)
+     */
+    private $lastLoginDate;
+
+    /**
+     * @var string $lastLoginIp
+     *
+     * @ORM\Column(name="last_login_ip", type="string", length=15, nullable=false)
+     */
+    private $lastLoginIp;
+
+    /**
+     * @var integer $failedLogins
+     *
+     * @ORM\Column(name="failed_logins", type="smallint", nullable=false)
+     */
+    private $failedLogins;
+
+    /**
+     * @var integer $lockoutExpires
+     *
+     * @ORM\Column(name="lockout_expires", type="integer", nullable=false)
+     */
+    private $lockoutExpires;
+
+    /**
+     * @var \DateTime $lastFailedAttempt
+     *
+     * @ORM\Column(name="last_failed_attempt", type="datetime", nullable=false)
+     */
+    private $lastFailedAttempt;
+
+    /**
+     * @var string $lastFailedIp
+     *
+     * @ORM\Column(name="last_failed_ip", type="string", length=15, nullable=false)
+     */
+    private $lastFailedIp;
 
     // @todo use adminRoles!
     private $roles;
@@ -216,4 +308,219 @@ class AdminUser extends ZMObject implements UserRoleCredentials {
         $this->container->get('adminUserPrefService')->setPrefForName($this->getId(), $name, $value);
     }
 
+    /**
+     * Get profile
+     *
+     * @return integer
+     */
+    public function getProfile() { return $this->profile; }
+
+    /**
+     * Set profile
+     *
+     * @param integer $profile
+     */
+    public function setProfile($profile) {$this->profile = $profile; }
+
+    /**
+     * Get prevPass1
+     *
+     * @return string
+     */
+    public function getPrevPass1() { return $this->prevPass1; }
+
+    /**
+     * Set prevPass1
+     *
+     * @param string $prevPass1
+     */
+    public function setPrevPass1($prevPass1) { $this->prevPass1 = $prevPass1; }
+
+    /**
+     * Get prevPass2
+     *
+     * @return string
+     */
+    public function getPrevPass2() { return $this->prevPass2; }
+
+    /**
+     * Set prevPass2
+     *
+     * @param string $prevPass2
+     */
+    public function setPrevPass2($prevPass2) { $this->prevPass2 = $prevPass2; }
+
+    /**
+     * Get prevPass3
+     *
+     * @return string
+     */
+    public function getPrevPass3()
+    {
+        return $this->prevPass3;
+    }
+
+    /**
+     * Set prevPass3
+     *
+     * @param string $prevPass3
+     */
+    public function setPrevPass3($prevPass3) { $this->prevPass3 = $prevPass3; }
+
+    /**
+     * Get pwdLastChangeDate
+     *
+     * @return \DateTime
+     */
+    public function getPwdLastChangeDate() { return $this->pwdLastChangeDate; }
+
+    /**
+     * Set pwdLastChangeDate
+     *
+     * @param \DateTime $pwdLastChangeDate
+     */
+    public function setPwdLastChangeDate($pwdLastChangeDate) { $this->pwdLastChangeDate = $pwdLastChangeDate; }
+
+    /**
+     * Get resetToken
+     *
+     * @return string
+     */
+    public function getResetToken() { return $this->resetToken; }
+
+    /**
+     * Set resetToken
+     *
+     * @param string $resetToken
+     */
+    public function setResetToken($resetToken) { $this->resetToken = $resetToken; }
+
+    /**
+     * Get lastModified
+     *
+     * @return \DateTime
+     */
+    public function getLastModified() { return $this->lastModified; }
+
+
+    /**
+     * Set lastModified
+     *
+     * @param \DateTime $lastModified
+     */
+    public function setLastModified($lastModified) { $this->lastModified = $lastModified; }
+
+    /**
+     * Get lastLoginDate
+     *
+     * @return \DateTime
+     */
+    public function getLastLoginDate() { return $this->lastLoginDate; }
+
+
+    /**
+     * Set lastLoginDate
+     *
+     * @param \DateTime $lastLoginDate
+     */
+    public function setLastLoginDate($lastLoginDate) { $this->lastLoginDate = $lastLoginDate; }
+
+    /**
+     * Get lastLoginIp
+     *
+     * @return string
+     */
+    public function getLastLoginIp() { return $this->lastLoginIp; }
+
+
+    /**
+     * Set lastLoginIp
+     *
+     * @param string $lastLoginIp
+     */
+    public function setLastLoginIp($lastLoginIp) { $this->lastLoginIp = $lastLoginIp; }
+
+    /**
+     * Get failedLogins
+     *
+     * @return integer
+     */
+    public function getFailedLogins() { return $this->failedLogins; }
+
+    /**
+     * Set failedLogins
+     *
+     * @param integer $failedLogins
+     */
+    public function setFailedLogins($failedLogins) { $this->failedLogins = $failedLogins; }
+
+    /**
+     * Get lockoutExpires
+     *
+     * @return integer
+     */
+    public function getLockoutExpires() { return $this->lockoutExpires;}
+
+    /**
+     * Set lockoutExpires
+     *
+     * @param integer $lockoutExpires
+     */
+    public function setLockoutExpires($lockoutExpires) { $this->lockoutExpires = $lockoutExpires; }
+
+    /**
+     * Get lastFailedAttempt
+     *
+     * @return \DateTime
+     */
+    public function getLastFailedAttempt() { return $this->lastFailedAttempt; }
+
+    /**
+     * Set lastFailedAttempt
+     *
+     * @param \DateTime $lastFailedAttempt
+     */
+    public function setLastFailedAttempt($lastFailedAttempt){ $this->lastFailedAttempt = $lastFailedAttempt; }
+
+    /**
+     * Get lastFailedIp
+     *
+     * @return string
+     */
+    public function getLastFailedIp() { return $this->lastFailedIp; }
+
+    /**
+     * Set lastFailedIp
+     *
+     * @param string $lastFailedIp
+     */
+    public function setLastFailedIp($lastFailedIp) { $this->lastFailedIp = $lastFailedIp; }
+
+    /**
+     * Add adminRole
+     *
+     * @todo rename to roles once we can use it
+     * @param ZenMagick\ZenCartBundle\Entity\AdminRoles $adminRole
+     */
+    public function addAdminRole(\ZenMagick\ZenCartBundle\Entity\AdminRoles $adminRole) {
+        $this->adminRole[] = $adminRole;
+    }
+
+    /**
+     * Remove adminRole
+     *
+     * @param ZenMagick\ZenCartBundle\Entity\AdminRoles $adminRole
+     * @todo rename to role once we can use it
+     */
+    public function removeAdminRole(\ZenMagick\ZenCartBundle\Entity\AdminRoles $adminRole) {
+        $this->adminRole->removeElement($adminRole);
+    }
+
+    /**
+     * Get adminRole
+     *
+     * @return Doctrine\Common\Collections\Collection
+     * @todo rename to role once we can use it
+     */
+    public function getAdminRole() { return $this->adminRole; }
 }
