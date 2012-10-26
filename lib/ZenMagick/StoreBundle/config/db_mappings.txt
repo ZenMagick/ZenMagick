@@ -31,7 +31,10 @@ array(
         'admin_id' => array('column' => 'admin_id', 'type' => 'integer'),
         'page_accessed' => array('column' => 'page_accessed', 'type' => 'string'),
         'page_parameters' => array('column' => 'page_parameters', 'type' => 'text'),
-        'ip_address' => array('column' => 'ip_address', 'type' => 'string')
+        'ip_address' => array('column' => 'ip_address', 'type' => 'string'),
+        'flagged' => array('column' => 'flagged', 'type' => 'boolean'),
+        'attention' => array('column' => 'attention', 'type' => 'string'),
+        'gzpost' => array('column' => 'gzpost', 'type' => 'text'),
     ),
     'admin_prefs' => array(
         'admin_pref_id' => array('column' => 'admin_pref_id', 'type' => 'integer', 'key' => true, 'auto' => true),

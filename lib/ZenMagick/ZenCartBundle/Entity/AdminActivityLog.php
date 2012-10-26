@@ -11,7 +11,8 @@ use Doctrine\ORM\Mapping as ORM;
  *  indexes={
  *      @ORM\Index(name="idx_page_accessed_zen", columns={"page_accessed"}),
  *      @ORM\Index(name="idx_access_date_zen", columns={"access_date"}),
- *      @ORM\Index(name="idx_ip_zen", columns={"ip_address"})
+ *      @ORM\Index(name="idx_ip_zen", columns={"ip_address"}),
+ *      @ORM\Index(name="idx_flagged_zen", columns={"flagged"})
  *  })
  * @ORM\Entity
  */
@@ -20,7 +21,7 @@ class AdminActivityLog
     /**
      * @var integer $id
      *
-     * @ORM\Column(name="log_id", type="integer", nullable=false)
+     * @ORM\Column(name="log_id", type="bigint", nullable=false)
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="IDENTITY")
      */
@@ -60,6 +61,28 @@ class AdminActivityLog
      * @ORM\Column(name="ip_address", type="string", length=45, nullable=false)
      */
     private $ipAddress;
+
+    /**
+     * @var boolean $flagged
+     *
+     * @ORM\Column(name="flagged", type="boolean", nullable=false)
+     */
+    private $flagged;
+
+    /**
+     * @var string $attention
+     *
+     * @ORM\Column(name="attention", type="string", length=255, nullable=false)
+     */
+    private $attention;
+
+    /**
+     * @var string $gzPost
+     *
+     * @ORM\Column(name="gzpost", type="text")
+     */
+    private $gzPost;
+
 
     public function __construct() {
         $this->adminId = 0;
@@ -183,5 +206,74 @@ class AdminActivityLog
     public function getIpAddress()
     {
         return $this->ipAddress;
+    }
+
+    /**
+     * Set flagged
+     *
+     * @param boolean $flagged
+     * @return AdminActivityLog
+     */
+    public function setFlagged($flagged)
+    {
+        $this->flagged = $flagged;
+    
+        return $this;
+    }
+
+    /**
+     * Get flagged
+     *
+     * @return boolean 
+     */
+    public function getFlagged()
+    {
+        return $this->flagged;
+    }
+
+    /**
+     * Set attention
+     *
+     * @param string $attention
+     * @return AdminActivityLog
+     */
+    public function setAttention($attention)
+    {
+        $this->attention = $attention;
+    
+        return $this;
+    }
+
+    /**
+     * Get attention
+     *
+     * @return string 
+     */
+    public function getAttention()
+    {
+        return $this->attention;
+    }
+
+    /**
+     * Set gzPost
+     *
+     * @param string $gzPost
+     * @return AdminActivityLog
+     */
+    public function setGzPost($gzPost)
+    {
+        $this->gzPost = $gzPost;
+    
+        return $this;
+    }
+
+    /**
+     * Get gzPost
+     *
+     * @return string 
+     */
+    public function getGzPost()
+    {
+        return $this->gzPost;
     }
 }
