@@ -22,3 +22,5 @@ parameters:
     session_timeout: 1440
     session_handler: session.handler.pdo
     session.class: "ZenMagick\Http\Session\Session"
+
+    zenmagick.plugins.enabled: true

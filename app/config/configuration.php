@@ -20,6 +20,7 @@ try {
     $configService->loadAll();
 } catch(\Exception $e) {
     // Couldn't connect... this is arguably the wrong place to do this.
+    $container->setParameter('zenmagick.plugins.enabled', false);
     if ($e->getCode() != 1049) {
         throw $e;
     }
