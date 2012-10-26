@@ -27,7 +27,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * An admin user.
  *
- * @tod remove admin_level from here
+ * @todo remove admin_level from here
  * @author DerManoMann <mano@zenmagick.org>
  * @ORM\Table(name="admin",
  *  uniqueConstraints={@ORM\UniqueConstraint(name="idx_admin_name_zen",columns={"admin_name"})},
