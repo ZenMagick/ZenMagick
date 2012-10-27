@@ -12,10 +12,10 @@ if (!defined('IS_ADMIN_FLAG')) define('IS_ADMIN_FLAG', Runtime::isContextMatch('
 define('DB_PREFIX', $parameterBag->get('table_prefix'));
 
 // @todo these shouldn't be available by default
-//define('DB_SERVER', $parameterBag->get('database_host'));
-//define('DB_SERVER_USERNAME', $parameterBag->get('database_user'));
-//define('DB_SERVER_PASSWORD', $parameterBag->get('database_password'));
-//define('DB_DATABASE', $parameterBag->get('database_name'));
+define('DB_SERVER', $parameterBag->get('database_host'));
+define('DB_SERVER_USERNAME', $parameterBag->get('database_user'));
+define('DB_SERVER_PASSWORD', $parameterBag->get('database_password'));
+define('DB_DATABASE', $parameterBag->get('database_name'));
 
 // @todo need to fix up for shared certificates
 // @todo probably switch out this mechanism once we fully control the system
