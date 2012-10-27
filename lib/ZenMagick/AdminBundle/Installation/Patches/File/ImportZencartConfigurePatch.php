@@ -23,7 +23,7 @@ use ZenMagick\Base\Runtime;
 use ZenMagick\AdminBundle\Installation\Patches\FilePatch;
 use Symfony\Component\Yaml\Yaml;
 
-define('_ZM_STORE_CONFIG_YAML', Runtime::getInstallationPath().'/config/store-config.yaml');
+define('_ZM_STORE_CONFIG_YAML', Runtime::getInstallationPath().'/config/parameters.yml');
 
 /**
  * Patch to create a config/store-config.yaml from zencart includes/configure.php
@@ -51,8 +51,7 @@ class ImportZencartConfigurePatch extends FilePatch {
     function isOpen() {
         if (!file_exists(_ZM_STORE_CONFIG_YAML)) return true;
         $config = Yaml::parse(_ZM_STORE_CONFIG_YAML);
-        // doesn't exist in etc/build/store-config.yaml
-        return !isset($config['apps']['store']['database']['default']['dbname']);
+        return !isset($config['database_name']);
     }
 
     /**
@@ -96,45 +95,37 @@ class ImportZencartConfigurePatch extends FilePatch {
             include_once $extraConfigure;
         }
 
-        $storeConfig = array();
         $dbServer = explode(':', DB_SERVER);
         $host = $dbServer[0];
         $port = (isset($dbServer[1]) && $dbServer[1] != 3306) ? $dbServer[1] : null;
         $charset = defined('DB_CHARSET') ? DB_CHARSET : 'utf8';
-        $dbConfig = array( // @todo should some of these defaults be in the application configuration defaults instead?
+        $parameters = array( // @todo should some of these defaults be in the application configuration defaults instead?
             'charset' => $charset,
-            'dbname' => DB_DATABASE,
-            'prefix' => DB_PREFIX,
-            'driver' => 'pdo_mysql',
-            'host' => $host,
-            'password' => DB_SERVER_PASSWORD,
-            'port' => $port,
-            'unix_socket' => null, // @todo possible in zencart ?
-            'user' => DB_SERVER_USERNAME,
-            'collation' => null,
+            'database_name' => DB_DATABASE,
+            'table_prefix' => DB_PREFIX,
+            'database_host' => $host,
+            'database_password' => DB_SERVER_PASSWORD,
+            'database_port' => $port,
+            'database_user' => DB_SERVER_USERNAME,
         );
 
-        $storeConfig['apps']['store']['database']['default'] = $dbConfig;
 
         if (basename(DIR_FS_DOWNLOAD) != 'download') {
-            $storeConfig['downloadBaseDir'] = DIR_FS_DOWNLOAD;
+            $parameters['downloadBaseDir'] = DIR_FS_DOWNLOAD;
         }
 
         $secure = ENABLE_SSL == 'true';
-        $storeConfig['zenmagick']['http']['request']['secure'] = $secure;
-        $storeConfig['zenmagick']['http']['request']['enforceSecure'] = $secure;
+        $parameters['zenmagick']['http']['request']['secure'] = $secure;
+        $parameters['zenmagick']['http']['request']['enforceSecure'] = $secure;
 
-        // @todo for some reason this indents at 4 space.
-        $yaml = Yaml::dump($storeConfig, 5);
+        $yaml = Yaml::dump($parameters, 5);
         $header = '##
-## shared ZenMagick store config
 ##
 ## NOTE: This file is generated (and may be re-written) automatically - edit at own risk.
 ##
 ';
         file_put_contents(_ZM_STORE_CONFIG_YAML, $header.$yaml);
 
-        Runtime::getSettings()->setAll($storeConfig);
         return true;
     }
 

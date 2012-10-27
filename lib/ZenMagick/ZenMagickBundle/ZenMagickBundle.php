@@ -52,8 +52,6 @@ class ZenMagickBundle extends Bundle {
         $settingsFiles = array();
         $settingsFiles[] = $rootDir.'/lib/ZenMagick/StoreBundle/config/config.yaml';
         $settingsFiles[] = $parameterBag->get('kernel.context_dir').'/config/config.yaml';
-        // @todo do something better for non store apps
-        $settingsFiles[] = $rootDir.'/config/store-config.yaml';
         foreach ($settingsFiles as $config) {
             if (file_exists($config)) {
                 $settingsService->load($config);

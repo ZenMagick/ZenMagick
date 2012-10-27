@@ -137,7 +137,7 @@
                 <exclude name="build.xml" />
                 <exclude name="local.properties" />
                 <exclude name="local.xml" />
-                <exclude name="config/store-config.yaml" />
+                <exclude name="config/parameters.yml" />
 
                 <exclude name=".editorconfig" />
                 <exclude name=".travis.yml" />
