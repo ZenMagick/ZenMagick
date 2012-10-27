@@ -166,8 +166,7 @@
         </foreach>
 
         <!-- copy docs -->
-        <copy tofile="${build.dir}/zenmagick/Readme.txt" file="etc/build/docs/Readme-mod.txt" />
-        <copy tofile="${build.dir}/zenmagick/Install.txt" file="etc/build/docs/Install-mod.txt" />
+        <copy tofile="${build.dir}/zenmagick/Readme.txt" file="etc/build/docs/Readme.txt" />
 
         <!-- disabled as those files are in the repo -->
         <!--antcall target="pack-libraries" /-->
