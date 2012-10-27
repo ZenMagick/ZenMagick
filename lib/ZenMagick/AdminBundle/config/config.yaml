@@ -4,8 +4,6 @@
 
 ## general settings
 zenmagick:
-  version: ${zenmagick.version}
-
   ## core
   core:
     ## fs
