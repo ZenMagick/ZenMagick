@@ -44,12 +44,15 @@ class ZenCartExtension extends Extension {
 
         $rootDir = $container->getParameter('kernel.root_dir');
 
-        // @todo we can autodetect!
-        $container->setParameter('zencart.root_dir', realpath(dirname(dirname($rootDir))));
-
         if (isset($config['root_dir']) && !empty($config['root_dir'])) {
             $container->setParameter('zencart.root_dir', $config['root_dir']);
         }
+
+        // @todo we can autodetect!
+        if (!$container->hasParameter('zencart.root_dir')) {
+            $container->setParameter('zencart.root_dir', realpath(dirname(dirname($rootDir))));
+        }
+
 
         // Set path to zencart admin directory.
         $adminDir = null;
