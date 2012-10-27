@@ -1,22 +1,21 @@
 <?php
 use ZenMagick\Base\Runtime;
 
-$zcPath = $settings->get('zencart.root_dir');
-$adminDir = $settings->get('zencart.admin_dir', 'admin');
+$zcPath = $parameterBag->get('zencart.root_dir');
+$adminDir = $parameterBag->get('zencart.admin_dir');
 /**
  * admin/storefront configure.php defines
  */
 define('DB_TYPE', 'mysql');
 if (!defined('IS_ADMIN_FLAG')) define('IS_ADMIN_FLAG', Runtime::isContextMatch('admin'));
 
-// @todo we want this to be here!
-define('DB_PREFIX', $settings->get('apps.store.database.default.prefix'));
+define('DB_PREFIX', $parameterBag->get('table_prefix'));
 
 // @todo these shouldn't be available by default
-//define('DB_SERVER', $settings->get('apps.store.database.default.host'));
-//define('DB_SERVER_USERNAME', $settings->get('apps.store.database.default.user'));
-//define('DB_SERVER_PASSWORD', $settings->get('apps.store.database.default.password'));
-//define('DB_DATABASE', $settings->get('apps.store.database.default.dbname'));
+//define('DB_SERVER', $parameterBag->get('database_host'));
+//define('DB_SERVER_USERNAME', $parameterBag->get('database_user'));
+//define('DB_SERVER_PASSWORD', $parameterBag->get('database_password'));
+//define('DB_DATABASE', $parameterBag->get('database_name'));
 
 // @todo need to fix up for shared certificates
 // @todo probably switch out this mechanism once we fully control the system
@@ -52,7 +51,7 @@ define('DIR_WS_TEMPLATES', DIR_WS_INCLUDES.'templates/');
 define('DIR_WS_DOWNLOAD_PUBLIC', DIR_WS_CATALOG.'pub/');
 
 define('DIR_FS_CATALOG', $zcPath.'/');
-define('DIR_FS_ADMIN', $settings->get('zencart.admin_dir').'/');
+define('DIR_FS_ADMIN', $parameterBag->get('zencart.admin_dir').'/');
 define('DIR_FS_CACHE', $zcPath.'/cache/');
 define('DIR_FS_CATALOG_LANGUAGES', DIR_FS_CATALOG.'includes/languages/');
 define('DIR_FS_CATALOG_IMAGES', DIR_FS_CATALOG.'images/');

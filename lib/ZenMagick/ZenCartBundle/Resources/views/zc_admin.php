@@ -23,7 +23,7 @@ $admin->title();
 $resourceManager->cssFile('zc_admin.css');
 $resourceManager->jsFile('zc_admin.js');
 
-$adminDir = $settingsService->get('zencart.admin_dir');
+$adminDir = $container->getParameter('zencart.admin_dir');
 $adminWeb = basename($adminDir);
 $zcPage = str_replace('zc_admin_', '',$request->getRequestId()).'.php';
 chdir($adminDir);
