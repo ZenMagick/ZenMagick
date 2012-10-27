@@ -42,7 +42,7 @@ class ShoppingCartController extends ZMObject {
      *
      * @param ZenMagick\Http\Request request The current request.
      */
-    public function show(Request $request) {
+    public function showAction(Request $request) {
         $flashBag = $request->getSession()->getFlashBag();
         $shoppingCart = $this->get('shoppingCart');
         $checkoutHelper = $shoppingCart->getCheckoutHelper();
@@ -111,7 +111,7 @@ class ShoppingCartController extends ZMObject {
     /**
      * Add product.
      */
-    public function addProduct(Request $request) {
+    public function addProductAction(Request $request) {
         $shoppingCart = $this->get('shoppingCart');
         $productId = $request->request->get('products_id');
         $productId = is_array($productId) ? $productId[0] : $productId;
@@ -133,7 +133,7 @@ class ShoppingCartController extends ZMObject {
     /**
      * Buy now product.
      */
-    public function buyNow(Request $request) {
+    public function buyNowAction(Request $request) {
         $shoppingCart = $this->get('shoppingCart');
         $productId = $request->query->get('products_id');
         $productId = is_array($productId) ? $productId[0] : $productId;
@@ -181,7 +181,7 @@ class ShoppingCartController extends ZMObject {
     /**
      * Remove product.
      */
-    public function removeProduct(Request $request) {
+    public function removeProductAction(Request $request) {
         $shoppingCart = $this->get('shoppingCart');
         $flashBag = $request->getSession()->getFlashBag();
         $productId = $request->query->get('productId');
@@ -199,7 +199,7 @@ class ShoppingCartController extends ZMObject {
      * Update cart.
      * @todo: edit cart attributes
      */
-    public function update(Request $request) {
+    public function updateAction(Request $request) {
         $flashBag = $request->getSession()->getFlashBag();
         $shoppingCart = $this->get('shoppingCart');
         $productIds = (array) $request->request->get('products_id');

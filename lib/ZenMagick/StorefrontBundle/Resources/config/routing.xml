@@ -25,101 +25,101 @@
     </route>
 
     <route id="login" pattern="/login">
-        <default key="_controller">ZenMagick\StorefrontBundle\Controller\LoginController::process</default>
+        <default key="_controller">StorefrontBundle:Login:process</default>
         <option key="view:account">redirect://account</option>
         <option key="view:success">redirect://account</option>
     </route>
 
     <route id="logoff" pattern="/logoff">
-        <default key="_controller">ZenMagick\StorefrontBundle\Controller\LogoffController::process</default>
+        <default key="_controller">StorefrontBundle:Logoff:process</default>
         <option key="view:success">redirect://logoff</option>
     </route>
 
     <route id="cart.add" pattern="/cart/add">
-        <default key="_controller">ZenMagick\StorefrontBundle\Controller\ShoppingCartController::addProduct</default>
+        <default key="_controller">StorefrontBundle:ShoppingCart:addProduct</default>
         <option key="view:success">redirect://shopping_cart</option>
     </route>
 
     <!-- TODO: this should be POST -->
     <route id="cart.remove" pattern="/cart/remove/{productId}">
-        <default key="_controller">ZenMagick\StorefrontBundle\Controller\ShoppingCartController::removeProduct</default>
+        <default key="_controller">StorefrontBundle:ShoppingCart:removeProduct</default>
         <option key="view:success">redirect://shopping_cart</option>
     </route>
 
     <route id="cart.update" pattern="/cart/update">
-        <default key="_controller">ZenMagick\StorefrontBundle\Controller\ShoppingCartController::update</default>
+        <default key="_controller">StorefrontBundle:ShoppingCart:update</default>
         <option key="view:success">redirect://shopping_cart</option>
     </route>
 
     <route id="shopping_cart" pattern="/cart">
-        <default key="_controller">ZenMagick\StorefrontBundle\Controller\ShoppingCartController::show</default>
+        <default key="_controller">StorefrontBundle:ShoppingCart:show</default>
         <requirement key="_method">GET</requirement>
     </route>
 
     <route id="customers_authorization" pattern="/customers_authorization">
-        <default key="_controller">ZMController::process</default>
+        <default key="_controller">ZMController:process</default>
     </route>
 
     <route id="create_account" pattern="/account/create">
-        <default key="_controller">ZenMagick\StorefrontBundle\Controller\CreateAccountController::process</default>
+        <default key="_controller">StorefrontBundle:CreateAccount:process</default>
         <option key="form">ZMRegistrationForm#formId=registration</option>
         <option key="view">create_account.html.php</option>
         <option key="view:success">redirect://account.create.success</option>
     </route>
 
     <route id="account" pattern="/account">
-        <default key="_controller">ZenMagick\StorefrontBundle\Controller\AccountController::process</default>
+        <default key="_controller">StorefrontBundle:Account:process</default>
         <option key="view">account.html.php</option>
     </route>
 
     <route id="account_edit" pattern="/account/edit">
-        <default key="_controller">ZenMagick\StorefrontBundle\Controller\AccountEditController::process</default>
+        <default key="_controller">StorefrontBundle:AccountEdit:process</default>
         <option key="view:success">redirect://account</option>
         <option key="form">ZMAccountForm#formId=account</option>
     </route>
 
     <route id="account_history" pattern="/account/orders">
-        <default key="_controller">ZenMagick\StorefrontBundle\Controller\AccountHistoryController::process</default>
+        <default key="_controller">StorefrontBundle:AccountHistory:process</default>
         <option key="view">account_history.html.php</option>
     </route>
 
     <!-- TODO: map to orderId -->
     <route id="account_history_info" pattern="/account/order/details/{order_id}">
-        <default key="_controller">ZenMagick\StorefrontBundle\Controller\AccountHistoryInfoController::process</default>
+        <default key="_controller">StorefrontBundle:AccountHistoryInfo:process</default>
         <option key="view">account_history_info.html.php</option>
     </route>
 
     <route id="account_password" pattern="/account/password/edit">
-        <default key="_controller">ZenMagick\StorefrontBundle\Controller\AccountPasswordController::process</default>
+        <default key="_controller">StorefrontBundle:AccountPassword:process</default>
         <option key="view">account_password.html.php</option>
         <option key="view:success">redirect://account</option>
     </route>
 
     <route id="account_newsletters" pattern="/account/newsletter">
-        <default key="_controller">ZenMagick\StorefrontBundle\Controller\AccountNewslettersController::process</default>
+        <default key="_controller">StorefrontBundle:AccountNewsletters:process</default>
         <option key="view">account_newsletters.html.php</option>
         <option key="view:success">redirect://account</option>
     </route>
 
     <route id="account_notifications" pattern="/account/notifications">
-        <default key="_controller">ZenMagick\StorefrontBundle\Controller\AccountNotificationsController::process</default>
+        <default key="_controller">StorefrontBundle:AccountNotifications:process</default>
         <option key="view">account_notifications.html.php</option>
         <option key="view:success">redirect://account</option>
     </route>
 
     <route id="password_forgotten" pattern="/account/password/recover">
-        <default key="_controller">ZenMagick\StorefrontBundle\Controller\PasswordForgottenController::process</default>
+        <default key="_controller">StorefrontBundle:PasswordForgotten:process</default>
         <option key="view">password_forgotten.html.php</option>
         <option key="view:success">redirect://login</option>
     </route>
 
     <route id="address_book" pattern="/account/addresses">
-        <default key="_controller">ZenMagick\StorefrontBundle\Controller\AddressBookController::process</default>
+        <default key="_controller">StorefrontBundle:AddressBook:process</default>
         <option key="view">address_book.html.php</option>
     </route>
 
     <route id="address_book_add" pattern="/account/address/new">
-        <default key="_controller">ZenMagick\StorefrontBundle\Controller\AddressBookAddController::process</default>
+        <default key="_controller">StorefrontBundle:AddressBookAdd:process</default>
         <option key="form">ZenMagick\StoreBundle\Entity\Address#formId=address</option>
         <option key="view">address_book_create.html.php</option>
         <option key="view:success">redirect://address_book</option>
@@ -127,7 +127,7 @@
 
     <!-- TODO: rename to addressId -->
     <route id="address_book_edit" pattern="/account/address/edit/{id}">
-        <default key="_controller">ZenMagick\StorefrontBundle\Controller\AddressBookEditController::process</default>
+        <default key="_controller">StorefrontBundle:AddressBookEdit:process</default>
         <!-- The actual update is POST; that means the id is a POST value rather than url parameter -->
         <default key="id"></default>
         <option key="form">ZenMagick\StoreBundle\Entity\Address#formId=address</option>
@@ -138,7 +138,7 @@
 
     <!-- TODO: rename to addressId -->
     <route id="address_book_delete" pattern="/account/address/delete/{id}">
-        <default key="_controller">ZenMagick\StorefrontBundle\Controller\AddressBookDeleteController::process</default>
+        <default key="_controller">StorefrontBundle:AddressBookDelete:process</default>
         <!-- The actual delete is POST; that means the id is a POST value rather than url parameter -->
         <default key="id"></default>
         <option key="view">address_book_delete.html.php</option>
@@ -157,19 +157,19 @@
 
     <!-- TODO: coupon lookup should be in a controller; rename cID to couponId  -->
     <route id="popup_coupon_help" pattern="/help/coupon/{cID}">
-        <default key="_controller">ZenMagick\StorefrontBundle\Controller\CouponHelpController::show</default>
+        <default key="_controller">StorefrontBundle:CouponHelp:show</default>
         <option key="view">popup/coupon_help.html.php?layout=popup_layout.html.php</option>
     </route>
 
     <route id="contact_us" pattern="/contact-us">
-        <default key="_controller">ZenMagick\StorefrontBundle\Controller\ContactUsController::process</default>
+        <default key="_controller">StorefrontBundle:ContactUs:process</default>
         <option key="form">ZMContactInfo#formId=contactUs</option>
         <option key="view">contact_us.html.php</option>
         <option key="view:success">redirect://contact_us</option>
     </route>
 
     <route id="unsubscribe" pattern="/unsubscribe">
-        <default key="_controller">ZenMagick\StorefrontBundle\Controller\UnsubscribeController::process</default>
+        <default key="_controller">StorefrontBundle:Unsubscribe:process</default>
     </route>
 
     <route id="conditions" pattern="/conditions">
@@ -193,7 +193,7 @@
     </route>
 
     <route id="discount_coupon" pattern="/discount-coupon/{couponCode}">
-        <default key="_controller">ZenMagick\StorefrontBundle\Controller\DiscountCouponController::process</default>
+        <default key="_controller">StorefrontBundle:DiscountCoupon:process</default>
         <default key="couponCode"></default>
         <option key="view">discount_coupon.html.php</option>
         <option key="view:info">discount_coupon_info.html.php</option>
@@ -205,7 +205,7 @@
     </route>
 
     <route id="category" pattern="/category/{cPath}">
-        <default key="_controller">ZenMagick\StorefrontBundle\Controller\CategoryController::process</default>
+        <default key="_controller">StorefrontBundle:Category:process</default>
         <default key="cPath"></default>
         <requirement key="cPath">\w+</requirement>
         <option key="view:category_list">category_list.html.php</option>
@@ -214,125 +214,125 @@
     </route>
 
     <route id="checkout_shipping_address" pattern="/checkout/shipping/address">
-        <default key="_controller">ZenMagick\StorefrontBundle\Controller\CheckoutAddressController::process</default>
+        <default key="_controller">StorefrontBundle:CheckoutAddress:process</default>
         <option key="form">ZenMagick\StoreBundle\Entity\Address#formId=shippingAddress</option>
         <option key="view">redirect://checkout_shipping</option>
     </route>
 
     <route id="checkout_shipping" pattern="/checkout/shipping">
-        <default key="_controller">ZenMagick\StorefrontBundle\Controller\CheckoutShippingController::process</default>
+        <default key="_controller">StorefrontBundle:CheckoutShipping:process</default>
         <option key="view:skip_shipping">redirect://checkout_payment</option>
         <option key="view">redirect://checkout_payment</option>
     </route>
 
     <route id="checkout_payment_address" pattern="/checkout/billing/address">
-        <default key="_controller">ZenMagick\StorefrontBundle\Controller\CheckoutAddressController::process</default>
+        <default key="_controller">StorefrontBundle:CheckoutAddress:process</default>
         <option key="form">ZenMagick\StoreBundle\Entity\Address#formId=billingAddress</option>
         <option key="view">redirect://checkout_payment</option>
     </route>
 
     <route id="checkout_payment" pattern="/checkout/billing">
-        <default key="_controller">ZenMagick\StorefrontBundle\Controller\CheckoutPaymentController::process</default>
+        <default key="_controller">StorefrontBundle:CheckoutPayment:process</default>
         <option key="view">redirect://checkout_confirmation</option>
     </route>
 
 
     <route id="checkout_confirmation" pattern="/checkout/confirmation">
-        <default key="_controller">ZenMagick\StorefrontBundle\Controller\CheckoutConfirmationController::process</default>
+        <default key="_controller">StorefrontBundle:CheckoutConfirmation:process</default>
     </route>
 
     <route id="checkout_success" pattern="/checkout/success">
-        <default key="_controller">ZenMagick\StorefrontBundle\Controller\CheckoutSuccessController::process</default>
+        <default key="_controller">StorefrontBundle:CheckoutSuccess:process</default>
     </route>
 
     <route id="checkout_guest" pattern="/checkout/guest">
-        <default key="_controller">ZenMagick\StorefrontBundle\Controller\CheckoutGuestController::process</default>
+        <default key="_controller">StorefrontBundle:CheckoutGuest:process</default>
         <option key="view">login.html.php</option>
         <option key="view:guest_checkout_disabled">login.html.php</option>
         <option key="view:success">redirect://checkout_shipping</option>
     </route>
 
     <route id="checkout" pattern="/checkout">
-        <default key="_controller">ZenMagick\StorefrontBundle\Controller\CheckoutShippingController::process</default>
+        <default key="_controller">StorefrontBundle:CheckoutShipping:process</default>
         <option key="view">checkout_shipping.html.php</option>
         <option key="view:skip_shipping">redirect://checkout_payment</option>
         <option key="view:success">redirect://checkout_payment</option>
     </route>
 
     <route id="download" pattern="/download/{order}/{id}">
-        <default key="_controller">ZenMagick\StorefrontBundle\Controller\DownloadController::process</default>
+        <default key="_controller">StorefrontBundle:Download:process</default>
     </route>
 
     <route id="guest_history" pattern="/guest/history">
-        <default key="_controller">ZenMagick\StorefrontBundle\Controller\GuestHistoryController::process</default>
+        <default key="_controller">StorefrontBundle:GuestHistory:process</default>
         <option key="view">account_history_info.html.php</option>
     </route>
 
     <route id="gv_redeem" pattern="/gift-voucher/redeem">
-        <default key="_controller">ZenMagick\StorefrontBundle\Controller\GvRedeemController::process</default>
+        <default key="_controller">StorefrontBundle:GvRedeem:process</default>
         <option key="form">ZMGVRedeem#formId=gvRedeem</option>
     </route>
 
     <route id="gv_faq" pattern="/gift-voucher/faq">
-        <default key="_controller">ZenMagick\StorefrontBundle\Controller\GvFaqController::process</default>
+        <default key="_controller">StorefrontBundle:GvFaq:process</default>
         <option key="form">ZMGVRedeem#formId=gvRedeem</option>
     </route>
 
     <route id="gv_send_confirm" pattern="/gift-voucher/send/confirm">
-        <default key="_controller">ZenMagick\StorefrontBundle\Controller\GvSendConfirmController::process</default>
+        <default key="_controller">StorefrontBundle:GvSendConfirm:process</default>
         <option key="form">ZMGVReceiver#formId=gvReceiver</option>
         <option key="view">redirect://account</option>
         <option key="view:edit">redirect://gv_send</option>
     </route>
 
     <route id="gv_send" pattern="/gift-voucher/send">
-        <default key="_controller">ZenMagick\StorefrontBundle\Controller\GvSendController::process</default>
+        <default key="_controller">StorefrontBundle:GvSend:process</default>
         <option key="form">ZMGVReceiver#formId=gvReceiver</option>
         <option key="view">gv_send.html.php</option>
     </route>
 
     <route id="redirect" pattern="/redirect">
-        <default key="_controller">ZenMagick\StorefrontBundle\Controller\RedirectController::process</default>
+        <default key="_controller">StorefrontBundle:Redirect:process</default>
         <option key="view">redirect://index</option>
         <option key="view:error">redirect://index</option>
     </route>
 
     <route id="product_reviews_write" pattern="/product/review/write">
-        <default key="_controller">ZenMagick\StorefrontBundle\Controller\RedirectController::process</default>
+        <default key="_controller">StorefrontBundle:Redirect:process</default>
         <option key="view">redirect://reviews</option>
         <option key="form">ZenMagick\StoreBundle\Entity\Catalog\Review#formId=newReview</option>
     </route>
 
     <route id="reviews" pattern="/reviews">
-        <default key="_controller">ZenMagick\StorefrontBundle\Controller\ProductReviewsController::process</default>
+        <default key="_controller">StorefrontBundle:ProductReviews:process</default>
     </route>
 
     <route id="product_reviews_info" pattern="/product_reviews_info">
-        <default key="_controller">ZenMagick\StorefrontBundle\Controller\ProductReviewsInfoController::process</default>
+        <default key="_controller">StorefrontBundle:ProductReviewsInfo:process</default>
     </route>
 
     <route id="product_info" pattern="/product/{productId}">
-        <default key="_controller">ZenMagick\StorefrontBundle\Controller\ProductInfoController::showAction</default>
+        <default key="_controller">StorefrontBundle:ProductInfo:show</default>
     </route>
 
     <route id="advanced_search" pattern="/search/advanced">
-        <default key="_controller">ZenMagick\StorefrontBundle\Controller\SearchController::process</default>
+        <default key="_controller">StorefrontBundle:Search:process</default>
         <option key="form">ZMSearchCriteria#formId=searchCriteria</option>
         <option key="view">advanced_search.html.php</option>
     </route>
 
     <route id="search" pattern="/search">
-        <default key="_controller">ZenMagick\StorefrontBundle\Controller\SearchController::process</default>
+        <default key="_controller">StorefrontBundle:Search:process</default>
         <option key="form">ZMSearchCriteria#formId=searchCriteria</option>
         <option key="view">search.html.php</option>
     </route>
 
     <route id="ipn_main_handler" pattern="/ipn">
-        <default key="_controller">ZenMagick\ZenCartBundle\Controller\StorefrontController::process</default>
+        <default key="_controller">ZenCartBundle:Storefront:process</default>
     </route>
 
     <route id="checkout_process" pattern="/checkout/process">
-        <default key="_controller">ZenMagick\ZenCartBundle\Controller\StorefrontController::process</default>
+        <default key="_controller">ZenCartBundle:Storefront:process</default>
     </route>
 
     <route id="static" pattern="/static">
@@ -340,15 +340,15 @@
     </route>
 
     <route id="featured_products" pattern="/featured">
-        <default key="_controller">ZenMagick\StorefrontBundle\Controller\FeaturedProductsController::process</default>
+        <default key="_controller">StorefrontBundle:FeaturedProducts:process</default>
     </route>
 
     <route id="specials" pattern="/specials">
-        <default key="_controller">ZenMagick\StorefrontBundle\Controller\SpecialsController::process</default>
+        <default key="_controller">StorefrontBundle:Specials:process</default>
     </route>
 
     <route id="manufacturer" pattern="/manufacturers">
-        <default key="_controller">ZenMagick\StorefrontBundle\Controller\ManufacturerController::process</default>
+        <default key="_controller">StorefrontBundle:Manufacturer:process</default>
     </route>
 
     <route id="products_all" pattern="/products/all">
@@ -356,16 +356,16 @@
     </route>
 
     <route id="products_new" pattern="/products/new">
-        <default key="_controller">ZenMagick\StorefrontBundle\Controller\ProductsNewController::process</default>
+        <default key="_controller">StorefrontBundle:ProductsNew:process</default>
     </route>
 
     <route id="page" pattern="/page/{id}">
-        <default key="_controller">ZenMagick\StorefrontBundle\Controller\PageController::showAction</default>
+        <default key="_controller">StorefrontBundle:Page:show</default>
     </route>
 
     <route id="page" pattern="/page/{chapter}/{id}">
         <default key="chapter">0</default>
-        <default key="_controller">ZenMagick\StorefrontBundle\Controller\PageController::showAction</default>
+        <default key="_controller">StorefrontBundle:Page:show</default>
     </route>
 
     <route id="time_out" pattern="/time_out">
@@ -373,7 +373,7 @@
     </route>
 
     <route id="index" pattern="/">
-        <default key="_controller">ZenMagick\StorefrontBundle\Controller\IndexController::process</default>
+        <default key="_controller">StorefrontBundle:Index:process</default>
         <option key="view">index.html.php</option>
         <option key="view:category">forward://category</option>
     </route>
