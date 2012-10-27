@@ -56,7 +56,7 @@ class CatalogController extends \ZMController {
     /**
      * {@inheritDoc}
      */
-    public function process(Request $request) {
+    public function processAction(Request $request) {
         // disable POST in demo
         if ('POST' == $request->getMethod() && $this->handleDemo()) {
             return $this->findView('success-demo');
@@ -83,17 +83,17 @@ class CatalogController extends \ZMController {
 
         if (null == $controller || !$authorized) {
             // no controller found
-            return parent::process($request);
+            return parent::processAction($request);
         }
 
         // fake requestId
         $requestId = $request->getRequestId();
         $request->setRequestId($catalogRequestId);
 
-        // process
+        // processAction
         $catalogViewContent = null;
         try {
-            $catalogContentView = $controller->process($request);
+            $catalogContentView = $controller->processAction($request);
             $catalogContentView->setLayout(null);
             $catalogViewContent = $catalogContentView->generate($request);
         } catch (Exception $e) {
@@ -104,7 +104,7 @@ class CatalogController extends \ZMController {
         $request->setRequestId($requestId);
 
         // now do the normal thing
-        $view = parent::process($request);
+        $view = parent::processAction($request);
 
         // add catalog content view to be used in catalog view template
         $view->setVariable('catalogRequestId', $catalogRequestId);

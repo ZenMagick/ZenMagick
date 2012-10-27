@@ -37,6 +37,13 @@ class ZMRpcController extends ZMController {
      * {@inheritDoc}
      */
     public function process(Request $request) {
+        return $this->processAction($request);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function processAction(Request $request) {
         $format = $this->container->get('settingsService')->get('zenmagick.mvc.rpc.format', 'JSON');
         $rpcRequest = Beans::getBean('ZMRpcRequest'.$format);
         $rpcRequest->setRequest($request);

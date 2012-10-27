@@ -85,6 +85,13 @@ class ZMController extends Controller {
     }
 
     /**
+     * An alias for processAction()
+     * @see self::processAction
+     */
+    public function process(Request $request) {
+        return $this->processAction($request);
+    }
+    /**
      * Process a HTTP request.
      *
      * <p>Supported request methods are <code>GET</code> and <code>POST</code>.</p>
@@ -93,7 +100,7 @@ class ZMController extends Controller {
      * @param ZenMagick\Http\Request request The request to process.
      * @return View A <code>View</code> instance or <code>null</code>.
      */
-    public function process(Request $request) {
+    public function processAction(Request $request) {
         // ensure a usable id is set
         $this->requestId_ = null != $this->requestId_ ? $this->requestId_ : $request->getRequestId();
         $this->isAjax_ = $request->isXmlHttpRequest();

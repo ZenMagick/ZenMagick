@@ -95,8 +95,8 @@ abstract class CatalogContentController extends \ZMController {
     /**
      * {@inheritDoc}
      */
-    public function process(Request $request) {
-        $view = parent::process($request);
+    public function processAction(Request $request) {
+        $view = parent::processAction($request);
         if ($view instanceof RedirectView) {
             $view->setUrl($this->get('adminTool')->catalog($this));
         }

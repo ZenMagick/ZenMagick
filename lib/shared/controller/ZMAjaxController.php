@@ -46,6 +46,13 @@ class ZMAjaxController extends ZMController {
     }
 
     /**
+     * {@inheritDoc}
+     */
+    public function process(Request $request) {
+        return $this->processAction($request);
+    }
+
+    /**
      * Process a HTTP request.
      *
      * <p>This implementation will delegate request handling based on the method parameter in
@@ -58,7 +65,7 @@ class ZMAjaxController extends ZMController {
      *
      * @return View A <code>View</code> instance or <code>null</code>.
      */
-    public function process(Request $request) {
+    public function processAction(Request $request) {
         $method = $sacsMethod = $request->getParameter('method');
         if (!method_exists($this, $method)) {
             $method = $method.'JSON';
@@ -79,7 +86,7 @@ class ZMAjaxController extends ZMController {
             return null;
         }
 
-        return parent::process($request);
+        return parent::processAction($request);
     }
 
 
