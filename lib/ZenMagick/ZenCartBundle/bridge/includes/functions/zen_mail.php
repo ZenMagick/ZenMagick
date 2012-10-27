@@ -33,14 +33,15 @@ function zen_mail($toName, $toAddress, $subject, $text, $fromName, $fromAddress,
 
     // use zen_mail_org as fallback for emails without ZenMagick template
     $formats = $messageBuilder->getFormatsForTemplate($module);
-    if (0 < count($formats) && !Runtime::getSettings()->get('apps.store.zencart.useNativeEmail', false)) {
+    $nativeEmail = $container->hasParameter('zencart.use_native_email') && $container->getParameter('zencart.use_native_email');
+    if (0 < count($formats) && !$nativeEmail) {
         $block['text_msg'] = $text;
         $request = $container->get('request');
         $message = $messageBuilder->createMessage($module, true, $request, $block);
         $message->setSubject($subject)->setTo($toAddress, $toName)->setFrom($fromAddress, $fromName);
         $container->get('mailer')->send($message);
     } else {
-        // call renamed original function
+        // call renamed original functions_email.php
         zen_mail_org($toName, $toAddress, $subject, $text, $fromName, $fromAddress, $block, $module, $attachments_list);
     }
 }
@@ -50,10 +51,10 @@ function zen_mail($toName, $toAddress, $subject, $text, $fromName, $fromAddress,
  * version of it.
  */
 function zen_build_html_email_from_template($template, $args=array()) {
-    if (Runtime::getSettings()->get('apps.store.zencart.useNativeEmail', false)) {
+    $container = Runtime::getContainer();
+    if ($container->hasParameter('zencart.use_native_email') && $container->getParameter('zencart.use_native_email')) {
         return zen_build_html_email_from_template_org($template, $args);
     }
-    $container = Runtime::getContainer();
     $messageBuilder = $container->get('messageBuilder');
     $request = $container->get('request');
     $emailContext = $GLOBALS['ZM_EMAIL_CONTEXT'];
