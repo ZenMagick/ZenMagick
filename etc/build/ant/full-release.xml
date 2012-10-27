@@ -40,8 +40,7 @@
         <copy file="${basedir}/etc/build/full/sql/mysql_other.sql" todir="${release.full.dir}/zc_install/sql/plugins/" />
 
         <!-- copy docs -->
-        <copy tofile="${release.full.dir}/Readme.txt" file="etc/build/docs/Readme-full.txt" />
-        <copy tofile="${release.full.dir}/Install.txt" file="etc/build/docs/Install-full.txt" />
+        <copy tofile="${release.full.dir}/Readme.txt" file="etc/build/docs/Readme.txt" />
 
         <!-- remove unused zencart code -->
         <antcall target="drop-unused-zencart" />
