@@ -31,7 +31,6 @@ class AdminController extends \ZMController {
      * {@inheritDoc}
      */
     public function processGet($request) {
-        // @todo remove once we rely on ZenCart 1.5.0
         // from init_general_funcs
         foreach ($request->query->all() as $k => $v) {
             $request->query->set($k, strip_tags($v));
