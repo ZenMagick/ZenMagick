@@ -45,6 +45,13 @@ class AppKernel extends Kernel {
     }
 
     /**
+     * {@inheritDoc}
+     */
+    public function getRootDir() {
+        return __DIR__;
+    }
+
+    /**
      * Register Bundle classes.
      *
      * @return array instantiated bundle objects
