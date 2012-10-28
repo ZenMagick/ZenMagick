@@ -28,7 +28,7 @@ define('ENABLE_SSL_ADMIN', $settings->get('zenmagick.http.request.secure') ? 'tr
 define('ENABLE_SSL_CATALOG', $settings->get('zenmagick.http.request.secure') ? 'true' : 'false');
 define('ENABLE_SSL', $settings->get('zenmagick.http.request.secure') ? 'true' : 'false');
 
-define('DIR_WS_ADMIN', str_replace(Runtime::getInstallationPath(), '', $zcPath).'/'.$adminDir.'/');
+define('DIR_WS_ADMIN', dirname($adminDir).'/');
 define('DIR_WS_CATALOG', str_replace('//', '/', '/'.$requestContext.'/'));
 define('DIR_WS_HTTPS_ADMIN', DIR_WS_ADMIN);
 define('DIR_WS_HTTPS_CATALOG', DIR_WS_CATALOG);
