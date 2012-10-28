@@ -4,16 +4,6 @@
 
 ## general settings
 zenmagick:
-  ## core
-  core:
-    ## fs
-    fs:
-      permissions:
-        fix: true
-        defaults:
-          file: 0666
-          folder: 0777
-
     ## security
     security:
       defaultAuthenticationProvider: ZMZenCartAuthentication
@@ -31,10 +21,6 @@ zenmagick:
       index: index.html.php
       missingPage: error.html.php
 
-    ## rpc
-    rpc:
-      format: JSON
-
   http:
     ## request
     request:
@@ -46,9 +32,6 @@ zenmagick:
     sacs:
       handler:
         - ZenMagick\Http\Sacs\Handler\UserRoleSacsHandler
-    ## templates
-    templates:
-      ext: .html.php
 
 ## app settings
 apps:
@@ -65,10 +48,3 @@ apps:
     verifyCategoryPath: false
 
 storeDefaultLanguageId: 1
-
-#  price calculation decimals for rounding
-calculationDecimals: 4
-
-# HTML generation / validation
-isJSTarget: true
-isAutoJSValidation: true

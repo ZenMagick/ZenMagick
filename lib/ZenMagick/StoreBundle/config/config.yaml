@@ -1,5 +1,19 @@
 zenmagick:
   version: '0.9.13.2'
+  core:
+    fs:
+      permissions:
+        fix: true
+        defaults:
+          file: 0666
+          folder: 0777
+
+  mvc:
+    ## rpc
+    rpc:
+      format: JSON
+
+
   http:
     ## html
     html:
@@ -7,3 +21,15 @@ zenmagick:
       charset: utf-8
     view:
       defaultLayout: default_layout.html.php
+    ## templates
+    templates:
+      ext: .html.php
+
+#  price calculation decimals for rounding
+calculationDecimals: 4
+
+# HTML generation / validation
+isJSTarget: true
+isAutoJSValidation: true
+
+

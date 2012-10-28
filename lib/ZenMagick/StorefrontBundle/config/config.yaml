@@ -10,14 +10,6 @@ zenmagick:
     security:
       defaultAuthenticationProvider: ZMZenCartAuthentication
 
-    ## fs
-    fs:
-      permissions:
-        fix: true
-        defaults:
-          file: 0666
-          folder: 0777
-
   ## base
   base:
     ## events
@@ -47,9 +39,6 @@ zenmagick:
     sacs:
       handler:
         - ZenMagick\StorefrontBundle\Http\Sacs\StorefrontAccountSacsHandler
-    ## templates
-    templates:
-      ext: .html.php
 
 apps:
   store:
@@ -177,13 +166,6 @@ imgNotFound: no_picture.gif
 imgSuffixMedium: _MED
 # suffix for large size images
 imgSuffixLarge: _LRG
-
-#  price calculation decimals for rounding
-calculationDecimals: 4
-
-# HTML generation / validation
-isJSTarget: true
-isAutoJSValidation: true
 
 ## Meta tag options
 
