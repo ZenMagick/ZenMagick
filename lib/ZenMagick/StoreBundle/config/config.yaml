@@ -25,6 +25,8 @@ zenmagick:
     templates:
       ext: .html.php
 
+storeDefaultLanguageId: 1
+
 #  price calculation decimals for rounding
 calculationDecimals: 4
 

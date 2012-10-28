@@ -48,4 +48,3 @@ apps:
         - invoice
     verifyCategoryPath: false
 
-storeDefaultLanguageId: 1

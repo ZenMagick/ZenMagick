@@ -123,9 +123,6 @@ isPrivacyMessage: true
 # t&c message during checkout
 isConditionsMessage: true
 
-## store info
-storeDefaultLanguageId: 1
-
 ## guest checkout
 isGuestCheckout: false,
 isLogoffGuestAfterOrder: false,
