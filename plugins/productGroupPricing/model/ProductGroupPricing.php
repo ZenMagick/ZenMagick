@@ -40,7 +40,6 @@ class ProductGroupPricing extends ZMObject {
     private $endDate_;
     private $beforeTax_;
 
-
     /**
      * Create new instance.
      */
@@ -57,7 +56,6 @@ class ProductGroupPricing extends ZMObject {
         $this->endDate_ = null;
         $this->beforeTax_ = true;
     }
-
 
     /**
      * Populate all available fields from the given request.
@@ -80,7 +78,6 @@ class ProductGroupPricing extends ZMObject {
         $this->startDate_ = DateTime::createFromFormat($localeService->getFormat('date', 'short'), $startDate);
         $this->endDate_ = DateTime::createFromFormat($localeService->getFormat('date', 'short'), $request->getParameter('endDate'));
     }
-
 
     /**
      * Get the id.

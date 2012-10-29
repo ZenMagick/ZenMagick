@@ -19,7 +19,6 @@
  */
 namespace ZenMagick\AdminBundle\Controller;
 
-
 /**
  * Admin controller for legacy config.
  *

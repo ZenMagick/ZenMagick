@@ -19,7 +19,6 @@
  */
 namespace ZenMagick\Http\Sacs;
 
-
 /**
  * Interface for Sacs handler.
  *

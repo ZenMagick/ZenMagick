@@ -62,7 +62,6 @@ class ZMProductSorter extends ZMResultListSorter implements SqlAware {
         parent::__construct('psort', '', Runtime::getContainer()->get('request')->query->getAlnum('sort_id'));
     }
 
-
     // sort functions
     public function _cmpModel($a, $b) { return ($a->getModel() == $b->getModel()) ? 0 : ($a->getModel() > $b->getModel()) ? +1 : -1; }
     public function _cmpName($a, $b) { return ($a->getName() == $b->getName()) ? 0 : ($a->getName() > $b->getName()) ? +1 : -1; }
@@ -74,8 +73,6 @@ class ZMProductSorter extends ZMResultListSorter implements SqlAware {
     }
     public function _cmpPrice($a, $b) { return ($a->getPrice() == $b->getPrice()) ? 0 : ($a->getPrice() > $b->getPrice()) ? +1 : -1; }
     public function _cmpWeight($a, $b) { return ($a->getWeight() == $b->getWeight()) ? 0 : ($a->getWeight() > $b->getWeight()) ? +1 : -1; }
-
-
 
     /**
      * Returns <code>true</code> if this sorter is currently active.

@@ -88,7 +88,6 @@ class ZMAjaxController extends ZMController {
         return parent::processAction($request);
     }
 
-
     /**
      * Set JSON response header ('X-JSON').
      *

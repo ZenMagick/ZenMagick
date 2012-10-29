@@ -37,7 +37,6 @@ class TextFormWidget extends FormWidget {
         $this->addAttributeNames(array('size', 'maxlength', 'autocomplete', 'title', 'readonly'));
     }
 
-
     /**
      * {@inheritDoc}
      */

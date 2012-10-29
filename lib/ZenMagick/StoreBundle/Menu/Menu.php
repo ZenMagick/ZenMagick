@@ -21,7 +21,6 @@ namespace ZenMagick\StoreBundle\Menu;
 
 use ZenMagick\Base\ZMObject;
 
-
 /**
  * A menu.
  *
@@ -30,7 +29,6 @@ use ZenMagick\Base\ZMObject;
 class Menu extends ZMObject {
     private $root;
 
-
     /**
      * Create new instance.
      */
@@ -38,7 +36,6 @@ class Menu extends ZMObject {
         parent::__construct();
         $this->root = new MenuElement();
     }
-
 
     /**
      * Get menu element.

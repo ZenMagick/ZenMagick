@@ -33,7 +33,6 @@ use ZenMagick\Http\View\TemplateView;
 class SelectFormWidget extends FormWidget {
     private $options_;
 
-
     /**
      * Create new instance.
      */
@@ -44,7 +43,6 @@ class SelectFormWidget extends FormWidget {
         // defaults
         $this->set('style', 'select');
     }
-
 
     /**
      * {@inheritDoc}

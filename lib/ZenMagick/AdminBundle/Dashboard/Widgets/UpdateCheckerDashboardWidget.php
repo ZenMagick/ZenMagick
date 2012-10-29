@@ -36,7 +36,6 @@ class UpdateCheckerDashboardWidget extends DashboardWidget {
         parent::__construct(_zm('Update Checker'));
     }
 
-
     /**
      * {@inheritDoc}
      */

@@ -21,7 +21,6 @@ namespace ZenMagick\plugins\productTags;
 
 use ZenMagick\Base\Plugins\Plugin;
 
-
 /**
  * Allow to add tags to products.
  *

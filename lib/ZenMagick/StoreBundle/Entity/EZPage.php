@@ -157,8 +157,6 @@ class EZPage extends ZMObject {
      */
     private $tocChapter;
 
-
-
     /**
      * Create new page.
      *
@@ -186,7 +184,6 @@ class EZPage extends ZMObject {
         $this->tocChapter = 0;
         $this->tocSort = 0;
     }
-
 
     public function getId() { return $this->id; }
     public function getLanguageId() { return $this->languageId; }

@@ -32,7 +32,6 @@ use ZenMagick\Http\Templating\TemplateCache;
 class SimpleTemplateCache extends ZMObject implements TemplateCache {
     private $cache_;
 
-
     /**
      * {@inheritDoc}
      */

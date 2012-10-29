@@ -34,7 +34,6 @@ class BannerBlockWidget extends Widget {
     private $trackDisplay_;
     private $showAll_;
 
-
     /**
      * Create new instance.
      */
@@ -45,7 +44,6 @@ class BannerBlockWidget extends Widget {
         $this->showAll_ = false;
         $this->setTitle('Banner Block');
     }
-
 
     /**
      * Get the group name.

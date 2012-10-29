@@ -40,7 +40,6 @@ class BlockWidget extends Widget {
     private $template_;
     private $format_;
 
-
     /**
      * Create new instance.
      */
@@ -50,7 +49,6 @@ class BlockWidget extends Widget {
         $this->template_ = null;
         $this->format_ = null;
     }
-
 
     /**
      * Set the sort order.

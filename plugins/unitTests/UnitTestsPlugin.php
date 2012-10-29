@@ -21,10 +21,8 @@ namespace ZenMagick\plugins\unitTests;
 
 use ZenMagick\Base\Plugins\Plugin;
 
-
 define('UNIT_TESTS_GROUP_DEFAULT', '@default');
 define('UNIT_TESTS_GROUP_OTHER', '@other');
-
 
 /**
  * Unit testing.

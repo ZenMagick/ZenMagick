@@ -89,5 +89,4 @@ class ProductType
      */
     private $lastModified;
 
-
 }

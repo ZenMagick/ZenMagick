@@ -19,7 +19,6 @@
  */
 namespace ZenMagick\StoreBundle\Model\Mock;
 
-
 /**
  * Mock order total line.
  *

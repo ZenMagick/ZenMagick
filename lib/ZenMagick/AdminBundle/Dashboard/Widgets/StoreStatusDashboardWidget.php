@@ -36,7 +36,6 @@ class StoreStatusDashboardWidget extends DashboardWidget {
         parent::__construct(_zm('Store Status'));
     }
 
-
     /**
      {@inheritDoc}
      */

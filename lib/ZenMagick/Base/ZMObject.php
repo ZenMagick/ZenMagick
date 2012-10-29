@@ -38,7 +38,6 @@ class ZMObject extends ContainerAware implements Serializable {
     private static $methods = array();
     protected $properties;
 
-
     /**
      * Create new instance.
      *
@@ -53,7 +52,6 @@ class ZMObject extends ContainerAware implements Serializable {
      */
     public function __destruct() {
     }
-
 
     /**
      * Support to access property values by name.

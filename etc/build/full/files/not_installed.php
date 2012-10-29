@@ -19,7 +19,6 @@ $instPath = (file_exists('zc_install/index.php')) ? 'zc_install/index.php' : (fi
 -->
 </style>
 
-
 </head>
 
 <body style="margin: 20px">

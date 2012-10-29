@@ -18,8 +18,6 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-
-
     $initially_open = '';
     foreach ((array) $request->attributes->get('categoryIds') as $categoryId) {
         if (!empty($initially_open)) {

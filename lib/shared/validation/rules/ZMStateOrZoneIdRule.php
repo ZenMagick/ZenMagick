@@ -43,7 +43,6 @@ class ZMStateOrZoneIdRule extends ZMRule {
         parent::__construct($name, "Please enter a state.", $msg);
     }
 
-
     /**
      * Validate the given request data.
      *
@@ -85,7 +84,6 @@ class ZMStateOrZoneIdRule extends ZMRule {
 
         return $valid;
     }
-
 
     /**
      * Create JS validation call.

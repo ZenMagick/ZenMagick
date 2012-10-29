@@ -32,7 +32,6 @@ class CouponRestrictions extends ZMObject {
     private $categories_;
     private $products_;
 
-
     /**
      * Create new instance.
      */
@@ -41,7 +40,6 @@ class CouponRestrictions extends ZMObject {
         $this->categories_ = $categories;
         $this->products_ = $products;
     }
-
 
     /**
      * Checks if there are restrictions.

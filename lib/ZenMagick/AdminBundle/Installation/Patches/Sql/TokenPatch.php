@@ -21,7 +21,6 @@ namespace ZenMagick\AdminBundle\Installation\Patches\Sql;
 
 use ZenMagick\AdminBundle\Installation\Patches\SQLPatch;
 
-
 /**
  * Patch to create the token service database table.
  *
@@ -40,7 +39,6 @@ class TokenPatch extends SQLPatch {
         $this->label_ = 'Create the database table used by the token service';
         $this->setTables('token');
     }
-
 
     /**
      * Checks if this patch can still be applied.

@@ -21,7 +21,6 @@ namespace ZenMagick\AdminBundle\Installation\Patches\Sql;
 
 use ZenMagick\AdminBundle\Installation\Patches\SQLPatch;
 
-
 /**
  * Patch to create the admin prefs tables.
  *
@@ -40,7 +39,6 @@ class AdminPrefsPatch extends SQLPatch {
         $this->label_ = 'Create new admin preferences table';
         $this->setTables('admin_prefs');
     }
-
 
     /**
      * Checks if this patch can still be applied.

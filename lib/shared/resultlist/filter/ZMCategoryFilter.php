@@ -32,7 +32,6 @@ use ZenMagick\Base\Database\SqlAware;
 class ZMCategoryFilter extends ZMResultListFilter implements SqlAware {
     private $productIds_;
 
-
     /**
      * Create new instance.
      */
@@ -40,7 +39,6 @@ class ZMCategoryFilter extends ZMResultListFilter implements SqlAware {
         parent::__construct('cfilter', _zm('Category'), Runtime::getContainer()->get('request')->query->get('cfilter'));
         $this->productIds_ = null;
     }
-
 
     // lazy load all included productIds
     protected function getProductIds() {
@@ -50,7 +48,6 @@ class ZMCategoryFilter extends ZMResultListFilter implements SqlAware {
         }
         return $this->productIds_;
     }
-
 
     /**
      * Return <code>true</code> if the given object is to be excluded.

@@ -46,7 +46,6 @@
         </fieldset>
     <?php } ?>
 
-
     <?php $voucherBalance = $account->getVoucherBalance(); ?>
     <?php if (0 < $voucherBalance) { ?>
         <fieldset>

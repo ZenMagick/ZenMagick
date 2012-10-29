@@ -35,8 +35,6 @@ class CounterHistory
      */
     private $sessionCounter;
 
-
-
     /**
      * Get startDate
      *

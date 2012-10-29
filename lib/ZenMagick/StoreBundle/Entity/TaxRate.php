@@ -101,7 +101,6 @@ class TaxRate extends ZMObject {
      */
     private $dateAdded;
 
-
     /**
      * Create new instance.
      */
@@ -117,7 +116,6 @@ class TaxRate extends ZMObject {
         $this->setDateAdded('0001-01-00 00:00:00');
         $this->setLastModified(null);
     }
-
 
     /**
      * Get the tax rate idendtifier

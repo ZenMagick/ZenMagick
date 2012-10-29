@@ -129,7 +129,6 @@ class Banner extends ZMObject {
      */
     private $sortOrder;
 
-
     /**
      * Create new instance.
      */
@@ -148,7 +147,6 @@ class Banner extends ZMObject {
         $this->setLastModified(null);
         $this->sortOrder = 0;
     }
-
 
     /**
      * Get the banner id.

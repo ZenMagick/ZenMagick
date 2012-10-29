@@ -85,7 +85,6 @@ use ZenMagick\StoreBundle\Services\Products;
   <?php } ?>
 </form>
 
-
 <?php $productService = $container->get('productService'); ?>
 <?php $similarOrderProducts = $currentProduct->getProductAssociations('similarOrder') ?>
 <?php if (0 < count($similarOrderProducts)) { ?>

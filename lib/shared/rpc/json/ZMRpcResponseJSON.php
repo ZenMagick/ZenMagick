@@ -32,7 +32,6 @@ class ZMRpcResponseJSON implements ZMRpcResponse {
     private $data_;
     private $returnCode_;
 
-
     /**
      * Create new instance
      *
@@ -45,7 +44,6 @@ class ZMRpcResponseJSON implements ZMRpcResponse {
         $this->data_ = null;
         $this->returnCode_ = 0;
     }
-
 
     /**
      * Set the corresponding RPC request.

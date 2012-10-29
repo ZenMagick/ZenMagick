@@ -69,7 +69,6 @@ class PriceGroup extends ZMObject {
      */
     private $dateAdded;
 
-
     /**
      * Create new instance.
      */
@@ -82,7 +81,6 @@ class PriceGroup extends ZMObject {
         $this->dateAdded = null;
         $this->lastModified = null;
     }
-
 
     /**
      * Get the group id.

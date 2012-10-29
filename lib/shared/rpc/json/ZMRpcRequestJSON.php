@@ -29,7 +29,6 @@ class ZMRpcRequestJSON implements ZMRpcRequest {
     private $request_;
     private $json_;
 
-
     /**
      * Create new instance
      *
@@ -40,7 +39,6 @@ class ZMRpcRequestJSON implements ZMRpcRequest {
         $this->json_ = json_decode(trim(file_get_contents('php://input')));
 
     }
-
 
     /**
      * Set the request.

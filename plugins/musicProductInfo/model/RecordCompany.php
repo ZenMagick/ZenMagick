@@ -32,7 +32,6 @@ class RecordCompany extends ZMObject {
     private $image_;
     private $url_;
 
-
     /**
      * Create new instance.
      */
@@ -43,7 +42,6 @@ class RecordCompany extends ZMObject {
         $this->image_ = null;
         $this->url_ = null;
     }
-
 
     /**
      * Get the record company id.

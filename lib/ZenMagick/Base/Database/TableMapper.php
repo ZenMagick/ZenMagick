@@ -23,7 +23,6 @@ use ZMRuntime;
 use ZenMagick\Base\Runtime;
 use ZenMagick\Base\ZMObject;
 
-
 /**
  * Database table mapping *service*.
  *

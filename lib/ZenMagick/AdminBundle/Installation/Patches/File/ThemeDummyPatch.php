@@ -39,7 +39,6 @@ class ThemeDummyPatch extends FilePatch {
         $this->catalogTemplatePath = Runtime::getSettings()->get('zencart.root_dir').'/includes/templates/';
     }
 
-
     /**
      * Checks if this patch can still be applied.
      *
@@ -146,7 +145,6 @@ class ThemeDummyPatch extends FilePatch {
 
         return true;
     }
-
 
     /**
      * Find all dummies.

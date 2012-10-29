@@ -30,7 +30,6 @@ class Crumb extends ZMObject {
     private $name_;
     private $url_;
 
-
     /**
      * Create a new crumbtrail crumb.
      *
@@ -42,7 +41,6 @@ class Crumb extends ZMObject {
         $this->name_ = $name;
         $this->url_ = $url;
     }
-
 
     /**
      * Get the name.

@@ -32,7 +32,6 @@ class ThemeBuilder extends ZMObject {
     private $messages_;
     private $fsLog_;
 
-
     /**
      * Create new instance.
      */
@@ -44,7 +43,6 @@ class ThemeBuilder extends ZMObject {
         $this->fsLog_ = array();
     }
 
-
     /**
      * Get messages.
      *
@@ -53,7 +51,6 @@ class ThemeBuilder extends ZMObject {
     public function getMessages() {
         return $this->messages_;
     }
-
 
     /**
      * Set the name.

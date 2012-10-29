@@ -67,5 +67,4 @@ class CategoryMetaTagDetails {
      */
     private $description;
 
-
 }

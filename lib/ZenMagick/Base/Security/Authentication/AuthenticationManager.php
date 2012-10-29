@@ -37,7 +37,6 @@ use ZenMagick\Base\ZMObject;
 class AuthenticationManager extends ZMObject {
     const DEFAULT_MIN_PASSWORD_LENGTH = 8;
 
-
     /**
      * Get all registered providers.
      *

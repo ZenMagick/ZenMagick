@@ -20,7 +20,6 @@
 
 use ZenMagick\Base\Runtime;
 
-
 class ZMRuntime {
     private static $databaseMap_ = array();
 

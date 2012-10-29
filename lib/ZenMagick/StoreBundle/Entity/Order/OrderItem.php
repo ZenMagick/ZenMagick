@@ -146,7 +146,6 @@ class OrderItem extends ZMObject {
     private $taxRate;
     private $attributes;
 
-
     /**
      * Create new instance.
      */
@@ -155,7 +154,6 @@ class OrderItem extends ZMObject {
         $this->taxRate = null;
         $this->attributes = array();
     }
-
 
     /**
      * Get the order item id.

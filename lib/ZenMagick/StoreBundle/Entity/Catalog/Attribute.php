@@ -121,7 +121,6 @@ class Attribute extends ZMObject {
     private $productId;
     private $values;
 
-
     /**
      * Create new attribute.
      *
@@ -201,7 +200,6 @@ class Attribute extends ZMObject {
      * @param int id the attribute id.
      */
     public function setId($id) { $this->attributeId = $id; }
-
 
     /**
      * Set the product id.

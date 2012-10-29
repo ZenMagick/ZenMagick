@@ -28,7 +28,6 @@ use ZenMagick\StoreBundle\Entity\Order\OrderItem;
 class MockOrderItem extends OrderItem {
     private $index_;
 
-
     /**
      * Create new instance.
      *
@@ -38,7 +37,6 @@ class MockOrderItem extends OrderItem {
         parent::__construct();
         $this->index_ = $index;
     }
-
 
     /**
      * {@inheritDoc}

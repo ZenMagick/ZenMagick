@@ -33,7 +33,6 @@ class VBulletinPlugin extends Plugin {
     private $prePostAccount_ = null;
     private $adapter_ = null;
 
-
     /**
      * Get the vBulletin adapter.
      */

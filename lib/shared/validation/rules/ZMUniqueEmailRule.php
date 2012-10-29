@@ -18,7 +18,6 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-
 /**
  * Check for unique email address.
  *
@@ -37,7 +36,6 @@ class ZMUniqueEmailRule extends ZMRule {
         parent::__construct($name, "Email already in use.", $msg);
     }
 
-
     /**
      * Validate the given request data.
      *
@@ -48,7 +46,6 @@ class ZMUniqueEmailRule extends ZMRule {
     public function validate($request, $data) {
         return empty($data[$this->getName()]) || !$this->container->get('accountService')->emailExists($data[$this->getName()]);
     }
-
 
     /**
      * Create JS validation call.

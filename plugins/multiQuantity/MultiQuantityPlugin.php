@@ -24,7 +24,6 @@ use ZenMagick\Base\Plugins\Plugin;
 // The form field name indicating the attribute id used for multi qty
 define('MULTI_QUANTITY_ID', 'multi_qty_id');
 
-
 /**
  * Plugin implementing multi quantity product add for attributed products.
  *

@@ -61,5 +61,4 @@ class SacsPermissions {
      */
     private $name;
 
-
 }

@@ -27,7 +27,6 @@
      * The ruleset id must match the id attribute of the HTML form.
      */
 
-
     $validator = $this->container->get('zmvalidator');
     $settingsService = $this->container->get('settingsService');
 
@@ -52,7 +51,6 @@
         $validator->addRule('account', array('ZMDateRule' ,'dob', null, 'Please enter a valid date of birth.'));
     }
 
-
     /* account password */
     $validator->addRules('account_password', array(
         array('ZMRequiredRule' ,'password_current', 'Please enter you current password.'),
@@ -61,7 +59,6 @@
         array('ZMRequiredRule' ,'password_confirmation', 'Please confirm the new password.'),
         array('ZMFieldMatchRule' ,'password_new', 'password_confirmation', 'The new password and confirm password must match.')
     ));
-
 
     /* address */
     $validator->addRules('address', array(
@@ -94,7 +91,6 @@
         array('ZMRequiredRule' ,'keywords', 'Search cannot be empty.')
     ));
 
-
     /* contact us */
     $validator->addRules('contactUs', array(
         array('ZMRequiredRule' ,'name', 'Please enter your name.'),
@@ -102,7 +98,6 @@
         array('ZMEmailRule' ,'email', 'Please enter a valid email address.'),
         array('ZMRequiredRule' ,'message', 'Please enter your message.')
     ));
-
 
     /* create account */
     $validator->addRules('registration', array(
@@ -143,14 +138,12 @@
         $validator->addRule('registration', array('ZMMaxFieldLengthRule' ,'state', 'address_book', 'entry_state'));
     }
 
-
     /* login */
     $validator->addRules('login', array(
         array('ZMRequiredRule', 'email_address', 'Please enter your email address.'),
         array('ZMEmailRule', 'email_address', 'Please enter a valid email address.'),
         array('ZMRequiredRule', 'password', "Please enter your password.")
     ));
-
 
     /* checkout_guest */
     $validator->addRules('checkout_guest', array(
@@ -161,14 +154,12 @@
         $validator->addRules('checkout_guest', $validator->getRuleSet('address', false));
     }
 
-
     /* review */
     $validator->addRules('newReview', array(
         array('ZMRequiredRule' ,'rating', 'Please choose a rating.'),
         array('ZMRequiredRule' ,'text', 'Please enter your review.'),
         array('ZMMinRule' ,'text', REVIEW_TEXT_MIN_LENGTH, 'A review needs to have at least %2$s characters.')
     ));
-
 
     /* tell a friend */
     $validator->addRules('tellAFriend', array(
@@ -180,13 +171,11 @@
         array('ZMEmailRule' ,'toEmail', "Please enter a valid friend's email address.")
     ));
 
-
     /* guest_history */
     $validator->addRules('guest_history', array(
         array('ZMRequiredRule' ,'email', 'Please enter your email address.'),
         array('ZMRequiredRule' ,'orderId', 'Please enter your order number.')
     ));
-
 
     /* gvReceiver */
     $validator->addRules('gvReceiver', array(
@@ -197,7 +186,6 @@
         array('ZMRequiredRule' ,'amount', 'Please enter the amount.'),
         array('ZMGVAmountRule' ,'amount')
     ));
-
 
     /* unsubscribe */
     $validator->addRules('unsubscribe', array(

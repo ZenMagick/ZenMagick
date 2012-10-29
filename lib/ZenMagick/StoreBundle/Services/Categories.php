@@ -45,7 +45,6 @@ class Categories extends ZMObject {
     private $rootCategories_;
     private $productTypeIdMap_;
 
-
     /**
      * Create new instance.
      */

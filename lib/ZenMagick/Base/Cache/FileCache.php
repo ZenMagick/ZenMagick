@@ -37,7 +37,6 @@ class FileCache extends ZMObject implements Cache {
     private $cache_;
     private $metaCache_;
 
-
     /**
      * Create new instance.
      */
@@ -45,7 +44,6 @@ class FileCache extends ZMObject implements Cache {
         parent::__construct();
         $this->available_ = true;
     }
-
 
     /**
      * {@inheritDoc}
@@ -68,7 +66,6 @@ class FileCache extends ZMObject implements Cache {
         $this->available_ = $this->ensureCacheDir($config['cacheDir']);
         $this->cache_ = new CacheLite($config);
 
-
         // update system stats
         $system = $this->metaCache_->get(self::SYSTEM_KEY);
         if (!$system) {
@@ -78,7 +75,6 @@ class FileCache extends ZMObject implements Cache {
         $system['groups'][$group] = $config;
         $this->metaCache_->save($system, self::SYSTEM_KEY);
     }
-
 
     /**
      * {@inheritDoc}
@@ -120,7 +116,6 @@ class FileCache extends ZMObject implements Cache {
     public function lastModified() {
         return $this->cache_->lastModified();
     }
-
 
     /**
      * Ensure the given dir exists and is writeable.

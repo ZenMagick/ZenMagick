@@ -35,7 +35,6 @@ class ZMSortOption extends ZMObject {
     private $active_;
     private $decending_;
 
-
     /**
      * Create a new sort option.
      *
@@ -52,7 +51,6 @@ class ZMSortOption extends ZMObject {
         $this->active_ = $active;
         $this->decending_ = $decending;
     }
-
 
     /**
      * Get the option id.

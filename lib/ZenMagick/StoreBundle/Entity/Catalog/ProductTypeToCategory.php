@@ -51,5 +51,4 @@ class ProductTypeToCategory
      */
     private $categoryId;
 
-
 }

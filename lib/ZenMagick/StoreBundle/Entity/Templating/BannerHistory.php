@@ -69,5 +69,4 @@ class BannerHistory {
      */
     private $historyDate;
 
-
 }

@@ -35,7 +35,6 @@ use ZenMagick\StoreBundle\Entity\TaxRate;
 class TaxService extends ZMObject {
     private $taxRates;
 
-
     /**
      * Create new instance.
      */
@@ -43,7 +42,6 @@ class TaxService extends ZMObject {
         parent::__construct();
         $this->taxRates = array();
     }
-
 
     /**
      * Get tax for the given parameter.

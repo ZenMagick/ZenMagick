@@ -218,5 +218,4 @@ class OrdersProductsAttributes {
      */
     private $productsPrid;
 
-
 }

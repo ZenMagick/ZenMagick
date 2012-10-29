@@ -22,7 +22,6 @@ namespace ZenMagick\plugins\whoIsOnline;
 use ZenMagick\Base\Plugins\Plugin;
 use ZenMagick\Base\Runtime;
 
-
 /**
  * Provide information about current site users.
  *

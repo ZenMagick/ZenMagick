@@ -28,7 +28,6 @@
 <div style="font-family:Verdana,Arial,Helvetica,sans-serif;font-size:10pt;">
 <p><?php _vzm("Store Enquiry %s,", $settingsService->get('storeName')) ?></p>
 
-
 <p><?php _vzm("From: %s", $contactInfo->getName()) ?></p>
 <p><?php _vzm("Email: %s", $contactInfo->getEmail()) ?></p>
 

@@ -21,7 +21,6 @@ namespace ZenMagick\StorefrontBundle\Controller;
 
 use ZenMagick\StoreBundle\Entity\Coupons\Coupon;
 
-
 /**
  * Request controller for gv confirmation page.
  *

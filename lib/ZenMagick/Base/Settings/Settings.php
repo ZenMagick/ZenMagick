@@ -30,7 +30,6 @@ use Symfony\Component\Yaml\Yaml;
 class Settings {
     protected $settings_ = array();
 
-
     public function load($resource) {
         $this->setAll(Yaml::parse($resource));
     }

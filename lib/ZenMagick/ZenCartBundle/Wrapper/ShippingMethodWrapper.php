@@ -32,7 +32,6 @@ class ShippingMethodWrapper extends ZMObject implements \ZMShippingMethod {
     private $taxRate_;
     private $zenMethod_;
 
-
     /**
      * Create new shipping method.
      *
@@ -45,7 +44,6 @@ class ShippingMethodWrapper extends ZMObject implements \ZMShippingMethod {
         $this->zenMethod_ = $zenMethod;
         $this->taxRate_ = Beans::getBean('ZenMagick\StoreBundle\Entity\TaxRate');
     }
-
 
     /**
      * Get the shipping method id.

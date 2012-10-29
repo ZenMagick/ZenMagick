@@ -49,7 +49,6 @@ class UpgradeExceptions
      */
     private $sqlStatement;
 
-
     /**
      * Get id
      *

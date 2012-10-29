@@ -36,7 +36,6 @@ class MemcacheCache implements Cache {
     private $lastModified_;
     private $compress_;
 
-
     /**
      * Create new instance.
      */
@@ -46,7 +45,6 @@ class MemcacheCache implements Cache {
         $this->lastModified_ = time();
         $this->compress_ = 0;
     }
-
 
     /**
      * Get a ready-to-use <code>Memcache</code> instance.
@@ -82,7 +80,6 @@ class MemcacheCache implements Cache {
         $system['groups'][$group] = $config;
         $this->memcache_->set(self::SYSTEM_KEY, $system, false, 0);
     }
-
 
     /**
      * {@inheritDoc}

@@ -37,7 +37,6 @@ class VBulletinAdapter extends ZMObject {
     private $dbConfig_;
     private $userTable_;
 
-
     /**
      * Create new instance.
      */
@@ -60,7 +59,6 @@ class VBulletinAdapter extends ZMObject {
         );
         $this->userTable_ = $config['Database']['tableprefix'] . 'user';
     }
-
 
     /**
      * Get database.

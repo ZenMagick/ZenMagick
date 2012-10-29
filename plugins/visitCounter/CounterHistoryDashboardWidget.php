@@ -39,7 +39,6 @@ class CounterHistoryDashboardWidget extends DashboardWidget {
         parent::__construct(sprintf(_zm('Counter History for last %s recorded days'), count($this->counterResults)));
     }
 
-
     /**
      * Get data.
      */

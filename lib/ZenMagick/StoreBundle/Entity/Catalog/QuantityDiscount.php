@@ -68,7 +68,6 @@ class QuantityDiscount extends ZMObject {
     private $value;
     private $price;
 
-
     /**
      * Create new instance.
      */
@@ -80,7 +79,6 @@ class QuantityDiscount extends ZMObject {
         $this->value = 0;
         $this->price = 0;
     }
-
 
     /**
      * Get the discount id.

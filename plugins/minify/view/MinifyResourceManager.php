@@ -30,7 +30,6 @@ use ZenMagick\Http\View\ResourceManager;
 class MinifyResourceManager extends ResourceManager {
     private $plugin_;
 
-
     /**
      * Get the controlling plugin.
      *
@@ -152,7 +151,6 @@ class MinifyResourceManager extends ResourceManager {
         // clean up; empty lists are ok
         $masterList[] = array('type' => 'local', 'list' => $srcList);
         $masterList[] = array('type' => 'default', 'list' => $defaultList);
-
 
         $contents = '';
         foreach ($masterList as $list) {

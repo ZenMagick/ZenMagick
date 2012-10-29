@@ -107,5 +107,4 @@ class Authorizenet
      */
     private $sessionId;
 
-
 }

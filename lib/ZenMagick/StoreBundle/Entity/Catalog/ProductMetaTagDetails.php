@@ -68,5 +68,4 @@ class ProductMetaTagDetails {
      */
     private $description;
 
-
 }

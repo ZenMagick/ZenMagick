@@ -32,7 +32,6 @@ use ZenMagick\StoreBundle\Entity\Order\OrderTotalLine;
 class ZMOrderTotals extends ZMObject {
     private $orderTotals;
 
-
     /**
      * Create new instance.
      */
@@ -40,7 +39,6 @@ class ZMOrderTotals extends ZMObject {
         parent::__construct();
         $this->orderTotals = null;
     }
-
 
     /**
      * Get zen-cart order totals.

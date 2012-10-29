@@ -34,7 +34,6 @@ class ZMGVReceiver extends ZMObject {
     private $amount_;
     private $message_;
 
-
     /**
      * Create new instance.
      */
@@ -45,7 +44,6 @@ class ZMGVReceiver extends ZMObject {
         $this->amount_ = 0;
         $this->message_ = null;
     }
-
 
     /**
      * Get the receiver name.

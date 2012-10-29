@@ -37,7 +37,6 @@ use ZenMagick\Http\Sacs\SacsHandler;
 class StorefrontAccountSacsHandler extends ZMObject implements SacsHandler {
     private $levelMap_;
 
-
     /**
      * Create new instance.
      */
@@ -56,7 +55,6 @@ class StorefrontAccountSacsHandler extends ZMObject implements SacsHandler {
     public function getName() {
         return get_class();
     }
-
 
     /**
      * {@inheritDoc}

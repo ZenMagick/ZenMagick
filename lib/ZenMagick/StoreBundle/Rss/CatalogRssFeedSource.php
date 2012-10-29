@@ -34,7 +34,6 @@ class CatalogRssFeedSource extends ZMObject implements RssSource {
     protected $fullFeed;
     protected $multiCurrency;
 
-
     /**
      * Create new instance.
      */
@@ -43,7 +42,6 @@ class CatalogRssFeedSource extends ZMObject implements RssSource {
         $this->fullFeed = true;
         $this->multiCurrency = true;
     }
-
 
     /**
      * Set a flag to indicate whether to produce a full feed or not.

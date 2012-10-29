@@ -72,5 +72,4 @@ class AccountInfo {
      */
     private $globalProductNotifications;
 
-
 }

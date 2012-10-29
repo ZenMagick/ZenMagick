@@ -35,7 +35,6 @@ class Artist extends ZMObject {
     private $url_;
     private $recordCompany_;
 
-
     /**
      * Create new instance.
      */
@@ -47,7 +46,6 @@ class Artist extends ZMObject {
         $this->url_ = null;
         $this->recordCompany_ = null;
     }
-
 
     /**
      * Get the artist id.

@@ -19,7 +19,6 @@
  */
 namespace ZenMagick\StorefrontBundle\Controller;
 
-
 /**
  * Controller for coupon code lookup page.
  *

@@ -34,7 +34,6 @@ class ThemeStatusMapBuilder extends ZMObject {
     protected $themeService;
     protected $defaultThemeClass;
 
-
     /**
      * Create new instance.
      */
@@ -42,7 +41,6 @@ class ThemeStatusMapBuilder extends ZMObject {
         parent::__construct();
         $this->defaultThemeClass = self::DEFAULT_THEME_CLASS;
     }
-
 
     /**
      * Set the theme service.

@@ -30,7 +30,6 @@ use ZenMagick\Base\ZMObject;
 class InstallationPatcher extends ZMObject {
     private $patches_;
 
-
     /**
      * Create new instance.
      */
@@ -38,7 +37,6 @@ class InstallationPatcher extends ZMObject {
         parent::__construct();
         $this->_loadPatches();
     }
-
 
     /**
      * Load all patches.

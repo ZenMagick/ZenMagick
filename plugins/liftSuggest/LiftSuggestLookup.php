@@ -45,7 +45,6 @@ class LiftSuggestLookup {
     private $limit;
     private $domain;
 
-
     /**
      * Create new instance.
      *

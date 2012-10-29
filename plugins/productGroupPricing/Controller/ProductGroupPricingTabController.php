@@ -38,7 +38,6 @@ class ProductGroupPricingTabController extends CatalogContentController {
         parent::__construct('product_group_pricing_tab', _zm('Group Pricing'), self::ACTIVE_PRODUCT);
     }
 
-
     /**
      * {@inheritDoc}
      */

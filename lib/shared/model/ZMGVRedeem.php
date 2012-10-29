@@ -31,7 +31,6 @@ class ZMGVRedeem extends ZMObject {
     private $amount_;
     private $redeemed_;
 
-
     /**
      * Create new instance.
      */
@@ -41,7 +40,6 @@ class ZMGVRedeem extends ZMObject {
         $this->amount_ = 0;
         $this->redeemed_ = false;
     }
-
 
     /**
      * Get the coupon code.

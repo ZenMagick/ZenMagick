@@ -53,7 +53,6 @@ class Addresses extends ZMObject {
         return $address;
     }
 
-
     /**
      * Get all addresses for the given account id.
      *
@@ -74,7 +73,6 @@ class Addresses extends ZMObject {
         return $addresses;
     }
 
-
     /**
      * Update the given address.
      *
@@ -85,7 +83,6 @@ class Addresses extends ZMObject {
         return ZMRuntime::getDatabase()->updateModel('address_book', $address);
     }
 
-
     /**
      * Create a new address.
      *
@@ -95,7 +92,6 @@ class Addresses extends ZMObject {
     public function createAddress($address) {
         return ZMRuntime::getDatabase()->createModel('address_book', $address);
     }
-
 
     /**
      * Delte an address.
@@ -110,7 +106,6 @@ class Addresses extends ZMObject {
         return true;
     }
 
-
     /**
      * Get the default address id for the given account.
      *
@@ -120,7 +115,6 @@ class Addresses extends ZMObject {
         $account = $this->container->get('accountService')->getAccountForId($accountId);
         return null != $account ? $account->getDefaultAddressId() : 0;
     }
-
 
     /**
      * Get the address format for the given address format id.

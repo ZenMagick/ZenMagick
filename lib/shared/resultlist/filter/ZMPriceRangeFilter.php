@@ -30,7 +30,6 @@ use ZenMagick\Base\Beans;
 class ZMPriceRangeFilter extends ZMResultListFilter {
     private $ranges_;
 
-
     /**
      * Create new instance.
      */
@@ -48,7 +47,6 @@ class ZMPriceRangeFilter extends ZMResultListFilter {
             }
         }
     }
-
 
     /**
      * Return <code>true</code> if the given object is to be excluded.

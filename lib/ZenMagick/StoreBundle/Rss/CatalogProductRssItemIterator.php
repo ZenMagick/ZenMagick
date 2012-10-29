@@ -35,7 +35,6 @@ class CatalogProductRssItemIterator extends ZMObject implements Iterator {
     private $fullFeed;
     private $multiCurrency;
 
-
     /**
      * Create new instance.
      *
@@ -52,7 +51,6 @@ class CatalogProductRssItemIterator extends ZMObject implements Iterator {
         $this->fullFeed = $fullFeed;
         $this->multiCurrency = $multiCurrency;
     }
-
 
     /**
      * {@inheritDoc}

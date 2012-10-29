@@ -23,7 +23,6 @@ namespace ZenMagick\plugins\productGroupPricing\service;
 use ZMRuntime;
 use ZenMagick\Base\ZMObject;
 
-
 /**
  * Service class for product based group pricing
  *

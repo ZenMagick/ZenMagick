@@ -32,7 +32,6 @@ use ZenMagick\plugins\unitTests\simpletest\TestCase;
 class TestPhpBB3Adapter extends TestCase {
     private $adapter_ = null;
 
-
     /**
      * {@inheritDoc}
      */

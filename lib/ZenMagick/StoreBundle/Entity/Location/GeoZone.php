@@ -65,5 +65,4 @@ class GeoZone {
      */
     private $dateAdded;
 
-
 }

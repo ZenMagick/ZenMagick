@@ -31,7 +31,6 @@ use ZenMagick\Http\Blocks\Widgets\BlockWidget;
 class BlockManager extends ZMObject {
     private $mappings_;
 
-
     /**
      * Create new instance.
      */
@@ -39,7 +38,6 @@ class BlockManager extends ZMObject {
         parent::__construct();
         $this->mappings_ = array();
     }
-
 
     /**
      * Get a list of all registered providers.

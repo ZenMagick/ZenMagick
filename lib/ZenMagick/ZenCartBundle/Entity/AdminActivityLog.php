@@ -83,7 +83,6 @@ class AdminActivityLog
      */
     private $gzPost;
 
-
     public function __construct() {
         $this->adminId = 0;
     }

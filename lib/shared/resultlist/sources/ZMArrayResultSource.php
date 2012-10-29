@@ -30,7 +30,6 @@ class ZMArrayResultSource extends ZMObject implements ZMResultSource {
     private $list_;
     private $resultClass_;
 
-
     /**
      * Create a new instance.
      *
@@ -42,7 +41,6 @@ class ZMArrayResultSource extends ZMObject implements ZMResultSource {
         $this->resultClass_ = $resultClass;
         $this->list_ = $list;
     }
-
 
     /**
      * {@inheritDoc}

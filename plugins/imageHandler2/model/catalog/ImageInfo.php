@@ -32,7 +32,6 @@ class ImageInfo extends ZMImageInfo {
     private $formattedParameter_;
     private $disableIH2Attributes_;
 
-
     /**
      * Create new image info.
      *
@@ -46,7 +45,6 @@ class ImageInfo extends ZMImageInfo {
         $plugin = Runtime::getContainer()->get('pluginService')->getPluginForId('imageHandler2');
         $this->disableIH2Attributes_ = null !== $plugin && $plugin->get('disableIH2Attributes');
     }
-
 
     /**
      * {@inheritDoc}

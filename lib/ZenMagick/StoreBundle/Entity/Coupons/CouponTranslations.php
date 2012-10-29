@@ -72,7 +72,6 @@ class CouponTranslations extends ZMObject {
         $this->setDescription($description);
     }
 
-
     /**
      * Get couponId
      *

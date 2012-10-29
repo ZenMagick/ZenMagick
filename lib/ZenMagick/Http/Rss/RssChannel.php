@@ -43,7 +43,6 @@ class RssChannel extends ZMObject {
         }
     }
 
-
     /**
      * Get the channel title.
      *

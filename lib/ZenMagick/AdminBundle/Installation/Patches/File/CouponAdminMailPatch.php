@@ -39,7 +39,6 @@ class CouponAdminMailPatch extends FilePatch {
         $this->couponAdminFile = $this->container->getParameter('zencart.admin_dir').'/coupon_admin.php';
     }
 
-
     /**
      * Checks if this patch can still be applied.
      *

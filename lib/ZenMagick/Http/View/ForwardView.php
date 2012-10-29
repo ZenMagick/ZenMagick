@@ -31,7 +31,6 @@ use ZenMagick\Base\ZMObject;
 class ForwardView extends ZMObject implements View {
     private $requestId_;
 
-
     /**
      * Create a new forward view.
      */

@@ -42,7 +42,6 @@ class ZMProductFinder extends ZMObject {
     protected $sortId_;
     protected $descending_;
 
-
     /**
      * Create a new instance.
      *
@@ -54,7 +53,6 @@ class ZMProductFinder extends ZMObject {
         $this->sortId_ = null;
         $this->descending_ = false;
     }
-
 
     /**
      * Set the search criteria.

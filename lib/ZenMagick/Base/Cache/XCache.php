@@ -19,7 +19,6 @@
  */
 namespace ZenMagick\Base\Cache;
 
-
 /**
  * xcache caching.
  *
@@ -33,7 +32,6 @@ class XCache implements Cache {
     private $lifetime_;
     private $lastModified_;
 
-
     /**
      * Create new instance.
      */
@@ -42,14 +40,12 @@ class XCache implements Cache {
         $this->lastModified_ = time();
     }
 
-
     /**
      * {@inheritDoc}
      */
     public function init($group, $config) {
         $this->group_ = $group;
         $this->lifetime_ = $config['cacheTTL'];
-
 
         // update system stats
         if (!xcache_isset(self::SYSTEM_KEY)) {
@@ -61,7 +57,6 @@ class XCache implements Cache {
         $system['groups'][$group] = $config;
         xcache_set(self::SYSTEM_KEY, $system, false, 0);
     }
-
 
     /**
      * {@inheritDoc}

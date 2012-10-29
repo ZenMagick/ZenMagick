@@ -112,7 +112,6 @@ class Category extends ZMObject {
     private $description;
     private $languageId;
 
-
     /**
      * Create new instance.
      */

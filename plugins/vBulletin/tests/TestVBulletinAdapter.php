@@ -30,7 +30,6 @@ use ZenMagick\plugins\unitTests\simpletest\TestCase;
 class TestVBulletinAdapter extends TestCase {
     private $adapter_ = null;
 
-
     /**
      * {@inheritDoc}
      */

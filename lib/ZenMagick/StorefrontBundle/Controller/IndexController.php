@@ -19,7 +19,6 @@
  */
 namespace ZenMagick\StorefrontBundle\Controller;
 
-
 /**
  * Request controller for index.
  *

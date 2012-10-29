@@ -45,8 +45,6 @@ class FilesUploaded
      */
     private $fileName;
 
-
-
     /**
      * Get id
      *

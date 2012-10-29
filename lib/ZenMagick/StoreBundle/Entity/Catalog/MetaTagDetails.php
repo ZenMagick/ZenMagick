@@ -33,7 +33,6 @@ class MetaTagDetails extends ZMObject {
     private $keywords;
     private $description;
 
-
     /**
      * Get the title.
      *

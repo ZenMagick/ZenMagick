@@ -19,7 +19,6 @@
  */
 namespace ZenMagick\Http\Blocks;
 
-
 /**
  * Interface for block provider.
  *

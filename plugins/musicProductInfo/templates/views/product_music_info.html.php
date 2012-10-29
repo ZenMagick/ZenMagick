@@ -120,7 +120,6 @@ use ZenMagick\StoreBundle\Services\Products;
   <?php } ?>
 </form>
 
-
 <?php $productService = $container->get('productService'); ?>
 <h3><?php _vzm('People that bought "%s" also bought:', '<em>'.$currentProduct->getName().'</em>') ?></h3>
 <div id="similar">

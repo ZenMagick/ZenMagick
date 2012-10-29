@@ -21,7 +21,6 @@ namespace ZenMagick\StoreBundle\Themes;
 
 use ZenMagick\Base\ZMObject;
 
-
 /**
  * Theme service.
  *
@@ -37,7 +36,6 @@ class ThemeService extends ZMObject {
     // theme chain override
     protected $themeChain;
     protected $defaultThemeId;
-
 
     /**
      * Create new instance.

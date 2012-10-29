@@ -33,7 +33,6 @@ use ZenMagick\Base\ZMObject;
 class PaymentTypes extends ZMObject {
     private $paymentTypes_;
 
-
     /**
      * Create new instance.
      */

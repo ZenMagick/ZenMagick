@@ -66,7 +66,6 @@ class TaxClass extends ZMObject {
      */
     private $dateAdded;
 
-
     /**
      * Create new instance.
      */
@@ -78,7 +77,6 @@ class TaxClass extends ZMObject {
         $this->lastModified = null;
         $this->dateAdded = '0001-01-01 00:00:00';
     }
-
 
     /**
      * Set the id.

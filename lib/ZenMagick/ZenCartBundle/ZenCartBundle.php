@@ -40,7 +40,6 @@ class ZenCartBundle extends Bundle {
         $container->registerExtension(new ZenCartExtension());
     }
 
-
     /**
      * {@inheritDoc}
      */
@@ -57,7 +56,6 @@ class ZenCartBundle extends Bundle {
         !defined('IS_ADMIN_FLAG') && define('IS_ADMIN_FLAG', $isAdmin);
         $classLoader = new \Composer\AutoLoad\ClassLoader();
         $classLoader->register();
-
 
         $container = $this->container;
         $zcRoot = $this->container->getParameter('zencart.root_dir');

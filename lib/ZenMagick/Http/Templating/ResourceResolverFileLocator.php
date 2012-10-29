@@ -23,7 +23,6 @@ use InvalidArgumentException;
 use Symfony\Component\Config\FileLocatorInterface;
 use ZenMagick\Http\View\ResourceResolver;
 
-
 /**
  * A resource resolver file locator.
  *
@@ -31,7 +30,6 @@ use ZenMagick\Http\View\ResourceResolver;
  */
 class ResourceResolverFileLocator implements FileLocatorInterface {
     protected $resourceResolver;
-
 
     /**
      * Create new instance.
@@ -41,7 +39,6 @@ class ResourceResolverFileLocator implements FileLocatorInterface {
     public function __construct(ResourceResolver $resourceResolver) {
         $this->resourceResolver = $resourceResolver;
     }
-
 
     /**
      * {@inheritDoc}

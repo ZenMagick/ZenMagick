@@ -33,7 +33,6 @@ class OpenIDController extends ZMController {
     private $sRegRequired_;
     private $sRegOptional_;
 
-
     /**
      * Create new instance.
      */
@@ -44,7 +43,6 @@ class OpenIDController extends ZMController {
         $this->sRegRequired_ = array('email');
         $this->sRegOptional_ = array('fullname', 'nickname');
     }
-
 
     /**
      * {@inheritDoc}
@@ -105,7 +103,6 @@ class OpenIDController extends ZMController {
 
         return $this->findView('login');
     }
-
 
     /**
      * Initiate OpenID authentication.

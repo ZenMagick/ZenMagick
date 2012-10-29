@@ -33,7 +33,6 @@ class ZMEmailMessage extends ZMObject {
     private $toName_;
     private $message_;
 
-
     /**
      * Create new instance.
      */
@@ -45,7 +44,6 @@ class ZMEmailMessage extends ZMObject {
         $this->toName_ = '';
         $this->message_ = '';
     }
-
 
     /**
      * Get the sender email address.

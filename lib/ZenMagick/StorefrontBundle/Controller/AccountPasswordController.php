@@ -19,7 +19,6 @@
  */
 namespace ZenMagick\StorefrontBundle\Controller;
 
-
 use Symfony\Component\EventDispatcher\GenericEvent;
 
 /**

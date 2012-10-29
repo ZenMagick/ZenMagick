@@ -37,7 +37,6 @@ use Symfony\Component\EventDispatcher\GenericEvent;
 class CreateAccountController extends \ZMController {
     private $createDefaultAddress_;
 
-
     /**
      * Create new instance.
      */
@@ -45,7 +44,6 @@ class CreateAccountController extends \ZMController {
         parent::__construct();
         $this->createDefaultAddress_ = true;
     }
-
 
     /**
      * Set create default address flag.

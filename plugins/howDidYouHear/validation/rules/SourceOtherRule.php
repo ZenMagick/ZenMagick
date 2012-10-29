@@ -38,7 +38,6 @@ class SourceOtherRule extends ZMRequiredRule {
         parent::__construct($name, "Please enter the source where you first heard about us.");
     }
 
-
     /**
      * Validate the given request data.
      *
@@ -57,7 +56,6 @@ class SourceOtherRule extends ZMRequiredRule {
 
         return parent::validate($request, $data);
     }
-
 
     /**
      * Create JS validation call.

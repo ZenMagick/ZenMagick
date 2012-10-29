@@ -35,5 +35,4 @@ class Session
      */
     private $value;
 
-
 }

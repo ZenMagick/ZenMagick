@@ -19,7 +19,6 @@
  */
 namespace ZenMagick\AdminBundle\Controller;
 
-
 /**
  * Ajax SACS admin controller.
  *

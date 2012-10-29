@@ -30,7 +30,6 @@ use ZenMagick\plugins\unitTests\simpletest\TestCase;
 class TestLocaleScanner extends TestCase {
     protected static $DATA_DIR;
 
-
     /**
      * Create new instance.
      */
@@ -38,7 +37,6 @@ class TestLocaleScanner extends TestCase {
         parent::__construct();
         self::$DATA_DIR = $this->getTestPlugin()->getPluginDirectory().'/tests/base/data';
     }
-
 
     /**
      * Get scanner.

@@ -21,7 +21,6 @@ namespace ZenMagick\AdminBundle\Installation\Patches\Sql;
 
 use ZenMagick\AdminBundle\Installation\Patches\SQLPatch;
 
-
 /**
  * Patch to create the admin group tables.
  *
@@ -40,7 +39,6 @@ class AdminRolesPatch extends SQLPatch {
         $this->label_ = 'Create tables for new role based admin access control';
         $this->setTables(array('admins_to_roles', 'admin_roles'));
     }
-
 
     /**
      * Checks if this patch can still be applied.

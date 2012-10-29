@@ -62,7 +62,6 @@ class CategoryDescriptions
      */
     private $description;
 
-
     /**
      * Set languageId
      *

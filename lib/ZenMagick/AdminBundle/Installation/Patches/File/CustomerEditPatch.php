@@ -39,7 +39,6 @@ class CustomerEditPatch extends FilePatch {
         $this->customersAdminFile = $this->container->getParameter('zencart.admin_dir').'/customers.php';
     }
 
-
     /**
      * Checks if this patch can still be applied.
      *

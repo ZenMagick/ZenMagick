@@ -34,7 +34,6 @@ use Auth_OpenID_OpenIDStore;
 class OpenIDDatabaseStore extends Auth_OpenID_OpenIDStore {
     private $nonceLifetime;
 
-
     /**
      * Create new instance.
      *
@@ -66,7 +65,6 @@ class OpenIDDatabaseStore extends Auth_OpenID_OpenIDStore {
             )
         );
     }
-
 
     /**
      * Store an association

@@ -109,7 +109,6 @@ class Currency extends ZMObject {
         $this->rate = 1;
     }
 
-
     /**
      * Get the currency id.
      *

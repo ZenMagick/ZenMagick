@@ -49,7 +49,6 @@ class ZMAttributeValue extends ZMObject {
     private $sortOrder_;
     private $taxRate_;
 
-
     /**
      * Create new instance.
      */
@@ -59,7 +58,6 @@ class ZMAttributeValue extends ZMObject {
         $this->name_ = $name;
         $this->sortOrder_ = 0;
     }
-
 
     /**
      * Get the attribute value id.

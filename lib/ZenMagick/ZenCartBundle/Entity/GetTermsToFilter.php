@@ -35,8 +35,6 @@ class GetTermsToFilter
      */
     private $termField;
 
-
-
     /**
      * Get termName
      *

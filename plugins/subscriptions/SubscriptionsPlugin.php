@@ -57,7 +57,6 @@ class SubscriptionsPlugin extends Plugin {
         }
     }
 
-
     /**
      * Event handler to pick up subscription checkout options.
      */

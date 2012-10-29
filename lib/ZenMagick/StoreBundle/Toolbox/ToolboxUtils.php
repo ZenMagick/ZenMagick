@@ -246,5 +246,4 @@ class ToolboxUtils extends ToolboxTool {
         return $equal;
     }
 
-
 }

@@ -226,5 +226,4 @@ class ProductsAttributes {
      */
     private $attributesRequired;
 
-
 }

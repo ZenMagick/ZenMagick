@@ -44,7 +44,6 @@ class ZMOrderTotalLineDetails extends ZMObject {
     private $value_;
     private $taxClassId_;
 
-
     /**
      * Create new instance.
      */
@@ -55,7 +54,6 @@ class ZMOrderTotalLineDetails extends ZMObject {
         $this->value_ = 0;
         $this->taxClassId_ = 0;
     }
-
 
     /**
      * Get the title.

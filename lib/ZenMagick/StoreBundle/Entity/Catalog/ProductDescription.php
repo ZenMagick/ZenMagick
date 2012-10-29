@@ -78,8 +78,6 @@ class ProductDescription {
      */
     private $viewed;
 
-
-
     /**
      * Set productId
      *

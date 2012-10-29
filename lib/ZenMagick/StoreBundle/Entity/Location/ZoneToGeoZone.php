@@ -75,5 +75,4 @@ class ZoneToGeoZone {
      */
     private $dateAdded;
 
-
 }

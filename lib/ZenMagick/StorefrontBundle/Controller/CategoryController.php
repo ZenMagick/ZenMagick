@@ -73,7 +73,6 @@ class CategoryController extends \ZMController {
             $data['resultList'] = $resultList;
         }
 
-
         if ($viewName == "category_list"
             && ((null == $resultList || !$resultList->hasResults() || (null != $category && $category->hasChildren()))
                 && $settingsService->get('isUseCategoryPage'))) {

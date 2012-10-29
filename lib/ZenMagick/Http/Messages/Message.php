@@ -35,7 +35,6 @@ class Message {
     private $type_;
     private $ref_;
 
-
     /**
      * Create new message.
      *
@@ -48,7 +47,6 @@ class Message {
         $this->type_ = $type;
         $this->ref_ = $ref;
     }
-
 
     /**
      * Get the message text.

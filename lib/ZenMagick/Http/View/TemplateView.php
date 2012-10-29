@@ -43,7 +43,6 @@ class TemplateView extends ZMObject implements View {
     private $contentType;
     private $encoding;
 
-
     /**
      * Create new instance.
      */
@@ -56,7 +55,6 @@ class TemplateView extends ZMObject implements View {
         $this->contentType = 'text/html';
         $this->encoding = Runtime::getSettings()->get('zenmagick.http.html.charset', 'utf-8');
     }
-
 
     /**
      * Get the content type for this view.

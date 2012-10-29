@@ -93,7 +93,6 @@ Depending on your server configuration you might be better of using something di
     $(document).ready(function() { refreshCart(); });
 </script>
 
-
 <form action="#" id="productForm" style="margin:32px 0;">
     <fieldset>
         <legend>Simple Ajax Shopping Cart</legend>
@@ -114,7 +113,6 @@ Depending on your server configuration you might be better of using something di
         </p>
     </fieldset>
 </form>
-
 
 <script type="text/javascript">
     var productIdElem = document.getElementById('productId');
@@ -292,7 +290,6 @@ Depending on your server configuration you might be better of using something di
     }
 </script>
 
-
 <form action="#" style="margin:32px 0;">
     <fieldset>
         <legend>Simple Shipping Estimator</legend>
@@ -352,7 +349,6 @@ Depending on your server configuration you might be better of using something di
         });
     }
 </script>
-
 
 <form action="#" style="margin:32px 0;">
     <fieldset>

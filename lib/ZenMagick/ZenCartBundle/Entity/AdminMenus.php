@@ -53,8 +53,6 @@ class AdminMenus
      */
     private $sortOrder;
 
-
-
     /**
      * Get menuKey
      *

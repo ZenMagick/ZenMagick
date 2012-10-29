@@ -31,7 +31,6 @@ class ZMFilterOption extends ZMObject {
     private $id_;
     private $active_;
 
-
     /**
      * Create a new filter option.
      *
@@ -45,7 +44,6 @@ class ZMFilterOption extends ZMObject {
         $this->id_ = $id;
         $this->active_ = $active;
     }
-
 
     /**
      * Get the option id.

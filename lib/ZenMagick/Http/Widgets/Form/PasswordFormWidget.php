@@ -37,7 +37,6 @@ class PasswordFormWidget extends TextFormWidget {
         $this->set('autocomplete','off');
     }
 
-
     /**
      * {@inheritDoc}
      */

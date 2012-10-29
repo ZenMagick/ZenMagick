@@ -36,7 +36,6 @@ class ShippingProviderWrapper extends ZMObject implements \ZMShippingProvider {
     private $zenModule_;
     private $errors_;
 
-
     /**
      * Create a new shipping provider.
      *
@@ -47,7 +46,6 @@ class ShippingProviderWrapper extends ZMObject implements \ZMShippingProvider {
         $this->zenModule_ = $module;
         $this->errors_ = array();
     }
-
 
     /**
      * Set the zencart module to wrap.

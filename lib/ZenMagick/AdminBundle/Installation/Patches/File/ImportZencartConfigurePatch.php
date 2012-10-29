@@ -42,7 +42,6 @@ class ImportZencartConfigurePatch extends FilePatch {
         $this->configurePhpFile = Runtime::getSettings()->get('zencart.root_dir').'/includes/configure.php';
     }
 
-
     /**
      * Checks if this patch can still be applied.
      *
@@ -108,7 +107,6 @@ class ImportZencartConfigurePatch extends FilePatch {
             'database_port' => $port,
             'database_user' => DB_SERVER_USERNAME,
         );
-
 
         if (basename(DIR_FS_DOWNLOAD) != 'download') {
             $parameters['downloadBaseDir'] = DIR_FS_DOWNLOAD;

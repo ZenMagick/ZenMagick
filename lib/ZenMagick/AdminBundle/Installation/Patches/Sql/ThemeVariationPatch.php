@@ -21,7 +21,6 @@ namespace ZenMagick\AdminBundle\Installation\Patches\Sql;
 
 use ZenMagick\AdminBundle\Installation\Patches\SQLPatch;
 
-
 /**
  * Patch to create the theme variation column.
  *
@@ -35,7 +34,6 @@ class ThemeVariationPatch extends SQLPatch {
         "theme_chaining_uninstall.sql"
     );
 
-
     /**
      * Create new instance.
      */
@@ -43,7 +41,6 @@ class ThemeVariationPatch extends SQLPatch {
         parent::__construct('sqlThemeVariation');
         $this->label_ = 'Create additional column for theme variation selection';
     }
-
 
     /**
      * Checks if this patch can still be applied.

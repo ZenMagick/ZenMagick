@@ -50,7 +50,6 @@ class TestZMAccounts extends TestCase {
         'PriceGroupId' => 0
     );
 
-
     /**
      * Create test account.
      */
@@ -89,7 +88,6 @@ class TestZMAccounts extends TestCase {
         $results = ZMRuntime::getDatabase()->updateObj($sql, array('accountId' => $ids), 'customers');
         parent::tearDown();
     }
-
 
     /**
      * Test create account.

@@ -39,7 +39,6 @@ class TestShoppingCartService extends TestCase {
         }
     }
 
-
     /**
      * Get the account id to test.
      *

@@ -18,7 +18,6 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-
 /**
  * List validation rules.
  *
@@ -29,7 +28,6 @@
  */
 class ZMListRule extends ZMRule {
     private $values_;
-
 
     /**
      * Create new list rule.
@@ -42,7 +40,6 @@ class ZMListRule extends ZMRule {
         parent::__construct($name, "%s is not valid.", $msg);
         $this->setValues($values);
     }
-
 
     /**
      * Set values.
@@ -73,7 +70,6 @@ class ZMListRule extends ZMRule {
         $values = is_array($this->values_) ? $this->values_ : explode(',', $this->values_);
         return empty($data[$this->getName()]) || in_array($data[$this->getName()], $values);
     }
-
 
     /**
      * Create JS validation call.

@@ -26,7 +26,6 @@ use ZenMagick\Http\View\TemplateView;
 use ZenMagick\StoreBundle\Menu\MenuElement;
 use ZenMagick\StoreBundle\Menu\MenuLoader;
 
-
 /**
  * Custom admin event handler for various things.
  *

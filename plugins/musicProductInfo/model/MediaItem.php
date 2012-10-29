@@ -34,7 +34,6 @@ class MediaItem extends ZMObject {
     private $dateAdded_;
     private $mediaType_;
 
-
     /**
      * Create new instance.
      */
@@ -47,7 +46,6 @@ class MediaItem extends ZMObject {
         $this->dateAdded_ = null;
         $this->mediaType_ = null;
     }
-
 
     /**
      * Get the media item id.

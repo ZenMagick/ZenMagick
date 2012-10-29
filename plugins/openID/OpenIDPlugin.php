@@ -24,7 +24,6 @@ use ZenMagick\Base\Plugins\Plugin;
 define('OPENID_ENABLED', true);
 define('Auth_OpenID_RAND_SOURCE', null);
 
-
 /**
  * Support for OpenID.
  *
@@ -77,7 +76,6 @@ class OpenIDPlugin extends Plugin {
         // add validation rule for account edit
         $this->container->get('zmvalidator')->addRule('edit_account', array('ZenMagick\plugins\openID\validation\rules\UniqueOpenIDRule', 'openid'));
     }
-
 
     /**
      * Find account for a given OpenID.

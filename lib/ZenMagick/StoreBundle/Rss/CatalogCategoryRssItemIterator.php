@@ -34,7 +34,6 @@ class CatalogCategoryRssItemIterator extends ZMObject implements Iterator {
     private $index;
     private $fullFeed;
 
-
     /**
      * Create new instance.
      *
@@ -49,7 +48,6 @@ class CatalogCategoryRssItemIterator extends ZMObject implements Iterator {
         $this->index = 0;
         $this->fullFeed = $fullFeed;
     }
-
 
     /**
      * {@inheritDoc}

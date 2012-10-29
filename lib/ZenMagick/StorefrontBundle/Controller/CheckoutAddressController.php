@@ -30,7 +30,6 @@ class CheckoutAddressController extends \ZMController {
     private $modeSettings_ = array();
     private $viewData_ = array();
 
-
     /**
      * {@inheritDoc}
      */

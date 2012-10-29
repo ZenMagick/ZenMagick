@@ -31,7 +31,6 @@ use ZenMagick\Base\ZMObject;
 class SalemakerService extends ZMObject {
     private $sales_;
 
-
     /**
      * Create new instance.
      */
@@ -39,7 +38,6 @@ class SalemakerService extends ZMObject {
         parent::__construct();
         $this->sales_ = null;
     }
-
 
     /**
      * Get sale discount type info.

@@ -39,7 +39,6 @@ class TemplateManager extends ZMObject {
     private $rightColBoxes_;
     private $tableMeta_;
 
-
     /**
      * Create new instance.
      */
@@ -51,7 +50,6 @@ class TemplateManager extends ZMObject {
         $this->rightColBoxes_ = null;
         $this->tableMeta_ = array();
     }
-
 
     /**
      * Enable/disable the left column.

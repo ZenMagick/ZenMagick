@@ -36,7 +36,6 @@ use Symfony\Component\EventDispatcher\GenericEvent;
 class MessageBuilder extends ZMObject {
     private $view;
 
-
     /**
      * Set the view to render email content.
      *

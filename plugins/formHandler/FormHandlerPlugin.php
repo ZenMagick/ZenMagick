@@ -54,7 +54,6 @@ class FormHandlerPlugin extends Plugin {
             }
             $router->getRouteCollection()->addCollection($routeCollection);
 
-
             if (Toolbox::asBoolean($this->get('secure'))) {
                 // mark as secure
                 foreach ($pages as $page) {

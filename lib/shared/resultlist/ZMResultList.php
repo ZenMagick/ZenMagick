@@ -43,7 +43,6 @@ class ZMResultList extends ZMObject {
     protected $allResults_;
     protected $results_;
 
-
     /**
      * Create new result list.
      */
@@ -57,7 +56,6 @@ class ZMResultList extends ZMObject {
         $this->allResults_ = null;
         $this->results_ = null;
     }
-
 
     /**
      * Set a source for results.

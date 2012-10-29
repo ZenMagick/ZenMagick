@@ -19,7 +19,6 @@
  */
 namespace ZenMagick\Http\Toolbox;
 
-
 use Symfony\Component\DependencyInjection\ContainerAware;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
@@ -32,7 +31,6 @@ class Toolbox extends ContainerAware {
     private $request;
     private $tools;
 
-
     /**
      * Create new instance.
      */
@@ -40,7 +38,6 @@ class Toolbox extends ContainerAware {
         $this->request = null;
         $this->tools = null;
     }
-
 
     /**
      * Set the request.

@@ -64,7 +64,6 @@ class Zone extends ZMObject {
      */
     private $name;
 
-
     /**
      * Create new zone.
      */
@@ -75,7 +74,6 @@ class Zone extends ZMObject {
         $this->code = '';
         $this->name = '';
     }
-
 
     /**
      * Get the id.

@@ -53,7 +53,6 @@ class ZenCartExtension extends Extension {
             $container->setParameter('zencart.root_dir', realpath(dirname(dirname($rootDir))));
         }
 
-
         // Set path to zencart admin directory.
         $adminDir = null;
         if (isset($config['admin_dir']) && !empty($config['admin_dir'])) {

@@ -25,7 +25,6 @@ use Symfony\Component\Templating\TemplateReferenceInterface;
 use ZenMagick\Http\View\ResourceResolver;
 use ZenMagick\Http\View\View;
 
-
 /**
  * A resource resolver loader.
  *
@@ -33,7 +32,6 @@ use ZenMagick\Http\View\View;
  */
 class ResourceResolverLoader implements LoaderInterface {
     protected $resourceResolver;
-
 
     /**
      * Create new instance.
@@ -43,7 +41,6 @@ class ResourceResolverLoader implements LoaderInterface {
     public function __construct(ResourceResolver $resourceResolver) {
         $this->resourceResolver = $resourceResolver;
     }
-
 
     /**
      * {@inheritDoc}

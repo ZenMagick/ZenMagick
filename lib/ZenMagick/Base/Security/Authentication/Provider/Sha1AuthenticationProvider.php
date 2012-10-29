@@ -30,7 +30,6 @@ class Sha1AuthenticationProvider implements AuthenticationProvider {
     /** Number of characters taken from the given salt to encrypt the password. */
     const SALT_LENGTH = 9;
 
-
     /**
      * {@inheritDoc}
      */

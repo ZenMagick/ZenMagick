@@ -41,7 +41,6 @@ class SQLPatch extends InstallationPatch {
         $this->patchRoot = dirname(__DIR__).'/etc';
     }
 
-
     public function setTables($tables) {
         $this->tables = (array) $tables;
     }

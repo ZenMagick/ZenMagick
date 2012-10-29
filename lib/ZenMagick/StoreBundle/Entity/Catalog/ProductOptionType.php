@@ -45,5 +45,4 @@ class ProductOptionType
      */
     private $name;
 
-
 }

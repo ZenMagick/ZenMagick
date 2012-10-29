@@ -38,7 +38,6 @@ class Plugins extends ZMObject {
     protected $pluginStatusMapBuilder;
     protected $contextConfigLoader;
 
-
     /**
      * Create new instance.
      */
@@ -49,7 +48,6 @@ class Plugins extends ZMObject {
         $this->plugins = array();
         $this->statusMap = null;
     }
-
 
     /**
      * Get plugin status map.

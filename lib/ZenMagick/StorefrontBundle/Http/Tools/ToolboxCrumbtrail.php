@@ -30,7 +30,6 @@ use ZenMagick\Http\Toolbox\ToolboxTool;
 class ToolboxCrumbtrail extends ToolboxTool {
     private $crumbs_;
 
-
     /**
      * Create new instance.
      */

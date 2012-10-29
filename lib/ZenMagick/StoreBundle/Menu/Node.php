@@ -21,7 +21,6 @@ namespace ZenMagick\StoreBundle\Menu;
 
 use ZenMagick\Base\ZMObject;
 
-
 /**
  * Basic node.
  *
@@ -34,7 +33,6 @@ class Node extends ZMObject {
     private $name;
     private $parent;
     private $children;
-
 
     /**
      * Create instance.
@@ -49,7 +47,6 @@ class Node extends ZMObject {
         $this->parent = null;
         $this->children = array();
     }
-
 
     /**
      * Set id.

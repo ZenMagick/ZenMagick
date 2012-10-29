@@ -26,7 +26,6 @@ use ZenMagick\plugins\musicProductInfo\model\MediaItem;
 use ZenMagick\plugins\musicProductInfo\model\MediaType;
 use ZenMagick\plugins\musicProductInfo\model\RecordCompany;
 
-
 /**
  * Music manager.
  *
@@ -108,7 +107,6 @@ class MusicManager extends ZMObject {
             \ZMRuntime::getDatabase()->getMapper()->setMappingForTable($table, $mapping);
         }
     }
-
 
     /**
      * Get all available media for the given product (id).

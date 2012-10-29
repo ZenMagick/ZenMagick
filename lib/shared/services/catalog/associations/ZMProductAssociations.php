@@ -21,7 +21,6 @@
 use ZenMagick\Base\ZMObject;
 use ZenMagick\StoreBundle\Model\Checkout\ShoppingCart;
 
-
 /**
  * Manage pluggable product associations.
  *

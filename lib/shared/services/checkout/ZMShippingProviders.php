@@ -33,7 +33,6 @@ use ZenMagick\StoreBundle\Model\Checkout\ShoppingCart;
 class ZMShippingProviders extends ZMObject {
     private $providers_;
 
-
     /**
      * Create new instance.
      */

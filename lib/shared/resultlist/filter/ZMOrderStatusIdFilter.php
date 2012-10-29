@@ -37,7 +37,6 @@ class ZMOrderStatusIdFilter extends ZMResultListFilter implements SqlAware {
         parent::__construct('ofilter', _zm('Order Status'), Runtime::getContainer()->get('request')->query->get('ofilter'));
     }
 
-
     /**
      * Return <code>true</code> if the given object is to be excluded.
      *

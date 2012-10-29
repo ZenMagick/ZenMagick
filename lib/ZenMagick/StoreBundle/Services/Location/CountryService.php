@@ -30,7 +30,6 @@ use ZenMagick\Base\ZMObject;
 class CountryService extends ZMObject {
     private $countries;
 
-
     /**
      * Create new instance.
      */
@@ -38,7 +37,6 @@ class CountryService extends ZMObject {
         parent::__construct();
         $this->countries = null;
     }
-
 
     /**
      * Get country for the given name.
@@ -104,7 +102,6 @@ class CountryService extends ZMObject {
         return null;
     }
 
-
     /**
      * Get the zone code for the given country and zone id.
      *
@@ -121,7 +118,6 @@ class CountryService extends ZMObject {
         $zone = \ZMRuntime::getDatabase()->querySingle($sql, array('zoneId' => $zoneId, 'countryId' => $countryId), 'zones');
         return null !== $zone ? $zone['code'] : $defaultZone;
     }
-
 
     /**
      * Get all zones for the given country id.

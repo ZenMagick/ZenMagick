@@ -41,7 +41,6 @@ class AjaxCheckoutController extends \ZMAjaxController {
         ));
     }
 
-
     /**
      * Get all available shipping methods.
      *

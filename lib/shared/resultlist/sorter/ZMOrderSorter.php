@@ -46,7 +46,6 @@ class ZMOrderSorter extends ZMResultListSorter implements SqlAware {
         'status' => 'orders_status'
     );
 
-
     /**
      * Create new instance.
      */
@@ -54,11 +53,9 @@ class ZMOrderSorter extends ZMResultListSorter implements SqlAware {
         parent::__construct('osort', '', Runtime::getContainer()->get('request')->query->getAlnum('sort_id'));
     }
 
-
     // sort functions
     public function _cmpDate($a, $b) { return ($a->getOrderDate() == $b->getOrderDate()) ? 0 : ($a->getOrderDate() > $b->getOrderDate()) ? +1 : -1; }
     public function _cmpStatus($a, $b) { return ($a->getOrderStatusId() == $b->getOrderStatusId()) ? 0 : ($a->getOrderStatusId() > $b->getOrderStatusId()) ? +1 : -1; }
-
 
     /**
      * Returns <code>true</code> if this sorter is currently active.

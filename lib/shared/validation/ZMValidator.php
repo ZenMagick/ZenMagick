@@ -37,7 +37,6 @@ class ZMValidator extends ZMObject {
     private $alias_;
     private $messages_;
 
-
     /**
      * Create new instance.
      */
@@ -102,7 +101,6 @@ class ZMValidator extends ZMObject {
             $this->sets_[$id] = $rules;
         }
     }
-
 
     /**
      * Resolve, load and instantiate a new instance of the given class.

@@ -36,7 +36,6 @@ class WordpressRequestHandler extends ZMController {
     private $viewName_;
     private $resourceResolver;
 
-
     /**
      * Create new instance.
      *
@@ -51,7 +50,6 @@ class WordpressRequestHandler extends ZMController {
         $this->viewName_ = null;
         $this->resourceResolver = null;
     }
-
 
     /**
      * Do the WP specific request processing and figure out a view name if the current

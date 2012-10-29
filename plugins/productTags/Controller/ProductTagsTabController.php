@@ -35,7 +35,6 @@ class ProductTagsTabController extends CatalogContentController {
         parent::__construct('product_tags_tab', _zm('Tags'), self::ACTIVE_PRODUCT);
     }
 
-
     /**
      * {@inheritDoc}
      */

@@ -42,7 +42,6 @@
         $('#sb_cart').append('<hr/>')
           .append('<p><img id="cart_progress" src="<?php echo $this->asUrl('images/circle-ball-dark-antialiased.gif') ?>" style="display:none;float:left;" alt="progress" />' + cart.total + '</p>');
 
-
         return msg;
     };
 </script>

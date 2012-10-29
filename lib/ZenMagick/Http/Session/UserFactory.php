@@ -19,7 +19,6 @@
  */
 namespace ZenMagick\Http\Session;
 
-
 /**
  * Interface for factory classes that create session user objects for authentication.
  *

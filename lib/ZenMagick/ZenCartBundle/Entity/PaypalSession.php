@@ -60,5 +60,4 @@ class PaypalSession
      */
     private $expiry;
 
-
 }

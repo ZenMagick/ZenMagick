@@ -19,7 +19,6 @@
  */
 namespace ZenMagick\AdminBundle\Controller;
 
-
 /**
  * Ajax user prefs controller.
  *

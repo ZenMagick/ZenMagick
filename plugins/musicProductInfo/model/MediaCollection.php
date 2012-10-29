@@ -31,7 +31,6 @@ class MediaCollection extends ZMObject {
     private $name_;
     private $items_;
 
-
     /**
      * Create new instance.
      */
@@ -41,7 +40,6 @@ class MediaCollection extends ZMObject {
         $this->name_ = '';
         $this->items_ = array();
     }
-
 
     /**
      * Get the collection id.

@@ -22,7 +22,6 @@ namespace ZenMagick\Base\Security\Authentication\Provider;
 use Phpass\Hash;
 use ZenMagick\Base\Security\Authentication\AuthenticationProvider;
 
-
 /**
  * PhPass 2.0 authentication provider.
  *
@@ -32,7 +31,6 @@ use ZenMagick\Base\Security\Authentication\AuthenticationProvider;
  */
 class PhPassAuthenticationProvider implements AuthenticationProvider {
     protected $hash;
-
 
     /**
      * Create instance.

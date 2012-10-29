@@ -18,7 +18,6 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-
 /**
  * Regexp validation rules.
  *
@@ -27,7 +26,6 @@
  */
 class ZMRegexpRule extends ZMRule {
     private $regexp_;
-
 
     /**
      * Create new regexp rule.
@@ -40,7 +38,6 @@ class ZMRegexpRule extends ZMRule {
         parent::__construct($name, "%s is not valid.", $msg);
         $this->setRegexp($regexp);
     }
-
 
     /**
      * Set the regular expression.
@@ -70,7 +67,6 @@ class ZMRegexpRule extends ZMRule {
     public function validate($request, $data) {
         return empty($data[$this->getName()]) || preg_match($this->regexp_, $data[$this->getName()]);
     }
-
 
     /**
      * Create JS validation call.

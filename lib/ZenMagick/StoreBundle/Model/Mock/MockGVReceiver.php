@@ -19,7 +19,6 @@
  */
 namespace ZenMagick\StoreBundle\Model\Mock;
 
-
 /**
  * Mock gv receiver.
  *
@@ -36,7 +35,6 @@ class MockGVReceiver extends \ZMGVReceiver {
         $this->setEmail('foo@bar.com');
         $this->setMessage('THE_MESSAGE');
     }
-
 
     /**
      * {@inheritDoc}

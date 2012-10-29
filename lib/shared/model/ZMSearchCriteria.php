@@ -44,7 +44,6 @@ class ZMSearchCriteria extends ZMObject {
         $this->set('searchAll', false);
     }
 
-
     /**
      * Get the keyword(s).
      *

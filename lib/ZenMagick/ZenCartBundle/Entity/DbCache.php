@@ -34,5 +34,4 @@ class DbCache {
      */
     private $created;
 
-
 }

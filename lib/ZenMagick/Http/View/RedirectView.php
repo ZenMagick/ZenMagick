@@ -37,7 +37,6 @@ class RedirectView extends ZMObject implements View {
     protected $status_;
     protected $requestId_;
 
-
     /**
      * Create a new redirect view.
      */
@@ -49,7 +48,6 @@ class RedirectView extends ZMObject implements View {
         $this->status_ = 302;
         $this->requestId_ = null;
     }
-
 
     /**
      * {@inheritDoc}

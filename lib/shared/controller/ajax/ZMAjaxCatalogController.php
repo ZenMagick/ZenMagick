@@ -46,7 +46,6 @@ class ZMAjaxCatalogController extends ZMAjaxController {
         ));
     }
 
-
     /**
      * Get product information for the given product id.
      *

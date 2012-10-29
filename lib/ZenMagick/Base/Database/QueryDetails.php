@@ -34,7 +34,6 @@ class QueryDetails extends ZMObject {
     private $modelClass_;
     private $countCol_;
 
-
     /**
      * Create new instance.
      *
@@ -56,7 +55,6 @@ class QueryDetails extends ZMObject {
         $this->modelClass_ = $modelClass;
         $this->countCol_ = $countCol;
     }
-
 
     /**
      * Get the database.

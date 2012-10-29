@@ -35,7 +35,6 @@ class ZMSearchResultSource extends ZMObject implements ZMResultSource {
     private $results_;
     private $totalNumberOfResults_;
 
-
     /**
      * Create a new instance.
      *
@@ -47,7 +46,6 @@ class ZMSearchResultSource extends ZMObject implements ZMResultSource {
         $this->results_ = null;
         $this->totalNumberOfResults_ = null;
     }
-
 
     /**
      * Set the search criteria.

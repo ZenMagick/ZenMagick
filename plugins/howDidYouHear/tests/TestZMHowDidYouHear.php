@@ -74,7 +74,6 @@ class TestZMHowDidYouHear extends TestCase {
             'sourceOther' => 'other',
     );
 
-
     /**
      * Create test account.
      */
@@ -113,7 +112,6 @@ class TestZMHowDidYouHear extends TestCase {
         $results = ZMRuntime::getDatabase()->updateObj($sql, array('accountId' => $ids), 'customers');
         parent::tearDown();
     }
-
 
     /**
      * Test create account.

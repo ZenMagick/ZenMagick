@@ -46,7 +46,6 @@ class ShoppingCart extends ZMObject {
     private $contents;
     private $comments;
 
-
     /**
      * Create new instance.
      */
@@ -57,7 +56,6 @@ class ShoppingCart extends ZMObject {
         $this->zenTotals_ = null;
         $this->selectedPaymentType_ = null;
     }
-
 
     /**
      * Set the checkout helper for this cart.
@@ -988,7 +986,6 @@ class ShoppingCart extends ZMObject {
         $arr = explode(':', $productId);
         return (int) $arr[0];
     }
-
 
     /**
      * Create unique cart item/sku id, based on the base product id and attribute information.

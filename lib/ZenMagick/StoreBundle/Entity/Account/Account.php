@@ -180,8 +180,6 @@ class Account extends ZMObject {
     private $subscribedProducts;
     private $type;
 
-
-
     /**
      * Create new instance.
      */
@@ -216,7 +214,6 @@ class Account extends ZMObject {
      * @return int The account id.
      */
     public function getAccountId() { return $this->accountId; }
-
 
     /**
      * Get the account id.

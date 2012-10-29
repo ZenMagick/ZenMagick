@@ -35,7 +35,6 @@ class ContainerTagService {
         $this->tags = $tags;
     }
 
-
     /**
      * Set all tags.
      *

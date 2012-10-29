@@ -34,7 +34,6 @@ class ZMCreditTypeWrapper extends ZMObject {
     private $error_;
     private $fields_;
 
-
     /**
      * Create a new payment type.
      *
@@ -50,7 +49,6 @@ class ZMCreditTypeWrapper extends ZMObject {
         $this->error_ = null;
         $this->fields_ = array();
     }
-
 
     /**
      * Get the payment type id.

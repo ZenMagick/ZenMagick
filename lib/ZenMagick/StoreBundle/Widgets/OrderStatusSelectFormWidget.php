@@ -35,7 +35,6 @@ use ZenMagick\Http\Widgets\Form\SelectFormWidget;
 class OrderStatusSelectFormWidget extends SelectFormWidget {
     private $showKey_;
 
-
     /**
      * Create new instance.
      */
@@ -43,7 +42,6 @@ class OrderStatusSelectFormWidget extends SelectFormWidget {
         parent::__construct();
         $this->showKey_ = true;
     }
-
 
     /**
      * Show/hide the numeric key.

@@ -49,7 +49,6 @@ class AccountNotificationsController extends \ZMController {
             $isGlobalUpdate = true;
         }
 
-
         $notifyType = $request->request->get('notify_type');
         $subscribedProducts = $request->request->get('notify', array());
         if (!$isGlobalUpdate && 'set' == $notifyType) {

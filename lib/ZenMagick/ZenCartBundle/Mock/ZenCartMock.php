@@ -33,7 +33,6 @@ class ZenCartMock {
     // keep track of mock
     private static $mock = 0;
 
-
     /**
      * Start mocking around.
      *

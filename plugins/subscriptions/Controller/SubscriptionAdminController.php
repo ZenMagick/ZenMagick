@@ -38,7 +38,6 @@ class SubscriptionAdminController extends PluginAdminController {
         parent::__construct('subscriptions');
     }
 
-
     /**
      * {@inheritDoc}
      */

@@ -18,7 +18,6 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-
 /**
  * Empty validation rules that can be used to wrap custom logic.
  *
@@ -28,7 +27,6 @@
 class ZMWrapperRule extends ZMRule {
     private $function_;
     private $javascript_;
-
 
     /**
      * Create new rule.
@@ -43,7 +41,6 @@ class ZMWrapperRule extends ZMRule {
         $this->setJavaScript('');
         $this->setFunction($function);
     }
-
 
     /**
      * Set the validation function.
@@ -84,7 +81,6 @@ class ZMWrapperRule extends ZMRule {
 
         return true;
     }
-
 
     /**
      * Create JS validation call.

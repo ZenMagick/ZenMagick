@@ -18,7 +18,6 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-
 /**
  * Email validation rules.
  *
@@ -36,7 +35,6 @@ class ZMEmailRule extends ZMRule {
     public function __construct($name=null, $msg=null) {
         parent::__construct($name, "%s is not a valid email.", $msg);
     }
-
 
     /**
      * Build email regexp.
@@ -74,7 +72,6 @@ class ZMEmailRule extends ZMRule {
 
         return empty($data[$this->getName()]) || 1 == preg_match('/'.$this->emailRegexp().'/i', $email);
     }
-
 
     /**
      * Create JS validation call.

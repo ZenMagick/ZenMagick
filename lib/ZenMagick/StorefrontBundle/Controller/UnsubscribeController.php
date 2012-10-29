@@ -62,7 +62,6 @@ class UnsubscribeController extends \ZMController {
             }
         }
 
-
         return $this->findView();
     }
 

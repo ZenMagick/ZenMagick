@@ -19,7 +19,6 @@
  */
 namespace ZenMagick\Base\Security\Authentication;
 
-
 /**
  * Provider of authentication service.
  *

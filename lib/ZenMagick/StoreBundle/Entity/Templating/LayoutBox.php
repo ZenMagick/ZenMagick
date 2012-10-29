@@ -93,5 +93,4 @@ class LayoutBox {
      */
     private $singleStatus;
 
-
 }

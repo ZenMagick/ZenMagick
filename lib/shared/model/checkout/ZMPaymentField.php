@@ -31,7 +31,6 @@ class ZMPaymentField extends ZMObject {
     private $label_;
     private $html_;
 
-
     /**
      * Create new payment (input) field.
      *
@@ -43,7 +42,6 @@ class ZMPaymentField extends ZMObject {
         $this->label_ = $label;
         $this->html_ = $html;
     }
-
 
     /**
      * Get the field name/label.

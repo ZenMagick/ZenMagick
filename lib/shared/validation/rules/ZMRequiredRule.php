@@ -18,7 +18,6 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-
 /**
  * Required validation rules.
  *
@@ -38,7 +37,6 @@ class ZMRequiredRule extends ZMRule {
     public function __construct($name=null, $msg=null) {
         parent::__construct($name, "Please enter a value for %s.", $msg);
     }
-
 
     /**
      * {@inheritDoc}
@@ -65,7 +63,6 @@ class ZMRequiredRule extends ZMRule {
         }
         return false;
     }
-
 
     /**
      * Create JS validation call.

@@ -32,7 +32,6 @@ class TestCouponService extends TestCase {
     private $createdCouponIds_;
     private $testCouponId_;
 
-
     /**
      * {@inheritDoc}
      */
@@ -75,7 +74,6 @@ class TestCouponService extends TestCase {
         }
         parent::tearDown();
     }
-
 
     /**
      * Get the test account id.

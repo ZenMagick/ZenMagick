@@ -32,7 +32,6 @@ class ProductCouponRestriction extends ZMObject {
     private $allowed_;
     private $productId_;
 
-
     /**
      * Create new coupon restriction.
      *
@@ -44,7 +43,6 @@ class ProductCouponRestriction extends ZMObject {
         $this->allowed_ = $allowed;
         $this->productId_ = $productId;
     }
-
 
     /**
      * Checks if this coupon restriction is allowed.

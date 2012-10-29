@@ -402,7 +402,6 @@ class AdminUser extends ZMObject implements UserRoleCredentials {
      */
     public function getLastModified() { return $this->lastModified; }
 
-
     /**
      * Set lastModified
      *
@@ -417,7 +416,6 @@ class AdminUser extends ZMObject implements UserRoleCredentials {
      */
     public function getLastLoginDate() { return $this->lastLoginDate; }
 
-
     /**
      * Set lastLoginDate
      *
@@ -431,7 +429,6 @@ class AdminUser extends ZMObject implements UserRoleCredentials {
      * @return string
      */
     public function getLastLoginIp() { return $this->lastLoginIp; }
-
 
     /**
      * Set lastLoginIp

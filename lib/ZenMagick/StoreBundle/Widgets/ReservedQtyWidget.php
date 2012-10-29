@@ -35,7 +35,6 @@ use ZenMagick\Http\View\TemplateView;
 class ReservedQtyWidget extends Widget {
     private static $qtyMap_ = null;
 
-
     /**
      * Get stats.
      *

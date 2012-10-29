@@ -38,7 +38,6 @@ class MockOrder extends Order {
         $this->setOrderDate(time());
     }
 
-
     /**
      * {@inheritDoc}
      */

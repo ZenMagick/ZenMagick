@@ -22,7 +22,6 @@ namespace ZenMagick\plugins\unitTests\simpletest;
 use HtmlReporter as BaseHtmlReporter;
 use ZenMagick\Base\ZMException;
 
-
 /**
  * Custom simpletest <code>HtmlReporter</code> implementation.
  *
@@ -34,7 +33,6 @@ class HtmlReporter extends BaseHtmlReporter {
     private $results_;
     private $enabled_;
     private $hideErrors_;
-
 
     /**
      * Create new instance.

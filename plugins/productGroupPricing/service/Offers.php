@@ -31,7 +31,6 @@ class Offers extends ZMOffers {
     private $productGroupPricing_;
     private $lookupDone_;
 
-
     /**
      * Create new offers instance for the given product.
      *
@@ -42,7 +41,6 @@ class Offers extends ZMOffers {
         $this->productGroupPricing_ = null;
         $this->lookupDone_ = false;
     }
-
 
     /**
      * {@inheritDoc}

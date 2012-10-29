@@ -46,7 +46,6 @@ class ToolboxMacro extends ToolboxTool {
         return $info;
     }
 
-
     /**
      * Format an address according to the countries address format.
      *
@@ -229,7 +228,6 @@ class ToolboxMacro extends ToolboxTool {
         return $html;
     }
 
-
     /**
      * Format additional email content for internal copies.
      *
@@ -260,7 +258,6 @@ class ToolboxMacro extends ToolboxTool {
 
         return $context;
     }
-
 
     /**
      * Generate HTML for product attributes.

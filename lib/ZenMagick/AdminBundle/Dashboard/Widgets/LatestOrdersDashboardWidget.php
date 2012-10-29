@@ -36,7 +36,6 @@ class LatestOrdersDashboardWidget extends DashboardWidget {
         parent::__construct(_zm('Latest Orders'));
     }
 
-
     /**
      * {@inheritDoc}
      */

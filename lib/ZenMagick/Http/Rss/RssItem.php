@@ -43,7 +43,6 @@ class RssItem extends ZMObject {
         }
     }
 
-
     /**
      * Get the item title.
      *
@@ -85,7 +84,6 @@ class RssItem extends ZMObject {
 
         return new DateTime($pubDate);
     }
-
 
     /**
      * Get a list of custom tags to be handled.

@@ -82,7 +82,6 @@ class CouponQueue extends ZMObject {
      */
     private $released;
 
-
     /**
      * Create new instance
      */
@@ -95,7 +94,6 @@ class CouponQueue extends ZMObject {
         $this->amount = 0;
         $this->released = 'N';
     }
-
 
     /**
      * Get the coupon queue id.

@@ -19,7 +19,6 @@
  */
 namespace ZenMagick\Http\Routing;
 
-
 use ZenMagick\Base\Beans;
 use ZenMagick\Base\ZMObject;
 use ZenMagick\Http\View\TemplateView;

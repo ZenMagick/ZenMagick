@@ -31,7 +31,6 @@ use ZenMagick\Base\ZMObject;
 class ManufacturerService extends ZMObject {
     private $cache_;
 
-
     /**
      * Create new instance.
      */
@@ -39,7 +38,6 @@ class ManufacturerService extends ZMObject {
         parent::__construct();
         $this->cache_ = null;
     }
-
 
     /**
      * Set the cache.

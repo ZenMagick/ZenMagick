@@ -29,7 +29,6 @@ class MenuElement extends Node {
     private $params;
     private $alias;
 
-
     /**
      * Create instance.
      *
@@ -43,7 +42,6 @@ class MenuElement extends Node {
         $this->params = '';
         $this->alias = array();
     }
-
 
     /**
      * Set requestId.

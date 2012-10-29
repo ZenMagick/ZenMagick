@@ -19,7 +19,6 @@
  */
 namespace ZenMagick\Http\Rss;
 
-
 /**
  * Source of RSS feed(s).
  *

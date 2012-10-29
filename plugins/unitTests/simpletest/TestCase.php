@@ -32,7 +32,6 @@ class TestCase extends UnitTestCase {
     private $defaultDb_;
     public $container;
 
-
     /**
      * Create new instance.
      */

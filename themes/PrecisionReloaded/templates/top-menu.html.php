@@ -9,9 +9,6 @@
     $menu[] = array($net->url('checkout_shipping', '', true), _zm("Checkout"));
    $menu[] = array($net->url('logoff', '', true), _zm("Logoff"));
 
-
-
-
     /*if ($session->isAnonymous()) {
         $menu[] = array($net->url('login', '', true), _zm("Login"));
     }

@@ -22,7 +22,6 @@ namespace ZenMagick\plugins\recentlyViewed;
 use ZenMagick\Base\Plugins\Plugin;
 use ZenMagick\Http\View\TemplateView;
 
-
 /**
  * Plugin adding support for recently viewed products.
  *
@@ -30,7 +29,6 @@ use ZenMagick\Http\View\TemplateView;
  */
 class RecentlyViewedPlugin extends Plugin {
     const RECENTLY_VIEWED_KEY = 'recentlyViewedProducts';
-
 
     /**
      * Handle auto login.

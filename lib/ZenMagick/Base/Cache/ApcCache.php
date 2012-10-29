@@ -19,7 +19,6 @@
  */
 namespace ZenMagick\Base\Cache;
 
-
 /**
  * APC caching.
  *
@@ -33,7 +32,6 @@ class ApcCache implements Cache {
     private $lifetime_;
     private $lastModified_;
 
-
     /**
      * Create new instance.
      */
@@ -41,7 +39,6 @@ class ApcCache implements Cache {
         $this->lifetime_ = 0;
         $this->lastModified_ = time();
     }
-
 
     /**
      * {@inheritDoc}
@@ -59,7 +56,6 @@ class ApcCache implements Cache {
         $system['groups'][$group] = $config;
         $ret = apc_store(self::SYSTEM_KEY, $system, 0);
     }
-
 
     /**
      * {@inheritDoc}

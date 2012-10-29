@@ -68,5 +68,4 @@ class CouponRestrict {
      */
     private $couponRestrict;
 
-
 }

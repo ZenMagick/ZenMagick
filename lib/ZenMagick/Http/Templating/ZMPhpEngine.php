@@ -27,7 +27,6 @@ use ZenMagick\Base\ZMObject;
 use ZenMagick\Http\View\View;
 use ZenMagick\Http\Widgets\Widget;
 
-
 /**
  * The ZenMagick PHP template engine.
  *
@@ -42,7 +41,6 @@ class ZMPhpEngine extends ZMObject implements EngineInterface {
     protected $templateCache;
     protected $properties;
 
-
     /**
      * Constructor.
      */
@@ -53,7 +51,6 @@ class ZMPhpEngine extends ZMObject implements EngineInterface {
         $this->templateCache = null;
         $this->properties = array();
     }
-
 
     /**
      * {@inheritDoc}

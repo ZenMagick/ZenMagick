@@ -39,7 +39,6 @@ class UniqueOpenIDRule extends ZMRule {
         parent::__construct($name, "OpenID already in use.", $msg);
     }
 
-
     /**
      * {@inheritDoc}
      */

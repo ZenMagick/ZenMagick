@@ -34,7 +34,6 @@ class PluginOptionsLoader extends BasePluginOptionsLoader {
     const KEY_SORT_ORDER = 'SORT_ORDER';
     protected $configService;
 
-
     /**
      * Set the config service.
      *

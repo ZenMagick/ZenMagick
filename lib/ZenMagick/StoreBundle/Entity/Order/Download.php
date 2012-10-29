@@ -92,7 +92,6 @@ class Download extends ZMObject {
 
     private $status;
 
-
     /**
      * Get the download id.
      *

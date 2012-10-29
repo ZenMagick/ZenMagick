@@ -18,7 +18,6 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-
 /**
  * Min/max length validation rule.
  *
@@ -28,7 +27,6 @@
 class ZMMinMaxRule extends ZMRule {
     private $min_;
     private $max_;
-
 
     /**
      * Create new min/max length rule.
@@ -43,7 +41,6 @@ class ZMMinMaxRule extends ZMRule {
         $this->setMin($min);
         $this->setMax($max);
     }
-
 
     /**
      * Set the minimum length.
@@ -94,7 +91,6 @@ class ZMMinMaxRule extends ZMRule {
             || (0 != $this->max_ && $this->max_ < strlen(trim($data[$this->getName()])));
     }
 
-
     /**
      * Return an appropriate error message.
      *
@@ -103,7 +99,6 @@ class ZMMinMaxRule extends ZMRule {
     public function getErrorMsg() {
         return sprintf(_zm((null != $this->getMsg() ? $this->getMsg() : $this->getDefaultMsg())), $this->getName(), $this->min_, $this->max_);
     }
-
 
     /**
      * Create JS validation call.

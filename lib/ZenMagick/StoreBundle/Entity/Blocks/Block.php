@@ -151,13 +151,11 @@ class Block extends ZMObject {
      */
     public function setSortOrder($sortOrder) { $this->sortOrder = $sortOrder; }
 
-
     //TODO: remove
     public function setBlocks_to_groups_id($id) { $this->blockId = $id; }
     public function setBlock_group_id($id) { $this->groupId = $id; }
     public function setBlock_name($name) { $this->name = $name; }
     public function setSort_order($sortOrder) { $this->sortOrder = $sortOrder; }
-
 
     /**
      * Set template

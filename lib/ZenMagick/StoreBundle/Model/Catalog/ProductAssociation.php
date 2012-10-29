@@ -31,7 +31,6 @@ use ZenMagick\Base\ZMObject;
 class ProductAssociation extends ZMObject {
     private $productId;
 
-
     /**
      * Create new instance.
      *
@@ -41,7 +40,6 @@ class ProductAssociation extends ZMObject {
         parent::__construct();
         $this->productId = $productId;
     }
-
 
     /**
      * Get the (source) product id of this association.

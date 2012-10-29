@@ -44,5 +44,4 @@ class CouponGvCustomer {
      */
     private $amount;
 
-
 }

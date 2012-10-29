@@ -64,7 +64,6 @@ class Token extends ZMObject {
      */
     private $expires;
 
-
     /**
      * Get the id.
      *

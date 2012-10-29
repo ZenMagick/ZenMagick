@@ -123,7 +123,6 @@ class Review extends ZMObject {
         $this->descriptions = new ArrayCollection();
     }
 
-
     public function getReviewId() { return $this->id; }
     /**
      * Get the review id.
@@ -348,7 +347,6 @@ class Review extends ZMObject {
         $this->languageId = $languageId;
         $this->setDescription('', $languageId);
     }
-
 
     /**
      * Set status

@@ -44,7 +44,6 @@ class ToolboxMetaTags extends ToolboxTool {
     private $category_ = null;
     private $keywordDelimiter_;
 
-
     /**
      * Create new instance.
      *
@@ -54,7 +53,6 @@ class ToolboxMetaTags extends ToolboxTool {
         parent::__construct();
         $this->keywordDelimiter_ = null != $delimiter ? $delimiter : Runtime::getSettings()->get('metaTagKeywordDelimiter');
     }
-
 
     /**
      * Returns/echo'es the page title.

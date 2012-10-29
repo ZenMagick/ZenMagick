@@ -74,7 +74,6 @@ class Manufacturer extends ZMObject {
     private $clickCount;
     private $lastClick;
 
-
     /**
      * Create new instance
      */
@@ -90,7 +89,6 @@ class Manufacturer extends ZMObject {
         $this->setDateAdded(null);
         $this->setLastModified(null);
     }
-
 
     /**
      * Get the manufacturer id.

@@ -76,5 +76,4 @@ class CustomersBasket {
      */
     private $dateAdded;
 
-
 }

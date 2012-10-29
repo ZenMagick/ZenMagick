@@ -235,6 +235,4 @@ class Session extends BaseSession implements ContainerAwareInterface {
         return $language;
     }
 
-
-
 }

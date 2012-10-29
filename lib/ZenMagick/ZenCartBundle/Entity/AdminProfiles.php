@@ -46,8 +46,6 @@ class AdminProfiles
      */
     private $profileName;
 
-
-
     /**
      * Get profileId
      *

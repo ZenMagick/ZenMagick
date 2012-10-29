@@ -18,7 +18,6 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-
 /**
  * Date validation rule.
  *
@@ -27,7 +26,6 @@
  */
 class ZMDateRule extends ZMRule {
     private $format_;
-
 
     /**
      * Create new date rule.
@@ -40,7 +38,6 @@ class ZMDateRule extends ZMRule {
         parent::__construct($name, "Please enter a valid date (%s).", $msg);
         $this->format_ = $format;
     }
-
 
     /**
      * Get the format string.
@@ -61,7 +58,6 @@ class ZMDateRule extends ZMRule {
         return empty($value) || null != DateTime::createFromFormat($this->getFormat(), $value);
     }
 
-
     /**
      * Return an appropriate error message.
      *
@@ -70,7 +66,6 @@ class ZMDateRule extends ZMRule {
     public function getErrorMsg() {
         return sprintf(_zm(null != $this->getMsg() ? $this->getMsg() : $this->getDefaultMsg()), $this->getName(), $this->getFormat());
     }
-
 
     /**
      * Create JS validation call.

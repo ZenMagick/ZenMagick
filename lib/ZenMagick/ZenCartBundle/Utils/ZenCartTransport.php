@@ -28,7 +28,6 @@ use Swift_DependencyContainer;
 use Swift_Mime_Message;
 use Swift_Events_SendEvent;
 
-
 /**
  * Swift mailer transport using the legacy zencart code.
  *

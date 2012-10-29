@@ -41,7 +41,6 @@ abstract class Widget extends ZMObject {
     private $description_;
     private $enabled_;
 
-
     /**
      * Create new instance.
      */
@@ -50,7 +49,6 @@ abstract class Widget extends ZMObject {
         $this->title_ = '';
         $this->enabled_ = true;
     }
-
 
     /**
      * Set the title.

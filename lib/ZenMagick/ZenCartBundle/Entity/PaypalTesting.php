@@ -336,5 +336,4 @@ class PaypalTesting {
      */
     private $memo;
 
-
 }

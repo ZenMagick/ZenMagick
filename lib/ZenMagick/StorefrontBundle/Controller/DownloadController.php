@@ -151,7 +151,6 @@ class DownloadController extends \ZMController {
         }
     }
 
-
     /**
      * Delete all directories and symlinked files (and only symlinked files)
      */

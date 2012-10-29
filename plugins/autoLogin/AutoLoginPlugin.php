@@ -25,7 +25,6 @@ use ZenMagick\Base\Toolbox;
 define('AUTO_LOGIN_COOKIE', 'auto_login');
 define('AUTO_LOGIN_OPT_IN', 'autoLogin');
 
-
 /**
  * Plugin to automatically login returning customers.
  *
@@ -64,7 +63,6 @@ class AutoLoginPlugin extends Plugin {
             }
         }
     }
-
 
     /**
      * Try to get a token from the current request.

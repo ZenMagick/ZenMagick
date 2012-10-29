@@ -32,7 +32,6 @@ class ThemeResourceResolver extends ResourceResolver {
     private $request;
     private $languageId;
 
-
     /**
      * Create new instance.
      */
@@ -41,7 +40,6 @@ class ThemeResourceResolver extends ResourceResolver {
         $this->request = null;
         $this->languageId = Runtime::getSettings()->get('storeDefaultLanguageId');
     }
-
 
     /**
      * Set the request.

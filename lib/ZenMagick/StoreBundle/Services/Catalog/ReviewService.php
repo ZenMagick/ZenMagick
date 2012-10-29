@@ -40,7 +40,6 @@ class ReviewService extends ZMObject {
         $this->useNickName = false;
     }
 
-
     /**
      * Set the <em>useNickName</em> property.
      *

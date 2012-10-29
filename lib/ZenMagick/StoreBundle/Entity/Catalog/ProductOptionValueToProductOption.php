@@ -56,5 +56,4 @@ class ProductOptionValueToProductOption
      */
     private $optionValueId;
 
-
 }

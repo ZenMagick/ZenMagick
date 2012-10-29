@@ -94,7 +94,6 @@ class TestRules extends TestCase {
         $finalRuleSet = new CompositeRule ( 'finalRuleSet' );
         $finalRuleSet->addRule( $brandRule );
 
-
         // the actual values...
         $brandRuleSetContext = new RuleContext( 'brandRuleSetContex' );
         $brandRuleSetContext->addVariable( 'brand', 'yoo' );
@@ -104,12 +103,10 @@ class TestRules extends TestCase {
         $finalRuleSetContext = new RuleContext( 'finalRuleSetContex' );
         $finalRuleSetContext->append( $brandRuleSetContext );
 
-
         $proposition = $finalRuleSet->evaluate( $finalRuleSetContext );
         echo $proposition."<BR>";
         $this->assertTrue($proposition->value);
     }
-
 
   // a business 'rule' provides:
   // a) rule props/variables

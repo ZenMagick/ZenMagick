@@ -46,7 +46,6 @@ class RssParser {
         $this->items = array();
     }
 
-
     /**
      * Get the full feed.
      *

@@ -32,7 +32,6 @@ use ZenMagick\StoreBundle\Model\Mock\MockGVReceiver;
 use Symfony\Component\EventDispatcher\GenericEvent;
 use Symfony\Component\HttpFoundation\Response;
 
-
 /**
  * Admin controller for email previews.
  *

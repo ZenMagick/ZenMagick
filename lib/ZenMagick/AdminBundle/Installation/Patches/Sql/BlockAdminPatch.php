@@ -21,7 +21,6 @@ namespace ZenMagick\AdminBundle\Installation\Patches\Sql;
 
 use ZenMagick\AdminBundle\Installation\Patches\SQLPatch;
 
-
 /**
  * Patch to create ZenMagick block admin tables.
  *
@@ -41,7 +40,6 @@ class BlockAdminPatch extends SQLPatch {
         $this->setTables(array('blocks_to_groups', 'block_groups', 'block_config'));
 
     }
-
 
     /**
      * Checks if this patch can still be applied.

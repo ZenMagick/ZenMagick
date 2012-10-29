@@ -56,7 +56,6 @@ class OrderStatus {
      */
     private $statusName;
 
-
     public function getId() {
         return $this->orderStatusId;
     }

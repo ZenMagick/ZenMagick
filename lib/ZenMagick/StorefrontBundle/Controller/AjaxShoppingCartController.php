@@ -37,7 +37,6 @@ class AjaxShoppingCartController extends \ZMAjaxController {
         $this->set('ajaxCartItemMap', array('id', 'name', 'qty', 'itemTotal'));
     }
 
-
     /**
      * Estimate shipping.
      *

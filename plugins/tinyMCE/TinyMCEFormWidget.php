@@ -33,7 +33,6 @@ use ZenMagick\Http\View\TemplateView;
 class TinyMCEFormWidget extends TextAreaFormWidget implements WysiwygEditor {
     private $idList;
 
-
     /**
      * Create new instance.
      */
@@ -42,7 +41,6 @@ class TinyMCEFormWidget extends TextAreaFormWidget implements WysiwygEditor {
         $this->addClasses(array(self::EDITOR_CLASS, 'tinymce_editor'/*,'mceEditable'*/));
         $this->idList = array();
     }
-
 
     /**
      * Init editor.

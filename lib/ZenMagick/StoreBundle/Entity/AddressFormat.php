@@ -18,7 +18,6 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-
 namespace ZenMagick\StoreBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
@@ -50,6 +49,5 @@ class AddressFormat {
      * @ORM\Column(name="address_summary", type="string", length=48, nullable=false)
      */
     private $summary;
-
 
 }

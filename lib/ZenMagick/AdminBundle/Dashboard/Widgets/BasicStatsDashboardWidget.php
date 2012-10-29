@@ -37,7 +37,6 @@ class BasicStatsDashboardWidget extends DashboardWidget {
         parent::__construct(_zm('Basic Stats'));
     }
 
-
     /**
      * Get data.
      */

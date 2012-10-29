@@ -31,14 +31,12 @@ use ZenMagick\StoreBundle\Controller\CatalogContentController;
 class QuickEditTabController extends CatalogContentController {
     const STALE_CHECK_FIELD_PREFIX = '@_';
 
-
     /**
      * Create new instance.
      */
     public function __construct() {
         parent::__construct('quick_edit_tab', _zm('Quick Edit'), self::ACTIVE_CATEGORY);
     }
-
 
     /**
      * {@inheritDoc}

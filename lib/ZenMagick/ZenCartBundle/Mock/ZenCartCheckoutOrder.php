@@ -34,7 +34,6 @@ class ZenCartCheckoutOrder extends ZMObject {
     public $shipping;
     public $delivery;
 
-
     /**
      * Create new instance for the given shopping cart.
      *
@@ -64,7 +63,6 @@ class ZenCartCheckoutOrder extends ZMObject {
 
         // type
         $this->content_type = $shoppingCart->getType();
-
 
         // account
         $account = $this->container->get('accountService')->getAccountForId($shoppingCart->getAccountId());

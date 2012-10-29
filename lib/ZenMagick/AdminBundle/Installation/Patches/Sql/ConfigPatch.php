@@ -22,7 +22,6 @@ namespace ZenMagick\AdminBundle\Installation\Patches\Sql;
 use ZenMagick\Base\Runtime;
 use ZenMagick\AdminBundle\Installation\Patches\SQLPatch;
 
-
 /**
  * Patch to create ZenMagick config basics.
  *
@@ -34,7 +33,6 @@ class ConfigPatch extends SQLPatch {
         "config_undo.sql"
     );
 
-
     /**
      * Create new instance.
      */
@@ -42,7 +40,6 @@ class ConfigPatch extends SQLPatch {
         parent::__construct('sqlConfig');
         $this->label_ = 'Setup ZenMagick config groups and initial values';
     }
-
 
     /**
      * Checks if this patch can still be applied.

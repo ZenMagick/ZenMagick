@@ -93,7 +93,6 @@ class StorefrontListener extends ZMObject {
         $args = array_merge($event->getArguments(), array('theme' => $theme, 'themeId' => $theme->getId()));
         $event->getDispatcher()->dispatch('theme_resolved', new GenericEvent($this, $args));
 
-
     }
 
     /**

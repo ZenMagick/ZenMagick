@@ -31,7 +31,6 @@ use ZenMagick\Base\ZMObject;
 class LanguageService extends ZMObject {
     private $languages;
 
-
     /**
      * Load languages.
      */

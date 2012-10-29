@@ -22,7 +22,6 @@ namespace ZenMagick\Http\View;
 use ZenMagick\Base\Runtime;
 use ZenMagick\Base\ZMObject;
 
-
 /**
  * Resource manager.
  *
@@ -40,7 +39,6 @@ class ResourceManager extends ZMObject {
     private $fragments;
     private $virtualPathMap;
 
-
     /**
      * Create new instance.
      */
@@ -52,7 +50,6 @@ class ResourceManager extends ZMObject {
         $this->fragments = array();
         $this->virtualPathMap = array();
     }
-
 
     /**
      * Set the virtual path mappings.

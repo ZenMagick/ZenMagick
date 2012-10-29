@@ -67,7 +67,6 @@ class ConfigGroup extends ZMObject {
      */
     private $visible;
 
-
     /**
      * Create new config group.
      */
@@ -78,7 +77,6 @@ class ConfigGroup extends ZMObject {
         $this->sortOrder = 0;
         $this->visible = true;
     }
-
 
     /**
      * Get the id.

@@ -38,7 +38,6 @@ class ZMObjectResultSource extends ZMObject implements ZMResultSource {
     private $totalNumberOfResults_;
     private $isFinal_;
 
-
     /**
      * Create a new instance.
      *
@@ -63,7 +62,6 @@ class ZMObjectResultSource extends ZMObject implements ZMResultSource {
         $this->totalNumberOfResults_ = null;
         $this->isFinal_ = null;
     }
-
 
     /**
      * {@inheritDoc}

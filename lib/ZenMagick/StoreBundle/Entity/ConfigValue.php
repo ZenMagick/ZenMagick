@@ -105,7 +105,6 @@ class ConfigValue extends ZMObject {
      */
     private $setFunction;
 
-
     /**
      * Create new config value.
      */
@@ -117,7 +116,6 @@ class ConfigValue extends ZMObject {
         $this->value = null;
         $this->dateAdded = '0001-01-01 00:00:00';
     }
-
 
     /**
      * Get the id.

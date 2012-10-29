@@ -19,7 +19,6 @@
  */
 namespace ZenMagick\Http\Templating;
 
-
 /**
  * Template cache interface.
  *

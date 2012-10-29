@@ -31,7 +31,6 @@ abstract class ZMRule extends ZMObject {
     private $msg_;
     private $defaultMsg_;
 
-
     /**
      * Create new validation rule.
      *
@@ -46,7 +45,6 @@ abstract class ZMRule extends ZMObject {
         $this->setMsg($msg);
     }
 
-
     /**
      * Validate the given request data.
      *
@@ -55,7 +53,6 @@ abstract class ZMRule extends ZMObject {
      * @return boolean <code>true</code> if the value for <code>$name</code> is valid, <code>false</code> if not.
      */
     abstract public function validate($request, $data);
-
 
     /**
      * Get the parameter name this rule is validating.
@@ -134,7 +131,6 @@ abstract class ZMRule extends ZMObject {
     public function toJSString() {
         return "";
     }
-
 
     /**
      * Return an appropriate error message.

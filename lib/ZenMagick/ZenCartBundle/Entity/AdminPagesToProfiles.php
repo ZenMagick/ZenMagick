@@ -50,8 +50,6 @@ class AdminPagesToProfiles
      */
     private $pageKey;
 
-
-
     /**
      * Set profileId
      *

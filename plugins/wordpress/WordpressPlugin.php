@@ -23,7 +23,6 @@ use ZenMagick\Base\Plugins\Plugin;
 use ZenMagick\Base\Beans;
 use ZenMagick\Base\Toolbox;
 
-
 /**
  * Allow Wordpress content to be displayed in ZenMagick.
  *

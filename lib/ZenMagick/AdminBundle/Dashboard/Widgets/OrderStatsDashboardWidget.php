@@ -35,7 +35,6 @@ class OrderStatsDashboardWidget extends DashboardWidget {
         parent::__construct(_zm('Order Stats'));
     }
 
-
     /**
      * {@inheritDoc}
      */

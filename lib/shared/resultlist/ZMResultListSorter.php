@@ -34,7 +34,6 @@ class ZMResultListSorter extends ZMObject {
     protected $sortId_;
     protected $descending_;
 
-
     /**
      * Create a new result list sorter.
      *
@@ -52,7 +51,6 @@ class ZMResultListSorter extends ZMObject {
             $this->sortId_ = substr($this->sortId_, 0, strlen($this->sortId_)-2);
         }
     }
-
 
     /**
      * Returns true if the current sort order is descending.

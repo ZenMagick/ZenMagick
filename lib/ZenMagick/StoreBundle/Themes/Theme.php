@@ -23,7 +23,6 @@ use ZenMagick\Base\Runtime;
 use ZenMagick\Base\ZMObject;
 use ZenMagick\Base\Utils\ContextConfigLoader;
 
-
 /**
  * A theme.
  *

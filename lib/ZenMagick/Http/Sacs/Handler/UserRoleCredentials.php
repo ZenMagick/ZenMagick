@@ -19,7 +19,6 @@
  */
 namespace ZenMagick\Http\Sacs\Handler;
 
-
 /**
  * User/role credentials.
  *

@@ -36,7 +36,6 @@ class RssFeedLoader extends ZMObject {
     private $config;
     private $cache;
 
-
     /**
      * Create a new instance.
      */
@@ -46,7 +45,6 @@ class RssFeedLoader extends ZMObject {
         $this->config = array_merge($defaults, $config);
         $this->cache = null;
     }
-
 
     /**
      * Set the cache.

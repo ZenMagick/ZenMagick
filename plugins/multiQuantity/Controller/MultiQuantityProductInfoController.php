@@ -35,7 +35,6 @@ class MultiQuantityProductInfoController extends ZMController {
         parent::__construct('multi_quantity_product_info');
     }
 
-
     /**
      * {@inheritDoc}
      */

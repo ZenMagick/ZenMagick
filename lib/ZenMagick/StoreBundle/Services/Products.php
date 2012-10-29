@@ -43,7 +43,6 @@ class Products extends ZMObject implements SqlAware {
     private $cache_;
     private $categoryProductMap_;
 
-
     /**
      * Create new instance.
      */
@@ -272,7 +271,6 @@ class Products extends ZMObject implements SqlAware {
         }
         return $this->getProductsForIds($productIds, true, $languageId);
     }
-
 
     /**
      * Test if a given product type option is enabled for a given product.
@@ -649,7 +647,6 @@ class Products extends ZMObject implements SqlAware {
 
         return $productIds;
     }
-
 
     /**
      * Get some random product ids.

@@ -32,7 +32,6 @@ class QueryPager extends ZMObject {
     private $filters_;
     private $totalResultsCount_;
 
-
     /**
      * Create new instance for the given query.
      *
@@ -44,7 +43,6 @@ class QueryPager extends ZMObject {
         $this->totalResultsCount_ = -1;
         $this->filters_ = array();
     }
-
 
     /**
      * Set query details.

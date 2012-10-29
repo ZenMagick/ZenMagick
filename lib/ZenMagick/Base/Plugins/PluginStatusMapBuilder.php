@@ -26,8 +26,6 @@ use ZenMagick\Base\Toolbox;
 use ZenMagick\Base\ZMObject;
 use ZenMagick\Base\Cache\Cache;
 
-
-
 /**
  * Builder for a cacheable plugin status map.
  *
@@ -39,7 +37,6 @@ class PluginStatusMapBuilder extends ZMObject implements CacheWarmerInterface {
     private $defaultPluginClass;
     private $pluginDirs;
     private $pluginOptionsLoader;
-
 
     /**
      * Create new instance.
@@ -57,7 +54,6 @@ class PluginStatusMapBuilder extends ZMObject implements CacheWarmerInterface {
         $this->cache = $cache;
     }
 
-
     /**
      * {@inheritDoc}
      */
@@ -71,7 +67,6 @@ class PluginStatusMapBuilder extends ZMObject implements CacheWarmerInterface {
     public function warmUp($cacheDir) {
         $this->getStatusMap(true);
     }
-
 
     /**
      * Get status map.

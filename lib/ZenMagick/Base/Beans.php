@@ -47,7 +47,6 @@ class Beans {
     public static $SETTER_PREFIX = 'set';
     private static $propertyMap_ = array();
 
-
     /**
      * Get the property mapping for a given class/object.
      *

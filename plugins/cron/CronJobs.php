@@ -37,7 +37,6 @@ class CronJobs extends ZMObject {
     private $cronhistory;
     private $history;
 
-
     /**
      * Create a new instance.
      *
@@ -60,7 +59,6 @@ class CronJobs extends ZMObject {
         $this->history = null;
         $this->parser = new CronParser();
     }
-
 
     /**
      * Check if it is time to run.

@@ -21,7 +21,6 @@ namespace ZenMagick\AdminBundle\Installation\Patches\Sql;
 
 use ZenMagick\AdminBundle\Installation\Patches\SQLPatch;
 
-
 /**
  * Patch to add review title.
  *
@@ -35,7 +34,6 @@ class ReviewTitlePatch extends SQLPatch {
         "review_title_uninstall.sql"
     );
 
-
     /**
      * Create new instance.
      */
@@ -43,7 +41,6 @@ class ReviewTitlePatch extends SQLPatch {
         parent::__construct('reviewTitle');
         $this->label_ = 'Add column to store review title';
     }
-
 
     /**
      * Checks if this patch can still be applied.

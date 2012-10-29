@@ -40,7 +40,6 @@ abstract class DashboardWidget extends Widget {
     private $open_;
     private $status_;
 
-
     /**
      * Create new user.
      *
@@ -57,7 +56,6 @@ abstract class DashboardWidget extends Widget {
         $this->open_ = true;
         $this->status_ = self::STATUS_DEFAULT;
     }
-
 
     /**
      * Get the id.

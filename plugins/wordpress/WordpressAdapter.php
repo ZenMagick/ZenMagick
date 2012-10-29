@@ -42,7 +42,6 @@ class WordpressAdapter extends ZMObject {
         require ZM_WORDPRESS_ROOT . 'wp-includes/registration.php';
     }
 
-
     /**
      * Check for duplicate nickname.
      *

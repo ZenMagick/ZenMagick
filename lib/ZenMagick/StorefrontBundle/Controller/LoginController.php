@@ -19,7 +19,6 @@
  */
 namespace ZenMagick\StorefrontBundle\Controller;
 
-
 /**
  * Request controller for login.
  *
@@ -27,7 +26,6 @@ namespace ZenMagick\StorefrontBundle\Controller;
  */
 class LoginController extends \ZMController {
     const KEY_REDIRECT = 'loginRedirect';
-
 
     /**
      * {@inheritDoc}

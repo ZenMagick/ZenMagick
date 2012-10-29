@@ -31,7 +31,6 @@ class MediaType extends ZMObject {
     private $name_;
     private $extension_;
 
-
     /**
      * Create new instance.
      */
@@ -41,7 +40,6 @@ class MediaType extends ZMObject {
         $this->name_ = null;
         $this->extension_ = null;
     }
-
 
     /**
      * Get the media type id.

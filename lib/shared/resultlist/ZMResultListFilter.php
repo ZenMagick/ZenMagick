@@ -34,7 +34,6 @@ class ZMResultListFilter extends ZMObject {
     protected $value_;
     protected $filterValues_;
 
-
     /**
      * Create a new result list filter.
      *
@@ -50,7 +49,6 @@ class ZMResultListFilter extends ZMObject {
         $this->value_ = $value;
         $this->filterValues_ = explode(",", $value);
     }
-
 
     /**
      * Set the result list we belong to.

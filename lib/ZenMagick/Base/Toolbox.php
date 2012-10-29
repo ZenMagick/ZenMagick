@@ -19,7 +19,6 @@
  */
 namespace ZenMagick\Base;
 
-
 /**
  * Shared tools.
  *

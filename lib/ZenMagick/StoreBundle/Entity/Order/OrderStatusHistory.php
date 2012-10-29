@@ -95,7 +95,6 @@ class OrderStatusHistory extends ZMObject {
         $this->setLastModified(null);
     }
 
-
     /**
      * Get the order status (history) id.
      *

@@ -50,7 +50,6 @@ class BooleanFormWidget extends FormWidget {
         $this->set('label_false', 'False');
     }
 
-
     /**
      * Overload to evaluate as boolean.
      *

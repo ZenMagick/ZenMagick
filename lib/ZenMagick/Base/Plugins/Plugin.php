@@ -30,7 +30,6 @@ class Plugin extends ZMObject {
     private $messages;
     protected $config;
 
-
     /**
      * Create new plugin instance.
      *
@@ -41,7 +40,6 @@ class Plugin extends ZMObject {
         $this->setConfig($config);
         $this->messages = array();
     }
-
 
     /**
      * Set plugin config.
@@ -172,7 +170,6 @@ class Plugin extends ZMObject {
     public function hasOptions() {
         return 0 < count($this->getOptions());
     }
-
 
     /**
      * Get optional installation messages.

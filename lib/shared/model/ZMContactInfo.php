@@ -32,7 +32,6 @@ class ZMContactInfo extends ZMObject {
     private $recipient_;
     private $message_;
 
-
     /**
      * Create new instance.
      *
@@ -47,7 +46,6 @@ class ZMContactInfo extends ZMObject {
         $this->recipient_ = null;
         $this->message_ = $message;
     }
-
 
     /**
      * Get the contact name.

@@ -147,7 +147,6 @@ class Address extends ZMObject {
         $this->format = 0;
     }
 
-
     /**
      * Get the address id.
      *

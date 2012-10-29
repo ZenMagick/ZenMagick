@@ -18,7 +18,6 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-
 /**
  * Ajax controller for JSON country data.
  *
@@ -35,7 +34,6 @@ class ZMAjaxCountryController extends ZMAjaxController {
         $this->set('ajaxCountryMap', array('id', 'name'));
         $this->set('ajaxZoneMap', array('id', 'name'));
     }
-
 
     /**
      * Generates a JSON list of all countries.

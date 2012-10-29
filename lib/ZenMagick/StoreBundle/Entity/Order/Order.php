@@ -411,7 +411,6 @@ class Order extends ZMObject {
     private $shippingAddress;
     private $billingAddress;
 
-
     /**
      * Create order.
      */
@@ -421,7 +420,6 @@ class Order extends ZMObject {
         $this->accountId = 0;
         $this->reset();
     }
-
 
     /**
      * Reset.
@@ -565,7 +563,6 @@ class Order extends ZMObject {
         $this->set($prefix.'_country', $address->getCountry()->getName());
         $this->set($prefix.'_address_format_id', $address->getAddressFormatId());
     }
-
 
     /**
      * Get the shipping address.

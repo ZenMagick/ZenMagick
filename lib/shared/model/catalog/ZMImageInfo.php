@@ -37,7 +37,6 @@ class ZMImageInfo extends ZMObject {
     protected $altText_;
     protected $parameter_;
 
-
     /**
      * Create new image info.
      *
@@ -50,7 +49,6 @@ class ZMImageInfo extends ZMObject {
         $this->parameter_ = array();
         $this->setDefaultImage($image);
     }
-
 
     /**
      * Set the default image.

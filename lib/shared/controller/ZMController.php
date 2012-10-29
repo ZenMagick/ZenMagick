@@ -41,7 +41,6 @@ class ZMController extends Controller {
     private $view_;
     private $formData_;
 
-
     /**
      * Create new instance.
      *
@@ -55,7 +54,6 @@ class ZMController extends Controller {
         // a little bit of convenience
         $this->messageService = Runtime::getContainer()->get('session')->getFlashBag();
     }
-
 
     /**
      * Init view vars.
@@ -167,7 +165,6 @@ class ZMController extends Controller {
         return $view;
     }
 
-
     /**
      * Get general page data.
      *
@@ -226,7 +223,6 @@ class ZMController extends Controller {
     public function processGet($request) {
         return $this->findView();
     }
-
 
     /**
      * Process a HTTP POST request.

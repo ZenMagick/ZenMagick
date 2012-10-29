@@ -22,7 +22,6 @@ namespace ZenMagick\plugins\recaptcha;
 use ZenMagick\Base\Plugins\Plugin;
 use ZenMagick\Base\Toolbox;
 
-
 define('RECAPTCHA_FIELD', 'recaptcha_response_field');
 
 /**
@@ -39,7 +38,6 @@ class RecaptchaPlugin extends Plugin {
         'contact_us' => array('Contact Us', 'contactUs'),
         'product_reviews_write' => array('Write Review', 'newReview')
     );
-
 
     /**
      * Init done callback.
@@ -68,7 +66,6 @@ class RecaptchaPlugin extends Plugin {
             $this->container->get('zmvalidator')->addRules($form, $rules);
         }
     }
-
 
     /**
      * Check if captcha is enabled for this request.

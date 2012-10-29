@@ -19,7 +19,6 @@
  */
 namespace ZenMagick\Http\Sacs;
 
-
 /**
  * Permission provider.
  *

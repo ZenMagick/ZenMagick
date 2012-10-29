@@ -111,8 +111,6 @@ class StorefrontController extends \ZMController {
             $session->get('navigation')->add_current_page();
         }
 
-
-
         /**
          *  Execute ZenCart controller
          */
@@ -419,6 +417,5 @@ class StorefrontController extends \ZMController {
             call_user_func_array(array($session->get('cart'), $cartMethod), array($redirectTarget, $params));
         }
     }
-
 
 }

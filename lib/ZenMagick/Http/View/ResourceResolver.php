@@ -36,7 +36,6 @@ use ZenMagick\Base\ZMObject;
 class ResourceResolver extends ZMObject {
     protected $locations;
 
-
     /**
      * Create new instance.
      */
@@ -44,7 +43,6 @@ class ResourceResolver extends ZMObject {
         parent::__construct();
         $this->locations = array(View::TEMPLATE => null, View::RESOURCE => null);
     }
-
 
     /**
      * Get all valid locations for for the given type.
@@ -132,7 +130,6 @@ class ResourceResolver extends ZMObject {
 
             $docroot = $this->getApplicationDocRoot();
             $locations[] = $docroot;
-
 
             // add path for locale specific resources
             foreach ($localeCodes as $code) {

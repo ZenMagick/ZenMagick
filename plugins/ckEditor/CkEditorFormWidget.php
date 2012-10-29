@@ -34,7 +34,6 @@ class CkEditorFormWidget extends TextAreaFormWidget implements WysiwygEditor {
     private $idList;
     private $editorConfig;
 
-
     /**
      * Create new instance.
      */
@@ -49,7 +48,6 @@ class CkEditorFormWidget extends TextAreaFormWidget implements WysiwygEditor {
         );
 
     }
-
 
     /**
      * Init editor.

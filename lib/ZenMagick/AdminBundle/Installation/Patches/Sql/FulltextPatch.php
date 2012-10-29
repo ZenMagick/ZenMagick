@@ -21,7 +21,6 @@ namespace ZenMagick\AdminBundle\Installation\Patches\Sql;
 
 use ZenMagick\AdminBundle\Installation\Patches\SQLPatch;
 
-
 /**
  * Patch to create fulltext indexes for product search.
  *
@@ -35,7 +34,6 @@ class FulltextPatch extends SQLPatch {
         "fulltext_uninstall.sql"
     );
 
-
     /**
      * Create new instance.
      */
@@ -43,7 +41,6 @@ class FulltextPatch extends SQLPatch {
         parent::__construct('sqlFulltext');
         $this->label_ = 'Create indices for fulltext product search';
     }
-
 
     /**
      * Checks if this patch can still be applied.

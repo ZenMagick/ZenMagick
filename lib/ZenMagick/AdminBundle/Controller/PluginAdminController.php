@@ -30,7 +30,6 @@ use ZMController;
 class PluginAdminController extends ZMController {
     private $plugin_;
 
-
     /**
      * Create a new instance.
      *
@@ -40,7 +39,6 @@ class PluginAdminController extends ZMController {
         parent::__construct();
         $this->plugin_ = $plugin;
     }
-
 
     /**
      * Set the plugin.

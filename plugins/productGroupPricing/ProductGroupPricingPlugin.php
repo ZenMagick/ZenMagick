@@ -21,7 +21,6 @@ namespace ZenMagick\plugins\productGroupPricing;
 
 use ZenMagick\Base\Plugins\Plugin;
 
-
 /**
  * Plugin adding group based pricing.
  *

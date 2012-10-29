@@ -33,7 +33,6 @@ class LocaleScanner extends ZMObject {
     const LOCALE_PATTERNS = '_zmn,_zm,_vzm';
     protected $filesystem;
 
-
     /**
      * Set the filesystem helper.
      *

@@ -21,7 +21,6 @@ namespace ZenMagick\Http\Session;
 
 use ZenMagick\Base\ZMObject;
 
-
 /**
  * User session.
  *
@@ -29,7 +28,6 @@ use ZenMagick\Base\ZMObject;
  */
 class UserSession extends ZMObject {
     protected $session;
-
 
     /**
      * Set the session.

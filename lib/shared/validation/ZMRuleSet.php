@@ -30,7 +30,6 @@ class ZMRuleSet extends ZMObject {
     private $id_;
     private $rules_;
 
-
     /**
      * Create new rule set.
      *
@@ -42,7 +41,6 @@ class ZMRuleSet extends ZMObject {
         $this->id_ = $id;
         $this->rules_ = null != $rules ? $rules : array();
     }
-
 
     /**
      * Get the rule set id.

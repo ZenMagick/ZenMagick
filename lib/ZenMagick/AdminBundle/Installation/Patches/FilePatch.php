@@ -42,8 +42,6 @@ class FilePatch extends InstallationPatch {
         clearstatcache();
     }
 
-
-
     /**
      * Get the patch group id.
      *

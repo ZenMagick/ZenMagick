@@ -44,7 +44,6 @@ class InstallationPatch extends ZMObject {
         $this->messages_ = array();
     }
 
-
     /**
      * Get the patch id.
      *
@@ -65,7 +64,6 @@ class InstallationPatch extends ZMObject {
      * @return array List of patch names.
      */
     public function dependsOn() { return array(); }
-
 
     /**
      * Checks if this patch can still be applied.

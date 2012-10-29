@@ -205,7 +205,6 @@ class Accounts extends ZMObject {
         return $account;
     }
 
-
     /**
      * Set password for account
      */
@@ -215,7 +214,6 @@ class Accounts extends ZMObject {
                 WHERE customers_id = :accountId";
         ZMRuntime::getDatabase()->updateObj($sql, array('accountId' => $accountId, 'password' => $password), 'customers');
     }
-
 
     /**
      * Check for global product subscriber.

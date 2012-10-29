@@ -44,5 +44,4 @@ class PaypalPaymentStatus {
      */
     private $name;
 
-
 }

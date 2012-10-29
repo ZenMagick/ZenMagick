@@ -18,7 +18,6 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-
 /**
  * Max field length validation rule based on the database column length.
  *
@@ -29,7 +28,6 @@ class ZMMaxFieldLengthRule extends ZMRule {
     private $table;
     private $column;
     private $max;
-
 
     /**
      * Create new min length rule.
@@ -45,7 +43,6 @@ class ZMMaxFieldLengthRule extends ZMRule {
         $this->column = $column;
         $this->max = -1;
     }
-
 
     /**
      * Validate the given request data.
@@ -79,7 +76,6 @@ class ZMMaxFieldLengthRule extends ZMRule {
     public function getErrorMsg() {
         return sprintf(_zm(null != $this->getMsg() ? $this->getMsg() : $this->getDefaultMsg()), $this->getName(), $this->getMaxFieldLength());
     }
-
 
     /**
      * Create JS validation call.

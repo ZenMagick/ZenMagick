@@ -29,7 +29,6 @@ use ZenMagick\Base\Plugins\Plugin;
 class AutoresponderPlugin extends Plugin {
     private $cookieUpdated;
 
-
     /**
      * {@inheritDoc}
      */
@@ -78,7 +77,6 @@ class AutoresponderPlugin extends Plugin {
 (NULL, 'Include Discount Coupon (1)', 'AUTO_COUPON', '', '<br />Enter existing coupon code to replicate settings from<p />Otherwise leave blank<br />', @configuration_group_id, 16, NOW(), NULL, NULL),
          */
     }
-
 
     /**
      * Get the config data.

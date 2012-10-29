@@ -81,8 +81,6 @@ class AdminPages
      */
     private $sortOrder;
 
-
-
     /**
      * Get pageKey
      *

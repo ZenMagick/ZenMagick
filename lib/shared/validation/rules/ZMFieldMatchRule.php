@@ -18,7 +18,6 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-
 /**
  * Field match rule.
  *
@@ -29,7 +28,6 @@
  */
 class ZMFieldMatchRule extends ZMRule {
     private $other_;
-
 
     /**
      * Create new field match rule.
@@ -42,7 +40,6 @@ class ZMFieldMatchRule extends ZMRule {
         parent::__construct($name, "%s and %s must match.", $msg);
         $this->setOther($other);
     }
-
 
     /**
      * Set the other field name.
@@ -73,7 +70,6 @@ class ZMFieldMatchRule extends ZMRule {
         return empty($data[$this->getName()]) || empty($data[$this->other_]) || ($data[$this->getName()] == $data[$this->other_]);
     }
 
-
     /**
      * Return an appropriate error message.
      *
@@ -82,7 +78,6 @@ class ZMFieldMatchRule extends ZMRule {
     public function getErrorMsg() {
         return sprintf(_zm((null != $this->getMsg() ? $this->getMsg() : $this->getDefaultMsg())), $this->getName(), $this->other_);
     }
-
 
     /**
      * Create JS validation call.

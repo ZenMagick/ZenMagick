@@ -74,7 +74,6 @@ class Language extends ZMObject {
      */
     private $sortOrder;
 
-
     // @todo deprecated, but needed until we change the property name
     public function getLanguageId() { return $this->getId(); }
 

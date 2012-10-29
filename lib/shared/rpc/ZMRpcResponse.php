@@ -31,7 +31,6 @@ interface ZMRpcResponse {
     const RC_INVALID_CREDENTIALS = 5;
     const RC_NO_CREDENTIALS = 6;
 
-
     /**
      * Add a message for the given type.
      *

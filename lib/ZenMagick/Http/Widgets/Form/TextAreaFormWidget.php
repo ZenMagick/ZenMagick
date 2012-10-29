@@ -40,7 +40,6 @@ class TextAreaFormWidget extends FormWidget implements WysiwygEditor {
         $this->setCols(60);
     }
 
-
     /**
      * {@inheritDoc}
      */

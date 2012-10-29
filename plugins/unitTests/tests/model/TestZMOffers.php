@@ -35,7 +35,6 @@ class TestZMOffers extends TestCase {
         parent::setUp();
     }
 
-
     /**
      * Test quantity discounts
      */

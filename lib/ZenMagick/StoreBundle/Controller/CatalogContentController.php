@@ -38,7 +38,6 @@ abstract class CatalogContentController extends \ZMController {
     protected $name_;
     private $active_;
 
-
     /**
      * Create new instance.
      *
@@ -52,7 +51,6 @@ abstract class CatalogContentController extends \ZMController {
         $this->name_ = $name;
         $this->active_ = $active;
     }
-
 
     /**
      * Query whether this content is active for the given request.

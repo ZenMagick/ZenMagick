@@ -36,7 +36,6 @@ class PaymentTypeWrapper extends ZMObject implements \ZMPaymentType {
     private $fields_;
     private $prepared_;
 
-
     /**
      * Create a new payment type.
      *
@@ -48,7 +47,6 @@ class PaymentTypeWrapper extends ZMObject implements \ZMPaymentType {
         $this->fields_ = null;
         $this->prepared_ = false;
     }
-
 
     /**
      * Set the zencart module to wrap.

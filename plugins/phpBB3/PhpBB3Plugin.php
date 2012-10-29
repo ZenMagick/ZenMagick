@@ -32,7 +32,6 @@ class PhpBB3Plugin extends Plugin {
     private $prePostAccount_ = null;
     private $adapter_ = null;
 
-
     /**
      * Get the phpBB3 adapter.
      */

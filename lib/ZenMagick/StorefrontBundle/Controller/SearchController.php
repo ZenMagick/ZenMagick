@@ -42,7 +42,6 @@ class SearchController extends \ZMController {
         $this->autoSearch_ = true;
     }
 
-
     /**
      * Set the auto search flag.
      *

@@ -436,7 +436,6 @@ class Coupon extends ZMObject {
         $this->translations[$languageId] = new CouponTranslations($this, $name, $description, $languageId);
     }
 
-
     /**
      * Get active
      *

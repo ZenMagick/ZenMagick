@@ -21,7 +21,6 @@ namespace ZenMagick\AdminBundle\Installation\Patches\Sql;
 
 use ZenMagick\AdminBundle\Installation\Patches\SQLPatch;
 
-
 /**
  * Patch to create the sacs permission tables.
  *
@@ -40,7 +39,6 @@ class SacsPermissionsPatch extends SQLPatch {
         $this->label_ = 'Create new table to store custom admin access rules';
         $this->setTables('sacs_permissions');
     }
-
 
     /**
      * Checks if this patch can still be applied.

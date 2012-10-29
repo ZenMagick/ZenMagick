@@ -40,7 +40,6 @@ class SideboxDummyPatch extends FilePatch {
         $this->sideBoxPath = Runtime::getSettings()->get('zencart.root_dir').'/includes/modules/sideboxes/';
     }
 
-
     /**
      * Checks if this patch can still be applied.
      *

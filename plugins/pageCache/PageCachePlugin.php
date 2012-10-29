@@ -27,7 +27,6 @@ use Symfony\Component\EventDispatcher\GenericEvent;
 define('ZM_PLUGINS_PAGE_CACHE_ALLOWED_DEFAULT', 'index,category,product_info,page,static,products_new,featured_products,specials,product_reviews');
 define('ZM_EVENT_PLUGINS_PAGE_CACHE_CONTENTS_DONE', 'plugins_page_cache_contents_done');
 
-
 /**
  * Plugin for page caching.
  *

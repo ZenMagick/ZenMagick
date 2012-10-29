@@ -51,7 +51,6 @@ class ZMOffers extends ZMObject {
     private $discountPercent_;
     private $discounts_;
 
-
     /**
      * Create new instance.
      *
@@ -67,7 +66,6 @@ class ZMOffers extends ZMObject {
         $this->discounts_ = array(true => null, false => null);
         $this->setProduct($product);
     }
-
 
     /**
      * Checks if there are attribute prices that will affect the final price.

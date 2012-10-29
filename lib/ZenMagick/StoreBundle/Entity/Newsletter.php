@@ -94,5 +94,4 @@ class Newsletter
      */
     private $locked;
 
-
 }

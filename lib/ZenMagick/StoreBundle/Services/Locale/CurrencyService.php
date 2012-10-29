@@ -30,7 +30,6 @@ use ZenMagick\Base\ZMObject;
 class CurrencyService extends ZMObject {
     private $currencies;
 
-
     /**
      * Create new instance.
      */
@@ -38,7 +37,6 @@ class CurrencyService extends ZMObject {
         parent::__construct();
         $this->load();
     }
-
 
     /**
      * Load all currencies.

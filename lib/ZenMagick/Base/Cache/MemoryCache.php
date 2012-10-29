@@ -33,14 +33,12 @@ class MemoryCache implements Cache {
     private $group_;
     private $cache_;
 
-
     /**
      * Create new instance.
      */
     public function __construct() {
         $groups_ = array();
     }
-
 
     /**
      * {@inheritDoc}
@@ -53,7 +51,6 @@ class MemoryCache implements Cache {
         $this->cache_ = new CacheLite($config);
         $this->groups_[$group] = $config;
     }
-
 
     /**
      * {@inheritDoc}

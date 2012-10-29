@@ -84,5 +84,4 @@ class CustomersBasketAttributes {
      */
     private $sortOrder;
 
-
 }

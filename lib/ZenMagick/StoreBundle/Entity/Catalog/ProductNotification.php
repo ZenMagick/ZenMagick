@@ -54,5 +54,4 @@ class ProductNotification
      */
     private $dateAdded;
 
-
 }

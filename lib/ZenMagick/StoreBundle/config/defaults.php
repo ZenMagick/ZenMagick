@@ -54,7 +54,6 @@ if (!function_exists('zm_split_email_addresses')) {
         return $l;
     }
 
-
     /**
      * Set up default setting.
      *
@@ -90,7 +89,6 @@ if (!function_exists('zm_split_email_addresses')) {
 
             // allow checkout of low stock products (low meaning 'out of stock')
             'isAllowLowStockCheckout' => STOCK_ALLOW_CHECKOUT == 'true',
-
 
             /**************************************
              * Error pages, other global page settings
@@ -161,7 +159,6 @@ if (!function_exists('zm_split_email_addresses')) {
 
             // shipping tax base
             'shippingTaxBase' => STORE_SHIPPING_TAX_BASIS, //shipping,billing,store
-
 
             /**************************************
              * Security and session

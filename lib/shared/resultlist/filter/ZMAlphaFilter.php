@@ -34,7 +34,6 @@ class ZMAlphaFilter extends ZMResultListFilter {
         parent::__construct('afilter', _zm('First character of Name'));
     }
 
-
     /**
      * Return <code>true</code> if the given object is to be excluded.
      *
@@ -42,7 +41,6 @@ class ZMAlphaFilter extends ZMResultListFilter {
      * @return boolean <code>true</code> if the object is to be excluded, <code>false</code> if not.
      */
     public function exclude($obj) { return 0 !== strpos(strtolower($obj->getName()), $this->filterValues_[0]); }
-
 
     /**
      * Returns a list of all available filter values.

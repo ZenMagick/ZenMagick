@@ -117,7 +117,6 @@ use ZenMagick\Base\Toolbox;
     <div><?php echo $html->encode(!Toolbox::isEmpty($shoppingCart->getComments()) ? $shoppingCart->getComments() : "None") ?></div>
 </fieldset>
 
-
 <?php echo $form->open($orderFormUrl, '', true) ?>
     <?php echo $orderFormContent ?>
     <div class="btn"><input type="submit" class="btn" value="<?php _vzm("Confirm to order") ?>" /></div>

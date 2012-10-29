@@ -36,7 +36,6 @@ class LatestAccountsDashboardWidget extends DashboardWidget {
         parent::__construct(_zm('Latest Accounts'));
     }
 
-
     /**
      * {@inheritDoc}
      */

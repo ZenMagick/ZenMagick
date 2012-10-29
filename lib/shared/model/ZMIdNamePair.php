@@ -30,7 +30,6 @@ class ZMIdNamePair extends ZMObject {
     public $id_;
     public $name_;
 
-
     /**
      * Create new id - name pair.
      *
@@ -42,7 +41,6 @@ class ZMIdNamePair extends ZMObject {
         $this->id_ = $id;
         $this->name_ = $name;
     }
-
 
     /**
      * Get the id.

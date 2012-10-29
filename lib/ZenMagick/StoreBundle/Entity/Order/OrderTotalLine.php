@@ -87,7 +87,6 @@ class OrderTotalLine extends ZMObject {
      */
     private $sortOrder;
 
-
     /**
      * Create new total line.
      *
@@ -105,7 +104,6 @@ class OrderTotalLine extends ZMObject {
         $this->type = $type;
         $this->sortOrder = 0;
     }
-
 
     /**
      * Get the order total id.

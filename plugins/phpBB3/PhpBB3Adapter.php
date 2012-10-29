@@ -44,7 +44,6 @@ class PhpBB3Adapter extends ZMObject {
         require_once ZM_PHPBB3_ROOT . 'includes/constants.php';
     }
 
-
     /**
      * Get database.
      *

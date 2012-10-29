@@ -35,7 +35,6 @@ class PendingDashboardWidget extends DashboardWidget {
         parent::__construct(_zm('Pending'));
     }
 
-
     /**
      * {@inheritDoc}
      */

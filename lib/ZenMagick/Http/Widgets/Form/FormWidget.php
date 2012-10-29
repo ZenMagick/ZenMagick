@@ -38,7 +38,6 @@ abstract class FormWidget extends Widget {
     protected $attributeNames_;
     protected $encode_;
 
-
     /**
      * Create new instance.
      */
@@ -231,7 +230,6 @@ abstract class FormWidget extends Widget {
 
         return $attr;
     }
-
 
     /**
      * Compare the given value with the widget value.

@@ -29,7 +29,6 @@ use ZenMagick\Base\Runtime;
      * The ruleset id must match the id attribute of the HTML form.
      */
 
-
     $validator = $container->get('zmvalidator');
 
     /* create account */

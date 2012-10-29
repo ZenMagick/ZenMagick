@@ -73,7 +73,6 @@ class Country extends ZMObject {
      */
     private $addressFormatId;
 
-
     /**
      * Create new instance.
      */
@@ -85,7 +84,6 @@ class Country extends ZMObject {
         $this->isoCode3 = null;
         $this->addressFormatId = 0;
     }
-
 
     /**
      * Get the country id.

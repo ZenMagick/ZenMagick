@@ -19,7 +19,6 @@
  */
 namespace ZenMagick\StoreBundle\EventListener;
 
-
 use ZenMagick\Base\ZMObject;
 
 use Symfony\Component\DependencyInjection\ContainerInterface;

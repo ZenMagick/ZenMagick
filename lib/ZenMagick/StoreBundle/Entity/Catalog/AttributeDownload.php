@@ -58,5 +58,4 @@ class AttributeDownload {
      */
     private $maxCount;
 
-
 }

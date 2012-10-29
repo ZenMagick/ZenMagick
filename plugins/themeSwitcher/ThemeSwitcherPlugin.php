@@ -34,7 +34,6 @@ class ThemeSwitcherPlugin extends Plugin {
     /** query param key for new theme id. */
     const SESS_THEME_KEY = 'themeId';
 
-
     /**
      * Switch.
      */

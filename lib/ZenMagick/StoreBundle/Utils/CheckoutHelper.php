@@ -38,7 +38,6 @@ class CheckoutHelper extends ZMObject {
     const CART_TYPE_MIXED = 'mixed';
     private $shoppingCart_;
 
-
     /**
      * Create new instance.
      *
@@ -48,7 +47,6 @@ class CheckoutHelper extends ZMObject {
         parent::__construct();
         $this->shoppingCart_ = $shoppingCart;
     }
-
 
     /**
      * Set the corresponding shopping cart.
@@ -286,7 +284,6 @@ class CheckoutHelper extends ZMObject {
         $result = abs(round($x - $multiplier, 6));
         return $result;
     }
-
 
     /**
      * Check whether the cart is ready for checkout or not.

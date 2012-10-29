@@ -35,7 +35,6 @@ class RecentSearchesDashboardWidget extends DashboardWidget {
         parent::__construct(_zm('Recent Searches'));
     }
 
-
     /**
      * {@inheritDoc}
      */

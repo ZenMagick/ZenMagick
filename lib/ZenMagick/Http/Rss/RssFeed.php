@@ -31,7 +31,6 @@ class RssFeed extends ZMObject {
     private $channel_;
     private $items_;
 
-
     /**
      * Create new RSS feed.
      */
@@ -40,7 +39,6 @@ class RssFeed extends ZMObject {
         $this->channel_ = null;
         $this->items_ = array();
     }
-
 
     /**
      * Returns <code>true</code> if contents is available.

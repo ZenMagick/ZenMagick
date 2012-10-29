@@ -27,7 +27,6 @@
       <!-- content-wrap starts here -->
       <div id="content-wrap"><div id="content">
 
-
         <div id="sidebar" >
           <?php echo $this->fetchBlockGroup('rightColumn', array('format' => '<div class="sidebox">%s</div>')) ?>
         </div>
