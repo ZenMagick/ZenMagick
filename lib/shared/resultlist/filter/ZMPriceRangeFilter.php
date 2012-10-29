@@ -119,4 +119,3 @@ class ZMPriceRangeFilter extends ZMResultListFilter {
 
 }
 
-?>

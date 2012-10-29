@@ -100,4 +100,3 @@ class ZMCreditTypeWrapper extends ZMObject {
 
 }
 
-?>
