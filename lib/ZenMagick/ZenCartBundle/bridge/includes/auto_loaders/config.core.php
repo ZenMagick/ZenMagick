@@ -12,4 +12,3 @@
   $autoLoadConfig[130][] = array('autoType'=>'init_script',
                                  'loadFile'=> 'init_customer_auth.php',
                                  'loaderPrefix'=>'config');
-

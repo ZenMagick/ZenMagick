@@ -50,4 +50,3 @@ use ZenMagick\Base\Runtime;
     if (Runtime::getSettings()->get('isPrivacyMessage')) {
         $validator->addRule('registration', array('ZMRequiredRule' ,'privacy', 'You must agree to the privacy policy.'));
     }
-

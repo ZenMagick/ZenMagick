@@ -100,4 +100,3 @@ interface Cache {
      */
     public function setOption($key, $value);
 }
-

@@ -71,4 +71,3 @@ class ProductFinder extends \ZMProductFinder {
     }
 
 }
-

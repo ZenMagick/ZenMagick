@@ -29,4 +29,3 @@ assetic:
 zenmagick:
     plugins:
         enabled: false
-

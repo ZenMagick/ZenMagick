@@ -56,4 +56,3 @@ class SimpleProductAssociationHandler extends TestCase implements ProductAssocia
     }
 
 }
-

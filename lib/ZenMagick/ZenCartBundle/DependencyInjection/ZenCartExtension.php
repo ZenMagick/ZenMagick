@@ -93,4 +93,3 @@ class ZenCartExtension extends Extension {
         return 'zencart';
     }
 }
-

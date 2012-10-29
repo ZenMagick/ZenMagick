@@ -84,4 +84,3 @@ class ZenMagickExtension extends Extension {
         return 'zenmagick';
     }
 }
-

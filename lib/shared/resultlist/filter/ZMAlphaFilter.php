@@ -73,4 +73,3 @@ class ZMAlphaFilter extends ZMResultListFilter {
     }
 
 }
-

@@ -59,4 +59,3 @@ use ZenMagick\Base\Toolbox;
             </div>
         <?php } ?>
 <?php } ?>
-

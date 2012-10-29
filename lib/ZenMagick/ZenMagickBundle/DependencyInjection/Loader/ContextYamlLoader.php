@@ -54,4 +54,3 @@ die(var_dump(__FILE__, $yaml));
         return is_string($resource) && 'yaml' === pathinfo($resource, PATHINFO_EXTENSION);
     }
 }
-

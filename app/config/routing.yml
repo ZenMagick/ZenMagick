@@ -4,4 +4,3 @@ zenmagick_admin:
 zenmagick_storefront:
     resource: "@StorefrontBundle/Resources/config/routing.xml"
     prefix: /
-

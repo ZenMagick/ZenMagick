@@ -11,4 +11,3 @@
     <?php } ?>
     <a href="<?php echo $net->url('subscription_request', 'orderId='.$order->getId().'&type=enquire') ?>"><?php _vzm("Ask about Subscriptions") ?></a>
 <?php } ?>
-

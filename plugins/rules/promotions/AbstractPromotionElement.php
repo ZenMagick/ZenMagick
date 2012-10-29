@@ -94,4 +94,3 @@ abstract class AbstractPromotionElement implements PromotionElement {
     }
 
 }
-

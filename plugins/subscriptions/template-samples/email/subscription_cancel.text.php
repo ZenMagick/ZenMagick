@@ -26,4 +26,3 @@ Schedule: <?php echo $schedules[$order->getSchedule()]['name'] ?>
 Next order date: <?php echo $locale->shortDate($order->getNextOrder()) ?>
 
 Min last order date: <?php echo $locale->shortDate($plugin->getMinLastOrderDate($order->getId())) ?>
-

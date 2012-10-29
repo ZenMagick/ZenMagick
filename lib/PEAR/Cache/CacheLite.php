@@ -844,4 +844,3 @@ class CacheLite
     }
 
 }
-

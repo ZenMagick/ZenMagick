@@ -672,4 +672,3 @@
     }
     return $email_html;
   }
-

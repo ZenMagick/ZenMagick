@@ -74,4 +74,3 @@
         <?php $first = false; $odd = !$odd; } ?>
     </tbody></table>
 </div>
-
