@@ -38,7 +38,7 @@ class ZMMinMaxRule extends ZMRule {
      * @param int max The maximum length; default is <em>0</em> for unlimited.
      * @param string msg Optional message.
      */
-    function __construct($name=null, $min=1, $max=0, $msg=null) {
+    public function __construct($name=null, $min=1, $max=0, $msg=null) {
         parent::__construct($name, "%s must be between %s and %s characters long.", $msg);
         $this->setMin($min);
         $this->setMax($max);

@@ -36,7 +36,7 @@ class ZMRegexpRule extends ZMRule {
      * @param string regexp The regular expression; default is <code>null</code>.
      * @param string msg Optional message; default is <code>null</code>.
      */
-    function __construct($name=null, $regexp=null, $msg=null) {
+    public function __construct($name=null, $regexp=null, $msg=null) {
         parent::__construct($name, "%s is not valid.", $msg);
         $this->setRegexp($regexp);
     }

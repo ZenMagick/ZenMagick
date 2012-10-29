@@ -704,7 +704,7 @@ class Order extends ZMObject {
      *
      * @return boolean <code>true</code> if the order is store pickup, <code>false</code> if not.
      */
-    function isStorePickup() {
+    public function isStorePickup() {
         $totals = $this->getOrderTotalLines();
         foreach ($totals as $total) {
             // AAAAAAAAAAAAAAAAAAAAAAAAAAARRRRRRRRRRRRRRRRRHHHHHHHHHHH

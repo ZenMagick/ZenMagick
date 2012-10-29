@@ -46,7 +46,7 @@ class CouponAdminMailPatch extends FilePatch {
      * @param array lines The file contents of <code>index.php</code>.
      * @return boolean <code>true</code> if this patch can still be applied.
      */
-    function isOpen($lines=null) {
+    public function isOpen($lines=null) {
         if (null == $lines) {
             $lines = $this->getFileLines($this->couponAdminFile);
         }
@@ -68,7 +68,7 @@ class CouponAdminMailPatch extends FilePatch {
      *
      * @return boolean <code>true</code> if this patch is ready and all preconditions are met.
      */
-    function isReady() {
+    public function isReady() {
         return is_writeable($this->couponAdminFile);
     }
 
@@ -79,7 +79,7 @@ class CouponAdminMailPatch extends FilePatch {
      *
      * @return string The preconditions message or an empty string.
      */
-    function getPreconditionsMessage() {
+    public function getPreconditionsMessage() {
         return $this->isReady() ? "" : "Need permission to write " . $this->couponAdminFile;
     }
 
@@ -90,7 +90,7 @@ class CouponAdminMailPatch extends FilePatch {
      *  disabled as per settings.
      * @return boolean <code>true</code> if patching was successful, <code>false</code> if not.
      */
-    function patch($force=false) {
+    public function patch($force=false) {
         $lines = $this->getFileLines($this->couponAdminFile);
         if (!$this->isOpen($lines)) {
             return true;
@@ -121,7 +121,7 @@ class CouponAdminMailPatch extends FilePatch {
      *
      * @return boolean <code>true</code> if patching was successful, <code>false</code> if not.
      */
-    function undo() {
+    public function undo() {
         $lines = $this->getFileLines($this->couponAdminFile);
         if ($this->isOpen($lines)) {
             return true;

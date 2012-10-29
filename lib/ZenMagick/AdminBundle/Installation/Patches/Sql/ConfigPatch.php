@@ -30,7 +30,7 @@ use ZenMagick\AdminBundle\Installation\Patches\SQLPatch;
  * @todo migrate all this to a fixture for installation
  */
 class ConfigPatch extends SQLPatch {
-    var $sqlUndoFiles_ = array(
+    public $sqlUndoFiles_ = array(
         "config_undo.sql"
     );
 
@@ -49,7 +49,7 @@ class ConfigPatch extends SQLPatch {
      *
      * @return boolean <code>true</code> if this patch can still be applied.
      */
-    function isOpen() {
+    public function isOpen() {
         return true;
     }
 
@@ -60,7 +60,7 @@ class ConfigPatch extends SQLPatch {
      *  disabled as per settings.
      * @return boolean <code>true</code> if patching was successful, <code>false</code> if not.
      */
-    function patch($force=false) {
+    public function patch($force=false) {
         $configService = Runtime::getContainer()->get('configService');
 
         // Create configuration groups

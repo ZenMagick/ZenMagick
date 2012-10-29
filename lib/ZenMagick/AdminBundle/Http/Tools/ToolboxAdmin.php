@@ -131,7 +131,7 @@ class ToolboxAdmin extends ToolboxTool {
      * @param boolean start Flag to indicate start of recursion; default is <code>true</code>.
      * @return string The created HTML.
      */
-    function categoryTree($categories = null, $start = true) {
+    public function categoryTree($categories = null, $start = true) {
         $net = $this->getToolbox()->net;
         $html = $this->getToolbox()->html;
         $path = (array)$this->getRequest()->attributes->get('categoryIds');

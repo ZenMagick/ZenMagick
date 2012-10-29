@@ -47,7 +47,7 @@ class ZMController extends Controller {
      *
      * @param string requestId Optional requestId; default is <code>null</code> to use the request id.
      */
-    function __construct($requestId=null) {
+    public function __construct($requestId=null) {
         $this->requestId_ = $requestId;
         $this->view_ = null;
         $this->method_ = null;

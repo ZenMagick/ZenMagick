@@ -35,7 +35,7 @@ class ZMRequiredRule extends ZMRule {
      * @param mixed name The field name or a list (either an array or comma separated string) of names; default is <code>null</code>.
      * @param string msg Optional message.
      */
-    function __construct($name=null, $msg=null) {
+    public function __construct($name=null, $msg=null) {
         parent::__construct($name, "Please enter a value for %s.", $msg);
     }
 

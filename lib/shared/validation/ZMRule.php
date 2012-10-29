@@ -39,7 +39,7 @@ abstract class ZMRule extends ZMObject {
      * @param string defaultMsg The default error message; default is <code>null</code>.
      * @param string msg Optional custom error message; default is <code>null</code>.
      */
-    function __construct($name=null, $defaultMsg=null, $msg=null) {
+    public function __construct($name=null, $defaultMsg=null, $msg=null) {
         parent::__construct();
         $this->setName($name);
         $this->setDefaultMsg($defaultMsg);
@@ -54,7 +54,7 @@ abstract class ZMRule extends ZMObject {
      * @param array data The data.
      * @return boolean <code>true</code> if the value for <code>$name</code> is valid, <code>false</code> if not.
      */
-    public abstract function validate($request, $data);
+    abstract public function validate($request, $data);
 
 
     /**

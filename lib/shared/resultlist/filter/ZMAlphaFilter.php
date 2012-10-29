@@ -41,7 +41,7 @@ class ZMAlphaFilter extends ZMResultListFilter {
      * @param mixed obj The obecjt to examine.
      * @return boolean <code>true</code> if the object is to be excluded, <code>false</code> if not.
      */
-    function exclude($obj) { return 0 !== strpos(strtolower($obj->getName()), $this->filterValues_[0]); }
+    public function exclude($obj) { return 0 !== strpos(strtolower($obj->getName()), $this->filterValues_[0]); }
 
 
     /**
@@ -49,7 +49,7 @@ class ZMAlphaFilter extends ZMResultListFilter {
      *
      * @return array An array of string values.
      */
-    function getOptions() {
+    public function getOptions() {
         // get all used first chars
         $keys = array();
         foreach ($this->list_->getAllResults() as $result) {

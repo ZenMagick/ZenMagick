@@ -28,7 +28,7 @@ use ZenMagick\AdminBundle\Installation\Patches\SQLPatch;
  * @author DerManoMann <mano@zenmagick.org>
  */
 class BlockAdminPatch extends SQLPatch {
-    var $sqlFiles_ = array(
+    public $sqlFiles_ = array(
         "block_admin_install.sql"
     );
 
@@ -48,7 +48,7 @@ class BlockAdminPatch extends SQLPatch {
      *
      * @return boolean <code>true</code> if this patch can still be applied.
      */
-    function isOpen() {
+    public function isOpen() {
         return !$this->tablesExist();
     }
 

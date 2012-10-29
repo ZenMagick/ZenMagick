@@ -35,7 +35,7 @@ class GroupPricing extends ZMObject {
      *
      * @return array List of ZenMagick\StoreBundle\Entity\Account\PriceGroup objects.
      */
-    function getPriceGroups() {
+    public function getPriceGroups() {
         $sql = "SELECT *
                 FROM %table.group_pricing%";
         return \ZMRuntime::getDatabase()->fetchAll($sql, array(), 'group_pricing', 'ZenMagick\StoreBundle\Entity\Account\PriceGroup');
@@ -47,7 +47,7 @@ class GroupPricing extends ZMObject {
      * @param int priceGroupId The id.
      * @return ZenMagick\StoreBundle\Entity\Account\PriceGroup The group or <code>null</code>.
      */
-    function getPriceGroupForId($priceGroupId) {
+    public function getPriceGroupForId($priceGroupId) {
         $sql = "SELECT *
                 FROM %table.group_pricing%
                 WHERE  group_id = :id";

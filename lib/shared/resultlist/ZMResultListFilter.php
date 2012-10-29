@@ -42,7 +42,7 @@ class ZMResultListFilter extends ZMObject {
      * @param string name Optional filter name.
      * @param string value Optional filter value.
      */
-    function __construct($id=null, $name='', $value='') {
+    public function __construct($id=null, $name='', $value='') {
         parent::__construct();
 
         $this->id_ = $id;
@@ -60,7 +60,7 @@ class ZMResultListFilter extends ZMObject {
      *
      * @param ZMResultList list The current result list.
      */
-    function setResultList($list) { $this->list_ = $list; }
+    public function setResultList($list) { $this->list_ = $list; }
 
     /**
      * Filter the given list using the filters <code>exclude($obj)</code> method.
@@ -68,7 +68,7 @@ class ZMResultListFilter extends ZMObject {
      * @param array list The list to filter.
      * @return array The filtered list.
      */
-    function filter($list) {
+    public function filter($list) {
         $remaining = array();
         foreach ($list as $obj) {
             if (!$this->exclude($obj)) {
@@ -85,14 +85,14 @@ class ZMResultListFilter extends ZMObject {
      * @param mixed obj The obecjt to examine.
      * @return boolean <code>true</code> if the object is to be excluded, <code>false</code> if not.
      */
-    function exclude($obj) { return false; }
+    public function exclude($obj) { return false; }
 
     /**
      * Returns <code>true</code> if this filter is currently active.
      *
      * @return boolean <code>true</code> if the filter is active, <code>false</code> if not.
      */
-    function isActive() {
+    public function isActive() {
         return !Toolbox::isEmpty($this->value_);
     }
 
@@ -101,7 +101,7 @@ class ZMResultListFilter extends ZMObject {
      *
      * @return boolean <code>true</code> if multiple filter values are supported, <code>false</code> if not.
      */
-    function isMultiSelection() { return false; }
+    public function isMultiSelection() { return false; }
 
     /**
      * Returns a list of active filter values.
@@ -110,14 +110,14 @@ class ZMResultListFilter extends ZMObject {
      *
      * @return array An array of string values.
      */
-    function getSelectedValues() { return $this->filterValues_; }
+    public function getSelectedValues() { return $this->filterValues_; }
 
     /**
      * Returns a list of all available filter values.
      *
      * @return array An array of string values.
      */
-    function getOptions() { $options = array(); return $options; }
+    public function getOptions() { $options = array(); return $options; }
 
     /**
      * Returns <code>true</code> if this filter is avaialble for usage.
@@ -127,7 +127,7 @@ class ZMResultListFilter extends ZMObject {
      *
      * @return boolean <code>true</code> if available, <code>false</code> if not.
      */
-    function isAvailable() { return 1 < count($this->getOptions()); }
+    public function isAvailable() { return 1 < count($this->getOptions()); }
 
     /**
      * Returns the filters unique form field name.

@@ -38,7 +38,7 @@ class ZMFieldMatchRule extends ZMRule {
      * @param string other The other fields name; default is <code>null</code>.
      * @param string msg Optional message; default is <code>null</code>.
      */
-    function __construct($name=null, $other=null, $msg=null) {
+    public function __construct($name=null, $other=null, $msg=null) {
         parent::__construct($name, "%s and %s must match.", $msg);
         $this->setOther($other);
     }

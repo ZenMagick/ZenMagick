@@ -615,7 +615,7 @@ class ShoppingCart extends ZMObject {
      *
      * @return array List of <code>ZMPaymentType</code> instances.
      */
-    function getCreditTypes() {
+    public function getCreditTypes() {
         // looks suspiciously like getPaymentTypes in ZenMagick\StoreBundle\Services\PaymentTypes...
         $creditTypes = array();
         if (null != ($zenTotals = $this->_getZenTotals())) {

@@ -28,10 +28,10 @@ use ZenMagick\AdminBundle\Installation\Patches\SQLPatch;
  * @author DerManoMann <mano@zenmagick.org>
  */
 class FulltextPatch extends SQLPatch {
-    var $sqlFiles_ = array(
+    public $sqlFiles_ = array(
         "fulltext_install.sql"
     );
-    var $sqlUndoFiles_ = array(
+    public $sqlUndoFiles_ = array(
         "fulltext_uninstall.sql"
     );
 
@@ -50,7 +50,7 @@ class FulltextPatch extends SQLPatch {
      *
      * @return boolean <code>true</code> if this patch can still be applied.
      */
-    function isOpen() {
+    public function isOpen() {
         // the SQL doesn't break if re-applied
         return true;
     }

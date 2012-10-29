@@ -27,9 +27,9 @@ if (!defined('REASON_TABLE_ALREADY_EXISTS')) {
 }
 
 class SQLRunner {
-    static $prefix;
+    public static $prefix;
 
-    static function get_db() {
+    public static function get_db() {
         if (null == self::$prefix) self::$prefix = \ZMRuntime::getDatabase()->getPrefix();
         return \ZMRuntime::getDatabase();
     }
@@ -291,14 +291,14 @@ class SQLRunner {
    return array('queries'=> $results, 'string'=>$string, 'output'=>$return_output, 'ignored'=>($ignored_count), 'errors'=>$errors);
   } //end function
 
-  static function table_exists($tablename, $pre_install=false) {
+  public static function table_exists($tablename, $pre_install=false) {
     $sm = \ZMRuntime::getDatabase()->getSchemaManager();
     $exists = $sm->tablesExist(array($tablename));
     if (ZC_UPG_DEBUG3==true) echo 'Table check ('.$tablename.') = '. ($exists ? 'true': 'false') .'<br>';
     return $exists;
   }
 
-  static function drop_index_command($param) {
+  public static function drop_index_command($param) {
     //this is only slightly different from the ALTER TABLE DROP INDEX command
     $db = self::get_db();
     if (Toolbox::isEmpty($param)) return "Empty SQL Statement";
@@ -315,7 +315,7 @@ class SQLRunner {
     return sprintf(REASON_INDEX_DOESNT_EXIST_TO_DROP,$index,$param[4]);
   }
 
-  static function create_index_command($param) {
+  public static function create_index_command($param) {
     //this is only slightly different from the ALTER TABLE CREATE INDEX command
     $db = self::get_db();
     if (Toolbox::isEmpty($param)) return "Empty SQL Statement";
@@ -337,7 +337,7 @@ class SQLRunner {
  */
   }
 
-  static function check_alter_command($param) {
+  public static function check_alter_command($param) {
     $db = self::get_db();
     if (Toolbox::isEmpty($param)) return "Empty SQL Statement";
     switch (strtoupper($param[3])) {
@@ -472,7 +472,7 @@ class SQLRunner {
     } //end switch
   }
 
-  static function check_config_key($line) {
+  public static function check_config_key($line) {
     $db = self::get_db();
     $values=array();
     $values=explode("'",$line);
@@ -490,7 +490,7 @@ class SQLRunner {
     if (!empty($result)) return sprintf(REASON_CONFIG_KEY_ALREADY_EXISTS,$key);
   }
 
-  static function check_product_type_layout_key($line) {
+  public static function check_product_type_layout_key($line) {
     $db = self::get_db();
     $values=array();
     $values=explode("'",$line);
@@ -501,7 +501,7 @@ class SQLRunner {
     if (!empty($result)) return sprintf(REASON_PRODUCT_TYPE_LAYOUT_KEY_ALREADY_EXISTS,$key);
   }
 
-  static function write_to_upgrade_exceptions_table($line, $reason, $sql_file) {
+  public static function write_to_upgrade_exceptions_table($line, $reason, $sql_file) {
     $db = self::get_db();
     self::create_exceptions_table();
     $sql="INSERT INTO " . self::$prefix . "upgrade_exceptions VALUES (0,'". $sql_file."','".$reason."', now(), '".addslashes($line)."')";
@@ -510,14 +510,14 @@ class SQLRunner {
     return $result;
   }
 
-  static function purge_exceptions_table() {
+  public static function purge_exceptions_table() {
     $db = self::get_db();
     self::create_exceptions_table();
     $result = $db->executeUpdate("TRUNCATE TABLE " . self::$prefix."upgrade_exceptions");
     return $result;
   }
 
-  static function create_exceptions_table() {
+  public static function create_exceptions_table() {
     $db = self::get_db();
     if (!self::table_exists(self::$prefix.'upgrade_exceptions')) {
         $result = $db->executeUpdate("CREATE TABLE " . self::$prefix . "upgrade_exceptions (
@@ -531,7 +531,7 @@ class SQLRunner {
     }
   }
 
-  static function create_message($msg, $type) {
+  public static function create_message($msg, $type) {
     $message = Beans::getBean('ZenMagick\Http\Messages\Message');
     $message->setText($msg);
     $message->setType($type);
@@ -544,7 +544,7 @@ class SQLRunner {
    * @param array The execution results.
    * @return array The results converted to messages.
    */
-  static function process_patch_results($results) {
+  public static function process_patch_results($results) {
     $messages = array();
     if ($results['queries'] > 0 && $results['queries'] != $results['ignored']) {
       $messages[] = self::create_message($results['queries'].' statements processed.', 'success');

@@ -37,7 +37,7 @@ class ZMWrapperRule extends ZMRule {
      * @param string msg Optional message; default is <code>null</code>.
      * @param mixed function The function name or array; default is <code>null</code>.
      */
-    function __construct($name=null, $msg=null, $function=null) {
+    public function __construct($name=null, $msg=null, $function=null) {
         parent::__construct($name, "Please enter a value for %s.", $msg);
         $this->function_ = null;
         $this->setJavaScript('');

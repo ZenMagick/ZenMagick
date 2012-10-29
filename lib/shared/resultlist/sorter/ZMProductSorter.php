@@ -64,16 +64,16 @@ class ZMProductSorter extends ZMResultListSorter implements SqlAware {
 
 
     // sort functions
-    function _cmpModel($a, $b) { return ($a->getModel() == $b->getModel()) ? 0 : ($a->getModel() > $b->getModel()) ? +1 : -1; }
-    function _cmpName($a, $b) { return ($a->getName() == $b->getName()) ? 0 : ($a->getName() > $b->getName()) ? +1 : -1; }
-    function _cmpManufacturerName($a, $b) {
+    public function _cmpModel($a, $b) { return ($a->getModel() == $b->getModel()) ? 0 : ($a->getModel() > $b->getModel()) ? +1 : -1; }
+    public function _cmpName($a, $b) { return ($a->getName() == $b->getName()) ? 0 : ($a->getName() > $b->getName()) ? +1 : -1; }
+    public function _cmpManufacturerName($a, $b) {
         $am = $a->getManufacturer();
         $bm = $b->getManufacturer();
         if (null == $am || null == $bm) return 0;
         return ($am->getName() == $bm->getName()) ? 0 : ($am->getName() > $bm->getName()) ? +1 : -1;
     }
-    function _cmpPrice($a, $b) { return ($a->getPrice() == $b->getPrice()) ? 0 : ($a->getPrice() > $b->getPrice()) ? +1 : -1; }
-    function _cmpWeight($a, $b) { return ($a->getWeight() == $b->getWeight()) ? 0 : ($a->getWeight() > $b->getWeight()) ? +1 : -1; }
+    public function _cmpPrice($a, $b) { return ($a->getPrice() == $b->getPrice()) ? 0 : ($a->getPrice() > $b->getPrice()) ? +1 : -1; }
+    public function _cmpWeight($a, $b) { return ($a->getWeight() == $b->getWeight()) ? 0 : ($a->getWeight() > $b->getWeight()) ? +1 : -1; }
 
 
 

@@ -40,7 +40,7 @@ class OpenIDDatabaseStore extends Auth_OpenID_OpenIDStore {
      *
      * @param int nonceLifetime Optional nonce lifetime; default is <em>0</em> to use the OpenID default.
      */
-    function __construct($nonceLifetime=0) {
+    public function __construct($nonceLifetime=0) {
         if (0 == $nonceLifetime) {
             global $Auth_OpenID_SKEW;
             $this->nonceLifetime = $Auth_OpenID_SKEW;

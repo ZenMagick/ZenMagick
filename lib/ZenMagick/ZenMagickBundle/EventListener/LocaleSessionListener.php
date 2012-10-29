@@ -76,7 +76,7 @@ class LocaleSessionListener implements EventSubscriberInterface {
 
     }
 
-    static public function getSubscribedEvents() {
+    public static function getSubscribedEvents() {
         return array(
             KernelEvents::REQUEST => array(
                 array('setLocale', 17), // before HttpKernel LocaleListener

@@ -74,7 +74,7 @@ class ZMOffers extends ZMObject {
      *
      * @return boolean <code>true</code> if attribute prices exist.
      */
-    function isAttributePrice() {
+    public function isAttributePrice() {
         foreach ($this->product_->getAttributes() as $attribute) {
             foreach ($attribute->getValues() as $value) {
                 if (0 < $value->getPrice()) {

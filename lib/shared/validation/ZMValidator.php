@@ -41,7 +41,7 @@ class ZMValidator extends ZMObject {
     /**
      * Create new instance.
      */
-    function __construct() {
+    public function __construct() {
         parent::__construct();
         $this->sets_ = array();
         $this->alias_ = array();

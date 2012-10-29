@@ -28,10 +28,10 @@ use ZenMagick\AdminBundle\Installation\Patches\SQLPatch;
  * @author DerManoMann <mano@zenmagick.org>
  */
 class ReviewTitlePatch extends SQLPatch {
-    var $sqlFiles_ = array(
+    public $sqlFiles_ = array(
         "review_title_install.sql"
     );
-    var $sqlUndoFiles_ = array(
+    public $sqlUndoFiles_ = array(
         "review_title_uninstall.sql"
     );
 
@@ -50,7 +50,7 @@ class ReviewTitlePatch extends SQLPatch {
      *
      * @return boolean <code>true</code> if this patch can still be applied.
      */
-    function isOpen() {
+    public function isOpen() {
         $meta = \ZMRuntime::getDatabase()->getMetaData('reviews_description');
         return !array_key_exists('title', $meta);
     }

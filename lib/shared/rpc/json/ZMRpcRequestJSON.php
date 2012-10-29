@@ -35,7 +35,7 @@ class ZMRpcRequestJSON implements ZMRpcRequest {
      *
      * @param ZenMagick\Http\Request request The current request; default is <code>null</code>.
      */
-    function __construct($request=null) {
+    public function __construct($request=null) {
         $this->request_ = $request;
         $this->json_ = json_decode(trim(file_get_contents('php://input')));
 

@@ -79,7 +79,7 @@ abstract class DashboardWidget extends Widget {
      * @param ZenMagick\Http\Request request The current request.
      * @return string The contents.
      */
-    public abstract function getContents($request);
+    abstract public function getContents($request);
 
     /**
      * Get the minimize flag.

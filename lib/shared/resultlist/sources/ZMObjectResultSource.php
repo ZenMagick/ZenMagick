@@ -47,7 +47,7 @@ class ZMObjectResultSource extends ZMObject implements ZMResultSource {
      * @param string method The method to call on the object; default is <code>null</code>.
      * @param mixed args Optional method parameter (single value or array of args); default is an empty array.
      */
-    function __construct($resultClass=null, $object=null, $method=null, $args=array()) {
+    public function __construct($resultClass=null, $object=null, $method=null, $args=array()) {
         parent::__construct();
         $this->resultClass_ = $resultClass;
         $this->object_ = $object;

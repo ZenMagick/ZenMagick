@@ -116,7 +116,7 @@ class ThemeBuilder extends ZMObject {
      *
      * @return boolean <code>true</code> if successful, <code>false</code> if not.
      */
-    function _createFolder() {
+    public function _createFolder() {
         $themeDir = $this->getBaseDir();
         if (file_exists($themeDir)) {
             $this->messages_[] = array(FlashBag::T_WARN, 'Theme "' . $this->name_ . '" already exists!');
@@ -146,7 +146,7 @@ class ThemeBuilder extends ZMObject {
      *
      * @return boolean <code>true</code> if successful, <code>false</code> if not.
      */
-    function _createThemeConfig() {
+    public function _createThemeConfig() {
         $configFile = $this->getBaseDir() . 'theme.yaml';
 
         if (!$handle = fopen($configFile, 'ab')) {

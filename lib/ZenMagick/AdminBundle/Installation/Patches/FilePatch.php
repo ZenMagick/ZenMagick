@@ -49,7 +49,7 @@ class FilePatch extends InstallationPatch {
      *
      * @return string The patch group id.
      */
-    function getGroupId() {
+    public function getGroupId() {
         return 'file';
     }
 
@@ -59,7 +59,7 @@ class FilePatch extends InstallationPatch {
      * @param string file The filename.
      * @return array File contents as lines or <code>null</code>.
      */
-    function getFileLines($file) {
+    public function getFileLines($file) {
         $lines = array();
         if (file_exists($file)) {
             $handle = @fopen($file, 'rb');
@@ -82,7 +82,7 @@ class FilePatch extends InstallationPatch {
      * @param array lines The  lines to write.
      * @return boolean <code>true</code> if successful, <code>false</code> if not.
      */
-    function putFileLines($file, $lines) {
+    public function putFileLines($file, $lines) {
         $fileExists = file_exists($file);
         $handle = fopen($file, 'wb');
         if ($handle) {
@@ -107,7 +107,7 @@ class FilePatch extends InstallationPatch {
      * @param string file The filename.
      * @return string The file contents or <code>null</code>.
      */
-    function readFile($file) {
+    public function readFile($file) {
         $handle = @fopen($file, 'rb');
         if ($handle) {
             $contents = fread($handle, filesize($file));
@@ -125,7 +125,7 @@ class FilePatch extends InstallationPatch {
      * @param string contents The file contents.
      * @return boolean <code>true</code> if successful, <code>false</code> if not.
      */
-    function writeFile($file, $contents) {
+    public function writeFile($file, $contents) {
         $fileExists = file_exists($file);
         $handle = @fopen($file, 'wb');
         if ($handle) {
@@ -146,7 +146,7 @@ class FilePatch extends InstallationPatch {
      * @param array fktFilesCfg The file / function name / function suffix mapping(s).
      * @return boolean <code>true</code> if any patches are open.
      */
-    function isFilesFktOpen($fktFilesCfg) {
+    public function isFilesFktOpen($fktFilesCfg) {
         foreach ($fktFilesCfg as $file => $fktCfgs) {
             // for each file...
             $lines = $this->getFileLines($file);
@@ -174,7 +174,7 @@ class FilePatch extends InstallationPatch {
      * @param array fktFilesCfg The file / function name / function suffix mapping(s).
      * @return boolean <code>true</code> if patching was successful, <code>false</code> if not.
      */
-    function patchFilesFkt($fktFilesCfg) {
+    public function patchFilesFkt($fktFilesCfg) {
         $patchOk = true;
         foreach ($fktFilesCfg as $file => $fktCfgs) {
             // for each file...
@@ -215,7 +215,7 @@ class FilePatch extends InstallationPatch {
      * @param array fktFilesCfg The file / function name / function suffix mapping(s).
      * @return boolean <code>true</code> if patching was successful, <code>false</code> if not.
      */
-    function undoFilesFkt($fktFilesCfg) {
+    public function undoFilesFkt($fktFilesCfg) {
         $undoOk = true;
         foreach ($fktFilesCfg as $file => $fktCfgs) {
             // for each file...

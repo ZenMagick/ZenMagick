@@ -28,7 +28,7 @@ use ZenMagick\AdminBundle\Installation\Patches\SQLPatch;
  * @author DerManoMann <mano@zenmagick.org>
  */
 class SacsPermissionsPatch extends SQLPatch {
-    var $sqlFiles_ = array(
+    public $sqlFiles_ = array(
         "sacs_perms_install.sql"
     );
 
@@ -47,7 +47,7 @@ class SacsPermissionsPatch extends SQLPatch {
      *
      * @return boolean <code>true</code> if this patch can still be applied.
      */
-    function isOpen() {
+    public function isOpen() {
         return !$this->tablesExist();
     }
 

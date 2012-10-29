@@ -33,7 +33,7 @@ use ZenMagick\Base\ZMObject;
  */
 class ShippingEstimator extends ZMObject {
 
-    function getRequest() {
+    public function getRequest() {
         return Runtime::getContainer()->get('request');
     }
 
@@ -42,7 +42,7 @@ class ShippingEstimator extends ZMObject {
      *
      * @return string The postcode for the current calculations.
      */
-    function getPostcode() {
+    public function getPostcode() {
         $request = $this->getRequest();
         $zip_code = (isset($_SESSION['cart_zip_code'])) ? $_SESSION['cart_zip_code'] : '';
         $zip_code = $request->request->has('zip_code') ? strip_tags(addslashes($request->request->get('zip_code'))) : $zip_code;
@@ -54,7 +54,7 @@ class ShippingEstimator extends ZMObject {
      *
      * @return int The state id for the current shipping calculation.
      */
-    function getStateId() {
+    public function getStateId() {
         $request = $this->getRequest();
         $state_zone_id = (isset($_SESSION['cart_zone'])) ? (int)$_SESSION['cart_zone'] : '';
         $state_zone_id = $request->request->has('state') ? $request->request->get('state') : $state_zone_id;
@@ -66,7 +66,7 @@ class ShippingEstimator extends ZMObject {
      *
      * @return int The country id for the current address.
      */
-    function getCountryId() {
+    public function getCountryId() {
         $countryId = Runtime::getSettings()->get('storeCountry');
         $request = $this->getRequest();
         if ($request->request->has('country_id')) {
@@ -82,7 +82,7 @@ class ShippingEstimator extends ZMObject {
      *
      * @return int The address id for the current address (if any); default is <code>0</code>.
      */
-    function _getAddressId() {
+    public function _getAddressId() {
         $addressId = 0;
         $request = $this->getRequest();
         if ($request->request->get('address_id')) {
@@ -101,7 +101,7 @@ class ShippingEstimator extends ZMObject {
      *
      * @return array Array containing a zen-cart style address.
      */
-    function getZCAddress() {
+    public function getZCAddress() {
     global $order, $country_info;
         $address = null;
         $countryService = Runtime::getContainer()->get('countryService');
@@ -150,7 +150,7 @@ class ShippingEstimator extends ZMObject {
      * <p>This method will set up everything to be able to run shipping calculations.
      * Needs to be called before any results can be displayed.</p>
      */
-    function prepare() {
+    public function prepare() {
     global $db, $order;
         $request = Runtime::getContainer()->get('request');
         // Only do when something is in the cart
@@ -182,14 +182,14 @@ class ShippingEstimator extends ZMObject {
     /**
      * Returns <code>true</code> if anything to calculate.
      */
-    function isCartEmpty() { return Runtime::getContainer()->get('shoppingCart')->isEmpty(); }
+    public function isCartEmpty() { return Runtime::getContainer()->get('shoppingCart')->isEmpty(); }
 
     /**
      * Get current address (if any)
      *
      * @return ZenMagick\StoreBundle\Entity\Address The curretn address or <code>null</code>.
      */
-    function getAddress() {
+    public function getAddress() {
         return Runtime::getContainer()->get('addressService')->getAddressForId($this->_getAddressId());
     }
 

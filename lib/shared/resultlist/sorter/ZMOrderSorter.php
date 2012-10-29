@@ -56,8 +56,8 @@ class ZMOrderSorter extends ZMResultListSorter implements SqlAware {
 
 
     // sort functions
-    function _cmpDate($a, $b) { return ($a->getOrderDate() == $b->getOrderDate()) ? 0 : ($a->getOrderDate() > $b->getOrderDate()) ? +1 : -1; }
-    function _cmpStatus($a, $b) { return ($a->getOrderStatusId() == $b->getOrderStatusId()) ? 0 : ($a->getOrderStatusId() > $b->getOrderStatusId()) ? +1 : -1; }
+    public function _cmpDate($a, $b) { return ($a->getOrderDate() == $b->getOrderDate()) ? 0 : ($a->getOrderDate() > $b->getOrderDate()) ? +1 : -1; }
+    public function _cmpStatus($a, $b) { return ($a->getOrderStatusId() == $b->getOrderStatusId()) ? 0 : ($a->getOrderStatusId() > $b->getOrderStatusId()) ? +1 : -1; }
 
 
     /**

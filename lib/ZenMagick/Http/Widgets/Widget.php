@@ -113,6 +113,6 @@ abstract class Widget extends ZMObject {
      * @param TemplateView templateView The current view.
      * @return string The HTML.
      */
-    public abstract function render($request, TemplateView $templateView);
+    abstract public function render($request, TemplateView $templateView);
 
 }

@@ -40,7 +40,7 @@ class CacheLite
     *
     * @var string $_cacheDir
     */
-    var $_cacheDir = '/tmp/';
+    public $_cacheDir = '/tmp/';
 
     /**
     * Enable / disable caching
@@ -49,7 +49,7 @@ class CacheLite
     *
     * @var boolean $_caching
     */
-    var $_caching = true;
+    public $_caching = true;
 
     /**
     * Cache lifetime (in seconds)
@@ -58,7 +58,7 @@ class CacheLite
     *
     * @var int $_lifeTime
     */
-    var $_lifeTime = 3600;
+    public $_lifeTime = 3600;
 
     /**
     * Enable / disable fileLocking
@@ -67,28 +67,28 @@ class CacheLite
     *
     * @var boolean $_fileLocking
     */
-    var $_fileLocking = true;
+    public $_fileLocking = true;
 
     /**
     * Timestamp of the last valid cache
     *
     * @var int $_refreshTime
     */
-    var $_refreshTime;
+    public $_refreshTime;
 
     /**
     * File name (with path)
     *
     * @var string $_file
     */
-    var $_file;
+    public $_file;
 
     /**
     * File name (without path)
     *
     * @var string $_fileName
     */
-    var $_fileName;
+    public $_fileName;
 
     /**
     * Enable / disable write control (the cache is read just after writing to detect corrupt entries)
@@ -98,7 +98,7 @@ class CacheLite
     *
     * @var boolean $_writeControl
     */
-    var $_writeControl = true;
+    public $_writeControl = true;
 
     /**
     * Enable / disable read control
@@ -108,7 +108,7 @@ class CacheLite
     *
     * @var boolean $_writeControl
     */
-    var $_readControl = true;
+    public $_readControl = true;
 
     /**
     * Type of read control (only if read control is enabled)
@@ -120,7 +120,7 @@ class CacheLite
     *
     * @var boolean $_readControlType
     */
-    var $_readControlType = 'crc32';
+    public $_readControlType = 'crc32';
 
     /**
     * Pear error mode (when raiseError is called)
@@ -130,21 +130,21 @@ class CacheLite
     * @see setToDebug()
     * @var int $_pearErrorMode
     */
-    var $_pearErrorMode = CACHE_LITE_ERROR_RETURN;
+    public $_pearErrorMode = CACHE_LITE_ERROR_RETURN;
 
     /**
     * Current cache id
     *
     * @var string $_id
     */
-    var $_id;
+    public $_id;
 
     /**
     * Current cache group
     *
     * @var string $_group
     */
-    var $_group;
+    public $_group;
 
     /**
     * Enable / Disable "Memory Caching"
@@ -153,7 +153,7 @@ class CacheLite
     *
     * @var boolean $_memoryCaching
     */
-    var $_memoryCaching = false;
+    public $_memoryCaching = false;
 
     /**
     * Enable / Disable "Only Memory Caching"
@@ -161,28 +161,28 @@ class CacheLite
     *
     * @var boolean $_onlyMemoryCaching
     */
-    var $_onlyMemoryCaching = false;
+    public $_onlyMemoryCaching = false;
 
     /**
     * Memory caching array
     *
     * @var array $_memoryCachingArray
     */
-    var $_memoryCachingArray = array();
+    public $_memoryCachingArray = array();
 
     /**
     * Memory caching counter
     *
     * @var int $memoryCachingCounter
     */
-    var $_memoryCachingCounter = 0;
+    public $_memoryCachingCounter = 0;
 
     /**
     * Memory caching limit
     *
     * @var int $memoryCachingLimit
     */
-    var $_memoryCachingLimit = 1000;
+    public $_memoryCachingLimit = 1000;
 
     /**
     * File Name protection
@@ -194,7 +194,7 @@ class CacheLite
     *
     * @var boolean $fileNameProtection
     */
-    var $_fileNameProtection = true;
+    public $_fileNameProtection = true;
 
     /**
     * Enable / disable automatic serialization
@@ -204,7 +204,7 @@ class CacheLite
     *
     * @var boolean $_serialize
     */
-    var $_automaticSerialization = false;
+    public $_automaticSerialization = false;
 
     /**
     * Disable / Tune the automatic cleaning process
@@ -217,7 +217,7 @@ class CacheLite
     *
     * @var int $_automaticCleaning
     */
-    var $_automaticCleaningFactor = 0;
+    public $_automaticCleaningFactor = 0;
 
     /**
     * Nested directory level
@@ -230,14 +230,14 @@ class CacheLite
     *
     * @var int $_hashedDirectoryLevel
     */
-    var $_hashedDirectoryLevel = 0;
+    public $_hashedDirectoryLevel = 0;
 
     /**
     * Umask for hashed directory structure
     *
     * @var int $_hashedDirectoryUmask
     */
-    var $_hashedDirectoryUmask = 0700;
+    public $_hashedDirectoryUmask = 0700;
 
     /**
      * API break for error handling in CACHE_LITE_ERROR_RETURN mode
@@ -249,7 +249,7 @@ class CacheLite
      *
      * @var boolean
      */
-    var $_errorHandlingAPIBreak = false;
+    public $_errorHandlingAPIBreak = false;
 
     // --- Public methods ---
 
@@ -288,7 +288,7 @@ class CacheLite
     * @param array $options options
     * @access public
     */
-    function __construct($options = array(NULL))
+    public function __construct($options = array(NULL))
     {
         foreach($options as $key => $value) {
             $this->setOption($key, $value);
@@ -307,7 +307,7 @@ class CacheLite
     * @var mixed $value value of the option
     * @access public
     */
-    function setOption($name, $value)
+    public function setOption($name, $value)
     {
         $availableOptions = array('errorHandlingAPIBreak', 'hashedDirectoryUmask', 'hashedDirectoryLevel', 'automaticCleaningFactor', 'automaticSerialization', 'fileNameProtection', 'memoryCaching', 'onlyMemoryCaching', 'memoryCachingLimit', 'cacheDir', 'caching', 'lifeTime', 'fileLocking', 'writeControl', 'readControl', 'readControlType', 'pearErrorMode');
         if (in_array($name, $availableOptions)) {
@@ -325,7 +325,7 @@ class CacheLite
     * @return string data of the cache (else : false)
     * @access public
     */
-    function get($id, $group = 'default', $doNotTestCacheValidity = false)
+    public function get($id, $group = 'default', $doNotTestCacheValidity = false)
     {
         $this->_id = $id;
         $this->_group = $group;
@@ -374,7 +374,7 @@ class CacheLite
     * @return boolean true if no problem (else : false or a PEAR_Error object)
     * @access public
     */
-    function save($data, $id = NULL, $group = 'default')
+    public function save($data, $id = NULL, $group = 'default')
     {
         if ($this->_caching) {
             if ($this->_automaticSerialization) {
@@ -425,7 +425,7 @@ class CacheLite
     * @return boolean true if no problem
     * @access public
     */
-    function remove($id, $group = 'default', $checkbeforeunlink = false)
+    public function remove($id, $group = 'default', $checkbeforeunlink = false)
     {
         $this->_setFileName($id, $group);
         if ($this->_memoryCaching) {
@@ -455,7 +455,7 @@ class CacheLite
     * @return boolean true if no problem
     * @access public
     */
-    function clean($group = false, $mode = 'ingroup')
+    public function clean($group = false, $mode = 'ingroup')
     {
         return $this->_cleanDir($this->_cacheDir, $group, $mode);
     }
@@ -468,7 +468,7 @@ class CacheLite
     *
     * @access public
     */
-    function setToDebug()
+    public function setToDebug()
     {
         $this->setOption('pearErrorMode', CACHE_LITE_ERROR_DIE);
     }
@@ -479,7 +479,7 @@ class CacheLite
     * @param int $newLifeTime new life time (in seconds)
     * @access public
     */
-    function setLifeTime($newLifeTime)
+    public function setLifeTime($newLifeTime)
     {
         $this->_lifeTime = $newLifeTime;
         $this->_setRefreshTime();
@@ -492,7 +492,7 @@ class CacheLite
     * @param string $group name of the cache group
     * @access public
     */
-    function saveMemoryCachingState($id, $group = 'default')
+    public function saveMemoryCachingState($id, $group = 'default')
     {
         if ($this->_caching) {
             $array = array(
@@ -512,7 +512,7 @@ class CacheLite
     * @param boolean $doNotTestCacheValidity if set to true, the cache validity won't be tested
     * @access public
     */
-    function getMemoryCachingState($id, $group = 'default', $doNotTestCacheValidity = false)
+    public function getMemoryCachingState($id, $group = 'default', $doNotTestCacheValidity = false)
     {
         if ($this->_caching) {
             if ($data = $this->get($id, $group, $doNotTestCacheValidity)) {
@@ -530,7 +530,7 @@ class CacheLite
     *
     * @return int last modification time
     */
-    function lastModified()
+    public function lastModified()
     {
         return @filemtime($this->_file);
     }
@@ -546,7 +546,7 @@ class CacheLite
     * @param int $code error code
     * @access public
     */
-    function raiseError($msg, $code)
+    public function raiseError($msg, $code)
     {
         throw new ZMException($msg, $code);
     }
@@ -558,7 +558,7 @@ class CacheLite
      *
      * @access public
      */
-    function extendLife()
+    public function extendLife()
     {
         @touch($this->_file);
     }
@@ -570,7 +570,7 @@ class CacheLite
     *
     * @access private
     */
-    function _setRefreshTime()
+    public function _setRefreshTime()
     {
         if (is_null($this->_lifeTime)) {
             $this->_refreshTime = null;
@@ -586,7 +586,7 @@ class CacheLite
     * @return boolean true if no problem
     * @access private
     */
-    function _unlink($file)
+    public function _unlink($file)
     {
         if (!@unlink($file)) {
             return $this->raiseError('Cache_Lite : Unable to remove cache !', -3);
@@ -604,7 +604,7 @@ class CacheLite
     * @return boolean true if no problem
     * @access private
     */
-    function _cleanDir($dir, $group = false, $mode = 'ingroup')
+    public function _cleanDir($dir, $group = false, $mode = 'ingroup')
     {
         if ($this->_fileNameProtection) {
             $motif = ($group) ? 'cache_'.md5($group).'_' : 'cache_';
@@ -674,7 +674,7 @@ class CacheLite
     * @param string $data data to cache
     * @access private
     */
-    function _memoryCacheAdd($data)
+    public function _memoryCacheAdd($data)
     {
         $this->_memoryCachingArray[$this->_file] = $data;
         if ($this->_memoryCachingCounter >= $this->_memoryCachingLimit) {
@@ -692,7 +692,7 @@ class CacheLite
     * @param string $group name of the group
     * @access private
     */
-    function _setFileName($id, $group)
+    public function _setFileName($id, $group)
     {
 
         if ($this->_fileNameProtection) {
@@ -717,7 +717,7 @@ class CacheLite
     * @return string content of the cache file (else : false or a PEAR_Error object)
     * @access private
     */
-    function _read()
+    public function _read()
     {
         $fp = @fopen($this->_file, "rb");
         if ($fp) {
@@ -765,7 +765,7 @@ class CacheLite
     * @return boolean true if ok (a PEAR_Error object else)
     * @access private
     */
-    function _write($data)
+    public function _write($data)
     {
         if ($this->_hashedDirectoryLevel > 0) {
             $hash = md5($this->_fileName);
@@ -805,7 +805,7 @@ class CacheLite
     * @return boolean true if the test is ok (else : false or a PEAR_Error object)
     * @access private
     */
-    function _writeAndControl($data)
+    public function _writeAndControl($data)
     {
         $result = $this->_write($data);
         if (is_object($result)) {
@@ -829,7 +829,7 @@ class CacheLite
     * @return string control key
     * @access private
     */
-    function _hash($data, $controlType)
+    public function _hash($data, $controlType)
     {
         switch ($controlType) {
         case 'md5':

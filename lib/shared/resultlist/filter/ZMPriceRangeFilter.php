@@ -56,7 +56,7 @@ class ZMPriceRangeFilter extends ZMResultListFilter {
      * @param mixed obj The obecjt to examine.
      * @return boolean <code>true</code> if the object is to be excluded, <code>false</code> if not.
      */
-    function exclude($obj) {
+    public function exclude($obj) {
         if (0 == count($this->ranges_)) return false;
         foreach ($this->ranges_ as $range) {
           if ($range[0] < $obj->getPrice() && $obj->getPrice() <= $range[1])
@@ -72,7 +72,7 @@ class ZMPriceRangeFilter extends ZMResultListFilter {
      *
      * @return array An array of string values.
      */
-    function getOptions() {
+    public function getOptions() {
         // get all prices
         $prices = array();
         $lowest = 100000;
@@ -113,7 +113,7 @@ class ZMPriceRangeFilter extends ZMResultListFilter {
      *
      * @return boolean <code>true</code> if multiple filter values are supported, <code>false</code> if not.
      */
-    function isMultiSelection() {
+    public function isMultiSelection() {
       return true;
     }
 

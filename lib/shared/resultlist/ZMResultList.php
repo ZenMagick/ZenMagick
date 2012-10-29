@@ -47,7 +47,7 @@ class ZMResultList extends ZMObject {
     /**
      * Create new result list.
      */
-    function __construct() {
+    public function __construct() {
         parent::__construct();
         $this->resultSource_ = null;
         $this->filters_ = array();

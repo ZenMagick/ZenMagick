@@ -38,7 +38,7 @@ class ZMRpcResponseJSON implements ZMRpcResponse {
      *
      * @param ZMRpcRequest rpcRequest The current RPC request; default is <code>null</code>.
      */
-    function __construct($rpcRequest=null) {
+    public function __construct($rpcRequest=null) {
         $this->rpcRequest_ = $rpcRequest;
         $this->status_ = true;
         $this->messages_ = array();

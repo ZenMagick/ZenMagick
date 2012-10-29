@@ -28,10 +28,10 @@ use ZenMagick\AdminBundle\Installation\Patches\SQLPatch;
  * @author DerManoMann <mano@zenmagick.org>
  */
 class ThemeVariationPatch extends SQLPatch {
-    var $sqlFiles_ = array(
+    public $sqlFiles_ = array(
         "theme_chaining_install.sql"
     );
-    var $sqlUndoFiles_ = array(
+    public $sqlUndoFiles_ = array(
         "theme_chaining_uninstall.sql"
     );
 
@@ -50,7 +50,7 @@ class ThemeVariationPatch extends SQLPatch {
      *
      * @return boolean <code>true</code> if this patch can still be applied.
      */
-    function isOpen() {
+    public function isOpen() {
         $meta = \ZMRuntime::getDatabase()->getMetaData('template_select');
         return !array_key_exists('variation_dir', $meta);
     }

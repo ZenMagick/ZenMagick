@@ -38,7 +38,7 @@ class ArrayEqualExpectation extends EqualExpectation {
     /**
      * {@inheritDoc}
      */
-    function test($compare) {
+    public function test($compare) {
         $value = $this->getValue();
         if (!is_array($compare) || !is_array($value)) {
             return false;

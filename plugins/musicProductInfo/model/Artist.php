@@ -39,7 +39,7 @@ class Artist extends ZMObject {
     /**
      * Create new instance.
      */
-    function __construct() {
+    public function __construct() {
         $this->artistId_ = 0;
         $this->name_ = '';
         $this->genre_ = '';

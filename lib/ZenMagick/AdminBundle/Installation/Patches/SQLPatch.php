@@ -42,11 +42,11 @@ class SQLPatch extends InstallationPatch {
     }
 
 
-    function setTables($tables) {
+    public function setTables($tables) {
         $this->tables = (array)$tables;
     }
 
-    function getTables() {
+    public function getTables() {
         $tables = array();
         foreach($this->tables as $table) {
             $tables[] = \ZMRuntime::getDatabase()->getPrefix().$table;
@@ -59,7 +59,7 @@ class SQLPatch extends InstallationPatch {
      *
      * @return string The patch group id.
      */
-    function getGroupId() {
+    public function getGroupId() {
         return 'sql';
     }
 
@@ -70,11 +70,11 @@ class SQLPatch extends InstallationPatch {
      *
      * @return string The preconditions message or an empty string.
      */
-    function getPreconditionsMessage() {
+    public function getPreconditionsMessage() {
         return "";
     }
 
-    function tablesExist() {
+    public function tablesExist() {
         $sm = \ZMRuntime::getDatabase()->getSchemaManager();
         return $sm->tablesExist($this->getTables());
     }
@@ -84,7 +84,7 @@ class SQLPatch extends InstallationPatch {
      *
      * @return boolean <code>true</code> if patching was successful, <code>false</code> if not.
      */
-    function undo() {
+    public function undo() {
         if ($this->isOpen()) return true;
 
         $sm = \ZMRuntime::getDatabase()->getSchemaManager();
@@ -110,7 +110,7 @@ class SQLPatch extends InstallationPatch {
      *
      * @param string sql Some sql.
      */
-    function _runSQL($sql) {
+    public function _runSQL($sql) {
         $sql = trim(preg_replace('/[<>]/', '_', $sql));
         if (function_exists('get_magic_quotes_gpc') && get_magic_quotes_gpc()) {
             $sql = stripslashes($sql);
@@ -135,7 +135,7 @@ class SQLPatch extends InstallationPatch {
      *  disabled as per settings.
      * @return boolean <code>true</code> if patching was successful, <code>false</code> if not.
      */
-    function patch($force=false) {
+    public function patch($force=false) {
         $baseDir = $this->patchRoot;
         // do only interactive
         if ($force || $this->isOpen()) {

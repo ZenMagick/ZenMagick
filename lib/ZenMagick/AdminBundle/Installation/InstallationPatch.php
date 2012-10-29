@@ -50,21 +50,21 @@ class InstallationPatch extends ZMObject {
      *
      * @return string The id of the patch.
      */
-    function getId() { return $this->id_; }
+    public function getId() { return $this->id_; }
 
     /**
      * Get the patch label.
      *
      * @return string The label of the patch.
      */
-    function getLabel() { return $this->label_; }
+    public function getLabel() { return $this->label_; }
 
     /**
      * Returns a list of other patches it depends on.
      *
      * @return array List of patch names.
      */
-    function dependsOn() { return array(); }
+    public function dependsOn() { return array(); }
 
 
     /**
@@ -72,7 +72,7 @@ class InstallationPatch extends ZMObject {
      *
      * @return boolean <code>true</code> if this patch can still be applied.
      */
-    function isOpen() {
+    public function isOpen() {
         return false;
     }
 
@@ -81,7 +81,7 @@ class InstallationPatch extends ZMObject {
      *
      * @return boolean <code>true</code> if this patch is ready and all preconditions are met.
      */
-    function isReady() {
+    public function isReady() {
         return true;
     }
 
@@ -90,7 +90,7 @@ class InstallationPatch extends ZMObject {
      *
      * @return string The patch group id.
      */
-    function getGroupId() {
+    public function getGroupId() {
         return '';
     }
 
@@ -101,7 +101,7 @@ class InstallationPatch extends ZMObject {
      *
      * @return string The preconditions message or an empty string.
      */
-    function getPreconditionsMessage() {
+    public function getPreconditionsMessage() {
         return "";
     }
 
@@ -110,7 +110,7 @@ class InstallationPatch extends ZMObject {
      *
      * @return array List of <code>Message</code> instances.
      */
-    function getMessages() {
+    public function getMessages() {
         return $this->messages_;
     }
 
@@ -121,7 +121,7 @@ class InstallationPatch extends ZMObject {
      *  disabled as per settings.
      * @return boolean <code>true</code> if patching was successful, <code>false</code> if not.
      */
-    function patch($force=false) {
+    public function patch($force=false) {
         return true;
     }
 
@@ -130,7 +130,7 @@ class InstallationPatch extends ZMObject {
      *
      * @return boolean <code>true</code> if undo is supported, <code>false</code> if not.
      */
-    function canUndo() {
+    public function canUndo() {
         return true;
     }
 
@@ -139,7 +139,7 @@ class InstallationPatch extends ZMObject {
      *
      * @return boolean <code>true</code> if patching was successful, <code>false</code> if not.
      */
-    function undo() {
+    public function undo() {
         return true;
     }
 

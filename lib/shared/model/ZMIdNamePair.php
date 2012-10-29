@@ -27,8 +27,8 @@ use ZenMagick\Base\ZMObject;
  * @package zenmagick.store.shared.model
  */
 class ZMIdNamePair extends ZMObject {
-    var $id_;
-    var $name_;
+    public $id_;
+    public $name_;
 
 
     /**
@@ -49,13 +49,13 @@ class ZMIdNamePair extends ZMObject {
      *
      * @return string The id.
      */
-    function getId() { return $this->id_; }
+    public function getId() { return $this->id_; }
 
     /**
      * Get the name.
      *
      * @return string The name.
      */
-    function getName() { return $this->name_; }
+    public function getName() { return $this->name_; }
 
 }

@@ -37,7 +37,7 @@ class ZMRuleSet extends ZMObject {
      * @param string id The id.
      * @param array rules Optional initial list of rules.
      */
-    function __construct($id, $rules=null) {
+    public function __construct($id, $rules=null) {
         parent::__construct();
         $this->id_ = $id;
         $this->rules_ = null != $rules ? $rules : array();
