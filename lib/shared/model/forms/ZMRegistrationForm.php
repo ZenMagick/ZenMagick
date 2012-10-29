@@ -19,7 +19,6 @@
  */
 
 use ZenMagick\Base\Beans;
-use ZenMagick\Base\Runtime;
 use ZenMagick\Http\Forms\FormData;
 
 /**

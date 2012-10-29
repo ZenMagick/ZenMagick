@@ -21,7 +21,6 @@ namespace ZenMagick\Http\View;
 
 use RecursiveDirectoryIterator;
 use RecursiveIteratorIterator;
-use ReflectionClass;
 use RegexIterator;
 use ZenMagick\Base\Runtime;
 use ZenMagick\Base\ZMException;

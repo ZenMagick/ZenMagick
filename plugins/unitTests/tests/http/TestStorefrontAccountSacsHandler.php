@@ -19,8 +19,6 @@
  */
 
 use ZenMagick\Http\Sacs\SacsManager;
-use ZenMagick\Http\Sacs\Handler\UserRoleSacsHandler;
-use ZenMagick\Http\Sacs\Handler\UserRoleCredentials;
 use ZenMagick\StoreBundle\Model\Mock\MockAccount;
 use ZenMagick\plugins\unitTests\simpletest\TestCase;
 use ZenMagick\StorefrontBundle\Http\Sacs\StorefrontAccountSacsHandler;

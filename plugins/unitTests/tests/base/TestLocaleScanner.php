@@ -18,7 +18,6 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-use ZenMagick\Base\Runtime;
 use ZenMagick\Base\Locales\LocaleScanner;
 use ZenMagick\plugins\unitTests\simpletest\TestCase;
 

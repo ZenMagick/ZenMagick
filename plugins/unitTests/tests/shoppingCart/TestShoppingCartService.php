@@ -19,7 +19,6 @@
  */
 
 use ZenMagick\plugins\unitTests\simpletest\TestCase;
-use ZenMagick\StoreBundle\Model\Checkout\ShoppingCart;
 
 /**
  * Test cart service.

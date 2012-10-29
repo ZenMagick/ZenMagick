@@ -19,7 +19,6 @@
  */
 namespace ZenMagick\AdminBundle\Installation\Patches\Sql;
 
-use ZenMagick\Base\Runtime;
 use ZenMagick\AdminBundle\Installation\Patches\SQLPatch;
 
 

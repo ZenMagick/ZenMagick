@@ -22,7 +22,6 @@ namespace ZenMagick\plugins\phpbb3\tests;
 
 use ZenMagick\StoreBundle\Entity\Account\Account;
 use ZMRuntime;
-use ZenMagick\plugins\phpbb3\PhpBB3Adaptor;
 use ZenMagick\plugins\unitTests\simpletest\TestCase;
 
 /**

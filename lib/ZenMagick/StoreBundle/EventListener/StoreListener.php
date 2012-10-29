@@ -20,11 +20,9 @@
 namespace ZenMagick\StoreBundle\EventListener;
 
 
-use ZenMagick\Base\Runtime;
 use ZenMagick\Base\ZMObject;
 
 use Symfony\Component\DependencyInjection\ContainerInterface;
-use Symfony\Component\EventDispatcher\GenericEvent;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpKernel\KernelEvents;
 use Symfony\Component\HttpKernel\Event\GetResponseEvent;

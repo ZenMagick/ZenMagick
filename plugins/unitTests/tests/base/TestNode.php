@@ -18,8 +18,6 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-use Symfony\Component\Yaml\Yaml;
-use ZenMagick\Base\Runtime;
 use ZenMagick\StoreBundle\Menu\Node;
 use ZenMagick\plugins\unitTests\simpletest\TestCase;
 

@@ -20,7 +20,6 @@
 namespace ZenMagick\ZenCartBundle\Compat;
 
 use ZenMagick\Base\Runtime;
-use ZenMagick\Base\Toolbox;
 
 /**
  * html_output.php helpers

@@ -19,7 +19,6 @@
  */
 namespace ZenMagick\StoreBundle\Toolbox;
 
-use ZenMagick\Base\Runtime;
 use ZenMagick\Base\Toolbox;
 use ZenMagick\Base\ZMException;
 use ZenMagick\Http\Toolbox\ToolboxTool;

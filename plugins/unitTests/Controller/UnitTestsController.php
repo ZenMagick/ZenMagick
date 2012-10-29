@@ -25,7 +25,6 @@ use RecursiveDirectoryIterator;
 use TestSuite;
 use UnitTestCase;
 use ZenMagick\Base\Beans;
-use ZenMagick\Base\Runtime;
 use ZenMagick\Base\Toolbox;
 use ZenMagick\plugins\unitTests\UnitTestsPlugin;
 use ZenMagick\plugins\unitTests\simpletest\HtmlReporter;

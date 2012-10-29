@@ -19,7 +19,6 @@
  */
 namespace ZenMagick\Http\Routing;
 
-use Exception;
 
 use ZenMagick\Base\Beans;
 use ZenMagick\Base\ZMObject;

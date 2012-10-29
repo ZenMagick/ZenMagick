@@ -20,7 +20,6 @@
 namespace ZenMagick\AdminBundle\Installation;
 
 use ZenMagick\Base\Beans;
-use ZenMagick\Base\Runtime;
 use ZenMagick\Base\ZMObject;
 
 /**

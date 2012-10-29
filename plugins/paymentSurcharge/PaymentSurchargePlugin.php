@@ -21,7 +21,6 @@ namespace ZenMagick\plugins\paymentSurcharge;
 
 use ZenMagick\Base\Plugins\Plugin;
 use ZenMagick\Base\Beans;
-use ZenMagick\Base\Runtime;
 use ZenMagick\StoreBundle\Model\Checkout\ShoppingCart;
 
 /**

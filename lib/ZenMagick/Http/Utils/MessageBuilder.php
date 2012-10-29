@@ -20,7 +20,6 @@
 namespace ZenMagick\Http\Utils;
 
 use Swift_Message;
-use ZenMagick\Base\Runtime;
 use ZenMagick\Base\ZMObject;
 use ZenMagick\Http\View\View;
 

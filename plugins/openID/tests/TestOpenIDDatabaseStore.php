@@ -19,7 +19,6 @@
  */
 namespace ZenMagick\plugins\openID\tests;
 
-use Auth_OpenID_Asssocation;
 use ZenMagick\plugins\openID\OpenIDDatabaseStore;
 use ZenMagick\plugins\unitTests\simpletest\TestCase;
 
