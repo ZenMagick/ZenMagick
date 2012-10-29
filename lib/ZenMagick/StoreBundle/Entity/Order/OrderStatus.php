@@ -63,7 +63,7 @@ class OrderStatus {
     /**
      * Set orderStatusId
      *
-     * @param integer $orderStatusId
+     * @param  integer     $orderStatusId
      * @return OrderStatus
      */
     public function setOrderStatusId($orderStatusId) {
@@ -84,7 +84,7 @@ class OrderStatus {
     /**
      * Set languageId
      *
-     * @param integer $languageId
+     * @param  integer     $languageId
      * @return OrderStatus
      */
     public function setLanguageId($languageId) {
@@ -105,7 +105,7 @@ class OrderStatus {
     /**
      * Set Name
      *
-     * @param string $name
+     * @param  string      $name
      * @return OrderStatus
      */
     public function setName($name) {
@@ -117,7 +117,7 @@ class OrderStatus {
     /**
      * Set statusName
      *
-     * @param string $statusName
+     * @param  string      $statusName
      * @return OrderStatus
      */
     public function setStatusName($statusName) {

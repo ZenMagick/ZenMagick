@@ -81,7 +81,7 @@ class ProductDescription {
     /**
      * Set productId
      *
-     * @param integer $productId
+     * @param  integer            $productId
      * @return ProductDescription
      */
     public function setProductId($productId) {
@@ -101,7 +101,7 @@ class ProductDescription {
     /**
      * Set languageId
      *
-     * @param integer $languageId
+     * @param  integer            $languageId
      * @return ProductDescription
      */
     public function setLanguageId($languageId) {
@@ -121,7 +121,7 @@ class ProductDescription {
     /**
      * Set name
      *
-     * @param string $name
+     * @param  string             $name
      * @return ProductDescription
      */
     public function setName($name) {
@@ -141,7 +141,7 @@ class ProductDescription {
     /**
      * Set description
      *
-     * @param string $description
+     * @param  string             $description
      * @return ProductDescription
      */
     public function setDescription($description) {
@@ -161,7 +161,7 @@ class ProductDescription {
     /**
      * Set url
      *
-     * @param string $url
+     * @param  string             $url
      * @return ProductDescription
      */
     public function setUrl($url) {
@@ -181,7 +181,7 @@ class ProductDescription {
     /**
      * Set viewed
      *
-     * @param integer $viewed
+     * @param  integer            $viewed
      * @return ProductDescription
      */
     public function setViewed($viewed) {
@@ -201,7 +201,7 @@ class ProductDescription {
     /**
      * Set product
      *
-     * @param ZenMagick\StoreBundle\Entity\Catalog\Product $product
+     * @param  ZenMagick\StoreBundle\Entity\Catalog\Product $product
      * @return ProductDescription
      */
     public function setProduct(\ZenMagick\StoreBundle\Entity\Catalog\Product $product) {

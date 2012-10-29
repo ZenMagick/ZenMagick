@@ -48,7 +48,7 @@ class GetTermsToFilter
     /**
      * Set termTable
      *
-     * @param string $termTable
+     * @param  string           $termTable
      * @return GetTermsToFilter
      */
     public function setTermTable($termTable)
@@ -70,7 +70,7 @@ class GetTermsToFilter
     /**
      * Set termField
      *
-     * @param string $termField
+     * @param  string           $termField
      * @return GetTermsToFilter
      */
     public function setTermField($termField)

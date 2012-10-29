@@ -448,7 +448,7 @@ class Coupon extends ZMObject {
     /**
      * Add translations
      *
-     * @param ZenMagick\StoreBundle\Entity\Coupons\CouponTranslations $translations
+     * @param  ZenMagick\StoreBundle\Entity\Coupons\CouponTranslations $translations
      * @return Coupon
      */
     public function addTranslation(\ZenMagick\StoreBundle\Entity\Coupons\CouponTranslations $translations) {
@@ -477,7 +477,7 @@ class Coupon extends ZMObject {
     /**
      * Set restrictToProducts
      *
-     * @param string $restrictToProducts
+     * @param  string $restrictToProducts
      * @return Coupon
      */
     public function setRestrictToProducts($restrictToProducts) {
@@ -497,7 +497,7 @@ class Coupon extends ZMObject {
     /**
      * Set restrictToCategories
      *
-     * @param string $restrictToCategories
+     * @param  string $restrictToCategories
      * @return Coupon
      */
     public function setRestrictToCategories($restrictToCategories) {
@@ -517,7 +517,7 @@ class Coupon extends ZMObject {
     /**
      * Set restrictToCustomers
      *
-     * @param string $restrictToCustomers
+     * @param  string $restrictToCustomers
      * @return Coupon
      */
     public function setRestrictToCustomers($restrictToCustomers) {
@@ -537,7 +537,7 @@ class Coupon extends ZMObject {
     /**
      * Set restrictToZone
      *
-     * @param integer $restrictToZone
+     * @param  integer $restrictToZone
      * @return Coupon
      */
     public function setRestrictToZone($restrictToZone) {

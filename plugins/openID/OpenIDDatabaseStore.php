@@ -69,7 +69,7 @@ class OpenIDDatabaseStore extends Auth_OpenID_OpenIDStore {
     /**
      * Store an association
      *
-     * @param string $server_url
+     * @param string                  $server_url
      * @param Auth_OpenID_Association $association
      */
     public function storeAssociation($server_url, $association) {

@@ -69,7 +69,7 @@ class QueryBuilder
     /**
      * Set category
      *
-     * @param string $category
+     * @param  string       $category
      * @return QueryBuilder
      */
     public function setCategory($category)
@@ -91,7 +91,7 @@ class QueryBuilder
     /**
      * Set queryName
      *
-     * @param string $queryName
+     * @param  string       $queryName
      * @return QueryBuilder
      */
     public function setQueryName($queryName)
@@ -113,7 +113,7 @@ class QueryBuilder
     /**
      * Set description
      *
-     * @param text $description
+     * @param  text         $description
      * @return QueryBuilder
      */
     public function setDescription($description)
@@ -135,7 +135,7 @@ class QueryBuilder
     /**
      * Set queryString
      *
-     * @param text $queryString
+     * @param  text         $queryString
      * @return QueryBuilder
      */
     public function setQueryString($queryString)
@@ -157,7 +157,7 @@ class QueryBuilder
     /**
      * Set keysList
      *
-     * @param text $keysList
+     * @param  text         $keysList
      * @return QueryBuilder
      */
     public function setKeysList($keysList)

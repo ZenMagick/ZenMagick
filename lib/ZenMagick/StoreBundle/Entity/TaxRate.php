@@ -167,7 +167,7 @@ class TaxRate extends ZMObject {
     /**
      * Get the tax class id.
      *
-     * @return integer  $classId The tax class id or <em>0</em>.
+     * @return integer $classId The tax class id or <em>0</em>.
      */
     public function getClassId() { return $this->classId; }
 
@@ -195,7 +195,7 @@ class TaxRate extends ZMObject {
     /**
      * Get the zone id.
      *
-     * @return integer  $zoneId The zone id or <em>0</em>.
+     * @return integer $zoneId The zone id or <em>0</em>.
      */
     public function getZoneId() { return $this->zoneId; }
 

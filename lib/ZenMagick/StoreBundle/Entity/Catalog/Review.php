@@ -351,7 +351,7 @@ class Review extends ZMObject {
     /**
      * Set status
      *
-     * @param boolean $status
+     * @param  boolean $status
      * @return Review
      */
     public function setStatus($status)
@@ -373,7 +373,7 @@ class Review extends ZMObject {
     /**
      * Add descriptions
      *
-     * @param ZenMagick\StoreBundle\Entity\Catalog\ReviewDescriptions $descriptions
+     * @param  ZenMagick\StoreBundle\Entity\Catalog\ReviewDescriptions $descriptions
      * @return Review
      */
     public function addDescription(\ZenMagick\StoreBundle\Entity\Catalog\ReviewDescriptions $descriptions)

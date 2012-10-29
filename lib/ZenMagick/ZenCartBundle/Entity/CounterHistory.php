@@ -48,7 +48,7 @@ class CounterHistory
     /**
      * Set counter
      *
-     * @param integer $counter
+     * @param  integer        $counter
      * @return CounterHistory
      */
     public function setCounter($counter)
@@ -70,7 +70,7 @@ class CounterHistory
     /**
      * Set sessionCounter
      *
-     * @param integer $sessionCounter
+     * @param  integer        $sessionCounter
      * @return CounterHistory
      */
     public function setSessionCounter($sessionCounter)

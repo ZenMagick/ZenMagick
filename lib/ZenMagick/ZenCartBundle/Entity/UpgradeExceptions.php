@@ -59,7 +59,7 @@ class UpgradeExceptions
     /**
      * Set sqlFile
      *
-     * @param string $sqlFile
+     * @param  string            $sqlFile
      * @return UpgradeExceptions
      */
     public function setSqlFile($sqlFile)

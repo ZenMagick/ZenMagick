@@ -53,7 +53,7 @@ class AdminPagesToProfiles
     /**
      * Set profileId
      *
-     * @param integer $profileId
+     * @param  integer              $profileId
      * @return AdminPagesToProfiles
      */
     public function setProfileId($profileId)
@@ -76,7 +76,7 @@ class AdminPagesToProfiles
     /**
      * Set pageKey
      *
-     * @param string $pageKey
+     * @param  string               $pageKey
      * @return AdminPagesToProfiles
      */
     public function setPageKey($pageKey)

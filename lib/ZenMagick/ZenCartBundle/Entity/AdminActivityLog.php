@@ -100,7 +100,7 @@ class AdminActivityLog
     /**
      * Set accessDate
      *
-     * @param datetime $accessDate
+     * @param  datetime         $accessDate
      * @return AdminActivityLog
      */
     public function setAccessDate($accessDate)
@@ -122,7 +122,7 @@ class AdminActivityLog
     /**
      * Set adminId
      *
-     * @param integer $adminId
+     * @param  integer          $adminId
      * @return AdminActivityLog
      */
     public function setAdminId($adminId)
@@ -144,7 +144,7 @@ class AdminActivityLog
     /**
      * Set pageAccessed
      *
-     * @param string $pageAccessed
+     * @param  string           $pageAccessed
      * @return AdminActivityLog
      */
     public function setPageAccessed($pageAccessed)
@@ -166,7 +166,7 @@ class AdminActivityLog
     /**
      * Set pageParameters
      *
-     * @param text $pageParameters
+     * @param  text             $pageParameters
      * @return AdminActivityLog
      */
     public function setPageParameters($pageParameters)
@@ -188,7 +188,7 @@ class AdminActivityLog
     /**
      * Set ipAddress
      *
-     * @param string $ipAddress
+     * @param  string           $ipAddress
      * @return AdminActivityLog
      */
     public function setIpAddress($ipAddress)
@@ -210,7 +210,7 @@ class AdminActivityLog
     /**
      * Set flagged
      *
-     * @param boolean $flagged
+     * @param  boolean          $flagged
      * @return AdminActivityLog
      */
     public function setFlagged($flagged)
@@ -233,7 +233,7 @@ class AdminActivityLog
     /**
      * Set attention
      *
-     * @param string $attention
+     * @param  string           $attention
      * @return AdminActivityLog
      */
     public function setAttention($attention)
@@ -256,7 +256,7 @@ class AdminActivityLog
     /**
      * Set gzPost
      *
-     * @param string $gzPost
+     * @param  string           $gzPost
      * @return AdminActivityLog
      */
     public function setGzPost($gzPost)

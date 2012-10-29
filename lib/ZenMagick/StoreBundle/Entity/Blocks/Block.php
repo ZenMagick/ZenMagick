@@ -160,7 +160,7 @@ class Block extends ZMObject {
     /**
      * Set template
      *
-     * @param string $template
+     * @param  string $template
      * @return Block
      */
     public function setTemplate($template) {
@@ -180,7 +180,7 @@ class Block extends ZMObject {
     /**
      * Set format
      *
-     * @param string $format
+     * @param  string $format
      * @return Block
      */
     public function setFormat($format) {

@@ -43,8 +43,8 @@ class ZMOrderTotals extends ZMObject {
     /**
      * Get zen-cart order totals.
      *
-     * @param ShoppingCart $shoppingCart The current shopping cart.
-     * @return array zencart order totals.
+     * @param  ShoppingCart $shoppingCart The current shopping cart.
+     * @return array        zencart order totals.
      */
     protected function getZenTotals(ShoppingCart $shoppingCart) {
     global $order, $shipping_modules;

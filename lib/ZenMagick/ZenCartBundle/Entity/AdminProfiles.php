@@ -59,7 +59,7 @@ class AdminProfiles
     /**
      * Set profileName
      *
-     * @param string $profileName
+     * @param  string        $profileName
      * @return AdminProfiles
      */
     public function setProfileName($profileName)

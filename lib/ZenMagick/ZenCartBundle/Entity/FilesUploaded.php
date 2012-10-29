@@ -58,7 +58,7 @@ class FilesUploaded
     /**
      * Set sessKey
      *
-     * @param string $sessKey
+     * @param  string        $sessKey
      * @return FilesUploaded
      */
     public function setSessKey($sessKey)
@@ -80,7 +80,7 @@ class FilesUploaded
     /**
      * Set accounId
      *
-     * @param integer $accounId
+     * @param  integer       $accounId
      * @return FilesUploaded
      */
     public function setAccounId($accounId)
@@ -102,7 +102,7 @@ class FilesUploaded
     /**
      * Set fileName
      *
-     * @param string $fileName
+     * @param  string        $fileName
      * @return FilesUploaded
      */
     public function setFileName($fileName)

@@ -66,7 +66,7 @@ class AdminMenus
     /**
      * Set languageKey
      *
-     * @param string $languageKey
+     * @param  string     $languageKey
      * @return AdminMenus
      */
     public function setLanguageKey($languageKey)
@@ -89,7 +89,7 @@ class AdminMenus
     /**
      * Set sortOrder
      *
-     * @param integer $sortOrder
+     * @param  integer    $sortOrder
      * @return AdminMenus
      */
     public function setSortOrder($sortOrder)

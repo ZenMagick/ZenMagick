@@ -1177,7 +1177,7 @@ class Product extends ZMObject {
     /**
      * Add descriptions
      *
-     * @param ZenMagick\StoreBundle\Entity\Catalog\ProductDescription $descriptions
+     * @param  ZenMagick\StoreBundle\Entity\Catalog\ProductDescription $descriptions
      * @return Product
      */
     public function addDescription(\ZenMagick\StoreBundle\Entity\Catalog\ProductDescription $descriptions) {

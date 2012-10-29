@@ -94,7 +94,7 @@ class AdminPages
     /**
      * Set languageKey
      *
-     * @param string $languageKey
+     * @param  string     $languageKey
      * @return AdminPages
      */
     public function setLanguageKey($languageKey)
@@ -117,7 +117,7 @@ class AdminPages
     /**
      * Set mainPage
      *
-     * @param string $mainPage
+     * @param  string     $mainPage
      * @return AdminPages
      */
     public function setMainPage($mainPage)
@@ -140,7 +140,7 @@ class AdminPages
     /**
      * Set pageParams
      *
-     * @param string $pageParams
+     * @param  string     $pageParams
      * @return AdminPages
      */
     public function setPageParams($pageParams)
@@ -163,7 +163,7 @@ class AdminPages
     /**
      * Set menuKey
      *
-     * @param string $menuKey
+     * @param  string     $menuKey
      * @return AdminPages
      */
     public function setMenuKey($menuKey)
@@ -186,7 +186,7 @@ class AdminPages
     /**
      * Set displayOnMenu
      *
-     * @param string $displayOnMenu
+     * @param  string     $displayOnMenu
      * @return AdminPages
      */
     public function setDisplayOnMenu($displayOnMenu)
@@ -209,7 +209,7 @@ class AdminPages
     /**
      * Set sortOrder
      *
-     * @param integer $sortOrder
+     * @param  integer    $sortOrder
      * @return AdminPages
      */
     public function setSortOrder($sortOrder)

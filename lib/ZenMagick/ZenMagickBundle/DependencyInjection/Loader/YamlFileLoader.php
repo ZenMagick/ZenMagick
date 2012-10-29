@@ -70,7 +70,7 @@ class YamlFileLoader extends FileLoader
     /**
      * Add the given resource to the container.
      *
-     * @param mixed  $path The resource
+     * @param mixed $path The resource
      */
     protected function addResource($path)
     {

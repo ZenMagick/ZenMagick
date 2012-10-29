@@ -134,7 +134,7 @@ class ReviewDescriptions extends ZMObject {
     /**
      * Set review
      *
-     * @param ZenMagick\StoreBundle\Entity\Catalog\Review $review
+     * @param  ZenMagick\StoreBundle\Entity\Catalog\Review $review
      * @return ReviewDescriptions
      */
     public function setReview(\ZenMagick\StoreBundle\Entity\Catalog\Review $review)

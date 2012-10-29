@@ -31,7 +31,7 @@ class Counter
     /**
      * Set startDate
      *
-     * @param string $startDate
+     * @param  string  $startDate
      * @return Counter
      */
     public function setStartDate($startDate)
@@ -53,7 +53,7 @@ class Counter
     /**
      * Set counter
      *
-     * @param integer $counter
+     * @param  integer $counter
      * @return Counter
      */
     public function setCounter($counter)

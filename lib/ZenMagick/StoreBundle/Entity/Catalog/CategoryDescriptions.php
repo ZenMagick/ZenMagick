@@ -65,7 +65,7 @@ class CategoryDescriptions
     /**
      * Set languageId
      *
-     * @param integer $languageId
+     * @param  integer              $languageId
      * @return CategoryDescriptions
      */
     public function setLanguageId($languageId) {
@@ -85,7 +85,7 @@ class CategoryDescriptions
     /**
      * Set name
      *
-     * @param string $name
+     * @param  string               $name
      * @return CategoryDescriptions
      */
     public function setName($name) {
@@ -105,7 +105,7 @@ class CategoryDescriptions
     /**
      * Set description
      *
-     * @param string $description
+     * @param  string               $description
      * @return CategoryDescriptions
      */
     public function setDescription($description) {
@@ -125,7 +125,7 @@ class CategoryDescriptions
     /**
      * Set category
      *
-     * @param ZenMagick\StoreBundle\Entity\Catalog\Category $category
+     * @param  ZenMagick\StoreBundle\Entity\Catalog\Category $category
      * @return CategoryDescriptions
      */
     public function setCategory(Category $category) {

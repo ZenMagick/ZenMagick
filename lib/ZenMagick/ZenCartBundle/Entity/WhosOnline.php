@@ -105,7 +105,7 @@ class WhosOnline
     /**
      * Set customerId
      *
-     * @param integer $customerId
+     * @param  integer    $customerId
      * @return WhosOnline
      */
     public function setCustomerId($customerId)
@@ -127,7 +127,7 @@ class WhosOnline
     /**
      * Set fullName
      *
-     * @param string $fullName
+     * @param  string     $fullName
      * @return WhosOnline
      */
     public function setFullName($fullName)
@@ -149,7 +149,7 @@ class WhosOnline
     /**
      * Set sessionId
      *
-     * @param string $sessionId
+     * @param  string     $sessionId
      * @return WhosOnline
      */
     public function setSessionId($sessionId)
@@ -171,7 +171,7 @@ class WhosOnline
     /**
      * Set ipAddress
      *
-     * @param string $ipAddress
+     * @param  string     $ipAddress
      * @return WhosOnline
      */
     public function setIpAddress($ipAddress)
@@ -193,7 +193,7 @@ class WhosOnline
     /**
      * Set timeEntry
      *
-     * @param string $timeEntry
+     * @param  string     $timeEntry
      * @return WhosOnline
      */
     public function setTimeEntry($timeEntry)
@@ -215,7 +215,7 @@ class WhosOnline
     /**
      * Set timeLastClick
      *
-     * @param string $timeLastClick
+     * @param  string     $timeLastClick
      * @return WhosOnline
      */
     public function setTimeLastClick($timeLastClick)
@@ -237,7 +237,7 @@ class WhosOnline
     /**
      * Set lastPageUrl
      *
-     * @param string $lastPageUrl
+     * @param  string     $lastPageUrl
      * @return WhosOnline
      */
     public function setLastPageUrl($lastPageUrl)
@@ -259,7 +259,7 @@ class WhosOnline
     /**
      * Set hostAddress
      *
-     * @param text $hostAddress
+     * @param  text       $hostAddress
      * @return WhosOnline
      */
     public function setHostAddress($hostAddress)
@@ -281,7 +281,7 @@ class WhosOnline
     /**
      * Set userAgent
      *
-     * @param string $userAgent
+     * @param  string     $userAgent
      * @return WhosOnline
      */
     public function setUserAgent($userAgent)

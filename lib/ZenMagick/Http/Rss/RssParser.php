@@ -49,8 +49,8 @@ class RssParser {
     /**
      * Get the full feed.
      *
-     * @param boolean $attr Optional flag to return also attributes.
-     * @return array The full feed.
+     * @param  boolean $attr Optional flag to return also attributes.
+     * @return array   The full feed.
      */
     public function getFeed($attr=false) {
         return $attr ? $this->document : $this->valueExtractor($this->document);
@@ -59,8 +59,8 @@ class RssParser {
     /**
      * Get channel data.
      *
-     * @param boolean $attr Optional flag to return also attributes.
-     * @return array The channel.
+     * @param  boolean $attr Optional flag to return also attributes.
+     * @return array   The channel.
      */
     public function getChannel($attr=false) {
         return $attr ? $this->channel : $this->valueExtractor($this->channel);
@@ -69,8 +69,8 @@ class RssParser {
     /**
      * Get item data.
      *
-     * @param boolean $attr Optional flag to return also attributes.
-     * @return array The items.
+     * @param  boolean $attr Optional flag to return also attributes.
+     * @return array   The items.
      */
     public function getItems($attr=false) {
         return $attr ? $this->items : $this->valueExtractor($this->items);
@@ -83,8 +83,8 @@ class RssParser {
      * for a note as value of a <em>'attributes'</em> key.<p>
      *
      * @param string feed The feed content.
-     * @param boolean $attr Optional flag to return also attributes.
-     * @return array Map of feed, channel and item elements.
+     * @param  boolean $attr Optional flag to return also attributes.
+     * @return array   Map of feed, channel and item elements.
      */
     public function parse($feed, $attr=false) {
         $this->document = array();
