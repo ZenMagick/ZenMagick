@@ -82,6 +82,7 @@ class WordpressAdapter extends ZMObject
             // changed
             return $this->vDuplicateEmail($request, $data);
         }
+
         return true;
     }
 
@@ -107,8 +108,10 @@ class WordpressAdapter extends ZMObject
             // and login
             $user = wp_authenticate($email, $password);
             wp_set_auth_cookie($user->ID, true);
+
             return true;
         }
+
         return false;
     }
 

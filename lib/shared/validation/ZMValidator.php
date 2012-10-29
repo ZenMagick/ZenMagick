@@ -73,6 +73,7 @@ class ZMValidator extends ZMObject
         if (array_key_exists($id, $this->alias_)) {
             return $this->alias_[$id];
         }
+
         return $id;
     }
 
@@ -203,6 +204,7 @@ class ZMValidator extends ZMObject
     public function hasRuleSet($id)
     {
         $baseId = $this->resolveAlias($id);
+
         return array_key_exists($id, $this->sets_) || array_key_exists($baseId, $this->sets_);
     }
 
@@ -230,6 +232,7 @@ class ZMValidator extends ZMObject
     {
         if (Toolbox::endsWith($resource, '.php') && file_exists($resource)) {
             include $resource;
+
             return;
         }
 

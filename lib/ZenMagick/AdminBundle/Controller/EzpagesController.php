@@ -40,6 +40,7 @@ class EzpagesController extends \ZMController
         $resultList = Beans::getBean('ZMResultList');
         $resultList->setResultSource($resultSource);
         $resultList->setPageNumber($request->query->get('page', 1));
+
         return array('resultList' => $resultList);
     }
 
@@ -61,6 +62,7 @@ class EzpagesController extends \ZMController
             if (null == $ezPage) {
                 return $this->findView('error', array('message' => _zm('Invalid page id')));
             }
+
             return $this->findView(null, array('ezPage' => $ezPage));
         }
 

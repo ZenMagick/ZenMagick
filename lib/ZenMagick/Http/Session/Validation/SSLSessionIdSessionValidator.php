@@ -64,6 +64,7 @@ class SSLSessionIdSessionValidator extends ZMObject implements SessionValidator
                 $valid = $sslSessionId == $sessionSslSessionId;
             }
         }
+
         return $valid;
     }
 }

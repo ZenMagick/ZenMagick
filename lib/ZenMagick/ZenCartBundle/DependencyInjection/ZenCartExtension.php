@@ -83,6 +83,7 @@ class ZenCartExtension extends Extension
         foreach ($finder as $file) {
             $adminDir = dirname($file->getRealpath());
         }
+
         return $adminDir;
     }
 

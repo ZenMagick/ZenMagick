@@ -64,6 +64,7 @@ class FilesUploaded
     public function setSessKey($sessKey)
     {
         $this->sessKey = $sessKey;
+
         return $this;
     }
 
@@ -86,6 +87,7 @@ class FilesUploaded
     public function setAccounId($accounId)
     {
         $this->accounId = $accounId;
+
         return $this;
     }
 
@@ -108,6 +110,7 @@ class FilesUploaded
     public function setFileName($fileName)
     {
         $this->fileName = $fileName;
+
         return $this;
     }
 

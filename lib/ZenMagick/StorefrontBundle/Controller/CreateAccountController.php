@@ -148,6 +148,7 @@ class CreateAccountController extends \ZMController
         $this->messageService->success(_zm("Thank you for signing up"));
 
         $stickyUrl = $request->getFollowUpUrl();
+
         return $this->findView('success', array('currentAccount' => $account), array('url' => $stickyUrl));
     }
 

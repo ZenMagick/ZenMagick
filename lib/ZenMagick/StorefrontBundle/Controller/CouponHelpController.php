@@ -36,6 +36,7 @@ class CouponHelpController extends \ZMController
     public function showAction($cID, Request $request, Session $session)
     {
         $coupon = $this->container->get('couponService')->getCouponForId($request->getParameter('cID'), $session->getLanguageId());
+
         return new ModelAndView(null, array('coupon' => $coupon));
     }
 

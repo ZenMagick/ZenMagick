@@ -158,6 +158,7 @@ class PaymentTypeWrapper extends ZMObject implements \ZMPaymentType
         $this->prepare();
         $button =  $this->module_->process_button();
         ZenCartMock::cleanupMock();
+
         return $button;
     }
 
@@ -167,6 +168,7 @@ class PaymentTypeWrapper extends ZMObject implements \ZMPaymentType
     public function getOrderFormUrl($request)
     {
         $this->prepare();
+
         return isset($this->module_->form_action_url) ? $this->module_->form_action_url : Runtime::getContainer()->get('netTool')->url('checkout_process', '', true);
     }
 

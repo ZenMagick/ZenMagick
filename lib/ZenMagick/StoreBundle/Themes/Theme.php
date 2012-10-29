@@ -162,6 +162,7 @@ class Theme extends ZMObject
         if (array_key_exists($key, $meta)) {
             return $meta[$key];
         }
+
         return null;
     }
 
@@ -185,6 +186,7 @@ class Theme extends ZMObject
     {
         if (is_array($key)) {
             $this->config = $key;
+
             return;
         }
         $this->config[$key] = $value;
@@ -262,6 +264,7 @@ class Theme extends ZMObject
                 }
             }
         }
+
         return $pages;
     }
 
@@ -313,6 +316,7 @@ class Theme extends ZMObject
             if (null != ($ezPage = $this->container->get('ezPageService')->getPageForName($page, $languageId))) {
                 return $ezPage->getHtmlText();
             }
+
             return null;
         }
         $language = $this->container->get('languageService')->getLanguageForId($languageId);
@@ -330,6 +334,7 @@ class Theme extends ZMObject
         // allow PHP
         ob_start();
         eval('?>'.$contents);
+
         return ob_get_clean();
     }
 

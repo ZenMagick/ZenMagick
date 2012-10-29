@@ -81,6 +81,7 @@ class MusicProductInfoPlugin extends Plugin
     public function mediaUrl($filename)
     {
         $url = 'media/'.$filename;
+
         return $url;
     }
 

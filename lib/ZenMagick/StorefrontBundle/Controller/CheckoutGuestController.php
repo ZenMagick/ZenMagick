@@ -38,6 +38,7 @@ class CheckoutGuestController extends \ZMController
 
         if (!$settingsService->get('isGuestCheckout')) {
             $this->messageService->warn(_zm('Guest checkout not allowed at this time'));
+
             return $this->findView('guest_checkout_disabled');
         }
 

@@ -73,6 +73,7 @@ class Plugin extends ZMObject
         } elseif (isset($this->config['meta'][$key])) {
             return $this->config['meta'][$key];
         }
+
         return null;
     }
 
@@ -237,6 +238,7 @@ class Plugin extends ZMObject
             foreach (\ZenMagick\AdminBundle\Utils\SQLRunner::process_patch_results($results) as $msg) {
                 $messages[] = $msg;
             }
+
             return empty($results['error']);
         }
 
@@ -297,6 +299,7 @@ class Plugin extends ZMObject
     {
         $path = $this->getPluginDirectory().'/'.$uri;
         $templateView = $this->container->get('defaultView');
+
         return $templateView->getResourceManager()->file2uri($path);
     }
 

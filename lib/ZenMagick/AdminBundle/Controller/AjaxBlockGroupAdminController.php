@@ -84,6 +84,7 @@ class AjaxBlockGroupAdminController extends \ZMRpcController
         $this->updateGroupBlockList($data->groupName, $data->groupBlockList);
 
         $rpcResponse->setStatus(true);
+
         return $rpcResponse;
     }
 

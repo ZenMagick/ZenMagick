@@ -124,6 +124,7 @@ class ZenCartAutoLoader extends ZMObject
             $filePatterns[] = 'includes/functions/{functions_ezpages.php,password_funcs.php,sessions.php,zen_mail.php}';
             $filePatterns[] = 'includes/functions/banner.php';
         }
+
         return $filePatterns;
     }
 
@@ -182,6 +183,7 @@ class ZenCartAutoLoader extends ZMObject
         foreach ($this->globalKeys as $name) {
             $globalValues[$name] = $GLOBALS[$name];
         }
+
         return $globalValues;
     }
 
@@ -236,6 +238,7 @@ class ZenCartAutoLoader extends ZMObject
             }
             $searchPaths[] = $dir.'/'.$base;
         }
+
         return $searchPaths;
     }
 
@@ -253,6 +256,7 @@ class ZenCartAutoLoader extends ZMObject
         $map['%current_page_base%'] = $request->getRequestId();
         $map['%language%'] = $request->getSelectedLanguage()->getDirectory();
         $map['%template_dir%'] = $container->get('themeService')->getActiveThemeId();
+
         return str_replace(array_keys($map), array_values($map), $string);
     }
 
@@ -279,6 +283,7 @@ class ZenCartAutoLoader extends ZMObject
                 }
             }
         }
+
         return $files;
     }
 
@@ -292,6 +297,7 @@ class ZenCartAutoLoader extends ZMObject
     public function resolveFile($paths)
     {
         $file = current($this->resolveFiles($paths));
+
         return $file;
     }
 

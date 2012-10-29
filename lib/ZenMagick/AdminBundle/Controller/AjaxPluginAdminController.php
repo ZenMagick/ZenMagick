@@ -53,6 +53,7 @@ class AjaxPluginAdminController extends \ZMRpcController
         }
 
         $this->container->get('pluginStatusMapBuilder')->getStatusMap(true);
+
         return $rpcResponse;
     }
 

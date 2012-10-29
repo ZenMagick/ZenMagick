@@ -52,6 +52,7 @@ class ReviewTitlePatch extends SQLPatch
     public function isOpen()
     {
         $meta = \ZMRuntime::getDatabase()->getMetaData('reviews_description');
+
         return !array_key_exists('title', $meta);
     }
 }

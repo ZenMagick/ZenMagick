@@ -108,6 +108,7 @@ class Addresses extends ZMObject
         $sql = "DELETE FROM %table.address_book%
                 WHERE  address_book_id = :id";
         ZMRuntime::getDatabase()->updateObj($sql, array('id' => $addressId), 'address_book');
+
         return true;
     }
 
@@ -119,6 +120,7 @@ class Addresses extends ZMObject
     private function getDefaultAddressId($accountId)
     {
         $account = $this->container->get('accountService')->getAccountForId($accountId);
+
         return null != $account ? $account->getDefaultAddressId() : 0;
     }
 
@@ -134,6 +136,7 @@ class Addresses extends ZMObject
                 FROM %table.address_format%
                 WHERE address_format_id = :id";
         $result = ZMRuntime::getDatabase()->querySingle($sql, array('id' => $addressFormatId), 'address_format');
+
         return $result['format'];
     }
 

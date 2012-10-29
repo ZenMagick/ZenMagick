@@ -86,6 +86,7 @@ class PhpBB3Adapter extends ZMObject
     {
         $sql = "SELECT username FROM " . USERS_TABLE . "
                 WHERE username = :username";
+
         return null == $this->getDatabase()->querySingle($sql, array('username' => $data['nickName']), USERS_TABLE);
     }
 
@@ -116,6 +117,7 @@ class PhpBB3Adapter extends ZMObject
             // changed
             return $this->vDuplicateEmail($data);
         }
+
         return true;
     }
 
@@ -132,6 +134,7 @@ class PhpBB3Adapter extends ZMObject
                   AND group_type = " . GROUP_SPECIAL;
 
         $result = $this->getDatabase()->querySingle($sql, array(), null, \ZenMagick\Base\Database\Connection::MODEL_RAW);
+
         return null !== $result ? (int) $result['group_id'] : false;
     }
 
@@ -146,6 +149,7 @@ class PhpBB3Adapter extends ZMObject
         $sql = "SELECT * FROM " . USERS_TABLE . "
                 WHERE user_email_hash = :user_email_hash";
         $email_hash = crc32(strtolower($email)) . strlen($email);
+
         return $this->getDatabase()->querySingle($sql, array('user_email_hash' => $email_hash), USERS_TABLE);
     }
 
@@ -224,6 +228,7 @@ class PhpBB3Adapter extends ZMObject
 
             $data = array_merge($additional_vars, $data);
             $data = $this->getDatabase()->createModel(USERS_TABLE, $data);
+
             return true;
         }
 
@@ -254,6 +259,7 @@ class PhpBB3Adapter extends ZMObject
             }
             $data = array_merge($data, $updates);
             $this->getDatabase()->updateModel(USERS_TABLE, $data);
+
             return true;
         }
 
@@ -271,6 +277,7 @@ class PhpBB3Adapter extends ZMObject
         $data = $this->getAccountForEmail($email);
         if (null !== $data) {
             $this->getDatabase()->removeModel(USERS_TABLE, $data);
+
             return true;
         }
 

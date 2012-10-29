@@ -86,6 +86,7 @@ class TestCouponService extends TestCase
     protected function getAccountId()
     {
         $account = $this->container->get('accountService')->getAccountForEmailAddress('root@localhost');
+
         return null != $account ? $account->getId() : 1;
     }
 

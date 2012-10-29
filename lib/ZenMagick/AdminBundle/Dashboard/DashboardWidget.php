@@ -179,6 +179,7 @@ abstract class DashboardWidget extends Widget
             '  </div>',
             '</div>'
         );
+
         return implode("\n", $lines);
     }
 

@@ -243,6 +243,7 @@ class Address extends ZMObject
         if (null == $this->country) {
             $this->country = $this->container->get('countryService')->getCountryForId($this->countryId);
         }
+
         return $this->country;
     }
 

@@ -81,6 +81,7 @@ class EmailPreviewController extends \ZMController
             if ('text' == $format) {
                 $this->setContentType('text/plain');
             }
+
             return new Response($content);
         }
 
@@ -96,6 +97,7 @@ class EmailPreviewController extends \ZMController
     protected function getInitialContext($request)
     {
         $order = new MockOrder();
+
         return array(
             'office_only_html' => true,
             'office_only_text' => true,

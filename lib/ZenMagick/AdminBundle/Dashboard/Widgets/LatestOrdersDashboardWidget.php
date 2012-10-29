@@ -63,6 +63,7 @@ class LatestOrdersDashboardWidget extends DashboardWidget
             $contents .= '  </tr>';
         }
         $contents .= '</table>';
+
         return $contents;
     }
 

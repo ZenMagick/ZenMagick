@@ -40,6 +40,7 @@ class AccountPasswordController extends \ZMController
         $account = $this->getUser();
         if (null == $account) {
             $this->container->get('logger')->err('could not access session account');
+
             return $this->findView('error');
         }
 
@@ -50,6 +51,7 @@ class AccountPasswordController extends \ZMController
         $authenticationManager = $this->container->get('authenticationManager');
         if (!$authenticationManager->validatePassword($oldPassword, $account->getPassword())) {
             $this->messageService->error(_zm('Your current password did not match the password in our records. Please try again.'));
+
             return $this->findView();
         }
 

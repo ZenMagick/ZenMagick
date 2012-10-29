@@ -54,6 +54,7 @@ class GetTermsToFilter
     public function setTermTable($termTable)
     {
         $this->termTable = $termTable;
+
         return $this;
     }
 
@@ -76,6 +77,7 @@ class GetTermsToFilter
     public function setTermField($termField)
     {
         $this->termField = $termField;
+
         return $this;
     }
 

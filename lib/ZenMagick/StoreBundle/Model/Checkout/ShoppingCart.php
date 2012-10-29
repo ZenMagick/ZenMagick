@@ -90,6 +90,7 @@ class ShoppingCart extends ZMObject
         $properties['contents'] = $this->contents;
         $properties['comments'] = $this->comments;
         $properties['accountId'] = $this->accountId;
+
         return $properties;
     }
 
@@ -161,6 +162,7 @@ class ShoppingCart extends ZMObject
                 }
             }
         }
+
         return $weight;
     }
 
@@ -296,6 +298,7 @@ class ShoppingCart extends ZMObject
             $itemTotal = $item->getItemTotal(false) + $item->getOneTimeCharge(false);
             $subtotal += $item->getTaxRate()->addTax($itemTotal);
         }
+
         return $subtotal;
     }
 
@@ -311,6 +314,7 @@ class ShoppingCart extends ZMObject
                 return $orderTotal->getAmount();
             }
         }
+
         return 0;
     }
 
@@ -397,6 +401,7 @@ class ShoppingCart extends ZMObject
         if (null !== ($shipping = $this->session->get('shipping')) && is_array($shipping)) {
             return $shipping['id'];
         }
+
         return null;
     }
 
@@ -418,6 +423,7 @@ class ShoppingCart extends ZMObject
         if (null == ($shippingProvider = $this->container->get('shippingProviderService')->getShippingProviderForId($token[0], true))) {
             return null;
         }
+
         return $shippingProvider->getShippingMethodForId($token[1], $this);
     }
 
@@ -471,6 +477,7 @@ class ShoppingCart extends ZMObject
                 $this->selectedPaymentType_->prepare();
             }
         }
+
         return $this->selectedPaymentType_;
     }
 
@@ -625,6 +632,7 @@ class ShoppingCart extends ZMObject
                 }
             }
         }
+
         return $totals;
     }
 
@@ -813,6 +821,7 @@ class ShoppingCart extends ZMObject
         $product = $this->container->get('productService')->getProductForId($productId);
         if (null == $product) {
             $this->container->get('logger')->err('failed to add product to cart; productId='.$productId);
+
             return false;
         }
         $attributes = $this->sanitizeAttributes($product, $attributes);
@@ -852,6 +861,7 @@ class ShoppingCart extends ZMObject
             unset($this->contents[$productId]);
             $this->items_ = null;
             $this->container->get('shoppingCartService')->updateCart($this);
+
             return true;
         }
 
@@ -892,6 +902,7 @@ class ShoppingCart extends ZMObject
             $this->contents[$sku]['qty'] = $adjustedQty;
             $this->items_ = null;
             $this->container->get('shoppingCartService')->updateCart($this);
+
             return true;
         }
 
@@ -917,10 +928,12 @@ class ShoppingCart extends ZMObject
                 } else {
                     $address = $this->isVirtual() ? $this->getBillingAddress() : $this->getShippingAddress();
                 }
+
                 return $address;
         }
 
         $this->container->get('logger')->err('invalid productTaxBase!');
+
         return null;
     }
 
@@ -1033,6 +1046,7 @@ class ShoppingCart extends ZMObject
     public static function getBaseProductIdFor($productId)
     {
         $arr = explode(':', $productId);
+
         return (int) $arr[0];
     }
 

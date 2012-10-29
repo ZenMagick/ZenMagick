@@ -229,6 +229,7 @@ class Download extends ZMObject
         $expiry = clone $this->getOrderDate();
         //XX: use DateInterval in PHP5.3
         $expiry->modify('+'.$this->getMaxDays().' day');
+
         return $expiry;
     }
 
@@ -242,6 +243,7 @@ class Download extends ZMObject
         $now = new \DateTime();
         $snow = $now->format('d-m-Y');
         $sexpiry = $this->getExpiryDate()->format('d-m-Y');
+
         return $snow > $sexpiry;
     }
 

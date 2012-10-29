@@ -42,6 +42,7 @@ class Banners extends ZMObject
         foreach (ZMRuntime::getDatabase()->fetchAll($sql, array(), 'banners') as $result) {
             $ids[] = $result['group'];
         }
+
         return $ids;
     }
 
@@ -94,6 +95,7 @@ class Banners extends ZMObject
         $sql = "SELECT *
                 FROM %table.banners%
                 WHERE status = 1 AND banners_id = :id";
+
         return ZMRuntime::getDatabase()->querySingle($sql, array('id' => $id), 'banners', 'ZenMagick\StoreBundle\Entity\Templating\Banner');
     }
 

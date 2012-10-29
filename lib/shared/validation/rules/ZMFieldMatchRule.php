@@ -97,6 +97,7 @@ class ZMFieldMatchRule extends ZMRule
         $js .= ",'".addslashes($this->getErrorMsg())."'";
         $js .= ",'".$this->other_."'";
         $js .= ")";
+
         return $js;
     }
 

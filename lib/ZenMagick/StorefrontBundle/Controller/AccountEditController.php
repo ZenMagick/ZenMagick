@@ -48,6 +48,7 @@ class AccountEditController extends \ZMController
             // XXX: move into validation rule email changed, so make sure it doesn't exist
             if ($this->container->get('accountService')->emailExists($account->getEmail())) {
                 $this->messageService->error(_zm('Sorry, the entered email address already exists.'));
+
                 return $this->findView();
             }
         }

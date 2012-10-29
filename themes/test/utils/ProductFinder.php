@@ -68,6 +68,7 @@ class ProductFinder extends \ZMProductFinder
 
         $sql = $select . $weight . ' AS weight'. $from . $where . $sort;
         $tables = array('products_description');
+
         return new QueryDetails(ZMRuntime::getDatabase(), $sql, array(), $tables, null, 'pd.products_id');
     }
 

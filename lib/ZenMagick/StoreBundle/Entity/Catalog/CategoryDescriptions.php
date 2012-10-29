@@ -71,6 +71,7 @@ class CategoryDescriptions
     public function setLanguageId($languageId)
     {
         $this->languageId = $languageId;
+
         return $this;
     }
 
@@ -93,6 +94,7 @@ class CategoryDescriptions
     public function setName($name)
     {
         $this->name = $name;
+
         return $this;
     }
 
@@ -115,6 +117,7 @@ class CategoryDescriptions
     public function setDescription($description)
     {
         $this->description = $description;
+
         return $this;
     }
 
@@ -137,6 +140,7 @@ class CategoryDescriptions
     public function setCategory(Category $category)
     {
         $this->category = $category;
+
         return $this;
     }
 

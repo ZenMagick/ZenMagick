@@ -42,6 +42,7 @@ class ZMAjaxController extends ZMController
     public function processGet($request)
     {
         $this->container->get('logger')->err("Invalid Ajax request - method '".$request->getParameter('method')."' not found!");
+
         return null;
     }
 
@@ -85,6 +86,7 @@ class ZMAjaxController extends ZMController
 
         if (method_exists($this, $method) || in_array($method, $this->getAttachedMethods())) {
             $this->$method($request);
+
             return null;
         }
 
@@ -101,6 +103,7 @@ class ZMAjaxController extends ZMController
         $response = new Response();
         $response->headers->set('Content-Type', 'text/plain');
         $response->setContent($json);
+
         return $response;
     }
 

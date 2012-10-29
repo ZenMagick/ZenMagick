@@ -55,6 +55,7 @@ class ToolboxAdmin extends ToolboxTool
         if (null != $params) {
             $ps .= '&'.$params;
         }
+
         return $this->url('catalog', $ps);
     }
 
@@ -83,6 +84,7 @@ class ToolboxAdmin extends ToolboxTool
         if (null != $params) {
             $ps .= '&'.$params;
         }
+
         return $this->url($catalogRequestId, $ps);
     }
 
@@ -124,6 +126,7 @@ class ToolboxAdmin extends ToolboxTool
         echo $this->getView()->fetch('sub-menu.html.php'); echo '<div id="view-container">';
         $title = sprintf(_zm("%1s :: %2s :: ZenMagick Admin"), Runtime::getSettings()->get('storeName'), $title);
         $this->getView()->getResourceManager()->fragment('title', $title);
+
         return $title;
     }
 

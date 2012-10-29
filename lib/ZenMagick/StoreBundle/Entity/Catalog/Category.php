@@ -275,6 +275,7 @@ class Category extends ZMObject
         $imageInfo = Beans::getBean('ZMImageInfo');
         $imageInfo->setAltText($this->name);
         $imageInfo->setDefaultImage($this->image);
+
         return $imageInfo;
     }
 
@@ -292,6 +293,7 @@ class Category extends ZMObject
             array_push($path, $parent->getId());
             $parent = $parent->getParent();
         }
+
         return array_reverse($path);
     }
 
@@ -376,6 +378,7 @@ class Category extends ZMObject
             $childIds = $child->getDecendantIds(true);
             $ids = array_merge($ids, $childIds);
         }
+
         return $ids;
     }
 

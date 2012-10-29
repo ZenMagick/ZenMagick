@@ -48,6 +48,7 @@ class EditAdminUserController extends \ZMController
                 }
             }
         }
+
         return $adminUser;
     }
 

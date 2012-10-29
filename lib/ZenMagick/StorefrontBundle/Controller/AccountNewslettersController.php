@@ -50,6 +50,7 @@ class AccountNewslettersController extends \ZMController
         }
 
         $this->messageService->success(_zm('Your newsletter subscription has been updated.'));
+
         return $this->findView('success', array('currentAccount' => $account));
     }
 

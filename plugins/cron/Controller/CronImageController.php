@@ -46,6 +46,7 @@ class CronImageController extends ZMController
 
         // create 1x1 image
         $response->setContent(base64_decode('R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw=='));
+
         return $response;
     }
 

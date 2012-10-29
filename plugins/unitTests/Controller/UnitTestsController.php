@@ -54,6 +54,7 @@ class UnitTestsController extends \ZMController
                 }
             }
         }
+
         return $tests;
     }
 

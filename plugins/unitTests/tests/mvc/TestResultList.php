@@ -58,6 +58,7 @@ class TestResultList extends TestCase
             $result->setModel('model-'.($ii+1));
             $results[] = $result;
         }
+
         return $results;
     }
 

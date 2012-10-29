@@ -147,6 +147,7 @@ class Manufacturer extends ZMObject
         $imageInfo = Beans::getBean('ZMImageInfo');
         $imageInfo->setAltText($this->name);
         $imageInfo->setDefaultImage($this->image);
+
         return $imageInfo;
     }
 

@@ -168,6 +168,7 @@ class SelectFormWidget extends FormWidget
             $output .= '<option'.$selected.' value="'.$html->encode($oval).'">'.$html->encode($name).'</option>';
         }
         $output .= '</select>';
+
         return $output;
     }
 
@@ -201,6 +202,7 @@ class SelectFormWidget extends FormWidget
             echo ' <label for="'.$idBase.'-'.$index.'">'.$html->encode(_zm($name)).'</label>';
             ++$index;
         }
+
         return ob_get_clean();
     }
 

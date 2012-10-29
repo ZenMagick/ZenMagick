@@ -113,6 +113,7 @@ class BasicStatsDashboardWidget extends DashboardWidget
             }
         }
         $contents .= '</table>';
+
         return $contents;
     }
 

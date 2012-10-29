@@ -119,6 +119,7 @@ class CronJobs extends ZMObject
         if (isset($this->history[$job['id']])) {
             return $this->history[$job['id']];
         }
+
         return 0;
     }
 
@@ -149,6 +150,7 @@ class CronJobs extends ZMObject
             $jobs = $this->parser->parseCrontab($lines);
         } else {
             Runtime::getLogging()->err('crontab not found: '.$this->crontab);
+
             return array();
         }
 
@@ -198,9 +200,11 @@ class CronJobs extends ZMObject
             }
             $this->saveLastRunTime($job);
             Runtime::getLogging()->info("CronJobs: Completed ".$job['line']." with status: ".($status?"OK":"FAILED"));
+
             return true;
         } catch (Exception $e) {
             Runtime::getLogging()->info("CronJobs: Failed ".$job['line']." with exception: ".$e);
+
             return false;
         }
     }

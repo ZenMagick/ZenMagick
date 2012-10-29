@@ -36,6 +36,7 @@ class CacheAdminController extends \ZMController
         foreach ($this->container->getParameterBag()->get('zenmagick.cacheIds') as $id) {
             $caches[$id] = $this->container->get($id);
         }
+
         return $caches;
     }
 

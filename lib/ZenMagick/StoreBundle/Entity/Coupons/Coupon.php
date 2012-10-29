@@ -460,6 +460,7 @@ class Coupon extends ZMObject
     public function addTranslation(\ZenMagick\StoreBundle\Entity\Coupons\CouponTranslations $translations)
     {
         $this->translations[] = $translations;
+
         return $this;
     }
 
@@ -492,6 +493,7 @@ class Coupon extends ZMObject
     public function setRestrictToProducts($restrictToProducts)
     {
         $this->restrictToProducts = $restrictToProducts;
+
         return $this;
     }
 
@@ -514,6 +516,7 @@ class Coupon extends ZMObject
     public function setRestrictToCategories($restrictToCategories)
     {
         $this->restrictToCategories = $restrictToCategories;
+
         return $this;
     }
 
@@ -536,6 +539,7 @@ class Coupon extends ZMObject
     public function setRestrictToCustomers($restrictToCustomers)
     {
         $this->restrictToCustomers = $restrictToCustomers;
+
         return $this;
     }
 
@@ -558,6 +562,7 @@ class Coupon extends ZMObject
     public function setRestrictToZone($restrictToZone)
     {
         $this->restrictToZone = $restrictToZone;
+
         return $this;
     }
 

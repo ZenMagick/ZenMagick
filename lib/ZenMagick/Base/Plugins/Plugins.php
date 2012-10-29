@@ -61,6 +61,7 @@ class Plugins extends ZMObject
         if (null === $this->statusMap) {
             $this->statusMap = $this->pluginStatusMapBuilder->getStatusMap();
         }
+
         return $this->statusMap;
     }
 
@@ -74,6 +75,7 @@ class Plugins extends ZMObject
     public function getPluginsForContext($context=null, $enabled=true)
     {
         $context = $context ?: $this->contextConfigLoader->getContext();
+
         return $this->getPlugins($context, $enabled);
     }
 

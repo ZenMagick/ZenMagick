@@ -128,6 +128,7 @@ class ToolboxForm extends ToolboxTool
         }
 
         $html = ob_get_clean();
+
         return $html;
     }
 

@@ -56,6 +56,7 @@ class CheckoutShippingController extends \ZMController
 
         if ($checkoutHelper->isVirtual()) {
             $checkoutHelper->markCartFreeShipping();
+
             return $this->findView('skip_shipping');
         }
 
@@ -63,7 +64,6 @@ class CheckoutShippingController extends \ZMController
         // a) something to preselect free shipping as per ot_freeshipper
         // b) is a preferred option configured via setting??
         // c) cheapest except storepickup
-
         return $this->findView();
     }
 
@@ -88,6 +88,7 @@ class CheckoutShippingController extends \ZMController
 
         if ($checkoutHelper->isVirtual()) {
             $checkoutHelper->markCartFreeShipping();
+
             return $this->findView('skip_shipping');
         }
 
@@ -104,6 +105,7 @@ class CheckoutShippingController extends \ZMController
 
         if (null == $shippingProvider || null == $shippingMethod) {
             $this->messageService->error(_zm('Please select a shipping method.'));
+
             return $this->findView();
         }
 

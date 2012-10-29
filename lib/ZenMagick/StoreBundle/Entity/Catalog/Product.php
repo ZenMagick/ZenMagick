@@ -895,6 +895,7 @@ class Product extends ZMObject
             $this->offers = Beans::getBean('ZMOffers');
             $this->offers->setProduct($this);
         }
+
         return $this->offers;
     }
 
@@ -930,6 +931,7 @@ class Product extends ZMObject
         $imageInfo = Beans::getBean('ZMImageInfo');
         $imageInfo->setAltText($this->name);
         $imageInfo->setDefaultImage($this->image);
+
         return $imageInfo;
     }
 
@@ -1011,6 +1013,7 @@ class Product extends ZMObject
         $languageId = null !== $languageId ? $languageId : $this->container->get('session')->getLanguageId();
 
         $categoryService = $this->container->get('categoryService');
+
         return null != $this->masterCategoryId ? $categoryService->getCategoryForId($this->masterCategoryId, $languageId) :
             $categoryService->getDefaultCategoryForProductId($this->getId(), $languageId);
     }
@@ -1090,6 +1093,7 @@ class Product extends ZMObject
         if (!array_key_exists('languageId', $args)) {
             $args['languageId'] = $this->getLanguageId();
         }
+
         return $this->container->get('productAssociationService')->getProductAssociationsForProductId($this->getId(), $type, $args, $all);
     }
 
@@ -1197,6 +1201,7 @@ class Product extends ZMObject
     public function addDescription(\ZenMagick\StoreBundle\Entity\Catalog\ProductDescription $descriptions)
     {
         $this->descriptions[] = $descriptions;
+
         return $this;
     }
 

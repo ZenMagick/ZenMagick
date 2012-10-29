@@ -97,6 +97,7 @@ class SearchController extends \ZMController
             $resultList->setPageNumber($request->query->getInt('page'));
             $args = array('request' => $request, 'searchCriteria' => $searchCriteria, 'resultList' => $resultList, 'autoSearch' => $this->isAutoSearch());
             $this->container->get('event_dispatcher')->dispatch('search', new GenericEvent($this, $args));
+
             return $this->findView('results', array('resultList' => $resultList));
         }
 

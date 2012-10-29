@@ -55,6 +55,7 @@ class ZMRuntime
         if (is_array(self::$databaseMap_[$conf])) {
             self::$databaseMap_[$conf] = Doctrine\DBAL\DriverManager::getConnection(self::$databaseMap_[$conf]);
         }
+
         return self::$databaseMap_[$conf];
     }
 

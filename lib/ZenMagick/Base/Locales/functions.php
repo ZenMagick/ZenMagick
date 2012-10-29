@@ -31,6 +31,7 @@ function _zm($text, $domain = 'messages')
         $trans = $container->get('translator')->trans($text, array(), $domain);
         if ('' != $trans) return $trans;
     }
+
     return $text;
 }
 

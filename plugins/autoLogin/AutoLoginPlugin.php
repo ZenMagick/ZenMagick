@@ -80,6 +80,7 @@ class AutoLoginPlugin extends Plugin
         if (isset($_COOKIE[AUTO_LOGIN_COOKIE])) {
             // prepare cookie data
             $cookie = explode('~~~', $_COOKIE[AUTO_LOGIN_COOKIE]);
+
             return $tokenService->getTokenForHash($cookie[0]);
         }
 
@@ -89,6 +90,7 @@ class AutoLoginPlugin extends Plugin
                 // expire after first use (set lifetime to 0)
                 $tokenService->updateToken($token, 0);
             }
+
             return $token;
         }
 

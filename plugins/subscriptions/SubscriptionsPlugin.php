@@ -117,6 +117,7 @@ class SubscriptionsPlugin extends Plugin
     public function getSelectedSchedule()
     {
         $schedule = $this->container->get('session')->get('subscription_schedule');
+
         return empty($schedule) ? null : $schedule;
     }
 
@@ -134,6 +135,7 @@ class SubscriptionsPlugin extends Plugin
                 'enquire' => _zm("Enquire order status"),
                 'other' => _zm("Other"),
         );
+
         return $this->container->get('settingsService')->get('plugins.zm_subscriptions.request.types', $defaults);
     }
 
@@ -152,6 +154,7 @@ class SubscriptionsPlugin extends Plugin
             '4w' => array('name' => 'Every four weeks', 'active' => true),
             '1m' => array('name' => 'Once a month', 'active' => true)
         );
+
         return $this->container->get('settingsService')->get('plugins.zm_subscriptions.schedules', $defaults);
     }
 
@@ -206,6 +209,7 @@ class SubscriptionsPlugin extends Plugin
             $schedule = ($factor * (int) $bits[0]) . ' ' . $bits[1];
 
         }
+
         return $schedule;
     }
 

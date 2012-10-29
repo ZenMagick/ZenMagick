@@ -162,6 +162,7 @@ class ToolboxMacro extends ToolboxTool
                 $html .= $toolbox->html->encode(_zm($crumb->getName()));
             }
         }
+
         return $html;
     }
 
@@ -229,6 +230,7 @@ class ToolboxMacro extends ToolboxTool
         echo '</ul>';
 
         $html = $root ? ob_get_clean() : '';
+
         return $html;
     }
 
@@ -342,6 +344,7 @@ class ToolboxMacro extends ToolboxTool
             array_push($elements, $radio);
         }
         $element['html'] = $elements;
+
         return $element;
     }
 
@@ -370,6 +373,7 @@ class ToolboxMacro extends ToolboxTool
             array_push($elements, $checkbox);
         }
         $element['html'] = $elements;
+
         return $element;
     }
 
@@ -398,6 +402,7 @@ class ToolboxMacro extends ToolboxTool
             array_push($elements, $text);
         }
         $element['html'] = $elements;
+
         return $element;
     }
 
@@ -428,6 +433,7 @@ class ToolboxMacro extends ToolboxTool
             array_push($elements, $text);
         }
         $element['html'] = $elements;
+
         return $element;
     }
 
@@ -449,6 +455,7 @@ class ToolboxMacro extends ToolboxTool
             array_push($elements, $value->getName());
         }
         $element['html'] = $elements;
+
         return $element;
     }
 
@@ -474,6 +481,7 @@ class ToolboxMacro extends ToolboxTool
         $html .= '</select>';
         array_push($elements, $html);
         $element['html'] = $elements;
+
         return $element;
     }
 
@@ -506,7 +514,6 @@ class ToolboxMacro extends ToolboxTool
             $label .= sprintf(_zm(' (%s%s)'), $value->getPricePrefix(), $toolbox->utils->formatMoney(abs($value->getPrice())));
         }
         //TODO: onetime and weight
-
         return $label;
     }
 

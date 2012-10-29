@@ -56,6 +56,7 @@ class GuestHistoryController extends \ZMController
             return $this->findView('success', array('currentOrder' => $order));
         } else {
             $this->messageService->warn(_zm('No order information found'));
+
             return $this->findView();
         }
     }

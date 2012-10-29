@@ -36,6 +36,7 @@ class ResetPasswordController extends \ZMController
         $user = $adminUserService->getUserForEmail($email);
         if (null === $user) {
             $this->messageService->error(sprintf(_zm("Sorry, there is no account with the email address '%s'."), $email));
+
             return $this->findView();
         }
 

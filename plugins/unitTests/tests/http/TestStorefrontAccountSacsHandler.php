@@ -39,6 +39,7 @@ class TestStorefrontAccountSacsHandler extends TestCase
     {
         $sacsManager = new SacsManager();
         $sacsManager->load($this->getTestsBaseDirectory().'/http/config/level_sacs_mappings.yaml');
+
         return $sacsManager;
     }
 
@@ -52,6 +53,7 @@ class TestStorefrontAccountSacsHandler extends TestCase
     {
         $account = new MockAccount();
         $account->setType($level);
+
         return $account;
     }
 

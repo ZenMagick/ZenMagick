@@ -67,6 +67,7 @@ class ProductGroupPricings extends ZMObject
                 AND group_id = :groupId".$dateLimit;
         $sql .= " ORDER BY start_date ASC";
         $args = array('productId' => $productId, 'groupId' => $groupId, 'endDate' => null);
+
         return ZMRuntime::getDatabase()->fetchAll($sql, $args, 'product_group_pricing', 'ZenMagick\plugins\productGroupPricing\model\ProductGroupPricing');
     }
 
@@ -81,6 +82,7 @@ class ProductGroupPricings extends ZMObject
         $sql = "SELECT * FROM %table.product_group_pricing%
                 WHERE group_pricing_id = :id";
         $args = array('id' => $groupPricingId);
+
         return ZMRuntime::getDatabase()->querySingle($sql, $args, 'product_group_pricing', 'ZenMagick\plugins\productGroupPricing\model\ProductGroupPricing');
     }
 
@@ -104,6 +106,7 @@ class ProductGroupPricings extends ZMObject
     public function updateProductGroupPricing($groupPricing)
     {
         ZMRuntime::getDatabase()->updateModel('product_group_pricing', $groupPricing);
+
         return $groupPricing;
     }
 

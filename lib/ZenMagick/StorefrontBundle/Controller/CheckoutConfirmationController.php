@@ -45,6 +45,7 @@ class CheckoutConfirmationController extends \ZMController
             $orderFormContent = $paymentType->getOrderFormContent($request);
             $orderFormUrl = $paymentType->getOrderFormUrl($request);
         }
+
         return array('shoppingCart' => $shoppingCart, 'orderFormContent' => $orderFormContent, 'orderFormUrl' => $orderFormUrl);
     }
 
@@ -87,12 +88,14 @@ class CheckoutConfirmationController extends \ZMController
 
         if ($settingsService->get('isConditionsMessage') && !Toolbox::asBoolean($request->request->get('conditions'))) {
             $this->messageService->error(_zm('Please confirm the terms and conditions bound to this order by ticking the box below.'));
+
             return $this->findView();
         }
 
         if (null != ($paymentMethod = $request->request->get('payment'))) {
             $request->getSession()->set('payment', $paymentMethod);
         }
+
         return $this->processGet($request);
     }
 }

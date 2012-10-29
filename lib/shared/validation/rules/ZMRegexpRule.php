@@ -85,6 +85,7 @@ class ZMRegexpRule extends ZMRule
         $js .= ",'".addslashes($this->getErrorMsg())."'";
         $js .= ",".'"'.$this->regexp_.'"';
         $js .= ")";
+
         return $js;
     }
 

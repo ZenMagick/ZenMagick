@@ -168,6 +168,7 @@ class Block extends ZMObject
     public function setTemplate($template)
     {
         $this->template = $template;
+
         return $this;
     }
 
@@ -190,6 +191,7 @@ class Block extends ZMObject
     public function setFormat($format)
     {
         $this->format = $format;
+
         return $this;
     }
 

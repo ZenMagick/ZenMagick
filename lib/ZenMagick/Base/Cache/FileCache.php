@@ -98,6 +98,7 @@ class FileCache extends ZMObject implements Cache
     public function lookup($id)
     {
         $this->cache_->clean($this->group_, 'old');
+
         return $this->cache_->get($id, $this->group_);
     }
 
@@ -135,6 +136,7 @@ class FileCache extends ZMObject implements Cache
     {
         $filesystem = new Filesystem;
         $filesystem->mkdir($dir);
+
         return file_exists($dir) && is_writeable($dir);
     }
 

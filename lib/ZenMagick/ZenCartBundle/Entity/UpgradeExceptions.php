@@ -65,6 +65,7 @@ class UpgradeExceptions
     public function setSqlFile($sqlFile)
     {
         $this->sqlFile = $sqlFile;
+
         return $this;
     }
 

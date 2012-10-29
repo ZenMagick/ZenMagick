@@ -88,6 +88,7 @@ class XCache implements Cache
                 }
             }
         }
+
         return true;
     }
 
@@ -99,6 +100,7 @@ class XCache implements Cache
         if (!xcache_isset($this->group_.'/'.$id)) {
             return false;
         }
+
         return xcache_get($this->group_.'/'.$id);
     }
 
@@ -108,6 +110,7 @@ class XCache implements Cache
     public function remove($id)
     {
         $this->lastModified_ = time();
+
         return xcache_unset($this->group_.'/'.$id);
     }
 
@@ -117,6 +120,7 @@ class XCache implements Cache
     public function save($data, $id)
     {
         $this->lastModified_ = time();
+
         return xcache_set($this->group_.'/'.$id, $data, $this->lifetime_);
     }
 

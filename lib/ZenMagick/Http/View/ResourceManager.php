@@ -167,6 +167,7 @@ class ResourceManager extends ZMObject
             if (self::FOOTER == $this->resources_['js'][$filename]['position']) {
                 if (self::HEADER == $position) {
                     Runtime::getLogging()->debug('upgrading '.$filename.' to HEADER');
+
                     return;
                 }
             }
@@ -218,6 +219,7 @@ class ResourceManager extends ZMObject
                 if (null != ($uri= $this->file2uri($path))) {
                     $url = $this->container->get('netTool')->absoluteUrl($uri);
                     Runtime::getLogging()->debug(sprintf('resolved file "%s" as url: %s; path=%s', $resource, $url, $path));
+
                     return $url;
                 }
             }
@@ -249,11 +251,13 @@ class ResourceManager extends ZMObject
         $docRoot = realpath($this->container->get('settingsService')->get('zencart.root_dir'));
         if (empty($filename) || empty($docRoot)) {
             Runtime::getLogging()->warn(sprintf('cannot convert t"%s" to url; docroot: %s', $filename, $docRoot));
+
             return null;
         }
         if (!$virtual && 0 !== strpos($filename, $docRoot)) {
             // outside docroot
             Runtime::getLogging()->warn(sprintf('cannot convert t"%s" to url (basedir); docroot: %s', $filename, $docRoot));
+
             return null;
         }
 
@@ -370,6 +374,7 @@ class ResourceManager extends ZMObject
     {
         $key = sprintf('<!--ZenMagick:fragment:%s-->', $name);
         $this->fragments[$key] = $value;
+
         return $key;
     }
 

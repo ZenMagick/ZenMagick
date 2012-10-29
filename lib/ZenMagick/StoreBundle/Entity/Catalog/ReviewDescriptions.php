@@ -141,6 +141,7 @@ class ReviewDescriptions extends ZMObject
     public function setReview(\ZenMagick\StoreBundle\Entity\Catalog\Review $review)
     {
         $this->review = $review;
+
         return $this;
     }
 

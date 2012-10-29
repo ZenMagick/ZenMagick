@@ -70,6 +70,7 @@ class PaymentSurchargePlugin extends Plugin implements \ZMOrderTotal
                         break;
                     default:
                         $this->container->get('logger')->err('invalid condition value type: ' . $cvalueType);
+
                         return null;
                     }
                 }

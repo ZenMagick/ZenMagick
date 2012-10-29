@@ -69,6 +69,7 @@ class ForwardView extends ZMObject implements View
     public function isValid()
     {
         $requestId = $this->getRequestId();
+
         return !empty($requestId);
     }
 

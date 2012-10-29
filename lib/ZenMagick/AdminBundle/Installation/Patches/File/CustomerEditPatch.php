@@ -114,6 +114,7 @@ class CustomerEditPatch extends FilePatch
             return $this->putFileLines($this->customersAdminFile, $patchedLines);
         } else {
             Runtime::getLogging()->err("** ZenMagick: no permission to patch edit fix into customers.php");
+
             return false;
         }
 
@@ -144,6 +145,7 @@ class CustomerEditPatch extends FilePatch
             return $this->putFileLines($this->customersAdminFile, $unpatchedLines);
         } else {
             Runtime::getLogging()->err("** ZenMagick: no permission to patch customers.php for uninstall");
+
             return false;
         }
 

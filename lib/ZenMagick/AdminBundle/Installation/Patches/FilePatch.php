@@ -97,6 +97,7 @@ class FilePatch extends InstallationPatch
             if (!$fileExists) {
                 $this->setFilePerms($file);
             }
+
             return true;
         }
 
@@ -115,6 +116,7 @@ class FilePatch extends InstallationPatch
         if ($handle) {
             $contents = fread($handle, filesize($file));
             fclose($handle);
+
             return $contents;
         }
 
@@ -138,6 +140,7 @@ class FilePatch extends InstallationPatch
             if (!$fileExists) {
                 $this->setFilePerms($file);
             }
+
             return true;
         }
 

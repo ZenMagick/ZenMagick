@@ -121,6 +121,7 @@ class ZMLiftSuggestLookup extends LiftSuggestLookup implements ContainerAwareInt
         }
 
         $this->storeInSession('reco_prods', $recommended);
+
         return $recommendations;
     }
 

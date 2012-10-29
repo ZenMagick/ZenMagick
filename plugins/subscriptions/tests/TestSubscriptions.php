@@ -86,6 +86,7 @@ class TestSubscriptions extends TestCase
     {
         if (!interface_exists('ZenMagick\plugins\cron\jobs\CronJobInterface')) {
             $this->skipIf(true, 'Cron not available');
+
             return;
         }
 

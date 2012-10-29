@@ -55,6 +55,7 @@ class TestMinifyResourceManager extends TestCase
         $themeResourceResolver = new ThemeResourceResolver();
         $themeResourceResolver->setContainer($this->container);
         $view->setResourceResolver($themeResourceResolver);
+
         return $resourceManager;
     }
 

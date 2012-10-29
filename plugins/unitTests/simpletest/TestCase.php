@@ -87,6 +87,7 @@ class TestCase extends UnitTestCase
         if (is_array($second)) {
             return $this->assert(new ArrayEqualExpectation($first), $second, $message);
         }
+
         return parent::assertEqual($first, $second, $message);
     }
 
@@ -106,6 +107,7 @@ class TestCase extends UnitTestCase
             );
             $this->reporter->zmPaintFail($details);
         }
+
         return $result;
     }
 

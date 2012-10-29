@@ -91,6 +91,7 @@ class TaxService extends ZMObject
                 $taxRate->setZoneId($zoneId);
                 $taxRate->setRate(0);
                 $this->taxRates[$taxRateId] = $taxRate;
+
                 return $taxRate;
             }
         }
@@ -119,6 +120,7 @@ class TaxService extends ZMObject
             $taxRate->setZoneId($zoneId);
             $taxRate->setRate(($multiplier - 1.0) * 100);
             $this->taxRates[$taxRateId] = $taxRate;
+
             return $taxRate;
         }
 
@@ -129,6 +131,7 @@ class TaxService extends ZMObject
         $taxRate->setZoneId($zoneId);
         $taxRate->setRate(0);
         $this->taxRates[$taxRateId] = $taxRate;
+
         return $taxRate;
     }
 
@@ -156,6 +159,7 @@ class TaxService extends ZMObject
             if (null !== $description) { $description .= _zm($this->container->get('settingsService')->get('tax.delim', ' + ')); }
             $description .= $result['description'];
         }
+
         return $description;
     }
 
@@ -194,6 +198,7 @@ class TaxService extends ZMObject
     {
         $sql = "SELECT * FROM %table.tax_class%
                 WHERE tax_class_id = :taxClassId";
+
         return ZMRuntime::getDatabase()->querySingle($sql, array('taxClassId' => $id), 'tax_class', 'ZenMagick\StoreBundle\Entity\TaxClass');
     }
 

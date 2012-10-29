@@ -37,6 +37,7 @@ class CountrySelectFormWidget extends SelectFormWidget
         foreach ($this->container->get('countryService')->getCountries() as $country) {
             $options[$country->getId()] = $country->getName();
         }
+
         return $options;
     }
 

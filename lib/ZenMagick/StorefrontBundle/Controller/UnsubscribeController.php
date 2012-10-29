@@ -41,6 +41,7 @@ class UnsubscribeController extends \ZMController
     {
         if (!$this->container->get('settingsService')->get('isAllowAnonymousUnsubscribe')) {
             $this->messageService->error(_zm('In order to unsubscribe you need to login first.'));
+
             return $this->findView();
         }
 

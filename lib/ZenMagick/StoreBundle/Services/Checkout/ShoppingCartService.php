@@ -180,6 +180,7 @@ class ShoppingCartService extends ZMObject
         $shoppingCart = Beans::getBean('ZenMagick\StoreBundle\Model\Checkout\ShoppingCart');
         $shoppingCart->setCheckoutHelper($this->container->get('checkoutHelper'));
         $shoppingCart->setContents($this->getContentsForAccountId($accountId));
+
         return $shoppingCart;
     }
 
@@ -192,6 +193,7 @@ class ShoppingCartService extends ZMObject
                 VALUES(:sesskey, :customers_id, :files_uploaded_name)";
         $args = array('sesskey' => $sessionId, 'customers_id' => $accountId, 'files_uploaded_name' => $filename);
         ZMRuntime::getDatabase()->updateObj($sql, $args, 'files_uploaded');
+
         return ZMRuntime::getDatabase()->lastInsertId();
     }
 

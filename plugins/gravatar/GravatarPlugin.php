@@ -66,6 +66,7 @@ class GravatarPlugin extends Plugin
 
         }
         $rating = $this->get('rating');
+
         return $this->pullGravatar($email, $size, $imageSet, $rating, $img, $attributes);
     }
 
@@ -97,6 +98,7 @@ class GravatarPlugin extends Plugin
                 $url .= ' ' . $key . '="' . $val . '"';
             $url .= ' '.$slash.'>';
         }
+
         return $url;
     }
 

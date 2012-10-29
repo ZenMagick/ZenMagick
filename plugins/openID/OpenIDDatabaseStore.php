@@ -151,6 +151,7 @@ class OpenIDDatabaseStore extends Auth_OpenID_OpenIDStore
                 WHERE server_url = :server_url AND handle = :handle";
         $args = array('server_url' => $server_url, 'handle' => $handle);
         ZMRuntime::getDatabase()->updateObj($sql, $args, 'zm_openid_associations');
+
         return true;
     }
 
@@ -168,6 +169,7 @@ class OpenIDDatabaseStore extends Auth_OpenID_OpenIDStore
                 VALUES (:server_url, :issued, :salt)";
         $args = array('server_url' => $server_url, 'issued' => $issued, 'salt' => $salt);
         ZMRuntime::getDatabase()->updateObj($sql, $args, 'zm_openid_nonces');
+
         return true;
     }
 
@@ -181,6 +183,7 @@ class OpenIDDatabaseStore extends Auth_OpenID_OpenIDStore
         $sql = "DELETE FROM %table.zm_openid_nonces%
                 WHERE issued < :issued";
         $args = array('issued' => $timestamp);
+
         return ZMRuntime::getDatabase()->updateObj($sql, $args, 'zm_openid_nonces');
     }
 
@@ -193,6 +196,7 @@ class OpenIDDatabaseStore extends Auth_OpenID_OpenIDStore
                 WHERE (issued + lifetime) < :lifetime";
         // use lifetime mapping to compare times...
         $args = array('lifetime' => time());
+
         return ZMRuntime::getDatabase()->updateObj($sql, $args, 'zm_openid_associations');
     }
 

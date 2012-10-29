@@ -61,6 +61,7 @@ class Request extends HttpFoundationRequest
     public function isXmlHttpRequest()
     {
         $ajax = $this->getParameter('ajax', null);
+
         return $ajax != null ? Toolbox::asBoolean($ajax) : parent::isXmlHttpRequest();
     }
 
@@ -139,6 +140,7 @@ class Request extends HttpFoundationRequest
                 return $sanitize ? self::sanitize($this->$parameterBag->get($name)) : $this->$parameterBag->get($name);
             }
         }
+
         return $default;
     }
 
@@ -194,6 +196,7 @@ class Request extends HttpFoundationRequest
             if ($clear) {
                 $this->getSession()->set('http.followUpUrl', null);
             }
+
             return $this->url($data['requestId'], implode('&', $params), $data['secure']);
         }
 
@@ -214,11 +217,13 @@ class Request extends HttpFoundationRequest
             if (function_exists('get_magic_quotes_gpc') && get_magic_quotes_gpc()) {
                 $value = stripslashes($value);
             }
+
             return trim($value);
         } elseif (is_array($value)) {
             while (list($key, $val) = each($value)) {
                 $value[$key] = self::sanitize($val);
             }
+
             return $value;
         }
 

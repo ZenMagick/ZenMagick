@@ -90,6 +90,7 @@ class ZMRpcRequestJSON implements ZMRpcRequest
     {
         $rpcResponse = Beans::getBean('ZMRpcResponseJSON');
         $rpcResponse->setRpcRequest($this);
+
         return $rpcResponse;
     }
 

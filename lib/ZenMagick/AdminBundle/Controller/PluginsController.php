@@ -38,6 +38,7 @@ class PluginsController extends \ZMController
     public function getViewData($request)
     {
         $pluginList = $this->container->get('pluginService')->getAllPlugins(false);
+
         return array('pluginList' => $pluginList);
     }
 
@@ -65,6 +66,7 @@ class PluginsController extends \ZMController
                 $widgets[] = $widget;
             }
         }
+
         return $widgets;
     }
 
@@ -184,6 +186,7 @@ class PluginsController extends \ZMController
         }
 
         $this->container->get('pluginStatusMapBuilder')->getStatusMap(true);
+
         return $this->findView($viewId);
     }
 
@@ -277,6 +280,7 @@ class PluginsController extends \ZMController
 
         // do this last once all changes are made
         $this->container->get('pluginStatusMapBuilder')->getStatusMap(true);
+
         return $this->findView($viewId);
     }
 

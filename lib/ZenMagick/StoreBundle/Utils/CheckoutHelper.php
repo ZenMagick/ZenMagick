@@ -218,6 +218,7 @@ class CheckoutHelper extends ZMObject
         } elseif (!$physical) {
             return self::CART_TYPE_VIRTUAL;
         }
+
         return self::CART_TYPE_MIXED;
     }
 
@@ -294,6 +295,7 @@ class CheckoutHelper extends ZMObject
         $round_ceil = (int) ($round);
         $multiplier = $round_ceil * $y;
         $result = abs(round($x - $multiplier, 6));
+
         return $result;
     }
 
@@ -324,14 +326,17 @@ class CheckoutHelper extends ZMObject
                 if ($messages) {
                     $flashBag->warn('Products marked as "Out Of Stock" will be placed on backorder.');
                 }
+
                 return true;
             } else {
                 if ($messages) {
                     $flashBag->error('The shopping cart contains products currently out of stock. To checkout you may either lower the quantity or remove those products from the cart.');
                 }
+
                 return false;
             }
         }
+
         return true;
     }
 
@@ -354,6 +359,7 @@ class CheckoutHelper extends ZMObject
             if (!$request->isXmlHttpRequest()) {
                 $request->saveFollowUpUrl();
             }
+
             return "login";
         }
 
@@ -364,6 +370,7 @@ class CheckoutHelper extends ZMObject
             if ($showMessages) {
                 $session->getFlashBag()->error(_zm('Please update your order ...'));
             }
+
             return "cart_not_ready";
         }
 
@@ -377,7 +384,6 @@ class CheckoutHelper extends ZMObject
 
         // TODO: check for free shipping and return back to shipping page if so?
         // or just add message about qualifying and leave it to the user?
-
         return null;
     }
 
@@ -414,6 +420,7 @@ class CheckoutHelper extends ZMObject
                 if ($showMessages) {
                     $session->getFlashBag()->error(_zm('Please provide a shipping address'));
                 }
+
                 return "require_shipping_address";
             }
         }
@@ -424,6 +431,7 @@ class CheckoutHelper extends ZMObject
                 if ($showMessages) {
                     $session->getFlashBag()->error(_zm('Please provide a billing address'));
                 }
+
                 return "require_billing_address";
             }
         }
@@ -452,6 +460,7 @@ class CheckoutHelper extends ZMObject
 
         if (null != ($hash = $this->shoppingCart_->getHash())) {
             $request->getSession()->set('shoppingCartHash', $hash);
+
             return true;
         }
 

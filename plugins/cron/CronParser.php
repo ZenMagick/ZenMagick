@@ -92,6 +92,7 @@ class CronParser
                 }
             }
         }
+
         return $configured;
     }
 
@@ -140,6 +141,7 @@ class CronParser
                 }
             }
         }
+
         return $jobs;
     }
 

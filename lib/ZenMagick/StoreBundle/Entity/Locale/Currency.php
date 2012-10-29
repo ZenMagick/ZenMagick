@@ -271,6 +271,7 @@ class Currency extends ZMObject
             $ratedValue *= -1;
         }
         $formattedAmount = number_format($ratedValue, $this->decimalPlaces, $this->decimalPoint, $this->thousandsPoint);
+
         return ($isNegative ? '-' : '').$this->symbolLeft .  $formattedAmount . $this->symbolRight;
     }
 

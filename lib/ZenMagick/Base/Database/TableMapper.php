@@ -128,6 +128,7 @@ class TableMapper extends ZMObject
     public function ensureMapping($mapping)
     {
         if (!is_array($mapping)) { // table name
+
             return $this->getMapping($mapping);
         }
         // either mapping or table list

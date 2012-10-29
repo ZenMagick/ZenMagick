@@ -98,6 +98,7 @@ class Locales extends ZMObject
         if (1 < count($token)) {
             $codes[] = $token[0];
         }
+
         return $codes;
     }
 
@@ -138,6 +139,7 @@ class Locales extends ZMObject
                 return $this->formats[$group][$type];
             }
         }
+
         return null;
     }
 

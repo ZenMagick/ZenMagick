@@ -37,6 +37,7 @@ class ManageRolesController extends \ZMController
         $sacsManager = $this->container->get('sacsManager');
         $mappings = $sacsManager->getMappings();
         $defaultMapping = $sacsManager->getDefaultMapping();
+
         return array('roles' => $roles, 'mappings' => $mappings, 'defaultMapping' => $defaultMapping);
     }
 

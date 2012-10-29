@@ -70,6 +70,7 @@ class FormTokenSessionValidator extends ZMObject implements SessionValidator
                 $valid = ($session->getToken() == $token);
             }
         }
+
         return $valid;
     }
 

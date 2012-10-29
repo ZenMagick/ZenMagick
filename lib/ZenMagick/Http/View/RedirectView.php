@@ -65,6 +65,7 @@ class RedirectView extends ZMObject implements View
     public function generate($request, $template=null, $variables=array())
     {
         $request->redirect($this->getRedirectUrl($request), $this->status_);
+
         return null;
     }
 
@@ -143,6 +144,7 @@ class RedirectView extends ZMObject implements View
     public function getRedirectUrl($request)
     {
         $secure = $this->secure || $this->container->get('sacsManager')->requiresSecurity($this->getRequestId());
+
         return ((null != $this->url_) ? $this->url_ : $this->container->get('netTool')->url($this->getRequestId(), $this->parameter_, $secure));
     }
 

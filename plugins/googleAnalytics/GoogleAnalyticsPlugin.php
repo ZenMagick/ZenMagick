@@ -92,6 +92,7 @@ class GoogleAnalyticsPlugin extends Plugin
             $address = $order->getBillingAddress();
             break;
         }
+
         return $address;
     }
 
@@ -142,6 +143,7 @@ class GoogleAnalyticsPlugin extends Plugin
             // nothing
             break;
         }
+
         return $view;
     }
 
@@ -190,6 +192,7 @@ EOT;
         }
         if (null == $this->order_) {
             Runtime::getLogging()->warn('no order to process');
+
             return;
         }
 
@@ -279,6 +282,7 @@ EOT;
         if ('checkout_success' == $request->getRequestId()) {
             if (null == $this->order_) {
                 Runtime::getLogging()->warn('no order to process');
+
                 return;
             }
 

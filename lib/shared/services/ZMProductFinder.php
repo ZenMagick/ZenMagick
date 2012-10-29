@@ -94,6 +94,7 @@ class ZMProductFinder extends ZMObject
     public function execute()
     {
         $queryDetails = $this->buildQuery($this->criteria_);
+
         return $queryDetails;
     }
 
@@ -281,6 +282,7 @@ class ZMProductFinder extends ZMObject
 
         $sql = $select . $from . $where . $sort;
         $tables = array('products', 'products_description', 'manufacturers', 'categories', 'tax_rates', 'zones_to_geo_zones');
+
         return new QueryDetails(ZMRuntime::getDatabase(), $sql, $args, $tables, null, 'p.products_id');
     }
 

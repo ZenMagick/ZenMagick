@@ -86,6 +86,7 @@ class ContextConfigLoader extends ZMObject
             $this->classLoader = new \Composer\AutoLoad\ClassLoader();
             $this->classLoader->register();
         }
+
         return $this->classLoader;
     }
 
@@ -144,6 +145,7 @@ class ContextConfigLoader extends ZMObject
     {
         $config = $this->resolve($context);
         $this->apply($config);
+
         return $config;
     }
 

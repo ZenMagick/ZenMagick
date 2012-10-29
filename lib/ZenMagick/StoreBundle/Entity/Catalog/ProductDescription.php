@@ -88,6 +88,7 @@ class ProductDescription
     public function setProductId($productId)
     {
         $this->productId = $productId;
+
         return $this;
     }
 
@@ -110,6 +111,7 @@ class ProductDescription
     public function setLanguageId($languageId)
     {
         $this->languageId = $languageId;
+
         return $this;
     }
 
@@ -132,6 +134,7 @@ class ProductDescription
     public function setName($name)
     {
         $this->name = $name;
+
         return $this;
     }
 
@@ -154,6 +157,7 @@ class ProductDescription
     public function setDescription($description)
     {
         $this->description = $description;
+
         return $this;
     }
 
@@ -176,6 +180,7 @@ class ProductDescription
     public function setUrl($url)
     {
         $this->url = $url;
+
         return $this;
     }
 
@@ -198,6 +203,7 @@ class ProductDescription
     public function setViewed($viewed)
     {
         $this->viewed = $viewed;
+
         return $this;
     }
 

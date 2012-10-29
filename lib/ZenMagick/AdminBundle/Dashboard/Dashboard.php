@@ -39,6 +39,7 @@ class Dashboard extends ZMObject
     public function getLayout($adminId)
     {
         $config = $this->getConfig($adminId);
+
         return $config['layout'];
     }
 
@@ -51,6 +52,7 @@ class Dashboard extends ZMObject
     public function getColumns($adminId)
     {
         $config = $this->getConfig($adminId);
+
         return preg_replace('/[^\d]/', '', $config['layout']);
     }
 
@@ -72,6 +74,7 @@ class Dashboard extends ZMObject
             $widget->setId($token[0]);
             $widgets[] = $widget;
         }
+
         return $widgets;
     }
 
@@ -107,6 +110,7 @@ class Dashboard extends ZMObject
             $widget->setId($id);
             $available[] = $widget;
         }
+
         return $available;
     }
 
@@ -140,6 +144,7 @@ class Dashboard extends ZMObject
         }
         // and again, just in case
         $config = array_merge(array('layout' => "col2l", 'widgets' => array()), $config);
+
         return $config;
     }
 

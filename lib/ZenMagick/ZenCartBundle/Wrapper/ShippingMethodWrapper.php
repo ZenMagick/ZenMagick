@@ -104,6 +104,7 @@ class ShippingMethodWrapper extends ZMObject implements \ZMShippingMethod
     public function getShippingId()
     {
         $id = $this->provider_->getId() . '_' . $this->getId();
+
         return $id;
     }
 

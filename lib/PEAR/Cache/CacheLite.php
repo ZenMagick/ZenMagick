@@ -339,6 +339,7 @@ class CacheLite
                     if ($this->_automaticSerialization) {
                         return unserialize($this->_memoryCachingArray[$this->_file]);
                     }
+
                     return $this->_memoryCachingArray[$this->_file];
                 }
                 if ($this->_onlyMemoryCaching) {
@@ -360,8 +361,10 @@ class CacheLite
             if (($this->_automaticSerialization) and (is_string($data))) {
                 $data = unserialize($data);
             }
+
             return $data;
         }
+
         return false;
     }
 
@@ -400,6 +403,7 @@ class CacheLite
                     }
                     // if $res if false, we need to invalidate the cache
                     @touch($this->_file, time() - 2*abs($this->_lifeTime));
+
                     return false;
                 }
             } else {
@@ -411,8 +415,10 @@ class CacheLite
                     return false; // we return false (old API)
                 }
             }
+
             return $res;
         }
+
         return false;
     }
 
@@ -440,6 +446,7 @@ class CacheLite
         if ($checkbeforeunlink) {
             if (!file_exists($this->_file)) return true;
         }
+
         return $this->_unlink($this->_file);
     }
 
@@ -591,6 +598,7 @@ class CacheLite
         if (!@unlink($file)) {
             return $this->raiseError('Cache_Lite : Unable to remove cache !', -3);
         }
+
         return true;
     }
 
@@ -665,6 +673,7 @@ class CacheLite
                 }
             }
         }
+
         return $result;
     }
 
@@ -750,11 +759,14 @@ class CacheLite
                     } else {
                         @unlink($this->_file);
                     }
+
                     return false;
                 }
             }
+
             return $data;
         }
+
         return $this->raiseError('Cache_Lite : Unable to read cache !', -2);
     }
 
@@ -793,8 +805,10 @@ class CacheLite
             }
             if ($this->_fileLocking) @flock($fp, LOCK_UN);
             @fclose($fp);
+
             return true;
         }
+
         return $this->raiseError('Cache_Lite : Unable to write cache file : '.$this->_file, -1);
     }
 
@@ -818,6 +832,7 @@ class CacheLite
         if ((is_bool($dataRead)) && (!$dataRead)) {
             return false;
         }
+
         return ($dataRead==$data);
     }
 

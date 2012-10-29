@@ -148,6 +148,7 @@ class StorefrontController extends \ZMController
         foreach ($_SESSION as $k => $v) {
             $session->set($k, $v);
         }
+
         return new Response($content);
     }
 
@@ -161,6 +162,7 @@ class StorefrontController extends \ZMController
         $controllerFile = null;
         $autoLoader = $this->container->get('zencartAutoLoader');
         if ('ipn_handler' == $request->getRequestId()) { // @todo handle other common zencart entry points like googlebase
+
             return $autoLoader->resolveFile('ipn_main_handler.php');
         }
 
@@ -247,6 +249,7 @@ class StorefrontController extends \ZMController
         $canonicalLink = $this->getCanonicalUrl();
         $this_is_home_page = $this->isHomePage();
         $zv_onload = $this->getOnLoadJS();
+
         return compact('breadcrumb', 'canonicalLink', 'lng', 'robotsNoIndex', 'this_is_home_page', 'zv_onload');
     }
 
@@ -258,6 +261,7 @@ class StorefrontController extends \ZMController
     public function isHomePage()
     {
         $request = $this->container->get('request');
+
         return 'index' == $request->getRequestId() && $request->query->has('cPath')
             && null == $request->query->getInt('manufacturers_id') && '' == $request->query->get('type_filter', '');
     }
@@ -297,6 +301,7 @@ class StorefrontController extends \ZMController
         } else {
             $url = $this->get('netTool')->url($requestId, rtrim(zen_get_all_get_params($exclusionList), '&'));
         }
+
         return $url;
     }
 
@@ -318,6 +323,7 @@ class StorefrontController extends \ZMController
         foreach ($files as $file) {
             $js .= rtrim(file_get_contents($file), ';').';';
         }
+
         return $js;
     }
 

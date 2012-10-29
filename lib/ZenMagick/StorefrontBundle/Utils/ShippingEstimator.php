@@ -48,6 +48,7 @@ class ShippingEstimator extends ZMObject
         $request = $this->getRequest();
         $zip_code = (isset($_SESSION['cart_zip_code'])) ? $_SESSION['cart_zip_code'] : '';
         $zip_code = $request->request->has('zip_code') ? strip_tags(addslashes($request->request->get('zip_code'))) : $zip_code;
+
         return $zip_code;
     }
 
@@ -61,6 +62,7 @@ class ShippingEstimator extends ZMObject
         $request = $this->getRequest();
         $state_zone_id = (isset($_SESSION['cart_zone'])) ? (int) $_SESSION['cart_zone'] : '';
         $state_zone_id = $request->request->has('state') ? $request->request->get('state') : $state_zone_id;
+
         return $state_zone_id;
     }
 
@@ -78,6 +80,7 @@ class ShippingEstimator extends ZMObject
         } elseif ($_SESSION['cart_country_id']) {
             $countryId = $_SESSION['cart_country_id'];
         }
+
         return $countryId;
     }
 

@@ -74,6 +74,7 @@ class Offers extends ZMOffers
             if (null == $account) {
                 // no account, no price group
                 $this->productGroupPricing_ = null;
+
                 return null;
             }
 
@@ -81,6 +82,7 @@ class Offers extends ZMOffers
             if (null == $priceGroup) {
                 // no price group
                 $this->productGroupPricing_ = null;
+
                 return null;
             }
 

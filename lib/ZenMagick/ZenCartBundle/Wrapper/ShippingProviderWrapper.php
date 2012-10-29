@@ -100,6 +100,7 @@ class ShippingProviderWrapper extends ZMObject implements \ZMShippingProvider
     public function getShippingMethodForId($id, ShoppingCart $shoppingCart, $address=null)
     {
         $methods = $this->getShippingMethods($shoppingCart, $address);
+
         return (array_key_exists($id, $methods) ? $methods[$id] : null);
     }
 
@@ -127,6 +128,7 @@ class ShippingProviderWrapper extends ZMObject implements \ZMShippingProvider
         // capture error(s)
         if (is_array($quotes) && array_key_exists('error', $quotes)) {
             $this->errors_ = array($quotes['error']);
+
             return array();
         }
 

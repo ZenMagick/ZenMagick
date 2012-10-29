@@ -64,6 +64,7 @@ class ZMRequiredRule extends ZMRule
                 return true;
             }
         }
+
         return false;
     }
 
@@ -78,6 +79,7 @@ class ZMRequiredRule extends ZMRule
         $js .= ",'".$this->getJSName()."'";
         $js .= ",'".addslashes($this->getErrorMsg())."'";
         $js .= ")";
+
         return $js;
     }
 

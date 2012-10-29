@@ -53,6 +53,7 @@ class AdminUserRoleService extends ZMObject
     {
         $sql = "INSERT INTO %table.admin_roles% (name) VALUES(:name)";
         $result = \ZMRuntime::getDatabase()->createModel('admin_roles', array('name' => $name));
+
         return $result['admin_role_id'];
     }
 
@@ -71,6 +72,7 @@ class AdminUserRoleService extends ZMObject
                 WHERE admin_role_id = :admin_role_id";
         \ZMRuntime::getDatabase()->updateObj($sql, array('admin_role_id' => $roleId), 'admins_to_roles');
         \ZMRuntime::getDatabase()->removeModel('admins_to_roles', array('admin_role_id' => $roleId));
+
         return true;
     }
 

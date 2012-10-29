@@ -107,6 +107,7 @@ class AdminActivityLog
     public function setAccessDate($accessDate)
     {
         $this->accessDate = $accessDate;
+
         return $this;
     }
 
@@ -129,6 +130,7 @@ class AdminActivityLog
     public function setAdminId($adminId)
     {
         $this->adminId = $adminId;
+
         return $this;
     }
 
@@ -151,6 +153,7 @@ class AdminActivityLog
     public function setPageAccessed($pageAccessed)
     {
         $this->pageAccessed = $pageAccessed;
+
         return $this;
     }
 
@@ -173,6 +176,7 @@ class AdminActivityLog
     public function setPageParameters($pageParameters)
     {
         $this->pageParameters = $pageParameters;
+
         return $this;
     }
 
@@ -195,6 +199,7 @@ class AdminActivityLog
     public function setIpAddress($ipAddress)
     {
         $this->ipAddress = $ipAddress;
+
         return $this;
     }
 

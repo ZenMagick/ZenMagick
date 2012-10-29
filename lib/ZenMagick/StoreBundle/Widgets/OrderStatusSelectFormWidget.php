@@ -76,6 +76,7 @@ class OrderStatusSelectFormWidget extends SelectFormWidget
         foreach ($this->container->get('orderService')->getOrderStatusList($languageId) as $idp) {
             $options[$idp->getOrderStatusId()] = $idp->getName() . ($this->showKey_ ? ' ('.$idp->getOrderStatusId().')': '');
         }
+
         return $options;
     }
 

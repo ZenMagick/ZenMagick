@@ -54,6 +54,7 @@ class LatestAccountsDashboardWidget extends DashboardWidget
             $contents .= '</tr>';
         }
         $contents .= '</table>';
+
         return $contents;
     }
 

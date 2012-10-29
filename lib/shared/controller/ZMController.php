@@ -280,6 +280,7 @@ class ZMController extends Controller
 
         $view->setVariables($data);
         $this->view_ = $view;
+
         return $view;
     }
 
@@ -323,6 +324,7 @@ class ZMController extends Controller
             $view = $this->findView();
             // put form bean in context
             $view->setVariable($formData->getFormId(), $formData);
+
             return $view;
         }
 
@@ -416,6 +418,7 @@ class ZMController extends Controller
         if ($this->container->has('userFactory') && null != ($userFactory = $this->container->get('userFactory'))) {
             return $userFactory->getUser($this->container->get('request'));
         }
+
         return null;
     }
 
@@ -432,8 +435,10 @@ class ZMController extends Controller
     {
         if (!$this->getUser()->isLive()) {
             $this->messageService->warn(_zm('Sorry, the action you tried to excute is not available to demo users'));
+
             return true;
         }
+
         return false;
     }
 

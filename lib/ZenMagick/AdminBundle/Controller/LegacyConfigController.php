@@ -35,6 +35,7 @@ class LegacyConfigController extends \ZMController
         $configService = $this->container->get('configWidgetService');
         $group = $configService->getConfigGroupForId($groupId);
         $groupValues = $configService->getValuesForGroupId($groupId);
+
         return $this->findView(null, array('group' => $group, 'groupValues' => $groupValues));
     }
 

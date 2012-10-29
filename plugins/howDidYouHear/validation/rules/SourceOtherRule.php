@@ -77,6 +77,7 @@ class SourceOtherRule extends ZMRequiredRule
         $js .= ",'".$this->getJSName()."'";
         $js .= ",'".addslashes($this->getErrorMsg())."'";
         $js .= ")";
+
         return $js;
     }
 

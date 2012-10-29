@@ -57,6 +57,7 @@ class EditRoleController extends \ZMController
                 $permissions[$requestId] = array('type' => 'role', 'match' => 'name', 'allowed' => false);
             }
         }
+
         return $permissions;
     }
 
@@ -68,6 +69,7 @@ class EditRoleController extends \ZMController
         $role = $request->getParameter('role');
         $permissions = $this->getSacsPermissionInfo($role);
         ksort($permissions);
+
         return array('role' => $role, 'permissions' => $permissions);
     }
 

@@ -44,6 +44,7 @@ class Blocks extends ZMObject
         foreach (ZMRuntime::getDatabase()->fetchAll($sql, array(), 'block_groups') as $result) {
             $ids[] = $result['group_name'];
         }
+
         return $ids;
     }
 
@@ -60,6 +61,7 @@ class Blocks extends ZMObject
         $conn = ZMRuntime::getDatabase();
         $conn->updateObj($sql, $args, 'block_groups');
         $blockGroup->setId($conn->getResource()->lastInsertId());
+
         return $blockGroup;
         //return ZMRuntime::getDatabase()->createModel('block_groups', $blockGroup);
     }
@@ -92,6 +94,7 @@ class Blocks extends ZMObject
         $result = ZMRuntime::getDatabase()->querySingle($sql, array('group_name' => $groupName), 'block_groups');
 
         $sql = "SELECT * FROM %table.blocks_to_groups% WHERE block_group_id = :block_group_id ORDER BY sort_order";
+
         return ZMRuntime::getDatabase()->fetchAll($sql, array('block_group_id' => $result['block_group_id']), 'blocks_to_groups', 'ZenMagick\StoreBundle\Entity\Blocks\Block');
     }
 
@@ -116,6 +119,7 @@ class Blocks extends ZMObject
         );
         $data = ZMRuntime::getDatabase()->createModel('blocks_to_groups', $data);
         $block->setBlockId($data['blocks_to_groups_id']);
+
         return $block;
     }
 
@@ -133,6 +137,7 @@ class Blocks extends ZMObject
             'definition' => $block->getDefinition(),
             'sort_order' => $block->getSortOrder()
         );
+
         return ZMRuntime::getDatabase()->updateModel('blocks_to_groups', $data);
     }
 

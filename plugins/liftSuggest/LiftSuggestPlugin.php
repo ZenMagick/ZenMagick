@@ -45,6 +45,7 @@ class LiftSuggestPlugin extends Plugin
         $config['customerId'] = $this->get('customerId');
         $config['limit'] = $this->get('recommendationLimit');
         $config['domain'] = $this->get('domainName');
+
         return $config;
     }
 
@@ -159,6 +160,7 @@ EOT;
             // grab first
             $this->recommendationsLoadedFor = $productId;
         }
+
         return $lsr->getProductRecommendations($productId, $limit);
     }
 

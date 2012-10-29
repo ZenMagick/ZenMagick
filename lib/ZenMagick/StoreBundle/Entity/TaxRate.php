@@ -143,6 +143,7 @@ class TaxRate extends ZMObject
         if (null == $this->description) {
             $this->description = $this->container->get('taxService')->getTaxDescription($this->classId, $this->countryId, $this->zoneId);
         }
+
         return $this->description;
     }
 
@@ -278,6 +279,7 @@ class TaxRate extends ZMObject
     public function getTaxAmount($amount)
     {
         $currency = $this->getCurrency();
+
         return $amount * $this->rate / 100;
     }
 

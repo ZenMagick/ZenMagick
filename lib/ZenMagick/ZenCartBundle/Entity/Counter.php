@@ -37,6 +37,7 @@ class Counter
     public function setStartDate($startDate)
     {
         $this->startDate = $startDate;
+
         return $this;
     }
 
@@ -59,6 +60,7 @@ class Counter
     public function setCounter($counter)
     {
         $this->counter = $counter;
+
         return $this;
     }
 

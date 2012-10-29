@@ -547,6 +547,7 @@ class Order extends ZMObject
         $address->setState($this->get($prefix.'_state'));
         $address->setCountry($this->container->get('countryService')->getCountryForName($this->get($prefix.'_country')));
         $address->setFormat($this->get($prefix.'_address_format_id'));
+
         return $address;
     }
 
@@ -580,6 +581,7 @@ class Order extends ZMObject
         if (null === $this->shippingAddress) {
             $this->shippingAddress = $this->mkAddress('delivery');
         }
+
         return $this->shippingAddress;
     }
 
@@ -604,6 +606,7 @@ class Order extends ZMObject
         if (null === $this->billingAddress) {
             $this->billingAddress = $this->mkAddress('billing');
         }
+
         return $this->billingAddress;
     }
 
@@ -626,6 +629,7 @@ class Order extends ZMObject
     public function hasShippingAddress()
     {
         $address = $this->getShippingAddress();
+
         return !(Toolbox::isEmpty($address->getLastName()) || Toolbox::isEmpty($address->getAddressLine1()));
     }
 
@@ -708,6 +712,7 @@ class Order extends ZMObject
         foreach ($this->getOrderTotalLinesForType($type) as $line) {
             $amount += $line->getAmount();
         }
+
         return $amount;
     }
 

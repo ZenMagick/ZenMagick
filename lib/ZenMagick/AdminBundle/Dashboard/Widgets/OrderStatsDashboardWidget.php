@@ -56,6 +56,7 @@ class OrderStatsDashboardWidget extends DashboardWidget
             $contents .= '</tr>';
         }
         $contents .= '</table>';
+
         return $contents;
     }
 

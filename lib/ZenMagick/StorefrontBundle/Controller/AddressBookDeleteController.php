@@ -32,6 +32,7 @@ class AddressBookDeleteController extends \ZMController
     public function processGet($request)
     {
         $address = $this->container->get('addressService')->getAddressForId($request->getParameter('id'));
+
         return $this->findView(null, array('address' => $address));
     }
 
@@ -46,6 +47,7 @@ class AddressBookDeleteController extends \ZMController
             $this->container->get('addressService')->deleteAddressForId($addressId);
             $this->messageService->success(_zm('The selected address has been successfully removed from your address book.'));
         }
+
         return $this->findView('success');
     }
 

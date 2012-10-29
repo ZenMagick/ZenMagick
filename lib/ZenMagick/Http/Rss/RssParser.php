@@ -120,6 +120,7 @@ class RssParser
                 $valueBlock[$valueName] = $values;
             }
         }
+
         return $valueBlock;
     }
 
@@ -172,6 +173,7 @@ class RssParser
                 return $node->textContent;
             }
         }
+
         return $nodeValue;
     }
 

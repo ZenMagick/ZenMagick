@@ -48,6 +48,7 @@ class ContextYamlLoader extends YamlFileLoader
             }
         }
 die(var_dump(__FILE__, $yaml));
+
         return $this->validate($config, $file);
     }
 

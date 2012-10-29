@@ -48,6 +48,7 @@ class TestShoppingCartService extends TestCase
     protected function getAccountId()
     {
         $account = $this->getRequest()->getAccount();
+
         return $account ? $account->getId() : 0;
     }
 

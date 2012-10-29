@@ -42,6 +42,7 @@ class ZenMagickExtension extends Extension
             new XmlFileLoader($container, $locator),
             new PhpFileLoader($container, $locator),
         ));
+
         return new DelegatingLoader($resolver);
     }
 

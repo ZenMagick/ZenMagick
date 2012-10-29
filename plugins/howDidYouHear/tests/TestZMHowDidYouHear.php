@@ -88,6 +88,7 @@ class TestZMHowDidYouHear extends TestCase
             }
             $account->$method($value);
         }
+
         return $account;
     }
 

@@ -188,6 +188,7 @@ class ZMObject extends ContainerAware implements Serializable
                 if ($this instanceof $className) {
                     $margs = array_merge(array($this), $args);
                     $target = self::$methods[$method][$className];
+
                     return call_user_func_array($target, $margs);
                 }
             }
@@ -196,12 +197,14 @@ class ZMObject extends ContainerAware implements Serializable
                 if (0 === strpos($method, $prefix) && 0 == count($args)) {
                     $property = substr($method, strlen($prefix));
                     $property = strtolower($property[0]).substr($property, 1);
+
                     return $this->get($property);
                 }
             }
             if (0 === strpos($method, Beans::$SETTER_PREFIX) && 1 == count($args)) {
                 $property = substr($method, strlen(Beans::$SETTER_PREFIX));
                 $property = strtolower($property[0]).substr($property, 1);
+
                 return $this->set($property, $args[0]);
             }
         }
@@ -296,6 +299,7 @@ class ZMObject extends ContainerAware implements Serializable
             $first = false;
         }
         $s .= ']';
+
         return $s;
     }
 

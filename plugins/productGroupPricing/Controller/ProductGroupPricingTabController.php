@@ -53,6 +53,7 @@ class ProductGroupPricingTabController extends CatalogContentController
         if (null != ($groupPricingId = $request->getParameter('groupPricingId')) && 0 < $groupPricingId && null == $request->getParameter('delete')) {
             $productGroupPricing = $productGroupPricingService->getProductGroupPricingForId($groupPricingId);
         }
+
         return array(
             'groupId' => $groupId,
             'priceGroups' => $priceGroups,
@@ -73,6 +74,7 @@ class ProductGroupPricingTabController extends CatalogContentController
             // delete
             $this->container->get('productGroupPricingService')->updateProductGroupPricing($productGroupPricing);
         }
+
         return $this->findView(null, array('productGroupPricing' => $productGroupPricing));
     }
 

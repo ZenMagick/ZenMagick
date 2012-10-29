@@ -62,6 +62,7 @@ class PendingDashboardWidget extends DashboardWidget
         }
 
         $contents = '<p id="pending">'.$contents.'</p>';
+
         return $contents;
     }
 

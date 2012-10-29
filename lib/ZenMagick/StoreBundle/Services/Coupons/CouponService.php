@@ -52,6 +52,7 @@ class CouponService extends ZMObject
                   LEFT JOIN %table.coupons_description% cd ON (c.coupon_id = cd.coupon_id AND cd.language_id = :languageId)
                 WHERE c.coupon_code = :code";
         $args = array('code' => $code, 'languageId' => $languageId);
+
         return ZMRuntime::getDatabase()->querySingle($sql, $args, array('coupons', 'coupons_description'), 'ZenMagick\StoreBundle\Entity\Coupons\Coupon');
     }
 
@@ -70,6 +71,7 @@ class CouponService extends ZMObject
                   LEFT JOIN %table.coupons_description% cd ON (c.coupon_id = cd.coupon_id AND cd.language_id = :languageId)
                 WHERE c.coupon_id = :id";
         $args = array('id' => $id, 'languageId' => $languageId);
+
         return ZMRuntime::getDatabase()->querySingle($sql, $args, array('coupons', 'coupons_description'), 'ZenMagick\StoreBundle\Entity\Coupons\Coupon');
     }
 
@@ -84,6 +86,7 @@ class CouponService extends ZMObject
         $sql = "SELECT amount from %table.coupon_gv_customer%
                 WHERE customer_id = :accountId";
         $result = ZMRuntime::getDatabase()->querySingle($sql, array('accountId' => $accountId), 'coupon_gv_customer');
+
         return null !== $result ? $result['amount'] : 0;
     }
 
@@ -138,6 +141,7 @@ class CouponService extends ZMObject
     {
         $coupon = new Coupon(0, $couponCode, $type);
         $coupon->setAmount($amount);
+
         return ZMRuntime::getDatabase()->createModel('coupons', $coupon);
     }
 
@@ -171,6 +175,7 @@ class CouponService extends ZMObject
         $sql = "SELECT coupon_id FROM %table.coupon_redeem_track%
                 WHERE coupon_id = :couponId";
         $results = ZMRuntime::getDatabase()->fetchAll($sql, array('couponId' => $couponId), 'coupon_redeem_track', Connection::MODEL_RAW);
+
         return 0 == count($results);
     }
 
@@ -224,6 +229,7 @@ class CouponService extends ZMObject
         $sql = "SELECT *
                 FROM %table.coupon_gv_queue%
                 WHERE unique_id = :id";
+
         return ZMRuntime::getDatabase()->querySingle($sql, array('id' => $queueId), 'coupon_gv_queue', 'ZenMagick\StoreBundle\Entity\Coupons\CouponQueue');
     }
 
@@ -238,6 +244,7 @@ class CouponService extends ZMObject
         $sql = "SELECT *
                 FROM %table.coupon_gv_queue%
                 WHERE release_flag = :released";
+
         return ZMRuntime::getDatabase()->fetchAll($sql, array('released' => $flag), 'coupon_gv_queue', 'ZenMagick\StoreBundle\Entity\Coupons\CouponQueue');
     }
 
@@ -287,6 +294,7 @@ class CouponService extends ZMObject
         }
 
         $this->container->get('logger')->err('could not create coupon code');
+
         return null;
     }
 
@@ -328,6 +336,7 @@ class CouponService extends ZMObject
     {
         $sql = "SELECT * FROM %table.coupons% c, %table.coupons_description% cd
                 WHERE cd.coupon_id = c.coupon_id AND cd.language_id = :languageId";
+
         return ZMRuntime::getDatabase()->fetchAll($sql, array('languageId' => $languageId), array('coupons', 'coupons_description'), 'ZenMagick\StoreBundle\Entity\Coupons\Coupon');
     }
 

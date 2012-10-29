@@ -54,6 +54,7 @@ class CounterHistory
     public function setCounter($counter)
     {
         $this->counter = $counter;
+
         return $this;
     }
 
@@ -76,6 +77,7 @@ class CounterHistory
     public function setSessionCounter($sessionCounter)
     {
         $this->sessionCounter = $sessionCounter;
+
         return $this;
     }
 

@@ -79,6 +79,7 @@ class StoreStatusDashboardWidget extends DashboardWidget
         $this->setStatus($status);
 
         $contents = '<p id="store-status">'.$contents.'</p>';
+
         return $contents;
     }
 

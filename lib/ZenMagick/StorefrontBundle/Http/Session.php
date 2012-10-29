@@ -57,6 +57,7 @@ class Session extends \ZenMagick\Http\Session\Session
         if (isset($_SESSION) && array_key_exists($name, $_SESSION)) {
             return $_SESSION[$name];
         }
+
         return $default;
     }
 
@@ -68,6 +69,7 @@ class Session extends \ZenMagick\Http\Session\Session
     public function getAccountId()
     {
         $accountId = $this->get('customer_id');
+
         return null !== $accountId ? $accountId : 0;
     }
 
@@ -81,6 +83,7 @@ class Session extends \ZenMagick\Http\Session\Session
     public function getType()
     {
         $type = $this->get('account_type');
+
         return null === $type ? Account::ANONYMOUS : $type;
     }
 
@@ -174,6 +177,7 @@ class Session extends \ZenMagick\Http\Session\Session
     {
         $languageCode = $this->get('languages_code');
         $languageService = $this->container->get('languageService');
+
         return $languageService->getLanguageForCode($languageCode);
     }
 
@@ -185,6 +189,7 @@ class Session extends \ZenMagick\Http\Session\Session
     public function getLanguageId()
     {
         $languageId = $this->get('languages_id');
+
         return (null !== $languageId ? (int) $languageId : (int) Runtime::getSettings()->get('storeDefaultLanguageId'));
     }
 
@@ -208,6 +213,7 @@ class Session extends \ZenMagick\Http\Session\Session
         if (null != ($language = $this->getLanguage())) {
             return $language->getCode();
         }
+
         return null;
     }
 
@@ -225,6 +231,7 @@ class Session extends \ZenMagick\Http\Session\Session
     {
         if (Accounts::AUTHORIZATION_BLOCKED == $account->getAuthorization()) {
             $this->getFlashBag()->error(_zm('Access denied.'));
+
             return false;
         }
 

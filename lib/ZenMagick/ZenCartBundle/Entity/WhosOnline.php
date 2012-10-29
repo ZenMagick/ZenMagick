@@ -111,6 +111,7 @@ class WhosOnline
     public function setCustomerId($customerId)
     {
         $this->customerId = $customerId;
+
         return $this;
     }
 
@@ -133,6 +134,7 @@ class WhosOnline
     public function setFullName($fullName)
     {
         $this->fullName = $fullName;
+
         return $this;
     }
 
@@ -155,6 +157,7 @@ class WhosOnline
     public function setSessionId($sessionId)
     {
         $this->sessionId = $sessionId;
+
         return $this;
     }
 
@@ -177,6 +180,7 @@ class WhosOnline
     public function setIpAddress($ipAddress)
     {
         $this->ipAddress = $ipAddress;
+
         return $this;
     }
 
@@ -199,6 +203,7 @@ class WhosOnline
     public function setTimeEntry($timeEntry)
     {
         $this->timeEntry = $timeEntry;
+
         return $this;
     }
 
@@ -221,6 +226,7 @@ class WhosOnline
     public function setTimeLastClick($timeLastClick)
     {
         $this->timeLastClick = $timeLastClick;
+
         return $this;
     }
 
@@ -243,6 +249,7 @@ class WhosOnline
     public function setLastPageUrl($lastPageUrl)
     {
         $this->lastPageUrl = $lastPageUrl;
+
         return $this;
     }
 
@@ -265,6 +272,7 @@ class WhosOnline
     public function setHostAddress($hostAddress)
     {
         $this->hostAddress = $hostAddress;
+
         return $this;
     }
 
@@ -287,6 +295,7 @@ class WhosOnline
     public function setUserAgent($userAgent)
     {
         $this->userAgent = $userAgent;
+
         return $this;
     }
 

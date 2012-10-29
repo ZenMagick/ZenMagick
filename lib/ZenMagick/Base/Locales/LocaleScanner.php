@@ -63,6 +63,7 @@ class LocaleScanner extends ZMObject
                 $parameters[] = $token;
             }
         }
+
         return $parameters;
     }
 
@@ -146,6 +147,7 @@ class LocaleScanner extends ZMObject
             }
             $string = $tmp;
         }
+
         return $string;
     }
 

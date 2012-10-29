@@ -35,6 +35,7 @@ class AccountHistoryInfoController extends \ZMController
         $account = $this->getUser();
         if ($account->getId() != $order->getAccountId()) {
             $this->messageService->error(_zm('Order not found'));
+
             return $this->findView('error');
         }
 

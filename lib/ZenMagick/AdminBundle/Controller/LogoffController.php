@@ -32,6 +32,7 @@ class LogoffController extends \ZMController
     public function processGet($request)
     {
         $request->getSession()->invalidate();
+
         return $this->findView('success');
     }
 

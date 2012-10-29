@@ -83,6 +83,7 @@ class AdminController extends \ZMController
         if (in_array($request->getRequestId(), $this->container->get('settingsService')->get('apps.store.zencart.skipLayout', array()))) {
             $view->setLayout(null);
         }
+
         return $view;
     }
 
@@ -95,6 +96,7 @@ class AdminController extends \ZMController
             $this->messageService->error(_zm('Security token validation failed'));
             $request->redirect($request->server->get('HTTP_REFERER'));
         }
+
         return $this->processGet($request);
     }
 
@@ -105,6 +107,7 @@ class AdminController extends \ZMController
     {
         $needsToken = $request->get('action') && 'POST' === $request->getMethod();
         if(!$needsToken) return true;
+
         return $request->getSession()->getToken() === $request->request->get('securityToken', '');
     }
 }

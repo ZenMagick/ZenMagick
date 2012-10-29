@@ -37,6 +37,7 @@ class CustomerUserFactory extends ZMObject implements UserFactory
         if (null != ($accountId = $session->get('customer_id'))) {
             return $this->container->get('accountService')->getAccountForId($accountId);
         }
+
         return null;
     }
 

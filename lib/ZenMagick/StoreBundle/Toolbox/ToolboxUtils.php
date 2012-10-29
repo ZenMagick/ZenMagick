@@ -75,6 +75,7 @@ class ToolboxUtils extends ToolboxTool
             $currency = $currencyService->getCurrencyForCode(Runtime::getSettings()->get('defaultCurrency'));
         }
         $money = $currency->format($amount, $convert);
+
         return $money;
     }
 
@@ -139,6 +140,7 @@ class ToolboxUtils extends ToolboxTool
             foreach ($obj as $k => $o) {
                 $props[$k] = $this->flattenObject($o, $properties, $formatter);
             }
+
             return $props;
         }
 
@@ -160,6 +162,7 @@ class ToolboxUtils extends ToolboxTool
             }
             $props[$key] = null != $formatter ? $formatter($obj, $key, $value) : $value;
         }
+
         return $props;
     }
 

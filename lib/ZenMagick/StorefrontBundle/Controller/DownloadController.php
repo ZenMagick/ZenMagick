@@ -42,6 +42,7 @@ class DownloadController extends \ZMController
 
         if (null == $orderId || null == $id) {
             $this->messageService->error(_zm('Download not found'));
+
             return $this->findView('error');
         }
 
@@ -50,6 +51,7 @@ class DownloadController extends \ZMController
         $account = $this->getUser();
         if ($account->getId() != $order->getAccountId()) {
             $this->messageService->error(_zm('Order not found'));
+
             return $this->findView('error');
         }
 
@@ -60,6 +62,7 @@ class DownloadController extends \ZMController
 
         if (null == $product || !$product->isDownloadable()) {
             $this->messageService->error(_zm('No such download or download has expired.'));
+
             return $this->findView('error');
         }
         if ($product->getMaxDays() > 0) { // ignore for unlimited downloads
@@ -82,6 +85,7 @@ class DownloadController extends \ZMController
             $pubDir = $settingsService->get('downloadPubDir');
             if (empty($pubDir) || !is_writeable($pubDir)) {
                 $this->messageService->error(_zm('Could not write to public download directory.'));
+
                 return $this->findView('error');
             }
 
@@ -148,6 +152,7 @@ class DownloadController extends \ZMController
                 flush();
             }
             fclose($fp);
+
             return null;
         }
     }

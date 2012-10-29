@@ -72,6 +72,7 @@ class OpenIDController extends ZMController
                     }
 
                     $followUpUrl = $request->getFollowUpUrl();
+
                     return $this->findView('success', array(), array('url' => $followUpUrl));
                 }
             }
@@ -98,6 +99,7 @@ class OpenIDController extends ZMController
             if ('initAuth' == $action && null != $openid) {
                 // save to compare with response
                 $session->set('openid', $openid);
+
                 return $this->initAuthentication($request, $openid);
             } else {
                 $this->messageService->error(_zm('The provided OpenID does not seem to be valid'));
@@ -123,6 +125,7 @@ class OpenIDController extends ZMController
 
         if (!$auth_request) {
             $this->messageService->error(_zm('The provided OpenID does not seem to be valid'));
+
             return $this->findView('login');
         }
 
@@ -150,6 +153,7 @@ class OpenIDController extends ZMController
             // If the redirect URL can't be built, display an error message.
             if (Auth_OpenID::isFailure($redirect_url)) {
                 $this->messageService->error(sprintf(_zm('Could not redirect to server: %s'), $redirect_url->message));
+
                 return $this->findView('login');
             } else {
                 // send redirect.
@@ -162,6 +166,7 @@ class OpenIDController extends ZMController
 
             if (Auth_OpenID::isFailure($form_html)) {
                 $this->messageService->error(sprintf(_zm('Could not redirect to server: %s'), $form_html->message));
+
                 return $this->findView('login');
             } else {
                 // render the HTML form

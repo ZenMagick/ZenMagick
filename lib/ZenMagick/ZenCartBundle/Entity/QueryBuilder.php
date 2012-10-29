@@ -75,6 +75,7 @@ class QueryBuilder
     public function setCategory($category)
     {
         $this->category = $category;
+
         return $this;
     }
 
@@ -97,6 +98,7 @@ class QueryBuilder
     public function setQueryName($queryName)
     {
         $this->queryName = $queryName;
+
         return $this;
     }
 
@@ -119,6 +121,7 @@ class QueryBuilder
     public function setDescription($description)
     {
         $this->description = $description;
+
         return $this;
     }
 
@@ -141,6 +144,7 @@ class QueryBuilder
     public function setQueryString($queryString)
     {
         $this->queryString = $queryString;
+
         return $this;
     }
 
@@ -163,6 +167,7 @@ class QueryBuilder
     public function setKeysList($keysList)
     {
         $this->keysList = $keysList;
+
         return $this;
     }
 

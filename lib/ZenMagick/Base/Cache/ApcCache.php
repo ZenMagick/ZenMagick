@@ -84,6 +84,7 @@ class ApcCache implements Cache
                 apc_delete($entry['info']);
             }
         }
+
         return true;
     }
 
@@ -101,6 +102,7 @@ class ApcCache implements Cache
     public function remove($id)
     {
         $this->lastModified_ = time();
+
         return apc_delete($this->group_.'/'.$id);
     }
 
@@ -110,6 +112,7 @@ class ApcCache implements Cache
     public function save($data, $id)
     {
         $this->lastModified_ = time();
+
         return apc_store($this->group_.'/'.$id, $data, $this->lifetime_);
     }
 

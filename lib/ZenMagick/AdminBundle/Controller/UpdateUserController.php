@@ -82,6 +82,7 @@ class UpdateUserController extends \ZMController
             $updateUser->setEmail($user->getEmail());
             $updateUser->setName($user->getName());
         }
+
         return $updateUser;
     }
 
@@ -105,6 +106,7 @@ class UpdateUserController extends \ZMController
         // validate password
         if (!$authenticationManager->validatePassword($updateUser->getCurrentPassword(), $user->getPassword())) {
             $this->messageService->error(_zm('Sorry, the entered password is not valid.'));
+
             return $this->findView();
         }
         $user->setName($updateUser->getName());

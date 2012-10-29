@@ -77,6 +77,7 @@ class ShoppingCartTestCaseBase extends TestCase
         $shoppingCart = new ShoppingCart();
         $shoppingCart->setContainer($this->container);
         $shoppingCart->setCheckoutHelper(new CheckoutHelper());
+
         return $shoppingCart;
     }
 

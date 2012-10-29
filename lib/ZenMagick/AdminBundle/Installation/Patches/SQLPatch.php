@@ -54,6 +54,7 @@ class SQLPatch extends InstallationPatch
         foreach ($this->tables as $table) {
             $tables[] = \ZMRuntime::getDatabase()->getPrefix().$table;
         }
+
         return $tables;
     }
 
@@ -82,6 +83,7 @@ class SQLPatch extends InstallationPatch
     public function tablesExist()
     {
         $sm = \ZMRuntime::getDatabase()->getSchemaManager();
+
         return $sm->tablesExist($this->getTables());
     }
 
@@ -106,6 +108,7 @@ class SQLPatch extends InstallationPatch
                 $sql = file($baseDir.$file);
                 $status |= $this->_runSQL($sql);
             }
+
             return $status;
         }
 
@@ -130,6 +133,7 @@ class SQLPatch extends InstallationPatch
             foreach ($messages as $message) {
                 $this->messages_[] = $message;
             }
+
             return empty($results['error']);
         }
 
@@ -153,6 +157,7 @@ class SQLPatch extends InstallationPatch
                 $sql = file($baseDir.$file);
                 $status |= $this->_runSQL($sql);
             }
+
             return $status;
         }
 

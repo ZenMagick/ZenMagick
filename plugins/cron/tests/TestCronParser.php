@@ -46,6 +46,7 @@ class TestCronParser extends TestCase
     {
         $parser = Beans::getBean('ZenMagick\plugins\cron\CronParser');
         $this->assertNotNull($parser);
+
         return $parser;
     }
 

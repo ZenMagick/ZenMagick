@@ -103,6 +103,7 @@ class PaymentTypes extends ZMObject
     public function getPaymentTypeForId($id)
     {
         $paymentTypes = $this->getPaymentTypes();
+
         return array_key_exists($id, $paymentTypes) ? $paymentTypes[$id] : null;
     }
 

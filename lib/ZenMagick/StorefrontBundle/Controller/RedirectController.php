@@ -40,6 +40,7 @@ class RedirectController extends \ZMController
             $banner = $bannerService->getBannerForId($goto);
             if (null != $banner) {
                 $bannerService->updateBannerClickCount($goto);
+
                 return $this->findView('success', array(), array('url' => $banner->getUrl()));
             }
             break;
@@ -67,6 +68,7 @@ class RedirectController extends \ZMController
 
                 if (null != $manufacturer && null != $manufacturer->getUrl()) {
                     $manufacturerService->updateManufacturerClickCount($manufacturerId, $request->getSession()->getLanguageId());
+
                     return $this->findView('success', array(), array('url' => $manufacturer->getUrl()));
                 }
 

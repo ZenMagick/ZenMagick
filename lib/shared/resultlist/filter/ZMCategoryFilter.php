@@ -49,6 +49,7 @@ class ZMCategoryFilter extends ZMResultListFilter implements SqlAware
             $languageId = $this->container->get('session')->getLanguageId();
             $this->productIds_ = $this->container->get('productService')->getProductIdsForCategoryId($this->filterValues_[0], $languageId);
         }
+
         return $this->productIds_;
     }
 
@@ -61,6 +62,7 @@ class ZMCategoryFilter extends ZMResultListFilter implements SqlAware
     public function exclude($obj)
     {
         $productIds = $this->getProductIds();
+
         return !array_key_exists($obj->getId(), $productIds);
     }
 

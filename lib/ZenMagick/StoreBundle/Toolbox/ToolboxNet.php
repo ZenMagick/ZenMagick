@@ -55,6 +55,7 @@ class ToolboxNet extends ToolboxTool
 
         parse_str(ltrim($params, '&'), $parameters);
         $url = $this->container->get('router')->generate($requestId, $parameters);
+
         return $url;
     }
 
@@ -68,6 +69,7 @@ class ToolboxNet extends ToolboxTool
     {
         $url = htmlentities($url, ENT_QUOTES, Runtime::getSettings()->get('zenmagick.http.html.charset'));
         $url = str_replace(' ', '%20', $url);
+
         return $url;
     }
 
@@ -81,6 +83,7 @@ class ToolboxNet extends ToolboxTool
     {
         $s = html_entity_decode($url, ENT_QUOTES, Runtime::getSettings()->get('zenmagick.http.html.charset'));
         $s = str_replace('%20', ' ', $s);
+
         return $s;
     }
 
@@ -103,6 +106,7 @@ class ToolboxNet extends ToolboxTool
                 $cPath = '&cPath='.implode('_', $category->getPath());
             }
         }
+
         return $this->url('product_info', '&productId='.$productId.$cPath);
     }
 
@@ -127,6 +131,7 @@ class ToolboxNet extends ToolboxTool
     {
         if (null === $page) {
             $href = _zm('ezpage not found');
+
             return $href;
         }
 
@@ -182,6 +187,7 @@ class ToolboxNet extends ToolboxTool
         if ('url' == $action && false === strpos('://', $id)) {
             $id = 'http://'.$id;
         }
+
         return $this->url('redirect', "action=".$action."&goto=".$id);
     }
 

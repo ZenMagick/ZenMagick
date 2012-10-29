@@ -56,6 +56,7 @@ class Accounts extends ZMObject
                 $account->setType(Account::GUEST);
             }
         }
+
         return $account;
     }
 
@@ -78,6 +79,7 @@ class Accounts extends ZMObject
                 $account->setType(Account::GUEST);
             }
         }
+
         return $account;
     }
 
@@ -101,6 +103,7 @@ class Accounts extends ZMObject
             }
             $accounts[] = $account;
         }
+
         return $accounts;
     }
 
@@ -149,6 +152,7 @@ class Accounts extends ZMObject
                     customers_info_number_of_logons = customers_info_number_of_logons+1
                 WHERE customers_info_id = :accountId";
         $args = array('accountId' => $accountId);
+
         return ZMRuntime::getDatabase()->updateObj($sql, $args, 'customers_info');
     }
 
@@ -166,6 +170,7 @@ class Accounts extends ZMObject
                 AND NOT (customers_password = '')";
         $args = array('email' => $emailAddress);
         $result = ZMRuntime::getDatabase()->querySingle($sql, $args, array('customers'), Connection::MODEL_RAW);
+
         return 0 < $result['total'];
     }
 
@@ -182,6 +187,7 @@ class Accounts extends ZMObject
         $account->setAccountCreateDate($now);
         $account->setLastModifiedDate($now);
         ZMRuntime::getDatabase()->createModel('customers_info', $account);
+
         return $account;
     }
 
@@ -272,6 +278,7 @@ class Accounts extends ZMObject
         foreach (ZMRuntime::getDatabase()->fetchAll($sql, array('accountId' => $accountId), 'products_notifications') as $result) {
             $productIds[] = $result['productId'];
         }
+
         return $productIds;
     }
 
@@ -290,6 +297,7 @@ class Accounts extends ZMObject
             ZMRuntime::getDatabase()->updateObj($sql, array('accountId' => $account->getId(), 'productId' => $id), 'products_notifications');
         }
         $account->addSubscribedProducts($productIds);
+
         return $account;
     }
 
@@ -307,6 +315,7 @@ class Accounts extends ZMObject
                 AND products_id in (:productId)";
         ZMRuntime::getDatabase()->updateObj($sql, array('accountId' => $account->getId(), 'productId' => $productIds), 'products_notifications');
         $account->removeSubscribedProducts($productIds);
+
         return $account;
     }
 
@@ -349,6 +358,7 @@ class Accounts extends ZMObject
         }
 
         $account->setSubscribedProducts($productIds);
+
         return $account;
     }
 

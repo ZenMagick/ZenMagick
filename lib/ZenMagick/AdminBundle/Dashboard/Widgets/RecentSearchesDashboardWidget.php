@@ -42,6 +42,7 @@ class RecentSearchesDashboardWidget extends DashboardWidget
     public function getContents($request)
     {
         $contents = '<p>'._zm('No Data').'</p>';
+
         return $contents;
     }
 

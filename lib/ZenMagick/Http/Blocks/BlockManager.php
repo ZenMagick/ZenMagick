@@ -52,6 +52,7 @@ class BlockManager extends ZMObject
         foreach ($this->container->get('containerTagService')->findTaggedServiceIds('zenmagick.http.blocks.provider') as $id => $args) {
             $providers[] = $this->container->get($id);
         }
+
         return $providers;
     }
 
@@ -82,6 +83,7 @@ class BlockManager extends ZMObject
                 }
             }
             $this->mappings_[$groupId] = $group;
+
             return $this->mappings_[$groupId];
         }
 

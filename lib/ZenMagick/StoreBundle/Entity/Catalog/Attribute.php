@@ -278,6 +278,7 @@ class Attribute extends ZMObject
     public function isVirtual()
     {
         $attributeService = $this->container->get('attributeService');
+
         return $attributeService->hasDownloads($this);
     }
 

@@ -56,6 +56,7 @@ class TextAreaFormWidget extends FormWidget implements WysiwygEditor
     public function render($request, TemplateView $templateView)
     {
         $value = $this->isEncode() ?Runtime::getContainer()->get('htmlTool')->encode($this->getValue()) : $this->getValue();
+
         return '<textarea'.$this->getAttributeString($request, false).'>'.$value.'</textarea>';
     }
 

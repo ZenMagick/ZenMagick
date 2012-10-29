@@ -47,6 +47,7 @@ class ManufacturerSelectFormWidget extends SelectFormWidget
         foreach ($this->container->get('manufacturerService')->getManufacturers($request->getSelectedLanguage()->getId()) as $manufacturer) {
             $options[$manufacturer->getId()] = $manufacturer->getName();
         }
+
         return $options;
     }
 

@@ -42,6 +42,7 @@ class ZMSubscriptionRequestController extends ZMController
         $model->set('orderId', $parameterBag->get('orderId'));
         $model->set('message', $parameterBag->get('message'));
         $model->set('types', $this->getPlugin()->getRequestTypes());
+
         return $model;
     }
 

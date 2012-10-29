@@ -69,6 +69,7 @@ class ContextLoader implements LoaderInterface
         if ($contextConfigLoader->getContext() == 'admin') {
             $routes->addPrefix('/admin');
         }
+
         return $routes;
     }
 

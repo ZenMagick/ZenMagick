@@ -44,6 +44,7 @@ class Orders extends ZMObject implements SqlAware
         if (in_array($method, $methods)) {
             return call_user_func_array(array($this, $method.'QueryDetails'), $args);
         }
+
         return null;
     }
 
@@ -67,6 +68,7 @@ class Orders extends ZMObject implements SqlAware
             $sql .= " LIMIT ".$limit;
         }
         $args = array('languageId' => $languageId);
+
         return new QueryDetails(ZMRuntime::getDatabase(), $sql, $args, array('orders', 'orders_total', 'orders_status'), 'ZenMagick\StoreBundle\Entity\Order\Order', 'o.orders_id');
     }
 
@@ -80,6 +82,7 @@ class Orders extends ZMObject implements SqlAware
     public function getAllOrders($languageId, $limit=0)
     {
         $details = $this->getAllOrdersQueryDetails($languageId, $limit);
+
         return $details->query();
     }
 
@@ -126,6 +129,7 @@ class Orders extends ZMObject implements SqlAware
                   AND s.language_id = :languageId
                 ORDER BY orders_id DESC".$sqlLimit;
         $args = array('accountId' => $accountId, 'languageId' => $languageId);
+
         return new QueryDetails(ZMRuntime::getDatabase(), $sql, $args, array('orders', 'orders_total', 'orders_status'), 'ZenMagick\StoreBundle\Entity\Order\Order', 'o.orders_id');
     }
 
@@ -140,6 +144,7 @@ class Orders extends ZMObject implements SqlAware
     public function getOrdersForAccountId($accountId, $languageId, $limit=0)
     {
         $details = $this->getOrdersForAccountIdQueryDetails($accountId, $languageId, $limit);
+
         return $details->query();
     }
 
@@ -162,6 +167,7 @@ class Orders extends ZMObject implements SqlAware
                   AND s.language_id = :languageId
                 ORDER BY orders_id DESC";
         $args = array('orderStatusId' => $statusId, 'languageId' => $languageId);
+
         return new QueryDetails(ZMRuntime::getDatabase(), $sql, $args, array('orders', 'orders_total', 'orders_status'), 'ZenMagick\StoreBundle\Entity\Order\Order', 'o.orders_id');
     }
 
@@ -175,6 +181,7 @@ class Orders extends ZMObject implements SqlAware
     public function getOrdersForStatusId($statusId, $languageId)
     {
         $details = $this->getOrdersForStatusIdQueryDetails($statusId, $languageId);
+
         return $details->query();
     }
 
@@ -194,6 +201,7 @@ class Orders extends ZMObject implements SqlAware
                   AND os.language_id = :languageId
                 ORDER BY osh.date_added";
         $args = array('orderId' => $orderId, 'languageId' => $languageId);
+
         return ZMRuntime::getDatabase()->fetchAll($sql, $args, array('orders_status_history', 'orders_status'), 'ZenMagick\StoreBundle\Entity\Order\OrderStatusHistory');
     }
 
@@ -208,6 +216,7 @@ class Orders extends ZMObject implements SqlAware
         if (null == $orderStatus->getDateAdded()) {
             $orderStatus->setDateAdded(new \DateTime());
         }
+
         return ZMRuntime::getDatabase()->createModel('orders_status_history', $orderStatus);
     }
 
@@ -314,6 +323,7 @@ class Orders extends ZMObject implements SqlAware
                 }
             }
         }
+
         return $arr;
     }
 
@@ -341,6 +351,7 @@ class Orders extends ZMObject implements SqlAware
         }
 
         $mapping = array('orders_products_download', 'orders_products', 'orders');
+
         return ZMRuntime::getDatabase()->fetchAll($sql, array('orderId' => $orderId, 'orderStatusId' => $orderStatusList), $mapping, 'ZenMagick\StoreBundle\Entity\Order\Download');
     }
 
@@ -397,6 +408,7 @@ class Orders extends ZMObject implements SqlAware
                   AND s.language_id = :languageId
                 ORDER BY orders_id DESC";
         $args = array('languageId' => $languageId, '1#orderDate' => $from, '2#orderDate' => $to);
+
         return new QueryDetails(ZMRuntime::getDatabase(), $sql, $args, array('orders', 'orders_total', 'orders_status'), 'ZenMagick\StoreBundle\Entity\Order\Order', 'o.orders_id');
     }
 
@@ -411,6 +423,7 @@ class Orders extends ZMObject implements SqlAware
     public function findOrdersForDateTimeRange($from, $to, $languageId)
     {
         $details = $this->findOrdersForDateTimeRangeQueryDetails($from, $to, $languageId);
+
         return $details->query();
     }
 

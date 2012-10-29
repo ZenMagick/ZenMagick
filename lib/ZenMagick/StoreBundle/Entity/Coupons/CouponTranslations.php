@@ -132,6 +132,7 @@ class CouponTranslations extends ZMObject
     public function setCoupon(\ZenMagick\StoreBundle\Entity\Coupons\Coupon $coupon)
     {
         $this->coupon = $coupon;
+
         return $this;
     }
 

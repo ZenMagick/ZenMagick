@@ -272,6 +272,7 @@ class SacsManager extends ZMObject
     {
         if (null == $requestId) {
             $this->container->get('logger')->debug('null is not a valid requestId');
+
             return null;
         }
 

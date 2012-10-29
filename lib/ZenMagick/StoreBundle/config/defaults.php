@@ -39,6 +39,7 @@ if (!function_exists('zm_split_email_addresses')) {
                 $recipients[trim($address)] = null;
             }
         }
+
         return $recipients;
     }
 
@@ -53,6 +54,7 @@ if (!function_exists('zm_split_email_addresses')) {
             $subst = explode(':', $alias);
             $l[trim($subst[0])] = trim($subst[1]);
         }
+
         return $l;
     }
 

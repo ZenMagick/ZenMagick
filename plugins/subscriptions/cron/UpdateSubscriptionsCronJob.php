@@ -230,6 +230,7 @@ class UpdateSubscriptionsCronJob implements CronJobInterface
             }
             $tmp[] = $row['orderId'];
         }
+
         return $tmp;
     }
 

@@ -42,6 +42,7 @@ class ToolboxHtml extends ToolboxTool
         $charset = Runtime::getSettings()->get('zenmagick.http.html.charset');
         $s = html_entity_decode($s, ENT_QUOTES, $charset);
         $s = htmlentities($s, ENT_QUOTES, $charset);
+
         return $s;
     }
 
@@ -56,6 +57,7 @@ class ToolboxHtml extends ToolboxTool
         $html = str_replace("\r\n", '<br>', $s);
         $html = str_replace("\n", '<br>', $s);
         $html = str_replace("\r", '', $html);
+
         return $html;
     }
 
@@ -91,6 +93,7 @@ class ToolboxHtml extends ToolboxTool
     public function getDir()
     {
         $dir = $this->container->get('localeService')->getFormat('dir');
+
         return null != $dir ? $dir : Runtime::getSettings()->get('zenmagick.mvc.html.dir', 'ltr');
     }
 

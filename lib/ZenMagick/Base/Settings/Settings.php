@@ -55,6 +55,7 @@ class Settings
             $last = &$current;
             $current = &$current[$element];
         }
+
         return array($current, $element, $last);
     }
 
@@ -96,6 +97,7 @@ class Settings
     {
         if (null !== ($lookup = $this->lookup($path))) {
             $lookup[2][$lookup[1]] = $value;
+
             return $lookup[0];
         }
 
@@ -112,6 +114,7 @@ class Settings
             $current = &$current[$element];
         }
         $last[$element] = $value;
+
         return null;
     }
 
@@ -127,8 +130,10 @@ class Settings
     {
         if (null !== ($lookup = $this->lookup($path))) {
             $lookup[2][$lookup[1]] .= $delim.$value;
+
             return $lookup[0];
         }
+
         return $this->set($path, $value);
     }
 
@@ -149,12 +154,14 @@ class Settings
                 $lookup[2][$lookup[1]] = array($lookup[2][$lookup[1]]);
             }
             $lookup[2][$lookup[1]][] = $value;
+
             return $lookup[0];
         }
 
         if (!is_array($value)) {
             $value = array($value);
         }
+
         return $this->set($path, $value);
     }
 

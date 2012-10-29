@@ -75,6 +75,7 @@ class ZMMinRule extends ZMRule
         $js .= ",'".addslashes($this->getErrorMsg())."'";
         $js .= ",".$this->min_;
         $js .= ")";
+
         return $js;
     }
 

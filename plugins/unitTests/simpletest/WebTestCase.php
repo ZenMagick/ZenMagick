@@ -59,6 +59,7 @@ class WebTestCase extends SimpletestWebTestCase
         if (is_array($second)) {
             return $this->assert(new ArrayEqualExpectation($first), $second, $message);
         }
+
         return parent::assertEqual($first, $second, $message);
     }
 
@@ -78,6 +79,7 @@ class WebTestCase extends SimpletestWebTestCase
             );
             $this->reporter->zmPaintFail($details);
         }
+
         return $result;
     }
 

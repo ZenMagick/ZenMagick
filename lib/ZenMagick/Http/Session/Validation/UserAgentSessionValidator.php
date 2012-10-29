@@ -63,6 +63,7 @@ class UserAgentSessionValidator extends ZMObject implements SessionValidator
                 $valid = $userAgent == $sessionUserAgent;
             }
         }
+
         return $valid;
     }
 

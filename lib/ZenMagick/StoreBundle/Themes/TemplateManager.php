@@ -117,6 +117,7 @@ class TemplateManager extends ZMObject
             $box = str_replace('.php', '', $boxInfo['name']);
             $boxes[] = $box;
         }
+
         return $boxes;
     }
 

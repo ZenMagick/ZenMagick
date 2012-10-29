@@ -85,6 +85,7 @@ class Menu extends ZMObject
     {
         if (null != ($parent = $this->root->getNodeForId($id))) {
             $parent->addChild($element);
+
             return true;
         }
 
@@ -104,6 +105,7 @@ class Menu extends ZMObject
         if (null != ($sibling = $this->root->getNodeForId($id))) {
             if (null != ($parent = $sibling->getParent())) {
                 $parent->addChild($element, $id, $mode);
+
                 return true;
             }
         }
@@ -141,6 +143,7 @@ class Menu extends ZMObject
                     return true;
                 }
             }
+
             return false;
         });
 
@@ -161,6 +164,7 @@ class Menu extends ZMObject
     {
         if (null != ($node = $this->getItemForRequestId($requestId))) {
             $path = $node->getPath();
+
             return $this->root->getNodeForId($path[0]);
         }
 

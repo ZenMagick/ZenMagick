@@ -60,12 +60,14 @@ class LoginController extends \ZMController
 
         if (!$session->isStarted()) {
             $session->set(self::KEY_REDIRECT);
+
             return $this->findView('cookie_usage');
         }
 
         if ($session->isRegistered()) {
             // already logged in
             $session->set(self::KEY_REDIRECT);
+
             return $this->findView('account');
         }
         if (!$this->validate($request, 'login')) {
@@ -76,12 +78,14 @@ class LoginController extends \ZMController
         $account = $this->container->get('accountService')->getAccountForEmailAddress($emailAddress);
         if (null === $account) {
             $this->messageService->error(_zm('Sorry, there is no match for that email address and/or password.'));
+
             return $this->findView();
         }
 
         $password = $request->request->get('password');
         if (!$this->container->get('authenticationManager')->validatePassword($password, $account->getPassword())) {
             $this->messageService->error(_zm('Sorry, there is no match for that email address and/or password.'));
+
             return $this->findView();
         }
 

@@ -43,6 +43,7 @@ class ProductTagsTabController extends CatalogContentController
     {
         $languageId = $request->getSelectedLanguage()->getId();
         $tagService = $this->container->get('tagService');
+
         return array(
             'currentProductTags' => $tagService->getTagsForProductId($request->get('productId'), $languageId),
             'allTags' => $tagService->getAllTags($languageId)

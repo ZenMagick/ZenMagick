@@ -143,6 +143,7 @@ class ConfigWidgetService extends ConfigService
                 $values[] = $widget;
             }
         }
+
         return $values;
     }
 
@@ -178,6 +179,7 @@ class ConfigWidgetService extends ConfigService
                 $options[$option] = $option;
             }
         }
+
         return $options;
     }
 

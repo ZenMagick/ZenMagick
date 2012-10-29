@@ -52,6 +52,7 @@ class RssFeedGenerator extends ZMObject
 
         }
         $this->rssFooter();
+
         return trim(ob_get_clean());
     }
 

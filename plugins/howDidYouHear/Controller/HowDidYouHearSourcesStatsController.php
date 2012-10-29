@@ -57,6 +57,7 @@ class HowDidYouHearSourcesStatsController extends ZMController
         $resultList = Beans::getBean('ZMResultList');
         $resultList->setResultSource($resultSource);
         $resultList->setPageNumber($request->query->get('page', 1));
+
         return array('resultList' => $resultList, 'isOther' => $isOther);
     }
 

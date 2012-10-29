@@ -202,6 +202,7 @@ class Review extends ZMObject
     public function getText()
     {
         $description = $this->descriptions->get($this->languageId);
+
         return null != $description ? $description->getText() : '';
     }
 
@@ -364,6 +365,7 @@ class Review extends ZMObject
     public function setStatus($status)
     {
         $this->status = $status;
+
         return $this;
     }
 
@@ -386,6 +388,7 @@ class Review extends ZMObject
     public function addDescription(\ZenMagick\StoreBundle\Entity\Catalog\ReviewDescriptions $descriptions)
     {
         $this->descriptions[] = $descriptions;
+
         return $this;
     }
 

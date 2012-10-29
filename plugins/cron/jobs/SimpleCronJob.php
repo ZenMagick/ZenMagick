@@ -33,6 +33,7 @@ class SimpleCronJob implements CronJobInterface
     public function execute()
     {
         echo "foooooooooooooooooooo";
+
         return true;
     }
 

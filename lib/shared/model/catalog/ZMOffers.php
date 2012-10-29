@@ -267,6 +267,7 @@ class ZMOffers extends ZMObject
                     $salePrice = $specialPrice;
             }
         }
+
         return number_format($salePrice, $calculationDecimals, '.', '');
     }
 
@@ -315,6 +316,7 @@ class ZMOffers extends ZMObject
               $save = $this->getBasePrice() - $this->getSalePrice();
           }
         }
+
         return $save;
     }
 
@@ -394,6 +396,7 @@ class ZMOffers extends ZMObject
                 break;
             }
         }
+
         return $quantityDiscount;
     }
 
@@ -449,6 +452,7 @@ class ZMOffers extends ZMObject
         }
 
         $this->discounts_[$tax] = $discounts;
+
         return $this->discounts_[$tax];
     }
 

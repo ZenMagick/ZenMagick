@@ -92,6 +92,7 @@ class LiftSuggestLookup
         if (array_key_exists($key, $_SESSION)) {
             return $_SESSION[$key];
         }
+
         return $default;
     }
 
@@ -133,6 +134,7 @@ class LiftSuggestLookup
             curl_close($curl);
         } catch (Exception $e) {
             $this->log('JSON call failed', $e);
+
             return null;
         }
 
@@ -140,17 +142,20 @@ class LiftSuggestLookup
             $raw = json_decode($jsonResponse, true);
         } catch (Exception $e) {
             $this->log('invalid JSON', $e);
+
             return null;
         }
 
         $recommendations = array();
         if (!is_array($raw)) {
             $this->log('invalid JSON', $e);
+
             return null;
         }
 
         if (array_key_exists('error', $raw)) {
             $this->log(sprintf('call failed %s', $raw['error']));
+
             return null;
         }
 

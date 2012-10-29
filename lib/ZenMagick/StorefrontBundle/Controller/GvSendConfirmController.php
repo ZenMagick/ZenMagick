@@ -38,6 +38,7 @@ class GvSendConfirmController extends \ZMController
         $coupon = new Coupon();
         $coupon->setCode(_zm('THE_COUPON_CODE'));
         $data['currentCoupon'] = $coupon;
+
         return $this->findView(null, $data);
     }
 
@@ -51,6 +52,7 @@ class GvSendConfirmController extends \ZMController
         if (null != $result) {
             return $this->findView('edit');
         }
+
         return null;
     }
 

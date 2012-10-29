@@ -116,6 +116,7 @@ class Beans
                     }
                 }
             }
+
             return $map;
         }
 
@@ -165,6 +166,7 @@ class Beans
                 }
             }
         }
+
         return $obj;
     }
 
@@ -187,8 +189,10 @@ class Beans
             if ($obj instanceof ContainerAwareInterface) {
                 $obj->setContainer($container);
             }
+
             return $obj;
         }
+
         return $container->get($clazz, ContainerBuilder::NULL_ON_INVALID_REFERENCE);
     }
 
@@ -204,8 +208,10 @@ class Beans
     {
         if (null != ($obj = self::getobj($clazz))) {
             self::setAll($obj, $data, $keys);
+
             return $obj;
         }
+
         return null;
     }
 
@@ -249,6 +255,7 @@ class Beans
 
         if (null != ($obj = self::getobj($tokens[0], $container))) {
             self::setAll($obj, $properties);
+
             return $obj;
         }
 

@@ -175,6 +175,7 @@ class ZMAttributeValue extends ZMObject
     {
         $letterPrice = $this->countPriceableLetters($text) * $this->getPriceLetters();
         $wordPrice = $this->countPriceableWords($text) * $this->getPriceWords();
+
         return $letterPrice + $wordPrice;
     }
 
@@ -460,6 +461,7 @@ class ZMAttributeValue extends ZMObject
         while (strstr($text, '  ')) { $text = str_replace('  ', ' ', $text); }
         $text = str_replace(' ', $sws, $text);
         $count = strlen($text) - $this->getPriceLettersFree();
+
         return 0 > $count ? 0 : $count;
     }
 
@@ -473,6 +475,7 @@ class ZMAttributeValue extends ZMObject
     {
         $words = preg_split('/[\s,]+/', trim($text));
         $count = count($words) - $this->getPriceWordsFree();
+
         return 0 > $count ? 0 : $count;
     }
 

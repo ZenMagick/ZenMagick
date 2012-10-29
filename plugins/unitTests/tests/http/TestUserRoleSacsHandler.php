@@ -38,6 +38,7 @@ class TestUserRoleSacsHandler extends TestCase
     {
         $sacsManager = new SacsManager();
         $sacsManager->load($this->getTestsBaseDirectory().'/http/config/user_role_sacs_mappings.yaml');
+
         return $sacsManager;
     }
 

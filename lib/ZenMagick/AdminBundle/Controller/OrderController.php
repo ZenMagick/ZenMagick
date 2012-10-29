@@ -35,6 +35,7 @@ class OrderController extends \ZMController
         // TODO: language
         if (null == ($order = $this->container->get('orderService')->getOrderForId($orderId, 1))) {
             $this->messageService->error(sprintf(_zm('Order for orderId id %s not found'), $orderId));
+
             return $this->findView(null, array('orderId' => $orderId));
         }
 

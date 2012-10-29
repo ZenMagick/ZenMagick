@@ -89,6 +89,7 @@ class UpdateCheckerDashboardWidget extends DashboardWidget
 })();
 </script>
 EOT;
+
         return $contents;
     }
 

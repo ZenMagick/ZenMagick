@@ -54,6 +54,7 @@ class Runtime
 
         // string match, avoid whitespace before/after comma
         $cs = ','.str_replace(' ', '', $s).',';
+
         return false !== strpos($cs, ','.$context.',');
     }
 

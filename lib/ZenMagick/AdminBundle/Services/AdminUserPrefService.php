@@ -44,6 +44,7 @@ class AdminUserPrefService extends ZMObject
         if (null != ($result = \ZMRuntime::getDatabase()->querySingle($sql, $args, 'admin_prefs'))) {
             return $result['value'];
         }
+
         return null;
     }
 

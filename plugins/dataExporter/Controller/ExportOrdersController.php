@@ -54,6 +54,7 @@ class ExportOrdersController extends ZMController
         $exportFormat = $request->query->get('exportFormat');
         // datepicker uses double chars
         $dateFormat = str_replace(array('d', 'm', 'y', 'Y'), array('dd', 'mm', 'yy', 'yy'), $this->getDateFormat());
+
         return array('fromDate' => $fromDate, 'toDate' => $toDate, 'dateFormat' => $dateFormat);
     }
 
@@ -139,6 +140,7 @@ class ExportOrdersController extends ZMController
                 }
                 fclose($fp);
                 $response->setContent(ob_get_clean());
+
                 return $response;
             }
         }

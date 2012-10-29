@@ -116,6 +116,7 @@ class VBulletinAdapter extends ZMObject
             // changed
             return $this->vDuplicateEmail($request, $data);
         }
+
         return true;
     }
 
@@ -134,6 +135,7 @@ class VBulletinAdapter extends ZMObject
             // changed
             return $this->vDuplicateNickname($request, $data);
         }
+
         return true;
     }
 
@@ -147,6 +149,7 @@ class VBulletinAdapter extends ZMObject
     {
         $sql = "SELECT * FROM " . $this->userTable_ . "
                 WHERE username = :username";
+
         return $this->getDatabase()->querySingle($sql, array('username' => $nickName), $this->userTable_);
     }
 
@@ -211,8 +214,10 @@ class VBulletinAdapter extends ZMObject
             }
             $data = array_merge($data, $updates);
             $this->getDatabase()->updateModel($this->userTable_, $data);
+
             return true;
         }
+
         return false;
     }
 

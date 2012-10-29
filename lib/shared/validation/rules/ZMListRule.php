@@ -73,6 +73,7 @@ class ZMListRule extends ZMRule
     public function validate($request, $data)
     {
         $values = is_array($this->values_) ? $this->values_ : explode(',', $this->values_);
+
         return empty($data[$this->getName()]) || in_array($data[$this->getName()], $values);
     }
 
@@ -92,6 +93,7 @@ class ZMListRule extends ZMRule
         $js .= ",'".addslashes($this->getErrorMsg())."'";
         $js .= ",new Array(".implode(',', $quoted).")";
         $js .= ")";
+
         return $js;
     }
 

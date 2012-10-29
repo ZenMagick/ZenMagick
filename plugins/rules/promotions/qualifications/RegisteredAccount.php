@@ -37,6 +37,7 @@ class RegisteredAccount extends AbstractPromotionElement
     {
         $rule = new Rule('registeredAccountRule');
         $rule->addProposition('isRegistered');
+
         return array($rule);
     }
 
@@ -47,6 +48,7 @@ class RegisteredAccount extends AbstractPromotionElement
     {
         $ruleContext = new RuleContext('manufacturerInCartRuleContext');
         $ruleContext->addVariable('isRegistered', Account::REGISTERED == $this->getAccount()->getType());
+
         return array($ruleContext);
     }
 

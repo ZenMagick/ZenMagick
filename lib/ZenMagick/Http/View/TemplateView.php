@@ -242,6 +242,7 @@ class TemplateView extends ZMObject implements View
     public function isValid()
     {
         $filename = $this->getTemplate();
+
         return $this->resourceResolver->exists($filename);
     }
 
@@ -256,6 +257,7 @@ class TemplateView extends ZMObject implements View
         foreach ($this->container->get('containerTagService')->findTaggedServiceIds('zenmagick.http.templates.engine') as $id => $args) {
             $engine->addEngine($this->container->get($id));
         }
+
         return $engine;
     }
 
@@ -370,6 +372,7 @@ class TemplateView extends ZMObject implements View
 
         // render
         $engine = $this->getEngine();
+
         return $engine->render($template, array_merge($variables, $this->getVariables()));
     }
 

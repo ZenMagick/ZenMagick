@@ -78,6 +78,7 @@ class ImageInfo extends ZMImageInfo
         if (!$this->disableIH2Attributes_) {
             $this->formattedParameter_ = $newimg[4];
         }
+
         return $newimg[0];
     }
 
@@ -111,6 +112,7 @@ class ImageInfo extends ZMImageInfo
         if (!$this->disableIH2Attributes_) {
             $this->formattedParameter_ = $newimg[4];
         }
+
         return $newimg[0];
     }
 
@@ -131,6 +133,7 @@ class ImageInfo extends ZMImageInfo
         if (!$this->disableIH2Attributes_) {
             $this->formattedParameter_ = $newimg[4];
         }
+
         return $newimg[0];
     }
 

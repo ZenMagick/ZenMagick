@@ -138,6 +138,7 @@ class ThemeService extends ZMObject
         foreach ($statusMap['themeList'] as $id => $status) {
             $themes[] = $this->getThemeForId($id);
         }
+
         return $themes;
     }
 
@@ -150,6 +151,7 @@ class ThemeService extends ZMObject
     {
         $themeChain = $this->getThemeChain();
         $length = count($themeChain);
+
         return $themeChain[$length-1];
     }
 
@@ -183,6 +185,7 @@ class ThemeService extends ZMObject
                 $theme->setLocales($themeList[$id]['locales']);
             }
         }
+
         return $this->themes[$id];
     }
 
@@ -202,6 +205,7 @@ class ThemeService extends ZMObject
         foreach ($statusMap['themeChain'] as $themeId) {
             $themeChain[] = $this->getThemeForId($themeId);
         }
+
         return $themeChain;
     }
 
@@ -234,6 +238,7 @@ class ThemeService extends ZMObject
             // custom theme.yaml settings
             $theme->loadSettings();
         }
+
         return $themeChain[count($themeChain)-1];
     }
 
@@ -245,6 +250,7 @@ class ThemeService extends ZMObject
     public function getActiveThemeId()
     {
         $theme = $this->getActiveTheme();
+
         return null != $theme ? $theme->getId() : null;
     }
 
@@ -257,6 +263,7 @@ class ThemeService extends ZMObject
     {
         $sql = "SELECT *
                 FROM %table.template_select%";
+
         return \ZMRuntime::getDatabase()->fetchAll($sql, array(), 'template_select', 'ZenMagick\StoreBundle\Entity\Templating\TemplateSelect');
     }
 

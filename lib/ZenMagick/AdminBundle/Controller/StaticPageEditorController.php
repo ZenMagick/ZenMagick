@@ -44,7 +44,6 @@ class StaticPageEditorController extends \ZMController
         }
 
         //TODO:
-
         return $this->findView();
     }
 

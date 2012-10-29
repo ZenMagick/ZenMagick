@@ -64,6 +64,7 @@ class TestZMAccounts extends TestCase
             $method = 'set'.ucwords($key);
             $account->$method($value);
         }
+
         return $account;
     }
 

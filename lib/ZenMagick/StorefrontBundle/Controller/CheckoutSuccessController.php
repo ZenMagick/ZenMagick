@@ -48,6 +48,7 @@ class CheckoutSuccessController extends \ZMController
 
         }
         $data = array('currentOrder' => $currentOrder, 'currentAccount' => $account, 'productsToSubscribe' => $productsToSubscribe);
+
         return $this->findView(null, $data);
     }
 

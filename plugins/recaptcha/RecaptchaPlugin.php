@@ -132,6 +132,7 @@ class RecaptchaPlugin extends Plugin
             return true;
         } else {
             $this->setError($resp->error);
+
             return false;
         }
     }

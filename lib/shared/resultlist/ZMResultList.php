@@ -130,6 +130,7 @@ class ZMResultList extends ZMObject
                 $list[] = $sorter;
             }
         }
+
         return $list;
     }
 
@@ -161,6 +162,7 @@ class ZMResultList extends ZMObject
                 $list[] = $filter;
             }
         }
+
         return $list;
     }
 
@@ -237,6 +239,7 @@ class ZMResultList extends ZMObject
         if (0 == $this->pagination_) {
             return 1;
         }
+
         return (int) ceil($this->getNumberOfResults() / $this->pagination_);
     }
 
@@ -341,6 +344,7 @@ class ZMResultList extends ZMObject
         if (null === $this->allResults_) {
             $this->allResults_ = $this->buildResults();
         }
+
         return $this->allResults_;
     }
 
@@ -355,6 +359,7 @@ class ZMResultList extends ZMObject
             // always force load here; either it is the first time, or the pagination changed, so we need to reload anyway
             return $this->resultSource_->getResults(true);
         }
+
         return array();
     }
 

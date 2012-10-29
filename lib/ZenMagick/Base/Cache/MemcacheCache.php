@@ -61,6 +61,7 @@ class MemcacheCache implements Cache
             $config = array_merge(array('host' => 'localhost', 'port' => 11211), $config);
             $this->memcache_->connect($config['host'], $config['port']);
         }
+
         return $this->memcache_;
     }
 
@@ -113,6 +114,7 @@ class MemcacheCache implements Cache
                 }
             }
         }
+
         return true;
     }
 
@@ -130,6 +132,7 @@ class MemcacheCache implements Cache
     public function remove($id)
     {
         $this->lastModified_ = time();
+
         return $this->memcache_->delete($this->group_.'/'.$id);
     }
 
@@ -139,6 +142,7 @@ class MemcacheCache implements Cache
     public function save($data, $id)
     {
         $this->lastModified_ = time();
+
         return $this->memcache_->set($this->group_.'/'.$id, $data, $this->compress_, $this->lifetime_);
     }
 

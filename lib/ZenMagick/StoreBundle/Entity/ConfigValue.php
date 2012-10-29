@@ -154,6 +154,7 @@ class ConfigValue extends ZMObject
             $value = Toolbox::asBoolean($value);
             break;
         }
+
         return $this->value;
     }
 

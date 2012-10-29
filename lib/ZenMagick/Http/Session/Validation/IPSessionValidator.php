@@ -62,6 +62,7 @@ class IPSessionValidator extends ZMObject implements SessionValidator
                 $valid = $ip == $sessionIP;
             }
         }
+
         return $valid;
     }
 

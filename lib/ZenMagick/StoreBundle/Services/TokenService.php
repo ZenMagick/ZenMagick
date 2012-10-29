@@ -67,6 +67,7 @@ class TokenService extends ZMObject
         $later = clone $now;
         $token->setIssued($now);
         $token->setExpires($later->setTimestamp($now->getTimestamp() + $lifetime));
+
         return ZMRuntime::getDatabase()->createModel('token', $token);
     }
 
@@ -101,6 +102,7 @@ class TokenService extends ZMObject
                     WHERE hash = :hash AND resource = :resource";
             ZMRuntime::getDatabase()->updateObj($sql, array('hash' => $hash, 'resource' => $resource), 'token');
         }
+
         return $token;
     }
 
@@ -114,6 +116,7 @@ class TokenService extends ZMObject
     {
         $sql = "SELECT * FROM %table.token%
                 WHERE resource = :resource AND expires >= now()";
+
         return ZMRuntime::getDatabase()->fetchAll($sql, array('resource' => $resource), 'token', 'ZenMagick\StoreBundle\Entity\Token');
     }
 
@@ -134,8 +137,10 @@ class TokenService extends ZMObject
             foreach ($results as $token) {
                 $this->updateToken($token, 0);
             }
+
             return null;
         }
+
         return 1 == count($results) ? $results[0] : null;
     }
 

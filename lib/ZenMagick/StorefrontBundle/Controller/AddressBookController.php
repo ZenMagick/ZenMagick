@@ -32,6 +32,7 @@ class AddressBookController extends \ZMController
     public function processGet($request)
     {
         $addressList = $this->container->get('addressService')->getAddressesForAccountId($this->getUser()->getId());
+
         return $this->findView(null, array('addressList' => $addressList));
     }
 

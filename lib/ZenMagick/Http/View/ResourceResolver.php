@@ -196,6 +196,7 @@ class ResourceResolver extends ZMObject
                 $valid[] = $location;
             }
         }
+
         return $valid;
     }
 
@@ -213,6 +214,7 @@ class ResourceResolver extends ZMObject
         } elseif (0 === strpos($resource, VIEW::RESOURCE)) {
             return array(substr($resource, 9), VIEW::RESOURCE);
         }
+
         return array($resource, $type);
     }
 
@@ -277,6 +279,7 @@ class ResourceResolver extends ZMObject
     {
         list($resource, $type) = $this->resolveType($resource, $type);
         $file = $this->findResource($resource, $type);
+
         return !empty($file);
     }
 
@@ -303,6 +306,7 @@ class ResourceResolver extends ZMObject
                 return $path;
             }
         }
+
         return false;
     }
 

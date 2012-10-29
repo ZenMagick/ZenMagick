@@ -60,6 +60,7 @@ class ContainerTagService
                 $services[$id] = $tags[$name];
             }
         }
+
         return $services;
     }
 

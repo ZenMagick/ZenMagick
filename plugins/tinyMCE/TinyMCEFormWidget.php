@@ -68,6 +68,7 @@ class TinyMCEFormWidget extends TextAreaFormWidget implements WysiwygEditor
         } else {
             $this->idList = array_merge($this->idList, $idList);
         }
+
         return '';
     }
 

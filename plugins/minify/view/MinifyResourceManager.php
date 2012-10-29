@@ -54,6 +54,7 @@ class MinifyResourceManager extends ResourceManager
             return $resource;
         }
         $plugin = $this->getPlugin();
+
         return sprintf('%s/f=%s', $plugin->pluginURL('public/min'), parent::resolveResource($resource));
     }
 
@@ -170,6 +171,7 @@ class MinifyResourceManager extends ResourceManager
                 $contents .= parent::handleResourceGroup($list['list'], $group, $location);
             }
         }
+
         return $contents;
     }
 
@@ -332,6 +334,7 @@ class MinifyResourceManager extends ResourceManager
         case 'css':
             return $this->handleCSSResourceGroup($files, $group, $location);
         }
+
         return null;
     }
 

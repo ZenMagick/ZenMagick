@@ -56,6 +56,7 @@ class ReservedQtyWidget extends Widget
               self::$qtyMap_[$result['productId']] = $result['qty'];
           }
         }
+
         return self::$qtyMap_;
     }
 
@@ -69,6 +70,7 @@ class ReservedQtyWidget extends Widget
         if (array_key_exists($product->getId(), $stats)) {
             return $stats[$product->getId()];
         }
+
         return 0;
     }
 

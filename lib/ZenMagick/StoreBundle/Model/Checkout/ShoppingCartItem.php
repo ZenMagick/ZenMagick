@@ -78,6 +78,7 @@ class ShoppingCartItem extends ZMObject
     {
         if (!isset($attributeData['attributes']) || !is_array($attributeData['attributes'])) {
             $this->setAttributes(array());
+
             return;
         }
 
@@ -138,6 +139,7 @@ class ShoppingCartItem extends ZMObject
 
         // keep copy
         $this->attributes_ = $attributes;
+
         return $attributes;
     }
 
@@ -153,6 +155,7 @@ class ShoppingCartItem extends ZMObject
         $address = null != $address ? $address : $this->shoppingCart->getTaxAddress();
         $countryId = null != $address ? $address->getCountryId() : 0;
         $zoneId = null != $address ? $address->getZoneId() : 0;
+
         return $this->container->get('taxService')->getTaxRateForClassId($this->getProduct()->getTaxClassId(), $countryId, $zoneId);
     }
 
@@ -167,6 +170,7 @@ class ShoppingCartItem extends ZMObject
         $address = null != $address ? $address : $this->shoppingCart->getTaxAddress();
         $countryId = null != $address ? $address->getCountryId() : 0;
         $zoneId = null != $address ? $address->getZoneId() : 0;
+
         return $this->container->get('taxService')->getTaxRatesForClassId($this->getProduct()->getTaxClassId(), $countryId, $zoneId);
     }
 
@@ -274,6 +278,7 @@ class ShoppingCartItem extends ZMObject
     public function getItemTotal($tax=true)
     {
         $total = $this->getItemPrice(false) * $this->getQuantity();
+
         return $tax ? $this->getTaxRate()->addTax($total) : $total;
     }
 

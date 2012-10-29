@@ -39,6 +39,7 @@ class ContactUsController extends \ZMController
             $contactInfo->setEmail($account->getEmail());
 
         }
+
         return $this->findView();
     }
 

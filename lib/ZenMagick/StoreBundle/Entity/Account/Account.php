@@ -502,6 +502,7 @@ class Account extends ZMObject
         if (null === $this->subscribedProducts) {
             $this->subscribedProducts = $this->container->get('accountService')->getSubscribedProductIds($this->getId());
         }
+
         return $this->subscribedProducts;
     }
 

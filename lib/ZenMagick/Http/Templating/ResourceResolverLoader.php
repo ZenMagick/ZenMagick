@@ -54,6 +54,7 @@ class ResourceResolverLoader implements LoaderInterface
         }
 
         $filename = $this->resourceResolver->findResource($template, View::TEMPLATE);
+
         return new FileStorage($filename);
     }
 

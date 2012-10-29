@@ -52,6 +52,7 @@ class ThemeVariationPatch extends SQLPatch
     public function isOpen()
     {
         $meta = \ZMRuntime::getDatabase()->getMetaData('template_select');
+
         return !array_key_exists('variation_dir', $meta);
     }
 

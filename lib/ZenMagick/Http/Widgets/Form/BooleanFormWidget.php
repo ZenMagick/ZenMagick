@@ -105,6 +105,7 @@ class BooleanFormWidget extends FormWidget
         if (!empty($label)) {
             echo ' <label for="'.$idBase.'">'.$html->encode(_zm($label)).'</label>';
         }
+
         return ob_get_clean();
     }
 
@@ -132,6 +133,7 @@ class BooleanFormWidget extends FormWidget
         echo ' <label for="'.$idBase.'_true">'.$html->encode(_zm($this->get('label_true'))).'</label>';
         echo '<input type="radio" id="'.$idBase.'_false" name="'.$name.'" value="false"'.(!$value ? $checked : '').$slash.'>';
         echo ' <label for="'.$idBase.'_false">'.$html->encode(_zm($this->get('label_false'))).'</label>';
+
         return ob_get_clean();
     }
 
@@ -155,6 +157,7 @@ class BooleanFormWidget extends FormWidget
         echo '  <option value="true"'.(!$value ? $selected : '').'>'.$html->encode(_zm($this->get('label_true'))).'</option>';
         echo '  <option value="false"'.(!$value ? $selected : '').'>'.$html->encode(_zm($this->get('label_false'))).'</option>';
         echo '</select>';
+
         return ob_get_clean();
     }
 

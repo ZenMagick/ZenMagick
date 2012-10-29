@@ -34,6 +34,7 @@ class ProductReviewsWriteController extends \ZMController
     public function getViewData($request)
     {
         $product = $this->getProduct($request);
+
         return array('currentProduct' => $product, 'currentAccount' => $this->getUser());
     }
 
@@ -45,6 +46,7 @@ class ProductReviewsWriteController extends \ZMController
         if (null == $this->getProduct($request)) {
             return $this->findView('product_not_found');
         }
+
         return $this->findView();
     }
 
@@ -84,6 +86,7 @@ class ProductReviewsWriteController extends \ZMController
         $this->container->get('event_dispatcher')->dispatch('review_submitted', new GenericEvent($this, $args));
 
         $this->messageService->success(_zm("Thank you for your submission"));
+
         return $this->findView('success', array(), array('parameter' => 'productId='.$product->getId()));
     }
 
@@ -103,6 +106,7 @@ class ProductReviewsWriteController extends \ZMController
         } elseif ($request->get('model')) {
             $product = $productService->getProductForModel($request->get('model'), $languageId);
         }
+
         return $product;
     }
 

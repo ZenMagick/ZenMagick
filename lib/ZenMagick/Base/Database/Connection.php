@@ -61,6 +61,7 @@ class Connection extends DbalConnection
     public function getPrefix()
     {
         $params = $this->getParams();
+
         return isset($params['driverOptions']['table_prefix']) ? $params['driverOptions']['table_prefix'] : null;
     }
 
@@ -76,6 +77,7 @@ class Connection extends DbalConnection
         if (null != $prefix && 0 !== strpos($table, $prefix)) {
             $table = $prefix.$table;
             }
+
         return $table;
     }
 
@@ -91,6 +93,7 @@ class Connection extends DbalConnection
             $this->mapper_->setTablePrefix($this->getPrefix());
             $this->getDatabasePlatform()->registerDoctrineTypeMapping('boolean', 'boolean');
         }
+
         return $this->mapper_;
     }
 
@@ -146,6 +149,7 @@ class Connection extends DbalConnection
     public function resolveTablePlaceHolders($sql)
     {
         $prefix = $this->getPrefix();
+
         return preg_replace_callback('/%table\.(\w+?)%/', function($matches) use ($prefix) {
             return $prefix.$matches[1];
         }, $sql);
@@ -370,6 +374,7 @@ class Connection extends DbalConnection
     public function querySingle($sql, array $params = array(), $mapping = null, $modelClass = null)
     {
         $results = $this->fetchAll($sql, $params, $mapping, $modelClass);
+
         return 0 < count($results) ? $results[0] : null;
     }
 
@@ -484,6 +489,7 @@ class Connection extends DbalConnection
                 $x = $stmt->bindValue(':'.$name, $value, $dbalType);
             }
         }
+
         return $stmt;
     }
 
@@ -571,6 +577,7 @@ class Connection extends DbalConnection
                 'default' => $column->getDefault()
              );
         }
+
         return $meta;
     }
 }

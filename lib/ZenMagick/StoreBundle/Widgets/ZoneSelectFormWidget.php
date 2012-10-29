@@ -41,6 +41,7 @@ class ZoneSelectFormWidget extends SelectFormWidget
         foreach ($this->container->get('countryService')->getZonesForCountryId($countryId) as $zone) {
             $options[$zone->getId()] = $zone->getName();
         }
+
         return $options;
     }
 

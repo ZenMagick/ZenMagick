@@ -53,6 +53,7 @@ class ImportZencartConfigurePatch extends FilePatch
     {
         if (!file_exists(_ZM_STORE_CONFIG_YAML)) return true;
         $config = Yaml::parse(_ZM_STORE_CONFIG_YAML);
+
         return !isset($config['database_name']);
     }
 
@@ -65,6 +66,7 @@ class ImportZencartConfigurePatch extends FilePatch
     {
         $writeable = !file_exists(_ZM_STORE_CONFIG_YAML) || is_writeable(_ZM_STORE_CONFIG_YAML);
         $canWriteFile = is_writeable(dirname(_ZM_STORE_CONFIG_YAML)) && $writeable;
+
         return file_exists($this->configurePhpFile) && $canWriteFile;
     }
 

@@ -40,6 +40,7 @@ class GoogleAdSensePlugin extends Plugin
     public function getAd($index)
     {
         $js = stripslashes($this->get(self::ADSENSE_PREFIX.$index));
+
         return $js;
     }
 

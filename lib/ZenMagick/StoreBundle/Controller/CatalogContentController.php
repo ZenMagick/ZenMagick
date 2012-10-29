@@ -72,6 +72,7 @@ abstract class CatalogContentController extends \ZMController
         if (0 < $request->get('productId')) {
             $bits |= self::ACTIVE_PRODUCT;
         }
+
         return $this->active_ & $bits;
     }
 
@@ -104,6 +105,7 @@ abstract class CatalogContentController extends \ZMController
         if ($view instanceof RedirectView) {
             $view->setUrl($this->get('adminTool')->catalog($this));
         }
+
         return $view;
     }
 

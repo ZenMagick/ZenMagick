@@ -57,6 +57,7 @@ class OrdersController extends \ZMController
         $resultList->setPageNumber($request->query->get('page', 1));
 
         $data = array('resultList' => $resultList, 'orderStatus' => $orderStatus);
+
         return $this->findView(null, $data);
     }
 

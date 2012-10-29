@@ -120,6 +120,7 @@ class Categories extends ZMObject
         // first check cache
         if (false !== ($rootCategories = $this->cache_->lookup(Toolbox::hash('categories', 'rootCategories', $rootCategoriesKey)))) {
             $this->rootCategories_[$rootCategoriesKey] = $rootCategories;
+
             return $rootCategories;
         }
 
@@ -377,6 +378,7 @@ class Categories extends ZMObject
         // first check cache
         if (false !== ($productTypeIdMap = $this->cache_->lookup(Toolbox::hash('categories', 'productTypeIdMap')))) {
             $this->productTypeIdMap_ = $productTypeIdMap;
+
             return array_key_exists($categoryId, $this->productTypeIdMap_) ? $this->productTypeIdMap_[$categoryId] : array();
         }
 
@@ -443,6 +445,7 @@ class Categories extends ZMObject
                 WHERE categories_id = :categoryId
                   AND language_id = :languageId";
         $args = array('categoryId' => $categoryId, 'languageId' => $languageId);
+
         return ZMRuntime::getDatabase()->querySingle($sql, $args, 'meta_tags_categories_description', 'ZenMagick\StoreBundle\Entity\Catalog\MetaTagDetails');
     }
 

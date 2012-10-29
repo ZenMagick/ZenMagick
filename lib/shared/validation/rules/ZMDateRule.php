@@ -59,6 +59,7 @@ class ZMDateRule extends ZMRule
     public function validate($request, $data)
     {
         $value = $data[$this->getName()];
+
         return empty($value) || null != DateTime::createFromFormat($this->getFormat(), $value);
     }
 
@@ -86,6 +87,7 @@ class ZMDateRule extends ZMRule
         $js .= ",'".addslashes($this->getErrorMsg())."'";
         $js .= ",".'"'.$this->getFormat().'"';
         $js .= ")";
+
         return $js;
     }
 

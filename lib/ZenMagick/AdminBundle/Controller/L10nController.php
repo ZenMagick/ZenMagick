@@ -145,6 +145,7 @@ class L10nController extends \ZMController
         if (0 < count($translations)) {
             $vd['translations'] = $translations;
         }
+
         return $vd;
     }
 
@@ -161,6 +162,7 @@ class L10nController extends \ZMController
             $response->headers->set('Content-Type', 'text/plain');
             $response->headers->set('Content-Disposition', $d);
             $response->setContent($scanner->map2po($data['translations']));
+
             return $response;
         } elseif ('pot' == $request->getParameter('download')) {
             $response = new Response();
@@ -168,6 +170,7 @@ class L10nController extends \ZMController
             $response->headers->set('Content-Type', 'text/plain');
             $response->headers->set('Content-Disposition', $d);
             $response->setContent($scanner->map2po($data['translations'], true));
+
             return $response;
         }
 

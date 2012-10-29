@@ -291,6 +291,7 @@ class SQLRunner
 
       } //endif ! # or -
     } // end foreach $lines
+
    return array('queries'=> $results, 'string'=>$string, 'output'=>$return_output, 'ignored'=>($ignored_count), 'errors'=>$errors);
   } //end function
 
@@ -517,6 +518,7 @@ class SQLRunner
     $sql="INSERT INTO " . self::$prefix . "upgrade_exceptions VALUES (0,'". $sql_file."','".$reason."', now(), '".addslashes($line)."')";
      if (ZC_UPG_DEBUG3==true) echo '<br />sql='.$sql.'<br />';
     $result = $db->executeUpdate($sql);
+
     return $result;
   }
 
@@ -525,6 +527,7 @@ class SQLRunner
     $db = self::get_db();
     self::create_exceptions_table();
     $result = $db->executeUpdate("TRUNCATE TABLE " . self::$prefix."upgrade_exceptions");
+
     return $result;
   }
 
@@ -539,6 +542,7 @@ class SQLRunner
             errordate datetime default '0001-01-01 00:00:00',
             sqlstatement text, PRIMARY KEY  (upgrade_exception_id)
           ) engine=MyISAM   ");
+
     return $result;
     }
   }
@@ -548,6 +552,7 @@ class SQLRunner
     $message = Beans::getBean('ZenMagick\Http\Messages\Message');
     $message->setText($msg);
     $message->setType($type);
+
     return $message;
   }
 

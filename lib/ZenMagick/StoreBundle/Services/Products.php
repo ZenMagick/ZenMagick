@@ -82,6 +82,7 @@ class Products extends ZMObject implements SqlAware
         if (in_array($method, $methods)) {
             return call_user_func_array(array($this, $method.'QueryDetails'), $args);
         }
+
         return null;
     }
 
@@ -105,6 +106,7 @@ class Products extends ZMObject implements SqlAware
         }
         $sql .= " ORDER BY p.products_sort_order, pd.products_name";
         $args = array('languageId' => $languageId);
+
         return new QueryDetails(ZMRuntime::getDatabase(), $sql, $args, array('products', 'specials', 'products_description'), 'ZenMagick\StoreBundle\Entity\Catalog\Product', 'p.products_id');
     }
 
@@ -131,6 +133,7 @@ class Products extends ZMObject implements SqlAware
         foreach ($results as $result) {
             $productIds[] = $result['productId'];
         }
+
         return $productIds;
     }
 
@@ -157,6 +160,7 @@ class Products extends ZMObject implements SqlAware
         foreach ($results as $result) {
             $productIds[] = $result['productId'];
         }
+
         return $this->getProductsForIds($this->getAllProductIds($active, $languageId), true, $languageId);
     }
 
@@ -213,6 +217,7 @@ class Products extends ZMObject implements SqlAware
                 $ids = array_merge($ids, $this->getProductIdsForCategoryId($child->getId(), $languageId, $active));
             }
         }
+
         return $ids;
     }
 
@@ -239,6 +244,7 @@ class Products extends ZMObject implements SqlAware
         }
         $sql .= " ORDER BY p.products_sort_order, pd.products_name";
         $args = array('categoryId' => $categoryId, 'languageId' => $languageId);
+
         return new QueryDetails(ZMRuntime::getDatabase(), $sql, $args, array('products', 'specials', 'products_description', 'products_to_categories'), 'ZenMagick\StoreBundle\Entity\Catalog\Product', 'p.products_id');
     }
 
@@ -281,6 +287,7 @@ class Products extends ZMObject implements SqlAware
         foreach ($results as $result) {
             $productIds[] = $result['productId'];
         }
+
         return $this->getProductsForIds($productIds, true, $languageId);
     }
 
@@ -325,6 +332,7 @@ class Products extends ZMObject implements SqlAware
                 return 1 == $valueResult['configuration_value'];
             }
         }
+
         return false;
     }
 
@@ -363,6 +371,7 @@ class Products extends ZMObject implements SqlAware
         $args =  array('categoryId' => $categoryId);
         $tables = array('products', 'products_to_categories');
         $productIds = 0 != $max ? $this->getRandomProductIds($sql, $max, $args, $tables) : $this->getProductIds($sql, $args, $tables);
+
         return $this->getProductsForIds($productIds, false, $languageId);
     }
 
@@ -423,6 +432,7 @@ class Products extends ZMObject implements SqlAware
         $args =  array('categoryId' => $categoryId, 'dateAdded' => $date);
         $tables = array('products', 'products_to_categories');
         $productIds = 0 != $max ? $this->getRandomProductIds($sql, $max, $args, $tables) : $this->getProductIds($sql, $args, $tables);
+
         return $this->getProductsForIds($productIds, true, $languageId);
     }
 
@@ -463,6 +473,7 @@ class Products extends ZMObject implements SqlAware
         if (count($productIds) > $max) {
             $productIds = array_splice($productIds, 0, $max);
         }
+
         return $this->getProductsForIds($productIds, true, $languageId);
     }
 
@@ -484,6 +495,7 @@ class Products extends ZMObject implements SqlAware
                   AND s.status = 1";
 
         $productIds = 0 !== $max ? $this->getRandomProductIds($sql, $max) : $this->getProductIds($sql);
+
         return $this->getProductsForIds($productIds, false, $languageId);
     }
 
@@ -649,6 +661,7 @@ class Products extends ZMObject implements SqlAware
                 WHERE products_id = :productId
                 AND language_id = :languageId";
         $args = array('productId' => $productId, 'languageId' => $languageId);
+
         return ZMRuntime::getDatabase()->updateObj($sql, $args, 'products_description');
     }
 
@@ -728,6 +741,7 @@ class Products extends ZMObject implements SqlAware
     public function getProductsForSQL($sql, $languageId=null)
     {
         $productIds = $this->getProductIds($sql);
+
         return $this->getProductsForIds($productIds, true, $languageId);
     }
 
@@ -744,6 +758,7 @@ class Products extends ZMObject implements SqlAware
                 WHERE products_id = :productId
                   AND language_id = :languageId";
         $args = array('productId' => $productId, 'languageId' => $languageId);
+
         return ZMRuntime::getDatabase()->querySingle($sql, $args, 'meta_tags_products_description', 'ZenMagick\StoreBundle\Entity\Catalog\MetaTagDetails');
     }
 

@@ -93,6 +93,7 @@ class ThemeStatusMapBuilder extends ZMObject
     {
         $themeList = $this->buildThemeList();
         $themeChain = $this->buildThemeChain($themeList);
+
         return array(
             'themeList' => $themeList,
             'themeChain' => $themeChain
@@ -138,6 +139,7 @@ class ThemeStatusMapBuilder extends ZMObject
                 }
             }
         }
+
         return $folder;
     }
 
@@ -179,6 +181,7 @@ class ThemeStatusMapBuilder extends ZMObject
                 $themeChain[] = $themeId;
             }
         }
+
         return $themeChain;
     }
 

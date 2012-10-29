@@ -35,6 +35,7 @@ class WordpressController extends ZMController
     {
         $plugin = $this->container->get('pluginService')->getPluginForId('wordpress');
         $viewName = $plugin->getRequestHandler($request)->preProcess($request);
+
         return $this->findView($viewName);
     }
 

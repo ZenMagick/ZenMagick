@@ -44,7 +44,6 @@ class ThemeBuilderController extends \ZMController
         }
 
         //TODO:
-
         return $this->findView();
     }
 

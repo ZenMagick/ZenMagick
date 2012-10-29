@@ -55,6 +55,7 @@ class ZMException extends Exception
         $s .= ', line='.$this->getLine();
         $s .= ', previous='.$this->getPrevious();
         $s .= ']';
+
         return $s;
     }
 
@@ -70,6 +71,7 @@ class ZMException extends Exception
             foreach ($value as $ve) {
                 $va[] = self::formatValue($ve, false);
             }
+
             return implode(', ', $va);
         } elseif (is_object($value)) {
             $rc = new ReflectionClass($value);
@@ -83,6 +85,7 @@ class ZMException extends Exception
         } elseif (null === $value) {
             return 'null';
         }
+
         return $value;
     }
 
@@ -130,6 +133,7 @@ class ZMException extends Exception
             }
             $stack[] = $entry;
         }
+
         return $stack;
     }
 

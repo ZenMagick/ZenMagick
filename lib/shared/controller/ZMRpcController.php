@@ -81,6 +81,7 @@ class ZMRpcController extends ZMController
         $response = new Response();
         $response->headers->set('Content-Type', $rpcResponse->getContentType());
         $response->setContent($rpcResponse);
+
         return $response;
     }
 
@@ -102,6 +103,7 @@ class ZMRpcController extends ZMController
             $rpcResponse->setStatus(false, ZMRpcResponse::RC_INVALID_CREDENTIALS);
             $rpcResponse->addMessage(_zm('Invalid credentials'), 'error');
         }
+
         return $rpcResponse;
     }
 

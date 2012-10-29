@@ -95,6 +95,7 @@ class OpenIDPlugin extends Plugin
         if (null != $result) {
             return $this->container->get('accountService')->getAccountForId($result['accountId']);
         }
+
         return null;
     }
 

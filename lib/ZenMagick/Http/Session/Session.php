@@ -53,6 +53,7 @@ class Session extends BaseSession implements ContainerAwareInterface
         if ($started) {
             $this->restorePersistedServices();
         }
+
         return $started;
     }
 
@@ -244,6 +245,7 @@ class Session extends BaseSession implements ContainerAwareInterface
             $language->setDirectory('english');
             $language->setCode('en');
         }
+
         return $language;
     }
 

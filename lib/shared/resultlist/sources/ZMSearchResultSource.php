@@ -95,6 +95,7 @@ class ZMSearchResultSource extends ZMObject implements ZMResultSource
             $this->results_ = $this->container->get('productService')->getProductsForIds($productIds, true, $this->criteria_->getLanguageId());
             $this->totalNumberOfResults_ = $queryPager->getTotalNumberOfResults();
         }
+
         return $this->results_;
     }
 
@@ -112,6 +113,7 @@ class ZMSearchResultSource extends ZMObject implements ZMResultSource
     public function getTotalNumberOfResults()
     {
         $this->getResults();
+
         return $this->totalNumberOfResults_;
     }
 

@@ -39,6 +39,7 @@ class AccountsController extends \ZMController
         $resultList->setPageNumber($request->query->get('page', 1));
 
         $data = array('resultList' => $resultList);
+
         return $this->findView(null, $data);
     }
 

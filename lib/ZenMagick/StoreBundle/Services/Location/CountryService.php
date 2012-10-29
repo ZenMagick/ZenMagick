@@ -54,6 +54,7 @@ class CountryService extends ZMObject
                 return $country;
             }
         }
+
         return null;
     }
 
@@ -71,6 +72,7 @@ class CountryService extends ZMObject
                 FROM %table.countries%
                 ORDER BY countries_name";
         $this->countries = \ZMRuntime::getDatabase()->fetchAll($sql, array(), 'countries', 'ZenMagick\StoreBundle\Entity\Location\Country');
+
         return $this->countries;
     }
 
@@ -88,6 +90,7 @@ class CountryService extends ZMObject
                 return $country;
             }
         }
+
         return null;
     }
 
@@ -105,6 +108,7 @@ class CountryService extends ZMObject
                 return $country;
             }
         }
+
         return null;
     }
 
@@ -123,6 +127,7 @@ class CountryService extends ZMObject
                 WHERE zone_country_id = :countryId
                  AND zone_id = :zoneId";
         $zone = \ZMRuntime::getDatabase()->querySingle($sql, array('zoneId' => $zoneId, 'countryId' => $countryId), 'zones');
+
         return null !== $zone ? $zone['code'] : $defaultZone;
     }
 
@@ -143,6 +148,7 @@ class CountryService extends ZMObject
                 WHERE zone_country_id = :countryId
                 ORDER BY zone_name";
         $zones = \ZMRuntime::getDatabase()->fetchAll($sql, array('countryId' => $countryId), 'zones', 'ZenMagick\StoreBundle\Entity\Location\Zone');
+
         return $zones;
     }
 

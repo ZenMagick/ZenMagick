@@ -88,6 +88,7 @@ class ZMEmailRule extends ZMRule
         $js .= ",'".addslashes($this->getErrorMsg())."'";
         $js .= ",".'"'.$this->emailRegexp().'"';
         $js .= ")";
+
         return $js;
     }
 

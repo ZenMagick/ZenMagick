@@ -70,6 +70,7 @@ class UnitTestsPlugin extends Plugin
             }
             $this->customDone_ = true;
         }
+
         return $this->tests_;
     }
 

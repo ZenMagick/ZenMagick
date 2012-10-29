@@ -43,6 +43,7 @@ class ProductAssociationService extends ZMObject
             $handler = $this->container->get($id);
             $handlers[$handler->getType()] = $handler;
         }
+
         return $handlers;
     }
 
@@ -68,6 +69,7 @@ class ProductAssociationService extends ZMObject
         if (array_key_exists($type, $handlers)) {
             return $handlers[$type];
         }
+
         return null;
     }
 

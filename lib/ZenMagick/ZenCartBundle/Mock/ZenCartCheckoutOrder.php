@@ -114,6 +114,7 @@ class ZenCartCheckoutOrder extends ZMObject
                 $aa['country']['iso_code_2'] = $country->getIsoCode2();
             }
         }
+
         return $aa;
     }
 

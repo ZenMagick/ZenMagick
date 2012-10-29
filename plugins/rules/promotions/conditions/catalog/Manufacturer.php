@@ -52,6 +52,7 @@ class Manufacturer extends CatalogPromotionElement
         $rule->addVariable('productManufacturer');
         $rule->addVariable('manufacturer');
         $rule->addOperator(Operator::EQUAL_TO);
+
         return array($rule);
     }
 

@@ -60,6 +60,7 @@ class AdminUserService extends ZMObject
                 FROM %table.admin%
                 WHERE admin_id = :id";
         $args = array('id' => $id);
+
         return $this->finalizeUser(\ZMRuntime::getDatabase()->querySingle($sql, $args, 'admin', 'ZenMagick\AdminBundle\Entity\AdminUser'));
     }
 
@@ -75,6 +76,7 @@ class AdminUserService extends ZMObject
                 FROM %table.admin%
                 WHERE admin_name = :name";
         $args = array('name' => $name);
+
         return $this->finalizeUser(\ZMRuntime::getDatabase()->querySingle($sql, $args, 'admin', 'ZenMagick\AdminBundle\Entity\AdminUser'));
     }
 
@@ -111,6 +113,7 @@ class AdminUserService extends ZMObject
                 FROM %table.admin%
                 WHERE admin_email = :email";
         $args = array('email' => $email);
+
         return $this->finalizeUser(\ZMRuntime::getDatabase()->querySingle($sql, $args, 'admin', 'ZenMagick\AdminBundle\Entity\AdminUser'));
     }
 
@@ -124,6 +127,7 @@ class AdminUserService extends ZMObject
     {
         $user = \ZMRuntime::getDatabase()->createModel('admin', $user);
         $this->container->get('adminUserRoleService')->setRolesForId($user->getId(), $user->getRoles());
+
         return true;
     }
 
@@ -137,6 +141,7 @@ class AdminUserService extends ZMObject
     {
         \ZMRuntime::getDatabase()->updateModel('admin', $user);
         $this->container->get('adminUserRoleService')->setRolesForId($user->getId(), $user->getRoles());
+
         return true;
     }
 
@@ -155,6 +160,7 @@ class AdminUserService extends ZMObject
                 WHERE admin_id = :id";
         // delete user
         \ZMRuntime::getDatabase()->updateObj($sql, array('id' => $id), 'admin');
+
         return true;
     }
 

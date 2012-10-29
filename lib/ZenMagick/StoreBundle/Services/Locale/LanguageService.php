@@ -73,6 +73,7 @@ class LanguageService extends ZMObject
         }
         $locale = explode('_', $code);
         $code = $locale[0];
+
         return isset($this->languages[$code]) ? $this->languages[$code] : null;
     }
 

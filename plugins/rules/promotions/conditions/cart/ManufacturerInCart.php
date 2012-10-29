@@ -52,6 +52,7 @@ class ManufacturerInCart extends CartPromotionElement
         $rule->addVariable('manufacturerList');
         $rule->addVariable('manufacturer');
         $rule->addOperator(Operator::IN);
+
         return array($rule);
     }
 

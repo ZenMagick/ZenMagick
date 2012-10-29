@@ -207,6 +207,7 @@ class EZPage extends ZMObject
             eval('?>'.$text);
             $text = ob_get_clean();
         }
+
         return $text;
     }
 

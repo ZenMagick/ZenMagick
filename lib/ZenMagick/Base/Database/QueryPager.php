@@ -90,6 +90,7 @@ class QueryPager extends ZMObject
             }
             $sql .= $filter;
         }
+
         return $sql;
     }
 

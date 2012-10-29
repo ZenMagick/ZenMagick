@@ -40,6 +40,7 @@ class CouponSelectFormWidget extends SelectFormWidget
         foreach ($this->container->get('couponService')->getCoupons($languageId) as $coupon) {
             $options[$coupon->getId()] = $coupon->getName();
         }
+
         return $options;
     }
 

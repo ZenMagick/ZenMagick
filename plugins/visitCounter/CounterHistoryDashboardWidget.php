@@ -72,6 +72,7 @@ class CounterHistoryDashboardWidget extends DashboardWidget
             $contents .= '<td>'.$v[2].'</td>';
             $contents .= '</tr>';
         }
+
         return $contents;
     }
 }

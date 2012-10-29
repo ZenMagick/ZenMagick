@@ -41,6 +41,7 @@ class ThemesController extends \ZMController
 
         // all themes
         $themeConfigList = $themeService->getThemeConfigList();
+
         return $this->findView(null, array('themes' => $themes, 'themeConfigList' => $themeConfigList));
     }
 
@@ -94,6 +95,7 @@ class ThemesController extends \ZMController
         }
 
         $themeService->refreshStatusMap();
+
         return $this->findView('success');
     }
 

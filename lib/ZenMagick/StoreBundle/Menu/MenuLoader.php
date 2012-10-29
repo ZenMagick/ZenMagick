@@ -90,6 +90,7 @@ class MenuLoader
                 }
             }
         }
+
         return $menu;
     }
 

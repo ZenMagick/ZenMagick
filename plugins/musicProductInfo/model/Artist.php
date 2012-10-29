@@ -94,6 +94,7 @@ class Artist extends ZMObject
         $imageInfo = Beans::getBean('ZMImageInfo');
         $imageInfo->setAltText($this->name_);
         $imageInfo->setDefaultImage($this->image_);
+
         return $imageInfo;
     }
 

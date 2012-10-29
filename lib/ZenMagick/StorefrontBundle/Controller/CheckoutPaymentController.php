@@ -65,7 +65,6 @@ class CheckoutPaymentController extends \ZMController
         }
 
         // TODO: add check if payment is needed at all (if subtotal is zero we don't need payment?)
-
         return $this->findView();
     }
 
@@ -96,6 +95,7 @@ class CheckoutPaymentController extends \ZMController
 
         if ($this->container->get('settingsService')->get('isConditionsMessage') && !Toolbox::asBoolean($request->request->get('conditions'))) {
             $this->messageService->error(_zm('Please confirm the terms and conditions bound to this order by ticking the box below.'));
+
             return $this->findView();
         }
 
@@ -103,11 +103,13 @@ class CheckoutPaymentController extends \ZMController
 
         if (null == ($paymentTypeId = $request->request->get('payment'))) {
             $this->messageService->error(_zm('Please select a payment type.'));
+
             return $this->findView();
         }
 
         if (null == ($paymentType = $this->container->get('paymentTypeService')->getPaymentTypeForId($paymentTypeId))) {
             $this->messageService->error(_zm('Please select a valid payment type.'));
+
             return $this->findView();
         }
 

@@ -119,6 +119,7 @@ class ZMObjectResultSource extends ZMObject implements ZMResultSource
             }
 
         }
+
         return $this->results_;
     }
 
@@ -199,6 +200,7 @@ class ZMObjectResultSource extends ZMObject implements ZMResultSource
     public function getTotalNumberOfResults()
     {
         $this->getResults();
+
         return $this->totalNumberOfResults_;
     }
 
@@ -210,6 +212,7 @@ class ZMObjectResultSource extends ZMObject implements ZMResultSource
         if (null === $this->isFinal_) {
             $this->getResults();
         }
+
         return $this->isFinal_;
     }
 

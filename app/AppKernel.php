@@ -84,6 +84,7 @@ class AppKernel extends Kernel
             $bundles[] = new Sensio\Bundle\DistributionBundle\SensioDistributionBundle;
             $bundles[] = new Sensio\Bundle\GeneratorBundle\SensioGeneratorBundle;
         }
+
         return $bundles;
     }
 
@@ -167,6 +168,7 @@ class AppKernel extends Kernel
         $parameters['kernel.context'] = $this->getContext();
         $parameters['zenmagick.root_dir'] = dirname($this->getRootDir()); // @todo remove this
         $parameters['kernel.context_dir'] = $this->getApplicationPath();
+
         return $parameters;
     }
 }

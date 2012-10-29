@@ -64,6 +64,7 @@ class ZMPhpEngine extends ZMObject implements EngineInterface
         $this->view = $parameters['view'];
         // base properties
         $this->properties = array_merge($this->properties, $parameters);
+
         return $this->fetch($template, $parameters);
     }
 
@@ -73,6 +74,7 @@ class ZMPhpEngine extends ZMObject implements EngineInterface
     public function exists($template)
     {
         $path = $this->view->getResourceResolver()->findResource($template, View::TEMPLATE);
+
         return !empty($path);
     }
 
@@ -82,6 +84,7 @@ class ZMPhpEngine extends ZMObject implements EngineInterface
     public function supports($template)
     {
         $ext = pathinfo($template, PATHINFO_EXTENSION);
+
         return in_array($ext, array('php', 'js'));
     }
 
@@ -179,6 +182,7 @@ class ZMPhpEngine extends ZMObject implements EngineInterface
 //            Runtime::getLogging()->debug(sprintf('render block, template: %s', $block->getTemplate()));
             $contents .= $block->render($this->request, $this->view);
         }
+
         return $contents;
     }
 
@@ -199,6 +203,7 @@ class ZMPhpEngine extends ZMObject implements EngineInterface
         }
         if (!($wObj instanceof Widget)) {
             Runtime::getLogging()->debug('invalid widget: '.$widget);
+
             return '';
         }
         if (null !== $name) {
@@ -214,6 +219,7 @@ class ZMPhpEngine extends ZMObject implements EngineInterface
         if (null !== $args) {
             Beans::setAll($wObj, $args);
         }
+
         return $wObj->render($this->request, $this->view);
     }
 

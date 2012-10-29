@@ -104,6 +104,7 @@ class Toolbox
                 }
             }
         }
+
         return $base;
     }
 
@@ -146,6 +147,7 @@ class Toolbox
                 $map[$key] = self::asBoolean($value);
             }
         }
+
         return $map;
     }
 
@@ -169,6 +171,7 @@ class Toolbox
                 $key .= ':'.$arg;
             }
         }
+
         return md5($key);
     }
 
@@ -194,6 +197,7 @@ class Toolbox
     public static function endsWith($s, $end)
     {
         $endLen = strlen($end);
+
         return $end == substr($s, -$endLen);
     }
 
@@ -215,6 +219,7 @@ class Toolbox
         $classname = ucwords($classname);
         // cuddle together :)
         $classname = str_replace(' ', '', $classname);
+
         return $classname;
     }
 }

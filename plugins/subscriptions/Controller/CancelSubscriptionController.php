@@ -40,6 +40,7 @@ class ZMCancelSubscriptionController extends ZMController
     {
         if (!Toolbox::asBoolean($this->getPlugin()->get('customerCancel'))) {
             $this->messageService->error(_zm("Insufficient permission"));
+
             return $this->findView();
         }
         $orderId = $request->query->getInt('orderId');
@@ -49,6 +50,7 @@ class ZMCancelSubscriptionController extends ZMController
         // make sure this is an allowed order
         if ($order->getAccountId() != $order->getAccountId()) {
             $this->messageService->error(_zm("Invalid order selected"));
+
             return $this->findView();
         }
 
@@ -61,6 +63,7 @@ class ZMCancelSubscriptionController extends ZMController
 
         if ($results['total'] < $plugin->get('minOrders')) {
             $this->messageService->error(sprintf(_zm("This subscription can only be canceled after a minimum of %s orders"), $plugin->get('minOrders')));
+
             return $this->findView();
         }
 
@@ -74,6 +77,7 @@ class ZMCancelSubscriptionController extends ZMController
             $result = ZMRuntime::getDatabase()->querySingle($sql, array('orderId' => $orderId), 'orders', Connection::MODEL_RAW);
             if (null == $result) {
                 $this->messageService->error(sprintf(_zm("Can't cancel less than %s days before next subscription"), $cancelDeadline));
+
                 return $this->findView();
             }
         }
