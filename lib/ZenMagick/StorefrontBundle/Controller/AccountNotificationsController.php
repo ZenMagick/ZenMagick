@@ -60,7 +60,7 @@ class AccountNotificationsController extends \ZMController {
 
         $this->messageService->success(_zm('Your product subscriptions have been updated.'));
 
-        switch($notifyType) {
+        switch ($notifyType) {
             case 'add':
                 $account = $this->container->get('accountService')->addSubscribedProductIds($account, $subscribedProducts);
                 // @todo don't redirect like this

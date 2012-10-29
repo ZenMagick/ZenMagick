@@ -144,9 +144,9 @@ class CatalogProductRssItemIterator extends ZMObject implements Iterator {
             );
 
             if (!$product->isFree()) {
-                if ($offers->isSale())  {
+                if ($offers->isSale()) {
                     $pricing['sale'] = $offers->getSalePrice($tax);
-                } elseif ($offers->isSpecial())  {
+                } elseif ($offers->isSpecial()) {
                     $pricing['special'] = $offers->getSpecialPrice($tax);
                 }
             }

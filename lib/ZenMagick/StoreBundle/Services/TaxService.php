@@ -244,7 +244,7 @@ class TaxService extends ZMObject {
         $priorRate = 1;
         $priority = 0;
         foreach ($results as $ii => $result) {
-            $result['priority'] = (int)$result['priority'];
+            $result['priority'] = (int) $result['priority'];
             if ($result['priority'] > $tax_priority) {
                 $priority = $result['priority'];
                 $priorRate = $aggregateRate;

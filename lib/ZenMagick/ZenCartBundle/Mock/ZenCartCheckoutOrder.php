@@ -206,7 +206,7 @@ class ZenCartCheckoutOrder extends ZMObject {
                             // todo recursive check...
                             continue;
                         }
-                        if ((string)$value != (string)$this->products[$ii][$key]) {
+                        if ((string) $value != (string) $this->products[$ii][$key]) {
                             echo 'PRODUCT: value mismatch for '.$key.': value=';var_dump($value); echo ', ZM got: ';var_dump($this->products[$ii][$key]); echo "<BR>";
                         }
                     } else {
@@ -341,7 +341,7 @@ class ZenCartCheckoutOrder extends ZMObject {
                     $value = round($value, 3);
                     $this->info[$key] = round($this->info[$key], 3);
                 }
-                if ((string)$value != (string)$this->info[$key]) {
+                if ((string) $value != (string) $this->info[$key]) {
                     echo 'info('.($withTotals?'with':'without').' ot): value mismatch for '.$key.': value=';var_dump($value); echo ', ZM got: ';var_dump($this->info[$key]); echo "<BR>";
                 }
             } else {

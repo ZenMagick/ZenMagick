@@ -49,7 +49,7 @@ class AutoLoginPlugin extends Plugin {
                 // resource = auto_login/id/[accountId]
                 $bits = explode('/', $token->getResource());
                 if (3 == count($bits) && 'auto_login' == $bits[0] && 'id' == $bits[1]) {
-                    $account = $this->container->get('accountService')->getAccountForId((int)$bits[2]);
+                    $account = $this->container->get('accountService')->getAccountForId((int) $bits[2]);
                     // TODO: renew cookie if required
                 }
 

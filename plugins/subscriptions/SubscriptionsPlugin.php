@@ -195,7 +195,7 @@ class SubscriptionsPlugin extends Plugin {
         if (1 < $factor) {
             // multiply
             $bits = explode(' ', $schedule);
-            $schedule = ($factor * (int)$bits[0]) . ' ' . $bits[1];
+            $schedule = ($factor * (int) $bits[0]) . ' ' . $bits[1];
 
         }
         return $schedule;

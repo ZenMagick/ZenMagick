@@ -223,7 +223,7 @@ class ZMResultList extends ZMObject {
         if (0 == $this->pagination_) {
             return 1;
         }
-        return (int)ceil($this->getNumberOfResults() / $this->pagination_);
+        return (int) ceil($this->getNumberOfResults() / $this->pagination_);
     }
 
     /**
@@ -291,7 +291,7 @@ class ZMResultList extends ZMObject {
             if (0 != $this->pagination_) {
                 $end = $this->page_ * $this->pagination_;
                 $end = $end > count($results) ? count($results) : $end;
-                $start = ((int)($end / $this->pagination_)) * $this->pagination_;
+                $start = ((int) ($end / $this->pagination_)) * $this->pagination_;
                 $start = ($start == $end && 0 < $end) ? $start - $this->pagination_ : $start;
             } else {
                 // all

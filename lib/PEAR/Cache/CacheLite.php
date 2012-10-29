@@ -258,22 +258,22 @@ class CacheLite
     *
     * $options is an assoc. Available options are :
     * $options = array(
-    *     'cacheDir' => directory where to put the cache files (string),
-    *     'caching' => enable / disable caching (boolean),
-    *     'lifeTime' => cache lifetime in seconds (int),
-    *     'fileLocking' => enable / disable fileLocking (boolean),
-    *     'writeControl' => enable / disable write control (boolean),
-    *     'readControl' => enable / disable read control (boolean),
-    *     'readControlType' => type of read control 'crc32', 'md5', 'strlen' (string),
-    *     'pearErrorMode' => pear error mode (when raiseError is called) (cf PEAR doc) (int),
-    *     'memoryCaching' => enable / disable memory caching (boolean),
-    *     'onlyMemoryCaching' => enable / disable only memory caching (boolean),
-    *     'memoryCachingLimit' => max nbr of records to store into memory caching (int),
-    *     'fileNameProtection' => enable / disable automatic file name protection (boolean),
-    *     'automaticSerialization' => enable / disable automatic serialization (boolean),
-    *     'automaticCleaningFactor' => distable / tune automatic cleaning process (int),
-    *     'hashedDirectoryLevel' => level of the hashed directory system (int),
-    *     'hashedDirectoryUmask' => umask for hashed directory structure (int),
+    *     'cacheDir' => directory where to put the cache files (string) ,
+    *     'caching' => enable / disable caching (boolean) ,
+    *     'lifeTime' => cache lifetime in seconds (int) ,
+    *     'fileLocking' => enable / disable fileLocking (boolean) ,
+    *     'writeControl' => enable / disable write control (boolean) ,
+    *     'readControl' => enable / disable read control (boolean) ,
+    *     'readControlType' => type of read control 'crc32', 'md5', 'strlen' (string) ,
+    *     'pearErrorMode' => pear error mode (when raiseError is called) (cf PEAR doc) (int) ,
+    *     'memoryCaching' => enable / disable memory caching (boolean) ,
+    *     'onlyMemoryCaching' => enable / disable only memory caching (boolean) ,
+    *     'memoryCachingLimit' => max nbr of records to store into memory caching (int) ,
+    *     'fileNameProtection' => enable / disable automatic file name protection (boolean) ,
+    *     'automaticSerialization' => enable / disable automatic serialization (boolean) ,
+    *     'automaticCleaningFactor' => distable / tune automatic cleaning process (int) ,
+    *     'hashedDirectoryLevel' => level of the hashed directory system (int) ,
+    *     'hashedDirectoryUmask' => umask for hashed directory structure (int) ,
     *     'errorHandlingAPIBreak' => API break for better error handling ? (boolean)
     * );
     *
@@ -290,7 +290,7 @@ class CacheLite
     */
     public function __construct($options = array(NULL))
     {
-        foreach($options as $key => $value) {
+        foreach ($options as $key => $value) {
             $this->setOption($key, $value);
         }
         if (!isset($options['cacheDir']) && function_exists('sys_get_temp_dir')) {
@@ -437,7 +437,7 @@ class CacheLite
                 return true;
             }
         }
-        if ( $checkbeforeunlink ) {
+        if ($checkbeforeunlink) {
             if (!file_exists($this->_file)) return true;
         }
         return $this->_unlink($this->_file);
@@ -612,7 +612,7 @@ class CacheLite
             $motif = ($group) ? 'cache_'.$group.'_' : 'cache_';
         }
         if ($this->_memoryCaching) {
-        foreach($this->_memoryCachingArray as $key => $v) {
+        foreach ($this->_memoryCachingArray as $key => $v) {
                 if (strpos($key, $motif) !== false) {
                     unset($this->_memoryCachingArray[$key]);
                     $this->_memoryCachingCounter = $this->_memoryCachingCounter - 1;

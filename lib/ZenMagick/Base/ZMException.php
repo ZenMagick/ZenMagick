@@ -39,7 +39,7 @@ class ZMException extends Exception {
      * @param Exception previous The original exception (if any) for chaining; default is <code>null</code>.
      */
     public function __construct($message=null, $code=0, $previous=null) {
-        parent::__construct((string)$message, (int)$code, $previous);
+        parent::__construct((string) $message, (int) $code, $previous);
     }
 
     /**

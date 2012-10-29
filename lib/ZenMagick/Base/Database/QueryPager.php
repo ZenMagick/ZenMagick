@@ -150,7 +150,7 @@ class QueryPager extends ZMObject {
             }
 
             $result = $queryDetails->getDatabase()->querySingle($getTotalSql, $queryDetails->getArgs(), $queryDetails->getMapping(), \ZenMagick\Base\Database\Connection::MODEL_RAW);
-            $this->totalResultsCount_ = (int)$result['total'];
+            $this->totalResultsCount_ = (int) $result['total'];
         }
 
         return $this->totalResultsCount_;

@@ -24,12 +24,12 @@
     <?php echo $form->open(null, null, false, array('method'=>'get','class'=>'ropt','onsubmit'=>null)) ?>
         <?php if ($resultList->hasFilters()) { ?>
             <div class="rlf">
-                <?php foreach($resultList->getFilters() as $filter) { if (!$filter->isAvailable()) { continue; } $hasOptions = true; ?>
+                <?php foreach ($resultList->getFilters() as $filter) { if (!$filter->isAvailable()) { continue; } $hasOptions = true; ?>
                     <?php /* if multi select do not auto submit */ ?>
                     <?php $opts = $filter->isMultiSelection() ? ' size="3" multiple="multiple"' : ' onchange="this.form.submit()"'; ?>
                     <select id="<?php echo str_replace('[]', '', $filter->getId()) ?>" name="<?php echo $filter->getId() ?>"<?php echo $opts ?>>
                         <option value=""><?php _vzm("Filter by '%s' ...", $filter->getName()) ?></option>
-                        <?php foreach($filter->getOptions() as $option) { ?>
+                        <?php foreach ($filter->getOptions() as $option) { ?>
                             <?php $selected = $option->isActive() ? ' selected="selected"' : ''; ?>
                             <option value="<?php echo $option->getId() ?>"<?php echo $selected ?>><?php echo $option->getName() ?></option>
                         <?php } ?>
@@ -51,8 +51,8 @@
 
                 <select id="sort" name="sort_id" onchange="this.form.submit()">
                     <option value=""><?php _vzm("Sort by ...") ?></option>
-                    <?php foreach($resultList->getSorters() as $sorter) { ?>
-                        <?php foreach($sorter->getOptions() as $option) { ?>
+                    <?php foreach ($resultList->getSorters() as $sorter) { ?>
+                        <?php foreach ($sorter->getOptions() as $option) { ?>
                             <?php $selected = $option->isActive() ? ' selected="selected"' : ''; ?>
                             <?php $indicator = $option->isActive() ? ($option->isDecending() ? ' (-)' : ' (+)') : ''; ?>
                             <?php $id = $option->isActive() ? $option->getReverseId() : $option->getId(); ?>

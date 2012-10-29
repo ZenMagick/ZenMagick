@@ -291,10 +291,10 @@ class Orders extends ZMObject implements SqlAware {
                 $elems = explode('-', $token);
                 $size = count($elems);
                 if (1 == $size && !empty($elems[0])) {
-                    $elem = (int)$elems[0];
+                    $elem = (int) $elems[0];
                     $arr[$elem] = $elem;
                 } elseif (2 == $size && !empty($elems[0]) && !empty($elems[1])) {
-                    for ($ii=(int)$elems[0]; $ii<=(int)$elems[1]; ++$ii) {
+                    for ($ii=(int) $elems[0]; $ii<=(int) $elems[1]; ++$ii) {
                         $arr[$ii] = $ii;
                     }
                 }

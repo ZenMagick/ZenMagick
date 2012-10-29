@@ -70,7 +70,7 @@ class RssItem extends ZMObject {
      *
      * @return array The item categories.
      */
-    public function getCategories() { return (array)$this->get('category'); }
+    public function getCategories() { return (array) $this->get('category'); }
 
     /**
      * Get the item publish date.

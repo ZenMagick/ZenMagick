@@ -100,7 +100,7 @@ class AppKernel extends Kernel {
 
         $resources[] = $rootDir.'/config/container.xml';
         // @todo remove this when we we can prove we don't need $_SESSION
-        $resources[] = function($container) use($context) {
+        $resources[] = function($container) use ($context) {
             if ('storefront' == $context) {
                 $container->setParameter('session.class', 'ZenMagick\StorefrontBundle\Http\Session');
             }

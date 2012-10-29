@@ -46,7 +46,7 @@ class TestAttributePricing extends TestCase {
                         $zprice = $value->getValuePrice();
                     }
                     // default is 4 decimal digits...
-                    $this->assertEqual((int)(10000*$zprice), (int)(10000*$value->getPrice(false)), '%s productId='.$product->getId().' $valueId='.$value->getAttributeValueId().'/'.$value->getAttributeValueDetailsId());
+                    $this->assertEqual((int) (10000*$zprice), (int) (10000*$value->getPrice(false)), '%s productId='.$product->getId().' $valueId='.$value->getAttributeValueId().'/'.$value->getAttributeValueDetailsId());
                 }
             }
         }

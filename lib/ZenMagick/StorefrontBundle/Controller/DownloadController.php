@@ -135,7 +135,7 @@ class DownloadController extends \ZMController {
         header('Content-Type: application/download');
         header('Content-Transfer-Encoding: binary');
         header('Content-Disposition: attachment; filename="'.urlencode($outputFileName).'"');
-        if ($fileSize > 0) header('Content-Length: '.(string)$fileSize);
+        if ($fileSize > 0) header('Content-Length: '.(string) $fileSize);
 
         if (!$settingsService->get('downloadInChunks')) {
             readfile($filePath);

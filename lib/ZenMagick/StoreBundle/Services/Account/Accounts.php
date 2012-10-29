@@ -229,7 +229,7 @@ class Accounts extends ZMObject {
                 WHERE customers_info_id = :accountId";
         $result = ZMRuntime::getDatabase()->querySingle($sql, array('accountId' => $accountId), 'customers_info');
 
-        return (boolean)$result['globalProductSubscriber'];
+        return (boolean) $result['globalProductSubscriber'];
     }
 
     /**

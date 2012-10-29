@@ -76,7 +76,7 @@ class RssFeedGenerator extends ZMObject {
             $s = str_replace($char, $entity, $s);
         }
 
-        if ($tag && (string)(int)$s == $s) {
+        if ($tag && (string) (int) $s == $s) {
             // can't have numeric element name
             $s = 'n_'.$s;
         }

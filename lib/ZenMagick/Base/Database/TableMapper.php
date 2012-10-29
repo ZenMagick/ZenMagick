@@ -100,7 +100,7 @@ class TableMapper extends ZMObject {
      */
     public function getMapping($tables) {
         $mappings = array();
-        foreach (array_reverse((array)$tables) as $table) {
+        foreach (array_reverse((array) $tables) as $table) {
             $table = str_replace($this->tablePrefix_, '', $table);
             if (empty($table)) continue;
 
@@ -136,7 +136,7 @@ class TableMapper extends ZMObject {
     public function addPropertyForTable($table, $name, $info) {
         $table = str_replace($this->tablePrefix_, '', $table);
         $defaults = array('property' => $name, 'key' => false, 'auto' => false, 'custom' => false, 'default' => null);
-        $this->tableMap_[$table][$name] = array_merge($defaults, (array)$info);
+        $this->tableMap_[$table][$name] = array_merge($defaults, (array) $info);
     }
 
     /**
@@ -149,7 +149,7 @@ class TableMapper extends ZMObject {
      */
     public function setMappingForTable($table, $mapping) {
         $this->removeMappingForTable($table);
-        foreach ((array)$mapping as $property => $info) {
+        foreach ((array) $mapping as $property => $info) {
             $this->addPropertyForTable($table, $property, $info);
         }
     }

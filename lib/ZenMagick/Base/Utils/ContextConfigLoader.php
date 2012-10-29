@@ -87,7 +87,7 @@ class ContextConfigLoader extends ZMObject {
      * @param mixed config Either a filename or array (already loaded YAML); default is <code>null</code>.
      */
     public function setConfig($config) {
-        $this->config = is_array($config) ? $config : Yaml::parse((string)$config);
+        $this->config = is_array($config) ? $config : Yaml::parse((string) $config);
     }
 
     /**
@@ -205,7 +205,7 @@ class ContextConfigLoader extends ZMObject {
         }
         if (array_key_exists('classmap', $autoLoaders)) {
             $classMap = array();
-            foreach($autoLoaders['classmap'] as $class => $file) {
+            foreach ($autoLoaders['classmap'] as $class => $file) {
                 $classMap[$class] = $pathBase.DIRECTORY_SEPARATOR.$file;
             }
             $this->getClassLoader()->addClassMap($classMap);

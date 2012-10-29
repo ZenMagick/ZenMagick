@@ -281,7 +281,7 @@ class CheckoutHelper extends ZMObject {
         $x = strval($x);
         $y = strval($y);
         $round = ($x*1000)/($y*1000);
-        $round_ceil = (int)($round);
+        $round_ceil = (int) ($round);
         $multiplier = $round_ceil * $y;
         $result = abs(round($x - $multiplier, 6));
         return $result;

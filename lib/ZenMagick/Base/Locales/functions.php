@@ -97,7 +97,7 @@ function _zmsprintf($format, $mixed) {
         // found blocks
         foreach ($matches as $match) {
             // default empty position parameter to 0
-            $match[1] = empty($match[1]) ? 0 : (int)$match[1];
+            $match[1] = empty($match[1]) ? 0 : (int) $match[1];
             $match[0] = trim($match[0]);
             if (isset($args[$match[1]])) {
                 // parameter with that index exists

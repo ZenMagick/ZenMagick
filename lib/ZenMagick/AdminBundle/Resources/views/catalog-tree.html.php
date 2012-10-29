@@ -21,7 +21,7 @@
 
 
     $initially_open = '';
-    foreach ((array)$request->attributes->get('categoryIds') as $categoryId) {
+    foreach ((array) $request->attributes->get('categoryIds') as $categoryId) {
         if (!empty($initially_open)) {
             $initially_open .= ',';
         }

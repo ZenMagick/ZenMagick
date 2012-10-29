@@ -66,7 +66,7 @@ abstract class FormWidget extends Widget {
      * @param string class The classes.
      */
     public function addClasses($classes) {
-        $this->classes_ = array_unique(array_merge($this->classes_, (array)$classes));
+        $this->classes_ = array_unique(array_merge($this->classes_, (array) $classes));
     }
 
     /**
@@ -165,7 +165,7 @@ abstract class FormWidget extends Widget {
      * @param array names The attribute names.
      */
     public function addAttributeNames($names) {
-        $this->attributeNames_ = array_unique(array_merge($this->attributeNames_, (array)$names));
+        $this->attributeNames_ = array_unique(array_merge($this->attributeNames_, (array) $names));
     }
 
     /**

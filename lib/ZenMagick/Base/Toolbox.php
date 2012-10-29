@@ -54,7 +54,7 @@ class Toolbox {
         );
 
         if (!self::$seedDone_) {
-            mt_srand((double)microtime() * 1000200);
+            mt_srand((double) microtime() * 1000200);
             self::$seedDone_ = true;
         }
 
@@ -86,7 +86,7 @@ class Toolbox {
             if (!is_array($append)) {
                 $append = array($append);
             }
-            foreach($append as $key => $value) {
+            foreach ($append as $key => $value) {
                 if (!array_key_exists($key, $base) && !is_numeric($key)) {
                     $base[$key] = $append[$key];
                     continue;
@@ -94,7 +94,7 @@ class Toolbox {
                 if (is_array($value) || (isset($base[$key]) && is_array($base[$key]))) {
                     $base[$key] = self::arrayMergeRecursive($base[$key], $append[$key]);
                 /* this would make it drop duplicate values (not keys)
-                } else if(is_numeric($key)) {
+                } else if (is_numeric($key)) {
                     if(!in_array($value, $base)) $base[] = $value;
                 */
                 } else {
@@ -113,7 +113,7 @@ class Toolbox {
      */
     public static function asBoolean($value) {
         if (is_integer($value)) {
-            return (bool)$value;
+            return (bool) $value;
         }
         if (is_bool($value)) {
             return $value;

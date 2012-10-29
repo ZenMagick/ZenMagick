@@ -56,7 +56,7 @@ class ShippingEstimator extends ZMObject {
      */
     public function getStateId() {
         $request = $this->getRequest();
-        $state_zone_id = (isset($_SESSION['cart_zone'])) ? (int)$_SESSION['cart_zone'] : '';
+        $state_zone_id = (isset($_SESSION['cart_zone'])) ? (int) $_SESSION['cart_zone'] : '';
         $state_zone_id = $request->request->has('state') ? $request->request->get('state') : $state_zone_id;
         return $state_zone_id;
     }
@@ -97,7 +97,7 @@ class ShippingEstimator extends ZMObject {
     }
 
     /**
-     * Get a zen-cart style address (array).
+     * Get a zen-cart style address (array) .
      *
      * @return array Array containing a zen-cart style address.
      */
@@ -121,7 +121,7 @@ class ShippingEstimator extends ZMObject {
             //add state zone_id
             $_SESSION['cart_zone'] = $this->getStateId();
             $_SESSION['cart_zip_code'] = $this->getPostcode();
-        } elseif ($_SESSION['cart_country_id']){
+        } elseif ($_SESSION['cart_country_id']) {
             // session is available
             $country_info = $_SESSION['country_info'];
             // fix here - check for error on $cart_country_id

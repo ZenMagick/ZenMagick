@@ -541,7 +541,7 @@ class Connection extends DbalConnection {
         $primaryKey = $tableDetails->getPrimaryKey();
         $keys = is_object($primaryKey) ? $primaryKey->getColumns() : array();
 
-            foreach($tableDetails->getColumns() as $column) {
+            foreach ($tableDetails->getColumns() as $column) {
                 $meta[$column->getName()] = array(
                 'column' => $column->getName(),
                 'type' => $column->getType()->getName(),

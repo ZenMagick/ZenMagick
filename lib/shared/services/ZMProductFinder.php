@@ -316,7 +316,7 @@ class ZMProductFinder extends ZMObject {
 
             $post_objects = array();
 
-            while (substr($pieces[$k], -1) == ')')  {
+            while (substr($pieces[$k], -1) == ')') {
                 $post_objects[] = ')';
                 if (strlen($pieces[$k]) > 1) {
                     $pieces[$k] = substr($pieces[$k], 0, -1);
@@ -410,7 +410,7 @@ class ZMProductFinder extends ZMObject {
 
         // add default logical operators if needed
         $temp = array();
-        for($i=0; $i<(count($objects)-1); $i++) {
+        for ($i=0; $i<(count($objects)-1); $i++) {
             $temp[] = $objects[$i];
             if ( ($objects[$i] != 'and') &&
                       ($objects[$i] != 'or') &&
@@ -427,7 +427,7 @@ class ZMProductFinder extends ZMObject {
         $keyword_count = 0;
         $operator_count = 0;
         $balance = 0;
-        for($i=0; $i<count($objects); $i++) {
+        for ($i=0; $i<count($objects); $i++) {
             if ($objects[$i] == '(') $balance --;
             if ($objects[$i] == ')') $balance ++;
             if ( ($objects[$i] == 'and') || ($objects[$i] == 'or') ) {

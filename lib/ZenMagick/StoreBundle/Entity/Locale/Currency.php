@@ -306,6 +306,6 @@ class Currency extends ZMObject {
             return null;
         }
 
-        return (float)$value;
+        return (float) $value;
     }
 }

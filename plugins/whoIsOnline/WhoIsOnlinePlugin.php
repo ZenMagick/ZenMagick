@@ -130,7 +130,7 @@ class WhoIsOnlinePlugin extends Plugin {
         $data['full_name'] = $fullName;
         $data['time_last_click'] = $now;
         $data['last_page_url'] = rtrim($request->getRequestUri(), '?');
-        $data['user_agent'] = (string)$request->server->get('HTTP_USER_AGENT');
+        $data['user_agent'] = (string) $request->server->get('HTTP_USER_AGENT');
         if (!empty($result)) {
             $conn->update('whos_online', $data, array('session_id' => $sessionId));
         } else {

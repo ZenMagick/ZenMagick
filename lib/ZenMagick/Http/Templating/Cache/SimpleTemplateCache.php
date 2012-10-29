@@ -40,7 +40,7 @@ class SimpleTemplateCache extends ZMObject implements TemplateCache {
 //        $this->container->get('logger')->debug('check if eligible: '.$templa);
         $settingsService = $this->container->get('settingsService');
         if (!$settingsService->exists('zenmagick.http.templating.cache.simple')) return;
-        return in_array($template, (array)$settingsService->get('zenmagick.http.templating.cache.simple', array()));
+        return in_array($template, (array) $settingsService->get('zenmagick.http.templating.cache.simple', array()));
     }
 
     /**

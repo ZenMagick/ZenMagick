@@ -50,7 +50,7 @@ class VisitCounterPlugin extends Plugin {
         $today  = date('Ymd');
         $query = "INSERT INTO %table.counter_history% (startdate, counter, session_counter) values (:today, 1, 1)
                  ON DUPLICATE KEY UPDATE counter = counter + 1, session_counter = session_counter + :session_counter";
-        $conn->executeUpdate($query, array('today' => $today, 'session_counter' => (int)$newSession));
+        $conn->executeUpdate($query, array('today' => $today, 'session_counter' => (int) $newSession));
 
         // @todo add a unique index on counter table
         $query = "SELECT startdate, counter FROM %table.counter% WHERE startdate = :startdate";

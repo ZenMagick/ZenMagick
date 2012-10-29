@@ -49,7 +49,7 @@ class RecentlyViewedPlugin extends Plugin {
                 $recentlyViewedProducts = array_unique(array_reverse($recentlyViewedProducts));
 
                 // limit
-                $recentlyViewedProducts = array_slice($recentlyViewedProducts, 0, (int)$this->get('maxProducts'));
+                $recentlyViewedProducts = array_slice($recentlyViewedProducts, 0, (int) $this->get('maxProducts'));
 
                 // save in original order
                 $session->set(self::RECENTLY_VIEWED_KEY, array_reverse($recentlyViewedProducts));

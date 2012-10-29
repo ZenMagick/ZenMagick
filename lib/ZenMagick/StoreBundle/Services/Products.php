@@ -156,7 +156,7 @@ class Products extends ZMObject implements SqlAware {
     /**
      * Get list of all active product ids for a given category.
      *
-     * <p>This is a faster version of <code>getProductsForCategoryId(int)</code>. In addition,
+     * <p>This is a faster version of <code>getProductsForCategoryId(int) </code>. In addition,
      * this will ignore language preferences.
      *
      * @param int categoryId The category id.
@@ -365,7 +365,7 @@ class Products extends ZMObject implements SqlAware {
      * @return array A list of <code>ZenMagick\StoreBundle\Entity\Catalog\Product</code> instances.
      */
     public function getNewProducts($categoryId=null, $max=0, $timeLimit=null, $languageId=null) {
-        $timeLimit = (int)(null === $timeLimit ? Runtime::getSettings()->get('maxNewProducts') : $timeLimit);
+        $timeLimit = (int) (null === $timeLimit ? Runtime::getSettings()->get('maxNewProducts') : $timeLimit);
 
         $queryLimit = '';
         $orderBy = ' ORDER BY products_date_added DESC';
@@ -589,7 +589,7 @@ class Products extends ZMObject implements SqlAware {
             $orderLookup = array_flip($productIds);
             $reordered = array();
             foreach ($products as $id => $product) {
-                $reordered[(int)($orderLookup[$products[$id]->getId()])] = $products[$id];
+                $reordered[(int) ($orderLookup[$products[$id]->getId()])] = $products[$id];
             }
             $products = $reordered;
             ksort($products);

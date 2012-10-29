@@ -227,7 +227,7 @@ class Theme extends ZMObject {
 
         $pages = array();
         if (is_dir($path)) {
-            foreach ((array)glob($path.'*.php') as $file) {
+            foreach ((array) glob($path.'*.php') as $file) {
                 $page = basename(str_replace('.php', '', $file));
                 $pages[$page] = $page;
             }
@@ -238,7 +238,7 @@ class Theme extends ZMObject {
             $themeService = $this->container->get('themeService');
             $path = $themeService->getThemesDir().'/'.$themeService->getDefaultThemeId().'/lang/'.$languageDir.'/static/';
             if (is_dir($path)) {
-                foreach ((array)glob($path.'*.php') as $file) {
+                foreach ((array) glob($path.'*.php') as $file) {
                     $page = basename(str_replace('.php', '', $file));
                     $pages[$page] = $page;
                 }

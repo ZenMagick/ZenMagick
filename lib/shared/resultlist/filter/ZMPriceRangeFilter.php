@@ -92,7 +92,7 @@ class ZMPriceRangeFilter extends ZMResultListFilter {
         $options = array();
         $start = 0;
         $utils = $this->container->get('utilsTool');
-        for ($ii=0; $ii < 8; $ii++ ) {
+        for ($ii=0; $ii < 8; $ii++) {
             $from = $start;
             $to = $start + $diff;
             $start += $diff;

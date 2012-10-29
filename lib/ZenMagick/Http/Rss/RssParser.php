@@ -104,7 +104,7 @@ class RssParser {
      * @return array Just the value part of the tree, with the <code>'value' =&gt; XXX</code> mapping reduced to just <code>XXX</code>.
      */
     private function valueExtractor($valueBlock) {
-        foreach($valueBlock as $valueName => $values) {
+        foreach ($valueBlock as $valueName => $values) {
             if (isset($values['value'])) {
                 $values = $values['value'];
             }

@@ -238,7 +238,7 @@ class EZPage extends ZMObject {
     public function setHeader($value) { $this->header = Toolbox::asBoolean($value); }
     public function setSidebox($value) { $this->sidebox = Toolbox::asBoolean($value); }
     public function setFooter($value) { $this->footer = Toolbox::asBoolean($value); }
-    public function setToc($value) { $this->toc = (int)$value; }
+    public function setToc($value) { $this->toc = (int) $value; }
     public function setStatic($value) { $this->toc = $value ? 2: 0; }
     public function setHeaderSort($sortOrder) { $this->headerSort = $sortOrder; }
     public function setSideboxSort($sortOrder) { $this->sideboxSort = $sortOrder; }

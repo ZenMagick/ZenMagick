@@ -80,7 +80,7 @@ class PaymentSurchargePlugin extends Plugin implements \ZMOrderTotal {
                     // evaluate the condition's value
                     $amount = 0;
                     if (is_numeric($condition['value'])) {
-                        $amount = (float)$condition['value'];
+                        $amount = (float) $condition['value'];
                     }
                     if (0 === strpos($condition['value'], '%:')) {
                         $amount = trim(str_replace('%:', '', $condition['value']));

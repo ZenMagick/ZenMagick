@@ -43,8 +43,8 @@ EOT
      */
     protected function execute(InputInterface $input, OutputInterface $output) {
         $conn = $this->getContainer()->get('doctrine.dbal.default_connection');
-        if (($types = $input->getArgument('types')) !== null)  {
-            foreach ((array)$types as $type) {
+        if (($types = $input->getArgument('types')) !== null) {
+            foreach ((array) $types as $type) {
                 $file = $this->rootDir.'/'.$type.'.sql';
                 if (!file_exists($file)) {
                     throw new \InvalidArgumentException(

@@ -50,7 +50,7 @@ class EzpagesController extends \ZMController {
         $languageId = $request->getParameter('languageId', $language->getId());
 
         if (null !== ($ezPageId = $request->getParameter('editId'))) {
-            $ezPageId = (int)$ezPageId;
+            $ezPageId = (int) $ezPageId;
             if (0 == $ezPageId) {
                 $ezPage = Beans::getBean('ZenMagick\StoreBundle\Entity\EZPage');
             } else {
@@ -99,7 +99,7 @@ class EzpagesController extends \ZMController {
                 $this->messageService->error('Could not save page - invalid request data');
             }
         } elseif (null !== ($ezPageId = $request->request->get('deleteId'))) {
-            $ezPageId = (int)$ezPageId;
+            $ezPageId = (int) $ezPageId;
             if (null != ($ezPage = $ezPageService->getPageForId($ezPageId, $languageId))) {
                 $ezPageService->removePage($ezPage);
                 $this->messageService->success('EZPage #'.$ezPage->getId().' deleted');

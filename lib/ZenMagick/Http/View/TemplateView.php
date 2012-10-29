@@ -171,7 +171,7 @@ class TemplateView extends ZMObject implements View {
      * @param array variables A map of name/value pairs.
      */
     public function setVariables($variables) {
-        $this->variables = array_merge($this->variables, (array)$variables);
+        $this->variables = array_merge($this->variables, (array) $variables);
     }
 
     /**

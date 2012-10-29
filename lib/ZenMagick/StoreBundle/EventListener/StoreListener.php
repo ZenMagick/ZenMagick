@@ -53,7 +53,7 @@ use Symfony\Component\HttpKernel\Event\PostResponseEvent;
         if (null !== ($path = $request->get('cPath'))) {
             $path = explode('_', $path);
             foreach ($path as $categoryId) {
-                $categoryId = (int)$categoryId;
+                $categoryId = (int) $categoryId;
                 if (!in_array($categoryId, $cPath)) {
                     $cPath[] = $categoryId;
                 }
@@ -61,7 +61,7 @@ use Symfony\Component\HttpKernel\Event\PostResponseEvent;
         }
         $request->attributes->set('categoryIds', $cPath);
         $currentCategoryId = end($cPath);
-        $request->attributes->set('categoryId', (int)$currentCategoryId);
+        $request->attributes->set('categoryId', (int) $currentCategoryId);
 
     }
 

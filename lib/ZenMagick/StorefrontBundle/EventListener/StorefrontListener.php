@@ -249,7 +249,7 @@ class StorefrontListener extends ZMObject {
 
         if ($this->container->get('settingsService')->get('apps.store.verifyCategoryPath')) {
             if ($request->attributes->has('categoryIds')) {
-                $path = array_reverse((array)$request->attributes->get('categoryIds'));
+                $path = array_reverse((array) $request->attributes->get('categoryIds'));
                 $last = count($path) - 1;
                 $valid = true;
                 foreach ($path as $ii => $categoryId) {

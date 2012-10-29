@@ -46,7 +46,7 @@ class SimilarOrderProductAssociationHandler implements ProductAssociationHandler
     public function getProductAssociationsForProductId($productId, $args=array()) {
         $limit = 6;
         if (is_array($args) && array_key_exists('limit', $args)) {
-            $limit = (int)$args['limit'];
+            $limit = (int) $args['limit'];
         }
         $sql = "SELECT p.products_id
                 FROM %table.orders_products% opa, %table.orders_products% opb, %table.orders% o, %table.products% p

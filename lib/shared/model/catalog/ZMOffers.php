@@ -245,7 +245,7 @@ class ZMOffers extends ZMObject {
         if (!$specialPrice) {
             $salePrice = $saleBasePrice;
         } else {
-            switch($saleCondition){
+            switch ($saleCondition) {
                 case 0:
                     $salePrice = $saleBasePrice;
                     break;
@@ -299,7 +299,7 @@ class ZMOffers extends ZMObject {
     public function getDiscountAmount() {
         $save = 0;
         if (!$this->product_->isFree() && ($this->isSpecial() || $this->isSale())) {
-          if ($this->isSpecial())  {
+          if ($this->isSpecial()) {
               $save = $this->getBasePrice() - $this->getSpecialPrice();
           } elseif ($this->isSale()) {
               $save = $this->getBasePrice() - $this->getSalePrice();

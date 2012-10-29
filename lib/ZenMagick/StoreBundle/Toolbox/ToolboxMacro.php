@@ -189,7 +189,7 @@ class ToolboxMacro extends ToolboxTool {
         $net = $toolbox->net;
         if ($root) {
             ob_start();
-            $path = (array)$this->getRequest()->attributes->get('categoryIds');
+            $path = (array) $this->getRequest()->attributes->get('categoryIds');
         }
         $languageId = $this->getRequest()->getSession()->getLanguageId();
         echo '<ul' . ($activeParent ? ' class="act"' : '') . '>';
@@ -518,7 +518,7 @@ class ToolboxMacro extends ToolboxTool {
         if (!$product->isFree() && ($offers->isSpecial() || $offers->isSale())) {
             // special/sale
             $html .= '<span class="strike base">' . $toolbox->utils->formatMoney($offers->getBasePrice($tax)) . '</span> ';
-            if ($offers->isSpecial())  {
+            if ($offers->isSpecial()) {
                 if ($offers->isSale()) {
                    $html .= '<span class="strike special">' . $toolbox->utils->formatMoney($offers->getSpecialPrice($tax)) . '</span>';
                 } else {

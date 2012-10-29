@@ -62,7 +62,7 @@ class AdminController extends \ZMController {
             $session->set('selected_box', $selectedBox);
         }
 
-        foreach($session->all() as $k => $v) {
+        foreach ($session->all() as $k => $v) {
             $_SESSION[$k] = $v;
         }
 

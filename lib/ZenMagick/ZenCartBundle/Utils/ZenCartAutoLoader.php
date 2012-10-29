@@ -67,7 +67,7 @@ class ZenCartAutoLoader extends ZMObject {
             'code_page_directory' => 'includes/modules/pages/'.$requestId,
             'current_page' => $requestId,
             'current_page_base' => $requestId,
-            'cPath' => (string)$request->query->get('cPath'),
+            'cPath' => (string) $request->query->get('cPath'),
             'current_category_id' => $request->attributes->get('categoryId'),
             'cPath_array' => $request->attributes->get('categoryIds'),
             'page_directory' => 'includes/modules/pages/'.$requestId,
@@ -251,7 +251,7 @@ class ZenCartAutoLoader extends ZMObject {
      */
     public function resolveFiles($paths) {
         $files = array();
-        foreach ((array)$paths as $path) {
+        foreach ((array) $paths as $path) {
             $path = $this->resolveFileVars($path);
             $file = basename($path);
             $relative = dirname($path);

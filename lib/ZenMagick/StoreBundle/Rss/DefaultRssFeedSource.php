@@ -65,7 +65,7 @@ class DefaultRssFeedSource extends ZMObject implements RssSource {
         $product = null;
         $reviewService = $this->container->get('reviewService');
         $languageId = $request->getSession()->getLanguageId();
-        if (null != $key)  {
+        if (null != $key) {
             $reviews = array_reverse($reviewService->getReviewsForProductId($key, $languageId));
             $product = $this->container->get('productService')->getProductForId($key, $languageId);
         } else {
@@ -101,7 +101,7 @@ class DefaultRssFeedSource extends ZMObject implements RssSource {
         $channel = new RssChannel();
         $channel->setTitle(_zm("Product Reviews"));
         $channel->setLink($net->url('reviews'));
-        if (null != $key)  {
+        if (null != $key) {
             $channel->setDescription(sprintf(_zm("Product Reviews for %s at %s"), $product->getName(), $settingsService->get('storeName')));
         } else {
             $channel->setDescription(sprintf(_zm("Product Reviews at %s"), $settingsService->get('storeName')));

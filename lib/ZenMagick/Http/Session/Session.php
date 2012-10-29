@@ -96,7 +96,7 @@ class Session extends BaseSession implements ContainerAwareInterface {
      */
     public function restorePersistedServices() {
         // restore persisted services
-        foreach ((array)$this->get(self::AUTO_SAVE_KEY) as $id => $serdat) {
+        foreach ((array) $this->get(self::AUTO_SAVE_KEY) as $id => $serdat) {
             $obj = unserialize($serdat['ser']);
             $isService = !isset($serdat['type']) || 'service' == $serdat['type'];
             if ($isService) {

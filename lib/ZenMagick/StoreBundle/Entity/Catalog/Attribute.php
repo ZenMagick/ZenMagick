@@ -259,7 +259,7 @@ class Attribute extends ZMObject {
      */
     public function removeValue($value) {
         for ($ii=0, $size=count($this->values); $ii < $size; ++$ii) {
-            if ((is_object($value) && $value === $this->values[$ii] ) || (is_numeric($value) && (int)$value == $this->values[$ii]->getId())) {
+            if ((is_object($value) && $value === $this->values[$ii] ) || (is_numeric($value) && (int) $value == $this->values[$ii]->getId())) {
                 array_splice($this->values, $ii, 1);
                 break;
             }

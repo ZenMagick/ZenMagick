@@ -64,11 +64,11 @@ use ZenMagick\StoreBundle\Services\Products;
   <?php if (0 < count($collections)) { ?>
       <fieldset>
           <legend><?php _vzm("Media Collections") ?></legend>
-          <?php foreach($collections as $collection) { ?>
+          <?php foreach ($collections as $collection) { ?>
               <div class="mcol">
                   <h4><?php echo $collection->getName() ?></h4>
                   <ul>
-                      <?php foreach($collection->getItems() as $mediaItem) { ?>
+                      <?php foreach ($collection->getItems() as $mediaItem) { ?>
                       <li><a href="<?php echo $net->absoluteUrl($musicProductInfo->mediaUrl($mediaItem->getFilename())) ?>"><?php echo $mediaItem->getFilename() ?></a>
                           (<?php echo $mediaItem->getType()->getName() ?>)</li>
                       <?php } ?>

@@ -479,7 +479,7 @@ class Account extends ZMObject {
      *
      * @param boolean globalProductSubscriber <code>true</code> if global product is selected, <code>false</code> if not.
      */
-    public function setGlobalProductSubscriber($globalProductSubscriber) { $this->globalSubscriber = (boolean)$globalProductSubscriber; }
+    public function setGlobalProductSubscriber($globalProductSubscriber) { $this->globalSubscriber = (boolean) $globalProductSubscriber; }
 
     /**
      * Checks if the user has product subscriptions.
@@ -517,7 +517,7 @@ class Account extends ZMObject {
      * @param array products A list of product ids.
      */
     public function addSubscribedProducts($products) {
-        $this->subscribedProducts = array_unique(array_merge((array)$this->subscribedProducts, $products));
+        $this->subscribedProducts = array_unique(array_merge((array) $this->subscribedProducts, $products));
     }
 
     /**
@@ -526,7 +526,7 @@ class Account extends ZMObject {
      * @param array products A list of product ids.
      */
     public function removeSubscribedProducts($products) {
-        $this->subscribedProducts = array_diff((array)$this->subscribedProducts, $products);
+        $this->subscribedProducts = array_diff((array) $this->subscribedProducts, $products);
     }
 
     /**

@@ -18,7 +18,7 @@ $prefix = $container->getParameter('table_prefix');
 try {
     $configService = new \ZenMagick\StoreBundle\Services\ConfigService;
     $configService->loadAll();
-} catch(\Exception $e) {
+} catch (\Exception $e) {
     // Couldn't connect... this is arguably the wrong place to do this.
     $container->setParameter('zenmagick.plugins.enabled', false);
     if ($e->getCode() != 1049) {

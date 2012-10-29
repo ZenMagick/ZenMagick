@@ -50,7 +50,7 @@ class StorefrontController extends \ZMController {
             'alpha_filter_id', 'typefilter', 'disp_order', 'id', 'key', 'music_genre_id', 'record_company_id', 'set_session_login',
             'faq_item', 'edit', 'delete', 'search_in_description', 'dfrom', 'pfrom', 'dto', 'pto', 'inc_subcat', 'payment_error',
             'order', 'gv_no', 'pos', 'addr', 'error', 'count', 'error_message', 'info_message', 'cID', 'page', 'credit_class_error_code');
-        foreach($paramsToCheck as $key) {
+        foreach ($paramsToCheck as $key) {
             if ($request->query->has($key)) {
                 $value = $request->query->get($key);
                 if (is_array($value)) continue;
@@ -217,7 +217,7 @@ class StorefrontController extends \ZMController {
         // breadcrumb
         $robotsNoIndex = false;
         $validCategories = array();
-        $cPathArray = (array)$request->attributes->get('categoryIds');
+        $cPathArray = (array) $request->attributes->get('categoryIds');
         foreach ($cPathArray as $categoryId) {
             $category = $this->container->get('categoryService')->getCategoryForId($categoryId, $languageId);
             if (null != $category) {
@@ -324,7 +324,7 @@ class StorefrontController extends \ZMController {
         $request = $this->container->get('request');
         $languageId = $request->getSession()->getLanguageId();
 
-        foreach ((array)$categories as $category) {
+        foreach ((array) $categories as $category) {
                 $breadcrumb->add($category->getName(), zen_href_link(FILENAME_DEFAULT, 'cPath='.implode('_', $category->getPath())));
         }
 
@@ -334,7 +334,7 @@ class StorefrontController extends \ZMController {
 
         // Add Product
         if (null != $product) {
-            $breadcrumb->add($product->getName(), $this->get('netTool')->url(zen_get_info_page($product->getId()), 'cPath='.(string)$request->query->get('cPath').'&productId='.$product->getId()));
+            $breadcrumb->add($product->getName(), $this->get('netTool')->url(zen_get_info_page($product->getId()), 'cPath='.(string) $request->query->get('cPath').'&productId='.$product->getId()));
         }
 
         return $breadcrumb;

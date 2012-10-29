@@ -254,7 +254,7 @@ class CouponService extends ZMObject {
     public function createCouponCode($salt, $length=0) {
         $length = 0 == $length ? $this->container->get('settingsService')->get('couponCodeLength') : $length;
 
-        srand((double)microtime()*1000000);
+        srand((double) microtime()*1000000);
         $codes = md5(uniqid(@rand().$salt, true));
         $codes .= md5(uniqid($salt, true));
         $codes .= md5(uniqid($salt.@rand(), false));

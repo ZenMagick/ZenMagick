@@ -43,12 +43,12 @@ class SQLPatch extends InstallationPatch {
 
 
     public function setTables($tables) {
-        $this->tables = (array)$tables;
+        $this->tables = (array) $tables;
     }
 
     public function getTables() {
         $tables = array();
-        foreach($this->tables as $table) {
+        foreach ($this->tables as $table) {
             $tables[] = \ZMRuntime::getDatabase()->getPrefix().$table;
         }
         return $tables;

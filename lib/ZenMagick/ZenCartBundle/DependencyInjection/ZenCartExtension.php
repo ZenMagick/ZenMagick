@@ -80,7 +80,7 @@ class ZenCartExtension extends Extension {
             ->name('featured.php')->name('specials.php');
 
         if (2 != count($finder)) return;
-        foreach($finder as $file) {
+        foreach ($finder as $file) {
             $adminDir = dirname($file->getRealpath());
         }
         return $adminDir;

@@ -224,7 +224,7 @@ class SQLRunner {
             if (substr_count($line,',')>0) { // contains FROM and a comma, thus must parse for multiple tablenames
               $tbl_list = explode(',',substr($line,5));
               $line = 'FROM ';
-              foreach($tbl_list as $val) {
+              foreach ($tbl_list as $val) {
                 $line .= self::$prefix . trim($val) . ','; // add prefix and comma
               } //end foreach
               if (substr($line,-1)==',') $line = substr($line,0,(strlen($line)-1)); // remove trailing ','
@@ -275,7 +275,7 @@ class SQLRunner {
           global $zc_show_progress;
           if ($zc_show_progress=='yes') {
              $counter++;
-             if ($counter/5 == (int)($counter/5)) echo '~ ';
+             if ($counter/5 == (int) ($counter/5)) echo '~ ';
              if ($counter>200) {
                echo '<br /><br />';
                $counter=0;
@@ -307,7 +307,7 @@ class SQLRunner {
     $rows = $db->fetchAll($sql);
     foreach ($rows as $fields) {
       if (ZC_UPG_DEBUG3==true) echo $fields['Key_name'].'<br />';
-      if  ($fields['Key_name'] == $index) {
+      if ($fields['Key_name'] == $index) {
         return; // if we get here, the index exists, and we have index privileges, so return with no error
       }
     }
@@ -349,7 +349,7 @@ class SQLRunner {
           $rows = $db->fetchAll($sql);
           foreach ($rows as $fields) {
             if (ZC_UPG_DEBUG3==true) echo 'KEY: '.$fields['Key_name'].'<br />';
-            if  ($fields['Key_name'] == $index) {
+            if ($fields['Key_name'] == $index) {
               return sprintf(REASON_INDEX_ALREADY_EXISTS,$index,$param[2]);
             }
           }
@@ -360,7 +360,7 @@ class SQLRunner {
           $rows = $db->fetchAll($sql);
           foreach ($rows as $fields) {
             if (ZC_UPG_DEBUG3==true) echo $fields['Key_name'].'<br />';
-            if  ($fields['Key_name'] == 'PRIMARY') {
+            if ($fields['Key_name'] == 'PRIMARY') {
               return sprintf(REASON_PRIMARY_KEY_ALREADY_EXISTS,$param[2]);
             }
           }
@@ -372,7 +372,7 @@ class SQLRunner {
           $rows = $db->fetchAll($sql);
           foreach ($rows as $fields) {
             if (ZC_UPG_DEBUG3==true) echo $fields['Field'].'<br />';
-            if  ($fields['Field'] == $colname) {
+            if ($fields['Field'] == $colname) {
               return sprintf(REASON_COLUMN_ALREADY_EXISTS,$colname);
             }
           }
@@ -384,7 +384,7 @@ class SQLRunner {
           $rows = $db->fetchAll($sql);
           foreach ($rows as $fields) {
             if (ZC_UPG_DEBUG3==true) echo $fields['Field'].'<br />';
-            if  ($fields['Field'] == $colname) {
+            if ($fields['Field'] == $colname) {
               return; // exists, so return with no error
             }
           }
@@ -396,7 +396,7 @@ class SQLRunner {
           $rows = $db->fetchAll($sql);
           foreach ($rows as $fields) {
             if (ZC_UPG_DEBUG3==true) echo $fields['Field'].'<br />';
-            if  ($fields['Field'] == $colname) {
+            if ($fields['Field'] == $colname) {
               return; // exists, so return with no error
             }
           }
@@ -413,7 +413,7 @@ class SQLRunner {
           $rows = $db->fetchAll($sql);
           foreach ($rows as $fields) {
             if (ZC_UPG_DEBUG3==true) echo $fields['Key_name'].'<br />';
-            if  ($fields['Key_name'] == $index) {
+            if ($fields['Key_name'] == $index) {
               return; // exists, so return with no error
             }
           }
@@ -427,7 +427,7 @@ class SQLRunner {
           $rows = $db->fetchAll($sql);
           foreach ($rows as $fields) {
             if (ZC_UPG_DEBUG3==true) echo $fields['Key_name'].'<br />';
-            if  ($fields['Key_name'] == 'PRIMARY') {
+            if ($fields['Key_name'] == 'PRIMARY') {
               return; // exists, so return with no error
             }
           }
@@ -441,7 +441,7 @@ class SQLRunner {
           $rows = $db->fetchAll($sql);
           foreach ($rows as $fields) {
             if (ZC_UPG_DEBUG3==true) echo $fields['Field'].'<br />';
-            if  ($fields['Field'] == $colname) {
+            if ($fields['Field'] == $colname) {
               return; // exists, so return with no error
             }
           }
@@ -458,7 +458,7 @@ class SQLRunner {
         $rows = $db->fetchAll($sql);
         foreach ($rows as $fields) {
           if (ZC_UPG_DEBUG3==true) echo $fields['Field'].'<br />';
-          if  ($fields['Field'] == $colname) {
+          if ($fields['Field'] == $colname) {
             return; // exists, so return with no error
           }
         }

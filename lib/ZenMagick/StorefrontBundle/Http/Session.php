@@ -176,7 +176,7 @@ class Session extends \ZenMagick\Http\Session\Session {
      */
     public function getLanguageId() {
         $languageId = $this->get('languages_id');
-        return (null !== $languageId ? (int)$languageId : (int)Runtime::getSettings()->get('storeDefaultLanguageId'));
+        return (null !== $languageId ? (int) $languageId : (int) Runtime::getSettings()->get('storeDefaultLanguageId'));
     }
 
     /**

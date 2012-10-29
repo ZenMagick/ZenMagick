@@ -124,7 +124,7 @@ class OpenIDDatabaseStore extends Auth_OpenID_OpenIDStore {
                     continue;
                 }
 
-                if ( $newest == null) {
+                if ($newest == null) {
                     $newest = $assoc;
                 } else {
                     if ($newest->issued < $assoc->issued) {

@@ -230,7 +230,7 @@ class ShoppingCartItem extends ZMObject {
      * @return float The full weight.
      */
     public function getWeight() {
-        $weight = (float)$this->getProduct()->getWeight();
+        $weight = (float) $this->getProduct()->getWeight();
         foreach ($this->getAttributes() as $attribute) {
             foreach ($attribute->getValues() as $value) {
                 $multi = '-' == $value->getWeightPrefix() ? -1 : 1;

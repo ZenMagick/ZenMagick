@@ -151,7 +151,7 @@ if (!function_exists('zm_split_email_addresses')) {
              **************************************/
 
             // tax decimal places
-            'taxDecimalPlaces' => (int)TAX_DECIMAL_PLACES,
+            'taxDecimalPlaces' => (int) TAX_DECIMAL_PLACES,
 
             // tax inclusive/exclusive
             'showPricesTaxIncluded' => DISPLAY_PRICE_WITH_TAX == 'true',
@@ -211,10 +211,10 @@ if (!function_exists('zm_split_email_addresses')) {
              **************************************/
 
             // max
-            'maxBestSellers' => (int)MAX_DISPLAY_BESTSELLERS,
-            'maxSpecialProducts' => (int)MAX_RANDOM_SELECT_SPECIALS,
-            'maxNewProducts' => (int)SHOW_NEW_PRODUCTS_LIMIT,
-            'maxRandomReviews' => (int)MAX_RANDOM_SELECT_REVIEWS,
+            'maxBestSellers' => (int) MAX_DISPLAY_BESTSELLERS,
+            'maxSpecialProducts' => (int) MAX_RANDOM_SELECT_SPECIALS,
+            'maxNewProducts' => (int) SHOW_NEW_PRODUCTS_LIMIT,
+            'maxRandomReviews' => (int) MAX_RANDOM_SELECT_REVIEWS,
 
             // range of enabled order stati to show downloads
             'downloadOrderStatusRange' => DOWNLOADS_CONTROLLER_ORDERS_STATUS.'-'.DOWNLOADS_CONTROLLER_ORDERS_STATUS_END,

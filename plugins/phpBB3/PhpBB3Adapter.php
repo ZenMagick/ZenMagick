@@ -126,7 +126,7 @@ class PhpBB3Adapter extends ZMObject {
                   AND group_type = " . GROUP_SPECIAL;
 
         $result = $this->getDatabase()->querySingle($sql, array(), null, \ZenMagick\Base\Database\Connection::MODEL_RAW);
-        return null !== $result ? (int)$result['group_id'] : false;
+        return null !== $result ? (int) $result['group_id'] : false;
     }
 
     /**

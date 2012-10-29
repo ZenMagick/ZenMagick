@@ -103,7 +103,7 @@ class RedirectView extends ZMObject implements View {
      * @param int status HTTP status code.
      */
     public function setStatus($status) {
-        $this->status_ = (int)$status;
+        $this->status_ = (int) $status;
     }
 
     /**

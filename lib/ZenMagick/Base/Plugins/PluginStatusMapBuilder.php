@@ -123,7 +123,7 @@ class PluginStatusMapBuilder extends ZMObject implements CacheWarmerInterface {
         // this could be merged, but it seems simpler to avoid more nesting...
         $pathIdMap = array();
         foreach ($this->pluginDirs as $basePath) {
-            if (file_exists($basePath) && is_dir($basePath)){
+            if (file_exists($basePath) && is_dir($basePath)) {
                 $pathIdMap[$basePath] = array();
                 foreach (new DirectoryIterator($basePath) as $filename => $fileInfo) {
                     if ($fileInfo->isDir() && !$fileInfo->isDot() && file_exists($fileInfo->getPathname().'/plugin.yaml')) {
