@@ -8,7 +8,7 @@ use Doctrine\DBAL\Tools\Console\Helper\ConnectionHelper;
 /**
  * DBAL import command.
  */
-class DBALImportCommand extends \Doctrine\DBAL\Tools\Console\Command\ImportCommand 
+class DBALImportCommand extends \Doctrine\DBAL\Tools\Console\Command\ImportCommand
 {
 
     /**
@@ -23,6 +23,6 @@ class DBALImportCommand extends \Doctrine\DBAL\Tools\Console\Command\ImportComma
             }
             $helperSet->set(new ConnectionHelper($application->getKernel()->getContainer()->get('doctrine.orm.entity_manager')->getConnection()), 'db');
         }
-    
+
     }
 }

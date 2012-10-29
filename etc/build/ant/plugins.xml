@@ -21,7 +21,7 @@
         <checksum file="${plugin.archive}" fileext=".sha" algorithm="SHA" todir="${dist.dir}/plugins/${zenmagick.version}/checksum" />
     </target>
 
-    
+
     <!-- Create release for a single plugin -->
     <target name="plugin-release" description="Create release for a single plugin.">
         <echo message="Packing ${plugin.name} ..." />

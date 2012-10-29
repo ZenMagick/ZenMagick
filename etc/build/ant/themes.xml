@@ -9,7 +9,7 @@
         </foreach>
     </target>
 
-    
+
     <!-- Create release for a single theme -->
     <target name="theme-release" description="Create release for a single theme.">
         <var name="theme.version" unset="true"/>

@@ -51,7 +51,7 @@ class AdminProfiles
     /**
      * Get profileId
      *
-     * @return integer 
+     * @return integer
      */
     public function getProfileId()
     {
@@ -67,14 +67,14 @@ class AdminProfiles
     public function setProfileName($profileName)
     {
         $this->profileName = $profileName;
-    
+
         return $this;
     }
 
     /**
      * Get profileName
      *
-     * @return string 
+     * @return string
      */
     public function getProfileName()
     {

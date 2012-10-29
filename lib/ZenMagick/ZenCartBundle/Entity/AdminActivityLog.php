@@ -217,14 +217,14 @@ class AdminActivityLog
     public function setFlagged($flagged)
     {
         $this->flagged = $flagged;
-    
+
         return $this;
     }
 
     /**
      * Get flagged
      *
-     * @return boolean 
+     * @return boolean
      */
     public function getFlagged()
     {
@@ -240,14 +240,14 @@ class AdminActivityLog
     public function setAttention($attention)
     {
         $this->attention = $attention;
-    
+
         return $this;
     }
 
     /**
      * Get attention
      *
-     * @return string 
+     * @return string
      */
     public function getAttention()
     {
@@ -263,14 +263,14 @@ class AdminActivityLog
     public function setGzPost($gzPost)
     {
         $this->gzPost = $gzPost;
-    
+
         return $this;
     }
 
     /**
      * Get gzPost
      *
-     * @return string 
+     * @return string
      */
     public function getGzPost()
     {
