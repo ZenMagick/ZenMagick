@@ -27,7 +27,8 @@ use ZenMagick\Base\Plugins\Plugin;
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class GoogleAdSensePlugin extends Plugin {
+class GoogleAdSensePlugin extends Plugin
+{
     const ADSENSE_PREFIX = 'adsense-';
 
     /**
@@ -36,7 +37,8 @@ class GoogleAdSensePlugin extends Plugin {
      * @param int index The ad index.
      * @return string The configured AdSense JavaScript.
      */
-    public function getAd($index) {
+    public function getAd($index)
+    {
         $js = stripslashes($this->get(self::ADSENSE_PREFIX.$index));
         return $js;
     }

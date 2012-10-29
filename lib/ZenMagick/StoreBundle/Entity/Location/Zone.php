@@ -35,7 +35,8 @@ use Doctrine\ORM\Mapping AS ORM;
  *  })
  * @ORM\Entity
  */
-class Zone extends ZMObject {
+class Zone extends ZMObject
+{
     /**
      * @var integer $zoneId
      *
@@ -67,7 +68,8 @@ class Zone extends ZMObject {
     /**
      * Create new zone.
      */
-    public function __construct() {
+    public function __construct()
+    {
         parent::__construct();
         $this->setId(0);
         $this->countryId = 0;

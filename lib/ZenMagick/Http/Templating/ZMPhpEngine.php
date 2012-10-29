@@ -35,7 +35,8 @@ use ZenMagick\Http\Widgets\Widget;
  * <p>Parameters passes into <code>fetch()</code>, in turn, are only visible within the specific template fetched.</p>
  * @author DerManoMann <mano@zenmagick.org>
  */
-class ZMPhpEngine extends ZMObject implements EngineInterface {
+class ZMPhpEngine extends ZMObject implements EngineInterface
+{
     protected $view;
     protected $request;
     protected $templateCache;
@@ -44,7 +45,8 @@ class ZMPhpEngine extends ZMObject implements EngineInterface {
     /**
      * Constructor.
      */
-    public function __construct() {
+    public function __construct()
+    {
         parent::__construct();
         $this->request = null;
         $this->view = null;
@@ -55,7 +57,8 @@ class ZMPhpEngine extends ZMObject implements EngineInterface {
     /**
      * {@inheritDoc}
      */
-    public function render($template, array $parameters=array()) {
+    public function render($template, array $parameters=array())
+    {
         // required bits
         $this->request = $parameters['request'];
         $this->view = $parameters['view'];
@@ -67,7 +70,8 @@ class ZMPhpEngine extends ZMObject implements EngineInterface {
     /**
      * {@inheritDoc}
      */
-    public function exists($template) {
+    public function exists($template)
+    {
         $path = $this->view->getResourceResolver()->findResource($template, View::TEMPLATE);
         return !empty($path);
     }
@@ -75,7 +79,8 @@ class ZMPhpEngine extends ZMObject implements EngineInterface {
     /**
      * {@inheritDoc}
      */
-    public function supports($template) {
+    public function supports($template)
+    {
         $ext = pathinfo($template, PATHINFO_EXTENSION);
         return in_array($ext, array('php', 'js'));
     }
@@ -85,7 +90,8 @@ class ZMPhpEngine extends ZMObject implements EngineInterface {
      *
      * @param TemplateCache templateCache The cache instance.
      */
-    public function setTemplateCache($templateCache) {
+    public function setTemplateCache($templateCache)
+    {
         $this->templateCache = $templateCache;
     }
 
@@ -94,7 +100,8 @@ class ZMPhpEngine extends ZMObject implements EngineInterface {
      *
      * @return TemplateCache The cache.
      */
-    public function getTemplateCache() {
+    public function getTemplateCache()
+    {
         return $this->templateCache;
     }
 
@@ -107,7 +114,8 @@ class ZMPhpEngine extends ZMObject implements EngineInterface {
      * @param array variables Optional additional template variables; default is an empty array.
      * @return string The template output.
      */
-    public function fetch($template, array $variables=array()) {
+    public function fetch($template, array $variables=array())
+    {
         $template = str_replace('/views', '', $template);
         if (null != $this->templateCache && $this->templateCache->eligible($template)) {
             // check for cache hit
@@ -148,7 +156,8 @@ class ZMPhpEngine extends ZMObject implements EngineInterface {
      * @param string file The file, relative to the resource path.
      * @return string A url or empty string.
      */
-    public function asUrl($file) {
+    public function asUrl($file)
+    {
         if (null != ($path = $this->view->getResourceResolver()->findResource($file, View::RESOURCE))) {
             return $this->view->getResourceManager()->file2uri($path);
         }
@@ -163,7 +172,8 @@ class ZMPhpEngine extends ZMObject implements EngineInterface {
      * @param array args Optional parameter; default is an empty array.
      * @return string The contents.
      */
-    public function fetchBlockGroup($groupId, $args=array()) {
+    public function fetchBlockGroup($groupId, $args=array())
+    {
         $contents = '';
         foreach ($this->container->get('blockManager')->getBlocksForId($this->request, $groupId, $args) as $block) {
 //            Runtime::getLogging()->debug(sprintf('render block, template: %s', $block->getTemplate()));
@@ -181,7 +191,8 @@ class ZMPhpEngine extends ZMObject implements EngineInterface {
      * @param mixed args Optional parameter; a map of widget properties;  default is <code>null</code>.
      * @return string The widget contents.
      */
-    public function widget($widget, $name=null, $value=null, $args=null) {
+    public function widget($widget, $name=null, $value=null, $args=null)
+    {
         $wObj = $widget;
         if (is_string($widget)) {
             $wObj = Beans::getBean($widget);
@@ -213,7 +224,8 @@ class ZMPhpEngine extends ZMObject implements EngineInterface {
      * @param string value The fragment value; default is <code>null</code> to set a marker.
      * @return string The fragment marker content or an empty string on a set.
      */
-    public function fragment($name, $value=null) {
+    public function fragment($name, $value=null)
+    {
         return $this->view->getResourceManager()->fragment($name, $value);
     }
 

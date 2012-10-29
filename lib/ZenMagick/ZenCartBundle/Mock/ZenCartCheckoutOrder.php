@@ -26,7 +26,8 @@ use ZenMagick\StoreBundle\Model\Checkout\ShoppingCart;
  *
  * @author DerManoMann
  */
-class ZenCartCheckoutOrder extends ZMObject {
+class ZenCartCheckoutOrder extends ZMObject
+{
     public $content_type;
     public $info;
     public $products;
@@ -39,7 +40,8 @@ class ZenCartCheckoutOrder extends ZMObject {
      *
      * @param ShoppingCart shoppingCart The shopping cart; default is <code>null</code>
      */
-    public function __construct(ShoppingCart $shoppingCart=null) {
+    public function __construct(ShoppingCart $shoppingCart=null)
+    {
         parent::__construct();
         $this->setShoppingCart($shoppingCart);
     }
@@ -50,7 +52,8 @@ class ZenCartCheckoutOrder extends ZMObject {
      * @param ShoppingCart shoppingCart The shopping cart.
      * @param boolean applyTotals Optional flag to apply/skip totals; default is <code>true</code>.
      */
-    public function setShoppingCart($shoppingCart, $applyTotals=true) {
+    public function setShoppingCart($shoppingCart, $applyTotals=true)
+    {
     global $order;
 
         if (null == $shoppingCart) {
@@ -92,7 +95,8 @@ class ZenCartCheckoutOrder extends ZMObject {
      * @param ZenMagick\StoreBundle\Entity\Address address The address.
      * @return array Address array.
      */
-    protected function address2array($address) {
+    protected function address2array($address)
+    {
         $aa = array();
         $aa['country'] = array();
         if (null != $address) {
@@ -118,7 +122,8 @@ class ZenCartCheckoutOrder extends ZMObject {
      *
      * @param ShoppingCart shoppingCart The shopping cart.
      */
-    protected function populateProducts(ShoppingCart $shoppingCart) {
+    protected function populateProducts(ShoppingCart $shoppingCart)
+    {
         $this->products = array();
         foreach ($shoppingCart->getItems() as $item) {
             $itemProduct = $item->getProduct();
@@ -222,7 +227,8 @@ class ZenCartCheckoutOrder extends ZMObject {
      *
      * @param ShoppingCart shoppingCart The shopping cart.
      */
-    protected function populateInfo(ShoppingCart $shoppingCart) {
+    protected function populateInfo(ShoppingCart $shoppingCart)
+    {
         // general stuff
         // TODO: where from/to??
         $languageId = $this->container->get('settingsService')->get('storeDefaultLanguageId');
@@ -290,7 +296,8 @@ class ZenCartCheckoutOrder extends ZMObject {
      * @param ShoppingCart shoppingCart The shopping cart.
      * @todo Do not use zencart code to do this!
      */
-    protected function applyTotals(ShoppingCart $shoppingCart) {
+    protected function applyTotals(ShoppingCart $shoppingCart)
+    {
     global $order, $shipping_modules;
 
         $order = $this;
@@ -310,7 +317,8 @@ class ZenCartCheckoutOrder extends ZMObject {
      *
      * @param boolean withTotals Flag to include/apply totals or not.
      */
-    private function assertInfo($withTotals) {
+    private function assertInfo($withTotals)
+    {
     global $order;
         $order = new \order();
         if ($withTotals) {
@@ -354,7 +362,8 @@ class ZenCartCheckoutOrder extends ZMObject {
      *
      * @param ZenMagick\StoreBundle\Entity\Account\Account account The account.
      */
-    public function setAccount($account) {
+    public function setAccount($account)
+    {
         if (null != $account) {
             $primaryAddress = $this->container->get('addressService')->getAddressForId($account->getDefaultAddressId());
             $customer = $this->address2array($primaryAddress);
@@ -370,7 +379,8 @@ class ZenCartCheckoutOrder extends ZMObject {
      *
      * @param ZenMagick\StoreBundle\Entity\Address address The shipping address.
      */
-    public function setShippingAddress($address) {
+    public function setShippingAddress($address)
+    {
         $this->delivery = $this->address2array($address);
     }
 
@@ -379,7 +389,8 @@ class ZenCartCheckoutOrder extends ZMObject {
      *
      * @param ZenMagick\StoreBundle\Entity\Address address The billing address.
      */
-    public function setBillingAddress($address) {
+    public function setBillingAddress($address)
+    {
         $this->billing = $this->address2array($address);
     }
 

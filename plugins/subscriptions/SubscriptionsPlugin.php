@@ -32,12 +32,13 @@ use ZenMagick\plugins\subscriptions\cron\UpdateSubscriptionsCronJob;
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class SubscriptionsPlugin extends Plugin {
-
+class SubscriptionsPlugin extends Plugin
+{
     /**
      * Create new instance.
      */
-    public function __construct(array $config) {
+    public function __construct(array $config)
+    {
         parent::__construct($config);
 
         // the new prices and customer flag
@@ -60,7 +61,8 @@ class SubscriptionsPlugin extends Plugin {
     /**
      * Event handler to pick up subscription checkout options.
      */
-    public function onContainerReady($event) {
+    public function onContainerReady($event)
+    {
         $sacsManager = $this->container->get('sacsManager');
 
         // set mappings and permissions of custom pages
@@ -92,7 +94,8 @@ class SubscriptionsPlugin extends Plugin {
      * @param ShoppingCart shoppingCart The cart.
      * @return boolean <code>true</code> if the cart qualifies for a subscription.
      */
-    public function qualifies(ShoppingCart $shoppingCart) {
+    public function qualifies(ShoppingCart $shoppingCart)
+    {
         return $this->get('minAmount') <= $shoppingCart->getTotal();
     }
 
@@ -101,7 +104,8 @@ class SubscriptionsPlugin extends Plugin {
      *
      * @return boolean <code>true</code> if direct cancel is allowed.
      */
-    public function isCustomerCancel() {
+    public function isCustomerCancel()
+    {
         return $this->get('customerCancel');
     }
 
@@ -110,7 +114,8 @@ class SubscriptionsPlugin extends Plugin {
      *
      * @return string The subscription schedule key or <code>null</code>.
      */
-    public function getSelectedSchedule() {
+    public function getSelectedSchedule()
+    {
         $schedule = $this->container->get('session')->get('subscription_schedule');
         return empty($schedule) ? null : $schedule;
     }
@@ -122,7 +127,8 @@ class SubscriptionsPlugin extends Plugin {
      *
      * @return array Hash map of schedule key => name.
      */
-    public function getRequestTypes() {
+    public function getRequestTypes()
+    {
         $defaults = array(
                 'cancel' => _zm("Cancel Subscription"),
                 'enquire' => _zm("Enquire order status"),
@@ -138,7 +144,8 @@ class SubscriptionsPlugin extends Plugin {
      *
      * @return array Hash map of schedule key => name.
      */
-    public function getSchedules() {
+    public function getSchedules()
+    {
         $defaults = array(
             '1w' => array('name' => 'Weekly', 'active' => true),
             '10d' => array('name' => 'Every 10 days', 'active' => true),
@@ -151,7 +158,8 @@ class SubscriptionsPlugin extends Plugin {
     /**
      * Order created event handler.
      */
-    public function onCreateOrder($event) {
+    public function onCreateOrder($event)
+    {
         if ($event->getSubject() instanceof UpdateSubscriptionsCronJob) {
             // do not process orders created by our cron job
             return;
@@ -188,7 +196,8 @@ class SubscriptionsPlugin extends Plugin {
      * @param int factor Optional factor to get multiple of the single interval; default is <em>1</em>.
      * @return string A string that can be used in SQL <em>DATE_ADD</em>.
      */
-    public static function schedule2SQL($schedule, $factor=1) {
+    public static function schedule2SQL($schedule, $factor=1)
+    {
         $schedule = preg_replace('/[^0-9dwmy]/', '', $schedule);
         $schedule = str_replace(array('d', 'w', 'm', 'y'), array(' DAY', ' WEEK', ' MONTH', ' YEAR'), $schedule);
         if (1 < $factor) {
@@ -206,7 +215,8 @@ class SubscriptionsPlugin extends Plugin {
      * @param int orderId The original subscription order.
      * @return array List of order ids.
      */
-    public function getScheduledOrderIdsForSubscriptionOrderId($orderId) {
+    public function getScheduledOrderIdsForSubscriptionOrderId($orderId)
+    {
         $sql = "SELECT orders_id
                 FROM %table.orders%
                 WHERE subscription_order_id = :subscriptionOrderId";
@@ -224,7 +234,8 @@ class SubscriptionsPlugin extends Plugin {
      * @param int orderId The original subscription order id.
      * @return string The date or <code>null</code> (if not canceled).
      */
-    public function getMinLastOrderDate($orderId) {
+    public function getMinLastOrderDate($orderId)
+    {
         $order = $this->container->get('orderService')->getOrderForId($orderId, $this->container->get('session')->getLanguageId());
 
         // let's find out how many more orders need to be shipped to pass the minOrders restriction

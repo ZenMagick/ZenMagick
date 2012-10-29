@@ -27,14 +27,16 @@ use ZenMagick\Base\ZMObject;
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class RssFeed extends ZMObject {
+class RssFeed extends ZMObject
+{
     private $channel_;
     private $items_;
 
     /**
      * Create new RSS feed.
      */
-    public function __construct() {
+    public function __construct()
+    {
         parent::__construct();
         $this->channel_ = null;
         $this->items_ = array();
@@ -45,7 +47,8 @@ class RssFeed extends ZMObject {
      *
      * @return boolean <code>true</code> if feed items are available, <code>false</code>, if not.
      */
-    public function hasContents() {
+    public function hasContents()
+    {
         return 0 != count($this->items_);
     }
     /**

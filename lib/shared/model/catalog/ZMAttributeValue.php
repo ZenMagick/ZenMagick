@@ -31,7 +31,8 @@ use ZenMagick\Base\ZMObject;
  * @author DerManoMann
  * @package zenmagick.store.shared.model.catalog
  */
-class ZMAttributeValue extends ZMObject {
+class ZMAttributeValue extends ZMObject
+{
     private $attribute_;
     private $name_;
     private $price_;
@@ -52,7 +53,8 @@ class ZMAttributeValue extends ZMObject {
     /**
      * Create new instance.
      */
-    public function __construct($id=0, $name=null) {
+    public function __construct($id=0, $name=null)
+    {
         parent::__construct();
         $this->setId($id);
         $this->name_ = $name;
@@ -86,7 +88,8 @@ class ZMAttributeValue extends ZMObject {
      * @param boolean tax Set to <code>true</code> to include tax (if applicable); default is <code>true</code>.
      * @return double The price.
      */
-    public function getValuePrice($tax=true) {
+    public function getValuePrice($tax=true)
+    {
         return $tax ? $this->taxRate_->addTax($this->price_) : $this->price_;
     }
 
@@ -97,7 +100,8 @@ class ZMAttributeValue extends ZMObject {
      * @param int quantity The quantity.
      * @return float The one time charge.
      */
-    protected function getQtyPrice($qtyPrices, $quantity) {
+    protected function getQtyPrice($qtyPrices, $quantity)
+    {
         $qtyPriceMap = preg_split("/[:,]/" , $qtyPrices);
         $price = 0;
         $size = count($qtyPriceMap);
@@ -126,7 +130,8 @@ class ZMAttributeValue extends ZMObject {
      * @param int priceFactorOffset The price factopr offset.
      * @return float The price factor price.
      */
-    protected function getPriceFactorCharge($price, $discountPrice, $priceFactor, $priceFactorOffset) {
+    protected function getPriceFactorCharge($price, $discountPrice, $priceFactor, $priceFactorOffset)
+    {
         if (Runtime::getSettings()->get('isDiscountAttributePriceFactor') && 0 != $discountPrice) {
             return $discountPrice * ($priceFactor - $priceFactorOffset);
         } else {
@@ -140,7 +145,8 @@ class ZMAttributeValue extends ZMObject {
      * @param int quantity The quantity.
      * @return float The price.
      */
-    protected function getFinalPriceForQty($quantity) {
+    protected function getFinalPriceForQty($quantity)
+    {
         $price = $this->price_;
         if ('-' == $this->pricePrefix_) {
             $price = -$this->price_;
@@ -165,7 +171,8 @@ class ZMAttributeValue extends ZMObject {
      * @param string text The text.
      * @return double The price.
      */
-    protected function calculateTextPrice($text) {
+    protected function calculateTextPrice($text)
+    {
         $letterPrice = $this->countPriceableLetters($text) * $this->getPriceLetters();
         $wordPrice = $this->countPriceableWords($text) * $this->getPriceWords();
         return $letterPrice + $wordPrice;
@@ -179,7 +186,8 @@ class ZMAttributeValue extends ZMObject {
      * @param string value Optional value for attributes that accept customer input (text attribute, for example); default is <code>null</code>.
      * @return double The price.
      */
-    public function getPrice($tax=true, $quantity=1, $value=null) {
+    public function getPrice($tax=true, $quantity=1, $value=null)
+    {
         $price = $this->price_;
         if ($this->isDiscounted_) {
             $price = $this->getFinalPriceForQty($quantity);
@@ -205,7 +213,8 @@ class ZMAttributeValue extends ZMObject {
      * @param int quantity The quantity; default is 1.
      * @return double The attributes one time price.
      */
-    public function getOneTimePrice($tax=true, $quantity=1) {
+    public function getOneTimePrice($tax=true, $quantity=1)
+    {
         $price = $this->oneTimePrice_;
         if (0 != $price || $this->isPriceFactorOneTime_) {
             // quantity onetime discounts
@@ -333,7 +342,8 @@ class ZMAttributeValue extends ZMObject {
      *
      * @param double price The price.
      */
-    public function setValuePrice($price) {
+    public function setValuePrice($price)
+    {
         $this->price_ = $price;
     }
 
@@ -441,7 +451,8 @@ class ZMAttributeValue extends ZMObject {
      * @param string text The text.
      * @return int The letters accountable for pricing.
      */
-    protected function countPriceableLetters($text) {
+    protected function countPriceableLetters($text)
+    {
         $ignoreWS = $this->container->get('settingsService')->get('apps.store.pricing.text.ignoreWS');
         $sws = $ignoreWS ? '' : ' ';
         $text = str_replace(array("\r\n", "\n", "\r", "\t"), $sws, trim($text));
@@ -458,7 +469,8 @@ class ZMAttributeValue extends ZMObject {
      * @param string text The text.
      * @return int The words accountable for pricing.
      */
-    protected function countPriceableWords($text) {
+    protected function countPriceableWords($text)
+    {
         $words = preg_split('/[\s,]+/', trim($text));
         $count = count($words) - $this->getPriceWordsFree();
         return 0 > $count ? 0 : $count;

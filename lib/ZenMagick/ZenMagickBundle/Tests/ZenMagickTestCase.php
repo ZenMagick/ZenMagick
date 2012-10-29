@@ -24,7 +24,8 @@ namespace ZenMagick\ZenMagickBundle\Tests;
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class ZenMagickTestCase extends \PHPUnit_Framework_TestCase {
+class ZenMagickTestCase extends \PHPUnit_Framework_TestCase
+{
     private $app;
 
     /**
@@ -32,7 +33,8 @@ class ZenMagickTestCase extends \PHPUnit_Framework_TestCase {
      *
      * @param boolean $fresh Optional flag to force a fresh instance; default is <code>false</code>.
      */
-    protected function getApp($fresh = false) {
+    protected function getApp($fresh = false)
+    {
         if (!$this->app || $fresh) {
             $appDir = realpath(__DIR__.'/../../../../app');
             require_once $appDir.'/bootstrap.php.cache';
@@ -51,7 +53,8 @@ class ZenMagickTestCase extends \PHPUnit_Framework_TestCase {
      * @param string serviceId The service id.
      * @return mixed The service.
      */
-    public function get($serviceId) {
+    public function get($serviceId)
+    {
         return $this->getApp()->getContainer()->get($serviceId);
     }
 

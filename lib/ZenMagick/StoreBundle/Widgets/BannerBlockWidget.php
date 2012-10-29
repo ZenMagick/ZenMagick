@@ -29,7 +29,8 @@ use ZenMagick\Http\View\TemplateView;
  *
  * @author DerManoMann
  */
-class BannerBlockWidget extends Widget {
+class BannerBlockWidget extends Widget
+{
     private $group_;
     private $trackDisplay_;
     private $showAll_;
@@ -37,7 +38,8 @@ class BannerBlockWidget extends Widget {
     /**
      * Create new instance.
      */
-    public function __construct() {
+    public function __construct()
+    {
         parent::__construct();
         $this->group_ = null;
         $this->trackDisplay_ = true;
@@ -50,7 +52,8 @@ class BannerBlockWidget extends Widget {
      *
      * @return string The group name.
      */
-    public function getGroup() {
+    public function getGroup()
+    {
         return $this->group_;
     }
 
@@ -59,7 +62,8 @@ class BannerBlockWidget extends Widget {
      *
      * @param string group The group name.
      */
-    public function setGroup($group) {
+    public function setGroup($group)
+    {
         $this->group_ = $group;
     }
 
@@ -68,7 +72,8 @@ class BannerBlockWidget extends Widget {
      *
      * @param boolean trackDisplay The new value.
      */
-    public function setTrackDisplay($trackDisplay) {
+    public function setTrackDisplay($trackDisplay)
+    {
         $this->trackDisplay_ = $trackDisplay;
     }
 
@@ -77,7 +82,8 @@ class BannerBlockWidget extends Widget {
      *
      * @return boolean <code>true</code> if tracking is enabled.
      */
-    public function isTrackDisplay() {
+    public function isTrackDisplay()
+    {
         return $this->trackDisplay_;
     }
 
@@ -86,7 +92,8 @@ class BannerBlockWidget extends Widget {
      *
      * @param boolean value The new value.
      */
-    public function setShowAll($value) {
+    public function setShowAll($value)
+    {
         $this->showAll_ = Toolbox::asBoolean($value);
     }
 
@@ -95,14 +102,16 @@ class BannerBlockWidget extends Widget {
      *
      * @return boolean <code>true</code> if all banners are to be displayed.
      */
-    public function isShowAll() {
+    public function isShowAll()
+    {
         return $this->showAll_;
     }
 
     /**
      * {@inheritDoc}
      */
-    public function render($request, TemplateView $templateView) {
+    public function render($request, TemplateView $templateView)
+    {
         if (!$this->container->get('settingsService')->get('apps.store.banners.enabled', true)) {
             return '';
         }

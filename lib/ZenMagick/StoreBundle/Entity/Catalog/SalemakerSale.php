@@ -34,7 +34,8 @@ use Doctrine\ORM\Mapping AS ORM;
  *  })
  * @ORM\Entity
  */
-class SalemakerSale extends ZMObject {
+class SalemakerSale extends ZMObject
+{
     /**
      * @var integer $saleId
      *
@@ -131,7 +132,8 @@ class SalemakerSale extends ZMObject {
      */
     private $dateStatusChange;
 
-    public function __construct() {
+    public function __construct()
+    {
         parent::__construct();
         $this->status = false;
         $this->deductionValue = 0;
@@ -229,7 +231,8 @@ class SalemakerSale extends ZMObject {
      *
      * @return date $dateStart
      */
-    public function getDateStart() {
+    public function getDateStart()
+    {
         return $this->dateStart == Connection::NULL_DATE ? null : $this->dateStart;
     }
 
@@ -238,7 +241,8 @@ class SalemakerSale extends ZMObject {
      *
      * @return date $dateEnd
      */
-    public function getDateEnd() {
+    public function getDateEnd()
+    {
         return $this->dateEnd == Connection::NULL_DATE ? null : $this->dateEnd;
     }
 
@@ -247,7 +251,8 @@ class SalemakerSale extends ZMObject {
      *
      * @return date $dateAdded
      */
-    public function getDateAdded() {
+    public function getDateAdded()
+    {
         return $this->dateAdded == Connection::NULL_DATE ? null : $this->dateAdded;
     }
 
@@ -256,7 +261,8 @@ class SalemakerSale extends ZMObject {
      *
      * @return date $dateLastModified
      */
-    public function getDateLastModified() {
+    public function getDateLastModified()
+    {
         return $this->dateLastModified == Connection::NULL_DATE ? null : $this->dateLastModified;
     }
 
@@ -265,7 +271,8 @@ class SalemakerSale extends ZMObject {
      *
      * @return date $dateStatusChange
      */
-    public function getDateStatusChange() {
+    public function getDateStatusChange()
+    {
         return $this->dateStatusChange == Connection::NULL_DATE ? null : $this->dateStatusChange;
     }
 
@@ -274,7 +281,8 @@ class SalemakerSale extends ZMObject {
      *
      * @param int $id
      */
-    public function setSaleId($id) {
+    public function setSaleId($id)
+    {
         $this->saleId = $id;
     }
 
@@ -283,7 +291,8 @@ class SalemakerSale extends ZMObject {
      *
      * @param boolean $status
      */
-    public function setStatus($status) {
+    public function setStatus($status)
+    {
         $this->status = $status;
         $this->setDateStatusChange(new \DateTime());
     }

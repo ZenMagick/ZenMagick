@@ -25,12 +25,13 @@ namespace ZenMagick\AdminBundle\Controller;
  * @author DerManoMann <mano@zenmagick.org>
  * @todo move hash calculation into controller
  */
-class CacheAdminController extends \ZMController {
-
+class CacheAdminController extends \ZMController
+{
     /**
      * Get all configured caches.
      */
-    protected function getCaches() {
+    protected function getCaches()
+    {
         $caches = array();
         foreach ($this->container->getParameterBag()->get('zenmagick.cacheIds') as $id) {
             $caches[$id] = $this->container->get($id);
@@ -41,21 +42,24 @@ class CacheAdminController extends \ZMController {
     /**
      * {@inheritDoc}
      */
-    public function getViewData($request) {
+    public function getViewData($request)
+    {
         return array('caches' => $this->getCaches());
     }
 
     /**
      * {@inheritDoc}
      */
-    public function processGet($request) {
+    public function processGet($request)
+    {
         return $this->findView();
     }
 
     /**
      * {@inheritDoc}
      */
-    public function processPost($request) {
+    public function processPost($request)
+    {
         if ($this->handleDemo()) {
             return $this->findView('success-demo');
         }

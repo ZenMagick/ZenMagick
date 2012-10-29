@@ -28,21 +28,24 @@ use ZenMagick\Base\Toolbox;
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class WordpressPlugin extends Plugin {
+class WordpressPlugin extends Plugin
+{
     private $requestHandler_ = null;
     private $adapter_ = null;
 
     /**
      * {@inheritDoc}
      */
-    public function isEnabled() {
+    public function isEnabled()
+    {
         return parent::isEnabled() && !(defined('WP_USE_THEMES') && WP_USE_THEMES);
     }
 
     /**
      * Prepare WP.
      */
-    protected function prepareWP() {
+    protected function prepareWP()
+    {
         $settingsService = $this->container->get('settingsService');
         $settingsService->set('isAccountNickname', true);
 
@@ -62,7 +65,8 @@ class WordpressPlugin extends Plugin {
     /**
      * Get the WP bridge.
      */
-    protected function getAdapter() {
+    protected function getAdapter()
+    {
         if (null == $this->adapter_) {
             $this->adapter_ = Beans::getBean('ZenMagick\plugins\wordpress\WordpressAdapter');
         }
@@ -73,7 +77,8 @@ class WordpressPlugin extends Plugin {
     /**
      * Handle view start.
      */
-    public function onViewStart($event) {
+    public function onViewStart($event)
+    {
         $request = $event->getArgument('request');
 
         // create single request handler
@@ -90,7 +95,8 @@ class WordpressPlugin extends Plugin {
     /**
      * Handle init done event.
      */
-    public function onContainerReady($event) {
+    public function onContainerReady($event)
+    {
         $request = $event->getArgument('request');
         $requestId = $request->getRequestId();
 
@@ -144,7 +150,8 @@ class WordpressPlugin extends Plugin {
     /**
      * Handle final content.
      */
-    public function onFinaliseContent($event) {
+    public function onFinaliseContent($event)
+    {
         $request = $event->getArgument('request');
 
         if ('' == $request->getRequestId()) {
@@ -162,14 +169,16 @@ class WordpressPlugin extends Plugin {
      *
      * @return boolean <code>true</code> if permalink support is enabled, <code>false</code> if not.
      */
-    public function isPermalinksEnabled() {
+    public function isPermalinksEnabled()
+    {
         return !Toolbox::isEmpty($this->get('permaPrefix'));
     }
 
     /**
      * {@inheritDoc}
      */
-    public function getGlobal($request) {
+    public function getGlobal($request)
+    {
         $wordpressEnabledPages = explode(',', $this->get('wordpressEnabledPages'));
         if (empty($wordpressEnabledPages) || (!Toolbox::isEmpty($request->getRequestId()) && in_array($request->getRequestId(), $wordpressEnabledPages))) {
             if ($this->isPermalinksEnabled()) {
@@ -192,7 +201,8 @@ class WordpressPlugin extends Plugin {
      *
      * @param string query Parameter for WP <code>query_posts</code> as per WP docs.
      */
-    public function query_posts($query='') {
+    public function query_posts($query='')
+    {
     global $wpdb;
 
         if ($this->initWP() && !$this->isPermalinksEnabled()) {
@@ -206,7 +216,8 @@ class WordpressPlugin extends Plugin {
      *
      * @return boolean <code>true</code> if Wordpress is initialized.
      */
-    public function initWP() {
+    public function initWP()
+    {
     global $wpdb;
 
         return isset($wpdb);
@@ -218,7 +229,8 @@ class WordpressPlugin extends Plugin {
      * @param ZenMagick\Http\Request request The current request.
      * @return ZMWpRequestHandler The single request handler for this request.
      */
-    public function getRequestHandler($request) {
+    public function getRequestHandler($request)
+    {
         if (null == $this->requestHandler_) {
             $this->requestHandler_ = new WordpressRequestHandler($this, $request);
         }
@@ -232,7 +244,8 @@ class WordpressPlugin extends Plugin {
      * <p>Here the additional processing is done by checking the result view id. As per convention,
      * ZenMagick controller will use the viewId 'success' if POST processing was successful.</p>
      */
-    public function onCreateAccount($event) {
+    public function onCreateAccount($event)
+    {
         if (Toolbox::asBoolean($this->get('syncUser'))) {
             $account = $event->getArgument('account');
             if (!Toolbox::isEmpty($account->getNickName())) {
@@ -250,7 +263,8 @@ class WordpressPlugin extends Plugin {
      * <p>Here the additional processing is done by checking the result view id. As per convention,
      * ZenMagick controller will use the viewId 'success' if POST processing was successful.</p>
      */
-    public function onPasswordChanged($event) {
+    public function onPasswordChanged($event)
+    {
         if (Toolbox::asBoolean($this->get('syncUser'))) {
             $account = $event->getArgument('account');
             if (!Toolbox::isEmpty($account->getNickName())) {
@@ -263,7 +277,8 @@ class WordpressPlugin extends Plugin {
     /**
      * Event callback for syncing users.
      */
-    public function onAccountUpdated($event) {
+    public function onAccountUpdated($event)
+    {
         if (Toolbox::asBoolean($this->get('syncUser'))) {
             $request = $event->getArgument('request');
             $account = $event->getArgument('account');

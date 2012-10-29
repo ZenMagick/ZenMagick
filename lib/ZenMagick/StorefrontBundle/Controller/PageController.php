@@ -24,12 +24,13 @@ namespace ZenMagick\StorefrontBundle\Controller;
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class PageController extends \ZMController {
-
+class PageController extends \ZMController
+{
     /**
      * {@inheritDoc}
      */
-    public function showAction($id, $chapter = null) {
+    public function showAction($id, $chapter = null)
+    {
         $languageId = $this->getRequest()->getSession()->getLanguageId();
         $page = $this->container->get('ezPageService')->getPageForId($id, $languageId);
         if (null == $page) {

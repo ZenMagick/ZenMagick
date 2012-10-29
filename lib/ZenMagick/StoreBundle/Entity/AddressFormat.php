@@ -26,7 +26,8 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table(name="address_format")
  * @ORM\Entity
  */
-class AddressFormat {
+class AddressFormat
+{
     /**
      * @var integer $id
      *

@@ -26,12 +26,13 @@ use ZenMagick\Base\Beans;
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class ProductsNewController extends \ZMController {
-
+class ProductsNewController extends \ZMController
+{
     /**
      * {@inheritDoc}
      */
-    public function processGet($request) {
+    public function processGet($request)
+    {
         $resultSource = new \ZMObjectResultSource('ZenMagick\StoreBundle\Entity\Catalog\Product', 'productService', "getNewProducts");
         $resultList = Beans::getBean('ZMResultList');
         $resultList->setResultSource($resultSource);

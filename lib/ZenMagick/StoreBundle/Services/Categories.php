@@ -33,7 +33,8 @@ use ZenMagick\Base\ZMObject;
  *
  * @author DerManoMann
  */
-class Categories extends ZMObject {
+class Categories extends ZMObject
+{
     /**
      * Flat list of <code>ZenMagick\StoreBundle\Entity\Catalog\Category</code> instances.
      *
@@ -48,7 +49,8 @@ class Categories extends ZMObject {
     /**
      * Create new instance.
      */
-    public function __construct() {
+    public function __construct()
+    {
         parent::__construct();
         $this->categories_ = array();
         $this->rootCategories_ = array();
@@ -60,7 +62,8 @@ class Categories extends ZMObject {
      *
      * @param ZenMagick\Base\Cache\Cache cache The cache.
      */
-    public function setCache($cache) {
+    public function setCache($cache)
+    {
         $this->cache_ = $cache;
     }
 
@@ -69,7 +72,8 @@ class Categories extends ZMObject {
      *
      * @return ZenMagick\Base\Cache\Cache The cache.
      */
-    public function getCache() {
+    public function getCache()
+    {
         return $this->cache_;
     }
 
@@ -81,7 +85,8 @@ class Categories extends ZMObject {
      * @param int languageId Language id.
      * @return ZenMagick\StoreBundle\Entity\Catalog\Category The default category (or <code>null</code>).
      */
-    public function getDefaultCategoryForProductId($productId, $languageId) {
+    public function getDefaultCategoryForProductId($productId, $languageId)
+    {
         $sql = "SELECT categories_id, products_id
                 FROM %table.products_to_categories%
                 WHERE products_id = :productId";
@@ -105,7 +110,8 @@ class Categories extends ZMObject {
      * @param boolean includeChildren Optional flag to also populate child categories; default is <code>false</code>.
      * @return array A list of <code>ZenMagick\StoreBundle\Entity\Catalog\Category</code> instances.
      */
-    public function getRootCategories($languageId, $includeChildren=false) {
+    public function getRootCategories($languageId, $includeChildren=false)
+    {
         $rootCategoriesKey = $languageId.'-'.($includeChildren ? 'true' : 'false');
         if (array_key_exists($rootCategoriesKey, $this->rootCategories_)) {
             return $this->rootCategories_[$rootCategoriesKey];
@@ -155,7 +161,8 @@ class Categories extends ZMObject {
      * @param int languageId Language id.
      * @return array A list of <code>ZenMagick\StoreBundle\Entity\Catalog\Category</code> instances.
      */
-    public function getAllCategories($languageId) {
+    public function getAllCategories($languageId)
+    {
         return $this->getCategories($languageId);
     }
 
@@ -166,7 +173,8 @@ class Categories extends ZMObject {
      * @param array ids Optional list of category ids; default is <code>null</code>.
      * @return array A list of <code>ZenMagick\StoreBundle\Entity\Catalog\Category</code> instances.
      */
-    public function getCategories($languageId, $ids=null) {
+    public function getCategories($languageId, $ids=null)
+    {
         if (array_key_exists($languageId, $this->categories_)) {
             $categories = $this->categories_[$languageId];
         } elseif (false === ($categories = $this->cache_->lookup(Toolbox::hash('categories', 'categories', $languageId)))) {
@@ -194,7 +202,8 @@ class Categories extends ZMObject {
      * @param int languageId Language id.
      * @return array A list of all top level categories (<code>parentId == 0</code>).
      */
-    public function getCategoryTree($languageId) {
+    public function getCategoryTree($languageId)
+    {
         $categories = $this->getCategories($languageId);
 
         $tlc = array();
@@ -214,7 +223,8 @@ class Categories extends ZMObject {
      * @param int languageId Language id.
      * @return ZenMagick\StoreBundle\Entity\Catalog\Category A <code>ZenMagick\StoreBundle\Entity\Catalog\Category</code> instance or <code>null</code>.
      */
-    public function getCategoryForId($categoryId, $languageId) {
+    public function getCategoryForId($categoryId, $languageId)
+    {
         $categories = $this->getCategories($languageId);
 
         if (array_key_exists($categoryId, $categories)) {
@@ -230,7 +240,8 @@ class Categories extends ZMObject {
      * @param int languageId The language id.
      * @param ZenMagick\StoreBundle\Entity\Catalog\Category category Optional category to update in runtime cache; default is <code>null</code>.
      */
-    protected function invalidateCache($languageId, $category=null) {
+    protected function invalidateCache($languageId, $category=null)
+    {
         $this->cache_->remove(Toolbox::hash('categories', 'categories', $languageId));
         $this->cache_->remove(Toolbox::hash('categories', 'rootCategories', $languageId));
         $this->cache_->remove(Toolbox::hash('categories', 'productTypeIdMap'));
@@ -246,7 +257,8 @@ class Categories extends ZMObject {
      * @param ZenMagick\StoreBundle\Entity\Catalog\Category category The category.
      * @return Category The updated category.
      */
-    public function createCategory($category) {
+    public function createCategory($category)
+    {
         $languageId = $category->getLanguageId();
         $parent = null;
         if (0 != $category->getParentId()) {
@@ -289,7 +301,8 @@ class Categories extends ZMObject {
      * @param ZenMagick\StoreBundle\Entity\Catalog\Category category The category.
      * @return Category The updated category.
      */
-    public function updateCategory($category) {
+    public function updateCategory($category)
+    {
         $languageId = $category->getLanguageId();
         ZMRuntime::getDatabase()->updateModel('categories', $category);
         ZMRuntime::getDatabase()->updateModel('categories_description', $category);
@@ -322,7 +335,8 @@ class Categories extends ZMObject {
      *
      * @param ZenMagick\StoreBundle\Entity\Catalog\Category category The category.
      */
-    public function deleteCategory($category) {
+    public function deleteCategory($category)
+    {
         $languageId = $category->getLanguageId();
         ZMRuntime::getDatabase()->removeModel('categories', $category);
         ZMRuntime::getDatabase()->removeModel('categories_description', $category);
@@ -354,7 +368,8 @@ class Categories extends ZMObject {
      *
      * @return array List of allowed product type ids; an empty list means no restrictions.
      */
-    public function getProductTypeIds($categoryId) {
+    public function getProductTypeIds($categoryId)
+    {
         if (null !== $this->productTypeIdMap_) {
             return array_key_exists($categoryId, $this->productTypeIdMap_) ? $this->productTypeIdMap_[$categoryId] : array();
         }
@@ -388,7 +403,8 @@ class Categories extends ZMObject {
      * @param int languageId Language id.
      * @return array List of all loaded and initialized categories.
      */
-    protected function loadAndInitTree($languageId) {
+    protected function loadAndInitTree($languageId)
+    {
         // load all straight away - should be faster to sort them later on
         $args = array('languageId' => $languageId);
         $sql = "SELECT c.*, cd.*
@@ -421,7 +437,8 @@ class Categories extends ZMObject {
      * @param int languageId Language id.
      * @return ZenMagick\StoreBundle\Entity\Catalog\MetaTagDetails The details or <code>null</code>.
      */
-    public function getMetaTagDetailsForId($categoryId, $languageId) {
+    public function getMetaTagDetailsForId($categoryId, $languageId)
+    {
         $sql = "SELECT * from %table.meta_tags_categories_description%
                 WHERE categories_id = :categoryId
                   AND language_id = :languageId";

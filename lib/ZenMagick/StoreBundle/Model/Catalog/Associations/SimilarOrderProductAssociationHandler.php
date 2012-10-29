@@ -31,19 +31,21 @@ use ZenMagick\StoreBundle\Services\Catalog\ProductAssociationHandler;
  *
  * @author DerManoMann
  */
-class SimilarOrderProductAssociationHandler implements ProductAssociationHandler {
-
+class SimilarOrderProductAssociationHandler implements ProductAssociationHandler
+{
     /**
      * {@inheritDoc}
      */
-    public function getType() {
+    public function getType()
+    {
        return "similarOrder";
     }
 
     /**
      * {@inheritDoc}
      */
-    public function getProductAssociationsForProductId($productId, $args=array()) {
+    public function getProductAssociationsForProductId($productId, $args=array())
+    {
         $limit = 6;
         if (is_array($args) && array_key_exists('limit', $args)) {
             $limit = (int) $args['limit'];

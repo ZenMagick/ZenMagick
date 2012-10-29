@@ -25,8 +25,8 @@
  * @author DerManoMann
  * @package zenmagick.store.shared.model.checkout
  */
-interface ZMPaymentType {
-
+interface ZMPaymentType
+{
     /**
      * Get the payment type id.
      *

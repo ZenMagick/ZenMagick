@@ -30,13 +30,15 @@ use ZenMagick\Http\View\TemplateView;
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class SelectFormWidget extends FormWidget {
+class SelectFormWidget extends FormWidget
+{
     private $options_;
 
     /**
      * Create new instance.
      */
-    public function __construct() {
+    public function __construct()
+    {
         parent::__construct();
         $this->addAttributeNames(array('size', 'multiple', 'title'));
         $this->options_ = array();
@@ -47,7 +49,8 @@ class SelectFormWidget extends FormWidget {
     /**
      * {@inheritDoc}
      */
-    public function setValue($value) {
+    public function setValue($value)
+    {
         if ($this->isMultiValue()) {
             $arr = @unserialize($value);
             if (is_array($arr)) {
@@ -62,14 +65,16 @@ class SelectFormWidget extends FormWidget {
      *
      * @param boolean multiple New value.
      */
-    public function setMultiple($multiple) {
+    public function setMultiple($multiple)
+    {
         $this->set('multiple', Toolbox::asBoolean($multiple));
     }
 
     /**
      * {@inheritDoc}
      */
-    public function isMultiValue() {
+    public function isMultiValue()
+    {
         return Toolbox::asBoolean($this->get('multiple'));
     }
 
@@ -79,7 +84,8 @@ class SelectFormWidget extends FormWidget {
      * @param ZenMagick\Http\Request request The current request.
      * @return array Map of value/name pairs.
      */
-    public function getOptions($request) {
+    public function getOptions($request)
+    {
         return $this->options_;
     }
 
@@ -89,7 +95,8 @@ class SelectFormWidget extends FormWidget {
      * @param string name The option name.
      * @param string value The value; default is <code>null</code> to use the name.
      */
-    public function addOption($name, $value=null) {
+    public function addOption($name, $value=null)
+    {
         $value = null === $value ? $name : $value;
         $this->options_[$value] = $name;
     }
@@ -99,14 +106,16 @@ class SelectFormWidget extends FormWidget {
      *
      * @param mixed options Map of value/name pairs.
      */
-    public function setOptions($options) {
+    public function setOptions($options)
+    {
         $this->options_ = Toolbox::toArray($options);
     }
 
     /**
      * {@inheritDoc}
      */
-    public function getStringValue() {
+    public function getStringValue()
+    {
         if ($this->isMultiValue()) {
             // only for multi values, to avoid serializing int values, etc...
             return serialize($this->getValue());
@@ -118,7 +127,8 @@ class SelectFormWidget extends FormWidget {
     /**
      * {@inheritDoc}
      */
-    public function render($request, TemplateView $templateView) {
+    public function render($request, TemplateView $templateView)
+    {
         if ($this->isMultiValue()) {
             Runtime::getLogging()->debug('multi-value: defaulting style to select');
             $this->set('style', 'select');
@@ -138,7 +148,8 @@ class SelectFormWidget extends FormWidget {
      *
      * @param ZenMagick\Http\Request request The current request.
      */
-    public function renderSelect($request) {
+    public function renderSelect($request)
+    {
         $values = $this->getValue();
         if (!is_array($values)) {
             $values = array($values);
@@ -165,7 +176,8 @@ class SelectFormWidget extends FormWidget {
      *
      * @param ZenMagick\Http\Request request The current request.
      */
-    public function renderRadio($request) {
+    public function renderRadio($request)
+    {
         $slash = Runtime::getSettings()->get('zenmagick.http.html.xhtml') ? '/' : '';
         $checked = Runtime::getSettings()->get('zenmagick.http.html.xhtml') ? ' checked="checked"' : ' checked';
 

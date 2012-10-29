@@ -28,7 +28,8 @@ use ZenMagick\Http\Rss\RssItem;
  *
  * @author DerManoMann
  */
-class CatalogCategoryRssItemIterator extends ZMObject implements Iterator {
+class CatalogCategoryRssItemIterator extends ZMObject implements Iterator
+{
     private $categoryInfo;
     private $languageId;
     private $index;
@@ -41,7 +42,8 @@ class CatalogCategoryRssItemIterator extends ZMObject implements Iterator {
      * @param int languageId The language id.
      * @param boolean fullFeed Optional flag to enable/disable full feed details; default is <code>true</code>.
      */
-    public function __construct(array $categoryInfo, $languageId, $fullFeed=true) {
+    public function __construct(array $categoryInfo, $languageId, $fullFeed=true)
+    {
         parent::__construct();
         $this->categoryInfo = $categoryInfo;
         $this->languageId = $languageId;
@@ -52,35 +54,40 @@ class CatalogCategoryRssItemIterator extends ZMObject implements Iterator {
     /**
      * {@inheritDoc}
      */
-    public function rewind() {
+    public function rewind()
+    {
         $this->index = 0;
     }
 
     /**
      * {@inheritDoc}
      */
-    public function current() {
+    public function current()
+    {
         return $this->rssItem($this->categoryInfo[$this->index], $this->languageId, $this->fullFeed);
     }
 
     /**
      * {@inheritDoc}
      */
-    public function key() {
+    public function key()
+    {
         return $this->index;
     }
 
     /**
      * {@inheritDoc}
      */
-    public function next() {
+    public function next()
+    {
         ++$this->index;
     }
 
     /**
      * {@inheritDoc}
      */
-    public function valid() {
+    public function valid()
+    {
         return isset($this->categoryInfo[$this->index]);
     }
 
@@ -92,7 +99,8 @@ class CatalogCategoryRssItemIterator extends ZMObject implements Iterator {
      * @param boolean fullFeed Optional flag to enable/disable full feed details.
      * @return RssFeed The feed.
      */
-    protected function rssItem($categoryInfo, $languageId, $fullFeed) {
+    protected function rssItem($categoryInfo, $languageId, $fullFeed)
+    {
         $category = $this->container->get('categoryService')->getCategoryForId($categoryInfo['id'], $languageId);
         $item = new RssItem();
         $item->setTitle($category->getName());

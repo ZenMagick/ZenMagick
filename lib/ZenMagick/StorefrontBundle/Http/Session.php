@@ -30,13 +30,14 @@ use Symfony\Component\EventDispatcher\GenericEvent;
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class Session extends \ZenMagick\Http\Session\Session {
-
+class Session extends \ZenMagick\Http\Session\Session
+{
     /**
      * {@inheritDoc}
      * @todo: drop
      */
-    public function set($name, $value=null) {
+    public function set($name, $value=null)
+    {
         // ZCSMELL
         if (!$this->isStarted()) $this->start();
         parent::set($name, $value);
@@ -48,7 +49,8 @@ class Session extends \ZenMagick\Http\Session\Session {
      * {@inheritDoc}
      * @todo: drop
      */
-    public function get($name, $default=null) {
+    public function get($name, $default=null)
+    {
         if (null != ($value = parent::get($name, $default))) {
             return $value;
         }
@@ -63,7 +65,8 @@ class Session extends \ZenMagick\Http\Session\Session {
      *
      * @return int The account id for the currently logged in user or <code>0</code>.
      */
-    public function getAccountId() {
+    public function getAccountId()
+    {
         $accountId = $this->get('customer_id');
         return null !== $accountId ? $accountId : 0;
     }
@@ -75,7 +78,8 @@ class Session extends \ZenMagick\Http\Session\Session {
      *
      * @return char The session type.
      */
-    public function getType() {
+    public function getType()
+    {
         $type = $this->get('account_type');
         return null === $type ? Account::ANONYMOUS : $type;
     }
@@ -119,7 +123,8 @@ class Session extends \ZenMagick\Http\Session\Session {
      *
      * @param ZenMagick\StoreBundle\Entity\Account\Account account The account.
      */
-    public function setAccount($account) {
+    public function setAccount($account)
+    {
         if (null == $account) {
             $this->set('customer_id', '');
         } else {
@@ -139,7 +144,8 @@ class Session extends \ZenMagick\Http\Session\Session {
     /**
      * Restore the shopping cart contents.
      */
-    public function restoreCart() {
+    public function restoreCart()
+    {
         $cart = $this->get('cart');
         if (null != $cart) {
             //TODO:
@@ -152,7 +158,8 @@ class Session extends \ZenMagick\Http\Session\Session {
      *
      * @param Language language The language.
      */
-    public function setLanguage($language) {
+    public function setLanguage($language)
+    {
         $this->set('language', $language->getDirectory());
         $this->set('languages_id', $language->getId());
         $this->set('languages_code', $language->getCode());
@@ -163,7 +170,8 @@ class Session extends \ZenMagick\Http\Session\Session {
      *
      * @return Language The language or <code>null</code>.
      */
-    public function getLanguage() {
+    public function getLanguage()
+    {
         $languageCode = $this->get('languages_code');
         $languageService = $this->container->get('languageService');
         return $languageService->getLanguageForCode($languageCode);
@@ -174,7 +182,8 @@ class Session extends \ZenMagick\Http\Session\Session {
      *
      * @return int The current language id.
      */
-    public function getLanguageId() {
+    public function getLanguageId()
+    {
         $languageId = $this->get('languages_id');
         return (null !== $languageId ? (int) $languageId : (int) Runtime::getSettings()->get('storeDefaultLanguageId'));
     }
@@ -184,7 +193,8 @@ class Session extends \ZenMagick\Http\Session\Session {
      *
      * @return string The current currency code.
      */
-    public function getCurrencyCode() {
+    public function getCurrencyCode()
+    {
         return $this->get('currency');
     }
 
@@ -193,7 +203,8 @@ class Session extends \ZenMagick\Http\Session\Session {
      *
      * @return string The language code or <code>null</code>.
      */
-    public function getLanguageCode() {
+    public function getLanguageCode()
+    {
         if (null != ($language = $this->getLanguage())) {
             return $language->getCode();
         }
@@ -210,7 +221,8 @@ class Session extends \ZenMagick\Http\Session\Session {
      * @param mixed source The event source; default is <code>null</code>.
      * @return boolean <code>true</code> if ok, <code>false</code> if not.
      */
-    public function registerAccount($account, $request, $source=null) {
+    public function registerAccount($account, $request, $source=null)
+    {
         if (Accounts::AUTHORIZATION_BLOCKED == $account->getAuthorization()) {
             $this->getFlashBag()->error(_zm('Access denied.'));
             return false;

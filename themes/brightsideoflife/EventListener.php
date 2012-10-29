@@ -27,12 +27,13 @@ use ZenMagick\StoreBundle\Themes\ThemeEventListener;
  * @author DerManoMann
  * @package zenmagick.themes.brightsideoflife
  */
-class EventListener extends ThemeEventListener {
-
+class EventListener extends ThemeEventListener
+{
     /**
      * {@inheritDoc}
      */
-    public function themeLoaded($event) {
+    public function themeLoaded($event)
+    {
         $templateManager = $this->container->get('templateManager');
         $templateManager->setLeftColBoxes(array('categories.php', 'information.php'));
         $templateManager->setRightColBoxes(array('search.php', 'manufacturers.php', 'banner_box.php'));

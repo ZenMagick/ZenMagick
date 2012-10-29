@@ -27,14 +27,15 @@ use ZenMagick\Http\Forms\FormData;
  * @author DerManoMann
  * @package zenmagick.store.shared.model.forms
  */
-class ZMRegistrationForm extends FormData {
-
+class ZMRegistrationForm extends FormData
+{
     /**
      * Get a populated <code>ZenMagick\StoreBundle\Entity\Account\Account</code> instance.
      *
      * @return ZenMagick\StoreBundle\Entity\Account\Account An account.
      */
-    public function getAccount() {
+    public function getAccount()
+    {
         $account = Beans::getBean('ZenMagick\StoreBundle\Entity\Account\Account');
         $properties = $this->getProperties();
 
@@ -55,7 +56,8 @@ class ZMRegistrationForm extends FormData {
      *
      * @return ZenMagick\StoreBundle\Entity\Address An address.
      */
-    public function getAddress() {
+    public function getAddress()
+    {
         $address = Beans::getBean('ZenMagick\StoreBundle\Entity\Address');
         $properties = $this->getProperties();
 

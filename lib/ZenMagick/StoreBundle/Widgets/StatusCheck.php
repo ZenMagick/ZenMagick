@@ -24,7 +24,8 @@ namespace ZenMagick\StoreBundle\Widgets;
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-interface StatusCheck {
+interface StatusCheck
+{
     const STATUS_DEFAULT = 'default';
     const STATUS_INFO = 'info';
     const STATUS_NOTICE = 'notice';

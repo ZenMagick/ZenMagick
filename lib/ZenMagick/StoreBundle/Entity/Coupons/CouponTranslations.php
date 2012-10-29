@@ -31,7 +31,8 @@ use Doctrine\ORM\Mapping AS ORM;
  * @ORM\Entity
  * @ORM\Table(name="coupons_description")
  */
-class CouponTranslations extends ZMObject {
+class CouponTranslations extends ZMObject
+{
     /**
      * @var object $coupon
      * @ORM\Id
@@ -64,7 +65,8 @@ class CouponTranslations extends ZMObject {
      *
      * @todo: languageId default???
      */
-    public function __construct($coupon, $name='', $description='', $languageId=1) {
+    public function __construct($coupon, $name='', $description='', $languageId=1)
+    {
         parent::__construct();
         $this->coupon = $coupon;
         $this->setLanguageId($languageId);

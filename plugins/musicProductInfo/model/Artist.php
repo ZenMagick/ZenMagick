@@ -27,7 +27,8 @@ use ZenMagick\Base\ZMObject;
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class Artist extends ZMObject {
+class Artist extends ZMObject
+{
     private $artistId_;
     private $name_;
     private $genre_;
@@ -38,7 +39,8 @@ class Artist extends ZMObject {
     /**
      * Create new instance.
      */
-    public function __construct() {
+    public function __construct()
+    {
         $this->artistId_ = 0;
         $this->name_ = '';
         $this->genre_ = '';
@@ -87,7 +89,8 @@ class Artist extends ZMObject {
      *
      * @return ZMImageInfo The image info.
      */
-    public function getImageInfo() {
+    public function getImageInfo()
+    {
         $imageInfo = Beans::getBean('ZMImageInfo');
         $imageInfo->setAltText($this->name_);
         $imageInfo->setDefaultImage($this->image_);

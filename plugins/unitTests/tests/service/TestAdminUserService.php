@@ -26,12 +26,13 @@ use ZenMagick\plugins\unitTests\simpletest\TestCase;
  * @package org.zenmagick.plugins.unitTests.tests
  * @author DerManoMann <mano@zenmagick.org>
  */
-class TestAdminUserService extends TestCase {
-
+class TestAdminUserService extends TestCase
+{
     /**
      * Test change roles.
      */
-    public function testChangeRoles() {
+    public function testChangeRoles()
+    {
         $adminUserService = $this->container->get('adminUserService');
         $adminUserRoleService = $this->container->get('adminUserRoleService');
         $adminUserRoleService->addRole('helpdesk');

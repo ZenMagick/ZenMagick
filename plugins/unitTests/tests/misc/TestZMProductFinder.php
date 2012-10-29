@@ -27,12 +27,13 @@ use ZenMagick\plugins\unitTests\simpletest\TestCase;
  * @package org.zenmagick.plugins.unitTests.tests.misc
  * @author DerManoMann <mano@zenmagick.org>
  */
-class TestZMProductFinder extends TestCase {
-
+class TestZMProductFinder extends TestCase
+{
     /**
      * Test.
      */
-    public function test() {
+    public function test()
+    {
         $criteria = Beans::getBean('ZMSearchCriteria');
         //$criteria->setIncludeTax(true);
         $criteria->setCategoryId(3);

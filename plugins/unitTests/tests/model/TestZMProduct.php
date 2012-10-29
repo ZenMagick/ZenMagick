@@ -26,12 +26,13 @@ use ZenMagick\plugins\unitTests\simpletest\TestCase;
  * @package org.zenmagick.plugins.unitTests.tests
  * @author DerManoMann <mano@zenmagick.org>
  */
-class TestZMProduct extends TestCase {
-
+class TestZMProduct extends TestCase
+{
     /**
      * Test existing manufacturer.
      */
-    public function testExistingManufacturer() {
+    public function testExistingManufacturer()
+    {
         $product = $this->container->get('productService')->getProductForId(19, 1);
         if ($this->assertNotNull($product)) {
             $manufacturer = $product->getManufacturer();
@@ -44,7 +45,8 @@ class TestZMProduct extends TestCase {
     /**
      * Test missing manufacturer.
      */
-    public function testMissingManufacturer() {
+    public function testMissingManufacturer()
+    {
         $product = $this->container->get('productService')->getProductForId(31, 1);
         if ($this->assertNotNull($product)) {
             $manufacturer = $product->getManufacturer();
@@ -55,7 +57,8 @@ class TestZMProduct extends TestCase {
     /**
      * Test null manufacturer.
      */
-    public function testNULLManufacturer() {
+    public function testNULLManufacturer()
+    {
         $product = $this->container->get('productService')->getProductForId(169, 1);
         if ($this->assertNotNull($product)) {
             $manufacturer = $product->getManufacturer();

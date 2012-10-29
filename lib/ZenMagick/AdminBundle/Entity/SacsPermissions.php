@@ -30,7 +30,8 @@ use Doctrine\ORM\Mapping as ORM;
  * )
  * @ORM\Entity
  */
-class SacsPermissions {
+class SacsPermissions
+{
     /**
      * @var integer $id
      *

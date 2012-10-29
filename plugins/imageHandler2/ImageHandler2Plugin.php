@@ -28,12 +28,13 @@ use ZenMagick\Http\View\ResourceManager;
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class ImageHandler2Plugin extends Plugin {
-
+class ImageHandler2Plugin extends Plugin
+{
     /**
      * Add resources.
      */
-    public function onViewStart($event) {
+    public function onViewStart($event)
+    {
         if (!Toolbox::asBoolean($this->get('disableIH2Attributes'))) {
             if (null != ($resources = $event->getArgument('view')->getResourceManager())) {
                 $resources->cssFile('ih2/style_imagehover.css');

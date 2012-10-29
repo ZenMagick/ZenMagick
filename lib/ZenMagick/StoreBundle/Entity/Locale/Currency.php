@@ -31,7 +31,8 @@ use Doctrine\ORM\Mapping AS ORM;
  * @ORM\Table(name="currencies")
  * @ORM\Entity
  */
-class Currency extends ZMObject {
+class Currency extends ZMObject
+{
     /**
      * @var integer $id
      *
@@ -98,7 +99,8 @@ class Currency extends ZMObject {
     /**
      * Create new instance.
      */
-    public function __construct() {
+    public function __construct()
+    {
         parent::__construct();
 
         $this->setId(0);
@@ -262,7 +264,8 @@ class Currency extends ZMObject {
      *  convert before formatting.
      * @return string The formatted amount.
      */
-    public function format($amount, $convert=true) {
+    public function format($amount, $convert=true)
+    {
         $ratedValue = $convert ? $this->convertTo($amount) : $amount;
         if ($isNegative = 0 > $ratedValue) {
             $ratedValue *= -1;
@@ -277,7 +280,8 @@ class Currency extends ZMObject {
      * @param float amount The amount in the default currency.
      * @return float The converted amount.
      */
-    public function convertTo($amount) {
+    public function convertTo($amount)
+    {
         return round($amount * $this->rate, $this->decimalPlaces);
     }
 
@@ -287,7 +291,8 @@ class Currency extends ZMObject {
      * @param float amount The amount in this currency.
      * @return float The converted amount.
      */
-    public function convertFrom($amount) {
+    public function convertFrom($amount)
+    {
         return round($amount * (1/$this->rate), $this->decimalPlaces);
     }
 
@@ -297,7 +302,8 @@ class Currency extends ZMObject {
      * @param string value The formatted currency value.
      * @return float The amount.
      */
-    public function parse($value) {
+    public function parse($value)
+    {
         $value = preg_replace('/[^0-9\\'.$this->decimalPoint.']/', '', $value);
         $value = str_replace($this->decimalPoint, '.', $value);
 

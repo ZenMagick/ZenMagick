@@ -29,18 +29,21 @@ use Symfony\Component\HttpFoundation\Response;
  *
  * @author Johnny Robeson
  */
-class StorefrontController extends \ZMController {
+class StorefrontController extends \ZMController
+{
     /**
      * Override getFormData() for ZenCart pages
      */
-    public function getFormData($request, $formDef=null, $formId=null) {
+    public function getFormData($request, $formDef=null, $formId=null)
+    {
         return array();
     }
 
     /**
      * {@inheritDoc}
      */
-    public function preProcess($request) {
+    public function preProcess($request)
+    {
         /**
          * This code is taken directly from application_top.php.
          * @copyright Copyright 2003-2010 Zen Cart Development Team
@@ -69,7 +72,8 @@ class StorefrontController extends \ZMController {
     /**
      * {@inheritDoc}
      */
-    public function processGet($request) {
+    public function processGet($request)
+    {
         $settingsService = $this->container->get('settingsService');
         $session = $request->getSession();
         $autoLoader = $this->container->get('zencartAutoLoader');
@@ -152,7 +156,8 @@ class StorefrontController extends \ZMController {
      *
      * @return string file
      */
-    public function initController($request) {
+    public function initController($request)
+    {
         $controllerFile = null;
         $autoLoader = $this->container->get('zencartAutoLoader');
         if ('ipn_handler' == $request->getRequestId()) { // @todo handle other common zencart entry points like googlebase
@@ -192,7 +197,8 @@ class StorefrontController extends \ZMController {
     /**
      * Get ZenCart view data.
      */
-    public function getZcViewData($request) {
+    public function getZcViewData($request)
+    {
         // category path - no support for get_terms_to_filter table. does anybody use that?
         $manufacturerId = $request->query->getInt('manufacturers_id');
         $productId = $request->query->get('products_id');
@@ -249,7 +255,8 @@ class StorefrontController extends \ZMController {
      *
      * @return string
      */
-    public function isHomePage() {
+    public function isHomePage()
+    {
         $request = $this->container->get('request');
         return 'index' == $request->getRequestId() && $request->query->has('cPath')
             && null == $request->query->getInt('manufacturers_id') && '' == $request->query->get('type_filter', '');
@@ -272,7 +279,8 @@ class StorefrontController extends \ZMController {
      *   by $this->get('netTool')->url()
      *
      */
-    private function getCanonicalUrl() {
+    private function getCanonicalUrl()
+    {
         $request = $this->container->get('request');
         $requestId = $request->getRequestId();
         // EXCLUDE certain parameters which should not be included in canonical links:
@@ -300,7 +308,8 @@ class StorefrontController extends \ZMController {
      *
      * @return string javascript code.
      */
-    public function getOnLoadJS() {
+    public function getOnLoadJS()
+    {
         $autoLoader = $this->container->get('zencartAutoLoader');
         $js = '';
         $pageOnLoad = $autoLoader->resolveFiles('includes/modules/pages/%current_page_base%/on_load_*.js');
@@ -315,7 +324,8 @@ class StorefrontController extends \ZMController {
     /**
      * Initialize the breadcrumb for template usage.
      */
-    public function initCrumbs($categories = null, $manufacturer = null, $product = null) {
+    public function initCrumbs($categories = null, $manufacturer = null, $product = null)
+    {
         $breadcrumb = new \breadcrumb();
 
         $breadcrumb->add('Home', zen_href_link(FILENAME_DEFAULT));
@@ -343,7 +353,8 @@ class StorefrontController extends \ZMController {
      *
      *
      */
-    public function handleCart($request) {
+    public function handleCart($request)
+    {
         $action = $request->getParameter('action');
 
         $session = $request->getSession();

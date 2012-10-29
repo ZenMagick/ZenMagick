@@ -26,19 +26,21 @@ use ZenMagick\StoreBundle\Entity\Coupons\Coupon;
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class GvSendController extends \ZMController {
-
+class GvSendController extends \ZMController
+{
     /**
      * {@inheritDoc}
      */
-    public function processGet($request) {
+    public function processGet($request)
+    {
         return $this->findView(null, array('currentAccount' => $this->getUser()));
     }
 
     /**
      * {@inheritDoc}
      */
-    public function processPost($request) {
+    public function processPost($request)
+    {
         $gvReceiver = $this->getFormData($request);
 
         // back from confirmation to edit or not valid

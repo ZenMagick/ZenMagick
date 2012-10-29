@@ -27,12 +27,13 @@ use ZenMagick\plugins\unitTests\simpletest\TestCase;
  * @package org.zenmagick.plugins.unitTests.tests
  * @author DerManoMann <mano@zenmagick.org>
  */
-class TestValidationRules extends TestCase {
-
+class TestValidationRules extends TestCase
+{
     /**
      * Test regexp.
      */
-    public function testRegExp() {
+    public function testRegExp()
+    {
         $request = new Request();
         $request->setContainer($this->container);
         $rule = new ZMRegexpRule('host', '/yahoo.com|localhost/i', 'no match');
@@ -49,7 +50,8 @@ class TestValidationRules extends TestCase {
     /**
      * Test email validation.
      */
-    public function testEmail() {
+    public function testEmail()
+    {
         $request = new Request();
         $request->setContainer($this->container);
         $rule = new ZMEmailRule('email', 'not valid');

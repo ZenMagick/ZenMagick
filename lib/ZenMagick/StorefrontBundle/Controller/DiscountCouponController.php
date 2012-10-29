@@ -24,12 +24,13 @@ namespace ZenMagick\StorefrontBundle\Controller;
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class DiscountCouponController extends \ZMController {
-
+class DiscountCouponController extends \ZMController
+{
     /**
      * {@inheritDoc}
      */
-    public function processGet($request) {
+    public function processGet($request)
+    {
         $data = array();
         $viewName = null;
         $code = $request->query->get('couponCode');

@@ -26,7 +26,8 @@ use ZenMagick\Base\ZMObject;
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class RecordCompany extends ZMObject {
+class RecordCompany extends ZMObject
+{
     private $recordCompanyId_;
     private $name_;
     private $image_;
@@ -35,7 +36,8 @@ class RecordCompany extends ZMObject {
     /**
      * Create new instance.
      */
-    public function __construct() {
+    public function __construct()
+    {
         parent::__construct();
         $this->recordCompanyId_ = 0;
         $this->name_ = '';

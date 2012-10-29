@@ -29,13 +29,15 @@ use ZenMagick\Base\ZMObject;
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class GravatarPlugin extends Plugin {
+class GravatarPlugin extends Plugin
+{
     private $baseUrl = 'http://www.gravatar.com/avatar/';
 
     /**
      * Attach getGravatar method to Account.
      */
-    public function onContainerReady($event) {
+    public function onContainerReady($event)
+    {
         // attach method to Account
         ZMObject::attachMethod('getGravatar', 'ZenMagick\StoreBundle\Entity\Account\Account', array($this, 'getGravatar'));
     }
@@ -48,7 +50,8 @@ class GravatarPlugin extends Plugin {
      * @param boole img <code>true</code> to return a complete <code>IMG</code> tag, <code>false</code> for just the URL; default is <code>true</code>.
      * @param array attributes Optional, additional key/value attributes to include in the IMG tag; default is an empty array.
      */
-    public function getGravatar($email, $size=null, $img=true, array $attributes=array()) {
+    public function getGravatar($email, $size=null, $img=true, array $attributes=array())
+    {
         if ($email instanceof Account) {
             $email = $email->getEmail();
         }
@@ -78,7 +81,8 @@ class GravatarPlugin extends Plugin {
      * @return String containing either just a URL or a complete image tag
      * @source http://gravatar.com/site/implement/images/php/
      */
-    private function pullGravatar($email, $s=80, $d='mm', $r='g', $img=false, $atts=array()) {
+    private function pullGravatar($email, $s=80, $d='mm', $r='g', $img=false, $atts=array())
+    {
         $request = $this->container->get('request');
         $url = $request->isSecure() ? 'https://secure.gravatar.com/avatar/' : 'http://www.gravatar.com/avatar/';
         $url .= md5(strtolower(trim($email)));

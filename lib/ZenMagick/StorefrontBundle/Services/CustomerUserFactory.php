@@ -27,12 +27,13 @@ use ZenMagick\Http\Session\UserFactory;
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class CustomerUserFactory extends ZMObject implements UserFactory {
-
+class CustomerUserFactory extends ZMObject implements UserFactory
+{
     /**
      * {@inheritDoc}
      */
-    public function getUser($session) {
+    public function getUser($session)
+    {
         if (null != ($accountId = $session->get('customer_id'))) {
             return $this->container->get('accountService')->getAccountForId($accountId);
         }

@@ -27,8 +27,8 @@ namespace ZenMagick\Base\Database;
  *
  * @author DerManoMann <mano@zenmagick.org> <mano@zenmagick.org>
  */
-interface SqlAware {
-
+interface SqlAware
+{
     /**
      * Get query details.
      *

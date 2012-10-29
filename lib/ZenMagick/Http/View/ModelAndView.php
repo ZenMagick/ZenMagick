@@ -24,7 +24,8 @@ namespace ZenMagick\Http\View;
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class ModelAndView {
+class ModelAndView
+{
     private $viewId;
     private $model;
 
@@ -34,7 +35,8 @@ class ModelAndView {
      * @param string viewId Optional viewId; default is <code>null</code>.
      * @param array model Optional model data; default is an empty array.
      */
-    public function __construct($viewId=null, array $model=array()) {
+    public function __construct($viewId=null, array $model=array())
+    {
         $this->viewId = $viewId;
         $this->model = $model;
     }
@@ -44,7 +46,8 @@ class ModelAndView {
      *
      * @param string viewId The viewId.
      */
-    public function setViewId($viewId) {
+    public function setViewId($viewId)
+    {
         $this->viewId = $viewId;
     }
 
@@ -53,7 +56,8 @@ class ModelAndView {
      *
      * @return string The viewId.
      */
-    public function getViewId() {
+    public function getViewId()
+    {
         return $this->viewId;
     }
 
@@ -62,7 +66,8 @@ class ModelAndView {
      *
      * @param array model The model data.
      */
-    public function setModel(array $model) {
+    public function setModel(array $model)
+    {
         $this->model = $model;
     }
 
@@ -72,7 +77,8 @@ class ModelAndView {
      * @param string name The name.
      * @param mxied value The model value.
      */
-    public function addModel($name, $value) {
+    public function addModel($name, $value)
+    {
         $this->model[$name] = $value;
     }
 
@@ -81,7 +87,8 @@ class ModelAndView {
      *
      * @return array The model data.
      */
-    public function getModel() {
+    public function getModel()
+    {
         return $this->model;
     }
 

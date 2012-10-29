@@ -26,12 +26,13 @@ use ZenMagick\Base\Beans;
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class ManufacturerController extends \ZMController {
-
+class ManufacturerController extends \ZMController
+{
     /**
      * {@inheritDoc}
      */
-    public function processGet($request) {
+    public function processGet($request)
+    {
         $viewName = 'error';
         $method = null;
         $args = null;

@@ -28,7 +28,8 @@ use ZenMagick\Base\Database\SqlAware;
  * @author DerManoMann <mano@zenmagick.org>
  * @package org.zenmagick.mvc.resultlist.sources
  */
-class ZMObjectResultSource extends ZMObject implements ZMResultSource {
+class ZMObjectResultSource extends ZMObject implements ZMResultSource
+{
     private $resultList_;
     private $resultClass_;
     private $object_;
@@ -46,7 +47,8 @@ class ZMObjectResultSource extends ZMObject implements ZMResultSource {
      * @param string method The method to call on the object; default is <code>null</code>.
      * @param mixed args Optional method parameter (single value or array of args); default is an empty array.
      */
-    public function __construct($resultClass=null, $object=null, $method=null, $args=array()) {
+    public function __construct($resultClass=null, $object=null, $method=null, $args=array())
+    {
         parent::__construct();
         $this->resultClass_ = $resultClass;
         $this->object_ = $object;
@@ -66,14 +68,16 @@ class ZMObjectResultSource extends ZMObject implements ZMResultSource {
     /**
      * {@inheritDoc}
      */
-    public function setResultList($resultList) {
+    public function setResultList($resultList)
+    {
         $this->resultList_ = $resultList;
     }
 
     /**
      * {@inheritDoc}
      */
-    public function getResults($reload=false) {
+    public function getResults($reload=false)
+    {
         if ($reload || null === $this->results_) {
             if ($this->object_ instanceof SqlAware) {
                 if (null != ($queryDetails = $this->object_->getQueryDetails($this->method_, $this->args_))) {
@@ -121,7 +125,8 @@ class ZMObjectResultSource extends ZMObject implements ZMResultSource {
     /**
      * {@inheritDoc}
      */
-    public function getResultClass() {
+    public function getResultClass()
+    {
         return $this->resultClass_;
     }
 
@@ -130,7 +135,8 @@ class ZMObjectResultSource extends ZMObject implements ZMResultSource {
      *
      * @param string name The class name.
      */
-    public function setResultClass($name) {
+    public function setResultClass($name)
+    {
         $this->resultClass_ = $name;
     }
 
@@ -139,7 +145,8 @@ class ZMObjectResultSource extends ZMObject implements ZMResultSource {
      *
      * @param mixed object The object to be used.
      */
-    public function setObject($object) {
+    public function setObject($object)
+    {
         $this->object_ = $object;
     }
 
@@ -148,7 +155,8 @@ class ZMObjectResultSource extends ZMObject implements ZMResultSource {
      *
      * @return string The method name.
      */
-    public function getMethod() {
+    public function getMethod()
+    {
         return $this->method_;
     }
 
@@ -157,7 +165,8 @@ class ZMObjectResultSource extends ZMObject implements ZMResultSource {
      *
      * @param string name The method name.
      */
-    public function setMethod($name) {
+    public function setMethod($name)
+    {
         $this->method_ = $name;
     }
 
@@ -166,7 +175,8 @@ class ZMObjectResultSource extends ZMObject implements ZMResultSource {
      *
      * @return array The method parameter.
      */
-    public function getArgs() {
+    public function getArgs()
+    {
         return $this->args_;
     }
 
@@ -175,7 +185,8 @@ class ZMObjectResultSource extends ZMObject implements ZMResultSource {
      *
      * @param mixed args The method parameter (single value or array of args).
      */
-    public function setArgs($args) {
+    public function setArgs($args)
+    {
         $this->args_ = $args;
         if (!is_array($this->args_)) {
             $this->args_ = array($this->args_);
@@ -185,7 +196,8 @@ class ZMObjectResultSource extends ZMObject implements ZMResultSource {
     /**
      * {@inheritDoc}
      */
-    public function getTotalNumberOfResults() {
+    public function getTotalNumberOfResults()
+    {
         $this->getResults();
         return $this->totalNumberOfResults_;
     }
@@ -193,7 +205,8 @@ class ZMObjectResultSource extends ZMObject implements ZMResultSource {
     /**
      * {@inheritDoc}
      */
-    public function isFinal() {
+    public function isFinal()
+    {
         if (null === $this->isFinal_) {
             $this->getResults();
         }

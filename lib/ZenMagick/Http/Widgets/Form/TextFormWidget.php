@@ -27,12 +27,13 @@ use ZenMagick\Http\View\TemplateView;
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class TextFormWidget extends FormWidget {
-
+class TextFormWidget extends FormWidget
+{
     /**
      * Create new instance.
      */
-    public function __construct() {
+    public function __construct()
+    {
         parent::__construct();
         $this->addAttributeNames(array('size', 'maxlength', 'autocomplete', 'title', 'readonly'));
     }
@@ -40,7 +41,8 @@ class TextFormWidget extends FormWidget {
     /**
      * {@inheritDoc}
      */
-    public function render($request, TemplateView $templateView) {
+    public function render($request, TemplateView $templateView)
+    {
         $slash = Runtime::getSettings()->get('zenmagick.http.html.xhtml') ? '/' : '';
         return '<input type="text"'.$this->getAttributeString($request).$slash.'>';
     }

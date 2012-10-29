@@ -28,12 +28,13 @@ use ZenMagick\Http\View\TemplateView;
  *
  * @author DerManoMann
  */
-class PayPalECButtonBlockWidget extends Widget {
-
+class PayPalECButtonBlockWidget extends Widget
+{
     /**
      * Create new instance.
      */
-    public function __construct() {
+    public function __construct()
+    {
         parent::__construct();
         $this->setTitle('PayPal EC Button');
     }
@@ -41,7 +42,8 @@ class PayPalECButtonBlockWidget extends Widget {
     /**
      * {@inheritDoc}
      */
-    public function render($request, TemplateView $templateView) {
+    public function render($request, TemplateView $templateView)
+    {
         $settingsService = Runtime::getSettings();
         ob_start();
 

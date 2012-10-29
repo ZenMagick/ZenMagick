@@ -29,7 +29,8 @@ use ZenMagick\Base\Toolbox;
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class WordpressRequestHandler extends ZMController {
+class WordpressRequestHandler extends ZMController
+{
     public $wp_filter_id;
     private $plugin_;
     private $request_;
@@ -42,7 +43,8 @@ class WordpressRequestHandler extends ZMController {
      * @param ZMPlugin plugin The parent plugin reference.
      * @param ZenMagick\Http\Request request The current request.
      */
-    public function __construct($plugin, $request) {
+    public function __construct($plugin, $request)
+    {
         parent::__construct();
         $this->wp_filter_id = get_class($this);
         $this->plugin_ = $plugin;
@@ -57,7 +59,8 @@ class WordpressRequestHandler extends ZMController {
      *
      * @return string A view name.
      */
-    public function preProcess($request) {
+    public function preProcess($request)
+    {
         if (null !== $this->viewName_) {
             return $this->viewName_;
         }
@@ -96,7 +99,8 @@ class WordpressRequestHandler extends ZMController {
      *
      * @param View view The current view.
      */
-    public function registerFilter($view) {
+    public function registerFilter($view)
+    {
         $this->resourceResolver = $view->getResourceResolver();
         add_filter('tag_link', array($this, 'link_filter'));
         add_filter('post_link', array($this, 'link_filter'));
@@ -111,7 +115,8 @@ class WordpressRequestHandler extends ZMController {
     /**
      * WP filter to adjust links.
      */
-    public function link_filter($arg) {
+    public function link_filter($arg)
+    {
         $urlToken = parse_url($arg);
         if ($this->plugin_->isPermalinksEnabled()) {
             $netTool = Runtime::getContainer()->get('netTool');
@@ -139,7 +144,8 @@ class WordpressRequestHandler extends ZMController {
     /**
      * WP filter to adjust comments include.
      */
-    public function comments_template_filter($arg) {
+    public function comments_template_filter($arg)
+    {
         return $this->resourceResolver->findResource('template:wp/comments.php');
     }
 

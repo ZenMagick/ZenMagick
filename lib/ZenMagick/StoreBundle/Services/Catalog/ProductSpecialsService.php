@@ -27,9 +27,10 @@ use ZenMagick\Base\ZMObject;
  * Products on special.
  *
  */
-class ProductSpecialsService extends ZMObject {
-
-    public function runTasks() {
+class ProductSpecialsService extends ZMObject
+{
+    public function runTasks()
+    {
         $this->scheduleSpecials();
     }
 
@@ -41,7 +42,8 @@ class ProductSpecialsService extends ZMObject {
      *
      * @todo finish product price retrieval that takes specials into account
      */
-    public function scheduleSpecials() {
+    public function scheduleSpecials()
+    {
         $sql = "SELECT specials_id, products_id, status, expires_date, specials_date_available
                 FROM %table.specials%";
         $productService = $this->container->get('productService');

@@ -37,12 +37,13 @@ use Symfony\Component\HttpFoundation\Response;
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class EmailPreviewController extends \ZMController {
-
+class EmailPreviewController extends \ZMController
+{
     /**
      * {@inheritDoc}
      */
-    public function getViewData($request) {
+    public function getViewData($request)
+    {
         $templateInfo = array();
         // get a store view to lookup all email templates...
         $view = $this->container->get('storeEmailView');
@@ -64,7 +65,8 @@ class EmailPreviewController extends \ZMController {
     /**
      * {@inheritDoc}
      */
-    public function processGet($request) {
+    public function processGet($request)
+    {
         if (null != ($template = $request->query->get('template'))) {
             $format = $request->query->get('format');
             $type = $request->query->get('type');
@@ -91,7 +93,8 @@ class EmailPreviewController extends \ZMController {
      * @param ZenMagick\Http\Request request The current request.
      * @return array The context map.
      */
-    protected function getInitialContext($request) {
+    protected function getInitialContext($request)
+    {
         $order = new MockOrder();
         return array(
             'office_only_html' => true,

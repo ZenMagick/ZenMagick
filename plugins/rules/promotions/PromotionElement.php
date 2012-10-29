@@ -26,8 +26,8 @@ namespace ZenMagick\plugins\rules\promotions;
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-interface PromotionElement {
-
+interface PromotionElement
+{
     /**
      * Get parameter config.
      *

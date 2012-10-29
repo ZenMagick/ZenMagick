@@ -33,12 +33,13 @@ use ZenMagick\Base\Database\SqlAware;
  *
  * @author DerManoMann
  */
-class Orders extends ZMObject implements SqlAware {
-
+class Orders extends ZMObject implements SqlAware
+{
     /**
      * {@inheritDoc}
      */
-    public function getQueryDetails($method=null, $args=array()) {
+    public function getQueryDetails($method=null, $args=array())
+    {
         $methods = array('getOrdersForAccountId', 'getOrdersForStatusId', 'getAllOrders', 'findOrdersForDateTimeRange');
         if (in_array($method, $methods)) {
             return call_user_func_array(array($this, $method.'QueryDetails'), $args);
@@ -53,7 +54,8 @@ class Orders extends ZMObject implements SqlAware {
      * @param int limit Optional limit; default is <code>0</code> for all.
      * @return ZenMagick\Base\Database\QueryDetails Query details.
      */
-    protected function getAllOrdersQueryDetails($languageId, $limit=0) {
+    protected function getAllOrdersQueryDetails($languageId, $limit=0)
+    {
         $sql = "SELECT o.*, s.orders_status_name
                 FROM %table.orders% o, %table.orders_total%  ot, %table.orders_status% s
                 WHERE o.orders_id = ot.orders_id
@@ -75,7 +77,8 @@ class Orders extends ZMObject implements SqlAware {
      * @param int limit Optional limit; default is <code>0</code> for all.
      * @return array List of <code>ZenMagick\StoreBundle\Entity\Order\Order</code> instances.
      */
-    public function getAllOrders($languageId, $limit=0) {
+    public function getAllOrders($languageId, $limit=0)
+    {
         $details = $this->getAllOrdersQueryDetails($languageId, $limit);
         return $details->query();
     }
@@ -87,7 +90,8 @@ class Orders extends ZMObject implements SqlAware {
      * @param int languageId Language id.
      * @return ZenMagick\StoreBundle\Entity\Order\Order A order or <code>null</code>.
      */
-    public function getOrderForId($orderId, $languageId) {
+    public function getOrderForId($orderId, $languageId)
+    {
         $sql = "SELECT o.*, s.orders_status_name
                 FROM %table.orders% o, %table.orders_total%  ot, %table.orders_status% s
                 WHERE o.orders_id = :orderId
@@ -109,7 +113,8 @@ class Orders extends ZMObject implements SqlAware {
      * @param int limit Optional result limit.
      * @return ZenMagick\Base\Database\QueryDetails Query details.
      */
-    protected function getOrdersForAccountIdQueryDetails($accountId, $languageId, $limit=0) {
+    protected function getOrdersForAccountIdQueryDetails($accountId, $languageId, $limit=0)
+    {
         // order only
         $sqlLimit = 0 != $limit ? " LIMIT ".$limit : "";
         $sql = "SELECT o.*, s.orders_status_name
@@ -132,7 +137,8 @@ class Orders extends ZMObject implements SqlAware {
      * @param int limit Optional result limit.
      * @return array List of <code>ZenMagick\StoreBundle\Entity\Order\Order</code> instances.
      */
-    public function getOrdersForAccountId($accountId, $languageId, $limit=0) {
+    public function getOrdersForAccountId($accountId, $languageId, $limit=0)
+    {
         $details = $this->getOrdersForAccountIdQueryDetails($accountId, $languageId, $limit);
         return $details->query();
     }
@@ -144,7 +150,8 @@ class Orders extends ZMObject implements SqlAware {
      * @param int languageId Language id.
      * @return ZenMagick\Base\Database\QueryDetails Query details.
      */
-    protected function getOrdersForStatusIdQueryDetails($statusId, $languageId) {
+    protected function getOrdersForStatusIdQueryDetails($statusId, $languageId)
+    {
         // order only
         $sql = "SELECT o.*, s.orders_status_name
                 FROM %table.orders% o, %table.orders_total%  ot, %table.orders_status% s
@@ -165,7 +172,8 @@ class Orders extends ZMObject implements SqlAware {
      * @param int languageId Language id.
      * @return array List of <code>ZenMagick\StoreBundle\Entity\Order\Order</code> instances.
      */
-    public function getOrdersForStatusId($statusId, $languageId) {
+    public function getOrdersForStatusId($statusId, $languageId)
+    {
         $details = $this->getOrdersForStatusIdQueryDetails($statusId, $languageId);
         return $details->query();
     }
@@ -177,7 +185,8 @@ class Orders extends ZMObject implements SqlAware {
      * @param int languageId Language id.
      * @return array List of <code>ZenMagick\StoreBundle\Entity\Order\OrderStatusHistory</code> instances.
      */
-    public function getOrderStatusHistoryForId($orderId, $languageId) {
+    public function getOrderStatusHistoryForId($orderId, $languageId)
+    {
         $sql = "SELECT os.orders_status_name, osh.*
                 FROM %table.orders_status% os, %table.orders_status_history% osh
                 WHERE osh.orders_id = :orderId
@@ -194,7 +203,8 @@ class Orders extends ZMObject implements SqlAware {
      * @param ZenMagick\StoreBundle\Entity\Order\OrderStatusHistory orderStatus The new order status.
      * @return ZenMagick\StoreBundle\Entity\Order\OrderStatusHistory The created order status (incl id).
      */
-    public function createOrderStatusHistory($orderStatus) {
+    public function createOrderStatusHistory($orderStatus)
+    {
         if (null == $orderStatus->getDateAdded()) {
             $orderStatus->setDateAdded(new \DateTime());
         }
@@ -207,7 +217,8 @@ class Orders extends ZMObject implements SqlAware {
      * @param int orderId The order id.
      * @return array List of <code>ZenMagick\StoreBundle\Entity\Order\OrderItem</code> instances.
      */
-    public function getOrderItems($orderId) {
+    public function getOrderItems($orderId)
+    {
         $sql = "SELECT *
                 FROM %table.orders_products%
                 WHERE orders_id = :orderId
@@ -244,7 +255,8 @@ class Orders extends ZMObject implements SqlAware {
      * @param int orderId The order id.
      * @return array Map of <code>ZenMagick\StoreBundle\Entity\Order\OrderTotalLine</code> instances with the type as key.
      */
-    public function getOrderTotalLines($orderId) {
+    public function getOrderTotalLines($orderId)
+    {
         $sql = "SELECT * FROM %table.orders_total%
                 WHERE orders_id = :orderId
                 ORDER BY sort_order";
@@ -264,7 +276,8 @@ class Orders extends ZMObject implements SqlAware {
      * @param ZenMagick\StoreBundle\Entity\Order\Order The order.
      * @return ZenMagick\StoreBundle\Entity\Order\Order The updated order.
      */
-    public function updateOrder($order) {
+    public function updateOrder($order)
+    {
         return ZMRuntime::getDatabase()->updateModel('orders', $order);
     }
 
@@ -284,7 +297,8 @@ class Orders extends ZMObject implements SqlAware {
      * @return array List of numeric (int) values.
      * @copyright the zen-cart developers.
      */
-    public function parseRange($range) {
+    public function parseRange($range)
+    {
         $arr = array();
         foreach (explode(',', $range) as $token) {
             if (!empty($token)) {
@@ -310,7 +324,8 @@ class Orders extends ZMObject implements SqlAware {
      * @param array orderStatusList Optional array of order stati to check; default is null to use the configured range, (empty array will load all).
      * @return array A list of <code>ZenMagick\StoreBundle\Entity\Order\Download</code> instances.
      */
-    public function getDownloadsForOrderId($orderId, $orderStatusList=null) {
+    public function getDownloadsForOrderId($orderId, $orderStatusList=null)
+    {
         if (null === $orderStatusList) {
             // build default list
             $orderStatusList = $this->parseRange(Runtime::getSettings()->get('downloadOrderStatusRange'));
@@ -335,7 +350,8 @@ class Orders extends ZMObject implements SqlAware {
      * @param int languageId Language id.
      * @return array List of <code>ZMObject</code> instances.
      */
-    public function getOrderStatusList($languageId) {
+    public function getOrderStatusList($languageId)
+    {
         $sql = "SELECT orders_status_id, orders_status_name
                 FROM %table.orders_status%
                 WHERE language_id = :languageId
@@ -349,7 +365,8 @@ class Orders extends ZMObject implements SqlAware {
      *
      * @param int orderId The order to re-stock.
      */
-    public function restockFromOrder($orderId) {
+    public function restockFromOrder($orderId)
+    {
         $productService = $this->container->get('productService');
         foreach ($this->getOrderItems($orderId) as $item) {
             if (null != ($product = $productService->getProductForId($item->getProductId()))) {
@@ -367,7 +384,8 @@ class Orders extends ZMObject implements SqlAware {
      * @param int languageId Language id.
      * @return array A list of matching orders.
      */
-    protected function findOrdersForDateTimeRangeQueryDetails($from, $to, $languageId) {
+    protected function findOrdersForDateTimeRangeQueryDetails($from, $to, $languageId)
+    {
         $sql = "SELECT o.*, s.orders_status_name, ots.value as shippingValue
                 FROM %table.orders% o, %table.orders_total%  ot, %table.orders_status% s, %table.orders_total%  ots
                 WHERE date_purchased >= :1#orderDate AND date_purchased <= :2#orderDate
@@ -390,7 +408,8 @@ class Orders extends ZMObject implements SqlAware {
      * @param int languageId Language id.
      * @return array A list of matching orders.
      */
-    public function findOrdersForDateTimeRange($from, $to, $languageId) {
+    public function findOrdersForDateTimeRange($from, $to, $languageId)
+    {
         $details = $this->findOrdersForDateTimeRangeQueryDetails($from, $to, $languageId);
         return $details->query();
     }

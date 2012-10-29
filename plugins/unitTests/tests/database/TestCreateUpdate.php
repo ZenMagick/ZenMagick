@@ -27,12 +27,13 @@ use ZenMagick\plugins\unitTests\simpletest\TestCase;
  * @package org.zenmagick.plugins.unitTests.tests
  * @author DerManoMann <mano@zenmagick.org>
  */
-class TestCreateUpdate extends TestCase {
-
+class TestCreateUpdate extends TestCase
+{
     /**
      * {@inheritDoc}
      */
-    public function setUp() {
+    public function setUp()
+    {
         parent::setUp();
         // split as some implementations might not support multiple commands per call!
         $sql = "DROP TABLE IF EXISTS %table.create_update_tests%;";
@@ -51,7 +52,8 @@ class TestCreateUpdate extends TestCase {
     /**
      * {@inheritDoc}
      */
-    public function tearDown() {
+    public function tearDown()
+    {
         parent::tearDown();
         ZMRuntime::getDatabase()->executeUpdate('DROP TABLE IF EXISTS %table.create_update_tests%;');
         ZMRuntime::getDatabase()->getMapper()->removeMappingForTable('create_update_tests');
@@ -60,7 +62,8 @@ class TestCreateUpdate extends TestCase {
     /**
      * Register table mapping.
      */
-    protected function registerTableMapping() {
+    protected function registerTableMapping()
+    {
         ZMRuntime::getDatabase()->getMapper()->setMappingForTable('create_update_tests',
             array(
                 'myId' => array('column' => 'row_id', 'type' => 'integer', 'key' => true),
@@ -75,7 +78,8 @@ class TestCreateUpdate extends TestCase {
     /**
      * Test create model with object.
      */
-    public function testCreateModelObj() {
+    public function testCreateModelObj()
+    {
         $obj = new ZMObject();
         $obj->setName('foo1');
         $obj->setClassName('class1');
@@ -89,7 +93,8 @@ class TestCreateUpdate extends TestCase {
     /**
      * Test create model with map.
      */
-    public function testCreateModelMap() {
+    public function testCreateModelMap()
+    {
         $map = array();
         $map['name'] = 'foo2';
         $map['class_name'] = 'class2';
@@ -103,7 +108,8 @@ class TestCreateUpdate extends TestCase {
     /**
      * Test create SQL.
      */
-    public function testCreateSQL() {
+    public function testCreateSQL()
+    {
         $map = array();
         $map['name'] = 'foo3';
         $map['class_name'] = 'class3';
@@ -120,7 +126,8 @@ class TestCreateUpdate extends TestCase {
     /**
      * Test create mapped SQL using obj.
      */
-    public function testCreateMappedObjSQL() {
+    public function testCreateMappedObjSQL()
+    {
         $obj = new ZMObject();
         $obj->setName('foo4');
         $obj->setClassName('class4');
@@ -140,7 +147,8 @@ class TestCreateUpdate extends TestCase {
     /**
      * Test create mapped SQL using map.
      */
-    public function testCreateMappedMapSQL() {
+    public function testCreateMappedMapSQL()
+    {
         $map = array();
         $map['name'] = 'foo5';
         $map['className'] = 'class5';

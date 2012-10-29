@@ -29,7 +29,8 @@ use DOMDocument;
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class RssParser {
+class RssParser
+{
     private $document;
     private $channel;
     private $items;
@@ -38,7 +39,8 @@ class RssParser {
     /**
      * Create new instance.
      */
-    public function __construct(array $config=array()) {
+    public function __construct(array $config=array())
+    {
         $defaults = array('strictErrorChecking' => false);
         $this->config = array_merge($defaults, $config);
         $this->document = array();
@@ -52,7 +54,8 @@ class RssParser {
      * @param  boolean $attr Optional flag to return also attributes.
      * @return array   The full feed.
      */
-    public function getFeed($attr=false) {
+    public function getFeed($attr=false)
+    {
         return $attr ? $this->document : $this->valueExtractor($this->document);
     }
 
@@ -62,7 +65,8 @@ class RssParser {
      * @param  boolean $attr Optional flag to return also attributes.
      * @return array   The channel.
      */
-    public function getChannel($attr=false) {
+    public function getChannel($attr=false)
+    {
         return $attr ? $this->channel : $this->valueExtractor($this->channel);
     }
 
@@ -72,7 +76,8 @@ class RssParser {
      * @param  boolean $attr Optional flag to return also attributes.
      * @return array   The items.
      */
-    public function getItems($attr=false) {
+    public function getItems($attr=false)
+    {
         return $attr ? $this->items : $this->valueExtractor($this->items);
     }
 
@@ -86,7 +91,8 @@ class RssParser {
      * @param  boolean $attr Optional flag to return also attributes.
      * @return array   Map of feed, channel and item elements.
      */
-    public function parse($feed, $attr=false) {
+    public function parse($feed, $attr=false)
+    {
         $this->document = array();
         $this->channel = array();
         $this->items = array();
@@ -102,7 +108,8 @@ class RssParser {
      * @param array valueBlock Nested arrays containing attributes/values.
      * @return array Just the value part of the tree, with the <code>'value' =&gt; XXX</code> mapping reduced to just <code>XXX</code>.
      */
-    private function valueExtractor($valueBlock) {
+    private function valueExtractor($valueBlock)
+    {
         foreach ($valueBlock as $valueName => $values) {
             if (isset($values['value'])) {
                 $values = $values['value'];
@@ -122,7 +129,8 @@ class RssParser {
      * @param DOMNamedNodeMap nodeList A list of nodes.
      * @param DOMNode parentNode Optional parent node; default is <code>null</code>.
      */
-    private function parseNodes($nodeList, $parentNode=null) {
+    private function parseNodes($nodeList, $parentNode=null)
+    {
         $itemCounter = 0;
         $nodeValue = array();
         $multiValues = array();

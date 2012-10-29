@@ -28,20 +28,23 @@ use ZenMagick\StoreBundle\Controller\CatalogContentController;
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class QuickEditTabController extends CatalogContentController {
+class QuickEditTabController extends CatalogContentController
+{
     const STALE_CHECK_FIELD_PREFIX = '@_';
 
     /**
      * Create new instance.
      */
-    public function __construct() {
+    public function __construct()
+    {
         parent::__construct('quick_edit_tab', _zm('Quick Edit'), self::ACTIVE_CATEGORY);
     }
 
     /**
      * {@inheritDoc}
      */
-    public function getViewData($request) {
+    public function getViewData($request)
+    {
         $data = array();
 
         if (null == ($fieldList = $this->container->get('settingsService')->get('plugins.quickEdit.fieldList', null))) {
@@ -81,7 +84,8 @@ class QuickEditTabController extends CatalogContentController {
     /**
      * {@inheritDoc}
      */
-    public function processPost($request) {
+    public function processPost($request)
+    {
         $languageId = $request->getSelectedLanguage()->getId();
         $data = $this->getViewData($request);
         $fieldList = $data['fieldList'];

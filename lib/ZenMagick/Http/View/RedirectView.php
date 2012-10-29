@@ -30,7 +30,8 @@ use ZenMagick\Base\ZMObject;
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class RedirectView extends ZMObject implements View {
+class RedirectView extends ZMObject implements View
+{
     protected $secure;
     protected $url_;
     protected $parameter_;
@@ -40,7 +41,8 @@ class RedirectView extends ZMObject implements View {
     /**
      * Create a new redirect view.
      */
-    public function __construct() {
+    public function __construct()
+    {
         parent::__construct();
         $this->secure = false;
         $this->url_ = null;
@@ -52,14 +54,16 @@ class RedirectView extends ZMObject implements View {
     /**
      * {@inheritDoc}
      */
-    public function isValid() {
+    public function isValid()
+    {
         return true;
     }
 
     /**
      * {@inheritDoc}
      */
-    public function generate($request, $template=null, $variables=array()) {
+    public function generate($request, $template=null, $variables=array())
+    {
         $request->redirect($this->getRedirectUrl($request), $this->status_);
         return null;
     }
@@ -69,7 +73,8 @@ class RedirectView extends ZMObject implements View {
      *
      * @param string parameter Parameter string in URL query format.
      */
-    public function setParameter($parameter) {
+    public function setParameter($parameter)
+    {
         $this->parameter_ = $parameter;
     }
 
@@ -78,7 +83,8 @@ class RedirectView extends ZMObject implements View {
      *
      * @param boolean secure <code>true</code> to create a secure redirect.
      */
-    public function setSecure($secure) {
+    public function setSecure($secure)
+    {
         $this->secure = Toolbox::asBoolean($secure);
     }
 
@@ -89,7 +95,8 @@ class RedirectView extends ZMObject implements View {
      *
      * @param string url A full URL.
      */
-    public function setUrl($url) {
+    public function setUrl($url)
+    {
         $this->url_ = $url;
     }
 
@@ -100,7 +107,8 @@ class RedirectView extends ZMObject implements View {
      *
      * @param int status HTTP status code.
      */
-    public function setStatus($status) {
+    public function setStatus($status)
+    {
         $this->status_ = (int) $status;
     }
 
@@ -109,7 +117,8 @@ class RedirectView extends ZMObject implements View {
      *
      * @param string requestId Request id of the redirect URL.
      */
-    public function setRequestId($requestId) {
+    public function setRequestId($requestId)
+    {
         $this->requestId_ = $requestId;
     }
 
@@ -120,7 +129,8 @@ class RedirectView extends ZMObject implements View {
      *
      * @return string The request id.
      */
-    public function getRequestId() {
+    public function getRequestId()
+    {
         return $this->requestId_;
     }
 
@@ -130,7 +140,8 @@ class RedirectView extends ZMObject implements View {
      * @param ZenMagick\Http\Request request The current request.
      * @return string The redirect url.
      */
-    public function getRedirectUrl($request) {
+    public function getRedirectUrl($request)
+    {
         $secure = $this->secure || $this->container->get('sacsManager')->requiresSecurity($this->getRequestId());
         return ((null != $this->url_) ? $this->url_ : $this->container->get('netTool')->url($this->getRequestId(), $this->parameter_, $secure));
     }

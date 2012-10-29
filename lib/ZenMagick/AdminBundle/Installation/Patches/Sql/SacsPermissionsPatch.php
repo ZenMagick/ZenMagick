@@ -26,7 +26,8 @@ use ZenMagick\AdminBundle\Installation\Patches\SQLPatch;
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class SacsPermissionsPatch extends SQLPatch {
+class SacsPermissionsPatch extends SQLPatch
+{
     public $sqlFiles_ = array(
         "sacs_perms_install.sql"
     );
@@ -34,7 +35,8 @@ class SacsPermissionsPatch extends SQLPatch {
     /**
      * Create new instance.
      */
-    public function __construct() {
+    public function __construct()
+    {
         parent::__construct('sacsPermissions');
         $this->label_ = 'Create new table to store custom admin access rules';
         $this->setTables('sacs_permissions');
@@ -45,7 +47,8 @@ class SacsPermissionsPatch extends SQLPatch {
      *
      * @return boolean <code>true</code> if this patch can still be applied.
      */
-    public function isOpen() {
+    public function isOpen()
+    {
         return !$this->tablesExist();
     }
 

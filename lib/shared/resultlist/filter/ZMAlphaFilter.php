@@ -25,12 +25,13 @@ use ZenMagick\Base\Beans;
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class ZMAlphaFilter extends ZMResultListFilter {
-
+class ZMAlphaFilter extends ZMResultListFilter
+{
     /**
      * Create new instance.
      */
-    public function __construct() {
+    public function __construct()
+    {
         parent::__construct('afilter', _zm('First character of Name'));
     }
 
@@ -47,7 +48,8 @@ class ZMAlphaFilter extends ZMResultListFilter {
      *
      * @return array An array of string values.
      */
-    public function getOptions() {
+    public function getOptions()
+    {
         // get all used first chars
         $keys = array();
         foreach ($this->list_->getAllResults() as $result) {

@@ -28,7 +28,8 @@ use ZenMagick\Base\Database\SqlAware;
  * @author DerManoMann
  * @package zenmagick.store.shared.mvc.resultlist.sorter
  */
-class ZMOrderSorter extends ZMResultListSorter implements SqlAware {
+class ZMOrderSorter extends ZMResultListSorter implements SqlAware
+{
     // supported sorts
     private $methods_ = array(
         'date' => '_cmpDate',
@@ -49,7 +50,8 @@ class ZMOrderSorter extends ZMResultListSorter implements SqlAware {
     /**
      * Create new instance.
      */
-    public function __construct() {
+    public function __construct()
+    {
         parent::__construct('osort', '', Runtime::getContainer()->get('request')->query->getAlnum('sort_id'));
     }
 
@@ -72,7 +74,8 @@ class ZMOrderSorter extends ZMResultListSorter implements SqlAware {
      * @param array list The list to sort.
      * @return array The sorted list.
      */
-    public function sort($list) {
+    public function sort($list)
+    {
         if (!$this->isActive() || !is_array($list)) {
             return $list;
         }
@@ -91,7 +94,8 @@ class ZMOrderSorter extends ZMResultListSorter implements SqlAware {
      *
      * @return array An array of one or more <code>ZMSortOption</code> instances.
      */
-    public function getOptions() {
+    public function getOptions()
+    {
         $options = array();
         foreach ($this->options_ as $id => $name) {
             $option = new ZMSortOption($name, $id, $id == $this->sortId_, $this->isDescending());
@@ -104,7 +108,8 @@ class ZMOrderSorter extends ZMResultListSorter implements SqlAware {
     /**
      * {@inheritDoc}
      */
-    public function getQueryDetails($method=null, $args=array()) {
+    public function getQueryDetails($method=null, $args=array())
+    {
         if (!$this->isActive() || !array_key_exists($this->sortId_, $this->sql_)) {
             return null;
         }

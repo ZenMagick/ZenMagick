@@ -26,12 +26,13 @@ use ZMController;
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class WordpressController extends ZMController {
-
+class WordpressController extends ZMController
+{
     /**
      * {@inheritDoc}
      */
-    public function processGet($request) {
+    public function processGet($request)
+    {
         $plugin = $this->container->get('pluginService')->getPluginForId('wordpress');
         $viewName = $plugin->getRequestHandler($request)->preProcess($request);
         return $this->findView($viewName);

@@ -29,9 +29,10 @@ use ZenMagick\Base\ZMObject;
  * @author DerManoMann
  * @todo: merge with unit test?
  */
-class ShoppingCartAssert extends ZMObject {
-
-    public function assertCart($shoppingCart) {
+class ShoppingCartAssert extends ZMObject
+{
+    public function assertCart($shoppingCart)
+    {
         // total items
         $itemTotal = 0;
         $cart_ = $shoppingCart->cart_;

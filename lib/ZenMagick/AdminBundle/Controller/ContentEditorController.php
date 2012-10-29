@@ -27,12 +27,13 @@ use ZenMagick\StoreBundle\Entity\EZPage;
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class ContentEditorController extends \ZMController {
-
+class ContentEditorController extends \ZMController
+{
     /**
      * {@inheritDoc}
      */
-    public function getViewData($request) {
+    public function getViewData($request)
+    {
         $language = $request->getSelectedLanguage();
         $languageId = $request->query->get('languageId', $language->getId());
         $resultSource = new \ZMObjectResultSource('ZenMagick\StoreBundle\Entity\EZPage', 'ezPageService', "getAllPages", array($languageId, 'static'));
@@ -45,7 +46,8 @@ class ContentEditorController extends \ZMController {
     /**
      * {@inheritDoc}
      */
-    public function processGet($request) {
+    public function processGet($request)
+    {
         $language = $request->getSelectedLanguage();
         $languageId = $request->query->get('languageId', $language->getId());
         if (null !== ($ezPageId = $request->query->get('editId'))) {
@@ -69,7 +71,8 @@ class ContentEditorController extends \ZMController {
     /**
      * {@inheritDoc}
      */
-    public function processPost($request) {
+    public function processPost($request)
+    {
         if ($this->handleDemo()) {
             return $this->findView('success-demo');
         }

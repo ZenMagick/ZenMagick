@@ -26,15 +26,15 @@ use ZenMagick\Base\Runtime;
  *
  * @author DerManoMann
  */
-class HtmlOutput {
-
+class HtmlOutput
+{
     /**
      * ZenMagick implementation of zen-cart's zen_href_link function.
      *
      * @todo improve this entirely!
      */
-    public static function zenHrefLink($page, $params='', $transport='NONSSL', $addSessionId=true, $seo=true, $isStatic=false, $useContext=true) {
-
+    public static function zenHrefLink($page, $params='', $transport='NONSSL', $addSessionId=true, $seo=true, $isStatic=false, $useContext=true)
+    {
         $container = Runtime::getContainer();
         $request = $container->get('request');
 

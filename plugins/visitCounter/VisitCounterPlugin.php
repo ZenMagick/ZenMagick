@@ -31,13 +31,14 @@ use ZenMagick\Base\Runtime;
  * @todo add index on startdate field in counter table
  * @todo convert startdate to an actual date field instead of char for both tables
  */
-class VisitCounterPlugin extends Plugin {
-
+class VisitCounterPlugin extends Plugin
+{
     /**
      * Handle ZenCart page and session counting
      *
      */
-    public function onAllDone($event) {
+    public function onAllDone($event)
+    {
         if (!Runtime::isContextMatch('storefront')) return;
         $conn = \ZMRuntime::getDatabase();
         $session = $event->getArgument('request')->getSession();

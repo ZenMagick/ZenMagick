@@ -38,7 +38,8 @@ use Doctrine\ORM\Mapping as ORM;
  *  })
  * @ORM\Entity
  */
-class AdminUser extends ZMObject implements UserRoleCredentials {
+class AdminUser extends ZMObject implements UserRoleCredentials
+{
     /**
      * @var integer $id
      *
@@ -183,7 +184,8 @@ class AdminUser extends ZMObject implements UserRoleCredentials {
     /**
      * Create new user.
      */
-    public function __construct() {
+    public function __construct()
+    {
         parent::__construct();
         $this->id = 0;
         $this->name = '';
@@ -294,7 +296,8 @@ class AdminUser extends ZMObject implements UserRoleCredentials {
      * @param string name The pref name.
      * @return string The value or <code>null</code>.
      */
-    public function getPref($name) {
+    public function getPref($name)
+    {
         return $this->container->get('adminUserPrefService')->getPrefForName($this->getId(), $name);
     }
 
@@ -304,7 +307,8 @@ class AdminUser extends ZMObject implements UserRoleCredentials {
      * @param string name The pref name.
      * @param string value The value.
      */
-    public function setPref($name, $value) {
+    public function setPref($name, $value)
+    {
         $this->container->get('adminUserPrefService')->setPrefForName($this->getId(), $name, $value);
     }
 
@@ -499,7 +503,8 @@ class AdminUser extends ZMObject implements UserRoleCredentials {
      * @todo rename to roles once we can use it
      * @param ZenMagick\AdminBundle\Entity\AdminRole $adminRole
      */
-    public function addAdminRole(\ZenMagick\AdminBundle\Entity\AdminRole $adminRole) {
+    public function addAdminRole(\ZenMagick\AdminBundle\Entity\AdminRole $adminRole)
+    {
         $this->adminRole[] = $adminRole;
     }
 
@@ -509,7 +514,8 @@ class AdminUser extends ZMObject implements UserRoleCredentials {
      * @param ZenMagick\AdminBundle\Entity\AdminRole $adminRole
      * @todo rename to role once we can use it
      */
-    public function removeAdminRole(\ZenMagick\AdminBundle\Entity\AdminRole $adminRole) {
+    public function removeAdminRole(\ZenMagick\AdminBundle\Entity\AdminRole $adminRole)
+    {
         $this->adminRole->removeElement($adminRole);
     }
 

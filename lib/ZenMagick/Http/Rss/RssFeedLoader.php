@@ -32,14 +32,16 @@ use ZenMagick\Base\ZMObject;
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class RssFeedLoader extends ZMObject {
+class RssFeedLoader extends ZMObject
+{
     private $config;
     private $cache;
 
     /**
      * Create a new instance.
      */
-    public function __construct(array $config=array()) {
+    public function __construct(array $config=array())
+    {
         parent::__construct();
         $defaults = array('strictErrorChecking' => false, 'useIncludePath' => false, 'urlContext' => false);
         $this->config = array_merge($defaults, $config);
@@ -51,7 +53,8 @@ class RssFeedLoader extends ZMObject {
      *
      * @param ZenMagick\Base\Cache\Cache cache The cache.
      */
-    public function setCache($cache) {
+    public function setCache($cache)
+    {
         $this->cache = $cache;
     }
 
@@ -63,7 +66,8 @@ class RssFeedLoader extends ZMObject {
      * @param int limit An optional item limit; default is 5; use 0 for all.
      * @return RssFedd A <code>RssFeed</code> instance.
      */
-    public function getFeed($url, $category=null, $limit=5) {
+    public function getFeed($url, $category=null, $limit=5)
+    {
         $cacheKey = Toolbox::hash('feeds', $url, implode(':', $this->config));
 
         if (!$this->cache || false === ($rssParser = $this->cache->lookup($cacheKey))) {
@@ -99,7 +103,8 @@ class RssFeedLoader extends ZMObject {
      *
      * @return A stream context or <code>null</code>.
      */
-    private function getContext() {
+    private function getContext()
+    {
         switch ($this->config['urlContext']) {
         case 'zenmagick':
             $header = array(

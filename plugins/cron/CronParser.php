@@ -33,8 +33,8 @@ namespace ZenMagick\plugins\cron;
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class CronParser {
-
+class CronParser
+{
     /**
      * Parse a single date/time field into an on/off style list.
      *
@@ -50,7 +50,8 @@ class CronParser {
      * @param int size The size of the list.
      * @return array An array with those elements set to <code>true</code>, that are configured.
      */
-    protected function parseDateTimeField($field, $size) {
+    protected function parseDateTimeField($field, $size)
+    {
         // convert dow to int, just in case...
         $field = str_replace(array('sun', 'mon', 'tue', 'wed', 'thu', 'fri', 'sat', '7'), array(0, 1, 2, 3, 4, 5, 6, 0), strtolower($field));
         $field = str_replace(array('jan', 'feb', 'mar', 'apr', 'mai', 'jun', 'jul', 'aug', 'sep', 'oct', 'nov', 'dec'), array(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12), $field);
@@ -103,7 +104,8 @@ class CronParser {
      * @param mixed crontab Either a single crontab line or an array of lines.
      * @return array A list of parsed cron jobs.
      */
-    public function parseCrontab($crontab) {
+    public function parseCrontab($crontab)
+    {
         if (!is_array($crontab)) {
             $crontab = array($crontab);
         }
@@ -148,7 +150,8 @@ class CronParser {
      * @param mixed date Either a Unix timestamp or an array as returned by <code>date()</code>.
      * @return boolean <code>true</code>, if the schedule is ready.
      */
-    public function isReady($job, $date) {
+    public function isReady($job, $date)
+    {
         $schedule = $job['schedule'];
 
         if (!is_array($date)) {
@@ -167,7 +170,8 @@ class CronParser {
      * @param array job The job.
      * @return int The last ready timestamp or <em>0</em>.
      */
-    public function getLastReadyTime($job) {
+    public function getLastReadyTime($job)
+    {
         $schedule = $job['schedule'];
 
         $time = time();

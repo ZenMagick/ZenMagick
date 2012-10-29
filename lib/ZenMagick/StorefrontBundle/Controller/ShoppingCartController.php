@@ -35,14 +35,15 @@ use ZenMagick\StoreBundle\Utils\CheckoutHelper;
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class ShoppingCartController extends ZMObject {
-
+class ShoppingCartController extends ZMObject
+{
     /**
      * Show cart.
      *
      * @param ZenMagick\Http\Request request The current request.
      */
-    public function showAction(Request $request) {
+    public function showAction(Request $request)
+    {
         $flashBag = $request->getSession()->getFlashBag();
         $shoppingCart = $this->get('shoppingCart');
         $checkoutHelper = $shoppingCart->getCheckoutHelper();
@@ -75,7 +76,8 @@ class ShoppingCartController extends ZMObject {
      *
      * @return array Attribute id map for uploads.
      */
-    protected function getAttributeUploads(Request $request, $shoppingCart, array $attributes) {
+    protected function getAttributeUploads(Request $request, $shoppingCart, array $attributes)
+    {
         $settingsService = $this->container->get('settingsService');
         $destination = $settingsService->get('apps.store.cart.uploads');
         $textOptionPrefix = $settingsService->get('textOptionPrefix');
@@ -111,7 +113,8 @@ class ShoppingCartController extends ZMObject {
     /**
      * Add product.
      */
-    public function addProductAction(Request $request) {
+    public function addProductAction(Request $request)
+    {
         $shoppingCart = $this->get('shoppingCart');
         $productId = $request->request->get('products_id');
         $productId = is_array($productId) ? $productId[0] : $productId;
@@ -133,7 +136,8 @@ class ShoppingCartController extends ZMObject {
     /**
      * Buy now product.
      */
-    public function buyNowAction(Request $request) {
+    public function buyNowAction(Request $request)
+    {
         $shoppingCart = $this->get('shoppingCart');
         $productId = $request->query->get('products_id');
         $productId = is_array($productId) ? $productId[0] : $productId;
@@ -181,7 +185,8 @@ class ShoppingCartController extends ZMObject {
     /**
      * Remove product.
      */
-    public function removeProductAction(Request $request) {
+    public function removeProductAction(Request $request)
+    {
         $shoppingCart = $this->get('shoppingCart');
         $flashBag = $request->getSession()->getFlashBag();
         $productId = $request->query->get('productId');
@@ -199,7 +204,8 @@ class ShoppingCartController extends ZMObject {
      * Update cart.
      * @todo: edit cart attributes
      */
-    public function updateAction(Request $request) {
+    public function updateAction(Request $request)
+    {
         $flashBag = $request->getSession()->getFlashBag();
         $shoppingCart = $this->get('shoppingCart');
         $productIds = (array) $request->request->get('products_id');

@@ -24,12 +24,13 @@ namespace ZenMagick\StorefrontBundle\Controller;
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class AddressBookEditController extends \ZMController {
-
+class AddressBookEditController extends \ZMController
+{
     /**
      * {@inheritDoc}
      */
-    public function processGet($request) {
+    public function processGet($request)
+    {
         // populate with original data
         $address = $this->container->get('addressService')->getAddressForId($request->getParameter('id'));
         $account = $this->getUser();
@@ -45,7 +46,8 @@ class AddressBookEditController extends \ZMController {
     /**
      * {@inheritDoc}
      */
-    public function processPost($request) {
+    public function processPost($request)
+    {
         $address = $this->getFormData($request);
         $addressService = $this->container->get('addressService');
         $account = $this->getUser();

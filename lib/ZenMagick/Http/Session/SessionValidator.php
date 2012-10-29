@@ -26,7 +26,8 @@ use ZenMagick\Http\Request;
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-interface SessionValidator {
+interface SessionValidator
+{
     const SESSION_VALIDATOR_NAMESPACE = 'sessionValidator';
 
     /**

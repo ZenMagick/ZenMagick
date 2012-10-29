@@ -35,19 +35,21 @@ use ZenMagick\Http\Sacs\Handler\UserRoleCredentials;
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class UserRoleSacsHandler extends ZMObject implements SacsHandler {
-
+class UserRoleSacsHandler extends ZMObject implements SacsHandler
+{
     /**
      * {@inheritDoc}
      */
-    public function getName() {
+    public function getName()
+    {
         return get_class();
     }
 
     /**
      * {@inheritDoc}
      */
-    public function evaluate($requestId, $credentials, $manager) {
+    public function evaluate($requestId, $credentials, $manager)
+    {
         // these always apply for users/roles
         $defaultMapping = $manager->getDefaultMapping();
         $qualifiedUsers = $manager->getMappingValue($requestId, 'users', array());

@@ -28,7 +28,8 @@ use ZenMagick\Base\ZMObject;
  *
  * @author DerManoMann
  */
-class ProductAssociation extends ZMObject {
+class ProductAssociation extends ZMObject
+{
     private $productId;
 
     /**
@@ -36,7 +37,8 @@ class ProductAssociation extends ZMObject {
      *
      * @param int productId Optional product id; default is <code>null</code>.
      */
-    public function __construct($productId=null) {
+    public function __construct($productId=null)
+    {
         parent::__construct();
         $this->productId = $productId;
     }
@@ -46,7 +48,8 @@ class ProductAssociation extends ZMObject {
      *
      * @return int A product id.
      */
-    public function getProductId() {
+    public function getProductId()
+    {
         return $this->productId;
     }
 
@@ -55,7 +58,8 @@ class ProductAssociation extends ZMObject {
      *
      * @param int productId A product id.
      */
-    public function setProductId($productId) {
+    public function setProductId($productId)
+    {
         $this->productId = $productId;
     }
 

@@ -26,7 +26,8 @@ use ZenMagick\Base\ZMObject;
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class UserSession extends ZMObject {
+class UserSession extends ZMObject
+{
     protected $session;
 
     /**
@@ -34,7 +35,8 @@ class UserSession extends ZMObject {
      *
      * @param Session session The session.
      */
-    public function setSession($session) {
+    public function setSession($session)
+    {
         $this->session = $session;
     }
 
@@ -43,7 +45,8 @@ class UserSession extends ZMObject {
      *
      * @return string The locale code or <code>null</code>.
      */
-    public function getLocaleCode() {
+    public function getLocaleCode()
+    {
         return $this->session->get('_locale');
     }
 

@@ -34,15 +34,16 @@ use ZenMagick\plugins\unitTests\simpletest\HtmlReporter;
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class UnitTestsController extends \ZMController {
-
+class UnitTestsController extends \ZMController
+{
     /**
      * Find tests in the given path.
      *
      * @param string path The path.
      * @return array List of test classes.
      */
-    protected function findTests($path) {
+    protected function findTests($path)
+    {
         $tests = array();
         $ext = '.php';
         foreach (new RecursiveIteratorIterator(new RecursiveDirectoryIterator($path)) as $filename => $fileInfo) {
@@ -59,8 +60,8 @@ class UnitTestsController extends \ZMController {
     /**
      * {@inheritDDoc}
      */
-    public function processGet($request) {
-
+    public function processGet($request)
+    {
         // add tests folder to class path
         $testBaseDir = $this->getTestPlugin()->getPluginDirectory().'/tests';
         $tests = $this->findTests($testBaseDir);
@@ -182,7 +183,8 @@ class UnitTestsController extends \ZMController {
      *
      * @return ZMPlugin The plugin.
      */
-    public function getTestPlugin() {
+    public function getTestPlugin()
+    {
         return $this->container->get('pluginService')->getPluginForId('unitTests');
     }
 

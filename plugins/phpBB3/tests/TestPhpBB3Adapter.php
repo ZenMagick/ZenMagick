@@ -29,13 +29,15 @@ use ZenMagick\plugins\unitTests\simpletest\TestCase;
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class TestPhpBB3Adapter extends TestCase {
+class TestPhpBB3Adapter extends TestCase
+{
     private $adapter_ = null;
 
     /**
      * {@inheritDoc}
      */
-    public function setUp() {
+    public function setUp()
+    {
         parent::setUp();
         $this->getAdapter()->removeAccount('martin@mixedmatter.co.nz');
         $account = new Account();
@@ -52,7 +54,8 @@ class TestPhpBB3Adapter extends TestCase {
     /**
      * {@inheritDoc}
      */
-    public function tearDown() {
+    public function tearDown()
+    {
         parent::tearDown();
         $this->getAdapter()->removeAccount('martin@mixedmatter.co.nz');
         $account = $this->container->get('accountService')->getAccountForEmailAddress('martin@mixedmatter.co.nz');
@@ -62,7 +65,8 @@ class TestPhpBB3Adapter extends TestCase {
     /**
      * Get the phpBB3 adapter.
      */
-    protected function getAdapter() {
+    protected function getAdapter()
+    {
         if (null == $this->adapter_) {
             $this->adapter_ = new PhpBB3Adapter();
         }
@@ -73,7 +77,8 @@ class TestPhpBB3Adapter extends TestCase {
     /**
      * Test duplicate nickname validation.
      */
-    public function testVDuplicateNickname() {
+    public function testVDuplicateNickname()
+    {
         $this->assertTrue($this->getAdapter()->vDuplicateNickname(array('nickName' => 'foobarxxx')));
         $this->assertFalse($this->getAdapter()->vDuplicateNickname(array('nickName' => 'Anonymous')));
     }
@@ -81,7 +86,8 @@ class TestPhpBB3Adapter extends TestCase {
     /**
      * Test duplicate email validation.
      */
-    public function testVDuplicateEmail() {
+    public function testVDuplicateEmail()
+    {
         $this->assertTrue($this->getAdapter()->vDuplicateEmail(array('email' => 'foo@bar.com')));
         $this->testCreateAccount();
         $this->assertFalse($this->getAdapter()->vDuplicateEmail(array('email' => 'martin@mixedmatter.co.nz')));
@@ -90,7 +96,8 @@ class TestPhpBB3Adapter extends TestCase {
     /**
      * Test create account.
      */
-    public function testCreateAccount() {
+    public function testCreateAccount()
+    {
         $account = $this->container->get('accountService')->getAccountForEmailAddress('martin@mixedmatter.co.nz');
         $result = $this->getAdapter()->createAccount($account, 'foob123', 'martin@mixedmatter.co.nz');
         $this->assertTrue($result);
@@ -99,7 +106,8 @@ class TestPhpBB3Adapter extends TestCase {
     /**
      * Test update account.
      */
-    public function testUpdateAccount() {
+    public function testUpdateAccount()
+    {
         $this->testCreateAccount();
         $result = $this->getAdapter()->updateAccount('DerManoMann', 'foob1234', 'martin@mixedmatter.co.nz');
         $this->assertTrue($result);

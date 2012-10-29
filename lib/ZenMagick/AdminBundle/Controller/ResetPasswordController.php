@@ -24,12 +24,13 @@ namespace ZenMagick\AdminBundle\Controller;
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class ResetPasswordController extends \ZMController {
-
+class ResetPasswordController extends \ZMController
+{
     /**
      * {@inheritDoc}
      */
-    public function processPost($request) {
+    public function processPost($request)
+    {
         $email = $request->request->get('email');
         $adminUserService = $this->container->get('adminUserService');
         $user = $adminUserService->getUserForEmail($email);

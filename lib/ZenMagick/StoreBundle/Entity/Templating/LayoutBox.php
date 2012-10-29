@@ -34,7 +34,8 @@ use Doctrine\ORM\Mapping as ORM;
  * })
  * @ORM\Entity
  */
-class LayoutBox {
+class LayoutBox
+{
     /**
      * @var integer $id
      *

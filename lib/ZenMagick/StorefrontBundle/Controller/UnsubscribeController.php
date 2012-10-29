@@ -24,19 +24,21 @@ namespace ZenMagick\StorefrontBundle\Controller;
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class UnsubscribeController extends \ZMController {
-
+class UnsubscribeController extends \ZMController
+{
     /**
      * {@inheritDoc}
      */
-    public function processGet($request) {
+    public function processGet($request)
+    {
         return $this->findView();
     }
 
     /**
      * {@inheritDoc}
      */
-    public function processPost($request) {
+    public function processPost($request)
+    {
         if (!$this->container->get('settingsService')->get('isAllowAnonymousUnsubscribe')) {
             $this->messageService->error(_zm('In order to unsubscribe you need to login first.'));
             return $this->findView();

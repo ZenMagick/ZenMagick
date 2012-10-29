@@ -32,7 +32,8 @@ use Symfony\Component\Yaml\Yaml;
  * @author DerManoMann <mano@zenmagick.org>
  * @package org.zenmagick.mvc.validation
  */
-class ZMValidator extends ZMObject {
+class ZMValidator extends ZMObject
+{
     private $sets_;
     private $alias_;
     private $messages_;
@@ -40,7 +41,8 @@ class ZMValidator extends ZMObject {
     /**
      * Create new instance.
      */
-    public function __construct() {
+    public function __construct()
+    {
         parent::__construct();
         $this->sets_ = array();
         $this->alias_ = array();
@@ -55,7 +57,8 @@ class ZMValidator extends ZMObject {
      * @param string id A rule id of an existing rule set.
      * @param string alias An alias.
      */
-    public function addAlias($id, $alias) {
+    public function addAlias($id, $alias)
+    {
         $this->alias_[$alias] = $id;
     }
 
@@ -65,7 +68,8 @@ class ZMValidator extends ZMObject {
      * @param string id A rule set id.
      * @return string Either the same id or the aliased id.
      */
-    protected function resolveAlias($id) {
+    protected function resolveAlias($id)
+    {
         if (array_key_exists($id, $this->alias_)) {
             return $this->alias_[$id];
         }
@@ -79,7 +83,8 @@ class ZMValidator extends ZMObject {
      * @param array rule A plain text rule.
      * @param boolean override Optional flag to override or add; default is <code>false</code> (add).
      */
-    public function addRule($id, $rule, $override=false) {
+    public function addRule($id, $rule, $override=false)
+    {
         if (array_key_exists($id, $this->sets_) && !$override) {
             $this->sets_[$id][] = $rule;
         } else {
@@ -94,7 +99,8 @@ class ZMValidator extends ZMObject {
      * @param array rules A list of plain text rules.
      * @param boolean override Optional flag to override or add; default is <code>false</code> (add).
      */
-    public function addRules($id, $rules, $override=false) {
+    public function addRules($id, $rules, $override=false)
+    {
         if (array_key_exists($id, $this->sets_) && !$override) {
             $this->sets_[$id] = array_merge($this->sets_[$id], $rules);
         } else {
@@ -109,7 +115,8 @@ class ZMValidator extends ZMObject {
      * @param var arg Optional constructor arguments.
      * @return mixed A new instance of the given class.
      */
-    private function makeClass($name) {
+    private function makeClass($name)
+    {
         if (is_array($name)) {
             $tmp = $name;
             $name = array_shift($tmp);
@@ -162,7 +169,8 @@ class ZMValidator extends ZMObject {
      * @param boolean compile If set to <code>true</code>, evaluate the rule data (creating objects, etc); default is <code>false</code>.
      * @return ZMRuleSet A <code>ZMRuleSet</code> instance, array or <code>null</code>.
      */
-    public function getRuleSet($id, $compile=false) {
+    public function getRuleSet($id, $compile=false)
+    {
         $baseId = $this->resolveAlias($id);
         $ruleSet = null;
         if (array_key_exists($baseId, $this->sets_)) {
@@ -192,7 +200,8 @@ class ZMValidator extends ZMObject {
      * @param string id The id/name of the set.
      * @return boolean <code>true</code> if a <code>ZMRuleSet</code> exists, <code>false</code> if not.
      */
-    public function hasRuleSet($id) {
+    public function hasRuleSet($id)
+    {
         $baseId = $this->resolveAlias($id);
         return array_key_exists($id, $this->sets_) || array_key_exists($baseId, $this->sets_);
     }
@@ -203,7 +212,8 @@ class ZMValidator extends ZMObject {
      *
      * @return array A list of localized messages.
      */
-    public function getMessages() {
+    public function getMessages()
+    {
         return $this->messages_;
     }
 
@@ -216,7 +226,8 @@ class ZMValidator extends ZMObject {
      *
      * @todo use a real loader
      */
-    public function load($resource, $override=true) {
+    public function load($resource, $override=true)
+    {
         if (Toolbox::endsWith($resource, '.php') && file_exists($resource)) {
             include $resource;
             return;
@@ -244,7 +255,8 @@ class ZMValidator extends ZMObject {
      * @param string id The ruleset id.
      * @return boolean <code>true</code> if the validation was successful, <code>false</code> if not.
      */
-    public function validate($request, $data, $id) {
+    public function validate($request, $data, $id)
+    {
         $this->messages_ = array();
 
         $set = $this->getRuleSet($id, true);
@@ -286,7 +298,8 @@ class ZMValidator extends ZMObject {
      * @param string id The id of the form to validate (the <code>ZMRuleSet</code> name).
      * @return string Formatted JavaScript .
      */
-    public function toJSString($id) {
+    public function toJSString($id)
+    {
         $set = $this->getRuleSet($id, true);
 
         if (null == $set) {

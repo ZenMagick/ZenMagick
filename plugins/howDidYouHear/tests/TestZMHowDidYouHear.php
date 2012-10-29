@@ -28,7 +28,8 @@ use ZenMagick\StoreBundle\Entity\Account\Account;
  * @package org.zenmagick.plugins.howDidYouHear
  * @author DerManoMann <mano@zenmagick.org>
  */
-class TestZMHowDidYouHear extends TestCase {
+class TestZMHowDidYouHear extends TestCase
+{
     // test account data
     protected $accountData1 = array(
             'FirstName' => 'john',
@@ -77,7 +78,8 @@ class TestZMHowDidYouHear extends TestCase {
     /**
      * Create test account.
      */
-    public function createAccount($data) {
+    public function createAccount($data)
+    {
         $account = Beans::getBean('ZenMagick\StoreBundle\Entity\Account\Account');
         foreach ($data as $key => $value) {
             $method = 'set'.ucwords($key);
@@ -92,7 +94,8 @@ class TestZMHowDidYouHear extends TestCase {
     /**
      * Clean up.
      */
-    public function tearDown() {
+    public function tearDown()
+    {
         $sql = 'SELECT customers_id FROM %table.customers% WHERE customers_lastname = \'doe\'';
         $results = ZMRuntime::getDatabase()->fetchAll($sql, array(), 'customers');
         $ids = array();
@@ -116,7 +119,8 @@ class TestZMHowDidYouHear extends TestCase {
     /**
      * Test create account.
      */
-    public function testCreateAccount() {
+    public function testCreateAccount()
+    {
         $account = $this->createAccount($this->accountData1);
         $accountService = $this->container->get('accountService');
         $account = $accountService->createAccount($account);
@@ -131,7 +135,8 @@ class TestZMHowDidYouHear extends TestCase {
     /**
      * Test create account other.
      */
-    public function testCreateAccountOther() {
+    public function testCreateAccountOther()
+    {
         $account = $this->createAccount($this->accountData1);
         $accountService = $this->container->get('accountService');
         $account = $accountService->createAccount($account);
@@ -146,7 +151,8 @@ class TestZMHowDidYouHear extends TestCase {
     /**
      * Test update account.
      */
-    public function testUpdateAccount() {
+    public function testUpdateAccount()
+    {
         $account = $this->createAccount($this->accountData1);
         $accountService = $this->container->get('accountService');
         $account = $accountService->createAccount($account);
@@ -163,7 +169,8 @@ class TestZMHowDidYouHear extends TestCase {
     /**
      * Test update account other.
      */
-    public function testUpdateAccountOther() {
+    public function testUpdateAccountOther()
+    {
         $account = $this->createAccount($this->accountData1);
         $accountService = $this->container->get('accountService');
         $account = $accountService->createAccount($account);

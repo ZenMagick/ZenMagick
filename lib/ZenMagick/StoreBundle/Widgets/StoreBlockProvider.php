@@ -28,12 +28,13 @@ use ZenMagick\Http\Blocks\BlockProvider;
  *
  * @author DerManoMann
  */
-class StoreBlockProvider extends ZMObject implements BlockProvider {
-
+class StoreBlockProvider extends ZMObject implements BlockProvider
+{
     /**
      * {@inheritDoc}
      */
-    public function getBlockList($args=array()) {
+    public function getBlockList($args=array())
+    {
         $blocks = array();
 
         $templateManager = $this->container->get('templateManager');

@@ -26,8 +26,8 @@ use Symfony\Component\Yaml\Yaml;
  *
  * @param author DerManoMann
  */
-class MenuLoader {
-
+class MenuLoader
+{
     /**
      * Load menu structure from the given file.
      *
@@ -35,7 +35,8 @@ class MenuLoader {
      * @param Menu menu Optional menu to load/update into; default is <code>null</code>.
      * @return Menu The loaded/updated menu.
      */
-    public function load($source, $menu=null) {
+    public function load($source, $menu=null)
+    {
         $menu = null != $menu ? $menu: new Menu();
 
         if (is_array($source)) {

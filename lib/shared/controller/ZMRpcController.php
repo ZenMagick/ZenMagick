@@ -30,19 +30,21 @@ use Symfony\Component\HttpFoundation\Response;
  * @author DerManoMann <mano@zenmagick.org>
  * @package org.zenmagick.mvc.controller
  */
-class ZMRpcController extends ZMController {
-
+class ZMRpcController extends ZMController
+{
     /**
      * {@inheritDoc}
      */
-    public function process(Request $request) {
+    public function process(Request $request)
+    {
         return $this->processAction($request);
     }
 
     /**
      * {@inheritDoc}
      */
-    public function processAction(Request $request) {
+    public function processAction(Request $request)
+    {
         $format = $this->container->get('settingsService')->get('zenmagick.mvc.rpc.format', 'JSON');
         $rpcRequest = Beans::getBean('ZMRpcRequest'.$format);
         $rpcRequest->setRequest($request);
@@ -88,7 +90,8 @@ class ZMRpcController extends ZMController {
      * @param ZMRpcRequest rpcRequest The request.
      * @return ZMRpcResponse A response.
      */
-    public function invalidCredentials($rpcRequest) {
+    public function invalidCredentials($rpcRequest)
+    {
         $request = $rpcRequest->getRequest();
         $rpcResponse = $rpcRequest->createResponse();
         if (null === $this->getUser()) {

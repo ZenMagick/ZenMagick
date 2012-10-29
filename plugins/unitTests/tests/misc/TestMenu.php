@@ -31,9 +31,10 @@ use ZenMagick\plugins\unitTests\simpletest\TestCase;
  * @package org.zenmagick.plugins.unitTests.tests
  * @author DerManoMann <mano@zenmagick.org>
  */
-class TestMenu extends TestCase {
-
-    public function testGetElement() {
+class TestMenu extends TestCase
+{
+    public function testGetElement()
+    {
         $menu = new Menu();
         $root = $menu->getRoot();
         $root->addChild(new MenuElement('r1'));
@@ -55,7 +56,8 @@ class TestMenu extends TestCase {
         }
     }
 
-    public function testInsert() {
+    public function testInsert()
+    {
         $menu = new Menu();
         $root = $menu->getRoot();
         $root->addChild(new MenuElement('r1'));
@@ -102,7 +104,8 @@ class TestMenu extends TestCase {
         $this->assertEqual(array('r2', 'r2-c'), $r2cc->getPath(false));
     }
 
-    public function testLoadFile() {
+    public function testLoadFile()
+    {
         $menuLoader = new MenuLoader();
         //$menuLoader->load($this->getTestsBaseDirectory().'/misc/config/menu.yaml');
         $menu = $menuLoader->load($this->getTestsBaseDirectory().'/misc/config/menu2.yaml');
@@ -110,13 +113,15 @@ class TestMenu extends TestCase {
         $this->dumpMenu($menu->getRoot());
     }
 
-    public function testLoadString() {
+    public function testLoadString()
+    {
         $menuLoader = new MenuLoader();
         $menu = $menuLoader->load(file_get_contents($this->getTestsBaseDirectory().'/misc/config/menu.yaml'));
         $this->dumpMenu($menu->getRoot());
     }
 
-    protected function dumpMenu($elem, $l=1) {
+    protected function dumpMenu($elem, $l=1)
+    {
         $indent = '&nbsp;';
         for ($ii=0; $ii < $l; ++$ii) {
             $indent .= '&nbsp;&nbsp;';

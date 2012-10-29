@@ -26,12 +26,13 @@ use ZenMagick\Base\ZMObject;
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class AdminUserForm extends ZMObject {
-
+class AdminUserForm extends ZMObject
+{
     /**
      * Create new instance.
      */
-    public function __construct() {
+    public function __construct()
+    {
         parent::__construct();
         $this->set('adminUserId', 0);
         $this->set('roles', array());

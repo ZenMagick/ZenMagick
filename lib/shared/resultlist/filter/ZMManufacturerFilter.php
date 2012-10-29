@@ -29,12 +29,13 @@ use ZenMagick\Base\Database\SqlAware;
  * @author DerManoMann
  * @package zenmagick.store.shared.mvc.resultlist.filter
  */
-class ZMManufacturerFilter extends ZMResultListFilter implements SqlAware {
-
+class ZMManufacturerFilter extends ZMResultListFilter implements SqlAware
+{
     /**
      * Create new instance.
      */
-    public function __construct() {
+    public function __construct()
+    {
         parent::__construct('mfilter', _zm('Manufacturer'), Runtime::getContainer()->get('request')->query->get('mfilter'));
     }
 
@@ -51,7 +52,8 @@ class ZMManufacturerFilter extends ZMResultListFilter implements SqlAware {
      *
      * @return array An array of string values.
      */
-    public function getOptions() {
+    public function getOptions()
+    {
         $options = array();
         foreach ($this->list_->getAllResults() as $result) {
             $manufacturer = $result->getManufacturer();
@@ -70,7 +72,8 @@ class ZMManufacturerFilter extends ZMResultListFilter implements SqlAware {
     /**
      * {@inheritDoc}
      */
-    public function getQueryDetails($method=null, $args=array()) {
+    public function getQueryDetails($method=null, $args=array())
+    {
         return new QueryDetails(ZMRuntime::getDatabase(), 'p.manufacturers_id = '.(int) $this->getValue());
     }
 

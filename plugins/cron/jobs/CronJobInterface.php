@@ -23,8 +23,8 @@
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-interface CronJobInterface {
-
+interface CronJobInterface
+{
     /**
      * Execute the job.
      *

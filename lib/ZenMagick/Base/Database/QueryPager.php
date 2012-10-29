@@ -26,7 +26,8 @@ use ZenMagick\Base\ZMObject;
  *
  * @author DerManoMann <mano@zenmagick.org> <mano@zenmagick.org>
  */
-class QueryPager extends ZMObject {
+class QueryPager extends ZMObject
+{
     private $queryDetails_;
     private $orderBy_;
     private $filters_;
@@ -37,7 +38,8 @@ class QueryPager extends ZMObject {
      *
      * @param ZenMagick\Base\Database\QueryDetails queryDetails The query details; default is <code>null</code>.
      */
-    public function __construct($queryDetails=null) {
+    public function __construct($queryDetails=null)
+    {
         $this->queryDetails_ = $queryDetails;
         $this->orderBy_ = '';
         $this->totalResultsCount_ = -1;
@@ -49,7 +51,8 @@ class QueryPager extends ZMObject {
      *
      * @param ZenMagick\Base\Database\QueryDetails queryDetails The query details.
      */
-    public function setQueryDetails($queryDetails) {
+    public function setQueryDetails($queryDetails)
+    {
         $this->queryDetails_ = $queryDetails;
     }
 
@@ -58,7 +61,8 @@ class QueryPager extends ZMObject {
      *
      * @param string orderBy The order by condition(s).
      */
-    public function setOrderBy($orderBy) {
+    public function setOrderBy($orderBy)
+    {
         $this->orderBy_ = $orderBy;
     }
 
@@ -67,7 +71,8 @@ class QueryPager extends ZMObject {
      *
      * @param string filter The filter condition.
      */
-    public function addFilter($filter) {
+    public function addFilter($filter)
+    {
         $this->filters_[] = $filter;
     }
 
@@ -76,7 +81,8 @@ class QueryPager extends ZMObject {
      *
      * @return string The sql.
      */
-    protected function getFilterSQL() {
+    protected function getFilterSQL()
+    {
         $sql = '';
         foreach ($this->filters_ as $filter) {
             if (!empty($sql)) {
@@ -92,7 +98,8 @@ class QueryPager extends ZMObject {
      *
      * @return int The total number of results available.
      */
-    public function getTotalNumberOfResults() {
+    public function getTotalNumberOfResults()
+    {
         if (0 > $this->totalResultsCount_) {
             $queryDetails = $this->queryDetails_;
             $sql = $queryDetails->getSql();
@@ -161,7 +168,8 @@ class QueryPager extends ZMObject {
      * @param int pagination The number of results per page.
      * @return array A list of results.
      */
-    public function getResults($page, $pagination) {
+    public function getResults($page, $pagination)
+    {
         $sql = $this->queryDetails_->getSql();
         $lcSql = strtolower($sql);
 

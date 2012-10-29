@@ -36,7 +36,8 @@ use ZenMagick\StoreBundle\Entity\TaxRate;
  *
  * @author DerManoMann
  */
-class ShoppingCart extends ZMObject {
+class ShoppingCart extends ZMObject
+{
     public $session;
     private $zenTotals_;
     private $items_;
@@ -49,7 +50,8 @@ class ShoppingCart extends ZMObject {
     /**
      * Create new instance.
      */
-    public function __construct() {
+    public function __construct()
+    {
         parent::__construct();
         $this->setContents(null);
         $this->accountId = 0;
@@ -62,7 +64,8 @@ class ShoppingCart extends ZMObject {
      *
      * @param CheckoutHelper checkoutHelper The checkout helper.
      */
-    public function setCheckoutHelper(CheckoutHelper $checkoutHelper) {
+    public function setCheckoutHelper(CheckoutHelper $checkoutHelper)
+    {
         $checkoutHelper->setShoppingCart($this);
         $this->checkoutHelper = $checkoutHelper;
     }
@@ -72,14 +75,16 @@ class ShoppingCart extends ZMObject {
      *
      * @return CheckoutHelper The checkout helper.
      */
-    public function getCheckoutHelper() {
+    public function getCheckoutHelper()
+    {
         return $this->checkoutHelper;
     }
 
     /**
      * {@inheritDoc}
      */
-    public function getSerializableProperties() {
+    public function getSerializableProperties()
+    {
         $properties = parent::getSerializableProperties();
         // all we need to persist for the cart
         $properties['contents'] = $this->contents;
@@ -98,7 +103,8 @@ class ShoppingCart extends ZMObject {
     /**
      * Clear this cart.
      */
-    public function clear() {
+    public function clear()
+    {
         $this->contents = null;
         $this->items_ = null;
         $this->comments = null;
@@ -121,7 +127,8 @@ class ShoppingCart extends ZMObject {
      *
      * @return string A hash.
      */
-    public function getHash() {
+    public function getHash()
+    {
         $s = '';
         foreach ($this->getContents() as $id => $data) {
             $s .= sprintf(';%s:%s', $data['qty'], $id);
@@ -136,7 +143,8 @@ class ShoppingCart extends ZMObject {
      * @param boolean
      * @return float The weight if the shopping cart.
      */
-    public function getWeight() {
+    public function getWeight()
+    {
         $weight = 0;
         foreach ($this->getItems() as $item) {
             $product = $item->getProduct();
@@ -162,7 +170,8 @@ class ShoppingCart extends ZMObject {
      * @return boolean <code>true</code> if the cart contains items that are out of stock,
      *  <code>false</code> if not.
      */
-    public function hasOutOfStockItems() {
+    public function hasOutOfStockItems()
+    {
         foreach ($this->getItems() as $item) {
             if (!$item->isStockAvailable()) {
                 return true;
@@ -177,7 +186,8 @@ class ShoppingCart extends ZMObject {
      *
      * @return string The cart type; one of <em>physical</em>, <em>mixed</em>, <em>virtual</em>.
      */
-    public function getType() {
+    public function getType()
+    {
         return $this->checkoutHelper->getType();
     }
 
@@ -186,7 +196,8 @@ class ShoppingCart extends ZMObject {
      *
      * @return boolean <code>true</code> if the cart is purely virtual.
      */
-    public function isVirtual() {
+    public function isVirtual()
+    {
         return $this->checkoutHelper->isVirtual();
     }
 
@@ -195,7 +206,8 @@ class ShoppingCart extends ZMObject {
      *
      * @return array The contents.
      */
-    public function getContents() {
+    public function getContents()
+    {
         return $this->contents;
     }
 
@@ -204,7 +216,8 @@ class ShoppingCart extends ZMObject {
      *
      * @param array contents The contents.
      */
-    public function setContents($contents) {
+    public function setContents($contents)
+    {
         // default to null if contents is empty
         $contents = is_array($contents) && $contents ? $contents : null;
         $this->contents = $contents;
@@ -216,7 +229,8 @@ class ShoppingCart extends ZMObject {
      *
      * @return array List of <code>ShoppingCartItem</code>s.
      */
-    public function getItems() {
+    public function getItems()
+    {
         if (null === $this->items_) {
             $this->items_ = array();
             if (null === $this->contents) {
@@ -275,7 +289,8 @@ class ShoppingCart extends ZMObject {
      *
      * @return float The cart subtotal.
      */
-    public function getSubTotal() {
+    public function getSubTotal()
+    {
         $subtotal = 0;
         foreach ($this->getItems() as $item) {
             $itemTotal = $item->getItemTotal(false) + $item->getOneTimeCharge(false);
@@ -289,7 +304,8 @@ class ShoppingCart extends ZMObject {
      *
      * @return float The cart total.
      */
-    public function getTotal() {
+    public function getTotal()
+    {
         foreach ($this->getTotals() as $orderTotal) {
             if ('total' == $orderTotal->getType()) {
                 return $orderTotal->getAmount();
@@ -303,7 +319,8 @@ class ShoppingCart extends ZMObject {
      *
      * @return int The account id.
      */
-    public function getAccountId() {
+    public function getAccountId()
+    {
         return $this->accountId;
     }
 
@@ -312,7 +329,8 @@ class ShoppingCart extends ZMObject {
      *
      * @param int accountId The account id.
      */
-    public function setAccountId($accountId) {
+    public function setAccountId($accountId)
+    {
         $this->accountId = $accountId;
     }
 
@@ -321,7 +339,8 @@ class ShoppingCart extends ZMObject {
      *
      * @return string The customer comment.
      */
-    public function getComments() {
+    public function getComments()
+    {
         return $this->comments;
     }
 
@@ -330,7 +349,8 @@ class ShoppingCart extends ZMObject {
      *
      * @param string comments The customer comment.
      */
-    public function setComments($comments) {
+    public function setComments($comments)
+    {
         $this->comments = $comments;
     }
 
@@ -339,7 +359,8 @@ class ShoppingCart extends ZMObject {
      *
      * @return array List of <code>ZMShippingProvider</code> instances.
      */
-    public function getShippingProviders() {
+    public function getShippingProviders()
+    {
         return $this->container->get('shippingProviderService')->getShippingProviders();
     }
 
@@ -349,7 +370,8 @@ class ShoppingCart extends ZMObject {
      * @param ZMShippingProvider provider The provider; default is <code>null</code> for all.
      * @return array List of <code>ZMShippingmethod</code> instances.
      */
-    public function getMethodsForProvider($provider=null) {
+    public function getMethodsForProvider($provider=null)
+    {
         if (null != $provider) {
             return $provider->getShippingMethods($this, $this->getShippingAddress());
         } else {
@@ -370,7 +392,8 @@ class ShoppingCart extends ZMObject {
      *
      * @return int The shipping method id or <code>null</code>.
      */
-    public function getSelectedShippingMethodId() {
+    public function getSelectedShippingMethodId()
+    {
         if (null !== ($shipping = $this->session->get('shipping')) && is_array($shipping)) {
             return $shipping['id'];
         }
@@ -382,7 +405,8 @@ class ShoppingCart extends ZMObject {
      *
      * @return ZMShippingProvider The selected shipping provider or <code>null</code>.
      */
-    public function getSelectedShippingMethod() {
+    public function getSelectedShippingMethod()
+    {
         $shippingMethodId = $this->getSelectedShippingMethodId();
         if (null == $shippingMethodId) {
             return null;
@@ -402,7 +426,8 @@ class ShoppingCart extends ZMObject {
      *
      * @param ZMShippingMethod method The shipping method to use.
      */
-    public function setSelectedShippingMethod($method) {
+    public function setSelectedShippingMethod($method)
+    {
         // invalidate totals
         $this->zenTotals_ = null;
 
@@ -418,7 +443,8 @@ class ShoppingCart extends ZMObject {
      *
      * @return array List of <code>ZMPaymentType</code> instances.
      */
-    public function getPaymentTypes() {
+    public function getPaymentTypes()
+    {
         return $this->checkoutHelper->getPaymentTypes();
     }
 
@@ -427,7 +453,8 @@ class ShoppingCart extends ZMObject {
      *
      * @return int The payment type id.
      */
-    public function getSelectedPaymentTypeId() {
+    public function getSelectedPaymentTypeId()
+    {
         return $this->session->get('payment');
     }
 
@@ -436,7 +463,8 @@ class ShoppingCart extends ZMObject {
      *
      * @return ZMPaymentType The payment type or <code>null</code>.
      */
-    public function getSelectedPaymentType() {
+    public function getSelectedPaymentType()
+    {
         if (null == $this->selectedPaymentType_) {
             $this->selectedPaymentType_ = $this->container->get('paymentTypeService')->getPaymentTypeForId($this->getSelectedPaymentTypeId());
             if (null != $this->selectedPaymentType_) {
@@ -451,7 +479,8 @@ class ShoppingCart extends ZMObject {
      *
      * @param ZMPaymentType paymentType The payment type.
      */
-    public function setSelectedPaymentType($paymentType) {
+    public function setSelectedPaymentType($paymentType)
+    {
         // invalidate totals
         $this->zenTotals_ = null;
 
@@ -474,7 +503,8 @@ class ShoppingCart extends ZMObject {
      * @param ZMRequest request The current request.
      * @return string The URL to be used for the actual order form.
      */
-    public function getOrderFormUrl($request) {
+    public function getOrderFormUrl($request)
+    {
         return $this->getSelectedPaymentType()->getOrderFormUrl($request);
     }
 
@@ -484,7 +514,8 @@ class ShoppingCart extends ZMObject {
      * @param ZMRequest request The current request.
      * @return mixed The form content for the actual order process form.
      */
-    public function getOrderFormContent($request) {
+    public function getOrderFormContent($request)
+    {
         return $this->getSelectedPaymentType()->getOrderFormContent($request);
     }
 
@@ -507,7 +538,8 @@ class ShoppingCart extends ZMObject {
      *
      * @return ZenMagick\StoreBundle\Entity\Address The shipping address.
      */
-    public function getShippingAddress() {
+    public function getShippingAddress()
+    {
         return $this->container->get('addressService')->getAddressForId($this->session->get('sendto'));
     }
 
@@ -516,7 +548,8 @@ class ShoppingCart extends ZMObject {
      *
      * @param int addressId The new shipping address id.
      */
-    public function setShippingAddressId($addressId) {
+    public function setShippingAddressId($addressId)
+    {
         // invalidate totals
         $this->zenTotals_ = null;
 
@@ -529,7 +562,8 @@ class ShoppingCart extends ZMObject {
      *
      * @return ZenMagick\StoreBundle\Entity\Address The billing address.
      */
-    public function getBillingAddress() {
+    public function getBillingAddress()
+    {
         return $this->container->get('addressService')->getAddressForId($this->session->get('billto'));
     }
 
@@ -538,7 +572,8 @@ class ShoppingCart extends ZMObject {
      *
      * @param int addressId The billing address id.
      */
-    public function setBillingAddressId($addressId) {
+    public function setBillingAddressId($addressId)
+    {
         $billto = $this->session->get('billto');
         if (null !== $billto && $billto != $addressId) {
             $this->session->set('payment', '');
@@ -549,7 +584,8 @@ class ShoppingCart extends ZMObject {
     /**
      * Get zen-cart order totals.
      */
-    protected function _getZenTotals() {
+    protected function _getZenTotals()
+    {
     global $order, $order_total_modules, $shipping_modules;
 
         if (null === $this->zenTotals_) {
@@ -576,7 +612,8 @@ class ShoppingCart extends ZMObject {
      *
      * @return array List of <code>ZenMagick\StoreBundle\Entity\Order\OrderTotalLine</code> instances.
      */
-    public function getTotals() {
+    public function getTotals()
+    {
         $totals = array();
         if (null != ($zenTotals = $this->_getZenTotals())) {
             foreach ($zenTotals->modules as $module) {
@@ -599,7 +636,8 @@ class ShoppingCart extends ZMObject {
      * @param ZMRequest request The current request.
      * @return string Fully formatted JavaScript incl. of wrapping &lt;script&gt; tag.
      */
-    public function getPaymentFormValidationJS($request) {
+    public function getPaymentFormValidationJS($request)
+    {
         //TODO: move here...
         return $this->container->get('paymentTypeService')->getPaymentFormValidationJS($request);
     }
@@ -613,7 +651,8 @@ class ShoppingCart extends ZMObject {
      *
      * @return array List of <code>ZMPaymentType</code> instances.
      */
-    public function getCreditTypes() {
+    public function getCreditTypes()
+    {
         // looks suspiciously like getPaymentTypes in ZenMagick\StoreBundle\Services\PaymentTypes...
         $creditTypes = array();
         if (null != ($zenTotals = $this->_getZenTotals())) {
@@ -653,7 +692,8 @@ class ShoppingCart extends ZMObject {
      *
      * @return boolean <code>true</code> if the cart is ready or checkout, <code>false</code> if not.
      */
-    public function readyForCheckout() {
+    public function readyForCheckout()
+    {
         return $this->checkoutHelper->readyForCheckout();
     }
 
@@ -663,7 +703,8 @@ class ShoppingCart extends ZMObject {
      * @param mixed quantity The quantity.
      * @return The adjusted quantity.
      */
-    protected function adjustQty($quantity) {
+    protected function adjustQty($quantity)
+    {
         $digits = $this->container->get('settingsService')->get('qtyDecimals');
         if (0 != $digits) {
             if (strstr($quantity, '.')) {
@@ -687,7 +728,8 @@ class ShoppingCart extends ZMObject {
      *  the quantity across all variations.
      * @return int The number of products in the cart.
      */
-    public function getItemQuantityFor($itemId, $isQtyMixed) {
+    public function getItemQuantityFor($itemId, $isQtyMixed)
+    {
         if ($this->isEmpty()) {
             return 0;
         }
@@ -716,7 +758,8 @@ class ShoppingCart extends ZMObject {
      * @param ZenMagick\StoreBundle\Entity\Catalog\Product product The product.
      * @return array Attributes values.
      */
-    protected function splitAttributes($attributeData, $product) {
+    protected function splitAttributes($attributeData, $product)
+    {
         $allAttributes = $product->getAttributes();
         $textOptionPrefix = $this->container->get('settingsService')->get('textOptionPrefix');
 
@@ -755,7 +798,8 @@ class ShoppingCart extends ZMObject {
      *  be either an int or <code>ZMAttributeValue</code>; default is an empty <code>array</code>.
      * @return boolean <code>true</code> if the product was added, <code>false</code> if not.
      */
-    public function addProduct($productId, $quantity=1, $attributes=array()) {
+    public function addProduct($productId, $quantity=1, $attributes=array())
+    {
         if (1 > $quantity) {
             return false;
         }
@@ -802,7 +846,8 @@ class ShoppingCart extends ZMObject {
      * @param string productId The product id.
      * @return boolean <code>true</code> if the product was removed, <code>false</code> if not.
      */
-    public function removeProduct($productId) {
+    public function removeProduct($productId)
+    {
         if (null !== $productId) {
             unset($this->contents[$productId]);
             $this->items_ = null;
@@ -820,7 +865,8 @@ class ShoppingCart extends ZMObject {
      * @param int quantity The quantity.
      * @return boolean <code>true</code> if the product was updated, <code>false</code> if not.
      */
-    public function updateProduct($sku, $quantity) {
+    public function updateProduct($sku, $quantity)
+    {
         if (null !== $sku && null !== $quantity) {
             if (0 == $quantity) {
                 return $this->removeProduct($sku);
@@ -857,7 +903,8 @@ class ShoppingCart extends ZMObject {
      *
      * @return ZenMagick\StoreBundle\Entity\Address The tax address.
      */
-    public function getTaxAddress() {
+    public function getTaxAddress()
+    {
         $settingsService = $this->container->get('settingsService');
         switch ($settingsService->get('productTaxBase')) {
             case TaxRate::TAX_BASE_SHIPPING:
@@ -885,7 +932,8 @@ class ShoppingCart extends ZMObject {
      * @return array A set of valid attribute values for the given product.
      * @todo return note of changes made
      */
-    protected function sanitizeAttributes($product, $attributes=array()) {
+    protected function sanitizeAttributes($product, $attributes=array())
+    {
         $settingsService = $this->container->get('settingsService');
         //TODO: where should this actually be? attributes, rules, cart, products?
         if (!$settingsService->get('apps.store.isSanitizeAttributes', false)) {
@@ -982,7 +1030,8 @@ class ShoppingCart extends ZMObject {
      * @param string itemId The full shopping cart item id incl. attribute suffix.
      * @return int The product id.
      */
-    public static function getBaseProductIdFor($productId) {
+    public static function getBaseProductIdFor($productId)
+    {
         $arr = explode(':', $productId);
         return (int) $arr[0];
     }
@@ -999,7 +1048,8 @@ class ShoppingCart extends ZMObject {
      * @param array attrbutes Additional product attributes.
      * @return string The product id.
      */
-    public function buildSku($productId, $attributes=array()) {
+    public function buildSku($productId, $attributes=array())
+    {
         $fullProductId = $productId;
 
         if (is_array($attributes) && 0 < count($attributes) && !strstr($productId, ':')) {

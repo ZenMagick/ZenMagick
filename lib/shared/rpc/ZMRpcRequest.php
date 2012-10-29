@@ -29,8 +29,8 @@
  * @author DerManoMann <mano@zenmagick.org>
  * @package org.zenmagick.mvc.rpc
  */
-interface ZMRpcRequest {
-
+interface ZMRpcRequest
+{
     /**
      * Get the underlying request.
      *

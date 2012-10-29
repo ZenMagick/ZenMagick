@@ -27,12 +27,13 @@ use ZenMagick\plugins\unitTests\simpletest\TestCase;
  * @package org.zenmagick.plugins.unitTests.tests
  * @author DerManoMann <mano@zenmagick.org>
  */
-class TestAuthenticationManager extends TestCase {
-
+class TestAuthenticationManager extends TestCase
+{
     /**
      * Test getProvider
      */
-    public function testGetProviders() {
+    public function testGetProviders()
+    {
         $authenticationManager = $this->container->get('authenticationManager');
         $this->assertTrue(4 <= count($authenticationManager->getProviders()));
     }
@@ -40,7 +41,8 @@ class TestAuthenticationManager extends TestCase {
     /**
      * Test default provider
      */
-    public function testDefaultProvider() {
+    public function testDefaultProvider()
+    {
         $authenticationManager = $this->container->get('authenticationManager');
         $defaultProvider = $authenticationManager->getDefaultProvider();
         $this->assertNotNull($defaultProvider);
@@ -54,7 +56,8 @@ class TestAuthenticationManager extends TestCase {
     /**
      * Test all provider
      */
-    public function testAllProvider() {
+    public function testAllProvider()
+    {
         $authenticationManager = $this->container->get('authenticationManager');
         $password = 'foo';
         foreach ($authenticationManager->getProviders() as $provider) {

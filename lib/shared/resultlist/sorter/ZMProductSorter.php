@@ -28,7 +28,8 @@ use ZenMagick\Base\Database\SqlAware;
  * @author DerManoMann
  * @package zenmagick.store.shared.mvc.resultlist.sorter
  */
-class ZMProductSorter extends ZMResultListSorter implements SqlAware {
+class ZMProductSorter extends ZMResultListSorter implements SqlAware
+{
     // supported sorts
     private $methods_ = array(
         'model' => '_cmpModel',
@@ -58,14 +59,16 @@ class ZMProductSorter extends ZMResultListSorter implements SqlAware {
     /**
      * Create new instance.
      */
-    public function __construct() {
+    public function __construct()
+    {
         parent::__construct('psort', '', Runtime::getContainer()->get('request')->query->getAlnum('sort_id'));
     }
 
     // sort functions
     public function _cmpModel($a, $b) { return ($a->getModel() == $b->getModel()) ? 0 : ($a->getModel() > $b->getModel()) ? +1 : -1; }
     public function _cmpName($a, $b) { return ($a->getName() == $b->getName()) ? 0 : ($a->getName() > $b->getName()) ? +1 : -1; }
-    public function _cmpManufacturerName($a, $b) {
+    public function _cmpManufacturerName($a, $b)
+    {
         $am = $a->getManufacturer();
         $bm = $b->getManufacturer();
         if (null == $am || null == $bm) return 0;
@@ -89,7 +92,8 @@ class ZMProductSorter extends ZMResultListSorter implements SqlAware {
      * @param array list The list to sort.
      * @return array The sorted list.
      */
-    public function sort($list) {
+    public function sort($list)
+    {
         if (!$this->isActive() || !is_array($list)) {
             return $list;
         }
@@ -108,7 +112,8 @@ class ZMProductSorter extends ZMResultListSorter implements SqlAware {
      *
      * @return array An array of one or more <code>ZMSortOption</code> instances.
      */
-    public function getOptions() {
+    public function getOptions()
+    {
         $options = array();
         foreach ($this->options_ as $id => $name) {
             $option = new ZMSortOption($name, $id, $id == $this->sortId_, $this->isDescending());
@@ -121,7 +126,8 @@ class ZMProductSorter extends ZMResultListSorter implements SqlAware {
     /**
      * {@inheritDoc}
      */
-    public function getQueryDetails($method=null, $args=array()) {
+    public function getQueryDetails($method=null, $args=array())
+    {
         if (!$this->isActive() || !array_key_exists($this->sortId_, $this->sql_)) {
             return null;
         }

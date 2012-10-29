@@ -40,7 +40,8 @@ use Doctrine\DBAL\Cache\QueryCacheProfile;
  *
  * @author DerManoMann <mano@zenmagick.org> <mano@zenmagick.org>
  */
-class Connection extends DbalConnection {
+class Connection extends DbalConnection
+{
     /** If used as modelClass parameter, the raw SQL data will be returned (no mapping, etc). */
     const MODEL_RAW = '@raw';
 
@@ -57,7 +58,8 @@ class Connection extends DbalConnection {
      *
      * @return string
      */
-    public function getPrefix() {
+    public function getPrefix()
+    {
         $params = $this->getParams();
         return isset($params['driverOptions']['table_prefix']) ? $params['driverOptions']['table_prefix'] : null;
     }
@@ -68,7 +70,8 @@ class Connection extends DbalConnection {
      * @param string table
      * @return table (possibly prefixed)
      */
-    public function resolveTable($table) {
+    public function resolveTable($table)
+    {
         $prefix = $this->getPrefix();
         if (null != $prefix && 0 !== strpos($table, $prefix)) {
             $table = $prefix.$table;
@@ -81,7 +84,8 @@ class Connection extends DbalConnection {
      *
      * @return object
      */
-    public function getMapper() {
+    public function getMapper()
+    {
         if (null == $this->mapper_) {
             $this->mapper_ = new TableMapper();
             $this->mapper_->setTablePrefix($this->getPrefix());
@@ -93,35 +97,40 @@ class Connection extends DbalConnection {
     /**
      * {@inheritDoc}
      */
-    public function delete($tableName, array $identifier = array()) {
+    public function delete($tableName, array $identifier = array())
+    {
         return parent::delete($this->resolveTable($tableName), $identifier);
     }
 
     /**
      * {@inheritDoc}
      */
-    public function insert($tableName, array $data, array $types = array()) {
+    public function insert($tableName, array $data, array $types = array())
+    {
         return parent::insert($this->resolveTable($tableName), $data, $types);
     }
 
     /**
      * {@inheritDoc}
      */
-    public function update($tableName, array $data, array $identifier = array(), array $types = array()) {
+    public function update($tableName, array $data, array $identifier = array(), array $types = array())
+    {
         return parent::update($this->resolveTable($tableName), $data, $identifier, $types);
     }
 
     /**
      * {@inheritDoc}
      */
-    public function executeUpdate($query, array $params = array(), array $types = array()) {
+    public function executeUpdate($query, array $params = array(), array $types = array())
+    {
         return parent::executeUpdate($this->resolveTablePlaceHolders($query), $params, $types);
     }
 
     /**
      * {@inheritDoc}
      */
-    public function executeQuery($query, array $params = array(), $types = array(), QueryCacheProfile $qcp = null) {
+    public function executeQuery($query, array $params = array(), $types = array(), QueryCacheProfile $qcp = null)
+    {
         return parent::executeQuery($this->resolveTablePlaceHolders($query), $params, $types, $qcp);
     }
 
@@ -134,7 +143,8 @@ class Connection extends DbalConnection {
      * @param string SQL query
      * @return string sql query with %table.table_name% replaced with $prefix.table_name
      */
-    public function resolveTablePlaceHolders($sql) {
+    public function resolveTablePlaceHolders($sql)
+    {
         $prefix = $this->getPrefix();
         return preg_replace_callback('/%table\.(\w+?)%/', function($matches) use ($prefix) {
             return $prefix.$matches[1];
@@ -150,7 +160,8 @@ class Connection extends DbalConnection {
      * @param mixed mapping The field mappings; default is <code>null</code>.
      * @return mixed The model with the updated primary key.
      */
-    public function loadModel($table, $key, $modelClass, $mapping = null) {
+    public function loadModel($table, $key, $modelClass, $mapping = null)
+    {
         $table = $this->resolveTable($table);
         $mapping = $this->getMapper()->ensureMapping(null !== $mapping ? $mapping : $table);
 
@@ -177,7 +188,8 @@ class Connection extends DbalConnection {
      * @param mixed mapping The field mappings; default is <code>null</code>.
      * @return mixed The model with the updated primary key.
      */
-    public function createModel($table, $model, $mapping = null) {
+    public function createModel($table, $model, $mapping = null)
+    {
         if (null === $model) return null;
         $table = $this->resolveTable($table);
         $mapping = $this->getMapper()->ensureMapping(null !== $mapping ? $mapping : $table);
@@ -229,7 +241,8 @@ class Connection extends DbalConnection {
      * @param mixed model The model instance.
      * @param mixed mapping The field mappings; default is <code>null</code>.
      */
-    public function removeModel($table, $model, $mapping = null) {
+    public function removeModel($table, $model, $mapping = null)
+    {
         if (null === $model) return null;
         $table = $this->resolveTable($table);
         $mapping = $this->getMapper()->ensureMapping(null !== $mapping ? $mapping : $table);
@@ -273,7 +286,8 @@ class Connection extends DbalConnection {
      * @param mixed model The model instance.
      * @param mixed mapping The field mappings; default is <code>null</code>.
      */
-    public function updateModel($table, $model, $mapping = null) {
+    public function updateModel($table, $model, $mapping = null)
+    {
         if (null === $model) return null;
         $table = $this->resolveTable($table);
         $mapping = $this->getMapper()->ensureMapping(null !== $mapping ? $mapping : $table);
@@ -325,7 +339,8 @@ class Connection extends DbalConnection {
      * @param mixed mapping The field mappings or table name (list); default is <code>null</code>.
      * @return int affected rows
      */
-    public function updateObj($query, $params = array(), $mapping = null) {
+    public function updateObj($query, $params = array(), $mapping = null)
+    {
         $mapping = $this->getMapper()->ensureMapping($mapping);
 
         // convert to array
@@ -352,7 +367,8 @@ class Connection extends DbalConnection {
      * @param string modelClass The class name to be used to build result obects; default is <code>null</code>.
      * @return mixed The (expected) single result or <code>null</code>
      */
-    public function querySingle($sql, array $params = array(), $mapping = null, $modelClass = null) {
+    public function querySingle($sql, array $params = array(), $mapping = null, $modelClass = null)
+    {
         $results = $this->fetchAll($sql, $params, $mapping, $modelClass);
         return 0 < count($results) ? $results[0] : null;
     }
@@ -372,7 +388,8 @@ class Connection extends DbalConnection {
      * @param string modelClass The class name to be used to build result obects; default is <code>null</code>.
      * @return array List of populated objects of class <code>$resultClass</code> or map if <em>modelClass</em> is <code>null</code>.
      */
-    public function fetchAll($sql, array $params = array(), $mapping = null, $modelClass = null) {
+    public function fetchAll($sql, array $params = array(), $mapping = null, $modelClass = null)
+    {
         $mapping = $this->getMapper()->ensureMapping($mapping);
 
         $stmt = $this->prepareStatement($sql, $params, $mapping);
@@ -409,7 +426,8 @@ class Connection extends DbalConnection {
      * @param array mapping The field mapping.
      * @return A <code>PreparedStatement</code> or null;
      */
-    protected function prepareStatement($sql, $params, $mapping = null) {
+    protected function prepareStatement($sql, $params, $mapping = null)
+    {
         $PDO_INDEX_SEP = '__';
 
         // make sure we are working on a map
@@ -476,7 +494,8 @@ class Connection extends DbalConnection {
      * @param array mapping The mapping (may be <code>null</code>).
      * @return array The mapped row.
      */
-    protected function translateRow($row, $mapping) {
+    protected function translateRow($row, $mapping)
+    {
         if (null == $mapping) {
             return $row;
         }
@@ -529,7 +548,8 @@ class Connection extends DbalConnection {
      * @param string table table to get metadata from
      * @return array Context dependent meta data.
      */
-    public function getMetaData($table) {
+    public function getMetaData($table)
+    {
         $table = $this->resolveTable($table);
         $sm = $this->getSchemaManager();
 

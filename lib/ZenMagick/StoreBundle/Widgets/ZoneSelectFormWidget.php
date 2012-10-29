@@ -27,12 +27,13 @@ use ZenMagick\Http\Widgets\Form\SelectFormWidget;
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class ZoneSelectFormWidget extends SelectFormWidget {
-
+class ZoneSelectFormWidget extends SelectFormWidget
+{
     /**
      * {@inheritDoc}
      */
-    public function getOptions($request) {
+    public function getOptions($request)
+    {
         $options = parent::getOptions($request);
         // try to find a useful countryId, defaulting to store country Id
         $countryId = Runtime::getSettings()->get('storeCountry');

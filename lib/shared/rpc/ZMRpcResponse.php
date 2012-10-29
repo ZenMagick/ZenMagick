@@ -27,7 +27,8 @@
  * @author DerManoMann <mano@zenmagick.org>
  * @package org.zenmagick.mvc.rpc
  */
-interface ZMRpcResponse {
+interface ZMRpcResponse
+{
     const RC_INVALID_CREDENTIALS = 5;
     const RC_NO_CREDENTIALS = 6;
 

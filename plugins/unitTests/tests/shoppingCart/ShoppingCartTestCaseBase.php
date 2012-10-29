@@ -29,12 +29,13 @@ use ZenMagick\plugins\unitTests\simpletest\TestCase;
  * @package org.zenmagick.plugins.unitTests.tests
  * @author DerManoMann <mano@zenmagick.org>
  */
-class ShoppingCartTestCaseBase extends TestCase {
-
+class ShoppingCartTestCaseBase extends TestCase
+{
     /**
      * {@inheritDoc}
      */
-    public function setUp() {
+    public function setUp()
+    {
         parent::setUp();
 
         // some vales zencart's order class wants...
@@ -59,7 +60,8 @@ class ShoppingCartTestCaseBase extends TestCase {
     /**
      * {@inheritDoc}
      */
-    public function tearDown() {
+    public function tearDown()
+    {
         parent::tearDown();
         // clear session and database
         $_SESSION['cart']->reset(true);
@@ -70,7 +72,8 @@ class ShoppingCartTestCaseBase extends TestCase {
     /**
      * Get a shopping cart instance.
      */
-    protected function getShoppingCart() {
+    protected function getShoppingCart()
+    {
         $shoppingCart = new ShoppingCart();
         $shoppingCart->setContainer($this->container);
         $shoppingCart->setCheckoutHelper(new CheckoutHelper());
@@ -84,7 +87,8 @@ class ShoppingCartTestCaseBase extends TestCase {
      * @param int to The to value.
      * @param sting method The compare method.
      */
-    protected function compareRange($from, $to, $method) {
+    protected function compareRange($from, $to, $method)
+    {
         $range = array();
         for (; $from <= $to; ++$from) {
             $range[] = $from;
@@ -98,7 +102,8 @@ class ShoppingCartTestCaseBase extends TestCase {
      * @param array ids List of product ids to put into cart.
      * @return ShoppingCart The reference cart.
      */
-    protected function getReferenceCart($ids) {
+    protected function getReferenceCart($ids)
+    {
         // use to add products
         $referenceCart = $this->getShoppingCart();
         $textOptionPrefix = $this->container->get('settingsService')->get('textOptionPrefix');

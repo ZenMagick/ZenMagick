@@ -26,19 +26,21 @@ use ZenMagick\AdminBundle\Controller\PluginAdminController;
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class GoogleStoreLocatorAdminController extends PluginAdminController {
-
+class GoogleStoreLocatorAdminController extends PluginAdminController
+{
     /**
      * Create new instance.
      */
-    public function __construct() {
+    public function __construct()
+    {
         parent::__construct('googleStoreLocator');
     }
 
     /**
      * {@inheritDoc}
      */
-    public function getViewData($request) {
+    public function getViewData($request)
+    {
         return array(
             'adminKey' => $this->getPlugin()->get('adminKey'),
             'location' => $this->getPlugin()->get('location'),
@@ -49,7 +51,8 @@ class GoogleStoreLocatorAdminController extends PluginAdminController {
     /**
      * {@inheritDoc}
      */
-    public function processPost($request) {
+    public function processPost($request)
+    {
         $plugin = $this->getPlugin();
 
         foreach ($plugin->getConfigValues() as $configValue) {

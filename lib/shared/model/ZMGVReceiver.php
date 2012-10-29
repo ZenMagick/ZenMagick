@@ -28,7 +28,8 @@ use ZenMagick\Base\ZMObject;
  * @author DerManoMann
  * @package zenmagick.store.shared.model
  */
-class ZMGVReceiver extends ZMObject {
+class ZMGVReceiver extends ZMObject
+{
     private $name_;
     private $email_;
     private $amount_;
@@ -37,7 +38,8 @@ class ZMGVReceiver extends ZMObject {
     /**
      * Create new instance.
      */
-    public function __construct() {
+    public function __construct()
+    {
         parent::__construct();
         $this->name_ = null;
         $this->email_ = null;
@@ -99,7 +101,8 @@ class ZMGVReceiver extends ZMObject {
      *
      * @param string amount The (formatted) amount.
      */
-    public function setAmount($amount) {
+    public function setAmount($amount)
+    {
         // TODO: this should be passed into the method
         $currencyCode = $this->container->get('request')->getSession()->getCurrencyCode();
         $currency = $this->container->get('currencyService')->getCurrencyForCode($currencyCode);

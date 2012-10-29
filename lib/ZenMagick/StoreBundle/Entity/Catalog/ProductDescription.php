@@ -32,7 +32,8 @@ use Doctrine\ORM\Mapping as ORM;
  * })
  * @ORM\Entity
  */
-class ProductDescription {
+class ProductDescription
+{
     /**
      * @var object $product
      * @ORM\Id
@@ -84,7 +85,8 @@ class ProductDescription {
      * @param  integer            $productId
      * @return ProductDescription
      */
-    public function setProductId($productId) {
+    public function setProductId($productId)
+    {
         $this->productId = $productId;
         return $this;
     }
@@ -94,7 +96,8 @@ class ProductDescription {
      *
      * @return integer
      */
-    public function getProductId() {
+    public function getProductId()
+    {
         return $this->productId;
     }
 
@@ -104,7 +107,8 @@ class ProductDescription {
      * @param  integer            $languageId
      * @return ProductDescription
      */
-    public function setLanguageId($languageId) {
+    public function setLanguageId($languageId)
+    {
         $this->languageId = $languageId;
         return $this;
     }
@@ -114,7 +118,8 @@ class ProductDescription {
      *
      * @return integer
      */
-    public function getLanguageId() {
+    public function getLanguageId()
+    {
         return $this->languageId;
     }
 
@@ -124,7 +129,8 @@ class ProductDescription {
      * @param  string             $name
      * @return ProductDescription
      */
-    public function setName($name) {
+    public function setName($name)
+    {
         $this->name = $name;
         return $this;
     }
@@ -134,7 +140,8 @@ class ProductDescription {
      *
      * @return string
      */
-    public function getName() {
+    public function getName()
+    {
         return $this->name;
     }
 
@@ -144,7 +151,8 @@ class ProductDescription {
      * @param  string             $description
      * @return ProductDescription
      */
-    public function setDescription($description) {
+    public function setDescription($description)
+    {
         $this->description = $description;
         return $this;
     }
@@ -154,7 +162,8 @@ class ProductDescription {
      *
      * @return string
      */
-    public function getDescription() {
+    public function getDescription()
+    {
         return $this->description;
     }
 
@@ -164,7 +173,8 @@ class ProductDescription {
      * @param  string             $url
      * @return ProductDescription
      */
-    public function setUrl($url) {
+    public function setUrl($url)
+    {
         $this->url = $url;
         return $this;
     }
@@ -174,7 +184,8 @@ class ProductDescription {
      *
      * @return string
      */
-    public function getUrl() {
+    public function getUrl()
+    {
         return $this->url;
     }
 
@@ -184,7 +195,8 @@ class ProductDescription {
      * @param  integer            $viewed
      * @return ProductDescription
      */
-    public function setViewed($viewed) {
+    public function setViewed($viewed)
+    {
         $this->viewed = $viewed;
         return $this;
     }
@@ -194,7 +206,8 @@ class ProductDescription {
      *
      * @return integer
      */
-    public function getViewed() {
+    public function getViewed()
+    {
         return $this->viewed;
     }
 
@@ -204,7 +217,8 @@ class ProductDescription {
      * @param  ZenMagick\StoreBundle\Entity\Catalog\Product $product
      * @return ProductDescription
      */
-    public function setProduct(\ZenMagick\StoreBundle\Entity\Catalog\Product $product) {
+    public function setProduct(\ZenMagick\StoreBundle\Entity\Catalog\Product $product)
+    {
         $this->product = $product;
 
         return $this;
@@ -215,7 +229,8 @@ class ProductDescription {
      *
      * @return ZenMagick\StoreBundle\Entity\Catalog\Product
      */
-    public function getProduct() {
+    public function getProduct()
+    {
         return $this->product;
     }
 }

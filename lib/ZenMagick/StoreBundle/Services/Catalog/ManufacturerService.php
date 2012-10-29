@@ -28,13 +28,15 @@ use ZenMagick\Base\ZMObject;
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class ManufacturerService extends ZMObject {
+class ManufacturerService extends ZMObject
+{
     private $cache_;
 
     /**
      * Create new instance.
      */
-    public function __construct() {
+    public function __construct()
+    {
         parent::__construct();
         $this->cache_ = null;
     }
@@ -44,7 +46,8 @@ class ManufacturerService extends ZMObject {
      *
      * @param ZenMagick\Base\Cache\Cache cache The cache.
      */
-    public function setCache($cache) {
+    public function setCache($cache)
+    {
         $this->cache_ = $cache;
     }
 
@@ -53,7 +56,8 @@ class ManufacturerService extends ZMObject {
      *
      * @return ZenMagick\Base\Cache\Cache The cache.
      */
-    public function getCache() {
+    public function getCache()
+    {
         return $this->cache_;
     }
 
@@ -64,7 +68,8 @@ class ManufacturerService extends ZMObject {
      * @param int languageId Language id.
      * @return Manufacturer The manufacturer or <code>null</code>.
      */
-    public function getManufacturerForId($id, $languageId) {
+    public function getManufacturerForId($id, $languageId)
+    {
         $sql = "SELECT mi.*, m.*
                 FROM %table.manufacturers% m
                   LEFT JOIN %table.manufacturers_info% mi ON (m.manufacturers_id = mi.manufacturers_id AND mi.languages_id = :languageId)
@@ -87,7 +92,8 @@ class ManufacturerService extends ZMObject {
      * @param int languageId Language id.
      * @return Manufacturer The manufacturer or <code>null</code>.
      */
-    public function getManufacturerForName($name, $languageId) {
+    public function getManufacturerForName($name, $languageId)
+    {
         $sql = "SELECT mi.*, m.*
                 FROM %table.manufacturers% m
                   LEFT JOIN %table.manufacturers_info% mi ON (m.manufacturers_id = mi.manufacturers_id AND mi.languages_id = :languageId)
@@ -109,7 +115,8 @@ class ManufacturerService extends ZMObject {
      * @param Product product The product.
      * @return Manufacturer The manufacturer or </code>null</code>.
      */
-    public function getManufacturerForProduct($product) {
+    public function getManufacturerForProduct($product)
+    {
         return $this->getManufacturerForId($product->getManufacturerId(), $product->getLanguageId());
     }
 
@@ -119,7 +126,8 @@ class ManufacturerService extends ZMObject {
      * @param Manufacturer manufacturer The manufacturer.
      * @return Manufacturer The updated manufacturer.
      */
-    public function updateManufacturer($manufacturer) {
+    public function updateManufacturer($manufacturer)
+    {
         $manufacturer = \ZMRuntime::getDatabase()->updateModel('manufacturers', $manufacturer);
         \ZMRuntime::getDatabase()->updateModel('manufacturers_info', $manufacturer);
         return $manufacturer;
@@ -131,7 +139,8 @@ class ManufacturerService extends ZMObject {
      * @param Manufacturer manufacturer The manufacturer.
      * @return Manufacturer The created manufacturer.
      */
-    public function createManufacturer($manufacturer) {
+    public function createManufacturer($manufacturer)
+    {
         $manufacturer = \ZMRuntime::getDatabase()->createModel('manufacturers', $manufacturer);
         \ZMRuntime::getDatabase()->createModel('manufacturers_info', $manufacturer);
         return $manufacturer;
@@ -143,7 +152,8 @@ class ManufacturerService extends ZMObject {
      * @param int languageId Language id.
      * @return array List of <code>Manufacturer</code> instances.
      */
-    public function getManufacturers($languageId) {
+    public function getManufacturers($languageId)
+    {
         $sql = "SELECT mi.*, m.*
                 FROM %table.manufacturers% m
                   LEFT JOIN %table.manufacturers_info% mi ON (m.manufacturers_id = mi.manufacturers_id AND mi.languages_id = :languageId)
@@ -165,7 +175,8 @@ class ManufacturerService extends ZMObject {
      * @param int id The manufacturer id.
      * @param int languageId Language id.
      */
-    public function updateManufacturerClickCount($id, $languageId) {
+    public function updateManufacturerClickCount($id, $languageId)
+    {
         // clear global cache
         $cacheKey = Toolbox::hash('manufacturer', $languageId);
         $this->cache_->remove($cacheKey);

@@ -39,7 +39,8 @@ use Doctrine\ORM\Mapping AS ORM;
 
  * @ORM\Entity
  */
-class TaxRate extends ZMObject {
+class TaxRate extends ZMObject
+{
     const TAX_BASE_STORE = 'Store';
     const TAX_BASE_SHIPPING = 'Shipping';
     const TAX_BASE_BILLING = 'Billing';
@@ -104,7 +105,8 @@ class TaxRate extends ZMObject {
     /**
      * Create new instance.
      */
-    public function __construct() {
+    public function __construct()
+    {
         parent::__construct();
         $this->id = null;
         $this->rate = 0.00;
@@ -136,7 +138,8 @@ class TaxRate extends ZMObject {
      *
      * @return string $description The tax description.
      */
-    public function getDescription() {
+    public function getDescription()
+    {
         if (null == $this->description) {
             $this->description = $this->container->get('taxService')->getTaxDescription($this->classId, $this->countryId, $this->zoneId);
         }
@@ -256,7 +259,8 @@ class TaxRate extends ZMObject {
      * @param double amount The amount.
      * @return double The amount incl. tax.
      */
-    public function addTax($amount) {
+    public function addTax($amount)
+    {
         $currency = $this->getCurrency();
         if ($this->container->get('settingsService')->get('showPricesTaxIncluded') && 0 < $this->rate) {
             return round($amount + $this->getTaxAmount($amount), $currency->getDecimalPlaces());
@@ -271,7 +275,8 @@ class TaxRate extends ZMObject {
      * @param double amount The amount.
      * @return double The (non rounded) tax value.
      */
-    public function getTaxAmount($amount) {
+    public function getTaxAmount($amount)
+    {
         $currency = $this->getCurrency();
         return $amount * $this->rate / 100;
     }
@@ -281,7 +286,8 @@ class TaxRate extends ZMObject {
      *
      * @return Currency A currency.
      */
-    protected function getCurrency() {
+    protected function getCurrency()
+    {
         $currencyService = $this->container->get('currencyService');
         //TODO: decouple price calculations from product, etc into a place where language/currency/etc are provided in a sane way!
         $session = Runtime::getContainer()->get('session');

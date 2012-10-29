@@ -27,7 +27,8 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table(name="block_config")
  * @ORM\Entity
  */
-class BlockConfig {
+class BlockConfig
+{
     /**
      * @var integer $id
      *

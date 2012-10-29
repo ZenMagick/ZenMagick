@@ -28,13 +28,15 @@ use ZenMagick\Http\Blocks\Widgets\BlockWidget;
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class BlockManager extends ZMObject {
+class BlockManager extends ZMObject
+{
     private $mappings_;
 
     /**
      * Create new instance.
      */
-    public function __construct() {
+    public function __construct()
+    {
         parent::__construct();
         $this->mappings_ = array();
     }
@@ -44,7 +46,8 @@ class BlockManager extends ZMObject {
      *
      * @return array A list of <code>BlockProvider</code> instances.
      */
-    public function getProviders() {
+    public function getProviders()
+    {
         $providers = array();
         foreach ($this->container->get('containerTagService')->findTaggedServiceIds('zenmagick.http.blocks.provider') as $id => $args) {
             $providers[] = $this->container->get($id);
@@ -60,8 +63,8 @@ class BlockManager extends ZMObject {
      * @param array args Optional parameter; default is an empty array.
      * @return array List of <code>BlockWidget</code> instances.
      */
-    public function getBlocksForId($request, $groupId, $args) {
-
+    public function getBlocksForId($request, $groupId, $args)
+    {
         if (array_key_exists($groupId, $this->mappings_)) {
             // ensure bean definitions are resolved first...
             $group = array();
@@ -90,7 +93,8 @@ class BlockManager extends ZMObject {
      *
      * @param array mappings The mappings.
      */
-    public function setMappings($mappings) {
+    public function setMappings($mappings)
+    {
         $this->mappings_ = $mappings;
     }
 

@@ -27,12 +27,13 @@ use ZenMagick\plugins\unitTests\simpletest\TestCase;
  * @package org.zenmagick.plugins.unitTests.tests
  * @author DerManoMann <mano@zenmagick.org>
  */
-class TestSacsManager extends TestCase {
-
+class TestSacsManager extends TestCase
+{
     /**
      * Get a sacs manager.
      */
-    protected function getSacsManager() {
+    protected function getSacsManager()
+    {
         $sacsManager = new SacsManager();
         $sacsManager->load($this->getTestsBaseDirectory().'/http/config/user_role_sacs_mappings.yaml');
         return $sacsManager;
@@ -41,7 +42,8 @@ class TestSacsManager extends TestCase {
     /**
      * Test default mapping.
      */
-    public function testDefaultMapping() {
+    public function testDefaultMapping()
+    {
         $sacsManager = $this->getSacsManager();
         $this->assertEqual(array('secure' => true, 'roles' => array('admin')), $sacsManager->getDefaultMapping());
         // default
@@ -55,7 +57,8 @@ class TestSacsManager extends TestCase {
     /**
      * Test set mapping.
      */
-    public function testSetMapping() {
+    public function testSetMapping()
+    {
         $sacsManager = $this->getSacsManager();
         $sacsManager->setMapping('foo', array('secure' => false));
         $this->assertFalse($sacsManager->getMappingValue('foo', 'secure'));
@@ -64,7 +67,8 @@ class TestSacsManager extends TestCase {
     /**
      * Test requires security.
      */
-    public function testRequiresSecurity() {
+    public function testRequiresSecurity()
+    {
         $sacsManager = $this->getSacsManager();
         $this->assertTrue($sacsManager->requiresSecurity('login'));
     }

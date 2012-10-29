@@ -34,7 +34,8 @@ use ZenMagick\Base\ZMObject;
  * @ORM\Entity
  * @author DerManoMann
  */
-class OrderStatusHistory extends ZMObject {
+class OrderStatusHistory extends ZMObject
+{
     /**
      * @var integer $orderStatusHistoryId
      *
@@ -84,7 +85,8 @@ class OrderStatusHistory extends ZMObject {
     /**
      * Create new status.
      */
-    public function __construct() {
+    public function __construct()
+    {
         parent::__construct();
         $this->setId(0);
         $this->orderId = 0;

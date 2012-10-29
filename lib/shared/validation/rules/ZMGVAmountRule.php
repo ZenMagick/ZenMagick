@@ -29,15 +29,16 @@ use ZenMagick\Base\Runtime;
  * @author DerManoMann
  * @package zenmagick.store.shared.mvc.validation
  */
-class ZMGVAmountRule extends ZMRule {
-
+class ZMGVAmountRule extends ZMRule
+{
     /**
      * Create new required rule.
      *
      * @param string name The field name.
      * @param string msg Optional message.
      */
-    public function __construct($name, $msg=null) {
+    public function __construct($name, $msg=null)
+    {
         parent::__construct($name, "Invalid Gift Certificate value.", $msg);
     }
 
@@ -49,7 +50,8 @@ class ZMGVAmountRule extends ZMRule {
      * @param array data The data.
      * @return boolean <code>true</code> if the value for <code>$name</code> is valid, <code>false</code> if not.
      */
-    public function validate($request, $data) {
+    public function validate($request, $data)
+    {
         if (empty($data[$this->getName()])) {
             return true;
         }
@@ -79,7 +81,8 @@ class ZMGVAmountRule extends ZMRule {
      *
      * @return string Formatted JavaScript .
      */
-    public function toJSString() {
+    public function toJSString()
+    {
         return '';
     }
 

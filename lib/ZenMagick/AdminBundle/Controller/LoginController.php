@@ -24,12 +24,13 @@ namespace ZenMagick\AdminBundle\Controller;
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class LoginController extends \ZMController {
-
+class LoginController extends \ZMController
+{
     /**
      * {@inheritDoc}
      */
-    public function processGet($request) {
+    public function processGet($request)
+    {
         if (null != $this->getUser()) {
             return $this->findView('logged-in');
         }
@@ -40,7 +41,8 @@ class LoginController extends \ZMController {
     /**
      * {@inheritDoc}
      */
-    public function processPost($request) {
+    public function processPost($request)
+    {
         $name = $request->request->get('name');
 
         if (null == ($user = $this->container->get('adminUserService')->getUserForName($name))) {

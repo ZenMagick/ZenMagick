@@ -26,19 +26,21 @@ use Symfony\Component\EventDispatcher\GenericEvent;
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class AccountEditController extends \ZMController {
-
+class AccountEditController extends \ZMController
+{
     /**
      * {@inheritDoc}
      */
-    public function processGet($request) {
+    public function processGet($request)
+    {
         return $this->findView(null, array('account' => $this->getUser()));
     }
 
     /**
      * {@inheritDoc}
      */
-    public function processPost($request) {
+    public function processPost($request)
+    {
         $currentAccount = $this->getUser();
         $account = $this->getFormData($request)->getAccount();
 

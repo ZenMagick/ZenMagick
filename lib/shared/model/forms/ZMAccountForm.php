@@ -28,12 +28,13 @@ use ZenMagick\Http\Forms\FormData;
  * @author DerManoMann
  * @package zenmagick.store.shared.model.forms
  */
-class ZMAccountForm extends FormData {
-
+class ZMAccountForm extends FormData
+{
     /**
      * {@inheritDoc}
      */
-    public function populate(Request $request) {
+    public function populate(Request $request)
+    {
         $this->loadAccount();
         parent::populate($request);
     }
@@ -41,7 +42,8 @@ class ZMAccountForm extends FormData {
     /**
      * Init with current account settings.
      */
-    private function loadAccount() {
+    private function loadAccount()
+    {
         // prepopulate with current account
         $account = $this->container->get('request')->getAccount();
         // move into Beans to wrap unsets of propertynames, attachedM, etc.
@@ -60,7 +62,8 @@ class ZMAccountForm extends FormData {
      *
      * @return ZenMagick\StoreBundle\Entity\Account\Account An account.
      */
-    public function getAccount() {
+    public function getAccount()
+    {
         $account = Beans::getBean('ZenMagick\StoreBundle\Entity\Account\Account');
         $properties = $this->getProperties();
 

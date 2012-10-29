@@ -27,12 +27,13 @@ use ZenMagick\StoreBundle\Themes\ThemeEventListener;
  * @author DerManoMann
  * @package zenmagick.themes.KeepItSimple
  */
-class EventListener extends ThemeEventListener {
-
+class EventListener extends ThemeEventListener
+{
     /**
      * {@inheritDoc}
      */
-    public function themeLoaded($event) {
+    public function themeLoaded($event)
+    {
         $templateManager = $this->container->get('templateManager');
         $templateManager->setRightColBoxes(array('categories.php', 'manufacturers.php', 'information.php', 'banner_box.php'));
         $requestId = $this->container->get('request')->getRequestId();

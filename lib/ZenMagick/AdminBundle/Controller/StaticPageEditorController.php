@@ -24,19 +24,21 @@ namespace ZenMagick\AdminBundle\Controller;
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class StaticPageEditorController extends \ZMController {
-
+class StaticPageEditorController extends \ZMController
+{
     /**
      * {@inheritDoc}
      */
-    public function processGet($request) {
+    public function processGet($request)
+    {
         return $this->findView();
     }
 
     /**
      * {@inheritDoc}
      */
-    public function processPost($request) {
+    public function processPost($request)
+    {
         if ($this->handleDemo()) {
             return $this->findView('success-demo');
         }

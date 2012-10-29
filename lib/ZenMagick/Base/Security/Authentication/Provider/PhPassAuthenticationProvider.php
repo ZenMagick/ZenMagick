@@ -29,27 +29,31 @@ use ZenMagick\Base\Security\Authentication\AuthenticationProvider;
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class PhPassAuthenticationProvider implements AuthenticationProvider {
+class PhPassAuthenticationProvider implements AuthenticationProvider
+{
     protected $hash;
 
     /**
      * Create instance.
      */
-    public function __construct() {
+    public function __construct()
+    {
         $this->hash = new Hash();
     }
 
     /**
      * {@inheritDoc}
      */
-    public function encryptPassword($plaintext, $salt=null) {
+    public function encryptPassword($plaintext, $salt=null)
+    {
         return $this->hash->hashPassword($plaintext);
     }
 
     /**
      * {@inheritDoc}
      */
-    public function validatePassword($plaintext, $encrypted) {
+    public function validatePassword($plaintext, $encrypted)
+    {
         return $this->hash->checkPassword($plaintext, $encrypted);
     }
 

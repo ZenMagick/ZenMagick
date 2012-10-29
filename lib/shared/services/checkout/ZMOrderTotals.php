@@ -29,13 +29,15 @@ use ZenMagick\StoreBundle\Entity\Order\OrderTotalLine;
  * @author DerManoMann
  * @package zenmagick.store.shared.services.checkout
  */
-class ZMOrderTotals extends ZMObject {
+class ZMOrderTotals extends ZMObject
+{
     private $orderTotals;
 
     /**
      * Create new instance.
      */
-    public function __construct() {
+    public function __construct()
+    {
         parent::__construct();
         $this->orderTotals = null;
     }
@@ -46,7 +48,8 @@ class ZMOrderTotals extends ZMObject {
      * @param  ShoppingCart $shoppingCart The current shopping cart.
      * @return array        zencart order totals.
      */
-    protected function getZenTotals(ShoppingCart $shoppingCart) {
+    protected function getZenTotals(ShoppingCart $shoppingCart)
+    {
     global $order, $shipping_modules;
 
         // save
@@ -83,7 +86,8 @@ class ZMOrderTotals extends ZMObject {
      * @param boolean force Optional flag to force a reload; default is <code>false</code>.
      * @return array List of <code>ZMOrderTotal</code> instances.
      */
-    public function getOrderTotals(ShoppingCart $shoppingCart, $force=false) {
+    public function getOrderTotals(ShoppingCart $shoppingCart, $force=false)
+    {
         if ($force || null === $this->orderTotals) {
             $this->orderTotals = array();
             if (null != ($zenTotals = $this->getZenTotals($shoppingCart))) {

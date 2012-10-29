@@ -27,7 +27,8 @@ use ZenMagick\Http\View\ResourceManager;
  * @author DerManoMann <mano@zenmagick.org>
  * @package zenmagick.plugins.minify.view
  */
-class MinifyResourceManager extends ResourceManager {
+class MinifyResourceManager extends ResourceManager
+{
     private $plugin_;
 
     /**
@@ -35,7 +36,8 @@ class MinifyResourceManager extends ResourceManager {
      *
      * @return ZMPlugin A plugin or <code>null</code>.
      */
-    public function getPlugin() {
+    public function getPlugin()
+    {
         if (null == $this->plugin_) {
             $this->plugin_ = $this->container->get('pluginService')->getPluginForId('minify');
         }
@@ -46,7 +48,8 @@ class MinifyResourceManager extends ResourceManager {
     /**
      * {@inheritDoc}
      */
-    public function resolveResource($resource) {
+    public function resolveResource($resource)
+    {
         if ($this->isExternal($resource)) {
             return $resource;
         }
@@ -61,7 +64,8 @@ class MinifyResourceManager extends ResourceManager {
      * @param int limit The limit.
      * @return array One or more lists of URIs where each will be below the url limit.
      */
-    protected function ensureLimit($uriList, $limit) {
+    protected function ensureLimit($uriList, $limit)
+    {
         $s = implode(',', $uriList);
         $cnt = count($uriList);
         if (strlen($s) > $limit && 1 < $cnt) {
@@ -83,7 +87,8 @@ class MinifyResourceManager extends ResourceManager {
      * @param string location The location.
      * @return The content.
      */
-    protected function handleJSResourceGroup($files, $group, $location) {
+    protected function handleJSResourceGroup($files, $group, $location)
+    {
         $plugin = $this->getPlugin();
         $baseFUrl = sprintf('%s/f=', $plugin->pluginURL('public/min'));
         $urlLimit = $plugin->get('urlLimit');
@@ -176,7 +181,8 @@ class MinifyResourceManager extends ResourceManager {
      * @param string location The location.
      * @return The content.
      */
-    protected function handleCSSResourceGroup($files, $group, $location) {
+    protected function handleCSSResourceGroup($files, $group, $location)
+    {
         $plugin = $this->getPlugin();
         $baseFUrl = sprintf('%s/f=', $plugin->pluginURL('public/min'));
         $urlLimit = $plugin->get('urlLimit');
@@ -318,7 +324,8 @@ class MinifyResourceManager extends ResourceManager {
     /**
      * {@inheritDoc}
      */
-    public function handleResourceGroup($files, $group, $location) {
+    public function handleResourceGroup($files, $group, $location)
+    {
         switch ($group) {
         case 'js':
             return $this->handleJSResourceGroup($files, $group, $location);

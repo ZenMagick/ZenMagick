@@ -28,12 +28,13 @@ use ZenMagick\plugins\unitTests\simpletest\TestCase;
  * @package org.zenmagick.plugins.unitTests.tests
  * @author DerManoMann <mano@zenmagick.org>
  */
-class SimpleProductAssociationHandler extends TestCase implements ProductAssociationHandler {
-
+class SimpleProductAssociationHandler extends TestCase implements ProductAssociationHandler
+{
     /**
      * {@inheritDoc}
      */
-    public function getType() {
+    public function getType()
+    {
         return "simple";
     }
 
@@ -45,7 +46,8 @@ class SimpleProductAssociationHandler extends TestCase implements ProductAssocia
      * @param boolean all Optional flag to load all configured products, regardless of start/end date, etc; default is <code>false</code>.
      * @return array A list of <code>ZMProductAssociation</code> instances.
      */
-    public function getProductAssociationsForProductId($productId, $args=null, $all=false) {
+    public function getProductAssociationsForProductId($productId, $args=null, $all=false)
+    {
         $assoc = array();
         if (13 == $productId) {
             $assoc[] = new ProductAssociation(13);

@@ -32,12 +32,13 @@ use ZenMagick\Http\Request;
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class FormData extends ZMObject implements Form {
-
+class FormData extends ZMObject implements Form
+{
     /**
      * {@inheritDoc}
      */
-    public function populate(Request $request) {
+    public function populate(Request $request)
+    {
         Beans::setAll($this, $request->getParameterMap(), null);
     }
 

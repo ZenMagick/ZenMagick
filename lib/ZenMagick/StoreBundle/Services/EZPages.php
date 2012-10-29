@@ -30,12 +30,13 @@ use ZenMagick\Base\Database\SqlAware;
  *
  * @author DerManoMann
  */
-class EZPages extends ZMObject implements SqlAware {
-
+class EZPages extends ZMObject implements SqlAware
+{
     /**
      * {@inheritDoc}
      */
-    public function getQueryDetails($method=null, $args=array()) {
+    public function getQueryDetails($method=null, $args=array())
+    {
         $methods = array('getAllPages');
         if (in_array($method, $methods)) {
             return call_user_func_array(array($this, $method.'QueryDetails'), $args);
@@ -50,7 +51,8 @@ class EZPages extends ZMObject implements SqlAware {
      * @param string mode Optional mode to define what to load - <em>all</em>, <em>pages</em> or <em>static</em>; default is <em>pages</em>.
      * @return array List of <code>ZenMagick\StoreBundle\Entity\EZPage</code> instances.
      */
-    protected function getAllPagesQueryDetails($languageId, $mode='pages') {
+    protected function getAllPagesQueryDetails($languageId, $mode='pages')
+    {
         $sql = "SELECT *
                 FROM %table.ezpages%";
         $sql .= " WHERE languages_id = :languageId";
@@ -77,7 +79,8 @@ class EZPages extends ZMObject implements SqlAware {
      * @param string mode Optional mode to define what to load - <em>all</em>, <em>pages</em> or <em>static</em>; default is <em>pages</em>.
      * @return array List of <code>ZenMagick\StoreBundle\Entity\EZPage</code> instances.
      */
-    public function getAllPages($languageId, $mode='pages') {
+    public function getAllPages($languageId, $mode='pages')
+    {
         $details = $this->getAllPagesQueryDetails($languageId, $mode);
         return $details->query();
     }
@@ -89,7 +92,8 @@ class EZPages extends ZMObject implements SqlAware {
      * @param int languageId The languageId.
      * @return ZenMagick\StoreBundle\Entity\EZPage A new instance or <code>null</code>.
      */
-    public function getPageForId($pageId, $languageId) {
+    public function getPageForId($pageId, $languageId)
+    {
         $sql = "SELECT *
                 FROM %table.ezpages%
                 WHERE pages_id = :id";
@@ -104,7 +108,8 @@ class EZPages extends ZMObject implements SqlAware {
      * @param int languageId The languageId.
      * @return ZenMagick\StoreBundle\Entity\EZPage A new instance or <code>null</code>.
      */
-    public function getPageForName($name, $languageId) {
+    public function getPageForName($name, $languageId)
+    {
         $sql = "SELECT *
                 FROM %table.ezpages%
                 WHERE pages_title = :title";
@@ -119,7 +124,8 @@ class EZPages extends ZMObject implements SqlAware {
      * @param int languageId The languageId.
      * @return array List of <code>ZenMagick\StoreBundle\Entity\EZPage</code> instances.
      */
-    public function getPagesForChapterId($chapterId, $languageId) {
+    public function getPagesForChapterId($chapterId, $languageId)
+    {
         $sql = "SELECT *
                 FROM %table.ezpages%
                 WHERE ((status_toc = 1 AND toc_sort_order <> 0) AND toc_chapter= :tocChapter)
@@ -135,7 +141,8 @@ class EZPages extends ZMObject implements SqlAware {
      * @param int languageId The languageId.
      * @return array List of <code>ZenMagick\StoreBundle\Entity\EZPage</code> instances.
      */
-    public function getPagesForHeader($languageId) {
+    public function getPagesForHeader($languageId)
+    {
         $sql = "SELECT *
                 FROM %table.ezpages%
                 WHERE status_header = 1
@@ -151,7 +158,8 @@ class EZPages extends ZMObject implements SqlAware {
      * @param int languageId The languageId.
      * @return array List of <code>ZenMagick\StoreBundle\Entity\EZPage</code> instances.
      */
-    public function getPagesForSidebar($languageId) {
+    public function getPagesForSidebar($languageId)
+    {
         $sql = "SELECT *
                 FROM %table.ezpages%
                 WHERE status_sidebox = 1
@@ -167,7 +175,8 @@ class EZPages extends ZMObject implements SqlAware {
      * @param int languageId The languageId.
      * @return array List of <code>ZenMagick\StoreBundle\Entity\EZPage</code> instances.
      */
-    public function getPagesForFooter($languageId) {
+    public function getPagesForFooter($languageId)
+    {
         $sql = "SELECT *
                 FROM %table.ezpages%
                 WHERE status_footer = 1
@@ -183,7 +192,8 @@ class EZPages extends ZMObject implements SqlAware {
      * @param ZenMagick\StoreBundle\Entity\EZPage page The page to create.
      * @return ZenMagick\StoreBundle\Entity\EZPage The updated (keys, etc) instance.
      */
-    public function createPage($page) {
+    public function createPage($page)
+    {
         return ZMRuntime::getDatabase()->createModel('ezpages', $page);
     }
 
@@ -193,7 +203,8 @@ class EZPages extends ZMObject implements SqlAware {
      * @param ZenMagick\StoreBundle\Entity\EZPage page The page to update.
      * @return boolean <code>true</code> for success.
      */
-    public function updatePage($page) {
+    public function updatePage($page)
+    {
         ZMRuntime::getDatabase()->updateModel('ezpages', $page);
         return true;
     }
@@ -204,7 +215,8 @@ class EZPages extends ZMObject implements SqlAware {
      * @param ZenMagick\StoreBundle\Entity\EZPage page The page to delete.
      * @return boolean <code>true</code> for success.
      */
-    public function removePage($page) {
+    public function removePage($page)
+    {
         ZMRuntime::getDatabase()->removeModel('ezpages', $page);
         return true;
     }

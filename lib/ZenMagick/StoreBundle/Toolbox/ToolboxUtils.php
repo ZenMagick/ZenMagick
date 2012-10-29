@@ -29,15 +29,16 @@ use ZenMagick\StoreBundle\Model\Checkout\ShoppingCart;
  *
  * @author DerManoMann
  */
-class ToolboxUtils extends ToolboxTool {
-
+class ToolboxUtils extends ToolboxTool
+{
     /**
      * Simple title generator based on the page name.
      *
      * @param string page The page name; default is <code>null</code> for the current page.
      * @return string A reasonable page title.
      */
-    public function getTitle($page=null) {
+    public function getTitle($page=null)
+    {
         $title = null == $page ? $this->getRequest()->getRequestId() : $page;
         // special case for static pages
         $title = 'static' != $title ? $title : $this->getRequest()->query->get('cat');
@@ -59,7 +60,8 @@ class ToolboxUtils extends ToolboxTool {
      *  convert before formatting.
      * @return string The formatted amount.
      */
-    public function formatMoney($amount, $convert=true) {
+    public function formatMoney($amount, $convert=true)
+    {
         $currencyService = $this->container->get('currencyService');
         if (Runtime::isContextMatch('storefront')) {
             // @todo we shouldn't be getting it from the request
@@ -82,7 +84,8 @@ class ToolboxUtils extends ToolboxTool {
      * @param ShoppingCart shoppingCart The cart to examine.
      * @return boolean <code>true</code> if this cart qualifies for free shipping.
      */
-    public function isFreeShipping(ShoppingCart $shoppingCart) {
+    public function isFreeShipping(ShoppingCart $shoppingCart)
+    {
         return $shoppingCart->getCheckoutHelper()->isFreeShipping();
     }
 
@@ -92,7 +95,8 @@ class ToolboxUtils extends ToolboxTool {
      * @param string pageName The page name.
      * @return string The content or <code>null</code>.
      */
-    public function staticPageContent($pageName) {
+    public function staticPageContent($pageName)
+    {
         $languageId = $this->getRequest()->getSession()->getLanguageId();
         if (empty($languageId)) {
             // XXX: when called in admin
@@ -126,7 +130,8 @@ class ToolboxUtils extends ToolboxTool {
      * @param function formatter Optional formatting method for all values; signature is <code>formatter($obj, $name, $value)</code>.
      * @return array Associative array of methods values.
      */
-    public function flattenObject($obj, $properties=null, $formatter=null) {
+    public function flattenObject($obj, $properties=null, $formatter=null)
+    {
         $props = null;
 
         if (is_array($obj)) {
@@ -169,7 +174,8 @@ class ToolboxUtils extends ToolboxTool {
      * @param string url2 Optional second URL; default is <code>null</code> to compare to the current URL.
      * @return boolean <code>true</code> if URLs are considered equal (based on various URL parameters).
      */
-    public function compareStoreUrl($url1, $url2=null) {
+    public function compareStoreUrl($url1, $url2=null)
+    {
         $request = $this->getRequest();
         // just in case
         $url1 = str_replace('&amp;', '&', $url1);

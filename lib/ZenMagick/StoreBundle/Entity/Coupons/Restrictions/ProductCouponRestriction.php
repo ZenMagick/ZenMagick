@@ -28,7 +28,8 @@ use ZenMagick\Base\ZMObject;
  *
  * @author DerManoMann
  */
-class ProductCouponRestriction extends ZMObject {
+class ProductCouponRestriction extends ZMObject
+{
     private $allowed_;
     private $productId_;
 
@@ -38,7 +39,8 @@ class ProductCouponRestriction extends ZMObject {
      * @param boolean allowed The allowed flag.
      * @param int productId The product id this restriction applies to.
      */
-    public function __construct($allowed, $productId) {
+    public function __construct($allowed, $productId)
+    {
         parent::__construct();
         $this->allowed_ = $allowed;
         $this->productId_ = $productId;
@@ -49,7 +51,8 @@ class ProductCouponRestriction extends ZMObject {
      *
      * @return boolean <code>true</code> if this coupon restriction is allowed, <code>false</code> if not.
      */
-    public function isAllowed() {
+    public function isAllowed()
+    {
         return $this->allowed_;
     }
 

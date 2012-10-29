@@ -27,12 +27,13 @@ use ZenMagick\Http\Sacs\SacsHandler;
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class DefaultSacsHandler extends ZMObject implements SacsHandler {
-
+class DefaultSacsHandler extends ZMObject implements SacsHandler
+{
     /**
      * {@inheritDoc}
      */
-    public function getName() {
+    public function getName()
+    {
         return get_class();
     }
 
@@ -41,7 +42,8 @@ class DefaultSacsHandler extends ZMObject implements SacsHandler {
      *
      * <p>Always return <code>true</code.</p>
      */
-    public function evaluate($requestId, $credentials, $manager) {
+    public function evaluate($requestId, $credentials, $manager)
+    {
         return true;
     }
 

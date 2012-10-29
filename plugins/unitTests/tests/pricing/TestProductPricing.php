@@ -28,12 +28,13 @@ use ZenMagick\plugins\unitTests\simpletest\TestCase;
  * @package org.zenmagick.plugins.unitTests.tests
  * @author DerManoMann <mano@zenmagick.org>
  */
-class TestProductPricing extends TestCase {
-
+class TestProductPricing extends TestCase
+{
     /**
      * Test product base price.
      */
-    public function testBasePrice() {
+    public function testBasePrice()
+    {
         foreach ($this->container->get('productService')->getAllProducts(false, 1) as $product) {
             $offers = $product->getOffers();
             // without tax
@@ -44,7 +45,8 @@ class TestProductPricing extends TestCase {
     /**
      * Test special price.
      */
-    public function testSpecialPrice() {
+    public function testSpecialPrice()
+    {
         foreach ($this->container->get('productService')->getAllProducts(false, 1) as $product) {
             $offers = $product->getOffers();
             // without tax
@@ -55,7 +57,8 @@ class TestProductPricing extends TestCase {
     /**
      * Test sale price.
      */
-    public function testSalePrice() {
+    public function testSalePrice()
+    {
         foreach ($this->container->get('productService')->getAllProducts(false, 1) as $product) {
             $offers = $product->getOffers();
             // without tax

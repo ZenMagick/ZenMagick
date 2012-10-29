@@ -26,7 +26,8 @@ use ZenMagick\Base\ZMObject;
  *
  * @author DerManoMann <mano@zenmagick.org> <mano@zenmagick.org>
  */
-class QueryDetails extends ZMObject {
+class QueryDetails extends ZMObject
+{
     private $database_;
     private $sql_;
     private $args_;
@@ -46,7 +47,8 @@ class QueryDetails extends ZMObject {
      * @param string modelClass The class name; default is <code>null</code>.
      * @param string countCol The column SQL to use for counting; default is <code>null</code> to compute.
      */
-    public function __construct($database, $sql, $args=array(), $mapping=null, $modelClass=null, $countCol=null) {
+    public function __construct($database, $sql, $args=array(), $mapping=null, $modelClass=null, $countCol=null)
+    {
         parent::__construct();
         $this->database_ = $database;
         $this->sql_ = $sql;
@@ -61,7 +63,8 @@ class QueryDetails extends ZMObject {
      *
      * @return string The database.
      */
-    public function getDatabase() {
+    public function getDatabase()
+    {
         return $this->database_;
     }
 
@@ -70,7 +73,8 @@ class QueryDetails extends ZMObject {
      *
      * @return string The sql.
      */
-    public function getSql() {
+    public function getSql()
+    {
         return $this->sql_;
     }
 
@@ -79,7 +83,8 @@ class QueryDetails extends ZMObject {
      *
      * @return array The parameter.
      */
-    public function getArgs() {
+    public function getArgs()
+    {
         return $this->args_;
     }
 
@@ -88,7 +93,8 @@ class QueryDetails extends ZMObject {
      *
      * @return mixed The mapping.
      */
-    public function getMapping() {
+    public function getMapping()
+    {
         return $this->mapping_;
     }
 
@@ -97,7 +103,8 @@ class QueryDetails extends ZMObject {
      *
      * @return string The model class.
      */
-    public function getModelClass() {
+    public function getModelClass()
+    {
         return $this->modelClass_;
     }
 
@@ -106,7 +113,8 @@ class QueryDetails extends ZMObject {
      *
      * @return string The SQL fragment.
      */
-    public function getCountCol() {
+    public function getCountCol()
+    {
         return $this->countCol_;
     }
 
@@ -116,7 +124,8 @@ class QueryDetails extends ZMObject {
      * @param string sql Optional sql; default is <code>null</code> to use the original SQL.
      * @return mixed array Results.
      */
-    public function query($sql=null) {
+    public function query($sql=null)
+    {
         return $this->database_->fetchAll(null != $sql ? $sql : $this->sql_, $this->args_, $this->mapping_, $this->modelClass_);
     }
 

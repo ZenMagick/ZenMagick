@@ -24,12 +24,13 @@ namespace ZenMagick\AdminBundle\Controller;
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class LogoffController extends \ZMController {
-
+class LogoffController extends \ZMController
+{
     /**
      * {@inheritDoc}
      */
-    public function processGet($request) {
+    public function processGet($request)
+    {
         $request->getSession()->invalidate();
         return $this->findView('success');
     }

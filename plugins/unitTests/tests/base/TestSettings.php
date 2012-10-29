@@ -28,12 +28,13 @@ use ZenMagick\plugins\unitTests\simpletest\TestCase;
  * @package org.zenmagick.plugins.unitTests.tests
  * @author DerManoMann <mano@zenmagick.org>
  */
-class TestSettings extends TestCase {
-
+class TestSettings extends TestCase
+{
     /**
      * Test append.
      */
-    public function testAppendNew() {
+    public function testAppendNew()
+    {
         $settings = new Settings();
         $key = 'a.b.n@@';
         $value = 'doh';
@@ -53,7 +54,8 @@ class TestSettings extends TestCase {
     /**
      * Test append multiple.
      */
-    public function testAppendMultiple() {
+    public function testAppendMultiple()
+    {
         $settings = new Settings();
         $key = 'a.b.c.o@@@@';
         $old = null;
@@ -74,7 +76,8 @@ class TestSettings extends TestCase {
     /**
      * Test add new value.
      */
-    public function testAddNewValue() {
+    public function testAddNewValue()
+    {
         $settings = new Settings();
         $key = 'a.b.n@@';
         $value = 'doh';
@@ -88,7 +91,8 @@ class TestSettings extends TestCase {
     /**
      * Test add existing value.
      */
-    public function testAddExistingValue() {
+    public function testAddExistingValue()
+    {
         $settings = new Settings();
         $key = 'a.b.n@@';
         $value = 'doh';
@@ -106,7 +110,8 @@ class TestSettings extends TestCase {
     /**
      * Test new value.
      */
-    public function testNewValue() {
+    public function testNewValue()
+    {
         $settings = new Settings();
         $key = 'a.b.n@@';
         $pkey = 'a.b';
@@ -122,7 +127,8 @@ class TestSettings extends TestCase {
     /**
      * Test update value.
      */
-    public function testUpdateValue() {
+    public function testUpdateValue()
+    {
         $settings = new Settings();
         $key = 'a.b.n@@';
         $value = 'doh';
@@ -138,7 +144,8 @@ class TestSettings extends TestCase {
     /**
      * Test slash.
      */
-    public function testSlash() {
+    public function testSlash()
+    {
         $settings = new Settings();
         $skey = 'a/b/n@@';
         $dkey = 'a.b.n@@';
@@ -158,7 +165,8 @@ class TestSettings extends TestCase {
      * Test strtok.
      * TODO: move into toolbox test
      */
-    public function testStrtok() {
+    public function testStrtok()
+    {
         $path = 'a.b.c.d.e';
         $explodeElements = explode('.', $path);
         $this->assertEqual($explodeElements, Toolbox::mexplode('./', $path));

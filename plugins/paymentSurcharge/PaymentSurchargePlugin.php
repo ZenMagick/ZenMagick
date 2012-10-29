@@ -28,12 +28,13 @@ use ZenMagick\StoreBundle\Model\Checkout\ShoppingCart;
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class PaymentSurchargePlugin extends Plugin implements \ZMOrderTotal {
-
+class PaymentSurchargePlugin extends Plugin implements \ZMOrderTotal
+{
     /**
      * {@inheritDoc}
      */
-    public function calculate($request, ShoppingCart $shoppingCart) {
+    public function calculate($request, ShoppingCart $shoppingCart)
+    {
         $paymentType = $shoppingCart->getSelectedPaymentType();
 
         // iterate over all conditions

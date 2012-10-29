@@ -31,8 +31,8 @@ use ZenMagick\Base\ZMObject;
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class RssFeedGenerator extends ZMObject {
-
+class RssFeedGenerator extends ZMObject
+{
     /**
      * Generate feed data.
      *
@@ -40,7 +40,8 @@ class RssFeedGenerator extends ZMObject {
      * @param RssFeed feed The feed.
      * @return string The feed data.
      */
-    public function generate($request, RssFeed $feed) {
+    public function generate($request, RssFeed $feed)
+    {
         ob_start();
         $this->rssHeader($request, $feed->getChannel());
         $gcCount = 0;
@@ -61,7 +62,8 @@ class RssFeedGenerator extends ZMObject {
      * @param boolean tag Optinal flag indicating that <code>$s</code> is a tag.
      * @return string Encoded string.
      */
-    protected function encode($s, $tag=false) {
+    protected function encode($s, $tag=false)
+    {
         $encoding = array(
             '<' => '&lt;',
             '>' => '&gt;',
@@ -98,7 +100,8 @@ class RssFeedGenerator extends ZMObject {
      * @param ZenMagick\Http\Request request The current request.
      * @param RssChannel channel The channel data.
      */
-    protected function rssHeader($request, $channel) {
+    protected function rssHeader($request, $channel)
+    {
         $lines = array(
             '<?xml version="1.0" encoding="UTF-8"?>',
             '<!-- generator="ZenMagick '.Runtime::getSettings()->get('zenmagick.version').'" -->',
@@ -124,7 +127,8 @@ class RssFeedGenerator extends ZMObject {
      * @param mixed value The value.
      * @param string indent The leading whitespace.
      */
-    protected function tagValue($value, $indent) {
+    protected function tagValue($value, $indent)
+    {
         if (is_array($value)) {
             echo "\n";
             $tindent = '  '.$indent;
@@ -146,7 +150,8 @@ class RssFeedGenerator extends ZMObject {
      * @param mixed obj The object.
      * @param string indent The leading whitespace.
      */
-    protected function customTags($obj, $indent) {
+    protected function customTags($obj, $indent)
+    {
         foreach ($obj->getTags() as $tag) {
             $tag = $this->encode($tag, true);
             $value = $obj->get($tag);
@@ -169,7 +174,8 @@ class RssFeedGenerator extends ZMObject {
      * @param ZenMagick\Http\Request request The current request.
      * @param RssItem item The item to render.
      */
-    protected function rssItem($request, $item) {
+    protected function rssItem($request, $item)
+    {
         $netTool = Runtime::getContainer()->get('netTool');
         echo "  <item>\n";
         echo "   <title>".$this->encode($item->getTitle())."</title>\n";
@@ -188,7 +194,8 @@ class RssFeedGenerator extends ZMObject {
     /**
      * Write RSS footer.
      */
-    protected function rssFooter() {
+    protected function rssFooter()
+    {
         $lines = array(
           ' </channel>',
           '</rss>'

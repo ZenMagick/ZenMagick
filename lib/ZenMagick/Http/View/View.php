@@ -24,7 +24,8 @@ namespace ZenMagick\Http\View;
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-interface View {
+interface View
+{
     const TEMPLATE = 'template:';
     const RESOURCE = 'resource:';
 

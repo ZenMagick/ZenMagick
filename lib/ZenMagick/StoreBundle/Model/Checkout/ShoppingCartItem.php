@@ -32,7 +32,8 @@ use ZenMagick\Base\ZMObject;
  *
  * @author DerManoMann
  */
-class ShoppingCartItem extends ZMObject {
+class ShoppingCartItem extends ZMObject
+{
     private $shoppingCart;
     private $id_;
     private $quantity_;
@@ -47,7 +48,8 @@ class ShoppingCartItem extends ZMObject {
      * @param ShoppingCart shoppingCart The cart this item belongs to.
      * @todo store upload id in attribute value id
      */
-    public function __construct(ShoppingCart $shoppingCart=null) {
+    public function __construct(ShoppingCart $shoppingCart=null)
+    {
         parent::__construct();
         $this->shoppingCart = $shoppingCart;
         $this->id_ = null;
@@ -62,7 +64,8 @@ class ShoppingCartItem extends ZMObject {
      *
      * @param ShoppingCart shoppingCart The cart this item belongs to.
      */
-    public function setShoppingCart(ShoppingCart $shoppingCart) {
+    public function setShoppingCart(ShoppingCart $shoppingCart)
+    {
         $this->shoppingCart = $shoppingCart;
     }
 
@@ -71,7 +74,8 @@ class ShoppingCartItem extends ZMObject {
      *
      * @param array attributeData item attribute data.
      */
-    public function populateAttributes($attributeData) {
+    public function populateAttributes($attributeData)
+    {
         if (!isset($attributeData['attributes']) || !is_array($attributeData['attributes'])) {
             $this->setAttributes(array());
             return;
@@ -144,7 +148,8 @@ class ShoppingCartItem extends ZMObject {
      * @param ZenMagick\StoreBundle\Entity\Address address Optional tax address; default is <code>null</code> to default to the shopping cart tax address.
      * @return TaxRate The tax rate or <code>null</code>.
      */
-    public function getTaxRate($address=null) {
+    public function getTaxRate($address=null)
+    {
         $address = null != $address ? $address : $this->shoppingCart->getTaxAddress();
         $countryId = null != $address ? $address->getCountryId() : 0;
         $zoneId = null != $address ? $address->getZoneId() : 0;
@@ -157,7 +162,8 @@ class ShoppingCartItem extends ZMObject {
      * @param ZenMagick\StoreBundle\Entity\Address address Optional tax address; default is <code>null</code> to default to the shopping cart tax address.
      * @return array List of <code>TaxRate</code> instances.
      */
-    public function getTaxRates($address=null) {
+    public function getTaxRates($address=null)
+    {
         $address = null != $address ? $address : $this->shoppingCart->getTaxAddress();
         $countryId = null != $address ? $address->getCountryId() : 0;
         $zoneId = null != $address ? $address->getZoneId() : 0;
@@ -171,7 +177,8 @@ class ShoppingCartItem extends ZMObject {
      *
      * @return string The product/sku id.
      */
-    public function getId() {
+    public function getId()
+    {
         return $this->id_;
     }
 
@@ -180,7 +187,8 @@ class ShoppingCartItem extends ZMObject {
      *
      * @param string id The product/sku id.
      */
-    public function setId($id) {
+    public function setId($id)
+    {
         $this->id_ = $id;
     }
 
@@ -193,7 +201,8 @@ class ShoppingCartItem extends ZMObject {
      *
      * @return int The product id.
      */
-    public function getProductId() {
+    public function getProductId()
+    {
         return ShoppingCart::getBaseProductIdFor($this->getId());
     }
 
@@ -202,7 +211,8 @@ class ShoppingCartItem extends ZMObject {
      *
      * @return int The cart quantity.
      */
-    public function getQuantity() {
+    public function getQuantity()
+    {
         return $this->quantity_;
     }
 
@@ -211,7 +221,8 @@ class ShoppingCartItem extends ZMObject {
      *
      * @param int quantity The cart quantity.
      */
-    public function setQuantity($quantity) {
+    public function setQuantity($quantity)
+    {
         $this->quantity_ = $quantity;
     }
 
@@ -220,7 +231,8 @@ class ShoppingCartItem extends ZMObject {
      *
      * @return ZenMagick\StoreBundle\Entity\Catalog\Product The product.
      */
-    public function getProduct() {
+    public function getProduct()
+    {
         return $this->container->get('productService')->getProductForId($this->getProductId());
     }
 
@@ -229,7 +241,8 @@ class ShoppingCartItem extends ZMObject {
      *
      * @return float The full weight.
      */
-    public function getWeight() {
+    public function getWeight()
+    {
         $weight = (float) $this->getProduct()->getWeight();
         foreach ($this->getAttributes() as $attribute) {
             foreach ($attribute->getValues() as $value) {
@@ -247,7 +260,8 @@ class ShoppingCartItem extends ZMObject {
      * @return boolean <code>true</code> if there are attributes (values) available,
      *  <code>false</code> if not.
      */
-    public function hasAttributes() {
+    public function hasAttributes()
+    {
         return 0 != $this->getAttributes();
     }
 
@@ -257,7 +271,8 @@ class ShoppingCartItem extends ZMObject {
      * @param boolean tax Optional flag to include/exlcude tax; default is <code>true</code> to include tax.
      * @return float The price for a single item.
      */
-    public function getItemTotal($tax=true) {
+    public function getItemTotal($tax=true)
+    {
         $total = $this->getItemPrice(false) * $this->getQuantity();
         return $tax ? $this->getTaxRate()->addTax($total) : $total;
     }
@@ -267,7 +282,8 @@ class ShoppingCartItem extends ZMObject {
      *
      * @return boolean <code>true</code> if sufficient stock is available, <code>false</code> if not.
      */
-    public function isStockAvailable() {
+    public function isStockAvailable()
+    {
         return $this->container->get('productService')->isQuantityAvailable($this->getId(), $this->getQuantity());
     }
 
@@ -277,7 +293,8 @@ class ShoppingCartItem extends ZMObject {
      * @param boolean tax Optional flag to include/exlcude tax; default is <code>true</code> to include tax.
      * @return float The price for a single item.
      */
-    public function getItemPrice($tax=true) {
+    public function getItemPrice($tax=true)
+    {
         return $tax ? $this->getTaxRate()->addTax($this->itemPrice_) : $this->itemPrice_;
     }
 
@@ -286,7 +303,8 @@ class ShoppingCartItem extends ZMObject {
      *
      * @param float itemPrice The price for a single item (excl. tax).
      */
-    public function setItemPrice($itemPrice) {
+    public function setItemPrice($itemPrice)
+    {
         $this->itemPrice_ = $itemPrice;
     }
 
@@ -295,7 +313,8 @@ class ShoppingCartItem extends ZMObject {
      *
      * @return boolean <code>true</code> if a one time charge is set.
      */
-    public function hasOneTimeCharge() {
+    public function hasOneTimeCharge()
+    {
         // don't need tax for this
         return 0 != $this->getOneTimeCharge(false);
     }
@@ -306,7 +325,8 @@ class ShoppingCartItem extends ZMObject {
      * @param boolean tax Optional flag to include/exlcude tax; default is <code>true</code> to include tax.
      * @return float The amount.
      */
-    public function getOneTimeCharge($tax=true) {
+    public function getOneTimeCharge($tax=true)
+    {
         return $tax ? $this->getTaxRate()->addTax($this->oneTimeCharge_) : $this->oneTimeCharge_;
     }
 
@@ -315,7 +335,8 @@ class ShoppingCartItem extends ZMObject {
      *
      * @param float amount The amount.
      */
-    public function setOneTimeCharge($amount) {
+    public function setOneTimeCharge($amount)
+    {
         $this->oneTimeCharge_ = $amount;
     }
 
@@ -324,7 +345,8 @@ class ShoppingCartItem extends ZMObject {
      *
      * @param array attributes List of product attributes.
      */
-    public function setAttributes($attributes) {
+    public function setAttributes($attributes)
+    {
         $this->attributes_ = $attributes;
     }
 
@@ -333,7 +355,8 @@ class ShoppingCartItem extends ZMObject {
      *
      * @return array List of product attributes.
      */
-    public function getAttributes() {
+    public function getAttributes()
+    {
         return $this->attributes_;
     }
 
@@ -344,7 +367,8 @@ class ShoppingCartItem extends ZMObject {
      * @param int quantity Optional quantity; default is <code>null</code> to use the quantity set on the item.
      * @return float The attributes value.
      */
-    public function getAttributesPrice($tax=true, $quantity=null) {
+    public function getAttributesPrice($tax=true, $quantity=null)
+    {
         $price = 0;
         $quantity = null === $quantity ? $this->quantity_ : $quantity;
         $productIsFree = $this->getProduct()->isFree();
@@ -370,7 +394,8 @@ class ShoppingCartItem extends ZMObject {
      * @param int quantity Optional quantity; default is <code>null</code> to use the quantity set on the item.
      * @return float The attributes value.
      */
-    public function getAttributesOneTimePrice($tax=true, $quantity=null) {
+    public function getAttributesOneTimePrice($tax=true, $quantity=null)
+    {
         $price = 0;
         $quantity = null === $quantity ? $this->quantity_ : $quantity;
         foreach ($this->attributes_ as $attribute) {

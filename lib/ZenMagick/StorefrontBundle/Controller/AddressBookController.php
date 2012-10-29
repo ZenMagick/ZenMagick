@@ -24,12 +24,13 @@ namespace ZenMagick\StorefrontBundle\Controller;
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class AddressBookController extends \ZMController {
-
+class AddressBookController extends \ZMController
+{
     /**
      * {@inheritDoc}
      */
-    public function processGet($request) {
+    public function processGet($request)
+    {
         $addressList = $this->container->get('addressService')->getAddressesForAccountId($this->getUser()->getId());
         return $this->findView(null, array('addressList' => $addressList));
     }

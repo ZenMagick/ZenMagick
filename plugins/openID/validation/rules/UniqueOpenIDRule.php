@@ -27,22 +27,24 @@ use ZMRule;
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class UniqueOpenIDRule extends ZMRule {
-
+class UniqueOpenIDRule extends ZMRule
+{
     /**
      * Create new required rule.
      *
      * @param string name The field name.
      * @param string msg Optional message.
      */
-    public function __construct($name, $msg=null) {
+    public function __construct($name, $msg=null)
+    {
         parent::__construct($name, "OpenID already in use.", $msg);
     }
 
     /**
      * {@inheritDoc}
      */
-    public function validate($request, $data) {
+    public function validate($request, $data)
+    {
         $plugin = $this->container->get('pluginService')->getPluginForId('openID');
         $openid = $data[$this->getName()];
         $idExists = null != $plugin->getAccountForOpenID($openid);
@@ -54,7 +56,8 @@ class UniqueOpenIDRule extends ZMRule {
     /**
      * {@inheritDoc}
      */
-    public function toJSString() {
+    public function toJSString()
+    {
         return '';
     }
 

@@ -24,8 +24,8 @@ namespace ZenMagick\StoreBundle\Services\Catalog;
  *
  * @author DerManoMann
  */
-interface ProductAssociationHandler {
-
+interface ProductAssociationHandler
+{
     /**
      * Get the type this handler handles.
      *

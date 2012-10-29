@@ -27,12 +27,13 @@ use ZenMagick\Base\Beans;
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class AccountHistoryController extends \ZMController {
-
+class AccountHistoryController extends \ZMController
+{
     /**
      * {@inheritDoc}
      */
-    public function processGet($request) {
+    public function processGet($request)
+    {
         $resultSource = new \ZMObjectResultSource('ZenMagick\StoreBundle\Entity\Order\Order', 'orderService', "getOrdersForAccountId", array($this->getUser()->getId(), $request->getSession()->getLanguageId()));
         $resultList = Beans::getBean('ZMResultList');
         $resultList->setResultSource($resultSource);

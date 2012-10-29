@@ -27,8 +27,8 @@ use ZenMagick\AdminBundle\Installation\InstallationPatch;
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class FilePatch extends InstallationPatch {
-
+class FilePatch extends InstallationPatch
+{
     protected $fileOwner_ = null;
     protected $fileGroup_ = null;
 
@@ -37,7 +37,8 @@ class FilePatch extends InstallationPatch {
      *
      * @param string id Id of the patch.
      */
-    public function __construct($id) {
+    public function __construct($id)
+    {
         parent::__construct($id);
         clearstatcache();
     }
@@ -47,7 +48,8 @@ class FilePatch extends InstallationPatch {
      *
      * @return string The patch group id.
      */
-    public function getGroupId() {
+    public function getGroupId()
+    {
         return 'file';
     }
 
@@ -57,7 +59,8 @@ class FilePatch extends InstallationPatch {
      * @param string file The filename.
      * @return array File contents as lines or <code>null</code>.
      */
-    public function getFileLines($file) {
+    public function getFileLines($file)
+    {
         $lines = array();
         if (file_exists($file)) {
             $handle = @fopen($file, 'rb');
@@ -80,7 +83,8 @@ class FilePatch extends InstallationPatch {
      * @param array lines The  lines to write.
      * @return boolean <code>true</code> if successful, <code>false</code> if not.
      */
-    public function putFileLines($file, $lines) {
+    public function putFileLines($file, $lines)
+    {
         $fileExists = file_exists($file);
         $handle = fopen($file, 'wb');
         if ($handle) {
@@ -105,7 +109,8 @@ class FilePatch extends InstallationPatch {
      * @param string file The filename.
      * @return string The file contents or <code>null</code>.
      */
-    public function readFile($file) {
+    public function readFile($file)
+    {
         $handle = @fopen($file, 'rb');
         if ($handle) {
             $contents = fread($handle, filesize($file));
@@ -123,7 +128,8 @@ class FilePatch extends InstallationPatch {
      * @param string contents The file contents.
      * @return boolean <code>true</code> if successful, <code>false</code> if not.
      */
-    public function writeFile($file, $contents) {
+    public function writeFile($file, $contents)
+    {
         $fileExists = file_exists($file);
         $handle = @fopen($file, 'wb');
         if ($handle) {
@@ -144,7 +150,8 @@ class FilePatch extends InstallationPatch {
      * @param array fktFilesCfg The file / function name / function suffix mapping(s).
      * @return boolean <code>true</code> if any patches are open.
      */
-    public function isFilesFktOpen($fktFilesCfg) {
+    public function isFilesFktOpen($fktFilesCfg)
+    {
         foreach ($fktFilesCfg as $file => $fktCfgs) {
             // for each file...
             $lines = $this->getFileLines($file);
@@ -172,7 +179,8 @@ class FilePatch extends InstallationPatch {
      * @param array fktFilesCfg The file / function name / function suffix mapping(s).
      * @return boolean <code>true</code> if patching was successful, <code>false</code> if not.
      */
-    public function patchFilesFkt($fktFilesCfg) {
+    public function patchFilesFkt($fktFilesCfg)
+    {
         $patchOk = true;
         foreach ($fktFilesCfg as $file => $fktCfgs) {
             // for each file...
@@ -213,7 +221,8 @@ class FilePatch extends InstallationPatch {
      * @param array fktFilesCfg The file / function name / function suffix mapping(s).
      * @return boolean <code>true</code> if patching was successful, <code>false</code> if not.
      */
-    public function undoFilesFkt($fktFilesCfg) {
+    public function undoFilesFkt($fktFilesCfg)
+    {
         $undoOk = true;
         foreach ($fktFilesCfg as $file => $fktCfgs) {
             // for each file...
@@ -259,7 +268,8 @@ class FilePatch extends InstallationPatch {
      *
      * @todo rewrite to use Symfony\Component\Filesystem methods.
      */
-    public function setFilePerms($files, $recursive=false, $perms=array()) {
+    public function setFilePerms($files, $recursive=false, $perms=array())
+    {
         $settingsService = Runtime::getSettings();
         if (!$settingsService->get('zenmagick.core.fs.permissions.fix')) {
             return;

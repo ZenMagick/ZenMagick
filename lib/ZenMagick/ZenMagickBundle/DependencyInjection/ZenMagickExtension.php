@@ -30,13 +30,14 @@ use Symfony\Component\DependencyInjection\Loader\PhpFileLoader;
 
 /**
  */
-class ZenMagickExtension extends Extension {
-
+class ZenMagickExtension extends Extension
+{
     /**
      * @todo seems like this functionality should already be
      * available?
      */
-    protected function getLoader(ContainerBuilder $container, FileLocator $locator) {
+    protected function getLoader(ContainerBuilder $container, FileLocator $locator)
+    {
         $resolver = new LoaderResolver(array(
             new XmlFileLoader($container, $locator),
             new PhpFileLoader($container, $locator),
@@ -47,7 +48,8 @@ class ZenMagickExtension extends Extension {
     /**
      * {@inheritDoc}
      */
-    public function load(array $configs, ContainerBuilder $container) {
+    public function load(array $configs, ContainerBuilder $container)
+    {
         $context = $container->getParameter('kernel.context');
         // @todo use bundle Resources for all all these files.
         $rootDir = dirname($container->getParameter('kernel.root_dir'));
@@ -80,7 +82,8 @@ class ZenMagickExtension extends Extension {
     /**
      * {@inheritDoc}
      */
-    public function getAlias() {
+    public function getAlias()
+    {
         return 'zenmagick';
     }
 }

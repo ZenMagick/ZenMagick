@@ -29,7 +29,8 @@ use Symfony\Component\DependencyInjection\ContainerAwareInterface;
  * @author DerManoMann <mano@zenmagick.org>
  * @package org.zenmagick.plugins.liftSuggest
  */
-class ZMLiftSuggestLookup extends LiftSuggestLookup implements ContainerAwareInterface {
+class ZMLiftSuggestLookup extends LiftSuggestLookup implements ContainerAwareInterface
+{
     const SESSION_NAMESPACE = null;
     private $plugin_;
     private $container;
@@ -39,7 +40,8 @@ class ZMLiftSuggestLookup extends LiftSuggestLookup implements ContainerAwareInt
      *
      * @param ZMPlugin plugin The related plugin or <code>null</code>.
      */
-    public function __construct($plugin=null) {
+    public function __construct($plugin=null)
+    {
         $this->plugin_ = null != $plugin ? $plugin : Runtime::getContainer()->get('pluginService')->getPluginForId('liftSuggest');
         parent::__construct($this->plugin_->getLiftSuggestConfig());
     }
@@ -47,21 +49,24 @@ class ZMLiftSuggestLookup extends LiftSuggestLookup implements ContainerAwareInt
     /**
      * {@inheritDoc}
      */
-    public function setContainer(ContainerInterface $container=null) {
+    public function setContainer(ContainerInterface $container=null)
+    {
         $this->container = $container;
     }
 
     /**
      * {@inheritDoc}
      */
-    public function log($message, $e=null) {
+    public function log($message, $e=null)
+    {
         Runtime::getLogging()->debug($message.(null != $e ? 'ex: '.$e : ''));
     }
 
     /**
      * {@inheritDoc}
      */
-    public function storeInSession($key, $value) {
+    public function storeInSession($key, $value)
+    {
         $session = $this->container->get('session');
         $session->set(self::SESSION_NAMESPACE.'.'.$key, $value);
     }
@@ -69,7 +74,8 @@ class ZMLiftSuggestLookup extends LiftSuggestLookup implements ContainerAwareInt
     /**
      * {@inheritDoc}
      */
-    public function getFromSession($key, $default=null) {
+    public function getFromSession($key, $default=null)
+    {
         $session = $this->container->get('session');
         $session->get(self::SESSION_NAMESPACE.'.'.$key, $default);
     }
@@ -77,7 +83,8 @@ class ZMLiftSuggestLookup extends LiftSuggestLookup implements ContainerAwareInt
     /**
      * {@inheritDoc}
      */
-    public function populate($raw) {
+    public function populate($raw)
+    {
         $recommendations = new ZMLiftSuggestRecommendations();
         $recommended = $this->getFromSession('reco_prods', array());
 

@@ -26,12 +26,13 @@ use ZenMagick\Http\Sacs\SacsManager;
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class ManageRolesController extends \ZMController {
-
+class ManageRolesController extends \ZMController
+{
     /**
      * {@inheritDoc}
      */
-    public function getViewData($request) {
+    public function getViewData($request)
+    {
         $roles = $this->container->get('adminUserRoleService')->getAllRoles();
         $sacsManager = $this->container->get('sacsManager');
         $mappings = $sacsManager->getMappings();
@@ -42,7 +43,8 @@ class ManageRolesController extends \ZMController {
     /**
      * {@inheritDoc}
      */
-    public function processPost($request) {
+    public function processPost($request)
+    {
         $adminUserRoleService = $this->container->get('adminUserRoleService');
         if (null == ($newRole = $request->request->get('newRole'))) {
             // check for changes

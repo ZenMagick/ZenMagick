@@ -26,12 +26,13 @@ use ZenMagick\StoreBundle\Entity\Coupons\CouponQueue;
  *
  * @author DerManoMann
  */
-class MockCouponQueue extends CouponQueue {
-
+class MockCouponQueue extends CouponQueue
+{
     /**
      * Create new instance.
      */
-    public function __construct() {
+    public function __construct()
+    {
         parent::__construct();
         $this->setAccountId(3);
         $this->setOrderId(5);

@@ -28,12 +28,13 @@ use ZenMagick\plugins\unitTests\simpletest\TestCase;
  * @package org.zenmagick.plugins.unitTests.tests
  * @author DerManoMann <mano@zenmagick.org>
  */
-class TestAttributePricing extends TestCase {
-
+class TestAttributePricing extends TestCase
+{
     /**
      * Test attribute price.
      */
-    public function testValuePrice() {
+    public function testValuePrice()
+    {
         foreach ($this->container->get('productService')->getAllProducts(false, 1) as $product) {
             foreach ($product->getAttributes() as $attribute) {
                 foreach ($attribute->getValues() as $value) {
@@ -55,7 +56,8 @@ class TestAttributePricing extends TestCase {
     /**
      * Test one time price.
      */
-    public function testValueOneTimePrice() {
+    public function testValueOneTimePrice()
+    {
         foreach ($this->container->get('productService')->getAllProducts(false, 1) as $product) {
             foreach ($product->getAttributes() as $attribute) {
                 foreach ($attribute->getValues() as $value) {

@@ -28,12 +28,13 @@ use ZenMagick\Http\View\ModelAndView;
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class CouponHelpController extends \ZMController {
-
+class CouponHelpController extends \ZMController
+{
     /**
      * Show.
      */
-    public function showAction($cID, Request $request, Session $session) {
+    public function showAction($cID, Request $request, Session $session)
+    {
         $coupon = $this->container->get('couponService')->getCouponForId($request->getParameter('cID'), $session->getLanguageId());
         return new ModelAndView(null, array('coupon' => $coupon));
     }

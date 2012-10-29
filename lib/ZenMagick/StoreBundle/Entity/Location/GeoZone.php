@@ -27,7 +27,8 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table(name="geo_zones")
  * @ORM\Entity
  */
-class GeoZone {
+class GeoZone
+{
     /**
      * @var integer $geoZoneId
      *

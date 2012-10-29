@@ -41,12 +41,13 @@ use ZMRuntime;
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class BirthdayEmailCronJob implements CronJobInterface {
-
+class BirthdayEmailCronJob implements CronJobInterface
+{
     /**
      * {@inheritDoc}
      */
-    public function execute() {
+    public function execute()
+    {
         $container = $this->container;
         $settingsService = $container->get('settingsService');
 

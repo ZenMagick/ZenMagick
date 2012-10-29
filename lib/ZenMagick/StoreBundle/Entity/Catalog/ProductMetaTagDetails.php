@@ -28,7 +28,8 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table(name="meta_tags_products_description")
  * @ORM\Entity
  */
-class ProductMetaTagDetails {
+class ProductMetaTagDetails
+{
     /**
      * @var integer $productId
      *

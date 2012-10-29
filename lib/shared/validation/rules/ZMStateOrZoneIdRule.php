@@ -31,15 +31,16 @@ use ZenMagick\Base\Runtime;
  * @author DerManoMann
  * @package zenmagick.store.shared.mvc.validation
  */
-class ZMStateOrZoneIdRule extends ZMRule {
-
+class ZMStateOrZoneIdRule extends ZMRule
+{
     /**
      * Create new required rule.
      *
      * @param string name The field name.
      * @param string msg Optional message.
      */
-    public function __construct($name, $msg=null) {
+    public function __construct($name, $msg=null)
+    {
         parent::__construct($name, "Please enter a state.", $msg);
     }
 
@@ -50,7 +51,8 @@ class ZMStateOrZoneIdRule extends ZMRule {
      * @param array data The data.
      * @return boolean <code>true</code> if the value for <code>$name</code> is valid, <code>false</code> if not.
      */
-    public function validate($request, $data) {
+    public function validate($request, $data)
+    {
         if (!Runtime::getSettings()->get('isAccountState')) {
             return true;
         }
@@ -90,7 +92,8 @@ class ZMStateOrZoneIdRule extends ZMRule {
      *
      * @return string Formatted JavaScript .
      */
-    public function toJSString() {
+    public function toJSString()
+    {
         return '';
     }
 

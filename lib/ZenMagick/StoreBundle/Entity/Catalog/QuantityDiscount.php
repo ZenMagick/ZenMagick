@@ -35,7 +35,8 @@ use Doctrine\ORM\Mapping AS ORM;
  * })
  * @ORM\Entity
  */
-class QuantityDiscount extends ZMObject {
+class QuantityDiscount extends ZMObject
+{
     /**
      * @var integer $productId
      *
@@ -71,7 +72,8 @@ class QuantityDiscount extends ZMObject {
     /**
      * Create new instance.
      */
-    public function __construct() {
+    public function __construct()
+    {
         parent::__construct();
         $this->setId(0);
         $this->productId = 0;

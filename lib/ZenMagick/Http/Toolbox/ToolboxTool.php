@@ -26,7 +26,8 @@ use ZenMagick\Base\ZMObject;
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class ToolboxTool extends ZMObject {
+class ToolboxTool extends ZMObject
+{
     protected $toolbox_;
     protected $view_;
 
@@ -35,7 +36,8 @@ class ToolboxTool extends ZMObject {
      *
      * @return ZenMagick\Http\Request The current request.
      */
-    public function getRequest() {
+    public function getRequest()
+    {
         return $this->container->get('request');
     }
 
@@ -44,7 +46,8 @@ class ToolboxTool extends ZMObject {
      *
      * @param Toolbox toolbox The toolbox.
      */
-    public function setToolbox($toolbox) {
+    public function setToolbox($toolbox)
+    {
         $this->toolbox_ = $toolbox;
     }
 
@@ -53,7 +56,8 @@ class ToolboxTool extends ZMObject {
      *
      * @return Toolbox The toolbox.
      */
-    public function getToolbox() {
+    public function getToolbox()
+    {
         return $this->toolbox_;
     }
 
@@ -62,7 +66,8 @@ class ToolboxTool extends ZMObject {
      *
      * @param View view The view.
      */
-    public function setView($view) {
+    public function setView($view)
+    {
         $this->view_ = $view;
     }
 
@@ -71,7 +76,8 @@ class ToolboxTool extends ZMObject {
      *
      * @return View The view.
      */
-    public function getView() {
+    public function getView()
+    {
         return $this->view_;
     }
 

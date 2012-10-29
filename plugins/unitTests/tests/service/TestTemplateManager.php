@@ -26,12 +26,13 @@ use ZenMagick\plugins\unitTests\simpletest\TestCase;
  * @package org.zenmagick.plugins.unitTests.tests
  * @author DerManoMann <mano@zenmagick.org>
  */
-class TestTemplateManager extends TestCase {
-
+class TestTemplateManager extends TestCase
+{
     /**
      * Test field length.
      */
-    public function testFieldLength() {
+    public function testFieldLength()
+    {
         $fields = array(
             // table, column, expected value
             array('table' => 'customers', 'column' => 'customers_email_address', 'expected' => 96),

@@ -28,12 +28,13 @@ use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class ConfigureContainerTagServicePass implements CompilerPassInterface {
-
+class ConfigureContainerTagServicePass implements CompilerPassInterface
+{
     /**
      * {@inheritDoc}
      */
-    public function process(ContainerBuilder $container) {
+    public function process(ContainerBuilder $container)
+    {
         $tags = array();
         foreach ($container->getDefinitions() as $id => $definition) {
             $tags[$id] = $definition->getTags();

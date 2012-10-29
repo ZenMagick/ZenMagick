@@ -26,7 +26,8 @@ use ZenMagick\Base\ZMObject;
  * @author DerManoMann
  * @package zenmagick.store.shared.model
  */
-class ZMContactInfo extends ZMObject {
+class ZMContactInfo extends ZMObject
+{
     private $name_;
     private $email_;
     private $recipient_;
@@ -39,7 +40,8 @@ class ZMContactInfo extends ZMObject {
      * @param string email The contacts email address.
      * @param string message An optional message.
      */
-    public function __construct($name=null, $email=null, $message=null) {
+    public function __construct($name=null, $email=null, $message=null)
+    {
         parent::__construct();
         $this->name_ = $name;
         $this->email_ = $email;

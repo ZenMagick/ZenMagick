@@ -28,14 +28,16 @@ use ZenMagick\Http\View\ResourceResolver;
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class ThemeResourceResolver extends ResourceResolver {
+class ThemeResourceResolver extends ResourceResolver
+{
     private $request;
     private $languageId;
 
     /**
      * Create new instance.
      */
-    public function __construct() {
+    public function __construct()
+    {
         parent::__construct();
         $this->request = null;
         $this->languageId = Runtime::getSettings()->get('storeDefaultLanguageId');
@@ -46,7 +48,8 @@ class ThemeResourceResolver extends ResourceResolver {
      *
      * @param ZenMagick\Http\Request request The request.
      */
-    public function setRequest(Request $request) {
+    public function setRequest(Request $request)
+    {
         $this->request = $request;
         $this->languageId = $request->getSession()->getLanguageId();
     }
@@ -56,14 +59,16 @@ class ThemeResourceResolver extends ResourceResolver {
      *
      * @return ZenMagick\Http\Request The request.
      */
-    public function getRequest() {
+    public function getRequest()
+    {
         return $this->request;
     }
 
     /**
      * {@inheritDoc}
      */
-    protected function getApplicationTemplateLocations() {
+    protected function getApplicationTemplateLocations()
+    {
         $locations = parent::getApplicationTemplateLocations();
 
         foreach ($this->container->get('themeService')->getThemeChain($this->languageId) as $theme) {
@@ -80,7 +85,8 @@ class ThemeResourceResolver extends ResourceResolver {
     /**
      * {@inheritDoc}
      */
-    protected function getApplicationResourceLocations() {
+    protected function getApplicationResourceLocations()
+    {
         $locations = parent::getApplicationResourceLocations();
 
         foreach ($this->container->get('themeService')->getThemeChain($this->languageId) as $theme) {

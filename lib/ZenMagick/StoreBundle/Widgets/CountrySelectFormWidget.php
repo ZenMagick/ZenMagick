@@ -26,12 +26,13 @@ use ZenMagick\Http\Widgets\Form\SelectFormWidget;
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class CountrySelectFormWidget extends SelectFormWidget {
-
+class CountrySelectFormWidget extends SelectFormWidget
+{
     /**
      * {@inheritDoc}
      */
-    public function getOptions($request) {
+    public function getOptions($request)
+    {
         $options = parent::getOptions($request);
         foreach ($this->container->get('countryService')->getCountries() as $country) {
             $options[$country->getId()] = $country->getName();

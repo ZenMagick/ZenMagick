@@ -26,12 +26,13 @@ use ZenMagick\plugins\unitTests\simpletest\TestCase;
  * @package org.zenmagick.plugins.unitTests.tests
  * @author DerManoMann <mano@zenmagick.org>
  */
-class TestCountryService extends TestCase {
-
+class TestCountryService extends TestCase
+{
     /**
      * Test load country.
      */
-    public function testLoadCountry() {
+    public function testLoadCountry()
+    {
         $country = $this->container->get('countryService')->getCountryForId(14);
         $this->assertNotNull($country);
         $this->assertEqual(14, $country->getId());
@@ -41,7 +42,8 @@ class TestCountryService extends TestCase {
     /**
      * Test get zones.
      */
-    public function testGetZones() {
+    public function testGetZones()
+    {
         $zones = $this->container->get('countryService')->getZonesForCountryId(14);
         $this->assertNotNull($zones);
         $this->assertEqual(9, count($zones));
@@ -50,7 +52,8 @@ class TestCountryService extends TestCase {
     /**
      * Test get zone.
      */
-    public function testGetZoneCode() {
+    public function testGetZoneCode()
+    {
         $this->assertEqual('BL', $this->container->get('countryService')->getZoneCode(14, 102));
     }
 

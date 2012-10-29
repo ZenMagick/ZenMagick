@@ -31,7 +31,8 @@ use Doctrine\ORM\Mapping as ORM;
  *  })
  * @ORM\Entity
  */
-class BannerHistory {
+class BannerHistory
+{
     /**
      * @var integer $id
      *

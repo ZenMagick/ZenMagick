@@ -26,7 +26,8 @@ use ZenMagick\Base\ZMObject;
  * @author DerManoMann
  * @package zenmagick.store.shared.model
  */
-class ZMGVRedeem extends ZMObject {
+class ZMGVRedeem extends ZMObject
+{
     private $couponCode_;
     private $amount_;
     private $redeemed_;
@@ -34,7 +35,8 @@ class ZMGVRedeem extends ZMObject {
     /**
      * Create new instance.
      */
-    public function __construct() {
+    public function __construct()
+    {
         parent::__construct();
         $this->couponCode_ = null;
         $this->amount_ = 0;

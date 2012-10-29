@@ -28,13 +28,13 @@ use Symfony\Component\DependencyInjection\ContainerBuilder;
 
 /**
  */
-class ZenCartExtension extends Extension {
-
+class ZenCartExtension extends Extension
+{
     /**
      * {@inheritDoc}
      */
-    public function load(array $configs, ContainerBuilder $container) {
-
+    public function load(array $configs, ContainerBuilder $container)
+    {
         $config = array();
         foreach ($configs as $subConfig) {
             $config = array_merge($config, $subConfig);
@@ -74,7 +74,8 @@ class ZenCartExtension extends Extension {
      * @param string zcRootDir path to zencart root
      * @return string
      */
-    protected function guessZcAdminDir($zcRootDir) {
+    protected function guessZcAdminDir($zcRootDir)
+    {
         $finder = Finder::create()->files()->in($zcRootDir)->depth('== 1')
             ->name('featured.php')->name('specials.php');
 
@@ -88,7 +89,8 @@ class ZenCartExtension extends Extension {
     /**
      * {@inheritDoc}
      */
-    public function getAlias() {
+    public function getAlias()
+    {
         return 'zencart';
     }
 }

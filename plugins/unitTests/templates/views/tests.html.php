@@ -48,7 +48,8 @@
     <script type="text/javascript" src="<?php echo $this->asUrl('js/jquery.treeview.pack.js') ?>"></script>
     <script type="text/javascript">
       // select/unselect all
-      function sync_all(box) {
+      function sync_all(box)
+      {
         var boxes = document.getElementsByTagName('input');
         for (var ii=0; ii<boxes.length; ++ii) {
           if ((0 == boxes[ii].id.indexOf(box.id+'-') || 'all__all' == box.id) && !boxes[ii].disabled) {

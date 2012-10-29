@@ -28,13 +28,15 @@ use ZenMagick\Base\ZMObject;
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class ForwardView extends ZMObject implements View {
+class ForwardView extends ZMObject implements View
+{
     private $requestId_;
 
     /**
      * Create a new forward view.
      */
-    public function __construct() {
+    public function __construct()
+    {
         parent::__construct();
         $this->requestId_ = null;
     }
@@ -46,7 +48,8 @@ class ForwardView extends ZMObject implements View {
      *
      * @return string The request id.
      */
-    public function getRequestId() {
+    public function getRequestId()
+    {
         return $this->requestId_;
     }
 
@@ -55,14 +58,16 @@ class ForwardView extends ZMObject implements View {
      *
      * @param string requestId The request id.
      */
-    public function setRequestId($requestId) {
+    public function setRequestId($requestId)
+    {
         $this->requestId_ = $requestId;
     }
 
     /**
      * {@inheritDoc}
      */
-    public function isValid() {
+    public function isValid()
+    {
         $requestId = $this->getRequestId();
         return !empty($requestId);
     }
@@ -70,7 +75,8 @@ class ForwardView extends ZMObject implements View {
     /**
      * {@inheritDoc}
      */
-    public function generate($request, $template=null, $variables=array()) {
+    public function generate($request, $template=null, $variables=array())
+    {
         // keep reference to original request
         $request->query->set('rootRequestId', $request->getRequestId());
         // set forward id

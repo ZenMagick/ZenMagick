@@ -29,7 +29,8 @@ use ZenMagick\Base\ZMObject;
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class ResourceManager extends ZMObject {
+class ResourceManager extends ZMObject
+{
     const HEADER = 'header';
     const FOOTER = 'footer';
     const NOW = 'now';
@@ -42,7 +43,8 @@ class ResourceManager extends ZMObject {
     /**
      * Create new instance.
      */
-    public function __construct() {
+    public function __construct()
+    {
         parent::__construct();
         $this->resources_ = array('css' => array(), 'js' => array());
         $this->resourcesAsTemplates_ = false;
@@ -56,7 +58,8 @@ class ResourceManager extends ZMObject {
      *
      * @param array virtualPathMap The mapping.
      */
-    public function setVirtualPathMap(array $virtualPathMap) {
+    public function setVirtualPathMap(array $virtualPathMap)
+    {
         $this->virtualPathMap = $virtualPathMap;
     }
 
@@ -67,7 +70,8 @@ class ResourceManager extends ZMObject {
      *
      * @param View view The view.
      */
-    public function setView(View $view) {
+    public function setView(View $view)
+    {
         $this->view = $view;
     }
 
@@ -76,7 +80,8 @@ class ResourceManager extends ZMObject {
      *
      * @return View The view.
      */
-    public function getView() {
+    public function getView()
+    {
         return $this->view;
     }
 
@@ -87,7 +92,8 @@ class ResourceManager extends ZMObject {
      *
      * @param boolean value The new value.
      */
-    public function setResourcesAsTemplates($value) {
+    public function setResourcesAsTemplates($value)
+    {
         $this->resourcesAsTemplates_ = $value;
     }
 
@@ -96,7 +102,8 @@ class ResourceManager extends ZMObject {
      *
      * @return boolean <code>true</code> if, and only if, resources are looked up as templates.
      */
-    public function isResourcesAsTemplates() {
+    public function isResourcesAsTemplates()
+    {
         return $this->resourcesAsTemplates_;
     }
 
@@ -106,7 +113,8 @@ class ResourceManager extends ZMObject {
      * @param string css The CSS.
      * @param array attr Optional attribute map; special keys 'prefix' and 'suffix' may be used to wrap.
      */
-    public function css($css, $attr=array()) {
+    public function css($css, $attr=array())
+    {
         $this->styles($css, true, $attr);
     }
 
@@ -116,7 +124,8 @@ class ResourceManager extends ZMObject {
      * @param string filename A relative CSS filename.
      * @param array attr Optional attribute map; special keys 'prefix' and 'suffix' may be used to wrap.
      */
-    public function cssFile($filename, $attr=array()) {
+    public function cssFile($filename, $attr=array())
+    {
         $this->styles($filename, false, $attr);
     }
 
@@ -127,7 +136,8 @@ class ResourceManager extends ZMObject {
      * @param boolean inline A relative CSS filename.
      * @param array attr Optional attribute map; special keys 'prefix' and 'suffix' may be used to wrap.
      */
-    protected function styles($css, $inline=false, $attr=array()) {
+    protected function styles($css, $inline=false, $attr=array())
+    {
         if (!array_key_exists($css, $this->resources_['css'])) {
             // avoid duplicates
             $this->resources_['css'][$css] = array(
@@ -147,7 +157,8 @@ class ResourceManager extends ZMObject {
      *  or insert JavaScript inline; default is <code>false</code> to link.
      * @param string position Optional position; either <code>HEADER</code> (default), <code>FOOTER</code> or <code>NOW</code>.
      */
-    public function jsFile($filename, $position=self::HEADER, $inline=false) {
+    public function jsFile($filename, $position=self::HEADER, $inline=false)
+    {
         if (array_key_exists($filename, $this->resources_['js'])) {
             // check if we need to do anything else or update the position
             if ($this->resources_['js'][$filename]['done']) {
@@ -192,7 +203,8 @@ class ResourceManager extends ZMObject {
      * @param string resource The (relative) path to the resource.
      * @return string The resolved final URL.
      */
-    public function resolveResource($resource) {
+    public function resolveResource($resource)
+    {
         if ($this->isExternal($resource)) {
             return $resource;
         }
@@ -220,7 +232,8 @@ class ResourceManager extends ZMObject {
      * @param string filename The full filename.
      * @return string The uri or <code>null</code> if the filename is invalid.
      */
-    public function file2uri($filename) {
+    public function file2uri($filename)
+    {
         $filename = realpath($filename);
 
         $virtual = false;
@@ -253,7 +266,8 @@ class ResourceManager extends ZMObject {
      * @param string resource The resource.
      * @return boolean <code>true</code> if the resource is external.
      */
-    public function isExternal($resource) {
+    public function isExternal($resource)
+    {
         return 0 === strpos($resource, '//') || false !==  strpos($resource, '://');
     }
 
@@ -265,7 +279,8 @@ class ResourceManager extends ZMObject {
      * @param string location The location; either <code>ResourceManager::HEADER</code> or <code>ResourceManager::FOOTER</code>.
      * @return string The final content ready to be injected into the final contents.
      */
-    public function handleResourceGroup($files, $group, $location) {
+    public function handleResourceGroup($files, $group, $location)
+    {
         $contents = '';
 
         if ('js' == $group) {
@@ -310,7 +325,8 @@ class ResourceManager extends ZMObject {
      *
      * @return array Final contents for <em>header</em> and <em>footer</em> or <code>null</code>.
      */
-    public function getResourceContents() {
+    public function getResourceContents()
+    {
         if (0 == count($this->resources_['js']) && 0 == count($this->resources_['css'])) {
             return null;
         }
@@ -350,7 +366,8 @@ class ResourceManager extends ZMObject {
      * @param string value The fragment value; default is <code>null</code> to set a marker.
      * @return string The fragment marker content or an empty string on a set.
      */
-    public function fragment($name, $value=null) {
+    public function fragment($name, $value=null)
+    {
         $key = sprintf('<!--ZenMagick:fragment:%s-->', $name);
         $this->fragments[$key] = $value;
         return $key;
@@ -361,7 +378,8 @@ class ResourceManager extends ZMObject {
      *
      * @return array Map of fragment key =&gt; value pairs.
      */
-    public function getFragments() {
+    public function getFragments()
+    {
         return $this->fragments;
     }
 

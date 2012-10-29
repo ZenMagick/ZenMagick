@@ -40,7 +40,8 @@ use Doctrine\ORM\Mapping AS ORM;
  * })
  * @ORM\Entity
  */
-class Review extends ZMObject {
+class Review extends ZMObject
+{
     /**
      * @var integer $id
      * @ORM\Column(name="reviews_id", type="integer", nullable=false)
@@ -111,7 +112,8 @@ class Review extends ZMObject {
     /**
      * Create new instance.
      */
-    public function __construct() {
+    public function __construct()
+    {
         parent::__construct();
         $this->rating = 0;
         $this->productId = 0;
@@ -186,7 +188,8 @@ class Review extends ZMObject {
      *
      * @return ZMImageInfo The product image info.
      */
-    public function getProductImageInfo() {
+    public function getProductImageInfo()
+    {
         return $this->container->get('productService')->getProductForId($this->productId, $this->languageId)->getImageInfo();
     }
 
@@ -196,7 +199,8 @@ class Review extends ZMObject {
      * @deprecated
      * @return string The review text.
      */
-    public function getText() {
+    public function getText()
+    {
         $description = $this->descriptions->get($this->languageId);
         return null != $description ? $description->getText() : '';
     }
@@ -206,7 +210,8 @@ class Review extends ZMObject {
      *
      * @return ArrayCollection List of <code>ReviewDescription</code> instances.
      */
-    public function getDescriptions() {
+    public function getDescriptions()
+    {
        return $this->descriptions;
     }
 
@@ -308,7 +313,8 @@ class Review extends ZMObject {
      */
     public function setText($text) { $this->setDescription($text, $this->languageId); }
 
-    public function setDescription($text, $languageId) {
+    public function setDescription($text, $languageId)
+    {
         // todo: remove
         $this->languageId = $languageId;
         if (!isset($this->descriptions[$languageId])) {
@@ -343,7 +349,8 @@ class Review extends ZMObject {
      * @deprecated
      * @param int id The lanugage id.
      */
-    public function setLanguageId($languageId) {
+    public function setLanguageId($languageId)
+    {
         $this->languageId = $languageId;
         $this->setDescription('', $languageId);
     }

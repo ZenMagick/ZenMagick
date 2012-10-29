@@ -26,13 +26,15 @@ use ZenMagick\Base\ZMObject;
  *
  * @param author DerManoMann
  */
-class Menu extends ZMObject {
+class Menu extends ZMObject
+{
     private $root;
 
     /**
      * Create new instance.
      */
-    public function __construct() {
+    public function __construct()
+    {
         parent::__construct();
         $this->root = new MenuElement();
     }
@@ -43,7 +45,8 @@ class Menu extends ZMObject {
      * @param string id The element id.
      * @return MenuElement An element or <code>null</code>.
      */
-    public function getElement($id) {
+    public function getElement($id)
+    {
         return $this->root->getNodeForId($id);
     }
 
@@ -54,7 +57,8 @@ class Menu extends ZMObject {
      * @parm MenuElement element The element to insert.
      * @return boolean <code>true</code> on success, <code>false</code> otherwise.
      */
-    public function insertBefore($id, $element) {
+    public function insertBefore($id, $element)
+    {
         return $this->insert($id, $element, MenuElement::INSERT_BEFORE);
     }
 
@@ -65,7 +69,8 @@ class Menu extends ZMObject {
      * @parm MenuElement element The element to insert.
      * @return boolean <code>true</code> on success, <code>false</code> otherwise.
      */
-    public function insertAfter($id, $element) {
+    public function insertAfter($id, $element)
+    {
         return $this->insert($id, $element, MenuElement::INSERT_AFTER);
     }
 
@@ -76,7 +81,8 @@ class Menu extends ZMObject {
      * @parm MenuElement element The element to add.
      * @return boolean <code>true</code> on success, <code>false</code> otherwise.
      */
-    public function addChild($id, $element) {
+    public function addChild($id, $element)
+    {
         if (null != ($parent = $this->root->getNodeForId($id))) {
             $parent->addChild($element);
             return true;
@@ -93,7 +99,8 @@ class Menu extends ZMObject {
      * @param string mode Controls whether to insert <em>before</em> or <em>after</em> the given id.
      * @return boolean <code>true</code> on success, <code>false</code> otherwise.
      */
-    protected function insert($id, $element, $mode) {
+    protected function insert($id, $element, $mode)
+    {
         if (null != ($sibling = $this->root->getNodeForId($id))) {
             if (null != ($parent = $sibling->getParent())) {
                 $parent->addChild($element, $id, $mode);
@@ -111,7 +118,8 @@ class Menu extends ZMObject {
      *
      * @return MenuElement The root node.
      */
-    public function getRoot() {
+    public function getRoot()
+    {
         return $this->root;
     }
 
@@ -121,7 +129,8 @@ class Menu extends ZMObject {
      * @param string requestId The request id.
      * @return MenuElement The item or <code>null</code>.
      */
-    public function getItemForRequestId($requestId) {
+    public function getItemForRequestId($requestId)
+    {
         // find current node
         $nodes = $this->root->findNodes(function ($node) use ($requestId) {
             if ($requestId == $node->getRequestId()) {
@@ -148,7 +157,8 @@ class Menu extends ZMObject {
      * @param string requestId The request id.
      * @return MenuElement The root item or <code>null</code>.
      */
-    public function getRootItemForRequestId($requestId) {
+    public function getRootItemForRequestId($requestId)
+    {
         if (null != ($node = $this->getItemForRequestId($requestId))) {
             $path = $node->getPath();
             return $this->root->getNodeForId($path[0]);

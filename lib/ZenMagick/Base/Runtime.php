@@ -25,11 +25,13 @@ namespace ZenMagick\Base;
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class Runtime {
+class Runtime
+{
     private static $container = null;
     private static $context = null;
 
-    public static function setContext($context) {
+    public static function setContext($context)
+    {
         self::$context = $context;
     }
 
@@ -43,7 +45,8 @@ class Runtime {
      * @param string context Optional context; default is <code>null</code> to use the current context.
      * @return boolean <code>true</code> if the current context is either <code>null</code> or matched inside the given string.
      */
-    public static function isContextMatch($s, $context=null) {
+    public static function isContextMatch($s, $context=null)
+    {
         $context = $context ?: self::$context;
         if (null === $context) {
             return true;
@@ -59,7 +62,8 @@ class Runtime {
      *
      * @return string The ZenMagick installation folder.
      */
-    public static function getInstallationPath() {
+    public static function getInstallationPath()
+    {
         return dirname(dirname(dirname(__DIR__)));
     }
 
@@ -70,7 +74,8 @@ class Runtime {
      * @todo move to container parameter.
      * @return string The application base folder or <code>null</code>.
      */
-    public static function getApplicationPath() {
+    public static function getApplicationPath()
+    {
         return self::getInstallationPath().'/lib/ZenMagick/'.ucfirst(self::$context).'Bundle';
     }
 
@@ -82,7 +87,8 @@ class Runtime {
      * @param mixed scope The scope of the logging instance; default is <code>null</code>.
      * @return ZenMagick\Base\Logging\Logging A <code>zenmagick\base\logging\Logging</code> instance.
      */
-    public static function getLogging($scope=null) {
+    public static function getLogging($scope=null)
+    {
         return self::getContainer()->get('logger');
     }
 
@@ -91,11 +97,13 @@ class Runtime {
      *
      * @return ZenMagick\Base\Settings\Settings A <code>zenmagick\base\settings\Settings</code> instance.
      */
-    public static function getSettings() {
+    public static function getSettings()
+    {
         return self::getContainer()->get('settingsService');
     }
 
-    public static function setContainer($container) {
+    public static function setContainer($container)
+    {
         self::$container = $container;
     }
 
@@ -104,7 +112,8 @@ class Runtime {
      *
      * @return Symfony\Component\DependencyInjection\ContainerInterface A <code>Symfony\Component\DependencyInjection\ContainerInterface</code> instance.
      */
-    public static function getContainer() {
+    public static function getContainer()
+    {
         return self::$container;
     }
 }

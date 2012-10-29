@@ -33,7 +33,8 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class ZMController extends Controller {
+class ZMController extends Controller
+{
     protected $messageService;
     private $requestId_;
     private $isAjax_;
@@ -46,7 +47,8 @@ class ZMController extends Controller {
      *
      * @param string requestId Optional requestId; default is <code>null</code> to use the request id.
      */
-    public function __construct($requestId=null) {
+    public function __construct($requestId=null)
+    {
         $this->requestId_ = $requestId;
         $this->view_ = null;
         $this->method_ = null;
@@ -62,7 +64,8 @@ class ZMController extends Controller {
      * @param ZenMagick\Http\Request request The current request.
      * @param mixed formData Optional form data; default is <code>null</code>.
      */
-    public function initViewVars($view, $request, $formData=null) {
+    public function initViewVars($view, $request, $formData=null)
+    {
         if (!($view instanceof TemplateView)) {
             return;
         }
@@ -86,7 +89,8 @@ class ZMController extends Controller {
      * An alias for processAction()
      * @see self::processAction
      */
-    public function process(Request $request) {
+    public function process(Request $request)
+    {
         return $this->processAction($request);
     }
     /**
@@ -98,7 +102,8 @@ class ZMController extends Controller {
      * @param ZenMagick\Http\Request request The request to process.
      * @return View A <code>View</code> instance or <code>null</code>.
      */
-    public function processAction(Request $request) {
+    public function processAction(Request $request)
+    {
         // ensure a usable id is set
         $this->requestId_ = null != $this->requestId_ ? $this->requestId_ : $request->getRequestId();
         $this->isAjax_ = $request->isXmlHttpRequest();
@@ -174,7 +179,8 @@ class ZMController extends Controller {
      * @param ZenMagick\Http\Request request The current request.
      * @return array Some data map.
      */
-    public function getViewData($request) {
+    public function getViewData($request)
+    {
         return array();
     }
 
@@ -186,7 +192,8 @@ class ZMController extends Controller {
      *
      * @param ZenMagick\Http\Request request The request to process.
      */
-    public function preProcess($request) {
+    public function preProcess($request)
+    {
         // nothing
     }
 
@@ -198,7 +205,8 @@ class ZMController extends Controller {
      * @param ZenMagick\Http\Request request The request to process.
      * @return boolean <code>true</code> if this is a form submit request.
      */
-    public function isFormSubmit($request) {
+    public function isFormSubmit($request)
+    {
         return 'POST' == $request->getMethod();
     }
 
@@ -209,7 +217,8 @@ class ZMController extends Controller {
      * @return View A <code>View</code> that handles presentation or <code>null</code>
      * if the controller generates the contents itself.
      */
-    public function processHead($request) {
+    public function processHead($request)
+    {
         return null;
     }
 
@@ -220,7 +229,8 @@ class ZMController extends Controller {
      * @return View A <code>View</code> that handles presentation or <code>null</code>
      * if the controller generates the contents itself.
      */
-    public function processGet($request) {
+    public function processGet($request)
+    {
         return $this->findView();
     }
 
@@ -240,7 +250,8 @@ class ZMController extends Controller {
      * @param string charset Optional charset; default is utf-8; <code>null</code> will omit the charset part.
      * @todo migrate to Symfony\Component\HttpFoundation\Response and drop this
      */
-    public static function setContentType($type, $charset="utf-8") {
+    public static function setContentType($type, $charset="utf-8")
+    {
         $text = "Content-Type: " . $type;
         if (null != $charset) {
             $text .= "; charset=" . $charset;
@@ -256,7 +267,8 @@ class ZMController extends Controller {
      * @param array parameter Optional map of name/value pairs to further configure the view; default is <code>null</code>.
      * @return View The actual view to be used to render the response.
      */
-    public function findView($id=null, $data=array(), $parameter=null) {
+    public function findView($id=null, $data=array(), $parameter=null)
+    {
         if ($this->isAjax_) {
             $id = 'ajax_'.$id;
         }
@@ -279,7 +291,8 @@ class ZMController extends Controller {
      * @param string formId Optional form id; default is <code>null</code> to use the global mapping.
      * @return ZMObject An object instance or <code>null</code>
      */
-    public function getFormData($request, $formDef=null, $formId=null) {
+    public function getFormData($request, $formDef=null, $formId=null)
+    {
         $routeResolver = $this->container->get('routeResolver');
 
         if (null != ($route = $routeResolver->getRouteForUri($request->getPathInfo()))) {
@@ -303,7 +316,8 @@ class ZMController extends Controller {
      * @param mixed formData An object.
      * @return View Either the error view (in case of validation errors), or <code>null</code> for success.
      */
-    protected function validateFormData($request, $formData) {
+    protected function validateFormData($request, $formData)
+    {
         if (!$this->validate($request, $formData->getFormId(), $formData)) {
             // back to same form
             $view = $this->findView();
@@ -324,7 +338,8 @@ class ZMController extends Controller {
      * @param mixed formData A map, (bean) object instance or <code>null</code> for all current request parameter.
      * @return boolean <code>true</code> if the validation was successful, <code>false</code> if not.
      */
-    public function validate($request, $formId, $formData=null) {
+    public function validate($request, $formId, $formData=null)
+    {
         if (null === $formData) {
             $formData = $request->getParameterMap();
         }
@@ -352,7 +367,8 @@ class ZMController extends Controller {
      * @return View The view or <code>null</code>.
      * @deprecated Not used at all
      */
-    public function getView() {
+    public function getView()
+    {
         return $this->view_;
     }
 
@@ -362,7 +378,8 @@ class ZMController extends Controller {
      * @param View view The view or <code>null</code>.
      * @deprecated Not used at all
      */
-    public function setView($view) {
+    public function setView($view)
+    {
         $this->view_ = $view;
     }
 
@@ -371,7 +388,8 @@ class ZMController extends Controller {
      *
      * @return string Either a method name or <code>null</code> to pick the method based on the request method (GET, POST, etc).
      */
-    public function getMethod() {
+    public function getMethod()
+    {
         return $this->method_;
     }
 
@@ -380,7 +398,8 @@ class ZMController extends Controller {
      *
      * @param string method The method name.
      */
-    public function setMethod($method) {
+    public function setMethod($method)
+    {
         $this->method_ = $method;
     }
 
@@ -392,7 +411,8 @@ class ZMController extends Controller {
      *
      * @return mixed A user/credentials object. Default is <code>null</code>.
      */
-    public function getUser() {
+    public function getUser()
+    {
         if ($this->container->has('userFactory') && null != ($userFactory = $this->container->get('userFactory'))) {
             return $userFactory->getUser($this->container->get('request'));
         }
@@ -408,7 +428,8 @@ class ZMController extends Controller {
      *
      * @todo this should be dealt with in sacs
      */
-    public function handleDemo() {
+    public function handleDemo()
+    {
         if (!$this->getUser()->isLive()) {
             $this->messageService->warn(_zm('Sorry, the action you tried to excute is not available to demo users'));
             return true;

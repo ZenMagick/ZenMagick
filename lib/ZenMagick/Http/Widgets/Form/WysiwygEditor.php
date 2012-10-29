@@ -26,7 +26,8 @@ use ZenMagick\Http\View\TemplateView;
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-interface WysiwygEditor {
+interface WysiwygEditor
+{
     const EDITOR_CLASS = 'wysiwyg_editor';
     const NO_EDITOR_CLASS = 'no_editor';
 

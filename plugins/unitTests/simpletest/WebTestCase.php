@@ -27,21 +27,23 @@ use ZenMagick\Base\Runtime;
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class WebTestCase extends SimpletestWebTestCase {
-
+class WebTestCase extends SimpletestWebTestCase
+{
     /**
      * Get the current request.
      *
      * @return ZenMagick\Http\Request The current request.
      */
-    public function getRequest() {
+    public function getRequest()
+    {
         return Runtime::getContainer()->get('request');
     }
 
     /**
      * {@inheritDoc}
      */
-    public function setUp() {
+    public function setUp()
+    {
         $session = $this->getRequest()->getSession();
         if (!$session->isAnonymous()) {
             // logged in
@@ -52,7 +54,8 @@ class WebTestCase extends SimpletestWebTestCase {
     /**
      * {@inheritDoc}
      */
-    public function assertEqual($first, $second, $message = '%s') {
+    public function assertEqual($first, $second, $message = '%s')
+    {
         if (is_array($second)) {
             return $this->assert(new ArrayEqualExpectation($first), $second, $message);
         }
@@ -62,7 +65,8 @@ class WebTestCase extends SimpletestWebTestCase {
     /**
      * {@inheritDoc}
      */
-    public function assert($expectation, $compare, $message='%s') {
+    public function assert($expectation, $compare, $message='%s')
+    {
         $result = parent::assert($expectation, $compare, $message);
         if (!$result) {
             $location = explode(' ', trim(str_replace(array('[', ']'), '', $this->getAssertionLine())));
@@ -82,7 +86,8 @@ class WebTestCase extends SimpletestWebTestCase {
      *
      * @return ZMPlugin The plugin.
      */
-    public function getTestPlugin() {
+    public function getTestPlugin()
+    {
         return $this->container->get('pluginService')->getPluginForId('unitTests');
     }
 

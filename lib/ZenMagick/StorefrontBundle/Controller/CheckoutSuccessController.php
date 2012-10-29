@@ -24,12 +24,13 @@ namespace ZenMagick\StorefrontBundle\Controller;
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class CheckoutSuccessController extends \ZMController {
-
+class CheckoutSuccessController extends \ZMController
+{
     /**
      * {@inheritDoc}
      */
-    public function processGet($request) {
+    public function processGet($request)
+    {
         // see: onViewDone()
         $this->container->get('event_dispatcher')->addListener('view_done', array($this, 'onViewDone'));
         $account = $this->getUser();
@@ -50,7 +51,8 @@ class CheckoutSuccessController extends \ZMController {
         return $this->findView(null, $data);
     }
 
-    public function processPost($request) {
+    public function processPost($request)
+    {
         $notifyProducts = $request->request->get('notify', array());
 
         if (!empty($notifyProducts)) {
@@ -68,7 +70,8 @@ class CheckoutSuccessController extends \ZMController {
     /**
      * Event handler to logout guest users only *after* the view is done.
      */
-    public function onViewDone($event) {
+    public function onViewDone($event)
+    {
         $request = $event->getArgument('request');
         $session = $request->getSession();
         if ($this->container->get('settingsService')->get('isLogoffGuestAfterOrder') && $session->isGuest()) {

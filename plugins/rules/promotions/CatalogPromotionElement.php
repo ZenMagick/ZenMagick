@@ -24,6 +24,6 @@ namespace ZenMagick\plugins\rules\promotions;
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-abstract class CatalogPromotionElement extends AbstractPromotionElement {
-
+abstract class CatalogPromotionElement extends AbstractPromotionElement
+{
 }

@@ -24,12 +24,13 @@ namespace ZenMagick\StoreBundle\Model\Mock;
  *
  * @author DerManoMann
  */
-class MockEmailMessage extends \ZMEmailMessage {
-
+class MockEmailMessage extends \ZMEmailMessage
+{
     /**
      * Create new instance.
      */
-    public function __construct() {
+    public function __construct()
+    {
         parent::__construct();
         $this->setFromEmail('from@foo.com');
         $this->setToEmail('to@foo.com');

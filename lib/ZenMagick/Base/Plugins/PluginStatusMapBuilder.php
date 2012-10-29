@@ -31,7 +31,8 @@ use ZenMagick\Base\Cache\Cache;
  *
  * @author DerManoMann <mano@zenmagick.org> <mano@zenmagick.org>
  */
-class PluginStatusMapBuilder extends ZMObject implements CacheWarmerInterface {
+class PluginStatusMapBuilder extends ZMObject implements CacheWarmerInterface
+{
     const STATUS_MAP_KEY = 'zenmagick.plugins.status_map';
     const  PLUGIN_CLASS_PATTERN = 'Plugin.php';
     private $defaultPluginClass;
@@ -46,7 +47,8 @@ class PluginStatusMapBuilder extends ZMObject implements CacheWarmerInterface {
      * @param PluginOptionsLoader pluginOptionsLoader The plugin options loader.
      * @param Cache cache Cache to be used.
      */
-    public function __construct($defaultPluginClass, array $pluginDirs, PluginOptionsLoader $pluginOptionsLoader, Cache $cache) {
+    public function __construct($defaultPluginClass, array $pluginDirs, PluginOptionsLoader $pluginOptionsLoader, Cache $cache)
+    {
         parent::__construct();
         $this->defaultPluginClass = $defaultPluginClass;
         $this->pluginDirs = $pluginDirs;
@@ -57,14 +59,16 @@ class PluginStatusMapBuilder extends ZMObject implements CacheWarmerInterface {
     /**
      * {@inheritDoc}
      */
-    public function isOptional() {
+    public function isOptional()
+    {
         return false;
     }
 
     /**
      * {@inheritDoc}
      */
-    public function warmUp($cacheDir) {
+    public function warmUp($cacheDir)
+    {
         $this->getStatusMap(true);
     }
 
@@ -74,7 +78,8 @@ class PluginStatusMapBuilder extends ZMObject implements CacheWarmerInterface {
      * @param boolean force Optional flag to force a rebuild; default is <code>false</code.
      * @return array Plugin status map.
      */
-    public function getStatusMap($force = false) {
+    public function getStatusMap($force = false)
+    {
         $statusMap = null;
         if ($force || !$statusMap = $this->fromCache()) {
             $statusMap = $this->buildStatusMap();
@@ -94,7 +99,8 @@ class PluginStatusMapBuilder extends ZMObject implements CacheWarmerInterface {
      *
      * @return array A status map or <code>null</code.
      */
-    protected function fromCache() {
+    protected function fromCache()
+    {
         return $this->cache ? $this->cache->lookup(self::STATUS_MAP_KEY) : null;
     }
 
@@ -103,7 +109,8 @@ class PluginStatusMapBuilder extends ZMObject implements CacheWarmerInterface {
      *
      * @param array statusMap A status map.
      */
-    protected function toCache(array $statusMap) {
+    protected function toCache(array $statusMap)
+    {
         if ($this->cache) {
             $this->cache->save($statusMap, self::STATUS_MAP_KEY);
         }
@@ -114,7 +121,8 @@ class PluginStatusMapBuilder extends ZMObject implements CacheWarmerInterface {
      *
      * @return array Plugin status map.
      */
-    protected function buildStatusMap() {
+    protected function buildStatusMap()
+    {
         // this could be merged, but it seems simpler to avoid more nesting...
         $pathIdMap = array();
         foreach ($this->pluginDirs as $basePath) {

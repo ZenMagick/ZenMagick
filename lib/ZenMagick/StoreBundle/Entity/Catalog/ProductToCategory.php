@@ -27,7 +27,8 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table(name="products_to_categories")
  * @ORM\Entity
  */
-class ProductToCategory {
+class ProductToCategory
+{
     /**
      * @var integer $productsId
      *

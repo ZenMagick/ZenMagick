@@ -28,7 +28,8 @@ use ZenMagick\Base\Plugins\Plugin;
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class PluginOptionsLoader extends BasePluginOptionsLoader {
+class PluginOptionsLoader extends BasePluginOptionsLoader
+{
     const KEY_PREFIX = 'PLUGIN_';
     const KEY_ENABLED = 'ENABLED';
     const KEY_SORT_ORDER = 'SORT_ORDER';
@@ -39,14 +40,16 @@ class PluginOptionsLoader extends BasePluginOptionsLoader {
      *
      * @param ConfigService configService The service.
      */
-    public function setConfigService(ConfigService $configService) {
+    public function setConfigService(ConfigService $configService)
+    {
         $this->configService = $configService;
     }
 
     /**
      * {@inheritDoc}
      */
-    public function load($id, $config) {
+    public function load($id, $config)
+    {
         $config = parent::load($id, $config);
 
         // default

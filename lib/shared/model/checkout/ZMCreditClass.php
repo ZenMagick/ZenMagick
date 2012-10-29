@@ -26,8 +26,8 @@
  * @package zenmagick.store.shared.model.checkout
  * @todo return types
  */
-interface ZMCreditClass {
-
+interface ZMCreditClass
+{
     /**
      * Get credit form data for this plugin.
      *

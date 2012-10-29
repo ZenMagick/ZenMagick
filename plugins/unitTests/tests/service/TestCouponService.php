@@ -28,14 +28,16 @@ use ZenMagick\plugins\unitTests\simpletest\TestCase;
  * @package org.zenmagick.plugins.unitTests.tests
  * @author DerManoMann <mano@zenmagick.org>
  */
-class TestCouponService extends TestCase {
+class TestCouponService extends TestCase
+{
     private $createdCouponIds_;
     private $testCouponId_;
 
     /**
      * {@inheritDoc}
      */
-    public function setUp() {
+    public function setUp()
+    {
         parent::setUp();
 
         $couponService = $this->container->get('couponService');
@@ -52,7 +54,8 @@ class TestCouponService extends TestCase {
     /**
      * {@inheritDoc}
      */
-    public function tearDown() {
+    public function tearDown()
+    {
         $couponTables = array('coupons', 'coupons_description', 'coupon_email_track', 'coupon_redeem_track', 'coupon_restrict');
         $accountTables = array('coupon_gv_customer', 'coupon_gv_queue');
 
@@ -80,7 +83,8 @@ class TestCouponService extends TestCase {
      *
      * @return int An account id.
      */
-    protected function getAccountId() {
+    protected function getAccountId()
+    {
         $account = $this->container->get('accountService')->getAccountForEmailAddress('root@localhost');
         return null != $account ? $account->getId() : 1;
     }
@@ -88,7 +92,8 @@ class TestCouponService extends TestCase {
     /**
      * Test create coupon code.
      */
-    public function testCreateCouponCode() {
+    public function testCreateCouponCode()
+    {
         $couponCode = $this->container->get('couponService')->createCouponCode('foo@bar.com');
         $this->assertNotNull($couponCode);
     }
@@ -96,7 +101,8 @@ class TestCouponService extends TestCase {
     /**
      * Test create coupon.
      */
-    public function testCreateCoupon() {
+    public function testCreateCoupon()
+    {
         $couponService = $this->container->get('couponService');
 
         $couponCode = $couponService->createCouponCode('foo@bar.com');
@@ -111,7 +117,8 @@ class TestCouponService extends TestCase {
     /**
      * Test get coupon for code.
      */
-    public function testGetCouponForCode() {
+    public function testGetCouponForCode()
+    {
         $couponService = $this->container->get('couponService');
 
         $couponCode = $couponService->createCouponCode('foo@bar.com');
@@ -127,7 +134,8 @@ class TestCouponService extends TestCase {
     /**
      * Test get coupon for id.
      */
-    public function testGetCouponForId() {
+    public function testGetCouponForId()
+    {
         $couponService = $this->container->get('couponService');
 
         $couponCode = $couponService->createCouponCode('foo@bar.com');
@@ -143,7 +151,8 @@ class TestCouponService extends TestCase {
     /**
      * Test get voucher balance for id.
      */
-    public function testGetVoucherBalance() {
+    public function testGetVoucherBalance()
+    {
         $couponService = $this->container->get('couponService');
 
         $couponService->setVoucherBalanceForAccountId($this->getAccountId(), 141);
@@ -154,7 +163,8 @@ class TestCouponService extends TestCase {
     /**
      * Test set voucher balance for id.
      */
-    public function testSetVoucherBalance() {
+    public function testSetVoucherBalance()
+    {
         $couponService = $this->container->get('couponService');
 
         $couponService->setVoucherBalanceForAccountId($this->getAccountId(), 39);
@@ -165,7 +175,8 @@ class TestCouponService extends TestCase {
     /**
      * Test restrictions.
      */
-    public function testRestrictions() {
+    public function testRestrictions()
+    {
         $couponService = $this->container->get('couponService');
 
         $coupon = $couponService->getCouponForId($this->testCouponId_, 1);
@@ -182,7 +193,8 @@ class TestCouponService extends TestCase {
     /**
      * Test is redeemable.
      */
-    public function testIsCouponRedeemable() {
+    public function testIsCouponRedeemable()
+    {
         $couponService = $this->container->get('couponService');
 
         $this->assertTrue($couponService->isCouponRedeemable($this->testCouponId_));
@@ -192,7 +204,8 @@ class TestCouponService extends TestCase {
     /**
      * Test coupon tracker.
      */
-    public function testCouponTracker() {
+    public function testCouponTracker()
+    {
         $couponService = $this->container->get('couponService');
 
         $couponCode = $couponService->createCouponCode('foo@bar.com');
@@ -219,7 +232,8 @@ class TestCouponService extends TestCase {
     /**
      * Test finalise coupon.
      */
-    public function testFinaliseCoupon() {
+    public function testFinaliseCoupon()
+    {
         $couponService = $this->container->get('couponService');
 
         $couponCode = $couponService->createCouponCode('foo@bar.com');
@@ -243,7 +257,8 @@ class TestCouponService extends TestCase {
     /**
      * Test credit coupon.
      */
-    public function testCreditCoupon() {
+    public function testCreditCoupon()
+    {
         $couponService = $this->container->get('couponService');
 
         // new coupon worth $5

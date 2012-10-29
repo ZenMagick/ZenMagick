@@ -26,12 +26,13 @@ use ZenMagick\plugins\unitTests\simpletest\TestCase;
  * @package org.zenmagick.plugins.unitTests.tests
  * @author DerManoMann <mano@zenmagick.org>
  */
-class TestZMHtmlUtils extends TestCase {
-
+class TestZMHtmlUtils extends TestCase
+{
     /**
      * Test strip.
      */
-    public function testStrip() {
+    public function testStrip()
+    {
         $text = "<p>Foo</p>\n\n \tsome inline stuff<br><br />";
         $stripped = $this->container->get('htmlTool')->strip($text);
         $this->assertEqual('Foo some inline stuff', $stripped);

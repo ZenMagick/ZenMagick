@@ -29,12 +29,13 @@ use ZenMagick\Http\Blocks\BlockProvider;
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class TaggedBlocksBlockProvider extends ZMObject implements BlockProvider {
-
+class TaggedBlocksBlockProvider extends ZMObject implements BlockProvider
+{
     /**
      * {@inheritDoc}
      */
-    public function getBlockList($args=array()) {
+    public function getBlockList($args=array())
+    {
         $blocks = array();
         foreach ($this->container->get('containerTagService')->findTaggedServiceIds('zenmagick.http.blocks.block') as $id => $args) {
             $blocks[] = 'ref::'.$id;

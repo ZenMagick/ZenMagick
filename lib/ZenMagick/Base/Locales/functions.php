@@ -25,7 +25,8 @@
  * @param string domain The translation domain; default is <code>null</code>.
  * @return string The translated text or, if no translation found, the original text.
  */
-function _zm($text, $domain = 'messages') {
+function _zm($text, $domain = 'messages')
+{
     if (null != ($container = \ZenMagick\Base\Runtime::getContainer())) {
         $trans = $container->get('translator')->trans($text, array(), $domain);
         if ('' != $trans) return $trans;
@@ -42,7 +43,8 @@ function _zm($text, $domain = 'messages') {
  * @param mixed ... Variable number of arguments to be used as arguments for
  *  <code>vsprintf(..)</code> to insert variables into the localized text.
  */
-function _vzm($text) {
+function _vzm($text)
+{
     // get the remaining args
     $args = func_get_args();
     array_shift($args);
@@ -84,7 +86,8 @@ function _vzm($text) {
  * @param mixed mixed Variable numer parameter.
  * @return string The formatted string.
  */
-function _zmsprintf($format, $mixed) {
+function _zmsprintf($format, $mixed)
+{
     $args = func_get_args();
     array_shift($args);
 

@@ -28,13 +28,15 @@ use ZenMagick\AdminBundle\Installation\Patches\FilePatch;
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class SideboxDummyPatch extends FilePatch {
+class SideboxDummyPatch extends FilePatch
+{
     protected $sideBoxPath;
 
     /**
      * Create new instance.
      */
-    public function __construct() {
+    public function __construct()
+    {
         parent::__construct('sideboxDummies');
         $this->label_ = 'Create dummy files for all (side)boxes of <strong>all</strong> ZenMagick themes and <strong>installed</strong> plugins';
         $this->sideBoxPath = Runtime::getSettings()->get('zencart.root_dir').'/includes/modules/sideboxes/';
@@ -45,7 +47,8 @@ class SideboxDummyPatch extends FilePatch {
      *
      * @return boolean <code>true</code> if this patch can still be applied.
      */
-    public function isOpen() {
+    public function isOpen()
+    {
         return 0 != count($this->getMissingZCSideboxes());
     }
 
@@ -54,7 +57,8 @@ class SideboxDummyPatch extends FilePatch {
      *
      * @return boolean <code>true</code> if this patch is ready and all preconditions are met.
      */
-    public function isReady() {
+    public function isReady()
+    {
         return is_writeable($this->sideBoxPath);
     }
 
@@ -63,7 +67,8 @@ class SideboxDummyPatch extends FilePatch {
      *
      * @return string The patch group id.
      */
-    public function getGroupId() {
+    public function getGroupId()
+    {
         return 'file';
     }
 
@@ -74,7 +79,8 @@ class SideboxDummyPatch extends FilePatch {
      *
      * @return string The preconditions message or an empty string.
      */
-    public function getPreconditionsMessage() {
+    public function getPreconditionsMessage()
+    {
         return $this->isReady() ? "" : "Need permission to write " . $this->sideBoxPath;
     }
 
@@ -85,7 +91,8 @@ class SideboxDummyPatch extends FilePatch {
      *  disabled as per settings.
      * @return boolean <code>true</code> if patching was successful, <code>false</code> if not.
      */
-    public function patch($force=false) {
+    public function patch($force=false)
+    {
         $missingBoxes = $this->getMissingZCSideboxes();
 
         if (0 < count($missingBoxes)) {
@@ -112,7 +119,8 @@ class SideboxDummyPatch extends FilePatch {
      *
      * @return boolean <code>true</code> if patching was successful, <code>false</code> if not.
      */
-    public function undo() {
+    public function undo()
+    {
         $dummies = $this->_getDummies();
         foreach ($dummies as $file) {
             @unlink($file);
@@ -126,7 +134,8 @@ class SideboxDummyPatch extends FilePatch {
      *
      * @return array A list of dummy sidebox files.
      */
-    protected function _getDummies() {
+    protected function _getDummies()
+    {
         $dummies = array();
         if (file_exists($this->sideBoxPath)) {
             $handle = opendir($this->sideBoxPath);
@@ -149,7 +158,8 @@ class SideboxDummyPatch extends FilePatch {
      *
      * return array List of sideboxes that need zen-cart dummies.
      */
-    protected function getMissingZCSideboxes() {
+    protected function getMissingZCSideboxes()
+    {
         // list of boxes dirs to process
         $boxPathList = array();
 

@@ -29,12 +29,13 @@ use ZenMagick\plugins\unitTests\simpletest\TestCase;
  * @package org.zenmagick.plugins.unitTests.tests
  * @author DerManoMann <mano@zenmagick.org>
  */
-class TestReviewService extends TestCase {
-
+class TestReviewService extends TestCase
+{
     /**
      * Validate the given review as the (single) demo review.
      */
-    protected function assertReview($review) {
+    protected function assertReview($review)
+    {
         $this->assertTrue($review instanceof Review);
         if ($this->assertNotNull($review)) {
             $this->assertEqual(1, $review->getId());
@@ -51,7 +52,8 @@ class TestReviewService extends TestCase {
     /**
      * Test load single review.
      */
-    public function testReviewCount() {
+    public function testReviewCount()
+    {
         $reviewService = $this->container->get('reviewService');
         $this->assertEqual(1, $reviewService->getReviewCount(19, 1));
         $this->assertEqual(0, $reviewService->getReviewCount(2, 1));
@@ -60,7 +62,8 @@ class TestReviewService extends TestCase {
     /**
      * Test get random reviews.
      */
-    public function testRandom() {
+    public function testRandom()
+    {
         $reviews = $this->container->get('reviewService')->getRandomReviews(1);
         $this->assertTrue(is_array($reviews));
         if ($this->assertEqual(1, count($reviews))) {
@@ -71,7 +74,8 @@ class TestReviewService extends TestCase {
     /**
      * Test get average rating.
      */
-    public function testAverageRating() {
+    public function testAverageRating()
+    {
         $rating = $this->container->get('reviewService')->getAverageRatingForProductId(19, 1);
         $this->assertEqual(5.0, $rating);
     }
@@ -79,7 +83,8 @@ class TestReviewService extends TestCase {
     /**
      * Test get reviews for product.
      */
-    public function testReviewsForProduct() {
+    public function testReviewsForProduct()
+    {
         $reviews = $this->container->get('reviewService')->getReviewsForProductId(19, 1);
         $this->assertTrue(is_array($reviews));
         if ($this->assertEqual(1, count($reviews))) {
@@ -90,7 +95,8 @@ class TestReviewService extends TestCase {
     /**
      * Test get all reviews.
      */
-    public function testGetAll() {
+    public function testGetAll()
+    {
         $reviews = $this->container->get('reviewService')->getAllReviews(1);
         $this->assertTrue(is_array($reviews));
         if ($this->assertEqual(1, count($reviews))) {
@@ -101,7 +107,8 @@ class TestReviewService extends TestCase {
     /**
      * Test get review for id.
      */
-    public function testGetReview() {
+    public function testGetReview()
+    {
         $review = $this->container->get('reviewService')->getReviewForId(1, 1);
         if ($this->assertNotNull($review)) {
             $this->assertReview($review);
@@ -111,7 +118,8 @@ class TestReviewService extends TestCase {
     /**
      * Test update view count.
      */
-    public function testUpdateViewCount() {
+    public function testUpdateViewCount()
+    {
         $reviewService = $this->container->get('reviewService');
         $review = $reviewService->getReviewForId(1, 1);
         if ($this->assertNotNull($review)) {
@@ -126,7 +134,8 @@ class TestReviewService extends TestCase {
     /**
      * Test create review.
      */
-    public function testCreateReview() {
+    public function testCreateReview()
+    {
         $reviewService = $this->container->get('reviewService');
         Runtime::getSettings()->set('isApproveReviews', false);
         $account = $this->container->get('accountService')->getAccountForId(1);
@@ -160,7 +169,8 @@ class TestReviewService extends TestCase {
     /**
      * Test approve review.
      */
-    public function testApproveReview() {
+    public function testApproveReview()
+    {
         $reviewService = $this->container->get('reviewService');
         $account = $this->container->get('accountService')->getAccountForId(1);
         if (null != $account) {

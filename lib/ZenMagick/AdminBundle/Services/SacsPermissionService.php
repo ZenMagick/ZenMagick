@@ -26,14 +26,15 @@ use ZenMagick\Base\ZMObject;
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class SacsPermissionService extends ZMObject {
-
+class SacsPermissionService extends ZMObject
+{
     /**
      * Get all available permissions.
      *
      * @return array List of permission details.
      */
-    public function getAll() {
+    public function getAll()
+    {
         return \ZMRuntime::getDatabase()->fetchAll('SELECT * FROM %table.sacs_permissions%');
     }
 
@@ -43,7 +44,8 @@ class SacsPermissionService extends ZMObject {
      * @param string role The role.
      * @return array List of permission details.
      */
-    public function getPermissionsForRole($role) {
+    public function getPermissionsForRole($role)
+    {
         return \ZMRuntime::getDatabase()->fetchAll('SELECT * FROM %table.sacs_permissions% where type = "role" AND name = :name', array('name' => $role), 'sacs_permissions');
     }
 
@@ -53,7 +55,8 @@ class SacsPermissionService extends ZMObject {
      * @param string role The role.
      * @param array pages List of allowed request ids.
      */
-    public function setPermissionsForRole($role, $pages) {
+    public function setPermissionsForRole($role, $pages)
+    {
         $currentPages = array();
         foreach ($this->getPermissionsForRole($role) as $info) {
             $currentPages[] = $info['rid'];

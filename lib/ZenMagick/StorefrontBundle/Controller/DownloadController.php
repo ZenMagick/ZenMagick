@@ -30,12 +30,13 @@ use ZenMagick\Base\Toolbox;
  * Download controller.
  *
  */
-class DownloadController extends \ZMController {
-
+class DownloadController extends \ZMController
+{
     /**
      * {@inheritDoc}
      */
-    public function processGet($request) {
+    public function processGet($request)
+    {
         $orderId = $request->query->get('order');
         $id = $request->query->get('id');
 
@@ -154,7 +155,8 @@ class DownloadController extends \ZMController {
     /**
      * Delete all directories and symlinked files (and only symlinked files)
      */
-    protected function cleanTempDir($dir) {
+    protected function cleanTempDir($dir)
+    {
         if (empty($dir) || !is_writable($dir)) return;
         $iterator = new RecursiveIteratorIterator(
             new RecursiveDirectoryIterator($dir, RecursiveDirectoryIterator::SKIP_DOTS),

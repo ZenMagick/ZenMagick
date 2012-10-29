@@ -33,12 +33,13 @@ use Symfony\Component\EventDispatcher\GenericEvent;
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class UpdateSubscriptionsCronJob implements CronJobInterface {
-
+class UpdateSubscriptionsCronJob implements CronJobInterface
+{
     /**
      * {@inheritDoc}
      */
-    public function execute() {
+    public function execute()
+    {
         if (!$plugin || !$plugin->isEnabled()) {
             return true;
         }
@@ -109,7 +110,8 @@ class UpdateSubscriptionsCronJob implements CronJobInterface {
      *
      * @param ZenMagick\StoreBundle\Entity\Order\Order order The order.
      */
-    protected function sendOrderEmail($order, $template) {
+    protected function sendOrderEmail($order, $template)
+    {
         $shippingAddress = $order->getShippingAddress();
         $billingAddress = $order->getBillingAddress();
         $paymentType = $order->getPaymentType();
@@ -134,7 +136,8 @@ class UpdateSubscriptionsCronJob implements CronJobInterface {
      *
      * @return ZMPlugin The plugin.
      */
-    protected function getPlugin() {
+    protected function getPlugin()
+    {
         return $this->container->get('pluginService')->getPluginForId('subscriptions');
     }
 
@@ -144,7 +147,8 @@ class UpdateSubscriptionsCronJob implements CronJobInterface {
      * @param int orderId The order to copy.
      * @param ZenMagick\Base\ZMObject The new order.
      */
-    public static function copyOrder($orderId) {
+    public static function copyOrder($orderId)
+    {
         $tables = array(
             'orders', // date_purchased, orders_status
             'orders_products', // orders_id
@@ -211,7 +215,8 @@ class UpdateSubscriptionsCronJob implements CronJobInterface {
      *
      * @return array List of order ids.
      */
-    public function findScheduledOrders() {
+    public function findScheduledOrders()
+    {
         $plugin = $this->getPlugin();
         $sql = "SELECT orders_id, is_subscription_canceled FROM %table.orders%
                 WHERE  is_subscription = :subscription

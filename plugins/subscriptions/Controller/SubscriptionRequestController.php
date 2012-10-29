@@ -28,14 +28,15 @@ use ZenMagick\Base\ZMObject;
  * @author DerManoMann <mano@zenmagick.org>
  * @package org.zenmagick.plugins.subscriptions
  */
-class ZMSubscriptionRequestController extends ZMController {
-
+class ZMSubscriptionRequestController extends ZMController
+{
     /**
      * Create the model from the current request.
      *
      * @return ZMObject The model.
      */
-    protected function createModel($parameterBag) {
+    protected function createModel($parameterBag)
+    {
         $model = new ZMObject();
         $model->set('type', $parameterBag->get('type'));
         $model->set('orderId', $parameterBag->get('orderId'));
@@ -47,14 +48,16 @@ class ZMSubscriptionRequestController extends ZMController {
     /**
      * {@inheritDoc}
      */
-    public function processGet($request) {
+    public function processGet($request)
+    {
         return $this->findView(null, array('subscriptionRequest' => $this->createModel($request->query)));
     }
 
     /**
      * {@inheritDoc}
      */
-    public function processPost($request) {
+    public function processPost($request)
+    {
         $data = array('subscriptionRequest' => $this->createModel($request->request));
         if (!$this->validate($request, 'subscription_request')) {
             return $this->findView(null, $data);
@@ -75,7 +78,8 @@ class ZMSubscriptionRequestController extends ZMController {
      * @param string template The template.
      * @param string email The email address.
      */
-    protected function sendNotificationEmail($context, $template, $email) {
+    protected function sendNotificationEmail($context, $template, $email)
+    {
         $settingsService = $this->container->get('settingsService');
         if (empty($email)) {
             $email = $settingsService->get('storeEmail');
@@ -91,7 +95,8 @@ class ZMSubscriptionRequestController extends ZMController {
      *
      * @return ZMPlugin The plugin.
      */
-    protected function getPlugin() {
+    protected function getPlugin()
+    {
         return $this->container->get('pluginService')->getPluginForId('subscriptions');
     }
 

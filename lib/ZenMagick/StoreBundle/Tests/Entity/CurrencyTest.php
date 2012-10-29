@@ -26,12 +26,13 @@ use ZenMagick\ZenMagickBundle\Tests\ZenMagickTestCase;
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class CurrencyTest extends ZenMagickTestCase {
-
+class CurrencyTest extends ZenMagickTestCase
+{
     /**
      * Test currency parsing.
      */
-    public function testParse() {
+    public function testParse()
+    {
         $currency = $this->get('currencyService')->getCurrencyForCode('USD');
         if ($this->assertNotNull($currency)) {
             $this->assertEqual(3.15, $currency->parse('$3.15'));
@@ -41,7 +42,8 @@ class CurrencyTest extends ZenMagickTestCase {
     /**
      * Test currency formatting.
      */
-    public function testFormat() {
+    public function testFormat()
+    {
         $currency = $this->get('currencyService')->getCurrencyForCode('USD');
         if ($this->assertNotNull($currency)) {
             $this->assertEqual('$3.15', $currency->format(3.15));

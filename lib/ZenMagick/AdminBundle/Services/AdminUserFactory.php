@@ -27,12 +27,13 @@ use ZenMagick\Http\Session\UserFactory;
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class AdminUserFactory extends ZMObject implements UserFactory {
-
+class AdminUserFactory extends ZMObject implements UserFactory
+{
     /**
      * {@inheritDoc}
      */
-    public function getUser($session) {
+    public function getUser($session)
+    {
         if (null != ($adminId = $session->get('admin_id'))) {
             return $this->container->get('adminUserService')->getUserForId($adminId);
         }

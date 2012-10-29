@@ -24,19 +24,21 @@ namespace ZenMagick\StorefrontBundle\Controller;
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class CheckoutShippingController extends \ZMController {
-
+class CheckoutShippingController extends \ZMController
+{
     /**
      * {@inheritDoc}
      */
-    public function getViewData($request) {
+    public function getViewData($request)
+    {
         return array('shoppingCart' => $this->get('shoppingCart'));
     }
 
     /**
      * {@inheritDoc}
      */
-    public function processGet($request) {
+    public function processGet($request)
+    {
         $shoppingCart = $this->get('shoppingCart');
         $checkoutHelper = $shoppingCart->getCheckoutHelper();
 
@@ -68,7 +70,8 @@ class CheckoutShippingController extends \ZMController {
     /**
      * {@inheritDoc}
      */
-    public function processPost($request) {
+    public function processPost($request)
+    {
         $shoppingCart = $this->get('shoppingCart');
         $checkoutHelper = $shoppingCart->getCheckoutHelper();
 

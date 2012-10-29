@@ -30,7 +30,8 @@ use ZenMagick\Http\View\View;
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class ResourceResolverLoader implements LoaderInterface {
+class ResourceResolverLoader implements LoaderInterface
+{
     protected $resourceResolver;
 
     /**
@@ -38,14 +39,16 @@ class ResourceResolverLoader implements LoaderInterface {
      *
      * @param ResourceResolver resourceResolver The resource resolver used to resolve templates.
      */
-    public function __construct(ResourceResolver $resourceResolver) {
+    public function __construct(ResourceResolver $resourceResolver)
+    {
         $this->resourceResolver = $resourceResolver;
     }
 
     /**
      * {@inheritDoc}
      */
-    public function load(TemplateReferenceInterface $template) {
+    public function load(TemplateReferenceInterface $template)
+    {
         if (!$this->resourceResolver->exists($template)) {
             return false;
         }
@@ -57,7 +60,8 @@ class ResourceResolverLoader implements LoaderInterface {
     /**
      * {@inheritDoc}
      */
-    public function isFresh(TemplateReferenceInterface $template, $time) {
+    public function isFresh(TemplateReferenceInterface $template, $time)
+    {
         return true;
     }
 

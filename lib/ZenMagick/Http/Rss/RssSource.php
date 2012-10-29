@@ -24,8 +24,8 @@ namespace ZenMagick\Http\Rss;
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-interface RssSource {
-
+interface RssSource
+{
     /**
      * Get the feed.
      *

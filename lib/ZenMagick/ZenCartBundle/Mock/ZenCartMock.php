@@ -29,7 +29,8 @@ use ZenMagick\ZenCartBundle\Mock\ZenCartOrderTotal;
  *
  * @author DerManoMann
  */
-class ZenCartMock {
+class ZenCartMock
+{
     // keep track of mock
     private static $mock = 0;
 
@@ -39,7 +40,8 @@ class ZenCartMock {
      * @param ShoppingCart shoppingCart The current shopping cart.
      * @param ZenMagick\StoreBundle\Entity\Address shippingAddress Optional shipping address; default is <code>null</code>.
      */
-    public static function startMock(ShoppingCart $shoppingCart, $shippingAddress=null) {
+    public static function startMock(ShoppingCart $shoppingCart, $shippingAddress=null)
+    {
     global $order, $shipping_weight, $shipping_quoted, $shipping_num_boxes, $total_count, $order_total_modules;
     global $_order, $_shipping_weight, $_shipping_quoted, $_shipping_num_boxes, $_total_count, $_order_total_modules;
 
@@ -113,7 +115,8 @@ class ZenCartMock {
      * Cleanup mocking.
      *
      */
-    public static function cleanupMock() {
+    public static function cleanupMock()
+    {
     global $order, $shipping_weight, $shipping_quoted, $shipping_num_boxes, $total_count, $order_total_modules;
     global $_order, $_shipping_weight, $_shipping_quoted, $_shipping_num_boxes, $_total_count, $_order_total_modules;
 

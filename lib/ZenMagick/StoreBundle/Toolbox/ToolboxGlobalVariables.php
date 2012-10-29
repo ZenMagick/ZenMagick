@@ -27,8 +27,8 @@ use ZenMagick\Http\Toolbox\ToolboxTool;
  * @see Symfony\Bundle\FrameworkBundle\
  *
  */
-class ToolboxGlobalVariables extends ToolboxTool {
-
+class ToolboxGlobalVariables extends ToolboxTool
+{
     /**
      * Returns the current user.
      *

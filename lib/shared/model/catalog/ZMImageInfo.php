@@ -30,7 +30,8 @@ use ZenMagick\Base\ZMObject;
  * @author DerManoMann
  * @package zenmagick.store.shared.model.catalog
  */
-class ZMImageInfo extends ZMObject {
+class ZMImageInfo extends ZMObject
+{
     protected $imageDefault_;
     protected $imageMedium_;
     protected $imageLarge_;
@@ -43,7 +44,8 @@ class ZMImageInfo extends ZMObject {
      * @param string image The default image name; default is <code>null</code>.
      * @param string alt The alt text; default is an empty string.
      */
-    public function __construct($image=null, $alt='') {
+    public function __construct($image=null, $alt='')
+    {
         parent::__construct();
         $this->altText_ = $alt;
         $this->parameter_ = array();
@@ -55,7 +57,8 @@ class ZMImageInfo extends ZMObject {
      *
      * @param string image The default image.
      */
-    public function setDefaultImage($image) {
+    public function setDefaultImage($image)
+    {
         if (null != $image) {
             $comp = ZMImageInfo::splitImageName($image);
             $subdir = $comp[0];
@@ -155,7 +158,8 @@ class ZMImageInfo extends ZMObject {
      * @param mixed parameter Additional parameter for the <code>&lt;mg&gt;</code> tag; can be either
      *  a query string style list of name/value pairs or a map.
      */
-    public function setParameter($parameter) {
+    public function setParameter($parameter)
+    {
         if (is_array($parameter)) {
             $this->parameter_ = $parameter;
         } elseif (!empty($parameter)) {
@@ -175,7 +179,8 @@ class ZMImageInfo extends ZMObject {
      *
      * @return string HTML formatted parameter.
      */
-    public function getFormattedParameter() {
+    public function getFormattedParameter()
+    {
         $html = '';
         foreach ($this->parameter_ as $attr => $value) {
             $html .= ' '.$attr.'="'.$value.'"';
@@ -191,7 +196,8 @@ class ZMImageInfo extends ZMObject {
      * @param string image The image.
      * @return array An array consisting of [optional subdirectory], [file extension], [basename]
      */
-    public static function splitImageName($image) {
+    public static function splitImageName($image)
+    {
         // optional subdir on all levels
         $subdir = dirname($image);
         $subdir = "." == $subdir ? "" : $subdir."/";
@@ -214,7 +220,8 @@ class ZMImageInfo extends ZMObject {
      * @param string image The image to look up.
      * @return array An array of <code>ZMImageInfo</code> instances.
      */
-    public static function getAdditionalImages($image) {
+    public static function getAdditionalImages($image)
+    {
         $comp = ZMImageInfo::splitImageName($image);
         $subdir = $comp[0];
         $ext = $comp[1];

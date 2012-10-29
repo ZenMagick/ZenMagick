@@ -11,14 +11,15 @@ use Symfony\Component\Console\Output\OutputInterface;
  * Command to clean out specified store datatypes.
  *
  */
-class CleanDataCommand extends ContainerAwareCommand {
-
+class CleanDataCommand extends ContainerAwareCommand
+{
     private $rootDir;
 
     /**
      * {@inheritDoc}
      */
-    protected function configure() {
+    protected function configure()
+    {
         $this->rootDir = dirname(__DIR__).'/Resources/cleaners';
         $this
             ->setName('zm:clean-data')
@@ -41,7 +42,8 @@ EOT
     /**
      * {@inheritDoc}
      */
-    protected function execute(InputInterface $input, OutputInterface $output) {
+    protected function execute(InputInterface $input, OutputInterface $output)
+    {
         $conn = $this->getContainer()->get('doctrine.dbal.default_connection');
         if (($types = $input->getArgument('types')) !== null) {
             foreach ((array) $types as $type) {

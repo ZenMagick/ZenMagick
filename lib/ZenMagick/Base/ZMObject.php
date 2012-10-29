@@ -34,7 +34,8 @@ use Symfony\Component\DependencyInjection\ContainerAware;
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class ZMObject extends ContainerAware implements Serializable {
+class ZMObject extends ContainerAware implements Serializable
+{
     private static $methods = array();
     protected $properties;
 
@@ -43,14 +44,16 @@ class ZMObject extends ContainerAware implements Serializable {
      *
      * @param array properties Optional properties; default is an empty array;
      */
-    public function __construct($properties=array()) {
+    public function __construct($properties=array())
+    {
         $this->properties = $properties;
     }
 
     /**
      * A default destructor.
      */
-    public function __destruct() {
+    public function __destruct()
+    {
     }
 
     /**
@@ -60,7 +63,8 @@ class ZMObject extends ContainerAware implements Serializable {
      * @param mixed default A default value; default value is <code>null</code>.
      * @return mixed The value or <code>null</code>.
      */
-    public function get($name, $default=null) {
+    public function get($name, $default=null)
+    {
         if (array_key_exists($name, $this->properties)) {
             return $this->properties[$name];
         }
@@ -74,7 +78,8 @@ class ZMObject extends ContainerAware implements Serializable {
      * @param string name The property name.
      * @return mixed The value or <code>null</code>.
      */
-    public function __get($name) {
+    public function __get($name)
+    {
         if (array_key_exists($name, $this->properties)) {
             return $this->properties[$name];
         }
@@ -88,7 +93,8 @@ class ZMObject extends ContainerAware implements Serializable {
      * @param string name The property name.
      * @param mixed value The value.
      */
-    public function __set($name, $value) {
+    public function __set($name, $value)
+    {
         $this->properties[$name] = $value;
     }
 
@@ -98,7 +104,8 @@ class ZMObject extends ContainerAware implements Serializable {
      * @param string name The property name.
      * @param mixed value The value.
      */
-    public function set($name, $value) {
+    public function set($name, $value)
+    {
         $this->properties[$name] = $value;
     }
 
@@ -108,7 +115,8 @@ class ZMObject extends ContainerAware implements Serializable {
      * @param boolean genericOnly If set, consider only generic properties (via get/set methods); default is <code>true</code>.
      * @return array List of custom properties set on this object.
      */
-    public function getPropertyNames($genericOnly=true) {
+    public function getPropertyNames($genericOnly=true)
+    {
         if ($genericOnly) {
             return array_keys($this->properties);
         }
@@ -121,7 +129,8 @@ class ZMObject extends ContainerAware implements Serializable {
      *
      * @return array Map of properties.
      */
-    public function getProperties() {
+    public function getProperties()
+    {
         return $this->properties;
     }
 
@@ -135,7 +144,8 @@ class ZMObject extends ContainerAware implements Serializable {
      * @param string className Name of the class to allow the method.
      * @param mixed target The target function or method.
      */
-    public static function attachMethod($method, $className, $target) {
+    public static function attachMethod($method, $className, $target)
+    {
         if (!isset(self::$methods[$method])) {
             self::$methods[$method] = array();
         }
@@ -147,7 +157,8 @@ class ZMObject extends ContainerAware implements Serializable {
      *
      * @param array List of attached method names.
      */
-    public function getAttachedMethods() {
+    public function getAttachedMethods()
+    {
         $methods = array();
         foreach (self::$methods as $method => $classInfo) {
             foreach (array_keys($classInfo) as $className) {
@@ -168,7 +179,8 @@ class ZMObject extends ContainerAware implements Serializable {
      * @param array args Optional arguments.
      * @return mixed The result of the supported method or null.
      */
-    public function __call($method, $args) {
+    public function __call($method, $args)
+    {
         // start with dynamic methods to allow attaching methods that start with 'get', etc...
         if (array_key_exists($method, self::$methods)) {
             // method found, so check if there is a class match
@@ -201,14 +213,16 @@ class ZMObject extends ContainerAware implements Serializable {
      *
      * @return array Map of key/value data.
      */
-    public function getSerializableProperties() {
+    public function getSerializableProperties()
+    {
         return $this->getProperties();
     }
 
     /**
      * Serialize this instance.
      */
-    public function serialize() {
+    public function serialize()
+    {
         $sprops = array();
         foreach ($this->getSerializableProperties() as $name => $obj) {
             $sprops[$name] = serialize($obj);
@@ -228,7 +242,8 @@ class ZMObject extends ContainerAware implements Serializable {
      *
      * @param string serialized The serialized data.
      */
-    public function unserialize($serialized) {
+    public function unserialize($serialized)
+    {
         $this->__construct();
         $this->container = Runtime::getContainer();
 
@@ -246,7 +261,8 @@ class ZMObject extends ContainerAware implements Serializable {
     /**
      * {@inheritDoc}
      */
-    public function __toString() {
+    public function __toString()
+    {
         $s =  '['.get_class($this);
         $first = true;
         foreach (get_object_vars($this) as $name => $value) {

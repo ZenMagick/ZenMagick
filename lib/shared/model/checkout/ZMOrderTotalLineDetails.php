@@ -38,7 +38,8 @@ use ZenMagick\Base\ZMObject;
  * @author DerManoMann
  * @package zenmagick.store.shared.model.checkout
  */
-class ZMOrderTotalLineDetails extends ZMObject {
+class ZMOrderTotalLineDetails extends ZMObject
+{
     private $title_;
     private $amount_;
     private $value_;
@@ -47,7 +48,8 @@ class ZMOrderTotalLineDetails extends ZMObject {
     /**
      * Create new instance.
      */
-    public function __construct() {
+    public function __construct()
+    {
         parent::__construct();
         $this->title_ = '';
         $this->amount_ = 0;

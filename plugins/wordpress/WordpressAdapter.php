@@ -31,12 +31,13 @@ use ZenMagick\Base\ZMObject;
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class WordpressAdapter extends ZMObject {
-
+class WordpressAdapter extends ZMObject
+{
     /**
      * Create new instance.
      */
-    public function __construct() {
+    public function __construct()
+    {
         parent::__construct();
         // use WP registration functions
         require ZM_WORDPRESS_ROOT . 'wp-includes/registration.php';
@@ -49,7 +50,8 @@ class WordpressAdapter extends ZMObject {
      * @param array data The data.
      * @return boolean <code>true</code> if the nickname is valid, <code>false</code> if not.
      */
-    public function vDuplicateNickname($request, $data) {
+    public function vDuplicateNickname($request, $data)
+    {
         return validate_username($data['nickName']);
     }
 
@@ -60,7 +62,8 @@ class WordpressAdapter extends ZMObject {
      * @param array data The data.
      * @return boolean <code>true</code> if the email is valid, <code>false</code> if not.
      */
-    public function vDuplicateEmail($request, $data) {
+    public function vDuplicateEmail($request, $data)
+    {
         return Toolbox::isEmpty(email_exists($data['email']));
     }
 
@@ -71,7 +74,8 @@ class WordpressAdapter extends ZMObject {
      * @param array data The data.
      * @return boolean <code>true</code> if the email is valid, <code>false</code> if not.
      */
-    public function vDuplicateChangedEmail($request, $data) {
+    public function vDuplicateChangedEmail($request, $data)
+    {
         // the current account
         $account = $this->container->get('request')->getAccount();
         if ($account->getEmail() != $data['email']) {
@@ -88,7 +92,8 @@ class WordpressAdapter extends ZMObject {
      * @param string password The clear text password.
      * @return boolean <code>true</code> if the account was created.
      */
-    public function createAccount($account, $password) {
+    public function createAccount($account, $password)
+    {
         $email = $account->getEmail();
         $userId = username_exists($email);
         if (!$userId) {
@@ -115,7 +120,8 @@ class WordpressAdapter extends ZMObject {
      * @param string email The email address.
      * @return boolean <code>true</code> on success.
      */
-    public function updateAccount($nickName, $password, $email) {
+    public function updateAccount($nickName, $password, $email)
+    {
         $userData = get_userdata(email_exists($email));
         if ($userData) {
             $userId = $userData->ID;
@@ -136,7 +142,8 @@ class WordpressAdapter extends ZMObject {
      * @param string email The email address.
      * @return boolean <code>true</code> on success.
      */
-    public function removeAccount($email) {
+    public function removeAccount($email)
+    {
         //TODO
     }
 

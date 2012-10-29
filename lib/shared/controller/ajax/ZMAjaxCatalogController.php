@@ -27,12 +27,13 @@ use ZenMagick\Base\Runtime;
  * @author DerManoMann
  * @package zenmagick.store.shared.mvc.controller.ajax
  */
-class ZMAjaxCatalogController extends ZMAjaxController {
-
+class ZMAjaxCatalogController extends ZMAjaxController
+{
     /**
      * Create new instance.
      */
-    public function __construct() {
+    public function __construct()
+    {
         parent::__construct('ajaxCatalog');
         $this->set('ajaxProductMap', array(
             'id', 'name', 'description', 'model',
@@ -57,7 +58,8 @@ class ZMAjaxCatalogController extends ZMAjaxController {
      * @param ZenMagick\Http\Request request The current request.
      * @return void
      */
-    public function getProductForIdJSON($request) {
+    public function getProductForIdJSON($request)
+    {
         $productId = $request->get('productId');
         $languageId = $request->getParameter('languageId', $request->getSession()->getLanguageId());
 
@@ -80,7 +82,8 @@ class ZMAjaxCatalogController extends ZMAjaxController {
      * @param ZenMagick\Http\Request request The current request.
      * @return void
      */
-    public function getProductsForCategoryIdJSON($request) {
+    public function getProductsForCategoryIdJSON($request)
+    {
         $categoryId = $request->getParameter('categoryId', 0);
         $languageId = $request->getParameter('languageId', $request->getSession()->getLanguageId());
         $activeOnly = true;
@@ -122,7 +125,8 @@ class ZMAjaxCatalogController extends ZMAjaxController {
      * @param ZenMagick\Http\Request request The current request.
      * @return void
      */
-    public function getProductsForManufacturerIdJSON($request) {
+    public function getProductsForManufacturerIdJSON($request)
+    {
         $manufacturerId = $request->getParameter('manufacturerId', 0);
         $languageId = $request->getParameter('languageId', $request->getSession()->getLanguageId());
         $activeOnly = true;

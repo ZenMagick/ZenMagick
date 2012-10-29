@@ -29,26 +29,28 @@ use ZenMagick\Base\ZMObject;
  *
  * @author DerManoMann
  */
-class ZenCartOrderTotal extends ZMObject {
-
+class ZenCartOrderTotal extends ZMObject
+{
     /**
      * New instance.
      */
-    public function __construct() {
-
+    public function __construct()
+    {
     }
 
     /**
      * Clear posts
      */
-    public function clear_posts() {
+    public function clear_posts()
+    {
         //TODO?
     }
 
     /**
      * Pre confirmation check.
      */
-    public function pre_confirmation_check($returnOrderTotalOnly=false) {
+    public function pre_confirmation_check($returnOrderTotalOnly=false)
+    {
         // TODO
         return 0.00;
     }
@@ -56,7 +58,8 @@ class ZenCartOrderTotal extends ZMObject {
     /**
      * Process.
      */
-    public function process() {
+    public function process()
+    {
     global $order;
     $order_total_array = array();
     if (is_array($this->modules)) {

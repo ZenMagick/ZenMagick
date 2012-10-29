@@ -24,12 +24,13 @@ namespace ZenMagick\StorefrontBundle\Controller;
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class ContactUsController extends \ZMController {
-
+class ContactUsController extends \ZMController
+{
     /**
      * {@inheritDoc}
      */
-    public function processGet($request) {
+    public function processGet($request)
+    {
         $session = $request->getSession();
         $contactInfo = $this->getFormData($request);
         if ($session->isRegistered()) {
@@ -44,7 +45,8 @@ class ContactUsController extends \ZMController {
     /**
      * {@inheritDoc}
      */
-    public function processPost($request) {
+    public function processPost($request)
+    {
         $contactInfo = $this->getFormData($request);
 
         $settingsService = $this->container->get('settingsService');

@@ -28,15 +28,16 @@ use ZenMagick\Base\Database\QueryDetails;
  * @author DerManoMann
  * @package org.zenmagick.store.utils
  */
-class ProductFinder extends \ZMProductFinder {
-
+class ProductFinder extends \ZMProductFinder
+{
     /**
      * Build the search SQL.
      *
      * @param ZMSearchCriteria criteria Search criteria.
      * @return ZenMagick\Base\Database\QueryDetails The search SQL.
      */
-    protected function buildQuery($criteria) {
+    protected function buildQuery($criteria)
+    {
         $select = "SELECT pd.products_id, ";
         $from = " FROM %table.products% p, %table.products_description% pd ";
         $sort = ' ORDER BY weight DESC';

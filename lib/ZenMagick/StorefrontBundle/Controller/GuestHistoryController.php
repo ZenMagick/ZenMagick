@@ -26,12 +26,13 @@ use ZenMagick\StoreBundle\Entity\Account\Account;
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class GuestHistoryController extends \ZMController {
-
+class GuestHistoryController extends \ZMController
+{
     /**
      * {@inheritDoc}
      */
-    public function processPost($request) {
+    public function processPost($request)
+    {
         if (!$this->validate($request, 'guest_history')) {
             return $this->findView();
         }

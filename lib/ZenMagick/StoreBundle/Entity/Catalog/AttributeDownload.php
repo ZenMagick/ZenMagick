@@ -27,7 +27,8 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table(name="products_attributes_download")
  * @ORM\Entity
  */
-class AttributeDownload {
+class AttributeDownload
+{
     /**
      * @var integer $id
      *

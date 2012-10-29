@@ -29,14 +29,15 @@ use ZenMagick\StoreBundle\Model\Checkout\ShoppingCart;
  * @author DerManoMann
  * @package zenmagick.store.shared.services.catalog.associations
  */
-class ZMProductAssociations extends ZMObject {
-
+class ZMProductAssociations extends ZMObject
+{
     /**
      * Get all handler.
      *
      * @return array List of all handlers.
      */
-    public function getHandler() {
+    public function getHandler()
+    {
         $handlers = array();
         foreach ($this->container->get('containerTagService')->findTaggedServiceIds('apps.store.associations.handler') as $id => $args) {
             $handler = $this->container->get($id);
@@ -50,7 +51,8 @@ class ZMProductAssociations extends ZMObject {
      *
      * @return array A list of all registered handler types.
      */
-    public function getHandlerTypes() {
+    public function getHandlerTypes()
+    {
         return array_keys($this->getHandler());
     }
 
@@ -60,7 +62,8 @@ class ZMProductAssociations extends ZMObject {
      * @param string type The association type/name.
      * @return ZMProductAssociationHandler A handler instance or <code>null</code>.
      */
-    public function getHandlerForType($type) {
+    public function getHandlerForType($type)
+    {
         $handlers = $this->getHandler();
         if (array_key_exists($type, $handlers)) {
             return $handlers[$type];
@@ -77,7 +80,8 @@ class ZMProductAssociations extends ZMObject {
      * @param boolean all Optional flag to load all configured products, regardless of start/end date, etc; default is <code>false</code>.
      * @return array A list of <code>ZMProductAssociation</code> instances.
      */
-    public function getProductAssociationsForProductId($productId, $type, $args=array(), $all=false) {
+    public function getProductAssociationsForProductId($productId, $type, $args=array(), $all=false)
+    {
         if (null != ($handler = $this->getHandlerForType($type))) {
             return $handler->getProductAssociationsForProductId($productId, $args, $all);
         }
@@ -98,7 +102,8 @@ class ZMProductAssociations extends ZMObject {
      * @param boolean all Optional flag to load all configured products, regardless of start/end date, etc; default is <code>false</code>.
      * @return array A list of <code>ZMProductAssociation</code> instances.
      */
-    public function getProductAssociationsForCategoryId($categoryId, $type, $args=null, $all=false) {
+    public function getProductAssociationsForCategoryId($categoryId, $type, $args=null, $all=false)
+    {
         if (null != ($handler = $this->getHandlerForType($type))) {
             $defaults = array('includeChildren' => false, 'languageId' => null);
             if (null === $args) {
@@ -136,7 +141,8 @@ class ZMProductAssociations extends ZMObject {
      * @param boolean all Optional flag to load all configured products, regardless of start/end date, etc; default is <code>false</code>.
      * @return array A list of <code>ZMProductAssociation</code> instances.
      */
-    public function getProductAssociationsForShoppingCart(ShoppingCart $shoppingCart, $type, $args=null, $all=false) {
+    public function getProductAssociationsForShoppingCart(ShoppingCart $shoppingCart, $type, $args=null, $all=false)
+    {
         if (null != ($handler = $this->getHandlerForType($type))) {
             $defaults = array('includeChildren' => false, 'languageId' => null);
             if (null === $args) {

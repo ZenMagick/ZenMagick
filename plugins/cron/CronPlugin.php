@@ -28,12 +28,13 @@ use ZenMagick\Base\Toolbox;
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class CronPlugin extends Plugin {
-
+class CronPlugin extends Plugin
+{
     /**
      * Handle event.
      */
-    public function onFinaliseContent($event) {
+    public function onFinaliseContent($event)
+    {
         $request = $event->getArgument('request');
 
         if ($this->isEnabled() && Toolbox::asBoolean($this->get('image'))) {
@@ -57,7 +58,8 @@ class CronPlugin extends Plugin {
      * @param string file The filename.
      * @return string A fully qualified filename.
      */
-    public function getConfigPath($file) {
+    public function getConfigPath($file)
+    {
         $configPath = Runtime::getInstallationPath().'config'.DIRECTORY_SEPARATOR;
         $configFile = $configPath.$this->getId().DIRECTORY_SEPARATOR.$file;
 
@@ -75,7 +77,8 @@ class CronPlugin extends Plugin {
      *
      * <p>All output is captured and logged.</p>
      */
-    public function runCron() {
+    public function runCron()
+    {
         ob_start();
         $cron = new CronJobs($this->getConfigPath('etc/crontab.txt'), $this->getConfigPath('etc/cronhistory.txt'));
         if ($cron->isTimeToRun()) {

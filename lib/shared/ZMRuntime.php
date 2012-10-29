@@ -20,7 +20,8 @@
 
 use ZenMagick\Base\Runtime;
 
-class ZMRuntime {
+class ZMRuntime
+{
     private static $databaseMap_ = array();
 
     /**
@@ -29,7 +30,8 @@ class ZMRuntime {
      * @param string name name of connection
      * @param array database connection parameters
      */
-    public static function setDatabase($name, $conf) {
+    public static function setDatabase($name, $conf)
+    {
         if (!isset($conf['wrapperClass'])) {
             $conf['wrapperClass'] = 'ZenMagick\\Base\\Database\\Connection';
         }
@@ -45,7 +47,8 @@ class ZMRuntime {
      * @param string name get default connection if null.
      * @return ZenMagick\Base\Database\Connection
      */
-    public static function getDatabase($conf='default') {
+    public static function getDatabase($conf='default')
+    {
         if (null !== Runtime::getContainer()) {
             return Runtime::getContainer()->get('doctrine.dbal.'.$conf.'_connection');
         }
@@ -55,7 +58,8 @@ class ZMRuntime {
         return self::$databaseMap_[$conf];
     }
 
-    public static function getDatabases() {
+    public static function getDatabases()
+    {
         return self::$databaseMap_;
     }
 }

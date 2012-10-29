@@ -37,7 +37,8 @@ use Doctrine\ORM\Mapping as ORM;
  * })
  * @ORM\Entity
  */
-class Address extends ZMObject {
+class Address extends ZMObject
+{
     /**
      * @var integer $addressId
      *
@@ -126,7 +127,8 @@ class Address extends ZMObject {
     /**
      * Create new instance.
      */
-    public function __construct() {
+    public function __construct()
+    {
         parent::__construct();
 
         $this->addressId = 0;
@@ -236,7 +238,8 @@ class Address extends ZMObject {
      *
      * @return Country The country.
      */
-    public function getCountry() {
+    public function getCountry()
+    {
         if (null == $this->country) {
             $this->country = $this->container->get('countryService')->getCountryForId($this->countryId);
         }
@@ -290,7 +293,8 @@ class Address extends ZMObject {
      *
      * @return int The address format id.
      */
-    public function getAddressFormatId() {
+    public function getAddressFormatId()
+    {
         return $this->getCountry()->getAddressFormatId();
     }
 
@@ -299,7 +303,8 @@ class Address extends ZMObject {
      *
      * @return string The address format id.
      */
-    public function getAddressFormat() {
+    public function getAddressFormat()
+    {
         return $this->container->get('addressService')->getAddressFormatForId($this->getCountry()->getAddressFormatId());
     }
 

@@ -29,19 +29,22 @@ use ZenMagick\Base\Database\SqlAware;
  * @author DerManoMann
  * @package zenmagick.store.shared.mvc.resultlist.filter
  */
-class ZMCategoryFilter extends ZMResultListFilter implements SqlAware {
+class ZMCategoryFilter extends ZMResultListFilter implements SqlAware
+{
     private $productIds_;
 
     /**
      * Create new instance.
      */
-    public function __construct() {
+    public function __construct()
+    {
         parent::__construct('cfilter', _zm('Category'), Runtime::getContainer()->get('request')->query->get('cfilter'));
         $this->productIds_ = null;
     }
 
     // lazy load all included productIds
-    protected function getProductIds() {
+    protected function getProductIds()
+    {
         if (null === $this->productIds_) {
             $languageId = $this->container->get('session')->getLanguageId();
             $this->productIds_ = $this->container->get('productService')->getProductIdsForCategoryId($this->filterValues_[0], $languageId);
@@ -55,7 +58,8 @@ class ZMCategoryFilter extends ZMResultListFilter implements SqlAware {
      * @param mixed obj The object to examine.
      * @return boolean <code>true</code> if the object is to be excluded, <code>false</code> if not.
      */
-    public function exclude($obj) {
+    public function exclude($obj)
+    {
         $productIds = $this->getProductIds();
         return !array_key_exists($obj->getId(), $productIds);
     }
@@ -65,7 +69,8 @@ class ZMCategoryFilter extends ZMResultListFilter implements SqlAware {
      *
      * @return array An array of string values.
      */
-    public function getOptions() {
+    public function getOptions()
+    {
         $options = array();
         foreach ($this->list_->getAllResults() as $result) {
             $category = $result->getDefaultCategory($this->container->get('session')->getLanguageId());
@@ -84,7 +89,8 @@ class ZMCategoryFilter extends ZMResultListFilter implements SqlAware {
     /**
      * {@inheritDoc}
      */
-    public function getQueryDetails($method=null, $args=array()) {
+    public function getQueryDetails($method=null, $args=array())
+    {
         return new QueryDetails(ZMRuntime::getDatabase(), 'p.master_categories_id = '.(int) $this->getValue());
     }
 

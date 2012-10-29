@@ -30,14 +30,16 @@ use ZenMagick\Http\View\TemplateView;
  * @author DerManoMann <mano@zenmagick.org>
  * @package zenmagick.plugins.ckEditor
  */
-class CkEditorFormWidget extends TextAreaFormWidget implements WysiwygEditor {
+class CkEditorFormWidget extends TextAreaFormWidget implements WysiwygEditor
+{
     private $idList;
     private $editorConfig;
 
     /**
      * Create new instance.
      */
-    public function __construct() {
+    public function __construct()
+    {
         parent::__construct();
         $this->addClasses(array(self::EDITOR_CLASS, 'ckeditor_editor'));
         $this->idList = array();
@@ -54,7 +56,8 @@ class CkEditorFormWidget extends TextAreaFormWidget implements WysiwygEditor {
      *
      * @param ResourceManager resourceManager The resourceManager.
      */
-    private function initEditor(ResourceManager $resourceManager) {
+    private function initEditor(ResourceManager $resourceManager)
+    {
         // add required js
         $resourceManager->jsFile('ckeditor/jquery.CKEditor.pack.js', ResourceManager::HEADER);
         // create init script code at the end once we know all the ids
@@ -64,7 +67,8 @@ class CkEditorFormWidget extends TextAreaFormWidget implements WysiwygEditor {
     /**
      * {@inheritDoc}
      */
-    public function apply($request, TemplateView $templateView, $idList=null) {
+    public function apply($request, TemplateView $templateView, $idList=null)
+    {
         $this->initEditor($templateView->getResourceManager());
         if (null === $idList) {
             $this->idList = null;
@@ -77,7 +81,8 @@ class CkEditorFormWidget extends TextAreaFormWidget implements WysiwygEditor {
     /**
      * {@inheritDoc}
      */
-    public function render($request, TemplateView $templateView) {
+    public function render($request, TemplateView $templateView)
+    {
         if (null == $this->container->get('pluginService')->getPluginForId('ckEditor')) {
             // fallback
             return parent::render($request, $templateView);
@@ -93,7 +98,8 @@ class CkEditorFormWidget extends TextAreaFormWidget implements WysiwygEditor {
     /**
      * Add init code.
      */
-    public function onFinaliseContent($event) {
+    public function onFinaliseContent($event)
+    {
         $ckEditor = $this->container->get('pluginService')->getPluginForId('ckEditor');
         $basePath = $ckEditor->pluginURL('content/ckeditor');
         $noEditorClass = self::NO_EDITOR_CLASS;

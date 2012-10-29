@@ -42,7 +42,8 @@ use ZenMagick\Base\ZMObject;
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class Beans {
+class Beans
+{
     public static $GETTER_PREFIX_LIST = array('get', 'is', 'has');
     public static $SETTER_PREFIX = 'set';
     private static $propertyMap_ = array();
@@ -56,7 +57,8 @@ class Beans {
      * @param array properties Optional list of properties to use; default is <code>null</code> for all.
      * @return array A property / method map.
      */
-    public static function getPropertyMap($obj, $properties=null) {
+    public static function getPropertyMap($obj, $properties=null)
+    {
         $clazz = get_class($obj);
         // key depends on both class and properties
         $cacheKey = $clazz.serialize($properties);
@@ -103,7 +105,8 @@ class Beans {
      *  included or not; default is <code>true</code> to include generic properties.
      * @return array The object data as map.
      */
-    public static function obj2map($obj, $properties=null, $addGeneric=true) {
+    public static function obj2map($obj, $properties=null, $addGeneric=true)
+    {
         if (is_array($obj)) {
             $map = array();
             if (null !== $properties) {
@@ -144,7 +147,8 @@ class Beans {
      *  included or not; default is <code>true</code> to include generic properties.
      * @return mixed The (modified) <code>$obj</code>.
      */
-    public static function setAll($obj, $data, $keys=null, $setGeneric=true) {
+    public static function setAll($obj, $data, $keys=null, $setGeneric=true)
+    {
         $isGeneric = ($obj instanceof ZMObject);
         foreach ($data as $property => $value) {
             if (is_string($value) && (0 === strpos($value, 'ref::') || 0 === strpos($value, 'bean::'))) {
@@ -173,7 +177,8 @@ class Beans {
      * @param string clazz The class name.
      * @return mixed An instance of the given class or <code>null</code>.
      */
-    public static function getobj($clazz, $container = null) {
+    public static function getobj($clazz, $container = null)
+    {
         $container = $container ?: Runtime::getContainer();
 
         if ((0 === strpos($clazz, 'ZM')) || (0 === strpos(ltrim($clazz, '\\'), 'ZenMagick'))) {
@@ -195,7 +200,8 @@ class Beans {
      * @param array keys Optional list of data keys to be used; default is <code>null</code> to use all.
      * @return mixed An instance of the given class or <code>null</code>.
      */
-    public static function map2obj($clazz, $data, $keys=null) {
+    public static function map2obj($clazz, $data, $keys=null)
+    {
         if (null != ($obj = self::getobj($clazz))) {
             self::setAll($obj, $data, $keys);
             return $obj;
@@ -211,7 +217,8 @@ class Beans {
      * @param string definition The bean definition.
      * @return mixed An object or <code>null</code>.
      */
-    public static function getBean($definition, $container = null) {
+    public static function getBean($definition, $container = null)
+    {
         if (empty($definition)) {
             return null;
         }

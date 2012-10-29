@@ -26,20 +26,23 @@ use ZenMagick\Base\Plugins\Plugin;
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class AutoresponderPlugin extends Plugin {
+class AutoresponderPlugin extends Plugin
+{
     private $cookieUpdated;
 
     /**
      * {@inheritDoc}
      */
-    public function getDependencies() {
+    public function getDependencies()
+    {
         return array('cron');
     }
 
     /**
      * {@inheritDoc}
      */
-    public function Xinstall() {
+    public function Xinstall()
+    {
         parent::install();
 
         //add one hidden field to store al setups
@@ -83,7 +86,8 @@ class AutoresponderPlugin extends Plugin {
      *
      * @return array The config data.
      */
-    public function getConfig() {
+    public function getConfig()
+    {
         return unserialize($this->get('config'));
     }
 
@@ -92,7 +96,8 @@ class AutoresponderPlugin extends Plugin {
      *
      * @param array config The config data.
      */
-    public function XXsetConfig($config) {
+    public function XXsetConfig($config)
+    {
         $this->set('config', serialize($config));
     }
 

@@ -26,19 +26,21 @@ use ZenMagick\plugins\unitTests\simpletest\TestCase;
  * @package org.zenmagick.plugins.unitTests.tests
  * @author DerManoMann <mano@zenmagick.org>
  */
-class TestZMProducts extends TestCase {
-
+class TestZMProducts extends TestCase
+{
     /**
      * Test create product.
      */
-    public function testCreateProduct() {
+    public function testCreateProduct()
+    {
         //TODO
     }
 
     /**
      * Test update product.
      */
-    public function testUpdateProduct() {
+    public function testUpdateProduct()
+    {
         $productService = $this->container->get('productService');
         $product = $productService->getProductForId(2, 1);
         $this->assertNotNull($product);
@@ -68,7 +70,8 @@ class TestZMProducts extends TestCase {
     /**
      * Test product type settings.
      */
-    public function testProductTypeSettings() {
+    public function testProductTypeSettings()
+    {
         $fieldData = array(
             'starting_at' => true,
             'reviews' => true,
@@ -82,7 +85,8 @@ class TestZMProducts extends TestCase {
     /**
      * Test featured products on homepage.
      */
-    public function testFeaturedProductsHome() {
+    public function testFeaturedProductsHome()
+    {
         $featuredIds = array(34, 40, 12, 27, 26, 168, 169, 171, 172);
         $products = $this->container->get('productService')->getFeaturedProducts();
         $this->assertEqual(9, count($products));
@@ -94,7 +98,8 @@ class TestZMProducts extends TestCase {
     /**
      * Test featured products on category page.
      */
-    public function testFeaturedProductsCategory() {
+    public function testFeaturedProductsCategory()
+    {
         $featuredIds = array(12);
         $products = $this->container->get('productService')->getFeaturedProducts(3, 4, true);
         $this->assertEqual(1, count($products));
@@ -106,7 +111,8 @@ class TestZMProducts extends TestCase {
     /**
      * Test new products on home page.
      */
-    public function testNewProductsHome() {
+    public function testNewProductsHome()
+    {
         $sql = "UPDATE %table.products% SET products_date_added = :dateAdded";
         ZMRuntime::getDatabase()->updateObj($sql, array('dateAdded' => new \DateTime()), 'products');
 
@@ -119,7 +125,8 @@ class TestZMProducts extends TestCase {
     /**
      * Test new products on category page.
      */
-    public function testNewProductsCategory() {
+    public function testNewProductsCategory()
+    {
         $featuredIds = array(1, 2);
         $products = $this->container->get('productService')->getNewProducts(4, 0, '0');
         $this->assertEqual(2, count($products));
@@ -131,7 +138,8 @@ class TestZMProducts extends TestCase {
     /**
      * Test bestseller products on home page.
      */
-    public function testBestsellerProductsHome() {
+    public function testBestsellerProductsHome()
+    {
         $products = $this->container->get('productService')->getBestSellers(null, 999);
         $this->assertEqual(51, count($products));
     }
@@ -139,7 +147,8 @@ class TestZMProducts extends TestCase {
     /**
      * Test bestseller products on category page.
      */
-    public function testBestsellerProductsCategory() {
+    public function testBestsellerProductsCategory()
+    {
         $featuredIds = array(1, 2);
         $products = $this->container->get('productService')->getBestSellers(4, 999);
         $this->assertEqual(2, count($products));
@@ -151,7 +160,8 @@ class TestZMProducts extends TestCase {
     /**
      * Test getProductForModel.
      */
-    public function testGetProductForModel() {
+    public function testGetProductForModel()
+    {
         $product = $this->container->get('productService')->getProductForModel('MG200MMS', 1);
         if ($this->assertNotNull($product)) {
             $this->assertTrue($product instanceof ZenMagick\StoreBundle\Entity\Catalog\Product);
@@ -162,7 +172,8 @@ class TestZMProducts extends TestCase {
     /**
      * Test getProductIdsForCategoryId.
      */
-    public function testGetProductIdsForCategoryId() {
+    public function testGetProductIdsForCategoryId()
+    {
         $productIdList = $this->container->get('productService')->getProductIdsForCategoryId(10, 1, true, false);
         $this->assertNotNull($productIdList);
         $expect = array(12, 11, 13, 18, 17, 6, 4, 10, 9);
@@ -172,7 +183,8 @@ class TestZMProducts extends TestCase {
     /**
      * Test getProductsForCategoryId.
      */
-    public function testGetProductsForCategoryId() {
+    public function testGetProductsForCategoryId()
+    {
         $productList = $this->container->get('productService')->getProductsForCategoryId(10, true, 1);
         $this->assertNotNull($productList);
         $this->assertEqual(9, count($productList));

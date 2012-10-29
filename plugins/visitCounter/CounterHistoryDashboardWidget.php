@@ -26,13 +26,15 @@ use ZenMagick\AdminBundle\Dashboard\DashboardWidget;
  *
  * @author Johnny Robeson
  */
-class CounterHistoryDashboardWidget extends DashboardWidget {
+class CounterHistoryDashboardWidget extends DashboardWidget
+{
     private $counterResults;
 
     /**
      * Create new instance.
      */
-    public function __construct() {
+    public function __construct()
+    {
         $sql = "SELECT startdate, counter, session_counter FROM %table.counter_history% ORDER BY startdate DESC limit 10";
         $this->counterResults = \ZMRuntime::getDatabase()->fetchAll($sql, array(), 'counter_history');
 
@@ -42,7 +44,8 @@ class CounterHistoryDashboardWidget extends DashboardWidget {
     /**
      * Get data.
      */
-    protected function getData() {
+    protected function getData()
+    {
         $data = array();
 
         foreach ($this->counterResults as $result) {
@@ -57,7 +60,8 @@ class CounterHistoryDashboardWidget extends DashboardWidget {
     /**
      * {@inheritDoc}
      */
-    public function getContents($request) {
+    public function getContents($request)
+    {
         $contents = '<table class="grid" cellspacing="0">';
         $contents .= '<tr><th>'._zm('Date').'</th><th>'._zm('Session').'</th><th>'._zm('Total').'</th></tr>';
         $language = $request->getSelectedLanguage();

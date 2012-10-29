@@ -26,14 +26,15 @@ use ZenMagick\Base\ZMObject;
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class AdminUserRoleService extends ZMObject {
-
+class AdminUserRoleService extends ZMObject
+{
     /**
      * Get a list of all roles.
      *
      * @return array List of roles with the role id as key.
      */
-    public function getAllRoles() {
+    public function getAllRoles()
+    {
         $sql = "SELECT admin_role_id, name from %table.admin_roles%";
         $roles = array();
         foreach (\ZMRuntime::getDatabase()->fetchAll($sql, array(), 'admin_roles') as $result) {
@@ -48,7 +49,8 @@ class AdminUserRoleService extends ZMObject {
      *
      * @return int The new role id.
      */
-    public function addRole($name) {
+    public function addRole($name)
+    {
         $sql = "INSERT INTO %table.admin_roles% (name) VALUES(:name)";
         $result = \ZMRuntime::getDatabase()->createModel('admin_roles', array('name' => $name));
         return $result['admin_role_id'];
@@ -60,7 +62,8 @@ class AdminUserRoleService extends ZMObject {
      * @param string name The role to delete.
      * @return boolean <code>true</code> on success.
      */
-    public function deleteRole($name) {
+    public function deleteRole($name)
+    {
         $allRolesLookup = array_flip($this->getAllRoles());
         $roleId = $allRolesLookup[$name];
         // 1) delete mappings
@@ -77,7 +80,8 @@ class AdminUserRoleService extends ZMObject {
      * @param int id The user id.
      * @return array List of roles with the role id as key.
      */
-    public function getRolesForId($id) {
+    public function getRolesForId($id)
+    {
         $sql = "SELECT DISTINCT ar.admin_role_id, ar.name from %table.admin_roles% AS ar, %table.admins_to_roles% AS atr
                 WHERE atr.admin_role_id = ar.admin_role_id
                   AND atr.admin_id = :admin_id";
@@ -96,7 +100,8 @@ class AdminUserRoleService extends ZMObject {
      * @param int id The user id.
      * @param array List of roles.
      */
-    public function setRolesForId($id, $roles) {
+    public function setRolesForId($id, $roles)
+    {
         $allRolesLookup = array_flip($this->getAllRoles());
         $currentRoles = $this->getRolesForId($id);
         $remove = array();

@@ -36,7 +36,8 @@ use ZenMagick\Base\ZMObject;
  * @ORM\Entity
  * @author DerManoMann
  */
-class Attribute extends ZMObject {
+class Attribute extends ZMObject
+{
     /**
      * @var integer $attributeId
      *
@@ -128,7 +129,8 @@ class Attribute extends ZMObject {
      * @param string name The name.
      * @param string type The type.
      */
-    public function __construct($id=0, $name=null, $type=null) {
+    public function __construct($id=0, $name=null, $type=null)
+    {
         parent::__construct();
         $this->attributeId = $id;
         $this->name = $name;
@@ -246,7 +248,8 @@ class Attribute extends ZMObject {
     /**
      * Clear all values.
      */
-    public function clearValues() {
+    public function clearValues()
+    {
         $this->values = array();
     }
 
@@ -255,7 +258,8 @@ class Attribute extends ZMObject {
      *
      * @param mixed value Either a <code>ZMAttributeValue</code> instance or a value id.
      */
-    public function removeValue($value) {
+    public function removeValue($value)
+    {
         for ($ii=0, $size=count($this->values); $ii < $size; ++$ii) {
             if ((is_object($value) && $value === $this->values[$ii] ) || (is_numeric($value) && (int) $value == $this->values[$ii]->getId())) {
                 array_splice($this->values, $ii, 1);
@@ -271,7 +275,8 @@ class Attribute extends ZMObject {
      *
      * @return boolean <code>true</code> if, and only if, the attribute is virtual.
      */
-    public function isVirtual() {
+    public function isVirtual()
+    {
         $attributeService = $this->container->get('attributeService');
         return $attributeService->hasDownloads($this);
     }

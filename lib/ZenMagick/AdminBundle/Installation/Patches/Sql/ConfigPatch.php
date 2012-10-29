@@ -28,7 +28,8 @@ use ZenMagick\AdminBundle\Installation\Patches\SQLPatch;
  * @author DerManoMann <mano@zenmagick.org>
  * @todo migrate all this to a fixture for installation
  */
-class ConfigPatch extends SQLPatch {
+class ConfigPatch extends SQLPatch
+{
     public $sqlUndoFiles_ = array(
         "config_undo.sql"
     );
@@ -36,7 +37,8 @@ class ConfigPatch extends SQLPatch {
     /**
      * Create new instance.
      */
-    public function __construct() {
+    public function __construct()
+    {
         parent::__construct('sqlConfig');
         $this->label_ = 'Setup ZenMagick config groups and initial values';
     }
@@ -46,7 +48,8 @@ class ConfigPatch extends SQLPatch {
      *
      * @return boolean <code>true</code> if this patch can still be applied.
      */
-    public function isOpen() {
+    public function isOpen()
+    {
         return true;
     }
 
@@ -57,7 +60,8 @@ class ConfigPatch extends SQLPatch {
      *  disabled as per settings.
      * @return boolean <code>true</code> if patching was successful, <code>false</code> if not.
      */
-    public function patch($force=false) {
+    public function patch($force=false)
+    {
         $configService = Runtime::getContainer()->get('configService');
 
         // Create configuration groups

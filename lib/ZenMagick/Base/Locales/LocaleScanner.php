@@ -28,7 +28,8 @@ use ZenMagick\Base\ZMObject;
  *
  * @author DerManoMann <mano@zenmagick.org> <mano@zenmagick.org>
  */
-class LocaleScanner extends ZMObject {
+class LocaleScanner extends ZMObject
+{
     /** Locale patterns. */
     const LOCALE_PATTERNS = '_zmn,_zm,_vzm';
     protected $filesystem;
@@ -38,7 +39,8 @@ class LocaleScanner extends ZMObject {
      *
      * @param Symfony\Component\Filesystem\Filesystem filesystem The helper instance.
      */
-    public function setFilesystem(Filesystem $filesystem) {
+    public function setFilesystem(Filesystem $filesystem)
+    {
         $this->filesystem = $filesystem;
     }
 
@@ -49,7 +51,8 @@ class LocaleScanner extends ZMObject {
      * @param int index The index of the function to examine.
      * @return array List of parameter token.
      */
-    private function getParameterToken($tokens, $index) {
+    private function getParameterToken($tokens, $index)
+    {
         $parameters = array();
         for ($ii=$index+1; $ii<count($tokens); ++$ii) {
             $token = $tokens[$ii];
@@ -70,7 +73,8 @@ class LocaleScanner extends ZMObject {
      * @param string ext File extension to look for; default is <em>.php</em>.
      * @return array A map of l10n strings for each file.
      */
-    public function buildL10nMap($baseDir, $ext='.php') {
+    public function buildL10nMap($baseDir, $ext='.php')
+    {
         if (!is_dir($baseDir)) return array();
         $lnPatterns = explode(',', self::LOCALE_PATTERNS);
         $map = array();
@@ -125,7 +129,8 @@ class LocaleScanner extends ZMObject {
      * Format a po string.
      *
      */
-    protected function formatString($string) {
+    protected function formatString($string)
+    {
         // preformat string
         $string = stripslashes($string);
         $string = str_replace('"', '\"', $string);
@@ -153,7 +158,8 @@ class LocaleScanner extends ZMObject {
      * @param boolean pot Optional flag to indicate pot format (empty translations); default is <code>false</code>.
      * @return string The formatted po(t) content.
      */
-    public function map2po($map, $pot=false) {
+    public function map2po($map, $pot=false)
+    {
         $lines = array();
         if (!$pot) {
             $lines[] = 'msgid ""';

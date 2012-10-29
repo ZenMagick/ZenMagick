@@ -34,7 +34,8 @@ use ZenMagick\Base\ZMObject;
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class AuthenticationManager extends ZMObject {
+class AuthenticationManager extends ZMObject
+{
     const DEFAULT_MIN_PASSWORD_LENGTH = 8;
 
     /**
@@ -42,7 +43,8 @@ class AuthenticationManager extends ZMObject {
      *
      * @return array List of <code>Authentication</code> instances.
      */
-    public function getProviders() {
+    public function getProviders()
+    {
         $providers = array();
         foreach ($this->container->get('containerTagService')->findTaggedServiceIds('zenmagick.base.security.authentication.provider') as $id => $args) {
             $providers[] = $this->container->get($id);
@@ -58,7 +60,8 @@ class AuthenticationManager extends ZMObject {
      *
      * @return Authentication A provider or <code>null</code> if none are configured.
      */
-    public function getDefaultProvider() {
+    public function getDefaultProvider()
+    {
         $firstProvider = null;
         $defaultProvider = null;
         foreach ($this->container->get('containerTagService')->findTaggedServiceIds('zenmagick.base.security.authentication.provider') as $id => $args) {
@@ -82,7 +85,8 @@ class AuthenticationManager extends ZMObject {
      * @param string salt Optional salt to improve encryption; default is <code>null</code>.
      * @return string The encrypted password.
      */
-    public function encryptPassword($plaintext, $salt=null) {
+    public function encryptPassword($plaintext, $salt=null)
+    {
         return $this->getDefaultProvider()->encryptPassword($plaintext, $salt);
     }
 
@@ -93,7 +97,8 @@ class AuthenticationManager extends ZMObject {
      * @param string encrypted The encrypted password.
      * @return boolean <code>true</code> if the plain text password matches the encrypted, <code>false</code> if not.
      */
-    public function validatePassword($plaintext, $encrypted) {
+    public function validatePassword($plaintext, $encrypted)
+    {
         foreach ($this->getProviders() as $provider) {
             if ($provider->validatePassword($plaintext, $encrypted)) {
                 return true;
@@ -108,7 +113,8 @@ class AuthenticationManager extends ZMObject {
      *
      * @return string The new password.
      */
-    public function mkPassword() {
+    public function mkPassword()
+    {
         $settingsService = $this->container->get('settingsService');
         return Toolbox::random($settingsService->get('zenmagick.base.security.authentication.minPasswordLength', self::DEFAULT_MIN_PASSWORD_LENGTH), Toolbox::RANDOM_MIXED);
     }

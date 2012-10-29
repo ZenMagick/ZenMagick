@@ -30,12 +30,13 @@ use ZenMagick\StoreBundle\Entity\Account\Account;
  * @package org.zenmagick.plugins.unitTests.tests
  * @author DerManoMann <mano@zenmagick.org>
  */
-class TestStorefrontAccountSacsHandler extends TestCase {
-
+class TestStorefrontAccountSacsHandler extends TestCase
+{
     /**
      * Get a sacs manager.
      */
-    protected function getSacsManager() {
+    protected function getSacsManager()
+    {
         $sacsManager = new SacsManager();
         $sacsManager->load($this->getTestsBaseDirectory().'/http/config/level_sacs_mappings.yaml');
         return $sacsManager;
@@ -47,7 +48,8 @@ class TestStorefrontAccountSacsHandler extends TestCase {
      * @param string level The authorization level.
      * @return ZenMagick\StoreBundle\Entity\Account\Account An account.
      */
-    protected function getAccount($level) {
+    protected function getAccount($level)
+    {
         $account = new MockAccount();
         $account->setType($level);
         return $account;
@@ -56,7 +58,8 @@ class TestStorefrontAccountSacsHandler extends TestCase {
     /**
      * Test anonymous
      */
-    public function testAnonymous() {
+    public function testAnonymous()
+    {
         $sacsManager = $this->getSacsManager();
         $handler = new StorefrontAccountSacsHandler();
         $handler->setContainer($this->container);
@@ -67,7 +70,8 @@ class TestStorefrontAccountSacsHandler extends TestCase {
     /**
      * Test registered
      */
-    public function testRegistered() {
+    public function testRegistered()
+    {
         $sacsManager = $this->getSacsManager();
         $handler = new StorefrontAccountSacsHandler();
         $handler->setContainer($this->container);
@@ -78,7 +82,8 @@ class TestStorefrontAccountSacsHandler extends TestCase {
     /**
      * Test guest
      */
-    public function testGuest() {
+    public function testGuest()
+    {
         $sacsManager = $this->getSacsManager();
         $handler = new StorefrontAccountSacsHandler();
         $handler->setContainer($this->container);

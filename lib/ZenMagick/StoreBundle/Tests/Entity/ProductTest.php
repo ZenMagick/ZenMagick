@@ -26,12 +26,13 @@ use ZenMagick\ZenMagickBundle\Tests\ZenMagickTestCase;
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class ProductTest extends ZenMagickTestCase {
-
+class ProductTest extends ZenMagickTestCase
+{
     /**
      * Test existing manufacturer.
      */
-    public function testExistingManufacturer() {
+    public function testExistingManufacturer()
+    {
         $product = $this->get('productService')->getProductForId(19, 1);
         if ($this->assertNotNull($product)) {
             $manufacturer = $product->getManufacturer();
@@ -44,7 +45,8 @@ class ProductTest extends ZenMagickTestCase {
     /**
      * Test missing manufacturer.
      */
-    public function testMissingManufacturer() {
+    public function testMissingManufacturer()
+    {
         $product = $this->get('productService')->getProductForId(31, 1);
         if ($this->assertNotNull($product)) {
             $manufacturer = $product->getManufacturer();
@@ -55,7 +57,8 @@ class ProductTest extends ZenMagickTestCase {
     /**
      * Test null manufacturer.
      */
-    public function testNULLManufacturer() {
+    public function testNULLManufacturer()
+    {
         $product = $this->get('productService')->getProductForId(28, 1);
         if ($this->assertNotNull($product)) {
             $manufacturer = $product->getManufacturer();

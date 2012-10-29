@@ -26,19 +26,21 @@ use ZenMagick\plugins\unitTests\simpletest\TestCase;
  * @package org.zenmagick.plugins.unitTests.tests
  * @author DerManoMann <mano@zenmagick.org>
  */
-class TestZMOffers extends TestCase {
-
+class TestZMOffers extends TestCase
+{
     /**
      * Set up.
      */
-    public function setUp() {
+    public function setUp()
+    {
         parent::setUp();
     }
 
     /**
      * Test quantity discounts
      */
-    public function testQtyDiscounts() {
+    public function testQtyDiscounts()
+    {
         $product = $this->container->get('productService')->getProductForId(176, 1);
         if ($this->assertNotNull($product)) {
             $offers = $product->getOffers();
@@ -61,7 +63,8 @@ class TestZMOffers extends TestCase {
     /**
      * Test products via the macro function.
      */
-    public function testViaToolbox() {
+    public function testViaToolbox()
+    {
         $tests = array(
             127 => array(
                 array('qty' => '1-2', 'price' => 15),

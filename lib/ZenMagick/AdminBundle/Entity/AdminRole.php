@@ -27,7 +27,8 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table(name="admin_roles")
  * @ORM\Entity
  */
-class AdminRole {
+class AdminRole
+{
     /**
      * @var integer $id
      *
@@ -54,7 +55,8 @@ class AdminRole {
     /**
      * Constructor
      */
-    public function __construct() {
+    public function __construct()
+    {
         $this->admin = new \Doctrine\Common\Collections\ArrayCollection();
     }
 

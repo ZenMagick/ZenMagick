@@ -28,7 +28,8 @@ use ZenMagick\Base\ZMObject;
  * @author DerManoMann <mano@zenmagick.org>
  * @package org.zenmagick.mvc.resultlist
  */
-class ZMResultListSorter extends ZMObject {
+class ZMResultListSorter extends ZMObject
+{
     protected $id_;
     protected $name_;
     protected $sortId_;
@@ -41,7 +42,8 @@ class ZMResultListSorter extends ZMObject {
      * @param string name Optional sorter name.
      * @param string sortId Optional sort id.
      */
-    public function __construct($id=null, $name='', $sortId=null) {
+    public function __construct($id=null, $name='', $sortId=null)
+    {
         parent::__construct();
 
         $this->id_ = $id;
@@ -130,7 +132,8 @@ class ZMResultListSorter extends ZMObject {
      *
      * @param boolean descending The new value.
      */
-    public function setDescending($descending) {
+    public function setDescending($descending)
+    {
         $this->descending_ = $descending;
     }
 

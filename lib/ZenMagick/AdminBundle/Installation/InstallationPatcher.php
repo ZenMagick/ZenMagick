@@ -27,13 +27,15 @@ use ZenMagick\Base\ZMObject;
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class InstallationPatcher extends ZMObject {
+class InstallationPatcher extends ZMObject
+{
     private $patches_;
 
     /**
      * Create new instance.
      */
-    public function __construct() {
+    public function __construct()
+    {
         parent::__construct();
         $this->_loadPatches();
     }
@@ -41,7 +43,8 @@ class InstallationPatcher extends ZMObject {
     /**
      * Load all patches.
      */
-    public function _loadPatches() {
+    public function _loadPatches()
+    {
         $path = __DIR__.'/Patches';
         $ext = '.php';
         $this->patches_ = array();
@@ -64,7 +67,8 @@ class InstallationPatcher extends ZMObject {
      * @param string groupId Optional group id.
      * @return boolean <code>true</code> if there are any patches left that could be run.
      */
-    public function isPatchesOpen($groupId=null) {
+    public function isPatchesOpen($groupId=null)
+    {
         foreach ($this->patches_ as $id => $patch) {
             if (null != $groupId && $patch->getGroupId() != $groupId) {
                 continue;
@@ -84,7 +88,8 @@ class InstallationPatcher extends ZMObject {
      *  it is disabled as per settings.
      * @return boolean <code>true</code> if <strong>all</strong> patching was successful, <code>false</code> if not.
      */
-    public function patch($force=false) {
+    public function patch($force=false)
+    {
         $result = true;
         foreach ($this->patches_ as $id => $patch) {
             $result |= $patch->patch($force);
@@ -99,7 +104,8 @@ class InstallationPatcher extends ZMObject {
      * @param string id The patch id.
      * @return InstallationPatch The corresponding installation patch or <code>null</code>.
      */
-    public function getPatchForId($id) {
+    public function getPatchForId($id)
+    {
         return array_key_exists($id, $this->patches_) ? $this->patches_[$id] : null;
     }
 
@@ -109,7 +115,8 @@ class InstallationPatcher extends ZMObject {
      * @param string groupId Optional group id.
      * @return array A list of <code>InstallationPatch</code> instances.
      */
-    public function getPatches($groupId=null) {
+    public function getPatches($groupId=null)
+    {
         $patches = array();
         foreach ($this->patches_ as $id => $patch) {
             if (null != $groupId && $patch->getGroupId() != $groupId) {

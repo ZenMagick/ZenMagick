@@ -24,7 +24,8 @@ namespace ZenMagick\StoreBundle\Menu;
  *
  * @param author DerManoMann
  */
-class MenuElement extends Node {
+class MenuElement extends Node
+{
     private $requestId;
     private $params;
     private $alias;
@@ -36,7 +37,8 @@ class MenuElement extends Node {
      * @param string name Optional name; default is an empty string <code>''</code>.
      * @param string requestId Optional requestId; default is <code>null</code>.
      */
-    public function __construct($id=null, $name='', $requestId=null) {
+    public function __construct($id=null, $name='', $requestId=null)
+    {
         parent::__construct($id, $name);
         $this->requestId = $requestId;
         $this->params = '';
@@ -48,7 +50,8 @@ class MenuElement extends Node {
      *
      * @param string requestId The requestId.
      */
-    public function setRequestId($requestId) {
+    public function setRequestId($requestId)
+    {
         $this->requestId = $requestId;
     }
 
@@ -57,7 +60,8 @@ class MenuElement extends Node {
      *
      * @return string The requestId.
      */
-    public function getRequestId() {
+    public function getRequestId()
+    {
         return $this->requestId;
     }
 
@@ -66,7 +70,8 @@ class MenuElement extends Node {
      *
      * @param string params The params.
      */
-    public function setParams($params) {
+    public function setParams($params)
+    {
         $this->params = $params;
     }
 
@@ -75,7 +80,8 @@ class MenuElement extends Node {
      *
      * @return string The params.
      */
-    public function getParams() {
+    public function getParams()
+    {
         return $this->params;
     }
 
@@ -84,7 +90,8 @@ class MenuElement extends Node {
      *
      * @param array alias The alias.
      */
-    public function setAlias($alias) {
+    public function setAlias($alias)
+    {
         $this->alias = $alias;
     }
 
@@ -93,7 +100,8 @@ class MenuElement extends Node {
      *
      * @return array The alias.
      */
-    public function getAlias() {
+    public function getAlias()
+    {
         return $this->alias;
     }
 

@@ -26,12 +26,13 @@ use ZenMagick\Base\Beans;
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class AdminUsersController extends \ZMController {
-
+class AdminUsersController extends \ZMController
+{
     /**
      * {@inheritDoc}
      */
-    public function processGet($request) {
+    public function processGet($request)
+    {
         $user = $this->getUser();
         $resultSource = new \ZMObjectResultSource('ZenMagick\\AdminBundle\\Entity\\AdminUser', 'adminUserService', "getAllUsers", !$user->isLive());
         $resultList = Beans::getBean('ZMResultList');

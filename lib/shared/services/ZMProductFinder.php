@@ -37,7 +37,8 @@ use ZenMagick\Base\Database\QueryDetails;
  * @author DerManoMann
  * @package zenmagick.store.shared.utils
  */
-class ZMProductFinder extends ZMObject {
+class ZMProductFinder extends ZMObject
+{
     protected $criteria_;
     protected $sortId_;
     protected $descending_;
@@ -47,7 +48,8 @@ class ZMProductFinder extends ZMObject {
      *
      * @param ZMSearchCriteria criteria Optional search criteria; default is <code>null</code>.
      */
-    public function __construct($criteria=null) {
+    public function __construct($criteria=null)
+    {
         parent::__construct();
         $this->criteria_ = $criteria;
         $this->sortId_ = null;
@@ -59,7 +61,8 @@ class ZMProductFinder extends ZMObject {
      *
      * @param ZMSearchCriteria criteria Search criteria.
      */
-    public function setCriteria($criteria) {
+    public function setCriteria($criteria)
+    {
         $this->criteria_ = $criteria;
     }
 
@@ -68,7 +71,8 @@ class ZMProductFinder extends ZMObject {
      *
      * @param boolean descending The new value.
      */
-    public function setDescending($descending) {
+    public function setDescending($descending)
+    {
         $this->descending_ = $descending;
     }
 
@@ -77,7 +81,8 @@ class ZMProductFinder extends ZMObject {
      *
      * @param string sortId The sort id.
      */
-    public function setSortId($sortId) {
+    public function setSortId($sortId)
+    {
         $this->sortId_ = $sortId;
     }
 
@@ -86,7 +91,8 @@ class ZMProductFinder extends ZMObject {
      *
      * @return ZenMagick\Base\Database\QueryDetails Query details for a product id search.
      */
-    public function execute() {
+    public function execute()
+    {
         $queryDetails = $this->buildQuery($this->criteria_);
         return $queryDetails;
     }
@@ -97,7 +103,8 @@ class ZMProductFinder extends ZMObject {
      * @param ZMSearchCriteria criteria Search criteria.
      * @return ZenMagick\Base\Database\QueryDetails The search SQL.
      */
-    protected function buildQuery($criteria) {
+    protected function buildQuery($criteria)
+    {
         $args = array();
         $useFulltext = $this->container->get('settingsService')->get('apps.store.search.fulltext', false);
 
@@ -293,7 +300,8 @@ class ZMProductFinder extends ZMObject {
      * @todo ZCSMELL
      * @todo ZCLICENSE
      */
-    protected function parseSearchString($search_str = '', &$objects) {
+    protected function parseSearchString($search_str = '', &$objects)
+    {
         $search_str = trim(strtolower($search_str));
 
         // Break up $search_str on whitespace; quoted string will be reconstructed later

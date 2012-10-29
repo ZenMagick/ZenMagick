@@ -30,7 +30,8 @@ use ZenMagick\Http\Widgets\Widget;
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-abstract class FormWidget extends Widget {
+abstract class FormWidget extends Widget
+{
     protected static $NO_VAL_ATTR = array('multiple', 'readonly', 'disabled');
     protected $classes_;
     protected $name_;
@@ -41,7 +42,8 @@ abstract class FormWidget extends Widget {
     /**
      * Create new instance.
      */
-    public function __construct() {
+    public function __construct()
+    {
         parent::__construct();
         $this->name_ = '';
         $this->classes_ = array();
@@ -55,7 +57,8 @@ abstract class FormWidget extends Widget {
      *
      * @param string class The classes.
      */
-    public function setClasses($classes) {
+    public function setClasses($classes)
+    {
         $this->classes_ = $classes;
     }
 
@@ -64,7 +67,8 @@ abstract class FormWidget extends Widget {
      *
      * @param string class The classes.
      */
-    public function addClasses($classes) {
+    public function addClasses($classes)
+    {
         $this->classes_ = array_unique(array_merge($this->classes_, (array) $classes));
     }
 
@@ -73,7 +77,8 @@ abstract class FormWidget extends Widget {
      *
      * @return array The classes.
      */
-    public function getClasses() {
+    public function getClasses()
+    {
         return $this->classes_;
     }
 
@@ -82,7 +87,8 @@ abstract class FormWidget extends Widget {
      *
      * @return string class.
      */
-    public function getClass() {
+    public function getClass()
+    {
         return implode(' ', $this->classes_);
     }
 
@@ -91,7 +97,8 @@ abstract class FormWidget extends Widget {
      *
      * @param string name The name.
      */
-    public function setName($name) {
+    public function setName($name)
+    {
         $this->name_ = $name;
     }
 
@@ -100,7 +107,8 @@ abstract class FormWidget extends Widget {
      *
      * @return string The name.
      */
-    public function getName() {
+    public function getName()
+    {
         return $this->name_;
     }
 
@@ -109,7 +117,8 @@ abstract class FormWidget extends Widget {
      *
      * @param mixed value The value.
      */
-    public function setValue($value) {
+    public function setValue($value)
+    {
         $this->value_ = $value;
     }
 
@@ -118,7 +127,8 @@ abstract class FormWidget extends Widget {
      *
      * @return mixed The value.
      */
-    public function getValue() {
+    public function getValue()
+    {
         return $this->value_;
     }
 
@@ -127,7 +137,8 @@ abstract class FormWidget extends Widget {
      *
      * @param boolean value The new value.
      */
-    public function setEncode($value) {
+    public function setEncode($value)
+    {
         $this->encode_ = Toolbox::asBoolean($value);
     }
 
@@ -136,7 +147,8 @@ abstract class FormWidget extends Widget {
      *
      * @return boolean <code>true</code> if encoding will be done.
      */
-    public function isEncode() {
+    public function isEncode()
+    {
         return $this->encode_;
     }
 
@@ -145,7 +157,8 @@ abstract class FormWidget extends Widget {
      *
      * @return string The value as string.
      */
-    public function getStringValue() {
+    public function getStringValue()
+    {
         return $this->getValue();
     }
 
@@ -154,7 +167,8 @@ abstract class FormWidget extends Widget {
      *
      * @param array names The attribute names.
      */
-    public function setAttributeNames($names) {
+    public function setAttributeNames($names)
+    {
         $this->attributeNames_ = $names;
     }
 
@@ -163,7 +177,8 @@ abstract class FormWidget extends Widget {
      *
      * @param array names The attribute names.
      */
-    public function addAttributeNames($names) {
+    public function addAttributeNames($names)
+    {
         $this->attributeNames_ = array_unique(array_merge($this->attributeNames_, (array) $names));
     }
 
@@ -172,7 +187,8 @@ abstract class FormWidget extends Widget {
      *
      * @return array The attribute names.
      */
-    public function getAttributeNames() {
+    public function getAttributeNames()
+    {
         return $this->attributeNames_;
     }
 
@@ -181,7 +197,8 @@ abstract class FormWidget extends Widget {
      *
      * @return boolean <code>true</code> if multiple values are supported.
      */
-    public function isMultiValue() {
+    public function isMultiValue()
+    {
         return false;
     }
 
@@ -193,7 +210,8 @@ abstract class FormWidget extends Widget {
      * @param boolean addName Optional flag to include/exclude the name; default is <code>true</code>.
      * @return string All set (and allowed) attributes as formatted HTML string.
      */
-    public function getAttributeString($request, $addValue=true, $addName=true) {
+    public function getAttributeString($request, $addValue=true, $addName=true)
+    {
         $isXhtml = Runtime::getSettings()->get('zenmagick.http.html.xhtml');
 
         $html = Runtime::getContainer()->get('htmlTool');
@@ -238,7 +256,8 @@ abstract class FormWidget extends Widget {
      * @return boolean <code>true</code> if the given value evaluates to the
      *  same value as the widget value.
      */
-    public function compare($value) {
+    public function compare($value)
+    {
         return $value == $this->getValue();
     }
 

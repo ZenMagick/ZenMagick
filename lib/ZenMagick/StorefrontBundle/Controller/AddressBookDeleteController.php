@@ -24,12 +24,13 @@ namespace ZenMagick\StorefrontBundle\Controller;
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class AddressBookDeleteController extends \ZMController {
-
+class AddressBookDeleteController extends \ZMController
+{
     /**
      * {@inheritDoc}
      */
-    public function processGet($request) {
+    public function processGet($request)
+    {
         $address = $this->container->get('addressService')->getAddressForId($request->getParameter('id'));
         return $this->findView(null, array('address' => $address));
     }
@@ -37,7 +38,8 @@ class AddressBookDeleteController extends \ZMController {
     /**
      * {@inheritDoc}
      */
-    public function processPost($request) {
+    public function processPost($request)
+    {
         $account = $this->getUser();
         $addressId = $request->request->get('id', 0);
         if (0 < $addressId) {

@@ -29,27 +29,33 @@ use ZenMagick\Base\ZMObject;
  * @author Johnny Robeson
  * @todo fix image handler extra_configures
  */
-class ZenCartAutoLoader extends ZMObject {
+class ZenCartAutoLoader extends ZMObject
+{
     private $globalKeys = array();
     private $originalErrorLevel;
 
-    public function __construct() {
+    public function __construct()
+    {
         $this->originalErrorLevel = error_reporting();
     }
 
-    public function getRequest() {
+    public function getRequest()
+    {
         return $this->container->get('request');
     }
 
-    public function getThemeService() {
+    public function getThemeService()
+    {
         return $this->container->get('themeService');
     }
 
-    public function setRootDir($rootDir) {
+    public function setRootDir($rootDir)
+    {
         $this->rootDir = realpath($rootDir);
     }
 
-    public function getRootDir() {
+    public function getRootDir()
+    {
         return $this->rootDir;
     }
 
@@ -58,7 +64,8 @@ class ZenCartAutoLoader extends ZMObject {
      *
      * May need to be overwritten from time to time.
      */
-    public function overrideRequestGlobals() {
+    public function overrideRequestGlobals()
+    {
         $request = $this->getRequest();
 
         $requestId = str_replace('zc_admin_','', $request->getRequestId());
@@ -87,7 +94,8 @@ class ZenCartAutoLoader extends ZMObject {
      * Get a list of init files to load.
      *
      */
-    public function initFiles() {
+    public function initFiles()
+    {
         $isAdmin = Runtime::isContextMatch('admin');
         $filePatterns = array();
         if ($isAdmin) {
@@ -124,7 +132,8 @@ class ZenCartAutoLoader extends ZMObject {
      *
      * Assume access to $request
      */
-    public function initCommon() {
+    public function initCommon()
+    {
         $this->overrideRequestGlobals();
 
         // @todo really make a setting out of these formats?
@@ -159,14 +168,16 @@ class ZenCartAutoLoader extends ZMObject {
      *
      * @return array
      */
-    public function getGlobalKeys() {
+    public function getGlobalKeys()
+    {
         return $this->globalKeys;
     }
 
     /**
      * Get all global variables needed by ZenCart.
      */
-    public function getGlobalValues() {
+    public function getGlobalValues()
+    {
         $globalValues = array();
         foreach ($this->globalKeys as $name) {
             $globalValues[$name] = $GLOBALS[$name];
@@ -182,7 +193,8 @@ class ZenCartAutoLoader extends ZMObject {
      *
      * @param array globalValues
      */
-    public function setGlobalValues($globalValues) {
+    public function setGlobalValues($globalValues)
+    {
         foreach ($globalValues as $name => $value) {
             $GLOBALS[$name] = $value;
             $this->globalKeys[] = $name;
@@ -193,7 +205,8 @@ class ZenCartAutoLoader extends ZMObject {
     /**
      * Set a single global value for ZenCart.
      */
-    public function setGlobalValue($name, $value) {
+    public function setGlobalValue($name, $value)
+    {
         $GLOBALS[$name] = $value;
         $this->globalKeys[] = $name;
     }
@@ -205,7 +218,8 @@ class ZenCartAutoLoader extends ZMObject {
      *
      * @param string base Relative path from ZenCart root directory
      */
-    public function buildSearchPaths($base = '') {
+    public function buildSearchPaths($base = '')
+    {
         $zcPath = $this->getRootDir();
         $dirs = array(dirname(__DIR__).'/bridge', $zcPath);
         if (Runtime::isContextMatch('admin')) {
@@ -229,7 +243,8 @@ class ZenCartAutoLoader extends ZMObject {
      * Resolve some templated file vars
      *
      */
-    public function resolveFileVars($string) {
+    public function resolveFileVars($string)
+    {
         if (false === strpos($string, '%')) return $string;
         $map = array();
         $container = Runtime::getContainer();
@@ -249,7 +264,8 @@ class ZenCartAutoLoader extends ZMObject {
      * @param mixed string|array $paths path or paths to file or files, can be a glob.
      * @returns array array of absolute paths to files indexed by file basename.
      */
-    public function resolveFiles($paths) {
+    public function resolveFiles($paths)
+    {
         $files = array();
         foreach ((array) $paths as $path) {
             $path = $this->resolveFileVars($path);
@@ -273,7 +289,8 @@ class ZenCartAutoLoader extends ZMObject {
      *
      * @see self::resolveFiles
      */
-    public function resolveFile($paths) {
+    public function resolveFile($paths)
+    {
         $file = current($this->resolveFiles($paths));
         return $file;
     }
@@ -283,7 +300,8 @@ class ZenCartAutoLoader extends ZMObject {
      *
      * This is equivalent to STRICT_ERROR_REPORTING
      */
-    public function setErrorLevel() {
+    public function setErrorLevel()
+    {
         $settingsService = $this->container->get('settingsService');
 
         $exists = $settingsService->exists('apps.store.zencart.strictErrorReporting');
@@ -295,7 +313,8 @@ class ZenCartAutoLoader extends ZMObject {
     /**
      * Restore the original error level.
      */
-    public function restoreErrorLevel() {
+    public function restoreErrorLevel()
+    {
         if (null != $this->originalErrorLevel) {
             error_reporting($this->originalErrorLevel);
         }
@@ -307,7 +326,8 @@ class ZenCartAutoLoader extends ZMObject {
      * This method also gives all files access to the
      * required global variables.
      */
-    public function includeFiles($path, $data = array(), $once = true) {
+    public function includeFiles($path, $data = array(), $once = true)
+    {
         $files = $this->resolveFiles($path);
         // Get some local helpers
         extract($this->getGlobalValues());

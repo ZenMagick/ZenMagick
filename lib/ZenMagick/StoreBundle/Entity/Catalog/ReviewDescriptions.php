@@ -30,7 +30,8 @@ use Doctrine\ORM\Mapping AS ORM;
  * @ORM\Entity
  * @ORM\Table(name="reviews_description")
  */
-class ReviewDescriptions extends ZMObject {
+class ReviewDescriptions extends ZMObject
+{
     /**
      * @var object $review
      * @ORM\Id

@@ -24,6 +24,6 @@ namespace ZenMagick\StoreBundle\Menu;
  *
  * @param author DerManoMann
  */
-class MenuSeparator extends Node {
-
+class MenuSeparator extends Node
+{
 }

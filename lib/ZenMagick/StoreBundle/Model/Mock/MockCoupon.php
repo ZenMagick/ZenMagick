@@ -26,12 +26,13 @@ use ZenMagick\StoreBundle\Entity\Coupons\Coupon;
  *
  * @author DerManoMann
  */
-class MockCoupon extends Coupon {
-
+class MockCoupon extends Coupon
+{
     /**
      * Create new instance.
      */
-    public function __construct() {
+    public function __construct()
+    {
         parent::__construct(123, 'abc123');
         $this->setStartDate(time());
         $this->setExpiryDate(time());

@@ -27,7 +27,8 @@ use ZenMagick\Http\Session\FlashBag;
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class ThemeBuilder extends ZMObject {
+class ThemeBuilder extends ZMObject
+{
     private $name_;
     private $messages_;
     private $fsLog_;
@@ -35,7 +36,8 @@ class ThemeBuilder extends ZMObject {
     /**
      * Create new instance.
      */
-    public function __construct() {
+    public function __construct()
+    {
         parent::__construct();
 
         $this->name_ = '';
@@ -48,7 +50,8 @@ class ThemeBuilder extends ZMObject {
      *
      * @return array List of text messages.
      */
-    public function getMessages() {
+    public function getMessages()
+    {
         return $this->messages_;
     }
 
@@ -71,7 +74,8 @@ class ThemeBuilder extends ZMObject {
      *
      * @return boolean <code>true</code> if successful, <code>false</code> if not.
      */
-    public function build() {
+    public function build()
+    {
         if (empty($this->name_)) {
             $this->messages_[] = array(FlashBag::T_WARN, 'Invalid theme name "' . $this->name_ . '".');
             return false;
@@ -104,7 +108,8 @@ class ThemeBuilder extends ZMObject {
      *
      * @return string The theme base directory.
      */
-    public function getBaseDir() {
+    public function getBaseDir()
+    {
         return $this->container->get('themeService')->getThemesDir() . '/' . $this->name_ . '/';
     }
 
@@ -113,7 +118,8 @@ class ThemeBuilder extends ZMObject {
      *
      * @return boolean <code>true</code> if successful, <code>false</code> if not.
      */
-    public function _createFolder() {
+    public function _createFolder()
+    {
         $themeDir = $this->getBaseDir();
         if (file_exists($themeDir)) {
             $this->messages_[] = array(FlashBag::T_WARN, 'Theme "' . $this->name_ . '" already exists!');
@@ -143,7 +149,8 @@ class ThemeBuilder extends ZMObject {
      *
      * @return boolean <code>true</code> if successful, <code>false</code> if not.
      */
-    public function _createThemeConfig() {
+    public function _createThemeConfig()
+    {
         $configFile = $this->getBaseDir() . 'theme.yaml';
 
         if (!$handle = fopen($configFile, 'ab')) {

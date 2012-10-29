@@ -28,7 +28,8 @@ use ZenMagick\Base\ZMObject;
  *
  * @author DerManoMann
  */
-class MetaTagDetails extends ZMObject {
+class MetaTagDetails extends ZMObject
+{
     private $title;
     private $keywords;
     private $description;

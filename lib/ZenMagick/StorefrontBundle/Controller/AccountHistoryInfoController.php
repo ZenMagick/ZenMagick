@@ -24,12 +24,13 @@ namespace ZenMagick\StorefrontBundle\Controller;
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class AccountHistoryInfoController extends \ZMController {
-
+class AccountHistoryInfoController extends \ZMController
+{
     /**
      * {@inheritDoc}
      */
-    public function processGet($request) {
+    public function processGet($request)
+    {
         $order = $this->container->get('orderService')->getOrderForId($request->attributes->getInt('order_id'), $request->getSession()->getLanguageId());
         $account = $this->getUser();
         if ($account->getId() != $order->getAccountId()) {

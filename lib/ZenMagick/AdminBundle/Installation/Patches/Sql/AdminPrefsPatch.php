@@ -26,7 +26,8 @@ use ZenMagick\AdminBundle\Installation\Patches\SQLPatch;
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class AdminPrefsPatch extends SQLPatch {
+class AdminPrefsPatch extends SQLPatch
+{
     public $sqlFiles_ = array(
         "admin_prefs_install.sql"
     );
@@ -34,7 +35,8 @@ class AdminPrefsPatch extends SQLPatch {
     /**
      * Create new instance.
      */
-    public function __construct() {
+    public function __construct()
+    {
         parent::__construct('sqlAdminPrefs');
         $this->label_ = 'Create new admin preferences table';
         $this->setTables('admin_prefs');
@@ -45,7 +47,8 @@ class AdminPrefsPatch extends SQLPatch {
      *
      * @return boolean <code>true</code> if this patch can still be applied.
      */
-    public function isOpen() {
+    public function isOpen()
+    {
         return !$this->tablesExist();
     }
 

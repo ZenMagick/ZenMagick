@@ -26,12 +26,13 @@ use ZMController;
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class ExamplePluginAdminController extends ZMController {
-
+class ExamplePluginAdminController extends ZMController
+{
     /**
      * {@inheritDoc}
      */
-    public function processPost($request) {
+    public function processPost($request)
+    {
         $plugin = $this->getPlugin();
 
         foreach ($plugin->getConfigValues() as $configValue) {

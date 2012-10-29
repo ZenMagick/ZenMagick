@@ -29,7 +29,8 @@ use ZenMagick\Http\Session\SessionValidator;
  *
  * @author Johnny Robeson <johnny@localmomentum.net>
  */
-class SSLSessionIdSessionValidator extends ZMObject implements SessionValidator {
+class SSLSessionIdSessionValidator extends ZMObject implements SessionValidator
+{
     /**
      * Name of the user agent session key.
      */
@@ -42,7 +43,8 @@ class SSLSessionIdSessionValidator extends ZMObject implements SessionValidator 
      *
      * @param boolean state The new state.
      */
-    public function setEnabled($state) {
+    public function setEnabled($state)
+    {
         $this->enabled = $state;
     }
 
@@ -51,7 +53,8 @@ class SSLSessionIdSessionValidator extends ZMObject implements SessionValidator 
      *
      * @todo move to request
      */
-    public function isValidSession(Request $request, Session $session) {
+    public function isValidSession(Request $request, Session $session)
+    {
         $valid = true;
         if ($this->enabled && $request->isSecure()) {
             $sslSessionId = $request->server->get('SSL_SESSION_ID');

@@ -26,12 +26,13 @@ use ZenMagick\StoreBundle\Entity\Catalog\Product;
  *
  * @author DerManoMann
  */
-class MockProduct extends Product {
-
+class MockProduct extends Product
+{
     /**
      * Create new instance.
      */
-    public function __construct() {
+    public function __construct()
+    {
         parent::__construct();
         $this->setName('Product A');
         $this->setDescription('This is product A.');

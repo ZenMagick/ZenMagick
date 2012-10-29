@@ -28,7 +28,8 @@ use ZenMagick\Base\ZMObject;
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class ThemeService extends ZMObject {
+class ThemeService extends ZMObject
+{
     const STATUS_MAP_KEY = 'zenmagick.apps.store.themes.status_map';
     protected $themes;
     protected $cache;
@@ -40,7 +41,8 @@ class ThemeService extends ZMObject {
     /**
      * Create new instance.
      */
-    public function __construct() {
+    public function __construct()
+    {
         parent::__construct();
         $this->themes = array();
         $this->cache = null;
@@ -54,7 +56,8 @@ class ThemeService extends ZMObject {
      *
      * @param string theme theme id
      */
-    public function setDefaultThemeId($defaultThemeId = null) {
+    public function setDefaultThemeId($defaultThemeId = null)
+    {
         $this->defaultThemeId = $defaultThemeId;
     }
 
@@ -63,7 +66,8 @@ class ThemeService extends ZMObject {
      *
      * @return string theme id
      */
-    public function getDefaultThemeId() {
+    public function getDefaultThemeId()
+    {
         return $this->defaultThemeId;
     }
 
@@ -72,7 +76,8 @@ class ThemeService extends ZMObject {
      *
      * @param ZenMagick\Base\Cache\Cache cache The cache.
      */
-    public function setCache($cache) {
+    public function setCache($cache)
+    {
         $this->cache = $cache;
     }
 
@@ -81,14 +86,16 @@ class ThemeService extends ZMObject {
      *
      * @return ZenMagick\Base\Cache\Cache The cache.
      */
-    public function getCache() {
+    public function getCache()
+    {
         return $this->cache;
     }
 
     /**
      * Refresh plugin status map.
      */
-    public function refreshStatusMap() {
+    public function refreshStatusMap()
+    {
         $this->getStatusMap(true);
     }
 
@@ -98,7 +105,8 @@ class ThemeService extends ZMObject {
      * @param boolean refresh Optional flag to force a refresh; default is <code>false</code>.
      * @return array Plugin status map.
      */
-    protected function getStatusMap($refresh=false) {
+    protected function getStatusMap($refresh=false)
+    {
         if (null === $this->statusMap || $refresh) {
             if (null != $this->cache) {
                 $this->statusMap = $this->cache->lookup(self::STATUS_MAP_KEY);
@@ -123,7 +131,8 @@ class ThemeService extends ZMObject {
      *
      * @return array A list of <code>Theme</code> instances.
      */
-    public function getAvailableThemes() {
+    public function getAvailableThemes()
+    {
         $themes = array();
         $statusMap = $this->getStatusMap();
         foreach ($statusMap['themeList'] as $id => $status) {
@@ -137,7 +146,8 @@ class ThemeService extends ZMObject {
      *
      * @return Theme The active theme.
      */
-    public function getActiveTheme() {
+    public function getActiveTheme()
+    {
         $themeChain = $this->getThemeChain();
         $length = count($themeChain);
         return $themeChain[$length-1];
@@ -148,7 +158,8 @@ class ThemeService extends ZMObject {
      *
      * @param array themeChain The theme chain to use.
      */
-    public function setThemeChain($themeChain) {
+    public function setThemeChain($themeChain)
+    {
         $this->themeChain = $themeChain;
     }
 
@@ -158,7 +169,8 @@ class ThemeService extends ZMObject {
      * @param string id The theme id.
      * @return Theme A theme instance.
      */
-    public function getThemeForId($id) {
+    public function getThemeForId($id)
+    {
         if (!array_key_exists($id, $this->themes)) {
             $theme = $this->container->get('theme');
             $theme->setId($id);
@@ -179,7 +191,8 @@ class ThemeService extends ZMObject {
      *
      * @return array List of active themes in increasing order of importance.
      */
-    public function getThemeChain() {
+    public function getThemeChain()
+    {
         if (!empty($this->themeChain)) {
             return $this->themeChain;
         }
@@ -206,7 +219,8 @@ class ThemeService extends ZMObject {
      *
      * @return Theme The final active theme.
      */
-    public function initThemes() {
+    public function initThemes()
+    {
         $themeChain = $this->getThemeChain();
 
         $statusMap = $this->getStatusMap();
@@ -228,7 +242,8 @@ class ThemeService extends ZMObject {
      *
      * @return string The configured theme id.
      */
-    public function getActiveThemeId() {
+    public function getActiveThemeId()
+    {
         $theme = $this->getActiveTheme();
         return null != $theme ? $theme->getId() : null;
     }
@@ -238,7 +253,8 @@ class ThemeService extends ZMObject {
      *
      * @return array A list of themes.
      */
-    public function getThemeConfigList() {
+    public function getThemeConfigList()
+    {
         $sql = "SELECT *
                 FROM %table.template_select%";
         return \ZMRuntime::getDatabase()->fetchAll($sql, array(), 'template_select', 'ZenMagick\StoreBundle\Entity\Templating\TemplateSelect');
@@ -250,7 +266,8 @@ class ThemeService extends ZMObject {
      * @param mixed config The theme config to update.
      * @return boolean <code>true</code> on success.
      */
-    public function updateThemeConfig($config) {
+    public function updateThemeConfig($config)
+    {
         return \ZMRuntime::getDatabase()->updateModel('template_select', $config);
     }
 
@@ -260,7 +277,8 @@ class ThemeService extends ZMObject {
      * @param mixed config The theme config to create.
      * @return boolean <code>true</code> on success.
      */
-    public function createThemeConfig($config) {
+    public function createThemeConfig($config)
+    {
         return \ZMRuntime::getDatabase()->createModel('template_select', $config);
     }
 
@@ -270,7 +288,8 @@ class ThemeService extends ZMObject {
      * @param mixed config The theme config to delete.
      * @return boolean <code>true</code> on success.
      */
-    public function deleteThemeConfig($config) {
+    public function deleteThemeConfig($config)
+    {
         return \ZMRuntime::getDatabase()->removeModel('template_select', $config);
     }
 

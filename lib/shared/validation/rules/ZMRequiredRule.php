@@ -24,8 +24,8 @@
  * @author DerManoMann <mano@zenmagick.org>
  * @package org.zenmagick.mvc.validation.rules
  */
-class ZMRequiredRule extends ZMRule {
-
+class ZMRequiredRule extends ZMRule
+{
     /**
      * Create new required rule.
      *
@@ -34,14 +34,16 @@ class ZMRequiredRule extends ZMRule {
      * @param mixed name The field name or a list (either an array or comma separated string) of names; default is <code>null</code>.
      * @param string msg Optional message.
      */
-    public function __construct($name=null, $msg=null) {
+    public function __construct($name=null, $msg=null)
+    {
         parent::__construct($name, "Please enter a value for %s.", $msg);
     }
 
     /**
      * {@inheritDoc}
      */
-    public function setName($name) {
+    public function setName($name)
+    {
         if (is_array($name)) {
             $name = implode(',', $name);
         }
@@ -55,7 +57,8 @@ class ZMRequiredRule extends ZMRule {
      * @param array data The data.
      * @return boolean <code>true</code> if the value for <code>$name</code> is valid, <code>false</code> if not.
      */
-    public function validate($request, $data) {
+    public function validate($request, $data)
+    {
         foreach (explode(',', $this->getName()) as $name) {
             if (array_key_exists($name, $data) && !empty($data[$name])) {
                 return true;
@@ -69,7 +72,8 @@ class ZMRequiredRule extends ZMRule {
      *
      * @return string Formatted JavaScript .
      */
-    public function toJSString() {
+    public function toJSString()
+    {
         $js = "    new Array('required'";
         $js .= ",'".$this->getJSName()."'";
         $js .= ",'".addslashes($this->getErrorMsg())."'";

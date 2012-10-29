@@ -26,7 +26,8 @@ use ZenMagick\Base\ZMObject;
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class MediaItem extends ZMObject {
+class MediaItem extends ZMObject
+{
     private $mediaItemId_;
     private $mediaId_;
     private $mediaTypeId_;
@@ -37,7 +38,8 @@ class MediaItem extends ZMObject {
     /**
      * Create new instance.
      */
-    public function __construct() {
+    public function __construct()
+    {
         parent::__construct();
         $this->mediaItemId_ = 0;
         $this->mediaId_ = 0;

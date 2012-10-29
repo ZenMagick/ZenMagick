@@ -26,19 +26,21 @@ use EqualExpectation;
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class ArrayEqualExpectation extends EqualExpectation {
-
+class ArrayEqualExpectation extends EqualExpectation
+{
     /**
      * {@inheritDoc}
      */
-    public function __construct($value, $message='%s') {
+    public function __construct($value, $message='%s')
+    {
         parent::__construct($value, $message);
     }
 
     /**
      * {@inheritDoc}
      */
-    public function test($compare) {
+    public function test($compare)
+    {
         $value = $this->getValue();
         if (!is_array($compare) || !is_array($value)) {
             return false;

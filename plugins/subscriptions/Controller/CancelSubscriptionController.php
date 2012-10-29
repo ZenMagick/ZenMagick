@@ -29,14 +29,15 @@ use ZenMagick\Base\Database\Connection;
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class ZMCancelSubscriptionController extends ZMController {
-
+class ZMCancelSubscriptionController extends ZMController
+{
     /**
      * {@inheritDoc}
      *
      * @todo allow cancel at any time
      */
-    public function processGet($request) {
+    public function processGet($request)
+    {
         if (!Toolbox::asBoolean($this->getPlugin()->get('customerCancel'))) {
             $this->messageService->error(_zm("Insufficient permission"));
             return $this->findView();
@@ -104,7 +105,8 @@ class ZMCancelSubscriptionController extends ZMController {
      * @param string template The template.
      * @param string email The email address.
      */
-    protected function sendCancelEmail($order, $template, $email) {
+    protected function sendCancelEmail($order, $template, $email)
+    {
         $context = array();
         $context['order'] = $order;
 
@@ -120,7 +122,8 @@ class ZMCancelSubscriptionController extends ZMController {
      *
      * @return ZMPlugin The plugin.
      */
-    protected function getPlugin() {
+    protected function getPlugin()
+    {
         return $this->container->get('pluginService')->getPluginForId('subscriptions');
     }
 

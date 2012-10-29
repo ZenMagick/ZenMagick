@@ -33,7 +33,8 @@ use Symfony\Component\Yaml\Yaml;
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class ContextConfigLoader extends ZMObject {
+class ContextConfigLoader extends ZMObject
+{
     private $config;
     private $settingsService;
     private $context;
@@ -48,32 +49,39 @@ class ContextConfigLoader extends ZMObject {
      *
      * @param mixed config Either a filename or array (already loaded YAML); default is an empty array.
      */
-    public function __construct($config=array()) {
+    public function __construct($config=array())
+    {
         parent::__construct();
         $this->setConfig($config);
     }
 
-    public function setContext($context) {
+    public function setContext($context)
+    {
         $this->context = $context;
     }
 
-    public function getContext() {
+    public function getContext()
+    {
         return $this->context;
     }
 
-    public function setSettingsService(Settings $settingsService) {
+    public function setSettingsService(Settings $settingsService)
+    {
         $this->settingsService = $settingsService;
     }
 
-    public function getSettingsService() {
+    public function getSettingsService()
+    {
         return $this->settingsService;
     }
 
-    public function setClassLoader($classLoader) {
+    public function setClassLoader($classLoader)
+    {
         $this->classLoader = $classLoader;
     }
 
-    public function getClassLoader() {
+    public function getClassLoader()
+    {
         if (null == $this->classLoader) {
             $this->classLoader = new \Composer\AutoLoad\ClassLoader();
             $this->classLoader->register();
@@ -86,7 +94,8 @@ class ContextConfigLoader extends ZMObject {
      *
      * @param mixed config Either a filename or array (already loaded YAML); default is <code>null</code>.
      */
-    public function setConfig($config) {
+    public function setConfig($config)
+    {
         $this->config = is_array($config) ? $config : Yaml::parse((string) $config);
     }
 
@@ -95,7 +104,8 @@ class ContextConfigLoader extends ZMObject {
      *
      * @return array The complete configuration as loaded.
      */
-    public function getConfig() {
+    public function getConfig()
+    {
         return $this->config;
     }
 
@@ -105,7 +115,8 @@ class ContextConfigLoader extends ZMObject {
      * @param string context The contex; default is <code>null</code> to use the current context.
      * @return array The complete configuration for the chosen context.
      */
-    public function resolve($context=null) {
+    public function resolve($context=null)
+    {
         $context = $context ?: $this->getContext();
         $cconfig = array();
         foreach ($this->config as $key => $data) {
@@ -129,7 +140,8 @@ class ContextConfigLoader extends ZMObject {
      * @param string context The contex; default is <code>null</code> to use the current context.
      * @return array The complete configuration for the chosen context.
      */
-    public function process($context=null) {
+    public function process($context=null)
+    {
         $config = $this->resolve($context);
         $this->apply($config);
         return $config;
@@ -140,7 +152,8 @@ class ContextConfigLoader extends ZMObject {
      *
      * @param array config The configuration to process.
      */
-    public function apply(array $config) {
+    public function apply(array $config)
+    {
         // php
         if (array_key_exists('php', $config) && is_array($config['php'])) {
             $phpConfig = $config['php'];
@@ -197,7 +210,8 @@ class ContextConfigLoader extends ZMObject {
      * @todo absolute paths too probably?
      * @param string $baseDir base path for autoloading (since contextConfigLoader doesn't know)
      */
-    public function registerAutoLoaders(array $autoLoaders, $pathBase) {
+    public function registerAutoLoaders(array $autoLoaders, $pathBase)
+    {
         if (array_key_exists('psr-0', $autoLoaders)) {
             foreach ($autoLoaders['psr-0'] as $namespace => $path) {
                 $this->getClassLoader()->add($namespace, $pathBase.DIRECTORY_SEPARATOR.$path);
@@ -219,7 +233,8 @@ class ContextConfigLoader extends ZMObject {
         }
     }
 
-    public function getMenus() {
+    public function getMenus()
+    {
         return self::$menus;
     }
 
@@ -228,7 +243,8 @@ class ContextConfigLoader extends ZMObject {
      *
      * @return array List of routing maps.
      */
-    public function getRouting() {
+    public function getRouting()
+    {
         return self::$routing;
     }
 

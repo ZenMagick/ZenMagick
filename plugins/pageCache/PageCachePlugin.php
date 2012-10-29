@@ -35,14 +35,16 @@ define('ZM_EVENT_PLUGINS_PAGE_CACHE_CONTENTS_DONE', 'plugins_page_cache_contents
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class PageCachePlugin extends Plugin {
+class PageCachePlugin extends Plugin
+{
     private $cache_ = null;
     protected $activeThemeId;
 
     /**
      * Set up cache.
      */
-    public function onContainerReady($event) {
+    public function onContainerReady($event)
+    {
         // TODO: we can't just change the TTL of an existing cache!
         $this->cache_ = Runtime::getContainer()->get('persistentCache');
         $this->cache_->setOption('cacheTTL', $this->get('ttl'));
@@ -58,7 +60,8 @@ class PageCachePlugin extends Plugin {
      * @param ZenMagick\Http\Request request The current request.
      * @return string A cache id.
      */
-    protected function getRequestKey($request) {
+    protected function getRequestKey($request)
+    {
         $session = $request->getSession();
         $parameters = $request->query->all();
         ksort($parameters);
@@ -75,7 +78,8 @@ class PageCachePlugin extends Plugin {
      * @param ZenMagick\Http\Request request The current request.
      * @return boolean <code>true</code> if the current request is cacheable, <code>false</code> if not.
      */
-    protected function isCacheable($request) {
+    protected function isCacheable($request)
+    {
         $fkt = $this->container->get('settingsService')->get('plugins.pageCache.strategy.callback', array($this, 'defaultStrategy'));
         $val = false;
         if (is_callable($fkt)) {
@@ -94,7 +98,8 @@ class PageCachePlugin extends Plugin {
      * <p>This is the point during request handling where it is decided whether to
      * use the page cache or not.</p>
      */
-    public function onThemeResolved($event) {
+    public function onThemeResolved($event)
+    {
         $this->activeThemeId = $event->getArgument('themeId');
         $request = $event->getArgument('request');
 
@@ -121,7 +126,8 @@ class PageCachePlugin extends Plugin {
     /**
      * Event handler
      */
-    public function onAllDone($event) {
+    public function onAllDone($event)
+    {
         $request = $event->getArgument('request');
         $content = $event->getArgument('content');
 
@@ -146,7 +152,8 @@ class PageCachePlugin extends Plugin {
      * @package org.zenmagick.plugins.pageCache
      * @return boolean <code>true</code> if the current request is cacheable, <code>false</code> if not.
      */
-    protected function defaultStrategy($request) {
+    protected function defaultStrategy($request)
+    {
         return 'POST' != $request->getMethod()
           && (null == $this->container->get('shoppingCart') || $this->container->get('shoppingCart')->isEmpty())
           && !$request->getSession()->getFlashBag()->hasMessages()

@@ -27,14 +27,15 @@ use ZenMagick\Base\ZMObject;
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class RssItem extends ZMObject {
-
+class RssItem extends ZMObject
+{
     /**
      * Create new RSS item.
      *
      * @param array Array of item data; default is an empty array.
      */
-    public function __construct(array $item=array()) {
+    public function __construct(array $item=array())
+    {
         parent::__construct();
         if (is_array($item)) {
             foreach ($item as $key => $value) {
@@ -76,7 +77,8 @@ class RssItem extends ZMObject {
      *
      * @return DateTime The item publish date.
      */
-    public function getPubDate() {
+    public function getPubDate()
+    {
         $pubDate = $this->get('pubDate');
         if ($pubDate instanceof DateTime) {
           return $pubDate;
@@ -142,7 +144,8 @@ class RssItem extends ZMObject {
      * @param string name The tag name.
      * @param mixed value The tag value.
      */
-    public function addTag($name, $value) {
+    public function addTag($name, $value)
+    {
         $tags = $this->getTags();
         $tags[] = $name;
         $this->setTags($tags);

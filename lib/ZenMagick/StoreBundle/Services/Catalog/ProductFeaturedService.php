@@ -25,9 +25,10 @@ use ZenMagick\Base\ZMObject;
 /**
  * Featured Products.
  */
-class ProductFeaturedService extends ZMObject {
-
-    public function runTasks() {
+class ProductFeaturedService extends ZMObject
+{
+    public function runTasks()
+    {
         $this->scheduleFeatured();
     }
 
@@ -37,7 +38,8 @@ class ProductFeaturedService extends ZMObject {
      * Stops all featured products scheduled for expiration
      * and starts all featured products scheduled to be started.
      */
-    public function scheduleFeatured() {
+    public function scheduleFeatured()
+    {
         $sql = "SELECT featured_id, status, expires_date, featured_date_available
                 FROM %table.featured%";
         foreach (\ZMRuntime::getDatabase()->fetchAll($sql, array(), 'featured', 'ZenMagick\StoreBundle\Entity\Catalog\Feature') as $feature) {

@@ -24,14 +24,15 @@ namespace ZenMagick\StorefrontBundle\Controller;
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class ProductInfoController extends \ZMController {
-
+class ProductInfoController extends \ZMController
+{
     /**
      * {@inheritDoc}
      *
      * Show a product based on a id or model.
      */
-    public function showAction($productId) {
+    public function showAction($productId)
+    {
         $product = null;
         $productService = $this->container->get('productService');
         $languageId = $this->getRequest()->getSession()->getLanguageId();

@@ -31,14 +31,15 @@ use ZenMagick\Http\Widgets\Form\SelectFormWidget;
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class EditorSelectFormWidget extends SelectFormWidget {
-
+class EditorSelectFormWidget extends SelectFormWidget
+{
     /**
      * Get a list of all available editors.
      *
      * @return array A class/name map of editors.
      */
-    public static function getEditorMap() {
+    public static function getEditorMap()
+    {
         $container = Runtime::getContainer();
         $editorMap = array();
         foreach ($container->get('containerTagService')->findTaggedServiceIds('zenmagick.apps.store.editor') as $id => $args) {
@@ -60,7 +61,8 @@ class EditorSelectFormWidget extends SelectFormWidget {
     /**
      * {@inheritDoc}
      */
-    public function getOptions($request) {
+    public function getOptions($request)
+    {
         return array_merge(parent::getOptions($request), self::getEditorMap());
     }
 

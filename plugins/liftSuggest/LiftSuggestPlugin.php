@@ -28,7 +28,8 @@ use ZenMagick\Base\Toolbox;
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class LiftSuggestPlugin extends Plugin {
+class LiftSuggestPlugin extends Plugin
+{
     private $recomendationsLoadedFor = null;
     private $view = null;
 
@@ -37,7 +38,8 @@ class LiftSuggestPlugin extends Plugin {
      *
      * @return array Config map.
      */
-    public function getLiftSuggestConfig() {
+    public function getLiftSuggestConfig()
+    {
         $config = array();
         $config['token'] = $this->get('userToken');
         $config['customerId'] = $this->get('customerId');
@@ -52,7 +54,8 @@ class LiftSuggestPlugin extends Plugin {
      * @param ZenMagick\Http\Request request The current request.
      * @return string The complete code.
      */
-    protected function getTrackerCode($request) {
+    protected function getTrackerCode($request)
+    {
         $code = '';
         $productId = $request->query->get('productId');
         if (null === $productId) {
@@ -103,14 +106,16 @@ EOT;
     /**
      * Get resources reference.
      */
-    public function onViewDone($event) {
+    public function onViewDone($event)
+    {
         $this->view = $event->getArgument('view');
     }
 
     /**
      * Event callback to inject the required JS.
      */
-    public function onFinaliseContent($event) {
+    public function onFinaliseContent($event)
+    {
         $request = $event->getArgument('request');
         $trackingType = $this->get('trackingType');
 
@@ -147,7 +152,8 @@ EOT;
      * @param int limit Optional limit to override the globally configured limit; default is <code>null</code> to use the global limit.
      * @return array List of maps with product recommendation details or <code>null</code> on failure.
      */
-    public function getProductRecommendations($productId, $limit=null) {
+    public function getProductRecommendations($productId, $limit=null)
+    {
         $lsr = Beans::getBean('ZenMagick\plugins\liftSuggest\ZMLiftSuggestLookup');
         if (null === $this->recommendationsLoadedFor) {
             // grab first

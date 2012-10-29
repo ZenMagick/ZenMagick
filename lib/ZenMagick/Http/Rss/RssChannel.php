@@ -27,14 +27,15 @@ use ZenMagick\Base\ZMObject;
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class RssChannel extends ZMObject {
-
+class RssChannel extends ZMObject
+{
     /**
      * Create new RSS channel.
      *
      * @param array Channel data; default is an empty array.
      */
-    public function __construct(array $rs=array()) {
+    public function __construct(array $rs=array())
+    {
         parent::__construct();
         if (is_array($rs)) {
             foreach ($rs as $key => $value) {
@@ -76,7 +77,8 @@ class RssChannel extends ZMObject {
      *
      * @return DateTime The channels last build date.
      */
-    public function getLastBuildDate() {
+    public function getLastBuildDate()
+    {
         $lastBuildDate = $this->get('lastBuildDate');
         if ($lastBuildDate instanceof DateTime) {
           return $lastBuildDate;
@@ -205,7 +207,8 @@ class RssChannel extends ZMObject {
      * @param string name The tag name.
      * @param mixed value The tag value.
      */
-    public function addTag($name, $value) {
+    public function addTag($name, $value)
+    {
         $tags = $this->getTags();
         $tags[] = $name;
         $this->setTags($tags);

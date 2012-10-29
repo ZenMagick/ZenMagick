@@ -28,8 +28,8 @@ use ZenMagick\Base\ZMObject;
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class TagService extends ZMObject {
-
+class TagService extends ZMObject
+{
     /**
      * Get all tags for the given product id.
      *
@@ -37,7 +37,8 @@ class TagService extends ZMObject {
      * @param int languageId The language id.
      * @return array List of (unique) <code>string</code> tags.
      */
-    public function getTagsForProductId($productId, $languageId) {
+    public function getTagsForProductId($productId, $languageId)
+    {
         $tags = array();
         $sql = "SELECT distinct pt.product_tag_id, t.name
                 FROM %table.product_tags% pt, %table.tags% t
@@ -59,7 +60,8 @@ class TagService extends ZMObject {
      * @param int languageId The language id.
      * @return array List of product ids.
      */
-    public function getProductIdsForTags($tags, $languageId) {
+    public function getProductIdsForTags($tags, $languageId)
+    {
         $ids = array();
         $sql = "SELECT distinct pt.product_id
                 FROM %table.product_tags% pt, %table.tags% t
@@ -79,7 +81,8 @@ class TagService extends ZMObject {
      * @param int languageId The language id.
      * @return array List of (unique) <code>string</code> tags.
      */
-    public function getAllTags($languageId) {
+    public function getAllTags($languageId)
+    {
         $tags = array();
         $sql = "SELECT distinct t.tag_id, t.name
                 FROM %table.tags% t
@@ -100,7 +103,8 @@ class TagService extends ZMObject {
      * @param int languageId The language id.
      * @param array tags List of tags.
      */
-    public function setTagsForProductId($productId, $languageId, $tags) {
+    public function setTagsForProductId($productId, $languageId, $tags)
+    {
         // add all missing tags for this language
         $allTags = array_flip($this->getAllTags($languageId));
         foreach ($tags as $tag) {
@@ -133,7 +137,8 @@ class TagService extends ZMObject {
     /**
      * Purge unused tags.
      */
-    public function cleanupTags() {
+    public function cleanupTags()
+    {
         $sql = "DELETE FROM %table.tags%
                 WHERE NOT tag_id in (SELECT DISTINCT tag_id from %table.product_tags%)";
         ZMRuntime::getDatabase()->executeUpdate($sql);
@@ -145,7 +150,8 @@ class TagService extends ZMObject {
      * @param int languageId The language id.
      * @return array A map of tag =&gt; number-ofproducts.
      */
-    public function getStats($languageId) {
+    public function getStats($languageId)
+    {
         $sql = "SELECT COUNT(*) as tag_id, t.name
                 FROM %table.product_tags% pt, %table.tags% t
                 WHERE t.tag_id = pt.tag_id AND t.language_id = :language_id

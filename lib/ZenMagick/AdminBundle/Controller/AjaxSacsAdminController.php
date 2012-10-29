@@ -24,12 +24,13 @@ namespace ZenMagick\AdminBundle\Controller;
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class AjaxSacsAdminController extends \ZMRpcController {
-
+class AjaxSacsAdminController extends \ZMRpcController
+{
     /**
      * Add role.
      */
-    public function addRole($rpcRequest) {
+    public function addRole($rpcRequest)
+    {
         $roleName = $rpcRequest->getData()->roleName;
 
         $rpcResponse = $rpcRequest->createResponse();
@@ -54,7 +55,8 @@ class AjaxSacsAdminController extends \ZMRpcController {
     /**
      * Remove roles.
      */
-    public function removeRoles($rpcRequest) {
+    public function removeRoles($rpcRequest)
+    {
         $removeRoles = $rpcRequest->getData()->roles;
 
         $rpcResponse = $rpcRequest->createResponse();

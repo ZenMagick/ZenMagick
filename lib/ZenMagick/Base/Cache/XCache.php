@@ -26,7 +26,8 @@ namespace ZenMagick\Base\Cache;
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class XCache implements Cache {
+class XCache implements Cache
+{
     const SYSTEM_KEY = "org.zenmagick.core.services.cache.provider.xcache";
     private $group_;
     private $lifetime_;
@@ -35,7 +36,8 @@ class XCache implements Cache {
     /**
      * Create new instance.
      */
-    public function __construct() {
+    public function __construct()
+    {
         $this->lifetime_ = 0;
         $this->lastModified_ = time();
     }
@@ -43,7 +45,8 @@ class XCache implements Cache {
     /**
      * {@inheritDoc}
      */
-    public function init($group, $config) {
+    public function init($group, $config)
+    {
         $this->group_ = $group;
         $this->lifetime_ = $config['cacheTTL'];
 
@@ -61,14 +64,16 @@ class XCache implements Cache {
     /**
      * {@inheritDoc}
      */
-    public function isAvailable() {
+    public function isAvailable()
+    {
         return function_exists('xcache_info');
     }
 
     /**
      * {@inheritDoc}
      */
-    public function clear() {
+    public function clear()
+    {
         $this->lastModified_ = time();
 
         // iterate over all entries and match the group prefix
@@ -89,7 +94,8 @@ class XCache implements Cache {
     /**
      * {@inheritDoc}
      */
-    public function lookup($id) {
+    public function lookup($id)
+    {
         if (!xcache_isset($this->group_.'/'.$id)) {
             return false;
         }
@@ -99,7 +105,8 @@ class XCache implements Cache {
     /**
      * {@inheritDoc}
      */
-    public function remove($id) {
+    public function remove($id)
+    {
         $this->lastModified_ = time();
         return xcache_unset($this->group_.'/'.$id);
     }
@@ -107,7 +114,8 @@ class XCache implements Cache {
     /**
      * {@inheritDoc}
      */
-    public function save($data, $id) {
+    public function save($data, $id)
+    {
         $this->lastModified_ = time();
         return xcache_set($this->group_.'/'.$id, $data, $this->lifetime_);
     }
@@ -115,21 +123,24 @@ class XCache implements Cache {
     /**
      * {@inheritDoc}
      */
-    public function lastModified() {
+    public function lastModified()
+    {
         return $this->lastModified_;
     }
 
     /**
      * {@inheritDoc}
      */
-    public function getStats() {
+    public function getStats()
+    {
         return array('lastModified' => $this->lastModified(), 'system' => xcache_get(self::SYSTEM_KEY));
     }
 
     /**
      * {@inheritDoc}
      */
-    public function setOption($key, $value) {
+    public function setOption($key, $value)
+    {
     }
 
 }

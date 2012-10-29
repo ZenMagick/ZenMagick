@@ -29,15 +29,16 @@ use ZenMagick\StoreBundle\Entity\Catalog\Attribute;
  * @author DerManoMann
  * @package zenmagick.store.shared.services.catalog
  */
-class ZMAttributes extends ZMObject {
-
+class ZMAttributes extends ZMObject
+{
     /**
      * Load attributes for the given product.
      *
      * @param ZenMagick\StoreBundle\Entity\Catalog\Product product The product.
      * @return boolean <code>true</code> if attributes eixst, <code>false</code> if not.
      */
-    public function getAttributesForProduct($product) {
+    public function getAttributesForProduct($product)
+    {
         // set up sort order SQL
         $attributesOrderBy = '';
         if (Runtime::getSettings()->get('isSortAttributesByName')) {
@@ -98,7 +99,8 @@ class ZMAttributes extends ZMObject {
      * @param ZenMagick\StoreBundle\Entity\Catalog\Attribute attribute The attribute.
      * @return boolean <code>true</code> if, and only if, the attribute represents a downloadable file.
      */
-    public function hasDownloads(Attribute $attribute) {
+    public function hasDownloads(Attribute $attribute)
+    {
         // collect all selected values
         $attributeValueIds = array();
         foreach ($attribute->getValues() as $value) {

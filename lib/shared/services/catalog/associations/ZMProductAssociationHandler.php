@@ -24,8 +24,8 @@
  * @author DerManoMann
  * @package zenmagick.store.shared.services.catalog.associations
  */
-interface ZMProductAssociationHandler {
-
+interface ZMProductAssociationHandler
+{
     /**
      * Get the type this handler handles.
      *

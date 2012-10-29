@@ -28,12 +28,13 @@ use ZenMagick\Base\Beans;
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class HowDidYouHearSourcesAdminController extends ZMController {
-
+class HowDidYouHearSourcesAdminController extends ZMController
+{
     /**
      * {@inheritDoc}
      */
-    public function getViewData($request) {
+    public function getViewData($request)
+    {
         $sql = "SELECT s.sources_name AS name, s.sources_id as sourceId
                 FROM %table.sources% s
                 ORDER BY s.sources_name ASC";
@@ -48,7 +49,8 @@ class HowDidYouHearSourcesAdminController extends ZMController {
     /**
      * {@inheritDoc}
      */
-    public function processPost($request) {
+    public function processPost($request)
+    {
         $action = $request->request->get('action');
         if ('create' == $action) {
             $name = $request->request->get('source');

@@ -26,19 +26,21 @@ use ZenMagick\Base\Plugins\Plugin;
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class ExamplePluginPlugin extends Plugin {
-
+class ExamplePluginPlugin extends Plugin
+{
     /**
      * As event listener a class is also automatically registered as listener for zen-cart zco events.
      */
-    public function onNotifyHeaderStartIndex($event) {
+    public function onNotifyHeaderStartIndex($event)
+    {
         echo sprintf(_zm("Start of Zen Cart's index page event callback in %s ...<br>"), $this->getName());
     }
 
     /**
      * Handle final content.
      */
-    public function onFinaliseContent($event) {
+    public function onFinaliseContent($event)
+    {
         $content = $event->getArgument('content');
         $request = $event->getArgument('request');
 

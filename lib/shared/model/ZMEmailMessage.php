@@ -26,7 +26,8 @@ use ZenMagick\Base\ZMObject;
  * @author DerManoMann
  * @package zenmagick.store.shared.model
  */
-class ZMEmailMessage extends ZMObject {
+class ZMEmailMessage extends ZMObject
+{
     private $fromEmail_;
     private $fromName_;
     private $toEmail_;
@@ -36,7 +37,8 @@ class ZMEmailMessage extends ZMObject {
     /**
      * Create new instance.
      */
-    public function __construct() {
+    public function __construct()
+    {
         parent::__construct();
         $this->fromEmail_ = null;
         $this->fromName_ = '';

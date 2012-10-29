@@ -27,13 +27,15 @@ use ZenMagick\Http\Toolbox\ToolboxTool;
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class ToolboxCrumbtrail extends ToolboxTool {
+class ToolboxCrumbtrail extends ToolboxTool
+{
     private $crumbs_;
 
     /**
      * Create new instance.
      */
-    public function __construct() {
+    public function __construct()
+    {
         parent::__construct();
     }
 
@@ -42,7 +44,8 @@ class ToolboxCrumbtrail extends ToolboxTool {
      *
      * @return ToolboxCrumbtrail <code>$this</code> for chaining.
      */
-    public function reset() {
+    public function reset()
+    {
         $this->crumbs_ = array();
         // always add home
         $this->addCrumb("Home", $this->getToolbox()->net->url('index'));
@@ -54,7 +57,8 @@ class ToolboxCrumbtrail extends ToolboxTool {
      *
      * @return ToolboxCrumbtrail <code>$this</code> for chaining.
      */
-    public function clear() {
+    public function clear()
+    {
         $this->crumbs_ = array();
         return $this;
     }
@@ -64,7 +68,8 @@ class ToolboxCrumbtrail extends ToolboxTool {
      *
      * @return string The name of the last crumbtrail element.
      */
-    public function getLastCrumb() {
+    public function getLastCrumb()
+    {
         return end($this->crumbs_);
     }
 
@@ -74,7 +79,8 @@ class ToolboxCrumbtrail extends ToolboxTool {
      * @param int index The index of the crumb to access.
      * @return Crumb The corresponding crumbtrail element.
      */
-    public function getCrumb($index) {
+    public function getCrumb($index)
+    {
         if (!is_array($this->crumbs_)) {
             $this->reset();
         }
@@ -87,7 +93,8 @@ class ToolboxCrumbtrail extends ToolboxTool {
      *
      * @return array List of <code>Crumb</code> instances.
      */
-    public function getCrumbs() {
+    public function getCrumbs()
+    {
         if (!is_array($this->crumbs_)) {
             $this->reset();
         }
@@ -101,7 +108,8 @@ class ToolboxCrumbtrail extends ToolboxTool {
      * @param string url Optional crumbtrail element URL.
      * @return ToolboxCrumbtrail <code>$this</code> for chaining.
      */
-    public function addCrumb($name, $url = null) {
+    public function addCrumb($name, $url = null)
+    {
         return $this;
         if (!is_array($this->crumbs_)) {
             $this->reset();
@@ -120,7 +128,8 @@ class ToolboxCrumbtrail extends ToolboxTool {
      * @param array path The category path to add as a list of category ids.
      * @return ToolboxCrumbtrail <code>$this</code> for chaining.
      */
-    public function addCategoryPath($path = null) {
+    public function addCategoryPath($path = null)
+    {
         $path = $path ?: $this->getRequest()->attributes->get('categoryIds');
         if (!$path) {
             return $this;
@@ -142,7 +151,8 @@ class ToolboxCrumbtrail extends ToolboxTool {
      * @param int manufacturerId The manufacturer's id.
      * @return ToolboxCrumbtrail <code>$this</code> for chaining.
      */
-    public function addManufacturer($manufacturerId = null) {
+    public function addManufacturer($manufacturerId = null)
+    {
         $manufacturerId = $manufacturerId ?: $this->getRequest()->query->getInt('manufacturers_id');
         if (null == $manufacturerId) {
             return $this;
@@ -160,7 +170,8 @@ class ToolboxCrumbtrail extends ToolboxTool {
      * @param int productId The product id of the product to add.
      * @return ToolboxCrumbtrail <code>$this</code> for chaining.
      */
-    public function addProduct($productId = null) {
+    public function addProduct($productId = null)
+    {
         $productId = $productId ?: $this->getRequest()->query->get('productId');
         if (null == $productId) {
             return $this;

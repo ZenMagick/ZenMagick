@@ -24,12 +24,13 @@ namespace ZenMagick\StoreBundle\Model\Mock;
  *
  * @author DerManoMann
  */
-class MockGVReceiver extends \ZMGVReceiver {
-
+class MockGVReceiver extends \ZMGVReceiver
+{
     /**
      * Create new instance.
      */
-    public function __construct() {
+    public function __construct()
+    {
         parent::__construct();
         $this->setName('foo');
         $this->setEmail('foo@bar.com');

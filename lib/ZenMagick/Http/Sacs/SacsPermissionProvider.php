@@ -26,8 +26,8 @@ namespace ZenMagick\Http\Sacs;
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-interface SacsPermissionProvider {
-
+interface SacsPermissionProvider
+{
     /**
      * Get mappings.
      *

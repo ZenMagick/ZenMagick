@@ -25,8 +25,8 @@
  * @author DerManoMann
  * @package zenmagick.store.shared.model.checkout
  */
-interface ZMShippingMethod {
-
+interface ZMShippingMethod
+{
     /**
      * Get the shipping method id.
      *

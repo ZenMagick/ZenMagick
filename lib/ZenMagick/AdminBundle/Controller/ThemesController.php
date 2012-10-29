@@ -26,12 +26,13 @@ use ZenMagick\Base\ZMObject;
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class ThemesController extends \ZMController {
-
+class ThemesController extends \ZMController
+{
     /**
      * {@inheritDoc}
      */
-    public function processGet($request) {
+    public function processGet($request)
+    {
         $themeService = $this->container->get('themeService');
         $themes = array();
         foreach ($themeService->getAvailableThemes() as $theme) {
@@ -46,7 +47,8 @@ class ThemesController extends \ZMController {
     /**
      * {@inheritDoc}
      */
-    public function processPost($request) {
+    public function processPost($request)
+    {
         $themeService = $this->container->get('themeService');
 
         $update = $request->request->get('update');
@@ -101,7 +103,8 @@ class ThemesController extends \ZMController {
      * @param int languageId The language id.
      * @return mixed Config or <code>null</code>.
      */
-    protected function getConfigForLanguageId($languageId=0) {
+    protected function getConfigForLanguageId($languageId=0)
+    {
         $themeConfig = $this->container->get('themeService')->getThemeConfigList();
         foreach ($themeConfig as $config) {
             if (true) {

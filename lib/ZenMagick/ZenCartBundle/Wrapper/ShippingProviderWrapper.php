@@ -32,7 +32,8 @@ use ZenMagick\ZenCartBundle\Wrapper\ShippingMethodWrapper;
  *
  * @author DerManoMann
  */
-class ShippingProviderWrapper extends ZMObject implements \ZMShippingProvider {
+class ShippingProviderWrapper extends ZMObject implements \ZMShippingProvider
+{
     private $zenModule_;
     private $errors_;
 
@@ -41,7 +42,8 @@ class ShippingProviderWrapper extends ZMObject implements \ZMShippingProvider {
      *
      * @param mixed module A zen-cart shipping module; default is <code>null</code>.
      */
-    public function __construct($module=null) {
+    public function __construct($module=null)
+    {
         parent::__construct();
         $this->zenModule_ = $module;
         $this->errors_ = array();
@@ -52,7 +54,8 @@ class ShippingProviderWrapper extends ZMObject implements \ZMShippingProvider {
      *
      * @param mixed module A zen-cart shipping module.
      */
-    public function setModule($module) {
+    public function setModule($module)
+    {
         $this->zenModule_ = $module;
     }
 
@@ -94,7 +97,8 @@ class ShippingProviderWrapper extends ZMObject implements \ZMShippingProvider {
     /**
      * {@inheritDoc}
      */
-    public function getShippingMethodForId($id, ShoppingCart $shoppingCart, $address=null) {
+    public function getShippingMethodForId($id, ShoppingCart $shoppingCart, $address=null)
+    {
         $methods = $this->getShippingMethods($shoppingCart, $address);
         return (array_key_exists($id, $methods) ? $methods[$id] : null);
     }
@@ -102,7 +106,8 @@ class ShippingProviderWrapper extends ZMObject implements \ZMShippingProvider {
     /**
      * {@inheritDoc}
      */
-    public function getShippingMethods(ShoppingCart $shoppingCart, $address=null) {
+    public function getShippingMethods(ShoppingCart $shoppingCart, $address=null)
+    {
         if (null == $address) {
             // now we just want the shipping method, but we need an address right now...
             $address = $shoppingCart->getShippingAddress();

@@ -28,8 +28,8 @@ use ZenMagick\Http\Toolbox\ToolboxTool;
  *
  * @author DerManoMann
  */
-class ToolboxNet extends ToolboxTool {
-
+class ToolboxNet extends ToolboxTool
+{
     /**
      * Create a URL.
      *
@@ -48,7 +48,8 @@ class ToolboxNet extends ToolboxTool {
      * @param boolean secure Flag indicating whether to create a secure or non secure URL; default is <code>false</code>.
      * @return string A full URL.
      */
-    public function url($requestId=null, $params='', $secure=false) {
+    public function url($requestId=null, $params='', $secure=false)
+    {
         // default to current requestId
         $requestId = $requestId === null ? $this->getRequest()->getRequestId() : $requestId;
 
@@ -63,7 +64,8 @@ class ToolboxNet extends ToolboxTool {
      * @param string url The url to encode.
      * @return string The URL encoded in valid HTM.
      */
-    public function encode($url) {
+    public function encode($url)
+    {
         $url = htmlentities($url, ENT_QUOTES, Runtime::getSettings()->get('zenmagick.http.html.charset'));
         $url = str_replace(' ', '%20', $url);
         return $url;
@@ -75,7 +77,8 @@ class ToolboxNet extends ToolboxTool {
      * @param string url The url to decode.
      * @return string The decoded URL.
      */
-    public function decode($url) {
+    public function decode($url)
+    {
         $s = html_entity_decode($url, ENT_QUOTES, Runtime::getSettings()->get('zenmagick.http.html.charset'));
         $s = str_replace('%20', ' ', $s);
         return $s;
@@ -91,7 +94,8 @@ class ToolboxNet extends ToolboxTool {
      * @param int categoryId Optional category id.
      * @return string A complete product URL.
      */
-    public function product($productId, $categoryId=null) {
+    public function product($productId, $categoryId=null)
+    {
         $cPath = '';
         if (null != $categoryId) {
             $category = $this->container->get('categoryService')->getCategoryForId($categoryId, $this->getRequest()->getSession()->getLanguageId());
@@ -108,7 +112,8 @@ class ToolboxNet extends ToolboxTool {
      * @param string name The static page name.
      * @return string A complete URL for the given static page.
      */
-    public function staticPage($name) {
+    public function staticPage($name)
+    {
         return $this->url('static', '&cat='.$name);
     }
 
@@ -118,7 +123,8 @@ class ToolboxNet extends ToolboxTool {
      * @param ZenMagick\StoreBundle\Entity\EZPage an EZPage instance
      * @return string A complete URL for the given ez-page.
      */
-    public function ezPage($page) {
+    public function ezPage($page)
+    {
         if (null === $page) {
             $href = _zm('ezpage not found');
             return $href;
@@ -153,7 +159,8 @@ class ToolboxNet extends ToolboxTool {
      * @param string src The relative image name (relative to zen-cart's image folder).
      * @return string The image URI.
      */
-    public function image($src) {
+    public function image($src)
+    {
         // TODO: where are images coming from in the future??
         $href = $this->getRequest()->getBaseUrl().'/images/'.$src;
 
@@ -170,7 +177,8 @@ class ToolboxNet extends ToolboxTool {
      * @param string id The redirect id.
      * @return string A full URL.
      */
-    public function trackLink($action, $id) {
+    public function trackLink($action, $id)
+    {
         if ('url' == $action && false === strpos('://', $id)) {
             $id = 'http://'.$id;
         }
@@ -187,7 +195,8 @@ class ToolboxNet extends ToolboxTool {
      * @param string params Query string style parameter; if <code>null</code> add all current parameter
      * @return string A complete Ajax URL.
      */
-    public function ajax($controller, $method, $params='') {
+    public function ajax($controller, $method, $params='')
+    {
         if (Runtime::isContextMatch('admin')) {
             $params .= '&controller=ajax_'.$controller;
             $controller = 'zmAjaxHandler.php';
@@ -207,7 +216,8 @@ class ToolboxNet extends ToolboxTool {
      * @param string key Optional key; for example, 'new' for the product channel.
      * @return string A complete URL.
      */
-    public function rssFeed($channel, $key=null) {
+    public function rssFeed($channel, $key=null)
+    {
         $params = 'channel='.$channel;
         if (null !== $key) {
             $params .= "&key=".$key;
@@ -226,7 +236,8 @@ class ToolboxNet extends ToolboxTool {
      * @param array keep Optional list of parameters to keep.
      * @return string A URL pointing to the previous page or <code>null</code>.
      */
-    public function resultListBack($resultList, $secure=null, $keep=array()) {
+    public function resultListBack($resultList, $secure=null, $keep=array())
+    {
         if (!$resultList->hasPreviousPage()) {
             return null;
         }
@@ -251,7 +262,8 @@ class ToolboxNet extends ToolboxTool {
      * @param array keep Optional list of parameters to keep.
      * @return string A URL pointing to the next page or <code>null</code>.
      */
-    public function resultListNext($resultList, $secure=null, $keep=array()) {
+    public function resultListNext($resultList, $secure=null, $keep=array())
+    {
         if (!$resultList->hasNextPage()) {
             return null;
         }
@@ -274,7 +286,8 @@ class ToolboxNet extends ToolboxTool {
      * @return string The top level domain.
      * @see http://stackoverflow.com/questions/399250/going-where-php-parse-url-doesnt-parsing-only-the-domain
      */
-    public function getDomain($url) {
+    public function getDomain($url)
+    {
         $pieces = parse_url($url);
         $domain = isset($pieces['host']) ? $pieces['host'] : '';
         if (preg_match('/(?P<domain>[a-z0-9][a-z0-9\-]{1,63}\.[a-z\.]{2,6})$/i', $domain, $regs)) {
@@ -293,7 +306,8 @@ class ToolboxNet extends ToolboxTool {
      * @return string The absolute URL.
      * @todo probably replace with methods specifically for assets
      */
-    public function absoluteUrl($url, $full=false, $secure=false) {
+    public function absoluteUrl($url, $full=false, $secure=false)
+    {
         $url = (!empty($url) && ('/' == $url[0] || false !== strpos($url, '://'))) ? $url : $this->getBaseUrl().'/'.$url;
         $secure = $this->container->get('settingsService')->get('zenmagick.http.request.enforceSecure') && $secure;
         if ($full || ($secure && !$this->isSecure())) {

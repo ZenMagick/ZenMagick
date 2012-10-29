@@ -24,13 +24,15 @@ namespace ZenMagick\StorefrontBundle\Controller;
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class LoginController extends \ZMController {
+class LoginController extends \ZMController
+{
     const KEY_REDIRECT = 'loginRedirect';
 
     /**
      * {@inheritDoc}
      */
-    public function processGet($request) {
+    public function processGet($request)
+    {
         $session = $request->getSession();
         if ($session->isRegistered()) {
             // can't get any better than this!
@@ -49,7 +51,8 @@ class LoginController extends \ZMController {
     /**
      * {@inheritDoc}
      */
-    public function processPost($request) {
+    public function processPost($request)
+    {
         $session = $request->getSession();
 
         // get before doing anything with the session!

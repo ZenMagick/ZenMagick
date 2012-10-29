@@ -32,12 +32,13 @@ use ZenMagick\StoreBundle\Entity\Account\Account;
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class FormHandlerPlugin extends Plugin {
-
+class FormHandlerPlugin extends Plugin
+{
     /**
      * {@inheritDoc}
      */
-    public function init() {
+    public function init()
+    {
         parent::init();
 
         // mappings

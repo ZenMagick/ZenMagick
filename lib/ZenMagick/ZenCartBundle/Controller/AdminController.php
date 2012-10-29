@@ -25,12 +25,13 @@ namespace ZenMagick\ZenCartBundle\Controller;
  * @author Johnny Robeson
  * @todo <johnny> we could try to untangle GET/POST mess, but is it really worth it?
  */
-class AdminController extends \ZMController {
-
+class AdminController extends \ZMController
+{
     /**
      * {@inheritDoc}
      */
-    public function processGet($request) {
+    public function processGet($request)
+    {
         // from init_general_funcs
         foreach ($request->query->all() as $k => $v) {
             $request->query->set($k, strip_tags($v));
@@ -88,7 +89,8 @@ class AdminController extends \ZMController {
     /**
      * {@inheritDoc}
      */
-    public function processPost($request) {
+    public function processPost($request)
+    {
         if (!$this->validateSecurityToken($request)) {
             $this->messageService->error(_zm('Security token validation failed'));
             $request->redirect($request->server->get('HTTP_REFERER'));
@@ -99,7 +101,8 @@ class AdminController extends \ZMController {
     /**
      * Implementation of ZenCart's init_session securityToken checking code
      */
-    public function validateSecurityToken($request) {
+    public function validateSecurityToken($request)
+    {
         $needsToken = $request->get('action') && 'POST' === $request->getMethod();
         if(!$needsToken) return true;
         return $request->getSession()->getToken() === $request->request->get('securityToken', '');

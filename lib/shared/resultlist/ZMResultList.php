@@ -34,7 +34,8 @@ use ZenMagick\Base\ZMObject;
  * @author DerManoMann <mano@zenmagick.org>
  * @package org.zenmagick.mvc.resultlist
  */
-class ZMResultList extends ZMObject {
+class ZMResultList extends ZMObject
+{
     protected $resultSource_;
     protected $filters_;
     protected $sorters_;
@@ -46,7 +47,8 @@ class ZMResultList extends ZMObject {
     /**
      * Create new result list.
      */
-    public function __construct() {
+    public function __construct()
+    {
         parent::__construct();
         $this->resultSource_ = null;
         $this->filters_ = array();
@@ -66,7 +68,8 @@ class ZMResultList extends ZMObject {
      *
      * @param ZMResultSource resultSource A result source.
      */
-    public function setResultSource($resultSource) {
+    public function setResultSource($resultSource)
+    {
         $this->resultSource_ = $resultSource;
         $this->resultSource_->setResultList($this);
         $this->results_ = null;
@@ -77,7 +80,8 @@ class ZMResultList extends ZMObject {
      *
      * @param ZMResultListFilter filter The new filter.
      */
-    public function addFilter($filter) {
+    public function addFilter($filter)
+    {
         if ($filter instanceof ZMResultListFilter) {
             $filter->setResultList($this);
             $this->filters_[] = $filter;
@@ -90,7 +94,8 @@ class ZMResultList extends ZMObject {
      *
      * @param ZMResultListSorter sorter The new sorter.
      */
-    public function addSorter($sorter) {
+    public function addSorter($sorter)
+    {
         if ($sorter instanceof ZMResultListSorter) {
             $this->sorters_[] = $sorter;
             $this->results_ = null;
@@ -102,7 +107,8 @@ class ZMResultList extends ZMObject {
      *
      * @return boolean <code>true</code> if sorter are configured, <code>false</code> if not.
      */
-    public function hasSorters() {
+    public function hasSorters()
+    {
         return 0 < count($this->sorters_);
     }
 
@@ -112,7 +118,8 @@ class ZMResultList extends ZMObject {
      * @param boolean active Optional flag to get only active sorters; default is <code>false</code for all.
      * @return array A list of <code>ZMResultListSorter</code>.
      */
-    public function getSorters($active=false) {
+    public function getSorters($active=false)
+    {
         if (!$active) {
             return $this->sorters_;
         }
@@ -131,7 +138,8 @@ class ZMResultList extends ZMObject {
      *
      * @return boolean <code>true</code> if filters are configured, <code>false</code> if not.
      */
-    public function hasFilters() {
+    public function hasFilters()
+    {
         return 0 < count($this->filters_);
     }
 
@@ -141,7 +149,8 @@ class ZMResultList extends ZMObject {
      * @param boolean active Optional flag to get only active sorters; default is <code>false</code for all.
      * @return array A list of <code>ZMResultListFilter</code>.
      */
-    public function getFilters($active=false) {
+    public function getFilters($active=false)
+    {
         if (!$active) {
             return $this->filters_;
         }
@@ -160,7 +169,8 @@ class ZMResultList extends ZMObject {
      *
      * @return boolean <code>true</code> if results are available, <code>false</code> if not.
      */
-    public function hasResults() {
+    public function hasResults()
+    {
         return 0 < count($this->getResults());
     }
 
@@ -169,7 +179,8 @@ class ZMResultList extends ZMObject {
      *
      * @return int The total number if results.
      */
-    public function getNumberOfResults() {
+    public function getNumberOfResults()
+    {
         return $this->resultSource_->getTotalNumberOfResults();
     }
 
@@ -178,7 +189,8 @@ class ZMResultList extends ZMObject {
      *
      * @return int The page number.
      */
-    public function getPageNumber() {
+    public function getPageNumber()
+    {
         return $this->page_;
     }
 
@@ -187,7 +199,8 @@ class ZMResultList extends ZMObject {
      *
      * @param int page The page number.
      */
-    public function setPageNumber($page) {
+    public function setPageNumber($page)
+    {
         $this->page_ = (0 < $page ? $page : 1);
         $this->results_ = null;
     }
@@ -197,7 +210,8 @@ class ZMResultList extends ZMObject {
      *
      * @return int The number of results per page.
      */
-    public function getPagination() {
+    public function getPagination()
+    {
         return $this->pagination_;
     }
 
@@ -206,7 +220,8 @@ class ZMResultList extends ZMObject {
      *
      * @param int pagination The number of results per page.
      */
-    public function setPagination($pagination) {
+    public function setPagination($pagination)
+    {
         $this->pagination_ = $pagination;
         $this->results_ = null;
         $this->allResults_ = null;
@@ -217,7 +232,8 @@ class ZMResultList extends ZMObject {
      *
      * @return int The number of pages; will return <em>0</em> if no results available.
      */
-    public function getNumberOfPages() {
+    public function getNumberOfPages()
+    {
         if (0 == $this->pagination_) {
             return 1;
         }
@@ -229,7 +245,8 @@ class ZMResultList extends ZMObject {
      *
      * @return boolean <code>true</code> if a previous page is available, <code>false</code> if not.
      */
-    public function hasPreviousPage() {
+    public function hasPreviousPage()
+    {
         return 1 < $this->page_;
     }
 
@@ -238,7 +255,8 @@ class ZMResultList extends ZMObject {
      *
      * @return boolean <code>true</code> if a next page is available, <code>false</code> if not.
      */
-    public function hasNextPage() {
+    public function hasNextPage()
+    {
         return $this->page_ < $this->getNumberOfPages();
     }
 
@@ -247,7 +265,8 @@ class ZMResultList extends ZMObject {
      *
      * @return int The previous page number; (default: 1)
      */
-    public function getPreviousPageNumber() {
+    public function getPreviousPageNumber()
+    {
         return $this->hasPreviousPage() ? ($this->page_ - 1) : 1;
     }
 
@@ -256,7 +275,8 @@ class ZMResultList extends ZMObject {
      *
      * @return int The next page number.
      */
-    public function getNextPageNumber() {
+    public function getNextPageNumber()
+    {
         return $this->hasNextPage() ? ($this->page_ + 1) : $this->getNumberOfPages();
     }
 
@@ -265,7 +285,8 @@ class ZMResultList extends ZMObject {
      *
      * @return array List of results for the current page.
      */
-    public function getResults() {
+    public function getResults()
+    {
         if (null === $this->results_) {
             $results = $this->getAllResults();
 
@@ -315,7 +336,8 @@ class ZMResultList extends ZMObject {
      *
      * @return array List of all available results.
      */
-    public function getAllResults() {
+    public function getAllResults()
+    {
         if (null === $this->allResults_) {
             $this->allResults_ = $this->buildResults();
         }
@@ -327,7 +349,8 @@ class ZMResultList extends ZMObject {
      *
      * @return array List of result objects.
      */
-    protected function buildResults() {
+    protected function buildResults()
+    {
         if (null !== $this->resultSource_) {
             // always force load here; either it is the first time, or the pagination changed, so we need to reload anyway
             return $this->resultSource_->getResults(true);

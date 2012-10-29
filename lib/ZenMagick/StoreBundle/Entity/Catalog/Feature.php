@@ -34,7 +34,8 @@ use Doctrine\ORM\Mapping AS ORM;
  *  })
  * @ORM\Entity
  */
-class Feature extends ZMObject {
+class Feature extends ZMObject
+{
     /**
      * @var integer $id
      *
@@ -86,7 +87,8 @@ class Feature extends ZMObject {
      */
     private $availableDate;
 
-    public function __construct() {
+    public function __construct()
+    {
         parent::__construct();
         $this->status = true;
         $this->expiryDate = '0001-01-01';
@@ -196,7 +198,8 @@ class Feature extends ZMObject {
      *
      * @param integer $status
      */
-    public function setStatus($status) {
+    public function setStatus($status)
+    {
         $this->status = $status;
         $this->setStatusChangeDate(new \DateTime());
     }

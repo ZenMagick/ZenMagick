@@ -27,12 +27,13 @@ use ZenMagick\Http\Sacs\SacsPermissionProvider;
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class DBSacsPermissionProvider extends ZMObject implements SacsPermissionProvider {
-
+class DBSacsPermissionProvider extends ZMObject implements SacsPermissionProvider
+{
     /**
      * {@inheritDoc}
      */
-    public function getMappings() {
+    public function getMappings()
+    {
         return $this->container->get('sacsPermissionService')->getAll();
     }
 

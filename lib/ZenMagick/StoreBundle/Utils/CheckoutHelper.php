@@ -29,7 +29,8 @@ use ZenMagick\ZenCartBundle\Mock\ZenCartMock;
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class CheckoutHelper extends ZMObject {
+class CheckoutHelper extends ZMObject
+{
     const CART_PRODUCT_STATUS = 'status';
     const CART_PRODUCT_QUANTITY = 'quantity';
     const CART_PRODUCT_UNITS = 'units';
@@ -43,7 +44,8 @@ class CheckoutHelper extends ZMObject {
      *
      * @param ShoppingCart shoppingCart The cart; default is <code>null</code>.
      */
-    public function __construct($shoppingCart=null) {
+    public function __construct($shoppingCart=null)
+    {
         parent::__construct();
         $this->shoppingCart_ = $shoppingCart;
     }
@@ -53,7 +55,8 @@ class CheckoutHelper extends ZMObject {
      *
      * @param ShoppingCart shoppingCart The cart; default is <code>null</code>.
      */
-    public function setShoppingCart($shoppingCart) {
+    public function setShoppingCart($shoppingCart)
+    {
         $this->shoppingCart_ = $shoppingCart;
     }
 
@@ -62,7 +65,8 @@ class CheckoutHelper extends ZMObject {
      *
      * @return boolean <code>true</code> if the cart qualifies for free shipping.
      */
-    public function isFreeShipping() {
+    public function isFreeShipping()
+    {
         if (Runtime::getSettings()->get('isOrderTotalFreeShipping')) {
             $pass = false;
             $shippingAddress = $this->shoppingCart_->getShippingAddress();
@@ -95,7 +99,8 @@ class CheckoutHelper extends ZMObject {
      *
      * @return boolean <code>true</code> if only vouchers are in the cart.
      */
-    public function isGVOnly() {
+    public function isGVOnly()
+    {
         foreach ($this->shoppingCart_->getItems() as $item) {
             $product = $item->getProduct();
             if (!preg_match('/^GIFT/', $product->getModel())) {
@@ -111,7 +116,8 @@ class CheckoutHelper extends ZMObject {
      *
      * @return int The number of free products in the cart.
      */
-    public function freeProductsCount() {
+    public function freeProductsCount()
+    {
         $count = 0;
         foreach ($this->shoppingCart_->getItems() as $item) {
             $product = $item->getProduct();
@@ -128,7 +134,8 @@ class CheckoutHelper extends ZMObject {
      *
      * @return int The number of virtual products in the cart.
      */
-    public function virtualProductsCount() {
+    public function virtualProductsCount()
+    {
         $count = 0;
         foreach ($this->shoppingCart_->getItems() as $item) {
             $product = $item->getProduct();
@@ -145,7 +152,8 @@ class CheckoutHelper extends ZMObject {
      *
      * @return int The number of free shipping products in the cart.
      */
-    public function freeShippingCount() {
+    public function freeShippingCount()
+    {
         $count = 0;
         foreach ($this->shoppingCart_->getItems() as $item) {
             $product = $item->getProduct();
@@ -162,7 +170,8 @@ class CheckoutHelper extends ZMObject {
      *
      * @return boolean <code>true</code> if the cart is purely virtual.
      */
-    public function isVirtual() {
+    public function isVirtual()
+    {
         return self::CART_TYPE_VIRTUAL == $this->getType();
     }
 
@@ -171,7 +180,8 @@ class CheckoutHelper extends ZMObject {
      *
      * @return string The cart type; one of <em>CART_TYPE_PHYSICAL</em>, <em>CART_TYPE_VIRTUAL</em>, <em>CART_TYPE_MIXED</em>.
      */
-    public function getType() {
+    public function getType()
+    {
         if ($this->shoppingCart_->isEmpty()) {
             return self::CART_TYPE_PHYSICAL;
         }
@@ -223,7 +233,8 @@ class CheckoutHelper extends ZMObject {
      *
      * @return array A map of errorCode =&gt; item pairs.
      */
-    public function checkCartStatus() {
+    public function checkCartStatus()
+    {
         // validate items
         $this->validateItems();
 
@@ -275,7 +286,8 @@ class CheckoutHelper extends ZMObject {
     /**
      * fmod variant that can handle values < 1.
      */
-    public function fmod_round($x, $y) {
+    public function fmod_round($x, $y)
+    {
         $x = strval($x);
         $y = strval($y);
         $round = ($x*1000)/($y*1000);
@@ -293,7 +305,8 @@ class CheckoutHelper extends ZMObject {
      *
      * @return boolean <code>true</code> if the cart is ready or checkout, <code>false</code> if not.
      */
-    public function readyForCheckout() {
+    public function readyForCheckout()
+    {
         return 0 == count($this->checkCartStatus());
     }
 
@@ -303,7 +316,8 @@ class CheckoutHelper extends ZMObject {
      * @param boolean messages Optional flag to enable/hide messages related to stock checking; default is <code>true</code>.
      * @return boolean <code>true</code> if the stock check was sucessful (or disabled).
      */
-    public function checkStock($messages=true) {
+    public function checkStock($messages=true)
+    {
         if (Runtime::getSettings()->get('isEnableStock') && $this->shoppingCart_->hasOutOfStockItems()) {
             $flashBag = $this->container->get('session')->getFlashBag();
             if (Runtime::getSettings()->get('isAllowLowStockCheckout')) {
@@ -329,7 +343,8 @@ class CheckoutHelper extends ZMObject {
      * @return string Either a <em>viewId</em>, which would indicate an error/issue, or <code>null</code>
      *  if everything is ok.
      */
-    public function validateCheckout($request, $showMessages=true) {
+    public function validateCheckout($request, $showMessages=true)
+    {
         if ($this->shoppingCart_->isEmpty()) {
             return "shopping_cart";
         }
@@ -369,7 +384,8 @@ class CheckoutHelper extends ZMObject {
     /**
      * Ensure only valid items are in the cart.
      */
-    public function validateItems() {
+    public function validateItems()
+    {
         foreach ($this->shoppingCart_->getItems() as $item) {
             if (null == $item->getProduct()) {
                 $this->shoppingCart_->removeProduct($item->getId());
@@ -385,7 +401,8 @@ class CheckoutHelper extends ZMObject {
      * @return string Either a <em>viewId</em>, which would indicate an error/issue, or <code>null</code>
      *  if everything is ok.
      */
-    public function validateAddresses($request, $showMessages=true) {
+    public function validateAddresses($request, $showMessages=true)
+    {
         // validate addresses
         $session = $request->getSession();
         $account = $request->getAccount();
@@ -422,7 +439,8 @@ class CheckoutHelper extends ZMObject {
      * @param ZenMagick\Http\Request request The current request.
      * @return boolean <code>true</code> if a valid hash was saved, <code>false</code> if not.
      */
-    public function saveHash($request) {
+    public function saveHash($request)
+    {
         if ($this->shoppingCart_->isEmpty()) {
             return false;
         }
@@ -446,14 +464,16 @@ class CheckoutHelper extends ZMObject {
      * @param ZenMagick\Http\Request request The current request.
      * @return boolean <code>true</code> if, and only if, the session cart hash and the current hash are the same.
      */
-    public function verifyHash($request) {
+    public function verifyHash($request)
+    {
         return $request->getSession()->get('shoppingCartHash') == $this->shoppingCart_->getHash();
     }
 
     /**
      * Mark cart as free shipping.
      */
-    public function markCartFreeShipping() {
+    public function markCartFreeShipping()
+    {
         // TODO:
         $_SESSION['shipping'] = 'free_free';
         // not sure there are other cases where we want to mark the cart, but just in case...
@@ -469,7 +489,8 @@ class CheckoutHelper extends ZMObject {
      *
      * @return array List of <code>ZMPaymentType</code> instances.
      */
-    public function getPaymentTypes() {
+    public function getPaymentTypes()
+    {
         $cartTotal = $this->shoppingCart_->getTotal();
 
         ZenCartMock::startMock($this->shoppingCart_, $this->shoppingCart_->getBillingAddress());

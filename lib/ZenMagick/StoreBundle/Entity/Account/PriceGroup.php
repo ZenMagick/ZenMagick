@@ -31,7 +31,8 @@ use ZenMagick\Base\ZMObject;
  * @ORM\Entity
  * @author DerManoMann
  */
-class PriceGroup extends ZMObject {
+class PriceGroup extends ZMObject
+{
     /**
      * @var integer $id
      *
@@ -72,7 +73,8 @@ class PriceGroup extends ZMObject {
     /**
      * Create new instance.
      */
-    public function __construct() {
+    public function __construct()
+    {
         parent::__construct();
 
         $this->id = 0;

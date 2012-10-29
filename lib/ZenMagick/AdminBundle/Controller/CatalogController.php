@@ -32,15 +32,16 @@ use ZenMagick\Http\Sacs\SacsManager;
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class CatalogController extends \ZMController {
-
+class CatalogController extends \ZMController
+{
     /**
      * Create list of all active catalog content controllers.
      *
      * @param ZenMagick\Http\Request request The current request.
      * @return array List of controller instances.
      */
-    protected function getCatalogContentControllers($request) {
+    protected function getCatalogContentControllers($request)
+    {
         $controllers = array();
         foreach ($this->container->get('containerTagService')->findTaggedServiceIds('apps.store.admin.tabcontroller') as $id => $args) {
             $controller = $this->container->get($id);
@@ -55,7 +56,8 @@ class CatalogController extends \ZMController {
     /**
      * {@inheritDoc}
      */
-    public function processAction(Request $request) {
+    public function processAction(Request $request)
+    {
         // disable POST in demo
         if ('POST' == $request->getMethod() && $this->handleDemo()) {
             return $this->findView('success-demo');

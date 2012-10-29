@@ -28,15 +28,16 @@ use ZenMagick\Http\Toolbox\ToolboxTool;
  *
  * @author DerManoMann
  */
-class ToolboxMacro extends ToolboxTool {
-
+class ToolboxMacro extends ToolboxTool
+{
     /**
      * <code>phpinfo</code> wrapper.
      *
      * @param what What to display (see phpinfo manual for more); default is <code>1</code>.
      * @return string The <code>phpinfo</code> output minus a few formatting things that break validation.
      */
-    public function phpinfo($what=1) {
+    public function phpinfo($what=1)
+    {
         ob_start();
         phpinfo($what);
         $info = ob_get_clean();
@@ -73,7 +74,8 @@ class ToolboxMacro extends ToolboxTool {
      * @param boolean html If <code>true</code>, format as HTML, otherwise plain text.
      * @return string A fully formatted address that, depending on the <em>html</code> flag, is either HTML or ASCII formatted.
      */
-    public function formatAddress($address, $html=true) {
+    public function formatAddress($address, $html=true)
+    {
         if (null == $address) {
             $out = _zm("N/A");
         } else {
@@ -145,7 +147,8 @@ class ToolboxMacro extends ToolboxTool {
      * @param string sep A separator string.
      * @return string A fully HTML formatted crumbtrail.
      */
-    public function buildCrumbtrail($crumbtrail, $sep) {
+    public function buildCrumbtrail($crumbtrail, $sep)
+    {
         $toolbox = $this->getToolbox();
         $html = '';
         $first = true;
@@ -183,7 +186,8 @@ class ToolboxMacro extends ToolboxTool {
      * @param array path The active category path; default is <code>null</code>.
      * @return string The given categories as nested unordered list.
      */
-    public function categoryTree($categories, $showProductCount=false, $useCategoryPage=false, $activeParent=false, $root=true, $path=null) {
+    public function categoryTree($categories, $showProductCount=false, $useCategoryPage=false, $activeParent=false, $root=true, $path=null)
+    {
         $toolbox = $this->getToolbox();
         $net = $toolbox->net;
         if ($root) {
@@ -236,7 +240,8 @@ class ToolboxMacro extends ToolboxTool {
      * @param ZenMagick\Http\Session\Session session The current session.
      * @return array Hash of extra information.
      */
-    public function officeOnlyEmailFooter($name, $email, $session) {
+    public function officeOnlyEmailFooter($name, $email, $session)
+    {
         $context = array();
 
         $session = $this->getRequest()->getSession();
@@ -276,7 +281,8 @@ class ToolboxMacro extends ToolboxTool {
      * @param ZenMagick\StoreBundle\Entity\Catalog\Product product A <code>Product</code> instance.
      * @return array An array containing HTML formatted attributes.
      */
-    public function productAttributes($product) {
+    public function productAttributes($product)
+    {
         $elements = array();
         $attributes = $product->getAttributes();
         $uploadIndex = 1;
@@ -318,7 +324,8 @@ class ToolboxMacro extends ToolboxTool {
      * @param ZenMagick\StoreBundle\Entity\Catalog\Attribute attribute The attribute.
      * @return array Attribute info plus HTML to render this attribute.
      */
-    protected function productRadioAttribute($product, $attribute) {
+    protected function productRadioAttribute($product, $attribute)
+    {
         $element = array();
         $element['id'] = $attribute->getId();
         $element['name'] = $attribute->getName();
@@ -345,7 +352,8 @@ class ToolboxMacro extends ToolboxTool {
      * @param ZenMagick\StoreBundle\Entity\Catalog\Attribute attribute The attribute.
      * @return array Attribute info plus HTML to render this attribute.
      */
-    protected function productCheckboxAttribute($product, $attribute) {
+    protected function productCheckboxAttribute($product, $attribute)
+    {
         $element = array();
         $element['id'] = $attribute->getId();
         $element['name'] = $attribute->getName();
@@ -372,7 +380,8 @@ class ToolboxMacro extends ToolboxTool {
      * @param ZenMagick\StoreBundle\Entity\Catalog\Attribute attribute The attribute.
      * @return array Attribute info plus HTML to render this attribute.
      */
-    protected function productTextAttribute($product, $attribute) {
+    protected function productTextAttribute($product, $attribute)
+    {
         $element = array();
         $element['id'] = $attribute->getId();
         $element['name'] = $attribute->getName();
@@ -399,7 +408,8 @@ class ToolboxMacro extends ToolboxTool {
      * @param ZenMagick\StoreBundle\Entity\Catalog\Attribute attribute The attribute.
      * @return array Attribute info plus HTML to render this attribute.
      */
-    protected function productUploadAttribute($product, $attribute, $uploadIndex) {
+    protected function productUploadAttribute($product, $attribute, $uploadIndex)
+    {
         $element = array();
         $element['id'] = $attribute->getId();
         $element['name'] = $attribute->getName();
@@ -428,7 +438,8 @@ class ToolboxMacro extends ToolboxTool {
      * @param ZenMagick\StoreBundle\Entity\Catalog\Attribute attribute The attribute.
      * @return array Attribute info plus HTML to render this attribute.
      */
-    protected function productReadonlyAttribute($attribute) {
+    protected function productReadonlyAttribute($attribute)
+    {
         $element = array();
         $element['id'] = $attribute->getId();
         $element['name'] = $attribute->getName();
@@ -448,7 +459,8 @@ class ToolboxMacro extends ToolboxTool {
      * @param ZenMagick\StoreBundle\Entity\Catalog\Attribute attribute The attribute.
      * @return array Attribute info plus HTML to render this attribute.
      */
-    protected function productSelectAttribute($product, $attribute) {
+    protected function productSelectAttribute($product, $attribute)
+    {
         $element = array();
         $element['id'] = $attribute->getId();
         $element['name'] = $attribute->getName();
@@ -473,7 +485,8 @@ class ToolboxMacro extends ToolboxTool {
      * @param boolean enableImage Optional flag to enable/disable images; default is <code>true</code>.
      * @return string A fully HTML formatted attribute value label.
      */
-    protected function buildAttributeValueLabel($product, $value, $enableImage=true) {
+    protected function buildAttributeValueLabel($product, $value, $enableImage=true)
+    {
         $toolbox = $this->getToolbox();
         $settingsService = $this->container->get('settingsService');
         $slash = $settingsService->get('zenmagick.http.html.xhtml') ? '/' : '';
@@ -504,7 +517,8 @@ class ToolboxMacro extends ToolboxTool {
      * @param boolean tax Optional flag to display prices with/without tax (see <code>ZMOffers</code> for details; default is <code>true</code>.
      * @return string The fully HTML formatted price.
      */
-    public function productPrice($product, $tax=true) {
+    public function productPrice($product, $tax=true)
+    {
         $toolbox = $this->getToolbox();
         $offers = $product->getOffers();
 
@@ -542,7 +556,8 @@ class ToolboxMacro extends ToolboxTool {
      * @return array Discount details.
      * @todo The applied price logic should not be in here!
      */
-    public function buildQuantityDiscounts($product, $tax=true) {
+    public function buildQuantityDiscounts($product, $tax=true)
+    {
         $offers = $product->getOffers();
         $discounts = $offers->getQuantityDiscounts($tax);
 

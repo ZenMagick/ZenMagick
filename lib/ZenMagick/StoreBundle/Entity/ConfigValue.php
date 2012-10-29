@@ -35,7 +35,8 @@ use Doctrine\ORM\Mapping AS ORM;
  * })
  * @ORM\Entity
  */
-class ConfigValue extends ZMObject {
+class ConfigValue extends ZMObject
+{
     /**
      * @var integer $id
      *
@@ -108,7 +109,8 @@ class ConfigValue extends ZMObject {
     /**
      * Create new config value.
      */
-    public function __construct() {
+    public function __construct()
+    {
         parent::__construct();
         $this->name = null;
         $this->description = null;
@@ -144,7 +146,8 @@ class ConfigValue extends ZMObject {
      * @param string type Optional type for type casting; default is <code>null</code> for none.
      * @return mixed $value The value.
      */
-    public function getValue($type = null) {
+    public function getValue($type = null)
+    {
         $value = $this->value;
         switch ($type) {
         case 'boolean':
@@ -209,7 +212,8 @@ class ConfigValue extends ZMObject {
      *
      * @return boolean <code>true</code> if a set function is configured, <code>false<code> if not.
      */
-    public function hasSetFunction() {
+    public function hasSetFunction()
+    {
         return !empty($this->setFunction);
     }
 

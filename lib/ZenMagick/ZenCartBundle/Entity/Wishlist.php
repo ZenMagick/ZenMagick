@@ -27,7 +27,8 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table(name="customers_wishlist")
  * @ORM\Entity
  */
-class Wishlist {
+class Wishlist
+{
     /**
      * @var integer $productId
      *

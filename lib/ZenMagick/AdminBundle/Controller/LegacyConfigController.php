@@ -24,12 +24,13 @@ namespace ZenMagick\AdminBundle\Controller;
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class LegacyConfigController extends \ZMController {
-
+class LegacyConfigController extends \ZMController
+{
     /**
      * {@inheritDoc}
      */
-    public function processGet($request) {
+    public function processGet($request)
+    {
         $groupId = $request->query->get('groupId', 1);
         $configService = $this->container->get('configWidgetService');
         $group = $configService->getConfigGroupForId($groupId);
@@ -40,7 +41,8 @@ class LegacyConfigController extends \ZMController {
     /**
      * {@inheritDoc}
      */
-    public function processPost($request) {
+    public function processPost($request)
+    {
         $groupId = $request->request->get('groupId');
 
         if ($this->handleDemo()) {

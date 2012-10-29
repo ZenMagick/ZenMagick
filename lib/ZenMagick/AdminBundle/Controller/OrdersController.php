@@ -26,12 +26,13 @@ use ZenMagick\Base\Beans;
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class OrdersController extends \ZMController {
-
+class OrdersController extends \ZMController
+{
     /**
      * {@inheritDoc}
      */
-    public function processGet($request) {
+    public function processGet($request)
+    {
         $orderStatusId = $request->getParameter('orderStatusId');
         //TODO: languageId
         $languageId = 1;

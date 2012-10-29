@@ -26,19 +26,21 @@ use ZenMagick\AdminBundle\Dashboard\DashboardWidget;
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class RecentSearchesDashboardWidget extends DashboardWidget {
-
+class RecentSearchesDashboardWidget extends DashboardWidget
+{
     /**
      * Create new user.
      */
-    public function __construct() {
+    public function __construct()
+    {
         parent::__construct(_zm('Recent Searches'));
     }
 
     /**
      * {@inheritDoc}
      */
-    public function getContents($request) {
+    public function getContents($request)
+    {
         $contents = '<p>'._zm('No Data').'</p>';
         return $contents;
     }

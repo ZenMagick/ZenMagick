@@ -34,19 +34,21 @@ use Symfony\Component\HttpFoundation\ResponseHeaderBag;
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class ExportOrdersController extends ZMController {
-
+class ExportOrdersController extends ZMController
+{
     /**
      * Get the date format.
      */
-    protected function getDateFormat() {
+    protected function getDateFormat()
+    {
         return $this->container->get('localeService')->getFormat('date', 'short');
     }
 
     /**
      * {@inheritDoc}
      */
-    public function getViewData($request) {
+    public function getViewData($request)
+    {
         $fromDate = $request->query->get('fromDate');
         $toDate = $request->query->get('toDate');
         $exportFormat = $request->query->get('exportFormat');
@@ -58,7 +60,8 @@ class ExportOrdersController extends ZMController {
     /**
      * {@inheritDoc}
      */
-    public function processGet($request) {
+    public function processGet($request)
+    {
         $fromDate = $request->query->get('fromDate');
         $toDate = $request->query->get('toDate');
         $exportFormat = $request->query->get('exportFormat');
@@ -149,7 +152,8 @@ class ExportOrdersController extends ZMController {
      * @param ZenMagick\StoreBundle\Entity\Order\Order order The order.
      * @return array List of rows.
      */
-    protected function processOrder(Order $order) {
+    protected function processOrder(Order $order)
+    {
         $orderTotalLines = $order->getOrderTotalLines();
         $shippingAmount = 0;
         $couponAmount = 0;

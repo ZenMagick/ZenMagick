@@ -27,7 +27,8 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table(name="manufacturers_info")
  * @ORM\Entity
  */
-class ManufacturerInfo {
+class ManufacturerInfo
+{
     /**
      * @var integer $manufacturerId
      *

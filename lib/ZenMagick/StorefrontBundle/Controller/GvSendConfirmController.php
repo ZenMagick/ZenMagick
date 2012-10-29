@@ -26,12 +26,13 @@ use ZenMagick\StoreBundle\Entity\Coupons\Coupon;
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class GvSendConfirmController extends \ZMController {
-
+class GvSendConfirmController extends \ZMController
+{
     /**
      * {@inheritDoc}
      */
-    public function processGet($request) {
+    public function processGet($request)
+    {
         $data = array();
         $data['currentAccount'] = $this->getUser();
         $coupon = new Coupon();
@@ -43,7 +44,8 @@ class GvSendConfirmController extends \ZMController {
     /**
      * {@inheritDoc}
      */
-    protected function validateFormData($request, $formBean) {
+    protected function validateFormData($request, $formBean)
+    {
         // need specific view to go back to in case of validation errors
         $result = parent::validateFormData($request, $formBean);
         if (null != $result) {
@@ -55,7 +57,8 @@ class GvSendConfirmController extends \ZMController {
     /**
      * {@inheritDoc}
      */
-    public function processPost($request) {
+    public function processPost($request)
+    {
         if (null != $request->request->get('edit')) {
             return $this->findView('edit');
         }

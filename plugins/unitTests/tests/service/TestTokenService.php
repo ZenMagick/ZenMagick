@@ -26,12 +26,13 @@ use ZenMagick\plugins\unitTests\simpletest\TestCase;
  * @package org.zenmagick.plugins.unitTests.tests
  * @author DerManoMann <mano@zenmagick.org>
  */
-class TestTokenService extends TestCase {
-
+class TestTokenService extends TestCase
+{
     /**
      * Test get new token.
      */
-    public function testGetNewToken() {
+    public function testGetNewToken()
+    {
         $resource = 'abc';
         $lifetime = 24*60*60; // 1 day
 
@@ -53,7 +54,8 @@ class TestTokenService extends TestCase {
     /**
      * Test expired.
      */
-    public function testExpired() {
+    public function testExpired()
+    {
         $resource = 'abc';
         $lifetime = 2; // 2 seconds
 
@@ -75,14 +77,16 @@ class TestTokenService extends TestCase {
     /**
      * Test clear expired.
      */
-    public function testClearExpired() {
+    public function testClearExpired()
+    {
         $this->container->get('tokenService')->clear(false);
     }
 
     /**
      * Test update.
      */
-    public function testUpdateToken() {
+    public function testUpdateToken()
+    {
         $resource = 'abc';
         $lifetime = 24*60*60; // 1 day
 
@@ -108,7 +112,8 @@ class TestTokenService extends TestCase {
     /**
      * Test get token for resource.
      */
-    public function testgetTokenForResource() {
+    public function testgetTokenForResource()
+    {
         $tokenService = $this->container->get('tokenService');
 
         $tokenService->clear(true);
@@ -132,7 +137,8 @@ class TestTokenService extends TestCase {
     /**
      * Test get token for hash.
      */
-    public function testgetTokenForHash() {
+    public function testgetTokenForHash()
+    {
         $tokenService = $this->container->get('tokenService');
 
         $tokenService->clear(true);

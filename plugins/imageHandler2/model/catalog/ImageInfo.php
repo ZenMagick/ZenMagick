@@ -27,7 +27,8 @@ use ZenMagick\Base\Runtime;
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class ImageInfo extends ZMImageInfo {
+class ImageInfo extends ZMImageInfo
+{
     private $image_;
     private $formattedParameter_;
     private $disableIH2Attributes_;
@@ -38,7 +39,8 @@ class ImageInfo extends ZMImageInfo {
      * @param string image The image name; default is <code>null</code>.
      * @param string alt The alt text; default is an empty string.
      */
-    public function __construct($image=null, $alt='') {
+    public function __construct($image=null, $alt='')
+    {
         parent::__construct($image, $alt);
         $this->image_ = $image;
         $this->formattedParameter_ = '';
@@ -49,7 +51,8 @@ class ImageInfo extends ZMImageInfo {
     /**
      * {@inheritDoc}
      */
-    public function setDefaultImage($image) {
+    public function setDefaultImage($image)
+    {
         parent::setDefaultImage($image);
         $this->image_ = $image;
     }
@@ -59,7 +62,8 @@ class ImageInfo extends ZMImageInfo {
      *
      * @return string The default image.
      */
-    public function getDefaultImage() {
+    public function getDefaultImage()
+    {
         $comp = ZMImageInfo::splitImageName($this->image_);
         $subdir = $comp[0];
         $ext = $comp[1];
@@ -89,7 +93,8 @@ class ImageInfo extends ZMImageInfo {
      *
      * @return string The medium image.
      */
-    public function getMediumImage() {
+    public function getMediumImage()
+    {
         $comp = ZMImageInfo::splitImageName($this->image_);
         $subdir = $comp[0];
         $ext = $comp[1];
@@ -114,7 +119,8 @@ class ImageInfo extends ZMImageInfo {
      *
      * @return string The large image.
      */
-    public function getLargeImage() {
+    public function getLargeImage()
+    {
         $comp = ZMImageInfo::splitImageName($this->image_);
         $subdir = $comp[0];
         $ext = $comp[1];
@@ -140,7 +146,8 @@ class ImageInfo extends ZMImageInfo {
      *
      * @return string HTML formatted parameter.
      */
-    public function getFormattedParameter() {
+    public function getFormattedParameter()
+    {
         return $this->formattedParameter_.parent::getFormattedParameter();
     }
 

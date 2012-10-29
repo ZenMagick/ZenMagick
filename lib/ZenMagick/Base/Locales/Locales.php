@@ -30,7 +30,8 @@ use ZenMagick\Base\ZMObject;
  * @todo use something other than the locale to pick the format
  * @author DerManoMann <mano@zenmagick.org> <mano@zenmagick.org>
  */
-class Locales extends ZMObject {
+class Locales extends ZMObject
+{
     private $locale;
     private $loader;
     private $formats;
@@ -40,7 +41,8 @@ class Locales extends ZMObject {
      *
      * @param string locale The locale
      */
-    public function __construct($locale) {
+    public function __construct($locale)
+    {
         parent::__construct();
         $this->locale = $locale;
         $this->formats = array(
@@ -78,7 +80,8 @@ class Locales extends ZMObject {
      *
      * @param string locale
      */
-    public function setLocale($locale) {
+    public function setLocale($locale)
+    {
         $this->locale = $locale;
     }
 
@@ -87,7 +90,8 @@ class Locales extends ZMObject {
      *
      * @return array List of locale codes.
      */
-    public function getValidLocaleCodes() {
+    public function getValidLocaleCodes()
+    {
         $code = $this->locale;
         $codes = array($code);
         $token = explode('_', $code);
@@ -125,7 +129,8 @@ class Locales extends ZMObject {
      * @param string type The subtype if required; default is <code>null</code>.
      * @return string A format string or <code>null</code>.
      */
-    public function getFormat($group, $type=null) {
+    public function getFormat($group, $type=null)
+    {
         if (array_key_exists($group, $this->formats)) {
             if (null == $type) {
                 return $this->formats[$group];
@@ -143,7 +148,8 @@ class Locales extends ZMObject {
      *
      * @param array formats Nested map of format definitions.
      */
-    public function setFormats($formats) {
+    public function setFormats($formats)
+    {
         $this->formats = Toolbox::arrayMergeRecursive($this->formats, $formats);
     }
 
@@ -153,7 +159,8 @@ class Locales extends ZMObject {
      * @param DateTime date A date.
      * @return string A short version.
      */
-    public function shortDate($date) {
+    public function shortDate($date)
+    {
         if ($date instanceof DateTime) {
             return $date->format($this->getFormat('date', 'short'));
         }
@@ -167,7 +174,8 @@ class Locales extends ZMObject {
      * @param DateTime date A date.
      * @return string A long version.
      */
-    public function longDate($date) {
+    public function longDate($date)
+    {
         if ($date instanceof DateTime) {
             return $date->format($this->getFormat('date', 'long'));
         }

@@ -31,7 +31,8 @@ use ZenMagick\StoreBundle\Entity\Account\Account;
  *
  * @author DerManoMann
  */
-class Accounts extends ZMObject {
+class Accounts extends ZMObject
+{
     // authorization status constants
     const AUTHORIZATION_ENABLED = 0;
     const AUTHORIZATION_PENDING = 1;
@@ -43,7 +44,8 @@ class Accounts extends ZMObject {
      * @param int accountId The account id.
      * @return ZenMagick\StoreBundle\Entity\Account\Account A <code>ZenMagick\StoreBundle\Entity\Account\Account</code> instance or <code>null</code>.
      */
-    public function getAccountForId($accountId) {
+    public function getAccountForId($accountId)
+    {
         $sql = "SELECT c.*, ci.*
                 FROM %table.customers% c
                   LEFT JOIN %table.customers_info% ci ON (c.customers_id = ci.customers_info_id)
@@ -63,7 +65,8 @@ class Accounts extends ZMObject {
      * @param string emailAddress The email address.
      * @return ZenMagick\StoreBundle\Entity\Account\Account A <code>ZenMagick\StoreBundle\Entity\Account\Account</code> instance or <code>null</code>.
      */
-    public function getAccountForEmailAddress($emailAddress) {
+    public function getAccountForEmailAddress($emailAddress)
+    {
         $sql = "SELECT c.*, ci.*
                 FROM %table.customers% c
                   LEFT JOIN %table.customers_info% ci ON (c.customers_id = ci.customers_info_id)
@@ -84,7 +87,8 @@ class Accounts extends ZMObject {
      * @param string emailAddress The email address.
      * @return array A <st of code>ZenMagick\StoreBundle\Entity\Account\Account</code> instances.
      */
-    public function getAccountsForEmailAddress($emailAddress) {
+    public function getAccountsForEmailAddress($emailAddress)
+    {
         $sql = "SELECT c.*, ci.*
                 FROM %table.customers% c
                   LEFT JOIN %table.customers_info% ci ON (c.customers_id = ci.customers_info_id)
@@ -107,7 +111,8 @@ class Accounts extends ZMObject {
      * @param int limit Optional limit; default is <em>0</em> for all.
      * @return array A <st of code>ZenMagick\StoreBundle\Entity\Account\Account</code> instances.
      */
-    public function getAllAccounts($type=null, $limit=0) {
+    public function getAllAccounts($type=null, $limit=0)
+    {
         $sql = "SELECT c.*, ci.*
                 FROM %table.customers% c
                   LEFT JOIN %table.customers_info% ci ON (c.customers_id = ci.customers_info_id)";
@@ -137,7 +142,8 @@ class Accounts extends ZMObject {
      *
      * @param int accountId The account id.
      */
-    public function updateAccountLoginStats($accountId) {
+    public function updateAccountLoginStats($accountId)
+    {
         $sql = "UPDATE %table.customers_info%
                 SET customers_info_date_of_last_logon = now(),
                     customers_info_number_of_logons = customers_info_number_of_logons+1
@@ -152,7 +158,8 @@ class Accounts extends ZMObject {
      * @param string emailAddress The email address.
      * @return boolean <code>true</code> if the email address exists, <code>false</code> if not.
      */
-    public function emailExists($emailAddress) {
+    public function emailExists($emailAddress)
+    {
         $sql = "SELECT count(*) as total
                 FROM %table.customers% c
                 WHERE customers_email_address = :email
@@ -168,7 +175,8 @@ class Accounts extends ZMObject {
      * @param ZenMagick\StoreBundle\Entity\Account\Account account The new account.
      * @return ZenMagick\StoreBundle\Entity\Account\Account The created account incl. the new account id.
      */
-    public function createAccount($account) {
+    public function createAccount($account)
+    {
         $account = ZMRuntime::getDatabase()->createModel('customers', $account);
         $now = new \DateTime();
         $account->setAccountCreateDate($now);
@@ -186,7 +194,8 @@ class Accounts extends ZMObject {
      * @param ZenMagick\StoreBundle\Entity\Account\Account The account.
      * @return ZenMagick\StoreBundle\Entity\Account\Account The updated account.
      */
-    public function updateAccount($account) {
+    public function updateAccount($account)
+    {
         ZMRuntime::getDatabase()->updateModel('customers', $account);
         $now = new \DateTime();
         $account->setLastModifiedDate($now);
@@ -208,7 +217,8 @@ class Accounts extends ZMObject {
     /**
      * Set password for account
      */
-    public function setAccountPassword($accountId, $password) {
+    public function setAccountPassword($accountId, $password)
+    {
         $sql = "UPDATE %table.customers%
                 SET customers_password = :password
                 WHERE customers_id = :accountId";
@@ -221,7 +231,8 @@ class Accounts extends ZMObject {
      * @param int accountId The account id.
      * @return boolean <code>true</code> if the account is a global product subscriber, <code>false</code> if not.
      */
-    public function isGlobalProductSubscriber($accountId) {
+    public function isGlobalProductSubscriber($accountId)
+    {
         $sql = "SELECT global_product_notifications
                 FROM %table.customers_info%
                 WHERE customers_info_id = :accountId";
@@ -236,7 +247,8 @@ class Accounts extends ZMObject {
      * @param int accountId The account id.
      * @param boolean globalProductSubscriber <code>true</code> if global product is selected, <code>false</code> if not.
      */
-    public function setGlobalProductSubscriber($accountId, $globalProductSubscriber) {
+    public function setGlobalProductSubscriber($accountId, $globalProductSubscriber)
+    {
         $sql = "UPDATE %table.customers_info%
                 SET global_product_notifications = :globalProductSubscriber, customers_info_date_account_last_modified = now()
                 WHERE customers_info_id = :accountId";
@@ -250,7 +262,8 @@ class Accounts extends ZMObject {
      * @param int accountId The account id.
      * @return array A list of subscribed product ids.
      */
-    public function getSubscribedProductIds($accountId) {
+    public function getSubscribedProductIds($accountId)
+    {
         $sql = "SELECT products_id
                 FROM %table.products_notifications%
                 WHERE customers_id = :accountId";
@@ -269,7 +282,8 @@ class Accounts extends ZMObject {
      * @param arrray productIds A list of product ids to subscribe to.
      * @return ZenMagick\StoreBundle\Entity\Account\Account The updated account.
      */
-    public function addSubscribedProductIds($account, $productIds) {
+    public function addSubscribedProductIds($account, $productIds)
+    {
         $sql = "INSERT INTO %table.products_notifications%
                 (products_id, customers_id) VALUES (:productId, :accountId)";
         foreach ($productIds as $id) {
@@ -286,7 +300,8 @@ class Accounts extends ZMObject {
      * @param arrray productIds A list of product ids to remove subscriptions.
      * @return ZenMagick\StoreBundle\Entity\Account\Account The updated account.
      */
-    public function removeSubscribedProductIds($account, $productIds) {
+    public function removeSubscribedProductIds($account, $productIds)
+    {
         $sql = "DELETE FROM %table.products_notifications%
                 WHERE  customers_id = :accountId
                 AND products_id in (:productId)";
@@ -302,7 +317,8 @@ class Accounts extends ZMObject {
      * @param array productIds The new list of subscribed product ids.
      * @return ZenMagick\StoreBundle\Entity\Account\Account The updated account.
      */
-    public function setSubscribedProductIds($account, $productIds) {
+    public function setSubscribedProductIds($account, $productIds)
+    {
         $currentList = $account->getSubscribedProducts();
         $remove = array();
         $add = array();

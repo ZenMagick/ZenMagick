@@ -24,8 +24,8 @@ namespace ZenMagick\Base\Security\Authentication;
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-interface AuthenticationProvider {
-
+interface AuthenticationProvider
+{
     /**
      * Encrypt a given password.
      *

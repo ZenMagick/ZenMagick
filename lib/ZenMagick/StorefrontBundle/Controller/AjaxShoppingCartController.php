@@ -26,12 +26,13 @@ use ZenMagick\Base\Beans;
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class AjaxShoppingCartController extends \ZMAjaxController {
-
+class AjaxShoppingCartController extends \ZMAjaxController
+{
     /**
      * Create new instance.
      */
-    public function __construct() {
+    public function __construct()
+    {
         parent::__construct('ajaxShoppingCart');
         $this->set('ajaxAddressMap', array('firstName', 'lastName', 'address', 'suburb', 'postcode', 'city', 'state', 'country'));
         $this->set('ajaxCartItemMap', array('id', 'name', 'qty', 'itemTotal'));
@@ -43,7 +44,8 @@ class AjaxShoppingCartController extends \ZMAjaxController {
      * @param ZenMagick\Http\Request request The current request.
      * @deprecated Use ZMAjaxCheckoutController instead
      */
-    public function estimateShippingJSON($request) {
+    public function estimateShippingJSON($request)
+    {
         $shoppingCart = $this->get('shoppingCart');
         $shippingEstimator = Beans::getBean("ZMShippingEstimator");
         $shippingEstimator->prepare();
@@ -83,7 +85,8 @@ class AjaxShoppingCartController extends \ZMAjaxController {
      *
      * @param ZenMagick\Http\Request request The current request.
      */
-    public function getContentsJSON($request) {
+    public function getContentsJSON($request)
+    {
         $shoppingCart = $this->get('shoppingCart');
         $cartDetails  = array();
         $items = array();
@@ -116,7 +119,8 @@ class AjaxShoppingCartController extends \ZMAjaxController {
      *
      * @param ZenMagick\Http\Request request The current request.
      */
-    public function addProductJSON($request) {
+    public function addProductJSON($request)
+    {
         $shoppingCart = $this->get('shoppingCart');
         $productId = $request->get('productId');
         $quantity = $request->getParameter('quantity', 0);
@@ -141,7 +145,8 @@ class AjaxShoppingCartController extends \ZMAjaxController {
      *
      * @param ZenMagick\Http\Request request The current request.
      */
-    public function removeProductJSON($request) {
+    public function removeProductJSON($request)
+    {
         $productId = $request->query->get('productId');
 
         if (null !== $productId) {
@@ -167,7 +172,8 @@ class AjaxShoppingCartController extends \ZMAjaxController {
      *
      * @param ZenMagick\Http\Request request The current request.
      */
-    public function updateProductJSON($request) {
+    public function updateProductJSON($request)
+    {
         $productId = $request->query->get('productId');
         $quantity = $request->getParameter('quantity', 0);
 

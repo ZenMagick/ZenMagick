@@ -26,12 +26,13 @@ use ZenMagick\Base\Plugins\Plugin;
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class ProductTagsPlugin extends Plugin {
-
+class ProductTagsPlugin extends Plugin
+{
     /**
      * {@inheritDoc}
      */
-    public function remove($keepSettings=false) {
+    public function remove($keepSettings=false)
+    {
         //parent::remove($keepSettings);
         $conn = \ZMRuntime::getDatabase();
         $sm = $conn->getSchemaManager();

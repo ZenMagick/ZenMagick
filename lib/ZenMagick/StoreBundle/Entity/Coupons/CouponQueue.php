@@ -36,7 +36,8 @@ use Doctrine\ORM\Mapping AS ORM;
  *  })
  * @ORM\Entity
  */
-class CouponQueue extends ZMObject {
+class CouponQueue extends ZMObject
+{
     /**
      * @var integer $id
      *
@@ -85,7 +86,8 @@ class CouponQueue extends ZMObject {
     /**
      * Create new instance
      */
-    public function __construct() {
+    public function __construct()
+    {
         parent::__construct();
         $this->id = 0;
         $this->accountId = 0;

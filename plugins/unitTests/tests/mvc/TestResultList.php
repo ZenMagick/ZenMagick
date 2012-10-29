@@ -28,12 +28,13 @@ use ZenMagick\plugins\unitTests\simpletest\TestCase;
  * @package org.zenmagick.plugins.unitTests.tests.misc
  * @author DerManoMann <mano@zenmagick.org>
  */
-class TestResultList extends TestCase {
-
+class TestResultList extends TestCase
+{
     /**
      * Set up.
      */
-    public function setUp() {
+    public function setUp()
+    {
         parent::setUp();
         // all tests assume this
         Runtime::getSettings()->set('zenmagick.mvc.resultlist.defaultPagination', 10);
@@ -46,7 +47,8 @@ class TestResultList extends TestCase {
      * @param int size The number of results to be returned by the source.
      * @return array List of objects of class <em>resultClass</em>.
      */
-    public function getResults($resultClass, $size) {
+    public function getResults($resultClass, $size)
+    {
         $results = array();
         for ($ii=0; $ii<$size; ++$ii) {
             $result = Beans::getBean($resultClass);
@@ -66,7 +68,8 @@ class TestResultList extends TestCase {
      * @param string resultClass The class of the results; default is <em>ZenMagick\StoreBundle\Entity\Catalog\Product</em>.
      * @return ZMResultListSource A result list source.
      */
-    protected function getResultListSource($size, $resultClass='ZenMagick\StoreBundle\Entity\Catalog\Product') {
+    protected function getResultListSource($size, $resultClass='ZenMagick\StoreBundle\Entity\Catalog\Product')
+    {
         // use this::getResults to lookup results
         return new ZMObjectResultSource($resultClass, $this, 'getResults', array($resultClass, $size));
     }
@@ -74,7 +77,8 @@ class TestResultList extends TestCase {
     /**
      * Test plain.
      */
-    public function testPlain() {
+    public function testPlain()
+    {
         $resultList = new ZMResultList();
         $resultList->setResultSource($this->getResultListSource(13));
         $this->assertEqual(10, $resultList->getPagination());
@@ -98,7 +102,8 @@ class TestResultList extends TestCase {
     /**
      * Test short.
      */
-    public function testShort() {
+    public function testShort()
+    {
         $resultList = new ZMResultList();
         $resultList->setResultSource($this->getResultListSource(3));
         $this->assertEqual(10, $resultList->getPagination());
@@ -110,7 +115,8 @@ class TestResultList extends TestCase {
     /**
      * Test single page edge.
      */
-    public function testSinglePageEdge() {
+    public function testSinglePageEdge()
+    {
         $resultList = new ZMResultList();
         $resultList->setResultSource($this->getResultListSource(10));
         $this->assertEqual(10, $resultList->getPagination());
@@ -122,7 +128,8 @@ class TestResultList extends TestCase {
     /**
      * Test multi page edge.
      */
-    public function testMultiPageEdge() {
+    public function testMultiPageEdge()
+    {
         $resultList = new ZMResultList();
         $resultList->setResultSource($this->getResultListSource(30));
         $resultList->setPageNumber(3);
@@ -135,7 +142,8 @@ class TestResultList extends TestCase {
     /**
      * Test empty.
      */
-    public function testEmpty() {
+    public function testEmpty()
+    {
         $resultList = new ZMResultList();
         $resultList->setResultSource($this->getResultListSource(0));
         $this->assertEqual(10, $resultList->getPagination());

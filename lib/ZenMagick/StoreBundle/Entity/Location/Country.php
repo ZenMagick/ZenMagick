@@ -39,7 +39,8 @@ use Doctrine\ORM\Mapping AS ORM;
  * })
  * @ORM\Entity
  */
-class Country extends ZMObject {
+class Country extends ZMObject
+{
     /**
      * @var integer $countryId
      *
@@ -76,7 +77,8 @@ class Country extends ZMObject {
     /**
      * Create new instance.
      */
-    public function __construct() {
+    public function __construct()
+    {
         parent::__construct();
         $this->setId(0);
         $this->name = null;

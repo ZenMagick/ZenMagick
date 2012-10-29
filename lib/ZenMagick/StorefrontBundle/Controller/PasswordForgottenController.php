@@ -28,12 +28,13 @@ use Symfony\Component\EventDispatcher\GenericEvent;
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class PasswordForgottenController extends \ZMController {
-
+class PasswordForgottenController extends \ZMController
+{
     /**
      * {@inheritDoc}
      */
-    public function processPost($request) {
+    public function processPost($request)
+    {
         $emailAddress = $request->request->get('email_address');
         $account = $this->container->get('accountService')->getAccountForEmailAddress($emailAddress);
         if (null === $account || Account::REGISTERED != $account->getType()) {

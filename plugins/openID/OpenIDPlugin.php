@@ -29,12 +29,13 @@ define('Auth_OpenID_RAND_SOURCE', null);
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class OpenIDPlugin extends Plugin {
-
+class OpenIDPlugin extends Plugin
+{
     /**
      * {@inheritDoc}
      */
-    public function remove($keepSettings=false) {
+    public function remove($keepSettings=false)
+    {
         $conn = \ZMRuntime::getDatabase();
         $sm = $conn->getSchemaManager();
         $sm->dropTable($conn->getPrefix().'zm_openid_associations');
@@ -45,7 +46,8 @@ class OpenIDPlugin extends Plugin {
     /**
      * {@inheritDoc}
      */
-    public function init() {
+    public function init()
+    {
         parent::init();
         // add OpenID field to accounts fields list
         $info = array('column' => 'openid', 'type' => 'string');
@@ -61,7 +63,8 @@ class OpenIDPlugin extends Plugin {
      * <p>Setup additional validation rules; this is done here to avoid getting in the way of
      * custom global/theme validation rule setups.</p>
      */
-    public function onContainerReady($event) {
+    public function onContainerReady($event)
+    {
         // initial rule
         $rules = array(
             array('ZMRequiredRule', 'openid', 'Please enter your OpenID.')
@@ -83,7 +86,8 @@ class OpenIDPlugin extends Plugin {
      * @param string openid The OpenID.
      * @return ZenMagick\StoreBundle\Entity\Account\Account The account or <code>null</code>.
      */
-    public function getAccountForOpenID($openid) {
+    public function getAccountForOpenID($openid)
+    {
         $sql = "SELECT customers_id from %table.customers%
                 WHERE openid = :openid";
         $args = array('openid' => $openid);

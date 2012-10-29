@@ -38,14 +38,17 @@ use ZenMagick\Http\View\View;
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class HttpListener implements EventSubscriberInterface {
+class HttpListener implements EventSubscriberInterface
+{
     protected $container;
 
-    public function __construct(ContainerInterface $container) {
+    public function __construct(ContainerInterface $container)
+    {
         $this->container = $container;
     }
 
-    public function onKernelRequest(GetResponseEvent $event) {
+    public function onKernelRequest(GetResponseEvent $event)
+    {
         $request = $event->getRequest();
 
         // If we have a somebody elses controller, just exit (for now)
@@ -74,7 +77,8 @@ class HttpListener implements EventSubscriberInterface {
         }
     }
 
-    public function onKernelView(GetResponseForControllerResultEvent $event) {
+    public function onKernelView(GetResponseForControllerResultEvent $event)
+    {
         $request = $event->getRequest();
 
         $dispatcher = $event->getDispatcher();
@@ -100,7 +104,8 @@ class HttpListener implements EventSubscriberInterface {
         $event->setResponse($response);
     }
 
-    public function getView($controllerResult) {
+    public function getView($controllerResult)
+    {
         $view = null;
         try {
             // make sure we end up with a View instance
@@ -123,7 +128,8 @@ class HttpListener implements EventSubscriberInterface {
         return $view;
     }
 
-    public static function getSubscribedEvents() {
+    public static function getSubscribedEvents()
+    {
         return array(
             KernelEvents::REQUEST => array(
                 array('onKernelRequest', 14),

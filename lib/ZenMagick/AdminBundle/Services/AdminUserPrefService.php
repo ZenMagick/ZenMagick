@@ -26,8 +26,8 @@ use ZenMagick\Base\ZMObject;
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class AdminUserPrefService extends ZMObject {
-
+class AdminUserPrefService extends ZMObject
+{
     /**
      * Get pref for the given name.
      *
@@ -35,7 +35,8 @@ class AdminUserPrefService extends ZMObject {
      * @param string name The pref name.
      * @return string The value or <code>null</code>.
      */
-    public function getPrefForName($adminId, $name) {
+    public function getPrefForName($adminId, $name)
+    {
         $sql = "SELECT value
                 FROM %table.admin_prefs%
                 WHERE admin_id = :admin_id AND name = :name";
@@ -53,7 +54,8 @@ class AdminUserPrefService extends ZMObject {
      * @param string name The pref name.
      * @param string value The pref value.
      */
-    public function setPrefForName($adminId, $name, $value) {
+    public function setPrefForName($adminId, $name, $value)
+    {
         $args = array('admin_id' => $adminId, 'name' => $name, 'value' => $value);
 
         // check for insert/update first

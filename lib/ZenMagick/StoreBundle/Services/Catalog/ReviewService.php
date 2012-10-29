@@ -29,13 +29,15 @@ use ZenMagick\Base\Database\Connection;
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class ReviewService extends ZMObject {
+class ReviewService extends ZMObject
+{
     private $useNickName;
 
     /**
      * Create instance.
      */
-    public function __construct() {
+    public function __construct()
+    {
         parent::__construct();
         $this->useNickName = false;
     }
@@ -45,7 +47,8 @@ class ReviewService extends ZMObject {
      *
      * @param boolean value The new value.
      */
-    public function setUseNickName($value) {
+    public function setUseNickName($value)
+    {
         $this->useNickName = $value;
     }
 
@@ -56,7 +59,8 @@ class ReviewService extends ZMObject {
      * @param int languageId Language id.
      * @return int The number of published reviews for the product.
      */
-    public function getReviewCount($productId, $languageId) {
+    public function getReviewCount($productId, $languageId)
+    {
         $sql = "SELECT COUNT(*) AS count
                 FROM %table.reviews% r, %table.reviews_description% rd
                 WHERE r.products_id = :productId
@@ -76,7 +80,8 @@ class ReviewService extends ZMObject {
      * @param int max Optional result limit; default is <code>null</code> to use the setting <em></em>.
      * @return array List of <code>Review</code> instances.
      */
-    public function getRandomReviews($languageId, $productId=null, $max=null) {
+    public function getRandomReviews($languageId, $productId=null, $max=null)
+    {
         $max = null === $max ? $this->container->get('settingsService')->get('maxRandomReviews') : $max;
 
         $sql = "SELECT r.reviews_id
@@ -132,7 +137,8 @@ class ReviewService extends ZMObject {
      * @param int languageId Language id.
      * @return float The average rating or <code>null</code> if no rating exists.
      */
-    public function getAverageRatingForProductId($productId, $languageId) {
+    public function getAverageRatingForProductId($productId, $languageId)
+    {
         // SQL based on Dedek's average rating mod: http://www.zen-cart.com/index.php?main_page=product_contrib_info&cPath=40_47&products_id=595
         $sql = "SELECT AVG(reviews_rating) AS average_rating from %table.reviews% r, %table.reviews_description% rd
                 WHERE r.products_id = :productId
@@ -151,7 +157,8 @@ class ReviewService extends ZMObject {
      * @param int languageId Language id.
      * @return array List of <code>Review</code> instances.
      */
-    public function getReviewsForProductId($productId, $languageId) {
+    public function getReviewsForProductId($productId, $languageId)
+    {
         $sql = "SELECT r.*, rd.*, p.products_image, pd.products_name
                 FROM %table.reviews% r, %table.reviews_description% rd,
                        %table.products% p, %table.products_description% pd
@@ -174,7 +181,8 @@ class ReviewService extends ZMObject {
      * @param int languageId Language id.
      * @return array List of <code>Review</code> instances.
      */
-    public function getAllReviews($languageId) {
+    public function getAllReviews($languageId)
+    {
         $sql = "SELECT r.*, rd.*, p.products_image, pd.products_name
                 FROM %table.reviews% r, %table.reviews_description% rd,
                        %table.products% p, %table.products_description% pd
@@ -197,7 +205,8 @@ class ReviewService extends ZMObject {
      * @param int languageId Language id.
      * @return Review A <code>Review</code> instance or <code>null</code>.
      */
-    public function getReviewForId($reviewId, $languageId) {
+    public function getReviewForId($reviewId, $languageId)
+    {
         $sql = "SELECT r.*, rd.*, p.products_image, pd.products_name
                 FROM %table.reviews% r, %table.reviews_description% rd,
                        %table.products% p, %table.products_description% pd
@@ -218,7 +227,8 @@ class ReviewService extends ZMObject {
      *
      * @param int reviewId The id of the review.
      */
-    public function updateViewCount($reviewId) {
+    public function updateViewCount($reviewId)
+    {
         $sql = "UPDATE %table.reviews%
                 SET reviews_read = reviews_read+1
                 WHERE reviews_id = :reviewId";
@@ -233,7 +243,8 @@ class ReviewService extends ZMObject {
      * @param int languageId The language for this review.
      * @return ZMReview The inserted review (incl. the new id).
      */
-    public function createReview($review, $account, $languageId) {
+    public function createReview($review, $account, $languageId)
+    {
         $author = ($this->useNickName && 0 < strlen(trim($account->getNickName()))) ? $account->getNickName() : $account->getFullName();
         $review->setAuthor($author);
         $review->setAccountId($account->getId());

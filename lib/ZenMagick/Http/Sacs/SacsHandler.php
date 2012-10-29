@@ -30,8 +30,8 @@ namespace ZenMagick\Http\Sacs;
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-interface SacsHandler {
-
+interface SacsHandler
+{
     /**
      * Get the unique handler name.
      *

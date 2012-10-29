@@ -31,7 +31,8 @@ use ZenMagick\Base\ZMObject;
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class CronJobs extends ZMObject {
+class CronJobs extends ZMObject
+{
     private $parser;
     private $cronfile;
     private $cronhistory;
@@ -45,7 +46,8 @@ class CronJobs extends ZMObject {
      * @param string cronfile The crontab filename; default is <code>null</code> to use <em>crontab.txt</em>.
      * @param string cronhistory The cron history filename; default is <code>null</code> to use <em>cronhistory.txt</em>.
      */
-    public function __construct($cronfile=null, $cronhistory=null) {
+    public function __construct($cronfile=null, $cronhistory=null)
+    {
         parent::__construct();
         $this->cronfile = $cronfile;
         if (null == $this->cronfile) {
@@ -68,14 +70,16 @@ class CronJobs extends ZMObject {
      *
      * @return boolean <code>true</code> if it is time to run jobs again.
      */
-    public function isTimeToRun() {
+    public function isTimeToRun()
+    {
         return !is_file($this->cronhistory) || (time() - 60) > filemtime($this->cronhistory);
     }
 
     /**
      * Update the timestamp used to decide whether it is time to run or not.
      */
-    public function updateTimestamp() {
+    public function updateTimestamp()
+    {
         $this->ensureHistory();
         file_put_contents($this->cronhistory, serialize($this->history));
     }
@@ -83,7 +87,8 @@ class CronJobs extends ZMObject {
     /**
      * Ensure the history is loaded and initialized.
      */
-    private function ensureHistory() {
+    private function ensureHistory()
+    {
         $this->history = unserialize(@file_get_contents($this->cronhistory));
         if (!is_array($this->history)) {
             $this->history = array();
@@ -95,7 +100,8 @@ class CronJobs extends ZMObject {
      *
      * @param array job The job.
      */
-    private function saveLastRunTime($job) {
+    private function saveLastRunTime($job)
+    {
         $this->ensureHistory();
         $this->history[$job['id']] = $job['runTime'];
         file_put_contents($this->cronhistory, serialize($this->history));
@@ -107,7 +113,8 @@ class CronJobs extends ZMObject {
      * @param array job The job.
      * @return int timestamp The time(stamp).
      */
-    private function getLastRunTime($job) {
+    private function getLastRunTime($job)
+    {
         $this->ensureHistory();
         if (isset($this->history[$job['id']])) {
             return $this->history[$job['id']];
@@ -121,7 +128,8 @@ class CronJobs extends ZMObject {
      * @param array job The job.
      * @return boolean <code>true</code> if the job is ready ro run.
      */
-    public function isReady($job) {
+    public function isReady($job)
+    {
         return $this->parser->isReady($job, time());
     }
 
@@ -133,7 +141,8 @@ class CronJobs extends ZMObject {
      * @param boolean catchup If <code>true</code>, jobs that have missed a run are also returned.
      * @return array A list of jobs.
      */
-    public function getJobs($all=false, $catchup=false) {
+    public function getJobs($all=false, $catchup=false)
+    {
         $jobs = array();
         if (file_exists($this->cronfile)) {
             $lines = file($this->cronfile);
@@ -179,7 +188,8 @@ class CronJobs extends ZMObject {
      * @param array job A job.
      * @return boolean Returns <code>true</code>, if the job was run (based on the <em>lastScheduled</em> time.
      */
-    public function runJob($job) {
+    public function runJob($job)
+    {
         try {
             Runtime::getLogging()->info("CronJobs: Running: ".$job['line']);
             $obj = Beans::getBean($job['task']);

@@ -29,12 +29,13 @@ use ZenMagick\Base\Security\Authentication\Provider\PhPassAuthenticationProvider
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class PhpBB3Authentication extends PhPassAuthenticationProvider {
-
+class PhpBB3Authentication extends PhPassAuthenticationProvider
+{
     /**
      * Create instance.
      */
-    public function __construct() {
+    public function __construct()
+    {
         parent::__construct();
         $this->hash = new Hash(new Portable(array('iterationCountLog2' => 8)));
     }

@@ -28,7 +28,8 @@ use ZenMagick\StoreBundle\Entity\Account\Account;
  * @package org.zenmagick.plugins.unitTests.tests
  * @author DerManoMann <mano@zenmagick.org>
  */
-class TestZMAccounts extends TestCase {
+class TestZMAccounts extends TestCase
+{
     // test account data
     protected $accountData1 = array(
         'FirstName' => 'john',
@@ -53,7 +54,8 @@ class TestZMAccounts extends TestCase {
     /**
      * Create test account.
      */
-    public function createAccount($data) {
+    public function createAccount($data)
+    {
         $account = Beans::getBean('ZenMagick\StoreBundle\Entity\Account\Account');
         foreach ($data as $key => $value) {
             if ('Dob' == $key) {
@@ -68,7 +70,8 @@ class TestZMAccounts extends TestCase {
     /**
      * Clean up.
      */
-    public function tearDown() {
+    public function tearDown()
+    {
         $sql = 'SELECT customers_id FROM %table.customers% WHERE customers_lastname = \'doe\'';
         $results = ZMRuntime::getDatabase()->fetchAll($sql, array(), 'customers');
         $ids = array();
@@ -92,7 +95,8 @@ class TestZMAccounts extends TestCase {
     /**
      * Test create account.
      */
-    public function testCreateAccount() {
+    public function testCreateAccount()
+    {
         $account = $this->createAccount($this->accountData1);
         $accountService = $this->container->get('accountService');
         $account = $accountService->createAccount($account);
@@ -107,7 +111,8 @@ class TestZMAccounts extends TestCase {
     /**
      * Test create account no DOB.
      */
-    public function testCreateAccountNoDOB() {
+    public function testCreateAccountNoDOB()
+    {
         $account = $this->createAccount($this->accountData1);
         $accountService = $this->container->get('accountService');
         $account->setDob(null);
@@ -123,7 +128,8 @@ class TestZMAccounts extends TestCase {
     /**
      * Test update account.
      */
-    public function testUpdateAccount() {
+    public function testUpdateAccount()
+    {
         $account = $this->createAccount($this->accountData1);
         $accountService = $this->container->get('accountService');
         $account = $accountService->createAccount($account);
@@ -140,7 +146,8 @@ class TestZMAccounts extends TestCase {
     /**
      * Test get accounts.
      */
-    public function testGetAccountsForEmail() {
+    public function testGetAccountsForEmail()
+    {
         $accountService = $this->container->get('accountService');
         // gets us at least two guest accounts
         $account1 = $this->createAccount($this->accountData1);
@@ -157,7 +164,8 @@ class TestZMAccounts extends TestCase {
     /**
      * Test products subscriptions.
      */
-    public function testProductSubscriptions() {
+    public function testProductSubscriptions()
+    {
         // delete previous subscriptions
         $sql = "DELETE from %table.products_notifications%
                 WHERE  customers_id = :accountId";

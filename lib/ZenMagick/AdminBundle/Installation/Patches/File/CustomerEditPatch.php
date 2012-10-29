@@ -27,13 +27,15 @@ use ZenMagick\AdminBundle\Installation\Patches\FilePatch;
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class CustomerEditPatch extends FilePatch {
+class CustomerEditPatch extends FilePatch
+{
     protected $customersAdminFile;
 
     /**
      * Create new instance.
      */
-    public function __construct() {
+    public function __construct()
+    {
         parent::__construct('customerEdit');
         $this->label_ = 'Patch zen-cart to allow editing customers where email also exists as guest account';
         $this->customersAdminFile = $this->container->getParameter('zencart.admin_dir').'/customers.php';
@@ -45,7 +47,8 @@ class CustomerEditPatch extends FilePatch {
      * @param array lines The file contents of <code>index.php</code>.
      * @return boolean <code>true</code> if this patch can still be applied.
      */
-    public function isOpen($lines=null) {
+    public function isOpen($lines=null)
+    {
         if (null == $lines) {
             $lines = $this->getFileLines($this->customersAdminFile);
         }
@@ -67,7 +70,8 @@ class CustomerEditPatch extends FilePatch {
      *
      * @return boolean <code>true</code> if this patch is ready and all preconditions are met.
      */
-    public function isReady() {
+    public function isReady()
+    {
         return is_writeable($this->customersAdminFile);
     }
 
@@ -78,7 +82,8 @@ class CustomerEditPatch extends FilePatch {
      *
      * @return string The preconditions message or an empty string.
      */
-    public function getPreconditionsMessage() {
+    public function getPreconditionsMessage()
+    {
         return $this->isReady() ? "" : "Need permission to write " . $this->customersAdminFile;
     }
 
@@ -89,7 +94,8 @@ class CustomerEditPatch extends FilePatch {
      *  disabled as per settings.
      * @return boolean <code>true</code> if patching was successful, <code>false</code> if not.
      */
-    public function patch($force=false) {
+    public function patch($force=false)
+    {
         $lines = $this->getFileLines($this->customersAdminFile);
         if (!$this->isOpen($lines)) {
             return true;
@@ -119,7 +125,8 @@ class CustomerEditPatch extends FilePatch {
      *
      * @return boolean <code>true</code> if patching was successful, <code>false</code> if not.
      */
-    public function undo() {
+    public function undo()
+    {
         $lines = $this->getFileLines($this->customersAdminFile);
         if ($this->isOpen($lines)) {
             return true;

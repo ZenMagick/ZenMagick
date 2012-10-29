@@ -27,7 +27,8 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table(name="coupon_gv_customer")
  * @ORM\Entity
  */
-class CouponGvCustomer {
+class CouponGvCustomer
+{
     /**
      * @var integer $accountId
      *

@@ -30,7 +30,8 @@ use Doctrine\ORM\Mapping AS ORM;
  * @ORM\Table(name="token")
  * @ORM\Entity
  */
-class Token extends ZMObject {
+class Token extends ZMObject
+{
     /**
      * @var integer $hashId
      *

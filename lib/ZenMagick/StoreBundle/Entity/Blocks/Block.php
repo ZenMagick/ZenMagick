@@ -30,7 +30,8 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table(name="blocks_to_groups")
  * @ORM\Entity
  */
-class Block extends ZMObject {
+class Block extends ZMObject
+{
     /**
      * @var integer $id
      *
@@ -77,7 +78,8 @@ class Block extends ZMObject {
      */
     private $sortOrder;
 
-    public function __construct() {
+    public function __construct()
+    {
         $this->sortOrder = 0;
     }
 
@@ -163,7 +165,8 @@ class Block extends ZMObject {
      * @param  string $template
      * @return Block
      */
-    public function setTemplate($template) {
+    public function setTemplate($template)
+    {
         $this->template = $template;
         return $this;
     }
@@ -173,7 +176,8 @@ class Block extends ZMObject {
      *
      * @return string
      */
-    public function getTemplate() {
+    public function getTemplate()
+    {
         return $this->template;
     }
 
@@ -183,7 +187,8 @@ class Block extends ZMObject {
      * @param  string $format
      * @return Block
      */
-    public function setFormat($format) {
+    public function setFormat($format)
+    {
         $this->format = $format;
         return $this;
     }
@@ -193,7 +198,8 @@ class Block extends ZMObject {
      *
      * @return string
      */
-    public function getFormat() {
+    public function getFormat()
+    {
         return $this->format;
     }
 }

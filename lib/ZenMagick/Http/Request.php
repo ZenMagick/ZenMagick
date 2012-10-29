@@ -29,14 +29,15 @@ use ZenMagick\Base\Toolbox;
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class Request extends HttpFoundationRequest {
-
+class Request extends HttpFoundationRequest
+{
     /**
      * Populate ParameterBag instances from superglobals
      *
      * @todo don't initialize in the ctor. pass it to the Application in the front controller.
      */
-    public function __construct(array $query = array(), array $request = array(), array $attributes = array(), array $cookies = array(), array $files = array(), array $server = array(), $content = null) {
+    public function __construct(array $query = array(), array $request = array(), array $attributes = array(), array $cookies = array(), array $files = array(), array $server = array(), $content = null)
+    {
         $this->initialize($_GET, $_POST, array(), $_COOKIE, $_FILES, $_SERVER, null);
 
         // @todo could move into custom parameter bag class?
@@ -57,7 +58,8 @@ class Request extends HttpFoundationRequest {
      *
      * @return boolean <code>true</code> if this request is considered an Ajax request.
      */
-    public function isXmlHttpRequest() {
+    public function isXmlHttpRequest()
+    {
         $ajax = $this->getParameter('ajax', null);
         return $ajax != null ? Toolbox::asBoolean($ajax) : parent::isXmlHttpRequest();
     }
@@ -67,7 +69,8 @@ class Request extends HttpFoundationRequest {
      *
      * @see ZenMagick\Http\Session\Session::getAccount()
      */
-    public function getAccount() {
+    public function getAccount()
+    {
         return $this->getSession()->getAccount();
     }
 
@@ -79,7 +82,8 @@ class Request extends HttpFoundationRequest {
      * @param boolean sanitize If <code>true</code>, sanitze value; default is <code>true</code>.
      * @return array Map of all request parameters
      */
-    public function getParameterMap($sanitize=true) {
+    public function getParameterMap($sanitize=true)
+    {
         $map = array();
         $params = array_unique(array_merge($this->request->keys(), $this->query->keys()));
         foreach ($params as $key) {
@@ -97,7 +101,8 @@ class Request extends HttpFoundationRequest {
      *
      * @return string The request id of this request.
      */
-    public function getRequestId() {
+    public function getRequestId()
+    {
         return $this->attributes->get('_route');
     }
 
@@ -106,7 +111,8 @@ class Request extends HttpFoundationRequest {
      *
      * @param string requestId The new request id.
      */
-    public function setRequestId($requestId) {
+    public function setRequestId($requestId)
+    {
         $this->attributes->set('_route', $requestId);
     }
 
@@ -124,7 +130,8 @@ class Request extends HttpFoundationRequest {
      * @param boolean sanitize If <code>true</code>, sanitze value; default is <code>true</code>.
      * @return mixed The parameter value or the default value or <code>null</code>.
      */
-    public function getParameter($name, $default=null, $sanitize=true) {
+    public function getParameter($name, $default=null, $sanitize=true)
+    {
         // try GET, then POST
         // @todo we could also just rely on parent::get() as it searches these as well
         foreach (array('query', 'request', 'attributes') as $parameterBag) {
@@ -143,7 +150,8 @@ class Request extends HttpFoundationRequest {
      * @todo use RedirectResponse throughout.
      * @deprecated
      */
-    public function redirect($url, $status=302) {
+    public function redirect($url, $status=302)
+    {
         $url = str_replace('&amp;', '&', $url);
 
         $this->getSession()->save();
@@ -161,7 +169,8 @@ class Request extends HttpFoundationRequest {
      * <p>Typically this happends when a request is received without valid authority.
      * The saved URL will be forwarded to, once permissions is gained (user logged in).</p>
      */
-    public function saveFollowUpUrl() {
+    public function saveFollowUpUrl()
+    {
         $params = $this->query->all();
         // @todo unpack route attributes?
 
@@ -175,7 +184,8 @@ class Request extends HttpFoundationRequest {
      * @param boolean clear Optional flag to keep or clear the follow up url; default is <code>true</code> to clear.
      * @return string The url to go to or <code>null</code>.
      */
-    public function getFollowUpUrl($clear=true) {
+    public function getFollowUpUrl($clear=true)
+    {
         if (null != ($data = $this->getSession()->get('http.followUpUrl'))) {
             $params = array();
             foreach ($data['params'] as $key => $value) {
@@ -196,7 +206,8 @@ class Request extends HttpFoundationRequest {
      * @param mixed value A string or array.
      * @return mixed A sanitized version.
      */
-    public static function sanitize($value) {
+    public static function sanitize($value)
+    {
         if (is_string($value)) {
             //$value = preg_replace('/ +/', ' ', $value);
             $value = preg_replace('/[<>]/', '_', $value);
@@ -220,7 +231,8 @@ class Request extends HttpFoundationRequest {
      * @see ZenMagick\Http\Session\Session::getSelectedLanguage()
      * @todo REMOVE! very temporary
      */
-    public function getSelectedLanguage() {
+    public function getSelectedLanguage()
+    {
         return $this->getSession()->getSelectedLanguage();
     }
 

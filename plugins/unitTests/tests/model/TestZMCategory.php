@@ -26,12 +26,13 @@ use ZenMagick\plugins\unitTests\simpletest\TestCase;
  * @package org.zenmagick.plugins.unitTests.tests
  * @author DerManoMann <mano@zenmagick.org>
  */
-class TestZMCategory extends TestCase {
-
+class TestZMCategory extends TestCase
+{
     /**
      * Test childIds
      */
-    public function testChildIds() {
+    public function testChildIds()
+    {
         $expect = array(3, 10, 13, 12, 15, 11, 14);
         $category = $this->container->get('categoryService')->getCategoryForId(3, 1);
         $ids = $category->getDecendantIds();
@@ -44,7 +45,8 @@ class TestZMCategory extends TestCase {
     /**
      * Test childIds excluding category.
      */
-    public function testChildIdsExclude() {
+    public function testChildIdsExclude()
+    {
         $expect = array(10, 13, 12, 15, 11, 14);
         $category = $this->container->get('categoryService')->getCategoryForId(3, 1);
         $ids = $category->getDecendantIds(false);
@@ -57,7 +59,8 @@ class TestZMCategory extends TestCase {
     /**
      * Test getProductTypeIds.
      */
-    public function testGetProductTypeIds() {
+    public function testGetProductTypeIds()
+    {
         $tests = array(
             array('categoryId' => 63, 'expected' => array(3, 4)),
             array('categoryId' => 62, 'expected' => array(2)),

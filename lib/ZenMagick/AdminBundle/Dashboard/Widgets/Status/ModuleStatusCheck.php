@@ -27,12 +27,13 @@ use ZenMagick\StoreBundle\Widgets\StatusCheck;
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class ModuleStatusCheck extends ZMObject implements StatusCheck {
-
+class ModuleStatusCheck extends ZMObject implements StatusCheck
+{
     /**
      * {@inheritDoc}
      */
-    public function getStatusMessages() {
+    public function getStatusMessages()
+    {
         $messages = array();
 
         $configService = $this->container->get('configService');

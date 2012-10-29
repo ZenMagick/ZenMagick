@@ -24,12 +24,13 @@ namespace ZenMagick\AdminBundle\Controller;
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class AjaxUserPrefsController extends \ZMRpcController {
-
+class AjaxUserPrefsController extends \ZMRpcController
+{
     /**
      * Set pref.
      */
-    public function setPref($rpcRequest) {
+    public function setPref($rpcRequest)
+    {
         $data = $rpcRequest->getData();
         $adminId = $data->adminId;
         $name = $data->name;
@@ -45,7 +46,8 @@ class AjaxUserPrefsController extends \ZMRpcController {
     /**
      * Get pref.
      */
-    public function getPref($rpcRequest) {
+    public function getPref($rpcRequest)
+    {
         $data = $rpcRequest->getData();
         $adminId = $data->adminId;
         $name = $data->name;

@@ -27,7 +27,8 @@ use ZenMagick\Base\ZMObject;
  * @author DerManoMann
  * @package zenmagick.store.shared.model.checkout
  */
-class ZMCreditTypeWrapper extends ZMObject {
+class ZMCreditTypeWrapper extends ZMObject
+{
     private $id_;
     private $name_;
     private $instructions_;
@@ -41,7 +42,8 @@ class ZMCreditTypeWrapper extends ZMObject {
      * @param string name The name.
      * @param string instructions Optional instructions.
      */
-    public function __construct($id, $name, $instructions='') {
+    public function __construct($id, $name, $instructions='')
+    {
         parent::__construct();
         $this->id_ = $id;
         $this->name_ = $name;

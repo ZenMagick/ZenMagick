@@ -26,14 +26,16 @@ use Symfony\Component\EventDispatcher\GenericEvent;
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class CheckoutAddressController extends \ZMController {
+class CheckoutAddressController extends \ZMController
+{
     private $modeSettings_ = array();
     private $viewData_ = array();
 
     /**
      * {@inheritDoc}
      */
-    public function preProcess($request) {
+    public function preProcess($request)
+    {
         $routeId = $request->attributes->get('_route');
         if (0 === strpos($routeId, 'checkout_shipping')) {
             $this->modeSettings_ = array('method' => 'setShippingAddressId', 'ignoreCheckId' => 'require_shipping', 'mode' => 'shipping');
@@ -53,7 +55,8 @@ class CheckoutAddressController extends \ZMController {
     /**
      * {@inheritDoc}
      */
-    protected function validateFormData($request, $formBean) {
+    protected function validateFormData($request, $formBean)
+    {
         $addressId = $request->request->get('addressId', null);
         if (null !== $addressId) {
             // selected existing address, so do not validate
@@ -71,7 +74,8 @@ class CheckoutAddressController extends \ZMController {
     /**
      * Custom cart checker
      */
-    protected function checkCart($request) {
+    protected function checkCart($request)
+    {
         $checkoutHelper = $this->get('shoppingCart')->getCheckoutHelper();
         if (null !== ($viewId = $checkoutHelper->validateCheckout($request, false)) && $this->modeSettings_['ignoreCheckId'] != $viewId) {
             return $this->findView($viewId, $this->viewData_);
@@ -83,7 +87,8 @@ class CheckoutAddressController extends \ZMController {
     /**
      * {@inheritDoc}
      */
-    public function processGet($request) {
+    public function processGet($request)
+    {
         if (null != ($result = $this->checkCart($request))) {
             return $result;
         }
@@ -94,7 +99,8 @@ class CheckoutAddressController extends \ZMController {
     /**
      * {@inheritDoc}
      */
-    public function processPost($request) {
+    public function processPost($request)
+    {
         if (null != ($result = $this->checkCart($request))) {
             return $result;
         }

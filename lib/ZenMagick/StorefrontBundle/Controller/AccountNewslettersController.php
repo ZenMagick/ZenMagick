@@ -26,19 +26,21 @@ use ZenMagick\Base\Toolbox;
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class AccountNewslettersController extends \ZMController {
-
+class AccountNewslettersController extends \ZMController
+{
     /**
      * {@inheritDoc}
      */
-    public function processGet($request) {
+    public function processGet($request)
+    {
         return $this->findView(null, array('currentAccount' => $this->getUser()));
     }
 
     /**
      * {@inheritDoc}
      */
-    public function processPost($request) {
+    public function processPost($request)
+    {
         $newsletterSubscriber = Toolbox::asBoolean($request->request->get('newsletter_general', false));
 
         $account = $this->getUser();

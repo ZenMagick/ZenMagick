@@ -31,12 +31,13 @@ use ZenMagick\Base\Plugins\Plugin;
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class MusicProductInfoPlugin extends Plugin {
-
+class MusicProductInfoPlugin extends Plugin
+{
     /**
      * {@inheritDoc}
      */
-    public function remove($keepSettings=false) {
+    public function remove($keepSettings=false)
+    {
         //parent::remove($keepSettings);
         $conn = \ZMRuntime::getDatabase();
         $sm = $conn->getSchemaManager();
@@ -55,7 +56,8 @@ class MusicProductInfoPlugin extends Plugin {
     /**
      * Event handler.
      */
-    public function onViewStart($event) {
+    public function onViewStart($event)
+    {
         $view = $event->getArgument('view');
         $request = $event->getArgument('request');
         if ('product_info' == $request->getRequestId()) {
@@ -76,7 +78,8 @@ class MusicProductInfoPlugin extends Plugin {
      * @param string filename The media filename, relative to the media folder.
      * @return A URL.
      */
-    public function mediaUrl($filename) {
+    public function mediaUrl($filename)
+    {
         $url = 'media/'.$filename;
         return $url;
     }

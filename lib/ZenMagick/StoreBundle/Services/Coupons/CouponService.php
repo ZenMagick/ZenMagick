@@ -35,8 +35,8 @@ use ZenMagick\StoreBundle\Entity\Coupons\Restrictions\CategoryCouponRestriction;
  *
  * @author DerManoMann
  */
-class CouponService extends ZMObject {
-
+class CouponService extends ZMObject
+{
     /**
      * Coupon lookup for the given code.
      *
@@ -44,7 +44,8 @@ class CouponService extends ZMObject {
      * @param int languageId The languageId.
      * @return Coupon A <code>Coupon</code> instance or <code>null</code>.
      */
-    public function getCouponForCode($code, $languageId) {
+    public function getCouponForCode($code, $languageId)
+    {
         // XXX: relies on order of selected columns; (coupon_id returned twice and cd might be NULL if no description!)
         $sql = "SELECT cd.*, c.*
                 FROM %table.coupons% c
@@ -61,7 +62,8 @@ class CouponService extends ZMObject {
      * @param int languageId The languageId.
      * @return Coupon A <code>Coupon</code> instance or <code>null</code>.
      */
-    public function getCouponForId($id, $languageId) {
+    public function getCouponForId($id, $languageId)
+    {
         // XXX: relies on order of selected columns; (coupon_id returned twice and cd might be NULL if no description!)
         $sql = "SELECT cd.*, c.*
                 FROM %table.coupons% c
@@ -77,7 +79,8 @@ class CouponService extends ZMObject {
      * @param int accountId The account id.
      * @return float The available balance or <code>0</code>.
      */
-    public function getVoucherBalanceForAccountId($accountId) {
+    public function getVoucherBalanceForAccountId($accountId)
+    {
         $sql = "SELECT amount from %table.coupon_gv_customer%
                 WHERE customer_id = :accountId";
         $result = ZMRuntime::getDatabase()->querySingle($sql, array('accountId' => $accountId), 'coupon_gv_customer');
@@ -90,7 +93,8 @@ class CouponService extends ZMObject {
      * @param int accountId The account id.
      * @param float amount The new amount.
      */
-    public function setVoucherBalanceForAccountId($accountId, $amount) {
+    public function setVoucherBalanceForAccountId($accountId, $amount)
+    {
         $this->updateVoucherBalanceForAccountId($accountId, $amount, Coupon::BALANCE_SET);
     }
 
@@ -101,7 +105,8 @@ class CouponService extends ZMObject {
      * @param float amount The new amount.
      * @param string mode Optional update mode; either <code>BALANCE_SET</code> or <code>BALANCE_ADD</code>.
      */
-    protected function updateVoucherBalanceForAccountId($accountId, $amount, $mode=Coupon::BALANCE_SET) {
+    protected function updateVoucherBalanceForAccountId($accountId, $amount, $mode=Coupon::BALANCE_SET)
+    {
         // check if customer has already a balance
         $sql = "SELECT amount
                 FROM %table.coupon_gv_customer%
@@ -129,7 +134,8 @@ class CouponService extends ZMObject {
      * @param string type The coupon type.
      * @return Coupon A <code>Coupon</code> instance or <code>null</code>.
      */
-    public function createCoupon($couponCode, $amount, $type) {
+    public function createCoupon($couponCode, $amount, $type)
+    {
         $coupon = new Coupon(0, $couponCode, $type);
         $coupon->setAmount($amount);
         return ZMRuntime::getDatabase()->createModel('coupons', $coupon);
@@ -142,7 +148,8 @@ class CouponService extends ZMObject {
      * @param ZenMagick\StoreBundle\Entity\Account\Account account The sender account.
      * @param ZMGVReceiver gvreceiver The receiver.
      */
-    public function createCouponTracker($coupon, $account, $gvreceiver) {
+    public function createCouponTracker($coupon, $account, $gvreceiver)
+    {
         $tracker = new ZMObject();
         $tracker->set('couponId', $coupon->getId());
         $tracker->set('accountId', $account->getId());
@@ -159,7 +166,8 @@ class CouponService extends ZMObject {
      * @param string couponId The coupon id to verify.
      * @return boolean <code>true</code> if the coupon can be redeemed, <code>false</code> if not.
      */
-    public function isCouponRedeemable($couponId) {
+    public function isCouponRedeemable($couponId)
+    {
         $sql = "SELECT coupon_id FROM %table.coupon_redeem_track%
                 WHERE coupon_id = :couponId";
         $results = ZMRuntime::getDatabase()->fetchAll($sql, array('couponId' => $couponId), 'coupon_redeem_track', Connection::MODEL_RAW);
@@ -175,7 +183,8 @@ class CouponService extends ZMObject {
      * @param int accountId The redeeming account id.
      * @param string remoteIP The redeeming IP addres; default is an empty string.
      */
-    public function redeemCoupon($couponId, $accountId, $remoteIP='') {
+    public function redeemCoupon($couponId, $accountId, $remoteIP='')
+    {
         $this->finaliseCoupon($couponId, $accountId, $remoteIP);
         $this->creditCoupon($couponId, $accountId);
     }
@@ -187,7 +196,8 @@ class CouponService extends ZMObject {
      * @param int accountId The redeeming account id.
      * @param string remoteIP The redeeming IP addres; default is an empty string.
      */
-    public function finaliseCoupon($couponId, $accountId, $remoteIP='') {
+    public function finaliseCoupon($couponId, $accountId, $remoteIP='')
+    {
         $tracker = new ZMObject();
         $tracker->set('couponId', $couponId);
         $tracker->set('accountId', $accountId);
@@ -209,7 +219,8 @@ class CouponService extends ZMObject {
      * @param int queueId The coupon queue id.
      * @return CouponQueue A queue entry or <code>null</code>.
      */
-    public function getCouponQueueEntryForId($queueId) {
+    public function getCouponQueueEntryForId($queueId)
+    {
         $sql = "SELECT *
                 FROM %table.coupon_gv_queue%
                 WHERE unique_id = :id";
@@ -222,7 +233,8 @@ class CouponService extends ZMObject {
      * @param string flag The flag; can be '<em>Coupon::FLAG_APPROVED</em>' for approved or '<em>Coupon::FLAG_WAITING</em>' for coupons waiting for approval.
      * @return array A list of <code>CouponQueue</code> entries.
      */
-    public function getCouponsForFlag($flag=Coupon::FLAG_WAITING) {
+    public function getCouponsForFlag($flag=Coupon::FLAG_WAITING)
+    {
         $sql = "SELECT *
                 FROM %table.coupon_gv_queue%
                 WHERE release_flag = :released";
@@ -235,7 +247,8 @@ class CouponService extends ZMObject {
      * @param int couponId The coupon id.
      * @param int accountId The redeeming account id.
      */
-    public function creditCoupon($couponId, $accountId) {
+    public function creditCoupon($couponId, $accountId)
+    {
         // get coupon value
         $sql = "SELECT coupon_amount
                 FROM %table.coupons%
@@ -251,7 +264,8 @@ class CouponService extends ZMObject {
      * @param int length The coupon code length; default is <em>0</em> to use the setting <em>couponCodeLength</em>.
      * @return string A new unique coupon code.
      */
-    public function createCouponCode($salt, $length=0) {
+    public function createCouponCode($salt, $length=0)
+    {
         $length = 0 == $length ? $this->container->get('settingsService')->get('couponCodeLength') : $length;
 
         srand((double) microtime()*1000000);
@@ -282,7 +296,8 @@ class CouponService extends ZMObject {
      * @param int id The coupon id.
      * @return CouponRestrictions The restrictions.
      */
-    public function getRestrictionsForCouponId($couponId) {
+    public function getRestrictionsForCouponId($couponId)
+    {
         $sql = "SELECT * FROM %table.coupon_restrict%
                 WHERE coupon_id = :couponId";
         $results = ZMRuntime::getDatabase()->fetchAll($sql, array('couponId' => $couponId), 'coupon_restrict');
@@ -309,7 +324,8 @@ class CouponService extends ZMObject {
      * @param boolean active Optional flag to control whether to retreive active coupons only; default is <code>true</code>.
      * @return array List of coupons.
      */
-    public function getCoupons($languageId, $active=true) {
+    public function getCoupons($languageId, $active=true)
+    {
         $sql = "SELECT * FROM %table.coupons% c, %table.coupons_description% cd
                 WHERE cd.coupon_id = c.coupon_id AND cd.language_id = :languageId";
         return ZMRuntime::getDatabase()->fetchAll($sql, array('languageId' => $languageId), array('coupons', 'coupons_description'), 'ZenMagick\StoreBundle\Entity\Coupons\Coupon');

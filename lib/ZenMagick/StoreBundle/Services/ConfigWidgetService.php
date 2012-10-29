@@ -29,15 +29,16 @@ use ZenMagick\StoreBundle\Entity\ConfigValue;
  *
  * @author DerManoMann
  */
-class ConfigWidgetService extends ConfigService {
-
+class ConfigWidgetService extends ConfigService
+{
     /**
      * Build a collection of Widget and/or ConfigValue objects
      *
      * @param array array of config values
      * @return array A list of <code>ConfigValue</code>s.
      */
-    protected function buildObjects($configValues) {
+    protected function buildObjects($configValues)
+    {
         $values = array();
         foreach ($configValues as $value) {
             if (0 === strpos($value['setFunction'], 'widget@')) {
@@ -151,7 +152,8 @@ class ConfigWidgetService extends ConfigService {
      * @param string value The set function value.
      * @return array An options map.
      */
-    protected function splitOptions($value) {
+    protected function splitOptions($value)
+    {
         // some initial stripping
         $value = preg_replace('/.*\(array\((.*)\).*/', '\1', $value);
 

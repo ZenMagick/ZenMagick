@@ -51,7 +51,8 @@ use Symfony\Component\Yaml\Yaml;
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class SacsManager extends ZMObject {
+class SacsManager extends ZMObject
+{
     protected $container;
 
     private $mappings_;
@@ -62,7 +63,8 @@ class SacsManager extends ZMObject {
     /**
      * Create new instance.
      */
-    public function __construct(ContainerInterface $container) {
+    public function __construct(ContainerInterface $container)
+    {
         $this->container = $container;
         parent::__construct();
         $this->reset();
@@ -71,21 +73,24 @@ class SacsManager extends ZMObject {
     /**
      * Set an optional RouteResolver
      */
-    public function setRouteResolver(RouteResolver $routeResolver) {
+    public function setRouteResolver(RouteResolver $routeResolver)
+    {
         $this->routeResolver = $routeResolver;
     }
 
     /**
      * Get the RouteResolver
      */
-    protected function getRouteResolver() {
+    protected function getRouteResolver()
+    {
         return $this->routeResolver;
     }
 
     /**
      * Reset all internal data structures.
      */
-    public function reset() {
+    public function reset()
+    {
         $this->mappings_ = array('default' => array(), 'mappings' => array());
         $this->handlers_ = array();
         $this->permissionProviders_ = array();
@@ -106,7 +111,8 @@ class SacsManager extends ZMObject {
      * @param boolean override Optional flag to control whether to override existing mappings or to merge;
      *  default is <code>true</code> to override.
      */
-    public function load($filename, $override=true) {
+    public function load($filename, $override=true)
+    {
         $mappings = Yaml::parse($filename);
         if ($override) {
             $this->mappings_ = $mappings;
@@ -125,7 +131,8 @@ class SacsManager extends ZMObject {
      *
      * @param array providers List of provider bean definitions.
      */
-    public function loadProviderMappings($providers) {
+    public function loadProviderMappings($providers)
+    {
         foreach ($providers as $def) {
             if (null != ($provider = Beans::getBean($def)) && $provider instanceof SacsPermissionProvider) {
                 $this->permissionProviders_[] = $provider;
@@ -159,7 +166,8 @@ class SacsManager extends ZMObject {
      *
      * @param SacsHandler handler The new handler.
      */
-    public function addHandler($handler) {
+    public function addHandler($handler)
+    {
         $this->hander_[] = $handler;
     }
 
@@ -171,7 +179,8 @@ class SacsManager extends ZMObject {
      * @param string requestId The request id [ie. the request name as set via the <code>rid</code> URL parameter].
      * @param array mapping The mapping.
      */
-    public function setMapping($requestId, $mapping) {
+    public function setMapping($requestId, $mapping)
+    {
         if (null == $requestId) {
             throw new RuntimeException("invalid sacs mapping (requestId missing)");
         }
@@ -189,7 +198,8 @@ class SacsManager extends ZMObject {
      * @param boolean action Optional flag to control whether to actually action or not; default is <code>true</code>.
      * @return boolean <code>true</code> if authorization was sucessful.
      */
-    public function authorize($request, $requestId, $credentials, $action=true) {
+    public function authorize($request, $requestId, $credentials, $action=true)
+    {
         $this->container->get('logger')->info('authorizing requestId: '.$requestId);
         // no responsible handler means fail
         $result = null;
@@ -233,7 +243,8 @@ class SacsManager extends ZMObject {
      *
      * @param string requestId The request id.
      */
-    public function ensureAccessMethod($request) {
+    public function ensureAccessMethod($request)
+    {
         $requestId = $request->getRequestId();
         $secure = Toolbox::asBoolean($this->getMappingValue($requestId, 'secure', false));
         // check router too
@@ -257,7 +268,8 @@ class SacsManager extends ZMObject {
      * @param mixed default The mapping key.
      * @return mixed The value or the provided default value; default is <code>null</code>.
      */
-    public function getMappingValue($requestId, $key, $default=null) {
+    public function getMappingValue($requestId, $key, $default=null)
+    {
         if (null == $requestId) {
             $this->container->get('logger')->debug('null is not a valid requestId');
             return null;
@@ -301,7 +313,8 @@ class SacsManager extends ZMObject {
      * @param string requestId The request id.
      * @return boolean <code>true</code> if a secure conenction is required.
      */
-    public function requiresSecurity($requestId) {
+    public function requiresSecurity($requestId)
+    {
         return $this->getMappingValue($requestId, 'secure', false);
     }
 
@@ -311,7 +324,8 @@ class SacsManager extends ZMObject {
      * @param string requestId The request id.
      * @return boolean <code>true</code> if a mapping exists, <code>false</code> if not.
      */
-    public function hasMappingForRequestId($requestId) {
+    public function hasMappingForRequestId($requestId)
+    {
         return array_key_exists($requestId, $this->mappings_['mappings']);
     }
 
@@ -320,7 +334,8 @@ class SacsManager extends ZMObject {
      *
      * @return array Map with requestId as key and <em>sacs</em> data as value.
      */
-    public function getMappings() {
+    public function getMappings()
+    {
         return $this->mappings_['mappings'];
     }
 
@@ -329,7 +344,8 @@ class SacsManager extends ZMObject {
      *
      * @return array Default mapping data.
      */
-    public function getDefaultMapping() {
+    public function getDefaultMapping()
+    {
         return $this->mappings_['default'];
     }
 

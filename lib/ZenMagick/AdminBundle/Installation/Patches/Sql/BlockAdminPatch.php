@@ -26,7 +26,8 @@ use ZenMagick\AdminBundle\Installation\Patches\SQLPatch;
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class BlockAdminPatch extends SQLPatch {
+class BlockAdminPatch extends SQLPatch
+{
     public $sqlFiles_ = array(
         "block_admin_install.sql"
     );
@@ -34,7 +35,8 @@ class BlockAdminPatch extends SQLPatch {
     /**
      * Create new instance.
      */
-    public function __construct() {
+    public function __construct()
+    {
         parent::__construct('blockAdmin');
         $this->label_ = 'Create new tables for block admin';
         $this->setTables(array('blocks_to_groups', 'block_groups', 'block_config'));
@@ -46,7 +48,8 @@ class BlockAdminPatch extends SQLPatch {
      *
      * @return boolean <code>true</code> if this patch can still be applied.
      */
-    public function isOpen() {
+    public function isOpen()
+    {
         return !$this->tablesExist();
     }
 

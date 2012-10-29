@@ -31,7 +31,8 @@ class ContextLoader implements LoaderInterface
     private $loaded = false;
     protected $contextConfigLoader;
 
-    public function __construct(ContextConfigLoader $contextConfigLoader) {
+    public function __construct(ContextConfigLoader $contextConfigLoader)
+    {
         $this->contextConfigLoader = $contextConfigLoader;
     }
 
@@ -71,13 +72,16 @@ class ContextLoader implements LoaderInterface
         return $routes;
     }
 
-    public function supports($resource, $type = null) {
+    public function supports($resource, $type = null)
+    {
         return 'context' === $type;
     }
 
-    public function getResolver() {
+    public function getResolver()
+    {
     }
 
-    public function setResolver(LoaderResolverInterface $resolver) {
+    public function setResolver(LoaderResolverInterface $resolver)
+    {
     }
 }

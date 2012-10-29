@@ -24,7 +24,8 @@
  * @author DerManoMann <mano@zenmagick.org>
  * @package org.zenmagick.mvc.validation.rules
  */
-class ZMRegexpRule extends ZMRule {
+class ZMRegexpRule extends ZMRule
+{
     private $regexp_;
 
     /**
@@ -34,7 +35,8 @@ class ZMRegexpRule extends ZMRule {
      * @param string regexp The regular expression; default is <code>null</code>.
      * @param string msg Optional message; default is <code>null</code>.
      */
-    public function __construct($name=null, $regexp=null, $msg=null) {
+    public function __construct($name=null, $regexp=null, $msg=null)
+    {
         parent::__construct($name, "%s is not valid.", $msg);
         $this->setRegexp($regexp);
     }
@@ -44,7 +46,8 @@ class ZMRegexpRule extends ZMRule {
      *
      * @param string regexp The regular expression.
      */
-    public function setRegexp($regexp) {
+    public function setRegexp($regexp)
+    {
         $this->regexp_ = $regexp;
     }
 
@@ -53,7 +56,8 @@ class ZMRegexpRule extends ZMRule {
      *
      * @ return string The regular expression.
      */
-    public function getRegexp() {
+    public function getRegexp()
+    {
         return $this->regexp_;
     }
 
@@ -64,7 +68,8 @@ class ZMRegexpRule extends ZMRule {
      * @param array data The data.
      * @return boolean <code>true</code> if the regular expression does match.
      */
-    public function validate($request, $data) {
+    public function validate($request, $data)
+    {
         return empty($data[$this->getName()]) || preg_match($this->regexp_, $data[$this->getName()]);
     }
 
@@ -73,7 +78,8 @@ class ZMRegexpRule extends ZMRule {
      *
      * @return string Formatted JavaScript .
      */
-    public function toJSString() {
+    public function toJSString()
+    {
         $js = "    new Array('regexp'";
         $js .= ",'".$this->getJSName()."'";
         $js .= ",'".addslashes($this->getErrorMsg())."'";

@@ -24,7 +24,8 @@ namespace ZenMagick\plugins\rules\promotions;
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class Promotion {
+class Promotion
+{
     private $name;
     private $startDate;
     private $endDate;

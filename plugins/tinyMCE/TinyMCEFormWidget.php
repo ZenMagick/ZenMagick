@@ -30,13 +30,15 @@ use ZenMagick\Http\View\TemplateView;
  * @author DerManoMann <mano@zenmagick.org>
  * @package zenmagick.plugins.tinyMCE
  */
-class TinyMCEFormWidget extends TextAreaFormWidget implements WysiwygEditor {
+class TinyMCEFormWidget extends TextAreaFormWidget implements WysiwygEditor
+{
     private $idList;
 
     /**
      * Create new instance.
      */
-    public function __construct() {
+    public function __construct()
+    {
         parent::__construct();
         $this->addClasses(array(self::EDITOR_CLASS, 'tinymce_editor'/*,'mceEditable'*/));
         $this->idList = array();
@@ -47,7 +49,8 @@ class TinyMCEFormWidget extends TextAreaFormWidget implements WysiwygEditor {
      *
      * @param ResourceManager resourceManager The resourceManager.
      */
-    private function initEditor(ResourceManager $resourceManager) {
+    private function initEditor(ResourceManager $resourceManager)
+    {
         // add required js
         $resourceManager->jsFile('tinymce/jscripts/tiny_mce/jquery.tinymce.js', ResourceManager::HEADER);
         // create init script code at the end once we know all the ids
@@ -57,7 +60,8 @@ class TinyMCEFormWidget extends TextAreaFormWidget implements WysiwygEditor {
     /**
      * {@inheritDoc}
      */
-    public function apply($request, TemplateView $templateView, $idList=null) {
+    public function apply($request, TemplateView $templateView, $idList=null)
+    {
         $this->initEditor($templateView->getResourceManager());
         if (null === $idList) {
             $this->idList = null;
@@ -70,7 +74,8 @@ class TinyMCEFormWidget extends TextAreaFormWidget implements WysiwygEditor {
     /**
      * {@inheritDoc}
      */
-    public function render($request, TemplateView $templateView) {
+    public function render($request, TemplateView $templateView)
+    {
         if (null == $this->container->get('pluginService')->getPluginForId('tinyMCE')) {
             // fallback
             return parent::render($request, $templateView);
@@ -86,7 +91,8 @@ class TinyMCEFormWidget extends TextAreaFormWidget implements WysiwygEditor {
     /**
      * Add init code.
      */
-    public function onFinaliseContent($event) {
+    public function onFinaliseContent($event)
+    {
         $tinyMce = $this->container->get('pluginService')->getPluginForId('tinyMCE');
         $scriptUrl = $tinyMce->pluginURL('content/tinymce/jscripts/tiny_mce/tiny_mce.js');
         $noEditorClass = self::NO_EDITOR_CLASS;

@@ -33,9 +33,10 @@ use ZenMagick\Base\Toolbox;
  * @todo hide payment address edit if specified by flagDisablePaymentAddressChange property
  *
  */
-class CheckoutConfirmationController extends \ZMController {
-
-    public function getViewData($request) {
+class CheckoutConfirmationController extends \ZMController
+{
+    public function getViewData($request)
+    {
         $orderFormContent =  '';
         $orderFormUrl = $this->get('netTool')->url('checkout_process', '', true);
 
@@ -50,14 +51,16 @@ class CheckoutConfirmationController extends \ZMController {
     /**
      * {@inheritDoc}
      */
-    public function processGet($request) {
+    public function processGet($request)
+    {
         return $this->findView();
     }
 
     /**
      * {@inheritDoc}
      */
-    public function processPost($request) {
+    public function processPost($request)
+    {
         $shoppingCart = $this->get('shoppingCart');
         $checkoutHelper = $shoppingCart->getCheckoutHelper();
         $settingsService = $this->container->get('settingsService');

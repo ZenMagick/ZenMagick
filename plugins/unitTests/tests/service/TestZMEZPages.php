@@ -26,12 +26,13 @@ use ZenMagick\plugins\unitTests\simpletest\TestCase;
  * @package org.zenmagick.plugins.unitTests.tests
  * @author DerManoMann <mano@zenmagick.org>
  */
-class TestZMEZPages extends TestCase {
-
+class TestZMEZPages extends TestCase
+{
     /**
      * Test load.
      */
-    public function testLoad() {
+    public function testLoad()
+    {
         $page = $this->container->get('ezPageService')->getPageForId(8, 1);
         if ($this->assertNotNull($page)) {
             $this->assertEqual(8, $page->getId());
@@ -43,7 +44,8 @@ class TestZMEZPages extends TestCase {
     /**
      * Test update.
      */
-    public function testUpdate() {
+    public function testUpdate()
+    {
         $ezPageService = $this->container->get('ezPageService');
 
         $page = $ezPageService->getPageForId(8, 1);
@@ -68,7 +70,8 @@ class TestZMEZPages extends TestCase {
     /**
      * Test create.
      */
-    public function testCreate() {
+    public function testCreate()
+    {
         $ezPageService = $this->container->get('ezPageService');
 
         // make copy

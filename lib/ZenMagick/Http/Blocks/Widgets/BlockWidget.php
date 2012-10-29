@@ -35,7 +35,8 @@ use ZenMagick\Http\View\TemplateView;
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class BlockWidget extends Widget {
+class BlockWidget extends Widget
+{
     private $sortOrder_;
     private $template_;
     private $format_;
@@ -43,7 +44,8 @@ class BlockWidget extends Widget {
     /**
      * Create new instance.
      */
-    public function __construct() {
+    public function __construct()
+    {
         parent::__construct();
         $this->sortOrder_ = 0;
         $this->template_ = null;
@@ -55,7 +57,8 @@ class BlockWidget extends Widget {
      *
      * @param int sortOrder The sort order.
      */
-    public function setSortOrder($sortOrder) {
+    public function setSortOrder($sortOrder)
+    {
         $this->sortOrder_ = $sortOrder;
     }
 
@@ -64,7 +67,8 @@ class BlockWidget extends Widget {
      *
      * @return int The sort order.
      */
-    public function getSortOrder() {
+    public function getSortOrder()
+    {
         return $this->sortOrder_;
     }
 
@@ -73,7 +77,8 @@ class BlockWidget extends Widget {
      *
      * @param string template The template.
      */
-    public function setTemplate($template) {
+    public function setTemplate($template)
+    {
         $this->template_ = $template;
     }
 
@@ -82,7 +87,8 @@ class BlockWidget extends Widget {
      *
      * @return string The template.
      */
-    public function getTemplate() {
+    public function getTemplate()
+    {
         return $this->template_;
     }
 
@@ -93,7 +99,8 @@ class BlockWidget extends Widget {
      *
      * @param string format The format.
      */
-    public function setFormat($format) {
+    public function setFormat($format)
+    {
         $this->format_ = $format;
     }
 
@@ -102,14 +109,16 @@ class BlockWidget extends Widget {
      *
      * @return string The format string or <code>null</code> if not set.
      */
-    public function getFormat() {
+    public function getFormat()
+    {
         return $this->format_;
     }
 
     /**
      * {@inheritDoc}
      */
-    public function render($request, TemplateView $templateView) {
+    public function render($request, TemplateView $templateView)
+    {
         $content = '';
 
         if (!empty($this->template_) && $templateView->getResourceResolver()->exists($this->template_)) {

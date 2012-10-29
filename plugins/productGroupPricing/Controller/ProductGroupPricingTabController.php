@@ -29,19 +29,21 @@ use ZenMagick\StoreBundle\Controller\CatalogContentController;
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class ProductGroupPricingTabController extends CatalogContentController {
-
+class ProductGroupPricingTabController extends CatalogContentController
+{
     /**
      * Create new instance.
      */
-    public function __construct() {
+    public function __construct()
+    {
         parent::__construct('product_group_pricing_tab', _zm('Group Pricing'), self::ACTIVE_PRODUCT);
     }
 
     /**
      * {@inheritDoc}
      */
-    public function getViewData($request) {
+    public function getViewData($request)
+    {
         $priceGroups = $this->container->get('groupPricingService')->getPriceGroups();
         $productGroupPricingService = $this->container->get('productGroupPricingService');
         $groupId = $request->getParameter('groupId', $priceGroups[0]->getId());
@@ -62,7 +64,8 @@ class ProductGroupPricingTabController extends CatalogContentController {
     /**
      * {@inheritDoc}
      */
-    public function processGet($request) {
+    public function processGet($request)
+    {
         //TODO: this should be POST!!
         $productGroupPricing = Beans::getBean('ZenMagick\plugins\productGroupPricing\model\ProductGroupPricing');
         if (Toolbox::asBoolean($request->getParameter('delete'))) {
@@ -76,7 +79,8 @@ class ProductGroupPricingTabController extends CatalogContentController {
     /**
      * {@inheritDoc}
      */
-    public function processPost($request) {
+    public function processPost($request)
+    {
         $productGroupPricing = Beans::getBean('ZenMagick\plugins\productGroupPricing\model\ProductGroupPricing');
         $productGroupPricingService = $this->container->get('productGroupPricingService');
         $productGroupPricing->populate($request);

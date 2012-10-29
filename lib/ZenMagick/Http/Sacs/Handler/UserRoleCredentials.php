@@ -26,8 +26,8 @@ namespace ZenMagick\Http\Sacs\Handler;
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-interface UserRoleCredentials {
-
+interface UserRoleCredentials
+{
     /**
      * Get the user name.
      */

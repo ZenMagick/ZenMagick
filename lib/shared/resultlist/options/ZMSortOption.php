@@ -29,7 +29,8 @@ use ZenMagick\Base\ZMObject;
  * @author DerManoMann <mano@zenmagick.org>
  * @package org.zenmagick.mvc.resultlist.options
  */
-class ZMSortOption extends ZMObject {
+class ZMSortOption extends ZMObject
+{
     private $name_;
     private $id_;
     private $active_;
@@ -43,7 +44,8 @@ class ZMSortOption extends ZMObject {
      * @param boolean active Optional active flag if this option is currently active.
      * @param boolean decending Ascending/decending flag (default is ascending.
      */
-    public function __construct($name, $id, $active=false, $decending=false) {
+    public function __construct($name, $id, $active=false, $decending=false)
+    {
         parent::__construct();
 
         $this->name_ = $name;

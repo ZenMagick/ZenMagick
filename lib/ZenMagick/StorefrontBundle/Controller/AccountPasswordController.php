@@ -26,12 +26,13 @@ use Symfony\Component\EventDispatcher\GenericEvent;
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class AccountPasswordController extends \ZMController {
-
+class AccountPasswordController extends \ZMController
+{
     /**
      * {@inheritDoc}
      */
-    public function processPost($request) {
+    public function processPost($request)
+    {
         if (!$this->validate($request, 'account_password')) {
             return $this->findView();
         }

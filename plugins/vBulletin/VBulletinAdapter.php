@@ -32,7 +32,8 @@ use ZenMagick\Base\ZMObject;
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class VBulletinAdapter extends ZMObject {
+class VBulletinAdapter extends ZMObject
+{
     private $database_;
     private $dbConfig_;
     private $userTable_;
@@ -40,7 +41,8 @@ class VBulletinAdapter extends ZMObject {
     /**
      * Create new instance.
      */
-    public function __construct() {
+    public function __construct()
+    {
         parent::__construct();
         require ZM_VBULLETIN_ROOT.'includes'.DIRECTORY_SEPARATOR.'config.php';
 
@@ -65,7 +67,8 @@ class VBulletinAdapter extends ZMObject {
      *
      * @return ZenMagick\Base\Database\Connection A database handle.
      */
-    protected function getDatabase() {
+    protected function getDatabase()
+    {
         if (null == $this->database_) {
             ZMRuntime::setDatabase('vbulletin', $this->dbConfig_);
             $this->database_ = ZMRuntime::getDatabase('vbulletin');
@@ -81,7 +84,8 @@ class VBulletinAdapter extends ZMObject {
      * @param array data The data.
      * @return boolean <code>true</code> if the nickname is valid, <code>false</code> if not.
      */
-    public function vDuplicateNickname($request, $data) {
+    public function vDuplicateNickname($request, $data)
+    {
         return null == $this->getAccountForNickName($data['nickName']);
     }
 
@@ -92,7 +96,8 @@ class VBulletinAdapter extends ZMObject {
      * @param array data The data.
      * @return boolean <code>true</code> if the email is valid, <code>false</code> if not.
      */
-    public function vDuplicateEmail($request, $data) {
+    public function vDuplicateEmail($request, $data)
+    {
         return null == $this->getAccountForEmail($data['email']);
     }
 
@@ -103,7 +108,8 @@ class VBulletinAdapter extends ZMObject {
      * @param array data The data.
      * @return boolean <code>true</code> if the email is valid, <code>false</code> if not.
      */
-    public function vDuplicateChangedEmail($request, $data) {
+    public function vDuplicateChangedEmail($request, $data)
+    {
         // the current account
         $account = $this->container->get('request')->getAccount();
         if ($account->getEmail() != $data['email']) {
@@ -120,7 +126,8 @@ class VBulletinAdapter extends ZMObject {
      * @param array data The data.
      * @return boolean <code>true</code> if the nickname is valid, <code>false</code> if not.
      */
-    public function vDuplicateChangedNickname($request, $data) {
+    public function vDuplicateChangedNickname($request, $data)
+    {
         // the current account
         $account = $this->container->get('request')->getAccount();
         if ($account->getNickName() != $data['nickName']) {
@@ -136,7 +143,8 @@ class VBulletinAdapter extends ZMObject {
      * @param string nickName The nick name.
      * @return mixed A data array or <code>null</code>.
      */
-    public function getAccountForNickName($nickName) {
+    public function getAccountForNickName($nickName)
+    {
         $sql = "SELECT * FROM " . $this->userTable_ . "
                 WHERE username = :username";
         return $this->getDatabase()->querySingle($sql, array('username' => $nickName), $this->userTable_);
@@ -148,7 +156,8 @@ class VBulletinAdapter extends ZMObject {
      * @param string email The email address.
      * @return mixed A data array or <code>null</code>.
      */
-    public function getAccountForEmail($email) {
+    public function getAccountForEmail($email)
+    {
         $sql = "SELECT * FROM " . $this->userTable_ . "
                 WHERE email = :email";
         // assum unique email address...
@@ -161,7 +170,8 @@ class VBulletinAdapter extends ZMObject {
      * @param ZenMagick\StoreBundle\Entity\Account\Account account The store account.
      * @param string password The clear text password.
      */
-    public function createAccount($account, $password) {
+    public function createAccount($account, $password)
+    {
         $salt = Toolbox::random(3);
         $data = array(
             'customers_id' => $account->getId(),
@@ -188,7 +198,8 @@ class VBulletinAdapter extends ZMObject {
      * @param string email The email address.
      * @return boolean <code>true</code> on success.
      */
-    public function updateAccount($nickName, $password, $email) {
+    public function updateAccount($nickName, $password, $email)
+    {
         $data = $this->getAccountForEmail($email);
         if (null !== $data) {
             $updates = array(
@@ -211,7 +222,8 @@ class VBulletinAdapter extends ZMObject {
      * @param string email The email address.
      * @return boolean <code>true</code> on success.
      */
-    public function removeAccount($email) {
+    public function removeAccount($email)
+    {
         $data = $this->getAccountForEmail($email);
         if (is_array($data) && array_key_exists('userid', $data)) {
             return $this->getDatabase()->removeModel($this->userTable_, array('userid' => $data['userid']));

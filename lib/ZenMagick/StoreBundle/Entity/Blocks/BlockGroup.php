@@ -30,7 +30,8 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table(name="block_groups")
  * @ORM\Entity
  */
-class BlockGroup extends ZMObject {
+class BlockGroup extends ZMObject
+{
     /**
      * @var integer $id
      *

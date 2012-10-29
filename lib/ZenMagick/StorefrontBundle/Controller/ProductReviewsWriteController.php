@@ -26,12 +26,13 @@ use Symfony\Component\EventDispatcher\GenericEvent;
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class ProductReviewsWriteController extends \ZMController {
-
+class ProductReviewsWriteController extends \ZMController
+{
     /**
      * {@inheritDoc}
      */
-    public function getViewData($request) {
+    public function getViewData($request)
+    {
         $product = $this->getProduct($request);
         return array('currentProduct' => $product, 'currentAccount' => $this->getUser());
     }
@@ -39,7 +40,8 @@ class ProductReviewsWriteController extends \ZMController {
     /**
      * {@inheritDoc}
      */
-    public function processGet($request) {
+    public function processGet($request)
+    {
         if (null == $this->getProduct($request)) {
             return $this->findView('product_not_found');
         }
@@ -49,7 +51,8 @@ class ProductReviewsWriteController extends \ZMController {
     /**
      * {@inheritDoc}
      */
-    public function processPost($request) {
+    public function processPost($request)
+    {
         if (null == $this->getProduct($request)) {
             return $this->findView('product_not_found');
         }
@@ -90,7 +93,8 @@ class ProductReviewsWriteController extends \ZMController {
      * @param ZenMagick\Http\Request request The current request.
      * @return ZenMagick\StoreBundle\Entity\Catalog\Product The product or <code>null</code>.
      */
-    protected function getProduct($request) {
+    protected function getProduct($request)
+    {
         $product = null;
         $productService = $this->container->get('productService');
         $languageId = $request->getSession()->getLanguageId();

@@ -31,13 +31,15 @@ use Symfony\Component\EventDispatcher\GenericEvent;
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class SearchController extends \ZMController {
+class SearchController extends \ZMController
+{
     private $autoSearch_;
 
     /**
      * Create new instance.
      */
-    public function __construct() {
+    public function __construct()
+    {
         parent::__construct();
         $this->autoSearch_ = true;
     }
@@ -50,7 +52,8 @@ class SearchController extends \ZMController {
      *
      * @param boolean autoSearch The new value.
      */
-    public function setAutoSearch($autoSearch) {
+    public function setAutoSearch($autoSearch)
+    {
         $this->autoSearch_ = Toolbox::asBoolean($autoSearch);
     }
 
@@ -59,21 +62,24 @@ class SearchController extends \ZMController {
      *
      * @return boolean The auto search flag.
      */
-    public function isAutoSearch() {
+    public function isAutoSearch()
+    {
         return $this->autoSearch_;
     }
 
     /**
      * {@inheritDoc}
      */
-    public function isFormSubmit($request) {
+    public function isFormSubmit($request)
+    {
         return $this->isAutoSearch();
     }
 
     /**
      * {@inheritDoc}
      */
-    public function processGet($request) {
+    public function processGet($request)
+    {
         $searchCriteria = $this->getFormData($request);
         // never search inactive products
         $searchCriteria->setSearchAll(false);

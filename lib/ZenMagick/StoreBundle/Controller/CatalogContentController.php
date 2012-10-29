@@ -31,7 +31,8 @@ use ZenMagick\Http\View\RedirectView;
  *
  * @author DerManoMann
  */
-abstract class CatalogContentController extends \ZMController {
+abstract class CatalogContentController extends \ZMController
+{
     const ACTIVE_CATEGORY = 1;
     const ACTIVE_PRODUCT = 2;
     protected $catalogRequestId_;
@@ -45,7 +46,8 @@ abstract class CatalogContentController extends \ZMController {
      * @param string name The name.
      * @param int active Active flag; example: <code>ACTIVE_CATEGORY|ACTIVE_PRODUCT</code>; default is <code>0</code>.
      */
-    public function __construct($catalogRequestId, $name, $active=0) {
+    public function __construct($catalogRequestId, $name, $active=0)
+    {
         parent::__construct($catalogRequestId);
         $this->catalogRequestId_ = $catalogRequestId;
         $this->name_ = $name;
@@ -61,7 +63,8 @@ abstract class CatalogContentController extends \ZMController {
      * @param ZenMagick\Http\Request request The current request.
      * @return boolean <code>true</code> if the plugin requests to be rendered for this request.
      */
-    public function isActive($request) {
+    public function isActive($request)
+    {
         $bits = 0;
         if (0 < $request->attributes->get('categoryId')) {
             $bits |= self::ACTIVE_CATEGORY;
@@ -77,7 +80,8 @@ abstract class CatalogContentController extends \ZMController {
      *
      * @return string The request id this controller is responsible for.
      */
-    public function getCatalogRequestId() {
+    public function getCatalogRequestId()
+    {
         return $this->catalogRequestId_;
     }
 
@@ -86,14 +90,16 @@ abstract class CatalogContentController extends \ZMController {
      *
      * @return string The name.
      */
-    public function getName() {
+    public function getName()
+    {
         return $this->name_;
     }
 
     /**
      * {@inheritDoc}
      */
-    public function processAction(Request $request) {
+    public function processAction(Request $request)
+    {
         $view = parent::processAction($request);
         if ($view instanceof RedirectView) {
             $view->setUrl($this->get('adminTool')->catalog($this));
@@ -108,7 +114,8 @@ abstract class CatalogContentController extends \ZMController {
      * the subclass having to worry about details.<br>
      * All other parameters will be handled as always.</p>
      */
-    public function findView($id=null, $data=array(), $parameter=null) {
+    public function findView($id=null, $data=array(), $parameter=null)
+    {
         if ('catalog-redirect' == $id) {
             // the property catalogRedirect tags the view as special redirect view...
             return Beans::getBean('redirect#requestId=catalog&catalogRedirect=true&parameter='.urlencode($parameter).'&catalogRequestId='.$this->getCalogRequestId());

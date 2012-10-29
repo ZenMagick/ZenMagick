@@ -27,12 +27,13 @@ use ZenMagick\Base\Beans;
  * @author DerManoMann <mano@zenmagick.org>
  * @todo implement!
  */
-class AjaxCheckoutController extends \ZMAjaxController {
-
+class AjaxCheckoutController extends \ZMAjaxController
+{
     /**
      * Create new instance.
      */
-    public function __construct() {
+    public function __construct()
+    {
         parent::__construct('ajaxCheckout');
         $this->set('ajaxShippingMethodMap', array(
             'id', 'name', 'cost', 'provider' => array(
@@ -52,7 +53,8 @@ class AjaxCheckoutController extends \ZMAjaxController {
      *
      * @param ZenMagick\Http\Request request The current request.
      */
-    public function getShippingMethodsJSON($request) {
+    public function getShippingMethodsJSON($request)
+    {
         // try to set up an address using request information
         $address = null;
         if (null !== ($addressId = $request->getParameter('addressId'))) {

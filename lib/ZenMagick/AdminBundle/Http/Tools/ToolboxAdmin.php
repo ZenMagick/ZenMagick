@@ -28,8 +28,8 @@ use ZenMagick\StoreBundle\Controller\CatalogContentController;
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class ToolboxAdmin extends ToolboxTool {
-
+class ToolboxAdmin extends ToolboxTool
+{
     /**
      * Create a catalog admin page URL.
      *
@@ -37,7 +37,8 @@ class ToolboxAdmin extends ToolboxTool {
      * @param string params Optional additional url parameter; default is <code>null</code>.
      * @return string A full URL.
      */
-    public function catalog($controller=null, $params=null) {
+    public function catalog($controller=null, $params=null)
+    {
         $request = $this->getRequest();
         $ps = '';
         if (null != ($cPath = $request->query->get('cPath'))) {
@@ -64,7 +65,8 @@ class ToolboxAdmin extends ToolboxTool {
      * @param string params Optional additional url parameter; default is <code>null</code>.
      * @return string A full URL.
      */
-    public function catalogTab($controller=null, $params=null) {
+    public function catalogTab($controller=null, $params=null)
+    {
         $request = $this->getRequest();
         $ps = '';
         if (null != ($cPath = $request->query->get('cPath'))) {
@@ -94,7 +96,8 @@ class ToolboxAdmin extends ToolboxTool {
      * @param string params Query string style parameter; if <code>null</code> add all current parameter
      * @return string A complete Ajax URL.
      */
-    public function ajax($controller, $method, $params='') {
+    public function ajax($controller, $method, $params='')
+    {
         $controller = 'ajax_'.$controller;
         $url = str_replace('&amp;', '&', $this->getToolbox()->net->url($controller, $params.'&method='.$method, $this->getRequest()->isSecure()));
 
@@ -108,7 +111,8 @@ class ToolboxAdmin extends ToolboxTool {
      *
      * @param string title Optional fixed (sub-)title; default is <code>null</code> for none.
      */
-    public function title($title=null) {
+    public function title($title=null)
+    {
         $root = $this->container->get('adminMenu')->getRootItemForRequestId($this->getRequest()->getRequestId());
         $pref = (null != $root) ? $root->getName() : null;
         if (null == $title) {
@@ -131,7 +135,8 @@ class ToolboxAdmin extends ToolboxTool {
      * @param boolean start Flag to indicate start of recursion; default is <code>true</code>.
      * @return string The created HTML.
      */
-    public function categoryTree($categories = null, $start = true) {
+    public function categoryTree($categories = null, $start = true)
+    {
         $net = $this->getToolbox()->net;
         $html = $this->getToolbox()->html;
         $path = (array) $this->getRequest()->attributes->get('categoryIds');

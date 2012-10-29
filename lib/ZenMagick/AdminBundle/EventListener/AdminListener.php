@@ -31,13 +31,15 @@ use ZenMagick\StoreBundle\Menu\MenuLoader;
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class AdminListener extends ZMObject {
+class AdminListener extends ZMObject
+{
     const DEFAULT_EDITOR_SERVICE_ID = 'plainEditorWidget';
 
     /**
      * Display message about invalid/insufficient credentional
      */
-    public function onInsufficientCredentials($event) {
+    public function onInsufficientCredentials($event)
+    {
         $request = $event->getArgument('request');
         if (null != $request->getAccount()) {
             // only if we still have a valid session
@@ -48,7 +50,8 @@ class AdminListener extends ZMObject {
     /**
      * Add <em>currentLanguage</em> to all views.
      */
-    public function onViewStart($event) {
+    public function onViewStart($event)
+    {
         $request = $event->getArgument('request');
         $view = $event->getArgument('view');
 
@@ -82,7 +85,8 @@ class AdminListener extends ZMObject {
      * @param ZenMagick\Http\Request request The current request.
      * @return TextAreaFormWidget A text editor widget.
      */
-    protected function getCurrentEditor($request) {
+    protected function getCurrentEditor($request)
+    {
         $user = $request->getAccount();
         if (null == $user || null == ($editorId = $this->container->get('adminUserPrefService')->getPrefForName($user->getId(), 'wysiwygEditor'))) {
             $editorId = self::DEFAULT_EDITOR_SERVICE_ID;
@@ -98,7 +102,8 @@ class AdminListener extends ZMObject {
     /**
      * Init menu.
      */
-    public function initMenu() {
+    public function initMenu()
+    {
         $settingsService = $this->container->get('settingsService');
 
         $menuLoader = new MenuLoader();
@@ -122,7 +127,8 @@ class AdminListener extends ZMObject {
     /**
      * Final init.
      */
-    public function onContainerReady($event) {
+    public function onContainerReady($event)
+    {
         $request = $event->getArgument('request');
 
         // @todo languages setting not really supposed to be here

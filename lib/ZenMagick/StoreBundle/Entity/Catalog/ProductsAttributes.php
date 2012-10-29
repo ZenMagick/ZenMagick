@@ -34,7 +34,8 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Entity
  * @todo integrate with ZMAttributeValue
  */
-class ProductsAttributes {
+class ProductsAttributes
+{
     /**
      * @var integer $productsAttributesId
      *

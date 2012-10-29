@@ -26,7 +26,8 @@ use ZenMagick\Base\ZMObject;
  * @author DerManoMann <mano@zenmagick.org>
  * @package org.zenmagick.mvc.resultlist.sources
  */
-class ZMArrayResultSource extends ZMObject implements ZMResultSource {
+class ZMArrayResultSource extends ZMObject implements ZMResultSource
+{
     private $list_;
     private $resultClass_;
 
@@ -36,7 +37,8 @@ class ZMArrayResultSource extends ZMObject implements ZMResultSource {
      * @param string resultClass The class of the results.
      * @param array list The list of results.
      */
-    public function __construct($resultClass, $list) {
+    public function __construct($resultClass, $list)
+    {
         parent::__construct();
         $this->resultClass_ = $resultClass;
         $this->list_ = $list;
@@ -50,28 +52,32 @@ class ZMArrayResultSource extends ZMObject implements ZMResultSource {
     /**
      * {@inheritDoc}
      */
-    public function getResults($reload=false) {
+    public function getResults($reload=false)
+    {
         return $this->list_;
     }
 
     /**
      * {@inheritDoc}
      */
-    public function getResultClass() {
+    public function getResultClass()
+    {
         return $this->resultClass_;
     }
 
     /**
      * {@inheritDoc}
      */
-    public function getTotalNumberOfResults() {
+    public function getTotalNumberOfResults()
+    {
         return count($this->list_);
     }
 
     /**
      * {@inheritDoc}
      */
-    public function isFinal() {
+    public function isFinal()
+    {
         return false;
     }
 

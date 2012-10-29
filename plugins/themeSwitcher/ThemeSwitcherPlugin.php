@@ -30,14 +30,16 @@ use Symfony\Component\EventDispatcher\GenericEvent;
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class ThemeSwitcherPlugin extends Plugin {
+class ThemeSwitcherPlugin extends Plugin
+{
     /** query param key for new theme id. */
     const SESS_THEME_KEY = 'themeId';
 
     /**
      * Switch.
      */
-    public function onContainerReady($event) {
+    public function onContainerReady($event)
+    {
         $request = $event->getArgument('request');
 
         $session = $request->getSession();
@@ -61,7 +63,8 @@ class ThemeSwitcherPlugin extends Plugin {
     /**
      * Inject html.
      */
-    public function onFinaliseContent($event) {
+    public function onFinaliseContent($event)
+    {
         $content = $event->getArgument('content');
 
         // id on main div

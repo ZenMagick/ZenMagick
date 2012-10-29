@@ -32,7 +32,8 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Entity
  * @todo refactor with ShoppingCartItem
  */
-class CustomersBasketAttributes {
+class CustomersBasketAttributes
+{
     /**
      * @var integer $cartAttributeId
      *

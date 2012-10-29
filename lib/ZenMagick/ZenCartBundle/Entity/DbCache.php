@@ -10,7 +10,8 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table(name="db_cache")
  * @ORM\Entity
  */
-class DbCache {
+class DbCache
+{
     /**
      * @var string $name
      *

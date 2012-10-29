@@ -30,8 +30,8 @@ use ZenMagick\StoreBundle\Entity\ConfigValue;
  *
  * @author DerManoMann
  */
-class ConfigService extends ZMObject {
-
+class ConfigService extends ZMObject
+{
     /**
      * Create config value.
      *
@@ -44,7 +44,8 @@ class ConfigService extends ZMObject {
      * @param string setFunction The set function; defaults to <code>null</code>.
      * @param string useFunction The use function; defaults to <code>null</code>.
      */
-    public function createConfigValue($title, $key, $value, $groupId, $description='', $sortOrder=0, $setFunction=null, $useFunction=null) {
+    public function createConfigValue($title, $key, $value, $groupId, $description='', $sortOrder=0, $setFunction=null, $useFunction=null)
+    {
         // keys are always upper case
         $key = strtoupper($key);
 
@@ -76,7 +77,8 @@ class ConfigService extends ZMObject {
      * @param bool visible Is the configuration group visible
      * @param int sortOder The sort order of the configuration group
      */
-    public function createConfigGroup($name, $description = '', $visible = true, $sortOrder = 0) {
+    public function createConfigGroup($name, $description = '', $visible = true, $sortOrder = 0)
+    {
         $configGroup = new ConfigGroup();
         $configGroup->setName($name);
         $configGroup->setDescription($description);
@@ -91,7 +93,8 @@ class ConfigService extends ZMObject {
      * @param string key The config key.
      * @param string value The new value.
      */
-    public function updateConfigValue($key, $value) {
+    public function updateConfigValue($key, $value)
+    {
         $sql = "UPDATE %table.configuration%
                 SET configuration_value = :value
                 WHERE configuration_key = :key";
@@ -105,7 +108,8 @@ class ConfigService extends ZMObject {
      * @param array array of config values
      * @return array A list of <code>ConfigValue</code>s.
      */
-    protected function buildObjects($configValues) {
+    protected function buildObjects($configValues)
+    {
         $values = array();
         foreach ($configValues as $value) {
             $values[] = Beans::map2obj('ZenMagick\StoreBundle\Entity\ConfigValue', $value);
@@ -119,7 +123,8 @@ class ConfigService extends ZMObject {
      * @param string pattern The key pattern; for example 'foo_%'.
      * @return mixed A single <code>ConfigValue</code> instance or <code>null</code>.
      */
-    public function getConfigValue($pattern) {
+    public function getConfigValue($pattern)
+    {
         $values = $this->getConfigValues($pattern);
         if (null != $values && 0 < count($values)) {
             return $values[0];
@@ -133,7 +138,8 @@ class ConfigService extends ZMObject {
      * @param string pattern The key pattern; for example 'foo_%'.
      * @return array A list of <code>ConfigValue</code> instances.
      */
-    public function getConfigValues($pattern) {
+    public function getConfigValues($pattern)
+    {
         $sql = "SELECT *
                 FROM %table.configuration%
                 WHERE configuration_key like :key
@@ -149,7 +155,8 @@ class ConfigService extends ZMObject {
      * @param int groupId The group id.
      * @return array A list of <code>ConfigValue</code> instances.
      */
-    public function getValuesForGroupId($groupId) {
+    public function getValuesForGroupId($groupId)
+    {
         $sql = "SELECT *
                 FROM %table.configuration%
                 WHERE configuration_group_id like :groupId
@@ -164,7 +171,8 @@ class ConfigService extends ZMObject {
      *
      * @param string key The config key.
      */
-    public function removeConfigValue($key) {
+    public function removeConfigValue($key)
+    {
         $sql = "DELETE FROM %table.configuration%
                 WHERE configuration_key = :key";
         ZMRuntime::getDatabase()->updateObj($sql, array('key' => $key), 'configuration');
@@ -175,7 +183,8 @@ class ConfigService extends ZMObject {
      *
      * @param string pattern The key pattern; for example 'foo_%'.
      */
-    public function removeConfigValues($pattern) {
+    public function removeConfigValues($pattern)
+    {
         $sql = "DELETE FROM %table.configuration%
                 WHERE configuration_key like :key";
         ZMRuntime::getDatabase()->updateObj($sql, array('key' => $pattern), 'configuration');
@@ -187,7 +196,8 @@ class ConfigService extends ZMObject {
      * @param int groupId The group id.
      * @return ConfigGroup A <code>ConfigGroup</code> instance or <code>null</code>.
      */
-    public function getConfigGroupForId($groupId) {
+    public function getConfigGroupForId($groupId)
+    {
         $sql = "SELECT *
                 FROM %table.configuration_group%
                 WHERE configuration_group_id = :id";
@@ -200,8 +210,8 @@ class ConfigService extends ZMObject {
      * @param string name The name of the group.
      * @return ConfigGroup A <code>ConfigGroup</code> instance or <code>null</code>.
      */
-    public function getConfigGroupForName($name) {
-
+    public function getConfigGroupForName($name)
+    {
         $sql = "SELECT *
                 FROM %table.configuration_group%
                 WHERE configuration_group_title = :name";
@@ -213,7 +223,8 @@ class ConfigService extends ZMObject {
      *
      * @return array List of ConfigGroup instances.
      */
-    public function getConfigGroups() {
+    public function getConfigGroups()
+    {
         $sql = "SELECT *
                 FROM %table.configuration_group%
                 ORDER BY sort_order";
@@ -225,7 +236,8 @@ class ConfigService extends ZMObject {
      *
      * @return array Map of all configuration values.
      */
-    public function loadAll() {
+    public function loadAll()
+    {
         $map = array();
         $sql = "SELECT configuration_key, configuration_value FROM %table.configuration%";
         foreach (ZMRuntime::getDatabase()->fetchAll($sql) as $result) {

@@ -27,13 +27,15 @@ use ZenMagick\Base\Beans;
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class ZMPriceRangeFilter extends ZMResultListFilter {
+class ZMPriceRangeFilter extends ZMResultListFilter
+{
     private $ranges_;
 
     /**
      * Create new instance.
      */
-    public function __construct() {
+    public function __construct()
+    {
         parent::__construct('prfilter', _zm('Price Range'));
 
         $this->ranges_ = array();
@@ -54,7 +56,8 @@ class ZMPriceRangeFilter extends ZMResultListFilter {
      * @param mixed obj The obecjt to examine.
      * @return boolean <code>true</code> if the object is to be excluded, <code>false</code> if not.
      */
-    public function exclude($obj) {
+    public function exclude($obj)
+    {
         if (0 == count($this->ranges_)) return false;
         foreach ($this->ranges_ as $range) {
           if ($range[0] < $obj->getPrice() && $obj->getPrice() <= $range[1])
@@ -70,7 +73,8 @@ class ZMPriceRangeFilter extends ZMResultListFilter {
      *
      * @return array An array of string values.
      */
-    public function getOptions() {
+    public function getOptions()
+    {
         // get all prices
         $prices = array();
         $lowest = 100000;
@@ -111,7 +115,8 @@ class ZMPriceRangeFilter extends ZMResultListFilter {
      *
      * @return boolean <code>true</code> if multiple filter values are supported, <code>false</code> if not.
      */
-    public function isMultiSelection() {
+    public function isMultiSelection()
+    {
       return true;
     }
 

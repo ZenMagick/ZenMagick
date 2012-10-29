@@ -27,7 +27,8 @@ use ZenMagick\Base\ZMObject;
  * @author DerManoMann
  * @package zenmagick.store.shared.model.checkout
  */
-class ZMPaymentField extends ZMObject {
+class ZMPaymentField extends ZMObject
+{
     private $label_;
     private $html_;
 
@@ -37,7 +38,8 @@ class ZMPaymentField extends ZMObject {
      * @param string label The field label.
      * @param string html The (input) field HTML.
      */
-    public function __construct($label, $html) {
+    public function __construct($label, $html)
+    {
         parent::__construct();
         $this->label_ = $label;
         $this->html_ = $html;

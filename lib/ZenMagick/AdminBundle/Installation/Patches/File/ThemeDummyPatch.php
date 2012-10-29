@@ -27,13 +27,15 @@ use ZenMagick\AdminBundle\Installation\Patches\FilePatch;
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class ThemeDummyPatch extends FilePatch {
+class ThemeDummyPatch extends FilePatch
+{
     protected $catalogTemplatePath;
 
     /**
      * Create new instance.
      */
-    public function __construct() {
+    public function __construct()
+    {
         parent::__construct('themeDummies');
         $this->label_ = 'Create admin dummy files for all installed ZenMagick themes';
         $this->catalogTemplatePath = Runtime::getSettings()->get('zencart.root_dir').'/includes/templates/';
@@ -44,7 +46,8 @@ class ThemeDummyPatch extends FilePatch {
      *
      * @return boolean <code>true</code> if this patch can still be applied.
      */
-    public function isOpen() {
+    public function isOpen()
+    {
         foreach ($this->container->get('themeService')->getAvailableThemes() as $theme) {
             if (!file_exists($this->catalogTemplatePath.$theme->getId())) {
                 return true;
@@ -59,7 +62,8 @@ class ThemeDummyPatch extends FilePatch {
      *
      * @return boolean <code>true</code> if this patch is ready and all preconditions are met.
      */
-    public function isReady() {
+    public function isReady()
+    {
         return is_writeable($this->catalogTemplatePath);
     }
 
@@ -68,7 +72,8 @@ class ThemeDummyPatch extends FilePatch {
      *
      * @return string The patch group id.
      */
-    public function getGroupId() {
+    public function getGroupId()
+    {
         return 'file';
     }
 
@@ -79,7 +84,8 @@ class ThemeDummyPatch extends FilePatch {
      *
      * @return string The preconditions message or an empty string.
      */
-    public function getPreconditionsMessage() {
+    public function getPreconditionsMessage()
+    {
         return $this->isReady() ? "" : "Need permission to write " . $this->catalogTemplatePath;
     }
 
@@ -90,7 +96,8 @@ class ThemeDummyPatch extends FilePatch {
      *  disabled as per settings.
      * @return boolean <code>true</code> if patching was successful, <code>false</code> if not.
      */
-    public function patch($force=false) {
+    public function patch($force=false)
+    {
         foreach ($this->container->get('themeService')->getAvailableThemes() as $theme) {
             $filesystem = $this->container->get('filesystem');
             $themeId = $theme->getId();
@@ -137,7 +144,8 @@ class ThemeDummyPatch extends FilePatch {
      *
      * @return boolean <code>true</code> if patching was successful, <code>false</code> if not.
      */
-    public function undo() {
+    public function undo()
+    {
         $dummies = $this->_getDummies();
         foreach ($dummies as $file) {
             $this->container->get('filesystem')->remove($file);
@@ -151,7 +159,8 @@ class ThemeDummyPatch extends FilePatch {
      *
      * @return array A list of dummy templates.
      */
-    public function _getDummies() {
+    public function _getDummies()
+    {
         $dummies = array();
         if (file_exists($this->catalogTemplatePath)) {
             $handle = opendir($this->catalogTemplatePath);

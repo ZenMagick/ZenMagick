@@ -40,7 +40,8 @@ use ZenMagick\StoreBundle\Services\Account\Accounts;
  * @ORM\Entity
  * @author DerManoMann
  */
-class Account extends ZMObject {
+class Account extends ZMObject
+{
     /** Access level registered. */
     const REGISTERED = 'registered';
     /** Access level guest. */
@@ -183,7 +184,8 @@ class Account extends ZMObject {
     /**
      * Create new instance.
      */
-    public function __construct() {
+    public function __construct()
+    {
         parent::__construct();
 
         $this->setId(0);
@@ -451,7 +453,8 @@ class Account extends ZMObject {
      *
      * @return float The voucher balance.
      */
-    public function getVoucherBalance() {
+    public function getVoucherBalance()
+    {
         return $this->container->get('couponService')->getVoucherBalanceForAccountId($this->getId());
     }
 
@@ -467,7 +470,8 @@ class Account extends ZMObject {
      *
      * @return boolean <code>true</code> if the user is subscribed, <code>false</code> if not.
      */
-    public function isGlobalProductSubscriber() {
+    public function isGlobalProductSubscriber()
+    {
         return $this->globalSubscriber;
     }
 
@@ -483,7 +487,8 @@ class Account extends ZMObject {
      *
      * @return boolean <code>true</code> if the user has product subscriptions, <code>false</code> if not.
      */
-    public function hasProductSubscriptions() {
+    public function hasProductSubscriptions()
+    {
         return 0 != count($this->getSubscribedProducts());
     }
 
@@ -492,7 +497,8 @@ class Account extends ZMObject {
      *
      * @return array A list of product ids.
      */
-    public function getSubscribedProducts() {
+    public function getSubscribedProducts()
+    {
         if (null === $this->subscribedProducts) {
             $this->subscribedProducts = $this->container->get('accountService')->getSubscribedProductIds($this->getId());
         }
@@ -504,7 +510,8 @@ class Account extends ZMObject {
      *
      * @param array products A list of product ids.
      */
-    public function setSubscribedProducts($products) {
+    public function setSubscribedProducts($products)
+    {
         $this->subscribedProducts = $products;
     }
 
@@ -513,7 +520,8 @@ class Account extends ZMObject {
      *
      * @param array products A list of product ids.
      */
-    public function addSubscribedProducts($products) {
+    public function addSubscribedProducts($products)
+    {
         $this->subscribedProducts = array_unique(array_merge((array) $this->subscribedProducts, $products));
     }
 
@@ -522,7 +530,8 @@ class Account extends ZMObject {
      *
      * @param array products A list of product ids.
      */
-    public function removeSubscribedProducts($products) {
+    public function removeSubscribedProducts($products)
+    {
         $this->subscribedProducts = array_diff((array) $this->subscribedProducts, $products);
     }
 
@@ -531,7 +540,8 @@ class Account extends ZMObject {
      *
      * @param char type The account type.
      */
-    public function setType($type) {
+    public function setType($type)
+    {
         $this->type = $type;
     }
 
@@ -540,7 +550,8 @@ class Account extends ZMObject {
      *
      * @return char The account type.
      */
-    public function getType() {
+    public function getType()
+    {
         return $this->type;
     }
 
@@ -551,7 +562,8 @@ class Account extends ZMObject {
      *
      * @return boolean <code>true</code> if, and only if this account is not anonymous.
      */
-    public function isLoggedIn() {
+    public function isLoggedIn()
+    {
         return self::ANONYMOUS != $this->type;
     }
 
@@ -560,7 +572,8 @@ class Account extends ZMObject {
      *
      * @param int priceGroupId The price group id.
      */
-    public function setPriceGroupId($priceGroupId) {
+    public function setPriceGroupId($priceGroupId)
+    {
         $this->priceGroupId = $priceGroupId;
     }
 
@@ -569,7 +582,8 @@ class Account extends ZMObject {
      *
      * @return int The price group id.
      */
-    public function getPriceGroupId() {
+    public function getPriceGroupId()
+    {
         return $this->priceGroupId;
     }
     /**
@@ -577,7 +591,8 @@ class Account extends ZMObject {
      *
      * @return ZenMagick\StoreBundle\Entity\Account\PriceGroup The group or <code>null</code>.
      */
-    public function getPriceGroup() {
+    public function getPriceGroup()
+    {
         return $this->container->get('groupPricingService')->getPriceGroupForId($this->priceGroupId);
     }
 

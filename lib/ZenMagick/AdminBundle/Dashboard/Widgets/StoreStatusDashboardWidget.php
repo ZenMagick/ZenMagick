@@ -27,19 +27,21 @@ use ZenMagick\AdminBundle\Dashboard\DashboardWidget;
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class StoreStatusDashboardWidget extends DashboardWidget {
-
+class StoreStatusDashboardWidget extends DashboardWidget
+{
     /**
      * Create new user.
      */
-    public function __construct() {
+    public function __construct()
+    {
         parent::__construct(_zm('Store Status'));
     }
 
     /**
      {@inheritDoc}
      */
-    public function getContents($request) {
+    public function getContents($request)
+    {
         $contents = _zm('Nothing to report.');
 
         // query all status checker

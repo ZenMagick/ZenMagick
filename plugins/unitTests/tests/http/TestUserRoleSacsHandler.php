@@ -29,12 +29,13 @@ use ZenMagick\plugins\unitTests\simpletest\TestCase;
  * @package org.zenmagick.plugins.unitTests.tests
  * @author DerManoMann <mano@zenmagick.org>
  */
-class TestUserRoleSacsHandler extends TestCase {
-
+class TestUserRoleSacsHandler extends TestCase
+{
     /**
      * Get a sacs manager.
      */
-    protected function getSacsManager() {
+    protected function getSacsManager()
+    {
         $sacsManager = new SacsManager();
         $sacsManager->load($this->getTestsBaseDirectory().'/http/config/user_role_sacs_mappings.yaml');
         return $sacsManager;
@@ -43,7 +44,8 @@ class TestUserRoleSacsHandler extends TestCase {
     /**
      * Test stars.
      */
-    public function testStar() {
+    public function testStar()
+    {
         $sacsManager = $this->getSacsManager();
         $handler = new UserRoleSacsHandler();
         // no default
@@ -60,7 +62,8 @@ class TestUserRoleSacsHandler extends TestCase {
     /**
      * Test users
      */
-    public function testUsers() {
+    public function testUsers()
+    {
         $sacsManager = $this->getSacsManager();
         $handler = new UserRoleSacsHandler();
         $this->assertTrue($handler->evaluate('plugins', new DummyUserRoleCredentials('dilbert'), $sacsManager));
@@ -70,7 +73,8 @@ class TestUserRoleSacsHandler extends TestCase {
     /**
      * Test roles
      */
-    public function testRoles() {
+    public function testRoles()
+    {
         $sacsManager = $this->getSacsManager();
         $handler = new UserRoleSacsHandler();
         $this->assertTrue($handler->evaluate('plugins', new DummyUserRoleCredentials(null, array('foo')), $sacsManager));
@@ -82,14 +86,16 @@ class TestUserRoleSacsHandler extends TestCase {
 /**
  * Test UserRoleCredentials
  */
-class DummyUserRoleCredentials implements UserRoleCredentials {
+class DummyUserRoleCredentials implements UserRoleCredentials
+{
     public $name;
     public $roles;
 
     /**
      * Create
      */
-    public function __construct($name=null, $roles=array()) {
+    public function __construct($name=null, $roles=array())
+    {
         $this->name = $name;
         $this->roles = $roles;
     }
@@ -97,14 +103,16 @@ class DummyUserRoleCredentials implements UserRoleCredentials {
     /**
      * {@inheritDoc}
      */
-    public function getName() {
+    public function getName()
+    {
         return $this->name;
     }
 
     /**
      * {@inheritDoc}
      */
-    public function hasRole($role) {
+    public function hasRole($role)
+    {
         return in_array($role, $this->roles);
     }
 

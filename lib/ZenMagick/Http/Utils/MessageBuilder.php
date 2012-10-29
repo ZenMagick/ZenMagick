@@ -33,7 +33,8 @@ use Symfony\Component\EventDispatcher\GenericEvent;
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class MessageBuilder extends ZMObject {
+class MessageBuilder extends ZMObject
+{
     private $view;
 
     /**
@@ -41,7 +42,8 @@ class MessageBuilder extends ZMObject {
      *
      * @param View view The view.
      */
-    public function setView(View $view) {
+    public function setView(View $view)
+    {
         $this->view = $view;
     }
 
@@ -50,7 +52,8 @@ class MessageBuilder extends ZMObject {
      *
      * @return View The view.
      */
-    public function getView() {
+    public function getView()
+    {
         return $this->view;
     }
 
@@ -60,7 +63,8 @@ class MessageBuilder extends ZMObject {
      * @param string template The full template name.
      * @return array Map of available formats with the template type (file extension) as value.
      */
-    public function getFormatsForTemplate($template) {
+    public function getFormatsForTemplate($template)
+    {
         $resourceResolver = $this->view->getResourceResolver();
         $formats = array();
 
@@ -87,7 +91,8 @@ class MessageBuilder extends ZMObject {
      * @return strintg The content.
      * @deprecated use createMessage(...) instead
      */
-    public function createContents($template, $html=false, $request, $context=array()) {
+    public function createContents($template, $html=false, $request, $context=array())
+    {
         $formats = $this->getFormatsForTemplate($template);
         if (0 == count($formats)) {
             // no template found
@@ -124,7 +129,8 @@ class MessageBuilder extends ZMObject {
      * @param array context Optional context parameter; default is an empty array.
      * @return mixed The message.
      */
-    public function createMessage($template, $html=false, $request, $context=array()) {
+    public function createMessage($template, $html=false, $request, $context=array())
+    {
         // event to allow additions to context or view or...
         $args = array('template' => $template, 'request' => $request, 'context' => $context);
         $event = new GenericEvent(null, $args);
@@ -159,7 +165,8 @@ class MessageBuilder extends ZMObject {
      * @param string charset Optional character set; default is <code>utf-8</code>>
      * @return mixed A message obect.
      */
-    public function getMessage($subject='', $body='', $contentType=null, $charset='utf-8') {
+    public function getMessage($subject='', $body='', $contentType=null, $charset='utf-8')
+    {
         return Swift_Message::newInstance($subject, $body, $contentType, $charset);
     }
 

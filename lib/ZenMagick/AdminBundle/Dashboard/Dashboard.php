@@ -28,15 +28,16 @@ use ZenMagick\Base\ZMObject;
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class Dashboard extends ZMObject {
-
+class Dashboard extends ZMObject
+{
     /**
      * Get the dashboard layout.
      *
      * @param int adminId The admin id.
      * @return string The layout.
      */
-    public function getLayout($adminId) {
+    public function getLayout($adminId)
+    {
         $config = $this->getConfig($adminId);
         return $config['layout'];
     }
@@ -47,7 +48,8 @@ class Dashboard extends ZMObject {
      * @param int adminId The admin id.
      * @return int The number of columns.
      */
-    public function getColumns($adminId) {
+    public function getColumns($adminId)
+    {
         $config = $this->getConfig($adminId);
         return preg_replace('/[^\d]/', '', $config['layout']);
     }
@@ -59,7 +61,8 @@ class Dashboard extends ZMObject {
      * @param int column The column.
      * @return array List of widgets.
      */
-    public function getWidgetsForColumn($adminId, $column) {
+    public function getWidgetsForColumn($adminId, $column)
+    {
         $config = $this->getConfig($adminId);
         $widgets = array();
         foreach ($config['widgets'][$column] as $def) {
@@ -78,7 +81,8 @@ class Dashboard extends ZMObject {
      * @param int adminId The admin id.
      * @return array List of all available widgets.
      */
-    public function getWidgetList($adminId) {
+    public function getWidgetList($adminId)
+    {
         // first collect **class** info for all used widgets
         $config = $this->getConfig($adminId);
         $inUse = array();
@@ -112,7 +116,8 @@ class Dashboard extends ZMObject {
      * @param int adminId The admin id.
      * @param string state The state as JSON.
      */
-    public function setState($adminId, $state) {
+    public function setState($adminId, $state)
+    {
         $this->container->get('adminUserPrefService')->setPrefForName($adminId, 'dashboard', $state);
     }
 
@@ -122,7 +127,8 @@ class Dashboard extends ZMObject {
      * @param int adminId The admin id.
      * @return array config map.
      */
-    public function getConfig($adminId) {
+    public function getConfig($adminId)
+    {
         $config = array();
         $dashboard = $this->container->get('adminUserPrefService')->getPrefForName($adminId, 'dashboard');
         if (empty($dashboard)) {

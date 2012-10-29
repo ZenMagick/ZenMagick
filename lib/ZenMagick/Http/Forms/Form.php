@@ -30,8 +30,8 @@ use ZenMagick\Http\Request;
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-interface Form {
-
+interface Form
+{
     /**
      * Populate this form from the given request.
      *

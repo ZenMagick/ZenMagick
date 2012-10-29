@@ -39,7 +39,8 @@ use ZenMagick\StoreBundle\Entity\Order\OrderTotalLine;
  * @ORM\Entity
  * @author DerManoMann
  */
-class Order extends ZMObject {
+class Order extends ZMObject
+{
     /**
      * @var integer $orderId
      *
@@ -414,7 +415,8 @@ class Order extends ZMObject {
     /**
      * Create order.
      */
-    public function __construct() {
+    public function __construct()
+    {
         parent::__construct();
         $this->setId(0);
         $this->accountId = 0;
@@ -426,7 +428,8 @@ class Order extends ZMObject {
      *
      * <p>This method may be called to reuse an existing instance.
      */
-    public function reset() {
+    public function reset()
+    {
         $this->account = null;
         $this->shippingAddress = null;
         $this->billingAddress = null;
@@ -503,7 +506,8 @@ class Order extends ZMObject {
      *
      * @return ZenMagick\StoreBundle\Entity\Account\Account The account.
      */
-    public function getAccount() {
+    public function getAccount()
+    {
         if (null === $this->account) {
             $this->account = Beans::getBean('ZenMagick\StoreBundle\Entity\Account\Account');
             $this->account->setAccountId($this->accountId);
@@ -529,7 +533,8 @@ class Order extends ZMObject {
     /**
      * Create address instance.
      */
-    private function mkAddress($prefix) {
+    private function mkAddress($prefix)
+    {
         $address = Beans::getBean('ZenMagick\StoreBundle\Entity\Address');
         $address->setAddressId(0);
         // orders has only name, not first/last...
@@ -548,7 +553,8 @@ class Order extends ZMObject {
     /**
      * Load address details.
      */
-    private function loadAddress($address, $prefix) {
+    private function loadAddress($address, $prefix)
+    {
         if (null == $address) {
             return;
         }
@@ -569,7 +575,8 @@ class Order extends ZMObject {
      *
      * @return ZenMagick\StoreBundle\Entity\Address The shipping address or <code>null</code>.
      */
-    public function getShippingAddress() {
+    public function getShippingAddress()
+    {
         if (null === $this->shippingAddress) {
             $this->shippingAddress = $this->mkAddress('delivery');
         }
@@ -581,7 +588,8 @@ class Order extends ZMObject {
      *
      * @param ZenMagick\StoreBundle\Entity\Address address The shipping address.
      */
-    public function setShippingAddress($address) {
+    public function setShippingAddress($address)
+    {
         $this->shippingAddress = $address;
         $this->loadAddress($address, 'delivery');
     }
@@ -591,7 +599,8 @@ class Order extends ZMObject {
      *
      * @return ZenMagick\StoreBundle\Entity\Address The billing address or <code>null</code>.
      */
-    public function getBillingAddress() {
+    public function getBillingAddress()
+    {
         if (null === $this->billingAddress) {
             $this->billingAddress = $this->mkAddress('billing');
         }
@@ -603,7 +612,8 @@ class Order extends ZMObject {
      *
      * @param ZenMagick\StoreBundle\Entity\Address address The billing address.
      */
-    public function setBillingAddress($address) {
+    public function setBillingAddress($address)
+    {
         $this->billingAddress = $address;
         $this->loadAddress($address, 'billing');
     }
@@ -613,7 +623,8 @@ class Order extends ZMObject {
      *
      * @return boolean <code>true</code> if a shipping address exists, <code>false</code> if not.
      */
-    public function hasShippingAddress() {
+    public function hasShippingAddress()
+    {
         $address = $this->getShippingAddress();
         return !(Toolbox::isEmpty($address->getLastName()) || Toolbox::isEmpty($address->getAddressLine1()));
     }
@@ -623,7 +634,8 @@ class Order extends ZMObject {
      *
      * @return array A list of <code>ZenMagick\StoreBundle\Entity\Order\OrderItem<code> instances.
      */
-    public function getOrderItems() {
+    public function getOrderItems()
+    {
         return $this->container->get('orderService')->getOrderItems($this->getId());
     }
 
@@ -633,7 +645,8 @@ class Order extends ZMObject {
      * @param int languageId The language id.
      * @return array A list of previous order stati.
      */
-    public function getOrderStatusHistory($languageId) {
+    public function getOrderStatusHistory($languageId)
+    {
         return $this->container->get('orderService')->getOrderStatusHistoryForId($this->getId(), $languageId);
     }
 
@@ -666,7 +679,8 @@ class Order extends ZMObject {
      *  does not contain the one requested.
      * @return ZenMagick\StoreBundle\Entity\Order\OrderTotalLine A <code>ZenMagick\StoreBundle\Entity\Order\OrderTotalLine</code> or <code>null</code>.
      */
-    public function getOrderTotalLinesForType($type, $force=false) {
+    public function getOrderTotalLinesForType($type, $force=false)
+    {
         $rawtype = 'ot_'.$type;
         $lines = array();
         foreach ($this->getOrderTotalLines() as $total) {
@@ -688,7 +702,8 @@ class Order extends ZMObject {
      * @param string type The total type (without the <em>ot_</em> prefix).
      * @return float The total amount for all total lines with the given type.
      */
-    public function getOrderTotalLineAmountForType($type) {
+    public function getOrderTotalLineAmountForType($type)
+    {
         $amount = 0;
         foreach ($this->getOrderTotalLinesForType($type) as $line) {
             $amount += $line->getAmount();
@@ -701,7 +716,8 @@ class Order extends ZMObject {
      *
      * @return boolean <code>true</code> if the order is store pickup, <code>false</code> if not.
      */
-    public function isStorePickup() {
+    public function isStorePickup()
+    {
         $totals = $this->getOrderTotalLines();
         foreach ($totals as $total) {
             // AAAAAAAAAAAAAAAAAAAAAAAAAAARRRRRRRRRRRRRRRRRHHHHHHHHHHH
@@ -718,7 +734,8 @@ class Order extends ZMObject {
      *
      * @return ZMPaymentType A payment type or <code>null</code> if N/A.
      */
-    public function getPaymentType() {
+    public function getPaymentType()
+    {
         return $this->container->get('paymentTypeService')->getPaymentTypeForId($this->get('payment_module_code'));
     }
 
@@ -727,7 +744,8 @@ class Order extends ZMObject {
      *
      * @return array List of <code>ZenMagick\StoreBundle\Entity\Order\Download</code> instances.
      */
-    public function getDownloads() {
+    public function getDownloads()
+    {
         return $this->container->get('orderService')->getDownloadsForOrderId($this->getId());
     }
 

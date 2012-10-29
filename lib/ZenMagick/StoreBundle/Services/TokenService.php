@@ -30,15 +30,16 @@ use ZenMagick\Base\ZMObject;
  *
  * @author DerManoMann
  */
-class TokenService extends ZMObject {
-
+class TokenService extends ZMObject
+{
     /**
      * Generate a random token.
      *
      * @param int length Optional length; default is <em>32</em>.
      * @return string The token.
      */
-    protected function createToken($length=32) {
+    protected function createToken($length=32)
+    {
         static $chars = '0123456789abcdef';
         $max= strlen($chars) - 1;
         $token = '';
@@ -57,7 +58,8 @@ class TokenService extends ZMObject {
      * @param int lifetime The lifetime of the new token (in seconds).
      * @return Token A token.
      */
-    public function getNewToken($resource, $lifetime) {
+    public function getNewToken($resource, $lifetime)
+    {
         $token = Beans::getBean('ZenMagick\StoreBundle\Entity\Token');
         $token->setHash($this->createToken());
         $token->setResource($resource);
@@ -74,7 +76,8 @@ class TokenService extends ZMObject {
      * @param Token token The token.
      * @param int lifetime The lifetime of the token (in seconds).
      */
-    public function updateToken($token, $lifetime) {
+    public function updateToken($token, $lifetime)
+    {
         $now = new DateTime();
         $token->setExpires($now->setTimestamp(time() + $lifetime));
         ZMRuntime::getDatabase()->updateModel('token', $token);
@@ -88,7 +91,8 @@ class TokenService extends ZMObject {
      * @param boolean expire Optional flag to invalidate a matching token; default is <code>true</code>.
      * @return Token A valid token or <code>null</code>.
      */
-    public function validateHash($resource, $hash, $expire=true) {
+    public function validateHash($resource, $hash, $expire=true)
+    {
         $sql = "SELECT * FROM %table.token%
                 WHERE hash = :hash AND resource = :resource AND expires >= now()";
         $token = ZMRuntime::getDatabase()->querySingle($sql, array('hash' => $hash, 'resource' => $resource), 'token', 'ZenMagick\StoreBundle\Entity\Token');
@@ -106,7 +110,8 @@ class TokenService extends ZMObject {
      * @param string resource The resource.
      * @return array A list of <code>Token</code>.
      */
-    public function getTokenForResource($resource) {
+    public function getTokenForResource($resource)
+    {
         $sql = "SELECT * FROM %table.token%
                 WHERE resource = :resource AND expires >= now()";
         return ZMRuntime::getDatabase()->fetchAll($sql, array('resource' => $resource), 'token', 'ZenMagick\StoreBundle\Entity\Token');
@@ -118,7 +123,8 @@ class TokenService extends ZMObject {
      * @param string hash The hash.
      * @return Token A <code>Token</code> or <code>null</code>.
      */
-    public function getTokenForHash($hash) {
+    public function getTokenForHash($hash)
+    {
         $sql = "SELECT * FROM %table.token%
                 WHERE hash = :hash AND expires >= now()";
         $results = ZMRuntime::getDatabase()->fetchAll($sql, array('hash' => $hash), 'token', 'ZenMagick\StoreBundle\Entity\Token');
@@ -138,7 +144,8 @@ class TokenService extends ZMObject {
      *
      * @param boolean all Optional flag to clear all token; default is false.
      */
-    public function clear($all=false) {
+    public function clear($all=false)
+    {
         if ($all) {
             $sql = "DELETE FROM %table.token%";
         } else {

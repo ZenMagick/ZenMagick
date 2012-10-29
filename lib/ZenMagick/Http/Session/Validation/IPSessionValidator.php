@@ -29,7 +29,8 @@ use ZenMagick\Http\Session\SessionValidator;
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class IPSessionValidator extends ZMObject implements SessionValidator {
+class IPSessionValidator extends ZMObject implements SessionValidator
+{
     /**
      * Name of the user agent session key.
      */
@@ -42,14 +43,16 @@ class IPSessionValidator extends ZMObject implements SessionValidator {
      *
      * @param boolean state The new state.
      */
-    public function setEnabled($state) {
+    public function setEnabled($state)
+    {
         $this->enabled = $state;
     }
 
     /**
      * {@inheritDoc}
      */
-    public function isValidSession(Request $request, Session $session) {
+    public function isValidSession(Request $request, Session $session)
+    {
         $valid = true;
         if ($this->enabled) {
             $ip = $request->getClientIp();

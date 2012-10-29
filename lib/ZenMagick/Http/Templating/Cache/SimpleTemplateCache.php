@@ -29,13 +29,15 @@ use ZenMagick\Http\Templating\TemplateCache;
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class SimpleTemplateCache extends ZMObject implements TemplateCache {
+class SimpleTemplateCache extends ZMObject implements TemplateCache
+{
     private $cache_;
 
     /**
      * {@inheritDoc}
      */
-    public function eligible($template) {
+    public function eligible($template)
+    {
 //        $this->container->get('logger')->debug('check if eligible: '.$templa);
         $settingsService = $this->container->get('settingsService');
         if (!$settingsService->exists('zenmagick.http.templating.cache.simple')) return;
@@ -45,14 +47,16 @@ class SimpleTemplateCache extends ZMObject implements TemplateCache {
     /**
      * {@inheritDoc}
      */
-    public function lookup($template) {
+    public function lookup($template)
+    {
         return $this->cache_->lookup($template);
     }
 
     /**
      * {@inheritDoc}
      */
-    public function save($template, $content) {
+    public function save($template, $content)
+    {
         $this->cache_->save($content, $template);
     }
 
@@ -61,7 +65,8 @@ class SimpleTemplateCache extends ZMObject implements TemplateCache {
      *
      * @param ZenMagick\Base\Cache\Cache cache The cache.
      */
-    public function setCache($cache) {
+    public function setCache($cache)
+    {
         $this->cache_ = $cache;
     }
 
@@ -70,7 +75,8 @@ class SimpleTemplateCache extends ZMObject implements TemplateCache {
      *
      * @return ZenMagick\Base\Cache\Cache The cache.
      */
-    public function getCache() {
+    public function getCache()
+    {
         return $this->cache_;
     }
 

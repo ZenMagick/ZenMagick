@@ -28,12 +28,13 @@ use ZenMagick\Base\Database\SqlAware;
  * @author DerManoMann
  * @package zenmagick.store.shared.mvc.resultlist.filter
  */
-class ZMOrderStatusIdFilter extends ZMResultListFilter implements SqlAware {
-
+class ZMOrderStatusIdFilter extends ZMResultListFilter implements SqlAware
+{
     /**
      * Create new instance.
      */
-    public function __construct() {
+    public function __construct()
+    {
         parent::__construct('ofilter', _zm('Order Status'), Runtime::getContainer()->get('request')->query->get('ofilter'));
     }
 
@@ -43,14 +44,16 @@ class ZMOrderStatusIdFilter extends ZMResultListFilter implements SqlAware {
      * @param mixed obj The obecjt to examine.
      * @return boolean <code>true</code> if the object is to be excluded, <code>false</code> if not.
      */
-    public function exclude($obj) {
+    public function exclude($obj)
+    {
         return !in_array($obj->getOrderStatusId(), $this->filterValues_);
     }
 
     /**
      * {@inheritDoc}
      */
-    public function getQueryDetails($method=null, $args=array()) {
+    public function getQueryDetails($method=null, $args=array())
+    {
         return new QueryDetails(ZMRuntime::getDatabase(), 'o.orders_status = 2');
     }
 

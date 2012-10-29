@@ -28,13 +28,15 @@ use ZenMagick\Base\ZMObject;
  *
  * @author DerManoMann
  */
-class SalemakerService extends ZMObject {
+class SalemakerService extends ZMObject
+{
     private $sales_;
 
     /**
      * Create new instance.
      */
-    public function __construct() {
+    public function __construct()
+    {
         parent::__construct();
         $this->sales_ = null;
     }
@@ -46,7 +48,8 @@ class SalemakerService extends ZMObject {
      * @param int categoryId Optional category id; default is <code>null</code> to use the default category.
      * @return array Discount type info.
      */
-    public function getSaleDiscountTypeInfo($productId, $categoryId=null) {
+    public function getSaleDiscountTypeInfo($productId, $categoryId=null)
+    {
         $product = $this->container->get('productService')->getProductForId($productId);
         if (null === $categoryId) {
             $categoryId = $product->getDefaultCategory(null)->getId();
@@ -87,7 +90,8 @@ class SalemakerService extends ZMObject {
         return array('type' => $saleDiscountType, 'amount' => $saleDiscount);
     }
 
-    public function runTasks() {
+    public function runTasks()
+    {
         $this->scheduleSales();
     }
 
@@ -97,7 +101,8 @@ class SalemakerService extends ZMObject {
      * Stops all sales scheduled for expiration
      * and starts all sales scheduled to be started.
      */
-    public function scheduleSales() {
+    public function scheduleSales()
+    {
         $sql = "SELECT sale_id, sale_status, sale_date_start, sale_date_end
                 FROM %table.salemaker_sales%";
         $container = $this->container;

@@ -28,7 +28,8 @@ use ZenMagick\Base\ZMObject;
  *
  * @author DerManoMann
  */
-class TemplateManager extends ZMObject {
+class TemplateManager extends ZMObject
+{
     const PAGE_TOP = 'top';
     const PAGE_BOTTOM = 'bottom';
     const PAGE_NOW = 'now';
@@ -42,7 +43,8 @@ class TemplateManager extends ZMObject {
     /**
      * Create new instance.
      */
-    public function __construct() {
+    public function __construct()
+    {
         parent::__construct();
         $this->leftColEnabled_ = true;
         $this->rightColEnabled_ = true;
@@ -98,7 +100,8 @@ class TemplateManager extends ZMObject {
      *
      * @return array Name of all boxes to be displayed.
      */
-    public function getLeftColBoxNames() {
+    public function getLeftColBoxNames()
+    {
         if (null != $this->leftColBoxes_) {
             return $this->leftColBoxes_;
         }
@@ -122,7 +125,8 @@ class TemplateManager extends ZMObject {
      *
      * @return array Name of all boxes to be displayed.
      */
-    public function getRightColBoxNames() {
+    public function getRightColBoxNames()
+    {
         if (null != $this->rightColBoxes_) {
             return $this->rightColBoxes_;
         }
@@ -149,7 +153,8 @@ class TemplateManager extends ZMObject {
      * @param string field The field/column name.
      * @return int The field length.
      */
-    public function getFieldLength($table, $field) {
+    public function getFieldLength($table, $field)
+    {
         if (!isset($this->tableMeta_[$table])) {
             $this->tableMeta_[$table] = \ZMRuntime::getDatabase()->getMetaData($table);
         }
@@ -163,7 +168,8 @@ class TemplateManager extends ZMObject {
      * @param int productId The product id.
      * @return string The template name to be used to display product details.
      */
-    public function getProductTemplate($productId) {
+    public function getProductTemplate($productId)
+    {
         // default
         $template = 'product';
 

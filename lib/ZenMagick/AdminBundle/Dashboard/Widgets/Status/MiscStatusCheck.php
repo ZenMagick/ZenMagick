@@ -27,14 +27,16 @@ use ZenMagick\StoreBundle\Widgets\StatusCheck;
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class MiscStatusCheck extends ZMObject implements StatusCheck {
+class MiscStatusCheck extends ZMObject implements StatusCheck
+{
     const ACTIVITY_LOG_RECORD_THRESHOLD = 50000;
     const ACTIVITY_LOG_DATE_THRESHOLD = 60;
 
     /**
      * {@inheritDoc}
      */
-    public function getStatusMessages() {
+    public function getStatusMessages()
+    {
         $messages = array();
 
         $result = \ZMRuntime::getDatabase()->querySingle('SELECT COUNT(log_id) AS counter from %table.admin_activity_log%', array(), 'admin_activity_log');

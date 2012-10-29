@@ -24,7 +24,8 @@ namespace ZenMagick\Base;
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class Toolbox {
+class Toolbox
+{
     /** Random type digits only. */
     const RANDOM_DIGITS = 'digits';
     /** Random type characters only. */
@@ -44,7 +45,8 @@ class Toolbox {
      *  Any other value will be used as the valid character range.
      * @return string The random string.
      */
-    public static function random($length, $type='mixed') {
+    public static function random($length, $type='mixed')
+    {
         static $types = array(
         self::RANDOM_DIGITS => '0123456789',
         self::RANDOM_CHARS => 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ',
@@ -73,7 +75,8 @@ class Toolbox {
      * @param mixed args..
      * @return array Recursively merged arrays.
      */
-    public static function arrayMergeRecursive() {
+    public static function arrayMergeRecursive()
+    {
         $arrays = func_get_args();
         $base = array_shift($arrays);
 
@@ -110,7 +113,8 @@ class Toolbox {
      * @param mixed value The value.
      * @return boolean The boolean value.
      */
-    public static function asBoolean($value) {
+    public static function asBoolean($value)
+    {
         if (is_integer($value)) {
             return (bool) $value;
         }
@@ -127,7 +131,8 @@ class Toolbox {
      * @param mixed value The value to convert; either already an array or a URL query form string.
      * @return array The value as array.
      */
-    public static function toArray($value) {
+    public static function toArray($value)
+    {
         if (null === $value) {
             return array();
         }
@@ -150,7 +155,8 @@ class Toolbox {
      * @param var arg Arguments.
      * @return string a unique key based on the arguments.
      */
-    public static function hash() {
+    public static function hash()
+    {
         $args = func_get_args();
         $key = '';
         foreach (func_get_args() as $arg) {
@@ -172,7 +178,8 @@ class Toolbox {
      * @param mixed value The value or array to check.
      * @return boolean <code>true</code> if the value is empty or <code>null</code>, <code>false</code> if not.
      */
-    public static function isEmpty($value) {
+    public static function isEmpty($value)
+    {
         return empty($value);
     }
 
@@ -184,7 +191,8 @@ class Toolbox {
      * @return boolean <code>true</code> if <code>$s</code> ends with <code>$start</code>,
      *  <code>false</code> if not.
      */
-    public static function endsWith($s, $end) {
+    public static function endsWith($s, $end)
+    {
         $endLen = strlen($end);
         return $end == substr($s, -$endLen);
     }
@@ -197,7 +205,8 @@ class Toolbox {
      * @param string name The name (file name, etc).
      * @return string A corresponding class name.
      */
-    public static function className($name) {
+    public static function className($name)
+    {
         // strip potential file extension and dir
         $classname = str_replace('.php', '', basename($name));
         // '_' == word boundary

@@ -38,7 +38,8 @@ use ZenMagick\Base\ZMObject;
  * @ORM\Entity
  * @author DerManoMann
  */
-class Category extends ZMObject {
+class Category extends ZMObject
+{
     /**
      * @var integer $categoryId
      *
@@ -115,7 +116,8 @@ class Category extends ZMObject {
     /**
      * Create new instance.
      */
-    public function __construct() {
+    public function __construct()
+    {
         parent::__construct();
 
         $this->children = new \Doctrine\Common\Collections\ArrayCollection();
@@ -151,7 +153,8 @@ class Category extends ZMObject {
      *
      * @return ZenMagick\StoreBundle\Entity\Catalog\Category The parent category or <code>null</code>.
      */
-    public function getParent() {
+    public function getParent()
+    {
         return 0 != $this->parentId ? $this->container->get('categoryService')->getCategoryForId($this->parentId, $this->languageId) : null;
     }
 
@@ -202,7 +205,8 @@ class Category extends ZMObject {
      *
      * @return array A list of <code>ZenMagick\StoreBundle\Entity\Catalog\Category</code> instances.
      */
-    public function getChildren() {
+    public function getChildren()
+    {
         return $this->container->get('categoryService')->getCategories($this->languageId, $this->childrenIds);
     }
 
@@ -211,7 +215,8 @@ class Category extends ZMObject {
      *
      * @param mixed child Either a category or category id.
      */
-    public function addChild($child) {
+    public function addChild($child)
+    {
         $id = ($child instanceof Category)  ? $child->getId() : $child;
         if (!in_array($id, $this->childrenIds)) {
             $this->childrenIds[] = $id;
@@ -223,7 +228,8 @@ class Category extends ZMObject {
      *
      * @param mixed child Either a category or category id.
      */
-    public function removeChild($child) {
+    public function removeChild($child)
+    {
         $cid = ($child instanceof Category)  ? $child->getId() : $child;
         $tmp = array();
         foreach ($this->childrenIds as $id) {
@@ -260,7 +266,8 @@ class Category extends ZMObject {
      *
      * @return ZMImageInfo The <code>ZMImageInfo</code> for this categorie's image, or <code>null</code>.
      */
-    public function getImageInfo() {
+    public function getImageInfo()
+    {
         if (null == $this->image) {
             return null;
         }
@@ -276,7 +283,8 @@ class Category extends ZMObject {
      *
      * @return array The category path as array of category ids with the last element being the products category.
      */
-    public function getPath() {
+    public function getPath()
+    {
         $path = array();
         array_push($path, $this->categoryId);
         $parent = $this->getParent();
@@ -358,7 +366,8 @@ class Category extends ZMObject {
      * @param boolean includeSelf Optional flag to include this category in the list; default is <code>true</code>.
      * @return array A list of category ids.
      */
-    public function getDecendantIds($includeSelf=true) {
+    public function getDecendantIds($includeSelf=true)
+    {
         $ids = array();
         if ($includeSelf) {
             $ids[] = $this->categoryId;
@@ -377,7 +386,8 @@ class Category extends ZMObject {
      *
      * @return array List of allowed product type ids (might be empty).
      */
-    public function getProductTypeIds() {
+    public function getProductTypeIds()
+    {
         return $this->container->get('categoryService')->getProductTypeIds($this->getId());
     }
 
@@ -387,7 +397,8 @@ class Category extends ZMObject {
      * @param int languageId The language id.
      * @return ZenMagick\StoreBundle\Entity\Catalog\MetaTagDetails The details or <code>null</code>.
      */
-    public function getMetaTagDetails($languageId) {
+    public function getMetaTagDetails($languageId)
+    {
         return $this->container->get('categoryService')->getMetaTagDetailsForId($this->getId(), $languageId);
     }
 

@@ -26,14 +26,15 @@ use ZenMagick\Base\ZMObject;
  *
  * @todo reuse most of the config service (configService)
  */
-class ProductTypeLayoutService extends ZMObject {
-
+class ProductTypeLayoutService extends ZMObject
+{
     /**
      * Load all configuration values.
      *
      * @return array Map of all configuration values.
      */
-    public function loadAll() {
+    public function loadAll()
+    {
         $map = array();
         $sql = "SELECT configuration_key, configuration_value FROM %table.product_type_layout%";
         foreach (\ZMRuntime::getDatabase()->fetchAll($sql) as $result) {
@@ -48,7 +49,8 @@ class ProductTypeLayoutService extends ZMObject {
      *
      * @param bool check Check if the defines exist.
      */
-    public function defineAll($check = false) {
+    public function defineAll($check = false)
+    {
         foreach ($this->loadAll() as $key => $value) {
             if ($check && !defined($key)) continue;
             define($key, $value);

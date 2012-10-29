@@ -26,12 +26,13 @@ use ZenMagick\Base\Beans;
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class BlockGroupAdminController extends \ZMController {
-
+class BlockGroupAdminController extends \ZMController
+{
     /**
      * {@inheritDoc}
      */
-    public function getViewData($request) {
+    public function getViewData($request)
+    {
         // need themes initialized
         $this->container->get('themeService')->initThemes();
 
@@ -54,7 +55,8 @@ class BlockGroupAdminController extends \ZMController {
     /**
      * {@inheritDoc}
      */
-    public function processGet($request) {
+    public function processGet($request)
+    {
         return $this->findView();
     }
 

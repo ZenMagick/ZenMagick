@@ -24,12 +24,13 @@ namespace ZenMagick\AdminBundle\Controller;
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class BlockGroupsController extends \ZMController {
-
+class BlockGroupsController extends \ZMController
+{
     /**
      * {@inheritDoc}
      */
-    public function getViewData($request) {
+    public function getViewData($request)
+    {
         $blockGroups = array();
         $configService = $this->container->get('configService');
         if (null == ($configValue = $configService->getConfigValue('ZENMAGICK_BLOCK_GROUPS'))) {
@@ -45,7 +46,8 @@ class BlockGroupsController extends \ZMController {
     /**
      * {@inheritDoc}
      */
-    public function processPost($request) {
+    public function processPost($request)
+    {
         $blockService = $this->container->get('blockService');
         $action = $request->request->get('action');
         switch ($action) {

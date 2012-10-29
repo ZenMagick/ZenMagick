@@ -27,15 +27,16 @@ use ZenMagick\Http\Sacs\SacsManager;
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class EditRoleController extends \ZMController {
-
+class EditRoleController extends \ZMController
+{
     /**
      * Get sacs permission infos.
      *
      * @param string role The role.
      * @return array Map of permissins.
      */
-    protected function getSacsPermissionInfo($role) {
+    protected function getSacsPermissionInfo($role)
+    {
         $permissions = array();
         // TODO: use db permissions only, not the merged manager mappings
         foreach ($this->container->get('sacsManager')->getMappings() as $requestId => $info) {
@@ -62,7 +63,8 @@ class EditRoleController extends \ZMController {
     /**
      * {@inheritDoc}
      */
-    public function getViewData($request) {
+    public function getViewData($request)
+    {
         $role = $request->getParameter('role');
         $permissions = $this->getSacsPermissionInfo($role);
         ksort($permissions);
@@ -72,14 +74,16 @@ class EditRoleController extends \ZMController {
     /**
      * {@inheritDoc}
      */
-    public function processGet($request) {
+    public function processGet($request)
+    {
         return $this->findView();
     }
 
     /**
      * {@inheritDoc}
      */
-    public function processPost($request) {
+    public function processPost($request)
+    {
         $role = $request->request->get('role');
 
         // changed permissions

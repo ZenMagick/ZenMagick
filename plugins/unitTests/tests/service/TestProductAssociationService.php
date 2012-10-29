@@ -26,12 +26,13 @@ use ZenMagick\plugins\unitTests\simpletest\TestCase;
  * @package org.zenmagick.plugins.zm_token.tests
  * @author DerManoMann <mano@zenmagick.org>
  */
-class TestProductAssociationService extends TestCase {
-
+class TestProductAssociationService extends TestCase
+{
     /**
      * Test simple handler.
      */
-    public function testSimpleHandler() {
+    public function testSimpleHandler()
+    {
         $productAssociationService = $this->container->get('productAssociationService');
 
         $assoc = $productAssociationService->getProductAssociationsForProductId(12, 'simple');

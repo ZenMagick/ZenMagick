@@ -27,7 +27,8 @@ use ZMController;
  *
  * @author DerManoMann
  */
-class PluginAdminController extends ZMController {
+class PluginAdminController extends ZMController
+{
     private $plugin_;
 
     /**
@@ -35,7 +36,8 @@ class PluginAdminController extends ZMController {
      *
      * @param mixed plugin The parent plugin.
      */
-    public function __construct($plugin) {
+    public function __construct($plugin)
+    {
         parent::__construct();
         $this->plugin_ = $plugin;
     }
@@ -45,7 +47,8 @@ class PluginAdminController extends ZMController {
      *
      * @param mixed plugin A <code>ZMPlugin</code> instance or plugin id.
      */
-    public function setPlugin($plugin) {
+    public function setPlugin($plugin)
+    {
         $this->plugin_ = $plugin;
     }
 
@@ -54,7 +57,8 @@ class PluginAdminController extends ZMController {
      *
      * @return ZMPlugin The plugin.
      */
-    public function getPlugin() {
+    public function getPlugin()
+    {
         if (!is_object($this->plugin_)) {
             $this->plugin_ = $this->container->get('pluginService')->getPluginForId($this->plugin_);
         }
@@ -65,7 +69,8 @@ class PluginAdminController extends ZMController {
     /**
      * {@inheritDoc}
      */
-    public function getViewData($request) {
+    public function getViewData($request)
+    {
         return array('plugin' => $this->getPlugin());
     }
 

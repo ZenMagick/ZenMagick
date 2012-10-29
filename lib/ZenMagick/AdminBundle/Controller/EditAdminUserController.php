@@ -27,12 +27,13 @@ use ZenMagick\Base\Toolbox;
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class EditAdminUserController extends \ZMController {
-
+class EditAdminUserController extends \ZMController
+{
     /**
      * {@inheritDoc}
      */
-    public function getFormData($request, $formDef=null, $formId=null) {
+    public function getFormData($request, $formDef=null, $formId=null)
+    {
         $adminUser = parent::getFormData($request, $formDef, $formId);
         if (!$this->isFormSubmit($request)) {
             if (0 < ($adminUserId = $request->query->get('adminUserId'))) {
@@ -53,14 +54,16 @@ class EditAdminUserController extends \ZMController {
     /**
      * {@inheritDoc}
      */
-    public function getViewData($request) {
+    public function getViewData($request)
+    {
         return array('roles' => $this->container->get('adminUserRoleService')->getAllRoles());
     }
 
     /**
      * {@inheritDoc}
      */
-    public function processPost($request) {
+    public function processPost($request)
+    {
         if ($this->handleDemo()) {
             return $this->findView('success');
         }

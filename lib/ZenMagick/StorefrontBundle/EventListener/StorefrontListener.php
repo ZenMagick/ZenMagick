@@ -33,12 +33,13 @@ use Symfony\Component\EventDispatcher\GenericEvent;
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class StorefrontListener extends ZMObject {
-
+class StorefrontListener extends ZMObject
+{
     /**
      * Handle 'showAll' parameter for result lists and provide empty address for guest checkout if needed.
      */
-    public function onViewStart($event) {
+    public function onViewStart($event)
+    {
         $request = $event->getArgument('request');
         $view = $event->getArgument('view');
         if ($view instanceof TemplateView) {
@@ -65,7 +66,8 @@ class StorefrontListener extends ZMObject {
     /**
      * Final cleanup.
      */
-    public function onAllDone($event) {
+    public function onAllDone($event)
+    {
         $request = $event->getArgument('request');
         // save url to be used as redirect in some cases
         if ('login' != $request->getRequestId() && 'logoff' != $request->getRequestId()) {
@@ -81,7 +83,8 @@ class StorefrontListener extends ZMObject {
      * Need to load themes before the container freezes...
      * @todo: what to do???
      */
-    public function onRequestReady($event) {
+    public function onRequestReady($event)
+    {
         $request = $event->getArgument('request');
         $session = $request->getSession();
         if (null == $session->get('cart')) {
@@ -98,7 +101,8 @@ class StorefrontListener extends ZMObject {
     /**
      * More store startup code.
      */
-    public function onContainerReady($event) {
+    public function onContainerReady($event)
+    {
         $request = $event->getArgument('request');
 
         $session = $request->getSession();
@@ -123,7 +127,8 @@ class StorefrontListener extends ZMObject {
     /**
      * Handle down for maintenance
      */
-    public function dfm($request) {
+    public function dfm($request)
+    {
         $settingsService = $this->container->get('settingsService');
         $downForMaintenance = $settingsService->get('apps.store.downForMaintenance', false);
         $adminIps = $settingsService->get('apps.store.adminOverrideIPs');
@@ -147,7 +152,8 @@ class StorefrontListener extends ZMObject {
     /**
      * Add storefront status messages
      */
-    public function addStatusMessages($request) {
+    public function addStatusMessages($request)
+    {
         $messages = array();
         foreach ($this->container->get('containerTagService')->findTaggedServiceIds('apps.store.admin.dashboard.widget.statusCheck') as $id => $args) {
             $statusCheck = $this->container->get($id);
@@ -170,8 +176,8 @@ class StorefrontListener extends ZMObject {
      *
      * @todo how much closer can we move it to the view layer?
      */
-    public function onThemeLoaded($event) {
-
+    public function onThemeLoaded($event)
+    {
         $settingsService = $this->container->get('settingsService');
         $templateManager = $this->container->get('templateManager');
         // TODO: do via admin and just load mapping from somewhere
@@ -222,7 +228,8 @@ class StorefrontListener extends ZMObject {
     /**
      * Create ZenMagick order created event that contains the order id.
      */
-    public function onNotifyCheckoutProcessAfterOrderCreateAddProducts($event) {
+    public function onNotifyCheckoutProcessAfterOrderCreateAddProducts($event)
+    {
         $args = array_merge($event->getArguments(), array('request' => $this->container->get('request'), 'orderId' => $_SESSION['order_number_created']));
         $event->getDispatcher()->dispatch('create_order', new GenericEvent($this, $args));
     }
@@ -230,7 +237,8 @@ class StorefrontListener extends ZMObject {
     /**
      * Fix category path.
      */
-    protected function fixCategoryPath($request) {
+    protected function fixCategoryPath($request)
+    {
         $languageId = $request->getSession()->getLanguageId();
         if (0 != ($productId = $request->query->get('productId'))) {
             if ($request->attributes->get('categoryIds')) {
@@ -286,7 +294,8 @@ class StorefrontListener extends ZMObject {
     /**
      * Check authorization for the current account.
      */
-    protected function checkAuthorization($request) {
+    protected function checkAuthorization($request)
+    {
         $account = $request->getAccount();
         if (null != $account && Accounts::AUTHORIZATION_PENDING == $account->getAuthorization()) {
             // @todo shouldn't use a hardcoded list.
@@ -304,7 +313,8 @@ class StorefrontListener extends ZMObject {
      *
      * @todo move redirects to a controller (which one?)
      */
-    public function configureLocale($request) {
+    public function configureLocale($request)
+    {
         $settingsService = $this->container->get('settingsService');
         $session = $request->getSession();
 

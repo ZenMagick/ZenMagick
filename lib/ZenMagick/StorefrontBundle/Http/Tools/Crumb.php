@@ -26,7 +26,8 @@ use ZenMagick\Base\ZMObject;
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class Crumb extends ZMObject {
+class Crumb extends ZMObject
+{
     private $name_;
     private $url_;
 
@@ -36,7 +37,8 @@ class Crumb extends ZMObject {
      * @param string name The name; default is <code>null</code>.
      * @param string url Optional url; default is <code>null</code>.
      */
-    public function __construct($name=null, $url=null) {
+    public function __construct($name=null, $url=null)
+    {
         parent::__construct();
         $this->name_ = $name;
         $this->url_ = $url;

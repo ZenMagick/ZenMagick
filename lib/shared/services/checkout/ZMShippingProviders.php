@@ -30,13 +30,15 @@ use ZenMagick\StoreBundle\Model\Checkout\ShoppingCart;
  * @author DerManoMann
  * @package zenmagick.store.shared.services.checkout
  */
-class ZMShippingProviders extends ZMObject {
+class ZMShippingProviders extends ZMObject
+{
     private $providers_;
 
     /**
      * Create new instance.
      */
-    public function __construct() {
+    public function __construct()
+    {
         parent::__construct();
         $this->providers_ = array();
     }
@@ -48,7 +50,8 @@ class ZMShippingProviders extends ZMObject {
      * @param boolean configured If <code>true</code>, return only configured provider; default is <code>false</code>.
      * @return ZMShippingProvider A shipping provider or <code>null</code>.
      */
-    public function getShippingProviderForId($shippingProviderId, $configured=false) {
+    public function getShippingProviderForId($shippingProviderId, $configured=false)
+    {
         if (null == $shippingProviderId) {
             return null;
         }
@@ -73,7 +76,8 @@ class ZMShippingProviders extends ZMObject {
      * @param boolean configured If <code>true</code>, return only configured provider; default is <code>true</code>.
      * @return array List of <code>ZMShippingProvider</code> instances.
      */
-    public function getShippingProviders($configured=true) {
+    public function getShippingProviders($configured=true)
+    {
         if (isset($this->providers_[$configured])) {
             return $this->providers_[$configured];
         }
@@ -154,7 +158,8 @@ class ZMShippingProviders extends ZMObject {
      * @param ZenMagick\StoreBundle\Entity\Address address The address.
      * @return array List of <code>ZMShippingProvider</code> instances.
      */
-    public function getShippingProvidersForAddress(ShoppingCart $shoppingCart, $address) {
+    public function getShippingProvidersForAddress(ShoppingCart $shoppingCart, $address)
+    {
         $available = array();
         foreach ($this->getShippingProviders() as $provider) {
             // check address

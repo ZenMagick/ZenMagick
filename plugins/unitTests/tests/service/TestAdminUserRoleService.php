@@ -26,12 +26,13 @@ use ZenMagick\plugins\unitTests\simpletest\TestCase;
  * @package org.zenmagick.plugins.unitTests.tests
  * @author DerManoMann <mano@zenmagick.org>
  */
-class TestAdminUserRoleService extends TestCase {
-
+class TestAdminUserRoleService extends TestCase
+{
     /**
      * Set up.
      */
-    public function setUp() {
+    public function setUp()
+    {
         parent::setUp();
         $adminUserRoleService = $this->container->get('adminUserRoleService');
         ZMRuntime::getDatabase()->executeUpdate('TRUNCATE TABLE %table.admin_roles%');
@@ -45,7 +46,8 @@ class TestAdminUserRoleService extends TestCase {
     /**
      * Tear down.
      */
-    public function tearDown() {
+    public function tearDown()
+    {
         parent::tearDown();
         $adminUserRoleService = $this->container->get('adminUserRoleService');
         ZMRuntime::getDatabase()->executeUpdate('TRUNCATE TABLE %table.admin_roles%');
@@ -58,7 +60,8 @@ class TestAdminUserRoleService extends TestCase {
     /**
      * Test get all roles.
      */
-    public function testGetAllRoles() {
+    public function testGetAllRoles()
+    {
         $expected = array(1 => 'admin', 2 => 'helpdesk');
         $roles = $this->container->get('adminUserRoleService')->getAllRoles();
         $this->assertEqual($expected, $roles);
@@ -67,7 +70,8 @@ class TestAdminUserRoleService extends TestCase {
     /**
      * Test get roles for id.
      */
-    public function testGetRolesForId() {
+    public function testGetRolesForId()
+    {
         $expected = array(1 => 'admin', 2 => 'helpdesk');
         $roles = $this->container->get('adminUserRoleService')->getRolesForId(1);
         $this->assertEqual($expected, $roles);
@@ -76,7 +80,8 @@ class TestAdminUserRoleService extends TestCase {
     /**
      * Test add role.
      */
-    public function testAddRole() {
+    public function testAddRole()
+    {
         $id = $this->container->get('adminUserRoleService')->addRole('customerservice');
         $this->assertTrue(0 < $id);
     }
@@ -84,7 +89,8 @@ class TestAdminUserRoleService extends TestCase {
     /**
      * Test delete role.
      */
-    public function testDeleteRole() {
+    public function testDeleteRole()
+    {
         $adminUserRoleService = $this->container->get('adminUserRoleService');
         $adminUserRoleService->addRole('customerservice');
         $expected = array(1 => 'admin', 2 => 'helpdesk', 3 => 'customerservice');
@@ -99,7 +105,8 @@ class TestAdminUserRoleService extends TestCase {
     /**
      * Test set roles for id.
      */
-    public function testSetRolesForId() {
+    public function testSetRolesForId()
+    {
         $adminUserRoleService = $this->container->get('adminUserRoleService');
         $adminUserRoleService->setRolesForId(1, array('admin'));
         $expected = array(1 => 'admin');

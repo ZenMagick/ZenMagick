@@ -26,21 +26,23 @@ use ZenMagick\plugins\unitTests\simpletest\TestCase;
  * @package org.zenmagick.plugins.whoIsOnline
  * @author DerManoMann <mano@zenmagick.org>
  */
-class TestWhoIsOnline extends TestCase {
-
+class TestWhoIsOnline extends TestCase
+{
     /**
      * Get the plugin.
      *
      * @return ZMPlugin The plugin.
      */
-    protected function getPlugin() {
+    protected function getPlugin()
+    {
         return $this->container->get('pluginService')->getPluginForId('whoIsOnline');
     }
 
     /**
      * Test get stats.
      */
-    public function testGetStatsOnly() {
+    public function testGetStatsOnly()
+    {
         $stats = $this->getPlugin()->getStats(false);
         $this->assertEqual(array('anonymous' => 1, 'registered' => 0, 'total' => 1), $stats);
     }
@@ -48,7 +50,8 @@ class TestWhoIsOnline extends TestCase {
     /**
      * Test get stats.
      */
-    public function testGetStatsAndExpire() {
+    public function testGetStatsAndExpire()
+    {
         $stats = $this->getPlugin()->getStats(true);
         $this->assertEqual(array('anonymous' => 1, 'registered' => 0, 'total' => 1), $stats);
     }
@@ -56,7 +59,8 @@ class TestWhoIsOnline extends TestCase {
     /**
      * Test sidebox full.
      */
-    public function testFull() {
+    public function testFull()
+    {
         /**
          * anonymous  registered   text
          *     0           0       There is currently no one online :).
@@ -102,7 +106,8 @@ class TestWhoIsOnline extends TestCase {
     /**
      * Test sidebox simple.
      */
-    public function testSimple() {
+    public function testSimple()
+    {
         $statsVariations = array(
             array('anonymous' => 1, 'registered' => 0, 'total' => 1, 'expected' => 'There are currently 1 guests and 0 registered users online.'),
             array('anonymous' => 0, 'registered' => 1, 'total' => 1, 'expected' => 'There are currently 0 guests and 1 registered users online.'),

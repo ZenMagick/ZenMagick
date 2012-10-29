@@ -29,12 +29,13 @@ define('MULTI_QUANTITY_ID', 'multi_qty_id');
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class MultiQuantityPlugin extends Plugin {
-
+class MultiQuantityPlugin extends Plugin
+{
     /**
      * Stop zen-cart processing multi quantity requests.
      */
-    public function onContainerReady($event) {
+    public function onContainerReady($event)
+    {
         $request = $event->getArgument('request');
         if (null != $request->getParameter(MULTI_QUANTITY_ID)) {
             // this is a multi quantity request, so leave it to the custom controller to handle

@@ -24,15 +24,16 @@
  * @author DerManoMann <mano@zenmagick.org>
  * @package org.zenmagick.mvc.validation.rules
  */
-class ZMEmailRule extends ZMRule {
-
+class ZMEmailRule extends ZMRule
+{
     /**
      * Create new email rule.
      *
      * @param string name The field name; default is <code>null</code>.
      * @param string msg Optional message; default is <code>null</code>.
      */
-    public function __construct($name=null, $msg=null) {
+    public function __construct($name=null, $msg=null)
+    {
         parent::__construct($name, "%s is not a valid email.", $msg);
     }
 
@@ -42,7 +43,8 @@ class ZMEmailRule extends ZMRule {
      *
      * @return string regexp for email matching.
      */
-    protected function emailRegexp() {
+    protected function emailRegexp()
+    {
         $atom = '[-a-zA-Z0-9!#$%&\'*+\/=?^_`{|}~]';
         $domain = '([a-zA-Z0-9]([-a-zA-Z0-9]*[a-zA-Z0-9]+)?)';
 
@@ -63,7 +65,8 @@ class ZMEmailRule extends ZMRule {
      * @param array data The data.
      * @return boolean <code>true</code> if the value for <code>$name</code> is valid, <code>false</code> if not.
      */
-    public function validate($request, $data) {
+    public function validate($request, $data)
+    {
         if (!array_key_exists($this->getName(), $data)) {
             return true;
         }
@@ -78,7 +81,8 @@ class ZMEmailRule extends ZMRule {
      *
      * @return string Formatted JavaScript .
      */
-    public function toJSString() {
+    public function toJSString()
+    {
         $js = "    new Array('regexp'";
         $js .= ",'".$this->getJSName()."'";
         $js .= ",'".addslashes($this->getErrorMsg())."'";

@@ -29,19 +29,21 @@ use ZenMagick\AdminBundle\Controller\PluginAdminController;
  *
  * @package org.zenmagick.plugins.subscriptions
  */
-class SubscriptionAdminController extends PluginAdminController {
-
+class SubscriptionAdminController extends PluginAdminController
+{
     /**
      * Create new instance.
      */
-    public function __construct() {
+    public function __construct()
+    {
         parent::__construct('subscriptions');
     }
 
     /**
      * {@inheritDoc}
      */
-    public function processGet($request) {
+    public function processGet($request)
+    {
         // get all subscription orders
         $sql = "SELECT orders_id FROM %table.orders%
                 WHERE  is_subscription = :subscription
@@ -66,7 +68,8 @@ class SubscriptionAdminController extends PluginAdminController {
     /**
      * {@inheritDoc}
      */
-    public function processPost($request) {
+    public function processPost($request)
+    {
         $orderId = $request->request->getInt('orderId');
         $cancel = $request->request->get('cancel');
         $hard = Toolbox::asBoolean($request->request->get('hard'), false);
@@ -95,7 +98,8 @@ class SubscriptionAdminController extends PluginAdminController {
      * @param string template The template.
      * @param string email The email address.
      */
-    protected function sendCancelEmail($order, $template, $email) {
+    protected function sendCancelEmail($order, $template, $email)
+    {
         $context = array();
         $context['order'] = $order;
         $context['plugin'] = $this->getPlugin();

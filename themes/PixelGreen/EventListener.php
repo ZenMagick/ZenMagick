@@ -27,12 +27,13 @@ use ZenMagick\StoreBundle\Themes\ThemeEventListener;
  * @author DerManoMann
  * @package zenmagick.themes.PixelGreen
  */
-class EventListener extends ThemeEventListener {
-
+class EventListener extends ThemeEventListener
+{
     /**
      * {@inheritDoc}
      */
-    public function themeLoaded($event) {
+    public function themeLoaded($event)
+    {
         $this->container->get('templateManager')->setRightColBoxes(array('search.php', 'categories.php', 'information.php'));
     }
 }

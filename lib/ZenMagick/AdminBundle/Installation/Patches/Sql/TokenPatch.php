@@ -26,7 +26,8 @@ use ZenMagick\AdminBundle\Installation\Patches\SQLPatch;
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class TokenPatch extends SQLPatch {
+class TokenPatch extends SQLPatch
+{
     public $sqlFiles_ = array(
         "token_install.sql"
     );
@@ -34,7 +35,8 @@ class TokenPatch extends SQLPatch {
     /**
      * Create new instance.
      */
-    public function __construct() {
+    public function __construct()
+    {
         parent::__construct('sqlToken');
         $this->label_ = 'Create the database table used by the token service';
         $this->setTables('token');
@@ -45,7 +47,8 @@ class TokenPatch extends SQLPatch {
      *
      * @return boolean <code>true</code> if this patch can still be applied.
      */
-    public function isOpen() {
+    public function isOpen()
+    {
         return !$this->tablesExist();
     }
 

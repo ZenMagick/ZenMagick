@@ -28,7 +28,8 @@ use PEAR\Cache\CacheLite;
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class MemoryCache implements Cache {
+class MemoryCache implements Cache
+{
     private $groups_;
     private $group_;
     private $cache_;
@@ -36,14 +37,16 @@ class MemoryCache implements Cache {
     /**
      * Create new instance.
      */
-    public function __construct() {
+    public function __construct()
+    {
         $groups_ = array();
     }
 
     /**
      * {@inheritDoc}
      */
-    public function init($group, $config) {
+    public function init($group, $config)
+    {
         // set these, all others are passed through 'as is'
         $config['memoryCaching'] = true;
         $config['onlyMemoryCaching'] = true;
@@ -60,49 +63,56 @@ class MemoryCache implements Cache {
     /**
      * {@inheritDoc}
      */
-    public function clear() {
+    public function clear()
+    {
         return $this->cache_->clean($this->group_);
     }
 
     /**
      * {@inheritDoc}
      */
-    public function lookup($id) {
+    public function lookup($id)
+    {
         return $this->cache_->get($id, $this->group_);
     }
 
     /**
      * {@inheritDoc}
      */
-    public function remove($id) {
+    public function remove($id)
+    {
         return $this->cache_->remove($id, $this->group_);
     }
 
     /**
      * {@inheritDoc}
      */
-    public function save($data, $id) {
+    public function save($data, $id)
+    {
         return $this->cache_->save($data, $id, $this->group_);
     }
 
     /**
      * {@inheritDoc}
      */
-    public function lastModified() {
+    public function lastModified()
+    {
         return $this->cache_->lastModified();
     }
 
     /**
      * {@inheritDoc}
      */
-    public function getStats() {
+    public function getStats()
+    {
         return array('lastModified' => time(), 'system' => $this->groups_);
     }
 
     /**
      * {@inheritDoc}
      */
-    public function setOption($key, $value) {
+    public function setOption($key, $value)
+    {
     }
 
 }

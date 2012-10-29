@@ -27,12 +27,13 @@ use ZenMagick\Http\View\TemplateView;
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class TextAreaFormWidget extends FormWidget implements WysiwygEditor {
-
+class TextAreaFormWidget extends FormWidget implements WysiwygEditor
+{
     /**
      * Create new instance.
      */
-    public function __construct() {
+    public function __construct()
+    {
         parent::__construct();
         $this->addAttributeNames(array('name', 'cols', 'rows', 'wrap', 'title'));
         // some defaults
@@ -43,7 +44,8 @@ class TextAreaFormWidget extends FormWidget implements WysiwygEditor {
     /**
      * {@inheritDoc}
      */
-    public function apply($request, TemplateView $templateView, $idList=null) {
+    public function apply($request, TemplateView $templateView, $idList=null)
+    {
         // nothing
         return '';
     }
@@ -51,7 +53,8 @@ class TextAreaFormWidget extends FormWidget implements WysiwygEditor {
     /**
      * {@inheritDoc}
      */
-    public function render($request, TemplateView $templateView) {
+    public function render($request, TemplateView $templateView)
+    {
         $value = $this->isEncode() ?Runtime::getContainer()->get('htmlTool')->encode($this->getValue()) : $this->getValue();
         return '<textarea'.$this->getAttributeString($request, false).'>'.$value.'</textarea>';
     }

@@ -26,12 +26,13 @@ use ZenMagick\plugins\unitTests\simpletest\TestCase;
  * @package org.zenmagick.plugins.unitTests.tests
  * @author DerManoMann <mano@zenmagick.org>
  */
-class TestZMImageInfo extends TestCase {
-
+class TestZMImageInfo extends TestCase
+{
     /**
      * Test split image name.
      */
-    public function testSplitImagename() {
+    public function testSplitImagename()
+    {
         $info = ZMImageInfo::splitImageName('/foo/bar/image.png');
         if ($this->assertTrue(is_array($info))) {
             if ($this->assertEqual(3, count($info))) {

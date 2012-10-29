@@ -27,13 +27,15 @@ use ZenMagick\Http\View\TemplateView;
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class RecentlyViewedPlugin extends Plugin {
+class RecentlyViewedPlugin extends Plugin
+{
     const RECENTLY_VIEWED_KEY = 'recentlyViewedProducts';
 
     /**
      * Handle auto login.
      */
-    public function onViewStart($event) {
+    public function onViewStart($event)
+    {
         $request = $event->getArgument('request');
         $view = $event->getArgument('view');
 

@@ -26,14 +26,16 @@ use ZenMagick\Base\Security\Authentication\AuthenticationProvider;
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class Sha1AuthenticationProvider implements AuthenticationProvider {
+class Sha1AuthenticationProvider implements AuthenticationProvider
+{
     /** Number of characters taken from the given salt to encrypt the password. */
     const SALT_LENGTH = 9;
 
     /**
      * {@inheritDoc}
      */
-    public function encryptPassword($plaintext, $salt=null) {
+    public function encryptPassword($plaintext, $salt=null)
+    {
         if (null === $salt) {
             $salt = substr(md5(uniqid(rand(), true)), 0, self::SALT_LENGTH);
         } else {
@@ -47,7 +49,8 @@ class Sha1AuthenticationProvider implements AuthenticationProvider {
     /**
      * {@inheritDoc}
      */
-    public function validatePassword($plaintext, $encrypted) {
+    public function validatePassword($plaintext, $encrypted)
+    {
         return $encrypted == $this->encryptPassword($plaintext, $encrypted);
     }
 

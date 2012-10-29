@@ -33,13 +33,15 @@ use Swift_Events_SendEvent;
  *
  * @author DerManoMann
  */
-class ZenCartTransport extends Swift_Transport_NullTransport {
+class ZenCartTransport extends Swift_Transport_NullTransport
+{
     private $_eventDispatcher;
 
     /**
      * Constructor.
      */
-    public function __construct(Swift_Events_EventDispatcher $eventDispatcher=null) {
+    public function __construct(Swift_Events_EventDispatcher $eventDispatcher=null)
+    {
         $eventDispatcher = Swift_DependencyContainer::getInstance()->lookup('transport.eventdispatcher');
         parent::__construct($eventDispatcher);
         // private, so keep own reference
@@ -54,7 +56,8 @@ class ZenCartTransport extends Swift_Transport_NullTransport {
      *
      * @return int The number of sent emails
      */
-    public function send(Swift_Mime_Message $message, &$failedRecipients = null) {
+    public function send(Swift_Mime_Message $message, &$failedRecipients = null)
+    {
         if ($evt = $this->_eventDispatcher->createSendEvent($this, $message)) {
             $this->_eventDispatcher->dispatchEvent($evt, 'beforeSendPerformed');
             if ($evt->bubbleCancelled()) {

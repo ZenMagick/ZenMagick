@@ -31,13 +31,15 @@ use ZenMagick\Base\ZMObject;
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class PhpBB3Adapter extends ZMObject {
+class PhpBB3Adapter extends ZMObject
+{
     private $database_;
 
     /**
      * Create new instance.
      */
-    public function __construct() {
+    public function __construct()
+    {
         parent::__construct();
         @define('IN_PHPBB', true);
         require ZM_PHPBB3_ROOT . 'config.php';
@@ -49,7 +51,8 @@ class PhpBB3Adapter extends ZMObject {
      *
      * @return ZenMagick\Base\Database\Connection A database handle.
      */
-    protected function getDatabase() {
+    protected function getDatabase()
+    {
         if (null == $this->database_) {
             // load phpBB3 config
             require ZM_PHPBB3_ROOT . 'config.php';
@@ -79,7 +82,8 @@ class PhpBB3Adapter extends ZMObject {
      * @param array data The request data.
      * @return boolean <code>true</code> if the nickname is valid, <code>false</code> if not.
      */
-    public function vDuplicateNickname($request, $data) {
+    public function vDuplicateNickname($request, $data)
+    {
         $sql = "SELECT username FROM " . USERS_TABLE . "
                 WHERE username = :username";
         return null == $this->getDatabase()->querySingle($sql, array('username' => $data['nickName']), USERS_TABLE);
@@ -92,7 +96,8 @@ class PhpBB3Adapter extends ZMObject {
      * @param array req The request data.
      * @return boolean <code>true</code> if the email is valid, <code>false</code> if not.
      */
-    public function vDuplicateEmail($request, $data) {
+    public function vDuplicateEmail($request, $data)
+    {
         return null == $this->getAccountForEmail($data['email']);
     }
 
@@ -103,7 +108,8 @@ class PhpBB3Adapter extends ZMObject {
      * @param array req The request data.
      * @return boolean <code>true</code> if the email is valid, <code>false</code> if not.
      */
-    public function vDuplicateChangedEmail($request, $data) {
+    public function vDuplicateChangedEmail($request, $data)
+    {
         // the current account
         $account = $request->getAccount();
         if ($account->getEmail() != $data['email']) {
@@ -118,7 +124,8 @@ class PhpBB3Adapter extends ZMObject {
      *
      * @return int The default group id or <code>false</code>.
      */
-    protected function getDefaultGroupId() {
+    protected function getDefaultGroupId()
+    {
         $sql = 'SELECT group_id
                 FROM ' . GROUPS_TABLE . "
                 WHERE group_name = 'REGISTERED'
@@ -134,7 +141,8 @@ class PhpBB3Adapter extends ZMObject {
      * @param string email The email address.
      * @return mixed A data array or <code>null</code>.
      */
-    protected function getAccountForEmail($email) {
+    protected function getAccountForEmail($email)
+    {
         $sql = "SELECT * FROM " . USERS_TABLE . "
                 WHERE user_email_hash = :user_email_hash";
         $email_hash = crc32(strtolower($email)) . strlen($email);
@@ -147,7 +155,8 @@ class PhpBB3Adapter extends ZMObject {
      * @param ZenMagick\StoreBundle\Entity\Account\Account account The store account.
      * @param string password The clear text password.
      */
-    public function createAccount($account, $password) {
+    public function createAccount($account, $password)
+    {
         $nickName = $account->getNickName();
         $email = $account->getEmail();
         if (false !== ($groupId = $this->getDefaultGroupId())) {
@@ -229,7 +238,8 @@ class PhpBB3Adapter extends ZMObject {
      * @param string email The email address.
      * @return boolean <code>true</code> on success.
      */
-    public function updateAccount($nickName, $password, $email) {
+    public function updateAccount($nickName, $password, $email)
+    {
         $data = $this->getAccountForEmail($email);
         if (null !== $data) {
             $authentication = new PhpBB3Authentication();
@@ -256,7 +266,8 @@ class PhpBB3Adapter extends ZMObject {
      * @param string email The email address.
      * @return boolean <code>true</code> on success.
      */
-    public function removeAccount($email) {
+    public function removeAccount($email)
+    {
         $data = $this->getAccountForEmail($email);
         if (null !== $data) {
             $this->getDatabase()->removeModel(USERS_TABLE, $data);

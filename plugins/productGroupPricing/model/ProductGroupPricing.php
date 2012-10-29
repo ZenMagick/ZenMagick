@@ -29,7 +29,8 @@ use ZenMagick\Base\ZMObject;
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class ProductGroupPricing extends ZMObject {
+class ProductGroupPricing extends ZMObject
+{
     private $id_;
     private $productId_;
     private $groupId_;
@@ -43,7 +44,8 @@ class ProductGroupPricing extends ZMObject {
     /**
      * Create new instance.
      */
-    public function __construct() {
+    public function __construct()
+    {
         parent::__construct();
 
         $this->id_ = 0;
@@ -62,7 +64,8 @@ class ProductGroupPricing extends ZMObject {
      *
      * @param ZenMagick\Http\Request request The current request.
      */
-    public function populate($request) {
+    public function populate($request)
+    {
         $this->id_ = $request->getParameter('groupPricingId', '0');
         $this->productId_ = $request->get('productId');
         $this->groupId_ = $request->getParameter('groupId', '0');

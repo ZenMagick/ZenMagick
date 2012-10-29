@@ -27,7 +27,8 @@ use ZenMagick\plugins\openID\OpenIDDatabaseStore;
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class OpenIDController extends ZMController {
+class OpenIDController extends ZMController
+{
     private $plugin_;
     private $returnTo_;
     private $sRegRequired_;
@@ -36,7 +37,8 @@ class OpenIDController extends ZMController {
     /**
      * Create new instance.
      */
-    public function __construct() {
+    public function __construct()
+    {
         parent::__construct();
         $this->plugin_ = $this->container->get('pluginService')->getPluginForId('openID');
         $this->returnTo_ = null;
@@ -47,14 +49,16 @@ class OpenIDController extends ZMController {
     /**
      * {@inheritDoc}
      */
-    public function preProcess($request) {
+    public function preProcess($request)
+    {
         $this->returnTo_ = str_replace('&amp;', '&', $this->container->get('netTool')->url('', 'action=finishAuth', true));
     }
 
     /**
      * {@inheritDoc}
      */
-    public function processGet($request) {
+    public function processGet($request)
+    {
         $action = $request->getParameter('action');
         if ('finishAuth' == $action) {
             $info = $this->finishAuthentication($openid);
@@ -79,7 +83,8 @@ class OpenIDController extends ZMController {
     /**
      * {@inheritDoc}
      */
-    public function processPost($request) {
+    public function processPost($request)
+    {
         if (!$this->validate($request, 'openid_login')) {
             return $this->findView('login');
         }
@@ -110,7 +115,8 @@ class OpenIDController extends ZMController {
      * @param ZenMagick\Http\Request request The current request.
      * @param string openid The OpenID to authenticate.
      */
-    private function initAuthentication($request, $openid) {
+    private function initAuthentication($request, $openid)
+    {
         $store = new OpenIDDatabaseStore();
         $consumer = new Auth_OpenID_Consumer($store);
         $auth_request = $consumer->begin($openid);
@@ -171,7 +177,8 @@ class OpenIDController extends ZMController {
      *
      * @return array OpenID details map or <code>null</code>.
      */
-    private function finishAuthentication() {
+    private function finishAuthentication()
+    {
         $store = new OpenIDDatabaseStore();
         $consumer = new Auth_OpenID_Consumer($store);
 

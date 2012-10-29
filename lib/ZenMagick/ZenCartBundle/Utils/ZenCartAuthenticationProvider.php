@@ -27,12 +27,13 @@ use ZenMagick\Base\Security\Authentication\AuthenticationProvider;
  *
  * @author DerManoMann
  */
-class ZenCartAuthenticationProvider implements AuthenticationProvider {
-
+class ZenCartAuthenticationProvider implements AuthenticationProvider
+{
     /**
      * {@inheritDoc}
      */
-    public function encryptPassword($plaintext, $salt=null) {
+    public function encryptPassword($plaintext, $salt=null)
+    {
         $password = '';
         for ($i=0; $i<10; $i++) {
             $password .= Toolbox::random(Toolbox::RANDOM_MIXED);
@@ -47,7 +48,8 @@ class ZenCartAuthenticationProvider implements AuthenticationProvider {
     /**
      * {@inheritDoc}
      */
-    public function validatePassword($plaintext, $encrypted) {
+    public function validatePassword($plaintext, $encrypted)
+    {
         if (!empty($plaintext) && !empty($encrypted)) {
             $stack = explode(':', $encrypted);
             if (sizeof($stack) != 2) return false;

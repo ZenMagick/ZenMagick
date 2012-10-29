@@ -6,9 +6,10 @@ use phprules\RuleContext;
 use phprules\CompositeRule;
 use ZenMagick\plugins\unitTests\simpletest\TestCase;
 
-class TestRules extends TestCase {
-
-    public function testRule() {
+class TestRules extends TestCase
+{
+    public function testRule()
+    {
         $rule = new SingleRule( 'passengerSuitableForUpgrade' );
         $ruleContext = new RuleContext( 'passengerIsSuitableForUpgrade' );
         // load the rule
@@ -44,7 +45,8 @@ class TestRules extends TestCase {
         $this->assertTrue($proposition->getValue());
     }
 
-    public function testRuleSet() {
+    public function testRuleSet()
+    {
         // class stuff
         $classRule = new SingleRule( 'classRule' );
         $classRule->addProposition( 'passengerIsGoldCardHolder', true );
@@ -83,7 +85,8 @@ class TestRules extends TestCase {
         $this->assertTrue($proposition->getValue());
     }
 
-    public function testIn() {
+    public function testIn()
+    {
         // rule with default null brand
         $brandRule = new SingleRule( 'brandRule' );
         $brandRule->addVariable( 'brandList', array() );

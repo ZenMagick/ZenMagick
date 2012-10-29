@@ -26,12 +26,13 @@ use ZenMagick\Base\Beans;
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class ProductReviewsController extends \ZMController {
-
+class ProductReviewsController extends \ZMController
+{
     /**
      * {@inheritDoc}
      */
-    public function processGet($request) {
+    public function processGet($request)
+    {
         $product = $this->container->get('productService')->getProductForId($request->query->get('productId'), $request->getSession()->getLanguageId());
         if (null == $product) {
             return $this->findView('product_not_found');

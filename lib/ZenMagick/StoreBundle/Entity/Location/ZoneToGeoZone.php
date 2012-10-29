@@ -30,7 +30,8 @@ use Doctrine\ORM\Mapping as ORM;
  * })
  * @ORM\Entity
  */
-class ZoneToGeoZone {
+class ZoneToGeoZone
+{
     /**
      * @var integer $zoneToGeoZoneId
      *

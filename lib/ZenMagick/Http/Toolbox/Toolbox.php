@@ -27,14 +27,16 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class Toolbox extends ContainerAware {
+class Toolbox extends ContainerAware
+{
     private $request;
     private $tools;
 
     /**
      * Create new instance.
      */
-    public function __construct() {
+    public function __construct()
+    {
         $this->request = null;
         $this->tools = null;
     }
@@ -44,7 +46,8 @@ class Toolbox extends ContainerAware {
      *
      * @param ZenMagick\Http\Request request The current request.
      */
-    public function setRequest($request) {
+    public function setRequest($request)
+    {
         $this->request = $request;
     }
 
@@ -53,7 +56,8 @@ class Toolbox extends ContainerAware {
      *
      * @return array A map of all available tools.
      */
-    public function getTools() {
+    public function getTools()
+    {
         return $this->tools;
     }
 
@@ -62,7 +66,8 @@ class Toolbox extends ContainerAware {
      *
      * @return array Map of all tools.
      */
-    protected function initTools() {
+    protected function initTools()
+    {
         $tools = array();
         foreach ($this->container->get('containerTagService')->findTaggedServiceIds('zenmagick.http.toolbox.tool') as $id => $args) {
             $key = null;
@@ -93,7 +98,8 @@ class Toolbox extends ContainerAware {
     /**
      * {@inheritDoc}
      */
-    public function setContainer(ContainerInterface $container=null) {
+    public function setContainer(ContainerInterface $container=null)
+    {
         parent::setContainer($container);
         if (null === $this->tools) {
             $this->tools = $this->initTools();

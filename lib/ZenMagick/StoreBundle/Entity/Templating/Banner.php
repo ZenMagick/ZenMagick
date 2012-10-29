@@ -35,7 +35,8 @@ use Doctrine\ORM\Mapping AS ORM;
  *  })
  * @ORM\Entity
  */
-class Banner extends ZMObject {
+class Banner extends ZMObject
+{
     /**
      * @var integer $id
      *
@@ -132,7 +133,8 @@ class Banner extends ZMObject {
     /**
      * Create new instance.
      */
-    public function __construct() {
+    public function __construct()
+    {
         parent::__construct();
         $this->title = null;
         $this->image = null;
@@ -300,7 +302,8 @@ class Banner extends ZMObject {
      *
      * @param boolean $status The banner status.
      */
-    public function setActive($status) {
+    public function setActive($status)
+    {
         $this->active = $status;
         $this->setDateStatusChange(new \DateTime());
     }

@@ -30,12 +30,13 @@ use ZenMagick\ZenCartBundle\DependencyInjection\ZenCartExtension;
  *
  * @author DerManoMann
  */
-class ZenCartBundle extends Bundle {
-
+class ZenCartBundle extends Bundle
+{
     /**
      * {@inheritDoc}
      */
-    public function build(ContainerBuilder $container) {
+    public function build(ContainerBuilder $container)
+    {
         parent::build($container);
         $container->registerExtension(new ZenCartExtension());
     }
@@ -43,7 +44,8 @@ class ZenCartBundle extends Bundle {
     /**
      * {@inheritDoc}
      */
-    public function boot() {
+    public function boot()
+    {
         $this->initClassLoader();
     }
 
@@ -51,7 +53,8 @@ class ZenCartBundle extends Bundle {
      * @todo Move this init back into ZenCartAutoLoader or an event
      * when we can lazy load the shopping cart class.
      */
-    public function initClassLoader() {
+    public function initClassLoader()
+    {
         $isAdmin = Runtime::isContextMatch('admin');
         !defined('IS_ADMIN_FLAG') && define('IS_ADMIN_FLAG', $isAdmin);
         $classLoader = new \Composer\AutoLoad\ClassLoader();
@@ -101,7 +104,8 @@ class ZenCartBundle extends Bundle {
     /**
      * {@inheritDoc}
      */
-    public function getContainerExtension() {
+    public function getContainerExtension()
+    {
         return new DependencyInjection\ZenCartExtension;
     }
 

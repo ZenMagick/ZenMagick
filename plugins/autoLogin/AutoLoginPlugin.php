@@ -30,13 +30,15 @@ define('AUTO_LOGIN_OPT_IN', 'autoLogin');
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class AutoLoginPlugin extends Plugin {
+class AutoLoginPlugin extends Plugin
+{
     private $cookieUpdated = false;
 
     /**
      * Handle auto login.
      */
-    public function onContainerReady($event) {
+    public function onContainerReady($event)
+    {
         $request = $event->getArgument('request');
 
         $session = $request->getSession();
@@ -70,7 +72,8 @@ class AutoLoginPlugin extends Plugin {
      * @param ZenMagick\Http\Request request The current request.
      * @return Token A token or <code>null</code>.
      */
-    protected function getRequestToken($request) {
+    protected function getRequestToken($request)
+    {
         $tokenService = $this->container->get('tokenService');
 
         // try cookie first
@@ -99,7 +102,8 @@ class AutoLoginPlugin extends Plugin {
      * @param ZenMagick\StoreBundle\Entity\Account\Account account The current account.
      * @return string The string.
      */
-    protected function getResource($account) {
+    protected function getResource($account)
+    {
         return 'auto_login/id/'.$account->getId();
     }
 
@@ -109,7 +113,8 @@ class AutoLoginPlugin extends Plugin {
      * @param ZenMagick\StoreBundle\Entity\Account\Account account The account.
      * @param string optIn The users optIn preference.
      */
-    protected function onOptIn($account, $optIn) {
+    protected function onOptIn($account, $optIn)
+    {
         $tokenService = $this->container->get('tokenService');
 
         if (!Toolbox::asBoolean($this->get('optIn')) || Toolbox::asBoolean($optIn)) {
@@ -132,7 +137,8 @@ class AutoLoginPlugin extends Plugin {
     /**
      * Event handler to update the cookie if required.
      */
-    public function onAllDone($event) {
+    public function onAllDone($event)
+    {
         $request = $event->getArgument('request');
         $session = $request->getSession();
         if ('GET' == $request->getMethod() && $session->isRegistered()) {
@@ -145,21 +151,24 @@ class AutoLoginPlugin extends Plugin {
     /**
      * Event handler for create account.
      */
-    public function onCreateAccount($event) {
+    public function onCreateAccount($event)
+    {
         $this->onOptIn($event->getArgument('account'), $event->getArgument('request')->request->get(AUTO_LOGIN_OPT_IN));
     }
 
     /**
      * Event handler for login.
      */
-    public function onLoginSuccess($event) {
+    public function onLoginSuccess($event)
+    {
         $this->onOptIn($event->getArgument('account'), $event->getArgument('request')->request->get(AUTO_LOGIN_OPT_IN));
     }
 
     /**
      * Event handler for logout.
      */
-    public function onLogoffSuccess($event) {
+    public function onLogoffSuccess($event)
+    {
         if (array_key_exists(AUTO_LOGIN_COOKIE, $_COOKIE)) {
             setcookie(AUTO_LOGIN_COOKIE, 'expired', time() - 3600);
             $this->cookieUpdated = true;

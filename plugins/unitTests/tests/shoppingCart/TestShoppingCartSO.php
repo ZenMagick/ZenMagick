@@ -24,12 +24,13 @@
  * @package org.zenmagick.plugins.unitTests.tests
  * @author DerManoMann <mano@zenmagick.org>
  */
-class TestShoppingCartSO extends ShoppingCartTestCaseBase {
-
+class TestShoppingCartSO extends ShoppingCartTestCaseBase
+{
     /**
      * Compare values for the given productIds using the service and order class data.
      */
-    protected function compareValues_Service_Order($ids) {
+    protected function compareValues_Service_Order($ids)
+    {
         $referenceCart = $this->getReferenceCart($ids);
 
         // load again from DB
@@ -54,28 +55,32 @@ class TestShoppingCartSO extends ShoppingCartTestCaseBase {
     /**
      * Test products comparing service and order data.
      */
-    public function testProductsSO_001_050() {
+    public function testProductsSO_001_050()
+    {
         $this->compareRange(1, 50, 'compareValues_Service_Order');
     }
 
     /**
      * Test products comparing service and order data.
      */
-    public function testProductsSO_051_100() {
+    public function testProductsSO_051_100()
+    {
         $this->compareRange(51, 100, 'compareValues_Service_Order');
     }
 
     /**
      * Test products comparing service and order data.
      */
-    public function testProductsSO_101_150() {
+    public function testProductsSO_101_150()
+    {
         $this->compareRange(101, 150, 'compareValues_Service_Order');
     }
 
     /**
      * Test products comparing service and order data.
      */
-    public function testProductsSO_151_200() {
+    public function testProductsSO_151_200()
+    {
         $this->compareRange(151, 200, 'compareValues_Service_Order');
     }
 

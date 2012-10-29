@@ -32,7 +32,8 @@ use Doctrine\ORM\Mapping AS ORM;
  *  })
  * @ORM\Entity
  */
-class TemplateSelect extends ZMObject {
+class TemplateSelect extends ZMObject
+{
     /**
      * @var integer $id
      *
@@ -63,7 +64,8 @@ class TemplateSelect extends ZMObject {
      */
     private $variationId;
 
-    public function __construct() {
+    public function __construct()
+    {
         $this->languageId = 0;
     }
 

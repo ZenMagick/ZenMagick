@@ -24,12 +24,13 @@
  * @package org.zenmagick.plugins.unitTests.tests
  * @author DerManoMann <mano@zenmagick.org>
  */
-class TestShoppingCart extends ShoppingCartTestCaseBase {
-
+class TestShoppingCart extends ShoppingCartTestCaseBase
+{
     /**
      * Test change quantity.
      */
-    public function testChangeQty() {
+    public function testChangeQty()
+    {
         $shoppingCart = $this->getShoppingCart();
         $shoppingCart->addProduct(12, 3);
 
@@ -52,7 +53,8 @@ class TestShoppingCart extends ShoppingCartTestCaseBase {
     /**
      * Test mkItemId.
      */
-    public function testMkItemId() {
+    public function testMkItemId()
+    {
         $products = array(
             5 => array(),
             '5:abc' => array(),

@@ -26,12 +26,13 @@ use ZenMagick\StoreBundle\Entity\Address;
  *
  * @author DerManoMann
  */
-class MockAddress extends Address {
-
+class MockAddress extends Address
+{
     /**
      * Create new instance.
      */
-    public function __construct() {
+    public function __construct()
+    {
         parent::__construct();
         $this->setFirstName('foo');
         $this->setLastName('bar');

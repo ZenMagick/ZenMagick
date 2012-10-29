@@ -27,13 +27,15 @@ use ZenMagick\Base\ZMObject;
  *
  * @author DerManoMann
  */
-class CurrencyService extends ZMObject {
+class CurrencyService extends ZMObject
+{
     private $currencies;
 
     /**
      * Create new instance.
      */
-    public function __construct() {
+    public function __construct()
+    {
         parent::__construct();
         $this->load();
     }
@@ -41,7 +43,8 @@ class CurrencyService extends ZMObject {
     /**
      * Load all currencies.
      */
-    private function load() {
+    private function load()
+    {
         $sql = "SELECT * FROM %table.currencies%";
         $this->currencies = array();
         foreach (ZMRuntime::getDatabase()->fetchAll($sql, array(), 'currencies', 'ZenMagick\StoreBundle\Entity\Locale\Currency') as $currency) {
@@ -70,7 +73,8 @@ class CurrencyService extends ZMObject {
      * @param string code The currency code.
      * @return boolean <code>true</code> if a currency exists for the given code, <code>false</code> if not.
      */
-    public function isValid($code) {
+    public function isValid($code)
+    {
         return null !== $this->getCurrencyForId($code);
     }
 

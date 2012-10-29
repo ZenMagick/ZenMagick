@@ -26,12 +26,13 @@ use ZenMagick\plugins\unitTests\simpletest\TestCase;
  * @package org.zenmagick.plugins.unitTests.tests
  * @author DerManoMann <mano@zenmagick.org>
  */
-class TestZMNetUtils extends TestCase {
-
+class TestZMNetUtils extends TestCase
+{
     /**
      * Test global.
      */
-    public function testGetDomain() {
+    public function testGetDomain()
+    {
         $netTool = $this->container->get('netTool');
         $this->assertEqual('google.com', $netTool->getDomain('http://www.google.com/test.html'));
         $this->assertEqual('google.co.uk', $netTool->getDomain('https://news.google.co.uk/?id=12345'));

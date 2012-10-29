@@ -27,12 +27,13 @@ use ZenMagick\plugins\unitTests\simpletest\TestCase;
  * @package org.zenmagick.plugins.unitTests.tests
  * @author DerManoMann <mano@zenmagick.org>
  */
-class TestZMObject extends TestCase {
-
+class TestZMObject extends TestCase
+{
     /**
      * Test property names.
      */
-    public function testPropertyNames() {
+    public function testPropertyNames()
+    {
         $obj = new ZMObject();
         $obj->set('foo', 'bar');
         $obj->set('deng', 'poh');
@@ -45,7 +46,8 @@ class TestZMObject extends TestCase {
     /**
      * Test properties.
      */
-    public function testProperties() {
+    public function testProperties()
+    {
         $obj = new ZMObject();
         $obj->set('foo', 'bar');
         $obj->set('deng', 'poh');

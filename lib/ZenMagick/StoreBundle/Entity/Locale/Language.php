@@ -34,7 +34,8 @@ use Doctrine\ORM\Mapping AS ORM;
  *  })
  * @ORM\Entity
  */
-class Language extends ZMObject {
+class Language extends ZMObject
+{
     /**
      * @var integer $languageId
      *

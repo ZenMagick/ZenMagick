@@ -27,7 +27,8 @@ use ZenMagick\Base\ZMException;
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class HtmlReporter extends BaseHtmlReporter {
+class HtmlReporter extends BaseHtmlReporter
+{
     private $currentCase_;
     private $currentTest_;
     private $results_;
@@ -39,7 +40,8 @@ class HtmlReporter extends BaseHtmlReporter {
      *
      * @param boolean hideErrors Optional flag to disable display of errors/exceptions; default is <code>false</code> to show exception.
      */
-    public function __construct($hideErrors=false) {
+    public function __construct($hideErrors=false)
+    {
         parent::__construct('ISO-8859-1');
         $this->currentCase_ = null;
         $this->currentTest_ = null;
@@ -53,7 +55,8 @@ class HtmlReporter extends BaseHtmlReporter {
      *
      * @return array A map of all results.
      */
-    public function getResults() {
+    public function getResults()
+    {
         return $this->results_;
     }
 
@@ -63,7 +66,8 @@ class HtmlReporter extends BaseHtmlReporter {
      * @param string testCase The test case.
      * @param string test The test.
      */
-    public function enableTest($testCase, $test) {
+    public function enableTest($testCase, $test)
+    {
         if (!array_key_exists($testCase, $this->enabled_)) {
             $this->enabled_[$testCase] = array();
         }
@@ -73,13 +77,15 @@ class HtmlReporter extends BaseHtmlReporter {
     /**
      * {@inheritDoc}
      */
-    public function paintHeader($name) {
+    public function paintHeader($name)
+    {
     }
 
     /**
      * {@inheritDoc}
      */
-    public function paintFooter($test_name) {
+    public function paintFooter($test_name)
+    {
         // paint, but we only want the actual view contents
         ob_start();
         parent::paintFooter($test_name);
@@ -90,14 +96,16 @@ class HtmlReporter extends BaseHtmlReporter {
     /**
      * {@inheritDoc}
      */
-    public function shouldInvoke($testCase, $test) {
+    public function shouldInvoke($testCase, $test)
+    {
         return array_key_exists($testCase, $this->enabled_) && array_key_exists($test, $this->enabled_[$testCase]);
     }
 
     /**
      * {@inheritDoc}
      */
-    public function paintCaseStart($testCase) {
+    public function paintCaseStart($testCase)
+    {
         parent::paintCaseStart($testCase);
         $this->currentCase_ = $testCase;
         $this->results_[$testCase] = array();
@@ -107,7 +115,8 @@ class HtmlReporter extends BaseHtmlReporter {
     /**
      * {@inheritDoc}
      */
-    public function paintCaseEnd($testCase) {
+    public function paintCaseEnd($testCase)
+    {
         parent::paintCaseEnd($testCase);
         $result = true;
         foreach ($this->results_[$testCase]['tests'] as $test => $details) {
@@ -123,7 +132,8 @@ class HtmlReporter extends BaseHtmlReporter {
     /**
      * {@inheritDoc}
      */
-    public function paintMethodStart($test) {
+    public function paintMethodStart($test)
+    {
         parent::paintMethodStart($test);
         $this->currentTest_ = $test;
         $this->results_[$this->currentCase_]['tests'][$this->currentTest_] = array();
@@ -135,7 +145,8 @@ class HtmlReporter extends BaseHtmlReporter {
     /**
      * {@inheritDoc}
      */
-    public function paintMethodEnd($test) {
+    public function paintMethodEnd($test)
+    {
         parent::paintMethodEnd($test);
         $this->currentTest_ = null;
     }
@@ -143,7 +154,8 @@ class HtmlReporter extends BaseHtmlReporter {
     /**
      * Display the test header if required.
      */
-    protected function ensureTestHeader() {
+    protected function ensureTestHeader()
+    {
         $info = $this->results_[$this->currentCase_]['tests'][$this->currentTest_];
         if (1 == (count($info['messages']) + count($info['exceptions']))) {
             echo '<div class="fail">'.$this->currentCase_.'::'.$this->currentTest_.':</div>';
@@ -153,7 +165,8 @@ class HtmlReporter extends BaseHtmlReporter {
     /**
      * {@inheritDoc}
      */
-    public function paintError($exception) {
+    public function paintError($exception)
+    {
         if ($this->hideErrors_) {
             return;
         }
@@ -163,7 +176,8 @@ class HtmlReporter extends BaseHtmlReporter {
     /**
      * {@inheritDoc}
      */
-    public function paintException($exception) {
+    public function paintException($exception)
+    {
         if ($this->hideErrors_) {
             return;
         }
@@ -187,14 +201,16 @@ class HtmlReporter extends BaseHtmlReporter {
     /**
      * {@inheritDoc}
      */
-    public function paintPass($message) {
+    public function paintPass($message)
+    {
         parent::paintPass($message);
     }
 
     /**
      * {@inheritDoc}
      */
-    public function paintSkip($message) {
+    public function paintSkip($message)
+    {
         // strip path from filename
         preg_match('/.* at \[(.*) line .*\]/', $message, $matches);
         if (2 == count($matches)) {
@@ -206,7 +222,8 @@ class HtmlReporter extends BaseHtmlReporter {
     /**
      * {@inheritDoc}
      */
-    public function paintFail($message) {
+    public function paintFail($message)
+    {
         ob_start(); parent::paintFail($message); $html = ob_get_clean();
         $html = preg_replace('#\[.*\\'.DIRECTORY_SEPARATOR.'#', '[', $html);
         echo $html;
@@ -216,7 +233,8 @@ class HtmlReporter extends BaseHtmlReporter {
     /**
      * Custom method to gain access to the fail info.
      */
-    public function zmPaintFail($info) {
+    public function zmPaintFail($info)
+    {
         $cmp = $info['expectation']->overlayMessage($info['compare'], $this->getDumper());
         $msg = sprintf('line %s: %s; %s', $info['line'], $cmp, $info['message']);
 

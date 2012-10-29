@@ -24,14 +24,15 @@ namespace ZenMagick\AdminBundle\Controller;
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class AjaxDashboardController extends \ZMRpcController {
-
+class AjaxDashboardController extends \ZMRpcController
+{
     /**
      * Save state.
      *
      * @param ZMRpcRequest rpcRequest The RPC request.
      */
-    public function saveState($rpcRequest) {
+    public function saveState($rpcRequest)
+    {
         $state = json_encode($rpcRequest->getData());
 
         $rpcResponse = $rpcRequest->createResponse();
@@ -46,7 +47,8 @@ class AjaxDashboardController extends \ZMRpcController {
      *
      * @param ZMRpcRequest rpcRequest The RPC request.
      */
-    public function getUpdateInfo($rpcRequest) {
+    public function getUpdateInfo($rpcRequest)
+    {
         $versionUrl = 'http://www.zenmagick.org/version';
         $settingsService = $this->container->get('settingsService');
 

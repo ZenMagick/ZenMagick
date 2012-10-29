@@ -28,12 +28,13 @@ use ZenMagick\plugins\unitTests\simpletest\TestCase;
  * @package org.zenmagick.plugins.unitTests.tests
  * @author DerManoMann <mano@zenmagick.org>
  */
-class TestResultListSupport extends TestCase {
-
+class TestResultListSupport extends TestCase
+{
     /**
      * Set up.
      */
-    public function setUp() {
+    public function setUp()
+    {
         parent::setUp();
         // all tests assume this
         Runtime::getSettings()->set('zenmagick.mvc.resultlist.defaultPagination', 10);
@@ -42,7 +43,8 @@ class TestResultListSupport extends TestCase {
     /**
      * Test search source.
      */
-    public function testSearchSourceOnly() {
+    public function testSearchSourceOnly()
+    {
         $criteria = Beans::getBean('ZMSearchCriteria');
         $criteria->setCategoryId(3);
         $criteria->setIncludeSubcategories(true);
@@ -69,7 +71,8 @@ class TestResultListSupport extends TestCase {
     /**
      * Test search source with result list.
      */
-    public function testSourceWithList() {
+    public function testSourceWithList()
+    {
         $criteria = Beans::getBean('ZMSearchCriteria');
         $criteria->setCategoryId(3);
         $criteria->setIncludeSubcategories(true);
@@ -97,7 +100,8 @@ class TestResultListSupport extends TestCase {
     /**
      * Test search source with result list and sorter.
      */
-    public function testSourceWithListAndSorter() {
+    public function testSourceWithListAndSorter()
+    {
         $criteria = Beans::getBean('ZMSearchCriteria');
         $criteria->setCategoryId(3);
         $criteria->setIncludeSubcategories(true);

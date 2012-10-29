@@ -43,12 +43,13 @@ use ZenMagick\Http\Rss\RssFeedGenerator;
  * @author DerManoMann <mano@zenmagick.org>
  * @todo caching
  */
-class RssController extends ZMObject {
-
+class RssController extends ZMObject
+{
     /**
      * {@inheritDoc}
      */
-    public function generate(Request $request, $channel, $key) {
+    public function generate(Request $request, $channel, $key)
+    {
         // find source
         $feed = null;
         $key = empty($key) ? null : $key;

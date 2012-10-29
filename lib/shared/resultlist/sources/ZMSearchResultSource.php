@@ -29,7 +29,8 @@ use ZenMagick\Base\ZMObject;
  * @author DerManoMann
  * @package zenmagick.store.shared.mvc.resultlist.sources
  */
-class ZMSearchResultSource extends ZMObject implements ZMResultSource {
+class ZMSearchResultSource extends ZMObject implements ZMResultSource
+{
     private $criteria_;
     private $resultList_;
     private $results_;
@@ -40,7 +41,8 @@ class ZMSearchResultSource extends ZMObject implements ZMResultSource {
      *
      * @param ZMSearchCriteria criteria The search criteria; default is <code>null</code>.
      */
-    public function __construct($criteria=null) {
+    public function __construct($criteria=null)
+    {
         parent::__construct();
         $this->criteria_ = $criteria;
         $this->results_ = null;
@@ -52,21 +54,24 @@ class ZMSearchResultSource extends ZMObject implements ZMResultSource {
      *
      * @param ZMSearchCriteria criteria The search criteria; default is <code>null</code>.
      */
-    public function setSearchCriteria($criteria) {
+    public function setSearchCriteria($criteria)
+    {
         $this->criteria_ = $criteria;
     }
 
     /**
      * {@inheritDoc}
      */
-    public function setResultList($resultList) {
+    public function setResultList($resultList)
+    {
         $this->resultList_ = $resultList;
     }
 
     /**
      * {@inheritDoc}
      */
-    public function getResults($reload=false) {
+    public function getResults($reload=false)
+    {
         if ($reload || null === $this->results_) {
             $finder = Beans::getBean('ZMProductFinder');
             $finder->setCriteria($this->criteria_);
@@ -96,14 +101,16 @@ class ZMSearchResultSource extends ZMObject implements ZMResultSource {
     /**
      * {@inheritDoc}
      */
-    public function getResultClass() {
+    public function getResultClass()
+    {
         return 'ZenMagick\StoreBundle\Entity\Catalog\Product';
     }
 
     /**
      * {@inheritDoc}
      */
-    public function getTotalNumberOfResults() {
+    public function getTotalNumberOfResults()
+    {
         $this->getResults();
         return $this->totalNumberOfResults_;
     }
@@ -111,7 +118,8 @@ class ZMSearchResultSource extends ZMObject implements ZMResultSource {
     /**
      * {@inheritDoc}
      */
-    public function isFinal() {
+    public function isFinal()
+    {
         return true;
     }
 

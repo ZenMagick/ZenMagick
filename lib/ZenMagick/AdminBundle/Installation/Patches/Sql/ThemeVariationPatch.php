@@ -26,7 +26,8 @@ use ZenMagick\AdminBundle\Installation\Patches\SQLPatch;
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class ThemeVariationPatch extends SQLPatch {
+class ThemeVariationPatch extends SQLPatch
+{
     public $sqlFiles_ = array(
         "theme_chaining_install.sql"
     );
@@ -37,7 +38,8 @@ class ThemeVariationPatch extends SQLPatch {
     /**
      * Create new instance.
      */
-    public function __construct() {
+    public function __construct()
+    {
         parent::__construct('sqlThemeVariation');
         $this->label_ = 'Create additional column for theme variation selection';
     }
@@ -47,7 +49,8 @@ class ThemeVariationPatch extends SQLPatch {
      *
      * @return boolean <code>true</code> if this patch can still be applied.
      */
-    public function isOpen() {
+    public function isOpen()
+    {
         $meta = \ZMRuntime::getDatabase()->getMetaData('template_select');
         return !array_key_exists('variation_dir', $meta);
     }

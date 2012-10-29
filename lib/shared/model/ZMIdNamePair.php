@@ -26,7 +26,8 @@ use ZenMagick\Base\ZMObject;
  * @author DerManoMann
  * @package zenmagick.store.shared.model
  */
-class ZMIdNamePair extends ZMObject {
+class ZMIdNamePair extends ZMObject
+{
     public $id_;
     public $name_;
 
@@ -36,7 +37,8 @@ class ZMIdNamePair extends ZMObject {
      * @param int id The id.
      * @param string name The name.
      */
-    public function __construct($id, $name) {
+    public function __construct($id, $name)
+    {
         parent::__construct();
         $this->id_ = $id;
         $this->name_ = $name;

@@ -26,19 +26,21 @@ use ZenMagick\AdminBundle\Dashboard\DashboardWidget;
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class PendingDashboardWidget extends DashboardWidget {
-
+class PendingDashboardWidget extends DashboardWidget
+{
     /**
      * Create new user.
      */
-    public function __construct() {
+    public function __construct()
+    {
         parent::__construct(_zm('Pending'));
     }
 
     /**
      * {@inheritDoc}
      */
-    public function getContents($request) {
+    public function getContents($request)
+    {
         // TODO: convert into ajax pull
         $net = $this->container->get('netTool');
         $contents = '';

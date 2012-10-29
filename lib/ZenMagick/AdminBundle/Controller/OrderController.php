@@ -24,12 +24,13 @@ namespace ZenMagick\AdminBundle\Controller;
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class OrderController extends \ZMController {
-
+class OrderController extends \ZMController
+{
     /**
      * {@inheritDoc}
      */
-    public function processGet($request) {
+    public function processGet($request)
+    {
         $orderId = $request->query->getInt('orderId');
         // TODO: language
         if (null == ($order = $this->container->get('orderService')->getOrderForId($orderId, 1))) {

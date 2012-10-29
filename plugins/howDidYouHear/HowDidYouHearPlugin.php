@@ -32,12 +32,13 @@ define('ID_SOURCE_OTHER', 9999);
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class HowDidYouHearPlugin extends Plugin {
-
+class HowDidYouHearPlugin extends Plugin
+{
     /**
      * {@inheritDoc}
      */
-    public function remove($keepSettings=false) {
+    public function remove($keepSettings=false)
+    {
         $conn = \ZMRuntime::getDatabase();
         $sm = $conn->getSchemaManager();
         $sm->dropTable($conn->getPrefix().'sources');
@@ -48,7 +49,8 @@ class HowDidYouHearPlugin extends Plugin {
     /**
      * {@inheritDoc}
      */
-    public function init() {
+    public function init()
+    {
         parent::init();
 
         $info = array('column' => 'customers_info_source_id', 'type' => 'integer');
@@ -61,14 +63,16 @@ class HowDidYouHearPlugin extends Plugin {
      * @param string requestId The current request id.
      * @return boolean <code>true</code> if we need to handle this request.
      */
-    protected function handleRequest($requestId) {
+    protected function handleRequest($requestId)
+    {
         return in_array($requestId, array('create_account', 'checkout_shipping_address'));
     }
 
     /**
      * Add validation rules.
      */
-    public function onContainerReady($event) {
+    public function onContainerReady($event)
+    {
         $request = $event->getArgument('request');
         if ($this->handleRequest($request->getRequestId())) {
             if ($this->isRequired()) {
@@ -86,7 +90,8 @@ class HowDidYouHearPlugin extends Plugin {
     /**
      * Add custom view data.
      */
-    public function onViewStart($event) {
+    public function onViewStart($event)
+    {
         $request = $event->getArgument('request');
         if ($this->handleRequest($request->getRequestId())) {
             // create sources list
@@ -132,7 +137,8 @@ class HowDidYouHearPlugin extends Plugin {
     /**
      * Custom create account processing
      */
-    public function onCreateAccount($event) {
+    public function onCreateAccount($event)
+    {
         $account = $event->getArgument('account');
         if (ID_SOURCE_OTHER == $account->getSourceId() && Account::GUEST != $account->getType()) {
             // need to store sourceOther
@@ -147,7 +153,8 @@ class HowDidYouHearPlugin extends Plugin {
      *
      * @return boolean <code>true</code> if displayOther is set.
      */
-    public function isDisplayOther() {
+    public function isDisplayOther()
+    {
         return Toolbox::asBoolean($this->get('displayOther'));
     }
 
@@ -156,7 +163,8 @@ class HowDidYouHearPlugin extends Plugin {
      *
      * @return boolean <code>true</code> if an answer is required.
      */
-    public function isRequired() {
+    public function isRequired()
+    {
         return Toolbox::asBoolean($this->get('requireSource'));
     }
 
@@ -165,7 +173,8 @@ class HowDidYouHearPlugin extends Plugin {
      *
      * @return boolean <code>true</code> if enabled.
      */
-    public function isEnableOnGuestCheckout() {
+    public function isEnableOnGuestCheckout()
+    {
         return Toolbox::asBoolean($this->get('enableOnGuestCheckout'));
     }
 

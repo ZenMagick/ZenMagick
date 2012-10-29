@@ -30,7 +30,8 @@ use ZenMagick\Http\Session\FlashBag;
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class Message {
+class Message
+{
     private $text_;
     private $type_;
     private $ref_;
@@ -42,7 +43,8 @@ class Message {
      * @param string type The message type; default is <em>FlashBag::T_MESSAGE</em>.
      * @param string ref The referencing resource; default is <code>FlashBag::REF_GLOBAL</code>.
      */
-    public function __construct($text='', $type=FlashBag::T_MESSAGE, $ref=FlashBag::REF_GLOBAL) {
+    public function __construct($text='', $type=FlashBag::T_MESSAGE, $ref=FlashBag::REF_GLOBAL)
+    {
         $this->text_ = $text;
         $this->type_ = $type;
         $this->ref_ = $ref;

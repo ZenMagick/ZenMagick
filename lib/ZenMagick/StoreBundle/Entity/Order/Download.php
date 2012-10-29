@@ -36,7 +36,8 @@ use ZenMagick\Base\ZMObject;
  * @ORM\Entity
  * @author DerManoMann
  */
-class Download extends ZMObject {
+class Download extends ZMObject
+{
     /**
      * @var integer $id
      *
@@ -223,7 +224,8 @@ class Download extends ZMObject {
      *
      * @return DateTime The expiry date.
      */
-    public function getExpiryDate() {
+    public function getExpiryDate()
+    {
         $expiry = clone $this->getOrderDate();
         //XX: use DateInterval in PHP5.3
         $expiry->modify('+'.$this->getMaxDays().' day');
@@ -235,7 +237,8 @@ class Download extends ZMObject {
      *
      * @return boolean <code>true</code> if this download is expired.
      */
-    public function isExpired() {
+    public function isExpired()
+    {
         $now = new \DateTime();
         $snow = $now->format('d-m-Y');
         $sexpiry = $this->getExpiryDate()->format('d-m-Y');
@@ -247,7 +250,8 @@ class Download extends ZMObject {
      *
      * @return boolean <code>true</code> if this download is (still) available for download.
      */
-    public function isDownloadable() {
+    public function isDownloadable()
+    {
         return file_exists(Runtime::getSettings()->get('downloadBaseDir').'/'.$this->filename)
             && (!$this->isLimited() || (0 < $this->downloadCount && !$this->isExpired()));
     }
@@ -257,7 +261,8 @@ class Download extends ZMObject {
      *
      * @return boolean <code>true</code> if this download is limited by date.
      */
-    public function isLimited() {
+    public function isLimited()
+    {
         return 0 != $this->maxDays;
     }
 
@@ -266,7 +271,8 @@ class Download extends ZMObject {
      *
      * @return long The filesize.
      */
-    public function getFileSize() {
+    public function getFileSize()
+    {
         return filesize(Runtime::getSettings()->get('downloadBaseDir').'/'.$this->filename);
     }
 

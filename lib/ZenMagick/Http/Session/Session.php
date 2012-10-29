@@ -33,7 +33,8 @@ use Symfony\Component\HttpFoundation\Session\Session as BaseSession;
  * @author DerManoMann <mano@zenmagick.org>
  * @todo allow to expire session after a given time (will need cookie update for each request)
  */
-class Session extends BaseSession implements ContainerAwareInterface {
+class Session extends BaseSession implements ContainerAwareInterface
+{
     /** A magic session key used to validate forms. */
     const SESSION_TOKEN_KEY = 'securityToken';
     /** The auto save namespace prefix for session keys. */
@@ -46,7 +47,8 @@ class Session extends BaseSession implements ContainerAwareInterface {
      *
      * This method restores persisted services.
      */
-    public function start() {
+    public function start()
+    {
         $started = parent::start();
         if ($started) {
             $this->restorePersistedServices();
@@ -54,14 +56,16 @@ class Session extends BaseSession implements ContainerAwareInterface {
         return $started;
     }
 
-    public function setContainer(ContainerInterface $container = null) {
+    public function setContainer(ContainerInterface $container = null)
+    {
         $this->container = $container;
     }
 
     /**
      * persist tagged services.
      */
-    protected function persistServices() {
+    protected function persistServices()
+    {
         $autoSave = array();
         foreach ($this->container->get('containerTagService')->findTaggedServiceIds('zenmagick.http.session.persist') as $id => $args) {
             // list of services to restore on instance
@@ -94,7 +98,8 @@ class Session extends BaseSession implements ContainerAwareInterface {
     /**
      * Restore persisted services.
      */
-    public function restorePersistedServices() {
+    public function restorePersistedServices()
+    {
         // restore persisted services
         foreach ((array) $this->get(self::AUTO_SAVE_KEY) as $id => $serdat) {
             $obj = unserialize($serdat['ser']);
@@ -129,7 +134,8 @@ class Session extends BaseSession implements ContainerAwareInterface {
      * @see persistServices()
      * @see parent::migrate()
      */
-    public function migrate($destroy = false, $lifetime = null) {
+    public function migrate($destroy = false, $lifetime = null)
+    {
         $lastSessionId = session_id();
         if (!$destroy) {
             $this->persistServices();
@@ -150,7 +156,8 @@ class Session extends BaseSession implements ContainerAwareInterface {
      *
      * @see peristServices
      */
-    public function save() {
+    public function save()
+    {
         $this->persistServices();
         parent::save();
     }
@@ -158,14 +165,16 @@ class Session extends BaseSession implements ContainerAwareInterface {
     /**
      * @see parent:set()
      */
-    public function setValue($name, $value=null) {
+    public function setValue($name, $value=null)
+    {
         $this->set($name, $value);
     }
 
     /**
      * @see parent::get()
      */
-    public function getValue($name, $default=null) {
+    public function getValue($name, $default=null)
+    {
         return $this->get($name, $default);
     }
 
@@ -178,7 +187,8 @@ class Session extends BaseSession implements ContainerAwareInterface {
      * @param string tokenKey Optional token key; default is <code>SESSION_TOKEN_KEY</code>.
      * @return string The token.
      */
-    public function getToken($renew=false, $tokenKey=self::SESSION_TOKEN_KEY) {
+    public function getToken($renew=false, $tokenKey=self::SESSION_TOKEN_KEY)
+    {
         if ($renew || null == $this->get($tokenKey)) {
             // in this case we really want a session!
             if (!$this->isStarted()) {
@@ -198,7 +208,8 @@ class Session extends BaseSession implements ContainerAwareInterface {
      *
      * @return mixed A user/credentials object. Default is <code>null</code>.
      */
-    public function getAccount() {
+    public function getAccount()
+    {
         if ($this->container->has('userFactory') && null != ($userFactory = $this->container->get('userFactory'))) {
             return $userFactory->getUser($this);
         }
@@ -214,7 +225,8 @@ class Session extends BaseSession implements ContainerAwareInterface {
      * @return ZMLanguage The selected language.
      * @todo REMOVE! very temporary
      */
-    public function getSelectedLanguage() {
+    public function getSelectedLanguage()
+    {
         $language = null;
         if (null != ($id = $this->get('languages_id'))) {
             $languageService = $this->container->get('languageService');

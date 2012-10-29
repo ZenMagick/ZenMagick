@@ -27,10 +27,12 @@ use Symfony\Component\Yaml\Yaml;
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class Settings {
+class Settings
+{
     protected $settings_ = array();
 
-    public function load($resource) {
+    public function load($resource)
+    {
         $this->setAll(Yaml::parse($resource));
     }
 
@@ -40,7 +42,8 @@ class Settings {
      * @param string path The path.
      * @return mixed Either an <code>array</code> with value, element name (the last path element) and parent container in it, or <code>null</code>.
      */
-    private function lookup($path) {
+    private function lookup($path)
+    {
         $current = &$this->settings_;
         foreach (explode('.', $path) as $element) {
             if (empty($element)) {
@@ -61,7 +64,8 @@ class Settings {
      * @param string path The path.
      * @return boolean <code>true</code> if the path exists.
      */
-    public function exists($path) {
+    public function exists($path)
+    {
         return null !== $this->lookup($path);
     }
 
@@ -72,7 +76,8 @@ class Settings {
      * @param mixed default Optional default value to be returned if the path doesn't exist; default is <code>null</code>.
      * @return mixed The value, the default value or <code>null</code>.
      */
-    public function get($path, $default=null) {
+    public function get($path, $default=null)
+    {
         if (null !== ($lookup = $this->lookup($path))) {
             return $lookup[0];
         }
@@ -87,7 +92,8 @@ class Settings {
      * @param mixed value The (new) value.
      * @return mixed The old value or <code>null</code>.
      */
-    public function set($path, $value) {
+    public function set($path, $value)
+    {
         if (null !== ($lookup = $this->lookup($path))) {
             $lookup[2][$lookup[1]] = $value;
             return $lookup[0];
@@ -117,7 +123,8 @@ class Settings {
      * @param string delim Optional delimiter to be used if the value exists and is not empty; default is <em>','</em>.
      * @return mixed The old value or <code>null</code>.
      */
-    public function append($path, $value, $delim=',') {
+    public function append($path, $value, $delim=',')
+    {
         if (null !== ($lookup = $this->lookup($path))) {
             $lookup[2][$lookup[1]] .= $delim.$value;
             return $lookup[0];
@@ -135,7 +142,8 @@ class Settings {
      * @param mixed value The value to append.
      * @return mixed The old value or <code>null</code>.
      */
-    public function add($path, $value) {
+    public function add($path, $value)
+    {
         if (null !== ($lookup = $this->lookup($path))) {
             if (!is_array($lookup[2][$lookup[1]])) {
                 $lookup[2][$lookup[1]] = array($lookup[2][$lookup[1]]);
@@ -155,7 +163,8 @@ class Settings {
      *
      * @return array Map of all settings.
      */
-    public function getAll() {
+    public function getAll()
+    {
         return $this->settings_;
     }
 
@@ -164,7 +173,8 @@ class Settings {
      *
      * @param mixed settings Either a map of settings or another <code>Settings</code> instance.
      */
-    public function setAll($settings) {
+    public function setAll($settings)
+    {
         if ($settings instanceof Settings) {
             $settings = $settings->getAll();
         }

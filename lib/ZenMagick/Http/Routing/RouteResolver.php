@@ -28,7 +28,8 @@ use ZenMagick\Http\View\TemplateView;
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class RouteResolver extends ZMObject {
+class RouteResolver extends ZMObject
+{
     const GLOBAL_ROUTING_KEY = 'zenmagick_global_routing';
 
     /**
@@ -36,7 +37,8 @@ class RouteResolver extends ZMObject {
      *
      * @return Router The router.
      */
-    public function getRouter() {
+    public function getRouter()
+    {
         return $this->container->get('router');
     }
 
@@ -46,7 +48,8 @@ class RouteResolver extends ZMObject {
      * @param string routeId The id.
      * @return mixed The route or <code>null</code>.
      */
-    public function getRouteForId($routeId) {
+    public function getRouteForId($routeId)
+    {
         return $this->getRouter()->getRouteCollection()->get($routeId);
     }
 
@@ -56,7 +59,8 @@ class RouteResolver extends ZMObject {
      * @param string uri The uri.
      * @return mixed The route or <code>null</code>.
      */
-    public function getRouteForUri($uri) {
+    public function getRouteForUri($uri)
+    {
         if (null != ($routerMatch = $this->getRouter()->match($uri))) {
             return $this->getRouteForId($routerMatch['_route']);
         }
@@ -73,7 +77,8 @@ class RouteResolver extends ZMObject {
      * @return View A view.
      * @todo: move into dispatcher and fix controller to return just string/string/data from process
      */
-    public function getViewForId($viewId, $request, array $data=array()) {
+    public function getViewForId($viewId, $request, array $data=array())
+    {
         $view = null;
         // build list of routes to look at
         $routeIds = array();

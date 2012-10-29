@@ -34,7 +34,8 @@ use ZenMagick\Base\Database\SqlAware;
  *
  * @author DerManoMann
  */
-class Products extends ZMObject implements SqlAware {
+class Products extends ZMObject implements SqlAware
+{
     // image size constants
     const IMAGE_SMALL = 'small';
     const IMAGE_MEDIUM = 'medium';
@@ -46,7 +47,8 @@ class Products extends ZMObject implements SqlAware {
     /**
      * Create new instance.
      */
-    public function __construct() {
+    public function __construct()
+    {
         parent::__construct();
         $this->categoryProductMap_ = null;
     }
@@ -56,7 +58,8 @@ class Products extends ZMObject implements SqlAware {
      *
      * @param ZenMagick\Base\Cache\Cache cache The cache.
      */
-    public function setCache($cache) {
+    public function setCache($cache)
+    {
         $this->cache_ = $cache;
     }
 
@@ -65,14 +68,16 @@ class Products extends ZMObject implements SqlAware {
      *
      * @return ZenMagick\Base\Cache\Cache The cache.
      */
-    public function getCache() {
+    public function getCache()
+    {
         return $this->cache_;
     }
 
     /**
      * {@inheritDoc}
      */
-    public function getQueryDetails($method=null, $args=array()) {
+    public function getQueryDetails($method=null, $args=array())
+    {
         $methods = array('getAllProducts', 'getProductsForCategoryId');
         if (in_array($method, $methods)) {
             return call_user_func_array(array($this, $method.'QueryDetails'), $args);
@@ -87,7 +92,8 @@ class Products extends ZMObject implements SqlAware {
      * @param int languageId Optional language id.
      * @return ZenMagick\Base\Database\QueryDetails Query details.
      */
-    protected function getAllProductsQueryDetails($active=true, $languageId) {
+    protected function getAllProductsQueryDetails($active=true, $languageId)
+    {
         $sql = "SELECT p.*, pd.*, s.specials_new_products_price
                 FROM %table.products% p
                   LEFT JOIN %table.specials% s ON (s.products_id = p.products_id AND s.status = 1),
@@ -109,7 +115,8 @@ class Products extends ZMObject implements SqlAware {
      * @param int languageId Language id.
      * @return array A list of product ids.
      */
-    public function getAllProductIds($active=true, $languageId) {
+    public function getAllProductIds($active=true, $languageId)
+    {
         $sql = "SELECT p.products_id
                 FROM %table.products% p, %table.products_description% pd
                 WHERE ";
@@ -134,7 +141,8 @@ class Products extends ZMObject implements SqlAware {
      * @param int languageId Language id.
      * @return array A list of <code>ZenMagick\StoreBundle\Entity\Catalog\Product</code> instances.
      */
-    public function getAllProducts($active=true, $languageId) {
+    public function getAllProducts($active=true, $languageId)
+    {
         $sql = "SELECT p.products_id
                 FROM %table.products% p, %table.products_description% pd
                 WHERE ";
@@ -164,7 +172,8 @@ class Products extends ZMObject implements SqlAware {
      * @param boolean includeChildren Optional flag to include subcategories; default is <code>false</code>.
      * @return array A list of product ids.
      */
-    public function getProductIdsForCategoryId($categoryId, $languageId, $active=true, $includeChildren=false) {
+    public function getProductIdsForCategoryId($categoryId, $languageId, $active=true, $includeChildren=false)
+    {
         // asuming that if we do this once we might do this more often...
         $mainKey = $active ? 'active' : 'all';
         $mainKey .= ':'.$languageId;
@@ -215,7 +224,8 @@ class Products extends ZMObject implements SqlAware {
      * @param int languageId Language id.
      * @return array A list of <code>ZenMagick\StoreBundle\Entity\Catalog\Product</code> instances.
      */
-    protected function getProductsForCategoryIdQueryDetails($categoryId, $active, $languageId) {
+    protected function getProductsForCategoryIdQueryDetails($categoryId, $active, $languageId)
+    {
         $sql = "SELECT p.*, pd.*, m.*, s.specials_new_products_price
                 FROM %table.products% p
                   LEFT JOIN %table.specials% s ON (s.products_id = p.products_id)
@@ -240,7 +250,8 @@ class Products extends ZMObject implements SqlAware {
      * @param int languageId Optional language id; default is <code>null</code> for session language.
      * @return array A list of <code>ZenMagick\StoreBundle\Entity\Catalog\Product</code> instances.
      */
-    public function getProductsForCategoryId($categoryId, $active=true, $languageId=null) {
+    public function getProductsForCategoryId($categoryId, $active=true, $languageId=null)
+    {
         return $this->getProductsForIds($this->getProductIdsForCategoryId($categoryId, $languageId, $active), true, $languageId);
     }
 
@@ -252,7 +263,8 @@ class Products extends ZMObject implements SqlAware {
      * @param int languageId Language id.
      * @return array A list of <code>ZenMagick\StoreBundle\Entity\Catalog\Product</code> instances.
      */
-    public function getProductsForManufacturerId($manufacturerId, $active=true, $languageId) {
+    public function getProductsForManufacturerId($manufacturerId, $active=true, $languageId)
+    {
         $sql = "SELECT p.products_id
                 FROM %table.products% p, %table.products_description% pd, %table.manufacturers% m
                 WHERE ";
@@ -283,7 +295,8 @@ class Products extends ZMObject implements SqlAware {
      * @param string fieldSuffix Optional field suffix; default is an empty string.
      * @return boolean <code>true</code> if the specified type option is enabled, <code>false</code> if not.
      */
-    public function getProductTypeSetting($productId, $field, $keyPprefix='_INFO', $keySuffix='SHOW_', $fieldPrefix= '_', $fieldSuffix='') {
+    public function getProductTypeSetting($productId, $field, $keyPprefix='_INFO', $keySuffix='SHOW_', $fieldPrefix= '_', $fieldSuffix='')
+    {
         $database = ZMRuntime::getDatabase();
         $sql = "select products_type from %table.products%
                 where products_id = :productId";
@@ -324,7 +337,8 @@ class Products extends ZMObject implements SqlAware {
      * @param int languageId Optional language id; default is <code>null</code> for session language.
      * @return array A list of <code>ZenMagick\StoreBundle\Entity\Catalog\Product</code> instances.
      */
-    public function getFeaturedProducts($categoryId=null, $max=0, $includeChildren=false, $languageId=null) {
+    public function getFeaturedProducts($categoryId=null, $max=0, $includeChildren=false, $languageId=null)
+    {
         $sql = null;
         if (null == $categoryId) {
             $sql = "select distinct p.products_id
@@ -362,7 +376,8 @@ class Products extends ZMObject implements SqlAware {
      * @param int languageId Optional language id; default is <code>null</code> for session language.
      * @return array A list of <code>ZenMagick\StoreBundle\Entity\Catalog\Product</code> instances.
      */
-    public function getNewProducts($categoryId=null, $max=0, $timeLimit=null, $languageId=null) {
+    public function getNewProducts($categoryId=null, $max=0, $timeLimit=null, $languageId=null)
+    {
         $timeLimit = (int) (null === $timeLimit ? Runtime::getSettings()->get('maxNewProducts') : $timeLimit);
 
         $queryLimit = '';
@@ -419,7 +434,8 @@ class Products extends ZMObject implements SqlAware {
      * @param int languageId Optional language id; default is <code>null</code> for session language.
      * @return array A list of <code>ZenMagick\StoreBundle\Entity\Catalog\Product</code> instances.
      */
-    public function getBestSellers($categoryId=null, $max=null, $languageId=null) {
+    public function getBestSellers($categoryId=null, $max=null, $languageId=null)
+    {
         $max = null === $max ? Runtime::getSettings()->get('maxBestSellers') : $max;
 
         $sql = null;
@@ -457,7 +473,8 @@ class Products extends ZMObject implements SqlAware {
      * @param int languageId Optional language id; default is <code>null</code> for session language.
      * @return array A list of <code>ZenMagick\StoreBundle\Entity\Catalog\Product</code> instances.
      */
-    public function getSpecials($max=null, $languageId=null) {
+    public function getSpecials($max=null, $languageId=null)
+    {
         $max = null === $max ? Runtime::getSettings()->get('maxSpecialProducts') : $max;
 
         $sql = "select distinct p.products_id
@@ -477,7 +494,8 @@ class Products extends ZMObject implements SqlAware {
      * @param int languageId Language id.
      * @return ZenMagick\StoreBundle\Entity\Catalog\Product The product or <code>null</code>.
      */
-    public function getProductForModel($model, $languageId) {
+    public function getProductForModel($model, $languageId)
+    {
         $sql = "SELECT p.*, pd.*, s.specials_new_products_price
                 FROM %table.products% p
                 LEFT JOIN %table.specials% s ON (s.products_id = p.products_id AND s.status = 1),
@@ -503,7 +521,8 @@ class Products extends ZMObject implements SqlAware {
      * @param int languageId Optional language id; default is <code>null</code> for session language.
      * @return ZenMagick\StoreBundle\Entity\Catalog\Product The product or <code>null</code>.
      */
-    public function getProductForId($productId, $languageId=null) {
+    public function getProductForId($productId, $languageId=null)
+    {
         if (null === $languageId) {
             $session = $this->container->get('session');
             $languageId = $session->getLanguageId();
@@ -539,7 +558,8 @@ class Products extends ZMObject implements SqlAware {
      * @param int languageId Optional language id; default is <code>null</code> for session language.
      * @return ZenMagick\StoreBundle\Entity\Catalog\Product The product or <code>null</code>.
      */
-    public function getProductsForIds($productIds, $preserveOrder=false, $languageId=null) {
+    public function getProductsForIds($productIds, $preserveOrder=false, $languageId=null)
+    {
         if (null === $languageId) {
             $session = $this->container->get('session');
             $languageId = $session->getLanguageId();
@@ -602,7 +622,8 @@ class Products extends ZMObject implements SqlAware {
      * @param ZenMagick\StoreBundle\Entity\Catalog\Product product The product.
      * @return ZenMagick\StoreBundle\Entity\Catalog\Product The updated product.
      */
-    public function updateProduct($product) {
+    public function updateProduct($product)
+    {
         ZMRuntime::getDatabase()->updateModel('products', $product);
         ZMRuntime::getDatabase()->updateModel('products_description', $product);
         ZMRuntime::getDatabase()->updateModel('meta_tags_products_description', $product->getMetaTagDetails());
@@ -621,7 +642,8 @@ class Products extends ZMObject implements SqlAware {
      * @param int productId The product id.
      * @param int languageId Language id.
      */
-    public function updateViewCount($productId, $languageId) {
+    public function updateViewCount($productId, $languageId)
+    {
         $sql = "UPDATE %table.products_description%
                 SET products_viewed = products_viewed+1
                 WHERE products_id = :productId
@@ -638,7 +660,8 @@ class Products extends ZMObject implements SqlAware {
      * @param mixed tables Optional list of mapping table(s); default is <code>'products'</code>.
      * @return array A list of product ids.
      */
-    private function getProductIds($sql, $args=array(), $tables='products') {
+    private function getProductIds($sql, $args=array(), $tables='products')
+    {
         $productIds = array();
         foreach (ZMRuntime::getDatabase()->fetchAll($sql, $args, $tables) as $result) {
             $productId = $result['productId'];
@@ -657,7 +680,8 @@ class Products extends ZMObject implements SqlAware {
      * @param mixed tables Optional list of mapping table(s); default is <code>'products'</code>.
      * @return array A list of product ids.
      */
-    private function getRandomProductIds($sql, $max=0, $args=array(), $tables='products') {
+    private function getRandomProductIds($sql, $max=0, $args=array(), $tables='products')
+    {
         $productIds = array();
         foreach (ZMRuntime::getDatabase()->fetchAll($sql, $args, $tables) as $result) {
             $productId = $result['productId'];
@@ -680,7 +704,8 @@ class Products extends ZMObject implements SqlAware {
      * @param int quantity The desired quantity.
      * @return boolean <code>true</code> if the requested quantity is available, <code>false</code> if not.
      */
-    public function isQuantityAvailable($productId, $quantity) {
+    public function isQuantityAvailable($productId, $quantity)
+    {
         $sql = "SELECT products_quantity
                 from %table.products%
                 where products_id = :productId";
@@ -700,7 +725,8 @@ class Products extends ZMObject implements SqlAware {
      * @param int languageId Optional language id; default is <code>null</code> for session language.
      * @return array A list of <code>ZenMagick\StoreBundle\Entity\Catalog\Product</code> instances.
      */
-    public function getProductsForSQL($sql, $languageId=null) {
+    public function getProductsForSQL($sql, $languageId=null)
+    {
         $productIds = $this->getProductIds($sql);
         return $this->getProductsForIds($productIds, true, $languageId);
     }
@@ -712,7 +738,8 @@ class Products extends ZMObject implements SqlAware {
      * @param int languageId Language id.
      * @return ZenMagick\StoreBundle\Entity\Catalog\MetaTagDetails The details or <code>null</code>.
      */
-    public function getMetaTagDetailsForId($productId, $languageId) {
+    public function getMetaTagDetailsForId($productId, $languageId)
+    {
         $sql = "SELECT * from %table.meta_tags_products_description%
                 WHERE products_id = :productId
                   AND language_id = :languageId";
@@ -725,7 +752,8 @@ class Products extends ZMObject implements SqlAware {
      *
      * @param int productId The id of the product to update.
      */
-    public function updateSortPrice($productId) {
+    public function updateSortPrice($productId)
+    {
         if (null != ($product = $this->getProductForId($productId))) {
             $product->setPriceSorter($product->getCalculatedPrice());
             $this->updateProduct($product);

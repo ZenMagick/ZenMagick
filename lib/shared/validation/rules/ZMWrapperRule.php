@@ -24,7 +24,8 @@
  * @author DerManoMann <mano@zenmagick.org>
  * @package org.zenmagick.mvc.validation.rules
  */
-class ZMWrapperRule extends ZMRule {
+class ZMWrapperRule extends ZMRule
+{
     private $function_;
     private $javascript_;
 
@@ -35,7 +36,8 @@ class ZMWrapperRule extends ZMRule {
      * @param string msg Optional message; default is <code>null</code>.
      * @param mixed function The function name or array; default is <code>null</code>.
      */
-    public function __construct($name=null, $msg=null, $function=null) {
+    public function __construct($name=null, $msg=null, $function=null)
+    {
         parent::__construct($name, "Please enter a value for %s.", $msg);
         $this->function_ = null;
         $this->setJavaScript('');
@@ -49,7 +51,8 @@ class ZMWrapperRule extends ZMRule {
      *
      * @param string function The function name.
      */
-    public function setFunction($function) {
+    public function setFunction($function)
+    {
         $this->function_ = $function;
     }
 
@@ -58,7 +61,8 @@ class ZMWrapperRule extends ZMRule {
      *
      * @param string javascript The javascript.
      */
-    public function setJavaScript($javascript) {
+    public function setJavaScript($javascript)
+    {
         $this->javascript = $javascript;
     }
 
@@ -69,7 +73,8 @@ class ZMWrapperRule extends ZMRule {
      * @param array data The data.
      * @return boolean <code>true</code> if the value for <code>$name</code> is valid, <code>false</code> if not.
      */
-    public function validate($request, $data) {
+    public function validate($request, $data)
+    {
         if (is_array($this->function_) && 2 == count($this->function_) && is_object($this->function_[0]) && is_string($this->function_[1])) {
             // expect object, method name
             $obj = $this->function_[0];
@@ -87,7 +92,8 @@ class ZMWrapperRule extends ZMRule {
      *
      * @return string Formatted JavaScript .
      */
-    public function toJSString() {
+    public function toJSString()
+    {
         return $this->javascript_;
     }
 

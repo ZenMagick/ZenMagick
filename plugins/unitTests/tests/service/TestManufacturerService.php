@@ -27,12 +27,13 @@ use ZenMagick\plugins\unitTests\simpletest\TestCase;
  * @package org.zenmagick.plugins.unitTests.tests
  * @author DerManoMann <mano@zenmagick.org>
  */
-class TestManufacturerService extends TestCase {
-
+class TestManufacturerService extends TestCase
+{
     /**
      * Test get for name.
      */
-    public function testGetForName() {
+    public function testGetForName()
+    {
         $manufacturer = $this->container->get('manufacturerService')->getManufacturerForName('Matrox', 1);
         $this->assertNotNull($manufacturer);
         $this->assertEqual(1, $manufacturer->getId());
@@ -41,7 +42,8 @@ class TestManufacturerService extends TestCase {
     /**
      * Test update manufacturer.
      */
-    public function testUpdateManufacturer() {
+    public function testUpdateManufacturer()
+    {
         $manufacturer = $this->container->get('manufacturerService')->getManufacturerForId(3, 1);
         $this->assertNotNull($manufacturer);
         $orgUrl = $manufacturer->getUrl();
@@ -60,7 +62,8 @@ class TestManufacturerService extends TestCase {
     /**
      * Test update click count.
      */
-    public function testUpdateClickCount() {
+    public function testUpdateClickCount()
+    {
         $manufacturer = $this->container->get('manufacturerService')->getManufacturerForId(3, 1);
         $this->assertNotNull($manufacturer);
 
@@ -75,7 +78,8 @@ class TestManufacturerService extends TestCase {
     /**
      * Test manufacturer without info record.
      */
-    public function testNoInfo() {
+    public function testNoInfo()
+    {
         // create new manufacturer without info record
         $newManufacturer = Beans::getBean('ZenMagick\StoreBundle\Entity\Catalog\Manufacturer');
         $newManufacturer->setName('Foo');

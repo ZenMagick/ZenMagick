@@ -27,7 +27,8 @@ use ZenMagick\AdminBundle\Utils\SQLRunner;
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class SQLPatch extends InstallationPatch {
+class SQLPatch extends InstallationPatch
+{
     protected $tables;
     protected $patchRoot;
     /**
@@ -35,17 +36,20 @@ class SQLPatch extends InstallationPatch {
      *
      * @param string id Id of the patch.
      */
-    public function __construct($id) {
+    public function __construct($id)
+    {
         parent::__construct($id);
         $this->tables = array();
         $this->patchRoot = dirname(__DIR__).'/etc';
     }
 
-    public function setTables($tables) {
+    public function setTables($tables)
+    {
         $this->tables = (array) $tables;
     }
 
-    public function getTables() {
+    public function getTables()
+    {
         $tables = array();
         foreach ($this->tables as $table) {
             $tables[] = \ZMRuntime::getDatabase()->getPrefix().$table;
@@ -58,7 +62,8 @@ class SQLPatch extends InstallationPatch {
      *
      * @return string The patch group id.
      */
-    public function getGroupId() {
+    public function getGroupId()
+    {
         return 'sql';
     }
 
@@ -69,11 +74,13 @@ class SQLPatch extends InstallationPatch {
      *
      * @return string The preconditions message or an empty string.
      */
-    public function getPreconditionsMessage() {
+    public function getPreconditionsMessage()
+    {
         return "";
     }
 
-    public function tablesExist() {
+    public function tablesExist()
+    {
         $sm = \ZMRuntime::getDatabase()->getSchemaManager();
         return $sm->tablesExist($this->getTables());
     }
@@ -83,7 +90,8 @@ class SQLPatch extends InstallationPatch {
      *
      * @return boolean <code>true</code> if patching was successful, <code>false</code> if not.
      */
-    public function undo() {
+    public function undo()
+    {
         if ($this->isOpen()) return true;
 
         $sm = \ZMRuntime::getDatabase()->getSchemaManager();
@@ -109,7 +117,8 @@ class SQLPatch extends InstallationPatch {
      *
      * @param string sql Some sql.
      */
-    public function _runSQL($sql) {
+    public function _runSQL($sql)
+    {
         $sql = trim(preg_replace('/[<>]/', '_', $sql));
         if (function_exists('get_magic_quotes_gpc') && get_magic_quotes_gpc()) {
             $sql = stripslashes($sql);
@@ -134,7 +143,8 @@ class SQLPatch extends InstallationPatch {
      *  disabled as per settings.
      * @return boolean <code>true</code> if patching was successful, <code>false</code> if not.
      */
-    public function patch($force=false) {
+    public function patch($force=false)
+    {
         $baseDir = $this->patchRoot;
         // do only interactive
         if ($force || $this->isOpen()) {

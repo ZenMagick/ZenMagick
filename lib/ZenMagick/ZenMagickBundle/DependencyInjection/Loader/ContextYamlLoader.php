@@ -28,14 +28,15 @@ use Symfony\Component\Yaml\Yaml;
  *
  *
  */
-class ContextYamlLoader extends YamlFileLoader {
-
+class ContextYamlLoader extends YamlFileLoader
+{
     /**
      * {@inheritDoc}
      *
      * Ignores everything but 'context'
      */
-    public function loadFile($file) {
+    public function loadFile($file)
+    {
         $context = $this->container->getParameter('kernel.context');
         $config = array();
         $yaml = Yaml::parse($file);
@@ -50,7 +51,8 @@ die(var_dump(__FILE__, $yaml));
         return $this->validate($config, $file);
     }
 
-    public function supports($resource, $type = null) {
+    public function supports($resource, $type = null)
+    {
         return is_string($resource) && 'yaml' === pathinfo($resource, PATHINFO_EXTENSION);
     }
 }

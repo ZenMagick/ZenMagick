@@ -26,12 +26,13 @@ use Symfony\Component\EventDispatcher\GenericEvent;
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class LogoffController extends \ZMController {
-
+class LogoffController extends \ZMController
+{
     /**
      * {@inheritDoc}
      */
-    public function processGet($request) {
+    public function processGet($request)
+    {
         // pre logoff account
         $account = $this->getUser();
 

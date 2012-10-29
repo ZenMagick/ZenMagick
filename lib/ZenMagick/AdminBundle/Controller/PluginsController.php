@@ -30,12 +30,13 @@ use ZenMagick\StoreBundle\Plugins\PluginOptionsLoader;
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class PluginsController extends \ZMController {
-
+class PluginsController extends \ZMController
+{
     /**
      * {@inheritDoc}
      */
-    public function getViewData($request) {
+    public function getViewData($request)
+    {
         $pluginList = $this->container->get('pluginService')->getAllPlugins(false);
         return array('pluginList' => $pluginList);
     }
@@ -47,7 +48,8 @@ class PluginsController extends \ZMController {
      * @return array Widget map.
      * @todo make more generic?
      */
-    protected function widgets(array $options) {
+    protected function widgets(array $options)
+    {
         $widgets = array();
         foreach ($options['properties'] as $name => $property) {
             $type = isset($property['type']) ? $property['type'] : 'text';
@@ -72,7 +74,8 @@ class PluginsController extends \ZMController {
      * @param Plugin plugin The plugin.
      * @return string The prefix.
      */
-    public static function prefix($plugin) {
+    public static function prefix($plugin)
+    {
         return strtoupper(PluginOptionsLoader::KEY_PREFIX . $plugin->getId() . '_');
     }
 
@@ -82,7 +85,8 @@ class PluginsController extends \ZMController {
      * @param Plugin plugin The plugin.
      * @param boolean keepSettings Flag to indicate whether to keep settings or not.
      */
-    protected function remove($plugin, $keepSettings) {
+    protected function remove($plugin, $keepSettings)
+    {
         $plugin->remove($keepSettings);
         $configService = $this->container->get('configService');
         $configPrefix = self::prefix($plugin);
@@ -100,7 +104,8 @@ class PluginsController extends \ZMController {
      *
      * @param Plugin plugin The plugin.
      */
-    protected function upgrade($plugin) {
+    protected function upgrade($plugin)
+    {
         $this->remove($plugin, true);
         $this->install($plugin);
     }
@@ -110,7 +115,8 @@ class PluginsController extends \ZMController {
      *
      * @param Plugin plugin The plugin.
      */
-    protected function install($plugin) {
+    protected function install($plugin)
+    {
         $configPrefix = self::prefix($plugin);
         $configService = $this->container->get('configService');
 
@@ -150,7 +156,8 @@ class PluginsController extends \ZMController {
      *
      * @param Plugin plugin The plugin.
      */
-    protected function setStatus($plugin, $status) {
+    protected function setStatus($plugin, $status)
+    {
         $configPrefix = self::prefix($plugin);
         $configService = $this->container->get('configService');
         $this->container->get('configService')->updateConfigValue($configPrefix.PluginOptionsLoader::KEY_ENABLED, $status);
@@ -159,7 +166,8 @@ class PluginsController extends \ZMController {
     /**
      * {@inheritDoc}
      */
-    public function processGet($request) {
+    public function processGet($request)
+    {
         $action = $request->getParameter('action');
         $pluginId = $request->getParameter('pluginId');
 
@@ -182,7 +190,8 @@ class PluginsController extends \ZMController {
     /**
      * {@inheritDoc}
      */
-    public function processPost($request) {
+    public function processPost($request)
+    {
         if ($this->handleDemo()) {
             return $this->findView('success-demo');
         }

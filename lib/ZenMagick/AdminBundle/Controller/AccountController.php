@@ -24,12 +24,13 @@ namespace ZenMagick\AdminBundle\Controller;
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class AccountController extends \ZMController {
-
+class AccountController extends \ZMController
+{
     /**
      * {@inheritDoc}
      */
-    public function getViewData($request) {
+    public function getViewData($request)
+    {
         $priceGroups = $this->container->get('groupPricingService')->getPriceGroups();
         return array('priceGroups' => array_merge(array(new \ZMIdNamePair(0, _zm('-- none --'))), $priceGroups));
     }
@@ -37,7 +38,8 @@ class AccountController extends \ZMController {
     /**
      * {@inheritDoc}
      */
-    public function processGet($request) {
+    public function processGet($request)
+    {
         $accountId = $request->query->get('accountId');
         if (null == ($account = $this->container->get('accountService')->getAccountForId($accountId))) {
             $this->messageService->error(sprintf(_zm('Account for account id %s not found'), $accountId));

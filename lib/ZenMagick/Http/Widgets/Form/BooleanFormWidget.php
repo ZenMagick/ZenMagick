@@ -36,12 +36,13 @@ use ZenMagick\Http\View\TemplateView;
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class BooleanFormWidget extends FormWidget {
-
+class BooleanFormWidget extends FormWidget
+{
     /**
      * Create new instance.
      */
-    public function __construct() {
+    public function __construct()
+    {
         parent::__construct();
         // defaults
         $this->set('style', 'checkbox');
@@ -55,7 +56,8 @@ class BooleanFormWidget extends FormWidget {
      *
      * @return boolean The value.
      */
-    public function getValue() {
+    public function getValue()
+    {
         return Toolbox::asBoolean(parent::getValue());
     }
 
@@ -65,7 +67,8 @@ class BooleanFormWidget extends FormWidget {
      * @param string name The name.
      * @return string The generated name for the hidden element.
      */
-    protected function getCheckboxHiddenValueName($name) {
+    protected function getCheckboxHiddenValueName($name)
+    {
         if (false === strpos($name, '[')) {
             return '_'.$name;
         }
@@ -79,7 +82,8 @@ class BooleanFormWidget extends FormWidget {
      * @param ZenMagick\Http\Request request The current request.
      * @return The rendered HTML.
      */
-    protected function renderCheckbox($request) {
+    protected function renderCheckbox($request)
+    {
         $slash = Runtime::getSettings()->get('zenmagick.http.html.xhtml') ? '/' : '';
         $checked = Runtime::getSettings()->get('zenmagick.http.html.xhtml') ? ' checked="checked"' : ' checked';
         $html = Runtime::getContainer()->get('htmlTool');
@@ -110,7 +114,8 @@ class BooleanFormWidget extends FormWidget {
      * @param ZenMagick\Http\Request request The current request.
      * @return The rendered HTML.
      */
-    protected function renderRadio($request) {
+    protected function renderRadio($request)
+    {
         $slash = Runtime::getSettings()->get('zenmagick.http.html.xhtml') ? '/' : '';
         $checked = Runtime::getSettings()->get('zenmagick.http.html.xhtml') ? ' checked="checked"' : ' checked';
         $html = Runtime::getContainer()->get('htmlTool');
@@ -136,7 +141,8 @@ class BooleanFormWidget extends FormWidget {
      * @param ZenMagick\Http\Request request The current request.
      * @return The rendered HTML.
      */
-    protected function renderSelect($request) {
+    protected function renderSelect($request)
+    {
         $slash = Runtime::getSettings()->get('zenmagick.http.html.xhtml') ? '/' : '';
         $selected = Runtime::getSettings()->get('zenmagick.http.html.xhtml') ? ' selected="selected"' : ' selected';
         $html = Runtime::getContainer()->get('htmlTool');
@@ -155,7 +161,8 @@ class BooleanFormWidget extends FormWidget {
     /**
      * {@inheritDoc}
      */
-    public function render($request, TemplateView $templateView) {
+    public function render($request, TemplateView $templateView)
+    {
         switch ($this->get('style')) {
             default:
                 Runtime::getLogging()->debug('invalid style "'.$this->get('style').'" - using default');
@@ -171,7 +178,8 @@ class BooleanFormWidget extends FormWidget {
     /**
      * {@inheritDoc}
      */
-    public function compare($value) {
+    public function compare($value)
+    {
         return Toolbox::asBoolean($value) == $this->getValue();
     }
 

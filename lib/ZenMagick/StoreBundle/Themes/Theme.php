@@ -28,7 +28,8 @@ use ZenMagick\Base\Utils\ContextConfigLoader;
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class Theme extends ZMObject {
+class Theme extends ZMObject
+{
     private $id;
     private $config;
     private $basePath;
@@ -37,7 +38,8 @@ class Theme extends ZMObject {
     /**
      * Create new instance.
      */
-    public function __construct() {
+    public function __construct()
+    {
         parent::__construct();
         $this->id = null;
         $this->config = array();
@@ -50,7 +52,8 @@ class Theme extends ZMObject {
      *
      * @param string id The theme id.
      */
-    public function setId($id) {
+    public function setId($id)
+    {
         $this->id = $id;
     }
 
@@ -59,7 +62,8 @@ class Theme extends ZMObject {
      *
      * @return string The theme id.
      */
-    public function getId() {
+    public function getId()
+    {
         return $this->id;
     }
 
@@ -68,7 +72,8 @@ class Theme extends ZMObject {
      *
      * @param string path The path.
      */
-    public function setBasePath($path) {
+    public function setBasePath($path)
+    {
         $this->basePath = $path;;
     }
 
@@ -77,7 +82,8 @@ class Theme extends ZMObject {
      *
      * @param string code The locale code.
      */
-    public function addLocale($code) {
+    public function addLocale($code)
+    {
         $this->locales[$code] = $code;
     }
 
@@ -86,7 +92,8 @@ class Theme extends ZMObject {
      *
      * @param array locales The locale codes.
      */
-    public function setLocales(array $locales) {
+    public function setLocales(array $locales)
+    {
         $this->locales = $locales;
     }
 
@@ -95,7 +102,8 @@ class Theme extends ZMObject {
      *
      * @return array The locale codes.
      */
-    public function getLocales() {
+    public function getLocales()
+    {
         return $this->locales;
     }
 
@@ -105,7 +113,8 @@ class Theme extends ZMObject {
      *
      * @return string The theme base directory.
      */
-    public function getBasePath() {
+    public function getBasePath()
+    {
         return $this->basePath;
     }
 
@@ -115,7 +124,8 @@ class Theme extends ZMObject {
      * @param string key Optional config key; default is <code>null</code> to return the full map.
      * @return mixed Theme config map, the value of a specific key or <code>null</code> for unknown keys.
      */
-    public function getConfig($key=null) {
+    public function getConfig($key=null)
+    {
         if (null == $key) {
             return $this->config;
         }
@@ -132,7 +142,8 @@ class Theme extends ZMObject {
      *
      * @return string The name.
      */
-    public function getName() {
+    public function getName()
+    {
         return $this->getMeta('name') ?: '??';
     }
 
@@ -142,7 +153,8 @@ class Theme extends ZMObject {
      * @param string key Optional meta  config key; default is <code>null</code> to return the full meata map.
      * @return mixed Theme config meta map, the value of a specific key or <code>null</code> for unknown keys.
      */
-    public function getMeta($key=null) {
+    public function getMeta($key=null)
+    {
         $meta = $this->getConfig('meta');
         if (null == $key) {
             return $meta;
@@ -158,7 +170,8 @@ class Theme extends ZMObject {
      *
      * @param array config The new config map.
      */
-    public function setConfig($config) {
+    public function setConfig($config)
+    {
         $this->config = $config;
     }
 
@@ -168,7 +181,8 @@ class Theme extends ZMObject {
      * @param mixed key The config key or an array to set all.
      * @param mixed value The value.
      */
-    public function setConfigValue($key, $value) {
+    public function setConfigValue($key, $value)
+    {
         if (is_array($key)) {
             $this->config = $key;
             return;
@@ -181,7 +195,8 @@ class Theme extends ZMObject {
      *
      * @return string A full filename denoting the themes boxes directory.
      */
-    public function getBoxesDir() {
+    public function getBoxesDir()
+    {
         return $this->getBasePath() . '/templates/boxes';
     }
 
@@ -190,7 +205,8 @@ class Theme extends ZMObject {
      *
      * @return string A full path to the theme views  folder.
      */
-    public function getViewsPath() {
+    public function getViewsPath()
+    {
         return $this->getBasePath() . '/templates/views';
     }
 
@@ -199,7 +215,8 @@ class Theme extends ZMObject {
      *
      * @return string A full path to the theme's template folder.
      */
-    public function getTemplatePath() {
+    public function getTemplatePath()
+    {
         return $this->getBasePath() . '/templates';
     }
 
@@ -208,7 +225,8 @@ class Theme extends ZMObject {
      *
      * @return string A full path to the theme's resources folder.
      */
-    public function getResourcePath() {
+    public function getResourcePath()
+    {
         return $this->getBasePath() . '/public';
     }
 
@@ -219,7 +237,8 @@ class Theme extends ZMObject {
      * @param int languageId Language id.
      * @return array List of available static page names.
      */
-    public function getStaticPageList($includeDefaults=false, $languageId) {
+    public function getStaticPageList($includeDefaults=false, $languageId)
+    {
         $language = $this->container->get('languageService')->getLanguageForId($languageId);
         $languageDir = $language->getDirectory();
         $path = $this->getBasePath() . '/lang/'.$languageDir."/".'static/';
@@ -254,7 +273,8 @@ class Theme extends ZMObject {
      * @param int languageId Language id.
      * @return boolean The status.
      */
-    public function saveStaticPageContent($page, $contents, $languageId) {
+    public function saveStaticPageContent($page, $contents, $languageId)
+    {
         $language = $this->container->get('languageService')->getLanguageForId($languageId);
         $languageDir = $language->getDirectory();
         $settingsService = $this->container->get('settingsService');
@@ -287,7 +307,8 @@ class Theme extends ZMObject {
      * @param int languageId Language id.
      * @return string The content or <code>null</code>.
      */
-    public function staticPageContent($page, $languageId) {
+    public function staticPageContent($page, $languageId)
+    {
         if (Runtime::getSettings()->get('apps.store.staticContent', false)) {
             if (null != ($ezPage = $this->container->get('ezPageService')->getPageForName($page, $languageId))) {
                 return $ezPage->getHtmlText();
@@ -317,14 +338,16 @@ class Theme extends ZMObject {
      *
      * @param Language language The language.
      */
-    public function loadTranslations() {
+    public function loadTranslations()
+    {
         // @todo bring back theme translations when we have some.
     }
 
     /**
      * Load additional theme config settins from <em>theme.yaml</em>.
      */
-    public function loadSettings() {
+    public function loadSettings()
+    {
         $configLoader = $this->container->get('contextConfigLoader');
         $configLoader->apply($this->config);
     }

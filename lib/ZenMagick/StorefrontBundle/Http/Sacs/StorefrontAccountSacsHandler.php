@@ -34,13 +34,15 @@ use ZenMagick\Http\Sacs\SacsHandler;
  *
  * @author DerManoMann
  */
-class StorefrontAccountSacsHandler extends ZMObject implements SacsHandler {
+class StorefrontAccountSacsHandler extends ZMObject implements SacsHandler
+{
     private $levelMap_;
 
     /**
      * Create new instance.
      */
-    public function __construct() {
+    public function __construct()
+    {
         // which level allows what
         $this->levelMap_ = array(
             Account::ANONYMOUS => array(Account::ANONYMOUS, Account::GUEST, Account::REGISTERED),
@@ -52,14 +54,16 @@ class StorefrontAccountSacsHandler extends ZMObject implements SacsHandler {
     /**
      * {@inheritDoc}
      */
-    public function getName() {
+    public function getName()
+    {
         return get_class();
     }
 
     /**
      * {@inheritDoc}
      */
-    public function evaluate($requestId, $credentials, $manager) {
+    public function evaluate($requestId, $credentials, $manager)
+    {
         $requiredLevel = $manager->getMappingValue($requestId, 'level', $this->container->get('settingsService')->get('apps.store.defaultAccessLevel'));
         if (null == $requiredLevel || Account::ANONYMOUS == $requiredLevel) {
             return true;

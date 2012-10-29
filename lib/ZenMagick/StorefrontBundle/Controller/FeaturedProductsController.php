@@ -26,12 +26,13 @@ use ZenMagick\Base\Beans;
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class FeaturedProductsController extends \ZMController {
-
+class FeaturedProductsController extends \ZMController
+{
     /**
      * {@inheritDoc}
      */
-    public function processGet($request) {
+    public function processGet($request)
+    {
         $settingsService = $this->container->get('settingsService');
 
         $resultSource = new \ZMObjectResultSource('ZenMagick\StoreBundle\Entity\Catalog\Product', 'productService', "getFeaturedProducts", array($request->attributes->get('categoryId'), 0));

@@ -27,12 +27,13 @@ use ZenMagick\StoreBundle\Entity\Order\Order;
  *
  * @author DerManoMann
  */
-class MockOrder extends Order {
-
+class MockOrder extends Order
+{
     /**
      * Create new instance.
      */
-    public function __construct() {
+    public function __construct()
+    {
         parent::__construct();
         $this->setId(3);
         $this->setOrderDate(time());
@@ -41,42 +42,48 @@ class MockOrder extends Order {
     /**
      * {@inheritDoc}
      */
-    public function getAccount() {
+    public function getAccount()
+    {
         return new MockAccount();
     }
 
     /**
      * {@inheritDoc}
      */
-    public function getShippingAddress() {
+    public function getShippingAddress()
+    {
         return new MockAddress();
     }
 
     /**
      * {@inheritDoc}
      */
-    public function getBillingAddress() {
+    public function getBillingAddress()
+    {
         return new MockAddress();
     }
 
     /**
      * {@inheritDoc}
      */
-    public function getOrderItems() {
+    public function getOrderItems()
+    {
         return array(new MockOrderItem(1), new MockOrderItem(2));
     }
 
     /**
      * {@inheritDoc}
      */
-    public function getOrderTotalLines() {
+    public function getOrderTotalLines()
+    {
         return array(new OrderTotalLine('Tax', 9, '$9.00'), new OrderTotalLine('Subtotal', 119.20, '$119.20'), new OrderTotalLine('Total', 119.20, '$119.20'));
     }
 
     /**
      * {@inheritDoc}
      */
-    public function getPaymentType() {
+    public function getPaymentType()
+    {
         return new MockPaymentType();
     }
 

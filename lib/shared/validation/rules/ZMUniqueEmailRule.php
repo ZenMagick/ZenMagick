@@ -24,15 +24,16 @@
  * @author DerManoMann
  * @package zenmagick.store.shared.mvc.validation
  */
-class ZMUniqueEmailRule extends ZMRule {
-
+class ZMUniqueEmailRule extends ZMRule
+{
     /**
      * Create new required rule.
      *
      * @param string name The field name.
      * @param string msg Optional message.
      */
-    public function __construct($name, $msg=null) {
+    public function __construct($name, $msg=null)
+    {
         parent::__construct($name, "Email already in use.", $msg);
     }
 
@@ -43,7 +44,8 @@ class ZMUniqueEmailRule extends ZMRule {
      * @param array data The data.
      * @return boolean <code>true</code> if the value for <code>$name</code> is valid, <code>false</code> if not.
      */
-    public function validate($request, $data) {
+    public function validate($request, $data)
+    {
         return empty($data[$this->getName()]) || !$this->container->get('accountService')->emailExists($data[$this->getName()]);
     }
 
@@ -52,7 +54,8 @@ class ZMUniqueEmailRule extends ZMRule {
      *
      * @return string Formatted JavaScript .
      */
-    public function toJSString() {
+    public function toJSString()
+    {
         return '';
     }
 

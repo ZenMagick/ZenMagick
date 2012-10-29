@@ -31,7 +31,8 @@ use ZMRuntime;
 use Auth_OpenID_Association;
 use Auth_OpenID_OpenIDStore;
 
-class OpenIDDatabaseStore extends Auth_OpenID_OpenIDStore {
+class OpenIDDatabaseStore extends Auth_OpenID_OpenIDStore
+{
     private $nonceLifetime;
 
     /**
@@ -39,7 +40,8 @@ class OpenIDDatabaseStore extends Auth_OpenID_OpenIDStore {
      *
      * @param int nonceLifetime Optional nonce lifetime; default is <em>0</em> to use the OpenID default.
      */
-    public function __construct($nonceLifetime=0) {
+    public function __construct($nonceLifetime=0)
+    {
         if (0 == $nonceLifetime) {
             global $Auth_OpenID_SKEW;
             $this->nonceLifetime = $Auth_OpenID_SKEW;
@@ -72,7 +74,8 @@ class OpenIDDatabaseStore extends Auth_OpenID_OpenIDStore {
      * @param string                  $server_url
      * @param Auth_OpenID_Association $association
      */
-    public function storeAssociation($server_url, $association) {
+    public function storeAssociation($server_url, $association)
+    {
         $sql = "REPLACE INTO %table.zm_openid_associations%
                 (server_url, handle, secret, issued, lifetime, assoc_type)
                 VALUES (:server_url, :handle, :secret, :issued, :lifetime, :type)";
@@ -94,7 +97,8 @@ class OpenIDDatabaseStore extends Auth_OpenID_OpenIDStore {
      * @param string handle Optional handle; default is <code>null</code> to retreive the newest association available.
      * @return Auth_OpenID_Association The association or <code>null</code>.
      */
-    public function getAssociation($server_url, $handle=null) {
+    public function getAssociation($server_url, $handle=null)
+    {
         $associations = array();
         if ($handle != null) {
             $sql = "SELECT server_url, handle, secret, issued, lifetime, assoc_type
@@ -141,7 +145,8 @@ class OpenIDDatabaseStore extends Auth_OpenID_OpenIDStore {
      * @param string $server_url
      * @param string $handle
      */
-    public function removeAssociation($server_url, $handle) {
+    public function removeAssociation($server_url, $handle)
+    {
         $sql = "DELETE FROM %table.zm_openid_associations%
                 WHERE server_url = :server_url AND handle = :handle";
         $args = array('server_url' => $server_url, 'handle' => $handle);
@@ -152,7 +157,8 @@ class OpenIDDatabaseStore extends Auth_OpenID_OpenIDStore {
     /**
      * Use nonce.
      */
-    public function useNonce($server_url, $issued, $salt) {
+    public function useNonce($server_url, $issued, $salt)
+    {
         if (abs($issued - time()) > $this->nonceLifetime) {
             return false;
         }
@@ -168,7 +174,8 @@ class OpenIDDatabaseStore extends Auth_OpenID_OpenIDStore {
     /**
      * Cleanup nonces.
      */
-    public function cleanupNonces() {
+    public function cleanupNonces()
+    {
         $timestamp = time() - $this->nonceLifetime;
 
         $sql = "DELETE FROM %table.zm_openid_nonces%
@@ -180,7 +187,8 @@ class OpenIDDatabaseStore extends Auth_OpenID_OpenIDStore {
     /**
      * Cleanup associations.
      */
-    public function cleanupAssociations() {
+    public function cleanupAssociations()
+    {
         $sql = "DELETE FROM %table.zm_openid_associations%
                 WHERE (issued + lifetime) < :lifetime";
         // use lifetime mapping to compare times...
@@ -191,7 +199,8 @@ class OpenIDDatabaseStore extends Auth_OpenID_OpenIDStore {
     /**
      * Reset.
      */
-    public function reset() {
+    public function reset()
+    {
         ZMRuntime::getDatabase()->updateObj("DELETE FROM %table.zm_openid_associations%", array(), 'zm_openid_associations');
         ZMRuntime::getDatabase()->updateObj("DELETE FROM %table.zm_openid_nonces%", array(), 'zm_openid_nonces');
     }

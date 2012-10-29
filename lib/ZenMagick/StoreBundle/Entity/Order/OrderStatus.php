@@ -30,7 +30,8 @@ use Doctrine\ORM\Mapping as ORM;
  *  })
  * @ORM\Entity
  */
-class OrderStatus {
+class OrderStatus
+{
     /**
      * @var integer $orderStatusId
      *
@@ -56,7 +57,8 @@ class OrderStatus {
      */
     private $statusName;
 
-    public function getId() {
+    public function getId()
+    {
         return $this->orderStatusId;
     }
 
@@ -66,7 +68,8 @@ class OrderStatus {
      * @param  integer     $orderStatusId
      * @return OrderStatus
      */
-    public function setOrderStatusId($orderStatusId) {
+    public function setOrderStatusId($orderStatusId)
+    {
         $this->orderStatusId = $orderStatusId;
 
         return $this;
@@ -77,7 +80,8 @@ class OrderStatus {
      *
      * @return integer
      */
-    public function getOrderStatusId() {
+    public function getOrderStatusId()
+    {
         return $this->orderStatusId;
     }
 
@@ -87,7 +91,8 @@ class OrderStatus {
      * @param  integer     $languageId
      * @return OrderStatus
      */
-    public function setLanguageId($languageId) {
+    public function setLanguageId($languageId)
+    {
         $this->languageId = $languageId;
 
         return $this;
@@ -98,7 +103,8 @@ class OrderStatus {
      *
      * @return integer
      */
-    public function getLanguageId() {
+    public function getLanguageId()
+    {
         return $this->languageId;
     }
 
@@ -108,7 +114,8 @@ class OrderStatus {
      * @param  string      $name
      * @return OrderStatus
      */
-    public function setName($name) {
+    public function setName($name)
+    {
         $this->statusName = $name;
 
         return $this;
@@ -120,7 +127,8 @@ class OrderStatus {
      * @param  string      $statusName
      * @return OrderStatus
      */
-    public function setStatusName($statusName) {
+    public function setStatusName($statusName)
+    {
         $this->statusName = $statusName;
 
         return $this;
@@ -131,7 +139,8 @@ class OrderStatus {
      *
      * @return string
      */
-    public function getName() {
+    public function getName()
+    {
         return $this->statusName;
     }
 
@@ -140,7 +149,8 @@ class OrderStatus {
      *
      * @return string
      */
-    public function getStatusName() {
+    public function getStatusName()
+    {
         return $this->statusName;
     }
 }

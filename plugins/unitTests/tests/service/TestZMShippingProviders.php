@@ -27,12 +27,13 @@ use ZenMagick\plugins\unitTests\simpletest\TestCase;
  * @package org.zenmagick.plugins.unitTests.tests
  * @author DerManoMann <mano@zenmagick.org>
  */
-class TestZMShippingProviders extends TestCase {
-
+class TestZMShippingProviders extends TestCase
+{
     /**
      * Test get provider.
      */
-    public function testGetProvider() {
+    public function testGetProvider()
+    {
         $el = error_reporting(0);
         $providers = $this->container->get('shippingProviderService')->getShippingProviders(true);
         $address = Beans::getBean('ZenMagick\StoreBundle\Entity\Address');

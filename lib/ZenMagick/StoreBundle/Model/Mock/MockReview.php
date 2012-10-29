@@ -26,12 +26,13 @@ use ZenMagick\StoreBundle\Entity\Catalog\Review;
  *
  * @author DerManoMann
  */
-class MockReview extends Review {
-
+class MockReview extends Review
+{
     /**
      * Create new instance.
      */
-    public function __construct() {
+    public function __construct()
+    {
         parent::__construct();
         $this->setAuthor('foo bar');
         $this->setText('Some review bla bla...');

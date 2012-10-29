@@ -24,8 +24,8 @@
  * @author DerManoMann <mano@zenmagick.org>
  * @package org.zenmagick.mvc.resultlist
  */
-interface ZMResultSource {
-
+interface ZMResultSource
+{
     /**
      * Set the corresponding result list.
      *

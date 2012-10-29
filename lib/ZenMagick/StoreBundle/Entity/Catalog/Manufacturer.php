@@ -36,7 +36,8 @@ use Doctrine\ORM\Mapping AS ORM;
  * })
  * @ORM\Entity
  */
-class Manufacturer extends ZMObject {
+class Manufacturer extends ZMObject
+{
     /**
      * @var integer $manufacturerId
      *
@@ -77,7 +78,8 @@ class Manufacturer extends ZMObject {
     /**
      * Create new instance
      */
-    public function __construct() {
+    public function __construct()
+    {
         parent::__construct();
         $this->setId(0);
         $this->name = null;
@@ -140,7 +142,8 @@ class Manufacturer extends ZMObject {
      *
      * @return ZMImageInfo The image info.
      */
-    public function getImageInfo() {
+    public function getImageInfo()
+    {
         $imageInfo = Beans::getBean('ZMImageInfo');
         $imageInfo->setAltText($this->name);
         $imageInfo->setDefaultImage($this->image);

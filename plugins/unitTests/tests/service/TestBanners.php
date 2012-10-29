@@ -26,12 +26,13 @@ use ZenMagick\plugins\unitTests\simpletest\TestCase;
  * @package org.zenmagick.plugins.unitTests.tests
  * @author DerManoMann <mano@zenmagick.org>
  */
-class TestBanners extends TestCase {
-
+class TestBanners extends TestCase
+{
     /**
      * Test get banner group ids.
      */
-    public function testGetBannerGroupIds() {
+    public function testGetBannerGroupIds()
+    {
         $groupIds = $this->container->get('bannerService')->getBannerGroupIds();
         $this->assertEqual(array('BannersAll', 'SideBox-Banners', 'Wide-Banners'), $groupIds);
     }
@@ -39,7 +40,8 @@ class TestBanners extends TestCase {
     /**
      * Test get banners for group name.
      */
-    public function testGetBannersForGroupName() {
+    public function testGetBannersForGroupName()
+    {
         $banners = $this->container->get('bannerService')->getBannersForGroupName(null);
         $this->assertEqual(array(), $banners);
 
@@ -56,14 +58,16 @@ class TestBanners extends TestCase {
     /**
      * Test enabling and disabling all banners scheduled.
      */
-    public function testBannerScheduling() {
+    public function testBannerScheduling()
+    {
         $this->skip('skip until we have have better test data');
     }
 
     /**
      * Test update banner click count.
      */
-    public function testBannerUpdateClickCount() {
+    public function testBannerUpdateClickCount()
+    {
         $this->skip('skip until we have have better test data');
     }
 

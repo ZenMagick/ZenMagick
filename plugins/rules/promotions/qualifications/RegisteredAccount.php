@@ -28,12 +28,13 @@ use phprules\RuleContext;
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class RegisteredAccount extends AbstractPromotionElement {
-
+class RegisteredAccount extends AbstractPromotionElement
+{
     /**
      * {@inheritDoc}
      */
-    public function getRules() {
+    public function getRules()
+    {
         $rule = new Rule('registeredAccountRule');
         $rule->addProposition('isRegistered');
         return array($rule);
@@ -42,7 +43,8 @@ class RegisteredAccount extends AbstractPromotionElement {
     /**
      * {@inheritDoc}
      */
-    public function getRuleContexts($parameter) {
+    public function getRuleContexts($parameter)
+    {
         $ruleContext = new RuleContext('manufacturerInCartRuleContext');
         $ruleContext->addVariable('isRegistered', Account::REGISTERED == $this->getAccount()->getType());
         return array($ruleContext);

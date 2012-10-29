@@ -28,13 +28,15 @@ use ZenMagick\Base\ZMObject;
  *
  * @author DerManoMann
  */
-class LanguageService extends ZMObject {
+class LanguageService extends ZMObject
+{
     private $languages;
 
     /**
      * Load languages.
      */
-    protected function load() {
+    protected function load()
+    {
         $sql = "SELECT *
                 FROM %table.languages%
                 ORDER BY sort_order";
@@ -49,7 +51,8 @@ class LanguageService extends ZMObject {
      *
      * @return array List of <code>Language</code> instances.
      */
-    public function getLanguages() {
+    public function getLanguages()
+    {
         if (null === $this->languages) {
             $this->load();
         }
@@ -63,7 +66,8 @@ class LanguageService extends ZMObject {
      * @param string code The language code.
      * @return ZMLanguage A language or <code>null</code>.
      */
-    public function getLanguageForCode($code) {
+    public function getLanguageForCode($code)
+    {
         if (null === $this->languages) {
             $this->load();
         }
@@ -78,7 +82,8 @@ class LanguageService extends ZMObject {
      * @param int id The language id.
      * @return ZMLanguage A language or <code>null</code>.
      */
-    public function getLanguageForId($id) {
+    public function getLanguageForId($id)
+    {
         if (null === $this->languages) {
             $this->load();
         }
@@ -97,7 +102,8 @@ class LanguageService extends ZMObject {
      *
      * @return ZMLanguage The default language for this store.
      */
-    public function getDefaultLanguage() {
+    public function getDefaultLanguage()
+    {
         return Runtime::getContainer()->get('languageService')->getLanguageForId(Runtime::getSettings()->get('storeDefaultLanguageId'));
     }
 

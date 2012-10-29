@@ -30,13 +30,15 @@ use ZenMagick\Base\ZMObject;
  *
  * @author DerManoMann
  */
-class PaymentTypes extends ZMObject {
+class PaymentTypes extends ZMObject
+{
     private $paymentTypes_;
 
     /**
      * Create new instance.
      */
-    public function __construct() {
+    public function __construct()
+    {
         $this->paymentTypes_ = null;
     }
 
@@ -46,7 +48,8 @@ class PaymentTypes extends ZMObject {
      * @param boolean all Optional flag to return all installed; default is <code>false</code> to return enabled only.
      * @return array List of <code>ZMPaymentType</code> instances.
      */
-    public function getPaymentTypes($all=false) {
+    public function getPaymentTypes($all=false)
+    {
         if (null === $this->paymentTypes_) {
             $zcPath = $this->container->get('settingsService')->get('zencart.root_dir');
             $this->paymentTypes_ = array();
@@ -97,7 +100,8 @@ class PaymentTypes extends ZMObject {
      * @param string id The payment type id.
      * @return ZMPaymentType A <code>ZMPaymentType</code> instance or <code>null</code>.
      */
-    public function getPaymentTypeForId($id) {
+    public function getPaymentTypeForId($id)
+    {
         $paymentTypes = $this->getPaymentTypes();
         return array_key_exists($id, $paymentTypes) ? $paymentTypes[$id] : null;
     }
@@ -110,7 +114,8 @@ class PaymentTypes extends ZMObject {
      * @param ZenMagick\Http\Request request The current request.
      * @return string Fully formatted JavaScript incl. of wrapping &lt;script&gt; tag.
      */
-    public function getPaymentFormValidationJS($request) {
+    public function getPaymentFormValidationJS($request)
+    {
         $shoppingCart = $this->container->get('shoppingCart');
         $paymentTypes = $shoppingCart->getPaymentTypes();
         $js = '';

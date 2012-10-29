@@ -26,19 +26,21 @@ use ZenMagick\AdminBundle\Dashboard\DashboardWidget;
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class OrderStatsDashboardWidget extends DashboardWidget {
-
+class OrderStatsDashboardWidget extends DashboardWidget
+{
     /**
      * Create new user.
      */
-    public function __construct() {
+    public function __construct()
+    {
         parent::__construct(_zm('Order Stats'));
     }
 
     /**
      * {@inheritDoc}
      */
-    public function getContents($request) {
+    public function getContents($request)
+    {
         $net = $this->container->get('netTool');
         $contents = '<table class="grid" cellspacing="0">';
         $contents .= '<tr><th>'._zm('Status').'</th><th>'._zm('Number of Orders').'</th></tr>';

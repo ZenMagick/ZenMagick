@@ -27,19 +27,21 @@ use ZenMagick\AdminBundle\Dashboard\DashboardWidget;
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class UpdateCheckerDashboardWidget extends DashboardWidget {
-
+class UpdateCheckerDashboardWidget extends DashboardWidget
+{
     /**
      * Create new user.
      */
-    public function __construct() {
+    public function __construct()
+    {
         parent::__construct(_zm('Update Checker'));
     }
 
     /**
      * {@inheritDoc}
      */
-    public function getContents($request) {
+    public function getContents($request)
+    {
         $current = Runtime::getSettings()->get('zenmagick.version');
         $contents = '<p id="update-checker">'._zm('Checking...').'</p>';
         $contents .= <<<EOT
@@ -50,7 +52,8 @@ class UpdateCheckerDashboardWidget extends DashboardWidget {
   // keep track of things already executed
   var done = false;
 
-  function checkUpdate() {
+  function checkUpdate()
+  {
     if (0 != $('#update-checker').closest('#dashboard').length && !done) {
       ZenMagick.rpc('dashboard', 'getUpdateInfo', '""', {
           success: function(result) {

@@ -27,7 +27,8 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table(name="paypal_payment_status")
  * @ORM\Entity
  */
-class PaypalPaymentStatus {
+class PaypalPaymentStatus
+{
     /**
      * @var integer $id
      *

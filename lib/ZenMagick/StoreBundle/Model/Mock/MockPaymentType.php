@@ -26,89 +26,101 @@ use ZenMagick\Base\ZMObject;
  *
  * @author DerManoMann
  */
-class MockPaymentType extends ZMObject implements \ZMPaymentType {
-
+class MockPaymentType extends ZMObject implements \ZMPaymentType
+{
     /**
      * {@inheritDoc}
      */
-    public function getId() {
+    public function getId()
+    {
         return 'demo';
     }
 
     /**
      * {@inheritDoc}
      */
-    public function getName() {
+    public function getName()
+    {
         return 'Demo Payment';
     }
 
     /**
      * {@inheritDoc}
      */
-    public function getTitle() {
+    public function getTitle()
+    {
         return 'Demo Payment';
     }
 
     /**
      * {@inheritDoc}
      */
-    public function getDescription() {
+    public function getDescription()
+    {
         return 'Demo Payment Type';
     }
 
     /**
      * {@inheritDoc}
      */
-    public function getError() {
+    public function getError()
+    {
         return null;
     }
 
     /**
      * {@inheritDoc}
      */
-    public function getFields() {
+    public function getFields()
+    {
       return array();
     }
 
     /**
      * {@inheritDoc}
      */
-    public function getInfo() {
+    public function getInfo()
+    {
         return '';
     }
 
     /**
      * {@inheritDoc}
      */
-    public function getFormValidationJS($request) {
+    public function getFormValidationJS($request)
+    {
         return null;
     }
 
     /**
      * {@inheritDoc}
      */
-    public function getOrderFormContent($request) {
+    public function getOrderFormContent($request)
+    {
         return null;
     }
 
     /**
      * {@inheritDoc}
      */
-    public function getOrderFormUrl($request) {
+    public function getOrderFormUrl($request)
+    {
         return null;
     }
 
     /**
      * {@inheritDoc}
      */
-    public function getOrderStatus() {
+    public function getOrderStatus()
+    {
         return 1;
     }
 
     /**
      * {@inheritDoc}
      */
-    public function prepare() {
+    public function prepare()
+    {
     }
 
 }

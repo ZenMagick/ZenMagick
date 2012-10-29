@@ -26,7 +26,8 @@ use ZenMagick\Base\ZMObject;
  * @author DerManoMann <mano@zenmagick.org>
  * @package org.zenmagick.mvc.validation
  */
-class ZMRuleSet extends ZMObject {
+class ZMRuleSet extends ZMObject
+{
     private $id_;
     private $rules_;
 
@@ -36,7 +37,8 @@ class ZMRuleSet extends ZMObject {
      * @param string id The id.
      * @param array rules Optional initial list of rules.
      */
-    public function __construct($id, $rules=null) {
+    public function __construct($id, $rules=null)
+    {
         parent::__construct();
         $this->id_ = $id;
         $this->rules_ = null != $rules ? $rules : array();
@@ -54,7 +56,8 @@ class ZMRuleSet extends ZMObject {
      *
      * @param ZMRule rule A new rule.
      */
-    public function addRule($rule) {
+    public function addRule($rule)
+    {
         $this->rules_[] = $rule;
     }
 
@@ -63,7 +66,8 @@ class ZMRuleSet extends ZMObject {
      *
      * @param array rules A list of <code>ZMRule</code> instances.
      */
-    public function addRules($rules) {
+    public function addRules($rules)
+    {
         $this->rules_ = array_merge($this->rules_, $rules);
     }
 
@@ -73,7 +77,8 @@ class ZMRuleSet extends ZMObject {
      * @param string type The type (class name).
      * @param string name The field name.
      */
-    public function removeRule($type, $name) {
+    public function removeRule($type, $name)
+    {
         $tmp = array();
         foreach ($this->rules_ as $rule) {
             if (get_class($rule) == $type && $rule->getName() == $name) {
@@ -89,7 +94,8 @@ class ZMRuleSet extends ZMObject {
      *
      * @return array A list of <code>ZMRule</code> objects.
      */
-    public function getRules() {
+    public function getRules()
+    {
         return $this->rules_;
     }
 

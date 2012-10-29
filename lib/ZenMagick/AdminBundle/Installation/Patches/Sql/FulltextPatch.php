@@ -26,7 +26,8 @@ use ZenMagick\AdminBundle\Installation\Patches\SQLPatch;
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class FulltextPatch extends SQLPatch {
+class FulltextPatch extends SQLPatch
+{
     public $sqlFiles_ = array(
         "fulltext_install.sql"
     );
@@ -37,7 +38,8 @@ class FulltextPatch extends SQLPatch {
     /**
      * Create new instance.
      */
-    public function __construct() {
+    public function __construct()
+    {
         parent::__construct('sqlFulltext');
         $this->label_ = 'Create indices for fulltext product search';
     }
@@ -47,7 +49,8 @@ class FulltextPatch extends SQLPatch {
      *
      * @return boolean <code>true</code> if this patch can still be applied.
      */
-    public function isOpen() {
+    public function isOpen()
+    {
         // the SQL doesn't break if re-applied
         return true;
     }

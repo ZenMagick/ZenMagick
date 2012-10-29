@@ -33,7 +33,8 @@ use Doctrine\ORM\Mapping AS ORM;
  * })
  * @ORM\Entity
  */
-class ConfigGroup extends ZMObject {
+class ConfigGroup extends ZMObject
+{
     /**
      * @var integer $id
      *
@@ -70,7 +71,8 @@ class ConfigGroup extends ZMObject {
     /**
      * Create new config group.
      */
-    public function __construct() {
+    public function __construct()
+    {
         parent::__construct();
         $this->name = null;
         $this->description = null;

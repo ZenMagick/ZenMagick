@@ -26,7 +26,8 @@
  * @author DerManoMann <mano@zenmagick.org>
  * @package org.zenmagick.mvc.validation.rules
  */
-class ZMListRule extends ZMRule {
+class ZMListRule extends ZMRule
+{
     private $values_;
 
     /**
@@ -36,7 +37,8 @@ class ZMListRule extends ZMRule {
      * @param mixed values The list of valid values as either a comma separated string or array; default is <code>null</code>.
      * @param string msg Optional message; default is <code>null</code>.
      */
-    public function __construct($name=null, $values=null, $msg=null) {
+    public function __construct($name=null, $values=null, $msg=null)
+    {
         parent::__construct($name, "%s is not valid.", $msg);
         $this->setValues($values);
     }
@@ -46,7 +48,8 @@ class ZMListRule extends ZMRule {
      *
      * @param mixed values The list of valid values as either a comma separated string or array.
      */
-    public function setValues($values) {
+    public function setValues($values)
+    {
         $this->values_ = $values;
     }
 
@@ -55,7 +58,8 @@ class ZMListRule extends ZMRule {
      *
      * @return mixed The list of valid values as either a comma separated string or array.
      */
-    public function getValues() {
+    public function getValues()
+    {
         return $this->values_;
     }
 
@@ -66,7 +70,8 @@ class ZMListRule extends ZMRule {
      * @param array data The data.
      * @return boolean <code>true</code> if the regular expression does match.
      */
-    public function validate($request, $data) {
+    public function validate($request, $data)
+    {
         $values = is_array($this->values_) ? $this->values_ : explode(',', $this->values_);
         return empty($data[$this->getName()]) || in_array($data[$this->getName()], $values);
     }
@@ -76,7 +81,8 @@ class ZMListRule extends ZMRule {
      *
      * @return string Formatted JavaScript .
      */
-    public function toJSString() {
+    public function toJSString()
+    {
         $quoted = array();
         foreach ($this->values_ as $value) {
             $quoted[] = "'".addslashes($value)."'";

@@ -24,7 +24,8 @@
  * @author DerManoMann
  * @package zenmagick.store.shared.mvc.validation
  */
-class ZMDateRule extends ZMRule {
+class ZMDateRule extends ZMRule
+{
     private $format_;
 
     /**
@@ -34,7 +35,8 @@ class ZMDateRule extends ZMRule {
      * @param string format The date format (eg: DD/MM/YYYY); if not set, the date/long format of the current locale will be used.
      * @param string msg Optional message.
      */
-    public function __construct($name, $format=null, $msg=null) {
+    public function __construct($name, $format=null, $msg=null)
+    {
         parent::__construct($name, "Please enter a valid date (%s).", $msg);
         $this->format_ = $format;
     }
@@ -42,7 +44,8 @@ class ZMDateRule extends ZMRule {
     /**
      * Get the format string.
      */
-    public function getFormat() {
+    public function getFormat()
+    {
         return null != $this->format_ ? $this->format_ : $this->container->get('localeService')->getFormat('date', 'short');
     }
 
@@ -53,7 +56,8 @@ class ZMDateRule extends ZMRule {
      * @param array data The data.
      * @return boolean <code>true</code> if the value for <code>$name</code> is valid, <code>false</code> if not.
      */
-    public function validate($request, $data) {
+    public function validate($request, $data)
+    {
         $value = $data[$this->getName()];
         return empty($value) || null != DateTime::createFromFormat($this->getFormat(), $value);
     }
@@ -63,7 +67,8 @@ class ZMDateRule extends ZMRule {
      *
      * @return string Localized error message.
      */
-    public function getErrorMsg() {
+    public function getErrorMsg()
+    {
         return sprintf(_zm(null != $this->getMsg() ? $this->getMsg() : $this->getDefaultMsg()), $this->getName(), $this->getFormat());
     }
 
@@ -72,7 +77,8 @@ class ZMDateRule extends ZMRule {
      *
      * @return string Formatted JavaScript .
      */
-    public function toJSString() {
+    public function toJSString()
+    {
         //TODO: need to separate between DateTime format and ui format (as used by js validation)
         return '';
         $js = "    new Array('date'";

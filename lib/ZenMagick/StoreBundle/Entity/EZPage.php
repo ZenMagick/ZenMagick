@@ -39,7 +39,8 @@ use Doctrine\ORM\Mapping AS ORM;
  *  })
  * @ORM\Entity
  */
-class EZPage extends ZMObject {
+class EZPage extends ZMObject
+{
     /**
      * @var integer $id
      *
@@ -163,7 +164,8 @@ class EZPage extends ZMObject {
      * @param int id The page id; default is <em>0</em>.
      * @param string title The page title; default is <em>null</em>.
      */
-    public function __construct($id=0, $title=null) {
+    public function __construct($id=0, $title=null)
+    {
         parent::__construct();
 
         $this->id = $id;
@@ -197,7 +199,8 @@ class EZPage extends ZMObject {
      * @param boolean php Optional flag to allow/disable PHP exection in the contents; default is <code>true</code>.
      * @return string The page contents.
      */
-    public function getHtmlText($php=false) {
+    public function getHtmlText($php=false)
+    {
         $text = $this->htmlText;
         if ($php) {
             ob_start();

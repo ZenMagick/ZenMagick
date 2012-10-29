@@ -26,15 +26,16 @@ use ZMRequiredRule;
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class SourceOtherRule extends ZMRequiredRule {
-
+class SourceOtherRule extends ZMRequiredRule
+{
     /**
      * Create new required rule.
      *
      * @param string name The field name.
      * @param string msg Optional message.
      */
-    public function __construct($name, $msg=null) {
+    public function __construct($name, $msg=null)
+    {
         parent::__construct($name, "Please enter the source where you first heard about us.");
     }
 
@@ -45,7 +46,8 @@ class SourceOtherRule extends ZMRequiredRule {
      * @param array data The data.
      * @return boolean <code>true</code> if other is valid, <code>false</code> if not.
      */
-    public function validate($request, $data) {
+    public function validate($request, $data)
+    {
         if (!array_key_exists('sourceId', $data)) {
             return false;
         }
@@ -62,7 +64,8 @@ class SourceOtherRule extends ZMRequiredRule {
      *
      * @return string Formatted JavaScript .
      */
-    public function toJSString() {
+    public function toJSString()
+    {
         $js = "    new Array(function(form, name) {"
               . " var sourceId = form.elements['sourceId'];"
               . " if (!sourceId) { return false; }"

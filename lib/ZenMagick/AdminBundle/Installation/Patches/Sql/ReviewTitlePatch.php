@@ -26,7 +26,8 @@ use ZenMagick\AdminBundle\Installation\Patches\SQLPatch;
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class ReviewTitlePatch extends SQLPatch {
+class ReviewTitlePatch extends SQLPatch
+{
     public $sqlFiles_ = array(
         "review_title_install.sql"
     );
@@ -37,7 +38,8 @@ class ReviewTitlePatch extends SQLPatch {
     /**
      * Create new instance.
      */
-    public function __construct() {
+    public function __construct()
+    {
         parent::__construct('reviewTitle');
         $this->label_ = 'Add column to store review title';
     }
@@ -47,7 +49,8 @@ class ReviewTitlePatch extends SQLPatch {
      *
      * @return boolean <code>true</code> if this patch can still be applied.
      */
-    public function isOpen() {
+    public function isOpen()
+    {
         $meta = \ZMRuntime::getDatabase()->getMetaData('reviews_description');
         return !array_key_exists('title', $meta);
     }

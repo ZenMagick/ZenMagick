@@ -27,12 +27,13 @@ use ZenMagick\StoreBundle\Entity\Account\Account;
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class CheckoutGuestController extends \ZMController {
-
+class CheckoutGuestController extends \ZMController
+{
     /**
      * {@inheritDoc}
      */
-    public function processPost($request) {
+    public function processPost($request)
+    {
         $settingsService = $this->container->get('settingsService');
 
         if (!$settingsService->get('isGuestCheckout')) {

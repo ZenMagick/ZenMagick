@@ -24,8 +24,8 @@ namespace ZenMagick\StoreBundle\Model\Mock;
  *
  * @author DerManoMann
  */
-class MockOrderTotalLineDetails extends \ZMOrderTotalLineDetails {
-
+class MockOrderTotalLineDetails extends \ZMOrderTotalLineDetails
+{
     /**
      * Create new instance.
      *
@@ -33,7 +33,8 @@ class MockOrderTotalLineDetails extends \ZMOrderTotalLineDetails {
      * @param flaot amount The amount.
      * @param string displayValue The display value.
      */
-    public function __construct($title, $amount, $displayValue) {
+    public function __construct($title, $amount, $displayValue)
+    {
         parent::__construct();
         $this->setTitle($title);
         $this->setAmount($amount);

@@ -27,8 +27,8 @@ namespace ZenMagick\Http\Blocks;
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-interface BlockProvider {
-
+interface BlockProvider
+{
     /**
      * Return list of blocks availabe from this provider.
      *

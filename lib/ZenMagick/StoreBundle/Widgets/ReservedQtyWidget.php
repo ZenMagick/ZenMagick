@@ -32,7 +32,8 @@ use ZenMagick\Http\View\TemplateView;
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class ReservedQtyWidget extends Widget {
+class ReservedQtyWidget extends Widget
+{
     private static $qtyMap_ = null;
 
     /**
@@ -40,7 +41,8 @@ class ReservedQtyWidget extends Widget {
      *
      * @return array Details about reserved quantities.
      */
-    protected function getStats() {
+    protected function getStats()
+    {
         if (null === self::$qtyMap_) {
           $sql = "SELECT op.products_id, SUM(op.products_quantity) AS products_quantity
                   FROM %table.orders% o, %table.orders_products% op
@@ -60,7 +62,8 @@ class ReservedQtyWidget extends Widget {
     /**
      * {@inheritDoc}
      */
-    public function render($request, TemplateView $templateView) {
+    public function render($request, TemplateView $templateView)
+    {
         $stats = $this->getStats();
         $product = $this->getProduct();
         if (array_key_exists($product->getId(), $stats)) {

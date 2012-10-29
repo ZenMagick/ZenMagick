@@ -28,14 +28,16 @@ use ZenMagick\Base\ZMObject;
  *
  * @author DerManoMann
  */
-class CouponRestrictions extends ZMObject {
+class CouponRestrictions extends ZMObject
+{
     private $categories_;
     private $products_;
 
     /**
      * Create new instance.
      */
-    public function __construct($categories=array(), $products=array()) {
+    public function __construct($categories=array(), $products=array())
+    {
         parent::__construct();
         $this->categories_ = $categories;
         $this->products_ = $products;
@@ -46,7 +48,8 @@ class CouponRestrictions extends ZMObject {
      *
      * @return boolean <code>true</code> if restrictions exist, <code>false</code> if not.
      */
-    public function hasRestrictions() {
+    public function hasRestrictions()
+    {
         return 0 != count($this->categories_) || 0 < count($this->products_);
     }
 
@@ -55,7 +58,8 @@ class CouponRestrictions extends ZMObject {
      *
      * @return boolean <code>true</code> if categories exist, <code>false</code> if not.
      */
-    public function hasCategories() {
+    public function hasCategories()
+    {
         return 0 != count($this->categories_);
     }
 
@@ -64,7 +68,8 @@ class CouponRestrictions extends ZMObject {
      *
      * @return boolean <code>true</code> if products exist, <code>false</code> if not.
      */
-    public function hasProducts() {
+    public function hasProducts()
+    {
         return 0 < count($this->products_);
     }
 
@@ -73,7 +78,8 @@ class CouponRestrictions extends ZMObject {
      *
      * @return array An array of <code>CouponRestricton</code> instances.
      */
-    public function getCategories() {
+    public function getCategories()
+    {
         return $this->categories_;
     }
 
@@ -82,7 +88,8 @@ class CouponRestrictions extends ZMObject {
      *
      * @return array An array of <code>CouponRestricton</code> instances.
      */
-    public function getProducts() {
+    public function getProducts()
+    {
         return $this->products_;
     }
 

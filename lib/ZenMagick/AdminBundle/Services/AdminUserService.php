@@ -26,15 +26,16 @@ use ZenMagick\Base\ZMObject;
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class AdminUserService extends ZMObject {
-
+class AdminUserService extends ZMObject
+{
     /**
      * Add a few things.
      *
      * @param AdminUser user The user to finalize.
      * @return AdminUser Finalized user.
      */
-    protected function finalizeUser($user) {
+    protected function finalizeUser($user)
+    {
         if (null == $user) {
             return null;
         }
@@ -53,7 +54,8 @@ class AdminUserService extends ZMObject {
      * @param int id The user id.
      * @return AdminUser A <code>AdminUser</code> instance or <code>null</code>.
      */
-    public function getUserForId($id) {
+    public function getUserForId($id)
+    {
         $sql = "SELECT *
                 FROM %table.admin%
                 WHERE admin_id = :id";
@@ -67,7 +69,8 @@ class AdminUserService extends ZMObject {
      * @param string name The user name.
      * @return AdminUser A <code>AdminUser</code> instance or <code>null</code>.
      */
-    public function getUserForName($name) {
+    public function getUserForName($name)
+    {
         $sql = "SELECT *
                 FROM %table.admin%
                 WHERE admin_name = :name";
@@ -81,7 +84,8 @@ class AdminUserService extends ZMObject {
      * @param boolean demoOnly Optional flag to load demo users only; default is <code>false</code>.
      * @return array List of <code>AdminUser</code> instances.
      */
-    public function getAllUsers($demoOnly=false) {
+    public function getAllUsers($demoOnly=false)
+    {
         $sql = "SELECT *
                 FROM %table.admin%";
         if ($demoOnly) {
@@ -101,7 +105,8 @@ class AdminUserService extends ZMObject {
      * @param string email The user email.
      * @return AdminUser A <code>AdminUser</code> instance or <code>null</code>.
      */
-    public function getUserForEmail($email) {
+    public function getUserForEmail($email)
+    {
         $sql = "SELECT *
                 FROM %table.admin%
                 WHERE admin_email = :email";
@@ -115,7 +120,8 @@ class AdminUserService extends ZMObject {
      * @param ZMUser user The user.
      * @return AdminUser The updated <code>AdminUser</code> instance.
      */
-    public function createUser($user) {
+    public function createUser($user)
+    {
         $user = \ZMRuntime::getDatabase()->createModel('admin', $user);
         $this->container->get('adminUserRoleService')->setRolesForId($user->getId(), $user->getRoles());
         return true;
@@ -127,7 +133,8 @@ class AdminUserService extends ZMObject {
      * @param ZMUser user The user.
      * @return AdminUser The updated <code>AdminUser</code> instance.
      */
-    public function updateUser($user) {
+    public function updateUser($user)
+    {
         \ZMRuntime::getDatabase()->updateModel('admin', $user);
         $this->container->get('adminUserRoleService')->setRolesForId($user->getId(), $user->getRoles());
         return true;
@@ -138,7 +145,8 @@ class AdminUserService extends ZMObject {
      *
      * @param int id The user id.
      */
-    public function deleteUserForId($id) {
+    public function deleteUserForId($id)
+    {
         $adminUserRoleService = $this->container->get('adminUserRoleService');
         // remove roles
         $roles = $adminUserRoleService->getRolesForId($id);

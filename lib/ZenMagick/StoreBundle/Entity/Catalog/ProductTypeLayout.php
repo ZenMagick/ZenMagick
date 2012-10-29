@@ -33,7 +33,8 @@ use Doctrine\ORM\Mapping AS ORM;
  * })
  * @ORM\Entity
  */
-class ProductTypeLayout extends ZMObject {
+class ProductTypeLayout extends ZMObject
+{
     /**
      * @var integer $id
      *
@@ -113,7 +114,8 @@ class ProductTypeLayout extends ZMObject {
      */
     private $setFunction;
 
-    public function __construct() {
+    public function __construct()
+    {
         $this->dateAdded = '0001-01-01 00:00:00';
     }
 

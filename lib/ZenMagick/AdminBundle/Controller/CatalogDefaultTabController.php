@@ -26,19 +26,21 @@ use ZenMagick\StoreBundle\Controller\CatalogContentController;
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class CatalogDefaultTabController extends CatalogContentController {
-
+class CatalogDefaultTabController extends CatalogContentController
+{
     /**
      * Create new instance.
      */
-    public function __construct() {
+    public function __construct()
+    {
         parent::__construct('catalog_default_tab', _zm('Catalog Manager'));
     }
 
     /**
      * {@inheritDoc}
      */
-    public function isActive($request) {
+    public function isActive($request)
+    {
         return true;
     }
 

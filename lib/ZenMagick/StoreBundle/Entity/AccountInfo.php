@@ -27,7 +27,8 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table(name="customers_info")
  * @ORM\Entity
  */
-class AccountInfo {
+class AccountInfo
+{
     /**
      * @var integer $accountId
      *

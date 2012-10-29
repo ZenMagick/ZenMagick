@@ -28,7 +28,8 @@ use Memcache;
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class MemcacheCache implements Cache {
+class MemcacheCache implements Cache
+{
     const SYSTEM_KEY = "zenmagick.base.cache.memcache";
     private $group_;
     private $memcache_;
@@ -39,7 +40,8 @@ class MemcacheCache implements Cache {
     /**
      * Create new instance.
      */
-    public function __construct() {
+    public function __construct()
+    {
         $this->memcache_ = null;
         $this->lifetime_ = 0;
         $this->lastModified_ = time();
@@ -52,7 +54,8 @@ class MemcacheCache implements Cache {
      * @param array config Optional config values: default is an empty array.
      * @return Memcache A <code>Memcache</code> instance.
      */
-    protected function getMemcache($config=array()) {
+    protected function getMemcache($config=array())
+    {
         if (null == $this->memcache_) {
             $this->memcache_ = new Memcache();
             $config = array_merge(array('host' => 'localhost', 'port' => 11211), $config);
@@ -64,7 +67,8 @@ class MemcacheCache implements Cache {
     /**
      * {@inheritDoc}
      */
-    public function init($group, $config) {
+    public function init($group, $config)
+    {
         $this->group_ = $group;
         $this->memcache_ = $this->getMemcache($config);
         $config = array_merge(array('cacheTTL' => 0, 'compress' => false), $config);
@@ -84,14 +88,16 @@ class MemcacheCache implements Cache {
     /**
      * {@inheritDoc}
      */
-    public function isAvailable() {
+    public function isAvailable()
+    {
         return class_exists('Memcache');
     }
 
     /**
      * {@inheritDoc}
      */
-    public function clear() {
+    public function clear()
+    {
         $this->lastModified_ = time();
 
         // iterate over all entries and match the group prefix
@@ -113,14 +119,16 @@ class MemcacheCache implements Cache {
     /**
      * {@inheritDoc}
      */
-    public function lookup($id) {
+    public function lookup($id)
+    {
         return $this->memcache_->get($this->group_.'/'.$id);
     }
 
     /**
      * {@inheritDoc}
      */
-    public function remove($id) {
+    public function remove($id)
+    {
         $this->lastModified_ = time();
         return $this->memcache_->delete($this->group_.'/'.$id);
     }
@@ -128,7 +136,8 @@ class MemcacheCache implements Cache {
     /**
      * {@inheritDoc}
      */
-    public function save($data, $id) {
+    public function save($data, $id)
+    {
         $this->lastModified_ = time();
         return $this->memcache_->set($this->group_.'/'.$id, $data, $this->compress_, $this->lifetime_);
     }
@@ -136,21 +145,24 @@ class MemcacheCache implements Cache {
     /**
      * {@inheritDoc}
      */
-    public function lastModified() {
+    public function lastModified()
+    {
         return $this->lastModified_;
     }
 
     /**
      * {@inheritDoc}
      */
-    public function getStats() {
+    public function getStats()
+    {
         return array('lastModified' => $this->lastModified(), 'system' => $this->getMemcache()->get(self::SYSTEM_KEY));
     }
 
     /**
      * {@inheritDoc}
      */
-    public function setOption($key, $value) {
+    public function setOption($key, $value)
+    {
     }
 
 }

@@ -32,13 +32,15 @@ use ZenMagick\Http\Widgets\Form\SelectFormWidget;
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class OrderStatusSelectFormWidget extends SelectFormWidget {
+class OrderStatusSelectFormWidget extends SelectFormWidget
+{
     private $showKey_;
 
     /**
      * Create new instance.
      */
-    public function __construct() {
+    public function __construct()
+    {
         parent::__construct();
         $this->showKey_ = true;
     }
@@ -48,7 +50,8 @@ class OrderStatusSelectFormWidget extends SelectFormWidget {
      *
      * @param boolean enable <code>true</code> to append the numeric value to the description.
      */
-    public function setShowKey($enable) {
+    public function setShowKey($enable)
+    {
         $this->showKey_ = $enable;
     }
 
@@ -57,14 +60,16 @@ class OrderStatusSelectFormWidget extends SelectFormWidget {
      *
      * @return boolean <code>true</code> to append, <code>false</code> to hide.
      */
-    public function isShowKey() {
+    public function isShowKey()
+    {
         return $this->showKey_;
     }
 
     /**
      * {@inheritDoc}
      */
-    public function getOptions($request) {
+    public function getOptions($request)
+    {
         $options = parent::getOptions($request);
         // @todo remove  dependency on language and request
         $languageId = null != $request ? $request->getSelectedLanguage()->getId() : 1;

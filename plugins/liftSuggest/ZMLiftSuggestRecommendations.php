@@ -27,6 +27,6 @@ use ZenMagick\Base\ZMObject;
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class ZMLiftSuggestRecommendations extends ZMObject {
-
+class ZMLiftSuggestRecommendations extends ZMObject
+{
 }

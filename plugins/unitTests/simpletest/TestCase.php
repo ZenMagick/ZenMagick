@@ -28,14 +28,16 @@ use ZenMagick\Base\Toolbox;
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class TestCase extends UnitTestCase {
+class TestCase extends UnitTestCase
+{
     private $defaultDb_;
     public $container;
 
     /**
      * Create new instance.
      */
-    public function __construct() {
+    public function __construct()
+    {
         parent::__construct();
         $this->container = Runtime::getContainer();
     }
@@ -45,14 +47,16 @@ class TestCase extends UnitTestCase {
      *
      * @return ZenMagick\Http\Request The current request.
      */
-    public function getRequest() {
+    public function getRequest()
+    {
         return Runtime::getContainer()->get('request');
     }
 
     /**
      * {@inheritDoc}
      */
-    public function setUp() {
+    public function setUp()
+    {
         // use test connection by temp. re-configuring the default connection
         $this->defaultDb_ = Runtime::getSettings()->get('doctrine.dbal.connections.default');
         if (Runtime::getSettings()->exists('plugins.unitTests.database.test')) {
@@ -68,7 +72,8 @@ class TestCase extends UnitTestCase {
     /**
      * {@inheritDoc}
      */
-    public function tearDown() {
+    public function tearDown()
+    {
         // restore
         Runtime::getSettings()->set('doctrine.dbal.connections.default', $this->defaultDb_);
         $this->getRequest()->getSession()->setAccount(null);
@@ -77,7 +82,8 @@ class TestCase extends UnitTestCase {
     /**
      * {@inheritDoc}
      */
-    public function assertEqual($first, $second, $message = '%s') {
+    public function assertEqual($first, $second, $message = '%s')
+    {
         if (is_array($second)) {
             return $this->assert(new ArrayEqualExpectation($first), $second, $message);
         }
@@ -87,7 +93,8 @@ class TestCase extends UnitTestCase {
     /**
      * {@inheritDoc}
      */
-    public function assert($expectation, $compare, $message='%s') {
+    public function assert($expectation, $compare, $message='%s')
+    {
         $result = parent::assert($expectation, $compare, $message);
         if (!$result) {
             $location = explode(' ', trim(str_replace(array('[', ']'), '', $this->getAssertionLine())));
@@ -107,7 +114,8 @@ class TestCase extends UnitTestCase {
      *
      * @return ZMPlugin The plugin.
      */
-    public function getTestPlugin() {
+    public function getTestPlugin()
+    {
         return $this->container->get('pluginService')->getPluginForId('unitTests');
     }
 
@@ -118,7 +126,8 @@ class TestCase extends UnitTestCase {
      *
      * @return string The full directory name of the tests folder.
      */
-    public function getTestsBaseDirectory() {
+    public function getTestsBaseDirectory()
+    {
         return $this->getTestPlugin()->getPluginDirectory().'/tests';
     }
 

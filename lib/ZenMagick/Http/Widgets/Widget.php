@@ -36,7 +36,8 @@ use ZenMagick\Http\View\TemplateView;
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-abstract class Widget extends ZMObject {
+abstract class Widget extends ZMObject
+{
     private $title_;
     private $description_;
     private $enabled_;
@@ -44,7 +45,8 @@ abstract class Widget extends ZMObject {
     /**
      * Create new instance.
      */
-    public function __construct() {
+    public function __construct()
+    {
         parent::__construct();
         $this->title_ = '';
         $this->enabled_ = true;
@@ -55,7 +57,8 @@ abstract class Widget extends ZMObject {
      *
      * @param string title The title.
      */
-    public function setTitle($title) {
+    public function setTitle($title)
+    {
         $this->title_ = $title;
     }
 
@@ -64,7 +67,8 @@ abstract class Widget extends ZMObject {
      *
      * @return string The title.
      */
-    public function getTitle() {
+    public function getTitle()
+    {
         return $this->title_;
     }
 
@@ -73,7 +77,8 @@ abstract class Widget extends ZMObject {
      *
      * @param string description The description.
      */
-    public function setDescription($description) {
+    public function setDescription($description)
+    {
         $this->description_ = $description;
     }
 
@@ -82,7 +87,8 @@ abstract class Widget extends ZMObject {
      *
      * @return string The description.
      */
-    public function getDescription() {
+    public function getDescription()
+    {
         return $this->description_;
     }
 
@@ -91,7 +97,8 @@ abstract class Widget extends ZMObject {
      *
      * @param boolean enabled The enabled state.
      */
-    public function setEnabled($enabled) {
+    public function setEnabled($enabled)
+    {
         $this->enabled_ = $enabled;
     }
 
@@ -100,7 +107,8 @@ abstract class Widget extends ZMObject {
      *
      * @return boolean The enabled state.
      */
-    public function isEnabled() {
+    public function isEnabled()
+    {
         return $this->enabled_;
     }
 

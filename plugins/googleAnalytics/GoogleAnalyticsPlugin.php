@@ -34,14 +34,16 @@ use ZenMagick\Base\Toolbox;
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class GoogleAnalyticsPlugin extends Plugin {
+class GoogleAnalyticsPlugin extends Plugin
+{
     private $eol_ = "\n";
     private $order_ = null;
 
     /**
      * Event handler.
      */
-    public function onViewStart($event) {
+    public function onViewStart($event)
+    {
         $request = $event->getArgument('request');
         if ('checkout_success' == $request->getRequestId()) {
             $view = $event->getArgument('view');
@@ -53,7 +55,8 @@ class GoogleAnalyticsPlugin extends Plugin {
     /**
      * Event handler.
      */
-    public function onFinaliseContent($event) {
+    public function onFinaliseContent($event)
+    {
         $request = $event->getArgument('request');
 
         $trackerCode = $this->getTrackerCodeGa($request);
@@ -76,7 +79,8 @@ class GoogleAnalyticsPlugin extends Plugin {
      *
      * @return mixed Either a <code>ZenMagick\StoreBundle\Entity\Address</code> or <code>ZMAccound</code> instance.
      */
-    protected function getAddress($order) {
+    protected function getAddress($order)
+    {
         $address = $order->hasShippingAddress() ? $order->getShippingAddress() : $order->getBillingAddress();
         switch ($this->get('address')) {
         case 'shipping':
@@ -97,7 +101,8 @@ class GoogleAnalyticsPlugin extends Plugin {
      * @param ZenMagick\Http\Request request The current request.
      * @return string A string.
      */
-    protected function getPageview($request) {
+    protected function getPageview($request)
+    {
         $view = '';
         switch ($this->get('pagenameFormat')) {
         case 'custom':
@@ -146,7 +151,8 @@ class GoogleAnalyticsPlugin extends Plugin {
      * @param ZenMagick\Http\Request request The current request.
      * @return string The tracking code.
      */
-    protected function getTrackerCodeGa($request) {
+    protected function getTrackerCodeGa($request)
+    {
         $tracker = $this->get('uacct');
         $pageview = $this->getPageview($request);
         $setDomainName = '';
@@ -177,7 +183,8 @@ EOT;
      * @param ZenMagick\Http\Request request The current request.
      * @return string The order tracking code or empty string if not applicable.
      */
-    protected function getCheckoutCodeGa($request) {
+    protected function getCheckoutCodeGa($request)
+    {
         if ('checkout_success' != $request->getRequestId()) {
             return '';
         }
@@ -266,7 +273,8 @@ EOT;
      * @param ZenMagick\Http\Request request The current request.
      * @return string The conversion code.
      */
-    protected function getConversionCode($request) {
+    protected function getConversionCode($request)
+    {
         $code = '';
         if ('checkout_success' == $request->getRequestId()) {
             if (null == $this->order_) {

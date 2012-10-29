@@ -27,12 +27,13 @@ use ZenMagick\StoreBundle\Widgets\StatusCheck;
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class InstallationStatusCheck implements StatusCheck {
-
+class InstallationStatusCheck implements StatusCheck
+{
     /**
      * {@inheritDoc}
      */
-    public function getStatusMessages() {
+    public function getStatusMessages()
+    {
         $messages = array();
         $settingsService = Runtime::getSettings();
         $zcPath = $settingsService->get('zencart.root_dir');

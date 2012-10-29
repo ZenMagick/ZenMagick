@@ -28,7 +28,8 @@ use ZenMagick\Http\View\ResourceResolver;
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class ResourceResolverFileLocator implements FileLocatorInterface {
+class ResourceResolverFileLocator implements FileLocatorInterface
+{
     protected $resourceResolver;
 
     /**
@@ -36,14 +37,16 @@ class ResourceResolverFileLocator implements FileLocatorInterface {
      *
      * @param ResourceResolver resourceResolver The resource resolver used to resolve files.
      */
-    public function __construct(ResourceResolver $resourceResolver) {
+    public function __construct(ResourceResolver $resourceResolver)
+    {
         $this->resourceResolver = $resourceResolver;
     }
 
     /**
      * {@inheritDoc}
      */
-    public function locate($name, $currentPath=null, $first=true) {
+    public function locate($name, $currentPath=null, $first=true)
+    {
         if (!$this->resourceResolver->exists($name)) {
             throw new InvalidArgumentException(sprintf('not found: %s', $name));
         }

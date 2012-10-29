@@ -33,13 +33,15 @@ use ZenMagick\Base\ZMObject;
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class ResourceResolver extends ZMObject {
+class ResourceResolver extends ZMObject
+{
     protected $locations;
 
     /**
      * Create new instance.
      */
-    public function __construct() {
+    public function __construct()
+    {
         parent::__construct();
         $this->locations = array(View::TEMPLATE => null, View::RESOURCE => null);
     }
@@ -54,7 +56,8 @@ class ResourceResolver extends ZMObject {
      * @see TEMPLATE
      * @see RESOURCE
      */
-    public function getLocationsFor($type) {
+    public function getLocationsFor($type)
+    {
         switch ($type) {
         case View::TEMPLATE:
             return $this->getTemplateLocations();
@@ -71,7 +74,8 @@ class ResourceResolver extends ZMObject {
      *
      * @return array List of template locations.
      */
-    public function getTemplateLocations() {
+    public function getTemplateLocations()
+    {
         if (null === $this->locations[View::TEMPLATE]) {
             $locations = array();
 
@@ -100,7 +104,8 @@ class ResourceResolver extends ZMObject {
      *
      * @return array List of template locations.
      */
-    protected function getApplicationTemplateLocations() {
+    protected function getApplicationTemplateLocations()
+    {
         return array($this->getApplicationTemplatePath(), Runtime::getInstallationPath().'/lib/ZenMagick/ZenCartBundle/Resources/views');
     }
 
@@ -111,7 +116,8 @@ class ResourceResolver extends ZMObject {
      *
      * @return array List of resource locations.
      */
-    public function getResourceLocations() {
+    public function getResourceLocations()
+    {
         if (null === $this->locations[View::RESOURCE]) {
             $locations = array();
 
@@ -148,7 +154,8 @@ class ResourceResolver extends ZMObject {
      *
      * @return array List of resource locations.
      */
-    protected function getApplicationResourceLocations() {
+    protected function getApplicationResourceLocations()
+    {
         return array($this->getApplicationDocRoot(), Runtime::getInstallationPath().'/lib/ZenMagick/ZenCartBundle/Resources/public/');
     }
 
@@ -159,7 +166,8 @@ class ResourceResolver extends ZMObject {
      *
      * @return string The path to the application templates.
      */
-    public function getApplicationTemplatePath() {
+    public function getApplicationTemplatePath()
+    {
         return Runtime::getApplicationPath().'/Resources/views/';
     }
 
@@ -168,7 +176,8 @@ class ResourceResolver extends ZMObject {
      *
      * @return string The path to the application doc root.
      */
-    public function getApplicationDocRoot() {
+    public function getApplicationDocRoot()
+    {
         return Runtime::getApplicationPath().'/Resources/public/';
     }
 
@@ -178,7 +187,8 @@ class ResourceResolver extends ZMObject {
      * @param array List of locations.
      * @return array List of valid locations.
      */
-    protected function validateLocations($locations) {
+    protected function validateLocations($locations)
+    {
         $valid = array();
         foreach ($locations as $location) {
             $location = realpath($location);
@@ -196,7 +206,8 @@ class ResourceResolver extends ZMObject {
      * @param string type The default.
      * @return array ($resource, $type) The final resource name and type.
      */
-    public function resolveType($resource, $type) {
+    public function resolveType($resource, $type)
+    {
         if (0 === strpos($resource, VIEW::TEMPLATE)) {
             return array(substr($resource, 9), VIEW::TEMPLATE);
         } elseif (0 === strpos($resource, VIEW::RESOURCE)) {
@@ -231,7 +242,8 @@ class ResourceResolver extends ZMObject {
      * @param string type The resource type; default is <code>View::RESOURCE</code>.
      * @return array A map of matching filenames.
      */
-    public function find($path, $regexp=null, $type=View::RESOURCE) {
+    public function find($path, $regexp=null, $type=View::RESOURCE)
+    {
         list($path, $type) = $this->resolveType($path, $type);
         $locations = $this->getLocationsFor($type);
 
@@ -261,7 +273,8 @@ class ResourceResolver extends ZMObject {
      * @param string type The resource type; default is <code>View::TEMPLATE</code>.
      * @return boolean <code>true</code> if the file exists, <code>false</code> if not.
      */
-    public function exists($resource, $type=View::TEMPLATE) {
+    public function exists($resource, $type=View::TEMPLATE)
+    {
         list($resource, $type) = $this->resolveType($resource, $type);
         $file = $this->findResource($resource, $type);
         return !empty($file);
@@ -274,7 +287,8 @@ class ResourceResolver extends ZMObject {
      * @param string type The resource type; default is <code>View::RESOURCE</code>.
      * @return string The path to the resource or <code>null</code>.
      */
-    public function findResource($resource, $type=View::RESOURCE) {
+    public function findResource($resource, $type=View::RESOURCE)
+    {
         list($resource, $type) = $this->resolveType($resource, $type);
         $locations = $this->getLocationsFor($type);
         foreach ($locations as $location) {

@@ -26,12 +26,13 @@ use ZenMagick\plugins\unitTests\simpletest\TestCase;
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class TestTagService extends TestCase {
-
+class TestTagService extends TestCase
+{
     /**
      * Test getTagsForProductId.
      */
-    public function testGetTagsForProductId() {
+    public function testGetTagsForProductId()
+    {
         $tags = $this->container->get('tagService')->getTagsForProductId(12, 1);
         // test values only
         $this->assertEqual(array('bar', 'foo'), array_values($tags));
@@ -40,7 +41,8 @@ class TestTagService extends TestCase {
     /**
      * Test getProductIdsForTags.
      */
-    public function testGetProductIdsForTags() {
+    public function testGetProductIdsForTags()
+    {
         $ids = $this->container->get('tagService')->getProductIdsForTags(array('foo', 'bar'), 1);
         sort($ids);
         $this->assertEqual(array(11, 12, 13), $ids);
@@ -49,7 +51,8 @@ class TestTagService extends TestCase {
     /**
      * Test getAllTags.
      */
-    public function testGetAllTags() {
+    public function testGetAllTags()
+    {
         $tags = $this->container->get('tagService')->getAllTags(1);
         // test values only
         $this->assertEqual(array('bar', 'doh', 'foo'), array_values($tags));
@@ -58,7 +61,8 @@ class TestTagService extends TestCase {
     /**
      * Test setTagsForProductId.
      */
-    public function testSetTagsForProductId() {
+    public function testSetTagsForProductId()
+    {
         $tagService = $this->container->get('tagService');
         $tags = $tagService->setTagsForProductId(12, 1, array('a', 'bar', 'c'));
         $tags = $tagService->getTagsForProductId(12, 1);
@@ -72,7 +76,8 @@ class TestTagService extends TestCase {
     /**
      * Test getStats.
      */
-    public function testGetStats() {
+    public function testGetStats()
+    {
         $stats = $this->container->get('tagService')->getStats(1);
         var_dump($stats);
         echo "<BR>";

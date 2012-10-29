@@ -27,12 +27,13 @@ use ZenMagick\StoreBundle\Plugins\PluginOptionsLoader;
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class AjaxPluginAdminController extends \ZMRpcController {
-
+class AjaxPluginAdminController extends \ZMRpcController
+{
     /**
      * Update plugin status.
      */
-    public function setPluginStatus($rpcRequest) {
+    public function setPluginStatus($rpcRequest)
+    {
         $data = $rpcRequest->getData();
         $pluginId = $data->pluginId;
         $status = Toolbox::asBoolean($data->status);

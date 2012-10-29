@@ -67,7 +67,8 @@ use ZenMagick\Base\ZMObject;
  * @author DerManoMann <mano@zenmagick.org> <mano@zenmagick.org>
  * @package org.zenmagick.core.database
  */
-class TableMapper extends ZMObject {
+class TableMapper extends ZMObject
+{
     private $tableMap_;
     private $tablePrefix_;
 
@@ -75,7 +76,8 @@ class TableMapper extends ZMObject {
      * Create a new instance.
      *
      */
-    public function __construct() {
+    public function __construct()
+    {
         parent::__construct();
         $this->tableMap_ = array();
         $this->tablePrefix_ = '';
@@ -87,7 +89,8 @@ class TableMapper extends ZMObject {
 
     }
 
-    public function setTablePrefix($tablePrefix = '') {
+    public function setTablePrefix($tablePrefix = '')
+    {
         $this->tablePrefix_ = $tablePrefix;
     }
 
@@ -97,7 +100,8 @@ class TableMapper extends ZMObject {
      * @param mixed tables Either a single table or array of table names.
      * @return array The mapping or <code>null</code>.
      */
-    public function getMapping($tables) {
+    public function getMapping($tables)
+    {
         $mappings = array();
         foreach (array_reverse((array) $tables) as $table) {
             $table = str_replace($this->tablePrefix_, '', $table);
@@ -121,7 +125,8 @@ class TableMapper extends ZMObject {
      * @param mixed mapping The field mappings or table name.
      * @return array A mapping or <code>null</code>.
      */
-    public function ensureMapping($mapping) {
+    public function ensureMapping($mapping)
+    {
         if (!is_array($mapping)) { // table name
             return $this->getMapping($mapping);
         }
@@ -132,7 +137,8 @@ class TableMapper extends ZMObject {
     /**
      * Add a property to a table.
      */
-    public function addPropertyForTable($table, $name, $info) {
+    public function addPropertyForTable($table, $name, $info)
+    {
         $table = str_replace($this->tablePrefix_, '', $table);
         $defaults = array('property' => $name, 'key' => false, 'auto' => false, 'custom' => false, 'default' => null);
         $this->tableMap_[$table][$name] = array_merge($defaults, (array) $info);
@@ -146,7 +152,8 @@ class TableMapper extends ZMObject {
      * @param string table The (new) table.
      * @param array The new mapping.
      */
-    public function setMappingForTable($table, $mapping) {
+    public function setMappingForTable($table, $mapping)
+    {
         $this->removeMappingForTable($table);
         foreach ((array) $mapping as $property => $info) {
             $this->addPropertyForTable($table, $property, $info);
@@ -158,7 +165,8 @@ class TableMapper extends ZMObject {
      *
      * @param string table The table to remove.
      */
-    public function removeMappingForTable($table) {
+    public function removeMappingForTable($table)
+    {
         $table = str_replace($this->tablePrefix_, '', $table);
         unset($this->tableMap_[$table]);
     }
@@ -168,7 +176,8 @@ class TableMapper extends ZMObject {
      *
      * @return array List of table names.
      */
-    public function getTableNames() {
+    public function getTableNames()
+    {
         return array_keys($this->tableMap_);
     }
 

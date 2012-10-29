@@ -27,19 +27,21 @@ use ZenMagick\StoreBundle\Entity\Account\Account;
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class LatestOrdersDashboardWidget extends DashboardWidget {
-
+class LatestOrdersDashboardWidget extends DashboardWidget
+{
     /**
      * Create new user.
      */
-    public function __construct() {
+    public function __construct()
+    {
         parent::__construct(_zm('Latest Orders'));
     }
 
     /**
      * {@inheritDoc}
      */
-    public function getContents($request) {
+    public function getContents($request)
+    {
         $net = $this->container->get('toolbox')->net;
         $utils = $this->container->get('toolbox')->utils;
         $language = $request->getSelectedLanguage();

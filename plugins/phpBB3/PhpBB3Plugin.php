@@ -27,7 +27,8 @@ use ZenMagick\Base\Toolbox;
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class PhpBB3Plugin extends Plugin {
+class PhpBB3Plugin extends Plugin
+{
     private $page_ = '';
     private $prePostAccount_ = null;
     private $adapter_ = null;
@@ -35,7 +36,8 @@ class PhpBB3Plugin extends Plugin {
     /**
      * Get the phpBB3 adapter.
      */
-    protected function getAdapter() {
+    protected function getAdapter()
+    {
         if (null == $this->adapter_) {
             $this->adapter_ = new PhpBB3Adapter();
         }
@@ -49,7 +51,8 @@ class PhpBB3Plugin extends Plugin {
      * <p>Setup additional validation rules; this is done here to avoid getting in the way of
      * custom global/theme validation rule setups.</p>
      */
-    public function onContainerReady($event) {
+    public function onContainerReady($event)
+    {
         $request = $event->getArgument('request');
         $this->page_ = $request->getRequestId();
         $this->prePostAccount_ = $request->getAccount();
@@ -100,7 +103,8 @@ class PhpBB3Plugin extends Plugin {
      * <p>Here the additional processing is done by checking the result view id. As per convention,
      * ZenMagick controller will use the viewId 'success' if POST processing was successful.</p>
      */
-    public function onCreateAccount($event) {
+    public function onCreateAccount($event)
+    {
         $account = $event->getArgument('account');
         if (!Toolbox::isEmpty($account->getNickName())) {
             $password = $event->getArgument('clearPassword');
@@ -114,7 +118,8 @@ class PhpBB3Plugin extends Plugin {
      * <p>Here the additional processing is done by checking the result view id. As per convention,
      * ZenMagick controller will use the viewId 'success' if POST processing was successful.</p>
      */
-    public function onPasswordChanged($event) {
+    public function onPasswordChanged($event)
+    {
         $account = $event->getArgument('account');
         if (!Toolbox::isEmpty($account->getNickName())) {
             $password = $event->getArgument('clearPassword');
@@ -125,7 +130,8 @@ class PhpBB3Plugin extends Plugin {
     /**
      * Event callback for syncing users.
      */
-    public function onAccountUpdated($event) {
+    public function onAccountUpdated($event)
+    {
         $account = $event->getArgument('account');
         if (null != $account && !Toolbox::isEmpty($account->getNickName())) {
             $this->getAdapter()->updateAccount($account->getNickName(), null, $account->getEmail());

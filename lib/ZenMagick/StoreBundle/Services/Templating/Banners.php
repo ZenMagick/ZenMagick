@@ -28,14 +28,15 @@ use ZenMagick\Base\Database\Connection;
  *
  * @author DerManoMann
  */
-class Banners extends ZMObject {
-
+class Banners extends ZMObject
+{
     /**
      * Get a list of all banner groups.
      *
      * @return array List of banner group ids.
      */
-    public function getBannerGroupIds() {
+    public function getBannerGroupIds()
+    {
         $sql = "SELECT DISTINCT banners_group FROM %table.banners%";
         $ids = array();
         foreach (ZMRuntime::getDatabase()->fetchAll($sql, array(), 'banners') as $result) {
@@ -53,7 +54,8 @@ class Banners extends ZMObject {
      * @param boolean secure Optional flag to load just banners for secure/unsecure pages; default is <code>null</code> for all.
      * @return array A list of <code>Banner</code> instances.
      */
-    public function getBannersForGroupName($group, $secure = false) {
+    public function getBannersForGroupName($group, $secure = false)
+    {
         if (empty($group)) {
             return array();
         }
@@ -87,7 +89,8 @@ class Banners extends ZMObject {
      * @param integer id The banner id.
      * @return mixed A <code>Banner</code> instance or <code>null</code>.
      */
-    public function getBannerForId($id) {
+    public function getBannerForId($id)
+    {
         $sql = "SELECT *
                 FROM %table.banners%
                 WHERE status = 1 AND banners_id = :id";
@@ -99,7 +102,8 @@ class Banners extends ZMObject {
      *
      * @param int bannerId The banner id.
      */
-    public function updateBannerDisplayCount($bannerId) {
+    public function updateBannerDisplayCount($bannerId)
+    {
         $sql = "SELECT count(*) AS total
                 FROM %table.banners_history%
                 WHERE banners_id = :id AND date_format(banners_history_date, '%%Y%%m%%d') = date_format(now(), '%%Y%%m%%d')";
@@ -124,7 +128,8 @@ class Banners extends ZMObject {
      *
      * @param int bannerId The banner id.
      */
-    public function expireByImpressions($bannerId) {
+    public function expireByImpressions($bannerId)
+    {
         $banner = $this->getBannerForId($bannerId);
         $maxImpressions = $banner->getExpiryImpressions();
         if ($maxImpressions > 0) {
@@ -144,7 +149,8 @@ class Banners extends ZMObject {
      *
      * @param int bannerId The banner id.
      */
-    public function updateBannerClickCount($bannerId) {
+    public function updateBannerClickCount($bannerId)
+    {
         $sql = "UPDATE %table.banners_history%
                 SET banners_clicked = banners_clicked + 1
                 WHERE banners_id = :id AND date_format(banners_history_date, '%%Y%%m%%d') = date_format(now(), '%%Y%%m%%d')";
@@ -154,7 +160,8 @@ class Banners extends ZMObject {
     /**
      * Run scheduled tasks for this service.
      */
-    public function runTasks() {
+    public function runTasks()
+    {
         $this->scheduleBanners();
     }
 
@@ -164,7 +171,8 @@ class Banners extends ZMObject {
      * Stops all banners scheduled for expiration
      * and starts all banners scheduled to be started.
      */
-    public function scheduleBanners() {
+    public function scheduleBanners()
+    {
         $sql = "SELECT banners_id, date_scheduled, expires_date
                 FROM %table.banners%";
         foreach (ZMRuntime::getDatabase()->fetchAll($sql, array(), 'banners', 'ZenMagick\StoreBundle\Entity\Templating\Banner') as $banner) {

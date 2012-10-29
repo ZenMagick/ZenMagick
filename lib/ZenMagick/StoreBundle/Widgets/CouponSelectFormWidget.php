@@ -26,12 +26,13 @@ use ZenMagick\Http\Widgets\Form\SelectFormWidget;
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class CouponSelectFormWidget extends SelectFormWidget {
-
+class CouponSelectFormWidget extends SelectFormWidget
+{
     /**
      * {@inheritDoc}
      */
-    public function getOptions($request) {
+    public function getOptions($request)
+    {
         $options = parent::getOptions($request);
 
         // @todo remove  dependency on language and request

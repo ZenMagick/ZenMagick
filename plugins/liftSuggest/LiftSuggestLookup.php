@@ -39,7 +39,8 @@ namespace ZenMagick\plugins\liftSuggest;
  *   <dd>The domain for suggestions.</dd>
  * </dl>
  */
-class LiftSuggestLookup {
+class LiftSuggestLookup
+{
     private $token;
     private $customerId;
     private $limit;
@@ -50,7 +51,8 @@ class LiftSuggestLookup {
      *
      * @param array config The configuration.
      */
-    public function __construct($config) {
+    public function __construct($config)
+    {
         $this->token = $config['token'];
         $this->customerId = $config['customerId'];
         $this->limit = $config['limit'];
@@ -63,7 +65,8 @@ class LiftSuggestLookup {
      * @param string message The log message.
      * @param Exception e Optional exception; default is <code>null</code>.
      */
-    public function log($message, $e=null) {
+    public function log($message, $e=null)
+    {
         // swallow
     }
 
@@ -73,7 +76,8 @@ class LiftSuggestLookup {
      * @param string key The key.
      * @param mixed value The value.
      */
-    public function storeInSession($key, $value) {
+    public function storeInSession($key, $value)
+    {
         $_SESSION[$key] = $value;
     }
 
@@ -83,7 +87,8 @@ class LiftSuggestLookup {
      * @param string key The key.
      * @param mixed default A default value; default is <code>null</code>.
      */
-    public function getFromSession($key, $default=null) {
+    public function getFromSession($key, $default=null)
+    {
         if (array_key_exists($key, $_SESSION)) {
             return $_SESSION[$key];
         }
@@ -99,7 +104,8 @@ class LiftSuggestLookup {
      * @param array raw The raw Lift Suggest recommendation data.
      * @return array Corresponding product data.
      */
-    public function populate($raw) {
+    public function populate($raw)
+    {
         return $raw;
     }
 
@@ -110,7 +116,8 @@ class LiftSuggestLookup {
      * @param int limit Optional limit to override the globally configured limit; default is <code>null</code> to use the global limit.
      * @return array List of maps with product recommendation details and global popularity (%), or <code>null</code> on failure.
      */
-    public function getProductRecommendations($productIds, $limit=null) {
+    public function getProductRecommendations($productIds, $limit=null)
+    {
         if (!is_array($productIds)) {
             $productIds = array($productIds);
         }

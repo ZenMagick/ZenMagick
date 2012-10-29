@@ -26,7 +26,8 @@ use ZenMagick\AdminBundle\Installation\Patches\SQLPatch;
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class AdminRolesPatch extends SQLPatch {
+class AdminRolesPatch extends SQLPatch
+{
     public $sqlFiles_ = array(
         "admin_roles_install.sql"
     );
@@ -34,7 +35,8 @@ class AdminRolesPatch extends SQLPatch {
     /**
      * Create new instance.
      */
-    public function __construct() {
+    public function __construct()
+    {
         parent::__construct('sqlAdminRoles');
         $this->label_ = 'Create tables for new role based admin access control';
         $this->setTables(array('admins_to_roles', 'admin_roles'));
@@ -45,7 +47,8 @@ class AdminRolesPatch extends SQLPatch {
      *
      * @return boolean <code>true</code> if this patch can still be applied.
      */
-    public function isOpen() {
+    public function isOpen()
+    {
         return !$this->tablesExist();
     }
 

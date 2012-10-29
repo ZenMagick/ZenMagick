@@ -27,9 +27,10 @@ use ZenMagick\plugins\unitTests\simpletest\TestCase;
  * @package org.zenmagick.plugins.unitTests.tests
  * @author DerManoMann <mano@zenmagick.org>
  */
-class TestNode extends TestCase {
-
-    public function testChildren() {
+class TestNode extends TestCase
+{
+    public function testChildren()
+    {
         $root = new Node();
         $this->assertEqual(array(), $root->getChildren());
         $children = array(new Node());
@@ -37,7 +38,8 @@ class TestNode extends TestCase {
         $this->assertEqual($children, $root->getChildren());
     }
 
-    public function testGetElementForId() {
+    public function testGetElementForId()
+    {
         $root = new Node();
         $root->addChild(new Node('r1'));
         $root->addChild(new Node('r2'));
@@ -61,7 +63,8 @@ class TestNode extends TestCase {
         }
     }
 
-    public function testHasChildren() {
+    public function testHasChildren()
+    {
         $root = new Node();
         $root->addChild(new Node('r1'));
         $root->addChild(new Node('r2'));
@@ -69,7 +72,8 @@ class TestNode extends TestCase {
         $this->assertTrue($root->hasChildren());
     }
 
-    public function testRemoveChild() {
+    public function testRemoveChild()
+    {
         $root = new Node();
         $root->addChild(new Node('r1'));
         $root->addChild(new Node('r2'));
@@ -90,7 +94,8 @@ class TestNode extends TestCase {
         $this->assertEqual(array('r3'), $children);
     }
 
-    public function testFindNodes() {
+    public function testFindNodes()
+    {
         $r2 = new Node('r2', 'nr2');
         $r1 = new Node('r1', 'nr1');
         $r1->addChild($r2);

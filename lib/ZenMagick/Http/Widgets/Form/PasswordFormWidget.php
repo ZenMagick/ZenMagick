@@ -27,12 +27,13 @@ use ZenMagick\Http\View\TemplateView;
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class PasswordFormWidget extends TextFormWidget {
-
+class PasswordFormWidget extends TextFormWidget
+{
     /**
      * Create new instance.
      */
-    public function __construct() {
+    public function __construct()
+    {
         parent::__construct();
         $this->set('autocomplete','off');
     }
@@ -40,7 +41,8 @@ class PasswordFormWidget extends TextFormWidget {
     /**
      * {@inheritDoc}
      */
-    public function render($request, TemplateView $templateView) {
+    public function render($request, TemplateView $templateView)
+    {
         $slash = Runtime::getSettings()->get('zenmagick.http.html.xhtml') ? '/' : '';
         return '<input type="password"'.$this->getAttributeString($request, false).$slash.'>';
     }

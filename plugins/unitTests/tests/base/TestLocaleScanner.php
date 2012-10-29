@@ -27,13 +27,15 @@ use ZenMagick\plugins\unitTests\simpletest\TestCase;
  * @package org.zenmagick.plugins.unitTests.tests
  * @author DerManoMann <mano@zenmagick.org>
  */
-class TestLocaleScanner extends TestCase {
+class TestLocaleScanner extends TestCase
+{
     protected static $DATA_DIR;
 
     /**
      * Create new instance.
      */
-    public function __construct() {
+    public function __construct()
+    {
         parent::__construct();
         self::$DATA_DIR = $this->getTestPlugin()->getPluginDirectory().'/tests/base/data';
     }
@@ -41,7 +43,8 @@ class TestLocaleScanner extends TestCase {
     /**
      * Get scanner.
      */
-    protected function getScanner() {
+    protected function getScanner()
+    {
         $scanner = new LocaleScanner();
         $scanner->setFilesystem($this->container->get('filesystem'));
         return $scanner;
@@ -50,7 +53,8 @@ class TestLocaleScanner extends TestCase {
     /**
      * Test simple
      */
-    public function testSimple() {
+    public function testSimple()
+    {
         $map = $this->getScanner()->buildL10nMap(self::$DATA_DIR.'/l10n-simple', '.phpx');
         if ($this->assertEqual(1, count($map))) {
             $this->assertEqual(array('Yooo' => array('msg' => 'Yooo', 'plural' => null, 'context' => null, 'filename' => 'l10n-simple\l10n-test1.phpx', 'line' => 3)), array_pop($map));
@@ -60,7 +64,8 @@ class TestLocaleScanner extends TestCase {
     /**
      * Test other
      */
-    public function testOther() {
+    public function testOther()
+    {
         $map = $this->getScanner()->buildL10nMap(self::$DATA_DIR.'/l10n-other', '.txt');
         if ($this->assertEqual(1, count($map))) {
             $this->assertEqual(array('+ view size chart' => array('msg' => '+ view size chart', 'plural' => null, 'context' => null, 'filename' => 'l10n-other\l10n-other.txt', 'line' => 1)), array_pop($map));
@@ -70,7 +75,8 @@ class TestLocaleScanner extends TestCase {
     /**
      * Test mixed
      */
-    public function testMixed() {
+    public function testMixed()
+    {
         $map = $this->getScanner()->buildL10nMap(self::$DATA_DIR.'/l10n-mixed', '.phpx');
         if ($this->assertEqual(1, count($map))) {
             $expected = array(
@@ -85,7 +91,8 @@ class TestLocaleScanner extends TestCase {
     /**
      * Test blocks.
      */
-    public function testBlocks() {
+    public function testBlocks()
+    {
         $s = 'Last %bOrders%% %1bfoo%%';
         $result = _zmsprintf($s, '<a href="">%%block%%</a>', '%%block%%-bar');
         $this->assertEqual('Last <a href="">Orders</a> foo-bar', $result);
@@ -94,7 +101,8 @@ class TestLocaleScanner extends TestCase {
     /**
      * Test context.
      */
-    public function testContext() {
+    public function testContext()
+    {
         $map = $this->getScanner()->buildL10nMap(self::$DATA_DIR.'/l10n-context', '.phpx');
         if ($this->assertTrue(1 == count($map))) {
             $expected = array(

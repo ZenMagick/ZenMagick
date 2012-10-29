@@ -27,14 +27,15 @@ use ZenMagick\StoreBundle\Themes\ThemeStatusMapBuilder;
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class ZenCartThemeStatusMapBuilder extends ThemeStatusMapBuilder {
-
+class ZenCartThemeStatusMapBuilder extends ThemeStatusMapBuilder
+{
     /**
      * Collect a list of all theme folders.
      *
      * @return array List of folders that contain valid themes.
      */
-    protected function getPathIdMap() {
+    protected function getPathIdMap()
+    {
         $pathIdMap = parent::getPathIdMap();
 
         foreach ($this->getBasePath() as $basePath) {

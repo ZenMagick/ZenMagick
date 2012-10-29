@@ -29,12 +29,13 @@ use Symfony\Component\Finder\Finder;
  * @todo The big question is how much of this will be necessary
  *       if we are more tightly integrated with bundles.
  */
-class PluginsPass implements CompilerPassInterface {
-
+class PluginsPass implements CompilerPassInterface
+{
     /**
      * Process container configuration for plugins (if enabled)
      */
-    public function process(ContainerBuilder $container) {
+    public function process(ContainerBuilder $container)
+    {
         if (!$container->has('pluginService')) return;
 
         // @todo still wrong place.
@@ -51,7 +52,8 @@ class PluginsPass implements CompilerPassInterface {
      *
      * This is more or less equivalent to how FrameworkBundle does it.
      */
-    protected function registerTranslatorConfiguration(array $plugins = array(), ContainerBuilder $container) {
+    protected function registerTranslatorConfiguration(array $plugins = array(), ContainerBuilder $container)
+    {
         $translator = $container->findDefinition('translator');
 
         $dirs = array();

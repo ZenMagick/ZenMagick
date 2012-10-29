@@ -26,12 +26,13 @@ use ZenMagick\StoreBundle\Entity\Account\Account;
  *
  * @author DerManoMann
  */
-class MockAccount extends Account {
-
+class MockAccount extends Account
+{
     /**
      * Create new instance.
      */
-    public function __construct() {
+    public function __construct()
+    {
         parent::__construct();
         $this->setFirstName('foo');
         $this->setLastName('bar');

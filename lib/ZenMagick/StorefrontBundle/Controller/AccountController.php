@@ -26,12 +26,13 @@ use ZenMagick\Base\Beans;
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class AccountController extends \ZMController {
-
+class AccountController extends \ZMController
+{
     /**
      * {@inheritDoc}
      */
-    public function processGet($request) {
+    public function processGet($request)
+    {
         // orders are sorted desc...
         $account = $this->getUser();
         $resultSource = new \ZMObjectResultSource('ZenMagick\StoreBundle\Entity\Order\Order', 'orderService', "getOrdersForAccountId", array($account->getId(), $request->getSession()->getLanguageId()));

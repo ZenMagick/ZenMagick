@@ -27,19 +27,21 @@ use ZenMagick\StoreBundle\Entity\Account\Account;
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class LatestAccountsDashboardWidget extends DashboardWidget {
-
+class LatestAccountsDashboardWidget extends DashboardWidget
+{
     /**
      * Create new user.
      */
-    public function __construct() {
+    public function __construct()
+    {
         parent::__construct(_zm('Latest Accounts'));
     }
 
     /**
      * {@inheritDoc}
      */
-    public function getContents($request) {
+    public function getContents($request)
+    {
         $net = $this->container->get('netTool');
         $contents = '';
         $contents .= '<table class="grid" cellspacing="0">';

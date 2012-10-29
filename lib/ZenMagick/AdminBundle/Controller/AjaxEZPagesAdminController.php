@@ -27,12 +27,13 @@ use ZenMagick\Base\Toolbox;
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class AjaxEZPagesAdminController extends \ZMRpcController {
-
+class AjaxEZPagesAdminController extends \ZMRpcController
+{
     /**
      * Set page property.
      */
-    public function setEZPageProperty($rpcRequest) {
+    public function setEZPageProperty($rpcRequest)
+    {
         $data = $rpcRequest->getData();
         $pageId = $data->pageId;
         $languageId = $data->languageId;

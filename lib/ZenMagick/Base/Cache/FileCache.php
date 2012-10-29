@@ -30,7 +30,8 @@ use Symfony\Component\Filesystem\Filesystem;
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class FileCache extends ZMObject implements Cache {
+class FileCache extends ZMObject implements Cache
+{
     const SYSTEM_KEY = "zenmagick.base.cache.file";
     private $group_;
     private $available_;
@@ -40,7 +41,8 @@ class FileCache extends ZMObject implements Cache {
     /**
      * Create new instance.
      */
-    public function __construct() {
+    public function __construct()
+    {
         parent::__construct();
         $this->available_ = true;
     }
@@ -48,7 +50,8 @@ class FileCache extends ZMObject implements Cache {
     /**
      * {@inheritDoc}
      */
-    public function init($group, $config) {
+    public function init($group, $config)
+    {
         if (!isset($config['cacheDir'])) {
             throw new \RuntimeException('missing cacheDir');
         }
@@ -84,14 +87,16 @@ class FileCache extends ZMObject implements Cache {
     /**
      * {@inheritDoc}
      */
-    public function clear() {
+    public function clear()
+    {
         return $this->cache_->clean($this->group_);
     }
 
     /**
      * {@inheritDoc}
      */
-    public function lookup($id) {
+    public function lookup($id)
+    {
         $this->cache_->clean($this->group_, 'old');
         return $this->cache_->get($id, $this->group_);
     }
@@ -99,21 +104,24 @@ class FileCache extends ZMObject implements Cache {
     /**
      * {@inheritDoc}
      */
-    public function remove($id) {
+    public function remove($id)
+    {
         return $this->cache_->remove($id, $this->group_);
     }
 
     /**
      * {@inheritDoc}
      */
-    public function save($data, $id) {
+    public function save($data, $id)
+    {
         return $this->cache_->save($data, $id, $this->group_);
     }
 
     /**
      * {@inheritDoc}
      */
-    public function lastModified() {
+    public function lastModified()
+    {
         return $this->cache_->lastModified();
     }
 
@@ -123,7 +131,8 @@ class FileCache extends ZMObject implements Cache {
      * @param string dir The cache dir.
      * @return boolean <code>true</code> if the cache dir is usable, <code>false</code> if not.
      */
-    private function ensureCacheDir($dir) {
+    private function ensureCacheDir($dir)
+    {
         $filesystem = new Filesystem;
         $filesystem->mkdir($dir);
         return file_exists($dir) && is_writeable($dir);
@@ -132,14 +141,16 @@ class FileCache extends ZMObject implements Cache {
     /**
      * {@inheritDoc}
      */
-    public function getStats() {
+    public function getStats()
+    {
         return array('lastModified' => $this->metaCache_->lastModified(), 'system' => $this->metaCache_->get(self::SYSTEM_KEY));
     }
 
     /**
      * {@inheritDoc}
      */
-    public function setOption($key, $value) {
+    public function setOption($key, $value)
+    {
         $map = array('cacheTTL' => 'lifeTime');
         if (isset($map[$key])) {
             $key = $map[$key];

@@ -28,7 +28,8 @@ use ZenMagick\Base\Toolbox;
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class VBulletinPlugin extends Plugin {
+class VBulletinPlugin extends Plugin
+{
     private $page_ = '';
     private $prePostAccount_ = null;
     private $adapter_ = null;
@@ -36,7 +37,8 @@ class VBulletinPlugin extends Plugin {
     /**
      * Get the vBulletin adapter.
      */
-    protected function getAdapter() {
+    protected function getAdapter()
+    {
         if (null == $this->adapter_) {
             $this->adapter_ = Beans::getBean('ZenMagick\plugins\vBulletin\VBulletinAdapter');
         }
@@ -50,7 +52,8 @@ class VBulletinPlugin extends Plugin {
      * <p>Setup additional validation rules; this is done here to avoid getting in the way of
      * custom global/theme validation rule setups.</p>
      */
-    public function onContainerReady($event) {
+    public function onContainerReady($event)
+    {
         $request = $event->getArgument('request');
         $this->page_ = $request->getRequestId();
         $this->prePostAccount_ = $request->getAccount();
@@ -101,7 +104,8 @@ class VBulletinPlugin extends Plugin {
      * <p>Here the additional processing is done by checking the result view id. As per convention,
      * ZenMagick controller will use the viewId 'success' if POST processing was successful.</p>
      */
-    public function onCreateAccount($event) {
+    public function onCreateAccount($event)
+    {
         $account = $event->getArgument('account');
         if (!Toolbox::isEmpty($account->getNickName())) {
             $password = $event->getArgument('clearPassword');
@@ -115,7 +119,8 @@ class VBulletinPlugin extends Plugin {
      * <p>Here the additional processing is done by checking the result view id. As per convention,
      * ZenMagick controller will use the viewId 'success' if POST processing was successful.</p>
      */
-    public function onPasswordChanged($event) {
+    public function onPasswordChanged($event)
+    {
         $account = $event->getArgument('account');
         if (!Toolbox::isEmpty($account->getNickName())) {
             $password = $event->getArgument('clearPassword');
@@ -126,7 +131,8 @@ class VBulletinPlugin extends Plugin {
     /**
      * Event handler for login.
      */
-    public function onLoginSuccess($event) {
+    public function onLoginSuccess($event)
+    {
         $request = $event->getArgument('request');
         $account = $event->getArgument('account');
         // check if nickname set and no matching forum user
@@ -142,7 +148,8 @@ class VBulletinPlugin extends Plugin {
     /**
      * Event callback for syncing users.
      */
-    public function onAccountUpdated($event) {
+    public function onAccountUpdated($event)
+    {
         $account = $event->getArgument('account');
         $vbAccount = $this->getAdapter()->getAccountForNickName($account->getNickName());
         if (null != $account && !Toolbox::isEmpty($account->getNickName())) {

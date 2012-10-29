@@ -39,14 +39,15 @@ use ZenMagick\StoreBundle\Model\Checkout\ShoppingCart;
  *
  * @author DerManoMann
  */
-class ShoppingCartService extends ZMObject {
-
+class ShoppingCartService extends ZMObject
+{
     /**
      * Save the cart content.
      *
      * @param ShoppingCart shoppingCart The cart to save.
      */
-    public function saveCart($shoppingCart) {
+    public function saveCart($shoppingCart)
+    {
         if (0 == $shoppingCart->getAccountId()) {
             return;
         }
@@ -98,7 +99,8 @@ class ShoppingCartService extends ZMObject {
      *
      * @param ShoppingCart shoppingCart The cart to clear.
      */
-    public function clearCart($shoppingCart) {
+    public function clearCart($shoppingCart)
+    {
         $sql = "DELETE FROM %table.customers_basket%
                 WHERE customers_id = :accountId";
         ZMRuntime::getDatabase()->updateObj($sql, array('accountId' => $shoppingCart->getAccountId()), 'customers_basket');
@@ -112,7 +114,8 @@ class ShoppingCartService extends ZMObject {
      *
      * @param ShoppingCart shoppingCart The cart to update.
      */
-    public function updateCart($shoppingCart) {
+    public function updateCart($shoppingCart)
+    {
         $this->clearCart($shoppingCart);
         $this->saveCart($shoppingCart);
         // XXX: sync back to ZenCart
@@ -127,7 +130,8 @@ class ShoppingCartService extends ZMObject {
      * @param int accountId The owner's account id.
      * @return array The shopping cart contents.
      */
-    public function getContentsForAccountId($accountId) {
+    public function getContentsForAccountId($accountId)
+    {
         // build contents
         $contents = array();
 
@@ -171,7 +175,8 @@ class ShoppingCartService extends ZMObject {
      * @return ShoppingCart The cart.
      * @deprecated Use getContentsForAccountId($accountId) to load the contents and set that on the shared shopping cart instance instead
      */
-    public function loadCartForAccountId($accountId) {
+    public function loadCartForAccountId($accountId)
+    {
         $shoppingCart = Beans::getBean('ZenMagick\StoreBundle\Model\Checkout\ShoppingCart');
         $shoppingCart->setCheckoutHelper($this->container->get('checkoutHelper'));
         $shoppingCart->setContents($this->getContentsForAccountId($accountId));
@@ -181,7 +186,8 @@ class ShoppingCartService extends ZMObject {
     /**
      * Register upload.
      */
-    public function registerUpload($sessionId, $accountId, $filename) {
+    public function registerUpload($sessionId, $accountId, $filename)
+    {
         $sql = "INSERT INTO %table.files_uploaded% (sesskey, customers_id, files_uploaded_name)
                 VALUES(:sesskey, :customers_id, :files_uploaded_name)";
         $args = array('sesskey' => $sessionId, 'customers_id' => $accountId, 'files_uploaded_name' => $filename);

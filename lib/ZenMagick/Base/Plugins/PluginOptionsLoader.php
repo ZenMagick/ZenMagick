@@ -24,8 +24,8 @@ namespace ZenMagick\Base\Plugins;
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class PluginOptionsLoader {
-
+class PluginOptionsLoader
+{
     /**
      * Load options and stuff for the given id and config.
      *
@@ -33,7 +33,8 @@ class PluginOptionsLoader {
      * @param array config The configuration so far.
      * @return array The full configuration.
      */
-    public function load($id, $config) {
+    public function load($id, $config)
+    {
         $options = isset($config['meta']) && isset($config['meta']['options']) ? $config['meta']['options'] : array();
 
         $config['meta']['enabled'] = isset($config['meta']['enabled']) ? $config['meta']['enabled'] : true;

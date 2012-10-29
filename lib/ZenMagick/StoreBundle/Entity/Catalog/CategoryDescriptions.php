@@ -68,7 +68,8 @@ class CategoryDescriptions
      * @param  integer              $languageId
      * @return CategoryDescriptions
      */
-    public function setLanguageId($languageId) {
+    public function setLanguageId($languageId)
+    {
         $this->languageId = $languageId;
         return $this;
     }
@@ -78,7 +79,8 @@ class CategoryDescriptions
      *
      * @return integer
      */
-    public function getLanguageId() {
+    public function getLanguageId()
+    {
         return $this->languageId;
     }
 
@@ -88,7 +90,8 @@ class CategoryDescriptions
      * @param  string               $name
      * @return CategoryDescriptions
      */
-    public function setName($name) {
+    public function setName($name)
+    {
         $this->name = $name;
         return $this;
     }
@@ -98,7 +101,8 @@ class CategoryDescriptions
      *
      * @return string
      */
-    public function getName() {
+    public function getName()
+    {
         return $this->name;
     }
 
@@ -108,7 +112,8 @@ class CategoryDescriptions
      * @param  string               $description
      * @return CategoryDescriptions
      */
-    public function setDescription($description) {
+    public function setDescription($description)
+    {
         $this->description = $description;
         return $this;
     }
@@ -118,7 +123,8 @@ class CategoryDescriptions
      *
      * @return string
      */
-    public function getDescription() {
+    public function getDescription()
+    {
         return $this->description;
     }
 
@@ -128,7 +134,8 @@ class CategoryDescriptions
      * @param  ZenMagick\StoreBundle\Entity\Catalog\Category $category
      * @return CategoryDescriptions
      */
-    public function setCategory(Category $category) {
+    public function setCategory(Category $category)
+    {
         $this->category = $category;
         return $this;
     }
@@ -138,7 +145,8 @@ class CategoryDescriptions
      *
      * @return ZenMagick\StoreBundle\Entity\Catalog\Category
      */
-    public function getCategory() {
+    public function getCategory()
+    {
         return $this->category;
     }
 }

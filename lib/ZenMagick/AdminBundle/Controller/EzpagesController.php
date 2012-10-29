@@ -27,12 +27,13 @@ use ZenMagick\StoreBundle\Entity\EZPage;
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class EzpagesController extends \ZMController {
-
+class EzpagesController extends \ZMController
+{
     /**
      * {@inheritDoc}
      */
-    public function getViewData($request) {
+    public function getViewData($request)
+    {
         $language = $request->getSelectedLanguage();
         $languageId = $request->getParameter('languageId', $language->getId());
         $resultSource = new \ZMObjectResultSource('ZenMagick\StoreBundle\Entity\EZPage', 'ezPageService', "getAllPages", array($languageId));
@@ -45,7 +46,8 @@ class EzpagesController extends \ZMController {
     /**
      * {@inheritDoc}
      */
-    public function processGet($request) {
+    public function processGet($request)
+    {
         $language = $request->getSelectedLanguage();
         $languageId = $request->getParameter('languageId', $language->getId());
 
@@ -68,7 +70,8 @@ class EzpagesController extends \ZMController {
     /**
      * {@inheritDoc}
      */
-    public function processPost($request) {
+    public function processPost($request)
+    {
         if ($this->handleDemo()) {
             return $this->findView('success-demo');
         }

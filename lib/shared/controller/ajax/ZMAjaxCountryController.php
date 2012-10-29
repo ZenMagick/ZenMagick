@@ -24,12 +24,13 @@
  * @author DerManoMann
  * @package zenmagick.store.shared.mvc.controller.ajax
  */
-class ZMAjaxCountryController extends ZMAjaxController {
-
+class ZMAjaxCountryController extends ZMAjaxController
+{
     /**
      * Create new instance.
      */
-    public function __construct() {
+    public function __construct()
+    {
         parent::__construct('ajaxCountry');
         $this->set('ajaxCountryMap', array('id', 'name'));
         $this->set('ajaxZoneMap', array('id', 'name'));
@@ -40,7 +41,8 @@ class ZMAjaxCountryController extends ZMAjaxController {
      *
      * @param ZenMagick\Http\Request request The current request.
      */
-    public function getCountryListJSON($request) {
+    public function getCountryListJSON($request)
+    {
         $utilsTool = $this->container->get('utilsTool');
         $flatObj = $utilsTool->flattenObject($this->container->get('countryService')->getCountries(), $this->get('ajaxCountryMap'));
         $json = $this->toJSON($flatObj);
@@ -57,7 +59,8 @@ class ZMAjaxCountryController extends ZMAjaxController {
      *
      * @param ZenMagick\Http\Request request The current request.
      */
-    public function getZonesForCountryIdJSON($request) {
+    public function getZonesForCountryIdJSON($request)
+    {
         $countryId = $request->getParameter('countryId', null);
         $utilsTool = $this->container->get('utilsTool');
         $flatObj = $utilsTool->flattenObject($this->container->get('countryService')->getZonesForCountryId($countryId), $this->get('ajaxZoneMap'));

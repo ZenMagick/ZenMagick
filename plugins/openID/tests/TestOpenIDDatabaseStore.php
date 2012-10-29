@@ -27,12 +27,13 @@ use ZenMagick\plugins\unitTests\simpletest\TestCase;
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class TestOpenIDDatabaseStore extends TestCase {
-
+class TestOpenIDDatabaseStore extends TestCase
+{
     /**
      * Test store.
      */
-    public function testStore() {
+    public function testStore()
+    {
         $store = new OpenIDDatabaseStore();
         $this->assertNotNull($store);
         $ass = new Auth_OpenID_Association('foo', 'secret', 1, (time()+100000), 'HMAC-SHA1');

@@ -28,12 +28,13 @@ use ZenMagick\plugins\unitTests\simpletest\TestCase;
  * @package org.zenmagick.plugins.unitTests.tests
  * @author DerManoMann <mano@zenmagick.org>
  */
-class TestBeans extends TestCase {
-
+class TestBeans extends TestCase
+{
     /**
      * Test obj2map.
      */
-    public function testObj2map() {
+    public function testObj2map()
+    {
         // get all properties
         $expectAll = array('foo' => 'bar', 'doh' => 'nut', 'properties' => array('foo' => 'bar', 'doh' => 'nut'), 'propertyNames' => array('foo', 'doh'), 'attachedMethods' => array());
         $obj = new ZMObject();
@@ -56,7 +57,8 @@ class TestBeans extends TestCase {
     /**
      * Test setAll.
      */
-    public function testSetAll() {
+    public function testSetAll()
+    {
         $data = array('foo' => 'bar', 'doh' => 'nut');
 
         // set all
@@ -79,7 +81,8 @@ class TestBeans extends TestCase {
     /**
      * Test setAll with array
      */
-    public function testSetAllArray() {
+    public function testSetAllArray()
+    {
         // set all
         $map = array('foo' => 'bar', 'doh' => 'nut');
         $expectAll = array('foo' => 'bar', 'doh' => 'nut', 'deng' => 'foo');
@@ -90,7 +93,8 @@ class TestBeans extends TestCase {
     /**
      * Test map2obj.
      */
-    public function testMap2obj() {
+    public function testMap2obj()
+    {
         $data = array('foo' => 'bar', 'doh' => 'nut');
 
         // test all
@@ -111,7 +115,8 @@ class TestBeans extends TestCase {
     /**
      * Test getBean.
      */
-    public function testGetBean() {
+    public function testGetBean()
+    {
         $expect = array('foo' => 'bar', 'doh' => 'nut', 'properties' => array('foo' => 'bar', 'doh' => 'nut'), 'propertyNames' => array('foo', 'doh'), 'attachedMethods' => array());
         $definition = 'ZenMagick\Base\ZMObject#foo=bar&doh=nut';
         $obj = Beans::getBean($definition);
@@ -131,7 +136,8 @@ class TestBeans extends TestCase {
     /**
      * Test bean::
      */
-    public function testMagicBean() {
+    public function testMagicBean()
+    {
         // test null bean
         $this->assertEqual(null, Beans::getBean('bean::null'));
 
@@ -148,7 +154,8 @@ class TestBeans extends TestCase {
     /**
      * Test ref::
      */
-    public function testMagicRef() {
+    public function testMagicRef()
+    {
         $ref = Beans::getBean('ref::productService#foo=bar');
         if ($this->assertNotNull($ref)) {
             $this->assertTrue($ref instanceof ZenMagick\StoreBundle\Services\Products);
@@ -161,7 +168,8 @@ class TestBeans extends TestCase {
     /**
      * Test magic value
      */
-    public function testMagicValue() {
+    public function testMagicValue()
+    {
         $bean = Beans::getBean('ZenMagick\Base\ZMObject#handler='.urlencode('bean::ZenMagick\StoreBundle\Entity\Catalog\Product#name=foo'));
         if ($this->assertNotNull($bean)) {
             $handler = $bean->getHandler();

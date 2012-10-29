@@ -26,7 +26,8 @@ use ZenMagick\Base\ZMObject;
  * @author DerManoMann <mano@zenmagick.org>
  * @package org.zenmagick.mvc.validation
  */
-abstract class ZMRule extends ZMObject {
+abstract class ZMRule extends ZMObject
+{
     private $name_;
     private $msg_;
     private $defaultMsg_;
@@ -38,7 +39,8 @@ abstract class ZMRule extends ZMObject {
      * @param string defaultMsg The default error message; default is <code>null</code>.
      * @param string msg Optional custom error message; default is <code>null</code>.
      */
-    public function __construct($name=null, $defaultMsg=null, $msg=null) {
+    public function __construct($name=null, $defaultMsg=null, $msg=null)
+    {
         parent::__construct();
         $this->setName($name);
         $this->setDefaultMsg($defaultMsg);
@@ -59,7 +61,8 @@ abstract class ZMRule extends ZMObject {
      *
      * @return string The name of the request parameter (GET/POST) this rule is testing.
      */
-    public function getName() {
+    public function getName()
+    {
         return str_replace(array('[', ']'), '', $this->name_);
     }
 
@@ -68,7 +71,8 @@ abstract class ZMRule extends ZMObject {
      *
      * @param string name The name of the request parameter (GET/POST) this rule is testing.
      */
-    public function setName($name) {
+    public function setName($name)
+    {
         $this->name_ = $name;
     }
 
@@ -81,7 +85,8 @@ abstract class ZMRule extends ZMObject {
      *
      * @return string The form field name this rule is testing.
      */
-    public function getJSName() {
+    public function getJSName()
+    {
         return $this->name_;
     }
 
@@ -90,7 +95,8 @@ abstract class ZMRule extends ZMObject {
      *
      * @return string The custom error message.
      */
-    public function getMsg() {
+    public function getMsg()
+    {
         return $this->msg_;
     }
 
@@ -99,7 +105,8 @@ abstract class ZMRule extends ZMObject {
      *
      * @return string The default error message.
      */
-    public function getDefaultMsg() {
+    public function getDefaultMsg()
+    {
         return $this->defaultMsg_;
     }
 
@@ -108,7 +115,8 @@ abstract class ZMRule extends ZMObject {
      *
      * @param string msg The custom error message.
      */
-    public function setMsg($msg) {
+    public function setMsg($msg)
+    {
         $this->msg_ = $msg;
     }
 
@@ -117,7 +125,8 @@ abstract class ZMRule extends ZMObject {
      *
      * @param string msg The default error message.
      */
-    public function setDefaultMsg($msg) {
+    public function setDefaultMsg($msg)
+    {
         $this->defaultMsg_ = $msg;
     }
 
@@ -128,7 +137,8 @@ abstract class ZMRule extends ZMObject {
      *
      * @return string Formatted JavaScript .
      */
-    public function toJSString() {
+    public function toJSString()
+    {
         return "";
     }
 
@@ -137,7 +147,8 @@ abstract class ZMRule extends ZMObject {
      *
      * @return string Localized error message.
      */
-    public function getErrorMsg() {
+    public function getErrorMsg()
+    {
         return null != $this->msg_ ? _zm($this->msg_) : sprintf(_zm($this->defaultMsg_), ucwords(str_replace('_', ' ', $this->name_)));
     }
 

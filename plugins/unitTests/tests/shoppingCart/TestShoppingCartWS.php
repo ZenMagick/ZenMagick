@@ -24,12 +24,13 @@
  * @package org.zenmagick.plugins.unitTests.tests
  * @author DerManoMann <mano@zenmagick.org>
  */
-class TestShoppingCartWS extends ShoppingCartTestCaseBase {
-
+class TestShoppingCartWS extends ShoppingCartTestCaseBase
+{
     /**
      * Compare values for the given productIds using the wrapper and service.
      */
-    protected function compareValues_Wrapper_Service($ids) {
+    protected function compareValues_Wrapper_Service($ids)
+    {
         $referenceCart = $this->getReferenceCart($ids);
 
         // load again from DB
@@ -76,28 +77,32 @@ class TestShoppingCartWS extends ShoppingCartTestCaseBase {
     /**
      * Test products comparing wrapper and service data.
      */
-    public function testProductsWS_001_050() {
+    public function testProductsWS_001_050()
+    {
         $this->compareRange(1, 50, 'compareValues_Wrapper_Service');
     }
 
     /**
      * Test products comparing wrapper and service data.
      */
-    public function testProductsWS_051_100() {
+    public function testProductsWS_051_100()
+    {
         $this->compareRange(51, 100, 'compareValues_Wrapper_Service');
     }
 
     /**
      * Test products comparing wrapper and service data.
      */
-    public function testProductsWS_101_150() {
+    public function testProductsWS_101_150()
+    {
         $this->compareRange(101, 150, 'compareValues_Wrapper_Service');
     }
 
     /**
      * Test products comparing wrapper and service data.
      */
-    public function testProductsWS_151_200() {
+    public function testProductsWS_151_200()
+    {
         $this->compareRange(151, 200, 'compareValues_Wrapper_Service');
     }
 

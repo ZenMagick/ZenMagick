@@ -27,13 +27,15 @@ use ZenMagick\Base\ZMObject;
  *
  * @author DerManoMann
  */
-class CountryService extends ZMObject {
+class CountryService extends ZMObject
+{
     private $countries;
 
     /**
      * Create new instance.
      */
-    public function __construct() {
+    public function __construct()
+    {
         parent::__construct();
         $this->countries = null;
     }
@@ -44,7 +46,8 @@ class CountryService extends ZMObject {
      * @param string name The country name.
      * @return Country The country or <code>null</code>.
      */
-    public function getCountryForName($name) {
+    public function getCountryForName($name)
+    {
         $this->getCountries();
         foreach ($this->countries as $country) {
             if ($name == $country->getName()) {
@@ -59,7 +62,8 @@ class CountryService extends ZMObject {
      *
      * @return array A list of <code>Country</code> objects.
      */
-    public function getCountries() {
+    public function getCountries()
+    {
         if (null !== $this->countries)
             return $this->countries;
 
@@ -76,7 +80,8 @@ class CountryService extends ZMObject {
      * @param int id The country id.
      * @return Country The country or <code>null</code>.
      */
-    public function getCountryForId($id) {
+    public function getCountryForId($id)
+    {
         $this->getCountries();
         foreach ($this->countries as $country) {
             if ($id == $country->getId()) {
@@ -92,7 +97,8 @@ class CountryService extends ZMObject {
      * @param string code The country code.
      * @return Country The country or <code>null</code>.
      */
-    public function getCountryForIsoCode2($code) {
+    public function getCountryForIsoCode2($code)
+    {
         $this->getCountries();
         foreach ($this->countries as $country) {
             if ($code == $country->getIsoCode2()) {
@@ -110,7 +116,8 @@ class CountryService extends ZMObject {
      * @param string defaultZone Optional default value; default is <code>''</code>.
      * @return string The zone code or the provided default value.
      */
-    public function getZoneCode($countryId, $zoneId, $defaultZone='') {
+    public function getZoneCode($countryId, $zoneId, $defaultZone='')
+    {
         $sql = "SELECT zone_code
                 FROM %table.zones%
                 WHERE zone_country_id = :countryId
@@ -125,7 +132,8 @@ class CountryService extends ZMObject {
      * @param int countryId The country id.
      * @return array List of <code>Zone</code> objects.
      */
-    public function getZonesForCountryId($countryId) {
+    public function getZonesForCountryId($countryId)
+    {
         if (empty($countryId)) {
             return array();
         }

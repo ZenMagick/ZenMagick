@@ -27,12 +27,13 @@ use ZenMagick\Base\Runtime;
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class MinifyPlugin extends Plugin {
-
+class MinifyPlugin extends Plugin
+{
     /**
      * {@inheritDoc}
      */
-    public function install() {
+    public function install()
+    {
         parent::install();
 
         // create minify cache dir

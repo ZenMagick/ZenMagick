@@ -28,13 +28,14 @@ use ZenMagick\Base\Runtime;
  * @author DerManoMann <mano@zenmagick.org>
  * @todo create an admin interface and widget.
  */
-class WhoIsOnlinePlugin extends Plugin {
-
+class WhoIsOnlinePlugin extends Plugin
+{
     /**
      * Get Table Mapper mappings
      *
      */
-    public function setTableMappings() {
+    public function setTableMappings()
+    {
         \ZMRuntime::getDatabase()->getMapper()->setMappingForTable('whos_online', array(
             'accountId' => array('column' => 'customer_id', 'type' => 'integer'),
             'fullName' => array('column' => 'full_name', 'type' => 'string'),
@@ -56,7 +57,8 @@ class WhoIsOnlinePlugin extends Plugin {
      *
      * @return array Online user stats.
      */
-    public function getStats() {
+    public function getStats()
+    {
         $sql = "SELECT customer_id FROM %table.whos_online%";
         $results = \ZMRuntime::getDatabase()->fetchAll($sql, array(), 'whos_online', \ZenMagick\Base\Database\Connection::MODEL_RAW);
         $anonymous = 0;
@@ -78,7 +80,8 @@ class WhoIsOnlinePlugin extends Plugin {
      * @todo cron it!
      * @todo configurable expiry time.
      */
-    public function removeExpired() {
+    public function removeExpired()
+    {
             $timeAgo = (time() - 1200);
             $sql = "DELETE FROM %table.whos_online%
                     WHERE time_last_click < :lastRequestTime";
@@ -92,7 +95,8 @@ class WhoIsOnlinePlugin extends Plugin {
      *       Probably marked on output, but that's not how the current admin works
      * @todo Can we differentiate between spiders and regular guest users without using HTTP_USER_AGENT?
      */
-    public function onContainerReady($event) {
+    public function onContainerReady($event)
+    {
         $this->setTableMappings();
         $this->removeExpired(); // @todo cron!
 
@@ -149,14 +153,16 @@ class WhoIsOnlinePlugin extends Plugin {
     /**
      * Login event handler.
      */
-    public function onLoginSuccess($event) {
+    public function onLoginSuccess($event)
+    {
         $this->updateSessionId($event);
     }
 
     /**
      * Create account event handler.
      */
-    public function onCreateAccount($event) {
+    public function onCreateAccount($event)
+    {
         $this->updateSessionId($event);
     }
 
@@ -166,7 +172,8 @@ class WhoIsOnlinePlugin extends Plugin {
      * Just delete the db entry since we have no useful session id.
      *
      */
-    public function onLogoffSuccess($event) {
+    public function onLogoffSuccess($event)
+    {
         if ($event->hasArgument('account') && null != ($account = $event->getArgument('account'))) {
             if (0 < ($accountId = $account->getId())) {
                 \ZMRuntime::getDatabase()->delete('whos_online', array('customer_id' => $accountId));
@@ -177,7 +184,8 @@ class WhoIsOnlinePlugin extends Plugin {
     /**
      * Update the session id if it changed.
      */
-    public function updateSessionId($event) {
+    public function updateSessionId($event)
+    {
         $session = $event->getArgument('request')->getSession();
         if (null != ($lastId = $session->get('lastSessionId'))) {
             \ZMRuntime::getDatabase()->update('whos_online',

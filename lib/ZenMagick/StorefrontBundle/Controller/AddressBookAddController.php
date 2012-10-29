@@ -26,12 +26,13 @@ use Symfony\Component\EventDispatcher\GenericEvent;
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class AddressBookAddController extends \ZMController {
-
+class AddressBookAddController extends \ZMController
+{
     /**
      * {@inheritDoc}
      */
-    public function processPost($request) {
+    public function processPost($request)
+    {
         $addressService = $this->container->get('addressService');
         $account = $this->getUser();
         $address = $this->getFormData($request);

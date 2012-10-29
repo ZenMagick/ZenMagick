@@ -28,7 +28,8 @@ use ZenMagick\Http\Widgets\Widget;
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-abstract class DashboardWidget extends Widget {
+abstract class DashboardWidget extends Widget
+{
     const STATUS_DEFAULT = '';
     const STATUS_INFO = '';
     const STATUS_NOTICE = 'ui-state-highlight';
@@ -45,7 +46,8 @@ abstract class DashboardWidget extends Widget {
      *
      * @param string title The title; default is <code>null</code> to use the id.
      */
-    public function __construct($title=null) {
+    public function __construct($title=null)
+    {
         parent::__construct();
         // default
         $this->id_ = get_class($this);
@@ -165,7 +167,8 @@ abstract class DashboardWidget extends Widget {
     /**
      * {@inheritDoc}
      */
-    public function render($request, TemplateView $templateView) {
+    public function render($request, TemplateView $templateView)
+    {
         // request first, as this might trigger a status change
         $contents = $this->getContents($request);
         $lines = array(

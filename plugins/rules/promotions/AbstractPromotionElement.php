@@ -27,7 +27,8 @@ use ZenMagick\StoreBundle\Entity\Account\Account;
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-abstract class AbstractPromotionElement implements PromotionElement {
+abstract class AbstractPromotionElement implements PromotionElement
+{
     private $product;
     private $shoppingCart;
     private $account;
@@ -37,7 +38,8 @@ abstract class AbstractPromotionElement implements PromotionElement {
      *
      * @param ZenMagick\StoreBundle\Entity\Catalog\Product product The product.
      */
-    public function setProduct($product) {
+    public function setProduct($product)
+    {
         $this->product = $product;
     }
 
@@ -46,7 +48,8 @@ abstract class AbstractPromotionElement implements PromotionElement {
      *
      * @return ZenMagick\StoreBundle\Entity\Catalog\Product The product or <code>null</code>.
      */
-    public function getProduct() {
+    public function getProduct()
+    {
         return $this->product;
     }
 
@@ -55,7 +58,8 @@ abstract class AbstractPromotionElement implements PromotionElement {
      *
      * @param ShoppingCart shoppingCart The shopping cart.
      */
-    public function setShoppingCart(ShoppingCart $shoppingCart) {
+    public function setShoppingCart(ShoppingCart $shoppingCart)
+    {
         $this->shoppingCart = $shoppingCart;
     }
 
@@ -64,7 +68,8 @@ abstract class AbstractPromotionElement implements PromotionElement {
      *
      * @return ShoppingCart The shopping cart.
      */
-    public function getShoppingCart() {
+    public function getShoppingCart()
+    {
         return $this->shoppingCart;
     }
 
@@ -73,7 +78,8 @@ abstract class AbstractPromotionElement implements PromotionElement {
      *
      * @param ZenMagick\StoreBundle\Entity\Account\Account account The current account.
      */
-    public function setAccount(Account $account) {
+    public function setAccount(Account $account)
+    {
         $this->account = $account;
     }
 
@@ -82,14 +88,16 @@ abstract class AbstractPromotionElement implements PromotionElement {
      *
      * @return ZenMagick\StoreBundle\Entity\Account\Account The current account.
      */
-    public function getAccount() {
+    public function getAccount()
+    {
         return $this->account;
     }
 
     /**
      * {@inheritDoc}
      */
-    public function getParameterConfig() {
+    public function getParameterConfig()
+    {
         return array();
     }
 

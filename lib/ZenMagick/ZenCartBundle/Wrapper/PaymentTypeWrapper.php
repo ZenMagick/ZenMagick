@@ -30,7 +30,8 @@ use ZenMagick\ZenCartBundle\Mock\ZenCartMock;
  *
  * @author DerManoMann
  */
-class PaymentTypeWrapper extends ZMObject implements \ZMPaymentType {
+class PaymentTypeWrapper extends ZMObject implements \ZMPaymentType
+{
     private $module_;
     private $selection_;
     private $fields_;
@@ -41,7 +42,8 @@ class PaymentTypeWrapper extends ZMObject implements \ZMPaymentType {
      *
      * @param object module The payment module; default is <code>null</code>.
      */
-    public function __construct($module=null) {
+    public function __construct($module=null)
+    {
         parent::__construct();
         $this->setModule($module);
         $this->fields_ = null;
@@ -53,7 +55,8 @@ class PaymentTypeWrapper extends ZMObject implements \ZMPaymentType {
      *
      * @param mixed module A zen-cart payment module; default is <code>null</code>.
      */
-    public function setModule($module) {
+    public function setModule($module)
+    {
         $this->module_ = $module;
         if (null != $module) {
             $this->selection_ = $module->selection();
@@ -63,28 +66,32 @@ class PaymentTypeWrapper extends ZMObject implements \ZMPaymentType {
     /**
      * {@inheritDoc}
      */
-    public function getId() {
+    public function getId()
+    {
         return $this->module_->code;
     }
 
     /**
      * {@inheritDoc}
      */
-    public function getName() {
+    public function getName()
+    {
         return $this->selection_['module'];
     }
 
     /**
      * {@inheritDoc}
      */
-    public function getTitle() {
+    public function getTitle()
+    {
         return $this->module_->title;
     }
 
     /**
      * {@inheritDoc}
      */
-    public function getDescription() {
+    public function getDescription()
+    {
         return $this->module_->description;
     }
 
@@ -96,7 +103,8 @@ class PaymentTypeWrapper extends ZMObject implements \ZMPaymentType {
     /**
      * {@inheritDoc}
      */
-    public function getFields() {
+    public function getFields()
+    {
         if (null === $this->fields_) {
             if (array_key_exists('fields', $this->selection_)) {
                 foreach ($this->selection_['fields'] as $field) {
@@ -111,7 +119,8 @@ class PaymentTypeWrapper extends ZMObject implements \ZMPaymentType {
     /**
      * {@inheritDoc}
      */
-    public function getInfo() {
+    public function getInfo()
+    {
         if (isset($this->module_->email_footer) && !Toolbox::isEmpty($this->module_->email_footer)) {
             return $this->module_->email_footer;
         }
@@ -122,14 +131,16 @@ class PaymentTypeWrapper extends ZMObject implements \ZMPaymentType {
     /**
      * {@inheritDoc}
      */
-    public function getFormValidationJS($request) {
+    public function getFormValidationJS($request)
+    {
         return $this->module_->javascript_validation();
     }
 
     /**
      * {@inheritDoc}
      */
-    public function prepare() {
+    public function prepare()
+    {
         if (!$this->prepared_) {
             $this->module_->pre_confirmation_check();
             $this->module_->confirmation();
@@ -140,7 +151,8 @@ class PaymentTypeWrapper extends ZMObject implements \ZMPaymentType {
     /**
      * {@inheritDoc}
      */
-    public function getOrderFormContent($request) {
+    public function getOrderFormContent($request)
+    {
         // TODO: move into controller
         ZenCartMock::startMock(Runtime::getContainer()->get('shoppingCart'));
         $this->prepare();
@@ -152,7 +164,8 @@ class PaymentTypeWrapper extends ZMObject implements \ZMPaymentType {
     /**
      * {@inheritDoc}
      */
-    public function getOrderFormUrl($request) {
+    public function getOrderFormUrl($request)
+    {
         $this->prepare();
         return isset($this->module_->form_action_url) ? $this->module_->form_action_url : Runtime::getContainer()->get('netTool')->url('checkout_process', '', true);
     }
@@ -160,7 +173,8 @@ class PaymentTypeWrapper extends ZMObject implements \ZMPaymentType {
     /**
      * {@inheritDoc}
      */
-    public function getOrderStatus() {
+    public function getOrderStatus()
+    {
         return isset($this->module_->order_status) && is_numeric($this->module_->order_status) && ($this->module_->order_status > 0) ? $this->module_->order_status : null;
     }
 

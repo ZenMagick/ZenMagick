@@ -35,17 +35,20 @@ use Symfony\Component\HttpKernel\HttpKernelInterface;
  * @author DerManoMann
  * @todo split admin/storefront events.
  */
-class ZenCartListener implements EventSubscriberInterface {
+class ZenCartListener implements EventSubscriberInterface
+{
     protected $container;
 
-    public function __construct(ContainerInterface $container) {
+    public function __construct(ContainerInterface $container)
+    {
         $this->container = $container;
     }
 
     /**
      * Handle things that require a request.
      */
-    public function onRequestReady($event) {
+    public function onRequestReady($event)
+    {
         if (Runtime::isContextMatch('storefront')) {
             $autoLoader = $this->container->get('zenCartAutoLoader');
             $autoLoader->initCommon();
@@ -57,7 +60,8 @@ class ZenCartListener implements EventSubscriberInterface {
     /**
      * Boot ZenCart template and language
      */
-    public function initTemplate() {
+    public function initTemplate()
+    {
         // @todo all this code should go somewhere else
         if (defined('DIR_WS_TEMPLATE')) return;
         $autoLoader = $this->container->get('zenCartAutoLoader');
@@ -82,7 +86,8 @@ class ZenCartListener implements EventSubscriberInterface {
     /**
      * Switch to ZenCart theme if in a storefront context.
      */
-    public function onKernelController(FilterControllerEvent $event) {
+    public function onKernelController(FilterControllerEvent $event)
+    {
         $request = $event->getRequest();
         // If we have a somebody elses controller, just exit (for now)
         $controller = $request->attributes->get('_controller');
@@ -98,7 +103,8 @@ class ZenCartListener implements EventSubscriberInterface {
         }
     }
 
-    public function onViewStart($event) {
+    public function onViewStart($event)
+    {
         $settingsService = $this->container->get('settingsService');
         if (Runtime::isContextMatch('admin')) {
             $settingsService->add('apps.store.admin.menus', 'lib/ZenMagick/ZenCartBundle/Resources/config/admin/menu.yaml');
@@ -108,7 +114,8 @@ class ZenCartListener implements EventSubscriberInterface {
     /**
      * Fix email context for various emails.
      */
-    public function onGenerateEmail($event) {
+    public function onGenerateEmail($event)
+    {
         $context = $event->getArgument('context');
         $template = $event->getArgument('template');
         $request =  $event->getArgument('request');
@@ -208,7 +215,8 @@ class ZenCartListener implements EventSubscriberInterface {
         $event->setArgument('context', $context);
     }
 
-    public function logAdminPageAccess($event) {
+    public function logAdminPageAccess($event)
+    {
         if (Runtime::isContextMatch('admin')) {
             $request = $event->getArgument('request');
             if ('index' != $request->getRequestId()) {
@@ -225,7 +233,8 @@ class ZenCartListener implements EventSubscriberInterface {
         }
     }
 
-    public static function getSubscribedEvents() {
+    public static function getSubscribedEvents()
+    {
         return array(
             'request_ready' => array(array('onRequestReady', 100)),
             'all_done' => array(array('logAdminPageAccess', 30)),

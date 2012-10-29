@@ -30,14 +30,16 @@ use ZenMagick\Http\Rss\RssSource;
  *
  * @author DerManoMann
  */
-class CatalogRssFeedSource extends ZMObject implements RssSource {
+class CatalogRssFeedSource extends ZMObject implements RssSource
+{
     protected $fullFeed;
     protected $multiCurrency;
 
     /**
      * Create new instance.
      */
-    public function __construct() {
+    public function __construct()
+    {
         parent::__construct();
         $this->fullFeed = true;
         $this->multiCurrency = true;
@@ -48,7 +50,8 @@ class CatalogRssFeedSource extends ZMObject implements RssSource {
      *
      * @param boolean value The new value.
      */
-    public function setFullFeed($value) {
+    public function setFullFeed($value)
+    {
         $this->fullFeed = $value;
     }
 
@@ -57,7 +60,8 @@ class CatalogRssFeedSource extends ZMObject implements RssSource {
      *
      * @return boolean <code>true</code> if a full feed should be generated.
      */
-    public function isFullFeed() {
+    public function isFullFeed()
+    {
         return $this->fullFeed;
     }
 
@@ -66,7 +70,8 @@ class CatalogRssFeedSource extends ZMObject implements RssSource {
      *
      * @param boolean value The new value.
      */
-    public function setMultiCurrency($value) {
+    public function setMultiCurrency($value)
+    {
         $this->multiCurrency = $value;
     }
 
@@ -75,14 +80,16 @@ class CatalogRssFeedSource extends ZMObject implements RssSource {
      *
      * @return boolean <code>true</code> if a full feed should be generated.
      */
-    public function isMultiCurrency() {
+    public function isMultiCurrency()
+    {
         return $this->multiCurrency;
     }
 
     /**
      * {@inheritDoc}
      */
-    public function getFeed($request, $channel, $args=array()) {
+    public function getFeed($request, $channel, $args=array())
+    {
         if ('catalog' != $channel) {
             return null;
         }
@@ -114,7 +121,8 @@ class CatalogRssFeedSource extends ZMObject implements RssSource {
      * @param boolean full Indicates whether to generate a full feed or not; default is <code>false</code>.
      * @return RssFeed The feed.
      */
-    protected function getProductsFeed($request, $full=false) {
+    protected function getProductsFeed($request, $full=false)
+    {
         $settingsService = $this->container->get('settingsService');
         $net = $this->container->get('netTool');
 
@@ -150,7 +158,8 @@ class CatalogRssFeedSource extends ZMObject implements RssSource {
      * @param boolean full Indicates whether to generate a full feed or not; default is <code>false</code>.
      * @return RssFeed The feed.
      */
-    protected function getCategoriesFeed($request, $full) {
+    protected function getCategoriesFeed($request, $full)
+    {
         $settingsService = $this->container->get('settingsService');
         $net = $this->container->get('netTool');
         $channel = new RssChannel();

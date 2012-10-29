@@ -28,14 +28,16 @@ use ZenMagick\Base\ZMObject;
  *
  * @author DerManoMann
  */
-class CategoryCouponRestriction extends ZMObject {
+class CategoryCouponRestriction extends ZMObject
+{
     private $allowed_;
     private $categoryId_;
 
     /**
      * Create new instance.
      */
-    public function __construct($allowed, $categoryId) {
+    public function __construct($allowed, $categoryId)
+    {
         parent::__construct();
         $this->allowed_ = $allowed;
         $this->categoryId_ = $categoryId;
@@ -46,7 +48,8 @@ class CategoryCouponRestriction extends ZMObject {
      *
      * @return boolean <code>true</code> if allowed, <code>false</code> if not.
      */
-    public function isAllowed() {
+    public function isAllowed()
+    {
         return $this->allowed_;
     }
 
@@ -56,7 +59,8 @@ class CategoryCouponRestriction extends ZMObject {
      * @param int languageId Language id.
      * @return A <code>ZenMagick\StoreBundle\Entity\Catalog\Category</code> instance.
      */
-    public function getCategory($languageId) {
+    public function getCategory($languageId)
+    {
         return $this->container->get('categoryService')->getCategoryForId($this->categoryId_, $languageId);
     }
 

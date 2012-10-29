@@ -29,13 +29,15 @@ use ZenMagick\StoreBundle\Widgets\StatusCheck;
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class CouponStatusCheck extends ZMObject implements StatusCheck {
+class CouponStatusCheck extends ZMObject implements StatusCheck
+{
     const NEW_SIGNUP_GV_EXPIRY_THRESHOLD = 21;
 
     /**
      * {@inheritDoc}
      */
-    public function getStatusMessages() {
+    public function getStatusMessages()
+    {
         $messages = array();
 
         $languageId = Runtime::getSettings()->get('storeDefaultLanguageId');

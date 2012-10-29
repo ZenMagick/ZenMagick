@@ -26,12 +26,13 @@ use ZenMagick\Base\ZMObject;
  *
  * @author DerManoMann
  */
-class ThemeEventListener extends ZMObject {
-
+class ThemeEventListener extends ZMObject
+{
     /**
      * Handle load theme event.
      */
-    public function onThemeLoaded($event) {
+    public function onThemeLoaded($event)
+    {
         $token = explode('\\', get_class($this));
         array_pop($token); // class
         $themeId = array_pop($token);
@@ -45,7 +46,8 @@ class ThemeEventListener extends ZMObject {
      *
      * @param Event event The event.
      */
-    public function themeLoaded($event) {
+    public function themeLoaded($event)
+    {
     }
 
 }

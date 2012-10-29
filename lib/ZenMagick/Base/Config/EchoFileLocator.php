@@ -26,12 +26,13 @@ use Symfony\Component\Config\FileLocatorInterface;
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class EchoFileLocator implements  FileLocatorInterface {
-
+class EchoFileLocator implements  FileLocatorInterface
+{
     /**
      * {@inheritDoc}
      */
-    public function locate($name, $currentPath=null, $first=true) {
+    public function locate($name, $currentPath=null, $first=true)
+    {
         return $name;
     }
 

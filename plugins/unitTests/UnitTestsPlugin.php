@@ -29,7 +29,8 @@ define('UNIT_TESTS_GROUP_OTHER', '@other');
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class UnitTestsPlugin extends Plugin {
+class UnitTestsPlugin extends Plugin
+{
     private $tests_ = array();
     private $customDone_ = false;
 
@@ -39,7 +40,8 @@ class UnitTestsPlugin extends Plugin {
      * @param string clazz The test class name.
      * @param string group Optional group name; default is <code>UNIT_TESTS_GROUP_OTHER</code>.
      */
-    public function addTest($clazz, $group=UNIT_TESTS_GROUP_OTHER) {
+    public function addTest($clazz, $group=UNIT_TESTS_GROUP_OTHER)
+    {
         if (!array_key_exists($group, $this->tests_)) {
             $this->tests_[$group] = array();
         }
@@ -51,7 +53,8 @@ class UnitTestsPlugin extends Plugin {
      *
      * @return array List of other tests.
      */
-    public function getTests() {
+    public function getTests()
+    {
         if (!$this->customDone_) {
             foreach ($this->container->get('containerTagService')->findTaggedServiceIds('plugins.unitTests.test') as $id => $args) {
                 $group = UNIT_TESTS_GROUP_OTHER;

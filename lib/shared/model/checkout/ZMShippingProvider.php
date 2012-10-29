@@ -30,8 +30,8 @@ use ZenMagick\StoreBundle\Model\Checkout\ShoppingCart;
  * @author DerManoMann
  * @package zenmagick.store.shared.model.checkout
  */
-interface ZMShippingProvider {
-
+interface ZMShippingProvider
+{
     /**
      * Get the shipping provider id.
      *

@@ -26,8 +26,8 @@ use ZenMagick\StoreBundle\Model\Checkout\ShoppingCart;
  * @author DerManoMann
  * @package zenmagick.store.shared.model.checkout
  */
-interface ZMOrderTotal {
-
+interface ZMOrderTotal
+{
     /**
      * Evaluate the given cart and return resulting order totals.
      *

@@ -27,7 +27,8 @@ use ZenMagick\Base\ZMObject;
  * @author DerManoMann <mano@zenmagick.org>
  * @package org.zenmagick.mvc.resultlist
  */
-class ZMResultListFilter extends ZMObject {
+class ZMResultListFilter extends ZMObject
+{
     protected $list_;
     protected $id_;
     protected $name_;
@@ -41,7 +42,8 @@ class ZMResultListFilter extends ZMObject {
      * @param string name Optional filter name.
      * @param string value Optional filter value.
      */
-    public function __construct($id=null, $name='', $value='') {
+    public function __construct($id=null, $name='', $value='')
+    {
         parent::__construct();
 
         $this->id_ = $id;
@@ -66,7 +68,8 @@ class ZMResultListFilter extends ZMObject {
      * @param array list The list to filter.
      * @return array The filtered list.
      */
-    public function filter($list) {
+    public function filter($list)
+    {
         $remaining = array();
         foreach ($list as $obj) {
             if (!$this->exclude($obj)) {
@@ -90,7 +93,8 @@ class ZMResultListFilter extends ZMObject {
      *
      * @return boolean <code>true</code> if the filter is active, <code>false</code> if not.
      */
-    public function isActive() {
+    public function isActive()
+    {
         return !Toolbox::isEmpty($this->value_);
     }
 

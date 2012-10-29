@@ -28,12 +28,13 @@ use ZenMagick\plugins\unitTests\simpletest\TestCase;
  * @author DerManoMann <mano@zenmagick.org>
  * @todo create custom order and add specific asserts to test explicit data
  */
-class TestZMOrders extends TestCase {
-
+class TestZMOrders extends TestCase
+{
     /**
      * Test create product.
      */
-    public function testUpdateOrderStatus() {
+    public function testUpdateOrderStatus()
+    {
         $orderService = $this->container->get('orderService');
         $order = $orderService->getOrderForId(1, 1);
         if (null != $order) {
@@ -55,7 +56,8 @@ class TestZMOrders extends TestCase {
     /**
      * Test get orders for status.
      */
-    public function testGetOrdersForStatusId() {
+    public function testGetOrdersForStatusId()
+    {
         $orders = $this->container->get('orderService')->getOrdersForStatusId(2, 1);
         $this->assertNotNull($orders);
     }
@@ -63,7 +65,8 @@ class TestZMOrders extends TestCase {
     /**
      * Test order account.
      */
-    public function testGetAccount() {
+    public function testGetAccount()
+    {
         $order = $this->container->get('orderService')->getOrderForId(1, 1);
         if (null != $order) {
             $account = $order->getAccount();
@@ -78,7 +81,8 @@ class TestZMOrders extends TestCase {
     /**
      * Test change address.
      */
-    public function testChangeAddress() {
+    public function testChangeAddress()
+    {
         $order = $this->container->get('orderService')->getOrderForId(1, 1);
         if (null != $order) {
             $address = Beans::getBean('ZenMagick\StoreBundle\Entity\Address');
@@ -104,7 +108,8 @@ class TestZMOrders extends TestCase {
     /**
      * Test downloads.
      */
-    public function testDownloads() {
+    public function testDownloads()
+    {
         $downloads = $this->container->get('orderService')->getDownloadsForOrderId(12);
         foreach ($downloads as $dl) {
             $this->assertTrue($dl->getorderDate() instanceof DateTime);
@@ -121,7 +126,8 @@ class TestZMOrders extends TestCase {
     /**
      * Test get order status history.
      */
-    public function testGetOrderStatusHistory() {
+    public function testGetOrderStatusHistory()
+    {
         $order = $this->container->get('orderService')->getOrderForId(1, 1);
         if (null != $order) {
             $orderStatusHistory = $order->getOrderStatusHistory(1);
@@ -144,7 +150,8 @@ class TestZMOrders extends TestCase {
     /**
      * Test create order status history.
      */
-    public function testCreateOrderStatusHistory() {
+    public function testCreateOrderStatusHistory()
+    {
         $orderService = $this->container->get('orderService');
         $order = $orderService->getOrderForId(1, 1);
         if (null != $order) {
@@ -181,7 +188,8 @@ class TestZMOrders extends TestCase {
     /**
      * Test get order total lines.
      */
-    public function testGetOrderTotalLines() {
+    public function testGetOrderTotalLines()
+    {
         $order = $this->container->get('orderService')->getOrderForId(1, 1);
         if (null != $order) {
             $orderTotalLines = $order->getOrderTotalLines();
@@ -212,7 +220,8 @@ class TestZMOrders extends TestCase {
     /*
      * Test order items.
      */
-    public function testOrderItems() {
+    public function testOrderItems()
+    {
         $order = $this->container->get('orderService')->getOrderForId(1, 1);
         if (null != $order) {
             $items = $order->getOrderItems();
@@ -235,7 +244,8 @@ class TestZMOrders extends TestCase {
     /*
      * Test order item attributes.
      */
-    public function testOrderItemAttributes() {
+    public function testOrderItemAttributes()
+    {
         $order = $this->container->get('orderService')->getOrderForId(1, 1);
         if (null != $order) {
             $items = $order->getOrderItems();
@@ -268,7 +278,8 @@ class TestZMOrders extends TestCase {
     /**
      * Test order status list.
      */
-    public function testOrderStatusList() {
+    public function testOrderStatusList()
+    {
         $list = $this->container->get('orderService')->getOrderStatusList(1);
         if ($this->assertNotNull($list)) {
             $this->assertTrue(0 < count($list));

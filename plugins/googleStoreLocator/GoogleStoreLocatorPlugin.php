@@ -27,12 +27,13 @@ use ZenMagick\Base\Toolbox;
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class GoogleStoreLocatorPlugin extends Plugin {
-
+class GoogleStoreLocatorPlugin extends Plugin
+{
     /**
      * Event callback to add required JS.
      */
-    public function onFinaliseContent($event) {
+    public function onFinaliseContent($event)
+    {
         $request = $event->getArgument('request');
 
         if ('store_locator' == $request->getRequestId()) {
@@ -46,7 +47,8 @@ class GoogleStoreLocatorPlugin extends Plugin {
 <script type="text/javascript" src="http://www.google.com/jsapi?key='.$storeKey.'"></script>
 <script type="text/javascript">
   google.load("maps", "2.x");
-  function load_locator_map() {
+  function load_locator_map()
+  {
     var map = new GMap2(document.getElementById("locator_map"));
     '.($controls ? 'map.addControl(new GLargeMapControl());/*map.addControl(new GMapTypeControl());*/' : '').'
     map.setCenter(new GLatLng('.$location.'), '.$zoom.');

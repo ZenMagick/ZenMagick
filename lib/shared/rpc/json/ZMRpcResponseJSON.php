@@ -25,7 +25,8 @@
  * @author DerManoMann <mano@zenmagick.org>
  * @package org.zenmagick.mvc.rpc.json
  */
-class ZMRpcResponseJSON implements ZMRpcResponse {
+class ZMRpcResponseJSON implements ZMRpcResponse
+{
     private $rpcRequest_;
     private $status_;
     private $messages_;
@@ -37,7 +38,8 @@ class ZMRpcResponseJSON implements ZMRpcResponse {
      *
      * @param ZMRpcRequest rpcRequest The current RPC request; default is <code>null</code>.
      */
-    public function __construct($rpcRequest=null) {
+    public function __construct($rpcRequest=null)
+    {
         $this->rpcRequest_ = $rpcRequest;
         $this->status_ = true;
         $this->messages_ = array();
@@ -50,14 +52,16 @@ class ZMRpcResponseJSON implements ZMRpcResponse {
      *
      * @param ZMRpcRequest rpcRequest The current RPC request; default is <code>null</code>.
      */
-    public function setRpcRequest($rpcRequest) {
+    public function setRpcRequest($rpcRequest)
+    {
         $this->rpcRequest_ = $rpcRequest;
     }
 
     /**
      * {@inheritDoc}
      */
-    public function addMessage($msg, $type) {
+    public function addMessage($msg, $type)
+    {
         if (!array_key_exists($type, $this->messages_)) {
             $this->messages_[$type] = array();
         }
@@ -67,7 +71,8 @@ class ZMRpcResponseJSON implements ZMRpcResponse {
     /**
      * {@inheritDoc}
      */
-    public function setStatus($status, $code=0) {
+    public function setStatus($status, $code=0)
+    {
         $this->status_ = $status;
         $this->returnCode_ = $code;
     }
@@ -75,35 +80,40 @@ class ZMRpcResponseJSON implements ZMRpcResponse {
     /**
      * {@inheritDoc}
      */
-    public function getStatus() {
+    public function getStatus()
+    {
         return $this->status_;
     }
 
     /**
      * {@inheritDoc}
      */
-    public function getReturnCode() {
+    public function getReturnCode()
+    {
         return $this->returnCode_;
     }
 
     /**
      * {@inheritDoc}
      */
-    public function setData($data) {
+    public function setData($data)
+    {
         $this->data_ = $data;
     }
 
     /**
      * {@inheritDoc}
      */
-    public function getContentType() {
+    public function getContentType()
+    {
         return "application/json; charset=UTF-8";
     }
 
     /**
      * Format as string.
      */
-    public function __toString() {
+    public function __toString()
+    {
         $response = new stdClass();
         $response->id = $this->rpcRequest_->getId();
         $response->jsonrpc = "2.0";

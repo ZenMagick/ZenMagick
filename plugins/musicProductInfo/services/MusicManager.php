@@ -31,12 +31,13 @@ use ZenMagick\plugins\musicProductInfo\model\RecordCompany;
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class MusicManager extends ZMObject {
-
+class MusicManager extends ZMObject
+{
     /**
      * Create new instance.
      */
-    public function __construct() {
+    public function __construct()
+    {
         parent::__construct();
         $mappings = array(
             'media_clips' => array(
@@ -114,7 +115,8 @@ class MusicManager extends ZMObject {
      * @param int productId The product id.
      * @return array A list of <code>MediaCollection</code> instances.
      */
-    public function getMediaCollectionsForProductId($productId) {
+    public function getMediaCollectionsForProductId($productId)
+    {
         // get all media for the given product (id)
         $sql = "SELECT media_id FROM %table.media_to_products% WHERE product_id = :productId";
         $productMediaIdList = \ZMRuntime::getDatabase()->fetchAll($sql, array('productId' => $productId), 'media_to_products');
@@ -150,7 +152,8 @@ class MusicManager extends ZMObject {
      * @param int languageId The language id.
      * @return Artist Artist information or <code>null</code>.
      */
-    public function getArtistForProductId($productId, $languageId) {
+    public function getArtistForProductId($productId, $languageId)
+    {
         $sql = "SELECT * FROM %table.product_music_extra% WHERE products_id = :productId";
         $extraInfo = \ZMRuntime::getDatabase()->querySingle($sql, array('productId' => $productId), 'product_music_extra');
 

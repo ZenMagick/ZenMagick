@@ -30,12 +30,13 @@ use ZenMagick\Base\Toolbox;
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class HowDidYouHearSourcesStatsController extends ZMController {
-
+class HowDidYouHearSourcesStatsController extends ZMController
+{
     /**
      * {@inheritDoc}
      */
-    public function getViewData($request) {
+    public function getViewData($request)
+    {
         if (!Toolbox::asBoolean($request->getParameter('other', false))) {
             $sql = "SELECT count(ci.customers_info_source_id) AS count, s.sources_name AS name, s.sources_id as sourceId
                     FROM %table.customers_info% ci LEFT JOIN %table.sources% s ON s.sources_id = ci.customers_info_source_id

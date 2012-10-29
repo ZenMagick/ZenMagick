@@ -35,7 +35,8 @@ use ZenMagick\Base\ZMObject;
  * @ORM\Entity
  * @author DerManoMann
  */
-class OrderTotalLine extends ZMObject {
+class OrderTotalLine extends ZMObject
+{
     /**
      * @var integer $ordersTotalId
      *
@@ -95,7 +96,8 @@ class OrderTotalLine extends ZMObject {
      * @param float amount The total amount.
      * @param string type The total type.
      */
-    public function __construct($name=null, $value=null, $amount=0, $type=null) {
+    public function __construct($name=null, $value=null, $amount=0, $type=null)
+    {
         parent::__construct();
         $this->setId(0);
         $this->name = $name;

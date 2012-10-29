@@ -27,15 +27,16 @@ use ZenMagick\Base\ZMObject;
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class FormHandlerController extends ZMController {
-
+class FormHandlerController extends ZMController
+{
     /**
      * Create the form data object.
      *
      * @param ZenMagick\Http\Request request The current request.
      * @return ZMObject The model.
      */
-    protected function createFormData($request) {
+    protected function createFormData($request)
+    {
         $data = new ZMObject();
         foreach ($request->getParameterMap() as $name => $value) {
             $data->set($name, $value);
@@ -47,14 +48,16 @@ class FormHandlerController extends ZMController {
     /**
      * {@inheritDoc}
      */
-    public function processGet($request) {
+    public function processGet($request)
+    {
         return $this->findView(null, array('formData' => $this->createFormData($request)));
     }
 
     /**
      * {@inheritDoc}
      */
-    public function processPost($request) {
+    public function processPost($request)
+    {
         // create model
         $data = array('formData' => $this->createFormData($request));
 
@@ -81,7 +84,8 @@ class FormHandlerController extends ZMController {
      * @param string email The email address.
      * @param ZenMagick\Http\Request request The current request.
      */
-    protected function sendNotificationEmail($data, $template, $email, $request) {
+    protected function sendNotificationEmail($data, $template, $email, $request)
+    {
         $settingsService = $this->container->get('settingsService');
         if (empty($email)) {
             $email = $settingsService->get('storeEmail');
@@ -97,7 +101,8 @@ class FormHandlerController extends ZMController {
      *
      * @return ZMPlugin The plugin.
      */
-    protected function getPlugin() {
+    protected function getPlugin()
+    {
         return $this->container->get('pluginService')->getPluginForId('formHandler');
     }
 

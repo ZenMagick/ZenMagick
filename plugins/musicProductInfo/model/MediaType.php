@@ -26,7 +26,8 @@ use ZenMagick\Base\ZMObject;
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class MediaType extends ZMObject {
+class MediaType extends ZMObject
+{
     private $id_;
     private $name_;
     private $extension_;
@@ -34,7 +35,8 @@ class MediaType extends ZMObject {
     /**
      * Create new instance.
      */
-    public function __construct() {
+    public function __construct()
+    {
         parent::__construct();
         $this->id_ = 0;
         $this->name_ = null;

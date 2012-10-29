@@ -32,14 +32,15 @@ use Symfony\Component\HttpFoundation\Response;
  * @package org.zenmagick.mvc.controller
  * @deprecated use ZMRpcController instead
  */
-class ZMAjaxController extends ZMController {
-
+class ZMAjaxController extends ZMController
+{
     /**
      * Process a HTTP GET request.
      *
      * <p>Just return <code>null</code>.</p>
      */
-    public function processGet($request) {
+    public function processGet($request)
+    {
         $this->container->get('logger')->err("Invalid Ajax request - method '".$request->getParameter('method')."' not found!");
         return null;
     }
@@ -47,7 +48,8 @@ class ZMAjaxController extends ZMController {
     /**
      * {@inheritDoc}
      */
-    public function process(Request $request) {
+    public function process(Request $request)
+    {
         return $this->processAction($request);
     }
 
@@ -64,7 +66,8 @@ class ZMAjaxController extends ZMController {
      *
      * @return View A <code>View</code> instance or <code>null</code>.
      */
-    public function processAction(Request $request) {
+    public function processAction(Request $request)
+    {
         $method = $sacsMethod = $request->getParameter('method');
         if (!method_exists($this, $method)) {
             $method = $method.'JSON';
@@ -93,7 +96,8 @@ class ZMAjaxController extends ZMController {
      *
      * @param string json The JSON data.
      */
-    public function setJSONHeader($json) {
+    public function setJSONHeader($json)
+    {
         $response = new Response();
         $response->headers->set('Content-Type', 'text/plain');
         $response->setContent($json);
@@ -106,7 +110,8 @@ class ZMAjaxController extends ZMController {
      * @param mixed obj The object to serialize; can also be an array of objects.
      * @return string The given object as JSON.
      */
-    public function toJSON($obj) {
+    public function toJSON($obj)
+    {
         return json_encode($obj);
     }
 

@@ -26,12 +26,13 @@ use ZenMagick\plugins\unitTests\simpletest\TestCase;
  * @package org.zenmagick.plugins.unitTests.tests
  * @author DerManoMann <mano@zenmagick.org>
  */
-class TestSalemakerService extends TestCase {
-
+class TestSalemakerService extends TestCase
+{
     /**
      * Test getSaleDiscountTypeInfo.
      */
-    public function testGetSaleDiscountTypeInfo() {
+    public function testGetSaleDiscountTypeInfo()
+    {
         foreach ($this->container->get('productService')->getAllProducts(false, 1) as $product) {
             $productId = $product->getId();
             $info = $this->container->get('salemakerService')->getSaleDiscountTypeInfo($productId);

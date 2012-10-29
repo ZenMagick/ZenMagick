@@ -29,19 +29,21 @@ use Symfony\Component\HttpKernel\Bundle\Bundle;
 /**
  * ZenMagick Bundle.
  */
-class ZenMagickBundle extends Bundle {
-
+class ZenMagickBundle extends Bundle
+{
     /**
      * {@inheritDoc}
      */
-    public function build(ContainerBuilder $container) {
+    public function build(ContainerBuilder $container)
+    {
         parent::build($container);
         $container->registerExtension(new ZenMagickExtension());
         $container->addCompilerPass(new ConfigureContainerTagServicePass());
         $container->addCompilerPass(new PluginsPass());
     }
 
-    public function boot() {
+    public function boot()
+    {
         $parameterBag = $this->container->getParameterBag();
         $settingsService = $this->container->get('settingsService');
 
@@ -119,7 +121,8 @@ class ZenMagickBundle extends Bundle {
     /**
      * {@inheritDoc}
      */
-    public function getContainerExtension() {
+    public function getContainerExtension()
+    {
         return new DependencyInjection\ZenMagickExtension();
     }
 }

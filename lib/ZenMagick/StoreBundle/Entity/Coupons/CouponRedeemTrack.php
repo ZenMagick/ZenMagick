@@ -30,7 +30,8 @@ use Doctrine\ORM\Mapping as ORM;
  *  })
  * @ORM\Entity
  */
-class CouponRedeemTrack {
+class CouponRedeemTrack
+{
     /**
      * @var integer $couponRedeemId
      *

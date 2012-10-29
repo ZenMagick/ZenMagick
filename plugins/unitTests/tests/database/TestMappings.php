@@ -26,19 +26,21 @@ use ZenMagick\plugins\unitTests\simpletest\TestCase;
  * @package org.zenmagick.plugins.unitTests.tests
  * @author DerManoMann <mano@zenmagick.org>
  */
-class TestMappings extends TestCase {
-
+class TestMappings extends TestCase
+{
     /**
      * {@inheritDoc}
      */
-    public function skip() {
+    public function skip()
+    {
         $this->skipIf(true, 'Skip until database API stable');
     }
 
     /**
      * Test duplicate fields.
      */
-    public function testDuplicates() {
+    public function testDuplicates()
+    {
         $excludes = 'languageId,categoryId,productId,orderId,accountId,countryId,zoneId,attributeId,attributeValueId,siteId,orderStatusId,orderProductId,couponId';
         $mapper = ZMRuntime::getDatabase()->getMapper();
         $tables = $mapper->getTableNames();

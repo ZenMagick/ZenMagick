@@ -25,15 +25,18 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use ZenMagick\StoreBundle\Services\Locale\LanguageService;
 use ZenMagick\StoreBundle\Entity\Locale\Language;
 
-class LocaleSessionListener implements EventSubscriberInterface {
+class LocaleSessionListener implements EventSubscriberInterface
+{
     private $defaultLocale;
     private $languageService;
 
-    public function __construct($defaultLocale = 'en') {
+    public function __construct($defaultLocale = 'en')
+    {
         $this->defaultLocale = $defaultLocale;
     }
 
-    public function setLanguageService(LanguageService $languageService) {
+    public function setLanguageService(LanguageService $languageService)
+    {
         $this->languageService = $languageService;
     }
 
@@ -42,7 +45,8 @@ class LocaleSessionListener implements EventSubscriberInterface {
      *
      * This is equivalent to what symfony 2.0 did.
      */
-    public function setLocale(GetResponseEvent $event) {
+    public function setLocale(GetResponseEvent $event)
+    {
         $request = $event->getRequest();
         if (!$request->hasPreviousSession()) {
             return;
@@ -59,7 +63,8 @@ class LocaleSessionListener implements EventSubscriberInterface {
     /**
      * Set Language session variables needed for ZM and ZC.
      */
-    public function setLanguage(GetResponseEvent $event) {
+    public function setLanguage(GetResponseEvent $event)
+    {
          $request = $event->getRequest();
          $session = $request->getSession();
 
@@ -76,7 +81,8 @@ class LocaleSessionListener implements EventSubscriberInterface {
 
     }
 
-    public static function getSubscribedEvents() {
+    public static function getSubscribedEvents()
+    {
         return array(
             KernelEvents::REQUEST => array(
                 array('setLocale', 17), // before HttpKernel LocaleListener

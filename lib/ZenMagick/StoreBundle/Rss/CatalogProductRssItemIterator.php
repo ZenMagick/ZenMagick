@@ -28,7 +28,8 @@ use ZenMagick\Http\Rss\RssItem;
  *
  * @author DerManoMann
  */
-class CatalogProductRssItemIterator extends ZMObject implements Iterator {
+class CatalogProductRssItemIterator extends ZMObject implements Iterator
+{
     private $productInfo;
     private $languageId;
     private $index;
@@ -43,7 +44,8 @@ class CatalogProductRssItemIterator extends ZMObject implements Iterator {
      * @param boolean fullFeed Optional flag to enable/disable full feed details; default is <code>true</code>.
      * @param boolean multiCurrency Optional flag to enable/disable multi currency details; default is <code>true</code>.
      */
-    public function __construct(array $productInfo, $languageId, $fullFeed=true, $multiCurrency=true) {
+    public function __construct(array $productInfo, $languageId, $fullFeed=true, $multiCurrency=true)
+    {
         parent::__construct();
         $this->productInfo = $productInfo;
         $this->languageId = $languageId;
@@ -55,35 +57,40 @@ class CatalogProductRssItemIterator extends ZMObject implements Iterator {
     /**
      * {@inheritDoc}
      */
-    public function rewind() {
+    public function rewind()
+    {
         $this->index = 0;
     }
 
     /**
      * {@inheritDoc}
      */
-    public function current() {
+    public function current()
+    {
         return $this->rssItem($this->productInfo[$this->index], $this->languageId, $this->fullFeed, $this->multiCurrency);
     }
 
     /**
      * {@inheritDoc}
      */
-    public function key() {
+    public function key()
+    {
         return $this->index;
     }
 
     /**
      * {@inheritDoc}
      */
-    public function next() {
+    public function next()
+    {
         ++$this->index;
     }
 
     /**
      * {@inheritDoc}
      */
-    public function valid() {
+    public function valid()
+    {
         return isset($this->productInfo[$this->index]);
     }
 
@@ -96,7 +103,8 @@ class CatalogProductRssItemIterator extends ZMObject implements Iterator {
      * @param boolean multiCurrency Optional flag to enable/disable multi currency details.
      * @return RssItem The RSS item.
      */
-    protected function rssItem($productInfo, $languageId, $fullFeed, $multiCurrency) {
+    protected function rssItem($productInfo, $languageId, $fullFeed, $multiCurrency)
+    {
         $categoryService = $this->container->get('categoryService');
         $currencyService = $this->container->get('currencyService');
         $product = $this->container->get('productService')->getProductForId($productInfo['id'], $languageId);

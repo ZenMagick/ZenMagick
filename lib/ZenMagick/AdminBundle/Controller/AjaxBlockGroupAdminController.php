@@ -27,14 +27,15 @@ use ZenMagick\StoreBundle\Entity\Blocks\Block;
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class AjaxBlockGroupAdminController extends \ZMRpcController {
-
+class AjaxBlockGroupAdminController extends \ZMRpcController
+{
     /**
      * Remove a block.
      *
      * @param ZMRpcRequest rpcRequest The RPC request.
      */
-    public function removeBlockFromGroup($rpcRequest) {
+    public function removeBlockFromGroup($rpcRequest)
+    {
         $data = $rpcRequest->getData();
         $rpcResponse = $rpcRequest->createResponse();
 
@@ -52,7 +53,8 @@ class AjaxBlockGroupAdminController extends \ZMRpcController {
      *
      * @param ZMRpcRequest rpcRequest The RPC request.
      */
-    public function addBlockToGroup($rpcRequest) {
+    public function addBlockToGroup($rpcRequest)
+    {
         $data = $rpcRequest->getData();
         $rpcResponse = $rpcRequest->createResponse();
 
@@ -73,7 +75,8 @@ class AjaxBlockGroupAdminController extends \ZMRpcController {
      *
      * @param ZMRpcRequest rpcRequest The RPC request.
      */
-    public function reorderBlockGroup($rpcRequest) {
+    public function reorderBlockGroup($rpcRequest)
+    {
         $data = $rpcRequest->getData();
         $rpcResponse = $rpcRequest->createResponse();
 
@@ -91,7 +94,8 @@ class AjaxBlockGroupAdminController extends \ZMRpcController {
      * @param array groupBlockList The group block list details.
      * @return array List of newly created blocks;
      */
-    protected function updateGroupBlockList($groupName, $groupBlockList) {
+    protected function updateGroupBlockList($groupName, $groupBlockList)
+    {
         $blockService = $this->container->get('blockService');
         $currentBlocks = $blockService->getBlocksForGroupName($groupName);
 

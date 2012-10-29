@@ -27,7 +27,8 @@ if (!function_exists('zm_split_email_addresses')) {
     /**
      * Split email addresses as per zc convention.
      */
-    function zm_split_email_addresses($s) {
+    function zm_split_email_addresses($s)
+    {
         $recipients = array();
         foreach (explode(',', $s) as $address) {
             preg_match('/([^<]*)<(.*@.*)>/', $address, $token);
@@ -44,7 +45,8 @@ if (!function_exists('zm_split_email_addresses')) {
     /**
      * Split browser languages like http://zencart-solutions.palek.cz/en/multilanguage-zencart/default-language-by-browser.html
      */
-    function zm_split_language_substitutions($s) {
+    function zm_split_language_substitutions($s)
+    {
         $s = explode(',', $s);
         $l = array();
         foreach ($s as $alias) {
@@ -63,7 +65,8 @@ if (!function_exists('zm_split_email_addresses')) {
      *
      * @package zenmagick.store.shared
      */
-    function zm_get_default_settings($settingsService) {
+    function zm_get_default_settings($settingsService)
+    {
         $map = array(
             /*** security ***/
             'zenmagick.base.authentication.minPasswordLength' => ENTRY_PASSWORD_MIN_LENGTH < 6 ? 6 : ENTRY_PASSWORD_MIN_LENGTH,

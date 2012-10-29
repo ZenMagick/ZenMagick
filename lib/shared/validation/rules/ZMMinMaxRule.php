@@ -24,7 +24,8 @@
  * @author DerManoMann <mano@zenmagick.org>
  * @package org.zenmagick.mvc.validation.rules
  */
-class ZMMinMaxRule extends ZMRule {
+class ZMMinMaxRule extends ZMRule
+{
     private $min_;
     private $max_;
 
@@ -36,7 +37,8 @@ class ZMMinMaxRule extends ZMRule {
      * @param int max The maximum length; default is <em>0</em> for unlimited.
      * @param string msg Optional message.
      */
-    public function __construct($name=null, $min=1, $max=0, $msg=null) {
+    public function __construct($name=null, $min=1, $max=0, $msg=null)
+    {
         parent::__construct($name, "%s must be between %s and %s characters long.", $msg);
         $this->setMin($min);
         $this->setMax($max);
@@ -47,7 +49,8 @@ class ZMMinMaxRule extends ZMRule {
      *
      * @param int min The minimun length.
      */
-    public function setMin($min) {
+    public function setMin($min)
+    {
         $this->min_ = $min;
     }
 
@@ -56,7 +59,8 @@ class ZMMinMaxRule extends ZMRule {
      *
      * @return int The minimun length.
      */
-    public function getMin() {
+    public function getMin()
+    {
         return $this->min_;
     }
 
@@ -65,7 +69,8 @@ class ZMMinMaxRule extends ZMRule {
      *
      * @param int max The maximum length.
      */
-    public function setMax($max) {
+    public function setMax($max)
+    {
         $this->max_ = $max;
     }
 
@@ -74,7 +79,8 @@ class ZMMinMaxRule extends ZMRule {
      *
      * @return int The maximum length.
      */
-    public function getMax() {
+    public function getMax()
+    {
         return $this->max_;
     }
 
@@ -85,7 +91,8 @@ class ZMMinMaxRule extends ZMRule {
      * @param array data The data.
      * @return boolean <code>true</code> if the value for <code>$name</code> is valid, <code>false</code> if not.
      */
-    public function validate($request, $data) {
+    public function validate($request, $data)
+    {
         return !array_key_exists($this->getName(), $data) || empty($data[$this->getName()])
             || $this->min_ <= strlen(trim($data[$this->getName()]))
             || (0 != $this->max_ && $this->max_ < strlen(trim($data[$this->getName()])));
@@ -96,7 +103,8 @@ class ZMMinMaxRule extends ZMRule {
      *
      * @return string Localized error message.
      */
-    public function getErrorMsg() {
+    public function getErrorMsg()
+    {
         return sprintf(_zm((null != $this->getMsg() ? $this->getMsg() : $this->getDefaultMsg())), $this->getName(), $this->min_, $this->max_);
     }
 
@@ -105,7 +113,8 @@ class ZMMinMaxRule extends ZMRule {
      *
      * @return string Formatted JavaScript .
      */
-    public function toJSString() {
+    public function toJSString()
+    {
         $js = "    new Array('min'";
         $js .= ",'".$this->getJSName()."'";
         $js .= ",'".addslashes($this->getErrorMsg())."'";

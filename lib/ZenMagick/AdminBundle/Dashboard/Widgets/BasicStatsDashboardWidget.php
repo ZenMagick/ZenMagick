@@ -28,19 +28,21 @@ use Symfony\Component\EventDispatcher\GenericEvent;
  *
  * @author Johnny Robeson
  */
-class BasicStatsDashboardWidget extends DashboardWidget {
-
+class BasicStatsDashboardWidget extends DashboardWidget
+{
     /**
      * Create new instance.
      */
-    public function __construct() {
+    public function __construct()
+    {
         parent::__construct(_zm('Basic Stats'));
     }
 
     /**
      * Get data.
      */
-    protected function getData($request) {
+    protected function getData($request)
+    {
         $data = array();
         $database = \ZMRuntime::getDatabase();
         $net = $this->container->get('netTool');
@@ -95,7 +97,8 @@ class BasicStatsDashboardWidget extends DashboardWidget {
     /**
      * {@inheritDoc}
      */
-    public function getContents($request) {
+    public function getContents($request)
+    {
         $contents = '<table class="grid" cellspacing="0">';
         $contents .= '<tr><th>'._zm('Type').'</th><th>'._zm('Stat').'</th></tr>';
         $language = $request->getSelectedLanguage();

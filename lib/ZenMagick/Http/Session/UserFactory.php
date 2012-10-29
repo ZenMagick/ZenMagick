@@ -24,8 +24,8 @@ namespace ZenMagick\Http\Session;
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-interface UserFactory {
-
+interface UserFactory
+{
     /**
      * Get the current user (if any).
      *

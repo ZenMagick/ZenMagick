@@ -28,12 +28,13 @@ use ZenMagick\Base\ZMObject;
  * @author DerManoMann
  * @package zenmagick.store.shared.model
  */
-class ZMSearchCriteria extends ZMObject {
-
+class ZMSearchCriteria extends ZMObject
+{
     /**
      * Create new instance.
      */
-    public function __construct() {
+    public function __construct()
+    {
         parent::__construct();
 
         $settingsService = Runtime::getContainer()->get('settingsService');
@@ -105,7 +106,8 @@ class ZMSearchCriteria extends ZMObject {
      *
      * @param string date The from date.
      */
-    public function setDateFrom($date) {
+    public function setDateFrom($date)
+    {
         if ($this->container->get('localeService')->getFormat('date', 'short-ui-format') == $date) {
             $date = '';
         }
@@ -117,7 +119,8 @@ class ZMSearchCriteria extends ZMObject {
      *
      * param return string date The to date.
      */
-    public function setDateTo($date) {
+    public function setDateTo($date)
+    {
         if ($this->container->get('localeService')->getFormat('date', 'short-ui-format') == $date) {
             $date = '';
         }

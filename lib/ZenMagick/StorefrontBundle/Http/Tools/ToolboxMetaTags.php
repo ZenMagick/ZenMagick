@@ -36,7 +36,8 @@ use ZenMagick\Http\Toolbox\ToolboxTool;
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class ToolboxMetaTags extends ToolboxTool {
+class ToolboxMetaTags extends ToolboxTool
+{
     private $topCategories_ = null;
     private $crumbtrail_ = null;
     private $product_ = null;
@@ -49,7 +50,8 @@ class ToolboxMetaTags extends ToolboxTool {
      *
      * @param string delimiter Optional keyword delimiter.
      */
-    public function __construct($delimiter=null) {
+    public function __construct($delimiter=null)
+    {
         parent::__construct();
         $this->keywordDelimiter_ = null != $delimiter ? $delimiter : Runtime::getSettings()->get('metaTagKeywordDelimiter');
     }
@@ -59,7 +61,8 @@ class ToolboxMetaTags extends ToolboxTool {
      *
      * @return string The page title.
      */
-    public function getTitle() {
+    public function getTitle()
+    {
         $this->initMetaTags();
 
         // default to page name
@@ -126,7 +129,8 @@ class ToolboxMetaTags extends ToolboxTool {
      *
      * @return string The meta tag value.
      */
-    public function getKeywords() {
+    public function getKeywords()
+    {
         $this->initMetaTags();
         $value = '';
         $addTopCats = true;
@@ -166,7 +170,8 @@ class ToolboxMetaTags extends ToolboxTool {
      *
      * @return string The meta tag value.
      */
-    public function getDescription() {
+    public function getDescription()
+    {
         $this->initMetaTags();
         $value = Runtime::getSettings()->get('storeName');
         if (0 < strlen($this->formatCrumbtrail())) {
@@ -202,7 +207,8 @@ class ToolboxMetaTags extends ToolboxTool {
     /**
      * Set up all required internal structures.
      */
-    protected function initMetaTags() {
+    protected function initMetaTags()
+    {
         $this->loadTopCategories();
         $this->loadCrumbtrail();
         if (null == $this->crumbtrail_) {
@@ -216,7 +222,8 @@ class ToolboxMetaTags extends ToolboxTool {
     /**
      * Load top categories.
      */
-    protected function loadTopCategories() {
+    protected function loadTopCategories()
+    {
         if (null != $this->topCategories_)
             return;
 
@@ -234,14 +241,16 @@ class ToolboxMetaTags extends ToolboxTool {
     /**
      * Load category crumbtrail.
      */
-    protected function loadCrumbtrail() {
+    protected function loadCrumbtrail()
+    {
     }
 
 
     /*
      * Format the current crumbtrail.
      */
-    protected function formatCrumbtrail() {
+    protected function formatCrumbtrail()
+    {
         if (null == $this->crumbtrail_)
             return null;
 
@@ -262,7 +271,8 @@ class ToolboxMetaTags extends ToolboxTool {
     /**
      * Load product info.
      */
-    protected function loadProduct() {
+    protected function loadProduct()
+    {
         if (null == $this->getRequest()->query->get('productId') || null != $this->productName_)
             return;
 
@@ -277,7 +287,8 @@ class ToolboxMetaTags extends ToolboxTool {
     /**
      * Load category info.
      */
-    protected function loadCategory() {
+    protected function loadCategory()
+    {
         if ($this->getRequest()->query->has('cPath')) {
             if (null != ($category = $this->container->get('categoryService')->getCategoryForId($this->getRequest()->attributes->get('categoryId'), $this->getRequest()->getSession()->getLanguageId()))) {
                 $this->category_ = $category->getName();

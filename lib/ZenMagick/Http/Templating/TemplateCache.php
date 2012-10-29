@@ -26,8 +26,8 @@ namespace ZenMagick\Http\Templating;
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-interface TemplateCache {
-
+interface TemplateCache
+{
     /**
      * Check if the given template can be cached.
      *

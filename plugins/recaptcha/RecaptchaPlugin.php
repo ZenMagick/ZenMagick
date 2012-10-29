@@ -29,7 +29,8 @@ define('RECAPTCHA_FIELD', 'recaptcha_response_field');
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class RecaptchaPlugin extends Plugin {
+class RecaptchaPlugin extends Plugin
+{
     private $captchaEnabled_ = false;
     private $error_ = null;
     // page => (name, form)
@@ -45,7 +46,8 @@ class RecaptchaPlugin extends Plugin {
      * <p>Setup additional validation rules; this is done here to avoid getting in the way of
      * custom global/theme validation rule setups.</p>
      */
-    public function onContainerReady($event) {
+    public function onContainerReady($event)
+    {
         $request = $event->getArgument('request');
         $disableRegistered = Toolbox::asBoolean($this->get('disableRegistered'));
         if ($disableRegistered && $request->getSession()->isRegistered()) {
@@ -72,14 +74,16 @@ class RecaptchaPlugin extends Plugin {
      *
      * @return boolean <code>true</code> if the captcha is enabled, <code>false</code> if not.
      */
-    public function isCaptchaEnabled() {
+    public function isCaptchaEnabled()
+    {
         return $this->captchaEnabled_;
     }
 
     /**
      * Create the captcha image.
      */
-    public function showCaptcha() {
+    public function showCaptcha()
+    {
         if ($this->captchaEnabled_) {
             echo recaptcha_get_html($this->get('publicKey'), $this->getError());
         }
@@ -90,7 +94,8 @@ class RecaptchaPlugin extends Plugin {
      *
      * @return string The error or <code>null</code>.
      */
-    public function getError() {
+    public function getError()
+    {
         return $this->error_;
     }
 
@@ -99,7 +104,8 @@ class RecaptchaPlugin extends Plugin {
      *
      * @param string error The error.
      */
-    public function setError($error) {
+    public function setError($error)
+    {
         $this->error_ = $error;
     }
 
@@ -110,7 +116,8 @@ class RecaptchaPlugin extends Plugin {
      * @param array data The data.
      * @return boolean <code>true</code> if the captcha is valid, <code>false</code> if not.
      */
-    public function vRecaptcha($request, $data) {
+    public function vRecaptcha($request, $data)
+    {
         if (Toolbox::isEmpty($request->getParameter(RECAPTCHA_FIELD))) {
             // we have a required rule, so no need for additional checks
             return true;

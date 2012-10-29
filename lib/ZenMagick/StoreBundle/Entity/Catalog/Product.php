@@ -44,7 +44,8 @@ use Doctrine\ORM\Mapping AS ORM;
  *  })
  * @ORM\Entity
  */
-class Product extends ZMObject {
+class Product extends ZMObject
+{
     const SHIPPING_NORMAL = 0;
     const SHIPPING_ALWAYS_FREE = 1;
     const SHIPPING_SPECIAL = 2;
@@ -289,7 +290,8 @@ class Product extends ZMObject {
      * @param string name The product name.
      * @param string description The product description.
      */
-    public function __construct($id=0, $name='', $description='') {
+    public function __construct($id=0, $name='', $description='')
+    {
         parent::__construct();
         $this->setId($id);
         $this->name = $name;
@@ -425,7 +427,8 @@ class Product extends ZMObject {
      *
      * @return string $image The default image.
      */
-    public function getDefaultImage() {
+    public function getDefaultImage()
+    {
         return (empty($this->image) && $this->container->get('settingsService')->get('isShowNoPicture')) ? $this->container->get('settingsService')->get('imgNotFound') : $this->image;
     }
 
@@ -510,7 +513,8 @@ class Product extends ZMObject {
      *
      * @return Manufacturer The manufacturer.
      */
-    public function getManufacturer() {
+    public function getManufacturer()
+    {
         return $this->container->get('manufacturerService')->getManufacturerForProduct($this);
     }
 
@@ -885,7 +889,8 @@ class Product extends ZMObject {
      *
      * @return ZMOffers The offers (if any), for this product.
      */
-    public function getOffers() {
+    public function getOffers()
+    {
         if (null == $this->offers) {
             $this->offers = Beans::getBean('ZMOffers');
             $this->offers->setProduct($this);
@@ -906,7 +911,8 @@ class Product extends ZMObject {
      *
      * @return array A list of {@link ZenMagick\StoreBundle\Entity\Catalog\Attribute} instances.
      */
-    public function getAttributes() {
+    public function getAttributes()
+    {
         if (null === $this->attributes) {
             $this->attributes = $this->container->get('attributeService')->getAttributesForProduct($this);
         }
@@ -919,7 +925,8 @@ class Product extends ZMObject {
      *
      * @return ZMImageInfo The product image info.
      */
-    public function getImageInfo() {
+    public function getImageInfo()
+    {
         $imageInfo = Beans::getBean('ZMImageInfo');
         $imageInfo->setAltText($this->name);
         $imageInfo->setDefaultImage($this->image);
@@ -962,7 +969,8 @@ class Product extends ZMObject {
      *
      * @return boolean <code>true</code> if reviews exist, <code>false</code> if not.
      */
-    public function hasReviews() {
+    public function hasReviews()
+    {
         return 0 < $this->getReviewCount();
     }
 
@@ -971,7 +979,8 @@ class Product extends ZMObject {
      *
      * @return int The number of reviews.
      */
-    public function getReviewCount() {
+    public function getReviewCount()
+    {
         return $this->container->get('reviewService')->getReviewCount($this->getId(), $this->languageId);
     }
 
@@ -983,7 +992,8 @@ class Product extends ZMObject {
      * @param string field The field name.
      * @return mixed The setting value.
      */
-    public function getTypeSetting($field) {
+    public function getTypeSetting($field)
+    {
         return $this->container->get('productService')->getProductTypeSetting($this->getId(), $field);
     }
 
@@ -996,7 +1006,8 @@ class Product extends ZMObject {
      * @param int languageId The languageId; default is <code>null</code> for session setting.
      * @return ZenMagick\StoreBundle\Entity\Catalog\Category The default category.
      */
-    public function getDefaultCategory($languageId=null) {
+    public function getDefaultCategory($languageId=null)
+    {
         $languageId = null !== $languageId ? $languageId : $this->container->get('session')->getLanguageId();
 
         $categoryService = $this->container->get('categoryService');
@@ -1011,7 +1022,8 @@ class Product extends ZMObject {
      *
      * @return float The average rating.
      */
-    public function getAverageRating() {
+    public function getAverageRating()
+    {
         return $this->container->get('reviewService')->getAverageRatingForProductId($this->getId(), $this->languageId);
     }
 
@@ -1072,7 +1084,8 @@ class Product extends ZMObject {
      * @param boolean all Optional flag to load all configured products, regardless of start/end date, etc; default is <code>false</code>.
      * @return array A list of <code>ZMProductAssociation</code> instances.
      */
-    public function getProductAssociations($type, $args=array(), $all=false) {
+    public function getProductAssociations($type, $args=array(), $all=false)
+    {
         // some defaults
         if (!array_key_exists('languageId', $args)) {
             $args['languageId'] = $this->getLanguageId();
@@ -1086,7 +1099,8 @@ class Product extends ZMObject {
      * @param int languageId Optional language id; default is <code>null</code> to use the current language id of this instance.
      * @return ZenMagick\StoreBundle\Entity\Catalog\MetaTagDetails The details or <code>null</code>.
      */
-    public function getMetaTagDetails($languageId=null) {
+    public function getMetaTagDetails($languageId=null)
+    {
         return $this->container->get('productService')->getMetaTagDetailsForId($this->getId(), null != $languageId ? $languageId : $this->getLanguageId());
     }
 
@@ -1180,7 +1194,8 @@ class Product extends ZMObject {
      * @param  ZenMagick\StoreBundle\Entity\Catalog\ProductDescription $descriptions
      * @return Product
      */
-    public function addDescription(\ZenMagick\StoreBundle\Entity\Catalog\ProductDescription $descriptions) {
+    public function addDescription(\ZenMagick\StoreBundle\Entity\Catalog\ProductDescription $descriptions)
+    {
         $this->descriptions[] = $descriptions;
         return $this;
     }
@@ -1190,7 +1205,8 @@ class Product extends ZMObject {
      *
      * @param ZenMagick\StoreBundle\Entity\Catalog\ProductDescription $descriptions
      */
-    public function removeDescription(\ZenMagick\StoreBundle\Entity\Catalog\ProductDescription $descriptions){
+    public function removeDescription(\ZenMagick\StoreBundle\Entity\Catalog\ProductDescription $descriptions)
+    {
         $this->descriptions->removeElement($descriptions);
     }
 
@@ -1199,7 +1215,8 @@ class Product extends ZMObject {
      *
      * @return Doctrine\Common\Collections\Collection
      */
-    public function getDescriptions() {
+    public function getDescriptions()
+    {
         return $this->descriptions;
     }
 }

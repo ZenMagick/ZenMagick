@@ -27,7 +27,8 @@ use ZMOffers;
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class Offers extends ZMOffers {
+class Offers extends ZMOffers
+{
     private $productGroupPricing_;
     private $lookupDone_;
 
@@ -36,7 +37,8 @@ class Offers extends ZMOffers {
      *
      * @param ZenMagick\StoreBundle\Entity\Catalog\Product product The product.
      */
-    public function __construct($product) {
+    public function __construct($product)
+    {
         parent::__construct($product);
         $this->productGroupPricing_ = null;
         $this->lookupDone_ = false;
@@ -45,7 +47,8 @@ class Offers extends ZMOffers {
     /**
      * {@inheritDoc}
      */
-    public function getProductPrice($tax=true) {
+    public function getProductPrice($tax=true)
+    {
         $price = $this->product_->getProductPrice();
 
         // check for fixed price
@@ -63,7 +66,8 @@ class Offers extends ZMOffers {
      *
      * @return ZMProductGroupPricing A <code>ProductGroupPricing</code> instance or <code>null</code>.
      */
-    private function getProductGroupPricing() {
+    private function getProductGroupPricing()
+    {
         if (!$this->lookupDone_) {
             $this->lookupDone_ = true;
             $account = $this->container->get('request')->getAccount();
@@ -96,7 +100,8 @@ class Offers extends ZMOffers {
      * @param boolean tax Set to <code>true</code> to include tax (if applicable).
      * @param ProductGroupPricing productGroupPricing A <code>ProductGroupPricing</code>.
      */
-    private function adjustPrice($priceMethod, $tax, $productGroupPricing) {
+    private function adjustPrice($priceMethod, $tax, $productGroupPricing)
+    {
         // handle base price
         $price = parent::$priceMethod(!$productGroupPricing->isBeforeTax());
 
@@ -125,7 +130,8 @@ class Offers extends ZMOffers {
     /**
      * {@inheritDoc}
      */
-    public function getSalePrice($tax=true) {
+    public function getSalePrice($tax=true)
+    {
         $productGroupPricing = $this->getProductGroupPricing();
 
         if (null != $productGroupPricing && $productGroupPricing->isAllowSaleSpecial()) {
@@ -138,7 +144,8 @@ class Offers extends ZMOffers {
     /**
      * {@inheritDoc}
      */
-    public function getSpecialPrice($tax=true) {
+    public function getSpecialPrice($tax=true)
+    {
         $productGroupPricing = $this->getProductGroupPricing();
 
         if (null != $productGroupPricing && $productGroupPricing->isAllowSaleSpecial()) {
@@ -151,7 +158,8 @@ class Offers extends ZMOffers {
     /**
      * {@inheritDoc}
      */
-    public function getBasePrice($tax=true) {
+    public function getBasePrice($tax=true)
+    {
         $productGroupPricing = $this->getProductGroupPricing();
 
         if (null != $productGroupPricing) {

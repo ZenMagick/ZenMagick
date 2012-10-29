@@ -29,14 +29,15 @@ use ZenMagick\StoreBundle\Model\Checkout\ShoppingCart;
  *
  * @author DerManoMann
  */
-class ProductAssociationService extends ZMObject {
-
+class ProductAssociationService extends ZMObject
+{
     /**
      * Get all handlers.
      *
      * @return array List of all handlers.
      */
-    public function getHandlers() {
+    public function getHandlers()
+    {
         $handlers = array();
         foreach ($this->container->get('containerTagService')->findTaggedServiceIds('apps.store.associations.handler') as $id => $args) {
             $handler = $this->container->get($id);
@@ -50,7 +51,8 @@ class ProductAssociationService extends ZMObject {
      *
      * @return array A list of all registered handler types.
      */
-    public function getHandlerTypes() {
+    public function getHandlerTypes()
+    {
         return array_keys($this->getHandlers());
     }
 
@@ -60,7 +62,8 @@ class ProductAssociationService extends ZMObject {
      * @param string type The association type/name.
      * @return ProductAssociationHandler A handler instance or <code>null</code>.
      */
-    public function getHandlerForType($type) {
+    public function getHandlerForType($type)
+    {
         $handlers = $this->getHandlers();
         if (array_key_exists($type, $handlers)) {
             return $handlers[$type];
@@ -76,7 +79,8 @@ class ProductAssociationService extends ZMObject {
      * @param array args Optional parameter that might be required by the used type; default is an empty array.
      * @return array A list of <code>ProductAssociation</code> instances.
      */
-    public function getProductAssociationsForProductId($productId, $type, $args=array()) {
+    public function getProductAssociationsForProductId($productId, $type, $args=array())
+    {
         if (null != ($handler = $this->getHandlerForType($type))) {
             return $handler->getProductAssociationsForProductId($productId, $args);
         }
@@ -96,7 +100,8 @@ class ProductAssociationService extends ZMObject {
      * @param array args Optional parameter that might be required by the used type; default is <code>null</code> for none.
      * @return array A list of <code>ProductAssociation</code> instances.
      */
-    public function getProductAssociationsForCategoryId($categoryId, $type, $args=null) {
+    public function getProductAssociationsForCategoryId($categoryId, $type, $args=null)
+    {
         if (null != ($handler = $this->getHandlerForType($type))) {
             $defaults = array('includeChildren' => false, 'languageId' => null);
             if (null === $args) {
@@ -133,7 +138,8 @@ class ProductAssociationService extends ZMObject {
      * @param array args Optional parameter that might be required by the used type; default is <code>null</code> for none.
      * @return array A list of <code>ProductAssociation</code> instances.
      */
-    public function getProductAssociationsForShoppingCart(ShoppingCart $shoppingCart, $type, $args=null) {
+    public function getProductAssociationsForShoppingCart(ShoppingCart $shoppingCart, $type, $args=null)
+    {
         if (null != ($handler = $this->getHandlerForType($type))) {
             $defaults = array('includeChildren' => false, 'languageId' => null);
             if (null === $args) {

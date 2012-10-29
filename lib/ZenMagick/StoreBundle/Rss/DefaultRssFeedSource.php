@@ -32,12 +32,13 @@ use ZenMagick\Http\Rss\RssSource;
  *
  * @author DerManoMann
  */
-class DefaultRssFeedSource extends ZMObject implements RssSource {
-
+class DefaultRssFeedSource extends ZMObject implements RssSource
+{
     /**
      * {@inheritDoc}
      */
-    public function getFeed($request, $channel, $args=array()) {
+    public function getFeed($request, $channel, $args=array())
+    {
         // delegate items to channel method
         $method = "get".ucwords($channel)."Feed";
         if (!method_exists($this, $method)) {
@@ -61,7 +62,8 @@ class DefaultRssFeedSource extends ZMObject implements RssSource {
      * @param string key Optional product id.
      * @return RssFeed The feed.
      */
-    protected function getReviewsFeed($request, $key=null) {
+    protected function getReviewsFeed($request, $key=null)
+    {
         $product = null;
         $reviewService = $this->container->get('reviewService');
         $languageId = $request->getSession()->getLanguageId();
@@ -122,7 +124,8 @@ class DefaultRssFeedSource extends ZMObject implements RssSource {
      * @param string key EZPages chapter.
      * @return RssFeed The feed data.
      */
-    protected function getChapterFeed($request, $key=null) {
+    protected function getChapterFeed($request, $key=null)
+    {
         $items = array();
         $toc = $this->container->get('ezPageService')->getPagesForChapterId($key, $request->getSession()->getLanguageId());
         $net = $this->container->get('netTool');
@@ -154,7 +157,8 @@ class DefaultRssFeedSource extends ZMObject implements RssSource {
      * @param string key Optional key value for various product types; supported: 'new'
      * @return RssFeed The feed data.
      */
-    protected function getProductsFeed($request, $key=null) {
+    protected function getProductsFeed($request, $key=null)
+    {
         if ('new' != $key) {
             return null;
         }

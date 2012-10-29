@@ -28,7 +28,8 @@ use ZenMagick\plugins\unitTests\simpletest\TestCase;
  * @author DerManoMann <mano@zenmagick.org>
  * @package plugins.minify
  */
-class TestMinifyResourceManager extends TestCase {
+class TestMinifyResourceManager extends TestCase
+{
     const MIN_BASE = '/zmdev/zenmagick/plugins/minify/min/f=';
     const COMMON_JS = '/zmdev/zenmagick/themes/base/content/common.js';
     const JQUERY_JS = '/zmdev/zenmagick/plugins/unitTests/content/js/jquery-1.2.1.pack.js';
@@ -44,7 +45,8 @@ class TestMinifyResourceManager extends TestCase {
      *
      * @return MinifyResourceManager
      */
-    protected function getMinifyResourceManager() {
+    protected function getMinifyResourceManager()
+    {
         $view = $this->container->get('defaultView');
         $resourceManager = new MinifyResourceManager();
         $resourceManager->setContainer($this->container);
@@ -59,7 +61,8 @@ class TestMinifyResourceManager extends TestCase {
     /**
      * Test empty.
      */
-    public function testEmpty() {
+    public function testEmpty()
+    {
         $resourceManager = $this->getMinifyResourceManager();
         $resources = $resourceManager->getResourceContents();
         $this->assertNull($resources);
@@ -68,7 +71,8 @@ class TestMinifyResourceManager extends TestCase {
     /**
      * Test invalid.
      */
-    public function testInvalid() {
+    public function testInvalid()
+    {
         $resourceManager = $this->getMinifyResourceManager();
         $resourceManager->jsFile('foo');
 
@@ -80,7 +84,8 @@ class TestMinifyResourceManager extends TestCase {
     /**
      * Test single local.
      */
-    public function testSingleLocalJS() {
+    public function testSingleLocalJS()
+    {
         $resourceManager = $this->getMinifyResourceManager();
         $resourceManager->jsFile('common.js');
 
@@ -94,7 +99,8 @@ class TestMinifyResourceManager extends TestCase {
     /**
      * Test duplicate local.
      */
-    public function testDuplicateLocalJS() {
+    public function testDuplicateLocalJS()
+    {
         $resourceManager = $this->getMinifyResourceManager();
         $resourceManager->jsFile('common.js');
         $resourceManager->jsFile('common.js');
@@ -109,7 +115,8 @@ class TestMinifyResourceManager extends TestCase {
     /**
      * Test multiple local.
      */
-    public function testMultipleLocalJS() {
+    public function testMultipleLocalJS()
+    {
         $resourceManager = $this->getMinifyResourceManager();
         $resourceManager->jsFile('common.js');
         $resourceManager->jsFile('js/jquery-1.2.1.pack.js');
@@ -124,7 +131,8 @@ class TestMinifyResourceManager extends TestCase {
     /**
      * Test single external.
      */
-    public function testSingleExternalJS() {
+    public function testSingleExternalJS()
+    {
         $resourceManager = $this->getMinifyResourceManager();
         $resourceManager->jsFile(self::EXT_JQUERY_JS);
 
@@ -138,7 +146,8 @@ class TestMinifyResourceManager extends TestCase {
     /**
      * Test duplicate single external.
      */
-    public function testDuplicateExternalJS() {
+    public function testDuplicateExternalJS()
+    {
         $resourceManager = $this->getMinifyResourceManager();
         $resourceManager->jsFile(self::EXT_JQUERY_JS);
         $resourceManager->jsFile(self::EXT_JQUERY_JS);
@@ -153,7 +162,8 @@ class TestMinifyResourceManager extends TestCase {
     /**
      * Test multiple external.
      */
-    public function testMultipleExternalJS() {
+    public function testMultipleExternalJS()
+    {
         $resourceManager = $this->getMinifyResourceManager();
         $resourceManager->jsFile(self::EXT_JQUERY_JS);
         $resourceManager->jsFile(self::EXT_JQUERY_VAL_JS);
@@ -169,7 +179,8 @@ class TestMinifyResourceManager extends TestCase {
     /**
      * Test mixed #1.
      */
-    public function testMixed1JS() {
+    public function testMixed1JS()
+    {
         // mixed #1
         $resourceManager = $this->getMinifyResourceManager();
         $resourceManager->jsFile(self::EXT_JQUERY_JS);
@@ -189,7 +200,8 @@ class TestMinifyResourceManager extends TestCase {
     /**
      * Test mixed #2.
      */
-    public function testMixed2JS() {
+    public function testMixed2JS()
+    {
         $resourceManager = $this->getMinifyResourceManager();
         $resourceManager->jsFile(self::EXT_JQUERY_JS);
         $resourceManager->jsFile(self::EXT_JQUERY_VAL_JS);
@@ -208,7 +220,8 @@ class TestMinifyResourceManager extends TestCase {
     /**
      * Test mixed #3.
      */
-    public function testMixed3JS() {
+    public function testMixed3JS()
+    {
         $resourceManager = $this->getMinifyResourceManager();
         $resourceManager->jsFile(self::EXT_JQUERY_JS);
         $resourceManager->jsFile('common.js');
@@ -228,7 +241,8 @@ class TestMinifyResourceManager extends TestCase {
     /**
      * Test single local.
      */
-    public function testSingleLocalCSS() {
+    public function testSingleLocalCSS()
+    {
         $resourceManager = $this->getMinifyResourceManager();
         $resourceManager->cssFile('site.css');
 
@@ -244,7 +258,8 @@ class TestMinifyResourceManager extends TestCase {
     /**
      * Test duplicate local.
      */
-    public function testDuplicateLocalCSS() {
+    public function testDuplicateLocalCSS()
+    {
         $resourceManager = $this->getMinifyResourceManager();
         $resourceManager->cssFile('site.css');
         $resourceManager->cssFile('site.css');
@@ -261,7 +276,8 @@ class TestMinifyResourceManager extends TestCase {
     /**
      * Test multiple local.
      */
-    public function testMultipleLocalCSS() {
+    public function testMultipleLocalCSS()
+    {
         $resourceManager = $this->getMinifyResourceManager();
         $resourceManager->cssFile('site.css');
         $resourceManager->cssFile('popup.css');
@@ -278,7 +294,8 @@ class TestMinifyResourceManager extends TestCase {
     /**
      * Test single external.
      */
-    public function testSingleExternalCSS() {
+    public function testSingleExternalCSS()
+    {
         $resourceManager = $this->getMinifyResourceManager();
         $resourceManager->cssFile(self::EXT_JQUERY_CSS1);
 
@@ -294,7 +311,8 @@ class TestMinifyResourceManager extends TestCase {
     /**
      * Test duplicate single external.
      */
-    public function testDuplicateExternalCSS() {
+    public function testDuplicateExternalCSS()
+    {
         $resourceManager = $this->getMinifyResourceManager();
         $resourceManager->cssFile(self::EXT_JQUERY_CSS1);
         $resourceManager->cssFile(self::EXT_JQUERY_CSS1);
@@ -311,7 +329,8 @@ class TestMinifyResourceManager extends TestCase {
     /**
      * Test multiple external.
      */
-    public function testMultipleExternalCSS() {
+    public function testMultipleExternalCSS()
+    {
         $resourceManager = $this->getMinifyResourceManager();
         $resourceManager->cssFile(self::EXT_JQUERY_CSS1);
         $resourceManager->cssFile(self::EXT_JQUERY_CSS2);
@@ -329,7 +348,8 @@ class TestMinifyResourceManager extends TestCase {
     /**
      * Test mixed #1.
      */
-    public function testMixed1CSS() {
+    public function testMixed1CSS()
+    {
         // mixed #1
         $resourceManager = $this->getMinifyResourceManager();
         $resourceManager->cssFile(self::EXT_JQUERY_CSS1);

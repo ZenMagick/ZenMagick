@@ -34,18 +34,20 @@ use Symfony\Component\HttpKernel\Event\PostResponseEvent;
  *
  * @author DerManoMann
  */
- class StoreListener extends ZMObject implements EventSubscriberInterface {
-
+ class StoreListener extends ZMObject implements EventSubscriberInterface
+ {
     protected $container;
 
-    public function __construct(ContainerInterface $container) {
+    public function __construct(ContainerInterface $container)
+    {
         $this->container = $container;
     }
 
     /**
      * {@inheritDoc}
      */
-    public function onKernelRequest(GetResponseEvent $event) {
+    public function onKernelRequest(GetResponseEvent $event)
+    {
         $request = $event->getRequest();
 
         $cPath = array();
@@ -68,14 +70,16 @@ use Symfony\Component\HttpKernel\Event\PostResponseEvent;
      * Run various post termination events.
      * @todo pass in list of services to run tasks on (perhaps via cron)
      */
-    public function onKernelTerminate(PostResponseEvent $event) {
+    public function onKernelTerminate(PostResponseEvent $event)
+    {
         $this->container->get('bannerService')->runTasks();
         $this->container->get('salemakerService')->runTasks();
         $this->container->get('productFeaturedService')->runTasks();
         $this->container->get('productSpecialsService')->runTasks();
     }
 
-    public static function getSubscribedEvents() {
+    public static function getSubscribedEvents()
+    {
         return array(
             KernelEvents::REQUEST => array(
                 array('onKernelRequest'),

@@ -29,7 +29,8 @@ use ZenMagick\Http\Session\SessionValidator;
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class FormTokenSessionValidator extends ZMObject implements SessionValidator {
+class FormTokenSessionValidator extends ZMObject implements SessionValidator
+{
     /**
      * Name of the session token form field.
      */
@@ -42,7 +43,8 @@ class FormTokenSessionValidator extends ZMObject implements SessionValidator {
      *
      * @param array requestIds The request ids to validate.
      */
-    public function setRequestIds(array $requestIds) {
+    public function setRequestIds(array $requestIds)
+    {
         $this->requestIds = $requestIds;
     }
 
@@ -51,14 +53,16 @@ class FormTokenSessionValidator extends ZMObject implements SessionValidator {
      *
      * <p>This default implementation will validate <em>POST</em> requests only.
      */
-    protected function qualifies(Request $request) {
+    protected function qualifies(Request $request)
+    {
         return 'POST' == $request->getMethod();
     }
 
     /**
      * {@inheritDoc}
      */
-    public function isValidSession(Request $request, Session $session) {
+    public function isValidSession(Request $request, Session $session)
+    {
         $valid = true;
         if ($this->qualifies($request) && in_array($request->getRequestId(), $this->requestIds)) {
             $valid = false;

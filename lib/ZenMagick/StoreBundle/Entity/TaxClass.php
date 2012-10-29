@@ -31,7 +31,8 @@ use Doctrine\ORM\Mapping AS ORM;
  * @ORM\Table(name="tax_class")
  * @ORM\Entity
  */
-class TaxClass extends ZMObject {
+class TaxClass extends ZMObject
+{
     /**
      * @var integer $taxClassId
      *
@@ -69,7 +70,8 @@ class TaxClass extends ZMObject {
     /**
      * Create new instance.
      */
-    public function __construct() {
+    public function __construct()
+    {
         parent::__construct();
         $this->taxClassId_ = 0;
         $this->title = '';

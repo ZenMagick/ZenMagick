@@ -31,12 +31,14 @@ define('_ZM_STORE_CONFIG_YAML', Runtime::getInstallationPath().'/config/paramete
  * @todo what to do about settings that get moved to plugins for plugins that might not exist
  *       yet like music_product_extra or phpbb3
  */
-class ImportZencartConfigurePatch extends FilePatch {
+class ImportZencartConfigurePatch extends FilePatch
+{
     protected $configurePhpFile;
     /**
      * Create new instance.
      */
-    public function __construct() {
+    public function __construct()
+    {
         parent::__construct('importZencartConfigure');
         $this->label_ = 'Create or update ZenMagick store-config.yaml from configure.php';
         $this->configurePhpFile = Runtime::getSettings()->get('zencart.root_dir').'/includes/configure.php';
@@ -47,7 +49,8 @@ class ImportZencartConfigurePatch extends FilePatch {
      *
      * @return boolean <code>true</code> if this patch can still be applied.
      */
-    public function isOpen() {
+    public function isOpen()
+    {
         if (!file_exists(_ZM_STORE_CONFIG_YAML)) return true;
         $config = Yaml::parse(_ZM_STORE_CONFIG_YAML);
         return !isset($config['database_name']);
@@ -58,7 +61,8 @@ class ImportZencartConfigurePatch extends FilePatch {
      *
      * @return boolean <code>true</code> if this patch is ready and all preconditions are met.
      */
-    public function isReady() {
+    public function isReady()
+    {
         $writeable = !file_exists(_ZM_STORE_CONFIG_YAML) || is_writeable(_ZM_STORE_CONFIG_YAML);
         $canWriteFile = is_writeable(dirname(_ZM_STORE_CONFIG_YAML)) && $writeable;
         return file_exists($this->configurePhpFile) && $canWriteFile;
@@ -71,7 +75,8 @@ class ImportZencartConfigurePatch extends FilePatch {
      *
      * @return string The preconditions message or an empty string.
      */
-    public function getPreconditionsMessage() {
+    public function getPreconditionsMessage()
+    {
         return $this->isReady() ? "" : "Need permission to write " . _ZM_STORE_CONFIG_YAML . " or " . $this->configurePhpFile . " does not exist";
     }
 
@@ -82,7 +87,8 @@ class ImportZencartConfigurePatch extends FilePatch {
      *  disabled as per settings.
      * @return boolean <code>true</code> if patching was successful, <code>false</code> if not.
      */
-    public function patch($force=false) {
+    public function patch($force=false)
+    {
         if (!$this->isOpen()) return true;
 
         include_once $this->configurePhpFile;
@@ -130,7 +136,8 @@ class ImportZencartConfigurePatch extends FilePatch {
     /**
      * {@inheritDoc}
      */
-    public function canUndo() {
+    public function canUndo()
+    {
         return false;
     }
 }

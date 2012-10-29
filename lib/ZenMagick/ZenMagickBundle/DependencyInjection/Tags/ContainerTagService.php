@@ -24,14 +24,15 @@ namespace ZenMagick\ZenMagickBundle\DependencyInjection\Tags;
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class ContainerTagService {
-
+class ContainerTagService
+{
     /**
      * Create new instance.
      *
      * @param array tags All tags; default is an empty array.
      */
-    public function __construct(array $tags = array()) {
+    public function __construct(array $tags = array())
+    {
         $this->tags = $tags;
     }
 
@@ -40,7 +41,8 @@ class ContainerTagService {
      *
      * @param array tags All tags; default is an empty array.
      */
-    public function setTags(array $tags) {
+    public function setTags(array $tags)
+    {
         $this->tags = $tags;
     }
 
@@ -50,7 +52,8 @@ class ContainerTagService {
      * @param string name The tag name.
      * @return array An array of tags.
      */
-    public function findTaggedServiceIds($name) {
+    public function findTaggedServiceIds($name)
+    {
         $services = array();
         foreach ($this->tags as $id => $tags) {
             if (isset($tags[$name])) {

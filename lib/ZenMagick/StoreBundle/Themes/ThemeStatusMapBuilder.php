@@ -28,7 +28,8 @@ use ZenMagick\Base\ZMObject;
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class ThemeStatusMapBuilder extends ZMObject {
+class ThemeStatusMapBuilder extends ZMObject
+{
     const DEFAULT_THEME_CLASS = 'ZenMagick\StoreBundle\Themes\Theme';
     protected $basePath;
     protected $themeService;
@@ -37,7 +38,8 @@ class ThemeStatusMapBuilder extends ZMObject {
     /**
      * Create new instance.
      */
-    public function __construct() {
+    public function __construct()
+    {
         parent::__construct();
         $this->defaultThemeClass = self::DEFAULT_THEME_CLASS;
     }
@@ -47,7 +49,8 @@ class ThemeStatusMapBuilder extends ZMObject {
      *
      * @param ThemeService themeService The theme service instance.
      */
-    public function setThemeService($themeService) {
+    public function setThemeService($themeService)
+    {
         $this->themeService = $themeService;
     }
 
@@ -56,7 +59,8 @@ class ThemeStatusMapBuilder extends ZMObject {
      *
      * @param string class The class name.
      */
-    public function setDefaultThemeClass($class) {
+    public function setDefaultThemeClass($class)
+    {
         $this->defaultThemeClass = $class;
     }
 
@@ -65,7 +69,8 @@ class ThemeStatusMapBuilder extends ZMObject {
      *
      * @param array basePath List of base paths to look for themes.
      */
-    public function setBasePath($path) {
+    public function setBasePath($path)
+    {
         $this->basePath = $path;
     }
 
@@ -74,7 +79,8 @@ class ThemeStatusMapBuilder extends ZMObject {
      *
      * @return array The path array.
      */
-    public function getBasePath() {
+    public function getBasePath()
+    {
         return $this->basePath;
     }
 
@@ -83,7 +89,8 @@ class ThemeStatusMapBuilder extends ZMObject {
      *
      * @return array Theme status map.
      */
-    public function buildStatusMap() {
+    public function buildStatusMap()
+    {
         $themeList = $this->buildThemeList();
         $themeChain = $this->buildThemeChain($themeList);
         return array(
@@ -97,7 +104,8 @@ class ThemeStatusMapBuilder extends ZMObject {
      *
      * @return array List of folders that contain valid themes.
      */
-    protected function getPathIdMap() {
+    protected function getPathIdMap()
+    {
         $folder = array();
         foreach ($this->basePath as $basePath) {
             foreach (new DirectoryIterator($basePath) as $fileInfo) {
@@ -138,7 +146,8 @@ class ThemeStatusMapBuilder extends ZMObject {
      *
      * @return array List with theme details.
      */
-    protected function buildThemeList() {
+    protected function buildThemeList()
+    {
         $themeList = array();
         foreach ($this->getPathIdMap() as $basePath => $themeInfo) {
             if (array_key_exists('configFile', $themeInfo)) {
@@ -156,7 +165,8 @@ class ThemeStatusMapBuilder extends ZMObject {
      * @param array themeList List of themes.
      * @return array List of theme chains in increasing order of importance.
      */
-    public function buildThemeChain($themeList) {
+    public function buildThemeChain($themeList)
+    {
         $baseThemeId = $this->themeService->getDefaultThemeId();
         $themeChain = array($baseThemeId);
         foreach ($this->themeService->getThemeConfigList() as $themeConfig) {

@@ -27,7 +27,8 @@ use ZenMagick\Base\Beans;
  *
  * @author DerManoMann
  */
-class ShippingMethodWrapper extends ZMObject implements \ZMShippingMethod {
+class ShippingMethodWrapper extends ZMObject implements \ZMShippingMethod
+{
     private $provider_;
     private $taxRate_;
     private $zenMethod_;
@@ -38,7 +39,8 @@ class ShippingMethodWrapper extends ZMObject implements \ZMShippingMethod {
      * @param ZMShippingProvider provider The shipping provider for this method.
      * @param array zenMethod The zen-cart method infos.
      */
-    public function __construct($provider, $zenMethod) {
+    public function __construct($provider, $zenMethod)
+    {
         parent::__construct();
         $this->provider_ = $provider;
         $this->zenMethod_ = $zenMethod;
@@ -99,7 +101,8 @@ class ShippingMethodWrapper extends ZMObject implements \ZMShippingMethod {
      *
      * @return string The shipping id as used by the shopping cart.
      */
-    public function getShippingId() {
+    public function getShippingId()
+    {
         $id = $this->provider_->getId() . '_' . $this->getId();
         return $id;
     }

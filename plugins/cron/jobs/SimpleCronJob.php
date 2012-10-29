@@ -25,12 +25,13 @@ namespace ZenMagick\plugins\cron\jobs;
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class SimpleCronJob implements CronJobInterface {
-
+class SimpleCronJob implements CronJobInterface
+{
     /**
      * {@inheritDoc}
      */
-    public function execute() {
+    public function execute()
+    {
         echo "foooooooooooooooooooo";
         return true;
     }

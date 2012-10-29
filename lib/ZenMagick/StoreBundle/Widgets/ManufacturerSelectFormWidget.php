@@ -36,12 +36,13 @@ use ZenMagick\Http\Widgets\Form\SelectFormWidget;
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class ManufacturerSelectFormWidget extends SelectFormWidget {
-
+class ManufacturerSelectFormWidget extends SelectFormWidget
+{
     /**
      * {@inheritDoc}
      */
-    public function getOptions($request) {
+    public function getOptions($request)
+    {
         $options = parent::getOptions($request);
         foreach ($this->container->get('manufacturerService')->getManufacturers($request->getSelectedLanguage()->getId()) as $manufacturer) {
             $options[$manufacturer->getId()] = $manufacturer->getName();

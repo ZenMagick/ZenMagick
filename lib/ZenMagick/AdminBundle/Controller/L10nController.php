@@ -31,12 +31,13 @@ use Symfony\Component\HttpFoundation\ResponseHeaderBag;
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class L10nController extends \ZMController {
-
+class L10nController extends \ZMController
+{
     /**
      * {@inheritDoc}
      */
-    public function getViewData($request) {
+    public function getViewData($request)
+    {
         $params = array(
           'themeId' => 's', 'languageId' => 's:1',
           'includeDefaults' => 'b', 'mergeExisting' => 'b', 'scanShared' => 'b', 'scanPlugins' => 'b', 'scanAdmin' => 'b'
@@ -91,7 +92,8 @@ class L10nController extends \ZMController {
     /**
      * Process request and return all relevant data.
      */
-    protected function processInternal($request) {
+    protected function processInternal($request)
+    {
         $vd = $this->getViewData($request);
 
         $scanner = $this->container->get('localeScanner');
@@ -149,7 +151,8 @@ class L10nController extends \ZMController {
     /**
      * {@inheritDoc}
      */
-    public function processGet($request) {
+    public function processGet($request)
+    {
         $data = $this->processInternal($request);
         $scanner = new LocaleScanner();
         if ('po' == $request->getParameter('download')) {

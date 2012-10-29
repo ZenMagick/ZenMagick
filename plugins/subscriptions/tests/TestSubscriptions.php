@@ -28,21 +28,23 @@ use ZenMagick\plugins\unitTests\simpletest\TestCase;
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class TestSubscriptions extends TestCase {
-
+class TestSubscriptions extends TestCase
+{
     /**
      * Get the plugin.
      *
      * @return ZMPlugin The plugin.
      */
-    protected function getPlugin() {
+    protected function getPlugin()
+    {
         return $this->container->get('pluginService')->getPluginForId('subscriptions');
     }
 
     /**
      * Test update order.
      */
-    public function testUpdateOrder() {
+    public function testUpdateOrder()
+    {
         $orderService = $this->container->get('orderService');
         $order = $orderService->getOrderForId(1, 1);
         $this->assertNotNull($order);
@@ -66,7 +68,8 @@ class TestSubscriptions extends TestCase {
     /**
      * Test update subscription order.
      */
-    public function testUpdateSubscriptionOrder() {
+    public function testUpdateSubscriptionOrder()
+    {
         $plugin = $this->getPlugin();
 
         // fake subscription checkout
@@ -79,7 +82,8 @@ class TestSubscriptions extends TestCase {
     /**
      * Test regular cron run.
      */
-    public function testRegularCronRun() {
+    public function testRegularCronRun()
+    {
         if (!interface_exists('ZenMagick\plugins\cron\jobs\CronJobInterface')) {
             $this->skipIf(true, 'Cron not available');
             return;
@@ -94,7 +98,8 @@ class TestSubscriptions extends TestCase {
     /**
      * Test getScheduledOrderIdsForSubscriptionOrderId
      */
-    public function testScheduledOrdersIds() {
+    public function testScheduledOrdersIds()
+    {
         $orderIds = $this->getPlugin()->getScheduledOrderIdsForSubscriptionOrderId(1);
         $this->assertTrue(is_array($orderIds));
         $this->assertTrue(0 < count($orderIds));
@@ -103,7 +108,8 @@ class TestSubscriptions extends TestCase {
     /**
      * Test schedule2SQL.
      */
-    public function testSchedule2SQL() {
+    public function testSchedule2SQL()
+    {
         $simple_tests = array(
             // schedule, expected
             array('1d', '1 DAY'),
@@ -130,7 +136,8 @@ class TestSubscriptions extends TestCase {
     /**
      * Test getMinLastOrderDate
      */
-    public function testGetMinLastOrderDate() {
+    public function testGetMinLastOrderDate()
+    {
         $date = $this->getPlugin()->getMinLastOrderDate(1);
         //echo $date;
     }

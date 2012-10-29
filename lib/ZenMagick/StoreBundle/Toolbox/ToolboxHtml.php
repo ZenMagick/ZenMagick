@@ -29,15 +29,16 @@ use ZenMagick\StoreBundle\Services\Products;
  *
  * @author DerManoMann
  */
-class ToolboxHtml extends ToolboxTool {
-
+class ToolboxHtml extends ToolboxTool
+{
     /**
      * Encode a given string to valid HTML.
      *
      * @param string s The string to encode.
      * @return string The encoded HTML.
      */
-    public static function encode($s) {
+    public static function encode($s)
+    {
         $charset = Runtime::getSettings()->get('zenmagick.http.html.charset');
         $s = html_entity_decode($s, ENT_QUOTES, $charset);
         $s = htmlentities($s, ENT_QUOTES, $charset);
@@ -50,7 +51,8 @@ class ToolboxHtml extends ToolboxTool {
      * @param string s The input string.
      * @return string HTML formatted text.
      */
-    public static function text2html($s) {
+    public static function text2html($s)
+    {
         $html = str_replace("\r\n", '<br>', $s);
         $html = str_replace("\n", '<br>', $s);
         $html = str_replace("\r", '', $html);
@@ -65,7 +67,8 @@ class ToolboxHtml extends ToolboxTool {
      * @param string more Optional string that will be appended to indicate that the text was truncated; default is <em>...</em>.
      * @return string The (possibly) truncated text.
      */
-    public static function more($s, $max=0, $more=" ...") {
+    public static function more($s, $max=0, $more=" ...")
+    {
         $text = $s;
         if (0 != $max && strlen($text) > $max) {
             $pos = strpos($text, ' ', $max-10);
@@ -85,7 +88,8 @@ class ToolboxHtml extends ToolboxTool {
      *
      * @return string Either <em>ltr</em> or <em>rtl<em>, depending on the locale.
      */
-    public function getDir() {
+    public function getDir()
+    {
         $dir = $this->container->get('localeService')->getFormat('dir');
         return null != $dir ? $dir : Runtime::getSettings()->get('zenmagick.mvc.html.dir', 'ltr');
     }
@@ -100,7 +104,8 @@ class ToolboxHtml extends ToolboxTool {
      *  a query string style list of name/value pairs or a map.
      * @return string A fully formated HTML <code>&lt;img&gt;</code> tag.
      */
-    public function image($imageInfo, $format=Products::IMAGE_SMALL, $parameter='') {
+    public function image($imageInfo, $format=Products::IMAGE_SMALL, $parameter='')
+    {
         if (null === $imageInfo) {
             return;
         }
@@ -137,7 +142,8 @@ class ToolboxHtml extends ToolboxTool {
      * @param string text The text to clean up.
      * @return string The stripped text.
      */
-    public function strip($text) {
+    public function strip($text)
+    {
         $clean = $text;
 
         $clean = preg_replace('/\r/', ' ', $clean);
@@ -180,7 +186,8 @@ class ToolboxHtml extends ToolboxTool {
      * @return string A fully formated HTML <code>&lt;a&gt;</code> tag.
      * @deprecated
      */
-    public function backLink($text, $attr=array()) {
+    public function backLink($text, $attr=array())
+    {
         $link = '<a href="'.$this->getToolbox()->net->url('index', '', false).'"';
 
         foreach ($attr as $name => $value) {
@@ -203,7 +210,8 @@ class ToolboxHtml extends ToolboxTool {
      * @param array attr Optional HTML attribute map; default is an empty array().
      * @return string A full HTML link.
      */
-    public function ezpageLink($id, $text=null, $attr=array()) {
+    public function ezpageLink($id, $text=null, $attr=array())
+    {
         $toolbox = $this->getToolbox();
         $page = $this->container->get('ezPageService')->getPageForId($id, $this->getRequest()->getSession()->getLanguageId());
         $link = '<a href="' . $toolbox->net->ezPage($page) . '"' . $this->hrefTarget($page->isNewWin());
@@ -230,7 +238,8 @@ class ToolboxHtml extends ToolboxTool {
      *  or <code>Products::IMAGE_LARGE</code>; default is <code>Products::IMAGE_SMALL</code>.
      * @return string A fully formated HTML <code>&lt;a&gt;</code> tag.
      */
-    public function productImageLink($product, $categoryId=null, $attr=null, $format=Products::IMAGE_SMALL) {
+    public function productImageLink($product, $categoryId=null, $attr=null, $format=Products::IMAGE_SMALL)
+    {
         $defaults = array('class' => 'product');
         if (!is_array($attr)) {
             $attr = $defaults;
@@ -259,7 +268,8 @@ class ToolboxHtml extends ToolboxTool {
      * @param boolean newWin If <code>true</code>, HTML for opening in a new window will be created.
      * @return string A preformatted attribute in the form ' name="value"'
      */
-    public function hrefTarget($newWin=true) {
+    public function hrefTarget($newWin=true)
+    {
         $text = $newWin ? (Runtime::getSettings()->get('isJSTarget') ? ' onclick="newWin(this); return false;"' : ' target="_blank"') : '';
 
         return $text;
@@ -278,7 +288,8 @@ class ToolboxHtml extends ToolboxTool {
      * @param boolean echo If <code>true</code>, the URI will be echo'ed as well as returned.
      * @return string HTML unordered list of messages or <code>null</code>.
      */
-    public function fieldMessages($name) {
+    public function fieldMessages($name)
+    {
         $flashBag = $this->getRequest()->getSession()->getFlashBag();
         if (!$flashBag->hasMessages($name)) {
             return null;

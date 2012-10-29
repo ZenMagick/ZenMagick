@@ -27,7 +27,8 @@ use ZenMagick\plugins\unitTests\simpletest\TestCase;
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class TestCronParser extends TestCase {
+class TestCronParser extends TestCase
+{
     protected static $TEXT_CRONTAB = array(
         '0    5    0    *    Sun      ZenMagick\plugins\cron\jobs\SimpleCronJob         # every sunday at 5 am',
         '40   5    2    *    -        ZenMagick\plugins\cron\jobs\SimpleCronJob         # 5:40 am on the second day of each month',
@@ -41,7 +42,8 @@ class TestCronParser extends TestCase {
      *
      * @retun CronParser A parser instance.
      */
-    protected function getParser() {
+    protected function getParser()
+    {
         $parser = Beans::getBean('ZenMagick\plugins\cron\CronParser');
         $this->assertNotNull($parser);
         return $parser;
@@ -50,7 +52,8 @@ class TestCronParser extends TestCase {
     /**
      * Test sunday
      */
-    public function testSunday() {
+    public function testSunday()
+    {
         $parser = $this->getParser();
         $result = $this->getParser()->parseCronTab(TestCronParser::$TEXT_CRONTAB[0]);
         $this->assertTrue(is_array($result));
@@ -66,7 +69,8 @@ class TestCronParser extends TestCase {
     /**
      * Test range
      */
-    public function testRange() {
+    public function testRange()
+    {
         $parser = $this->getParser();
         $result = $this->getParser()->parseCronTab(TestCronParser::$TEXT_CRONTAB[4]);
         $this->assertTrue(is_array($result));

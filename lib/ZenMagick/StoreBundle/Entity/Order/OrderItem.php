@@ -35,7 +35,8 @@ use ZenMagick\Base\ZMObject;
  * @ORM\Entity
  * @author DerManoMann
  */
-class OrderItem extends ZMObject {
+class OrderItem extends ZMObject
+{
     /**
      * @var integer $orderItemId
      *
@@ -149,7 +150,8 @@ class OrderItem extends ZMObject {
     /**
      * Create new instance.
      */
-    public function __construct() {
+    public function __construct()
+    {
         parent::__construct();
         $this->taxRate = null;
         $this->attributes = array();
@@ -174,7 +176,8 @@ class OrderItem extends ZMObject {
      *
      * @return ZenMagick\StoreBundle\Entity\Catalog\Product The product.
      */
-    public function getProduct() {
+    public function getProduct()
+    {
         return $this->container->get('productService')->getProductForId($this->getProductId());
     }
 
@@ -204,7 +207,8 @@ class OrderItem extends ZMObject {
      *
      * @return float The tax rate.
      */
-    public function getTaxRate() {
+    public function getTaxRate()
+    {
         if (null == $this->taxRate) {
             $this->taxRate = Beans::getBean('ZenMagick\StoreBundle\Entity\TaxRate');
             $this->taxRate->setRate($this->get('taxValue'));
@@ -219,7 +223,8 @@ class OrderItem extends ZMObject {
      * @param boolean tax Set to <code>true</code> to include tax (if applicable); default is <code>true</code>.
      * @return float The calculated price.
      */
-    public function getCalculatedPrice($tax=true) {
+    public function getCalculatedPrice($tax=true)
+    {
         return $tax ? $this->getTaxRate()->addTax($this->calculatedPrice) : $this->calculatedPrice;
     }
 

@@ -32,19 +32,21 @@ use Symfony\Component\Config\FileLocator;
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class YamlLoader extends YamlFileLoader {
-
+class YamlLoader extends YamlFileLoader
+{
     /**
      * {@inheritDoc}
      */
-    public function __construct(ContainerBuilder $container, FileLocator $locator=null) {
+    public function __construct(ContainerBuilder $container, FileLocator $locator=null)
+    {
         parent::__construct($container, new EchoFileLocator(dirname(__FILE__)));
     }
 
     /**
      * {@inheritDoc}
      */
-    protected function addResource($path) {
+    protected function addResource($path)
+    {
         // nothing
     }
 
@@ -53,14 +55,16 @@ class YamlLoader extends YamlFileLoader {
      *
      * <p>Just return the given yaml.</p>
      */
-    public function loadFile($yaml) {
+    public function loadFile($yaml)
+    {
         return $yaml;
     }
 
     /**
      * {@inheritDoc}
      */
-    public function findFile($file) {
+    public function findFile($file)
+    {
         return $file;
     }
 
@@ -69,7 +73,8 @@ class YamlLoader extends YamlFileLoader {
      *
      * <p>Accept <code>array</code> resources with a '<em>services</em>' key.</p>
      */
-    public function supports($resource, $type=null) {
+    public function supports($resource, $type=null)
+    {
         return is_array($resource) && array_key_exists('services', $resource);
     }
 
@@ -78,9 +83,10 @@ class YamlLoader extends YamlFileLoader {
 /**
  * Fake class to allow loading yaml from strings.
  */
-class EchoFileLocator extends FileLocator {
-
-    public function locate($name, $currentPath=null, $first=true) {
+class EchoFileLocator extends FileLocator
+{
+    public function locate($name, $currentPath=null, $first=true)
+    {
         return $name;
     }
 }

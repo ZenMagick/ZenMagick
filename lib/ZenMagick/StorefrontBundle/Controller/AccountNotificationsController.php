@@ -26,19 +26,21 @@ use ZenMagick\Base\Toolbox;
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class AccountNotificationsController extends \ZMController {
-
+class AccountNotificationsController extends \ZMController
+{
     /**
      * {@inheritDoc}
      */
-    public function processGet($request) {
+    public function processGet($request)
+    {
         return $this->findView(null, array('currentAccount' => $this->getUser()));
     }
 
     /**
      * {@inheritDoc}
      */
-    public function processPost($request) {
+    public function processPost($request)
+    {
         $globalProductSubscriber = Toolbox::asBoolean($request->request->get('product_global', false));
 
         $account = $this->getUser();

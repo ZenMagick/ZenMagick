@@ -24,12 +24,13 @@ namespace ZenMagick\StorefrontBundle\Controller;
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class ProductReviewsInfoController extends \ZMController {
-
+class ProductReviewsInfoController extends \ZMController
+{
     /**
      * {@inheritDoc}
      */
-    public function processGet($request) {
+    public function processGet($request)
+    {
         $data = array();
         $languageId = $request->getSession()->getLanguageId();
         $product = $this->container->get('productService')->getProductForId($request->query->get('productId'), $languageId);

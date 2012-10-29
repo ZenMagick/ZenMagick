@@ -24,12 +24,13 @@ namespace ZenMagick\StorefrontBundle\Controller;
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class RedirectController extends \ZMController {
-
+class RedirectController extends \ZMController
+{
     /**
      * {@inheritDoc}
      */
-    public function processGet($request) {
+    public function processGet($request)
+    {
         $action = $request->query->get('action');
         $goto = $request->query->get('goto');
         $bannerService = $this->container->get('bannerService');

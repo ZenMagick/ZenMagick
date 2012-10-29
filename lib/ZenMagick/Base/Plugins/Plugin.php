@@ -26,7 +26,8 @@ use ZenMagick\Base\ZMObject;
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class Plugin extends ZMObject {
+class Plugin extends ZMObject
+{
     private $messages;
     protected $config;
 
@@ -35,7 +36,8 @@ class Plugin extends ZMObject {
      *
      * @param array config The plugin configuration; default is an empty array.
      */
-    public function __construct(array $config = array()) {
+    public function __construct(array $config = array())
+    {
         parent::__construct();
         $this->setConfig($config);
         $this->messages = array();
@@ -46,7 +48,8 @@ class Plugin extends ZMObject {
      *
      * @param array config The configuration.
      */
-    public function setConfig(array $config) {
+    public function setConfig(array $config)
+    {
         $this->config = $config;
         if ($options = $this->getMeta('options')) {
             if (isset($options['properties'])) {
@@ -63,7 +66,8 @@ class Plugin extends ZMObject {
      * @param string key Optional meta data key; default is <code>null</code> for all.
      * @return mixed Either the whole meta data or a single meta data value.
      */
-    public function getMeta($key = null) {
+    public function getMeta($key = null)
+    {
         if (null == $key) {
             return $this->config['meta'];
         } elseif (isset($this->config['meta'][$key])) {
@@ -77,7 +81,8 @@ class Plugin extends ZMObject {
      *
      * @return string A unique id.
      */
-    public function getId() {
+    public function getId()
+    {
         return $this->getMeta('id');
     }
 
@@ -86,7 +91,8 @@ class Plugin extends ZMObject {
      *
      * @return string The name.
      */
-    public function getName() {
+    public function getName()
+    {
         return $this->getMeta('name');
     }
 
@@ -95,7 +101,8 @@ class Plugin extends ZMObject {
      *
      * @return string The description.
      */
-    public function getDescription() {
+    public function getDescription()
+    {
         return $this->getMeta('description');
     }
 
@@ -104,7 +111,8 @@ class Plugin extends ZMObject {
      *
      * @return string The version.
      */
-    public function getVersion() {
+    public function getVersion()
+    {
         return $this->getMeta('version');
     }
 
@@ -113,7 +121,8 @@ class Plugin extends ZMObject {
      *
      * @return string The plugin directoryr.
      */
-    public function getPluginDirectory() {
+    public function getPluginDirectory()
+    {
         return $this->getMeta('pluginDir');
     }
 
@@ -122,7 +131,8 @@ class Plugin extends ZMObject {
      *
      * @return boolean <code>true</code> if the plugin is enabled, <code>false</code> if not.
      */
-    public function isEnabled() {
+    public function isEnabled()
+    {
         return $this->getMeta('enabled');
     }
 
@@ -131,7 +141,8 @@ class Plugin extends ZMObject {
      *
      * @return string The context string.
      */
-    public function getContext() {
+    public function getContext()
+    {
         return $this->getMeta('context');
     }
 
@@ -140,7 +151,8 @@ class Plugin extends ZMObject {
      *
      * @return int The sort order value.
      */
-    public function getSortOrder() {
+    public function getSortOrder()
+    {
         return $this->getMeta('sortOrder');
     }
 
@@ -149,7 +161,8 @@ class Plugin extends ZMObject {
      *
      * @return int The sort order value.
      */
-    public function getPreferredSortOrder() {
+    public function getPreferredSortOrder()
+    {
         return (int) $this->getMeta('preferredSortOrder');
     }
 
@@ -158,7 +171,8 @@ class Plugin extends ZMObject {
      *
      * @return array Map of configuration options.
      */
-    public function getOptions() {
+    public function getOptions()
+    {
         return (array) $this->getMeta('options');
     }
 
@@ -167,7 +181,8 @@ class Plugin extends ZMObject {
      *
      * @return boolean <code>true</code> if options are available.
      */
-    public function hasOptions() {
+    public function hasOptions()
+    {
         return 0 < count($this->getOptions());
     }
 
@@ -176,7 +191,8 @@ class Plugin extends ZMObject {
      *
      * @return array List of <code>ZenMagick\Http\Messages\Message</code> instances.
      */
-    public function getMessages() {
+    public function getMessages()
+    {
         return $this->messages;
     }
 
@@ -185,7 +201,8 @@ class Plugin extends ZMObject {
      *
      * <p>This default implementation will check for a <code>sql/install.sql</code> script and run it if found.</p>
      */
-    public function install() {
+    public function install()
+    {
         $file = $this->getPluginDirectory()."/sql/install.sql";
         if (file_exists($file)) {
             $this->executePatch(file($file), $this->messages);
@@ -197,7 +214,8 @@ class Plugin extends ZMObject {
      *
      * <p>This default implementation will check for a <code>sql/uninstall.sql</code> script and run it if found.</p>
      */
-    public function remove() {
+    public function remove()
+    {
         $file = $this->getPluginDirectory()."/sql/uninstall.sql";
         if (file_exists($file)) {
             $this->executePatch(file($file), $this->messages);
@@ -212,7 +230,8 @@ class Plugin extends ZMObject {
      * @param boolean Debug flag.
      * @return boolean <code>true</code> for success, <code>false</code> if the execution fails.
      */
-    public function executePatch($sql, $messages, $debug=false) {
+    public function executePatch($sql, $messages, $debug=false)
+    {
         if (!empty($sql)) {
             $results = \ZenMagick\AdminBundle\Utils\SQLRunner::execute_sql($sql, $debug);
             foreach (\ZenMagick\AdminBundle\Utils\SQLRunner::process_patch_results($results) as $msg) {
@@ -232,7 +251,8 @@ class Plugin extends ZMObject {
      *
      * @deprecated Use event callbacks instead.
      */
-    public function init() {
+    public function init()
+    {
     }
 
     /**
@@ -240,7 +260,8 @@ class Plugin extends ZMObject {
      *
      * @return boolean <code>true</code> if the plugin is installed, <code>false</code> if not.
      */
-    public function isInstalled() {
+    public function isInstalled()
+    {
         return (boolean) $this->getMeta('installed');
     }
 
@@ -249,7 +270,8 @@ class Plugin extends ZMObject {
      *
      * @return string A full path to the plugin's template folder.
      */
-    public function getTemplatePath() {
+    public function getTemplatePath()
+    {
         return $this->getPluginDirectory() . '/templates/views';
     }
 
@@ -258,7 +280,8 @@ class Plugin extends ZMObject {
      *
      * @return string A full path to the plugin's resources folder.
      */
-    public function getResourcePath() {
+    public function getResourcePath()
+    {
         return $this->getPluginDirectory() . '/public';
     }
 
@@ -270,7 +293,8 @@ class Plugin extends ZMObject {
      * @param string uri The relative URI.
      * @return string An absolute URI or <code>null</code>.
      */
-    public function pluginURL($uri) {
+    public function pluginURL($uri)
+    {
         $path = $this->getPluginDirectory().'/'.$uri;
         $templateView = $this->container->get('defaultView');
         return $templateView->getResourceManager()->file2uri($path);

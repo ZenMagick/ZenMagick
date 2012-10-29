@@ -26,12 +26,13 @@ use ZenMagick\plugins\unitTests\simpletest\TestCase;
  * @package org.zenmagick.plugins.unitTests.tests
  * @author DerManoMann <mano@zenmagick.org>
  */
-class TestShoppingCartService extends TestCase {
-
+class TestShoppingCartService extends TestCase
+{
     /**
      * {@inheritDoc}
      */
-    public function skip() {
+    public function skip()
+    {
         $account = $this->getRequest()->getAccount();
         if (null == $account) {
             $account = $this->container->get('accountService')->getAccountForId(1);
@@ -44,7 +45,8 @@ class TestShoppingCartService extends TestCase {
      *
      * @return int An account id.
      */
-    protected function getAccountId() {
+    protected function getAccountId()
+    {
         $account = $this->getRequest()->getAccount();
         return $account ? $account->getId() : 0;
     }
@@ -52,7 +54,8 @@ class TestShoppingCartService extends TestCase {
     /**
      * Test load cart.
      */
-    public function testLoadCart() {
+    public function testLoadCart()
+    {
         $contents = $this->container->get('shoppingCartService')->getContentsForAccountId($this->getAccountId());
         $_SESSION['cart']->reset(false);
         $_SESSION['cart']->restore_contents();

@@ -29,8 +29,8 @@ use Symfony\Component\Filesystem\Filesystem;
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class ZMException extends Exception {
-
+class ZMException extends Exception
+{
     /**
      * Create new instance.
      *
@@ -38,14 +38,16 @@ class ZMException extends Exception {
      * @param int code The exception code; default is <em>0</em>.
      * @param Exception previous The original exception (if any) for chaining; default is <code>null</code>.
      */
-    public function __construct($message=null, $code=0, $previous=null) {
+    public function __construct($message=null, $code=0, $previous=null)
+    {
         parent::__construct((string) $message, (int) $code, $previous);
     }
 
     /**
      * {@inheritDoc}
      */
-    public function __toString() {
+    public function __toString()
+    {
         $filesystem = new Filesystem();
         $s =  '['.get_class($this);
         $s .= ' message='.$this->getMessage();
@@ -59,7 +61,8 @@ class ZMException extends Exception {
     /**
      * Format a value.
      */
-    protected static function formatValue($value, $recursive=true) {
+    protected static function formatValue($value, $recursive=true)
+    {
         if (is_string($value)) {
             return "'".$value."'";
         } elseif (is_array($value)) {
@@ -89,7 +92,8 @@ class ZMException extends Exception {
      * @param array lines The stack info.
      * @return array Formatted lines.
      */
-    public static function formatStackTrace(array $lines) {
+    public static function formatStackTrace(array $lines)
+    {
         $filesystem = new Filesystem;
         $stack = array();
         $index = 0;

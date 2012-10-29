@@ -31,7 +31,8 @@ use ZenMagick\Base\Utils\ContextConfigLoader;
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class Plugins extends ZMObject {
+class Plugins extends ZMObject
+{
     const PLUGIN_BASE_NAMESPACE = 'ZenMagick\plugins';
     protected $plugins;
     protected $statusMap;
@@ -41,7 +42,8 @@ class Plugins extends ZMObject {
     /**
      * Create new instance.
      */
-    public function __construct($pluginStatusMapBuilder, $contextConfigLoader) {
+    public function __construct($pluginStatusMapBuilder, $contextConfigLoader)
+    {
         parent::__construct();
         $this->pluginStatusMapBuilder = $pluginStatusMapBuilder;
         $this->contextConfigLoader = $contextConfigLoader;
@@ -54,7 +56,8 @@ class Plugins extends ZMObject {
      *
      * @return array Plugin status map.
      */
-    protected function getStatusMap() {
+    protected function getStatusMap()
+    {
         if (null === $this->statusMap) {
             $this->statusMap = $this->pluginStatusMapBuilder->getStatusMap();
         }
@@ -68,7 +71,8 @@ class Plugins extends ZMObject {
      * @param boolean enabled If <code>true</code>, return only enabled plugins; default is <code>true</code>.
      * @return array List of initialized plugins.
      */
-    public function getPluginsForContext($context=null, $enabled=true) {
+    public function getPluginsForContext($context=null, $enabled=true)
+    {
         $context = $context ?: $this->contextConfigLoader->getContext();
         return $this->getPlugins($context, $enabled);
     }
@@ -79,7 +83,8 @@ class Plugins extends ZMObject {
      * @param boolean enabled If <code>true</code>, return only enabled plugins; default is <code>true</code>.
      * @return array List of initialized plugins.
      */
-    public function getAllPlugins($enabled=true) {
+    public function getAllPlugins($enabled=true)
+    {
         return $this->getPlugins(null, $enabled);
     }
 
@@ -90,7 +95,8 @@ class Plugins extends ZMObject {
      * @param boolean enabled If <code>true</code>, return only enabled plugins; default is <code>true</code>.
      * @return array List of initialized plugins.
      */
-    protected function getPlugins($context=null, $enabled=true) {
+    protected function getPlugins($context=null, $enabled=true)
+    {
         $plugins = array();
         foreach ($this->getStatusMap() as $id => $status) {
             if (array_key_exists($id, $this->plugins)) {
@@ -126,7 +132,8 @@ class Plugins extends ZMObject {
      * @param boolean force Optional flag to bypass context/enabled restrictions; default is <code>false</code>.
      * @return Plugin A plugin instance or <code>null</code>.
      */
-    public function getPluginForId($id, $force = false) {
+    public function getPluginForId($id, $force = false)
+    {
         $plugins = $force ? $this->getPlugins(null, false) : $this->getPluginsForContext();
         if (array_key_exists($id, $plugins)) {
             return $plugins[$id];

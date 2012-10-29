@@ -29,12 +29,13 @@ use phprules\RuleContext;
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class ManufacturerInCart extends CartPromotionElement {
-
+class ManufacturerInCart extends CartPromotionElement
+{
     /**
      * {@inheritDoc}
      */
-    public function getParameterConfig() {
+    public function getParameterConfig()
+    {
         return array(
             _zm('Produt of [manufacturer] in cart') => array(
                 'manufacturerSelectFormWidget#name=manufacturer'
@@ -45,7 +46,8 @@ class ManufacturerInCart extends CartPromotionElement {
     /**
      * {@inheritDoc}
      */
-    public function getRules() {
+    public function getRules()
+    {
         $rule = new SingleRule('manufacturerInCartRule');
         $rule->addVariable('manufacturerList');
         $rule->addVariable('manufacturer');
@@ -56,7 +58,8 @@ class ManufacturerInCart extends CartPromotionElement {
     /**
      * {@inheritDoc}
      */
-    public function getRuleContexts($parameter) {
+    public function getRuleContexts($parameter)
+    {
         $manufacturerList = array();
         foreach ($this->getShoppingCart()->getItems() as $item) {
             if (null != ($item->getProduct()->getManufacturer())) {

@@ -26,7 +26,8 @@ use ZenMagick\Base\ZMObject;
  *
  * @param author DerManoMann
  */
-class Node extends ZMObject {
+class Node extends ZMObject
+{
     const INSERT_BEFORE = "before";
     const INSERT_AFTER = "after";
     private $id;
@@ -40,7 +41,8 @@ class Node extends ZMObject {
      * @param string id Optional id; default is <code>null</code>.
      * @param string name Optional name; default is an empty string <code>''</code>.
      */
-    public function __construct($id=null, $name='') {
+    public function __construct($id=null, $name='')
+    {
         parent::__construct();
         $this->id = $id;
         $this->name = $name;
@@ -53,7 +55,8 @@ class Node extends ZMObject {
      *
      * @param string id The node id.
      */
-    public function setId($id) {
+    public function setId($id)
+    {
         $this->id = $id;
     }
 
@@ -62,7 +65,8 @@ class Node extends ZMObject {
      *
      * @return string The node id.
      */
-    public function getId() {
+    public function getId()
+    {
         return $this->id;
     }
 
@@ -71,7 +75,8 @@ class Node extends ZMObject {
      *
      * @param string name The node name.
      */
-    public function setName($name) {
+    public function setName($name)
+    {
         $this->name = $name;
     }
 
@@ -80,7 +85,8 @@ class Node extends ZMObject {
      *
      * @return string The node name.
      */
-    public function getName() {
+    public function getName()
+    {
         return $this->name;
     }
 
@@ -89,7 +95,8 @@ class Node extends ZMObject {
      *
      * @param Node node The parent node.
      */
-    public function setParent($node) {
+    public function setParent($node)
+    {
         $this->parent = $node;
     }
 
@@ -98,7 +105,8 @@ class Node extends ZMObject {
      *
      * @return Node The parent node.
      */
-    public function getParent() {
+    public function getParent()
+    {
         return $this->parent;
     }
 
@@ -109,7 +117,8 @@ class Node extends ZMObject {
      * @param string siblingId Optional relative sibling id; required when setting the mode; default is <code>null</code>.
      * @param string mode Optional insert mode; default is <code>null</code> to append.
      */
-    public function addChild(Node $child, $siblingId=null, $mode=null) {
+    public function addChild(Node $child, $siblingId=null, $mode=null)
+    {
         $siblingIndex = null;
         if (null != $siblingId) {
             // validate and lookup position
@@ -144,7 +153,8 @@ class Node extends ZMObject {
      *
      * @param mixed child Either a <code>Node</code> instance or id.
      */
-    public function removeChild($child) {
+    public function removeChild($child)
+    {
         $id = ($child instanceof Node)  ? $child->getId() : $child;
         $removeIndex = null;
         foreach ($this->children as $ii => $tc) {
@@ -163,7 +173,8 @@ class Node extends ZMObject {
      *
      * @return array List of <code>Node</code> instances.
      */
-    public function getChildren() {
+    public function getChildren()
+    {
         return $this->children;
     }
 
@@ -175,7 +186,8 @@ class Node extends ZMObject {
      * @param string id The id of the node.
      * @return Node The node for the given id or <code>null</code>.
      */
-    public function getNodeForId($id) {
+    public function getNodeForId($id)
+    {
         // try all children first
         foreach ($this->children as $child) {
             if ($child->getId() == $id) {
@@ -198,7 +210,8 @@ class Node extends ZMObject {
      *
      * @return boolean <code>true</code> if, and only if, this node has children.
      */
-    public function hasChildren() {
+    public function hasChildren()
+    {
         return 0 < count($this->children);
     }
 
@@ -208,7 +221,8 @@ class Node extends ZMObject {
      * @param boolean includeSelf Optional flag to include this nodes id as well; default is <code>true</code>.
      * @return array List of node ids leading to this node.
      */
-    public function getPath($includeSelf=true) {
+    public function getPath($includeSelf=true)
+    {
         $path = array();
 
         $current = $includeSelf ? $this : $this->parent;
@@ -226,7 +240,8 @@ class Node extends ZMObject {
      * @param callback filter The filter.
      * @return array A list of <code>Node</code>s that pass the filter.
      */
-    public function findNodes($filter) {
+    public function findNodes($filter)
+    {
         $nodes = array();
 
         // try all children first

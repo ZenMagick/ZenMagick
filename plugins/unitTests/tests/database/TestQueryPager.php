@@ -28,12 +28,13 @@ use ZenMagick\plugins\unitTests\simpletest\TestCase;
  * @package org.zenmagick.plugins.unitTests.tests
  * @author DerManoMann <mano@zenmagick.org>
  */
-class TestQueryPager extends TestCase {
-
+class TestQueryPager extends TestCase
+{
     /**
      * Test simple.
      */
-    public function testSimple() {
+    public function testSimple()
+    {
         $queryPager = new QueryPager(new QueryDetails(ZMRuntime::getDatabase(), 'select * from %table.products%', array(), 'products', 'ZenMagick\StoreBundle\Entity\Catalog\Product'));
         $queryPager->getResults(2, 13);
     }
@@ -43,7 +44,8 @@ class TestQueryPager extends TestCase {
      *
      * @todo create reliable test data
      */
-    public function testSQLAware() {
+    public function testSQLAware()
+    {
             $resultList = new ZMResultList();
             $resultSource = new ZMObjectResultSource('ZenMagick\StoreBundle\Entity\Order\Order', 'orderService', 'getAllOrders', array(1));
             $resultList->setResultSource($resultSource);

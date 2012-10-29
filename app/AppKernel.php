@@ -28,7 +28,8 @@ use Symfony\Component\HttpKernel\Kernel;
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class AppKernel extends Kernel {
+class AppKernel extends Kernel
+{
     protected $context;
 
     /**
@@ -38,7 +39,8 @@ class AppKernel extends Kernel {
      * @param boolean debug Whether to enable debugging or not
      * @param array config Optional config settings.
      */
-    public function __construct($environment = 'prod', $debug = false, $context = null) {
+    public function __construct($environment = 'prod', $debug = false, $context = null)
+    {
         $this->context = $context;
         Runtime::setContext($this->context);
         parent::__construct($environment, $debug);
@@ -47,7 +49,8 @@ class AppKernel extends Kernel {
     /**
      * {@inheritDoc}
      */
-    public function getRootDir() {
+    public function getRootDir()
+    {
         return __DIR__;
     }
 
@@ -56,7 +59,8 @@ class AppKernel extends Kernel {
      *
      * @return array instantiated bundle objects
      */
-    public function registerBundles() {
+    public function registerBundles()
+    {
         $bundles = array(
             new ZenMagick\ZenCartBundle\ZenCartBundle(),
             new Doctrine\Bundle\DoctrineBundle\DoctrineBundle(),
@@ -86,7 +90,8 @@ class AppKernel extends Kernel {
     /**
      * {@inheritDoc}
      */
-    public function registerContainerConfiguration(LoaderInterface $loader) {
+    public function registerContainerConfiguration(LoaderInterface $loader)
+    {
         $context = $this->getContext();
 
         $resources[] = $this->getRootDir().'/config/parameters.yml';
@@ -117,7 +122,8 @@ class AppKernel extends Kernel {
     /**
      * {@inheritDoc}
      */
-    protected function getContainerBaseClass() {
+    protected function getContainerBaseClass()
+    {
         return 'ZenMagick\ZenMagickBundle\DependencyInjection\Container';
     }
 
@@ -126,7 +132,8 @@ class AppKernel extends Kernel {
      *
      * @return string The application path or <code>null</code>.
      */
-    public function getApplicationPath() {
+    public function getApplicationPath()
+    {
         if ($context = $this->getContext()) {
             return sprintf('%s/lib/ZenMagick/%sBundle', dirname($this->getRootDir()), ucfirst($context));
         }
@@ -135,7 +142,8 @@ class AppKernel extends Kernel {
     /**
      * {@inheritDoc}
      */
-    public function getCacheDir() {
+    public function getCacheDir()
+    {
         return $this->getRootDir().'/cache/'.$this->getContext().'/'.$this->environment;
     }
     /**
@@ -143,7 +151,8 @@ class AppKernel extends Kernel {
      *
      * @return string The application context.
      */
-    public function getContext() {
+    public function getContext()
+    {
         return $this->context;
     }
 
@@ -152,7 +161,8 @@ class AppKernel extends Kernel {
      *
      * Modified to add kernel.context parameter.
      */
-    protected function getKernelParameters() {
+    protected function getKernelParameters()
+    {
         $parameters = parent::getKernelParameters();
         $parameters['kernel.context'] = $this->getContext();
         $parameters['zenmagick.root_dir'] = dirname($this->getRootDir()); // @todo remove this

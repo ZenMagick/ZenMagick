@@ -27,12 +27,13 @@ use Symfony\Component\DependencyInjection\Container as BaseContainer;
  * that relies on an automatic container (usually via
  * ZMObject) working.
  */
-class Container extends BaseContainer {
-
+class Container extends BaseContainer
+{
     /**
      * {@inheritDoc}
      */
-    public function get($id, $invalidBehavior=self::EXCEPTION_ON_INVALID_REFERENCE) {
+    public function get($id, $invalidBehavior=self::EXCEPTION_ON_INVALID_REFERENCE)
+    {
         $service = parent::get($id, $invalidBehavior);
 
         if (null == $service && self::EXCEPTION_ON_INVALID_REFERENCE === $invalidBehavior) {

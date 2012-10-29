@@ -27,12 +27,13 @@ use Symfony\Component\Locale\Locale;
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class UpdateUserController extends \ZMController {
-
+class UpdateUserController extends \ZMController
+{
     /**
      * {@inheritDoc}
      */
-    public function getViewData($request) {
+    public function getViewData($request)
+    {
         $user = $this->getUser();
         $widgets = array();
 
@@ -58,7 +59,8 @@ class UpdateUserController extends \ZMController {
      *
      * @param ZenMagick\Http\Request request The current request.
      */
-    protected function processPrefs($request) {
+    protected function processPrefs($request)
+    {
         $user = $this->getUser();
         $viewData = $this->getViewData($request);
         $widgets = $viewData['widgets'];
@@ -71,7 +73,8 @@ class UpdateUserController extends \ZMController {
     /**
      * {@inheritDoc}
      */
-    public function getFormData($request, $formDef=null, $formId=null) {
+    public function getFormData($request, $formDef=null, $formId=null)
+    {
         $updateUser = parent::getFormData($request, $formDef, $formId);
         if (!$this->isFormSubmit($request)) {
             // pre-populate with current data
@@ -85,7 +88,8 @@ class UpdateUserController extends \ZMController {
     /**
      * {@inheritDoc}
      */
-    public function processPost($request) {
+    public function processPost($request)
+    {
         $user = $this->getUser();
         $updateUser = $this->getFormData($request);
         // assume validation is already done...

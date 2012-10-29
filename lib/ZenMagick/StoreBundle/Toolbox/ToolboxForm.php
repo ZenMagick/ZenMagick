@@ -28,8 +28,8 @@ use ZenMagick\Http\Session\Validation\FormTokenSessionValidator;
  *
  * @author DerManoMann
  */
-class ToolboxForm extends ToolboxTool {
-
+class ToolboxForm extends ToolboxTool
+{
     /**
      * Create a HTML <code>form</code> tag.
      *
@@ -61,7 +61,8 @@ class ToolboxForm extends ToolboxTool {
      * @param array attr Optional HTML attribute map; default is <code>null</code>.
      * @return string A HTML form tag plus optional hidden form fields.
      */
-    public function open($page=null, $params='', $secure=true, $attr=null) {
+    public function open($page=null, $params='', $secure=true, $attr=null)
+    {
         $validator = $this->container->get('zmvalidator');
         $defaults = array('method' => 'post');
         $hasId = isset($attr['id']);
@@ -141,7 +142,8 @@ class ToolboxForm extends ToolboxTool {
      * @param array attr Optional HTML attribute map; default is an empty array.
      * @return string A HTML form to add the given productId to the shopping cart.
      */
-    public function addProduct($productId, $quantity=0, $attr=array()) {
+    public function addProduct($productId, $quantity=0, $attr=array())
+    {
         $params = 'products_id='.$productId;
         if (0 < $quantity) {
             $params .= '&cart_quantity='.$quantity;
@@ -159,7 +161,8 @@ class ToolboxForm extends ToolboxTool {
      * @param ShoppingCartItem item The shopping cart item.
      * @return string HTML form to add a given productId to the shopping cart.
      */
-    public function hiddenCartFields($item) {
+    public function hiddenCartFields($item)
+    {
         $slash = Runtime::getSettings()->get('zenmagick.http.html.xhtml') ? '/' : '';
         $html = '<input type="hidden" name="products_id[]" value="' . $item->getId() . '"'.$slash.'>';
         if ($item->hasAttributes()) {
@@ -182,7 +185,8 @@ class ToolboxForm extends ToolboxTool {
      * @param int max The size attribute; default is <em>40</em>; use <code>0</code> to prevent a <em>size</em> attribute.
      * @return string The attributes.
      */
-    public function fieldLength($table, $col, $max=40) {
+    public function fieldLength($table, $col, $max=40)
+    {
         //TODO: convert from col to form field/model property
         $length = $this->container->get('templateManager')->getFieldLength($table, $col);
         $html = '';
@@ -208,7 +212,8 @@ class ToolboxForm extends ToolboxTool {
      * @param boolean value The value for this radio button; default is <code>true</code>.
      * @param boolean default The default state; default is <code>false</code>.
      */
-    public function checked($setting, $value=true, $default=false) {
+    public function checked($setting, $value=true, $default=false)
+    {
         if ($setting === $value || ($default && !isset($setting))) {
             echo Runtime::getSettings()->get('zenmagick.http.html.xhtml') ? ' checked="checked"' : ' checked';
         }
@@ -240,7 +245,8 @@ class ToolboxForm extends ToolboxTool {
      * @param array attr Optional HTML element attributes; default is an empty array.
      * @return string Complete HTML <code>&lt;select&gt;</code> tag.
      */
-    public function idpSelect($name, $list, $selectedId=null, $attr=array()) {
+    public function idpSelect($name, $list, $selectedId=null, $attr=array())
+    {
         $defaults = array('id' => $name, 'name' => $name, 'size' => 1, 'oValue' => 'getId', 'oText' => 'getName');
         if (null === $attr) {
             $attr = $defaults;
@@ -282,7 +288,8 @@ class ToolboxForm extends ToolboxTool {
      * @param array values List of values.
      * @return string HTML formatted input fields of type <em>hidden</em>.
      */
-    public function hiddenList($name, $values) {
+    public function hiddenList($name, $values)
+    {
         $slash = Runtime::getSettings()->get('zenmagick.http.html.xhtml') ? '/' : '';
         $html = '';
         foreach ($values as $value) {
@@ -297,7 +304,8 @@ class ToolboxForm extends ToolboxTool {
      *
      * @param mixed data Either a map or query arg style string.
      */
-    public function hidden($data) {
+    public function hidden($data)
+    {
         if (!is_array($data)) {
             parse_str($data, $tmp);
             $data = $tmp;

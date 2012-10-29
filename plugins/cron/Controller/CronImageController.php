@@ -28,12 +28,13 @@ use Symfony\Component\HttpFoundation\Response;
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class CronImageController extends ZMController {
-
+class CronImageController extends ZMController
+{
     /**
      * {@inheritDoc}
      */
-    public function processGet($request) {
+    public function processGet($request)
+    {
         $plugin = $this->container->get('pluginService')->getPluginForId('cron');
         $response = new Response();
         $response->headers->set('Content-Type', 'image/gif');

@@ -30,19 +30,21 @@ use ZenMagick\Base\ZMException;
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class ProductTagsProductAssociationHandler implements ZMProductAssociationHandler {
-
+class ProductTagsProductAssociationHandler implements ZMProductAssociationHandler
+{
     /**
      * {@inheritDoc}
      */
-    public function getType() {
+    public function getType()
+    {
        return "productTags";
     }
 
     /**
      * {@inheritDoc}
      */
-    public function getProductAssociationsForProductId($productId, $args=array(), $all=false) {
+    public function getProductAssociationsForProductId($productId, $args=array(), $all=false)
+    {
         if (array_key_exists('languageId', $args)) {
             $languageId = $args['languageId'];
         } else {

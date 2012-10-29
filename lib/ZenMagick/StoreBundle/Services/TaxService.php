@@ -32,13 +32,15 @@ use ZenMagick\StoreBundle\Entity\TaxRate;
  *
  * @author DerManoMann
  */
-class TaxService extends ZMObject {
+class TaxService extends ZMObject
+{
     private $taxRates;
 
     /**
      * Create new instance.
      */
-    public function __construct() {
+    public function __construct()
+    {
         parent::__construct();
         $this->taxRates = array();
     }
@@ -54,7 +56,8 @@ class TaxService extends ZMObject {
      * @param int zoneId Optional zoneId; default is <em>0</em>.
      * @return TaxRate The tax rate.
      */
-    public function getTaxRateForClassId($taxClassId, $countryId=0, $zoneId=0) {
+    public function getTaxRateForClassId($taxClassId, $countryId=0, $zoneId=0)
+    {
         $settingsService = $this->container->get('settingsService');
         if (0 == $countryId && 0 == $zoneId) {
             $account = $this->container->get('request')->getAccount();
@@ -137,7 +140,8 @@ class TaxService extends ZMObject {
      * @param int zoneId The zoneId.
      * @return string The decription or <code>null</code>.
      */
-    public function getTaxDescription($taxClassId, $countryId, $zoneId) {
+    public function getTaxDescription($taxClassId, $countryId, $zoneId)
+    {
         $sql = "SELECT tax_description
                 FROM (%table.tax_rates% tr
                   LEFT JOIN %table.zones_to_geo_zones% za ON (tr.tax_zone_id = za.geo_zone_id)
@@ -161,7 +165,8 @@ class TaxService extends ZMObject {
      * @param string description The tax description.
      * @return float The tax rate.
      */
-    public function getTaxRateForDescription($description) {
+    public function getTaxRateForDescription($description)
+    {
         $rate = 0.00;
         $settingsService = $this->container->get('settingsService');
         $descriptions = explode(_zm($settingsService->get('tax.delim', ' + ')), $description);
@@ -185,7 +190,8 @@ class TaxService extends ZMObject {
      * @param int id The tax class id.
      * @return TaxClass A <code>TaxClass</code> instance or <code>null</code>.
      */
-    public function getTaxClassForId($id) {
+    public function getTaxClassForId($id)
+    {
         $sql = "SELECT * FROM %table.tax_class%
                 WHERE tax_class_id = :taxClassId";
         return ZMRuntime::getDatabase()->querySingle($sql, array('taxClassId' => $id), 'tax_class', 'ZenMagick\StoreBundle\Entity\TaxClass');
@@ -202,7 +208,8 @@ class TaxService extends ZMObject {
      * @param int zoneId Optional zoneId; default is <em>0</em>.
      * @return array List of <code>TaxRate</code> instances.
      */
-    public function getTaxRatesForClassId($taxClassId, $countryId=0, $zoneId=0) {
+    public function getTaxRatesForClassId($taxClassId, $countryId=0, $zoneId=0)
+    {
         $settingsService = $this->container->get('settingsService');
         if (0 == $countryId && 0 == $zoneId) {
             $account = $this->container->get('request')->getAccount();

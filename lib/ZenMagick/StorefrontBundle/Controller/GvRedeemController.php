@@ -27,12 +27,13 @@ use ZenMagick\StoreBundle\Entity\Coupons\Coupon;
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class GvRedeemController extends \ZMController {
-
+class GvRedeemController extends \ZMController
+{
     /**
      * {@inheritDoc}
      */
-    public function processGet($request) {
+    public function processGet($request)
+    {
         $gvRedeem = $this->getFormData($request);
 
         //XXX: fix for gv_mail generated URLs

@@ -26,12 +26,13 @@ use ZenMagick\plugins\unitTests\simpletest\TestCase;
  * @package org.zenmagick.plugins.unitTests.tests.web
  * @author DerManoMann <mano@zenmagick.org>
  */
-class TestToolboxMacro extends TestCase {
-
+class TestToolboxMacro extends TestCase
+{
     /**
      * Test format address.
      */
-    public function testFormatAddress() {
+    public function testFormatAddress()
+    {
     }
 
 }

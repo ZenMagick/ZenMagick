@@ -27,12 +27,13 @@ use ZenMagick\plugins\unitTests\simpletest\TestCase;
  * @package org.zenmagick.plugins.unitTests.tests
  * @author DerManoMann <mano@zenmagick.org>
  */
-class TestZMCategories extends TestCase {
-
+class TestZMCategories extends TestCase
+{
     /**
      * Test product type id loading.
      */
-    public function testGetProductTypeIds() {
+    public function testGetProductTypeIds()
+    {
         $tests = array(
             array('categoryId' => 63, 'expected' => array(3, 4)),
             array('categoryId' => 62, 'expected' => array(2)),
@@ -50,7 +51,8 @@ class TestZMCategories extends TestCase {
     /**
      * Test create/delete.
      */
-    public function testCreateDelete() {
+    public function testCreateDelete()
+    {
         $categoryService = $this->container->get('categoryService');
 
         $newCategory = Beans::getBean('ZenMagick\StoreBundle\Entity\Catalog\Category');
@@ -72,7 +74,8 @@ class TestZMCategories extends TestCase {
     /**
      * Test update
      */
-    public function testUpdate() {
+    public function testUpdate()
+    {
         $categoryService = $this->container->get('categoryService');
 
         $category = $categoryService->getCategoryForId(35, 1);
