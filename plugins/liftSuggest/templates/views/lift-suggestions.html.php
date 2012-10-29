@@ -34,7 +34,7 @@ if (isset($liftSuggest)) {
         foreach ($shoppingCart->getItems() as $item) {
             $productIdList[] = $item->getProductId();
         }
-		    $ls_rev_css = "";
+            $ls_rev_css = "";
         foreach($shoppingCart->getItems() as $item){
             if (in_array($item->getProductId(), $recoProds)) {
                 $ls_rev_css = "liftsuggest {act:'prodview', sku:'".$productId."', reco:'R'}";

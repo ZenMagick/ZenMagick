@@ -294,7 +294,7 @@ class CacheLite
             $this->setOption($key, $value);
         }
         if (!isset($options['cacheDir']) && function_exists('sys_get_temp_dir')) {
-        	$this->setOption('cacheDir', sys_get_temp_dir() . DIRECTORY_SEPARATOR);
+            $this->setOption('cacheDir', sys_get_temp_dir() . DIRECTORY_SEPARATOR);
         }
     }
 
@@ -390,8 +390,8 @@ class CacheLite
                 }
             }
             if ($this->_automaticCleaningFactor>0 && ($this->_automaticCleaningFactor==1 || mt_rand(1, $this->_automaticCleaningFactor)==1)) {
-				$this->clean(false, 'old');
-			}
+                $this->clean(false, 'old');
+            }
             if ($this->_writeControl) {
                 $res = $this->_writeAndControl($data);
                 if (is_bool($res)) {
@@ -612,7 +612,7 @@ class CacheLite
             $motif = ($group) ? 'cache_'.$group.'_' : 'cache_';
         }
         if ($this->_memoryCaching) {
-	    foreach($this->_memoryCachingArray as $key => $v) {
+        foreach($this->_memoryCachingArray as $key => $v) {
                 if (strpos($key, $motif) !== false) {
                     unset($this->_memoryCachingArray[$key]);
                     $this->_memoryCachingCounter = $this->_memoryCachingCounter - 1;
@@ -721,7 +721,7 @@ class CacheLite
     {
         $fp = @fopen($this->_file, "rb");
         if ($fp) {
-	    if ($this->_fileLocking) @flock($fp, LOCK_SH);
+        if ($this->_fileLocking) @flock($fp, LOCK_SH);
             clearstatcache();
             $length = @filesize($this->_file);
             $mqr = function_exists('set_magic_quotes_runtime') && get_magic_quotes_runtime();

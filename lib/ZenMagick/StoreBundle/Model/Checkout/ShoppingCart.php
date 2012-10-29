@@ -1009,7 +1009,7 @@ class ShoppingCart extends ZMObject {
             krsort($attributes);
             $s = $productId;
             foreach ($attributes as $id => $value) {
-	              if (is_array($value)) {
+                  if (is_array($value)) {
                     krsort($value);
                     foreach ($value as $vid => $vval) {
                         $s .= '{' . $id . '}' . trim($vid);
