@@ -111,7 +111,7 @@ class UnitTestsController extends \ZMController {
                         $this->messageService->warn('could not get service with id: '.$id);
                         unset($allTests[$group][$key]);
                     }
-                } else if (null != ($test = Beans::getBean($clazz))) {
+                } elseif (null != ($test = Beans::getBean($clazz))) {
                     $allTests[$group][$key] = $test;
                 } else {
                     $this->messageService->warn('could not create instance of '.$clazz);

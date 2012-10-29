@@ -46,7 +46,7 @@ use ZenMagick\Base\Toolbox;
           $messageService->error(sprintf(_zm('Could not save %s'), $selectedFile));
       }
       $editContents = null;
-  } else if (null != $selectedFile) {
+  } elseif (null != $selectedFile) {
       $editContents = null;
       if (null !== $selectedFile) {
           if (Toolbox::isEmpty($selectedFile) && !Toolbox::isEmpty($newFile)) {

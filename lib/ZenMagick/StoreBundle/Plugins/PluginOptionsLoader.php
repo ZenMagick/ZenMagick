@@ -66,7 +66,7 @@ class PluginOptionsLoader extends BasePluginOptionsLoader {
                 $config['meta']['enabled'] = $configValue->getValue('boolean');
                 // enabled key in the db is the indicator for installed plugins
                 $config['meta']['installed'] = true;
-            } else if (self::KEY_SORT_ORDER == $name) {
+            } elseif (self::KEY_SORT_ORDER == $name) {
                 $config['meta']['sortOrder'] = $configValue->getValue();
             } else {
                 // find matching name and type

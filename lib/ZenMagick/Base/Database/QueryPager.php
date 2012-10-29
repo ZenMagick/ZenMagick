@@ -187,9 +187,9 @@ class QueryPager extends ZMObject {
                 $posInsert = strlen($sql);
                 if (false !== ($posGroupBy = strpos($lcSql, ' group by', $posFrom))) {
                     $posInsert = $posGroupBy;
-                } else if (false !== ($posHaving = strpos($lcSql, ' having', $posFrom))) {
+                } elseif (false !== ($posHaving = strpos($lcSql, ' having', $posFrom))) {
                     $posInsert = $posHaving;
-                } else if (false !== ($posOrderBy = strpos($lcSql, ' order by', $posFrom))) {
+                } elseif (false !== ($posOrderBy = strpos($lcSql, ' order by', $posFrom))) {
                     $posInsert = $posOrderBy;
                 }
                 $sql = substr($sql, 0, $posInsert) . ' where ' . $filter . substr($sql, $posInsert);

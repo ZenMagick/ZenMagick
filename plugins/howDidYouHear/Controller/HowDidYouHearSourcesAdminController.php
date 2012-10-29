@@ -56,7 +56,7 @@ class HowDidYouHearSourcesAdminController extends ZMController {
                 ZMRuntime::getDatabase()->createModel('sources', array('sources_name' => $name));
                 $this->messageService->success('Source "'.$name.'" created.');
             }
-        } else if ('delete' == $action) {
+        } elseif ('delete' == $action) {
             $sourceId = $request->request->get('sourceId');
             if (!empty($sourceId)) {
                 $model = ZMRuntime::getDatabase()->loadModel('sources', array('sources_id' => $sourceId));

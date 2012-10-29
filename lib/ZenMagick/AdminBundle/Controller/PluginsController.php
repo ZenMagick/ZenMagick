@@ -216,7 +216,7 @@ class PluginsController extends \ZMController {
                     $this->messageService->addAll($plugin->getMessages());
                     $viewId = 'success-install';
                 }
-            } else if ('uninstall' == $action) {
+            } elseif ('uninstall' == $action) {
                 $keepSettings = Toolbox::asBoolean($request->request->get('keepSettings', false));
                 if (null != ($plugin = $pluginService->getPluginForId($pluginId)) && $plugin->isInstalled()) {
                     $loggingService->debug('un-install plugin: '.$plugin->getId() . '; keepSettings: '.($keepSettings?'true':'false'));
@@ -225,7 +225,7 @@ class PluginsController extends \ZMController {
                     $this->messageService->addAll($plugin->getMessages());
                     $viewId = 'success-uninstall';
                 }
-            } else if ('upgrade' == $action) {
+            } elseif ('upgrade' == $action) {
                 if (null != ($plugin = $pluginService->getPluginForId($pluginId)) && $plugin->isInstalled()) {
                     $loggingService->debug('upgrade plugin: '.$plugin->getId());
                     $this->upgrade($plugin);
@@ -233,7 +233,7 @@ class PluginsController extends \ZMController {
                     $this->messageService->addAll($plugin->getMessages());
                     $viewId = 'success-upgrade';
                 }
-            } else if ('update' == $action) {
+            } elseif ('update' == $action) {
                 if (null != ($plugin = $pluginService->getPluginForId($pluginId)) && $plugin->isInstalled()) {
                     $configPrefix = self::prefix($plugin);
                     $configService = $this->container->get('configWidgetService');
@@ -247,7 +247,7 @@ class PluginsController extends \ZMController {
                         }
                     }
                 }
-            } else if ('enable' == $action) {
+            } elseif ('enable' == $action) {
                 if (null != ($plugin = $pluginService->getPluginForId($pluginId)) && $plugin->isInstalled()) {
                     $loggingService->debug('enable plugin: '.$plugin->getId());
                     $this->setStatus($plugin, true);
@@ -255,7 +255,7 @@ class PluginsController extends \ZMController {
                     $this->messageService->addAll($plugin->getMessages());
                     $viewId = 'success-enable';
                 }
-            } else if ('disable' == $action) {
+            } elseif ('disable' == $action) {
                 if (null != ($plugin = $pluginService->getPluginForId($pluginId)) && $plugin->isInstalled()) {
                     $loggingService->debug('disable plugin: '.$plugin->getId());
                     $this->setStatus($plugin, false);

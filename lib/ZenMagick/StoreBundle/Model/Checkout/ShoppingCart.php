@@ -735,7 +735,7 @@ class ShoppingCart extends ZMObject {
                     // zc needs '0' instead of ''
                     $attributes[$attributeId] = '0';
                 }
-            } else if (array_key_exists($attributeId, $attributeData)) {
+            } elseif (array_key_exists($attributeId, $attributeData)) {
                 $attributes[$attributeId] = $attributeData[$attributeId];
             }
         }
@@ -927,7 +927,7 @@ class ShoppingCart extends ZMObject {
                 if (in_array($attribute->getType(), array(PRODUCTS_OPTIONS_TYPE_RADIO, PRODUCTS_OPTIONS_TYPE_SELECT))) {
                     // use default id for radio and select
                     $attributes[$attributeId] = $defaultId;
-                } else if (in_array($attribute->getType(), array(PRODUCTS_OPTIONS_TYPE_TEXT, PRODUCTS_OPTIONS_TYPE_FILE))) {
+                } elseif (in_array($attribute->getType(), array(PRODUCTS_OPTIONS_TYPE_TEXT, PRODUCTS_OPTIONS_TYPE_FILE))) {
                     // use emtpy string for text input attributes
                     $attributes[$attributeId] = '';
                 }
@@ -949,7 +949,7 @@ class ShoppingCart extends ZMObject {
                         // use default
                         $attributes[$attributeId] = $defaultId;
                     }
-                } else if (PRODUCTS_OPTIONS_TYPE_CHECKBOX == $attribute->getType()) {
+                } elseif (PRODUCTS_OPTIONS_TYPE_CHECKBOX == $attribute->getType()) {
                     // validate multi non input attributes
                     foreach ($attributes[$attributeId] as $avid => $attrValue) {
                         $isValid = false;

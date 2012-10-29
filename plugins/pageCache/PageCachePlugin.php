@@ -81,7 +81,7 @@ class PageCachePlugin extends Plugin {
         $val = false;
         if (is_callable($fkt)) {
             $val = call_user_func($fkt, $request);
-        } else if (is_string($fkt) && function_exists($fkt)) {
+        } elseif (is_string($fkt) && function_exists($fkt)) {
             $val = $fkt($request);
         }
 

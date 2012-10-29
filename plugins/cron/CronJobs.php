@@ -163,7 +163,7 @@ class CronJobs extends ZMObject {
             // either all or ready and lastRunTime is not now (if called more than once per minute)
             if ($all || ($job['ready'] && $job['lastRunTime'] < $time)) {
                 $selected[] = $job;
-            } else if ($catchup) {
+            } elseif ($catchup) {
                 $job['lastReadyTime'] = $this->parser->getLastReadyTime($job);
                 if ($job['lastRunTime'] < $job['lastReadyTime']) {
                     // job not ready, but missed at least one run

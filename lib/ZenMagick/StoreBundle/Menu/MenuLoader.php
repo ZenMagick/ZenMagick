@@ -74,7 +74,7 @@ class MenuLoader {
                 $parent = $menu->getElement($parent);
                 if ($before) {
                     $parent->addChild($element, $before, MenuElement::INSERT_BEFORE);
-                } else if ($after) {
+                } elseif ($after) {
                     $parent->addChild($element, $after, MenuElement::INSERT_AFTER);
                 } else {
                     $parent->addChild($element);
@@ -82,7 +82,7 @@ class MenuLoader {
             } else {
                 if ($before) {
                     $menu->insertBefore($before, $element);
-                } else if ($after) {
+                } elseif ($after) {
                     $menu->insertAfter($after, $element);
                 } else {
                     $menu->getRoot()->addChild($element);

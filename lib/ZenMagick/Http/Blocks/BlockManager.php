@@ -72,7 +72,7 @@ class BlockManager extends ZMObject {
                 $widget = null;
                 if (is_string($block)) {
                     $widget = Beans::getBean($block, $this->container);
-                } else if (is_object($block) && $block instanceof BlockWidget) {
+                } elseif (is_object($block) && $block instanceof BlockWidget) {
                     $widget = $block;
                     Beans::setAll($widget, $args);
                 }

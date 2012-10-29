@@ -60,12 +60,12 @@ class StoreStatusDashboardWidget extends DashboardWidget {
                 if (StatusCheck::STATUS_WARN == $details[0]) {
                     $status = self::STATUS_WARN;
                     $contents .= '<li class="ui-state-error"><span class="ui-icon ui-icon-alert"></span><span>'.$details[1].'</span></li>';
-                } else if (StatusCheck::STATUS_NOTICE == $details[0]) {
+                } elseif (StatusCheck::STATUS_NOTICE == $details[0]) {
                     if (self::STATUS_DEFAULT == $status || self::STATUS_INFO == $status) {
                         $status = self::STATUS_NOTICE;
                     }
                     $contents .= '<li class="ui-state-highlight"><span class="ui-icon ui-icon-notice"></span><span>'.$details[1].'</span></li>';
-                } else if (StatusCheck::STATUS_INFO == $details[0]) {
+                } elseif (StatusCheck::STATUS_INFO == $details[0]) {
                     if (self::STATUS_DEFAULT == $status) {
                         $status = self::STATUS_INFO;
                     }

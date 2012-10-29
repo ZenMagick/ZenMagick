@@ -170,7 +170,7 @@ class Categories extends ZMObject {
     public function getCategories($languageId, $ids=null) {
         if (array_key_exists($languageId, $this->categories_)) {
             $categories = $this->categories_[$languageId];
-        } else if (false === ($categories = $this->cache_->lookup(Toolbox::hash('categories', 'categories', $languageId)))) {
+        } elseif (false === ($categories = $this->cache_->lookup(Toolbox::hash('categories', 'categories', $languageId)))) {
             $categories = $this->loadAndInitTree($languageId);
             // save for later
             $this->cache_->save($categories, Toolbox::hash('categories', 'categories', $languageId));

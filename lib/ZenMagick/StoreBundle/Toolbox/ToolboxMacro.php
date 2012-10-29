@@ -493,7 +493,7 @@ class ToolboxMacro extends ToolboxTool {
 
         if ($value->isFree() && $product->isFree()) {
             $label .= sprintf(_zm(' [FREE! (was: %s%s)]'), $value->getPricePrefix(), $toolbox->utils->formatMoney($value->getPrice()));
-        } else if (0 != $value->getPrice()) {
+        } elseif (0 != $value->getPrice()) {
             $label .= sprintf(_zm(' (%s%s)'), $value->getPricePrefix(), $toolbox->utils->formatMoney(abs($value->getPrice())));
         }
         //TODO: onetime and weight

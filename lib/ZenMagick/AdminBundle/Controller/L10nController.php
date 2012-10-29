@@ -159,7 +159,7 @@ class L10nController extends \ZMController {
             $response->headers->set('Content-Disposition', $d);
             $response->setContent($scanner->map2po($data['translations']));
             return $response;
-        } else if ('pot' == $request->getParameter('download')) {
+        } elseif ('pot' == $request->getParameter('download')) {
             $response = new Response();
             $d = $response->headers->makeDisposition(ResponseHeaderBag::DISPOSITION_ATTACHMENT, 'messages.pot');
             $response->headers->set('Content-Type', 'text/plain');

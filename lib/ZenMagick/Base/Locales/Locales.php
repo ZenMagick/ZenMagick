@@ -129,7 +129,7 @@ class Locales extends ZMObject {
         if (array_key_exists($group, $this->formats)) {
             if (null == $type) {
                 return $this->formats[$group];
-            } else if (array_key_exists($type, $this->formats[$group])) {
+            } elseif (array_key_exists($type, $this->formats[$group])) {
                 return $this->formats[$group][$type];
             }
         }

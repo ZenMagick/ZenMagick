@@ -99,13 +99,13 @@ class LocaleScanner extends ZMObject {
                         // check for context / plural
                         if ('_zm' == $token[1] && 1 < count($parameters)) {
                             $context = substr($parameters[1][1], 1, -1);
-                        } else if ('_zmn' == $token[1]) {
+                        } elseif ('_zmn' == $token[1]) {
                             // default to single text
                             $plural = $text;
                             if (2 < count($parameters)) {
                                 $plural = substr($parameters[1][1], 1, -1);
                                 $context = substr($parameters[2][1], 1, -1);
-                            } else if (1 < count($parameters)) {
+                            } elseif (1 < count($parameters)) {
                                 $plural = substr($parameters[1][1], 1, -1);
                             }
                         }

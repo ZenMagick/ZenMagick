@@ -62,22 +62,22 @@ class ZMException extends Exception {
     protected static function formatValue($value, $recursive=true) {
         if (is_string($value)) {
             return "'".$value."'";
-        } else if (is_array($value)) {
+        } elseif (is_array($value)) {
             $va = array();
             foreach ($value as $ve) {
                 $va[] = self::formatValue($ve, false);
             }
             return implode(', ', $va);
-        } else if (is_object($value)) {
+        } elseif (is_object($value)) {
             $rc = new ReflectionClass($value);
             if ($rc->hasMethod('__toString')) {
                 return (string) $value;
             } else {
                 return get_class($value);
             }
-        } else if (is_bool($value)) {
+        } elseif (is_bool($value)) {
             return $value ? 'true' : 'false';
-        } else if (null === $value) {
+        } elseif (null === $value) {
             return 'null';
         }
         return $value;

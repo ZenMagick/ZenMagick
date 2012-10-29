@@ -113,7 +113,7 @@ class Accounts extends ZMObject {
                   LEFT JOIN %table.customers_info% ci ON (c.customers_id = ci.customers_info_id)";
         if (Account::REGISTERED == $type) {
             $sql .= " WHERE NOT (customers_password = '')";
-        } else if (Account::GUEST == $type) {
+        } elseif (Account::GUEST == $type) {
             $sql .= " WHERE (customers_password = '')";
         }
         $sql .= " ORDER BY c.customers_id DESC";

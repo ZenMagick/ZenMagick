@@ -202,7 +202,7 @@ class StorefrontController extends \ZMController {
         if ($request->query->has('cPath')) {
             if (!empty($productId) && empty($manufacturerId)) {
                 $request->query->set('cPath', zen_get_product_path($productId));
-            } else if (SHOW_CATEGORIES_ALWAYS == '1' && empty($manufacturerId)) {
+            } elseif (SHOW_CATEGORIES_ALWAYS == '1' && empty($manufacturerId)) {
                 $show_welcome = true;
                 $request->query->set('cPath', (defined('CATEGORIES_START_MAIN') ? CATEGORIES_START_MAIN : ''));
             }
@@ -222,7 +222,7 @@ class StorefrontController extends \ZMController {
             $category = $this->container->get('categoryService')->getCategoryForId($categoryId, $languageId);
             if (null != $category) {
                 $validCategories[] = $category;
-            } else if (SHOW_CATEGORIES_ALWAYS == 0) {
+            } elseif (SHOW_CATEGORIES_ALWAYS == 0) {
                 $robotsNoIndex = true;
                 break;
             }
@@ -286,7 +286,7 @@ class StorefrontController extends \ZMController {
 
         if ($this->isHomePage()) {
             $url = $request->getBaseUrl();
-        } else if (Toolbox::endsWith($requestId, 'info') && null != ($productId = $request->attributes->get('productId'))) {
+        } elseif (Toolbox::endsWith($requestId, 'info') && null != ($productId = $request->attributes->get('productId'))) {
             $url = $this->get('netTool')->product($productId, null);
         } else {
             $url = $this->get('netTool')->url($requestId, rtrim(zen_get_all_get_params($exclusionList), '&'));

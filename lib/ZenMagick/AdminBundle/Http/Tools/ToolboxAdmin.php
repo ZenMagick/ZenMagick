@@ -48,7 +48,7 @@ class ToolboxAdmin extends ToolboxTool {
         }
         if (null != $controller && $controller instanceof CatalogContentController) {
             $ps .= '&catalogRequestId='.$controller->getCatalogRequestId();
-        } else if (null != ($catalogRequestId = $request->query->get('catalogRequestId'))) {
+        } elseif (null != ($catalogRequestId = $request->query->get('catalogRequestId'))) {
             $ps .= '&catalogRequestId='.$catalogRequestId;
         }
         if (null != $params) {
@@ -113,7 +113,7 @@ class ToolboxAdmin extends ToolboxTool {
         $pref = (null != $root) ? $root->getName() : null;
         if (null == $title) {
             $title = $pref;
-        } else if (null != $pref) {
+        } elseif (null != $pref) {
             $title = sprintf(_zm("%1s: %2s"), $pref, $title);
         }
         ?><h1><?php echo $title ?></h1><?php

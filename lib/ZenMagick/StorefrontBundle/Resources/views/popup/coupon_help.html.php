@@ -25,7 +25,7 @@
   $fixed = _zm('This coupon entitles you to a %s discount against your order');
   if ($coupon::TYPPE_FIXED == $coupon->getType()) {
       $discount = sprintf($fixed, $utils->formatMoney($coupon->getAmount()));
-  } else if ($coupon::TYPPE_PERCENT == $coupon->getType()) {
+  } elseif ($coupon::TYPPE_PERCENT == $coupon->getType()) {
       $discount = sprintf($fixed, number_format($coupon->getAmount(), $settingsService->get('discountDecimals')).'%');
   } else {
       $discount = _zm('This coupon gives you free shipping on your order');

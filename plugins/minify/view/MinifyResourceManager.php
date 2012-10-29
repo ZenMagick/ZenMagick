@@ -109,7 +109,7 @@ class MinifyResourceManager extends ResourceManager {
                     $srcList[] = $resolved;
                     if (null == $currentType) {
                         $currentType = 'local';
-                    } else if ('local' != $currentType) {
+                    } elseif ('local' != $currentType) {
                         $swap = true;
                     }
                 }
@@ -117,7 +117,7 @@ class MinifyResourceManager extends ResourceManager {
                 $defaultList[] = $info;
                 if (null == $currentType) {
                     $currentType = 'default';
-                } else if ('default' != $currentType) {
+                } elseif ('default' != $currentType) {
                     $swap = true;
                 }
             }
@@ -234,7 +234,7 @@ class MinifyResourceManager extends ResourceManager {
                         $srcList[] = $resolved;
                         if (null == $currentType) {
                             $currentType = 'local';
-                        } else if ('local' != $currentType) {
+                        } elseif ('local' != $currentType) {
                             $swap = true;
                         }
                     }
@@ -242,7 +242,7 @@ class MinifyResourceManager extends ResourceManager {
                     $defaultList[] = $filename;
                     if (null == $currentType) {
                         $currentType = 'default';
-                    } else if ('default' != $currentType) {
+                    } elseif ('default' != $currentType) {
                         $swap = true;
                     }
                 }

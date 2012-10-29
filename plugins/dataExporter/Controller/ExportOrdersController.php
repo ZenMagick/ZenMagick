@@ -157,9 +157,9 @@ class ExportOrdersController extends ZMController {
         foreach ($orderTotalLines as $orderTotalLine) {
             if ('ot_shipping' == $orderTotalLine->getType()) {
                 $shippingAmount = $orderTotalLine->getAmount();
-            } else if ('ot_coupon' == $orderTotalLine->getType()) {
+            } elseif ('ot_coupon' == $orderTotalLine->getType()) {
                 $couponAmount = $orderTotalLine->getAmount();
-            } else if ('ot_gv' == $orderTotalLine->getType()) {
+            } elseif ('ot_gv' == $orderTotalLine->getType()) {
                 $gvAmount = $orderTotalLine->getAmount();
             }
         }

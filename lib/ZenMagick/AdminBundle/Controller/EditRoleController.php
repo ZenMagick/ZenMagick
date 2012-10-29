@@ -42,7 +42,7 @@ class EditRoleController extends \ZMController {
             if (array_key_exists('roles', $info)) {
                 if (in_array($role, $info['roles'])) {
                     $permissions[$requestId] = array('type' => 'role', 'match' => 'name', 'allowed' => true);
-                } else if (in_array('*', $info['roles'])) {
+                } elseif (in_array('*', $info['roles'])) {
                     $permissions[$requestId] = array('type' => 'role', 'match' => '*', 'allowed' => true);
                 }
             } else {

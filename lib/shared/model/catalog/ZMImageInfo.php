@@ -160,7 +160,7 @@ class ZMImageInfo extends ZMObject {
     public function setParameter($parameter) {
         if (is_array($parameter)) {
             $this->parameter_ = $parameter;
-        } else if (!empty($parameter)) {
+        } elseif (!empty($parameter)) {
             parse_str($parameter, $this->parameter_);
         }
     }

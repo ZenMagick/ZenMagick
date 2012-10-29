@@ -42,7 +42,7 @@
                         // first
                         $prev = $toc[$size-1];
                         if (1 < $size) $next = $toc[1];
-                    } else if ($size-1 == $ii) {
+                    } elseif ($size-1 == $ii) {
                         // last
                         if (0 < $ii) $prev = $toc[$ii-1];
                         $next = $toc[0];

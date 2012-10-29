@@ -83,7 +83,7 @@ class LiftSuggestPlugin extends Plugin {
   pageTracker._setCustomVar(5, "LIFT", vid + "_{$productId}_{$price}_{$rec}", 2);
 
 EOT;
-            } else if ('as' == $trackingType) {
+            } elseif ('as' == $trackingType) {
                 $code = <<< EOT
 <script type="text/javascript">
   var gac = new gaCookies();
@@ -133,7 +133,7 @@ EOT;
             if ('ga' == $trackingType) {
                 $content = preg_replace('/<\/head>/', $code1 . '</head>', $content, 1);
                 $content = preg_replace('/pageTracker._trackPageview\(/', $code2 . 'pageTracker._trackPageview(', $content, 1);
-            } else if ('as' == $trackingType) {
+            } elseif ('as' == $trackingType) {
                 $content = preg_replace('/<\/body>/', $code1.$code2 . '</body>', $content, 1);
             }
             $event->setArgument('content', $content);

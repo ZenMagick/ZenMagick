@@ -301,7 +301,7 @@ class ZMOffers extends ZMObject {
         if (!$this->product_->isFree() && ($this->isSpecial() || $this->isSale())) {
           if ($this->isSpecial())  {
               $save = $this->getBasePrice() - $this->getSpecialPrice();
-          } else if ($this->isSale()) {
+          } elseif ($this->isSale()) {
               $save = $this->getBasePrice() - $this->getSalePrice();
           }
         }
@@ -346,9 +346,9 @@ class ZMOffers extends ZMObject {
     public function getCalculatedPrice($tax=true) {
         if ($this->product_->isFree()) {
             return 0;
-        } else if (0 != ($salePrice = $this->getSalePrice($tax))) {
+        } elseif (0 != ($salePrice = $this->getSalePrice($tax))) {
             return $salePrice;
-        } else if (0 != ($specialPrice = $this->getSpecialPrice($tax))) {
+        } elseif (0 != ($specialPrice = $this->getSpecialPrice($tax))) {
             return $specialPrice;
         } else {
             return $this->getBasePrice($tax);

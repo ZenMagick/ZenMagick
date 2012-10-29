@@ -164,7 +164,7 @@ class DownloadController extends \ZMController {
         foreach ($iterator as $path) {
             if ($path->isDir()) {
                 rmdir($path->getPathname());
-            } else if ($path->isLink()) {
+            } elseif ($path->isLink()) {
                 unlink($path->getPathname());
             }
         }

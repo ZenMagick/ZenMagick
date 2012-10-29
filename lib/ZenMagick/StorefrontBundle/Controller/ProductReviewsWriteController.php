@@ -96,7 +96,7 @@ class ProductReviewsWriteController extends \ZMController {
         $languageId = $request->getSession()->getLanguageId();
         if ($request->get('productId')) {
             $product = $productService->getProductForId($request->get('productId'), $languageId);
-        } else if ($request->get('model')) {
+        } elseif ($request->get('model')) {
             $product = $productService->getProductForModel($request->get('model'), $languageId);
         }
         return $product;

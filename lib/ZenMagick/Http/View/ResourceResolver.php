@@ -203,7 +203,7 @@ class ResourceResolver extends ZMObject {
     public function resolveType($resource, $type) {
         if (0 === strpos($resource, VIEW::TEMPLATE)) {
             return array(substr($resource, 9), VIEW::TEMPLATE);
-        } else if (0 === strpos($resource, VIEW::RESOURCE)) {
+        } elseif (0 === strpos($resource, VIEW::RESOURCE)) {
             return array(substr($resource, 9), VIEW::RESOURCE);
         }
         return array($resource, $type);

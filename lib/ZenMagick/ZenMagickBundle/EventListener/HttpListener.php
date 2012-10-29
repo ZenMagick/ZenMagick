@@ -109,10 +109,10 @@ class HttpListener implements EventSubscriberInterface {
             $routeResolver = $this->container->get('routeResolver');
             if (is_string($controllerResult)) {
                 $view = $routeResolver->getViewForId($controllerResult, $request);
-            } else if ($controllerResult instanceof ModelAndView) {
+            } elseif ($controllerResult instanceof ModelAndView) {
                 $view = $routeResolver->getViewForId($controllerResult->getViewId(), $request);
                 $view->setVariables($controllerResult->getModel());
-            } else if ($controllerResult instanceof View) {
+            } elseif ($controllerResult instanceof View) {
                 $view = $controllerResult;
             }
         } catch (Exception $e) {

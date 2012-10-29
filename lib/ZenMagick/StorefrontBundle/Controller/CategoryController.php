@@ -48,7 +48,7 @@ class CategoryController extends \ZMController {
             if (null == ($category = $this->container->get('categoryService')->getCategoryForId($request->attributes->get('categoryId'), $languageId)) || !$category->isActive()) {
                 return $this->findView('category_not_found');
             }
-        } else if ($request->query->has('manufacturers_id')) {
+        } elseif ($request->query->has('manufacturers_id')) {
             $method = "getProductsForManufacturerId";
             $args = array($request->query->getInt('manufacturers_id'), true, $languageId);
             $viewName = 'manufacturer';

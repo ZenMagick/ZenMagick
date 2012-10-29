@@ -117,7 +117,7 @@ class HowDidYouHearPlugin extends Plugin {
                 $view->setVariable('howDidYouHearSources', $howDidYouHearSources);
                 if (null != ($registration = $view->getVariable('registration'))) {
                     $view->setVariable('howDidYouHearForm', $registration);
-                } else if (null != ($shippingAddress = $view->getVariable('shippingAddress'))) {
+                } elseif (null != ($shippingAddress = $view->getVariable('shippingAddress'))) {
                     // if we have an address we should have got the source as well...
                     $account = $request->getAccount();
                     $addressList = $this->container->get('addressService')->getAddressesForAccountId($account->getId());

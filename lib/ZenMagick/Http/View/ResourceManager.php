@@ -278,7 +278,7 @@ class ResourceManager extends ZMObject {
                     $contents .= '<script type="text/javascript" src="'.$src.'"></script>'."\n";
                 }
             }
-        } else if ('css' == $group) {
+        } elseif ('css' == $group) {
             $slash = $this->container->get('settingsService')->get('zenmagick.http.html.xhtml') ? '/' : '';
             $css = '';
             foreach ($files as $details) {
@@ -293,7 +293,7 @@ class ResourceManager extends ZMObject {
                 }
                 if ($details['inline']) {
                     $load = sprintf('<style%s>%s</style>', $attr, $details['filename']);
-                } else if (null != ($href = $this->resolveResource($details['filename'])) && !empty($href)) {
+                } elseif (null != ($href = $this->resolveResource($details['filename'])) && !empty($href)) {
                     $load = sprintf('<link%s href="%s"%s>', $attr, $href, $slash);
                 }
                 if ($load) {
@@ -325,7 +325,7 @@ class ResourceManager extends ZMObject {
             if (!$details['done']) {
                 if (self::HEADER == $details['position']) {
                     $header[] = $details;
-                } else if (self::FOOTER == $details['position']) {
+                } elseif (self::FOOTER == $details['position']) {
                     $footer[] = $details;
                 }
                 $this->resources_['js'][$filename]['done'] = true;

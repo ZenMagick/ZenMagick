@@ -260,12 +260,12 @@ class StorefrontListener extends ZMObject {
                             // can't have top level category in the middle
                             $valid = false;
                             break;
-                        } else if ($parent->getId() != $path[$ii+1]) {
+                        } elseif ($parent->getId() != $path[$ii+1]) {
                             // not my parent!
                             $valid = false;
                             break;
                         }
-                    } else if (null != $category->getParent()) {
+                    } elseif (null != $category->getParent()) {
                         // must start with a root category
                         $valid = false;
                         break;

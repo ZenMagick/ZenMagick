@@ -125,9 +125,9 @@ class WordpressPlugin extends Plugin {
                     $rules[] = array('ZMRequiredRule', 'nickName', 'Please enter a nick name.');
                 }
                 $this->container->get('zmvalidator')->addRules('registration', $rules);
-            } else if ('account_password' == $requestId) {
+            } elseif ('account_password' == $requestId) {
                 // nothing
-            } else if ('account_edit' == $requestId) {
+            } elseif ('account_edit' == $requestId) {
                 $bridge = $this->getAdapter();
                 $rules = array(
                     array("ZMWrapperRule", 'nickName', 'The entered nick name is already taken (wordpress).', array($bridge, 'vDuplicateNickname')),

@@ -207,7 +207,7 @@ class CheckoutHelper extends ZMObject {
 
         if (!$virtual) {
             return self::CART_TYPE_PHYSICAL;
-        } else if (!$physical) {
+        } elseif (!$physical) {
             return self::CART_TYPE_VIRTUAL;
         }
         return self::CART_TYPE_MIXED;

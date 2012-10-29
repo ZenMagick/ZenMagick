@@ -155,9 +155,9 @@ class Beans {
                 $method = self::$SETTER_PREFIX.ucfirst($property);
                 if (method_exists($obj, $method)) {
                     $obj->$method($value);
-                } else if ($isGeneric && $setGeneric) {
+                } elseif ($isGeneric && $setGeneric) {
                     $obj->set($property, $value);
-                } else if (is_array($obj)) {
+                } elseif (is_array($obj)) {
                     $obj[$property] = $value;
                 }
             }
@@ -224,10 +224,10 @@ class Beans {
             if ('null' == $definition) {
                 return null;
             }
-        } else if (0 === strpos($definition, 'plugin::')) {
+        } elseif (0 === strpos($definition, 'plugin::')) {
             $definition = substr($definition, 8);
             $isPlugin = true;
-        } else if (0 === strpos($definition, 'ref::')) {
+        } elseif (0 === strpos($definition, 'ref::')) {
             $definition = substr($definition, 5);
             $isRef = true;
         }

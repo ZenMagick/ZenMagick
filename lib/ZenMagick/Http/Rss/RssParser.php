@@ -143,7 +143,7 @@ class RssParser {
                 if ($parentNode && in_array($parentNode->nodeName, array('channel','rdf:RDF'))) {
                     if ($node->nodeName == 'item') {
                         $this->items[] = $value['value'];
-                    } else if (!in_array($node->nodeName, array('rss','channel'))) {
+                    } elseif (!in_array($node->nodeName, array('rss','channel'))) {
                         $this->channel[$node->nodeName] = $value;
                     }
                 }
@@ -157,11 +157,11 @@ class RssParser {
                 } else {
                     $nodeValue[$node->nodeName] = $value;
                 }
-            } else if ('#text' == $node->nodeName) {
+            } elseif ('#text' == $node->nodeName) {
                 if ($value = trim(preg_replace('/\s\s+/',' ',str_replace("\n",' ', $node->textContent)))) {
                     return $value;
                 }
-            } else if ('#cdata-section' == $node->nodeName) {
+            } elseif ('#cdata-section' == $node->nodeName) {
                 return $node->textContent;
             }
         }

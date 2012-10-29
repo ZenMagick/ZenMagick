@@ -89,7 +89,7 @@ class EzpagesController extends \ZMController {
                 } else {
                     $this->messageService->error('Could not save page');
                 }
-            } else if (null != ($ezPage = $ezPageService->getPageForId($ezPageId, $languageId))) {
+            } elseif (null != ($ezPage = $ezPageService->getPageForId($ezPageId, $languageId))) {
                 // no sanitize!
                 Beans::setAll($ezPage, $request->request->all());
                 $ezPageService->updatePage($ezPage);
@@ -98,7 +98,7 @@ class EzpagesController extends \ZMController {
             } else {
                 $this->messageService->error('Could not save page - invalid request data');
             }
-        } else if (null !== ($ezPageId = $request->request->get('deleteId'))) {
+        } elseif (null !== ($ezPageId = $request->request->get('deleteId'))) {
             $ezPageId = (int)$ezPageId;
             if (null != ($ezPage = $ezPageService->getPageForId($ezPageId, $languageId))) {
                 $ezPageService->removePage($ezPage);

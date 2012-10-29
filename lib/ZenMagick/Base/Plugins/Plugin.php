@@ -68,7 +68,7 @@ class Plugin extends ZMObject {
     public function getMeta($key = null) {
         if (null == $key) {
             return $this->config['meta'];
-        } else if (isset($this->config['meta'][$key])) {
+        } elseif (isset($this->config['meta'][$key])) {
             return $this->config['meta'][$key];
         }
         return null;

@@ -191,9 +191,9 @@ class OpenIDController extends ZMController {
             }
 
             return $sreg;
-        } else if ($response->status == Auth_OpenID_CANCEL) {
+        } elseif ($response->status == Auth_OpenID_CANCEL) {
             $this->messageService->msg('Verification cancelled.');
-        } else if ($response->status == Auth_OpenID_FAILURE) {
+        } elseif ($response->status == Auth_OpenID_FAILURE) {
             $this->messageService->msg('OpenID authentication failed: ' . $response->message);
             $sreg_resp = Auth_OpenID_SRegResponse::fromSuccessResponse($response);
             $sreg = $sreg_resp->contents();

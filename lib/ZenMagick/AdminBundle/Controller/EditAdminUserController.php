@@ -92,7 +92,7 @@ class EditAdminUserController extends \ZMController {
                 $adminUserService->createUser($user);
                 $this->messageService->success(_zm('User created.'));
             }
-        } else if (null != ($deleteUserId = $request->request->get('deleteUserId'))) {
+        } elseif (null != ($deleteUserId = $request->request->get('deleteUserId'))) {
             $adminUserService->deleteUserForId($deleteUserId);
             $this->messageService->success(_zm('User deleted.'));
         }

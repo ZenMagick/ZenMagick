@@ -71,7 +71,7 @@ class ShippingEstimator extends ZMObject {
         $request = $this->getRequest();
         if ($request->request->has('country_id')) {
             $countryId = $request->request->get('country_id');
-        } else if ($_SESSION['cart_country_id']) {
+        } elseif ($_SESSION['cart_country_id']) {
             $countryId = $_SESSION['cart_country_id'];
         }
         return $countryId;

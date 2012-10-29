@@ -29,7 +29,7 @@ if (isset($liftSuggest)) {
         } else {
             $ls_rev_css = "liftsuggest {act:'prodview', sku:'".$productId."', reco:'N'}";
         }
-    } else if ('shopping_cart' == $request->getRequestId()) {
+    } elseif ('shopping_cart' == $request->getRequestId()) {
         $productIdList = array();
         foreach ($shoppingCart->getItems() as $item) {
             $productIdList[] = $item->getProductId();

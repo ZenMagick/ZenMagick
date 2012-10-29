@@ -78,7 +78,7 @@ class ZMWrapperRule extends ZMRule {
             $obj = $this->function_[0];
             $method = $this->function_[1];
             return $obj->$method($request, $data);
-        } else if (function_exists($this->function_)) {
+        } elseif (function_exists($this->function_)) {
             return call_user_func($this->function_, $request, $data);
         }
 

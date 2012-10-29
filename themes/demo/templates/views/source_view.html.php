@@ -24,7 +24,7 @@
   $source = null;
   if (null != $layout_name) {
       $source = $layout_name;
-  } else if (null != $view_name) {
+  } elseif (null != $view_name) {
       $source = 'views/'.$view_name.'.php';
   }
 

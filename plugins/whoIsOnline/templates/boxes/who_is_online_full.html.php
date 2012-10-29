@@ -39,7 +39,7 @@
                     $out .= _zm("There are currently");
                     if (1 == $stats['anonymous']) {
                         $out .= _zm(" one guest");
-                    } else if (1 < $stats['anonymous']) {
+                    } elseif (1 < $stats['anonymous']) {
                         $out .= sprintf(_zm(" %s guests"), $stats['anonymous']);
                     }
                     if (0 < $stats['anonymous'] && 0 < $stats['registered']) {
@@ -47,7 +47,7 @@
                     }
                     if (1 == $stats['registered']) {
                         $out .= _zm(" one registered user");
-                    } else if (1 < $stats['registered']) {
+                    } elseif (1 < $stats['registered']) {
                         $out .= sprintf(_zm(" %s registered users"), $stats['registered']);
                     }
                     $out .= _zm(' online.');

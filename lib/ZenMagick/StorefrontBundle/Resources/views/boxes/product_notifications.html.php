@@ -42,7 +42,7 @@
             <?php _vzm("Notify me of updates to <strong>%s</strong>", $currentProduct->getName())?>
             </form>
         </div>
-    <?php } else if ($isSubscribed) { ?>
+    <?php } elseif ($isSubscribed) { ?>
         <h3><?php _vzm("Notifications") ?></h3>
         <div id="sb_product_notifications" class="box">
             <?php echo $form->open('account_notifications', '', true, array('onsubmit'=>null)) ?>

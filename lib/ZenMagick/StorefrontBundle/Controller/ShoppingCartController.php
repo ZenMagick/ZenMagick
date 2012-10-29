@@ -151,9 +151,9 @@ class ShoppingCartController extends ZMObject {
                         $qtyOrderUnits = $product->getQtyOrderUnits();
                         if (0 == $cartQty) {
                             $buyNowQty = max($qtyOrderMin, $qtyOrderUnits);
-                        } else if ($cartQty < $qtyOrderMin) {
+                        } elseif ($cartQty < $qtyOrderMin) {
                             $buyNowQty = $qtyOrderMin - $cartQty;
-                        } else if ($cartQty > $qtyOrderMin) {
+                        } elseif ($cartQty > $qtyOrderMin) {
                             $adjQtyOrderUnits = $qtyOrderUnits - ZMTools::fmod_round($cartQty, $qtyOrderUnits);
                             $buyNowQty = 0 < $adjQtyOrderUnits ? $adjQtyOrderUnits : $qtyOrderUnits;
                         } else {

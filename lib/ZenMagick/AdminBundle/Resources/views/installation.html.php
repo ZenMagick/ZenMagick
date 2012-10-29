@@ -39,7 +39,7 @@ use ZenMagick\Base\Runtime;
                 } else {
                     $messageService->error("Could not install '".$patch->getLabel()."'");
                 }
-            } else if (!$patch->isOpen() && null == $request->request->get($formId)) {
+            } elseif (!$patch->isOpen() && null == $request->request->get($formId)) {
                 // installed and not selected
                 if ($patch->canUndo()) {
                     $needRefresh = true;

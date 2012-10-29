@@ -80,9 +80,9 @@ class VBulletinPlugin extends Plugin {
                 $rules[] = array('ZMRequiredRule', 'nickName', 'Please enter a nick name.');
             }
             $this->container->get('zmvalidator')->addRules('registration', $rules);
-        } else if ('account_password' == $this->page_) {
+        } elseif ('account_password' == $this->page_) {
             // ??
-        } else if ('account_edit' == $this->page_) {
+        } elseif ('account_edit' == $this->page_) {
             $vBulletin = $this->getAdapter();
             $rules = array(
                 array("ZMWrapperRule", 'nickName', 'The entered nick name is already taken (vBulletin).', array($vBulletin, 'vDuplicateChangedNickname')),

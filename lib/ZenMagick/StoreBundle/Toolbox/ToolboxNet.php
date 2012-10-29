@@ -140,7 +140,7 @@ class ToolboxNet extends ToolboxTool {
                 $params .= "&".$name."=".$value;
             }
             $href = $this->url($view, $params, $page->isSsl());
-        } else if (!Toolbox::isEmpty($page->getAltUrlExternal())) {
+        } elseif (!Toolbox::isEmpty($page->getAltUrlExternal())) {
             $href = $page->getAltUrlExternal();
         }
 

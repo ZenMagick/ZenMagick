@@ -260,7 +260,7 @@ class ZMObject extends ContainerAware implements Serializable {
             $s .= $name.'=';
             if (is_object($value)) {
                 $s .= '['.get_class($value).']';
-            } else if (is_array($value)) {
+            } elseif (is_array($value)) {
                 $s .= '{';
                 $afirst = true;
                 foreach ($value as $key => $val) {

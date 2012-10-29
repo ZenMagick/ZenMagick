@@ -80,7 +80,7 @@ class ToolboxMetaTags extends ToolboxTool {
         // special handling for categories, manufacturers
         if ('index' == $requestId) {
             $title = Runtime::getSettings()->get('storeName');
-        } else if (0 === strpos($requestId, 'product_')) {
+        } elseif (0 === strpos($requestId, 'product_')) {
             if (null != $this->product_) {
                 $languageId = $this->getRequest()->getSession()->getLanguageId();
                 if (null != ($details =  $this->product_->getMetaTagDetails($languageId)) && !Toolbox::isEmpty($details->getTitle())) {
@@ -92,9 +92,9 @@ class ToolboxMetaTags extends ToolboxTool {
             } else {
                 $title = $this->productName_;
             }
-        } else if ('manufacturer' == $requestId) {
+        } elseif ('manufacturer' == $requestId) {
             $title = $this->category_;
-        } else if ('category' == $requestId || 'category_list' == $requestId) {
+        } elseif ('category' == $requestId || 'category_list' == $requestId) {
             if (null != ($category = $this->container->get('categoryService')->getCategoryForId($this->getRequest()->attributes->get('categoryId'), $this->getRequest()->getSession()->getLanguageId()))) {
                 $languageId = $this->getRequest()->getSession()->getLanguageId();
                 if (null != ($details = $category->getMetaTagDetails($languageId))) {
@@ -105,7 +105,7 @@ class ToolboxMetaTags extends ToolboxTool {
             } else {
                 $title = $this->category_;
             }
-        } else if ('page' == $requestId) {
+        } elseif ('page' == $requestId) {
             if (null != ($view = $this->getView())) {
                 if (null != ($ezpage = $view->getVariable('ezPage'))) {
                     $title = $ezpage->getTitle();
@@ -141,7 +141,7 @@ class ToolboxMetaTags extends ToolboxTool {
                 $addTopCats = false;
             }
             $value .= $this->productName_;
-        } else if (0 != $this->getRequest()->attributes->get('categoryId')) {
+        } elseif (0 != $this->getRequest()->attributes->get('categoryId')) {
             if (null != ($category = $this->container->get('categoryService')->getCategoryForId($this->getRequest()->attributes->get('categoryId'), $this->getRequest()->getSession()->getLanguageId()))) {
                 $languageId = $this->getRequest()->getSession()->getLanguageId();
                 if (null != ($details = $category->getMetaTagDetails($languageId))) {
@@ -186,7 +186,7 @@ class ToolboxMetaTags extends ToolboxTool {
                 $value .= Runtime::getSettings()->get('metaTagCrumbtrailDelimiter');
                 $value .= $this->topCategories_;
             }
-        } else if (0 != $this->getRequest()->attributes->get('categoryId')) {
+        } elseif (0 != $this->getRequest()->attributes->get('categoryId')) {
             if (null != ($category = $this->container->get('categoryService')->getCategoryForId($this->getRequest()->attributes->get('categoryId'), $this->getRequest()->getSession()->getLanguageId()))) {
                 $languageId = $this->getRequest()->getSession()->getLanguageId();
                 if (null != ($details = $category->getMetaTagDetails($languageId))) {
@@ -284,7 +284,7 @@ class ToolboxMetaTags extends ToolboxTool {
             if (null != ($category = $this->container->get('categoryService')->getCategoryForId($this->getRequest()->attributes->get('categoryId'), $this->getRequest()->getSession()->getLanguageId()))) {
                 $this->category_ = $category->getName();
             }
-        } else if ($this->getRequest()->query->has('manufacturers_id')) {
+        } elseif ($this->getRequest()->query->has('manufacturers_id')) {
             if (null != ($manufacturer = $this->container->get('manufacturerService')->getManufacturerForId($this->getRequest()->query->getInt('manufacturers_id'), $this->getRequest()->getSession()->getLanguageId()))) {
                 $this->category_ = $manufacturer->getName();
             }

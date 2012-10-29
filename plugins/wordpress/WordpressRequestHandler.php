@@ -69,19 +69,19 @@ class WordpressRequestHandler extends ZMController {
         if (null != ($p = $request->query->get('p'))) {
             $this->viewName_ = 'wp_single';
             $this->plugin_->query_posts('p='.$p);
-        } else if (null != ($pageId = $request->query->get('page_id'))) {
+        } elseif (null != ($pageId = $request->query->get('page_id'))) {
             $this->viewName_ = 'wp_page';
             $this->plugin_->query_posts('page_id='.$pageId);
-        } else if (null != ($cat = $request->query->get('cat'))) {
+        } elseif (null != ($cat = $request->query->get('cat'))) {
             $this->viewName_ = 'wp_archive';
             $this->plugin_->query_posts('cat='.$cat);
-        } else if (null != ($m = $request->query->get('m'))) {
+        } elseif (null != ($m = $request->query->get('m'))) {
             $this->viewName_ = 'wp_archive';
             $this->plugin_->query_posts('m='.$m);
-        } else if (null != ($s = $request->query->get('s'))) {
+        } elseif (null != ($s = $request->query->get('s'))) {
             $this->viewName_ = 'wp_search';
             $this->plugin_->query_posts('s='.$s);
-        } else if (null != ($tag = $request->query->get('tag'))) {
+        } elseif (null != ($tag = $request->query->get('tag'))) {
             $this->viewName_ = 'wp_archive';
             $this->plugin_->query_posts('tag='.$tag);
         }
