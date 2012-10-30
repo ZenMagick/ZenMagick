@@ -4,11 +4,6 @@
 
 ## general settings
 zenmagick:
-  core:
-    ## security
-    security:
-      defaultAuthenticationProvider: ZMZenCartAuthentication
-
   ## base
   base:
     ## events
