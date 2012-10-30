@@ -91,6 +91,6 @@ admin:
         "view:success": redirect://subscriptionAdmin
   menu:
     subscriptions:
-      parent: configuration-plugins
+      parent: settings-plugins
       requestId: subscriptionsAdmin
       name: 'Subscriptions'

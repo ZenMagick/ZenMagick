@@ -41,7 +41,7 @@ admin:
       defaults: { _controller: ZenMagick\plugins\howDidYouHear\Controller\HowDidYouHearSourcesAdminController::process }
   menu:
     referral-sources:
-      parent: configuration
+      parent: setting
       name: 'Referral Sources'
     referral-stats:
       parent: referral-sources

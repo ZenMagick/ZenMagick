@@ -28,7 +28,7 @@ admin:
         'view': examplePluginAdmin.php
   menu:
     example:
-      parent: configuration-plugins
+      parent: settings-plugins
       requestId: examplePluginAdmin
       name: 'Example Plugin Admin Page'
   # 3rd party code autoloading

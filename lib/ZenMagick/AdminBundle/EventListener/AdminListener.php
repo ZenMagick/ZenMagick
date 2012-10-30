@@ -57,7 +57,7 @@ class AdminListener extends ZMObject
 
         $this->initMenu();
         $adminMenu = $this->container->get('adminMenu');
-        $legacyConfig = $adminMenu->getElement('configuration-legacy');
+        $legacyConfig = $adminMenu->getElement('settings-legacy');
         $configGroups = $this->container->get('configService')->getConfigGroups();
         foreach ($configGroups as $group) {
             if ($group->isVisible()) {

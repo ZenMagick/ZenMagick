@@ -44,6 +44,6 @@ admin:
       defaults: { _controller: ZenMagick\plugins\googleStoreLocator\Controller\GoogleStoreLocatorAdminController::process }
   menu:
     google-store-locator:
-      parent: configuration-plugins
+      parent: settings-plugins
       requestId: googleStoreLocatorAdmin
       name: 'Google Store Locator'
