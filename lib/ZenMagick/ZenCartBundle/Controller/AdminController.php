@@ -32,6 +32,7 @@ class AdminController extends \ZMController
      */
     public function processGet($request)
     {
+        define('SUPERUSER_PROFILE', 1);
         // from init_general_funcs
         foreach ($request->query->all() as $k => $v) {
             $request->query->set($k, strip_tags($v));
@@ -77,12 +78,18 @@ class AdminController extends \ZMController
         foreach ($autoLoader->getGlobalValues() as $k => $v) {
             $tpl[$k] = $v;
         }
+
         $view = $this->findView('zc_admin', $tpl);
         $hiddenLayout = $this->container->getParameter('zencart.admin.hide_layout');
         $page = $request->getRequestId();
         if (in_array($page, $hiddenLayout) || in_array('*', $hiddenLayout)) {
             $view->setLayout(null);
         }
+
+
+        $nativeAdmin = $this->container->getParameter('zencart.admin.native');
+        $nativeAdmin = true;
+        $view->setTemplate(($nativeAdmin ? 'zc_admin_layout': 'zc_admin') . '.html.php');
         return $view;
     }
 

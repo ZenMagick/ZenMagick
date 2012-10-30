@@ -72,6 +72,9 @@ class ZenCartExtension extends Extension
         }
         $container->setParameter('zencart.admin.hide_layout', $hiddenLayout);
 
+        $nativeAdmin = isset($config['admin']['native']) && $config['admin']['native'];
+        $container->setParameter('zencart.admin.native', $nativeAdmin);
+
         $loader->load('services.xml');
     }
 
