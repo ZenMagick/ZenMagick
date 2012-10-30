@@ -261,6 +261,16 @@ class ResourceManager extends ZMObject
             return null;
         }
 
+        /**
+         * If the directory is outside the docroot then how will this substr()
+         * work? just return the filename we already have.
+         * @todo understand what it is supposed to do and fix it.
+         */
+        if ($virtual) {
+
+            return str_replace(DIRECTORY_SEPARATOR, '/', $filename);
+        }
+
         return str_replace(DIRECTORY_SEPARATOR, '/', substr($filename, strlen($docRoot)));
     }
 
