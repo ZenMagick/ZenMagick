@@ -88,8 +88,6 @@ productTaxBase: Shipping #Shipping,Billing,Store
 shippingTaxBase: Shipping #Shipping,Billing,Store
 
 ## Error pages, other global page settings
-# static homepage
-staticHome: null
 # use category page
 isUseCategoryPage: false
 # show category listing for single products or show product page instead?

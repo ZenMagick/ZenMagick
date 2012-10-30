@@ -40,13 +40,6 @@ class IndexController extends \ZMController
             $viewName = 'category';
         }
 
-        // @todo how is this supposed to work exactly? replace the whole page? just fit into the content area?
-        // check for a static homepage.
-        if (null == $viewName && ($staticHome = $this->get('settingsService')->get('staticHome'))) {
-            require $staticHome;
-            exit;
-        }
-
         return $this->findView($viewName);
     }
 
