@@ -42,8 +42,4 @@ apps:
         - 'lib/ZenMagick/AdminBundle/config/menu.yaml' #placeholder for lib/ZenMagick/AdminBundle?
     dashboad:
       default: '{"layout":"col2r","widgets":[["ref::storeStatusDashboardWidget", "ref::latestOrdersDashboardWidget"], ["ref::orderStatsDashboardWidget","ref::latestAccountsDashboardWidget"]]}'
-    zencart:
-      skipLayout:
-        - packingslip
-        - invoice
 

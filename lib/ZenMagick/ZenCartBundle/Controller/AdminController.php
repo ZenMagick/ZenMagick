@@ -78,12 +78,11 @@ class AdminController extends \ZMController
             $tpl[$k] = $v;
         }
         $view = $this->findView('zc_admin', $tpl);
-        $view->setTemplate('zc_admin.php');
-        // no layout for invoice/packaging slip
-        if (in_array($request->getRequestId(), $this->container->get('settingsService')->get('apps.store.zencart.skipLayout', array()))) {
+        $hiddenLayout = $this->container->getParameter('zencart.admin.hide_layout');
+        $page = $request->getRequestId();
+        if (in_array($page, $hiddenLayout) || in_array('*', $hiddenLayout)) {
             $view->setLayout(null);
         }
-
         return $view;
     }
 

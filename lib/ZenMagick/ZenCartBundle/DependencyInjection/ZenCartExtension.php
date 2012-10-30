@@ -65,6 +65,13 @@ class ZenCartExtension extends Extension
 
         $container->setParameter('zencart.admin_dir', $adminDir);
 
+        // @todo support merging
+        $hiddenLayout = array('invoice', 'packingslip');
+        if (isset($config['admin']['hide_layout'])) {
+            $hiddenLayout = $config['admin']['hide_layout'];
+        }
+        $container->setParameter('zencart.admin.hide_layout', $hiddenLayout);
+
         $loader->load('services.xml');
     }
 
