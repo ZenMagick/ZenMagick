@@ -6,232 +6,232 @@
 
     <route id="zc_admin_categories" pattern="/categories">
         <default key="_controller">ZenCartBundle:Admin:process</default>
-        <option key="view">zc_admin.php</option>
+        <option key="view:zc_admin">zc_admin.html.php</option>
     </route>
     <route id="zc_admin_product" pattern="/product">
         <default key="_controller">ZenCartBundle:Admin:process</default>
-        <option key="view">zc_admin.php</option>
+        <option key="view:zc_admin">zc_admin.html.php</option>
     </route>
     <route id="zc_admin_product_types" pattern="/product_types">
         <default key="_controller">ZenCartBundle:Admin:process</default>
-        <option key="view">zc_admin.php</option>
+        <option key="view:zc_admin">zc_admin.html.php</option>
     </route>
     <route id="zc_admin_products_price_manager" pattern="/products_price_manager">
         <default key="_controller">ZenCartBundle:Admin:process</default>
-        <option key="view">zc_admin.php</option>
+        <option key="view:zc_admin">zc_admin.html.php</option>
     </route>
     <route id="zc_admin_options_name_manager" pattern="/options_name_manager">
         <default key="_controller">ZenCartBundle:Admin:process</default>
-        <option key="view">zc_admin.php</option>
+        <option key="view:zc_admin">zc_admin.html.php</option>
     </route>
     <route id="zc_admin_options_values_manager" pattern="/options_values_manager">
         <default key="_controller">ZenCartBundle:Admin:process</default>
-        <option key="view">zc_admin.php</option>
+        <option key="view:zc_admin">zc_admin.html.php</option>
     </route>
     <route id="zc_admin_attributes_controller" pattern="/attributes_controller">
         <default key="_controller">ZenCartBundle:Admin:process</default>
-        <option key="view">zc_admin.php</option>
+        <option key="view:zc_admin">zc_admin.html.php</option>
     </route>
     <route id="zc_admin_downloads_manager" pattern="/downloads_manager">
         <default key="_controller">ZenCartBundle:Admin:process</default>
-        <option key="view">zc_admin.php</option>
+        <option key="view:zc_admin">zc_admin.html.php</option>
     </route>
     <route id="zc_admin_option_name" pattern="/option_name">
         <default key="_controller">ZenCartBundle:Admin:process</default>
-        <option key="view">zc_admin.php</option>
+        <option key="view:zc_admin">zc_admin.html.php</option>
     </route>
     <route id="zc_admin_option_values" pattern="/option_values">
         <default key="_controller">ZenCartBundle:Admin:process</default>
-        <option key="view">zc_admin.php</option>
+        <option key="view:zc_admin">zc_admin.html.php</option>
     </route>
     <route id="zc_admin_manufacturers" pattern="/manufacturers">
         <default key="_controller">ZenCartBundle:Admin:process</default>
-        <option key="view">zc_admin.php</option>
+        <option key="view:zc_admin">zc_admin.html.php</option>
     </route>
     <route id="zc_admin_reviews" pattern="/reviews">
         <default key="_controller">ZenCartBundle:Admin:process</default>
-        <option key="view">zc_admin.php</option>
+        <option key="view:zc_admin">zc_admin.html.php</option>
     </route>
     <route id="zc_admin_specials" pattern="/specials">
         <default key="_controller">ZenCartBundle:Admin:process</default>
-        <option key="view">zc_admin.php</option>
+        <option key="view:zc_admin">zc_admin.html.php</option>
     </route>
     <route id="zc_admin_featured" pattern="/featured">
         <default key="_controller">ZenCartBundle:Admin:process</default>
-        <option key="view">zc_admin.php</option>
+        <option key="view:zc_admin">zc_admin.html.php</option>
     </route>
     <route id="zc_admin_salemaker" pattern="/salemaker">
         <default key="_controller">ZenCartBundle:Admin:process</default>
-        <option key="view">zc_admin.php</option>
+        <option key="view:zc_admin">zc_admin.html.php</option>
     </route>
     <route id="zc_admin_products_expected" pattern="/products_expected">
         <default key="_controller">ZenCartBundle:Admin:process</default>
-        <option key="view">zc_admin.php</option>
+        <option key="view:zc_admin">zc_admin.html.php</option>
     </route>
     <route id="zc_admin_modules" pattern="/modules">
         <default key="_controller">ZenCartBundle:Admin:process</default>
-        <option key="view">zc_admin.php</option>
+        <option key="view:zc_admin">zc_admin.html.php</option>
     </route>
     <route id="zc_admin_countries" pattern="/countries">
         <default key="_controller">ZenCartBundle:Admin:process</default>
-        <option key="view">zc_admin.php</option>
+        <option key="view:zc_admin">zc_admin.html.php</option>
     </route>
     <route id="zc_admin_zones" pattern="/zones">
         <default key="_controller">ZenCartBundle:Admin:process</default>
-        <option key="view">zc_admin.php</option>
+        <option key="view:zc_admin">zc_admin.html.php</option>
     </route>
     <route id="zc_admin_geo_zones" pattern="/geo_zones">
         <default key="_controller">ZenCartBundle:Admin:process</default>
-        <option key="view">zc_admin.php</option>
+        <option key="view:zc_admin">zc_admin.html.php</option>
     </route>
     <route id="zc_admin_tax_classes" pattern="/tax_classes">
         <default key="_controller">ZenCartBundle:Admin:process</default>
-        <option key="view">zc_admin.php</option>
+        <option key="view:zc_admin">zc_admin.html.php</option>
     </route>
     <route id="zc_admin_tax_rates" pattern="/tax_rates">
         <default key="_controller">ZenCartBundle:Admin:process</default>
-        <option key="view">zc_admin.php</option>
+        <option key="view:zc_admin">zc_admin.html.php</option>
     </route>
     <route id="zc_admin_currencies" pattern="/currencies">
         <default key="_controller">ZenCartBundle:Admin:process</default>
-        <option key="view">zc_admin.php</option>
+        <option key="view:zc_admin">zc_admin.html.php</option>
     </route>
     <route id="zc_admin_languages" pattern="/languages">
         <default key="_controller">ZenCartBundle:Admin:process</default>
-        <option key="view">zc_admin.php</option>
+        <option key="view:zc_admin">zc_admin.html.php</option>
     </route>
     <route id="zc_admin_orders_status" pattern="/orders_status">
         <default key="_controller">ZenCartBundle:Admin:process</default>
-        <option key="view">zc_admin.php</option>
+        <option key="view:zc_admin">zc_admin.html.php</option>
     </route>
     <route id="zc_admin_customers" pattern="/customers">
         <default key="_controller">ZenCartBundle:Admin:process</default>
-        <option key="view">zc_admin.php</option>
+        <option key="view:zc_admin">zc_admin.html.php</option>
     </route>
     <route id="zc_admin_orders" pattern="/orders">
         <default key="_controller">ZenCartBundle:Admin:process</default>
-        <option key="view">zc_admin.php</option>
+        <option key="view:zc_admin">zc_admin.html.php</option>
     </route>
     <route id="zc_admin_group_pricing" pattern="/group_pricing">
         <default key="_controller">ZenCartBundle:Admin:process</default>
-        <option key="view">zc_admin.php</option>
+        <option key="view:zc_admin">zc_admin.html.php</option>
     </route>
     <route id="zc_admin_paypal" pattern="/paypal">
         <default key="_controller">ZenCartBundle:Admin:process</default>
-        <option key="view">zc_admin.php</option>
+        <option key="view:zc_admin">zc_admin.html.php</option>
     </route>
     <route id="zc_admin_stats_products_viewed" pattern="/stats_products_viewed">
         <default key="_controller">ZenCartBundle:Admin:process</default>
-        <option key="view">zc_admin.php</option>
+        <option key="view:zc_admin">zc_admin.html.php</option>
     </route>
     <route id="zc_admin_stats_products_purchased" pattern="/stats_products_purchased">
         <default key="_controller">ZenCartBundle:Admin:process</default>
-        <option key="view">zc_admin.php</option>
+        <option key="view:zc_admin">zc_admin.html.php</option>
     </route>
     <route id="zc_admin_stats_customers" pattern="/stats_customers">
         <default key="_controller">ZenCartBundle:Admin:process</default>
-        <option key="view">zc_admin.php</option>
+        <option key="view:zc_admin">zc_admin.html.php</option>
     </route>
     <route id="zc_admin_stats_products_lowstock" pattern="/stats_products_lowstock">
         <default key="_controller">ZenCartBundle:Admin:process</default>
-        <option key="view">zc_admin.php</option>
+        <option key="view:zc_admin">zc_admin.html.php</option>
     </route>
     <route id="zc_admin_stats_customers_referrals" pattern="/stats_customers_referrals">
         <default key="_controller">ZenCartBundle:Admin:process</default>
-        <option key="view">zc_admin.php</option>
+        <option key="view:zc_admin">zc_admin.html.php</option>
     </route>
     <route id="zc_admin_layout_controller" pattern="/layout_controller">
         <default key="_controller">ZenCartBundle:Admin:process</default>
-        <option key="view">zc_admin.php</option>
+        <option key="view:zc_admin">zc_admin.html.php</option>
     </route>
     <route id="zc_admin_banner_manager" pattern="/banner_manager">
         <default key="_controller">ZenCartBundle:Admin:process</default>
-        <option key="view">zc_admin.php</option>
+        <option key="view:zc_admin">zc_admin.html.php</option>
     </route>
     <route id="zc_admin_mail" pattern="/mail">
         <default key="_controller">ZenCartBundle:Admin:process</default>
-        <option key="view">zc_admin.php</option>
+        <option key="view:zc_admin">zc_admin.html.php</option>
     </route>
     <route id="zc_admin_newsletters" pattern="/newsletters">
         <default key="_controller">ZenCartBundle:Admin:process</default>
-        <option key="view">zc_admin.php</option>
+        <option key="view:zc_admin">zc_admin.html.php</option>
     </route>
     <route id="zc_admin_whos_online" pattern="/whos_online">
         <default key="_controller">ZenCartBundle:Admin:process</default>
-        <option key="view">zc_admin.php</option>
+        <option key="view:zc_admin">zc_admin.html.php</option>
     </route>
     <route id="zc_admin_store_manager" pattern="/store_manager">
         <default key="_controller">ZenCartBundle:Admin:process</default>
-        <option key="view">zc_admin.php</option>
+        <option key="view:zc_admin">zc_admin.html.php</option>
     </route>
     <route id="zc_admin_developers_tool_kit" pattern="/developers_tool_kit">
         <default key="_controller">ZenCartBundle:Admin:process</default>
-        <option key="view">zc_admin.php</option>
+        <option key="view:zc_admin">zc_admin.html.php</option>
     </route>
     <route id="zc_admin_coupon_admin" pattern="/coupon_admin">
         <default key="_controller">ZenCartBundle:Admin:process</default>
-        <option key="view">zc_admin.php</option>
+        <option key="view:zc_admin">zc_admin.html.php</option>
     </route>
     <route id="zc_admin_invoice" pattern="/invoice">
         <default key="_controller">ZenCartBundle:Admin:process</default>
-        <option key="view">zc_admin.php</option>
+        <option key="view:zc_admin">zc_admin.html.php</option>
     </route>
     <route id="zc_admin_packingslip" pattern="/packingslip">
         <default key="_controller">ZenCartBundle:Admin:process</default>
-        <option key="view">zc_admin.php</option>
+        <option key="view:zc_admin">zc_admin.html.php</option>
     </route>
     <route id="zc_admin_gv_queue" pattern="/gv_queue">
         <default key="_controller">ZenCartBundle:Admin:process</default>
-        <option key="view">zc_admin.php</option>
+        <option key="view:zc_admin">zc_admin.html.php</option>
     </route>
     <route id="zc_admin_gv_mail" pattern="/gv_mail">
         <default key="_controller">ZenCartBundle:Admin:process</default>
-        <option key="view">zc_admin.php</option>
+        <option key="view:zc_admin">zc_admin.html.php</option>
     </route>
     <route id="zc_admin_gv_sent" pattern="/gv_sent">
         <default key="_controller">ZenCartBundle:Admin:process</default>
-        <option key="view">zc_admin.php</option>
+        <option key="view:zc_admin">zc_admin.html.php</option>
     </route>
     <route id="zc_admin_server_info" pattern="/server-info">
         <default key="_controller">ZenCartBundle:Admin:process</default>
-        <option key="view">zc_admin.php</option>
+        <option key="view:zc_admin">zc_admin.html.php</option>
     </route>
     <route id="zc_admin_admin_account" pattern="/admin-account">
         <default key="_controller">ZenCartBundle:Admin:process</default>
-        <option key="view">zc_admin.php</option>
+        <option key="view:zc_admin">zc_admin.html.php</option>
     </route>
     <route id="zc_admin_admin_page_registration" pattern="/admin-page-registration">
         <default key="_controller">ZenCartBundle:Admin:process</default>
-        <option key="view">zc_admin.php</option>
+        <option key="view:zc_admin">zc_admin.html.php</option>
     </route>
     <route id="zc_admin_admin_activity" pattern="/admin-activity">
         <default key="_controller">ZenCartBundle:Admin:process</default>
-        <option key="view">zc_admin.php</option>
+        <option key="view:zc_admin">zc_admin.html.php</option>
     </route>
 
     <route id="zc_admin_alt_nav" pattern="/alt-nav">
         <default key="_controller">ZenCartBundle:Admin:process</default>
-        <option key="view">zc_admin.php</option>
+        <option key="view:zc_admin">zc_admin.html.php</option>
     </route>
     <route id="zc_admin_template_select" pattern="/template-select">
         <default key="_controller">ZenCartBundle:Admin:process</default>
-        <option key="view">zc_admin.php</option>
+        <option key="view:zc_admin">zc_admin.html.php</option>
     </route>
     <route id="zc_admin_define_pages_editor" pattern="/define-pages-editor">
         <default key="_controller">ZenCartBundle:Admin:process</default>
-        <option key="view">zc_admin.php</option>
+        <option key="view:zc_admin">zc_admin.html.php</option>
     </route>
     <route id="zc_admin_sqlpatch" pattern="/sql-patch">
         <default key="_controller">ZenCartBundle:Admin:process</default>
-        <option key="view">zc_admin.php</option>
+        <option key="view:zc_admin">zc_admin.html.php</option>
     </route>
     <route id="zc_admin_profiles" pattern="/profiles">
         <default key="_controller">ZenCartBundle:Admin:process</default>
-        <option key="view">zc_admin.php</option>
+        <option key="view:zc_admin">zc_admin.html.php</option>
     </route>
     <route id="zc_admin_users" pattern="/users">
         <default key="_controller">ZenCartBundle:Admin:process</default>
-        <option key="view">zc_admin.php</option>
+        <option key="view:zc_admin">zc_admin.html.php</option>
     </route>
 
 </routes>
