@@ -44,21 +44,6 @@ if (!function_exists('zm_split_email_addresses')) {
     }
 
     /**
-     * Split browser languages like http://zencart-solutions.palek.cz/en/multilanguage-zencart/default-language-by-browser.html
-     */
-    function zm_split_language_substitutions($s)
-    {
-        $s = explode(',', $s);
-        $l = array();
-        foreach ($s as $alias) {
-            $subst = explode(':', $alias);
-            $l[trim($subst[0])] = trim($subst[1]);
-        }
-
-        return $l;
-    }
-
-    /**
      * Set up default setting.
      *
      * <p>The reason for this being wrapped in a function is to make it possible
@@ -121,9 +106,6 @@ if (!function_exists('zm_split_email_addresses')) {
 
             // language detection strategy
             'isUseBrowserLanguage' => LANGUAGE_DEFAULT_SELECTOR == 'Browser',
-
-            'apps.store.browserLanguageSubstitutions' => defined('BROWSER_LANGUAGE_SUBSTITUTIONS') ?
-                zm_split_language_substitutions(BROWSER_LANGUAGE_SUBSTITUTIONS) : array(),
 
             // default language
             'defaultLanguageCode' => DEFAULT_LANGUAGE,
