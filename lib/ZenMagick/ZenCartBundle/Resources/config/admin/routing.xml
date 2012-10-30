@@ -8,6 +8,10 @@
         <default key="_controller">ZenCartBundle:Admin:process</default>
         <option key="view:zc_admin">zc_admin.html.php</option>
     </route>
+    <route id="zc_admin_configuration" pattern="/configuration">
+        <default key="_controller">ZenCartBundle:Admin:process</default>
+        <option key="view:zc_admin">zc_admin.html.php</option>
+    </route>
     <route id="zc_admin_product" pattern="/product">
         <default key="_controller">ZenCartBundle:Admin:process</default>
         <option key="view:zc_admin">zc_admin.html.php</option>
