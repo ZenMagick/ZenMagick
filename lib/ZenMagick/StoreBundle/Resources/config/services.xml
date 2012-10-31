@@ -165,9 +165,6 @@
            <call method="setContainer">
                 <argument type="service" id="service_container" />
             </call>
-            <call method="load">
-                <argument>%kernel.context_dir%/config/validation.php</argument>
-            </call>
             <tag name="zenmagick.http.view.variable" key="validator" />
         </service>
 

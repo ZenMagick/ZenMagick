@@ -19,6 +19,7 @@
  */
 
 use ZenMagick\Base\Beans;
+use ZenMagick\Base\Runtime;
 use ZenMagick\Base\Toolbox;
 use ZenMagick\Base\ZMException;
 use ZenMagick\Base\ZMObject;
@@ -47,6 +48,7 @@ class ZMValidator extends ZMObject
         $this->sets_ = array();
         $this->alias_ = array();
         $this->messages_ = array();
+        $this->load(Runtime::getApplicationPath().'/config/validation.php');
     }
 
     /**
