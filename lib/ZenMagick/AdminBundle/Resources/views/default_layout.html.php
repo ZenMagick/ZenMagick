@@ -41,14 +41,13 @@
       <div id="content">
           <?php echo $this->fetch('messages.html.php'); ?>
           <?php echo $this->fetch($viewTemplate); ?>
-          <br clear="left">
         </div><!-- view-container -->
       </div><!-- content -->
       <?php echo $this->fetch('footer.html.php'); ?>
     </div>
-  </body>
-    <script>
+    <script type="text/javascript">
       $('.tt[title]').cluetip({clickThrough: true, splitTitle: '|', arrows: true });
       ZenMagick.datepicker();
     </script>
+  </body>
 </html>
