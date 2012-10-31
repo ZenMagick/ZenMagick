@@ -105,105 +105,150 @@ class Special extends ZMObject
      *
      * @return integer $id
      */
-    public function getId() { return $this->id; }
+    public function getId()
+    {
+        return $this->id;
+    }
 
     /**
      * Get productId
      *
      * @return integer $productId
      */
-    public function getProductId() { return $this->productId; }
+    public function getProductId()
+    {
+        return $this->productId;
+    }
 
     /**
      * Get specialPrice
      *
      * @return decimal $specialPrice
      */
-    public function getSpecialPrice() { return $this->specialPrice; }
+    public function getSpecialPrice()
+    {
+        return $this->specialPrice;
+    }
 
     /**
      * Get dateAdded
      *
      * @return datetime $dateAdded
      */
-    public function getDateAdded() { return $this->dateAdded; }
+    public function getDateAdded()
+    {
+        return $this->dateAdded;
+    }
 
     /**
      * Get lastModified
      *
      * @return datetime $lastModified
      */
-    public function getLastModified() { return $this->lastModified; }
+    public function getLastModified()
+    {
+        return $this->lastModified;
+    }
 
     /**
      * Get expiryDate
      *
      * @return date $expiryDate
      */
-    public function getExpiryDate() { return $this->expiryDate; }
+    public function getExpiryDate()
+    {
+        return $this->expiryDate;
+    }
 
     /**
      * Get statusChangeDate
      *
      * @return datetime $statusChangeDate
      */
-    public function getStatusChangeDate() { return $this->statusChangeDate; }
+    public function getStatusChangeDate()
+    {
+        return $this->statusChangeDate;
+    }
 
     /**
      * Get status
      *
      * @return integer $status
      */
-    public function getStatus() { return $this->status; }
+    public function getStatus()
+    {
+        return $this->status;
+    }
 
     /**
      * Get availableDate
      *
      * @return date $availableDate
      */
-    public function getAvailableDate() { return $this->availableDate; }
+    public function getAvailableDate()
+    {
+        return $this->availableDate;
+    }
 
     /**
      * Set productId
      *
      * @param integer $productId
      */
-    public function setProductId($productId) { $this->productId = $productId; }
+    public function setProductId($productId)
+    {
+        $this->productId = $productId;
+    }
 
     /**
      * Set specialPrice
      *
      * @param decimal $specialPrice
      */
-    public function setSpecialPrice($specialPrice) { $this->specialPrice = $specialPrice; }
+    public function setSpecialPrice($specialPrice)
+    {
+        $this->specialPrice = $specialPrice;
+    }
 
     /**
      * Set dateAdded
      *
      * @param datetime $dateAdded
      */
-    public function setDateAdded($dateAdded) { $this->dateAdded = $dateAdded; }
+    public function setDateAdded($dateAdded)
+    {
+        $this->dateAdded = $dateAdded;
+    }
 
     /**
      * Set lastModified
      *
      * @param datetime $lastModified
      */
-    public function setLastModified($lastModified) { $this->lastModified = $lastModified; }
+    public function setLastModified($lastModified)
+    {
+        $this->lastModified = $lastModified;
+    }
 
     /**
      * Set expiryDate
      *
      * @param date $expiryDate
      */
-    public function setExpiryDate($expiryDate) { $this->expiryDate = $expiryDate; }
+    public function setExpiryDate($expiryDate)
+    {
+        $this->expiryDate = $expiryDate;
+    }
 
     /**
      * Set statusChangeDate
      *
      * @param datetime $statusChangeDate
      */
-    public function setStatusChangeDate($statusChangeDate) { $this->statusChangeDate = $statusChangeDate; }
+    public function setStatusChangeDate($statusChangeDate)
+    {
+        $this->statusChangeDate = $statusChangeDate;
+    }
 
     /**
      * Set status and log the date the status changed.
@@ -221,5 +266,8 @@ class Special extends ZMObject
      *
      * @param date $availableDate
      */
-    public function setAvailableDate($availableDate) { $this->availableDate = $availableDate; }
+    public function setAvailableDate($availableDate)
+    {
+        $this->availableDate = $availableDate;
+    }
 }

@@ -440,63 +440,90 @@ class Order extends ZMObject
      *
      * @return int The order id.
      */
-    public function getId() { return $this->orderId; }
+    public function getId()
+    {
+        return $this->orderId;
+    }
 
     /**
      * Set the order id.
      *
      * @param int id The order id.
      */
-    public function setId($id) { $this->orderId = $id; }
+    public function setId($id)
+    {
+        $this->orderId = $id;
+    }
 
     /**
      * Set the account id.
      *
      * @param int accountId The account id.
      */
-    public function setAccountId($accountId) { $this->accountId = $accountId; }
+    public function setAccountId($accountId)
+    {
+        $this->accountId = $accountId;
+    }
 
     /**
      * Get the account id.
      *
      * @return int The account id.
      */
-    public function getAccountId() { return $this->accountId; }
+    public function getAccountId()
+    {
+        return $this->accountId;
+    }
 
     /**
      * Get the order status [id].
      *
      * @return int The order status [id].
      */
-    public function getOrderStatusId() { return $this->orderStatusId; }
+    public function getOrderStatusId()
+    {
+        return $this->orderStatusId;
+    }
 
     /**
      * Get the order status name [read only]
      *
      * @return string The order status name.
      */
-    public function getStatusName() { return $this->get('statusName'); }
+    public function getStatusName()
+    {
+        return $this->get('statusName');
+    }
 
     /**
      * Set the order status [id].
      *
      * @param int statusId The order status [id].
      */
-    public function setOrderStatusId($statusId) { $this->orderStatusId = $statusId; }
+    public function setOrderStatusId($statusId)
+    {
+        $this->orderStatusId = $statusId;
+    }
 
     /**
      * Get the order date.
      *
      * @return string The order date.
      */
-    public function getOrderDate() { return $this->orderDate; }
+    public function getOrderDate()
+    {
+        return $this->orderDate;
+    }
 
     /**
      * Set the order date.
      *
      * @param string date The order date.
      */
-    public function setOrderDate($date) { $this->orderDate = $date; }
+    public function setOrderDate($date)
+    {
+        $this->orderDate = $date;
+    }
 
     /**
      * Get the account for this order.
@@ -528,7 +555,10 @@ class Order extends ZMObject
      *
      * @param ZenMagick\StoreBundle\Entity\Account\Account account The account.
      */
-    public function setAccount($account) { $this->account = $account; }
+    public function setAccount($account)
+    {
+        $this->account = $account;
+    }
 
     /**
      * Create address instance.
@@ -659,21 +689,30 @@ class Order extends ZMObject
      *
      * @return float The order total.
      */
-    public function getTotal() { return $this->total; }
+    public function getTotal()
+    {
+        return $this->total;
+    }
 
     /**
      * Set the order total.
      *
      * @param float total The order total.
      */
-    public function setTotal($total) { $this->total = $total; }
+    public function setTotal($total)
+    {
+        $this->total = $total;
+    }
 
     /**
      * Get all order total lines.
      *
      * @return array A list of <code>ZenMagick\StoreBundle\Entity\Order\OrderTotalLine</code> instances.
      */
-    public function getOrderTotalLines() { return $this->container->get('orderService')->getOrderTotalLines($this->getId()); }
+    public function getOrderTotalLines()
+    {
+        return $this->container->get('orderService')->getOrderTotalLines($this->getId());
+    }
 
     /**
      * Get order total lines for the given type.

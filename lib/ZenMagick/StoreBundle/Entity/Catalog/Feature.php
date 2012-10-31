@@ -100,98 +100,140 @@ class Feature extends ZMObject
      *
      * @return integer $id
      */
-    public function getId() { return $this->id; }
+    public function getId()
+    {
+        return $this->id;
+    }
 
     /**
      * Get the featured producdt id
      *
      * @return integer $productId
      */
-    public function getProductId() { return $this->productId; }
+    public function getProductId()
+    {
+        return $this->productId;
+    }
 
     /**
      * Get the date the featured product was added.
      *
      * @return datetime $dateAdded
      */
-    public function getDateAdded() { return $this->dateAdded; }
+    public function getDateAdded()
+    {
+        return $this->dateAdded;
+    }
 
     /**
      * Get the date the featured product was last modified.
      *
      * @return datetime $lastModified
      */
-    public function getLastModified() { return $this->lastModified; }
+    public function getLastModified()
+    {
+        return $this->lastModified;
+    }
 
     /**
      * Get the date the featured product expires.
      *
      * @return date $expiryDate
      */
-    public function getExpiryDate() { return $this->expiryDate; }
+    public function getExpiryDate()
+    {
+        return $this->expiryDate;
+    }
 
     /**
      * Get dateStatusChange
      *
      * @return datetime $dateStatusChange
      */
-    public function getDateStatusChange() { return $this->dateStatusChange; }
+    public function getDateStatusChange()
+    {
+        return $this->dateStatusChange;
+    }
 
     /**
      * Get the date the featured product is available.
      *
      * @return date $availableDate
      */
-    public function getAvailableDate() { return $this->availableDate; }
+    public function getAvailableDate()
+    {
+        return $this->availableDate;
+    }
 
     /**
      * Get the featured product status.
      *
      * @return integer $status
      */
-    public function getStatus() { return $this->status; }
+    public function getStatus()
+    {
+        return $this->status;
+    }
 
     /**
      * Set the featured id.
      *
      * @param string $id The id.
      */
-    public function setId($id) { $this->id = $id; }
+    public function setId($id)
+    {
+        $this->id = $id;
+    }
 
     /**
      * Set the featured product id
      *
      * @param integer $productId
      */
-    public function setProductId($productId) { $this->productId = $productId; }
+    public function setProductId($productId)
+    {
+        $this->productId = $productId;
+    }
 
     /**
      * Set the date the featured product was added.
      *
      * @param datetime $dateAdded
      */
-    public function setDateAdded($dateAdded) { $this->dateAdded = $dateAdded; }
+    public function setDateAdded($dateAdded)
+    {
+        $this->dateAdded = $dateAdded;
+    }
 
     /**
      * Set the date the featured product was last modified.
      *
      * @param datetime $lastModified
      */
-    public function setLastModified($lastModified) { $this->lastModified = $lastModified; }
+    public function setLastModified($lastModified)
+    {
+        $this->lastModified = $lastModified;
+    }
 
     /**
      * Set the date the featured product will expire.
      *
      * @param date $expiryDate
      */
-    public function setExpiryDate($expiryDate) { $this->expiryDate = $expiryDate; }
+    public function setExpiryDate($expiryDate)
+    {
+        $this->expiryDate = $expiryDate;
+    }
 
     /**
      * Set the the date the featured product status has changed.
      *
      * @param datetime $statusChangeDate
      */
-    public function setStatusChangeDate($statusChangeDate) { $this->statusChangeDate = $statusChangeDate; }
+    public function setStatusChangeDate($statusChangeDate)
+    {
+        $this->statusChangeDate = $statusChangeDate;
+    }
 
     /**
      * Set the featured product status.
@@ -209,7 +251,10 @@ class Feature extends ZMObject
      *
      * @param date $availableDate
      */
-    public function setAvailableDate($availableDate) { $this->availableDate = $availableDate; }
+    public function setAvailableDate($availableDate)
+    {
+        $this->availableDate = $availableDate;
+    }
 
     /**
      * Get statusChangeDate

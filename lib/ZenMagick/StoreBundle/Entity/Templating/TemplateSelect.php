@@ -69,14 +69,44 @@ class TemplateSelect extends ZMObject
         $this->languageId = 0;
     }
 
-    public function getId() { return $this->id; }
-    public function getThemeId() { return $this->themeId; }
-    public function getLanguageId() { return $this->languageId; }
-    public function getVariationId() { return $this->variationId; }
+    public function getId()
+    {
+        return $this->id;
+    }
 
-    public function setId($id) { $this->id = $id; }
-    public function setThemeId($themeId) { $this->themeId = $themeId; }
-    public function setLanguageId($languageId) { $this->languageId = $languageId; }
-    public function setVariationId($variationId) { $this->variationId = $variationId; }
+    public function getThemeId()
+    {
+        return $this->themeId;
+    }
+
+    public function getLanguageId()
+    {
+        return $this->languageId;
+    }
+
+    public function getVariationId()
+    {
+        return $this->variationId;
+    }
+
+    public function setId($id)
+    {
+        $this->id = $id;
+    }
+
+    public function setThemeId($themeId)
+    {
+        $this->themeId = $themeId;
+    }
+
+    public function setLanguageId($languageId)
+    {
+        $this->languageId = $languageId;
+    }
+
+    public function setVariationId($variationId)
+    {
+        $this->variationId = $variationId;
+    }
 
 }

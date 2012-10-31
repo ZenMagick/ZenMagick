@@ -139,14 +139,20 @@ class Category extends ZMObject
      *
      * @return int The category id.
      */
-    public function getId() { return $this->categoryId; }
+    public function getId()
+    {
+        return $this->categoryId;
+    }
 
     /**
      * Get the id.
      *
      * @return int The category id.
      */
-    public function getCategoryId() { return $this->categoryId; }
+    public function getCategoryId()
+    {
+        return $this->categoryId;
+    }
 
     /**
      * Get the parent category (if any).
@@ -163,42 +169,60 @@ class Category extends ZMObject
      *
      * @return int The parent category id or <code>0</code>.
      */
-    public function getParentId() { return $this->parentId; }
+    public function getParentId()
+    {
+        return $this->parentId;
+    }
 
     /**
      * Checks if the catgory has a parent.
      *
      * @return boolean <code>true</code> if this category has a parent, <code>false</code> if not.
      */
-    public function hasParent() { return 0 != $this->parentId; }
+    public function hasParent()
+    {
+        return 0 != $this->parentId;
+    }
 
     /**
      * Get the category name.
      *
      * @return string The category name.
      */
-    public function getName() { return $this->name; }
+    public function getName()
+    {
+        return $this->name;
+    }
 
     /**
      * Checks if this category is active; ie. visible in the storefront.
      *
      * @return boolean <code>true</code> if this category is active, <code>false</code> if not.
      */
-    public function isActive() { return $this->active; }
+    public function isActive()
+    {
+        return $this->active;
+    }
 
     /**
      * Set the active flag.
      *
      * @param boolean active <code>true</code> if this category is active, <code>false</code> if not.
      */
-    public function setActive($active) { $this->active = $active; }
+    public function setActive($active)
+    {
+        $this->active = $active;
+    }
 
     /**
      * Checks if this category has children.
      *
      * @return boolean <code>true</code> if this category has children, <code>false</code> if not.
      */
-    public function hasChildren() { return 0 < count($this->childrenIds); }
+    public function hasChildren()
+    {
+        return 0 < count($this->childrenIds);
+    }
 
     /**
      * Get the child categories of this category.
@@ -245,21 +269,30 @@ class Category extends ZMObject
      *
      * @return string The description.
      */
-    public function getDescription() { return $this->description; }
+    public function getDescription()
+    {
+        return $this->description;
+    }
 
     /**
      * Get the sort order.
      *
      * @return int The sort order.
      */
-    public function getSortOrder() { return $this->sortOrder; }
+    public function getSortOrder()
+    {
+        return $this->sortOrder;
+    }
 
     /**
      * Get the category image (if any).
      *
      * @return string The image name.
      */
-    public function getImage() { return $this->image; }
+    public function getImage()
+    {
+        return $this->image;
+    }
 
     /**
      * Get the categories image ino instance (if any).
@@ -302,63 +335,90 @@ class Category extends ZMObject
      *
      * @param int id The category id.
      */
-    public function setId($id) { $this->categoryId = $id; }
+    public function setId($id)
+    {
+        $this->categoryId = $id;
+    }
 
     /**
      * Set the id.
      *
      * @param int id The category id.
      */
-    public function setCategoryId($id) { $this->categoryId = $id; }
+    public function setCategoryId($id)
+    {
+        $this->categoryId = $id;
+    }
 
     /**
      * Set the parent category id.
      *
      * @param int parentId The parent category id.
      */
-    public function setParentId($parentId) { $this->parentId = $parentId; }
+    public function setParentId($parentId)
+    {
+        $this->parentId = $parentId;
+    }
 
     /**
      * Set the category name.
      *
      * @param string name The category name.
      */
-    public function setName($name) { $this->name = $name; }
+    public function setName($name)
+    {
+        $this->name = $name;
+    }
 
     /**
      * Set the category description.
      *
      * @param string description The description.
      */
-    public function setDescription($description) { $this->description = $description; }
+    public function setDescription($description)
+    {
+        $this->description = $description;
+    }
 
     /**
      * Set the sort order.
      *
      * @param int sortOrder The sort order.
      */
-    public function setSortOrder($sortOrder) { $this->sortOrder = $sortOrder; }
+    public function setSortOrder($sortOrder)
+    {
+        $this->sortOrder = $sortOrder;
+    }
 
     /**
      * Set the category image (if any).
      *
      * @param string image The image name.
      */
-    public function setImage($image) { $this->image = $image; }
+    public function setImage($image)
+    {
+        $this->image = $image;
+    }
 
     /**
      * Get the language id.
      *
      * @return int The language id.
      */
-    public function getLanguageId() { return $this->languageId; }
+    public function getLanguageId()
+    {
+        return $this->languageId;
+    }
 
     /**
      * Set the language id.
      *
      * @param int languageId The language id.
      */
-    public function setLanguageId($languageId) { $this->languageId = $languageId; }
+    public function setLanguageId($languageId)
+    {
+        $this->languageId = $languageId;
+    }
 
     /**
      * Get a list of <strong>all</strong> decendant category ids.

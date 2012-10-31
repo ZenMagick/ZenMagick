@@ -98,12 +98,14 @@ class EZPage extends ZMObject
      * @ORM\Column(name="status_sidebox", type="boolean", nullable=false)
      */
     private $sidebox;
+
     /**
      * @var boolean $footer
      *
      * @ORM\Column(name="status_footer", type="boolean", nullable=false)
      */
     private $footer;
+
     /**
      * @var boolean $toc
      *
@@ -117,12 +119,14 @@ class EZPage extends ZMObject
      * @ORM\Column(name="header_sort_order", type="smallint", nullable=false)
      */
     private $headerSort;
+
      /**
      * @var integer $sideboxSort
      *
      * @ORM\Column(name="sidebox_sort_order", type="smallint", nullable=false)
      */
     private $sideboxSort;
+
     /**
      * @var integer $footerSort
      *
@@ -187,11 +191,30 @@ class EZPage extends ZMObject
         $this->tocSort = 0;
     }
 
-    public function getId() { return $this->id; }
-    public function getLanguageId() { return $this->languageId; }
-    public function getTitle() { return $this->title; }
-    public function getAltUrl() { return $this->altUrl; }
-    public function getAltUrlExternal() { return $this->altUrlExternal; }
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    public function getLanguageId()
+    {
+        return $this->languageId;
+    }
+
+    public function getTitle()
+    {
+        return $this->title;
+    }
+
+    public function getAltUrl()
+    {
+        return $this->altUrl;
+    }
+
+    public function getAltUrlExternal()
+    {
+        return $this->altUrlExternal;
+    }
 
     /**
      * Get the actual content.
@@ -211,41 +234,182 @@ class EZPage extends ZMObject
         return $text;
     }
 
-    public function isHeader() { return $this->header; }
-    public function getHeader() { return $this->header; }
-    public function isSidebox() { return $this->sidebox; }
-    public function getSidebox() { return $this->sidebox; }
-    public function isFooter() { return $this->footer; }
-    public function getFooter() { return $this->footer; }
-    public function getToc() { return $this->toc; }
-    public function isToc() { return 1 == $this->toc; }
-    public function isStatic() { return 2 == $this->toc; }
-    public function getHeaderSort() { return $this->headerSort; }
-    public function getSideboxSort() { return $this->sideboxSort; }
-    public function getFooterSort() { return $this->footerSort; }
-    public function getTocSort() { return $this->tocSort; }
-    public function isNewWin() { return $this->newWin; }
-    public function getNewWin() { return $this->newWin; }
-    public function isSsl() { return $this->ssl; }
-    public function getSsl() { return $this->ssl; }
-    public function getTocChapter() { return $this->tocChapter; }
+    public function isHeader()
+    {
+        return $this->header;
+    }
 
-    public function setId($id) { $this->id = $id; }
-    public function setLanguageId($languageId) { $this->languageId = $languageId; }
-    public function setTitle($title) { $this->title = $title; }
-    public function setAltUrl($url) { $this->altUrl = $url; }
-    public function setAltUrlExternal($url) { $this->altUrlExternal = $url; }
-    public function setHtmlText($text) { $this->htmlText = $text; }
-    public function setHeader($value) { $this->header = Toolbox::asBoolean($value); }
-    public function setSidebox($value) { $this->sidebox = Toolbox::asBoolean($value); }
-    public function setFooter($value) { $this->footer = Toolbox::asBoolean($value); }
-    public function setToc($value) { $this->toc = (int) $value; }
-    public function setStatic($value) { $this->toc = $value ? 2: 0; }
-    public function setHeaderSort($sortOrder) { $this->headerSort = $sortOrder; }
-    public function setSideboxSort($sortOrder) { $this->sideboxSort = $sortOrder; }
-    public function setFooterSort($sortOrder) { $this->footerSort = $sortOrder; }
-    public function setTocSort($value) { $this->tocSort = $value; }
-    public function setNewWin($value) { $this->newWin = Toolbox::asBoolean($value); }
-    public function setSsl($value) { $this->ssl = Toolbox::asBoolean($value); }
-    public function setTocChapter($chapter) { $this->tocChapter = $chapter; }
+    public function getHeader()
+    {
+        return $this->header;
+    }
+
+    public function isSidebox()
+    {
+        return $this->sidebox;
+    }
+
+    public function getSidebox()
+    {
+        return $this->sidebox;
+    }
+
+    public function isFooter()
+    {
+        return $this->footer;
+    }
+
+    public function getFooter()
+    {
+        return $this->footer;
+    }
+
+    public function getToc()
+    {
+        return $this->toc;
+    }
+
+    public function isToc()
+    {
+        return 1 == $this->toc;
+    }
+
+    public function isStatic()
+    {
+        return 2 == $this->toc;
+    }
+
+    public function getHeaderSort()
+    {
+        return $this->headerSort;
+    }
+
+    public function getSideboxSort()
+    {
+        return $this->sideboxSort;
+    }
+
+    public function getFooterSort()
+    {
+        return $this->footerSort;
+    }
+
+    public function getTocSort()
+    {
+        return $this->tocSort;
+    }
+
+    public function isNewWin()
+    {
+        return $this->newWin;
+    }
+
+    public function getNewWin()
+    {
+        return $this->newWin;
+    }
+
+    public function isSsl()
+    {
+        return $this->ssl;
+    }
+
+    public function getSsl()
+    {
+        return $this->ssl;
+    }
+
+    public function getTocChapter()
+    {
+        return $this->tocChapter;
+    }
+
+    public function setId($id)
+    {
+        $this->id = $id;
+    }
+
+    public function setLanguageId($languageId)
+    {
+        $this->languageId = $languageId;
+    }
+    public function setTitle($title)
+    {
+        $this->title = $title;
+    }
+
+    public function setAltUrl($url)
+    {
+        $this->altUrl = $url;
+    }
+
+    public function setAltUrlExternal($url)
+    {
+        $this->altUrlExternal = $url;
+    }
+
+    public function setHtmlText($text)
+    {
+        $this->htmlText = $text;
+    }
+
+    public function setHeader($value)
+    {
+        $this->header = Toolbox::asBoolean($value);
+    }
+
+    public function setSidebox($value)
+    {
+        $this->sidebox = Toolbox::asBoolean($value);
+    }
+
+    public function setFooter($value)
+    {
+        $this->footer = Toolbox::asBoolean($value);
+    }
+
+    public function setToc($value)
+    {
+        $this->toc = (int) $value;
+    }
+
+    public function setStatic($value)
+    {
+        $this->toc = $value ? 2: 0;
+    }
+
+    public function setHeaderSort($sortOrder)
+    {
+        $this->headerSort = $sortOrder;
+    }
+
+    public function setSideboxSort($sortOrder)
+    {
+        $this->sideboxSort = $sortOrder;
+    }
+
+    public function setFooterSort($sortOrder)
+    {
+        $this->footerSort = $sortOrder;
+    }
+
+    public function setTocSort($value)
+    {
+        $this->tocSort = $value;
+    }
+
+    public function setNewWin($value)
+    {
+        $this->newWin = Toolbox::asBoolean($value);
+    }
+
+    public function setSsl($value)
+    {
+        $this->ssl = Toolbox::asBoolean($value);
+    }
+
+    public function setTocChapter($chapter)
+    {
+        $this->tocChapter = $chapter;
+    }
 }

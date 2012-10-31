@@ -104,14 +104,20 @@ class OrderStatusHistory extends ZMObject
      *
      * @return int The order status id.
      */
-    public function getId() { return $this->ordersStatusHistoryId; }
+    public function getId()
+    {
+        return $this->ordersStatusHistoryId;
+    }
 
     /**
      * Get the order id.
      *
      * @return int The order id.
      */
-    public function getOrderId() { return $this->orderId; }
+    public function getOrderId()
+    {
+        return $this->orderId;
+    }
 
     /**
      * Get the order status id.
@@ -120,97 +126,139 @@ class OrderStatusHistory extends ZMObject
      *
      * @return int The order status id.
      */
-    public function getOrderStatusId() { return $this->orderStatusId; }
+    public function getOrderStatusId()
+    {
+        return $this->orderStatusId;
+    }
 
     /**
      * Get the order status name.
      *
      * @return string The order status name.
      */
-    public function getName() { return $this->name; }
+    public function getName()
+    {
+        return $this->name;
+    }
 
     /**
      * Get the date it was added.
      *
      * @return string The date the status was changed.
      */
-    public function getDateAdded() { return $this->dateAdded; }
+    public function getDateAdded()
+    {
+        return $this->dateAdded;
+    }
 
     /**
      * Has the customer been notified about this change.
      *
      * @return boolean <code>true</code> if the customer has been notified, <code>false</code> if not.
      */
-    public function getCustomerNotified() { return $this->customerNotified; }
+    public function getCustomerNotified()
+    {
+        return $this->customerNotified;
+    }
 
     /**
      * Has the customer been notified about this change.
      *
      * @return boolean <code>true</code> if the customer has been notified, <code>false</code> if not.
      */
-    public function isCustomerNotified() { return $this->customerNotified; }
+    public function isCustomerNotified()
+    {
+        return $this->customerNotified;
+    }
 
     /**
      * Checks if a comment exists for this status.
      *
      * @return boolean </code>true</code> if a comment exist, <code>false</code> if not.
      */
-    public function hasComment() { return !empty($this->comment); }
+    public function hasComment()
+    {
+        return !empty($this->comment);
+    }
 
     /**
      * Get the comment.
      *
      * @return string The comment (might be empty).
      */
-    public function getComment() { return $this->comment; }
+    public function getComment()
+    {
+        return $this->comment;
+    }
 
     /**
      * Set the order status (history) id.
      *
      * @param int id The order status id.
      */
-    public function setId($id) { $this->orderStatusHistoryId = $id; }
+    public function setId($id)
+    {
+        $this->orderStatusHistoryId = $id;
+    }
 
     /**
      * Set the order id.
      *
      * @param int orderId The order id.
      */
-    public function setOrderId($orderId) { $this->orderId = $orderId; }
+    public function setOrderId($orderId)
+    {
+        $this->orderId = $orderId;
+    }
 
     /**
      * Set the order status id.
      *
      * @param int orderStatusId The order status id.
      */
-    public function setOrderStatusId($orderStatusId) { $this->orderStatusId = $orderStatusId; }
+    public function setOrderStatusId($orderStatusId)
+    {
+        $this->orderStatusId = $orderStatusId;
+    }
 
     /**
      * Set the order status name.
      *
      * @param string name The order status name.
      */
-    public function setName($name) { $this->name = $name; }
+    public function setName($name)
+    {
+        $this->name = $name;
+    }
 
     /**
      * Set the date it was added.
      *
      * @param string dateAdded The date the status was changed.
      */
-    public function setDateAdded($dateAdded) { $this->dateAdded = $dateAdded; }
+    public function setDateAdded($dateAdded)
+    {
+        $this->dateAdded = $dateAdded;
+    }
 
     /**
      * Set whether the customer been notified about this change.
      *
      * @param boolean customerNotified <code>true</code> if the customer has been notified, <code>false</code> if not.
      */
-    public function setCustomerNotified($customerNotified) { $this->customerNotified = $customerNotified; }
+    public function setCustomerNotified($customerNotified)
+    {
+        $this->customerNotified = $customerNotified;
+    }
 
     /**
      * Set the comment.
      *
      * @param string comment The comment.
      */
-    public function setComment($comment) { $this->comment = $comment; }
+    public function setComment($comment)
+    {
+        $this->comment = $comment;
+    }
 
 }

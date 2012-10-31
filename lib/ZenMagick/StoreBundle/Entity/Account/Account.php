@@ -215,238 +215,340 @@ class Account extends ZMObject
      *
      * @return int The account id.
      */
-    public function getAccountId() { return $this->accountId; }
+    public function getAccountId()
+    {
+        return $this->accountId;
+    }
 
     /**
      * Get the account id.
      *
      * @return int The account id.
      */
-    public function getId() { return $this->accountId; }
+    public function getId()
+    {
+        return $this->accountId;
+    }
 
     /**
      * set the account id.
      *
      * @param int id the account id.
      */
-    public function setAccountId($id) { $this->accountId = $id; }
+    public function setAccountId($id)
+    {
+        $this->accountId = $id;
+    }
 
     /**
      * set the account id.
      *
      * @param int id the account id.
      */
-    public function setId($id) { $this->accountId = $id; }
+    public function setId($id)
+    {
+        $this->accountId = $id;
+    }
 
     /**
      * Get the first name.
      *
      * @return string The first name.
      */
-    public function getFirstName() { return $this->firstName; }
+    public function getFirstName()
+    {
+        return $this->firstName;
+    }
 
     /**
      * Set the first name.
      *
      * @param string firstName The first name.
      */
-    public function setFirstName($firstName) { $this->firstName = $firstName; }
+    public function setFirstName($firstName)
+    {
+        $this->firstName = $firstName;
+    }
 
     /**
      * Get the last name.
      *
      * @return string The last name.
      */
-    public function getLastName() { return $this->lastName; }
+    public function getLastName()
+    {
+        return $this->lastName;
+    }
 
     /**
      * Set the last name.
      *
      * @param string lastName The last name.
      */
-    public function setLastName($lastName) { $this->lastName = $lastName; }
+    public function setLastName($lastName)
+    {
+        $this->lastName = $lastName;
+    }
 
     /**
      * Get the date of birth.
      *
      * @return string The date of birth.
      */
-    public function getDob() { return $this->dob; }
+    public function getDob()
+    {
+        return $this->dob;
+    }
 
     /**
      * Set the date of birth.
      *
      * @param string dob The date of birth.
      */
-    public function setDob($dob) { $this->dob = $dob; }
+    public function setDob($dob)
+    {
+        $this->dob = $dob;
+    }
 
     /**
      * Get the nick name.
      *
      * @return string The nick name.
      */
-    public function getNickName() { return $this->nickName; }
+    public function getNickName()
+    {
+        return $this->nickName;
+    }
 
     /**
      * Set the nick name.
      *
      * @param string nickName The nick name.
      */
-    public function setNickName($nickName) { $this->nickName = $nickName; }
+    public function setNickName($nickName)
+    {
+        $this->nickName = $nickName;
+    }
 
     /**
      * Get the gender.
      *
      * @return string The gender ('f' or 'm').
      */
-    public function getGender() { return $this->gender; }
+    public function getGender()
+    {
+        return $this->gender;
+    }
 
     /**
      * Set the gender.
      *
      * @param string gender The gender ('f' or 'm').
      */
-    public function setGender($gender) { $this->gender = $gender; }
+    public function setGender($gender)
+    {
+        $this->gender = $gender;
+    }
 
     /**
      * Get the email address.
      *
      * @return string The email address.
      */
-    public function getEmail() { return $this->email; }
+    public function getEmail()
+    {
+        return $this->email;
+    }
 
     /**
      * Set the email address.
      *
      * @parm string email The email address.
      */
-    public function setEmail($email) { $this->email = $email; }
+    public function setEmail($email)
+    {
+        $this->email = $email;
+    }
 
     /**
      * Get the phone number.
      *
      * @return string The phone number.
      */
-    public function getPhone() { return $this->phone; }
+    public function getPhone()
+    {
+        return $this->phone;
+    }
 
     /**
      * Set the phone number.
      *
      * @param string phone The phone number.
      */
-    public function setPhone($phone) { $this->phone = $phone; }
+    public function setPhone($phone)
+    {
+        $this->phone = $phone;
+    }
 
     /**
      * Get the fax number.
      *
      * @return string The fax number.
      */
-    public function getFax() { return $this->fax; }
+    public function getFax()
+    {
+        return $this->fax;
+    }
 
     /**
      * Set the fax number.
      *
      * @param string fax The fax number.
      */
-    public function setFax($fax) { $this->fax = $fax; }
+    public function setFax($fax)
+    {
+        $this->fax = $fax;
+    }
 
     /**
      * Set the preferred email format.
      *
      * @param string emailFormat The selected email format.
      */
-    public function setEmailFormat($emailFormat) { $this->emailFormat = $emailFormat; }
+    public function setEmailFormat($emailFormat)
+    {
+        $this->emailFormat = $emailFormat;
+    }
 
     /**
      * Get the preferred email format.
      *
      * @return string The selected email format.
      */
-    public function getEmailFormat() { return $this->emailFormat; }
+    public function getEmailFormat()
+    {
+        return $this->emailFormat;
+    }
 
     /**
      * Check if the account is set up to receive HTML formatted emails.
      *
      * @return boolean <code>true</code> if HTML is selected as email format, <code>false</code> if not.
      */
-    public function isHtmlEmail() { return 'HTML' == $this->emailFormat; }
+    public function isHtmlEmail()
+    {
+        return 'HTML' == $this->emailFormat;
+    }
 
     /**
      * Check if email notification is disabled.
      *
      * @return boolean <code>true</code> if email notification is disabled, <code>false</code> if not.
      */
-    public function isEmailDisabled() { return 'NONE' == $this->emailFormat || 'OUT' == $this->emailFormat; }
+    public function isEmailDisabled()
+    {
+        return 'NONE' == $this->emailFormat || 'OUT' == $this->emailFormat;
+    }
 
     /**
      * Get the referral.
      *
      * @return string The referral.
      */
-    public function getReferral() { return $this->referral; }
+    public function getReferral()
+    {
+        return $this->referral;
+    }
 
     /**
      * Set the referral.
      *
      * @param string referral The referral.
      */
-    public function setReferral($referral) { $this->referral = $referral; }
+    public function setReferral($referral)
+    {
+        $this->referral = $referral;
+    }
 
     /**
      * Get the default address id (primary address).
      *
      * @return int The primary address id.
      */
-    public function getDefaultAddressId() { return $this->defaultAddressId; }
+    public function getDefaultAddressId()
+    {
+        return $this->defaultAddressId;
+    }
 
     /**
      * Set the default address id (primary address).
      *
      * @param int addressId The primary address id.
      */
-    public function setDefaultAddressId($addressId) { $this->defaultAddressId = $addressId; }
+    public function setDefaultAddressId($addressId)
+    {
+        $this->defaultAddressId = $addressId;
+    }
 
     /**
      * Get the password.
      *
      * @return string The password.
      */
-    public function getPassword() { return $this->password; }
+    public function getPassword()
+    {
+        return $this->password;
+    }
 
     /**
      * Set the password.
      *
      * @param string password The (encrypted) password.
      */
-    public function setPassword($password) { $this->password = $password; }
+    public function setPassword($password)
+    {
+        $this->password = $password;
+    }
 
     /**
      * Get authorization.
      *
      * @return string The authorization.
      */
-    public function getAuthorization() { return $this->authorization; }
+    public function getAuthorization()
+    {
+        return $this->authorization;
+    }
 
     /**
      * Set authorization.
      *
      * @param string authorization The authorization.
      */
-    public function setAuthorization($authorization) { $this->authorization = $authorization; }
+    public function setAuthorization($authorization)
+    {
+        $this->authorization = $authorization;
+    }
 
     /**
      * Returns <code>true</code> if the account has subscribed to newsletter.
      *
      * @return boolean <code>true</code> if newsletter subsricption ias active, <code>false</code> if not.
      */
-    public function isNewsletterSubscriber() { return Toolbox::asBoolean($this->newsletter); }
+    public function isNewsletterSubscriber()
+    {
+        return Toolbox::asBoolean($this->newsletter);
+    }
 
     /**
      * Set the newsletter subscription status.
      *
      * @param boolean newsletterSubscriber <code>true</code> if newsletter subsricption is selected, <code>false</code> if not.
      */
-    public function setNewsletterSubscriber($newsletterSubscriber) { $this->newsletter = $newsletterSubscriber; }
+    public function setNewsletterSubscriber($newsletterSubscriber)
+    {
+        $this->newsletter = $newsletterSubscriber;
+    }
 
     /**
      * Get the voucher balance.
@@ -463,7 +565,10 @@ class Account extends ZMObject
      *
      * @return string The full name.
      */
-    public function getFullName() { return $this->firstName . ' ' . $this->lastName; }
+    public function getFullName()
+    {
+        return $this->firstName . ' ' . $this->lastName;
+    }
 
     /**
      * Checks if the user is a global product subscriber.
@@ -480,7 +585,10 @@ class Account extends ZMObject
      *
      * @param boolean globalProductSubscriber <code>true</code> if global product is selected, <code>false</code> if not.
      */
-    public function setGlobalProductSubscriber($globalProductSubscriber) { $this->globalSubscriber = (boolean) $globalProductSubscriber; }
+    public function setGlobalProductSubscriber($globalProductSubscriber)
+    {
+        $this->globalSubscriber = (boolean) $globalProductSubscriber;
+    }
 
     /**
      * Checks if the user has product subscriptions.

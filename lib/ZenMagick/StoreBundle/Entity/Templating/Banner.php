@@ -155,147 +155,210 @@ class Banner extends ZMObject
      *
      * @return int $id The banner id.
      */
-    public function getId() { return $this->id; }
+    public function getId()
+    {
+        return $this->id;
+    }
 
     /**
      * Get the banner title.
      *
      * @return string $title The banner title.
      */
-    public function getTitle() { return $this->title; }
+    public function getTitle()
+    {
+        return $this->title;
+    }
 
     /**
      * Get the banner image.
      *
      * @return string $image The banner image.
      */
-    public function getImage() { return $this->image; }
+    public function getImage()
+    {
+        return $this->image;
+    }
 
     /**
      * Get the banner text.
      *
      * @return text $text The banner text.
      */
-    public function getText() { return $this->text; }
+    public function getText()
+    {
+        return $this->text;
+    }
 
     /**
      * Check if the banner click should open a new window.
      *
      * @return boolean $isNewWin <code>true</code> if the banner URL should be opened in a new window, <code>false</code> if not.
      */
-    public function isNewWin() { return $this->isNewWin; }
+    public function isNewWin()
+    {
+        return $this->isNewWin;
+    }
 
     /**
      * Check if the banner is active.
      *
      * @return boolean $status <code>true</code> if the banner is active.
      */
-    public function isActive() { return $this->active; }
+    public function isActive()
+    {
+        return $this->active;
+    }
 
     /**
      * Get the banner URL.
      *
      * @return string $url The banner URL.
      */
-    public function getUrl() { return $this->url; }
+    public function getUrl()
+    {
+        return $this->url;
+    }
 
     /**
      * Get bannersGroup
      *
      * @return string $bannersGroup
      */
-    public function getGroup() { return $this->group; }
+    public function getGroup()
+    {
+        return $this->group;
+    }
 
    /**
      * Get expiryImpressions
      *
      * @return integer $expiryImpressions
      */
-    public function getExpiryImpressions() { return $this->expiryImpressions; }
+    public function getExpiryImpressions()
+    {
+        return $this->expiryImpressions;
+    }
 
     /**
      * Get expiryDate
      *
      * @return datetime $expiryDate
      */
-    public function getExpiryDate() { return $this->expiryDate; }
+    public function getExpiryDate()
+    {
+        return $this->expiryDate;
+    }
 
     /**
      * Get dateScheduled
      *
      * @return datetime $dateScheduled
      */
-    public function getDateScheduled() { return $this->dateScheduled; }
+    public function getDateScheduled()
+    {
+        return $this->dateScheduled;
+    }
 
     /**
      * Get dateAdded
      *
      * @return datetime $dateAdded
      */
-    public function getDateAdded() { return $this->dateAdded; }
+    public function getDateAdded()
+    {
+        return $this->dateAdded;
+    }
 
     /**
      * Get dateStatusChange
      *
      * @return datetime $dateStatusChange
      */
-    public function getDateStatusChange() { return $this->dateStatusChange; }
+    public function getDateStatusChange()
+    {
+        return $this->dateStatusChange;
+    }
 
     /**
      * Get sortOrder
      *
      * @return integer $sortOrder
      */
-    public function getSortOrder() { return $this->sortOrder; }
+    public function getSortOrder()
+    {
+        return $this->sortOrder;
+    }
 
     /**
      * Show banner on SSLed connection
      *
      * @return integer $isShowOnSsl
      */
-    public function isShowOnSsl() { return $this->isShowOnSsl; }
+    public function isShowOnSsl()
+    {
+        return $this->isShowOnSsl;
+    }
 
     /**
      * Set the id.
      *
      * @param string $id The id.
      */
-    public function setId($id) { $this->id = $id; }
+    public function setId($id)
+    {
+        $this->id = $id;
+    }
 
     /**
      * Set the banner title.
      *
      * @param string $title The banner title.
      */
-    public function setTitle($title) { $this->title = $title; }
+    public function setTitle($title)
+    {
+        $this->title = $title;
+    }
 
     /**
      * Set the banner image.
      *
      * @param string $image The banner image.
      */
-    public function setImage($image) { $this->image = $image; }
+    public function setImage($image)
+    {
+        $this->image = $image;
+    }
 
     /**
      * Set the banner text.
      *
      * @param string $text The banner text.
      */
-    public function setText($text) { $this->text = $text; }
+    public function setText($text)
+    {
+        $this->text = $text;
+    }
 
     /**
      * Set if the banner click should open a new window.
      *
      * @param boolean $newWin <code>true</code> if the banner URL should be opened in a new window, <code>false</code> if not.
      */
-    public function setNewWin($newWin) { $this->isNewWin = $newWin; }
+    public function setNewWin($newWin)
+    {
+        $this->isNewWin = $newWin;
+    }
 
     /**
      * Set the banner URL.
      *
      * @param string $url The banner URL.
      */
-    public function setUrl($url) { $this->url = $url; }
+    public function setUrl($url)
+    {
+        $this->url = $url;
+    }
 
     /**
      * Set the banner status and log the date the status changed.
@@ -313,110 +376,158 @@ class Banner extends ZMObject
      *
      * @param string $group
      */
-    public function setGroup($group) { $this->group = $group; }
+    public function setGroup($group)
+    {
+        $this->group = $group;
+    }
 
     /**
      * Set expiryImpressions
      *
      * @param integer $expiryImpressions
      */
-    public function setExpiryImpressions($expiryImpressions) { $this->expiryImpressions = $expiryImpressions; }
+    public function setExpiryImpressions($expiryImpressions)
+    {
+        $this->expiryImpressions = $expiryImpressions;
+    }
 
     /**
      * Set expiryDate
      *
      * @param datetime $expiryDate
      */
-    public function setExpiryDate($expiryDate) { $this->expiryDate = $expiryDate; }
+    public function setExpiryDate($expiryDate)
+    {
+        $this->expiryDate = $expiryDate;
+    }
 
     /**
      * Set dateScheduled
      *
      * @param datetime $dateScheduled
      */
-    public function setDateScheduled($dateScheduled) { $this->dateScheduled = $dateScheduled; }
+    public function setDateScheduled($dateScheduled)
+    {
+        $this->dateScheduled = $dateScheduled;
+    }
 
     /**
      * Set dateAdded
      *
      * @param datetime $dateAdded
      */
-    public function setDateAdded($dateAdded) { $this->dateAdded = $dateAdded; }
+    public function setDateAdded($dateAdded)
+    {
+        $this->dateAdded = $dateAdded;
+    }
 
     /**
      * Set dateStatusChange
      *
      * @param datetime $dateStatusChange
      */
-    public function setDateStatusChange($dateStatusChange) { $this->dateStatusChange = $dateStatusChange; }
+    public function setDateStatusChange($dateStatusChange)
+    {
+        $this->dateStatusChange = $dateStatusChange;
+    }
 
     /**
      * Set showOnSsl
      *
      * @param integer $showOnSsl
      */
-    public function setShowOnSsl($isShowOnSsl) { $this->isShowOnSsl = $isShowOnSsl; }
+    public function setShowOnSsl($isShowOnSsl)
+    {
+        $this->isShowOnSsl = $isShowOnSsl;
+    }
 
     /**
      * Set sortOrder
      *
      * @param integer $sortOrder
      */
-    public function setBannersSortOrder($sortOrder) { $this->sortOrder = $sortOrder; }
+    public function setBannersSortOrder($sortOrder)
+    {
+        $this->sortOrder = $sortOrder;
+    }
 
     /**
      * Set isNewWin
      *
      * @param integer $isNewWin
      */
-    public function setIsNewWin($isNewWin) { $this->isNewWin = $isNewWin; }
+    public function setIsNewWin($isNewWin)
+    {
+        $this->isNewWin = $isNewWin;
+    }
 
     /**
      * Get isNewWin
      *
      * @return integer
      */
-    public function getIsNewWin() { return $this->isNewWin; }
+    public function getIsNewWin()
+    {
+        return $this->isNewWin;
+    }
 
     /**
      * Get active
      *
      * @return integer
      */
-    public function getActive() { return $this->active; }
+    public function getActive()
+    {
+        return $this->active;
+    }
 
     /**
      * Set lastModified
      *
      * @param datetime $lastModified
      */
-    public function setLastModified($lastModified) { $this->lastModified = $lastModified; }
+    public function setLastModified($lastModified)
+    {
+        $this->lastModified = $lastModified;
+    }
 
     /**
      * Get lastModified
      *
      * @return datetime
      */
-    public function getLastModified() { return $this->lastModified; }
+    public function getLastModified()
+    {
+        return $this->lastModified;
+    }
 
     /**
      * Set isShowOnSsl
      *
      * @param integer $isShowOnSsl
      */
-    public function setIsShowOnSsl($isShowOnSsl) { $this->isShowOnSsl = $isShowOnSsl; }
+    public function setIsShowOnSsl($isShowOnSsl)
+    {
+        $this->isShowOnSsl = $isShowOnSsl;
+    }
 
     /**
      * Get isShowOnSsl
      *
      * @return integer
      */
-    public function getIsShowOnSsl() { return $this->isShowOnSsl; }
+    public function getIsShowOnSsl()
+    {
+        return $this->isShowOnSsl;
+    }
 
     /**
      * Set sortOrder
      *
      * @param integer $sortOrder
      */
-    public function setSortOrder($sortOrder) { $this->sortOrder = $sortOrder; }
+    public function setSortOrder($sortOrder)
+    {
+        $this->sortOrder = $sortOrder;
+    }
 }
