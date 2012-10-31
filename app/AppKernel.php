@@ -93,7 +93,6 @@ class AppKernel extends Kernel
      */
     public function registerContainerConfiguration(LoaderInterface $loader)
     {
-        $context = $this->getContext();
 
         $resources[] = $this->getRootDir().'/config/parameters.yml';
         $rootDir = dirname($this->getRootDir());
@@ -105,12 +104,6 @@ class AppKernel extends Kernel
         $resources[] = $this->getRootDir().'/config/config_'.$this->getEnvironment().'.yml';
 
         $resources[] = $rootDir.'/config/container.xml';
-        // @todo remove this when we we can prove we don't need $_SESSION
-        $resources[] = function($container) use ($context) {
-            if ('storefront' == $context) {
-                $container->setParameter('session.class', 'ZenMagick\StorefrontBundle\Http\Session');
-            }
-        };
 
         foreach ($resources as $resource) {
             if (is_string($resource) && !file_exists($resource)) {
