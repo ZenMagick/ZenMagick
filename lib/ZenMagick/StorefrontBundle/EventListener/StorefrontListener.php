@@ -338,7 +338,9 @@ class StorefrontListener extends ZMObject
         if (null != ($languageCode = $request->query->get('language'))) {
             // @todo error on bad request language?
             if (null != ($language = $languageService->getLanguageForCode($languageCode))) {
-                $session->setLanguage($language);
+                $this->set('language', $language->getDirectory());
+                $this->set('languages_id', $language->getId());
+                $this->set('languages_code', $language->getCode());
             }
            // @todo better way to do this? perhaps we'd be better off setting a redirect_url form key or always set SetLastUrl?
            $params = $request->query->remove('language');

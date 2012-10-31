@@ -157,18 +157,6 @@ class Session extends \ZenMagick\Http\Session\Session
     }
 
     /**
-     * Set the language.
-     *
-     * @param Language language The language.
-     */
-    public function setLanguage($language)
-    {
-        $this->set('language', $language->getDirectory());
-        $this->set('languages_id', $language->getId());
-        $this->set('languages_code', $language->getCode());
-    }
-
-    /**
      * Get the language.
      *
      * @return Language The language or <code>null</code>.
