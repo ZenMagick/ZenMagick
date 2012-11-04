@@ -12,3 +12,4 @@ before_script:
   #- php app/console doctrine:schema:update --force 
   - php app/console --env=install dbal:import vendor/zenmagick/zencart/zc_install/sql/mysql_zencart.sql
   - php app/console --env=install dbal:import etc/sql/mysql_demo.sql
+  - php app/console --env=install dbal:import lib/ZenMagick/AdminBundle/Installation/etc/token_install.sql 
