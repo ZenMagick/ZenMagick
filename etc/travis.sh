@@ -1,3 +1,5 @@
+#!/bin/bash
+
 php app/console doctrine:database:drop --env=install --force
 php app/console doctrine:database:create --env=install
 # the doctrine schema breaks the original SQL and also means we are missing the
