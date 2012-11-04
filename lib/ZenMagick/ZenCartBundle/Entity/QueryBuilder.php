@@ -7,7 +7,9 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * ZenMagick\ZenCartBundle\Entity\QueryBuilder
  *
- * @ORM\Table(name="query_builder")
+ * @ORM\Table(name="query_builder",
+ *  uniqueConstraints={@ORM\UniqueConstraint(name="idx_name",columns={"query_name"})}
+ * )
  * @ORM\Entity
  */
 class QueryBuilder
@@ -29,11 +31,11 @@ class QueryBuilder
     private $category;
 
     /**
-     * @var string $queryName
+     * @var string $name
      *
      * @ORM\Column(name="query_name", type="string", length=80, nullable=false, unique=true)
      */
-    private $queryName;
+    private $name;
 
     /**
      * @var text $description
@@ -43,11 +45,11 @@ class QueryBuilder
     private $description;
 
     /**
-     * @var text $queryString
+     * @var text $query
      *
      * @ORM\Column(name="query_string", type="text", nullable=false)
      */
-    private $queryString;
+    private $query;
 
     /**
      * @var text $keysList
@@ -90,26 +92,26 @@ class QueryBuilder
     }
 
     /**
-     * Set queryName
+     * Set name
      *
-     * @param  string       $queryName
+     * @param  string       $name
      * @return QueryBuilder
      */
-    public function setQueryName($queryName)
+    public function setName($name)
     {
-        $this->queryName = $queryName;
+        $this->name = $name;
 
         return $this;
     }
 
     /**
-     * Get queryName
+     * Get name
      *
      * @return string
      */
-    public function getQueryName()
+    public function getName()
     {
-        return $this->queryName;
+        return $this->name;
     }
 
     /**
@@ -136,26 +138,26 @@ class QueryBuilder
     }
 
     /**
-     * Set queryString
+     * Set query
      *
-     * @param  text         $queryString
+     * @param  text         $query
      * @return QueryBuilder
      */
-    public function setQueryString($queryString)
+    public function setQuery($query)
     {
-        $this->queryString = $queryString;
+        $this->query = $query;
 
         return $this;
     }
 
     /**
-     * Get queryString
+     * Get query
      *
      * @return text
      */
-    public function getQueryString()
+    public function getQuery()
     {
-        return $this->queryString;
+        return $this->query;
     }
 
     /**
