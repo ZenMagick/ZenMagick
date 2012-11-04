@@ -1,5 +1,5 @@
 {
-    "hash": "df74548c0134762d7013a76df6c03a7f",
+    "hash": "a92672061e240a81e23b273ff2cb4621",
     "packages": [
         {
             "name": "doctrine/common",
@@ -68,6 +68,47 @@
                 "eventmanager",
                 "annotations",
                 "persistence"
+            ]
+        },
+        {
+            "name": "doctrine/data-fixtures",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/doctrine/data-fixtures.git",
+                "reference": "a95d7839a7794c7c9b22d64e859ee70658d977fe"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://github.com/doctrine/data-fixtures/zipball/a95d7839a7794c7c9b22d64e859ee70658d977fe",
+                "reference": "a95d7839a7794c7c9b22d64e859ee70658d977fe",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.2"
+            },
+            "time": "1351735543",
+            "type": "library",
+            "installation-source": "source",
+            "autoload": {
+                "psr-0": {
+                    "Doctrine\\Common\\DataFixtures": "lib/"
+                }
+            },
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Jonathan Wage",
+                    "email": "jonwage@gmail.com",
+                    "homepage": "http://www.jwage.com/"
+                }
+            ],
+            "description": "Data Fixtures for all Doctrine Object Managers",
+            "homepage": "http://www.doctrine-project.org",
+            "keywords": [
+                "database"
             ]
         },
         {
@@ -199,6 +240,59 @@
                 "orm",
                 "persistence",
                 "dbal"
+            ]
+        },
+        {
+            "name": "doctrine/doctrine-fixtures-bundle",
+            "version": "dev-master",
+            "target-dir": "Doctrine/Bundle/FixturesBundle",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/doctrine/DoctrineFixturesBundle.git",
+                "reference": "9edc67af16e736a31605e7fa9c9e3edbd9db6427"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://github.com/doctrine/DoctrineFixturesBundle/zipball/9edc67af16e736a31605e7fa9c9e3edbd9db6427",
+                "reference": "9edc67af16e736a31605e7fa9c9e3edbd9db6427",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.2",
+                "doctrine/data-fixtures": "*",
+                "doctrine/doctrine-bundle": "1.0.*",
+                "symfony/doctrine-bridge": ">=2.1.0,<2.3-dev"
+            },
+            "time": "1350914272",
+            "type": "symfony-bundle",
+            "installation-source": "source",
+            "autoload": {
+                "psr-0": {
+                    "Doctrine\\Bundle\\FixturesBundle": ""
+                }
+            },
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Fabien Potencier",
+                    "email": "fabien@symfony.com"
+                },
+                {
+                    "name": "Symfony Community",
+                    "homepage": "http://symfony.com/contributors"
+                },
+                {
+                    "name": "Doctrine Project",
+                    "homepage": "http://www.doctrine-project.org"
+                }
+            ],
+            "description": "Symfony DoctrineFixturesBundle",
+            "homepage": "http://www.doctrine-project.org",
+            "keywords": [
+                "persistence",
+                "Fixture"
             ]
         },
         {
@@ -380,17 +474,62 @@
             ]
         },
         {
+            "name": "fzaninotto/faker",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/fzaninotto/Faker",
+                "reference": "v1.1.0"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://github.com/fzaninotto/Faker/zipball/v1.1.0",
+                "reference": "v1.1.0",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.3"
+            },
+            "time": "1351503126",
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.1.x-dev"
+                }
+            },
+            "installation-source": "source",
+            "autoload": {
+                "psr-0": {
+                    "Faker": "src/"
+                }
+            },
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "François Zaninotto"
+                }
+            ],
+            "description": "Faker is a PHP library that generates fake data for you.",
+            "keywords": [
+                "faker",
+                "fixtures",
+                "data"
+            ]
+        },
+        {
             "name": "gedmo/doctrine-extensions",
             "version": "dev-master",
             "source": {
                 "type": "git",
                 "url": "git://github.com/l3pp4rd/DoctrineExtensions.git",
-                "reference": "27dbd6a7eb776248b60fb5a4e0210fb082e45755"
+                "reference": "473210190cf196674da2304c30bc98906800fed7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://github.com/l3pp4rd/DoctrineExtensions/zipball/27dbd6a7eb776248b60fb5a4e0210fb082e45755",
-                "reference": "27dbd6a7eb776248b60fb5a4e0210fb082e45755",
+                "url": "https://github.com/l3pp4rd/DoctrineExtensions/zipball/473210190cf196674da2304c30bc98906800fed7",
+                "reference": "473210190cf196674da2304c30bc98906800fed7",
                 "shasum": ""
             },
             "require": {
@@ -401,7 +540,7 @@
                 "doctrine/orm": ">=2.1",
                 "doctrine/mongodb-odm": "*"
             },
-            "time": "1351622050",
+            "time": "1351837444",
             "type": "library",
             "extra": {
                 "branch-alias": {
@@ -752,6 +891,55 @@
             ]
         },
         {
+            "name": "nelmio/alice",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/nelmio/alice",
+                "reference": "12423116eed5bde304ad956b764d7f0ea5bfef5a"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://github.com/nelmio/alice/zipball/12423116eed5bde304ad956b764d7f0ea5bfef5a",
+                "reference": "12423116eed5bde304ad956b764d7f0ea5bfef5a",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3",
+                "fzaninotto/faker": ">=1.0,<2.0",
+                "symfony/yaml": ">=2.0,<3.0"
+            },
+            "time": "1351862061",
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.0.x-dev"
+                }
+            },
+            "installation-source": "source",
+            "autoload": {
+                "psr-0": {
+                    "Nelmio\\Alice\\": "src/"
+                }
+            },
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Nelmio",
+                    "homepage": "http://nelm.io"
+                }
+            ],
+            "description": "Expressive fixtures generator",
+            "keywords": [
+                "orm",
+                "data",
+                "test",
+                "Fixture"
+            ]
+        },
+        {
             "name": "rych/phpass",
             "version": "dev-master",
             "source": {
@@ -950,12 +1138,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/stof/StofDoctrineExtensionsBundle",
-                "reference": "92a087a8d1bf82c22d7528e448ddcf47c6f26c20"
+                "reference": "9a1931f9c9d8a1d045008142b275239c0160b95a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://github.com/stof/StofDoctrineExtensionsBundle/zipball/92a087a8d1bf82c22d7528e448ddcf47c6f26c20",
-                "reference": "92a087a8d1bf82c22d7528e448ddcf47c6f26c20",
+                "url": "https://github.com/stof/StofDoctrineExtensionsBundle/zipball/9a1931f9c9d8a1d045008142b275239c0160b95a",
+                "reference": "9a1931f9c9d8a1d045008142b275239c0160b95a",
                 "shasum": ""
             },
             "require": {
@@ -967,7 +1155,7 @@
                 "doctrine/doctrine-bundle": "*",
                 "doctrine/mongodb-odm-bundle": "2.1.*"
             },
-            "time": "1351535256",
+            "time": "1351778487",
             "type": "symfony-bundle",
             "extra": {
                 "branch-alias": {
@@ -1233,12 +1421,12 @@
             "source": {
                 "type": "git",
                 "url": "git://github.com/symfony/symfony.git",
-                "reference": "297e00afb4f031ff42ddec6307ecefb411b6f0cc"
+                "reference": "3d993740142a4cef26336b8d5f20526367dca110"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://github.com/symfony/symfony/zipball/297e00afb4f031ff42ddec6307ecefb411b6f0cc",
-                "reference": "297e00afb4f031ff42ddec6307ecefb411b6f0cc",
+                "url": "https://github.com/symfony/symfony/zipball/3d993740142a4cef26336b8d5f20526367dca110",
+                "reference": "3d993740142a4cef26336b8d5f20526367dca110",
                 "shasum": ""
             },
             "require": {
@@ -1287,7 +1475,7 @@
                 "propel/propel1": "dev-master",
                 "monolog/monolog": "1.*"
             },
-            "time": "1351590273",
+            "time": "1352017759",
             "type": "library",
             "extra": {
                 "branch-alias": {
@@ -1373,18 +1561,18 @@
             "source": {
                 "type": "git",
                 "url": "git://github.com/fabpot/Twig.git",
-                "reference": "0879472d7ecfd6b5714b066da152e005d7781b5b"
+                "reference": "a009821dd31fa783269602507542cea978c9714a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://github.com/fabpot/Twig/zipball/0879472d7ecfd6b5714b066da152e005d7781b5b",
-                "reference": "0879472d7ecfd6b5714b066da152e005d7781b5b",
+                "url": "https://github.com/fabpot/Twig/zipball/a009821dd31fa783269602507542cea978c9714a",
+                "reference": "a009821dd31fa783269602507542cea978c9714a",
                 "shasum": ""
             },
             "require": {
                 "php": ">=5.2.4"
             },
-            "time": "1351620822",
+            "time": "1351927661",
             "type": "library",
             "extra": {
                 "branch-alias": {
@@ -1445,6 +1633,8 @@
     ],
     "minimum-stability": "dev",
     "stability-flags": {
+        "doctrine/doctrine-fixtures-bundle": 20,
+        "nelmio/alice": 20,
         "doctrine/doctrine-migrations-bundle": 20,
         "rych/phpass": 20,
         "stof/doctrine-extensions-bundle": 20,
