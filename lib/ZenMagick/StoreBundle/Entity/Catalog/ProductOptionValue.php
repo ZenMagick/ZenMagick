@@ -35,13 +35,13 @@ use Doctrine\ORM\Mapping as ORM;
 class ProductOptionValue
 {
     /**
-     * @var integer $optionValueId
+     * @var integer $id
      *
      * @ORM\Column(name="products_options_values_id", type="integer", nullable=false)
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="NONE")
      */
-    private $optionValueId;
+    private $id;
 
     /**
      * @var integer $languageId
@@ -53,17 +53,109 @@ class ProductOptionValue
     private $languageId;
 
     /**
-     * @var string $optionValueName
+     * @var string $name
      *
      * @ORM\Column(name="products_options_values_name", type="string", length=255, nullable=false)
      */
-    private $optionsValueName;
+    private $name;
 
     /**
-     * @var integer $optionValueSortOrder
+     * @var integer $sortOrder
      *
      * @ORM\Column(name="products_options_values_sort_order", type="integer", nullable=false)
      */
-    private $optionValueSortOrder;
+    private $sortOrder;
 
+
+    /**
+     * Set id
+     *
+     * @param integer $id
+     * @return ProductOptionValue
+     */
+    public function setId($id)
+    {
+        $this->id = $id;
+
+        return $this;
+    }
+
+    /**
+     * Get id
+     *
+     * @return integer
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set languageId
+     *
+     * @param integer $languageId
+     * @return ProductOptionValue
+     */
+    public function setLanguageId($languageId)
+    {
+        $this->languageId = $languageId;
+
+        return $this;
+    }
+
+    /**
+     * Get languageId
+     *
+     * @return integer
+     */
+    public function getLanguageId()
+    {
+        return $this->languageId;
+    }
+
+    /**
+     * Set name
+     *
+     * @param string $name
+     * @return ProductOptionValue
+     */
+    public function setName($name)
+    {
+        $this->name = $name;
+
+        return $this;
+    }
+
+    /**
+     * Get name
+     *
+     * @return string
+     */
+    public function getName()
+    {
+        return $this->name;
+    }
+
+    /**
+     * Set sortOrder
+     *
+     * @param integer $sortOrder
+     * @return ProductOptionValue
+     */
+    public function setSortOrder($sortOrder)
+    {
+        $this->sortOrder = $sortOrder;
+
+        return $this;
+    }
+
+    /**
+     * Get sortOrder
+     *
+     * @return integer
+     */
+    public function getSortOrder()
+    {
+        return $this->sortOrder;
+    }
 }
