@@ -89,4 +89,181 @@ class ProductType
      */
     private $lastModified;
 
+
+    public function __construct()
+    {
+        $this->dateAdded = new \DateTime;
+        $this->lastModified = new \DateTime;
+    }
+
+    /**
+     * Get id
+     *
+     * @return integer
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set name
+     *
+     * @param string $name
+     * @return ProductType
+     */
+    public function setName($name)
+    {
+        $this->name = $name;
+
+        return $this;
+    }
+
+    /**
+     * Get name
+     *
+     * @return string
+     */
+    public function getName()
+    {
+        return $this->name;
+    }
+
+    /**
+     * Set handler
+     *
+     * @param string $handler
+     * @return ProductType
+     */
+    public function setHandler($handler)
+    {
+        $this->handler = $handler;
+
+        return $this;
+    }
+
+    /**
+     * Get handler
+     *
+     * @return string
+     */
+    public function getHandler()
+    {
+        return $this->handler;
+    }
+
+    /**
+     * Set masterType
+     *
+     * @param integer $masterType
+     * @return ProductType
+     */
+    public function setMasterType($masterType)
+    {
+        $this->masterType = $masterType;
+
+        return $this;
+    }
+
+    /**
+     * Get masterType
+     *
+     * @return integer
+     */
+    public function getMasterType()
+    {
+        return $this->masterType;
+    }
+
+    /**
+     * Set addToCart
+     *
+     * @param string $addToCart
+     * @return ProductType
+     */
+    public function setAddToCart($addToCart)
+    {
+        $this->addToCart = $addToCart;
+
+        return $this;
+    }
+
+    /**
+     * Get addToCart
+     *
+     * @return string
+     */
+    public function getAddToCart()
+    {
+        return $this->addToCart;
+    }
+
+    /**
+     * Set defaultImage
+     *
+     * @param string $defaultImage
+     * @return ProductType
+     */
+    public function setDefaultImage($defaultImage)
+    {
+        $this->defaultImage = $defaultImage;
+
+        return $this;
+    }
+
+    /**
+     * Get defaultImage
+     *
+     * @return string
+     */
+    public function getDefaultImage()
+    {
+        return $this->defaultImage;
+    }
+
+    /**
+     * Set dateAdded
+     *
+     * @param \DateTime $dateAdded
+     * @return ProductType
+     */
+    public function setDateAdded(\DateTime $dateAdded)
+    {
+        $this->dateAdded = $dateAdded;
+
+        return $this;
+    }
+
+    /**
+     * Get dateAdded
+     *
+     * @return \DateTime
+     */
+    public function getDateAdded()
+    {
+        return $this->dateAdded;
+    }
+
+    /**
+     * Set lastModified
+     *
+     * @param \DateTime $lastModified
+     * @return ProductType
+     */
+    public function setLastModified(\DateTime $lastModified)
+    {
+        $this->lastModified = $lastModified;
+
+        return $this;
+    }
+
+    /**
+     * Get lastModified
+     *
+     * @return \DateTime
+     */
+    public function getLastModified()
+    {
+        return $this->lastModified;
+    }
 }
