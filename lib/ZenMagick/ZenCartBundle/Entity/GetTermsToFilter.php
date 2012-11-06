@@ -36,6 +36,19 @@ class GetTermsToFilter
     private $termField;
 
     /**
+     * Set termName
+     *
+     * @param string $termName
+     * @return GetTermsToFilter
+     */
+    public function setTermName($termName)
+    {
+        $this->termName = $termName;
+
+        return $this;
+    }
+
+    /**
      * Get termName
      *
      * @return string
@@ -90,4 +103,5 @@ class GetTermsToFilter
     {
         return $this->termField;
     }
+
 }
