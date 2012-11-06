@@ -116,153 +116,247 @@ class ProductTypeLayout extends ZMObject
 
     public function __construct()
     {
-        $this->dateAdded = '0001-01-01 00:00:00';
+        $this->dateAdded = new \DateTime();
     }
 
-     /**
+
+    /**
      * Get id
      *
-     * @return integer $id
+     * @return integer
      */
-    public function getId() { return $this->id; }
-
-    /**
-     * Get title
-     *
-     * @return text $title
-     */
-    public function getTitle() { return $this->title; }
-
-    /**
-     * Get key
-     *
-     * @return string $key
-     */
-    public function getKey() { return $this->key; }
-
-    /**
-     * Get value
-     *
-     * @return text $value
-     */
-    public function getValue() { return $this->value; }
-
-    /**
-     * Get description
-     *
-     * @return text $description
-     */
-    public function getDescription() { return $this->description; }
-
-    /**
-     * Get productTypeId
-     *
-     * @return integer $productTypeId
-     */
-    public function getProductTypeId() { return $this->productTypeId; }
-
-    /**
-     * Get sortOrder
-     *
-     * @return integer $sortOrder
-     */
-    public function getSortOrder() { return $this->sortOrder; }
-
-    /**
-     * Get lastModified
-     *
-     * @return datetime $lastModified
-     */
-    public function getLastModified() { return $this->lastModified; }
-
-    /**
-     * Get dateAdded
-     *
-     * @return datetime $dateAdded
-     */
-    public function getDateAdded() { return $this->dateAdded; }
-
-    /**
-     * Get useFunction
-     *
-     * @return text $useFunction
-     */
-    public function getUseFunction() { return $this->useFunction; }
-
-    /**
-     * Get setFunction
-     *
-     * @return text $setFunction
-     */
-    public function getSetFunction() { return $this->setFunction; }
+    public function getId()
+    {
+        return $this->id;
+    }
 
     /**
      * Set title
      *
-     * @param text $title
+     * @param string $title
+     * @return ProductTypeLayout
      */
-    public function setTitle($title) { $this->title = $title; }
+    public function setTitle($title)
+    {
+        $this->title = $title;
+
+        return $this;
+    }
+
+    /**
+     * Get title
+     *
+     * @return string
+     */
+    public function getTitle()
+    {
+        return $this->title;
+    }
 
     /**
      * Set key
      *
      * @param string $key
+     * @return ProductTypeLayout
      */
-    public function setKey($key) { $this->key = $key; }
+    public function setKey($key)
+    {
+        $this->key = $key;
+
+        return $this;
+    }
+
+    /**
+     * Get key
+     *
+     * @return string
+     */
+    public function getKey()
+    {
+        return $this->key;
+    }
 
     /**
      * Set value
      *
-     * @param text $value
+     * @param string $value
+     * @return ProductTypeLayout
      */
-    public function setValue($value) { $this->value = $value; }
+    public function setValue($value)
+    {
+        $this->value = $value;
+
+        return $this;
+    }
+
+    /**
+     * Get value
+     *
+     * @return string
+     */
+    public function getValue()
+    {
+        return $this->value;
+    }
 
     /**
      * Set description
      *
-     * @param text $description
+     * @param string $description
+     * @return ProductTypeLayout
      */
-    public function setDescription($description) { $this->description = $description; }
+    public function setDescription($description)
+    {
+        $this->description = $description;
+
+        return $this;
+    }
+
+    /**
+     * Get description
+     *
+     * @return string
+     */
+    public function getDescription()
+    {
+        return $this->description;
+    }
 
     /**
      * Set productTypeId
      *
      * @param integer $productTypeId
+     * @return ProductTypeLayout
      */
-    public function setProductTypeId($productTypeId) { $this->productTypeId = $productTypeId; }
+    public function setProductTypeId($productTypeId)
+    {
+        $this->productTypeId = $productTypeId;
+
+        return $this;
+    }
+
+    /**
+     * Get productTypeId
+     *
+     * @return integer
+     */
+    public function getProductTypeId()
+    {
+        return $this->productTypeId;
+    }
 
     /**
      * Set sortOrder
      *
      * @param integer $sortOrder
+     * @return ProductTypeLayout
      */
-    public function setSortOrder($sortOrder) { $this->sortOrder = $sortOrder; }
+    public function setSortOrder($sortOrder)
+    {
+        $this->sortOrder = $sortOrder;
+
+        return $this;
+    }
+
+    /**
+     * Get sortOrder
+     *
+     * @return integer
+     */
+    public function getSortOrder()
+    {
+        return $this->sortOrder;
+    }
 
     /**
      * Set lastModified
      *
-     * @param datetime $lastModified
+     * @param \DateTime $lastModified
+     * @return ProductTypeLayout
      */
-    public function setLastModified($lastModified) { $this->lastModified = $lastModified; }
+    public function setLastModified(\DateTime $lastModified)
+    {
+        $this->lastModified = $lastModified;
+
+        return $this;
+    }
+
+    /**
+     * Get lastModified
+     *
+     * @return \DateTime
+     */
+    public function getLastModified()
+    {
+        return $this->lastModified;
+    }
 
     /**
      * Set dateAdded
      *
-     * @param datetime $dateAdded
+     * @param \DateTime $dateAdded
+     * @return ProductTypeLayout
      */
-    public function setDateAdded($dateAdded) { $this->dateAdded = $dateAdded; }
+    public function setDateAdded(\DateTime $dateAdded)
+    {
+        $this->dateAdded = $dateAdded;
+
+        return $this;
+    }
+
+    /**
+     * Get dateAdded
+     *
+     * @return \DateTime
+     */
+    public function getDateAdded()
+    {
+        return $this->dateAdded;
+    }
 
     /**
      * Set useFunction
      *
-     * @param text $useFunction
+     * @param string $useFunction
+     * @return ProductTypeLayout
      */
-    public function setUseFunction($useFunction) { $this->useFunction = $useFunction; }
+    public function setUseFunction($useFunction)
+    {
+        $this->useFunction = $useFunction;
+
+        return $this;
+    }
+
+    /**
+     * Get useFunction
+     *
+     * @return string
+     */
+    public function getUseFunction()
+    {
+        return $this->useFunction;
+    }
 
     /**
      * Set setFunction
      *
-     * @param text $setFunction
+     * @param string $setFunction
+     * @return ProductTypeLayout
      */
-    public function setSetFunction($setFunction) { $this->setFunction = $setFunction; }
+    public function setSetFunction($setFunction)
+    {
+        $this->setFunction = $setFunction;
+
+        return $this;
+    }
+
+    /**
+     * Get setFunction
+     *
+     * @return string
+     */
+    public function getSetFunction()
+    {
+        return $this->setFunction;
+    }
 }
