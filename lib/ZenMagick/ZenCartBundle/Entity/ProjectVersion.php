@@ -85,4 +85,225 @@ class ProjectVersion
     private $projectVersionDateApplied;
 
 
+    public function __construct()
+    {
+        $this->projectVersionDateApplied = new \DateTime();
+    }
+
+    /**
+     * Get projectVersionId
+     *
+     * @return integer
+     */
+    public function getProjectVersionId()
+    {
+        return $this->projectVersionId;
+    }
+
+    /**
+     * Set projectVersionKey
+     *
+     * @param string $projectVersionKey
+     * @return ProjectVersion
+     */
+    public function setProjectVersionKey($projectVersionKey)
+    {
+        $this->projectVersionKey = $projectVersionKey;
+
+        return $this;
+    }
+
+    /**
+     * Get projectVersionKey
+     *
+     * @return string
+     */
+    public function getProjectVersionKey()
+    {
+        return $this->projectVersionKey;
+    }
+
+    /**
+     * Set projectVersionMajor
+     *
+     * @param string $projectVersionMajor
+     * @return ProjectVersion
+     */
+    public function setProjectVersionMajor($projectVersionMajor)
+    {
+        $this->projectVersionMajor = $projectVersionMajor;
+
+        return $this;
+    }
+
+    /**
+     * Get projectVersionMajor
+     *
+     * @return string
+     */
+    public function getProjectVersionMajor()
+    {
+        return $this->projectVersionMajor;
+    }
+
+    /**
+     * Set projectVersionMinor
+     *
+     * @param string $projectVersionMinor
+     * @return ProjectVersion
+     */
+    public function setProjectVersionMinor($projectVersionMinor)
+    {
+        $this->projectVersionMinor = $projectVersionMinor;
+
+        return $this;
+    }
+
+    /**
+     * Get projectVersionMinor
+     *
+     * @return string
+     */
+    public function getProjectVersionMinor()
+    {
+        return $this->projectVersionMinor;
+    }
+
+    /**
+     * Set projectVersionPatch1
+     *
+     * @param string $projectVersionPatch1
+     * @return ProjectVersion
+     */
+    public function setProjectVersionPatch1($projectVersionPatch1)
+    {
+        $this->projectVersionPatch1 = $projectVersionPatch1;
+
+        return $this;
+    }
+
+    /**
+     * Get projectVersionPatch1
+     *
+     * @return string
+     */
+    public function getProjectVersionPatch1()
+    {
+        return $this->projectVersionPatch1;
+    }
+
+    /**
+     * Set projectVersionPatch2
+     *
+     * @param string $projectVersionPatch2
+     * @return ProjectVersion
+     */
+    public function setProjectVersionPatch2($projectVersionPatch2)
+    {
+        $this->projectVersionPatch2 = $projectVersionPatch2;
+
+        return $this;
+    }
+
+    /**
+     * Get projectVersionPatch2
+     *
+     * @return string
+     */
+    public function getProjectVersionPatch2()
+    {
+        return $this->projectVersionPatch2;
+    }
+
+    /**
+     * Set projectVersionPatch1Source
+     *
+     * @param string $projectVersionPatch1Source
+     * @return ProjectVersion
+     */
+    public function setProjectVersionPatch1Source($projectVersionPatch1Source)
+    {
+        $this->projectVersionPatch1Source = $projectVersionPatch1Source;
+
+        return $this;
+    }
+
+    /**
+     * Get projectVersionPatch1Source
+     *
+     * @return string
+     */
+    public function getProjectVersionPatch1Source()
+    {
+        return $this->projectVersionPatch1Source;
+    }
+
+    /**
+     * Set projectVersionPatch2Source
+     *
+     * @param string $projectVersionPatch2Source
+     * @return ProjectVersion
+     */
+    public function setProjectVersionPatch2Source($projectVersionPatch2Source)
+    {
+        $this->projectVersionPatch2Source = $projectVersionPatch2Source;
+
+        return $this;
+    }
+
+    /**
+     * Get projectVersionPatch2Source
+     *
+     * @return string
+     */
+    public function getProjectVersionPatch2Source()
+    {
+        return $this->projectVersionPatch2Source;
+    }
+
+    /**
+     * Set projectVersionComment
+     *
+     * @param string $projectVersionComment
+     * @return ProjectVersion
+     */
+    public function setProjectVersionComment($projectVersionComment)
+    {
+        $this->projectVersionComment = $projectVersionComment;
+
+        return $this;
+    }
+
+    /**
+     * Get projectVersionComment
+     *
+     * @return string
+     */
+    public function getProjectVersionComment()
+    {
+        return $this->projectVersionComment;
+    }
+
+    /**
+     * Set projectVersionDateApplied
+     *
+     * @param \DateTime $projectVersionDateApplied
+     * @return ProjectVersion
+     */
+    public function setProjectVersionDateApplied(\DateTime $projectVersionDateApplied)
+    {
+        $this->projectVersionDateApplied = $projectVersionDateApplied;
+
+        return $this;
+    }
+
+    /**
+     * Get projectVersionDateApplied
+     *
+     * @return \DateTime
+     */
+    public function getProjectVersionDateApplied()
+    {
+        return $this->projectVersionDateApplied;
+    }
 }
