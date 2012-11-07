@@ -146,9 +146,6 @@ label {margin:2px 4px 4px 3px;}
 #sb_featured, #sb_newproducts, #sb_specials {text-align:center;}
 #sb_featured p, #sb_newproducts p, #sb_specials p {margin:0;padding:1px;}
 
-#sb_tellafriend input#to_email_address {width:6em;}
-#sb_tellafriend input.btn {float:right;}
-
 #sb_manufacturer_info {text-align:center;}
 #sb_manufacturer_info a {display:block;}
 

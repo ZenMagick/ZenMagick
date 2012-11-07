@@ -161,16 +161,6 @@
         array('ZMMinRule' ,'text', REVIEW_TEXT_MIN_LENGTH, 'A review needs to have at least %2$s characters.')
     ));
 
-    /* tell a friend */
-    $validator->addRules('tellAFriend', array(
-        array('ZMRequiredRule' ,'fromName', 'Please enter your name.'),
-        array('ZMRequiredRule' ,'fromEmail', 'Please enter your email address.'),
-        array('ZMEmailRule' ,'fromEmail', "Please enter a valid email address."),
-        array('ZMRequiredRule' ,'toName', "Please enter your friend's name."),
-        array('ZMRequiredRule' ,'toEmail', "Please enter your friend's email address."),
-        array('ZMEmailRule' ,'toEmail', "Please enter a valid friend's email address.")
-    ));
-
     /* guest_history */
     $validator->addRules('guest_history', array(
         array('ZMRequiredRule' ,'email', 'Please enter your email address.'),
