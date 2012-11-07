@@ -82,6 +82,19 @@ class AdminPages
     private $sortOrder;
 
     /**
+     * Set pageKey
+     *
+     * @param  string     $pageKey
+     * @return AdminPages
+     */
+    public function setPageKey($pageKey)
+    {
+        $this->pageKey = $pageKey;
+
+        return $this;
+    }
+
+    /**
      * Get pageKey
      *
      * @return string

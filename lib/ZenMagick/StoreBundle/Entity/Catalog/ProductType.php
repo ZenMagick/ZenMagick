@@ -96,6 +96,19 @@ class ProductType
         $this->lastModified = new \DateTime;
     }
 
+   /**
+     * Set id
+     *
+     * @param string $id
+     * @return ProductType
+     */
+    public function setId($id)
+    {
+        $this->id = $id;
+
+        return $this;
+    }
+
     /**
      * Get id
      *

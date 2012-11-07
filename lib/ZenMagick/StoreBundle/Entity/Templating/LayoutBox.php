@@ -94,4 +94,175 @@ class LayoutBox
      */
     private $singleStatus;
 
+
+    /**
+     * Get id
+     *
+     * @return integer 
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set themeId
+     *
+     * @param string $themeId
+     * @return LayoutBox
+     */
+    public function setThemeId($themeId)
+    {
+        $this->themeId = $themeId;
+    
+        return $this;
+    }
+
+    /**
+     * Get themeId
+     *
+     * @return string 
+     */
+    public function getThemeId()
+    {
+        return $this->themeId;
+    }
+
+    /**
+     * Set name
+     *
+     * @param string $name
+     * @return LayoutBox
+     */
+    public function setName($name)
+    {
+        $this->name = $name;
+    
+        return $this;
+    }
+
+    /**
+     * Get name
+     *
+     * @return string 
+     */
+    public function getName()
+    {
+        return $this->name;
+    }
+
+    /**
+     * Set status
+     *
+     * @param boolean $status
+     * @return LayoutBox
+     */
+    public function setStatus($status)
+    {
+        $this->status = $status;
+    
+        return $this;
+    }
+
+    /**
+     * Get status
+     *
+     * @return boolean 
+     */
+    public function getStatus()
+    {
+        return $this->status;
+    }
+
+    /**
+     * Set location
+     *
+     * @param boolean $location
+     * @return LayoutBox
+     */
+    public function setLocation($location)
+    {
+        $this->location = $location;
+    
+        return $this;
+    }
+
+    /**
+     * Get location
+     *
+     * @return boolean 
+     */
+    public function getLocation()
+    {
+        return $this->location;
+    }
+
+    /**
+     * Set sortOrder
+     *
+     * @param integer $sortOrder
+     * @return LayoutBox
+     */
+    public function setSortOrder($sortOrder)
+    {
+        $this->sortOrder = $sortOrder;
+    
+        return $this;
+    }
+
+    /**
+     * Get sortOrder
+     *
+     * @return integer 
+     */
+    public function getSortOrder()
+    {
+        return $this->sortOrder;
+    }
+
+    /**
+     * Set singleSortOrder
+     *
+     * @param integer $singleSortOrder
+     * @return LayoutBox
+     */
+    public function setSingleSortOrder($singleSortOrder)
+    {
+        $this->singleSortOrder = $singleSortOrder;
+    
+        return $this;
+    }
+
+    /**
+     * Get singleSortOrder
+     *
+     * @return integer 
+     */
+    public function getSingleSortOrder()
+    {
+        return $this->singleSortOrder;
+    }
+
+    /**
+     * Set singleStatus
+     *
+     * @param boolean $singleStatus
+     * @return LayoutBox
+     */
+    public function setSingleStatus($singleStatus)
+    {
+        $this->singleStatus = $singleStatus;
+    
+        return $this;
+    }
+
+    /**
+     * Get singleStatus
+     *
+     * @return boolean 
+     */
+    public function getSingleStatus()
+    {
+        return $this->singleStatus;
+    }
 }

@@ -53,6 +53,20 @@ class AdminMenus
      */
     private $sortOrder;
 
+
+    /**
+     * Set menuKey
+     *
+     * @param  string     $menuKey
+     * @return AdminMenus
+     */
+    public function setMenuKey($menuKey)
+    {
+        $this->menuKey = $menuKey;
+
+        return $this;
+    }
+
     /**
      * Get menuKey
      *
