@@ -181,12 +181,12 @@
             "source": {
                 "type": "git",
                 "url": "git://github.com/doctrine/DoctrineBundle.git",
-                "reference": "a3b99ec049b7c488c70b8776a67c594e6ddf54cd"
+                "reference": "1cfd5691283f4b32cfea87e8c8e28d502902c825"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://github.com/doctrine/DoctrineBundle/zipball/a3b99ec049b7c488c70b8776a67c594e6ddf54cd",
-                "reference": "a3b99ec049b7c488c70b8776a67c594e6ddf54cd",
+                "url": "https://github.com/doctrine/DoctrineBundle/archive/1cfd5691283f4b32cfea87e8c8e28d502902c825.zip",
+                "reference": "1cfd5691283f4b32cfea87e8c8e28d502902c825",
                 "shasum": ""
             },
             "require": {
@@ -203,7 +203,7 @@
             "suggest": {
                 "doctrine/orm": "The Doctrine ORM integration is optional in the bundle."
             },
-            "time": "1350120716",
+            "time": "1352365569",
             "type": "symfony-bundle",
             "extra": {
                 "branch-alias": {
@@ -479,18 +479,18 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/fzaninotto/Faker",
-                "reference": "v1.1.0"
+                "reference": "42ad8700ed3a1fd923b237feccfbe4476b703303"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://github.com/fzaninotto/Faker/zipball/v1.1.0",
-                "reference": "v1.1.0",
+                "url": "https://github.com/fzaninotto/Faker/archive/42ad8700ed3a1fd923b237feccfbe4476b703303.zip",
+                "reference": "42ad8700ed3a1fd923b237feccfbe4476b703303",
                 "shasum": ""
             },
             "require": {
                 "php": ">=5.3.3"
             },
-            "time": "1351503126",
+            "time": "1352327730",
             "type": "library",
             "extra": {
                 "branch-alias": {
@@ -774,12 +774,12 @@
             "source": {
                 "type": "git",
                 "url": "http://github.com/kriswallsmith/assetic.git",
-                "reference": "685b7381241fb13c47c994fe5d2e8c4964021f40"
+                "reference": "d6203098559cf9fc90e2890c10533d0adad33bd0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://github.com/kriswallsmith/assetic/zipball/685b7381241fb13c47c994fe5d2e8c4964021f40",
-                "reference": "685b7381241fb13c47c994fe5d2e8c4964021f40",
+                "url": "https://github.com/kriswallsmith/assetic/archive/d6203098559cf9fc90e2890c10533d0adad33bd0.zip",
+                "reference": "d6203098559cf9fc90e2890c10533d0adad33bd0",
                 "shasum": ""
             },
             "require": {
@@ -800,7 +800,7 @@
                 "ptachoire/cssembed": "Assetic provides the integration with phpcssembed to embed data uris",
                 "leafo/scssphp-compass": "Assetic provides the integration with the SCSS compass plugin"
             },
-            "time": "1351610079",
+            "time": "1352285252",
             "type": "library",
             "extra": {
                 "branch-alias": {
@@ -840,12 +840,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Seldaek/monolog",
-                "reference": "38bb472abb27db138536f845f7d259c1c47bbd3f"
+                "reference": "30b48f1231b041bfd363517a77a3a2ea02b1f576"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://github.com/Seldaek/monolog/zipball/38bb472abb27db138536f845f7d259c1c47bbd3f",
-                "reference": "38bb472abb27db138536f845f7d259c1c47bbd3f",
+                "url": "https://github.com/Seldaek/monolog/zipball/30b48f1231b041bfd363517a77a3a2ea02b1f576",
+                "reference": "30b48f1231b041bfd363517a77a3a2ea02b1f576",
                 "shasum": ""
             },
             "require": {
@@ -859,7 +859,7 @@
                 "ext-amqp": "Allow sending log messages to an AMQP server (1.0+ required)",
                 "ext-mongo": "Allow sending log messages to a MongoDB server"
             },
-            "time": "1351084926",
+            "time": "1352047076",
             "type": "library",
             "extra": {
                 "branch-alias": {
@@ -896,12 +896,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/nelmio/alice",
-                "reference": "12423116eed5bde304ad956b764d7f0ea5bfef5a"
+                "reference": "3e95b314fc33ea1fe5bcfde3b09603a5b9ae3aa0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://github.com/nelmio/alice/zipball/12423116eed5bde304ad956b764d7f0ea5bfef5a",
-                "reference": "12423116eed5bde304ad956b764d7f0ea5bfef5a",
+                "url": "https://github.com/nelmio/alice/archive/3e95b314fc33ea1fe5bcfde3b09603a5b9ae3aa0.zip",
+                "reference": "3e95b314fc33ea1fe5bcfde3b09603a5b9ae3aa0",
                 "shasum": ""
             },
             "require": {
@@ -909,7 +909,11 @@
                 "fzaninotto/faker": ">=1.0,<2.0",
                 "symfony/yaml": ">=2.0,<3.0"
             },
-            "time": "1351862061",
+            "require-dev": {
+                "doctrine/common": ">=2.3,<3.0",
+                "symfony/form": ">=2.1,<3.0"
+            },
+            "time": "1352407082",
             "type": "library",
             "extra": {
                 "branch-alias": {
@@ -1249,12 +1253,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/AsseticBundle",
-                "reference": "3aa58aed64e6ddb1ea65176fff7814b212a6ed77"
+                "reference": "30d3841dc9643d352503a72f3cdf93d193c439d2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://github.com/symfony/AsseticBundle/zipball/3aa58aed64e6ddb1ea65176fff7814b212a6ed77",
-                "reference": "3aa58aed64e6ddb1ea65176fff7814b212a6ed77",
+                "url": "https://github.com/symfony/AsseticBundle/archive/30d3841dc9643d352503a72f3cdf93d193c439d2.zip",
+                "reference": "30d3841dc9643d352503a72f3cdf93d193c439d2",
                 "shasum": ""
             },
             "require": {
@@ -1274,7 +1278,7 @@
             "suggest": {
                 "symfony/twig-bundle": ">=2.1.0,<2.3-dev"
             },
-            "time": "1351619963",
+            "time": "1352285268",
             "type": "symfony-bundle",
             "extra": {
                 "branch-alias": {
@@ -1421,12 +1425,12 @@
             "source": {
                 "type": "git",
                 "url": "git://github.com/symfony/symfony.git",
-                "reference": "3d993740142a4cef26336b8d5f20526367dca110"
+                "reference": "3d6ca62744134d49d63266ab55b151918563db62"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://github.com/symfony/symfony/zipball/3d993740142a4cef26336b8d5f20526367dca110",
-                "reference": "3d993740142a4cef26336b8d5f20526367dca110",
+                "url": "https://github.com/symfony/symfony/archive/3d6ca62744134d49d63266ab55b151918563db62.zip",
+                "reference": "3d6ca62744134d49d63266ab55b151918563db62",
                 "shasum": ""
             },
             "require": {
@@ -1475,7 +1479,7 @@
                 "propel/propel1": "dev-master",
                 "monolog/monolog": "1.*"
             },
-            "time": "1352017759",
+            "time": "1352396301",
             "type": "library",
             "extra": {
                 "branch-alias": {
@@ -1561,18 +1565,18 @@
             "source": {
                 "type": "git",
                 "url": "git://github.com/fabpot/Twig.git",
-                "reference": "a009821dd31fa783269602507542cea978c9714a"
+                "reference": "1a10ea2fbb2291142b4ee03665591c0762315204"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://github.com/fabpot/Twig/zipball/a009821dd31fa783269602507542cea978c9714a",
-                "reference": "a009821dd31fa783269602507542cea978c9714a",
+                "url": "https://github.com/fabpot/Twig/archive/1a10ea2fbb2291142b4ee03665591c0762315204.zip",
+                "reference": "1a10ea2fbb2291142b4ee03665591c0762315204",
                 "shasum": ""
             },
             "require": {
                 "php": ">=5.2.4"
             },
-            "time": "1351927661",
+            "time": "1352366711",
             "type": "library",
             "extra": {
                 "branch-alias": {
