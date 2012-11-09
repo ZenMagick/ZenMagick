@@ -64,7 +64,12 @@
         <default key="_controller">StorefrontBundle:CreateAccount:process</default>
         <option key="form">ZMRegistrationForm#formId=registration</option>
         <option key="view">create_account.html.php</option>
-        <option key="view:success">redirect://account.create.success</option>
+        <option key="view:success">redirect://create_account_success</option>
+    </route>
+
+    <route id="create_account_success" pattern="/account/create/success">
+        <default key="_controller">ZMController::process</default>
+        <option key="view">create_account_success.html.php</option>
     </route>
 
     <route id="account" pattern="/account">

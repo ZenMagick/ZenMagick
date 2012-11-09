@@ -7,9 +7,6 @@ advanced_search_result:
 cookie_usage:
     pattern: /cookie_usage
     defaults: { _controller: ZenCartBundle:Storefront:process }
-create_account_success:
-    pattern: /create_account_success
-    defaults: { _controller: ZenCartBundle:Storefront:process }
 customers_authorization:
     pattern: /customers_authorization
     defaults: { _controller: ZenCartBundle:Storefront:process }
