@@ -1,0 +1,8 @@
+ZenMagick\StoreBundle\Entity\Locale\Language:
+    -
+        name: "English"
+        code: "en"
+        image: "icon.gif"
+        directory: "english"
+        sortOrder: 1
+

@@ -1,0 +1,25 @@
+ZenMagick\StoreBundle\Entity\AddressFormat:
+    -
+        id: 1
+        format: "$firstname $lastname$cr$streets$cr$city, $postcode$cr$statecomma$country"
+        summary: "$city / $country"
+    -
+        id: 2
+        format: "$firstname $lastname$cr$streets$cr$city, $state    $postcode$cr$country"
+        summary: "$city, $state / $country"
+    -
+        id: 3
+        format: "$firstname $lastname$cr$streets$cr$city$cr$postcode - $statecomma$country"
+        summary: "$state / $country"
+    -
+        id: 4
+        format: "$firstname $lastname$cr$streets$cr$city ($postcode)$cr$country"
+        summary: "$postcode / $country"
+    -
+        id: 5
+        format: "$firstname $lastname$cr$streets$cr$postcode $city$cr$country"
+        summary: "$city / $country"
+    -
+        id: 6
+        format: "$firstname $lastname$cr$streets$cr$city$cr$state$cr$postcode$cr$country"
+        summary: "$postcode / $country"

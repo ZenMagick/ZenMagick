@@ -1,0 +1,43 @@
+ZenMagick\ZenCartBundle\Entity\QueryBuilder:
+    -
+        category: "email"
+        name: "All Customers"
+        description: "Returns all customers name and email address for sending mass emails (ie: for newsletters, coupons, GVs, messages, etc)."
+        query: "select customers_email_address, customers_firstname, customers_lastname from TABLE_CUSTOMERS order by customers_lastname, customers_firstname, customers_email_address"
+        keysList: ""
+    -
+        category: "email,newsletters"
+        name: "Customer Account Newsletter Subscribers"
+        description: "Returns name and email address of newsletter subscribers who have a customer account."
+        query: "select customers_firstname, customers_lastname, customers_email_address from TABLE_CUSTOMERS where customers_newsletter = '1'"
+        keysList: ""
+    -
+        category: "email,newsletters"
+        name: "Dormant Customers (>3months) (Subscribers)"
+        description: "Subscribers who HAVE purchased something, but have NOT purchased for at least three months."
+        query: "select o.date_purchased, c.customers_email_address, c.customers_lastname, c.customers_firstname from TABLE_CUSTOMERS c, TABLE_ORDERS o WHERE c.customers_id = o.customers_id AND c.customers_newsletter = 1 GROUP BY c.customers_email_address HAVING max(o.date_purchased) <= subdate(now(),INTERVAL 3 MONTH) ORDER BY c.customers_lastname, c.customers_firstname ASC"
+        keysList: ""
+    -
+        category: "email,newsletters"
+        name: "Active customers in past 3 months (Subscribers)"
+        description: "Newsletter subscribers who are also active customers (purchased something) in last 3 months."
+        query: "select c.customers_email_address, c.customers_lastname, c.customers_firstname from TABLE_CUSTOMERS c, TABLE_ORDERS o where c.customers_newsletter = '1' AND c.customers_id = o.customers_id and o.date_purchased > subdate(now(),INTERVAL 3 MONTH) GROUP BY c.customers_email_address order by c.customers_lastname, c.customers_firstname ASC"
+        keysList: ""
+    -
+        category: "email,newsletters"
+        name: "Active customers in past 3 months (Regardless of subscription status)"
+        description: "All active customers (purchased something) in last 3 months, ignoring newsletter-subscription status."
+        query: "select c.customers_email_address, c.customers_lastname, c.customers_firstname from TABLE_CUSTOMERS c, TABLE_ORDERS o WHERE c.customers_id = o.customers_id and o.date_purchased > subdate(now(),INTERVAL 3 MONTH) GROUP BY c.customers_email_address order by c.customers_lastname, c.customers_firstname ASC"
+        keysList: ""
+    -
+        category: "email,newsletters"
+        name: "Administrator"
+        description: "Just the email account of the current administrator"
+        query: "select 'ADMIN' as customers_firstname, admin_name as customers_lastname, admin_email as customers_email_address from TABLE_ADMIN where admin_id = $SESSION:admin_id"
+        keysList: ""
+    -
+        category: "email,newsletters"
+        name: "Customers who have never completed a purchase"
+        description: "For sending newsletter to all customers who registered but have never completed a purchase"
+        query: "SELECT DISTINCT c.customers_email_address as customers_email_address, c.customers_lastname as customers_lastname, c.customers_firstname as customers_firstname FROM TABLE_CUSTOMERS c LEFT JOIN  TABLE_ORDERS o ON c.customers_id=o.customers_id WHERE o.date_purchased IS NULL"
+        keysList: ""

@@ -1,0 +1,5 @@
+ZenMagick\ZenCartBundle\Entity\GetTermsToFilter:
+    -
+        termName: "manufacturers_id"
+        termTable: "TABLE_MANUFACTURERS"
+        termField: "manufacturers_name"

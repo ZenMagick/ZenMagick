@@ -1,0 +1,17 @@
+ZenMagick\StoreBundle\Entity\Order\OrderStatus:
+    -
+        orderStatusId: 1
+        languageId: 1
+        statusName: "Pending"
+    -
+        orderStatusId: 2
+        languageId: 1
+        statusName: "Processing"
+    -
+        orderStatusId: 3
+        languageId: 1
+        statusName: "Delivered"
+    -
+        orderStatusId: 4
+        languageId: 1
+        statusName: "Update"

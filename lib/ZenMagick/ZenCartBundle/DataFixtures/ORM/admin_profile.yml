@@ -1,0 +1,740 @@
+ZenMagick\ZenCartBundle\Entity\AdminProfiles:
+    -
+        profileName: "Superuser"
+
+ZenMagick\ZenCartBundle\Entity\AdminMenus:
+    -
+        menuKey: "access"
+        languageKey: "BOX_HEADING_ADMIN_ACCESS"
+        sortOrder: 10
+    -
+        menuKey: "catalog"
+        languageKey: "BOX_HEADING_CATALOG"
+        sortOrder: 2
+    -
+        menuKey: "configuration"
+        languageKey: "BOX_HEADING_CONFIGURATION"
+        sortOrder: 1
+    -
+        menuKey: "customers"
+        languageKey: "BOX_HEADING_CUSTOMERS"
+        sortOrder: 4
+    -
+        menuKey: "extras"
+        languageKey: "BOX_HEADING_EXTRAS"
+        sortOrder: 11
+    -
+        menuKey: "gv"
+        languageKey: "BOX_HEADING_GV_ADMIN"
+        sortOrder: 9
+    -
+        menuKey: "localization"
+        languageKey: "BOX_HEADING_LOCALIZATION"
+        sortOrder: 6
+    -
+        menuKey: "modules"
+        languageKey: "BOX_HEADING_MODULES"
+        sortOrder: 3
+    -
+        menuKey: "reports"
+        languageKey: "BOX_HEADING_REPORTS"
+        sortOrder: 7
+    -
+        menuKey: "taxes"
+        languageKey: "BOX_HEADING_LOCATION_AND_TAXES"
+        sortOrder: 5
+    -
+        menuKey: "tools"
+        languageKey: "BOX_HEADING_TOOLS"
+        sortOrder: 8
+
+ZenMagick\ZenCartBundle\Entity\AdminPages:
+    -
+        pageKey: "adminlogs"
+        languageKey: "BOX_ADMIN_ACCESS_LOGS"
+        mainPage: "FILENAME_ADMIN_ACTIVITY"
+        pageParams: ""
+        menuKey: "access"
+        displayOnMenu: "Y"
+        sortOrder: 4
+    -
+        pageKey: "attributes"
+        languageKey: "BOX_CATALOG_CATEGORIES_ATTRIBUTES_CONTROLLER"
+        mainPage: "FILENAME_ATTRIBUTES_CONTROLLER"
+        pageParams: ""
+        menuKey: "catalog"
+        displayOnMenu: "Y"
+        sortOrder: 6
+    -
+        pageKey: "banners"
+        languageKey: "BOX_TOOLS_BANNER_MANAGER"
+        mainPage: "FILENAME_BANNER_MANAGER"
+        pageParams: ""
+        menuKey: "tools"
+        displayOnMenu: "Y"
+        sortOrder: 3
+    -
+        pageKey: "categories"
+        languageKey: "BOX_CATALOG_CATEGORIES_PRODUCTS"
+        mainPage: "FILENAME_CATEGORIES"
+        pageParams: ""
+        menuKey: "catalog"
+        displayOnMenu: "Y"
+        sortOrder: 1
+    -
+        pageKey: "configAllListing"
+        languageKey: "BOX_CONFIGURATION_ALL_LISTING"
+        mainPage: "FILENAME_CONFIGURATION"
+        pageParams: "gID=23"
+        menuKey: "configuration"
+        displayOnMenu: "Y"
+        sortOrder: 22
+    -
+        pageKey: "configAttributes"
+        languageKey: "BOX_CONFIGURATION_ATTRIBUTE_OPTIONS"
+        mainPage: "FILENAME_CONFIGURATION"
+        pageParams: "gID=13"
+        menuKey: "configuration"
+        displayOnMenu: "Y"
+        sortOrder: 11
+    -
+        pageKey: "configCreditCards"
+        languageKey: "BOX_CONFIGURATION_CREDIT_CARDS"
+        mainPage: "FILENAME_CONFIGURATION"
+        pageParams: "gID=17"
+        menuKey: "configuration"
+        displayOnMenu: "Y"
+        sortOrder: 16
+    -
+        pageKey: "configCustomerDetails"
+        languageKey: "BOX_CONFIGURATION_CUSTOMER_DETAILS"
+        mainPage: "FILENAME_CONFIGURATION"
+        pageParams: "gID=5"
+        menuKey: "configuration"
+        displayOnMenu: "Y"
+        sortOrder: 5
+    -
+        pageKey: "configDefinePageStatus"
+        languageKey: "BOX_CONFIGURATION_DEFINE_PAGE_STATUS"
+        mainPage: "FILENAME_CONFIGURATION"
+        pageParams: "gID=25"
+        menuKey: "configuration"
+        displayOnMenu: "Y"
+        sortOrder: 24
+    -
+        pageKey: "configEmail"
+        languageKey: "BOX_CONFIGURATION_EMAIL_OPTIONS"
+        mainPage: "FILENAME_CONFIGURATION"
+        pageParams: "gID=12"
+        menuKey: "configuration"
+        displayOnMenu: "Y"
+        sortOrder: 10
+    -
+        pageKey: "configEzPagesSettings"
+        languageKey: "BOX_CONFIGURATION_EZPAGES_SETTINGS"
+        mainPage: "FILENAME_CONFIGURATION"
+        pageParams: "gID=30"
+        menuKey: "configuration"
+        displayOnMenu: "Y"
+        sortOrder: 25
+    -
+        pageKey: "configFeaturedListing"
+        languageKey: "BOX_CONFIGURATION_FEATURED_LISTING"
+        mainPage: "FILENAME_CONFIGURATION"
+        pageParams: "gID=22"
+        menuKey: "configuration"
+        displayOnMenu: "Y"
+        sortOrder: 21
+    -
+        pageKey: "configGvCoupons"
+        languageKey: "BOX_CONFIGURATION_GV_COUPONS"
+        mainPage: "FILENAME_CONFIGURATION"
+        pageParams: "gID=16"
+        menuKey: "configuration"
+        displayOnMenu: "Y"
+        sortOrder: 15
+    -
+        pageKey: "configGzipCompression"
+        languageKey: "BOX_CONFIGURATION_GZIP_COMPRESSION"
+        mainPage: "FILENAME_CONFIGURATION"
+        pageParams: "gID=14"
+        menuKey: "configuration"
+        displayOnMenu: "Y"
+        sortOrder: 12
+    -
+        pageKey: "configImages"
+        languageKey: "BOX_CONFIGURATION_IMAGES"
+        mainPage: "FILENAME_CONFIGURATION"
+        pageParams: "gID=4"
+        menuKey: "configuration"
+        displayOnMenu: "Y"
+        sortOrder: 4
+    -
+        pageKey: "configIndexListing"
+        languageKey: "BOX_CONFIGURATION_INDEX_LISTING"
+        mainPage: "FILENAME_CONFIGURATION"
+        pageParams: "gID=24"
+        menuKey: "configuration"
+        displayOnMenu: "Y"
+        sortOrder: 23
+    -
+        pageKey: "configLayoutSettings"
+        languageKey: "BOX_CONFIGURATION_LAYOUT_SETTINGS"
+        mainPage: "FILENAME_CONFIGURATION"
+        pageParams: "gID=19"
+        menuKey: "configuration"
+        displayOnMenu: "Y"
+        sortOrder: 18
+    -
+        pageKey: "configLogging"
+        languageKey: "BOX_CONFIGURATION_LOGGING"
+        mainPage: "FILENAME_CONFIGURATION"
+        pageParams: "gID=10"
+        menuKey: "configuration"
+        displayOnMenu: "Y"
+        sortOrder: 9
+    -
+        pageKey: "configMaximumValues"
+        languageKey: "BOX_CONFIGURATION_MAXIMUM_VALUES"
+        mainPage: "FILENAME_CONFIGURATION"
+        pageParams: "gID=3"
+        menuKey: "configuration"
+        displayOnMenu: "Y"
+        sortOrder: 3
+    -
+        pageKey: "configMinimumValues"
+        languageKey: "BOX_CONFIGURATION_MINIMUM_VALUES"
+        mainPage: "FILENAME_CONFIGURATION"
+        pageParams: "gID=2"
+        menuKey: "configuration"
+        displayOnMenu: "Y"
+        sortOrder: 2
+    -
+        pageKey: "configMyStore"
+        languageKey: "BOX_CONFIGURATION_MY_STORE"
+        mainPage: "FILENAME_CONFIGURATION"
+        pageParams: "gID=1"
+        menuKey: "configuration"
+        displayOnMenu: "Y"
+        sortOrder: 1
+    -
+        pageKey: "configNewListing"
+        languageKey: "BOX_CONFIGURATION_NEW_LISTING"
+        mainPage: "FILENAME_CONFIGURATION"
+        pageParams: "gID=21"
+        menuKey: "configuration"
+        displayOnMenu: "Y"
+        sortOrder: 20
+    -
+        pageKey: "configProductInfo"
+        languageKey: "BOX_CONFIGURATION_PRODUCT_INFO"
+        mainPage: "FILENAME_CONFIGURATION"
+        pageParams: "gID=18"
+        menuKey: "configuration"
+        displayOnMenu: "Y"
+        sortOrder: 17
+    -
+        pageKey: "configProductListing"
+        languageKey: "BOX_CONFIGURATION_PRODUCT_LISTING"
+        mainPage: "FILENAME_CONFIGURATION"
+        pageParams: "gID=8"
+        menuKey: "configuration"
+        displayOnMenu: "Y"
+        sortOrder: 7
+    -
+        pageKey: "configRegulations"
+        languageKey: "BOX_CONFIGURATION_REGULATIONS"
+        mainPage: "FILENAME_CONFIGURATION"
+        pageParams: "gID=11"
+        menuKey: "configuration"
+        displayOnMenu: "Y"
+        sortOrder: 14
+    -
+        pageKey: "configSessions"
+        languageKey: "BOX_CONFIGURATION_SESSIONS"
+        mainPage: "FILENAME_CONFIGURATION"
+        pageParams: "gID=15"
+        menuKey: "configuration"
+        displayOnMenu: "Y"
+        sortOrder: 13
+    -
+        pageKey: "configShipping"
+        languageKey: "BOX_CONFIGURATION_SHIPPING_PACKAGING"
+        mainPage: "FILENAME_CONFIGURATION"
+        pageParams: "gID=7"
+        menuKey: "configuration"
+        displayOnMenu: "Y"
+        sortOrder: 6
+    -
+        pageKey: "configStock"
+        languageKey: "BOX_CONFIGURATION_STOCK"
+        mainPage: "FILENAME_CONFIGURATION"
+        pageParams: "gID=9"
+        menuKey: "configuration"
+        displayOnMenu: "Y"
+        sortOrder: 8
+    -
+        pageKey: "configWebsiteMaintenance"
+        languageKey: "BOX_CONFIGURATION_WEBSITE_MAINTENANCE"
+        mainPage: "FILENAME_CONFIGURATION"
+        pageParams: "gID=20"
+        menuKey: "configuration"
+        displayOnMenu: "Y"
+        sortOrder: 19
+    -
+        pageKey: "countries"
+        languageKey: "BOX_TAXES_COUNTRIES"
+        mainPage: "FILENAME_COUNTRIES"
+        pageParams: ""
+        menuKey: "taxes"
+        displayOnMenu: "Y"
+        sortOrder: 1
+    -
+        pageKey: "couponAdmin"
+        languageKey: "BOX_COUPON_ADMIN"
+        mainPage: "FILENAME_COUPON_ADMIN"
+        pageParams: ""
+        menuKey: "gv"
+        displayOnMenu: "Y"
+        sortOrder: 1
+    -
+        pageKey: "couponRestrict"
+        languageKey: "BOX_COUPON_RESTRICT"
+        mainPage: "FILENAME_COUPON_RESTRICT"
+        pageParams: ""
+        menuKey: "gv"
+        displayOnMenu: "N"
+        sortOrder: 1
+    -
+        pageKey: "currencies"
+        languageKey: "BOX_LOCALIZATION_CURRENCIES"
+        mainPage: "FILENAME_CURRENCIES"
+        pageParams: ""
+        menuKey: "localization"
+        displayOnMenu: "Y"
+        sortOrder: 1
+    -
+        pageKey: "customers"
+        languageKey: "BOX_CUSTOMERS_CUSTOMERS"
+        mainPage: "FILENAME_CUSTOMERS"
+        pageParams: ""
+        menuKey: "customers"
+        displayOnMenu: "Y"
+        sortOrder: 1
+    -
+        pageKey: "definePagesEditor"
+        languageKey: "BOX_TOOLS_DEFINE_PAGES_EDITOR"
+        mainPage: "FILENAME_DEFINE_PAGES_EDITOR"
+        pageParams: ""
+        menuKey: "tools"
+        displayOnMenu: "Y"
+        sortOrder: 12
+    -
+        pageKey: "developersToolKit"
+        languageKey: "BOX_TOOLS_DEVELOPERS_TOOL_KIT"
+        mainPage: "FILENAME_DEVELOPERS_TOOL_KIT"
+        pageParams: ""
+        menuKey: "tools"
+        displayOnMenu: "Y"
+        sortOrder: 10
+    -
+        pageKey: "downloads"
+        languageKey: "BOX_CATALOG_CATEGORIES_ATTRIBUTES_DOWNLOADS_MANAGER"
+        mainPage: "FILENAME_DOWNLOADS_MANAGER"
+        pageParams: ""
+        menuKey: "catalog"
+        displayOnMenu: "Y"
+        sortOrder: 7
+    -
+        pageKey: "ezpages"
+        languageKey: "BOX_TOOLS_EZPAGES"
+        mainPage: "FILENAME_EZPAGES_ADMIN"
+        pageParams: ""
+        menuKey: "tools"
+        displayOnMenu: "Y"
+        sortOrder: 11
+    -
+        pageKey: "featured"
+        languageKey: "BOX_CATALOG_FEATURED"
+        mainPage: "FILENAME_FEATURED"
+        pageParams: ""
+        menuKey: "catalog"
+        displayOnMenu: "Y"
+        sortOrder: 13
+    -
+        pageKey: "geoZones"
+        languageKey: "BOX_TAXES_GEO_ZONES"
+        mainPage: "FILENAME_GEO_ZONES"
+        pageParams: ""
+        menuKey: "taxes"
+        displayOnMenu: "Y"
+        sortOrder: 3
+    -
+        pageKey: "groupPricing"
+        languageKey: "BOX_CUSTOMERS_GROUP_PRICING"
+        mainPage: "FILENAME_GROUP_PRICING"
+        pageParams: ""
+        menuKey: "customers"
+        displayOnMenu: "Y"
+        sortOrder: 3
+    -
+        pageKey: "gvMail"
+        languageKey: "BOX_GV_ADMIN_MAIL"
+        mainPage: "FILENAME_GV_MAIL"
+        pageParams: ""
+        menuKey: "gv"
+        displayOnMenu: "Y"
+        sortOrder: 3
+    -
+        pageKey: "gvQueue"
+        languageKey: "BOX_GV_ADMIN_QUEUE"
+        mainPage: "FILENAME_GV_QUEUE"
+        pageParams: ""
+        menuKey: "gv"
+        displayOnMenu: "Y"
+        sortOrder: 2
+    -
+        pageKey: "gvSent"
+        languageKey: "BOX_GV_ADMIN_SENT"
+        mainPage: "FILENAME_GV_SENT"
+        pageParams: ""
+        menuKey: "gv"
+        displayOnMenu: "Y"
+        sortOrder: 4
+    -
+        pageKey: "invoice"
+        languageKey: "BOX_CUSTOMERS_INVOICE"
+        mainPage: "FILENAME_ORDERS_INVOICE"
+        pageParams: ""
+        menuKey: "customers"
+        displayOnMenu: "N"
+        sortOrder: 5
+    -
+        pageKey: "languages"
+        languageKey: "BOX_LOCALIZATION_LANGUAGES"
+        mainPage: "FILENAME_LANGUAGES"
+        pageParams: ""
+        menuKey: "localization"
+        displayOnMenu: "Y"
+        sortOrder: 2
+    -
+        pageKey: "layoutController"
+        languageKey: "BOX_TOOLS_LAYOUT_CONTROLLER"
+        mainPage: "FILENAME_LAYOUT_CONTROLLER"
+        pageParams: ""
+        menuKey: "tools"
+        displayOnMenu: "Y"
+        sortOrder: 2
+    -
+        pageKey: "linkpointReview"
+        languageKey: "BOX_CUSTOMERS_LINKPOINT_REVIEW"
+        mainPage: "FILENAME_LINKPOINT_REVIEW"
+        pageParams: ""
+        menuKey: "customers"
+        displayOnMenu: "Y"
+        sortOrder: 7
+    -
+        pageKey: "mail"
+        languageKey: "BOX_TOOLS_MAIL"
+        mainPage: "FILENAME_MAIL"
+        pageParams: ""
+        menuKey: "tools"
+        displayOnMenu: "Y"
+        sortOrder: 4
+    -
+        pageKey: "manufacturers"
+        languageKey: "BOX_CATALOG_MANUFACTURERS"
+        mainPage: "FILENAME_MANUFACTURERS"
+        pageParams: ""
+        menuKey: "catalog"
+        displayOnMenu: "Y"
+        sortOrder: 10
+    -
+        pageKey: "newsletters"
+        languageKey: "BOX_TOOLS_NEWSLETTER_MANAGER"
+        mainPage: "FILENAME_NEWSLETTERS"
+        pageParams: ""
+        menuKey: "tools"
+        displayOnMenu: "Y"
+        sortOrder: 5
+    -
+        pageKey: "optionNames"
+        languageKey: "BOX_CATALOG_CATEGORIES_OPTIONS_NAME_MANAGER"
+        mainPage: "FILENAME_OPTIONS_NAME_MANAGER"
+        pageParams: ""
+        menuKey: "catalog"
+        displayOnMenu: "Y"
+        sortOrder: 4
+    -
+        pageKey: "optionNameSorter"
+        languageKey: "BOX_CATALOG_PRODUCT_OPTIONS_NAME"
+        mainPage: "FILENAME_PRODUCTS_OPTIONS_NAME"
+        pageParams: ""
+        menuKey: "catalog"
+        displayOnMenu: "Y"
+        sortOrder: 8
+    -
+        pageKey: "optionValues"
+        languageKey: "BOX_CATALOG_CATEGORIES_OPTIONS_VALUES_MANAGER"
+        mainPage: "FILENAME_OPTIONS_VALUES_MANAGER"
+        pageParams: ""
+        menuKey: "catalog"
+        displayOnMenu: "Y"
+        sortOrder: 5
+    -
+        pageKey: "optionValueSorter"
+        languageKey: "BOX_CATALOG_PRODUCT_OPTIONS_VALUES"
+        mainPage: "FILENAME_PRODUCTS_OPTIONS_VALUES"
+        pageParams: ""
+        menuKey: "catalog"
+        displayOnMenu: "Y"
+        sortOrder: 9
+    -
+        pageKey: "orders"
+        languageKey: "BOX_CUSTOMERS_ORDERS"
+        mainPage: "FILENAME_ORDERS"
+        pageParams: ""
+        menuKey: "customers"
+        displayOnMenu: "Y"
+        sortOrder: 2
+    -
+        pageKey: "ordersStatus"
+        languageKey: "BOX_LOCALIZATION_ORDERS_STATUS"
+        mainPage: "FILENAME_ORDERS_STATUS"
+        pageParams: ""
+        menuKey: "localization"
+        displayOnMenu: "Y"
+        sortOrder: 3
+    -
+        pageKey: "orderTotal"
+        languageKey: "BOX_MODULES_ORDER_TOTAL"
+        mainPage: "FILENAME_MODULES"
+        pageParams: "set=ordertotal"
+        menuKey: "modules"
+        displayOnMenu: "Y"
+        sortOrder: 3
+    -
+        pageKey: "packingslip"
+        languageKey: "BOX_CUSTOMERS_PACKING_SLIP"
+        mainPage: "FILENAME_ORDERS_PACKINGSLIP"
+        pageParams: ""
+        menuKey: "customers"
+        displayOnMenu: "N"
+        sortOrder: 6
+    -
+        pageKey: "pageRegistration"
+        languageKey: "BOX_ADMIN_ACCESS_PAGE_REGISTRATION"
+        mainPage: "FILENAME_ADMIN_PAGE_REGISTRATION"
+        pageParams: ""
+        menuKey: "access"
+        displayOnMenu: "Y"
+        sortOrder: 3
+    -
+        pageKey: "payment"
+        languageKey: "BOX_MODULES_PAYMENT"
+        mainPage: "FILENAME_MODULES"
+        pageParams: "set=payment"
+        menuKey: "modules"
+        displayOnMenu: "Y"
+        sortOrder: 1
+    -
+        pageKey: "paypal"
+        languageKey: "BOX_CUSTOMERS_PAYPAL"
+        mainPage: "FILENAME_PAYPAL"
+        pageParams: ""
+        menuKey: "customers"
+        displayOnMenu: "Y"
+        sortOrder: 4
+    -
+        pageKey: "priceManager"
+        languageKey: "BOX_CATALOG_PRODUCTS_PRICE_MANAGER"
+        mainPage: "FILENAME_PRODUCTS_PRICE_MANAGER"
+        pageParams: ""
+        menuKey: "catalog"
+        displayOnMenu: "Y"
+        sortOrder: 3
+    -
+        pageKey: "product"
+        languageKey: "BOX_CATALOG_PRODUCT"
+        mainPage: "FILENAME_PRODUCT"
+        pageParams: ""
+        menuKey: "catalog"
+        displayOnMenu: "N"
+        sortOrder: 16
+    -
+        pageKey: "productsExpected"
+        languageKey: "BOX_CATALOG_PRODUCTS_EXPECTED"
+        mainPage: "FILENAME_PRODUCTS_EXPECTED"
+        pageParams: ""
+        menuKey: "catalog"
+        displayOnMenu: "Y"
+        sortOrder: 15
+    -
+        pageKey: "productsToCategories"
+        languageKey: "BOX_CATALOG_PRODUCTS_TO_CATEGORIES"
+        mainPage: "FILENAME_PRODUCTS_TO_CATEGORIES"
+        pageParams: ""
+        menuKey: "catalog"
+        displayOnMenu: "N"
+        sortOrder: 17
+    -
+        pageKey: "productTypes"
+        languageKey: "BOX_CATALOG_PRODUCT_TYPES"
+        mainPage: "FILENAME_PRODUCT_TYPES"
+        pageParams: ""
+        menuKey: "catalog"
+        displayOnMenu: "Y"
+        sortOrder: 2
+    -
+        pageKey: "profiles"
+        languageKey: "BOX_ADMIN_ACCESS_PROFILES"
+        mainPage: "FILENAME_PROFILES"
+        pageParams: ""
+        menuKey: "access"
+        displayOnMenu: "Y"
+        sortOrder: 1
+    -
+        pageKey: "reportCustomers"
+        languageKey: "BOX_REPORTS_ORDERS_TOTAL"
+        mainPage: "FILENAME_STATS_CUSTOMERS"
+        pageParams: ""
+        menuKey: "reports"
+        displayOnMenu: "Y"
+        sortOrder: 1
+    -
+        pageKey: "reportLowStock"
+        languageKey: "BOX_REPORTS_PRODUCTS_LOWSTOCK"
+        mainPage: "FILENAME_STATS_PRODUCTS_LOWSTOCK"
+        pageParams: ""
+        menuKey: "reports"
+        displayOnMenu: "Y"
+        sortOrder: 3
+    -
+        pageKey: "reportProductsSold"
+        languageKey: "BOX_REPORTS_PRODUCTS_PURCHASED"
+        mainPage: "FILENAME_STATS_PRODUCTS_PURCHASED"
+        pageParams: ""
+        menuKey: "reports"
+        displayOnMenu: "Y"
+        sortOrder: 4
+    -
+        pageKey: "reportProductsViewed"
+        languageKey: "BOX_REPORTS_PRODUCTS_VIEWED"
+        mainPage: "FILENAME_STATS_PRODUCTS_VIEWED"
+        pageParams: ""
+        menuKey: "reports"
+        displayOnMenu: "Y"
+        sortOrder: 5
+    -
+        pageKey: "reportReferrals"
+        languageKey: "BOX_REPORTS_CUSTOMERS_REFERRALS"
+        mainPage: "FILENAME_STATS_CUSTOMERS_REFERRALS"
+        pageParams: ""
+        menuKey: "reports"
+        displayOnMenu: "Y"
+        sortOrder: 2
+    -
+        pageKey: "reviews"
+        languageKey: "BOX_CATALOG_REVIEWS"
+        mainPage: "FILENAME_REVIEWS"
+        pageParams: ""
+        menuKey: "catalog"
+        displayOnMenu: "Y"
+        sortOrder: 11
+    -
+        pageKey: "salemaker"
+        languageKey: "BOX_CATALOG_SALEMAKER"
+        mainPage: "FILENAME_SALEMAKER"
+        pageParams: ""
+        menuKey: "catalog"
+        displayOnMenu: "Y"
+        sortOrder: 14
+    -
+        pageKey: "server"
+        languageKey: "BOX_TOOLS_SERVER_INFO"
+        mainPage: "FILENAME_SERVER_INFO"
+        pageParams: ""
+        menuKey: "tools"
+        displayOnMenu: "Y"
+        sortOrder: 6
+    -
+        pageKey: "shipping"
+        languageKey: "BOX_MODULES_SHIPPING"
+        mainPage: "FILENAME_MODULES"
+        pageParams: "set=shipping"
+        menuKey: "modules"
+        displayOnMenu: "Y"
+        sortOrder: 2
+    -
+        pageKey: "specials"
+        languageKey: "BOX_CATALOG_SPECIALS"
+        mainPage: "FILENAME_SPECIALS"
+        pageParams: ""
+        menuKey: "catalog"
+        displayOnMenu: "Y"
+        sortOrder: 12
+    -
+        pageKey: "sqlPatch"
+        languageKey: "BOX_TOOLS_SQLPATCH"
+        mainPage: "FILENAME_SQLPATCH"
+        pageParams: ""
+        menuKey: "tools"
+        displayOnMenu: "Y"
+        sortOrder: 13
+    -
+        pageKey: "storeManager"
+        languageKey: "BOX_TOOLS_STORE_MANAGER"
+        mainPage: "FILENAME_STORE_MANAGER"
+        pageParams: ""
+        menuKey: "tools"
+        displayOnMenu: "Y"
+        sortOrder: 9
+    -
+        pageKey: "taxClasses"
+        languageKey: "BOX_TAXES_TAX_CLASSES"
+        mainPage: "FILENAME_TAX_CLASSES"
+        pageParams: ""
+        menuKey: "taxes"
+        displayOnMenu: "Y"
+        sortOrder: 4
+    -
+        pageKey: "taxRates"
+        languageKey: "BOX_TAXES_TAX_RATES"
+        mainPage: "FILENAME_TAX_RATES"
+        pageParams: ""
+        menuKey: "taxes"
+        displayOnMenu: "Y"
+        sortOrder: 5
+    -
+        pageKey: "templateSelect"
+        languageKey: "BOX_TOOLS_TEMPLATE_SELECT"
+        mainPage: "FILENAME_TEMPLATE_SELECT"
+        pageParams: ""
+        menuKey: "tools"
+        displayOnMenu: "Y"
+        sortOrder: 1
+    -
+        pageKey: "users"
+        languageKey: "BOX_ADMIN_ACCESS_USERS"
+        mainPage: "FILENAME_USERS"
+        pageParams: ""
+        menuKey: "access"
+        displayOnMenu: "Y"
+        sortOrder: 2
+    -
+        pageKey: "whosOnline"
+        languageKey: "BOX_TOOLS_WHOS_ONLINE"
+        mainPage: "FILENAME_WHOS_ONLINE"
+        pageParams: ""
+        menuKey: "tools"
+        displayOnMenu: "Y"
+        sortOrder: 7
+    -
+        pageKey: "zones"
+        languageKey: "BOX_TAXES_ZONES"
+        mainPage: "FILENAME_ZONES"
+        pageParams: ""
+        menuKey: "taxes"
+        displayOnMenu: "Y"
+        sortOrder: 2
+

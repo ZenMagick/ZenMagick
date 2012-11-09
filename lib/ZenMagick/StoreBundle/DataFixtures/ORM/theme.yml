@@ -1,0 +1,742 @@
+ZenMagick\StoreBundle\Entity\Templating\TemplateSelect:
+    -
+        themeId: "base"
+        languageId: 0
+
+ZenMagick\StoreBundle\Entity\Templating\LayoutBox:
+    -
+        themeId: "default_template_settings"
+        name: "banner_box_all.php"
+        status: 1
+        location: 1
+        sortOrder: 5
+        singleSortOrder: 0
+        singleStatus: 0
+    -
+        themeId: "default_template_settings"
+        name: "banner_box.php"
+        status: 1
+        location: 0
+        sortOrder: 300
+        singleSortOrder: 1
+        singleStatus: 127
+    -
+        themeId: "default_template_settings"
+        name: "banner_box2.php"
+        status: 1
+        location: 1
+        sortOrder: 15
+        singleSortOrder: 1
+        singleStatus: 15
+    -
+        themeId: "default_template_settings"
+        name: "best_sellers.php"
+        status: 1
+        location: 1
+        sortOrder: 30
+        singleSortOrder: 70
+        singleStatus: 1
+    -
+        themeId: "default_template_settings"
+        name: "categories.php"
+        status: 1
+        location: 0
+        sortOrder: 10
+        singleSortOrder: 10
+        singleStatus: 1
+    -
+        themeId: "default_template_settings"
+        name: "currencies.php"
+        status: 0
+        location: 1
+        sortOrder: 80
+        singleSortOrder: 60
+        singleStatus: 0
+    -
+        themeId: "default_template_settings"
+        name: "document_categories.php"
+        status: 1
+        location: 0
+        sortOrder: 0
+        singleSortOrder: 0
+        singleStatus: 0
+    -
+        themeId: "default_template_settings"
+        name: "ezpages.php"
+        status: 1
+        location: 1
+        sortOrder: -1
+        singleSortOrder: 2
+        singleStatus: 1
+    -
+        themeId: "default_template_settings"
+        name: "featured.php"
+        status: 1
+        location: 0
+        sortOrder: 45
+        singleSortOrder: 0
+        singleStatus: 0
+    -
+        themeId: "default_template_settings"
+        name: "information.php"
+        status: 1
+        location: 0
+        sortOrder: 50
+        singleSortOrder: 40
+        singleStatus: 1
+    -
+        themeId: "default_template_settings"
+        name: "languages.php"
+        status: 0
+        location: 1
+        sortOrder: 70
+        singleSortOrder: 50
+        singleStatus: 0
+    -
+        themeId: "default_template_settings"
+        name: "manufacturers.php"
+        status: 1
+        location: 0
+        sortOrder: 30
+        singleSortOrder: 20
+        singleStatus: 1
+    -
+        themeId: "default_template_settings"
+        name: "manufacturer_info.php"
+        status: 1
+        location: 1
+        sortOrder: 35
+        singleSortOrder: 95
+        singleStatus: 1
+    -
+        themeId: "default_template_settings"
+        name: "more_information.php"
+        status: 1
+        location: 0
+        sortOrder: 200
+        singleSortOrder: 200
+        singleStatus: 1
+    -
+        themeId: "default_template_settings"
+        name: "order_history.php"
+        status: 1
+        location: 1
+        sortOrder: 0
+        singleSortOrder: 0
+        singleStatus: 0
+    -
+        themeId: "default_template_settings"
+        name: "product_notifications.php"
+        status: 1
+        location: 1
+        sortOrder: 55
+        singleSortOrder: 85
+        singleStatus: 1
+    -
+        themeId: "default_template_settings"
+        name: "reviews.php"
+        status: 1
+        location: 0
+        sortOrder: 40
+        singleSortOrder: 0
+        singleStatus: 0
+    -
+        themeId: "default_template_settings"
+        name: "search.php"
+        status: 1
+        location: 1
+        sortOrder: 10
+        singleSortOrder: 0
+        singleStatus: 0
+    -
+        themeId: "default_template_settings"
+        name: "search_header.php"
+        status: 0
+        location: 0
+        sortOrder: 0
+        singleSortOrder: 0
+        singleStatus: 1
+    -
+        themeId: "default_template_settings"
+        name: "shopping_cart.php"
+        status: 1
+        location: 1
+        sortOrder: 20
+        singleSortOrder: 30
+        singleStatus: 1
+    -
+        themeId: "default_template_settings"
+        name: "specials.php"
+        status: 1
+        location: 1
+        sortOrder: 45
+        singleSortOrder: 0
+        singleStatus: 0
+    -
+        themeId: "default_template_settings"
+        name: "whats_new.php"
+        status: 1
+        location: 0
+        sortOrder: 20
+        singleSortOrder: 0
+        singleStatus: 0
+    -
+        themeId: "default_template_settings"
+        name: "whos_online.php"
+        status: 1
+        location: 1
+        sortOrder: 200
+        singleSortOrder: 200
+        singleStatus: 1
+    -
+        themeId: "template_default"
+        name: "banner_box_all.php"
+        status: 1
+        location: 1
+        sortOrder: 5
+        singleSortOrder: 0
+        singleStatus: 0
+    -
+        themeId: "template_default"
+        name: "banner_box.php"
+        status: 1
+        location: 0
+        sortOrder: 300
+        singleSortOrder: 1
+        singleStatus: 127
+    -
+        themeId: "template_default"
+        name: "banner_box2.php"
+        status: 1
+        location: 1
+        sortOrder: 15
+        singleSortOrder: 1
+        singleStatus: 15
+    -
+        themeId: "template_default"
+        name: "best_sellers.php"
+        status: 1
+        location: 1
+        sortOrder: 30
+        singleSortOrder: 70
+        singleStatus: 1
+    -
+        themeId: "template_default"
+        name: "categories.php"
+        status: 1
+        location: 0
+        sortOrder: 10
+        singleSortOrder: 10
+        singleStatus: 1
+    -
+        themeId: "template_default"
+        name: "currencies.php"
+        status: 0
+        location: 1
+        sortOrder: 80
+        singleSortOrder: 60
+        singleStatus: 0
+    -
+        themeId: "template_default"
+        name: "ezpages.php"
+        status: 1
+        location: 1
+        sortOrder: -1
+        singleSortOrder: 2
+        singleStatus: 1
+    -
+        themeId: "template_default"
+        name: "featured.php"
+        status: 1
+        location: 0
+        sortOrder: 45
+        singleSortOrder: 0
+        singleStatus: 0
+    -
+        themeId: "template_default"
+        name: "information.php"
+        status: 1
+        location: 0
+        sortOrder: 50
+        singleSortOrder: 40
+        singleStatus: 1
+    -
+        themeId: "template_default"
+        name: "languages.php"
+        status: 0
+        location: 1
+        sortOrder: 70
+        singleSortOrder: 50
+        singleStatus: 0
+    -
+        themeId: "template_default"
+        name: "manufacturers.php"
+        status: 1
+        location: 0
+        sortOrder: 30
+        singleSortOrder: 20
+        singleStatus: 1
+    -
+        themeId: "template_default"
+        name: "manufacturer_info.php"
+        status: 1
+        location: 1
+        sortOrder: 35
+        singleSortOrder: 95
+        singleStatus: 1
+    -
+        themeId: "template_default"
+        name: "more_information.php"
+        status: 1
+        location: 0
+        sortOrder: 200
+        singleSortOrder: 200
+        singleStatus: 1
+    -
+        themeId: "template_default"
+        name: "my_broken_box.php"
+        status: 1
+        location: 0
+        sortOrder: 0
+        singleSortOrder: 0
+        singleStatus: 0
+    -
+        themeId: "template_default"
+        name: "order_history.php"
+        status: 1
+        location: 1
+        sortOrder: 0
+        singleSortOrder: 0
+        singleStatus: 0
+    -
+        themeId: "template_default"
+        name: "product_notifications.php"
+        status: 1
+        location: 1
+        sortOrder: 55
+        singleSortOrder: 85
+        singleStatus: 1
+    -
+        themeId: "template_default"
+        name: "reviews.php"
+        status: 1
+        location: 0
+        sortOrder: 40
+        singleSortOrder: 0
+        singleStatus: 0
+    -
+        themeId: "template_default"
+        name: "search.php"
+        status: 1
+        location: 1
+        sortOrder: 10
+        singleSortOrder: 0
+        singleStatus: 0
+    -
+        themeId: "template_default"
+        name: "search_header.php"
+        status: 0
+        location: 0
+        sortOrder: 0
+        singleSortOrder: 0
+        singleStatus: 1
+    -
+        themeId: "template_default"
+        name: "shopping_cart.php"
+        status: 1
+        location: 1
+        sortOrder: 20
+        singleSortOrder: 30
+        singleStatus: 1
+    -
+        themeId: "template_default"
+        name: "specials.php"
+        status: 1
+        location: 1
+        sortOrder: 45
+        singleSortOrder: 0
+        singleStatus: 0
+    -
+        themeId: "template_default"
+        name: "whats_new.php"
+        status: 1
+        location: 0
+        sortOrder: 20
+        singleSortOrder: 0
+        singleStatus: 0
+    -
+        themeId: "template_default"
+        name: "whos_online.php"
+        status: 1
+        location: 1
+        sortOrder: 200
+        singleSortOrder: 200
+        singleStatus: 1
+    -
+        themeId: "classic"
+        name: "banner_box.php"
+        status: 1
+        location: 0
+        sortOrder: 300
+        singleSortOrder: 1
+        singleStatus: 127
+    -
+        themeId: "classic"
+        name: "banner_box2.php"
+        status: 1
+        location: 1
+        sortOrder: 15
+        singleSortOrder: 1
+        singleStatus: 15
+    -
+        themeId: "classic"
+        name: "banner_box_all.php"
+        status: 1
+        location: 1
+        sortOrder: 5
+        singleSortOrder: 0
+        singleStatus: 0
+    -
+        themeId: "classic"
+        name: "best_sellers.php"
+        status: 1
+        location: 1
+        sortOrder: 30
+        singleSortOrder: 70
+        singleStatus: 1
+    -
+        themeId: "classic"
+        name: "categories.php"
+        status: 1
+        location: 0
+        sortOrder: 10
+        singleSortOrder: 10
+        singleStatus: 1
+    -
+        themeId: "classic"
+        name: "currencies.php"
+        status: 0
+        location: 1
+        sortOrder: 80
+        singleSortOrder: 60
+        singleStatus: 0
+    -
+        themeId: "classic"
+        name: "document_categories.php"
+        status: 1
+        location: 0
+        sortOrder: 0
+        singleSortOrder: 0
+        singleStatus: 0
+    -
+        themeId: "classic"
+        name: "ezpages.php"
+        status: 1
+        location: 1
+        sortOrder: -1
+        singleSortOrder: 2
+        singleStatus: 1
+    -
+        themeId: "classic"
+        name: "featured.php"
+        status: 1
+        location: 0
+        sortOrder: 45
+        singleSortOrder: 0
+        singleStatus: 0
+    -
+        themeId: "classic"
+        name: "information.php"
+        status: 1
+        location: 0
+        sortOrder: 50
+        singleSortOrder: 40
+        singleStatus: 1
+    -
+        themeId: "classic"
+        name: "languages.php"
+        status: 0
+        location: 1
+        sortOrder: 70
+        singleSortOrder: 50
+        singleStatus: 0
+    -
+        themeId: "classic"
+        name: "manufacturers.php"
+        status: 1
+        location: 0
+        sortOrder: 30
+        singleSortOrder: 20
+        singleStatus: 1
+    -
+        themeId: "classic"
+        name: "manufacturer_info.php"
+        status: 1
+        location: 1
+        sortOrder: 35
+        singleSortOrder: 95
+        singleStatus: 1
+    -
+        themeId: "classic"
+        name: "more_information.php"
+        status: 1
+        location: 0
+        sortOrder: 200
+        singleSortOrder: 200
+        singleStatus: 1
+    -
+        themeId: "classic"
+        name: "order_history.php"
+        status: 1
+        location: 1
+        sortOrder: 0
+        singleSortOrder: 0
+        singleStatus: 0
+    -
+        themeId: "classic"
+        name: "product_notifications.php"
+        status: 1
+        location: 1
+        sortOrder: 55
+        singleSortOrder: 85
+        singleStatus: 1
+    -
+        themeId: "classic"
+        name: "reviews.php"
+        status: 1
+        location: 0
+        sortOrder: 40
+        singleSortOrder: 0
+        singleStatus: 0
+    -
+        themeId: "classic"
+        name: "search.php"
+        status: 1
+        location: 1
+        sortOrder: 10
+        singleSortOrder: 0
+        singleStatus: 0
+    -
+        themeId: "classic"
+        name: "search_header.php"
+        status: 0
+        location: 0
+        sortOrder: 0
+        singleSortOrder: 0
+        singleStatus: 1
+    -
+        themeId: "classic"
+        name: "shopping_cart.php"
+        status: 1
+        location: 1
+        sortOrder: 20
+        singleSortOrder: 30
+        singleStatus: 1
+    -
+        themeId: "classic"
+        name: "specials.php"
+        status: 1
+        location: 1
+        sortOrder: 45
+        singleSortOrder: 0
+        singleStatus: 0
+    -
+        themeId: "classic"
+        name: "whats_new.php"
+        status: 1
+        location: 0
+        sortOrder: 20
+        singleSortOrder: 0
+        singleStatus: 0
+    -
+        themeId: "classic"
+        name: "whos_online.php"
+        status: 1
+        location: 1
+        sortOrder: 200
+        singleSortOrder: 200
+        singleStatus: 1
+    -
+        themeId: "base"
+        name: "banner_box.php"
+        status: 1
+        location: 0
+        sortOrder: 300
+        singleSortOrder: 1
+        singleStatus: 127
+    -
+        themeId: "base"
+        name: "banner_box2.php"
+        status: 1
+        location: 1
+        sortOrder: 15
+        singleSortOrder: 1
+        singleStatus: 15
+    -
+        themeId: "base"
+        name: "banner_box_all.php"
+        status: 1
+        location: 1
+        sortOrder: 5
+        singleSortOrder: 0
+        singleStatus: 0
+    -
+        themeId: "base"
+        name: "best_sellers.php"
+        status: 1
+        location: 1
+        sortOrder: 30
+        singleSortOrder: 70
+        singleStatus: 1
+    -
+        themeId: "base"
+        name: "categories.php"
+        status: 1
+        location: 0
+        sortOrder: 10
+        singleSortOrder: 10
+        singleStatus: 1
+    -
+        themeId: "base"
+        name: "currencies.php"
+        status: 0
+        location: 1
+        sortOrder: 80
+        singleSortOrder: 60
+        singleStatus: 0
+    -
+        themeId: "base"
+        name: "document_categories.php"
+        status: 1
+        location: 0
+        sortOrder: 0
+        singleSortOrder: 0
+        singleStatus: 0
+    -
+        themeId: "base"
+        name: "ezpages.php"
+        status: 1
+        location: 1
+        sortOrder: -1
+        singleSortOrder: 2
+        singleStatus: 1
+    -
+        themeId: "base"
+        name: "featured.php"
+        status: 1
+        location: 0
+        sortOrder: 45
+        singleSortOrder: 0
+        singleStatus: 0
+    -
+        themeId: "base"
+        name: "information.php"
+        status: 1
+        location: 0
+        sortOrder: 50
+        singleSortOrder: 40
+        singleStatus: 1
+    -
+        themeId: "base"
+        name: "languages.php"
+        status: 0
+        location: 1
+        sortOrder: 70
+        singleSortOrder: 50
+        singleStatus: 0
+    -
+        themeId: "base"
+        name: "manufacturers.php"
+        status: 1
+        location: 0
+        sortOrder: 30
+        singleSortOrder: 20
+        singleStatus: 1
+    -
+        themeId: "base"
+        name: "manufacturer_info.php"
+        status: 1
+        location: 1
+        sortOrder: 35
+        singleSortOrder: 95
+        singleStatus: 1
+    -
+        themeId: "base"
+        name: "more_information.php"
+        status: 1
+        location: 0
+        sortOrder: 200
+        singleSortOrder: 200
+        singleStatus: 1
+    -
+        themeId: "base"
+        name: "order_history.php"
+        status: 1
+        location: 1
+        sortOrder: 0
+        singleSortOrder: 0
+        singleStatus: 0
+    -
+        themeId: "base"
+        name: "product_notifications.php"
+        status: 1
+        location: 1
+        sortOrder: 55
+        singleSortOrder: 85
+        singleStatus: 1
+    -
+        themeId: "base"
+        name: "reviews.php"
+        status: 1
+        location: 0
+        sortOrder: 40
+        singleSortOrder: 0
+        singleStatus: 0
+    -
+        themeId: "base"
+        name: "search.php"
+        status: 1
+        location: 1
+        sortOrder: 10
+        singleSortOrder: 0
+        singleStatus: 0
+    -
+        themeId: "base"
+        name: "search_header.php"
+        status: 0
+        location: 0
+        sortOrder: 0
+        singleSortOrder: 0
+        singleStatus: 1
+    -
+        themeId: "base"
+        name: "shopping_cart.php"
+        status: 1
+        location: 1
+        sortOrder: 20
+        singleSortOrder: 30
+        singleStatus: 1
+    -
+        themeId: "base"
+        name: "specials.php"
+        status: 1
+        location: 1
+        sortOrder: 45
+        singleSortOrder: 0
+        singleStatus: 0
+    -
+        themeId: "base"
+        name: "whats_new.php"
+        status: 1
+        location: 0
+        sortOrder: 20
+        singleSortOrder: 0
+        singleStatus: 0
+    -
+        themeId: "base"
+        name: "whos_online.php"
+        status: 1
+        location: 1
+        sortOrder: 200
+        singleSortOrder: 200
+        singleStatus: 1

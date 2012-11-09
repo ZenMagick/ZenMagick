@@ -1,0 +1,311 @@
+ZenMagick\StoreBundle\Entity\Catalog\ProductType:
+    -
+        id: 2
+        name: "Product - Music"
+        handler: "product_music"
+        masterType: 1
+        addToCart: "Y"
+        defaultImage: ""
+
+ZenMagick\StoreBundle\Entity\Catalog\ProductTypeLayout:
+    -
+        title: "Show Model Number"
+        key: "SHOW_PRODUCT_MUSIC_INFO_MODEL"
+        value: 1
+        description: "Display Model Number on Product Info 0= off 1= on"
+        productTypeId: 2
+        sortOrder: 1
+        setFunction: "zen_cfg_select_drop_down(array(array('id'=>'1', 'text'=>'True'), array('id'=>'0', 'text'=>'False')), "
+    -
+        title: "Show Weight"
+        key: "SHOW_PRODUCT_MUSIC_INFO_WEIGHT"
+        value: 0
+        description: "Display Weight on Product Info 0= off 1= on"
+        productTypeId: 2
+        sortOrder: 2
+        setFunction: "zen_cfg_select_drop_down(array(array('id'=>'1', 'text'=>'True'), array('id'=>'0', 'text'=>'False')), "
+    -
+        title: "Show Attribute Weight"
+        key: "SHOW_PRODUCT_MUSIC_INFO_WEIGHT_ATTRIBUTES"
+        value: 1
+        description: "Display Attribute Weight on Product Info 0= off 1= on"
+        productTypeId: 2
+        sortOrder: 3
+        setFunction: "zen_cfg_select_drop_down(array(array('id'=>'1', 'text'=>'True'), array('id'=>'0', 'text'=>'False')), "
+    -
+        title: "Show Artist"
+        key: "SHOW_PRODUCT_MUSIC_INFO_ARTIST"
+        value: 1
+        description: "Display Artists Name on Product Info 0= off 1= on"
+        productTypeId: 2
+        sortOrder: 4
+        setFunction: "zen_cfg_select_drop_down(array(array('id'=>'1', 'text'=>'True'), array('id'=>'0', 'text'=>'False')), "
+    -
+        title: "Show Music Genre"
+        key: "SHOW_PRODUCT_MUSIC_INFO_GENRE"
+        value: 1
+        description: "Display Music Genre on Product Info 0= off 1= on"
+        productTypeId: 2
+        sortOrder: 4
+        setFunction: "zen_cfg_select_drop_down(array(array('id'=>'1', 'text'=>'True'), array('id'=>'0', 'text'=>'False')), "
+    -
+        title: "Show Record Company"
+        key: "SHOW_PRODUCT_MUSIC_INFO_RECORD_COMPANY"
+        value: 1
+        description: "Display Record Company on Product Info 0= off 1= on"
+        productTypeId: 2
+        sortOrder: 4
+        setFunction: "zen_cfg_select_drop_down(array(array('id'=>'1', 'text'=>'True'), array('id'=>'0', 'text'=>'False')), "
+    -
+        title: "Show Quantity in Shopping Cart"
+        key: "SHOW_PRODUCT_MUSIC_INFO_IN_CART_QTY"
+        value: 1
+        description: "Display Quantity in Current Shopping Cart on Product Info 0= off 1= on"
+        productTypeId: 2
+        sortOrder: 5
+        setFunction: "zen_cfg_select_drop_down(array(array('id'=>'1', 'text'=>'True'), array('id'=>'0', 'text'=>'False')), "
+    -
+        title: "Show Quantity in Stock"
+        key: "SHOW_PRODUCT_MUSIC_INFO_QUANTITY"
+        value: 0
+        description: "Display Quantity in Stock on Product Info 0= off 1= on"
+        productTypeId: 2
+        sortOrder: 6
+        setFunction: "zen_cfg_select_drop_down(array(array('id'=>'1', 'text'=>'True'), array('id'=>'0', 'text'=>'False')), "
+    -
+        title: "Show Product Reviews Count"
+        key: "SHOW_PRODUCT_MUSIC_INFO_REVIEWS_COUNT"
+        value: 1
+        description: "Display Product Reviews Count on Product Info 0= off 1= on"
+        productTypeId: 2
+        sortOrder: 7
+        setFunction: "zen_cfg_select_drop_down(array(array('id'=>'1', 'text'=>'True'), array('id'=>'0', 'text'=>'False')), "
+    -
+        title: "Show Product Reviews Button"
+        key: "SHOW_PRODUCT_MUSIC_INFO_REVIEWS"
+        value: 1
+        description: "Display Product Reviews Button on Product Info 0= off 1= on"
+        productTypeId: 2
+        sortOrder: 8
+        setFunction: "zen_cfg_select_drop_down(array(array('id'=>'1', 'text'=>'True'), array('id'=>'0', 'text'=>'False')), "
+    -
+        title: "Show Date Available"
+        key: "SHOW_PRODUCT_MUSIC_INFO_DATE_AVAILABLE"
+        value: 1
+        description: "Display Date Available on Product Info 0= off 1= on"
+        productTypeId: 2
+        sortOrder: 9
+        setFunction: "zen_cfg_select_drop_down(array(array('id'=>'1', 'text'=>'True'), array('id'=>'0', 'text'=>'False')), "
+    -
+        title: "Show Date Added"
+        key: "SHOW_PRODUCT_MUSIC_INFO_DATE_ADDED"
+        value: 1
+        description: "Display Date Added on Product Info 0= off 1= on"
+        productTypeId: 2
+        sortOrder: 10
+        setFunction: "zen_cfg_select_drop_down(array(array('id'=>'1', 'text'=>'True'), array('id'=>'0', 'text'=>'False')), "
+    -
+        title: "Show Starting At text on Price"
+        key: "SHOW_PRODUCT_MUSIC_INFO_STARTING_AT"
+        value: 1
+        description: "Display Starting At text on products with attributes Product Info 0= off 1= on"
+        productTypeId: 2
+        sortOrder: 12
+        setFunction: "zen_cfg_select_drop_down(array(array('id'=>'1', 'text'=>'True'), array('id'=>'0', 'text'=>'False')), "
+    -
+        title: "Show Product Additional Images"
+        key: "SHOW_PRODUCT_MUSIC_INFO_ADDITIONAL_IMAGES"
+        value: 1
+        description: "Display Additional Images on Product Info 0= off 1= on"
+        productTypeId: 2
+        sortOrder: 13
+        setFunction: "zen_cfg_select_drop_down(array(array('id'=>'1', 'text'=>'True'), array('id'=>'0', 'text'=>'False')), "
+    -
+        title: "Product Free Shipping Image Status - Catalog"
+        key: "SHOW_PRODUCT_MUSIC_INFO_ALWAYS_FREE_SHIPPING_IMAGE_SWITCH"
+        value: 0
+        description: "Show the Free Shipping image/text in the catalog?"
+        productTypeId: 2
+        sortOrder: 16
+        setFunction: "zen_cfg_select_drop_down(array(array('id'=>'1', 'text'=>'Yes'), array('id'=>'0', 'text'=>'No')), "
+    -
+        title: "Show Metatags Title Default - Product Title"
+        key: "SHOW_PRODUCT_MUSIC_INFO_METATAGS_TITLE_STATUS"
+        value: 1
+        description: "Display Product Title in Meta Tags Title 0= off 1= on"
+        productTypeId: 2
+        sortOrder: 50
+        setFunction: "zen_cfg_select_drop_down(array(array('id'=>'1', 'text'=>'True'), array('id'=>'0', 'text'=>'False')), "
+    -
+        title: "Show Metatags Title Default - Product Name"
+        key: "SHOW_PRODUCT_MUSIC_INFO_METATAGS_PRODUCTS_NAME_STATUS"
+        value: 1
+        description: "Display Product Name in Meta Tags Title 0= off 1= on"
+        productTypeId: 2
+        sortOrder: 51
+        setFunction: "zen_cfg_select_drop_down(array(array('id'=>'1', 'text'=>'True'), array('id'=>'0', 'text'=>'False')), "
+    -
+        title: "Show Metatags Title Default - Product Model"
+        key: "SHOW_PRODUCT_MUSIC_INFO_METATAGS_MODEL_STATUS"
+        value: 1
+        description: "Display Product Model in Meta Tags Title 0= off 1= on"
+        productTypeId: 2
+        sortOrder: 52
+        setFunction: "zen_cfg_select_drop_down(array(array('id'=>'1', 'text'=>'True'), array('id'=>'0', 'text'=>'False')), "
+    -
+        title: "Show Metatags Title Default - Product Price"
+        key: "SHOW_PRODUCT_MUSIC_INFO_METATAGS_PRICE_STATUS"
+        value: 1
+        description: "Display Product Price in Meta Tags Title 0= off 1= on"
+        productTypeId: 2
+        sortOrder: 53
+        setFunction: "zen_cfg_select_drop_down(array(array('id'=>'1', 'text'=>'True'), array('id'=>'0', 'text'=>'False')), "
+    -
+        title: "Show Metatags Title Default - Product Tagline"
+        key: "SHOW_PRODUCT_MUSIC_INFO_METATAGS_TITLE_TAGLINE_STATUS"
+        value: 1
+        description: "Display Product Tagline in Meta Tags Title 0= off 1= on"
+        productTypeId: 2
+        sortOrder: 54
+        setFunction: "zen_cfg_select_drop_down(array(array('id'=>'1', 'text'=>'True'), array('id'=>'0', 'text'=>'False')), "
+    -
+        title: "Product Price Tax Class Default - When adding new products?"
+        key: "DEFAULT_PRODUCT_MUSIC_TAX_CLASS_ID"
+        value: 0
+        description: "What should the Product Price Tax Class Default ID be when adding new products?"
+        productTypeId: 2
+        sortOrder: 100
+        useFunction: ""
+        setFunction: ""
+    -
+        title: "Product Virtual Default Status - Skip Shipping Address - When adding new products?"
+        key: "DEFAULT_PRODUCT_MUSIC_PRODUCTS_VIRTUAL"
+        value: 0
+        description: "Default Virtual Product status to be ON when adding new products?"
+        productTypeId: 2
+        sortOrder: 101
+        setFunction: "zen_cfg_select_drop_down(array(array('id'=>'1', 'text'=>'True'), array('id'=>'0', 'text'=>'False')), "
+    -
+        title: "Product Free Shipping Default Status - Normal Shipping Rules - When adding new products?"
+        key: "DEFAULT_PRODUCT_MUSIC_PRODUCTS_IS_ALWAYS_FREE_SHIPPING"
+        value: 0
+        description: "What should the Default Free Shipping status be when adding new products?<br />Yes, Always Free Shipping ON<br />No, Always Free Shipping OFF<br />Special, Product/Download Requires Shipping"
+        productTypeId: 2
+        sortOrder: 102
+        setFunction: "zen_cfg_select_drop_down(array(array('id'=>'1', 'text'=>'Yes, Always ON'), array('id'=>'0', 'text'=>'No, Always OFF'), array('id'=>'2', 'text'=>'Special')), "
+    -
+        title: "MUSIC Attribute is Display Only - Default"
+        key: "DEFAULT_PRODUCT_MUSIC_ATTRIBUTES_DISPLAY_ONLY"
+        value: 0
+        description: "MUSIC Attribute is Display Only<br />Used For Display Purposes Only<br />0= No 1= Yes"
+        productTypeId: 2
+        sortOrder: 200
+        setFunction: "zen_cfg_select_drop_down(array(array('id'=>'1', 'text'=>'Yes'), array('id'=>'0', 'text'=>'No')), "
+    -
+        title: "MUSIC Attribute is Free - Default"
+        key: "DEFAULT_PRODUCT_MUSIC_ATTRIBUTE_IS_FREE"
+        value: 1
+        description: "MUSIC Attribute is Free<br />Attribute is Free When Product is Free<br />0= No 1= Yes"
+        productTypeId: 2
+        sortOrder: 201
+        setFunction: "zen_cfg_select_drop_down(array(array('id'=>'1', 'text'=>'Yes'), array('id'=>'0', 'text'=>'No')), "
+    -
+        title: "MUSIC Attribute is Default - Default"
+        key: "DEFAULT_PRODUCT_MUSIC_ATTRIBUTES_DEFAULT"
+        value: 0
+        description: "MUSIC Attribute is Default<br />Default Attribute to be Marked Selected<br />0= No 1= Yes"
+        productTypeId: 2
+        sortOrder: 202
+        setFunction: "zen_cfg_select_drop_down(array(array('id'=>'1', 'text'=>'Yes'), array('id'=>'0', 'text'=>'No')), "
+    -
+        title: "MUSIC Attribute is Discounted - Default"
+        key: "DEFAULT_PRODUCT_MUSIC_ATTRIBUTES_DISCOUNTED"
+        value: 1
+        description: "MUSIC Attribute is Discounted<br />Apply Discounts Used by Product Special/Sale<br />0= No 1= Yes"
+        productTypeId: 2
+        sortOrder: 203
+        setFunction: "zen_cfg_select_drop_down(array(array('id'=>'1', 'text'=>'Yes'), array('id'=>'0', 'text'=>'No')), "
+    -
+        title: "MUSIC Attribute is Included in Base Price - Default"
+        key: "DEFAULT_PRODUCT_MUSIC_ATTRIBUTES_PRICE_BASE_INCLUDED"
+        value: 1
+        description: "MUSIC Attribute is Included in Base Price<br />Include in Base Price When Priced by Attributes<br />0= No 1= Yes"
+        productTypeId: 2
+        sortOrder: 204
+        setFunction: "zen_cfg_select_drop_down(array(array('id'=>'1', 'text'=>'Yes'), array('id'=>'0', 'text'=>'No')), "
+    -
+        title: "MUSIC Attribute is Required - Default"
+        key: "DEFAULT_PRODUCT_MUSIC_ATTRIBUTES_REQUIRED"
+        value: 0
+        description: "MUSIC Attribute is Required<br />Attribute Required for Text<br />0= No 1= Yes"
+        productTypeId: 2
+        sortOrder: 205
+        setFunction: "zen_cfg_select_drop_down(array(array('id'=>'1', 'text'=>'Yes'), array('id'=>'0', 'text'=>'No')), "
+    -
+        title: "MUSIC Attribute Price Prefix - Default"
+        key: "DEFAULT_PRODUCT_MUSIC_PRICE_PREFIX"
+        value: 1
+        description: "MUSIC Attribute Price Prefix<br />Default Attribute Price Prefix for Adding<br />Blank, + or -"
+        productTypeId: 2
+        sortOrder: 206
+        setFunction: "zen_cfg_select_drop_down(array(array('id'=>'0', 'text'=>'Blank'), array('id'=>'1', 'text'=>'+'), array('id'=>'2', 'text'=>'-')), "
+    -
+        title: "MUSIC Attribute Weight Prefix - Default"
+        key: "DEFAULT_PRODUCT_MUSIC_PRODUCTS_ATTRIBUTES_WEIGHT_PREFIX"
+        value: 1
+        description: "MUSIC Attribute Weight Prefix<br />Default Attribute Weight Prefix<br />Blank, + or -"
+        productTypeId: 2
+        sortOrder: 207
+        setFunction: "zen_cfg_select_drop_down(array(array('id'=>'0', 'text'=>'Blank'), array('id'=>'1', 'text'=>'+'), array('id'=>'2', 'text'=>'-')), "
+
+ZenMagick\ZenCartBundle\Entity\GetTermsToFilter:
+    -
+        termName: "music_genre_id"
+        termTable: "TABLE_MUSIC_GENRE"
+        termField: "music_genre_name"
+    -
+        termName: "record_company_id"
+        termTable: "TABLE_RECORD_COMPANY"
+        termField: "record_company_name"
+
+ZenMagick\ZenCartBundle\Entity\AdminPages:
+    -
+        pageKey: "recordArtists"
+        languageKey: "BOX_CATALOG_RECORD_ARTISTS"
+        mainPage: "FILENAME_RECORD_ARTISTS"
+        pageParams: ""
+        menuKey: "extras"
+        displayOnMenu: "Y"
+        sortOrder: 1
+    -
+        pageKey: "recordCompanies"
+        languageKey: "BOX_CATALOG_RECORD_COMPANY"
+        mainPage: "FILENAME_RECORD_COMPANY"
+        pageParams: ""
+        menuKey: "extras"
+        displayOnMenu: "Y"
+        sortOrder: 2
+    -
+        pageKey: "musicGenre"
+        languageKey: "BOX_CATALOG_MUSIC_GENRE"
+        mainPage: "FILENAME_MUSIC_GENRE"
+        pageParams: ""
+        menuKey: "extras"
+        displayOnMenu: "Y"
+        sortOrder: 3
+    -
+        pageKey: "mediaManager"
+        languageKey: "BOX_CATALOG_MEDIA_MANAGER"
+        mainPage: "FILENAME_MEDIA_MANAGER"
+        pageParams: ""
+        menuKey: "extras"
+        displayOnMenu: "Y"
+        sortOrder: 4
+    -
+        pageKey: "mediaTypes"
+        languageKey: "BOX_CATALOG_MEDIA_TYPES"
+        mainPage: "FILENAME_MEDIA_TYPES"
+        pageParams: ""
+        menuKey: "extras"
+        displayOnMenu: "Y"
+        sortOrder: 5

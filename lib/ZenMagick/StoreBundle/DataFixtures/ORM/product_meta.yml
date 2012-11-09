@@ -1,0 +1,925 @@
+ZenMagick\StoreBundle\Entity\Catalog\ProductOptionType:
+    -
+        id: 0
+        name: "Dropdown"
+    -
+        id: 1
+        name: "Text"
+    -
+        id: 2
+        name: "Radio"
+    -
+        id: 3
+        name: "Checkbox"
+    -
+        id: 4
+        name: "File"
+    -
+        id: 5
+        name: "Read Only"
+
+ZenMagick\StoreBundle\Entity\Catalog\ProductOptionValue:
+    -
+        id: 0
+        languageId: 1
+        name: "TEXT"
+        sortOrder: 0
+
+ZenMagick\StoreBundle\Entity\Catalog\ProductType:
+    -
+        id: 1
+        name: "Product - General"
+        handler: "product"
+        masterType: 1
+        addToCart: "Y"
+        defaultImage: ""
+# TODO figure out how to make doctrine skip directly to 3 so we can use this from the plugin
+    -
+        id: 2
+        name: "Product - Music"
+        handler: "product_music"
+        masterType: 1
+        addToCart: "Y"
+        defaultImage: ""
+    -
+        id: 3
+        name: "Document - General"
+        handler: "document_general"
+        masterType: 3
+        addToCart: "N"
+        defaultImage: ""
+    -
+        id: 4
+        name: "Document - Product"
+        handler: "document_product"
+        masterType: 3
+        addToCart: "Y"
+        defaultImage: ""
+    -
+        id: 5
+        name: "Product - Free Shipping"
+        handler: "product_free_shipping"
+        masterType: 1
+        addToCart: "Y"
+        defaultImage: ""
+
+ZenMagick\StoreBundle\Entity\Catalog\ProductTypeLayout:
+    -
+        title: "Show Model Number"
+        key: "SHOW_PRODUCT_INFO_MODEL"
+        value: 1
+        description: "Display Model Number on Product Info 0= off 1= on"
+        productTypeId: 1
+        sortOrder: 1
+        setFunction: "zen_cfg_select_drop_down(array(array('id'=>'1', 'text'=>'True'), array('id'=>'0', 'text'=>'False')), "
+    -
+        title: "Show Weight"
+        key: "SHOW_PRODUCT_INFO_WEIGHT"
+        value: 1
+        description: "Display Weight on Product Info 0= off 1= on"
+        productTypeId: 1
+        sortOrder: 2
+        setFunction: "zen_cfg_select_drop_down(array(array('id'=>'1', 'text'=>'True'), array('id'=>'0', 'text'=>'False')), "
+    -
+        title: "Show Attribute Weight"
+        key: "SHOW_PRODUCT_INFO_WEIGHT_ATTRIBUTES"
+        value: 1
+        description: "Display Attribute Weight on Product Info 0= off 1= on"
+        productTypeId: 1
+        sortOrder: 3
+        setFunction: "zen_cfg_select_drop_down(array(array('id'=>'1', 'text'=>'True'), array('id'=>'0', 'text'=>'False')), "
+    -
+        title: "Show Manufacturer"
+        key: "SHOW_PRODUCT_INFO_MANUFACTURER"
+        value: 1
+        description: "Display Manufacturer Name on Product Info 0= off 1= on"
+        productTypeId: 1
+        sortOrder: 4
+        setFunction: "zen_cfg_select_drop_down(array(array('id'=>'1', 'text'=>'True'), array('id'=>'0', 'text'=>'False')), "
+    -
+        title: "Show Quantity in Shopping Cart"
+        key: "SHOW_PRODUCT_INFO_IN_CART_QTY"
+        value: 1
+        description: "Display Quantity in Current Shopping Cart on Product Info 0= off 1= on"
+        productTypeId: 1
+        sortOrder: 5
+        setFunction: "zen_cfg_select_drop_down(array(array('id'=>'1', 'text'=>'True'), array('id'=>'0', 'text'=>'False')), "
+    -
+        title: "Show Quantity in Stock"
+        key: "SHOW_PRODUCT_INFO_QUANTITY"
+        value: 1
+        description: "Display Quantity in Stock on Product Info 0= off 1= on"
+        productTypeId: 1
+        sortOrder: 6
+        setFunction: "zen_cfg_select_drop_down(array(array('id'=>'1', 'text'=>'True'), array('id'=>'0', 'text'=>'False')), "
+    -
+        title: "Show Product Reviews Count"
+        key: "SHOW_PRODUCT_INFO_REVIEWS_COUNT"
+        value: 1
+        description: "Display Product Reviews Count on Product Info 0= off 1= on"
+        productTypeId: 1
+        sortOrder: 7
+        setFunction: "zen_cfg_select_drop_down(array(array('id'=>'1', 'text'=>'True'), array('id'=>'0', 'text'=>'False')), "
+    -
+        title: "Show Product Reviews Button"
+        key: "SHOW_PRODUCT_INFO_REVIEWS"
+        value: 1
+        description: "Display Product Reviews Button on Product Info 0= off 1= on"
+        productTypeId: 1
+        sortOrder: 8
+        setFunction: "zen_cfg_select_drop_down(array(array('id'=>'1', 'text'=>'True'), array('id'=>'0', 'text'=>'False')), "
+    -
+        title: "Show Date Available"
+        key: "SHOW_PRODUCT_INFO_DATE_AVAILABLE"
+        value: 1
+        description: "Display Date Available on Product Info 0= off 1= on"
+        productTypeId: 1
+        sortOrder: 9
+        setFunction: "zen_cfg_select_drop_down(array(array('id'=>'1', 'text'=>'True'), array('id'=>'0', 'text'=>'False')), "
+    -
+        title: "Show Date Added"
+        key: "SHOW_PRODUCT_INFO_DATE_ADDED"
+        value: 1
+        description: "Display Date Added on Product Info 0= off 1= on"
+        productTypeId: 1
+        sortOrder: 10
+        setFunction: "zen_cfg_select_drop_down(array(array('id'=>'1', 'text'=>'True'), array('id'=>'0', 'text'=>'False')), "
+    -
+        title: "Show Product URL"
+        key: "SHOW_PRODUCT_INFO_URL"
+        value: 1
+        description: "Display URL on Product Info 0= off 1= on"
+        productTypeId: 1
+        sortOrder: 11
+        setFunction: "zen_cfg_select_drop_down(array(array('id'=>'1', 'text'=>'True'), array('id'=>'0', 'text'=>'False')), "
+    -
+        title: "Show Product Additional Images"
+        key: "SHOW_PRODUCT_INFO_ADDITIONAL_IMAGES"
+        value: 1
+        description: "Display Additional Images on Product Info 0= off 1= on"
+        productTypeId: 1
+        sortOrder: 13
+        setFunction: "zen_cfg_select_drop_down(array(array('id'=>'1', 'text'=>'True'), array('id'=>'0', 'text'=>'False')), "
+    -
+        title: "Show Starting At text on Price"
+        key: "SHOW_PRODUCT_INFO_STARTING_AT"
+        value: 1
+        description: "Display Starting At text on products with attributes Product Info 0= off 1= on"
+        productTypeId: 1
+        sortOrder: 12
+        setFunction: "zen_cfg_select_drop_down(array(array('id'=>'1', 'text'=>'True'), array('id'=>'0', 'text'=>'False')), "
+    -
+        title: "Product Free Shipping Image Status - Catalog"
+        key: "SHOW_PRODUCT_INFO_ALWAYS_FREE_SHIPPING_IMAGE_SWITCH"
+        value: 0
+        description: "Show the Free Shipping image/text in the catalog?"
+        productTypeId: 1
+        sortOrder: 16
+        setFunction: "zen_cfg_select_drop_down(array(array('id'=>'1', 'text'=>'Yes'), array('id'=>'0', 'text'=>'No')), "
+    -
+        title: "Product Price Tax Class Default - When adding new products?"
+        key: "DEFAULT_PRODUCT_TAX_CLASS_ID"
+        value: 0
+        description: "What should the Product Price Tax Class Default ID be when adding new products?"
+        productTypeId: 1
+        sortOrder: 100
+        useFunction: ""
+        setFunction: ""
+    -
+        title: "Product Virtual Default Status - Skip Shipping Address - When adding new products?"
+        key: "DEFAULT_PRODUCT_PRODUCTS_VIRTUAL"
+        value: 0
+        description: "Default Virtual Product status to be ON when adding new products?"
+        productTypeId: 1
+        sortOrder: 101
+        setFunction: "zen_cfg_select_drop_down(array(array('id'=>'1', 'text'=>'True'), array('id'=>'0', 'text'=>'False')), "
+    -
+        title: "Product Free Shipping Default Status - Normal Shipping Rules - When adding new products?"
+        key: "DEFAULT_PRODUCT_PRODUCTS_IS_ALWAYS_FREE_SHIPPING"
+        value: 0
+        description: "What should the Default Free Shipping status be when adding new products?<br />Yes, Always Free Shipping ON<br />No, Always Free Shipping OFF<br />Special, Product/Download Requires Shipping"
+        productTypeId: 1
+        sortOrder: 102
+        setFunction: "zen_cfg_select_drop_down(array(array('id'=>'1', 'text'=>'Yes, Always ON'), array('id'=>'0', 'text'=>'No, Always OFF'), array('id'=>'2', 'text'=>'Special')), "
+    -
+        title: "Show Product Reviews Count"
+        key: "SHOW_DOCUMENT_GENERAL_INFO_REVIEWS_COUNT"
+        value: 1
+        description: "Display Product Reviews Count on Product Info 0= off 1= on"
+        productTypeId: 3
+        sortOrder: 7
+        setFunction: "zen_cfg_select_drop_down(array(array('id'=>'1', 'text'=>'True'), array('id'=>'0', 'text'=>'False')), "
+    -
+        title: "Show Product Reviews Button"
+        key: "SHOW_DOCUMENT_GENERAL_INFO_REVIEWS"
+        value: 1
+        description: "Display Product Reviews Button on Product Info 0= off 1= on"
+        productTypeId: 3
+        sortOrder: 8
+        setFunction: "zen_cfg_select_drop_down(array(array('id'=>'1', 'text'=>'True'), array('id'=>'0', 'text'=>'False')), "
+    -
+        title: "Show Date Available"
+        key: "SHOW_DOCUMENT_GENERAL_INFO_DATE_AVAILABLE"
+        value: 1
+        description: "Display Date Available on Product Info 0= off 1= on"
+        productTypeId: 3
+        sortOrder: 9
+        setFunction: "zen_cfg_select_drop_down(array(array('id'=>'1', 'text'=>'True'), array('id'=>'0', 'text'=>'False')), "
+    -
+        title: "Show Date Added"
+        key: "SHOW_DOCUMENT_GENERAL_INFO_DATE_ADDED"
+        value: 1
+        description: "Display Date Added on Product Info 0= off 1= on"
+        productTypeId: 3
+        sortOrder: 10
+        setFunction: "zen_cfg_select_drop_down(array(array('id'=>'1', 'text'=>'True'), array('id'=>'0', 'text'=>'False')), "
+    -
+        title: "Show Product URL"
+        key: "SHOW_DOCUMENT_GENERAL_INFO_URL"
+        value: 1
+        description: "Display URL on Product Info 0= off 1= on"
+        productTypeId: 3
+        sortOrder: 11
+        setFunction: "zen_cfg_select_drop_down(array(array('id'=>'1', 'text'=>'True'), array('id'=>'0', 'text'=>'False')), "
+    -
+        title: "Show Product Additional Images"
+        key: "SHOW_DOCUMENT_GENERAL_INFO_ADDITIONAL_IMAGES"
+        value: 1
+        description: "Display Additional Images on Product Info 0= off 1= on"
+        productTypeId: 3
+        sortOrder: 13
+        setFunction: "zen_cfg_select_drop_down(array(array('id'=>'1', 'text'=>'True'), array('id'=>'0', 'text'=>'False')), "
+    -
+        title: "Show Model Number"
+        key: "SHOW_DOCUMENT_PRODUCT_INFO_MODEL"
+        value: 1
+        description: "Display Model Number on Product Info 0= off 1= on"
+        productTypeId: 4
+        sortOrder: 1
+        setFunction: "zen_cfg_select_drop_down(array(array('id'=>'1', 'text'=>'True'), array('id'=>'0', 'text'=>'False')), "
+    -
+        title: "Show Weight"
+        key: "SHOW_DOCUMENT_PRODUCT_INFO_WEIGHT"
+        value: 0
+        description: "Display Weight on Product Info 0= off 1= on"
+        productTypeId: 4
+        sortOrder: 2
+        setFunction: "zen_cfg_select_drop_down(array(array('id'=>'1', 'text'=>'True'), array('id'=>'0', 'text'=>'False')), "
+    -
+        title: "Show Attribute Weight"
+        key: "SHOW_DOCUMENT_PRODUCT_INFO_WEIGHT_ATTRIBUTES"
+        value: 1
+        description: "Display Attribute Weight on Product Info 0= off 1= on"
+        productTypeId: 4
+        sortOrder: 3
+        setFunction: "zen_cfg_select_drop_down(array(array('id'=>'1', 'text'=>'True'), array('id'=>'0', 'text'=>'False')), "
+    -
+        title: "Show Manufacturer"
+        key: "SHOW_DOCUMENT_PRODUCT_INFO_MANUFACTURER"
+        value: 1
+        description: "Display Manufacturer Name on Product Info 0= off 1= on"
+        productTypeId: 4
+        sortOrder: 4
+        setFunction: "zen_cfg_select_drop_down(array(array('id'=>'1', 'text'=>'True'), array('id'=>'0', 'text'=>'False')), "
+    -
+        title: "Show Quantity in Shopping Cart"
+        key: "SHOW_DOCUMENT_PRODUCT_INFO_IN_CART_QTY"
+        value: 1
+        description: "Display Quantity in Current Shopping Cart on Product Info 0= off 1= on"
+        productTypeId: 4
+        sortOrder: 5
+        setFunction: "zen_cfg_select_drop_down(array(array('id'=>'1', 'text'=>'True'), array('id'=>'0', 'text'=>'False')), "
+    -
+        title: "Show Quantity in Stock"
+        key: "SHOW_DOCUMENT_PRODUCT_INFO_QUANTITY"
+        value: 0
+        description: "Display Quantity in Stock on Product Info 0= off 1= on"
+        productTypeId: 4
+        sortOrder: 6
+        setFunction: "zen_cfg_select_drop_down(array(array('id'=>'1', 'text'=>'True'), array('id'=>'0', 'text'=>'False')), "
+    -
+        title: "Show Product Reviews Count"
+        key: "SHOW_DOCUMENT_PRODUCT_INFO_REVIEWS_COUNT"
+        value: 1
+        description: "Display Product Reviews Count on Product Info 0= off 1= on"
+        productTypeId: 4
+        sortOrder: 7
+        setFunction: "zen_cfg_select_drop_down(array(array('id'=>'1', 'text'=>'True'), array('id'=>'0', 'text'=>'False')), "
+    -
+        title: "Show Product Reviews Button"
+        key: "SHOW_DOCUMENT_PRODUCT_INFO_REVIEWS"
+        value: 1
+        description: "Display Product Reviews Button on Product Info 0= off 1= on"
+        productTypeId: 4
+        sortOrder: 8
+        setFunction: "zen_cfg_select_drop_down(array(array('id'=>'1', 'text'=>'True'), array('id'=>'0', 'text'=>'False')), "
+    -
+        title: "Show Date Available"
+        key: "SHOW_DOCUMENT_PRODUCT_INFO_DATE_AVAILABLE"
+        value: 1
+        description: "Display Date Available on Product Info 0= off 1= on"
+        productTypeId: 4
+        sortOrder: 9
+        setFunction: "zen_cfg_select_drop_down(array(array('id'=>'1', 'text'=>'True'), array('id'=>'0', 'text'=>'False')), "
+    -
+        title: "Show Date Added"
+        key: "SHOW_DOCUMENT_PRODUCT_INFO_DATE_ADDED"
+        value: 1
+        description: "Display Date Added on Product Info 0= off 1= on"
+        productTypeId: 4
+        sortOrder: 10
+        setFunction: "zen_cfg_select_drop_down(array(array('id'=>'1', 'text'=>'True'), array('id'=>'0', 'text'=>'False')), "
+    -
+        title: "Show Product URL"
+        key: "SHOW_DOCUMENT_PRODUCT_INFO_URL"
+        value: 1
+        description: "Display URL on Product Info 0= off 1= on"
+        productTypeId: 4
+        sortOrder: 11
+        setFunction: "zen_cfg_select_drop_down(array(array('id'=>'1', 'text'=>'True'), array('id'=>'0', 'text'=>'False')), "
+    -
+        title: "Show Product Additional Images"
+        key: "SHOW_DOCUMENT_PRODUCT_INFO_ADDITIONAL_IMAGES"
+        value: 1
+        description: "Display Additional Images on Product Info 0= off 1= on"
+        productTypeId: 4
+        sortOrder: 13
+        setFunction: "zen_cfg_select_drop_down(array(array('id'=>'1', 'text'=>'True'), array('id'=>'0', 'text'=>'False')), "
+    -
+        title: "Show Starting At text on Price"
+        key: "SHOW_DOCUMENT_PRODUCT_INFO_STARTING_AT"
+        value: 1
+        description: "Display Starting At text on products with attributes Product Info 0= off 1= on"
+        productTypeId: 4
+        sortOrder: 12
+        setFunction: "zen_cfg_select_drop_down(array(array('id'=>'1', 'text'=>'True'), array('id'=>'0', 'text'=>'False')), "
+    -
+        title: "Product Free Shipping Image Status - Catalog"
+        key: "SHOW_DOCUMENT_PRODUCT_INFO_ALWAYS_FREE_SHIPPING_IMAGE_SWITCH"
+        value: 0
+        description: "Show the Free Shipping image/text in the catalog?"
+        productTypeId: 4
+        sortOrder: 16
+        setFunction: "zen_cfg_select_drop_down(array(array('id'=>'1', 'text'=>'Yes'), array('id'=>'0', 'text'=>'No')), "
+    -
+        title: "Product Price Tax Class Default - When adding new products?"
+        key: "DEFAULT_DOCUMENT_PRODUCT_TAX_CLASS_ID"
+        value: 0
+        description: "What should the Product Price Tax Class Default ID be when adding new products?"
+        productTypeId: 4
+        sortOrder: 100
+        useFunction: ""
+        setFunction: ""
+    -
+        title: "Product Virtual Default Status - Skip Shipping Address - When adding new products?"
+        key: "DEFAULT_DOCUMENT_PRODUCT_PRODUCTS_VIRTUAL"
+        value: 0
+        description: "Default Virtual Product status to be ON when adding new products?"
+        productTypeId: 4
+        sortOrder: 101
+        setFunction: "zen_cfg_select_drop_down(array(array('id'=>'1', 'text'=>'True'), array('id'=>'0', 'text'=>'False')), "
+    -
+        title: "Product Free Shipping Default Status - Normal Shipping Rules - When adding new products?"
+        key: "DEFAULT_DOCUMENT_PRODUCT_PRODUCTS_IS_ALWAYS_FREE_SHIPPING"
+        value: 0
+        description: "What should the Default Free Shipping status be when adding new products?<br />Yes, Always Free Shipping ON<br />No, Always Free Shipping OFF<br />Special, Product/Download Requires Shipping"
+        productTypeId: 4
+        sortOrder: 102
+        setFunction: "zen_cfg_select_drop_down(array(array('id'=>'1', 'text'=>'Yes, Always ON'), array('id'=>'0', 'text'=>'No, Always OFF'), array('id'=>'2', 'text'=>'Special')), "
+    -
+        title: "Show Model Number"
+        key: "SHOW_PRODUCT_FREE_SHIPPING_INFO_MODEL"
+        value: 1
+        description: "Display Model Number on Product Info 0= off 1= on"
+        productTypeId: 5
+        sortOrder: 1
+        setFunction: "zen_cfg_select_drop_down(array(array('id'=>'1', 'text'=>'True'), array('id'=>'0', 'text'=>'False')), "
+    -
+        title: "Show Weight"
+        key: "SHOW_PRODUCT_FREE_SHIPPING_INFO_WEIGHT"
+        value: 0
+        description: "Display Weight on Product Info 0= off 1= on"
+        productTypeId: 5
+        sortOrder: 2
+        setFunction: "zen_cfg_select_drop_down(array(array('id'=>'1', 'text'=>'True'), array('id'=>'0', 'text'=>'False')), "
+    -
+        title: "Show Attribute Weight"
+        key: "SHOW_PRODUCT_FREE_SHIPPING_INFO_WEIGHT_ATTRIBUTES"
+        value: 1
+        description: "Display Attribute Weight on Product Info 0= off 1= on"
+        productTypeId: 5
+        sortOrder: 3
+        setFunction: "zen_cfg_select_drop_down(array(array('id'=>'1', 'text'=>'True'), array('id'=>'0', 'text'=>'False')), "
+    -
+        title: "Show Manufacturer"
+        key: "SHOW_PRODUCT_FREE_SHIPPING_INFO_MANUFACTURER"
+        value: 1
+        description: "Display Manufacturer Name on Product Info 0= off 1= on"
+        productTypeId: 5
+        sortOrder: 4
+        setFunction: "zen_cfg_select_drop_down(array(array('id'=>'1', 'text'=>'True'), array('id'=>'0', 'text'=>'False')), "
+    -
+        title: "Show Quantity in Shopping Cart"
+        key: "SHOW_PRODUCT_FREE_SHIPPING_INFO_IN_CART_QTY"
+        value: 1
+        description: "Display Quantity in Current Shopping Cart on Product Info 0= off 1= on"
+        productTypeId: 5
+        sortOrder: 5
+        setFunction: "zen_cfg_select_drop_down(array(array('id'=>'1', 'text'=>'True'), array('id'=>'0', 'text'=>'False')), "
+    -
+        title: "Show Quantity in Stock"
+        key: "SHOW_PRODUCT_FREE_SHIPPING_INFO_QUANTITY"
+        value: 1
+        description: "Display Quantity in Stock on Product Info 0= off 1= on"
+        productTypeId: 5
+        sortOrder: 6
+        setFunction: "zen_cfg_select_drop_down(array(array('id'=>'1', 'text'=>'True'), array('id'=>'0', 'text'=>'False')), "
+    -
+        title: "Show Product Reviews Count"
+        key: "SHOW_PRODUCT_FREE_SHIPPING_INFO_REVIEWS_COUNT"
+        value: 1
+        description: "Display Product Reviews Count on Product Info 0= off 1= on"
+        productTypeId: 5
+        sortOrder: 7
+        setFunction: "zen_cfg_select_drop_down(array(array('id'=>'1', 'text'=>'True'), array('id'=>'0', 'text'=>'False')), "
+    -
+        title: "Show Product Reviews Button"
+        key: "SHOW_PRODUCT_FREE_SHIPPING_INFO_REVIEWS"
+        value: 1
+        description: "Display Product Reviews Button on Product Info 0= off 1= on"
+        productTypeId: 5
+        sortOrder: 8
+        setFunction: "zen_cfg_select_drop_down(array(array('id'=>'1', 'text'=>'True'), array('id'=>'0', 'text'=>'False')), "
+    -
+        title: "Show Date Available"
+        key: "SHOW_PRODUCT_FREE_SHIPPING_INFO_DATE_AVAILABLE"
+        value: 0
+        description: "Display Date Available on Product Info 0= off 1= on"
+        productTypeId: 5
+        sortOrder: 9
+        setFunction: "zen_cfg_select_drop_down(array(array('id'=>'1', 'text'=>'True'), array('id'=>'0', 'text'=>'False')), "
+    -
+        title: "Show Date Added"
+        key: "SHOW_PRODUCT_FREE_SHIPPING_INFO_DATE_ADDED"
+        value: 1
+        description: "Display Date Added on Product Info 0= off 1= on"
+        productTypeId: 5
+        sortOrder: 10
+        setFunction: "zen_cfg_select_drop_down(array(array('id'=>'1', 'text'=>'True'), array('id'=>'0', 'text'=>'False')), "
+    -
+        title: "Show Product URL"
+        key: "SHOW_PRODUCT_FREE_SHIPPING_INFO_URL"
+        value: 1
+        description: "Display URL on Product Info 0= off 1= on"
+        productTypeId: 5
+        sortOrder: 11
+        setFunction: "zen_cfg_select_drop_down(array(array('id'=>'1', 'text'=>'True'), array('id'=>'0', 'text'=>'False')), "
+    -
+        title: "Show Product Additional Images"
+        key: "SHOW_PRODUCT_FREE_SHIPPING_INFO_ADDITIONAL_IMAGES"
+        value: 1
+        description: "Display Additional Images on Product Info 0= off 1= on"
+        productTypeId: 5
+        sortOrder: 13
+        setFunction: "zen_cfg_select_drop_down(array(array('id'=>'1', 'text'=>'True'), array('id'=>'0', 'text'=>'False')), "
+    -
+        title: "Show Starting At text on Price"
+        key: "SHOW_PRODUCT_FREE_SHIPPING_INFO_STARTING_AT"
+        value: 1
+        description: "Display Starting At text on products with attributes Product Info 0= off 1= on"
+        productTypeId: 5
+        sortOrder: 12
+        setFunction: "zen_cfg_select_drop_down(array(array('id'=>'1', 'text'=>'True'), array('id'=>'0', 'text'=>'False')), "
+    -
+        title: "Product Free Shipping Image Status - Catalog"
+        key: "SHOW_PRODUCT_FREE_SHIPPING_INFO_ALWAYS_FREE_SHIPPING_IMAGE_SWITCH"
+        value: 1
+        description: "Show the Free Shipping image/text in the catalog?"
+        productTypeId: 5
+        sortOrder: 16
+        setFunction: "zen_cfg_select_drop_down(array(array('id'=>'1', 'text'=>'Yes'), array('id'=>'0', 'text'=>'No')), "
+    -
+        title: "Product Price Tax Class Default - When adding new products?"
+        key: "DEFAULT_PRODUCT_FREE_SHIPPING_TAX_CLASS_ID"
+        value: 0
+        description: "What should the Product Price Tax Class Default ID be when adding new products?"
+        productTypeId: 5
+        sortOrder: 100
+        useFunction: ""
+        setFunction: ""
+    -
+        title: "Product Virtual Default Status - Skip Shipping Address - When adding new products?"
+        key: "DEFAULT_PRODUCT_FREE_SHIPPING_PRODUCTS_VIRTUAL"
+        value: 0
+        description: "Default Virtual Product status to be ON when adding new products?"
+        productTypeId: 5
+        sortOrder: 101
+        setFunction: "zen_cfg_select_drop_down(array(array('id'=>'1', 'text'=>'True'), array('id'=>'0', 'text'=>'False')), "
+    -
+        title: "Product Free Shipping Default Status - Normal Shipping Rules - When adding new products?"
+        key: "DEFAULT_PRODUCT_FREE_SHIPPING_PRODUCTS_IS_ALWAYS_FREE_SHIPPING"
+        value: 1
+        description: "What should the Default Free Shipping status be when adding new products?<br />Yes, Always Free Shipping ON<br />No, Always Free Shipping OFF<br />Special, Product/Download Requires Shipping"
+        productTypeId: 5
+        sortOrder: 102
+        setFunction: "zen_cfg_select_drop_down(array(array('id'=>'1', 'text'=>'Yes, Always ON'), array('id'=>'0', 'text'=>'No, Always OFF'), array('id'=>'2', 'text'=>'Special')), "
+    -
+        title: "Show Metatags Title Default - Product Title"
+        key: "SHOW_PRODUCT_INFO_METATAGS_TITLE_STATUS"
+        value: 1
+        description: "Display Product Title in Meta Tags Title 0= off 1= on"
+        productTypeId: 1
+        sortOrder: 50
+        setFunction: "zen_cfg_select_drop_down(array(array('id'=>'1', 'text'=>'True'), array('id'=>'0', 'text'=>'False')), "
+    -
+        title: "Show Metatags Title Default - Product Name"
+        key: "SHOW_PRODUCT_INFO_METATAGS_PRODUCTS_NAME_STATUS"
+        value: 1
+        description: "Display Product Name in Meta Tags Title 0= off 1= on"
+        productTypeId: 1
+        sortOrder: 51
+        setFunction: "zen_cfg_select_drop_down(array(array('id'=>'1', 'text'=>'True'), array('id'=>'0', 'text'=>'False')), "
+    -
+        title: "Show Metatags Title Default - Product Model"
+        key: "SHOW_PRODUCT_INFO_METATAGS_MODEL_STATUS"
+        value: 1
+        description: "Display Product Model in Meta Tags Title 0= off 1= on"
+        productTypeId: 1
+        sortOrder: 52
+        setFunction: "zen_cfg_select_drop_down(array(array('id'=>'1', 'text'=>'True'), array('id'=>'0', 'text'=>'False')), "
+    -
+        title: "Show Metatags Title Default - Product Price"
+        key: "SHOW_PRODUCT_INFO_METATAGS_PRICE_STATUS"
+        value: 1
+        description: "Display Product Price in Meta Tags Title 0= off 1= on"
+        productTypeId: 1
+        sortOrder: 53
+        setFunction: "zen_cfg_select_drop_down(array(array('id'=>'1', 'text'=>'True'), array('id'=>'0', 'text'=>'False')), "
+    -
+        title: "Show Metatags Title Default - Product Tagline"
+        key: "SHOW_PRODUCT_INFO_METATAGS_TITLE_TAGLINE_STATUS"
+        value: 1
+        description: "Display Product Tagline in Meta Tags Title 0= off 1= on"
+        productTypeId: 1
+        sortOrder: 54
+        setFunction: "zen_cfg_select_drop_down(array(array('id'=>'1', 'text'=>'True'), array('id'=>'0', 'text'=>'False')), "
+    -
+        title: "Show Metatags Title Default - Document Title"
+        key: "SHOW_DOCUMENT_GENERAL_INFO_METATAGS_TITLE_STATUS"
+        value: 1
+        description: "Display Document Title in Meta Tags Title 0= off 1= on"
+        productTypeId: 3
+        sortOrder: 50
+        setFunction: "zen_cfg_select_drop_down(array(array('id'=>'1', 'text'=>'True'), array('id'=>'0', 'text'=>'False')), "
+    -
+        title: "Show Metatags Title Default - Document Name"
+        key: "SHOW_DOCUMENT_GENERAL_INFO_METATAGS_PRODUCTS_NAME_STATUS"
+        value: 1
+        description: "Display Document Name in Meta Tags Title 0= off 1= on"
+        productTypeId: 3
+        sortOrder: 51
+        setFunction: "zen_cfg_select_drop_down(array(array('id'=>'1', 'text'=>'True'), array('id'=>'0', 'text'=>'False')), "
+    -
+        title: "Show Metatags Title Default - Document Tagline"
+        key: "SHOW_DOCUMENT_GENERAL_INFO_METATAGS_TITLE_TAGLINE_STATUS"
+        value: 1
+        description: "Display Document Tagline in Meta Tags Title 0= off 1= on"
+        productTypeId: 3
+        sortOrder: 54
+        setFunction: "zen_cfg_select_drop_down(array(array('id'=>'1', 'text'=>'True'), array('id'=>'0', 'text'=>'False')), "
+    -
+        title: "Show Metatags Title Default - Document Title"
+        key: "SHOW_DOCUMENT_PRODUCT_INFO_METATAGS_TITLE_STATUS"
+        value: 1
+        description: "Display Document Title in Meta Tags Title 0= off 1= on"
+        productTypeId: 4
+        sortOrder: 50
+        setFunction: "zen_cfg_select_drop_down(array(array('id'=>'1', 'text'=>'True'), array('id'=>'0', 'text'=>'False')), "
+    -
+        title: "Show Metatags Title Default - Document Name"
+        key: "SHOW_DOCUMENT_PRODUCT_INFO_METATAGS_PRODUCTS_NAME_STATUS"
+        value: 1
+        description: "Display Document Name in Meta Tags Title 0= off 1= on"
+        productTypeId: 4
+        sortOrder: 51
+        setFunction: "zen_cfg_select_drop_down(array(array('id'=>'1', 'text'=>'True'), array('id'=>'0', 'text'=>'False')), "
+    -
+        title: "Show Metatags Title Default - Document Model"
+        key: "SHOW_DOCUMENT_PRODUCT_INFO_METATAGS_MODEL_STATUS"
+        value: 1
+        description: "Display Document Model in Meta Tags Title 0= off 1= on"
+        productTypeId: 4
+        sortOrder: 52
+        setFunction: "zen_cfg_select_drop_down(array(array('id'=>'1', 'text'=>'True'), array('id'=>'0', 'text'=>'False')), "
+    -
+        title: "Show Metatags Title Default - Document Price"
+        key: "SHOW_DOCUMENT_PRODUCT_INFO_METATAGS_PRICE_STATUS"
+        value: 1
+        description: "Display Document Price in Meta Tags Title 0= off 1= on"
+        productTypeId: 4
+        sortOrder: 53
+        setFunction: "zen_cfg_select_drop_down(array(array('id'=>'1', 'text'=>'True'), array('id'=>'0', 'text'=>'False')), "
+    -
+        title: "Show Metatags Title Default - Document Tagline"
+        key: "SHOW_DOCUMENT_PRODUCT_INFO_METATAGS_TITLE_TAGLINE_STATUS"
+        value: 1
+        description: "Display Document Tagline in Meta Tags Title 0= off 1= on"
+        productTypeId: 4
+        sortOrder: 54
+        setFunction: "zen_cfg_select_drop_down(array(array('id'=>'1', 'text'=>'True'), array('id'=>'0', 'text'=>'False')), "
+    -
+        title: "Show Metatags Title Default - Product Title"
+        key: "SHOW_PRODUCT_FREE_SHIPPING_INFO_METATAGS_TITLE_STATUS"
+        value: 1
+        description: "Display Product Title in Meta Tags Title 0= off 1= on"
+        productTypeId: 5
+        sortOrder: 50
+        setFunction: "zen_cfg_select_drop_down(array(array('id'=>'1', 'text'=>'True'), array('id'=>'0', 'text'=>'False')), "
+    -
+        title: "Show Metatags Title Default - Product Name"
+        key: "SHOW_PRODUCT_FREE_SHIPPING_INFO_METATAGS_PRODUCTS_NAME_STATUS"
+        value: 1
+        description: "Display Product Name in Meta Tags Title 0= off 1= on"
+        productTypeId: 5
+        sortOrder: 51
+        setFunction: "zen_cfg_select_drop_down(array(array('id'=>'1', 'text'=>'True'), array('id'=>'0', 'text'=>'False')), "
+    -
+        title: "Show Metatags Title Default - Product Model"
+        key: "SHOW_PRODUCT_FREE_SHIPPING_INFO_METATAGS_MODEL_STATUS"
+        value: 1
+        description: "Display Product Model in Meta Tags Title 0= off 1= on"
+        productTypeId: 5
+        sortOrder: 52
+        setFunction: "zen_cfg_select_drop_down(array(array('id'=>'1', 'text'=>'True'), array('id'=>'0', 'text'=>'False')), "
+    -
+        title: "Show Metatags Title Default - Product Price"
+        key: "SHOW_PRODUCT_FREE_SHIPPING_INFO_METATAGS_PRICE_STATUS"
+        value: 1
+        description: "Display Product Price in Meta Tags Title 0= off 1= on"
+        productTypeId: 5
+        sortOrder: 53
+        setFunction: "zen_cfg_select_drop_down(array(array('id'=>'1', 'text'=>'True'), array('id'=>'0', 'text'=>'False')), "
+    -
+        title: "Show Metatags Title Default - Product Tagline"
+        key: "SHOW_PRODUCT_FREE_SHIPPING_INFO_METATAGS_TITLE_TAGLINE_STATUS"
+        value: 1
+        description: "Display Product Tagline in Meta Tags Title 0= off 1= on"
+        productTypeId: 5
+        sortOrder: 54
+        setFunction: "zen_cfg_select_drop_down(array(array('id'=>'1', 'text'=>'True'), array('id'=>'0', 'text'=>'False')), "
+    -
+        title: "PRODUCT Attribute is Display Only - Default"
+        key: "DEFAULT_PRODUCT_ATTRIBUTES_DISPLAY_ONLY"
+        value: 0
+        description: "PRODUCT Attribute is Display Only<br />Used For Display Purposes Only<br />0= No 1= Yes"
+        productTypeId: 1
+        sortOrder: 200
+        setFunction: "zen_cfg_select_drop_down(array(array('id'=>'1', 'text'=>'Yes'), array('id'=>'0', 'text'=>'No')), "
+    -
+        title: "PRODUCT Attribute is Free - Default"
+        key: "DEFAULT_PRODUCT_ATTRIBUTE_IS_FREE"
+        value: 1
+        description: "PRODUCT Attribute is Free<br />Attribute is Free When Product is Free<br />0= No 1= Yes"
+        productTypeId: 1
+        sortOrder: 201
+        setFunction: "zen_cfg_select_drop_down(array(array('id'=>'1', 'text'=>'Yes'), array('id'=>'0', 'text'=>'No')), "
+    -
+        title: "PRODUCT Attribute is Default - Default"
+        key: "DEFAULT_PRODUCT_ATTRIBUTES_DEFAULT"
+        value: 0
+        description: "PRODUCT Attribute is Default<br />Default Attribute to be Marked Selected<br />0= No 1= Yes"
+        productTypeId: 1
+        sortOrder: 202
+        setFunction: "zen_cfg_select_drop_down(array(array('id'=>'1', 'text'=>'Yes'), array('id'=>'0', 'text'=>'No')), "
+    -
+        title: "PRODUCT Attribute is Discounted - Default"
+        key: "DEFAULT_PRODUCT_ATTRIBUTES_DISCOUNTED"
+        value: 1
+        description: "PRODUCT Attribute is Discounted<br />Apply Discounts Used by Product Special/Sale<br />0= No 1= Yes"
+        productTypeId: 1
+        sortOrder: 203
+        setFunction: "zen_cfg_select_drop_down(array(array('id'=>'1', 'text'=>'Yes'), array('id'=>'0', 'text'=>'No')), "
+    -
+        title: "PRODUCT Attribute is Included in Base Price - Default"
+        key: "DEFAULT_PRODUCT_ATTRIBUTES_PRICE_BASE_INCLUDED"
+        value: 1
+        description: "PRODUCT Attribute is Included in Base Price<br />Include in Base Price When Priced by Attributes<br />0= No 1= Yes"
+        productTypeId: 1
+        sortOrder: 204
+        setFunction: "zen_cfg_select_drop_down(array(array('id'=>'1', 'text'=>'Yes'), array('id'=>'0', 'text'=>'No')), "
+    -
+        title: "PRODUCT Attribute is Required - Default"
+        key: "DEFAULT_PRODUCT_ATTRIBUTES_REQUIRED"
+        value: 0
+        description: "PRODUCT Attribute is Required<br />Attribute Required for Text<br />0= No 1= Yes"
+        productTypeId: 1
+        sortOrder: 205
+        setFunction: "zen_cfg_select_drop_down(array(array('id'=>'1', 'text'=>'Yes'), array('id'=>'0', 'text'=>'No')), "
+    -
+        title: "PRODUCT Attribute Price Prefix - Default"
+        key: "DEFAULT_PRODUCT_PRICE_PREFIX"
+        value: 1
+        description: "PRODUCT Attribute Price Prefix<br />Default Attribute Price Prefix for Adding<br />Blank, + or -"
+        productTypeId: 1
+        sortOrder: 206
+        setFunction: "zen_cfg_select_drop_down(array(array('id'=>'0', 'text'=>'Blank'), array('id'=>'1', 'text'=>'+'), array('id'=>'2', 'text'=>'-')), "
+    -
+        title: "PRODUCT Attribute Weight Prefix - Default"
+        key: "DEFAULT_PRODUCT_PRODUCTS_ATTRIBUTES_WEIGHT_PREFIX"
+        value: 1
+        description: "PRODUCT Attribute Weight Prefix<br />Default Attribute Weight Prefix<br />Blank, + or -"
+        productTypeId: 1
+        sortOrder: 207
+        setFunction: "zen_cfg_select_drop_down(array(array('id'=>'0', 'text'=>'Blank'), array('id'=>'1', 'text'=>'+'), array('id'=>'2', 'text'=>'-')), "
+    -
+        title: "DOCUMENT GENERAL Attribute is Display Only - Default"
+        key: "DEFAULT_DOCUMENT_GENERAL_ATTRIBUTES_DISPLAY_ONLY"
+        value: 0
+        description: "DOCUMENT GENERAL Attribute is Display Only<br />Used For Display Purposes Only<br />0= No 1= Yes"
+        productTypeId: 3
+        sortOrder: 200
+        setFunction: "zen_cfg_select_drop_down(array(array('id'=>'1', 'text'=>'Yes'), array('id'=>'0', 'text'=>'No')), "
+    -
+        title: "DOCUMENT GENERAL Attribute is Free - Default"
+        key: "DEFAULT_DOCUMENT_GENERAL_ATTRIBUTE_IS_FREE"
+        value: 1
+        description: "DOCUMENT GENERAL Attribute is Free<br />Attribute is Free When Product is Free<br />0= No 1= Yes"
+        productTypeId: 3
+        sortOrder: 201
+        setFunction: "zen_cfg_select_drop_down(array(array('id'=>'1', 'text'=>'Yes'), array('id'=>'0', 'text'=>'No')), "
+    -
+        title: "DOCUMENT GENERAL Attribute is Default - Default"
+        key: "DEFAULT_DOCUMENT_GENERAL_ATTRIBUTES_DEFAULT"
+        value: 0
+        description: "DOCUMENT GENERAL Attribute is Default<br />Default Attribute to be Marked Selected<br />0= No 1= Yes"
+        productTypeId: 3
+        sortOrder: 202
+        setFunction: "zen_cfg_select_drop_down(array(array('id'=>'1', 'text'=>'Yes'), array('id'=>'0', 'text'=>'No')), "
+    -
+        title: "DOCUMENT GENERAL Attribute is Discounted - Default"
+        key: "DEFAULT_DOCUMENT_GENERAL_ATTRIBUTES_DISCOUNTED"
+        value: 1
+        description: "DOCUMENT GENERAL Attribute is Discounted<br />Apply Discounts Used by Product Special/Sale<br />0= No 1= Yes"
+        productTypeId: 3
+        sortOrder: 203
+        setFunction: "zen_cfg_select_drop_down(array(array('id'=>'1', 'text'=>'Yes'), array('id'=>'0', 'text'=>'No')), "
+    -
+        title: "DOCUMENT GENERAL Attribute is Included in Base Price - Default"
+        key: "DEFAULT_DOCUMENT_GENERAL_ATTRIBUTES_PRICE_BASE_INCLUDED"
+        value: 1
+        description: "DOCUMENT GENERAL Attribute is Included in Base Price<br />Include in Base Price When Priced by Attributes<br />0= No 1= Yes"
+        productTypeId: 3
+        sortOrder: 204
+        setFunction: "zen_cfg_select_drop_down(array(array('id'=>'1', 'text'=>'Yes'), array('id'=>'0', 'text'=>'No')), "
+    -
+        title: "DOCUMENT GENERAL Attribute is Required - Default"
+        key: "DEFAULT_DOCUMENT_GENERAL_ATTRIBUTES_REQUIRED"
+        value: 0
+        description: "DOCUMENT GENERAL Attribute is Required<br />Attribute Required for Text<br />0= No 1= Yes"
+        productTypeId: 3
+        sortOrder: 205
+        setFunction: "zen_cfg_select_drop_down(array(array('id'=>'1', 'text'=>'Yes'), array('id'=>'0', 'text'=>'No')), "
+    -
+        title: "DOCUMENT GENERAL Attribute Price Prefix - Default"
+        key: "DEFAULT_DOCUMENT_GENERAL_PRICE_PREFIX"
+        value: 1
+        description: "DOCUMENT GENERAL Attribute Price Prefix<br />Default Attribute Price Prefix for Adding<br />Blank, + or -"
+        productTypeId: 3
+        sortOrder: 206
+        setFunction: "zen_cfg_select_drop_down(array(array('id'=>'0', 'text'=>'Blank'), array('id'=>'1', 'text'=>'+'), array('id'=>'2', 'text'=>'-')), "
+    -
+        title: "DOCUMENT GENERAL Attribute Weight Prefix - Default"
+        key: "DEFAULT_DOCUMENT_GENERAL_PRODUCTS_ATTRIBUTES_WEIGHT_PREFIX"
+        value: 1
+        description: "DOCUMENT GENERAL Attribute Weight Prefix<br />Default Attribute Weight Prefix<br />Blank, + or -"
+        productTypeId: 3
+        sortOrder: 207
+        setFunction: "zen_cfg_select_drop_down(array(array('id'=>'0', 'text'=>'Blank'), array('id'=>'1', 'text'=>'+'), array('id'=>'2', 'text'=>'-')), "
+    -
+        title: "DOCUMENT PRODUCT Attribute is Display Only - Default"
+        key: "DEFAULT_DOCUMENT_PRODUCT_ATTRIBUTES_DISPLAY_ONLY"
+        value: 0
+        description: "DOCUMENT PRODUCT Attribute is Display Only<br />Used For Display Purposes Only<br />0= No 1= Yes"
+        productTypeId: 4
+        sortOrder: 200
+        setFunction: "zen_cfg_select_drop_down(array(array('id'=>'1', 'text'=>'Yes'), array('id'=>'0', 'text'=>'No')), "
+    -
+        title: "DOCUMENT PRODUCT Attribute is Free - Default"
+        key: "DEFAULT_DOCUMENT_PRODUCT_ATTRIBUTE_IS_FREE"
+        value: 1
+        description: "DOCUMENT PRODUCT Attribute is Free<br />Attribute is Free When Product is Free<br />0= No 1= Yes"
+        productTypeId: 4
+        sortOrder: 201
+        setFunction: "zen_cfg_select_drop_down(array(array('id'=>'1', 'text'=>'Yes'), array('id'=>'0', 'text'=>'No')), "
+    -
+        title: "DOCUMENT PRODUCT Attribute is Default - Default"
+        key: "DEFAULT_DOCUMENT_PRODUCT_ATTRIBUTES_DEFAULT"
+        value: 0
+        description: "DOCUMENT PRODUCT Attribute is Default<br />Default Attribute to be Marked Selected<br />0= No 1= Yes"
+        productTypeId: 4
+        sortOrder: 202
+        setFunction: "zen_cfg_select_drop_down(array(array('id'=>'1', 'text'=>'Yes'), array('id'=>'0', 'text'=>'No')), "
+    -
+        title: "DOCUMENT PRODUCT Attribute is Discounted - Default"
+        key: "DEFAULT_DOCUMENT_PRODUCT_ATTRIBUTES_DISCOUNTED"
+        value: 1
+        description: "DOCUMENT PRODUCT Attribute is Discounted<br />Apply Discounts Used by Product Special/Sale<br />0= No 1= Yes"
+        productTypeId: 4
+        sortOrder: 203
+        setFunction: "zen_cfg_select_drop_down(array(array('id'=>'1', 'text'=>'Yes'), array('id'=>'0', 'text'=>'No')), "
+    -
+        title: "DOCUMENT PRODUCT Attribute is Included in Base Price - Default"
+        key: "DEFAULT_DOCUMENT_PRODUCT_ATTRIBUTES_PRICE_BASE_INCLUDED"
+        value: 1
+        description: "DOCUMENT PRODUCT Attribute is Included in Base Price<br />Include in Base Price When Priced by Attributes<br />0= No 1= Yes"
+        productTypeId: 4
+        sortOrder: 204
+        setFunction: "zen_cfg_select_drop_down(array(array('id'=>'1', 'text'=>'Yes'), array('id'=>'0', 'text'=>'No')), "
+    -
+        title: "DOCUMENT PRODUCT Attribute is Required - Default"
+        key: "DEFAULT_DOCUMENT_PRODUCT_ATTRIBUTES_REQUIRED"
+        value: 0
+        description: "DOCUMENT PRODUCT Attribute is Required<br />Attribute Required for Text<br />0= No 1= Yes"
+        productTypeId: 4
+        sortOrder: 205
+        setFunction: "zen_cfg_select_drop_down(array(array('id'=>'1', 'text'=>'Yes'), array('id'=>'0', 'text'=>'No')), "
+    -
+        title: "DOCUMENT PRODUCT Attribute Price Prefix - Default"
+        key: "DEFAULT_DOCUMENT_PRODUCT_PRICE_PREFIX"
+        value: 1
+        description: "DOCUMENT PRODUCT Attribute Price Prefix<br />Default Attribute Price Prefix for Adding<br />Blank, + or -"
+        productTypeId: 4
+        sortOrder: 206
+        setFunction: "zen_cfg_select_drop_down(array(array('id'=>'0', 'text'=>'Blank'), array('id'=>'1', 'text'=>'+'), array('id'=>'2', 'text'=>'-')), "
+    -
+        title: "DOCUMENT PRODUCT Attribute Weight Prefix - Default"
+        key: "DEFAULT_DOCUMENT_PRODUCT_PRODUCTS_ATTRIBUTES_WEIGHT_PREFIX"
+        value: 1
+        description: "DOCUMENT PRODUCT Attribute Weight Prefix<br />Default Attribute Weight Prefix<br />Blank, + or -"
+        productTypeId: 4
+        sortOrder: 207
+        setFunction: "zen_cfg_select_drop_down(array(array('id'=>'0', 'text'=>'Blank'), array('id'=>'1', 'text'=>'+'), array('id'=>'2', 'text'=>'-')), "
+    -
+        title: "PRODUCT FREE SHIPPING Attribute is Display Only - Default"
+        key: "DEFAULT_PRODUCT_FREE_SHIPPING_ATTRIBUTES_DISPLAY_ONLY"
+        value: 0
+        description: "PRODUCT FREE SHIPPING Attribute is Display Only<br />Used For Display Purposes Only<br />0= No 1= Yes"
+        productTypeId: 5
+        sortOrder: 201
+        setFunction: "zen_cfg_select_drop_down(array(array('id'=>'1', 'text'=>'Yes'), array('id'=>'0', 'text'=>'No')), "
+    -
+        title: "PRODUCT FREE SHIPPING Attribute is Free - Default"
+        key: "DEFAULT_PRODUCT_FREE_SHIPPING_ATTRIBUTE_IS_FREE"
+        value: 1
+        description: "PRODUCT FREE SHIPPING Attribute is Free<br />Attribute is Free When Product is Free<br />0= No 1= Yes"
+        productTypeId: 5
+        sortOrder: 201
+        setFunction: "zen_cfg_select_drop_down(array(array('id'=>'1', 'text'=>'Yes'), array('id'=>'0', 'text'=>'No')), "
+    -
+        title: "PRODUCT FREE SHIPPING Attribute is Default - Default"
+        key: "DEFAULT_PRODUCT_FREE_SHIPPING_ATTRIBUTES_DEFAULT"
+        value: 0
+        description: "PRODUCT FREE SHIPPING Attribute is Default<br />Default Attribute to be Marked Selected<br />0= No 1= Yes"
+        productTypeId: 5
+        sortOrder: 202
+        setFunction: "zen_cfg_select_drop_down(array(array('id'=>'1', 'text'=>'Yes'), array('id'=>'0', 'text'=>'No')), "
+    -
+        title: "PRODUCT FREE SHIPPING Attribute is Discounted - Default"
+        key: "DEFAULT_PRODUCT_FREE_SHIPPING_ATTRIBUTES_DISCOUNTED"
+        value: 1
+        description: "PRODUCT FREE SHIPPING Attribute is Discounted<br />Apply Discounts Used by Product Special/Sale<br />0= No 1= Yes"
+        productTypeId: 5
+        sortOrder: 203
+        setFunction: "zen_cfg_select_drop_down(array(array('id'=>'1', 'text'=>'Yes'), array('id'=>'0', 'text'=>'No')), "
+    -
+        title: "PRODUCT FREE SHIPPING Attribute is Included in Base Price - Default"
+        key: "DEFAULT_PRODUCT_FREE_SHIPPING_ATTRIBUTES_PRICE_BASE_INCLUDED"
+        value: 1
+        description: "PRODUCT FREE SHIPPING Attribute is Included in Base Price<br />Include in Base Price When Priced by Attributes<br />0= No 1= Yes"
+        productTypeId: 5
+        sortOrder: 204
+        setFunction: "zen_cfg_select_drop_down(array(array('id'=>'1', 'text'=>'Yes'), array('id'=>'0', 'text'=>'No')), "
+    -
+        title: "PRODUCT FREE SHIPPING Attribute is Required - Default"
+        key: "DEFAULT_PRODUCT_FREE_SHIPPING_ATTRIBUTES_REQUIRED"
+        value: 0
+        description: "PRODUCT FREE SHIPPING Attribute is Required<br />Attribute Required for Text<br />0= No 1= Yes"
+        productTypeId: 5
+        sortOrder: 205
+        setFunction: "zen_cfg_select_drop_down(array(array('id'=>'1', 'text'=>'Yes'), array('id'=>'0', 'text'=>'No')), "
+    -
+        title: "PRODUCT FREE SHIPPING Attribute Price Prefix - Default"
+        key: "DEFAULT_PRODUCT_FREE_SHIPPING_PRICE_PREFIX"
+        value: 1
+        description: "PRODUCT FREE SHIPPING Attribute Price Prefix<br />Default Attribute Price Prefix for Adding<br />Blank, + or -"
+        productTypeId: 5
+        sortOrder: 206
+        setFunction: "zen_cfg_select_drop_down(array(array('id'=>'0', 'text'=>'Blank'), array('id'=>'1', 'text'=>'+'), array('id'=>'2', 'text'=>'-')), "
+    -
+        title: "PRODUCT FREE SHIPPING Attribute Weight Prefix - Default"
+        key: "DEFAULT_PRODUCT_FREE_SHIPPING_PRODUCTS_ATTRIBUTES_WEIGHT_PREFIX"
+        value: 1
+        description: "PRODUCT FREE SHIPPING Attribute Weight Prefix<br />Default Attribute Weight Prefix<br />Blank, + or -"
+        productTypeId: 5
+        sortOrder: 207
+        setFunction: "zen_cfg_select_drop_down(array(array('id'=>'0', 'text'=>'Blank'), array('id'=>'1', 'text'=>'+'), array('id'=>'2', 'text'=>'-')), "

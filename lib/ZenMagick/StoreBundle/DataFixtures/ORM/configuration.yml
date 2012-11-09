@@ -1,0 +1,4287 @@
+ZenMagick\StoreBundle\Entity\ConfigGroup:
+    -
+        id: 1
+        name: "My Store"
+        description: "General information about my store"
+        sortOrder: 1
+        visible: 1
+    -
+        id: 2
+        name: "Minimum Values"
+        description: "The minimum values for functions / data"
+        sortOrder: 2
+        visible: 1
+    -
+        id: 3
+        name: "Maximum Values"
+        description: "The maximum values for functions / data"
+        sortOrder: 3
+        visible: 1
+    -
+        id: 4
+        name: "Images"
+        description: "Image parameters"
+        sortOrder: 4
+        visible: 1
+    -
+        id: 5
+        name: "Customer Details"
+        description: "Customer account configuration"
+        sortOrder: 5
+        visible: 1
+    -
+        id: 6
+        name: "Module Options"
+        description: "Hidden from configuration"
+        sortOrder: 6
+        visible: 0
+    -
+        id: 7
+        name: "Shipping/Packaging"
+        description: "Shipping options available at my store"
+        sortOrder: 7
+        visible: 1
+    -
+        id: 8
+        name: "Product Listing"
+        description: "Product Listing configuration options"
+        sortOrder: 8
+        visible: 1
+    -
+        id: 9
+        name: "Stock"
+        description: "Stock configuration options"
+        sortOrder: 9
+        visible: 1
+    -
+        id: 10
+        name: "Logging"
+        description: "Logging configuration options"
+        sortOrder: 10
+        visible: 1
+    -
+        id: 11
+        name: "Regulations"
+        description: "Regulation options"
+        sortOrder: 16
+        visible: 1
+    -
+        id: 12
+        name: "E-Mail Options"
+        description: "General settings for E-Mail transport and HTML E-Mails"
+        sortOrder: 12
+        visible: 1
+    -
+        id: 13
+        name: "Attribute Settings"
+        description: "Configure products attributes settings"
+        sortOrder: 13
+        visible: 1
+    -
+        id: 14
+        name: "GZip Compression"
+        description: "GZip compression options"
+        sortOrder: 14
+        visible: 1
+    -
+        id: 15
+        name: "Sessions"
+        description: "Session options"
+        sortOrder: 15
+        visible: 1
+    -
+        id: 16
+        name: "GV Coupons"
+        description: "Gift Vouchers and Coupons"
+        sortOrder: 16
+        visible: 1
+    -
+        id: 17
+        name: "Credit Cards"
+        description: "Credit Cards Accepted"
+        sortOrder: 17
+        visible: 1
+    -
+        id: 18
+        name: "Product Info"
+        description: "Product Info Display Options"
+        sortOrder: 18
+        visible: 1
+    -
+        id: 19
+        name: "Layout Settings"
+        description: "Layout Options"
+        sortOrder: 19
+        visible: 1
+    -
+        id: 20
+        name: "Website Maintenance"
+        description: "Website Maintenance Options"
+        sortOrder: 20
+        visible: 1
+    -
+        id: 21
+        name: "New Listing"
+        description: "New Products Listing"
+        sortOrder: 21
+        visible: 1
+    -
+        id: 22
+        name: "Featured Listing"
+        description: "Featured Products Listing"
+        sortOrder: 22
+        visible: 1
+    -
+        id: 23
+        name: "All Listing"
+        description: "All Products Listing"
+        sortOrder: 23
+        visible: 1
+    -
+        id: 24
+        name: "Index Listing"
+        description: "Index Products Listing"
+        sortOrder: 24
+        visible: 1
+    -
+        id: 25
+        name: "Define Page Status"
+        description: "Define Main Pages and HTMLArea Options"
+        sortOrder: 25
+        visible: 1
+    -
+        id: 26
+        name: "PLACEHOLDER1"
+        description: ""
+        sortOrder: 26
+        visible: 0
+    -
+        id: 27
+        name: "PLACEHOLDER2"
+        description: ""
+        sortOrder: 27
+        visible: 0
+    -
+        id: 28
+        name: "PLACEHOLDER3"
+        description: ""
+        sortOrder: 28
+        visible: 0
+    -
+        id: 29
+        name: "PLACEHOLDER4"
+        description: ""
+        sortOrder: 29
+        visible: 0
+    -
+        id: 30
+        name: "EZ-Pages Settings"
+        description: "EZ-Pages Settings"
+        sortOrder: 30
+        visible: 1
+
+ZenMagick\StoreBundle\Entity\ConfigValue:
+    -
+        name: "Store Name"
+        key: "STORE_NAME"
+        value: "Zen Cart"
+        description: "The name of my store"
+        groupId: 1
+        sortOrder: 1
+    -
+        name: "Store Owner"
+        key: "STORE_OWNER"
+        value: "Team Zen Cart"
+        description: "The name of my store owner"
+        groupId: 1
+        sortOrder: 2
+    -
+        name: "Telephone - Customer Service"
+        key: "STORE_TELEPHONE_CUSTSERVICE"
+        value: ""
+        description: "Enter a telephone number for customers to reach your Customer Service department. This number may be sent as part of payment transaction details."
+        groupId: 1
+        sortOrder: 3
+    -
+        name: "Country"
+        key: "STORE_COUNTRY"
+        value: 223
+        description: "The country my store is located in <br /><br /><strong>Note: Please remember to update the store zone.</strong>"
+        groupId: 1
+        sortOrder: 6
+        useFunction: "zen_get_country_name"
+        setFunction: "zen_cfg_pull_down_country_list("
+    -
+        name: "Zone"
+        key: "STORE_ZONE"
+        value: 18
+        description: "The zone my store is located in"
+        groupId: 1
+        sortOrder: 7
+        useFunction: "zen_cfg_get_zone_name"
+        setFunction: "zen_cfg_pull_down_zone_list("
+    -
+        name: "Expected Sort Order"
+        key: "EXPECTED_PRODUCTS_SORT"
+        value: "desc"
+        description: "This is the sort order used in the expected products box."
+        groupId: 1
+        sortOrder: 8
+        setFunction: "zen_cfg_select_option(array('asc', 'desc'), "
+    -
+        name: "Expected Sort Field"
+        key: "EXPECTED_PRODUCTS_FIELD"
+        value: "date_expected"
+        description: "The column to sort by in the expected products box."
+        groupId: 1
+        sortOrder: 9
+        setFunction: "zen_cfg_select_option(array('products_name', 'date_expected'), "
+    -
+        name: "Switch To Default Language Currency"
+        key: "USE_DEFAULT_LANGUAGE_CURRENCY"
+        value: "false"
+        description: "Automatically switch to the language's currency when it is changed"
+        groupId: 1
+        sortOrder: 10
+        setFunction: "zen_cfg_select_option(array('true', 'false'), "
+    -
+        name: "Language Selector"
+        key: "LANGUAGE_DEFAULT_SELECTOR"
+        value: "Default"
+        description: "Should the default language be based on the Store preferences, or the customer's browser settings?<br /><br />Default: Store's default settings"
+        groupId: 1
+        sortOrder: 11
+        setFunction: "zen_cfg_select_option(array('Default', 'Browser'), "
+    -
+        name: "Use Search-Engine Safe URLs (still in development)"
+        key: "SEARCH_ENGINE_FRIENDLY_URLS"
+        value: "false"
+        description: "Use search-engine safe urls for all site links"
+        groupId: 6
+        sortOrder: 12
+        setFunction: "zen_cfg_select_option(array('true', 'false'), "
+    -
+        name: "Display Cart After Adding Product"
+        key: "DISPLAY_CART"
+        value: "true"
+        description: "Display the shopping cart after adding a product (or return back to their origin)"
+        groupId: 1
+        sortOrder: 14
+        setFunction: "zen_cfg_select_option(array('true', 'false'), "
+    -
+        name: "Default Search Operator"
+        key: "ADVANCED_SEARCH_DEFAULT_OPERATOR"
+        value: "and"
+        description: "Default search operators"
+        groupId: 1
+        sortOrder: 17
+        setFunction: "zen_cfg_select_option(array('and', 'or'), "
+    -
+        name: "Store Address and Phone"
+        key: "STORE_NAME_ADDRESS"
+        value: "Store Name\nAddress\nCountry\nPhone"
+        description: "This is the Store Name, Address and Phone used on printable documents and displayed online"
+        groupId: 1
+        sortOrder: 7
+        setFunction: "zen_cfg_textarea("
+    -
+        name: "Show Category Counts"
+        key: "SHOW_COUNTS"
+        value: "true"
+        description: "Count recursively how many products are in each category"
+        groupId: 1
+        sortOrder: 19
+        setFunction: "zen_cfg_select_option(array('true', 'false'), "
+    -
+        name: "Tax Decimal Places"
+        key: "TAX_DECIMAL_PLACES"
+        value: 0
+        description: "Pad the tax value this amount of decimal places"
+        groupId: 1
+        sortOrder: 20
+    -
+        name: "Display Prices with Tax"
+        key: "DISPLAY_PRICE_WITH_TAX"
+        value: "false"
+        description: "Display prices with tax included (true) or add the tax at the end (false)"
+        groupId: 1
+        sortOrder: 21
+        setFunction: "zen_cfg_select_option(array('true', 'false'), "
+    -
+        name: "Display Prices with Tax in Admin"
+        key: "DISPLAY_PRICE_WITH_TAX_ADMIN"
+        value: "false"
+        description: "Display prices with tax included (true) or add the tax at the end (false) in Admin(Invoices)"
+        groupId: 1
+        sortOrder: 21
+        setFunction: "zen_cfg_select_option(array('true', 'false'), "
+    -
+        name: "Basis of Product Tax"
+        key: "STORE_PRODUCT_TAX_BASIS"
+        value: "Shipping"
+        description: "On what basis is Product Tax calculated. Options are<br />Shipping - Based on customers Shipping Address<br />Billing Based on customers Billing address<br />Store - Based on Store address if Billing/Shipping Zone equals Store zone"
+        groupId: 1
+        sortOrder: 21
+        setFunction: "zen_cfg_select_option(array('Shipping', 'Billing', 'Store'), "
+    -
+        name: "Basis of Shipping Tax"
+        key: "STORE_SHIPPING_TAX_BASIS"
+        value: "Shipping"
+        description: "On what basis is Shipping Tax calculated. Options are<br />Shipping - Based on customers Shipping Address<br />Billing Based on customers Billing address<br />Store - Based on Store address if Billing/Shipping Zone equals Store zone - Can be overriden by correctly written Shipping Module"
+        groupId: 1
+        sortOrder: 21
+        setFunction: "zen_cfg_select_option(array('Shipping', 'Billing', 'Store'), "
+    -
+        name: "Sales Tax Display Status"
+        key: "STORE_TAX_DISPLAY_STATUS"
+        value: 0
+        description: "Always show Sales Tax even when amount is $0.00?<br />0= Off<br />1= On"
+        groupId: 1
+        sortOrder: 21
+        setFunction: "zen_cfg_select_option(array('0', '1'), "
+    -
+        name: "Show Split Tax Lines"
+        key: "SHOW_SPLIT_TAX_CHECKOUT"
+        value: "false"
+        description: "If multiple tax rates apply, show each rate as a separate line at checkout"
+        groupId: 1
+        sortOrder: 22
+        setFunction: "zen_cfg_select_option(array('true', 'false'), "
+    -
+        name: "Admin Session Time Out in Seconds"
+        key: "SESSION_TIMEOUT_ADMIN"
+        value: 900
+        description: "Enter the time in seconds.<br />Max allowed is 900 for PCI Compliance Reasons.<br /> Default=900<br />Example: 900= 15 min <br /><br />Note: Too few seconds can result in timeout issues when adding/editing products"
+        groupId: 1
+        sortOrder: 40
+        setFunction: "zen_cfg_select_option(array('900', '600', '300'), "
+    -
+        name: "Admin Set max_execution_time for processes"
+        key: "GLOBAL_SET_TIME_LIMIT"
+        value: 60
+        description: "Enter the time in seconds for how long the max_execution_time of processes should be. Default=60<br />Example: 60= 1 minute<br /><br />Note: Changing the time limit is only needed if you are having problems with the execution time of a process"
+        groupId: 1
+        sortOrder: 42
+    -
+        name: "Show if version update available"
+        key: "SHOW_VERSION_UPDATE_IN_HEADER"
+        value: "true"
+        description: "Automatically check to see if a new version of Zen Cart is available. Enabling this can sometimes slow down the loading of Admin pages. (Displayed on main Index page after login, and Server Info page.)"
+        groupId: 1
+        sortOrder: 44
+        setFunction: "zen_cfg_select_option(array('true', 'false'), "
+    -
+        name: "Store Status"
+        key: "STORE_STATUS"
+        value: 0
+        description: "What is your Store Status<br />0= Normal Store<br />1= Showcase no prices<br />2= Showcase with prices"
+        groupId: 1
+        sortOrder: 25
+        setFunction: "zen_cfg_select_option(array('0', '1', '2'), "
+    -
+        name: "Server Uptime"
+        key: "DISPLAY_SERVER_UPTIME"
+        value: "true"
+        description: "Displaying Server uptime can cause entries in error logs on some servers. (true = Display, false = don't display)"
+        groupId: 1
+        sortOrder: 46
+        useFunction: ""
+        setFunction: "zen_cfg_select_option(array('true', 'false'),"
+    -
+        name: "Missing Page Check"
+        key: "MISSING_PAGE_CHECK"
+        value: "Page Not Found"
+        description: "Zen Cart can check for missing pages in the URL and redirect to Index page. For debugging you may want to turn this off. <br /><br /><strong>Default=On</strong><br />On = Send missing pages to 'index'<br />Off = Don't check for missing pages<br />Page Not Found = display the Page-Not-Found page"
+        groupId: 1
+        sortOrder: 48
+        useFunction: ""
+        setFunction: "zen_cfg_select_option(array('On', 'Off', 'Page Not Found'),"
+    -
+        name: "cURL Proxy Status"
+        key: "CURL_PROXY_REQUIRED"
+        value: "False"
+        description: "Does your host require that you use a proxy for cURL communication?"
+        groupId: 6
+        sortOrder: 50
+        setFunction: "zen_cfg_select_option(array('True', 'False'), "
+    -
+        name: "cURL Proxy Address"
+        key: "CURL_PROXY_SERVER_DETAILS"
+        value: ""
+        description: "If you have a hosting service that requires use of a proxy to talk to external sites via cURL, enter their proxy address here.<br />format: address:port<br />ie: 127.0.0.1:3128"
+        groupId: 6
+        sortOrder: 51
+    -
+        name: "HTML Editor"
+        key: "HTML_EDITOR_PREFERENCE"
+        value: "NONE"
+        description: "Please select the HTML/Rich-Text editor you wish to use for composing Admin-related emails, newsletters, and product descriptions"
+        groupId: 1
+        sortOrder: 110
+        setFunction: "zen_cfg_pull_down_htmleditors("
+    -
+        name: "Enable phpBB linkage?"
+        key: "PHPBB_LINKS_ENABLED"
+        value: "false"
+        description: "Should Zen Cart synchronize new account information to your (already-installed) phpBB forum?"
+        groupId: 1
+        sortOrder: 120
+        setFunction: "zen_cfg_select_option(array('true', 'false'),"
+    -
+        name: "Show Category Counts - Admin"
+        key: "SHOW_COUNTS_ADMIN"
+        value: "true"
+        description: "Show Category Counts in Admin?"
+        groupId: 1
+        sortOrder: 19
+        setFunction: "zen_cfg_select_option(array('true', 'false'), "
+    -
+        name: "Currency Conversion Ratio"
+        key: "CURRENCY_UPLIFT_RATIO"
+        value: 1.05
+        description: "When auto-updating currencies, what \"uplift\" ratio should be used to calculate the exchange rate used by your store?<br />ie: the bank rate is obtained from the currency-exchange servers; how much extra do you want to charge in order to make up the difference between the bank rate and the consumer rate?<br /><br /><strong>Default: 1.05 </strong><br />This will cause the published bank rate to be multiplied by 1.05 to set the currency rates in your store."
+        groupId: 1
+        sortOrder: 55
+    -
+        name: "First Name"
+        key: "ENTRY_FIRST_NAME_MIN_LENGTH"
+        value: 2
+        description: "Minimum length of first name"
+        groupId: 2
+        sortOrder: 1
+    -
+        name: "Last Name"
+        key: "ENTRY_LAST_NAME_MIN_LENGTH"
+        value: 2
+        description: "Minimum length of last name"
+        groupId: 2
+        sortOrder: 2
+    -
+        name: "Date of Birth"
+        key: "ENTRY_DOB_MIN_LENGTH"
+        value: 10
+        description: "Minimum length of date of birth"
+        groupId: 2
+        sortOrder: 3
+    -
+        name: "E-Mail Address"
+        key: "ENTRY_EMAIL_ADDRESS_MIN_LENGTH"
+        value: 6
+        description: "Minimum length of e-mail address"
+        groupId: 2
+        sortOrder: 4
+    -
+        name: "Street Address"
+        key: "ENTRY_STREET_ADDRESS_MIN_LENGTH"
+        value: 5
+        description: "Minimum length of street address"
+        groupId: 2
+        sortOrder: 5
+    -
+        name: "Company"
+        key: "ENTRY_COMPANY_MIN_LENGTH"
+        value: 0
+        description: "Minimum length of company name"
+        groupId: 2
+        sortOrder: 6
+    -
+        name: "Post Code"
+        key: "ENTRY_POSTCODE_MIN_LENGTH"
+        value: 4
+        description: "Minimum length of post code"
+        groupId: 2
+        sortOrder: 7
+    -
+        name: "City"
+        key: "ENTRY_CITY_MIN_LENGTH"
+        value: 2
+        description: "Minimum length of city"
+        groupId: 2
+        sortOrder: 8
+    -
+        name: "State"
+        key: "ENTRY_STATE_MIN_LENGTH"
+        value: 2
+        description: "Minimum length of state"
+        groupId: 2
+        sortOrder: 9
+    -
+        name: "Telephone Number"
+        key: "ENTRY_TELEPHONE_MIN_LENGTH"
+        value: 3
+        description: "Minimum length of telephone number"
+        groupId: 2
+        sortOrder: 10
+    -
+        name: "Password"
+        key: "ENTRY_PASSWORD_MIN_LENGTH"
+        value: 7
+        description: "Minimum length of password"
+        groupId: 2
+        sortOrder: 11
+    -
+        name: "Credit Card Owner Name"
+        key: "CC_OWNER_MIN_LENGTH"
+        value: 3
+        description: "Minimum length of credit card owner name"
+        groupId: 2
+        sortOrder: 12
+    -
+        name: "Credit Card Number"
+        key: "CC_NUMBER_MIN_LENGTH"
+        value: 10
+        description: "Minimum length of credit card number"
+        groupId: 2
+        sortOrder: 13
+    -
+        name: "Credit Card CVV Number"
+        key: "CC_CVV_MIN_LENGTH"
+        value: 3
+        description: "Minimum length of credit card CVV number"
+        groupId: 2
+        sortOrder: 13
+    -
+        name: "Product Review Text"
+        key: "REVIEW_TEXT_MIN_LENGTH"
+        value: 50
+        description: "Minimum length of product review text"
+        groupId: 2
+        sortOrder: 14
+    -
+        name: "Best Sellers"
+        key: "MIN_DISPLAY_BESTSELLERS"
+        value: 1
+        description: "Minimum number of best sellers to display"
+        groupId: 2
+        sortOrder: 15
+    -
+        name: "Also Purchased Products"
+        key: "MIN_DISPLAY_ALSO_PURCHASED"
+        value: 1
+        description: "Minimum number of products to display in the 'This Customer Also Purchased' box"
+        groupId: 2
+        sortOrder: 16
+    -
+        name: "Nick Name"
+        key: "ENTRY_NICK_MIN_LENGTH"
+        value: 3
+        description: "Minimum length of Nick Name"
+        groupId: 2
+        sortOrder: 1
+    -
+        name: "Address Book Entries"
+        key: "MAX_ADDRESS_BOOK_ENTRIES"
+        value: 5
+        description: "Maximum address book entries a customer is allowed to have"
+        groupId: 3
+        sortOrder: 1
+    -
+        name: "Admin Search Results Per Page"
+        key: "MAX_DISPLAY_SEARCH_RESULTS"
+        value: 20
+        description: "Number of products to list on an Admin search result page"
+        groupId: 3
+        sortOrder: 2
+    -
+        name: "Prev/Next Navigation Page Links"
+        key: "MAX_DISPLAY_PAGE_LINKS"
+        value: 5
+        description: "Number of 'number' links use for page-sets"
+        groupId: 3
+        sortOrder: 3
+    -
+        name: "Products on Special "
+        key: "MAX_DISPLAY_SPECIAL_PRODUCTS"
+        value: 9
+        description: "Number of products on special to display"
+        groupId: 3
+        sortOrder: 4
+    -
+        name: "New Products Module"
+        key: "MAX_DISPLAY_NEW_PRODUCTS"
+        value: 9
+        description: "Number of new products to display in a category"
+        groupId: 3
+        sortOrder: 5
+    -
+        name: "Upcoming Products "
+        key: "MAX_DISPLAY_UPCOMING_PRODUCTS"
+        value: 10
+        description: "Number of 'upcoming' products to display"
+        groupId: 3
+        sortOrder: 6
+    -
+        name: "Manufacturers List - Scroll Box Size/Style"
+        key: "MAX_MANUFACTURERS_LIST"
+        value: 3
+        description: "Number of manufacturers names to be displayed in the scroll box window. Setting this to 1 or 0 will display a dropdown list."
+        groupId: 3
+        sortOrder: 7
+    -
+        name: "Manufacturers List - Verify Product Exist"
+        key: "PRODUCTS_MANUFACTURERS_STATUS"
+        value: 1
+        description: "Verify that at least 1 product exists and is active for the manufacturer name to show<br /><br />Note: When this feature is ON it can produce slower results on sites with a large number of products and/or manufacturers<br />0= off 1= on"
+        groupId: 3
+        sortOrder: 7
+        setFunction: "zen_cfg_select_option(array('0', '1'), "
+    -
+        name: "Music Genre List - Scroll Box Size/Style"
+        key: "MAX_MUSIC_GENRES_LIST"
+        value: 3
+        description: "Number of music genre names to be displayed in the scroll box window. Setting this to 1 or 0 will display a dropdown list."
+        groupId: 3
+        sortOrder: 7
+    -
+        name: "Record Company List - Scroll Box Size/Style"
+        key: "MAX_RECORD_COMPANY_LIST"
+        value: 3
+        description: "Number of record company names to be displayed in the scroll box window. Setting this to 1 or 0 will display a dropdown list."
+        groupId: 3
+        sortOrder: 7
+    -
+        name: "Length of Record Company Name"
+        key: "MAX_DISPLAY_RECORD_COMPANY_NAME_LEN"
+        value: 15
+        description: "Used in record companies box; maximum length of record company name to display. Longer names will be truncated."
+        groupId: 3
+        sortOrder: 8
+    -
+        name: "Length of Music Genre Name"
+        key: "MAX_DISPLAY_MUSIC_GENRES_NAME_LEN"
+        value: 15
+        description: "Used in music genres box; maximum length of music genre name to display. Longer names will be truncated."
+        groupId: 3
+        sortOrder: 8
+    -
+        name: "Length of Manufacturers Name"
+        key: "MAX_DISPLAY_MANUFACTURER_NAME_LEN"
+        value: 15
+        description: "Used in manufacturers box; maximum length of manufacturers name to display. Longer names will be truncated."
+        groupId: 3
+        sortOrder: 8
+    -
+        name: "New Product Reviews Per Page"
+        key: "MAX_DISPLAY_NEW_REVIEWS"
+        value: 6
+        description: "Number of new reviews to display on each page"
+        groupId: 3
+        sortOrder: 9
+    -
+        name: "Random Product Reviews for SideBox"
+        key: "MAX_RANDOM_SELECT_REVIEWS"
+        value: 1
+        description: "Number of random product REVIEWS to rotate in the sidebox<br />Enter the number of products to display in this sidebox at one time.<br /><br />How many products do you want to display in this sidebox?"
+        groupId: 3
+        sortOrder: 10
+    -
+        name: "Random New Products for SideBox"
+        key: "MAX_RANDOM_SELECT_NEW"
+        value: 3
+        description: "Number of random NEW products to rotate in the sidebox<br />Enter the number of products to display in this sidebox at one time.<br /><br />How many products do you want to display in this sidebox?"
+        groupId: 3
+        sortOrder: 11
+    -
+        name: "Random Products On Special for SideBox"
+        key: "MAX_RANDOM_SELECT_SPECIALS"
+        value: 2
+        description: "Number of random products on SPECIAL to rotate in the sidebox<br />Enter the number of products to display in this sidebox at one time.<br /><br />How many products do you want to display in this sidebox?"
+        groupId: 3
+        sortOrder: 12
+    -
+        name: "Categories To List Per Row"
+        key: "MAX_DISPLAY_CATEGORIES_PER_ROW"
+        value: 3
+        description: "How many categories to list per row"
+        groupId: 3
+        sortOrder: 13
+    -
+        name: "New Products Listing- Number Per Page"
+        key: "MAX_DISPLAY_PRODUCTS_NEW"
+        value: 10
+        description: "Number of new products listed per page"
+        groupId: 3
+        sortOrder: 14
+    -
+        name: "Best Sellers For Box"
+        key: "MAX_DISPLAY_BESTSELLERS"
+        value: 10
+        description: "Number of best sellers to display in box"
+        groupId: 3
+        sortOrder: 15
+    -
+        name: "Also Purchased Products"
+        key: "MAX_DISPLAY_ALSO_PURCHASED"
+        value: 6
+        description: "Number of products to display in the 'This Customer Also Purchased' box"
+        groupId: 3
+        sortOrder: 16
+    -
+        name: "Recent Purchases Box- NOTE: box is disabled "
+        key: "MAX_DISPLAY_PRODUCTS_IN_ORDER_HISTORY_BOX"
+        value: 6
+        description: "Number of products to display in the recent purchases box"
+        groupId: 3
+        sortOrder: 17
+    -
+        name: "Customer Order History List Per Page"
+        key: "MAX_DISPLAY_ORDER_HISTORY"
+        value: 10
+        description: "Number of orders to display in the order history list in 'My Account'"
+        groupId: 3
+        sortOrder: 18
+    -
+        name: "Maximum Display of Customers on Customers Page"
+        key: "MAX_DISPLAY_SEARCH_RESULTS_CUSTOMER"
+        value: 20
+        description: ""
+        groupId: 3
+        sortOrder: 19
+    -
+        name: "Maximum Display of Orders on Orders Page"
+        key: "MAX_DISPLAY_SEARCH_RESULTS_ORDERS"
+        value: 20
+        description: ""
+        groupId: 3
+        sortOrder: 20
+    -
+        name: "Maximum Display of Products on Reports"
+        key: "MAX_DISPLAY_SEARCH_RESULTS_REPORTS"
+        value: 20
+        description: ""
+        groupId: 3
+        sortOrder: 21
+    -
+        name: "Maximum Categories Products Display List"
+        key: "MAX_DISPLAY_RESULTS_CATEGORIES"
+        value: 10
+        description: "Number of products to list per screen"
+        groupId: 3
+        sortOrder: 22
+    -
+        name: "Products Listing- Number Per Page"
+        key: "MAX_DISPLAY_PRODUCTS_LISTING"
+        value: 10
+        description: "Maximum Number of Products to list per page on main page"
+        groupId: 3
+        sortOrder: 30
+    -
+        name: "Products Attributes - Option Names and Values Display"
+        key: "MAX_ROW_LISTS_OPTIONS"
+        value: 10
+        description: "Maximum number of option names and values to display in the products attributes page"
+        groupId: 3
+        sortOrder: 24
+    -
+        name: "Products Attributes - Attributes Controller Display"
+        key: "MAX_ROW_LISTS_ATTRIBUTES_CONTROLLER"
+        value: 30
+        description: "Maximum number of attributes to display in the Attributes Controller page"
+        groupId: 3
+        sortOrder: 25
+    -
+        name: "Products Attributes - Downloads Manager Display"
+        key: "MAX_DISPLAY_SEARCH_RESULTS_DOWNLOADS_MANAGER"
+        value: 30
+        description: "Maximum number of attributes downloads to display in the Downloads Manager page"
+        groupId: 3
+        sortOrder: 26
+    -
+        name: "Featured Products - Number to Display Admin"
+        key: "MAX_DISPLAY_SEARCH_RESULTS_FEATURED_ADMIN"
+        value: 10
+        description: "Number of featured products to list per screen - Admin"
+        groupId: 3
+        sortOrder: 27
+    -
+        name: "Maximum Display of Featured Products - Main Page"
+        key: "MAX_DISPLAY_SEARCH_RESULTS_FEATURED"
+        value: 9
+        description: "Number of featured products to list on main page"
+        groupId: 3
+        sortOrder: 28
+    -
+        name: "Maximum Display of Featured Products Page"
+        key: "MAX_DISPLAY_PRODUCTS_FEATURED_PRODUCTS"
+        value: 10
+        description: "Number of featured products to list per screen"
+        groupId: 3
+        sortOrder: 29
+    -
+        name: "Random Featured Products for SideBox"
+        key: "MAX_RANDOM_SELECT_FEATURED_PRODUCTS"
+        value: 2
+        description: "Number of random FEATURED products to rotate in the sidebox<br />Enter the number of products to display in this sidebox at one time.<br /><br />How many products do you want to display in this sidebox?"
+        groupId: 3
+        sortOrder: 30
+    -
+        name: "Maximum Display of Specials Products - Main Page"
+        key: "MAX_DISPLAY_SPECIAL_PRODUCTS_INDEX"
+        value: 9
+        description: "Number of special products to list on main page"
+        groupId: 3
+        sortOrder: 31
+    -
+        name: "New Product Listing - Limited to ..."
+        key: "SHOW_NEW_PRODUCTS_LIMIT"
+        value: 0
+        description: "Limit the New Product Listing to<br />0= All Products<br />1= Current Month<br />7= 7 Days<br />14= 14 Days<br />30= 30 Days<br />60= 60 Days<br />90= 90 Days<br />120= 120 Days"
+        groupId: 3
+        sortOrder: 40
+        setFunction: "zen_cfg_select_option(array('0', '1', '7', '14', '30', '60', '90', '120'), "
+    -
+        name: "Maximum Display of Products All Page"
+        key: "MAX_DISPLAY_PRODUCTS_ALL"
+        value: 10
+        description: "Number of products to list per screen"
+        groupId: 3
+        sortOrder: 45
+    -
+        name: "Maximum Display of Language Flags in Language Side Box"
+        key: "MAX_LANGUAGE_FLAGS_COLUMNS"
+        value: 3
+        description: "Number of Language Flags per Row"
+        groupId: 3
+        sortOrder: 50
+    -
+        name: "Maximum File Upload Size"
+        key: "MAX_FILE_UPLOAD_SIZE"
+        value: 2048000
+        description: "What is the Maximum file size for uploads?<br />Default= 2048000"
+        groupId: 3
+        sortOrder: 60
+    -
+        name: "Allowed Filename Extensions for uploading"
+        key: "UPLOAD_FILENAME_EXTENSIONS"
+        value: "jpg,jpeg,gif,png,eps,cdr,ai,pdf,tif,tiff,bmp,zip"
+        description: "List the permissible filetypes (filename extensions) to be allowed when files are uploaded to your site by customers. Separate multiple values with commas(,). Do not include the dot(.).<br /><br />Suggested setting: \"jpg,jpeg,gif,png,eps,cdr,ai,pdf,tif,tiff,bmp,zip\""
+        groupId: 3
+        sortOrder: 61
+        setFunction: "zen_cfg_textarea("
+    -
+        name: "Maximum Orders Detail Display on Admin Orders Listing"
+        key: "MAX_DISPLAY_RESULTS_ORDERS_DETAILS_LISTING"
+        value: 0
+        description: "Maximum number of Order Details<br />0 = Unlimited"
+        groupId: 3
+        sortOrder: 65
+    -
+        name: "Maximum PayPal IPN Display on Admin Listing"
+        key: "MAX_DISPLAY_SEARCH_RESULTS_PAYPAL_IPN"
+        value: 20
+        description: "Maximum number of PayPal IPN Lisings in Admin<br />Default is 20"
+        groupId: 3
+        sortOrder: 66
+    -
+        name: "Maximum Display Columns Products to Multiple Categories Manager"
+        key: "MAX_DISPLAY_PRODUCTS_TO_CATEGORIES_COLUMNS"
+        value: 3
+        description: "Maximum Display Columns Products to Multiple Categories Manager<br />3 = Default"
+        groupId: 3
+        sortOrder: 70
+    -
+        name: "Maximum Display EZ-Pages"
+        key: "MAX_DISPLAY_SEARCH_RESULTS_EZPAGE"
+        value: 20
+        description: "Maximum Display EZ-Pages<br />20 = Default"
+        groupId: 3
+        sortOrder: 71
+    -
+        name: "Small Image Width"
+        key: "SMALL_IMAGE_WIDTH"
+        value: 100
+        description: "The pixel width of small images"
+        groupId: 4
+        sortOrder: 1
+    -
+        name: "Small Image Height"
+        key: "SMALL_IMAGE_HEIGHT"
+        value: 80
+        description: "The pixel height of small images"
+        groupId: 4
+        sortOrder: 2
+    -
+        name: "Heading Image Width - Admin"
+        key: "HEADING_IMAGE_WIDTH"
+        value: 57
+        description: "The pixel width of heading images in the Admin<br />NOTE: Presently, this adjusts the spacing on the pages in the Admin Pages or could be used to add images to the heading in the Admin"
+        groupId: 4
+        sortOrder: 3
+    -
+        name: "Heading Image Height - Admin"
+        key: "HEADING_IMAGE_HEIGHT"
+        value: 40
+        description: "The pixel height of heading images in the Admin<br />NOTE: Presently, this adjusts the spacing on the pages in the Admin Pages or could be used to add images to the heading in the Admin"
+        groupId: 4
+        sortOrder: 4
+    -
+        name: "Subcategory Image Width"
+        key: "SUBCATEGORY_IMAGE_WIDTH"
+        value: 100
+        description: "The pixel width of subcategory images"
+        groupId: 4
+        sortOrder: 5
+    -
+        name: "Subcategory Image Height"
+        key: "SUBCATEGORY_IMAGE_HEIGHT"
+        value: 57
+        description: "The pixel height of subcategory images"
+        groupId: 4
+        sortOrder: 6
+    -
+        name: "Calculate Image Size"
+        key: "CONFIG_CALCULATE_IMAGE_SIZE"
+        value: "true"
+        description: "Calculate the size of images?"
+        groupId: 4
+        sortOrder: 7
+        setFunction: "zen_cfg_select_option(array('true', 'false'), "
+    -
+        name: "Image Required"
+        key: "IMAGE_REQUIRED"
+        value: "true"
+        description: "Enable to display broken images. Good for development."
+        groupId: 4
+        sortOrder: 8
+        setFunction: "zen_cfg_select_option(array('true', 'false'), "
+    -
+        name: "Image - Shopping Cart Status"
+        key: "IMAGE_SHOPPING_CART_STATUS"
+        value: 1
+        description: "Show product image in the shopping cart?<br />0= off 1= on"
+        groupId: 4
+        sortOrder: 9
+        setFunction: "zen_cfg_select_option(array('0', '1'), "
+    -
+        name: "Image - Shopping Cart Width"
+        key: "IMAGE_SHOPPING_CART_WIDTH"
+        value: 50
+        description: "Default = 50"
+        groupId: 4
+        sortOrder: 10
+    -
+        name: "Image - Shopping Cart Height"
+        key: "IMAGE_SHOPPING_CART_HEIGHT"
+        value: 40
+        description: "Default = 40"
+        groupId: 4
+        sortOrder: 11
+    -
+        name: "Category Icon Image Width - Product Info Pages"
+        key: "CATEGORY_ICON_IMAGE_WIDTH"
+        value: 57
+        description: "The pixel width of Category Icon heading images for Product Info Pages"
+        groupId: 4
+        sortOrder: 13
+    -
+        name: "Category Icon Image Height - Product Info Pages"
+        key: "CATEGORY_ICON_IMAGE_HEIGHT"
+        value: 40
+        description: "The pixel height of Category Icon heading images for Product Info Pages"
+        groupId: 4
+        sortOrder: 14
+    -
+        name: "Top Subcategory Image Width"
+        key: "SUBCATEGORY_IMAGE_TOP_WIDTH"
+        value: 150
+        description: "The pixel width of Top subcategory images<br />Top subcategory is when the Category contains subcategories"
+        groupId: 4
+        sortOrder: 15
+    -
+        name: "Top Subcategory Image Height"
+        key: "SUBCATEGORY_IMAGE_TOP_HEIGHT"
+        value: 85
+        description: "The pixel height of Top subcategory images<br />Top subcategory is when the Category contains subcategories"
+        groupId: 4
+        sortOrder: 16
+    -
+        name: "Product Info - Image Width"
+        key: "MEDIUM_IMAGE_WIDTH"
+        value: 150
+        description: "The pixel width of Product Info images"
+        groupId: 4
+        sortOrder: 20
+    -
+        name: "Product Info - Image Height"
+        key: "MEDIUM_IMAGE_HEIGHT"
+        value: 120
+        description: "The pixel height of Product Info images"
+        groupId: 4
+        sortOrder: 21
+    -
+        name: "Product Info - Image Medium Suffix"
+        key: "IMAGE_SUFFIX_MEDIUM"
+        value: "_MED"
+        description: "Product Info Medium Image Suffix<br />Default = _MED"
+        groupId: 4
+        sortOrder: 22
+    -
+        name: "Product Info - Image Large Suffix"
+        key: "IMAGE_SUFFIX_LARGE"
+        value: "_LRG"
+        description: "Product Info Large Image Suffix<br />Default = _LRG"
+        groupId: 4
+        sortOrder: 23
+    -
+        name: "Product Info - Number of Additional Images per Row"
+        key: "IMAGES_AUTO_ADDED"
+        value: 3
+        description: "Product Info - Enter the number of additional images to display per row<br />Default = 3"
+        groupId: 4
+        sortOrder: 30
+    -
+        name: "Image - Product Listing Width"
+        key: "IMAGE_PRODUCT_LISTING_WIDTH"
+        value: 100
+        description: "Default = 100"
+        groupId: 4
+        sortOrder: 40
+    -
+        name: "Image - Product Listing Height"
+        key: "IMAGE_PRODUCT_LISTING_HEIGHT"
+        value: 80
+        description: "Default = 80"
+        groupId: 4
+        sortOrder: 41
+    -
+        name: "Image - Product New Listing Width"
+        key: "IMAGE_PRODUCT_NEW_LISTING_WIDTH"
+        value: 100
+        description: "Default = 100"
+        groupId: 4
+        sortOrder: 42
+    -
+        name: "Image - Product New Listing Height"
+        key: "IMAGE_PRODUCT_NEW_LISTING_HEIGHT"
+        value: 80
+        description: "Default = 80"
+        groupId: 4
+        sortOrder: 43
+    -
+        name: "Image - New Products Width"
+        key: "IMAGE_PRODUCT_NEW_WIDTH"
+        value: 100
+        description: "Default = 100"
+        groupId: 4
+        sortOrder: 44
+    -
+        name: "Image - New Products Height"
+        key: "IMAGE_PRODUCT_NEW_HEIGHT"
+        value: 80
+        description: "Default = 80"
+        groupId: 4
+        sortOrder: 45
+    -
+        name: "Image - Featured Products Width"
+        key: "IMAGE_FEATURED_PRODUCTS_LISTING_WIDTH"
+        value: 100
+        description: "Default = 100"
+        groupId: 4
+        sortOrder: 46
+    -
+        name: "Image - Featured Products Height"
+        key: "IMAGE_FEATURED_PRODUCTS_LISTING_HEIGHT"
+        value: 80
+        description: "Default = 80"
+        groupId: 4
+        sortOrder: 47
+    -
+        name: "Image - Product All Listing Width"
+        key: "IMAGE_PRODUCT_ALL_LISTING_WIDTH"
+        value: 100
+        description: "Default = 100"
+        groupId: 4
+        sortOrder: 48
+    -
+        name: "Image - Product All Listing Height"
+        key: "IMAGE_PRODUCT_ALL_LISTING_HEIGHT"
+        value: 80
+        description: "Default = 80"
+        groupId: 4
+        sortOrder: 49
+    -
+        name: "Product Image - No Image Status"
+        key: "PRODUCTS_IMAGE_NO_IMAGE_STATUS"
+        value: 1
+        description: "Use automatic No Image when none is added to product<br />0= off<br />1= On"
+        groupId: 4
+        sortOrder: 60
+        setFunction: "zen_cfg_select_option(array('0', '1'), "
+    -
+        name: "Product Image - No Image picture"
+        key: "PRODUCTS_IMAGE_NO_IMAGE"
+        value: "no_picture.gif"
+        description: "Use automatic No Image when none is added to product<br />Default = no_picture.gif"
+        groupId: 4
+        sortOrder: 61
+    -
+        name: "Image - Use Proportional Images on Products and Categories"
+        key: "PROPORTIONAL_IMAGES_STATUS"
+        value: 1
+        description: "Use Proportional Images on Products and Categories?<br /><br />NOTE: Do not use 0 height or width settings for Proportion Images<br />0= off 1= on"
+        groupId: 4
+        sortOrder: 75
+        setFunction: "zen_cfg_select_option(array('0', '1'), "
+    -
+        name: "Email Salutation"
+        key: "ACCOUNT_GENDER"
+        value: "true"
+        description: "Display salutation choice during account creation and with account information"
+        groupId: 5
+        sortOrder: 1
+        setFunction: "zen_cfg_select_option(array('true', 'false'), "
+    -
+        name: "Date of Birth"
+        key: "ACCOUNT_DOB"
+        value: "true"
+        description: "Display date of birth field during account creation and with account information<br />NOTE: Set Minimum Value Date of Birth to blank for not required<br />Set Minimum Value Date of Birth > 0 to require"
+        groupId: 5
+        sortOrder: 2
+        setFunction: "zen_cfg_select_option(array('true', 'false'), "
+    -
+        name: "Company"
+        key: "ACCOUNT_COMPANY"
+        value: "true"
+        description: "Display company field during account creation and with account information"
+        groupId: 5
+        sortOrder: 3
+        setFunction: "zen_cfg_select_option(array('true', 'false'), "
+    -
+        name: "Address Line 2"
+        key: "ACCOUNT_SUBURB"
+        value: "true"
+        description: "Display address line 2 field during account creation and with account information"
+        groupId: 5
+        sortOrder: 4
+        setFunction: "zen_cfg_select_option(array('true', 'false'), "
+    -
+        name: "State"
+        key: "ACCOUNT_STATE"
+        value: "true"
+        description: "Display state field during account creation and with account information"
+        groupId: 5
+        sortOrder: 5
+        setFunction: "zen_cfg_select_option(array('true', 'false'), "
+    -
+        name: "State - Always display as pulldown?"
+        key: "ACCOUNT_STATE_DRAW_INITIAL_DROPDOWN"
+        value: "false"
+        description: "When state field is displayed, should it always be a pulldown menu?"
+        groupId: 5
+        sortOrder: 5
+        setFunction: "zen_cfg_select_option(array('true', 'false'), "
+    -
+        name: "Create Account Default Country ID"
+        key: "SHOW_CREATE_ACCOUNT_DEFAULT_COUNTRY"
+        value: 223
+        description: "Set Create Account Default Country ID to:<br />Default is 223"
+        groupId: 5
+        sortOrder: 6
+        useFunction: "zen_get_country_name"
+        setFunction: "zen_cfg_pull_down_country_list_none("
+    -
+        name: "Fax Number"
+        key: "ACCOUNT_FAX_NUMBER"
+        value: "true"
+        description: "Display fax number field during account creation and with account information"
+        groupId: 5
+        sortOrder: 10
+        setFunction: "zen_cfg_select_option(array('true', 'false'), "
+    -
+        name: "Show Newsletter Checkbox"
+        key: "ACCOUNT_NEWSLETTER_STATUS"
+        value: 1
+        description: "Show Newsletter Checkbox<br />0= off<br />1= Display Unchecked<br />2= Display Checked<br /><strong>Note: Defaulting this to accepted may be in violation of certain regulations for your state or country</strong>"
+        groupId: 5
+        sortOrder: 45
+        setFunction: "zen_cfg_select_option(array('0', '1', '2'), "
+    -
+        name: "Customer Default Email Preference"
+        key: "ACCOUNT_EMAIL_PREFERENCE"
+        value: 0
+        description: "Set the Default Customer Default Email Preference<br />0= Text<br />1= HTML<br />"
+        groupId: 5
+        sortOrder: 46
+        setFunction: "zen_cfg_select_option(array('0', '1'), "
+    -
+        name: "Customer Product Notification Status"
+        key: "CUSTOMERS_PRODUCTS_NOTIFICATION_STATUS"
+        value: 1
+        description: "Customer should be asked about product notifications after checkout success and in account preferences<br />0= Never ask<br />1= Ask (ignored on checkout if has already selected global notifications)<br /><br />Note: Sidebox must be turned off separately"
+        groupId: 5
+        sortOrder: 50
+        setFunction: "zen_cfg_select_option(array('0', '1'), "
+    -
+        name: "Customer Shop Status - View Shop and Prices"
+        key: "CUSTOMERS_APPROVAL"
+        value: 0
+        description: "Customer must be approved to shop<br />0= Not required<br />1= Must login to browse<br />2= May browse but no prices unless logged in<br />3= Showroom Only<br /><br />It is recommended that Option 2 be used for the purposes of Spiders if you wish customers to login to see prices."
+        groupId: 5
+        sortOrder: 55
+        setFunction: "zen_cfg_select_option(array('0', '1', '2', '3'), "
+    -
+        name: "Customer Approval Status - Authorization Pending"
+        key: "CUSTOMERS_APPROVAL_AUTHORIZATION"
+        value: 0
+        description: "Customer must be Authorized to shop<br />0= Not required<br />1= Must be Authorized to Browse<br />2= May browse but no prices unless Authorized<br />3= Customer May Browse and May see Prices but Must be Authorized to Buy<br /><br />It is recommended that Option 2 or 3 be used for the purposes of Spiders"
+        groupId: 5
+        sortOrder: 65
+        setFunction: "zen_cfg_select_option(array('0', '1', '2', '3'), "
+    -
+        name: "Customer Authorization: filename"
+        key: "CUSTOMERS_AUTHORIZATION_FILENAME"
+        value: "customers_authorization"
+        description: "Customer Authorization filename<br />Note: Do not include the extension<br />Default=customers_authorization"
+        groupId: 5
+        sortOrder: 66
+        setFunction: ""
+    -
+        name: "Customer Authorization: Hide Header"
+        key: "CUSTOMERS_AUTHORIZATION_HEADER_OFF"
+        value: "false"
+        description: "Customer Authorization: Hide Header <br />(true=hide false=show)"
+        groupId: 5
+        sortOrder: 67
+        setFunction: "zen_cfg_select_option(array('true', 'false'), "
+    -
+        name: "Customer Authorization: Hide Column Left"
+        key: "CUSTOMERS_AUTHORIZATION_COLUMN_LEFT_OFF"
+        value: "false"
+        description: "Customer Authorization: Hide Column Left <br />(true=hide false=show)"
+        groupId: 5
+        sortOrder: 68
+        setFunction: "zen_cfg_select_option(array('true', 'false'), "
+    -
+        name: "Customer Authorization: Hide Column Right"
+        key: "CUSTOMERS_AUTHORIZATION_COLUMN_RIGHT_OFF"
+        value: "false"
+        description: "Customer Authorization: Hide Column Right <br />(true=hide false=show)"
+        groupId: 5
+        sortOrder: 69
+        setFunction: "zen_cfg_select_option(array('true', 'false'), "
+    -
+        name: "Customer Authorization: Hide Footer"
+        key: "CUSTOMERS_AUTHORIZATION_FOOTER_OFF"
+        value: "false"
+        description: "Customer Authorization: Hide Footer <br />(true=hide false=show)"
+        groupId: 5
+        sortOrder: 70
+        setFunction: "zen_cfg_select_option(array('true', 'false'), "
+    -
+        name: "Customer Authorization: Hide Prices"
+        key: "CUSTOMERS_AUTHORIZATION_PRICES_OFF"
+        value: "false"
+        description: "Customer Authorization: Hide Prices <br />(true=hide false=show)"
+        groupId: 5
+        sortOrder: 71
+        setFunction: "zen_cfg_select_option(array('true', 'false'), "
+    -
+        name: "Customers Referral Status"
+        key: "CUSTOMERS_REFERRAL_STATUS"
+        value: 0
+        description: "Customers Referral Code is created from<br />0= Off<br />1= 1st Discount Coupon Code used<br />2= Customer can add during create account or edit if blank<br /><br />NOTE: Once the Customers Referral Code has been set it can only be changed in the Admin Customer"
+        groupId: 5
+        sortOrder: 80
+        setFunction: "zen_cfg_select_option(array('0', '1', '2'), "
+    -
+        name: "Installed Modules"
+        key: "MODULE_PAYMENT_INSTALLED"
+        value: "freecharger.php;moneyorder.php"
+        description: "List of payment module filenames separated by a semi-colon. This is automatically updated. No need to edit. (Example: freecharger.php;cod.php;paypal.php)"
+        groupId: 6
+        sortOrder: 0
+    -
+        name: "Installed Modules"
+        key: "MODULE_ORDER_TOTAL_INSTALLED"
+        value: "ot_subtotal.php;ot_shipping.php;ot_coupon.php;ot_group_pricing.php;ot_tax.php;ot_loworderfee.php;ot_gv.php;ot_total.php"
+        description: "List of order_total module filenames separated by a semi-colon. This is automatically updated. No need to edit. (Example: ot_subtotal.php;ot_tax.php;ot_shipping.php;ot_total.php)"
+        groupId: 6
+        sortOrder: 0
+    -
+        name: "Installed Modules"
+        key: "MODULE_SHIPPING_INSTALLED"
+        value: "flat.php;freeshipper.php;item.php;storepickup.php"
+        description: "List of shipping module filenames separated by a semi-colon. This is automatically updated. No need to edit. (Example: ups.php;flat.php;item.php)"
+        groupId: 6
+        sortOrder: 0
+    -
+        name: "Enable Free Shipping"
+        key: "MODULE_SHIPPING_FREESHIPPER_STATUS"
+        value: "True"
+        description: "Do you want to offer Free shipping?"
+        groupId: 6
+        sortOrder: 0
+        setFunction: "zen_cfg_select_option(array('True', 'False'), "
+    -
+        name: "Free Shipping Cost"
+        key: "MODULE_SHIPPING_FREESHIPPER_COST"
+        value: 0.00
+        description: "What is the Shipping cost?"
+        groupId: 6
+        sortOrder: 6
+    -
+        name: "Handling Fee"
+        key: "MODULE_SHIPPING_FREESHIPPER_HANDLING"
+        value: 0
+        description: "Handling fee for this shipping method."
+        groupId: 6
+        sortOrder: 0
+    -
+        name: "Tax Class"
+        key: "MODULE_SHIPPING_FREESHIPPER_TAX_CLASS"
+        value: 0
+        description: "Use the following tax class on the shipping fee."
+        groupId: 6
+        sortOrder: 0
+        useFunction: "zen_get_tax_class_title"
+        setFunction: "zen_cfg_pull_down_tax_classes("
+    -
+        name: "Shipping Zone"
+        key: "MODULE_SHIPPING_FREESHIPPER_ZONE"
+        value: 0
+        description: "If a zone is selected, only enable this shipping method for that zone."
+        groupId: 6
+        sortOrder: 0
+        useFunction: "zen_get_zone_class_title"
+        setFunction: "zen_cfg_pull_down_zone_classes("
+    -
+        name: "Sort Order"
+        key: "MODULE_SHIPPING_FREESHIPPER_SORT_ORDER"
+        value: 0
+        description: "Sort order of display."
+        groupId: 6
+        sortOrder: 0
+    -
+        name: "Enable Store Pickup Shipping"
+        key: "MODULE_SHIPPING_STOREPICKUP_STATUS"
+        value: "True"
+        description: "Do you want to offer In Store rate shipping?"
+        groupId: 6
+        sortOrder: 0
+        setFunction: "zen_cfg_select_option(array('True', 'False'), "
+    -
+        name: "Shipping Cost"
+        key: "MODULE_SHIPPING_STOREPICKUP_COST"
+        value: 0.00
+        description: "The shipping cost for all orders using this shipping method."
+        groupId: 6
+        sortOrder: 0
+    -
+        name: "Tax Class"
+        key: "MODULE_SHIPPING_STOREPICKUP_TAX_CLASS"
+        value: 0
+        description: "Use the following tax class on the shipping fee."
+        groupId: 6
+        sortOrder: 0
+        useFunction: "zen_get_tax_class_title"
+        setFunction: "zen_cfg_pull_down_tax_classes("
+    -
+        name: "Tax Basis"
+        key: "MODULE_SHIPPING_STOREPICKUP_TAX_BASIS"
+        value: "Shipping"
+        description: "On what basis is Shipping Tax calculated. Options are<br />Shipping - Based on customers Shipping Address<br />Billing Based on customers Billing address<br />Store - Based on Store address if Billing/Shipping Zone equals Store zone"
+        groupId: 6
+        sortOrder: 0
+        setFunction: "zen_cfg_select_option(array('Shipping', 'Billing'), "
+    -
+        name: "Shipping Zone"
+        key: "MODULE_SHIPPING_STOREPICKUP_ZONE"
+        value: 0
+        description: "If a zone is selected, only enable this shipping method for that zone."
+        groupId: 6
+        sortOrder: 0
+        useFunction: "zen_get_zone_class_title"
+        setFunction: "zen_cfg_pull_down_zone_classes("
+    -
+        name: "Sort Order"
+        key: "MODULE_SHIPPING_STOREPICKUP_SORT_ORDER"
+        value: 0
+        description: "Sort order of display."
+        groupId: 6
+        sortOrder: 0
+    -
+        name: "Enable Item Shipping"
+        key: "MODULE_SHIPPING_ITEM_STATUS"
+        value: "True"
+        description: "Do you want to offer per item rate shipping?"
+        groupId: 6
+        sortOrder: 0
+        setFunction: "zen_cfg_select_option(array('True', 'False'), "
+    -
+        name: "Shipping Cost"
+        key: "MODULE_SHIPPING_ITEM_COST"
+        value: 2.50
+        description: "The shipping cost will be multiplied by the number of items in an order that uses this shipping method."
+        groupId: 6
+        sortOrder: 0
+    -
+        name: "Handling Fee"
+        key: "MODULE_SHIPPING_ITEM_HANDLING"
+        value: 0
+        description: "Handling fee for this shipping method."
+        groupId: 6
+        sortOrder: 0
+    -
+        name: "Tax Class"
+        key: "MODULE_SHIPPING_ITEM_TAX_CLASS"
+        value: 0
+        description: "Use the following tax class on the shipping fee."
+        groupId: 6
+        sortOrder: 0
+        useFunction: "zen_get_tax_class_title"
+        setFunction: "zen_cfg_pull_down_tax_classes("
+    -
+        name: "Tax Basis"
+        key: "MODULE_SHIPPING_ITEM_TAX_BASIS"
+        value: "Shipping"
+        description: "On what basis is Shipping Tax calculated. Options are<br />Shipping - Based on customers Shipping Address<br />Billing Based on customers Billing address<br />Store - Based on Store address if Billing/Shipping Zone equals Store zone"
+        groupId: 6
+        sortOrder: 0
+        setFunction: "zen_cfg_select_option(array('Shipping', 'Billing', 'Store'), "
+    -
+        name: "Shipping Zone"
+        key: "MODULE_SHIPPING_ITEM_ZONE"
+        value: 0
+        description: "If a zone is selected, only enable this shipping method for that zone."
+        groupId: 6
+        sortOrder: 0
+        useFunction: "zen_get_zone_class_title"
+        setFunction: "zen_cfg_pull_down_zone_classes("
+    -
+        name: "Sort Order"
+        key: "MODULE_SHIPPING_ITEM_SORT_ORDER"
+        value: 0
+        description: "Sort order of display."
+        groupId: 6
+        sortOrder: 0
+    -
+        name: "Enable Free Charge Module"
+        key: "MODULE_PAYMENT_FREECHARGER_STATUS"
+        value: "True"
+        description: "Do you want to accept Free Charge payments?"
+        groupId: 6
+        sortOrder: 1
+        setFunction: "zen_cfg_select_option(array('True', 'False'), "
+    -
+        name: "Sort order of display."
+        key: "MODULE_PAYMENT_FREECHARGER_SORT_ORDER"
+        value: 0
+        description: "Sort order of display. Lowest is displayed first."
+        groupId: 6
+        sortOrder: 0
+    -
+        name: "Payment Zone"
+        key: "MODULE_PAYMENT_FREECHARGER_ZONE"
+        value: 0
+        description: "If a zone is selected, only enable this payment method for that zone."
+        groupId: 6
+        sortOrder: 2
+        useFunction: "zen_get_zone_class_title"
+        setFunction: "zen_cfg_pull_down_zone_classes("
+    -
+        name: "Set Order Status"
+        key: "MODULE_PAYMENT_FREECHARGER_ORDER_STATUS_ID"
+        value: 0
+        description: "Set the status of orders made with this payment module to this value"
+        groupId: 6
+        sortOrder: 0
+        useFunction: "zen_get_order_status_name"
+        setFunction: "zen_cfg_pull_down_order_statuses("
+    -
+        name: "Enable Check/Money Order Module"
+        key: "MODULE_PAYMENT_MONEYORDER_STATUS"
+        value: "True"
+        description: "Do you want to accept Check/Money Order payments?"
+        groupId: 6
+        sortOrder: 1
+        setFunction: "zen_cfg_select_option(array('True', 'False'), "
+    -
+        name: "Make Payable to:"
+        key: "MODULE_PAYMENT_MONEYORDER_PAYTO"
+        value: "the Store Owner/Website Name"
+        description: "Who should payments be made payable to?"
+        groupId: 6
+        sortOrder: 1
+    -
+        name: "Sort order of display."
+        key: "MODULE_PAYMENT_MONEYORDER_SORT_ORDER"
+        value: 0
+        description: "Sort order of display. Lowest is displayed first."
+        groupId: 6
+        sortOrder: 0
+    -
+        name: "Payment Zone"
+        key: "MODULE_PAYMENT_MONEYORDER_ZONE"
+        value: 0
+        description: "If a zone is selected, only enable this payment method for that zone."
+        groupId: 6
+        sortOrder: 2
+        useFunction: "zen_get_zone_class_title"
+        setFunction: "zen_cfg_pull_down_zone_classes("
+    -
+        name: "Set Order Status"
+        key: "MODULE_PAYMENT_MONEYORDER_ORDER_STATUS_ID"
+        value: 0
+        description: "Set the status of orders made with this payment module to this value"
+        groupId: 6
+        sortOrder: 0
+        useFunction: "zen_get_order_status_name"
+        setFunction: "zen_cfg_pull_down_order_statuses("
+    -
+        name: "Include Tax"
+        key: "MODULE_ORDER_TOTAL_GROUP_PRICING_INC_TAX"
+        value: "false"
+        description: "Include Tax value in amount before discount calculation?"
+        groupId: 6
+        sortOrder: 6
+        setFunction: "zen_cfg_select_option(array('true', 'false'), "
+    -
+        name: "This module is installed"
+        key: "MODULE_ORDER_TOTAL_GROUP_PRICING_STATUS"
+        value: "true"
+        description: ""
+        groupId: 6
+        sortOrder: 1
+        setFunction: "zen_cfg_select_option(array('true'), "
+    -
+        name: "Sort Order"
+        key: "MODULE_ORDER_TOTAL_GROUP_PRICING_SORT_ORDER"
+        value: 290
+        description: "Sort order of display."
+        groupId: 6
+        sortOrder: 2
+    -
+        name: "Include Shipping"
+        key: "MODULE_ORDER_TOTAL_GROUP_PRICING_INC_SHIPPING"
+        value: "false"
+        description: "Include Shipping value in amount before discount calculation?"
+        groupId: 6
+        sortOrder: 5
+        setFunction: "zen_cfg_select_option(array('true', 'false'), "
+    -
+        name: "Re-calculate Tax"
+        key: "MODULE_ORDER_TOTAL_GROUP_PRICING_CALC_TAX"
+        value: "Standard"
+        description: "Re-Calculate Tax"
+        groupId: 6
+        sortOrder: 7
+        setFunction: "zen_cfg_select_option(array('None', 'Standard', 'Credit Note'), "
+    -
+        name: "Tax Class"
+        key: "MODULE_ORDER_TOTAL_GROUP_PRICING_TAX_CLASS"
+        value: 0
+        description: "Use the following tax class when treating Group Discount as Credit Note."
+        groupId: 6
+        sortOrder: 0
+        useFunction: "zen_get_tax_class_title"
+        setFunction: "zen_cfg_pull_down_tax_classes("
+    -
+        name: "Enable Flat Shipping"
+        key: "MODULE_SHIPPING_FLAT_STATUS"
+        value: "True"
+        description: "Do you want to offer flat rate shipping?"
+        groupId: 6
+        sortOrder: 0
+        setFunction: "zen_cfg_select_option(array('True', 'False'), "
+    -
+        name: "Shipping Cost"
+        key: "MODULE_SHIPPING_FLAT_COST"
+        value: 5.00
+        description: "The shipping cost for all orders using this shipping method."
+        groupId: 6
+        sortOrder: 0
+    -
+        name: "Tax Class"
+        key: "MODULE_SHIPPING_FLAT_TAX_CLASS"
+        value: 0
+        description: "Use the following tax class on the shipping fee."
+        groupId: 6
+        sortOrder: 0
+        useFunction: "zen_get_tax_class_title"
+        setFunction: "zen_cfg_pull_down_tax_classes("
+    -
+        name: "Tax Basis"
+        key: "MODULE_SHIPPING_FLAT_TAX_BASIS"
+        value: "Shipping"
+        description: "On what basis is Shipping Tax calculated. Options are<br />Shipping - Based on customers Shipping Address<br />Billing Based on customers Billing address<br />Store - Based on Store address if Billing/Shipping Zone equals Store zone"
+        groupId: 6
+        sortOrder: 0
+        setFunction: "zen_cfg_select_option(array('Shipping', 'Billing', 'Store'), "
+    -
+        name: "Shipping Zone"
+        key: "MODULE_SHIPPING_FLAT_ZONE"
+        value: 0
+        description: "If a zone is selected, only enable this shipping method for that zone."
+        groupId: 6
+        sortOrder: 0
+        useFunction: "zen_get_zone_class_title"
+        setFunction: "zen_cfg_pull_down_zone_classes("
+    -
+        name: "Sort Order"
+        key: "MODULE_SHIPPING_FLAT_SORT_ORDER"
+        value: 0
+        description: "Sort order of display."
+        groupId: 6
+        sortOrder: 0
+    -
+        name: "Default Currency"
+        key: "DEFAULT_CURRENCY"
+        value: "USD"
+        description: "Default Currency"
+        groupId: 6
+        sortOrder: 0
+    -
+        name: "Default Language"
+        key: "DEFAULT_LANGUAGE"
+        value: "en"
+        description: "Default Language"
+        groupId: 6
+        sortOrder: 0
+    -
+        name: "Default Order Status For New Orders"
+        key: "DEFAULT_ORDERS_STATUS_ID"
+        value: 1
+        description: "When a new order is created, this order status will be assigned to it."
+        groupId: 6
+        sortOrder: 0
+    -
+        name: "Admin configuration_key shows"
+        key: "ADMIN_CONFIGURATION_KEY_ON"
+        value: 0
+        description: "Manually switch to value of 1 to see the configuration_key name in configuration displays"
+        groupId: 6
+        sortOrder: 0
+    -
+        name: "Country of Origin"
+        key: "SHIPPING_ORIGIN_COUNTRY"
+        value: 223
+        description: "Select the country of origin to be used in shipping quotes."
+        groupId: 7
+        sortOrder: 1
+        useFunction: "zen_get_country_name"
+        setFunction: "zen_cfg_pull_down_country_list("
+    -
+        name: "Postal Code"
+        key: "SHIPPING_ORIGIN_ZIP"
+        value: "NONE"
+        description: "Enter the Postal Code (ZIP) of the Store to be used in shipping quotes. NOTE: For USA zip codes, only use your 5 digit zip code."
+        groupId: 7
+        sortOrder: 2
+    -
+        name: "Enter the Maximum Package Weight you will ship"
+        key: "SHIPPING_MAX_WEIGHT"
+        value: 50
+        description: "Carriers have a max weight limit for a single package. This is a common one for all."
+        groupId: 7
+        sortOrder: 3
+    -
+        name: "Package Tare Small to Medium - added percentage:weight"
+        key: "SHIPPING_BOX_WEIGHT"
+        value: "0:3"
+        description: "What is the weight of typical packaging of small to medium packages?<br />Example: 10% + 1lb 10:1<br />10% + 0lbs 10:0<br />0% + 5lbs 0:5<br />0% + 0lbs 0:0"
+        groupId: 7
+        sortOrder: 4
+    -
+        name: "Larger packages - added packaging percentage:weight"
+        key: "SHIPPING_BOX_PADDING"
+        value: "10:0"
+        description: "What is the weight of typical packaging for Large packages?<br />Example: 10% + 1lb 10:1<br />10% + 0lbs 10:0<br />0% + 5lbs 0:5<br />0% + 0lbs 0:0"
+        groupId: 7
+        sortOrder: 5
+    -
+        name: "Display Number of Boxes and Weight Status"
+        key: "SHIPPING_BOX_WEIGHT_DISPLAY"
+        value: 3
+        description: "Display Shipping Weight and Number of Boxes?<br /><br />0= off<br />1= Boxes Only<br />2= Weight Only<br />3= Both Boxes and Weight"
+        groupId: 7
+        sortOrder: 15
+        setFunction: "zen_cfg_select_option(array('0', '1', '2', '3'), "
+    -
+        name: "Shipping Estimator Display Settings for Shopping Cart"
+        key: "SHOW_SHIPPING_ESTIMATOR_BUTTON"
+        value: 1
+        description: "<br />0= Off<br />1= Display as Button on Shopping Cart<br />2= Display as Listing on Shopping Cart Page"
+        groupId: 7
+        sortOrder: 20
+        setFunction: "zen_cfg_select_option(array('0', '1', '2'), "
+    -
+        name: "Display Order Comments on Admin Invoice"
+        key: "ORDER_COMMENTS_INVOICE"
+        value: 1
+        description: "Do you want to display the Order Comments on the Admin Invoice?<br />0= OFF<br />1= First Comment by Customer only<br />2= All Comments for the Order"
+        groupId: 7
+        sortOrder: 25
+        setFunction: "zen_cfg_select_option(array('0', '1', '2'), "
+    -
+        name: "Display Order Comments on Admin Packing Slip"
+        key: "ORDER_COMMENTS_PACKING_SLIP"
+        value: 1
+        description: "Do you want to display the Order Comments on the Admin Packing Slip?<br />0= OFF<br />1= First Comment by Customer only<br />2= All Comments for the Order"
+        groupId: 7
+        sortOrder: 26
+        setFunction: "zen_cfg_select_option(array('0', '1', '2'), "
+    -
+        name: "Order Free Shipping 0 Weight Status"
+        key: "ORDER_WEIGHT_ZERO_STATUS"
+        value: 0
+        description: "If there is no weight to the order, does the order have Free Shipping?<br />0= no<br />1= yes<br /><br />Note: When using Free Shipping, Enable the Free Shipping Module this will only show when shipping is free."
+        groupId: 7
+        sortOrder: 15
+        setFunction: "zen_cfg_select_option(array('0', '1'), "
+    -
+        name: "Display Product Image"
+        key: "PRODUCT_LIST_IMAGE"
+        value: 1
+        description: "Do you want to display the Product Image?"
+        groupId: 8
+        sortOrder: 1
+    -
+        name: "Display Product Manufacturer Name"
+        key: "PRODUCT_LIST_MANUFACTURER"
+        value: 0
+        description: "Do you want to display the Product Manufacturer Name?"
+        groupId: 8
+        sortOrder: 2
+    -
+        name: "Display Product Model"
+        key: "PRODUCT_LIST_MODEL"
+        value: 0
+        description: "Do you want to display the Product Model?"
+        groupId: 8
+        sortOrder: 3
+    -
+        name: "Display Product Name"
+        key: "PRODUCT_LIST_NAME"
+        value: 2
+        description: "Do you want to display the Product Name?"
+        groupId: 8
+        sortOrder: 4
+    -
+        name: "Display Product Price/Add to Cart"
+        key: "PRODUCT_LIST_PRICE"
+        value: 3
+        description: "Do you want to display the Product Price/Add to Cart"
+        groupId: 8
+        sortOrder: 5
+    -
+        name: "Display Product Quantity"
+        key: "PRODUCT_LIST_QUANTITY"
+        value: 0
+        description: "Do you want to display the Product Quantity?"
+        groupId: 8
+        sortOrder: 6
+    -
+        name: "Display Product Weight"
+        key: "PRODUCT_LIST_WEIGHT"
+        value: 0
+        description: "Do you want to display the Product Weight?"
+        groupId: 8
+        sortOrder: 7
+    -
+        name: "Display Product Price/Add to Cart Column Width"
+        key: "PRODUCTS_LIST_PRICE_WIDTH"
+        value: 125
+        description: "Define the width of the Price/Add to Cart column<br />Default= 125"
+        groupId: 8
+        sortOrder: 8
+    -
+        name: "Display Category/Manufacturer Filter (0=off; 1=on)"
+        key: "PRODUCT_LIST_FILTER"
+        value: 1
+        description: "Do you want to display the Category/Manufacturer Filter?"
+        groupId: 8
+        sortOrder: 9
+        setFunction: "zen_cfg_select_option(array('0', '1'), "
+    -
+        name: "Prev/Next Split Page Navigation (1-top, 2-bottom, 3-both)"
+        key: "PREV_NEXT_BAR_LOCATION"
+        value: 3
+        description: "Sets the location of the Prev/Next Split Page Navigation"
+        groupId: 8
+        sortOrder: 10
+        setFunction: "zen_cfg_select_option(array('1', '2', '3'), "
+    -
+        name: "Display Product Listing Default Sort Order"
+        key: "PRODUCT_LISTING_DEFAULT_SORT_ORDER"
+        value: ""
+        description: "Product Listing Default sort order?<br />NOTE: Leave Blank for Product Sort Order. Sort the Product Listing in the order you wish for the default display to start in to get the sort order setting. Example: 2a"
+        groupId: 8
+        sortOrder: 15
+    -
+        name: "Display Product Add to Cart Button (0=off; 1=on; 2=on with Qty Box per Product)"
+        key: "PRODUCT_LIST_PRICE_BUY_NOW"
+        value: 1
+        description: "Do you want to display the Add to Cart Button?<br /><br /><strong>NOTE:</strong> Turn OFF Display Multiple Products Qty Box Status to use Option 2 on with Qty Box per Product"
+        groupId: 8
+        sortOrder: 20
+        setFunction: "zen_cfg_select_option(array('0', '1', '2'), "
+    -
+        name: "Display Multiple Products Qty Box Status and Set Button Location"
+        key: "PRODUCT_LISTING_MULTIPLE_ADD_TO_CART"
+        value: 3
+        description: "Do you want to display Add Multiple Products Qty Box and Set Button Location?<br />0= off<br />1= Top<br />2= Bottom<br />3= Both"
+        groupId: 8
+        sortOrder: 25
+        setFunction: "zen_cfg_select_option(array('0', '1', '2', '3'), "
+    -
+        name: "Display Product Description"
+        key: "PRODUCT_LIST_DESCRIPTION"
+        value: 150
+        description: "Do you want to display the Product Description?<br /><br />0= OFF<br />150= Suggested Length, or enter the maximum number of characters to display"
+        groupId: 8
+        sortOrder: 30
+    -
+        name: "Product Listing Ascending Sort Order"
+        key: "PRODUCT_LIST_SORT_ORDER_ASCENDING"
+        value: "+"
+        description: "What do you want to use to indicate Sort Order Ascending?<br />Default = +"
+        groupId: 8
+        sortOrder: 40
+        setFunction: "zen_cfg_textarea_small("
+    -
+        name: "Product Listing Descending Sort Order"
+        key: "PRODUCT_LIST_SORT_ORDER_DESCENDING"
+        value: "-"
+        description: "What do you want to use to indicate Sort Order Descending?<br />Default = -"
+        groupId: 8
+        sortOrder: 41
+        setFunction: "zen_cfg_textarea_small("
+    -
+        name: "Include Product Listing Alpha Sorter Dropdown"
+        key: "PRODUCT_LIST_ALPHA_SORTER"
+        value: "true"
+        description: "Do you want to include an Alpha Filter dropdown on the Product Listing?"
+        groupId: 8
+        sortOrder: 50
+        setFunction: "zen_cfg_select_option(array('true', 'false'), "
+    -
+        name: "Include Product Listing Sub Categories Image"
+        key: "PRODUCT_LIST_CATEGORIES_IMAGE_STATUS"
+        value: "true"
+        description: "Do you want to include the Sub Categories Image on the Product Listing?"
+        groupId: 8
+        sortOrder: 52
+        setFunction: "zen_cfg_select_option(array('true', 'false'), "
+    -
+        name: "Include Product Listing Top Categories Image"
+        key: "PRODUCT_LIST_CATEGORIES_IMAGE_STATUS_TOP"
+        value: "true"
+        description: "Do you want to include the Top Categories Image on the Product Listing?"
+        groupId: 8
+        sortOrder: 53
+        setFunction: "zen_cfg_select_option(array('true', 'false'), "
+    -
+        name: "Show SubCategories on Main Page while navigating"
+        key: "PRODUCT_LIST_CATEGORY_ROW_STATUS"
+        value: 1
+        description: "Show Sub-Categories on Main Page while navigating through Categories<br /><br />0= off<br />1= on"
+        groupId: 8
+        sortOrder: 60
+        setFunction: "zen_cfg_select_option(array('0', '1'), "
+    -
+        name: "Check stock level"
+        key: "STOCK_CHECK"
+        value: "true"
+        description: "Check to see if sufficent stock is available"
+        groupId: 9
+        sortOrder: 1
+        setFunction: "zen_cfg_select_option(array('true', 'false'), "
+    -
+        name: "Subtract stock"
+        key: "STOCK_LIMITED"
+        value: "true"
+        description: "Subtract product in stock by product orders"
+        groupId: 9
+        sortOrder: 2
+        setFunction: "zen_cfg_select_option(array('true', 'false'), "
+    -
+        name: "Allow Checkout"
+        key: "STOCK_ALLOW_CHECKOUT"
+        value: "true"
+        description: "Allow customer to checkout even if there is insufficient stock"
+        groupId: 9
+        sortOrder: 3
+        setFunction: "zen_cfg_select_option(array('true', 'false'), "
+    -
+        name: "Mark product out of stock"
+        key: "STOCK_MARK_PRODUCT_OUT_OF_STOCK"
+        value: "***"
+        description: "Display something on screen so customer can see which product has insufficient stock"
+        groupId: 9
+        sortOrder: 4
+    -
+        name: "Stock Re-order level"
+        key: "STOCK_REORDER_LEVEL"
+        value: 5
+        description: "Define when stock needs to be re-ordered"
+        groupId: 9
+        sortOrder: 5
+    -
+        name: "Products status in Catalog when out of stock should be set to"
+        key: "SHOW_PRODUCTS_SOLD_OUT"
+        value: 0
+        description: "Show Products when out of stock<br /><br />0= set product status to OFF<br />1= leave product status ON"
+        groupId: 9
+        sortOrder: 10
+        setFunction: "zen_cfg_select_option(array('0', '1'), "
+    -
+        name: "Show Sold Out Image in place of Add to Cart"
+        key: "SHOW_PRODUCTS_SOLD_OUT_IMAGE"
+        value: 1
+        description: "Show Sold Out Image instead of Add to Cart Button<br /><br />0= off<br />1= on"
+        groupId: 9
+        sortOrder: 11
+        setFunction: "zen_cfg_select_option(array('0', '1'), "
+    -
+        name: "Product Quantity Decimals"
+        key: "QUANTITY_DECIMALS"
+        value: 0
+        description: "Allow how many decimals on Quantity<br /><br />0= off"
+        groupId: 9
+        sortOrder: 15
+        setFunction: "zen_cfg_select_option(array('0', '1', '2', '3'), "
+    -
+        name: "Show Shopping Cart - Delete Checkboxes or Delete Button"
+        key: "SHOW_SHOPPING_CART_DELETE"
+        value: 3
+        description: "Show on Shopping Cart Delete Button and/or Checkboxes<br /><br />1= Delete Button Only<br />2= Checkbox Only<br />3= Both Delete Button and Checkbox"
+        groupId: 9
+        sortOrder: 20
+        setFunction: "zen_cfg_select_option(array('1', '2', '3'), "
+    -
+        name: "Show Shopping Cart - Update Cart Button Location"
+        key: "SHOW_SHOPPING_CART_UPDATE"
+        value: 3
+        description: "Show on Shopping Cart Update Cart Button Location as:<br /><br />1= Next to each Qty Box<br />2= Below all Products<br />3= Both Next to each Qty Box and Below all Products"
+        groupId: 9
+        sortOrder: 22
+        setFunction: "zen_cfg_select_option(array('1', '2', '3'), "
+    -
+        name: "Show New Products on empty Shopping Cart Page"
+        key: "SHOW_SHOPPING_CART_EMPTY_NEW_PRODUCTS"
+        value: 1
+        description: "Show New Products on empty Shopping Cart Page<br />0= off or set the sort order"
+        groupId: 9
+        sortOrder: 30
+        setFunction: "zen_cfg_select_option(array('0', '1', '2', '3', '4'), "
+    -
+        name: "Show Featured Products on empty Shopping Cart Page"
+        key: "SHOW_SHOPPING_CART_EMPTY_FEATURED_PRODUCTS"
+        value: 2
+        description: "Show Featured Products on empty Shopping Cart Page<br />0= off or set the sort order"
+        groupId: 9
+        sortOrder: 31
+        setFunction: "zen_cfg_select_option(array('0', '1', '2', '3', '4'), "
+    -
+        name: "Show Special Products on empty Shopping Cart Page"
+        key: "SHOW_SHOPPING_CART_EMPTY_SPECIALS_PRODUCTS"
+        value: 3
+        description: "Show Special Products on empty Shopping Cart Page<br />0= off or set the sort order"
+        groupId: 9
+        sortOrder: 32
+        setFunction: "zen_cfg_select_option(array('0', '1', '2', '3', '4'), "
+    -
+        name: "Show Upcoming Products on empty Shopping Cart Page"
+        key: "SHOW_SHOPPING_CART_EMPTY_UPCOMING"
+        value: 4
+        description: "Show Upcoming Products on empty Shopping Cart Page<br />0= off or set the sort order"
+        groupId: 9
+        sortOrder: 33
+        setFunction: "zen_cfg_select_option(array('0', '1', '2', '3', '4'), "
+    -
+        name: "Show Notice of Combining Shopping Cart on Login"
+        key: "SHOW_SHOPPING_CART_COMBINED"
+        value: 1
+        description: "When a customer logs in and has a previously stored shopping cart, the products are combined with the existing shopping cart.<br /><br />Do you wish to display a Notice to the customer?<br /><br />0= OFF, do not display a notice<br />1= Yes show notice and go to shopping cart<br />2= Yes show notice, but do not go to shopping cart"
+        groupId: 9
+        sortOrder: 35
+        setFunction: "zen_cfg_select_option(array('0', '1', '2'), "
+    -
+        name: "Store Page Parse Time"
+        key: "STORE_PAGE_PARSE_TIME"
+        value: "false"
+        description: "Store the time it takes to parse a page"
+        groupId: 10
+        sortOrder: 1
+        setFunction: "zen_cfg_select_option(array('true', 'false'), "
+    -
+        name: "Log Destination"
+        key: "STORE_PAGE_PARSE_TIME_LOG"
+        value: "/var/log/www/zen/page_parse_time.log"
+        description: "Directory and filename of the page parse time log"
+        groupId: 10
+        sortOrder: 2
+    -
+        name: "Log Date Format"
+        key: "STORE_PARSE_DATE_TIME_FORMAT"
+        value: "%d/%m/%Y %H:%M:%S"
+        description: "The date format"
+        groupId: 10
+        sortOrder: 3
+    -
+        name: "Display The Page Parse Time"
+        key: "DISPLAY_PAGE_PARSE_TIME"
+        value: "false"
+        description: "Display the page parse time on the bottom of each page<br />You do not need to store the times to display them in the Catalog"
+        groupId: 10
+        sortOrder: 4
+        setFunction: "zen_cfg_select_option(array('true', 'false'), "
+    -
+        name: "Store Database Queries"
+        key: "STORE_DB_TRANSACTIONS"
+        value: "false"
+        description: "Store the database queries in the page parse time log (PHP4 only)"
+        groupId: 10
+        sortOrder: 5
+        setFunction: "zen_cfg_select_option(array('true', 'false'), "
+    -
+        name: "E-Mail Transport Method"
+        key: "EMAIL_TRANSPORT"
+        value: "PHP"
+        description: "Defines the method for sending mail.<br /><strong>PHP</strong> is the default, and uses built-in PHP wrappers for processing.<br />Servers running on Windows and MacOS should change this setting to <strong>SMTP</strong>.<br /><br /><strong>SMTPAUTH</strong> should only be used if your server requires SMTP authorization to send messages. You must also configure your SMTPAUTH settings in the appropriate fields in this admin section.<br /><br /><strong>sendmail</strong> is for linux/unix hosts using the sendmail program on the server<br /><strong>\"sendmail-f\"</strong> is only for servers which require the use of the -f parameter to send mail. This is a security setting often used to prevent spoofing. Will cause errors if your host mailserver is not configured to use it.<br /><br /><strong>Qmail</strong> is used for linux/unix hosts running Qmail as sendmail wrapper at /var/qmail/bin/sendmail."
+        groupId: 12
+        sortOrder: 1
+        setFunction: "zen_cfg_select_option(array('PHP', 'sendmail', 'sendmail-f', 'smtp', 'smtpauth', 'Qmail'),"
+    -
+        name: "SMTP Email Account Mailbox"
+        key: "EMAIL_SMTPAUTH_MAILBOX"
+        value: "YourEmailAccountNameHere"
+        description: "Enter the mailbox account name (me@mydomain.com) supplied by your host. This is the account name that your host requires for SMTP authentication.<br />Only required if using SMTP Authentication for email."
+        groupId: 12
+        sortOrder: 101
+    -
+        name: "SMTP Email Account Password"
+        key: "EMAIL_SMTPAUTH_PASSWORD"
+        value: "YourPasswordHere"
+        description: "Enter the password for your SMTP mailbox. <br />Only required if using SMTP Authentication for email."
+        groupId: 12
+        sortOrder: 101
+        useFunction: "zen_cfg_password_display"
+    -
+        name: "SMTP Email Mail Host"
+        key: "EMAIL_SMTPAUTH_MAIL_SERVER"
+        value: "mail.EnterYourDomain.com"
+        description: "Enter the DNS name of your SMTP mail server.<br />ie: mail.mydomain.com<br />or 55.66.77.88<br />Only required if using SMTP Authentication for email."
+        groupId: 12
+        sortOrder: 101
+    -
+        name: "SMTP Email Mail Server Port"
+        key: "EMAIL_SMTPAUTH_MAIL_SERVER_PORT"
+        value: 25
+        description: "Enter the IP port number that your SMTP mailserver operates on.<br />Only required if using SMTP Authentication for email."
+        groupId: 12
+        sortOrder: 101
+    -
+        name: "E-Mail Linefeeds"
+        key: "EMAIL_LINEFEED"
+        value: "LF"
+        description: "Defines the character sequence used to separate mail headers."
+        groupId: 12
+        sortOrder: 2
+        setFunction: "zen_cfg_select_option(array('LF', 'CRLF'),"
+    -
+        name: "Use MIME HTML When Sending Emails"
+        key: "EMAIL_USE_HTML"
+        value: "false"
+        description: "Send e-mails in HTML format"
+        groupId: 12
+        sortOrder: 3
+        setFunction: "zen_cfg_select_option(array('true', 'false'),"
+    -
+        name: "Verify E-Mail Addresses Through DNS"
+        key: "ENTRY_EMAIL_ADDRESS_CHECK"
+        value: "false"
+        description: "Verify e-mail address through a DNS server"
+        groupId: 6
+        sortOrder: 6
+        setFunction: "zen_cfg_select_option(array('true', 'false'), "
+    -
+        name: "Send E-Mails"
+        key: "SEND_EMAILS"
+        value: "true"
+        description: "Send out e-mails"
+        groupId: 12
+        sortOrder: 5
+        setFunction: "zen_cfg_select_option(array('true', 'false'), "
+    -
+        name: "Email Archiving Active?"
+        key: "EMAIL_ARCHIVE"
+        value: "false"
+        description: "If you wish to have email messages archived/stored when sent, set this to \"true\"."
+        groupId: 12
+        sortOrder: 6
+        setFunction: "zen_cfg_select_option(array('true', 'false'),"
+    -
+        name: "E-Mail Friendly-Errors"
+        key: "EMAIL_FRIENDLY_ERRORS"
+        value: "true"
+        description: "Do you want to display friendly errors if emails fail?  Setting this to false will display PHP errors and likely cause the script to fail. Only set to false while troubleshooting, and true for a live shop."
+        groupId: 12
+        sortOrder: 7
+        setFunction: "zen_cfg_select_option(array('true', 'false'),"
+    -
+        name: "Email Address (Displayed to Contact you)"
+        key: "STORE_OWNER_EMAIL_ADDRESS"
+        value: "root@localhost"
+        description: "Email address of Store Owner.  Used as \"display only\" when informing customers of how to contact you."
+        groupId: 12
+        sortOrder: 10
+    -
+        name: "Email Address (sent FROM)"
+        key: "EMAIL_FROM"
+        value: "Zen Cart <root@localhost>"
+        description: "Address from which email messages will be \"sent\" by default. Can be over-ridden at compose-time in admin modules."
+        groupId: 12
+        sortOrder: 11
+    -
+        name: "Emails must send from known domain?"
+        key: "EMAIL_SEND_MUST_BE_STORE"
+        value: "Yes"
+        description: "Does your mailserver require that all outgoing emails have their \"from\" address match a known domain that exists on your webserver?<br /><br />This is often required in order to prevent spoofing and spam broadcasts.  If set to Yes, this will cause the email address (sent FROM) to be used as the \"from\" address on all outgoing mail."
+        groupId: 12
+        sortOrder: 11
+        setFunction: "zen_cfg_select_option(array('No', 'Yes'), "
+    -
+        name: "Email Admin Format?"
+        key: "ADMIN_EXTRA_EMAIL_FORMAT"
+        value: "TEXT"
+        description: "Please select the Admin extra email format"
+        groupId: 12
+        sortOrder: 12
+        setFunction: "zen_cfg_select_option(array('TEXT', 'HTML'), "
+    -
+        name: "Send Copy of Order Confirmation Emails To"
+        key: "SEND_EXTRA_ORDER_EMAILS_TO"
+        value: ""
+        description: "Send COPIES of order confirmation emails to the following email addresses, in this format: Name 1 &lt;email@address1&gt;, Name 2 &lt;email@address2&gt;"
+        groupId: 12
+        sortOrder: 12
+    -
+        name: "Send Copy of Create Account Emails To - Status"
+        key: "SEND_EXTRA_CREATE_ACCOUNT_EMAILS_TO_STATUS"
+        value: 0
+        description: "Send copy of Create Account Status<br />0= off 1= on"
+        groupId: 12
+        sortOrder: 13
+        setFunction: "zen_cfg_select_option(array('0', '1'),"
+    -
+        name: "Send Copy of Create Account Emails To"
+        key: "SEND_EXTRA_CREATE_ACCOUNT_EMAILS_TO"
+        value: ""
+        description: "Send copy of Create Account emails to the following email addresses, in this format: Name 1 &lt;email@address1&gt;, Name 2 &lt;email@address2&gt;"
+        groupId: 12
+        sortOrder: 14
+    -
+        name: "Send Copy of Customer GV Send Emails To - Status"
+        key: "SEND_EXTRA_GV_CUSTOMER_EMAILS_TO_STATUS"
+        value: 0
+        description: "Send copy of Customer GV Send Status<br />0= off 1= on"
+        groupId: 12
+        sortOrder: 17
+        setFunction: "zen_cfg_select_option(array('0', '1'),"
+    -
+        name: "Send Copy of Customer GV Send Emails To"
+        key: "SEND_EXTRA_GV_CUSTOMER_EMAILS_TO"
+        value: ""
+        description: "Send copy of Customer GV Send emails to the following email addresses, in this format: Name 1 &lt;email@address1&gt;, Name 2 &lt;email@address2&gt;"
+        groupId: 12
+        sortOrder: 18
+    -
+        name: "Send Copy of Admin GV Mail Emails To - Status"
+        key: "SEND_EXTRA_GV_ADMIN_EMAILS_TO_STATUS"
+        value: 0
+        description: "Send copy of Admin GV Mail Status<br />0= off 1= on"
+        groupId: 12
+        sortOrder: 19
+        setFunction: "zen_cfg_select_option(array('0', '1'),"
+    -
+        name: "Send Copy of Customer Admin GV Mail Emails To"
+        key: "SEND_EXTRA_GV_ADMIN_EMAILS_TO"
+        value: ""
+        description: "Send copy of Admin GV Mail emails to the following email addresses, in this format: Name 1 &lt;email@address1&gt;, Name 2 &lt;email@address2&gt;"
+        groupId: 12
+        sortOrder: 20
+    -
+        name: "Send Copy of Admin Discount Coupon Mail Emails To - Status"
+        key: "SEND_EXTRA_DISCOUNT_COUPON_ADMIN_EMAILS_TO_STATUS"
+        value: 0
+        description: "Send copy of Admin Discount Coupon Mail Status<br />0= off 1= on"
+        groupId: 12
+        sortOrder: 21
+        setFunction: "zen_cfg_select_option(array('0', '1'),"
+    -
+        name: "Send Copy of Customer Admin Discount Coupon Mail Emails To"
+        key: "SEND_EXTRA_DISCOUNT_COUPON_ADMIN_EMAILS_TO"
+        value: ""
+        description: "Send copy of Admin Discount Coupon Mail emails to the following email addresses, in this format: Name 1 &lt;email@address1&gt;, Name 2 &lt;email@address2&gt;"
+        groupId: 12
+        sortOrder: 22
+    -
+        name: "Send Copy of Admin Orders Status Emails To - Status"
+        key: "SEND_EXTRA_ORDERS_STATUS_ADMIN_EMAILS_TO_STATUS"
+        value: 0
+        description: "Send copy of Admin Orders Status Status<br />0= off 1= on"
+        groupId: 12
+        sortOrder: 23
+        setFunction: "zen_cfg_select_option(array('0', '1'),"
+    -
+        name: "Send Copy of Admin Orders Status Emails To"
+        key: "SEND_EXTRA_ORDERS_STATUS_ADMIN_EMAILS_TO"
+        value: ""
+        description: "Send copy of Admin Orders Status emails to the following email addresses, in this format: Name 1 &lt;email@address1&gt;, Name 2 &lt;email@address2&gt;"
+        groupId: 12
+        sortOrder: 24
+    -
+        name: "Send Notice of Pending Reviews Emails To - Status"
+        key: "SEND_EXTRA_REVIEW_NOTIFICATION_EMAILS_TO_STATUS"
+        value: 0
+        description: "Send copy of Pending Reviews Status<br />0= off 1= on"
+        groupId: 12
+        sortOrder: 25
+        setFunction: "zen_cfg_select_option(array('0', '1'),"
+    -
+        name: "Send Notice of Pending Reviews Emails To"
+        key: "SEND_EXTRA_REVIEW_NOTIFICATION_EMAILS_TO"
+        value: ""
+        description: "Send copy of Pending Reviews emails to the following email addresses, in this format: Name 1 &lt;email@address1&gt;, Name 2 &lt;email@address2&gt;"
+        groupId: 12
+        sortOrder: 26
+    -
+        name: "Set \"Contact Us\" Email Dropdown List"
+        key: "CONTACT_US_LIST"
+        value: ""
+        description: "On the \"Contact Us\" Page, set the list of email addresses , in this format: Name 1 &lt;email@address1&gt;, Name 2 &lt;email@address2&gt;"
+        groupId: 12
+        sortOrder: 40
+        setFunction: "zen_cfg_textarea("
+    -
+        name: "Contact Us - Show Store Name and Address"
+        key: "CONTACT_US_STORE_NAME_ADDRESS"
+        value: 1
+        description: "Include Store Name and Address<br />0= off 1= on"
+        groupId: 12
+        sortOrder: 50
+        setFunction: "zen_cfg_select_option(array('0', '1'), "
+    -
+        name: "Send Low Stock Emails"
+        key: "SEND_LOWSTOCK_EMAIL"
+        value: 0
+        description: "When stock level is at or below low stock level send an email<br />0= off<br />1= on"
+        groupId: 12
+        sortOrder: 60
+        setFunction: "zen_cfg_select_option(array('0', '1'),"
+    -
+        name: "Send Low Stock Emails To"
+        key: "SEND_EXTRA_LOW_STOCK_EMAILS_TO"
+        value: ""
+        description: "When stock level is at or below low stock level send an email to this address, in this format: Name 1 &lt;email@address1&gt;, Name 2 &lt;email@address2&gt;"
+        groupId: 12
+        sortOrder: 61
+    -
+        name: "Display \"Newsletter Unsubscribe\" Link?"
+        key: "SHOW_NEWSLETTER_UNSUBSCRIBE_LINK"
+        value: "true"
+        description: "Show \"Newsletter Unsubscribe\" link in the \"Information\" side-box?"
+        groupId: 12
+        sortOrder: 70
+        setFunction: "zen_cfg_select_option(array('true', 'false'),"
+    -
+        name: "Audience-Select Count Display"
+        key: "AUDIENCE_SELECT_DISPLAY_COUNTS"
+        value: "true"
+        description: "When displaying lists of available audiences/recipients, should the recipients-count be included? <br /><em>(This may make things slower if you have a lot of customers or complex audience queries)</em>"
+        groupId: 12
+        sortOrder: 90
+        setFunction: "zen_cfg_select_option(array('true', 'false'),"
+    -
+        name: "Convert currencies for Text emails"
+        key: "CURRENCIES_TRANSLATIONS"
+        value: ""
+        description: "What currency conversions do you need for Text emails?<br />Example = &amp;pound;,&pound;:&amp;euro;,&euro;"
+        groupId: 12
+        sortOrder: 120
+        setFunction: "zen_cfg_textarea_small("
+    -
+        name: "Enable Downloads"
+        key: "DOWNLOAD_ENABLED"
+        value: "true"
+        description: "Enable the products download functions."
+        groupId: 13
+        sortOrder: 1
+        setFunction: "zen_cfg_select_option(array('true', 'false'), "
+    -
+        name: "Download by Redirect"
+        key: "DOWNLOAD_BY_REDIRECT"
+        value: "true"
+        description: "Use browser redirection for download. Disable on non-Unix systems.<br /><br />Note: Set /pub to 777 when redirect is true"
+        groupId: 13
+        sortOrder: 2
+        setFunction: "zen_cfg_select_option(array('true', 'false'), "
+    -
+        name: "Download by streaming"
+        key: "DOWNLOAD_IN_CHUNKS"
+        value: "false"
+        description: "If download-by-redirect is disabled, and your PHP memory_limit setting is under 8 MB, you might need to enable this setting so that files are streamed in smaller segments to the browser.<br /><br />Has no effect if Download By Redirect is enabled."
+        groupId: 13
+        sortOrder: 2
+        setFunction: "zen_cfg_select_option(array('true', 'false'), "
+    -
+        name: "Download Expiration (Number of Days)"
+        key: "DOWNLOAD_MAX_DAYS"
+        value: 7
+        description: "Set number of days before the download link expires. 0 means no limit."
+        groupId: 13
+        sortOrder: 3
+        setFunction: ""
+    -
+        name: "Number of Downloads Allowed - Per Product"
+        key: "DOWNLOAD_MAX_COUNT"
+        value: 5
+        description: "Set the maximum number of downloads. 0 means no download authorized."
+        groupId: 13
+        sortOrder: 4
+        setFunction: ""
+    -
+        name: "Downloads Controller Update Status Value"
+        key: "DOWNLOADS_ORDERS_STATUS_UPDATED_VALUE"
+        value: 4
+        description: "What orders_status resets the Download days and Max Downloads - Default is 4"
+        groupId: 13
+        sortOrder: 10
+    -
+        name: "Downloads Controller Order Status Value >= lower value"
+        key: "DOWNLOADS_CONTROLLER_ORDERS_STATUS"
+        value: 2
+        description: "Downloads Controller Order Status Value - Default >= 2<br /><br />Downloads are available for checkout based on the orders status. Orders with orders status greater than this value will be available for download. The orders status is set for an order by the Payment Modules. Set the lower range for this range."
+        groupId: 13
+        sortOrder: 12
+    -
+        name: "Downloads Controller Order Status Value <= upper value"
+        key: "DOWNLOADS_CONTROLLER_ORDERS_STATUS_END"
+        value: 4
+        description: "Downloads Controller Order Status Value - Default <= 4<br /><br />Downloads are available for checkout based on the orders status. Orders with orders status less than this value will be available for download. The orders status is set for an order by the Payment Modules.  Set the upper range for this range."
+        groupId: 13
+        sortOrder: 13
+    -
+        name: "Enable Price Factor"
+        key: "ATTRIBUTES_ENABLED_PRICE_FACTOR"
+        value: "true"
+        description: "Enable the Attributes Price Factor."
+        groupId: 13
+        sortOrder: 25
+        setFunction: "zen_cfg_select_option(array('true', 'false'), "
+    -
+        name: "Enable Qty Price Discount"
+        key: "ATTRIBUTES_ENABLED_QTY_PRICES"
+        value: "true"
+        description: "Enable the Attributes Quantity Price Discounts."
+        groupId: 13
+        sortOrder: 26
+        setFunction: "zen_cfg_select_option(array('true', 'false'), "
+    -
+        name: "Enable Attribute Images"
+        key: "ATTRIBUTES_ENABLED_IMAGES"
+        value: "true"
+        description: "Enable the Attributes Images."
+        groupId: 13
+        sortOrder: 28
+        setFunction: "zen_cfg_select_option(array('true', 'false'), "
+    -
+        name: "Enable Text Pricing by word or letter"
+        key: "ATTRIBUTES_ENABLED_TEXT_PRICES"
+        value: "true"
+        description: "Enable the Attributes Text Pricing by word or letter."
+        groupId: 13
+        sortOrder: 35
+        setFunction: "zen_cfg_select_option(array('true', 'false'), "
+    -
+        name: "Text Pricing - Spaces are Free"
+        key: "TEXT_SPACES_FREE"
+        value: 1
+        description: "On Text pricing Spaces are Free<br /><br />0= off 1= on"
+        groupId: 13
+        sortOrder: 36
+        setFunction: "zen_cfg_select_option(array('0', '1'), "
+    -
+        name: "Read Only option type - Ignore for Add to Cart"
+        key: "PRODUCTS_OPTIONS_TYPE_READONLY_IGNORED"
+        value: 1
+        description: "When a Product only uses READONLY attributes, should the Add to Cart button be On or Off?<br />0= OFF<br />1= ON"
+        groupId: 13
+        sortOrder: 37
+        setFunction: "zen_cfg_select_option(array('0', '1'), "
+    -
+        name: "Enable GZip Compression"
+        key: "GZIP_LEVEL"
+        value: 0
+        description: "0= off 1= on"
+        groupId: 14
+        sortOrder: 1
+        setFunction: "zen_cfg_select_option(array('0', '1'),"
+    -
+        name: "Session Directory"
+        key: "SESSION_WRITE_DIRECTORY"
+        value: "/tmp"
+        description: "If sessions are file based, store them in this directory."
+        groupId: 15
+        sortOrder: 1
+    -
+        name: "Cookie Domain"
+        key: "SESSION_USE_FQDN"
+        value: "True"
+        description: "If True the full domain name will be used to store the cookie, e.g. www.mydomain.com. If False only a partial domain name will be used, e.g. mydomain.com. If you are unsure about this, always leave set to true."
+        groupId: 15
+        sortOrder: 2
+        setFunction: "zen_cfg_select_option(array('True', 'False'), "
+    -
+        name: "Force Cookie Use"
+        key: "SESSION_FORCE_COOKIE_USE"
+        value: "False"
+        description: "Force the use of sessions when cookies are only enabled."
+        groupId: 15
+        sortOrder: 2
+        setFunction: "zen_cfg_select_option(array('True', 'False'), "
+    -
+        name: "Check SSL Session ID"
+        key: "SESSION_CHECK_SSL_SESSION_ID"
+        value: "False"
+        description: "Validate the SSL_SESSION_ID on every secure HTTPS page request."
+        groupId: 15
+        sortOrder: 3
+        setFunction: "zen_cfg_select_option(array('True', 'False'), "
+    -
+        name: "Check User Agent"
+        key: "SESSION_CHECK_USER_AGENT"
+        value: "False"
+        description: "Validate the clients browser user agent on every page request."
+        groupId: 15
+        sortOrder: 4
+        setFunction: "zen_cfg_select_option(array('True', 'False'), "
+    -
+        name: "Check IP Address"
+        key: "SESSION_CHECK_IP_ADDRESS"
+        value: "False"
+        description: "Validate the clients IP address on every page request."
+        groupId: 15
+        sortOrder: 5
+        setFunction: "zen_cfg_select_option(array('True', 'False'), "
+    -
+        name: "Prevent Spider Sessions"
+        key: "SESSION_BLOCK_SPIDERS"
+        value: "True"
+        description: "Prevent known spiders from starting a session."
+        groupId: 15
+        sortOrder: 6
+        setFunction: "zen_cfg_select_option(array('True', 'False'), "
+    -
+        name: "Recreate Session"
+        key: "SESSION_RECREATE"
+        value: "True"
+        description: "Recreate the session to generate a new session ID when the customer logs on or creates an account (PHP >=4.1 needed)."
+        groupId: 15
+        sortOrder: 7
+        setFunction: "zen_cfg_select_option(array('True', 'False'), "
+    -
+        name: "IP to Host Conversion Status"
+        key: "SESSION_IP_TO_HOST_ADDRESS"
+        value: "true"
+        description: "Convert IP Address to Host Address<br /><br />Note: on some servers this can slow down the initial start of a session or execution of Emails"
+        groupId: 15
+        sortOrder: 10
+        setFunction: "zen_cfg_select_option(array('true', 'false'), "
+    -
+        name: "Length of the redeem code"
+        key: "SECURITY_CODE_LENGTH"
+        value: 10
+        description: "Enter the length of the redeem code<br />The longer the more secure"
+        groupId: 16
+        sortOrder: 1
+    -
+        name: "Default Order Status For Zero Balance Orders"
+        key: "DEFAULT_ZERO_BALANCE_ORDERS_STATUS_ID"
+        value: 2
+        description: "When an order's balance is zero, this order status will be assigned to it."
+        groupId: 16
+        sortOrder: 0
+        useFunction: "zen_get_order_status_name"
+        setFunction: "zen_cfg_pull_down_order_statuses("
+    -
+        name: "New Signup Discount Coupon ID#"
+        key: "NEW_SIGNUP_DISCOUNT_COUPON"
+        value: ""
+        description: "Select the coupon<br />"
+        groupId: 16
+        sortOrder: 75
+        setFunction: "zen_cfg_select_coupon_id("
+    -
+        name: "New Signup Gift Voucher Amount"
+        key: "NEW_SIGNUP_GIFT_VOUCHER_AMOUNT"
+        value: ""
+        description: "Leave blank for none<br />Or enter an amount ie. 10 for $10.00"
+        groupId: 16
+        sortOrder: 76
+    -
+        name: "Maximum Discount Coupons Per Page"
+        key: "MAX_DISPLAY_SEARCH_RESULTS_DISCOUNT_COUPONS"
+        value: 20
+        description: "Number of Discount Coupons to list per Page"
+        groupId: 16
+        sortOrder: 81
+    -
+        name: "Maximum Discount Coupon Report Results Per Page"
+        key: "MAX_DISPLAY_SEARCH_RESULTS_DISCOUNT_COUPONS_REPORTS"
+        value: 20
+        description: "Number of Discount Coupons to list on Reports Page"
+        groupId: 16
+        sortOrder: 81
+    -
+        name: "Credit Card Enable Status - VISA"
+        key: "CC_ENABLED_VISA"
+        value: 1
+        description: "Accept VISA 0= off 1= on"
+        groupId: 17
+        sortOrder: 1
+        setFunction: "zen_cfg_select_option(array('0', '1'), "
+    -
+        name: "Credit Card Enable Status - MasterCard"
+        key: "CC_ENABLED_MC"
+        value: 1
+        description: "Accept MasterCard 0= off 1= on"
+        groupId: 17
+        sortOrder: 2
+        setFunction: "zen_cfg_select_option(array('0', '1'), "
+    -
+        name: "Credit Card Enable Status - AmericanExpress"
+        key: "CC_ENABLED_AMEX"
+        value: 0
+        description: "Accept AmericanExpress 0= off 1= on"
+        groupId: 17
+        sortOrder: 3
+        setFunction: "zen_cfg_select_option(array('0', '1'), "
+    -
+        name: "Credit Card Enable Status - Diners Club"
+        key: "CC_ENABLED_DINERS_CLUB"
+        value: 0
+        description: "Accept Diners Club 0= off 1= on"
+        groupId: 17
+        sortOrder: 4
+        setFunction: "zen_cfg_select_option(array('0', '1'), "
+    -
+        name: "Credit Card Enable Status - Discover Card"
+        key: "CC_ENABLED_DISCOVER"
+        value: 0
+        description: "Accept Discover Card 0= off 1= on"
+        groupId: 17
+        sortOrder: 5
+        setFunction: "zen_cfg_select_option(array('0', '1'), "
+    -
+        name: "Credit Card Enable Status - JCB"
+        key: "CC_ENABLED_JCB"
+        value: 0
+        description: "Accept JCB 0= off 1= on"
+        groupId: 17
+        sortOrder: 6
+        setFunction: "zen_cfg_select_option(array('0', '1'), "
+    -
+        name: "Credit Card Enable Status - AUSTRALIAN BANKCARD"
+        key: "CC_ENABLED_AUSTRALIAN_BANKCARD"
+        value: 0
+        description: "Accept AUSTRALIAN BANKCARD 0= off 1= on"
+        groupId: 17
+        sortOrder: 7
+        setFunction: "zen_cfg_select_option(array('0', '1'), "
+    -
+        name: "Credit Card Enable Status - SOLO"
+        key: "CC_ENABLED_SOLO"
+        value: 0
+        description: "Accept SOLO Card 0= off 1= on"
+        groupId: 17
+        sortOrder: 8
+        setFunction: "zen_cfg_select_option(array('0', '1'), "
+    -
+        name: "Credit Card Enable Status - Switch"
+        key: "CC_ENABLED_SWITCH"
+        value: 0
+        description: "Accept SWITCH Card 0= off 1= on"
+        groupId: 17
+        sortOrder: 9
+        setFunction: "zen_cfg_select_option(array('0', '1'), "
+    -
+        name: "Credit Card Enable Status - Maestro"
+        key: "CC_ENABLED_MAESTRO"
+        value: 0
+        description: "Accept MAESTRO Card 0= off 1= on"
+        groupId: 17
+        sortOrder: 10
+        setFunction: "zen_cfg_select_option(array('0', '1'), "
+    -
+        name: "Credit Card Enabled - Show on Payment"
+        key: "SHOW_ACCEPTED_CREDIT_CARDS"
+        value: 0
+        description: "Show accepted credit cards on Payment page?<br />0= off<br />1= As Text<br />2= As Images<br /><br />Note: images and text must be defined in both the database and language file for specific credit card types."
+        groupId: 17
+        sortOrder: 50
+        setFunction: "zen_cfg_select_option(array('0', '1', '2'), "
+    -
+        name: "This module is installed"
+        key: "MODULE_ORDER_TOTAL_GV_STATUS"
+        value: "true"
+        description: ""
+        groupId: 6
+        sortOrder: 1
+        setFunction: "zen_cfg_select_option(array('true'),"
+    -
+        name: "Sort Order"
+        key: "MODULE_ORDER_TOTAL_GV_SORT_ORDER"
+        value: 840
+        description: "Sort order of display."
+        groupId: 6
+        sortOrder: 2
+    -
+        name: "Queue Purchases"
+        key: "MODULE_ORDER_TOTAL_GV_QUEUE"
+        value: "true"
+        description: "Do you want to queue purchases of the Gift Voucher?"
+        groupId: 6
+        sortOrder: 3
+        setFunction: "zen_cfg_select_option(array('true', 'false'),"
+    -
+        name: "Include Shipping"
+        key: "MODULE_ORDER_TOTAL_GV_INC_SHIPPING"
+        value: "true"
+        description: "Include Shipping in calculation"
+        groupId: 6
+        sortOrder: 5
+        setFunction: "zen_cfg_select_option(array('true', 'false'),"
+    -
+        name: "Include Tax"
+        key: "MODULE_ORDER_TOTAL_GV_INC_TAX"
+        value: "true"
+        description: "Include Tax in calculation."
+        groupId: 6
+        sortOrder: 6
+        setFunction: "zen_cfg_select_option(array('true', 'false'),"
+    -
+        name: "Re-calculate Tax"
+        key: "MODULE_ORDER_TOTAL_GV_CALC_TAX"
+        value: "None"
+        description: "Re-Calculate Tax"
+        groupId: 6
+        sortOrder: 7
+        setFunction: "zen_cfg_select_option(array('None', 'Standard', 'Credit Note'),"
+    -
+        name: "Tax Class"
+        key: "MODULE_ORDER_TOTAL_GV_TAX_CLASS"
+        value: 0
+        description: "Use the following tax class when treating Gift Voucher as Credit Note."
+        groupId: 6
+        sortOrder: 0
+        useFunction: "zen_get_tax_class_title"
+        setFunction: "zen_cfg_pull_down_tax_classes("
+    -
+        name: "Credit including Tax"
+        key: "MODULE_ORDER_TOTAL_GV_CREDIT_TAX"
+        value: "false"
+        description: "Add tax to purchased Gift Voucher when crediting to Account"
+        groupId: 6
+        sortOrder: 8
+        setFunction: "zen_cfg_select_option(array('true', 'false'),"
+    -
+        name: "Set Order Status"
+        key: "MODULE_ORDER_TOTAL_GV_ORDER_STATUS_ID"
+        value: 0
+        description: "Set the status of orders made where GV covers full payment"
+        groupId: 6
+        sortOrder: 0
+        useFunction: "zen_get_order_status_name"
+        setFunction: "zen_cfg_pull_down_order_statuses("
+    -
+        name: "This module is installed"
+        key: "MODULE_ORDER_TOTAL_LOWORDERFEE_STATUS"
+        value: "true"
+        description: ""
+        groupId: 6
+        sortOrder: 1
+        setFunction: "zen_cfg_select_option(array('true'),"
+    -
+        name: "Sort Order"
+        key: "MODULE_ORDER_TOTAL_LOWORDERFEE_SORT_ORDER"
+        value: 400
+        description: "Sort order of display."
+        groupId: 6
+        sortOrder: 2
+    -
+        name: "Allow Low Order Fee"
+        key: "MODULE_ORDER_TOTAL_LOWORDERFEE_LOW_ORDER_FEE"
+        value: "false"
+        description: "Do you want to allow low order fees?"
+        groupId: 6
+        sortOrder: 3
+        setFunction: "zen_cfg_select_option(array('true', 'false'),"
+    -
+        name: "Order Fee For Orders Under"
+        key: "MODULE_ORDER_TOTAL_LOWORDERFEE_ORDER_UNDER"
+        value: 50
+        description: "Add the low order fee to orders under this amount."
+        groupId: 6
+        sortOrder: 4
+        useFunction: "currencies->format"
+    -
+        name: "Order Fee"
+        key: "MODULE_ORDER_TOTAL_LOWORDERFEE_FEE"
+        value: 5
+        description: "For Percentage Calculation - include a % Example: 10%<br />For a flat amount just enter the amount - Example: 5 for $5.00"
+        groupId: 6
+        sortOrder: 5
+        useFunction: ""
+    -
+        name: "Attach Low Order Fee On Orders Made"
+        key: "MODULE_ORDER_TOTAL_LOWORDERFEE_DESTINATION"
+        value: "both"
+        description: "Attach low order fee for orders sent to the set destination."
+        groupId: 6
+        sortOrder: 6
+        setFunction: "zen_cfg_select_option(array('national', 'international', 'both'),"
+    -
+        name: "Tax Class"
+        key: "MODULE_ORDER_TOTAL_LOWORDERFEE_TAX_CLASS"
+        value: 0
+        description: "Use the following tax class on the low order fee."
+        groupId: 6
+        sortOrder: 7
+        useFunction: "zen_get_tax_class_title"
+        setFunction: "zen_cfg_pull_down_tax_classes("
+    -
+        name: "No Low Order Fee on Virtual Products"
+        key: "MODULE_ORDER_TOTAL_LOWORDERFEE_VIRTUAL"
+        value: "false"
+        description: "Do not charge Low Order Fee when cart is Virtual Products Only"
+        groupId: 6
+        sortOrder: 8
+        setFunction: "zen_cfg_select_option(array('true', 'false'),"
+    -
+        name: "No Low Order Fee on Gift Vouchers"
+        key: "MODULE_ORDER_TOTAL_LOWORDERFEE_GV"
+        value: "false"
+        description: "Do not charge Low Order Fee when cart is Gift Vouchers Only"
+        groupId: 6
+        sortOrder: 9
+        setFunction: "zen_cfg_select_option(array('true', 'false'),"
+    -
+        name: "This module is installed"
+        key: "MODULE_ORDER_TOTAL_SHIPPING_STATUS"
+        value: "true"
+        description: ""
+        groupId: 6
+        sortOrder: 1
+        setFunction: "zen_cfg_select_option(array('true'),"
+    -
+        name: "Sort Order"
+        key: "MODULE_ORDER_TOTAL_SHIPPING_SORT_ORDER"
+        value: 200
+        description: "Sort order of display."
+        groupId: 6
+        sortOrder: 2
+    -
+        name: "Allow Free Shipping"
+        key: "MODULE_ORDER_TOTAL_SHIPPING_FREE_SHIPPING"
+        value: "false"
+        description: "Do you want to allow free shipping?"
+        groupId: 6
+        sortOrder: 3
+        setFunction: "zen_cfg_select_option(array('true', 'false'),"
+    -
+        name: "Free Shipping For Orders Over"
+        key: "MODULE_ORDER_TOTAL_SHIPPING_FREE_SHIPPING_OVER"
+        value: 50
+        description: "Provide free shipping for orders over the set amount."
+        groupId: 6
+        sortOrder: 4
+        useFunction: "currencies->format"
+    -
+        name: "Provide Free Shipping For Orders Made"
+        key: "MODULE_ORDER_TOTAL_SHIPPING_DESTINATION"
+        value: "national"
+        description: "Provide free shipping for orders sent to the set destination."
+        groupId: 6
+        sortOrder: 5
+        setFunction: "zen_cfg_select_option(array('national', 'international', 'both'),"
+    -
+        name: "This module is installed"
+        key: "MODULE_ORDER_TOTAL_SUBTOTAL_STATUS"
+        value: "true"
+        description: ""
+        groupId: 6
+        sortOrder: 1
+        setFunction: "zen_cfg_select_option(array('true'),"
+    -
+        name: "Sort Order"
+        key: "MODULE_ORDER_TOTAL_SUBTOTAL_SORT_ORDER"
+        value: 100
+        description: "Sort order of display."
+        groupId: 6
+        sortOrder: 2
+    -
+        name: "This module is installed"
+        key: "MODULE_ORDER_TOTAL_TAX_STATUS"
+        value: "true"
+        description: ""
+        groupId: 6
+        sortOrder: 1
+        setFunction: "zen_cfg_select_option(array('true'),"
+    -
+        name: "Sort Order"
+        key: "MODULE_ORDER_TOTAL_TAX_SORT_ORDER"
+        value: 300
+        description: "Sort order of display."
+        groupId: 6
+        sortOrder: 2
+    -
+        name: "This module is installed"
+        key: "MODULE_ORDER_TOTAL_TOTAL_STATUS"
+        value: "true"
+        description: ""
+        groupId: 6
+        sortOrder: 1
+        setFunction: "zen_cfg_select_option(array('true'),"
+    -
+        name: "Sort Order"
+        key: "MODULE_ORDER_TOTAL_TOTAL_SORT_ORDER"
+        value: 999
+        description: "Sort order of display."
+        groupId: 6
+        sortOrder: 2
+    -
+        name: "Tax Class"
+        key: "MODULE_ORDER_TOTAL_COUPON_TAX_CLASS"
+        value: 0
+        description: "Use the following tax class when treating Discount Coupon as Credit Note."
+        groupId: 6
+        sortOrder: 0
+        useFunction: "zen_get_tax_class_title"
+        setFunction: "zen_cfg_pull_down_tax_classes("
+    -
+        name: "Include Tax"
+        key: "MODULE_ORDER_TOTAL_COUPON_INC_TAX"
+        value: "false"
+        description: "Include Tax in calculation."
+        groupId: 6
+        sortOrder: 6
+        setFunction: "zen_cfg_select_option(array('true', 'false'),"
+    -
+        name: "Sort Order"
+        key: "MODULE_ORDER_TOTAL_COUPON_SORT_ORDER"
+        value: 280
+        description: "Sort order of display."
+        groupId: 6
+        sortOrder: 2
+    -
+        name: "Include Shipping"
+        key: "MODULE_ORDER_TOTAL_COUPON_INC_SHIPPING"
+        value: "false"
+        description: "Include Shipping in calculation"
+        groupId: 6
+        sortOrder: 5
+        setFunction: "zen_cfg_select_option(array('true', 'false'),"
+    -
+        name: "This module is installed"
+        key: "MODULE_ORDER_TOTAL_COUPON_STATUS"
+        value: "true"
+        description: ""
+        groupId: 6
+        sortOrder: 1
+        setFunction: "zen_cfg_select_option(array('true'),"
+    -
+        name: "Re-calculate Tax"
+        key: "MODULE_ORDER_TOTAL_COUPON_CALC_TAX"
+        value: "Standard"
+        description: "Re-Calculate Tax"
+        groupId: 6
+        sortOrder: 7
+        setFunction: "zen_cfg_select_option(array('None', 'Standard', 'Credit Note'),"
+    -
+        name: "Admin Demo Status"
+        key: "ADMIN_DEMO"
+        value: 0
+        description: "Admin Demo should be on?<br />0= off 1= on"
+        groupId: 6
+        sortOrder: 0
+        setFunction: "zen_cfg_select_option(array('0', '1'), "
+    -
+        name: "Product option type Select"
+        key: "PRODUCTS_OPTIONS_TYPE_SELECT"
+        value: 0
+        description: "The number representing the Select type of product option."
+        groupId: 0
+    -
+        name: "Text product option type"
+        key: "PRODUCTS_OPTIONS_TYPE_TEXT"
+        value: 1
+        description: "Numeric value of the text product option type"
+        groupId: 6
+    -
+        name: "Radio button product option type"
+        key: "PRODUCTS_OPTIONS_TYPE_RADIO"
+        value: 2
+        description: "Numeric value of the radio button product option type"
+        groupId: 6
+    -
+        name: "Check box product option type"
+        key: "PRODUCTS_OPTIONS_TYPE_CHECKBOX"
+        value: 3
+        description: "Numeric value of the check box product option type"
+        groupId: 6
+    -
+        name: "File product option type"
+        key: "PRODUCTS_OPTIONS_TYPE_FILE"
+        value: 4
+        description: "Numeric value of the file product option type"
+        groupId: 6
+    -
+        name: "ID for text and file products options values"
+        key: "PRODUCTS_OPTIONS_VALUES_TEXT_ID"
+        value: 0
+        description: "Numeric value of the products_options_values_id used by the text and file attributes."
+        groupId: 6
+    -
+        name: "Upload prefix"
+        key: "UPLOAD_PREFIX"
+        value: "upload_"
+        description: "Prefix used to differentiate between upload options and other options"
+        groupId: 0
+    -
+        name: "Text prefix"
+        key: "TEXT_PREFIX"
+        value: "txt_"
+        description: "Prefix used to differentiate between text option values and other option values"
+        groupId: 0
+    -
+        name: "Read Only option type"
+        key: "PRODUCTS_OPTIONS_TYPE_READONLY"
+        value: 5
+        description: "Numeric value of the file product option type"
+        groupId: 6
+    -
+        name: "login mode https"
+        key: "SSLPWSTATUSCHECK"
+        value: ""
+        description: "System setting. Do not edit."
+        groupId: 6
+        sortOrder: 99
+    -
+        name: "Products Info - Products Option Name Sort Order"
+        key: "PRODUCTS_OPTIONS_SORT_ORDER"
+        value: 0
+        description: "Sort order of Option Names for Products Info<br />0= Sort Order, Option Name<br />1= Option Name"
+        groupId: 18
+        sortOrder: 35
+        setFunction: "zen_cfg_select_option(array('0', '1'),"
+    -
+        name: "Products Info - Product Option Value of Attributes Sort Order"
+        key: "PRODUCTS_OPTIONS_SORT_BY_PRICE"
+        value: 1
+        description: "Sort order of Product Option Values of Attributes for Products Info<br />0= Sort Order, Price<br />1= Sort Order, Option Value Name"
+        groupId: 18
+        sortOrder: 36
+        setFunction: "zen_cfg_select_option(array('0', '1'),"
+    -
+        name: "Product Info - Show Option Values Name Below Attributes Image"
+        key: "PRODUCT_IMAGES_ATTRIBUTES_NAMES"
+        value: 1
+        description: "Product Info - Show the name of the Option Value beneath the Attribute Image?<br />0= off 1= on"
+        groupId: 18
+        sortOrder: 41
+        setFunction: "zen_cfg_select_option(array('0', '1'), "
+    -
+        name: "Product Info - Show Sales Discount Savings Status"
+        key: "SHOW_SALE_DISCOUNT_STATUS"
+        value: 1
+        description: "Product Info - Show the amount of discount savings?<br />0= off 1= on"
+        groupId: 18
+        sortOrder: 45
+        setFunction: "zen_cfg_select_option(array('0', '1'), "
+    -
+        name: "Product Info - Show Sales Discount Savings Dollars or Percentage"
+        key: "SHOW_SALE_DISCOUNT"
+        value: 1
+        description: "Product Info - Show the amount of discount savings display as:<br />1= % off 2= $amount off"
+        groupId: 18
+        sortOrder: 46
+        setFunction: "zen_cfg_select_option(array('1', '2'), "
+    -
+        name: "Product Info - Show Sales Discount Savings Percentage Decimals"
+        key: "SHOW_SALE_DISCOUNT_DECIMALS"
+        value: 0
+        description: "Product Info - Show discount savings display as a Percentage with how many decimals?:<br />Default= 0"
+        groupId: 18
+        sortOrder: 47
+    -
+        name: "Product Info - Price is Free Image or Text Status"
+        key: "OTHER_IMAGE_PRICE_IS_FREE_ON"
+        value: 1
+        description: "Product Info - Show the Price is Free Image or Text on Displayed Price<br />0= Text<br />1= Image"
+        groupId: 18
+        sortOrder: 50
+        setFunction: "zen_cfg_select_option(array('0', '1'), "
+    -
+        name: "Product Info - Price is Call for Price Image or Text Status"
+        key: "PRODUCTS_PRICE_IS_CALL_IMAGE_ON"
+        value: 1
+        description: "Product Info - Show the Price is Call for Price Image or Text on Displayed Price<br />0= Text<br />1= Image"
+        groupId: 18
+        sortOrder: 51
+        setFunction: "zen_cfg_select_option(array('0', '1'), "
+    -
+        name: "Product Quantity Box Status - Adding New Products"
+        key: "PRODUCTS_QTY_BOX_STATUS"
+        value: 1
+        description: "What should the Default Quantity Box Status be set to when adding New Products?<br /><br />0= off<br />1= on<br />NOTE: This will show a Qty Box when ON and default the Add to Cart to 1"
+        groupId: 18
+        sortOrder: 55
+        setFunction: "zen_cfg_select_option(array('0', '1'), "
+    -
+        name: "Product Reviews Require Approval"
+        key: "REVIEWS_APPROVAL"
+        value: 1
+        description: "Do product reviews require approval?<br /><br />Note: When Review Status is off, it will also not show<br /><br />0= off 1= on"
+        groupId: 18
+        sortOrder: 62
+        setFunction: "zen_cfg_select_option(array('0', '1'), "
+    -
+        name: "Meta Tags - Include Product Model in Title"
+        key: "META_TAG_INCLUDE_MODEL"
+        value: 1
+        description: "Do you want to include the Product Model in the Meta Tag Title?<br /><br />0= off 1= on"
+        groupId: 18
+        sortOrder: 69
+        setFunction: "zen_cfg_select_option(array('0', '1'), "
+    -
+        name: "Meta Tags - Include Product Price in Title"
+        key: "META_TAG_INCLUDE_PRICE"
+        value: 1
+        description: "Do you want to include the Product Price in the Meta Tag Title?<br /><br />0= off 1= on"
+        groupId: 18
+        sortOrder: 70
+        setFunction: "zen_cfg_select_option(array('0', '1'), "
+    -
+        name: "Meta Tags Generated Description Maximum Length?"
+        key: "MAX_META_TAG_DESCRIPTION_LENGTH"
+        value: 50
+        description: "Set Generated Meta Tag Description Maximum Length to (words) Default 50:"
+        groupId: 18
+        sortOrder: 71
+        useFunction: ""
+        setFunction: ""
+    -
+        name: "Also Purchased Products Columns per Row"
+        key: "SHOW_PRODUCT_INFO_COLUMNS_ALSO_PURCHASED_PRODUCTS"
+        value: 3
+        description: "Also Purchased Products Columns per Row<br />0= off or set the sort order"
+        groupId: 18
+        sortOrder: 72
+        setFunction: "zen_cfg_select_option(array('0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12'), "
+    -
+        name: "Previous Next - Navigation Bar Position"
+        key: "PRODUCT_INFO_PREVIOUS_NEXT"
+        value: 1
+        description: "Location of Previous/Next Navigation Bar<br />0= off<br />1= Top of Page<br />2= Bottom of Page<br />3= Both Top and Bottom of Page"
+        groupId: 18
+        sortOrder: 21
+        setFunction: "zen_cfg_select_drop_down(array(array('id'=>'0', 'text'=>'Off'), array('id'=>'1', 'text'=>'Top of Page'), array('id'=>'2', 'text'=>'Bottom of Page'), array('id'=>'3', 'text'=>'Both Top & Bottom of Page')),"
+    -
+        name: "Previous Next - Sort Order"
+        key: "PRODUCT_INFO_PREVIOUS_NEXT_SORT"
+        value: 1
+        description: "Products Display Order by<br />0= Product ID<br />1= Product Name<br />2= Model<br />3= Price, Product Name<br />4= Price, Model<br />5= Product Name, Model<br />6= Product Sort Order"
+        groupId: 18
+        sortOrder: 22
+        setFunction: "zen_cfg_select_drop_down(array(array('id'=>'0', 'text'=>'Product ID'), array('id'=>'1', 'text'=>'Name'), array('id'=>'2', 'text'=>'Product Model'), array('id'=>'3', 'text'=>'Product Price - Name'), array('id'=>'4', 'text'=>'Product Price - Model'), array('id'=>'5', 'text'=>'Product Name - Model'), array('id'=>'6', 'text'=>'Product Sort Order')),"
+    -
+        name: "Previous Next - Button and Image Status"
+        key: "SHOW_PREVIOUS_NEXT_STATUS"
+        value: 0
+        description: "Button and Product Image status settings are:<br />0= Off<br />1= On"
+        groupId: 18
+        sortOrder: 20
+        setFunction: "zen_cfg_select_drop_down(array(array('id'=>'0', 'text'=>'Off'), array('id'=>'1', 'text'=>'On')),"
+    -
+        name: "Previous Next - Button and Image Settings"
+        key: "SHOW_PREVIOUS_NEXT_IMAGES"
+        value: 0
+        description: "Show Previous/Next Button and Product Image Settings<br />0= Button Only<br />1= Button and Product Image<br />2= Product Image Only"
+        groupId: 18
+        sortOrder: 21
+        setFunction: "zen_cfg_select_drop_down(array(array('id'=>'0', 'text'=>'Button Only'), array('id'=>'1', 'text'=>'Button and Product Image'), array('id'=>'2', 'text'=>'Product Image Only')),"
+    -
+        name: "Previous Next - Image Width?"
+        key: "PREVIOUS_NEXT_IMAGE_WIDTH"
+        value: 50
+        description: "Previous/Next Image Width?"
+        groupId: 18
+        sortOrder: 22
+        useFunction: ""
+        setFunction: ""
+    -
+        name: "Previous Next - Image Height?"
+        key: "PREVIOUS_NEXT_IMAGE_HEIGHT"
+        value: 40
+        description: "Previous/Next Image Height?"
+        groupId: 18
+        sortOrder: 23
+        useFunction: ""
+        setFunction: ""
+    -
+        name: "Previous Next - Navigation Includes Category Position"
+        key: "PRODUCT_INFO_CATEGORIES"
+        value: 1
+        description: "Product's Category Image and Name Alignment Above Previous/Next Navigation Bar<br />0= off<br />1= Align Left<br />2= Align Center<br />3= Align Right"
+        groupId: 18
+        sortOrder: 20
+        setFunction: "zen_cfg_select_drop_down(array(array('id'=>'0', 'text'=>'Off'), array('id'=>'1', 'text'=>'Align Left'), array('id'=>'2', 'text'=>'Align Center'), array('id'=>'3', 'text'=>'Align Right')),"
+    -
+        name: "Previous Next - Navigation Includes Category Name and Image Status"
+        key: "PRODUCT_INFO_CATEGORIES_IMAGE_STATUS"
+        value: 2
+        description: "Product's Category Image and Name Status<br />0= Category Name and Image always shows<br />1= Category Name only<br />2= Category Name and Image when not blank"
+        groupId: 18
+        sortOrder: 20
+        setFunction: "zen_cfg_select_drop_down(array(array('id'=>'0', 'text'=>'Category Name and Image Always'), array('id'=>'1', 'text'=>'Category Name only'), array('id'=>'2', 'text'=>'Category Name and Image when not blank')),"
+    -
+        name: "Column Width - Left Boxes"
+        key: "BOX_WIDTH_LEFT"
+        value: "150px"
+        description: "Width of the Left Column Boxes<br />px may be included<br />Default = 150px"
+        groupId: 19
+        sortOrder: 1
+    -
+        name: "Column Width - Right Boxes"
+        key: "BOX_WIDTH_RIGHT"
+        value: "150px"
+        description: "Width of the Right Column Boxes<br />px may be included<br />Default = 150px"
+        groupId: 19
+        sortOrder: 2
+    -
+        name: "Bread Crumbs Navigation Separator"
+        key: "BREAD_CRUMBS_SEPARATOR"
+        value: "&nbsp;::&nbsp;"
+        description: "Enter the separator symbol to appear between the Navigation Bread Crumb trail<br />Note: Include spaces with the &amp;nbsp; symbol if you want them part of the separator.<br />Default = &amp;nbsp;::&amp;nbsp;"
+        groupId: 19
+        sortOrder: 3
+        setFunction: "zen_cfg_textarea_small("
+    -
+        name: "Define Breadcrumb Status"
+        key: "DEFINE_BREADCRUMB_STATUS"
+        value: 1
+        description: "Enable the Breadcrumb Trail Links?<br />0= OFF<br />1= ON<br />2= Off for Home Page Only"
+        groupId: 19
+        sortOrder: 4
+        setFunction: "zen_cfg_select_option(array('0', '1', '2'), "
+    -
+        name: "Bestsellers - Number Padding"
+        key: "BEST_SELLERS_FILLER"
+        value: "&nbsp;"
+        description: "What do you want to Pad the numbers with?<br />Default = &amp;nbsp;"
+        groupId: 19
+        sortOrder: 5
+        setFunction: "zen_cfg_textarea_small("
+    -
+        name: "Bestsellers - Truncate Product Names"
+        key: "BEST_SELLERS_TRUNCATE"
+        value: 35
+        description: "What size do you want to truncate the Product Names?<br />Default = 35"
+        groupId: 19
+        sortOrder: 6
+    -
+        name: "Bestsellers - Truncate Product Names followed by ..."
+        key: "BEST_SELLERS_TRUNCATE_MORE"
+        value: "true"
+        description: "When truncated Product Names follow with ...<br />Default = true"
+        groupId: 19
+        sortOrder: 7
+        setFunction: "zen_cfg_select_option(array('true', 'false'),"
+    -
+        name: "Categories Box - Show Specials Link"
+        key: "SHOW_CATEGORIES_BOX_SPECIALS"
+        value: "true"
+        description: "Show Specials Link in the Categories Box"
+        groupId: 19
+        sortOrder: 8
+        setFunction: "zen_cfg_select_option(array('true', 'false'),"
+    -
+        name: "Categories Box - Show Products New Link"
+        key: "SHOW_CATEGORIES_BOX_PRODUCTS_NEW"
+        value: "true"
+        description: "Show Products New Link in the Categories Box"
+        groupId: 19
+        sortOrder: 9
+        setFunction: "zen_cfg_select_option(array('true', 'false'),"
+    -
+        name: "Shopping Cart Box Status"
+        key: "SHOW_SHOPPING_CART_BOX_STATUS"
+        value: 1
+        description: "Shopping Cart Shows<br />0= Always<br />1= Only when full<br />2= Only when full but not when viewing the Shopping Cart"
+        groupId: 19
+        sortOrder: 10
+        setFunction: "zen_cfg_select_option(array('0', '1', '2'), "
+    -
+        name: "Categories Box - Show Featured Products Link"
+        key: "SHOW_CATEGORIES_BOX_FEATURED_PRODUCTS"
+        value: "true"
+        description: "Show Featured Products Link in the Categories Box"
+        groupId: 19
+        sortOrder: 11
+        setFunction: "zen_cfg_select_option(array('true', 'false'),"
+    -
+        name: "Categories Box - Show Products All Link"
+        key: "SHOW_CATEGORIES_BOX_PRODUCTS_ALL"
+        value: "true"
+        description: "Show Products All Link in the Categories Box"
+        groupId: 19
+        sortOrder: 12
+        setFunction: "zen_cfg_select_option(array('true', 'false'),"
+    -
+        name: "Column Left Status - Global"
+        key: "COLUMN_LEFT_STATUS"
+        value: 1
+        description: "Show Column Left, unless page override exists?<br />0= Column Left is always off<br />1= Column Left is on, unless page override"
+        groupId: 19
+        sortOrder: 15
+        setFunction: "zen_cfg_select_option(array('0', '1'), "
+    -
+        name: "Column Right Status - Global"
+        key: "COLUMN_RIGHT_STATUS"
+        value: 1
+        description: "Show Column Right, unless page override exists?<br />0= Column Right is always off<br />1= Column Right is on, unless page override"
+        groupId: 19
+        sortOrder: 16
+        setFunction: "zen_cfg_select_option(array('0', '1'), "
+    -
+        name: "Column Width - Left"
+        key: "COLUMN_WIDTH_LEFT"
+        value: "150px"
+        description: "Width of the Left Column<br />px may be included<br />Default = 150px"
+        groupId: 19
+        sortOrder: 20
+    -
+        name: "Column Width - Right"
+        key: "COLUMN_WIDTH_RIGHT"
+        value: "150px"
+        description: "Width of the Right Column<br />px may be included<br />Default = 150px"
+        groupId: 19
+        sortOrder: 21
+    -
+        name: "Categories Separator between links Status"
+        key: "SHOW_CATEGORIES_SEPARATOR_LINK"
+        value: 1
+        description: "Show Category Separator between Category Names and Links?<br />0= off<br />1= on"
+        groupId: 19
+        sortOrder: 24
+        setFunction: "zen_cfg_select_option(array('0', '1'), "
+    -
+        name: "Categories Separator between the Category Name and Count"
+        key: "CATEGORIES_SEPARATOR"
+        value: "-&gt;"
+        description: "What separator do you want between the Category name and the count?<br />Default = -&amp;gt;"
+        groupId: 19
+        sortOrder: 25
+        setFunction: "zen_cfg_textarea_small("
+    -
+        name: "Categories Separator between the Category Name and Sub Categories"
+        key: "CATEGORIES_SEPARATOR_SUBS"
+        value: "|_&nbsp;"
+        description: "What separator do you want between the Category name and Sub Category Name?<br />Default = |_&amp;nbsp;"
+        groupId: 19
+        sortOrder: 26
+        setFunction: "zen_cfg_textarea_small("
+    -
+        name: "Categories Count Prefix"
+        key: "CATEGORIES_COUNT_PREFIX"
+        value: "&nbsp;("
+        description: "What do you want to Prefix the count with?<br />Default= ("
+        groupId: 19
+        sortOrder: 27
+        setFunction: "zen_cfg_textarea_small("
+    -
+        name: "Categories Count Suffix"
+        key: "CATEGORIES_COUNT_SUFFIX"
+        value: ")"
+        description: "What do you want as a Suffix to the count?<br />Default= )"
+        groupId: 19
+        sortOrder: 28
+        setFunction: "zen_cfg_textarea_small("
+    -
+        name: "Categories SubCategories Indent"
+        key: "CATEGORIES_SUBCATEGORIES_INDENT"
+        value: "&nbsp;&nbsp;"
+        description: "What do you want to use as the subcategories indent?<br />Default= &nbsp;&nbsp;"
+        groupId: 19
+        sortOrder: 29
+        setFunction: "zen_cfg_textarea_small("
+    -
+        name: "Categories with 0 Products Status"
+        key: "CATEGORIES_COUNT_ZERO"
+        value: 0
+        description: "Show Category Count for 0 Products?<br />0= off<br />1= on"
+        groupId: 19
+        sortOrder: 30
+        setFunction: "zen_cfg_select_option(array('0', '1'), "
+    -
+        name: "Split Categories Box"
+        key: "CATEGORIES_SPLIT_DISPLAY"
+        value: "True"
+        description: "Split the categories box display by product type"
+        groupId: 19
+        sortOrder: 31
+        setFunction: "zen_cfg_select_option(array('True', 'False'), "
+    -
+        name: "Shopping Cart - Show Totals"
+        key: "SHOW_TOTALS_IN_CART"
+        value: 1
+        description: "Show Totals Above Shopping Cart?<br />0= off<br />1= on: Items Weight Amount<br />2= on: Items Weight Amount, but no weight when 0<br />3= on: Items Amount"
+        groupId: 19
+        sortOrder: 31
+        setFunction: "zen_cfg_select_option(array('0', '1', '2', '3'), "
+    -
+        name: "Customer Greeting - Show on Index Page"
+        key: "SHOW_CUSTOMER_GREETING"
+        value: 1
+        description: "Always Show Customer Greeting on Index?<br />0= off<br />1= on"
+        groupId: 19
+        sortOrder: 40
+        setFunction: "zen_cfg_select_option(array('0', '1'), "
+    -
+        name: "Categories - Always Show on Main Page"
+        key: "SHOW_CATEGORIES_ALWAYS"
+        value: 0
+        description: "Always Show Categories on Main Page<br />0= off<br />1= on<br />Default category can be set to Top Level or a Specific Top Level"
+        groupId: 19
+        sortOrder: 45
+        setFunction: "zen_cfg_select_option(array('0', '1'), "
+    -
+        name: "Main Page - Opens with Category"
+        key: "CATEGORIES_START_MAIN"
+        value: 0
+        description: "0= Top Level Categories<br />Or enter the Category ID#<br />Note: Sub Categories can also be used Example: 3_10"
+        groupId: 19
+        sortOrder: 46
+        useFunction: ""
+        setFunction: ""
+    -
+        name: "Categories - Always Open to Show SubCategories"
+        key: "SHOW_CATEGORIES_SUBCATEGORIES_ALWAYS"
+        value: 1
+        description: "Always Show Categories and SubCategories<br />0= off, just show Top Categories<br />1= on, Always show Categories and SubCategories when selected"
+        groupId: 19
+        sortOrder: 47
+        setFunction: "zen_cfg_select_option(array('0', '1'), "
+    -
+        name: "Banner Display Groups - Header Position 1"
+        key: "SHOW_BANNERS_GROUP_SET1"
+        value: ""
+        description: "The Banner Display Groups can be from 1 Banner Group or Multiple Banner Groups<br /><br />For Multiple Banner Groups enter the Banner Group Name separated by a colon <strong>:</strong><br /><br />Example: Wide-Banners:SideBox-Banners<br /><br />What Banner Group(s) do you want to use in the Header Position 1?<br />Leave blank for none"
+        groupId: 19
+        sortOrder: 55
+        useFunction: ""
+        setFunction: ""
+    -
+        name: "Banner Display Groups - Header Position 2"
+        key: "SHOW_BANNERS_GROUP_SET2"
+        value: ""
+        description: "The Banner Display Groups can be from 1 Banner Group or Multiple Banner Groups<br /><br />For Multiple Banner Groups enter the Banner Group Name separated by a colon <strong>:</strong><br /><br />Example: Wide-Banners:SideBox-Banners<br /><br />What Banner Group(s) do you want to use in the Header Position 2?<br />Leave blank for none"
+        groupId: 19
+        sortOrder: 56
+        useFunction: ""
+        setFunction: ""
+    -
+        name: "Banner Display Groups - Header Position 3"
+        key: "SHOW_BANNERS_GROUP_SET3"
+        value: ""
+        description: "The Banner Display Groups can be from 1 Banner Group or Multiple Banner Groups<br /><br />For Multiple Banner Groups enter the Banner Group Name separated by a colon <strong>:</strong><br /><br />Example: Wide-Banners:SideBox-Banners<br /><br />What Banner Group(s) do you want to use in the Header Position 3?<br />Leave blank for none"
+        groupId: 19
+        sortOrder: 57
+        useFunction: ""
+        setFunction: ""
+    -
+        name: "Banner Display Groups - Footer Position 1"
+        key: "SHOW_BANNERS_GROUP_SET4"
+        value: ""
+        description: "The Banner Display Groups can be from 1 Banner Group or Multiple Banner Groups<br /><br />For Multiple Banner Groups enter the Banner Group Name separated by a colon <strong>:</strong><br /><br />Example: Wide-Banners:SideBox-Banners<br /><br />What Banner Group(s) do you want to use in the Footer Position 1?<br />Leave blank for none"
+        groupId: 19
+        sortOrder: 65
+        useFunction: ""
+        setFunction: ""
+    -
+        name: "Banner Display Groups - Footer Position 2"
+        key: "SHOW_BANNERS_GROUP_SET5"
+        value: ""
+        description: "The Banner Display Groups can be from 1 Banner Group or Multiple Banner Groups<br /><br />For Multiple Banner Groups enter the Banner Group Name separated by a colon <strong>:</strong><br /><br />Example: Wide-Banners:SideBox-Banners<br /><br />What Banner Group(s) do you want to use in the Footer Position 2?<br />Leave blank for none"
+        groupId: 19
+        sortOrder: 66
+        useFunction: ""
+        setFunction: ""
+    -
+        name: "Banner Display Groups - Footer Position 3"
+        key: "SHOW_BANNERS_GROUP_SET6"
+        value: "Wide-Banners"
+        description: "The Banner Display Groups can be from 1 Banner Group or Multiple Banner Groups<br /><br />For Multiple Banner Groups enter the Banner Group Name separated by a colon <strong>:</strong><br /><br />Example: Wide-Banners:SideBox-Banners<br /><br />Default Group is Wide-Banners<br /><br />What Banner Group(s) do you want to use in the Footer Position 3?<br />Leave blank for none"
+        groupId: 19
+        sortOrder: 67
+        useFunction: ""
+        setFunction: ""
+    -
+        name: "Banner Display Groups - Side Box banner_box"
+        key: "SHOW_BANNERS_GROUP_SET7"
+        value: "SideBox-Banners"
+        description: "The Banner Display Groups can be from 1 Banner Group or Multiple Banner Groups<br /><br />For Multiple Banner Groups enter the Banner Group Name separated by a colon <strong>:</strong><br /><br />Example: Wide-Banners:SideBox-Banners<br />Default Group is SideBox-Banners<br /><br />What Banner Group(s) do you want to use in the Side Box - banner_box?<br />Leave blank for none"
+        groupId: 19
+        sortOrder: 70
+        useFunction: ""
+        setFunction: ""
+    -
+        name: "Banner Display Groups - Side Box banner_box2"
+        key: "SHOW_BANNERS_GROUP_SET8"
+        value: "SideBox-Banners"
+        description: "The Banner Display Groups can be from 1 Banner Group or Multiple Banner Groups<br /><br />For Multiple Banner Groups enter the Banner Group Name separated by a colon <strong>:</strong><br /><br />Example: Wide-Banners:SideBox-Banners<br />Default Group is SideBox-Banners<br /><br />What Banner Group(s) do you want to use in the Side Box - banner_box2?<br />Leave blank for none"
+        groupId: 19
+        sortOrder: 71
+        useFunction: ""
+        setFunction: ""
+    -
+        name: "Banner Display Group - Side Box banner_box_all"
+        key: "SHOW_BANNERS_GROUP_SET_ALL"
+        value: "BannersAll"
+        description: "The Banner Display Group may only be from one (1) Banner Group for the Banner All sidebox<br /><br />Default Group is BannersAll<br /><br />What Banner Group do you want to use in the Side Box - banner_box_all?<br />Leave blank for none"
+        groupId: 19
+        sortOrder: 72
+        useFunction: ""
+        setFunction: ""
+    -
+        name: "Footer - Show IP Address status"
+        key: "SHOW_FOOTER_IP"
+        value: 1
+        description: "Show Customer IP Address in the Footer<br />0= off<br />1= on<br />Should the Customer IP Address show in the footer?"
+        groupId: 19
+        sortOrder: 80
+        setFunction: "zen_cfg_select_option(array('0', '1'), "
+    -
+        name: "Product Discount Quantities - Add how many blank discounts?"
+        key: "DISCOUNT_QTY_ADD"
+        value: 5
+        description: "How many blank discount quantities should be added for Product Pricing?"
+        groupId: 19
+        sortOrder: 90
+        useFunction: ""
+        setFunction: ""
+    -
+        name: "Product Discount Quantities - Display how many per row?"
+        key: "DISCOUNT_QUANTITY_PRICES_COLUMN"
+        value: 5
+        description: "How many discount quantities should show per row on Product Info Pages?"
+        groupId: 19
+        sortOrder: 95
+        useFunction: ""
+        setFunction: ""
+    -
+        name: "Categories/Products Display Sort Order"
+        key: "CATEGORIES_PRODUCTS_SORT_ORDER"
+        value: 0
+        description: "Categories/Products Display Sort Order<br />0= Categories/Products Sort Order/Name<br />1= Categories/Products Name<br />2= Products Model<br />3= Products Qty+, Products Name<br />4= Products Qty-, Products Name<br />5= Products Price+, Products Name<br />6= Products Price-, Products Name"
+        groupId: 19
+        sortOrder: 100
+        setFunction: "zen_cfg_select_option(array('0', '1', '2', '3', '4', '5', '6'), "
+    -
+        name: "Option Names and Values Global Add, Copy and Delete Features Status"
+        key: "OPTION_NAMES_VALUES_GLOBAL_STATUS"
+        value: 1
+        description: "Option Names and Values Global Add, Copy and Delete Features Status<br />0= Hide Features<br />1= Show Features<br />(Default=1)"
+        groupId: 19
+        sortOrder: 110
+        setFunction: "zen_cfg_select_option(array('0', '1'), "
+    -
+        name: "Categories-Tabs Menu ON/OFF"
+        key: "CATEGORIES_TABS_STATUS"
+        value: 1
+        description: "Categories-Tabs<br />This enables the display of your store's categories as a menu across the top of your header. There are many potential creative uses for this.<br />0= Hide Categories Tabs<br />1= Show Categories Tabs"
+        groupId: 19
+        sortOrder: 112
+        setFunction: "zen_cfg_select_option(array('0', '1'), "
+    -
+        name: "Site Map - include My Account Links?"
+        key: "SHOW_ACCOUNT_LINKS_ON_SITE_MAP"
+        value: "No"
+        description: "Should the links to My Account show up on the site-map?<br />Note: Spiders will try to index this page, and likely should not be sent to secure pages, since there is no benefit in indexing a login page.<br /><br />Default: false"
+        groupId: 19
+        sortOrder: 115
+        setFunction: "zen_cfg_select_option(array('Yes', 'No'), "
+    -
+        name: "Skip 1-prod Categories"
+        key: "SKIP_SINGLE_PRODUCT_CATEGORIES"
+        value: "True"
+        description: "Skip single-product categories<br />If this option is set to True, then if the customer clicks on a link to a category which only contains a single item, then Zen Cart will take them directly to that product-page, rather than present them with another link to click in order to see the product.<br />Default: True"
+        groupId: 19
+        sortOrder: 120
+        setFunction: "zen_cfg_select_option(array('True', 'False'), "
+    -
+        name: "Use split-login page"
+        key: "USE_SPLIT_LOGIN_MODE"
+        value: "False"
+        description: "The login page can be displayed in two modes: Split or Vertical.<br />In Split mode, the create-account options are accessed by clicking a button to get to the create-account page.  In Vertical mode, the create-account input fields are all displayed inline, below the login field, making one less click for the customer to create their account.<br />Default: False"
+        groupId: 19
+        sortOrder: 121
+        setFunction: "zen_cfg_select_option(array('True', 'False'), "
+    -
+        name: "CSS Buttons"
+        key: "IMAGE_USE_CSS_BUTTONS"
+        value: "No"
+        description: "CSS Buttons<br />Use CSS buttons instead of images (GIF/JPG)?<br />Button styles must be configured in the stylesheet if you enable this option."
+        groupId: 19
+        sortOrder: 147
+        setFunction: "zen_cfg_select_option(array('No', 'Yes'), "
+    -
+        name: "<strong>Down for Maintenance: ON/OFF</strong>"
+        key: "DOWN_FOR_MAINTENANCE"
+        value: "false"
+        description: "Down for Maintenance <br />(true=on false=off)"
+        groupId: 20
+        sortOrder: 1
+        setFunction: "zen_cfg_select_option(array('true', 'false'), "
+    -
+        name: "Down for Maintenance: filename"
+        key: "DOWN_FOR_MAINTENANCE_FILENAME"
+        value: "down_for_maintenance"
+        description: "Down for Maintenance filename<br />Note: Do not include the extension<br />Default=down_for_maintenance"
+        groupId: 20
+        sortOrder: 2
+        setFunction: ""
+    -
+        name: "Down for Maintenance: Hide Header"
+        key: "DOWN_FOR_MAINTENANCE_HEADER_OFF"
+        value: "false"
+        description: "Down for Maintenance: Hide Header <br />(true=hide false=show)"
+        groupId: 20
+        sortOrder: 3
+        setFunction: "zen_cfg_select_option(array('true', 'false'), "
+    -
+        name: "Down for Maintenance: Hide Column Left"
+        key: "DOWN_FOR_MAINTENANCE_COLUMN_LEFT_OFF"
+        value: "false"
+        description: "Down for Maintenance: Hide Column Left <br />(true=hide false=show)"
+        groupId: 20
+        sortOrder: 4
+        setFunction: "zen_cfg_select_option(array('true', 'false'), "
+    -
+        name: "Down for Maintenance: Hide Column Right"
+        key: "DOWN_FOR_MAINTENANCE_COLUMN_RIGHT_OFF"
+        value: "false"
+        description: "Down for Maintenance: Hide Column Right <br />(true=hide false=show)"
+        groupId: 20
+        sortOrder: 5
+        setFunction: "zen_cfg_select_option(array('true', 'false'), "
+    -
+        name: "Down for Maintenance: Hide Footer"
+        key: "DOWN_FOR_MAINTENANCE_FOOTER_OFF"
+        value: "false"
+        description: "Down for Maintenance: Hide Footer <br />(true=hide false=show)"
+        groupId: 20
+        sortOrder: 6
+        setFunction: "zen_cfg_select_option(array('true', 'false'), "
+    -
+        name: "Down for Maintenance: Hide Prices"
+        key: "DOWN_FOR_MAINTENANCE_PRICES_OFF"
+        value: "false"
+        description: "Down for Maintenance: Hide Prices <br />(true=hide false=show)"
+        groupId: 20
+        sortOrder: 7
+        setFunction: "zen_cfg_select_option(array('true', 'false'), "
+    -
+        name: "Down For Maintenance (exclude this IP-Address)"
+        key: "EXCLUDE_ADMIN_IP_FOR_MAINTENANCE"
+        value: "your IP (ADMIN)"
+        description: "This IP Address is able to access the website while it is Down For Maintenance (like webmaster)<br />To enter multiple IP Addresses, separate with a comma. If you do not know your IP Address, check in the Footer of your Shop."
+        groupId: 20
+        sortOrder: 8
+    -
+        name: "NOTICE PUBLIC Before going Down for Maintenance: ON/OFF"
+        key: "WARN_BEFORE_DOWN_FOR_MAINTENANCE"
+        value: "false"
+        description: "Give a WARNING some time before you put your website Down for Maintenance<br />(true=on false=off)<br />If you set the 'Down For Maintenance: ON/OFF' to true this will automaticly be updated to false"
+        groupId: 20
+        sortOrder: 9
+        setFunction: "zen_cfg_select_option(array('true', 'false'),"
+    -
+        name: "Date and hours for notice before maintenance"
+        key: "PERIOD_BEFORE_DOWN_FOR_MAINTENANCE"
+        value: "15/05/2003  2-3 PM"
+        description: "Date and hours for notice before maintenance website, enter date and hours for maintenance website"
+        groupId: 20
+        sortOrder: 10
+    -
+        name: "Display when webmaster has enabled maintenance"
+        key: "DISPLAY_MAINTENANCE_TIME"
+        value: "false"
+        description: "Display when Webmaster has enabled maintenance <br />(true=on false=off)<br />"
+        groupId: 20
+        sortOrder: 11
+        setFunction: "zen_cfg_select_option(array('true', 'false'),"
+    -
+        name: "Display website maintenance period"
+        key: "DISPLAY_MAINTENANCE_PERIOD"
+        value: "false"
+        description: "Display Website maintenance period <br />(true=on false=off)<br />"
+        groupId: 20
+        sortOrder: 12
+        setFunction: "zen_cfg_select_option(array('true', 'false'),"
+    -
+        name: "Website maintenance period"
+        key: "TEXT_MAINTENANCE_PERIOD_TIME"
+        value: "2h00"
+        description: "Enter Website Maintenance period (hh:mm)"
+        groupId: 20
+        sortOrder: 13
+    -
+        name: "Confirm Terms and Conditions During Checkout Procedure"
+        key: "DISPLAY_CONDITIONS_ON_CHECKOUT"
+        value: "false"
+        description: "Show the Terms and Conditions during the checkout procedure which the customer must agree to."
+        groupId: 11
+        sortOrder: 1
+        setFunction: "zen_cfg_select_option(array('true', 'false'), "
+    -
+        name: "Confirm Privacy Notice During Account Creation Procedure"
+        key: "DISPLAY_PRIVACY_CONDITIONS"
+        value: "false"
+        description: "Show the Privacy Notice during the account creation procedure which the customer must agree to."
+        groupId: 11
+        sortOrder: 2
+        setFunction: "zen_cfg_select_option(array('true', 'false'), "
+    -
+        name: "Display Product Image"
+        key: "PRODUCT_NEW_LIST_IMAGE"
+        value: 1102
+        description: "Do you want to display the Product Image?<br /><br />0= off<br />1st digit Left or Right<br />2nd and 3rd digit Sort Order<br />4th digit number of breaks after<br />"
+        groupId: 21
+        sortOrder: 1
+    -
+        name: "Display Product Quantity"
+        key: "PRODUCT_NEW_LIST_QUANTITY"
+        value: 1202
+        description: "Do you want to display the Product Quantity?<br /><br />0= off<br />1st digit Left or Right<br />2nd and 3rd digit Sort Order<br />4th digit number of breaks after<br />"
+        groupId: 21
+        sortOrder: 2
+    -
+        name: "Display Product Buy Now Button"
+        key: "PRODUCT_NEW_BUY_NOW"
+        value: 1300
+        description: "Do you want to display the Product Buy Now Button<br /><br />0= off<br />1st digit Left or Right<br />2nd and 3rd digit Sort Order<br />4th digit number of breaks after<br />"
+        groupId: 21
+        sortOrder: 3
+    -
+        name: "Display Product Name"
+        key: "PRODUCT_NEW_LIST_NAME"
+        value: 2101
+        description: "Do you want to display the Product Name?<br /><br />0= off<br />1st digit Left or Right<br />2nd and 3rd digit Sort Order<br />4th digit number of breaks after<br />"
+        groupId: 21
+        sortOrder: 4
+    -
+        name: "Display Product Model"
+        key: "PRODUCT_NEW_LIST_MODEL"
+        value: 2201
+        description: "Do you want to display the Product Model?<br /><br />0= off<br />1st digit Left or Right<br />2nd and 3rd digit Sort Order<br />4th digit number of breaks after<br />"
+        groupId: 21
+        sortOrder: 5
+    -
+        name: "Display Product Manufacturer Name"
+        key: "PRODUCT_NEW_LIST_MANUFACTURER"
+        value: 2302
+        description: "Do you want to display the Product Manufacturer Name?<br /><br />0= off<br />1st digit Left or Right<br />2nd and 3rd digit Sort Order<br />4th digit number of breaks after<br />"
+        groupId: 21
+        sortOrder: 6
+    -
+        name: "Display Product Price"
+        key: "PRODUCT_NEW_LIST_PRICE"
+        value: 2402
+        description: "Do you want to display the Product Price<br /><br />0= off<br />1st digit Left or Right<br />2nd and 3rd digit Sort Order<br />4th digit number of breaks after<br />"
+        groupId: 21
+        sortOrder: 7
+    -
+        name: "Display Product Weight"
+        key: "PRODUCT_NEW_LIST_WEIGHT"
+        value: 2502
+        description: "Do you want to display the Product Weight?<br /><br />0= off<br />1st digit Left or Right<br />2nd and 3rd digit Sort Order<br />4th digit number of breaks after<br />"
+        groupId: 21
+        sortOrder: 8
+    -
+        name: "Display Product Date Added"
+        key: "PRODUCT_NEW_LIST_DATE_ADDED"
+        value: 2601
+        description: "Do you want to display the Product Date Added?<br /><br />0= off<br />1st digit Left or Right<br />2nd and 3rd digit Sort Order<br />4th digit number of breaks after<br />"
+        groupId: 21
+        sortOrder: 9
+    -
+        name: "Display Product Description"
+        key: "PRODUCT_NEW_LIST_DESCRIPTION"
+        value: 150
+        description: "How many characters do you want to display of the Product Description?<br /><br />0= OFF<br />150= Suggested Length, or enter the maximum number of characters to display"
+        groupId: 21
+        sortOrder: 10
+    -
+        name: "Display Product Display - Default Sort Order"
+        key: "PRODUCT_NEW_LIST_SORT_DEFAULT"
+        value: 6
+        description: "What Sort Order Default should be used for New Products Display?<br />Default= 6 for Date New to Old<br /><br />1= Products Name<br />2= Products Name Desc<br />3= Price low to high, Products Name<br />4= Price high to low, Products Name<br />5= Model<br />6= Date Added desc<br />7= Date Added<br />8= Product Sort Order"
+        groupId: 21
+        sortOrder: 11
+        setFunction: "zen_cfg_select_option(array('1', '2', '3', '4', '5', '6', '7', '8'), "
+    -
+        name: "Default Products New Group ID"
+        key: "PRODUCT_NEW_LIST_GROUP_ID"
+        value: 21
+        description: "Warning: Only change this if your Products New Group ID has changed from the default of 21<br />What is the configuration_group_id for New Products Listings?"
+        groupId: 21
+        sortOrder: 12
+    -
+        name: "Display Multiple Products Qty Box Status and Set Button Location"
+        key: "PRODUCT_NEW_LISTING_MULTIPLE_ADD_TO_CART"
+        value: 3
+        description: "Do you want to display Add Multiple Products Qty Box and Set Button Location?<br />0= off<br />1= Top<br />2= Bottom<br />3= Both"
+        groupId: 21
+        sortOrder: 25
+        setFunction: "zen_cfg_select_option(array('0', '1', '2', '3'), "
+    -
+        name: "Mask Upcoming Products from being include as New Products"
+        key: "SHOW_NEW_PRODUCTS_UPCOMING_MASKED"
+        value: 0
+        description: "Do you want to mask Upcoming Products from being included as New Products in Listing, Sideboxes and Centerbox?<br />0= off<br />1= on"
+        groupId: 21
+        sortOrder: 30
+        setFunction: "zen_cfg_select_option(array('0', '1'), "
+    -
+        name: "Display Product Image"
+        key: "PRODUCT_FEATURED_LIST_IMAGE"
+        value: 1102
+        description: "Do you want to display the Product Image?<br /><br />0= off<br />1st digit Left or Right<br />2nd and 3rd digit Sort Order<br />4th digit number of breaks after<br />"
+        groupId: 22
+        sortOrder: 1
+    -
+        name: "Display Product Quantity"
+        key: "PRODUCT_FEATURED_LIST_QUANTITY"
+        value: 1202
+        description: "Do you want to display the Product Quantity?<br /><br />0= off<br />1st digit Left or Right<br />2nd and 3rd digit Sort Order<br />4th digit number of breaks after<br />"
+        groupId: 22
+        sortOrder: 2
+    -
+        name: "Display Product Buy Now Button"
+        key: "PRODUCT_FEATURED_BUY_NOW"
+        value: 1300
+        description: "Do you want to display the Product Buy Now Button<br /><br />0= off<br />1st digit Left or Right<br />2nd and 3rd digit Sort Order<br />4th digit number of breaks after<br />"
+        groupId: 22
+        sortOrder: 3
+    -
+        name: "Display Product Name"
+        key: "PRODUCT_FEATURED_LIST_NAME"
+        value: 2101
+        description: "Do you want to display the Product Name?<br /><br />0= off<br />1st digit Left or Right<br />2nd and 3rd digit Sort Order<br />4th digit number of breaks after<br />"
+        groupId: 22
+        sortOrder: 4
+    -
+        name: "Display Product Model"
+        key: "PRODUCT_FEATURED_LIST_MODEL"
+        value: 2201
+        description: "Do you want to display the Product Model?<br /><br />0= off<br />1st digit Left or Right<br />2nd and 3rd digit Sort Order<br />4th digit number of breaks after<br />"
+        groupId: 22
+        sortOrder: 5
+    -
+        name: "Display Product Manufacturer Name"
+        key: "PRODUCT_FEATURED_LIST_MANUFACTURER"
+        value: 2302
+        description: "Do you want to display the Product Manufacturer Name?<br /><br />0= off<br />1st digit Left or Right<br />2nd and 3rd digit Sort Order<br />4th digit number of breaks after<br />"
+        groupId: 22
+        sortOrder: 6
+    -
+        name: "Display Product Price"
+        key: "PRODUCT_FEATURED_LIST_PRICE"
+        value: 2402
+        description: "Do you want to display the Product Price<br /><br />0= off<br />1st digit Left or Right<br />2nd and 3rd digit Sort Order<br />4th digit number of breaks after<br />"
+        groupId: 22
+        sortOrder: 7
+    -
+        name: "Display Product Weight"
+        key: "PRODUCT_FEATURED_LIST_WEIGHT"
+        value: 2502
+        description: "Do you want to display the Product Weight?<br /><br />0= off<br />1st digit Left or Right<br />2nd and 3rd digit Sort Order<br />4th digit number of breaks after<br />"
+        groupId: 22
+        sortOrder: 8
+    -
+        name: "Display Product Date Added"
+        key: "PRODUCT_FEATURED_LIST_DATE_ADDED"
+        value: 2601
+        description: "Do you want to display the Product Date Added?<br /><br />0= off<br />1st digit Left or Right<br />2nd and 3rd digit Sort Order<br />4th digit number of breaks after<br />"
+        groupId: 22
+        sortOrder: 9
+    -
+        name: "Display Product Description"
+        key: "PRODUCT_FEATURED_LIST_DESCRIPTION"
+        value: 150
+        description: "How many characters do you want to display of the Product Description?<br /><br />0= OFF<br />150= Suggested Length, or enter the maximum number of characters to display"
+        groupId: 22
+        sortOrder: 10
+    -
+        name: "Display Product Display - Default Sort Order"
+        key: "PRODUCT_FEATURED_LIST_SORT_DEFAULT"
+        value: 1
+        description: "What Sort Order Default should be used for Featured Product Display?<br />Default= 1 for Product Name<br /><br />1= Products Name<br />2= Products Name Desc<br />3= Price low to high, Products Name<br />4= Price high to low, Products Name<br />5= Model<br />6= Date Added desc<br />7= Date Added<br />8= Product Sort Order"
+        groupId: 22
+        sortOrder: 11
+        setFunction: "zen_cfg_select_option(array('1', '2', '3', '4', '5', '6', '7', '8'), "
+    -
+        name: "Default Featured Products Group ID"
+        key: "PRODUCT_FEATURED_LIST_GROUP_ID"
+        value: 22
+        description: "Warning: Only change this if your Featured Products Group ID has changed from the default of 22<br />What is the configuration_group_id for Featured Products Listings?"
+        groupId: 22
+        sortOrder: 12
+    -
+        name: "Display Multiple Products Qty Box Status and Set Button Location"
+        key: "PRODUCT_FEATURED_LISTING_MULTIPLE_ADD_TO_CART"
+        value: 3
+        description: "Do you want to display Add Multiple Products Qty Box and Set Button Location?<br />0= off<br />1= Top<br />2= Bottom<br />3= Both"
+        groupId: 22
+        sortOrder: 25
+        setFunction: "zen_cfg_select_option(array('0', '1', '2', '3'), "
+    -
+        name: "Display Product Image"
+        key: "PRODUCT_ALL_LIST_IMAGE"
+        value: 1102
+        description: "Do you want to display the Product Image?<br /><br />0= off<br />1st digit Left or Right<br />2nd and 3rd digit Sort Order<br />4th digit number of breaks after<br />"
+        groupId: 23
+        sortOrder: 1
+    -
+        name: "Display Product Quantity"
+        key: "PRODUCT_ALL_LIST_QUANTITY"
+        value: 1202
+        description: "Do you want to display the Product Quantity?<br /><br />0= off<br />1st digit Left or Right<br />2nd and 3rd digit Sort Order<br />4th digit number of breaks after<br />"
+        groupId: 23
+        sortOrder: 2
+    -
+        name: "Display Product Buy Now Button"
+        key: "PRODUCT_ALL_BUY_NOW"
+        value: 1300
+        description: "Do you want to display the Product Buy Now Button<br /><br />0= off<br />1st digit Left or Right<br />2nd and 3rd digit Sort Order<br />4th digit number of breaks after<br />"
+        groupId: 23
+        sortOrder: 3
+    -
+        name: "Display Product Name"
+        key: "PRODUCT_ALL_LIST_NAME"
+        value: 2101
+        description: "Do you want to display the Product Name?<br /><br />0= off<br />1st digit Left or Right<br />2nd and 3rd digit Sort Order<br />4th digit number of breaks after<br />"
+        groupId: 23
+        sortOrder: 4
+    -
+        name: "Display Product Model"
+        key: "PRODUCT_ALL_LIST_MODEL"
+        value: 2201
+        description: "Do you want to display the Product Model?<br /><br />0= off<br />1st digit Left or Right<br />2nd and 3rd digit Sort Order<br />4th digit number of breaks after<br />"
+        groupId: 23
+        sortOrder: 5
+    -
+        name: "Display Product Manufacturer Name"
+        key: "PRODUCT_ALL_LIST_MANUFACTURER"
+        value: 2302
+        description: "Do you want to display the Product Manufacturer Name?<br /><br />0= off<br />1st digit Left or Right<br />2nd and 3rd digit Sort Order<br />4th digit number of breaks after<br />"
+        groupId: 23
+        sortOrder: 6
+    -
+        name: "Display Product Price"
+        key: "PRODUCT_ALL_LIST_PRICE"
+        value: 2402
+        description: "Do you want to display the Product Price<br /><br />0= off<br />1st digit Left or Right<br />2nd and 3rd digit Sort Order<br />4th digit number of breaks after<br />"
+        groupId: 23
+        sortOrder: 7
+    -
+        name: "Display Product Weight"
+        key: "PRODUCT_ALL_LIST_WEIGHT"
+        value: 2502
+        description: "Do you want to display the Product Weight?<br /><br />0= off<br />1st digit Left or Right<br />2nd and 3rd digit Sort Order<br />4th digit number of breaks after<br />"
+        groupId: 23
+        sortOrder: 8
+    -
+        name: "Display Product Date Added"
+        key: "PRODUCT_ALL_LIST_DATE_ADDED"
+        value: 2601
+        description: "Do you want to display the Product Date Added?<br /><br />0= off<br />1st digit Left or Right<br />2nd and 3rd digit Sort Order<br />4th digit number of breaks after<br />"
+        groupId: 23
+        sortOrder: 9
+    -
+        name: "Display Product Description"
+        key: "PRODUCT_ALL_LIST_DESCRIPTION"
+        value: 150
+        description: "How many characters do you want to display of the Product Description?<br /><br />0= OFF<br />150= Suggested Length, or enter the maximum number of characters to display"
+        groupId: 23
+        sortOrder: 10
+    -
+        name: "Display Product Display - Default Sort Order"
+        key: "PRODUCT_ALL_LIST_SORT_DEFAULT"
+        value: 1
+        description: "What Sort Order Default should be used for All Products Display?<br />Default= 1 for Product Name<br /><br />1= Products Name<br />2= Products Name Desc<br />3= Price low to high, Products Name<br />4= Price high to low, Products Name<br />5= Model<br />6= Date Added desc<br />7= Date Added<br />8= Product Sort Order"
+        groupId: 23
+        sortOrder: 11
+        setFunction: "zen_cfg_select_option(array('1', '2', '3', '4', '5', '6', '7', '8'), "
+    -
+        name: "Default Products All Group ID"
+        key: "PRODUCT_ALL_LIST_GROUP_ID"
+        value: 23
+        description: "Warning: Only change this if your Products All Group ID has changed from the default of 23<br />What is the configuration_group_id for Products All Listings?"
+        groupId: 23
+        sortOrder: 12
+    -
+        name: "Display Multiple Products Qty Box Status and Set Button Location"
+        key: "PRODUCT_ALL_LISTING_MULTIPLE_ADD_TO_CART"
+        value: 3
+        description: "Do you want to display Add Multiple Products Qty Box and Set Button Location?<br />0= off<br />1= Top<br />2= Bottom<br />3= Both"
+        groupId: 23
+        sortOrder: 25
+        setFunction: "zen_cfg_select_option(array('0', '1', '2', '3'), "
+    -
+        name: "Show New Products on Main Page"
+        key: "SHOW_PRODUCT_INFO_MAIN_NEW_PRODUCTS"
+        value: 1
+        description: "Show New Products on Main Page<br />0= off or set the sort order"
+        groupId: 24
+        sortOrder: 65
+        setFunction: "zen_cfg_select_option(array('0', '1', '2', '3', '4'), "
+    -
+        name: "Show Featured Products on Main Page"
+        key: "SHOW_PRODUCT_INFO_MAIN_FEATURED_PRODUCTS"
+        value: 2
+        description: "Show Featured Products on Main Page<br />0= off or set the sort order"
+        groupId: 24
+        sortOrder: 66
+        setFunction: "zen_cfg_select_option(array('0', '1', '2', '3', '4'), "
+    -
+        name: "Show Special Products on Main Page"
+        key: "SHOW_PRODUCT_INFO_MAIN_SPECIALS_PRODUCTS"
+        value: 3
+        description: "Show Special Products on Main Page<br />0= off or set the sort order"
+        groupId: 24
+        sortOrder: 67
+        setFunction: "zen_cfg_select_option(array('0', '1', '2', '3', '4'), "
+    -
+        name: "Show Upcoming Products on Main Page"
+        key: "SHOW_PRODUCT_INFO_MAIN_UPCOMING"
+        value: 4
+        description: "Show Upcoming Products on Main Page<br />0= off or set the sort order"
+        groupId: 24
+        sortOrder: 68
+        setFunction: "zen_cfg_select_option(array('0', '1', '2', '3', '4'), "
+    -
+        name: "Show New Products on Main Page - Category with SubCategories"
+        key: "SHOW_PRODUCT_INFO_CATEGORY_NEW_PRODUCTS"
+        value: 1
+        description: "Show New Products on Main Page - Category with SubCategories<br />0= off or set the sort order"
+        groupId: 24
+        sortOrder: 70
+        setFunction: "zen_cfg_select_option(array('0', '1', '2', '3', '4'), "
+    -
+        name: "Show Featured Products on Main Page - Category with SubCategories"
+        key: "SHOW_PRODUCT_INFO_CATEGORY_FEATURED_PRODUCTS"
+        value: 2
+        description: "Show Featured Products on Main Page - Category with SubCategories<br />0= off or set the sort order"
+        groupId: 24
+        sortOrder: 71
+        setFunction: "zen_cfg_select_option(array('0', '1', '2', '3', '4'), "
+    -
+        name: "Show Special Products on Main Page - Category with SubCategories"
+        key: "SHOW_PRODUCT_INFO_CATEGORY_SPECIALS_PRODUCTS"
+        value: 3
+        description: "Show Special Products on Main Page - Category with SubCategories<br />0= off or set the sort order"
+        groupId: 24
+        sortOrder: 72
+        setFunction: "zen_cfg_select_option(array('0', '1', '2', '3', '4'), "
+    -
+        name: "Show Upcoming Products on Main Page - Category with SubCategories"
+        key: "SHOW_PRODUCT_INFO_CATEGORY_UPCOMING"
+        value: 4
+        description: "Show Upcoming Products on Main Page - Category with SubCategories<br />0= off or set the sort order"
+        groupId: 24
+        sortOrder: 73
+        setFunction: "zen_cfg_select_option(array('0', '1', '2', '3', '4'), "
+    -
+        name: "Show New Products on Main Page - Errors and Missing Products Page"
+        key: "SHOW_PRODUCT_INFO_MISSING_NEW_PRODUCTS"
+        value: 1
+        description: "Show New Products on Main Page - Errors and Missing Product<br />0= off or set the sort order"
+        groupId: 24
+        sortOrder: 75
+        setFunction: "zen_cfg_select_option(array('0', '1', '2', '3', '4'), "
+    -
+        name: "Show Featured Products on Main Page - Errors and Missing Products Page"
+        key: "SHOW_PRODUCT_INFO_MISSING_FEATURED_PRODUCTS"
+        value: 2
+        description: "Show Featured Products on Main Page - Errors and Missing Product<br />0= off or set the sort order"
+        groupId: 24
+        sortOrder: 76
+        setFunction: "zen_cfg_select_option(array('0', '1', '2', '3', '4'), "
+    -
+        name: "Show Special Products on Main Page - Errors and Missing Products Page"
+        key: "SHOW_PRODUCT_INFO_MISSING_SPECIALS_PRODUCTS"
+        value: 3
+        description: "Show Special Products on Main Page - Errors and Missing Product<br />0= off or set the sort order"
+        groupId: 24
+        sortOrder: 77
+        setFunction: "zen_cfg_select_option(array('0', '1', '2', '3', '4'), "
+    -
+        name: "Show Upcoming Products on Main Page - Errors and Missing Products Page"
+        key: "SHOW_PRODUCT_INFO_MISSING_UPCOMING"
+        value: 4
+        description: "Show Upcoming Products on Main Page - Errors and Missing Product<br />0= off or set the sort order"
+        groupId: 24
+        sortOrder: 78
+        setFunction: "zen_cfg_select_option(array('0', '1', '2', '3', '4'), "
+    -
+        name: "Show New Products - below Product Listing"
+        key: "SHOW_PRODUCT_INFO_LISTING_BELOW_NEW_PRODUCTS"
+        value: 1
+        description: "Show New Products below Product Listing<br />0= off or set the sort order"
+        groupId: 24
+        sortOrder: 85
+        setFunction: "zen_cfg_select_option(array('0', '1', '2', '3', '4'), "
+    -
+        name: "Show Featured Products - below Product Listing"
+        key: "SHOW_PRODUCT_INFO_LISTING_BELOW_FEATURED_PRODUCTS"
+        value: 2
+        description: "Show Featured Products below Product Listing<br />0= off or set the sort order"
+        groupId: 24
+        sortOrder: 86
+        setFunction: "zen_cfg_select_option(array('0', '1', '2', '3', '4'), "
+    -
+        name: "Show Special Products - below Product Listing"
+        key: "SHOW_PRODUCT_INFO_LISTING_BELOW_SPECIALS_PRODUCTS"
+        value: 3
+        description: "Show Special Products below Product Listing<br />0= off or set the sort order"
+        groupId: 24
+        sortOrder: 87
+        setFunction: "zen_cfg_select_option(array('0', '1', '2', '3', '4'), "
+    -
+        name: "Show Upcoming Products - below Product Listing"
+        key: "SHOW_PRODUCT_INFO_LISTING_BELOW_UPCOMING"
+        value: 4
+        description: "Show Upcoming Products below Product Listing<br />0= off or set the sort order"
+        groupId: 24
+        sortOrder: 88
+        setFunction: "zen_cfg_select_option(array('0', '1', '2', '3', '4'), "
+    -
+        name: "New Products Columns per Row"
+        key: "SHOW_PRODUCT_INFO_COLUMNS_NEW_PRODUCTS"
+        value: 3
+        description: "New Products Columns per Row"
+        groupId: 24
+        sortOrder: 95
+        setFunction: "zen_cfg_select_option(array('1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12'), "
+    -
+        name: "Featured Products Columns per Row"
+        key: "SHOW_PRODUCT_INFO_COLUMNS_FEATURED_PRODUCTS"
+        value: 3
+        description: "Featured Products Columns per Row"
+        groupId: 24
+        sortOrder: 96
+        setFunction: "zen_cfg_select_option(array('1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12'), "
+    -
+        name: "Special Products Columns per Row"
+        key: "SHOW_PRODUCT_INFO_COLUMNS_SPECIALS_PRODUCTS"
+        value: 3
+        description: "Special Products Columns per Row"
+        groupId: 24
+        sortOrder: 97
+        setFunction: "zen_cfg_select_option(array('1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12'), "
+    -
+        name: "Filter Product Listing for Current Top Level Category When Enabled"
+        key: "SHOW_PRODUCT_INFO_ALL_PRODUCTS"
+        value: 1
+        description: "Filter the products when Product Listing is enabled for current Main Category or show products from all categories?<br />0= Filter Off 1=Filter On "
+        groupId: 24
+        sortOrder: 100
+        setFunction: "zen_cfg_select_option(array('0', '1'), "
+    -
+        name: "Define Main Page Status"
+        key: "DEFINE_MAIN_PAGE_STATUS"
+        value: 1
+        description: "Enable the Defined Main Page Link/Text?<br />0= Link ON, Define Text OFF<br />1= Link ON, Define Text ON<br />2= Link OFF, Define Text ON<br />3= Link OFF, Define Text OFF"
+        groupId: 25
+        sortOrder: 60
+        setFunction: "zen_cfg_select_option(array('0', '1', '2', '3'),"
+    -
+        name: "Define Contact Us Status"
+        key: "DEFINE_CONTACT_US_STATUS"
+        value: 1
+        description: "Enable the Defined Contact Us Link/Text?<br />0= Link ON, Define Text OFF<br />1= Link ON, Define Text ON<br />2= Link OFF, Define Text ON<br />3= Link OFF, Define Text OFF"
+        groupId: 25
+        sortOrder: 61
+        setFunction: "zen_cfg_select_option(array('0', '1', '2', '3'),"
+    -
+        name: "Define Privacy Status"
+        key: "DEFINE_PRIVACY_STATUS"
+        value: 1
+        description: "Enable the Defined Privacy Link/Text?<br />0= Link ON, Define Text OFF<br />1= Link ON, Define Text ON<br />2= Link OFF, Define Text ON<br />3= Link OFF, Define Text OFF"
+        groupId: 25
+        sortOrder: 62
+        setFunction: "zen_cfg_select_option(array('0', '1', '2', '3'),"
+    -
+        name: "Define Shipping & Returns"
+        key: "DEFINE_SHIPPINGINFO_STATUS"
+        value: 1
+        description: "Enable the Defined Shipping & Returns Link/Text?<br />0= Link ON, Define Text OFF<br />1= Link ON, Define Text ON<br />2= Link OFF, Define Text ON<br />3= Link OFF, Define Text OFF"
+        groupId: 25
+        sortOrder: 63
+        setFunction: "zen_cfg_select_option(array('0', '1', '2', '3'),"
+    -
+        name: "Define Conditions of Use"
+        key: "DEFINE_CONDITIONS_STATUS"
+        value: 1
+        description: "Enable the Defined Conditions of Use Link/Text?<br />0= Link ON, Define Text OFF<br />1= Link ON, Define Text ON<br />2= Link OFF, Define Text ON<br />3= Link OFF, Define Text OFF"
+        groupId: 25
+        sortOrder: 64
+        setFunction: "zen_cfg_select_option(array('0', '1', '2', '3'),"
+    -
+        name: "Define Checkout Success"
+        key: "DEFINE_CHECKOUT_SUCCESS_STATUS"
+        value: 1
+        description: "Enable the Defined Checkout Success Link/Text?<br />0= Link ON, Define Text OFF<br />1= Link ON, Define Text ON<br />2= Link OFF, Define Text ON<br />3= Link OFF, Define Text OFF"
+        groupId: 25
+        sortOrder: 65
+        setFunction: "zen_cfg_select_option(array('0', '1', '2', '3'),"
+    -
+        name: "Define Discount Coupon"
+        key: "DEFINE_DISCOUNT_COUPON_STATUS"
+        value: 1
+        description: "Enable the Defined Discount Coupon Link/Text?<br />0= Link ON, Define Text OFF<br />1= Link ON, Define Text ON<br />2= Link OFF, Define Text ON<br />3= Link OFF, Define Text OFF"
+        groupId: 25
+        sortOrder: 66
+        setFunction: "zen_cfg_select_option(array('0', '1', '2', '3'),"
+    -
+        name: "Define Site Map Status"
+        key: "DEFINE_SITE_MAP_STATUS"
+        value: 1
+        description: "Enable the Defined Site Map Link/Text?<br />0= Link ON, Define Text OFF<br />1= Link ON, Define Text ON<br />2= Link OFF, Define Text ON<br />3= Link OFF, Define Text OFF"
+        groupId: 25
+        sortOrder: 67
+        setFunction: "zen_cfg_select_option(array('0', '1', '2', '3'),"
+    -
+        name: "Define Page-Not-Found Status"
+        key: "DEFINE_PAGE_NOT_FOUND_STATUS"
+        value: 1
+        description: "Enable the Defined Page-Not-Found Text from define-pages?<br />0= Define Text OFF<br />1= Define Text ON"
+        groupId: 25
+        sortOrder: 67
+        setFunction: "zen_cfg_select_option(array('0', '1'),"
+    -
+        name: "Define Page 2"
+        key: "DEFINE_PAGE_2_STATUS"
+        value: 1
+        description: "Enable the Defined Page 2 Link/Text?<br />0= Link ON, Define Text OFF<br />1= Link ON, Define Text ON<br />2= Link OFF, Define Text ON<br />3= Link OFF, Define Text OFF"
+        groupId: 25
+        sortOrder: 82
+        setFunction: "zen_cfg_select_option(array('0', '1', '2', '3'),"
+    -
+        name: "Define Page 3"
+        key: "DEFINE_PAGE_3_STATUS"
+        value: 1
+        description: "Enable the Defined Page 3 Link/Text?<br />0= Link ON, Define Text OFF<br />1= Link ON, Define Text ON<br />2= Link OFF, Define Text ON<br />3= Link OFF, Define Text OFF"
+        groupId: 25
+        sortOrder: 83
+        setFunction: "zen_cfg_select_option(array('0', '1', '2', '3'),"
+    -
+        name: "Define Page 4"
+        key: "DEFINE_PAGE_4_STATUS"
+        value: 1
+        description: "Enable the Defined Page 4 Link/Text?<br />0= Link ON, Define Text OFF<br />1= Link ON, Define Text ON<br />2= Link OFF, Define Text ON<br />3= Link OFF, Define Text OFF"
+        groupId: 25
+        sortOrder: 84
+        setFunction: "zen_cfg_select_option(array('0', '1', '2', '3'),"
+    -
+        name: "EZ-Pages Display Status - HeaderBar"
+        key: "EZPAGES_STATUS_HEADER"
+        value: 1
+        description: "Display of EZ-Pages content can be Globally enabled/disabled for the Header Bar<br />0 = Off<br />1 = On<br />2= On ADMIN IP ONLY located in Website Maintenance<br />NOTE: Warning only shows to the Admin and not to the public"
+        groupId: 30
+        sortOrder: 10
+        setFunction: "zen_cfg_select_option(array('0', '1', '2'), "
+    -
+        name: "EZ-Pages Display Status - FooterBar"
+        key: "EZPAGES_STATUS_FOOTER"
+        value: 1
+        description: "Display of EZ-Pages content can be Globally enabled/disabled for the Footer Bar<br />0 = Off<br />1 = On<br />2= On ADMIN IP ONLY located in Website Maintenance<br />NOTE: Warning only shows to the Admin and not to the public"
+        groupId: 30
+        sortOrder: 11
+        setFunction: "zen_cfg_select_option(array('0', '1', '2'), "
+    -
+        name: "EZ-Pages Display Status - Sidebox"
+        key: "EZPAGES_STATUS_SIDEBOX"
+        value: 1
+        description: "Display of EZ-Pages content can be Globally enabled/disabled for the Sidebox<br />0 = Off<br />1 = On<br />2= On ADMIN IP ONLY located in Website Maintenance<br />NOTE: Warning only shows to the Admin and not to the public"
+        groupId: 30
+        sortOrder: 12
+        setFunction: "zen_cfg_select_option(array('0', '1', '2'), "
+    -
+        name: "EZ-Pages Header Link Separator"
+        key: "EZPAGES_SEPARATOR_HEADER"
+        value: "&nbsp;::&nbsp;"
+        description: "EZ-Pages Header Link Separator<br />Default = &amp;nbsp;::&amp;nbsp;"
+        groupId: 30
+        sortOrder: 20
+        setFunction: "zen_cfg_textarea_small("
+    -
+        name: "EZ-Pages Footer Link Separator"
+        key: "EZPAGES_SEPARATOR_FOOTER"
+        value: "&nbsp;::&nbsp;"
+        description: "EZ-Pages Footer Link Separator<br />Default = &amp;nbsp;::&amp;nbsp;"
+        groupId: 30
+        sortOrder: 21
+        setFunction: "zen_cfg_textarea_small("
+    -
+        name: "EZ-Pages Prev/Next Buttons"
+        key: "EZPAGES_SHOW_PREV_NEXT_BUTTONS"
+        value: 2
+        description: "Display Prev/Continue/Next buttons on EZ-Pages pages?<br />0=OFF (no buttons)<br />1=\"Continue\"<br />2=\"Prev/Continue/Next\"<br /><br />Default setting: 2."
+        groupId: 30
+        sortOrder: 30
+        setFunction: "zen_cfg_select_option(array('0', '1', '2'), "
+    -
+        name: "EZ-Pages Table of Contents for Chapters Status"
+        key: "EZPAGES_SHOW_TABLE_CONTENTS"
+        value: 1
+        description: "Enable EZ-Pages Table of Contents for Chapters?<br />0= OFF<br />1= ON"
+        groupId: 30
+        sortOrder: 35
+        setFunction: "zen_cfg_select_option(array('0', '1'),"
+    -
+        name: "EZ-Pages Pages to disable headers"
+        key: "EZPAGES_DISABLE_HEADER_DISPLAY_LIST"
+        value: ""
+        description: "EZ-Pages \"pages\" on which to NOT display the normal \"header\" for your site.<br />Simply list page ID numbers separated by commas with no spaces.<br />Page ID numbers can be obtained from the EZ-Pages screen under Admin->Tools.<br />ie: 1,5,2<br />or leave blank."
+        groupId: 30
+        sortOrder: 40
+        setFunction: "zen_cfg_textarea_small("
+    -
+        name: "EZ-Pages Pages to disable footers"
+        key: "EZPAGES_DISABLE_FOOTER_DISPLAY_LIST"
+        value: ""
+        description: "EZ-Pages \"pages\" on which to NOT display the normal \"footer\" for your site.<br />Simply list page ID numbers separated by commas with no spaces.<br />Page ID numbers can be obtained from the EZ-Pages screen under Admin->Tools.<br />ie: 3,7<br />or leave blank."
+        groupId: 30
+        sortOrder: 41
+        setFunction: "zen_cfg_textarea_small("
+    -
+        name: "EZ-Pages Pages to disable left-column"
+        key: "EZPAGES_DISABLE_LEFTCOLUMN_DISPLAY_LIST"
+        value: ""
+        description: "EZ-Pages \"pages\" on which to NOT display the normal \"left\" column (of sideboxes) for your site.<br />Simply list page ID numbers separated by commas with no spaces.<br />Page ID numbers can be obtained from the EZ-Pages screen under Admin->Tools.<br />ie: 21<br />or leave blank."
+        groupId: 30
+        sortOrder: 42
+        setFunction: "zen_cfg_textarea_small("
+    -
+        name: "EZ-Pages Pages to disable right-column"
+        key: "EZPAGES_DISABLE_RIGHTCOLUMN_DISPLAY_LIST"
+        value: ""
+        description: "EZ-Pages \"pages\" on which to NOT display the normal \"right\" column (of sideboxes) for your site.<br />Simply list page ID numbers separated by commas with no spaces.<br />Page ID numbers can be obtained from the EZ-Pages screen under Admin->Tools.<br />ie: 3,82,13<br />or leave blank."
+        groupId: 30
+        sortOrder: 43
+        setFunction: "zen_cfg_textarea_small("

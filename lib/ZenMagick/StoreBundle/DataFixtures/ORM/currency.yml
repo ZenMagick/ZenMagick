@@ -1,0 +1,51 @@
+ZenMagick\StoreBundle\Entity\Locale\Currency:
+    -
+        id: 1
+        name: "US Dollar"
+        code: "USD"
+        symbolLeft: "$"
+        symbolRight: ""
+        decimalPoint: "."
+        thousandsPoint: ","
+        decimalPlaces: 2
+        rate: 1
+    -
+        id: 2
+        name: "Euro"
+        code: "EUR"
+        symbolLeft: "&euro;"
+        symbolRight: ""
+        decimalPoint: "."
+        thousandsPoint: ","
+        decimalPlaces: 2
+        rate: 0.74129999
+    -
+        id: 3
+        name: "GB Pound"
+        code: "GBP"
+        symbolLeft: "&pound;"
+        symbolRight: ""
+        decimalPoint: "."
+        thousandsPoint: ","
+        decimalPlaces: 2
+        rate: 0.50300002
+    -
+        id: 4
+        name: "Canadian Dollar"
+        code: "CAD"
+        symbolLeft: "$"
+        symbolRight: ""
+        decimalPoint: "."
+        thousandsPoint: ","
+        decimalPlaces: 2
+        rate: 1.10590005
+    -
+        id: 5
+        name: "Australian Dollar"
+        code: "AUD"
+        symbolLeft: "$"
+        symbolRight: ""
+        decimalPoint: "."
+        thousandsPoint: ","
+        decimalPlaces: 2
+        rate: 1.24070001

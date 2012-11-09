@@ -1,0 +1,1481 @@
+ZenMagick\StoreBundle\Entity\Location\Zone:
+    -
+        zoneId: 1
+        countryId: 223
+        code: "AL"
+        name: "Alabama"
+    -
+        zoneId: 2
+        countryId: 223
+        code: "AK"
+        name: "Alaska"
+    -
+        zoneId: 3
+        countryId: 223
+        code: "AS"
+        name: "American Samoa"
+    -
+        zoneId: 4
+        countryId: 223
+        code: "AZ"
+        name: "Arizona"
+    -
+        zoneId: 5
+        countryId: 223
+        code: "AR"
+        name: "Arkansas"
+    -
+        zoneId: 7
+        countryId: 223
+        code: "AA"
+        name: "Armed Forces Americas"
+    -
+        zoneId: 9
+        countryId: 223
+        code: "AE"
+        name: "Armed Forces Europe"
+    -
+        zoneId: 11
+        countryId: 223
+        code: "AP"
+        name: "Armed Forces Pacific"
+    -
+        zoneId: 12
+        countryId: 223
+        code: "CA"
+        name: "California"
+    -
+        zoneId: 13
+        countryId: 223
+        code: "CO"
+        name: "Colorado"
+    -
+        zoneId: 14
+        countryId: 223
+        code: "CT"
+        name: "Connecticut"
+    -
+        zoneId: 15
+        countryId: 223
+        code: "DE"
+        name: "Delaware"
+    -
+        zoneId: 16
+        countryId: 223
+        code: "DC"
+        name: "District of Columbia"
+    -
+        zoneId: 17
+        countryId: 223
+        code: "FM"
+        name: "Federated States Of Micronesia"
+    -
+        zoneId: 18
+        countryId: 223
+        code: "FL"
+        name: "Florida"
+    -
+        zoneId: 19
+        countryId: 223
+        code: "GA"
+        name: "Georgia"
+    -
+        zoneId: 20
+        countryId: 223
+        code: "GU"
+        name: "Guam"
+    -
+        zoneId: 21
+        countryId: 223
+        code: "HI"
+        name: "Hawaii"
+    -
+        zoneId: 22
+        countryId: 223
+        code: "ID"
+        name: "Idaho"
+    -
+        zoneId: 23
+        countryId: 223
+        code: "IL"
+        name: "Illinois"
+    -
+        zoneId: 24
+        countryId: 223
+        code: "IN"
+        name: "Indiana"
+    -
+        zoneId: 25
+        countryId: 223
+        code: "IA"
+        name: "Iowa"
+    -
+        zoneId: 26
+        countryId: 223
+        code: "KS"
+        name: "Kansas"
+    -
+        zoneId: 27
+        countryId: 223
+        code: "KY"
+        name: "Kentucky"
+    -
+        zoneId: 28
+        countryId: 223
+        code: "LA"
+        name: "Louisiana"
+    -
+        zoneId: 29
+        countryId: 223
+        code: "ME"
+        name: "Maine"
+    -
+        zoneId: 30
+        countryId: 223
+        code: "MH"
+        name: "Marshall Islands"
+    -
+        zoneId: 31
+        countryId: 223
+        code: "MD"
+        name: "Maryland"
+    -
+        zoneId: 32
+        countryId: 223
+        code: "MA"
+        name: "Massachusetts"
+    -
+        zoneId: 33
+        countryId: 223
+        code: "MI"
+        name: "Michigan"
+    -
+        zoneId: 34
+        countryId: 223
+        code: "MN"
+        name: "Minnesota"
+    -
+        zoneId: 35
+        countryId: 223
+        code: "MS"
+        name: "Mississippi"
+    -
+        zoneId: 36
+        countryId: 223
+        code: "MO"
+        name: "Missouri"
+    -
+        zoneId: 37
+        countryId: 223
+        code: "MT"
+        name: "Montana"
+    -
+        zoneId: 38
+        countryId: 223
+        code: "NE"
+        name: "Nebraska"
+    -
+        zoneId: 39
+        countryId: 223
+        code: "NV"
+        name: "Nevada"
+    -
+        zoneId: 40
+        countryId: 223
+        code: "NH"
+        name: "New Hampshire"
+    -
+        zoneId: 41
+        countryId: 223
+        code: "NJ"
+        name: "New Jersey"
+    -
+        zoneId: 42
+        countryId: 223
+        code: "NM"
+        name: "New Mexico"
+    -
+        zoneId: 43
+        countryId: 223
+        code: "NY"
+        name: "New York"
+    -
+        zoneId: 44
+        countryId: 223
+        code: "NC"
+        name: "North Carolina"
+    -
+        zoneId: 45
+        countryId: 223
+        code: "ND"
+        name: "North Dakota"
+    -
+        zoneId: 46
+        countryId: 223
+        code: "MP"
+        name: "Northern Mariana Islands"
+    -
+        zoneId: 47
+        countryId: 223
+        code: "OH"
+        name: "Ohio"
+    -
+        zoneId: 48
+        countryId: 223
+        code: "OK"
+        name: "Oklahoma"
+    -
+        zoneId: 49
+        countryId: 223
+        code: "OR"
+        name: "Oregon"
+    -
+        zoneId: 50
+        countryId: 163
+        code: "PW"
+        name: "Palau"
+    -
+        zoneId: 51
+        countryId: 223
+        code: "PA"
+        name: "Pennsylvania"
+    -
+        zoneId: 52
+        countryId: 223
+        code: "PR"
+        name: "Puerto Rico"
+    -
+        zoneId: 53
+        countryId: 223
+        code: "RI"
+        name: "Rhode Island"
+    -
+        zoneId: 54
+        countryId: 223
+        code: "SC"
+        name: "South Carolina"
+    -
+        zoneId: 55
+        countryId: 223
+        code: "SD"
+        name: "South Dakota"
+    -
+        zoneId: 56
+        countryId: 223
+        code: "TN"
+        name: "Tennessee"
+    -
+        zoneId: 57
+        countryId: 223
+        code: "TX"
+        name: "Texas"
+    -
+        zoneId: 58
+        countryId: 223
+        code: "UT"
+        name: "Utah"
+    -
+        zoneId: 59
+        countryId: 223
+        code: "VT"
+        name: "Vermont"
+    -
+        zoneId: 60
+        countryId: 223
+        code: "VI"
+        name: "Virgin Islands"
+    -
+        zoneId: 61
+        countryId: 223
+        code: "VA"
+        name: "Virginia"
+    -
+        zoneId: 62
+        countryId: 223
+        code: "WA"
+        name: "Washington"
+    -
+        zoneId: 63
+        countryId: 223
+        code: "WV"
+        name: "West Virginia"
+    -
+        zoneId: 64
+        countryId: 223
+        code: "WI"
+        name: "Wisconsin"
+    -
+        zoneId: 65
+        countryId: 223
+        code: "WY"
+        name: "Wyoming"
+    -
+        zoneId: 66
+        countryId: 38
+        code: "AB"
+        name: "Alberta"
+    -
+        zoneId: 67
+        countryId: 38
+        code: "BC"
+        name: "British Columbia"
+    -
+        zoneId: 68
+        countryId: 38
+        code: "MB"
+        name: "Manitoba"
+    -
+        zoneId: 69
+        countryId: 38
+        code: "NL"
+        name: "Newfoundland"
+    -
+        zoneId: 70
+        countryId: 38
+        code: "NB"
+        name: "New Brunswick"
+    -
+        zoneId: 71
+        countryId: 38
+        code: "NS"
+        name: "Nova Scotia"
+    -
+        zoneId: 72
+        countryId: 38
+        code: "NT"
+        name: "Northwest Territories"
+    -
+        zoneId: 73
+        countryId: 38
+        code: "NU"
+        name: "Nunavut"
+    -
+        zoneId: 74
+        countryId: 38
+        code: "ON"
+        name: "Ontario"
+    -
+        zoneId: 75
+        countryId: 38
+        code: "PE"
+        name: "Prince Edward Island"
+    -
+        zoneId: 76
+        countryId: 38
+        code: "QC"
+        name: "Quebec"
+    -
+        zoneId: 77
+        countryId: 38
+        code: "SK"
+        name: "Saskatchewan"
+    -
+        zoneId: 78
+        countryId: 38
+        code: "YT"
+        name: "Yukon Territory"
+    -
+        zoneId: 79
+        countryId: 81
+        code: "NDS"
+        name: "Niedersachsen"
+    -
+        zoneId: 80
+        countryId: 81
+        code: "BAW"
+        name: "Baden-Württemberg"
+    -
+        zoneId: 81
+        countryId: 81
+        code: "BAY"
+        name: "Bayern"
+    -
+        zoneId: 82
+        countryId: 81
+        code: "BER"
+        name: "Berlin"
+    -
+        zoneId: 83
+        countryId: 81
+        code: "BRG"
+        name: "Brandenburg"
+    -
+        zoneId: 84
+        countryId: 81
+        code: "BRE"
+        name: "Bremen"
+    -
+        zoneId: 85
+        countryId: 81
+        code: "HAM"
+        name: "Hamburg"
+    -
+        zoneId: 86
+        countryId: 81
+        code: "HES"
+        name: "Hessen"
+    -
+        zoneId: 87
+        countryId: 81
+        code: "MEC"
+        name: "Mecklenburg-Vorpommern"
+    -
+        zoneId: 88
+        countryId: 81
+        code: "NRW"
+        name: "Nordrhein-Westfalen"
+    -
+        zoneId: 89
+        countryId: 81
+        code: "RHE"
+        name: "Rheinland-Pfalz"
+    -
+        zoneId: 90
+        countryId: 81
+        code: "SAR"
+        name: "Saarland"
+    -
+        zoneId: 91
+        countryId: 81
+        code: "SAS"
+        name: "Sachsen"
+    -
+        zoneId: 92
+        countryId: 81
+        code: "SAC"
+        name: "Sachsen-Anhalt"
+    -
+        zoneId: 93
+        countryId: 81
+        code: "SCN"
+        name: "Schleswig-Holstein"
+    -
+        zoneId: 94
+        countryId: 81
+        code: "THE"
+        name: "Thüringen"
+    -
+        zoneId: 95
+        countryId: 14
+        code: "WI"
+        name: "Wien"
+    -
+        zoneId: 96
+        countryId: 14
+        code: "NO"
+        name: "Niederösterreich"
+    -
+        zoneId: 97
+        countryId: 14
+        code: "OO"
+        name: "Oberösterreich"
+    -
+        zoneId: 98
+        countryId: 14
+        code: "SB"
+        name: "Salzburg"
+    -
+        zoneId: 99
+        countryId: 14
+        code: "KN"
+        name: "Kärnten"
+    -
+        zoneId: 100
+        countryId: 14
+        code: "ST"
+        name: "Steiermark"
+    -
+        zoneId: 101
+        countryId: 14
+        code: "TI"
+        name: "Tirol"
+    -
+        zoneId: 102
+        countryId: 14
+        code: "BL"
+        name: "Burgenland"
+    -
+        zoneId: 103
+        countryId: 14
+        code: "VB"
+        name: "Voralberg"
+    -
+        zoneId: 104
+        countryId: 204
+        code: "AG"
+        name: "Aargau"
+    -
+        zoneId: 105
+        countryId: 204
+        code: "AI"
+        name: "Appenzell Innerrhoden"
+    -
+        zoneId: 106
+        countryId: 204
+        code: "AR"
+        name: "Appenzell Ausserrhoden"
+    -
+        zoneId: 107
+        countryId: 204
+        code: "BE"
+        name: "Bern"
+    -
+        zoneId: 108
+        countryId: 204
+        code: "BL"
+        name: "Basel-Landschaft"
+    -
+        zoneId: 109
+        countryId: 204
+        code: "BS"
+        name: "Basel-Stadt"
+    -
+        zoneId: 110
+        countryId: 204
+        code: "FR"
+        name: "Freiburg"
+    -
+        zoneId: 111
+        countryId: 204
+        code: "GE"
+        name: "Genf"
+    -
+        zoneId: 112
+        countryId: 204
+        code: "GL"
+        name: "Glarus"
+    -
+        zoneId: 113
+        countryId: 204
+        code: "JU"
+        name: "Graubnden"
+    -
+        zoneId: 114
+        countryId: 204
+        code: "JU"
+        name: "Jura"
+    -
+        zoneId: 115
+        countryId: 204
+        code: "LU"
+        name: "Luzern"
+    -
+        zoneId: 116
+        countryId: 204
+        code: "NE"
+        name: "Neuenburg"
+    -
+        zoneId: 117
+        countryId: 204
+        code: "NW"
+        name: "Nidwalden"
+    -
+        zoneId: 118
+        countryId: 204
+        code: "OW"
+        name: "Obwalden"
+    -
+        zoneId: 119
+        countryId: 204
+        code: "SG"
+        name: "St. Gallen"
+    -
+        zoneId: 120
+        countryId: 204
+        code: "SH"
+        name: "Schaffhausen"
+    -
+        zoneId: 121
+        countryId: 204
+        code: "SO"
+        name: "Solothurn"
+    -
+        zoneId: 122
+        countryId: 204
+        code: "SZ"
+        name: "Schwyz"
+    -
+        zoneId: 123
+        countryId: 204
+        code: "TG"
+        name: "Thurgau"
+    -
+        zoneId: 124
+        countryId: 204
+        code: "TI"
+        name: "Tessin"
+    -
+        zoneId: 125
+        countryId: 204
+        code: "UR"
+        name: "Uri"
+    -
+        zoneId: 126
+        countryId: 204
+        code: "VD"
+        name: "Waadt"
+    -
+        zoneId: 127
+        countryId: 204
+        code: "VS"
+        name: "Wallis"
+    -
+        zoneId: 128
+        countryId: 204
+        code: "ZG"
+        name: "Zug"
+    -
+        zoneId: 129
+        countryId: 204
+        code: "ZH"
+        name: "Zürich"
+    -
+        zoneId: 130
+        countryId: 195
+        code: "A Coruña"
+        name: "A Coruña"
+    -
+        zoneId: 131
+        countryId: 195
+        code: "Álava"
+        name: "Álava"
+    -
+        zoneId: 132
+        countryId: 195
+        code: "Albacete"
+        name: "Albacete"
+    -
+        zoneId: 133
+        countryId: 195
+        code: "Alicante"
+        name: "Alicante"
+    -
+        zoneId: 134
+        countryId: 195
+        code: "Almería"
+        name: "Almería"
+    -
+        zoneId: 135
+        countryId: 195
+        code: "Asturias"
+        name: "Asturias"
+    -
+        zoneId: 136
+        countryId: 195
+        code: "Ávila"
+        name: "Ávila"
+    -
+        zoneId: 137
+        countryId: 195
+        code: "Badajoz"
+        name: "Badajoz"
+    -
+        zoneId: 138
+        countryId: 195
+        code: "Baleares"
+        name: "Baleares"
+    -
+        zoneId: 139
+        countryId: 195
+        code: "Barcelona"
+        name: "Barcelona"
+    -
+        zoneId: 140
+        countryId: 195
+        code: "Burgos"
+        name: "Burgos"
+    -
+        zoneId: 141
+        countryId: 195
+        code: "Cáceres"
+        name: "Cáceres"
+    -
+        zoneId: 142
+        countryId: 195
+        code: "Cádiz"
+        name: "Cádiz"
+    -
+        zoneId: 143
+        countryId: 195
+        code: "Cantabria"
+        name: "Cantabria"
+    -
+        zoneId: 144
+        countryId: 195
+        code: "Castellón"
+        name: "Castellón"
+    -
+        zoneId: 145
+        countryId: 195
+        code: "Ceuta"
+        name: "Ceuta"
+    -
+        zoneId: 146
+        countryId: 195
+        code: "Ciudad Real"
+        name: "Ciudad Real"
+    -
+        zoneId: 147
+        countryId: 195
+        code: "Córdoba"
+        name: "Córdoba"
+    -
+        zoneId: 148
+        countryId: 195
+        code: "Cuenca"
+        name: "Cuenca"
+    -
+        zoneId: 149
+        countryId: 195
+        code: "Girona"
+        name: "Girona"
+    -
+        zoneId: 150
+        countryId: 195
+        code: "Granada"
+        name: "Granada"
+    -
+        zoneId: 151
+        countryId: 195
+        code: "Guadalajara"
+        name: "Guadalajara"
+    -
+        zoneId: 152
+        countryId: 195
+        code: "Guipúzcoa"
+        name: "Guipúzcoa"
+    -
+        zoneId: 153
+        countryId: 195
+        code: "Huelva"
+        name: "Huelva"
+    -
+        zoneId: 154
+        countryId: 195
+        code: "Huesca"
+        name: "Huesca"
+    -
+        zoneId: 155
+        countryId: 195
+        code: "Jaén"
+        name: "Jaén"
+    -
+        zoneId: 156
+        countryId: 195
+        code: "La Rioja"
+        name: "La Rioja"
+    -
+        zoneId: 157
+        countryId: 195
+        code: "Las Palmas"
+        name: "Las Palmas"
+    -
+        zoneId: 158
+        countryId: 195
+        code: "León"
+        name: "León"
+    -
+        zoneId: 159
+        countryId: 195
+        code: "Lérida"
+        name: "Lérida"
+    -
+        zoneId: 160
+        countryId: 195
+        code: "Lugo"
+        name: "Lugo"
+    -
+        zoneId: 161
+        countryId: 195
+        code: "Madrid"
+        name: "Madrid"
+    -
+        zoneId: 162
+        countryId: 195
+        code: "Málaga"
+        name: "Málaga"
+    -
+        zoneId: 163
+        countryId: 195
+        code: "Melilla"
+        name: "Melilla"
+    -
+        zoneId: 164
+        countryId: 195
+        code: "Murcia"
+        name: "Murcia"
+    -
+        zoneId: 165
+        countryId: 195
+        code: "Navarra"
+        name: "Navarra"
+    -
+        zoneId: 166
+        countryId: 195
+        code: "Ourense"
+        name: "Ourense"
+    -
+        zoneId: 167
+        countryId: 195
+        code: "Palencia"
+        name: "Palencia"
+    -
+        zoneId: 168
+        countryId: 195
+        code: "Pontevedra"
+        name: "Pontevedra"
+    -
+        zoneId: 169
+        countryId: 195
+        code: "Salamanca"
+        name: "Salamanca"
+    -
+        zoneId: 170
+        countryId: 195
+        code: "Santa Cruz de Tenerife"
+        name: "Santa Cruz de Tenerife"
+    -
+        zoneId: 171
+        countryId: 195
+        code: "Segovia"
+        name: "Segovia"
+    -
+        zoneId: 172
+        countryId: 195
+        code: "Sevilla"
+        name: "Sevilla"
+    -
+        zoneId: 173
+        countryId: 195
+        code: "Soria"
+        name: "Soria"
+    -
+        zoneId: 174
+        countryId: 195
+        code: "Tarragona"
+        name: "Tarragona"
+    -
+        zoneId: 175
+        countryId: 195
+        code: "Teruel"
+        name: "Teruel"
+    -
+        zoneId: 176
+        countryId: 195
+        code: "Toledo"
+        name: "Toledo"
+    -
+        zoneId: 177
+        countryId: 195
+        code: "Valencia"
+        name: "Valencia"
+    -
+        zoneId: 178
+        countryId: 195
+        code: "Valladolid"
+        name: "Valladolid"
+    -
+        zoneId: 179
+        countryId: 195
+        code: "Vizcaya"
+        name: "Vizcaya"
+    -
+        zoneId: 180
+        countryId: 195
+        code: "Zamora"
+        name: "Zamora"
+    -
+        zoneId: 181
+        countryId: 195
+        code: "Zaragoza"
+        name: "Zaragoza"
+    -
+        zoneId: 182
+        countryId: 13
+        code: "ACT"
+        name: "Australian Capital Territory"
+    -
+        zoneId: 183
+        countryId: 13
+        code: "NSW"
+        name: "New South Wales"
+    -
+        zoneId: 184
+        countryId: 13
+        code: "NT"
+        name: "Northern Territory"
+    -
+        zoneId: 185
+        countryId: 13
+        code: "QLD"
+        name: "Queensland"
+    -
+        zoneId: 186
+        countryId: 13
+        code: "SA"
+        name: "South Australia"
+    -
+        zoneId: 187
+        countryId: 13
+        code: "TAS"
+        name: "Tasmania"
+    -
+        zoneId: 188
+        countryId: 13
+        code: "VIC"
+        name: "Victoria"
+    -
+        zoneId: 189
+        countryId: 13
+        code: "WA"
+        name: "Western Australia"
+    -
+        zoneId: 190
+        countryId: 105
+        code: "AG"
+        name: "Agrigento"
+    -
+        zoneId: 191
+        countryId: 105
+        code: "AL"
+        name: "Alessandria"
+    -
+        zoneId: 192
+        countryId: 105
+        code: "AN"
+        name: "Ancona"
+    -
+        zoneId: 193
+        countryId: 105
+        code: "AO"
+        name: "Aosta"
+    -
+        zoneId: 194
+        countryId: 105
+        code: "AR"
+        name: "Arezzo"
+    -
+        zoneId: 195
+        countryId: 105
+        code: "AP"
+        name: "Ascoli Piceno"
+    -
+        zoneId: 196
+        countryId: 105
+        code: "AT"
+        name: "Asti"
+    -
+        zoneId: 197
+        countryId: 105
+        code: "AV"
+        name: "Avellino"
+    -
+        zoneId: 198
+        countryId: 105
+        code: "BA"
+        name: "Bari"
+    -
+        zoneId: 199
+        countryId: 105
+        code: "BT"
+        name: "Barletta Andria Trani"
+    -
+        zoneId: 200
+        countryId: 105
+        code: "BL"
+        name: "Belluno"
+    -
+        zoneId: 201
+        countryId: 105
+        code: "BN"
+        name: "Benevento"
+    -
+        zoneId: 202
+        countryId: 105
+        code: "BG"
+        name: "Bergamo"
+    -
+        zoneId: 203
+        countryId: 105
+        code: "BI"
+        name: "Biella"
+    -
+        zoneId: 204
+        countryId: 105
+        code: "BO"
+        name: "Bologna"
+    -
+        zoneId: 205
+        countryId: 105
+        code: "BZ"
+        name: "Bolzano"
+    -
+        zoneId: 206
+        countryId: 105
+        code: "BS"
+        name: "Brescia"
+    -
+        zoneId: 207
+        countryId: 105
+        code: "BR"
+        name: "Brindisi"
+    -
+        zoneId: 208
+        countryId: 105
+        code: "CA"
+        name: "Cagliari"
+    -
+        zoneId: 209
+        countryId: 105
+        code: "CL"
+        name: "Caltanissetta"
+    -
+        zoneId: 210
+        countryId: 105
+        code: "CB"
+        name: "Campobasso"
+    -
+        zoneId: 211
+        countryId: 105
+        code: "CI"
+        name: "Carbonia-Iglesias"
+    -
+        zoneId: 212
+        countryId: 105
+        code: "CE"
+        name: "Caserta"
+    -
+        zoneId: 213
+        countryId: 105
+        code: "CT"
+        name: "Catania"
+    -
+        zoneId: 214
+        countryId: 105
+        code: "CZ"
+        name: "Catanzaro"
+    -
+        zoneId: 215
+        countryId: 105
+        code: "CH"
+        name: "Chieti"
+    -
+        zoneId: 216
+        countryId: 105
+        code: "CO"
+        name: "Como"
+    -
+        zoneId: 217
+        countryId: 105
+        code: "CS"
+        name: "Cosenza"
+    -
+        zoneId: 218
+        countryId: 105
+        code: "CR"
+        name: "Cremona"
+    -
+        zoneId: 219
+        countryId: 105
+        code: "KR"
+        name: "Crotone"
+    -
+        zoneId: 220
+        countryId: 105
+        code: "CN"
+        name: "Cuneo"
+    -
+        zoneId: 221
+        countryId: 105
+        code: "EN"
+        name: "Enna"
+    -
+        zoneId: 222
+        countryId: 105
+        code: "FM"
+        name: "Fermo"
+    -
+        zoneId: 223
+        countryId: 105
+        code: "FE"
+        name: "Ferrara"
+    -
+        zoneId: 224
+        countryId: 105
+        code: "FI"
+        name: "Firenze"
+    -
+        zoneId: 225
+        countryId: 105
+        code: "FG"
+        name: "Foggia"
+    -
+        zoneId: 226
+        countryId: 105
+        code: "FC"
+        name: "Forlì Cesena"
+    -
+        zoneId: 227
+        countryId: 105
+        code: "FR"
+        name: "Frosinone"
+    -
+        zoneId: 228
+        countryId: 105
+        code: "GE"
+        name: "Genova"
+    -
+        zoneId: 229
+        countryId: 105
+        code: "GO"
+        name: "Gorizia"
+    -
+        zoneId: 230
+        countryId: 105
+        code: "GR"
+        name: "Grosseto"
+    -
+        zoneId: 231
+        countryId: 105
+        code: "IM"
+        name: "Imperia"
+    -
+        zoneId: 232
+        countryId: 105
+        code: "IS"
+        name: "Isernia"
+    -
+        zoneId: 233
+        countryId: 105
+        code: "AQ"
+        name: "Aquila"
+    -
+        zoneId: 234
+        countryId: 105
+        code: "SP"
+        name: "La Spezia"
+    -
+        zoneId: 235
+        countryId: 105
+        code: "LT"
+        name: "Latina"
+    -
+        zoneId: 236
+        countryId: 105
+        code: "LE"
+        name: "Lecce"
+    -
+        zoneId: 237
+        countryId: 105
+        code: "LC"
+        name: "Lecco"
+    -
+        zoneId: 238
+        countryId: 105
+        code: "LI"
+        name: "Livorno"
+    -
+        zoneId: 239
+        countryId: 105
+        code: "LO"
+        name: "Lodi"
+    -
+        zoneId: 240
+        countryId: 105
+        code: "LU"
+        name: "Lucca"
+    -
+        zoneId: 241
+        countryId: 105
+        code: "MC"
+        name: "Macerata"
+    -
+        zoneId: 242
+        countryId: 105
+        code: "MN"
+        name: "Mantova"
+    -
+        zoneId: 243
+        countryId: 105
+        code: "MS"
+        name: "Massa Carrara"
+    -
+        zoneId: 244
+        countryId: 105
+        code: "MT"
+        name: "Matera"
+    -
+        zoneId: 245
+        countryId: 105
+        code: "VS"
+        name: "Medio Campidano"
+    -
+        zoneId: 246
+        countryId: 105
+        code: "ME"
+        name: "Messina"
+    -
+        zoneId: 247
+        countryId: 105
+        code: "MI"
+        name: "Milano"
+    -
+        zoneId: 248
+        countryId: 105
+        code: "MO"
+        name: "Modena"
+    -
+        zoneId: 249
+        countryId: 105
+        code: "MB"
+        name: "Monza e Brianza"
+    -
+        zoneId: 250
+        countryId: 105
+        code: "NA"
+        name: "Napoli"
+    -
+        zoneId: 251
+        countryId: 105
+        code: "NO"
+        name: "Novara"
+    -
+        zoneId: 252
+        countryId: 105
+        code: "NU"
+        name: "Nuoro"
+    -
+        zoneId: 253
+        countryId: 105
+        code: "OG"
+        name: "Ogliastra"
+    -
+        zoneId: 254
+        countryId: 105
+        code: "OT"
+        name: "Olbia-Tempio"
+    -
+        zoneId: 255
+        countryId: 105
+        code: "OR"
+        name: "Oristano"
+    -
+        zoneId: 256
+        countryId: 105
+        code: "PD"
+        name: "Padova"
+    -
+        zoneId: 257
+        countryId: 105
+        code: "PA"
+        name: "Palermo"
+    -
+        zoneId: 258
+        countryId: 105
+        code: "PR"
+        name: "Parma"
+    -
+        zoneId: 259
+        countryId: 105
+        code: "PG"
+        name: "Perugia"
+    -
+        zoneId: 260
+        countryId: 105
+        code: "PV"
+        name: "Pavia"
+    -
+        zoneId: 261
+        countryId: 105
+        code: "PU"
+        name: "Pesaro Urbino"
+    -
+        zoneId: 262
+        countryId: 105
+        code: "PE"
+        name: "Pescara"
+    -
+        zoneId: 263
+        countryId: 105
+        code: "PC"
+        name: "Piacenza"
+    -
+        zoneId: 264
+        countryId: 105
+        code: "PI"
+        name: "Pisa"
+    -
+        zoneId: 265
+        countryId: 105
+        code: "PT"
+        name: "Pistoia"
+    -
+        zoneId: 266
+        countryId: 105
+        code: "PN"
+        name: "Pordenone"
+    -
+        zoneId: 267
+        countryId: 105
+        code: "PZ"
+        name: "Potenza"
+    -
+        zoneId: 268
+        countryId: 105
+        code: "PO"
+        name: "Prato"
+    -
+        zoneId: 269
+        countryId: 105
+        code: "RG"
+        name: "Ragusa"
+    -
+        zoneId: 270
+        countryId: 105
+        code: "RA"
+        name: "Ravenna"
+    -
+        zoneId: 271
+        countryId: 105
+        code: "RC"
+        name: "Reggio Calabria"
+    -
+        zoneId: 272
+        countryId: 105
+        code: "RE"
+        name: "Reggio Emilia"
+    -
+        zoneId: 273
+        countryId: 105
+        code: "RI"
+        name: "Rieti"
+    -
+        zoneId: 274
+        countryId: 105
+        code: "RN"
+        name: "Rimini"
+    -
+        zoneId: 275
+        countryId: 105
+        code: "RM"
+        name: "Roma"
+    -
+        zoneId: 276
+        countryId: 105
+        code: "RO"
+        name: "Rovigo"
+    -
+        zoneId: 277
+        countryId: 105
+        code: "SA"
+        name: "Salerno"
+    -
+        zoneId: 278
+        countryId: 105
+        code: "SS"
+        name: "Sassari"
+    -
+        zoneId: 279
+        countryId: 105
+        code: "SV"
+        name: "Savona"
+    -
+        zoneId: 280
+        countryId: 105
+        code: "SI"
+        name: "Siena"
+    -
+        zoneId: 281
+        countryId: 105
+        code: "SR"
+        name: "Siracusa"
+    -
+        zoneId: 282
+        countryId: 105
+        code: "SO"
+        name: "Sondrio"
+    -
+        zoneId: 283
+        countryId: 105
+        code: "TA"
+        name: "Taranto"
+    -
+        zoneId: 284
+        countryId: 105
+        code: "TE"
+        name: "Teramo"
+    -
+        zoneId: 285
+        countryId: 105
+        code: "TR"
+        name: "Terni"
+    -
+        zoneId: 286
+        countryId: 105
+        code: "TO"
+        name: "Torino"
+    -
+        zoneId: 287
+        countryId: 105
+        code: "TP"
+        name: "Trapani"
+    -
+        zoneId: 288
+        countryId: 105
+        code: "TN"
+        name: "Trento"
+    -
+        zoneId: 289
+        countryId: 105
+        code: "TV"
+        name: "Treviso"
+    -
+        zoneId: 290
+        countryId: 105
+        code: "TS"
+        name: "Trieste"
+    -
+        zoneId: 291
+        countryId: 105
+        code: "UD"
+        name: "Udine"
+    -
+        zoneId: 292
+        countryId: 105
+        code: "VA"
+        name: "Varese"
+    -
+        zoneId: 293
+        countryId: 105
+        code: "VE"
+        name: "Venezia"
+    -
+        zoneId: 294
+        countryId: 105
+        code: "VB"
+        name: "Verbania"
+    -
+        zoneId: 295
+        countryId: 105
+        code: "VC"
+        name: "Vercelli"
+    -
+        zoneId: 296
+        countryId: 105
+        code: "VR"
+        name: "Verona"
+    -
+        zoneId: 297
+        countryId: 105
+        code: "VV"
+        name: "Vibo Valentia"
+    -
+        zoneId: 298
+        countryId: 105
+        code: "VI"
+        name: "Vicenza"
+    -
+        zoneId: 299
+        countryId: 105
+        code: "VT"
+        name: "Viterbo"

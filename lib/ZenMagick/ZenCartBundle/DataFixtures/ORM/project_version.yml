@@ -1,0 +1,33 @@
+ZenMagick\ZenCartBundle\Entity\ProjectVersion:
+    -
+        projectVersionKey: "Zen-Cart Main"
+        projectVersionMajor: 1
+        projectVersionMinor: 5.1
+        projectVersionPatch1: ""
+        projectVersionPatch2: ""
+        projectVersionPatch1Source: ""
+        projectVersionPatch2Source: ""
+        projectVersionComment: "New Installation"
+    -
+        projectVersionKey: "Zen-Cart Database"
+        projectVersionMajor: 1
+        projectVersionMinor: 5.1
+        projectVersionPatch1: ""
+        projectVersionPatch2: ""
+        projectVersionPatch1Source: ""
+        projectVersionPatch2Source: ""
+        projectVersionComment: "New Installation"
+
+ZenMagick\ZenCartBundle\Entity\ProjectVersionHistory:
+    -
+        projectVersionKey: "Zen-Cart Main"
+        projectVersionMajor: 1
+        projectVersionMinor: 5.1
+        projectVersionPatch: ""
+        projectVersionComment: "New Installation"
+    -
+        projectVersionKey: "Zen-Cart Database"
+        projectVersionMajor: 1
+        projectVersionMinor: 5.1
+        projectVersionPatch: ""
+        projectVersionComment: "New Installation"

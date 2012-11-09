@@ -1,0 +1,1429 @@
+ZenMagick\StoreBundle\Entity\Location\Country:
+    -
+        countryId: 1
+        name: "Afghanistan"
+        isoCode2: "AF"
+        isoCode3: "AFG"
+        addressFormatId: 1
+    -
+        countryId: 2
+        name: "Albania"
+        isoCode2: "AL"
+        isoCode3: "ALB"
+        addressFormatId: 1
+    -
+        countryId: 3
+        name: "Algeria"
+        isoCode2: "DZ"
+        isoCode3: "DZA"
+        addressFormatId: 1
+    -
+        countryId: 4
+        name: "American Samoa"
+        isoCode2: "AS"
+        isoCode3: "ASM"
+        addressFormatId: 1
+    -
+        countryId: 5
+        name: "Andorra"
+        isoCode2: "AD"
+        isoCode3: "AND"
+        addressFormatId: 1
+    -
+        countryId: 6
+        name: "Angola"
+        isoCode2: "AO"
+        isoCode3: "AGO"
+        addressFormatId: 1
+    -
+        countryId: 7
+        name: "Anguilla"
+        isoCode2: "AI"
+        isoCode3: "AIA"
+        addressFormatId: 1
+    -
+        countryId: 8
+        name: "Antarctica"
+        isoCode2: "AQ"
+        isoCode3: "ATA"
+        addressFormatId: 1
+    -
+        countryId: 9
+        name: "Antigua and Barbuda"
+        isoCode2: "AG"
+        isoCode3: "ATG"
+        addressFormatId: 1
+    -
+        countryId: 10
+        name: "Argentina"
+        isoCode2: "AR"
+        isoCode3: "ARG"
+        addressFormatId: 1
+    -
+        countryId: 11
+        name: "Armenia"
+        isoCode2: "AM"
+        isoCode3: "ARM"
+        addressFormatId: 1
+    -
+        countryId: 12
+        name: "Aruba"
+        isoCode2: "AW"
+        isoCode3: "ABW"
+        addressFormatId: 1
+    -
+        countryId: 13
+        name: "Australia"
+        isoCode2: "AU"
+        isoCode3: "AUS"
+        addressFormatId: 1
+    -
+        countryId: 14
+        name: "Austria"
+        isoCode2: "AT"
+        isoCode3: "AUT"
+        addressFormatId: 5
+    -
+        countryId: 15
+        name: "Azerbaijan"
+        isoCode2: "AZ"
+        isoCode3: "AZE"
+        addressFormatId: 1
+    -
+        countryId: 16
+        name: "Bahamas"
+        isoCode2: "BS"
+        isoCode3: "BHS"
+        addressFormatId: 1
+    -
+        countryId: 17
+        name: "Bahrain"
+        isoCode2: "BH"
+        isoCode3: "BHR"
+        addressFormatId: 1
+    -
+        countryId: 18
+        name: "Bangladesh"
+        isoCode2: "BD"
+        isoCode3: "BGD"
+        addressFormatId: 1
+    -
+        countryId: 19
+        name: "Barbados"
+        isoCode2: "BB"
+        isoCode3: "BRB"
+        addressFormatId: 1
+    -
+        countryId: 20
+        name: "Belarus"
+        isoCode2: "BY"
+        isoCode3: "BLR"
+        addressFormatId: 1
+    -
+        countryId: 21
+        name: "Belgium"
+        isoCode2: "BE"
+        isoCode3: "BEL"
+        addressFormatId: 1
+    -
+        countryId: 22
+        name: "Belize"
+        isoCode2: "BZ"
+        isoCode3: "BLZ"
+        addressFormatId: 1
+    -
+        countryId: 23
+        name: "Benin"
+        isoCode2: "BJ"
+        isoCode3: "BEN"
+        addressFormatId: 1
+    -
+        countryId: 24
+        name: "Bermuda"
+        isoCode2: "BM"
+        isoCode3: "BMU"
+        addressFormatId: 1
+    -
+        countryId: 25
+        name: "Bhutan"
+        isoCode2: "BT"
+        isoCode3: "BTN"
+        addressFormatId: 1
+    -
+        countryId: 26
+        name: "Bolivia"
+        isoCode2: "BO"
+        isoCode3: "BOL"
+        addressFormatId: 1
+    -
+        countryId: 27
+        name: "Bosnia and Herzegowina"
+        isoCode2: "BA"
+        isoCode3: "BIH"
+        addressFormatId: 1
+    -
+        countryId: 28
+        name: "Botswana"
+        isoCode2: "BW"
+        isoCode3: "BWA"
+        addressFormatId: 1
+    -
+        countryId: 29
+        name: "Bouvet Island"
+        isoCode2: "BV"
+        isoCode3: "BVT"
+        addressFormatId: 1
+    -
+        countryId: 30
+        name: "Brazil"
+        isoCode2: "BR"
+        isoCode3: "BRA"
+        addressFormatId: 1
+    -
+        countryId: 31
+        name: "British Indian Ocean Territory"
+        isoCode2: "IO"
+        isoCode3: "IOT"
+        addressFormatId: 1
+    -
+        countryId: 32
+        name: "Brunei Darussalam"
+        isoCode2: "BN"
+        isoCode3: "BRN"
+        addressFormatId: 1
+    -
+        countryId: 33
+        name: "Bulgaria"
+        isoCode2: "BG"
+        isoCode3: "BGR"
+        addressFormatId: 1
+    -
+        countryId: 34
+        name: "Burkina Faso"
+        isoCode2: "BF"
+        isoCode3: "BFA"
+        addressFormatId: 1
+    -
+        countryId: 35
+        name: "Burundi"
+        isoCode2: "BI"
+        isoCode3: "BDI"
+        addressFormatId: 1
+    -
+        countryId: 36
+        name: "Cambodia"
+        isoCode2: "KH"
+        isoCode3: "KHM"
+        addressFormatId: 1
+    -
+        countryId: 37
+        name: "Cameroon"
+        isoCode2: "CM"
+        isoCode3: "CMR"
+        addressFormatId: 1
+    -
+        countryId: 38
+        name: "Canada"
+        isoCode2: "CA"
+        isoCode3: "CAN"
+        addressFormatId: 2
+    -
+        countryId: 39
+        name: "Cape Verde"
+        isoCode2: "CV"
+        isoCode3: "CPV"
+        addressFormatId: 1
+    -
+        countryId: 40
+        name: "Cayman Islands"
+        isoCode2: "KY"
+        isoCode3: "CYM"
+        addressFormatId: 1
+    -
+        countryId: 41
+        name: "Central African Republic"
+        isoCode2: "CF"
+        isoCode3: "CAF"
+        addressFormatId: 1
+    -
+        countryId: 42
+        name: "Chad"
+        isoCode2: "TD"
+        isoCode3: "TCD"
+        addressFormatId: 1
+    -
+        countryId: 43
+        name: "Chile"
+        isoCode2: "CL"
+        isoCode3: "CHL"
+        addressFormatId: 1
+    -
+        countryId: 44
+        name: "China"
+        isoCode2: "CN"
+        isoCode3: "CHN"
+        addressFormatId: 1
+    -
+        countryId: 45
+        name: "Christmas Island"
+        isoCode2: "CX"
+        isoCode3: "CXR"
+        addressFormatId: 1
+    -
+        countryId: 46
+        name: "Cocos (Keeling) Islands"
+        isoCode2: "CC"
+        isoCode3: "CCK"
+        addressFormatId: 1
+    -
+        countryId: 47
+        name: "Colombia"
+        isoCode2: "CO"
+        isoCode3: "COL"
+        addressFormatId: 1
+    -
+        countryId: 48
+        name: "Comoros"
+        isoCode2: "KM"
+        isoCode3: "COM"
+        addressFormatId: 1
+    -
+        countryId: 49
+        name: "Congo"
+        isoCode2: "CG"
+        isoCode3: "COG"
+        addressFormatId: 1
+    -
+        countryId: 50
+        name: "Cook Islands"
+        isoCode2: "CK"
+        isoCode3: "COK"
+        addressFormatId: 1
+    -
+        countryId: 51
+        name: "Costa Rica"
+        isoCode2: "CR"
+        isoCode3: "CRI"
+        addressFormatId: 1
+    -
+        countryId: 52
+        name: "Cote D'Ivoire"
+        isoCode2: "CI"
+        isoCode3: "CIV"
+        addressFormatId: 1
+    -
+        countryId: 53
+        name: "Croatia"
+        isoCode2: "HR"
+        isoCode3: "HRV"
+        addressFormatId: 1
+    -
+        countryId: 54
+        name: "Cuba"
+        isoCode2: "CU"
+        isoCode3: "CUB"
+        addressFormatId: 1
+    -
+        countryId: 55
+        name: "Cyprus"
+        isoCode2: "CY"
+        isoCode3: "CYP"
+        addressFormatId: 1
+    -
+        countryId: 56
+        name: "Czech Republic"
+        isoCode2: "CZ"
+        isoCode3: "CZE"
+        addressFormatId: 1
+    -
+        countryId: 57
+        name: "Denmark"
+        isoCode2: "DK"
+        isoCode3: "DNK"
+        addressFormatId: 1
+    -
+        countryId: 58
+        name: "Djibouti"
+        isoCode2: "DJ"
+        isoCode3: "DJI"
+        addressFormatId: 1
+    -
+        countryId: 59
+        name: "Dominica"
+        isoCode2: "DM"
+        isoCode3: "DMA"
+        addressFormatId: 1
+    -
+        countryId: 60
+        name: "Dominican Republic"
+        isoCode2: "DO"
+        isoCode3: "DOM"
+        addressFormatId: 1
+    -
+        countryId: 61
+        name: "Timor-Leste"
+        isoCode2: "TL"
+        isoCode3: "TLS"
+        addressFormatId: 1
+    -
+        countryId: 62
+        name: "Ecuador"
+        isoCode2: "EC"
+        isoCode3: "ECU"
+        addressFormatId: 1
+    -
+        countryId: 63
+        name: "Egypt"
+        isoCode2: "EG"
+        isoCode3: "EGY"
+        addressFormatId: 1
+    -
+        countryId: 64
+        name: "El Salvador"
+        isoCode2: "SV"
+        isoCode3: "SLV"
+        addressFormatId: 1
+    -
+        countryId: 65
+        name: "Equatorial Guinea"
+        isoCode2: "GQ"
+        isoCode3: "GNQ"
+        addressFormatId: 1
+    -
+        countryId: 66
+        name: "Eritrea"
+        isoCode2: "ER"
+        isoCode3: "ERI"
+        addressFormatId: 1
+    -
+        countryId: 67
+        name: "Estonia"
+        isoCode2: "EE"
+        isoCode3: "EST"
+        addressFormatId: 1
+    -
+        countryId: 68
+        name: "Ethiopia"
+        isoCode2: "ET"
+        isoCode3: "ETH"
+        addressFormatId: 1
+    -
+        countryId: 69
+        name: "Falkland Islands (Malvinas)"
+        isoCode2: "FK"
+        isoCode3: "FLK"
+        addressFormatId: 1
+    -
+        countryId: 70
+        name: "Faroe Islands"
+        isoCode2: "FO"
+        isoCode3: "FRO"
+        addressFormatId: 1
+    -
+        countryId: 71
+        name: "Fiji"
+        isoCode2: "FJ"
+        isoCode3: "FJI"
+        addressFormatId: 1
+    -
+        countryId: 72
+        name: "Finland"
+        isoCode2: "FI"
+        isoCode3: "FIN"
+        addressFormatId: 1
+    -
+        countryId: 73
+        name: "France"
+        isoCode2: "FR"
+        isoCode3: "FRA"
+        addressFormatId: 1
+    -
+        countryId: 75
+        name: "French Guiana"
+        isoCode2: "GF"
+        isoCode3: "GUF"
+        addressFormatId: 1
+    -
+        countryId: 76
+        name: "French Polynesia"
+        isoCode2: "PF"
+        isoCode3: "PYF"
+        addressFormatId: 1
+    -
+        countryId: 77
+        name: "French Southern Territories"
+        isoCode2: "TF"
+        isoCode3: "ATF"
+        addressFormatId: 1
+    -
+        countryId: 78
+        name: "Gabon"
+        isoCode2: "GA"
+        isoCode3: "GAB"
+        addressFormatId: 1
+    -
+        countryId: 79
+        name: "Gambia"
+        isoCode2: "GM"
+        isoCode3: "GMB"
+        addressFormatId: 1
+    -
+        countryId: 80
+        name: "Georgia"
+        isoCode2: "GE"
+        isoCode3: "GEO"
+        addressFormatId: 1
+    -
+        countryId: 81
+        name: "Germany"
+        isoCode2: "DE"
+        isoCode3: "DEU"
+        addressFormatId: 5
+    -
+        countryId: 82
+        name: "Ghana"
+        isoCode2: "GH"
+        isoCode3: "GHA"
+        addressFormatId: 1
+    -
+        countryId: 83
+        name: "Gibraltar"
+        isoCode2: "GI"
+        isoCode3: "GIB"
+        addressFormatId: 1
+    -
+        countryId: 84
+        name: "Greece"
+        isoCode2: "GR"
+        isoCode3: "GRC"
+        addressFormatId: 1
+    -
+        countryId: 85
+        name: "Greenland"
+        isoCode2: "GL"
+        isoCode3: "GRL"
+        addressFormatId: 1
+    -
+        countryId: 86
+        name: "Grenada"
+        isoCode2: "GD"
+        isoCode3: "GRD"
+        addressFormatId: 1
+    -
+        countryId: 87
+        name: "Guadeloupe"
+        isoCode2: "GP"
+        isoCode3: "GLP"
+        addressFormatId: 1
+    -
+        countryId: 88
+        name: "Guam"
+        isoCode2: "GU"
+        isoCode3: "GUM"
+        addressFormatId: 1
+    -
+        countryId: 89
+        name: "Guatemala"
+        isoCode2: "GT"
+        isoCode3: "GTM"
+        addressFormatId: 1
+    -
+        countryId: 90
+        name: "Guinea"
+        isoCode2: "GN"
+        isoCode3: "GIN"
+        addressFormatId: 1
+    -
+        countryId: 91
+        name: "Guinea-bissau"
+        isoCode2: "GW"
+        isoCode3: "GNB"
+        addressFormatId: 1
+    -
+        countryId: 92
+        name: "Guyana"
+        isoCode2: "GY"
+        isoCode3: "GUY"
+        addressFormatId: 1
+    -
+        countryId: 93
+        name: "Haiti"
+        isoCode2: "HT"
+        isoCode3: "HTI"
+        addressFormatId: 1
+    -
+        countryId: 94
+        name: "Heard and Mc Donald Islands"
+        isoCode2: "HM"
+        isoCode3: "HMD"
+        addressFormatId: 1
+    -
+        countryId: 95
+        name: "Honduras"
+        isoCode2: "HN"
+        isoCode3: "HND"
+        addressFormatId: 1
+    -
+        countryId: 96
+        name: "Hong Kong"
+        isoCode2: "HK"
+        isoCode3: "HKG"
+        addressFormatId: 1
+    -
+        countryId: 97
+        name: "Hungary"
+        isoCode2: "HU"
+        isoCode3: "HUN"
+        addressFormatId: 1
+    -
+        countryId: 98
+        name: "Iceland"
+        isoCode2: "IS"
+        isoCode3: "ISL"
+        addressFormatId: 1
+    -
+        countryId: 99
+        name: "India"
+        isoCode2: "IN"
+        isoCode3: "IND"
+        addressFormatId: 1
+    -
+        countryId: 100
+        name: "Indonesia"
+        isoCode2: "ID"
+        isoCode3: "IDN"
+        addressFormatId: 1
+    -
+        countryId: 101
+        name: "Iran (Islamic Republic of)"
+        isoCode2: "IR"
+        isoCode3: "IRN"
+        addressFormatId: 1
+    -
+        countryId: 102
+        name: "Iraq"
+        isoCode2: "IQ"
+        isoCode3: "IRQ"
+        addressFormatId: 1
+    -
+        countryId: 103
+        name: "Ireland"
+        isoCode2: "IE"
+        isoCode3: "IRL"
+        addressFormatId: 1
+    -
+        countryId: 104
+        name: "Israel"
+        isoCode2: "IL"
+        isoCode3: "ISR"
+        addressFormatId: 1
+    -
+        countryId: 105
+        name: "Italy"
+        isoCode2: "IT"
+        isoCode3: "ITA"
+        addressFormatId: 1
+    -
+        countryId: 106
+        name: "Jamaica"
+        isoCode2: "JM"
+        isoCode3: "JAM"
+        addressFormatId: 1
+    -
+        countryId: 107
+        name: "Japan"
+        isoCode2: "JP"
+        isoCode3: "JPN"
+        addressFormatId: 1
+    -
+        countryId: 108
+        name: "Jordan"
+        isoCode2: "JO"
+        isoCode3: "JOR"
+        addressFormatId: 1
+    -
+        countryId: 109
+        name: "Kazakhstan"
+        isoCode2: "KZ"
+        isoCode3: "KAZ"
+        addressFormatId: 1
+    -
+        countryId: 110
+        name: "Kenya"
+        isoCode2: "KE"
+        isoCode3: "KEN"
+        addressFormatId: 1
+    -
+        countryId: 111
+        name: "Kiribati"
+        isoCode2: "KI"
+        isoCode3: "KIR"
+        addressFormatId: 1
+    -
+        countryId: 112
+        name: "Korea, Democratic People's Republic of"
+        isoCode2: "KP"
+        isoCode3: "PRK"
+        addressFormatId: 1
+    -
+        countryId: 113
+        name: "Korea, Republic of"
+        isoCode2: "KR"
+        isoCode3: "KOR"
+        addressFormatId: 1
+    -
+        countryId: 114
+        name: "Kuwait"
+        isoCode2: "KW"
+        isoCode3: "KWT"
+        addressFormatId: 1
+    -
+        countryId: 115
+        name: "Kyrgyzstan"
+        isoCode2: "KG"
+        isoCode3: "KGZ"
+        addressFormatId: 1
+    -
+        countryId: 116
+        name: "Lao People's Democratic Republic"
+        isoCode2: "LA"
+        isoCode3: "LAO"
+        addressFormatId: 1
+    -
+        countryId: 117
+        name: "Latvia"
+        isoCode2: "LV"
+        isoCode3: "LVA"
+        addressFormatId: 1
+    -
+        countryId: 118
+        name: "Lebanon"
+        isoCode2: "LB"
+        isoCode3: "LBN"
+        addressFormatId: 1
+    -
+        countryId: 119
+        name: "Lesotho"
+        isoCode2: "LS"
+        isoCode3: "LSO"
+        addressFormatId: 1
+    -
+        countryId: 120
+        name: "Liberia"
+        isoCode2: "LR"
+        isoCode3: "LBR"
+        addressFormatId: 1
+    -
+        countryId: 121
+        name: "Libyan Arab Jamahiriya"
+        isoCode2: "LY"
+        isoCode3: "LBY"
+        addressFormatId: 1
+    -
+        countryId: 122
+        name: "Liechtenstein"
+        isoCode2: "LI"
+        isoCode3: "LIE"
+        addressFormatId: 1
+    -
+        countryId: 123
+        name: "Lithuania"
+        isoCode2: "LT"
+        isoCode3: "LTU"
+        addressFormatId: 1
+    -
+        countryId: 124
+        name: "Luxembourg"
+        isoCode2: "LU"
+        isoCode3: "LUX"
+        addressFormatId: 1
+    -
+        countryId: 125
+        name: "Macao"
+        isoCode2: "MO"
+        isoCode3: "MAC"
+        addressFormatId: 1
+    -
+        countryId: 126
+        name: "Macedonia, The Former Yugoslav Republic of"
+        isoCode2: "MK"
+        isoCode3: "MKD"
+        addressFormatId: 1
+    -
+        countryId: 127
+        name: "Madagascar"
+        isoCode2: "MG"
+        isoCode3: "MDG"
+        addressFormatId: 1
+    -
+        countryId: 128
+        name: "Malawi"
+        isoCode2: "MW"
+        isoCode3: "MWI"
+        addressFormatId: 1
+    -
+        countryId: 129
+        name: "Malaysia"
+        isoCode2: "MY"
+        isoCode3: "MYS"
+        addressFormatId: 1
+    -
+        countryId: 130
+        name: "Maldives"
+        isoCode2: "MV"
+        isoCode3: "MDV"
+        addressFormatId: 1
+    -
+        countryId: 131
+        name: "Mali"
+        isoCode2: "ML"
+        isoCode3: "MLI"
+        addressFormatId: 1
+    -
+        countryId: 132
+        name: "Malta"
+        isoCode2: "MT"
+        isoCode3: "MLT"
+        addressFormatId: 1
+    -
+        countryId: 133
+        name: "Marshall Islands"
+        isoCode2: "MH"
+        isoCode3: "MHL"
+        addressFormatId: 1
+    -
+        countryId: 134
+        name: "Martinique"
+        isoCode2: "MQ"
+        isoCode3: "MTQ"
+        addressFormatId: 1
+    -
+        countryId: 135
+        name: "Mauritania"
+        isoCode2: "MR"
+        isoCode3: "MRT"
+        addressFormatId: 1
+    -
+        countryId: 136
+        name: "Mauritius"
+        isoCode2: "MU"
+        isoCode3: "MUS"
+        addressFormatId: 1
+    -
+        countryId: 137
+        name: "Mayotte"
+        isoCode2: "YT"
+        isoCode3: "MYT"
+        addressFormatId: 1
+    -
+        countryId: 138
+        name: "Mexico"
+        isoCode2: "MX"
+        isoCode3: "MEX"
+        addressFormatId: 1
+    -
+        countryId: 139
+        name: "Micronesia, Federated States of"
+        isoCode2: "FM"
+        isoCode3: "FSM"
+        addressFormatId: 1
+    -
+        countryId: 140
+        name: "Moldova"
+        isoCode2: "MD"
+        isoCode3: "MDA"
+        addressFormatId: 1
+    -
+        countryId: 141
+        name: "Monaco"
+        isoCode2: "MC"
+        isoCode3: "MCO"
+        addressFormatId: 1
+    -
+        countryId: 142
+        name: "Mongolia"
+        isoCode2: "MN"
+        isoCode3: "MNG"
+        addressFormatId: 1
+    -
+        countryId: 143
+        name: "Montserrat"
+        isoCode2: "MS"
+        isoCode3: "MSR"
+        addressFormatId: 1
+    -
+        countryId: 144
+        name: "Morocco"
+        isoCode2: "MA"
+        isoCode3: "MAR"
+        addressFormatId: 1
+    -
+        countryId: 145
+        name: "Mozambique"
+        isoCode2: "MZ"
+        isoCode3: "MOZ"
+        addressFormatId: 1
+    -
+        countryId: 146
+        name: "Myanmar"
+        isoCode2: "MM"
+        isoCode3: "MMR"
+        addressFormatId: 1
+    -
+        countryId: 147
+        name: "Namibia"
+        isoCode2: "NA"
+        isoCode3: "NAM"
+        addressFormatId: 1
+    -
+        countryId: 148
+        name: "Nauru"
+        isoCode2: "NR"
+        isoCode3: "NRU"
+        addressFormatId: 1
+    -
+        countryId: 149
+        name: "Nepal"
+        isoCode2: "NP"
+        isoCode3: "NPL"
+        addressFormatId: 1
+    -
+        countryId: 150
+        name: "Netherlands"
+        isoCode2: "NL"
+        isoCode3: "NLD"
+        addressFormatId: 1
+    -
+        countryId: 151
+        name: "Netherlands Antilles"
+        isoCode2: "AN"
+        isoCode3: "ANT"
+        addressFormatId: 1
+    -
+        countryId: 152
+        name: "New Caledonia"
+        isoCode2: "NC"
+        isoCode3: "NCL"
+        addressFormatId: 1
+    -
+        countryId: 153
+        name: "New Zealand"
+        isoCode2: "NZ"
+        isoCode3: "NZL"
+        addressFormatId: 1
+    -
+        countryId: 154
+        name: "Nicaragua"
+        isoCode2: "NI"
+        isoCode3: "NIC"
+        addressFormatId: 1
+    -
+        countryId: 155
+        name: "Niger"
+        isoCode2: "NE"
+        isoCode3: "NER"
+        addressFormatId: 1
+    -
+        countryId: 156
+        name: "Nigeria"
+        isoCode2: "NG"
+        isoCode3: "NGA"
+        addressFormatId: 1
+    -
+        countryId: 157
+        name: "Niue"
+        isoCode2: "NU"
+        isoCode3: "NIU"
+        addressFormatId: 1
+    -
+        countryId: 158
+        name: "Norfolk Island"
+        isoCode2: "NF"
+        isoCode3: "NFK"
+        addressFormatId: 1
+    -
+        countryId: 159
+        name: "Northern Mariana Islands"
+        isoCode2: "MP"
+        isoCode3: "MNP"
+        addressFormatId: 1
+    -
+        countryId: 160
+        name: "Norway"
+        isoCode2: "NO"
+        isoCode3: "NOR"
+        addressFormatId: 1
+    -
+        countryId: 161
+        name: "Oman"
+        isoCode2: "OM"
+        isoCode3: "OMN"
+        addressFormatId: 1
+    -
+        countryId: 162
+        name: "Pakistan"
+        isoCode2: "PK"
+        isoCode3: "PAK"
+        addressFormatId: 1
+    -
+        countryId: 163
+        name: "Palau"
+        isoCode2: "PW"
+        isoCode3: "PLW"
+        addressFormatId: 1
+    -
+        countryId: 164
+        name: "Panama"
+        isoCode2: "PA"
+        isoCode3: "PAN"
+        addressFormatId: 1
+    -
+        countryId: 165
+        name: "Papua New Guinea"
+        isoCode2: "PG"
+        isoCode3: "PNG"
+        addressFormatId: 1
+    -
+        countryId: 166
+        name: "Paraguay"
+        isoCode2: "PY"
+        isoCode3: "PRY"
+        addressFormatId: 1
+    -
+        countryId: 167
+        name: "Peru"
+        isoCode2: "PE"
+        isoCode3: "PER"
+        addressFormatId: 1
+    -
+        countryId: 168
+        name: "Philippines"
+        isoCode2: "PH"
+        isoCode3: "PHL"
+        addressFormatId: 1
+    -
+        countryId: 169
+        name: "Pitcairn"
+        isoCode2: "PN"
+        isoCode3: "PCN"
+        addressFormatId: 1
+    -
+        countryId: 170
+        name: "Poland"
+        isoCode2: "PL"
+        isoCode3: "POL"
+        addressFormatId: 1
+    -
+        countryId: 171
+        name: "Portugal"
+        isoCode2: "PT"
+        isoCode3: "PRT"
+        addressFormatId: 1
+    -
+        countryId: 172
+        name: "Puerto Rico"
+        isoCode2: "PR"
+        isoCode3: "PRI"
+        addressFormatId: 1
+    -
+        countryId: 173
+        name: "Qatar"
+        isoCode2: "QA"
+        isoCode3: "QAT"
+        addressFormatId: 1
+    -
+        countryId: 174
+        name: "Reunion"
+        isoCode2: "RE"
+        isoCode3: "REU"
+        addressFormatId: 1
+    -
+        countryId: 175
+        name: "Romania"
+        isoCode2: "RO"
+        isoCode3: "ROU"
+        addressFormatId: 1
+    -
+        countryId: 176
+        name: "Russian Federation"
+        isoCode2: "RU"
+        isoCode3: "RUS"
+        addressFormatId: 1
+    -
+        countryId: 177
+        name: "Rwanda"
+        isoCode2: "RW"
+        isoCode3: "RWA"
+        addressFormatId: 1
+    -
+        countryId: 178
+        name: "Saint Kitts and Nevis"
+        isoCode2: "KN"
+        isoCode3: "KNA"
+        addressFormatId: 1
+    -
+        countryId: 179
+        name: "Saint Lucia"
+        isoCode2: "LC"
+        isoCode3: "LCA"
+        addressFormatId: 1
+    -
+        countryId: 180
+        name: "Saint Vincent and the Grenadines"
+        isoCode2: "VC"
+        isoCode3: "VCT"
+        addressFormatId: 1
+    -
+        countryId: 181
+        name: "Samoa"
+        isoCode2: "WS"
+        isoCode3: "WSM"
+        addressFormatId: 1
+    -
+        countryId: 182
+        name: "San Marino"
+        isoCode2: "SM"
+        isoCode3: "SMR"
+        addressFormatId: 1
+    -
+        countryId: 183
+        name: "Sao Tome and Principe"
+        isoCode2: "ST"
+        isoCode3: "STP"
+        addressFormatId: 1
+    -
+        countryId: 184
+        name: "Saudi Arabia"
+        isoCode2: "SA"
+        isoCode3: "SAU"
+        addressFormatId: 1
+    -
+        countryId: 185
+        name: "Senegal"
+        isoCode2: "SN"
+        isoCode3: "SEN"
+        addressFormatId: 1
+    -
+        countryId: 186
+        name: "Seychelles"
+        isoCode2: "SC"
+        isoCode3: "SYC"
+        addressFormatId: 1
+    -
+        countryId: 187
+        name: "Sierra Leone"
+        isoCode2: "SL"
+        isoCode3: "SLE"
+        addressFormatId: 1
+    -
+        countryId: 188
+        name: "Singapore"
+        isoCode2: "SG"
+        isoCode3: "SGP"
+        addressFormatId: 4
+    -
+        countryId: 189
+        name: "Slovakia (Slovak Republic)"
+        isoCode2: "SK"
+        isoCode3: "SVK"
+        addressFormatId: 1
+    -
+        countryId: 190
+        name: "Slovenia"
+        isoCode2: "SI"
+        isoCode3: "SVN"
+        addressFormatId: 1
+    -
+        countryId: 191
+        name: "Solomon Islands"
+        isoCode2: "SB"
+        isoCode3: "SLB"
+        addressFormatId: 1
+    -
+        countryId: 192
+        name: "Somalia"
+        isoCode2: "SO"
+        isoCode3: "SOM"
+        addressFormatId: 1
+    -
+        countryId: 193
+        name: "South Africa"
+        isoCode2: "ZA"
+        isoCode3: "ZAF"
+        addressFormatId: 1
+    -
+        countryId: 194
+        name: "South Georgia and the South Sandwich Islands"
+        isoCode2: "GS"
+        isoCode3: "SGS"
+        addressFormatId: 1
+    -
+        countryId: 195
+        name: "Spain"
+        isoCode2: "ES"
+        isoCode3: "ESP"
+        addressFormatId: 3
+    -
+        countryId: 196
+        name: "Sri Lanka"
+        isoCode2: "LK"
+        isoCode3: "LKA"
+        addressFormatId: 1
+    -
+        countryId: 197
+        name: "St. Helena"
+        isoCode2: "SH"
+        isoCode3: "SHN"
+        addressFormatId: 1
+    -
+        countryId: 198
+        name: "St. Pierre and Miquelon"
+        isoCode2: "PM"
+        isoCode3: "SPM"
+        addressFormatId: 1
+    -
+        countryId: 199
+        name: "Sudan"
+        isoCode2: "SD"
+        isoCode3: "SDN"
+        addressFormatId: 1
+    -
+        countryId: 200
+        name: "Suriname"
+        isoCode2: "SR"
+        isoCode3: "SUR"
+        addressFormatId: 1
+    -
+        countryId: 201
+        name: "Svalbard and Jan Mayen Islands"
+        isoCode2: "SJ"
+        isoCode3: "SJM"
+        addressFormatId: 1
+    -
+        countryId: 202
+        name: "Swaziland"
+        isoCode2: "SZ"
+        isoCode3: "SWZ"
+        addressFormatId: 1
+    -
+        countryId: 203
+        name: "Sweden"
+        isoCode2: "SE"
+        isoCode3: "SWE"
+        addressFormatId: 1
+    -
+        countryId: 204
+        name: "Switzerland"
+        isoCode2: "CH"
+        isoCode3: "CHE"
+        addressFormatId: 1
+    -
+        countryId: 205
+        name: "Syrian Arab Republic"
+        isoCode2: "SY"
+        isoCode3: "SYR"
+        addressFormatId: 1
+    -
+        countryId: 206
+        name: "Taiwan"
+        isoCode2: "TW"
+        isoCode3: "TWN"
+        addressFormatId: 1
+    -
+        countryId: 207
+        name: "Tajikistan"
+        isoCode2: "TJ"
+        isoCode3: "TJK"
+        addressFormatId: 1
+    -
+        countryId: 208
+        name: "Tanzania, United Republic of"
+        isoCode2: "TZ"
+        isoCode3: "TZA"
+        addressFormatId: 1
+    -
+        countryId: 209
+        name: "Thailand"
+        isoCode2: "TH"
+        isoCode3: "THA"
+        addressFormatId: 1
+    -
+        countryId: 210
+        name: "Togo"
+        isoCode2: "TG"
+        isoCode3: "TGO"
+        addressFormatId: 1
+    -
+        countryId: 211
+        name: "Tokelau"
+        isoCode2: "TK"
+        isoCode3: "TKL"
+        addressFormatId: 1
+    -
+        countryId: 212
+        name: "Tonga"
+        isoCode2: "TO"
+        isoCode3: "TON"
+        addressFormatId: 1
+    -
+        countryId: 213
+        name: "Trinidad and Tobago"
+        isoCode2: "TT"
+        isoCode3: "TTO"
+        addressFormatId: 1
+    -
+        countryId: 214
+        name: "Tunisia"
+        isoCode2: "TN"
+        isoCode3: "TUN"
+        addressFormatId: 1
+    -
+        countryId: 215
+        name: "Turkey"
+        isoCode2: "TR"
+        isoCode3: "TUR"
+        addressFormatId: 1
+    -
+        countryId: 216
+        name: "Turkmenistan"
+        isoCode2: "TM"
+        isoCode3: "TKM"
+        addressFormatId: 1
+    -
+        countryId: 217
+        name: "Turks and Caicos Islands"
+        isoCode2: "TC"
+        isoCode3: "TCA"
+        addressFormatId: 1
+    -
+        countryId: 218
+        name: "Tuvalu"
+        isoCode2: "TV"
+        isoCode3: "TUV"
+        addressFormatId: 1
+    -
+        countryId: 219
+        name: "Uganda"
+        isoCode2: "UG"
+        isoCode3: "UGA"
+        addressFormatId: 1
+    -
+        countryId: 220
+        name: "Ukraine"
+        isoCode2: "UA"
+        isoCode3: "UKR"
+        addressFormatId: 1
+    -
+        countryId: 221
+        name: "United Arab Emirates"
+        isoCode2: "AE"
+        isoCode3: "ARE"
+        addressFormatId: 1
+    -
+        countryId: 222
+        name: "United Kingdom"
+        isoCode2: "GB"
+        isoCode3: "GBR"
+        addressFormatId: 6
+    -
+        countryId: 223
+        name: "United States"
+        isoCode2: "US"
+        isoCode3: "USA"
+        addressFormatId: 2
+    -
+        countryId: 224
+        name: "United States Minor Outlying Islands"
+        isoCode2: "UM"
+        isoCode3: "UMI"
+        addressFormatId: 1
+    -
+        countryId: 225
+        name: "Uruguay"
+        isoCode2: "UY"
+        isoCode3: "URY"
+        addressFormatId: 1
+    -
+        countryId: 226
+        name: "Uzbekistan"
+        isoCode2: "UZ"
+        isoCode3: "UZB"
+        addressFormatId: 1
+    -
+        countryId: 227
+        name: "Vanuatu"
+        isoCode2: "VU"
+        isoCode3: "VUT"
+        addressFormatId: 1
+    -
+        countryId: 228
+        name: "Vatican City State (Holy See)"
+        isoCode2: "VA"
+        isoCode3: "VAT"
+        addressFormatId: 1
+    -
+        countryId: 229
+        name: "Venezuela"
+        isoCode2: "VE"
+        isoCode3: "VEN"
+        addressFormatId: 1
+    -
+        countryId: 230
+        name: "Viet Nam"
+        isoCode2: "VN"
+        isoCode3: "VNM"
+        addressFormatId: 1
+    -
+        countryId: 231
+        name: "Virgin Islands (British)"
+        isoCode2: "VG"
+        isoCode3: "VGB"
+        addressFormatId: 1
+    -
+        countryId: 232
+        name: "Virgin Islands (U.S.)"
+        isoCode2: "VI"
+        isoCode3: "VIR"
+        addressFormatId: 1
+    -
+        countryId: 233
+        name: "Wallis and Futuna Islands"
+        isoCode2: "WF"
+        isoCode3: "WLF"
+        addressFormatId: 1
+    -
+        countryId: 234
+        name: "Western Sahara"
+        isoCode2: "EH"
+        isoCode3: "ESH"
+        addressFormatId: 1
+    -
+        countryId: 235
+        name: "Yemen"
+        isoCode2: "YE"
+        isoCode3: "YEM"
+        addressFormatId: 1
+    -
+        countryId: 236
+        name: "Serbia"
+        isoCode2: "RS"
+        isoCode3: "SRB"
+        addressFormatId: 1
+    -
+        countryId: 238
+        name: "Zambia"
+        isoCode2: "ZM"
+        isoCode3: "ZMB"
+        addressFormatId: 1
+    -
+        countryId: 239
+        name: "Zimbabwe"
+        isoCode2: "ZW"
+        isoCode3: "ZWE"
+        addressFormatId: 1
+    -
+        countryId: 240
+        name: "Aaland Islands"
+        isoCode2: "AX"
+        isoCode3: "ALX"
+        addressFormatId: 1
