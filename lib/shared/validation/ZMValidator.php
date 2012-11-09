@@ -25,6 +25,7 @@ use ZenMagick\Base\ZMException;
 use ZenMagick\Base\ZMObject;
 
 use Symfony\Component\DependencyInjection\ContainerAwareInterface;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\Yaml\Yaml;
 
 /**
@@ -42,8 +43,9 @@ class ZMValidator extends ZMObject
     /**
      * Create new instance.
      */
-    public function __construct()
+    public function __construct(ContainerInterface $container)
     {
+        $this->container = $container;
         parent::__construct();
         $this->sets_ = array();
         $this->alias_ = array();
