@@ -27,7 +27,7 @@
      * The ruleset id must match the id attribute of the HTML form.
      */
 
-    $validator = $this->container->get('zmvalidator');
+    $validator = $this;
     $settingsService = $this->container->get('settingsService');
 
     /* edit account */

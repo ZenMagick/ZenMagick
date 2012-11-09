@@ -162,9 +162,7 @@
         <service id="shoppingCartService" class="ZenMagick\StoreBundle\Services\Checkout\ShoppingCartService" />
 
         <service id="zmvalidator" class="ZMValidator">
-           <call method="setContainer">
-                <argument type="service" id="service_container" />
-            </call>
+           <argument type="service" id="service_container" />
             <tag name="zenmagick.http.view.variable" key="validator" />
         </service>
 
