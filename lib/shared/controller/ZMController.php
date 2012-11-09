@@ -416,7 +416,7 @@ class ZMController extends Controller
     public function getUser()
     {
         if ($this->container->has('userFactory') && null != ($userFactory = $this->container->get('userFactory'))) {
-            return $userFactory->getUser($this->container->get('request'));
+            return $userFactory->getUser($this->container->get('session'));
         }
 
         return null;
