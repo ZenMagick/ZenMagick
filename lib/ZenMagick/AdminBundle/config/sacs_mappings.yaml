@@ -18,7 +18,7 @@ mappings:
   admin_login:
     users:
       - '*'
-  admin_logoff:
+  admin_logout:
     users:
       - '*'
   admin_reset_password:

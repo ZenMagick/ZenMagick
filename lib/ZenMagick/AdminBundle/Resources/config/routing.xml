@@ -39,7 +39,7 @@
         <option key="view:logged-in">redirect://admin_index</option>
         <option key="view:success">redirect://admin_index</option>
     </route>
-    <route id="admin_logoff" pattern="/logoff">
+    <route id="admin_logout" pattern="/logout">
         <default key="_controller">AdminBundle:Logoff:process</default>
         <option key="view:success">redirect://admin_login</option>
     </route>
