@@ -21,7 +21,7 @@ namespace ZenMagick\Http\Sacs\Handler;
 
 use ZenMagick\Base\ZMObject;
 use ZenMagick\Http\Sacs\SacsHandler;
-use ZenMagick\Http\Sacs\Handler\UserRoleCredentials;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * SACS handler that supports user and role based authorization.
@@ -31,7 +31,7 @@ use ZenMagick\Http\Sacs\Handler\UserRoleCredentials;
  * <p>The <em>*</em> user can be set to grant access to <strong>all</strong> users.</p>
  * <p>The <em>*</em> role can be set to grant access to <strong>authenticated</strong> users.</p>
  *
- * <p>Credentials are expected to implement the <code>ZenMagick\Http\Sacs\Handler\UserRoleCredentials</code> interface.</p>
+ * <p>Credentials are expected to implement the <code>Symfony\Component\Security\Core\User\UserInterface</code>.</p>
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
@@ -65,7 +65,7 @@ class UserRoleSacsHandler extends ZMObject implements SacsHandler
             return true;
         }
 
-        if (null == $credentials || !($credentials instanceof UserRoleCredentials)) {
+        if (null == $credentials || !($credentials instanceof UserInterface)) {
             // need proper credentials in order to continue
             return null;
         }

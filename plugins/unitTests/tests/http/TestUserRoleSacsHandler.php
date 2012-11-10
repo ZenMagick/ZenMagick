@@ -20,7 +20,7 @@
 
 use ZenMagick\Http\Sacs\SacsManager;
 use ZenMagick\Http\Sacs\Handler\UserRoleSacsHandler;
-use ZenMagick\Http\Sacs\Handler\UserRoleCredentials;
+use Symfony\Component\Security\Core\User\UserInterface;
 use ZenMagick\plugins\unitTests\simpletest\TestCase;
 
 /**
@@ -87,7 +87,7 @@ class TestUserRoleSacsHandler extends TestCase
 /**
  * Test UserRoleCredentials
  */
-class DummyUserRoleCredentials implements UserRoleCredentials
+class DummyUserRoleCredentials implements UserInterface
 {
     public $username;
     public $roles;
@@ -107,6 +107,37 @@ class DummyUserRoleCredentials implements UserRoleCredentials
     public function getUsername()
     {
         return $this->username;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getSalt()
+    {
+        return '';
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getPassword()
+    {
+        return '';
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getRoles()
+    {
+        return array('ROLE_USER');
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function eraseCredentials()
+    {
     }
 
     /**

@@ -19,8 +19,7 @@
  */
 namespace ZenMagick\AdminBundle\Entity;
 
-use ZenMagick\Base\ZMObject;
-use ZenMagick\Http\Sacs\Handler\UserRoleCredentials;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 use Doctrine\ORM\Mapping as ORM;
 
@@ -38,7 +37,7 @@ use Doctrine\ORM\Mapping as ORM;
  *  })
  * @ORM\Entity
  */
-class AdminUser extends ZMObject implements UserRoleCredentials
+class AdminUser implements UserInterface
 {
     /**
      * @var integer $id
@@ -181,16 +180,18 @@ class AdminUser extends ZMObject implements UserRoleCredentials
      */
     private $adminRole;
 
+    private $salt;
+
     /**
      * Create new user.
      */
     public function __construct()
     {
-        parent::__construct();
         $this->id = 0;
         $this->username = '';
         $this->email = null;
         $this->password = null;
+        $this->salt = null;
         $this->live = false;
         $this->roles = array();
         $this->adminRole = new \Doctrine\Common\Collections\ArrayCollection();
@@ -498,6 +499,14 @@ class AdminUser extends ZMObject implements UserRoleCredentials
     public function setLastFailedIp($lastFailedIp) { $this->lastFailedIp = $lastFailedIp; }
 
     /**
+     * {@inhertDoc}
+     */
+    public function getSalt()
+    {
+        return '';
+    }
+
+    /**
      * Add adminRole
      *
      * @todo rename to roles once we can use it
@@ -526,4 +535,12 @@ class AdminUser extends ZMObject implements UserRoleCredentials
      * @todo rename to role once we can use it
      */
     public function getAdminRole() { return $this->adminRole; }
+
+    /**
+     * {@inhertDoc}
+     */
+    public function eraseCredentials()
+    {
+    }
+
 }
