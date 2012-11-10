@@ -132,7 +132,7 @@ class HttpListener implements EventSubscriberInterface
     {
         return array(
             KernelEvents::REQUEST => array(
-                array('onKernelRequest', 14),
+                array('onKernelRequest', 6),
             ),
             KernelEvents::VIEW => array(
                 array('onKernelView'),
