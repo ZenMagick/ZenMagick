@@ -20,7 +20,7 @@
 namespace ZenMagick\Base\Security\Authentication\Provider;
 
 use Phpass\Hash;
-use ZenMagick\Base\Security\Authentication\AuthenticationProvider;
+use Symfony\Component\Security\Core\Encoder\PasswordEncoderInterface;
 
 /**
  * PhPass 2.0 authentication provider.
@@ -29,7 +29,7 @@ use ZenMagick\Base\Security\Authentication\AuthenticationProvider;
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class PhPassAuthenticationProvider implements AuthenticationProvider
+class PhPassAuthenticationProvider implements PasswordEncoderInterface
 {
     protected $hash;
 
@@ -44,17 +44,17 @@ class PhPassAuthenticationProvider implements AuthenticationProvider
     /**
      * {@inheritDoc}
      */
-    public function encryptPassword($plaintext, $salt=null)
+    public function encodePassword($raw, $salt=null)
     {
-        return $this->hash->hashPassword($plaintext);
+        return $this->hash->hashPassword($raw);
     }
 
     /**
      * {@inheritDoc}
      */
-    public function validatePassword($plaintext, $encrypted)
+    public function isPasswordValid($encoded, $raw, $salt = null)
     {
-        return $this->hash->checkPassword($plaintext, $encrypted);
+        return $this->hash->checkPassword($raw, $encoded);
     }
 
 }

@@ -168,7 +168,7 @@ class PhpBB3Adapter extends ZMObject
             $data = array(
                 'username'          => $nickName,
                 'username_clean'    => strtolower($nickName),
-                'user_password'     => $authentication->encryptPassword($password),
+                'user_password'     => $authentication->encodePassword($password),
                 'user_pass_convert' => 0,
                 'user_email'        => strtolower($email),
                 'user_email_hash'   => crc32(strtolower($email)) . strlen($email),
@@ -255,7 +255,7 @@ class PhpBB3Adapter extends ZMObject
                 'user_email_hash' => crc32(strtolower($email)) . strlen($email),
             );
             if (null != $password) {
-                $updates['user_password'] = $authentication->encryptPassword($password);
+                $updates['user_password'] = $authentication->encodePassword($password);
             }
             $data = array_merge($data, $updates);
             $this->getDatabase()->updateModel(USERS_TABLE, $data);

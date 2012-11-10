@@ -19,14 +19,14 @@
  */
 namespace ZenMagick\Base\Security\Authentication\Provider;
 
-use ZenMagick\Base\Security\Authentication\AuthenticationProvider;
+use Symfony\Component\Security\Core\Encoder\PasswordEncoderInterface;
 
 /**
  * Sha1 authentication provider.
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class Sha1AuthenticationProvider implements AuthenticationProvider
+class Sha1AuthenticationProvider implements PasswordEncoderInterface
 {
     /** Number of characters taken from the given salt to encrypt the password. */
     const SALT_LENGTH = 9;
@@ -34,7 +34,7 @@ class Sha1AuthenticationProvider implements AuthenticationProvider
     /**
      * {@inheritDoc}
      */
-    public function encryptPassword($plaintext, $salt=null)
+    public function encodePassword($raw, $salt=null)
     {
         if (null === $salt) {
             $salt = substr(md5(uniqid(rand(), true)), 0, self::SALT_LENGTH);
@@ -43,15 +43,15 @@ class Sha1AuthenticationProvider implements AuthenticationProvider
             $salt = substr($salt, 0, self::SALT_LENGTH);
         }
 
-        return $salt . sha1($salt . $plaintext);
+        return $salt . sha1($salt . $raw);
     }
 
     /**
      * {@inheritDoc}
      */
-    public function validatePassword($plaintext, $encrypted)
+    public function isPasswordValid($encoded, $raw, $salt = null)
     {
-        return $encrypted == $this->encryptPassword($plaintext, $encrypted);
+        return $encoded == $this->encodePassword($raw, $encoded);
     }
 
 }

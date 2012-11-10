@@ -87,7 +87,7 @@ class AuthenticationManager extends ZMObject
      */
     public function encryptPassword($plaintext, $salt=null)
     {
-        return $this->getDefaultProvider()->encryptPassword($plaintext, $salt);
+        return $this->getDefaultProvider()->encodePassword($plaintext, $salt);
     }
 
     /**
@@ -100,7 +100,7 @@ class AuthenticationManager extends ZMObject
     public function validatePassword($plaintext, $encrypted)
     {
         foreach ($this->getProviders() as $provider) {
-            if ($provider->validatePassword($plaintext, $encrypted)) {
+            if ($provider->isPasswordValid($encrypted, $plaintext)) {
                 return true;
             }
         }

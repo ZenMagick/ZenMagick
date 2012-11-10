@@ -20,19 +20,20 @@
 namespace ZenMagick\ZenCartBundle\Utils;
 
 use ZenMagick\Base\Toolbox;
-use ZenMagick\Base\Security\Authentication\AuthenticationProvider;
+use Symfony\Component\Security\Core\Encoder\PasswordEncoderInterface;
 
 /**
  * Authentication provider compatible with zencart generated passwords.
  *
  * @author DerManoMann
  */
-class ZenCartAuthenticationProvider implements AuthenticationProvider
+class ZenCartAuthenticationProvider implements PasswordEncoderInterface
 {
+
     /**
      * {@inheritDoc}
      */
-    public function encryptPassword($plaintext, $salt=null)
+    public function encodePassword($raw, $salt = null)
     {
         $password = '';
         for ($i=0; $i<10; $i++) {
@@ -40,7 +41,7 @@ class ZenCartAuthenticationProvider implements AuthenticationProvider
         }
 
         $salt = substr(md5($password), 0, 2);
-        $password = md5($salt . $plaintext) . ':' . $salt;
+        $password = md5($salt . $raw) . ':' . $salt;
 
         return $password;
     }
@@ -48,12 +49,12 @@ class ZenCartAuthenticationProvider implements AuthenticationProvider
     /**
      * {@inheritDoc}
      */
-    public function validatePassword($plaintext, $encrypted)
+    public function isPasswordValid($encoded, $raw, $salt = null)
     {
-        if (!empty($plaintext) && !empty($encrypted)) {
-            $stack = explode(':', $encrypted);
+        if (!empty($raw) && !empty($encoded)) {
+            $stack = explode(':', $encoded);
             if (sizeof($stack) != 2) return false;
-            if (md5($stack[1] . $plaintext) == $stack[0]) {
+            if (md5($stack[1] . $raw) == $stack[0]) {
                 return true;
             }
         }

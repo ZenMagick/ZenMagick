@@ -18,7 +18,7 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-use ZenMagick\Base\Security\Authentication\AuthenticationProvider;
+use Symfony\Component\Security\Core\Encoder\PasswordEncoderInterface;
 use ZenMagick\plugins\unitTests\simpletest\TestCase;
 
 /**
@@ -47,8 +47,8 @@ class TestAuthenticationManager extends TestCase
         $defaultProvider = $authenticationManager->getDefaultProvider();
         $this->assertNotNull($defaultProvider);
         $password = 'foo';
-        $hashed = $defaultProvider->encryptPassword($password);
-        $this->assertTrue($defaultProvider->validatePassword($password, $hashed));
+        $hashed = $defaultProvider->encodePassword($password);
+        $this->assertTrue($defaultProvider->isPasswordValid($hashed, $password));
         // also test that the authentication manager uses the default provider to validate
         $this->assertTrue($authenticationManager->validatePassword($password, $hashed));
     }
@@ -61,12 +61,10 @@ class TestAuthenticationManager extends TestCase
         $authenticationManager = $this->container->get('authenticationManager');
         $password = 'foo';
         foreach ($authenticationManager->getProviders() as $provider) {
-            $this->assertTrue($provider instanceof AuthenticationProvider);
-            if ($provider instanceof ZMMasterPasswordAuthenticationProvider) {
-                continue;
-            }
-            $hashed = $provider->encryptPassword($password);
-            $this->assertTrue($provider->validatePassword($password, $hashed));
+            $this->assertTrue($provider instanceof PasswordEncoderInterface);
+
+            $hashed = $provider->encodePassword($password);
+            $this->assertTrue($provider->isPasswordValid($hashed, $password));
             // also test that the authentication manager can validate the password
             $this->assertTrue($authenticationManager->validatePassword($password, $hashed));
         }
