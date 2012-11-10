@@ -41,7 +41,7 @@ class EditAdminUserController extends \ZMController
                 $user = $this->container->get('adminUserService')->getUserForId($adminUserId);
                 if (null != $user) {
                     $adminUser->setAdminUserId($user->getId());
-                    $adminUser->setName($user->getName());
+                    $adminUser->setUsername($user->getUsername());
                     $adminUser->setEmail($user->getEmail());
                     $adminUser->setLive($user->isLive());
                     $adminUser->setRoles($user->getRoles());
@@ -76,7 +76,7 @@ class EditAdminUserController extends \ZMController
 
             $user = Beans::getBean('ZenMagick\\AdminBundle\\Entity\\AdminUser');
             $user->setId($adminUserForm->getAdminUserId());
-            $user->setName($adminUserForm->getName());
+            $user->setUsername($adminUserForm->getUsername());
             $user->setEmail($adminUserForm->getEmail());
             $user->setRoles($adminUserForm->getRoles());
             $user->setLive(Toolbox::asBoolean($adminUserForm->getLive()));

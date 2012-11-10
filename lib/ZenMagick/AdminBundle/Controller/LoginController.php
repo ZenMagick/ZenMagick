@@ -43,9 +43,9 @@ class LoginController extends \ZMController
      */
     public function processPost($request)
     {
-        $name = $request->request->get('name');
+        $username = $request->request->get('username');
 
-        if (null == ($user = $this->container->get('adminUserService')->getUserForName($name))) {
+        if (null == ($user = $this->container->get('adminUserService')->getUserForName($username))) {
             $this->messageService->error(_zm('Sorry, there is no match for that email address and/or password.'));
 
             return $this->findView();

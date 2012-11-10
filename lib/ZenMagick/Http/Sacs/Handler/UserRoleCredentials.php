@@ -31,7 +31,7 @@ interface UserRoleCredentials
     /**
      * Get the user name.
      */
-    public function getName();
+    public function getUsername();
 
     /**
      * Check if the the user has a given role.

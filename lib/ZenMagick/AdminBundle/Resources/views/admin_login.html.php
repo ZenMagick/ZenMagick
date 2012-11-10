@@ -22,8 +22,8 @@
 <input type="hidden" name="<?php echo ZenMagick\Http\Session\Validation\FormTokenSessionValidator::SESSION_TOKEN_NAME; ?>" value="<?php echo $session->getToken() ?>">
 
 <p>
-<label for="name"><?php _vzm('User Name') ?></label><br>
-<input type="text" name="name" id="name">
+<label for="username"><?php _vzm('User Name') ?></label><br>
+<input type="text" name="username" id="username">
 </p>
 
 <p>

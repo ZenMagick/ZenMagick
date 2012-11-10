@@ -77,7 +77,7 @@ class UserRoleSacsHandler extends ZMObject implements SacsHandler
 
         // evaluate users
         foreach ($qualifiedUsers as $user) {
-            if ($user == $credentials->getName()) {
+            if ($user == $credentials->getUsername()) {
                 return true;
             }
         }

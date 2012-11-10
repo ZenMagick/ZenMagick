@@ -80,7 +80,7 @@ class UpdateUserController extends \ZMController
             // pre-populate with current data
             $user = $this->getUser();
             $updateUser->setEmail($user->getEmail());
-            $updateUser->setName($user->getName());
+            $updateUser->setUsername($user->getUsername());
         }
 
         return $updateUser;
@@ -109,7 +109,7 @@ class UpdateUserController extends \ZMController
 
             return $this->findView();
         }
-        $user->setName($updateUser->getName());
+        $user->setUsername($updateUser->getUsername());
         $user->setEmail($updateUser->getEmail());
         $newPassword = $updateUser->getNewPassword();
         if (!empty($newPassword)) {

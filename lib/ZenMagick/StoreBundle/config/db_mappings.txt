@@ -20,7 +20,7 @@
 array(
     'admin' => array(
         'id' => array('column' => 'admin_id', 'type' => 'integer', 'key' => true, 'auto' => true),
-        'name' => array('column' => 'admin_name', 'type' => 'string'),
+        'username' => array('column' => 'admin_name', 'type' => 'string'),
         'email' => array('column' => 'admin_email', 'type' => 'string'),
         'password' => array('column' => 'admin_pass', 'type' => 'string'),
         'live' => array('column' => 'admin_level', 'type' => 'boolean')

@@ -89,24 +89,24 @@ class TestUserRoleSacsHandler extends TestCase
  */
 class DummyUserRoleCredentials implements UserRoleCredentials
 {
-    public $name;
+    public $username;
     public $roles;
 
     /**
      * Create
      */
-    public function __construct($name=null, $roles=array())
+    public function __construct($username=null, $roles=array())
     {
-        $this->name = $name;
+        $this->username = $username;
         $this->roles = $roles;
     }
 
     /**
      * {@inheritDoc}
      */
-    public function getName()
+    public function getUsername()
     {
-        return $this->name;
+        return $this->username;
     }
 
     /**

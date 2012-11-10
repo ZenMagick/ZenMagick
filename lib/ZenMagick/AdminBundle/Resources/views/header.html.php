@@ -25,14 +25,14 @@
   <?php if ($app->getUser()) { ?>
     <div id="header-box">
       <p id="header-state">
-        <?php $userLink = '<a href="'.$net->url('update_user').'" onclick="ZenMagick.ajaxFormDialog(this.href, {title:\''.sprintf(_zm('User Profile: %s'), $app->getUser()->getName()).'\', formId:\'updateUser\'}); return false;">'.$app->getUser()->getName().'</a>'; ?>
+        <?php $userLink = '<a href="'.$net->url('update_user').'" onclick="ZenMagick.ajaxFormDialog(this.href, {title:\''.sprintf(_zm('User Profile: %s'), $app->getUser()->getUsername()).'\', formId:\'updateUser\'}); return false;">'.$app->getUser()->getUsername().'</a>'; ?>
         <?php _vzm('Logged in as %s', $userLink) ?>
         <?php if (!$app->getUser()->isLive()) { ?>
           <span id="demo-note"><?php _vzm('*** DEMO MODE ***') ?></span>
         <?php } ?>
         | <a href="<?php echo $request->getSchemeAndHttpHost() ?>" target="_blank">Storefront</a>
         | <?php echo date('l, F d, Y') ?>
-        | <a href="<?php echo $net->url('admin_logoff') ?>"><?php _vzm('Log Out') ?></a>
+        | <a href="<?php echo $net->url('admin_logout') ?>"><?php _vzm('Log Out') ?></a>
       </p>
       <!-- <a href="http://forum.zenmagick.org/" target="_blank"><?php _vzm('Get Help') ?></a> -->
     </div>

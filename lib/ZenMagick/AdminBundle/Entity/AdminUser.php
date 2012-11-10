@@ -49,11 +49,11 @@ class AdminUser extends ZMObject implements UserRoleCredentials
      */
     private $id;
     /**
-     * @var string $name
+     * @var string $username
      *
      * @ORM\Column(name="admin_name", type="string", length=32, nullable=false, unique=true)
      */
-    private $name;
+    private $username;
     /**
      * @var string $email
      *
@@ -188,7 +188,7 @@ class AdminUser extends ZMObject implements UserRoleCredentials
     {
         parent::__construct();
         $this->id = 0;
-        $this->name = '';
+        $this->username = '';
         $this->email = null;
         $this->password = null;
         $this->live = false;
@@ -211,16 +211,16 @@ class AdminUser extends ZMObject implements UserRoleCredentials
     public function setId($id) { $this->id = $id; }
 
     /**
-     * Get the name
+     * Get the user name
      */
-    public function getName() { return $this->name; }
+    public function getUsername() { return $this->username; }
 
     /**
-     * Set the name.
+     * Set the user name.
      *
-     * @param string name The name.
+     * @param string username The user name.
      */
-    public function setName($name) { $this->name = $name; }
+    public function setUsername($username) { $this->username = $username; }
 
     /**
      * Get the email address.

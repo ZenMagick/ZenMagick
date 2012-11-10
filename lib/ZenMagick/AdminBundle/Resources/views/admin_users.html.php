@@ -29,7 +29,7 @@
   <?php foreach ($resultList->getResults() as $adminUser) { ?>
     <tr>
       <td><?php echo $adminUser->getId() ?></td>
-      <td><a href="<?php echo $net->url('edit_admin_user', 'adminUserId='.$adminUser->getId()) ?>"><?php echo $adminUser->getName() ?></a></td>
+      <td><a href="<?php echo $net->url('edit_admin_user', 'adminUserId='.$adminUser->getId()) ?>"><?php echo $adminUser->getUsername() ?></a></td>
       <td><?php echo $adminUser->getEmail() ?></td>
       <td><?php echo (!$adminUser->isLive() ? _vzm('Demo') : _vzm('Live')) ?></td>
       <td>

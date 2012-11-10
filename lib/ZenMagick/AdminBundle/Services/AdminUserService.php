@@ -74,8 +74,8 @@ class AdminUserService extends ZMObject
     {
         $sql = "SELECT *
                 FROM %table.admin%
-                WHERE admin_name = :name";
-        $args = array('name' => $name);
+                WHERE admin_name = :username";
+        $args = array('username' => $name);
 
         return $this->finalizeUser(\ZMRuntime::getDatabase()->querySingle($sql, $args, 'admin', 'ZenMagick\AdminBundle\Entity\AdminUser'));
     }

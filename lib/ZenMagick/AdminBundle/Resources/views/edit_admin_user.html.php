@@ -22,7 +22,7 @@
   <input type="hidden" name="adminUserId" value="<?php echo $adminUser->getAdminUserId() ?>">
   <table>
     <tr>
-      <td><label for="name"><?php _vzm('Name') ?></label></td><td><input type="text" id="name" name="name" value="<?php echo $html->encode($adminUser->getName()) ?>"></td>
+      <td><label for=username"><?php _vzm('Name') ?></label></td><td><input type="text" id="username" name="username" value="<?php echo $html->encode($adminUser->getUsername()) ?>"></td>
     </tr>
     <tr>
       <td><label for="email"><?php _vzm('Email') ?></label></td><td><input type="text" id="email" name="email" value="<?php echo $html->encode($adminUser->getEmail()) ?>"></td>
