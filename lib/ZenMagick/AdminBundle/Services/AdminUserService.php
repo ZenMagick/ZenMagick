@@ -21,6 +21,7 @@ namespace ZenMagick\AdminBundle\Services;
 
 use ZenMagick\Base\ZMObject;
 use Symfony\Component\Security\Core\User\UserProviderInterface;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * Admin user service.
@@ -35,7 +36,7 @@ class AdminUserService extends ZMObject implements UserProviderInterface
      * @param UserInterface user The user to refresh.
      * @return UserInterface Refresh user.
      */
-    public function refreshUser($user)
+    public function refreshUser(UserInterface $user)
     {
         if (null == $user) {
             return null;
