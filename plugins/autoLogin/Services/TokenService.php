@@ -17,7 +17,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-namespace ZenMagick\StoreBundle\Services;
+namespace ZenMagick\plugins\autoLogin\Services;
 
 use DateTime;
 use ZMRuntime;
@@ -60,7 +60,7 @@ class TokenService extends ZMObject
      */
     public function getNewToken($resource, $lifetime)
     {
-        $token = Beans::getBean('ZenMagick\StoreBundle\Entity\Token');
+        $token = Beans::getBean('ZenMagick\plugins\autoLogin\Token');
         $token->setHash($this->createToken());
         $token->setResource($resource);
         $now = new DateTime();
@@ -96,7 +96,7 @@ class TokenService extends ZMObject
     {
         $sql = "SELECT * FROM %table.token%
                 WHERE hash = :hash AND resource = :resource AND expires >= now()";
-        $token = ZMRuntime::getDatabase()->querySingle($sql, array('hash' => $hash, 'resource' => $resource), 'token', 'ZenMagick\StoreBundle\Entity\Token');
+        $token = ZMRuntime::getDatabase()->querySingle($sql, array('hash' => $hash, 'resource' => $resource), 'token', 'ZenMagick\plugins\autoLogin\Token');
         if ($expire && null !== $token) {
             $sql = "DELETE FROM %table.token%
                     WHERE hash = :hash AND resource = :resource";
@@ -117,7 +117,7 @@ class TokenService extends ZMObject
         $sql = "SELECT * FROM %table.token%
                 WHERE resource = :resource AND expires >= now()";
 
-        return ZMRuntime::getDatabase()->fetchAll($sql, array('resource' => $resource), 'token', 'ZenMagick\StoreBundle\Entity\Token');
+        return ZMRuntime::getDatabase()->fetchAll($sql, array('resource' => $resource), 'token', 'ZenMagick\plugins\autoLogin\Token');
     }
 
     /**
@@ -130,7 +130,7 @@ class TokenService extends ZMObject
     {
         $sql = "SELECT * FROM %table.token%
                 WHERE hash = :hash AND expires >= now()";
-        $results = ZMRuntime::getDatabase()->fetchAll($sql, array('hash' => $hash), 'token', 'ZenMagick\StoreBundle\Entity\Token');
+        $results = ZMRuntime::getDatabase()->fetchAll($sql, array('hash' => $hash), 'token', 'ZenMagick\plugins\autoLogin\Token');
         if (1 < count($results)) {
             Runtime::getLogging()->warn('duplicate token for hash: '.$hash);
             // expire all

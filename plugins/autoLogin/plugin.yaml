@@ -43,3 +43,8 @@ meta:
               type: text
               config:
                   default: token
+storefront:
+  container:
+    services:
+      tokenService:
+        class: ZenMagick\plugins\autoLogin\Services\TokenService

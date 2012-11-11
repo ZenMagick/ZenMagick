@@ -174,8 +174,6 @@
 
         <service id="taxService" class="ZenMagick\StoreBundle\Services\TaxService" />
 
-        <service id="tokenService" class="ZenMagick\StoreBundle\Services\TokenService" />
-
         <service id="bannerService" class="ZenMagick\StoreBundle\Services\Templating\Banners" />
 
         <service id="productFeaturedService" class="ZenMagick\StoreBundle\Services\Catalog\ProductFeaturedService" />
