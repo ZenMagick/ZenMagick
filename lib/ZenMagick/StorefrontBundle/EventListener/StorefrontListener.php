@@ -155,7 +155,7 @@ class StorefrontListener extends ZMObject
     public function addStatusMessages($request)
     {
         $messages = array();
-        foreach ($this->container->get('containerTagService')->findTaggedServiceIds('apps.store.admin.dashboard.widget.statusCheck') as $id => $args) {
+        foreach ($this->container->get('containerTagService')->findTaggedServiceIds('apps.store.storefront.dashboard.widget.statusCheck') as $id => $args) {
             $statusCheck = $this->container->get($id);
             $messages = array_merge($messages, $statusCheck->getStatusMessages());
         }

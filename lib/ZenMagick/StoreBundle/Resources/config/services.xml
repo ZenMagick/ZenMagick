@@ -282,6 +282,7 @@
 
         <service id="moduleStatusCheck" class="ZenMagick\StoreBundle\Widgets\Status\MaintenanceStatusCheck" scope="prototype">
             <tag name="apps.store.admin.dashboard.widget.statusCheck" />
+            <tag name="apps.store.storefront.dashboard.widget.statusCheck" />
         </service>
 
         <service id="zenmagick.store_listener" class="ZenMagick\StoreBundle\EventListener\StoreListener">
