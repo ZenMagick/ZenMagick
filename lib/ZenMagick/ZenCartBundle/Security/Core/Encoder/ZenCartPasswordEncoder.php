@@ -17,17 +17,17 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-namespace ZenMagick\ZenCartBundle\Utils;
+namespace ZenMagick\ZenCartBundle\Security\Core\Encoder;
 
 use ZenMagick\Base\Toolbox;
 use Symfony\Component\Security\Core\Encoder\PasswordEncoderInterface;
 
 /**
- * Authentication provider compatible with zencart generated passwords.
+ * ZenCart compatible password encoder
  *
  * @author DerManoMann
  */
-class ZenCartAuthenticationProvider implements PasswordEncoderInterface
+class ZenCartPasswordEncoder implements PasswordEncoderInterface
 {
 
     /**
@@ -61,5 +61,4 @@ class ZenCartAuthenticationProvider implements PasswordEncoderInterface
 
         return false;
     }
-
 }

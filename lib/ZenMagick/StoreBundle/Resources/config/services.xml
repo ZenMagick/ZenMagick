@@ -246,10 +246,6 @@
 
         <service id="productGroupPricingService" class="ZMProductGroupPricings" />
 
-        <service id="zenCartAuthenticationProvider" class="ZenMagick\ZenCartBundle\Utils\ZenCartAuthenticationProvider">
-            <tag name="zenmagick.base.security.authentication.provider" default="true" />
-        </service>
-
         <!-- Impersonate FrameworkBundle provided GlobalVariables class although it takes it in the ctor -->
         <service id="globalVariablesTool" class="ZenMagick\StoreBundle\Toolbox\ToolboxGlobalVariables" scope="prototype">
             <call method="setContainer">
