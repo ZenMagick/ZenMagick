@@ -164,7 +164,7 @@ class PhpBB3Adapter extends ZMObject
         $nickName = $account->getNickName();
         $email = $account->getEmail();
         if (false !== ($groupId = $this->getDefaultGroupId())) {
-            $authentication = new PhpBB3Authentication();
+            $authentication = new Security\Core\Encoder\Phpbb3Encoder();
             $data = array(
                 'username'          => $nickName,
                 'username_clean'    => strtolower($nickName),
@@ -247,7 +247,7 @@ class PhpBB3Adapter extends ZMObject
     {
         $data = $this->getAccountForEmail($email);
         if (null !== $data) {
-            $authentication = new PhpBB3Authentication();
+            $authentication = new Security\Core\Phpbb3Encoder();
             $updates = array(
                 'username' => $nickName,
                 'username_clean' => strtolower($nickName),

@@ -64,10 +64,6 @@
             </call>
         </service>
 
-        <service id="phPassAuthenticationProvider" class="ZenMagick\Base\Security\Authentication\Provider\PhPassAuthenticationProvider">
-            <tag name="zenmagick.base.security.authentication.provider" />
-        </service>
-
         <service id="filesystem" class="Symfony\Component\Filesystem\Filesystem" />
 
     </services>

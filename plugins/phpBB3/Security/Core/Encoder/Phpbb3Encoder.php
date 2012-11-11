@@ -17,19 +17,19 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-
-namespace ZenMagick\plugins\phpbb3;
+namespace ZenMagick\plugins\phpBB3\Security\Core\Encoder;
 
 use Phpass\Hash;
 use Phpass\Hash\Adapter\Portable;
-use ZenMagick\Base\Security\Authentication\Provider\PhPassAuthenticationProvider;
+
+use PhpassEncoder;
 
 /**
- * phpBB3 authentication provider.
+ * phpBB3 password encoder.
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class PhpBB3Authentication extends PhPassAuthenticationProvider
+class Phpbb3Encoder extends PhpassEncoder
 {
     /**
      * Create instance.

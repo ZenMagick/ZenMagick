@@ -17,19 +17,19 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-namespace ZenMagick\Base\Security\Authentication\Provider;
+namespace ZenMagick\plugins\phpBB3\Security\Core\Encoder;
 
 use Phpass\Hash;
 use Symfony\Component\Security\Core\Encoder\PasswordEncoderInterface;
 
 /**
- * PhPass 2.0 authentication provider.
+ * PhPass 2.0 password encoder
  *
  * <p>Uses <a href="https://github.com/rchouinard/phpass">Phpass</a>.</p>
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class PhPassAuthenticationProvider implements PasswordEncoderInterface
+class PhpassEncoder implements PasswordEncoderInterface
 {
     protected $hash;
 
