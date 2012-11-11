@@ -239,15 +239,18 @@ class Session extends BaseSession implements ContainerAwareInterface
     /**
      * Get the user (if any) for authentication.
      *
-     * <p>Creation of the user object is delegated to the configured <code>ZenMagick\Http\Session\UserFactory</code> instance.
-     * The factory may be configured as bean defintion via the setting 'zenmagick.http.session.userFactory'.</p>
-     *
      * @return mixed A user/credentials object. Default is <code>null</code>.
      */
     public function getAccount()
     {
-        if ($this->container->has('userFactory') && null != ($userFactory = $this->container->get('userFactory'))) {
-            return $userFactory->getUser($this);
+        if (Runtime::isContextMatch('admin')) {
+            if (null != ($adminId = $this->get('admin_id'))) {
+                return $this->container->get('adminUserService')->getUserForId($adminId);
+            }
+        } else {
+            if (null != ($accountId = $this->get('customer_id'))) {
+                return $this->container->get('accountService')->getAccountForId($accountId);
+            }
         }
 
         return null;
