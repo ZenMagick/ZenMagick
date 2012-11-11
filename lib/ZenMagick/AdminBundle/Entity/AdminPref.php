@@ -60,7 +60,7 @@ class AdminPref
      *
      * @ORM\ManyToOne(targetEntity="AdminUser")
      * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="admin_id", referencedColumnName="admin_id")
+     *   @ORM\JoinColumn(name="admin_id", referencedColumnName="admin_id", onDelete="CASCADE")
      * })
      */
     private $admin;

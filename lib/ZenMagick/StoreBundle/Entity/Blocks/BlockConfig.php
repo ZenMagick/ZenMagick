@@ -57,7 +57,7 @@ class BlockConfig
      *
      * @ORM\ManyToOne(targetEntity="Block")
      * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="blocks_to_groups_id", referencedColumnName="blocks_to_groups_id")
+     *   @ORM\JoinColumn(name="blocks_to_groups_id", referencedColumnName="blocks_to_groups_id", onDelete="CASCADE")
      * })
      */
     private $block;
