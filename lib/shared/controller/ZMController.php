@@ -412,14 +412,11 @@ class ZMController extends Controller
      * The factory may be configured as bean defintion via the setting 'zenmagick.http.session.userFactory'.</p>
      *
      * @return mixed A user/credentials object. Default is <code>null</code>.
+     * @todo return user via security.context service
      */
     public function getUser()
     {
-        if ($this->container->has('userFactory') && null != ($userFactory = $this->container->get('userFactory'))) {
-            return $userFactory->getUser($this->container->get('session'));
-        }
-
-        return null;
+        return $this->getRequest()->getAccount();
     }
 
     /**
