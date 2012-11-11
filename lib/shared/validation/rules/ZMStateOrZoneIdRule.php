@@ -59,7 +59,7 @@ class ZMStateOrZoneIdRule extends ZMRule
 
         //todo: this should not be here, but in the corresponding controller classes - BEFORE the validation is done
         $state = isset($data['state']) ? $data['state'] : null;
-        $zoneId = $data['zoneId'];
+        $zoneId = isset($data['zoneId']) ? $data['zoneId'] : null;
         $zones = $this->container->get('countryService')->getZonesForCountryId($data['countryId']);
         $valid = false;
         if (0 < count ($zones)) {
