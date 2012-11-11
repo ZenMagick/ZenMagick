@@ -408,9 +408,6 @@ class ZMController extends Controller
     /**
      * Get the user (if any) for authentication.
      *
-     * <p>Creation of the user object is delegated to the configured <code>ZenMagick\Http\Session\UserFactory</code> instance.
-     * The factory may be configured as bean defintion via the setting 'zenmagick.http.session.userFactory'.</p>
-     *
      * @return mixed A user/credentials object. Default is <code>null</code>.
      * @todo return user via security.context service
      */

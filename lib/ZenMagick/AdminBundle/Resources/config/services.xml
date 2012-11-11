@@ -26,8 +26,6 @@
             <tag name="apps.store.admin.tabcontroller" />
         </service>
 
-        <service id="userFactory" class="ZenMagick\AdminBundle\Services\AdminUserFactory" />
-
         <service id="adminTool" class="ZenMagick\AdminBundle\Http\Tools\ToolboxAdmin" scope="prototype">
             <tag name="zenmagick.http.toolbox.tool" key="admin" />
         </service>

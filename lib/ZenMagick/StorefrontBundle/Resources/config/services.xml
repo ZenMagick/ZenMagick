@@ -16,7 +16,5 @@
         <service id="metaTagsTool" class="ZenMagick\StorefrontBundle\Http\Tools\ToolboxMetaTags" scope="prototype">
             <tag name="zenmagick.http.toolbox.tool" key="metaTags" />
         </service>
-
-        <service id="userFactory" class="ZenMagick\StorefrontBundle\Services\CustomerUserFactory" />
     </services>
 </container>
