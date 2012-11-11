@@ -83,8 +83,7 @@ class HttpListener implements EventSubscriberInterface
 
         $dispatcher = $event->getDispatcher();
 
-        $controllerResult = $event->getControllerResult();
-        $view = $this->getView($controllerResult);
+        $view = $this->getView($event);
 
         // ensure we do have a view if we got this far
         $view = $view ?: $this->container->get('defaultView');
@@ -104,8 +103,11 @@ class HttpListener implements EventSubscriberInterface
         $event->setResponse($response);
     }
 
-    public function getView($controllerResult)
+    public function getView($event)
     {
+
+        $controllerResult = $event->getControllerResult();
+        $request = $event->getRequest();
         $view = null;
         try {
             // make sure we end up with a View instance

@@ -25,7 +25,6 @@ namespace ZenMagick\StorefrontBundle\Controller;
 use Symfony\Component\EventDispatcher\GenericEvent;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
 
-use ZenMagick\Base\ZMObject;
 use ZenMagick\Http\Request;
 use ZenMagick\Http\View\ModelAndView;
 use ZenMagick\StoreBundle\Utils\CheckoutHelper;
@@ -35,7 +34,7 @@ use ZenMagick\StoreBundle\Utils\CheckoutHelper;
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class ShoppingCartController extends ZMObject
+class ShoppingCartController extends \ZMController
 {
     /**
      * Show cart.
