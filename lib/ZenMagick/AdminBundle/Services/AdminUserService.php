@@ -20,21 +20,22 @@
 namespace ZenMagick\AdminBundle\Services;
 
 use ZenMagick\Base\ZMObject;
+use Symfony\Component\Security\Core\User\UserProviderInterface;
 
 /**
  * Admin user service.
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class AdminUserService extends ZMObject
+class AdminUserService extends ZMObject implements UserProviderInterface
 {
     /**
      * Add a few things.
      *
-     * @param AdminUser user The user to finalize.
-     * @return AdminUser Finalized user.
+     * @param UserInterface user The user to refresh.
+     * @return UserInterface Refresh user.
      */
-    protected function finalizeUser($user)
+    public function refreshUser($user)
     {
         if (null == $user) {
             return null;
@@ -52,7 +53,7 @@ class AdminUserService extends ZMObject
      * Get user for the given id.
      *
      * @param int id The user id.
-     * @return AdminUser A <code>AdminUser</code> instance or <code>null</code>.
+     * @return UserInterface A <code>UserInterface</code> instance or <code>null</code>.
      */
     public function getUserForId($id)
     {
@@ -61,30 +62,30 @@ class AdminUserService extends ZMObject
                 WHERE admin_id = :id";
         $args = array('id' => $id);
 
-        return $this->finalizeUser(\ZMRuntime::getDatabase()->querySingle($sql, $args, 'admin', 'ZenMagick\AdminBundle\Entity\AdminUser'));
+        return $this->refreshUser(\ZMRuntime::getDatabase()->querySingle($sql, $args, 'admin', 'ZenMagick\AdminBundle\Entity\AdminUser'));
     }
 
     /**
      * Get user for the given user name.
      *
      * @param string name The user name.
-     * @return AdminUser A <code>AdminUser</code> instance or <code>null</code>.
+     * @return UserInterface A <code>UserInterface</code> instance or <code>null</code>.
      */
-    public function getUserForName($name)
+    public function loadUserByUsername($name)
     {
         $sql = "SELECT *
                 FROM %table.admin%
                 WHERE admin_name = :username";
         $args = array('username' => $name);
 
-        return $this->finalizeUser(\ZMRuntime::getDatabase()->querySingle($sql, $args, 'admin', 'ZenMagick\AdminBundle\Entity\AdminUser'));
+        return $this->refreshUser(\ZMRuntime::getDatabase()->querySingle($sql, $args, 'admin', 'ZenMagick\AdminBundle\Entity\AdminUser'));
     }
 
     /**
      * Get all users.
      *
      * @param boolean demoOnly Optional flag to load demo users only; default is <code>false</code>.
-     * @return array List of <code>AdminUser</code> instances.
+     * @return array List of <code>UserInterface</code> instances.
      */
     public function getAllUsers($demoOnly=false)
     {
@@ -95,7 +96,7 @@ class AdminUserService extends ZMObject
         }
         $users = array();
         foreach (\ZMRuntime::getDatabase()->fetchAll($sql, array('live' => false), 'admin', 'ZenMagick\AdminBundle\Entity\AdminUser') as $adminUser) {
-            $users[] = $this->finalizeUser($adminUser);
+            $users[] = $this->refreshUser($adminUser);
         }
 
         return $users;
@@ -105,7 +106,7 @@ class AdminUserService extends ZMObject
      * Get user for the given email.
      *
      * @param string email The user email.
-     * @return AdminUser A <code>AdminUser</code> instance or <code>null</code>.
+     * @return UserInterface A <code>UserInterface</code> instance or <code>null</code>.
      */
     public function getUserForEmail($email)
     {
@@ -114,14 +115,14 @@ class AdminUserService extends ZMObject
                 WHERE admin_email = :email";
         $args = array('email' => $email);
 
-        return $this->finalizeUser(\ZMRuntime::getDatabase()->querySingle($sql, $args, 'admin', 'ZenMagick\AdminBundle\Entity\AdminUser'));
+        return $this->refreshUser(\ZMRuntime::getDatabase()->querySingle($sql, $args, 'admin', 'ZenMagick\AdminBundle\Entity\AdminUser'));
     }
 
     /**
      * Create user.
      *
      * @param ZMUser user The user.
-     * @return AdminUser The updated <code>AdminUser</code> instance.
+     * @return UserInterface The updated <code>UserInterface</code> instance.
      */
     public function createUser($user)
     {
@@ -135,7 +136,7 @@ class AdminUserService extends ZMObject
      * Update user.
      *
      * @param ZMUser user The user.
-     * @return AdminUser The updated <code>AdminUser</code> instance.
+     * @return UserInterface The updated <code>UserInterface</code> instance.
      */
     public function updateUser($user)
     {
@@ -164,4 +165,12 @@ class AdminUserService extends ZMObject
         return true;
     }
 
+    /**
+     * @{inheritDoc}
+     * @todo actually implement :)
+     */
+    public function supportsClass($class)
+    {
+        return true;
+    }
 }
