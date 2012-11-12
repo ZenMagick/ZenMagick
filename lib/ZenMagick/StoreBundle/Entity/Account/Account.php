@@ -26,6 +26,8 @@ use ZenMagick\Base\ZMObject;
 use Doctrine\ORM\Mapping as ORM;
 use ZenMagick\StoreBundle\Services\Account\Accounts;
 
+use Symfony\Component\Security\Core\User\UserInterface;
+
 /**
  * A single user account.
  *
@@ -40,7 +42,7 @@ use ZenMagick\StoreBundle\Services\Account\Accounts;
  * @ORM\Entity
  * @author DerManoMann
  */
-class Account extends ZMObject
+class Account extends ZMObject implements UserInterface
 {
     /** Access level registered. */
     const REGISTERED = 'registered';
@@ -179,6 +181,7 @@ class Account extends ZMObject
 
     private $globalSubscriber;
     private $subscribedProducts;
+    private $salt;
     private $type;
 
     /**
@@ -203,6 +206,7 @@ class Account extends ZMObject
         $this->password = null;
         $this->authorization = Runtime::getSettings()->get('defaultCustomerApproval');
         $this->newsletter = false;
+        $this->salt = null;
         $this->globalSubscriber = false;
         $this->subscribedProducts = null;
         $this->type = self::REGISTERED;
@@ -371,6 +375,27 @@ class Account extends ZMObject
     }
 
     /**
+     * {@inheritDoc}
+     *
+     * It is currently represented by an email address.
+     */
+    public function getUsername()
+    {
+        return $this->getEmail();
+    }
+
+    /**
+     * Set the  username (currently the email address)
+     *
+     * @param string username The username.
+     *
+     */
+    public function setUsername($username)
+    {
+        $this->setEmail($username);
+    }
+
+    /**
      * Get the phone number.
      *
      * @return string The phone number.
@@ -491,9 +516,7 @@ class Account extends ZMObject
     }
 
     /**
-     * Get the password.
-     *
-     * @return string The password.
+     * {@inheritDoc}
      */
     public function getPassword()
     {
@@ -501,15 +524,19 @@ class Account extends ZMObject
     }
 
     /**
-     * Set the password.
-     *
-     * @param string password The (encrypted) password.
+     * {@inheritDoc}
      */
     public function setPassword($password)
     {
         $this->password = $password;
     }
 
+    /**
+     * {@inheritDoc}
+     */
+    public function getSalt() {
+        return $this->salt;
+    }
     /**
      * Get authorization.
      *
@@ -703,6 +730,21 @@ class Account extends ZMObject
     public function getPriceGroup()
     {
         return $this->container->get('groupPricingService')->getPriceGroupForId($this->priceGroupId);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getRoles()
+    {
+        return array('ROLE_USER');
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function eraseCredentials()
+    {
     }
 
 }
