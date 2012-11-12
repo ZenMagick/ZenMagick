@@ -20,6 +20,7 @@
 namespace ZenMagick\AdminBundle\Services;
 
 use ZenMagick\Base\ZMObject;
+use Symfony\Component\Security\Core\Exception\UnsupportedUserException;
 use Symfony\Component\Security\Core\User\UserProviderInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 
@@ -40,6 +41,11 @@ class AdminUserService extends ZMObject implements UserProviderInterface
     {
         if (null == $user) {
             return null;
+        }
+
+        $class = get_class($user);
+        if (!$this->supportsClass($class)) {
+            throw new UnsupportedUserException(sprintf('Instances of "%s" are not supported.', $class));
         }
 
         // set roles
@@ -167,11 +173,12 @@ class AdminUserService extends ZMObject implements UserProviderInterface
     }
 
     /**
-     * @{inheritDoc}
-     * @todo actually implement :)
+     * {@inheritDoc}
+     * @todo don't always return true, check if it matches
      */
     public function supportsClass($class)
     {
         return true;
+        //return $this->getEntityName() === $class || is_subclass_of($class, $this->getEntityName());
     }
 }
