@@ -81,7 +81,10 @@ class ZenMagickBundle extends Bundle
         $context = $parameterBag->get('kernel.context');
         // @todo switch to using tagged services for events.
         $settingsService = $this->container->get('settingsService');
-        $listeners = $settingsService->get('zenmagick.base.events.listeners', array());
+
+        $listeners = array();
+        $listeners[] = sprintf('ZenMagick\%sBundle\EventListener\%sListener', ucfirst($context), ucfirst($context));
+        $listeners = array_merge($settingsService->get('zenmagick.base.events.listeners', array()), $listeners);
 
         if ($this->container->has('pluginService')) {
             $plugins = $this->container->get('pluginService')->getPluginsForContext($context, true);

@@ -4,13 +4,6 @@
 
 ## general settings
 zenmagick:
-  ## base
-  base:
-    ## events
-    events:
-      listeners:
-        - ZenMagick\AdminBundle\EventListener\AdminListener
-  ## mvc
   mvc:
     ## request
     request:
