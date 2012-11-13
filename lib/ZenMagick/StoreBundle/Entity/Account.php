@@ -39,10 +39,10 @@ use Symfony\Component\Security\Core\User\UserInterface;
  *      @ORM\Index(name="idx_nick_zen", columns={"customers_nick"}),
  *      @ORM\Index(name="idx_newsletter_zen", columns={"customers_newsletter"}),
  *  })
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="ZenMagick\StoreBundle\Entity\AccountRepository")
  * @author DerManoMann
  */
-class Account extends ZMObject implements UserInterface
+class Account extends ZMObject implements UserInterface, \Serializable
 {
     /** Access level registered. */
     const REGISTERED = 'registered';
@@ -190,14 +190,12 @@ class Account extends ZMObject implements UserInterface
     public function __construct()
     {
         parent::__construct();
-
-        $this->setId(0);
         $this->firstName = '';
         $this->lastName = '';
         $this->dob = null;
         $this->nickName = '';
         $this->gender = '';
-        $this->email = null;
+        //$this->email = null;
         $this->phone = '';
         $this->fax = null;
         $this->emailFormat = 'TEXT';
@@ -621,7 +619,7 @@ class Account extends ZMObject implements UserInterface
      */
     public function getVoucherBalance()
     {
-        return $this->container->get('couponService')->getVoucherBalanceForAccountId($this->getId());
+        return Runtime::getContainer()->get('couponService')->getVoucherBalanceForAccountId($this->getId());
     }
 
     /**
@@ -674,7 +672,7 @@ class Account extends ZMObject implements UserInterface
     public function getSubscribedProducts()
     {
         if (null === $this->subscribedProducts) {
-            $this->subscribedProducts = $this->container->get('accountService')->getSubscribedProductIds($this->getId());
+            $this->subscribedProducts = Runtime::getContainer()->get('accountService')->getSubscribedProductIds($this->getId());
         }
 
         return $this->subscribedProducts;
@@ -735,7 +733,8 @@ class Account extends ZMObject implements UserInterface
      */
     public function getType()
     {
-        return $this->type;
+        $roles = $this->getRoles();
+        return strtolower(str_replace('ROLE_', '', $roles[0]));
     }
 
     /**
@@ -766,7 +765,7 @@ class Account extends ZMObject implements UserInterface
      */
     public function getPriceGroup()
     {
-        return $this->container->get('groupPricingService')->getPriceGroupForId($this->priceGroupId);
+        return Runtime::getContainer()->get('groupPricingService')->getPriceGroupForId($this->priceGroupId);
     }
 
     /**
@@ -774,7 +773,11 @@ class Account extends ZMObject implements UserInterface
      */
     public function getRoles()
     {
-        return array('ROLE_USER');
+        $roles = array('ROLE_GUEST', 'ROLE_USER');
+        if (!empty($this->password)) {
+            array_unshift($roles, 'ROLE_REGISTERED');
+        }
+        return $roles;
     }
 
     /**
@@ -852,4 +855,22 @@ class Account extends ZMObject implements UserInterface
     {
         return $this->payPalEc;
     }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function serialize()
+    {
+        return serialize(array($this->accountId, $this->salt, $this->password, $this->email));
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function unserialize($serialized)
+    {
+        list($this->accountId, $this->salt, $this->password, $this->email) = unserialize($serialized);
+    }
+
+
 }

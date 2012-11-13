@@ -36,7 +36,9 @@
             </call>
         </service>
 
-        <service id="accountService" class="ZenMagick\StoreBundle\Services\Account\Accounts" />
+        <service id="accountService" class="ZenMagick\StoreBundle\Services\Account\Accounts">
+            <argument type="service" id="doctrine.orm.entity_manager" />
+        </service>
 
         <service id="addressService" class="ZenMagick\StoreBundle\Services\Account\Addresses" />
 

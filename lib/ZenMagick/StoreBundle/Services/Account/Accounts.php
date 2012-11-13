@@ -22,25 +22,29 @@ namespace ZenMagick\StoreBundle\Services\Account;
 
 use ZMRuntime;
 use ZenMagick\Base\Toolbox;
-use ZenMagick\Base\ZMObject;
 use ZenMagick\Base\Database\Connection;
 use ZenMagick\StoreBundle\Entity\Account;
 
-use Symfony\Component\Security\Core\Exception\UnsupportedUserException;
-use Symfony\Component\Security\Core\User\UserProviderInterface;
-use Symfony\Component\Security\Core\User\UserInterface;
+use Doctrine\ORM\EntityManager;
 
 /**
  * Accounts.
  *
  * @author DerManoMann
  */
-class Accounts extends ZMObject implements UserProviderInterface
+class Accounts
 {
     // authorization status constants
     const AUTHORIZATION_ENABLED = 0;
     const AUTHORIZATION_PENDING = 1;
     const AUTHORIZATION_BLOCKED = 4;
+
+    private $em;
+
+    public function __construct(EntityManager $em)
+    {
+        $this->em = $em;
+    }
 
     /**
      * Get account for the given account id.
@@ -62,37 +66,6 @@ class Accounts extends ZMObject implements UserProviderInterface
         }
 
         return $account;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    function refreshUser(UserInterface $user)
-    {
-        $class = get_class($user);
-        if (!$this->supportsClass($class)) {
-            throw new UnsupportedUserException(sprintf('Instances of "%s" are not supported.', $class));
-        }
-
-        return $this->loadUserByUsername($user->getUsername());
-    }
-
-    /**
-     * {@inheritDoc}
-     * @todo don't always return true, check if it matches
-     */
-    public function supportsClass($class)
-    {
-        return true;
-        //return $this->getEntityName() === $class || is_subclass_of($class, $this->getEntityName());
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function loadUserByUsername($username)
-    {
-        return $this->getAccountForEmailAddress($username);
     }
 
     /**
