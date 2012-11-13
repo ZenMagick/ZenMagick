@@ -39,11 +39,12 @@
         <option key="view:logged-in">redirect://admin_index</option>
         <option key="view:success">redirect://admin_index</option>
     </route>
-    <route id="admin_logout" pattern="/logout">
-        <default key="_controller">AdminBundle:Logoff:process</default>
-        <option key="view:success">redirect://admin_login</option>
-    </route>
-    <route id="admin_reset_password" pattern="/password/reset">
+
+    <route id="admin_logout" pattern="/logout" />
+
+    <route id="admin_login_check" pattern="/login-check" />
+
+    <route id="admin_reset_password" pattern="/reset-password">
         <default key="_controller">AdminBundle:ResetPassword:process</default>
         <option key="view:success">redirect://admin_login</option>
     </route>

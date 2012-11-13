@@ -30,10 +30,11 @@
         <option key="view:success">redirect://account</option>
     </route>
 
-    <route id="logoff" pattern="/logoff">
-        <default key="_controller">StorefrontBundle:Logoff:process</default>
-        <option key="view:success">redirect://logoff</option>
-    </route>
+    <route id="login_check" pattern="/login-check" />
+
+    <route id="logout" pattern="/logout" />
+    <!-- deprecated -->
+    <route id="logoff" pattern="/logout" />
 
     <route id="cart.add" pattern="/cart/add">
         <default key="_controller">StorefrontBundle:ShoppingCart:addProduct</default>

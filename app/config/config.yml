@@ -2,9 +2,9 @@ parameters:
     session.flashbag.class: "ZenMagick\Http\Session\FlashBag"
 
     secret: notsecret
-#imports:
+imports:
 #    - { resource: parameters.yml }
-#    - { resource: security.yml }
+    - { resource: security.yml }
 
 framework:
     translator:      { fallback: en }

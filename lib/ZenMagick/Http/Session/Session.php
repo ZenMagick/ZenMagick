@@ -239,21 +239,14 @@ class Session extends BaseSession implements ContainerAwareInterface
     /**
      * Get the user (if any) for authentication.
      *
+     * @todo this is a pretty nasty hack to check for 'anon.' string, but
+     * will serve well enough in the short term.
      * @return mixed A user/credentials object. Default is <code>null</code>.
      */
     public function getAccount()
     {
-        if (Runtime::isContextMatch('admin')) {
-            if (null != ($adminId = $this->get('admin_id'))) {
-                return $this->container->get('adminUserService')->getUserForId($adminId);
-            }
-        } else {
-            if (null != ($accountId = $this->get('customer_id'))) {
-                return $this->container->get('accountService')->getAccountForId($accountId);
-            }
-        }
-
-        return null;
+        $user = $this->container->get('security.context')->getToken()->getUser();
+        return  ('anon.' == $user) ? null : $user;
     }
 
     /**
@@ -308,9 +301,8 @@ class Session extends BaseSession implements ContainerAwareInterface
      */
     public function getType()
     {
-        $type = $this->get('account_type');
-
-        return null === $type ? Account::ANONYMOUS : $type;
+        $account = $this->getAccount();
+        return $account ? $account->getType() : null;
     }
 
     /**
@@ -320,7 +312,10 @@ class Session extends BaseSession implements ContainerAwareInterface
      *
      * @return boolean <code>true</code> if the current user is anonymous, <code>false</code> if not.
      */
-    public function isAnonymous() { return $this->getType() == Account::ANONYMOUS; }
+    public function isAnonymous()
+    {
+        return !$this->container->get('security.context')->isGranted('IS_AUTHENTICATED_FULLY');
+    }
 
     /**
      * Returns <code>true</code> if the user is a guest user.

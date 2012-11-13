@@ -1,0 +1,64 @@
+security:
+    #acl:
+    #    connection: default
+    encoders:
+        ZenMagick\AdminBundle\Entity\AdminUser:
+            id: zencart.encoder.password
+        ZenMagick\StoreBundle\Entity\Account:
+            id: zencart.encoder.password
+
+
+    role_hierarchy:
+        ROLE_REGISTERED:  ROLE_GUEST
+        ROLE_GUEST:       ROLE_USER
+        ROLE_ADMIN:       ROLE_USER
+        ROLE_SUPER_ADMIN: [ ROLE_ADMIN, ROLE_ALLOWED_TO_SWITCH ]
+
+    providers:
+        admin:
+            entity: { class: AdminBundle:AdminUser }
+        storefront:
+            entity: { class: StoreBundle:Account }
+
+
+    firewalls:
+        dev:
+            pattern: ^/(_(profiler|wdt)|css|images|js)/
+            security: false
+        admin_login:
+            pattern: ^/admin/login$
+            anonymous: ~
+        admin_reset_password:
+            pattern: ^/admin/reset-password$
+            anonymous: ~
+        admin:
+            provider: admin
+            pattern: ^/admin
+            form_login:
+                check_path: /admin/login-check
+                login_path: /admin/login
+                default_target_path: /admin/index
+                username_parameter: username
+                password_parameter: password
+            logout:
+                path: /admin/logout
+                target: /admin/login
+        storefront:
+            provider: storefront
+            pattern: ^/
+            anonymous: ~
+            form_login:
+                check_path: /login-check
+                login_path: /login
+                default_target_path: /
+                username_parameter: email_address
+                password_parameter: password
+            logout:
+                path: /logout
+                target: /login
+                success_handler: zenmagick.logout.success_handler
+
+    access_control:
+        - { path: ^/admin/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/admin/reset-password, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/admin, roles: ROLE_ADMIN }

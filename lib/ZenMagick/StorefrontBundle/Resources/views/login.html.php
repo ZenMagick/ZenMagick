@@ -21,7 +21,7 @@
 ?>
 
 <?php $crumbtrail->addCrumb(_zm('Login')) ?>
-<?php echo $form->open('login', '', true, array('id'=>'login')) ?>
+<?php echo $form->open('login_check', '', true, array('id'=>'login')) ?>
   <fieldset>
     <legend><?php _vzm("Login") ?></legend>
     <div>

@@ -18,7 +18,7 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */ $admin->title(_zm('Login')) ?>
 
-<form action="<?php echo $net->url() ?>" method="POST">
+<form action="<?php echo $net->url('admin_login_check') ?>" method="POST">
 <input type="hidden" name="<?php echo ZenMagick\Http\Session\Validation\FormTokenSessionValidator::SESSION_TOKEN_NAME; ?>" value="<?php echo $session->getToken() ?>">
 
 <p>

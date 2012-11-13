@@ -207,5 +207,11 @@
             <argument type="service" id="contextConfigLoader" strict="false" />
             <tag name="routing.loader" />
         </service>
+        <service id="zenmagick.logout.success_handler" parent="security.logout.success_handler" class="ZenMagick\ZenMagickBundle\Security\Http\Logout\LogoutSuccessHandler">
+            <call method="setDispatcher">
+                <argument type="service" id="event_dispatcher" />
+            </call>
+        </service>
+
     </services>
 </container>
