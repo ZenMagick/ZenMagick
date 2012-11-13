@@ -23,6 +23,7 @@
     </route>
     <route id="dashboard" pattern="/index">
         <default key="_controller">ZMController::process</default>
+        <option key="view">admin_index.html.php</option>
     </route>
     <route id="fulfilment" pattern="/fulfilment">
         <default key="_controller">ZMController::process</default>

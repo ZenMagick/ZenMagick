@@ -19,41 +19,28 @@
  */
 namespace ZenMagick\AdminBundle\Services;
 
-use ZenMagick\Base\ZMObject;
-use Symfony\Component\Security\Core\Exception\UnsupportedUserException;
-use Symfony\Component\Security\Core\User\UserProviderInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Doctrine\ORM\EntityManager;
 
 /**
  * Admin user service.
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class AdminUserService extends ZMObject implements UserProviderInterface
+class AdminUserService
 {
-    /**
-     * Add a few things.
-     *
-     * @param UserInterface user The user to refresh.
-     * @return UserInterface Refresh user.
-     */
-    public function refreshUser(UserInterface $user)
+    public $roleService;
+
+    private $em;
+
+    public function __construct(EntityManager $em)
     {
-        if (null == $user) {
-            return null;
-        }
+        $this->em = $em;
+    }
 
-        $class = get_class($user);
-        if (!$this->supportsClass($class)) {
-            throw new UnsupportedUserException(sprintf('Instances of "%s" are not supported.', $class));
-        }
-
-        // set roles
-        foreach ($this->container->get('adminUserRoleService')->getRolesForId($user->getId()) as $role) {
-            $user->addRole($role);
-        }
-
-        return $user;
+    public function setRoleService($roleService)
+    {
+        $this->roleService = $roleService;
     }
 
     /**
@@ -64,28 +51,7 @@ class AdminUserService extends ZMObject implements UserProviderInterface
      */
     public function getUserForId($id)
     {
-        $sql = "SELECT *
-                FROM %table.admin%
-                WHERE admin_id = :id";
-        $args = array('id' => $id);
-
-        return $this->refreshUser(\ZMRuntime::getDatabase()->querySingle($sql, $args, 'admin', 'ZenMagick\AdminBundle\Entity\AdminUser'));
-    }
-
-    /**
-     * Get user for the given user name.
-     *
-     * @param string name The user name.
-     * @return UserInterface A <code>UserInterface</code> instance or <code>null</code>.
-     */
-    public function loadUserByUsername($name)
-    {
-        $sql = "SELECT *
-                FROM %table.admin%
-                WHERE admin_name = :username";
-        $args = array('username' => $name);
-
-        return $this->refreshUser(\ZMRuntime::getDatabase()->querySingle($sql, $args, 'admin', 'ZenMagick\AdminBundle\Entity\AdminUser'));
+        return $this->em->find('AdminBundle:AdminUser', $id);
     }
 
     /**
@@ -94,16 +60,13 @@ class AdminUserService extends ZMObject implements UserProviderInterface
      * @param boolean demoOnly Optional flag to load demo users only; default is <code>false</code>.
      * @return array List of <code>UserInterface</code> instances.
      */
-    public function getAllUsers($demoOnly=false)
+    public function getAllUsers($demoOnly = false)
     {
-        $sql = "SELECT *
-                FROM %table.admin%";
+        $repository = $this->em->getRepository('AdminBundle:AdminUser');
         if ($demoOnly) {
-            $sql .= " WHERE admin_level = :live";
-        }
-        $users = array();
-        foreach (\ZMRuntime::getDatabase()->fetchAll($sql, array('live' => false), 'admin', 'ZenMagick\AdminBundle\Entity\AdminUser') as $adminUser) {
-            $users[] = $this->refreshUser($adminUser);
+            $users = $repository->findBy(array('live' => false));
+        } else {
+            $users = $repository->findAll();
         }
 
         return $users;
@@ -117,12 +80,8 @@ class AdminUserService extends ZMObject implements UserProviderInterface
      */
     public function getUserForEmail($email)
     {
-        $sql = "SELECT *
-                FROM %table.admin%
-                WHERE admin_email = :email";
-        $args = array('email' => $email);
-
-        return $this->refreshUser(\ZMRuntime::getDatabase()->querySingle($sql, $args, 'admin', 'ZenMagick\AdminBundle\Entity\AdminUser'));
+        $repository = $this->em->getRepository('AdminBundle:AdminUser');
+        return $repository->findOneByEmail($email);
     }
 
     /**
@@ -133,8 +92,9 @@ class AdminUserService extends ZMObject implements UserProviderInterface
      */
     public function createUser($user)
     {
-        $user = \ZMRuntime::getDatabase()->createModel('admin', $user);
-        $this->container->get('adminUserRoleService')->setRolesForId($user->getId(), $user->getRoles());
+        $this->em->persist($user);
+        $this->em->flush();
+        $this->roleService->setRolesForId($user->getId(), $user->getRoles());
 
         return true;
     }
@@ -148,7 +108,7 @@ class AdminUserService extends ZMObject implements UserProviderInterface
     public function updateUser($user)
     {
         \ZMRuntime::getDatabase()->updateModel('admin', $user);
-        $this->container->get('adminUserRoleService')->setRolesForId($user->getId(), $user->getRoles());
+        $this->roleService->setRolesForId($user->getId(), $user->getRoles());
 
         return true;
     }
@@ -160,25 +120,10 @@ class AdminUserService extends ZMObject implements UserProviderInterface
      */
     public function deleteUserForId($id)
     {
-        $adminUserRoleService = $this->container->get('adminUserRoleService');
-        // remove roles
-        $roles = $adminUserRoleService->getRolesForId($id);
-        $adminUserRoleService->setRolesForId($id, $roles);
-        $sql = "DELETE FROM %table.admin%
-                WHERE admin_id = :id";
-        // delete user
-        \ZMRuntime::getDatabase()->updateObj($sql, array('id' => $id), 'admin');
-
+        $user = $this->getUserFor($id);
+        $this->em->remove($user);
+        $this->em->flush();
         return true;
     }
 
-    /**
-     * {@inheritDoc}
-     * @todo don't always return true, check if it matches
-     */
-    public function supportsClass($class)
-    {
-        return true;
-        //return $this->getEntityName() === $class || is_subclass_of($class, $this->getEntityName());
-    }
 }

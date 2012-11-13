@@ -21,13 +21,15 @@
 
 namespace ZenMagick\AdminBundle\Entity;
 
+use ZenMagick\AdminBundle\Entity\AdminUser;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Security\Core\Role\RoleInterface;
 
 /**
  * @ORM\Table(name="admin_roles")
  * @ORM\Entity
  */
-class AdminRole
+class AdminRole implements RoleInterface
 {
     /**
      * @var integer $id
@@ -48,7 +50,7 @@ class AdminRole
     /**
      * @var \Doctrine\Common\Collections\ArrayCollection
      *
-     * @ORM\ManyToMany(targetEntity="AdminUser", mappedBy="adminRole")
+     * @ORM\ManyToMany(targetEntity="AdminUser", mappedBy="roles")
      */
     private $admin;
 
@@ -60,4 +62,91 @@ class AdminRole
         $this->admin = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
+
+    /**
+     * Get id
+     *
+     * @return integer
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set name
+     *
+     * @param string $name
+     * @return AdminRole
+     */
+    public function setName($name)
+    {
+        $this->name = $name;
+
+        return $this;
+    }
+
+    /**
+     * Get name
+     *
+     * @return string
+     */
+    public function getName()
+    {
+        return $this->name;
+    }
+
+    /**
+     * Set Role
+     *
+     * @param string $role
+     * @return AdminRole
+     */
+    public function setRole($role)
+    {
+        $this->name = $role;
+
+        return $this;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getRole()
+    {
+        return $this->name;
+    }
+
+    /**
+     * Add admin
+     *
+     * @param \ZenMagick\AdminBundle\Entity\AdminUser $admin
+     * @return AdminRole
+     */
+    public function addAdmin(AdminUser $admin)
+    {
+        $this->admin[] = $admin;
+
+        return $this;
+    }
+
+    /**
+     * Remove admin
+     *
+     * @param \ZenMagick\AdminBundle\Entity\AdminUser $admin
+     */
+    public function removeAdmin(AdminUser $admin)
+    {
+        $this->admin->removeElement($admin);
+    }
+
+    /**
+     * Get admin
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getAdmin()
+    {
+        return $this->admin;
+    }
 }

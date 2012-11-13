@@ -13,7 +13,12 @@
 
         <service id="adminUserRoleService" class="ZenMagick\AdminBundle\Services\AdminUserRoleService" />
 
-        <service id="adminUserService" class="ZenMagick\AdminBundle\Services\AdminUserService" />
+        <service id="adminUserService" class="ZenMagick\AdminBundle\Services\AdminUserService">
+            <argument type="service" id="doctrine.orm.entity_manager" />
+            <call method="setRoleService">
+                <argument type="service" id="adminUserRoleService" />
+            </call>
+        </service>
 
         <service id="sacsPermissionService" class="ZenMagick\AdminBundle\Services\SacsPermissionService" />
 

@@ -19,6 +19,9 @@
  */
 namespace ZenMagick\AdminBundle\Entity;
 
+use ZenMagick\AdminBundle\Entity\AdminRole;
+
+use Symfony\Component\Security\Core\User\AdvancedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 use Doctrine\ORM\Mapping as ORM;
@@ -35,9 +38,9 @@ use Doctrine\ORM\Mapping as ORM;
  *      @ORM\Index(name="idx_admin_email_zen", columns={"admin_email"}),
  *      @ORM\Index(name="idx_admin_profile_zen", columns={"admin_profile"}),
  *  })
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="ZenMagick\AdminBundle\Entity\AdminUserRepository")
  */
-class AdminUser implements UserInterface
+class AdminUser implements UserInterface, \Serializable
 {
     /**
      * @var integer $id
@@ -162,9 +165,6 @@ class AdminUser implements UserInterface
      */
     private $lastFailedIp;
 
-    // @todo use adminRoles!
-    private $roles;
-
     /**
      * @var \Doctrine\Common\Collections\ArrayCollection
      *
@@ -178,7 +178,7 @@ class AdminUser implements UserInterface
      *   }
      * )
      */
-    private $adminRole;
+    private $roles;
 
     private $salt;
 
@@ -187,14 +187,24 @@ class AdminUser implements UserInterface
      */
     public function __construct()
     {
-        $this->id = 0;
-        $this->username = '';
-        $this->email = null;
         $this->password = null;
         $this->salt = null;
-        $this->live = false;
-        $this->roles = array();
-        $this->adminRole = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->profile = 1;
+        $this->prevPass1 = '';
+        $this->prevPass2 = '';
+        $this->prevPass3 = '';
+        $this->pwdLastChangeDate = new \DateTime();
+        $this->resetToken = '';
+        $this->lastModified = new \DateTime();
+        $this->lastLoginDate = new \DateTime();
+        $this->lastLoginIp = '';
+        $this->failedLogins = 0;
+        $this->lockoutExpires = 0;
+        $this->lastFailedAttempt = new \DateTime(); // @todo do what?
+        $this->lastFailedIp = '';
+
+        $this->live = true;
+        $this->roles = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     /**
@@ -303,45 +313,6 @@ class AdminUser implements UserInterface
         $this->live = $live;
 
         return $this;
-    }
-
-    /**
-     * Get the roles for this user.
-     *
-     * @return array A list of (string) role names.
-     */
-    public function getRoles() { return $this->roles; }
-
-    /**
-     * Set the roles for this user.
-     *
-     * @param array roles A list of (string) role names.
-     */
-    public function setRoles($roles)
-    {
-        $this->roles = $roles;
-
-        return $this;
-    }
-
-    /**
-     * Add a role.
-     *
-     * @param string role The role to add.
-     */
-    public function addRole($role)
-    {
-        $this->roles[] = $role;
-
-        return $this;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function hasRole($role)
-    {
-        return in_array($role, $this->roles);
     }
 
     /**
@@ -662,40 +633,75 @@ class AdminUser implements UserInterface
     }
 
     /**
-     * Add adminRole
+     * Add role
      *
-     * @todo rename to roles once we can use it
-     * @param ZenMagick\AdminBundle\Entity\AdminRole $adminRole
+     * @param string|\ZenMagick\AdminBundle\Entity\AdminRole $role
+     * @return AdminUser
      */
-    public function addAdminRole(\ZenMagick\AdminBundle\Entity\AdminRole $adminRole)
+    public function addRole($role)
     {
-        $this->adminRole[] = $adminRole;
+        if (is_string($role)) {
+            $roleObj = new AdminRole();
+            $role = $roleObj->setName($role);
+        }
+        $this->roles[] = $role;
 
         return $this;
     }
 
     /**
-     * Remove adminRole
+     * Set Roles
      *
-     * @param ZenMagick\AdminBundle\Entity\AdminRole $adminRole
-     * @todo rename to role once we can use it
+     * @param array $roles array of role names or objects
      */
-    public function removeAdminRole(\ZenMagick\AdminBundle\Entity\AdminRole $adminRole)
+    public function setRoles($roles)
     {
-        $this->adminRole->removeElement($adminRole);
+        $this->roles = new \Doctrine\Common\Collections\ArrayCollection();
+        foreach ($roles as $role) {
+            $this->addRole($role);
+        }
+        return $this;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function hasRole($role)
+    {
+        return in_array($role, $this->getRoles());
+    }
+
+
+    /**
+     * Remove role
+     *
+     * @param \ZenMagick\AdminBundle\Entity\AdminRole $role
+     */
+    public function removeRole(AdminRole $role)
+    {
+        $this->roles->removeElement($role);
 
         return $this;
     }
 
     /**
-     * Get adminRole
+     * Get roles
      *
-     * @return Doctrine\Common\Collections\Collection
-     * @todo rename to role once we can use it
+     * Get a list of role names assigned to this user.
+     *
+     * We must return an array of strings due to #1748
+     *
+     * @todo return \Doctrine\Common\Collections\Collection
+     * @see https://github.com/symfony/symfony/issues/1748
+     * @return array
      */
-    public function getAdminRole()
+    public function getRoles()
     {
-        return $this->adminRole;
+        $roles = array();
+        foreach ($this->roles as $role) {
+            $roles[] = $role->getName();
+        }
+        return $roles;
     }
 
     /**
@@ -703,6 +709,32 @@ class AdminUser implements UserInterface
      */
     public function eraseCredentials()
     {
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function serialize()
+    {
+        return serialize(array($this->id));
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function unserialize($serialized)
+    {
+        list($this->id) = unserialize($serialized);
+    }
+
+    /**
+     * Get live
+     *
+     * @return boolean
+     */
+    public function getLive()
+    {
+        return $this->live;
     }
 
 }
