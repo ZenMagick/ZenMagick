@@ -23,12 +23,12 @@
 
 <p>
 <label for="username"><?php _vzm('User Name') ?></label><br>
-<input type="text" name="username" id="username">
+<input type="text" name="username" id="username" value="<?php echo $lastUsername; ?>">
 </p>
 
 <p>
 <label for="password"><?php _vzm('Password') ?></label><br>
-<input type="password" name="password" id="password">
+<input type="password" name="password" id="password" value="">
 </p>
 
 <p><input class="<?php echo $buttonClasses ?>" type="submit" value="<?php _vzm('Login') ?>"> <a class="<?php echo $buttonClasses ?>" href="<?php echo $net->url('admin_reset_password') ?>"><?php _vzm('Reset Password') ?></a></p>

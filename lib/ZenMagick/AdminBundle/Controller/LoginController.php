@@ -19,6 +19,9 @@
  */
 namespace ZenMagick\AdminBundle\Controller;
 
+use Symfony\Component\Security\Core\SecurityContext;
+use Symfony\Component\Security\Core\Exception\BadCredentialsException;
+
 /**
  * Admin controller for login.
  *
@@ -31,41 +34,26 @@ class LoginController extends \ZMController
      */
     public function processGet($request)
     {
-        if (null != $this->getUser()) {
-            return $this->findView('logged-in');
-        }
-
-        return $this->findView();
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function processPost($request)
-    {
-        $username = $request->request->get('username');
-
-        if (null == ($user = $this->container->get('adminUserService')->loadUserByUsername($username))) {
-            $this->messageService->error(_zm('Sorry, there is no match for that email address and/or password.'));
-
-            return $this->findView();
-        }
-
-        $password = $request->request->get('password');
-        if (!$this->container->get('authenticationManager')->validatePassword($password, $user->getPassword())) {
-            $this->messageService->error(_zm('Sorry, there is no match for that email address and/or password.'));
-
-            return $this->findView();
+        if ($this->get('security.context')->isGranted('IS_AUTHENTICATED_FULLY')) {
+            $this->redirect($this->generateUrl('admin_index'));
         }
 
         $session = $request->getSession();
-        $session->set('admin_id', $user->getId());
-        if (null != ($uiLocale = $this->container->get('adminUserPrefService')->getPrefForName($user->getId(), 'uiLocale'))) {
-            $session->set('_locale', $uiLocale);
+        // get the login error if there is one
+        if ($request->attributes->has(SecurityContext::AUTHENTICATION_ERROR)) {
+            $error = $request->attributes->get(SecurityContext::AUTHENTICATION_ERROR);
+        } else {
+            $error = $session->get(SecurityContext::AUTHENTICATION_ERROR);
+            $session->remove(SecurityContext::AUTHENTICATION_ERROR);
         }
-        $session->migrate();
 
-        return $this->findView('success', array(), array('url' => $request->getFollowUpUrl()));
+        if ($error instanceof BadCredentialsException) {
+            $this->messageService->error(_zm('Sorry, there is no match for that email address and/or password.'));
+        }
+
+        $tpl = array(
+            'lastUsername' => $session->get(SecurityContext::LAST_USERNAME),
+        );
+        return $this->findView(null, $tpl);
     }
-
 }
