@@ -13,7 +13,7 @@ framework:
         resource: "%kernel.root_dir%/config/routing.yml"
         strict_requirements: "%kernel.debug%"
     form:            true
-    #csrf_protection: true
+    csrf_protection: true
     #validation:      { enable_annotations: true }
     templating:      { engines: ["twig", "php"] }
     default_locale:  "%locale%"
