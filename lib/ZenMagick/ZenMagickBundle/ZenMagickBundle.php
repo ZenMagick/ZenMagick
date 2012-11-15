@@ -19,6 +19,7 @@
  */
 namespace ZenMagick\ZenMagickBundle;
 
+use ZenMagick\ZenMagickBundle\DependencyInjection\Compiler\AuthenticationHandlersPass;
 use ZenMagick\ZenMagickBundle\DependencyInjection\Compiler\ConfigureContainerTagServicePass;
 use ZenMagick\ZenMagickBundle\DependencyInjection\Compiler\PluginsPass;
 use ZenMagick\ZenMagickBundle\DependencyInjection\ZenMagickExtension;
@@ -38,6 +39,7 @@ class ZenMagickBundle extends Bundle
     {
         parent::build($container);
         $container->registerExtension(new ZenMagickExtension());
+        $container->addCompilerPass(new AuthenticationHandlersPass());
         $container->addCompilerPass(new ConfigureContainerTagServicePass());
         $container->addCompilerPass(new PluginsPass());
     }
