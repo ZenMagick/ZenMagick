@@ -26,7 +26,7 @@
     <legend><?php _vzm("Login") ?></legend>
     <div>
       <label for="email_address"><?php _vzm("E-Mail Address") ?></label>
-      <input type="text" id="email_address" name="email_address" <?php echo $form->fieldLength('customers', 'customers_email_address') ?> />
+      <input type="text" id="email_address" name="email_address" value="<?php echo $lastUsername; ?>" <?php echo $form->fieldLength('customers', 'customers_email_address') ?> />
     </div>
     <div>
       <label for="password"><?php _vzm("Password") ?></label>
