@@ -20,7 +20,6 @@ zenmagick:
       xhtml: true
     ## request
     request:
-      invalidSession: cookie_usage
       login: login
       enforceSecure: true
     ## sacs

@@ -218,13 +218,6 @@ class SacsManager extends ZMObject
             // fire event
             $this->container->get('event_dispatcher')->dispatch('insufficient_credentials', new GenericEvent($this, array('request' => $request, 'credentials' => $credentials)));
             // not required level of authentication
-            $session = $request->getSession();
-            // secure flag: leave to net() to lookup via SacsManager if configured, but leave as default parameter to allow override
-            if (!$session->isStarted()) {
-                // no valid session
-                $request->redirect($this->container->get('netTool')->url($this->container->get('settingsService')->get('zenmagick.http.request.invalidSession')));
-                exit;
-            }
             if (!$request->isXmlHttpRequest()) {
                 $request->saveFollowUpUrl();
             }

@@ -13,7 +13,6 @@ zenmagick:
   http:
     ## request
     request:
-      invalidSession: admin_login
       login: admin_login
       secure: false
       enforceSecure: false

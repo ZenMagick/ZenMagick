@@ -367,9 +367,6 @@ class StorefrontController extends \ZMController
 
         $session = $request->getSession();
         $settingsService = $this->container->get('settingsService');
-        if (!$session->isStarted()) {
-            $request->redirect($this->get('netTool')->url($this->container->get('settingsService')->get('zenmagick.http.request.invalidSession')));
-        }
 
         if (null == $session->get('cart')) {
             $session->set('cart', new \ZenMagick\ZenCartBundle\Compat\ShoppingCart);
