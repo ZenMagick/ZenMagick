@@ -102,9 +102,10 @@ class UpdateUserController extends \ZMController
             return $this->findView('success');
         }
 
-        $authenticationManager = $this->container->get('authenticationManager');
+        $encoder = $this->get('security.encoder_factory')->getEncoder($user);
+
         // validate password
-        if (!$authenticationManager->validatePassword($updateUser->getCurrentPassword(), $user->getPassword())) {
+        if (!$encoder->isPasswordValid($user->getPassword(), $updateUser->getCurrentPassword())) {
             $this->messageService->error(_zm('Sorry, the entered password is not valid.'));
 
             return $this->findView();
@@ -113,7 +114,7 @@ class UpdateUserController extends \ZMController
         $user->setEmail($updateUser->getEmail());
         $newPassword = $updateUser->getNewPassword();
         if (!empty($newPassword)) {
-            $user->setPassword($authenticationManager->encryptPassword($newPassword));
+            $user->setPassword($encoder->encodePassword($newPassword));
         }
         $this->container->get('adminUserService')->updateUser($user);
 

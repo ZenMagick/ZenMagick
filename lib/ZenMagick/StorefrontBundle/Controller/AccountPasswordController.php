@@ -48,16 +48,16 @@ class AccountPasswordController extends \ZMController
         $newPassword = $request->request->get('password_new');
         $confirmPassword = $request->request->get('password_confirmation');
 
-        $authenticationManager = $this->container->get('authenticationManager');
-        if (!$authenticationManager->validatePassword($oldPassword, $account->getPassword())) {
+        $encoder = $this->get('security.encoder_factory')->getEncoder($account);
+        if (!$encoder->isPasswordValid($account->getPassword(), $oldPassword)) {
             $this->messageService->error(_zm('Your current password did not match the password in our records. Please try again.'));
 
             return $this->findView();
         }
 
         // update password
-        $newEncrpytedPassword = $authenticationManager->encryptPassword($newPassword);
-        $this->container->get('accountService')->setAccountPassword($account->getId(), $newEncrpytedPassword);
+        $newEncodedPassword = $encoder->encodePassword($newPassword);
+        $this->container->get('accountService')->setAccountPassword($account->getId(), $newEncodedPassword);
 
         $this->container->get('event_dispatcher')->dispatch('password_changed', new GenericEvent($this, array('controller' => $this, 'account' => $account, 'clearPassword' => $newPassword)));
 

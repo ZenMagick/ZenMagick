@@ -19,9 +19,11 @@
  */
 namespace ZenMagick\StorefrontBundle\Controller;
 
+use ZenMagick\Base\Toolbox;
 use ZenMagick\StoreBundle\Entity\Account;
 
 use Symfony\Component\EventDispatcher\GenericEvent;
+
 
 /**
  * Request controller for forgotten passwords.
@@ -43,12 +45,13 @@ class PasswordForgottenController extends \ZMController
             return $this->findView();
         }
 
-        $authenticationManager = $this->container->get('authenticationManager');
-        $newPassword = $authenticationManager->mkPassword();
-        $newEncrpytedPassword = $authenticationManager->encryptPassword($newPassword);
+        $encoder = $this->get('security.encoder_factory')->getEncoder($account);
+        $minLength = $this->get('settingsService')->get('zenmagick.base.security.authentication.minPasswordLength', 8);
+        $newPassword =  Toolbox::random($minLength, Toolbox::RANDOM_MIXED);
+        $newEncodedPassword = $encoder->encodePassword($newPassword);
 
         // update account password (encrypted)
-        $this->container->get('accountService')->setAccountPassword($account->getId(), $newEncrpytedPassword);
+        $this->container->get('accountService')->setAccountPassword($account->getId(), $newEncodedPassword);
 
         // send email (clear text)
         $settingsService = $this->container->get('settingsService');

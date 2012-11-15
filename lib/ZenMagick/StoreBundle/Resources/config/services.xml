@@ -130,8 +130,6 @@
             <tag name="zenmagick.http.rss.source" />
         </service>
 
-        <service id="authenticationManager" class="ZenMagick\Base\Security\Authentication\AuthenticationManager" />
-
         <service id="blockService" class="ZenMagick\StoreBundle\Services\Blocks" />
 
         <service id="blockManager" class="ZenMagick\Http\Blocks\BlockManager" />

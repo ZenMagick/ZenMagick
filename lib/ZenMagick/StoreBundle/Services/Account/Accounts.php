@@ -50,7 +50,7 @@ class Accounts
      * Get account for the given account id.
      *
      * @param int accountId The account id.
-     * @return ZenMagick\StoreBundle\Entity\Account A <code>ZenMagick\StoreBundle\Entity\Account\Account</code> instance or <code>null</code>.
+     * @return ZenMagick\StoreBundle\Entity\Account A <code>ZenMagick\StoreBundle\Entity\Account</code> instance or <code>null</code>.
      */
     public function getAccountForId($accountId)
     {
@@ -72,7 +72,7 @@ class Accounts
      * Get account for the given email address.
      *
      * @param string emailAddress The email address.
-     * @return ZenMagick\StoreBundle\Entity\Account A <code>ZenMagick\StoreBundle\Entity\Account\Account</code> instance or <code>null</code>.
+     * @return ZenMagick\StoreBundle\Entity\Account A <code>ZenMagick\StoreBundle\Entity\Account</code> instance or <code>null</code>.
      */
     public function getAccountForEmailAddress($emailAddress)
     {

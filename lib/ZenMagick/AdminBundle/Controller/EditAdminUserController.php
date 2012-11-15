@@ -84,11 +84,12 @@ class EditAdminUserController extends \ZMController
             $current = $adminUserService->getUserForId($user->getId());
             if (empty($clearPassword) && null != $current) {
                 // keep
-                $encrypedPassword = $current->getPassword();
+                $encodedPassword = $current->getPassword();
             } else {
-                $encrypedPassword = $this->container->get('authenticationManager')->encryptPassword($clearPassword);
+                $encoder = $this->get('security.encoder_factory')->getEncoder($user);
+                $encodedPassword = $encoder->encodePassword($clearPassword);
             }
-            $user->setPassword($encrypedPassword);
+            $user->setPassword($encodedPassword);
             if (0 < $user->getId()) {
                 $adminUserService->updateUser($user);
                 $this->messageService->success(_zm('Details updated.'));

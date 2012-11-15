@@ -70,7 +70,8 @@ class CreateAccountController extends \ZMController
 
         $clearPassword = $registration->getPassword();
         $account = $registration->getAccount();
-        $account->setPassword($this->container->get('authenticationManager')->encryptPassword($clearPassword));
+        $encoder = $this->get('security.encoder_factory')->getEncoder($account);
+        $account->setPassword($encoder->encodePassword($clearPassword));
         $account = $this->container->get('accountService')->createAccount($account);
 
         $address = null;

@@ -19,6 +19,8 @@
  */
 namespace ZenMagick\AdminBundle\Controller;
 
+use ZenMagick\Base\Toolbox;
+
 /**
  * Request controller for forgotten passwords.
  *
@@ -40,9 +42,10 @@ class ResetPasswordController extends \ZMController
             return $this->findView();
         }
 
-        $authenticationManager = $this->container->get('authenticationManager');
-        $newPassword = $authenticationManager->mkPassword();
-        $newEncrpytedPassword = $authenticationManager->encryptPassword($newPassword);
+        $encoder = $this->get('security.encoder_factory')->getEncoder($user);
+        $minLength = $this->get('settingsService')->get('zenmagick.base.security.authentication.minPasswordLength', 8);
+        $newPassword =  Toolbox::random($minLength, Toolbox::RANDOM_MIXED);
+        $newEncrpytedPassword = $encoder->encodePassword($newPassword);
         $user->setPassword($newEncrpytedPassword);
         $adminUserService->updateUser($user);
 

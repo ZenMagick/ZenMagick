@@ -36,10 +36,7 @@
             <argument type="service" id="session.flash_bag" />
         </service>
 
-        <service id="zencart.encoder.password" class="ZenMagick\ZenCartBundle\Security\Core\Encoder\ZenCartPasswordEncoder">
-            <tag name="zenmagick.base.security.authentication.provider" default="true" />
-        </service>
-
+        <service id="zencart.encoder.password" class="ZenMagick\ZenCartBundle\Security\Core\Encoder\ZenCartPasswordEncoder" />
 
         <service id="zencart.listener" class="ZenMagick\ZenCartBundle\EventListener\ZenCartListener">
             <tag name="kernel.event_subscriber" />
