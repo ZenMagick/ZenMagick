@@ -564,7 +564,8 @@ class Account extends ZMObject implements UserInterface
     /**
      * {@inheritDoc}
      */
-    public function getSalt() {
+    public function getSalt()
+    {
         return $this->salt;
     }
     /**
@@ -781,4 +782,72 @@ class Account extends ZMObject implements UserInterface
     {
     }
 
+    /**
+     * Set newsletter
+     *
+     * @param string $newsletter
+     * @return Account
+     */
+    public function setNewsletter($newsletter)
+    {
+        $this->newsletter = $newsletter;
+
+        return $this;
+    }
+
+    /**
+     * Get newsletter
+     *
+     * @return string
+     */
+    public function getNewsletter()
+    {
+        return $this->newsletter;
+    }
+
+    /**
+     * Set payPalPayerId
+     *
+     * @param string $payPalPayerId
+     * @return Account
+     */
+    public function setPayPalPayerId($payPalPayerId)
+    {
+        $this->payPalPayerId = $payPalPayerId;
+
+        return $this;
+    }
+
+    /**
+     * Get payPalPayerId
+     *
+     * @return string
+     */
+    public function getPayPalPayerId()
+    {
+        return $this->payPalPayerId;
+    }
+
+    /**
+     * Set payPalEc
+     *
+     * @param boolean $payPalEc
+     * @return Account
+     */
+    public function setPayPalEc($payPalEc)
+    {
+        $this->payPalEc = $payPalEc;
+
+        return $this;
+    }
+
+    /**
+     * Get payPalEc
+     *
+     * @return boolean
+     */
+    public function getPayPalEc()
+    {
+        return $this->payPalEc;
+    }
 }
