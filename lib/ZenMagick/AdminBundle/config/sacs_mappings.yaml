@@ -8,7 +8,7 @@ default:
   secure: true
   ## require admin role
   roles:
-    - admin
+    - ROLE_SUPER_ADMIN
 
 ## explicit mappings
 mappings:
