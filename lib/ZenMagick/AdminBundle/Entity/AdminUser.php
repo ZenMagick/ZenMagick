@@ -202,68 +202,108 @@ class AdminUser implements UserInterface
      *
      * @return int $id The id.
      */
-    public function getId() { return $this->id; }
+    public function getId()
+    {
+        return $this->id;
+    }
 
     /**
      * Set the id.
      *
      * @param int id The id.
      */
-    public function setId($id) { $this->id = $id; }
+    public function setId($id)
+    {
+        $this->id = $id;
+
+        return $this;
+    }
 
     /**
      * Get the user name
      */
-    public function getUsername() { return $this->username; }
+    public function getUsername()
+    {
+        return $this->username;
+    }
 
     /**
      * Set the user name.
      *
      * @param string username The user name.
      */
-    public function setUsername($username) { $this->username = $username; }
+    public function setUsername($username)
+    {
+        $this->username = $username;
+
+        return $this;
+    }
 
     /**
      * Get the email address.
      *
      * @return string The email address.
      */
-    public function getEmail() { return $this->email; }
+    public function getEmail()
+    {
+        return $this->email;
+    }
 
     /**
      * Set the email address.
      *
      * @parm string email The email address.
      */
-    public function setEmail($email) { $this->email = $email; }
+    public function setEmail($email)
+    {
+        $this->email = $email;
+
+        return $this;
+    }
 
     /**
      * Get the password.
      *
      * @return string The encrypted password.
      */
-    public function getPassword() { return $this->password; }
+    public function getPassword()
+    {
+        return $this->password;
+    }
 
     /**
      * Set the (encrypted) password.
      *
      * @parm string password The password.
      */
-    public function setPassword($password) { $this->password = $password; }
+    public function setPassword($password)
+    {
+        $this->password = $password;
+
+        return $this;
+    }
 
     /**
      * Check if the user is a live user.
      *
      * @return boolean <code>true</code> if the user is a live admin user.
      */
-    public function isLive() { return $this->live; }
+    public function isLive()
+    {
+        return $this->live;
+    }
 
     /**
      * Set the live flag.
      *
      * @parm boolean live The new value.
      */
-    public function setLive($live) { $this->live = $live; }
+    public function setLive($live)
+    {
+        $this->live = $live;
+
+        return $this;
+    }
 
     /**
      * Get the roles for this user.
@@ -277,19 +317,32 @@ class AdminUser implements UserInterface
      *
      * @param array roles A list of (string) role names.
      */
-    public function setRoles($roles) { $this->roles = $roles; }
+    public function setRoles($roles)
+    {
+        $this->roles = $roles;
+
+        return $this;
+    }
 
     /**
      * Add a role.
      *
      * @param string role The role to add.
      */
-    public function addRole($role) { $this->roles[] = $role; }
+    public function addRole($role)
+    {
+        $this->roles[] = $role;
+
+        return $this;
+    }
 
     /**
      * {@inheritDoc}
      */
-    public function hasRole($role) { return in_array($role, $this->roles); }
+    public function hasRole($role)
+    {
+        return in_array($role, $this->roles);
+    }
 
     /**
      * Get an admin user pref.
@@ -311,6 +364,8 @@ class AdminUser implements UserInterface
     public function setPref($name, $value)
     {
         $this->container->get('adminUserPrefService')->setPrefForName($this->getId(), $name, $value);
+
+        return $this;
     }
 
     /**
@@ -318,42 +373,66 @@ class AdminUser implements UserInterface
      *
      * @return integer
      */
-    public function getProfile() { return $this->profile; }
+    public function getProfile()
+    {
+        return $this->profile;
+    }
 
     /**
      * Set profile
      *
      * @param integer $profile
      */
-    public function setProfile($profile) {$this->profile = $profile; }
+    public function setProfile($profile)
+    {
+       $this->profile = $profile;
+
+        return $this;
+    }
 
     /**
      * Get prevPass1
      *
      * @return string
      */
-    public function getPrevPass1() { return $this->prevPass1; }
+    public function getPrevPass1()
+    {
+        return $this->prevPass1;
+    }
 
     /**
      * Set prevPass1
      *
      * @param string $prevPass1
      */
-    public function setPrevPass1($prevPass1) { $this->prevPass1 = $prevPass1; }
+    public function setPrevPass1($prevPass1)
+    {
+        $this->prevPass1 = $prevPass1;
+
+        return $this;
+    }
 
     /**
      * Get prevPass2
      *
      * @return string
      */
-    public function getPrevPass2() { return $this->prevPass2; }
+    public function getPrevPass2()
+    {
+        return $this->prevPass2;
+    }
 
     /**
      * Set prevPass2
      *
      * @param string $prevPass2
      */
-    public function setPrevPass2($prevPass2) { $this->prevPass2 = $prevPass2; }
+    public function setPrevPass2($prevPass2)
+    {
+        $this->prevPass2 = $prevPass2;
+
+        return $this;
+    }
 
     /**
      * Get prevPass3
@@ -370,133 +449,209 @@ class AdminUser implements UserInterface
      *
      * @param string $prevPass3
      */
-    public function setPrevPass3($prevPass3) { $this->prevPass3 = $prevPass3; }
+    public function setPrevPass3($prevPass3)
+    {
+        $this->prevPass3 = $prevPass3;
+
+        return $this;
+    }
 
     /**
      * Get pwdLastChangeDate
      *
      * @return \DateTime
      */
-    public function getPwdLastChangeDate() { return $this->pwdLastChangeDate; }
+    public function getPwdLastChangeDate()
+    {
+        return $this->pwdLastChangeDate;
+    }
 
     /**
      * Set pwdLastChangeDate
      *
      * @param \DateTime $pwdLastChangeDate
      */
-    public function setPwdLastChangeDate($pwdLastChangeDate) { $this->pwdLastChangeDate = $pwdLastChangeDate; }
+    public function setPwdLastChangeDate($pwdLastChangeDate)
+    {
+        $this->pwdLastChangeDate = $pwdLastChangeDate;
+
+        return $this;
+    }
 
     /**
      * Get resetToken
      *
      * @return string
      */
-    public function getResetToken() { return $this->resetToken; }
+    public function getResetToken()
+    {
+        return $this->resetToken;
+    }
 
     /**
      * Set resetToken
      *
      * @param string $resetToken
      */
-    public function setResetToken($resetToken) { $this->resetToken = $resetToken; }
+    public function setResetToken($resetToken)
+    {
+        $this->resetToken = $resetToken;
+
+        return $this;
+    }
 
     /**
      * Get lastModified
      *
      * @return \DateTime
      */
-    public function getLastModified() { return $this->lastModified; }
+    public function getLastModified()
+    {
+        return $this->lastModified;
+    }
 
     /**
      * Set lastModified
      *
      * @param \DateTime $lastModified
      */
-    public function setLastModified($lastModified) { $this->lastModified = $lastModified; }
+    public function setLastModified($lastModified)
+    {
+        $this->lastModified = $lastModified;
+
+        return $this;
+    }
 
     /**
      * Get lastLoginDate
      *
      * @return \DateTime
      */
-    public function getLastLoginDate() { return $this->lastLoginDate; }
+    public function getLastLoginDate()
+    {
+        return $this->lastLoginDate;
+    }
 
     /**
      * Set lastLoginDate
      *
      * @param \DateTime $lastLoginDate
      */
-    public function setLastLoginDate($lastLoginDate) { $this->lastLoginDate = $lastLoginDate; }
+    public function setLastLoginDate($lastLoginDate)
+    {
+        $this->lastLoginDate = $lastLoginDate;
+
+        return $this;
+    }
 
     /**
      * Get lastLoginIp
      *
      * @return string
      */
-    public function getLastLoginIp() { return $this->lastLoginIp; }
+    public function getLastLoginIp()
+    {
+        return $this->lastLoginIp;
+    }
 
     /**
      * Set lastLoginIp
      *
      * @param string $lastLoginIp
      */
-    public function setLastLoginIp($lastLoginIp) { $this->lastLoginIp = $lastLoginIp; }
+    public function setLastLoginIp($lastLoginIp)
+    {
+        $this->lastLoginIp = $lastLoginIp;
+
+        return $this;
+    }
 
     /**
      * Get failedLogins
      *
      * @return integer
      */
-    public function getFailedLogins() { return $this->failedLogins; }
+    public function getFailedLogins()
+    {
+        return $this->failedLogins;
+    }
 
     /**
      * Set failedLogins
      *
      * @param integer $failedLogins
      */
-    public function setFailedLogins($failedLogins) { $this->failedLogins = $failedLogins; }
+    public function setFailedLogins($failedLogins)
+    {
+        $this->failedLogins = $failedLogins;
+
+        return $this;
+    }
 
     /**
      * Get lockoutExpires
      *
      * @return integer
      */
-    public function getLockoutExpires() { return $this->lockoutExpires;}
+    public function getLockoutExpires()
+    {
+        return $this->lockoutExpires;}
 
     /**
      * Set lockoutExpires
      *
      * @param integer $lockoutExpires
      */
-    public function setLockoutExpires($lockoutExpires) { $this->lockoutExpires = $lockoutExpires; }
+    public function setLockoutExpires($lockoutExpires)
+    {
+        $this->lockoutExpires = $lockoutExpires;
+
+        return $this;
+    }
 
     /**
      * Get lastFailedAttempt
      *
      * @return \DateTime
      */
-    public function getLastFailedAttempt() { return $this->lastFailedAttempt; }
+    public function getLastFailedAttempt()
+    {
+        return $this->lastFailedAttempt;
+    }
 
     /**
      * Set lastFailedAttempt
      *
      * @param \DateTime $lastFailedAttempt
      */
-    public function setLastFailedAttempt($lastFailedAttempt){ $this->lastFailedAttempt = $lastFailedAttempt; }
+    public function setLastFailedAttempt($lastFailedAttempt)
+    {
+        $this->lastFailedAttempt = $lastFailedAttempt;
+
+        return $this;
+    }
 
     /**
      * Get lastFailedIp
      *
      * @return string
      */
-    public function getLastFailedIp() { return $this->lastFailedIp; }
+    public function getLastFailedIp()
+    {
+        return $this->lastFailedIp;
+    }
 
     /**
      * Set lastFailedIp
      *
      * @param string $lastFailedIp
      */
-    public function setLastFailedIp($lastFailedIp) { $this->lastFailedIp = $lastFailedIp; }
+    public function setLastFailedIp($lastFailedIp)
+    {
+        $this->lastFailedIp = $lastFailedIp;
+
+        return $this;
+    }
 
     /**
      * {@inhertDoc}
@@ -515,6 +670,8 @@ class AdminUser implements UserInterface
     public function addAdminRole(\ZenMagick\AdminBundle\Entity\AdminRole $adminRole)
     {
         $this->adminRole[] = $adminRole;
+
+        return $this;
     }
 
     /**
@@ -526,6 +683,8 @@ class AdminUser implements UserInterface
     public function removeAdminRole(\ZenMagick\AdminBundle\Entity\AdminRole $adminRole)
     {
         $this->adminRole->removeElement($adminRole);
+
+        return $this;
     }
 
     /**
@@ -534,7 +693,10 @@ class AdminUser implements UserInterface
      * @return Doctrine\Common\Collections\Collection
      * @todo rename to role once we can use it
      */
-    public function getAdminRole() { return $this->adminRole; }
+    public function getAdminRole()
+    {
+        return $this->adminRole;
+    }
 
     /**
      * {@inhertDoc}
