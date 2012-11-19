@@ -23,6 +23,7 @@ namespace ZenMagick\StoreBundle\Entity\Coupons;
 
 use ZenMagick\Base\ZMObject;
 
+use DateTime;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -180,8 +181,8 @@ class Coupon extends ZMObject
         $this->type = $type;
         $this->active = 'Y';
         $this->minOrderAmount = 0;
-        $this->startDate = '0001-01-01 00:00:00';
-        $this->expiryDate = '0001-01-01 00:00:00';
+        $this->startDate = new DateTime();
+        $this->expiryDate = new DateTime();
         $this->usesPerCoupon = 1;
         $this->usesPerUser = 0;
         $this->restrictToZone = 0;
