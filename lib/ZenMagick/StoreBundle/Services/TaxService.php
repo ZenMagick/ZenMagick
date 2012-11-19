@@ -59,6 +59,7 @@ class TaxService extends ZMObject
     public function getTaxRateForClassId($taxClassId, $countryId=0, $zoneId=0)
     {
         $settingsService = $this->container->get('settingsService');
+        // TODO: get rid of this as request should not be used here
         if (0 == $countryId && 0 == $zoneId) {
             $account = $this->container->get('request')->getAccount();
             if (null != $account && Account::ANONYMOUS == $account->getType()) {
