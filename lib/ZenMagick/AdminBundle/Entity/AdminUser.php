@@ -171,7 +171,7 @@ class AdminUser implements UserInterface
      * @ORM\ManyToMany(targetEntity="AdminRole", inversedBy="admin")
      * @ORM\JoinTable(name="admins_to_roles",
      *   joinColumns={
-     *     @ORM\JoinColumn(name="admin_id", referencedColumnName="admin_id")
+     *     @ORM\JoinColumn(name="admin_id", referencedColumnName="admin_id", onDelete="CASCADE")
      *   },
      *   inverseJoinColumns={
      *     @ORM\JoinColumn(name="admin_role_id", referencedColumnName="admin_role_id")
