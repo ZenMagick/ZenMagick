@@ -32,12 +32,13 @@ class LoginController extends \ZMController
     /**
      * {@inheritDoc}
      */
-    public function processGet($request)
+    public function showAction()
     {
         if ($this->get('security.context')->isGranted('IS_AUTHENTICATED_FULLY')) {
             $this->redirect($this->generateUrl('admin_index'));
         }
 
+        $request = $this->getRequest();
         $session = $request->getSession();
         // get the login error if there is one
         if ($request->attributes->has(SecurityContext::AUTHENTICATION_ERROR)) {

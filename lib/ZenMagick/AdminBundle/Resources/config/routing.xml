@@ -36,9 +36,7 @@
     </route>
 
     <route id="admin_login" pattern="/login">
-        <default key="_controller">AdminBundle:Login:process</default>
-        <option key="view:logged-in">redirect://admin_index</option>
-        <option key="view:success">redirect://admin_index</option>
+        <default key="_controller">AdminBundle:Login:show</default>
     </route>
 
     <route id="admin_logout" pattern="/logout" />
