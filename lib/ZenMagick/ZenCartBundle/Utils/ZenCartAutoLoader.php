@@ -156,7 +156,12 @@ class ZenCartAutoLoader extends ZMObject
 
         $this->setGlobalValue('zco_notifier', new \ZenMagick\ZenCartBundle\Compat\Notifier);
         $this->setGlobalValue('db', $this->container->get('zencart.query_factory'));
-        $this->setGlobalValue('messageStack', new \messageStack);
+        if (Runtime::isContextMatch('admin')) {
+            $messageStack = $this->container->get('zencart.admin.message_stack');
+        } else {
+            $messageStack = $this->container->get('zencart.storefront.message_stack');
+        }
+        $this->setGlobalValue('messageStack', $messageStack);
         $this->setGlobalValue('template', new \template_func);
         $this->setGlobalValue('sniffer', new \sniffer);
 

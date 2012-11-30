@@ -22,6 +22,14 @@
             <argument type="service" id="database_connection" />
         </service>
 
+        <service id="zencart.storefront.message_stack" class="ZenMagick\ZenCartBundle\Compat\MessageStack">
+            <argument type="service" id="session.flash_bag" />
+        </service>
+
+        <service id="zencart.admin.message_stack" class="ZenMagick\ZenCartBundle\Compat\AdminMessageStack">
+            <argument type="service" id="session.flash_bag" />
+        </service>
+
         <service id="zencart.encoder.password" class="ZenMagick\ZenCartBundle\Security\Core\Encoder\ZenCartPasswordEncoder">
             <tag name="zenmagick.base.security.authentication.provider" default="true" />
         </service>

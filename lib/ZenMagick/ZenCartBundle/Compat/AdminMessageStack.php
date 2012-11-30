@@ -18,16 +18,36 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
+namespace ZenMagick\ZenCartBundle\Compat;
+
+use Symfony\Component\HttpFoundation\Session\Flash\FlashBagInterface;
+
 /**
  * ZenCart admin messageStack wrapper
  */
-class messageStack {
-    function add($message, $type = 'error') {
-        $type = in_array($type, array('caution', 'warning')) ? 'warn' : $type;
-        \ZenMagick\Base\Runtime::getContainer()->get('session')->getFlashBag()->addMessage($message, $type);
+class AdminMessageStack
+{
+    private $flashBag;
+
+    /**
+     * @param FlashBagInterface
+     */
+    public function __construct(FlashBagInterface $flashBag)
+    {
+        $this->flashBag = $flashBag;
     }
-    function add_session($message, $type = 'error') {
+
+    public function add($message, $type = 'error')
+    {
+        $type = in_array($type, array('caution', 'warning')) ? 'warn' : $type;
+        $this->flashBag->addMessage($message, $type);
+    }
+
+    public function add_session($message, $type = 'error')
+    {
         $this->add($message, $type);
     }
-    function reset() { }
+    public function reset()
+    {
+    }
 }

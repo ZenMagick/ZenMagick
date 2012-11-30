@@ -18,7 +18,9 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-use ZenMagick\Base\Runtime;
+namespace ZenMagick\ZenCartBundle\Compat;
+
+use Symfony\Component\HttpFoundation\Session\Flash\FlashBagInterface;
 
 /**
  * ZenCart wrapper for ZenMagick's messsageService
@@ -28,21 +30,25 @@ use ZenMagick\Base\Runtime;
  *
  * @author Johnny Robeson <johnny@localmomentum.net>
  */
-class messageStack {
+class MessageStack
+{
+
+    private $flashBag;
+
     /**
-     * Get ZenMagick message service.
-     *
-     * @return object
+     * @param FlashBagInterface
      */
-    private function getService() {
-        return Runtime::getContainer()->get('session')->getFlashBag();
+    public function __construct(FlashBagInterface $flashBag)
+    {
+        $this->flashBag = $flashBag;
     }
 
     /**
      * Clear messages.
      */
-    public function reset() {
-        $this->getService()->clear();
+    public function reset()
+    {
+        $this->flashBag->clear();
     }
 
 
@@ -57,9 +63,10 @@ class messageStack {
      * @param string message message text
      * @param string type message type
      */
-    public function add($class, $message, $type = 'error') {
+    public function add($class, $message, $type = 'error')
+    {
         $type = in_array($type, array('caution', 'warning')) ? 'warn' : $type;
-        $this->getService()->addMessage($message, $type, $class);
+        $this->flashBag->addMessage($message, $type, $class);
     }
 
     /**
@@ -69,7 +76,8 @@ class messageStack {
      * @param string message message text
      * @param string type message type
      */
-    public function add_session($class, $message, $type = 'error') {
+    public function add_session($class, $message, $type = 'error')
+    {
         $this->add($class, $message, $type);
     }
 
@@ -84,7 +92,8 @@ class messageStack {
      * @param string type message type
      * @return string html img tag
      */
-    private function getIcon($type) {
+    private function getIcon($type)
+    {
         $type = $type == 'warn' ? 'warning' : $type;
         $type = strtoupper($type);
 
@@ -92,8 +101,10 @@ class messageStack {
             $file = constant('ICON_IMAGE_'.$type);
             $alt = constant('ICON_'.$type.'_ALT');
             $path = $GLOBALS['template']->get_template_dir($file, DIR_WS_TEMPLATE, $GLOBALS['current_page_base'], 'images/icons');
+
             return zen_image($path.'/'.$file, $alt) . '  ';
         }
+
         return '';
     }
 
@@ -105,10 +116,11 @@ class messageStack {
      *
      * @param string class named stack to get messages
      */
-    public function output($class) {
-        $messages = $this->getService()->getMessages($class);
+    public function output($class)
+    {
+        $messages = $this->flashBag->getMessages($class);
         if ('header' == $class) {
-            if (null != ($global = $this->getService()->getMessages('global'))) {
+            if (null != ($global = $this->flashBag->getMessages('global'))) {
                 $messages = array_merge($messages, $global);
             }
         }
@@ -141,11 +153,13 @@ class messageStack {
      * @param string class named stack to count
      * @return int (0 or 1 only)
      */
-    public function size($class) {
-        $hasMessages = $this->getService()->hasMessages($class);
+    public function size($class)
+    {
+        $hasMessages = $this->flashBag->hasMessages($class);
         if ('header' == $class) {
-           $hasMessages = $hasMessages || $this->getService()->hasMessages('global');
+           $hasMessages = $hasMessages || $this->flashBag->hasMessages('global');
         }
-        return (int)$hasMessages;
+
+        return (int) $hasMessages;
     }
 }
