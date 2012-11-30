@@ -71,7 +71,6 @@ class ZenCartBundle extends Bundle
             'navigationHistory' => $zc.'navigation_history.php',
             'currencies' => ($isAdmin ? $zca : $zc).'currencies.php',
             'httpClient' => $zc.'http_client.php',
-            'messageStack' => ($isAdmin ? $ba : $b).'message_stack.php',
             // ZenCart admin/storefront
             'breadcrumb' => $zc.'breadcrumb.php',
             'category_tree' => $zc.'category_tree.php',
