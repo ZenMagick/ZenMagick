@@ -386,7 +386,7 @@
       } else {
         return false;
       }
-    } elseif( is_a( $value, 'queryFactoryResult' ) ) {
+    } elseif(is_object($value) && $value instanceof ZenMagick\ZenCartBundle\Compat\QueryFactoryResult) {
       if (sizeof($value->result) > 0) {
         return true;
       } else {

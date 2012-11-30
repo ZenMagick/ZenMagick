@@ -74,8 +74,6 @@ class ZenCartBundle extends Bundle
             'httpClient' => $zc.'http_client.php',
             'messageStack' => ($isAdmin ? $ba : $b).'message_stack.php',
             'notifier' => $zc.'class.notifier.php',
-            'queryFactory' => $b.'db/mysql/query_factory.php',
-            'queryFactoryResult' => $b.'db/mysql/query_factory.php',
             // ZenCart admin/storefront
             'breadcrumb' => $zc.'breadcrumb.php',
             'category_tree' => $zc.'category_tree.php',

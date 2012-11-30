@@ -18,6 +18,14 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
+namespace ZenMagick\ZenCartBundle\Compat;
+
+use ZenMagick\Base\Runtime;
+use ZenMagick\Base\ZMException;
+
+use Doctrine\DBAL\Connection;
+use Doctrine\DBAL\Cache\QueryCacheProfile;
+
 /**
   * ZenCart database abstraction layer implementation
   *
@@ -26,13 +34,26 @@
   *
   * @author Johnny Robeson
   */
-class queryFactory {
-    public $link; // backwards compatibility
+class QueryFactory
+{
+    /**
+     * mysql ext resource often used in admin contributions
+     *
+     * @var resource $link mysql_ext resource
+     */
+    public $link;
+
+    private $conn;
 
     private $hasResultCache = false;
 
-    public function __construct() {
-        $this->hasResultCache = null != ZMRuntime::getDatabase()->getConfiguration()->getResultCacheImpl();
+    /**
+     * @param Connection a doctrine dbal connection object
+     */
+    public function __construct(Connection $conn)
+    {
+        $this->hasResultCache = null != $conn->getConfiguration()->getResultCacheImpl();
+        $this->conn = $conn;
     }
 
     /**
@@ -44,9 +65,9 @@ class queryFactory {
      */
     public function mysql_connect($params = null) {
         if(!function_exists('mysql_connect')) {
-            throw new \ZenMagick\Base\ZMException('Install `ext/mysql` extension to enable mysql_* functions.');
+            throw new ZMException('Install `ext/mysql` extension to enable mysql_* functions.');
         }
-        $defaults = ZMRuntime::getDatabase()->getParams();
+        $defaults = $this->conn->getParams();
         $params = array_merge($defaults, (array)$params);
         $link = mysql_connect($params['host'], $params['user'], $params['password'], true);
 
@@ -55,9 +76,10 @@ class queryFactory {
                 mysql_set_charset($params['charset']);
             }
             $this->link = $link;
+
             return $this->link;
         } else {
-            throw new \ZenMagick\Base\ZMException(mysql_error(), mysql_errno());
+            throw new ZMException(mysql_error(), mysql_errno());
         }
     }
 
@@ -72,32 +94,35 @@ class queryFactory {
      * @param int $limit limit the number of results
      * @param bool $useCache cache the query
      * @param int $cacheTime how long to cache the query for (in seconds)
-     * @return object queryFactoryResult
+     * @return object QueryFactoryResult
      */
-    public function Execute($sql, $limit = null, $useCache = false, $cacheTime = 0) {
+    public function Execute($sql, $limit = null, $useCache = false, $cacheTime = 0)
+    {
         $sql = trim($sql);
         $commandType = strtolower(substr($sql, 0, 3));
         if (!in_array($commandType, array('des', 'sel', 'sho'))) {
             try {
-                return  ZMRuntime::getDatabase()->executeUpdate($sql);
-            } catch (PDOException $e) {
-               throw new \ZenMagick\Base\ZMException($e->getMessage(), $e->getCode(), $e);
+
+                return  $this->conn->executeUpdate($sql);
+            } catch (\PDOException $e) {
+               throw new ZMException($e->getMessage(), $e->getCode(), $e);
             }
         }
         if ($limit) $sql .= ' LIMIT ' . $limit;
 
         $qcp = null;
         if ($useCache && $this->hasResultCache) {
-           $qcp =  new Doctrine\DBAL\Cache\QueryCacheProfile($cacheTime, md5($sql));
+           $qcp =  new QueryCacheProfile($cacheTime, md5($sql));
         }
         try {
-            $stmt = ZMRuntime::getDatabase()->executeQuery($sql, array(), array(), $qcp);
-        } catch (PDOException $e) {
-            throw new \ZenMagick\Base\ZMException($e->getMessage(), $e->getCode(), $e);
+            $stmt = $this->conn->executeQuery($sql, array(), array(), $qcp);
+        } catch (\PDOException $e) {
+            throw new ZMException($e->getMessage(), $e->getCode(), $e);
         }
 
-        $obj = new queryFactoryResult($stmt);
+        $obj = new QueryFactoryResult($stmt);
         $obj->MoveNext();
+
         return $obj;
     }
 
@@ -114,11 +139,12 @@ class queryFactory {
      *
      * @param string $sql sql query string
      * @param int $limit limit the number of returned results
-     * @param object queryFactoryResult
+     * @param object QueryFactoryResult
      * @todo we could be a lot more strict in detecting <code>ORDER BY RAND()</code>
      *       but it is probably not worth it.
      */
-    public function ExecuteRandomMulti($sql, $limit = null, $useCache = false, $cacheTime = 0) {
+    public function ExecuteRandomMulti($sql, $limit = null, $useCache = false, $cacheTime = 0)
+    {
         if (!preg_match('/ORDER\ BY\ RAND/i', $sql)) {
             $sql .=  ' ORDER BY RAND() ';
         }
@@ -131,14 +157,16 @@ class queryFactory {
      * @param string $table table to get meta details for
      * @return array
      */
-    public function metaColumns($table) {
+    public function metaColumns($table)
+    {
         $details = array();
-        foreach (ZMRuntime::getDatabase()->getMetaData($table) as $name => $attrs) {
+        foreach ($this->conn->getMetaData($table) as $name => $attrs) {
             $meta = new \stdClass();
             $meta->type = $attrs['type'];
             $meta->max_length = isset($attrs['length']) && null != $attrs['length'] ? $attrs['length'] : 3;
             $details[strtoupper($name)] = $meta;
         }
+
         return $details;
     }
 
@@ -149,9 +177,9 @@ class queryFactory {
      * @param array $tableData
      * @param string $type type of query to perform (insert|update)
      * @param string $filter WHERE ...
-     * @return void
      */
-    public function perform($table, $tableData, $type = 'insert', $filter = '') {
+    public function perform($table, $tableData, $type = 'insert', $filter = '')
+    {
         $data = array();
         $types = array();
         foreach ($tableData as $key => $value) {
@@ -172,7 +200,7 @@ class queryFactory {
 
         switch (strtolower($type)) {
             case 'insert':
-                ZMRuntime::getDatabase()->insert($table, $data, $types);
+                $this->conn->insert($table, $data, $types);
             break;
             case 'update':
                 $filter = str_replace(array(' and ', ' AND '), '|', $filter);
@@ -182,7 +210,7 @@ class queryFactory {
                     list($field, $value) = explode(' = ', $v);
                     $identifiers[$field] = $value;
                 }
-                ZMRuntime::getDatabase()->update($table, $data, $identifiers, $types);
+                $this->conn->update($table, $data, $identifiers, $types);
             break;
         }
     }
@@ -200,7 +228,8 @@ class queryFactory {
      * @param string $type type of value
      * @return mixed transformed value
      */
-    public function getBindVarValue($value, $type) {
+    public function getBindVarValue($value, $type)
+    {
         $typeArray = explode(':',$type);
         $type = $typeArray[0];
         switch ($type) {
@@ -218,7 +247,8 @@ class queryFactory {
                 if (isset($typeArray[1])) {
                     $regexp = $typeArray[1];
                 }
-                return ZMRuntime::getDatabase()->quote($value);
+
+                return $this->conn->quote($value);
             break;
             case 'noquotestring':
                 return $this->prepare_input($value);
@@ -229,15 +259,16 @@ class queryFactory {
                 if (isset($typeArray[1])) {
                     $enumArray = explode('|', $typeArray[1]);
                 }
-                return ZMRuntime::getDatabase()->quote($value);
+                return $this->conn->quote($value);
             case 'regexp':
                 $searchArray = array('[', ']', '(', ')', '{', '}', '|', '*', '?', '.', '$', '^');
                 foreach ($searchArray as $searchTerm) {
                     $value = str_replace($searchTerm, '\\' . $searchTerm, $value);
                 }
+
                 return $this->prepare_input($value);
             default:
-                throw new \ZenMagick\Base\ZMException('var-type undefined: ' . $type . '('.$value.')');
+                throw new ZMException('var-type undefined: ' . $type . '('.$value.')');
         }
     }
 
@@ -255,90 +286,51 @@ class queryFactory {
      * @todo attempt to actually bind some of these parameters? It seems a bit more difficult since
      *       bindVar isn't only used for sql, but also generic str cleaning elsewhere.
      */
-    public function bindVars($sql, $param, $value, $type) {
+    public function bindVars($sql, $param, $value, $type)
+    {
         $sqlFix = $this->getBindVarValue($value, $type);
         return str_replace($param, $sqlFix, $sql);
     }
 
     // compatibility wrappers
-    public function connect() { return true; }
-    public function close() { ZMRuntime::getDatabase()->close(); }
-    public function get_server_info() { return ZMRuntime::getDatabase()->getWrappedConnection()->getAttribute(PDO::ATTR_SERVER_VERSION); }
-    public function insert_ID() { return ZMRuntime::getDatabase()->lastInsertId(); }
-    public function prepare_input($string) { return str_replace(array('\\', "\0", "\n", "\r", "'", '"', "\x1a"), array('\\\\', '\\0', '\\n', '\\r', "\\'", '\\"', '\\Z'), $string); }
-    public function prepareInput($string) { return $this->prepare_input($string); }
+    public function connect()
+    {
+        return true;
+    }
+
+    public function close()
+    {
+        $this->conn->close();
+    }
+
+    public function get_server_info()
+    {
+        return $this->conn->getWrappedConnection()->getAttribute(\PDO::ATTR_SERVER_VERSION);
+    }
+
+    public function insert_ID()
+    {
+        return $this->conn->lastInsertId();
+    }
+
+    public function prepare_input($string)
+    {
+        return str_replace(array('\\', "\0", "\n", "\r", "'", '"', "\x1a"), array('\\\\', '\\0', '\\n', '\\r', "\\'", '\\"', '\\Z'), $string);
+    }
+
+    public function prepareInput($string)
+    {
+        return $this->prepare_input($string);
+    }
+
     // @todo could implement these if we need to.
-    public function queryCount() { return 0; }
-    public function queryTime() { return 0; }
-
-}
-
-/**
- * Wrapper around a DBAL provided statement object
- */
-class queryFactoryResult {
-    public $EOF = false;
-    private $stmt;
-
-    /**
-     * Initialize result set.
-     *
-     * @param object $stmt a doctrine dbal provided statement object
-     */
-    public function __construct($stmt) {
-        $this->stmt = $stmt;
+    public function queryCount()
+    {
+        return 0;
     }
 
-    /**
-     * Get the number of records in the result set.
-     * @return int number of rows
-     */
-    public function RecordCount() {
-        return $this->stmt->rowCount();
-    }
-
-    /**
-     * Move the pointer to the next row in the result set.
-     *
-     * if there are no results then then <code>$this->EOF</code> is set to true
-     * and <code>$this->fields</code> is not populated.
-     */
-    public function MoveNext() {
-        $result = $this->stmt->fetch(PDO::FETCH_ASSOC);
-        if ($result) {
-            $this->fields = $result;
-        } else {
-            $this->EOF = true;
-            $this->stmt->closeCursor();
-        }
-    }
-
-    /**
-     * Iterate over a result set that has already been randomized.
-     *
-     * This is different behaviour than the original class, but this should
-     * be much faster.
-     */
-    public function MoveNextRandom() {
-        $this->MoveNext();
-    }
-
-    /**
-     * Move to a specified row in the result set.
-     *
-     * This cursor only moves forward. There is only one caller
-     * (<code>zen_random_row</code>) of this method in ZenCart
-     * and all callers of that are commented out as of ZenCart 1.5.0
-     * so it doesn't seem worth it to implement a scrollable cursor here.
-     *
-     * This method also silently stops when it reaches the last result
-     *
-     * @param int $row. Which row to scroll to
-     */
-    public function Move($row) {
-        $row -=1;
-        while (0 < $row) {
-            $this->MoveNext();
-        }
+    public function queryTime()
+    {
+        return 0;
     }
 }
