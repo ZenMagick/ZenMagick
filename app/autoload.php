@@ -37,4 +37,7 @@ require_once __DIR__.'/../lib/ZenMagick/Base/Locales/functions.php';
 
 AnnotationRegistry::registerLoader(array($loader, 'loadClass'));
 
+// @todo move this into the ZenCartBundle autoloader once it has composer.json
+class_alias('ZenMagick\ZenCartBundle\Compat\Base', 'base');
+
 return $loader;
