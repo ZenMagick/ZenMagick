@@ -55,6 +55,7 @@ class ZenCartBundle extends Bundle
      */
     public function initClassLoader()
     {
+        class_alias('ZenMagick\ZenCartBundle\Compat\Base', 'base');
         $isAdmin = Runtime::isContextMatch('admin');
         !defined('IS_ADMIN_FLAG') && define('IS_ADMIN_FLAG', $isAdmin);
         $classLoader = new \Composer\AutoLoad\ClassLoader();
@@ -67,7 +68,6 @@ class ZenCartBundle extends Bundle
         $b  = __DIR__.'/bridge/includes/classes/';
         $ba  = __DIR__.'/bridge/admin/includes/classes/';
         $map = array(
-            'base' => $b.'class.base.php',
             'shoppingCart' => $zc.'shopping_cart.php',
             'navigationHistory' => $zc.'navigation_history.php',
             'currencies' => ($isAdmin ? $zca : $zc).'currencies.php',

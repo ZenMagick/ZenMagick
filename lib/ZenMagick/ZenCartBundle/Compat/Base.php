@@ -8,6 +8,9 @@
  * @license http://www.zen-cart.com/license/2_0.txt GNU Public License V2.0
  * @version $Id: class.base.php 14535 2009-10-07 22:16:19Z wilt $
  */
+
+namespace ZenMagick\ZenCartBundle\Compat;
+
 /**
  * Base class for ZenCart
  *
@@ -20,7 +23,7 @@
  *
  *
  */
-class base {
+abstract class Base {
 
     protected static $observers;
 
