@@ -154,7 +154,7 @@ class ZenCartAutoLoader extends ZMObject
 
         // Common classes
 
-        $this->setGlobalValue('zco_notifier', new \notifier);
+        $this->setGlobalValue('zco_notifier', new \ZenMagick\ZenCartBundle\Compat\Notifier);
         $this->setGlobalValue('db', $this->container->get('zencart.query_factory'));
         $this->setGlobalValue('messageStack', new \messageStack);
         $this->setGlobalValue('template', new \template_func);
