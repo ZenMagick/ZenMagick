@@ -18,6 +18,7 @@ namespace ZenMagick\ZenCartBundle\Compat;
  * IS_ADMIN_FLAG check removed
  * namespaced
  * replace TABLE_* with %table.* as per the rest of the ZM codebase
+ * s/zen_db_input/addslashes/g
  * Add Attributes listing to product listing page as per this thread:
  *     http://www.zen-cart.com/showthread.php?98641-drop-down-attributes-at-product-listing-page-near-add-to-cart-button&p=608469#post608469
  */
@@ -102,7 +103,7 @@ class ShoppingCart extends Base
                 $product_query = "select products_id
                     from %table.customers_basket%
                     where customers_id = '" . (int) $_SESSION['customer_id'] . "'
-                    and products_id = '" . zen_db_input($products_id) . "'";
+                    and products_id = '" . addslashes($products_id) . "'";
 
                 $product = $db->Execute($product_query);
 
@@ -110,7 +111,7 @@ class ShoppingCart extends Base
                     $sql = "insert into %table.customers_basket%
                         (customers_id, products_id, customers_basket_quantity,
                         customers_basket_date_added)
-                        values ('" . (int) $_SESSION['customer_id'] . "', '" . zen_db_input($products_id) . "', '" .
+                        values ('" . (int) $_SESSION['customer_id'] . "', '" . addslashes($products_id) . "', '" .
                         $qty . "', '" . date('Ymd') . "')";
 
                     $db->Execute($sql);
@@ -123,12 +124,12 @@ class ShoppingCart extends Base
                             $attr_value = $this->contents[$products_id]['attributes_values'][$option];
                             $products_options_sort_order= zen_get_attributes_options_sort_order(zen_get_prid($products_id), $option, $value);
                             if ($attr_value) {
-                                $attr_value = zen_db_input($attr_value);
+                                $attr_value = addslashes($attr_value);
                             }
                             $sql = "insert into %table.customers_basket_attributes%
                                 (customers_id, products_id, products_options_id,
                                 products_options_value_id, products_options_value_text, products_options_sort_order)
-                                values ('" . (int) $_SESSION['customer_id'] . "', '" . zen_db_input($products_id) . "', '" .
+                                values ('" . (int) $_SESSION['customer_id'] . "', '" . addslashes($products_id) . "', '" .
                                 $option . "', '" . $value . "', '" . $attr_value . "', '" . $products_options_sort_order . "')";
 
                             $db->Execute($sql);
@@ -138,7 +139,7 @@ class ShoppingCart extends Base
                     $sql = "update %table.customers_basket%
                         set customers_basket_quantity = '" . $qty . "'
                         where customers_id = '" . (int) $_SESSION['customer_id'] . "'
-                        and products_id = '" . zen_db_input($products_id) . "'";
+                        and products_id = '" . addslashes($products_id) . "'";
 
                     $db->Execute($sql);
 
@@ -166,7 +167,7 @@ class ShoppingCart extends Base
             $attributes = $db->Execute("select products_options_id, products_options_value_id, products_options_value_text
                 from %table.customers_basket_attributes%
                 where customers_id = '" . (int) $_SESSION['customer_id'] . "'
-                and products_id = '" . zen_db_input($products->fields['products_id']) . "' " . $order_by);
+                and products_id = '" . addslashes($products->fields['products_id']) . "' " . $order_by);
 
             while (!$attributes->EOF) {
                 $this->contents[$products->fields['products_id']]['attributes'][$attributes->fields['products_options_id']] = $attributes->fields['products_options_value_id'];
@@ -261,7 +262,7 @@ class ShoppingCart extends Base
                 $sql = "insert into %table.customers_basket%
                     (customers_id, products_id, customers_basket_quantity,
                     customers_basket_date_added)
-                    values ('" . (int) $_SESSION['customer_id'] . "', '" . zen_db_input($products_id) . "', '" .
+                    values ('" . (int) $_SESSION['customer_id'] . "', '" . addslashes($products_id) . "', '" .
                     $qty . "', '" . date('Ymd') . "')";
 
                 $db->Execute($sql);
@@ -297,7 +298,7 @@ class ShoppingCart extends Base
                         }
                         // insert into database
                         //CLR 020606 update db insert to include attribute value_text. This is needed for text attributes.
-                        //CLR 030228 add zen_db_input() processing
+                        //CLR 030228 add addslashes() processing
                         if (isset($_SESSION['customer_id'])) {
 
                             if (is_array($value) ) {
@@ -306,19 +307,19 @@ class ShoppingCart extends Base
                                     $products_options_sort_order= zen_get_attributes_options_sort_order(zen_get_prid($products_id), $option, $opt);
                                     $sql = "insert into %table.customers_basket_attributes%
                                         (customers_id, products_id, products_options_id, products_options_value_id, products_options_sort_order)
-                                        values ('" . (int) $_SESSION['customer_id'] . "', '" . zen_db_input($products_id) . "', '" .
+                                        values ('" . (int) $_SESSION['customer_id'] . "', '" . addslashes($products_id) . "', '" .
                                         (int) $option.'_chk'. (int) $val . "', '" . (int) $val . "',  '" . $products_options_sort_order . "')";
 
                                     $db->Execute($sql);
                                 }
                             } else {
                                 if ($attr_value) {
-                                    $attr_value = zen_db_input($attr_value);
+                                    $attr_value = addslashes($attr_value);
                                 }
                                 $products_options_sort_order= zen_get_attributes_options_sort_order(zen_get_prid($products_id), $option, $value);
                                 $sql = "insert into %table.customers_basket_attributes%
                                     (customers_id, products_id, products_options_id, products_options_value_id, products_options_value_text, products_options_sort_order)
-                                    values ('" . (int) $_SESSION['customer_id'] . "', '" . zen_db_input($products_id) . "', '" .
+                                    values ('" . (int) $_SESSION['customer_id'] . "', '" . addslashes($products_id) . "', '" .
                                     (int) $option . "', '" . (int) $value . "', '" . $attr_value . "', '" . $products_options_sort_order . "')";
 
                                 $db->Execute($sql);
@@ -359,7 +360,7 @@ class ShoppingCart extends Base
             $sql = "update %table.customers_basket%
                 set customers_basket_quantity = '" . (float) $quantity . "'
                 where customers_id = '" . (int) $_SESSION['customer_id'] . "'
-                and products_id = '" . zen_db_input($products_id) . "'";
+                and products_id = '" . addslashes($products_id) . "'";
 
             $db->Execute($sql);
 
@@ -395,10 +396,10 @@ class ShoppingCart extends Base
                     }
                     // update database
                     //CLR 020606 update db insert to include attribute value_text. This is needed for text attributes.
-                    //CLR 030228 add zen_db_input() processing
+                    //CLR 030228 add addslashes() processing
 
                     if ($attr_value) {
-                        $attr_value = zen_db_input($attr_value);
+                        $attr_value = addslashes($attr_value);
                     }
                     if (is_array($value) ) {
                         reset($value);
@@ -407,7 +408,7 @@ class ShoppingCart extends Base
                             $sql = "update %table.customers_basket_attributes%
                                 set products_options_value_id = '" . (int) $val . "'
                                 where customers_id = '" . (int) $_SESSION['customer_id'] . "'
-                                and products_id = '" . zen_db_input($products_id) . "'
+                                and products_id = '" . addslashes($products_id) . "'
                                 and products_options_id = '" . (int) $option.'_chk'.(int) $val . "'";
 
                             $db->Execute($sql);
@@ -417,7 +418,7 @@ class ShoppingCart extends Base
                             $sql = "update %table.customers_basket_attributes%
                                 set products_options_value_id = '" . (int) $value . "', products_options_value_text = '" . $attr_value . "'
                                 where customers_id = '" . (int) $_SESSION['customer_id'] . "'
-                                and products_id = '" . zen_db_input($products_id) . "'
+                                and products_id = '" . addslashes($products_id) . "'
                                 and products_options_id = '" . (int) $option . "'";
 
                             $db->Execute($sql);
@@ -545,13 +546,13 @@ class ShoppingCart extends Base
         if ($_SESSION['customer_id']) {
             $sql = "delete from %table.customers_basket%
                 where customers_id = '" . (int) $_SESSION['customer_id'] . "'
-                and products_id = '" . zen_db_input($products_id) . "'";
+                and products_id = '" . addslashes($products_id) . "'";
 
             $db->Execute($sql);
 
             $sql = "delete from %table.customers_basket_attributes%
                 where customers_id = '" . (int) $_SESSION['customer_id'] . "'
-                and products_id = '" . zen_db_input($products_id) . "'";
+                and products_id = '" . addslashes($products_id) . "'";
 
             $db->Execute($sql);
 
@@ -584,7 +585,7 @@ class ShoppingCart extends Base
         if (is_array($this->contents)) {
             reset($this->contents);
             while (list($products_id, ) = each($this->contents)) {
-                $product_id_list .= ', ' . zen_db_input($products_id);
+                $product_id_list .= ', ' . addslashes($products_id);
             }
         }
 
@@ -1760,9 +1761,9 @@ class ShoppingCart extends Base
                                 if ($products_options_file->parse(TEXT_PREFIX . $_POST[UPLOAD_PREFIX . $i])) {
                                     $products_image_extension = substr($products_options_file->filename, strrpos($products_options_file->filename, '.'));
                                     if ($_SESSION['customer_id']) {
-                                        $db->Execute("insert into %table.files_uploaded% (sesskey, customers_id, files_uploaded_name) values('" . zen_session_id() . "', '" . $_SESSION['customer_id'] . "', '" . zen_db_input($products_options_file->filename) . "')");
+                                        $db->Execute("insert into %table.files_uploaded% (sesskey, customers_id, files_uploaded_name) values('" . zen_session_id() . "', '" . $_SESSION['customer_id'] . "', '" . addslashes($products_options_file->filename) . "')");
                                     } else {
-                                        $db->Execute("insert into %table.files_uploaded% (sesskey, files_uploaded_name) values('" . zen_session_id() . "', '" . zen_db_input($products_options_file->filename) . "')");
+                                        $db->Execute("insert into %table.files_uploaded% (sesskey, files_uploaded_name) values('" . zen_session_id() . "', '" . addslashes($products_options_file->filename) . "')");
                                     }
                                     $insert_id = $db->Insert_ID();
                                     $real_ids[TEXT_PREFIX . $_POST[UPLOAD_PREFIX . $i]] = $insert_id . ". " . $products_options_file->filename;
