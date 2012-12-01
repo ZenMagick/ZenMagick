@@ -980,7 +980,7 @@ if (!defined('IS_ADMIN_FLAG')) {
       } else {
         $link = zen_href_link(FILENAME_DEFAULT);
       }
-      $_SESSION['navigation'] = new navigationHistory;
+      $_SESSION['navigation'] = ZenMagick\Base\Runtime::getContainer()->get('zencart.navigation_history');
     }
 
     if ($link_only == true) {

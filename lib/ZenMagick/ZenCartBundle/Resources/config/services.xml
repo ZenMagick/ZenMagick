@@ -18,6 +18,12 @@
             </call>
         </service>
 
+        <service id="zencart.navigation_history" scope="request" class="ZenMagick\ZenCartBundle\Compat\NavigationHistory">
+            <call method="setRequest">
+                <argument type="service" id="request" />
+            </call>
+        </service>
+
         <service id="zencart.query_factory" class="ZenMagick\ZenCartBundle\Compat\QueryFactory">
             <argument type="service" id="database_connection" />
         </service>

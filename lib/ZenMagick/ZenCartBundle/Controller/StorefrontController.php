@@ -108,11 +108,13 @@ class StorefrontController extends \ZMController
         }
 
         if (null == $session->get('navigation')) {
-            $session->set('navigation', new \navigationHistory);
+            $session->set('navigation', $this->get('zencart.navigation_history'));
         }
 
         if (!$request->isXmlHttpRequest()) {
-            $session->get('navigation')->add_current_page();
+            $navigation = $session->get('navigation');
+            $navigation->setRequest($request);
+            $navigation->add_current_page();
         }
 
         /**
@@ -373,7 +375,7 @@ class StorefrontController extends \ZMController
             $session->set('cart', new \shoppingCart);
         }
         if (null == $session->get('navigation')) {
-            $session->set('navigation', new \navigationHistory);
+            $session->set('navigation', $this->get('zencart.navigation_history'));
         }
 
         $cartActionMap = array(
