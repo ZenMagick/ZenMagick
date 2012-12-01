@@ -97,7 +97,6 @@ class ShoppingCart extends Base
         if (is_array($this->contents)) {
             reset($this->contents);
             while (list($products_id, ) = each($this->contents)) {
-                //          $products_id = urldecode($products_id);
                 $qty = $this->contents[$products_id]['qty'];
                 $product_query = "select products_id
                     from " . TABLE_CUSTOMERS_BASKET . "
@@ -121,7 +120,6 @@ class ShoppingCart extends Base
 
                             //clr 031714 udate query to include attribute value. This is needed for text attributes.
                             $attr_value = $this->contents[$products_id]['attributes_values'][$option];
-                            //                zen_db_query("insert into " . TABLE_CUSTOMERS_BASKET_ATTRIBUTES . " (customers_id, products_id, products_options_id, products_options_value_id, products_options_value_text) values ('" . (int) $customer_id . "', '" . zen_db_input($products_id) . "', '" . (int) $option . "', '" . (int) $value . "', '" . zen_db_input($attr_value) . "')");
                             $products_options_sort_order= zen_get_attributes_options_sort_order(zen_get_prid($products_id), $option, $value);
                             if ($attr_value) {
                                 $attr_value = zen_db_input($attr_value);
@@ -161,9 +159,6 @@ class ShoppingCart extends Base
             $this->contents[$products->fields['products_id']] = array('qty' => $products->fields['customers_basket_quantity']);
             // attributes
             // set contents in sort order
-
-            //CLR 020606 update query to pull attribute value_text. This is needed for text attributes.
-            //        $attributes_query = zen_db_query("select products_options_id, products_options_value_id, products_options_value_text from " . TABLE_CUSTOMERS_BASKET_ATTRIBUTES . " where customers_id = '" . (int) $customer_id . "' and products_id = '" . zen_db_input($products['products_id']) . "'");
 
             $order_by = ' order by LPAD(products_options_sort_order,11,"0")';
 
@@ -304,7 +299,6 @@ class ShoppingCart extends Base
                         //CLR 030228 add zen_db_input() processing
                         if (isset($_SESSION['customer_id'])) {
 
-                            //              if (zen_session_is_registered('customer_id')) zen_db_query("insert into " . TABLE_CUSTOMERS_BASKET_ATTRIBUTES . " (customers_id, products_id, products_options_id, products_options_value_id, products_options_value_text) values ('" . (int) $customer_id . "', '" . zen_db_input($products_id) . "', '" . (int) $option . "', '" . (int) $value . "', '" . zen_db_input($attr_value) . "')");
                             if (is_array($value) ) {
                                 reset($value);
                                 while (list($opt, $val) = each($value)) {
@@ -401,7 +395,6 @@ class ShoppingCart extends Base
                     // update database
                     //CLR 020606 update db insert to include attribute value_text. This is needed for text attributes.
                     //CLR 030228 add zen_db_input() processing
-                    //          if (zen_session_is_registered('customer_id')) zen_db_query("update " . TABLE_CUSTOMERS_BASKET_ATTRIBUTES . " set products_options_value_id = '" . (int) $value . "', products_options_value_text = '" . zen_db_input($attr_value) . "' where customers_id = '" . (int) $customer_id . "' and products_id = '" . zen_db_input($products_id) . "' and products_options_id = '" . (int) $option . "'");
 
                     if ($attr_value) {
                         $attr_value = zen_db_input($attr_value);
@@ -524,7 +517,6 @@ class ShoppingCart extends Base
      */
     public function in_cart($products_id)
     {
-        //  die($products_id);
         $this->notify('NOTIFIER_CART_IN_CART_START');
         if (isset($this->contents[$products_id])) {
             $this->notify('NOTIFIER_CART_IN_CART_END_TRUE');
@@ -547,22 +539,14 @@ class ShoppingCart extends Base
     {
         global $db;
         $this->notify('NOTIFIER_CART_REMOVE_START');
-        //die($products_id);
-        //CLR 030228 add call zen_get_uprid to correctly format product ids containing quotes
-        //      $products_id = zen_get_uprid($products_id, $attributes);
         unset($this->contents[$products_id]);
         // remove from database
         if ($_SESSION['customer_id']) {
-
-            //        zen_db_query("delete from " . TABLE_CUSTOMERS_BASKET . " where customers_id = '" . (int) $customer_id . "' and products_id = '" . zen_db_input($products_id) . "'");
-
             $sql = "delete from " . TABLE_CUSTOMERS_BASKET . "
                 where customers_id = '" . (int) $_SESSION['customer_id'] . "'
                 and products_id = '" . zen_db_input($products_id) . "'";
 
             $db->Execute($sql);
-
-            //        zen_db_query("delete from " . TABLE_CUSTOMERS_BASKET_ATTRIBUTES . " where customers_id = '" . (int) $customer_id . "' and products_id = '" . zen_db_input($products_id) . "'");
 
             $sql = "delete from " . TABLE_CUSTOMERS_BASKET_ATTRIBUTES . "
                 where customers_id = '" . (int) $_SESSION['customer_id'] . "'
@@ -662,8 +646,6 @@ class ShoppingCart extends Base
 
                 // adjust price for discounts when priced by attribute
                 if ($product->fields['products_priced_by_attribute'] == '1' and zen_has_product_attributes($product->fields['products_id'], 'false')) {
-                    // reset for priced by attributes
-                    //            $products_price = $products->fields['products_price'];
                     if ($special_price) {
                         $products_price = $special_price;
                     } else {
@@ -683,7 +665,6 @@ class ShoppingCart extends Base
                     $this->free_shipping_weight += ($qty * $product->fields['products_weight']);
                 }
 
-                //        $this->total += zen_round(zen_add_tax($products_price, $products_tax),$currencies->get_decimal_places($_SESSION['currency'])) * $qty;
                 $productTotal += $products_price;
                 $this->weight += ($qty * $products_weight);
             }
@@ -713,7 +694,6 @@ class ShoppingCart extends Base
                     $sale_maker_discount = '';
 
                     // bottom total
-                    //            if ($attribute_price->fields['product_attribute_is_free']) {
                     if ($attribute_price->fields['product_attribute_is_free'] == '1' and zen_get_products_price_is_free((int) $prid)) {
                         // no charge for attribute
                     } else {
@@ -760,7 +740,6 @@ class ShoppingCart extends Base
                             }
                             // adjust for attributes price
                             $freeShippingTotal += $new_attributes_price;
-                            //die('I SEE B ' . $this->free_shipping_price);
                         }
                         //  echo 'I SEE ' . $this->total . ' vs ' . $this->free_shipping_price . ' items: ' . $this->free_shipping_item. '<br>';
 
@@ -915,7 +894,6 @@ class ShoppingCart extends Base
                 $discount_type_id = '';
                 $sale_maker_discount = '';
 
-                //          if ($attribute_price->fields['product_attribute_is_free']) {
                 if ($attribute_price->fields['product_attribute_is_free'] == '1' and zen_get_products_price_is_free((int) $products_id)) {
                     // no charge
                 } else {
@@ -1018,7 +996,6 @@ class ShoppingCart extends Base
                 $discount_type_id = '';
                 $sale_maker_discount = '';
 
-                //          if ($attribute_price->fields['product_attribute_is_free']) {
                 if ($attribute_price->fields['product_attribute_is_free'] == '1' and zen_get_products_price_is_free((int) $products_id)) {
                     // no charge
                 } else {
@@ -1158,8 +1135,6 @@ class ShoppingCart extends Base
 
                 // adjust price for discounts when priced by attribute
                 if ($products->fields['products_priced_by_attribute'] == '1' and zen_has_product_attributes($products->fields['products_id'], 'false')) {
-                    // reset for priced by attributes
-                    //            $products_price = $products->fields['products_price'];
                     if ($special_price) {
                         $products_price = $special_price;
                     } else {
@@ -1249,8 +1224,6 @@ class ShoppingCart extends Base
 
                 // convert quantity to proper decimals
                 if (QUANTITY_DECIMALS != 0) {
-                    //          $new_qty = round($new_qty, QUANTITY_DECIMALS);
-
                     $fix_qty = $this->contents[$products_id]['qty'];
                     switch (true) {
                     case (!strstr($fix_qty, '.')):
@@ -1345,7 +1318,6 @@ class ShoppingCart extends Base
         $this->content_type = false;
         $gift_voucher = 0;
 
-        //      if ( (DOWNLOAD_ENABLED == 'true') && ($this->count_contents() > 0) ) {
         if ( $this->count_contents() > 0 ) {
             reset($this->contents);
             while (list($products_id, ) = each($this->contents)) {
@@ -1489,7 +1461,6 @@ class ShoppingCart extends Base
         if (!is_array($this->contents)) return 0;
 
         // check if mixed is on
-        //      $product = $db->Execute("select products_id, products_quantity_mixed from " . TABLE_PRODUCTS . " where products_id='" . (int) $products_id . "' limit 1");
         $product = $db->Execute("select products_id, products_quantity_mixed from " . TABLE_PRODUCTS . " where products_id='" . zen_get_prid($products_id) . "' limit 1");
 
         // if mixed attributes is off return qty for current attribute selection
@@ -1531,7 +1502,6 @@ class ShoppingCart extends Base
         if (!is_array($this->contents)) return 0;
 
         // check if mixed is on
-        //      $product = $db->Execute("select products_id, products_mixed_discount_quantity from " . TABLE_PRODUCTS . " where products_id='" . (int) $products_id . "' limit 1");
         $product = $db->Execute("select products_id, products_mixed_discount_quantity from " . TABLE_PRODUCTS . " where products_id='" . zen_get_prid($products_id) . "' limit 1");
 
         // if mixed attributes is off return qty for current attribute selection
@@ -1671,7 +1641,6 @@ class ShoppingCart extends Base
                     if ($add_max != 0) {
                         //$messageStack->add_session('shopping_cart', 'PROCESSING MAX: Update Cart chk_mixed false: ' . $_POST['products_id'][$i] . ' add max: ' . $add_max . ' - cart qty: ' . $cart_qty . ' - newqty: ' . $new_qty . ' current_quantity: ' . $current_qty, 'warning');
                         // adjust quantity if needed
-                        //          if ($add_max != 0 && $new_qty > $current_qty && ($cart_quantity - $current_qty + $new_qty) != 0 && (($cart_quantity - $current_qty + $new_qty) + $cart_qty > $add_max)) {
                         switch (true) {
                         case ($new_qty == $current_qty): // no change
                             //$messageStack->add_session('shopping_cart', 'I see NEW=CURRENT Update Cart chk_mixed false: ' . $_POST['products_id'][$i] . ' add max: ' . $add_max . ' - cart qty: ' . $cart_qty . ' - newqty: ' . $new_qty . ' current_quantity: ' . $current_qty, 'warning');
@@ -1861,8 +1830,6 @@ class ShoppingCart extends Base
                     // do not add
                 } else {
                     // check for min/max and add that value or 1
-                    // $add_qty = zen_get_buy_now_qty($_GET['products_id']);
-                    //                                    $_SESSION['cart']->add_cart($_GET['products_id'], $_SESSION['cart']->get_quantity($_GET['products_id'])+$add_qty);
                     $this->add_cart($_GET['products_id'], $this->get_quantity($_GET['products_id'])+$new_qty);
                 }
             }
@@ -1893,7 +1860,6 @@ class ShoppingCart extends Base
                     $qty = $val;
                     $add_max = zen_get_products_quantity_order_max($prodId);
                     $cart_qty = $this->in_cart_mixed($prodId);
-                    //        $new_qty = $qty;
                     //echo 'I SEE actionMultipleAddProduct: ' . $prodId . '<br>';
                     $new_qty = $this->adjust_quantity($qty, $prodId, 'shopping_cart');
 
@@ -1969,8 +1935,6 @@ class ShoppingCart extends Base
                     $db->Execute($sql);
                 }
             }
-            //      zen_redirect(zen_href_link($_GET['main_page'], zen_get_all_get_params(array('action', 'notify', 'main_page'))));
-            //      zen_redirect(zen_href_link(FILENAME_ACCOUNT_NOTIFICATIONS, zen_get_all_get_params(array('action', 'notify', 'main_page'))));
             zen_redirect(zen_href_link($_GET['main_page'], zen_get_all_get_params(array('action', 'main_page'))));
 
         } else {
@@ -2065,7 +2029,6 @@ class ShoppingCart extends Base
         if ($stack == '' || $stack == FALSE) $stack = 'shopping_cart';
         $old_quantity = $check_qty;
         if (QUANTITY_DECIMALS != 0) {
-            //          $new_qty = round($new_qty, QUANTITY_DECIMALS);
             $fix_qty = $check_qty;
             switch (true) {
             case (!strstr($fix_qty, '.')):
