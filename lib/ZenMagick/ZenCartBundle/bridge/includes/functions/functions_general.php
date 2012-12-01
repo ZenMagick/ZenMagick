@@ -9,9 +9,6 @@
  * @license http://www.zen-cart.com/license/2_0.txt GNU Public License V2.0
  * @version GIT: $Id: Author: Ian Wilson  Wed Sep 5 13:57:12 2012 +0100 Modified in v1.5.1 $
  */
-if (!defined('IS_ADMIN_FLAG')) {
-  die('Illegal Access');
-}
 /**
  * Stop from parsing any further PHP code
 */
