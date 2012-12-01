@@ -67,7 +67,6 @@ class ZenCartBundle extends Bundle
         $b  = __DIR__.'/bridge/includes/classes/';
         $ba  = __DIR__.'/bridge/admin/includes/classes/';
         $map = array(
-            'shoppingCart' => $zc.'shopping_cart.php',
             'currencies' => ($isAdmin ? $zca : $zc).'currencies.php',
             'httpClient' => $zc.'http_client.php',
             // ZenCart admin/storefront

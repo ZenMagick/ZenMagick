@@ -59,7 +59,7 @@ class ZenCartMock
         $_order_total_modules = $order_total_modules;
 
         if (!isset($_SESSION['cart'])) {
-            $_SESSION['cart'] = new shoppingCart();
+            $_SESSION['cart'] = new \ZenMagick\ZenCartBundle\Compat\ShoppingCart();
         }
 
         // get total number of products, not line items...

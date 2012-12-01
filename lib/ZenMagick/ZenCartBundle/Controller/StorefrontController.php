@@ -372,7 +372,7 @@ class StorefrontController extends \ZMController
         }
 
         if (null == $session->get('cart')) {
-            $session->set('cart', new \shoppingCart);
+            $session->set('cart', new \ZenMagick\ZenCartBundle\Compat\ShoppingCart);
         }
         if (null == $session->get('navigation')) {
             $session->set('navigation', $this->get('zencart.navigation_history'));

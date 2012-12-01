@@ -119,7 +119,7 @@ class ShoppingCartService extends ZMObject
         $this->clearCart($shoppingCart);
         $this->saveCart($shoppingCart);
         // XXX: sync back to ZenCart
-        $cart =  new \shoppingCart();
+        $cart =  new \ZenMagick\ZenCartBundle\Compat\ShoppingCart();
         $cart->contents = $shoppingCart->getContents();
         $shoppingCart->session->set('cart', $cart);
     }
