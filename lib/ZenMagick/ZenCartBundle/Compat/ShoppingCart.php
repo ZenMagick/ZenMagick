@@ -17,6 +17,7 @@ namespace ZenMagick\ZenCartBundle\Compat;
  * CHANGES:
  * IS_ADMIN_FLAG check removed
  * namespaced
+ * replace TABLE_* with %table.* as per the rest of the ZM codebase
  * Add Attributes listing to product listing page as per this thread:
  *     http://www.zen-cart.com/showthread.php?98641-drop-down-attributes-at-product-listing-page-near-add-to-cart-button&p=608469#post608469
  */
@@ -99,14 +100,14 @@ class ShoppingCart extends Base
             while (list($products_id, ) = each($this->contents)) {
                 $qty = $this->contents[$products_id]['qty'];
                 $product_query = "select products_id
-                    from " . TABLE_CUSTOMERS_BASKET . "
+                    from %table.customers_basket%
                     where customers_id = '" . (int) $_SESSION['customer_id'] . "'
                     and products_id = '" . zen_db_input($products_id) . "'";
 
                 $product = $db->Execute($product_query);
 
                 if ($product->RecordCount()<=0) {
-                    $sql = "insert into " . TABLE_CUSTOMERS_BASKET . "
+                    $sql = "insert into %table.customers_basket%
                         (customers_id, products_id, customers_basket_quantity,
                         customers_basket_date_added)
                         values ('" . (int) $_SESSION['customer_id'] . "', '" . zen_db_input($products_id) . "', '" .
@@ -124,7 +125,7 @@ class ShoppingCart extends Base
                             if ($attr_value) {
                                 $attr_value = zen_db_input($attr_value);
                             }
-                            $sql = "insert into " . TABLE_CUSTOMERS_BASKET_ATTRIBUTES . "
+                            $sql = "insert into %table.customers_basket_attributes%
                                 (customers_id, products_id, products_options_id,
                                 products_options_value_id, products_options_value_text, products_options_sort_order)
                                 values ('" . (int) $_SESSION['customer_id'] . "', '" . zen_db_input($products_id) . "', '" .
@@ -134,7 +135,7 @@ class ShoppingCart extends Base
                         }
                     }
                 } else {
-                    $sql = "update " . TABLE_CUSTOMERS_BASKET . "
+                    $sql = "update %table.customers_basket%
                         set customers_basket_quantity = '" . $qty . "'
                         where customers_id = '" . (int) $_SESSION['customer_id'] . "'
                         and products_id = '" . zen_db_input($products_id) . "'";
@@ -149,7 +150,7 @@ class ShoppingCart extends Base
         $this->reset(false);
 
         $products_query = "select products_id, customers_basket_quantity
-            from " . TABLE_CUSTOMERS_BASKET . "
+            from %table.customers_basket%
             where customers_id = '" . (int) $_SESSION['customer_id'] . "'
             order by customers_basket_id";
 
@@ -163,7 +164,7 @@ class ShoppingCart extends Base
             $order_by = ' order by LPAD(products_options_sort_order,11,"0")';
 
             $attributes = $db->Execute("select products_options_id, products_options_value_id, products_options_value_text
-                from " . TABLE_CUSTOMERS_BASKET_ATTRIBUTES . "
+                from %table.customers_basket_attributes%
                 where customers_id = '" . (int) $_SESSION['customer_id'] . "'
                 and products_id = '" . zen_db_input($products->fields['products_id']) . "' " . $order_by);
 
@@ -208,12 +209,12 @@ class ShoppingCart extends Base
         $this->free_shipping_weight = 0;
 
         if (isset($_SESSION['customer_id']) && ($reset_database == true)) {
-            $sql = "delete from " . TABLE_CUSTOMERS_BASKET . "
+            $sql = "delete from %table.customers_basket%
                 where customers_id = '" . (int) $_SESSION['customer_id'] . "'";
 
             $db->Execute($sql);
 
-            $sql = "delete from " . TABLE_CUSTOMERS_BASKET_ATTRIBUTES . "
+            $sql = "delete from %table.customers_basket_attributes%
                 where customers_id = '" . (int) $_SESSION['customer_id'] . "'";
 
             $db->Execute($sql);
@@ -257,7 +258,7 @@ class ShoppingCart extends Base
             $this->contents[$products_id] = array('qty' => (float) $qty);
             // insert into database
             if (isset($_SESSION['customer_id'])) {
-                $sql = "insert into " . TABLE_CUSTOMERS_BASKET . "
+                $sql = "insert into %table.customers_basket%
                     (customers_id, products_id, customers_basket_quantity,
                     customers_basket_date_added)
                     values ('" . (int) $_SESSION['customer_id'] . "', '" . zen_db_input($products_id) . "', '" .
@@ -303,7 +304,7 @@ class ShoppingCart extends Base
                                 reset($value);
                                 while (list($opt, $val) = each($value)) {
                                     $products_options_sort_order= zen_get_attributes_options_sort_order(zen_get_prid($products_id), $option, $opt);
-                                    $sql = "insert into " . TABLE_CUSTOMERS_BASKET_ATTRIBUTES . "
+                                    $sql = "insert into %table.customers_basket_attributes%
                                         (customers_id, products_id, products_options_id, products_options_value_id, products_options_sort_order)
                                         values ('" . (int) $_SESSION['customer_id'] . "', '" . zen_db_input($products_id) . "', '" .
                                         (int) $option.'_chk'. (int) $val . "', '" . (int) $val . "',  '" . $products_options_sort_order . "')";
@@ -315,7 +316,7 @@ class ShoppingCart extends Base
                                     $attr_value = zen_db_input($attr_value);
                                 }
                                 $products_options_sort_order= zen_get_attributes_options_sort_order(zen_get_prid($products_id), $option, $value);
-                                $sql = "insert into " . TABLE_CUSTOMERS_BASKET_ATTRIBUTES . "
+                                $sql = "insert into %table.customers_basket_attributes%
                                     (customers_id, products_id, products_options_id, products_options_value_id, products_options_value_text, products_options_sort_order)
                                     values ('" . (int) $_SESSION['customer_id'] . "', '" . zen_db_input($products_id) . "', '" .
                                     (int) $option . "', '" . (int) $value . "', '" . $attr_value . "', '" . $products_options_sort_order . "')";
@@ -355,7 +356,7 @@ class ShoppingCart extends Base
         $this->contents[$products_id] = array('qty' => (float) $quantity);
         // update database
         if (isset($_SESSION['customer_id'])) {
-            $sql = "update " . TABLE_CUSTOMERS_BASKET . "
+            $sql = "update %table.customers_basket%
                 set customers_basket_quantity = '" . (float) $quantity . "'
                 where customers_id = '" . (int) $_SESSION['customer_id'] . "'
                 and products_id = '" . zen_db_input($products_id) . "'";
@@ -403,7 +404,7 @@ class ShoppingCart extends Base
                         reset($value);
                         while (list($opt, $val) = each($value)) {
                             $products_options_sort_order= zen_get_attributes_options_sort_order(zen_get_prid($products_id), $option, $opt);
-                            $sql = "update " . TABLE_CUSTOMERS_BASKET_ATTRIBUTES . "
+                            $sql = "update %table.customers_basket_attributes%
                                 set products_options_value_id = '" . (int) $val . "'
                                 where customers_id = '" . (int) $_SESSION['customer_id'] . "'
                                 and products_id = '" . zen_db_input($products_id) . "'
@@ -413,7 +414,7 @@ class ShoppingCart extends Base
                         }
                     } else {
                         if (isset($_SESSION['customer_id'])) {
-                            $sql = "update " . TABLE_CUSTOMERS_BASKET_ATTRIBUTES . "
+                            $sql = "update %table.customers_basket_attributes%
                                 set products_options_value_id = '" . (int) $value . "', products_options_value_text = '" . $attr_value . "'
                                 where customers_id = '" . (int) $_SESSION['customer_id'] . "'
                                 and products_id = '" . zen_db_input($products_id) . "'
@@ -449,13 +450,13 @@ class ShoppingCart extends Base
                 unset($this->contents[$key]);
                 // remove from database
                 if (isset($_SESSION['customer_id'])) {
-                    $sql = "delete from " . TABLE_CUSTOMERS_BASKET . "
+                    $sql = "delete from %table.customers_basket%
                         where customers_id = '" . (int) $_SESSION['customer_id'] . "'
                         and products_id = '" . $key . "'";
 
                     $db->Execute($sql);
 
-                    $sql = "delete from " . TABLE_CUSTOMERS_BASKET_ATTRIBUTES . "
+                    $sql = "delete from %table.customers_basket_attributes%
                         where customers_id = '" . (int) $_SESSION['customer_id'] . "'
                         and products_id = '" . $key . "'";
 
@@ -542,13 +543,13 @@ class ShoppingCart extends Base
         unset($this->contents[$products_id]);
         // remove from database
         if ($_SESSION['customer_id']) {
-            $sql = "delete from " . TABLE_CUSTOMERS_BASKET . "
+            $sql = "delete from %table.customers_basket%
                 where customers_id = '" . (int) $_SESSION['customer_id'] . "'
                 and products_id = '" . zen_db_input($products_id) . "'";
 
             $db->Execute($sql);
 
-            $sql = "delete from " . TABLE_CUSTOMERS_BASKET_ATTRIBUTES . "
+            $sql = "delete from %table.customers_basket_attributes%
                 where customers_id = '" . (int) $_SESSION['customer_id'] . "'
                 and products_id = '" . zen_db_input($products_id) . "'";
 
@@ -617,7 +618,7 @@ class ShoppingCart extends Base
             $product_query = "select products_id, products_price, products_tax_class_id, products_weight,
                 products_priced_by_attribute, product_is_always_free_shipping, products_discount_type, products_discount_type_from,
                 products_virtual, products_model
-                from " . TABLE_PRODUCTS . "
+                from %table.products%
                 where products_id = '" . (int) $products_id . "'";
 
             if ($product = $db->Execute($product_query)) {
@@ -682,7 +683,7 @@ class ShoppingCart extends Base
            */
 
                     $attribute_price_query = "select *
-                        from " . TABLE_PRODUCTS_ATTRIBUTES . "
+                        from %table.products_attributes%
                         where products_id = '" . (int) $prid . "'
                         and options_id = '" . (int) $option . "'
                         and options_values_id = '" . (int) $value . "'";
@@ -729,7 +730,7 @@ class ShoppingCart extends Base
                         // adjust products price
                         $check_attribute = $attribute_price->fields['products_attributes_id'];
                         $sql = "select *
-                            from " . TABLE_PRODUCTS_ATTRIBUTES_DOWNLOAD . "
+                            from %table.products_attributes_download%
                             where products_attributes_id = '" . $check_attribute . "'";
                         $check_download = $db->Execute($sql);
                         if ($check_download->RecordCount()) {
@@ -813,7 +814,7 @@ class ShoppingCart extends Base
                 reset($this->contents[$products_id]['attributes']);
                 while (list($option, $value) = each($this->contents[$products_id]['attributes'])) {
                     $attribute_weight_query = "select products_attributes_weight, products_attributes_weight_prefix
-                        from " . TABLE_PRODUCTS_ATTRIBUTES . "
+                        from %table.products_attributes%
                         where products_id = '" . (int) $prid . "'
                         and options_id = '" . (int) $option . "'
                         and options_values_id = '" . (int) $value . "'";
@@ -883,7 +884,7 @@ class ShoppingCart extends Base
             while (list($option, $value) = each($this->contents[$products_id]['attributes'])) {
 
                 $attribute_price_query = "select *
-                    from " . TABLE_PRODUCTS_ATTRIBUTES . "
+                    from %table.products_attributes%
                     where products_id = '" . (int) $products_id . "'
                     and options_id = '" . (int) $option . "'
                     and options_values_id = '" . (int) $value . "'";
@@ -985,7 +986,7 @@ class ShoppingCart extends Base
             while (list($option, $value) = each($this->contents[$products_id]['attributes'])) {
 
                 $attribute_price_query = "select *
-                    from " . TABLE_PRODUCTS_ATTRIBUTES . "
+                    from %table.products_attributes%
                     where products_id = '" . (int) $products_id . "'
                     and options_id = '" . (int) $option . "'
                     and options_values_id = '" . (int) $value . "'";
@@ -1054,7 +1055,7 @@ class ShoppingCart extends Base
             reset($this->contents[$products_id]['attributes']);
             while (list($option, $value) = each($this->contents[$products_id]['attributes'])) {
                 $attribute_weight_query = "select products_attributes_weight, products_attributes_weight_prefix
-                    from " . TABLE_PRODUCTS_ATTRIBUTES . "
+                    from %table.products_attributes%
                     where products_id = '" . (int) $products_id . "'
                     and options_id = '" . (int) $option . "'
                     and options_values_id = '" . (int) $value . "'";
@@ -1063,7 +1064,7 @@ class ShoppingCart extends Base
 
                 // adjusted count for free shipping
                 $product = $db->Execute("select products_id, product_is_always_free_shipping
-                    from " . TABLE_PRODUCTS . "
+                    from %table.products%
                     where products_id = '" . (int) $products_id . "'");
 
                 if ($product->fields['product_is_always_free_shipping'] != 1) {
@@ -1105,7 +1106,7 @@ class ShoppingCart extends Base
                 p.products_quantity_order_min, p.products_quantity_order_units, p.products_quantity_order_max,
                 p.product_is_free, p.products_priced_by_attribute,
                 p.products_discount_type, p.products_discount_type_from
-                from " . TABLE_PRODUCTS . " p, " . TABLE_PRODUCTS_DESCRIPTION . " pd
+                from %table.products% p, %table.products_description% pd
                 where p.products_id = '" . (int) $products_id . "'
                 and pd.products_id = p.products_id
                 and pd.language_id = '" . (int) $_SESSION['languages_id'] . "'";
@@ -1164,7 +1165,7 @@ class ShoppingCart extends Base
                             while (list(, $value) = each($this->contents[$products_id]['attributes'])) {
                                 $chkcount ++;
                                 $chk_attributes_exist_query = "select products_id
-                                    from " . TABLE_PRODUCTS_ATTRIBUTES . " pa
+                                    from %table.products_attributes% pa
                                     where pa.products_id = '" . (int) $products_id . "'
                                     and pa.options_values_id = '" . (int) $value . "'";
 
@@ -1321,7 +1322,7 @@ class ShoppingCart extends Base
         if ( $this->count_contents() > 0 ) {
             reset($this->contents);
             while (list($products_id, ) = each($this->contents)) {
-                $free_ship_check = $db->Execute("select products_virtual, products_model, products_price, product_is_always_free_shipping from " . TABLE_PRODUCTS . " where products_id = '" . zen_get_prid($products_id) . "'");
+                $free_ship_check = $db->Execute("select products_virtual, products_model, products_price, product_is_always_free_shipping from %table.products% where products_id = '" . zen_get_prid($products_id) . "'");
                 $virtual_check = false;
                 if (preg_match('/^GIFT/', addslashes($free_ship_check->fields['products_model']))) {
                     $gift_voucher += ($free_ship_check->fields['products_price'] + $this->attributes_price($products_id)) * $this->contents[$products_id]['qty'];
@@ -1332,8 +1333,8 @@ class ShoppingCart extends Base
                     reset($this->contents[$products_id]['attributes']);
                     while (list(, $value) = each($this->contents[$products_id]['attributes'])) {
                         $virtual_check_query = "select count(*) as total
-                            from " . TABLE_PRODUCTS_ATTRIBUTES . " pa, "
-                            . TABLE_PRODUCTS_ATTRIBUTES_DOWNLOAD . " pad
+                            from %table.products_attributes% pa,
+                            %table.products_attributes_download% pad
                             where pa.products_id = '" . (int) $products_id . "'
                             and pa.options_values_id = '" . (int) $value . "'
                             and pa.products_attributes_id = pad.products_attributes_id";
@@ -1461,7 +1462,7 @@ class ShoppingCart extends Base
         if (!is_array($this->contents)) return 0;
 
         // check if mixed is on
-        $product = $db->Execute("select products_id, products_quantity_mixed from " . TABLE_PRODUCTS . " where products_id='" . zen_get_prid($products_id) . "' limit 1");
+        $product = $db->Execute("select products_id, products_quantity_mixed from %table.products% where products_id='" . zen_get_prid($products_id) . "' limit 1");
 
         // if mixed attributes is off return qty for current attribute selection
         if ($product->fields['products_quantity_mixed'] == '0') {
@@ -1502,7 +1503,7 @@ class ShoppingCart extends Base
         if (!is_array($this->contents)) return 0;
 
         // check if mixed is on
-        $product = $db->Execute("select products_id, products_mixed_discount_quantity from " . TABLE_PRODUCTS . " where products_id='" . zen_get_prid($products_id) . "' limit 1");
+        $product = $db->Execute("select products_id, products_mixed_discount_quantity from %table.products% where products_id='" . zen_get_prid($products_id) . "' limit 1");
 
         // if mixed attributes is off return qty for current attribute selection
         if ($product->fields['products_mixed_discount_quantity'] == '0') {
@@ -1549,7 +1550,7 @@ class ShoppingCart extends Base
         while (list($products_id, ) = each($this->contents)) {
             $testing_id = zen_get_prid($products_id);
             // check if field it true
-            $product_check = $db->Execute("select " . $check_what . " as check_it from " . TABLE_PRODUCTS . " where products_id='" . $testing_id . "' limit 1");
+            $product_check = $db->Execute("select " . $check_what . " as check_it from %table.products% where products_id='" . $testing_id . "' limit 1");
             if ($product_check->fields['check_it'] == $check_value) {
                 $in_cart_check_qty += $this->contents[$products_id]['qty'];
             }
@@ -1759,9 +1760,9 @@ class ShoppingCart extends Base
                                 if ($products_options_file->parse(TEXT_PREFIX . $_POST[UPLOAD_PREFIX . $i])) {
                                     $products_image_extension = substr($products_options_file->filename, strrpos($products_options_file->filename, '.'));
                                     if ($_SESSION['customer_id']) {
-                                        $db->Execute("insert into " . TABLE_FILES_UPLOADED . " (sesskey, customers_id, files_uploaded_name) values('" . zen_session_id() . "', '" . $_SESSION['customer_id'] . "', '" . zen_db_input($products_options_file->filename) . "')");
+                                        $db->Execute("insert into %table.files_uploaded% (sesskey, customers_id, files_uploaded_name) values('" . zen_session_id() . "', '" . $_SESSION['customer_id'] . "', '" . zen_db_input($products_options_file->filename) . "')");
                                     } else {
-                                        $db->Execute("insert into " . TABLE_FILES_UPLOADED . " (sesskey, files_uploaded_name) values('" . zen_session_id() . "', '" . zen_db_input($products_options_file->filename) . "')");
+                                        $db->Execute("insert into %table.files_uploaded% (sesskey, files_uploaded_name) values('" . zen_session_id() . "', '" . zen_db_input($products_options_file->filename) . "')");
                                     }
                                     $insert_id = $db->Insert_ID();
                                     $real_ids[TEXT_PREFIX . $_POST[UPLOAD_PREFIX . $i]] = $insert_id . ". " . $products_options_file->filename;
@@ -1924,12 +1925,12 @@ class ShoppingCart extends Base
             if (!is_array($notify)) $notify = array($notify);
             for ($i=0, $n=sizeof($notify); $i<$n; $i++) {
                 $check_query = "select count(*) as count
-                    from " . TABLE_PRODUCTS_NOTIFICATIONS . "
+                    from %table.products_notifications%
                     where products_id = '" . $notify[$i] . "'
                     and customers_id = '" . $_SESSION['customer_id'] . "'";
                 $check = $db->Execute($check_query);
                 if ($check->fields['count'] < 1) {
-                    $sql = "insert into " . TABLE_PRODUCTS_NOTIFICATIONS . "
+                    $sql = "insert into %table.products_notifications%
                         (products_id, customers_id, date_added)
                         values ('" . $notify[$i] . "', '" . $_SESSION['customer_id'] . "', now())";
                     $db->Execute($sql);
@@ -1953,13 +1954,13 @@ class ShoppingCart extends Base
         global $db;
         if ($_SESSION['customer_id'] && isset($_GET['products_id'])) {
             $check_query = "select count(*) as count
-                from " . TABLE_PRODUCTS_NOTIFICATIONS . "
+                from %table.products_notifications%
                 where products_id = '" . $_GET['products_id'] . "'
                 and customers_id = '" . $_SESSION['customer_id'] . "'";
 
             $check = $db->Execute($check_query);
             if ($check->fields['count'] > 0) {
-                $sql = "delete from " . TABLE_PRODUCTS_NOTIFICATIONS . "
+                $sql = "delete from %table.products_notifications%
                     where products_id = '" . $_GET['products_id'] . "'
                     and customers_id = '" . $_SESSION['customer_id'] . "'";
                 $db->Execute($sql);
