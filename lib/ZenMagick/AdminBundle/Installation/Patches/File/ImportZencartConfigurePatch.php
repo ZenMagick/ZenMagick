@@ -122,7 +122,6 @@ class ImportZencartConfigurePatch extends FilePatch
 
         $secure = ENABLE_SSL == 'true';
         $parameters['zenmagick']['http']['request']['secure'] = $secure;
-        $parameters['zenmagick']['http']['request']['enforceSecure'] = $secure;
 
         $yaml = Yaml::dump($parameters, 5);
         $header = '##

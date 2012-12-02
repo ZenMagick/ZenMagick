@@ -43,9 +43,6 @@
             <call method="loadProviderMappings">
                 <argument>%zenmagick.http.sacs.mappingProviders%</argument>
             </call>
-            <call method="setRouteResolver">
-                <argument type="service" id="routeResolver" />
-            </call>
         </service>
 
         <service id="taggedBlocksBlockProvider" class="ZenMagick\Http\Utils\TaggedBlocksBlockProvider">

@@ -315,7 +315,6 @@ class ToolboxNet extends ToolboxTool
     public function absoluteUrl($url, $full=false, $secure=false)
     {
         $url = (!empty($url) && ('/' == $url[0] || false !== strpos($url, '://'))) ? $url : $this->getBaseUrl().'/'.$url;
-        $secure = $this->container->get('settingsService')->get('zenmagick.http.request.enforceSecure') && $secure;
         if ($full || ($secure && !$this->isSecure())) {
             // full requested or we need a full URL to ensure it will be secure
             $isSecure = ($this->isSecure() || $secure);

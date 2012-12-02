@@ -21,7 +21,6 @@ zenmagick:
     ## request
     request:
       login: login
-      enforceSecure: true
     ## sacs
     sacs:
       handler:

@@ -23,7 +23,6 @@ use ZenMagick\Base\Beans;
 use ZenMagick\Base\Runtime;
 use ZenMagick\Base\Toolbox;
 use ZenMagick\Base\ZMObject;
-use ZenMagick\Http\Routing\RouteResolver;
 
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\EventDispatcher\GenericEvent;
@@ -58,7 +57,6 @@ class SacsManager extends ZMObject
     private $mappings_;
     private $handlers_;
     private $permissionProviders_;
-    private $routeResolver;
 
     /**
      * Create new instance.
@@ -68,22 +66,6 @@ class SacsManager extends ZMObject
         $this->container = $container;
         parent::__construct();
         $this->reset();
-    }
-
-    /**
-     * Set an optional RouteResolver
-     */
-    public function setRouteResolver(RouteResolver $routeResolver)
-    {
-        $this->routeResolver = $routeResolver;
-    }
-
-    /**
-     * Get the RouteResolver
-     */
-    protected function getRouteResolver()
-    {
-        return $this->routeResolver;
     }
 
     /**
@@ -226,31 +208,6 @@ class SacsManager extends ZMObject
         }
 
         return true;
-    }
-
-    /**
-     * Ensure the page is accessed using proper security.
-     *
-     * <p>If a page is requested using HTTP and the page is mapped as <em>secure</em>, a
-     * redirect using SSL will be performed.</p>
-     *
-     * @param string requestId The request id.
-     */
-    public function ensureAccessMethod($request)
-    {
-        $requestId = $request->getRequestId();
-        $secure = Toolbox::asBoolean($this->getMappingValue($requestId, 'secure', false));
-        // check router too
-        $routeResolver = $this->getRouteResolver();
-        if ((null != $routeResolver) && (null != ($route = $routeResolver->getRouteForId($requestId)))) {
-            $requirements = $route->getRequirements();
-            $secure |= (array_key_exists('_scheme', $requirements) && 'https' == $requirements['_scheme']);
-        }
-        $settings = Runtime::getSettings();
-        if ($secure && !$request->isSecure() && $settings->get('zenmagick.http.request.secure', true) && $settings->get('zenmagick.http.request.enforceSecure')) {
-            $this->container->get('logger')->debug('redirecting to enforce secure access: '.$requestId);
-            $request->redirect($this->container->get('netTool')->url(null, null, true));
-        }
     }
 
     /**
