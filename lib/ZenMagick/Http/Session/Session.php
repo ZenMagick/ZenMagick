@@ -341,13 +341,6 @@ class Session extends BaseSession implements ContainerAwareInterface
     public function isRegistered() { return $this->getType() == Account::REGISTERED; }
 
     /**
-     * Returns <code>true</code> if the user is logged in.
-     *
-     * @return boolean <code>true</code> if the current user is logged in, <code>false</code> if not.
-     */
-    public function isLoggedIn() { return $this->getType() != Account::ANONYMOUS; }
-
-    /**
      * Set the account for the current session.
      *
      * @param ZenMagick\StoreBundle\Entity\Account\Account account The account.
