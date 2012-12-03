@@ -17,7 +17,9 @@ $prefix = $container->getParameter('table_prefix');
 \ZMRuntime::setDatabase('default', compact('host', 'port', 'user', 'password', 'dbname', 'prefix'));
 try {
     $configService = new \ZenMagick\StoreBundle\Services\ConfigService;
-    $configService->loadAll();
+    foreach ($configService->loadAll() as $k => $v) {
+        define($k, $v);
+    }
 } catch (\Exception $e) {
     // Couldn't connect... this is arguably the wrong place to do this.
     $container->setParameter('zenmagick.plugins.enabled', false);
@@ -66,6 +68,6 @@ if (in_array($transport, array('smtp', 'smtpauth'))) {
 
 $container->setParameter('mailer_transport', $transport);
 if ('' != trim(EMAIL_SMTPAUTH_MAILBOX)) {
-    $container->setParameter('mailer_username', EMAIL_SMTPAUTH_MAILBOX);
+    $container->setParameter('mailer_user', EMAIL_SMTPAUTH_MAILBOX);
     $container->setParameter('mailer_password', EMAIL_SMTPAUTH_PASSWORD);
 }
