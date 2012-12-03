@@ -79,15 +79,6 @@
             </call>
         </service>
 
-        <service id="simpleTemplateCache" class="ZenMagick\Http\Templating\Cache\SimpleTemplateCache">
-            <call method="setContainer">
-                <argument type="service" id="service_container" />
-            </call>
-            <call method="setCache">
-                <argument type="service" id="persistentCache" />
-            </call>
-        </service>
-
         <service id="templateView" class="ZenMagick\Http\View\TemplateView" scope="prototype">
             <call method="setContainer">
                 <argument type="service" id="service_container" />
@@ -169,9 +160,6 @@
         <service id="zmPhpEngine" class="ZenMagick\Http\Templating\ZMPhpEngine" scope="prototype">
             <call method="setContainer">
                 <argument type="service" id="service_container" />
-            </call>
-            <call method="setTemplateCache">
-                <argument type="service" id="simpleTemplateCache" />
             </call>
             <tag name="zenmagick.http.templates.engine" />
         </service>

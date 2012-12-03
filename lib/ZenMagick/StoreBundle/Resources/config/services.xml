@@ -12,7 +12,6 @@
             <parameter>transientCache</parameter>
             <parameter>persistentCache</parameter>
             <parameter>servicesCache</parameter>
-            <parameter>templateCache</parameter>
             <parameter>bootstrapCache</parameter>
         </parameter>
         <parameter key="apps.store.reviews.useNickName">false</parameter>
@@ -34,16 +33,6 @@
             <call method="init">
                 <argument>services</argument>
                 <argument type="collection" />
-            </call>
-        </service>
-
-        <service id="templateCache" class="ZenMagick\Base\Cache\FileCache">
-            <call method="init">
-                <argument>services</argument>
-                <argument type="collection">
-                    <argument key="cacheTTL">300</argument>
-                    <argument key="cacheDir">%kernel.cache_dir%/templates/</argument>
-                </argument>
             </call>
         </service>
 

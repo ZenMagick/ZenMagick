@@ -39,7 +39,6 @@ class ZMPhpEngine extends ZMObject implements EngineInterface
 {
     protected $view;
     protected $request;
-    protected $templateCache;
     protected $properties;
 
     /**
@@ -50,7 +49,6 @@ class ZMPhpEngine extends ZMObject implements EngineInterface
         parent::__construct();
         $this->request = null;
         $this->view = null;
-        $this->templateCache = null;
         $this->properties = array();
     }
 
@@ -89,26 +87,6 @@ class ZMPhpEngine extends ZMObject implements EngineInterface
     }
 
     /**
-     * Set cache.
-     *
-     * @param TemplateCache templateCache The cache instance.
-     */
-    public function setTemplateCache($templateCache)
-    {
-        $this->templateCache = $templateCache;
-    }
-
-    /**
-     * Get the cache.
-     *
-     * @return TemplateCache The cache.
-     */
-    public function getTemplateCache()
-    {
-        return $this->templateCache;
-    }
-
-    /**
      * Fetch/evaluate the given template.
      *
      * <p>Alias for render().</p>
@@ -120,12 +98,6 @@ class ZMPhpEngine extends ZMObject implements EngineInterface
     public function fetch($template, array $variables=array())
     {
         $template = str_replace('/views', '', $template);
-        if (null != $this->templateCache && $this->templateCache->eligible($template)) {
-            // check for cache hit
-            if (null != ($result = $this->templateCache->lookup($template))) {
-                return $result;
-            }
-        }
 
         // more precise would be an instance stack, i suppose
         $__fetchVars = array('template' => $template, 'variables' => $variables);
@@ -145,10 +117,6 @@ class ZMPhpEngine extends ZMObject implements EngineInterface
         ob_start();
         require $__fetchVars['path'];
         $result = ob_get_clean();
-        // if we have a cache, keep it
-        if (null != $this->templateCache && $this->templateCache->eligible($__fetchVars['template'])) {
-            $this->templateCache->save($__fetchVars['template'], $result);
-        }
 
         return $result;
     }
