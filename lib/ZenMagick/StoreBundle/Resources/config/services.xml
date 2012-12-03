@@ -235,11 +235,8 @@
 
         <service id="productGroupPricingService" class="ZMProductGroupPricings" />
 
-        <!-- Impersonate FrameworkBundle provided GlobalVariables class although it takes it in the ctor -->
-        <service id="globalVariablesTool" class="ZenMagick\StoreBundle\Toolbox\ToolboxGlobalVariables" scope="prototype">
-            <call method="setContainer">
-                <argument type="service" id="service_container" />
-            </call>
+        <service id="globalVariablesTool" class="Symfony\Bundle\FrameworkBundle\Templating\GlobalVariables">
+            <argument type="service" id="service_container" />
             <tag name="zenmagick.http.toolbox.tool" key="app" />
         </service>
 
