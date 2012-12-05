@@ -242,6 +242,8 @@ class Account extends ZMObject implements UserInterface
     public function setAccountId($id)
     {
         $this->accountId = $id;
+
+        return $this;
     }
 
     /**
@@ -252,6 +254,8 @@ class Account extends ZMObject implements UserInterface
     public function setId($id)
     {
         $this->accountId = $id;
+
+        return $this;
     }
 
     /**
@@ -272,6 +276,8 @@ class Account extends ZMObject implements UserInterface
     public function setFirstName($firstName)
     {
         $this->firstName = $firstName;
+
+        return $this;
     }
 
     /**
@@ -292,6 +298,8 @@ class Account extends ZMObject implements UserInterface
     public function setLastName($lastName)
     {
         $this->lastName = $lastName;
+
+        return $this;
     }
 
     /**
@@ -312,6 +320,8 @@ class Account extends ZMObject implements UserInterface
     public function setDob($dob)
     {
         $this->dob = $dob;
+
+        return $this;
     }
 
     /**
@@ -332,6 +342,8 @@ class Account extends ZMObject implements UserInterface
     public function setNickName($nickName)
     {
         $this->nickName = $nickName;
+
+        return $this;
     }
 
     /**
@@ -352,6 +364,8 @@ class Account extends ZMObject implements UserInterface
     public function setGender($gender)
     {
         $this->gender = $gender;
+
+        return $this;
     }
 
     /**
@@ -372,6 +386,8 @@ class Account extends ZMObject implements UserInterface
     public function setEmail($email)
     {
         $this->email = $email;
+
+        return $this;
     }
 
     /**
@@ -393,6 +409,8 @@ class Account extends ZMObject implements UserInterface
     public function setUsername($username)
     {
         $this->setEmail($username);
+
+        return $this;
     }
 
     /**
@@ -413,6 +431,8 @@ class Account extends ZMObject implements UserInterface
     public function setPhone($phone)
     {
         $this->phone = $phone;
+
+        return $this;
     }
 
     /**
@@ -433,6 +453,8 @@ class Account extends ZMObject implements UserInterface
     public function setFax($fax)
     {
         $this->fax = $fax;
+
+        return $this;
     }
 
     /**
@@ -443,6 +465,8 @@ class Account extends ZMObject implements UserInterface
     public function setEmailFormat($emailFormat)
     {
         $this->emailFormat = $emailFormat;
+
+        return $this;
     }
 
     /**
@@ -493,6 +517,8 @@ class Account extends ZMObject implements UserInterface
     public function setReferral($referral)
     {
         $this->referral = $referral;
+
+        return $this;
     }
 
     /**
@@ -513,6 +539,8 @@ class Account extends ZMObject implements UserInterface
     public function setDefaultAddressId($addressId)
     {
         $this->defaultAddressId = $addressId;
+
+        return $this;
     }
 
     /**
@@ -529,6 +557,8 @@ class Account extends ZMObject implements UserInterface
     public function setPassword($password)
     {
         $this->password = $password;
+
+        return $this;
     }
 
     /**
@@ -555,6 +585,8 @@ class Account extends ZMObject implements UserInterface
     public function setAuthorization($authorization)
     {
         $this->authorization = $authorization;
+
+        return $this;
     }
 
     /**
@@ -575,6 +607,8 @@ class Account extends ZMObject implements UserInterface
     public function setNewsletterSubscriber($newsletterSubscriber)
     {
         $this->newsletter = $newsletterSubscriber;
+
+        return $this;
     }
 
     /**
@@ -615,6 +649,8 @@ class Account extends ZMObject implements UserInterface
     public function setGlobalProductSubscriber($globalProductSubscriber)
     {
         $this->globalSubscriber = (boolean) $globalProductSubscriber;
+
+        return $this;
     }
 
     /**
@@ -649,6 +685,8 @@ class Account extends ZMObject implements UserInterface
     public function setSubscribedProducts($products)
     {
         $this->subscribedProducts = $products;
+
+        return $this;
     }
 
     /**
@@ -659,6 +697,8 @@ class Account extends ZMObject implements UserInterface
     public function addSubscribedProducts($products)
     {
         $this->subscribedProducts = array_unique(array_merge((array) $this->subscribedProducts, $products));
+
+        return $this;
     }
 
     /**
@@ -669,6 +709,8 @@ class Account extends ZMObject implements UserInterface
     public function removeSubscribedProducts($products)
     {
         $this->subscribedProducts = array_diff((array) $this->subscribedProducts, $products);
+
+        return $this;
     }
 
     /**
@@ -679,6 +721,8 @@ class Account extends ZMObject implements UserInterface
     public function setType($type)
     {
         $this->type = $type;
+
+        return $this;
     }
 
     /**
@@ -699,6 +743,8 @@ class Account extends ZMObject implements UserInterface
     public function setPriceGroupId($priceGroupId)
     {
         $this->priceGroupId = $priceGroupId;
+
+        return $this;
     }
 
     /**
