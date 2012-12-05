@@ -17,8 +17,9 @@ $prefix = $container->getParameter('table_prefix');
 \ZMRuntime::setDatabase('default', compact('host', 'port', 'user', 'password', 'dbname', 'prefix'));
 try {
     $configService = new \ZenMagick\StoreBundle\Services\ConfigService;
+    // @todo don't actually define them all here, use the variables
     foreach ($configService->loadAll() as $k => $v) {
-        define($k, $v);
+        if (!defined($k)) define($k, $v);
     }
 } catch (\Exception $e) {
     // Couldn't connect... this is arguably the wrong place to do this.
