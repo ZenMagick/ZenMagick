@@ -60,7 +60,7 @@ class CheckoutGuestController extends \ZMController
         $account = Beans::getBean('ZenMagick\StoreBundle\Entity\Account');
         $account->setEmail($request->request->get('email_address'));
         $account->setPassword('');
-        $account->setDob(\ZenMagick\Base\Database\Connection::NULL_DATETIME);
+        $account->setDob(new \DateTime(\ZenMagick\Base\Database\Connection::NULL_DATETIME));
         $account->setType(Account::GUEST);
         $account = $this->container->get('accountService')->createAccount($account);
 
