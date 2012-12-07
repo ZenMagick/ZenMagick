@@ -114,7 +114,7 @@ class CreateAccountController extends \ZMController
             $gvReceiver = Beans::getBean('ZMGVReceiver');
             $gvReceiver->setEmail($account->getEmail());
             // the sender
-            $senderAccount = Beans::getBean('ZenMagick\StoreBundle\Entity\Account\Account');
+            $senderAccount = Beans::getBean('ZenMagick\StoreBundle\Entity\Account');
             $senderAccount->setFirstName($settingsService->get('storeName'));
             $couponService->createCouponTracker($coupon, $senderAccount, $gvReceiver);
             $newAccountGVAmountCoupon = $coupon;

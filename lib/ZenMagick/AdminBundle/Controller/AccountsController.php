@@ -33,7 +33,7 @@ class AccountsController extends \ZMController
      */
     public function processGet($request)
     {
-        $resultSource = new \ZMObjectResultSource('ZenMagick\StoreBundle\Entity\Account\Account', 'accountService', "getAllAccounts");
+        $resultSource = new \ZMObjectResultSource('ZenMagick\StoreBundle\Entity\Account', 'accountService', "getAllAccounts");
         $resultList = Beans::getBean('ZMResultList');
         $resultList->setResultSource($resultSource);
         $resultList->setPageNumber($request->query->get('page', 1));

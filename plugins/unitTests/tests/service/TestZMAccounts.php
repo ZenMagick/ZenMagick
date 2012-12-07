@@ -20,7 +20,7 @@
 
 use ZenMagick\Base\Beans;
 use ZenMagick\plugins\unitTests\simpletest\TestCase;
-use ZenMagick\StoreBundle\Entity\Account\Account;
+use ZenMagick\StoreBundle\Entity\Account;
 
 /**
  * Test accounts service.
@@ -56,7 +56,7 @@ class TestZMAccounts extends TestCase
      */
     public function createAccount($data)
     {
-        $account = Beans::getBean('ZenMagick\StoreBundle\Entity\Account\Account');
+        $account = Beans::getBean('ZenMagick\StoreBundle\Entity\Account');
         foreach ($data as $key => $value) {
             if ('Dob' == $key) {
                 $value = new DateTime($value);

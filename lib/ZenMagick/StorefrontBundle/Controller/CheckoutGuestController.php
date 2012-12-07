@@ -20,7 +20,7 @@
 namespace ZenMagick\StorefrontBundle\Controller;
 
 use ZenMagick\Base\Beans;
-use ZenMagick\StoreBundle\Entity\Account\Account;
+use ZenMagick\StoreBundle\Entity\Account;
 
 /**
  * Request controller for guest checkout.
@@ -57,7 +57,7 @@ class CheckoutGuestController extends \ZMController
         }
 
         // create anonymous account
-        $account = Beans::getBean('ZenMagick\StoreBundle\Entity\Account\Account');
+        $account = Beans::getBean('ZenMagick\StoreBundle\Entity\Account');
         $account->setEmail($request->request->get('email_address'));
         $account->setPassword('');
         $account->setDob(\ZenMagick\Base\Database\Connection::NULL_DATETIME);

@@ -20,7 +20,7 @@
 namespace ZenMagick\plugins\gravatar;
 
 use ZenMagick\Base\Plugins\Plugin;
-use ZenMagick\StoreBundle\Entity\Account\Account;
+use ZenMagick\StoreBundle\Entity\Account;
 use ZenMagick\Base\Toolbox;
 use ZenMagick\Base\ZMObject;
 
@@ -39,13 +39,13 @@ class GravatarPlugin extends Plugin
     public function onContainerReady($event)
     {
         // attach method to Account
-        ZMObject::attachMethod('getGravatar', 'ZenMagick\StoreBundle\Entity\Account\Account', array($this, 'getGravatar'));
+        ZMObject::attachMethod('getGravatar', 'ZenMagick\StoreBundle\Entity\Account', array($this, 'getGravatar'));
     }
 
     /**
      * Get avatar.
      *
-     * @param mixed email The email address or <code>ZenMagick\StoreBundle\Entity\Account\Account</code> instance.
+     * @param mixed email The email address or <code>ZenMagick\StoreBundle\Entity\Account</code> instance.
      * @param string size Size in pixels; default is null to use the system default.
      * @param boole img <code>true</code> to return a complete <code>IMG</code> tag, <code>false</code> for just the URL; default is <code>true</code>.
      * @param array attributes Optional, additional key/value attributes to include in the IMG tag; default is an empty array.

@@ -24,7 +24,7 @@ use ZMRuntime;
 use ZenMagick\Base\Toolbox;
 use ZenMagick\Base\ZMObject;
 use ZenMagick\Base\Database\Connection;
-use ZenMagick\StoreBundle\Entity\Account\Account;
+use ZenMagick\StoreBundle\Entity\Account;
 
 use Symfony\Component\Security\Core\Exception\UnsupportedUserException;
 use Symfony\Component\Security\Core\User\UserProviderInterface;
@@ -46,7 +46,7 @@ class Accounts extends ZMObject implements UserProviderInterface
      * Get account for the given account id.
      *
      * @param int accountId The account id.
-     * @return ZenMagick\StoreBundle\Entity\Account\Account A <code>ZenMagick\StoreBundle\Entity\Account\Account</code> instance or <code>null</code>.
+     * @return ZenMagick\StoreBundle\Entity\Account A <code>ZenMagick\StoreBundle\Entity\Account\Account</code> instance or <code>null</code>.
      */
     public function getAccountForId($accountId)
     {
@@ -55,7 +55,7 @@ class Accounts extends ZMObject implements UserProviderInterface
                   LEFT JOIN %table.customers_info% ci ON (c.customers_id = ci.customers_info_id)
                 WHERE c.customers_id = :accountId";
         $args = array('accountId' => $accountId);
-        if (null != ($account = ZMRuntime::getDatabase()->querySingle($sql, $args, array('customers', 'customers_info'), 'ZenMagick\StoreBundle\Entity\Account\Account'))) {
+        if (null != ($account = ZMRuntime::getDatabase()->querySingle($sql, $args, array('customers', 'customers_info'), 'ZenMagick\StoreBundle\Entity\Account'))) {
             if (Toolbox::isEmpty($account->getPassword())) {
                 $account->setType(Account::GUEST);
             }
@@ -99,7 +99,7 @@ class Accounts extends ZMObject implements UserProviderInterface
      * Get account for the given email address.
      *
      * @param string emailAddress The email address.
-     * @return ZenMagick\StoreBundle\Entity\Account\Account A <code>ZenMagick\StoreBundle\Entity\Account\Account</code> instance or <code>null</code>.
+     * @return ZenMagick\StoreBundle\Entity\Account A <code>ZenMagick\StoreBundle\Entity\Account\Account</code> instance or <code>null</code>.
      */
     public function getAccountForEmailAddress($emailAddress)
     {
@@ -109,7 +109,7 @@ class Accounts extends ZMObject implements UserProviderInterface
                 WHERE customers_email_address = :email
                 AND NOT (customers_password = '')";
         $args = array('email' => $emailAddress);
-        if (null != ($account = ZMRuntime::getDatabase()->querySingle($sql, $args, array('customers', 'customers_info'), 'ZenMagick\StoreBundle\Entity\Account\Account'))) {
+        if (null != ($account = ZMRuntime::getDatabase()->querySingle($sql, $args, array('customers', 'customers_info'), 'ZenMagick\StoreBundle\Entity\Account'))) {
             if (Toolbox::isEmpty($account->getPassword())) {
                 $account->setType(Account::GUEST);
             }
@@ -122,7 +122,7 @@ class Accounts extends ZMObject implements UserProviderInterface
      * Get all accounts (guest and registered) for the given email address.
      *
      * @param string emailAddress The email address.
-     * @return array A <st of code>ZenMagick\StoreBundle\Entity\Account\Account</code> instances.
+     * @return array A <st of code>ZenMagick\StoreBundle\Entity\Account</code> instances.
      */
     public function getAccountsForEmailAddress($emailAddress)
     {
@@ -132,7 +132,7 @@ class Accounts extends ZMObject implements UserProviderInterface
                 WHERE customers_email_address = :email";
         $args = array('email' => $emailAddress);
         $accounts = array();
-        foreach (ZMRuntime::getDatabase()->fetchAll($sql, $args, array('customers', 'customers_info'), 'ZenMagick\StoreBundle\Entity\Account\Account') as $account) {
+        foreach (ZMRuntime::getDatabase()->fetchAll($sql, $args, array('customers', 'customers_info'), 'ZenMagick\StoreBundle\Entity\Account') as $account) {
             if (Toolbox::isEmpty($account->getPassword())) {
                 $account->setType(Account::GUEST);
             }
@@ -147,7 +147,7 @@ class Accounts extends ZMObject implements UserProviderInterface
      *
      * @param string type Optional type (<code>Account::REGISTERED<code>, <code>Account::GUEST<code>); default is <code>null</code> for all.
      * @param int limit Optional limit; default is <em>0</em> for all.
-     * @return array A <st of code>ZenMagick\StoreBundle\Entity\Account\Account</code> instances.
+     * @return array A <st of code>ZenMagick\StoreBundle\Entity\Account</code> instances.
      */
     public function getAllAccounts($type=null, $limit=0)
     {
@@ -165,7 +165,7 @@ class Accounts extends ZMObject implements UserProviderInterface
         }
 
         $accounts = array();
-        foreach (ZMRuntime::getDatabase()->fetchAll($sql, array(), array('customers', 'customers_info'), 'ZenMagick\StoreBundle\Entity\Account\Account') as $account) {
+        foreach (ZMRuntime::getDatabase()->fetchAll($sql, array(), array('customers', 'customers_info'), 'ZenMagick\StoreBundle\Entity\Account') as $account) {
             if (Toolbox::isEmpty($account->getPassword())) {
                 $account->setType(Account::GUEST);
             }
@@ -212,8 +212,8 @@ class Accounts extends ZMObject implements UserProviderInterface
     /**
      * Create a new account.
      *
-     * @param ZenMagick\StoreBundle\Entity\Account\Account account The new account.
-     * @return ZenMagick\StoreBundle\Entity\Account\Account The created account incl. the new account id.
+     * @param ZenMagick\StoreBundle\Entity\Account account The new account.
+     * @return ZenMagick\StoreBundle\Entity\Account The created account incl. the new account id.
      */
     public function createAccount($account)
     {
@@ -232,8 +232,8 @@ class Accounts extends ZMObject implements UserProviderInterface
      * <p><strong>NOTE:</strong> This will not update product notification changes!</p>
      * <p>Use <code>setGlobalProductSubscriber(..)</code> and <code>setSubscribedProductIds(..)</code> * to update product subscriptions.</p>
      *
-     * @param ZenMagick\StoreBundle\Entity\Account\Account The account.
-     * @return ZenMagick\StoreBundle\Entity\Account\Account The updated account.
+     * @param ZenMagick\StoreBundle\Entity\Account The account.
+     * @return ZenMagick\StoreBundle\Entity\Account The updated account.
      */
     public function updateAccount($account)
     {
@@ -320,9 +320,9 @@ class Accounts extends ZMObject implements UserProviderInterface
     /**
      * Add subscribed product ids.
      *
-     * @param ZenMagick\StoreBundle\Entity\Account\Account account The account.
+     * @param ZenMagick\StoreBundle\Entity\Account account The account.
      * @param arrray productIds A list of product ids to subscribe to.
-     * @return ZenMagick\StoreBundle\Entity\Account\Account The updated account.
+     * @return ZenMagick\StoreBundle\Entity\Account The updated account.
      */
     public function addSubscribedProductIds($account, $productIds)
     {
@@ -339,9 +339,9 @@ class Accounts extends ZMObject implements UserProviderInterface
     /**
      * Remove subscribed product ids.
      *
-     * @param ZenMagick\StoreBundle\Entity\Account\Account account The account.
+     * @param ZenMagick\StoreBundle\Entity\Account account The account.
      * @param arrray productIds A list of product ids to remove subscriptions.
-     * @return ZenMagick\StoreBundle\Entity\Account\Account The updated account.
+     * @return ZenMagick\StoreBundle\Entity\Account The updated account.
      */
     public function removeSubscribedProductIds($account, $productIds)
     {
@@ -357,9 +357,9 @@ class Accounts extends ZMObject implements UserProviderInterface
     /**
      * Set subscribed product ids.
      *
-     * @param ZenMagick\StoreBundle\Entity\Account\Account account The account.
+     * @param ZenMagick\StoreBundle\Entity\Account account The account.
      * @param array productIds The new list of subscribed product ids.
-     * @return ZenMagick\StoreBundle\Entity\Account\Account The updated account.
+     * @return ZenMagick\StoreBundle\Entity\Account The updated account.
      */
     public function setSubscribedProductIds($account, $productIds)
     {

@@ -24,7 +24,7 @@ use ZenMagick\Base\Beans;
 use ZenMagick\Base\Toolbox;
 use ZenMagick\Http\Sacs\SacsManager;
 use ZenMagick\StoreBundle\Model\Checkout\ShoppingCart;
-use ZenMagick\StoreBundle\Entity\Account\Account;
+use ZenMagick\StoreBundle\Entity\Account;
 use ZenMagick\plugins\subscriptions\cron\UpdateSubscriptionsCronJob;
 
 /**

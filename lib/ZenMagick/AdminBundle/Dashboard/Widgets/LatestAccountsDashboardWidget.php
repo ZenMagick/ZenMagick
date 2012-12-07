@@ -20,7 +20,7 @@
 namespace ZenMagick\AdminBundle\Dashboard\Widgets;
 
 use ZenMagick\AdminBundle\Dashboard\DashboardWidget;
-use ZenMagick\StoreBundle\Entity\Account\Account;
+use ZenMagick\StoreBundle\Entity\Account;
 
 /**
  * Latest accounts dashboard widget.

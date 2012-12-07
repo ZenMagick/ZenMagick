@@ -22,7 +22,7 @@ namespace ZenMagick\Http\Session;
 use Serializable;
 use ZenMagick\Base\Beans;
 use ZenMagick\Base\Runtime;
-use ZenMagick\StoreBundle\Entity\Account\Account;
+use ZenMagick\StoreBundle\Entity\Account;
 use ZenMagick\StoreBundle\Services\Account\Accounts;
 
 use Symfony\Component\EventDispatcher\GenericEvent;
@@ -343,7 +343,7 @@ class Session extends BaseSession implements ContainerAwareInterface
     /**
      * Set the account for the current session.
      *
-     * @param ZenMagick\StoreBundle\Entity\Account\Account account The account.
+     * @param ZenMagick\StoreBundle\Entity\Account account The account.
      */
     public function setAccount($account)
     {
@@ -429,7 +429,7 @@ class Session extends BaseSession implements ContainerAwareInterface
      *
      * <p>This operation will fail, for example, if the account is blocked/disabled.</p>
      *
-     * @param ZenMagick\StoreBundle\Entity\Account\Account account The account.
+     * @param ZenMagick\StoreBundle\Entity\Account account The account.
      * @param ZenMagick\Http\Request request The current request.
      * @param mixed source The event source; default is <code>null</code>.
      * @return boolean <code>true</code> if ok, <code>false</code> if not.

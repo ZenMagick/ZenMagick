@@ -19,7 +19,7 @@
  */
 namespace ZenMagick\StorefrontBundle\Http\Sacs;
 
-use ZenMagick\StoreBundle\Entity\Account\Account;
+use ZenMagick\StoreBundle\Entity\Account;
 use ZenMagick\Base\ZMObject;
 use ZenMagick\Http\Sacs\SacsHandler;
 

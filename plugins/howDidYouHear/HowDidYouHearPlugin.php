@@ -23,7 +23,7 @@ use ZenMagick\Base\Plugins\Plugin;
 use ZenMagick\Base\Toolbox;
 use ZenMagick\Base\ZMObject;
 use ZenMagick\Http\View\TemplateView;
-use ZenMagick\StoreBundle\Entity\Account\Account;
+use ZenMagick\StoreBundle\Entity\Account;
 
 define('ID_SOURCE_OTHER', 9999);
 

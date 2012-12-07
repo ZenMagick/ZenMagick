@@ -58,13 +58,13 @@ class ZMAccountForm extends FormData
     }
 
     /**
-     * Get a populated <code>ZenMagick\StoreBundle\Entity\Account\Account</code> instance.
+     * Get a populated <code>ZenMagick\StoreBundle\Entity\Account</code> instance.
      *
-     * @return ZenMagick\StoreBundle\Entity\Account\Account An account.
+     * @return ZenMagick\StoreBundle\Entity\Account An account.
      */
     public function getAccount()
     {
-        $account = Beans::getBean('ZenMagick\StoreBundle\Entity\Account\Account');
+        $account = Beans::getBean('ZenMagick\StoreBundle\Entity\Account');
         $properties = $this->getProperties();
 
         // TODO: see comment in c'tor

@@ -101,7 +101,7 @@ class AutoLoginPlugin extends Plugin
     /**
      * Make a resource string based on the given account.
      *
-     * @param ZenMagick\StoreBundle\Entity\Account\Account account The current account.
+     * @param ZenMagick\StoreBundle\Entity\Account account The current account.
      * @return string The string.
      */
     protected function getResource($account)
@@ -112,7 +112,7 @@ class AutoLoginPlugin extends Plugin
     /**
      * Set auto login cookie depending on optIn.
      *
-     * @param ZenMagick\StoreBundle\Entity\Account\Account account The account.
+     * @param ZenMagick\StoreBundle\Entity\Account account The account.
      * @param string optIn The users optIn preference.
      */
     protected function onOptIn($account, $optIn)

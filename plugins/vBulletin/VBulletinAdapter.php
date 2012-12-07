@@ -170,7 +170,7 @@ class VBulletinAdapter extends ZMObject
     /**
      * Create a new account.
      *
-     * @param ZenMagick\StoreBundle\Entity\Account\Account account The store account.
+     * @param ZenMagick\StoreBundle\Entity\Account account The store account.
      * @param string password The clear text password.
      */
     public function createAccount($account, $password)

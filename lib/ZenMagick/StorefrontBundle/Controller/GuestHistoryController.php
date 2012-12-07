@@ -19,7 +19,7 @@
  */
 namespace ZenMagick\StorefrontBundle\Controller;
 
-use ZenMagick\StoreBundle\Entity\Account\Account;
+use ZenMagick\StoreBundle\Entity\Account;
 
 /**
  * Request controller for guest history lookup.

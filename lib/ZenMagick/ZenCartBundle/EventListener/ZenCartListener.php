@@ -204,7 +204,7 @@ class ZenCartListener implements EventSubscriberInterface
         }
 
         if ('product_notification' == $template) {
-            $account = new \ZenMagick\StoreBundle\Entity\Account\Account();
+            $account = new \ZenMagick\StoreBundle\Entity\Account();
             $account->setFirstName($context['EMAIL_FIRST_NAME']);
             $account->setLastName($context['EMAIL_LAST_NAME']);
             $context['currentAccount'] = $account;

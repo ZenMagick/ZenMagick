@@ -19,7 +19,7 @@
  */
 namespace ZenMagick\StoreBundle\Model\Mock;
 
-use ZenMagick\StoreBundle\Entity\Account\Account;
+use ZenMagick\StoreBundle\Entity\Account;
 
 /**
  * Mock account.

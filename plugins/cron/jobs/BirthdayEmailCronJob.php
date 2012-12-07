@@ -57,7 +57,7 @@ class BirthdayEmailCronJob implements CronJobInterface
         $sql = "SELECT * FROM %table.customers%
                 WHERE MONTH(customers_dob) = MONTH(curdate())
                   AND DAYOFMONTH(customers_dob) = DAYOFMONTH(curdate()) " . $offset;
-        $results = ZMRuntime::getDatabase()->fetchAll($sql, array(), 'customers', 'ZenMagick\StoreBundle\Entity\Account\Account');
+        $results = ZMRuntime::getDatabase()->fetchAll($sql, array(), 'customers', 'ZenMagick\StoreBundle\Entity\Account');
         foreach ($results as $account) {
             $context = array('account' => $account);
 

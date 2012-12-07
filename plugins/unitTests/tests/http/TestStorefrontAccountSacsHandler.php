@@ -22,7 +22,7 @@ use ZenMagick\Http\Sacs\SacsManager;
 use ZenMagick\StoreBundle\Model\Mock\MockAccount;
 use ZenMagick\plugins\unitTests\simpletest\TestCase;
 use ZenMagick\StorefrontBundle\Http\Sacs\StorefrontAccountSacsHandler;
-use ZenMagick\StoreBundle\Entity\Account\Account;
+use ZenMagick\StoreBundle\Entity\Account;
 
 /**
  * Test StorefrontAccountSacsHandler
@@ -47,7 +47,7 @@ class TestStorefrontAccountSacsHandler extends TestCase
      * Get an account
      *
      * @param string level The authorization level.
-     * @return ZenMagick\StoreBundle\Entity\Account\Account An account.
+     * @return ZenMagick\StoreBundle\Entity\Account An account.
      */
     protected function getAccount($level)
     {

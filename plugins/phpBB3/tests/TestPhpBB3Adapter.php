@@ -20,7 +20,7 @@
 
 namespace ZenMagick\plugins\phpbb3\tests;
 
-use ZenMagick\StoreBundle\Entity\Account\Account;
+use ZenMagick\StoreBundle\Entity\Account;
 use ZMRuntime;
 use ZenMagick\plugins\unitTests\simpletest\TestCase;
 

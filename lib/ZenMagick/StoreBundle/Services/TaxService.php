@@ -19,7 +19,7 @@
  */
 namespace ZenMagick\StoreBundle\Services;
 
-use ZenMagick\StoreBundle\Entity\Account\Account;
+use ZenMagick\StoreBundle\Entity\Account;
 use ZMRuntime;
 use ZenMagick\Base\Beans;
 use ZenMagick\Base\ZMObject;

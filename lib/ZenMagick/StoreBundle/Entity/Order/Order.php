@@ -531,12 +531,12 @@ class Order extends ZMObject
      * <p><strong>NOTE: This contains the account information as of the time the order was placed. This might be
      * different from the current account data.</strong></p>
      *
-     * @return ZenMagick\StoreBundle\Entity\Account\Account The account.
+     * @return ZenMagick\StoreBundle\Entity\Account The account.
      */
     public function getAccount()
     {
         if (null === $this->account) {
-            $this->account = Beans::getBean('ZenMagick\StoreBundle\Entity\Account\Account');
+            $this->account = Beans::getBean('ZenMagick\StoreBundle\Entity\Account');
             $this->account->setAccountId($this->accountId);
             // orders has only name, not first/last...
             $this->account->setLastName($this->get('customers_name'));
@@ -553,7 +553,7 @@ class Order extends ZMObject
      * <p><strong>NOTE: This contains the account information as of the time the order was placed. This might be
      * different from the current account data.</strong></p>
      *
-     * @param ZenMagick\StoreBundle\Entity\Account\Account account The account.
+     * @param ZenMagick\StoreBundle\Entity\Account account The account.
      */
     public function setAccount($account)
     {
