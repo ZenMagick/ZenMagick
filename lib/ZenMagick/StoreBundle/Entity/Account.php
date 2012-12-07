@@ -212,6 +212,8 @@ class Account extends ZMObject implements UserInterface
         $this->type = self::REGISTERED;
         $this->priceGroupId = 0;
         $this->authorization = Accounts::AUTHORIZATION_ENABLED;
+        $this->payPalPayerId = '';
+        $this->payPalEc = 0;
     }
 
     /**
