@@ -26,7 +26,7 @@ use ZenMagick\Base\ZMObject;
 use Doctrine\ORM\Mapping as ORM;
 use ZenMagick\StoreBundle\Services\Account\Accounts;
 
-use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Security\Core\User\AdvancedUserInterface;
 
 /**
  * A single user account.
@@ -42,7 +42,7 @@ use Symfony\Component\Security\Core\User\UserInterface;
  * @ORM\Entity(repositoryClass="ZenMagick\StoreBundle\Entity\AccountRepository")
  * @author DerManoMann
  */
-class Account extends ZMObject implements UserInterface, \Serializable
+class Account extends ZMObject implements AdvancedUserInterface, \Serializable
 {
     /** Access level registered. */
     const REGISTERED = 'registered';
@@ -854,6 +854,38 @@ class Account extends ZMObject implements UserInterface, \Serializable
     public function getPayPalEc()
     {
         return $this->payPalEc;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function isAccountNonExpired()
+    {
+        return true;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function isAccountNonLocked()
+    {
+        return Accounts::AUTHORIZATION_BLOCKED != $this->getAuthorization();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function isCredentialsNonExpired()
+    {
+        return true;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function isEnabled()
+    {
+        return true;
     }
 
     /**

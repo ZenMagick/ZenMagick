@@ -21,6 +21,7 @@ namespace ZenMagick\StorefrontBundle\Controller;
 
 use Symfony\Component\Security\Core\SecurityContext;
 use Symfony\Component\Security\Core\Exception\BadCredentialsException;
+use Symfony\Component\Security\Core\Exception\LockedException;
 
 /**
  * Request controller for login.
@@ -45,6 +46,10 @@ class LoginController extends \ZMController
         } else {
             $error = $session->get(SecurityContext::AUTHENTICATION_ERROR);
             $session->remove(SecurityContext::AUTHENTICATION_ERROR);
+        }
+
+        if ($error instanceof LockedException) {
+            $this->messageService->error(_zm('Access denied.'));
         }
 
         if ($error instanceof BadCredentialsException) {

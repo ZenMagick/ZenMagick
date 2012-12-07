@@ -23,7 +23,6 @@ use Serializable;
 use ZenMagick\Base\Beans;
 use ZenMagick\Base\Runtime;
 use ZenMagick\StoreBundle\Entity\Account;
-use ZenMagick\StoreBundle\Services\Account\Accounts;
 
 use Symfony\Component\EventDispatcher\GenericEvent;
 
@@ -431,12 +430,6 @@ class Session extends BaseSession implements ContainerAwareInterface
      */
     public function registerAccount($account, $request, $source=null)
     {
-        if (Accounts::AUTHORIZATION_BLOCKED == $account->getAuthorization()) {
-            $this->getFlashBag()->error(_zm('Access denied.'));
-
-            return false;
-        }
-
         // info only
         $this->container->get('event_dispatcher')->dispatch('login_success', new GenericEvent($this, array('controller' => $this, 'account' => $account, 'request' => $request)));
 
