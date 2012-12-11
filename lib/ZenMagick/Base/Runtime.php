@@ -96,7 +96,7 @@ class Runtime
     /**
      * Get the settings service.
      *
-     * @return ZenMagick\Base\Settings\Settings A <code>zenmagick\base\settings\Settings</code> instance.
+     * @return ZenMagick\Base\Settings A <code>zenmagick\base\settings\Settings</code> instance.
      */
     public static function getSettings()
     {

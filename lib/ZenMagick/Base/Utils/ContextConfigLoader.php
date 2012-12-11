@@ -22,7 +22,7 @@ namespace ZenMagick\Base\Utils;
 use ZenMagick\Base\ZMObject;
 use ZenMagick\Base\Runtime;
 use ZenMagick\Base\Toolbox;
-use ZenMagick\Base\Settings\Settings;
+use ZenMagick\Base\Settings;
 use ZenMagick\ZenMagickBundle\DependencyInjection\Loader\YamlLoader;
 
 use Symfony\Component\Config\FileLocator;

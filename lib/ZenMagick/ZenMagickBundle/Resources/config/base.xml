@@ -50,7 +50,7 @@
             </call>
         </service>
 
-        <service id="settingsService" class="ZenMagick\Base\Settings\Settings" />
+        <service id="settingsService" class="ZenMagick\Base\Settings" />
 
         <service id="contextConfigLoader" class="ZenMagick\Base\Utils\ContextConfigLoader" scope="prototype">
             <call method="setContainer">
