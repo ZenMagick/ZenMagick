@@ -253,6 +253,7 @@
 
     <route id="checkout_guest" pattern="/checkout/guest">
         <default key="_controller">StorefrontBundle:CheckoutGuest:process</default>
+        <option key="form">ZenMagick\StoreBundle\Entity\Address#formId=checkout_guest</option>
         <option key="view">login.html.php</option>
         <option key="view:guest_checkout_disabled">login.html.php</option>
         <option key="view:success">redirect://checkout_shipping</option>
