@@ -406,17 +406,6 @@ class ZMController extends Controller
     }
 
     /**
-     * Get the user (if any) for authentication.
-     *
-     * @return mixed A user/credentials object. Default is <code>null</code>.
-     * @todo return user via security.context service
-     */
-    public function getUser()
-    {
-        return $this->getRequest()->getAccount();
-    }
-
-    /**
      * Deal with demo/non-live user.
      *
      * <p>Will create a message that the requested functionallity is not availale for demo users.</p>
