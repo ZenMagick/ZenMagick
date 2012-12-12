@@ -35,7 +35,7 @@ use Symfony\Component\Security\Core\User\UserInterface;
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class UserRoleSacsHandler extends ZMObject implements SacsHandler
+class UserRoleSacsHandler extends ZMObject
 {
     /**
      * {@inheritDoc}

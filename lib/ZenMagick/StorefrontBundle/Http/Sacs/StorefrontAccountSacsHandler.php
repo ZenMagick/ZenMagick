@@ -34,7 +34,7 @@ use ZenMagick\Http\Sacs\SacsHandler;
  *
  * @author DerManoMann
  */
-class StorefrontAccountSacsHandler extends ZMObject implements SacsHandler
+class StorefrontAccountSacsHandler extends ZMObject
 {
     private $levelMap_;
 

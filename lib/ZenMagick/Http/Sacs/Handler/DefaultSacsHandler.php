@@ -27,7 +27,7 @@ use ZenMagick\Http\Sacs\SacsHandler;
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class DefaultSacsHandler extends ZMObject implements SacsHandler
+class DefaultSacsHandler extends ZMObject
 {
     /**
      * {@inheritDoc}

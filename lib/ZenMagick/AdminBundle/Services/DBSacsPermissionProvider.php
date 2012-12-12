@@ -27,7 +27,7 @@ use ZenMagick\Http\Sacs\SacsPermissionProvider;
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class DBSacsPermissionProvider extends ZMObject implements SacsPermissionProvider
+class DBSacsPermissionProvider extends ZMObject
 {
     /**
      * {@inheritDoc}
