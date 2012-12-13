@@ -77,7 +77,7 @@ class SacsManager extends ZMObject
         $this->handlers_ = array();
         $this->permissionProviders_ = array();
         // @todo use tagged services
-        foreach ($this->container->get('settingsService')->get('zenmagick.http.sacs.handler', array('ZenMagick\Http\Sacs\Handler\DefaultSacsHandler')) as $def) {
+        foreach ($this->container->get('settingsService')->get('zenmagick.http.sacs.handler') as $def) {
             if (!class_exists($def)) continue;
             if (null != ($handler = new $def)) {
                 $handler->setContainer($this->container);
