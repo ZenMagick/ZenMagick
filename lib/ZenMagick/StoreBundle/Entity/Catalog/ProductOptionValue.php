@@ -66,11 +66,10 @@ class ProductOptionValue
      */
     private $sortOrder;
 
-
     /**
      * Set id
      *
-     * @param integer $id
+     * @param  integer            $id
      * @return ProductOptionValue
      */
     public function setId($id)
@@ -93,7 +92,7 @@ class ProductOptionValue
     /**
      * Set languageId
      *
-     * @param integer $languageId
+     * @param  integer            $languageId
      * @return ProductOptionValue
      */
     public function setLanguageId($languageId)
@@ -116,7 +115,7 @@ class ProductOptionValue
     /**
      * Set name
      *
-     * @param string $name
+     * @param  string             $name
      * @return ProductOptionValue
      */
     public function setName($name)
@@ -139,7 +138,7 @@ class ProductOptionValue
     /**
      * Set sortOrder
      *
-     * @param integer $sortOrder
+     * @param  integer            $sortOrder
      * @return ProductOptionValue
      */
     public function setSortOrder($sortOrder)

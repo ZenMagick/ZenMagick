@@ -635,7 +635,7 @@ class AdminUser implements UserInterface, \Serializable
     /**
      * Add role
      *
-     * @param string|\ZenMagick\AdminBundle\Entity\AdminRole $role
+     * @param  string|\ZenMagick\AdminBundle\Entity\AdminRole $role
      * @return AdminUser
      */
     public function addRole($role)
@@ -660,6 +660,7 @@ class AdminUser implements UserInterface, \Serializable
         foreach ($roles as $role) {
             $this->addRole($role);
         }
+
         return $this;
     }
 
@@ -670,7 +671,6 @@ class AdminUser implements UserInterface, \Serializable
     {
         return in_array($role, $this->getRoles());
     }
-
 
     /**
      * Remove role
@@ -701,6 +701,7 @@ class AdminUser implements UserInterface, \Serializable
         foreach ($this->roles as $role) {
             $roles[] = $role->getName();
         }
+
         return $roles;
     }
 

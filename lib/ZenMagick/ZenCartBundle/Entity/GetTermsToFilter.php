@@ -38,7 +38,7 @@ class GetTermsToFilter
     /**
      * Set termName
      *
-     * @param string $termName
+     * @param  string           $termName
      * @return GetTermsToFilter
      */
     public function setTermName($termName)

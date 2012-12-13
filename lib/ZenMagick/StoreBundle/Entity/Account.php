@@ -734,6 +734,7 @@ class Account extends ZMObject implements AdvancedUserInterface, \Serializable
     public function getType()
     {
         $roles = $this->getRoles();
+
         return strtolower(str_replace('ROLE_', '', $roles[0]));
     }
 
@@ -777,6 +778,7 @@ class Account extends ZMObject implements AdvancedUserInterface, \Serializable
         if (!empty($this->password)) {
             array_unshift($roles, 'ROLE_REGISTERED');
         }
+
         return $roles;
     }
 
@@ -790,7 +792,7 @@ class Account extends ZMObject implements AdvancedUserInterface, \Serializable
     /**
      * Set newsletter
      *
-     * @param string $newsletter
+     * @param  string  $newsletter
      * @return Account
      */
     public function setNewsletter($newsletter)
@@ -813,7 +815,7 @@ class Account extends ZMObject implements AdvancedUserInterface, \Serializable
     /**
      * Set payPalPayerId
      *
-     * @param string $payPalPayerId
+     * @param  string  $payPalPayerId
      * @return Account
      */
     public function setPayPalPayerId($payPalPayerId)
@@ -836,7 +838,7 @@ class Account extends ZMObject implements AdvancedUserInterface, \Serializable
     /**
      * Set payPalEc
      *
-     * @param boolean $payPalEc
+     * @param  boolean $payPalEc
      * @return Account
      */
     public function setPayPalEc($payPalEc)
@@ -903,6 +905,5 @@ class Account extends ZMObject implements AdvancedUserInterface, \Serializable
     {
         list($this->accountId, $this->salt, $this->password, $this->email) = unserialize($serialized);
     }
-
 
 }

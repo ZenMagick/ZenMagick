@@ -20,7 +20,6 @@
 namespace ZenMagick\Http\Sacs\Handler;
 
 use ZenMagick\Base\ZMObject;
-use ZenMagick\Http\Sacs\SacsHandler;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 /**

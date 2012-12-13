@@ -20,7 +20,6 @@
 namespace ZenMagick\StoreBundle\Tests\Services;
 
 use DateTime;
-use ZMRuntime;
 use ZenMagick\Base\Beans;
 use ZenMagick\Base\Runtime;
 use ZenMagick\StoreBundle\Entity\Catalog\Review;

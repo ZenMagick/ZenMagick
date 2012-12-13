@@ -19,7 +19,6 @@
  */
 namespace ZenMagick\AdminBundle\Installation\Patches\File;
 
-use ZenMagick\Base\Runtime;
 use ZenMagick\AdminBundle\Installation\Patches\FilePatch;
 
 /**

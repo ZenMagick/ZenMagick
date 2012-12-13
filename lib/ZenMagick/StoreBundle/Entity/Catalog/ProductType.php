@@ -89,7 +89,6 @@ class ProductType
      */
     private $lastModified;
 
-
     public function __construct()
     {
         $this->dateAdded = new \DateTime;
@@ -99,7 +98,7 @@ class ProductType
    /**
      * Set id
      *
-     * @param string $id
+     * @param  string      $id
      * @return ProductType
      */
     public function setId($id)
@@ -122,7 +121,7 @@ class ProductType
     /**
      * Set name
      *
-     * @param string $name
+     * @param  string      $name
      * @return ProductType
      */
     public function setName($name)
@@ -145,7 +144,7 @@ class ProductType
     /**
      * Set handler
      *
-     * @param string $handler
+     * @param  string      $handler
      * @return ProductType
      */
     public function setHandler($handler)
@@ -168,7 +167,7 @@ class ProductType
     /**
      * Set masterType
      *
-     * @param integer $masterType
+     * @param  integer     $masterType
      * @return ProductType
      */
     public function setMasterType($masterType)
@@ -191,7 +190,7 @@ class ProductType
     /**
      * Set addToCart
      *
-     * @param string $addToCart
+     * @param  string      $addToCart
      * @return ProductType
      */
     public function setAddToCart($addToCart)
@@ -214,7 +213,7 @@ class ProductType
     /**
      * Set defaultImage
      *
-     * @param string $defaultImage
+     * @param  string      $defaultImage
      * @return ProductType
      */
     public function setDefaultImage($defaultImage)
@@ -237,7 +236,7 @@ class ProductType
     /**
      * Set dateAdded
      *
-     * @param \DateTime $dateAdded
+     * @param  \DateTime   $dateAdded
      * @return ProductType
      */
     public function setDateAdded(\DateTime $dateAdded)
@@ -260,7 +259,7 @@ class ProductType
     /**
      * Set lastModified
      *
-     * @param \DateTime $lastModified
+     * @param  \DateTime   $lastModified
      * @return ProductType
      */
     public function setLastModified(\DateTime $lastModified)

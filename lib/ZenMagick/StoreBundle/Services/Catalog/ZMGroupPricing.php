@@ -28,7 +28,7 @@ use ZenMagick\Base\ZMObject;
  *
  * @author DerManoMann
  */
-class GroupPricing extends ZMObject
+class ZMGroupPricing extends ZMObject
 {
     /**
      * Get all price groups.

@@ -26,7 +26,8 @@ use ZenMagick\Base\Runtime;
 /**
  * zen_href_link wrapper that delegates to the Zenmagick implementation (for storefront).
  */
-function zen_href_link($page='', $params='', $transport='NONSSL', $addSessionId=true, $seo=true, $isStatic=false, $useContext=true) {
+function zen_href_link($page='', $params='', $transport='NONSSL', $addSessionId=true, $seo=true, $isStatic=false, $useContext=true)
+{
     $net = Runtime::getContainer()->get('netTool');
     $page = str_replace('.php', '', $page);
 

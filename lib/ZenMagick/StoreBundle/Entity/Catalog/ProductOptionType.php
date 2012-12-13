@@ -45,24 +45,23 @@ class ProductOptionType
      */
     private $name;
 
-
     /**
      * Set id
      *
-     * @param integer $id
+     * @param  integer           $id
      * @return ProductOptionType
      */
     public function setId($id)
     {
         $this->id = $id;
-    
+
         return $this;
     }
 
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -72,20 +71,20 @@ class ProductOptionType
     /**
      * Set name
      *
-     * @param string $name
+     * @param  string            $name
      * @return ProductOptionType
      */
     public function setName($name)
     {
         $this->name = $name;
-    
+
         return $this;
     }
 
     /**
      * Get name
      *
-     * @return string 
+     * @return string
      */
     public function getName()
     {

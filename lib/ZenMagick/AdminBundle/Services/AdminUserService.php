@@ -81,6 +81,7 @@ class AdminUserService
     public function getUserForEmail($email)
     {
         $repository = $this->em->getRepository('AdminBundle:AdminUser');
+
         return $repository->findOneByEmail($email);
     }
 
@@ -123,6 +124,7 @@ class AdminUserService
         $user = $this->getUserFor($id);
         $this->em->remove($user);
         $this->em->flush();
+
         return true;
     }
 

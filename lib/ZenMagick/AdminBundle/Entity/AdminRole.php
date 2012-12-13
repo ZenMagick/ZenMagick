@@ -62,7 +62,6 @@ class AdminRole implements RoleInterface
         $this->admin = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
-
     /**
      * Get id
      *
@@ -76,7 +75,7 @@ class AdminRole implements RoleInterface
     /**
      * Set name
      *
-     * @param string $name
+     * @param  string    $name
      * @return AdminRole
      */
     public function setName($name)
@@ -99,7 +98,7 @@ class AdminRole implements RoleInterface
     /**
      * Set Role
      *
-     * @param string $role
+     * @param  string    $role
      * @return AdminRole
      */
     public function setRole($role)
@@ -120,7 +119,7 @@ class AdminRole implements RoleInterface
     /**
      * Add admin
      *
-     * @param \ZenMagick\AdminBundle\Entity\AdminUser $admin
+     * @param  \ZenMagick\AdminBundle\Entity\AdminUser $admin
      * @return AdminRole
      */
     public function addAdmin(AdminUser $admin)

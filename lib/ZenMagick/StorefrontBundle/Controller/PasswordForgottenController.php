@@ -24,7 +24,6 @@ use ZenMagick\StoreBundle\Entity\Account;
 
 use Symfony\Component\EventDispatcher\GenericEvent;
 
-
 /**
  * Request controller for forgotten passwords.
  *

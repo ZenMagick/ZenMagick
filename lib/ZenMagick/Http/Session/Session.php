@@ -194,6 +194,7 @@ class Session extends BaseSession implements ContainerAwareInterface
                 return $_SESSION[$name];
             }
         }
+
         return $default;
     }
 
@@ -245,6 +246,7 @@ class Session extends BaseSession implements ContainerAwareInterface
     public function getAccount()
     {
         $user = $this->container->get('security.context')->getToken()->getUser();
+
         return  ('anon.' == $user) ? null : $user;
     }
 
@@ -301,6 +303,7 @@ class Session extends BaseSession implements ContainerAwareInterface
     public function getType()
     {
         $account = $this->getAccount();
+
         return $account ? $account->getType() : null;
     }
 

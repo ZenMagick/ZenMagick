@@ -20,7 +20,6 @@
 namespace ZenMagick\AdminBundle\Services;
 
 use ZenMagick\Base\ZMObject;
-use ZenMagick\Http\Sacs\SacsPermissionProvider;
 
 /**
  * Database based permission provider.

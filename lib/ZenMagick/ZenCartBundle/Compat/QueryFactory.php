@@ -20,7 +20,6 @@
 
 namespace ZenMagick\ZenCartBundle\Compat;
 
-use ZenMagick\Base\Runtime;
 use ZenMagick\Base\ZMException;
 
 use Doctrine\DBAL\Connection;
@@ -63,12 +62,13 @@ class QueryFactory
      *                     <code>apps.store.database.default</code> settings.
      * @return resource an ext/mysql resource
      */
-    public function mysql_connect($params = null) {
-        if(!function_exists('mysql_connect')) {
+    public function mysql_connect($params = null)
+    {
+        if (!function_exists('mysql_connect')) {
             throw new ZMException('Install `ext/mysql` extension to enable mysql_* functions.');
         }
         $defaults = $this->conn->getParams();
-        $params = array_merge($defaults, (array)$params);
+        $params = array_merge($defaults, (array) $params);
         $link = mysql_connect($params['host'], $params['user'], $params['password'], true);
 
         if (is_resource($link) && mysql_select_db($params['dbname'])) {
@@ -90,10 +90,10 @@ class QueryFactory
      * then use DBAL executeQuery otherwise pass it off to
      * DBAL executeUpdate
      *
-     * @param string $sql sql query string
-     * @param int $limit limit the number of results
-     * @param bool $useCache cache the query
-     * @param int $cacheTime how long to cache the query for (in seconds)
+     * @param  string $sql       sql query string
+     * @param  int    $limit     limit the number of results
+     * @param  bool   $useCache  cache the query
+     * @param  int    $cacheTime how long to cache the query for (in seconds)
      * @return object QueryFactoryResult
      */
     public function Execute($sql, $limit = null, $useCache = false, $cacheTime = 0)
@@ -102,7 +102,6 @@ class QueryFactory
         $commandType = strtolower(substr($sql, 0, 3));
         if (!in_array($commandType, array('des', 'sel', 'sho'))) {
             try {
-
                 return  $this->conn->executeUpdate($sql);
             } catch (\PDOException $e) {
                throw new ZMException($e->getMessage(), $e->getCode(), $e);
@@ -137,8 +136,8 @@ class QueryFactory
      *
      * NOTE: the original method took cache arguments but never implemented them..
      *
-     * @param string $sql sql query string
-     * @param int $limit limit the number of returned results
+     * @param string $sql   sql query string
+     * @param int    $limit limit the number of returned results
      * @param object QueryFactoryResult
      * @todo we could be a lot more strict in detecting <code>ORDER BY RAND()</code>
      *       but it is probably not worth it.
@@ -148,13 +147,14 @@ class QueryFactory
         if (!preg_match('/ORDER\ BY\ RAND/i', $sql)) {
             $sql .=  ' ORDER BY RAND() ';
         }
+
         return $this->Execute($sql, $limit, $useCache, $cacheTime);
     }
 
     /**
      * Get meta details about a database table in a format known to ZenCart
      *
-     * @param string $table table to get meta details for
+     * @param  string $table table to get meta details for
      * @return array
      */
     public function metaColumns($table)
@@ -173,10 +173,10 @@ class QueryFactory
     /**
      * Perform an insert or update with $tableData map
      *
-     * @param string $table table to insert/update
-     * @param array $tableData
-     * @param string $type type of query to perform (insert|update)
-     * @param string $filter WHERE ...
+     * @param string $table     table to insert/update
+     * @param array  $tableData
+     * @param string $type      type of query to perform (insert|update)
+     * @param string $filter    WHERE ...
      */
     public function perform($table, $tableData, $type = 'insert', $filter = '')
     {
@@ -224,9 +224,9 @@ class QueryFactory
      *
      * @author ZenCart <http://www.zen-cart.com>
      * @copyright ZenCart developers
-     * @param mixed $value value to bind
-     * @param string $type type of value
-     * @return mixed transformed value
+     * @param  mixed  $value value to bind
+     * @param  string $type  type of value
+     * @return mixed  transformed value
      */
     public function getBindVarValue($value, $type)
     {
@@ -241,7 +241,7 @@ class QueryFactory
                 return empty($value) ? 0 : $value;
             break;
             case 'integer':
-                return (int)$value;
+                return (int) $value;
             break;
             case 'string':
                 if (isset($typeArray[1])) {
@@ -259,6 +259,7 @@ class QueryFactory
                 if (isset($typeArray[1])) {
                     $enumArray = explode('|', $typeArray[1]);
                 }
+
                 return $this->conn->quote($value);
             case 'regexp':
                 $searchArray = array('[', ']', '(', ')', '{', '}', '|', '*', '?', '.', '$', '^');
@@ -278,10 +279,10 @@ class QueryFactory
      * @author ZenCart <http://www.zen-cart.com>
      * @copyright ZenCart developers
      *
-     * @param string $sql sql query string
-     * @param string $param param to bind
-     * @param mixed $value value to bind
-     * @param string $type type to bind
+     * @param  string $sql   sql query string
+     * @param  string $param param to bind
+     * @param  mixed  $value value to bind
+     * @param  string $type  type to bind
      * @return string modified sql query
      * @todo attempt to actually bind some of these parameters? It seems a bit more difficult since
      *       bindVar isn't only used for sql, but also generic str cleaning elsewhere.
@@ -289,6 +290,7 @@ class QueryFactory
     public function bindVars($sql, $param, $value, $type)
     {
         $sqlFix = $this->getBindVarValue($value, $type);
+
         return str_replace($param, $sqlFix, $sql);
     }
 

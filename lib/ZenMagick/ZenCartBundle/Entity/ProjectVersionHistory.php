@@ -68,7 +68,6 @@ class ProjectVersionHistory
         $this->projectVersionDateApplied = new \DateTime();
     }
 
-
     /**
      * Get projectVersionId
      *
@@ -82,7 +81,7 @@ class ProjectVersionHistory
     /**
      * Set projectVersionKey
      *
-     * @param string $projectVersionKey
+     * @param  string                $projectVersionKey
      * @return ProjectVersionHistory
      */
     public function setProjectVersionKey($projectVersionKey)
@@ -105,7 +104,7 @@ class ProjectVersionHistory
     /**
      * Set projectVersionMajor
      *
-     * @param string $projectVersionMajor
+     * @param  string                $projectVersionMajor
      * @return ProjectVersionHistory
      */
     public function setProjectVersionMajor($projectVersionMajor)
@@ -128,7 +127,7 @@ class ProjectVersionHistory
     /**
      * Set projectVersionMinor
      *
-     * @param string $projectVersionMinor
+     * @param  string                $projectVersionMinor
      * @return ProjectVersionHistory
      */
     public function setProjectVersionMinor($projectVersionMinor)
@@ -151,7 +150,7 @@ class ProjectVersionHistory
     /**
      * Set projectVersionPatch
      *
-     * @param string $projectVersionPatch
+     * @param  string                $projectVersionPatch
      * @return ProjectVersionHistory
      */
     public function setProjectVersionPatch($projectVersionPatch)
@@ -174,7 +173,7 @@ class ProjectVersionHistory
     /**
      * Set projectVersionComment
      *
-     * @param string $projectVersionComment
+     * @param  string                $projectVersionComment
      * @return ProjectVersionHistory
      */
     public function setProjectVersionComment($projectVersionComment)
@@ -197,7 +196,7 @@ class ProjectVersionHistory
     /**
      * Set projectVersionDateApplied
      *
-     * @param \DateTime $projectVersionDateApplied
+     * @param  \DateTime             $projectVersionDateApplied
      * @return ProjectVersionHistory
      */
     public function setProjectVersionDateApplied(\DateTime $projectVersionDateApplied)

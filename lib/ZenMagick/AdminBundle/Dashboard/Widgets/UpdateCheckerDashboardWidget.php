@@ -52,7 +52,7 @@ class UpdateCheckerDashboardWidget extends DashboardWidget
   // keep track of things already executed
   var done = false;
 
-  function checkUpdate()
+  public function checkUpdate()
   {
     if (0 != $('#update-checker').closest('#dashboard').length && !done) {
       ZenMagick.rpc('dashboard', 'getUpdateInfo', '""', {

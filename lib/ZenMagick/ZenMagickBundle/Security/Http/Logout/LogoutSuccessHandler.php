@@ -20,8 +20,6 @@
 
 namespace ZenMagick\ZenMagickBundle\Security\Http\Logout;
 
-use ZenMagick\Base\Runtime;
-
 use Symfony\Component\EventDispatcher\GenericEvent;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\Security\Http\Logout\DefaultLogoutSuccessHandler;

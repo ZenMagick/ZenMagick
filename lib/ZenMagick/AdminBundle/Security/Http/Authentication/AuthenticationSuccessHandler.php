@@ -51,6 +51,7 @@ class AuthenticationSuccessHandler extends DefaultAuthenticationSuccessHandler
         if (null != ($uiLocale = $this->prefService->getPrefForName($user->getId(), 'uiLocale'))) {
             $session->set('_locale', $uiLocale);
         }
+
         return parent::onAuthenticationSuccess($request, $token);
     }
 }

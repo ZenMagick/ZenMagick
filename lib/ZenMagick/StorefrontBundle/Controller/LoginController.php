@@ -59,6 +59,7 @@ class LoginController extends \ZMController
         $tpl = array(
             'lastUsername' => $session->get(SecurityContext::LAST_USERNAME),
         );
+
         return $this->findView(null, $tpl);
     }
 }

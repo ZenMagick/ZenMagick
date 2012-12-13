@@ -20,7 +20,6 @@
 namespace ZenMagick\Http\Sacs;
 
 use ZenMagick\Base\Beans;
-use ZenMagick\Base\Runtime;
 use ZenMagick\Base\Toolbox;
 use ZenMagick\Base\ZMObject;
 

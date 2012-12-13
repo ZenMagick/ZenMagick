@@ -5,4 +5,3 @@ ZenMagick\StoreBundle\Entity\Locale\Language:
         image: "icon.gif"
         directory: "english"
         sortOrder: 1
-

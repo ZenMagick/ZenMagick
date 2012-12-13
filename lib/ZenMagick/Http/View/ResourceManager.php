@@ -19,7 +19,6 @@
  */
 namespace ZenMagick\Http\View;
 
-use ZenMagick\Base\Runtime;
 use ZenMagick\Base\ZMObject;
 
 /**
@@ -267,7 +266,6 @@ class ResourceManager extends ZMObject
          * @todo understand what it is supposed to do and fix it.
          */
         if ($virtual) {
-
             return str_replace(DIRECTORY_SEPARATOR, '/', $filename);
         }
 

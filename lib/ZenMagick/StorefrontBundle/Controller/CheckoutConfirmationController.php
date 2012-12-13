@@ -20,7 +20,6 @@
  */
 namespace ZenMagick\StorefrontBundle\Controller;
 
-use ZenMagick\Base\Runtime;
 use ZenMagick\Base\Toolbox;
 
 /**

@@ -37,6 +37,7 @@ class AuthenticationSuccessHandler extends DefaultAuthenticationSuccessHandler
         $session = $request->getSession();
         $user = $token->getUser();
         $session->registerAccount($user, $request, $this);
+
         return parent::onAuthenticationSuccess($request, $token);
     }
 }

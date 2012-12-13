@@ -54,7 +54,7 @@ class AddressFormat
     /**
      * Set id
      *
-     * @param  integer $id
+     * @param  integer       $id
      * @return AddressFormat
      */
     public function setId($id)
@@ -77,7 +77,7 @@ class AddressFormat
     /**
      * Set format
      *
-     * @param string $format
+     * @param  string        $format
      * @return AddressFormat
      */
     public function setFormat($format)
@@ -100,7 +100,7 @@ class AddressFormat
     /**
      * Set summary
      *
-     * @param string $summary
+     * @param  string        $summary
      * @return AddressFormat
      */
     public function setSummary($summary)

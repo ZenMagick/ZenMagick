@@ -23,8 +23,8 @@ namespace ZenMagick\ZenCartBundle\Compat;
  *
  *
  */
-abstract class Base {
-
+abstract class Base
+{
     protected static $observers;
 
     /**
@@ -38,7 +38,8 @@ abstract class Base {
      * @param object objserver Reference to the observer class
      * @param array eventIds An array of event ids to observe
      */
-    public function attach(&$observer, $eventIds) {
+    public function attach(&$observer, $eventIds)
+    {
         foreach ($eventIds as $eventId) {
             $nameHash = md5(get_class($observer).$eventId);
             self::setStaticObserver($nameHash, array('obs' => &$observer, 'eventId' => $eventId));
@@ -51,7 +52,8 @@ abstract class Base {
      * @param object observer
      * @param array eventIds
      */
-    function detach($observer, $eventIds) {
+    public function detach($observer, $eventIds)
+    {
         foreach ($eventIds as $eventId) {
             $nameHash = md5(get_class($observer).$eventId);
             self::unsetStaticObserver($nameHash);
@@ -64,8 +66,9 @@ abstract class Base {
      * @param string eventId The event ID to notify for
      * @param array params paramters to pass to the observer, useful for passing stuff which is outside of the 'scope' of the observed class.
      */
-    public function notify($eventId, $params = array()) {
-        $observers = (array)self::getStaticObserver();
+    public function notify($eventId, $params = array())
+    {
+        $observers = (array) self::getStaticObserver();
         foreach ($observers as $hash => $observer) {
             if ($observer['eventId'] == $eventId) {
                 $observer['obs']->update($this, $eventId, $params);
@@ -73,15 +76,18 @@ abstract class Base {
         }
     }
 
-    protected static function getStaticObserver() {
+    protected static function getStaticObserver()
+    {
         return self::$observers;
     }
 
-    protected static function setStaticObserver($element, $value) {
+    protected static function setStaticObserver($element, $value)
+    {
         self::$observers[$element] = $value;
     }
 
-    protected static function unsetStaticObserver($element) {
+    protected static function unsetStaticObserver($element)
+    {
         unset(self::$observers[$element]);
     }
 }

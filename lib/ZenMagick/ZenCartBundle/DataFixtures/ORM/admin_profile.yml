@@ -737,4 +737,3 @@ ZenMagick\ZenCartBundle\Entity\AdminPages:
         menuKey: "taxes"
         displayOnMenu: "Y"
         sortOrder: 2
-

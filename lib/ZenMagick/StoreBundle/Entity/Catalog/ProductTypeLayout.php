@@ -119,7 +119,6 @@ class ProductTypeLayout extends ZMObject
         $this->dateAdded = new \DateTime();
     }
 
-
     /**
      * Get id
      *
@@ -133,7 +132,7 @@ class ProductTypeLayout extends ZMObject
     /**
      * Set title
      *
-     * @param string $title
+     * @param  string            $title
      * @return ProductTypeLayout
      */
     public function setTitle($title)
@@ -156,7 +155,7 @@ class ProductTypeLayout extends ZMObject
     /**
      * Set key
      *
-     * @param string $key
+     * @param  string            $key
      * @return ProductTypeLayout
      */
     public function setKey($key)
@@ -179,7 +178,7 @@ class ProductTypeLayout extends ZMObject
     /**
      * Set value
      *
-     * @param string $value
+     * @param  string            $value
      * @return ProductTypeLayout
      */
     public function setValue($value)
@@ -202,7 +201,7 @@ class ProductTypeLayout extends ZMObject
     /**
      * Set description
      *
-     * @param string $description
+     * @param  string            $description
      * @return ProductTypeLayout
      */
     public function setDescription($description)
@@ -225,7 +224,7 @@ class ProductTypeLayout extends ZMObject
     /**
      * Set productTypeId
      *
-     * @param integer $productTypeId
+     * @param  integer           $productTypeId
      * @return ProductTypeLayout
      */
     public function setProductTypeId($productTypeId)
@@ -248,7 +247,7 @@ class ProductTypeLayout extends ZMObject
     /**
      * Set sortOrder
      *
-     * @param integer $sortOrder
+     * @param  integer           $sortOrder
      * @return ProductTypeLayout
      */
     public function setSortOrder($sortOrder)
@@ -271,7 +270,7 @@ class ProductTypeLayout extends ZMObject
     /**
      * Set lastModified
      *
-     * @param \DateTime $lastModified
+     * @param  \DateTime         $lastModified
      * @return ProductTypeLayout
      */
     public function setLastModified(\DateTime $lastModified)
@@ -294,7 +293,7 @@ class ProductTypeLayout extends ZMObject
     /**
      * Set dateAdded
      *
-     * @param \DateTime $dateAdded
+     * @param  \DateTime         $dateAdded
      * @return ProductTypeLayout
      */
     public function setDateAdded(\DateTime $dateAdded)
@@ -317,7 +316,7 @@ class ProductTypeLayout extends ZMObject
     /**
      * Set useFunction
      *
-     * @param string $useFunction
+     * @param  string            $useFunction
      * @return ProductTypeLayout
      */
     public function setUseFunction($useFunction)
@@ -340,7 +339,7 @@ class ProductTypeLayout extends ZMObject
     /**
      * Set setFunction
      *
-     * @param string $setFunction
+     * @param  string            $setFunction
      * @return ProductTypeLayout
      */
     public function setSetFunction($setFunction)

@@ -77,7 +77,7 @@ class NavigationHistory extends Base implements \Serializable
         $get_vars = array();
 
         $cPath = $this->request->query->get('cPath');
-        foreach($this->request->query->all() as $key => $value) {
+        foreach ($this->request->query->all() as $key => $value) {
             if ($key != 'main_page') {
                 $get_vars[$key] = $value;
             }
@@ -148,7 +148,7 @@ class NavigationHistory extends Base implements \Serializable
                 'get' => $page['get'],
                 'post' => $page['post']);
         } else {
-            foreach($this->request->query->all() as $key => $value) {
+            foreach ($this->request->query->all() as $key => $value) {
                 if ($key != 'main_page') {
                     $get_vars[$key] = $value;
                 }

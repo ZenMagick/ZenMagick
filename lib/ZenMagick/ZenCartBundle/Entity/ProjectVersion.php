@@ -84,7 +84,6 @@ class ProjectVersion
      */
     private $projectVersionDateApplied;
 
-
     public function __construct()
     {
         $this->projectVersionDateApplied = new \DateTime();
@@ -103,7 +102,7 @@ class ProjectVersion
     /**
      * Set projectVersionKey
      *
-     * @param string $projectVersionKey
+     * @param  string         $projectVersionKey
      * @return ProjectVersion
      */
     public function setProjectVersionKey($projectVersionKey)
@@ -126,7 +125,7 @@ class ProjectVersion
     /**
      * Set projectVersionMajor
      *
-     * @param string $projectVersionMajor
+     * @param  string         $projectVersionMajor
      * @return ProjectVersion
      */
     public function setProjectVersionMajor($projectVersionMajor)
@@ -149,7 +148,7 @@ class ProjectVersion
     /**
      * Set projectVersionMinor
      *
-     * @param string $projectVersionMinor
+     * @param  string         $projectVersionMinor
      * @return ProjectVersion
      */
     public function setProjectVersionMinor($projectVersionMinor)
@@ -172,7 +171,7 @@ class ProjectVersion
     /**
      * Set projectVersionPatch1
      *
-     * @param string $projectVersionPatch1
+     * @param  string         $projectVersionPatch1
      * @return ProjectVersion
      */
     public function setProjectVersionPatch1($projectVersionPatch1)
@@ -195,7 +194,7 @@ class ProjectVersion
     /**
      * Set projectVersionPatch2
      *
-     * @param string $projectVersionPatch2
+     * @param  string         $projectVersionPatch2
      * @return ProjectVersion
      */
     public function setProjectVersionPatch2($projectVersionPatch2)
@@ -218,7 +217,7 @@ class ProjectVersion
     /**
      * Set projectVersionPatch1Source
      *
-     * @param string $projectVersionPatch1Source
+     * @param  string         $projectVersionPatch1Source
      * @return ProjectVersion
      */
     public function setProjectVersionPatch1Source($projectVersionPatch1Source)
@@ -241,7 +240,7 @@ class ProjectVersion
     /**
      * Set projectVersionPatch2Source
      *
-     * @param string $projectVersionPatch2Source
+     * @param  string         $projectVersionPatch2Source
      * @return ProjectVersion
      */
     public function setProjectVersionPatch2Source($projectVersionPatch2Source)
@@ -264,7 +263,7 @@ class ProjectVersion
     /**
      * Set projectVersionComment
      *
-     * @param string $projectVersionComment
+     * @param  string         $projectVersionComment
      * @return ProjectVersion
      */
     public function setProjectVersionComment($projectVersionComment)
@@ -287,7 +286,7 @@ class ProjectVersion
     /**
      * Set projectVersionDateApplied
      *
-     * @param \DateTime $projectVersionDateApplied
+     * @param  \DateTime      $projectVersionDateApplied
      * @return ProjectVersion
      */
     public function setProjectVersionDateApplied(\DateTime $projectVersionDateApplied)
