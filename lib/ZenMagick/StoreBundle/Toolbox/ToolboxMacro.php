@@ -501,7 +501,7 @@ class ToolboxMacro extends ToolboxTool
         $label = '';
         if ($value->hasImage() && $enableImage) {
             // TODO: where are images coming from in the future??
-            $path = realpath($settingsService->get('zencart.root_dir').'/images/'.$value->getImage());
+            $path = realpath($this->container->getParameter('zencart.root_dir').'/images/'.$value->getImage());
             if (file_exists($path)) {
                 $label = '<img src="' . $toolbox->net->image($value->getImage()) . '" alt="'.$value->getName().'" title="'.$value->getName().'"'.$slash.'>';
             }

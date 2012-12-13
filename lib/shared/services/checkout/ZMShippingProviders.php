@@ -82,7 +82,7 @@ class ZMShippingProviders extends ZMObject
             return $this->providers_[$configured];
         }
         $settingsService = $this->container->get('settingsService');
-        $zcPath = $settingsService->get('zencart.root_dir');
+        $zcPath = $this->container->getParameter('zencart.root_dir');
         $this->providers_[$configured] = array();
 
         $moduleInfos = array();

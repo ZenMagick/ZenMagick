@@ -51,7 +51,7 @@ class PaymentTypes extends ZMObject
     public function getPaymentTypes($all=false)
     {
         if (null === $this->paymentTypes_) {
-            $zcPath = $this->container->get('settingsService')->get('zencart.root_dir');
+            $zcPath = $this->container->getParameter('zencart.root_dir');
             $this->paymentTypes_ = array();
             if (defined('MODULE_PAYMENT_INSTALLED') && !Toolbox::isEmpty(MODULE_PAYMENT_INSTALLED)) {
                 // get a list of modules and stuff

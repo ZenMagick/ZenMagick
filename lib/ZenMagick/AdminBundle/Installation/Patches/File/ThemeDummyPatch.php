@@ -38,7 +38,7 @@ class ThemeDummyPatch extends FilePatch
     {
         parent::__construct('themeDummies');
         $this->label_ = 'Create admin dummy files for all installed ZenMagick themes';
-        $this->catalogTemplatePath = Runtime::getSettings()->get('zencart.root_dir').'/includes/templates/';
+        $this->catalogTemplatePath = $this->container->getParameter('zencart.root_dir').'/includes/templates/';
     }
 
     /**

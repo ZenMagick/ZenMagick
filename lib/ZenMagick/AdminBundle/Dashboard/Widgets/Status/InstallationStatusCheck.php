@@ -19,7 +19,7 @@
  */
 namespace ZenMagick\AdminBundle\Dashboard\Widgets\Status;
 
-use ZenMagick\Base\Runtime;
+use ZenMagick\Base\ZMObject;
 use ZenMagick\StoreBundle\Widgets\StatusCheck;
 
 /**
@@ -27,7 +27,7 @@ use ZenMagick\StoreBundle\Widgets\StatusCheck;
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class InstallationStatusCheck implements StatusCheck
+class InstallationStatusCheck extends ZMObject implements StatusCheck
 {
     /**
      * {@inheritDoc}
@@ -35,8 +35,7 @@ class InstallationStatusCheck implements StatusCheck
     public function getStatusMessages()
     {
         $messages = array();
-        $settingsService = Runtime::getSettings();
-        $zcPath = $settingsService->get('zencart.root_dir');
+        $zcPath = $this->container->getParameter('zencart.root_dir');
         $installDir = $zcPath.'/zc_install';
         if (is_dir($installDir)) {
             $messages[] = array(StatusCheck::STATUS_NOTICE, sprintf(_zm('Installation directory exists at: %s. Please remove this directory for security reasons.'), $installDir));

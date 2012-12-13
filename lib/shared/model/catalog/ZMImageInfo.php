@@ -68,7 +68,7 @@ class ZMImageInfo extends ZMObject
             $netTool = $this->container->get('netTool');
             $settingsService = $this->container->get('settingsService');
             // @todo we don't really want to use images from where zencart is, but from where the app is
-            $zcPath = $settingsService->get('zencart.root_dir');
+            $zcPath = $this->container->getParameter('zencart.root_dir');
             // set default image
             if (empty($image) || !file_exists($zcPath.'/images/'.$image) || !is_file($zcPath.'/images/'.$image)) {
                 $this->imageDefault_ = $netTool->image($settingsService->get('imgNotFound'));
@@ -228,7 +228,7 @@ class ZMImageInfo extends ZMObject
         $realImageBase = basename($comp[2]);
 
         // directory to scan
-        $dirname = Runtime::getSettings()->get('zencart.root_dir').'/images/'.$subdir;
+        $dirname = $this->container->getParameter('zencart.root_dir').'/images/'.$subdir;
         $imageList = array();
         if (is_dir($dirname) && ($dir = dir($dirname))) {
             while ($file = $dir->read()) {

@@ -39,7 +39,7 @@ class SideboxDummyPatch extends FilePatch
     {
         parent::__construct('sideboxDummies');
         $this->label_ = 'Create dummy files for all (side)boxes of <strong>all</strong> ZenMagick themes and <strong>installed</strong> plugins';
-        $this->sideBoxPath = Runtime::getSettings()->get('zencart.root_dir').'/includes/modules/sideboxes/';
+        $this->sideBoxPath = $this->container->getParameter('zencart.root_dir').'/includes/modules/sideboxes/';
     }
 
     /**

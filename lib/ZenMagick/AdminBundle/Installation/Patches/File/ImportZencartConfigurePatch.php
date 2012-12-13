@@ -41,7 +41,7 @@ class ImportZencartConfigurePatch extends FilePatch
     {
         parent::__construct('importZencartConfigure');
         $this->label_ = 'Create or update ZenMagick store-config.yaml from configure.php';
-        $this->configurePhpFile = Runtime::getSettings()->get('zencart.root_dir').'/includes/configure.php';
+        $this->configurePhpFile = $this->container->getParameter('zencart.root_dir').'/includes/configure.php';
     }
 
     /**
@@ -96,7 +96,7 @@ class ImportZencartConfigurePatch extends FilePatch
         include_once $this->configurePhpFile;
 
         // find DB_CHARSET
-        $zcPath = Runtime::getSettings()->get('zencart.root_dir');
+        $zcPath = $this->container->getParameter('zencart.root_dir');
         $extraConfigures = glob($zcPath.'/includes/extra_configures/*.php');
         foreach ($extraConfigures as $extraConfigure) {
             include_once $extraConfigure;

@@ -248,7 +248,7 @@ class ResourceManager extends ZMObject
             }
         }
 
-        $docRoot = realpath($this->container->get('settingsService')->get('zencart.root_dir'));
+        $docRoot = realpath($this->container->getParameter('zencart.root_dir'));
         if (empty($filename) || empty($docRoot)) {
             Runtime::getLogging()->warn(sprintf('cannot convert t"%s" to url; docroot: %s', $filename, $docRoot));
 
