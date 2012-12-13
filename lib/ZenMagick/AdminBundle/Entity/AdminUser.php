@@ -625,7 +625,7 @@ class AdminUser implements UserInterface, \Serializable
     }
 
     /**
-     * {@inhertDoc}
+     * {@inheritDoc}
      */
     public function getSalt()
     {
@@ -705,7 +705,7 @@ class AdminUser implements UserInterface, \Serializable
     }
 
     /**
-     * {@inhertDoc}
+     * {@inheritDoc}
      */
     public function eraseCredentials()
     {

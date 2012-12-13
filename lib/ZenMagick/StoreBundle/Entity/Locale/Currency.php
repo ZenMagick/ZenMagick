@@ -271,7 +271,8 @@ class Currency extends ZMObject
      */
     public function setDecimalPoint($point)
     {
-        $this->decimalPoint = $point;}
+        $this->decimalPoint = $point;
+    }
 
     /**
      * Set the currency thousands point.
