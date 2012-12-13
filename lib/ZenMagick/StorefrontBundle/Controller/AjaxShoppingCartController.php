@@ -76,7 +76,7 @@ class AjaxShoppingCartController extends \ZMAjaxController
         $response['methods'] = $methods;
 
         $flatObj = $utilsTool->flattenObject($response);
-        $json = $this->toJSON($flatObj);
+        $json = json_encode($flatObj);
         $this->setJSONHeader($json);
     }
 
@@ -99,7 +99,7 @@ class AjaxShoppingCartController extends \ZMAjaxController
         $cartDetails ['total'] = $utilsTool->formatMoney($shoppingCart->getTotal());
 
         $flatObj = $utilsTool->flattenObject($cartDetails );
-        $json = $this->toJSON($flatObj);
+        $json = json_encode($flatObj);
         $this->setJSONHeader($json);
     }
 

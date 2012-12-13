@@ -65,7 +65,7 @@ class ZMAjaxCatalogController extends ZMAjaxController
 
         $utilsTool = $this->container->get('utilsTool');
         $flatObj = $utilsTool->flattenObject($this->container->get('productService')->getProductForId($productId, $languageId), $this->get('ajaxProductMap'));
-        $json = $this->toJSON($flatObj);
+        $json = json_encode($flatObj);
         $this->setJSONHeader($json);
     }
 
@@ -108,7 +108,7 @@ class ZMAjaxCatalogController extends ZMAjaxController
             $flatObj = $utilsTool->flattenObject($resultList, $this->get('ajaxResultListMap'));
         }
 
-        $json = $this->toJSON($flatObj);
+        $json = json_encode($flatObj);
         $this->setJSONHeader($json);
     }
 
@@ -151,7 +151,7 @@ class ZMAjaxCatalogController extends ZMAjaxController
             $flatObj = $utilsTool->flattenObject($resultList, $this->get('ajaxResultListMap'));
         }
 
-        $json = $this->toJSON($flatObj);
+        $json = json_encode($flatObj);
         $this->setJSONHeader($json);
     }
 

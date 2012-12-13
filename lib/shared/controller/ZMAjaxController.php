@@ -106,16 +106,4 @@ class ZMAjaxController extends ZMController
 
         return $response;
     }
-
-    /**
-     * Serialize object to JSON.
-     *
-     * @param mixed obj The object to serialize; can also be an array of objects.
-     * @return string The given object as JSON.
-     */
-    public function toJSON($obj)
-    {
-        return json_encode($obj);
-    }
-
 }
