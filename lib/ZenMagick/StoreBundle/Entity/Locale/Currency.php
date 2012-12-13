@@ -116,56 +116,80 @@ class Currency extends ZMObject
      *
      * @return integer $currencyId The currency id.
      */
-    public function getId() { return $this->id; }
+    public function getId()
+    {
+        return $this->id;
+    }
 
     /**
      * Get the currency code.
      *
      * @return string $code The currency code.
      */
-    public function getCode() { return $this->code; }
+    public function getCode()
+    {
+        return $this->code;
+    }
 
     /**
      * Get the currency name.
      *
      * @return string $name The currency name.
      */
-    public function getName() { return $this->name; }
+    public function getName()
+    {
+        return $this->name;
+    }
 
     /**
      * Get the currency symbox (left).
      *
      * @return string The currency symbol (left).
      */
-    public function getSymbolLeft() { return $this->symbolLeft; }
+    public function getSymbolLeft()
+    {
+        return $this->symbolLeft;
+    }
 
     /**
      * Get the currency symbox (right).
      *
      * @return string The currency symbol (right).
      */
-    public function getSymbolRight() { return $this->symbolRight; }
+    public function getSymbolRight()
+    {
+        return $this->symbolRight;
+    }
 
     /**
      * Get the currency decimal point.
      *
      * @return string The currency decimal point.
      */
-    public function getDecimalPoint() { return $this->decimalPoint; }
+    public function getDecimalPoint()
+    {
+        return $this->decimalPoint;
+    }
 
     /**
      * Get the currency thousands point.
      *
      * @return string The currency thousands point.
      */
-    public function getThousandsPoint() { return $this->thousandsPoint; }
+    public function getThousandsPoint()
+    {
+        return $this->thousandsPoint;
+    }
 
     /**
      * Get the currency decimal places.
      *
      * @return int The currency decimal places.
      */
-    public function getDecimalPlaces() { return $this->decimalPlaces; }
+    public function getDecimalPlaces()
+    {
+        return $this->decimalPlaces;
+    }
 
     /**
      * Get the currency rate.
@@ -174,7 +198,10 @@ class Currency extends ZMObject
      *
      * @return double The currency rate.
      */
-    public function getRate() { return $this->rate; }
+    public function getRate()
+    {
+        return $this->rate;
+    }
 
     /**
      * Get date of last currency rate update
@@ -182,63 +209,89 @@ class Currency extends ZMObject
      * @author DerManoMann
      * @return datetime $lastUpdate
      */
-    public function getLastUpdate() { return $this->lastUpdate; }
+    public function getLastUpdate()
+    {
+        return $this->lastUpdate;
+    }
 
     /**
      * Set the currency id.
      *
      * @param int id The currency id.
      */
-    public function setId($id) { $this->id = $id; }
+    public function setId($id)
+    {
+        $this->id = $id;
+    }
 
     /**
      * Set the currency code.
      *
      * @param string $code The currency code.
      */
-    public function setCode($code) { $this->code = $code; }
+    public function setCode($code)
+    {
+        $this->code = $code;
+    }
 
     /**
      * Set the currency name.
      *
      * @param string $name The currency name.
      */
-    public function setName($name) { $this->name = $name; }
+    public function setName($name)
+    {
+        $this->name = $name;
+    }
 
     /**
      * Set the currency symbox (left).
      *
      * @param string $symbol The currency symbol (left).
      */
-    public function setSymbolLeft($symbol) { $this->symbolLeft = $symbol; }
+    public function setSymbolLeft($symbol)
+    {
+        $this->symbolLeft = $symbol;
+    }
 
     /**
      * Set the currency symbox (right).
      *
      * @param string symbol The currency symbol (right).
      */
-    public function setSymbolRight($symbol) { return $this->symbolRight = $symbol; }
+    public function setSymbolRight($symbol)
+    {
+        return $this->symbolRight = $symbol;
+    }
 
     /**
      * Set the currency decimal point.
      *
      * @param string $point The currency decimal point.
      */
-    public function setDecimalPoint($point) { $this->decimalPoint = $point;}
+    public function setDecimalPoint($point)
+    {
+        $this->decimalPoint = $point;}
 
     /**
      * Set the currency thousands point.
      *
      * @param string $point The currency thousands point.
      */
-    public function setThousandsPoint($point) { $this->thousandsPoint = $point; }
+    public function setThousandsPoint($point)
+    {
+        $this->thousandsPoint = $point;
+    }
 
     /**
      * Set the currency decimal places.
      *
      * @param int $decimals The currency decimal places.
      */
-    public function setDecimalPlaces($decimals) { $this->decimalPlaces = $decimals; }
+    public function setDecimalPlaces($decimals)
+    {
+        $this->decimalPlaces = $decimals;
+    }
 
     /**
      * Set the currency rate.
@@ -247,14 +300,20 @@ class Currency extends ZMObject
      *
      * @param double $rate The currency rate.
      */
-    public function setRate($rate) { $this->rate = $rate; }
+    public function setRate($rate)
+    {
+        $this->rate = $rate;
+    }
 
     /**
      * Set lastUpdate
      *
      * @param datetime $lastUpdate
      */
-    public function setLastUpdate($lastUpdate) { $this->lastUpdate = $lastUpdate; }
+    public function setLastUpdate($lastUpdate)
+    {
+        $this->lastUpdate = $lastUpdate;
+    }
 
     /**
      * Format the given amount according to this currency's rate and formatting rules.
