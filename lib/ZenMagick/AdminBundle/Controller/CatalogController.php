@@ -20,7 +20,6 @@
 namespace ZenMagick\AdminBundle\Controller;
 
 use ZenMagick\Base\Beans;
-use ZenMagick\Base\Runtime;
 use ZenMagick\Base\Toolbox;
 use ZenMagick\Http\Request;
 use ZenMagick\Http\Sacs\SacsManager;
@@ -69,13 +68,13 @@ class CatalogController extends \ZMController
             if (0 < count($controllers)) {
                 $controller = $controllers[0];
                 $catalogRequestId = $controller->getCatalogRequestId();
-                Runtime::getLogging()->debug('defaulting to controller : '.get_class($controller));
+                $this->get('logger')->debug('defaulting to controller : '.get_class($controller));
             }
         } else {
             // let's see if we have a controller for this...
             $definition = Toolbox::className($catalogRequestId.'Controller');
             $controller = Beans::getBean($definition);
-            Runtime::getLogging()->debug('delegating to controller : '.get_class($controller));
+            $this->get('logger')->debug('delegating to controller : '.get_class($controller));
 
         }
 

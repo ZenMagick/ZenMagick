@@ -71,7 +71,7 @@ class ToolboxUtils extends ToolboxTool
         }
         $currency = $currencyService->getCurrencyForCode($code);
         if (null == $currency) {
-            Runtime::getLogging()->warn('no currency found - using default currency');
+            $this->container->get('logger')->warn('no currency found - using default currency');
             $currency = $currencyService->getCurrencyForCode(Runtime::getSettings()->get('defaultCurrency'));
         }
         $money = $currency->format($amount, $convert);

@@ -162,11 +162,11 @@ class ResourceManager extends ZMObject
         if (array_key_exists($filename, $this->resources_['js'])) {
             // check if we need to do anything else or update the position
             if ($this->resources_['js'][$filename]['done']) {
-                Runtime::getLogging()->debug('skipping '.$filename.' as already done');
+                $this->container->get('logger')->debug('skipping '.$filename.' as already done');
             }
             if (self::FOOTER == $this->resources_['js'][$filename]['position']) {
                 if (self::HEADER == $position) {
-                    Runtime::getLogging()->debug('upgrading '.$filename.' to HEADER');
+                    $this->container->get('logger')->debug('upgrading '.$filename.' to HEADER');
 
                     return;
                 }
@@ -218,7 +218,7 @@ class ResourceManager extends ZMObject
             if (null != ($path = $this->view->getResourceResolver()->findResource($resource, $type))) {
                 if (null != ($uri= $this->file2uri($path))) {
                     $url = $this->container->get('netTool')->absoluteUrl($uri);
-                    Runtime::getLogging()->debug(sprintf('resolved file "%s" as url: %s; path=%s', $resource, $url, $path));
+                    $this->container->get('logger')->debug(sprintf('resolved file "%s" as url: %s; path=%s', $resource, $url, $path));
 
                     return $url;
                 }
@@ -250,13 +250,13 @@ class ResourceManager extends ZMObject
 
         $docRoot = realpath($this->container->getParameter('zencart.root_dir'));
         if (empty($filename) || empty($docRoot)) {
-            Runtime::getLogging()->warn(sprintf('cannot convert t"%s" to url; docroot: %s', $filename, $docRoot));
+            $this->container->get('logger')->warn(sprintf('cannot convert t"%s" to url; docroot: %s', $filename, $docRoot));
 
             return null;
         }
         if (!$virtual && 0 !== strpos($filename, $docRoot)) {
             // outside docroot
-            Runtime::getLogging()->warn(sprintf('cannot convert t"%s" to url (basedir); docroot: %s', $filename, $docRoot));
+            $this->container->get('logger')->warn(sprintf('cannot convert t"%s" to url (basedir); docroot: %s', $filename, $docRoot));
 
             return null;
         }

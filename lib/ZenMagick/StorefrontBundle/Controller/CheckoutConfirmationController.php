@@ -71,7 +71,7 @@ class CheckoutConfirmationController extends \ZMController
         }
 
         if ('free_free' == $_SESSION['shipping']) { // <johnny> When does this actually happen?
-            Runtime::getLogging()->warn('fixing free_free shipping method info');
+            $this->get('logger')->warn('fixing free_free shipping method info');
             $_SESSION['shipping'] = array('title' => _zm('Free Shipping'), 'cost' => 0, 'id' => 'free_free');
         }
 

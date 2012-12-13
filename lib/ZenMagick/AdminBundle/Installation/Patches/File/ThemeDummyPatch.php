@@ -130,7 +130,7 @@ class ThemeDummyPatch extends FilePatch
                     $this->setFilePerms($templateDir."images");
                     $this->setFilePerms($templateDir."images/".$imageName);
                 } else {
-                    Runtime::getLogging()->err("** ZenMagick: no permission to create theme dummy ".$themeId);
+                    $this->container->get('logger')->err("** ZenMagick: no permission to create theme dummy ".$themeId);
 
                     return false;
                 }

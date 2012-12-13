@@ -105,7 +105,7 @@ class SideboxDummyPatch extends FilePatch
                         $this->setFilePerms($this->sideBoxPath.$box);
                     }
                 } else {
-                    Runtime::getLogging()->err("** ZenMagick: no permission to create dummy sidebox " . $box);
+                    $this->container->get('logger')->err("** ZenMagick: no permission to create dummy sidebox " . $box);
 
                     return false;
                 }
