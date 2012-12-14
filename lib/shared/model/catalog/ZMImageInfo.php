@@ -20,6 +20,7 @@
  */
 
 use ZenMagick\Base\Beans;
+use ZenMagick\Base\Runtime;
 use ZenMagick\Base\Toolbox;
 use ZenMagick\Base\ZMObject;
 
@@ -227,7 +228,7 @@ class ZMImageInfo extends ZMObject
         $realImageBase = basename($comp[2]);
 
         // directory to scan
-        $dirname = $this->container->getParameter('zencart.root_dir').'/images/'.$subdir;
+        $dirname = Runtime::getContainer()->getParameter('zencart.root_dir').'/images/'.$subdir;
         $imageList = array();
         if (is_dir($dirname) && ($dir = dir($dirname))) {
             while ($file = $dir->read()) {
