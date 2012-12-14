@@ -19,7 +19,6 @@
  */
 namespace ZenMagick\StoreBundle\Widgets;
 
-use ZenMagick\Base\Runtime;
 use ZenMagick\Http\Widgets\Widget;
 use ZenMagick\Http\View\TemplateView;
 
@@ -44,12 +43,11 @@ class PayPalECButtonBlockWidget extends Widget
      */
     public function render($request, TemplateView $templateView)
     {
-        $settingsService = Runtime::getSettings();
         ob_start();
 
         if (defined('MODULE_PAYMENT_PAYPALWPP_STATUS') && MODULE_PAYMENT_PAYPALWPP_STATUS == 'True') {
             global $order, $db, $currencies;
-            include $settingsService->get('zencart.root_dir').'/includes/modules/payment/paypal/tpl_ec_button.php';
+            include $this->container->getParameter('zencart.root_dir').'/includes/modules/payment/paypal/tpl_ec_button.php';
         }
 
         return ob_get_clean();

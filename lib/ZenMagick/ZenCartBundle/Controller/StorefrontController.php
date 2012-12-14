@@ -123,7 +123,7 @@ class StorefrontController extends \ZMController
         $cwd = getcwd();
         $autoLoader->setErrorLevel();
         $request->overrideGlobals();
-        chdir($settingsService->get('zencart.root_dir'));
+        chdir($this->container->getParameter('zencart.root_dir'));
         extract($this->getZcViewData($request));
         $autoLoadConfig = array();
         $files = $autoLoader->resolveFiles('includes/auto_loaders/config.*.php');
