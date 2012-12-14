@@ -707,6 +707,10 @@ class AdminUser implements AdvancedUserInterface, \Serializable
      */
     public function isAccountNonLocked()
     {
+        if (!empty($this->lockoutExpires)) {
+          return time() > $this->lockoutExpires;
+        }
+
         return true;
     }
 
