@@ -149,7 +149,7 @@ class CronJobs extends ZMObject
             $lines = file($this->cronfile);
             $jobs = $this->parser->parseCrontab($lines);
         } else {
-            Runtime::getLogging()->err('crontab not found: '.$this->crontab);
+            $this->container->get('logger')->err('crontab not found: '.$this->crontab);
 
             return array();
         }
@@ -193,17 +193,17 @@ class CronJobs extends ZMObject
     public function runJob($job)
     {
         try {
-            Runtime::getLogging()->info("CronJobs: Running: ".$job['line']);
+            $this->container->get('logger')->info("CronJobs: Running: ".$job['line']);
             $obj = Beans::getBean($job['task']);
             if ($obj instanceof CronJobInterface) {
                 $status = $obj->execute();
             }
             $this->saveLastRunTime($job);
-            Runtime::getLogging()->info("CronJobs: Completed ".$job['line']." with status: ".($status?"OK":"FAILED"));
+            $this->container->get('logger')->info("CronJobs: Completed ".$job['line']." with status: ".($status?"OK":"FAILED"));
 
             return true;
         } catch (Exception $e) {
-            Runtime::getLogging()->info("CronJobs: Failed ".$job['line']." with exception: ".$e);
+            $this->container->get('logger')->info("CronJobs: Failed ".$job['line']." with exception: ".$e);
 
             return false;
         }

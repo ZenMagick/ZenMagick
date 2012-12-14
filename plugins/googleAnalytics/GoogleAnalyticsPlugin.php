@@ -191,7 +191,7 @@ EOT;
             return '';
         }
         if (null == $this->order_) {
-            Runtime::getLogging()->warn('no order to process');
+            $this->container->get('logger')->warn('no order to process');
 
             return;
         }
@@ -281,7 +281,7 @@ EOT;
         $code = '';
         if ('checkout_success' == $request->getRequestId()) {
             if (null == $this->order_) {
-                Runtime::getLogging()->warn('no order to process');
+                $this->container->get('logger')->warn('no order to process');
 
                 return;
             }

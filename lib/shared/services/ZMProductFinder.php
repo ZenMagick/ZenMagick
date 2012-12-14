@@ -269,7 +269,7 @@ class ZMProductFinder extends ZMObject
                 $sort .= " p.products_weight " . ($this->descending_ ? "DESC" : "") . ", pd.products_name";
                 break;
             default:
-                Runtime::getLogging()->warn('invalid sort id: ' . $this->sortId_);
+                $this->container->get('logger')->warn('invalid sort id: ' . $this->sortId_);
                $sort .= " p.products_sort_order,  pd.products_name";
                break;
             }

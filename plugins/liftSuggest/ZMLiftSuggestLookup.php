@@ -59,7 +59,7 @@ class ZMLiftSuggestLookup extends LiftSuggestLookup implements ContainerAwareInt
      */
     public function log($message, $e=null)
     {
-        Runtime::getLogging()->debug($message.(null != $e ? 'ex: '.$e : ''));
+        Runtime::getContainer()->get('logger')->debug($message.(null != $e ? 'ex: '.$e : ''));
     }
 
     /**

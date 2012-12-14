@@ -88,7 +88,7 @@ class CronPlugin extends Plugin
                 $cron->runJob($job);
             }
         }
-        Runtime::getLogging()->debug('Cron: '.ob_get_clean());
+        $this->container->get('logger')->debug('Cron: '.ob_get_clean());
     }
 
 }

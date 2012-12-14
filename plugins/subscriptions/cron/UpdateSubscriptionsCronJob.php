@@ -61,7 +61,7 @@ class UpdateSubscriptionsCronJob implements CronJobInterface
             if ('account' == $plugin->get('addressPolicy')) {
                 $account = $this->container->get('accountService')->getAccountForId($order->getAccountId());
                 if (null === $account) {
-                    Runtime::getLogging()->warn('invalid accountId on order: '.$order->getId());
+                    $this->container->get('logger')->warn('invalid accountId on order: '.$order->getId());
                     continue;
                 }
                 $defaultAddressId = $account->getDefaultAddressId();

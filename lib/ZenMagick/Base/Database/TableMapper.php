@@ -108,7 +108,6 @@ class TableMapper extends ZMObject
             if (empty($table)) continue;
 
             if (!array_key_exists($table, $this->tableMap_)) {
-                Runtime::getLogging()->debug('creating dynamic mapping for table name: '.$table);
                 $this->setMappingForTable($table, ZMRuntime::getDatabase()->getMetaData($table));
             }
 
