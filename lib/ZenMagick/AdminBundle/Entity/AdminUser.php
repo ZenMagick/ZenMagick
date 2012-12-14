@@ -711,14 +711,4 @@ class AdminUser implements UserInterface, \Serializable
         list($this->id) = unserialize($serialized);
     }
 
-    /**
-     * Get live
-     *
-     * @return boolean
-     */
-    public function getLive()
-    {
-        return $this->live;
-    }
-
 }
