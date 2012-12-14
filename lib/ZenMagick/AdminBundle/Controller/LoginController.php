@@ -21,6 +21,7 @@ namespace ZenMagick\AdminBundle\Controller;
 
 use Symfony\Component\Security\Core\SecurityContext;
 use Symfony\Component\Security\Core\Exception\BadCredentialsException;
+use Symfony\Component\Security\Core\Exception\LockedException;
 
 /**
  * Admin controller for login.
@@ -46,6 +47,10 @@ class LoginController extends \ZMController
         } else {
             $error = $session->get(SecurityContext::AUTHENTICATION_ERROR);
             $session->remove(SecurityContext::AUTHENTICATION_ERROR);
+        }
+
+        if ($error instanceof LockedException) {
+            $this->messageService->error(_zm('Sorry, there was a security error when trying to login.'));
         }
 
         if ($error instanceof BadCredentialsException) {
