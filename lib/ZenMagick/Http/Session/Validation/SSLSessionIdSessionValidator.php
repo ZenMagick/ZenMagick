@@ -34,7 +34,7 @@ class SSLSessionIdSessionValidator extends ZMObject implements SessionValidator
     /**
      * Name of the user agent session key.
      */
-    const SESSION_SSL_SESSION_ID_KEY = 'sslSessionId';
+    const SESSION_SSL_SESSION_ID_KEY = 'sessionValidator.sslSessionId';
 
     private $enabled = false;
 
@@ -58,8 +58,8 @@ class SSLSessionIdSessionValidator extends ZMObject implements SessionValidator
         $valid = true;
         if ($this->enabled && $request->isSecure()) {
             $sslSessionId = $request->server->get('SSL_SESSION_ID');
-            if (null == ($sessionSslSessionId = $session->get(self::SESSION_VALIDATOR_NAMESPACE.'.'.self::SESSION_SSL_SESSION_ID_KEY))) {
-                $session->set(self::SESSION_VALIDATOR_NAMESPACE.'.'.self::SESSION_SSL_SESSION_ID_KEY, $sslSessionId);
+            if (null == ($sessionSslSessionId = $session->get(self::SESSION_SSL_SESSION_ID_KEY))) {
+                $session->set(self::SESSION_SSL_SESSION_ID_KEY, $sslSessionId);
             } else {
                 $valid = $sslSessionId == $sessionSslSessionId;
             }

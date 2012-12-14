@@ -28,8 +28,6 @@ use ZenMagick\Http\Request;
  */
 interface SessionValidator
 {
-    const SESSION_VALIDATOR_NAMESPACE = 'sessionValidator';
-
     /**
      * Validate session for the given request.
      *
