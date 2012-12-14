@@ -108,22 +108,15 @@ class HttpListener implements EventSubscriberInterface
         $controllerResult = $event->getControllerResult();
         $request = $event->getRequest();
         $view = null;
-        try {
-            // make sure we end up with a View instance
-            $routeResolver = $this->container->get('routeResolver');
-            if (is_string($controllerResult)) {
-                $view = $routeResolver->getViewForId($controllerResult, $request);
-            } elseif ($controllerResult instanceof ModelAndView) {
-                $view = $routeResolver->getViewForId($controllerResult->getViewId(), $request);
-                $view->setVariables($controllerResult->getModel());
-            } elseif ($controllerResult instanceof View) {
-                $view = $controllerResult;
-            }
-        } catch (Exception $e) {
-            //TODO: why is this a classic controller only?
-            $controller = $this->container->get('defaultController');
-            $view = $controller->findView('error', array('exception' => $e));
-            $controller->initViewVars($view, $request);
+        // make sure we end up with a View instance
+        $routeResolver = $this->container->get('routeResolver');
+        if (is_string($controllerResult)) {
+            $view = $routeResolver->getViewForId($controllerResult, $request);
+        } elseif ($controllerResult instanceof ModelAndView) {
+            $view = $routeResolver->getViewForId($controllerResult->getViewId(), $request);
+            $view->setVariables($controllerResult->getModel());
+        } elseif ($controllerResult instanceof View) {
+            $view = $controllerResult;
         }
 
         return $view;
