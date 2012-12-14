@@ -416,7 +416,7 @@ class ZMController extends Controller
      */
     public function handleDemo()
     {
-        if (!$this->getUser()->isLive()) {
+        if ($this->getUser()->isDemo()) {
             $this->messageService->warn(_zm('Sorry, the action you tried to excute is not available to demo users'));
 
             return true;

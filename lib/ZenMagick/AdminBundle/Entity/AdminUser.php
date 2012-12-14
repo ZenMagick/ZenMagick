@@ -68,12 +68,7 @@ class AdminUser implements UserInterface, \Serializable
      * @ORM\Column(name="admin_pass", type="string", length=40, nullable=false)
      */
     private $password;
-    /**
-     * @var boolean $live
-     *
-     * @ORM\Column(name="admin_level", type="boolean", nullable=false)
-     */
-    private $live;
+
     /**
      * @var integer $profile
      *
@@ -294,25 +289,13 @@ class AdminUser implements UserInterface, \Serializable
     }
 
     /**
-     * Check if the user is a live user.
+     * Check if the user is a demo user.
      *
-     * @return boolean <code>true</code> if the user is a live admin user.
+     * @return int <code>true</code> if the user is a demo admin user.
      */
-    public function isLive()
+    public function isDemo()
     {
-        return $this->live;
-    }
-
-    /**
-     * Set the live flag.
-     *
-     * @parm boolean live The new value.
-     */
-    public function setLive($live)
-    {
-        $this->live = $live;
-
-        return $this;
+        return (boolean) defined('ADMIN_DEMO') ? ADMIN_DEMO : false;
     }
 
     /**

@@ -23,7 +23,6 @@
     <th><?php _vzm('ID') ?></th>
     <th><?php _vzm('Name') ?></th>
     <th><?php _vzm('Email') ?></th>
-    <th><?php _vzm('Status') ?></th>
     <th><?php _vzm('Options') ?></th>
   </tr>
   <?php foreach ($resultList->getResults() as $adminUser) { ?>
@@ -31,7 +30,6 @@
       <td><?php echo $adminUser->getId() ?></td>
       <td><a href="<?php echo $net->url('edit_admin_user', 'adminUserId='.$adminUser->getId()) ?>"><?php echo $adminUser->getUsername() ?></a></td>
       <td><?php echo $adminUser->getEmail() ?></td>
-      <td><?php echo (!$adminUser->isLive() ? _vzm('Demo') : _vzm('Live')) ?></td>
       <td>
         <form action="<?php echo $net->url('edit_admin_user') ?>" method="post">
           <input type="hidden" name="deleteUserId" value="<?php echo $adminUser->getId() ?>">
