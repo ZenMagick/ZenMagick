@@ -22,7 +22,6 @@ namespace ZenMagick\AdminBundle\Entity;
 use ZenMagick\AdminBundle\Entity\AdminRole;
 
 use Symfony\Component\Security\Core\User\AdvancedUserInterface;
-use Symfony\Component\Security\Core\User\UserInterface;
 
 use Doctrine\ORM\Mapping as ORM;
 
@@ -40,7 +39,7 @@ use Doctrine\ORM\Mapping as ORM;
  *  })
  * @ORM\Entity(repositoryClass="ZenMagick\AdminBundle\Entity\AdminUserRepository")
  */
-class AdminUser implements UserInterface, \Serializable
+class AdminUser implements AdvancedUserInterface, \Serializable
 {
     /**
      * @var integer $id
@@ -693,6 +692,38 @@ class AdminUser implements UserInterface, \Serializable
      */
     public function eraseCredentials()
     {
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function isAccountNonExpired()
+    {
+        return true;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function isAccountNonLocked()
+    {
+        return true;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function isCredentialsNonExpired()
+    {
+        return true;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function isEnabled()
+    {
+        return true;
     }
 
     /**
