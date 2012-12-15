@@ -27,6 +27,16 @@ abstract class Base
 {
     protected static $observers;
 
+    public function getContainer()
+    {
+        return \ZenMagick\Base\Runtime::getContainer();
+    }
+
+    protected function getRequest()
+    {
+        return $this->getContainer()->get('request');
+    }
+
     /**
      * Attach an observer to the notifier object
      *
