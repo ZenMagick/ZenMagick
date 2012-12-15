@@ -27,6 +27,7 @@ namespace ZenMagick\ZenCartBundle\Compat;
 class QueryFactoryResult
 {
     public $EOF = false;
+    public $fields = array();
     private $stmt;
 
     /**
