@@ -11,6 +11,8 @@
 
 namespace ZenMagick\ZenCartBundle\Compat;
 
+use Symfony\Component\EventDispatcher\GenericEvent;
+
 /**
  * Base class for ZenCart
  *
@@ -82,6 +84,11 @@ abstract class Base
         foreach ($observers as $hash => $observer) {
             if ($observer['eventId'] == $eventId) {
                 $observer['obs']->update($this, $eventId, $params);
+                $dispatcher = $this->getContainer()->get('event_dispatcher');
+                if (!is_array($params)) {
+                    $params = array($params);
+                }
+                $dispatcher->dispatch($eventId, new GenericEvent($this, $params));
             }
         }
     }
