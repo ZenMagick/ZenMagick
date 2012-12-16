@@ -27,6 +27,11 @@ use Symfony\Component\HttpFoundation\Session\Flash\FlashBagInterface;
  */
 class AdminMessageStack
 {
+    /*
+     * Accessed directly in ZC
+     */
+    public $size;
+
     private $flashBag;
 
     /**
@@ -41,6 +46,7 @@ class AdminMessageStack
     {
         $type = in_array($type, array('caution', 'warning')) ? 'warn' : $type;
         $this->flashBag->addMessage($message, $type);
+        $this->size++;
     }
 
     public function add_session($message, $type = 'error')
@@ -49,5 +55,46 @@ class AdminMessageStack
     }
     public function reset()
     {
+        $this->size = 0;
+        $this->flashBag->clear();
+    }
+
+    /**
+     * Show the output in a compatible
+     * format.
+     *
+     * @return string messages wrapped in an html table
+     */
+    public function output()
+    {
+        $output = '<table width="100%">';
+        $messages = $this->flashBag->getMessages();
+        foreach($messages as $message) {
+            $class = 'messageStackError';
+            $type = $message->getType();
+            if (in_array($type, array('error', 'success', 'warn'))) {
+                $class = 'messageStack'.ucfirst($type);
+            }
+            $messageString = $this->getIcon($type).'&nbsp;'.$message->getText();
+            $output .= '<tr><td class="'.$class.'">'.$messageString.'</td></tr>';
+        }
+        $output .='</table>';
+
+        return $output;
+    }
+
+    public function getIcon($type)
+    {
+        if (in_array($type, array('error', 'warn', 'success'))) {
+
+            if ('warn' == $type) {
+                $type = 'warning';
+            }
+            $image = $type.'.gif';
+
+            return zen_image(DIR_WS_ICONS . $image, $type);
+        }
+
+        return '';
     }
 }
