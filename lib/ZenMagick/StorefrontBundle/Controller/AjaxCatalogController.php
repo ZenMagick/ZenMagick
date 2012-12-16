@@ -18,6 +18,8 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
+namespace ZenMagick\StorefrontBundle\Controller;
+
 use ZenMagick\Base\Beans;
 use ZenMagick\Base\Runtime;
 
@@ -25,9 +27,8 @@ use ZenMagick\Base\Runtime;
  * Ajax controller for JSON catalog data.
  *
  * @author DerManoMann
- * @package zenmagick.store.shared.mvc.controller.ajax
  */
-class ZMAjaxCatalogController extends ZMAjaxController
+class AjaxCatalogController extends AjaxController
 {
     /**
      * Create new instance.
@@ -98,7 +99,7 @@ class ZMAjaxCatalogController extends ZMAjaxController
         } else {
             // use result list to paginate
             $args = array($categoryId, $activeOnly, $languageId);
-            $resultSource = new ZMObjectResultSource('ZenMagick\StoreBundle\Entity\Catalog\Product', 'productService', "getProductsForCategoryId", $args);
+            $resultSource = new \ZMObjectResultSource('ZenMagick\StoreBundle\Entity\Catalog\Product', 'productService', "getProductsForCategoryId", $args);
             $resultList = Beans::getBean('ZMResultList');
             $resultList->setResultSource($resultSource);
             $resultList->setPageNumber($page);
@@ -141,7 +142,7 @@ class ZMAjaxCatalogController extends ZMAjaxController
         } else {
             // use result list to paginate
             $args = array($manufacturerId, $activeOnly, $languageId);
-            $resultSource = new ZMObjectResultSource('ZenMagick\StoreBundle\Entity\Catalog\Product', 'productService', "getProductsForManufacturerId", $args);
+            $resultSource = new \ZMObjectResultSource('ZenMagick\StoreBundle\Entity\Catalog\Product', 'productService', "getProductsForManufacturerId", $args);
             $resultList = Beans::getBean('ZMResultList');
             $resultList->setResultSource($resultSource);
             $resultList->setPageNumber($page);

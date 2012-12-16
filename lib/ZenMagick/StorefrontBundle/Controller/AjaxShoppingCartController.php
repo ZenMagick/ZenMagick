@@ -26,7 +26,7 @@ use ZenMagick\Base\Beans;
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class AjaxShoppingCartController extends \ZMAjaxController
+class AjaxShoppingCartController extends AjaxController
 {
     /**
      * Create new instance.
@@ -42,7 +42,7 @@ class AjaxShoppingCartController extends \ZMAjaxController
      * Estimate shipping.
      *
      * @param ZenMagick\Http\Request request The current request.
-     * @deprecated Use ZMAjaxCheckoutController instead
+     * @deprecated Use AjaxCheckoutController instead
      */
     public function estimateShippingJSON($request)
     {

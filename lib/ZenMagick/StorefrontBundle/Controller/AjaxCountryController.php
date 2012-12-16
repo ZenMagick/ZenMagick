@@ -18,13 +18,14 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
+namespace ZenMagick\StorefrontBundle\Controller;
+
 /**
  * Ajax controller for JSON country data.
  *
  * @author DerManoMann
- * @package zenmagick.store.shared.mvc.controller.ajax
  */
-class ZMAjaxCountryController extends ZMAjaxController
+class AjaxCountryController extends AjaxController
 {
     /**
      * Create new instance.

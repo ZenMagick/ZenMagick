@@ -27,7 +27,7 @@ use ZenMagick\Base\Beans;
  * @author DerManoMann <mano@zenmagick.org>
  * @todo implement!
  */
-class AjaxCheckoutController extends \ZMAjaxController
+class AjaxCheckoutController extends AjaxController
 {
     /**
      * Create new instance.

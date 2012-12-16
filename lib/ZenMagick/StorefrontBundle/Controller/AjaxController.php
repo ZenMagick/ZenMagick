@@ -18,8 +18,9 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
+namespace ZenMagick\StorefrontBundle\Controller;
+
 use ZenMagick\Http\Request;
-use ZenMagick\Http\Sacs\SacsManager;
 
 use Symfony\Component\HttpFoundation\Response;
 
@@ -29,10 +30,9 @@ use Symfony\Component\HttpFoundation\Response;
  * <p>Uses native PHP function <code>json_encode</code>.</p>
  *
  * @author DerManoMann <mano@zenmagick.org>
- * @package org.zenmagick.mvc.controller
- * @deprecated use ZMRpcController instead
+ * @deprecated use RpcController instead
  */
-class ZMAjaxController extends ZMController
+class AjaxController extends \ZMController
 {
     /**
      * Process a HTTP GET request.
