@@ -134,22 +134,6 @@
         <option key="form">ZenMagick\AdminBundle\Forms\AdminUserForm#formId=adminUser</option>
     </route>
 
-    <!-- used in some payment modules -->
-    <route id="checkout_process" pattern="/checkout/process">
-        <default key="_controller">ZenCartBundle:Storefront:process</default>
-    </route>
-
-    <route id="ipn_main_handler" pattern="/ipn">
-        <default key="_controller">ZenCartBundle:Storefront:process</default>
-    </route>
-
-    <route id="contact_us" pattern="/contact-us">
-        <default key="_controller">StorefrontBundle:ContactUs:process</default>
-        <option key="form">ZMContactInfo#formId=contactUs</option>
-        <option key="view">contact_us.html.php</option>
-        <option key="view:success">redirect://contact_us</option>
-    </route>
-    <!-- used in some payment modules -->
 
     <import resource="." type="context" />
     <import resource="@ZenCartBundle/Resources/config/admin/routing.xml" />
