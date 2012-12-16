@@ -1425,20 +1425,7 @@ class ShoppingCart extends Base
             return $this->content_type;
         }
     }
-    /**
-     * Method to unserialize a cart object
-     *
-     * @deprecated
-     * @private
-     */
-    public function unserialize($broken)
-    {
-        for (reset($broken);$kv=each($broken);) {
-            $key=$kv['key'];
-            if (gettype($this->$key)!="user function")
-                $this->$key=$kv['value'];
-        }
-    }
+
     /**
      * Method to calculate item quantity, bounded the mixed/min units settings
      *
