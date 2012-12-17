@@ -4,6 +4,11 @@
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://symfony.com/schema/routing http://symfony.com/schema/routing/routing-1.0.xsd">
 
+    <route id="zc_admin_index" pattern="/">
+        <default key="_controller">ZenCartBundle:Admin:process</default>
+        <option key="view:zc_admin">zc_admin.html.php</option>
+    </route>
+
     <route id="zc_admin_categories" pattern="/categories">
         <default key="_controller">ZenCartBundle:Admin:process</default>
         <option key="view:zc_admin">zc_admin.html.php</option>
