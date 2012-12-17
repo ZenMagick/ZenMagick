@@ -1655,7 +1655,7 @@ class ShoppingCart extends Base
                     $this->getMessageStack()->add_session('shopping_cart', ERROR_MAXIMUM_QTY . zen_get_products_name($_POST['products_id'][$i]), 'caution');
                 } else {
                     // display message if all is good and not on shopping_cart page
-                    if (DISPLAY_CART == 'false' && $this->getMainPage() != FILENAME_SHOPPING_CART) {
+                    if (DISPLAY_CART == 'false' && $this->getMainPage() != 'shopping_cart') {
                         $this->getMessageStack()->add_session('header', SUCCESS_ADDED_TO_CART_PRODUCT, 'success');
                     }
                 }
@@ -1764,7 +1764,7 @@ class ShoppingCart extends Base
         if ($the_list == '') {
             // no errors
             // display message if all is good and not on shopping_cart page
-            if (DISPLAY_CART == 'false' && $this->getMainPage() != FILENAME_SHOPPING_CART) {
+            if (DISPLAY_CART == 'false' && $this->getMainPage() != 'shopping_cart') {
                 $this->getMessageStack()->add_session('header', SUCCESS_ADDED_TO_CART_PRODUCT, 'success');
             }
             zen_redirect(zen_href_link($goto, zen_get_all_get_params($parameters)));
@@ -1806,7 +1806,7 @@ class ShoppingCart extends Base
             }
         }
         // display message if all is good and not on shopping_cart page
-        if (DISPLAY_CART == 'false' && $this->getMainPage() != FILENAME_SHOPPING_CART) {
+        if (DISPLAY_CART == 'false' && $this->getMainPage() != 'shopping_cart') {
             $this->getMessageStack()->add_session('header', SUCCESS_ADDED_TO_CART_PRODUCT, 'success');
         }
         if (is_array($parameters) && !in_array('products_id', $parameters) && !strpos($goto, 'reviews') > 5) $parameters[] = 'products_id';
@@ -1866,7 +1866,7 @@ class ShoppingCart extends Base
                 }
             }
             // display message if all is good and not on shopping_cart page
-            if ($addCount && DISPLAY_CART == 'false' && $this->getMainPage() != FILENAME_SHOPPING_CART) {
+            if ($addCount && DISPLAY_CART == 'false' && $this->getMainPage() != 'shopping_cart') {
                 $this->getMessageStack()->add_session('header', SUCCESS_ADDED_TO_CART_PRODUCTS, 'success');
             }
             zen_redirect(zen_href_link($goto, zen_get_all_get_params($parameters)));
@@ -1908,7 +1908,7 @@ class ShoppingCart extends Base
 
         } else {
             $_SESSION['navigation']->set_snapshot();
-            zen_redirect(zen_href_link(FILENAME_LOGIN, '', 'SSL'));
+            zen_redirect(zen_href_link('login', '', 'SSL'));
         }
     }
     /**
@@ -1935,7 +1935,7 @@ class ShoppingCart extends Base
             zen_redirect(zen_href_link($this->getMainPage(), zen_get_all_get_params(array('action', 'main_page'))));
         } else {
             $_SESSION['navigation']->set_snapshot();
-            zen_redirect(zen_href_link(FILENAME_LOGIN, '', 'SSL'));
+            zen_redirect(zen_href_link('login', '', 'SSL'));
         }
     }
     /**
@@ -1954,7 +1954,7 @@ class ShoppingCart extends Base
             }
         }
         // display message if all is good and not on shopping_cart page
-        if (DISPLAY_CART == 'false' && $this->getMainPage() != FILENAME_SHOPPING_CART) {
+        if (DISPLAY_CART == 'false' && $this->getMainPage() != 'shopping_cart') {
             $this->getMessageStack()->add_session('header', SUCCESS_ADDED_TO_CART_PRODUCT, 'success');
         }
         zen_redirect(zen_href_link($goto, zen_get_all_get_params($parameters)));
