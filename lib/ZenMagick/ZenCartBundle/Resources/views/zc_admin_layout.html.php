@@ -13,6 +13,7 @@ $autoLoader->includeFiles('includes/languages/%language%.php');
 $autoLoader->includeFiles('includes/languages/%language%/'.$zcPage);
 $autoLoader->includeFiles('includes/languages/%language%/extra_definitions/*.php');
 
+require $adminDir.'/includes/init_includes/init_html_editor.php';
 $PHP_SELF = $adminDir.'/'.$zcPage;
 $code = file_get_contents($adminDir.'/'.$zcPage);
 
