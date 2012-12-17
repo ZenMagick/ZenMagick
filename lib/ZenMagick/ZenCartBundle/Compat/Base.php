@@ -40,6 +40,16 @@ abstract class Base
     }
 
     /**
+     * Get the current "main_page" route
+     *
+     * @return string
+     */
+    protected function getMainPage()
+    {
+        return $this->getRequest()->attributes->get('_route');
+    }
+
+    /**
      * Attach an observer to the notifier object
      *
      * NB. We have to get a little sneaky here to stop session based classes adding events ad infinitum
