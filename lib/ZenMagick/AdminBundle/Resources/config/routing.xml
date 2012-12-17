@@ -18,7 +18,7 @@
     <route id="catalog" pattern="/catalog">
         <default key="_controller">AdminBundle:Catalog:process</default>
     </route>
-    <route id="settings" pattern="/settings">
+    <route id="configuration" pattern="/configuration">
         <default key="_controller">ZMController::process</default>
     </route>
     <route id="dashboard" pattern="/index">

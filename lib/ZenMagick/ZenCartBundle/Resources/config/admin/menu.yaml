@@ -24,22 +24,22 @@ gv-queue: { parent: tools-coupons, requestId: zc_admin_gv_queue, name: Gift Vouc
 gv-mail: { parent: tools-coupons, requestId: zc_admin_gv_mail, name: Mail Gift Voucher }
 gv-sent: { parent: tools-coupons, requestId: zc_admin_gv_sent, name: Gift Vouchers Sent }
 mail: { parent: tools-misc, requestId: zc_admin_mail, name: Send Email }
-settings-zl10n: { parent: settings, name: Localization }
-currencies: { parent: settings-zl10n, requestId: zc_admin_currencies, name: Currencies }
-languages: { parent: settings-zl10n, requestId: zc_admin_languages, name: Languages }
-orders-status: { parent: settings-zl10n, requestId: zc_admin_orders_status, name: Orders Status }
-settings-location: { parent: settings, name: Location / Taxes }
-countries: { parent: settings-location, requestId: zc_admin_countries, name: Countries }
-zones: { parent: settings-location, requestId: zc_admin_zones, name: Zones }
-geo-zones: { parent: settings-location, requestId: zc_admin_geo_zones, name: Geo Zones }
-tax-classes: { parent: settings-location, requestId: zc_admin_tax_classes, name: Tax Classes }
-tax-rates: { parent: settings-location, requestId: zc_admin_tax_rates, name: Tax Rates }
-settings-modules: { parent: settings, name: Modules }
-modules-set=payment: { parent: settings-modules, requestId: zc_admin_modules, name: Payment, params: set=payment }
-modules-set=shipping: { parent: settings-modules, requestId: zc_admin_modules, name: Shipping, params: set=shipping }
-modules-set=order-total: { parent: settings-modules, requestId: zc_admin_modules, name: Order Total, params: set=order_total }
-store-manager: { parent: settings-dev, requestId: zc_admin_store_manager, name: Store Manager }
-developers-tool-kit: { parent: settings-dev, requestId: zc_admin_developers_tool_kit, name: Developers Tool Kit }
+configuration-zl10n: { parent: configuration, name: Localization }
+currencies: { parent: configuration-zl10n, requestId: zc_admin_currencies, name: Currencies }
+languages: { parent: configuration-zl10n, requestId: zc_admin_languages, name: Languages }
+orders-status: { parent: configuration-zl10n, requestId: zc_admin_orders_status, name: Orders Status }
+configuration-location: { parent: configuration, name: Location / Taxes }
+countries: { parent: configuration-location, requestId: zc_admin_countries, name: Countries }
+zones: { parent: configuration-location, requestId: zc_admin_zones, name: Zones }
+geo-zones: { parent: configuration-location, requestId: zc_admin_geo_zones, name: Geo Zones }
+tax-classes: { parent: configuration-location, requestId: zc_admin_tax_classes, name: Tax Classes }
+tax-rates: { parent: configuration-location, requestId: zc_admin_tax_rates, name: Tax Rates }
+configuration-modules: { parent: configuration, name: Modules }
+modules-set=payment: { parent: configuration-modules, requestId: zc_admin_modules, name: Payment, params: set=payment }
+modules-set=shipping: { parent: configuration-modules, requestId: zc_admin_modules, name: Shipping, params: set=shipping }
+modules-set=order-total: { parent: configuration-modules, requestId: zc_admin_modules, name: Order Total, params: set=order_total }
+store-manager: { parent: configuration-dev, requestId: zc_admin_store_manager, name: Store Manager }
+developers-tool-kit: { parent: configuration-dev, requestId: zc_admin_developers_tool_kit, name: Developers Tool Kit }
 customers: { parent: fulfilment-accounts, requestId: zc_admin_customers, name: Customers }
 fulfilment-group-pricing: { parent: fulfilment, name: Group Pricing }
 group-pricing: { parent: fulfilment-group-pricing, requestId: zc_admin_group_pricing, name: Overview }
