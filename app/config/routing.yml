@@ -4,3 +4,6 @@ zenmagick_admin:
 zenmagick_storefront:
     resource: "@StorefrontBundle/Resources/config/routing.xml"
     prefix: /
+zencart_admin:
+    resource: "@ZenCartBundle/Resources/config/admin/routing.xml"
+    prefix: /admin/zencart

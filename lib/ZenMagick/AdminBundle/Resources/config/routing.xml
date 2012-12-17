@@ -136,7 +136,6 @@
 
 
     <import resource="." type="context" />
-    <import resource="@ZenCartBundle/Resources/config/admin/routing.xml" />
     <route id="admin_index" pattern="/">
         <default key="_controller">ZMController::process</default>
     </route>
