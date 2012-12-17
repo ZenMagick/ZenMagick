@@ -79,14 +79,14 @@ class ShoppingCart extends Base
         $this->notify('NOTIFIER_CART_INSTANTIATE_END');
     }
 
-    public function getDb()
+    protected function getDb()
     {
-        return \ZenMagick\Base\Runtime::getContainer()->get('zencart.query_factory');
+        return $this->getContainer()->get('zencart.query_factory');
     }
 
-    public function getMessageStack()
+    protected function getMessageStack()
     {
-        return \ZenMagick\Base\Runtime::getContainer()->get('zencart.storefront.message_stack');
+        return $this->getContainer()->get('zencart.storefront.message_stack');
     }
 
     /**
