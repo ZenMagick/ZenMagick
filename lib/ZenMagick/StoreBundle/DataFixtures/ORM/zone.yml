@@ -547,8 +547,8 @@ ZenMagick\StoreBundle\Entity\Location\Zone:
     -
         zoneId: 113
         countryId: 204
-        code: "JU"
-        name: "Graubnden"
+        code: "GR"
+        name: "Graubünden"
     -
         zoneId: 114
         countryId: 204
