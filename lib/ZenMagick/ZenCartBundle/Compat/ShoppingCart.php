@@ -104,7 +104,7 @@ class ShoppingCart extends Base
      */
     public function restore_contents()
     {
-        if (!$_SESSION['customer_id']) return false;
+        if (!$this->getSessionVar('customer_id')) return false;
 
         $this->notify('NOTIFIER_CART_RESTORE_CONTENTS_START');
         // insert current cart contents in database
@@ -114,7 +114,7 @@ class ShoppingCart extends Base
                 $qty = $this->contents[$products_id]['qty'];
                 $product_query = "select products_id
                     from %table.customers_basket%
-                    where customers_id = '" . (int) $_SESSION['customer_id'] . "'
+                    where customers_id = '" . (int) $this->getSessionVar('customer_id') . "'
                     and products_id = '" . addslashes($products_id) . "'";
 
                 $product = $this->getDb()->Execute($product_query);
@@ -123,7 +123,7 @@ class ShoppingCart extends Base
                     $sql = "insert into %table.customers_basket%
                         (customers_id, products_id, customers_basket_quantity,
                         customers_basket_date_added)
-                        values ('" . (int) $_SESSION['customer_id'] . "', '" . addslashes($products_id) . "', '" .
+                        values ('" . (int) $this->getSessionVar('customer_id') . "', '" . addslashes($products_id) . "', '" .
                         $qty . "', '" . date('Ymd') . "')";
 
                     $this->getDb()->Execute($sql);
@@ -141,7 +141,7 @@ class ShoppingCart extends Base
                             $sql = "insert into %table.customers_basket_attributes%
                                 (customers_id, products_id, products_options_id,
                                 products_options_value_id, products_options_value_text, products_options_sort_order)
-                                values ('" . (int) $_SESSION['customer_id'] . "', '" . addslashes($products_id) . "', '" .
+                                values ('" . (int) $this->getSessionVar('customer_id') . "', '" . addslashes($products_id) . "', '" .
                                 $option . "', '" . $value . "', '" . $attr_value . "', '" . $products_options_sort_order . "')";
 
                             $this->getDb()->Execute($sql);
@@ -150,7 +150,7 @@ class ShoppingCart extends Base
                 } else {
                     $sql = "update %table.customers_basket%
                         set customers_basket_quantity = '" . $qty . "'
-                        where customers_id = '" . (int) $_SESSION['customer_id'] . "'
+                        where customers_id = '" . (int) $this->getSessionVar('customer_id') . "'
                         and products_id = '" . addslashes($products_id) . "'";
 
                     $this->getDb()->Execute($sql);
@@ -164,7 +164,7 @@ class ShoppingCart extends Base
 
         $products_query = "select products_id, customers_basket_quantity
             from %table.customers_basket%
-            where customers_id = '" . (int) $_SESSION['customer_id'] . "'
+            where customers_id = '" . (int) $this->getSessionVar('customer_id') . "'
             order by customers_basket_id";
 
         $products = $this->getDb()->Execute($products_query);
@@ -178,7 +178,7 @@ class ShoppingCart extends Base
 
             $attributes = $this->getDb()->Execute("select products_options_id, products_options_value_id, products_options_value_text
                 from %table.customers_basket_attributes%
-                where customers_id = '" . (int) $_SESSION['customer_id'] . "'
+                where customers_id = '" . (int) $this->getSessionVar('customer_id') . "'
                 and products_id = '" . addslashes($products->fields['products_id']) . "' " . $order_by);
 
             while (!$attributes->EOF) {
@@ -219,20 +219,20 @@ class ShoppingCart extends Base
         $this->free_shipping_price = 0;
         $this->free_shipping_weight = 0;
 
-        if (isset($_SESSION['customer_id']) && ($reset_database == true)) {
+        if ($this->getSessionVar('customer_id') && ($reset_database == true)) {
             $sql = "delete from %table.customers_basket%
-                where customers_id = '" . (int) $_SESSION['customer_id'] . "'";
+                where customers_id = '" . (int) $this->getSessionVar('customer_id') . "'";
 
             $this->getDb()->Execute($sql);
 
             $sql = "delete from %table.customers_basket_attributes%
-                where customers_id = '" . (int) $_SESSION['customer_id'] . "'";
+                where customers_id = '" . (int) $this->getSessionVar('customer_id') . "'";
 
             $this->getDb()->Execute($sql);
         }
 
         unset($this->cartID);
-        $_SESSION['cartID'] = '';
+        $this->setSessionVar('cartID', '');
         $this->notify('NOTIFIER_CART_RESET_END');
     }
     /**
@@ -255,7 +255,7 @@ class ShoppingCart extends Base
         $this->notify('NOTIFIER_CART_ADD_CART_START');
         $products_id = zen_get_uprid($products_id, $attributes);
         if ($notify == true) {
-            $_SESSION['new_products_id_in_cart'] = $products_id;
+            $this->setSessionVar('new_products_id_in_cart', $products_id);
         }
 
         $qty = $this->adjust_quantity($qty, $products_id, 'shopping_cart');
@@ -266,11 +266,11 @@ class ShoppingCart extends Base
             $this->contents[] = array($products_id);
             $this->contents[$products_id] = array('qty' => (float) $qty);
             // insert into database
-            if (isset($_SESSION['customer_id'])) {
+            if ($this->getSessionVar('customer_id')) {
                 $sql = "insert into %table.customers_basket%
                     (customers_id, products_id, customers_basket_quantity,
                     customers_basket_date_added)
-                    values ('" . (int) $_SESSION['customer_id'] . "', '" . addslashes($products_id) . "', '" .
+                    values ('" . (int) $this->getSessionVar('customer_id') . "', '" . addslashes($products_id) . "', '" .
                     $qty . "', '" . date('Ymd') . "')";
 
                 $this->getDb()->Execute($sql);
@@ -307,7 +307,7 @@ class ShoppingCart extends Base
                         // insert into database
                         //CLR 020606 update db insert to include attribute value_text. This is needed for text attributes.
                         //CLR 030228 add addslashes() processing
-                        if (isset($_SESSION['customer_id'])) {
+                        if ($this->getSessionVar('customer_id')) {
 
                             if (is_array($value) ) {
                                 reset($value);
@@ -315,7 +315,7 @@ class ShoppingCart extends Base
                                     $products_options_sort_order= zen_get_attributes_options_sort_order(zen_get_prid($products_id), $option, $opt);
                                     $sql = "insert into %table.customers_basket_attributes%
                                         (customers_id, products_id, products_options_id, products_options_value_id, products_options_sort_order)
-                                        values ('" . (int) $_SESSION['customer_id'] . "', '" . addslashes($products_id) . "', '" .
+                                        values ('" . (int) $this->getSessionVar('customer_id') . "', '" . addslashes($products_id) . "', '" .
                                         (int) $option.'_chk'. (int) $val . "', '" . (int) $val . "',  '" . $products_options_sort_order . "')";
 
                                     $this->getDb()->Execute($sql);
@@ -327,7 +327,7 @@ class ShoppingCart extends Base
                                 $products_options_sort_order= zen_get_attributes_options_sort_order(zen_get_prid($products_id), $option, $value);
                                 $sql = "insert into %table.customers_basket_attributes%
                                     (customers_id, products_id, products_options_id, products_options_value_id, products_options_value_text, products_options_sort_order)
-                                    values ('" . (int) $_SESSION['customer_id'] . "', '" . addslashes($products_id) . "', '" .
+                                    values ('" . (int) $this->getSessionVar('customer_id') . "', '" . addslashes($products_id) . "', '" .
                                     (int) $option . "', '" . (int) $value . "', '" . $attr_value . "', '" . $products_options_sort_order . "')";
 
                                 $this->getDb()->Execute($sql);
@@ -362,10 +362,10 @@ class ShoppingCart extends Base
 
         $this->contents[$products_id] = array('qty' => (float) $quantity);
         // update database
-        if (isset($_SESSION['customer_id'])) {
+        if ($this->getSessionVar('customer_id')) {
             $sql = "update %table.customers_basket%
                 set customers_basket_quantity = '" . (float) $quantity . "'
-                where customers_id = '" . (int) $_SESSION['customer_id'] . "'
+                where customers_id = '" . (int) $this->getSessionVar('customer_id') . "'
                 and products_id = '" . addslashes($products_id) . "'";
 
             $this->getDb()->Execute($sql);
@@ -413,17 +413,17 @@ class ShoppingCart extends Base
                             $products_options_sort_order= zen_get_attributes_options_sort_order(zen_get_prid($products_id), $option, $opt);
                             $sql = "update %table.customers_basket_attributes%
                                 set products_options_value_id = '" . (int) $val . "'
-                                where customers_id = '" . (int) $_SESSION['customer_id'] . "'
+                                where customers_id = '" . (int) $this->getSessionVar('customer_id') . "'
                                 and products_id = '" . addslashes($products_id) . "'
                                 and products_options_id = '" . (int) $option.'_chk'.(int) $val . "'";
 
                             $this->getDb()->Execute($sql);
                         }
                     } else {
-                        if (isset($_SESSION['customer_id'])) {
+                        if ($this->getSessionVar('customer_id')) {
                             $sql = "update %table.customers_basket_attributes%
                                 set products_options_value_id = '" . (int) $value . "', products_options_value_text = '" . $attr_value . "'
-                                where customers_id = '" . (int) $_SESSION['customer_id'] . "'
+                                where customers_id = '" . (int) $this->getSessionVar('customer_id') . "'
                                 and products_id = '" . addslashes($products_id) . "'
                                 and products_options_id = '" . (int) $option . "'";
 
@@ -454,15 +454,15 @@ class ShoppingCart extends Base
             if (!isset($this->contents[$key]['qty']) || $this->contents[$key]['qty'] <= 0) {
                 unset($this->contents[$key]);
                 // remove from database
-                if (isset($_SESSION['customer_id'])) {
+                if ($this->getSessionVar('customer_id')) {
                     $sql = "delete from %table.customers_basket%
-                        where customers_id = '" . (int) $_SESSION['customer_id'] . "'
+                        where customers_id = '" . (int) $this->getSessionVar('customer_id') . "'
                         and products_id = '" . $key . "'";
 
                     $this->getDb()->Execute($sql);
 
                     $sql = "delete from %table.customers_basket_attributes%
-                        where customers_id = '" . (int) $_SESSION['customer_id'] . "'
+                        where customers_id = '" . (int) $this->getSessionVar('customer_id') . "'
                         and products_id = '" . $key . "'";
 
                     $this->getDb()->Execute($sql);
@@ -545,15 +545,15 @@ class ShoppingCart extends Base
         $this->notify('NOTIFIER_CART_REMOVE_START');
         unset($this->contents[$products_id]);
         // remove from database
-        if ($_SESSION['customer_id']) {
+        if ($this->getSessionVar('customer_id')) {
             $sql = "delete from %table.customers_basket%
-                where customers_id = '" . (int) $_SESSION['customer_id'] . "'
+                where customers_id = '" . (int) $this->getSessionVar('customer_id') . "'
                 and products_id = '" . addslashes($products_id) . "'";
 
             $this->getDb()->Execute($sql);
 
             $sql = "delete from %table.customers_basket_attributes%
-                where customers_id = '" . (int) $_SESSION['customer_id'] . "'
+                where customers_id = '" . (int) $this->getSessionVar('customer_id') . "'
                 and products_id = '" . addslashes($products_id) . "'";
 
             $this->getDb()->Execute($sql);
@@ -603,7 +603,7 @@ class ShoppingCart extends Base
         global $currencies;
         $this->total = 0;
         $this->weight = 0;
-        $decimalPlaces = $currencies->get_decimal_places($_SESSION['currency']);
+        $decimalPlaces = $currencies->get_decimal_places($this->getSessionVar('currency'));
         // shipping adjustment
         $this->free_shipping_item = 0;
         $this->free_shipping_price = 0;
@@ -950,16 +950,11 @@ class ShoppingCart extends Base
                 }
                 // Validate Attributes
                 if ($attribute_price->fields['attributes_display_only']) {
-                    $_SESSION['valid_to_checkout'] = false;
-                    $_SESSION['cart_errors'] .= zen_get_products_name($attribute_price->fields['products_id'], $_SESSION['languages_id']) . ERROR_PRODUCT_OPTION_SELECTION . '<br />';
+                    $this->setSessionVar('valid_to_checkout', false);
+                    $cart_errors = $this->getSessionVar('cart_errors');
+                    $cart_errors .= zen_get_products_name($attribute_price->fields['products_id'], $this->getSessionVar('languages_id')) . ERROR_PRODUCT_OPTION_SELECTION . '<br />';
+                    $this->setSessionVar('cart_errors', $cart_errors);
                 }
-        /*
-        //// extra testing not required on text attribute this is done in application_top before it gets to the cart
-        if ($attribute_price->fields['attributes_required']) {
-        $_SESSION['valid_to_checkout'] = false;
-        $_SESSION['cart_errors'] .= zen_get_products_name($attribute_price->fields['products_id'], $_SESSION['languages_id'])  . ERROR_PRODUCT_OPTION_SELECTION . '<br />';
-        }
-         */
             }
         }
 
@@ -1101,7 +1096,7 @@ class ShoppingCart extends Base
                 from %table.products% p, %table.products_description% pd
                 where p.products_id = '" . (int) $products_id . "'
                 and pd.products_id = p.products_id
-                and pd.language_id = '" . (int) $_SESSION['languages_id'] . "'";
+                and pd.language_id = '" . (int) $this->getSessionVar('languages_id') . "'";
 
             if ($products = $this->getDb()->Execute($products_query)) {
 
@@ -1147,8 +1142,11 @@ class ShoppingCart extends Base
                     $check_status = $products->fields['products_status'];
                     if ($check_status == 0) {
                         $fix_once ++;
-                        $_SESSION['valid_to_checkout'] = false;
-                        $_SESSION['cart_errors'] .= ERROR_PRODUCT . $products->fields['products_name'] . ERROR_PRODUCT_STATUS_SHOPPING_CART . '<br />';
+                        $this->setSessionVar('valid_to_checkout', false);
+                        $cart_errors = $this->getSessionVar('cart_errors');
+                        $cart_errors .= ERROR_PRODUCT . $products->fields['products_name'] . ERROR_PRODUCT_STATUS_SHOPPING_CART . '<br />';
+                        $this->setSessionVar('cart_errors', $cart_errors);
+
                         $this->remove($products_id);
                     } else {
                         if (isset($this->contents[$products_id]['attributes'])) {
@@ -1165,8 +1163,11 @@ class ShoppingCart extends Base
                                 //echo 'what is it: ' . ' : ' . $products_id . ' - ' . $value . ' records: ' . $chk_attributes_exist->RecordCount() . ' vs ' . print_r($this->contents[$products_id]) . '<br>';
                                 if ($chk_attributes_exist->EOF) {
                                     $fix_once ++;
-                                    $_SESSION['valid_to_checkout'] = false;
-                                    $_SESSION['cart_errors'] .= ERROR_PRODUCT_ATTRIBUTES . $products->fields['products_name'] . ERROR_PRODUCT_STATUS_SHOPPING_CART_ATTRIBUTES . '<br />';
+                                    $this->setSessionVar('valid_to_checkout', false);
+                                    $cart_errors = $this->getSessionVar('cart_errors');
+                                    $cart_errors .= ERROR_PRODUCT_ATTRIBUTES . $products->fields['products_name'] . ERROR_PRODUCT_STATUS_SHOPPING_CART_ATTRIBUTES . '<br />';
+                                    $this->setSessionVar('cart_errors', $cart_errors);
+
                                     $this->remove($products_id);
                                     break;
                                 }
@@ -1188,16 +1189,21 @@ class ShoppingCart extends Base
                     if ($fix_once == 0) {
                         if ($products->fields['products_quantity_order_max'] != 0 && $check_quantity > $products->fields['products_quantity_order_max']) {
                             $fix_once ++;
-                            $_SESSION['valid_to_checkout'] = false;
-                            $_SESSION['cart_errors'] .= ERROR_PRODUCT . $products->fields['products_name'] . ERROR_PRODUCT_QUANTITY_MAX_SHOPPING_CART . ERROR_PRODUCT_QUANTITY_ORDERED . $check_quantity  . ' <span class="alertBlack">' . zen_get_products_quantity_min_units_display((int) $prid, false, true) . '</span> ' . '<br />';
+                            $this->setSessionVar('valid_to_checkout', false);
+                            $cart_errors = $this->getSessionVar('cart_errors');
+                            $cart_errors .= ERROR_PRODUCT . $products->fields['products_name'] . ERROR_PRODUCT_QUANTITY_MAX_SHOPPING_CART . ERROR_PRODUCT_QUANTITY_ORDERED . $check_quantity  . ' <span class="alertBlack">' . zen_get_products_quantity_min_units_display((int) $prid, false, true) . '</span> ' . '<br />';
+                            $this->setSessionVar('cart_errors', $cart_errors);
                         }
                     }
 
                     if ($fix_once == 0) {
                         if ($check_quantity < $check_quantity_min) {
                             $fix_once ++;
-                            $_SESSION['valid_to_checkout'] = false;
-                            $_SESSION['cart_errors'] .= ERROR_PRODUCT . $products->fields['products_name'] . ERROR_PRODUCT_QUANTITY_MIN_SHOPPING_CART . ERROR_PRODUCT_QUANTITY_ORDERED . $check_quantity  . ' <span class="alertBlack">' . zen_get_products_quantity_min_units_display((int) $prid, false, true) . '</span> ' . '<br />';
+                            $this->setSessionVar('valid_to_checkout', false);
+                            $cart_errors = $this->getSessionVar('cart_errors');
+                            $cart_errors .= ERROR_PRODUCT . $products->fields['products_name'] . ERROR_PRODUCT_QUANTITY_MIN_SHOPPING_CART . ERROR_PRODUCT_QUANTITY_ORDERED . $check_quantity  . ' <span class="alertBlack">' . zen_get_products_quantity_min_units_display((int) $prid, false, true) . '</span> ' . '<br />';
+                            $this->setSessionVar('cart_errors', $cart_errors);
+
                         }
                     }
 
@@ -1205,8 +1211,11 @@ class ShoppingCart extends Base
                     if ($fix_once == 0) {
                         $check_units = $products->fields['products_quantity_order_units'];
                         if ( fmod_round($check_quantity,$check_units) != 0 ) {
-                            $_SESSION['valid_to_checkout'] = false;
-                            $_SESSION['cart_errors'] .= ERROR_PRODUCT . $products->fields['products_name'] . ERROR_PRODUCT_QUANTITY_UNITS_SHOPPING_CART . ERROR_PRODUCT_QUANTITY_ORDERED . $check_quantity  . ' <span class="alertBlack">' . zen_get_products_quantity_min_units_display((int) $prid, false, true) . '</span> ' . '<br />';
+                            $this->setSessionVar('valid_to_checkout', false);
+                            $cart_errors = $this->getSessionVar('cart_errors');
+                            $cart_errors .= ERROR_PRODUCT . $products->fields['products_name'] . ERROR_PRODUCT_QUANTITY_UNITS_SHOPPING_CART . ERROR_PRODUCT_QUANTITY_ORDERED . $check_quantity  . ' <span class="alertBlack">' . zen_get_products_quantity_min_units_display((int) $prid, false, true) . '</span> ' . '<br />';
+                            $this->setSessionVar('cart_errors', $cart_errors);
+
                         }
                     }
 
@@ -1506,7 +1515,7 @@ class ShoppingCart extends Base
      *
      * $check_what is the fieldname example: 'products_is_free'
      * $check_value is the value being tested for - default is 1
-     * Syntax: $_SESSION['cart']->in_cart_check('product_is_free','1');
+     * Syntax: $this->getSessionVar('cart')->in_cart_check('product_is_free','1');
      *
      * @param string product field to check
      * @param mixed value to check for
@@ -1730,8 +1739,8 @@ class ShoppingCart extends Base
                                 $products_options_file->set_output_messages('session');
                                 if ($products_options_file->parse(TEXT_PREFIX . $_POST[UPLOAD_PREFIX . $i])) {
                                     $products_image_extension = substr($products_options_file->filename, strrpos($products_options_file->filename, '.'));
-                                    if ($_SESSION['customer_id']) {
-                                        $this->getDb()->Execute("insert into %table.files_uploaded% (sesskey, customers_id, files_uploaded_name) values('" . zen_session_id() . "', '" . $_SESSION['customer_id'] . "', '" . addslashes($products_options_file->filename) . "')");
+                                    if ($this->getSessionVar('customer_id')) {
+                                        $this->getDb()->Execute("insert into %table.files_uploaded% (sesskey, customers_id, files_uploaded_name) values('" . zen_session_id() . "', '" . $this->getSessionVar('customer_id') . "', '" . addslashes($products_options_file->filename) . "')");
                                     } else {
                                         $this->getDb()->Execute("insert into %table.files_uploaded% (sesskey, files_uploaded_name) values('" . zen_session_id() . "', '" . addslashes($products_options_file->filename) . "')");
                                     }
@@ -1880,7 +1889,7 @@ class ShoppingCart extends Base
      */
     public function actionNotify($goto, $parameters)
     {
-        if ($_SESSION['customer_id']) {
+        if ($this->getSessionVar('customer_id')) {
             if (isset($_GET['products_id'])) {
                 $notify = $_GET['products_id'];
             } elseif (isset($_GET['notify'])) {
@@ -1895,19 +1904,19 @@ class ShoppingCart extends Base
                 $check_query = "select count(*) as count
                     from %table.products_notifications%
                     where products_id = '" . $notify[$i] . "'
-                    and customers_id = '" . $_SESSION['customer_id'] . "'";
+                    and customers_id = '" . $this->getSessionVar('customer_id') . "'";
                 $check = $this->getDb()->Execute($check_query);
                 if ($check->fields['count'] < 1) {
                     $sql = "insert into %table.products_notifications%
                         (products_id, customers_id, date_added)
-                        values ('" . $notify[$i] . "', '" . $_SESSION['customer_id'] . "', now())";
+                        values ('" . $notify[$i] . "', '" . $this->getSessionVar('customer_id') . "', now())";
                     $this->getDb()->Execute($sql);
                 }
             }
             zen_redirect(zen_href_link($this->getMainPage(), zen_get_all_get_params(array('action', 'main_page'))));
 
         } else {
-            $_SESSION['navigation']->set_snapshot();
+            $this->getSessionVar('navigation')->set_snapshot();
             zen_redirect(zen_href_link('login', '', 'SSL'));
         }
     }
@@ -1919,22 +1928,22 @@ class ShoppingCart extends Base
      */
     public function actionNotifyRemove($goto, $parameters)
     {
-        if ($_SESSION['customer_id'] && isset($_GET['products_id'])) {
+        if ($this->getSessionVar('customer_id') && isset($_GET['products_id'])) {
             $check_query = "select count(*) as count
                 from %table.products_notifications%
                 where products_id = '" . $_GET['products_id'] . "'
-                and customers_id = '" . $_SESSION['customer_id'] . "'";
+                and customers_id = '" . $this->getSessionVar('customer_id') . "'";
 
             $check = $this->getDb()->Execute($check_query);
             if ($check->fields['count'] > 0) {
                 $sql = "delete from %table.products_notifications%
                     where products_id = '" . $_GET['products_id'] . "'
-                    and customers_id = '" . $_SESSION['customer_id'] . "'";
+                    and customers_id = '" . $this->getSessionVar('customer_id') . "'";
                 $this->getDb()->Execute($sql);
             }
             zen_redirect(zen_href_link($this->getMainPage(), zen_get_all_get_params(array('action', 'main_page'))));
         } else {
-            $_SESSION['navigation']->set_snapshot();
+            $this->getSessionVar('navigation')->set_snapshot();
             zen_redirect(zen_href_link('login', '', 'SSL'));
         }
     }
@@ -1946,7 +1955,7 @@ class ShoppingCart extends Base
      */
     public function actionCustomerOrder($goto, $parameters)
     {
-        if ($_SESSION['customer_id'] && isset($_GET['pid'])) {
+        if ($this->getSessionVar('customer_id') && isset($_GET['pid'])) {
             if (zen_has_product_attributes($_GET['pid'])) {
                 zen_redirect(zen_href_link(zen_get_info_page($_GET['pid']), 'products_id=' . $_GET['pid']));
             } else {
