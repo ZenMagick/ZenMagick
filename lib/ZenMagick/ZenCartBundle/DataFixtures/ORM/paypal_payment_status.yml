@@ -1,0 +1,15 @@
+ZenMagick\ZenCartBundle\Entity\PaypalPaymentStatus:
+    -
+        name: "Completed"
+    -
+        name: "Pending"
+    -
+        name: "Failed"
+    -
+        name: "Denied"
+    -
+        name: "Refunded"
+    -
+        name: "Canceled_Reversal"
+    -
+        name: "Reversed"
