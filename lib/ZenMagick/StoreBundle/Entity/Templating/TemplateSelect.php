@@ -66,6 +66,7 @@ class TemplateSelect extends ZMObject
 
     public function __construct()
     {
+        parent::__construct();
         $this->languageId = 0;
     }
 
