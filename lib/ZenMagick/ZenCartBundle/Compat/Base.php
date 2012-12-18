@@ -39,6 +39,21 @@ abstract class Base
         return $this->getContainer()->get('request');
     }
 
+    protected function getSession()
+    {
+        return $this->getContainer()->get('session');
+    }
+
+    protected function getSessionVar($var, $default = null)
+    {
+        return $this->getSession()->get($var, $default);
+    }
+
+    protected function setSessionVar($name, $value)
+    {
+        return $this->getSession()->set($name, $value);
+    }
+
     /**
      * Get the current "main_page" route
      *
