@@ -19,14 +19,14 @@
  */
 namespace ZenMagick\plugins\examplePlugin\Controller;
 
-use ZMController;
+use ZenMagick\ZenMagickBundle\Controller\DefaultController;
 
 /**
  * Example plugin admin controller.
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class ExamplePluginAdminController extends ZMController
+class ExamplePluginAdminController extends DefaultController
 {
     /**
      * {@inheritDoc}

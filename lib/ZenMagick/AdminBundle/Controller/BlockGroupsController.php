@@ -19,12 +19,14 @@
  */
 namespace ZenMagick\AdminBundle\Controller;
 
+use ZenMagick\ZenMagickBundle\Controller\DefaultController;
+
 /**
  * Admin controller for block groups.
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class BlockGroupsController extends \ZMController
+class BlockGroupsController extends DefaultController
 {
     /**
      * {@inheritDoc}

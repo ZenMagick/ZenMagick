@@ -19,12 +19,14 @@
  */
 namespace ZenMagick\StorefrontBundle\Controller;
 
+use ZenMagick\ZenMagickBundle\Controller\DefaultController;
+
 /**
  * Controller for contact us age.
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class ContactUsController extends \ZMController
+class ContactUsController extends DefaultController
 {
     /**
      * {@inheritDoc}

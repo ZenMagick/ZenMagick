@@ -19,12 +19,14 @@
  */
 namespace ZenMagick\StorefrontBundle\Controller;
 
+use ZenMagick\ZenMagickBundle\Controller\DefaultController;
+
 /**
  * Request controller for product details.
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class ProductInfoController extends \ZMController
+class ProductInfoController extends DefaultController
 {
     /**
      * {@inheritDoc}

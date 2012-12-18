@@ -21,10 +21,10 @@
 namespace ZenMagick\plugins\dataExporter\Controller;
 
 use DateTime;
-use ZMController;
 use ZMRuntime;
 use ZenMagick\StoreBundle\Entity\Order\Order;
 use ZenMagick\Base\Beans;
+use ZenMagick\ZenMagickBundle\Controller\DefaultController;
 
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\ResponseHeaderBag;
@@ -34,7 +34,7 @@ use Symfony\Component\HttpFoundation\ResponseHeaderBag;
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class ExportOrdersController extends ZMController
+class ExportOrdersController extends DefaultController
 {
     /**
      * Get the date format.

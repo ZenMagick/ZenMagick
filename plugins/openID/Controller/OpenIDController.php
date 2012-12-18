@@ -19,7 +19,7 @@
  */
 namespace ZenMagick\plugins\openID\Controller;
 
-use ZMController;
+use ZenMagick\ZenMagickBundle\Controller\DefaultController;
 use ZenMagick\plugins\openID\OpenIDDatabaseStore;
 
 /**
@@ -27,7 +27,7 @@ use ZenMagick\plugins\openID\OpenIDDatabaseStore;
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class OpenIDController extends ZMController
+class OpenIDController extends DefaultController
 {
     private $plugin_;
     private $returnTo_;

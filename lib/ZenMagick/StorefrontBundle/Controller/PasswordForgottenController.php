@@ -20,6 +20,7 @@
 namespace ZenMagick\StorefrontBundle\Controller;
 
 use ZenMagick\Base\Toolbox;
+use ZenMagick\ZenMagickBundle\Controller\DefaultController;
 use ZenMagick\StoreBundle\Entity\Account;
 
 use Symfony\Component\EventDispatcher\GenericEvent;
@@ -29,7 +30,7 @@ use Symfony\Component\EventDispatcher\GenericEvent;
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class PasswordForgottenController extends \ZMController
+class PasswordForgottenController extends DefaultController
 {
     /**
      * {@inheritDoc}

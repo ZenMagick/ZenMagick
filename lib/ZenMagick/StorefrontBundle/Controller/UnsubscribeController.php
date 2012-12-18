@@ -19,12 +19,14 @@
  */
 namespace ZenMagick\StorefrontBundle\Controller;
 
+use ZenMagick\ZenMagickBundle\Controller\DefaultController;
+
 /**
  * Request controller for unsubscribe page.
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class UnsubscribeController extends \ZMController
+class UnsubscribeController extends DefaultController
 {
     /**
      * {@inheritDoc}

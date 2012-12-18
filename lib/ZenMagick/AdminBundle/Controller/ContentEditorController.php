@@ -20,6 +20,7 @@
 namespace ZenMagick\AdminBundle\Controller;
 
 use ZenMagick\Base\Beans;
+use ZenMagick\ZenMagickBundle\Controller\DefaultController;
 use ZenMagick\StoreBundle\Entity\EZPage;
 
 /**
@@ -27,7 +28,7 @@ use ZenMagick\StoreBundle\Entity\EZPage;
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class ContentEditorController extends \ZMController
+class ContentEditorController extends DefaultController
 {
     /**
      * {@inheritDoc}

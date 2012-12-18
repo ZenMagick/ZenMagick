@@ -26,6 +26,7 @@ use TestSuite;
 use UnitTestCase;
 use ZenMagick\Base\Beans;
 use ZenMagick\Base\Toolbox;
+use ZenMagick\ZenMagickBundle\Controller\DefaultController;
 use ZenMagick\plugins\unitTests\UnitTestsPlugin;
 use ZenMagick\plugins\unitTests\simpletest\HtmlReporter;
 
@@ -34,7 +35,7 @@ use ZenMagick\plugins\unitTests\simpletest\HtmlReporter;
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class UnitTestsController extends \ZMController
+class UnitTestsController extends DefaultController
 {
     /**
      * Find tests in the given path.

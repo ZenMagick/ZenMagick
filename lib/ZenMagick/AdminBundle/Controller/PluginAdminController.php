@@ -20,14 +20,14 @@
 
 namespace ZenMagick\AdminBundle\Controller;
 
-use ZMController;
+use ZenMagick\ZenMagickBundle\Controller\DefaultController;
 
 /**
  * Plugin admin controller base class.
  *
  * @author DerManoMann
  */
-class PluginAdminController extends ZMController
+class PluginAdminController extends DefaultController
 {
     private $plugin_;
 

@@ -19,12 +19,14 @@
  */
 namespace ZenMagick\AdminBundle\Controller;
 
+use ZenMagick\ZenMagickBundle\Controller\DefaultController;
+
 /**
  * Admin controller for static page editor.
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class StaticPageEditorController extends \ZMController
+class StaticPageEditorController extends DefaultController
 {
     /**
      * {@inheritDoc}

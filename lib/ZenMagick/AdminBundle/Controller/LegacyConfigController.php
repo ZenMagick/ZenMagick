@@ -19,12 +19,14 @@
  */
 namespace ZenMagick\AdminBundle\Controller;
 
+use ZenMagick\ZenMagickBundle\Controller\DefaultController;
+
 /**
  * Admin controller for legacy config.
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class LegacyConfigController extends \ZMController
+class LegacyConfigController extends DefaultController
 {
     /**
      * {@inheritDoc}

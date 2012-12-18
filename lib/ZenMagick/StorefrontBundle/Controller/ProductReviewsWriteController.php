@@ -19,6 +19,8 @@
  */
 namespace ZenMagick\StorefrontBundle\Controller;
 
+use ZenMagick\ZenMagickBundle\Controller\DefaultController;
+
 use Symfony\Component\EventDispatcher\GenericEvent;
 
 /**
@@ -26,7 +28,7 @@ use Symfony\Component\EventDispatcher\GenericEvent;
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class ProductReviewsWriteController extends \ZMController
+class ProductReviewsWriteController extends DefaultController
 {
     /**
      * {@inheritDoc}

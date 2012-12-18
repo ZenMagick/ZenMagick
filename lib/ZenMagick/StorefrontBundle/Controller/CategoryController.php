@@ -20,13 +20,14 @@
 namespace ZenMagick\StorefrontBundle\Controller;
 
 use ZenMagick\Base\Beans;
+use ZenMagick\ZenMagickBundle\Controller\DefaultController;
 
 /**
  * Request controller for categories.
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class CategoryController extends \ZMController
+class CategoryController extends DefaultController
 {
     /**
      * {@inheritDoc}

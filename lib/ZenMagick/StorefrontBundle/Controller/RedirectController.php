@@ -19,12 +19,14 @@
  */
 namespace ZenMagick\StorefrontBundle\Controller;
 
+use ZenMagick\ZenMagickBundle\Controller\DefaultController;
+
 /**
  * Redirect controller.
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class RedirectController extends \ZMController
+class RedirectController extends DefaultController
 {
     /**
      * {@inheritDoc}

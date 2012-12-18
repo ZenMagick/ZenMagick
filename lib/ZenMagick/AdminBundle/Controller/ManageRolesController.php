@@ -20,13 +20,14 @@
 namespace ZenMagick\AdminBundle\Controller;
 
 use ZenMagick\Http\Sacs\SacsManager;
+use ZenMagick\ZenMagickBundle\Controller\DefaultController;
 
 /**
  * Admin controller to manage roles.
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class ManageRolesController extends \ZMController
+class ManageRolesController extends DefaultController
 {
     /**
      * {@inheritDoc}

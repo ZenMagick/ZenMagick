@@ -20,13 +20,14 @@
 namespace ZenMagick\AdminBundle\Controller;
 
 use ZenMagick\Base\Beans;
+use ZenMagick\ZenMagickBundle\Controller\DefaultController;
 
 /**
  * Admin controller for admin user management.
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class AdminUsersController extends \ZMController
+class AdminUsersController extends DefaultController
 {
     /**
      * {@inheritDoc}

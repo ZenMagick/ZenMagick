@@ -20,13 +20,14 @@
 namespace ZenMagick\StorefrontBundle\Controller;
 
 use Symfony\Component\EventDispatcher\GenericEvent;
+use ZenMagick\ZenMagickBundle\Controller\DefaultController;
 
 /**
  * Request controller for account edit page.
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class AccountEditController extends \ZMController
+class AccountEditController extends DefaultController
 {
     /**
      * {@inheritDoc}

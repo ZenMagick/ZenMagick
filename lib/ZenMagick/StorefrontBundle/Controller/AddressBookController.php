@@ -19,12 +19,14 @@
  */
 namespace ZenMagick\StorefrontBundle\Controller;
 
+use ZenMagick\ZenMagickBundle\Controller\DefaultController;
+
 /**
  * Request controller for addressbook page.
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class AddressBookController extends \ZMController
+class AddressBookController extends DefaultController
 {
     /**
      * {@inheritDoc}

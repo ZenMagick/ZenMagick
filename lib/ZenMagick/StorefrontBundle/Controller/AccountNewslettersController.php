@@ -20,13 +20,14 @@
 namespace ZenMagick\StorefrontBundle\Controller;
 
 use ZenMagick\Base\Toolbox;
+use ZenMagick\ZenMagickBundle\Controller\DefaultController;
 
 /**
  * Request controller for account newsletter subscription page.
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class AccountNewslettersController extends \ZMController
+class AccountNewslettersController extends DefaultController
 {
     /**
      * {@inheritDoc}

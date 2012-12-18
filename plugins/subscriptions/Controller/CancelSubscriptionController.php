@@ -19,17 +19,17 @@
  */
 namespace ZenMagick\plugins\subscriptions\Controller;
 
-use ZMController;
 use ZMRuntime;
 use ZenMagick\Base\Toolbox;
 use ZenMagick\Base\Database\Connection;
+use ZenMagick\ZenMagickBundle\Controller\DefaultController;
 
 /**
  * Request controller to cancel a subscription.
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class ZMCancelSubscriptionController extends ZMController
+class ZMCancelSubscriptionController extends Controller
 {
     /**
      * {@inheritDoc}

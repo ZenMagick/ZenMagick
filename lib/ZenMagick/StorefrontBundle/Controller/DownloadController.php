@@ -25,12 +25,13 @@ namespace ZenMagick\StorefrontBundle\Controller;
 use RecursiveIteratorIterator;
 use RecursiveDirectoryIterator;
 use ZenMagick\Base\Toolbox;
+use ZenMagick\ZenMagickBundle\Controller\DefaultController;
 
 /**
  * Download controller.
  *
  */
-class DownloadController extends \ZMController
+class DownloadController extends DefaultController
 {
     /**
      * {@inheritDoc}

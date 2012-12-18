@@ -20,6 +20,7 @@
 namespace ZenMagick\StorefrontBundle\Controller;
 
 use ZenMagick\Base\Toolbox;
+use ZenMagick\ZenMagickBundle\Controller\DefaultController;
 use ZenMagick\StoreBundle\Entity\Coupons\Coupon;
 
 /**
@@ -27,7 +28,7 @@ use ZenMagick\StoreBundle\Entity\Coupons\Coupon;
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class GvRedeemController extends \ZMController
+class GvRedeemController extends DefaultController
 {
     /**
      * {@inheritDoc}

@@ -20,13 +20,14 @@
 namespace ZenMagick\AdminBundle\Controller;
 
 use ZenMagick\Base\Beans;
+use ZenMagick\ZenMagickBundle\Controller\DefaultController;
 
 /**
  * Request controller for editing (other) admin user details.
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class EditAdminUserController extends \ZMController
+class EditAdminUserController extends DefaultController
 {
     /**
      * {@inheritDoc}

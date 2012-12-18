@@ -21,13 +21,14 @@
 namespace ZenMagick\StorefrontBundle\Controller;
 
 use ZenMagick\Base\Beans;
+use ZenMagick\ZenMagickBundle\Controller\DefaultController;
 
 /**
  * Request controller for account history page.
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class AccountHistoryController extends \ZMController
+class AccountHistoryController extends DefaultController
 {
     /**
      * {@inheritDoc}

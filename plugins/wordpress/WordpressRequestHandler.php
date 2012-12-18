@@ -20,16 +20,16 @@
 
 namespace ZenMagick\plugins\wordpress;
 
-use ZMController;
 use ZenMagick\Base\Runtime;
 use ZenMagick\Base\Toolbox;
+use ZenMagick\ZenMagickBundle\Controller\DefaultController;
 
 /**
  * WP request handler.
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class WordpressRequestHandler extends ZMController
+class WordpressRequestHandler extends DefaultController
 {
     public $wp_filter_id;
     private $plugin_;

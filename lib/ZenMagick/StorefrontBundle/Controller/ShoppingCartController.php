@@ -27,6 +27,7 @@ use Symfony\Component\HttpFoundation\File\Exception\FileException;
 
 use ZenMagick\Http\Request;
 use ZenMagick\Http\View\ModelAndView;
+use ZenMagick\ZenMagickBundle\Controller\DefaultController;
 use ZenMagick\StoreBundle\Utils\CheckoutHelper;
 
 /**
@@ -34,7 +35,7 @@ use ZenMagick\StoreBundle\Utils\CheckoutHelper;
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class ShoppingCartController extends \ZMController
+class ShoppingCartController extends DefaultController
 {
     /**
      * Show cart.

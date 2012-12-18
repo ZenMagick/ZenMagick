@@ -19,6 +19,8 @@
  */
 namespace ZenMagick\StorefrontBundle\Controller;
 
+use ZenMagick\ZenMagickBundle\Controller\DefaultController;
+
 use Symfony\Component\Security\Core\SecurityContext;
 use Symfony\Component\Security\Core\Exception\BadCredentialsException;
 use Symfony\Component\Security\Core\Exception\LockedException;
@@ -28,7 +30,7 @@ use Symfony\Component\Security\Core\Exception\LockedException;
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class LoginController extends \ZMController
+class LoginController extends DefaultController
 {
     /**
      * {@inheritDoc}

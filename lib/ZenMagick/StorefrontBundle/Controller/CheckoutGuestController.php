@@ -20,6 +20,7 @@
 namespace ZenMagick\StorefrontBundle\Controller;
 
 use ZenMagick\Base\Beans;
+use ZenMagick\ZenMagickBundle\Controller\DefaultController;
 use ZenMagick\StoreBundle\Entity\Account;
 
 /**
@@ -27,7 +28,7 @@ use ZenMagick\StoreBundle\Entity\Account;
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class CheckoutGuestController extends \ZMController
+class CheckoutGuestController extends DefaultController
 {
     /**
      * {@inheritDoc}

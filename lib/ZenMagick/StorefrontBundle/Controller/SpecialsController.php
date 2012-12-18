@@ -20,13 +20,14 @@
 namespace ZenMagick\StorefrontBundle\Controller;
 
 use ZenMagick\Base\Beans;
+use ZenMagick\ZenMagickBundle\Controller\DefaultController;
 
 /**
  * Request controller for specials.
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class SpecialsController extends \ZMController
+class SpecialsController extends DefaultController
 {
     /**
      * {@inheritDoc}

@@ -21,6 +21,7 @@
 use ZenMagick\Base\Beans;
 use ZenMagick\Http\Request;
 use ZenMagick\Http\Sacs\SacsManager;
+use ZenMagick\ZenMagickBundle\Controller\DefaultController;
 
 use Symfony\Component\HttpFoundation\Response;
 
@@ -30,7 +31,7 @@ use Symfony\Component\HttpFoundation\Response;
  * @author DerManoMann <mano@zenmagick.org>
  * @package org.zenmagick.mvc.controller
  */
-class ZMRpcController extends ZMController
+class ZMRpcController extends DefaultController
 {
     /**
      * {@inheritDoc}

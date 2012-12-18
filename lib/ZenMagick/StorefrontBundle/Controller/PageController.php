@@ -19,12 +19,14 @@
  */
 namespace ZenMagick\StorefrontBundle\Controller;
 
+use ZenMagick\ZenMagickBundle\Controller\DefaultController;
+
 /**
  * Request controller for ez-pages.
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class PageController extends \ZMController
+class PageController extends DefaultController
 {
     /**
      * {@inheritDoc}

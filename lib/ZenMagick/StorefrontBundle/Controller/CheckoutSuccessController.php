@@ -19,12 +19,14 @@
  */
 namespace ZenMagick\StorefrontBundle\Controller;
 
+use ZenMagick\ZenMagickBundle\Controller\DefaultController;
+
 /**
  * Request controller for checkout success page.
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class CheckoutSuccessController extends \ZMController
+class CheckoutSuccessController extends DefaultController
 {
     /**
      * {@inheritDoc}

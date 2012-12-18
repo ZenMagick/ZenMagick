@@ -21,6 +21,7 @@
 namespace ZenMagick\StorefrontBundle\Controller;
 
 use ZenMagick\Http\Request;
+use ZenMagick\ZenMagickBundle\Controller\DefaultController;
 
 use Symfony\Component\HttpFoundation\Response;
 
@@ -32,7 +33,7 @@ use Symfony\Component\HttpFoundation\Response;
  * @author DerManoMann <mano@zenmagick.org>
  * @deprecated use RpcController instead
  */
-class AjaxController extends \ZMController
+class AjaxController extends DefaultController
 {
     /**
      * Process a HTTP GET request.

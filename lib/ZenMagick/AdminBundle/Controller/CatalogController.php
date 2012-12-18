@@ -23,6 +23,7 @@ use ZenMagick\Base\Beans;
 use ZenMagick\Base\Toolbox;
 use ZenMagick\Http\Request;
 use ZenMagick\Http\Sacs\SacsManager;
+use ZenMagick\ZenMagickBundle\Controller\DefaultController;
 
 /**
  * Admin controller for catalog page(s).
@@ -31,7 +32,7 @@ use ZenMagick\Http\Sacs\SacsManager;
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class CatalogController extends \ZMController
+class CatalogController extends DefaultController
 {
     /**
      * Create list of all active catalog content controllers.

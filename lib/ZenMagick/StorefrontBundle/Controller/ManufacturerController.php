@@ -20,13 +20,14 @@
 namespace ZenMagick\StorefrontBundle\Controller;
 
 use ZenMagick\Base\Beans;
+use ZenMagick\ZenMagickBundle\Controller\DefaultController;
 
 /**
  * Request controller for manufacturer.
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class ManufacturerController extends \ZMController
+class ManufacturerController extends DefaultController
 {
     /**
      * {@inheritDoc}

@@ -19,12 +19,14 @@
  */
 namespace ZenMagick\AdminBundle\Controller;
 
+use ZenMagick\ZenMagickBundle\Controller\DefaultController;
+
 /**
  * Admin controller for account page.
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class AccountController extends \ZMController
+class AccountController extends DefaultController
 {
     /**
      * {@inheritDoc}

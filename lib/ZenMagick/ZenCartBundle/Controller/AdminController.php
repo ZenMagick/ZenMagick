@@ -19,13 +19,15 @@
  */
 namespace ZenMagick\ZenCartBundle\Controller;
 
+use ZenMagick\ZenMagickBundle\Controller\DefaultController;
+
 /**
  * ZenCart admin controller
  *
  * @author Johnny Robeson
  * @todo <johnny> we could try to untangle GET/POST mess, but is it really worth it?
  */
-class AdminController extends \ZMController
+class AdminController extends DefaultController
 {
     /**
      * {@inheritDoc}

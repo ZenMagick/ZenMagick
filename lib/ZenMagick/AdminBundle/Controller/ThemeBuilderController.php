@@ -19,12 +19,14 @@
  */
 namespace ZenMagick\AdminBundle\Controller;
 
+use ZenMagick\ZenMagickBundle\Controller\DefaultController;
+
 /**
  * Admin controller for theme builder.
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class ThemeBuilderController extends \ZMController
+class ThemeBuilderController extends DefaultController
 {
     /**
      * {@inheritDoc}

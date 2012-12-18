@@ -20,13 +20,14 @@
 namespace ZenMagick\AdminBundle\Controller;
 
 use ZenMagick\Base\Beans;
+use ZenMagick\ZenMagickBundle\Controller\DefaultController;
 
 /**
  * Admin controller for a single block group.
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class BlockGroupAdminController extends \ZMController
+class BlockGroupAdminController extends DefaultController
 {
     /**
      * {@inheritDoc}

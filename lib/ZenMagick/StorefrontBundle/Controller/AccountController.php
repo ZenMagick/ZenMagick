@@ -20,13 +20,14 @@
 namespace ZenMagick\StorefrontBundle\Controller;
 
 use ZenMagick\Base\Beans;
+use ZenMagick\ZenMagickBundle\Controller\DefaultController;
 
 /**
  * Request controller for account page.
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class AccountController extends \ZMController
+class AccountController extends DefaultController
 {
     /**
      * {@inheritDoc}

@@ -20,17 +20,17 @@
 
 namespace ZenMagick\plugins\howDidYouHear\Controller;
 
-use ZMController;
 use ZMRuntime;
 use ZenMagick\Base\Beans;
 use ZenMagick\Base\Toolbox;
+use ZenMagick\ZenMagickBundle\Controller\DefaultController;
 
 /**
  * Display sources stats.
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class HowDidYouHearSourcesStatsController extends ZMController
+class HowDidYouHearSourcesStatsController extends DefaultController
 {
     /**
      * {@inheritDoc}

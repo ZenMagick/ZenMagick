@@ -19,16 +19,16 @@
  */
 namespace ZenMagick\plugins\howDidYouHear\Controller;
 
-use ZMController;
 use ZMRuntime;
 use ZenMagick\Base\Beans;
+use ZenMagick\ZenMagickBundle\Controller\DefaultController;
 
 /**
  * Sources admin.
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class HowDidYouHearSourcesAdminController extends ZMController
+class HowDidYouHearSourcesAdminController extends DefaultController
 {
     /**
      * {@inheritDoc}

@@ -21,6 +21,8 @@ namespace ZenMagick\AdminBundle\Controller;
 
 use ZenMagick\Http\View\View;
 
+use ZenMagick\ZenMagickBundle\Controller\DefaultController;
+
 use ZenMagick\StoreBundle\Model\Mock\MockAccount;
 use ZenMagick\StoreBundle\Model\Mock\MockOrder;
 use ZenMagick\StoreBundle\Model\Mock\MockProduct;
@@ -37,7 +39,7 @@ use Symfony\Component\HttpFoundation\Response;
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class EmailPreviewController extends \ZMController
+class EmailPreviewController extends DefaultController
 {
     /**
      * {@inheritDoc}

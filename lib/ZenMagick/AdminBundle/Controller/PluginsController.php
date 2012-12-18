@@ -23,6 +23,7 @@ use ZenMagick\Base\Beans;
 use ZenMagick\Base\Toolbox;
 use ZenMagick\Base\Plugins\Plugin;
 use ZenMagick\Http\Widgets\Form\FormWidget;
+use ZenMagick\ZenMagickBundle\Controller\DefaultController;
 use ZenMagick\StoreBundle\Plugins\PluginOptionsLoader;
 
 /**
@@ -30,7 +31,7 @@ use ZenMagick\StoreBundle\Plugins\PluginOptionsLoader;
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class PluginsController extends \ZMController
+class PluginsController extends DefaultController
 {
     /**
      * {@inheritDoc}

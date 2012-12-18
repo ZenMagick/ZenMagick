@@ -22,6 +22,7 @@ namespace ZenMagick\StoreBundle\Controller;
 use ZenMagick\Base\Beans;
 use ZenMagick\Http\Request;
 use ZenMagick\Http\View\RedirectView;
+use ZenMagick\ZenMagickBundle\Controller\DefaultController;
 
 /**
  * Catalog content controller.
@@ -31,7 +32,7 @@ use ZenMagick\Http\View\RedirectView;
  *
  * @author DerManoMann
  */
-abstract class CatalogContentController extends \ZMController
+abstract class CatalogContentController extends DefaultController
 {
     const ACTIVE_CATEGORY = 1;
     const ACTIVE_PRODUCT = 2;

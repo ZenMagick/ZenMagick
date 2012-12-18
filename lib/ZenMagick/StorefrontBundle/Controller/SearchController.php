@@ -21,6 +21,7 @@ namespace ZenMagick\StorefrontBundle\Controller;
 
 use ZenMagick\Base\Beans;
 use ZenMagick\Base\Toolbox;
+use ZenMagick\ZenMagickBundle\Controller\DefaultController;
 
 use Symfony\Component\EventDispatcher\GenericEvent;
 
@@ -31,7 +32,7 @@ use Symfony\Component\EventDispatcher\GenericEvent;
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class SearchController extends \ZMController
+class SearchController extends DefaultController
 {
     private $autoSearch_;
 

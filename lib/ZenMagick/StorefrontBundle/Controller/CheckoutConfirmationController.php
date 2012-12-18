@@ -21,6 +21,7 @@
 namespace ZenMagick\StorefrontBundle\Controller;
 
 use ZenMagick\Base\Toolbox;
+use ZenMagick\ZenMagickBundle\Controller\DefaultController;
 
 /**
  * Request controller for checkout shipping page.
@@ -32,7 +33,7 @@ use ZenMagick\Base\Toolbox;
  * @todo hide payment address edit if specified by flagDisablePaymentAddressChange property
  *
  */
-class CheckoutConfirmationController extends \ZMController
+class CheckoutConfirmationController extends DefaultController
 {
     public function getViewData($request)
     {

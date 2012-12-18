@@ -22,6 +22,8 @@ namespace ZenMagick\ZenCartBundle\Controller;
 
 use ZenMagick\Base\Runtime;
 use ZenMagick\Base\Toolbox;
+use ZenMagick\ZenMagickBundle\Controller\DefaultController;
+
 use Symfony\Component\HttpFoundation\Response;
 
 /**
@@ -29,7 +31,7 @@ use Symfony\Component\HttpFoundation\Response;
  *
  * @author Johnny Robeson
  */
-class StorefrontController extends \ZMController
+class StorefrontController extends DefaultController
 {
     /**
      * Override getFormData() for ZenCart pages

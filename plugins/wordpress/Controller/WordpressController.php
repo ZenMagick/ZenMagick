@@ -19,14 +19,14 @@
  */
 namespace ZenMagick\plugins\wordpress\Controller;
 
-use ZMController;
+use ZenMagick\ZenMagickBundle\Controller\DefaultController;
 
 /**
  * WP controller.
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class WordpressController extends ZMController
+class WordpressController extends DefaultController
 {
     /**
      * {@inheritDoc}

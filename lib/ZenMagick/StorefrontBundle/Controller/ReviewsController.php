@@ -20,13 +20,14 @@
 namespace ZenMagick\StorefrontBundle\Controller;
 
 use ZenMagick\Base\Beans;
+use ZenMagick\ZenMagickBundle\Controller\DefaultController;
 
 /**
  * Request controller for reviews list.
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class ReviewsController extends \ZMController
+class ReviewsController extends DefaultController
 {
     /**
      * {@inheritDoc}

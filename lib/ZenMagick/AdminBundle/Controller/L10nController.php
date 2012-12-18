@@ -20,8 +20,9 @@
 namespace ZenMagick\AdminBundle\Controller;
 
 use ZenMagick\Base\Toolbox;
-
 use ZenMagick\Base\Locales\LocaleScanner;
+
+use ZenMagick\ZenMagickBundle\Controller\DefaultController;
 
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\ResponseHeaderBag;
@@ -31,7 +32,7 @@ use Symfony\Component\HttpFoundation\ResponseHeaderBag;
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class L10nController extends \ZMController
+class L10nController extends DefaultController
 {
     /**
      * {@inheritDoc}

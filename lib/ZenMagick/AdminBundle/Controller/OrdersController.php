@@ -21,12 +21,14 @@ namespace ZenMagick\AdminBundle\Controller;
 
 use ZenMagick\Base\Beans;
 
+use ZenMagick\ZenMagickBundle\Controller\DefaultController;
+
 /**
  * Admin controller for orders page.
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class OrdersController extends \ZMController
+class OrdersController extends DefaultController
 {
     /**
      * {@inheritDoc}

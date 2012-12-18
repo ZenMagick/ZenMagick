@@ -19,13 +19,15 @@
  */
 namespace ZenMagick\AdminBundle\Controller;
 
+use ZenMagick\ZenMagickBundle\Controller\DefaultController;
+
 /**
  * Admin controller for cache admin.
  *
  * @author DerManoMann <mano@zenmagick.org>
  * @todo move hash calculation into controller
  */
-class CacheAdminController extends \ZMController
+class CacheAdminController extends DefaultController
 {
     /**
      * Get all configured caches.

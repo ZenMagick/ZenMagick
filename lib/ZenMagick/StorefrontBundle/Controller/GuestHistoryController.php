@@ -19,6 +19,7 @@
  */
 namespace ZenMagick\StorefrontBundle\Controller;
 
+use ZenMagick\ZenMagickBundle\Controller\DefaultController;
 use ZenMagick\StoreBundle\Entity\Account;
 
 /**
@@ -26,7 +27,7 @@ use ZenMagick\StoreBundle\Entity\Account;
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class GuestHistoryController extends \ZMController
+class GuestHistoryController extends DefaultController
 {
     /**
      * {@inheritDoc}

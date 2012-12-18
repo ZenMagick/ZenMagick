@@ -20,13 +20,14 @@
 namespace ZenMagick\AdminBundle\Controller;
 
 use ZenMagick\Base\Toolbox;
+use ZenMagick\ZenMagickBundle\Controller\DefaultController;
 
 /**
  * Request controller for forgotten passwords.
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class ResetPasswordController extends \ZMController
+class ResetPasswordController extends DefaultController
 {
     /**
      * {@inheritDoc}

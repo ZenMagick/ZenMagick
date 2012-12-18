@@ -20,6 +20,8 @@
 namespace ZenMagick\AdminBundle\Controller;
 
 use ZenMagick\Base\Beans;
+use ZenMagick\ZenMagickBundle\Controller\DefaultController;
+
 use Symfony\Component\Locale\Locale;
 
 /**
@@ -27,7 +29,7 @@ use Symfony\Component\Locale\Locale;
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class UpdateUserController extends \ZMController
+class UpdateUserController extends DefaultController
 {
     /**
      * {@inheritDoc}

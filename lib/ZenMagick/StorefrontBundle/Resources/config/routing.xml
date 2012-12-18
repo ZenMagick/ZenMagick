@@ -16,12 +16,12 @@
 
     <!-- really handled by configureLocale method in storefront event listener -->
     <route id="set_language" pattern="/set_language">
-        <default key="_controller">ZMController::process</default>
+        <default key="_controller">ZenMagickBundle:Default:process</default>
     </route>
 
     <!-- really handled by configureLocale method in storefront event listener -->
     <route id="set_currency" pattern="/set_currency">
-        <default key="_controller">ZMController::process</default>
+        <default key="_controller">ZenMagickBundle:Default:process</default>
     </route>
 
     <route id="login" pattern="/login">
@@ -58,7 +58,7 @@
     </route>
 
     <route id="customers_authorization" pattern="/customers_authorization">
-        <default key="_controller">ZMController:process</default>
+        <default key="_controller">ZenMagickBundle:Default:process</default>
     </route>
 
     <route id="create_account" pattern="/account/create">
@@ -69,7 +69,7 @@
     </route>
 
     <route id="create_account_success" pattern="/account/create/success">
-        <default key="_controller">ZMController::process</default>
+        <default key="_controller">ZenMagickBundle:Default:process</default>
         <option key="view">create_account_success.html.php</option>
     </route>
 
@@ -152,12 +152,12 @@
     </route>
 
     <route id="popup_cvv_help" pattern="/help/cvv">
-        <default key="_controller">ZMController::process</default>
+        <default key="_controller">ZenMagickBundle:Default:process</default>
         <option key="view">popup/cvv_help.html.php?layout=popup_layout.html.php</option>
     </route>
 
     <route id="popup_search_help" pattern="/help/search">
-        <default key="_controller">ZMController::process</default>
+        <default key="_controller">ZenMagickBundle:Default:process</default>
         <option key="view">popup/search_help.html.php?layout=popup_layout.html.php</option>
     </route>
 
@@ -179,22 +179,22 @@
     </route>
 
     <route id="conditions" pattern="/conditions">
-        <default key="_controller">ZMController::process</default>
+        <default key="_controller">ZenMagickBundle:Default:process</default>
         <option key="view">conditions.html.php</option>
     </route>
 
     <route id="shippinginfo" pattern="/shipping_info">
-        <default key="_controller">ZMController::process</default>
+        <default key="_controller">ZenMagickBundle:Default:process</default>
         <option key="view">shippinginfo.html.php</option>
     </route>
 
     <route id="privacy" pattern="/privacy">
-        <default key="_controller">ZMController::process</default>
+        <default key="_controller">ZenMagickBundle:Default:process</default>
         <option key="view">privacy.html.php</option>
     </route>
 
     <route id="site_map" pattern="/sitemap">
-        <default key="_controller">ZMController::process</default>
+        <default key="_controller">ZenMagickBundle:Default:process</default>
         <option key="view">site_map.html.php</option>
     </route>
 
@@ -206,7 +206,7 @@
     </route>
 
     <route id="popup_shipping_estimator" pattern="/shipping/estimator">
-        <default key="_controller">ZMController::process</default>
+        <default key="_controller">ZenMagickBundle:Default:process</default>
         <option key="view">popup/shipping_estimator.html.php?layout=popup_layout.html.php</option>
     </route>
 
@@ -343,7 +343,7 @@
     </route>
 
     <route id="static" pattern="/static">
-        <default key="_controller">ZMController::process</default>
+        <default key="_controller">ZenMagickBundle:Default:process</default>
     </route>
 
     <route id="featured_products" pattern="/featured">
@@ -359,7 +359,7 @@
     </route>
 
     <route id="products_all" pattern="/products/all">
-        <default key="_controller">ZMController::process</default>
+        <default key="_controller">ZenMagickBundle:Default:process</default>
     </route>
 
     <route id="products_new" pattern="/products/new">
@@ -376,7 +376,7 @@
     </route>
 
     <route id="time_out" pattern="/time_out">
-        <default key="_controller">ZMController::process</default>
+        <default key="_controller">ZenMagickBundle:Default:process</default>
     </route>
 
     <route id="index" pattern="/">

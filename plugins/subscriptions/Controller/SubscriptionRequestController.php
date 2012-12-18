@@ -19,8 +19,8 @@
  */
 namespace ZenMagick\plugins\subscriptions\Controller;
 
-use ZMController;
 use ZenMagick\Base\ZMObject;
+use ZenMagick\ZenMagickBundle\Controller\DefaultController;
 
 /**
  * Request controller for customer requests.
@@ -28,7 +28,7 @@ use ZenMagick\Base\ZMObject;
  * @author DerManoMann <mano@zenmagick.org>
  * @package org.zenmagick.plugins.subscriptions
  */
-class ZMSubscriptionRequestController extends ZMController
+class ZMSubscriptionRequestController extends DefaultController
 {
     /**
      * Create the model from the current request.

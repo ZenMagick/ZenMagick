@@ -19,6 +19,7 @@
  */
 namespace ZenMagick\StorefrontBundle\Controller;
 
+use ZenMagick\ZenMagickBundle\Controller\DefaultController;
 use ZenMagick\StoreBundle\Entity\Coupons\Coupon;
 
 /**
@@ -26,7 +27,7 @@ use ZenMagick\StoreBundle\Entity\Coupons\Coupon;
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class GvSendConfirmController extends \ZMController
+class GvSendConfirmController extends DefaultController
 {
     /**
      * {@inheritDoc}

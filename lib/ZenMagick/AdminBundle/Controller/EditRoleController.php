@@ -21,13 +21,14 @@ namespace ZenMagick\AdminBundle\Controller;
 
 use ZenMagick\Base\Toolbox;
 use ZenMagick\Http\Sacs\SacsManager;
+use ZenMagick\ZenMagickBundle\Controller\DefaultController;
 
 /**
  * Admin controller to edit role permissions.
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class EditRoleController extends \ZMController
+class EditRoleController extends DefaultController
 {
     /**
      * Get sacs permission infos.

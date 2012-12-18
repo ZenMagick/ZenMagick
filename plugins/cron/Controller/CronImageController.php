@@ -19,7 +19,7 @@
  */
 namespace ZenMagick\plugins\cron\Controller;
 
-use ZMController;
+use ZenMagick\ZenMagickBundle\Controller\DefaultController;
 
 use Symfony\Component\HttpFoundation\Response;
 
@@ -28,7 +28,7 @@ use Symfony\Component\HttpFoundation\Response;
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class CronImageController extends ZMController
+class CronImageController extends DefaultController
 {
     /**
      * {@inheritDoc}

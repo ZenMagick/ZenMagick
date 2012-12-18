@@ -19,12 +19,14 @@
  */
 namespace ZenMagick\StorefrontBundle\Controller;
 
+use ZenMagick\ZenMagickBundle\Controller\DefaultController;
+
 /**
  * Controller for coupon code lookup page.
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class DiscountCouponController extends \ZMController
+class DiscountCouponController extends DefaultController
 {
     /**
      * {@inheritDoc}

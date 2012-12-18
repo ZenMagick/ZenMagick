@@ -21,6 +21,7 @@ namespace ZenMagick\StorefrontBundle\Controller;
 
 use ZenMagick\Base\Beans;
 use ZenMagick\Base\Toolbox;
+use ZenMagick\ZenMagickBundle\Controller\DefaultController;
 use ZenMagick\StoreBundle\Entity\Coupons\Coupon;
 
 use Symfony\Component\EventDispatcher\GenericEvent;
@@ -34,7 +35,7 @@ use Symfony\Component\EventDispatcher\GenericEvent;
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class CreateAccountController extends \ZMController
+class CreateAccountController extends DefaultController
 {
     private $createDefaultAddress_;
 

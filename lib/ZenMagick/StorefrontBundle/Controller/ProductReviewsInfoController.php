@@ -19,12 +19,14 @@
  */
 namespace ZenMagick\StorefrontBundle\Controller;
 
+use ZenMagick\ZenMagickBundle\Controller\DefaultController;
+
 /**
  * Request controller for product review pages.
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class ProductReviewsInfoController extends \ZMController
+class ProductReviewsInfoController extends DefaultController
 {
     /**
      * {@inheritDoc}

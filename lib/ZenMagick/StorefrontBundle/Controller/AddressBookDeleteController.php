@@ -19,12 +19,14 @@
  */
 namespace ZenMagick\StorefrontBundle\Controller;
 
+use ZenMagick\ZenMagickBundle\Controller\DefaultController;
+
 /**
  * Request controller to delete addressbook entry (address).
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class AddressBookDeleteController extends \ZMController
+class AddressBookDeleteController extends DefaultController
 {
     /**
      * {@inheritDoc}

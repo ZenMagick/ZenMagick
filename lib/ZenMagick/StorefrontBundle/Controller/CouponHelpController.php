@@ -22,13 +22,14 @@ namespace ZenMagick\StorefrontBundle\Controller;
 use ZenMagick\Http\Request;
 use ZenMagick\Http\Session\Session;
 use ZenMagick\Http\View\ModelAndView;
+use ZenMagick\ZenMagickBundle\Controller\DefaultController;
 
 /**
  * Coupon help controller.
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class CouponHelpController extends \ZMController
+class CouponHelpController extends DefaultController
 {
     /**
      * Show.

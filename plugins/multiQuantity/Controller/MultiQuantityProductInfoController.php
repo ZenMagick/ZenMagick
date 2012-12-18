@@ -19,14 +19,14 @@
  */
 namespace ZenMagick\plugins\multiQuantity\Controller;
 
-use ZMController;
+use ZenMagick\ZenMagickBundle\Controller\DefaultController;
 
 /**
  * Custom controller to handle multi quantity requests.
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class MultiQuantityProductInfoController extends ZMController
+class MultiQuantityProductInfoController extends DefaultController
 {
     /**
      * Create new instance.

@@ -20,13 +20,14 @@
 namespace ZenMagick\AdminBundle\Controller;
 
 use ZenMagick\Base\ZMObject;
+use ZenMagick\ZenMagickBundle\Controller\DefaultController;
 
 /**
  * Admin controller for themes page.
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class ThemesController extends \ZMController
+class ThemesController extends DefaultController
 {
     /**
      * {@inheritDoc}

@@ -19,12 +19,14 @@
  */
 namespace ZenMagick\StorefrontBundle\Controller;
 
+use ZenMagick\ZenMagickBundle\Controller\DefaultController;
+
 /**
  * Request controller for index.
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class IndexController extends \ZMController
+class IndexController extends DefaultController
 {
     /**
      * {@inheritDoc}

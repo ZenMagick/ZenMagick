@@ -20,13 +20,14 @@
 namespace ZenMagick\StorefrontBundle\Controller;
 
 use ZenMagick\Base\Beans;
+use ZenMagick\ZenMagickBundle\Controller\DefaultController;
 
 /**
  * Request controller for featured products.
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class FeaturedProductsController extends \ZMController
+class FeaturedProductsController extends DefaultController
 {
     /**
      * {@inheritDoc}

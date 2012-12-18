@@ -18,6 +18,8 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
+namespace ZenMagick\ZenMagickBundle\Controller;
+
 use ZenMagick\Base\Beans;
 use ZenMagick\Base\Runtime;
 use ZenMagick\Base\ZMException;
@@ -33,7 +35,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class ZMController extends Controller
+class DefaultController extends Controller
 {
     protected $messageService;
     private $requestId_;

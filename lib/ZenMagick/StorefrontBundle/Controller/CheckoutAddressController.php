@@ -19,6 +19,8 @@
  */
 namespace ZenMagick\StorefrontBundle\Controller;
 
+use ZenMagick\ZenMagickBundle\Controller\DefaultController;
+
 use Symfony\Component\EventDispatcher\GenericEvent;
 
 /**
@@ -26,7 +28,7 @@ use Symfony\Component\EventDispatcher\GenericEvent;
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class CheckoutAddressController extends \ZMController
+class CheckoutAddressController extends DefaultController
 {
     private $modeSettings_ = array();
     private $viewData_ = array();
