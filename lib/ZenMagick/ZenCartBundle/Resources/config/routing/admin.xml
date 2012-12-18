@@ -157,6 +157,10 @@
         <default key="_controller">ZenCartBundle:Admin:process</default>
         <option key="view:zc_admin">zc_admin.html.php</option>
     </route>
+    <route id="zc_admin_banner_statistics" pattern="/banner_statistics">
+        <default key="_controller">ZenCartBundle:Admin:process</default>
+        <option key="view:zc_admin">zc_admin.html.php</option>
+    </route>
     <route id="zc_admin_mail" pattern="/mail">
         <default key="_controller">ZenCartBundle:Admin:process</default>
         <option key="view:zc_admin">zc_admin.html.php</option>
