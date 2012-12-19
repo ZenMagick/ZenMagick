@@ -85,12 +85,6 @@ class StorefrontListener extends ZMObject
      */
     public function onRequestReady($event)
     {
-        $request = $event->getArgument('request');
-        $session = $request->getSession();
-        if (null == $session->get('cart')) {
-            $session->set('cart', new \ZenMagick\ZenCartBundle\Compat\ShoppingCart);
-        }
-
         $this->container->get('themeService')->initThemes();
         $theme = $this->container->get('themeService')->getActiveTheme();
         $args = array_merge($event->getArguments(), array('theme' => $theme, 'themeId' => $theme->getId()));
