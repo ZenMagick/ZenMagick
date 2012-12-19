@@ -254,7 +254,9 @@ class StorefrontController extends DefaultController
         $this_is_home_page = $this->isHomePage();
         $zv_onload = $this->getOnLoadJS();
 
-        return compact('breadcrumb', 'canonicalLink', 'lng', 'robotsNoIndex', 'show_welcome', 'this_is_home_page', 'zv_onload');
+        $tpl = compact('breadcrumb', 'canonicalLink', 'lng', 'robotsNoIndex', 'show_welcome', 'this_is_home_page', 'zv_onload');
+        $tpl['session_started'] = true;
+        return $tpl;
     }
 
     /**
