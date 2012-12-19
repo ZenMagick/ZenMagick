@@ -40,7 +40,4 @@ AnnotationRegistry::registerLoader(array($loader, 'loadClass'));
 // @todo move this into the ZenCartBundle autoloader once it has composer.json
 class_alias('ZenMagick\ZenCartBundle\Compat\Base', 'base');
 
-// @deprecated ZMController alias
-class_alias('ZenMagick\ZenMagickBundle\Controller\DefaultController', 'ZMController');
-
 return $loader;
