@@ -71,15 +71,12 @@ class ZenCartAutoLoader extends ZMObject
         $requestId = str_replace('zc_admin_','', $request->getRequestId());
         // needed throughout sadly
         $globals = array(
-            'code_page_directory' => 'includes/modules/pages/'.$requestId,
             'current_page' => $requestId,
             'current_page_base' => $requestId,
             'cPath' => (string) $request->query->get('cPath'),
             'current_category_id' => $request->attributes->get('categoryId'),
             'cPath_array' => $request->attributes->get('categoryIds'),
-            'page_directory' => 'includes/modules/pages/'.$requestId,
             'request_type' => $request->isSecure() ? 'SSL' : 'NONSSL',
-            'session_started' => true,
             'PHP_SELF' => $request->server->get('PHP_SELF'),
         );
         $this->setGlobalValues($globals);
