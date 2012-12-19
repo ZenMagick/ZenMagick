@@ -19,12 +19,14 @@
  */
 namespace ZenMagick\AdminBundle\Controller;
 
+use ZenMagick\ZenMagickBundle\Controller\RpcController;
+
 /**
  * Ajax dashboard controller.
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class AjaxDashboardController extends \ZMRpcController
+class AjaxDashboardController extends RpcController
 {
     /**
      * Save state.

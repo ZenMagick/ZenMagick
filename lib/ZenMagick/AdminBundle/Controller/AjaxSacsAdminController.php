@@ -19,12 +19,14 @@
  */
 namespace ZenMagick\AdminBundle\Controller;
 
+use ZenMagick\ZenMagickBundle\Controller\RpcController;
+
 /**
  * Ajax SACS admin controller.
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class AjaxSacsAdminController extends \ZMRpcController
+class AjaxSacsAdminController extends RpcController
 {
     /**
      * Add role.

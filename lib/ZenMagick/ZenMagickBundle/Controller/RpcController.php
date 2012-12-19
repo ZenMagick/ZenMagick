@@ -18,6 +18,8 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
+namespace ZenMagick\ZenMagickBundle\Controller;
+
 use ZenMagick\Base\Beans;
 use ZenMagick\Http\Request;
 use ZenMagick\Http\Sacs\SacsManager;
@@ -28,10 +30,10 @@ use Symfony\Component\HttpFoundation\Response;
 /**
  * RPC controller.
  *
+ * @todo drop this in favor of the DefaultController
  * @author DerManoMann <mano@zenmagick.org>
- * @package org.zenmagick.mvc.controller
  */
-class ZMRpcController extends DefaultController
+class RpcController extends DefaultController
 {
     /**
      * {@inheritDoc}
@@ -97,11 +99,11 @@ class ZMRpcController extends DefaultController
         $request = $rpcRequest->getRequest();
         $rpcResponse = $rpcRequest->createResponse();
         if (null === $this->getUser()) {
-            $rpcResponse->setStatus(false, ZMRpcResponse::RC_NO_CREDENTIALS);
+            $rpcResponse->setStatus(false, \ZMRpcResponse::RC_NO_CREDENTIALS);
             $rpcResponse->addMessage(_zm('No credentials'), 'error');
             $rpcResponse->setData(array('location' => $this->container->get('netTool')->url($this->container->get('settingsService')->get('zenmagick.http.request.login', 'login'), '', true)));
         } else {
-            $rpcResponse->setStatus(false, ZMRpcResponse::RC_INVALID_CREDENTIALS);
+            $rpcResponse->setStatus(false, \ZMRpcResponse::RC_INVALID_CREDENTIALS);
             $rpcResponse->addMessage(_zm('Invalid credentials'), 'error');
         }
 

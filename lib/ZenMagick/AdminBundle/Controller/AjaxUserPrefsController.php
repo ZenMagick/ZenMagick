@@ -19,12 +19,14 @@
  */
 namespace ZenMagick\AdminBundle\Controller;
 
+use ZenMagick\ZenMagickBundle\Controller\RpcController;
+
 /**
  * Ajax user prefs controller.
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class AjaxUserPrefsController extends \ZMRpcController
+class AjaxUserPrefsController extends RpcController
 {
     /**
      * Set pref.

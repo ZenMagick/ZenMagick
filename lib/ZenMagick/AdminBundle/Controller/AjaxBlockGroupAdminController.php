@@ -20,6 +20,7 @@
 namespace ZenMagick\AdminBundle\Controller;
 
 use ZenMagick\Base\Beans;
+use ZenMagick\ZenMagickBundle\Controller\RpcController;
 use ZenMagick\StoreBundle\Entity\Blocks\Block;
 
 /**
@@ -27,7 +28,7 @@ use ZenMagick\StoreBundle\Entity\Blocks\Block;
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class AjaxBlockGroupAdminController extends \ZMRpcController
+class AjaxBlockGroupAdminController extends RpcController
 {
     /**
      * Remove a block.

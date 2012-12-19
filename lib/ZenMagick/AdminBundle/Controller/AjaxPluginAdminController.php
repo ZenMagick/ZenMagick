@@ -20,6 +20,7 @@
 namespace ZenMagick\AdminBundle\Controller;
 
 use ZenMagick\Base\Toolbox;
+use ZenMagick\ZenMagickBundle\Controller\RpcController;
 use ZenMagick\StoreBundle\Plugins\PluginOptionsLoader;
 
 /**
@@ -27,7 +28,7 @@ use ZenMagick\StoreBundle\Plugins\PluginOptionsLoader;
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class AjaxPluginAdminController extends \ZMRpcController
+class AjaxPluginAdminController extends RpcController
 {
     /**
      * Update plugin status.

@@ -21,13 +21,14 @@ namespace ZenMagick\AdminBundle\Controller;
 
 use ZenMagick\Base\Beans;
 use ZenMagick\Base\Toolbox;
+use ZenMagick\ZenMagickBundle\Controller\RpcController;
 
 /**
  * Ajax EZPages admin controller.
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class AjaxEZPagesAdminController extends \ZMRpcController
+class AjaxEZPagesAdminController extends RpcController
 {
     /**
      * Set page property.
