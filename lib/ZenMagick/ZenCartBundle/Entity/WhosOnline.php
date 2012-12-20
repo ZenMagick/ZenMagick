@@ -10,7 +10,6 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table(name="whos_online",
  *  indexes={
  *      @ORM\Index(name="idx_ip_address_zen", columns={"ip_address"}),
- *      @ORM\Index(name="idx_session_id_zen", columns={"session_id"}),
  *      @ORM\Index(name="idx_customer_id_zen", columns={"customer_id"}),
  *      @ORM\Index(name="idx_time_entry_zen", columns={"time_entry"}),
  *      @ORM\Index(name="idx_time_last_click_zen", columns={"time_last_click"}),
@@ -20,15 +19,6 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class WhosOnline
 {
-    /**
-     * @var integer $id
-     *
-     * @ORM\Column(name="id", type="integer", nullable=false)
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="IDENTITY")
-     */
-    private $id;
-
     /**
      * @var integer $customerId
      *
@@ -47,6 +37,8 @@ class WhosOnline
      * @var string $sessionId
      *
      * @ORM\Column(name="session_id", type="string", length=128, nullable=false)
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="NONE")
      */
     private $sessionId;
 
