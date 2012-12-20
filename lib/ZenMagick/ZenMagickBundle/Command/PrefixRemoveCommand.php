@@ -16,7 +16,7 @@ class PrefixRemoveCommand extends ContainerAwareCommand
     protected function configure()
     {
         $this
-        ->setName('zenmagick:database:remove-prefix')
+        ->setName('zm:database:remove-prefix')
         ->setDescription('Remove database table prefix.')
         ->setDefinition(array(
             new InputArgument(
