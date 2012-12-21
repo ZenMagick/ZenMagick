@@ -55,17 +55,23 @@ class CurrencyService extends ZMObject
     /**
      * Get all currencies.
      *
-     * @return array A list of <code>ZMCurrency</code> objects.
+     * @return array A list of <code>Currency</code> objects.
      */
-    public function getCurrencies() { return $this->currencies; }
+    public function getCurrencies()
+    {
+        return $this->currencies;
+    }
 
     /**
      * Get the currency for the given code.
      *
      * @param string code The currency code.
-     * @return ZMCurrency A currency or <code>null</code>.
+     * @return Currency A <code>Currency</code> or <code>null</code>.
      */
-    public function getCurrencyForCode($code) { return isset($this->currencies[$code]) ? $this->currencies[$code] : null; }
+    public function getCurrencyForCode($code)
+    {
+        return isset($this->currencies[$code]) ? $this->currencies[$code] : null;
+    }
 
     /**
      * Checks if a currency exists for the given code.
@@ -75,7 +81,7 @@ class CurrencyService extends ZMObject
      */
     public function isValid($code)
     {
-        return null !== $this->getCurrencyForId($code);
+        return null !== $this->getCurrencyForCode($code);
     }
 
 }
