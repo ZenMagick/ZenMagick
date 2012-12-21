@@ -1,4 +1,4 @@
-ZenMagick\StoreBundle\Entity\Locale\Currency:
+ZenMagick\StoreBundle\Entity\Currency:
     -
         id: 1
         name: "US Dollar"
