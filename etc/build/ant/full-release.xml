@@ -45,14 +45,6 @@
         <!-- remove unused zencart code -->
         <antcall target="drop-unused-zencart" />
 
-        <!-- update install needed url -->
-        <replaceregexp flags="m">
-            <fileset file="${release.full.dir}/includes/application_top.php" />
-            <regexp pattern="includes\/templates\/template_default\/templates\/tpl_zc_install_suggested_default.php"/>
-            <substitution expression='zc_install/not_installed.php' />
-        </replaceregexp>
-        <copy file="${basedir}/etc/build/full/files/not_installed.php" todir="${release.full.dir}/zc_install/" />
-
         <!-- disable update check -->
         <antcall target="insert-before">
             <param name="insert.file" value="${release.full.dir}/admin/includes/header.php" />
@@ -302,7 +294,6 @@
 
         <!-- general stuff -->
         <zip zipfile="${release.full.dir}/zc_install/optional/extras.zip">
-            <fileset dir="${release.full.dir}" includes="extras/" />
             <fileset dir="${release.full.dir}" includes="docs/" />
         </zip>
 
@@ -310,15 +301,6 @@
         <zip zipfile="${release.full.dir}/zc_install/optional/templates.zip">
             <fileset dir="${release.full.dir}" includes="includes/templates/classic/" />
             <fileset dir="${release.full.dir}" includes="includes/templates/template_default/" />
-            <fileset dir="${release.full.dir}" includes="/includes/languages/classic/" />
-            <fileset dir="${release.full.dir}" includes="includes/languages/english/classic/" />
-            <fileset dir="${release.full.dir}" includes="includes/languages/english/extra_definitions/classic/" />
-            <fileset dir="${release.full.dir}" includes="includes/languages/english/html_includes/classic/" />
-            <fileset dir="${release.full.dir}" includes="includes/languages/english/modules/order_total/classic/" />
-            <fileset dir="${release.full.dir}" includes="includes/languages/english/modules/payment/classic/" />
-            <fileset dir="${release.full.dir}" includes="includes/languages/english/modules/shipping/classic/" />
-            <fileset dir="${release.full.dir}" includes="includes/modules/classic/" />
-            <fileset dir="${release.full.dir}" includes="includes/modules/sideboxes/classic/" />
         </zip>
 
         <!-- music product info -->
@@ -330,21 +312,11 @@
 
         <delete includeemptydirs="true">
             <!-- general folders -->
-            <fileset dir="${release.full.dir}" includes="extras/" />
             <fileset dir="${release.full.dir}" includes="docs/" />
 
             <!-- unused template code -->
             <fileset dir="${release.full.dir}" includes="includes/templates/classic/" />
             <fileset dir="${release.full.dir}" includes="includes/templates/template_default/" />
-            <fileset dir="${release.full.dir}" includes="/includes/languages/classic/" />
-            <fileset dir="${release.full.dir}" includes="includes/languages/english/classic/" />
-            <fileset dir="${release.full.dir}" includes="includes/languages/english/extra_definitions/classic/" />
-            <fileset dir="${release.full.dir}" includes="includes/languages/english/html_includes/classic/" />
-            <fileset dir="${release.full.dir}" includes="includes/languages/english/modules/order_total/classic/" />
-            <fileset dir="${release.full.dir}" includes="includes/languages/english/modules/payment/classic/" />
-            <fileset dir="${release.full.dir}" includes="includes/languages/english/modules/shipping/classic/" />
-            <fileset dir="${release.full.dir}" includes="includes/modules/classic/" />
-            <fileset dir="${release.full.dir}" includes="includes/modules/sideboxes/classic/" />
 
             <!-- downloads / music media -->
             <fileset dir="${release.full.dir}" includes="pub/" />
