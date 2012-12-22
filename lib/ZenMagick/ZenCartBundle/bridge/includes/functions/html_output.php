@@ -40,8 +40,14 @@
 
 // alt is added to the img tag even if it is null to prevent browsers from outputting
 // the image filename as default
-    $image = '<img src="' . zen_output_string($src) . '" alt="' . zen_output_string($alt) . '"';
-
+    // BEGIN ZENMAGICK MODIFICATION:
+    // make image src path absolute so templates can work without the <base> tag
+    $output_src = $src;
+    if (0 !== strpos($src, '/') || 0 !== strpos($src, 'http')) {
+        $output_src = DIR_WS_CATALOG.$src;
+    }
+    $image = '<img src="' . zen_output_string($output_src) . '" alt="' . zen_output_string($alt) . '"';
+    // END ZENMAGICK MODIFICATION
     if (zen_not_null($alt)) {
       $image .= ' title=" ' . zen_output_string($alt) . ' "';
     }
@@ -117,8 +123,14 @@
 
 // alt is added to the img tag even if it is null to prevent browsers from outputting
 // the image filename as default
-    $image = '<img src="' . zen_output_string($src) . '" alt="' . zen_output_string($alt) . '"';
-
+    // BEGIN ZENMAGICK MODIFICATION:
+    // make image src path absolute so templates can work without the <base> tag
+    $output_src = $src;
+    if (0 !== strpos($src, '/') || 0 !== strpos($src, 'http')) {
+        $output_src = DIR_WS_CATALOG.$src;
+    }
+    $image = '<img src="' . zen_output_string($output_src) . '" alt="' . zen_output_string($alt) . '"';
+    // END ZENMAGICK MODIFICATION
     if (zen_not_null($alt)) {
       $image .= ' title=" ' . zen_output_string($alt) . ' "';
     }
