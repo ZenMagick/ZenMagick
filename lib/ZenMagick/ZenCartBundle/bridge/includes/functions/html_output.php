@@ -17,6 +17,26 @@
     return \ZenMagick\ZenCartBundle\Compat\HtmlOutput::zenHrefLink($page, $parameters, $connection, $add_session_id, $search_engine_safe, $static, $use_dir_ws_catalog);
   }
 
+  /**
+   * ZENMAGICK MODIFICATION: Make src/href local web paths absolute
+   *
+   * This makes it so templates can work without the <base> tag
+   *
+   * It turns a non-absolute/non-external web accessible
+   * path into absoluete path
+   *
+   * @param string $src
+   * @return string absolute path to image
+   */
+  function zen_zm_absolute_path($src)
+  {
+    $output_src = $src;
+    if (0 !== strpos($src, '/') || 0 !== strpos($src, 'http')) {
+        $output_src = DIR_WS_CATALOG.$src;
+    }
+    return $output_src;
+  }
+
 /*
  * The HTML image wrapper function for non-proportional images
  * used when "proportional images" is turned off or if calling from a template directory
@@ -41,12 +61,7 @@
 // alt is added to the img tag even if it is null to prevent browsers from outputting
 // the image filename as default
     // BEGIN ZENMAGICK MODIFICATION:
-    // make image src path absolute so templates can work without the <base> tag
-    $output_src = $src;
-    if (0 !== strpos($src, '/') || 0 !== strpos($src, 'http')) {
-        $output_src = DIR_WS_CATALOG.$src;
-    }
-    $image = '<img src="' . zen_output_string($output_src) . '" alt="' . zen_output_string($alt) . '"';
+    $image = '<img src="' . zen_output_string(zen_zm_absolute_path($src)) . '" alt="' . zen_output_string($alt) . '"';
     // END ZENMAGICK MODIFICATION
     if (zen_not_null($alt)) {
       $image .= ' title=" ' . zen_output_string($alt) . ' "';
@@ -124,12 +139,7 @@
 // alt is added to the img tag even if it is null to prevent browsers from outputting
 // the image filename as default
     // BEGIN ZENMAGICK MODIFICATION:
-    // make image src path absolute so templates can work without the <base> tag
-    $output_src = $src;
-    if (0 !== strpos($src, '/') || 0 !== strpos($src, 'http')) {
-        $output_src = DIR_WS_CATALOG.$src;
-    }
-    $image = '<img src="' . zen_output_string($output_src) . '" alt="' . zen_output_string($alt) . '"';
+    $image = '<img src="' . zen_output_string(zen_zm_absolute_path($src)) . '" alt="' . zen_output_string($alt) . '"';
     // END ZENMAGICK MODIFICATION
     if (zen_not_null($alt)) {
       $image .= ' title=" ' . zen_output_string($alt) . ' "';
@@ -201,8 +211,9 @@
     if (strtolower(IMAGE_USE_CSS_BUTTONS) == 'yes' && strlen($alt)<30) return zenCssButton($image, $alt, 'submit', $sec_class /*, $parameters = ''*/ );
     $zco_notifier->notify('PAGE_OUTPUT_IMAGE_SUBMIT');
 
-    $image_submit = '<input type="image" src="' . zen_output_string($template->get_template_dir($image, DIR_WS_TEMPLATE, $current_page_base, 'buttons/' . $_SESSION['language'] . '/') . $image) . '" alt="' . zen_output_string($alt) . '"';
-
+    // BEGIN ZENMAGICK MODIFICATION
+    $image_submit = '<input type="image" src="' . zen_output_string(zen_zm_absolute_path($template->get_template_dir($image, DIR_WS_TEMPLATE, $current_page_base, 'buttons/' . $_SESSION['language'] . '/') . $image)) . '" alt="' . zen_output_string($alt) . '"';
+    // END ZENMAGICK MODIFICATION
     if (zen_not_null($alt)) $image_submit .= ' title=" ' . zen_output_string($alt) . ' "';
 
     if (zen_not_null($parameters)) $image_submit .= ' ' . $parameters;
