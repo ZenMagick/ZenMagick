@@ -82,8 +82,6 @@ class ZenCartAutoLoader extends ZMObject
         $this->setGlobalValues($globals);
         if (Runtime::isContextMatch('admin')) {
             $this->setGlobalValue('PHP_SELF', $requestId.'.php');
-        } else {
-            $_GET['main_page'] = $requestId; // needed (somewhere) to catch routes from the route resolver
         }
     }
 

@@ -68,6 +68,8 @@ class StorefrontController extends DefaultController
         if ($request->attributes->has('productId')) {
             $request->query->set('products_id', $request->attributes->get('productId'));
         }
+
+        $request->query->set('main_page', $request->getRequestId());
         $this->handleCart($request);
     }
 
@@ -166,7 +168,6 @@ class StorefrontController extends DefaultController
         $controllerFile = null;
         $autoLoader = $this->container->get('zencartAutoLoader');
         if ('ipn_handler' == $request->getRequestId()) { // @todo handle other common zencart entry points like googlebase
-
             return $autoLoader->resolveFile('ipn_main_handler.php');
         }
 
@@ -181,6 +182,7 @@ class StorefrontController extends DefaultController
                 }
             }
         }
+
         /**
          * Does the page controller exist?
          */
@@ -195,6 +197,7 @@ class StorefrontController extends DefaultController
             $controllerFile = $autoLoader->resolveFile('includes/modules/pages/%current_page_base%/header_php.php');
         }
         $autoLoader->overrideRequestGlobals();
+        $request->query->set('main_page', $request->getRequestId());
         $autoLoader->setGlobalValue('language_page_directory', DIR_WS_INCLUDES.'languages/'.$request->getSelectedLanguage()->getDirectory().'/');
 
         return $controllerFile;
