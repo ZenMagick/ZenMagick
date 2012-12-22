@@ -250,7 +250,9 @@ class StorefrontController extends DefaultController
         $breadcrumb = $this->initCrumbs($validCategories, $manufacturer, $product);
         // end breakdcrumb
 
-        $canonicalLink = $this->getCanonicalUrl();
+        $params = $request->attributes->get('_route_params');
+        $canonicalLink = $this->get('router')->generate($request->getRequestId(), $params, true);
+
         $this_is_home_page = $this->isHomePage();
         $zv_onload = $this->getOnLoadJS();
 
@@ -270,45 +272,6 @@ class StorefrontController extends DefaultController
 
         return 'index' == $request->getRequestId() && $request->query->has('cPath')
             && null == $request->query->getInt('manufacturers_id') && '' == $request->query->get('type_filter', '');
-    }
-
-    /**
-     * Get a canonical link to a page.
-     *
-     * It's mostly the same as init_canonical except with almost
-     * all the exceptions removed.
-     * If people actually edit that file then we should handle it
-     * completely different, but it is unlikely that many
-     * people actually edit the file.
-     *
-     * CHANGES:
-     *   All page specific switches have been removed as they were
-     *   just placeholders for future editors (as noted above).
-     *
-     *   Exclusion list has been shortened by parameters already fixed
-     *   by $this->get('netTool')->url()
-     *
-     */
-    private function getCanonicalUrl()
-    {
-        $request = $this->container->get('request');
-        $requestId = $request->getRequestId();
-        // EXCLUDE certain parameters which should not be included in canonical links:
-        // @todo blacklist bad! whitelist good!
-        $exclusionList = array('action', 'currency', 'typefilter', 'gclid', 'search_in_description',
-            'pto', 'pfrom', 'dto', 'dfrom', 'inc_subcat', 'disp_order', 'page', 'sort', 'alpha_filter_id',
-             'filter_id', 'utm_source', 'utm_medium', 'utm_content', 'utm_campaign', 'language'
-        );
-
-        if ($this->isHomePage()) {
-            $url = $request->getBaseUrl();
-        } elseif (Toolbox::endsWith($requestId, 'info') && null != ($productId = $request->attributes->get('productId'))) {
-            $url = $this->get('netTool')->product($productId, null);
-        } else {
-            $url = $this->get('netTool')->url($requestId, rtrim(zen_get_all_get_params($exclusionList), '&'));
-        }
-
-        return $url;
     }
 
     /**
