@@ -52,7 +52,7 @@ class ZenCartListener implements EventSubscriberInterface
         if (Runtime::isContextMatch('storefront')) {
             $autoLoader = $this->container->get('zenCartAutoLoader');
             $autoLoader->initCommon();
-            $autoLoader->setGlobalValue('currencies', new \currencies);
+            $autoLoader->setGlobalValue('currencies', $this->container->get('zencart.currencies'));
             $this->initTemplate();
         }
     }
