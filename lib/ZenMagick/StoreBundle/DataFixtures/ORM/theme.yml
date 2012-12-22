@@ -181,14 +181,6 @@ ZenMagick\StoreBundle\Entity\Templating\LayoutBox:
         singleSortOrder: 0
         singleStatus: 0
     -
-        themeId: "default_template_settings"
-        name: "whos_online.php"
-        status: 1
-        location: 1
-        sortOrder: 200
-        singleSortOrder: 200
-        singleStatus: 1
-    -
         themeId: "template_default"
         name: "banner_box_all.php"
         status: 1
@@ -365,14 +357,6 @@ ZenMagick\StoreBundle\Entity\Templating\LayoutBox:
         singleSortOrder: 0
         singleStatus: 0
     -
-        themeId: "template_default"
-        name: "whos_online.php"
-        status: 1
-        location: 1
-        sortOrder: 200
-        singleSortOrder: 200
-        singleStatus: 1
-    -
         themeId: "classic"
         name: "banner_box.php"
         status: 1
@@ -549,14 +533,6 @@ ZenMagick\StoreBundle\Entity\Templating\LayoutBox:
         singleSortOrder: 0
         singleStatus: 0
     -
-        themeId: "classic"
-        name: "whos_online.php"
-        status: 1
-        location: 1
-        sortOrder: 200
-        singleSortOrder: 200
-        singleStatus: 1
-    -
         themeId: "base"
         name: "banner_box.php"
         status: 1
@@ -732,11 +708,3 @@ ZenMagick\StoreBundle\Entity\Templating\LayoutBox:
         sortOrder: 20
         singleSortOrder: 0
         singleStatus: 0
-    -
-        themeId: "base"
-        name: "whos_online.php"
-        status: 1
-        location: 1
-        sortOrder: 200
-        singleSortOrder: 200
-        singleStatus: 1
