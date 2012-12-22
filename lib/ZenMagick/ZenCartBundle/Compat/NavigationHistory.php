@@ -21,6 +21,7 @@ use Symfony\Component\HttpFoundation\Request;
  * CHANGES:
  * uses <code>Symfony\Component\HttpFoundation\Request</code> instead of globals
  * serializes internal data via <code>Serializable</code> interface
+ * ignore all XmlHttpRequest
  *
  * @todo avoiding storing the request as we can't guarantee it
  * has the correct values if activated in a sub request.
@@ -74,6 +75,7 @@ class NavigationHistory extends Base implements \Serializable
 
     public function add_current_page()
     {
+        if ($this->request->isXmlHttpRequest()) return;
         $get_vars = array();
 
         $cPath = $this->request->query->get('cPath');
@@ -133,6 +135,7 @@ class NavigationHistory extends Base implements \Serializable
 
     public function remove_current_page()
     {
+        if ($this->request->isXmlHttpRequest()) return;
         $last_entry_position = sizeof($this->path) - 1;
         if ($this->path[$last_entry_position]['page'] == $this->getMainPage()) {
             unset($this->path[$last_entry_position]);
@@ -141,6 +144,7 @@ class NavigationHistory extends Base implements \Serializable
 
     public function set_snapshot($page = '')
     {
+         if ($this->request->isXmlHttpRequest()) return;
         $get_vars = array();
         if (is_array($page)) {
             $this->snapshot = array('page' => $page['page'],
@@ -167,11 +171,13 @@ class NavigationHistory extends Base implements \Serializable
 
     public function clear_snapshot()
     {
+        if ($this->request->isXmlHttpRequest()) return;
         $this->snapshot = array();
     }
 
     public function set_path_as_snapshot($history = 0)
     {
+        if ($this->request->isXmlHttpRequest()) return;
         $pos = (sizeof($this->path)-1-$history);
         $this->snapshot = array('page' => $this->path[$pos]['page'],
             'mode' => $this->path[$pos]['mode'],

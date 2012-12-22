@@ -114,12 +114,9 @@ class StorefrontController extends DefaultController
         if (null == $session->get('navigation')) {
             $session->set('navigation', $this->get('zencart.navigation_history'));
         }
-
-        if (!$request->isXmlHttpRequest()) {
-            $navigation = $session->get('navigation');
-            $navigation->setRequest($request);
-            $navigation->add_current_page();
-        }
+        $navigation = $session->get('navigation');
+        $navigation->setRequest($request);
+        $navigation->add_current_page();
 
         /**
          *  Execute ZenCart controller
