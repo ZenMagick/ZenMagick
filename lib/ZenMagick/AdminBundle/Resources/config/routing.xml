@@ -81,11 +81,11 @@
         <option key="view">content_overview.html.php</option>
     </route>
 
-    <route id="legacy_config" pattern="/legacy_config">
+    <route id="legacy_config" pattern="/legacy-config">
         <default key="_controller">AdminBundle:LegacyConfig:process</default>
     </route>
 
-    <route id="static_page_editor" pattern="/static_page_editor">
+    <route id="static_page_editor" pattern="/static-page-editor">
         <default key="_controller">ZenMagickBundle:Default:process</default>
     </route>
 
@@ -93,11 +93,11 @@
         <default key="_controller">AdminBundle:Themes:process</default>
     </route>
 
-    <route id="theme_builder" pattern="/themes_builder">
+    <route id="theme_builder" pattern="/theme-builder">
         <default key="_controller">AdminBundle:ThemeBuilder:process</default>
     </route>
 
-    <route id="block_groups" pattern="/block_groups">
+    <route id="block_groups" pattern="/block-groups">
         <default key="_controller">AdminBundle:BlockGroups:process</default>
     </route>
 
@@ -113,22 +113,22 @@
         <default key="_controller">AdminBundle:Plugins:process</default>
     </route>
 
-    <route id="email_preview" pattern="/email_preview">
+    <route id="email_preview" pattern="/email-preview">
         <default key="_controller">AdminBundle:EmailPreview:process</default>
     </route>
 
-    <route id="cache_admin" pattern="/cache_admin">
+    <route id="cache_admin" pattern="/cache-admin">
         <default key="_controller">AdminBundle:CacheAdmin:process</default>
     </route>
 
-    <route id="admin_users" pattern="/admin_users">
+    <route id="admin_users" pattern="/admin-users">
         <default key="_controller">AdminBundle:AdminUsers:process</default>
     </route>
-    <route id="manage_roles" pattern="/manage_roles">
+    <route id="manage_roles" pattern="/manage-roles">
         <default key="_controller">AdminBundle:ManageRoles:process</default>
     </route>
 
-    <route id="edit_admin_user" pattern="/edit_admin_user">
+    <route id="edit_admin_user" pattern="/edit-admin-user">
         <default key="_controller">AdminBundle:EditAdminUser:process</default>
         <option key="view:success">redirect://admin_users</option>
         <option key="form">ZenMagick\AdminBundle\Forms\AdminUserForm#formId=adminUser</option>

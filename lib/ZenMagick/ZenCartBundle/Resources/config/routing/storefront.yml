@@ -1,66 +1,66 @@
 address_book_process:
-    pattern: /address_book_process
+    pattern: /address-book-process
     defaults: { _controller: ZenCartBundle:Storefront:process }
 advanced_search_result:
-    pattern: /advanced_search_result
+    pattern: /advanced-search-result
     defaults: { _controller: ZenCartBundle:Storefront:process }
 cookie_usage:
-    pattern: /cookie_usage
+    pattern: /cookie-usage
     defaults: { _controller: ZenCartBundle:Storefront:process }
 customers_authorization:
-    pattern: /customers_authorization
+    pattern: /customer-authorization
     defaults: { _controller: ZenCartBundle:Storefront:process }
 document_general_info:
-    pattern: /document_general_info
+    pattern: /document-general-info
     defaults: { _controller: ZenCartBundle:Storefront:process }
 document_product_info:
-    pattern: /document_product_info
+    pattern: /document-product-info
     defaults: { _controller: ZenCartBundle:Storefront:process }
 download_time_out:
-    pattern: /download_time_out
+    pattern: /download-time-out
     defaults: { _controller: ZenCartBundle:Storefront:process }
 info_shopping_cart:
-    pattern: /info_shopping_cart
+    pattern: /info-shopping-cart
     defaults: { _controller: ZenCartBundle:Storefront:process }
 page_2:
-    pattern: /page_2
+    pattern: /page-2
     defaults: { _controller: ZenCartBundle:Storefront:process }
 page_3:
-    pattern: /page_3
+    pattern: /page-3
     defaults: { _controller: ZenCartBundle:Storefront:process }
 page_4:
-    pattern: /page_4
+    pattern: /page-4
     defaults: { _controller: ZenCartBundle:Storefront:process }
 page_not_found:
-    pattern: /page_not_found
+    pattern: /page-not-found
     defaults: { _controller: ZenCartBundle:Storefront:process }
 payer_auth_auth:
-    pattern: /payer_auth_auth
+    pattern: /payer-auth-auth
     defaults: { _controller: ZenCartBundle:Storefront:process }
 payer_auth_frame:
-    pattern: /payer_auth_frame
+    pattern: /payer-auth-frame
     defaults: { _controller: ZenCartBundle:Storefront:process }
 payer_auth_verifier:
-    pattern: /payer_auth_verifier
+    pattern: /payer-auth-verifier
     defaults: { _controller: ZenCartBundle:Storefront:process }
 popup_attributes_qty_prices:
-    pattern: /popup_attributes_qty_prices
+    pattern: /popup-attributes-qty-prices
     defaults: { _controller: ZenCartBundle:Storefront:process }
 popup_image:
-    pattern: /popup_image
+    pattern: /popup-image
     defaults: { _controller: ZenCartBundle:Storefront:process }
 popup_image_additional:
-    pattern: /popup_image_additional
+    pattern: /popup-image-additional
     defaults: { _controller: ZenCartBundle:Storefront:process }
 product_free_shipping_info:
-    pattern: /product_free_shipping_info
+    pattern: /product-free-shipping-info
     defaults: { _controller: ZenCartBundle:Storefront:process }
 product_music_info:
-    pattern: /product_music_info
+    pattern: /product-music-info
     defaults: { _controller: ZenCartBundle:Storefront:process }
 ssl_check:
-    pattern: /ssl_check
+    pattern: /ssl-check
     defaults: { _controller: ZenCartBundle:Storefront:process }
 upcoming_products:
-    pattern: /upcoming_products
+    pattern: /upcoming-products
     defaults: { _controller: ZenCartBundle:Storefront:process }

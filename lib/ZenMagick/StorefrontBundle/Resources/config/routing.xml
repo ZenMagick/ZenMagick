@@ -15,12 +15,12 @@
     </route>
 
     <!-- really handled by configureLocale method in storefront event listener -->
-    <route id="set_language" pattern="/set_language">
+    <route id="set_language" pattern="/set-language">
         <default key="_controller">ZenMagickBundle:Default:process</default>
     </route>
 
     <!-- really handled by configureLocale method in storefront event listener -->
-    <route id="set_currency" pattern="/set_currency">
+    <route id="set_currency" pattern="/set-currency">
         <default key="_controller">ZenMagickBundle:Default:process</default>
     </route>
 
@@ -57,7 +57,7 @@
         <requirement key="_method">GET</requirement>
     </route>
 
-    <route id="customers_authorization" pattern="/customers_authorization">
+    <route id="customers_authorization" pattern="/customers-authorization">
         <default key="_controller">ZenMagickBundle:Default:process</default>
     </route>
 
@@ -183,7 +183,7 @@
         <option key="view">conditions.html.php</option>
     </route>
 
-    <route id="shippinginfo" pattern="/shipping_info">
+    <route id="shippinginfo" pattern="/shipping-info">
         <default key="_controller">ZenMagickBundle:Default:process</default>
         <option key="view">shippinginfo.html.php</option>
     </route>
@@ -314,7 +314,7 @@
         <default key="_controller">StorefrontBundle:ProductReviews:process</default>
     </route>
 
-    <route id="product_reviews_info" pattern="/product_reviews_info">
+    <route id="product_reviews_info" pattern="/produc-reviews-info">
         <default key="_controller">StorefrontBundle:ProductReviewsInfo:process</default>
     </route>
 
@@ -375,7 +375,7 @@
         <default key="_controller">StorefrontBundle:Page:show</default>
     </route>
 
-    <route id="time_out" pattern="/time_out">
+    <route id="time_out" pattern="/time-out">
         <default key="_controller">ZenMagickBundle:Default:process</default>
     </route>
 
