@@ -48,13 +48,14 @@ class LegacyConfigController extends DefaultController
     {
         $groupId = $request->request->get('groupId');
 
-        if ($this->handleDemo()) {
-            return $this->findView('success-demo', array(), array('parameter' => 'groupId='.$groupId));
-        }
-
         $configService = $this->container->get('configWidgetService');
         $group = $configService->getConfigGroupForId($groupId);
         $groupValues = $configService->getValuesForGroupId($groupId);
+
+        if ($this->handleDemo()) {
+            $tpl = array('group' => $group, 'groupValues' => $groupValues);
+            return $this->findView('success-demo', $tpl, array('parameter' => 'groupId='.$groupId));
+        }
 
         // update changed
         $updated = array();
@@ -72,7 +73,8 @@ class LegacyConfigController extends DefaultController
         }
 
         // 'parameter' is a property on the view class...
-        return $this->findView('success', array(), array('parameter' => 'groupId='.$groupId));
+        $tpl = array('group' => $group, 'groupValues' => $groupValues);
+        return $this->findView('success', $tpl, array('parameter' => 'groupId='.$groupId));
     }
 
 }
