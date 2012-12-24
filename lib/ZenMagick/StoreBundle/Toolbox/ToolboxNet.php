@@ -53,7 +53,11 @@ class ToolboxNet extends ToolboxTool
         // default to current requestId
         $requestId = $requestId === null ? $this->getRequest()->getRequestId() : $requestId;
 
-        parse_str(ltrim($params, '&'), $parameters);
+        if (is_array($params)) {
+            $parameters = $params;
+        } else {
+            parse_str(ltrim($params, '&'), $parameters);
+        }
         $url = $this->container->get('router')->generate($requestId, $parameters);
 
         return $url;
