@@ -65,8 +65,8 @@ class AdminListener extends ZMObject
                 $id = str_replace(' ', '', $id);
                 $id = str_replace('/', '-', $id);
                 $element = new MenuElement($id, $group->getName());
-                $element->setRequestId('legacy_config');
-                $element->setParams('groupId='.$group->getId());
+                $element->setRoute('legacy_config');
+                $element->setRouteParameters(array('groupId' => $group->getId()));
                 $legacyConfig->addChild($element);
             }
         }
