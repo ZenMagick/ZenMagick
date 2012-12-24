@@ -26,63 +26,63 @@ namespace ZenMagick\StoreBundle\Menu;
  */
 class MenuElement extends Node
 {
-    private $requestId;
-    private $params;
+    private $route;
+    private $routeParameters;
     private $alias;
 
     /**
      * Create instance.
      *
-     * @param string id Optional id; default is <code>null</code>.
-     * @param string name Optional name; default is an empty string <code>''</code>.
-     * @param string requestId Optional requestId; default is <code>null</code>.
+     * @param string name Optional name; default is <code>null</code>.
+     * @param string name Optional label; default is an empty string <code>''</code>.
+     * @param string route Optional route id; default is <code>null</code>.
      */
-    public function __construct($id=null, $name='', $requestId=null)
+    public function __construct($name=null, $label='', $route=null)
     {
-        parent::__construct($id, $name);
-        $this->requestId = $requestId;
-        $this->params = '';
+        parent::__construct($name, $label);
+        $this->route = $route;
+        $this->routeParameters = array();
         $this->alias = array();
     }
 
     /**
-     * Set requestId.
+     * Set Route Id.
      *
-     * @param string requestId The requestId.
+     * @param string route The route id.
      */
-    public function setRequestId($requestId)
+    public function setRoute($route)
     {
-        $this->requestId = $requestId;
+        $this->route = $route;
     }
 
     /**
-     * Get requestId.
+     * Get route id.
      *
-     * @return string The requestId.
+     * @return string The route id.
      */
-    public function getRequestId()
+    public function getRoute()
     {
-        return $this->requestId;
+        return $this->route;
     }
 
     /**
-     * Set params.
+     * Set route parameters.
      *
-     * @param string params The params.
+     * @param string routeparameters The route params.
      */
-    public function setParams($params)
+    public function setRouteParameters($routeParameters)
     {
-        $this->params = $params;
+        $this->routeParameters = $routeParameters;
     }
 
     /**
-     * Get params.
+     * Get route parameters.
      *
      * @return string The params.
      */
-    public function getParams()
+    public function getRouteParameters()
     {
-        return $this->params;
+        return $this->routeParameters;
     }
 
     /**

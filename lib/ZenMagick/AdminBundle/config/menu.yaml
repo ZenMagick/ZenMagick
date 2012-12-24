@@ -1,34 +1,34 @@
 # basic admin menu
-index: { requestId: admin_index, name: Dashboard }
-catalog: { requestId: catalog, name: Catalog }
-fulfilment: { requestId: fulfilment, name: Fulfilment }
-reports: { requestId: reports, name: Reports }
-tools: { requestId: tools, name: Tools }
-configuration: { requestId: configuration, name: Configuration }
-tools-cms: { parent: tools, name: Manage Content }
-content-editor: { parent: tools-cms, requestId: content_editor, name: Static Content, alias: [content_editor] }
-ezpages: { parent: tools-cms, requestId: ezpages, name: EZPages }
-static-page-editor: { parent: tools-cms, requestId: static_page_editor, name: Static Pages (deprecated) }
-tools-admin: { parent: tools, name: Admin }
-themes: { parent: tools-admin, requestId: themes, name: Themes }
-block-groups: { parent: tools-admin, requestId: block_groups, name: Blocks, alias: [block_group_admin] }
+index: { route: admin_index, label: Dashboard }
+catalog: { route: catalog, label: Catalog }
+fulfilment: { route: fulfilment, label: Fulfilment }
+reports: { route: reports, label: Reports }
+tools: { route: tools, label: Tools }
+configuration: { route: configuration, label: Configuration }
+tools-cms: { parent: tools, label: Manage Content }
+content-editor: { parent: tools-cms, route: content_editor, label: Static Content, alias: [content_editor] }
+ezpages: { parent: tools-cms, route: ezpages, label: EZPages }
+static-page-editor: { parent: tools-cms, route: static_page_editor, label: Static Pages (deprecated) }
+tools-admin: { parent: tools, label: Admin }
+themes: { parent: tools-admin, route: themes, label: Themes }
+block-groups: { parent: tools-admin, route: block_groups, label: Blocks, alias: [block_group_admin] }
 tools-admin-sep1: { parent: tools-admin, type: sep }
-admin-users: { parent: tools-admin, requestId: admin_users, name: Manage Users, alias: [edit_admin_user] }
-manage-roles: { parent: tools-admin, requestId: manage_roles, name: Manage Roles }
-cache-admin: { parent: tools-admin, requestId: cache_admin, name: Manage Caches }
-tools-misc: { parent: tools, name: Misc }
-email-preview: { parent: tools-misc, requestId: email_preview, name: Preview Email Templates }
-configuration-plugins: { parent: configuration, name: Plugins }
-plugins: { parent: configuration-plugins, requestId: plugins, name: Plugin Admin }
-configuration-installation: { parent: configuration, name: Installation }
-installation: { parent: configuration-installation, requestId: installation, name: Installation }
-configuration-dev: { parent: configuration, name: Development }
-l10n: { parent: configuration-dev, requestId: l10n, name: Translation Helper }
-theme-builder: { parent: configuration-dev, requestId: theme_builder, name: Theme Builder }
-fulfilment-accounts: { parent: fulfilment, name: Accounts }
-accounts: { parent: fulfilment-accounts, requestId: accounts, name: Overview, alias: [account_show] }
-fulfilment-orders: { parent: fulfilment, name: Orders }
-orders: { parent: fulfilment-orders, requestId: zc_admin_orders, name: Overview, alias: [order] }
-configuration-legacy: { parent: configuration, name: Zen-Cart Config }
-configuration-help: { parent: configuration, name: Help }
-about: { parent: configuration-help, requestId: about, name: About }
+admin-users: { parent: tools-admin, route: admin_users, label: Manage Users, alias: [edit_admin_user] }
+manage-roles: { parent: tools-admin, route: manage_roles, label: Manage Roles }
+cache-admin: { parent: tools-admin, route: cache_admin, label: Manage Caches }
+tools-misc: { parent: tools, label: Misc }
+email-preview: { parent: tools-misc, route: email_preview, label: Preview Email Templates }
+configuration-plugins: { parent: configuration, label: Plugins }
+plugins: { parent: configuration-plugins, route: plugins, label: Plugin Admin }
+configuration-installation: { parent: configuration, label: Installation }
+installation: { parent: configuration-installation, route: installation, label: Installation }
+configuration-dev: { parent: configuration, label: Development }
+l10n: { parent: configuration-dev, route: l10n, label: Translation Helper }
+theme-builder: { parent: configuration-dev, route: theme_builder, label: Theme Builder }
+fulfilment-accounts: { parent: fulfilment, label: Accounts }
+accounts: { parent: fulfilment-accounts, route: accounts, label: Overview, alias: [account_show] }
+fulfilment-orders: { parent: fulfilment, label: Orders }
+orders: { parent: fulfilment-orders, route: zc_admin_orders, label: Overview, alias: [order] }
+configuration-legacy: { parent: configuration, label: Zen-Cart Config }
+configuration-help: { parent: configuration, label: Help }
+about: { parent: configuration-help, route: about, label: About }

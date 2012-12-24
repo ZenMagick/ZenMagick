@@ -92,5 +92,5 @@ admin:
   menu:
     subscriptions:
       parent: settings-plugins
-      requestId: subscriptionsAdmin
-      name: 'Subscriptions'
+      route: subscriptionsAdmin
+      label: 'Subscriptions'

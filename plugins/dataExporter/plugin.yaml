@@ -14,8 +14,8 @@ admin:
   menu:
     data-exporter:
       parent: tools
-      name: 'Data Export'
+      label: 'Data Export'
     export-orders:
       parent: data-exporter
-      requestId: export_orders
-      name: 'Orders'
+      route: export_orders
+      label: 'Orders'

@@ -30,50 +30,30 @@ class Node extends ZMObject
 {
     const INSERT_BEFORE = "before";
     const INSERT_AFTER = "after";
-    private $id;
     private $name;
+    private $label;
     private $parent;
     private $children;
 
     /**
      * Create instance.
      *
-     * @param string id Optional id; default is <code>null</code>.
-     * @param string name Optional name; default is an empty string <code>''</code>.
+     * @param string name Optional name; default is <code>null</code>.
+     * @param string label Optional label; default is an empty string <code>''</code>.
      */
-    public function __construct($id=null, $name='')
+    public function __construct($name=null, $label='')
     {
         parent::__construct();
-        $this->id = $id;
         $this->name = $name;
+        $this->label = $label;
         $this->parent = null;
         $this->children = array();
     }
 
     /**
-     * Set id.
-     *
-     * @param string id The node id.
-     */
-    public function setId($id)
-    {
-        $this->id = $id;
-    }
-
-    /**
-     * Get id.
-     *
-     * @return string The node id.
-     */
-    public function getId()
-    {
-        return $this->id;
-    }
-
-    /**
      * Set name.
      *
-     * @param string name The node name.
+     * @param string name The node id.
      */
     public function setName($name)
     {
@@ -83,11 +63,31 @@ class Node extends ZMObject
     /**
      * Get name.
      *
-     * @return string The node name.
+     * @return string The node id.
      */
     public function getName()
     {
         return $this->name;
+    }
+
+    /**
+     * Set label.
+     *
+     * @param string label The node label.
+     */
+    public function setLabel($label)
+    {
+        $this->label = $label;
+    }
+
+    /**
+     * Get label.
+     *
+     * @return string The node label.
+     */
+    public function getLabel()
+    {
+        return $this->label;
     }
 
     /**
@@ -124,7 +124,7 @@ class Node extends ZMObject
             // validate and lookup position
             $siblingIndex = 0;
             foreach ($this->children as $ii => $c) {
-                if ($c->getId() == $siblingId) {
+                if ($c->getName() == $siblingId) {
                     $siblingIndex = $ii;
                     break;
                 }
@@ -151,14 +151,14 @@ class Node extends ZMObject
     /**
      * Remove a child.
      *
-     * @param mixed child Either a <code>Node</code> instance or id.
+     * @param mixed child Either a <code>Node</code> instance or name.
      */
     public function removeChild($child)
     {
-        $id = ($child instanceof Node)  ? $child->getId() : $child;
+        $id = ($child instanceof Node)  ? $child->getName() : $child;
         $removeIndex = null;
         foreach ($this->children as $ii => $tc) {
-            if ($tc->getId() == $id) {
+            if ($tc->getName() == $id) {
                 $removeIndex = $ii;
                 break;
             }
@@ -190,7 +190,7 @@ class Node extends ZMObject
     {
         // try all children first
         foreach ($this->children as $child) {
-            if ($child->getId() == $id) {
+            if ($child->getName() == $id) {
                 return $child;
             }
         }
@@ -226,8 +226,8 @@ class Node extends ZMObject
         $path = array();
 
         $current = $includeSelf ? $this : $this->parent;
-        while (null != $current && null != $current->getId()) {
-            $path[] = $current->getId();
+        while (null != $current && null != $current->getName()) {
+            $path[] = $current->getName();
             $current = $current->getParent();
         }
 

@@ -1,55 +1,55 @@
-catalog-products: { parent: catalog, name: Products }
-categories: { parent: catalog-products, requestId: zc_admin_categories, name: Products / Categories, alias: [product] }
-manufacturers: { parent: catalog-products, requestId: zc_admin_manufacturers, name: Manufacturers }
-specials: { parent: catalog-products, requestId: zc_admin_specials, name: Specials }
-featured: { parent: catalog-products, requestId: zc_admin_featured, name: Featured }
-products-expected: { parent: catalog-products, requestId: zc_admin_products_expected, name: Coming Soon }
-reviews: { parent: catalog-products, requestId: zc_admin_reviews, name: Reviews }
-salemaker: { parent: catalog-products, requestId: zc_admin_salemaker, name: SaleMaker }
-product-price-manager: { parent: catalog-products, requestId: zc_admin_products_price_manager, name: Products Price Manager }
-product-types: { parent: catalog-products, requestId: zc_admin_product_types, name: Product Types }
-downloads-manager: { parent: catalog-products, requestId: zc_admin_downloads_manager, name: Downloads Manager }
-catalog-attrs: { parent: catalog, name: Attributes }
-attributes-controller: { parent: catalog-attrs, requestId: zc_admin_attributes_controller, name: Attributes Manager }
-options-name-manager: { parent: catalog-attrs, requestId: zc_admin_options_name_manager, name: Options Name Manager }
-options-values-manager: { parent: catalog-attrs, requestId: zc_admin_options_values_manager, name: Options Values Manager }
-option-name: { parent: catalog-attrs, requestId: zc_admin_option_name, name: Option Name Sorter }
-option-values: { parent: catalog-attrs, requestId: zc_admin_option_values, name: Option Values Sorter }
-newsletters: { parent: tools-cms, requestId: zc_admin_newsletters, name: Newsletters }
-banner-manager: { parent: tools-cms, requestId: zc_admin_banner_manager, name: Banners }
-layout-controller: { parent: tools-admin, requestId: zc_admin_layout_controller, name: Layout Boxes }
-tools-coupons: { parent: tools, name: Coupons / Gift Vouchers }
-coupon-admin: { parent: tools-coupons, requestId: zc_admin_coupon_admin, name: Coupons }
-gv-queue: { parent: tools-coupons, requestId: zc_admin_gv_queue, name: Gift Voucher Queue }
-gv-mail: { parent: tools-coupons, requestId: zc_admin_gv_mail, name: Mail Gift Voucher }
-gv-sent: { parent: tools-coupons, requestId: zc_admin_gv_sent, name: Gift Vouchers Sent }
-mail: { parent: tools-misc, requestId: zc_admin_mail, name: Send Email }
-configuration-zl10n: { parent: configuration, name: Localization }
-currencies: { parent: configuration-zl10n, requestId: zc_admin_currencies, name: Currencies }
-languages: { parent: configuration-zl10n, requestId: zc_admin_languages, name: Languages }
-orders-status: { parent: configuration-zl10n, requestId: zc_admin_orders_status, name: Orders Status }
-configuration-location: { parent: configuration, name: Location / Taxes }
-countries: { parent: configuration-location, requestId: zc_admin_countries, name: Countries }
-zones: { parent: configuration-location, requestId: zc_admin_zones, name: Zones }
-geo-zones: { parent: configuration-location, requestId: zc_admin_geo_zones, name: Geo Zones }
-tax-classes: { parent: configuration-location, requestId: zc_admin_tax_classes, name: Tax Classes }
-tax-rates: { parent: configuration-location, requestId: zc_admin_tax_rates, name: Tax Rates }
-configuration-modules: { parent: configuration, name: Modules }
-modules-set=payment: { parent: configuration-modules, requestId: zc_admin_modules, name: Payment, params: set=payment }
-modules-set=shipping: { parent: configuration-modules, requestId: zc_admin_modules, name: Shipping, params: set=shipping }
-modules-set=order-total: { parent: configuration-modules, requestId: zc_admin_modules, name: Order Total, params: set=order_total }
-store-manager: { parent: configuration-dev, requestId: zc_admin_store_manager, name: Store Manager }
-developers-tool-kit: { parent: configuration-dev, requestId: zc_admin_developers_tool_kit, name: Developers Tool Kit }
-customers: { parent: fulfilment-accounts, requestId: zc_admin_customers, name: Customers }
-fulfilment-group-pricing: { parent: fulfilment, name: Group Pricing }
-group-pricing: { parent: fulfilment-group-pricing, requestId: zc_admin_group_pricing, name: Overview }
-fulfilment-paypal: { parent: fulfilment, name: PayPal IPN }
-paypal: { parent: fulfilment-paypal, requestId: zc_admin_paypal, name: Overview }
-reports-reports: { parent: reports, name: Reports }
-stats-products-viewed: { parent: reports-reports, requestId: zc_admin_stats_products_viewed, name: Products Viewed }
-stats-products-purchased: { parent: reports-reports, requestId: zc_admin_stats_products_purchased, name: Products Purchased }
-stats-products-lowstock: { parent: reports-reports, requestId: zc_admin_stats_products_lowstock, name: Products Low Stock }
-stats-customers: { parent: reports-reports, requestId: zc_admin_stats_customers, name: Customer Order Totals }
-stats-customers-referrals: { parent: reports-reports, requestId: zc_admin_stats_customers_referrals, name: Customer Referrals }
-whos-online: { parent: tools-misc, requestId: zc_admin_whos_online, name: 'Online Users' }
+catalog-products: { parent: catalog, label: Products }
+categories: { parent: catalog-products, route: zc_admin_categories, label: Products / Categories, alias: [product] }
+manufacturers: { parent: catalog-products, route: zc_admin_manufacturers, label: Manufacturers }
+specials: { parent: catalog-products, route: zc_admin_specials, label: Specials }
+featured: { parent: catalog-products, route: zc_admin_featured, label: Featured }
+products-expected: { parent: catalog-products, route: zc_admin_products_expected, label: Coming Soon }
+reviews: { parent: catalog-products, route: zc_admin_reviews, label: Reviews }
+salemaker: { parent: catalog-products, route: zc_admin_salemaker, label: SaleMaker }
+product-price-manager: { parent: catalog-products, route: zc_admin_products_price_manager, label: Products Price Manager }
+product-types: { parent: catalog-products, route: zc_admin_product_types, label: Product Types }
+downloads-manager: { parent: catalog-products, route: zc_admin_downloads_manager, label: Downloads Manager }
+catalog-attrs: { parent: catalog, label: Attributes }
+attributes-controller: { parent: catalog-attrs, route: zc_admin_attributes_controller, label: Attributes Manager }
+options-name-manager: { parent: catalog-attrs, route: zc_admin_options_name_manager, label: Options Name Manager }
+options-values-manager: { parent: catalog-attrs, route: zc_admin_options_values_manager, label: Options Values Manager }
+option-name: { parent: catalog-attrs, route: zc_admin_option_name, label: Option Name Sorter }
+option-values: { parent: catalog-attrs, route: zc_admin_option_values, label: Option Values Sorter }
+newsletters: { parent: tools-cms, route: zc_admin_newsletters, label: Newsletters }
+banner-manager: { parent: tools-cms, route: zc_admin_banner_manager, label: Banners }
+layout-controller: { parent: tools-admin, route: zc_admin_layout_controller, label: Layout Boxes }
+tools-coupons: { parent: tools, label: Coupons / Gift Vouchers }
+coupon-admin: { parent: tools-coupons, route: zc_admin_coupon_admin, label: Coupons }
+gv-queue: { parent: tools-coupons, route: zc_admin_gv_queue, label: Gift Voucher Queue }
+gv-mail: { parent: tools-coupons, route: zc_admin_gv_mail, label: Mail Gift Voucher }
+gv-sent: { parent: tools-coupons, route: zc_admin_gv_sent, label: Gift Vouchers Sent }
+mail: { parent: tools-misc, route: zc_admin_mail, label: Send Email }
+configuration-zl10n: { parent: configuration, label: Localization }
+currencies: { parent: configuration-zl10n, route: zc_admin_currencies, label: Currencies }
+languages: { parent: configuration-zl10n, route: zc_admin_languages, label: Languages }
+orders-status: { parent: configuration-zl10n, route: zc_admin_orders_status, label: Orders Status }
+configuration-location: { parent: configuration, label: Location / Taxes }
+countries: { parent: configuration-location, route: zc_admin_countries, label: Countries }
+zones: { parent: configuration-location, route: zc_admin_zones, label: Zones }
+geo-zones: { parent: configuration-location, route: zc_admin_geo_zones, label: Geo Zones }
+tax-classes: { parent: configuration-location, route: zc_admin_tax_classes, label: Tax Classes }
+tax-rates: { parent: configuration-location, route: zc_admin_tax_rates, label: Tax Rates }
+configuration-modules: { parent: configuration, label: Modules }
+modules-set=payment: { parent: configuration-modules, route: zc_admin_modules, label: Payment, routeParameters: {set: payment  }}
+modules-set=shipping: { parent: configuration-modules, route: zc_admin_modules, label: Shipping, routeParameters: {set: shipping }}
+modules-set=order-total: { parent: configuration-modules, route: zc_admin_modules, label: Order Total, routeParameters: {set :order_total }}
+store-manager: { parent: configuration-dev, route: zc_admin_store_manager, label: Store Manager }
+developers-tool-kit: { parent: configuration-dev, route: zc_admin_developers_tool_kit, label: Developers Tool Kit }
+customers: { parent: fulfilment-accounts, route: zc_admin_customers, label: Customers }
+fulfilment-group-pricing: { parent: fulfilment, label: Group Pricing }
+group-pricing: { parent: fulfilment-group-pricing, route: zc_admin_group_pricing, label: Overview }
+fulfilment-paypal: { parent: fulfilment, label: PayPal IPN }
+paypal: { parent: fulfilment-paypal, route: zc_admin_paypal, label: Overview }
+reports-reports: { parent: reports, label: Reports }
+stats-products-viewed: { parent: reports-reports, route: zc_admin_stats_products_viewed, label: Products Viewed }
+stats-products-purchased: { parent: reports-reports, route: zc_admin_stats_products_purchased, label: Products Purchased }
+stats-products-lowstock: { parent: reports-reports, route: zc_admin_stats_products_lowstock, label: Products Low Stock }
+stats-customers: { parent: reports-reports, route: zc_admin_stats_customers, label: Customer Order Totals }
+stats-customers-referrals: { parent: reports-reports, route: zc_admin_stats_customers_referrals, label: Customer Referrals }
+whos-online: { parent: tools-misc, route: zc_admin_whos_online, label: 'Online Users' }
 

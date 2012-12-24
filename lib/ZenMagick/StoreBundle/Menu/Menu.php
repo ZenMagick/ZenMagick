@@ -135,7 +135,7 @@ class Menu extends ZMObject
     {
         // find current node
         $nodes = $this->root->findNodes(function ($node) use ($requestId) {
-            if ($requestId == $node->getRequestId()) {
+            if ($requestId == $node->getRoute()) {
                 return true;
             }
             if (null !== ($alias = $node->getAlias())) {

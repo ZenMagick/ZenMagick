@@ -23,14 +23,14 @@
     <?php $root = $adminMenu->getRootItemForRequestId($request->getRequestId()); ?>
     <?php if (null != $root) { ?>
       <?php foreach ($root->getChildren() as $sub) { ?>
-        <h3><a href="#"><?php echo $sub->getName() ?></a></h3>
+        <h3><a href="#"><?php echo $sub->getLabel() ?></a></h3>
         <div>
           <ul>
           <?php foreach ($sub->getChildren() as $subItem) { ?>
             <?php if ('sep' == $subItem->getType()) { ?>
               <li class="sep"></li>
             <?php } else { ?>
-              <li><a href="<?php echo $net->url($subItem->getRequestId(), $subItem->getParams()) ?>"><?php echo $subItem->getName() ?></a></li>
+              <li><a href="<?php echo $net->url($subItem->getRoute(), $subItem->getRouteParameters()) ?>"><?php echo $subItem->getLabel() ?></a></li>
             <?php } ?>
           <?php } ?>
           </ul>
@@ -38,7 +38,7 @@
       <?php } ?>
     <?php } ?>
   </div>
-  <?php if (null != $root && $root->getId() == 'catalog') { echo $this->fetch('catalog-tree.html.php'); } ?>
+  <?php if (null != $root && $root->getName() == 'catalog') { echo $this->fetch('catalog-tree.html.php'); } ?>
 </div>
 <script type="text/javascript">
   // hint for navigation matching
@@ -47,7 +47,7 @@
     if (null != ($current = $adminMenu->getItemForRequestId($request->getRequestId()))) {
       foreach ($current->getAlias() as $alias) {
         if ($request->getRequestId() == $alias) {
-          echo "alias = '".$net->url($current->getRequestId(), true?'':$current->getParams())."'";
+          echo "alias = '".$net->url($current->getRoute(), true?'':$current->getRouteParameters())."'";
         }
       }
     }

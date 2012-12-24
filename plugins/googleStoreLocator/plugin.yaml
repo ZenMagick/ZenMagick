@@ -45,5 +45,5 @@ admin:
   menu:
     google-store-locator:
       parent: settings-plugins
-      requestId: googleStoreLocatorAdmin
-      name: 'Google Store Locator'
+      route: googleStoreLocatorAdmin
+      label: 'Google Store Locator'
