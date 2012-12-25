@@ -75,6 +75,7 @@ class AppKernel extends Kernel
             new Sensio\Bundle\FrameworkExtraBundle\SensioFrameworkExtraBundle(),
             new JMS\AopBundle\JMSAopBundle(),
             new JMS\DiExtraBundle\JMSDiExtraBundle($this),
+            new Knp\Bundle\MenuBundle\KnpMenuBundle(),
             new ZenMagick\ZenMagickBundle\ZenMagickBundle(),
             new ZenMagick\StoreBundle\StoreBundle(),
             new ZenMagick\AdminBundle\AdminBundle(),

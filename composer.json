@@ -48,6 +48,7 @@
         "doctrine/doctrine-migrations-bundle": "dev-master",
         "rych/phpass": "dev-master",
         "stof/doctrine-extensions-bundle": "dev-master",
+        "knplabs/knp-menu-bundle":"dev-master",
         "zenmagick/zencart": "dev-master"
     },
     "scripts": {
