@@ -21,12 +21,14 @@ namespace ZenMagick\StoreBundle\Menu;
 
 use ZenMagick\Base\ZMObject;
 
+use Knp\Menu\NodeInterface;
+
 /**
  * Basic node.
  *
  * @param author DerManoMann
  */
-class Node extends ZMObject
+class Node extends ZMObject implements NodeInterface
 {
     const INSERT_BEFORE = "before";
     const INSERT_AFTER = "after";
@@ -90,6 +92,14 @@ class Node extends ZMObject
         return $this->label;
     }
 
+    public function getOptions()
+    {
+        return array(
+            'route' => $this->getRoute(),
+            //'name'  => $this->getName(),
+            'label' => $this->getLabel(),
+        );
+    }
     /**
      * Set parent.
      *

@@ -36,13 +36,6 @@
       </p>
       <!-- <a href="http://forum.zenmagick.org/" target="_blank"><?php _vzm('Get Help') ?></a> -->
     </div>
+    <?php echo $container->get('knp_menu.templating.helper')->render('admin_main', array('depth' => 1)); ?>
   <?php } ?>
-  <ul id="main-menu">
-    <?php if ($app->getUser()) { ?>
-      <?php $root = $adminMenu->getRootItemForRequestId($request->getRequestId()); ?>
-      <?php foreach ($adminMenu->getRoot()->getChildren() as $item) { ?>
-        <li<?php if (null != $root && $root->getName() == $item->getName()) { echo ' class="current"'; } ?>><a href="<?php echo $net->url($item->getRoute()) ?>"><?php echo $item->getLabel() ?></a></li>
-      <?php } ?>
-    <?php } ?>
-  </ul>
 </div>

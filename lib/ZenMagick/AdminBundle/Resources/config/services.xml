@@ -24,6 +24,16 @@
 
         <service id="adminMenu" class="ZenMagick\StoreBundle\Menu\Menu" />
 
+        <service id="admin.menu_builder" class="ZenMagick\AdminBundle\Menu\MenuBuilder">
+            <argument type="service" id="knp_menu.factory" />
+            <argument type="service" id="adminMenu" />
+        </service>
+        <service id="admin.menu.main" class="Knp\Menu\MenuItem" factory-service="admin.menu_builder"
+            factory-method="createMainMenu" scope="request">
+            <argument type="service" id="request" />
+            <tag name="knp_menu.menu" alias="admin_main" />
+        </service>
+
         <service id="catalogDefaultTabController" class="ZenMagick\AdminBundle\Controller\CatalogDefaultTabController">
             <tag name="apps.store.admin.tabcontroller" />
         </service>
