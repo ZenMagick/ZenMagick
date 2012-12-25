@@ -41,7 +41,7 @@
     <?php if ($app->getUser()) { ?>
       <?php $root = $adminMenu->getRootItemForRequestId($request->getRequestId()); ?>
       <?php foreach ($adminMenu->getRoot()->getChildren() as $item) { ?>
-        <li<?php if (null != $root && $root->getName() == $item->getName()) { echo ' class="active"'; } ?>><a href="<?php echo $net->url($item->getRoute()) ?>"><?php echo $item->getLabel() ?></a></li>
+        <li<?php if (null != $root && $root->getName() == $item->getName()) { echo ' class="current"'; } ?>><a href="<?php echo $net->url($item->getRoute()) ?>"><?php echo $item->getLabel() ?></a></li>
       <?php } ?>
     <?php } ?>
   </ul>
