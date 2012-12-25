@@ -60,8 +60,8 @@ class CronPlugin extends Plugin
      */
     public function getConfigPath($file)
     {
-        $configPath = Runtime::getInstallationPath().'config'.DIRECTORY_SEPARATOR;
-        $configFile = $configPath.$this->getId().DIRECTORY_SEPARATOR.$file;
+        $configPath = Runtime::getInstallationPath().'config/';
+        $configFile = $configPath.$this->getId().'/'.$file;
 
         if (file_exists($configFile) || !file_exists($this->getPluginDirectory().'/'.$file)) {
             return $configFile;

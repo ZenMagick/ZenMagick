@@ -44,7 +44,7 @@ class VBulletinAdapter extends ZMObject
     public function __construct()
     {
         parent::__construct();
-        require ZM_VBULLETIN_ROOT.'includes'.DIRECTORY_SEPARATOR.'config.php';
+        require ZM_VBULLETIN_ROOT.'includes'.'/'.'config.php';
 
         if (!isset($config)) {
             throw new ZMException('cannot find vBulletin config');

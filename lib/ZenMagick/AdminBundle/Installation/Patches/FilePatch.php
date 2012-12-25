@@ -308,7 +308,7 @@ class FilePatch extends InstallationPatch
 
             if (is_dir($file) && $recursive) {
                 $dir = $file;
-                $dir = rtrim($dir, DIRECTORY_SEPARATOR).DIRECTORY_SEPARATOR;
+                $dir = rtrim($dir, '/').'/';
                 $subfiles = array();
                 $handle = @opendir($dir);
                 while (false !== ($file = readdir($handle))) {
