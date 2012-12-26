@@ -22,7 +22,6 @@ use Symfony\Component\Yaml\Yaml;
 use ZenMagick\StoreBundle\Menu\Menu;
 use ZenMagick\StoreBundle\Menu\MenuLoader;
 use ZenMagick\StoreBundle\Menu\MenuElement;
-use ZenMagick\StoreBundle\Menu\MenuSeparator;
 use ZenMagick\plugins\unitTests\simpletest\TestCase;
 
 /**
@@ -127,11 +126,9 @@ class TestMenu extends TestCase
             $indent .= '&nbsp;&nbsp;';
         }
         echo $indent.' * '.$elem->getName();
-        if (!($elem instanceof MenuSeparator)) {
-            echo '/'.$elem->getRequestId();
-            if (false && null !== ($alias = $elem->getAlias())) {
-                echo '/alias=';
-            }
+        echo '/'.$elem->getRequestId();
+        if (false && null !== ($alias = $elem->getAlias())) {
+            echo '/alias=';
         }
         echo '<br>';
         foreach ($elem->getChildren() as $child) {

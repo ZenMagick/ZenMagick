@@ -27,11 +27,7 @@
         <div>
           <ul>
           <?php foreach ($sub->getChildren() as $subItem) { ?>
-            <?php if ('sep' == $subItem->getType()) { ?>
-              <li class="sep"></li>
-            <?php } else { ?>
-              <li><a href="<?php echo $net->url($subItem->getRoute(), $subItem->getRouteParameters()) ?>"><?php echo $subItem->getLabel() ?></a></li>
-            <?php } ?>
+            <li><a href="<?php echo $net->url($subItem->getRoute(), $subItem->getRouteParameters()) ?>"><?php echo $subItem->getLabel() ?></a></li>
           <?php } ?>
           </ul>
         </div>

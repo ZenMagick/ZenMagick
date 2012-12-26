@@ -45,11 +45,7 @@ class MenuLoader
             $items = Yaml::parse($source);
         }
         foreach ($items as $id => $item) {
-            if (array_key_exists('type', $item) && 'sep' == $item['type']) {
-                $element = new MenuSeparator($id);
-            } else {
-                $element = new MenuElement($id);
-            }
+            $element = new MenuElement($id);
             // always initialize alias
             $element->setAlias(array());
             $parent = null;

@@ -12,7 +12,6 @@ static-page-editor: { parent: tools-cms, route: static_page_editor, label: Stati
 tools-admin: { parent: tools, label: Admin }
 themes: { parent: tools-admin, route: themes, label: Themes }
 block-groups: { parent: tools-admin, route: block_groups, label: Blocks, alias: [block_group_admin] }
-tools-admin-sep1: { parent: tools-admin, type: sep }
 admin-users: { parent: tools-admin, route: admin_users, label: Manage Users, alias: [edit_admin_user] }
 manage-roles: { parent: tools-admin, route: manage_roles, label: Manage Roles }
 cache-admin: { parent: tools-admin, route: cache_admin, label: Manage Caches }
