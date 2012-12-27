@@ -6,7 +6,7 @@ reports: { route: reports, label: Reports }
 tools: { route: tools, label: Tools }
 configuration: { route: configuration, label: Configuration }
 tools-cms: { parent: tools, label: Manage Content }
-content-editor: { parent: tools-cms, route: content_editor, label: Static Content, alias: [content_editor] }
+content-editor: { parent: tools-cms, route: content_editor, label: Static Content }
 ezpages: { parent: tools-cms, route: ezpages, label: EZPages }
 static-page-editor: { parent: tools-cms, route: static_page_editor, label: Static Pages (deprecated) }
 tools-admin: { parent: tools, label: Admin }
