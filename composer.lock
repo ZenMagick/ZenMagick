@@ -368,12 +368,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/doctrine/migrations",
-                "reference": "c1d875ce7d092dd1bc7508c3867b5c6b97431e43"
+                "reference": "6e916d8e39b4963d6fd52622fd9ac797dce82837"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://github.com/doctrine/migrations/zipball/c1d875ce7d092dd1bc7508c3867b5c6b97431e43",
-                "reference": "c1d875ce7d092dd1bc7508c3867b5c6b97431e43",
+                "url": "https://github.com/doctrine/migrations/archive/6e916d8e39b4963d6fd52622fd9ac797dce82837.zip",
+                "reference": "6e916d8e39b4963d6fd52622fd9ac797dce82837",
                 "shasum": ""
             },
             "require": {
@@ -387,7 +387,7 @@
             "suggest": {
                 "symfony/console": "to run the migration from the console"
             },
-            "time": "2012-10-19 10:37:24",
+            "time": "2012-12-26 14:01:23",
             "type": "library",
             "installation-source": "source",
             "autoload": {
@@ -395,6 +395,7 @@
                     "Doctrine\\DBAL\\Migrations": "lib"
                 }
             },
+            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "LGPL"
             ],
@@ -608,18 +609,18 @@
             "source": {
                 "type": "git",
                 "url": "git://github.com/jdorn/sql-formatter.git",
-                "reference": "6b3516f87d6636dcc3f847887eec82e852943247"
+                "reference": "cd9e399fed1487656415f7c193d581f9dac86182"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://github.com/jdorn/sql-formatter/archive/6b3516f87d6636dcc3f847887eec82e852943247.zip",
-                "reference": "6b3516f87d6636dcc3f847887eec82e852943247",
+                "url": "https://github.com/jdorn/sql-formatter/archive/cd9e399fed1487656415f7c193d581f9dac86182.zip",
+                "reference": "cd9e399fed1487656415f7c193d581f9dac86182",
                 "shasum": ""
             },
             "require": {
                 "php": ">=5.2.4"
             },
-            "time": "2012-12-25 00:51:26",
+            "time": "2012-12-27 08:25:10",
             "type": "library",
             "extra": {
                 "branch-alias": {
@@ -846,12 +847,12 @@
             "source": {
                 "type": "git",
                 "url": "http://github.com/KnpLabs/KnpMenu.git",
-                "reference": "884131c2d8b14b8d6abf676d221439bfce7d73ab"
+                "reference": "730bc37232f5f813822acf80edfbd89381ea5971"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://github.com/KnpLabs/KnpMenu/archive/884131c2d8b14b8d6abf676d221439bfce7d73ab.zip",
-                "reference": "884131c2d8b14b8d6abf676d221439bfce7d73ab",
+                "url": "https://github.com/KnpLabs/KnpMenu/archive/730bc37232f5f813822acf80edfbd89381ea5971.zip",
+                "reference": "730bc37232f5f813822acf80edfbd89381ea5971",
                 "shasum": ""
             },
             "require": {
@@ -867,7 +868,7 @@
                 "silex/silex": "for the integration with your silex application",
                 "twig/twig": "for the TwigRenderer and the integration with your templates"
             },
-            "time": "2012-12-11 22:43:19",
+            "time": "2012-12-27 13:04:16",
             "type": "library",
             "extra": {
                 "branch-alias": {
@@ -1628,12 +1629,12 @@
             "source": {
                 "type": "git",
                 "url": "git://github.com/symfony/symfony.git",
-                "reference": "8fd34e4eae26c55c7aec04b9f452e10557b8bc89"
+                "reference": "f66625d2d3cd3a763a321f97f80e2776f47bdb32"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://github.com/symfony/symfony/archive/8fd34e4eae26c55c7aec04b9f452e10557b8bc89.zip",
-                "reference": "8fd34e4eae26c55c7aec04b9f452e10557b8bc89",
+                "url": "https://github.com/symfony/symfony/archive/f66625d2d3cd3a763a321f97f80e2776f47bdb32.zip",
+                "reference": "f66625d2d3cd3a763a321f97f80e2776f47bdb32",
                 "shasum": ""
             },
             "require": {
@@ -1682,7 +1683,7 @@
                 "propel/propel1": "dev-master",
                 "monolog/monolog": "1.*"
             },
-            "time": "2012-12-23 18:08:33",
+            "time": "2012-12-27 08:21:49",
             "type": "library",
             "installation-source": "source",
             "autoload": {
@@ -1765,18 +1766,18 @@
             "source": {
                 "type": "git",
                 "url": "git://github.com/fabpot/Twig.git",
-                "reference": "a65e7e4e2e5726a42a29e609fad008f8a9600594"
+                "reference": "5b6647d3e2c31e85ab99dd1edcf2e34db0bba0ab"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://github.com/fabpot/Twig/archive/a65e7e4e2e5726a42a29e609fad008f8a9600594.zip",
-                "reference": "a65e7e4e2e5726a42a29e609fad008f8a9600594",
+                "url": "https://github.com/fabpot/Twig/archive/5b6647d3e2c31e85ab99dd1edcf2e34db0bba0ab.zip",
+                "reference": "5b6647d3e2c31e85ab99dd1edcf2e34db0bba0ab",
                 "shasum": ""
             },
             "require": {
                 "php": ">=5.2.4"
             },
-            "time": "2012-12-25 10:06:30",
+            "time": "2012-12-27 13:40:31",
             "type": "library",
             "extra": {
                 "branch-alias": {
