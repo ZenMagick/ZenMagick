@@ -28,7 +28,7 @@ class MenuElement extends Node
 {
     private $route;
     private $routeParameters;
-    private $alias;
+    private $extras;
 
     /**
      * Create instance.
@@ -42,7 +42,7 @@ class MenuElement extends Node
         parent::__construct($name, $label);
         $this->route = $route;
         $this->routeParameters = array();
-        $this->alias = array();
+        $this->extras = array('alias' => array());
     }
 
     /**
@@ -85,14 +85,24 @@ class MenuElement extends Node
         return $this->routeParameters;
     }
 
+    public function getExtras()
+    {
+        return $this->extras;
+    }
+
+    public function setExtras(array $extras)
+    {
+        $this->extras = $extras;
+    }
+
     /**
      * Set alias.
      *
      * @param array alias The alias.
      */
-    public function setAlias($alias)
+    public function setAlias(array $alias)
     {
-        $this->alias = $alias;
+        $this->extras['alias'] = $alias;
     }
 
     /**
@@ -102,7 +112,7 @@ class MenuElement extends Node
      */
     public function getAlias()
     {
-        return $this->alias;
+        return $this->extras['alias'];
     }
 
 }

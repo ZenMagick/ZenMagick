@@ -1,5 +1,5 @@
 catalog-products: { parent: catalog, label: Products }
-categories: { parent: catalog-products, route: zc_admin_categories, label: Products / Categories, alias: [product] }
+categories: { parent: catalog-products, route: zc_admin_categories, label: "Products / Categories", extras: {alias: [product] }}
 manufacturers: { parent: catalog-products, route: zc_admin_manufacturers, label: Manufacturers }
 specials: { parent: catalog-products, route: zc_admin_specials, label: Specials }
 featured: { parent: catalog-products, route: zc_admin_featured, label: Featured }
