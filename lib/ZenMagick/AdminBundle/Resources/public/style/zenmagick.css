@@ -57,13 +57,13 @@ label span {color:#D4A84B;margin:0 3px;font-weight:bold;}
 
 /* sub menu */
 #sub-menu {float:left;width:13em;margin-right:5px;}
-#sub-menu span {display:block; }
-#sub-menu ul {list-style:none;}
-#sub-menu .ui-accordion-content {padding-top:0;padding-bottom:5px;}
-#sub-menu li {font-size:11px;font-family:Verdana,Arial,sans-serif;}
+#sub-menu ul {list-style:none; }
 #sub-menu a {text-decoration:none;}
 #sub-menu li a:hover {text-decoration:underline;}
-#sub-menu li {padding:2px 0;}
+#sub-menu .ui-accordion-header {display:block;padding-left: 2.2em;padding-top: 8px;padding-bottom: 8px;}
+#sub-menu .ui-accordion-content {padding-top:0;padding-bottom:5px;}
+#sub-menu .ui-accordion-content li {font-size:11px;font-family:Verdana,Arial,sans-serif;}
+#sub-menu .ui-accordion-content li {padding:2px 0;}
 
 #view-container {margin-left:13em;padding:5px 8px;}
 /* view content excl. header */

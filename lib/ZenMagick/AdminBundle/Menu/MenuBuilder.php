@@ -44,6 +44,16 @@ class MenuBuilder
     {
         $menu = $this->factory->createFromNode($this->menu->getRoot());
         $menu->setChildrenAttributes(array('id' => 'main-menu'));
+
         return $menu;
     }
+
+    public function createSubMenu(Request $request)
+    {
+        $menu = $this->factory->createFromNode($this->menu->getRootItemForRequestId($request->getRequestId()));
+        $menu->setChildrenAttributes(array('id' => 'sub-common'));
+
+        return $menu;
+    }
+
 }

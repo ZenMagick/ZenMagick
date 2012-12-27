@@ -17,27 +17,20 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
+// @todo: fold this into the menu builder or provider.
+if (!$app->getUser()) return;
 ?>
 <div id="sub-menu">
-  <div id="sub-common">
-    <?php $root = $adminMenu->getRootItemForRequestId($request->getRequestId()); ?>
-    <?php if (null != $root) { ?>
-      <?php foreach ($root->getChildren() as $sub) { ?>
-        <h3><a href="#"><?php echo $sub->getLabel() ?></a></h3>
-        <ul>
-        <?php foreach ($sub->getChildren() as $subItem) { ?>
-          <li><a href="<?php echo $net->url($subItem->getRoute(), $subItem->getRouteParameters()) ?>"><?php echo $subItem->getLabel() ?></a></li>
-        <?php } ?>
-        </ul>
-      <?php } ?>
-    <?php } ?>
-  </div>
-  <?php if (null != $root && $root->getName() == 'catalog') { echo $this->fetch('catalog-tree.html.php'); } ?>
+
+<?php $menuHelper = $container->get('knp_menu.templating.helper'); ?>
+<?php echo $menuHelper->render('admin_sub', array()); ?>
+<?php $menu = $menuHelper->get('admin_sub', array()); ?>
+<?php if ($menu->getName() == 'catalog') { echo $this->fetch('catalog-tree.html.php'); } ?>
 </div>
 <script type="text/javascript">
   // hint for navigation matching
   var alias = null;
-  <?php
+  <?php // @todo use menu matcher
     if (null != ($current = $adminMenu->getItemForRequestId($request->getRequestId()))) {
       foreach ($current->getAlias() as $alias) {
         if ($request->getRequestId() == $alias) {
@@ -49,6 +42,7 @@
 
   $(function() {
     $("#sub-common").accordion({
+      header: 'li span',
       autoHeight: false,
       collapsible: true,
       navigation: true,

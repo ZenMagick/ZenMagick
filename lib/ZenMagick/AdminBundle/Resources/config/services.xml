@@ -34,6 +34,12 @@
             <tag name="knp_menu.menu" alias="admin_main" />
         </service>
 
+        <service id="admin.menu.sub" class="Knp\Menu\MenuItem" factory-service="admin.menu_builder"
+            factory-method="createSubMenu" scope="request">
+            <argument type="service" id="request" />
+            <tag name="knp_menu.menu" alias="admin_sub" />
+        </service>
+
         <service id="catalogDefaultTabController" class="ZenMagick\AdminBundle\Controller\CatalogDefaultTabController">
             <tag name="apps.store.admin.tabcontroller" />
         </service>
