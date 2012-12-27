@@ -37,53 +37,28 @@ class MenuLoader
      */
     public function load($source, $menu=null)
     {
-        $menu = null != $menu ? $menu: new Menu();
+        $menu = $menu ?: new Menu();
+        $items = is_array($source) ? $source : Yaml::parse($source);
 
-        if (is_array($source)) {
-            $items = $source;
-        } else {
-            $items = Yaml::parse($source);
-        }
         foreach ($items as $id => $item) {
             $element = new MenuElement($id);
             // always initialize alias
             $element->setAlias(array());
             $parent = null;
-            $before = null;
-            $after = null;
             foreach (array_keys($item) as $key) {
-                switch ($key) {
-                case 'parent':
+                if  ('parent' == $key) {
                     $parent = $item[$key];
-                    break;
-                case 'before':
-                    $before = $item[$key];
-                    break;
-                case 'after':
-                    $after = $item[$key];
-                    break;
-                  default:
+                } else {
                     $m = 'set'.ucwords($key);
                     $element->$m($item[$key]);
                 }
             }
+
             if ($parent) {
                 $parent = $menu->getElement($parent);
-                if ($before) {
-                    $parent->addChild($element, $before, MenuElement::INSERT_BEFORE);
-                } elseif ($after) {
-                    $parent->addChild($element, $after, MenuElement::INSERT_AFTER);
-                } else {
-                    $parent->addChild($element);
-                }
+                $parent->addChild($element);
             } else {
-                if ($before) {
-                    $menu->insertBefore($before, $element);
-                } elseif ($after) {
-                    $menu->insertAfter($after, $element);
-                } else {
-                    $menu->getRoot()->addChild($element);
-                }
+                $menu->getRoot()->addChild($element);
             }
         }
 

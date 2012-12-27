@@ -30,8 +30,6 @@ use Knp\Menu\NodeInterface;
  */
 class Node extends ZMObject implements NodeInterface
 {
-    const INSERT_BEFORE = "before";
-    const INSERT_AFTER = "after";
     private $name;
     private $label;
     private $parent;
@@ -125,9 +123,8 @@ class Node extends ZMObject implements NodeInterface
      *
      * @param Node child The new child.
      * @param string siblingId Optional relative sibling id; required when setting the mode; default is <code>null</code>.
-     * @param string mode Optional insert mode; default is <code>null</code> to append.
      */
-    public function addChild(Node $child, $siblingId=null, $mode=null)
+    public function addChild(Node $child, $siblingId=null)
     {
         $siblingIndex = null;
         if (null != $siblingId) {
@@ -142,19 +139,8 @@ class Node extends ZMObject implements NodeInterface
         }
 
         $child->setParent($this);
-        if (null == $siblingId || null == $mode || null === $siblingId || 0 == count($this->children)) {
+        if (null == $siblingId || null === $siblingId || 0 == count($this->children)) {
             $this->children[] = $child;
-        } else {
-            switch ($mode) {
-            case self::INSERT_BEFORE:
-                array_splice($this->children, $siblingIndex, 1, array($child, $this->children[$siblingIndex]));
-                break;
-            case self::INSERT_AFTER:
-                array_splice($this->children, $siblingIndex, 1, array($this->children[$siblingIndex], $child));
-                break;
-            default:
-                $this->children[] = $child;
-            }
         }
     }
 

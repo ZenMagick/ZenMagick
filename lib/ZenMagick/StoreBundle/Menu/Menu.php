@@ -51,30 +51,6 @@ class Menu extends ZMObject
     }
 
     /**
-     * Insert element before the id given.
-     *
-     * @param string id The element id.
-     * @parm MenuElement element The element to insert.
-     * @return boolean <code>true</code> on success, <code>false</code> otherwise.
-     */
-    public function insertBefore($id, $element)
-    {
-        return $this->insert($id, $element, MenuElement::INSERT_BEFORE);
-    }
-
-    /**
-     * Insert element after the id given.
-     *
-     * @param string id The element id.
-     * @parm MenuElement element The element to insert.
-     * @return boolean <code>true</code> on success, <code>false</code> otherwise.
-     */
-    public function insertAfter($id, $element)
-    {
-        return $this->insert($id, $element, MenuElement::INSERT_AFTER);
-    }
-
-    /**
      * Add child to the given element id.
      *
      * @param string id The element id.
@@ -87,27 +63,6 @@ class Menu extends ZMObject
             $parent->addChild($element);
 
             return true;
-        }
-
-        return false;
-    }
-
-    /**
-     * Insert element before/after the id given.
-     *
-     * @param string id The element id.
-     * @parm MenuElement element The element to insert.
-     * @param string mode Controls whether to insert <em>before</em> or <em>after</em> the given id.
-     * @return boolean <code>true</code> on success, <code>false</code> otherwise.
-     */
-    protected function insert($id, $element, $mode)
-    {
-        if (null != ($sibling = $this->root->getNodeForId($id))) {
-            if (null != ($parent = $sibling->getParent())) {
-                $parent->addChild($element, $id, $mode);
-
-                return true;
-            }
         }
 
         return false;
@@ -137,6 +92,9 @@ class Menu extends ZMObject
         $nodes = $this->root->findNodes(function ($node) use ($requestId) {
             if ($requestId == $node->getRoute()) {
                 return true;
+            }
+            if ('') {
+            die(var_dump($node));
             }
             if (null !== ($alias = $node->getAlias())) {
                 if (in_array($requestId, $alias)) {
