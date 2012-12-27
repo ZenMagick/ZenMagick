@@ -58,14 +58,14 @@ label span {color:#D4A84B;margin:0 3px;font-weight:bold;}
 /* sub menu */
 #sub-menu {float:left;width:13em;margin-right:5px;}
 #sub-menu span {display:block; }
-#sub-menu ul {list-style:none;margin:0;padding:0;}
+#sub-menu ul {list-style:none;}
 #sub-menu .ui-accordion-content {padding-top:0;padding-bottom:5px;}
 #sub-menu li {font-size:11px;font-family:Verdana,Arial,sans-serif;}
 #sub-menu a {text-decoration:none;}
 #sub-menu li a:hover {text-decoration:underline;}
 #sub-menu li {padding:2px 0;}
-#view-container {margin-left:13em;padding:5px 8px;}
 
+#view-container {margin-left:13em;padding:5px 8px;}
 /* view content excl. header */
 #content {-webkit-border-radius:6px;-moz-border-radius:6px;border-radius:6px;background-color:#fff;-moz-box-shadow:3px 3px 3px #aaa;-webkit-box-shadow:3px 3px 3px #aaa;box-shadow:3px 3px 3px #aaa;}
 /*IE: */

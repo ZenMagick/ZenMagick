@@ -24,13 +24,11 @@
     <?php if (null != $root) { ?>
       <?php foreach ($root->getChildren() as $sub) { ?>
         <h3><a href="#"><?php echo $sub->getLabel() ?></a></h3>
-        <div>
-          <ul>
-          <?php foreach ($sub->getChildren() as $subItem) { ?>
-            <li><a href="<?php echo $net->url($subItem->getRoute(), $subItem->getRouteParameters()) ?>"><?php echo $subItem->getLabel() ?></a></li>
-          <?php } ?>
-          </ul>
-        </div>
+        <ul>
+        <?php foreach ($sub->getChildren() as $subItem) { ?>
+          <li><a href="<?php echo $net->url($subItem->getRoute(), $subItem->getRouteParameters()) ?>"><?php echo $subItem->getLabel() ?></a></li>
+        <?php } ?>
+        </ul>
       <?php } ?>
     <?php } ?>
   </div>
