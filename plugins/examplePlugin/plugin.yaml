@@ -19,13 +19,14 @@ meta:
               description: 'Some text'
               type: text
 
+routing:
+  examplePluginAdmin:
+    pattern: /admin/examplePluginAdmin
+    defaults: { _controller: ZenMagick\plugins\examplePlugin\Controller\ExamplePluginAdminController::process }
+    options:
+      'view': examplePluginAdmin.php
+
 admin:
-  routing:
-    examplePluginAdmin:
-      pattern: /examplePluginAdmin
-      defaults: { _controller: ZenMagick\plugins\examplePlugin\Controller\ExamplePluginAdminController::process }
-      options:
-        'view': examplePluginAdmin.php
   menu:
     example:
       parent: settings-plugins

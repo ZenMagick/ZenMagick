@@ -28,8 +28,7 @@ meta:
                   default: false
                   style: select
 
-storefront,admin:
-  routing:
-    cron_image:
-      pattern: /cron_image
-      defaults: { _controller: ZenMagick\plugins\cron\Controller\CronImageController::process }
+routing:
+  cron_image:
+    pattern: /cron_image
+    defaults: { _controller: ZenMagick\plugins\cron\Controller\CronImageController::process }

@@ -31,14 +31,15 @@ meta:
                   label: 'Enable on guest checkout'
                   style: checkbox
 
+routing:
+  howDidYouHearSourcesStats:
+    pattern: /admin/howDidYouHearSourcesStats
+    defaults: { _controller: ZenMagick\plugins\howDidYouHear\Controller\HowDidYouHearSourcesStatsController::process }
+  howDidYouHearSourcesStats:
+    pattern: /admin/howDidYouHearSourcesAdmin
+    defaults: { _controller: ZenMagick\plugins\howDidYouHear\Controller\HowDidYouHearSourcesAdminController::process }
+
 admin:
-  routing:
-    howDidYouHearSourcesStats:
-      pattern: /howDidYouHearSourcesStats
-      defaults: { _controller: ZenMagick\plugins\howDidYouHear\Controller\HowDidYouHearSourcesStatsController::process }
-    howDidYouHearSourcesStats:
-      pattern: /howDidYouHearSourcesAdmin
-      defaults: { _controller: ZenMagick\plugins\howDidYouHear\Controller\HowDidYouHearSourcesAdminController::process }
   menu:
     referral-sources:
       parent: setting

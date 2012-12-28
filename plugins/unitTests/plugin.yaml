@@ -8,9 +8,8 @@ imports:
     ## app container
     - { resource: tests/service/container.yaml }
 
-storefront,admin:
-  routing:
-    unitTests:
-      pattern: /unitTests
-      defaults: { _controller: ZenMagick\plugins\unitTests\Controller\UnitTestsController::process }
-      options: { view: tests.php?layout= }
+routing:
+  unitTests:
+    pattern: /unitTests
+    defaults: { _controller: ZenMagick\plugins\unitTests\Controller\UnitTestsController::process }
+    options: { view: tests.php?layout= }

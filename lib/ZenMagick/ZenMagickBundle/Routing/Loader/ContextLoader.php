@@ -64,12 +64,6 @@ class ContextLoader implements LoaderInterface
             }
         }
 
-        // @todo use prefix in context files and always load them all (not
-        // context specific)
-        if ($contextConfigLoader->getContext() == 'admin') {
-            $routes->addPrefix('/admin');
-        }
-
         return $routes;
     }
 

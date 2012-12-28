@@ -44,15 +44,14 @@ meta:
                   label: 'Rewrite WP URLs'
                   style: checkbox
 
-storefront:
-  routing:
-    wp:
-      pattern: /wp
-      defaults: { _controller: ZenMagick\plugins\wordpress\Controller\WordpressController::process }
-      options:
-        "view:wp_index": wp/index.php
-        "view:wp_single": wp/single.php
-        "view:wp_page": wp/page.php
-        "view:wp_archive": wp/archive.php
-        "view:wp_archives": wp/archives.php
-        "view:wp_search": wp/search.php
+routing:
+  wp:
+    pattern: /wp
+    defaults: { _controller: ZenMagick\plugins\wordpress\Controller\WordpressController::process }
+    options:
+      "view:wp_index": wp/index.php
+      "view:wp_single": wp/single.php
+      "view:wp_page": wp/page.php
+      "view:wp_archive": wp/archive.php
+      "view:wp_archives": wp/archives.php
+      "view:wp_search": wp/search.php

@@ -37,11 +37,12 @@ meta:
                   label: 'Enable controls'
                   style: checkbox
 
+routing:
+  google_store_locator:
+    pattern: /admin/googleStoreLocator
+    defaults: { _controller: ZenMagick\plugins\googleStoreLocator\Controller\GoogleStoreLocatorAdminController::process }
+
 admin:
-  routing:
-    google_store_locator:
-      pattern: /googleStoreLocator
-      defaults: { _controller: ZenMagick\plugins\googleStoreLocator\Controller\GoogleStoreLocatorAdminController::process }
   menu:
     google-store-locator:
       parent: settings-plugins

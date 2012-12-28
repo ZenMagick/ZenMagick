@@ -69,26 +69,24 @@ meta:
                   label: 'Allow customer cancel'
                   style: checkbox
 
-storefront:
-  routing:
-    cancel_subscription:
-      pattern: /order/subscription/cancel/{orderId}
-      defaults: { _controller: ZenMagick\plugins\subscriptions\Controller\CancelSubscriptionController::process, orderId: 0 }
-      options:
-        view: redirect://account
-    subscription_request:
-      pattern: /order/subscription/subscribe
-      defaults: { _controller: ZenMagick\plugins\subscriptions\Controller\SubscriptionRequestController::process }
-      options:
-        "view:success": redirect://subscription_request
+routing:
+  cancel_subscription:
+    pattern: /order/subscription/cancel/{orderId}
+    defaults: { _controller: ZenMagick\plugins\subscriptions\Controller\CancelSubscriptionController::process, orderId: 0 }
+    options:
+      view: redirect://account
+  subscription_request:
+    pattern: /order/subscription/subscribe
+    defaults: { _controller: ZenMagick\plugins\subscriptions\Controller\SubscriptionRequestController::process }
+    options:
+      "view:success": redirect://subscription_request
+  subscriptionAdmin:
+    pattern: /admin/orders/subscriptions
+    defaults: { _controller: ZenMagick\plugins\subscriptions\Controller\SubscriptionAdminController::process }
+    options:
+      "view:success": redirect://subscriptionAdmin
 
 admin:
-  routing:
-    subscriptionAdmin:
-      pattern: /orders/subscriptions
-      defaults: { _controller: ZenMagick\plugins\subscriptions\Controller\SubscriptionAdminController::process }
-      options:
-        "view:success": redirect://subscriptionAdmin
   menu:
     subscriptions:
       parent: settings-plugins

@@ -4,13 +4,14 @@ meta:
   author: 'zenmagick.org'
   description: 'Code for product_music_info product template.'
 
+routing:
+  #todo fix this routing
+  pattern: /music
+  options:
+    'view:product_music_info': product_music_info.php
+
 admin,storefront:
   container:
     services:
       musicManager:
         class: ZenMagick\plugins\musicProductInfo\services\MusicManager
-storefront:
-  routing:
-    product_info:
-      options:
-        'view:product_music_info': product_music_info.php
