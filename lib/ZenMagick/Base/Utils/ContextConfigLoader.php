@@ -121,7 +121,7 @@ class ContextConfigLoader extends ZMObject
         $context = $context ?: $this->getContext();
         $cconfig = array();
         foreach ($this->config as $key => $data) {
-            if (in_array($key, array('meta', 'routing'))) {
+            if (in_array($key, array('meta', 'routing', 'container'))) {
                 $cconfig[$key] = $data;
                 // meta is special and is context independent
             } else {

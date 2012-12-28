@@ -4,10 +4,9 @@ meta:
   author: 'zenmagick.org'
   description: 'CKEditor WYSIWYG editor'
 
-storefront,admin:
-  container:
-    services:
-      ckEditorEditorWidget:
-        class: ZenMagick\plugins\ckEditor\CkEditorFormWidget
-        tags:
-          -  { name: zenmagick.apps.store.editor, label: CKEditor }
+container:
+  services:
+    ckEditorEditorWidget:
+      class: ZenMagick\plugins\ckEditor\CkEditorFormWidget
+      tags:
+        -  { name: zenmagick.apps.store.editor, label: CKEditor }

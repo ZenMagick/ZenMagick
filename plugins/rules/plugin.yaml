@@ -4,41 +4,40 @@ meta:
   author: 'zenmagick.org'
   description: 'PHP Rules for ZenMagick'
 
-admin,storefront:
-  container:
-    services:
-      testDateVariable:
-        class: TestDateVariable
-        scope: prototype
-        tags:
-          -  { name: plugins.unitTests.test, group: rules }
-      testFileLoaderStrategy:
-        class: TestFileLoaderStrategy
-        scope: prototype
-        tags:
-          -  { name: plugins.unitTests.test, group: rules }
-      testRuleContext:
-        class: TestRuleContext
-        scope: prototype
-        tags:
-          -  { name: plugins.unitTests.test, group: rules }
-      testProposition:
-        class: TestProposition
-        scope: prototype
-        tags:
-          -  { name: plugins.unitTests.test, group: rules }
-      testSingleRule:
-        class: TestSingleRule
-        scope: prototype
-        tags:
-          -  { name: plugins.unitTests.test, group: rules }
-      testVariable:
-        class: TestVariable
-        scope: prototype
-        tags:
-          -  { name: plugins.unitTests.test, group: rules }
-      testCompositeRule:
-        class: TestCompositeRule
-        scope: prototype
-        tags:
-          -  { name: plugins.unitTests.test, group: rules }
+container:
+  services:
+    testDateVariable:
+      class: TestDateVariable
+      scope: prototype
+      tags:
+        -  { name: plugins.unitTests.test, group: rules }
+    testFileLoaderStrategy:
+      class: TestFileLoaderStrategy
+      scope: prototype
+      tags:
+        -  { name: plugins.unitTests.test, group: rules }
+    testRuleContext:
+      class: TestRuleContext
+      scope: prototype
+      tags:
+        -  { name: plugins.unitTests.test, group: rules }
+    testProposition:
+      class: TestProposition
+      scope: prototype
+      tags:
+        -  { name: plugins.unitTests.test, group: rules }
+    testSingleRule:
+      class: TestSingleRule
+      scope: prototype
+      tags:
+        -  { name: plugins.unitTests.test, group: rules }
+    testVariable:
+      class: TestVariable
+      scope: prototype
+      tags:
+        -  { name: plugins.unitTests.test, group: rules }
+    testCompositeRule:
+      class: TestCompositeRule
+      scope: prototype
+      tags:
+        -  { name: plugins.unitTests.test, group: rules }

@@ -6,20 +6,16 @@ meta:
 
   preferredSortOrder: 22
 
-admin,storefront:
-  container:
-    services:
-      tagService:
-        class: ZenMagick\plugins\productTags\service\TagService
-admin:
-  container:
-    services:
-      productTagsTabController:
-        class: ZenMagick\plugins\productTags\Controller\ProductTagsTabController
-        tags:
-          - { name: apps.store.admin.tabcontroller }
+container:
+  services:
+    tagService:
+      class: ZenMagick\plugins\productTags\service\TagService
+    productTagsTabController:
+      class: ZenMagick\plugins\productTags\Controller\ProductTagsTabController
+      tags:
+        - { name: apps.store.admin.tabcontroller }
 
-      productTagsProductAssociationHandler:
-        class: ZenMagick\plugins\productTags\services\ProductTagsProductAssociationHandler
-        tags:
-          - { name: apps.store.associations.handler }
+    productTagsProductAssociationHandler:
+      class: ZenMagick\plugins\productTags\services\ProductTagsProductAssociationHandler
+      tags:
+        - { name: apps.store.associations.handler }

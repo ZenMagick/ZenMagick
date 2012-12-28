@@ -4,11 +4,10 @@ meta:
   author: 'zenmagick.org'
   description: 'Reimplements the ZenCart site visit counter'
 
-admin:
-  container:
-    services:
-      counterHistoryDashboardWidget:
-        class: ZenMagick\plugins\visitCounter\CounterHistoryDashboardWidget
-        scope: prototype
-        tags:
-          -  { name: apps.store.admin.dashboard.widget }
+container:
+  services:
+    counterHistoryDashboardWidget:
+      class: ZenMagick\plugins\visitCounter\CounterHistoryDashboardWidget
+      scope: prototype
+      tags:
+        -  { name: apps.store.admin.dashboard.widget }

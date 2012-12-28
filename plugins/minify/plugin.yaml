@@ -21,7 +21,6 @@ meta:
                   label: 'Use short URLs'
                   style: checkbox
 
-admin,storefront:
-  container:
-    parameters:
-      zenmagick.resource_manager.class: ZenMagick\plugins\minify\view\MinifyResourceManager
+container:
+  parameters:
+    zenmagick.resource_manager.class: ZenMagick\plugins\minify\view\MinifyResourceManager

@@ -1,16 +1,15 @@
-storefront:
-  container:
-    services:
-      simpleProductAssociationHandler:
-        class: SimpleProductAssociationHandler
-        tags:
-          - { name: apps.store.associations.handler }
+container:
+  services:
+    simpleProductAssociationHandler:
+      class: SimpleProductAssociationHandler
+      tags:
+        - { name: apps.store.associations.handler }
 
-      adminUserPrefService:
-        class: ZenMagick\AdminBundle\Services\AdminUserPrefService
+    adminUserPrefService:
+      class: ZenMagick\AdminBundle\Services\AdminUserPrefService
 
-      adminUserRoleService:
-        class: ZenMagick\AdminBundle\Services\AdminUserRoleService
+    adminUserRoleService:
+      class: ZenMagick\AdminBundle\Services\AdminUserRoleService
 
-      adminUserService:
-        class: ZenMagick\AdminBundle\Services\AdminUserService
+    adminUserService:
+      class: ZenMagick\AdminBundle\Services\AdminUserService

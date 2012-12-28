@@ -4,10 +4,9 @@ meta:
   author: 'zenmagick.org'
   description: 'TinyMCE WYSIWYG editor'
 
-storefront,admin:
-  container:
-    services:
-      tinyMCEEditorWidget:
-        class: ZenMagick\plugins\tinyMCE\TinyMCEFormWidget
-        tags:
-          -  { name: zenmagick.apps.store.editor, label: TinyMCE }
+container:
+  services:
+    tinyMCEEditorWidget:
+      class: ZenMagick\plugins\tinyMCE\TinyMCEFormWidget
+      tags:
+        -  { name: zenmagick.apps.store.editor, label: TinyMCE }

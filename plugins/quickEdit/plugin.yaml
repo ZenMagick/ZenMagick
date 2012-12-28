@@ -7,10 +7,9 @@ meta:
   context: admin
   preferredSortOrder: 35
 
-admin:
-  container:
-    services:
-      quickEditTabController:
-        class: ZenMagick\plugins\quickEdit\Controller\QuickEditTabController
-        tags:
-          - { name: apps.store.admin.tabcontroller }
+container:
+  services:
+    quickEditTabController:
+      class: ZenMagick\plugins\quickEdit\Controller\QuickEditTabController
+      tags:
+        - { name: apps.store.admin.tabcontroller }

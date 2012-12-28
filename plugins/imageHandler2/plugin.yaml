@@ -16,8 +16,7 @@ meta:
                   label: Disable
                   style: checkbox
 
-admin,storefront:
-  container:
-    services:
-     ZMImageInfo:
-        class: ZenMagick\plugins\imageHandler2\model\catalog\ImageInfo
+container:
+  services:
+    ZMImageInfo:
+      class: ZenMagick\plugins\imageHandler2\model\catalog\ImageInfo
