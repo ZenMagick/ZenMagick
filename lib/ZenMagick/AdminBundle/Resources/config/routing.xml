@@ -146,9 +146,6 @@
         <default key="_controller">AdminBundle:ManageRoles:process</default>
     </route>
 
-
-
-    <import resource="." type="context" />
     <route id="admin_index" pattern="/">
         <default key="_controller">ZenMagickBundle:Default:process</default>
     </route>
