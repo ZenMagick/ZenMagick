@@ -21,6 +21,8 @@ namespace ZenMagick\AdminBundle\Controller;
 
 use ZenMagick\ZenMagickBundle\Controller\DefaultController;
 
+use Symfony\Component\HttpFoundation\Request;
+
 /**
  * Admin controller for legacy config.
  *
@@ -31,10 +33,9 @@ class LegacyConfigController extends DefaultController
     /**
      * {@inheritDoc}
      */
-    public function processGet($request)
+    public function showGroupValuesAction($groupId)
     {
-        $groupId = $request->query->get('groupId', 1);
-        $configService = $this->container->get('configWidgetService');
+        $configService = $this->get('configWidgetService');
         $group = $configService->getConfigGroupForId($groupId);
         $groupValues = $configService->getValuesForGroupId($groupId);
 
@@ -44,7 +45,7 @@ class LegacyConfigController extends DefaultController
     /**
      * {@inheritDoc}
      */
-    public function processPost($request)
+    public function updateGroupValuesAction(Request $request)
     {
         $groupId = $request->request->get('groupId');
 
