@@ -131,15 +131,21 @@
     <route id="admin_users" pattern="/admin-users">
         <default key="_controller">AdminBundle:AdminUsers:process</default>
     </route>
-    <route id="manage_roles" pattern="/manage-roles">
-        <default key="_controller">AdminBundle:ManageRoles:process</default>
-    </route>
 
     <route id="edit_admin_user" pattern="/edit-admin-user">
         <default key="_controller">AdminBundle:EditAdminUser:process</default>
         <option key="view:success">redirect://admin_users</option>
         <option key="form">ZenMagick\AdminBundle\Forms\AdminUserForm#formId=adminUser</option>
     </route>
+
+    <route id="edit_role" pattern="/edit-role">
+        <default key="_controller">AdminBundle:EditRole:process</default>
+    </route>
+
+    <route id="manage_roles" pattern="/manage-roles">
+        <default key="_controller">AdminBundle:ManageRoles:process</default>
+    </route>
+
 
 
     <import resource="." type="context" />
