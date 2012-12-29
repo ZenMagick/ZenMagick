@@ -42,10 +42,10 @@ use ZenMagick\Base\Runtime;
         array('ZMMaxFieldLengthRule' ,'email', 'customers', 'customers_email_address'),
         array('ZMUniqueEmailRule' ,'email', 'The entered email address is already in use.'),
         array('ZMRequiredRule' ,'password', 'Please enter you password.'),
-        array('ZMMinRule' ,'password', Runtime::getSettings()->get('zenmagick.base.authentication.minPasswordLength'), 'Your password must contain a minimum of %2$s characters.'),
+        array('ZMMinRule' ,'password', $container->get('settingsService')->get('zenmagick.base.authentication.minPasswordLength'), 'Your password must contain a minimum of %2$s characters.'),
         array('ZMRequiredRule' ,'confirmation', 'Please confirm the password.'),
         array('ZMFieldMatchRule' ,'password', 'confirmation', 'The password and confirm password must match.'),
     ), true);
-    if (Runtime::getSettings()->get('isPrivacyMessage')) {
+    if ($container->get('settingsService')->get('isPrivacyMessage')) {
         $validator->addRule('registration', array('ZMRequiredRule' ,'privacy', 'You must agree to the privacy policy.'));
     }
