@@ -21,7 +21,7 @@
     <route id="configuration" pattern="/configuration">
         <default key="_controller">ZenMagickBundle:Default:process</default>
     </route>
-    <route id="dashboard" pattern="/index">
+    <route id="dashboard" pattern="/dashboard">
         <default key="_controller">ZenMagickBundle:Default:process</default>
         <option key="view">admin_index.html.php</option>
     </route>
