@@ -966,9 +966,6 @@
   }
 
   function zen_cfg_password_input($value, $key = '') {
-    if (function_exists('dbenc_is_encrypted_value_key') && dbenc_is_encrypted_value_key($key)) {
-      $value = dbenc_decrypt($value);
-    }
     return zen_draw_password_field('configuration[' . $key . ']', $value);
   }
 
