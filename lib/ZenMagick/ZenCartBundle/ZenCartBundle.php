@@ -55,8 +55,6 @@ class ZenCartBundle extends Bundle
      */
     public function initClassLoader()
     {
-        $isAdmin = Runtime::isContextMatch('admin');
-        !defined('IS_ADMIN_FLAG') && define('IS_ADMIN_FLAG', $isAdmin);
         $classLoader = new \Composer\AutoLoad\ClassLoader();
         $classLoader->register();
 
