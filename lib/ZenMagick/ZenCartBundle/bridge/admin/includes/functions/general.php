@@ -12,7 +12,6 @@
   function zen_redirect($url) {
     // ZENMAGICK MODIFICATION allow vetoing the redirection
     ZenMagick\Base\Runtime::getContainer()->get('request')->redirect($url); return;
-    global $logger;
 
 // clean up URL before executing it
     while (strstr($url, '&&')) $url = str_replace('&&', '&', $url);
@@ -22,10 +21,6 @@
 
     header('Location: ' . $url);
     session_write_close();
-    if (STORE_PAGE_PARSE_TIME == 'true') {
-      if (!is_object($logger)) $logger = new logger;
-      $logger->timer_stop();
-    }
     exit;
   }
 
