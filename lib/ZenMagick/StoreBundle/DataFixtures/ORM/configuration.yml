@@ -58,7 +58,7 @@ ZenMagick\StoreBundle\Entity\ConfigGroup:
         name: "Logging"
         description: "Logging configuration options"
         sortOrder: 10
-        visible: 1
+        visible: 0
     -
         id: 11
         name: "Regulations"
@@ -82,7 +82,7 @@ ZenMagick\StoreBundle\Entity\ConfigGroup:
         name: "GZip Compression"
         description: "GZip compression options"
         sortOrder: 14
-        visible: 1
+        visible: 0
     -
         id: 15
         name: "Sessions"
