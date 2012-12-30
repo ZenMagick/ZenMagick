@@ -207,12 +207,7 @@ class ToolboxNet extends ToolboxTool
      */
     public function ajax($controller, $method, $params='')
     {
-        if (Runtime::isContextMatch('admin')) {
-            $params .= '&controller=ajax_'.$controller;
-            $controller = 'zmAjaxHandler.php';
-        } else {
-            $controller = 'ajax_'.$controller;
-        }
+        $controller = 'ajax_'.$controller;
 
         $url = str_replace('&amp;', '&', $this->url($controller, $params.'&method='.$method, $this->getRequest()->isSecure()));
 
