@@ -1,33 +1,106 @@
-# basic admin menu
-index: { route: admin_index, label: Dashboard }
-catalog: { route: catalog, label: Catalog }
-fulfilment: { route: fulfilment, label: Fulfilment }
-reports: { route: reports, label: Reports }
-tools: { route: tools, label: Tools }
-configuration: { route: configuration, label: Configuration }
-tools-cms: { parent: tools, label: Manage Content }
-content-editor: { parent: tools-cms, route: content_editor, label: Static Content }
-ezpages: { parent: tools-cms, route: ezpages, label: EZPages }
-static-page-editor: { parent: tools-cms, route: static_page_editor, label: Static Pages (deprecated) }
-tools-admin: { parent: tools, label: Admin }
-themes: { parent: tools-admin, route: themes, label: Themes }
-block-groups: { parent: tools-admin, route: block_groups, label: Blocks, extras: {alias: [block_group_admin] }}
-admin-users: { parent: tools-admin, route: admin_users, label: Manage Users, extras: {alias: [edit_admin_user]}}
-manage-roles: { parent: tools-admin, route: manage_roles, label: Manage Roles }
-cache-admin: { parent: tools-admin, route: cache_admin, label: Manage Caches }
-tools-misc: { parent: tools, label: Misc }
-email-preview: { parent: tools-misc, route: email_preview, label: Preview Email Templates }
-configuration-plugins: { parent: configuration, label: Plugins }
-plugins: { parent: configuration-plugins, route: plugins, label: Plugin Admin }
-configuration-installation: { parent: configuration, label: Installation }
-installation: { parent: configuration-installation, route: installation, label: Installation }
-configuration-dev: { parent: configuration, label: Development }
-l10n: { parent: configuration-dev, route: l10n, label: Translation Helper }
-theme-builder: { parent: configuration-dev, route: theme_builder, label: Theme Builder }
-fulfilment-accounts: { parent: fulfilment, label: Accounts }
-accounts: { parent: fulfilment-accounts, route: accounts, label: Overview, extras: {alias: [account_show] }}
-fulfilment-orders: { parent: fulfilment, label: Orders }
-orders: { parent: fulfilment-orders, route: zc_admin_orders, label: Overview, extras : {alias: [order] }}
-configuration-legacy: { parent: configuration, label: Zen-Cart Config }
-configuration-help: { parent: configuration, label: Help }
-about: { parent: configuration-help, route: about, label: About }
+label: Home
+route: admin_index
+name: home
+children:
+    dashboard:
+        route: dashboard
+        label: Dashboard
+    catalog:
+        route: catalog
+        label: Catalog
+    fulfilment:
+        route: fulfilment
+        label: Fulfilment
+        children:
+            fulfilment-accounts:
+                label: Accounts
+                children:
+                    accounts:
+                        route: accounts
+                        label: Overview
+                        extras: { routes: [account_show] }
+            fulfilment-orders:
+                label: Orders
+                children:
+                    orders:
+                        route: zc_admin_orders
+                        label: Overview
+                        extras: { routes: [order] }
+    reports:
+        route: reports
+        label: Reports
+    tools:
+        route: tools
+        label: Tools
+        children:
+            tools-cms:
+                label: 'Manage Content'
+                children:
+                    content-editor:
+                        route: content_editor
+                        label: 'Static Content'
+                    ezpages:
+                        route: ezpages
+                        label: EZPages
+                    static-page-editor:
+                        route: static_page_editor
+                        label: 'Static Pages (deprecated)'
+            tools-admin:
+                label: Admin
+                children:
+                    themes:
+                        route: themes
+                        label: Themes
+                    block-groups:
+                        route: block_groups
+                        label: Blocks
+                        extras: { routes: [block_group_admin] }
+                    admin-users:
+                        route: admin_users
+                        label: 'Manage Users'
+                        extras: { routes: [edit_admin_user] }
+                    manage-roles:
+                        route: manage_roles
+                        label: 'Manage Roles'
+                    cache-admin:
+                        route: cache_admin
+                        label: 'Manage Caches'
+            tools-misc:
+                label: Misc
+                children:
+                    email-preview:
+                        route: email_preview
+                        label: 'Preview Email Templates'
+    configuration:
+        route: configuration
+        label: Configuration
+        children:
+            configuration-plugins:
+                label: Plugins
+                children:
+                    plugins:
+                        route: plugins
+                        label: 'Plugin Admin'
+            configuration-installation:
+                label: Installation
+                children:
+                    installation:
+                        route: installation
+                        label: Installation
+            configuration-dev:
+                label: Development
+                children:
+                    l10n:
+                        route: l10n
+                        label: 'Translation Helper'
+                    theme-builder:
+                        route: theme_builder
+                        label: 'Theme Builder'
+            configuration-legacy:
+                label: 'Zen-Cart Config'
+            configuration-help:
+                label: Help
+                children:
+                    about:
+                        route: about
+                        label: About

@@ -22,11 +22,9 @@
 
         <service id="sacsPermissionService" class="ZenMagick\AdminBundle\Services\SacsPermissionService" />
 
-        <service id="adminMenu" class="ZenMagick\StoreBundle\Menu\Menu" />
-
         <service id="admin.menu_builder" class="ZenMagick\AdminBundle\Menu\MenuBuilder">
             <argument type="service" id="knp_menu.factory" />
-            <argument type="service" id="adminMenu" />
+            <argument type="service" id="service_container" />
         </service>
         <service id="admin.menu.main" class="Knp\Menu\MenuItem" factory-service="admin.menu_builder"
             factory-method="createMainMenu" scope="request">

@@ -28,10 +28,13 @@ routing:
 
 admin:
   menu:
-    example:
-      parent: settings-plugins
-      route: examplePluginAdmin
-      label: 'Example Plugin Admin Page'
+      configuration:
+        children:
+          configuration-plugins:
+            children:
+              example:
+                route: examplePluginAdmin
+                label: 'Example Plugin Admin Page'
   # 3rd party code autoloading
   #
   # See http://getcomposer.org/doc/04-schema.md#autoload for supported options

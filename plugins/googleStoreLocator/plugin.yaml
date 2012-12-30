@@ -44,7 +44,10 @@ routing:
 
 admin:
   menu:
-    google-store-locator:
-      parent: settings-plugins
-      route: googleStoreLocatorAdmin
-      label: 'Google Store Locator'
+    configuration:
+      children:
+        configuration-plugins:
+          children:
+            google-store-locator:
+              route: googleStoreLocatorAdmin
+              label: 'Google Store Locator'

@@ -13,10 +13,11 @@ routing:
 
 admin:
   menu:
-    data-exporter:
-      parent: tools
-      label: 'Data Export'
-    export-orders:
-      parent: data-exporter
-      route: export_orders
-      label: 'Orders'
+    tools:
+      children:
+        data-exporter:
+          label: 'Data Export'
+          children:
+            export-orders:
+              route: export_orders
+              label: 'Orders'

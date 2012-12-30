@@ -41,14 +41,14 @@ routing:
 
 admin:
   menu:
-    referral-sources:
-      parent: setting
-      label: 'Referral Sources'
-    referral-stats:
-      parent: referral-sources
-      route: howDidYouHearSourcesStats
-      label: 'Referral Stats'
-    referral-admin:
-      parent: referral-sources
-      route: howDidYouHearSourcesAdmin
-      label: 'Referral Admin'
+      configuration:
+        children:
+          referral-sources:
+            label: 'Referral Sources'
+            children:
+              referral-stats:
+                route: howDidYouHearSourcesStats
+                label: 'Referral Stats'
+              referral-admin:
+                route: howDidYouHearSourcesAdmin
+                label: 'Referral Admin'

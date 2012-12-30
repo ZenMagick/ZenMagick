@@ -115,8 +115,9 @@ class ToolboxAdmin extends ToolboxTool
      */
     public function title($title=null)
     {
-        $root = $this->container->get('adminMenu')->getRootItemForRequestId($this->getRequest()->getRequestId());
-        $pref = (null != $root) ? $root->getLabel() : null;
+        // @todo don't use getBreadCrumbsArray directly here
+        $crumbs = $this->container->get('admin.menu.main')->getBreadcrumbsArray();
+        $pref = isset($crumbs[1]['item']) ? $crumbs[1]['item']->getLabel() : null;
         if (null == $title) {
             $title = $pref;
         } elseif (null != $pref) {

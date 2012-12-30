@@ -1,55 +1,187 @@
-catalog-products: { parent: catalog, label: Products }
-categories: { parent: catalog-products, route: zc_admin_categories, label: "Products / Categories", extras: {alias: [product] }}
-manufacturers: { parent: catalog-products, route: zc_admin_manufacturers, label: Manufacturers }
-specials: { parent: catalog-products, route: zc_admin_specials, label: Specials }
-featured: { parent: catalog-products, route: zc_admin_featured, label: Featured }
-products-expected: { parent: catalog-products, route: zc_admin_products_expected, label: Coming Soon }
-reviews: { parent: catalog-products, route: zc_admin_reviews, label: Reviews }
-salemaker: { parent: catalog-products, route: zc_admin_salemaker, label: SaleMaker }
-product-price-manager: { parent: catalog-products, route: zc_admin_products_price_manager, label: Products Price Manager }
-product-types: { parent: catalog-products, route: zc_admin_product_types, label: Product Types }
-downloads-manager: { parent: catalog-products, route: zc_admin_downloads_manager, label: Downloads Manager }
-catalog-attrs: { parent: catalog, label: Attributes }
-attributes-controller: { parent: catalog-attrs, route: zc_admin_attributes_controller, label: Attributes Manager }
-options-name-manager: { parent: catalog-attrs, route: zc_admin_options_name_manager, label: Options Name Manager }
-options-values-manager: { parent: catalog-attrs, route: zc_admin_options_values_manager, label: Options Values Manager }
-option-name: { parent: catalog-attrs, route: zc_admin_option_name, label: Option Name Sorter }
-option-values: { parent: catalog-attrs, route: zc_admin_option_values, label: Option Values Sorter }
-newsletters: { parent: tools-cms, route: zc_admin_newsletters, label: Newsletters }
-banner-manager: { parent: tools-cms, route: zc_admin_banner_manager, label: Banners }
-layout-controller: { parent: tools-admin, route: zc_admin_layout_controller, label: Layout Boxes }
-tools-coupons: { parent: tools, label: Coupons / Gift Vouchers }
-coupon-admin: { parent: tools-coupons, route: zc_admin_coupon_admin, label: Coupons }
-gv-queue: { parent: tools-coupons, route: zc_admin_gv_queue, label: Gift Voucher Queue }
-gv-mail: { parent: tools-coupons, route: zc_admin_gv_mail, label: Mail Gift Voucher }
-gv-sent: { parent: tools-coupons, route: zc_admin_gv_sent, label: Gift Vouchers Sent }
-mail: { parent: tools-misc, route: zc_admin_mail, label: Send Email }
-configuration-zl10n: { parent: configuration, label: Localization }
-currencies: { parent: configuration-zl10n, route: zc_admin_currencies, label: Currencies }
-languages: { parent: configuration-zl10n, route: zc_admin_languages, label: Languages }
-orders-status: { parent: configuration-zl10n, route: zc_admin_orders_status, label: Orders Status }
-configuration-location: { parent: configuration, label: Location / Taxes }
-countries: { parent: configuration-location, route: zc_admin_countries, label: Countries }
-zones: { parent: configuration-location, route: zc_admin_zones, label: Zones }
-geo-zones: { parent: configuration-location, route: zc_admin_geo_zones, label: Geo Zones }
-tax-classes: { parent: configuration-location, route: zc_admin_tax_classes, label: Tax Classes }
-tax-rates: { parent: configuration-location, route: zc_admin_tax_rates, label: Tax Rates }
-configuration-modules: { parent: configuration, label: Modules }
-modules-set=payment: { parent: configuration-modules, route: zc_admin_modules, label: Payment, routeParameters: {set: payment  }}
-modules-set=shipping: { parent: configuration-modules, route: zc_admin_modules, label: Shipping, routeParameters: {set: shipping }}
-modules-set=order-total: { parent: configuration-modules, route: zc_admin_modules, label: Order Total, routeParameters: {set :order_total }}
-store-manager: { parent: configuration-dev, route: zc_admin_store_manager, label: Store Manager }
-developers-tool-kit: { parent: configuration-dev, route: zc_admin_developers_tool_kit, label: Developers Tool Kit }
-customers: { parent: fulfilment-accounts, route: zc_admin_customers, label: Customers }
-fulfilment-group-pricing: { parent: fulfilment, label: Group Pricing }
-group-pricing: { parent: fulfilment-group-pricing, route: zc_admin_group_pricing, label: Overview }
-fulfilment-paypal: { parent: fulfilment, label: PayPal IPN }
-paypal: { parent: fulfilment-paypal, route: zc_admin_paypal, label: Overview }
-reports-reports: { parent: reports, label: Reports }
-stats-products-viewed: { parent: reports-reports, route: zc_admin_stats_products_viewed, label: Products Viewed }
-stats-products-purchased: { parent: reports-reports, route: zc_admin_stats_products_purchased, label: Products Purchased }
-stats-products-lowstock: { parent: reports-reports, route: zc_admin_stats_products_lowstock, label: Products Low Stock }
-stats-customers: { parent: reports-reports, route: zc_admin_stats_customers, label: Customer Order Totals }
-stats-customers-referrals: { parent: reports-reports, route: zc_admin_stats_customers_referrals, label: Customer Referrals }
-whos-online: { parent: tools-misc, route: zc_admin_whos_online, label: 'Online Users' }
-
+children:
+    catalog:
+        children:
+            catalog-products:
+                label: Products
+                children:
+                    categories:
+                        route: zc_admin_categories
+                        label: 'Products / Categories'
+                        extras: { alias: [product] }
+                    manufacturers:
+                        route: zc_admin_manufacturers
+                        label: Manufacturers
+                    specials:
+                        route: zc_admin_specials
+                        label: Specials
+                    featured:
+                        route: zc_admin_featured
+                        label: Featured
+                    products-expected:
+                        route: zc_admin_products_expected
+                        label: 'Coming Soon'
+                    reviews:
+                        route: zc_admin_reviews
+                        label: Reviews
+                    salemaker:
+                        route: zc_admin_salemaker
+                        label: SaleMaker
+                    product-price-manager:
+                        route: zc_admin_products_price_manager
+                        label: 'Products Price Manager'
+                    product-types:
+                        route: zc_admin_product_types
+                        label: 'Product Types'
+                    downloads-manager:
+                        route: zc_admin_downloads_manager
+                        label: 'Downloads Manager'
+            catalog-attrs:
+                label: Attributes
+                children:
+                    attributes-controller:
+                        route: zc_admin_attributes_controller
+                        label: 'Attributes Manager'
+                    options-name-manager:
+                        route: zc_admin_options_name_manager
+                        label: 'Options Name Manager'
+                    options-values-manager:
+                        route: zc_admin_options_values_manager
+                        label: 'Options Values Manager'
+                    option-name:
+                        route: zc_admin_option_name
+                        label: 'Option Name Sorter'
+                    option-values:
+                        route: zc_admin_option_values
+                        label: 'Option Values Sorter'
+    tools:
+        children:
+            tools-cms:
+                children:
+                    newsletters:
+                        route: zc_admin_newsletters
+                        label: Newsletters
+                    banner-manager:
+                        route: zc_admin_banner_manager
+                        label: Banners
+            tools-admin:
+                children:
+                    layout-controller:
+                        route: zc_admin_layout_controller
+                        label: 'Layout Boxes'
+            tools-misc:
+                children:
+                    mail:
+                        route: zc_admin_mail
+                        label: 'Send Email'
+                    whos-online:
+                        route: zc_admin_whos_online
+                        label: 'Online Users'
+            tools-coupons:
+                label: 'Coupons / Gift Vouchers'
+                children:
+                    coupon-admin:
+                        route: zc_admin_coupon_admin
+                        label: Coupons
+                    gv-queue:
+                        route: zc_admin_gv_queue
+                        label: 'Gift Voucher Queue'
+                    gv-mail:
+                        route: zc_admin_gv_mail
+                        label: 'Mail Gift Voucher'
+                    gv-sent:
+                        route: zc_admin_gv_sent
+                        label: 'Gift Vouchers Sent'
+    configuration:
+        children:
+            configuration-dev:
+                children:
+                    store-manager:
+                        route: zc_admin_store_manager
+                        label: 'Store Manager'
+                    developers-tool-kit:
+                        route: zc_admin_developers_tool_kit
+                        label: 'Developers Tool Kit'
+            configuration-zl10n:
+                label: Localization
+                children:
+                    currencies:
+                        route: zc_admin_currencies
+                        label: Currencies
+                    languages:
+                        route: zc_admin_languages
+                        label: Languages
+                    orders-status:
+                        route: zc_admin_orders_status
+                        label: 'Orders Status'
+            configuration-location:
+                label: 'Location / Taxes'
+                children:
+                    countries:
+                        route: zc_admin_countries
+                        label: Countries
+                    zones:
+                        route: zc_admin_zones
+                        label: Zones
+                    geo-zones:
+                        route: zc_admin_geo_zones
+                        label: 'Geo Zones'
+                    tax-classes:
+                        route: zc_admin_tax_classes
+                        label: 'Tax Classes'
+                    tax-rates:
+                        route: zc_admin_tax_rates
+                        label: 'Tax Rates'
+            configuration-modules:
+                label: Modules
+                children:
+                    modules-set=payment:
+                        route: zc_admin_modules
+                        label: Payment
+                        routeParameters: { set: payment }
+                    modules-set=shipping:
+                        route: zc_admin_modules
+                        label: Shipping
+                        routeParameters: { set: shipping }
+                    modules-set=order-total:
+                        route: zc_admin_modules
+                        label: 'Order Total'
+                        routeParameters: { set: order_total }
+    fulfilment:
+        children:
+            fulfilment-accounts:
+                children:
+                    customers:
+                        route: zc_admin_customers
+                        label: Customers
+            fulfilment-group-pricing:
+                label: 'Group Pricing'
+                children:
+                    group-pricing:
+                        route: zc_admin_group_pricing
+                        label: Overview
+            fulfilment-paypal:
+                label: 'PayPal IPN'
+                children:
+                    paypal:
+                        route: zc_admin_paypal
+                        label: Overview
+    reports:
+        children:
+            reports-reports:
+                label: Reports
+                children:
+                    stats-products-viewed:
+                        route: zc_admin_stats_products_viewed
+                        label: 'Products Viewed'
+                    stats-products-purchased:
+                        route: zc_admin_stats_products_purchased
+                        label: 'Products Purchased'
+                    stats-products-lowstock:
+                        route: zc_admin_stats_products_lowstock
+                        label: 'Products Low Stock'
+                    stats-customers:
+                        route: zc_admin_stats_customers
+                        label: 'Customer Order Totals'
+                    stats-customers-referrals:
+                        route: zc_admin_stats_customers_referrals
+                        label: 'Customer Referrals'

@@ -19,12 +19,8 @@
  */
 namespace ZenMagick\AdminBundle\EventListener;
 
-use ZenMagick\Base\Runtime;
 use ZenMagick\Base\ZMObject;
 use ZenMagick\Http\View\TemplateView;
-
-use ZenMagick\StoreBundle\Menu\MenuElement;
-use ZenMagick\StoreBundle\Menu\MenuLoader;
 
 /**
  * Custom admin event handler for various things.
@@ -55,27 +51,10 @@ class AdminListener extends ZMObject
         $request = $event->getArgument('request');
         $view = $event->getArgument('view');
 
-        $this->initMenu();
-        $adminMenu = $this->container->get('adminMenu');
-        $legacyConfig = $adminMenu->getElement('configuration-legacy');
-        $configGroups = $this->container->get('configService')->getConfigGroups();
-        foreach ($configGroups as $group) {
-            if ($group->isVisible()) {
-                $id = strtolower($group->getName());
-                $id = str_replace(' ', '', $id);
-                $id = str_replace('/', '-', $id);
-                $element = new MenuElement($id, $group->getName());
-                $element->setRoute('legacy_config');
-                $element->setRouteParameters(array('groupId' => $group->getId()));
-                $legacyConfig->addChild($element);
-            }
-        }
-
         if ($view instanceof TemplateView) {
             $view->setVariable('currentLanguage', $request->getSelectedLanguage());
             $view->setVariable('currentEditor', $this->getCurrentEditor($request));
             $view->setVariable('buttonClasses', 'ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only');
-            $view->setVariable('adminMenu', $this->container->get('adminMenu'));
         }
     }
 
@@ -100,36 +79,17 @@ class AdminListener extends ZMObject
     }
 
     /**
-     * Init menu.
-     */
-    public function initMenu()
-    {
-        $settingsService = $this->container->get('settingsService');
-
-        $menuLoader = new MenuLoader();
-        $adminMenu = $this->container->get('adminMenu');
-        $menus = $settingsService->get('apps.store.admin.menus');
-        // @todo support relative and absolute paths (and also placeholder paths)
-        foreach ($menus as $menu) {
-            $menuLoader->load(Runtime::getInstallationPath().'/'.$menu, $adminMenu);
-        }
-        $contextConfigLoader = $this->container->get('contextConfigLoader');
-        foreach ($contextConfigLoader->getMenus() as $menu) {
-            $menuLoader->load($menu, $adminMenu);
-        }
-
-        if ($settingsService->get('zenmagick.http.request.secure')) {
-            // make all of ZM admin secure
-            $settingsService->set('zenmagick.http.request.allSecure', true);
-        }
-    }
-
-    /**
      * Final init.
      */
     public function onContainerReady($event)
     {
         $request = $event->getArgument('request');
+
+        $settingsService = $this->container->get('settingsService');
+        if ($settingsService->get('zenmagick.http.request.secure')) {
+            // make all of ZM admin secure
+            $settingsService->set('zenmagick.http.request.allSecure', true);
+        }
 
         // @todo languages setting not really supposed to be here
         $session = $request->getSession();

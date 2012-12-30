@@ -21,17 +21,16 @@
 if (!$app->getUser()) return;
 ?>
 <div id="sub-menu">
-
 <?php $menuHelper = $container->get('knp_menu.templating.helper'); ?>
-<?php echo $menuHelper->render('admin_sub', array()); ?>
 <?php $menu = $menuHelper->get('admin_sub', array()); ?>
+<?php echo $menuHelper->render($menu, array()); ?>
 <?php if ($menu->getName() == 'catalog') { echo $this->fetch('catalog-tree.html.php'); } ?>
 </div>
 <script type="text/javascript">
   // hint for navigation matching
   var alias = null;
-  <?php // @todo use menu matcher
-    if (null != ($current = $adminMenu->getItemForRequestId($request->getRequestId()))) {
+  <?php // @todo fix
+    if (false && null != ($current = $adminMenu->getItemForRequestId($request->getRequestId()))) {
       foreach ($current->getAlias() as $alias) {
         if ($request->getRequestId() == $alias) {
           echo "alias = '".$net->url($current->getRoute(), true?'':$current->getRouteParameters())."'";

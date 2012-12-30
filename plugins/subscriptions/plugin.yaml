@@ -88,7 +88,10 @@ routing:
 
 admin:
   menu:
-    subscriptions:
-      parent: configuration-plugins
-      route: subscriptionAdmin
-      label: 'Subscriptions'
+    configuration:
+      children:
+        configuration-plugins:
+          children:
+            subscriptions:
+              route: subscriptionAdmin
+              label: 'Subscriptions'
