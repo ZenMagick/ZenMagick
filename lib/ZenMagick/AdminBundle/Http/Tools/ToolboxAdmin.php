@@ -116,7 +116,8 @@ class ToolboxAdmin extends ToolboxTool
     public function title($title=null)
     {
         // @todo don't use getBreadCrumbsArray directly here
-        $crumbs = $this->container->get('admin.menu.main')->getBreadcrumbsArray();
+        $menu = $this->container->get('admin.menu.main');
+        $crumbs = $menu ? $menu->getBreadcrumbsArray() : array();
         $pref = isset($crumbs[1]['item']) ? $crumbs[1]['item']->getLabel() : null;
         if (null == $title) {
             $title = $pref;
