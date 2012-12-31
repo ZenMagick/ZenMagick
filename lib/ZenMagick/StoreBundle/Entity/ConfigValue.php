@@ -124,21 +124,30 @@ class ConfigValue extends ZMObject
      *
      * @return integer $id The id.
      */
-    public function getId() { return $this->id; }
+    public function getId()
+    {
+        return $this->id;
+    }
 
     /**
      * Get the name.
      *
      * @return text $name The name.
      */
-    public function getName() { return $this->name; }
+    public function getName()
+    {
+        return $this->name;
+    }
 
     /**
      * Get the key.
      *
      * @return string $key The key.
      */
-    public function getKey() { return $this->key; }
+    public function getKey()
+    {
+        return $this->key;
+    }
 
     /**
      * Get the value.
@@ -163,42 +172,60 @@ class ConfigValue extends ZMObject
      *
      * @return text $description The description.
      */
-    public function getDescription() { return $this->description; }
+    public function getDescription()
+    {
+        return $this->description;
+    }
 
     /**
      * Get groupId
      *
      * @return integer $GroupId
      */
-    public function getGroupId() { return $this->groupId; }
+    public function getGroupId()
+    {
+        return $this->groupId;
+    }
 
     /**
      * Get sortOrder
      *
      * @return integer $sortOrder
      */
-    public function getSortOrder() { return $this->sortOrder; }
+    public function getSortOrder()
+    {
+        return $this->sortOrder;
+    }
 
     /**
      * Get lastModified
      *
      * @return datetime $lastModified
      */
-    public function getLastModified() { return $this->lastModified; }
+    public function getLastModified()
+    {
+        return $this->lastModified;
+    }
 
     /**
      * Get dateAdded
      *
      * @return datetime $dateAdded
      */
-    public function getDateAdded() { return $this->dateAdded; }
+    public function getDateAdded()
+    {
+        return $this->dateAdded;
+    }
 
     /**
      * Get useFunction
      *
      * @return text $useFunction
      */
-    public function getUseFunction() { return $this->useFunction; }
+    public function getUseFunction()
+    {
+        return $this->useFunction;
+    }
 
     /**
      * Get the set function.
@@ -206,7 +233,10 @@ class ConfigValue extends ZMObject
      * @return text $setFunction The set function.
      * @deprecated
      */
-    public function getSetFunction() { return $this->setFunction; }
+    public function getSetFunction()
+    {
+        return $this->setFunction;
+    }
 
     /**
      * Check if a set function is set or not.
@@ -223,70 +253,100 @@ class ConfigValue extends ZMObject
      *
      * @param string id The id.
      */
-    public function setId($id) { $this->id = $id; }
+    public function setId($id)
+    {
+        $this->id = $id;
+    }
 
     /**
      * Set the name.
      *
      * @param text $name The name.
      */
-    public function setName($name) { $this->name = $name; }
+    public function setName($name)
+    {
+        $this->name = $name;
+    }
 
     /**
      * Set the key.
      *
      * @param string $key The key.
      */
-    public function setKey($key) { $this->key = $key; }
+    public function setKey($key)
+    {
+        $this->key = $key;
+    }
 
     /**
      * Set the value.
      *
      * @param mixed $value The value.
      */
-    public function setValue($value) { $this->value = $value; }
+    public function setValue($value)
+    {
+        $this->value = $value;
+    }
 
     /**
      * Set the description.
      *
      * @param text $description The description.
      */
-    public function setDescription($description) { $this->description = $description ; }
+    public function setDescription($description)
+    {
+        $this->description = $description;
+    }
 
     /**
      * Set groupId
      *
      * @param integer $groupId
      */
-    public function setGroupId($groupId) { $this->groupId = $groupId; }
+    public function setGroupId($groupId)
+    {
+        $this->groupId = $groupId;
+    }
 
     /**
      * Set sortOrder
      *
      * @param integer $sortOrder
      */
-    public function setSortOrder($sortOrder) { $this->sortOrder = $sortOrder; }
+    public function setSortOrder($sortOrder)
+    {
+        $this->sortOrder = $sortOrder;
+    }
 
     /**
      * Set lastModified
      *
      * @param datetime $lastModified
      */
-    public function setLastModified($lastModified) { $this->lastModified = $lastModified; }
+    public function setLastModified($lastModified)
+    {
+        $this->lastModified = $lastModified;
+    }
 
     /**
      * Set dateAdded
      *
      * @param datetime $dateAdded
      */
-    public function setDateAdded($dateAdded) { $this->dateAdded = $dateAdded; }
+    public function setDateAdded($dateAdded)
+    {
+        $this->dateAdded = $dateAdded;
+    }
 
     /**
      * Set useFunction
      *
      * @param text $useFunction
      */
-    public function setUseFunction($useFunction) { $this->useFunction = $useFunction; }
+    public function setUseFunction($useFunction)
+    {
+        $this->useFunction = $useFunction;
+    }
 
     /**
      * Set the set function.
@@ -294,5 +354,8 @@ class ConfigValue extends ZMObject
      * @param text $setFunction function The use function.
      * @deprecated
      */
-    public function setSetFunction($setFunction) { $this->setFunction = $setFunction; }
+    public function setSetFunction($setFunction)
+    {
+        $this->setFunction = $setFunction;
+    }
 }

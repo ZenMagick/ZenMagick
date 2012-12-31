@@ -85,70 +85,100 @@ class ConfigGroup extends ZMObject
      *
      * @return integer $id The id.
      */
-    public function getId() { return $this->id; }
+    public function getId()
+    {
+        return $this->id;
+    }
 
     /**
      * Get the name.
      *
      * @return string $name The name.
      */
-    public function getName() { return $this->name; }
+    public function getName()
+    {
+        return $this->name;
+    }
 
     /**
      * Get description
      *
      * @return string $description
      */
-    public function getDescription() { return $this->description; }
+    public function getDescription()
+    {
+        return $this->description;
+    }
 
     /**
      * Get sortOrder
      *
      * @return integer $sortOrder
      */
-    public function getSortOrder() { return $this->sortOrder; }
+    public function getSortOrder()
+    {
+        return $this->sortOrder;
+    }
 
     /**
      * Get the visible flag.
      *
      * @return boolean $visible The flag.
      */
-    public function isVisible() { return $this->visible; }
+    public function isVisible()
+    {
+        return $this->visible;
+    }
 
     /**
      * Set the id.
      *
      * @param string $id The id.
      */
-    public function setId($id) { $this->id = $id; }
+    public function setId($id)
+    {
+        $this->id = $id;
+    }
 
     /**
      * Set the name.
      *
      * @param string $name The name.
      */
-    public function setName($name) { $this->name = $name; }
+    public function setName($name)
+    {
+        $this->name = $name;
+    }
 
     /**
      * Set description
      *
      * @param string $description
      */
-    public function setDescription($description) { $this->description = $description; }
+    public function setDescription($description)
+    {
+        $this->description = $description;
+    }
 
     /**
      * Set sortOrder
      *
      * @param integer $sortOrder
      */
-    public function setSortOrder($sortOrder) { $this->sortOrder = $sortOrder; }
+    public function setSortOrder($sortOrder)
+    {
+        $this->sortOrder = $sortOrder;
+    }
 
     /**
      * Set the visible flag.
      *
      * @param boolean $visible The new value.
      */
-    public function setVisible($visible) { $this->visible = $visible; }
+    public function setVisible($visible)
+    {
+        $this->visible = $visible;
+    }
 
     /**
      * Get visible
