@@ -118,6 +118,7 @@ class ConfigValue extends ZMObject
     public function __construct()
     {
         parent::__construct();
+        $this->groupId = 0;
         $this->name = null;
         $this->description = null;
         $this->key = null;
