@@ -82,10 +82,12 @@ class MenuBuilder
     public function createMainMenu(Request $request)
     {
         $menu = $this->factory->createFromArray($this->getMenuData());
-        $current = $this->findCurrentPage($menu);
 
-        $array = $current->getBreadCrumbsArray();
-        $this->topItem = $array[1]['item']->getName();
+        $current = $this->findCurrentPage($menu);
+        if (null !== $current) {
+            $array = $current->getBreadCrumbsArray();
+            $this->topItem = $array[1]['item']->getName();
+        }
         // @todo set this externally
         $menu->setChildrenAttributes(array('id' => 'main-menu'));
 
