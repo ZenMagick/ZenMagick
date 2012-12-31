@@ -40,6 +40,8 @@ class InstallationPatch extends ZMObject
     public function __construct($id)
     {
         parent::__construct();
+
+        $this->container = \ZenMagick\Base\Runtime::getContainer();
         $this->id_ = $id;
         $this->label_ = $id. ' Patch';
         $this->messages_ = array();
