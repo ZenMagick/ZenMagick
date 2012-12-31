@@ -63,17 +63,12 @@ class ToolboxUtils extends ToolboxTool
     public function formatMoney($amount, $convert=true)
     {
         $currencyService = $this->container->get('currencyService');
-        if (Runtime::isContextMatch('storefront')) {
-            // @todo we shouldn't be getting it from the request
-            $code = $this->getRequest()->getSession()->getCurrencyCode();
-        } else {
-            $code = Runtime::getSettings()->get('defaultCurrency');
+        // @todo we should be be getting this from a user property
+        $code = $this->getRequest()->getSession()->getCurrencyCode();
+        if (null === $code) {
+            $code = $this->container->get('settingsService')->get('defaultCurrency');
         }
         $currency = $currencyService->getCurrencyForCode($code);
-        if (null == $currency) {
-            $this->container->get('logger')->warn('no currency found - using default currency');
-            $currency = $currencyService->getCurrencyForCode(Runtime::getSettings()->get('defaultCurrency'));
-        }
         $money = $currency->format($amount, $convert);
 
         return $money;
