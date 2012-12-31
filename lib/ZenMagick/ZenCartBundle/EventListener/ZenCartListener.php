@@ -103,14 +103,6 @@ class ZenCartListener implements EventSubscriberInterface
         }
     }
 
-    public function onViewStart($event)
-    {
-        $settingsService = $this->container->get('settingsService');
-        if (Runtime::isContextMatch('admin')) {
-            $settingsService->add('apps.store.admin.menus', 'lib/ZenMagick/ZenCartBundle/Resources/config/admin/menu.yaml');
-        }
-    }
-
     /**
      * Fix email context for various emails.
      */

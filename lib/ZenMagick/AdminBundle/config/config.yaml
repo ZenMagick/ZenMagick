@@ -24,8 +24,9 @@ zenmagick:
 apps:
   store:
     admin:
-      menus:
-        - 'lib/ZenMagick/AdminBundle/config/menu.yaml' #placeholder for lib/ZenMagick/AdminBundle?
+      menus: #todo use placeholders for paths
+        - 'lib/ZenMagick/AdminBundle/config/menu.yaml'
+        - 'lib/ZenMagick/ZenCartBundle/Resources/config/admin/menu.yaml'
     dashboad:
       default: '{"layout":"col2r","widgets":[["ref::storeStatusDashboardWidget", "ref::latestOrdersDashboardWidget"], ["ref::orderStatsDashboardWidget","ref::latestAccountsDashboardWidget"]]}'
 
