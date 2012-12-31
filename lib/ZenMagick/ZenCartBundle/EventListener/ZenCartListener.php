@@ -230,7 +230,6 @@ class ZenCartListener implements EventSubscriberInterface
         return array(
             'request_ready' => array(array('onRequestReady', 100)),
             'all_done' => array(array('logAdminPageAccess', 30)),
-            'view_start' => array(array('onViewStart', 100)),
             'generate_email' => array(array('onGenerateEmail')),
             KernelEvents::CONTROLLER => array(array('onKernelController', 30)),
         );
