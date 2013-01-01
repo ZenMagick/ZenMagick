@@ -107,12 +107,6 @@ class ConfigValue extends ZMObject
     private $setFunction;
 
     /**
-     * @ORM\ManyToOne(targetEntity="ConfigGroup")
-     * @ORM\JoinColumn(name="configuration_group_id", referencedColumnName="configuration_group_id", onDelete="CASCADE")
-     */
-    private $group;
-
-    /**
      * Create new config value.
      */
     public function __construct()
