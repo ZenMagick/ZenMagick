@@ -1,5 +1,5 @@
 {
-    "hash": "109ab17b4d3b3983f782ee5b9deb7455",
+    "hash": "69f6aaaae97772f9e9746d36fbbd1bd0",
     "packages": [
         {
             "name": "doctrine/common",
@@ -1091,12 +1091,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/nelmio/alice",
-                "reference": "3ab7b0763a31d9fda5405a27a26d1be845ee4b46"
+                "reference": "df3c3fffdbd9cc90205cf90db700e9960c38380b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://github.com/nelmio/alice/archive/3ab7b0763a31d9fda5405a27a26d1be845ee4b46.zip",
-                "reference": "3ab7b0763a31d9fda5405a27a26d1be845ee4b46",
+                "url": "https://github.com/nelmio/alice/archive/054ad95e38c11147740de619b768e6f04c6b019b.zip",
+                "reference": "df3c3fffdbd9cc90205cf90db700e9960c38380b",
                 "shasum": ""
             },
             "require": {
@@ -1109,7 +1109,7 @@
                 "symfony/form": ">=2.1,<3.0",
                 "phpunit/phpunit": "3.7.*"
             },
-            "time": "2012-12-29 20:40:17",
+            "time": "2012-12-05 18:22:50",
             "type": "library",
             "extra": {
                 "branch-alias": {

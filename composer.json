@@ -36,7 +36,7 @@
         "doctrine/orm": ">=2.2.3,<2.4-dev",
         "doctrine/doctrine-bundle": "1.0.*",
         "doctrine/doctrine-fixtures-bundle": "dev-master",
-        "nelmio/alice": "dev-master",
+        "nelmio/alice": "dev-master#df3c3fffdbd9cc90205cf90db700e9960c38380b",
         "twig/extensions": "1.0.*",
         "symfony/assetic-bundle": "2.1.*",
         "symfony/swiftmailer-bundle": "2.1.*",
