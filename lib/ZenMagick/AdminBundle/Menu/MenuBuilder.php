@@ -86,7 +86,11 @@ class MenuBuilder
         $current = $this->findCurrentPage($menu);
         if (null !== $current) {
             $array = $current->getBreadCrumbsArray();
-            $this->topItem = $array[1]['item']->getName();
+            if (!isset($array[1]['item'])) {
+                $this->topItem = 'dashboard';
+            } else {
+                $this->topItem = $array[1]['item']->getName();
+            }
         }
         // @todo set this externally
         $menu->setChildrenAttributes(array('id' => 'main-menu'));
