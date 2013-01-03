@@ -85,12 +85,6 @@ class AdminListener extends ZMObject
     {
         $request = $event->getArgument('request');
 
-        $settingsService = $this->container->get('settingsService');
-        if ($settingsService->get('zenmagick.http.request.secure')) {
-            // make all of ZM admin secure
-            $settingsService->set('zenmagick.http.request.allSecure', true);
-        }
-
         // @todo languages setting not really supposed to be here
         $session = $request->getSession();
         if ($request->query->has('languageId')) {
