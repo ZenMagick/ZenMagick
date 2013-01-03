@@ -1816,15 +1816,15 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/ZenMagick/ZenCart",
-                "reference": "300dcd4e5d26febeca4135b397c6ca1ba09c3391"
+                "reference": "5bc53da5482f1056f2b2f0e2997be631cf510503"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://github.com/ZenMagick/ZenCart/archive/300dcd4e5d26febeca4135b397c6ca1ba09c3391.zip",
-                "reference": "300dcd4e5d26febeca4135b397c6ca1ba09c3391",
+                "url": "https://github.com/ZenMagick/ZenCart/archive/5bc53da5482f1056f2b2f0e2997be631cf510503.zip",
+                "reference": "5bc53da5482f1056f2b2f0e2997be631cf510503",
                 "shasum": ""
             },
-            "time": "2013-01-03 12:00:44",
+            "time": "2013-01-03 12:11:47",
             "type": "library",
             "installation-source": "source",
             "notification-url": "https://packagist.org/downloads/",
