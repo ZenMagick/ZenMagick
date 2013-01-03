@@ -192,12 +192,12 @@
             "source": {
                 "type": "git",
                 "url": "git://github.com/doctrine/DoctrineBundle.git",
-                "reference": "2991d0dfa58a5583d9231c490750e29c45b0a6e9"
+                "reference": "f1ddf3753bb274df72765edd92807af29730d890"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://github.com/doctrine/DoctrineBundle/archive/2991d0dfa58a5583d9231c490750e29c45b0a6e9.zip",
-                "reference": "2991d0dfa58a5583d9231c490750e29c45b0a6e9",
+                "url": "https://github.com/doctrine/DoctrineBundle/archive/f1ddf3753bb274df72765edd92807af29730d890.zip",
+                "reference": "f1ddf3753bb274df72765edd92807af29730d890",
                 "shasum": ""
             },
             "require": {
@@ -215,7 +215,7 @@
             "suggest": {
                 "doctrine/orm": "The Doctrine ORM integration is optional in the bundle."
             },
-            "time": "2012-12-11 09:53:45",
+            "time": "2013-01-02 10:22:46",
             "type": "symfony-bundle",
             "extra": {
                 "branch-alias": {
@@ -494,18 +494,18 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/fzaninotto/Faker",
-                "reference": "4a1e258d06f463e871f77d19cce822799f9d4d28"
+                "reference": "140b5d4d3f7bb81b300ad4f53fe5b11b45aa8dde"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://github.com/fzaninotto/Faker/archive/4a1e258d06f463e871f77d19cce822799f9d4d28.zip",
-                "reference": "4a1e258d06f463e871f77d19cce822799f9d4d28",
+                "url": "https://github.com/fzaninotto/Faker/archive/140b5d4d3f7bb81b300ad4f53fe5b11b45aa8dde.zip",
+                "reference": "140b5d4d3f7bb81b300ad4f53fe5b11b45aa8dde",
                 "shasum": ""
             },
             "require": {
                 "php": ">=5.3.3"
             },
-            "time": "2012-12-21 15:40:50",
+            "time": "2013-01-01 15:09:45",
             "type": "library",
             "extra": {
                 "branch-alias": {
@@ -540,12 +540,12 @@
             "source": {
                 "type": "git",
                 "url": "git://github.com/l3pp4rd/DoctrineExtensions.git",
-                "reference": "0cc2f18585020877c8f6b4f02bb90494ab9b2dba"
+                "reference": "v2.3.3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://github.com/l3pp4rd/DoctrineExtensions/archive/0cc2f18585020877c8f6b4f02bb90494ab9b2dba.zip",
-                "reference": "0cc2f18585020877c8f6b4f02bb90494ab9b2dba",
+                "url": "https://github.com/l3pp4rd/DoctrineExtensions/archive/v2.3.3.zip",
+                "reference": "v2.3.3",
                 "shasum": ""
             },
             "require": {
@@ -967,12 +967,12 @@
             "source": {
                 "type": "git",
                 "url": "http://github.com/kriswallsmith/assetic.git",
-                "reference": "8ca1861fbed58e2c6ffcca5c0a1726c40a10a77c"
+                "reference": "054ff76c4cc812c5a5d7e36af6d076ee8294ab7e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://github.com/kriswallsmith/assetic/archive/8ca1861fbed58e2c6ffcca5c0a1726c40a10a77c.zip",
-                "reference": "8ca1861fbed58e2c6ffcca5c0a1726c40a10a77c",
+                "url": "https://github.com/kriswallsmith/assetic/archive/054ff76c4cc812c5a5d7e36af6d076ee8294ab7e.zip",
+                "reference": "054ff76c4cc812c5a5d7e36af6d076ee8294ab7e",
                 "shasum": ""
             },
             "require": {
@@ -993,7 +993,7 @@
                 "ptachoire/cssembed": "Assetic provides the integration with phpcssembed to embed data uris",
                 "leafo/scssphp-compass": "Assetic provides the integration with the SCSS compass plugin"
             },
-            "time": "2012-12-14 18:31:26",
+            "time": "2013-01-02 10:14:46",
             "type": "library",
             "extra": {
                 "branch-alias": {
@@ -1629,12 +1629,12 @@
             "source": {
                 "type": "git",
                 "url": "git://github.com/symfony/symfony.git",
-                "reference": "bf468ca0e63af36b39df20c4f6370ba06bdc59cb"
+                "reference": "114bbce806fe7745a7e21c78e6ceb92e99897a30"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://github.com/symfony/symfony/archive/bf468ca0e63af36b39df20c4f6370ba06bdc59cb.zip",
-                "reference": "bf468ca0e63af36b39df20c4f6370ba06bdc59cb",
+                "url": "https://github.com/symfony/symfony/archive/114bbce806fe7745a7e21c78e6ceb92e99897a30.zip",
+                "reference": "114bbce806fe7745a7e21c78e6ceb92e99897a30",
                 "shasum": ""
             },
             "require": {
@@ -1683,7 +1683,7 @@
                 "propel/propel1": "dev-master",
                 "monolog/monolog": "1.*"
             },
-            "time": "2012-12-30 15:37:53",
+            "time": "2013-01-02 21:19:05",
             "type": "library",
             "installation-source": "source",
             "autoload": {
@@ -1766,18 +1766,18 @@
             "source": {
                 "type": "git",
                 "url": "git://github.com/fabpot/Twig.git",
-                "reference": "25f7b0c7eb456f5c39f1e8163da538de5d0d717b"
+                "reference": "037b5be972bd64900a6a287ee56661782090ca00"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://github.com/fabpot/Twig/archive/25f7b0c7eb456f5c39f1e8163da538de5d0d717b.zip",
-                "reference": "25f7b0c7eb456f5c39f1e8163da538de5d0d717b",
+                "url": "https://github.com/fabpot/Twig/archive/037b5be972bd64900a6a287ee56661782090ca00.zip",
+                "reference": "037b5be972bd64900a6a287ee56661782090ca00",
                 "shasum": ""
             },
             "require": {
                 "php": ">=5.2.4"
             },
-            "time": "2012-12-30 20:07:31",
+            "time": "2013-01-02 16:15:41",
             "type": "library",
             "extra": {
                 "branch-alias": {
@@ -1816,15 +1816,15 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/ZenMagick/ZenCart",
-                "reference": "fc3f0fb529b8756a17af5bf968db4e6cba05cfa0"
+                "reference": "300dcd4e5d26febeca4135b397c6ca1ba09c3391"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://github.com/ZenMagick/ZenCart/archive/fc3f0fb529b8756a17af5bf968db4e6cba05cfa0.zip",
-                "reference": "fc3f0fb529b8756a17af5bf968db4e6cba05cfa0",
+                "url": "https://github.com/ZenMagick/ZenCart/archive/300dcd4e5d26febeca4135b397c6ca1ba09c3391.zip",
+                "reference": "300dcd4e5d26febeca4135b397c6ca1ba09c3391",
                 "shasum": ""
             },
-            "time": "2012-12-24 02:14:48",
+            "time": "2013-01-03 12:00:44",
             "type": "library",
             "installation-source": "source",
             "notification-url": "https://packagist.org/downloads/",
