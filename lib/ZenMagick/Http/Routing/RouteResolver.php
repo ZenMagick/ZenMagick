@@ -33,27 +33,6 @@ class RouteResolver extends ZMObject
     const GLOBAL_ROUTING_KEY = 'zenmagick_global_routing';
 
     /**
-     * Get the router.
-     *
-     * @return Router The router.
-     */
-    public function getRouter()
-    {
-        return $this->container->get('router');
-    }
-
-    /**
-     * Get a route for the given route/request id.
-     *
-     * @param string routeId The id.
-     * @return mixed The route or <code>null</code>.
-     */
-    public function getRouteForId($routeId)
-    {
-        return $this->getRouter()->getRouteCollection()->get($routeId);
-    }
-
-    /**
      * Get a route for the given uri.
      *
      * @param string uri The uri.
@@ -62,7 +41,7 @@ class RouteResolver extends ZMObject
     public function getRouteForUri($uri)
     {
         if (null != ($routerMatch = $this->getRouter()->match($uri))) {
-            return $this->getRouteForId($routerMatch['_route']);
+            return $this->container->get('router')->getRouteCollection()->get($routerMatch['_route']);
         }
 
         return null;
@@ -88,9 +67,9 @@ class RouteResolver extends ZMObject
 
         // check until match or we run out of routeIds
         $settingsService = $this->container->get('settingsService');
-        $layoutName = $settingsService->exists('zenmagick.http.view.defaultLayout') ? $settingsService->get('zenmagick.http.view.defaultLayout') : null;
+        $layoutName = $settingsService->get('zenmagick.http.view.defaultLayout', null);
         foreach ($routeIds as $routeId) {
-            if (null != ($route = $this->getRouteForId($routeId))) {
+            if (null != ($route = $this->container->get('router')->getRouteCollection()->get($routeId))) {
                 $viewKey = null == $viewId ? 'view' : sprintf('view:%s', $viewId);
                 $options = $route->getOptions();
                 if (array_key_exists($viewKey, $options)) {
@@ -126,10 +105,8 @@ class RouteResolver extends ZMObject
             }
         }
 
-        // TODO: enable once we have all current url mappings converted
-        if (!$view) {
-            // use conventions and defaults
-            $templateName = sprintf('%s%s', $request->getRequestId(), $settingsService->get('zenmagick.http.templates.ext', '.html.php'));
+        if (!$view) { // use conventions and defaults
+            $templateName = sprintf('%s%s', $request->getRequestId(), '.html.php');
             $view = Beans::getBean('defaultView');
             $view->setTemplate($templateName);
             $view->setLayout($layoutName);
