@@ -30,7 +30,7 @@ chdir($adminDir);
 //$autoLoader->setErrorLevel();
 // needed in a local context
 define('TEXT_EDITOR_INFO', ''); // hide text editor box
-global $currencies;
+global $currencies, $products_options_types_list;
 // Might want to actually load it completely local instead.
 $autoLoader->setErrorLevel();
 $autoLoader->includeFiles('includes/languages/%language%.php');
