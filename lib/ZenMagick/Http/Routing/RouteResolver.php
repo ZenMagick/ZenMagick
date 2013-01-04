@@ -33,21 +33,6 @@ class RouteResolver extends ZMObject
     const GLOBAL_ROUTING_KEY = 'zenmagick_global_routing';
 
     /**
-     * Get a route for the given uri.
-     *
-     * @param string uri The uri.
-     * @return mixed The route or <code>null</code>.
-     */
-    public function getRouteForUri($uri)
-    {
-        if (null != ($routerMatch = $this->getRouter()->match($uri))) {
-            return $this->container->get('router')->getRouteCollection()->get($routerMatch['_route']);
-        }
-
-        return null;
-    }
-
-    /**
      * Get a view for the given request and view id.
      *
      * @param string viewId The view id.

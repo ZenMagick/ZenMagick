@@ -296,9 +296,9 @@ class DefaultController extends Controller
      */
     public function getFormData($request, $formDef=null, $formId=null)
     {
-        $routeResolver = $this->container->get('routeResolver');
-
-        if (null != ($route = $routeResolver->getRouteForUri($request->getPathInfo()))) {
+        $router = $this->get('router');
+        if (null != ($routeData = $router->match($request->getPathInfo()))) {
+            $route = $router->getRouteCollection()->get($routeData['_route']);
             if (null != ($options = $route->getOptions()) && array_key_exists('form', $options)) {
                 $this->formData_ = Beans::getBean($options['form']);
                 if ($this->formData_ instanceof Form) {
