@@ -46,14 +46,5 @@
             <tag name="kernel.event_subscriber" />
             <argument type="service" id="service_container" />
         </service>
-
-        <service id="zencart.counter_listener" class="ZenMagick\ZenCartBundle\EventListener\CounterListener">
-            <tag name="kernel.event_listener" event="kernel.terminate" method="countVisit" />
-            <argument type="service" id="service_container" />
-        </service>
-
-        <service id="zencart.counter_dashboard_widget" scope="prototype" class="ZenMagick\ZenCartBundle\Dashboard\CounterHistoryWidget">
-            <tag name="apps.store.admin.dashboard.widget" />
-        </service>
     </services>
 </container>
