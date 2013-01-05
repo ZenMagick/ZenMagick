@@ -35,66 +35,23 @@ class ZenCartExtension extends Extension
      */
     public function load(array $configs, ContainerBuilder $container)
     {
-        $config = array();
-        foreach ($configs as $subConfig) {
-            $config = array_merge($config, $subConfig);
-        }
+        $configuration = new Configuration();
+        $config = $this->processConfiguration($configuration, $configs);
 
-        $loader = new XmlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
+        $container->setParameter('zencart.root_dir', $config['root_dir']);
+        $container->setParameter('zencart.admin_dir', $config['admin_dir']);
 
-        $rootDir = $container->getParameter('kernel.root_dir');
+        $admin = $config['admin'];
 
-        if (isset($config['root_dir']) && !empty($config['root_dir'])) {
-            $container->setParameter('zencart.root_dir', $config['root_dir']);
-        }
+        $container->setParameter('zencart.admin.hide_layout', $admin['hide_layout']);
 
-        // @todo we can autodetect!
-        if (!$container->hasParameter('zencart.root_dir')) {
-            $container->setParameter('zencart.root_dir', realpath(dirname(dirname($rootDir))));
-        }
-
-        // Set path to zencart admin directory.
-        $adminDir = null;
-        if (isset($config['admin_dir']) && !empty($config['admin_dir'])) {
-            $adminDir = $config['admin_dir'];
-        }
-
-        if (null == $adminDir) {
-            $adminDir = $this->guessZcAdminDir($container->getParameter('zencart.root_dir'));
-        }
-
-        $container->setParameter('zencart.admin_dir', $adminDir);
-
-        // @todo support merging
-        $hiddenLayout = array('invoice', 'packingslip');
-        if (isset($config['admin']['hide_layout'])) {
-            $hiddenLayout = $config['admin']['hide_layout'];
-        }
-        $container->setParameter('zencart.admin.hide_layout', $hiddenLayout);
-
+        // @todo revaluate
         $nativeAdmin = isset($config['admin']['native']) && $config['admin']['native'];
         $container->setParameter('zencart.admin.native', $nativeAdmin);
 
+
+        $loader = new XmlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
         $loader->load('services.xml');
-    }
-
-    /**
-     * Get ZenCart admin directory.
-     *
-     * @param string zcRootDir path to zencart root
-     * @return string
-     */
-    protected function guessZcAdminDir($zcRootDir)
-    {
-        $finder = Finder::create()->files()->in($zcRootDir)->depth('== 1')
-            ->name('featured.php')->name('specials.php');
-
-        if (2 != count($finder)) return;
-        foreach ($finder as $file) {
-            $adminDir = dirname($file->getRealpath());
-        }
-
-        return $adminDir;
     }
 
     /**
