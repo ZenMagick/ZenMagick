@@ -17,31 +17,24 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-namespace ZenMagick\plugins\visitCounter;
 
-use ZenMagick\Base\Plugins\Plugin;
+namespace ZenMagick\ZenCartBundle\EventListener;
+
 use ZenMagick\Base\Runtime;
 
-/**
- * Visit Counter plugin.
- *
- * This reimplements the ZenCart site visit counter.
- *
- * @todo create the tables ourselves or completely drop this support.
- * @todo add index on startdate field in counter table
- * @todo convert startdate to an actual date field instead of char for both tables
- */
-class VisitCounterPlugin extends Plugin
+use Symfony\Component\HttpKernel\Event\PostResponseEvent;
+
+class CounterListener
 {
     /**
      * Handle ZenCart page and session counting
      *
      */
-    public function onAllDone($event)
+    public function countVisit(PostResponseEvent $event)
     {
         if (!Runtime::isContextMatch('storefront')) return;
         $conn = \ZMRuntime::getDatabase();
-        $session = $event->getArgument('request')->getSession();
+        $session = $event->getRequest()->getSession();
 
         $newSession = false;
         if ($session->isStarted()) {
