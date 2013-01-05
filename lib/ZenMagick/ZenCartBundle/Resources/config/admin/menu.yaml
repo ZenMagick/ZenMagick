@@ -7,7 +7,7 @@ children:
                     categories:
                         route: zc_admin_categories
                         label: 'Products / Categories'
-                        extras: { alias: [product] }
+                        extras: { routes: [zc_admin_product] }
                     manufacturers:
                         route: zc_admin_manufacturers
                         label: Manufacturers
