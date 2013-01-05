@@ -64,22 +64,6 @@ class StorefrontListener extends ZMObject
     }
 
     /**
-     * Final cleanup.
-     */
-    public function onAllDone($event)
-    {
-        $request = $event->getArgument('request');
-        // save url to be used as redirect in some cases
-        if ('login' != $request->getRequestId() && 'logoff' != $request->getRequestId()) {
-            if ('GET' == $request->getMethod()) {
-                $request->getSession()->set('lastUrl', $request->getRequestUri());
-            } else {
-                $request->getSession()->set('lastUrl', null);
-            }
-        }
-    }
-
-    /**
      * Need to load themes before the container freezes...
      * @todo: what to do???
      */

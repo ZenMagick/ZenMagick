@@ -97,7 +97,6 @@ class HttpListener implements EventSubscriberInterface
         $dispatcher->dispatch('finalise_content', $zmevent);
 
         $response->setContent($zmevent->getArgument('content'));
-        $dispatcher->dispatch('all_done', new GenericEvent($this, array('request' => $request, 'view' => $view, 'content' => $zmevent->getArgument('content'))));
 
         $event->setResponse($response);
     }
