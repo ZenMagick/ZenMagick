@@ -81,5 +81,5 @@ zenmagick:
         enabled: "%zenmagick.plugins.enabled%"
 
 zencart:
-    root_dir: ~
-    admin_dir: ~
+    admin:
+        hide_layout: [packingslip, invoice]
