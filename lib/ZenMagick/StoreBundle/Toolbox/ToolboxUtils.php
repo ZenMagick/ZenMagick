@@ -19,7 +19,6 @@
  */
 namespace ZenMagick\StoreBundle\Toolbox;
 
-use ZenMagick\Base\Runtime;
 use ZenMagick\Base\Beans;
 use ZenMagick\Http\Toolbox\ToolboxTool;
 use ZenMagick\StoreBundle\Model\Checkout\ShoppingCart;

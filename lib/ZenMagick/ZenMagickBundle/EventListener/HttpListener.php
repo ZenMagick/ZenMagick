@@ -19,7 +19,6 @@
  */
 namespace ZenMagick\ZenMagickBundle\EventListener;
 
-use Exception;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\HttpKernelInterface;
 use Symfony\Component\HttpKernel\KernelEvents;

@@ -55,6 +55,7 @@ class LegacyConfigController extends DefaultController
 
         if ($this->handleDemo()) {
             $tpl = array('group' => $group, 'groupValues' => $groupValues);
+
             return $this->findView('success-demo', $tpl, array('parameter' => 'groupId='.$groupId));
         }
 
@@ -75,6 +76,7 @@ class LegacyConfigController extends DefaultController
 
         // 'parameter' is a property on the view class...
         $tpl = array('group' => $group, 'groupValues' => $groupValues);
+
         return $this->findView('success', $tpl, array('parameter' => 'groupId='.$groupId));
     }
 

@@ -76,6 +76,7 @@ class MenuBuilder
                 );
             }
         }
+
         return $menuData;
     }
 
