@@ -130,9 +130,6 @@ class DefaultController extends Controller
         if (null == $view) {
             $method = null != $this->getMethod() ? $this->getMethod() : $request->getMethod();
             switch ($method) {
-                case 'HEAD':
-                    $view = $this->processHead($request);
-                    break;
                 case 'GET':
                     $view = $this->processGet($request);
                     break;
@@ -210,18 +207,6 @@ class DefaultController extends Controller
     public function isFormSubmit($request)
     {
         return 'POST' == $request->getMethod();
-    }
-
-    /**
-     * Process a HTTP HEAD request.
-     *
-     * @param ZenMagick\Http\Request request The request to process.
-     * @return View A <code>View</code> that handles presentation or <code>null</code>
-     * if the controller generates the contents itself.
-     */
-    public function processHead($request)
-    {
-        return null;
     }
 
     /**
