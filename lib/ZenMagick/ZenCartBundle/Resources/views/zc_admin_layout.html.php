@@ -7,7 +7,7 @@ chdir($adminDir);
 
 //$autoLoader->setErrorLevel();
 // needed in a local context
-global $currencies, $products_options_types_list;
+global $currencies, $products_options_types_list, $current_category_id;
 // Might want to actually load it completely local instead.
 $autoLoader->setErrorLevel();
 $autoLoader->includeFiles('includes/languages/%language%.php');
