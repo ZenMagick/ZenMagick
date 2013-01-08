@@ -29,6 +29,9 @@ use Symfony\Component\EventDispatcher\GenericEvent;
 use Symfony\Component\DependencyInjection\ContainerAwareInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpFoundation\Session\Session as BaseSession;
+use Symfony\Component\HttpFoundation\Session\Storage\SessionStorageInterface;
+use Symfony\Component\HttpFoundation\Session\Attribute\AttributeBagInterface;
+use Symfony\Component\HttpFoundation\Session\Flash\FlashBagInterface;
 
 /**
  * {@inheritDoc}
@@ -45,6 +48,21 @@ class Session extends BaseSession implements ContainerAwareInterface
     const AUTO_SAVE_KEY = '__ZM_AUTO_SAVE_KEY__';
 
     protected $container;
+
+    /**
+     * {@inheritDoc}
+     *
+     * modified to set session cookie name dynamically so admin and storefront
+     * cookies are separated. It should be closer to native session storage,
+     * but it is not worth it to extend/modify another class yet.
+     */
+    public function __construct(SessionStorageInterface $storage = null, AttributeBagInterface $attributes = null, FlashBagInterface $flashes = null)
+    {
+        parent::__construct($storage, $attributes, $flashes);
+        if (null !== ($context = Runtime::getContext())) {
+            $this->storage->setOptions(array('name' => 'zm-'.$context));
+        }
+    }
 
     /**
      * {@inheritDoc}

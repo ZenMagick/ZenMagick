@@ -20,7 +20,7 @@ framework:
     trust_proxy_headers: false # Whether or not the Request object should trust proxy headers (X_FORWARDED_FOR/HTTP_CLIENT_IP)
     session:
         handler_id: "%session_handler%"
-        name: "zm-%kernel.context%"
+        name: "zm" #rewritten based on request PATH_INFO for admin/storefront
         gc_probability: 1
         gc_divisor: 2
         gc_maxlifetime: "%session_timeout%"

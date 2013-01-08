@@ -35,6 +35,11 @@ class Runtime
         self::$context = $context;
     }
 
+    public static function getContext()
+    {
+        return self::$context;
+    }
+
     /**
      * Test if the given context string matches.
      *
