@@ -80,6 +80,9 @@ class AppKernel extends Kernel
             new ZenMagick\StoreBundle\StoreBundle(),
             new ZenMagick\AdminBundle\AdminBundle(),
             new ZenMagick\StorefrontBundle\StorefrontBundle(),
+            new JMS\SecurityExtraBundle\JMSSecurityExtraBundle(),
+            new JMS\SerializerBundle\JMSSerializerBundle(),
+
         );
         if (in_array($this->getEnvironment(), array('dev', 'test', 'install'))) {
             $bundles[] = new Symfony\Bundle\WebProfilerBundle\WebProfilerBundle;
