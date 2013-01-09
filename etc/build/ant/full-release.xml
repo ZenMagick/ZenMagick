@@ -24,53 +24,18 @@
         <!-- apply-full-release-patches -->
         <antcall target="apply-full-release-patches" />
 
-        <!-- dump install phpBB stuff -->
-        <antcall target="dump-phpbb-install"></antcall>
-
         <!-- move ZenMagick SQL to the right place -->
-        <copy file="${zenmagick.src.dir}/lib/ZenMagick/AdminBundle/installation/etc/config.sql" tofile="${release.full.dir}/zc_install/sql/plugins/mysql_config.sql" />
-        <copy file="${zenmagick.src.dir}/lib/ZenMagick/AdminBundle/installation/etc/token_install.sql" tofile="${release.full.dir}/zc_install/sql/plugins/mysql_token_install.sql" />
-        <copy file="${zenmagick.src.dir}/lib/ZenMagick/AdminBundle/installation/etc/admin_roles_install.sql" tofile="${release.full.dir}/zc_install/sql/plugins/mysql_admin_roles_install.sql" />
-        <copy file="${zenmagick.src.dir}/lib/ZenMagick/AdminBundle/installation/etc/admin_prefs_install.sql" tofile="${release.full.dir}/zc_install/sql/plugins/mysql_admin_prefs_install.sql" />
         <copy file="${zenmagick.src.dir}/lib/ZenMagick/AdminBundle/installation/etc/sacs_perms_install.sql" tofile="${release.full.dir}/zc_install/sql/plugins/mysql_sacs_perms_install.sql" />
-        <copy file="${zenmagick.src.dir}/lib/ZenMagick/AdminBundle/installation/etc/theme_chaining_install.sql" tofile="${release.full.dir}/zc_install/sql/plugins/mysql_theme_chaining_install.sql" />
-        <copy file="${zenmagick.src.dir}/lib/ZenMagick/AdminBundle/installation/etc/review_title_install.sql" tofile="${release.full.dir}/zc_install/sql/plugins/mysql_review_title_install.sql" />
         <copy file="${zenmagick.src.dir}/lib/ZenMagick/AdminBundle/installation/etc/static_pages_install.sql" tofile="${release.full.dir}/zc_install/sql/plugins/mysql_static_pages_install.sql" />
-        <copy file="${basedir}/etc/build/full/sql/mysql_default_sideboxes.sql" todir="${release.full.dir}/zc_install/sql/plugins/" />
-        <copy file="${basedir}/etc/build/full/sql/mysql_other.sql" todir="${release.full.dir}/zc_install/sql/plugins/" />
 
         <!-- copy docs -->
         <copy tofile="${release.full.dir}/Readme.txt" file="etc/build/docs/Readme.txt" />
-
-        <!-- remove unused zencart code -->
-        <antcall target="drop-unused-zencart" />
-
-        <!-- disable update check -->
-        <antcall target="insert-before">
-            <param name="insert.file" value="${release.full.dir}/admin/includes/header.php" />
-            <param name="insert.regexp" value="ignore version check if not enabled or if not on main page or sysinfo page" />
-            <param name="insert.substitution" value="  $zv_db_patch_ok=$version_check_sysinfo=false;" />
-        </antcall>
-
-        <!-- dump welcome page -->
-        <antcall target="dump-welcome-install"></antcall>
-
-        <!-- add zenmagick/themes to the list of folders to check for permission -->
-        <antcall target="insert-after">
-          <param name="insert.file" value="${release.full.dir}/zc_install/includes/modules/pages/inspect/header_php.php" />
-            <param name="insert.regexp" value="'admin/images/graphs'=>'777 read/write/execute'" />
-            <param name="insert.substitution" value="                 ,'zenmagick/themes'=>'777 read/write/execute'" />
-        </antcall>
 
         <!-- fix -->
         <replaceregexp match="'admin/backups'=>'777 read\/write'" replace="'admin/backups'=>'777 read/write/execute'" flags="g"><fileset file="${release.full.dir}/zc_install/includes/modules/pages/inspect/header_php.php"></fileset></replaceregexp>
         <!-- TODO: make permission check check for existence?? -->
         <!-- drop since not included -->
-        <replaceregexp match="'media'=>'777 read\/write\/execute'," replace="" flags="g"><fileset file="${release.full.dir}/zc_install/includes/modules/pages/inspect/header_php.php"></fileset></replaceregexp>
         <replaceregexp match="'pub'=>'777 read\/write\/execute'," replace="" flags="g"><fileset file="${release.full.dir}/zc_install/includes/modules/pages/inspect/header_php.php"></fileset></replaceregexp>
-
-        <!-- add ZenMagick upgrade link -->
-        <antcall target="add-upgrade-link" />
 
         <!-- add ZenMagick -->
         <unzip src="${dist.dir}/zenmagick-${zenmagick.version}.zip" dest="${release.full.dir}" />
@@ -154,17 +119,6 @@
         </zip>
     </target>
 
-
-    <!-- function rename -->
-    <target name="rename-function" description="Rename a function.">
-        <!-- rename.file, rename.function, rename.suffix  -->
-        <replaceregexp flags="m">
-            <fileset file="${rename.file}" />
-            <regexp pattern="(.*function \s*)(${rename.function})(\s*\(.*\{)(\s*$)"/>
-            <substitution expression='\1\2${rename.suffix}\3 /* modified by ZenMagick installation patcher */\4' />
-        </replaceregexp>
-    </target>
-
     <!-- insert after -->
     <target name="insert-after" description="Insert code after the given pattern.">
         <!-- insert.file, insert.regexp, insert.substitution  -->
@@ -220,11 +174,6 @@
         <copy file="${zenmagick.src.dir}/themes/${theme.id}/preview.jpg" todir="${release.full.dir}/includes/templates/${theme.id}/images" />
     </target>
 
-    <!-- add ZenMagick upgrade link -->
-    <target name="add-upgrade-link" description="Add upgrade link to final installation page.">
-      <replaceregexp match="\?\>" replace="?>&lt;div class='center' style='padding:4px; margin:9px 5px;'>&lt;a class='button' style='color:white;background:#093' href='&lt;?php echo HTTP_SERVER.DIR_WS_CATALOG ?>zenmagick/apps/admin/web/upgrade.php' target='_blank'>Run Required ZenMagick Upgrade&lt;/a>&lt;br>&lt;br>&lt;/div>"><fileset file="${release.full.dir}/zc_install/includes/templates/template_default/templates/finished_default.php"></fileset></replaceregexp>
-    </target>
-
     <!-- build sidebox dummy files -->
     <target name="create-sidebox-dummies" description="Create sidebox dummy files for zen cart.">
         <concat destfile="${build.dir}/sidebox_dummy.php" eol="dos">&lt;?php /** dummy file created by ZenMagick installation patcher **/ ?&gt;</concat>
@@ -251,78 +200,6 @@
     <target name="create-sidebox-dummy" description="Create single sidebox dummy.">
         <basename property="basename" file="${filename}"/>
         <copy overwrite="true" tofile="${build.dir}/dummies/${basename}" file="${build.dir}/sidebox_dummy.php" />
-    </target>
-
-    <!-- remove phpBB from installation -->
-    <target name="dump-phpbb-install" description="Remove phpBB dialog from installation.">
-        <replaceregexp flags="m">
-            <fileset file="${release.full.dir}/zc_install/includes/templates/template_default/sideboxes/navigation.php" />
-            <regexp pattern="^.*phpbb.*$"/>
-            <substitution expression='' />
-        </replaceregexp>
-
-        <!-- require phpbb_setup POST handler code... -->
-        <antcall target="insert-before">
-            <param name="insert.file" value="${release.full.dir}/zc_install/includes/modules/pages/system_setup/header_php.php" />
-            <param name="insert.regexp" value="main_page=phpbb_setup" />
-            <param name="insert.substitution" value="      require dirname(dirname(__FILE__)).'/phpbb_setup/header_php.php';exit;" />
-        </antcall>
-    </target>
-
-    <!-- remove welcome from installation -->
-    <target name="dump-welcome-install" description="Remove welcome dialog from installation.">
-        <replaceregexp>
-            <fileset file="${release.full.dir}/zc_install/index.php" />
-            <regexp pattern="'index'"/>
-            <substitution expression="'license'" />
-        </replaceregexp>
-        <delete includeemptydirs="true">
-            <fileset dir="${release.full.dir}/zc_install/includes/modules/pages/index" />
-            <fileset file="${release.full.dir}/zc_install/includes/templates/template_default/templates/index_default.php" />
-        </delete>
-        <replaceregexp flags="m">
-            <fileset file="${release.full.dir}/zc_install/includes/templates/template_default/sideboxes/navigation.php" />
-            <regexp pattern="^.*welcome.*$"/>
-            <substitution expression='' />
-        </replaceregexp>
-    </target>
-
-    <!-- remove unused zencart code and add as zc_install zips -->
-    <target name="drop-unused-zencart" description="Remove unused zencart code from main install, but leave as zc_install zips.">
-        <!-- create install optional folder -->
-        <mkdir dir="${release.full.dir}/zc_install/optional" />
-
-        <!-- general stuff -->
-        <zip zipfile="${release.full.dir}/zc_install/optional/extras.zip">
-            <fileset dir="${release.full.dir}" includes="docs/" />
-        </zip>
-
-        <!-- templates -->
-        <zip zipfile="${release.full.dir}/zc_install/optional/templates.zip">
-            <fileset dir="${release.full.dir}" includes="includes/templates/classic/" />
-            <fileset dir="${release.full.dir}" includes="includes/templates/template_default/" />
-        </zip>
-
-        <!-- music product info -->
-        <zip zipfile="${release.full.dir}/zc_install/optional/music_product_info.zip">
-            <fileset dir="${release.full.dir}" includes="pub/" />
-            <fileset dir="${release.full.dir}" includes="media/" />
-            <fileset dir="${release.full.dir}" includes="download/" />
-        </zip>
-
-        <delete includeemptydirs="true">
-            <!-- general folders -->
-            <fileset dir="${release.full.dir}" includes="docs/" />
-
-            <!-- unused template code -->
-            <fileset dir="${release.full.dir}" includes="includes/templates/classic/" />
-            <fileset dir="${release.full.dir}" includes="includes/templates/template_default/" />
-
-            <!-- downloads / music media -->
-            <fileset dir="${release.full.dir}" includes="pub/" />
-            <fileset dir="${release.full.dir}" includes="media/" />
-            <fileset dir="${release.full.dir}" includes="download/" />
-        </delete>
     </target>
 
 </project>
