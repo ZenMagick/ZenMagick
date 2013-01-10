@@ -16,6 +16,9 @@
     #<IfModule mod_vhost_alias.c>
     # RewriteBase /
     #</IfModule>
+    RewriteRule mcs_learn_more.html includes/templates/template_default/mcs_learn_more.html [L]
+    RewriteRule vbv_learn_more.html includes/templates/template_default/vbv_learn_more.html [L]
+    RewriteRule ipn_main_handler.php /ipn [QSA]
 
     RewriteCond %{REQUEST_FILENAME} !-f
     RewriteRule ^(.*)$ app.php [QSA,L]
