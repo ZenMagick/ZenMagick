@@ -22,7 +22,6 @@ namespace ZenMagick\ZenCartBundle\DependencyInjection;
 
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use Symfony\Component\Config\Definition\ConfigurationInterface;
-use Symfony\Component\Finder\Finder;
 
 class Configuration implements ConfigurationInterface
 {
@@ -36,7 +35,7 @@ class Configuration implements ConfigurationInterface
         $rootNode
             ->children()
                 ->scalarNode('root_dir')->defaultValue($zcRoot)->end()
-                ->scalarNode('admin_dir')->defaultValue($this->guessZcAdminDir($zcRoot))->end()
+                ->scalarNode('admin_dir')->defaultNull()->end()
                 ->arrayNode('admin')
                     ->children()
                         ->arrayNode('hide_layout')
@@ -54,25 +53,6 @@ class Configuration implements ConfigurationInterface
         ->end();
 
         return $treeBuilder;
-    }
-
-    /**
-     * Get ZenCart admin directory.
-     *
-     * @param string zcRootDir path to zencart root
-     * @return string
-     */
-    protected function guessZcAdminDir($zcRootDir)
-    {
-        $finder = Finder::create()->files()->in($zcRootDir)->depth('== 1')
-            ->name('featured.php')->name('specials.php');
-
-        if (2 != count($finder)) return;
-        foreach ($finder as $file) {
-            $adminDir = dirname($file->getRealpath());
-        }
-
-        return $adminDir;
     }
 
 }

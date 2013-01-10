@@ -39,6 +39,10 @@ class ZenCartExtension extends Extension
         $config = $this->processConfiguration($configuration, $configs);
 
         $container->setParameter('zencart.root_dir', $config['root_dir']);
+
+        if (null === $config['admin_dir']) {
+            $config['admin_dir'] = $this->guessZcAdminDir($config['root_dir']);
+        }
         $container->setParameter('zencart.admin_dir', $config['admin_dir']);
 
         $admin = $config['admin'];
@@ -58,6 +62,25 @@ class ZenCartExtension extends Extension
         if ($store['enable_counter']) {
             $loader->load('counter.xml');
         }
+    }
+
+    /**
+     * Get ZenCart admin directory.
+     *
+     * @param string zcRootDir path to zencart root
+     * @return string
+     */
+    private function guessZcAdminDir($zcRootDir)
+    {
+        $finder = Finder::create()->files()->in($zcRootDir)->depth('== 1')
+            ->name('featured.php')->name('specials.php');
+
+        if (2 != count($finder)) return;
+        foreach ($finder as $file) {
+            $adminDir = dirname($file->getRealpath());
+        }
+
+        return $adminDir;
     }
 
     /**
