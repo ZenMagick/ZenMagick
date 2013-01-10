@@ -64,12 +64,6 @@
             </call>
         </service>
 
-        <service id="userSession" class="ZenMagick\Http\Session\UserSession">
-            <call method="setSession">
-                <argument type="service" id="session" />
-            </call>
-        </service>
-
         <service id="messageBuilder" class="ZenMagick\Http\Utils\MessageBuilder" scope="prototype">
             <call method="setView">
                 <argument type="service" id="templateView" />
