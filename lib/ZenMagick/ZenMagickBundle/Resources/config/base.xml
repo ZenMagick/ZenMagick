@@ -59,8 +59,5 @@
                 <argument type="service" id="settingsService" />
             </call>
         </service>
-
-        <service id="filesystem" class="Symfony\Component\Filesystem\Filesystem" />
-
     </services>
 </container>
