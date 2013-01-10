@@ -32,6 +32,8 @@ class AppKernel extends Kernel
 {
     protected $context;
 
+    const APP_VERSION = '0.9.13';
+
     /**
      * Create new application
      *

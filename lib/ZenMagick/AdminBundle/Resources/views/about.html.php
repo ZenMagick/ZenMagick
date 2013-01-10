@@ -22,7 +22,7 @@
 <div id="b_about">
   <div class="about" id="about">
   <h2><?php _vzm("About ZenMagick") ?></h2>
-      <p><span class="label"><?php _vzm('Version:') ?></span> <?php echo $settingsService->get('zenmagick.version'); ?></p>
+      <p><span class="label"><?php _vzm('Version:') ?></span> <?php echo AppKernel::APP_VERSION; ?></p>
       <p><span class="label"><?php _vzm('Homepage:') ?></span> <a href="http://www.zenmagick.org">www.zenmagick.org</a></p>
       <p><span class="label"><?php _vzm('Author:') ?></span> Martin Rademacher</p>
   </div>

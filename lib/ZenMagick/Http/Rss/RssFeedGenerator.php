@@ -105,7 +105,7 @@ class RssFeedGenerator extends ZMObject
     {
         $lines = array(
             '<?xml version="1.0" encoding="UTF-8"?>',
-            '<!-- generator="ZenMagick '.Runtime::getSettings()->get('zenmagick.version').'" -->',
+            '<!-- generator="ZenMagick '.\AppKernel::APP_VERSION.'" -->',
             '<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:zm="http://www.zenmagick.org/">',
             ' <channel>',
             '  <title><![CDATA['.$this->encode($channel->getTitle()).']]></title>',

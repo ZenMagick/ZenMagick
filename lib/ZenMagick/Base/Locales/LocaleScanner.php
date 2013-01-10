@@ -20,7 +20,6 @@
 namespace ZenMagick\Base\Locales;
 
 use Symfony\Component\Filesystem\Filesystem;
-use ZenMagick\Base\Runtime;
 use ZenMagick\Base\ZMObject;
 
 /**
@@ -156,7 +155,7 @@ class LocaleScanner extends ZMObject
         if (!$pot) {
             $lines[] = 'msgid ""';
             $lines[] = 'msgstr ""';
-            $lines[] = '"Project-Id-Version: '.Runtime::getSettings()->get('zenmagick.version').'\n"';
+            $lines[] = '"Project-Id-Version: '.\AppKernel::APP_VERSION.'\n"';
             $lines[] = '"POT-Creation-Date: '.date(DATE_RFC822).'\n"';
             $lines[] = '"PO-Revision-Date: \n"';
             $lines[] = '"Last-Translator: \n"';

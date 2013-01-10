@@ -19,7 +19,6 @@
  */
 namespace ZenMagick\AdminBundle\Dashboard\Widgets;
 
-use ZenMagick\Base\Runtime;
 use ZenMagick\AdminBundle\Dashboard\DashboardWidget;
 
 /**
@@ -42,7 +41,7 @@ class UpdateCheckerDashboardWidget extends DashboardWidget
      */
     public function getContents($request)
     {
-        $current = Runtime::getSettings()->get('zenmagick.version');
+        $current = \AppKernel::APP_VERSION;
         $contents = '<p id="update-checker">'._zm('Checking...').'</p>';
         $contents .= <<<EOT
 <script>

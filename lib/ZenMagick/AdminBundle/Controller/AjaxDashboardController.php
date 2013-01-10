@@ -57,7 +57,7 @@ class AjaxDashboardController extends RpcController
         if ($settingsService->exists('apps.store.update.channel')) {
             $versionUrl .= '/'.$settingsService->get('apps.store.update.channel');
         }
-        $versionUrl .= '?current='.$settingsService->get('zenmagick.version');
+        $versionUrl .= '?current='.\AppKernel::APP_VERSION;
         $latest = file_get_contents($versionUrl);
 
         $rpcResponse = $rpcRequest->createResponse();
