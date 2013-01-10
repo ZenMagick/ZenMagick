@@ -21,8 +21,6 @@ namespace ZenMagick\Base;
 
 use Exception;
 use ReflectionClass;
-use ZenMagick\Base\Runtime;
-use Symfony\Component\Filesystem\Filesystem;
 
 /**
  * Exception base class.
@@ -48,10 +46,9 @@ class ZMException extends Exception
      */
     public function __toString()
     {
-        $filesystem = new Filesystem();
         $s =  '['.get_class($this);
         $s .= ' message='.$this->getMessage();
-        $s .= ', file='.$filesystem->makePathRelative($this->getFile(), Runtime::getInstallationPath());
+        $s .= ', file='.$this->getFile();
         $s .= ', line='.$this->getLine();
         $s .= ', previous='.$this->getPrevious();
         $s .= ']';
@@ -97,13 +94,12 @@ class ZMException extends Exception
      */
     public static function formatStackTrace(array $lines)
     {
-        $filesystem = new Filesystem;
         $stack = array();
         $index = 0;
         foreach ($lines as $line) {
             $entry = '#'.$index++.' ';
             if (isset($line['file'])) {
-                $file = $filesystem->makePathRelative($line['file'], Runtime::getInstallationPath());
+                $file = $line['file'];
                 $location = $file.'('.$line['line'].')';
             } else {
                 $location = '[no source]';
@@ -121,7 +117,7 @@ class ZMException extends Exception
                 if (array_key_exists('args', $line)) {
                     $largs = $line['args'];
                     if (in_array($line['function'], array('require', 'require_once', 'include', 'include_once')) && 1 == count($largs)) {
-                        $largs[0] = $filesystem->makePathRelative($largs[0], Runtime::getInstallationPath());
+                        $largs[0] = $largs[0];
                     }
 
                     foreach ($largs as $arg) {
