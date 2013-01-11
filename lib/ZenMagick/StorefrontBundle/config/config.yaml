@@ -21,10 +21,6 @@ zenmagick:
     ## request
     request:
       login: login
-    ## sacs
-    sacs:
-      handler:
-        - ZenMagick\StorefrontBundle\Http\Sacs\StorefrontAccountSacsHandler
 
 apps:
   store:

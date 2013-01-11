@@ -72,10 +72,6 @@ class ZenMagickExtension extends Extension
             $loader->load($file);
         }
 
-        if ('admin' == $context) {
-            $container->setParameter('zenmagick.http.sacs.mappingProviders', array('ZenMagick\AdminBundle\Services\DBSacsPermissionProvider'));
-        }
-
     }
 
     /**

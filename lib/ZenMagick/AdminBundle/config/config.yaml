@@ -14,11 +14,6 @@ zenmagick:
     ## request
     request:
       login: admin_login
-      secure: false
-    ## sacs
-    sacs:
-      handler:
-        - ZenMagick\Http\Sacs\Handler\UserRoleSacsHandler
 
 ## app settings
 apps:

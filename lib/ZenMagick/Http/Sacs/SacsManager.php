@@ -21,6 +21,7 @@ namespace ZenMagick\Http\Sacs;
 
 use ZenMagick\Base\Beans;
 use ZenMagick\Base\Toolbox;
+use ZenMagick\Base\Runtime;
 use ZenMagick\Base\ZMObject;
 
 use Symfony\Component\DependencyInjection\ContainerInterface;
@@ -65,6 +66,15 @@ class SacsManager extends ZMObject
         $this->container = $container;
         parent::__construct();
         $this->reset();
+        $context = Runtime::getContext();
+        $rootDir = $this->container->getParameter('zenmagick.root_dir');
+        $file = sprintf('%s/lib/ZenMagick/%sBundle/config/sacs_mappings.yaml', $rootDir, ucfirst($context));
+        $this->load($file, false);
+        $providers = array();
+        if ('admin' == $context) {
+            $providers = array('ZenMagick\AdminBundle\Services\DBSacsPermissionProvider');
+        }
+        $this->loadProviderMappings($providers);
     }
 
     /**
@@ -75,13 +85,18 @@ class SacsManager extends ZMObject
         $this->mappings_ = array('default' => array(), 'mappings' => array());
         $this->handlers_ = array();
         $this->permissionProviders_ = array();
-        // @todo use tagged services
-        foreach ($this->container->get('settingsService')->get('zenmagick.http.sacs.handler') as $def) {
-            if (!class_exists($def)) continue;
-            if (null != ($handler = new $def)) {
-                $handler->setContainer($this->container);
-                $this->handlers_[$handler->getName()] = $handler;
-            }
+        $context = Runtime::getContext();
+        if ('storefront' == $context) {
+            $def = 'ZenMagick\StorefrontBundle\Http\Sacs\StorefrontAccountSacsHandler';
+        }
+        if ('admin' == $context) {
+            $def = 'ZenMagick\Http\Sacs\Handler\UserRoleSacsHandler';
+        }
+
+        if (empty($def) || !class_exists($def)) return;
+        if (null != ($handler = new $def)) {
+            $handler->setContainer($this->container);
+            $this->handlers_[$handler->getName()] = $handler;
         }
     }
 

@@ -18,7 +18,6 @@
             <parameter>admin_reset_password</parameter>
         </parameter>
         <parameter key="zenmagick.http.virtualPathMap" type="collection"></parameter>
-        <parameter key="zenmagick.http.sacs.mappingProviders" type="collection"></parameter>
 
         <parameter key="pdo.db_options" type="collection">
             <parameter key="db_table">%table_prefix%sessions</parameter>
@@ -34,15 +33,9 @@
             <argument>%pdo.db_options%</argument>
         </service>
 
+        <!-- @todo replace with symfony security -->
         <service id="sacsManager" class="ZenMagick\Http\Sacs\SacsManager">
             <argument type="service" id="service_container" />
-            <call method="load">
-                <argument>%kernel.context_dir%/config/sacs_mappings.yaml</argument>
-                <argument>false</argument>
-            </call>
-            <call method="loadProviderMappings">
-                <argument>%zenmagick.http.sacs.mappingProviders%</argument>
-            </call>
         </service>
 
         <service id="taggedBlocksBlockProvider" class="ZenMagick\Http\Utils\TaggedBlocksBlockProvider">
