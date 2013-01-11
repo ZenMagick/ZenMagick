@@ -6,7 +6,6 @@ framework:
         resource: "%kernel.root_dir%/config/routing_dev.yml"
     profiler:
         only_exceptions: false
-        dsn: "file:/%zenmagick.cache_root_dir%/profiler"
 
 web_profiler:
     toolbar: true
