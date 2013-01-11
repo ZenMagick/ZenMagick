@@ -14,10 +14,10 @@ framework:
         strict_requirements: "%kernel.debug%"
     form:            true
     csrf_protection: true
-    #validation:      { enable_annotations: true }
+    validation:      { enable_annotations: true }
     templating:      { engines: ["twig", "php"] }
     default_locale:  "%locale%"
-    trust_proxy_headers: false # Whether or not the Request object should trust proxy headers (X_FORWARDED_FOR/HTTP_CLIENT_IP)
+    trusted_proxies: ~
     session:
         handler_id: "%session_handler%"
         name: "zm" #rewritten based on request PATH_INFO for admin/storefront
@@ -26,7 +26,8 @@ framework:
         gc_maxlifetime: "%session_timeout%"
         cookie_lifetime: 0
         cookie_httponly: true
-
+    validation:
+        translation_domain: "%locale%"
 
 twig:
     debug:            "%kernel.debug%"
@@ -75,6 +76,11 @@ swiftmailer:
 
 knp_menu:
     templating: true # if true, enables the helper for PHP templates
+
+#fos_user:
+#    db_driver: orm # other valid values are 'mongodb', 'couchdb' and 'propel'
+#    firewall_name: admin
+#    user_class: ZenMagick\AdminBundle\Entity\AdminUser
 
 zenmagick:
     plugins:
