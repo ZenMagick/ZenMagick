@@ -1,5 +1,5 @@
 {
-    "hash": "498da28d9f13d56c35b469cfd2651566",
+    "hash": "ca9490eba296f9ed8c615bf55a8bada2",
     "packages": [
         {
             "name": "doctrine/common",
@@ -1640,57 +1640,6 @@
             ]
         },
         {
-            "name": "rych/phpass",
-            "version": "dev-master",
-            "source": {
-                "type": "git",
-                "url": "git://github.com/rchouinard/phpass.git",
-                "reference": "565df4bb93fe8926ae976ce975bfc89d782d0bf7"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://github.com/rchouinard/phpass/zipball/565df4bb93fe8926ae976ce975bfc89d782d0bf7",
-                "reference": "565df4bb93fe8926ae976ce975bfc89d782d0bf7",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=5.3.7"
-            },
-            "suggest": {
-                "ext-hash": "Some modules and features may require the HASH Message Digest Framework extension in order to work.",
-                "ext-openssl": "The OpenSSL extension is used as a secure source of random data."
-            },
-            "time": "2012-10-12 01:17:51",
-            "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "2.1-dev"
-                }
-            },
-            "installation-source": "source",
-            "autoload": {
-                "psr-0": {
-                    "Phpass": "src/"
-                }
-            },
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Ryan Chouinard",
-                    "email": "rchouinard@gmail.com",
-                    "homepage": "http://ryanchouinard.com"
-                }
-            ],
-            "description": "PHP Password Library: Easy, secure password management for PHP",
-            "homepage": "https://github.com/rchouinard/phpass",
-            "keywords": [
-                "cryptography",
-                "password"
-            ]
-        },
-        {
             "name": "sensio/distribution-bundle",
             "version": "dev-master",
             "target-dir": "Sensio/Bundle/DistributionBundle",
@@ -2335,15 +2284,15 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/ZenMagick/ZenCart",
-                "reference": "b0e8ab9615bdf3578b7a4310b80a1701eb6a50b4"
+                "reference": "234b3bf0fa7d2f25ea1c7352d7fcbf51f4b6f582"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://github.com/ZenMagick/ZenCart/archive/b0e8ab9615bdf3578b7a4310b80a1701eb6a50b4.zip",
-                "reference": "b0e8ab9615bdf3578b7a4310b80a1701eb6a50b4",
+                "url": "https://github.com/ZenMagick/ZenCart/archive/234b3bf0fa7d2f25ea1c7352d7fcbf51f4b6f582.zip",
+                "reference": "234b3bf0fa7d2f25ea1c7352d7fcbf51f4b6f582",
                 "shasum": ""
             },
-            "time": "2013-01-10 06:36:54",
+            "time": "2013-01-11 19:12:14",
             "type": "library",
             "installation-source": "source",
             "notification-url": "https://packagist.org/downloads/",
@@ -2363,7 +2312,6 @@
         "nelmio/alice": 20,
         "jms/serializer-bundle": 20,
         "doctrine/doctrine-migrations-bundle": 20,
-        "rych/phpass": 20,
         "stof/doctrine-extensions-bundle": 20,
         "knplabs/knp-menu-bundle": 20,
         "zenmagick/zencart": 20
