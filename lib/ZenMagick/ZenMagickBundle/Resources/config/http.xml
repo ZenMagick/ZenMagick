@@ -150,10 +150,6 @@
 
         <service id="fileExtensionTemplateNameParser" class="Symfony\Component\Templating\TemplateNameParser" scope="prototype" />
 
-        <service id="resourceResolverFileLocator" class="ZenMagick\Http\Templating\ResourceResolverFileLocator" scope="prototype">
-            <argument type="service" id="resourceResolver" />
-        </service>
-
         <service id="defaultController" class="ZenMagick\ZenMagickBundle\Controller\DefaultController" scope="prototype">
             <call method="setContainer">
                 <argument type="service" id="service_container" />
