@@ -129,18 +129,6 @@ class AppKernel extends Kernel
     }
 
     /**
-     * Get the application path.
-     *
-     * @return string The application path or <code>null</code>.
-     */
-    public function getApplicationPath()
-    {
-        if ($context = $this->getContext()) {
-            return sprintf('%s/lib/ZenMagick/%sBundle', dirname($this->getRootDir()), ucfirst($context));
-        }
-    }
-
-    /**
      * {@inheritDoc}
      */
     public function getCacheDir()
@@ -169,7 +157,6 @@ class AppKernel extends Kernel
         $parameters['zenmagick.root_dir'] = dirname($this->getRootDir()); // @todo remove this
         // @todo temporary helper parameter until context is gone.
         $parameters['zenmagick.cache_root_dir'] = str_replace((string)$this->getContext().'/', '', $this->getCacheDir());
-        $parameters['kernel.context_dir'] = $this->getApplicationPath();
 
         return $parameters;
     }

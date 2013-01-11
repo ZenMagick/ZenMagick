@@ -50,15 +50,17 @@ class ZenMagickBundle extends Bundle
         $settingsService = $this->container->get('settingsService');
 
         $rootDir = $parameterBag->get('zenmagick.root_dir');
+        $context = \ZenMagick\Base\Runtime::getContext();
         $settingsFiles = array();
         $settingsFiles[] = $rootDir.'/lib/ZenMagick/StoreBundle/config/config.yaml';
-        $settingsFiles[] = $parameterBag->get('kernel.context_dir').'/config/config.yaml';
+
+        $settingsFiles[] = sprintf('%s/lib/ZenMagick/%sBundle/config/config.yaml', $rootDir, ucfirst($context));
+
         foreach ($settingsFiles as $config) {
             if (file_exists($config)) {
                 $settingsService->load($config);
             }
         }
-
         // @todo never do this
         \Zenmagick\Base\Runtime::setContainer($this->container);
 
