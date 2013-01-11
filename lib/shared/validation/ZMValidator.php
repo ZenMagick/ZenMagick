@@ -33,6 +33,7 @@ use Symfony\Component\Yaml\Yaml;
  *
  * @author DerManoMann <mano@zenmagick.org>
  * @package org.zenmagick.mvc.validation
+ * @todo replace with symfony validator component
  */
 class ZMValidator extends ZMObject
 {
@@ -50,7 +51,11 @@ class ZMValidator extends ZMObject
         $this->sets_ = array();
         $this->alias_ = array();
         $this->messages_ = array();
-        $this->load(Runtime::getApplicationPath().'/config/validation.php');
+
+        if (Runtime::isContextMatch('storefront')) { // yucky, but easier now than later
+            $rootDir = $container->getParameter('zenmagick.root_dir');
+            $this->load($rootDir.'/lib/ZenMagick/StorefrontBundle/config/validation.php');
+        }
     }
 
     /**
