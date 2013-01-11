@@ -10,11 +10,6 @@ zenmagick:
       index: index.html.php
       missingPage: error.html.php
 
-  http:
-    ## request
-    request:
-      login: admin_login
-
 ## app settings
 apps:
   store:

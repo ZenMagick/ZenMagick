@@ -18,10 +18,6 @@ zenmagick:
     #html
     html:
       xhtml: true
-    ## request
-    request:
-      login: login
-
 apps:
   store:
     #default access level; same as anonymous

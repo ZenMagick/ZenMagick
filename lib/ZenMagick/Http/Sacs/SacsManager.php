@@ -217,7 +217,11 @@ class SacsManager extends ZMObject
             if (!$request->isXmlHttpRequest()) {
                 $request->saveFollowUpUrl();
             }
-            $request->redirect($this->container->get('netTool')->url($this->container->get('settingsService')->get('zenmagick.http.request.login', 'login'), '', true));
+            $loginRoute = 'login';
+            if (Runtime::isContextMatch('admin')) {
+                $loginRoute = 'admin_login';
+            }
+            $request->redirect($this->container->get('netTool')->url($loginRoute, '', true));
             exit;
         }
 
