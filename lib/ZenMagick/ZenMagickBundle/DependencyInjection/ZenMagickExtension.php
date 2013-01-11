@@ -51,7 +51,6 @@ class ZenMagickExtension extends Extension
      */
     public function load(array $configs, ContainerBuilder $container)
     {
-        $context = $container->getParameter('kernel.context');
         // @todo use bundle Resources for all all these files.
         $rootDir = dirname($container->getParameter('kernel.root_dir'));
 

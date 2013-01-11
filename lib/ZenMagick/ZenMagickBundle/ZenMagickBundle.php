@@ -80,7 +80,6 @@ class ZenMagickBundle extends Bundle
             }
         }
 
-        $context = $parameterBag->get('kernel.context');
         // @todo switch to using tagged services for events.
         $settingsService = $this->container->get('settingsService');
 
