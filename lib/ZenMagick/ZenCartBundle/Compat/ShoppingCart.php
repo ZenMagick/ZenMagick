@@ -1897,7 +1897,7 @@ class ShoppingCart extends Base
             } elseif (isset($_POST['notify'])) {
                 $notify = $_POST['notify'];
             } else {
-                zen_redirect(zen_href_link($this->getMainPage(), zen_get_all_get_params(array('action', 'notify', 'main_page'))));
+                zen_redirect(zen_href_link($this->getMainPage(), zen_get_all_get_params(array('action', 'notify'))));
             }
             if (!is_array($notify)) $notify = array($notify);
             for ($i=0, $n=sizeof($notify); $i<$n; $i++) {
@@ -1913,7 +1913,7 @@ class ShoppingCart extends Base
                     $this->getDb()->Execute($sql);
                 }
             }
-            zen_redirect(zen_href_link($this->getMainPage(), zen_get_all_get_params(array('action', 'main_page'))));
+            zen_redirect(zen_href_link($this->getMainPage(), zen_get_all_get_params(array('action'))));
 
         } else {
             $this->getSessionVar('navigation')->set_snapshot();
@@ -1941,7 +1941,7 @@ class ShoppingCart extends Base
                     and customers_id = '" . $this->getSessionVar('customer_id') . "'";
                 $this->getDb()->Execute($sql);
             }
-            zen_redirect(zen_href_link($this->getMainPage(), zen_get_all_get_params(array('action', 'main_page'))));
+            zen_redirect(zen_href_link($this->getMainPage(), zen_get_all_get_params(array('action'))));
         } else {
             $this->getSessionVar('navigation')->set_snapshot();
             zen_redirect(zen_href_link('login', '', 'SSL'));
