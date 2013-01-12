@@ -1327,12 +1327,12 @@
             "source": {
                 "type": "git",
                 "url": "http://github.com/kriswallsmith/assetic.git",
-                "reference": "a7da508a483b2d4a8d174f16580a4db2f4f3fb0b"
+                "reference": "5591252faa1c7f3299660daebffd63dee2746b7e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://github.com/kriswallsmith/assetic/archive/a7da508a483b2d4a8d174f16580a4db2f4f3fb0b.zip",
-                "reference": "a7da508a483b2d4a8d174f16580a4db2f4f3fb0b",
+                "url": "https://github.com/kriswallsmith/assetic/archive/5591252faa1c7f3299660daebffd63dee2746b7e.zip",
+                "reference": "5591252faa1c7f3299660daebffd63dee2746b7e",
                 "shasum": ""
             },
             "require": {
@@ -1357,7 +1357,7 @@
                 "ptachoire/cssembed": "Assetic provides the integration with phpcssembed to embed data uris",
                 "leafo/scssphp-compass": "Assetic provides the integration with the SCSS compass plugin"
             },
-            "time": "2013-01-12 16:29:26",
+            "time": "2013-01-12 22:20:24",
             "type": "library",
             "extra": {
                 "branch-alias": {
@@ -2095,12 +2095,12 @@
             "source": {
                 "type": "git",
                 "url": "git://github.com/symfony/symfony.git",
-                "reference": "43a9e6caee506c2f1255e4d342738f339ef1f5eb"
+                "reference": "d506106b77b2c625eb098a9a5078cd257692d47c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://github.com/symfony/symfony/archive/43a9e6caee506c2f1255e4d342738f339ef1f5eb.zip",
-                "reference": "43a9e6caee506c2f1255e4d342738f339ef1f5eb",
+                "url": "https://github.com/symfony/symfony/archive/d506106b77b2c625eb098a9a5078cd257692d47c.zip",
+                "reference": "d506106b77b2c625eb098a9a5078cd257692d47c",
                 "shasum": ""
             },
             "require": {
@@ -2154,7 +2154,7 @@
             "suggest": {
                 "doctrine/data-fixtures": "1.0.*"
             },
-            "time": "2013-01-12 07:14:18",
+            "time": "2013-01-12 22:04:55",
             "type": "library",
             "extra": {
                 "branch-alias": {
