@@ -1,5 +1,5 @@
 {
-    "hash": "1ddef2cabf35317ef63f31508e00d3c1",
+    "hash": "a6c2b572b27e189db6a04dd2fe0175cc",
     "packages": [
         {
             "name": "doctrine/common",
@@ -263,26 +263,26 @@
         },
         {
             "name": "doctrine/doctrine-fixtures-bundle",
-            "version": "dev-doctrine-bundle-1.x",
+            "version": "dev-master",
             "target-dir": "Doctrine/Bundle/FixturesBundle",
             "source": {
                 "type": "git",
-                "url": "https://github.com/jrobeson/DoctrineFixturesBundle",
-                "reference": "cfd92c825c45050c6f7658f614dbc6cd699569c6"
+                "url": "https://github.com/doctrine/DoctrineFixturesBundle.git",
+                "reference": "5ce0be0f976a33cbe152a90f9d3d5d4fcf33c00b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/jrobeson/DoctrineFixturesBundle/zipball/cfd92c825c45050c6f7658f614dbc6cd699569c6",
-                "reference": "cfd92c825c45050c6f7658f614dbc6cd699569c6",
+                "url": "https://github.com/doctrine/DoctrineFixturesBundle/archive/5ce0be0f976a33cbe152a90f9d3d5d4fcf33c00b.zip",
+                "reference": "5ce0be0f976a33cbe152a90f9d3d5d4fcf33c00b",
                 "shasum": ""
             },
             "require": {
                 "php": ">=5.3.2",
+                "doctrine/data-fixtures": "*",
                 "symfony/doctrine-bridge": ">=2.1.0,<2.3-dev",
-                "doctrine/doctrine-bundle": "1.2.*",
-                "doctrine/data-fixtures": "*"
+                "doctrine/doctrine-bundle": ">=1.0,<2.0"
             },
-            "time": "2013-01-12 19:03:06",
+            "time": "2013-01-12 20:05:25",
             "type": "symfony-bundle",
             "installation-source": "source",
             "autoload": {
@@ -290,6 +290,7 @@
                     "Doctrine\\Bundle\\FixturesBundle": ""
                 }
             },
+            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "MIT"
             ],
@@ -299,46 +300,43 @@
                     "email": "fabien@symfony.com"
                 },
                 {
-                    "name": "Doctrine Project",
-                    "homepage": "http://www.doctrine-project.org"
-                },
-                {
                     "name": "Symfony Community",
                     "homepage": "http://symfony.com/contributors"
+                },
+                {
+                    "name": "Doctrine Project",
+                    "homepage": "http://www.doctrine-project.org"
                 }
             ],
             "description": "Symfony DoctrineFixturesBundle",
             "homepage": "http://www.doctrine-project.org",
             "keywords": [
-                "Persistence",
+                "persistence",
                 "Fixture"
-            ],
-            "support": {
-                "source": "https://github.com/jrobeson/DoctrineFixturesBundle/tree/doctrine-bundle-1.x"
-            }
+            ]
         },
         {
             "name": "doctrine/doctrine-migrations-bundle",
-            "version": "dev-doctrine-bundle-1.x",
+            "version": "dev-master",
             "target-dir": "Doctrine/Bundle/MigrationsBundle",
             "source": {
                 "type": "git",
-                "url": "https://github.com/jrobeson/DoctrineMigrationsBundle",
-                "reference": "6c717e72d2cc540aacb335888de82310b1d6258d"
+                "url": "https://github.com/doctrine/DoctrineMigrationsBundle.git",
+                "reference": "99c0192804134a8c1d0588777bd98bdbc2dbb554"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/jrobeson/DoctrineMigrationsBundle/zipball/6c717e72d2cc540aacb335888de82310b1d6258d",
-                "reference": "6c717e72d2cc540aacb335888de82310b1d6258d",
+                "url": "https://github.com/doctrine/DoctrineMigrationsBundle/archive/99c0192804134a8c1d0588777bd98bdbc2dbb554.zip",
+                "reference": "99c0192804134a8c1d0588777bd98bdbc2dbb554",
                 "shasum": ""
             },
             "require": {
                 "php": ">=5.3.2",
+                "doctrine/migrations": "*",
                 "symfony/framework-bundle": ">=2.1.0,<2.3-dev",
-                "doctrine/doctrine-bundle": "1.*",
-                "doctrine/migrations": "*"
+                "doctrine/doctrine-bundle": ">=1.0,<2.0"
             },
-            "time": "2013-01-12 18:22:06",
+            "time": "2013-01-12 20:06:22",
             "type": "symfony-bundle",
             "installation-source": "source",
             "autoload": {
@@ -346,6 +344,7 @@
                     "Doctrine\\Bundle\\MigrationsBundle": ""
                 }
             },
+            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "MIT"
             ],
@@ -355,24 +354,21 @@
                     "email": "fabien@symfony.com"
                 },
                 {
-                    "name": "Doctrine Project",
-                    "homepage": "http://www.doctrine-project.org"
-                },
-                {
                     "name": "Symfony Community",
                     "homepage": "http://symfony.com/contributors"
+                },
+                {
+                    "name": "Doctrine Project",
+                    "homepage": "http://www.doctrine-project.org"
                 }
             ],
             "description": "Symfony DoctrineMigrationsBundle",
             "homepage": "http://www.doctrine-project.org",
             "keywords": [
-                "DBAL",
-                "Migrations",
-                "Schema"
-            ],
-            "support": {
-                "source": "https://github.com/jrobeson/DoctrineMigrationsBundle/tree/doctrine-bundle-1.x"
-            }
+                "dbal",
+                "migrations",
+                "schema"
+            ]
         },
         {
             "name": "doctrine/migrations",
