@@ -145,7 +145,7 @@ class Banner extends ZMObject
         $this->isShowOnSsl = false;
         $this->url = null;
         $this->active = true;
-        $this->setDateAdded('0001-01-01 00:00:00');
+        $this->setDateAdded(new \DateTime('0001-01-01 00:00:00'));
         $this->setLastModified(null);
         $this->sortOrder = 0;
     }
@@ -416,7 +416,7 @@ class Banner extends ZMObject
      *
      * @param datetime $dateAdded
      */
-    public function setDateAdded($dateAdded)
+    public function setDateAdded(\DateTime $dateAdded)
     {
         $this->dateAdded = $dateAdded;
     }
