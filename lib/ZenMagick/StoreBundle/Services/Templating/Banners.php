@@ -175,7 +175,7 @@ class Banners extends ZMObject
      */
     public function scheduleBanners()
     {
-        $sql = "SELECT banners_id, date_scheduled, expires_date
+        $sql = "SELECT *
                 FROM %table.banners%";
         foreach (ZMRuntime::getDatabase()->fetchAll($sql, array(), 'banners', 'ZenMagick\StoreBundle\Entity\Banner') as $banner) {
             $dateScheduled = $banner->getDateScheduled();
