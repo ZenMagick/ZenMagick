@@ -416,7 +416,7 @@ class Banner extends ZMObject
      *
      * @param datetime $dateAdded
      */
-    public function setDateAdded(\DateTime $dateAdded)
+    public function setDateAdded(\DateTime $dateAdded = null)
     {
         $this->dateAdded = $dateAdded;
     }
