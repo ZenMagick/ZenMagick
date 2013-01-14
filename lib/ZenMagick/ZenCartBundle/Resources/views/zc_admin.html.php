@@ -31,6 +31,9 @@ chdir($adminDir);
 // needed in a local context
 define('TEXT_EDITOR_INFO', ''); // hide text editor box
 global $currencies, $products_options_types_list, $current_category_id;
+// needed for developers_tool_kit page
+global $check_directory, $configuration_key_lookup, $directory_array, $found, $sub_dir_files;
+
 // Might want to actually load it completely local instead.
 $autoLoader->setErrorLevel();
 $autoLoader->includeFiles('includes/languages/%language%.php');
