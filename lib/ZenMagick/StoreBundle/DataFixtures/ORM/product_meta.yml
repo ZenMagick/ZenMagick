@@ -33,14 +33,6 @@ ZenMagick\StoreBundle\Entity\Catalog\ProductType:
         masterType: 1
         addToCart: "Y"
         defaultImage: ""
-# TODO figure out how to make doctrine skip directly to 3 so we can use this from the plugin
-    -
-        id: 2
-        name: "Product - Music"
-        handler: "product_music"
-        masterType: 1
-        addToCart: "Y"
-        defaultImage: ""
     -
         id: 3
         name: "Document - General"
