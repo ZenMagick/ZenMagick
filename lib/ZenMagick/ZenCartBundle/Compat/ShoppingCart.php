@@ -89,6 +89,48 @@ class ShoppingCart extends Base
         return $this->getContainer()->get('zencart.storefront.message_stack');
     }
 
+    protected function getConn()
+    {
+        return $this->getContainer()->get('database_connection');
+    }
+
+    /**
+     * Get the actual product id without attribute hash
+     *
+     * @param int|string $fullProductId product id with optional attribute hash
+     *
+     * @return int actual product id
+     */
+    private function getActualProductId($fullProductId)
+    {
+        $pieces = explode(':', $fullProductId);
+        return $pieces[0];
+    }
+
+    /**
+     * Get attributes options sort order
+     *
+     * Needed so restore_contents works without functions_lookups
+     * @todo move this elsewhere later
+     */
+    private function getAttributesOptionsSortOrder($products_id, $options_id, $options_values_id)
+    {
+        $db = $this->getDb();
+        $check = $db->Execute("select products_options_sort_order from %table.products_options%
+                              where products_options_id = '" . (int)$options_id . "'
+                              and language_id = '" . (int)$this->getSessionVar('languages_id') . "' limit 1");
+
+         $check_options_id = $db->Execute("select products_id, options_id, options_values_id, products_options_sort_order
+                             from %table.products_attributes%
+                             where products_id='" . (int)$products_id . "'
+                             and options_id='" . (int)$options_id . "'
+                             and options_values_id = '" . (int)$options_values_id . "' limit 1");
+
+
+        return $check->fields['products_options_sort_order'].'.'.
+            str_pad($check_options_id->fields['products_options_sort_order'],5,'0',STR_PAD_LEFT);
+    }
+
     /**
      * Method to restore cart contents
      *
@@ -108,54 +150,48 @@ class ShoppingCart extends Base
 
         $this->notify('NOTIFIER_CART_RESTORE_CONTENTS_START');
         // insert current cart contents in database
-        if (is_array($this->contents)) {
-            reset($this->contents);
-            while (list($products_id, ) = each($this->contents)) {
-                $qty = $this->contents[$products_id]['qty'];
-                $product_query = "select products_id
-                    from %table.customers_basket%
-                    where customers_id = '" . (int) $this->getSessionVar('customer_id') . "'
-                    and products_id = '" . addslashes($products_id) . "'";
+        foreach ((array)$this->contents as $products_id => $product_details) {
+            $qty = $product_details['qty'];
+            $product_query = "select products_id from %table.customers_basket%
+                where customers_id = '" . (int) $this->getSessionVar('customer_id') . "'
+                and products_id = '" . addslashes($products_id) . "'";
 
-                $product = $this->getDb()->Execute($product_query);
+            $product = $this->getDb()->Execute($product_query);
+            if ($product->RecordCount() <= 0) {
+                $this->getConn()->insert('customers_basket', array(
+                    'customers_id' => (int) $this->getSessionVar('customer_id'),
+                    'products_id' => addslashes($products_id),
+                    'customers_basket_quantity' => (float)$qty,
+                    'customers_basket_date_added' => date('Ymd')
+                ));
 
-                if ($product->RecordCount()<=0) {
-                    $sql = "insert into %table.customers_basket%
-                        (customers_id, products_id, customers_basket_quantity,
-                        customers_basket_date_added)
-                        values ('" . (int) $this->getSessionVar('customer_id') . "', '" . addslashes($products_id) . "', '" .
-                        $qty . "', '" . date('Ymd') . "')";
-
-                    $this->getDb()->Execute($sql);
-
-                    if (isset($this->contents[$products_id]['attributes'])) {
-                        reset($this->contents[$products_id]['attributes']);
-                        while (list($option, $value) = each($this->contents[$products_id]['attributes'])) {
-
-                            //clr 031714 udate query to include attribute value. This is needed for text attributes.
-                            $attr_value = $this->contents[$products_id]['attributes_values'][$option];
-                            $products_options_sort_order= zen_get_attributes_options_sort_order(zen_get_prid($products_id), $option, $value);
-                            if ($attr_value) {
-                                $attr_value = addslashes($attr_value);
-                            }
-                            $sql = "insert into %table.customers_basket_attributes%
-                                (customers_id, products_id, products_options_id,
-                                products_options_value_id, products_options_value_text, products_options_sort_order)
-                                values ('" . (int) $this->getSessionVar('customer_id') . "', '" . addslashes($products_id) . "', '" .
-                                $option . "', '" . $value . "', '" . $attr_value . "', '" . $products_options_sort_order . "')";
-
-                            $this->getDb()->Execute($sql);
+                if (isset($product_details['attributes'])) {
+                    foreach ($product_details['attributes'] as $option => $value) {
+                        //clr 031714 udate query to include attribute value. This is needed for text attributes.
+                        $attr_value = '';
+                        if (isset($product_details['attributes_values'])) {
+                            $attr_value = $product_details['attributes_values'][$option];
                         }
+                        $actualProductId = $this->getActualProductId($products_id);
+                        $products_options_sort_order = $this->getAttributesOptionsSortOrder($actualProductId, $option, $value);
+                        $this->getConn()->insert('customers_basket_attributes', array(
+                            'customers_id' => $this->getSessionVar('customer_id'),
+                            'products_id' => addslashes($products_id),
+                            'products_options_id' => (int) $option,
+                            'products_options_value_id' => (int) $value,
+                            'products_options_value_text' => addslashes($attr_value),
+                            'products_options_sort_order' => addslashes($products_options_sort_order)
+                        ));
                     }
-                } else {
-                    $sql = "update %table.customers_basket%
-                        set customers_basket_quantity = '" . $qty . "'
-                        where customers_id = '" . (int) $this->getSessionVar('customer_id') . "'
-                        and products_id = '" . addslashes($products_id) . "'";
-
-                    $this->getDb()->Execute($sql);
-
                 }
+            } else {
+                $this->getConn()->update('customers_basket',
+                    array('customers_basket_quantity' => (float) $qty),
+                    array(
+                        'customers_id' => (int) $this->getSessionVar('customer_id'),
+                        'products_id' => addslashes($products_id)
+                    )
+                );
             }
         }
 
@@ -204,7 +240,6 @@ class ShoppingCart extends Base
      * if the customer is logged in)
      *
      * @param boolean whether to reset customers db basket
-     * @return void
      */
     public function reset($reset_database = false)
     {
@@ -219,22 +254,20 @@ class ShoppingCart extends Base
         $this->free_shipping_price = 0;
         $this->free_shipping_weight = 0;
 
-        if ($this->getSessionVar('customer_id') && ($reset_database == true)) {
-            $sql = "delete from %table.customers_basket%
-                where customers_id = '" . (int) $this->getSessionVar('customer_id') . "'";
-
-            $this->getDb()->Execute($sql);
-
-            $sql = "delete from %table.customers_basket_attributes%
-                where customers_id = '" . (int) $this->getSessionVar('customer_id') . "'";
-
-            $this->getDb()->Execute($sql);
+        if ($this->getSessionVar('customer_id') && $reset_database) {
+            $this->getConn()->delete('customers_basket', array(
+                'customers_id' => (int) $this->getSessionVar('customer_id')
+            ));
+            $this->getConn()->delete('customers_basket_attributes', array(
+                'customers_id' => (int) $this->getSessionVar('customer_id')
+            ));
         }
 
         unset($this->cartID);
         $this->setSessionVar('cartID', '');
         $this->notify('NOTIFIER_CART_RESET_END');
     }
+
     /**
      * Method to add an item to the cart
      *
