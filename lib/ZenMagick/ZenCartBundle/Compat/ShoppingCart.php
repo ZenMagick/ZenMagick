@@ -633,10 +633,10 @@ class ShoppingCart extends Base
      */
     public function calculate()
     {
-        global $currencies;
+        $currencies = $this->getContainer()->get('zencart.currencies');
+        $decimalPlaces = $currencies->get_decimal_places($this->getSessionVar('currency'));
         $this->total = 0;
         $this->weight = 0;
-        $decimalPlaces = $currencies->get_decimal_places($this->getSessionVar('currency'));
         // shipping adjustment
         $this->free_shipping_item = 0;
         $this->free_shipping_price = 0;
