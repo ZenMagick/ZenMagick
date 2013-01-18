@@ -1,4 +1,0 @@
-<?php
-
-class ClassF extends ClassA implements InterfaceC {
-}

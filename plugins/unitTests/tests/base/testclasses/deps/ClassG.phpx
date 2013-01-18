@@ -1,7 +1,0 @@
-<?php
-
-class ClassG extends ClassA implements InterfaceD {
-}
-
-class ClassH extends ClassG {
-}
