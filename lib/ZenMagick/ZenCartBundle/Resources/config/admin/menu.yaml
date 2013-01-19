@@ -137,15 +137,12 @@ children:
                     modules-set=payment:
                         route: zc_admin_modules
                         label: Payment
-                        routeParameters: { set: payment }
                     modules-set=shipping:
                         route: zc_admin_modules
                         label: Shipping
-                        routeParameters: { set: shipping }
                     modules-set=order-total:
                         route: zc_admin_modules
                         label: 'Order Total'
-                        routeParameters: { set: order_total }
     fulfilment:
         children:
             fulfilment-accounts:
