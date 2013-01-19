@@ -65,6 +65,8 @@ define('DIR_FS_UPLOADS', DIR_FS_CATALOG.DIR_WS_UPLOADS);
 
 define('SQL_CACHE_METHOD', 'none'); // none,database,file
 
+define('DIR_FS_LOGS', $parameterBag->get('kernel.logs_dir'));
+
 // @todo we do really want these here (or in db) but it's too early
 //define('DIR_WS_TEMPLATE', DIR_WS_TEMPLATES.Runtime::getContainer()->get('themeService')->getActiveThemeId().'/');
 //define('DIR_WS_TEMPLATE_IMAGES', DIR_WS_TEMPLATE.'images/');
