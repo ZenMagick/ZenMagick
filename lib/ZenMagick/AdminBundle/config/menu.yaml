@@ -42,6 +42,7 @@ children:
                     ezpages:
                         route: ezpages
                         label: EZPages
+                        extras: { routes: [ezpage] }
                     static-page-editor:
                         route: static_page_editor
                         label: 'Static Pages (deprecated)'
