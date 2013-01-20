@@ -124,10 +124,6 @@
         <default key="_controller">AdminBundle:EmailPreview:process</default>
     </route>
 
-    <route id="cache_admin" pattern="/cache-admin">
-        <default key="_controller">AdminBundle:CacheAdmin:process</default>
-    </route>
-
     <route id="admin_users" pattern="/admin-users">
         <default key="_controller">AdminBundle:AdminUsers:process</default>
     </route>

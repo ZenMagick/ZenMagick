@@ -63,9 +63,6 @@ children:
                     manage-roles:
                         route: manage_roles
                         label: 'Manage Roles'
-                    cache-admin:
-                        route: cache_admin
-                        label: 'Manage Caches'
             tools-misc:
                 label: Misc
                 children:
