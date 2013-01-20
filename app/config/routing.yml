@@ -7,7 +7,12 @@ zenmagick_storefront:
 zencart_admin:
     resource: "@ZenCartBundle/Resources/config/routing/admin.xml"
     prefix: /admin/zencart
+# this route is after all normal routes since plugins should be able to override them.
 zenmagick_plugins:
-# this route is last since plugins should be able to override all routes.
     resource: .
     type: context
+# Uncomment to handle HTTP content rederering strategies like ESI
+#_proxy:
+#    resource: "@FrameworkBundle/Resources/config/routing/proxy.xml"
+#    prefix:   /proxy
+
