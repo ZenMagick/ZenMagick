@@ -11,7 +11,13 @@
         <option key="view:login-demo">redirect://admin_login</option>
         <option key="view:success-demo">redirect://admin_index</option>
     </route>
-
+    <!--
+<import resource="@FOSUserBundle/Resources/config/routing/security.xml"/>
+<import resource="@FOSUserBundle/Resources/config/routing/profile.xml" prefix="/profile" />
+<import resource="@FOSUserBundle/Resources/config/routing/registration.xml" prefix="/register" />
+<import resource="@FOSUserBundle/Resources/config/routing/resetting.xml" prefix="/resetting" />
+<import resource="@FOSUserBundle/Resources/config/routing/change_password.xml" prefix="/profile" />
+-->
     <route id="about" pattern="/about">
         <default key="_controller">ZenMagickBundle:Default:process</default>
     </route>
@@ -59,26 +65,28 @@
         <option key="view:success">redirect://admin_index</option>
         <option key="form">ZenMagick\AdminBundle\Forms\AdminUserForm#formId=updateUser</option>
     </route>
-    <route id="ezpages" pattern="/ezpages/{languageId}">
+
+    <route id="ezpages" pattern="/ezpages">
         <default key="_controller">AdminBundle:Ezpages:process</default>
-        <default key="languageId">1</default>
+        <requirement key="_method">GET</requirement>
         <option key="view">ezpages-overview.html.php</option>
     </route>
-    <route id="ezpage" pattern="/ezpage">
+    <route id="ezpages_new" pattern="/ezpages/new">
         <default key="_controller">AdminBundle:Ezpages:process</default>
         <option key="view">ezpages-details.html.php</option>
+    </route>
+    <route id="ezpages_edit" pattern="/ezpages/{id}/edit">
+        <default key="_controller">AdminBundle:Ezpages:process</default>
+        <option key="view">ezpages-details.html.php</option>
+    </route>
+    <route id="ezpages_process" pattern="/ezpages">
+        <default key="_controller">AdminBundle:Ezpages:process</default>
+        <requirement key="_method">POST</requirement>
         <option key="view:success">redirect://ezpages</option>
     </route>
-    <route id="content_edit" pattern="/content">
-        <default key="_controller">AdminBundle:ContentEditor:process</default>
-        <default key="slug"></default>
+    <route id="ezpage" pattern="/ezpages/{id}">
+        <default key="_controller">AdminBundle:Ezpages:process</default>
         <option key="view">ezpages-details.html.php</option>
-        <option key="view:success">redirect://content_editor</option>
-    </route>
-    <route id="content_editor" pattern="/content/{languageId}">
-        <default key="_controller">AdminBundle:ContentEditor:process</default>
-        <default key="languageId">1</default>
-        <option key="view">content_overview.html.php</option>
     </route>
 
     <route id="legacy_config" pattern="/legacy-config/{groupId}">

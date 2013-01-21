@@ -23,9 +23,9 @@ use ZenMagick\Base\Beans;
 <?php $selectedLanguageId = $currentLanguage->getId(); ?>
 
 <?php $admin->title(_zm('Edit Content')) ?>
-<form action="<?php echo $net->url() ?>" method="POST">
+<form action="<?php echo $net->url('ezpages_process') ?>" method="POST">
   <input type="hidden" name="languageId" value="<?php echo $selectedLanguageId ?>">
-  <input type="hidden" name="updateId" value="<?php echo $ezPage->getId() ?>">
+  <input type="hidden" name="id" value="<?php echo $ezPage->getId() ?>">
 
   <fieldset>
   <legend><?php _vzm('Page') ?></legend>

@@ -42,7 +42,7 @@
 </script>
 
 <?php $admin->title() ?>
-<form action="<?php echo $net->url() ?>" method="POST">
+<form action="<?php echo $net->url() ?>" method="GET">
   <h2><?php _vzm('EZPage Manager') ?> (
           <select id="languageId" name="languageId" onchange="this.form.submit();">
             <?php foreach ($this->container->get('languageService')->getLanguages() as $lang) { ?>
@@ -51,7 +51,7 @@
             <?php } ?>
           </select>
         )
-      <a href="<?php echo $net->url('ezpage', 'editId=0&languageId='.$selectedLanguageId) ?>">Create new</a>
+      <a href="<?php echo $net->url('ezpages_new') ?>">Create new</a>
   </h2>
 </form>
 
@@ -71,7 +71,7 @@
   <?php foreach ($resultList->getResults() as $ezPage) { ?>
     <tr>
       <td><?php echo $ezPage->getId() ?></td>
-      <td><a href="<?php echo $net->url('ezpage', 'editId='.$ezPage->getId().'&languageId='.$selectedLanguageId) ?>"><?php echo $html->encode($ezPage->getTitle()) ?></a><td>
+      <td><a href="<?php echo $net->url('ezpages_edit', 'id='.$ezPage->getId().'&languageId='.$selectedLanguageId) ?>"><?php echo $html->encode($ezPage->getTitle()) ?></a><td>
           <a href="#<?php echo $ezPage->getId().'-NewWin' ?>" onclick="toggle_status(this); return false;" id="<?php echo $ezPage->getId() ?>-NewWin" class="ezpage-status-<?php echo ($ezPage->isNewWin() ? 'on' : 'off') ?>"><span class="ui-icon <?php echo ($ezPage->isNewWin() ? 'ui-icon-circle-check' : 'ui-icon-circle-close') ?>"></a>
       </td>
       <td>
@@ -95,11 +95,11 @@
           <?php echo $ezPage->getTocSort() ?>
       </td>
       <td>
-        <form action="<?php echo $net->url('ezpage') ?>" method="POST" onsubmit="return ZenMagick.confirm('<?php _vzm('Delete page id:#%s?', $ezPage->getId()) ?>', this);">
+        <form action="<?php echo $net->url('ezpages_process') ?>" method="POST" onsubmit="return ZenMagick.confirm('<?php _vzm('Delete page id:#%s?', $ezPage->getId()) ?>', this);">
           <input type="hidden" name="languageId" value="<?php echo $selectedLanguageId ?>">
           <input type="hidden" name="deleteId" value="<?php echo $ezPage->getId() ?>">
           <input class="<?php echo $buttonClasses ?>" type="submit" value="Delete">
-          <a class="<?php echo $buttonClasses ?>" href="<?php echo $net->url('ezpage', 'editId='.$ezPage->getId().'&languageId='.$selectedLanguageId) ?>">Edit</a>
+          <a class="<?php echo $buttonClasses ?>" href="<?php echo $net->url('ezpages_edit', 'id='.$ezPage->getId().'&languageId='.$selectedLanguageId) ?>">Edit</a>
         </form>
       </td>
     </tr>

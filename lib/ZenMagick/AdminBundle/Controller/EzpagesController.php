@@ -37,8 +37,16 @@ class EzpagesController extends DefaultController
     {
         $language = $request->getSelectedLanguage();
         $languageId = $request->getParameter('languageId', $language->getId());
-        $resultSource = new \ZMObjectResultSource('ZenMagick\StoreBundle\Entity\EZPage', 'ezPageService', "getAllPages", array($languageId));
+        $args = array($languageId);
+        if ($request->query->get('static')) {
+            $args[] = 'static';
+        } else {
+            $args[] = 'all';
+        }
+
+        $resultSource = new \ZMObjectResultSource('ZenMagick\StoreBundle\Entity\EZPage', 'ezPageService', "getAllPages", $args);
         $resultList = Beans::getBean('ZMResultList');
+
         $resultList->setResultSource($resultSource);
         $resultList->setPageNumber($request->query->get('page', 1));
 
@@ -47,23 +55,27 @@ class EzpagesController extends DefaultController
 
     /**
      * {@inheritDoc}
+     *
+     * @todo split new, edit, list into different methods
      */
     public function processGet($request)
     {
         $language = $request->getSelectedLanguage();
-        $languageId = $request->getParameter('languageId', $language->getId());
+        $languageId = $request->query->get('languageId', $language->getId());
 
-        if (null !== ($ezPageId = $request->getParameter('editId'))) {
-            $ezPageId = (int) $ezPageId;
-            if (0 == $ezPageId) {
-                $ezPage = Beans::getBean('ZenMagick\StoreBundle\Entity\EZPage');
-            } else {
-                $ezPage = $this->container->get('ezPageService')->getPageForId($ezPageId, $languageId);
-            }
+        $route = $request->attributes->get('_route');
+        $routeParams = $request->attributes->get('_route_params');
+        if ('ezpages_new' == $route) {
+            $ezPage = Beans::getBean('ZenMagick\StoreBundle\Entity\EZPage');
+        } elseif ('ezpages_edit' == $route) {
+            $ezPageId = $routeParams['id'];
+            $ezPage = $this->container->get('ezPageService')->getPageForId($ezPageId, $languageId);
             if (null == $ezPage) {
                 return $this->findView('error', array('message' => _zm('Invalid page id')));
             }
+        }
 
+        if (isset($ezPage)) {
             return $this->findView(null, array('ezPage' => $ezPage));
         }
 
@@ -83,7 +95,7 @@ class EzpagesController extends DefaultController
         $ezPageService = $this->container->get('ezPageService');
 
         $viewId = null;
-        if (null !== ($ezPageId = $request->request->get('updateId'))) {
+        if (null !== ($ezPageId = $request->request->get('id'))) {
             if (0 == $ezPageId) {
                 // create
                 $ezPage = Beans::getBean('ZenMagick\StoreBundle\Entity\EZPage');

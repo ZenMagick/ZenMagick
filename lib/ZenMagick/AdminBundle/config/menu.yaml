@@ -36,13 +36,10 @@ children:
             tools-cms:
                 label: 'Manage Content'
                 children:
-                    content-editor:
-                        route: content_editor
-                        label: 'Static Content'
                     ezpages:
                         route: ezpages
-                        label: EZPages
-                        extras: { routes: [ezpage] }
+                        label: Pages
+                        extras: { routes: [ezpage, ezpages_edit, ezpages_new] }
                     static-page-editor:
                         route: static_page_editor
                         label: 'Static Pages (deprecated)'
