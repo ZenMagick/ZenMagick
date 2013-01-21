@@ -1,3 +1,0 @@
-<?php
-
-  echo zm_l10n_get('Bar');

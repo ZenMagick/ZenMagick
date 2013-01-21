@@ -1,1 +1,0 @@
-<a id="sizingButton" href="<?php echo 'images/theme/manufacturers/sizing/' . $filename;?>"><?php _vzm("+ view size chart")?></a>
