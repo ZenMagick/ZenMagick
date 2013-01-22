@@ -76,6 +76,7 @@ class AppKernel extends Kernel
             new Symfony\Bundle\FrameworkBundle\FrameworkBundle(),
             new Sensio\Bundle\FrameworkExtraBundle\SensioFrameworkExtraBundle(),
             new JMS\AopBundle\JMSAopBundle(),
+            new FOS\RestBundle\FOSRestBundle(),
             new JMS\DiExtraBundle\JMSDiExtraBundle($this),
             new Knp\Bundle\MenuBundle\KnpMenuBundle(),
             new ZenMagick\ZenMagickBundle\ZenMagickBundle(),
