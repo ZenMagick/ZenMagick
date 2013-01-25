@@ -12,6 +12,7 @@ framework:
     router:
         resource: "%kernel.root_dir%/config/routing.yml"
         strict_requirements: "%kernel.debug%"
+    router_proxy: { path: /_proxy }
     form:            true
     csrf_protection: true
     validation:      { enable_annotations: true }
@@ -80,7 +81,7 @@ knp_menu:
 #fos_user:
 #    db_driver: orm # other valid values are 'mongodb', 'couchdb' and 'propel'
 #    firewall_name: admin
-#    user_class: ZenMagick\AdminBundle\Entity\AdminUser
+#    user_class: ZenMagick\UserBundle\Entity\User
 
 zenmagick:
     plugins:
