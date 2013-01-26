@@ -9,11 +9,20 @@
         <option key="view:zc_admin">zc_admin.html.php</option>
     </route>
 
+    <route id="zc_admin_configuration" pattern="/configuration">
+        <default key="_controller">ZenCartBundle:Admin:process</default>
+        <option key="view:zc_admin">zc_admin.html.php</option>
+    </route>
+
     <route id="zc_admin_categories" pattern="/categories">
         <default key="_controller">ZenCartBundle:Admin:process</default>
         <option key="view:zc_admin">zc_admin.html.php</option>
     </route>
-    <route id="zc_admin_configuration" pattern="/configuration">
+    <route id="zc_admin_document_general" pattern="document-general">
+        <default key="_controller">ZenCartBundle:Admin:process</default>
+        <option key="view:zc_admin">zc_admin.html.php</option>
+    </route>
+    <route id="zc_admin_document_product" pattern="document-product">
         <default key="_controller">ZenCartBundle:Admin:process</default>
         <option key="view:zc_admin">zc_admin.html.php</option>
     </route>
@@ -21,6 +30,11 @@
         <default key="_controller">ZenCartBundle:Admin:process</default>
         <option key="view:zc_admin">zc_admin.html.php</option>
     </route>
+    <route id="zc_admin_product_free_shipping" pattern="/product-free-shipping">
+        <default key="_controller">ZenCartBundle:Admin:process</default>
+        <option key="view:zc_admin">zc_admin.html.php</option>
+    </route>
+
     <route id="zc_admin_product_types" pattern="/product-types">
         <default key="_controller">ZenCartBundle:Admin:process</default>
         <option key="view:zc_admin">zc_admin.html.php</option>
@@ -159,6 +173,10 @@
         <option key="view:zc_admin">zc_admin.html.php</option>
     </route>
     <route id="zc_admin_banner_manager" pattern="/banners">
+        <default key="_controller">ZenCartBundle:Admin:process</default>
+        <option key="view:zc_admin">zc_admin.html.php</option>
+    </route>
+    <route id="zc_admin_ezpages" pattern="/ezpages">
         <default key="_controller">ZenCartBundle:Admin:process</default>
         <option key="view:zc_admin">zc_admin.html.php</option>
     </route>
