@@ -11,8 +11,3 @@ zencart_admin:
 zenmagick_plugins:
     resource: .
     type: context
-# Uncomment to handle HTTP content rederering strategies like ESI
-#_proxy:
-#    resource: "@FrameworkBundle/Resources/config/routing/proxy.xml"
-#    prefix:   /proxy
-
