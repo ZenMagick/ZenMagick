@@ -7,11 +7,9 @@ meta:
 storefront:
   ## optional url mappings
   router:
-    page:
       ## no layout for shopping cart
       shopping_cart:
-        shopping_cart:
-          layout:
+        layout: null
       ## for ajax login success
       login:
         ajax_success:
