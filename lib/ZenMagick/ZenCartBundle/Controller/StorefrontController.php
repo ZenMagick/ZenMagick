@@ -69,6 +69,10 @@ class StorefrontController extends DefaultController
             $request->query->set('products_id', $request->attributes->get('productId'));
         }
 
+        foreach ($request->attributes->get('_route_params') as $k => $v) {
+            $request->query->set($k, $v);
+        }
+
         $request->query->set('main_page', $request->getRequestId());
         $this->handleCart($request);
     }
