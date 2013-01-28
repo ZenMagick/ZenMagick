@@ -304,7 +304,6 @@ class Orders extends ZMObject implements SqlAware
      *
      * @param string range The range value.
      * @return array List of numeric (int) values.
-     * @copyright the zen-cart developers.
      */
     public function parseRange($range)
     {
