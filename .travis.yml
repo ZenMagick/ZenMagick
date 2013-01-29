@@ -5,5 +5,5 @@ php:
 #  - 5.4
 
 before_script:
-  - composer --dev --no-interaction install
+  - composer --dev --prefer-source --no-interaction install
   - etc/travis.sh
