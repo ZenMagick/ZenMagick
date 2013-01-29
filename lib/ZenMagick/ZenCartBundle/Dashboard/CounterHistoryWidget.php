@@ -64,7 +64,6 @@ class CounterHistoryWidget extends DashboardWidget
     {
         $contents = '<table class="grid" cellspacing="0">';
         $contents .= '<tr><th>'._zm('Date').'</th><th>'._zm('Session').'</th><th>'._zm('Total').'</th></tr>';
-        $language = $request->getSelectedLanguage();
         foreach ($this->getData() as $v) {
             $contents .= '<tr>';
             $contents .= '<td>'.$v[0].'</a></td>';
