@@ -1453,37 +1453,6 @@
   }
 
 /**
- * function to override PHP's is_writable() which can occasionally be unreliable due to O/S and F/S differences
- * attempts to open the specified file for writing. Returns true if successful, false if not.
- * if a directory is specified, uses PHP's is_writable() anyway
- *
- * @var string
- * @return boolean
- */
-  function is__writeable($filepath, $make_unwritable = true) {
-    if (is_dir($filepath)) return is_writable($filepath);
-    $fp = @fopen($filepath, 'a');
-    if ($fp) {
-      @fclose($fp);
-      if ($make_unwritable) set_unwritable($filepath);
-      $fp = @fopen($filepath, 'a');
-      if ($fp) {
-        @fclose($fp);
-        return true;
-      }
-    }
-    return false;
-  }
-/**
- * attempts to make the specified file read-only
- *
- * @var string
- * @return boolean
- */
-  function set_unwritable($filepath) {
-    return @chmod($filepath, 0444);
-  }
-/**
  * convert supplied string to UTF-8, dropping any symbols which cannot be translated easily
  * useful for submitting cleaned-up data to payment gateways or other external services, esp if the data was copy+pasted from windows docs via windows browser to store in database
  *
@@ -1506,32 +1475,6 @@
     $string = htmlentities($string, ENT_QUOTES, 'UTF-8');
     $string = html_entity_decode($string, ENT_QUOTES, CHARSET);
     return $string;
-  }
-
-  // Helper function to check whether the current instance is using SSL or not.
-  // Returns SSL or NONSSL
-  function getConnectionType() {
-    global $request_type;
-    return $request_type;
-  }
-
-  // debug utility only
-  function utilDumpRequest($mode='p', $out = 'log') {
-    if ($mode =='p') {
-      $val = '<pre>DEBUG request: ' . print_r($_REQUEST, TRUE);
-    } else {
-      @ob_start();
-      var_dump('DEBUG request: ', $_REQUEST);
-      $val = @ob_get_contents();
-      @ob_end_clean();
-    }
-    if ($out == 'log' || $out == 'l') {
-      error_log($val);
-    } else if ($out == 'die' || $out == 'd') {
-      die($val);
-    } else if ($out == 'echo' || $out == 'e') {
-      echo $val;
-    }
   }
 
 /////////////////////////////////////////////
