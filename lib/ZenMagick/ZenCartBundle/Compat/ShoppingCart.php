@@ -777,7 +777,6 @@ class ShoppingCart extends Base
                             // adjust for attributes price
                             $freeShippingTotal += $new_attributes_price;
                         }
-                        //  echo 'I SEE ' . $this->total . ' vs ' . $this->free_shipping_price . ' items: ' . $this->free_shipping_item. '<br>';
 
                         ////////////////////////////////////////////////
                         // calculate additional attribute charges
@@ -1055,8 +1054,6 @@ class ShoppingCart extends Base
                         $added_charge = zen_get_attributes_qty_prices_onetime($attribute_price->fields['attributes_qty_prices_onetime'], $qty);
                         $attributes_price_onetime += $added_charge;
                     }
-
-                    //////////////////////////////////////////////////
                 }
             }
         }
@@ -1193,7 +1190,6 @@ class ShoppingCart extends Base
                                     and pa.options_values_id = '" . (int) $value . "'";
 
                                 $chk_attributes_exist = $this->getDb()->Execute($chk_attributes_exist_query);
-                                //echo 'what is it: ' . ' : ' . $products_id . ' - ' . $value . ' records: ' . $chk_attributes_exist->RecordCount() . ' vs ' . print_r($this->contents[$products_id]) . '<br>';
                                 if ($chk_attributes_exist->EOF) {
                                     $fix_once ++;
                                     $this->setSessionVar('valid_to_checkout', false);
@@ -1287,10 +1283,8 @@ class ShoppingCart extends Base
                     'model' => $products->fields['products_model'],
                     'image' => $products->fields['products_image'],
                     'price' => ($products->fields['product_is_free'] =='1' ? 0 : $products_price),
-                    //                                    'quantity' => $this->contents[$products_id]['qty'],
                     'quantity' => $new_qty,
                     'weight' => $products->fields['products_weight'] + $this->attributes_weight($products_id),
-                    // fix here
                     'final_price' => ($products_price + $this->attributes_price($products_id)),
                     'onetime_charges' => ($this->attributes_price_onetime_charges($products_id, $new_qty)),
                     'tax_class_id' => $products->fields['products_tax_class_id'],
@@ -1476,7 +1470,6 @@ class ShoppingCart extends Base
      */
     public function in_cart_mixed($products_id)
     {
-        // if nothing is in cart return 0
         if (!is_array($this->contents)) return 0;
 
         // check if mixed is on
@@ -1499,13 +1492,12 @@ class ShoppingCart extends Base
         reset($check_contents);
         while (list($products_id, ) = each($check_contents)) {
             $test_id = zen_get_prid($products_id);
-            //$this->getMessageStack()->add_session('header', 'Product: ' . $products_id . ' test_id: ' . $test_id . '<br>', 'error');
             if ($test_id == $chk_products_id) {
-                //$this->getMessageStack()->add_session('header', 'MIXED: ' . $products_id . ' test_id: ' . $test_id . ' qty:' . $check_contents[$products_id]['qty'] . ' in_cart_mixed_qty: ' . $in_cart_mixed_qty . '<br><br>', 'error');
                 $in_cart_mixed_qty += $check_contents[$products_id]['qty'];
             }
         }
-        //$this->getMessageStack()->add_session('header', 'FINAL: in_cart_mixed_qty: ' . 'PRODUCT: ' . $test_id . ' in cart:' . $in_cart_mixed_qty . '<br><br>', 'error');
+
+
         return $in_cart_mixed_qty;
     }
     /**
@@ -1516,7 +1508,6 @@ class ShoppingCart extends Base
      */
     public function in_cart_mixed_discount_quantity($products_id)
     {
-        // if nothing is in cart return 0
         if (!is_array($this->contents)) return 0;
 
         // check if mixed is on
@@ -1556,7 +1547,6 @@ class ShoppingCart extends Base
      */
     public function in_cart_check($check_what, $check_value='1')
     {
-        // if nothing is in cart return 0
         if (!is_array($this->contents)) return 0;
 
         // compute total quantity for field
@@ -1640,47 +1630,38 @@ class ShoppingCart extends Base
             } else {
                 $add_max = zen_get_products_quantity_order_max($_POST['products_id'][$i]); // maximum allowed
                 $cart_qty = $this->in_cart_mixed($_POST['products_id'][$i]); // total currently in cart
-                //$this->getMessageStack()->add_session('header', 'actionUpdateProduct Products_id: ' . $_POST['products_id'] . ' qty: ' . $cart_qty . ' <br>', 'caution');
                 $new_qty = $_POST['cart_quantity'][$i]; // new quantity
                 $current_qty = $this->get_quantity($_POST['products_id'][$i]); // how many currently in cart for attribute
                 $chk_mixed = zen_get_products_quantity_mixed($_POST['products_id'][$i]); // use mixed
-                //echo 'I SEE actionUpdateProduct: ' . $_POST['products_id'] . ' ' . $_POST['products_id'][$i] . '<br>';
 
                 $new_qty = $this->adjust_quantity($new_qty, $_POST['products_id'][$i], 'shopping_cart');
 
-                //die('I see Update Cart: ' . $_POST['products_id'][$i] . ' add qty: ' . $add_max . ' - cart qty: ' . $cart_qty . ' - newqty: ' . $new_qty);
                 if (($add_max == 1 and $cart_qty == 1) && $new_qty != $cart_qty) {
                     // do not add
                     $adjust_max= 'true';
                 } else {
                     if ($add_max != 0) {
-                        //$this->getMessageStack()->add_session('shopping_cart', 'PROCESSING MAX: Update Cart chk_mixed false: ' . $_POST['products_id'][$i] . ' add max: ' . $add_max . ' - cart qty: ' . $cart_qty . ' - newqty: ' . $new_qty . ' current_quantity: ' . $current_qty, 'warning');
                         // adjust quantity if needed
                         switch (true) {
                         case ($new_qty == $current_qty): // no change
-                            //$this->getMessageStack()->add_session('shopping_cart', 'I see NEW=CURRENT Update Cart chk_mixed false: ' . $_POST['products_id'][$i] . ' add max: ' . $add_max . ' - cart qty: ' . $cart_qty . ' - newqty: ' . $new_qty . ' current_quantity: ' . $current_qty, 'warning');
                             $adjust_max= 'false';
                             $new_qty = $current_qty;
                             break;
                         case ($new_qty > $add_max && $chk_mixed == false):
-                            //$this->getMessageStack()->add_session('shopping_cart', 'I see Update Cart chk_mixed false: ' . $_POST['products_id'][$i] . ' add max: ' . $add_max . ' - cart qty: ' . $cart_qty . ' - newqty: ' . $new_qty . ' something: ' . $something_qty, 'warning');
                             $adjust_max= 'true';
                             $new_qty = $add_max ;
                             break;
                         case (($add_max - $cart_qty + $new_qty >= $add_max) && $new_qty > $add_max && $chk_mixed == true):
-                            //$this->getMessageStack()->add_session('shopping_cart', 'I see NEW > ADD Update Cart chk_mixed true: ' . $_POST['products_id'][$i] . ' add max: ' . $add_max . ' - cart qty: ' . $cart_qty . ' + newqty: ' . $new_qty, 'warning');
                             $adjust_max= 'true';
                             $requested_qty = $new_qty;
                             $new_qty = $current_qty;
                             break;
                         case (($cart_qty + $new_qty - $current_qty > $add_max) && $chk_mixed == true):
-                            //$this->getMessageStack()->add_session('shopping_cart', 'I see CART + NEW - CURRENT > ADD Update Cart chk_mixed true: ' . $_POST['products_id'][$i] . ' add max: ' . $add_max . ' - cart qty: ' . $cart_qty . ' + newqty: ' . $new_qty . ' current_qty: ' . $current_qty, 'warning');
                             $adjust_max= 'true';
                             $requested_qty = $new_qty;
                             $new_qty = $current_qty;
                             break;
                         default:
-                            //$this->getMessageStack()->add_session('shopping_cart', 'I see DEFAULT Cart - TURN OFF<br>: ' . $_POST['products_id'][$i] . ' add max: ' . $add_max . ' - cart qty: ' . $cart_qty . ' + newqty: ' . $new_qty . '<br>' . 'current: ' . $current_qty, 'warning');
                             $adjust_max= 'false';
                         }
                         $attributes = ($_POST['id'][$_POST['products_id'][$i]]) ? $_POST['id'][$_POST['products_id'][$i]] : '';
@@ -1692,8 +1673,6 @@ class ShoppingCart extends Base
                     }
                 }
                 if ($adjust_max == 'true') {
-                    //          $this->getMessageStack()->add_session('shopping_cart', ERROR_MAXIMUM_QTY . ' A: - ' . zen_get_products_name($_POST['products_id'][$i]), 'caution');
-                    //$this->getMessageStack()->add_session('shopping_cart', 'actionUpdateProduct<br>' . ERROR_MAXIMUM_QTY . zen_get_products_name($_POST['products_id'][$i]) . '<br>Requested: ' . $requested_qty . ' current: ' . $current_qty , 'caution');
                     $this->getMessageStack()->add_session('shopping_cart', ERROR_MAXIMUM_QTY . zen_get_products_name($_POST['products_id'][$i]), 'caution');
                 } else {
                     // display message if all is good and not on shopping_cart page
@@ -1726,14 +1705,10 @@ class ShoppingCart extends Base
                 }
             }
             // verify qty to add
-            //          $real_ids = $_POST['id'];
-            //die('I see Add to Cart: ' . $_POST['products_id'] . 'real id ' . zen_get_uprid($_POST['products_id'], $real_ids) . ' add qty: ' . $add_max . ' - cart qty: ' . $cart_qty . ' - newqty: ' . $new_qty);
             $add_max = zen_get_products_quantity_order_max($_POST['products_id']);
             $cart_qty = $this->in_cart_mixed($_POST['products_id']);
-            //$this->getMessageStack()->add_session('header', 'actionAddProduct Products_id: ' . $_POST['products_id'] . ' qty: ' . $cart_qty . ' <br>', 'caution');
             $new_qty = $_POST['cart_quantity'];
 
-            //echo 'I SEE actionAddProduct: ' . $_POST['products_id'] . '<br>';
             $new_qty = $this->adjust_quantity($new_qty, $_POST['products_id'], 'shopping_cart');
 
             if (($add_max == 1 and $cart_qty == 1)) {
@@ -1754,7 +1729,6 @@ class ShoppingCart extends Base
                 // bof: set error message
                 if ($the_list != '') {
                     $this->getMessageStack()->add('product_info', ERROR_CORRECTIONS_HEADING . $the_list, 'caution');
-                    //          $this->getMessageStack()->add('header', 'REMOVE ME IN SHOPPING CART CLASS BEFORE RELEASE<br/><BR />' . ERROR_CORRECTIONS_HEADING . $the_list, 'error');
                 } else {
                     // process normally
                     // iii 030813 added: File uploading: save uploaded files with unique file names
@@ -1798,9 +1772,7 @@ class ShoppingCart extends Base
             } // eof: quantity maximum = 1
 
             if ($adjust_max == 'true') {
-                //        $this->getMessageStack()->add_session('shopping_cart', ERROR_MAXIMUM_QTY . ' B: - ' . zen_get_products_name($_POST['products_id']), 'caution');
                 $this->getMessageStack()->add_session('shopping_cart', ERROR_MAXIMUM_QTY . zen_get_products_name($_POST['products_id']), 'caution');
-                //$this->getMessageStack()->add_session('shopping_cart', 'actionAddProduct<br>' . ERROR_MAXIMUM_QTY . zen_get_products_name($_POST['products_id']), 'caution');
             }
         }
         if ($the_list == '') {
@@ -1829,7 +1801,6 @@ class ShoppingCart extends Base
                 $add_max = zen_get_products_quantity_order_max($_GET['products_id']);
                 $cart_qty = $this->in_cart_mixed($_GET['products_id']);
                 $new_qty = zen_get_buy_now_qty($_GET['products_id']);
-                //die('I see Buy Now Cart: ' . $add_max . ' - cart qty: ' . $cart_qty . ' - newqty: ' . $new_qty);
                 if (($add_max == 1 and $cart_qty == 1)) {
                     // do not add
                     $new_qty = 0;
@@ -1872,7 +1843,6 @@ class ShoppingCart extends Base
                     $qty = $val;
                     $add_max = zen_get_products_quantity_order_max($prodId);
                     $cart_qty = $this->in_cart_mixed($prodId);
-                    //echo 'I SEE actionMultipleAddProduct: ' . $prodId . '<br>';
                     $new_qty = $this->adjust_quantity($qty, $prodId, 'shopping_cart');
 
                     // ***************************************** *****************************************
@@ -1901,8 +1871,6 @@ class ShoppingCart extends Base
                         $addCount++;
                     }
                     if ($adjust_max == 'true') {
-                        //            $this->getMessageStack()->add_session('shopping_cart', ERROR_MAXIMUM_QTY . ' C: - ' . zen_get_products_name($prodId), 'caution');
-                        //$this->getMessageStack()->add_session('shopping_cart', 'actionMultipleAddProduct<br>' . ERROR_MAXIMUM_QTY . zen_get_products_name($prodId), 'caution');
                         $this->getMessageStack()->add_session('shopping_cart', ERROR_MAXIMUM_QTY . zen_get_products_name($prodId), 'caution');
                     }
                 }
@@ -2040,11 +2008,9 @@ class ShoppingCart extends Base
             switch (true) {
             case (!strstr($fix_qty, '.')):
                 $new_qty = $fix_qty;
-                //            $this->getMessageStack()->add_session('shopping_cart', ERROR_QUANTITY_ADJUSTED . zen_get_products_name($products) . ' - ' . $old_quantity . ' => ' . $new_qty, 'caution');
                 break;
             default:
                 $new_qty = preg_replace('/[0]+$/','', $check_qty);
-                //            $this->getMessageStack()->add_session('shopping_cart', 'A: ' . ERROR_QUANTITY_ADJUSTED . zen_get_products_name($products) . ' - ' . $old_quantity . ' => ' . $new_qty, 'caution');
                 break;
             }
         } else {
