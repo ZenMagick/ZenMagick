@@ -1452,31 +1452,6 @@
     return $s;
   }
 
-/**
- * convert supplied string to UTF-8, dropping any symbols which cannot be translated easily
- * useful for submitting cleaned-up data to payment gateways or other external services, esp if the data was copy+pasted from windows docs via windows browser to store in database
- *
- * @param string $string
- */
-  function charsetConvertWinToUtf8($string) {
-    if (function_exists('iconv')) $string = iconv("Windows-1252", "ISO-8859-1//IGNORE", $string);
-    $string = htmlentities($string, ENT_QUOTES, 'UTF-8');
-    return $string;
-  }
-
-/**
- * Convert supplied string to/from entities between charsets, to sanitize data from payment gateway
- * @param $string
- * @return string
- */
-  function charsetClean($string) {
-    if (CHARSET == 'UTF-8') return $string;
-    if (function_exists('iconv')) $string = iconv("Windows-1252", CHARSET . "//IGNORE", $string);
-    $string = htmlentities($string, ENT_QUOTES, 'UTF-8');
-    $string = html_entity_decode($string, ENT_QUOTES, CHARSET);
-    return $string;
-  }
-
 /////////////////////////////////////////////
 ////
 // call additional function files
