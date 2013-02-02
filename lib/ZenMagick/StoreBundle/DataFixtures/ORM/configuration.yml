@@ -71,14 +71,6 @@ ZenMagick\StoreBundle\Entity\ConfigValue:
         sortOrder: 11
         setFunction: "zen_cfg_select_option(array('Default', 'Browser'), "
     -
-        name: "Use Search-Engine Safe URLs (still in development)"
-        key: "SEARCH_ENGINE_FRIENDLY_URLS"
-        value: "false"
-        description: "Use search-engine safe urls for all site links"
-        groupId: 6
-        sortOrder: 12
-        setFunction: "zen_cfg_select_option(array('true', 'false'), "
-    -
         name: "Display Cart After Adding Product"
         key: "DISPLAY_CART"
         value: "true"
@@ -181,14 +173,6 @@ ZenMagick\StoreBundle\Entity\ConfigValue:
         groupId: 1
         sortOrder: 42
     -
-        name: "Show if version update available"
-        key: "SHOW_VERSION_UPDATE_IN_HEADER"
-        value: "true"
-        description: "Automatically check to see if a new version of Zen Cart is available. Enabling this can sometimes slow down the loading of Admin pages. (Displayed on main Index page after login, and Server Info page.)"
-        groupId: 1
-        sortOrder: 44
-        setFunction: "zen_cfg_select_option(array('true', 'false'), "
-    -
         name: "Store Status"
         key: "STORE_STATUS"
         value: 0
@@ -237,14 +221,6 @@ ZenMagick\StoreBundle\Entity\ConfigValue:
         groupId: 1
         sortOrder: 110
         setFunction: "zen_cfg_pull_down_htmleditors("
-    -
-        name: "Enable phpBB linkage?"
-        key: "PHPBB_LINKS_ENABLED"
-        value: "false"
-        description: "Should Zen Cart synchronize new account information to your (already-installed) phpBB forum?"
-        groupId: 1
-        sortOrder: 120
-        setFunction: "zen_cfg_select_option(array('true', 'false'),"
     -
         name: "Show Category Counts - Admin"
         key: "SHOW_COUNTS_ADMIN"
@@ -380,13 +356,6 @@ ZenMagick\StoreBundle\Entity\ConfigValue:
         groupId: 2
         sortOrder: 16
     -
-        name: "Nick Name"
-        key: "ENTRY_NICK_MIN_LENGTH"
-        value: 3
-        description: "Minimum length of Nick Name"
-        groupId: 2
-        sortOrder: 1
-    -
         name: "Address Book Entries"
         key: "MAX_ADDRESS_BOOK_ENTRIES"
         value: 5
@@ -443,34 +412,6 @@ ZenMagick\StoreBundle\Entity\ConfigValue:
         groupId: 3
         sortOrder: 7
         setFunction: "zen_cfg_select_option(array('0', '1'), "
-    -
-        name: "Music Genre List - Scroll Box Size/Style"
-        key: "MAX_MUSIC_GENRES_LIST"
-        value: 3
-        description: "Number of music genre names to be displayed in the scroll box window. Setting this to 1 or 0 will display a dropdown list."
-        groupId: 3
-        sortOrder: 7
-    -
-        name: "Record Company List - Scroll Box Size/Style"
-        key: "MAX_RECORD_COMPANY_LIST"
-        value: 3
-        description: "Number of record company names to be displayed in the scroll box window. Setting this to 1 or 0 will display a dropdown list."
-        groupId: 3
-        sortOrder: 7
-    -
-        name: "Length of Record Company Name"
-        key: "MAX_DISPLAY_RECORD_COMPANY_NAME_LEN"
-        value: 15
-        description: "Used in record companies box; maximum length of record company name to display. Longer names will be truncated."
-        groupId: 3
-        sortOrder: 8
-    -
-        name: "Length of Music Genre Name"
-        key: "MAX_DISPLAY_MUSIC_GENRES_NAME_LEN"
-        value: 15
-        description: "Used in music genres box; maximum length of music genre name to display. Longer names will be truncated."
-        groupId: 3
-        sortOrder: 8
     -
         name: "Length of Manufacturers Name"
         key: "MAX_DISPLAY_MANUFACTURER_NAME_LEN"
@@ -1815,44 +1756,6 @@ ZenMagick\StoreBundle\Entity\ConfigValue:
         sortOrder: 35
         setFunction: "zen_cfg_select_option(array('0', '1', '2'), "
     -
-        name: "Store Page Parse Time"
-        key: "STORE_PAGE_PARSE_TIME"
-        value: "false"
-        description: "Store the time it takes to parse a page"
-        groupId: 10
-        sortOrder: 1
-        setFunction: "zen_cfg_select_option(array('true', 'false'), "
-    -
-        name: "Log Destination"
-        key: "STORE_PAGE_PARSE_TIME_LOG"
-        value: "/var/log/www/zen/page_parse_time.log"
-        description: "Directory and filename of the page parse time log"
-        groupId: 10
-        sortOrder: 2
-    -
-        name: "Log Date Format"
-        key: "STORE_PARSE_DATE_TIME_FORMAT"
-        value: "%d/%m/%Y %H:%M:%S"
-        description: "The date format"
-        groupId: 10
-        sortOrder: 3
-    -
-        name: "Display The Page Parse Time"
-        key: "DISPLAY_PAGE_PARSE_TIME"
-        value: "false"
-        description: "Display the page parse time on the bottom of each page<br />You do not need to store the times to display them in the Catalog"
-        groupId: 10
-        sortOrder: 4
-        setFunction: "zen_cfg_select_option(array('true', 'false'), "
-    -
-        name: "Store Database Queries"
-        key: "STORE_DB_TRANSACTIONS"
-        value: "false"
-        description: "Store the database queries in the page parse time log (PHP4 only)"
-        groupId: 10
-        sortOrder: 5
-        setFunction: "zen_cfg_select_option(array('true', 'false'), "
-    -
         name: "E-Mail Transport Method"
         key: "EMAIL_TRANSPORT"
         value: "PHP"
@@ -2229,33 +2132,10 @@ ZenMagick\StoreBundle\Entity\ConfigValue:
         sortOrder: 37
         setFunction: "zen_cfg_select_option(array('0', '1'), "
     -
-        name: "Enable GZip Compression"
-        key: "GZIP_LEVEL"
-        value: 0
-        description: "0= off 1= on"
-        groupId: 14
-        sortOrder: 1
-        setFunction: "zen_cfg_select_option(array('0', '1'),"
-    -
-        name: "Session Directory"
-        key: "SESSION_WRITE_DIRECTORY"
-        value: "/tmp"
-        description: "If sessions are file based, store them in this directory."
-        groupId: 15
-        sortOrder: 1
-    -
         name: "Cookie Domain"
         key: "SESSION_USE_FQDN"
         value: "True"
         description: "If True the full domain name will be used to store the cookie, e.g. www.mydomain.com. If False only a partial domain name will be used, e.g. mydomain.com. If you are unsure about this, always leave set to true."
-        groupId: 15
-        sortOrder: 2
-        setFunction: "zen_cfg_select_option(array('True', 'False'), "
-    -
-        name: "Force Cookie Use"
-        key: "SESSION_FORCE_COOKIE_USE"
-        value: "False"
-        description: "Force the use of sessions when cookies are only enabled."
         groupId: 15
         sortOrder: 2
         setFunction: "zen_cfg_select_option(array('True', 'False'), "
@@ -2290,14 +2170,6 @@ ZenMagick\StoreBundle\Entity\ConfigValue:
         description: "Prevent known spiders from starting a session."
         groupId: 15
         sortOrder: 6
-        setFunction: "zen_cfg_select_option(array('True', 'False'), "
-    -
-        name: "Recreate Session"
-        key: "SESSION_RECREATE"
-        value: "True"
-        description: "Recreate the session to generate a new session ID when the customer logs on or creates an account (PHP >=4.1 needed)."
-        groupId: 15
-        sortOrder: 7
         setFunction: "zen_cfg_select_option(array('True', 'False'), "
     -
         name: "IP to Host Conversion Status"

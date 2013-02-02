@@ -77,7 +77,7 @@ ZenMagick\StoreBundle\Entity\ConfigGroup:
         description: "Configure products attributes settings"
         sortOrder: 13
         visible: 1
-    -
+    - # actually empty. figure out how to remove properly
         id: 14
         name: "GZip Compression"
         description: "GZip compression options"
