@@ -126,15 +126,6 @@
   }
 
 ////
-// Returns the clients browser
-  function zen_browser_detect($component) {
-    global $HTTP_USER_AGENT;
-
-    return stristr($HTTP_USER_AGENT, $component);
-  }
-
-
-////
 // Wrapper function for round()
   function zen_round($value, $precision) {
     $value =  round($value *pow(10,$precision),0);
@@ -1314,11 +1305,6 @@
  * return an array with country names and matching zones to be used in pulldown menus
  */
   function zen_prepare_country_zones_pull_down($country_id = '') {
-// preset the width of the drop-down for Netscape
-    $pre = '';
-    if ( (!zen_browser_detect('MSIE')) && (zen_browser_detect('Mozilla/4')) ) {
-      for ($i=0; $i<45; $i++) $pre .= '&nbsp;';
-    }
 
     $zones = zen_get_country_zones($country_id);
 
@@ -1327,12 +1313,6 @@
       $zones = array_merge($zones_select, $zones);
     } else {
       $zones = array(array('id' => '', 'text' => TYPE_BELOW));
-// create dummy options for Netscape to preset the height of the drop-down
-      if ( (!zen_browser_detect('MSIE')) && (zen_browser_detect('Mozilla/4')) ) {
-        for ($i=0; $i<9; $i++) {
-          $zones[] = array('id' => '', 'text' => $pre);
-        }
-      }
     }
 
     return $zones;

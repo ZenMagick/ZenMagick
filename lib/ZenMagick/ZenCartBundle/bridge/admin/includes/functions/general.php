@@ -379,13 +379,6 @@
     }
   }
 
-
-  function zen_browser_detect($component) {
-
-    return stristr($_SERVER['HTTP_USER_AGENT'], $component);
-  }
-
-
   function zen_tax_classes_pull_down($parameters, $selected = '') {
     global $db;
     $select_string = '<select ' . $parameters . '>';
@@ -805,12 +798,6 @@
 
 
   function zen_prepare_country_zones_pull_down($country_id = '') {
-// preset the width of the drop-down for Netscape
-    $pre = '';
-    if ( (!zen_browser_detect('MSIE')) && (zen_browser_detect('Mozilla/4')) ) {
-      for ($i=0; $i<45; $i++) $pre .= '&nbsp;';
-    }
-
     $zones = zen_get_country_zones($country_id);
 
     if (sizeof($zones) > 0) {
@@ -818,12 +805,6 @@
       $zones = array_merge($zones_select, $zones);
     } else {
       $zones = array(array('id' => '', 'text' => TYPE_BELOW));
-// create dummy options for Netscape to preset the height of the drop-down
-      if ( (!zen_browser_detect('MSIE')) && (zen_browser_detect('Mozilla/4')) ) {
-        for ($i=0; $i<9; $i++) {
-          $zones[] = array('id' => '', 'text' => $pre);
-        }
-      }
     }
 
     return $zones;
