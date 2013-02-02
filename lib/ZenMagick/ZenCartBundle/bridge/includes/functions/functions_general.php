@@ -467,23 +467,6 @@
     return $sort_prefix . $heading . $sort_suffix;
   }
 
-
-////
-// Return a product ID with attributes
-/*
-  function zen_get_uprid_OLD($prid, $params) {
-    $uprid = $prid;
-    if ( (is_array($params)) && (!strstr($prid, '{')) ) {
-      while (list($option, $value) = each($params)) {
-        $uprid = $uprid . '{' . $option . '}' . $value;
-      }
-    }
-
-    return $uprid;
-  }
-*/
-
-
 ////
 // Return a product ID with attributes
   function zen_get_uprid($prid, $params) {
