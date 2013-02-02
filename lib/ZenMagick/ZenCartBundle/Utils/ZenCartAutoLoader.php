@@ -93,6 +93,7 @@ class ZenCartAutoLoader extends ZMObject
     {
         $isAdmin = Runtime::isContextMatch('admin');
         $filePatterns = array();
+        $filePatterns[] = 'functions/*.php';
         if ($isAdmin) {
             $filePatterns[] = '../includes/version.php';
             $filePatterns[] = '../includes/configure.php';

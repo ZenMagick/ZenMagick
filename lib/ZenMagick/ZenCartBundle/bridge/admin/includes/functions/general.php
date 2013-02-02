@@ -8,23 +8,6 @@
  */
 
 ////
-// Redirect to another page or site
-  function zen_redirect($url) {
-    // ZENMAGICK MODIFICATION allow vetoing the redirection
-    ZenMagick\Base\Runtime::getContainer()->get('request')->redirect($url); return;
-
-// clean up URL before executing it
-    while (strstr($url, '&&')) $url = str_replace('&&', '&', $url);
-    while (strstr($url, '&amp;&amp;')) $url = str_replace('&amp;&amp;', '&amp;', $url);
-    // header locates should not have the &amp; in the address it breaks things
-    while (strstr($url, '&amp;')) $url = str_replace('&amp;', '&', $url);
-
-    header('Location: ' . $url);
-    session_write_close();
-    exit;
-  }
-
-////
 // Parse the data used in the html tags to ensure the tags will not break
   function zen_parse_input_field_data($data, $parse) {
     return strtr(trim($data), $parse);

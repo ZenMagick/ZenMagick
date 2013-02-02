@@ -18,44 +18,10 @@
   }
 
 /**
- * Redirect to another page or site
- * @param string The url to redirect to
-*/
-  function zen_redirect($url, $httpResponseCode = '') {
-    // ZENMAGICK MODIFICATION: allow vetoing of redirects
-    ZenMagick\Base\Runtime::getContainer()->get('request')->redirect($url, $httpResponseCode); return;
-    global $request_type;
-    // Are we loading an SSL page?
-    if ( (ENABLE_SSL == 'true') && ($request_type == 'SSL') ) {
-      // yes, but a NONSSL url was supplied
-      if (substr($url, 0, strlen(HTTP_SERVER . DIR_WS_CATALOG)) == HTTP_SERVER . DIR_WS_CATALOG) {
-        // So, change it to SSL, based on site's configuration for SSL
-        $url = HTTPS_SERVER . DIR_WS_HTTPS_CATALOG . substr($url, strlen(HTTP_SERVER . DIR_WS_CATALOG));
-      }
-    }
-
-  // clean up URL before executing it
-    while (strstr($url, '&&')) $url = str_replace('&&', '&', $url);
-    while (strstr($url, '&amp;&amp;')) $url = str_replace('&amp;&amp;', '&amp;', $url);
-    // header locates should not have the &amp; in the address it breaks things
-    while (strstr($url, '&amp;')) $url = str_replace('&amp;', '&', $url);
-
-    if ($httpResponseCode == '') {
-      header('Location: ' . $url);
-      session_write_close();
-    } else {
-      header('Location: ' . $url, TRUE, (int)$httpResponseCode);
-      session_write_close();
-    }
-
-    exit();
-  }
-
-/**
  * Parse the data used in the html tags to ensure the tags will not break.
  * Basically just an extension to the php strstr function
  * @param string The string to be parsed
- * @param string The needle to find
+ z @param string The needle to find
 */
 // Parse the data used in the html tags to ensure the tags will not break
   function zen_parse_input_field_data($data, $parse) {
