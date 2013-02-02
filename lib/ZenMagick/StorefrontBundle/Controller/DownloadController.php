@@ -27,6 +27,8 @@ use RecursiveDirectoryIterator;
 use ZenMagick\Base\Toolbox;
 use ZenMagick\ZenMagickBundle\Controller\DefaultController;
 
+use Symfony\Component\HttpFoundation\RedirectResponse;
+
 /**
  * Download controller.
  *
@@ -101,7 +103,7 @@ class DownloadController extends DefaultController
             $link = @symlink($filePath, $pubDir.'/'.$pubLocalDir.'/'.$outputFileName);
             if ($link) {
                 $url = $this->get('netTool')->absoluteUrl('pub/'.$pubLocalDir.'/'.$outputFileName, true);
-                $request->redirect($url, 303);
+                return new ResponseRedirect($url, 303);
             }
         }
         // Streaming downloads.

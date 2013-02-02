@@ -22,6 +22,8 @@ namespace ZenMagick\StorefrontBundle\Controller;
 use ZenMagick\Base\Toolbox;
 use ZenMagick\ZenMagickBundle\Controller\DefaultController;
 
+use Symfony\Component\HttpFoundation\RedirectResponse;
+
 /**
  * Request controller for account newsletter subscription page.
  *
@@ -65,13 +67,11 @@ class AccountNotificationsController extends DefaultController
         switch ($notifyType) {
             case 'add':
                 $account = $this->container->get('accountService')->addSubscribedProductIds($account, $subscribedProducts);
-                // @todo don't redirect like this
-                $request->redirect($request->headers->get('referer'));
+                return new RedirectResponse($request->headers->get('referer'));
                 break;
             case 'remove':
                 $account = $this->container->get('accountService')->removeSubscribedProductIds($account, $subscribedProducts);
-                // @todo don't redirect like this
-                $request->redirect($request->headers->get('referer'));
+                return new RedirectResponse($request->headers->get('referer'));
                 break;
         }
 

@@ -22,6 +22,8 @@ namespace ZenMagick\Http\View;
 use ZenMagick\Base\Toolbox;
 use ZenMagick\Base\ZMObject;
 
+use Symfony\Component\HttpFoundation\RedirectResponse;
+
 /**
  * Redirect view.
  *
@@ -64,9 +66,7 @@ class RedirectView extends ZMObject implements View
      */
     public function generate($request, $template=null, $variables=array())
     {
-        $request->redirect($this->getRedirectUrl($request), $this->status_);
-
-        return null;
+        return new RedirectResponse($this->getRedirectUrl($request), $this->status_);
     }
 
     /**

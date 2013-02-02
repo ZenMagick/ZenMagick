@@ -21,6 +21,8 @@
 use ZenMagick\Base\Beans;
 use ZenMagick\Base\Runtime;
 
+use Symfony\Component\HttpFoundation\ResponseRedirect;
+
     $installer = new ZenMagick\AdminBundle\Installation\InstallationPatcher();
     $needRefresh = false;
 
@@ -153,7 +155,7 @@ function _zm_patch_group($groupId, $buttonClasses, $checkall=true) {
 <?php }
 
 if ($needRefresh) {
-    $request->redirect($net->url(null, '', true));
+    return new RedirectResponse($net->url(null, '', true));
 }
 
 ?>

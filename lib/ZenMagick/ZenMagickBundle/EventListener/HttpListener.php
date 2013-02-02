@@ -20,6 +20,7 @@
 namespace ZenMagick\ZenMagickBundle\EventListener;
 
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpKernel\HttpKernelInterface;
 use Symfony\Component\HttpKernel\KernelEvents;
 use Symfony\Component\HttpKernel\Event\GetResponseEvent;
@@ -69,7 +70,7 @@ class HttpListener implements EventSubscriberInterface
                 if (!$validator->isValidSession($request, $session)) {
                     $session->getFlashBag()->error('Invalid session');
                     $session->migrate();
-                    $request->redirect($request->server->get('HTTP_REFERER'));
+                    $event->setResponse(new RedirectResponse($request->server->get('HTTP_REFERER')));
                 }
             }
         }

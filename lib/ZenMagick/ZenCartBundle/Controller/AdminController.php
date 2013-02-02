@@ -21,6 +21,8 @@ namespace ZenMagick\ZenCartBundle\Controller;
 
 use ZenMagick\ZenMagickBundle\Controller\DefaultController;
 
+use Symfony\Component\HttpFoundation\RedirectResponse;
+
 /**
  * ZenCart admin controller
  *
@@ -101,7 +103,7 @@ class AdminController extends DefaultController
     {
         if (!$this->validateSecurityToken($request)) {
             $this->messageService->error(_zm('Security token validation failed'));
-            $request->redirect($request->server->get('HTTP_REFERER'));
+            return new RedirectResponse($request->server->get('HTTP_REFERER'));
         }
 
         return $this->processGet($request);
