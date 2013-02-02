@@ -32,13 +32,13 @@ use ZenMagick\Base\Toolbox;
 class Request extends HttpFoundationRequest
 {
     /**
-     * Populate ParameterBag instances from superglobals
+     * {@inheritDoc}
      *
-     * @todo don't initialize in the ctor. pass it to the Application in the front controller.
+     * @todo move custom checkbox handling out of here
      */
     public function __construct(array $query = array(), array $request = array(), array $attributes = array(), array $cookies = array(), array $files = array(), array $server = array(), $content = null)
     {
-        $this->initialize($_GET, $_POST, array(), $_COOKIE, $_FILES, $_SERVER, null);
+        $this->initialize($query, $request, $attributes, $cookies, $files, $server, $content);
 
         // @todo could move into custom parameter bag class?
         foreach (array($this->query, $this->request) as $parameterBag) {
