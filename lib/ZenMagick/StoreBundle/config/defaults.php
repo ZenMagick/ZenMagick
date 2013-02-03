@@ -158,8 +158,6 @@ if (!function_exists('zm_split_email_addresses')) {
             // @todo migrate to some better method to let admin view restricted storefront content
             'apps.store.adminOverrideIPs' => explode(',', str_replace(' ', '', EXCLUDE_ADMIN_IP_FOR_MAINTENANCE)),
 
-            // cookies only?
-            'isForceCookieUse' => SESSION_FORCE_COOKIE_USE == 'True',
             /**
              * @todo this won't work and/or doesn't matter until we support shared certificates.
              *       It's likely that we would want want to split this into 2 seperate parameters.
