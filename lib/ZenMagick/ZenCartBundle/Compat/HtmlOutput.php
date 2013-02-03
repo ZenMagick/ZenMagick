@@ -64,7 +64,13 @@ class HtmlOutput
             unset ($parameters['products_id']);
         }
 
+        if ('login' == $requestId) {
+            if (array_key_exists('action', $parameters) && 'process' == $parameters['action']) {
+                unset($parameters['action']);
+                $requestId = 'login_check';
+            }
+        }
+
         return $container->get('router')->generate($requestId, $parameters);
     }
-
 }
