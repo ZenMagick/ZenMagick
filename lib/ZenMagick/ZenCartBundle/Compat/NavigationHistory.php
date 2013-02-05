@@ -76,16 +76,11 @@ class NavigationHistory extends Base implements \Serializable
     public function add_current_page()
     {
         if ($this->request->isXmlHttpRequest()) return;
-        $get_vars = array();
+        $get_vars = $this->request->query->all();
+        $cPath = $get_vars['cPath'];
+        unset($get_vars['main_page']);
 
-        $cPath = $this->request->query->get('cPath');
-        foreach ($this->request->query->all() as $key => $value) {
-            if ($key != 'main_page') {
-                $get_vars[$key] = $value;
-            }
-        }
-
-        $set = 'true';
+        $set = true;
         for ($i=0, $n=sizeof($this->path); $i<$n; $i++) {
             if ( ($this->path[$i]['page'] == $this->getMainPage()) ) {
                 if (!empty($cPath)) {
@@ -94,7 +89,7 @@ class NavigationHistory extends Base implements \Serializable
                     } else {
                         if ($this->path[$i]['get']['cPath'] == $cPath) {
                             array_splice($this->path, ($i+1));
-                            $set = 'false';
+                            $set = false;
                             break;
                         } else {
                             $old_cPath = explode('_', $this->path[$i]['get']['cPath']);
@@ -104,68 +99,57 @@ class NavigationHistory extends Base implements \Serializable
                             for ($j=0, $n2=sizeof($old_cPath); $j<$n2; $j++) {
                                 if ($old_cPath[$j] != $new_cPath[$j]) {
                                     array_splice($this->path, ($i));
-                                    $set = 'true';
+                                    $set = true;
                                     $exit_loop = true;
                                     break;
                                 }
                             }
-                            if ($exit_loop == true) break;
+                            if ($exit_loop) break;
                         }
                     }
                 } else {
                     array_splice($this->path, ($i));
-                    $set = 'true';
+                    $set = true;
                     break;
                 }
             }
         }
 
-        if ($set == 'true') {
-            if ($this->getMainPage()) {
-                $page = $this->getMainPage();
-            } else {
-                $page = 'index';
-            }
-            $this->path[] = array('page' => $page,
+        if ($set) {
+            $this->path[] = array(
+                'page' => $this->getMainPage() ?: 'index',
                 'mode' => $this->getRequestType(),
-                'get' => $get_vars,
-                'post' => array() /*$_POST*/);
+                'get' => $get_vars
+            );
         }
     }
 
     public function remove_current_page()
     {
         if ($this->request->isXmlHttpRequest()) return;
-        $last_entry_position = sizeof($this->path) - 1;
-        if ($this->path[$last_entry_position]['page'] == $this->getMainPage()) {
-            unset($this->path[$last_entry_position]);
+        $pos = count($this->path) - 1;
+        if ($this->path[$pos]['page'] == $this->getMainPage()) {
+            unset($this->path[$pos]);
         }
     }
 
-    public function set_snapshot($page = '')
+    public function set_snapshot($page = null)
     {
          if ($this->request->isXmlHttpRequest()) return;
         $get_vars = array();
         if (is_array($page)) {
             $this->snapshot = array('page' => $page['page'],
                 'mode' => $page['mode'],
-                'get' => $page['get'],
-                'post' => $page['post']);
+                'get' => $page['get']
+            );
         } else {
-            foreach ($this->request->query->all() as $key => $value) {
-                if ($key != 'main_page') {
-                    $get_vars[$key] = $value;
-                }
-             }
-            if ($this->getMainPage()) {
-                $page = $this->getMainPage();
-            } else {
-                $page = 'index';
-            }
-            $this->snapshot = array('page' => $page,
+            $get_vars = $this->request->query->all();
+            unset($get_vars['main_page']);
+            $this->snapshot = array(
+                'page' => $this->getMainPage() ?: 'index',
                 'mode' => $this->getRequestType(),
-                'get' => $get_vars,
-                'post' => array()/*$_POST*/);
+                'get' => $get_vars
+            );
         }
     }
 
@@ -178,11 +162,12 @@ class NavigationHistory extends Base implements \Serializable
     public function set_path_as_snapshot($history = 0)
     {
         if ($this->request->isXmlHttpRequest()) return;
-        $pos = (sizeof($this->path)-1-$history);
-        $this->snapshot = array('page' => $this->path[$pos]['page'],
+        $pos = (count($this->path) - 1) - $history;
+        $this->snapshot = array(
+            'page' => $this->path[$pos]['page'],
             'mode' => $this->path[$pos]['mode'],
             'get' => $this->path[$pos]['get'],
-            'post' => $this->path[$pos]['post']);
+        );
     }
 
     /**
