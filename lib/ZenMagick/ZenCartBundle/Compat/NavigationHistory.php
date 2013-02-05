@@ -28,7 +28,8 @@ use Symfony\Component\HttpFoundation\Request;
  */
 class NavigationHistory extends Base implements \Serializable
 {
-    public $path, $snapshot;
+    public $path
+    public $snapshot;
 
     protected $request;
 
@@ -138,10 +139,7 @@ class NavigationHistory extends Base implements \Serializable
          if ($this->request->isXmlHttpRequest()) return;
         $get_vars = array();
         if (is_array($page)) {
-            $this->snapshot = array('page' => $page['page'],
-                'mode' => $page['mode'],
-                'get' => $page['get']
-            );
+            $this->snapshot = $page;
         } else {
             $get_vars = $this->request->query->all();
             unset($get_vars['main_page']);
@@ -163,11 +161,7 @@ class NavigationHistory extends Base implements \Serializable
     {
         if ($this->request->isXmlHttpRequest()) return;
         $pos = (count($this->path) - 1) - $history;
-        $this->snapshot = array(
-            'page' => $this->path[$pos]['page'],
-            'mode' => $this->path[$pos]['mode'],
-            'get' => $this->path[$pos]['get'],
-        );
+        $this->snapshot = $this->path[$pos];
     }
 
     /**
