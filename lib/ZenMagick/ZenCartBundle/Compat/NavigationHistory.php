@@ -28,7 +28,7 @@ use Symfony\Component\HttpFoundation\Request;
  */
 class NavigationHistory extends Base implements \Serializable
 {
-    public $path
+    public $path;
     public $snapshot;
 
     protected $request;
@@ -82,37 +82,39 @@ class NavigationHistory extends Base implements \Serializable
         unset($get_vars['main_page']);
 
         $set = true;
-        for ($i=0, $n=sizeof($this->path); $i<$n; $i++) {
-            if ( ($this->path[$i]['page'] == $this->getMainPage()) ) {
-                if (!empty($cPath)) {
-                    if (!isset($this->path[$i]['get']['cPath'])) {
-                        continue;
-                    } else {
-                        if ($this->path[$i]['get']['cPath'] == $cPath) {
-                            array_splice($this->path, ($i+1));
-                            $set = false;
-                            break;
-                        } else {
-                            $old_cPath = explode('_', $this->path[$i]['get']['cPath']);
-                            $new_cPath = explode('_', $cPath);
-
-                            $exit_loop = false;
-                            for ($j=0, $n2=sizeof($old_cPath); $j<$n2; $j++) {
-                                if ($old_cPath[$j] != $new_cPath[$j]) {
-                                    array_splice($this->path, ($i));
-                                    $set = true;
-                                    $exit_loop = true;
-                                    break;
-                                }
-                            }
-                            if ($exit_loop) break;
-                        }
-                    }
+        $n = sizeof($this->path);
+        for ($i = 0; $i < $n; $i++) {
+            if ($this->path[$i]['page'] == $this->getMainPage()) {
+                continue;
+            }
+            if (!empty($cPath)) {
+                if (!isset($this->path[$i]['get']['cPath'])) {
+                    continue;
                 } else {
-                    array_splice($this->path, ($i));
-                    $set = true;
-                    break;
+                    if ($this->path[$i]['get']['cPath'] == $cPath) {
+                        array_splice($this->path, ($i+1));
+                        $set = false;
+                        break;
+                    } else {
+                        $old_cPath = explode('_', $this->path[$i]['get']['cPath']);
+                        $new_cPath = explode('_', $cPath);
+
+                        $exit_loop = false;
+                        for ($j=0, $n2=sizeof($old_cPath); $j<$n2; $j++) {
+                            if ($old_cPath[$j] != $new_cPath[$j]) {
+                                array_splice($this->path, ($i));
+                                $set = true;
+                                $exit_loop = true;
+                                break;
+                            }
+                        }
+                        if ($exit_loop) break;
+                    }
                 }
+            } else {
+                array_splice($this->path, $i);
+                $set = true;
+                break;
             }
         }
 
@@ -137,7 +139,6 @@ class NavigationHistory extends Base implements \Serializable
     public function set_snapshot($page = null)
     {
          if ($this->request->isXmlHttpRequest()) return;
-        $get_vars = array();
         if (is_array($page)) {
             $this->snapshot = $page;
         } else {
