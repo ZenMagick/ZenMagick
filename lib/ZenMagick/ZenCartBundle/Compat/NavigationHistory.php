@@ -88,15 +88,19 @@ class NavigationHistory extends Base implements \Serializable
                 continue;
             }
             if (!empty($cPath)) {
-                if (!isset($this->path[$i]['get']['cPath'])) {
+                $stored_cPath = '';
+                if (isset($this->path[$i]['get']['cPath'])) {
+                    $stored_cPath = $this->path[$i]['get']['cPath'];
+                }
+                if (empty($stored_cPath)) {
                     continue;
                 } else {
-                    if ($this->path[$i]['get']['cPath'] == $cPath) {
+                    if ($stored_cPath == $cPath) {
                         array_splice($this->path, ($i+1));
                         $set = false;
                         break;
                     } else {
-                        $old_cPath = explode('_', $this->path[$i]['get']['cPath']);
+                        $old_cPath = explode('_', $stored_cPath);
                         $new_cPath = explode('_', $cPath);
 
                         $exit_loop = false;
@@ -112,7 +116,7 @@ class NavigationHistory extends Base implements \Serializable
                     }
                 }
             } else {
-                array_splice($this->path, $i);
+                array_splice($this->path, ($i));
                 $set = true;
                 break;
             }
