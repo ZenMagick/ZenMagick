@@ -45,7 +45,7 @@ class HtmlOutput
         $params = str_replace('&amp;', '&', $params);
 
         if ('index.php' == $page) $page = 'index';
-        if ('ipn_main_handler.php' == $page) $page = 'ipn';
+        if ('ipn_main_handler.php' == $page) $page = 'ipn_main_handler';
 
         $requestId = $page;
         parse_str($params, $parameters);
