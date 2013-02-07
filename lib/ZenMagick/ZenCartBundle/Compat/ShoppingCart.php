@@ -120,15 +120,23 @@ class ShoppingCart extends Base
                               where products_options_id = '" . (int)$options_id . "'
                               and language_id = '" . (int)$this->getSessionVar('languages_id') . "' limit 1");
 
-         $check_options_id = $db->Execute("select products_id, options_id, options_values_id, products_options_sort_order
+        $sort_prefix = '';
+        if (isset($check->fields['products_options_sort_order'])) {
+            $sort_prefix = $check->fields['products_options_sort_order'];
+        }
+
+        $check_options_id = $db->Execute("select products_id, options_id, options_values_id, products_options_sort_order
                              from %table.products_attributes%
                              where products_id='" . (int)$products_id . "'
                              and options_id='" . (int)$options_id . "'
                              and options_values_id = '" . (int)$options_values_id . "' limit 1");
 
+        $sort_suffix = '';
+        if (isset($check_options_id->fields['products_options_sort_order'])) {
+            $sort_suffix = str_pad($check_options_id->fields['products_options_sort_order'],5,'0',STR_PAD_LEFT);
+        }
 
-        return $check->fields['products_options_sort_order'].'.'.
-            str_pad($check_options_id->fields['products_options_sort_order'],5,'0',STR_PAD_LEFT);
+        return $sort_prefix.'.'.$sort_suffix;
     }
 
     /**
