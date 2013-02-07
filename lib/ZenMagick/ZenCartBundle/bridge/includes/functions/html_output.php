@@ -207,9 +207,10 @@
  * Outputs a "submit" button in the selected language
  */
   function zen_image_submit($image, $alt = '', $parameters = '', $sec_class = '') {
-    global $template, $current_page_base, $zco_notifier;
-    if (strtolower(IMAGE_USE_CSS_BUTTONS) == 'yes' && strlen($alt)<30) return zenCssButton($image, $alt, 'submit', $sec_class /*, $parameters = ''*/ );
-    $zco_notifier->notify('PAGE_OUTPUT_IMAGE_SUBMIT');
+    global $template, $current_page_base;
+    if (strlen($alt) < 30) { // @todo <johnny> investigate why
+      return zenCssButton($image, $alt, 'submit', $sec_class /*, $parameters = ''*/ );
+    }
 
     // BEGIN ZENMAGICK MODIFICATION
     $image_submit = '<input type="image" src="' . zen_output_string(zen_zm_absolute_path($template->get_template_dir($image, DIR_WS_TEMPLATE, $current_page_base, 'buttons/' . $_SESSION['language'] . '/') . $image)) . '" alt="' . zen_output_string($alt) . '"';
@@ -227,16 +228,7 @@
  * Output a function button in the selected language
  */
   function zen_image_button($image, $alt = '', $parameters = '', $sec_class = '') {
-    global $template, $current_page_base, $zco_notifier;
-
-    // inject rollover class if one is defined. NOTE: This could end up with 2 "class" elements if $parameters contains "class" already.
-    if (defined('IMAGE_ROLLOVER_CLASS') && IMAGE_ROLLOVER_CLASS != '') {
-      $parameters .= (zen_not_null($parameters) ? ' ' : '') . 'class="rollover"';
-    }
-
-    $zco_notifier->notify('PAGE_OUTPUT_IMAGE_BUTTON');
-    if (strtolower(IMAGE_USE_CSS_BUTTONS) == 'yes') return zenCssButton($image, $alt, 'button', $sec_class, $parameters = '');
-    return zen_image($template->get_template_dir($image, DIR_WS_TEMPLATE, $current_page_base, 'buttons/' . $_SESSION['language'] . '/') . $image, $alt, '', '', $parameters);
+    return zenCssButton($image, $alt, 'button', $sec_class, $parameters = '');
   }
 
 
@@ -247,33 +239,17 @@
 **/
   function zenCssButton($image = '', $text, $type, $sec_class = '', $parameters = '') {
 
-    // automatic width setting depending on the number of characters
-    $min_width = 80; // this is the minimum button width, change the value as you like
-    $character_width = 6.5; // change this value depending on font size!
-    // end settings
-    // added html_entity_decode function to prevent html special chars to be counted as multiple characters (like &amp;)
-    $width = strlen(html_entity_decode($text)) * $character_width;
-    $width = (int)$width;
-    if ($width < $min_width) $width = $min_width;
-    $style = ' style="width: ' . $width . 'px;"';
     // if no secondary class is set use the image name for the sec_class
     if (empty($sec_class)) $sec_class = basename($image, '.gif');
     if(!empty($sec_class))$sec_class = ' ' . $sec_class;
     if(!empty($parameters))$parameters = ' ' . $parameters;
-    $mouse_out_class  = 'cssButton' . $sec_class;
-    $mouse_over_class = 'cssButtonHover' . $sec_class . $sec_class . 'Hover';
-    // javascript to set different classes on mouseover and mouseout: enables hover effect on the buttons
-    // (pure css hovers on non link elements do work work in every browser)
-    $css_button_js .=  'onmouseover="this.className=\''. $mouse_over_class . '\'" onmouseout="this.className=\'' . $mouse_out_class . '\'"';
+    $classes = 'cssButton' . $sec_class;
 
     if ($type == 'submit'){
-// form input button
-   $css_button = '<input class="' . $mouse_out_class . '" ' . $css_button_js . ' type="submit" value="' .$text . '"' . $parameters . $style . ' />';
+   $css_button = '<input class="btn btn-success '.$classes.'" type="submit" value="' .$text . '"' . $parameters . ' />';
     }
-
     if ($type=='button'){
-// link button
-   $css_button = '<span class="' . $mouse_out_class . '" ' . $css_button_js . $style . ' >&nbsp;' . $text . '&nbsp;</span>'; // add $parameters ???
+   $css_button = '<span class="btn btn-primary '.$classes.'">&nbsp;' . $text . '&nbsp;</span>'; // add $parameters ???
     }
     return $css_button;
   }

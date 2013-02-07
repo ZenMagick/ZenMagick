@@ -3220,14 +3220,6 @@ ZenMagick\StoreBundle\Entity\ConfigValue:
         sortOrder: 121
         setFunction: "zen_cfg_select_option(array('True', 'False'), "
     -
-        name: "CSS Buttons"
-        key: "IMAGE_USE_CSS_BUTTONS"
-        value: "No"
-        description: "CSS Buttons<br />Use CSS buttons instead of images (GIF/JPG)?<br />Button styles must be configured in the stylesheet if you enable this option."
-        groupId: 19
-        sortOrder: 147
-        setFunction: "zen_cfg_select_option(array('No', 'Yes'), "
-    -
         name: "<strong>Down for Maintenance: ON/OFF</strong>"
         key: "DOWN_FOR_MAINTENANCE"
         value: "false"
