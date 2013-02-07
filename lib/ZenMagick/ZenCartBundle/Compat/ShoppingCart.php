@@ -157,52 +157,53 @@ class ShoppingCart extends Base
         if (!$this->getSessionVar('customer_id')) return false;
 
         $this->notify('NOTIFIER_CART_RESTORE_CONTENTS_START');
-        // insert current cart contents in database
-        foreach ((array)$this->contents as $products_id => $product_details) {
-            $qty = $product_details['qty'];
-            $product_query = "select products_id from %table.customers_basket%
-                where customers_id = '" . (int) $this->getSessionVar('customer_id') . "'
-                and products_id = '" . addslashes($products_id) . "'";
+        if (is_array($this->contents)) {
+            // insert current cart contents in database
+            foreach ($this->contents as $products_id => $product_details) {
+                $qty = $product_details['qty'];
+                $product_query = "select products_id from %table.customers_basket%
+                    where customers_id = '" . (int) $this->getSessionVar('customer_id') . "'
+                    and products_id = '" . addslashes($products_id) . "'";
 
-            $product = $this->getDb()->Execute($product_query);
-            if ($product->RecordCount() <= 0) {
-                $this->getConn()->insert('customers_basket', array(
-                    'customers_id' => (int) $this->getSessionVar('customer_id'),
-                    'products_id' => addslashes($products_id),
-                    'customers_basket_quantity' => (float)$qty,
-                    'customers_basket_date_added' => date('Ymd')
-                ));
-
-                if (isset($product_details['attributes'])) {
-                    foreach ($product_details['attributes'] as $option => $value) {
-                        //clr 031714 udate query to include attribute value. This is needed for text attributes.
-                        $attr_value = '';
-                        if (isset($product_details['attributes_values'])) {
-                            $attr_value = $product_details['attributes_values'][$option];
-                        }
-                        $actualProductId = $this->getActualProductId($products_id);
-                        $products_options_sort_order = $this->getAttributesOptionsSortOrder($actualProductId, $option, $value);
-                        $this->getConn()->insert('customers_basket_attributes', array(
-                            'customers_id' => $this->getSessionVar('customer_id'),
-                            'products_id' => addslashes($products_id),
-                            'products_options_id' => (int) $option,
-                            'products_options_value_id' => (int) $value,
-                            'products_options_value_text' => addslashes($attr_value),
-                            'products_options_sort_order' => addslashes($products_options_sort_order)
-                        ));
-                    }
-                }
-            } else {
-                $this->getConn()->update('customers_basket',
-                    array('customers_basket_quantity' => (float) $qty),
-                    array(
+                $product = $this->getDb()->Execute($product_query);
+                if ($product->RecordCount() <= 0) {
+                    $this->getConn()->insert('customers_basket', array(
                         'customers_id' => (int) $this->getSessionVar('customer_id'),
-                        'products_id' => addslashes($products_id)
-                    )
-                );
+                        'products_id' => addslashes($products_id),
+                        'customers_basket_quantity' => (float)$qty,
+                        'customers_basket_date_added' => date('Ymd')
+                    ));
+
+                    if (isset($product_details['attributes'])) {
+                        foreach ($product_details['attributes'] as $option => $value) {
+                            //clr 031714 udate query to include attribute value. This is needed for text attributes.
+                            $attr_value = '';
+                            if (isset($product_details['attributes_values'][$option])) {
+                                $attr_value = $product_details['attributes_values'][$option];
+                            }
+                            $actualProductId = $this->getActualProductId($products_id);
+                            $products_options_sort_order = $this->getAttributesOptionsSortOrder($actualProductId, $option, $value);
+                            $this->getConn()->insert('customers_basket_attributes', array(
+                                'customers_id' => $this->getSessionVar('customer_id'),
+                                'products_id' => addslashes($products_id),
+                                'products_options_id' => (int) $option,
+                                'products_options_value_id' => (int) $value,
+                                'products_options_value_text' => addslashes($attr_value),
+                                'products_options_sort_order' => addslashes($products_options_sort_order)
+                            ));
+                        }
+                    }
+                } else {
+                    $this->getConn()->update('customers_basket',
+                        array('customers_basket_quantity' => (float) $qty),
+                        array(
+                            'customers_id' => (int) $this->getSessionVar('customer_id'),
+                            'products_id' => addslashes($products_id)
+                        )
+                    );
+                }
             }
         }
-
         // reset per-session cart contents, but not the database contents
         $this->reset(false);
 
