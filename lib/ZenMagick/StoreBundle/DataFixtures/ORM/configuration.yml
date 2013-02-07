@@ -3890,22 +3890,6 @@ ZenMagick\StoreBundle\Entity\ConfigValue:
         sortOrder: 12
         setFunction: "zen_cfg_select_option(array('0', '1', '2'), "
     -
-        name: "EZ-Pages Header Link Separator"
-        key: "EZPAGES_SEPARATOR_HEADER"
-        value: "&nbsp;::&nbsp;"
-        description: "EZ-Pages Header Link Separator<br />Default = &amp;nbsp;::&amp;nbsp;"
-        groupId: 30
-        sortOrder: 20
-        setFunction: "zen_cfg_textarea_small("
-    -
-        name: "EZ-Pages Footer Link Separator"
-        key: "EZPAGES_SEPARATOR_FOOTER"
-        value: "&nbsp;::&nbsp;"
-        description: "EZ-Pages Footer Link Separator<br />Default = &amp;nbsp;::&amp;nbsp;"
-        groupId: 30
-        sortOrder: 21
-        setFunction: "zen_cfg_textarea_small("
-    -
         name: "EZ-Pages Prev/Next Buttons"
         key: "EZPAGES_SHOW_PREV_NEXT_BUTTONS"
         value: 2
