@@ -2946,20 +2946,6 @@ ZenMagick\StoreBundle\Entity\ConfigValue:
         sortOrder: 16
         setFunction: "zen_cfg_select_option(array('0', '1'), "
     -
-        name: "Column Width - Left"
-        key: "COLUMN_WIDTH_LEFT"
-        value: "150px"
-        description: "Width of the Left Column<br />px may be included<br />Default = 150px"
-        groupId: 19
-        sortOrder: 20
-    -
-        name: "Column Width - Right"
-        key: "COLUMN_WIDTH_RIGHT"
-        value: "150px"
-        description: "Width of the Right Column<br />px may be included<br />Default = 150px"
-        groupId: 19
-        sortOrder: 21
-    -
         name: "Categories Separator between links Status"
         key: "SHOW_CATEGORIES_SEPARATOR_LINK"
         value: 1
