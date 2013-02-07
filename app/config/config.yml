@@ -12,7 +12,7 @@ framework:
     router:
         resource: "%kernel.root_dir%/config/routing.yml"
         strict_requirements: "%kernel.debug%"
-    router_proxy: { path: /_proxy }
+    #fragments: { path: /_fragment }
     form:            true
     csrf_protection: true
     validation:      { enable_annotations: true }
