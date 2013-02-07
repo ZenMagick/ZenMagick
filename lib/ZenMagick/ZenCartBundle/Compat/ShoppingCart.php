@@ -1625,25 +1625,26 @@ class ShoppingCart extends Base
      */
     public function actionUpdateProduct($goto, $parameters)
     {
-        for ($i=0, $n=sizeof($_POST['products_id']); $i<$n; $i++) {
+        $products_id = $this->getRequest()->request->get('products_id');
+        for ($i=0, $n=sizeof($products_id); $i<$n; $i++) {
             $adjust_max= 'false';
             if ($_POST['cart_quantity'][$i] == '') {
                 $_POST['cart_quantity'][$i] = 0;
             }
             if (!is_numeric($_POST['cart_quantity'][$i]) || $_POST['cart_quantity'][$i] < 0) {
-                $this->getMessageStack()->add_session('header', ERROR_CORRECTIONS_HEADING . ERROR_PRODUCT_QUANTITY_UNITS_SHOPPING_CART . zen_get_products_name($_POST['products_id'][$i]) . ' ' . PRODUCTS_ORDER_QTY_TEXT . zen_output_string_protected($_POST['cart_quantity'][$i]), 'error');
+                $this->getMessageStack()->add_session('header', ERROR_CORRECTIONS_HEADING . ERROR_PRODUCT_QUANTITY_UNITS_SHOPPING_CART . zen_get_products_name($products_id[$i]) . ' ' . PRODUCTS_ORDER_QTY_TEXT . zen_output_string_protected($_POST['cart_quantity'][$i]), 'error');
                 continue;
             }
-            if ( in_array($_POST['products_id'][$i], (is_array($_POST['cart_delete']) ? $_POST['cart_delete'] : array())) or $_POST['cart_quantity'][$i]==0) {
-                $this->remove($_POST['products_id'][$i]);
+            if ( in_array($products_id[$i], ((isset($_POST['cart_delete']) && is_array($_POST['cart_delete'])) ? $_POST['cart_delete'] : array())) or $_POST['cart_quantity'][$i]==0) {
+                $this->remove($products_id[$i]);
             } else {
-                $add_max = zen_get_products_quantity_order_max($_POST['products_id'][$i]); // maximum allowed
-                $cart_qty = $this->in_cart_mixed($_POST['products_id'][$i]); // total currently in cart
+                $add_max = zen_get_products_quantity_order_max($products_id[$i]); // maximum allowed
+                $cart_qty = $this->in_cart_mixed($products_id[$i]); // total currently in cart
                 $new_qty = $_POST['cart_quantity'][$i]; // new quantity
-                $current_qty = $this->get_quantity($_POST['products_id'][$i]); // how many currently in cart for attribute
-                $chk_mixed = zen_get_products_quantity_mixed($_POST['products_id'][$i]); // use mixed
+                $current_qty = $this->get_quantity($products_id[$i]); // how many currently in cart for attribute
+                $chk_mixed = zen_get_products_quantity_mixed($products_id[$i]); // use mixed
 
-                $new_qty = $this->adjust_quantity($new_qty, $_POST['products_id'][$i], 'shopping_cart');
+                $new_qty = $this->adjust_quantity($new_qty, $products_id[$i], 'shopping_cart');
 
                 if (($add_max == 1 and $cart_qty == 1) && $new_qty != $cart_qty) {
                     // do not add
@@ -1673,16 +1674,17 @@ class ShoppingCart extends Base
                         default:
                             $adjust_max= 'false';
                         }
-                        $attributes = ($_POST['id'][$_POST['products_id'][$i]]) ? $_POST['id'][$_POST['products_id'][$i]] : '';
-                        $this->add_cart($_POST['products_id'][$i], $new_qty, $attributes, false);
-                    } else {
-                        // adjust minimum and units
-                        $attributes = ($_POST['id'][$_POST['products_id'][$i]]) ? $_POST['id'][$_POST['products_id'][$i]] : '';
-                        $this->add_cart($_POST['products_id'][$i], $new_qty, $attributes, false);
                     }
+                    // adjust minimum and units
+                    $attributes = '';
+                    if (isset($_POST['id'][$products_id[$i]])) {
+                        $attributes = $_POST['id'][$products_id[$i]];
+                    }
+                    $this->add_cart($products_id[$i], $new_qty, $attributes, false);
+
                 }
                 if ($adjust_max == 'true') {
-                    $this->getMessageStack()->add_session('shopping_cart', ERROR_MAXIMUM_QTY . zen_get_products_name($_POST['products_id'][$i]), 'caution');
+                    $this->getMessageStack()->add_session('shopping_cart', ERROR_MAXIMUM_QTY . zen_get_products_name($products_id[$i]), 'caution');
                 } else {
                     // display message if all is good and not on shopping_cart page
                     if (DISPLAY_CART == 'false' && $this->getMainPage() != 'shopping_cart') {
