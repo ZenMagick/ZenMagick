@@ -228,7 +228,11 @@ class ZenCartAutoLoader extends ZMObject
         if (Runtime::isContextMatch('admin')) {
             $adminDir = $this->container->getParameter('zencart.admin_dir');
             $adminDirs = array(dirname(__DIR__).'/bridge/admin', $adminDir);
-            $dirs = false !== strpos($base, 'classes') ? array_merge($adminDirs, $dirs) : $adminDirs;
+            if (false !== strpos($base, 'classes') || 0 === strpos($base, 'functions')) {
+                $dirs = array_merge($adminDirs, $dirs);
+            } else {
+                $dirs = $adminDirs;
+            }
         }
 
         $overrides = (false !== strpos($base, 'auto_loaders') || false !== strpos($base, 'init_includes'));
