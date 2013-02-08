@@ -77,8 +77,11 @@ class NavigationHistory extends Base implements \Serializable
     public function add_current_page()
     {
         if ($this->request->isXmlHttpRequest()) return;
+        $cPath = '';
         $get_vars = $this->request->query->all();
-        $cPath = $get_vars['cPath'];
+        if (isset($get_vars['cPath'])) {
+            $cPath = $get_vars['cPath'];
+        }
         unset($get_vars['main_page']);
 
         $set = true;
