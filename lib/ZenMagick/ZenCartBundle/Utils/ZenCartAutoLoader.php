@@ -106,7 +106,7 @@ class ZenCartAutoLoader extends ZMObject
             $filePatterns[] = 'includes/functions/{functions_metatags.php,functions_prices.php,html_output.php}';
             $filePatterns[] = 'includes/functions/{localization.php,password_funcs.php}';
             $filePatterns[] = '../includes/functions/{audience.php,banner.php,featured.php}';
-            $filePatterns[] = '../includes/functions/{functions_email.php,salemaker.php,sessions.php,specials.php,zen_mail.php}';
+            $filePatterns[] = '../includes/functions/{functions_email.php,salemaker.php,specials.php,zen_mail.php}';
             $filePatterns[] = 'includes/functions/admin_access.php';
         } else {
             $filePatterns[] = 'includes/version.php';
@@ -117,7 +117,7 @@ class ZenCartAutoLoader extends ZMObject
             $filePatterns[] = 'includes/extra_datafiles/*.php';
             $filePatterns[] = 'includes/functions/extra_functions/*.php';
             $filePatterns[] = 'includes/functions/{functions_email.php,functions_general.php,html_output.php}';
-            $filePatterns[] = 'includes/functions/{functions_ezpages.php,password_funcs.php,sessions.php,zen_mail.php}';
+            $filePatterns[] = 'includes/functions/{functions_ezpages.php,password_funcs.php,zen_mail.php}';
             $filePatterns[] = 'includes/functions/banner.php';
         }
 

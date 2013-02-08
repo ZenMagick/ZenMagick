@@ -18,15 +18,17 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
+use ZenMagick\Base\Runtime;
+
 function zen_session_start() {
-    return \ZenMagick\Base\Runtime::getContainer()->get('session')->start();
+    return Runtime::getContainer()->get('session')->start();
 }
 
 /**
  * @todo shared certificates! support switching the id.
  */
 function zen_session_id($sessid = '') {
-    return (string)\ZenMagick\Base\Runtime::getContainer()->get('session')->getId();
+    return (string)Runtime::getContainer()->get('session')->getId();
 }
 
 function zen_session_name($name = '') {
@@ -34,16 +36,16 @@ function zen_session_name($name = '') {
 }
 
 function zen_session_close() {
-    \ZenMagick\Base\Runtime::getContainer()->get('session')->save();
+    Runtime::getContainer()->get('session')->save();
 }
 
 function zen_session_destroy() {
-    \ZenMagick\Base\Runtime::getContainer()->get('session')->invalidate();
+    Runtime::getContainer()->get('session')->invalidate();
 }
 
 function zen_session_save_path($path = '') {
 }
 
 function zen_session_recreate() {
-    \ZenMagick\Base\Runtime::getContainer()->get('session')->migrate();
+    Runtime::getContainer()->get('session')->migrate();
 }
