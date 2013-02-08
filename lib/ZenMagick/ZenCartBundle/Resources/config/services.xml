@@ -28,6 +28,10 @@
             </call>
         </service>
 
+        <service id="zencart.sniffer" class="ZenMagick\ZenCartBundle\Compat\Sniffer">
+            <argument type="service" id="database_connection" />
+        </service>
+
         <service id="zencart.query_factory" class="ZenMagick\ZenCartBundle\Compat\QueryFactory">
             <argument type="service" id="database_connection" />
         </service>

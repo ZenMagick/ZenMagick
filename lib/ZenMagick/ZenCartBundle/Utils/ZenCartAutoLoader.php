@@ -159,7 +159,7 @@ class ZenCartAutoLoader extends ZMObject
         }
         $this->setGlobalValue('messageStack', $messageStack);
         $this->setGlobalValue('template', new \template_func);
-        $this->setGlobalValue('sniffer', new \sniffer);
+        $this->setGlobalValue('sniffer', $this->container->get('zencart.sniffer'));
 
         $this->container->get('productTypeLayoutService')->defineAll();
 
