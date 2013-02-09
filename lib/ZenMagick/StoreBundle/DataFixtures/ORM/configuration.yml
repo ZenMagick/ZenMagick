@@ -1537,13 +1537,6 @@ ZenMagick\StoreBundle\Entity\ConfigValue:
         groupId: 8
         sortOrder: 7
     -
-        name: "Display Product Price/Add to Cart Column Width"
-        key: "PRODUCTS_LIST_PRICE_WIDTH"
-        value: 125
-        description: "Define the width of the Price/Add to Cart column<br />Default= 125"
-        groupId: 8
-        sortOrder: 8
-    -
         name: "Display Category/Manufacturer Filter (0=off; 1=on)"
         key: "PRODUCT_LIST_FILTER"
         value: 1
