@@ -69,7 +69,6 @@ class ZenCartBundle extends Bundle
         $map = array(
             'httpClient' => $zc.'http_client.php',
             // ZenCart admin/storefront
-            'breadcrumb' => $zc.'breadcrumb.php',
             'category_tree' => $zc.'category_tree.php',
             'language' => ($isAdmin ? $ba : $b).'language.php',
             'products' => $zc.'products.php',

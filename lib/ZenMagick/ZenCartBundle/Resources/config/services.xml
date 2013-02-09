@@ -22,6 +22,10 @@
             <argument type="service" id="currencyService" />
         </service>
 
+        <service id="zencart.breadcrumb" class="ZenMagick\ZenCartBundle\Compat\Breadcrumb">
+            <argument>false</argument>
+        </service>
+
         <service id="zencart.navigation_history" scope="request" class="ZenMagick\ZenCartBundle\Compat\NavigationHistory">
             <call method="setRequest">
                 <argument type="service" id="request" />

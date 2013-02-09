@@ -305,14 +305,14 @@ class StorefrontController extends DefaultController
      */
     public function initCrumbs($categories = null, $manufacturer = null, $product = null)
     {
-        $breadcrumb = new \breadcrumb();
+        $breadcrumb = $this->get('zencart.breadcrumb');
 
         $breadcrumb->add('Home', zen_href_link(FILENAME_DEFAULT));
         $request = $this->container->get('request');
         $languageId = $request->getSession()->getLanguageId();
 
         foreach ((array) $categories as $category) {
-                $breadcrumb->add($category->getName(), zen_href_link(FILENAME_DEFAULT, 'cPath='.implode('_', $category->getPath())));
+            $breadcrumb->add($category->getName(), zen_href_link(FILENAME_DEFAULT, 'cPath='.implode('_', $category->getPath())));
         }
 
         if (null != $manufacturer) {
