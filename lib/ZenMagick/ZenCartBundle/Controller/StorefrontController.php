@@ -82,6 +82,7 @@ class StorefrontController extends DefaultController
      */
     public function processGet($request)
     {
+        $this->preProcess();
         $settingsService = $this->container->get('settingsService');
         $session = $request->getSession();
         $autoLoader = $this->container->get('zencartAutoLoader');

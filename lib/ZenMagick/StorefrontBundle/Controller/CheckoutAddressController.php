@@ -59,6 +59,7 @@ class CheckoutAddressController extends DefaultController
      */
     protected function validateFormData($request, $formBean)
     {
+        $this->preProcess();
         $addressId = $request->request->get('addressId', null);
         if (null !== $addressId) {
             // selected existing address, so do not validate
@@ -91,6 +92,7 @@ class CheckoutAddressController extends DefaultController
      */
     public function processGet($request)
     {
+        $this->preProcess();
         if (null != ($result = $this->checkCart($request))) {
             return $result;
         }

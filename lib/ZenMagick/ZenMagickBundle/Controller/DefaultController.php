@@ -97,9 +97,6 @@ class DefaultController extends Controller
 
         $settingsService = $this->container->get('settingsService');
 
-        // method independant (pre-)processing
-        $this->preProcess($request);
-
         // default is no view to allow the controller to generate content
         $view = null;
 
@@ -166,19 +163,6 @@ class DefaultController extends Controller
     public function getViewData($request)
     {
         return array();
-    }
-
-    /**
-     * Convenience method for request processing shared by request methods.
-     *
-     * <p>Despite the name this is called as part of the controllers <code>process($request)</code> method.
-     * That ensures that all processing is within the boundaries of a single transaction (if enabled).</p>
-     *
-     * @param ZenMagick\Http\Request request The request to process.
-     */
-    public function preProcess($request)
-    {
-        // nothing
     }
 
     /**
