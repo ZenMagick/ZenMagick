@@ -65,7 +65,6 @@ use ZenMagick\Base\ZMObject;
  * </dl>
  *
  * @author DerManoMann <mano@zenmagick.org> <mano@zenmagick.org>
- * @package org.zenmagick.core.database
  */
 class TableMapper extends ZMObject
 {
@@ -169,16 +168,6 @@ class TableMapper extends ZMObject
     {
         $table = str_replace($this->tablePrefix_, '', $table);
         unset($this->tableMap_[$table]);
-    }
-
-    /**
-     * Get a list of all available tables.
-     *
-     * @return array List of table names.
-     */
-    public function getTableNames()
-    {
-        return array_keys($this->tableMap_);
     }
 
 }
