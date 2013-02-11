@@ -84,14 +84,6 @@ class DefaultController extends Controller
     }
 
     /**
-     * An alias for processAction()
-     * @see self::processAction
-     */
-    public function process(Request $request)
-    {
-        return $this->processAction($request);
-    }
-    /**
      * Process a HTTP request.
      *
      * <p>Supported request methods are <code>GET</code> and <code>POST</code>.</p>

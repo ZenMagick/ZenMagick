@@ -48,14 +48,6 @@ class AjaxController extends DefaultController
     }
 
     /**
-     * {@inheritDoc}
-     */
-    public function process(Request $request)
-    {
-        return $this->processAction($request);
-    }
-
-    /**
      * Process a HTTP request.
      *
      * <p>This implementation will delegate request handling based on the method parameter in

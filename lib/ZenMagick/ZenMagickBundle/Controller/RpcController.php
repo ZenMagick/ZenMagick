@@ -38,14 +38,6 @@ class RpcController extends DefaultController
     /**
      * {@inheritDoc}
      */
-    public function process(Request $request)
-    {
-        return $this->processAction($request);
-    }
-
-    /**
-     * {@inheritDoc}
-     */
     public function processAction(Request $request)
     {
         $format = $this->container->get('settingsService')->get('zenmagick.mvc.rpc.format', 'JSON');
