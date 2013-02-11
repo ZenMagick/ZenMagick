@@ -106,7 +106,8 @@ class ResourceResolver extends ZMObject
      */
     protected function getApplicationTemplateLocations()
     {
-        return array($this->getApplicationTemplatePath(), Runtime::getInstallationPath().'/lib/ZenMagick/ZenCartBundle/Resources/views');
+        $rootDir = $this->container->getParameter('zenmagick.root_dir');
+        return array($this->getApplicationTemplatePath(), $rootDir.'/lib/ZenMagick/ZenCartBundle/Resources/views');
     }
 
     /**
@@ -156,7 +157,8 @@ class ResourceResolver extends ZMObject
      */
     protected function getApplicationResourceLocations()
     {
-        return array($this->getApplicationDocRoot(), Runtime::getInstallationPath().'/lib/ZenMagick/ZenCartBundle/Resources/public/');
+        $rootDir = $this->container->getParameter('zenmagick.root_dir');
+        return array($this->getApplicationDocRoot(), $rootDir.'/lib/ZenMagick/ZenCartBundle/Resources/public/');
     }
 
     /**

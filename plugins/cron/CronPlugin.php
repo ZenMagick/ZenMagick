@@ -20,7 +20,6 @@
 namespace ZenMagick\plugins\cron;
 
 use ZenMagick\Base\Plugins\Plugin;
-use ZenMagick\Base\Runtime;
 use ZenMagick\Base\Toolbox;
 
 /**
@@ -60,7 +59,7 @@ class CronPlugin extends Plugin
      */
     public function getConfigPath($file)
     {
-        $configPath = Runtime::getInstallationPath().'config/';
+        $configPath = $this->container->getParameter('zenmagick.root_dir').'config/';
         $configFile = $configPath.$this->getId().'/'.$file;
 
         if (file_exists($configFile) || !file_exists($this->getPluginDirectory().'/'.$file)) {

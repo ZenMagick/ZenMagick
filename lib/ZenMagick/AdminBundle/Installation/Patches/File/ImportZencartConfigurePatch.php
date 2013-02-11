@@ -19,11 +19,9 @@
  */
 namespace ZenMagick\AdminBundle\Installation\Patches\File;
 
-use ZenMagick\Base\Runtime;
 use ZenMagick\AdminBundle\Installation\Patches\FilePatch;
 use Symfony\Component\Yaml\Yaml;
 
-define('_ZM_STORE_CONFIG_YAML', Runtime::getInstallationPath().'/config/parameters.yml');
 
 /**
  * Patch to create a config/store-config.yaml from zencart includes/configure.php
@@ -42,6 +40,7 @@ class ImportZencartConfigurePatch extends FilePatch
         parent::__construct('importZencartConfigure');
         $this->label_ = 'Create or update ZenMagick store-config.yaml from configure.php';
         $this->configurePhpFile = $this->container->getParameter('zencart.root_dir').'/includes/configure.php';
+        $this->configFile = $this->container->getParameter('zenmagick.root_dir').'/config/parameters.yml';
     }
 
     /**
@@ -51,8 +50,8 @@ class ImportZencartConfigurePatch extends FilePatch
      */
     public function isOpen()
     {
-        if (!file_exists(_ZM_STORE_CONFIG_YAML)) return true;
-        $config = Yaml::parse(_ZM_STORE_CONFIG_YAML);
+        if (!file_exists($this->configFile)) return true;
+        $config = Yaml::parse($this->configFile);
 
         return !isset($config['database_name']);
     }
@@ -64,8 +63,8 @@ class ImportZencartConfigurePatch extends FilePatch
      */
     public function isReady()
     {
-        $writeable = !file_exists(_ZM_STORE_CONFIG_YAML) || is_writeable(_ZM_STORE_CONFIG_YAML);
-        $canWriteFile = is_writeable(dirname(_ZM_STORE_CONFIG_YAML)) && $writeable;
+        $writeable = !file_exists($this->configFile) || is_writeable($this->configFile);
+        $canWriteFile = is_writeable(dirname($this->configFile)) && $writeable;
 
         return file_exists($this->configurePhpFile) && $canWriteFile;
     }
@@ -79,7 +78,7 @@ class ImportZencartConfigurePatch extends FilePatch
      */
     public function getPreconditionsMessage()
     {
-        return $this->isReady() ? "" : "Need permission to write " . _ZM_STORE_CONFIG_YAML . " or " . $this->configurePhpFile . " does not exist";
+        return $this->isReady() ? "" : "Need permission to write " . $this->configFile . " or " . $this->configurePhpFile . " does not exist";
     }
 
     /**
@@ -129,7 +128,7 @@ class ImportZencartConfigurePatch extends FilePatch
 ## NOTE: This file is generated (and may be re-written) automatically - edit at own risk.
 ##
 ';
-        file_put_contents(_ZM_STORE_CONFIG_YAML, $header.$yaml);
+        file_put_contents($this->configFile, $header.$yaml);
 
         return true;
     }

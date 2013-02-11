@@ -20,7 +20,6 @@
 
 namespace ZenMagick\ZenCartBundle\Controller;
 
-use ZenMagick\Base\Runtime;
 use ZenMagick\Base\Toolbox;
 use ZenMagick\ZenMagickBundle\Controller\DefaultController;
 
@@ -138,7 +137,8 @@ class StorefrontController extends DefaultController
         foreach ($files as $file) {
             include $file;
         }
-        require Runtime::getInstallationPath().'/lib/ZenMagick/ZenCartBundle/bridge/includes/autoload_func.php';
+        $installRoot = $this->container->getParameter('zenmagick.root_dir');
+        require $installRoot.'/lib/ZenMagick/ZenCartBundle/bridge/includes/autoload_func.php';
         require($controllerFile);
 
         $content = '';

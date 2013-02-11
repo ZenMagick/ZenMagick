@@ -19,7 +19,6 @@
  */
 namespace ZenMagick\AdminBundle\Installation\Patches\File;
 
-use ZenMagick\Base\Runtime;
 use ZenMagick\Base\Toolbox;
 use ZenMagick\AdminBundle\Installation\Patches\FilePatch;
 
@@ -164,7 +163,8 @@ class SideboxDummyPatch extends FilePatch
         // list of boxes dirs to process
         $boxPathList = array();
 
-        $boxPathList[] = Runtime::getInstallationPath().'/lib/ZenMagick/StorefrontBundle/Resources/views/boxes';
+        $rootDir = $this->container->getParameter('zenmagick.root_dir');
+        $boxPathList[] = $rootDir.'/lib/ZenMagick/StorefrontBundle/Resources/views/boxes';
         // 1) themes
         foreach ($this->container->get('themeService')->getAvailableThemes() as $theme) {
             $boxPathList[] = $theme->getBoxesDir();

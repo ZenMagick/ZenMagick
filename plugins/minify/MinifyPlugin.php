@@ -20,7 +20,6 @@
 namespace ZenMagick\plugins\minify;
 
 use ZenMagick\Base\Plugins\Plugin;
-use ZenMagick\Base\Runtime;
 
 /**
  * Plugin to use minify.
@@ -37,7 +36,8 @@ class MinifyPlugin extends Plugin
         parent::install();
 
         // create minify cache dir
-        $this->container->get('filesystem')->mkdir(dirname(Runtime::getInstallationPath()).'/cache/zenmagick/minify', 0755);
+        $rootDir = $this->container->getParameter('zenmagick.root_dir');
+        $this->container->get('filesystem')->mkdir($rootDir.'/cache/zenmagick/minify', 0755);
     }
 
     //TODO: install options: =f only, create dynamica groups, enable js, enable/disable css, PHP support: off, simple, ZenMagick Context (controller)
