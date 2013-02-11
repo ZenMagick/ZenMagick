@@ -650,11 +650,6 @@ array(
         'dateLastModified' => array('column' => 'sale_date_last_modified', 'type' => 'date'),
         'dateStatusChange' => array('column' => 'sale_date_status_change', 'type' => 'date')
     ),
-    'sessions' => array(
-        'sesskey' => array('column' => 'sesskey', 'type' => 'string', 'key' => true),
-        'expiry' => array('column' => 'expiry', 'type' => 'integer'),
-        'value' => array('column' => 'value', 'type' => 'blob')
-    ),
     'specials' => array(
         'id' => array('column' => 'specials_id', 'type' => 'integer', 'key' => true, 'auto' => true),
         'productId' => array('column' => 'products_id', 'type' => 'integer'),
