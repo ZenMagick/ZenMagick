@@ -25,7 +25,7 @@ use ZenMagick\Base\Beans;
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class ZMRpcRequestJSON implements ZMRpcRequest
+class ZMRpcRequestJSON
 {
     private $request_;
     private $json_;
