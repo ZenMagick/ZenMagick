@@ -38,7 +38,6 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 class DefaultController extends Controller
 {
     private $requestId_;
-    private $method_;
     private $view_;
     private $formData_;
 
@@ -51,7 +50,6 @@ class DefaultController extends Controller
     {
         $this->requestId_ = $requestId;
         $this->view_ = null;
-        $this->method_ = null;
         $this->formData_ = null;
     }
 
@@ -115,7 +113,7 @@ class DefaultController extends Controller
         }
 
         if (null == $view) {
-            $method = null != $this->getMethod() ? $this->getMethod() : $request->getMethod();
+            $method = $request->getMethod();
             switch ($method) {
                 case 'GET':
                     $view = $this->processGet($request);
@@ -357,26 +355,6 @@ class DefaultController extends Controller
     public function setView($view)
     {
         $this->view_ = $view;
-    }
-
-    /**
-     * Get the method to be used for processing.
-     *
-     * @return string Either a method name or <code>null</code> to pick the method based on the request method (GET, POST, etc).
-     */
-    public function getMethod()
-    {
-        return $this->method_;
-    }
-
-    /**
-     * Set the method to be used for processing.
-     *
-     * @param string method The method name.
-     */
-    public function setMethod($method)
-    {
-        $this->method_ = $method;
     }
 
     /**
