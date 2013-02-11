@@ -200,22 +200,6 @@ class DefaultController extends Controller
     public function processPost($request) { return $this->processGet($request); }
 
     /**
-     * Set the response content type.
-     *
-     * @param string type The content type.
-     * @param string charset Optional charset; default is utf-8; <code>null</code> will omit the charset part.
-     * @todo migrate to Symfony\Component\HttpFoundation\Response and drop this
-     */
-    public static function setContentType($type, $charset="utf-8")
-    {
-        $text = "Content-Type: " . $type;
-        if (null != $charset) {
-            $text .= "; charset=" . $charset;
-        }
-        header($text);
-    }
-
-    /**
      * Lookup the appropriate view for the given name.
      *
      * @param string id The controller id or <code>null</code> to return to the current page.
