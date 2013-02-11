@@ -1,35 +1,35 @@
 {
-    "hash": "c51a4248e4a377d0eea8a50075ff3d3f",
+    "hash": "fe0f8db05059e85ad77641ac21f94974",
     "packages": [
         {
-            "name": "doctrine/common",
-            "version": "2.3.x-dev",
+            "name": "doctrine/annotations",
+            "version": "v1.0",
             "source": {
                 "type": "git",
-                "url": "https://github.com/doctrine/common",
-                "reference": "bb0aebbf234db52df476a2b473d434745b34221c"
+                "url": "https://github.com/doctrine/annotations.git",
+                "reference": "v1.0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://github.com/doctrine/common/zipball/bb0aebbf234db52df476a2b473d434745b34221c",
-                "reference": "bb0aebbf234db52df476a2b473d434745b34221c",
+                "url": "https://github.com/doctrine/annotations/archive/v1.0.zip",
+                "reference": "v1.0",
                 "shasum": ""
             },
             "require": {
+                "doctrine/lexer": "1.*",
                 "php": ">=5.3.2"
             },
-            "time": "2012-09-20 05:55:18",
-            "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "2.3.x-dev"
-                }
+            "require-dev": {
+                "doctrine/cache": "1.*"
             },
+            "time": "2013-01-12 19:23:32",
+            "type": "library",
             "autoload": {
                 "psr-0": {
-                    "Doctrine\\Common": "lib/"
+                    "Doctrine\\Common\\Annotations\\": "lib/"
                 }
             },
+            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "MIT"
             ],
@@ -53,9 +53,204 @@
                     "email": "kontakt@beberlei.de"
                 },
                 {
-                    "name": "Johannes M. Schmitt",
+                    "name": "Johannes Schmitt",
                     "email": "schmittjoh@gmail.com",
-                    "homepage": "http://jmsyst.com",
+                    "homepage": "https://github.com/schmittjoh",
+                    "role": "Developer of wrapped JMSSerializerBundle"
+                }
+            ],
+            "description": "Docblock Annotations Parser",
+            "homepage": "http://www.doctrine-project.org",
+            "keywords": [
+                "annotations",
+                "docblock",
+                "parser"
+            ]
+        },
+        {
+            "name": "doctrine/cache",
+            "version": "v1.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/doctrine/cache.git",
+                "reference": "v1.0"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://github.com/doctrine/cache/archive/v1.0.zip",
+                "reference": "v1.0",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.2"
+            },
+            "time": "2013-01-10 22:43:46",
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "Doctrine\\Common\\Cache\\": "lib/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Jonathan Wage",
+                    "email": "jonwage@gmail.com",
+                    "homepage": "http://www.jwage.com/"
+                },
+                {
+                    "name": "Guilherme Blanco",
+                    "email": "guilhermeblanco@gmail.com",
+                    "homepage": "http://www.instaclick.com"
+                },
+                {
+                    "name": "Roman Borschel",
+                    "email": "roman@code-factory.org"
+                },
+                {
+                    "name": "Benjamin Eberlei",
+                    "email": "kontakt@beberlei.de"
+                },
+                {
+                    "name": "Johannes Schmitt",
+                    "email": "schmittjoh@gmail.com",
+                    "homepage": "https://github.com/schmittjoh",
+                    "role": "Developer of wrapped JMSSerializerBundle"
+                }
+            ],
+            "description": "Caching library offering an object-oriented API for many cache backends",
+            "homepage": "http://www.doctrine-project.org",
+            "keywords": [
+                "cache",
+                "caching"
+            ]
+        },
+        {
+            "name": "doctrine/collections",
+            "version": "v1.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/doctrine/collections.git",
+                "reference": "v1.0"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://github.com/doctrine/collections/archive/v1.0.zip",
+                "reference": "v1.0",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.2"
+            },
+            "time": "2013-01-12 16:36:50",
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "Doctrine\\Common\\Collections\\": "lib/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Jonathan Wage",
+                    "email": "jonwage@gmail.com",
+                    "homepage": "http://www.jwage.com/"
+                },
+                {
+                    "name": "Guilherme Blanco",
+                    "email": "guilhermeblanco@gmail.com",
+                    "homepage": "http://www.instaclick.com"
+                },
+                {
+                    "name": "Roman Borschel",
+                    "email": "roman@code-factory.org"
+                },
+                {
+                    "name": "Benjamin Eberlei",
+                    "email": "kontakt@beberlei.de"
+                },
+                {
+                    "name": "Johannes Schmitt",
+                    "email": "schmittjoh@gmail.com",
+                    "homepage": "https://github.com/schmittjoh",
+                    "role": "Developer of wrapped JMSSerializerBundle"
+                }
+            ],
+            "description": "Collections Abstraction library",
+            "homepage": "http://www.doctrine-project.org",
+            "keywords": [
+                "array",
+                "collections",
+                "iterator"
+            ]
+        },
+        {
+            "name": "doctrine/common",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/doctrine/common",
+                "reference": "53859ae1c84ccf1a5aa58c8379c69cd9adedf03a"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/doctrine/common/zipball/53859ae1c84ccf1a5aa58c8379c69cd9adedf03a",
+                "reference": "53859ae1c84ccf1a5aa58c8379c69cd9adedf03a",
+                "shasum": ""
+            },
+            "require": {
+                "doctrine/annotations": "1.*",
+                "doctrine/cache": "1.*",
+                "doctrine/collections": "1.*",
+                "doctrine/inflector": "1.*",
+                "doctrine/lexer": "1.*",
+                "php": ">=5.3.2"
+            },
+            "time": "2013-01-29 12:48:56",
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "2.4.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-0": {
+                    "Doctrine\\Common\\": "lib/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Jonathan Wage",
+                    "email": "jonwage@gmail.com",
+                    "homepage": "http://www.jwage.com/"
+                },
+                {
+                    "name": "Guilherme Blanco",
+                    "email": "guilhermeblanco@gmail.com",
+                    "homepage": "http://www.instaclick.com"
+                },
+                {
+                    "name": "Roman Borschel",
+                    "email": "roman@code-factory.org"
+                },
+                {
+                    "name": "Benjamin Eberlei",
+                    "email": "kontakt@beberlei.de"
+                },
+                {
+                    "name": "Johannes Schmitt",
+                    "email": "schmittjoh@gmail.com",
+                    "homepage": "https://github.com/schmittjoh",
                     "role": "Developer of wrapped JMSSerializerBundle"
                 }
             ],
@@ -126,32 +321,38 @@
         },
         {
             "name": "doctrine/dbal",
-            "version": "2.3.x-dev",
+            "version": "dev-master",
             "source": {
                 "type": "git",
                 "url": "https://github.com/doctrine/dbal",
-                "reference": "fd45c6f6baa618d871f3201fabe76df5043abb1e"
+                "reference": "eb6ee9a86421ba534d7c5514b190d1d06b30d4b1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://github.com/doctrine/dbal/archive/fd45c6f6baa618d871f3201fabe76df5043abb1e.zip",
-                "reference": "fd45c6f6baa618d871f3201fabe76df5043abb1e",
+                "url": "https://api.github.com/repos/doctrine/dbal/zipball/eb6ee9a86421ba534d7c5514b190d1d06b30d4b1",
+                "reference": "eb6ee9a86421ba534d7c5514b190d1d06b30d4b1",
                 "shasum": ""
             },
             "require": {
-                "doctrine/common": "2.3.*",
+                "doctrine/common": "2.4.x-dev",
                 "php": ">=5.3.2"
             },
-            "time": "2013-01-20 11:50:36",
+            "require-dev": {
+                "symfony/console": "2.*"
+            },
+            "suggest": {
+                "symfony/console": "For helpful console commands such as SQL execution and import of files."
+            },
+            "time": "2013-02-09 23:28:29",
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "2.3.x-dev"
+                    "dev-master": "2.4.x-dev"
                 }
             },
             "autoload": {
                 "psr-0": {
-                    "Doctrine\\DBAL": "lib/"
+                    "Doctrine\\DBAL\\": "lib/"
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
@@ -365,6 +566,121 @@
             ]
         },
         {
+            "name": "doctrine/inflector",
+            "version": "v1.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/doctrine/inflector.git",
+                "reference": "v1.0"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://github.com/doctrine/inflector/archive/v1.0.zip",
+                "reference": "v1.0",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.2"
+            },
+            "time": "2013-01-10 21:49:15",
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "Doctrine\\Common\\Inflector\\": "lib/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Jonathan Wage",
+                    "email": "jonwage@gmail.com",
+                    "homepage": "http://www.jwage.com/"
+                },
+                {
+                    "name": "Guilherme Blanco",
+                    "email": "guilhermeblanco@gmail.com",
+                    "homepage": "http://www.instaclick.com"
+                },
+                {
+                    "name": "Roman Borschel",
+                    "email": "roman@code-factory.org"
+                },
+                {
+                    "name": "Benjamin Eberlei",
+                    "email": "kontakt@beberlei.de"
+                },
+                {
+                    "name": "Johannes Schmitt",
+                    "email": "schmittjoh@gmail.com",
+                    "homepage": "https://github.com/schmittjoh",
+                    "role": "Developer of wrapped JMSSerializerBundle"
+                }
+            ],
+            "description": "Common String Manipulations with regard to casing and singular/plural rules.",
+            "homepage": "http://www.doctrine-project.org",
+            "keywords": [
+                "inflection",
+                "pluarlize",
+                "singuarlize",
+                "string"
+            ]
+        },
+        {
+            "name": "doctrine/lexer",
+            "version": "v1.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/doctrine/lexer.git",
+                "reference": "v1.0"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://github.com/doctrine/lexer/archive/v1.0.zip",
+                "reference": "v1.0",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.2"
+            },
+            "time": "2013-01-12 18:59:04",
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "Doctrine\\Common\\Lexer\\": "lib/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Guilherme Blanco",
+                    "email": "guilhermeblanco@gmail.com",
+                    "homepage": "http://www.instaclick.com"
+                },
+                {
+                    "name": "Roman Borschel",
+                    "email": "roman@code-factory.org"
+                },
+                {
+                    "name": "Johannes Schmitt",
+                    "email": "schmittjoh@gmail.com",
+                    "homepage": "https://github.com/schmittjoh",
+                    "role": "Developer of wrapped JMSSerializerBundle"
+                }
+            ],
+            "description": "Base library for a lexer that can be used in Top-Down, Recursive Descent Parsers.",
+            "homepage": "http://www.doctrine-project.org",
+            "keywords": [
+                "lexer",
+                "parser"
+            ]
+        },
+        {
             "name": "doctrine/migrations",
             "version": "dev-master",
             "source": {
@@ -420,20 +736,20 @@
         },
         {
             "name": "doctrine/orm",
-            "version": "2.3.x-dev",
+            "version": "dev-master",
             "source": {
                 "type": "git",
                 "url": "git://github.com/doctrine/doctrine2.git",
-                "reference": "fdd0af34e6fced967b8751bc3e4792c11ef86d57"
+                "reference": "d08c010ae16fcbb83d4b7d9cf00f129b385552ed"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://github.com/doctrine/doctrine2/archive/fdd0af34e6fced967b8751bc3e4792c11ef86d57.zip",
-                "reference": "fdd0af34e6fced967b8751bc3e4792c11ef86d57",
+                "url": "https://api.github.com/repos/doctrine/doctrine2/zipball/d08c010ae16fcbb83d4b7d9cf00f129b385552ed",
+                "reference": "d08c010ae16fcbb83d4b7d9cf00f129b385552ed",
                 "shasum": ""
             },
             "require": {
-                "doctrine/dbal": "2.3.*",
+                "doctrine/dbal": ">=2.4-dev,<2.5-dev",
                 "ext-pdo": "*",
                 "php": ">=5.3.2",
                 "symfony/console": "2.*"
@@ -441,7 +757,7 @@
             "suggest": {
                 "symfony/yaml": "If you want to use YAML Metadata Mapping Driver"
             },
-            "time": "2013-01-20 19:35:21",
+            "time": "2013-02-11 15:50:57",
             "bin": [
                 "bin/doctrine",
                 "bin/doctrine.php"
@@ -449,12 +765,12 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "2.3.x-dev"
+                    "dev-master": "2.4.x-dev"
                 }
             },
             "autoload": {
                 "psr-0": {
-                    "Doctrine\\ORM": "lib/"
+                    "Doctrine\\ORM\\": "lib/"
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
