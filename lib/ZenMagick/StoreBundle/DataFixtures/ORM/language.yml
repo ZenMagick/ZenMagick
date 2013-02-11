@@ -1,4 +1,4 @@
-ZenMagick\StoreBundle\Entity\Locale\Language:
+ZenMagick\StoreBundle\Entity\Language:
     -
         name: "English"
         code: "en"

@@ -23,7 +23,6 @@ use Symfony\Component\HttpKernel\Event\GetResponseEvent;
 use Symfony\Component\HttpKernel\KernelEvents;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use ZenMagick\StoreBundle\Services\Locale\LanguageService;
-use ZenMagick\StoreBundle\Entity\Locale\Language;
 
 class LocaleSessionListener implements EventSubscriberInterface
 {
