@@ -52,11 +52,11 @@ class LoginController extends DefaultController
         }
 
         if ($error instanceof LockedException) {
-            $this->messageService->error(_zm('Sorry, there was a security error when trying to login.'));
+            $this->get('session.flash_bag')->error(_zm('Sorry, there was a security error when trying to login.'));
         }
 
         if ($error instanceof BadCredentialsException) {
-            $this->messageService->error(_zm('Sorry, there is no match for that email address and/or password.'));
+            $this->get('session.flash_bag')->error(_zm('Sorry, there is no match for that email address and/or password.'));
         }
 
         $tpl = array(

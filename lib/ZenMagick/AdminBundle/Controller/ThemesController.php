@@ -77,13 +77,13 @@ class ThemesController extends DefaultController
                 $config->setThemeId($themeId);
                 $config->setVariationId($variationId);
                 $themeService->updateThemeConfig($config);
-                $this->messageService->success(_zm('Theme mapping updated.'));
+                $this->get('session.flash_bag')->success(_zm('Theme mapping updated.'));
             }
             break;
         case  'delete':
             if (null != ($config = $this->getConfigForLanguageId())) {
                 $themeService->deleteThemeConfig($config);
-                $this->messageService->success(_zm('Theme mapping deleted.'));
+                $this->get('session.flash_bag')->success(_zm('Theme mapping deleted.'));
             }
             break;
         case  'create':
@@ -91,7 +91,7 @@ class ThemesController extends DefaultController
             $variationId = $request->request->get('newVariationId');
             $config = new ZMObject(array('themeId' => $themeId, 'variationId' => $variationId));
             $themeService->createThemeConfig($config);
-            $this->messageService->success(_zm('Theme mapping created.'));
+            $this->get('session.flash_bag')->success(_zm('Theme mapping created.'));
             break;
         }
 

@@ -38,7 +38,7 @@ class CheckoutGuestController extends DefaultController
         $settingsService = $this->container->get('settingsService');
 
         if (!$settingsService->get('isGuestCheckout')) {
-            $this->messageService->warn(_zm('Guest checkout not allowed at this time'));
+            $this->get('session.flash_bag')->warn(_zm('Guest checkout not allowed at this time'));
 
             return $this->findView('guest_checkout_disabled');
         }

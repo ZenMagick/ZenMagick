@@ -106,7 +106,7 @@ class CheckoutShippingController extends DefaultController
         }
 
         if (null == $shippingProvider || null == $shippingMethod) {
-            $this->messageService->error(_zm('Please select a shipping method.'));
+            $this->get('session.flash_bag')->error(_zm('Please select a shipping method.'));
 
             return $this->findView();
         }

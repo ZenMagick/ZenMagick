@@ -67,7 +67,7 @@ class ProductTagsTabController extends CatalogContentController
                 }
             }
             $this->container->get('tagService')->setTagsForProductId($productId, $languageId, $tags);
-            $this->messageService->success(_zm('Tags updated'));
+            $this->get('session.flash_bag')->success(_zm('Tags updated'));
         }
 
         return $this->findView('catalog-redirect');

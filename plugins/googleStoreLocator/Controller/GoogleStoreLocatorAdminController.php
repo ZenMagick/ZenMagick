@@ -61,7 +61,7 @@ class GoogleStoreLocatorAdminController extends PluginAdminController
             }
         }
 
-        $this->messageService->success('Plugin settings updated!');
+        $this->get('session.flash_bag')->success('Plugin settings updated!');
 
         return $this->findView('success');
     }

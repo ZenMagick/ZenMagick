@@ -59,14 +59,14 @@ class BlockGroupsController extends DefaultController
                 $blockGroup = new BlockGroup();
                 $blockGroup->setName($groupName);
                 $blockService->createBlockGroup($blockGroup);
-                $this->messageService->success(sprintf(_zm('Block group %s added.'), $groupName));
+                $this->get('session.flash_bag')->success(sprintf(_zm('Block group %s added.'), $groupName));
             }
             break;
         case 'removeGroup':
             $groupName = $request->request->get('groupName');
             if (!empty($groupName)) {
                 $blockService->deleteGroupForName($groupName);
-                $this->messageService->success(sprintf(_zm('Block group %s removed.'), $groupName));
+                $this->get('session.flash_bag')->success(sprintf(_zm('Block group %s removed.'), $groupName));
             }
             break;
         }

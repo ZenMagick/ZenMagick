@@ -102,28 +102,28 @@ class EzpagesController extends DefaultController
                 Beans::setAll($ezPage, $request->request->all());
                 $ezPage = $ezPageService->createPage($ezPage);
                 if (0 < $ezPage->getId()) {
-                    $this->messageService->success('EZPage #'.$ezPage->getId().' saved');
+                    $this->get('session.flash_bag')->success('EZPage #'.$ezPage->getId().' saved');
                     $viewId = 'success';
                 } else {
-                    $this->messageService->error('Could not save page');
+                    $this->get('session.flash_bag')->error('Could not save page');
                 }
             } elseif (null != ($ezPage = $ezPageService->getPageForId($ezPageId, $languageId))) {
                 // no sanitize!
                 Beans::setAll($ezPage, $request->request->all());
                 $ezPageService->updatePage($ezPage);
-                $this->messageService->success('EZPage #'.$ezPageId.' updated');
+                $this->get('session.flash_bag')->success('EZPage #'.$ezPageId.' updated');
                 $viewId = 'success';
             } else {
-                $this->messageService->error('Could not save page - invalid request data');
+                $this->get('session.flash_bag')->error('Could not save page - invalid request data');
             }
         } elseif (null !== ($ezPageId = $request->request->get('deleteId'))) {
             $ezPageId = (int) $ezPageId;
             if (null != ($ezPage = $ezPageService->getPageForId($ezPageId, $languageId))) {
                 $ezPageService->removePage($ezPage);
-                $this->messageService->success('EZPage #'.$ezPage->getId().' deleted');
+                $this->get('session.flash_bag')->success('EZPage #'.$ezPage->getId().' deleted');
                 $viewId = 'success';
             } else {
-                $this->messageService->error('Could not find EZPage to delete: #'.$ezPageId);
+                $this->get('session.flash_bag')->error('Could not find EZPage to delete: #'.$ezPageId);
             }
         }
 

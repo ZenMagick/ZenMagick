@@ -57,7 +57,7 @@ class AddressBookAddController extends DefaultController
 
         // if guest, there is no address book!
         if ($session->isRegistered()) {
-            $this->messageService->success(_zm('Address added to your address book.'));
+            $this->get('session.flash_bag')->success(_zm('Address added to your address book.'));
         }
 
         return $this->findView('success');

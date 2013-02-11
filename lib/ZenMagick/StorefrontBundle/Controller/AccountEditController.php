@@ -48,14 +48,14 @@ class AccountEditController extends DefaultController
         if ($account->getEmail() != $currentAccount->getEmail()) {
             // XXX: move into validation rule email changed, so make sure it doesn't exist
             if ($this->container->get('accountService')->emailExists($account->getEmail())) {
-                $this->messageService->error(_zm('Sorry, the entered email address already exists.'));
+                $this->get('session.flash_bag')->error(_zm('Sorry, the entered email address already exists.'));
 
                 return $this->findView();
             }
         }
 
         $this->container->get('accountService')->updateAccount($account);
-        $this->messageService->success(_zm('Your account has been updated.'));
+        $this->get('session.flash_bag')->success(_zm('Your account has been updated.'));
 
         $args = array('request' => $request, 'controller' => $this, 'account' => $account);
         $this->container->get('event_dispatcher')->dispatch('account_updated', new GenericEvent($this, $args));

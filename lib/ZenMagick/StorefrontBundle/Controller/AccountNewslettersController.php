@@ -50,7 +50,7 @@ class AccountNewslettersController extends DefaultController
             $this->container->get('accountService')->updateAccount($account);
         }
 
-        $this->messageService->success(_zm('Your newsletter subscription has been updated.'));
+        $this->get('session.flash_bag')->success(_zm('Your newsletter subscription has been updated.'));
 
         return $this->findView('success', array('currentAccount' => $account));
     }

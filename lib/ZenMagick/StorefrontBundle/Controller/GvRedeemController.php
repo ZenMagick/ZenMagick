@@ -56,7 +56,7 @@ class GvRedeemController extends DefaultController
                 $couponService->redeemCoupon($coupon->getId(), $this->getUser()->getId());
             } else {
                 // not redeemable
-                $this->messageService->error(_zm('The provided gift voucher code seems to be invalid!'));
+                $this->get('session.flash_bag')->error(_zm('The provided gift voucher code seems to be invalid!'));
             }
         }
 

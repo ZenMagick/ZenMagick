@@ -62,7 +62,7 @@ class AccountNotificationsController extends DefaultController
             $account = $this->container->get('accountService')->setSubscribedProductIds($account, $subscribedProducts);
         }
 
-        $this->messageService->success(_zm('Your product subscriptions have been updated.'));
+        $this->get('session.flash_bag')->success(_zm('Your product subscriptions have been updated.'));
 
         switch ($notifyType) {
             case 'add':

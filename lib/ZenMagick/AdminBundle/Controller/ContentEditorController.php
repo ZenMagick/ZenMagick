@@ -92,29 +92,29 @@ class ContentEditorController extends DefaultController
                 $ezPage->setStatic(true);
                 $ezPage = $ezPageService->createPage($ezPage);
                 if (0 < $ezPage->getId()) {
-                    $this->messageService->success('Page #'.$ezPage->getId().' saved');
+                    $this->get('session.flash_bag')->success('Page #'.$ezPage->getId().' saved');
                     $viewId = 'success';
                 } else {
-                    $this->messageService->error('Could not save page');
+                    $this->get('session.flash_bag')->error('Could not save page');
                 }
             } elseif (null != ($ezPage = $ezPageService->getPageForId($ezPageId, $languageId))) {
                 // no sanitize!
                 Beans::setAll($ezPage, $request->request->all());
                 $ezPage->setStatic(true);
                 $ezPageService->updatePage($ezPage);
-                $this->messageService->success('Page #'.$ezPageId.' updated');
+                $this->get('session.flash_bag')->success('Page #'.$ezPageId.' updated');
                 $viewId = 'success';
             } else {
-                $this->messageService->error('Could not save page - invalid request data');
+                $this->get('session.flash_bag')->error('Could not save page - invalid request data');
             }
         } elseif (null !== ($ezPageId = $request->request->get('deleteId'))) {
             $ezPageId = (int) $ezPageId;
             if (null != ($ezPage = $ezPageService->getPageForId($ezPageId, $languageId))) {
                 $ezPageService->removePage($ezPage);
-                $this->messageService->success('Page #'.$ezPage->getId().' deleted');
+                $this->get('session.flash_bag')->success('Page #'.$ezPage->getId().' deleted');
                 $viewId = 'success';
             } else {
-                $this->messageService->error('Could not find Page to delete: #'.$ezPageId);
+                $this->get('session.flash_bag')->error('Could not find Page to delete: #'.$ezPageId);
             }
         }
 

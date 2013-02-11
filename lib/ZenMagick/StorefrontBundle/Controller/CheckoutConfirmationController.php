@@ -87,7 +87,7 @@ class CheckoutConfirmationController extends DefaultController
         }
 
         if ($settingsService->get('isConditionsMessage') && !Toolbox::asBoolean($request->request->get('conditions'))) {
-            $this->messageService->error(_zm('Please confirm the terms and conditions bound to this order by ticking the box below.'));
+            $this->get('session.flash_bag')->error(_zm('Please confirm the terms and conditions bound to this order by ticking the box below.'));
 
             return $this->findView();
         }

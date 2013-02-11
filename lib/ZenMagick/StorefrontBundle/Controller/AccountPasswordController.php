@@ -52,7 +52,7 @@ class AccountPasswordController extends DefaultController
 
         $encoder = $this->get('security.encoder_factory')->getEncoder($account);
         if (!$encoder->isPasswordValid($account->getPassword(), $oldPassword)) {
-            $this->messageService->error(_zm('Your current password did not match the password in our records. Please try again.'));
+            $this->get('session.flash_bag')->error(_zm('Your current password did not match the password in our records. Please try again.'));
 
             return $this->findView();
         }
@@ -63,7 +63,7 @@ class AccountPasswordController extends DefaultController
 
         $this->container->get('event_dispatcher')->dispatch('password_changed', new GenericEvent($this, array('controller' => $this, 'account' => $account, 'clearPassword' => $newPassword)));
 
-        $this->messageService->success(_zm('Your password has been updated.'));
+        $this->get('session.flash_bag')->success(_zm('Your password has been updated.'));
 
         return $this->findView('success');
     }

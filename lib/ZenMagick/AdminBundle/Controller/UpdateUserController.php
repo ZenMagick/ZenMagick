@@ -108,7 +108,7 @@ class UpdateUserController extends DefaultController
 
         // validate password
         if (!$encoder->isPasswordValid($user->getPassword(), $updateUser->getCurrentPassword())) {
-            $this->messageService->error(_zm('Sorry, the entered password is not valid.'));
+            $this->get('session.flash_bag')->error(_zm('Sorry, the entered password is not valid.'));
 
             return $this->findView();
         }
@@ -125,7 +125,7 @@ class UpdateUserController extends DefaultController
         }
 
         // report success
-        $this->messageService->success(_zm('Details updated.'));
+        $this->get('session.flash_bag')->success(_zm('Details updated.'));
 
         return $this->findView('success');
     }

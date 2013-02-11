@@ -42,7 +42,7 @@ class UnsubscribeController extends DefaultController
     public function processPost($request)
     {
         if (!$this->container->get('settingsService')->get('isAllowAnonymousUnsubscribe')) {
-            $this->messageService->error(_zm('In order to unsubscribe you need to login first.'));
+            $this->get('session.flash_bag')->error(_zm('In order to unsubscribe you need to login first.'));
 
             return $this->findView();
         }
@@ -55,15 +55,15 @@ class UnsubscribeController extends DefaultController
         $account = $this->get('accountService')->getAccountForEmailAddress($emailAddress);
 
         if (null == $account) {
-            $this->messageService->error(_zm('Email address not found.'));
+            $this->get('session.flash_bag')->error(_zm('Email address not found.'));
         } else {
             if ($account->isNewsletterSubscriber()) {
                 // unsubscribe
                 $account->setNewsletterSubscriber(false);
                 $this->container->get('accountService')->updateAccount($account);
-                $this->messageService->success(sprintf(_zm('Email %s unsubscribed.'), $emailAddress));
+                $this->get('session.flash_bag')->success(sprintf(_zm('Email %s unsubscribed.'), $emailAddress));
             } else {
-                $this->messageService->warn(_zm('You are already unsubscribed.'));
+                $this->get('session.flash_bag')->warn(_zm('You are already unsubscribed.'));
             }
         }
 

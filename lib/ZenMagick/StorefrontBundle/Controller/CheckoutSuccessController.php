@@ -64,7 +64,7 @@ class CheckoutSuccessController extends DefaultController
             if (!empty($subscribedProducts)) {
                 $this->container->get('accountService')->setSubscribedProductIds($account, $subscribedProducts);
             }
-            $this->messageService->success(_zm('Your product subscriptions have been updated.'));
+            $this->get('session.flash_bag')->success(_zm('Your product subscriptions have been updated.'));
         }
 
         return $this->processGet($request);

@@ -55,7 +55,7 @@ class ManageRolesController extends DefaultController
             foreach ($updatedRoles as $role) {
                 if (!in_array($role, $currentRoles)) {
                     if (null == ($newId = $adminUserRoleService->addRole($role))) {
-                        $this->messageService->error('Adding role failed');
+                        $this->get('session.flash_bag')->error('Adding role failed');
                     }
                 }
             }
@@ -65,13 +65,13 @@ class ManageRolesController extends DefaultController
                         continue;
                     }
                     if (null == ($newId = $adminUserRoleService->deleteRole($role))) {
-                        $this->messageService->error('Deleting role failed');
+                        $this->get('session.flash_bag')->error('Deleting role failed');
                     }
                 }
             }
         } else {
             if (null == ($newId = $adminUserRoleService->addRole($newRole))) {
-                $this->messageService->error('Adding role failed');
+                $this->get('session.flash_bag')->error('Adding role failed');
             }
         }
 

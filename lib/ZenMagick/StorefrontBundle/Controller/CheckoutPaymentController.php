@@ -50,7 +50,7 @@ class CheckoutPaymentController extends DefaultController
         $messageParams = array('credit_class_error', 'error', 'error_message', 'payment_error');
         foreach ($messageParams as $messageParam) {
             if (null != ($error = $request->query->get($messageParam))) {
-                $this->messageService->error($net->encode(urldecode($error)));
+                $this->get('session.flash_bag')->error($net->encode(urldecode($error)));
             }
         }
 
@@ -95,7 +95,7 @@ class CheckoutPaymentController extends DefaultController
         }
 
         if ($this->container->get('settingsService')->get('isConditionsMessage') && !Toolbox::asBoolean($request->request->get('conditions'))) {
-            $this->messageService->error(_zm('Please confirm the terms and conditions bound to this order by ticking the box below.'));
+            $this->get('session.flash_bag')->error(_zm('Please confirm the terms and conditions bound to this order by ticking the box below.'));
 
             return $this->findView();
         }
@@ -103,13 +103,13 @@ class CheckoutPaymentController extends DefaultController
         // TODO: check if credit/gv covers total (currently in order_total::pre_confirmation_check)
 
         if (null == ($paymentTypeId = $request->request->get('payment'))) {
-            $this->messageService->error(_zm('Please select a payment type.'));
+            $this->get('session.flash_bag')->error(_zm('Please select a payment type.'));
 
             return $this->findView();
         }
 
         if (null == ($paymentType = $this->container->get('paymentTypeService')->getPaymentTypeForId($paymentTypeId))) {
-            $this->messageService->error(_zm('Please select a valid payment type.'));
+            $this->get('session.flash_bag')->error(_zm('Please select a valid payment type.'));
 
             return $this->findView();
         }

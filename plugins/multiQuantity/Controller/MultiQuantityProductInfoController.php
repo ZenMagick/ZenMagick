@@ -60,7 +60,7 @@ class MultiQuantityProductInfoController extends DefaultController
         }
 
         if (!$addedSome) {
-            $this->messageService->error(_zm('Quantity missing - no product(s) added'));
+            $this->get('session.flash_bag')->error(_zm('Quantity missing - no product(s) added'));
         }
 
         return $this->findView('success');

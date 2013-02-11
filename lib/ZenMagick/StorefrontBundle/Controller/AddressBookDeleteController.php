@@ -47,7 +47,7 @@ class AddressBookDeleteController extends DefaultController
         $addressId = $request->request->get('id', 0);
         if (0 < $addressId) {
             $this->container->get('addressService')->deleteAddressForId($addressId);
-            $this->messageService->success(_zm('The selected address has been successfully removed from your address book.'));
+            $this->get('session.flash_bag')->success(_zm('The selected address has been successfully removed from your address book.'));
         }
 
         return $this->findView('success');

@@ -90,14 +90,14 @@ class EditAdminUserController extends DefaultController
             $user->setPassword($encodedPassword);
             if (0 < $user->getId()) {
                 $adminUserService->updateUser($user);
-                $this->messageService->success(_zm('Details updated.'));
+                $this->get('session.flash_bag')->success(_zm('Details updated.'));
             } else {
                 $adminUserService->createUser($user);
-                $this->messageService->success(_zm('User created.'));
+                $this->get('session.flash_bag')->success(_zm('User created.'));
             }
         } elseif (null != ($deleteUserId = $request->request->get('deleteUserId'))) {
             $adminUserService->deleteUserForId($deleteUserId);
-            $this->messageService->success(_zm('User deleted.'));
+            $this->get('session.flash_bag')->success(_zm('User deleted.'));
         }
 
         return $this->findView('success');

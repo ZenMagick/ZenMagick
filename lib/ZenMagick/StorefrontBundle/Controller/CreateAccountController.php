@@ -147,7 +147,7 @@ class CreateAccountController extends DefaultController
             $this->container->get('mailer')->send($message);
         }
 
-        $this->messageService->success(_zm("Thank you for signing up"));
+        $this->get('session.flash_bag')->success(_zm("Thank you for signing up"));
 
         $stickyUrl = $request->getFollowUpUrl();
 

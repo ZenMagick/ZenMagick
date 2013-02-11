@@ -57,7 +57,7 @@ class HowDidYouHearSourcesAdminController extends DefaultController
             $name = $request->request->get('source');
             if (!empty($name)) {
                 ZMRuntime::getDatabase()->createModel('sources', array('sources_name' => $name));
-                $this->messageService->success('Source "'.$name.'" created.');
+                $this->get('session.flash_bag')->success('Source "'.$name.'" created.');
             }
         } elseif ('delete' == $action) {
             $sourceId = $request->request->get('sourceId');
@@ -65,7 +65,7 @@ class HowDidYouHearSourcesAdminController extends DefaultController
                 $model = ZMRuntime::getDatabase()->loadModel('sources', array('sources_id' => $sourceId));
                 if (null !== $model) {
                     ZMRuntime::getDatabase()->removeModel('sources', array('sources_id' => $sourceId));
-                    $this->messageService->success('Source "'.$model['sources_name'].'" deleted.');
+                    $this->get('session.flash_bag')->success('Source "'.$model['sources_name'].'" deleted.');
                 }
             }
         }

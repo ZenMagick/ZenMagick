@@ -45,7 +45,7 @@ class AccountController extends DefaultController
     {
         $accountId = $request->query->get('accountId');
         if (null == ($account = $this->container->get('accountService')->getAccountForId($accountId))) {
-            $this->messageService->error(sprintf(_zm('Account for account id %s not found'), $accountId));
+            $this->get('session.flash_bag')->error(sprintf(_zm('Account for account id %s not found'), $accountId));
 
             return $this->findView(null, array('accountId' => $accountId));
         }

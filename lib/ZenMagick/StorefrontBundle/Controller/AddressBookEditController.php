@@ -38,7 +38,7 @@ class AddressBookEditController extends DefaultController
         $account = $this->getUser();
 
         if ($account->getId() != $address->getAccountId()) {
-            $this->messageService->error(_zm('Address not found'));
+            $this->get('session.flash_bag')->error(_zm('Address not found'));
 
             return $this->findView('error');
         }
@@ -73,7 +73,7 @@ class AddressBookEditController extends DefaultController
             }
         }
 
-        $this->messageService->success(_zm('The selected address has been successfully updated.'));
+        $this->get('session.flash_bag')->success(_zm('The selected address has been successfully updated.'));
 
         return $this->findView('success');
     }

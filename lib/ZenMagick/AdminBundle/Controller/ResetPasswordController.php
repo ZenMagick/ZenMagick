@@ -38,7 +38,7 @@ class ResetPasswordController extends DefaultController
         $adminUserService = $this->container->get('adminUserService');
         $user = $adminUserService->getUserForEmail($email);
         if (null === $user) {
-            $this->messageService->error(sprintf(_zm("Sorry, there is no account with the email address '%s'."), $email));
+            $this->get('session.flash_bag')->error(sprintf(_zm("Sorry, there is no account with the email address '%s'."), $email));
 
             return $this->findView();
         }
@@ -55,7 +55,7 @@ class ResetPasswordController extends DefaultController
         $this->container->get('mailer')->send($message);
 
         // report success
-        $this->messageService->success(_zm('A new password has been sent to your email address.'));
+        $this->get('session.flash_bag')->success(_zm('A new password has been sent to your email address.'));
 
         return $this->findView('success');
     }

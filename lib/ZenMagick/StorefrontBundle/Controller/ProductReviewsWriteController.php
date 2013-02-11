@@ -87,7 +87,7 @@ class ProductReviewsWriteController extends DefaultController
         $args = array('request' => $request, 'controller' => $this, 'account' => $account, 'review' => $review, 'product' => $product);
         $this->container->get('event_dispatcher')->dispatch('review_submitted', new GenericEvent($this, $args));
 
-        $this->messageService->success(_zm("Thank you for your submission"));
+        $this->get('session.flash_bag')->success(_zm("Thank you for your submission"));
 
         return $this->findView('success', array(), array('parameter' => 'productId='.$product->getId()));
     }

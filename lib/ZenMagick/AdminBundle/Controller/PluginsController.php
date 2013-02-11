@@ -225,8 +225,8 @@ class PluginsController extends DefaultController
                 if (null != ($plugin = $pluginService->getPluginForId($pluginId)) && !$plugin->isInstalled()) {
                     $loggingService->debug('install plugin: '.$plugin->getId());
                     $this->install($plugin);
-                    $this->messageService->success(sprintf(_zm('Plugin %s installed successfully'), $plugin->getName()));
-                    $this->messageService->addAll($plugin->getMessages());
+                    $this->get('session.flash_bag')->success(sprintf(_zm('Plugin %s installed successfully'), $plugin->getName()));
+                    $this->get('session.flash_bag')->addAll($plugin->getMessages());
                     $viewId = 'success-install';
                 }
             } elseif ('uninstall' == $action) {
@@ -234,16 +234,16 @@ class PluginsController extends DefaultController
                 if (null != ($plugin = $pluginService->getPluginForId($pluginId)) && $plugin->isInstalled()) {
                     $loggingService->debug('un-install plugin: '.$plugin->getId() . '; keepSettings: '.($keepSettings?'true':'false'));
                     $this->remove($plugin, $keepSettings);
-                    $this->messageService->success(sprintf(_zm('Plugin %s un-installed successfully'), $plugin->getName()));
-                    $this->messageService->addAll($plugin->getMessages());
+                    $this->get('session.flash_bag')->success(sprintf(_zm('Plugin %s un-installed successfully'), $plugin->getName()));
+                    $this->get('session.flash_bag')->addAll($plugin->getMessages());
                     $viewId = 'success-uninstall';
                 }
             } elseif ('upgrade' == $action) {
                 if (null != ($plugin = $pluginService->getPluginForId($pluginId)) && $plugin->isInstalled()) {
                     $loggingService->debug('upgrade plugin: '.$plugin->getId());
                     $this->upgrade($plugin);
-                    $this->messageService->success(sprintf(_zm('Plugin %s upgraded successfully'), $plugin->getName()));
-                    $this->messageService->addAll($plugin->getMessages());
+                    $this->get('session.flash_bag')->success(sprintf(_zm('Plugin %s upgraded successfully'), $plugin->getName()));
+                    $this->get('session.flash_bag')->addAll($plugin->getMessages());
                     $viewId = 'success-upgrade';
                 }
             } elseif ('update' == $action) {
@@ -264,16 +264,16 @@ class PluginsController extends DefaultController
                 if (null != ($plugin = $pluginService->getPluginForId($pluginId)) && $plugin->isInstalled()) {
                     $loggingService->debug('enable plugin: '.$plugin->getId());
                     $this->setStatus($plugin, true);
-                    $this->messageService->success(sprintf(_zm('Plugin %s enabled successfully'), $plugin->getName()));
-                    $this->messageService->addAll($plugin->getMessages());
+                    $this->get('session.flash_bag')->success(sprintf(_zm('Plugin %s enabled successfully'), $plugin->getName()));
+                    $this->get('session.flash_bag')->addAll($plugin->getMessages());
                     $viewId = 'success-enable';
                 }
             } elseif ('disable' == $action) {
                 if (null != ($plugin = $pluginService->getPluginForId($pluginId)) && $plugin->isInstalled()) {
                     $loggingService->debug('disable plugin: '.$plugin->getId());
                     $this->setStatus($plugin, false);
-                    $this->messageService->success(sprintf(_zm('Plugin %s disabled successfully'), $plugin->getName()));
-                    $this->messageService->addAll($plugin->getMessages());
+                    $this->get('session.flash_bag')->success(sprintf(_zm('Plugin %s disabled successfully'), $plugin->getName()));
+                    $this->get('session.flash_bag')->addAll($plugin->getMessages());
                     $viewId = 'success-disable';
                 }
             }

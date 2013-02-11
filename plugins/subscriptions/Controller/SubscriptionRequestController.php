@@ -68,7 +68,7 @@ class ZMSubscriptionRequestController extends DefaultController
         $emailTemplate = $this->container->get('settingsService')->get('plugins.subscriptions.email.templates.request', 'subscription_request');
         $this->sendNotificationEmail($request->request->all(), $emailTemplate, $plugin->get('adminEmail'));
 
-        $this->messageService->success(_zm("Request submitted!"));
+        $this->get('session.flash_bag')->success(_zm("Request submitted!"));
 
         return $this->findView('success', $data);
     }

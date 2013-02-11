@@ -118,7 +118,7 @@ class QuickEditTabController extends CatalogContentController
                         $isUpdate = true;
                     } else {
                         $isUpdate = false;
-                        $this->messageService->warn('Found stale data ('.$key.') for productId '.$productId. ' - skipping update');
+                        $this->get('session.flash_bag')->warn('Found stale data ('.$key.') for productId '.$productId. ' - skipping update');
                     }
                     break;
                 }
@@ -126,7 +126,7 @@ class QuickEditTabController extends CatalogContentController
             if ($isUpdate) {
                 $product = Beans::setAll($product, $formData);
                 $this->container->get('productService')->updateProduct($product);
-                $this->messageService->success('All changes saved');
+                $this->get('session.flash_bag')->success('All changes saved');
             }
         }
 

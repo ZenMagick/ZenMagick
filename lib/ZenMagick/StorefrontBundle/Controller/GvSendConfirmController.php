@@ -118,7 +118,7 @@ class GvSendConfirmController extends DefaultController
             $this->container->get('mailer')->send($message);
         }
 
-        $this->messageService->success(_zm("Gift Certificate successfully send!"));
+        $this->get('session.flash_bag')->success(_zm("Gift Certificate successfully send!"));
 
         return $this->findView('success');
     }

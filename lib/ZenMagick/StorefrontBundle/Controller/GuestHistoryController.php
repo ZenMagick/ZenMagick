@@ -56,7 +56,7 @@ class GuestHistoryController extends DefaultController
         if (null != $account && null != $order && Account::GUEST == $account->getType() && $account->getEmail() == $email) {
             return $this->findView('success', array('currentOrder' => $order));
         } else {
-            $this->messageService->warn(_zm('No order information found'));
+            $this->get('session.flash_bag')->warn(_zm('No order information found'));
 
             return $this->findView();
         }

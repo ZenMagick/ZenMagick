@@ -37,7 +37,6 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
  */
 class DefaultController extends Controller
 {
-    protected $messageService;
     private $requestId_;
     private $method_;
     private $view_;
@@ -54,8 +53,6 @@ class DefaultController extends Controller
         $this->view_ = null;
         $this->method_ = null;
         $this->formData_ = null;
-        // a little bit of convenience
-        $this->messageService = Runtime::getContainer()->get('session')->getFlashBag();
     }
 
     /**
@@ -340,7 +337,7 @@ class DefaultController extends Controller
         if (!$valid) {
             foreach ($validator->getMessages() as $field => $fieldMessages) {
                 foreach ($fieldMessages as $msg) {
-                    $this->messageService->error($msg, $field);
+                    $this->get('session.flash_bag')->error($msg, $field);
                 }
             }
         }
@@ -402,7 +399,7 @@ class DefaultController extends Controller
     public function handleDemo()
     {
         if ($this->getUser()->isDemo()) {
-            $this->messageService->warn(_zm('Sorry, the action you tried to excute is not available to demo users'));
+            $this->get('session.flash_bag')->warn(_zm('Sorry, the action you tried to excute is not available to demo users'));
 
             return true;
         }

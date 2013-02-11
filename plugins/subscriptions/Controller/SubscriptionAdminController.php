@@ -78,7 +78,7 @@ class SubscriptionAdminController extends PluginAdminController
                     SET is_subscription_canceled = :subscriptionCanceled, is_subscription = :subscription
                     WHERE orders_id = :orderId";
             ZMRuntime::getDatabase()->updateObj($sql, array('orderId' => $orderId, 'subscriptionCanceled' => true, 'subscription' => !$hard), 'orders');
-            $this->messageService->success(_zm("Subscription canceled!"));
+            $this->get('session.flash_bag')->success(_zm("Subscription canceled!"));
         }
 
         $order = $this->container->get('orderService')->getOrderForId($orderId, $request->getSession()->getLanguageId());

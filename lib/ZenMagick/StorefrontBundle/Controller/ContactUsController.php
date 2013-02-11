@@ -58,7 +58,7 @@ class ContactUsController extends DefaultController
         $message->setSubject(sprintf(_zm("Message from %s"), $settingsService->get('storeName')))->setTo($contactInfo->getEmail(), $contactInfo->getName())->setFrom($settingsService->get('storeEmail'));
         $this->container->get('mailer')->send($message);
 
-        $this->messageService->success(_zm('Your message has been successfully sent.'));
+        $this->get('session.flash_bag')->success(_zm('Your message has been successfully sent.'));
         // clear message before displaying form again
         $contactInfo->setMessage('');
 

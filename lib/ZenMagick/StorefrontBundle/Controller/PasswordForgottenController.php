@@ -40,7 +40,7 @@ class PasswordForgottenController extends DefaultController
         $emailAddress = $request->request->get('email_address');
         $account = $this->container->get('accountService')->getAccountForEmailAddress($emailAddress);
         if (null === $account || Account::REGISTERED != $account->getType()) {
-            $this->messageService->error(sprintf(_zm("Sorry, there is no account with the email address '%s'."), $emailAddress));
+            $this->get('session.flash_bag')->error(sprintf(_zm("Sorry, there is no account with the email address '%s'."), $emailAddress));
 
             return $this->findView();
         }
@@ -62,7 +62,7 @@ class PasswordForgottenController extends DefaultController
         $this->container->get('event_dispatcher')->dispatch('password_changed', new GenericEvent($this, array('controller' => $this, 'account' => $account, 'clearPassword' => $newPassword)));
 
         // report success
-        $this->messageService->success(_zm('A new password has been sent to your email address.'));
+        $this->get('session.flash_bag')->success(_zm('A new password has been sent to your email address.'));
 
         return $this->findView('success');
     }

@@ -44,7 +44,7 @@ class DownloadController extends DefaultController
         $id = $request->query->get('id');
 
         if (null == $orderId || null == $id) {
-            $this->messageService->error(_zm('Download not found'));
+            $this->get('session.flash_bag')->error(_zm('Download not found'));
 
             return $this->findView('error');
         }
@@ -53,7 +53,7 @@ class DownloadController extends DefaultController
         $order = $this->container->get('orderService')->getOrderForId($orderId, $languageId);
         $account = $this->getUser();
         if ($account->getId() != $order->getAccountId()) {
-            $this->messageService->error(_zm('Order not found'));
+            $this->get('session.flash_bag')->error(_zm('Order not found'));
 
             return $this->findView('error');
         }
@@ -64,7 +64,7 @@ class DownloadController extends DefaultController
         }
 
         if (null == $product || !$product->isDownloadable()) {
-            $this->messageService->error(_zm('No such download or download has expired.'));
+            $this->get('session.flash_bag')->error(_zm('No such download or download has expired.'));
 
             return $this->findView('error');
         }
@@ -87,7 +87,7 @@ class DownloadController extends DefaultController
             // @todo use web accessible cache sub directory for downloadPubDir
             $pubDir = $settingsService->get('downloadPubDir');
             if (empty($pubDir) || !is_writeable($pubDir)) {
-                $this->messageService->error(_zm('Could not write to public download directory.'));
+                $this->get('session.flash_bag')->error(_zm('Could not write to public download directory.'));
 
                 return $this->findView('error');
             }
