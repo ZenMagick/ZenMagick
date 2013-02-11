@@ -80,11 +80,13 @@ class EmailPreviewController extends DefaultController
             $context = $event->getArgument('context');
 
             $content = $messageBuilder->createContents($template, 'html'==$format, $request, $context);
+
+            $response = new Response($content);
             if ('text' == $format) {
-                $this->setContentType('text/plain');
+                $response->headers->set('Content-Type', 'text/plain');
             }
 
-            return new Response($content);
+            return $response;
         }
 
         return $this->findView();
