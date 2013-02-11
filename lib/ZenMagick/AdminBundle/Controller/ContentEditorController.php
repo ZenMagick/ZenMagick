@@ -76,10 +76,6 @@ class ContentEditorController extends DefaultController
      */
     public function processPost($request)
     {
-        if ($this->handleDemo()) {
-            return $this->findView('success-demo');
-        }
-
         $ezPageService = $this->container->get('ezPageService');
         $languageId = $request->request->get('languageId');
 

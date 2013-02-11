@@ -58,11 +58,6 @@ class CatalogController extends DefaultController
      */
     public function processAction(Request $request)
     {
-        // disable POST in demo
-        if ('POST' == $request->getMethod() && $this->handleDemo()) {
-            return $this->findView('success-demo');
-        }
-
         $controllers = $this->getCatalogContentControllers($request);
         $controller = null;
         if (null == ($catalogRequestId = $request->query->get('catalogRequestId'))) {

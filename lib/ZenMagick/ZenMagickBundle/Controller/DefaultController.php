@@ -324,25 +324,4 @@ class DefaultController extends Controller
     {
         $this->view_ = $view;
     }
-
-    /**
-     * Deal with demo/non-live user.
-     *
-     * <p>Will create a message that the requested functionallity is not availale for demo users.</p>
-     *
-     * @return boolean <code>true</code> if the current user is a demo user.
-     *
-     * @todo this should be dealt with in sacs
-     */
-    public function handleDemo()
-    {
-        if ($this->getUser()->isDemo()) {
-            $this->get('session.flash_bag')->warn(_zm('Sorry, the action you tried to excute is not available to demo users'));
-
-            return true;
-        }
-
-        return false;
-    }
-
 }

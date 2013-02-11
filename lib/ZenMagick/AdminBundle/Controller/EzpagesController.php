@@ -87,10 +87,6 @@ class EzpagesController extends DefaultController
      */
     public function processPost($request)
     {
-        if ($this->handleDemo()) {
-            return $this->findView('success-demo');
-        }
-
         $languageId = $request->request->get('languageId');
         $ezPageService = $this->container->get('ezPageService');
 

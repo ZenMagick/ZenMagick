@@ -100,10 +100,6 @@ class UpdateUserController extends DefaultController
         // allow pref changes without password
         $this->processPrefs($request);
 
-        if ($this->handleDemo()) {
-            return $this->findView('success');
-        }
-
         $encoder = $this->get('security.encoder_factory')->getEncoder($user);
 
         // validate password

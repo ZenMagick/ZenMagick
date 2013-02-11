@@ -64,10 +64,6 @@ class EditAdminUserController extends DefaultController
      */
     public function processPost($request)
     {
-        if ($this->handleDemo()) {
-            return $this->findView('success');
-        }
-
         $adminUserService = $this->container->get('adminUserService');
 
         if (null != ($editUserId = $request->request->get('adminUserId'))) {

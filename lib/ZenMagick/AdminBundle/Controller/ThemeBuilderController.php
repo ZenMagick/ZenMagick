@@ -41,10 +41,6 @@ class ThemeBuilderController extends DefaultController
      */
     public function processPost($request)
     {
-        if ($this->handleDemo()) {
-            return $this->findView('success-demo');
-        }
-
         //TODO:
         return $this->findView();
     }

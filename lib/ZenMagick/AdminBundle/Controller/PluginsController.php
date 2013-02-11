@@ -196,10 +196,6 @@ class PluginsController extends DefaultController
      */
     public function processPost($request)
     {
-        if ($this->handleDemo()) {
-            return $this->findView('success-demo');
-        }
-
         $action = $request->request->get('action');
         $multiAction = $request->request->get('multiAction');
         $pluginId = $request->request->get('pluginId');

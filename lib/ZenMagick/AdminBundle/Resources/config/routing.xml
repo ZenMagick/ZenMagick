@@ -8,8 +8,6 @@
     <route id="zenmagick_global_routing" pattern="^^">
         <option key="view:success">redirect://%routeId%</option>
         <option key="view:error">error.html.php?layout=</option>
-        <option key="view:login-demo">redirect://admin_login</option>
-        <option key="view:success-demo">redirect://admin_index</option>
     </route>
     <!--
 <import resource="@FOSUserBundle/Resources/config/routing/security.xml"/>

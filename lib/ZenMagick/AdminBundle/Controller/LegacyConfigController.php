@@ -53,12 +53,6 @@ class LegacyConfigController extends DefaultController
         $group = $configService->getConfigGroupForId($groupId);
         $groupValues = $configService->getValuesForGroupId($groupId);
 
-        if ($this->handleDemo()) {
-            $tpl = array('group' => $group, 'groupValues' => $groupValues);
-
-            return $this->findView('success-demo', $tpl, array('parameter' => 'groupId='.$groupId));
-        }
-
         // update changed
         $updated = array();
         foreach ($groupValues as $widget) {
