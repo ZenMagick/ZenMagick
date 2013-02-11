@@ -39,7 +39,6 @@ class DefaultController extends Controller
 {
     protected $messageService;
     private $requestId_;
-    private $isAjax_;
     private $method_;
     private $view_;
     private $formData_;
@@ -108,7 +107,6 @@ class DefaultController extends Controller
     {
         // ensure a usable id is set
         $this->requestId_ = null != $this->requestId_ ? $this->requestId_ : $request->getRequestId();
-        $this->isAjax_ = $request->isXmlHttpRequest();
 
         $settingsService = $this->container->get('settingsService');
 
@@ -161,7 +159,7 @@ class DefaultController extends Controller
             $this->view_ = $view;
         }
 
-        if ($this->isAjax_) {
+        if ($request->isXmlHttpRequest()) {
             $view->setLayout('');
             $view->setContentType('text/plain');
         }
@@ -256,12 +254,12 @@ class DefaultController extends Controller
      */
     public function findView($id=null, $data=array(), $parameter=null)
     {
-        if ($this->isAjax_) {
+        // TODO: doh!
+        $request = $this->container->get('request');
+        if ($request->isXmlHttpRequest()) {
             $id = 'ajax_'.$id;
         }
 
-        // TODO: doh!
-        $request = $this->container->get('request');
         $view = $this->container->get('routeResolver')->getViewForId($id, $request, $data);
         Beans::setAll($view, (array) $parameter);
 
