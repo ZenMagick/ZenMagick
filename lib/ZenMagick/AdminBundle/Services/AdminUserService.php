@@ -57,17 +57,12 @@ class AdminUserService
     /**
      * Get all users.
      *
-     * @param boolean demoOnly Optional flag to load demo users only; default is <code>false</code>.
      * @return array List of <code>UserInterface</code> instances.
      */
-    public function getAllUsers($demoOnly = false)
+    public function getAllUsers()
     {
         $repository = $this->em->getRepository('AdminBundle:AdminUser');
-        if ($demoOnly) {
-            $users = $repository->findBy(array('live' => false));
-        } else {
-            $users = $repository->findAll();
-        }
+        $users = $repository->findAll();
 
         return $users;
     }
