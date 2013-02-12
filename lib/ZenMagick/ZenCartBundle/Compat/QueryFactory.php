@@ -42,12 +42,17 @@ class QueryFactory
      */
     public $link;
 
+    /**
+     * @var Doctrine\DBAL\Connection $conn
+     */
     private $conn;
 
     private $hasResultCache = false;
 
     /**
-     * @param Connection a doctrine dbal connection object
+     * Constructor
+     *
+     * @param Doctrine\DBAL\Connection a connected DBAL Connection
      */
     public function __construct(Connection $conn)
     {
@@ -87,8 +92,8 @@ class QueryFactory
      * Execute a query.
      *
      * If a query is one of DESCRIBE, SELECT, or SHOW
-     * then use DBAL executeQuery otherwise pass it off to
-     * DBAL executeUpdate
+     * then use  <code>Connection::executeQuery</code>
+     * otherwise pass it off to <code>Connection::executeUpdate</code>
      *
      * @param  string $sql       sql query string
      * @param  int    $limit     limit the number of results
@@ -107,7 +112,7 @@ class QueryFactory
                throw new ZMException($e->getMessage(), $e->getCode(), $e);
             }
         }
-        if ($limit) $sql .= ' LIMIT ' . $limit;
+        if ($limit) $sql .= ' LIMIT ' . (int)$limit;
 
         $qcp = null;
         if ($useCache && $this->hasResultCache) {
@@ -294,27 +299,56 @@ class QueryFactory
         return str_replace($param, $sqlFix, $sql);
     }
 
-    // compatibility wrappers
+    /**
+     * Stub method for connecting to the database
+     *
+     * @return true
+     */
     public function connect()
     {
         return true;
     }
 
+    /**
+     * Stub method to close a connection to database
+     *
+     * @return true
+     */
     public function close()
     {
-        $this->conn->close();
+        return true;
     }
 
+    /**
+     * Get the database server version
+     *
+     * It is used in the server_info admin page.
+     *
+     * @return string
+     */
     public function get_server_info()
     {
         return $this->conn->getWrappedConnection()->getAttribute(\PDO::ATTR_SERVER_VERSION);
     }
 
+    /**
+     * Get the last inserted id.
+     *
+     * @return int
+     */
     public function insert_ID()
     {
         return $this->conn->lastInsertId();
     }
 
+    /**
+     * Escape strings that will be inserted into the database.
+     *
+     * This is a userland version of <code>mysql_real_escape_string</code>
+     *
+     * @param string
+     * @return string
+     */
     public function prepare_input($string)
     {
         return str_replace(array('\\', "\0", "\n", "\r", "'", '"', "\x1a"), array('\\\\', '\\0', '\\n', '\\r', "\\'", '\\"', '\\Z'), $string);
@@ -325,12 +359,27 @@ class QueryFactory
         return $this->prepare_input($string);
     }
 
-    // @todo could implement these if we need to.
+    /**
+     * Stub method to count queries
+     *
+     * Currently unimplemented since the Symfony profiler
+     * does a far better job.
+     *
+     * @return int
+     */
     public function queryCount()
     {
         return 0;
     }
 
+     /**
+     * Stub method to get executed query time
+     *
+     * Currently unimplemented since the Symfony profiler
+     * does a far better job.
+     *
+     * @return int
+     */
     public function queryTime()
     {
         return 0;
