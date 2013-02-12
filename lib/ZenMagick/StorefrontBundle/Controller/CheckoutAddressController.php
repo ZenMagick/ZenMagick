@@ -36,8 +36,9 @@ class CheckoutAddressController extends DefaultController
     /**
      * {@inheritDoc}
      */
-    public function preProcess($request)
+    public function preProcess()
     {
+        $request = $this->getRequest();
         $routeId = $request->attributes->get('_route');
         if (0 === strpos($routeId, 'checkout_shipping')) {
             $this->modeSettings_ = array('method' => 'setShippingAddressId', 'ignoreCheckId' => 'require_shipping', 'mode' => 'shipping');

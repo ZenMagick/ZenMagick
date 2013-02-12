@@ -40,11 +40,9 @@ class StorefrontController extends DefaultController
         return array();
     }
 
-    /**
-     * {@inheritDoc}
-     */
-    public function preProcess($request)
+    public function preProcess()
     {
+        $request = $this->getRequest();
         /**
          * This code is taken directly from application_top.php.
          * @copyright Copyright 2003-2010 Zen Cart Development Team
