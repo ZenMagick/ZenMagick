@@ -2700,15 +2700,15 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/ZenMagick/ZenCart",
-                "reference": "a1bdf22076bc3d4f90e5b95ecf4e7f5dbd2dace2"
+                "reference": "6ce2b909157f2caa1570cfd9d3277000b93b982b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/ZenMagick/ZenCart/zipball/a1bdf22076bc3d4f90e5b95ecf4e7f5dbd2dace2",
-                "reference": "a1bdf22076bc3d4f90e5b95ecf4e7f5dbd2dace2",
+                "url": "https://api.github.com/repos/ZenMagick/ZenCart/zipball/6ce2b909157f2caa1570cfd9d3277000b93b982b",
+                "reference": "6ce2b909157f2caa1570cfd9d3277000b93b982b",
                 "shasum": ""
             },
-            "time": "2013-02-09 23:40:56",
+            "time": "2013-02-12 05:44:51",
             "type": "library",
             "notification-url": "https://packagist.org/downloads/",
             "license": [
