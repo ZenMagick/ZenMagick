@@ -97,7 +97,7 @@ class ZenCartListener implements EventSubscriberInterface
                 if ($this->container->get('themeService')->getActiveTheme()->getMeta('zencart')) {
                     $settingsService = $this->container->get('settingsService');
                     $settingsService->set('zenmagick.http.view.defaultLayout', null);
-                    $event->setController(array(Beans::getBean('ZenMagick\ZenCartBundle\Controller\StorefrontController'), 'process'));
+                    $event->setController(array(Beans::getBean('ZenMagick\ZenCartBundle\Controller\StorefrontController'), 'processAction'));
                 }
             }
         }
