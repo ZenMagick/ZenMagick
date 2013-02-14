@@ -27,9 +27,6 @@
       <p id="header-state">
         <?php $userLink = '<a href="'.$net->url('update_user').'" onclick="ZenMagick.ajaxFormDialog(this.href, {title:\''.sprintf(_zm('User Profile: %s'), $app->getUser()->getUsername()).'\', formId:\'updateUser\'}); return false;">'.$app->getUser()->getUsername().'</a>'; ?>
         <?php _vzm('Logged in as %s', $userLink) ?>
-        <?php if ($app->getUser()->isDemo()) { ?>
-          <span id="demo-note"><?php _vzm('*** DEMO MODE ***') ?></span>
-        <?php } ?>
         | <a href="<?php echo $request->getSchemeAndHttpHost() ?>" target="_blank">Storefront</a>
         | <?php echo date('l, F d, Y') ?>
         | <a href="<?php echo $net->url('admin_logout') ?>"><?php _vzm('Log Out') ?></a>

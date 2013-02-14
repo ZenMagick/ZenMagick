@@ -288,16 +288,6 @@ class AdminUser implements AdvancedUserInterface, \Serializable
     }
 
     /**
-     * Check if the user is a demo user.
-     *
-     * @return int <code>true</code> if the user is a demo admin user.
-     */
-    public function isDemo()
-    {
-        return (boolean) defined('ADMIN_DEMO') ? ADMIN_DEMO : false;
-    }
-
-    /**
      * Get an admin user pref.
      *
      * @param string name The pref name.

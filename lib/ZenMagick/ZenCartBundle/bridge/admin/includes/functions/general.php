@@ -2368,7 +2368,7 @@ function zen_copy_products_attributes($products_id_from, $products_id_to) {
 ////
 // Check if a demo is active
   function zen_admin_demo() {
-    return (ADMIN_DEMO == '1') ? TRUE : FALSE;
+    return false;
   }
 
 ////
