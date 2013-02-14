@@ -3835,30 +3835,6 @@ ZenMagick\StoreBundle\Entity\ConfigValue:
         sortOrder: 67
         setFunction: "zen_cfg_select_option(array('0', '1'),"
     -
-        name: "Define Page 2"
-        key: "DEFINE_PAGE_2_STATUS"
-        value: 1
-        description: "Enable the Defined Page 2 Link/Text?<br />0= Link ON, Define Text OFF<br />1= Link ON, Define Text ON<br />2= Link OFF, Define Text ON<br />3= Link OFF, Define Text OFF"
-        groupId: 25
-        sortOrder: 82
-        setFunction: "zen_cfg_select_option(array('0', '1', '2', '3'),"
-    -
-        name: "Define Page 3"
-        key: "DEFINE_PAGE_3_STATUS"
-        value: 1
-        description: "Enable the Defined Page 3 Link/Text?<br />0= Link ON, Define Text OFF<br />1= Link ON, Define Text ON<br />2= Link OFF, Define Text ON<br />3= Link OFF, Define Text OFF"
-        groupId: 25
-        sortOrder: 83
-        setFunction: "zen_cfg_select_option(array('0', '1', '2', '3'),"
-    -
-        name: "Define Page 4"
-        key: "DEFINE_PAGE_4_STATUS"
-        value: 1
-        description: "Enable the Defined Page 4 Link/Text?<br />0= Link ON, Define Text OFF<br />1= Link ON, Define Text ON<br />2= Link OFF, Define Text ON<br />3= Link OFF, Define Text OFF"
-        groupId: 25
-        sortOrder: 84
-        setFunction: "zen_cfg_select_option(array('0', '1', '2', '3'),"
-    -
         name: "EZ-Pages Display Status - HeaderBar"
         key: "EZPAGES_STATUS_HEADER"
         value: 1
