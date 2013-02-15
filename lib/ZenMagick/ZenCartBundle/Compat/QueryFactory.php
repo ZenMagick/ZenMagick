@@ -61,7 +61,12 @@ class QueryFactory
     }
 
     /**
-     * Get a ext/mysql resource
+     * Connect using the deprecated mysql extension.
+     *
+     * This method is often required when working with some legacy admin pages.
+     *
+     * Most people won't need this, but it is here if they do.
+     *
      * @param array $params an array of mysql connection optons that match the PDO dsn.
      *                     If you do not specify any parameters. it will use the
      *                     <code>apps.store.database.default</code> settings.
@@ -69,8 +74,10 @@ class QueryFactory
      */
     public function mysql_connect($params = null)
     {
-        if (!function_exists('mysql_connect')) {
-            throw new ZMException('Install `ext/mysql` extension to enable mysql_* functions.');
+        if (!extension_loaded('mysql')) {
+            throw new \RuntimeException(
+                'The mysql extension must be installed to use this method.'
+            );
         }
         $defaults = $this->conn->getParams();
         $params = array_merge($defaults, (array) $params);
@@ -84,7 +91,7 @@ class QueryFactory
 
             return $this->link;
         } else {
-            throw new ZMException(mysql_error(), mysql_errno());
+            throw new RuntimeException(mysql_error(), mysql_errno());
         }
     }
 
