@@ -20,8 +20,7 @@
 
 namespace ZenMagick\ZenCartBundle\Compat;
 
-use ZenMagick\Base\ZMException;
-
+use Doctrine\Common\Cache\ArrayCache;
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\Cache\QueryCacheProfile;
 
@@ -56,6 +55,10 @@ class QueryFactory
      */
     public function __construct(Connection $conn)
     {
+$cache = new ArrayCache();
+$config = $conn->getConfiguration();
+$config->setResultCacheImpl($cache);
+
         $this->hasResultCache = null != $conn->getConfiguration()->getResultCacheImpl();
         $this->conn = $conn;
     }
@@ -113,23 +116,16 @@ class QueryFactory
         $sql = trim($sql);
         $commandType = strtolower(substr($sql, 0, 3));
         if (!in_array($commandType, array('des', 'sel', 'sho'))) {
-            try {
-                return  $this->conn->executeUpdate($sql);
-            } catch (\PDOException $e) {
-               throw new ZMException($e->getMessage(), $e->getCode(), $e);
-            }
+            return  $this->conn->executeUpdate($sql);
         }
         if ($limit) $sql .= ' LIMIT ' . (int)$limit;
 
         $qcp = null;
-        if ($useCache && $this->hasResultCache) {
+        if ($this->hasResultCache) {
            $qcp =  new QueryCacheProfile($cacheTime, md5($sql));
         }
-        try {
-            $stmt = $this->conn->executeQuery($sql, array(), array(), $qcp);
-        } catch (\PDOException $e) {
-            throw new ZMException($e->getMessage(), $e->getCode(), $e);
-        }
+
+        $stmt = $this->conn->executeQuery($sql, array(), array(), $qcp);
 
         $obj = new QueryFactoryResult($stmt);
         $obj->MoveNext();
@@ -280,9 +276,9 @@ class QueryFactory
                 }
 
                 return $this->prepare_input($value);
-            default:
-                throw new ZMException('var-type undefined: ' . $type . '('.$value.')');
         }
+
+        throw new RuntimeException(sprintf('Type %s does not exist', $type));
     }
 
     /**
