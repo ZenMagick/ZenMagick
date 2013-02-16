@@ -181,6 +181,24 @@ $config->setResultCacheImpl($cache);
     }
 
     /**
+     * Get meta details about a single column.
+     *
+     * @param string $table
+     * @param string $column
+     *
+     * @return array
+     */
+    public function metaColumn($table, $column)
+    {
+        $meta = $this->metaColumns($table);
+        $column = strtoupper($column);
+
+        if (isset($meta[$column])) {
+            return $meta[$column];
+        }
+    }
+
+    /**
      * Perform an insert or update with $tableData map
      *
      * @param string $table     table to insert/update
