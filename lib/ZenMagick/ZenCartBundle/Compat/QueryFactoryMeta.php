@@ -27,6 +27,8 @@ class QueryFactoryMeta
     public $max_length;
     public $type;
 
+    private $sqlType;
+
     /**
      * Constructor
      *
@@ -34,6 +36,7 @@ class QueryFactoryMeta
      */
     public function __construct($type)
     {
+        $this->sqlType = $type;
         $typeInfo = $this->parseType($type);
         $this->type = $typeInfo['type'];
         $this->max_length = $typeInfo['max_length'];
@@ -55,4 +58,37 @@ class QueryFactoryMeta
 
         return $matches;
     }
+
+    /**
+     * Get SQL Type.
+     *
+     * Return SQL type like int(11).
+     *
+     * @return
+     */
+    public function getSqlType()
+    {
+        return $this->sqlType;
+    }
+
+    /**
+     * Get column type.
+     *
+     * @return string;
+     */
+    public function getType()
+    {
+        return $this->type;
+    }
+
+    /**
+     * Get column maximum length.
+     *
+     * @return int
+     */
+    public function getMaxLength()
+    {
+        return $this->max_length;
+    }
+
 }
