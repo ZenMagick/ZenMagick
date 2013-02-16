@@ -33,7 +33,7 @@
         </service>
 
         <service id="zencart.sniffer" class="ZenMagick\ZenCartBundle\Compat\Sniffer">
-            <argument type="service" id="database_connection" />
+            <argument type="service" id="zencart.query_factory" />
         </service>
 
         <service id="zencart.query_factory" class="ZenMagick\ZenCartBundle\Compat\QueryFactory">

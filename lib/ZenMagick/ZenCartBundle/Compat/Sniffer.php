@@ -25,21 +25,24 @@ use Doctrine\DBAL\Connection;
 /**
  * Reimplemented ZenCart Sniffer class.
  *
- * It relies on Doctrine DBAL SchemaManager.
- *
+ * It relies on QueryFactory to get the
+ * column meta in a more portable fashion
  */
 class Sniffer
 {
-    private $conn;
+    /**
+     * @var ZenMagick\ZenCartBundle\Compat\QueryFactory
+     */
+    private $queryFactory;
 
     /**
      * Constructor
      *
      * @param Doctrine\DBAL\Connection $conn
      */
-    public function __construct(Connection $conn)
+    public function __construct(QueryFactory $queryFactory)
     {
-        $this->conn = $conn;
+        $this->queryFactory = $queryFactory;
     }
 
     /**
@@ -50,9 +53,9 @@ class Sniffer
      */
     public function table_exists($tableName)
     {
-        $sm = $this->conn->getSchemaManager();
+        $meta = $this->queryFactory->metaColumns($tableName);
 
-        return $sm->tablesExist(array($tableName));
+        return !empty($meta);
     }
 
     /**
@@ -64,22 +67,15 @@ class Sniffer
      */
     public function field_exists($tableName, $columnName)
     {
-        if (!$this->table_exists($tableName)) return false;
-
-        $sm = $this->conn->getSchemaManager();
-        $tableDetails = $sm->listTableDetails($tableName);
-
-        return $tableDetails->hasColumn($columnName);
+        return (bool) $this->queryFactory->metaColumn($tableName, $columnName);
     }
 
     /**
      * Get the type of the column (field)
      *
-     * This uses mysql information schema table
+     * This uses queryFactory's metaColumn method
      * to get the raw column type since that is what we
      * expect to match our $columnType against.
-     *
-     * @todo remove mysql specific query.
      *
      * @param string $tableName
      * @param string $columnName
@@ -90,17 +86,10 @@ class Sniffer
      */
     public function field_type($tableName, $columnName, $columnType, $returnFound = false)
     {
-        $query = "SELECT COLUMN_TYPE FROM information_schema.COLUMNS
-            WHERE TABLE_SCHEMA = ? AND TABLE_NAME = ? AND COLUMN_NAME = ?";
-        $args = array(
-            $this->conn->getDatabase(),
-            $tableName,
-            $columnName,
-        );
-        $type = $this->conn->fetchColumn($query, $args, 0);
+        $meta = $this->queryFactory->metaColumn($tableName, $columnName);
 
-        if ($type == $columnType) return true;
+        if ($columnType == $meta->getSqlType()) return true;
 
-        return $returnFound ? $type : false;
+        return $returnFound ? $meta->getSqlType() : false;
     }
 }
