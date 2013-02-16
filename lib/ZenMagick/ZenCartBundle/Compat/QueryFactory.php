@@ -167,15 +167,17 @@ $config->setResultCacheImpl($cache);
      */
     public function metaColumns($table)
     {
-        $details = array();
-        foreach ($this->conn->getMetaData($table) as $name => $attrs) {
-            $meta = new \stdClass();
-            $meta->type = $attrs['type'];
-            $meta->max_length = isset($attrs['length']) && null != $attrs['length'] ? $attrs['length'] : 3;
-            $details[strtoupper($name)] = $meta;
+        $platform = $this->conn->getDatabasePlatform();
+        $dbName = $this->conn->getDatabase();
+        $sql = $platform->getListTableColumnsSQL($table, $dbName);
+
+        $meta = array();
+        foreach($this->conn->fetchAll($sql) as $column) {
+            $columnInfo = new QueryFactoryMeta($column['Type']);
+            $meta[$column['Field']] = $columnInfo;
         }
 
-        return $details;
+        return array_change_key_case($meta, CASE_UPPER);
     }
 
     /**
