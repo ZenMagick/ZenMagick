@@ -294,17 +294,23 @@ $config->setResultCacheImpl($cache);
     /**
      * Stub method for connecting to the database
      *
-     * @return true
+     * Returns the result of
+     * <code>Connection::isConnected()</code>
+     *
+     * @return bool
      */
     public function connect()
     {
-        return true;
+        return $this->conn->isConnected();
     }
 
     /**
      * Stub method to close a connection to database
      *
-     * @return true
+     * Never allow ZenCart to close the database itself
+     * as the connection might be needed elsewhere.
+     *
+     * @return bool
      */
     public function close()
     {
