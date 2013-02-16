@@ -224,58 +224,44 @@ $config->setResultCacheImpl($cache);
     }
 
     /**
-     * Bind a value to a type
+     * Changes a value to a specific type.
      *
-     * This function doesn't do real bind vars, just replaces :column to value by
-     * str_replace and performs some basic XSS protection.
+     * The original implementation of this method
+     * had some vestiges of support for type options
+     * (like a regular expression pattern for the regexp
+     * type) . This seems to have long been unsupported
+     * so now all bits of the type after <code>:</code>
+     * are squashed.
      *
-     *
-     * @author ZenCart <http://www.zen-cart.com>
-     * @copyright ZenCart developers
      * @param  mixed  $value value to bind
      * @param  string $type  type of value
-     * @return mixed  transformed value
+     * @return mixed         modified value
      */
     public function getBindVarValue($value, $type)
     {
-        $typeArray = explode(':',$type);
-        $type = $typeArray[0];
+        if (false !== strpos($type, ':')) {
+            $type = strstr($type, ':', true);
+        }
         switch ($type) {
             case 'csv':
             case 'passthru':
                 return $value;
             break;
-            case 'float':
-                return empty($value) ? 0 : $value;
+            case 'floatval':
+                return is_numeric($value) ? $value : 0;
             break;
             case 'integer':
                 return (int) $value;
             break;
+            case 'currency':
+            case 'date':
             case 'string':
-                if (isset($typeArray[1])) {
-                    $regexp = $typeArray[1];
-                }
-
                 return $this->conn->quote($value);
             break;
             case 'noquotestring':
-                return $this->prepare_input($value);
-            break;
-            case 'currency':
-            case 'date':
-            case 'enum':
-                if (isset($typeArray[1])) {
-                    $enumArray = explode('|', $typeArray[1]);
-                }
-
-                return $this->conn->quote($value);
+                return $this->prepareInput($value);
             case 'regexp':
-                $searchArray = array('[', ']', '(', ')', '{', '}', '|', '*', '?', '.', '$', '^');
-                foreach ($searchArray as $searchTerm) {
-                    $value = str_replace($searchTerm, '\\' . $searchTerm, $value);
-                }
-
-                return $this->prepare_input($value);
+                return $this->prepareInput(preg_quote($value));
         }
 
         throw new RuntimeException(sprintf('Type %s does not exist', $type));
@@ -284,22 +270,25 @@ $config->setResultCacheImpl($cache);
     /**
      * Bind variables to a sql query.
      *
-     * @author ZenCart <http://www.zen-cart.com>
-     * @copyright ZenCart developers
+     * This function doesn't do *real* parameter binding.
+     * It just replaces :column to value by str_replace
+     * and performs some basic SQL injection protection.
      *
      * @param  string $sql   sql query string
      * @param  string $param param to bind
      * @param  mixed  $value value to bind
      * @param  string $type  type to bind
      * @return string modified sql query
-     * @todo attempt to actually bind some of these parameters? It seems a bit more difficult since
-     *       bindVar isn't only used for sql, but also generic str cleaning elsewhere.
+     * @todo Attempt to actually bind some of these parameters?
+     *       It seems a bit more difficult since bindVar isn't
+     *       only used for sql, but also generic string cleaning
+     *       elsewhere.
      */
     public function bindVars($sql, $param, $value, $type)
     {
-        $sqlFix = $this->getBindVarValue($value, $type);
+        $boundValue = $this->getBindVarValue($value, $type);
 
-        return str_replace($param, $sqlFix, $sql);
+        return str_replace($param, $boundValue, $sql);
     }
 
     /**
