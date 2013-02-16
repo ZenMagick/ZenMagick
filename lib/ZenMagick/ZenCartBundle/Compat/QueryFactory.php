@@ -352,14 +352,19 @@ $config->setResultCacheImpl($cache);
      * @param string
      * @return string
      */
-    public function prepare_input($string)
+    public function prepareInput($string)
     {
         return str_replace(array('\\', "\0", "\n", "\r", "'", '"', "\x1a"), array('\\\\', '\\0', '\\n', '\\r', "\\'", '\\"', '\\Z'), $string);
     }
 
-    public function prepareInput($string)
+    /**
+     * Alias for prepareInput.
+     *
+     * @see prepareInput
+     */
+    public function prepare_input($string)
     {
-        return $this->prepare_input($string);
+        return $this->prepareInput($string);
     }
 
     /**
