@@ -23,15 +23,33 @@ namespace ZenMagick\ZenCartBundle\Compat;
 /**
  * Wrapper around a DBAL provided statement object
  *
+ * This class stores the entire result so it can be
+ * cached by QueryCacheProfile.
  */
-class QueryFactoryResult extends AbstractQueryFactoryResult
+class CachedQueryFactoryResult extends AbstractQueryFactoryResult
 {
+    private $results;
+    private $rowCount;
+
     /**
-     * {@inheritDoc}
+     * {inheritDoc}
+     */
+    public function __construct($stmt)
+    {
+        $this->stmt = $stmt;
+        $this->results = $this->stmt->fetchAll(\PDO::FETCH_ASSOC);
+        $this->stmt->closeCursor();
+        $this->rowCount = 0;
+    }
+
+    /**
+     * Get the number of records in the result set.
+     *
+     * @return int number of rows
      */
     public function RecordCount()
     {
-        return $this->stmt->rowCount();
+        return count($this->results);
     }
 
     /**
@@ -39,13 +57,14 @@ class QueryFactoryResult extends AbstractQueryFactoryResult
      */
     public function MoveNext()
     {
-        $result = $this->stmt->fetch(\PDO::FETCH_ASSOC);
-        if ($result) {
-            $this->fields = $result;
-        } else {
-            $this->EOF = true;
-            $this->stmt->closeCursor();
+        $rowCount = $this->rowCount;
+        if (isset($this->results[$rowCount])) {
+            $this->fields = $this->results[$this->rowCount];
+            $this->rowCount++;
+
+            return;
         }
+        $this->EOF = true;
     }
 
     /**
@@ -54,9 +73,7 @@ class QueryFactoryResult extends AbstractQueryFactoryResult
     public function Move($row)
     {
         $row -= 1;
-        while (0 < $row) {
-            $this->MoveNext();
-            if ($this->EOF) break;
-        }
+        $this->rowCount = $row;
+        $this->MoveNext();
     }
 }

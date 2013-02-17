@@ -20,6 +20,7 @@
 
 namespace ZenMagick\ZenCartBundle\Compat;
 
+use Doctrine\Common\Cache\Cache;
 use Doctrine\Common\Cache\ArrayCache;
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\Cache\QueryCacheProfile;
@@ -34,6 +35,8 @@ use Doctrine\DBAL\Cache\QueryCacheProfile;
   */
 class QueryFactory
 {
+    const CACHE_KEY = 'zencart.query_factory';
+
     /**
      * mysql ext resource often used in admin contributions
      *
@@ -46,7 +49,7 @@ class QueryFactory
      */
     private $conn;
 
-    private $hasResultCache = false;
+    private $hasResultCache;
 
     /**
      * Constructor
@@ -55,12 +58,25 @@ class QueryFactory
      */
     public function __construct(Connection $conn)
     {
-$cache = new ArrayCache();
-$config = $conn->getConfiguration();
-$config->setResultCacheImpl($cache);
-
-        $this->hasResultCache = null != $conn->getConfiguration()->getResultCacheImpl();
         $this->conn = $conn;
+        $this->hasResultCache = false;
+    }
+
+    /**
+     * Set a caching method.
+     *
+     * It will not override an already set result cache
+     *
+     * @param Doctrine\Common\Cache\Cache a Cache interface
+     */
+    public function setResultCache(Cache $cache)
+    {
+        $config = $this->conn->getConfiguration();
+        $this->hasResultCache = null != $config->getResultCacheImpl();
+        if (!$this->hasResultCache) {
+            $config->setResultCacheImpl($cache);
+            $this->hasResultCache = true;
+        }
     }
 
     /**
@@ -121,13 +137,20 @@ $config->setResultCacheImpl($cache);
         if ($limit) $sql .= ' LIMIT ' . (int)$limit;
 
         $qcp = null;
+        $resultClass = __NAMESPACE__.'\QueryFactoryResult';
         if ($this->hasResultCache) {
-           $qcp =  new QueryCacheProfile($cacheTime, md5($sql));
+           $qcp =  new QueryCacheProfile($cacheTime, self::CACHE_KEY);
+           $resultClass = __NAMESPACE__.'\CachedQueryFactoryResult';
         }
 
-        $stmt = $this->conn->executeQuery($sql, array(), array(), $qcp);
+        if ($useCache && $this->hasResultCache) {
+            // @todo ArrayCache shouldn't count as a real cache for $useCache
+            $stmt = $this->conn->executeCacheQuery($sql, array(), array(), $qcp);
+        } else {
+            $stmt = $this->conn->executeQuery($sql, array(), array(), $qcp);
+        }
 
-        $obj = new QueryFactoryResult($stmt);
+        $obj = new $resultClass($stmt);
         $obj->MoveNext();
 
         return $obj;

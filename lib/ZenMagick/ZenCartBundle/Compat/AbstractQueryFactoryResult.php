@@ -1,0 +1,85 @@
+<?php
+/*
+ * ZenMagick - Another PHP framework.
+ * Copyright (C) 2006-2012 zenmagick.org
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or (at
+ * your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
+ */
+
+namespace ZenMagick\ZenCartBundle\Compat;
+
+/**
+ * Wrapper around a DBAL provided statement object
+ *
+ */
+abstract class AbstractQueryFactoryResult
+{
+    public $EOF = false;
+    public $fields = array();
+
+    protected $stmt;
+    private $results;
+    private $rowCount;
+
+    /**
+     * Constructor
+     *
+     * @param object $stmt DBAL provided statement object
+     */
+    public function __construct($stmt)
+    {
+        $this->stmt = $stmt;
+    }
+
+    /**
+     * Get the number of records in the result set.
+     *
+     * @return int number of rows
+     */
+    abstract public function RecordCount();
+
+    /**
+     * Move the cursor to the next row in the result set.
+     *
+     * if there are no results then then <code>$this->EOF</code> is set to true
+     * and <code>$this->fields</code> is not populated.
+     */
+    abstract public function MoveNext();
+
+    /**
+     * Iterate over a result set that has already been randomized.
+     *
+     * This is different behaviour than the original class, but this should
+     * be much faster since it relies on ORDER BY RAND().
+     */
+     public function MoveNextRandom()
+    {
+        $this->MoveNext();
+    }
+
+    /**
+     * Move to a specified row in the result set.
+     *
+     * This cursor only moves forward. There is only one caller
+     * (<code>zen_random_row</code>) of this method in ZenCart
+     * and all callers of that are commented out as of ZenCart 1.5.0
+     * so it doesn't seem worth it to implement a scrollable cursor here.
+     *
+     * This method also silently stops when it reaches the last result
+     *
+     * @param int $row. Which row to scroll to
+     */
+    abstract public function Move($row);
+}
