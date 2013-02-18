@@ -297,14 +297,6 @@ array(
         'lastModified' => array('column' => 'last_modified', 'type' => 'datetime'),
         'dateAdded' => array('column' => 'date_added', 'type' => 'datetime')
     ),
-    'languages' => array(
-        'languageId' => array('column' => 'languages_id', 'type' => 'integer', 'key' => true, 'auto' => true),
-        'name' => array('column' => 'name', 'type' => 'string'),
-        'code' => array('column' => 'code', 'type' => 'string'),
-        'image' => array('column' => 'image', 'type' => 'string'),
-        'directory' => array('column' => 'directory', 'type' => 'string'),
-        'sortOrder' => array('column' => 'sort_order', 'type' => 'integer')
-    ),
     'layout_boxes' => array(
         'id' => array('column' => 'layout_id', 'type' => 'integer', 'key' => true, 'auto' => true),
         'themeId' => array('column' => 'layout_template', 'type' => 'string'),

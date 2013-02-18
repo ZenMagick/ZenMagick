@@ -19,29 +19,30 @@
  */
 namespace ZenMagick\StoreBundle\Services\Locale;
 
-use ZMRuntime;
-use ZenMagick\Base\Runtime;
-use ZenMagick\Base\ZMObject;
+use Doctrine\ORM\EntityRepository;
 
 /**
  * Languages service.
  *
  * @author DerManoMann
  */
-class LanguageService extends ZMObject
+class LanguageService
 {
     private $languages;
+    private $repository;
+
+    public function __construct(EntityRepository $repository)
+    {
+        $this->repository = $repository;
+    }
 
     /**
      * Load languages.
      */
     protected function load()
     {
-        $sql = "SELECT *
-                FROM %table.languages%
-                ORDER BY sort_order";
-        $this->languages = array();
-        foreach (ZMRuntime::getDatabase()->fetchAll($sql, array(), 'languages', 'ZenMagick\StoreBundle\Entity\Language') as $language) {
+        $languages = $this->repository->findBy(array(), array('sortOrder' => 'ASC'));
+        foreach ($languages as $language) {
             $this->languages[$language->getCode()] = $language;
         }
     }

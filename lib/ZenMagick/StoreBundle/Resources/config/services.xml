@@ -187,9 +187,13 @@
         <service id="currencyService" class="ZenMagick\StoreBundle\Services\Locale\CurrencyService" />
 
         <service id="languageService" class="ZenMagick\StoreBundle\Services\Locale\LanguageService">
-            <call method="setContainer">
-                <argument type="service" id="service_container" />
-            </call>
+            <argument type="service">
+                <service factory-service="doctrine.orm.entity_manager"
+                    factory-method="getRepository"
+                    class="Doctrine\ORM\EntityRepository">
+                    <argument>StoreBundle:Language</argument>
+                </service>
+            </argument>
         </service>
 
         <service id="paymentTypeService" class="ZenMagick\StoreBundle\Services\PaymentTypes" />
