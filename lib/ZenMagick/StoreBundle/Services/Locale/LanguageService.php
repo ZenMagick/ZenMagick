@@ -97,15 +97,4 @@ class LanguageService extends ZMObject
 
         return null;
     }
-
-    /**
-     * Get the default language.
-     *
-     * @return ZMLanguage The default language for this store.
-     */
-    public function getDefaultLanguage()
-    {
-        return Runtime::getContainer()->get('languageService')->getLanguageForId(Runtime::getSettings()->get('storeDefaultLanguageId'));
-    }
-
 }
