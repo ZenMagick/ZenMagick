@@ -1,9 +1,9 @@
 imports:
     - { resource: config.yml }
 
-#framework:
-#    router:
-#        strict_requirements: ~ # @todo enable once we're fully converted to routing
+framework:
+    router:
+        strict_requirements: ~
 
 #doctrine:
 #    orm:
