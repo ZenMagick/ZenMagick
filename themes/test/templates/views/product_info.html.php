@@ -113,6 +113,6 @@ use ZenMagick\StoreBundle\Services\Products;
 </form>
 
 <?php ?>
-<?php if ($this->exists('views/lift-suggestions.php')) { ?>
-  <?php echo $this->fetch('views/lift-suggestions.html.php') ?>
+<?php if ($this->exists('lift-suggestions.php')) { ?>
+  <?php echo $this->fetch('lift-suggestions.html.php') ?>
 <?php } ?>

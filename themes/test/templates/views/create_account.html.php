@@ -190,6 +190,6 @@
         <label for="captcha"><?php _vzm("Captcha") ?><span>*</span></label>
         <input type="text" id="captcha" name="captcha" value="" /><br />
     <?php } ?>
-    <?php if ($this->exists('views/howDidYouHearOptions.html.php')) { echo $this->fetch('views/howDidYouHearOptions.html.php'); } ?>
+    <?php if ($this->exists('howDidYouHearOptions.html.php')) { echo $this->fetch('howDidYouHearOptions.html.php'); } ?>
     <div class="btn"><input type="submit" class="btn" value="<?php _vzm("Create Account") ?>" /></div>
 </form>

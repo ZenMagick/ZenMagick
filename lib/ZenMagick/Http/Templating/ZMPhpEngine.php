@@ -97,8 +97,6 @@ class ZMPhpEngine extends ZMObject implements EngineInterface
      */
     public function fetch($template, array $variables=array())
     {
-        $template = str_replace('/views', '', $template);
-
         // more precise would be an instance stack, i suppose
         $__fetchVars = array('template' => $template, 'variables' => $variables);
 
