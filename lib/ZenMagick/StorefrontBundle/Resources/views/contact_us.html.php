@@ -19,7 +19,7 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 ?>
-
+<?php $view->extend('StorefrontBundle::default_layout.html.php'); ?>
 <?php $crumbtrail->addCrumb(_zm('Contact Us')) ?>
 <h3><?php _vzm("Store Contact Details") ?></h3>
 <p><address><?php echo nl2br($settingsService->get('storeNameAddress')); ?></address></p>

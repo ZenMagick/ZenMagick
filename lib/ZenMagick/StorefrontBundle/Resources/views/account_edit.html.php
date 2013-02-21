@@ -19,7 +19,7 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 ?>
-
+<?php $view->extend('StorefrontBundle::default_layout.html.php'); ?>
 <?php $crumbtrail->addCrumb(_zm('Account'), $net->generate('account'))->addCrumb(_zm('Edit Account')) ?>
 <?php echo $form->open('account_edit', '', true, array('id'=>'account')) ?>
     <fieldset>

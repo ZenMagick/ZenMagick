@@ -20,8 +20,8 @@
  */
 
 use ZenMagick\Base\Toolbox;
-
 ?>
+<?php $view->extend('StorefrontBundle::default_layout.html.php'); ?>
 
 <?php $crumbtrail->addCrumb(_zm('Checkout'), $net->generate('checkout'))->addCrumb(_zm('Summary')) ?>
 <fieldset>

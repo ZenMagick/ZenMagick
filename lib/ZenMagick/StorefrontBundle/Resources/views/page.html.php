@@ -19,7 +19,7 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 ?>
-
+<?php $view->extend('StorefrontBundle::default_layout.html.php'); ?>
 <?php $crumbtrail->addCrumb($ezPage->getTitle()) ?>
 <?php $toc = $container->get('ezPageService')->getPagesForChapterId($request->query->get("chapter"), $session->getLanguageId()); ?>
 <?php if (1 < count($toc)) { ?>

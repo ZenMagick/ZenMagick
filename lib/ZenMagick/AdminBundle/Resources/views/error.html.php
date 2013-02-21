@@ -18,6 +18,7 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 ?>
+<?php $view->extend('AdminBundle::default_layout.html.php'); ?>
 <h1><?php _vzm('Oops') ?></h1><div>
 <p><?php _vzm('Something went wrong.') ?></p>
 <?php /* TODO: need to create conventions for messages, etc */ if (isset($message)) { ?><h2><?php echo $message ?></h2><?php } ?>

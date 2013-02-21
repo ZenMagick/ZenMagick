@@ -17,8 +17,10 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
+?>
+<?php $view->extend('AdminBundle::default_layout.html.php'); ?>
+<?php
 use ZenMagick\StoreBundle\Entity\Account;
-
 $admin->title() ?>
 
 <table class="grid">

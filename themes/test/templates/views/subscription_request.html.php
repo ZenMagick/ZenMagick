@@ -18,7 +18,7 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 ?>
-
+<?php $view->extend('StorefrontBundle::default_layout.html.php'); ?>
 <h3><?php _vzm("Subscription Enqiries") ?></h3>
 
 <?php echo $form->open('', null, true, array('method' => 'post', 'id' => 'subscription_request')) ?>

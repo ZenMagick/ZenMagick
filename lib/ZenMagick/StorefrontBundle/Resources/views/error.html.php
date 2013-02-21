@@ -19,6 +19,7 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 ?>
+<?php $view->extend('StorefrontBundle::default_layout.html.php'); ?>
 <h3><?php _vzm("Oops - something went wrong!") ?></h3>
 <p><?php echo $utils->staticPageContent('error') ?></p>
 <?php if ($app->getEnvironment() == 'dev') { ?>

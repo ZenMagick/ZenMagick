@@ -19,7 +19,7 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 ?>
-
+<?php $view->extend('StorefrontBundle::default_layout.html.php'); ?>
 <h3><?php _vzm('Customer Authorization Pending ...') ?></h3>
 <p><?php _vzm('We will contact you as soon as possible. To re-check your Authorization status ...') ?>
 <a href="<?php echo $net->generate('account') ?>"><?php _vzm('Click here') ?></a>.</p>

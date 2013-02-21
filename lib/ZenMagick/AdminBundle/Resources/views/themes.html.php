@@ -17,7 +17,9 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-$admin->title(_zm('Themes')) ?>
+?>
+<?php $view->extend('AdminBundle::default_layout.html.php'); ?>
+<?php $admin->title(_zm('Themes')) ?>
 
 <h2><?php _vzm('Manage Themes') ?></h2>
 <form action="<?php echo $net->generate('themes') ?>" method="POST">

@@ -18,7 +18,7 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 ?>
-
+<?php $view->extend('StorefrontBundle::default_layout.html.php'); ?>
 <?php if ($session->isAnonymous()) { ?>
     <h2><?php _vzm("Whoops! Your session has expired.") ?></h2>
 <?php } else { ?>

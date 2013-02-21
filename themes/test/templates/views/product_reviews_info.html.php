@@ -20,7 +20,7 @@
  * $Id: product_reviews_info.php 2695 2009-12-03 23:44:49Z dermanomann $
  */
 ?>
-
+<?php $view->extend('StorefrontBundle::default_layout.html.php'); ?>
 <?php echo $form->addProduct($currentProduct->getId(), 1) ?>
   <div>
     <div id="pinfo">

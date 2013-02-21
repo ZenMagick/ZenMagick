@@ -17,7 +17,9 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-
+?>
+<?php $view->extend('StorefrontBundle::default_layout.html.php'); ?>
+<?php
 $crumbtrail->addCrumb(_zm('Shopping Cart'));
 if ($shoppingCart->isEmpty()) { ?>
     <h2><?php _vzm("Your Shopping Cart is empty") ?></h2>

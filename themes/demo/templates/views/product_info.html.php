@@ -18,6 +18,9 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
+?>
+<?php $view->extend('StorefrontBundle::default_layout.html.php'); ?>
+<?php
 use ZenMagick\StoreBundle\Services\Products;
 $resourceManager->jsFile('lightbox/prototype.js', $resourceManager::FOOTER) ?>
 <?php $resourceManager->jsFile('lightbox/scriptaculous.js?load=effects', $resourceManager::FOOTER) ?>

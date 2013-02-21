@@ -20,7 +20,7 @@
  */
 use ZenMagick\StoreBundle\Services\Products;
 ?>
-
+<?php $view->extend('StorefrontBundle::default_layout.html.php'); ?>
 <?php $crumbtrail->addCategoryPath()->addManufacturer()->addProduct($currentProduct->getId()) ?>
 
 <?php $manufacturer = $currentProduct->getManufacturer() ?>

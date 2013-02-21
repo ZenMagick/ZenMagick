@@ -16,7 +16,11 @@
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
- */ $admin->title(_zm('Reset Password')) ?></h1>
+ */
+?>
+<?php $view->extend('AdminBundle::default_layout.html.php'); ?>
+<?php $admin->title(_zm('Reset Password')) ?>
+
 <?php echo $form->open('admin_reset_password', '', true, array('id'=>'reset_password')) ?>
 <p><?php _vzm('Please enter your admin email address and a new password will be emailed to you.') ?></p>
 

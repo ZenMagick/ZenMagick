@@ -20,4 +20,5 @@
  */
 ?>
 
+<?php $view->extend('StorefrontBundle::default_layout.html.php'); ?>
 <?php echo $utils->staticPageContent("conditions") ?>

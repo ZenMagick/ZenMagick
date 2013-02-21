@@ -19,7 +19,7 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 ?>
-
+<?php $view->extend('StorefrontBundle::default_layout.html.php'); ?>
 <h1><?php _vzm("Down for Maintenance ..."); ?></h1>
 
 <h3><?php _vzm("The site is currently down for maintenance. Please try back later.") ?></h3>

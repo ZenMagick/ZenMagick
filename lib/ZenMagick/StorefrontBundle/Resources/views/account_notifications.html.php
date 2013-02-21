@@ -19,6 +19,7 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 ?>
+<?php $view->extend('StorefrontBundle::default_layout.html.php'); ?>
 
 <?php $crumbtrail->addCrumb(_zm('Account'), $net->generate('account'))->addCrumb(_zm('Product Notifications')) ?>
 <p><?php _vzm("The product notification list allows you to stay up to date on products you find of interest.") ?></p>

@@ -16,7 +16,10 @@
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
- */ $admin->title(sprintf(_zm('Order: %s'), $order->getId())) ?>
+ */
+?>
+<?php $view->extend('AdminBundle::default_layout.html.php'); ?>
+<?php $admin->title(sprintf(_zm('Order: %s'), $order->getId())) ?>
 
 <h3><?php _vzm("Item Details") ?></h3>
 <table class="grid">

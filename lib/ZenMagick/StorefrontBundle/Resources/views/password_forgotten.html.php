@@ -19,7 +19,7 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 ?>
-
+<?php $view->extend('StorefrontBundle::default_layout.html.php'); ?>
 <?php $crumbtrail->addCrumb(_zm('Password Recovery')) ?>
 <p><?php _vzm("Enter your E-Mail address below and we'll send you an e-mail message containing your new password.") ?></p>
 <?php echo $form->open('password_forgotten') ?>

@@ -19,8 +19,9 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 ?>
-
+<?php $view->extend('StorefrontBundle::default_layout.html.php'); ?>
 <?php $crumbtrail->addCrumb(_zm('Account'), $net->generate('account'))->addCrumb(_zm('Addresses'), $net->generate('address_book'))->addCrumb(_zm('New')) ?>
+
 <?php echo $form->open('address_book_add', '', true, array('id'=>'address')) ?>
     <?php echo $this->fetch('address.html.php') ?>
     <div class="btn"><input type="submit" class="btn" value="<?php _vzm("Submit") ?>" /></div>

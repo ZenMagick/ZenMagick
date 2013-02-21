@@ -19,7 +19,7 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 ?>
-
+<?php $view->extend('StorefrontBundle::default_layout.html.php'); ?>
 <h1>Welcome to the ZenMagick demo store</h1>
 
 <p>Running on top of a standard <a href="http://www.zen-cart.com">zen-cart</a> installation,

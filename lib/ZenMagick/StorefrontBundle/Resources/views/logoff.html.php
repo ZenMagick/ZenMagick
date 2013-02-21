@@ -19,7 +19,7 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 ?>
-
+<?php $view->extend('StorefrontBundle::default_layout.html.php'); ?>
 <?php $crumbtrail->addCrumb(_zm('Logoff')) ?>
 <p><?php _vzm('You have been logged off your account. It is now safe to leave the computer.') ?></p>
 <p><?php _vzm('Your shopping cart has been saved, the items inside it will be restored whenever you log back into your account.') ?></p>

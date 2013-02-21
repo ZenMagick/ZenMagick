@@ -18,6 +18,7 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 ?>
+<?php $view->extend('::base.html.php'); ?>
 <!DOCTYPE html>
 <html>
   <head>
@@ -40,7 +41,7 @@
       <?php echo $this->fetch('header.html.php'); ?>
       <div id="content">
           <?php echo $this->fetch('messages.html.php'); ?>
-          <?php echo $this->fetch($viewTemplate); ?>
+        <?php $view['slots']->output('_content'); ?>
         </div><!-- view-container -->
       </div><!-- content -->
       <?php echo $this->fetch('footer.html.php'); ?>

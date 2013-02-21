@@ -19,6 +19,7 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 ?>
+<?php $view->extend('StorefrontBundle::default_layout.html.php'); ?>
 
 <?php $crumbtrail->addCrumb(_zm('Checkout'), $net->generate('checkout_payment'))->addCrumb(_zm('Billing Address')) ?>
 <?php $currentAddress = $shoppingCart->getBillingAddress(); ?>

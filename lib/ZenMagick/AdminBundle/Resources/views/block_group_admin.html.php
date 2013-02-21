@@ -16,7 +16,10 @@
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
- */ $resources->cssFile('style/views/block_group_admin.css') ?>
+ */
+?>
+<?php $view->extend('AdminBundle::default_layout.html.php'); ?>
+<?php $resources->cssFile('style/views/block_group_admin.css') ?>
 <?php $admin->title() ?>
 
 <div class="col3">

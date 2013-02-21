@@ -19,9 +19,9 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 ?>
+<?php $view->extend('StorefrontBundle::default_layout.html.php'); ?>
 
 <?php $crumbtrail->addCrumb(_zm('Account'), $net->generate('account'))->addCrumb(_zm('Change Password')) ?>
-
 <?php echo $form->open('account_password', '', true, array('id'=>'account_password')) ?>
     <fieldset>
         <legend><?php _vzm("Change Password") ?></legend>

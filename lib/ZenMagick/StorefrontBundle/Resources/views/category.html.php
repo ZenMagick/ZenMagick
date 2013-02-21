@@ -18,9 +18,9 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-
-$crumbtrail->addCategoryPath()->addManufacturer()->addProduct()
 ?>
+<?php $view->extend('StorefrontBundle::default_layout.html.php'); ?>
+<?php $crumbtrail->addCategoryPath()->addManufacturer()->addProduct() ?>
 
 <h2><?php echo $html->encode($currentCategory->getName()) ?></h2>
 

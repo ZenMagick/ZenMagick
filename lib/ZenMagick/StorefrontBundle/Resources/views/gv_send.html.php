@@ -19,7 +19,7 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 ?>
-
+<?php $view->extend('StorefrontBundle::default_layout.html.php'); ?>
 <?php $crumbtrail->addCrumb(_zm('Account'), $net->generate('account'))->addCrumb(_zm('Send Gift Certificate')) ?>
 <p><?php _vzm("Current available balance: <strong>%s</strong>", $utils->formatMoney($app->getUser()->getVoucherBalance())) ?></p>
 <?php echo $form->open('gv_send', '', true, array('id'=>'gvreceiverObject')) ?>

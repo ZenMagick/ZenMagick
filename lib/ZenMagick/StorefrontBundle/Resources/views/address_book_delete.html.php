@@ -19,6 +19,7 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 ?>
+<?php $view->extend('StorefrontBundle::default_layout.html.php'); ?>
 
 <?php $crumbtrail->addCrumb(_zm('Account'), $net->generate('account'))->addCrumb(_zm('Addresses'), $net->generate('address_book'))->addCrumb(_zm('Delete')) ?>
 <p><?php _vzm("Are you sure you would like to delete the selected address from your address book?") ?></p>

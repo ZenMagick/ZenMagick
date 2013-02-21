@@ -18,7 +18,7 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 ?>
-
+<?php $view->extend('StorefrontBundle::default_layout.html.php'); ?>
 <p><?php _vzm("We are sorry to hear that you wish to unsubscribe from our newsletter. If you have concerns about your privacy, please see our <a href=\"%s\">privacy policy</a>.", $net->staticPage('privacy')) ?></p>
 
 <p><?php _vzm('Subscribers to our newsletter are kept notified of new products, price reductions, and site news.') ?></p>

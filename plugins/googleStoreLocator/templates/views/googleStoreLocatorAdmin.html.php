@@ -18,6 +18,7 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 ?>
+<?php $view->extend('AdminBundle::default_layout.html.php'); ?>
 <script type="text/javascript" src="http://www.google.com/jsapi?key=<?php echo $adminKey ?>"></script>
 <script type="text/javascript">
   var marker = null;
