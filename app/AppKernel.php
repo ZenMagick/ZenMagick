@@ -44,7 +44,11 @@ class AppKernel extends Kernel
     public function __construct($environment = 'prod', $debug = false, $context = null)
     {
         $this->context = $context;
-        Runtime::setContext($this->context);
+        // @todo FIXME: Only save it the first time. this gets called again via ConfigCache
+        if (null === Runtime::getContext()) {
+            Runtime::setContext($context);
+        }
+
         parent::__construct($environment, $debug);
     }
 
