@@ -268,7 +268,7 @@ class TemplateView extends ZMObject implements View
      */
     protected function initVariables($request)
     {
-        if (array_key_exists('view', $this->variables)) {
+        if (array_key_exists('templateView', $this->variables)) {
             return;
         }
 
@@ -279,7 +279,7 @@ class TemplateView extends ZMObject implements View
         $this->setVariable('resources', $this->getResourceManager());
         $this->setVariable('resourceManager', $this->getResourceManager());
         $this->setVariable('resourceResolver', $this->getResourceResolver());
-        $this->setVariable('view', $this);
+        $this->setVariable('templateView', $this);
         if (null == $request) {
             $request = $this->container->get('request');
         }

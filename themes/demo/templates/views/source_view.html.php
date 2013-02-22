@@ -32,7 +32,7 @@
   }
 
   // resolve
-  $sourceFile = $resourceResolver->findResource($source, $view::TEMPLATE);
+  $sourceFile = $resourceResolver->findResource($source, $templateView::TEMPLATE);
 
   if (null != $sourceFile && is_file($sourceFile)) {
       ?><h2>Source for <?php echo $source ?></h2><pre id="source"><?php

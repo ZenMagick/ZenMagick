@@ -31,7 +31,7 @@
   <fieldset>
     <legend><?php _vzm('Preferences') ?></legend>
     <?php foreach ($widgets as $widget) { ?>
-      <p><label for="<?php echo $widget->getId() ?>"><?php echo $widget->getTitle() ?></label> <?php echo $widget->render($request, $view) ?></p>
+      <p><label for="<?php echo $widget->getId() ?>"><?php echo $widget->getTitle() ?></label> <?php echo $widget->render($request, $templateView) ?></p>
     <?php } ?>
   </fieldset>
   <p><input class="<?php echo $buttonClasses ?>" type="submit" value="<?php _vzm('Update') ?>") ?>

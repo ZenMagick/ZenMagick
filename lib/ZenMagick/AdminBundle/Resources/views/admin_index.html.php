@@ -40,7 +40,7 @@
   <?php for ($ii=0; $ii<$container->get('dashboard')->getColumns($adminId); ++$ii) { $widgets = $container->get('dashboard')->getWidgetsForColumn($adminId, $ii); ?>
     <div id="db-column-<?php echo $ii ?>" class="db-column">
       <?php foreach ($widgets as $widget) { ?>
-        <?php echo $widget->render($request, $view); ?>
+        <?php echo $widget->render($request, $templateView); ?>
       <?php } ?>
     </div>
   <?php } ?>
@@ -48,10 +48,10 @@
 
 <div id="widget-box">
   <div id="grid-list" class="ui-corner-all">
-    <a href="#" class="db-grid-selector" id="col2"><img src="<?php echo $this->asUrl('images/icons/col2.png', $view::RESOURCE) ?>" alt="<?php _vzm('two column') ?>" title="<?php _vzm('two column') ?>"></a>
-    <a href="#" class="db-grid-selector" id="col2l"><img src="<?php echo $this->asUrl('images/icons/col2l.png', $view::RESOURCE) ?>" alt="<?php _vzm('two column - large right') ?>" title="<?php _vzm('two column - large right') ?>"></a>
-    <a href="#" class="db-grid-selector" id="col2r"><img src="<?php echo $this->asUrl('images/icons/col2r.png', $view::RESOURCE) ?>" alt="<?php _vzm('two column - large left') ?>" title="<?php _vzm('two column - large left') ?>"></a>
-    <a href="#" class="db-grid-selector" id="col3"><img src="<?php echo $this->asUrl('images/icons/col3.png', $view::RESOURCE) ?>" alt="<?php _vzm('three column') ?>" title="<?php _vzm('three column') ?>"></a>
+    <a href="#" class="db-grid-selector" id="col2"><img src="<?php echo $this->asUrl('images/icons/col2.png', $templateView::RESOURCE) ?>" alt="<?php _vzm('two column') ?>" title="<?php _vzm('two column') ?>"></a>
+    <a href="#" class="db-grid-selector" id="col2l"><img src="<?php echo $this->asUrl('images/icons/col2l.png',$templateView::RESOURCE) ?>" alt="<?php _vzm('two column - large right') ?>" title="<?php _vzm('two column - large right') ?>"></a>
+    <a href="#" class="db-grid-selector" id="col2r"><img src="<?php echo $this->asUrl('images/icons/col2r.png', $templateView::RESOURCE) ?>" alt="<?php _vzm('two column - large left') ?>" title="<?php _vzm('two column - large left') ?>"></a>
+    <a href="#" class="db-grid-selector" id="col3"><img src="<?php echo $this->asUrl('images/icons/col3.png', $templateView::RESOURCE) ?>" alt="<?php _vzm('three column') ?>" title="<?php _vzm('three column') ?>"></a>
   </div>
 
   <div id="widget-list" class="ui-corner-all">
@@ -60,13 +60,13 @@
       <div id="widget-box-col-0" class="widget-box-col">
         <?php for ($ii=0; $ii<count($widgetList); $ii+=2) {
           $widget = $widgetList[$ii];
-          $widget->setOpen(false); echo $widget->render($request, $view);
+          $widget->setOpen(false); echo $widget->render($request, $templateView);
         } ?>
       </div>
       <div id="widget-box-col-1" class="widget-box-col">
         <?php for ($ii=1; $ii<count($widgetList); $ii+=2) {
           $widget = $widgetList[$ii];
-          $widget->setOpen(false); echo $widget->render($request, $view);
+          $widget->setOpen(false); echo $widget->render($request, $templateView);
         } ?>
       </div>
     </div>

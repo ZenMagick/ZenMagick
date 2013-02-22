@@ -38,5 +38,5 @@ $content = str_replace('src="images', 'src="/'.$adminWeb.'/images', $content);
 
 echo $content;
 ?>
-<?php echo $currentEditor->apply($request, $view, null); ?>
+<?php echo $currentEditor->apply($request, $templateView, null); ?>
 <?php $autoLoader->restoreErrorLevel(); ?>
