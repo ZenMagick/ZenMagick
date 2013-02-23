@@ -38,13 +38,13 @@
   </head>
   <body id="p-<?php echo $request->getRequestId() ?>">
     <div id="main">
-      <?php echo $this->fetch('header.html.php'); ?>
+      <?php echo $this->render('AdminBundle::header.html.php'); ?>
       <div id="content">
-          <?php echo $this->fetch('messages.html.php'); ?>
+          <?php echo $this->render('AdminBundle::messages.html.php'); ?>
         <?php $view['slots']->output('_content'); ?>
         </div><!-- view-container -->
       </div><!-- content -->
-      <?php echo $this->fetch('footer.html.php'); ?>
+      <?php echo $this->render('AdminBundle::footer.html.php'); ?>
     </div>
     <script type="text/javascript">
       $('.tt[title]').cluetip({clickThrough: true, splitTitle: '|', arrows: true });

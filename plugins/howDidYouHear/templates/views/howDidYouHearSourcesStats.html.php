@@ -40,4 +40,4 @@
 <?php if ($isOther) { ?>
   <p><a href="<?php echo $net->generate('howDidYouHearSourcesStats') ?>" class="<?php echo $buttonClasses ?>"><?php _vzm('Back to overview') ?></a></p>
 <?php } ?>
-<?php echo $this->fetch('pagination.html.php') ?>
+<?php echo $this->render('AdminBundle::pagination.html.php') ?>

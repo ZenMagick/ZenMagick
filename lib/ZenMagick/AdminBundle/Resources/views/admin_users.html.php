@@ -43,4 +43,4 @@
   <?php } ?>
 </table>
 <p><a class="<?php echo $buttonClasses ?>" href="<?php echo $net->generate('edit_admin_user') ?>"><?php _vzm('Add User') ?></a></p>
-<?php echo $this->fetch('pagination.html.php'); ?>
+<?php echo $this->render('AdminBundle::pagination.html.php'); ?>

@@ -23,7 +23,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" dir="ltr">
   <head>
-    <?php echo $this->fetch('head.html.php') ?>
+    <?php echo $this->render('StorefrontBundle::head.html.php') ?>
     <?php $resourceManager->cssFile('css/site.css') ?>
     <?php // IE conditional comments
           //$resourceManager->cssFile('css/ie.css', array('prefix' => '<!--[if IE]>', 'suffix' => '<![endif]-->'))
@@ -55,8 +55,8 @@
     <div id="bannerOne"><?php echo $this->fetchBlockGroup('banners.header1') ?></div>
 
     <div id="container">
-      <?php echo $this->fetch('header.html.php') ?>
-      <?php echo $this->fetch('menu.html.php') ?>
+      <?php echo $this->render('StorefrontBundle::header.html.php') ?>
+      <?php echo $this->render('StorefrontBundle::menu.html.php') ?>
 
       <div id="leftcol">
         <?php echo $this->fetchBlockGroup('leftColumn') ?>
@@ -84,7 +84,7 @@
         <div id="bannerFour"><?php echo $this->fetchBlockGroup('banners.footer1') ?></div>
       </div>
 
-      <?php echo $this->fetch('footer.html.php') ?>
+      <?php echo $this->render('StorefrontBundle::footer.html.php') ?>
     </div>
 
     <div id="bannerSix"><?php echo $this->fetchBlockGroup('banners.footer3') ?></div>

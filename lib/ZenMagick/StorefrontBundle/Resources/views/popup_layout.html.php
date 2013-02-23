@@ -23,7 +23,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
   <head>
-    <?php echo $this->fetch('head.html.php'); ?>
+    <?php echo $this->render('StorefrontBundle::head.html.php'); ?>
     <?php $resourceManager->cssFile('css/popup.css') ?>
     <?php /* give other themes the chance to add to the default CSS without having to copy everything */ ?>
     <?php if ($this->exists("theme.css")) { ?>

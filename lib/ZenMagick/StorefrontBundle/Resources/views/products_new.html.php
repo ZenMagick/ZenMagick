@@ -23,19 +23,19 @@
 <?php $crumbtrail->addCategoryPath()->addManufacturer()->addCrumb(_zm('New Products')) ?>
 <?php if ($resultList->hasResults()) { ?>
     <div class="rnblk">
-        <?php echo $this->fetch('resultlist/nav.html.php') ?>
-        <?php echo $this->fetch('resultlist/options.html.php') ?>
+        <?php echo $this->render('StorefrontBundle::resultlist/nav.html.php') ?>
+        <?php echo $this->render('StorefrontBundle::resultlist/options.html.php') ?>
     </div>
 
     <div class="rlist">
         <table cellspacing="0" cellpadding="0"><tbody>
             <?php $first = true; $odd = true; foreach ($resultList->getResults() as $product) { ?>
-              <?php echo $this->fetch('resultlist/product.html.php', array('product' => $product, 'first' => $first, 'odd' => $odd)) ?>
+              <?php echo $this->render('StorefrontBundle::resultlist/product.html.php', array('product' => $product, 'first' => $first, 'odd' => $odd)) ?>
             <?php $first = false; $odd = !$odd; } ?>
         </tbody></table>
     </div>
     <div class="rnblk">
-        <?php echo $this->fetch('resultlist/nav.html.php') ?>
+        <?php echo $this->render('StorefrontBundle::resultlist/nav.html.php') ?>
     </div>
 <?php } else { ?>
     <h2><?php _vzm("There are no new products in this category") ?></h2>

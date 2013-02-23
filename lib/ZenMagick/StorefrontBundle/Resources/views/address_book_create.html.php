@@ -23,6 +23,6 @@
 <?php $crumbtrail->addCrumb(_zm('Account'), $net->generate('account'))->addCrumb(_zm('Addresses'), $net->generate('address_book'))->addCrumb(_zm('New')) ?>
 
 <?php echo $form->open('address_book_add', '', true, array('id'=>'address')) ?>
-    <?php echo $this->fetch('address.html.php') ?>
+    <?php echo $this->render('StorefrontBundle::address.html.php') ?>
     <div class="btn"><input type="submit" class="btn" value="<?php _vzm("Submit") ?>" /></div>
 </form>

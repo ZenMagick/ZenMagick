@@ -37,7 +37,7 @@
 </script>
 <?php $resourceManager->jsFile('js/jquery.js', $resourceManager::NOW) ?>
 <?php /*=== include to allow PHP execution in ZM context ==*/ ?>
-<script type="text/javascript"><?php echo $this->fetch("dynamicState.js") ?></script>
+<script type="text/javascript"><?php echo $this->render('StorefrontBundle::dynamicState.js.php') ?></script>
 
 <?php echo $form->open('create_account', '', true, array('id'=>'registration')) ?>
     <?php if ($settingsService->get('isPrivacyMessage')) { ?>

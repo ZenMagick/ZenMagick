@@ -58,7 +58,7 @@
     <div class="rlist">
         <table cellspacing="0" cellpadding="0"><tbody>
             <?php $first = true; $odd = true; foreach ($resultList->getResults() as $order) { ?>
-              <?php echo $this->fetch('resultlist/order.html.php', array('order' => $order, 'first' => $first, 'odd' => $odd)) ?>
+              <?php echo $this->render('StorefrontBundle::resultlist/order.html.php', array('order' => $order, 'first' => $first, 'odd' => $odd)) ?>
             <?php $first = false; $odd = !$odd; } ?>
         </tbody></table>
     </div>

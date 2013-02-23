@@ -27,11 +27,11 @@ The plugin includes a small template file to be included into the create_account
 
 In your create_account.html.php, after the last closing fieldset element, add the following line:
 
-    <?php echo $this->fetch('howDidYouHearOptions.html.php') ?>
+    <?php echo $this->render('StorefrontBundle::howDidYouHearOptions.html.php') ?>
 
 In address.html.php (for guest checkout), add the same line to the end of the template:
 
-    <?php echo $this->fetch('howDidYouHearOptions.html.php') ?>
+    <?php echo $this->render('StorefrontBundle::howDidYouHearOptions.html.php') ?>
 
 
 CUSTOMISATION

@@ -24,19 +24,19 @@
 
 <?php if ($resultList->hasResults()) { ?>
     <div class="rnblk">
-        <?php echo $this->fetch('resultlist/nav.html.php') ?>
+        <?php echo $this->render('StorefrontBundle::resultlist/nav.html.php') ?>
         <p>&nbsp;</p>
     </div>
 
     <div class="rlist">
         <table cellspacing="0" cellpadding="0"><tbody>
             <?php $first = true; $odd = true; foreach ($resultList->getResults() as $order) { ?>
-              <?php echo $this->fetch('resultlist/order.html.php', array('order' => $order, 'first' => $first, 'odd' => $odd)) ?>
+              <?php echo $this->render('StorefrontBundle::resultlist/order.html.php', array('order' => $order, 'first' => $first, 'odd' => $odd)) ?>
             <?php $first = false; $odd = !$odd; } ?>
         </tbody></table>
     </div>
     <div class="rnblk">
-        <?php echo $this->fetch('resultlist/nav.html.php') ?>
+        <?php echo $this->render('StorefrontBundle::resultlist/nav.html.php') ?>
     </div>
 <?php } else { ?>
     <h2><?php _vzm("No orders found") ?></h2>

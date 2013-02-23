@@ -81,7 +81,7 @@ if ($shoppingCart->isEmpty()) { ?>
 <?php } ?>
 
 <?php if ($this->exists('lift-suggestions.php')) { ?>
-  <?php echo $this->fetch('lift-suggestions.html.php') ?>
+  <?php echo $this->render('StorefrontBundle::lift-suggestions.html.php') ?>
 <?php } ?>
 
 <?php echo $html->backLink('Continue Shopping') ?>

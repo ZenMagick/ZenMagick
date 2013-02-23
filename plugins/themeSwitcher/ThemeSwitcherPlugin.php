@@ -116,7 +116,7 @@ class ThemeSwitcherPlugin extends Plugin
         }
 
         if (null != ($view = $event->getArgument('view')) && $view instanceof TemplateView) {
-            $switcherMarkup = $view->fetch('theme-switcher.html.php', array('themeList' => $themeList));
+            $switcherMarkup = $view->render('StorefrontBundle::theme-switcher.html.php', array('themeList' => $themeList));
             if (!empty($switcherMarkup)) {
                 $content =  preg_replace('/(<body[^>]*>)/', '\1'.$switcherMarkup, $content, 1);
                 $event->setArgument('content', $content);

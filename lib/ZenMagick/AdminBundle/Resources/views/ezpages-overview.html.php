@@ -109,4 +109,4 @@ $selectedLanguageId = $currentLanguage->getId(); ?>
     </tr>
   <?php } ?>
 </table>
-<?php echo $this->fetch('pagination.html.php'); ?>
+<?php echo $this->render('AdminBundle::pagination.html.php'); ?>

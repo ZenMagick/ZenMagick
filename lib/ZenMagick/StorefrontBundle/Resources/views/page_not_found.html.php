@@ -24,4 +24,4 @@
 
 <?php echo $utils->staticPageContent("page_not_found") ?>
 
-<?php echo $this->fetch('site_map.html.php'); ?>
+<?php echo $this->render('StorefrontBundle::site_map.html.php'); ?>

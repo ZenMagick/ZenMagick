@@ -65,7 +65,7 @@ use ZenMagick\Base\Toolbox;
 
 ?>
 
-<?php echo $this->fetch('messages.html.php'); ?>
+<?php echo $this->render('AdminBundle::messages.html.php'); ?>
 <?php $admin->title(_zm('Edit Define Pages')) ?></h1>
 <form action="<?php echo $net->generate('static_page_editor') ?>" method="GET">
   <input type="hidden" name="rid" value="static_page_editor">
