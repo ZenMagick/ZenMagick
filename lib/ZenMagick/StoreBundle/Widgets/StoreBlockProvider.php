@@ -42,13 +42,13 @@ class StoreBlockProvider extends ZMObject implements BlockProvider
         if ($templateManager->isLeftColEnabled()) {
             foreach ($templateManager->getLeftColBoxNames() as $boxName) {
                 // avoid duplicates by using $box as key
-                $blocks[$boxName] = 'blockWidget#template=boxes/'.$boxName.'&title='.ucwords(str_replace(array('.php', '_'), array('', ' '), $boxName));
+                $blocks[$boxName] = 'blockWidget#template=StorefrontBundle::boxes/'.$boxName.'&title='.ucwords(str_replace(array('.php', '_'), array('', ' '), $boxName));
             }
         }
         if ($templateManager->isRightColEnabled()) {
             foreach ($templateManager->getRightColBoxNames() as $boxName) {
                 // avoid duplicates by using $box as key
-                $blocks[$boxName] = 'blockWidget#template=boxes/'.$boxName.'&title='.ucwords(str_replace(array('.php', '_'), array('', ' '), $boxName));
+                $blocks[$boxName] = 'blockWidget#template=StorefrontBundle::boxes/'.$boxName.'&title='.ucwords(str_replace(array('.php', '_'), array('', ' '), $boxName));
             }
         }
 
