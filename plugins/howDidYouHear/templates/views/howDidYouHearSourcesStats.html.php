@@ -29,9 +29,9 @@
   <?php foreach ($resultList->getResults() as $line) { ?>
   <tr>
     <?php if (ID_SOURCE_OTHER == $line->getSourceId()) { ?>
-      <td><a href="<?php echo $net->generate('howDidYouHearSourcesStats', array('other' => 'true')) ?>"><?php echo $html->encode($line->getName()) ?></a></td>
+      <td><a href="<?php echo $net->generate('howDidYouHearSourcesStats', array('other' => 'true')) ?>"><?php echo $view->escape($line->getName()) ?></a></td>
     <?php } else { ?>
-      <td><?php echo $html->encode($line->getName()) ?></td>
+      <td><?php echo $view->escape($line->getName()) ?></td>
     <?php } ?>
     <td><?php echo $line->getCount() ?></td>
   </tr>

@@ -27,7 +27,7 @@
         <h4><?php _vzm("Table of Contents") ?></h4>
         <ul>
         <?php foreach ($toc as $page) { $active = $page->getId() == $ezPage->getId() ? ' class="act"' : ''; ?>
-            <li<?php echo $active ?>><a href="<?php echo $net->ezPage($page) ?>"><?php echo $html->encode($page->getTitle()) ?></a></li>
+            <li<?php echo $active ?>><a href="<?php echo $net->ezPage($page) ?>"><?php echo $view->escape($page->getTitle()) ?></a></li>
         <?php } ?>
         </ul>
         <?php
@@ -62,5 +62,5 @@
         <?php } ?>
     </div>
 <?php } ?>
-<h2><?php echo $html->encode($ezPage->getTitle()) ?></h2>
+<h2><?php echo $view->escape($ezPage->getTitle()) ?></h2>
 <?php echo $ezPage->getHTMLText() ?>

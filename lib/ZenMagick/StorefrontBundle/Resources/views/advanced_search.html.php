@@ -28,7 +28,7 @@
             <a href="javascript:popupWindow('<?php echo $net->generate('popup_search_help') ?>')"><?php _vzm("Search Help [?]")?></a></div>
         <div>
             <?php $onfocus = "if(this.value=='" . KEYWORD_DEFAULT . "') this.value='';" ?>
-            <input type="text" id="askeyword" name="keywords" value="<?php echo $html->encode($searchCriteria->getKeywords(KEYWORD_DEFAULT)) ?>" onfocus="<?php echo $onfocus ?>" />
+            <input type="text" id="askeyword" name="keywords" value="<?php echo $view->escape($searchCriteria->getKeywords(KEYWORD_DEFAULT)) ?>" onfocus="<?php echo $onfocus ?>" />
             <?php $checked = $searchCriteria->isIncludeDescription() ? 'checked="checked" ' : ''; ?>
             <input type="checkbox" id="includeDescription" name="includeDescription" value="1" <?php echo $checked?>/>
             <label class="checkboxLabel" for="includeDescription"><?php _vzm("Search in product descriptions"); ?></label>
@@ -54,16 +54,16 @@
 
         <fieldset>
             <legend><?php _vzm("Price Range"); ?></legend>
-            <input type="text" id="priceFrom" name="priceFrom" value="<?php echo $html->encode($searchCriteria->getPriceFrom()) ?>" />
-            <input type="text" id="priceTo" name="priceTo" value="<?php echo $html->encode($searchCriteria->getPriceTo()) ?>" />
+            <input type="text" id="priceFrom" name="priceFrom" value="<?php echo $view->escape($searchCriteria->getPriceFrom()) ?>" />
+            <input type="text" id="priceTo" name="priceTo" value="<?php echo $view->escape($searchCriteria->getPriceTo()) ?>" />
         </fieldset>
 
         <fieldset>
             <legend><?php _vzm("Date"); ?></legend>
             <?php $defaultDateValue = $locale->getFormat('date', 'short-ui-format'); ?>
             <?php $onfocus = "if(this.value=='" . $defaultDateValue . "') this.value='';" ?>
-            <input type="text" id="dateFrom" name="dateFrom" value="<?php echo $html->encode($searchCriteria->getDateFrom($defaultDateValue)) ?>" onfocus="<?php echo $onfocus ?>" />
-            <input type="text" id="dateTo" name="dateTo" value="<?php echo $html->encode($searchCriteria->getDateTo($defaultDateValue)) ?>" onfocus="<?php echo $onfocus ?>" />
+            <input type="text" id="dateFrom" name="dateFrom" value="<?php echo $view->escape($searchCriteria->getDateFrom($defaultDateValue)) ?>" onfocus="<?php echo $onfocus ?>" />
+            <input type="text" id="dateTo" name="dateTo" value="<?php echo $view->escape($searchCriteria->getDateTo($defaultDateValue)) ?>" onfocus="<?php echo $onfocus ?>" />
         </fieldset>
     </fieldset>
 

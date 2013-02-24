@@ -37,7 +37,7 @@
 </p>
 <?php } ?>
 
-<?php $href = '<a href="'.$net->product($currentProduct->getId(), null).'">'.$html->encode($currentProduct->getName()).'</a>'; ?>
+<?php $href = '<a href="'.$net->product($currentProduct->getId(), null).'">'.$view->escape($currentProduct->getName()).'</a>'; ?>
 <p><?php _vzm("To view the product, click on the following link or copy and paste the link into your web browser: %s", $href) ?></p>
 
 <p><?php _vzm("Regards, %s", $settingsService->get('storeOwner')) ?></p>

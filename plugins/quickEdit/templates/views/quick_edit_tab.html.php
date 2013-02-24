@@ -20,7 +20,7 @@
 use ZenMagick\Base\Beans;
 ?>
 <?php $lastIndex = count($fieldList)-1; ?>
-<h2><?php _vzm('Quick Edit: <em>%s</em>', $html->encode($category->getName())) ?></h2>
+<h2><?php _vzm('Quick Edit: <em>%s</em>', $view->escape($category->getName())) ?></h2>
 
 <form action="<?php echo $admin->catalog() ?>" method="POST">
   <table class="grid">
@@ -45,7 +45,7 @@ use ZenMagick\Base\Beans;
             ?>
             <td<?php echo ($ii == $lastIndex ? ' class="last"' : '') ?> style="text-align:center;">
               <?php echo $widget->render($request, $templateView) ?>
-              <input type="hidden" name="<?php echo ZMQuickEditTabController::STALE_CHECK_FIELD_PREFIX.$fieldName ?>" value="<?php echo $html->encode($value) ?>">
+              <input type="hidden" name="<?php echo ZMQuickEditTabController::STALE_CHECK_FIELD_PREFIX.$fieldName ?>" value="<?php echo $view->escape($value) ?>">
             </td>
           <?php } ?>
         </tr>

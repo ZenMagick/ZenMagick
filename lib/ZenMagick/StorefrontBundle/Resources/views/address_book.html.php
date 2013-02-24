@@ -24,7 +24,7 @@
 <?php $crumbtrail->addCrumb(_zm('Account'), $net->generate('account'))->addCrumb(_zm('Addresses')) ?>
 <?php foreach ($addressList as $address) { ?>
     <fieldset>
-        <legend><?php echo $html->encode($address->getFirstName() . ' ' . $address->getLastName()) ?>
+        <legend><?php echo $view->escape($address->getFirstName() . ' ' . $address->getLastName()) ?>
         <?php echo ($address->isPrimary() ? _vzm("(primary)") : ''); ?></legend>
         <div class="btn">
             <?php if (!$address->isPrimary()) { ?>

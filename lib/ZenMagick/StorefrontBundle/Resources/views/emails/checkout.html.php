@@ -42,13 +42,13 @@ use ZenMagick\Base\Toolbox;
 <?php foreach ($order->getOrderItems() as $orderItem) { ?>
 <tr>
 <td><?php echo $orderItem->getQuantity() ?> x </td>
-<td><?php echo $html->encode($orderItem->getName()) ?></td>
+<td><?php echo $view->escape($orderItem->getName()) ?></td>
 <td><?php echo $utils->formatMoney($orderItem->getCalculatedPrice()) ?></td>
 </tr>
 <?php } ?>
 <?php foreach ($order->getOrderTotalLines() as $orderTotalLine) { ?>
 <tr>
-<td colspan="2"><?php echo $html->encode($orderTotalLine->getName()) ?></td>
+<td colspan="2"><?php echo $view->escape($orderTotalLine->getName()) ?></td>
 <td><?php echo $orderTotalLine->getValue() ?></td>
 </tr>
 <?php } ?>

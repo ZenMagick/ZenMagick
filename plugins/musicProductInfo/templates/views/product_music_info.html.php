@@ -26,7 +26,7 @@ use ZenMagick\StoreBundle\Services\Products;
 <?php $crumbtrail->addCategoryPath()->addManufacturer()->addProduct($currentProduct->getId()) ?>
 
 <?php $manufacturer = $currentProduct->getManufacturer() ?>
-<h2><?php echo $html->encode(null != $manufacturer ? $manufacturer->getName() : '') ?> <?php echo $html->encode($currentProduct->getName()) ?></h2>
+<h2><?php echo $view->escape(null != $manufacturer ? $manufacturer->getName() : '') ?> <?php echo $view->escape($currentProduct->getName()) ?></h2>
 
 <?php echo $form->addProduct($currentProduct->getId()) ?>
   <?php $imageInfo = $currentProduct->getImageInfo() ?>
@@ -38,7 +38,7 @@ use ZenMagick\StoreBundle\Services\Products;
       <?php } ?>
       <div id="desc"><?php echo $currentProduct->getDescription() ?></div>
       <?php if (null != $manufacturer) { ?>
-        <?php _vzm("Producer") ?>: <?php echo $html->encode($manufacturer->getName()); ?><br />
+        <?php _vzm("Producer") ?>: <?php echo $view->escape($manufacturer->getName()); ?><br />
       <?php } ?>
       <p id="artist">
           <?php if ($artist->hasUrl()) { ?>
@@ -48,7 +48,7 @@ use ZenMagick\StoreBundle\Services\Products;
           <?php } ?>
       </p>
       <p id="genre"><?php echo sprintf(_zm('Genre: %s'), $artist->getGenre()) ?></p>
-      <p id="price"><?php echo $html->encode($currentProduct->getModel()) ?>: <?php echo $macro->productPrice($currentProduct) ?></p>
+      <p id="price"><?php echo $view->escape($currentProduct->getModel()) ?>: <?php echo $macro->productPrice($currentProduct) ?></p>
   </div>
 
   <fieldset>
@@ -82,7 +82,7 @@ use ZenMagick\StoreBundle\Services\Products;
   <?php $productAttributes = $macro->productAttributes($currentProduct); ?>
   <?php foreach ($productAttributes as $details) { ?>
       <fieldset>
-          <legend><?php echo $html->encode($details['name']) ?></legend>
+          <legend><?php echo $view->escape($details['name']) ?></legend>
           <?php foreach ($details['html'] as $option) { ?>
             <p><?php echo $option ?></p>
           <?php } ?>
@@ -129,7 +129,7 @@ use ZenMagick\StoreBundle\Services\Products;
   <?php foreach ($currentProduct->getProductAssociations('similarOrder') as $assoc) { $assocProduct = $productService->getProductForId($assoc->getProductId(), $languageId) ; ?>
     <div>
       <p><?php echo $html->productImageLink($assocProduct) ?></p>
-      <p><a href="<?php echo $net->product($assocProduct->getId()) ?>"><?php echo $html->encode($assocProduct->getName()) ?></a></p>
+      <p><a href="<?php echo $net->product($assocProduct->getId()) ?>"><?php echo $view->escape($assocProduct->getName()) ?></a></p>
       <?php $offers = $assocProduct->getOffers(); ?>
       <p><?php echo $utils->formatMoney($offers->getCalculatedPrice()) ?></p>
     </div>

@@ -41,7 +41,7 @@
     </p>
     <div id="rlongtext">
         <h3 class="rtitle"><?php echo $html->strip($currentReview->getTitle()) ?></h3>
-        <?php echo $html->encode($currentReview->getText()) ?>
+        <?php echo $view->escape($currentReview->getText()) ?>
     </div>
   </div>
 </form>

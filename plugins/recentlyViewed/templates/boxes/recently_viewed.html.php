@@ -24,7 +24,7 @@
     <div id="sb_recently_viewed" class="box">
         <ol>
         <?php foreach ($container->get('productService')->getProductsForIds($recentlyViewedProducts, true, $session->getLanguageId()) as $product) { ?>
-            <li><a href="<?php echo $net->product($product->getId()) ?>"><?php echo $html->encode($html->more($product->getName(), 28)) ?></a></li>
+            <li><a href="<?php echo $net->product($product->getId()) ?>"><?php echo $view->escape($html->more($product->getName(), 28)) ?></a></li>
         <?php } ?>
         </ol>
     </div>

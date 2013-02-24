@@ -28,7 +28,7 @@
   </tr>
   <?php foreach ($resultList->getResults() as $line) { ?>
   <tr>
-    <td><?php echo $html->encode($line->getName()) ?></td>
+    <td><?php echo $view->escape($line->getName()) ?></td>
     <td>
       <a href="" class="<?php echo $buttonClasses ?>"><?php _vzm('Edit') ?></a>
       <?php if (ID_SOURCE_OTHER != $line->getSourceId()) { ?>

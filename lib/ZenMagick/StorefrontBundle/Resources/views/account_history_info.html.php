@@ -30,14 +30,14 @@ use ZenMagick\Base\Toolbox;
         <tr>
             <td class="qty"><?php echo $orderItem->getQuantity() ?> x </td>
             <td class="itm">
-                <?php echo $html->encode($orderItem->getName()) ?>
+                <?php echo $view->escape($orderItem->getName()) ?>
                 <?php if ($orderItem->hasAttributes()) { ?>
                     <br/>
                     <?php foreach ($orderItem->getAttributes() as $attribute) { ?>
-                        <p><span class="attr"><?php echo $html->encode($attribute->getName()) ?>:</span>
+                        <p><span class="attr"><?php echo $view->escape($attribute->getName()) ?>:</span>
                         <?php $first = true; foreach ($attribute->getValues() as $attributeValue) { ?>
                             <?php if (!$first) { ?>, <?php } ?>
-                            <span class="atval"><?php echo $html->encode($attributeValue->getName()) ?></span>
+                            <span class="atval"><?php echo $view->escape($attributeValue->getName()) ?></span>
                         <?php $first = false; } ?>
                         </p>
                     <?php } ?>
@@ -48,7 +48,7 @@ use ZenMagick\Base\Toolbox;
     <?php } ?>
     <?php foreach ($currentOrder->getOrderTotalLines() as $orderTotalLine) { ?>
         <tr>
-            <td colspan="2" class="total"><?php echo $html->encode($orderTotalLine->getName()) ?></td>
+            <td colspan="2" class="total"><?php echo $view->escape($orderTotalLine->getName()) ?></td>
             <td class="price"><?php echo $orderTotalLine->getValue() ?></td>
         </tr>
     <?php } ?>
@@ -75,8 +75,8 @@ use ZenMagick\Base\Toolbox;
     <?php foreach ($currentOrder->getOrderStatusHistory($session->getLanguageId()) as $orderStatus) { ?>
         <tr>
             <td><?php echo $locale->shortDate($orderStatus->getDateAdded()) ?></td>
-            <td><?php echo $html->encode($orderStatus->getName()) ?></td>
-            <td class="cmt"><?php echo $html->encode($orderStatus->getComment()) ?></td>
+            <td><?php echo $view->escape($orderStatus->getName()) ?></td>
+            <td class="cmt"><?php echo $view->escape($orderStatus->getComment()) ?></td>
         </tr>
     <?php } ?>
     </tbody>
@@ -95,8 +95,8 @@ use ZenMagick\Base\Toolbox;
       </tr>
       <?php foreach ($downloads as $download) { $downloadProduct = $container->get('productService')->getProductForId($download->getProductId(), $session->getLanguageId()); ?>
           <tr>
-              <th><?php echo $html->encode($downloadProduct->getName()) ?></th>
-              <th><?php echo $html->encode($download->getFilename()) ?></th>
+              <th><?php echo $view->escape($downloadProduct->getName()) ?></th>
+              <th><?php echo $view->escape($download->getFilename()) ?></th>
               <th><?php echo $download->getFileSize() ?> bytes</th>
               <th><?php echo $download->getDownloadCount() ?></th>
               <th><a href="<?php echo $net->generate('download', array('order' => $currentOrder->getId(), 'id' => $download->getId())) ?>"><?php _vzm('Download') ?></a></th>

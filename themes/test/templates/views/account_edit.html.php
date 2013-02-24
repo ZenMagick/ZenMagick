@@ -44,15 +44,15 @@
                 <?php } ?>
                 <tr>
                     <td><?php _vzm("First Name") ?><span>*</span></td>
-                    <td><input type="text" name="firstName" value="<?php echo $html->encode($account->getFirstName()) ?>" /></td>
+                    <td><input type="text" name="firstName" value="<?php echo $view->escape($account->getFirstName()) ?>" /></td>
                 </tr>
                 <tr>
                     <td><?php _vzm("Last Name") ?><span>*</span></td>
-                    <td><input type="text" name="lastName" value="<?php echo $html->encode($account->getLastName()) ?>" /></td>
+                    <td><input type="text" name="lastName" value="<?php echo $view->escape($account->getLastName()) ?>" /></td>
                 </tr>
                 <tr>
                     <td><?php _vzm("OpenID") ?></td>
-                    <td><input type="text" name="openid" value="<?php echo $html->encode($account->get('openid')) ?>" /></td>
+                    <td><input type="text" name="openid" value="<?php echo $view->escape($account->get('openid')) ?>" /></td>
                 </tr>
                 <?php if ($settingsService->get('isAccountDOB')) { ?>
                     <tr>
@@ -62,21 +62,21 @@
                 <?php } ?>
                 <tr>
                     <td><?php _vzm("E-Mail Address") ?><span>*</span></td>
-                    <td><input type="text" name="email" value="<?php echo $html->encode($account->getEmail()) ?>" /></td>
+                    <td><input type="text" name="email" value="<?php echo $this->escape($account->getEmail()) ?>" /></td>
                 </tr>
                 <?php if ($settingsService->get('isAccountNickname')) { ?>
                     <tr>
                         <td><?php _vzm("Nickname") ?></td>
-                        <td><?php echo $html->encode($account->getNickName()) ?></td>
+                        <td><?php echo $this->escape($account->getNickName()) ?></td>
                     </tr>
                 <?php } ?>
                 <tr>
                     <td><?php _vzm("Telephone Number") ?><span>*</span></td>
-                    <td><input type="text" name="phone" value="<?php echo $html->encode($account->getPhone()) ?>" /></td>
+                    <td><input type="text" name="phone" value="<?php echo $this->escape($account->getPhone()) ?>" /></td>
                 </tr>
                 <tr>
                     <td><?php _vzm("Fax Number") ?></td>
-                    <td><input type="text" name="fax" value="<?php echo $html->encode($account->getFax()) ?>" /></td>
+                    <td><input type="text" name="fax" value="<?php echo $this->escape($account->getFax()) ?>" /></td>
                 </tr>
                  <tr>
                     <td><?php _vzm("E-Mail Format") ?><span>*</span></td>

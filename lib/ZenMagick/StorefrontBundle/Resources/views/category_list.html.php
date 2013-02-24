@@ -44,7 +44,7 @@ if ($resultList->hasResults()) { ?>
         <div class="subcats">
             <h3><?php _vzm("Available Sub-categories") ?></h3>
             <?php foreach ($currentCategory->getChildren() as $category) {
-                $encName = $html->encode($category->getName());
+                $encName = $view->escape($category->getName());
                 $catImage = $category->getImageInfo();
                 $linkText = null == $catImage ? $encName : '<img src="'.$catImage->getDefaultImage().'" alt="'.$encName.'" title="'.$encName.'">';
                 ?>

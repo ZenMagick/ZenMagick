@@ -33,7 +33,7 @@ use ZenMagick\Base\Beans;
   <legend><?php _vzm('Page') ?></legend>
     <p>
     <label for="title"><?php _vzm('Title') ?></label>
-      <input type="text" id="title" name="title" value="<?php echo $html->encode($ezPage->getTitle()) ?>">
+      <input type="text" id="title" name="title" value="<?php echo $view->escape($ezPage->getTitle()) ?>">
     </p>
   </fieldset>
 

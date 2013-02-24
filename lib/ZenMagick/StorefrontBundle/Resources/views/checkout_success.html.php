@@ -38,7 +38,7 @@
             <?php foreach ($productsToSubscribe as $productId => $productName) { $id = "not_" . $productId; ?>
                 <p>
                     <input type="checkbox" id="<?php echo $id ?>" name="notify[]" value="<?php echo $productId ?>" />
-                    <label for="<?php echo $id ?>"><?php echo $html->encode($productName) ?></label><br />
+                    <label for="<?php echo $id ?>"><?php echo $view->escape($productName) ?></label><br />
                 </p>
             <?php } ?>
             <div class="btn"><input type="submit" class="btn" value="<?php _vzm("Update") ?>" /></div>
@@ -59,8 +59,8 @@
               </tr>
               <?php foreach ($downloads as $download) { $downloadProduct = $container->get('productService')->getProductForId($download->getProductId(), $session->getLanguageId()); ?>
                   <tr>
-                      <th><?php echo $html->encode($downloadProduct->getName()) ?></th>
-                      <th><?php echo $html->encode($download->getFilename()) ?></th>
+                      <th><?php echo $view->escape($downloadProduct->getName()) ?></th>
+                      <th><?php echo $view->escape($download->getFilename()) ?></th>
                       <th><?php echo $download->getFileSize() ?> bytes</th>
                       <th><?php echo $download->getDownloadCount() ?></th>
                       <th><a href="<?php echo $net->generate('download', array('order' => $currentOrder->getId(), 'id' => $download->getId())) ?>"><?php _vzm('Download') ?></a></th>

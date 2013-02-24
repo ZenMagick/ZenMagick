@@ -39,7 +39,7 @@
             <?php foreach ($productsToSubscribe as $productId => $productName) { $id = "not_" . $productId; ?>
                 <p>
                     <input type="checkbox" id="<?php echo $id ?>" name="notify[]" value="<?php echo $productId ?>" />
-                    <label for="<?php echo $id ?>"><?php echo $html->encode($productName) ?></label><br />
+                    <label for="<?php echo $id ?>"><?php echo $view->escape($productName) ?></label><br />
                 </p>
             <?php } ?>
             <div class="btn"><input type="submit" class="btn" value="<?php _vzm("Update") ?>" /></div>

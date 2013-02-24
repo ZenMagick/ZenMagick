@@ -22,8 +22,8 @@
 <form action="<?php echo $net->generate('update_user') ?>" method="POST" id="updateUser">
   <fieldset>
   <legend><?php _vzm('Account') ?></legend>
-    <p><label for="username"><?php _vzm('Name') ?></label> <input type="text" id="username" name="username" value="<?php echo $html->encode($updateUser->getUsername()) ?>"></p>
-    <p><label for="email"><?php _vzm('Email') ?></label> <input type="text" id="email" name="email" value="<?php echo $html->encode($updateUser->getEmail()) ?>"></p>
+    <p><label for="username"><?php _vzm('Name') ?></label> <input type="text" id="username" name="username" value="<?php echo $view->escape($updateUser->getUsername()) ?>"></p>
+    <p><label for="email"><?php _vzm('Email') ?></label> <input type="text" id="email" name="email" value="<?php echo $view->escape($updateUser->getEmail()) ?>"></p>
     <p><label for="currentPassword"><?php _vzm('Current password') ?><span>*</span></label> <input type="password" id="currentPassword" name="currentPassword"></p>
     <p><label for="newPassword"><?php _vzm('New password') ?></label> <input type="password" id="newPassword" name="newPassword"></p>
     <p><label for="confirmPassword"><?php _vzm('Confirm password') ?></label> <input type="password" id="confirmPassword" name="confirmPassword"></p>

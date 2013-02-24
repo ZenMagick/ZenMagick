@@ -31,13 +31,13 @@
     <fieldset>
         <legend><?php _vzm("Contact us") ?></legend>
         <label for="name"><?php _vzm("Full Name") ?><span>*</span></label>
-        <input type="text" id="name" name="name" size="40" value="<?php echo $html->encode($contactUs->getName()) ?>" /><br />
+        <input type="text" id="name" name="name" size="40" value="<?php echo $view->escape($contactUs->getName()) ?>" /><br />
 
         <label for="email"><?php _vzm("Email Address") ?><span>*</span></label>
-        <input type="text" id="email" name="email" size="40" value="<?php echo $html->encode($contactUs->getEmail()) ?>" /><br />
+        <input type="text" id="email" name="email" size="40" value="<?php echo $view->escape($contactUs->getEmail()) ?>" /><br />
 
         <label for="message"><?php _vzm("Message") ?><span>*</span></label>
-        <textarea id="message" name="message" cols="30" rows="7"><?php echo $html->encode($contactUs->getMessage()) ?></textarea>
+        <textarea id="message" name="message" cols="30" rows="7"><?php echo $view->escape($contactUs->getMessage()) ?></textarea>
         <p class="legend"><?php _vzm("<span>*</span> Mandatory fields") ?></p>
     </fieldset>
     <div class="btn"><input type="submit" class="btn" value="<?php _vzm("Send") ?>" /></div>

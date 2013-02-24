@@ -36,7 +36,7 @@
             <legend><?php _vzm("Product Notifications") ?></legend>
             <?php $ii=0;
             foreach ($currentAccount->getSubscribedProducts() as $productId) { $product = $container->get('productService')->getProductForId($productId, $session->getLanguageId()); ?>
-                <p><input type="checkbox" id="products_<?php echo $ii ?>" name="notify[<?php echo $ii ?>]" value="<?php echo $productId ?>" checked="checked" /><label for="products_<?php echo $ii ?>"><?php echo null != $product ? $html->encode($product->getName()) : '???' ?></label></p>
+                <p><input type="checkbox" id="products_<?php echo $ii ?>" name="notify[<?php echo $ii ?>]" value="<?php echo $productId ?>" checked="checked" /><label for="products_<?php echo $ii ?>"><?php echo null != $product ? $view->escape($product->getName()) : '???' ?></label></p>
             <?php ++$ii; } ?>
         </fieldset>
     <?php } ?>

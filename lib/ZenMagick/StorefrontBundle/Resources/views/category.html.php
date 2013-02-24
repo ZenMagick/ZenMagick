@@ -22,13 +22,13 @@
 <?php $view->extend('StorefrontBundle::default_layout.html.php'); ?>
 <?php $crumbtrail->addCategoryPath()->addManufacturer()->addProduct() ?>
 
-<h2><?php echo $html->encode($currentCategory->getName()) ?></h2>
+<h2><?php echo $view->escape($currentCategory->getName()) ?></h2>
 
 <?php if ($currentCategory->hasChildren()) { ?>
   <div class="subcats">
       <h3><?php _vzm("Available Sub-categories") ?></h3>
       <?php foreach ($currentCategory->getChildren() as $category) {
-          $encName = $html->encode($category->getName());
+          $encName = $view->escape($category->getName());
           $catImage = $category->getImageInfo();
           $linkText = null == $catImage ? $encName : '<img src="'.$catImage->getDefaultImage().'" alt="'.$encName.'" title="'.$encName.'">';
           ?>
@@ -45,7 +45,7 @@
       <?php foreach ($featured as $product) { ?>
         <div>
           <p><?php echo $html->productImageLink($product) ?></p>
-          <p><a href="<?php echo $net->product($product->getId()) ?>"><?php echo $html->encode($product->getName()) ?></a></p>
+          <p><a href="<?php echo $net->product($product->getId()) ?>"><?php echo $view->escape($product->getName()) ?></a></p>
           <?php $offers = $product->getOffers(); ?>
           <p><?php echo $utils->formatMoney($offers->getCalculatedPrice()) ?></p>
         </div>

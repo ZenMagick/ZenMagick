@@ -30,7 +30,7 @@
   <?php if ($howDidYouHear->isDisplayOther()) { ?>
     <p>
       <label for="sourceOther" ><?php echo _zm('(if "Other" please specify):') ?></label>
-        <input type="text" name="sourceOther" id="sourceOther" value="<?php echo $html->encode($howDidYouHearForm->getSourceOther()) ?>">
+        <input type="text" name="sourceOther" id="sourceOther" value="<?php echo $view->escape($howDidYouHearForm->getSourceOther()) ?>">
     </p>
   <?php } ?>
   </fieldset>

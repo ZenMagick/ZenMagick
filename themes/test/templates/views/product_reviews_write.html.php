@@ -45,7 +45,7 @@
         </div>
 
         <label for="text"><?php _vzm("Please tell us what you think and share your opinions with others. Be sure to focus your comments on the product.") ?></label>
-        <textarea id="text" name="text" cols="60" rows="5"><?php echo $html->encode($newReview->getText()) ?></textarea>
+        <textarea id="text" name="text" cols="60" rows="5"><?php echo $view->escape($newReview->getText()) ?></textarea>
         <div class="btn"><input type="submit" class="btn" value="<?php _vzm("Send") ?>" /></div>
         <div>
             <strong><?php _vzm("NOTE:") ?> </strong><?php _vzm("HTML tags are not allowed.") ?><br />

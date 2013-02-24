@@ -35,13 +35,13 @@ function addTag(tag) {
         <legend>Manage Product Tags</legend>
         <p>
             <label for="currentProductTags">Current Tags</label>
-            <textarea id="currentProductTags" name="currentProductTags"><?php echo $html->encode(implode(', ', $currentProductTags)) ?></textarea>
+            <textarea id="currentProductTags" name="currentProductTags"><?php echo $view->escape(implode(', ', $currentProductTags)) ?></textarea>
         </p>
         <p>
             <h3>All Tags</h3>
             <div>
                 <?php foreach ($allTags as $tag) { ?>
-                    <a href="#" onclick="addTag('<?php echo $tag ?>'); return false;"><?php echo $html->encode($tag) ?></a>
+                    <a href="#" onclick="addTag('<?php echo $tag ?>'); return false;"><?php echo $view->escape($tag) ?></a>
                 <?php } ?>
             </div>
         </p>

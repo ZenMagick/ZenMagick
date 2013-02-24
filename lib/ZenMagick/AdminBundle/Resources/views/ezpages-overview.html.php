@@ -75,7 +75,7 @@ $selectedLanguageId = $currentLanguage->getId(); ?>
   <?php foreach ($resultList->getResults() as $ezPage) { ?>
     <tr>
       <td><?php echo $ezPage->getId() ?></td>
-      <td><a href="<?php echo $net->generate('ezpages_edit', array('id' => $ezPage->getId(), 'languageId' => $selectedLanguageId)) ?>"><?php echo $html->encode($ezPage->getTitle()) ?></a><td>
+      <td><a href="<?php echo $net->generate('ezpages_edit', array('id' => $ezPage->getId(), 'languageId' => $selectedLanguageId)) ?>"><?php echo $view->escape($ezPage->getTitle()) ?></a><td>
           <a href="#<?php echo $ezPage->getId().'-NewWin' ?>" onclick="toggle_status(this); return false;" id="<?php echo $ezPage->getId() ?>-NewWin" class="ezpage-status-<?php echo ($ezPage->isNewWin() ? 'on' : 'off') ?>"><span class="ui-icon <?php echo ($ezPage->isNewWin() ? 'ui-icon-circle-check' : 'ui-icon-circle-close') ?>"></a>
       </td>
       <td>

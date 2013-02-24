@@ -75,7 +75,7 @@ use ZenMagick\Base\Toolbox;
 -----------------------------------------------
 
 <?php if (null != ($paymentType = $order->getPaymentType())) { ?>
-<?php echo $html->encode($paymentType->getName()) ?>
+<?php echo $view->escape($paymentType->getName()) ?>
 <?php if (!Toolbox::isEmpty($paymentType->getInfo())) { ?>
 
 

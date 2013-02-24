@@ -26,7 +26,7 @@
         <h3><a href="<?php echo $net->generate('specials') ?>"><?php _vzm("[More]") ?></a><?php _vzm("Specials") ?></h3>
         <div id="sb_specials" class="box">
             <p><?php echo $html->productImageLink($product) ?></p>
-            <p><a href="<?php echo $net->product($product->getId()) ?>"><?php echo $html->encode($product->getName()) ?></a></p>
+            <p><a href="<?php echo $net->product($product->getId()) ?>"><?php echo $view->escape($product->getName()) ?></a></p>
             <?php $offers = $product->getOffers(); ?>
             <p class="price"><?php echo $utils->formatMoney($offers->getCalculatedPrice()) ?></p>
         </div>

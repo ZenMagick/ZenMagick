@@ -63,7 +63,7 @@
       <tr>
         <td><input type="checkbox" name="multiUpdate[]" value="<?php echo $plugin->getId() ?>"></td>
         <td><a name="<?php echo $plugin->getId() ?>"></a><?php echo $plugin->getName() ?></td>
-        <td><?php echo $html->encode($plugin->getDescription()) ?></td>
+        <td><?php echo $view->escape($plugin->getDescription()) ?></td>
         <td>
           <?php if ($plugin->isInstalled()) { ?>
             <span id="plugin-<?php echo $plugin->getId() ?>" class="plugin-status ui-icon ui-icon-circle-<?php echo ($plugin->isEnabled() ? 'check enabled' : 'close disabled') ?>"></span>

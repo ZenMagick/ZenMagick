@@ -26,7 +26,7 @@
     <div id="sb_bestsellers" class="box">
         <ol>
         <?php foreach ($products as $product) { ?>
-            <li><a href="<?php echo $net->product($product->getId()) ?>"><?php echo $html->encode($html->more($product->getName(), 28)) ?></a></li>
+            <li><a href="<?php echo $net->product($product->getId()) ?>"><?php echo $view->escape($html->more($product->getName(), 28)) ?></a></li>
         <?php } ?>
         </ol>
     </div>

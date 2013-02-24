@@ -27,7 +27,7 @@
   <fieldset>
     <legend><?php _vzm("Look-up Discount Coupon ...") ?></legend>
     <label for="couponCode"><?php _vzm("Your Code") ?></label>
-    <input type="text" id="couponCode" name="couponCode" size="40" value="<?php echo $html->encode($currentCoupon) ?>" />
+    <input type="text" id="couponCode" name="couponCode" size="40" value="<?php echo $view->escape($currentCoupon) ?>" />
   </fieldset>
   <div class="btn"><input type="submit" class="btn" value="<?php _vzm("Send") ?>" />
 </form>

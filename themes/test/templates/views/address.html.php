@@ -40,33 +40,33 @@
             <?php } ?>
             <tr>
                 <td><?php _vzm("First Name") ?><span>*</span></td>
-                <td><input type="text" id="firstName" name="firstName" value="<?php echo $html->encode($address->getFirstName()) ?>" /></td>
+                <td><input type="text" id="firstName" name="firstName" value="<?php echo $view->escape($address->getFirstName()) ?>" /></td>
             </tr>
             <tr>
                 <td><?php _vzm("Last Name") ?><span>*</span></td>
-                <td><input type="text" id="lastName" name="lastName" value="<?php echo $html->encode($address->getLastName()) ?>" /></td>
+                <td><input type="text" id="lastName" name="lastName" value="<?php echo $view->escape($address->getLastName()) ?>" /></td>
             </tr>
             <?php if ($settingsService->get('isAccountCompany')) { ?>
                 <tr>
                     <td><?php _vzm("Company Name") ?></td>
-                    <td><input type="text" id="companyName" name="companyName" value="<?php echo $html->encode($address->getCompanyName()) ?>" /></td>
+                    <td><input type="text" id="companyName" name="companyName" value="<?php echo $view->escape($address->getCompanyName()) ?>" /></td>
                 </tr>
             <?php } ?>
             <tr>
                 <td><?php _vzm("Street Address") ?><span>*</span></td>
-                <td><input type="text" id="addressLine1" name="addressLine1" value="<?php echo $html->encode($address->getAddressLine1()) ?>" <?php echo $form->fieldLength('address_book', 'entry_street_address') ?> /></td>
+                <td><input type="text" id="addressLine1" name="addressLine1" value="<?php echo $view->escape($address->getAddressLine1()) ?>" <?php echo $form->fieldLength('address_book', 'entry_street_address') ?> /></td>
             </tr>
             <tr>
                 <td><?php _vzm("Suburb") ?></td>
-                <td><input type="text" id="suburb" name="suburb" value="<?php echo $html->encode($address->getSuburb()) ?>" <?php echo $form->fieldLength('address_book', 'entry_suburb') ?> /></td>
+                <td><input type="text" id="suburb" name="suburb" value="<?php echo $view->escape($address->getSuburb()) ?>" <?php echo $form->fieldLength('address_book', 'entry_suburb') ?> /></td>
             </tr>
             <tr>
                 <td><?php _vzm("City") ?><span>*</span></td>
-                <td><input type="text" id="city" name="city" value="<?php echo $html->encode($address->getCity()) ?>" <?php echo $form->fieldLength('address_book', 'entry_city') ?> /></td>
+                <td><input type="text" id="city" name="city" value="<?php echo $view->escape($address->getCity()) ?>" <?php echo $form->fieldLength('address_book', 'entry_city') ?> /></td>
             </tr>
             <tr>
                 <td><?php _vzm("Post Code") ?><span>*</span></td>
-                <td><input type="text" id="postcode" name="postcode" value="<?php echo $html->encode($address->getPostcode()) ?>" <?php echo $form->fieldLength('address_book', 'entry_postcode') ?> /></td>
+                <td><input type="text" id="postcode" name="postcode" value="<?php echo $view->escape($address->getPostcode()) ?>" <?php echo $form->fieldLength('address_book', 'entry_postcode') ?> /></td>
             </tr>
              <tr>
                 <td><?php _vzm("Country") ?><span>*</span></td>
@@ -80,7 +80,7 @@
                         <?php if (0 < count($zones)) { ?>
                             <?php echo $form->idpSelect('zoneId', $zones, $address->getZoneId()) ?>
                         <?php } else { ?>
-                            <input type="text" name="state" value="<?php echo $html->encode($address->getState()) ?>" />
+                            <input type="text" name="state" value="<?php echo $view->escape($address->getState()) ?>" />
                         <?php } ?>
                     </td>
                 </tr>

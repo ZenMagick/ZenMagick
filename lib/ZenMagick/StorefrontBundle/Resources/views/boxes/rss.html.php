@@ -22,12 +22,12 @@
   $category = 'ZenMagick'; // set to null for all
 ?>
 <?php $rssFeed = $container->get('rssLoader')->getFeed($feedUrl, $category); if ($rssFeed->hasContents()) { $channel = $rssFeed->getChannel(); ?>
-    <h3><a href="<?php echo $channel->getLink() ?>"<?php echo $html->hrefTarget() ?>><?php _vzm("[More]") ?></a><?php echo $html->encode($channel->getTitle()) ?></h3>
+    <h3><a href="<?php echo $channel->getLink() ?>"<?php echo $html->hrefTarget() ?>><?php _vzm("[More]") ?></a><?php echo $view->escape($channel->getTitle()) ?></h3>
     <div id="sb_rss" class="box">
         <dl>
             <?php foreach ($rssFeed->getItems() as $item) { ?>
                 <dt><?php echo $locale->shortDate($item->getPubDate()) ?></dt>
-                <dd><a href="<?php echo $item->getLink() ?>"<?php echo $html->hrefTarget() ?>><?php echo $html->encode($item->getTitle()); ?></a></dd>
+                <dd><a href="<?php echo $item->getLink() ?>"<?php echo $html->hrefTarget() ?>><?php echo $view->escape($item->getTitle()); ?></a></dd>
             <?php } ?>
         </dl>
     </div>

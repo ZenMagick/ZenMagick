@@ -78,7 +78,7 @@
                 <?php if ($provider->hasError()) { continue; } foreach ($provider->getShippingMethods($shoppingCart) as $method) { $id = 'ship_'.$method->getId();?>
                     <?php $selected = false; /* TODO */ ?>
                     <tr class="smethod<?php echo ($selected ? " sel" : "") ?>">
-                        <td class="smname"><strong><?php echo $html->encode($provider->getName()) ?></strong> <?php echo $html->encode($method->getName()) ?></td>
+                        <td class="smname"><strong><?php echo $view->escape($provider->getName()) ?></strong> <?php echo $view->escape($method->getName()) ?></td>
                         <td class="smcost"><?php echo $utils->formatMoney($method->getCost()) ?></td>
                     </tr>
                 <?php } ?>

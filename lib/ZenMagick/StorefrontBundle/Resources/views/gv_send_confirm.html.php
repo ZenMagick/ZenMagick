@@ -23,10 +23,10 @@
 <?php $crumbtrail->addCrumb(_zm('Account'), $net->generate('account'))->addCrumb(_zm('Send Gift Certificate')) ?>
 <?php echo $form->open('gv_send_confirm', '', true, array('onsubmit'=>null)) ?>
     <div>
-        <input type="hidden" name="name" value="<?php echo $html->encode($gvReceiver->getName()) ?>" />
-        <input type="hidden" name="email" value="<?php echo $html->encode($gvReceiver->getEmail()) ?>" />
-        <input type="hidden" name="amount" value="<?php echo $html->encode($gvReceiver->getAmount()) ?>" />
-        <input type="hidden" name="message" value="<?php echo $html->encode($gvReceiver->getMessage()) ?>" />
+        <input type="hidden" name="name" value="<?php echo $view->escape($gvReceiver->getName()) ?>" />
+        <input type="hidden" name="email" value="<?php echo $view->escape($gvReceiver->getEmail()) ?>" />
+        <input type="hidden" name="amount" value="<?php echo $view->escape($gvReceiver->getAmount()) ?>" />
+        <input type="hidden" name="message" value="<?php echo $view->escape($gvReceiver->getMessage()) ?>" />
     </div>
     <fieldset>
         <legend><?php _vzm("Confirm Send Gift Certificate") ?></legend>
@@ -37,7 +37,7 @@
 
         <fieldset>
             <legend><?php _vzm("Your message") ?></legend>
-            <?php echo $html->encode($gvReceiver->getMessage()) ?>
+            <?php echo $view->escape($gvReceiver->getMessage()) ?>
         </fieldset>
 
         <p class="note"><?php _vzm("If these details are not correct, you may edit your message by clicking the edit button.") ?></p>

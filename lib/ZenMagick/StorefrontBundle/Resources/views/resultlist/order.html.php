@@ -26,7 +26,7 @@
     </td>
     <td><?php echo $locale->shortDate($order->getOrderDate()) ?></td>
     <?php $address = $order->getBillingAddress(); ?>
-    <td><?php echo $html->encode($address->getFullName()) ?></td>
+    <td><?php echo $view->escape($address->getFullName()) ?></td>
     <td><?php _vzm($order->getStatusName()) ?></td>
     <td class="pprice"><?php echo $utils->formatMoney($order->getTotal()) ?></td>
 </tr>

@@ -36,7 +36,7 @@
 
   if (null != $sourceFile && is_file($sourceFile)) {
       ?><h2>Source for <?php echo $source ?></h2><pre id="source"><?php
-      echo $html->encode(file_get_contents($sourceFile));
+      echo htmlentities($view->escape(file_get_contents($sourceFile)));
       ?></pre><?php
       return;
   }

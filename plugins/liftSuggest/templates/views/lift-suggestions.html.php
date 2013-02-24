@@ -53,7 +53,7 @@ if (isset($liftSuggest)) {
             <?php foreach ($recommendations->getProductDetails() as $productDetails) { $product = $productDetails['product']; ?>
           <div class="lift-product lsrecommendations {act:'prodview', sku:'<?php echo $product->getId() ;?>', reco:'R'}">
                     <p><?php echo $html->productImageLink($product) ?></p>
-                    <p><a href="<?php echo $net->product($product->getId()) ?>"><?php echo $html->encode($product->getName()) ?></a></p>
+                    <p><a href="<?php echo $net->product($product->getId()) ?>"><?php echo $view->escape($product->getName()) ?></a></p>
                     <?php $offers = $product->getOffers(); ?>
                     <p class="price"><?php echo $utils->formatMoney($offers->getCalculatedPrice()) ?></p>
                 </div>

@@ -33,7 +33,7 @@
               if (array_key_exists($orderItem->getName(), $products))
                   continue;
               $products[$orderItem->getName()] = $orderItem->getProductId();
-              ?><li><a href="<?php echo $net->product($orderItem->getProductId()) ?>"><?php echo $html->encode($orderItem->getName()) ?></a></li><?php
+              ?><li><a href="<?php echo $net->product($orderItem->getProductId()) ?>"><?php echo $view->escape($orderItem->getName()) ?></a></li><?php
               if (7 == count($products))
                   break;
           }

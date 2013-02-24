@@ -24,7 +24,7 @@ use ZenMagick\StoreBundle\Services\Products;
 ?>
 
 <?php $manufacturer = $currentProduct->getManufacturer() ?>
-<h2><?php echo $html->encode(null != $manufacturer ? $manufacturer->getName() : '') ?> <?php echo $html->encode($currentProduct->getName()) ?></h2>
+<h2><?php echo $view->escape(null != $manufacturer ? $manufacturer->getName() : '') ?> <?php echo $view->escape($currentProduct->getName()) ?></h2>
 
 <?php echo $form->addProduct($currentProduct->getId()) ?>
   <?php $imageInfo = $currentProduct->getImageInfo() ?>
@@ -36,15 +36,15 @@ use ZenMagick\StoreBundle\Services\Products;
       <?php } ?>
       <div id="desc"><?php echo $currentProduct->getDescription() ?></div>
       <?php if (null != $manufacturer) { ?>
-        <?php _vzm("Producer") ?>: <?php echo $html->encode($manufacturer->getName()); ?><br />
+        <?php _vzm("Producer") ?>: <?php echo $view->escape($manufacturer->getName()); ?><br />
       <?php } ?>
-      <p id="price"><?php echo $html->encode($currentProduct->getModel()) ?>: <?php echo $macro->productPrice($currentProduct) ?></p>
+      <p id="price"><?php echo $view->escape($currentProduct->getModel()) ?>: <?php echo $macro->productPrice($currentProduct) ?></p>
   </div>
 
   <?php $attributes = $macro->productAttributes($currentProduct); ?>
   <?php foreach ($attributes as $attribute) { ?>
       <fieldset>
-          <legend><?php echo $html->encode($attribute['name']) ?></legend>
+          <legend><?php echo $view->escape($attribute['name']) ?></legend>
           <?php foreach ($attribute['html'] as $option) { ?>
             <p><?php echo $option ?></p>
           <?php } ?>

@@ -22,7 +22,7 @@
 
 <?php $restrictions = $currentCoupon->getRestrictions(); ?>
 <p><?php _vzm("The Discount Coupon Redemption Code you have entered is for %s.", $currentCoupon->getName()) ?></p>
-<p><?php _vzm("Discount Offer:") ?><br /><?php echo $html->encode($currentCoupon->getDescription()) ?></p>
+<p><?php _vzm("Discount Offer:") ?><br /><?php echo $view->escape($currentCoupon->getDescription()) ?></p>
 
 <h4><?php _vzm("Promotional Period") ?></h4>
 <p><?php _vzm("The coupon is valid between %s and %s.", $locale->shortDate($currentCoupon->getStartDate()), $locale->shortDate($currentCoupon->getExpiryDate())) ?></p>
@@ -31,7 +31,7 @@
     <h4><?php _vzm("Category Restrictions")?></h4>
     <ul>
     <?php foreach ($restrictions->getCategories() as $restriction) { $category = $restriction->getCategory($session->getLanguageId()); ?>
-        <li><?php echo $html->encode($category->getName()) ?> - <?php echo ($restriction->isAllowed() ? _zm(" included") : _zm(" excluded")) ?></li>
+        <li><?php echo $view->escape($category->getName()) ?> - <?php echo ($restriction->isAllowed() ? _zm(" included") : _zm(" excluded")) ?></li>
     <?php } ?>
     </ul>
 <?php } ?>
@@ -40,7 +40,7 @@
     <h4><?php _vzm("Product Restrictions")?></h4>
     <ul>
     <?php foreach ($restrictions->getProducts() as $restriction) { $product = $restriction->getProduct($session->getLanguageId()); ?>
-        <li><?php echo $html->encode($product->getName()) ?> - <?php echo ($restriction->isAllowed() ? _zm(" included") : _zm(" excluded")) ?></li>
+        <li><?php echo $view->escape($product->getName()) ?> - <?php echo ($restriction->isAllowed() ? _zm(" included") : _zm(" excluded")) ?></li>
     <?php } ?>
     </ul>
 <?php } ?>
@@ -53,7 +53,7 @@
   <fieldset>
     <legend><?php _vzm("Look-up another discount coupon ...") ?></legend>
     <label for="lookup_discount_coupon"><?php _vzm("Your Code") ?></label>
-    <input type="text" id="lookup_discount_coupon" name="lookup_discount_coupon" size="40" value="<?php echo $html->encode($currentCouponCode) ?>" />
+    <input type="text" id="lookup_discount_coupon" name="lookup_discount_coupon" size="40" value="<?php echo $view->escape($currentCouponCode) ?>" />
   </fieldset>
   <div class="btn"><input type="submit" class="btn" value="<?php _vzm("Send") ?>" />
 </form>

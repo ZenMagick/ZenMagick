@@ -31,14 +31,14 @@ use ZenMagick\Base\Toolbox;
         <?php foreach ($shoppingCart->getItems() as $item) { ?>
             <tr>
                 <td class="itm">
-                    <?php echo $item->getQuantity() ?> x <?php echo $html->encode($item->getProduct()->getName()) ?>
+                    <?php echo $item->getQuantity() ?> x <?php echo $view->escape($item->getProduct()->getName()) ?>
                     <?php if ($item->hasAttributes()) { ?>
                         <br/>
                         <?php foreach ($item->getAttributes() as $attribute) { ?>
-                            <p><span class="attr"><?php echo $html->encode($attribute->getName()) ?>:</span>
+                            <p><span class="attr"><?php echo $view->escape($attribute->getName()) ?>:</span>
                             <?php $first = true; foreach ($attribute->getValues() as $attributeValue) { ?>
                                 <?php if (!$first) { ?>, <?php } ?>
-                                <span class="atval"><?php echo $html->encode($attributeValue->getName()) ?></span>
+                                <span class="atval"><?php echo $view->escape($attributeValue->getName()) ?></span>
                             <?php $first = false; } ?>
                             </p>
                         <?php } ?>
@@ -59,7 +59,7 @@ use ZenMagick\Base\Toolbox;
                   if ('total' == $total->getType()) {
                       $tot = ' tot';
                   }
-                  ?><tr><td class="total"><?php echo $html->encode($total->getName()) ?></td><td class="price<?php echo $tot ?>"><?php echo $total->getValue() ?></td></tr><?php
+                  ?><tr><td class="total"><?php echo $view->escape($total->getName()) ?></td><td class="price<?php echo $tot ?>"><?php echo $total->getValue() ?></td></tr><?php
               }
           ?>
 
@@ -85,7 +85,7 @@ use ZenMagick\Base\Toolbox;
         <div class="btn"><a class="btn" href="<?php echo $net->generate('checkout_shipping') ?>"><?php _vzm("Change") ?></a></div>
         <br/>
         <?php if (null != ($shippingMethod = $shoppingCart->getSelectedShippingMethod())) { ?>
-          <?php echo $html->encode($shippingMethod->getProvider()->getName()) . ': ' . $html->encode($shippingMethod->getName()) ?><br/>
+          <?php echo $view->escape($shippingMethod->getProvider()->getName()) . ': ' . $view->escape($shippingMethod->getName()) ?><br/>
         <?php } ?>
     </fieldset>
 <?php } ?>
@@ -114,7 +114,7 @@ use ZenMagick\Base\Toolbox;
 <fieldset>
     <legend><?php _vzm("Special instructions or comments") ?></legend>
     <div class="btn"><a class="btn" href="<?php echo $net->generate('checkout_payment') ?>"><?php _vzm("Change") ?></a></div>
-    <div><?php echo $html->encode(!Toolbox::isEmpty($shoppingCart->getComments()) ? $shoppingCart->getComments() : "None") ?></div>
+    <div><?php echo $view->escape(!Toolbox::isEmpty($shoppingCart->getComments()) ? $shoppingCart->getComments() : "None") ?></div>
 </fieldset>
 
 <?php echo $form->open($orderFormUrl, '', true) ?>

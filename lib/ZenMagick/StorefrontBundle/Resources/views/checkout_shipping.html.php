@@ -58,9 +58,9 @@
                   <?php $errors = $provider->getErrors(); ?>
                   <?php if (0 < count($methods) || $provider->hasErrors()) { ?>
                     <tr><td colspan="3">
-                      <strong><?php echo $html->encode($provider->getName()) ?></strong>
+                      <strong><?php echo $view->escape($provider->getName()) ?></strong>
                       <?php if ($provider->hasIcon()) { ?>
-                        <img src="<?php echo $provider->getIcon() ?>" alt="<?php echo $html->encode($provider->getName()) ?>" title="<?php echo $html->encode($provider->getName()) ?>">
+                        <img src="<?php echo $provider->getIcon() ?>" alt="<?php echo $view->escape($provider->getName()) ?>" title="<?php echo $view->escape($provider->getName()) ?>">
                       <?php } ?>
                       <?php if ($provider->hasErrors()) { echo '<br>'; _vzm("(%s)", $errors[0]); } ?>
                     </td></tr>
@@ -69,7 +69,7 @@
                       <?php $id = 'ship_'.$method->getId();?>
                       <?php $selected = (1 == count($methods) && 1 == count($providers)) || ($method->getShippingId() == $shoppingCart->getSelectedShippingMethodId()); ?>
                       <tr class="smethod" onclick="document.getElementById('<?php echo $id ?>').checked = true;">
-                          <td><?php echo $html->encode($method->getName()) ?></td>
+                          <td><?php echo $view->escape($method->getName()) ?></td>
                           <td class="smcost"><?php echo $utils->formatMoney($method->getCost()) ?></td>
                           <td class="smbutt"><input type="radio" id="<?php echo $id ?>" name="shipping" value="<?php echo $method->getShippingId() ?>"<?php $form->checked(true, $selected) ?> /></td>
                       </tr>
@@ -84,7 +84,7 @@
         <legend><?php _vzm("Comments") ?></legend>
         <p class="inst"><?php _vzm("Special instructions or comments about your order.") ?></p>
         <?php /* Fix for IE bug regarding textarea... */ ?>
-        <table><tr><td><textarea name="comments" rows="3" cols="45"><?php echo $html->encode($shoppingCart->getComments()) ?></textarea></td></tr></table>
+        <table><tr><td><textarea name="comments" rows="3" cols="45"><?php echo $view->escape($shoppingCart->getComments()) ?></textarea></td></tr></table>
     </fieldset>
 
     <div class="btn"><input type="submit" class="btn" value="<?php _vzm("Continue") ?>" /></div>

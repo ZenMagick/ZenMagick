@@ -25,7 +25,7 @@
     <legend><?php _vzm("Search again") ?></legend>
         <div>
             <?php $onfocus = "if(this.value=='" . KEYWORD_DEFAULT . "') this.value='';" ?>
-            <input type="text" id="keywords" name="keywords" value="<?php echo $html->encode($searchCriteria->getKeywords(KEYWORD_DEFAULT)) ?>" onfocus="<?php echo $onfocus ?>" />
+            <input type="text" id="keywords" name="keywords" value="<?php echo $view->escape($searchCriteria->getKeywords(KEYWORD_DEFAULT)) ?>" onfocus="<?php echo $onfocus ?>" />
         </div>
         <div class="btn"><input type="submit" class="btn" value="<?php _vzm("Search") ?>" /></div>
         <a class="clear" href="<?php echo $net->generate('advanced_search', array('keywords' => $searchCriteria->getKeywords())) ?>"><?php _vzm("Advanced Search") ?></a>

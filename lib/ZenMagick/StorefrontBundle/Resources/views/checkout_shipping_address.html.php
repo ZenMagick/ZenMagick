@@ -33,7 +33,7 @@
                     <?php $checked = (null != $currentAddress && $currentAddress->getId() == $address->getId()) ? ' checked="checked"' : ""; ?>
                     <?php if (1 == count($addressList)) { $checked = ' checked="checked"'; } ?>
                     <input type="radio" id="address_<?php echo $address->getId() ?>" name="addressId" value="<?php echo $address->getId() ?>" <?php echo $checked ?>/>
-                    <label for="address_<?php echo $address->getId() ?>"><?php echo $html->encode($address->getFullName()) ?></label>
+                    <label for="address_<?php echo $address->getId() ?>"><?php echo $view->escape($address->getFullName()) ?></label>
                     <br/>
                     <?php echo $macro->formatAddress($address) ?>
                     <br/>

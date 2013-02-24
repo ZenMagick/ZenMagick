@@ -24,7 +24,7 @@
 <tr class="<?php echo ($odd?"odd":"even").($first?" first":" other") ?>">
     <td>
         <?php echo $html->productImageLink($product) ?>
-        <h3><?php echo $html->encode($product->getName()) ?></h3>
+        <h3><?php echo $view->escape($product->getName()) ?></h3>
         <?php $rtext = sprintf(_zm("%s of 5 stars!"), $review->getRating()); ?>
         <p><img src="<?php echo $this->asUrl('images/stars_'.$review->getRating().'.gif') ?>" alt="<?php echo $rtext ?>" /></p>
         <h4 class="rtitle"><?php echo $html->strip($review->getTitle()) ?></h4>

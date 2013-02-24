@@ -73,26 +73,26 @@
                 <?php } ?>
                 <tr>
                     <td><?php _vzm("First Name") ?><span>*</span></td>
-                    <td><input type="text" name="firstName" value="<?php echo $html->encode($registration->getFirstName()) ?>" /></td>
+                    <td><input type="text" name="firstName" value="<?php echo $view->escape($registration->getFirstName()) ?>" /></td>
                 </tr>
                 <tr>
                     <td><?php _vzm("Last Name") ?><span>*</span></td>
-                    <td><input type="text" name="lastName" value="<?php echo $html->encode($registration->getLastName()) ?>" /></td>
+                    <td><input type="text" name="lastName" value="<?php echo $view->escape($registration->getLastName()) ?>" /></td>
                 </tr>
                 <?php if ($settingsService->get('isAccountDOB')) { ?>
                     <tr>
                         <td><?php _vzm("Date of Birth") ?><span>*</span></td>
-                        <td><input type="text" name="dob" value="<?php echo $html->encode($registration->getDob()) ?>" /> <?php echo sprintf(_zm("Format: %s;&nbsp;(e.g: %s)"), $locale->getFormat('date', 'short-ui-format'), $locale->getFormat('date', 'short-ui-example')) ?></td>
+                        <td><input type="text" name="dob" value="<?php echo $view->escape($registration->getDob()) ?>" /> <?php echo sprintf(_zm("Format: %s;&nbsp;(e.g: %s)"), $locale->getFormat('date', 'short-ui-format'), $locale->getFormat('date', 'short-ui-example')) ?></td>
                     </tr>
                 <?php } ?>
                 <tr>
                     <td><?php _vzm("E-Mail Address") ?><span>*</span></td>
-                    <td><input type="text" name="email" value="<?php echo $html->encode($registration->getEmail()) ?>" /></td>
+                    <td><input type="text" name="email" value="<?php echo $view->escape($registration->getEmail()) ?>" /></td>
                 </tr>
                 <?php if ($settingsService->get('isAccountNickname')) { ?>
                     <tr>
                         <td><?php _vzm("Nickname") ?></td>
-                        <td><input type="text" name="nickName" value="<?php echo $html->encode($registration->getNickName()) ?>" /></td>
+                        <td><input type="text" name="nickName" value="<?php echo $view->escape($registration->getNickName()) ?>" /></td>
                     </tr>
                 <?php } ?>
                 <tr>
@@ -106,21 +106,21 @@
                 <?php if ($settingsService->get('isAccountCompany')) { ?>
                     <tr>
                         <td><?php _vzm("Company Name") ?></td>
-                        <td><input type="text" name="companyName" value="<?php echo $html->encode($registration->getCompanyName()) ?>" /></td>
+                        <td><input type="text" name="companyName" value="<?php echo $view->escape($registration->getCompanyName()) ?>" /></td>
                     </tr>
                 <?php } ?>
 
                 <tr>
                     <td><?php _vzm("Street Address") ?><span>*</span></td>
-                    <td><input type="text" name="addressLine1" value="<?php echo $html->encode($registration->getAddressLine1()) ?>" <?php echo $form->fieldLength('address_book', 'entry_street_address') ?> /></td>
+                    <td><input type="text" name="addressLine1" value="<?php echo $view->escape($registration->getAddressLine1()) ?>" <?php echo $form->fieldLength('address_book', 'entry_street_address') ?> /></td>
                 </tr>
                 <tr>
                     <td><?php _vzm("Suburb") ?></td>
-                    <td><input type="text" name="suburb" value="<?php echo $html->encode($registration->getSuburb()) ?>" <?php echo $form->fieldLength('address_book', 'entry_suburb') ?> /></td>
+                    <td><input type="text" name="suburb" value="<?php echo $view->escape($registration->getSuburb()) ?>" <?php echo $form->fieldLength('address_book', 'entry_suburb') ?> /></td>
                 </tr>
                 <tr>
                     <td><?php _vzm("City") ?><span>*</span></td>
-                    <td><input type="text" name="city" value="<?php echo $html->encode($registration->getCity()) ?>" <?php echo $form->fieldLength('address_book', 'entry_city') ?> /></td>
+                    <td><input type="text" name="city" value="<?php echo $view->escape($registration->getCity()) ?>" <?php echo $form->fieldLength('address_book', 'entry_city') ?> /></td>
                 </tr>
                 <?php
                     $countryId = $registration->getCountryId();
@@ -128,7 +128,7 @@
                 ?>
                 <tr>
                     <td><?php _vzm("Post Code") ?><span>*</span></td>
-                    <td><input type="text" name="postcode" value="<?php echo $html->encode($registration->getPostcode()) ?>" <?php echo $form->fieldLength('address_book', 'entry_postcode') ?> /></td>
+                    <td><input type="text" name="postcode" value="<?php echo $view->escape($registration->getPostcode()) ?>" <?php echo $form->fieldLength('address_book', 'entry_postcode') ?> /></td>
                 </tr>
                  <tr>
                     <td><?php _vzm("Country") ?><span>*</span></td>
@@ -142,7 +142,7 @@
                             <?php if (0 < count($zones)) { ?>
                                 <?php echo $form->idpSelect('zoneId', $zones, $registration->getZoneId()) ?>
                             <?php } else { ?>
-                                <input type="text" name="state" value="<?php echo $html->encode($registration->getState()) ?>" />
+                                <input type="text" name="state" value="<?php echo $view->escape($registration->getState()) ?>" />
                             <?php } ?>
                         </td>
                     </tr>
@@ -150,11 +150,11 @@
 
                 <tr>
                     <td><?php _vzm("Telephone Number") ?><span>*</span></td>
-                    <td><input type="text" name="phone" value="<?php echo $html->encode($registration->getPhone()) ?>" /></td>
+                    <td><input type="text" name="phone" value="<?php echo $view->escape($registration->getPhone()) ?>" /></td>
                 </tr>
                 <tr>
                     <td><?php _vzm("Fax Number") ?></td>
-                    <td><input type="text" name="fax" value="<?php echo $html->encode($registration->getFax()) ?>" /></td>
+                    <td><input type="text" name="fax" value="<?php echo $view->escape($registration->getFax()) ?>" /></td>
                 </tr>
 
                  <tr>

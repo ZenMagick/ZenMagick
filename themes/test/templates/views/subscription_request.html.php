@@ -28,15 +28,15 @@
         <select id="type" name="type">
             <?php foreach ($subscriptions->getRequestTypes() as $type => $name) { ?>
                 <?php $selected = $subscriptionRequest->getType() == $type ? ' selected' : ''; ?>
-                <option value="<?php echo $type ?>"<?php echo $selected ?>><?php echo $html->encode($name) ?>  </option>
+                <option value="<?php echo $type ?>"<?php echo $selected ?>><?php echo $view->escape($name) ?>  </option>
             <?php } ?>
         </select><br />
 
         <label for="orderId"><?php _vzm("Order Number (optional)") ?></label>
-        <input type="text" id="orderId" name="orderId" size="8" value="<?php echo $html->encode($subscriptionRequest->getOrderId()) ?>" /><br />
+        <input type="text" id="orderId" name="orderId" size="8" value="<?php echo $view->escape($subscriptionRequest->getOrderId()) ?>" /><br />
 
         <label for="message"><?php _vzm("Message") ?><span>*</span></label>
-        <textarea id="message" name="message" cols="30" rows="7"><?php echo $html->encode($subscriptionRequest->getMessage()) ?></textarea>
+        <textarea id="message" name="message" cols="30" rows="7"><?php echo $view->escape($subscriptionRequest->getMessage()) ?></textarea>
         <p class="legend"><?php _vzm("<span>*</span> Mandatory fields") ?></p>
     </fieldset>
     <div class="btn"><input type="submit" class="btn" value="<?php _vzm("Send") ?>" /></div>

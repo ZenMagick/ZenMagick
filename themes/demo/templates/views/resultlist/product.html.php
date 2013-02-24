@@ -25,7 +25,7 @@ use ZenMagick\StoreBundle\Services\Products;
     <!-- need id on link to identify the product -->
     <td><a href="<?php echo $net->product($product->getId(), $request->attributes->get('categoryId')) ?>" id="product_<?php echo $product->getId() ?>" class="product"><?php echo $html->image($product->getImageInfo(), Products::IMAGE_SMALL) ?></a></td>
     <td class="pinfo">
-        <a href="<?php echo $net->product($product->getId()) ?>"><?php echo $html->encode($product->getName()) ?></a><br/>
+        <a href="<?php echo $net->product($product->getId()) ?>"><?php echo $view->escape($product->getName()) ?></a><br/>
         <?php echo $html->more($product->getDescription(), 120) ?>
     </td>
     <td class="pprice"><?php echo $utils->formatMoney($product->getPrice()) ?></td>

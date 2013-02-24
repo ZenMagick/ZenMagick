@@ -40,7 +40,7 @@
       </span>
     </p>
     <div id="rlongtext">
-        <?php echo $html->encode($currentReview->getText()) ?>
+        <?php echo $view->escape($currentReview->getText()) ?>
     </div>
   </div>
 </form>

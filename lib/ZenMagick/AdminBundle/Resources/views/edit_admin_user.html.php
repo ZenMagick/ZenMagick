@@ -25,10 +25,10 @@
   <input type="hidden" name="adminUserId" value="<?php echo $adminUser->getAdminUserId() ?>">
   <table>
     <tr>
-      <td><label for=username"><?php _vzm('Name') ?></label></td><td><input type="text" id="username" name="username" value="<?php echo $html->encode($adminUser->getUsername()) ?>"></td>
+      <td><label for=username"><?php _vzm('Name') ?></label></td><td><input type="text" id="username" name="username" value="<?php echo $view->escape($adminUser->getUsername()) ?>"></td>
     </tr>
     <tr>
-      <td><label for="email"><?php _vzm('Email') ?></label></td><td><input type="text" id="email" name="email" value="<?php echo $html->encode($adminUser->getEmail()) ?>"></td>
+      <td><label for="email"><?php _vzm('Email') ?></label></td><td><input type="text" id="email" name="email" value="<?php echo $view->escape($adminUser->getEmail()) ?>"></td>
     </tr>
     <tr>
       <td><label for="roles"><?php _vzm('Roles') ?></label></td>
