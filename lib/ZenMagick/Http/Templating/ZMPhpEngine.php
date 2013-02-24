@@ -77,16 +77,6 @@ class ZMPhpEngine extends ZMObject implements EngineInterface
     }
 
     /**
-     * {@inheritDoc}
-     */
-    public function supports($template)
-    {
-        $ext = pathinfo($template, PATHINFO_EXTENSION);
-
-        return in_array($ext, array('php', 'js'));
-    }
-
-    /**
      * Fetch/evaluate the given template.
      *
      * <p>Alias for render().</p>
