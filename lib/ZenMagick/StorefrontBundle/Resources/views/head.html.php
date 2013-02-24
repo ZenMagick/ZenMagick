@@ -1,5 +1,4 @@
-<title><?php echo $this->fragment('page.title') ?></title>
-<?php $this->fragment('page.title', $metaTags->getTitle()) ?>
+<title><?php $view['slots']->output('title', $metaTags->getTitle()) ?></title>
 <base href="/" />
 <meta charset="<?php echo $settingsService->get('zenmagick.http.html.charset') ?>" />
 <meta name="generator" content="ZenMagick <?php echo AppKernel::APP_VERSION ?>" />

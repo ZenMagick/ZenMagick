@@ -23,8 +23,7 @@
 <html>
   <head>
     <meta charset="<?php echo $settingsService->get('zenmagick.http.html.charset') ?>" />
-    <title><?php echo $this->fragment('title') ?></title>
-    <?php $this->fragment('title', _zm('ZenMagick Admin')) /* set default title */ ?>
+    <title><?php $view['slots']->output('title', _zm('ZenMagick Admin')) ?></title>
     <link rel="shortcut icon" href="<?php echo $this->asUrl('resource:favicon.ico') ?>">
     <?php $resources->cssFile('style/zenmagick.css') ?>
     <?php $resources->cssFile('style/jquery-ui/jquery-ui-1.8.15.custom.css') ?>

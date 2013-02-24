@@ -125,7 +125,7 @@ class ToolboxAdmin extends ToolboxTool
         echo $this->getView()->fetch('AdminBundle::sub-menu.html.php');
         echo '<div id="view-container">';
         $title = sprintf(_zm("%1s :: %2s :: ZenMagick Admin"), Runtime::getSettings()->get('storeName'), $title);
-        $this->getView()->getResourceManager()->fragment('title', $title);
+        $this->container->get('templating.helper.slots')->set('title', $title);
 
         return $title;
     }
