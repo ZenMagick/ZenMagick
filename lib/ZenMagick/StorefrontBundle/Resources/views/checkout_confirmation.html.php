@@ -23,7 +23,7 @@ use ZenMagick\Base\Toolbox;
 
 ?>
 
-<?php $crumbtrail->addCrumb(_zm('Checkout'), $net->url('checkout', '', true))->addCrumb(_zm('Summary')) ?>
+<?php $crumbtrail->addCrumb(_zm('Checkout'), $net->url('checkout'))->addCrumb(_zm('Summary')) ?>
 <fieldset>
     <legend><?php _vzm("Shopping Cart Contents") ?></legend>
     <table cellpadding="0" cellspacing="0" id="cart">
@@ -69,7 +69,7 @@ use ZenMagick\Base\Toolbox;
 
 <fieldset>
     <legend><?php _vzm("Payment Method") ?></legend>
-    <div class="btn"><a class="btn" href="<?php echo $net->url('checkout_payment', '', true) ?>"><?php _vzm("Change") ?></a></div>
+    <div class="btn"><a class="btn" href="<?php echo $net->url('checkout_payment') ?>"><?php _vzm("Change") ?></a></div>
     <?php $paymentType = $shoppingCart->getSelectedPaymentType() ?>
     <?php if (null != $paymentType) { ?>
       <h4><?php echo $paymentType->getName() ?></h4>
@@ -82,7 +82,7 @@ use ZenMagick\Base\Toolbox;
 <?php if (!$shoppingCart->isVirtual()) { ?>
     <fieldset>
         <legend><?php _vzm("Shipping") ?></legend>
-        <div class="btn"><a class="btn" href="<?php echo $net->url('checkout_shipping', '', true) ?>"><?php _vzm("Change") ?></a></div>
+        <div class="btn"><a class="btn" href="<?php echo $net->url('checkout_shipping') ?>"><?php _vzm("Change") ?></a></div>
         <br/>
         <?php if (null != ($shippingMethod = $shoppingCart->getSelectedShippingMethod())) { ?>
           <?php echo $html->encode($shippingMethod->getProvider()->getName()) . ': ' . $html->encode($shippingMethod->getName()) ?><br/>
@@ -94,7 +94,7 @@ use ZenMagick\Base\Toolbox;
     <legend><?php _vzm("Address Information") ?></legend>
     <?php if ($shoppingCart->hasShippingAddress()) { ?>
         <div class="oadr">
-            <div class="btn"><a class="btn" href="<?php echo $net->url('checkout_shipping_address', '', true) ?>"><?php _vzm("Change") ?></a></div>
+            <div class="btn"><a class="btn" href="<?php echo $net->url('checkout_shipping_address') ?>"><?php _vzm("Change") ?></a></div>
             <h4><?php _vzm("Shipping Address") ?></h4>
             <?php echo $macro->formatAddress($shoppingCart->getShippingAddress()) ?>
         </div>
@@ -105,7 +105,7 @@ use ZenMagick\Base\Toolbox;
         </div>
     <?php } ?>
     <div class="oadr snd">
-        <div class="btn"><a class="btn" href="<?php echo $net->url('checkout_payment_address', '', true) ?>"><?php _vzm("Change") ?></a></div>
+        <div class="btn"><a class="btn" href="<?php echo $net->url('checkout_payment_address') ?>"><?php _vzm("Change") ?></a></div>
         <h4><?php _vzm("Billing Address") ?></h4>
         <?php echo $macro->formatAddress($shoppingCart->getBillingAddress()) ?>
     </div>
@@ -113,7 +113,7 @@ use ZenMagick\Base\Toolbox;
 
 <fieldset>
     <legend><?php _vzm("Special instructions or comments") ?></legend>
-    <div class="btn"><a class="btn" href="<?php echo $net->url('checkout_payment', '', true) ?>"><?php _vzm("Change") ?></a></div>
+    <div class="btn"><a class="btn" href="<?php echo $net->url('checkout_payment') ?>"><?php _vzm("Change") ?></a></div>
     <div><?php echo $html->encode(!Toolbox::isEmpty($shoppingCart->getComments()) ? $shoppingCart->getComments() : "None") ?></div>
 </fieldset>
 

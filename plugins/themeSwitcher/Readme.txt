@@ -18,7 +18,7 @@ The following code is an example of how a list of theme URLs could be generated:
 
   $themeIds = array('default', 'foo');
   foreach ($themeIds as $theme) {
-      echo '<a href="'.$net->url(null, 'themeId='.$theme, $request->isSecure(), false).'">'.$theme.'</a> ';
+      echo '<a href="'.$net->url(null, 'themeId='.$theme).'">'.$theme.'</a> ';
   }
 
 

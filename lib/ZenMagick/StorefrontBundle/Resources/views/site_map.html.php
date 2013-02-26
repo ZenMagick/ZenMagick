@@ -25,18 +25,18 @@
 <?php echo $macro->categoryTree($container->get('categoryService')->getCategoryTree($session->getLanguageId()), "catalog"); ?>
 <ul>
     <?php if ($session->isRegistered()) { ?>
-      <li><a href="<?php echo $net->url('account', '', true) ?>"><?php _vzm("My Account") ?></a>
+      <li><a href="<?php echo $net->url('account') ?>"><?php _vzm("My Account") ?></a>
       <ul>
-        <li><a href="<?php echo $net->url('account_edit', '', true); ?>"><?php _vzm("Change Account") ?></a></li>
-        <li><a href="<?php echo $net->url('address_book', '', true); ?>"><?php _vzm("My Address Book") ?></a></li>
-        <li><a href="<?php echo $net->url('account_password', '', true); ?>"><?php _vzm("Change My Password") ?></a></li>
-        <li><a href="<?php echo $net->url('account_history', '', true) ?>"><?php _vzm("Order History") ?></a></li>
-        <li><a href="<?php echo $net->url('account_newsletters', '', true); ?>"><?php _vzm("Change Newsletter Subscriptions") ?></a></li>
-        <li><a href="<?php echo $net->url('account_notifications', '', true); ?>"><?php _vzm("Change Product Notifications") ?></a></li>
+        <li><a href="<?php echo $net->url('account_edit'); ?>"><?php _vzm("Change Account") ?></a></li>
+        <li><a href="<?php echo $net->url('address_book'); ?>"><?php _vzm("My Address Book") ?></a></li>
+        <li><a href="<?php echo $net->url('account_password'); ?>"><?php _vzm("Change My Password") ?></a></li>
+        <li><a href="<?php echo $net->url('account_history') ?>"><?php _vzm("Order History") ?></a></li>
+        <li><a href="<?php echo $net->url('account_newsletters'); ?>"><?php _vzm("Change Newsletter Subscriptions") ?></a></li>
+        <li><a href="<?php echo $net->url('account_notifications'); ?>"><?php _vzm("Change Product Notifications") ?></a></li>
       </ul></li>
         <?php if (!$container->get('shoppingCart')->isEmpty()) { ?>
-            <li><a href="<?php echo $net->url('shopping_cart', '', true); ?>"><?php _vzm("Shopping cart") ?></a></li>
-            <li><a href="<?php echo $net->url('checkout_shipping', '', true); ?>"><?php _vzm("Checkout") ?></a></li>
+            <li><a href="<?php echo $net->url('shopping_cart'); ?>"><?php _vzm("Shopping cart") ?></a></li>
+            <li><a href="<?php echo $net->url('checkout_shipping'); ?>"><?php _vzm("Checkout") ?></a></li>
         <?php } ?>
     <?php } ?>
     <li><a href="<?php echo $net->url('advanced_search'); ?>"><?php _vzm("Advanced Search") ?></a></li>

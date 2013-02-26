@@ -24,17 +24,17 @@
 <fieldset>
     <legend><?php _vzm("My Account") ?></legend>
     <ul>
-        <li><a href="<?php echo $net->url('account_edit', '', true); ?>"><?php _vzm("Change Account") ?></a></li>
-        <li><a href="<?php echo $net->url('address_book', '', true); ?>"><?php _vzm("My Address Book") ?></a></li>
-        <li><a href="<?php echo $net->url('account_password', '', true); ?>"><?php _vzm("Change My Password") ?></a></li>
+        <li><a href="<?php echo $net->url('account_edit'); ?>"><?php _vzm("Change Account") ?></a></li>
+        <li><a href="<?php echo $net->url('address_book'); ?>"><?php _vzm("My Address Book") ?></a></li>
+        <li><a href="<?php echo $net->url('account_password'); ?>"><?php _vzm("Change My Password") ?></a></li>
     </ul>
 </fieldset>
 
 <fieldset>
     <legend><?php _vzm("Email Settings") ?></legend>
     <ul>
-        <li><a href="<?php echo $net->url('account_newsletters', '', true); ?>"><?php _vzm("Change Newsletter Subscriptions") ?></a></li>
-        <li><a href="<?php echo $net->url('account_notifications', '', true); ?>"><?php _vzm("Change Product Notifications") ?></a></li>
+        <li><a href="<?php echo $net->url('account_newsletters'); ?>"><?php _vzm("Change Newsletter Subscriptions") ?></a></li>
+        <li><a href="<?php echo $net->url('account_notifications'); ?>"><?php _vzm("Change Product Notifications") ?></a></li>
     </ul>
 </fieldset>
 
@@ -51,7 +51,7 @@
     <?php $resultList->setPagination(3); ?>
     <h3>
         <?php if (3 < $resultList->getNumberOfResults()) { ?>
-            <a href="<?php echo $net->url('account_history', '', true) ?>"><?php _vzm("(Show All)") ?></a>
+            <a href="<?php echo $net->url('account_history') ?>"><?php _vzm("(Show All)") ?></a>
         <?php } ?>
         <?php _vzm("Previous Orders") ?>
     </h3>

@@ -155,7 +155,7 @@ function _zm_patch_group($groupId, $buttonClasses, $checkall=true) {
 <?php }
 
 if ($needRefresh) {
-    return new RedirectResponse($net->url(null, '', true));
+    return new RedirectResponse($net->url(null));
 }
 
 ?>

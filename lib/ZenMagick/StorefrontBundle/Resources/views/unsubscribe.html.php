@@ -37,5 +37,5 @@
       <div class="btn"><input type="submit" class="btn" value="<?php _vzm("Unsubscribe") ?>" /></div>
     </form>
 <?php } else { ?>
-      <div class="btn"><a href="<?php echo $net->url('account_newsletters', '', true) ?>" class="btn"><?php _vzm("Unsubscribe") ?></a></div>
+      <div class="btn"><a href="<?php echo $net->url('account_newsletters') ?>" class="btn"><?php _vzm("Unsubscribe") ?></a></div>
 <?php } ?>

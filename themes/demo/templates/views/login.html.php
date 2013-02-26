@@ -38,7 +38,7 @@
 
         $.ajax({
             type: "POST",
-            url: "<?php echo $net->url('login', '', true) ?>",
+            url: "<?php echo $net->url('login') ?>",
             data: queryString,
             success: function(msg) {
                 var info =JSON.parse(msg);
@@ -72,8 +72,8 @@
 </form>
 
 <p>
-  <a href="<?php echo $net->url('password_forgotten', '', true) ?>"><?php _vzm("Lost your password?") ?></a><br />
-  <a href="<?php echo $net->url('create_account', '', true); ?>"><?php _vzm("Not registered yet?") ?></a>
+  <a href="<?php echo $net->url('password_forgotten') ?>"><?php _vzm("Lost your password?") ?></a><br />
+  <a href="<?php echo $net->url('create_account'); ?>"><?php _vzm("Not registered yet?") ?></a>
 </p>
 
 <?php if ($settingsService->get('isGuestCheckout') && !$container->get('shoppingCart')->isEmpty()) { ?>

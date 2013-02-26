@@ -178,7 +178,7 @@ class CatalogRssFeedSource extends ZMObject implements RssSource
         $categoryInfo = array();
         foreach ($categoryService->getAllCategories($languageId) as $category) {
             if ($category->isActive()) {
-                $categoryInfo[] = array('id' => $category->getId(), 'url' => $net->url('category', 'cPath='.implode('_', $category->getPath()), false));
+                $categoryInfo[] = array('id' => $category->getId(), 'url' => $net->url('category', 'cPath='.implode('_', $category->getPath())));
             }
         }
         $itemIterator = new CatalogCategoryRssItemIterator($categoryInfo, $languageId, $this->fullFeed);

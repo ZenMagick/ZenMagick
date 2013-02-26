@@ -23,17 +23,17 @@
   <ul>
     <li class="first"><a href="<?php echo $net->url('index'); ?>"><?php _vzm("HOME") ?></a></li>
     <?php if ($session->isAnonymous()) { ?>
-        <li><a href="<?php echo $net->url('login', '', true); ?>"><?php _vzm("LOGIN") ?></a></li>
+        <li><a href="<?php echo $net->url('login'); ?>"><?php _vzm("LOGIN") ?></a></li>
     <?php } ?>
     <?php if ($session->isRegistered()) { ?>
-        <li><a href="<?php echo $net->url('account', '', true); ?>"><?php _vzm("ACCOUNT") ?></a></li>
+        <li><a href="<?php echo $net->url('account'); ?>"><?php _vzm("ACCOUNT") ?></a></li>
     <?php } ?>
     <?php if (!$session->isAnonymous()) { ?>
-        <li><a href="<?php echo $net->url('logoff', '', true); ?>"><?php _vzm("LOGOFF") ?></a></li>
+        <li><a href="<?php echo $net->url('logoff'); ?>"><?php _vzm("LOGOFF") ?></a></li>
     <?php } ?>
     <?php if (!$container->get('shoppingCart')->isEmpty() && !$isCheckout) { ?>
-        <li><a href="<?php echo $net->url('shopping_cart', '', true); ?>"><?php _vzm("SHOPPING CART") ?></a></li>
-        <li><a href="<?php echo $net->url('checkout_shipping', '', true); ?>"><?php _vzm("CHECKOUT") ?></a></li>
+        <li><a href="<?php echo $net->url('shopping_cart'); ?>"><?php _vzm("SHOPPING CART") ?></a></li>
+        <li><a href="<?php echo $net->url('checkout_shipping'); ?>"><?php _vzm("CHECKOUT") ?></a></li>
     <?php } ?>
     <?php foreach ($container->get('ezPageService')->getPagesForHeader($session->getLanguageId()) as $page) { ?>
         <li><?php echo $html->ezpageLink($page->getId()) ?></li>

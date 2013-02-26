@@ -3,17 +3,17 @@
     $menu = array();
     $menu[] = array($net->url('index'), _zm("Home"));
     if ($session->isAnonymous()) {
-        $menu[] = array($net->url('login', '', true), _zm("Login"));
+        $menu[] = array($net->url('login'), _zm("Login"));
     }
     if ($session->isRegistered()) {
-        $menu[] = array($net->url('account', '', true), _zm("Account"));
+        $menu[] = array($net->url('account'), _zm("Account"));
     }
     if (!$session->isAnonymous()) {
-        $menu[] = array($net->url('logoff', '', true), _zm("Logoff"));
+        $menu[] = array($net->url('logoff'), _zm("Logoff"));
     }
     if (!$container->get('shoppingCart')->isEmpty() && !$isCheckout) {
-        $menu[] = array($net->url('shopping_cart', '', true), _zm("Cart"));
-        $menu[] = array($net->url('checkout_shipping', '', true), _zm("Checkout"));
+        $menu[] = array($net->url('shopping_cart'), _zm("Cart"));
+        $menu[] = array($net->url('checkout_shipping'), _zm("Checkout"));
     }
     foreach ($container->get('ezPageService')->getPagesForHeader($session->getLanguageId()) as $page) {
         $menu[] = array($net->ezPage($page), $page, false);

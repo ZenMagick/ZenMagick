@@ -93,7 +93,7 @@ class RpcController extends DefaultController
         if (null === $this->getUser()) {
             $rpcResponse->setStatus(false, \ZMRpcResponse::RC_NO_CREDENTIALS);
             $rpcResponse->addMessage(_zm('No credentials'), 'error');
-            $rpcResponse->setData(array('location' => $this->container->get('netTool')->url($this->container->get('settingsService')->get('zenmagick.http.request.login', 'login'), '', true)));
+            $rpcResponse->setData(array('location' => $this->container->get('netTool')->url($this->container->get('settingsService')->get('zenmagick.http.request.login', 'login'))));
         } else {
             $rpcResponse->setStatus(false, \ZMRpcResponse::RC_INVALID_CREDENTIALS);
             $rpcResponse->addMessage(_zm('Invalid credentials'), 'error');

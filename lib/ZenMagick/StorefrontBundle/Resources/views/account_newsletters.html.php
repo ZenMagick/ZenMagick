@@ -20,7 +20,7 @@
  */
 ?>
 
-<?php $crumbtrail->addCrumb(_zm('Account'), $net->url('account', '', true))->addCrumb(_zm('Newsletter')) ?>
+<?php $crumbtrail->addCrumb(_zm('Account'), $net->url('account'))->addCrumb(_zm('Newsletter')) ?>
 <p><?php _vzm("Including store news, new products, special offers, and other promotional announcements.") ?></p>
 <?php echo $form->open('account_newsletters', '', true, array('onsubmit'=>null)) ?>
     <fieldset>
