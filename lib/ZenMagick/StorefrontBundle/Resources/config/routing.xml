@@ -23,9 +23,12 @@
         <default key="_controller">StorefrontBundle:Login:process</default>
         <option key="view:account">redirect://account</option>
         <option key="view:success">redirect://account</option>
+        <requirement key="_scheme">https</requirement>
     </route>
 
-    <route id="login_check" pattern="/login-check" />
+    <route id="login_check" pattern="/login-check">
+        <requirement key="_scheme">https</requirement>
+    </route>
 
     <route id="logout" pattern="/logout" />
     <!-- deprecated -->
@@ -34,26 +37,31 @@
     <route id="cart.add" pattern="/cart/add">
         <default key="_controller">StorefrontBundle:ShoppingCart:addProduct</default>
         <option key="view:success">redirect://shopping_cart</option>
+        <requirement key="_scheme">https</requirement>
     </route>
 
     <!-- TODO: this should be POST -->
     <route id="cart.remove" pattern="/cart/remove/{productId}">
         <default key="_controller">StorefrontBundle:ShoppingCart:removeProduct</default>
         <option key="view:success">redirect://shopping_cart</option>
+        <requirement key="_scheme">https</requirement>
     </route>
 
     <route id="cart.update" pattern="/cart/update">
         <default key="_controller">StorefrontBundle:ShoppingCart:update</default>
         <option key="view:success">redirect://shopping_cart</option>
+        <requirement key="_scheme">https</requirement>
     </route>
 
     <route id="shopping_cart" pattern="/cart">
         <default key="_controller">StorefrontBundle:ShoppingCart:show</default>
         <requirement key="_method">GET</requirement>
+        <requirement key="_scheme">https</requirement>
     </route>
 
     <route id="customers_authorization" pattern="/customers-authorization">
         <default key="_controller">ZenMagickBundle:Default:process</default>
+        <requirement key="_scheme">https</requirement>
     </route>
 
     <route id="create_account" pattern="/account/create">
@@ -61,62 +69,73 @@
         <option key="form">ZMRegistrationForm#formId=registration</option>
         <option key="view">create_account.html.php</option>
         <option key="view:success">redirect://create_account_success</option>
+        <requirement key="_scheme">https</requirement>
     </route>
 
     <route id="create_account_success" pattern="/account/create/success">
         <default key="_controller">ZenMagickBundle:Default:process</default>
         <option key="view">create_account_success.html.php</option>
+        <requirement key="_scheme">https</requirement>
     </route>
 
     <route id="account" pattern="/account">
         <default key="_controller">StorefrontBundle:Account:process</default>
         <option key="view">account.html.php</option>
+        <requirement key="_scheme">https</requirement>
     </route>
 
     <route id="account_edit" pattern="/account/edit">
         <default key="_controller">StorefrontBundle:AccountEdit:process</default>
         <option key="view:success">redirect://account</option>
         <option key="form">ZMAccountForm#formId=account</option>
+        <requirement key="_scheme">https</requirement>
     </route>
 
     <route id="account_history" pattern="/account/orders">
         <default key="_controller">StorefrontBundle:AccountHistory:process</default>
         <option key="view">account_history.html.php</option>
+        <requirement key="_scheme">https</requirement>
     </route>
 
     <!-- TODO: map to orderId -->
     <route id="account_history_info" pattern="/account/order/details/{order_id}">
         <default key="_controller">StorefrontBundle:AccountHistoryInfo:process</default>
         <option key="view">account_history_info.html.php</option>
+        <requirement key="_scheme">https</requirement>
     </route>
 
     <route id="account_password" pattern="/account/password/edit">
         <default key="_controller">StorefrontBundle:AccountPassword:process</default>
         <option key="view">account_password.html.php</option>
         <option key="view:success">redirect://account</option>
+        <requirement key="_scheme">https</requirement>
     </route>
 
     <route id="account_newsletters" pattern="/account/newsletter">
         <default key="_controller">StorefrontBundle:AccountNewsletters:process</default>
         <option key="view">account_newsletters.html.php</option>
         <option key="view:success">redirect://account</option>
+        <requirement key="_scheme">https</requirement>
     </route>
 
     <route id="account_notifications" pattern="/account/notifications">
         <default key="_controller">StorefrontBundle:AccountNotifications:process</default>
         <option key="view">account_notifications.html.php</option>
         <option key="view:success">redirect://account</option>
+        <requirement key="_scheme">https</requirement>
     </route>
 
     <route id="password_forgotten" pattern="/account/password/recover">
         <default key="_controller">StorefrontBundle:PasswordForgotten:process</default>
         <option key="view">password_forgotten.html.php</option>
         <option key="view:success">redirect://login</option>
+        <requirement key="_scheme">https</requirement>
     </route>
 
     <route id="address_book" pattern="/account/addresses">
         <default key="_controller">StorefrontBundle:AddressBook:process</default>
         <option key="view">address_book.html.php</option>
+        <requirement key="_scheme">https</requirement>
     </route>
 
     <route id="address_book_add" pattern="/account/address/new">
@@ -124,6 +143,7 @@
         <option key="form">ZenMagick\StoreBundle\Entity\Address#formId=address</option>
         <option key="view">address_book_create.html.php</option>
         <option key="view:success">redirect://address_book</option>
+        <requirement key="_scheme">https</requirement>
     </route>
 
     <!-- TODO: rename to addressId -->
@@ -135,6 +155,7 @@
         <option key="view">address_book_edit.html.php</option>
         <option key="view:error">redirect://address_book</option>
         <option key="view:success">redirect://address_book</option>
+        <requirement key="_scheme">https</requirement>
     </route>
 
     <!-- TODO: rename to addressId -->
@@ -144,6 +165,7 @@
         <default key="id"></default>
         <option key="view">address_book_delete.html.php</option>
         <option key="view:success">redirect://address_book</option>
+        <requirement key="_scheme">https</requirement>
     </route>
 
     <route id="popup_cvv_help" pattern="/help/cvv">
@@ -203,6 +225,7 @@
     <route id="popup_shipping_estimator" pattern="/shipping/estimator">
         <default key="_controller">ZenMagickBundle:Default:process</default>
         <option key="view">popup/shipping_estimator.html.php?layout=popup_layout.html.php</option>
+        <requirement key="_scheme">https</requirement>
     </route>
 
     <route id="category" pattern="/category/{cPath}">
@@ -218,32 +241,38 @@
         <default key="_controller">StorefrontBundle:CheckoutAddress:process</default>
         <option key="form">ZenMagick\StoreBundle\Entity\Address#formId=shippingAddress</option>
         <option key="view">redirect://checkout_shipping</option>
+        <requirement key="_scheme">https</requirement>
     </route>
 
     <route id="checkout_shipping" pattern="/checkout/shipping">
         <default key="_controller">StorefrontBundle:CheckoutShipping:process</default>
         <option key="view:skip_shipping">redirect://checkout_payment</option>
         <option key="view">redirect://checkout_payment</option>
+        <requirement key="_scheme">https</requirement>
     </route>
 
     <route id="checkout_payment_address" pattern="/checkout/billing/address">
         <default key="_controller">StorefrontBundle:CheckoutAddress:process</default>
         <option key="form">ZenMagick\StoreBundle\Entity\Address#formId=billingAddress</option>
         <option key="view">redirect://checkout_payment</option>
+        <requirement key="_scheme">https</requirement>
     </route>
 
     <route id="checkout_payment" pattern="/checkout/billing">
         <default key="_controller">StorefrontBundle:CheckoutPayment:process</default>
         <option key="view">redirect://checkout_confirmation</option>
+        <requirement key="_scheme">https</requirement>
     </route>
 
 
     <route id="checkout_confirmation" pattern="/checkout/confirmation">
         <default key="_controller">StorefrontBundle:CheckoutConfirmation:process</default>
+        <requirement key="_scheme">https</requirement>
     </route>
 
     <route id="checkout_success" pattern="/checkout/success">
         <default key="_controller">StorefrontBundle:CheckoutSuccess:process</default>
+        <requirement key="_scheme">https</requirement>
     </route>
 
     <route id="checkout_guest" pattern="/checkout/guest">
@@ -252,6 +281,7 @@
         <option key="view">login.html.php</option>
         <option key="view:guest_checkout_disabled">login.html.php</option>
         <option key="view:success">redirect://checkout_shipping</option>
+        <requirement key="_scheme">https</requirement>
     </route>
 
     <route id="checkout" pattern="/checkout">
@@ -259,6 +289,7 @@
         <option key="view">checkout_shipping.html.php</option>
         <option key="view:skip_shipping">redirect://checkout_payment</option>
         <option key="view:success">redirect://checkout_payment</option>
+        <requirement key="_scheme">https</requirement>
     </route>
 
     <route id="download" pattern="/download/{order}/{id}">
@@ -268,11 +299,13 @@
     <route id="guest_history" pattern="/guest/history">
         <default key="_controller">StorefrontBundle:GuestHistory:process</default>
         <option key="view">account_history_info.html.php</option>
+        <requirement key="_scheme">https</requirement>
     </route>
 
     <route id="gv_redeem" pattern="/gift-voucher/redeem">
         <default key="_controller">StorefrontBundle:GvRedeem:process</default>
         <option key="form">ZMGVRedeem#formId=gvRedeem</option>
+        <requirement key="_scheme">https</requirement>
     </route>
 
     <route id="gv_faq" pattern="/gift-voucher/faq">
@@ -285,12 +318,14 @@
         <option key="form">ZMGVReceiver#formId=gvReceiver</option>
         <option key="view">redirect://account</option>
         <option key="view:edit">redirect://gv_send</option>
+        <requirement key="_scheme">https</requirement>
     </route>
 
     <route id="gv_send" pattern="/gift-voucher/send">
         <default key="_controller">StorefrontBundle:GvSend:process</default>
         <option key="form">ZMGVReceiver#formId=gvReceiver</option>
         <option key="view">gv_send.html.php</option>
+        <requirement key="_scheme">https</requirement>
     </route>
 
     <route id="redirect" pattern="/redirect">
@@ -331,10 +366,12 @@
 
     <route id="ipn_main_handler" pattern="/ipn">
         <default key="_controller">ZenCartBundle:Storefront:process</default>
+        <requirement key="_scheme">https</requirement>
     </route>
 
     <route id="checkout_process" pattern="/checkout/process">
         <default key="_controller">ZenCartBundle:Storefront:process</default>
+        <requirement key="_scheme">https</requirement>
     </route>
 
     <route id="static" pattern="/static">

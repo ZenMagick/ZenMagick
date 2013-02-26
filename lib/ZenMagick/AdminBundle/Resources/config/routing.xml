@@ -41,15 +41,19 @@
 
     <route id="admin_login" pattern="/login">
         <default key="_controller">AdminBundle:Login:show</default>
+        <requirement key="_scheme">https</requirement>
     </route>
 
     <route id="admin_logout" pattern="/logout" />
 
-    <route id="admin_login_check" pattern="/login-check" />
+    <route id="admin_login_check" pattern="/login-check">
+        <requirement key="_scheme">https</requirement>
+    </route>
 
     <route id="admin_reset_password" pattern="/reset-password">
         <default key="_controller">AdminBundle:ResetPassword:process</default>
         <option key="view:success">redirect://admin_login</option>
+        <requirement key="_scheme">https</requirement>
     </route>
 
     <route id="accounts" pattern="/accounts">

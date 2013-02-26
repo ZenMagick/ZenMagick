@@ -1,14 +1,13 @@
 address_book_process:
     pattern: /address-book-process
     defaults: { _controller: ZenCartBundle:Storefront:process }
+    requirements:
+        _scheme:  https
 advanced_search_result:
     pattern: /advanced-search-result
     defaults: { _controller: ZenCartBundle:Storefront:process }
 cookie_usage:
     pattern: /cookie-usage
-    defaults: { _controller: ZenCartBundle:Storefront:process }
-customers_authorization:
-    pattern: /customer-authorization
     defaults: { _controller: ZenCartBundle:Storefront:process }
 document_general_info:
     pattern: /document-general-info
@@ -37,12 +36,18 @@ page_not_found:
 payer_auth_auth:
     pattern: /payer-auth-auth
     defaults: { _controller: ZenCartBundle:Storefront:process }
+    requirements:
+        _scheme:  https
 payer_auth_frame:
     pattern: /payer-auth-frame
     defaults: { _controller: ZenCartBundle:Storefront:process }
+    requirements:
+        _scheme:  https
 payer_auth_verifier:
     pattern: /payer-auth-verifier
     defaults: { _controller: ZenCartBundle:Storefront:process }
+    requirements:
+        _scheme:  https
 popup_attributes_qty_prices:
     pattern: /popup-attributes-qty-prices
     defaults: { _controller: ZenCartBundle:Storefront:process }
