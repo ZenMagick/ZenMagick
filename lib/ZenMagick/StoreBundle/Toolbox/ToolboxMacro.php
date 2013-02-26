@@ -190,7 +190,7 @@ class ToolboxMacro extends ToolboxTool
     public function categoryTree($categories, $showProductCount=false, $useCategoryPage=false, $activeParent=false, $root=true, $path=null)
     {
         $toolbox = $this->getToolbox();
-        $net = $toolbox->net;
+        $router = $this->container->get('router');
         if ($root) {
             ob_start();
             $path = (array) $this->getRequest()->attributes->get('categoryIds');
@@ -212,7 +212,7 @@ class ToolboxMacro extends ToolboxTool
             $class = trim($class);
             $onclick = $isEmpty ? ($useCategoryPage ? '' : ' onclick="return catclick(this);"') : '';
             echo '<a' . ('' != $class ? ' class="'.$class.'"' : '') . $onclick . ' href="' .
-                        $net->url('category', array('cPath' => implode('_', $category->getPath()))) .
+                        $router->generate('category', array('cPath' => implode('_', $category->getPath()))) .
                         '">'.$toolbox->html->encode($category->getName()).'</a>';
             if ($showProductCount) {
                 if (0 < ($noOfProductsInTree = count($this->container->get('productService')->getProductIdsForCategoryId($category->getId(), $languageId, true, true)))) {

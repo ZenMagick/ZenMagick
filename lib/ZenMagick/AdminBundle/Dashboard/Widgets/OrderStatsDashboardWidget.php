@@ -41,7 +41,7 @@ class OrderStatsDashboardWidget extends DashboardWidget
      */
     public function getContents($request)
     {
-        $net = $this->container->get('netTool');
+        $router = $this->container->get('router');
         $contents = '<table class="grid" cellspacing="0">';
         $contents .= '<tr><th>'._zm('Status').'</th><th>'._zm('Number of Orders').'</th></tr>';
         $language = $request->getSelectedLanguage();
@@ -51,7 +51,7 @@ class OrderStatsDashboardWidget extends DashboardWidget
             $args = array('orderStatusId' => $status->getOrderStatusId());
             $result = \ZMRuntime::getDatabase()->querySingle($sql, $args, 'orders');
             $contents .= '<tr>';
-            $contents .= '<td><a href="'.$net->url('zc_admin_orders', array('orderStatusId' => $status->getId())).'">'._zm($status->getName()).'</a></td>';
+            $contents .= '<td><a href="'.$router->generate('zc_admin_orders', array('orderStatusId' => $status->getId())).'">'._zm($status->getName()).'</a></td>';
             $contents .= '<td>'.$result['count'].'</td>';
             $contents .= '</tr>';
         }

@@ -124,11 +124,12 @@ class CatalogRssFeedSource extends ZMObject implements RssSource
     protected function getProductsFeed($request, $full=false)
     {
         $settingsService = $this->container->get('settingsService');
+        $router = $this->container->get('router');
         $net = $this->container->get('netTool');
 
         $channel = new RssChannel();
         $channel->setTitle(sprintf(_zm("Products at %s"), $settingsService->get('storeName')));
-        $channel->setLink($net->url('index'));
+        $channel->setLink($router->generate('index'));
         $channel->setDescription(sprintf(_zm("All products at %s"), $settingsService->get('storeName')));
         $channel->setLastBuildDate(new DateTime());
 
@@ -161,10 +162,10 @@ class CatalogRssFeedSource extends ZMObject implements RssSource
     protected function getCategoriesFeed($request, $full)
     {
         $settingsService = $this->container->get('settingsService');
-        $net = $this->container->get('netTool');
+        $router = $this->container->get('router');
         $channel = new RssChannel();
         $channel->setTitle(sprintf(_zm("Categories at %s"), $settingsService->get('storeName')));
-        $channel->setLink($net->url('index'));
+        $channel->setLink($router->generate('index'));
         $channel->setDescription(sprintf(_zm("All categories at %s"), $settingsService->get('storeName')));
         $channel->setLastBuildDate($lastPubDate);
 
@@ -178,7 +179,7 @@ class CatalogRssFeedSource extends ZMObject implements RssSource
         $categoryInfo = array();
         foreach ($categoryService->getAllCategories($languageId) as $category) {
             if ($category->isActive()) {
-                $categoryInfo[] = array('id' => $category->getId(), 'url' => $net->url('category', array('cPath' => implode('_', $category->getPath()))));
+                $categoryInfo[] = array('id' => $category->getId(), 'url' => $router->generate('category', array('cPath' => implode('_', $category->getPath()))));
             }
         }
         $itemIterator = new CatalogCategoryRssItemIterator($categoryInfo, $languageId, $this->fullFeed);

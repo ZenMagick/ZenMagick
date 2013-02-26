@@ -137,7 +137,8 @@ class WordpressRequestHandler extends DefaultController
                 //$_SERVER['REQUEST_URI'] = str_replace($this->request_->getBaseUrl().$this->plugin_->get('permaPrefix').'/', '', $_SERVER['REQUEST_URI']);
             }
         } else {
-            return $netTool->url('wp', $urlToken['query']);
+            $router = Runtime::getContainer()->get('router');
+            return $router->generate('wp', $urlToken['query']);
         }
     }
 

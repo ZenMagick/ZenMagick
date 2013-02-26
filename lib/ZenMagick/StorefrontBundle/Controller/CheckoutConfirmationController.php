@@ -38,7 +38,7 @@ class CheckoutConfirmationController extends DefaultController
     public function getViewData($request)
     {
         $orderFormContent =  '';
-        $orderFormUrl = $this->get('netTool')->url('checkout_process');
+        $orderFormUrl = $this->get('router')->generate('checkout_process');
 
         $shoppingCart = $this->get('shoppingCart');
         if (null != ($paymentType = $shoppingCart->getSelectedPaymentType())) {

@@ -320,7 +320,7 @@ class StorefrontController extends DefaultController
 
         // Add Product
         if (null != $product) {
-            $breadcrumb->add($product->getName(), $this->get('netTool')->url(zen_get_info_page($product->getId()), 'cPath='.(string) $request->query->get('cPath').'&productId='.$product->getId()));
+            $breadcrumb->add($product->getName(), $this->get('router')->generate(zen_get_info_page($product->getId()), array('cPath='.(string) $request->query->get('cPath'), 'productId' => $product->getId())));
         }
 
         return $breadcrumb;

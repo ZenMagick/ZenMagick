@@ -42,7 +42,7 @@ class LatestOrdersDashboardWidget extends DashboardWidget
      */
     public function getContents($request)
     {
-        $net = $this->container->get('toolbox')->net;
+        $router = $this->container->get('router');
         $utils = $this->container->get('toolbox')->utils;
         $language = $request->getSelectedLanguage();
         $contents = '';
@@ -56,8 +56,8 @@ class LatestOrdersDashboardWidget extends DashboardWidget
             if (null != ($actualAccount = $accountService->getAccountForId($order->getAccountId()))) {
                 $name = $actualAccount->getType() == Account::REGISTERED ? $order->getAccount()->getFullName() : _zm('** Guest **');
             }
-            $contents .= '    <td><a href="'.$net->url('zc_admin_orders', array('action' => 'edit', 'oID' => $order->getId())).'">'.$order->getId().'</a></td>';
-            $contents .= '    <td><a href="'.$net->url('zc_admin_customers', array('action' => 'edit', 'cID' => $order->getAccountId())).'">'.$name.'</a></td>';
+            $contents .= '    <td><a href="'.$router->generate('zc_admin_orders', array('action' => 'edit', 'oID' => $order->getId())).'">'.$order->getId().'</a></td>';
+            $contents .= '    <td><a href="'.$router->generate('zc_admin_customers', array('action' => 'edit', 'cID' => $order->getAccountId())).'">'.$name.'</a></td>';
             $contents .= '    <td>'.$this->container->get('localeService')->shortDate($order->getOrderDate()).'</td>';
             $contents .= '    <td>'.$utils->formatMoney($order->getTotal()).'</td>';
             $contents .= '  </tr>';

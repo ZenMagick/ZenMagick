@@ -54,7 +54,7 @@ class ToolboxAdmin extends ToolboxTool
         }
         $ps = array_merge($ps, $params);
 
-        return $this->url('catalog', $ps);
+        return $this->container->get('router')->generate('catalog', $ps);
     }
 
     /**
@@ -81,7 +81,7 @@ class ToolboxAdmin extends ToolboxTool
         }
         $ps = array_merge($ps, $params);
 
-        return $this->url($catalogRequestId, $ps);
+        return $this->container->get('router')->generate($catalogRequestId, $ps);
     }
 
     /**
@@ -98,7 +98,7 @@ class ToolboxAdmin extends ToolboxTool
     {
         $controller = 'ajax_'.$controller;
         $param['methods'] = $method;
-        $url = str_replace('&amp;', '&', $this->getToolbox()->net->url($controller, $params));
+        $url = str_replace('&amp;', '&', $this->container->get('router')->generate($controller, $params));
 
         return $url;
     }
@@ -140,7 +140,7 @@ class ToolboxAdmin extends ToolboxTool
      */
     public function categoryTree($categories = null, $start = true)
     {
-        $net = $this->getToolbox()->net;
+        $router = $this->container->get('router');
         $html = $this->getToolbox()->html;
         $path = (array) $this->getRequest()->attributes->get('categoryIds');
         if ($start) {
@@ -154,7 +154,7 @@ class ToolboxAdmin extends ToolboxTool
         foreach ($categories as $category) {
             $active = in_array($category->getId(), $path);
             echo '<li id="ct-'.$category->getId().'">';
-            echo '<a href="'.$net->url('catalog', array('cPath' => implode('_', $category->getPath()))).'">'.$html->encode($category->getName()).'</a>';
+            echo '<a href="'.$router->generate('catalog', array('cPath' => implode('_', $category->getPath()))).'">'.$html->encode($category->getName()).'</a>';
             if ($category->hasChildren()) {
                 $this->categoryTree($category->getChildren(), false);
             }

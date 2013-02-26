@@ -176,7 +176,7 @@ class Request extends HttpFoundationRequest
         $params = $this->query->all();
         // @todo unpack route attributes?
 
-        $data = array('requestId' => $this->getRequestId(), 'params' => $params, 'secure' => $this->isSecure());
+        $data = array('requestId' => $this->getRequestId(), 'params' => $params);
         $this->getSession()->set('http.followUpUrl', $data);
     }
 
@@ -189,15 +189,12 @@ class Request extends HttpFoundationRequest
     public function getFollowUpUrl($clear=true)
     {
         if (null != ($data = $this->getSession()->get('http.followUpUrl'))) {
-            $params = array();
-            foreach ($data['params'] as $key => $value) {
-                $params[] = $key.'='.$value;
-            }
             if ($clear) {
                 $this->getSession()->set('http.followUpUrl', null);
             }
+            $router = \ZenMagick\Base\Runtime::getContainer()->get('router');
 
-            return $this->url($data['requestId'], implode('&', $params), $data['secure']);
+            return $router->generate($data['requestId'], $data['params']);
         }
 
         return null;

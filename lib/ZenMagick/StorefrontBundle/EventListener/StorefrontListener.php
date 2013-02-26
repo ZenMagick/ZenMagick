@@ -120,7 +120,7 @@ class StorefrontListener extends ZMObject
             $dfmRoute = $settingsService->get('apps.store.downForMaintenanceRoute');
             $dfmPages[] = $dfmRoute;
             if (!in_array($request->getRequestId(), $dfmPages)) {
-                $url = $this->container->get('netTool')->url($dfmRoute);
+                $url = $this->container->get('router')->generate($dfmRoute);
                 $request->redirect($url);
                 exit;
             }
@@ -281,7 +281,7 @@ class StorefrontListener extends ZMObject
                 'customers_authorization', 'login', 'logoff', 'password_forgotten', 'privacy',
                 'shippinginfo', 'unsubscribe');
             if (!in_array($request->getRequestId(), $unrestrictedPages)) {
-                $request->redirect($this->container->get('netTool')->url('customers_authorization'));
+                $request->redirect($this->container->get('router')->generate('customers_authorization'));
             }
         }
     }

@@ -42,17 +42,17 @@ class PendingDashboardWidget extends DashboardWidget
     public function getContents($request)
     {
         // TODO: convert into ajax pull
-        $net = $this->container->get('netTool');
+        $router = $this->container->get('router');
         $contents = '';
         $gvApprovalQueue = $this->container->get('couponService')->getCouponsForFlag('N');
         if (0 < count($gvApprovalQueue)) {
-            $a = '<a href="'.$net->url('gv_queue').'">'._zm('approval').'</a>';
+            $a = '<a href="'.$router->generate('gv_queue').'">'._zm('approval').'</a>';
             $contents .= sprintf(_zm('There are %s gift cards waiting for %s.'), count($gvApprovalQueue), $a);
         }
 
         $result = \ZMRuntime::getDatabase()->querySingle("SELECT count(*) AS count FROM %table.reviews% WHERE status='0'");
         if (0 < $result['count']) {
-            $contents .= ' <a href="'.$net->url('reviews', array('status' => 1)).'">'.sprintf(_zm('There are %s reviews pending approval.'), $result['count']).'</a>';
+            $contents .= ' <a href="'.$router->generate('reviews', array('status' => 1)).'">'.sprintf(_zm('There are %s reviews pending approval.'), $result['count']).'</a>';
         }
 
         if (0 == strlen($contents)) {

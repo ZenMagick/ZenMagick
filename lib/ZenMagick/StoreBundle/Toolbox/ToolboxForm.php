@@ -86,7 +86,7 @@ class ToolboxForm extends ToolboxTool
         if (null !== $page && (false !== strpos($page, '://') || '/' == $page[0])) {
             $attr['action'] = $page;
         } else {
-            $attr['action'] = $this->getToolbox()->net->url($page, '', $secure);
+            $attr['action'] = $this->container->get('router')->generate($page);
         }
 
         // parse params AND action params

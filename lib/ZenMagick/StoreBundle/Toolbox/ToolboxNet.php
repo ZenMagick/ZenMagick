@@ -111,7 +111,9 @@ class ToolboxNet extends ToolboxTool
             }
         }
 
-        return $this->url('product_info', $params);
+        $router = $this->container->get('router');
+
+        return $router->generate('product_info', $params);
     }
 
     /**
@@ -122,7 +124,9 @@ class ToolboxNet extends ToolboxTool
      */
     public function staticPage($name)
     {
-        return $this->url('static', array('cat' => $name));
+        $router = $this->container->get('router');
+
+        return $router->generate('static', array('cat' => $name));
     }
 
     /**
@@ -188,7 +192,9 @@ class ToolboxNet extends ToolboxTool
             $id = 'http://'.$id;
         }
 
-        return $this->url('redirect', array('action' => $action, 'goto' => $id));
+        $router = $this->container->get('router');
+
+        return $router->generate('redirect', array('action' => $action, 'goto' => $id));
     }
 
     /**
@@ -206,7 +212,8 @@ class ToolboxNet extends ToolboxTool
         $controller = 'ajax_'.$controller;
 
         $params['method'] = $method;
-        $url = str_replace('&amp;', '&', $this->url($controller, $params));
+        $router = $this->container->get('router');
+        $url = str_replace('&amp;', '&', $router->generate($controller, $params));
 
         return $url;
     }
@@ -224,7 +231,9 @@ class ToolboxNet extends ToolboxTool
         if (null !== $key) {
             $params['key'] = $key;
         }
-        $url = $this->url('rss', $params);
+
+        $router = $this->container->get('router');
+        $url = $router->generate('rss', $params);
 
         return $url;
     }
@@ -248,9 +257,8 @@ class ToolboxNet extends ToolboxTool
         foreach ($keep as $name) {
             $params[$name] = $this->getRequest()->query->get($name);
         }
-
-        $secure = null !== $secure ? $secure : $this->getRequest()->isSecure();
-        $url = $this->url($this->getRequest()->getRequestId(), $params, $secure);
+        $router = $this->container->get('router');
+        $url = $router->generate($this->getRequest()->getRequestId(), $params);
 
         return $url;
     }
@@ -275,8 +283,8 @@ class ToolboxNet extends ToolboxTool
             $params[$name] = $this->getRequest()->query->get($name);
         }
 
-        $secure = null !== $secure ? $secure : $this->getRequest()->isSecure();
-        $url = $this->url($this->getRequest()->getRequestId(), $params, $secure);
+        $router = $this->container->get('router');
+        $url = $router->generate($this->getRequest()->getRequestId(), $params);
 
         return $url;
     }

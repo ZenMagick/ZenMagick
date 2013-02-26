@@ -221,7 +221,7 @@ class SacsManager extends ZMObject
             if (Runtime::isContextMatch('admin')) {
                 $loginRoute = 'admin_login';
             }
-            $request->redirect($this->container->get('netTool')->url($loginRoute));
+            $request->redirect($this->container->get('router')->generate($loginRoute));
             exit;
         }
 

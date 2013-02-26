@@ -42,14 +42,14 @@ class LatestAccountsDashboardWidget extends DashboardWidget
      */
     public function getContents($request)
     {
-        $net = $this->container->get('netTool');
+        $router = $this->container->get('router');
         $contents = '';
         $contents .= '<table class="grid" cellspacing="0">';
         $contents .= '<tr><th>'._zm('Name').'</th><th>'._zm('Registered').'</th></tr>';
         foreach ($this->container->get('accountService')->getAllAccounts(null, 5) as $account) {
             $contents .= '<tr>';
             $name = $account->getType() == Account::REGISTERED ? $account->getFullName() : _zm('** Guest **');
-            $contents .= '<td><a href="'.$net->url('account_show', array('accountId' => $account->getId())).'">'.$name.'</a></td>';
+            $contents .= '<td><a href="'.$router->generate('account_show', array('accountId' => $account->getId())).'">'.$name.'</a></td>';
             $contents .= '<td>'.$this->container->get('localeService')->shortDate($account->getAccountCreateDate()).'</td>';
             $contents .= '</tr>';
         }
