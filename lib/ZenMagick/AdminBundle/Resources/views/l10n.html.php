@@ -65,8 +65,8 @@
 </form>
 <?php if (isset($translations)) { ?>
   <strong>Download: </strong>
-  <a href="<?php echo $net->url(null, $downloadParamsPo) ?>">.po</a>
-  <a href="<?php echo $net->url(null, $downloadParamsPot) ?>">.pot</a>
+  <a href="<?php echo $net->url('l10n', $downloadParamsPo) ?>">.po</a>
+  <a href="<?php echo $net->url('l10n', $downloadParamsPot) ?>">.pot</a>
   <?php foreach ($translations as $file => $strings) { ?>
     <h3><?php echo $file ?></h3>
     <?php foreach ($strings as $key => $info) { ?>

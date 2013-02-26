@@ -250,7 +250,7 @@ class ToolboxNet extends ToolboxTool
         }
 
         $secure = null !== $secure ? $secure : $this->getRequest()->isSecure();
-        $url = $this->url(null, $params, $secure);
+        $url = $this->url($this->getRequest()->getRequestId(), $params, $secure);
 
         return $url;
     }
@@ -276,7 +276,7 @@ class ToolboxNet extends ToolboxTool
         }
 
         $secure = null !== $secure ? $secure : $this->getRequest()->isSecure();
-        $url = $this->url(null, $params, $secure);
+        $url = $this->url($this->getRequest()->getRequestId(), $params, $secure);
 
         return $url;
     }

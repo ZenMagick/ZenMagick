@@ -59,8 +59,8 @@ class L10nController extends DefaultController
             $options[$name] = $value;
         }
 
-        $downloadParamsPo = http_build_query(array_merge(array('download' => 'po'), $options));
-        $downloadParamsPot = http_build_query(array_merge(array('download' => 'pot'), $options));
+        $downloadParamsPo = array_merge(array('download' => 'po'), $options);
+        $downloadParamsPot = array_merge(array('download' => 'pot'), $options);
 
         $themeService = $this->container->get('themeService');
         $vd = array_merge(array(
