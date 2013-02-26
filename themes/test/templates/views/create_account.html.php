@@ -184,12 +184,6 @@
             </tbody>
         </table>
     </fieldset>
-    <?php if (is_object($captcha)) { ?>
-        <?php $captcha->showImage(); ?>
-        <a href="<?php $net->url(null) ?>"><?php _vzm("Click to refresh page")?></a><br />
-        <label for="captcha"><?php _vzm("Captcha") ?><span>*</span></label>
-        <input type="text" id="captcha" name="captcha" value="" /><br />
-    <?php } ?>
     <?php if ($this->exists('howDidYouHearOptions.html.php')) { echo $this->fetch('howDidYouHearOptions.html.php'); } ?>
     <div class="btn"><input type="submit" class="btn" value="<?php _vzm("Create Account") ?>" /></div>
 </form>
