@@ -89,7 +89,8 @@ class AppKernel extends Kernel
             new ZenMagick\StorefrontBundle\StorefrontBundle(),
             new JMS\SecurityExtraBundle\JMSSecurityExtraBundle(),
             new JMS\SerializerBundle\JMSSerializerBundle(),
-
+            // @todo default or not? either way make it toggleable
+            //new Jmikola\InsecureRoutesBundle\JmikolaInsecureRoutesBundle(),
         );
         if (in_array($this->getEnvironment(), array('dev', 'test', 'install'))) {
             $bundles[] = new Symfony\Bundle\WebProfilerBundle\WebProfilerBundle;

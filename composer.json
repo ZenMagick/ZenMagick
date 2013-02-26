@@ -52,8 +52,17 @@
         "knplabs/knp-menu-bundle":"dev-master",
         "friendsofsymfony/rest-bundle": "dev-master",
         "friendsofsymfony/user-bundle": "*",
-        "zenmagick/zencart": "dev-master"
+        "zenmagick/zencart": "dev-master",
+        "jmikola/insecure-routes-bundle": "dev-master"
     },
+
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "git@github.com:jrobeson/JmikolaInsecureRoutesBundle.git"
+        }
+    ],
+
     "scripts": {
         "post-install-cmd": [
             "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::buildBootstrap",
