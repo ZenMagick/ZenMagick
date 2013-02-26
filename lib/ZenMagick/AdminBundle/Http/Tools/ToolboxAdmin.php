@@ -34,27 +34,25 @@ class ToolboxAdmin extends ToolboxTool
      * Create a catalog admin page URL.
      *
      * @param CatalogContentController controller A controller: default is <code>null</code> to use the current <em>catalogRequestId</em>.
-     * @param string params Optional additional url parameter; default is <code>null</code>.
+     * @param string params Optional additional url parameter; default is <code>array</code>.
      * @return string A full URL.
      */
-    public function catalog($controller=null, $params=null)
+    public function catalog($controller=null, $params=array())
     {
         $request = $this->getRequest();
-        $ps = '';
+        $ps = array();
         if (null != ($cPath = $request->query->get('cPath'))) {
-            $ps .= '&cPath='.$cPath;
+            $ps['cPath'] = $cPath;
         }
         if (null != ($productId = $request->query->get('productId'))) {
-            $ps .= '&productId='.$productId;
+            $ps['productId'] = $productId;
         }
         if (null != $controller && $controller instanceof CatalogContentController) {
-            $ps .= '&catalogRequestId='.$controller->getCatalogRequestId();
+            $ps['catalogRequestId'] = $controller->getCatalogRequestId();
         } elseif (null != ($catalogRequestId = $request->query->get('catalogRequestId'))) {
-            $ps .= '&catalogRequestId='.$catalogRequestId;
+            $ps['catalogRequestId'] = $catalogRequestId;
         }
-        if (null != $params) {
-            $ps .= '&'.$params;
-        }
+        $ps = array_merge($ps, $params);
 
         return $this->url('catalog', $ps);
     }
@@ -63,27 +61,25 @@ class ToolboxAdmin extends ToolboxTool
      * Create a catalog tab admin page URL.
      *
      * @param CatalogContentController controller A controller: default is <code>null</code> to use the current <em>catalogRequestId</em>.
-     * @param string params Optional additional url parameter; default is <code>null</code>.
+     * @param string params Optional additional url parameter; default is <code>array()</code>.
      * @return string A full URL.
      */
-    public function catalogTab($controller=null, $params=null)
+    public function catalogTab($controller=null, $params=array())
     {
         $request = $this->getRequest();
-        $ps = '';
+        $ps = array();
         if (null != ($cPath = $request->query->get('cPath'))) {
-            $ps .= '&cPath='.$cPath;
+            $ps['cPath'] = $cPath;
         }
         if (null != ($productId = $request->query->get('productId'))) {
-            $ps .= '&productId='.$productId;
+            $ps['productId'] = $productId;
         }
         if (null != $controller && $controller instanceof CatalogContentController) {
             $catalogRequestId = $controller->getCatalogRequestId();
         } else {
             $catalogRequestId = $request->query->get('catalogRequestId');
         }
-        if (null != $params) {
-            $ps .= '&'.$params;
-        }
+        $ps = array_merge($ps, $params);
 
         return $this->url($catalogRequestId, $ps);
     }
@@ -98,10 +94,11 @@ class ToolboxAdmin extends ToolboxTool
      * @param string params Query string style parameter; if <code>null</code> add all current parameter
      * @return string A complete Ajax URL.
      */
-    public function ajax($controller, $method, $params='')
+    public function ajax($controller, $method, $params=array())
     {
         $controller = 'ajax_'.$controller;
-        $url = str_replace('&amp;', '&', $this->getToolbox()->net->url($controller, $params.'&method='.$method, $this->getRequest()->isSecure()));
+        $param['methods'] = $method;
+        $url = str_replace('&amp;', '&', $this->getToolbox()->net->url($controller, $params));
 
         return $url;
     }
@@ -157,7 +154,7 @@ class ToolboxAdmin extends ToolboxTool
         foreach ($categories as $category) {
             $active = in_array($category->getId(), $path);
             echo '<li id="ct-'.$category->getId().'">';
-            echo '<a href="'.$net->url('catalog', 'cPath='.implode('_', $category->getPath())).'">'.$html->encode($category->getName()).'</a>';
+            echo '<a href="'.$net->url('catalog', array('cPath' => implode('_', $category->getPath()))).'">'.$html->encode($category->getName()).'</a>';
             if ($category->hasChildren()) {
                 $this->categoryTree($category->getChildren(), false);
             }

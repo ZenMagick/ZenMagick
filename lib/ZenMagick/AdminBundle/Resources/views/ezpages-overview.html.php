@@ -71,7 +71,7 @@
   <?php foreach ($resultList->getResults() as $ezPage) { ?>
     <tr>
       <td><?php echo $ezPage->getId() ?></td>
-      <td><a href="<?php echo $net->url('ezpages_edit', 'id='.$ezPage->getId().'&languageId='.$selectedLanguageId) ?>"><?php echo $html->encode($ezPage->getTitle()) ?></a><td>
+      <td><a href="<?php echo $net->url('ezpages_edit', array('id' => $ezPage->getId(), 'languageId' => $selectedLanguageId)) ?>"><?php echo $html->encode($ezPage->getTitle()) ?></a><td>
           <a href="#<?php echo $ezPage->getId().'-NewWin' ?>" onclick="toggle_status(this); return false;" id="<?php echo $ezPage->getId() ?>-NewWin" class="ezpage-status-<?php echo ($ezPage->isNewWin() ? 'on' : 'off') ?>"><span class="ui-icon <?php echo ($ezPage->isNewWin() ? 'ui-icon-circle-check' : 'ui-icon-circle-close') ?>"></a>
       </td>
       <td>
@@ -99,7 +99,7 @@
           <input type="hidden" name="languageId" value="<?php echo $selectedLanguageId ?>">
           <input type="hidden" name="deleteId" value="<?php echo $ezPage->getId() ?>">
           <input class="<?php echo $buttonClasses ?>" type="submit" value="Delete">
-          <a class="<?php echo $buttonClasses ?>" href="<?php echo $net->url('ezpages_edit', 'id='.$ezPage->getId().'&languageId='.$selectedLanguageId) ?>">Edit</a>
+          <a class="<?php echo $buttonClasses ?>" href="<?php echo $net->url('ezpages_edit', array('id' => $ezPage->getId(), 'languageId' => $selectedLanguageId)) ?>">Edit</a>
         </form>
       </td>
     </tr>

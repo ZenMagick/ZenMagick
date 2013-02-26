@@ -32,7 +32,7 @@
           <input type="hidden" name="action" value="removeGroup">
           <input type="submit" class="<?php echo $buttonClasses ?>" value="Remove">
         </form>
-        <a href="<?php echo $net->url('block_group_admin', 'groupName='.$groupName) ?>" class="<?php echo $buttonClasses ?>"><?php _vzm('Configure') ?></a>
+        <a href="<?php echo $net->url('block_group_admin', array('groupName' => $groupName)) ?>" class="<?php echo $buttonClasses ?>"><?php _vzm('Configure') ?></a>
       </td>
     </tr>
   <?php } ?>

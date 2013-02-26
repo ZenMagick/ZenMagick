@@ -35,7 +35,7 @@
 
 <ul>
 <?php foreach ($faq_topics as $key => $title) { ?>
-    <li><a href="<?php echo $net->url('gv_faq', 'topic='.$key) ?>"><?php _vzm($title) ?></a></li>
+    <li><a href="<?php echo $net->url('gv_faq', array('topic' => $key)) ?>"><?php _vzm($title) ?></a></li>
 <?php } ?>
 </ul>
 

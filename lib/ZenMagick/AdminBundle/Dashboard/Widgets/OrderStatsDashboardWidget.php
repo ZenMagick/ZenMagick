@@ -51,7 +51,7 @@ class OrderStatsDashboardWidget extends DashboardWidget
             $args = array('orderStatusId' => $status->getOrderStatusId());
             $result = \ZMRuntime::getDatabase()->querySingle($sql, $args, 'orders');
             $contents .= '<tr>';
-            $contents .= '<td><a href="'.$net->url('zc_admin_orders', 'orderStatusId='.$status->getId()).'">'._zm($status->getName()).'</a></td>';
+            $contents .= '<td><a href="'.$net->url('zc_admin_orders', array('orderStatusId' => $status->getId())).'">'._zm($status->getName()).'</a></td>';
             $contents .= '<td>'.$result['count'].'</td>';
             $contents .= '</tr>';
         }

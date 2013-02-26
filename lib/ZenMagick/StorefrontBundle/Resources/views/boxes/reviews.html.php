@@ -28,7 +28,7 @@
 ?>
 <?php if (1 == count($reviews)) {
     $review = $reviews[0];
-    $params = 'productId='.$review->getProductId().'&reviews_id='.$review->getId();
+    $params = array('productId' => $review->getProductId(), 'reviews_id' => $review->getId());
     $href = $net->url('product_reviews_info', $params);
     $rtext = sprintf(_zm("%s of 5 stars!"), $review->getRating());
     $rimg = '<img src="'.$this->asUrl('images/stars_'.$review->getRating().'.gif').'" alt="'.$rtext.'" title="'.$rtext.'"/>';

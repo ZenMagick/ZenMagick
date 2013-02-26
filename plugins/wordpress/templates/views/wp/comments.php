@@ -54,7 +54,7 @@
     $request = ZenMagick\Base\Runtime::getContainer()->get('request');
     $net = ZenMagick\Base\Runtime::getContainer()->get('netTool');
 ?>
-<input type="hidden" name="redirect_to" value="<?php echo $net->url('wp', 'p='.$request->query->get('p')) ?>">
+<input type="hidden" name="redirect_to" value="<?php echo $net->url('wp', array('p' => $request->query->get('p'))) ?>">
 
 <?php if ( $user_ID ) : ?>
 

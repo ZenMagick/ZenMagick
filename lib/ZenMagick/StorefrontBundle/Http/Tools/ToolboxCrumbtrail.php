@@ -144,7 +144,7 @@ class ToolboxCrumbtrail extends ToolboxTool
             if (null == $category) {
                 return $this;
             }
-            $this->addCrumb($category->getName(),$this->getToolbox()->net->url('category', 'cPath='.implode('_', $category->getPath())));
+            $this->addCrumb($category->getName(),$this->getToolbox()->net->url('category', array('cPath' => implode('_', $category->getPath()))));
         }
 
         return $this;
@@ -164,7 +164,7 @@ class ToolboxCrumbtrail extends ToolboxTool
         }
         $manufacturer = $this->container->get('manufacturerService')->getManufacturerForId($manufacturerId, $this->getRequest()->getSession()->getLanguageId());
         if (null != $manufacturer) {
-            $this->addCrumb($manufacturer->getName(), $this->getToolbox()->net->url('manufacturer', 'manufacturers_id=' . $manufacturerId));
+            $this->addCrumb($manufacturer->getName(), $this->getToolbox()->net->url('manufacturer', array('manufacturers_id' => $manufacturerId)));
         }
 
         return $this;

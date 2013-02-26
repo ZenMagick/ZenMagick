@@ -7,6 +7,6 @@
     <p><?php _vzm("Order schedule: '%s.'", $schedules[$schedule]['name']) ?></p>
 
     <?php if ($currentOrder->isSubscription()) { ?>
-        <a href="<?php echo $net->url('cancel_subscription', 'orderId='.$currentOrder->getId()) ?>"><?php _vzm("Cancel Subscription") ?></a>
+        <a href="<?php echo $net->url('cancel_subscription', array('orderId' => $currentOrder->getId())) ?>"><?php _vzm("Cancel Subscription") ?></a>
     <?php } ?>
 <?php } ?>

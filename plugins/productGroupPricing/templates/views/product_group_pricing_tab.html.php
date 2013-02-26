@@ -59,7 +59,7 @@
     <input type="hidden" name="catalogRequestId" value="product_group_pricing_tab">
     <?php if (0 < $request->getParameter('groupPricingId')) { ?>
         <input type="submit" name="update" value="Update">
-        <a href="<?php echo $admin->catalog(null, 'groupPricingId='.$request->getParameter('groupPricingId').'&delete=true') ?>">Delete</a>
+        <a href="<?php echo $admin->catalog(null, array('groupPricingId' => $request->getParameter('groupPricingId'), 'delete' => 'true')) ?>">Delete</a>
     <?php } else { ?>
         <input type="submit" name="create" value="Create">
     <?php } ?>
@@ -78,7 +78,7 @@
           <td><?php echo ($productGroupPricing->isAllowSaleSpecial() ? 'Y' : 'N') ?></td>
           <td><?php echo $productGroupPricing->getStartDate() ?></td>
           <td><?php echo $productGroupPricing->getEndDate() ?></td>
-          <td><a href="<?php echo $admin->catalog(null, 'groupPricingId='.$productGroupPricing->getId()) ?>">Change</a></td>
+          <td><a href="<?php echo $admin->catalog(null, array('groupPricingId' => $productGroupPricing->getId())) ?>">Change</a></td>
         </tr>
       <?php } ?>
     </table>

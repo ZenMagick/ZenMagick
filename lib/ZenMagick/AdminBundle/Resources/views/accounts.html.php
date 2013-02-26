@@ -32,7 +32,7 @@ $admin->title() ?>
     <tr>
       <td><?php echo $account->getId() ?></td>
       <?php $name = $account->getType() == Account::REGISTERED ? $account->getFullName() : _zm('** Guest **'); ?>
-      <td><a href="<?php echo $net->url('account_show', 'accountId='.$account->getId()) ?>"><?php echo $name ?></a></td>
+      <td><a href="<?php echo $net->url('account_show', array('accountId' => $account->getId())) ?>"><?php echo $name ?></a></td>
       <td><?php echo $locale->shortDate($account->getAccountCreateDate()) ?></td>
       <td><?php echo ($account->getAuthorization() ? _vzm('Pending') : _vzm('Approved')) ?></td>
     </tr>

@@ -33,7 +33,7 @@ use ZenMagick\Base\Beans;
     <tbody>
       <?php $first = true; $odd = true; foreach ($productList as $product) { ?>
         <tr class="<?php echo ($odd?"odd":"even").($first?" first":" other") ?>">
-          <td class="first" style="text-align:right;"><a href="<?php echo $admin->catalog(null, 'productId='.$product->getId()) ?>"><?php echo $product->getId() ?></a></td>
+          <td class="first" style="text-align:right;"><a href="<?php echo $admin->catalog(null, array('productId' => $product->getId())) ?>"><?php echo $product->getId() ?></a></td>
           <?php foreach ($fieldList as $ii => $field) { $widget = $field['widget'];
             // allow widgets to do custom calculations, etc
             $widget->setProduct($product);

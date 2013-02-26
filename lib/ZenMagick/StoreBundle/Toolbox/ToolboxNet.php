@@ -48,7 +48,7 @@ class ToolboxNet extends ToolboxTool
      * @param boolean secure Flag indicating whether to create a secure or non secure URL; default is <code>false</code>.
      * @return string A full URL.
      */
-    public function url($requestId=null, $params='', $secure=false)
+    public function url($requestId=null, $params=array(), $secure=false)
     {
         // default to current requestId
         $requestId = $requestId === null ? $this->getRequest()->getRequestId() : $requestId;
@@ -103,15 +103,15 @@ class ToolboxNet extends ToolboxTool
      */
     public function product($productId, $categoryId=null)
     {
-        $cPath = '';
+        $params = array('productId' => $productId);
         if (null != $categoryId) {
             $category = $this->container->get('categoryService')->getCategoryForId($categoryId, $this->getRequest()->getSession()->getLanguageId());
             if (null != $category) {
-                $cPath = '&cPath='.implode('_', $category->getPath());
+                $params['cPath'] = implode('_', $category->getPath());
             }
         }
 
-        return $this->url('product_info', '&productId='.$productId.$cPath);
+        return $this->url('product_info', $params);
     }
 
     /**
@@ -122,7 +122,7 @@ class ToolboxNet extends ToolboxTool
      */
     public function staticPage($name)
     {
-        return $this->url('static', '&cat='.$name);
+        return $this->url('static', array('cat' => $name));
     }
 
     /**
@@ -139,9 +139,9 @@ class ToolboxNet extends ToolboxTool
             return $href;
         }
 
-        $params = '&id='.$page->getId();
+        $params = array('id' => $page->getId());
         if (0 != $page->getTocChapter()) {
-            $params .= '&chapter='.$page->getTocChapter();
+            $params['chapter'] = $page->getTocChapter();
         }
 
         $href = $this->url('page', $params, $page->isSsl());
@@ -150,11 +150,7 @@ class ToolboxNet extends ToolboxTool
             parse_str($url['query'], $query);
             $view = $query['main_page'];
             unset($query['main_page']);
-            $params = '';
-            foreach ($query as $name => $value) {
-                $params .= "&".$name."=".$value;
-            }
-            $href = $this->url($view, $params, $page->isSsl());
+            $href = $this->url($view, $query, $page->isSsl());
         } elseif (!Toolbox::isEmpty($page->getAltUrlExternal())) {
             $href = $page->getAltUrlExternal();
         }
@@ -192,7 +188,7 @@ class ToolboxNet extends ToolboxTool
             $id = 'http://'.$id;
         }
 
-        return $this->url('redirect', "action=".$action."&goto=".$id);
+        return $this->url('redirect', array('action' => $action, 'goto' => $id));
     }
 
     /**
@@ -205,11 +201,12 @@ class ToolboxNet extends ToolboxTool
      * @param string params Query string style parameter; if <code>null</code> add all current parameter
      * @return string A complete Ajax URL.
      */
-    public function ajax($controller, $method, $params='')
+    public function ajax($controller, $method, $params=array())
     {
         $controller = 'ajax_'.$controller;
 
-        $url = str_replace('&amp;', '&', $this->url($controller, $params.'&method='.$method, $this->getRequest()->isSecure()));
+        $params['method'] = $method;
+        $url = str_replace('&amp;', '&', $this->url($controller, $params));
 
         return $url;
     }
@@ -223,9 +220,9 @@ class ToolboxNet extends ToolboxTool
      */
     public function rssFeed($channel, $key=null)
     {
-        $params = 'channel='.$channel;
+        $params = array('channel' => $channel);
         if (null !== $key) {
-            $params .= "&key=".$key;
+            $params['key'] = $key;
         }
         $url = $this->url('rss', $params);
 
@@ -247,9 +244,9 @@ class ToolboxNet extends ToolboxTool
             return null;
         }
 
-        $params = 'page='.$resultList->getPreviousPageNumber();
+        $params = array('page' => $resultList->getPreviousPageNumber());
         foreach ($keep as $name) {
-            $params .= '&'.$name.'='.$this->getRequest()->query->get($name);
+            $params[$name] = $this->getRequest()->query->get($name);
         }
 
         $secure = null !== $secure ? $secure : $this->getRequest()->isSecure();
@@ -273,9 +270,9 @@ class ToolboxNet extends ToolboxTool
             return null;
         }
 
-        $params = 'page='.$resultList->getNextPageNumber();
+        $params = array('page' => $resultList->getNextPageNumber());
         foreach ($keep as $name) {
-            $params .= '&'.$name.'='.$this->getRequest()->query->get($name);
+            $params[$name] = $this->getRequest()->query->get($name);
         }
 
         $secure = null !== $secure ? $secure : $this->getRequest()->isSecure();

@@ -27,9 +27,9 @@
         <?php echo ($address->isPrimary() ? _vzm("(primary)") : ''); ?></legend>
         <div class="btn">
             <?php if (!$address->isPrimary()) { ?>
-                <a class="btn" href="<?php echo $net->url('address_book_delete', 'id='.$address->getId()) ?>"><?php _vzm("Delete") ?></a>
+                <a class="btn" href="<?php echo $net->url('address_book_delete', array('id' => $address->getId())) ?>"><?php _vzm("Delete") ?></a>
             <?php } ?>
-            <a class="btn" href="<?php echo $net->url('address_book_edit', 'id='.$address->getId()) ?>"><?php _vzm("Edit") ?></a>
+            <a class="btn" href="<?php echo $net->url('address_book_edit', array('id' => $address->getId())) ?>"><?php _vzm("Edit") ?></a>
         </div>
         <?php echo $macro->formatAddress($address) ?>
     </fieldset>

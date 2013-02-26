@@ -30,7 +30,7 @@
 <?php _vzm("The code to redeem your Gift Certificate is: %s", $currentCoupon->getCode()) ?>
 
 
-<?php _vzm("To redeem your gift, visit %s", $net->absoluteUrl($net->url('gv_redeem', 'couponCode='.$currentCoupon->getCode()), true, true)) ?>
+<?php _vzm("To redeem your gift, visit %s", $net->absoluteUrl($net->url('gv_redeem', array('couponCode' => $currentCoupon->getCode())), true, true)) ?>
 
 
 <?php echo strip_tags($utils->staticPageContent('email_advisory')) ?>

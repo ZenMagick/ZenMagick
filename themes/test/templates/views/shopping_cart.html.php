@@ -27,7 +27,7 @@ if ($shoppingCart->isEmpty()) { ?>
             <tbody>
             <?php $odd = true; $first = true; foreach ($shoppingCart->getItems() as $item) { ?>
                 <tr class="<?php echo ($odd?"odd":"even").($first?" first":" other") ?>">
-                <td class="remove"><a href="<?php echo $net->url('cart.remove', 'product_id='.$item->getId()) ?>"><img src="<?php echo $this->asUrl("resource:images/small_delete.gif") ?>" alt="remove" /></a></td>
+                <td class="remove"><a href="<?php echo $net->url('cart.remove', array('product_id' => $item->getId())) ?>"><img src="<?php echo $this->asUrl("resource:images/small_delete.gif") ?>" alt="remove" /></a></td>
                     <td class="img">
                         <?php echo $html->productImageLink($item->getProduct()) ?>
                         <?php echo $form->hiddenCartFields($item) ?>

@@ -104,6 +104,6 @@ use ZenMagick\Base\Beans;
 
   <div>
     <input class="<?php echo $buttonClasses ?>" type="submit" value="Save">
-    <a class="<?php echo $buttonClasses ?>" href="<?php echo $net->url('ezpages', 'languageId='.$selectedLanguageId) ?>"><?php _vzm('Cancel') ?></a>
+    <a class="<?php echo $buttonClasses ?>" href="<?php echo $net->url('ezpages', array('languageId' => $selectedLanguageId)) ?>"><?php _vzm('Cancel') ?></a>
   </div>
 </form>

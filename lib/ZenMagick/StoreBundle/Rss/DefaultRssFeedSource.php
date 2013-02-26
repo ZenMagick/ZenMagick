@@ -88,7 +88,7 @@ class DefaultRssFeedSource extends ZMObject implements RssSource
             $item = new RssItem();
             $item->setTitle(sprintf(_zm("Review: %s"), $product->getName()));
 
-            $params = 'productId='.$review->getProductId().'&reviews_id='.$review->getId();
+            $params = array('productId' => $review->getProductId(), 'reviews_id' => $review->getId());
             $item->setLink($net->url('product_reviews_info', $params));
             $item->setDescription($html->more($review->getText(), 60));
             $item->setPubDate($review->getDateAdded());
@@ -139,7 +139,7 @@ class DefaultRssFeedSource extends ZMObject implements RssSource
 
         $channel = new RssChannel();
         $channel->setTitle(sprintf(_zm("Chapter %s"), $key));
-        $channel->setLink($net->url('page', 'chapter='.$key));
+        $channel->setLink($net->url('page', array('chapter' => $key)));
         $channel->setDescription(sprintf(_zm("All pages of Chapter %s"), $key));
         $channel->setLastBuildDate(new DateTime());
 

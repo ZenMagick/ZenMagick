@@ -100,7 +100,7 @@ use ZenMagick\Base\Toolbox;
               <th><?php echo $html->encode($download->getFilename()) ?></th>
               <th><?php echo $download->getFileSize() ?> bytes</th>
               <th><?php echo $download->getDownloadCount() ?></th>
-              <th><a href="<?php echo $net->url('download', 'order='.$currentOrder->getId().'&id='.$download->getId(), $request->isSecure()) ?>"><?php _vzm('Download') ?></a></th>
+              <th><a href="<?php echo $net->url('download', array('order' => $currentOrder->getId(), 'id' => $download->getId())) ?>"><?php _vzm('Download') ?></a></th>
           </tr>
       <?php } ?>
     </table>

@@ -191,7 +191,7 @@ class ToolboxHtml extends ToolboxTool
      */
     public function backLink($text, $attr=array())
     {
-        $link = '<a href="'.$this->getToolbox()->net->url('index', '').'"';
+        $link = '<a href="'.$this->getToolbox()->net->url('index').'"';
 
         foreach ($attr as $name => $value) {
             if (null !== $value) {

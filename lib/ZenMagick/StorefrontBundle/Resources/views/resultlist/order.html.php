@@ -22,7 +22,7 @@
 
 <tr class="<?php echo ($odd?"odd":"even").($first?" first":" other") ?>">
     <td>
-        <a href="<?php echo $net->url('account_history_info', 'order_id='.$order->getId()) ?>"><?php _vzm("Order #%s", $order->getId()) ?></a>
+        <a href="<?php echo $net->url('account_history_info', array('order_id' => $order->getId())) ?>"><?php _vzm("Order #%s", $order->getId()) ?></a>
     </td>
     <td><?php echo $locale->shortDate($order->getOrderDate()) ?></td>
     <?php $address = $order->getBillingAddress(); ?>

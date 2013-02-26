@@ -28,7 +28,7 @@
             <input type="text" id="keywords" name="keywords" value="<?php echo $html->encode($searchCriteria->getKeywords(KEYWORD_DEFAULT)) ?>" onfocus="<?php echo $onfocus ?>" />
         </div>
         <div class="btn"><input type="submit" class="btn" value="<?php _vzm("Search") ?>" /></div>
-        <a class="clear" href="<?php echo $net->url('advanced_search', '&keywords='.$searchCriteria->getKeywords()) ?>"><?php _vzm("Advanced Search") ?></a>
+        <a class="clear" href="<?php echo $net->url('advanced_search', array('keywords' => $searchCriteria->getKeywords())) ?>"><?php _vzm("Advanced Search") ?></a>
     </fieldset>
 </form>
 
