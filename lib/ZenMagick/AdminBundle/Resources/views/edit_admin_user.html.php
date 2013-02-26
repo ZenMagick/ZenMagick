@@ -18,7 +18,7 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */ $admin->title(_zm('Edit User Details')) ?>
 
-<form action="<?php echo $net->url() ?>" method="POST">
+<form action="<?php echo $net->url('edit_admin_user') ?>" method="POST">
   <input type="hidden" name="adminUserId" value="<?php echo $adminUser->getAdminUserId() ?>">
   <table>
     <tr>

@@ -17,7 +17,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */ $admin->title(_zm('Translation Helper')) ?>
-<form action="<?php echo $net->url() ?>" method="POST">
+<form action="<?php echo $net->url('l10n') ?>" method="POST">
   <h2>ZenMagick Language Tool (
           <select id="languageId" name="languageId">
             <?php foreach ($this->container->get('languageService')->getLanguages() as $lang) { ?>

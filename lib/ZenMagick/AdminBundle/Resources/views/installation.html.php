@@ -173,9 +173,9 @@ if ($needRefresh) {
 
 <?php $admin->title() ?>
 <div id="b_installation">
-<h2><?php _vzm("ZenMagick Installation") ?> <a class="btn" href="<?php echo $net->url() ?>"><?php _vzm("Refresh Page") ?></a></h2>
+<h2><?php _vzm("ZenMagick Installation") ?> <a class="btn" href="<?php echo $net->url('installation') ?>"><?php _vzm("Refresh Page") ?></a></h2>
 
-<form action="<?php echo $net->url() ?>" method="POST" onsubmit="return ZenMagick.confirm('Update File Patches?', this);">
+<form action="<?php echo $net->url('installation') ?>" method="POST" onsubmit="return ZenMagick.confirm('Update File Patches?', this);">
     <fieldset class="patches">
       <legend><?php _vzm("ZenMagick File Patches") ?></legend>
       <input type="hidden" name="update" value="file">
@@ -183,7 +183,7 @@ if ($needRefresh) {
     </fieldset>
   </form>
 
-  <form action="<?php echo $net->url() ?>" method="POST" onsubmit="return ZenMagick.confirm('Update SQL Patches?', this);">
+  <form action="<?php echo $net->url('installation') ?>" method="POST" onsubmit="return ZenMagick.confirm('Update SQL Patches?', this);">
     <fieldset class="patches">
       <legend><?php _vzm("ZenMagick SQL Extensions") ?></legend>
       <input type="hidden" name="update" value="sql">
@@ -194,7 +194,7 @@ if ($needRefresh) {
     </fieldset>
   </form>
 
-  <form action="<?php echo $net->url() ?>" method="POST" onsubmit="return ZenMagick.confirm('Load static page content as EZPage?\n(This will override EZPages if an EZPage with a matching title already exists)', this);">
+  <form action="<?php echo $net->url('installation') ?>" method="POST" onsubmit="return ZenMagick.confirm('Load static page content as EZPage?\n(This will override EZPages if an EZPage with a matching title already exists)', this);">
     <fieldset id="static-import">
     <legend><?php _vzm("Import Static Page Contents as EZPages") ?></legend>
         <p>
@@ -206,7 +206,7 @@ if ($needRefresh) {
     </fieldset>
   </form>
 
-  <form action="<?php echo $net->url() ?>" method="POST" onsubmit="return ZenMagick.confirm('Update selected optimisations?\n(This might take a while...)', this);">
+  <form action="<?php echo $net->url('installation') ?>" method="POST" onsubmit="return ZenMagick.confirm('Update selected optimisations?\n(This might take a while...)', this);">
     <fieldset id="optimisation">
     <legend><?php _vzm("Optimising ZenMagick") ?></legend>
         <p>

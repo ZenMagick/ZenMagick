@@ -52,7 +52,7 @@
         <?php $first = true; $odd = true; foreach ($resultList->getResults() as $order) { ?>
             <tr class="<?php echo ($odd?"odd":"even").($first?" first":" other") ?>">
                 <td>
-                    <a href="<?php echo $net->url('orders.php', array('action' => 'edit', 'oID' => $order->getId())) ?>"><?php _vzm("Order #%s", $order->getId()) ?></a>
+                    <a href="<?php echo $net->url('zc_admin_orders', array('action' => 'edit', 'oID' => $order->getId())) ?>"><?php _vzm("Order #%s", $order->getId()) ?></a>
                 </td>
                 <td><?php echo $schedules[$order->getSchedule()]['name'] ?></td>
                 <td><?php echo $locale->shortDate($order->getNextOrder()) ?></td>
@@ -60,7 +60,7 @@
                 <td style="text-align:center;"><img src="images/icons/<?php echo ($order->isSubscriptionCanceled() ? 'cross.gif' : 'tick.gif') ?>" alt="tick"></td>
                 <td>
                     <?php if (!$order->isSubscriptionCanceled()) { ?>
-                        <form action="<?php echo $net->url() ?>" method="POST">
+                        <form action="<?php echo $net->url('cancel_subscription') ?>" method="POST">
                             <input type="hidden" name="fkt" value="subscription_admin">
                             <input type="hidden" name="orderId" value="<?php echo $order->getId() ?>">
                             <input type="submit" name="cancel" value="cancel">

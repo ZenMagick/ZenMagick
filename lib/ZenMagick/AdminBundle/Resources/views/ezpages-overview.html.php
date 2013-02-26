@@ -42,7 +42,7 @@
 </script>
 
 <?php $admin->title() ?>
-<form action="<?php echo $net->url() ?>" method="GET">
+<form action="<?php echo $net->url('ezpages') ?>" method="GET">
   <h2><?php _vzm('EZPage Manager') ?> (
           <select id="languageId" name="languageId" onchange="this.form.submit();">
             <?php foreach ($this->container->get('languageService')->getLanguages() as $lang) { ?>

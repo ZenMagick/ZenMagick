@@ -20,7 +20,7 @@
 ?>
 
 <?php $admin->title(_zm('Manage Roles')) ?>
-<form action="<?php echo $net->url() ?>" method="POST" id="manage-roles-form">
+<form action="<?php echo $net->url('manage_roles') ?>" method="POST" id="manage-roles-form">
   <fieldset>
     <p>
       <label for="roles"><?php _vzm('Roles') ?></label>
@@ -34,7 +34,7 @@
     </p>
   </fieldset>
 </form>
-<form action="<?php echo $net->url() ?>" method="POST" id="add-role-form">
+<form action="<?php echo $net->url('manage_roles') ?>" method="POST" id="add-role-form">
   <fieldset>
     <p><label for="roleName"><?php _vzm('Add Role') ?></label> <input type="text" id="roleName" name="roleName" value=""> <input class="<?php echo $buttonClasses ?>" type="submit" value="<?php _vzm("Add Role") ?>"></p>
   </fieldset>

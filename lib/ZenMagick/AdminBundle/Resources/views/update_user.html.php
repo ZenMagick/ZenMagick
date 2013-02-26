@@ -19,7 +19,7 @@
  */
 ?>
 <p>Groups: <?php echo implode(', ', $app->getUser()->getRoles()) ?></p>
-<form action="<?php echo $net->url() ?>" method="POST" id="updateUser">
+<form action="<?php echo $net->url('update_user') ?>" method="POST" id="updateUser">
   <fieldset>
   <legend><?php _vzm('Account') ?></legend>
     <p><label for="username"><?php _vzm('Name') ?></label> <input type="text" id="username" name="username" value="<?php echo $html->encode($updateUser->getUsername()) ?>"></p>

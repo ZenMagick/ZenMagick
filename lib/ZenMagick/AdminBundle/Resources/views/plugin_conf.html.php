@@ -19,7 +19,7 @@
  */
 ?>
 
-<form id="ajax-form" action="<?php echo $net->url() ?>" method="POST">
+<form id="ajax-form" action="<?php echo $net->url('plugins') ?>" method="POST">
   <input type="hidden" name="pluginId" value="<?php echo $plugin->getId() ?>">
   <input type="hidden" name="action" value="update">
   <?php foreach ($widgets as $widget) { ?>
