@@ -27,7 +27,7 @@
     </route>
     <route id="dashboard" pattern="/dashboard">
         <default key="_controller">ZenMagickBundle:Default:process</default>
-        <option key="view">admin_index.html.php</option>
+        <option key="view">AdminBundle::admin_index.html.php</option>
     </route>
     <route id="fulfilment" pattern="/fulfilment">
         <default key="_controller">ZenMagickBundle:Default:process</default>
@@ -71,15 +71,15 @@
     <route id="ezpages" pattern="/ezpages">
         <default key="_controller">AdminBundle:Ezpages:process</default>
         <requirement key="_method">GET</requirement>
-        <option key="view">ezpages-overview.html.php</option>
+        <option key="view">AdminBundle::ezpages-overview.html.php</option>
     </route>
     <route id="ezpages_new" pattern="/ezpages/new">
         <default key="_controller">AdminBundle:Ezpages:process</default>
-        <option key="view">ezpages-details.html.php</option>
+        <option key="view">AdminBundle::ezpages-details.html.php</option>
     </route>
     <route id="ezpages_edit" pattern="/ezpages/{id}/edit">
         <default key="_controller">AdminBundle:Ezpages:process</default>
-        <option key="view">ezpages-details.html.php</option>
+        <option key="view">AdminBundle::ezpages-details.html.php</option>
     </route>
     <route id="ezpages_process" pattern="/ezpages">
         <default key="_controller">AdminBundle:Ezpages:process</default>
@@ -88,7 +88,7 @@
     </route>
     <route id="ezpage" pattern="/ezpages/{id}">
         <default key="_controller">AdminBundle:Ezpages:process</default>
-        <option key="view">ezpages-details.html.php</option>
+        <option key="view">AdminBundle::ezpages-details.html.php</option>
     </route>
 
     <route id="legacy_config" pattern="/legacy-config/{groupId}">
