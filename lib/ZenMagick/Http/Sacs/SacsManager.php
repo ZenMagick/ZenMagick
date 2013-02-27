@@ -37,16 +37,10 @@ use Symfony\Component\Yaml\Yaml;
  * <p>Access control mappings define the level of authentication required for resources.
  * Resources in this context are controller or page requests.</p>
  *
- * <p>Controller/resources marked as secure will result in redirects using SSL (if configured), if
- * non secure HTTP is used to access them.</p>
- *
  * <p>Handler (bean definitions) may be set as a list with the setting <em>zenmagick.http.sacs.handler</em>.</p>
  *
  * <p>To add a handler dynamically the preferred way is to use <code>addHandler()</code> as the default handler list is only evaluated when
  * the manager instance is created.</p>
- *
- * <p><strong>NOTE: The only predefined mapping key is <em>secure</em>. It is a boolean flag indicating whether the resource requires
- * a secure access method (ie. SSL/HTTPS) or not.</p>
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
@@ -269,22 +263,7 @@ class SacsManager extends ZMObject
             }
         }
 
-        if ('secure' == $key) {
-            $value = Toolbox::asBoolean($value);
-        }
-
         return $value;
-    }
-
-    /**
-     * Check if a request to the given page [name] is required to be secure.
-     *
-     * @param string requestId The request id.
-     * @return boolean <code>true</code> if a secure conenction is required.
-     */
-    public function requiresSecurity($requestId)
-    {
-        return $this->getMappingValue($requestId, 'secure', false);
     }
 
     /**

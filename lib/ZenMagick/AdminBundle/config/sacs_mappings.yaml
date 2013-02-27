@@ -5,7 +5,6 @@
 
 ## default for not explicitely mapped requests
 default:
-  secure: true
   ## require admin role
   roles:
     - ROLE_SUPER_ADMIN
