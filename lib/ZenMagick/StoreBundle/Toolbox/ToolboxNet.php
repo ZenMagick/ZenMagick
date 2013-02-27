@@ -64,6 +64,14 @@ class ToolboxNet extends ToolboxTool
     }
 
     /**
+     * Temporary method until we use the template router helper
+     */
+    public function generate($route, $parameters = array(), $absolute = false)
+    {
+        return $this->container->get('router')->generate($route, $parameters, $absolute);
+    }
+
+    /**
      * Encode a given URL to valid HTML.
      *
      * @param string url The url to encode.
