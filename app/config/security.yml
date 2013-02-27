@@ -39,27 +39,27 @@ security:
             provider: admin
             pattern: ^/admin
             form_login:
-                check_path: /admin/login-check
-                login_path: /admin/login
-                default_target_path: /admin/
+                check_path: admin_login_check
+                login_path: admin_login
+                default_target_path: admin_index
                 username_parameter: username
                 password_parameter: password
             logout:
-                path: /admin/logout
-                target: /admin/login
+                path: admin_logout
+                target: admin_login
         storefront:
             provider: storefront
             pattern: ^/
             anonymous: ~
             form_login:
-                check_path: /login-check
-                login_path: /login
-                default_target_path: /
+                check_path: login_check
+                login_path: login
+                default_target_path: index
                 username_parameter: email_address
                 password_parameter: password
             logout:
-                path: /logout
-                target: /login
+                path: logout
+                target: login
                 success_handler: zenmagick.logout.success_handler
 
     access_control:
