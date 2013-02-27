@@ -129,7 +129,7 @@ class CatalogRssFeedSource extends ZMObject implements RssSource
 
         $channel = new RssChannel();
         $channel->setTitle(sprintf(_zm("Products at %s"), $settingsService->get('storeName')));
-        $channel->setLink($router->generate('index'));
+        $channel->setLink($router->generate('index', array(), true));
         $channel->setDescription(sprintf(_zm("All products at %s"), $settingsService->get('storeName')));
         $channel->setLastBuildDate(new DateTime());
 
@@ -143,7 +143,7 @@ class CatalogRssFeedSource extends ZMObject implements RssSource
         $productService->setCache(null);
         $productInfo = array();
         foreach ($productService->getAllProductIds(true, $languageId) as $productId) {
-            $productInfo[] = array('id' => $productId, 'url' => $net->product($productId, null, false));
+            $productInfo[] = array('id' => $productId, 'url' => $net->absoluteUrl($net->product($productId, null, false), true));
         }
         $itemIterator = new CatalogProductRssItemIterator($productInfo, $languageId, $this->fullFeed, $this->multiCurrency);
         $itemIterator->setContainer($this->container);
@@ -165,7 +165,7 @@ class CatalogRssFeedSource extends ZMObject implements RssSource
         $router = $this->container->get('router');
         $channel = new RssChannel();
         $channel->setTitle(sprintf(_zm("Categories at %s"), $settingsService->get('storeName')));
-        $channel->setLink($router->generate('index'));
+        $channel->setLink($router->generate('index', array(), true));
         $channel->setDescription(sprintf(_zm("All categories at %s"), $settingsService->get('storeName')));
         $channel->setLastBuildDate($lastPubDate);
 
