@@ -1,5 +1,5 @@
 {
-    "hash": "3bb513db6b2dff6e5b784aca585ab139",
+    "hash": "04baacb233bfef0326087c144c6caa48",
     "packages": [
         {
             "name": "doctrine/annotations",
@@ -1171,22 +1171,25 @@
         },
         {
             "name": "jmikola/insecure-routes-bundle",
-            "version": "dev-master",
+            "version": "v3.0.0",
             "target-dir": "Jmikola/InsecureRoutesBundle",
             "source": {
                 "type": "git",
-                "url": "https://github.com/jrobeson/JmikolaInsecureRoutesBundle.git",
-                "reference": "fa0d37d73e070dcefac2f20e44c9f7c1b8551bcb"
+                "url": "https://github.com/jmikola/JmikolaInsecureRoutesBundle.git",
+                "reference": "v3.0.0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/jrobeson/JmikolaInsecureRoutesBundle/zipball/fa0d37d73e070dcefac2f20e44c9f7c1b8551bcb",
-                "reference": "fa0d37d73e070dcefac2f20e44c9f7c1b8551bcb",
+                "url": "https://api.github.com/repos/jmikola/JmikolaInsecureRoutesBundle/zipball/v3.0.0",
+                "reference": "v3.0.0",
                 "shasum": ""
             },
             "require": {
                 "php": ">=5.3.2",
-                "symfony/symfony": ">=2.1.0,<2.3-dev"
+                "symfony/config": ">=2.1.0,<2.3-dev",
+                "symfony/dependency-injection": ">=2.1.0,<2.3-dev",
+                "symfony/http-kernel": ">=2.1.0,<2.3-dev",
+                "symfony/routing": ">=2.1.0,<2.3-dev"
             },
             "type": "symfony-bundle",
             "autoload": {
@@ -1194,13 +1197,15 @@
                     "Jmikola\\InsecureRoutesBundle": ""
                 }
             },
+            "notification-url": "http://packagist.org/downloads/",
             "license": [
                 "MIT"
             ],
             "authors": [
                 {
                     "name": "Jeremy Mikola",
-                    "email": "jmikola@gmail.com"
+                    "email": "jmikola@gmail.com",
+                    "homepage": "http://jmikola.net"
                 }
             ],
             "description": "Removes HTTPS scheme requirements from routes in your Symfony2 app (for dev/test environments).",
@@ -1211,10 +1216,7 @@
                 "routing",
                 "security"
             ],
-            "support": {
-                "source": "https://github.com/jrobeson/JmikolaInsecureRoutesBundle/tree/master"
-            },
-            "time": "2013-02-26 05:02:05"
+            "time": "2013-02-26 16:51:48"
         },
         {
             "name": "jms/aop-bundle",
@@ -2770,7 +2772,6 @@
         "stof/doctrine-extensions-bundle": 20,
         "knplabs/knp-menu-bundle": 20,
         "friendsofsymfony/rest-bundle": 20,
-        "zenmagick/zencart": 20,
-        "jmikola/insecure-routes-bundle": 20
+        "zenmagick/zencart": 20
     }
 }

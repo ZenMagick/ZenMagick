@@ -53,16 +53,8 @@
         "friendsofsymfony/rest-bundle": "dev-master",
         "friendsofsymfony/user-bundle": "*",
         "zenmagick/zencart": "dev-master",
-        "jmikola/insecure-routes-bundle": "dev-master"
+        "jmikola/insecure-routes-bundle": "3.0.*"
     },
-
-    "repositories": [
-        {
-            "type": "vcs",
-            "url": "git@github.com:jrobeson/JmikolaInsecureRoutesBundle.git"
-        }
-    ],
-
     "scripts": {
         "post-install-cmd": [
             "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::buildBootstrap",
