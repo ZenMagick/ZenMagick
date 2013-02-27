@@ -746,12 +746,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/doctrine/doctrine2.git",
-                "reference": "97ff197198a18a4b67b0b615d0bc2cf06b8c18a0"
+                "reference": "d5dd7d6f8a571e3a27a9bc52f9e532b97dc4d181"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/doctrine/doctrine2/zipball/97ff197198a18a4b67b0b615d0bc2cf06b8c18a0",
-                "reference": "97ff197198a18a4b67b0b615d0bc2cf06b8c18a0",
+                "url": "https://api.github.com/repos/doctrine/doctrine2/zipball/d5dd7d6f8a571e3a27a9bc52f9e532b97dc4d181",
+                "reference": "d5dd7d6f8a571e3a27a9bc52f9e532b97dc4d181",
                 "shasum": ""
             },
             "require": {
@@ -808,7 +808,7 @@
                 "database",
                 "orm"
             ],
-            "time": "2013-02-22 17:10:36"
+            "time": "2013-02-26 05:59:04"
         },
         {
             "name": "friendsofsymfony/rest",
@@ -1868,12 +1868,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Seldaek/monolog.git",
-                "reference": "953f21a7d83d19ecb8793e7a59e2395c32a8d480"
+                "reference": "041aa3930f8d2b466ae897440ec9471d5159c5bf"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Seldaek/monolog/zipball/953f21a7d83d19ecb8793e7a59e2395c32a8d480",
-                "reference": "953f21a7d83d19ecb8793e7a59e2395c32a8d480",
+                "url": "https://api.github.com/repos/Seldaek/monolog/zipball/041aa3930f8d2b466ae897440ec9471d5159c5bf",
+                "reference": "041aa3930f8d2b466ae897440ec9471d5159c5bf",
                 "shasum": ""
             },
             "require": {
@@ -1922,7 +1922,7 @@
                 "logging",
                 "psr-3"
             ],
-            "time": "2013-02-21 10:03:40"
+            "time": "2013-02-26 10:18:11"
         },
         {
             "name": "nelmio/alice",
@@ -1984,12 +1984,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/schmittjoh/php-collection.git",
-                "reference": "2b9f71b9261930b05c3cd1d6ee2baa423b830e39"
+                "reference": "3ce8ffb990e9511c7a843f20740373eb27e4c3bd"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/schmittjoh/php-collection/zipball/2b9f71b9261930b05c3cd1d6ee2baa423b830e39",
-                "reference": "2b9f71b9261930b05c3cd1d6ee2baa423b830e39",
+                "url": "https://api.github.com/repos/schmittjoh/php-collection/zipball/3ce8ffb990e9511c7a843f20740373eb27e4c3bd",
+                "reference": "3ce8ffb990e9511c7a843f20740373eb27e4c3bd",
                 "shasum": ""
             },
             "require": {
@@ -2026,7 +2026,7 @@
                 "sequence",
                 "set"
             ],
-            "time": "2013-02-20 19:38:18"
+            "time": "2013-02-25 13:15:41"
         },
         {
             "name": "phpoption/phpoption",
@@ -2263,12 +2263,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/stof/StofDoctrineExtensionsBundle.git",
-                "reference": "ba84426a47e555fdf346fc9f8434c2a25b3cee9d"
+                "reference": "18957db1734b2fb6a391e77a3be75b9d8e2008fb"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/stof/StofDoctrineExtensionsBundle/zipball/ba84426a47e555fdf346fc9f8434c2a25b3cee9d",
-                "reference": "ba84426a47e555fdf346fc9f8434c2a25b3cee9d",
+                "url": "https://api.github.com/repos/stof/StofDoctrineExtensionsBundle/zipball/18957db1734b2fb6a391e77a3be75b9d8e2008fb",
+                "reference": "18957db1734b2fb6a391e77a3be75b9d8e2008fb",
                 "shasum": ""
             },
             "require": {
@@ -2316,7 +2316,7 @@
                 "translatable",
                 "tree"
             ],
-            "time": "2013-02-19 23:30:04"
+            "time": "2013-02-26 02:07:55"
         },
         {
             "name": "swiftmailer/swiftmailer",
@@ -2549,12 +2549,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/symfony.git",
-                "reference": "e534d88daefd13e27112c87d62c4329d8eb1b95b"
+                "reference": "9c46043e21ba28e323eb1b9acf7781badf96c6a8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/symfony/zipball/e534d88daefd13e27112c87d62c4329d8eb1b95b",
-                "reference": "e534d88daefd13e27112c87d62c4329d8eb1b95b",
+                "url": "https://api.github.com/repos/symfony/symfony/zipball/9c46043e21ba28e323eb1b9acf7781badf96c6a8",
+                "reference": "9c46043e21ba28e323eb1b9acf7781badf96c6a8",
                 "shasum": ""
             },
             "require": {
@@ -2640,7 +2640,7 @@
             "keywords": [
                 "framework"
             ],
-            "time": "2013-02-24 13:09:41"
+            "time": "2013-02-26 16:36:32"
         },
         {
             "name": "twig/extensions",
@@ -2695,12 +2695,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/fabpot/Twig.git",
-                "reference": "4458a2cb66a016440543ef34a07f540e14bee92e"
+                "reference": "bc30d9b7e24b0cd2f02078064b2d9fe1c20aa1aa"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/fabpot/Twig/zipball/4458a2cb66a016440543ef34a07f540e14bee92e",
-                "reference": "4458a2cb66a016440543ef34a07f540e14bee92e",
+                "url": "https://api.github.com/repos/fabpot/Twig/zipball/bc30d9b7e24b0cd2f02078064b2d9fe1c20aa1aa",
+                "reference": "bc30d9b7e24b0cd2f02078064b2d9fe1c20aa1aa",
                 "shasum": ""
             },
             "require": {
@@ -2736,7 +2736,7 @@
             "keywords": [
                 "templating"
             ],
-            "time": "2013-02-25 06:01:12"
+            "time": "2013-02-26 13:03:39"
         },
         {
             "name": "zenmagick/zencart",
