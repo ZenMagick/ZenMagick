@@ -20,18 +20,18 @@
  */
 ?>
 
-<?php $crumbtrail->addCrumb(_zm('Account'), $net->url('account'))->addCrumb(_zm('Addresses')) ?>
+<?php $crumbtrail->addCrumb(_zm('Account'), $net->generate('account'))->addCrumb(_zm('Addresses')) ?>
 <?php foreach ($addressList as $address) { ?>
     <fieldset>
         <legend><?php echo $html->encode($address->getFirstName() . ' ' . $address->getLastName()) ?>
         <?php echo ($address->isPrimary() ? _vzm("(primary)") : ''); ?></legend>
         <div class="btn">
             <?php if (!$address->isPrimary()) { ?>
-                <a class="btn" href="<?php echo $net->url('address_book_delete', array('id' => $address->getId())) ?>"><?php _vzm("Delete") ?></a>
+                <a class="btn" href="<?php echo $net->generate('address_book_delete', array('id' => $address->getId())) ?>"><?php _vzm("Delete") ?></a>
             <?php } ?>
-            <a class="btn" href="<?php echo $net->url('address_book_edit', array('id' => $address->getId())) ?>"><?php _vzm("Edit") ?></a>
+            <a class="btn" href="<?php echo $net->generate('address_book_edit', array('id' => $address->getId())) ?>"><?php _vzm("Edit") ?></a>
         </div>
         <?php echo $macro->formatAddress($address) ?>
     </fieldset>
 <?php } ?>
-<div class="btn"><a href="<?php echo $net->url('address_book_add') ?>" class="btn"><?php _vzm("Add Address") ?></a></div>
+<div class="btn"><a href="<?php echo $net->generate('address_book_add') ?>" class="btn"><?php _vzm("Add Address") ?></a></div>

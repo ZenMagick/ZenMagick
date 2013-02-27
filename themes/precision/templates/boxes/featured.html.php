@@ -21,7 +21,7 @@
 
 <?php $products = $container->get('productService')->getFeaturedProducts($request->attributes->get('categoryId'), 1, false, $session->getLanguageId()); ?>
 <?php if (1 == count($products)) { $product = $products[0]; ?>
-    <h2><?php _vzm("Featured") ?> <a href="<?php echo $net->url('featured_products') ?>"><?php _vzm("[More]") ?></a></h2>
+    <h2><?php _vzm("Featured") ?> <a href="<?php echo $net->generate('featured_products') ?>"><?php _vzm("[More]") ?></a></h2>
     <div id="sb_featured" class="box">
         <p><?php echo $html->productImageLink($product) ?></p>
         <p><a href="<?php echo $net->product($product->getId()) ?>"><?php echo $html->encode($product->getName()) ?></a></p>

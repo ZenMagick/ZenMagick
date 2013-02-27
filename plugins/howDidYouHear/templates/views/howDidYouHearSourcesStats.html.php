@@ -26,7 +26,7 @@
   <?php foreach ($resultList->getResults() as $line) { ?>
   <tr>
     <?php if (ID_SOURCE_OTHER == $line->getSourceId()) { ?>
-      <td><a href="<?php echo $net->url('howDidYouHearSourcesStats', array('other' => 'true')) ?>"><?php echo $html->encode($line->getName()) ?></a></td>
+      <td><a href="<?php echo $net->generate('howDidYouHearSourcesStats', array('other' => 'true')) ?>"><?php echo $html->encode($line->getName()) ?></a></td>
     <?php } else { ?>
       <td><?php echo $html->encode($line->getName()) ?></td>
     <?php } ?>
@@ -35,6 +35,6 @@
   <?php } ?>
 </table>
 <?php if ($isOther) { ?>
-  <p><a href="<?php echo $net->url('howDidYouHearSourcesStats') ?>" class="<?php echo $buttonClasses ?>"><?php _vzm('Back to overview') ?></a></p>
+  <p><a href="<?php echo $net->generate('howDidYouHearSourcesStats') ?>" class="<?php echo $buttonClasses ?>"><?php _vzm('Back to overview') ?></a></p>
 <?php } ?>
 <?php echo $this->fetch('pagination.html.php') ?>

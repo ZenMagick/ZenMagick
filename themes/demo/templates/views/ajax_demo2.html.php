@@ -21,7 +21,7 @@
 ?>
 
 <p>This is the second demo page illustrating checkout Ajax options in <em>ZenMagick</em>. For more details about Ajax in ZenMagick
-check out the <a href="<?php echo $net->url('ajax_demo') ?>">main Ajax demo</a>.</p>
+check out the <a href="<?php echo $net->generate('ajax_demo') ?>">main Ajax demo</a>.</p>
 
 <?php $resourceManager->jsFile('js/jquery.js', $resourceManager::NOW) ?>
 <?php $resourceManager->jsFile('js/jquery.form.js', $resourceManager::NOW) ?>

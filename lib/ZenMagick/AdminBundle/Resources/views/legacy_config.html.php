@@ -40,7 +40,7 @@ function _encodeAttribute($s) {
 
 $admin->title($group->getName()) ?>
 
-<form method="POST" action="<?php echo $net->url('legacy_config_process') ?>">
+<form method="POST" action="<?php echo $net->generate('legacy_config_process') ?>">
   <fieldset>
     <legend><?php echo sprintf(_zm('Config: %s'), $group->getName()) ?></legend>
     <table class="grid" width="80%">

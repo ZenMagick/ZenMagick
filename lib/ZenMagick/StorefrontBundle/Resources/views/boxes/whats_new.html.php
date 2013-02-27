@@ -24,7 +24,7 @@
 <?php if (1 == count($products)) {
     $product = $products[0];
     ?>
-    <h3><a href="<?php echo $net->url('products_new') ?>"><?php _vzm("[More]") ?></a><?php _vzm("New Products") ?></h3>
+    <h3><a href="<?php echo $net->generate('products_new') ?>"><?php _vzm("[More]") ?></a><?php _vzm("New Products") ?></h3>
     <div id="sb_newproducts" class="box">
         <p><?php echo $html->productImageLink($product) ?></p>
         <p><a href="<?php echo $net->product($product->getId()) ?>"><?php echo $html->encode($product->getName()) ?></a></p>

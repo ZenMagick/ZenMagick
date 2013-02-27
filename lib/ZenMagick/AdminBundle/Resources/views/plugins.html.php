@@ -74,7 +74,7 @@
         <td class="pactions">
           <?php /** TODO: install/remove via ajax */ ?>
           <?php $msg = ($plugin->isInstalled() ? 'Remove ' : 'Install ').'plugin: '.$plugin->getName(); ?>
-          <form action="<?php echo $net->url('plugins') ?>" method="POST" onsubmit="return ZenMagick.confirm('<?php echo $msg ?>', this);">
+          <form action="<?php echo $net->generate('plugins') ?>" method="POST" onsubmit="return ZenMagick.confirm('<?php echo $msg ?>', this);">
             <input type="hidden" name="pluginId" value="<?php echo $plugin->getId() ?>">
             <?php if (!$plugin->isInstalled()) { ?>
               <input type="hidden" name="action" value="install">
@@ -87,13 +87,13 @@
               <button class="<?php echo $buttonClasses ?>" type="submit"><?php _vzm('Uninstall') ?></button>
             </form>
             <?php $msg = sprintf(_zm('Upgrade plugin: %s?'), $plugin->getName()); ?>
-            <form action="<?php echo $net->url('plugins') ?>" method="POST" onsubmit="return ZenMagick.confirm('<?php echo $msg ?>', this);">
+            <form action="<?php echo $net->generate('plugins') ?>" method="POST" onsubmit="return ZenMagick.confirm('<?php echo $msg ?>', this);">
               <input type="hidden" name="pluginId" value="<?php echo $plugin->getId() ?>">
               <input type="hidden" name="action" value="upgrade">
               <button class="<?php echo $buttonClasses ?>" type="submit"><?php _vzm('Upgrade') ?></button>
             </form>
             <?php if ($plugin->hasOptions()) { /* enabled/disabled and sort order are handled by this page */ ?>
-              <a class="<?php echo $buttonClasses ?>" href="<?php echo $net->url($request->getRequestId(), array('ajax' => 'false', 'action' => 'edit', 'pluginId' => $plugin->getId())) ?>#<?php echo $plugin->getId() ?>" onclick="return ZenMagick.ajaxFormDialog(this.href, {title:'<?php echo sprintf(_zm('Edit Plugin Options: %s'), $plugin->getName()) ?>', formId: 'ajax-form'});"><?php _vzm('Edit') ?></a>
+              <a class="<?php echo $buttonClasses ?>" href="<?php echo $net->generate($request->getRequestId(), array('ajax' => 'false', 'action' => 'edit', 'pluginId' => $plugin->getId())) ?>#<?php echo $plugin->getId() ?>" onclick="return ZenMagick.ajaxFormDialog(this.href, {title:'<?php echo sprintf(_zm('Edit Plugin Options: %s'), $plugin->getName()) ?>', formId: 'ajax-form'});"><?php _vzm('Edit') ?></a>
             <?php } ?>
           <?php } ?>
         </td>
@@ -102,7 +102,7 @@
       <tr>
         <td><input type="checkbox" name="multi-update-toggle" value="" onclick="sync_all(this, 'multiUpdate[]')"></td>
         <td colspan="4">
-          <form action="<?php echo $net->url('plugins') ?>" method="POST" onsubmit="return collectIds(this, 'multiUpdate[]');">
+          <form action="<?php echo $net->generate('plugins') ?>" method="POST" onsubmit="return collectIds(this, 'multiUpdate[]');">
             <input type="hidden" name="multiPluginId" value="">
             <?php _vzm('With selected:') ?><select name="multiAction">
             <option value=""><?php _vzm(' -- Select -- ') ?></option>

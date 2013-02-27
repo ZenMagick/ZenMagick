@@ -22,19 +22,19 @@
       <ul>
         <?php
           $menu = array();
-          $menu[] = array($net->url('index'), _zm("Home"));
+          $menu[] = array($net->generate('index'), _zm("Home"));
           if ($session->isAnonymous()) {
-              $menu[] = array($net->url('login'), _zm("Login"));
+              $menu[] = array($net->generate('login'), _zm("Login"));
           }
           if ($session->isRegistered()) {
-              $menu[] = array($net->url('account'), _zm("Account"));
+              $menu[] = array($net->generate('account'), _zm("Account"));
           }
           if (!$session->isAnonymous()) {
-              $menu[] = array($net->url('logoff'), _zm("Logoff"));
+              $menu[] = array($net->generate('logoff'), _zm("Logoff"));
           }
           if (!$container->get('shoppingCart')->isEmpty() && !$isCheckout) {
-              $menu[] = array($net->url('shopping_cart'), _zm("Cart"));
-              $menu[] = array($net->url('checkout_shipping'), _zm("Checkout"));
+              $menu[] = array($net->generate('shopping_cart'), _zm("Cart"));
+              $menu[] = array($net->generate('checkout_shipping'), _zm("Checkout"));
           }
           foreach ($container->get('ezPageService')->getPagesForHeader($session->getLanguageId()) as $page) {
               $menu[] = array($html->ezpageLink($page->getId(), '<span>'.$html->encode($page->getTitle()).'</span>', array()));

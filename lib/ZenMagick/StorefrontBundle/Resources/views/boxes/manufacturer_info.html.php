@@ -30,7 +30,7 @@ use ZenMagick\Base\Toolbox;
             <div id="sb_manufacturer_info" class="box">
                 <?php
                 if ($manufacturer->hasImage()) {
-                    $url = $net->url('manufacturer', array('manufacturers_id' => $manufacturer->getId()));
+                    $url = $net->generate('manufacturer', array('manufacturers_id' => $manufacturer->getId()));
                     $target = '';
                     if (!Toolbox::isEmpty($manufacturer->getUrl())) {
                         $url = $net->trackLink('manufacturer', $manufacturer->getId());
@@ -38,11 +38,11 @@ use ZenMagick\Base\Toolbox;
                     }
                     ?><a href="<?php echo $url ?>"<?php echo $target ?>><?php echo $html->image($manufacturer->getImageInfo()) ?></a><?php
                     if (!Toolbox::isEmpty($manufacturer->getUrl())) {
-                        $url = $net->url('manufacturer', array('manufacturers_id' => $manufacturer->getId()));
+                        $url = $net->generate('manufacturer', array('manufacturers_id' => $manufacturer->getId()));
                         ?><a href="<?php echo $url ?>"<?php echo $target ?>><?php _vzm("Other Products") ?></a><?php
                     }
                 } else {
-                    $url = $net->url('manufacturer', array('manufacturers_id' => $manufacturer->getId()));
+                    $url = $net->generate('manufacturer', array('manufacturers_id' => $manufacturer->getId()));
                     $target = '';
                     $text = _zm("Other Products");
                     if (!Toolbox::isEmpty($manufacturer->getUrl())) {
@@ -52,7 +52,7 @@ use ZenMagick\Base\Toolbox;
                     }
                     ?><a href="<?php echo $url ?>"<?php echo $target ?>><?php echo $text ?></a><?php
                     if (!Toolbox::isEmpty($manufacturer->getUrl())) {
-                        $url = $net->url('manufacturer', array('manufacturers_id' => $manufacturer->getId()));
+                        $url = $net->generate('manufacturer', array('manufacturers_id' => $manufacturer->getId()));
                         ?><a href="<?php echo $url ?>"<?php echo $target ?>><?php _vzm("Other Products") ?></a><?php
                     }
                 } ?>

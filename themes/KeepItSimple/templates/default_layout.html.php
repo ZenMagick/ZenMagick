@@ -15,7 +15,7 @@
     <!-- header starts-->
     <div id="header-wrap"><div id="header" class="container_16">
 
-      <h1 id="logo-text"><a href="<?php echo $net->url('index') ?>" title="">ZenMagick</a></h1>
+      <h1 id="logo-text"><a href="<?php echo $net->generate('index') ?>" title="">ZenMagick</a></h1>
       <p id="intro">As simple as that!</p>
 
       <!-- navigation -->

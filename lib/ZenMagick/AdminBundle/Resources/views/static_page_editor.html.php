@@ -65,7 +65,7 @@ use ZenMagick\Base\Toolbox;
 
 <?php echo $this->fetch('messages.html.php'); ?>
 <?php $admin->title(_zm('Edit Define Pages')) ?></h1>
-<form action="<?php echo $net->url('static_page_editor') ?>" method="GET">
+<form action="<?php echo $net->generate('static_page_editor') ?>" method="GET">
   <input type="hidden" name="rid" value="static_page_editor">
   <h2>ZenMagick Static Page Editor (
           <select id="languageId" name="languageId" onchange="this.form.submit();">
@@ -114,7 +114,7 @@ use ZenMagick\Base\Toolbox;
   }
 </script>
 <?php if (null !== $editContents) { ?>
-  <form action="<?php echo $net->url('static_page_editor') ?>" method="POST">
+  <form action="<?php echo $net->generate('static_page_editor') ?>" method="POST">
     <input type="hidden" name="themeId" value="<?php echo $selectedThemeId ?>">
     <input type="hidden" name="file" value="<?php echo $selectedFile ?>">
     <input type="hidden" name="languageId" value="<?php echo $selectedLanguageId ?>">
@@ -131,7 +131,7 @@ use ZenMagick\Base\Toolbox;
 
     <br><br>
     <input class="<?php echo $buttonClasses ?>" type="submit" name="save" value="Save">
-    <a class="<?php echo $buttonClasses ?>" href="<?php echo $net->url('static_page_editor') ?>">Cancel</a>
+    <a class="<?php echo $buttonClasses ?>" href="<?php echo $net->generate('static_page_editor') ?>">Cancel</a>
     <a class="<?php echo $buttonClasses ?>" href="#" onclick="preview();return false;">Preview</a>
   </form>
 <?php } ?>

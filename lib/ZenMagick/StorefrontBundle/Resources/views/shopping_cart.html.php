@@ -28,7 +28,7 @@ if ($shoppingCart->isEmpty()) { ?>
             <tbody>
             <?php $odd = true; $first = true; foreach ($shoppingCart->getItems() as $item) { ?>
                 <tr class="<?php echo ($odd?"odd":"even").($first?" first":" other") ?>">
-                <td class="remove"><a href="<?php echo $net->url('cart.remove', array('productId' => $item->getId())) ?>"><img src="<?php echo $this->asUrl("images/small_delete.gif") ?>" alt="remove" /></a></td>
+                <td class="remove"><a href="<?php echo $net->generate('cart.remove', array('productId' => $item->getId())) ?>"><img src="<?php echo $this->asUrl("images/small_delete.gif") ?>" alt="remove" /></a></td>
                     <td class="img">
                         <?php echo $html->productImageLink($item->getProduct()) ?>
                         <?php echo $form->hiddenCartFields($item) ?>
@@ -72,10 +72,10 @@ if ($shoppingCart->isEmpty()) { ?>
         </table>
         <div class="btn">
             <input type="submit" class="btn" value="<?php _vzm("Update Cart") ?>" />
-            <a class="btn" href="<?php echo $net->url('checkout_shipping') ?>"><?php _vzm("Checkout") ?></a>
+            <a class="btn" href="<?php echo $net->generate('checkout_shipping') ?>"><?php _vzm("Checkout") ?></a>
         </div>
         <div>
-            <a class="btn" href="<?php echo $net->url('popup_shipping_estimator') ?>" onclick="popupWindow(this.href); return false;"><?php _vzm("Shipping Estimator") ?></a>
+            <a class="btn" href="<?php echo $net->generate('popup_shipping_estimator') ?>" onclick="popupWindow(this.href); return false;"><?php _vzm("Shipping Estimator") ?></a>
         </div>
 
         <?php echo $this->fetchBlockGroup('shoppingCart.options') ?>

@@ -24,4 +24,4 @@
 
 <h3><?php _vzm("The site is currently down for maintenance. Please try back later.") ?></h3>
 
-<p><a class="btn" href="<?php echo $net->url('index') ?>"><?php _vzm('Check status') ?></a></p>
+<p><a class="btn" href="<?php echo $net->generate('index') ?>"><?php _vzm('Check status') ?></a></p>

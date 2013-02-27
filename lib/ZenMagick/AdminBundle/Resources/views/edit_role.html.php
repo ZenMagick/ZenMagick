@@ -19,7 +19,7 @@
  */
 ?>
 
-<form id="ajax-form" action="<?php echo $net->url('edit_role') ?>" method="POST">
+<form id="ajax-form" action="<?php echo $net->generate('edit_role') ?>" method="POST">
   <input type="hidden" name="role" value="<?php echo $role ?>">
 
   <table class="grid">

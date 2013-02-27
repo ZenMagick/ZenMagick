@@ -32,7 +32,7 @@
 
 <?php $admin->title(_zm('Theme Builder')) ?></h1>
 
-<form action="<?php echo $net->url('theme_builder') ?>" method="POST" onsubmit="return ZenMagick.confirm('_vzm('Create theme?')', this);">
+<form action="<?php echo $net->generate('theme_builder') ?>" method="POST" onsubmit="return ZenMagick.confirm('_vzm('Create theme?')', this);">
   <fieldset>
   <legend><?php _vzm("Create new ZenMagick Theme") ?></legend>
 
@@ -45,7 +45,7 @@
   </fieldset>
 </form>
 
-<?php $link = '<a href="'.$net->url('installation').'">'._zm('installation').'</a>'; ?>
+<?php $link = '<a href="'.$net->generate('installation').'">'._zm('installation').'</a>'; ?>
 <p><?php echo sprintf(_zm('Once you have created the new theme, make sure to (re-)generate the required dummy theme files for zen-cart
   using the %s screen.'), $link) ?></p>
 

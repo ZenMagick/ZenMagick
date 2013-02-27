@@ -20,7 +20,7 @@
  */
 ?>
 
-<?php $crumbtrail->addCrumb("Account", $net->url('account'))->addCrumb(_zm('Order History')) ?>
+<?php $crumbtrail->addCrumb("Account", $net->generate('account'))->addCrumb(_zm('Order History')) ?>
 
 <?php if ($resultList->hasResults()) { ?>
     <div class="rnblk">

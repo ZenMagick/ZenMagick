@@ -47,7 +47,7 @@
 </script>
 
 <?php if (!$isCheckout) { ?>
-<h3><a href="<?php echo $net->url('shopping_cart') ?>"><?php _vzm("[More]") ?></a><?php _vzm("Shopping Cart") ?></h3>
+<h3><a href="<?php echo $net->generate('shopping_cart') ?>"><?php _vzm("[More]") ?></a><?php _vzm("Shopping Cart") ?></h3>
     <div id="sb_cart" class="box">
         <?php if ($container->get('shoppingCart')->isEmpty()) { ?>
             <?php _vzm("Cart is Empty") ?>

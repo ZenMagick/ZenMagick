@@ -20,7 +20,7 @@
 $admin->title(_zm('Themes')) ?>
 
 <h2><?php _vzm('Manage Themes') ?></h2>
-<form action="<?php echo $net->url('themes') ?>" method="POST">
+<form action="<?php echo $net->generate('themes') ?>" method="POST">
   <table class="grid">
     <tr>
       <th><?php _vzm('Theme') ?></th>

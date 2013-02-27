@@ -6,7 +6,7 @@
       <input type="text" name="keywords" id="keywords" size="15" value="<?php echo $html->encode($request->query->get('keywords', KEYWORD_DEFAULT)) ?>" onfocus="<?php echo $onfocus ?>" />
       <br />
       <input name="submit" type="submit" value="Search" id="submit" />
-      <a class="clear" href="<?php echo $net->url('advanced_search') ?>"><?php _vzm("Advanced Search") ?></a>
+      <a class="clear" href="<?php echo $net->generate('advanced_search') ?>"><?php _vzm("Advanced Search") ?></a>
     </div>
   </form>
 </div>

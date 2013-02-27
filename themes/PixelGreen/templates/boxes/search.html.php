@@ -27,7 +27,7 @@
         <?php $onfocus = "if(this.value=='" . KEYWORD_DEFAULT . "') this.value='';" ?>
         <input name="keywords" class="textbox" type="text" value="<?php echo $html->encode($request->query->get('keywords', KEYWORD_DEFAULT)) ?>" onfocus="<?php echo $onfocus ?>" />
         <input name="search" class="button" value="Search" type="submit" /><br />
-        <a href="<?php echo $net->url('advanced_search') ?>"><?php _vzm("Advanced Search") ?></a>
+        <a href="<?php echo $net->generate('advanced_search') ?>"><?php _vzm("Advanced Search") ?></a>
       </p>
     </form>
 <?php } ?>

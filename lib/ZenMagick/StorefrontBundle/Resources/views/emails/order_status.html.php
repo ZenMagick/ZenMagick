@@ -31,9 +31,9 @@
 
 <p><?php _vzm("This is to inform you that your order #%s has been updated.", $currentOrder->getId()) ?></p>
 <?php if (ZenMagick\StoreBundle\Entity\Account::REGISTERED == $currentAccount->getType()) {
-    $href = '<a href="'.$net->absoluteUrl($net->url('account_history_info', array('order_id', $currentOrder->getId())), true, true).'">'.sprintf(_zm("order #%s"), $currentOrder->getId()).'</a>';
+    $href = '<a href="'.$net->absoluteUrl($net->generate('account_history_info', array('order_id', $currentOrder->getId())), true, true).'">'.sprintf(_zm("order #%s"), $currentOrder->getId()).'</a>';
 } else {
-    $href = '<a href="'.$net->absoluteUrl($net->url('guest_history'), true, true).'">'.sprintf(_zm("order #%s"), $currentOrder->getId()).'</a>';
+    $href = '<a href="'.$net->absoluteUrl($net->generate('guest_history'), true, true).'">'.sprintf(_zm("order #%s"), $currentOrder->getId()).'</a>';
 } ?>
 <p><?php _vzm("More details can be found at the following URL: %s", $href) ?></p>
 

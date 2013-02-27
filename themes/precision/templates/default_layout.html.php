@@ -21,7 +21,7 @@ Released   : 20081126
     <?php define('KEYWORD_DEFAULT', _zm("enter search")); ?>
     <div id="header">
       <div id="logo">
-        <h1><a href="<?php echo $net->url('index') ?>">ZenMagick</a></h1>
+        <h1><a href="<?php echo $net->generate('index') ?>">ZenMagick</a></h1>
         <h2>As simple as that!</h2>
       </div>
       <div id="menu">

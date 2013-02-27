@@ -20,7 +20,7 @@
  */
 ?>
 
-<?php $crumbtrail->addCrumb(_zm('Account'), $net->url('account'))->addCrumb(_zm('Change Password')) ?>
+<?php $crumbtrail->addCrumb(_zm('Account'), $net->generate('account'))->addCrumb(_zm('Change Password')) ?>
 
 <?php echo $form->open('account_password', '', true, array('id'=>'account_password')) ?>
     <fieldset>

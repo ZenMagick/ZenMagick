@@ -23,7 +23,7 @@
 <?php if (!isset($currentProduct) && 'specials' != $request->getRequestId()) { ?>
     <?php $products = $container->get('productService')->getSpecials(1, $session->getLanguageId()); ?>
     <?php if (0 != count($products)) { $product = $products[0]; ?>
-        <h3><a href="<?php echo $net->url('specials') ?>"><?php _vzm("[More]") ?></a><?php _vzm("Specials") ?></h3>
+        <h3><a href="<?php echo $net->generate('specials') ?>"><?php _vzm("[More]") ?></a><?php _vzm("Specials") ?></h3>
         <div id="sb_specials" class="box">
             <p><?php echo $html->productImageLink($product) ?></p>
             <p><a href="<?php echo $net->product($product->getId()) ?>"><?php echo $html->encode($product->getName()) ?></a></p>

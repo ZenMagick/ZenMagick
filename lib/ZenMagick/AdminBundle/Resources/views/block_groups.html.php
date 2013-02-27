@@ -27,18 +27,18 @@
     <tr>
       <td><?php echo $groupName ?></td>
       <td>
-      <form class="button-form" action="<?php echo $net->url('block_groups') ?>" method="POST" onsubmit="return ZenMagick.confirm('<?php _vzm("Remove group '%s'", $groupName) ?>', this);">
+      <form class="button-form" action="<?php echo $net->generate('block_groups') ?>" method="POST" onsubmit="return ZenMagick.confirm('<?php _vzm("Remove group '%s'", $groupName) ?>', this);">
           <input type="hidden" name="groupName" value="<?php echo $groupName ?>">
           <input type="hidden" name="action" value="removeGroup">
           <input type="submit" class="<?php echo $buttonClasses ?>" value="Remove">
         </form>
-        <a href="<?php echo $net->url('block_group_admin', array('groupName' => $groupName)) ?>" class="<?php echo $buttonClasses ?>"><?php _vzm('Configure') ?></a>
+        <a href="<?php echo $net->generate('block_group_admin', array('groupName' => $groupName)) ?>" class="<?php echo $buttonClasses ?>"><?php _vzm('Configure') ?></a>
       </td>
     </tr>
   <?php } ?>
   <tr>
     <td colspan="2">
-      <form action="<?php echo $net->url('block_groups') ?>" method="POST">
+      <form action="<?php echo $net->generate('block_groups') ?>" method="POST">
         <input type="hidden" name="action" value="addGroup">
         <input type="text" id="groupName" name="groupName" value="">
         <input type="submit" class="<?php echo $buttonClasses ?>" value="Add group">

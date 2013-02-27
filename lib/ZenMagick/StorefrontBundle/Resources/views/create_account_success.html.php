@@ -20,8 +20,8 @@
  */
 ?>
 
-<?php $email = '<a href="' . $net->url('contact_us') . '">' . _zm("store owner") . '</a>'; ?>
-<?php $contactus = '<a href="' . $net->url('contact_us') . '">' . _zm("contact us") . '</a>'; ?>
+<?php $email = '<a href="' . $net->generate('contact_us') . '">' . _zm("store owner") . '</a>'; ?>
+<?php $contactus = '<a href="' . $net->generate('contact_us') . '">' . _zm("contact us") . '</a>'; ?>
 <h3><?php _vzm("Congratulations!" ) ?></h3>
 <p><?php _vzm("Your new account has been successfully created! You can now take advantage of member privileges to enhance your online shopping experience with us.") ?></p>
 <p><?php _vzm("If you have <small><strong>ANY</strong></small> questions about the operation of this online shop, please email the %s.", $email) ?></p>

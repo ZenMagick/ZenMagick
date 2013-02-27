@@ -20,7 +20,7 @@
  */
 ?>
 
-<?php $crumbtrail->addCrumb(_zm('Account'), $net->url('account'))->addCrumb(_zm('Addresses'), $net->url('address_book'))->addCrumb(_zm('Edit')) ?>
+<?php $crumbtrail->addCrumb(_zm('Account'), $net->generate('account'))->addCrumb(_zm('Addresses'), $net->generate('address_book'))->addCrumb(_zm('Edit')) ?>
 <?php echo $form->open('address_book_edit', '', true) ?>
     <?php echo $this->fetch('address.html.php'); ?>
     <div class="btn"><input type="submit" class="btn" value="<?php _vzm("Update") ?>" /></div>
