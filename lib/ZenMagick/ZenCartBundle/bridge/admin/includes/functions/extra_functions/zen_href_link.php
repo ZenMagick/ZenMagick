@@ -28,7 +28,7 @@ use ZenMagick\Base\Runtime;
  */
 function zen_href_link($page='', $params='', $transport='NONSSL', $addSessionId=true, $seo=true, $isStatic=false, $useContext=true)
 {
-    $net = Runtime::getContainer()->get('netTool');
+    $router = Runtime::getContainer()->get('router');
     $page = str_replace('.php', '', $page);
 
     if (false !== strpos($page, '?')) {
@@ -36,11 +36,12 @@ function zen_href_link($page='', $params='', $transport='NONSSL', $addSessionId=
         $params .= $pageParams;
     }
     parse_str($params, $tmp);
-    $params = http_build_query($tmp);
+
+    $params = $tmp;
     try {
-        return $net->url('zc_admin_'.$page, $params);
+        return $router->generate('zc_admin_'.$page, $params);
      } catch (\Symfony\Component\Routing\Exception\RouteNotFoundException $e) {
      }
     // try without
-    return $net->url($page, $params);
+    return $router->generate($page, $params);
 }
