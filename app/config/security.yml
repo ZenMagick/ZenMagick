@@ -66,3 +66,19 @@ security:
         - { path: ^/admin/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/admin/reset-password, roles: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/admin, roles: ROLE_ADMIN }
+# These rules match the defaults in zenmagick for SSL link enforcement.
+# that were previously provided by the SACS library.
+#
+# @todo enable by default? 
+#
+#        - { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY, requires_channel: https }
+#        - { path: ^/account/register, roles: IS_AUTHENTICATED_ANONYMOUSLY, requires_channel: https }
+#        - { path: ^/account/password/recover, roles: IS_AUTHENTICATED_ANONYMOUSLY, requires_channel: https }
+#        - { path: ^/account, roles: ROLE_REGISTERED, requires_channel: https }
+#        - { path: ^/cart, roles: IS_AUTHENTICATED_ANONYMOUSLY, requires_channel: https }
+#        - { path: ^/checkout, roles: ROLE_GUEST, requires_channel: https }
+#        - { path: ^/guest-history, roles: IS_AUTHENTICATED_ANONYMOUSLY, requires_channel: https }
+#        - { path: ^/gift-voucher, roles: ROLE_GUEST, requires_channel: https }
+
+
+
