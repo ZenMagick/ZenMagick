@@ -67,16 +67,6 @@ class ZMPhpEngine extends ZMObject implements EngineInterface
     }
 
     /**
-     * {@inheritDoc}
-     */
-    public function exists($template)
-    {
-        $path = $this->view->getResourceResolver()->findResource($template, View::TEMPLATE);
-
-        return !empty($path);
-    }
-
-    /**
      * Fetch/evaluate the given template.
      *
      * <p>Alias for render().</p>
