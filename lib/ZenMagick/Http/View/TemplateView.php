@@ -21,7 +21,6 @@ namespace ZenMagick\Http\View;
 
 use Exception;
 use Symfony\Component\Templating\DelegatingEngine;
-use ZenMagick\Base\Runtime;
 use ZenMagick\Base\ZMException;
 use ZenMagick\Base\ZMObject;
 use ZenMagick\Http\Request;
@@ -42,7 +41,6 @@ class TemplateView extends ZMObject implements View
     private $template;
     private $request;
     private $contentType;
-    private $encoding;
 
     /**
      * Create new instance.
@@ -55,7 +53,6 @@ class TemplateView extends ZMObject implements View
         $this->template = null;
         $this->request = null;
         $this->contentType = 'text/html';
-        $this->encoding = Runtime::getSettings()->get('zenmagick.http.html.charset', 'utf-8');
     }
 
     /**
@@ -76,26 +73,6 @@ class TemplateView extends ZMObject implements View
     public function setContentType($contentType)
     {
         $this->contentType = $contentType;
-    }
-
-    /**
-     * Get the encoding for this view.
-     *
-     * @return string The encoding.
-     */
-    public function getEncoding()
-    {
-        return $this->encoding;
-    }
-
-    /**
-     * Set the encoding for this view.
-     *
-     * @param string encoding The encoding.
-     */
-    public function setEncoding($encoding)
-    {
-        $this->encoding = $encoding;
     }
 
     /**
