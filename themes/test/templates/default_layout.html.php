@@ -28,12 +28,12 @@
     <?php $resourceManager->jsFile('js/common.js', $resourceManager::FOOTER) ?>
     <?php $resourceManager->jsFile('//ajax.googleapis.com/ajax/libs/jquery/1.6.1/jquery.min.js', $resourceManager::HEADER) ?>
     <?php /* give other themes the chance to add to the default CSS without having to copy everything */ ?>
-    <?php if ($this->exists("resource:css/theme.css")) { ?>
+    <?php if ($resourceResolver->exists("resource:css/theme.css", $templateView::RESOURCE)) { ?>
         <?php $resourceManager->cssFile('css/theme.css') ?>
     <?php } ?>
     <?php $pageCSS = "css/".$request->getRequestId().".css"; ?>
     <?php /* page specific CSS */ ?>
-    <?php if ($this->exists('resource:'.$pageCSS)) { ?>
+    <?php if ($resourceResolver->exists('resource:'.$pageCSS, $templateView::RESOURCE)) { ?>
         <?php $resourceManager->cssFile($pageCSS) ?>
     <?php } ?>
     <?php if (!$templateManager->isLeftColEnabled() || !$templateManager->isRightColEnabled()) { ?>

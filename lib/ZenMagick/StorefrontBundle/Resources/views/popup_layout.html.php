@@ -26,12 +26,12 @@
     <?php echo $this->render('StorefrontBundle::head.html.php'); ?>
     <?php $resourceManager->cssFile('css/popup.css') ?>
     <?php /* give other themes the chance to add to the default CSS without having to copy everything */ ?>
-    <?php if ($this->exists("theme.css")) { ?>
+    <?php if ($resourceResolver->exists('themes.css', $templateView::RESOURCE)) { ?>
         <?php $resourceManager->cssFile('css/theme.css') ?>
     <?php } ?>
     <?php $pageCSS = "css/".$request->getRequestId().".css"; ?>
     <?php /* page specific CSS */ ?>
-    <?php if ($this->exists('resource:'.$pageCSS)) { ?>
+    <?php if ($resourceResolver->exists('resource:'.$pageCSS, $templateView::RESOURCE)) { ?>
         <?php $resourceManager->cssFile($pageCSS) ?>
     <?php } ?>
   </head>
