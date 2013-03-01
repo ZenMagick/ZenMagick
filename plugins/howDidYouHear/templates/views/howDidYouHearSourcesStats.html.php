@@ -29,7 +29,7 @@
   <?php foreach ($resultList->getResults() as $line) { ?>
   <tr>
     <?php if (ID_SOURCE_OTHER == $line->getSourceId()) { ?>
-      <td><a href="<?php echo $net->generate('howDidYouHearSourcesStats', array('other' => 'true')) ?>"><?php echo $view->escape($line->getName()) ?></a></td>
+      <td><a href="<?php echo $view['router']->generate('howDidYouHearSourcesStats', array('other' => 'true')) ?>"><?php echo $view->escape($line->getName()) ?></a></td>
     <?php } else { ?>
       <td><?php echo $view->escape($line->getName()) ?></td>
     <?php } ?>
@@ -38,6 +38,6 @@
   <?php } ?>
 </table>
 <?php if ($isOther) { ?>
-  <p><a href="<?php echo $net->generate('howDidYouHearSourcesStats') ?>" class="<?php echo $buttonClasses ?>"><?php _vzm('Back to overview') ?></a></p>
+  <p><a href="<?php echo $view['router']->generate('howDidYouHearSourcesStats') ?>" class="<?php echo $buttonClasses ?>"><?php _vzm('Back to overview') ?></a></p>
 <?php } ?>
 <?php echo $this->render('AdminBundle::pagination.html.php') ?>

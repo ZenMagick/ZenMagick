@@ -18,7 +18,7 @@ The plugin contains a folder wp that contains example view templates to illustra
 are done. The blog index url is something like ../index.php?main_page=wp.
 In templates it may be generated using the toolbox with:
 
-  $net->generate('wp_$pagename')
+  $view['router']->generate('wp', array('page' => $pagename));
 
 
 Views

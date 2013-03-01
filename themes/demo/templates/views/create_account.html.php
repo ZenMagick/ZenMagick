@@ -25,7 +25,7 @@ $resourceManager->jsFile('js/jquery.js', $resourceManager::NOW) ?>
 <?php /*=== include to allow PHP execution in ZM context ==*/ ?>
 <script type="text/javascript"><?php echo $this->render('StorefrontBundle::dynamicState.js.php') ?></script>
 
-<?php $crumbtrail->addCrumb(_zm('Account'), $net->generate('account'))->addCrumb(_zm('Create Account')) ?>
+<?php $crumbtrail->addCrumb(_zm('Account'), $view['router']->generate('account'))->addCrumb(_zm('Create Account')) ?>
 <?php echo $form->open('create_account', '', true, array('id'=>'registration')) ?>
     <?php if ($settingsService->get('isPrivacyMessage')) { ?>
         <fieldset>

@@ -25,10 +25,10 @@
     <h2><?php _vzm("Thanks for shopping with us") ?></h2>
     <p><?php _vzm("Your order number is: <strong>%s</strong>", $currentOrder->getId()) ?></p>
     <?php if ($session->isRegistered()) { ?>
-        <?php $account = '<a href="' . $net->generate('account') . '">' . _zm("My Account") . '</a>'; ?>
+        <?php $account = '<a href="' . $view['router']->generate('account') . '">' . _zm("My Account") . '</a>'; ?>
         <p><?php _vzm("You can view your full order history by going to the %s page and by clicking on view all orders.", $account) ?></p>
     <?php } ?>
-    <?php $customercare = '<a href="' . $net->generate('contact_us') . '">' . _zm("Customer Service") . '</a>'; ?>
+    <?php $customercare = '<a href="' . $view['router']->generate('contact_us') . '">' . _zm("Customer Service") . '</a>'; ?>
     <p><?php _vzm("Please direct any questions you have to %s.", $customercare) ?></p>
 
     <?php if (!empty($productsToSubscribe)) { ?>
@@ -63,7 +63,7 @@
                       <th><?php echo $view->escape($download->getFilename()) ?></th>
                       <th><?php echo $download->getFileSize() ?> bytes</th>
                       <th><?php echo $download->getDownloadCount() ?></th>
-                      <th><a href="<?php echo $net->generate('download', array('order' => $currentOrder->getId(), 'id' => $download->getId())) ?>"><?php _vzm('Download') ?></a></th>
+                      <th><a href="<?php echo $view['router']->generate('download', array('order' => $currentOrder->getId(), 'id' => $download->getId())) ?>"><?php _vzm('Download') ?></a></th>
                   </tr>
               <?php } ?>
             </table>
@@ -76,10 +76,10 @@
             <legend><?php _vzm("Gift Certificate Account") ?></legend>
             <p>
                 <?php _vzm("You have funds (%s) in your Gift Certificate Account.", $utils->formatMoney($voucherBalance)) ?><br />
-                <?php $email = '<a href="' . $net->generate('gv_send') . '">' . _zm("email") . '</a>'; ?>
+                <?php $email = '<a href="' . $view['router']->generate('gv_send') . '">' . _zm("email") . '</a>'; ?>
                 <?php _vzm("If you want to, you can send those funds by %s to someone.", $email) ?>
             </p>
-            <div class="btn"><a href="<?php echo $net->generate('gv_send') ?>" class="btn"><?php _vzm("Send Gift Certificate") ?></a></div>
+            <div class="btn"><a href="<?php echo $view['router']->generate('gv_send') ?>" class="btn"><?php _vzm("Send Gift Certificate") ?></a></div>
         </fieldset>
     <?php } ?>
 
@@ -87,7 +87,7 @@
         <fieldset>
             <legend><?php _vzm("Order Status Check") ?></legend>
             <p>
-                <?php $lookupLink = '<a href="' . $net->generate('guest_history') . '">' . _zm("order status check") . '</a>'; ?>
+                <?php $lookupLink = '<a href="' . $view['router']->generate('guest_history') . '">' . _zm("order status check") . '</a>'; ?>
                 <?php _vzm("You can check the status of your order using the %s.", $lookupLink) ?>
             </p>
         </fieldset>

@@ -21,7 +21,7 @@
 <?php $view->extend('AdminBundle::default_layout.html.php'); ?>
 <?php $admin->title(_zm('Edit User Details')) ?>
 
-<form action="<?php echo $net->generate('edit_admin_user') ?>" method="POST">
+<form action="<?php echo $view['router']->generate('edit_admin_user') ?>" method="POST">
   <input type="hidden" name="adminUserId" value="<?php echo $adminUser->getAdminUserId() ?>">
   <table>
     <tr>
@@ -54,6 +54,6 @@
   </table>
   <p>
     <input type="submit" class="<?php echo $buttonClasses ?>" value="<?php _vzm((0 < $adminUser->getAdminUserId()) ? "Update" : "Create") ?>">
-    <a class="<?php echo $buttonClasses ?>" href="<?php echo $net->generate('admin_users') ?>"><?php _vzm('Cancel') ?></a>
+    <a class="<?php echo $buttonClasses ?>" href="<?php echo $view['router']->generate('admin_users') ?>"><?php _vzm('Cancel') ?></a>
   </p>
 </form>

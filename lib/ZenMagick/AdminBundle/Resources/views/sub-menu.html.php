@@ -33,7 +33,7 @@ if (!$app->getUser()) return;
     if (false && null != ($current = $adminMenu->getItemForRequestId($request->getRequestId()))) {
       foreach ($current->getAlias() as $alias) {
         if ($request->getRequestId() == $alias) {
-          echo "alias = '".$net->generate($current->getRoute(), true?'':$current->getRouteParameters())."'";
+          echo "alias = '".$view['router']->generate($current->getRoute(), true?'':$current->getRouteParameters())."'";
         }
       }
     }

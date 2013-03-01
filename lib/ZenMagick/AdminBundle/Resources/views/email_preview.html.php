@@ -43,14 +43,14 @@
       <?php
         $textLink = null;
         if (array_key_exists('text', $formats)) {
-            $textLink = '<a class="plink" target="_blank" href="'.$net->generate('email_preview', array('template' => $template, 'format' => 'text', 'type' => $formats['text'])).'">'._zm('Text').'</a>';
+            $textLink = '<a class="plink" target="_blank" href="'.$view['router']->generate('email_preview', array('template' => $template, 'format' => 'text', 'type' => $formats['text'])).'">'._zm('Text').'</a>';
         }
       ?>
       <td><?php echo (null != $textLink ? $textLink : '') ?></td>
       <?php
         $htmlLink = null;
         if (array_key_exists('html', $formats)) {
-            $htmlLink = '<a class="plink" target="_blank" href="'.$net->generate('email_preview', array('template' => $template, 'format' => 'html', 'type' => $formats['html'])).'">'._zm('HTML').'</a>';
+            $htmlLink = '<a class="plink" target="_blank" href="'.$view['router']->generate('email_preview', array('template' => $template, 'format' => 'html', 'type' => $formats['html'])).'">'._zm('HTML').'</a>';
         }
       ?>
       <td><?php echo (null != $htmlLink ? $htmlLink : '') ?></td>

@@ -27,6 +27,6 @@
 
 <p><?php _vzm("If you were placing an order, please login and your shopping cart will be restored. You may then go back to the checkout and complete your final purchases.") ?></p>
 
-<p><?php _vzm("If you had completed an order and wish to review it, or had a download and wish to retrieve it, please go to your <a href=\"%s\">My Account</a> page to view your order.", $net->generate('account')) ?></p>
+<p><?php _vzm("If you had completed an order and wish to review it, or had a download and wish to retrieve it, please go to your <a href=\"%s\">My Account</a> page to view your order.", $view['router']->generate('account')) ?></p>
 
 <?php require("login.php"); ?>

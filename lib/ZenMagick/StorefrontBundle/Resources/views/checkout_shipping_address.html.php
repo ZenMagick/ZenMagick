@@ -21,7 +21,7 @@
 ?>
 <?php $view->extend('StorefrontBundle::default_layout.html.php'); ?>
 
-<?php $crumbtrail->addCrumb(_zm('Checkout'), $net->generate('checkout_shipping'))->addCrumb(_zm('Shipping Address')) ?>
+<?php $crumbtrail->addCrumb(_zm('Checkout'), $view['router']->generate('checkout_shipping'))->addCrumb(_zm('Shipping Address')) ?>
 <?php $currentAddress = $shoppingCart->getShippingAddress(); ?>
 <?php if (0 < count($addressList)) { ?>
     <?php echo $form->open('checkout_shipping_address', 'action=select', true) ?>

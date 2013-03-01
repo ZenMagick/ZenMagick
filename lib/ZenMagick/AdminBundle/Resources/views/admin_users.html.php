@@ -31,10 +31,10 @@
   <?php foreach ($resultList->getResults() as $adminUser) { ?>
     <tr>
       <td><?php echo $adminUser->getId() ?></td>
-      <td><a href="<?php echo $net->generate('edit_admin_user', array('adminUserId' => $adminUser->getId())) ?>"><?php echo $adminUser->getUsername() ?></a></td>
+      <td><a href="<?php echo $view['router']->generate('edit_admin_user', array('adminUserId' => $adminUser->getId())) ?>"><?php echo $adminUser->getUsername() ?></a></td>
       <td><?php echo $adminUser->getEmail() ?></td>
       <td>
-        <form action="<?php echo $net->generate('edit_admin_user') ?>" method="post">
+        <form action="<?php echo $view['router']->generate('edit_admin_user') ?>" method="post">
           <input type="hidden" name="deleteUserId" value="<?php echo $adminUser->getId() ?>">
           <input class="<?php echo $buttonClasses ?>" type="submit" value="<?php _vzm("Delete") ?>">
         </form>
@@ -42,5 +42,5 @@
     </tr>
   <?php } ?>
 </table>
-<p><a class="<?php echo $buttonClasses ?>" href="<?php echo $net->generate('edit_admin_user') ?>"><?php _vzm('Add User') ?></a></p>
+<p><a class="<?php echo $buttonClasses ?>" href="<?php echo $view['router']->generate('edit_admin_user') ?>"><?php _vzm('Add User') ?></a></p>
 <?php echo $this->render('AdminBundle::pagination.html.php'); ?>

@@ -20,7 +20,7 @@
  */
 ?>
 <?php $view->extend('StorefrontBundle::default_layout.html.php'); ?>
-<?php $crumbtrail->addCrumb(_zm('Account'), $net->generate('account'))->addCrumb(_zm('Edit Account')) ?>
+<?php $crumbtrail->addCrumb(_zm('Account'), $view['router']->generate('account'))->addCrumb(_zm('Edit Account')) ?>
 <?php echo $form->open('account_edit', '', true, array('id'=>'account')) ?>
     <fieldset>
         <legend><?php _vzm("My Account") ?></legend>

@@ -36,7 +36,7 @@
 <?php echo $html->text2html($gvReceiver->getMessage()) ?>
 </p>
 <?php } ?>
-<?php $href = '<a href="'.$net->generate('gv_redeem', array('couponCode' => $currentCoupon->getCode()), true).'">'.$settingsService->get('storeName').'</a>'; ?>
+<?php $href = '<a href="'.$view['router']->generate('gv_redeem', array('couponCode' => $currentCoupon->getCode()), true).'">'.$settingsService->get('storeName').'</a>'; ?>
 <p><?php _vzm("To redeem your gift, visit %s.", $href) ?></p>
 
 <?php if (!isset($isSupressDisclaimer)) { echo $utils->staticPageContent('email_advisory'); } ?>

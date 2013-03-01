@@ -21,19 +21,19 @@
 ?>
 <div id="menu">
   <ul>
-    <li class="first"><a href="<?php echo $net->generate('index'); ?>"><?php _vzm("HOME") ?></a></li>
+    <li class="first"><a href="<?php echo $view['router']->generate('index'); ?>"><?php _vzm("HOME") ?></a></li>
     <?php if ($session->isAnonymous()) { ?>
-        <li><a href="<?php echo $net->generate('login'); ?>"><?php _vzm("LOGIN") ?></a></li>
+        <li><a href="<?php echo $view['router']->generate('login'); ?>"><?php _vzm("LOGIN") ?></a></li>
     <?php } ?>
     <?php if ($session->isRegistered()) { ?>
-        <li><a href="<?php echo $net->generate('account'); ?>"><?php _vzm("ACCOUNT") ?></a></li>
+        <li><a href="<?php echo $view['router']->generate('account'); ?>"><?php _vzm("ACCOUNT") ?></a></li>
     <?php } ?>
     <?php if (!$session->isAnonymous()) { ?>
-        <li><a href="<?php echo $net->generate('logoff'); ?>"><?php _vzm("LOGOFF") ?></a></li>
+        <li><a href="<?php echo $view['router']->generate('logoff'); ?>"><?php _vzm("LOGOFF") ?></a></li>
     <?php } ?>
     <?php if (!$container->get('shoppingCart')->isEmpty() && !$isCheckout) { ?>
-        <li><a href="<?php echo $net->generate('shopping_cart'); ?>"><?php _vzm("SHOPPING CART") ?></a></li>
-        <li><a href="<?php echo $net->generate('checkout_shipping'); ?>"><?php _vzm("CHECKOUT") ?></a></li>
+        <li><a href="<?php echo $view['router']->generate('shopping_cart'); ?>"><?php _vzm("SHOPPING CART") ?></a></li>
+        <li><a href="<?php echo $view['router']->generate('checkout_shipping'); ?>"><?php _vzm("CHECKOUT") ?></a></li>
     <?php } ?>
     <?php foreach ($container->get('ezPageService')->getPagesForHeader($session->getLanguageId()) as $page) { ?>
         <li><?php echo $html->ezpageLink($page->getId()) ?></li>

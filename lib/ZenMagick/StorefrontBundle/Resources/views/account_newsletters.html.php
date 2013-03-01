@@ -21,7 +21,7 @@
 ?>
 <?php $view->extend('StorefrontBundle::default_layout.html.php'); ?>
 
-<?php $crumbtrail->addCrumb(_zm('Account'), $net->generate('account'))->addCrumb(_zm('Newsletter')) ?>
+<?php $crumbtrail->addCrumb(_zm('Account'), $view['router']->generate('account'))->addCrumb(_zm('Newsletter')) ?>
 <p><?php _vzm("Including store news, new products, special offers, and other promotional announcements.") ?></p>
 <?php echo $form->open('account_newsletters', '', true, array('onsubmit'=>null)) ?>
     <fieldset>

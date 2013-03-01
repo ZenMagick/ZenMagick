@@ -20,7 +20,7 @@
  */
 ?>
 <?php $view->extend('StorefrontBundle::default_layout.html.php'); ?>
-<?php $crumbtrail->addCrumb(_zm('Account'), $net->generate('account'))->addCrumb(_zm('Addresses'), $net->generate('address_book'))->addCrumb(_zm('New')) ?>
+<?php $crumbtrail->addCrumb(_zm('Account'), $view['router']->generate('account'))->addCrumb(_zm('Addresses'), $view['router']->generate('address_book'))->addCrumb(_zm('New')) ?>
 
 <?php echo $form->open('address_book_add', '', true, array('id'=>'address')) ?>
     <?php echo $this->render('StorefrontBundle::address.html.php') ?>

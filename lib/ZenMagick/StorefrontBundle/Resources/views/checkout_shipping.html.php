@@ -21,11 +21,11 @@
 ?>
 <?php $view->extend('StorefrontBundle::default_layout.html.php'); ?>
 
-<?php $crumbtrail->addCrumb(_zm('Checkout'), $net->generate('checkout_shipping'))->addCrumb(_zm('Shipping')) ?>
+<?php $crumbtrail->addCrumb(_zm('Checkout'), $view['router']->generate('checkout_shipping'))->addCrumb(_zm('Shipping')) ?>
 <fieldset>
     <legend><?php _vzm("Shipping Address") ?></legend>
     <div class="btn">
-        <a class="btn" href="<?php echo $net->generate('checkout_shipping_address') ?>"><?php _vzm("Change Shipping Address") ?></a>
+        <a class="btn" href="<?php echo $view['router']->generate('checkout_shipping_address') ?>"><?php _vzm("Change Shipping Address") ?></a>
     </div>
     <?php echo $macro->formatAddress($shoppingCart->getShippingAddress()) ?>
 </fieldset>

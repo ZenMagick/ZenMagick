@@ -35,8 +35,8 @@
             </div>
         </form>
         <div>
-            <a href="<?php echo $net->generate('password_forgotten') ?>"><?php _vzm("Lost your password?") ?></a>
-            <a href="<?php echo $net->generate('create_account'); ?>"><?php _vzm("Not registered yet?") ?></a>
+            <a href="<?php echo $view['router']->generate('password_forgotten') ?>"><?php _vzm("Lost your password?") ?></a>
+            <a href="<?php echo $view['router']->generate('create_account'); ?>"><?php _vzm("Not registered yet?") ?></a>
         </div>
     </div>
 <?php } ?>

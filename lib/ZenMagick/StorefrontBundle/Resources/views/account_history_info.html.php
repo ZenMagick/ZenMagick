@@ -22,7 +22,7 @@
 use ZenMagick\Base\Toolbox;
 ?>
 <?php $view->extend('StorefrontBundle::default_layout.html.php'); ?>
-<?php $crumbtrail->addCrumb(_zm('Account'), $net->generate('account'))->addCrumb(_zm('Order History'), $net->generate('account_history'))->addCrumb(sprintf(_zm('Order #%s'), $request->query->getInt('order_id'))) ?>
+<?php $crumbtrail->addCrumb(_zm('Account'), $view['router']->generate('account'))->addCrumb(_zm('Order History'), $view['router']->generate('account_history'))->addCrumb(sprintf(_zm('Order #%s'), $request->query->getInt('order_id'))) ?>
 <h3><?php _vzm("Item Details") ?></h3>
 <table cellpadding="0" cellspacing="0">
     <tbody>
@@ -99,7 +99,7 @@ use ZenMagick\Base\Toolbox;
               <th><?php echo $view->escape($download->getFilename()) ?></th>
               <th><?php echo $download->getFileSize() ?> bytes</th>
               <th><?php echo $download->getDownloadCount() ?></th>
-              <th><a href="<?php echo $net->generate('download', array('order' => $currentOrder->getId(), 'id' => $download->getId())) ?>"><?php _vzm('Download') ?></a></th>
+              <th><a href="<?php echo $view['router']->generate('download', array('order' => $currentOrder->getId(), 'id' => $download->getId())) ?>"><?php _vzm('Download') ?></a></th>
           </tr>
       <?php } ?>
     </table>

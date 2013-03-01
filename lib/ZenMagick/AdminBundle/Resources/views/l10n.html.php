@@ -20,7 +20,7 @@
 ?>
 <?php $view->extend('AdminBundle::default_layout.html.php'); ?>
 <?php $admin->title(_zm('Translation Helper')) ?>
-<form action="<?php echo $net->generate('l10n') ?>" method="POST">
+<form action="<?php echo $view['router']->generate('l10n') ?>" method="POST">
   <h2>ZenMagick Language Tool (
           <select id="languageId" name="languageId">
             <?php foreach ($this->container->get('languageService')->getLanguages() as $lang) { ?>
@@ -68,8 +68,8 @@
 </form>
 <?php if (isset($translations)) { ?>
   <strong>Download: </strong>
-  <a href="<?php echo $net->generate('l10n', $downloadParamsPo) ?>">.po</a>
-  <a href="<?php echo $net->generate('l10n', $downloadParamsPot) ?>">.pot</a>
+  <a href="<?php echo $view['router']->generate('l10n', $downloadParamsPo) ?>">.po</a>
+  <a href="<?php echo $view['router']->generate('l10n', $downloadParamsPot) ?>">.pot</a>
   <?php foreach ($translations as $file => $strings) { ?>
     <h3><?php echo $file ?></h3>
     <?php foreach ($strings as $key => $info) { ?>

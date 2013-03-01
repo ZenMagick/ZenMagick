@@ -31,6 +31,6 @@
 
 <p>
   <input class="<?php echo $buttonClasses ?>" type="submit" value="<?php _vzm('Reset') ?>">
-  <a class="<?php echo $buttonClasses ?>" href="<?php echo $net->generate('admin_login') ?>"><?php _vzm('Back to Login') ?></a>
+  <a class="<?php echo $buttonClasses ?>" href="<?php echo $view['router']->generate('admin_login') ?>"><?php _vzm('Back to Login') ?></a>
 </p>
 </form>

@@ -29,7 +29,7 @@ $(function() {
 
 <h2><?php _vzm('Export orders') ?></h2>
 <div>
-  <form class="export-orders-form" action="<?php echo $net->generate('export_orders') ?>" method="GET">
+  <form class="export-orders-form" action="<?php echo $view['router']->generate('export_orders') ?>" method="GET">
     <p>
       <label for="dateFrom"><?php _vzm('From:') ?></label>
       <input class="datepicker" id="fromDate" name="fromDate" date:dateFormat="<?php echo $dateFormat ?>" type="text" value="<?php echo $fromDate ?>">

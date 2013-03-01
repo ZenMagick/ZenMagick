@@ -24,9 +24,9 @@
 <?php _vzm("This is to inform you that your order #%s has been updated.", $currentOrder->getId()) ?>
 
 <?php if (ZenMagick\StoreBundle\Entity\Account::REGISTERED == $currentAccount->getType()) { ?>
-<?php _vzm("More details can be found at the following URL: %s", $net->generate('account_history_info', array('order_id' => $currentOrder->getId()), true)) ?>
+<?php _vzm("More details can be found at the following URL: %s", $view['router']->generate('account_history_info', array('order_id' => $currentOrder->getId()), true)) ?>
 <?php } else { ?>
-<?php _vzm("You can check the status of your order at: %s.", $net->generate('guest_history', array(), true)) ?>
+<?php _vzm("You can check the status of your order at: %s.", $view['router']->generate('guest_history', array(), true)) ?>
 <?php } ?>
 
 <?php if ($newOrderStatus != $currentOrder->getStatusName()) { ?>

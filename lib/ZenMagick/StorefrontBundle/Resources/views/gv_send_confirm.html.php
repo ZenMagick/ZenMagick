@@ -20,7 +20,7 @@
  */
 ?>
 <?php $view->extend('StorefrontBundle::default_layout.html.php'); ?>
-<?php $crumbtrail->addCrumb(_zm('Account'), $net->generate('account'))->addCrumb(_zm('Send Gift Certificate')) ?>
+<?php $crumbtrail->addCrumb(_zm('Account'), $view['router']->generate('account'))->addCrumb(_zm('Send Gift Certificate')) ?>
 <?php echo $form->open('gv_send_confirm', '', true, array('onsubmit'=>null)) ?>
     <div>
         <input type="hidden" name="name" value="<?php echo $view->escape($gvReceiver->getName()) ?>" />

@@ -48,7 +48,7 @@ if ($resultList->hasResults()) { ?>
                 $catImage = $category->getImageInfo();
                 $linkText = null == $catImage ? $encName : '<img src="'.$catImage->getDefaultImage().'" alt="'.$encName.'" title="'.$encName.'">';
                 ?>
-                <a href="<?php echo $net->generate('category', array('cPath' => implode('_', $category->getPath()))) ?>"><?php echo $linkText ?></a>
+                <a href="<?php echo $view['router']->generate('category', array('cPath' => implode('_', $category->getPath()))) ?>"><?php echo $linkText ?></a>
             <?php } ?>
         </div>
     <?php } ?>

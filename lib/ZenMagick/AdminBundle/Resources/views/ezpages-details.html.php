@@ -25,7 +25,7 @@ use ZenMagick\Base\Beans;
 <?php $selectedLanguageId = $currentLanguage->getId(); ?>
 
 <?php $admin->title(_zm('Edit Content')) ?>
-<form action="<?php echo $net->generate('ezpages_process') ?>" method="POST">
+<form action="<?php echo $view['router']->generate('ezpages_process') ?>" method="POST">
   <input type="hidden" name="languageId" value="<?php echo $selectedLanguageId ?>">
   <input type="hidden" name="id" value="<?php echo $ezPage->getId() ?>">
 
@@ -106,6 +106,6 @@ use ZenMagick\Base\Beans;
 
   <div>
     <input class="<?php echo $buttonClasses ?>" type="submit" value="Save">
-    <a class="<?php echo $buttonClasses ?>" href="<?php echo $net->generate('ezpages', array('languageId' => $selectedLanguageId)) ?>"><?php _vzm('Cancel') ?></a>
+    <a class="<?php echo $buttonClasses ?>" href="<?php echo $view['router']->generate('ezpages', array('languageId' => $selectedLanguageId)) ?>"><?php _vzm('Cancel') ?></a>
   </div>
 </form>

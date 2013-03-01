@@ -32,5 +32,5 @@
 <input type="password" name="password" id="password" value="">
 </p>
 
-<p><input class="<?php echo $buttonClasses ?>" type="submit" value="<?php _vzm('Login') ?>"> <a class="<?php echo $buttonClasses ?>" href="<?php echo $net->generate('admin_reset_password') ?>"><?php _vzm('Reset Password') ?></a></p>
+<p><input class="<?php echo $buttonClasses ?>" type="submit" value="<?php _vzm('Login') ?>"> <a class="<?php echo $buttonClasses ?>" href="<?php echo $view['router']->generate('admin_reset_password') ?>"><?php _vzm('Reset Password') ?></a></p>
 </form>

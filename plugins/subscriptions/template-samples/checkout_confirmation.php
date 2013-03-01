@@ -1,7 +1,7 @@
 
 <fieldset>
     <legend><?php _vzm("Subscription") ?></legend>
-    <div class="btn"><a class="btn" href="<?php echo $net->generate('checkout_shipping') ?>"><?php _vzm("Change") ?></a></div>
+    <div class="btn"><a class="btn" href="<?php echo $view['router']->generate('checkout_shipping') ?>"><?php _vzm("Change") ?></a></div>
     <div>
         <?php $schedule = $subscriptions->getSelectedSchedule(); ?>
         <p><?php _vzm("This order is %s a subscription!", (null != $schedule ? '' : '*NOT*')) ?></p>

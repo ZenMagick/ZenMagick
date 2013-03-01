@@ -21,11 +21,11 @@
 ?>
 <?php $view->extend('StorefrontBundle::default_layout.html.php'); ?>
 
-<?php $crumbtrail->addCrumb(_zm('Checkout'), $net->generate('checkout_payment'))->addCrumb(_zm('Payment Method')) ?>
+<?php $crumbtrail->addCrumb(_zm('Checkout'), $view['router']->generate('checkout_payment'))->addCrumb(_zm('Payment Method')) ?>
 <fieldset>
     <legend><?php _vzm("Billing Address") ?></legend>
     <div class="btn">
-        <a class="btn" href="<?php echo $net->generate('checkout_payment_address') ?>"><?php _vzm("Change Billing Address") ?></a>
+        <a class="btn" href="<?php echo $view['router']->generate('checkout_payment_address') ?>"><?php _vzm("Change Billing Address") ?></a>
     </div>
     <?php echo $macro->formatAddress($shoppingCart->getBillingAddress()) ?>
 </fieldset>

@@ -19,7 +19,7 @@
  */
 ?>
 <?php $view->extend('StorefrontBundle::default_layout.html.php'); ?>
-<form id="ajax-form" action="<?php echo $net->generate('plugins') ?>" method="POST">
+<form id="ajax-form" action="<?php echo $view['router']->generate('plugins') ?>" method="POST">
   <input type="hidden" name="pluginId" value="<?php echo $plugin->getId() ?>">
   <input type="hidden" name="action" value="update">
   <?php foreach ($widgets as $widget) { ?>

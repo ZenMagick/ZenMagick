@@ -29,11 +29,11 @@
 <?php if (1 == count($reviews)) {
     $review = $reviews[0];
     $params = array('productId' => $review->getProductId(), 'reviews_id' => $review->getId());
-    $href = $net->generate('product_reviews_info', $params);
+    $href = $view['router']->generate('product_reviews_info', $params);
     $rtext = sprintf(_zm("%s of 5 stars!"), $review->getRating());
     $rimg = '<img src="'.$this->asUrl('images/stars_'.$review->getRating().'.gif').'" alt="'.$rtext.'" title="'.$rtext.'"/>';
     ?>
-    <h3><a href="<?php echo $net->generate('reviews') ?>"><?php _vzm("[More]") ?></a><?php _vzm("Reviews") ?></h3>
+    <h3><a href="<?php echo $view['router']->generate('reviews') ?>"><?php _vzm("[More]") ?></a><?php _vzm("Reviews") ?></h3>
     <div id="sb_reviews" class="box">
         <p><a href="<?php echo $net->product($review->getProductId()) ?>"><?php echo $html->image($review->getProductImageInfo()) ?></a></p>
         <p id="rtext"><a href="<?php echo $href ?>"><?php echo $html->more($review->getText(), 60) ?></a></p>

@@ -19,7 +19,7 @@
  */
 ?>
 <p>Groups: <?php echo implode(', ', $app->getUser()->getRoles()) ?></p>
-<form action="<?php echo $net->generate('update_user') ?>" method="POST" id="updateUser">
+<form action="<?php echo $view['router']->generate('update_user') ?>" method="POST" id="updateUser">
   <fieldset>
   <legend><?php _vzm('Account') ?></legend>
     <p><label for="username"><?php _vzm('Name') ?></label> <input type="text" id="username" name="username" value="<?php echo $view->escape($updateUser->getUsername()) ?>"></p>
