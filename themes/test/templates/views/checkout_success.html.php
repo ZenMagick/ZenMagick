@@ -25,7 +25,7 @@
 <?php echo $form->open('checkout_success', 'action=update', true, array('onsubmit'=>null)) ?>
     <h2><?php _vzm("Thanks for shopping with us") ?></h2>
     <p><?php _vzm("Your order number is: <strong>%s</strong>", $currentOrder->getId()) ?></p>
-    <?php if ($session->isRegistered()) { ?>
+    <?php if ($view['security']->isGranted('ROLE_REGISTERED')) { ?>
         <?php $accountLink = '<a href="' . $view['router']->generate('account') . '">' . _zm("My Account") . '</a>'; ?>
         <p><?php _vzm("You can view your full order history by going to the %s page and by clicking on view all orders.", $accountLink) ?></p>
     <?php } ?>

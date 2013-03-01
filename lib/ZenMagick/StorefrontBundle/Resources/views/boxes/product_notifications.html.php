@@ -23,7 +23,7 @@
 <?php if (isset($currentProduct)) { ?>
      <?php
       $isSubscribed = false;
-      if ($session->isRegistered()) {
+      if ($view['security']->isGranted('ROLE_REGISTERED')) {
           $account = $app->getUser();
           if (null != $account) {
               $subscribedProducts = $account->getSubscribedProducts();

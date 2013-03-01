@@ -25,7 +25,7 @@
     <?php if (!$app->getUser()) { ?>
         <li><a href="<?php echo $view['router']->generate('login'); ?>"><?php _vzm("LOGIN") ?></a></li>
     <?php } ?>
-    <?php if ($session->isRegistered()) { ?>
+    <?php if ($view['security']->isGranted('ROLE_REGISTERED')) { ?>
         <li><a href="<?php echo $view['router']->generate('account'); ?>"><?php _vzm("ACCOUNT") ?></a></li>
     <?php } ?>
     <?php if ($app->getUser()) { ?>
