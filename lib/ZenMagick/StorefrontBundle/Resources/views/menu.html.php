@@ -22,13 +22,13 @@
 <div id="menu">
   <ul>
     <li class="first"><a href="<?php echo $view['router']->generate('index'); ?>"><?php _vzm("HOME") ?></a></li>
-    <?php if ($session->isAnonymous()) { ?>
+    <?php if (!$app->getUser()) { ?>
         <li><a href="<?php echo $view['router']->generate('login'); ?>"><?php _vzm("LOGIN") ?></a></li>
     <?php } ?>
     <?php if ($session->isRegistered()) { ?>
         <li><a href="<?php echo $view['router']->generate('account'); ?>"><?php _vzm("ACCOUNT") ?></a></li>
     <?php } ?>
-    <?php if (!$session->isAnonymous()) { ?>
+    <?php if ($app->getUser()) { ?>
         <li><a href="<?php echo $view['router']->generate('logoff'); ?>"><?php _vzm("LOGOFF") ?></a></li>
     <?php } ?>
     <?php if (!$container->get('shoppingCart')->isEmpty() && !$isCheckout) { ?>

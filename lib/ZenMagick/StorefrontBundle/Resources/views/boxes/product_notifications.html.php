@@ -31,7 +31,7 @@
           }
       }
     ?>
-    <?php if ($session->isAnonymous() || !$isSubscribed) { ?>
+    <?php if (!$app->getUser() || !$isSubscribed) { ?>
         <h3><?php _vzm("Notifications") ?></h3>
         <div id="sb_product_notifications" class="box">
             <?php echo $form->open('account_notifications', '', true, array('onsubmit'=>null)) ?>
