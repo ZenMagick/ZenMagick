@@ -22,7 +22,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <meta charset="<?php echo $settingsService->get('zenmagick.http.html.charset') ?>" />
+    <meta charset="<?php echo $view->getCharset() ?>" />
     <title><?php $view['slots']->output('title', _zm('ZenMagick Admin')) ?></title>
     <link rel="shortcut icon" href="<?php echo $this->asUrl('resource:favicon.ico') ?>">
     <?php $resources->cssFile('style/zenmagick.css') ?>
