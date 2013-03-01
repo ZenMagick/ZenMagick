@@ -297,7 +297,7 @@ class StorefrontListener extends ZMObject
         $session = $request->getSession();
 
         // ** currency **
-        // Models rely on currency sesson variable via $session->getCurrencyCode, so this has to happen first!
+        // Models rely on currency session variable via $session->get('currency'), so this has to happen first!
         if (null != ($currencyCode = $request->query->get('currency'))) {
             // @todo error on bad request currency?
             if (null != $this->container->get('currencyService')->getCurrencyForCode($currencyCode)) {

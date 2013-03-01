@@ -416,16 +416,6 @@ class Session extends BaseSession implements ContainerAwareInterface
     }
 
     /**
-     * Get the currency code.
-     *
-     * @return string The current currency code.
-     */
-    public function getCurrencyCode()
-    {
-        return $this->get('currency');
-    }
-
-    /**
      * Get the current language code.
      *
      * @return string The language code or <code>null</code>.

@@ -293,7 +293,7 @@ class TaxRate extends ZMObject
         $currencyService = $this->container->get('currencyService');
         //TODO: decouple price calculations from product, etc into a place where language/currency/etc are provided in a sane way!
         $session = Runtime::getContainer()->get('session');
-        $currency = $currencyService->getCurrencyForCode($session->getCurrencyCode());
+        $currency = $currencyService->getCurrencyForCode($session->get('currency'));
         if (null == $currency) {
             Runtime::getLogging()->warn('no currency found - using default currency');
             $currency = $currencyService->getCurrencyForCode($this->container->get('settingsService')->get('defaultCurrency'));

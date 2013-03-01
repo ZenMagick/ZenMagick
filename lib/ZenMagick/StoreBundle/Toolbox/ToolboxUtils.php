@@ -63,7 +63,7 @@ class ToolboxUtils extends ToolboxTool
     {
         $currencyService = $this->container->get('currencyService');
         // @todo we should be be getting this from a user property
-        $code = $this->getRequest()->getSession()->getCurrencyCode();
+        $code = $this->getRequest()->getSession()->get('currency');
         if (null === $code) {
             $code = $this->container->get('settingsService')->get('defaultCurrency');
         }

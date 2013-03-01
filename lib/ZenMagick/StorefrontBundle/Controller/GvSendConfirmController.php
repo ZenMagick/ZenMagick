@@ -76,7 +76,7 @@ class GvSendConfirmController extends DefaultController
         $amount = $gvReceiver->getAmount();
 
         $settingsService = $this->container->get('settingsService');
-        $currentCurrencyCode = $request->getSession()->getCurrencyCode();
+        $currentCurrencyCode = $request->getSession()->get('currency');
         if ($settingsService->get('defaultCurrency') != $currentCurrencyCode) {
             // need to convert amount to default currency as GV values are in default currency
             $currency = $this->container->get('currencyService')->getCurrencyForCode($currentCurrencyCode);
