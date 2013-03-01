@@ -40,4 +40,4 @@ $admin->title() ?>
     </tr>
   <?php } ?>
 </table>
-<?php echo $this->render('AdminBundle::pagination.html.php'); ?>
+<?php echo $view->render('AdminBundle::pagination.html.php', array('resultList' => $resultList)); ?>

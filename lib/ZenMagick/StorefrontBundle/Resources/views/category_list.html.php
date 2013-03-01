@@ -25,8 +25,8 @@ $crumbtrail->addCategoryPath()->addManufacturer()->addProduct();
 
 if ($resultList->hasResults()) { ?>
     <div class="rnblk">
-        <?php echo $this->render('StorefrontBundle::resultlist/nav.html.php') ?>
-        <?php echo $this->render('StorefrontBundle::resultlist/options.html.php') ?>
+        <?php echo $view->render('StorefrontBundle::resultlist/nav.html.php', array('resultList' => $resultList)) ?>
+        <?php echo $view->render('StorefrontBundle::resultlist/options.html.php', array('resultList' => $resultList)) ?>
     </div>
 
     <div class="rlist">
@@ -37,7 +37,7 @@ if ($resultList->hasResults()) { ?>
         </tbody></table>
     </div>
     <div class="rnblk">
-        <?php echo $this->render('StorefrontBundle::resultlist/nav.html.php') ?>
+        <?php echo $view->render('StorefrontBundle::resultlist/nav.html.php', array('resultList' => $resultList)) ?>
     </div>
 <?php } else { ?>
     <?php if ($currentCategory->hasChildren()) { ?>

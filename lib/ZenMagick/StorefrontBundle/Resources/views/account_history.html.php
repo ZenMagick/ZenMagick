@@ -24,7 +24,7 @@
 
 <?php if ($resultList->hasResults()) { ?>
     <div class="rnblk">
-        <?php echo $this->render('StorefrontBundle::resultlist/nav.html.php') ?>
+        <?php echo $view->render('StorefrontBundle::resultlist/nav.html.php', array('resultList' => $resultList)) ?>
         <p>&nbsp;</p>
     </div>
 
@@ -36,7 +36,7 @@
         </tbody></table>
     </div>
     <div class="rnblk">
-        <?php echo $this->render('StorefrontBundle::resultlist/nav.html.php') ?>
+        <?php echo $view->render('StorefrontBundle::resultlist/nav.html.php', array('resultList' => $resultList)) ?>
     </div>
 <?php } else { ?>
     <h2><?php _vzm("No orders found") ?></h2>

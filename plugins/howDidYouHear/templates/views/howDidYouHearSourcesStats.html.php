@@ -40,4 +40,4 @@
 <?php if ($isOther) { ?>
   <p><a href="<?php echo $view['router']->generate('howDidYouHearSourcesStats') ?>" class="<?php echo $buttonClasses ?>"><?php _vzm('Back to overview') ?></a></p>
 <?php } ?>
-<?php echo $this->render('AdminBundle::pagination.html.php') ?>
+<?php echo $view->render('AdminBundle::pagination.html.php', array('resultList' => $resultList)) ?>

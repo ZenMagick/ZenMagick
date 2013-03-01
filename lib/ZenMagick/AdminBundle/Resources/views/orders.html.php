@@ -48,4 +48,4 @@ $admin->title(sprintf(_zm("%s Orders"), (null != $orderStatus ? $orderStatus->ge
     </tr>
   <?php } ?>
 </table>
-<?php echo $this->render('AdminBundle::pagination.html.php'); ?>
+<?php echo $view->render('AdminBundle::pagination.html.php', array('resultList' => $resultList)); ?>
