@@ -31,11 +31,11 @@
     <?php if ($app->getUser()) { ?>
         <li><a href="<?php echo $view['router']->generate('logoff'); ?>"><?php _vzm("LOGOFF") ?></a></li>
     <?php } ?>
-    <?php if (!$container->get('shoppingCart')->isEmpty() && !$isCheckout) { ?>
+    <?php if (!$view->container->get('shoppingCart')->isEmpty() && !$isCheckout) { ?>
         <li><a href="<?php echo $view['router']->generate('shopping_cart'); ?>"><?php _vzm("SHOPPING CART") ?></a></li>
         <li><a href="<?php echo $view['router']->generate('checkout_shipping'); ?>"><?php _vzm("CHECKOUT") ?></a></li>
     <?php } ?>
-    <?php foreach ($container->get('ezPageService')->getPagesForHeader($session->getLanguageId()) as $page) { ?>
+    <?php foreach ($view->container->get('ezPageService')->getPagesForHeader(1) as $page) { ?>
         <li><?php echo $html->ezpageLink($page->getId()) ?></li>
     <?php } ?>
   </ul>

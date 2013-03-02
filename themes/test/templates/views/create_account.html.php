@@ -23,8 +23,8 @@
 <script type="text/javascript">
     var all_zones = new Array();
     <?php
-        foreach ($container->get('countryService')->getCountries() as $country) {
-            $zones = $container->get('countryService')->getZonesForCountryId($country->getId());
+        foreach ($view->container->get('countryService')->getCountries() as $country) {
+            $zones = $view->container->get('countryService')->getZonesForCountryId($country->getId());
             if (0 < count($zones)) {
                 echo 'all_zones['.$country->getId() . '] = new Array();';
                 foreach ($zones as $zone) {
@@ -130,10 +130,10 @@
                 </tr>
                  <tr>
                     <td><?php _vzm("Country") ?><span>*</span></td>
-                    <td><?php echo $form->idpSelect('countryId', $container->get('countryService')->getCountries(), $countryId) ?></td>
+                    <td><?php echo $form->idpSelect('countryId', $view->container->get('countryService')->getCountries(), $countryId) ?></td>
                 </tr>
                 <?php if ($settingsService->get('isAccountState')) { ?>
-                    <?php $zones = $container->get('countryService')->getZonesForCountryId($countryId); ?>
+                    <?php $zones = $view->container->get('countryService')->getZonesForCountryId($countryId); ?>
                     <tr>
                         <td><?php _vzm("State/Province") ?><span>*</span></td>
                         <td>

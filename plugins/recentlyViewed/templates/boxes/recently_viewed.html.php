@@ -23,7 +23,7 @@
     <h3><?php _vzm('Recently Viewed') ?></h3>
     <div id="sb_recently_viewed" class="box">
         <ol>
-        <?php foreach ($container->get('productService')->getProductsForIds($recentlyViewedProducts, true, $session->getLanguageId()) as $product) { ?>
+        <?php foreach ($view->container->get('productService')->getProductsForIds($recentlyViewedProducts, true, $session->getLanguageId()) as $product) { ?>
             <li><a href="<?php echo $net->product($product->getId()) ?>"><?php echo $view->escape($html->more($product->getName(), 28)) ?></a></li>
         <?php } ?>
         </ol>

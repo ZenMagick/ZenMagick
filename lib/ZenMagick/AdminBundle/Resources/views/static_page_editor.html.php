@@ -28,10 +28,10 @@ use ZenMagick\Base\Toolbox;
       $toolbox->utils->setCurrentEditor($editor);
   }
 
-  $selectedThemeId = $view['request']->getParameter('themeId', $container->get('themeService')->getActiveThemeId());
-  $selectedTheme = $container->get('theme');
+  $selectedThemeId = $view['request']->getParameter('themeId', $view->container->get('themeService')->getActiveThemeId());
+  $selectedTheme = $view->container->get('theme');
   $selectedTheme->setId($selectedThemeId);
-  $selectedTheme->setContainer($container);
+  $selectedTheme->setContainer($view->container);
   if (null === ($file = $view['request']->getParameter('file')) || empty($file)) {
       $selectedFile = $view['request']->getParameter('newfile');
   } else {
@@ -71,7 +71,7 @@ use ZenMagick\Base\Toolbox;
   <input type="hidden" name="rid" value="static_page_editor">
   <h2>ZenMagick Static Page Editor (
           <select id="languageId" name="languageId" onchange="this.form.submit();">
-            <?php foreach ($container->get('languageService')->getLanguages() as $lang) { ?>
+            <?php foreach ($view->container->get('languageService')->getLanguages() as $lang) { ?>
               <?php $selected = $selectedLanguageId == $lang->getId() ? ' selected="selected"' : ''; ?>
               <option value="<?php echo $lang->getId() ?>"<?php echo $selected ?>><?php echo $lang->getName() ?></option>
             <?php } ?>
@@ -84,7 +84,7 @@ use ZenMagick\Base\Toolbox;
       <label for="themeId">Theme:</label>
       <select id="themeId" name="themeId" onchange="this.form.submit();">
         <option value="">Select Theme</option>
-        <?php foreach ($container->get('themeService')->getAvailableThemes() as $theme) { ?>
+        <?php foreach ($view->container->get('themeService')->getAvailableThemes() as $theme) { ?>
           <?php $selected = $selectedThemeId == $theme->getId() ? ' selected="selected"' : ''; ?>
           <option value="<?php echo $theme->getId(); ?>"<?php echo $selected ?>><?php echo $theme->getName(); ?></option>
         <?php } ?>

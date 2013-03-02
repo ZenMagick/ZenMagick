@@ -22,7 +22,7 @@
 <?php $view->extend('StorefrontBundle::default_layout.html.php'); ?>
 <?php $crumbtrail->clear() ?>
 <?php echo $utils->staticPageContent("main_page") ?>
-<?php $featured = $container->get('productService')->getFeaturedProducts(null, 4, false, $session->getLanguageId()); ?>
+<?php $featured = $view->container->get('productService')->getFeaturedProducts(null, 4, false, $session->getLanguageId()); ?>
 <h3><?php _vzm('Featured Products') ?></h3>
 <div id="featured">
   <?php foreach ($featured as $product) { ?>

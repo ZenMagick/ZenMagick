@@ -66,11 +66,11 @@ use Symfony\Component\HttpFoundation\ResponseRedirect;
         $tmp = $settingsService->get('apps.store.staticContent', false);
         $settingsService->set('apps.store.staticContent', false);
 
-        $ezPageService = $container->get('ezPageService');
-        $languageService = $container->get('languageService');
+        $ezPageService = $view->container->get('ezPageService');
+        $languageService = $view->container->get('languageService');
         foreach ($languageService->getLanguages() as $language) {
             $languageId = $language->getId();
-            $themeChain = $container->get('themeService')->getThemeChain();
+            $themeChain = $view->container->get('themeService')->getThemeChain();
             foreach ($themeChain as $theme) {
                 foreach ($languageService->getLanguages() as $subLang) {
                     $subLangId = $subLang->getId();

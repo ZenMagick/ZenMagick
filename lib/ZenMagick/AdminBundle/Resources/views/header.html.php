@@ -33,6 +33,6 @@
       </p>
       <!-- <a href="http://forum.zenmagick.org/" target="_blank"><?php _vzm('Get Help') ?></a> -->
     </div>
-    <?php echo $container->get('knp_menu.templating.helper')->render('admin_main', array('depth' => 1)); ?>
+    <?php echo $view->container->get('knp_menu.templating.helper')->render('admin_main', array('depth' => 1)); ?>
   <?php } ?>
 </div>

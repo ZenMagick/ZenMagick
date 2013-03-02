@@ -20,7 +20,7 @@
  */
 ?>
 
-<?php $currencyList = $container->get('currencyService')->getCurrencies(); ?>
+<?php $currencyList = $view->container->get('currencyService')->getCurrencies(); ?>
 <?php if (0 < count($currencyList) && 0 !== strpos($request->getRequestId(), 'checkout')) { ?>
     <h3><?php _vzm("Currencies") ?></h3>
     <div id="sb_currencies" class="box">

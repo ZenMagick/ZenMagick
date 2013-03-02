@@ -20,7 +20,7 @@
  */
 ?>
 
-<?php $manufacturers = $container->get('manufacturerService')->getManufacturers($session->getLanguageId()); ?>
+<?php $manufacturers = $view->container->get('manufacturerService')->getManufacturers($session->getLanguageId()); ?>
 <?php if (0 < count($manufacturers)) { ?>
     <h3><?php _vzm("Manufacturers") ?></h3>
     <div id="sb_manufacturers" class="box">

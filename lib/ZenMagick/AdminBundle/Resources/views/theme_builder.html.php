@@ -22,7 +22,7 @@
 <?php
     if ('POST' == $app->getRequest()->getMethod()) {
         $name = $view['request']->getParameter('name');
-        $themeBuilder = $container->get('themeBuilder');
+        $themeBuilder = $view->container->get('themeBuilder');
         $themeBuilder->setName($view['request']->getParameter('name'));
         $buildOK = $themeBuilder->build();
         foreach ($themeBuilder->getMessages() as $msgInfo) {

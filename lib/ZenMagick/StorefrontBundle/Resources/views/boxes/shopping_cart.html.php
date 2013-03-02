@@ -20,13 +20,13 @@
  */
 ?>
 
-<?php if (!$container->get('shoppingCart')->isEmpty() && !$isCheckout) { ?>
+<?php if (!$view->container->get('shoppingCart')->isEmpty() && !$isCheckout) { ?>
     <h3><?php _vzm("Shopping Cart") ?></h3>
     <div id="sb_cart" class="box">
-        <?php foreach ($container->get('shoppingCart')->getItems() as $item) { ?>
+        <?php foreach ($view->container->get('shoppingCart')->getItems() as $item) { ?>
             <?php echo $item->getQuantity(); ?> x <a href="<?php echo $net->product($item->getId()) ?>"><?php echo $view->escape($item->getProduct()->getName()) ?></a><br />
         <?php } ?>
         <hr/>
-        <p class="price"><?php echo $utils->formatMoney($container->get('shoppingCart')->getSubtotal()) ?></p>
+        <p class="price"><?php echo $utils->formatMoney($view->container->get('shoppingCart')->getSubtotal()) ?></p>
     </div>
 <?php } ?>

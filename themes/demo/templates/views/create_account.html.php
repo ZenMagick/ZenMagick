@@ -119,10 +119,10 @@ $resourceManager->jsFile('js/jquery.js', $resourceManager::NOW) ?>
                 </tr>
                  <tr>
                     <td><?php _vzm("Country") ?><span>*</span></td>
-                    <td><?php echo $form->idpSelect('countryId', $container->get('countryService')->getCountries(), $countryId) ?></td>
+                    <td><?php echo $form->idpSelect('countryId', $view->container->get('countryService')->getCountries(), $countryId) ?></td>
                 </tr>
                 <?php if ($settingsService->get('isAccountState')) { ?>
-                    <?php $zones = $container->get('countryService')->getZonesForCountryId($countryId); ?>
+                    <?php $zones = $view->container->get('countryService')->getZonesForCountryId($countryId); ?>
                     <tr>
                         <td><?php _vzm("State/Province") ?><span>*</span></td>
                         <td>

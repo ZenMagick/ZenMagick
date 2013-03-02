@@ -22,7 +22,7 @@
 <?php $view->extend('StorefrontBundle::default_layout.html.php'); ?>
 <?php $contact = '<a href="'.$view['router']->generate('contact_us') .'">'._zm("let us know").'</a>'; ?>
 <p><?php _vzm("If you are having difficulty in locating something on our site, please %s!", $contact) ?></p>
-<?php echo $macro->categoryTree($container->get('categoryService')->getCategoryTree($session->getLanguageId()), "catalog"); ?>
+<?php echo $macro->categoryTree($view->container->get('categoryService')->getCategoryTree($session->getLanguageId()), "catalog"); ?>
 <ul>
     <?php if ($view['security']->isGranted('ROLE_REGISTERED')) { ?>
       <li><a href="<?php echo $view['router']->generate('account') ?>"><?php _vzm("My Account") ?></a>
@@ -34,7 +34,7 @@
         <li><a href="<?php echo $view['router']->generate('account_newsletters'); ?>"><?php _vzm("Change Newsletter Subscriptions") ?></a></li>
         <li><a href="<?php echo $view['router']->generate('account_notifications'); ?>"><?php _vzm("Change Product Notifications") ?></a></li>
       </ul></li>
-        <?php if (!$container->get('shoppingCart')->isEmpty()) { ?>
+        <?php if (!$view->container->get('shoppingCart')->isEmpty()) { ?>
             <li><a href="<?php echo $view['router']->generate('shopping_cart'); ?>"><?php _vzm("Shopping cart") ?></a></li>
             <li><a href="<?php echo $view['router']->generate('checkout_shipping'); ?>"><?php _vzm("Checkout") ?></a></li>
         <?php } ?>

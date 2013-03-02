@@ -36,8 +36,8 @@
 <?php $adminId = $app->getUser()->getId(); ?>
 <h1><?php _vzm('Dashboard') ?><a href="#" title="<?php _vzm('Customize Dashboard') ?>" onclick="return _db_open_options();"><span class="ui-icon ui-corner-all ui-icon-wrench"></span></a></h1>
 <div><!--view-container-->
-<div id="dashboard" class="<?php echo ($container->get('dashboard')->getLayout($adminId)) ?>">
-  <?php for ($ii=0; $ii<$container->get('dashboard')->getColumns($adminId); ++$ii) { $widgets = $container->get('dashboard')->getWidgetsForColumn($adminId, $ii); ?>
+<div id="dashboard" class="<?php echo ($view->container->get('dashboard')->getLayout($adminId)) ?>">
+  <?php for ($ii=0; $ii<$view->container->get('dashboard')->getColumns($adminId); ++$ii) { $widgets = $view->container->get('dashboard')->getWidgetsForColumn($adminId, $ii); ?>
     <div id="db-column-<?php echo $ii ?>" class="db-column">
       <?php foreach ($widgets as $widget) { ?>
         <?php echo $widget->render($app->getRequest(), $templateView); ?>
@@ -56,7 +56,7 @@
 
   <div id="widget-list" class="ui-corner-all">
     <div id="widget-box-cols" class="ui-corner-all">
-      <?php $widgetList = $container->get('dashboard')->getWidgetList($adminId); ?>
+      <?php $widgetList = $view->container->get('dashboard')->getWidgetList($adminId); ?>
       <div id="widget-box-col-0" class="widget-box-col">
         <?php for ($ii=0; $ii<count($widgetList); $ii+=2) {
           $widget = $widgetList[$ii];

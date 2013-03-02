@@ -21,7 +21,7 @@
 if (!$app->getUser()) return;
 ?>
 <div id="sub-menu">
-<?php $menuHelper = $container->get('knp_menu.templating.helper'); ?>
+<?php $menuHelper = $view->container->get('knp_menu.templating.helper'); ?>
 <?php $menu = $menuHelper->get('admin_sub', array()); ?>
 <?php echo $menuHelper->render($menu, array()); ?>
 <?php //if ($menu->getName() == 'catalog') { echo $this->render('AdminBundle::catalog-tree.html.php'); } ?>

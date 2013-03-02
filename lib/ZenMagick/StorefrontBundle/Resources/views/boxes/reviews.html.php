@@ -24,7 +24,7 @@
 
     // get review for product (if on product page)
     $filterArg = isset($currentProduct) ? $currentProduct->getId() : null;
-    $reviews = $container->get('reviewService')->getRandomReviews($session->getLanguageId(), $filterArg, 1);
+    $reviews = $view->container->get('reviewService')->getRandomReviews($session->getLanguageId(), $filterArg, 1);
 ?>
 <?php if (1 == count($reviews)) {
     $review = $reviews[0];

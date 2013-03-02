@@ -37,7 +37,7 @@ $admin->title(sprintf(_zm("%s Orders"), (null != $orderStatus ? $orderStatus->ge
   <?php foreach ($resultList->getResults() as $order) { ?>
     <tr>
       <td><a href="<?php echo $view['router']->generate('order', array('orderId' => $order->getId())) ?>"><?php echo $order->getId() ?></a></td>
-      <?php $actualAccount = $container->get('accountService')->getAccountForId($order->getAccountId()); ?>
+      <?php $actualAccount = $view->container->get('accountService')->getAccountForId($order->getAccountId()); ?>
       <?php $name = $actualAccount->getType() == Account::REGISTERED ? $order->getAccount()->getFullName() : _zm('** Guest **'); ?>
       <td><a href="<?php echo $view['router']->generate('account_show', array('accountId' => $order->getAccountId())) ?>"><?php echo $name ?></a></td>
       <td><?php echo $order->getOrderDate() ?></td>

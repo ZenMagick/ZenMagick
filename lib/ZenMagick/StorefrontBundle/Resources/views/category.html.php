@@ -37,7 +37,7 @@
   </div>
 <?php } ?>
 
-<?php $featured = $container->get('productService')->getFeaturedProducts($currentCategory->getId(), 4, true, $session->getLanguageId()); ?>
+<?php $featured = $view->container->get('productService')->getFeaturedProducts($currentCategory->getId(), 4, true, $session->getLanguageId()); ?>
 
 <?php if (0 < count($featured)) { ?>
     <h3>Featured Products</h3>

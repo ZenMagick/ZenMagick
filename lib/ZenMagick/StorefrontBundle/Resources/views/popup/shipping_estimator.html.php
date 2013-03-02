@@ -21,7 +21,7 @@
 ?>
 <?php $view->extend('StorefrontBundle::popup_layout.html.php'); ?>
 <?php
-  $shoppingCart = $container->get('shoppingCart');
+  $shoppingCart = $view->container->get('shoppingCart');
   $shippingEstimator = new ZenMagick\StorefrontBundle\Utils\ShippingEstimator();
   $shippingEstimator->prepare();
 
@@ -44,12 +44,12 @@
           <table cellspacing="0" cellpadding="0"><tbody>
              <tr>
                 <td><?php _vzm("Country") ?></td>
-                <td><?php echo $form->idpSelect('country_id', array_merge(array(new ZMIdNamePair("", _zm("Select Country"))), $container->get('countryService')->getCountries()), $shippingEstimator->getCountryId()) ?></td>
+                <td><?php echo $form->idpSelect('country_id', array_merge(array(new ZMIdNamePair("", _zm("Select Country"))), $view->container->get('countryService')->getCountries()), $shippingEstimator->getCountryId()) ?></td>
             </tr>
             <tr>
                 <td><?php _vzm("State/Province") ?></td>
                 <td>
-                    <?php $zones = $container->get('countryService')->getZonesForCountryId($shippingEstimator->getCountryId()); ?>
+                    <?php $zones = $view->container->get('countryService')->getZonesForCountryId($shippingEstimator->getCountryId()); ?>
                     <?php if (0 < count($zones)) { ?>
                         <?php echo $form->idpSelect('state', array_merge(array(new ZMIdNamePair("", _zm("Select State"))), $zones), $shippingEstimator->getStateId()) ?>
                     <?php } else { ?>

@@ -70,10 +70,10 @@
             </tr>
              <tr>
                 <td><?php _vzm("Country") ?><span>*</span></td>
-                <td><?php echo $form->idpSelect('countryId', array_merge(array(new ZMIdNamePair("", _zm("Select Country"))), $container->get('countryService')->getCountries()), $countryId) ?></td>
+                <td><?php echo $form->idpSelect('countryId', array_merge(array(new ZMIdNamePair("", _zm("Select Country"))), $view->container->get('countryService')->getCountries()), $countryId) ?></td>
             </tr>
             <?php if ($settingsService->get('isAccountState')) { ?>
-                <?php $zones = $container->get('countryService')->getZonesForCountryId($countryId); ?>
+                <?php $zones = $view->container->get('countryService')->getZonesForCountryId($countryId); ?>
                 <tr>
                     <td><?php _vzm("State/Province") ?><span>*</span></td>
                     <td>

@@ -85,7 +85,7 @@ use ZenMagick\StoreBundle\Services\Products;
   <?php } ?>
 </form>
 
-<?php $productService = $container->get('productService'); ?>
+<?php $productService = $view->container->get('productService'); ?>
 <?php $similarOrderProducts = $currentProduct->getProductAssociations('similarOrder') ?>
 <?php if (0 < count($similarOrderProducts)) { ?>
   <h3><?php _vzm('People that bought "%s" also bought:', '<em>'.$currentProduct->getName().'</em>') ?></h3>
