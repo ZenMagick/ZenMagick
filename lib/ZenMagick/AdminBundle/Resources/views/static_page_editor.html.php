@@ -23,24 +23,24 @@
 use ZenMagick\Base\Toolbox;
 
   // get selections and defaults
-  $editor = $request->getParameter('editor');
+  $editor = $view['request']->getParameter('editor');
   if (null != $editor) {
       $toolbox->utils->setCurrentEditor($editor);
   }
 
-  $selectedThemeId = $request->getParameter('themeId', $container->get('themeService')->getActiveThemeId());
+  $selectedThemeId = $view['request']->getParameter('themeId', $container->get('themeService')->getActiveThemeId());
   $selectedTheme = $container->get('theme');
   $selectedTheme->setId($selectedThemeId);
   $selectedTheme->setContainer($container);
-  if (null === ($file = $request->getParameter('file')) || empty($file)) {
-      $selectedFile = $request->getParameter('newfile');
+  if (null === ($file = $view['request']->getParameter('file')) || empty($file)) {
+      $selectedFile = $view['request']->getParameter('newfile');
   } else {
       $selectedFile = $file;
   }
   $selectedLanguageId = $currentLanguage->getId();
 
-  $editContents = $request->getParameter('editContents', null, false);
-  if (null != $request->getParameter('save') && null != $editContents) {
+  $editContents = $view['request']->getParameter('editContents');
+  if (null != $view['request']->getParameter('save') && null != $editContents) {
       // save
       $editContents = stripslashes($editContents);
       if ($selectedTheme->saveStaticPageContent($selectedFile, $editContents, $selectedLanguageId)) {

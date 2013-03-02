@@ -57,9 +57,9 @@
   </fieldset>
   <p>
     <input type="hidden" name="catalogRequestId" value="product_group_pricing_tab">
-    <?php if (0 < $request->getParameter('groupPricingId')) { ?>
+    <?php if (0 < $view['request']->getParameter('groupPricingId')) { ?>
         <input type="submit" name="update" value="Update">
-        <a href="<?php echo $admin->catalog(null, array('groupPricingId' => $request->getParameter('groupPricingId'), 'delete' => 'true')) ?>">Delete</a>
+        <a href="<?php echo $admin->catalog(null, array('groupPricingId' => $view['request']->getParameter('groupPricingId'), 'delete' => 'true')) ?>">Delete</a>
     <?php } else { ?>
         <input type="submit" name="create" value="Create">
     <?php } ?>

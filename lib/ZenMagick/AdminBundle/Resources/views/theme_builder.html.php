@@ -21,9 +21,9 @@
 <?php $view->extend('AdminBundle::default_layout.html.php'); ?>
 <?php
     if ('POST' == $request->getMethod()) {
-        $name = $request->request->get('name');
+        $name = $view['request']->getParameter('name');
         $themeBuilder = $container->get('themeBuilder');
-        $themeBuilder->setName($request->request->get('name'));
+        $themeBuilder->setName($view['request']->getParameter('name'));
         $buildOK = $themeBuilder->build();
         foreach ($themeBuilder->getMessages() as $msgInfo) {
             $messageService->addMessage($msgInfo[1], $msgInfo[0]);

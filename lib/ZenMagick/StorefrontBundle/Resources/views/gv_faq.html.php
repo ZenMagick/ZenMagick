@@ -39,7 +39,7 @@
 <?php } ?>
 </ul>
 
-<?php if (null != ($topic = $request->query->get('topic')) && array_key_exists($topic, $faq_topics)) { ?>
+<?php if (null != ($topic = $view['request']->getParameter('topic')) && array_key_exists($topic, $faq_topics)) { ?>
     <?php echo $utils->staticPageContent($topic); ?>
 <?php } ?>
 

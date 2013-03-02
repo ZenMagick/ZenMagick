@@ -29,11 +29,11 @@ use Symfony\Component\HttpFoundation\ResponseRedirect;
     $needRefresh = false;
 
     // install
-    if (null != $request->request->get('update')) {
-        $group = $request->request->get('update');
+    if (null != $view['request']->getParameter('update')) {
+        $group = $view['request']->getParameter('update');
         foreach ($installer->getPatches($group) as $id => $patch) {
             $formId = 'patch_'.$group.'_'.$patch->getId();
-            if ($patch->isOpen() && $patch->getId() == $request->request->get($formId)) {
+            if ($patch->isOpen() && $patch->getId() == $view['request']->getParameter($formId)) {
                 // open and selected
                 $needRefresh = true;
                 $status = $patch->patch(true);
@@ -43,7 +43,7 @@ use Symfony\Component\HttpFoundation\ResponseRedirect;
                 } else {
                     $messageService->error("Could not install '".$patch->getLabel()."'");
                 }
-            } elseif (!$patch->isOpen() && null == $request->request->get($formId)) {
+            } elseif (!$patch->isOpen() && null == $view['request']->getParameter($formId)) {
                 // installed and not selected
                 if ($patch->canUndo()) {
                     $needRefresh = true;
@@ -60,7 +60,7 @@ use Symfony\Component\HttpFoundation\ResponseRedirect;
     }
 
     // import static pages
-    if (null != $request->request->get('importSp')) {
+    if (null != $view['request']->getParameter('importSp')) {
         // disable
         $settingsService = Runtime::getSettings();
         $tmp = $settingsService->get('apps.store.staticContent', false);
@@ -104,7 +104,7 @@ use Symfony\Component\HttpFoundation\ResponseRedirect;
 }
 
 // optimize database tables
-if (null != $request->request->get('optimizeDb')) {
+if (null != $view['request']->getParameter('optimizeDb')) {
     $database = ZMRuntime::getDatabase();
     $sm = $database->getSchemaManager();
     foreach ($sm->listTables() as $table) {

@@ -39,14 +39,14 @@
         <?php } ?>
         <?php if ($resultList->hasSorters()) { $hasOptions = true; ?>
             <div class="rls">
-                <?php if ($request->query->get('keywords')) { ?>
-                    <input type="hidden" name="keywords" value="<?php echo$request->query->get('keywords') ?>" />
+                <?php if ($view['request']->getParameter('keywords')) { ?>
+                    <input type="hidden" name="keywords" value="<?php echo $view['request']->getParameter('keywords') ?>" />
                 <?php } ?>
                 <input type="hidden" name="page" value="<?php echo $resultList->getPageNumber() ?>" />
-                <?php if ($request->query->has('cPath')) { ?>
-                    <input type="hidden" name="cPath" value="<?php echo $request->query->get('cPath') ?>" />
-                <?php } elseif ($request->query->has('manufacturers_id')) { ?>
-                    <input type="hidden" name="manufacturers_id" value="<?php echo $request->query->getInt('manufacturers_id') ?>" />
+                <?php if ($view['request']->getParameter('cPath')) { ?>
+                    <input type="hidden" name="cPath" value="<?php echo $view['request']->getParameter('cPath') ?>" />
+                <?php } elseif ($view['request']->getParameter('manufacturers_id')) { ?>
+                    <input type="hidden" name="manufacturers_id" value="<?php echo $view['request']->getParameter('manufacturers_id') ?>" />
                 <?php } ?>
 
                 <select id="sort" name="sort_id" onchange="this.form.submit()">

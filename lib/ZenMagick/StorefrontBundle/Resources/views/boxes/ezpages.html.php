@@ -20,7 +20,7 @@
  */
 ?>
 
-<?php $sbchapter = isset($sbchapter) ? $sbchapter : $request->query->get("sbchapter", null); ?>
+<?php $sbchapter = isset($sbchapter) ? $sbchapter : $view['request']->getParameter('sbchapter'); ?>
 <?php $pages = null != $sbchapter ? $container->get('ezPageService')->getPagesForChapterId($sbchapter, $session->getLanguageId()) : $container->get('ezPageService')->getPagesForSidebar($session->getLanguageId()); ?>
 <?php if (0 < count($pages)) { ?>
     <h3><?php _vzm("Important Links") ?></h3>

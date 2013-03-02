@@ -26,11 +26,11 @@
     <legend><?php _vzm("Find Guest Order") ?></legend>
     <div>
       <label for="email"><?php _vzm("E-Mail Address") ?></label>
-      <input type="text" id="email" name="email" value="<?php echo $view->escape($request->request->get('email', '')) ?>" />
+      <input type="text" id="email" name="email" value="<?php echo $view->escape($view['request']->getParameter('email')) ?>" />
     </div>
     <div>
       <label for="orderId"><?php _vzm("Order Number") ?></label>
-      <input type="text" id="orderId" name="orderId" value="<?php echo $view->escape($request->request->get('orderId', '')) ?>" />
+      <input type="text" id="orderId" name="orderId" value="<?php echo $view->escape($view['request']->getParameter('orderId')) ?>" />
     </div>
   </fieldset>
   <div class="btn"><input type="submit" class="btn" value="<?php _vzm("Submit") ?>" /></div>

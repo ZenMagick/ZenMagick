@@ -21,7 +21,7 @@
 <?php $view->extend('StorefrontBundle::default_layout.html.php'); ?>
 <?php
 // prepare page name for crumbtrail
-$sub = $request->query->get('cat');
+$sub = $view['request']->getParameter('cat');
 $sub = str_replace('_', ' ', $sub);
 $sub = ucwords($sub);
 $crumbtrail->addCrumb($sub);

@@ -21,8 +21,8 @@
 ?>
 <?php $view->extend('StorefrontBundle::default_layout.html.php'); ?>
 <?php
-  $layout_name = $request->query->get("layout_name");
-  $view_name = $request->query->get("view_name");
+  $layout_name = $view['request']->getParameter("layout_name");
+  $view_name = $view['request']->getParameter("view_name");
 
   $source = null;
   if (null != $layout_name) {

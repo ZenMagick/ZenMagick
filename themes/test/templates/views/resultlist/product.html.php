@@ -20,9 +20,9 @@
 ?>
 
 <tr class="<?php echo ($odd?"odd":"even").($first?" first":" other") ?>">
-    <td><?php echo $html->productImageLink($product, $request->attributes->get('categoryId')) ?></td>
+    <td><?php echo $html->productImageLink($product, $view['request']->getParameter('categoryId')) ?></td>
     <td class="pinfo">
-        <a href="<?php echo $net->product($product->getId(), $request->attributes->get('categoryId')) ?>"><?php echo $view->escape($product->getName()) ?></a><br/>
+        <a href="<?php echo $net->product($product->getId(), $view['request']->getParameter('categoryId')) ?>"><?php echo $view->escape($product->getName()) ?></a><br/>
         <?php echo $html->more($product->getDescription(), 120) ?>
     </td>
     <td class="pprice"><?php echo $utils->formatMoney($product->getPrice()) ?></td>

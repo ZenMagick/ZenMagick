@@ -19,7 +19,7 @@
  */
 
     $initially_open = '';
-    foreach ((array) $request->attributes->get('categoryIds') as $categoryId) {
+    foreach ((array) $view['request']->getParameter('categoryIds') as $categoryId) {
         if (!empty($initially_open)) {
             $initially_open .= ',';
         }
