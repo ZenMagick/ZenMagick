@@ -128,7 +128,7 @@ use ZenMagick\Base\Toolbox;
       $editor->setRows(30);
       $editor->setCols(100);
       $editor->setValue($editContents);
-      echo $editor->render($request, $templateView);
+      echo $editor->render($app->getRequest(), $templateView);
      ?>
 
     <br><br>

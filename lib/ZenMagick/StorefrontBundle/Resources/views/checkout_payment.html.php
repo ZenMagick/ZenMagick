@@ -31,7 +31,7 @@
 </fieldset>
 
 <script type="text/javascript">var submitter = 0;</script>
-<?php echo $shoppingCart->getPaymentFormValidationJS($request) ?>
+<?php echo $shoppingCart->getPaymentFormValidationJS($app->getRequest()) ?>
 
 <?php echo $form->open('checkout_confirmation', '', true, array('id'=>'checkout_payment', 'onsubmit' => 'return check_form();')) ?>
   <?php if ($settingsService->get('isConditionsMessage')) { ?>

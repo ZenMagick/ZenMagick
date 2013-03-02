@@ -96,7 +96,7 @@ function check_form() {
 }
 </script>
 <?php echo $content; ?>
-<?php echo $currentEditor->apply($request, $templateView, null); ?>
+<?php echo $currentEditor->apply($app->getRequest(), $templateView, null); ?>
 <?php if (isset($scripts)) { ?>
     <div id="navbar"></div>
     <div id="hoverJS"></div>

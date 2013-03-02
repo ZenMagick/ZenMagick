@@ -40,7 +40,7 @@
   <?php for ($ii=0; $ii<$container->get('dashboard')->getColumns($adminId); ++$ii) { $widgets = $container->get('dashboard')->getWidgetsForColumn($adminId, $ii); ?>
     <div id="db-column-<?php echo $ii ?>" class="db-column">
       <?php foreach ($widgets as $widget) { ?>
-        <?php echo $widget->render($request, $templateView); ?>
+        <?php echo $widget->render($app->getRequest(), $templateView); ?>
       <?php } ?>
     </div>
   <?php } ?>
@@ -60,13 +60,13 @@
       <div id="widget-box-col-0" class="widget-box-col">
         <?php for ($ii=0; $ii<count($widgetList); $ii+=2) {
           $widget = $widgetList[$ii];
-          $widget->setOpen(false); echo $widget->render($request, $templateView);
+          $widget->setOpen(false); echo $widget->render($app->getRequest(), $templateView);
         } ?>
       </div>
       <div id="widget-box-col-1" class="widget-box-col">
         <?php for ($ii=1; $ii<count($widgetList); $ii+=2) {
           $widget = $widgetList[$ii];
-          $widget->setOpen(false); echo $widget->render($request, $templateView);
+          $widget->setOpen(false); echo $widget->render($app->getRequest(), $templateView);
         } ?>
       </div>
     </div>

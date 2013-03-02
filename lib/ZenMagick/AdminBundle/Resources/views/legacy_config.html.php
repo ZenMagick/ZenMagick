@@ -57,7 +57,7 @@ $admin->title($group->getName()) ?>
           <td>
             <?php /* tooltips */ ?>
             <span class="tt" title="<?php echo sprintf(_zm('%s'), $value->getTitle()).'|'._encodeAttribute(_zm($value->getDescription())) ?>">
-              <?php echo $value->render($request, $templateView); ?>
+              <?php echo $value->render($app->getRequest(), $templateView); ?>
             </span>
           </td>
       <?php } ?>

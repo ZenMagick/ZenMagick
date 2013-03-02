@@ -24,7 +24,7 @@
 <?php if (0 < count($manufacturers)) { ?>
     <h3><?php _vzm("Manufacturers") ?></h3>
     <div id="sb_manufacturers" class="box">
-        <?php echo $form->open('manufacturer', '', $request->isSecure(), array('method' => 'get', 'onsubmit'=>null)) ?>
+        <?php echo $form->open('manufacturer', '', $app->getRequest()->isSecure(), array('method' => 'get', 'onsubmit'=>null)) ?>
             <div>
                 <?php echo $form->idpSelect('manufacturers_id', array_merge(array(new ZMIdNamePair("", _zm("Please Select"))), $manufacturers), $view['request']->getParameter('manufacturers_id'), array('size'=>1, 'onchange'=>'this.form.submit()')) ?>
                 <noscript>

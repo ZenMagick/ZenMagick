@@ -23,7 +23,7 @@
 <?php if (false === strpos($request->getRequestId(), 'search')) { ?>
     <h3><?php _vzm("Quick Search") ?></h3>
     <div id="sb_search" class="box">
-        <?php echo $form->open('search', '', $request->isSecure(), array('method' => 'get')) ?>
+        <?php echo $form->open('search', '', $app->getRequest()->isSecure(), array('method' => 'get')) ?>
             <div>
                 <input type="submit" class="btn" value="<?php _vzm("Go") ?>" />
                 <?php $onfocus = "if(this.value=='" . KEYWORD_DEFAULT . "') this.value='';" ?>

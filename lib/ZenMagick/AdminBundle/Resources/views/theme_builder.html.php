@@ -20,7 +20,7 @@
 ?>
 <?php $view->extend('AdminBundle::default_layout.html.php'); ?>
 <?php
-    if ('POST' == $request->getMethod()) {
+    if ('POST' == $app->getRequest()->getMethod()) {
         $name = $view['request']->getParameter('name');
         $themeBuilder = $container->get('themeBuilder');
         $themeBuilder->setName($view['request']->getParameter('name'));
