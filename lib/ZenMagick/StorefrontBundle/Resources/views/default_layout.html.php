@@ -24,7 +24,9 @@
   <head>
     <?php echo $this->fetch('head.html.php') ?>
     <?php $resourceManager->cssFile('css/site.css') ?>
-    <?php $resourceManager->cssFile('css/ie.css', array('prefix' => '<!--[if IE]>', 'suffix' => '<![endif]-->')) ?>
+    <?php // IE conditional comments
+          //$resourceManager->cssFile('css/ie.css', array('prefix' => '<!--[if IE]>', 'suffix' => '<![endif]-->'))
+    ?>
     <?php $resourceManager->jsFile('js/common.js', $resourceManager::FOOTER) ?>
     <?php /* give other themes the chance to add to the default CSS without having to copy everything */ ?>
     <?php if ($this->exists("resource:css/theme.css")) { ?>
