@@ -21,7 +21,7 @@
 
 if (isset($liftSuggest)) {
     // TODO: review and move into plugin somewhere
-    $recoProds = $session->get('reco_prods', array());
+    $recoProds = $view['session']->get('reco_prods', array());
     if (('product_info' == $view['request']->getRouteId()) && isset($currentProduct)) {
         $productId = $currentProduct->getId();
         if (in_array($productId, $recoProds)) {

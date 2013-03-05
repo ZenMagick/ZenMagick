@@ -26,7 +26,7 @@
     <div id="sb_currencies" class="box">
         <?php echo $form->open('set_currency', '', $app->getRequest()->isSecure(), array('method'=>'get')) ?>
             <div>
-                <?php echo $form->idpSelect('currency', $currencyList, $session->get('currency'), array('onchange'=>'this.form.submit()', 'oValue'=>'getCode')) ?>
+                <?php echo $form->idpSelect('currency', $currencyList, $view['session']->get('currency'), array('onchange'=>'this.form.submit()', 'oValue'=>'getCode')) ?>
                 <noscript>
                     <div><input type="submit" class="btn" value="<?php _vzm('Go') ?>" /></div>
                 </noscript>
