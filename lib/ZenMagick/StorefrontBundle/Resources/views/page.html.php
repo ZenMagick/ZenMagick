@@ -21,7 +21,7 @@
 ?>
 <?php $view->extend('StorefrontBundle::default_layout.html.php'); ?>
 <?php $crumbtrail->addCrumb($ezPage->getTitle()) ?>
-<?php $toc = $view->container->get('ezPageService')->getPagesForChapterId($view['request']->getParameter("chapter"), $session->getLanguageId()); ?>
+<?php $toc = $view->container->get('ezPageService')->getPagesForChapterId($view['request']->getParameter("chapter"), $view['request']->getLocaleId()); ?>
 <?php if (1 < count($toc)) { ?>
     <div id="eztoc">
         <h4><?php _vzm("Table of Contents") ?></h4>

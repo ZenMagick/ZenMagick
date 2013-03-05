@@ -20,7 +20,7 @@
  */
 ?>
 
-<?php $products = $view->container->get('productService')->getBestSellers($view['request']->getParameter('categoryId'), null, $session->getLanguageId()); ?>
+<?php $products = $view->container->get('productService')->getBestSellers($view['request']->getParameter('categoryId'), null, $view['request']->getLocaleId()); ?>
 <?php if (0 < count($products)) { ?>
     <h3><?php _vzm("Best Sellers") ?></h3>
     <div id="sb_bestsellers" class="box">

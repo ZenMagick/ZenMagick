@@ -21,7 +21,7 @@
 
     $orders = array();
     if ($app->getUser()) {
-        $orders = $view->container->get('orderService')->getOrdersForAccountId($app->getUser()->getId(), $session->getLanguageId(), 7);
+        $orders = $view->container->get('orderService')->getOrdersForAccountId($app->getUser()->getId(), $view['request']->getLocaleId(), 7);
     }
     $products = array();
 ?><?php if (0 < count($orders)) { ?>

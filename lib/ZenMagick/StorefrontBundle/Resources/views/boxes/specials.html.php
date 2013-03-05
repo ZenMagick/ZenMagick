@@ -21,7 +21,7 @@
 ?>
 
 <?php if (!isset($currentProduct) && 'specials' != $view['request']->getRouteId()) { ?>
-    <?php $products = $view->container->get('productService')->getSpecials(1, $session->getLanguageId()); ?>
+    <?php $products = $view->container->get('productService')->getSpecials(1, $view['request']->getLocaleId()); ?>
     <?php if (0 != count($products)) { $product = $products[0]; ?>
         <h3><a href="<?php echo $view['router']->generate('specials') ?>"><?php _vzm("[More]") ?></a><?php _vzm("Specials") ?></h3>
         <div id="sb_specials" class="box">

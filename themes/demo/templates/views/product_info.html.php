@@ -92,7 +92,7 @@ $resourceManager->jsFile('lightbox/prototype.js', $resourceManager::FOOTER) ?>
 
 <?php $similarOrder = $currentProduct->getProductAssociations('similarOrder', array('limit' => 3)); if (0 < count($similarOrder)) { ?>
   <h3>Customers that bought this product also bought:</h3>
-  <?php foreach ($similarOrder as $assoc) { $aproduct = $view->container->get('productService')->getProductForId($assoc->getProductId(), $session->getLanguageId()); ?>
+  <?php foreach ($similarOrder as $assoc) { $aproduct = $view->container->get('productService')->getProductForId($assoc->getProductId(), $view['request']->getLocaleId()); ?>
   <p><?php echo $aproduct->getName() ?></p>
   <?php } ?>
 <?php } ?>

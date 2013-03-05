@@ -70,7 +70,7 @@
     <?php } ?>
 </form>
 
-<?php if (1 == count($view->container->get('orderService')->getOrdersForAccountId($currentOrder->getAccountId(), $session->getLanguageId(), 2)) && 'registered' == $account->getType()) { ?>
+<?php if (1 == count($view->container->get('orderService')->getOrdersForAccountId($currentOrder->getAccountId(), $view['request']->getLocaleId(), 2)) && 'registered' == $account->getType()) { ?>
     <?php echo $form->open('checkout_refer_a_friend', '', true, array('id'=>'checkout_refer_a_friend')) ?>
         Friend1: <input type="text" name="friend1" value=""><br>
         Friend2: <input type="text" name="friend2" value=""><br>

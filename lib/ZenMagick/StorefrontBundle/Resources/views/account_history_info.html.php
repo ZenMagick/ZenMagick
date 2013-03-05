@@ -72,7 +72,7 @@ use ZenMagick\Base\Toolbox;
 <h3><?php _vzm("Order History") ?></h3>
 <table cellpadding="0" cellspacing="0">
     <tbody>
-    <?php foreach ($currentOrder->getOrderStatusHistory($session->getLanguageId()) as $orderStatus) { ?>
+    <?php foreach ($currentOrder->getOrderStatusHistory($view['request']->getLocaleId()) as $orderStatus) { ?>
         <tr>
             <td><?php echo $locale->shortDate($orderStatus->getDateAdded()) ?></td>
             <td><?php echo $view->escape($orderStatus->getName()) ?></td>
@@ -93,7 +93,7 @@ use ZenMagick\Base\Toolbox;
           <th><?php _vzm('Remaining') ?></th>
           <th></th>
       </tr>
-      <?php foreach ($downloads as $download) { $downloadProduct = $view->container->get('productService')->getProductForId($download->getProductId(), $session->getLanguageId()); ?>
+      <?php foreach ($downloads as $download) { $downloadProduct = $view->container->get('productService')->getProductForId($download->getProductId(), $view['request']->getLocaleId()); ?>
           <tr>
               <th><?php echo $view->escape($downloadProduct->getName()) ?></th>
               <th><?php echo $view->escape($download->getFilename()) ?></th>

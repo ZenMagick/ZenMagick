@@ -21,7 +21,7 @@
 <?php $view->extend('StorefrontBundle::default_layout.html.php'); ?>
 <?php echo get_class($view->container->get('productService')) ?>
 <?php echo $utils->staticPageContent("main_page") ?>
-<?php $featured = $view->container->get('productService')->getFeaturedProducts(null, 4, false, $session->getLanguageId()); ?>
+<?php $featured = $view->container->get('productService')->getFeaturedProducts(null, 4, false, $view['request']->getLocaleId()); ?>
 <h3>Featured Products</h3>
 <div id="featured">
   <?php foreach ($featured as $product) { ?>

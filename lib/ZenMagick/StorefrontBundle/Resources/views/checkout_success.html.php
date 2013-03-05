@@ -57,7 +57,7 @@
                   <th><?php _vzm('Remaining') ?></th>
                   <th></th>
               </tr>
-              <?php foreach ($downloads as $download) { $downloadProduct = $view->container->get('productService')->getProductForId($download->getProductId(), $session->getLanguageId()); ?>
+              <?php foreach ($downloads as $download) { $downloadProduct = $view->container->get('productService')->getProductForId($download->getProductId(), $view['request']->getLocaleId()); ?>
                   <tr>
                       <th><?php echo $view->escape($downloadProduct->getName()) ?></th>
                       <th><?php echo $view->escape($download->getFilename()) ?></th>

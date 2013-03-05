@@ -22,7 +22,7 @@
 
 <div id="footer">
     <p id="fpages">
-        <?php foreach ($view->container->get('ezPageService')->getPagesForFooter($session->getLanguageId()) as $page) { ?>
+        <?php foreach ($view->container->get('ezPageService')->getPagesForFooter($view['request']->getLocaleId()) as $page) { ?>
             <?php echo $html->ezpageLink($page->getId()) ?>
         <?php } ?>
     </p>

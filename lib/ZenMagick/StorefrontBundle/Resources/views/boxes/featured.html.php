@@ -20,7 +20,7 @@
  */
 ?>
 
-<?php $products = $view->container->get('productService')->getFeaturedProducts($view['request']->getParameter('categoryId'), 1, false, $session->getLanguageId()); ?>
+<?php $products = $view->container->get('productService')->getFeaturedProducts($view['request']->getParameter('categoryId'), 1, false, $view['request']->getLocaleId()); ?>
 <?php if (1 == count($products)) {
     $product = $products[0];
     ?>

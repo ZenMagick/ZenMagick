@@ -20,7 +20,7 @@
  */
 ?>
 
-<?php $product = $view->container->get('productService')->getProductForId($review->getProductId(), $session->getLanguageId()); ?>
+<?php $product = $view->container->get('productService')->getProductForId($review->getProductId(), $view['request']->getLocaleId()); ?>
 <tr class="<?php echo ($odd?"odd":"even").($first?" first":" other") ?>">
     <td>
         <?php echo $html->productImageLink($product) ?>

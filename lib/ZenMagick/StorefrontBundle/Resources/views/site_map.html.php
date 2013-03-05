@@ -22,7 +22,7 @@
 <?php $view->extend('StorefrontBundle::default_layout.html.php'); ?>
 <?php $contact = '<a href="'.$view['router']->generate('contact_us') .'">'._zm("let us know").'</a>'; ?>
 <p><?php _vzm("If you are having difficulty in locating something on our site, please %s!", $contact) ?></p>
-<?php echo $macro->categoryTree($view->container->get('categoryService')->getCategoryTree($session->getLanguageId()), "catalog"); ?>
+<?php echo $macro->categoryTree($view->container->get('categoryService')->getCategoryTree($view['request']->getLocaleId()), "catalog"); ?>
 <ul>
     <?php if ($view['security']->isGranted('ROLE_REGISTERED')) { ?>
       <li><a href="<?php echo $view['router']->generate('account') ?>"><?php _vzm("My Account") ?></a>

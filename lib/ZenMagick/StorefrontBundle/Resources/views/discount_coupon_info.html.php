@@ -30,7 +30,7 @@
 <?php if ($restrictions->hasCategories()) { ?>
     <h4><?php _vzm("Category Restrictions")?></h4>
     <ul>
-    <?php foreach ($restrictions->getCategories() as $restriction) { $category = $restriction->getCategory($session->getLanguageId()); ?>
+    <?php foreach ($restrictions->getCategories() as $restriction) { $category = $restriction->getCategory($view['request']->getLocaleId()); ?>
         <li><?php echo $view->escape($category->getName()) ?> - <?php echo ($restriction->isAllowed() ? _zm(" included") : _zm(" excluded")) ?></li>
     <?php } ?>
     </ul>
@@ -39,7 +39,7 @@
 <?php if ($restrictions->hasProducts()) { ?>
     <h4><?php _vzm("Product Restrictions")?></h4>
     <ul>
-    <?php foreach ($restrictions->getProducts() as $restriction) { $product = $restriction->getProduct($session->getLanguageId()); ?>
+    <?php foreach ($restrictions->getProducts() as $restriction) { $product = $restriction->getProduct($view['request']->getLocaleId()); ?>
         <li><?php echo $view->escape($product->getName()) ?> - <?php echo ($restriction->isAllowed() ? _zm(" included") : _zm(" excluded")) ?></li>
     <?php } ?>
     </ul>

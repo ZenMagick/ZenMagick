@@ -56,7 +56,7 @@
 <h3><?php _vzm("Order History") ?></h3>
 <table cellpadding="0" cellspacing="0">
     <tbody>
-    <?php foreach ($order->getOrderStatusHistory($session->getLanguageId()) as $orderStatus) { ?>
+    <?php foreach ($order->getOrderStatusHistory($view['request']->getLocaleId()) as $orderStatus) { ?>
         <tr>
             <td><?php echo $locale->shortDate($orderStatus->getDateAdded()) ?></td>
             <td><?php echo $view->escape($orderStatus->getName()) ?></td>
