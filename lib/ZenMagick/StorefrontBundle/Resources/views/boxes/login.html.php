@@ -20,7 +20,7 @@
  */
 ?>
 
-<?php if (!$app->getUser() && 'login' != $request->getRequestId() && 'time_out' != $request->getRequestId()) { ?>
+<?php if (!$app->getUser() && 'login' != $view['request']->getRouteId() && 'time_out' != $view['request']->getRouteId()) { ?>
     <h3><?php _vzm("Login") ?></h3>
     <div id="sb_login" class="box">
         <?php echo $form->open('login', '', true, array('id'=>'login')) ?>

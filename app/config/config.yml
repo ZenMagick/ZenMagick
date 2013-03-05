@@ -1,7 +1,9 @@
 parameters:
     session.flashbag.class: "ZenMagick\Http\Session\FlashBag"
+    templating.helper.request.class: "ZenMagick\ZenMagickBundle\Templating\Helper\RequestHelper"
 
     secret: notsecret
+
 imports:
 #    - { resource: parameters.yml }
     - { resource: security.yml }

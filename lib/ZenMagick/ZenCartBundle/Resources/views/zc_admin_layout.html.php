@@ -2,7 +2,7 @@
 $resourceManager->jsFile('zc_admin.js');
 $adminDir = $view->container->getParameter('zencart.admin_dir');
 $adminWeb = basename($adminDir);
-$zcPage = str_replace('zc_admin_', '',$request->getRequestId()).'.php';
+$zcPage = str_replace('zc_admin_', '',$view['request']->getRouteId()).'.php';
 chdir($adminDir);
 
 //$autoLoader->setErrorLevel();

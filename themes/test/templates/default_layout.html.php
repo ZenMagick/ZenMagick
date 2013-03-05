@@ -31,7 +31,7 @@
     <?php if ($resourceResolver->exists("resource:css/theme.css", $templateView::RESOURCE)) { ?>
         <?php $resourceManager->cssFile('css/theme.css') ?>
     <?php } ?>
-    <?php $pageCSS = "css/".$request->getRequestId().".css"; ?>
+    <?php $pageCSS = "css/".$view['request']->getRouteId().".css"; ?>
     <?php /* page specific CSS */ ?>
     <?php if ($resourceResolver->exists('resource:'.$pageCSS, $templateView::RESOURCE)) { ?>
         <?php $resourceManager->cssFile($pageCSS) ?>
@@ -48,7 +48,7 @@
     <?php } ?>
   </head>
 
-  <body id="b_<?php echo $request->getRequestId() ?>">
+  <body id="b_<?php echo $view['request']->getRouteId() ?>">
     <div id="bannerOne"><?php echo $this->fetchBlockGroup('banners', array('group' => 'Wide-Banners')) ?></div>
 
     <div id="container">

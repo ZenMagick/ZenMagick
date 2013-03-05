@@ -30,9 +30,9 @@ if (!$app->getUser()) return;
   // hint for navigation matching
   var alias = null;
   <?php // @todo fix
-    if (false && null != ($current = $adminMenu->getItemForRequestId($request->getRequestId()))) {
+    if (false && null != ($current = $adminMenu->getItemForRequestId($view['request']->getRouteId()))) {
       foreach ($current->getAlias() as $alias) {
-        if ($request->getRequestId() == $alias) {
+        if ($view['request']->getRouteId() == $alias) {
           echo "alias = '".$view['router']->generate($current->getRoute(), true?'':$current->getRouteParameters())."'";
         }
       }

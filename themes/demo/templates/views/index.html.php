@@ -62,6 +62,6 @@
   <li>Check out the actual used template files (
      <a href="<?php echo $view['router']->generate('source_view', array('template_name' => $view->getLayout())) ?>">layout</a>
       and
-     <a href="<?php echo $view['router']->generate('source_view', array('view_name' => $request->getRequestId())) ?>">view</a>
+     <a href="<?php echo $view['router']->generate('source_view', array('view_name' => $view['request']->getRouteId())) ?>">view</a>
     ) on this site! (there are links in the footer on all other pages)</li>
 </ul>

@@ -93,7 +93,7 @@
               <button class="<?php echo $buttonClasses ?>" type="submit"><?php _vzm('Upgrade') ?></button>
             </form>
             <?php if ($plugin->hasOptions()) { /* enabled/disabled and sort order are handled by this page */ ?>
-              <a class="<?php echo $buttonClasses ?>" href="<?php echo $view['router']->generate($request->getRequestId(), array('ajax' => 'false', 'action' => 'edit', 'pluginId' => $plugin->getId())) ?>#<?php echo $plugin->getId() ?>" onclick="return ZenMagick.ajaxFormDialog(this.href, {title:'<?php echo sprintf(_zm('Edit Plugin Options: %s'), $plugin->getName()) ?>', formId: 'ajax-form'});"><?php _vzm('Edit') ?></a>
+              <a class="<?php echo $buttonClasses ?>" href="<?php echo $view['router']->generate($view['request']->getRouteId(), array('ajax' => 'false', 'action' => 'edit', 'pluginId' => $plugin->getId())) ?>#<?php echo $plugin->getId() ?>" onclick="return ZenMagick.ajaxFormDialog(this.href, {title:'<?php echo sprintf(_zm('Edit Plugin Options: %s'), $plugin->getName()) ?>', formId: 'ajax-form'});"><?php _vzm('Edit') ?></a>
             <?php } ?>
           <?php } ?>
         </td>

@@ -28,14 +28,14 @@
     <?php $resources->cssFile('style/zenmagick.css') ?>
     <?php $resources->cssFile('style/jquery-ui/jquery-ui-1.8.15.custom.css') ?>
     <?php $resources->cssFile('style/jquery.cluetip.css') ?>
-    <?php $resources->cssFile('style/views/'.$request->getRequestId().'.css') ?>
+    <?php $resources->cssFile('style/views/'.$view['request']->getRouteId().'.css') ?>
     <?php $resources->jsFile('js/jquery-1.6.2.min.js') ?>
     <?php $resources->jsFile('style/jquery-ui/jquery-ui-1.8.15.custom.min.js') ?>
     <?php $resources->jsFile('js/jquery.form.js') ?>
     <?php $resources->jsFile('js/jquery.cluetip.min.js') ?>
     <?php $resources->jsFile('js/zenmagick.js') ?>
   </head>
-  <body id="p-<?php echo $request->getRequestId() ?>">
+  <body id="p-<?php echo $view['request']->getRouteId() ?>">
     <div id="main">
       <?php echo $this->render('AdminBundle::header.html.php'); ?>
       <div id="content">

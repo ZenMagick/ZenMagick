@@ -20,7 +20,7 @@
  */
 ?>
 
-<?php if (false === strpos($request->getRequestId(), 'search')) { ?>
+<?php if (false === strpos($view['request']->getRouteId(), 'search')) { ?>
     <h3><?php _vzm("Quick Search") ?></h3>
     <div id="sb_search" class="box">
         <?php echo $form->open('search', '', $app->getRequest()->isSecure(), array('method' => 'get')) ?>

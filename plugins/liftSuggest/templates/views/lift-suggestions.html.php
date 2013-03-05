@@ -22,14 +22,14 @@
 if (isset($liftSuggest)) {
     // TODO: review and move into plugin somewhere
     $recoProds = $session->get('reco_prods', array());
-    if (('product_info' == $request->getRequestId()) && isset($currentProduct)) {
+    if (('product_info' == $view['request']->getRouteId()) && isset($currentProduct)) {
         $productId = $currentProduct->getId();
         if (in_array($productId, $recoProds)) {
             $ls_rev_css = "liftsuggest {act:'prodview', sku:'".$productId."', reco:'R'}";
         } else {
             $ls_rev_css = "liftsuggest {act:'prodview', sku:'".$productId."', reco:'N'}";
         }
-    } elseif ('shopping_cart' == $request->getRequestId()) {
+    } elseif ('shopping_cart' == $view['request']->getRouteId()) {
         $productIdList = array();
         foreach ($shoppingCart->getItems() as $item) {
             $productIdList[] = $item->getProductId();

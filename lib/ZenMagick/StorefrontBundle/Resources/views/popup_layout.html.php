@@ -29,14 +29,14 @@
     <?php if ($resourceResolver->exists('themes.css', $templateView::RESOURCE)) { ?>
         <?php $resourceManager->cssFile('css/theme.css') ?>
     <?php } ?>
-    <?php $pageCSS = "css/".$request->getRequestId().".css"; ?>
+    <?php $pageCSS = "css/".$view['request']->getRouteId().".css"; ?>
     <?php /* page specific CSS */ ?>
     <?php if ($resourceResolver->exists('resource:'.$pageCSS, $templateView::RESOURCE)) { ?>
         <?php $resourceManager->cssFile($pageCSS) ?>
     <?php } ?>
   </head>
 
-  <body id="pb_<?php echo $request->getRequestId() ?>">
+  <body id="pb_<?php echo $view['request']->getRouteId() ?>">
     <?php $view['slots']->output('_content'); ?>
   </body>
 </html>

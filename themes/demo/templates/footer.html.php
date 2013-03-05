@@ -31,7 +31,7 @@
 
     <p id="sview">
         <a href="<?php echo $view['router']->generate('source_view', array('layout_name' => $view->getLayout())) ?>">Layout: '<?php echo basename($view->getLayout()) ?>'</a>
-        <a href="<?php echo $view['router']->generate('source_view', array('view_name' => $request->getRequestId())) ?>">View: '<?php echo basename($request->getRequestId()) ?>'</a>
+        <a href="<?php echo $view['router']->generate('source_view', array('view_name' => $view['request']->getRouteId())) ?>">View: '<?php echo basename($view['request']->getRouteId()) ?>'</a>
     </p>
     <p>Powered by <a href="http://www.zen-cart.com">zen-cart</a> and <a href="http://www.zenmagick.org">ZenMagick</a></p>
     <p>&copy; 2006-2012  <a href="http://www.zenmagick.org">ZenMagick</a> |
