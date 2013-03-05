@@ -17,11 +17,8 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */ $admin->title(_zm('Reset Password')) ?></h1>
-
-<form action="<?php echo $net->generate('admin_reset_password') ?>" method="POST">
+<?php echo $form->open('admin_reset_password', '', true, array('id'=>'reset_password')) ?>
 <p><?php _vzm('Please enter your admin email address and a new password will be emailed to you.') ?></p>
-
-<input type="hidden" name="<?php echo ZenMagick\Http\Session\Validation\FormTokenSessionValidator::SESSION_TOKEN_NAME; ?>" value="<?php echo $session->getToken() ?>">
 
 <p>
 <label for="email"><?php _vzm('Email') ?></label><br>

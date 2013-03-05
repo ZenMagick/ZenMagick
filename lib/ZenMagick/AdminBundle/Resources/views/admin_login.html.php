@@ -17,9 +17,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */ $admin->title(_zm('Login')) ?>
-
-<form action="<?php echo $net->generate('admin_login_check') ?>" method="POST">
-<input type="hidden" name="<?php echo ZenMagick\Http\Session\Validation\FormTokenSessionValidator::SESSION_TOKEN_NAME; ?>" value="<?php echo $session->getToken() ?>">
+<?php echo $form->open('admin_login_check', '', true, array('id'=>'login')) ?>
 
 <p>
 <label for="username"><?php _vzm('User Name') ?></label><br>
