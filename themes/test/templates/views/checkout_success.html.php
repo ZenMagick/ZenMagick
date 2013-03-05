@@ -59,7 +59,7 @@
         </fieldset>
     <?php } ?>
 
-    <?php if ($session->isGuest()) { ?>
+    <?php if (!$view['security']->isGranted('ROLE_REGISTERED')) { ?>
         <fieldset>
             <legend><?php _vzm("Order Status Check") ?></legend>
             <p>
