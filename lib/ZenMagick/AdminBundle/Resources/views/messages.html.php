@@ -19,7 +19,7 @@
  */
 use ZenMagick\Http\Session\FlashBag;
 
-if ($messageService->hasMessages()) { ?>
+if ($view['session']->hasMessages()) { ?>
     <ul id="messages" class="ui-widget">
     <?php
       $messageClass = array(
@@ -29,7 +29,7 @@ if ($messageService->hasMessages()) { ?>
           FlashBag::T_ERROR => array('ui-state-error', 'ui-icon ui-icon-alert')
       );
     ?>
-    <?php foreach ($messageService->getMessages() as $message) { ?>
+    <?php foreach ($view['session']->getMessages() as $message) { ?>
         <li class="ui-corner-all <?php echo $messageClass[$message->getType()][0] ?>"><span class="<?php echo $messageClass[$message->getType()][1] ?>" style="float:left;margin-right:0.3em;"></span><?php echo $message->getText() ?></li>
     <?php } ?>
     </ul>

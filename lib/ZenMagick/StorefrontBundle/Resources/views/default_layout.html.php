@@ -70,9 +70,9 @@
         <div id="crumbtrail"><?php echo $this->fragment('crumbtrail') ?></div>
         <div id="bannerThree"><?php echo $this->fetchBlockGroup('banners.header3') ?></div>
 
-        <?php if ($messageService->hasMessages()) { ?>
+        <?php if ($view['session']->hasMessages()) { ?>
             <ul id="messages">
-            <?php foreach ($messageService->getMessages() as $message) { ?>
+            <?php foreach ($view['session']->getMessages() as $message) { ?>
                 <li class="<?php echo $message->getType() ?>"><?php echo $message->getText() ?></li>
             <?php } ?>
             </ul>
