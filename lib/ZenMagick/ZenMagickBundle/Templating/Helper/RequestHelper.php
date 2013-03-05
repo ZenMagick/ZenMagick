@@ -27,4 +27,15 @@ class RequestHelper extends BaseRequestHelper
     {
         return $this->request->attributes->get('_route');
     }
+
+    /**
+     * Get the locale (language) id
+     *
+     * @todo replace with a request attribute instead of session var
+     * @return int
+     */
+    public function getLocaleId()
+    {
+        return $this->request->getSession()->get('languages_id', 1);
+    }
 }
