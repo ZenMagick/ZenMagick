@@ -25,7 +25,7 @@
 <p><?php _vzm("Discount Offer:") ?><br /><?php echo $view->escape($currentCoupon->getDescription()) ?></p>
 
 <h4><?php _vzm("Promotional Period") ?></h4>
-<p><?php _vzm("The coupon is valid between %s and %s.", $locale->shortDate($currentCoupon->getStartDate()), $locale->shortDate($currentCoupon->getExpiryDate())) ?></p>
+<p><?php _vzm("The coupon is valid between %s and %s.", $view['date']->short($currentCoupon->getStartDate()), $view['date']->short($currentCoupon->getExpiryDate())) ?></p>
 
 <?php if ($restrictions->hasCategories()) { ?>
     <h4><?php _vzm("Category Restrictions")?></h4>

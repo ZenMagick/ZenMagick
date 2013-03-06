@@ -57,7 +57,7 @@
                 <?php if ($view['settings']->get('isAccountDOB')) { ?>
                     <tr>
                         <td><?php _vzm("Date of Birth") ?><span>*</span></td>
-                        <td><input type="text" name="dob" value="<?php echo $locale->shortDate($account->getDob()) ?>" /> <?php echo sprintf(_zm("Format: %s;&nbsp;(e.g: %s)"), $locale->getFormat('date', 'short-ui-format'), $locale->getFormat('date', 'short-ui-example')) ?></td>
+                        <td><input type="text" name="dob" value="<?php echo $view['date']->short($account->getDob()) ?>" /> <?php echo sprintf(_zm("Format: %s;&nbsp;(e.g: %s)"), $view['date']->getFormat('date', 'short-ui-format'), $view['date']->getFormat('date', 'short-ui-example')) ?></td>
                     </tr>
                 <?php } ?>
                 <tr>

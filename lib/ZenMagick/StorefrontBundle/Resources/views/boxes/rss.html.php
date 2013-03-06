@@ -26,7 +26,7 @@
     <div id="sb_rss" class="box">
         <dl>
             <?php foreach ($rssFeed->getItems() as $item) { ?>
-                <dt><?php echo $locale->shortDate($item->getPubDate()) ?></dt>
+                <dt><?php echo $view['date']->short($item->getPubDate()) ?></dt>
                 <dd><a href="<?php echo $item->getLink() ?>"<?php echo $html->hrefTarget() ?>><?php echo $view->escape($item->getTitle()); ?></a></dd>
             <?php } ?>
         </dl>

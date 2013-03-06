@@ -58,8 +58,8 @@
                     <a href="<?php echo $view['router']->generate('zc_admin_orders', array('action' => 'edit', 'oID' => $order->getId())) ?>"><?php _vzm("Order #%s", $order->getId()) ?></a>
                 </td>
                 <td><?php echo $schedules[$order->getSchedule()]['name'] ?></td>
-                <td><?php echo $locale->shortDate($order->getNextOrder()) ?></td>
-                <td><?php echo $locale->shortDate($plugin->getMinLastOrderDate($order->getId())) ?></td>
+                <td><?php echo $view['date']->short($order->getNextOrder()) ?></td>
+                <td><?php echo $view['date']->short($plugin->getMinLastOrderDate($order->getId())) ?></td>
                 <td style="text-align:center;"><img src="images/icons/<?php echo ($order->isSubscriptionCanceled() ? 'cross.gif' : 'tick.gif') ?>" alt="tick"></td>
                 <td>
                     <?php if (!$order->isSubscriptionCanceled()) { ?>

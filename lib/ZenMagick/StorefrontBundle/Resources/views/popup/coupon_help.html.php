@@ -38,7 +38,7 @@
   <?php echo $discount ?>
 </p>
 
-<p><?php _vzm("The discount is valid between %s and %s.", $locale->shortDate($coupon->getStartDate()), $locale->shortDate($coupon->getExpiryDate())) ?></p>
+<p><?php _vzm("The discount is valid between %s and %s.", $view['date']->short($coupon->getStartDate()), $view['date']->short($coupon->getExpiryDate())) ?></p>
 
 <?php if ($restrictions->hasCategories()) { ?>
     <h4><?php _vzm("Category Restrictions")?></h4>

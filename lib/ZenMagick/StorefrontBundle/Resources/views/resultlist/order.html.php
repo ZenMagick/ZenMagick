@@ -24,7 +24,7 @@
     <td>
         <a href="<?php echo $view['router']->generate('account_history_info', array('order_id' => $order->getId())) ?>"><?php _vzm("Order #%s", $order->getId()) ?></a>
     </td>
-    <td><?php echo $locale->shortDate($order->getOrderDate()) ?></td>
+    <td><?php echo $view['date']->short($order->getOrderDate()) ?></td>
     <?php $address = $order->getBillingAddress(); ?>
     <td><?php echo $view->escape($address->getFullName()) ?></td>
     <td><?php _vzm($order->getStatusName()) ?></td>

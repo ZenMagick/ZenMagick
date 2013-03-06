@@ -34,7 +34,7 @@ use ZenMagick\Base\Toolbox;
 <h3><?php _vzm("Order Details") ?></h3>
 <p>
 <?php _vzm("Order Number: #%s", $order->getId()) ?><br>
-<?php _vzm("Order Date: %s", $locale->shortDate($order->getOrderDate())) ?>
+<?php _vzm("Order Date: %s", $view['date']->short($order->getOrderDate())) ?>
 </p>
 
 <h4><?php _vzm("Ordered Items") ?></h4>

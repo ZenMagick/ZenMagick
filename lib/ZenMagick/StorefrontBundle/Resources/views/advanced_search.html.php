@@ -60,7 +60,7 @@
 
         <fieldset>
             <legend><?php _vzm("Date"); ?></legend>
-            <?php $defaultDateValue = $locale->getFormat('date', 'short-ui-format'); ?>
+            <?php $defaultDateValue = $view['date']->getFormat('date', 'short-ui-format'); ?>
             <?php $onfocus = "if(this.value=='" . $defaultDateValue . "') this.value='';" ?>
             <input type="text" id="dateFrom" name="dateFrom" value="<?php echo $view->escape($searchCriteria->getDateFrom($defaultDateValue)) ?>" onfocus="<?php echo $onfocus ?>" />
             <input type="text" id="dateTo" name="dateTo" value="<?php echo $view->escape($searchCriteria->getDateTo($defaultDateValue)) ?>" onfocus="<?php echo $onfocus ?>" />

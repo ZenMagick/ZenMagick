@@ -34,7 +34,7 @@
 <?php if ($newAccountDiscountCoupon) { ?>
 <div>
   <p><?php echo _zm('Congratulations! To make your next visit to our online shop a more rewarding experience, listed below are details for a Discount Coupon created just for you!') ?></p>
-  <p><?php _vzm('The coupon is valid between %s and %s', $locale->shortDate($newAccountDiscountCoupon->getStartDate()), $locale->shortDate($newAccountDiscountCoupon->getExpiryDate())) ?></p>
+  <p><?php _vzm('The coupon is valid between %s and %s', $view['date']->short($newAccountDiscountCoupon->getStartDate()), $view['date']->short($newAccountDiscountCoupon->getExpiryDate())) ?></p>
   <p><?php _vzm('To use the Discount Coupon, enter the Redemption Code code during checkout: %s', $newAccountDiscountCoupon->getCode()) ?></p>
 </div>
 <?php } ?>

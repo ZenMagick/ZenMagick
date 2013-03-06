@@ -33,7 +33,7 @@
 
 <p><?php _vzm('The coupon code is <strong>%s</strong>.', $currentCoupon->getCode()) ?></p>
 
-<p><?php _vzm('The coupon is valid between %s and %s', $locale->shortDate($currentCoupon->getStartDate()), $locale->shortDate($currentCoupon->getExpiryDate())) ?></p>
+<p><?php _vzm('The coupon is valid between %s and %s', $view['date']->short($currentCoupon->getStartDate()), $view['date']->short($currentCoupon->getExpiryDate())) ?></p>
 
 <p><?php _vzm("Don't lose the coupon code, make sure to keep the code safe so you can benefit from this special offer.") ?></p>
 

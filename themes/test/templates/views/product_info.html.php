@@ -42,7 +42,7 @@ use ZenMagick\StoreBundle\Services\Products;
       <?php if (null != $manufacturer) { ?>
         <?php _vzm("Producer") ?>: <?php echo $view->escape($manufacturer->getName()); ?><br />
       <?php } ?>
-        <?php _vzm("Avilable") ?>: <?php echo $locale->shortDate($currentProduct->getDateAvailable()) ?><br />
+        <?php _vzm("Avilable") ?>: <?php echo $view['date']->short($currentProduct->getDateAvailable()) ?><br />
       <p id="price"><?php echo $view->escape($currentProduct->getModel()) ?>: <?php echo $macro->productPrice($currentProduct) ?></p>
   </div>
 

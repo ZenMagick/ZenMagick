@@ -74,7 +74,7 @@ use ZenMagick\Base\Toolbox;
     <tbody>
     <?php foreach ($currentOrder->getOrderStatusHistory($view['request']->getLocaleId()) as $orderStatus) { ?>
         <tr>
-            <td><?php echo $locale->shortDate($orderStatus->getDateAdded()) ?></td>
+            <td><?php echo $view['date']->short($orderStatus->getDateAdded()) ?></td>
             <td><?php echo $view->escape($orderStatus->getName()) ?></td>
             <td class="cmt"><?php echo $view->escape($orderStatus->getComment()) ?></td>
         </tr>

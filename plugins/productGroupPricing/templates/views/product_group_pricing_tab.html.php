@@ -49,9 +49,9 @@
     </p>
     <p>
       <label for="startDate">Start Date</label>
-      <input type="text" class="datepicker" id="startDate" name="startDate" value="<?php echo $locale->shortDate($productGroupPricing->getStartDate()) ?>">
+      <input type="text" class="datepicker" id="startDate" name="startDate" value="<?php echo $view['date']->short($productGroupPricing->getStartDate()) ?>">
       <label for="endDate">End Date</label>
-      <input type="text" class="datepicker" id="endDate" name="endDate" value="<?php echo $locale->shortDate($productGroupPricing->getEndDate()) ?>">
+      <input type="text" class="datepicker" id="endDate" name="endDate" value="<?php echo $view['date']->short($productGroupPricing->getEndDate()) ?>">
       <?php echo sprintf(_zm("Format: %s;&nbsp;(e.g: %s)"), _zm('date-short-ui-format'), _zm('date-short-ui-example')) ?>
     </p>
   </fieldset>
