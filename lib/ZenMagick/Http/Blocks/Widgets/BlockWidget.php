@@ -121,7 +121,7 @@ class BlockWidget extends Widget
     {
         $content = '';
 
-        if (!empty($this->template_) && $templateView->getResourceResolver()->exists($this->template_)) {
+        if (!empty($this->template_)) {
             // hand on all custom properties
             $content = $templateView->fetch($this->template_, $this->getProperties());
         }
