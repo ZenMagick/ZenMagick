@@ -198,5 +198,10 @@
             <argument type="service" id="settingsService" />
         </service>
 
+        <service id="zenmagick.templating.helper.date" class="ZenMagick\ZenMagickBundle\Templating\Helper\DateHelper">
+            <tag name="templating.helper" alias="date" />
+            <argument type="service" id="localeService" />
+        </service>
+
     </services>
 </container>
