@@ -120,7 +120,7 @@ class ToolboxMetaTags extends ToolboxTool
             if (null != ($category = $this->container->get('categoryService')->getCategoryForId($this->getRequest()->attributes->get('categoryId'), $this->getRequest()->getSession()->getLanguageId()))) {
                 $languageId = $this->getRequest()->getSession()->getLanguageId();
                 if (null != ($details = $category->getMetaTagDetails($languageId))) {
-                    $title = $html->encode($details->getTitle());
+                    $title = $details->getTitle();
                 } else {
                     $title = $this->category_;
                 }
@@ -139,8 +139,6 @@ class ToolboxMetaTags extends ToolboxTool
             if (0 < strlen($title)) $title .= Runtime::getSettings()->get('metaTitleDelimiter');
             $title .= Runtime::getSettings()->get('storeName');
         }
-
-        $title = $html->encode($title);
 
         return $title;
     }
@@ -181,9 +179,7 @@ class ToolboxMetaTags extends ToolboxTool
             $value .= $this->topCategories_;
         }
 
-        $value = $this->getToolbox()->html->encode(trim($value));
-
-        return $value;
+        return trim($value);
     }
 
     /**
@@ -219,9 +215,7 @@ class ToolboxMetaTags extends ToolboxTool
             }
         }
 
-        $value = $this->getToolbox()->html->encode(trim($value));
-
-        return $value;
+        return trim($value);
     }
 
 
