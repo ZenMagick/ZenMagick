@@ -239,11 +239,6 @@
 
         <service id="productGroupPricingService" class="ZMProductGroupPricings" />
 
-        <service id="globalVariablesTool" class="Symfony\Bundle\FrameworkBundle\Templating\GlobalVariables">
-            <argument type="service" id="service_container" />
-            <tag name="zenmagick.http.toolbox.tool" key="app" />
-        </service>
-
         <service id="formTool" class="ZenMagick\StoreBundle\Toolbox\ToolboxForm" scope="prototype">
             <tag name="zenmagick.http.toolbox.tool" key="form" />
         </service>
