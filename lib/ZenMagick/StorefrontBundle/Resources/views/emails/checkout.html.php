@@ -24,11 +24,11 @@ use ZenMagick\Base\Toolbox;
 ?><!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
 <html lang="<?php echo $language->getCode() ?>">
 <head>
-<title><?php _vzm("%s Order Confirmation", $settingsService->get('storeName')) ?></title>
+<title><?php _vzm("%s Order Confirmation", $view['settings']->get('storeName')) ?></title>
 </head>
 <body>
 <div style="font-family:Verdana,Arial,Helvetica,sans-serif;font-size:10pt;">
-<p><?php _vzm("Thanks for shopping at %s,", $settingsService->get('storeName')) ?></p>
+<p><?php _vzm("Thanks for shopping at %s,", $view['settings']->get('storeName')) ?></p>
 <p><?php _vzm("The following is a summary of your order.") ?></p>
 
 <h3><?php _vzm("Order Details") ?></h3>

@@ -35,7 +35,7 @@ if ($shoppingCart->isEmpty()) { ?>
                         <?php echo $form->hiddenCartFields($item) ?>
                     </td>
                     <td class="itm">
-                        <?php if (!$item->isStockAvailable() && $settingsService->get('isEnableStock')) { ?>
+                        <?php if (!$item->isStockAvailable() && $view['settings']->get('isEnableStock')) { ?>
                             <span class="note"><?php _vzm('* Out of Stock') ?></span><br/>
                         <?php } ?>
                         <?php echo $view->escape($item->getProduct()->getName()) ?>

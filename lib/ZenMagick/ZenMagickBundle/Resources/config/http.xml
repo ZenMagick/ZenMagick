@@ -193,5 +193,10 @@
             </call>
         </service>
 
+        <service id="zenmagick.templating.helper.settings" class="ZenMagick\ZenMagickBundle\Templating\Helper\SettingsHelper">
+            <tag name="templating.helper" alias="settings" />
+            <argument type="service" id="settingsService" />
+        </service>
+
     </services>
 </container>

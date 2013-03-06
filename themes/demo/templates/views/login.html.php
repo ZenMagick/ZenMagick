@@ -75,7 +75,7 @@
   <a href="<?php echo $view['router']->generate('create_account'); ?>"><?php _vzm("Not registered yet?") ?></a>
 </p>
 
-<?php if ($settingsService->get('isGuestCheckout') && !$view->container->get('shoppingCart')->isEmpty()) { ?>
+<?php if ($view['settings']->get('isGuestCheckout') && !$view->container->get('shoppingCart')->isEmpty()) { ?>
   <h3><?php _vzm("Don't need an account?") ?></h3>
   <?php echo $form->open('checkout_guest', '', true, array('id' => 'checkout_guest', 'method' => 'post', 'onsubmit' => 'return zmFormValidation.validate(this);')) ?>
     <fieldset>

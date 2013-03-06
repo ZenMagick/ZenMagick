@@ -63,7 +63,7 @@ use Symfony\Component\HttpFoundation\ResponseRedirect;
     if (null != $view['request']->getParameter('importSp')) {
         // disable
         $settingsService = Runtime::getSettings();
-        $tmp = $settingsService->get('apps.store.staticContent', false);
+        $tmp = $view['settings']->get('apps.store.staticContent', false);
         $settingsService->set('apps.store.staticContent', false);
 
         $ezPageService = $view->container->get('ezPageService');

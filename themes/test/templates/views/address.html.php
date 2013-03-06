@@ -16,7 +16,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
- */ $countryId = 0 != $address->getCountryId() ? $address->getCountryId() : $settingsService->get('storeCountry'); ?>
+ */ $countryId = 0 != $address->getCountryId() ? $address->getCountryId() : $view['settings']->get('storeCountry'); ?>
 <fieldset>
     <legend><?php _vzm("Address") ?></legend>
     <table cellspacing="0" cellpadding="0" id="newaddress">
@@ -27,7 +27,7 @@
             </tr>
         </thead>
         <tbody>
-            <?php if ($settingsService->get('isAccountGender')) { ?>
+            <?php if ($view['settings']->get('isAccountGender')) { ?>
                 <tr>
                     <td><?php _vzm("Title") ?><span>*</span></td>
                     <td>
@@ -46,7 +46,7 @@
                 <td><?php _vzm("Last Name") ?><span>*</span></td>
                 <td><input type="text" id="lastName" name="lastName" value="<?php echo $view->escape($address->getLastName()) ?>" /></td>
             </tr>
-            <?php if ($settingsService->get('isAccountCompany')) { ?>
+            <?php if ($view['settings']->get('isAccountCompany')) { ?>
                 <tr>
                     <td><?php _vzm("Company Name") ?></td>
                     <td><input type="text" id="companyName" name="companyName" value="<?php echo $view->escape($address->getCompanyName()) ?>" /></td>
@@ -72,7 +72,7 @@
                 <td><?php _vzm("Country") ?><span>*</span></td>
                 <td><?php echo $form->idpSelect('countryId', array_merge(array(new ZMIdNamePair("", _zm("Select Country"))), $view->container->get('countryService')->getCountries()), $countryId) ?></td>
             </tr>
-            <?php if ($settingsService->get('isAccountState')) { ?>
+            <?php if ($view['settings']->get('isAccountState')) { ?>
                 <?php $zones = $view->container->get('countryService')->getZonesForCountryId($countryId); ?>
                 <tr>
                     <td><?php _vzm("State/Province") ?><span>*</span></td>

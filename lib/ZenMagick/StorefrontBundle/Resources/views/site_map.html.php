@@ -50,10 +50,10 @@
           <li><a href="<?php echo $view['router']->generate('conditions'); ?>"><?php _vzm("Terms &amp; Conditions") ?></a></li>
           <li><a href="<?php echo $view['router']->generate('contact_us'); ?>"><?php _vzm("Contact Us") ?></a></li>
 
-      <?php if ($settingsService->get('isEnabledGV')) { ?>
+      <?php if ($view['settings']->get('isEnabledGV')) { ?>
           <li><a href="<?php echo $view['router']->generate('gv_faq'); ?>"><?php _vzm("Giftvoucher FAQ") ?></a></li>
       <?php } ?>
-      <?php if ($settingsService->get('isEnabledCoupons')) { ?>
+      <?php if ($view['settings']->get('isEnabledCoupons')) { ?>
           <li><a href="<?php echo $view['router']->generate('discount_coupon'); ?>"><?php _vzm("Coupon Lookup") ?></a></li>
       <?php } ?>
       <li><a href="<?php echo $view['router']->generate('unsubscribe'); ?>"><?php _vzm("Newsletter Unsubscribe") ?></a></li>
