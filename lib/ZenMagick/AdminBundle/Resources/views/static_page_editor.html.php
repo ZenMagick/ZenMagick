@@ -25,7 +25,7 @@ use ZenMagick\Base\Toolbox;
   // get selections and defaults
   $editor = $view['request']->getParameter('editor');
   if (null != $editor) {
-      $toolbox->utils->setCurrentEditor($editor);
+      $utils->setCurrentEditor($editor);
   }
 
   $selectedThemeId = $view['request']->getParameter('themeId', $view->container->get('themeService')->getActiveThemeId());
