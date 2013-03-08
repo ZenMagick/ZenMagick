@@ -5,16 +5,6 @@ meta:
   description: 'ImageHandler2 support for ZenMagick'
 
   context: storefront
-  options:
-      properties:
-          disableIH2Attributes:
-              title: 'Disable IH img attributes'
-              description: 'Disable IH2 showtrail/hidetrail mouseover handler and styles on img elements'
-              type: boolean
-              config:
-                  default: false
-                  label: Disable
-                  style: checkbox
 
 container:
   services:

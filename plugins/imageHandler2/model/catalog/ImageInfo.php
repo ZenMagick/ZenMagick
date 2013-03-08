@@ -31,7 +31,6 @@ class ImageInfo extends ZMImageInfo
 {
     private $image_;
     private $formattedParameter_;
-    private $disableIH2Attributes_;
 
     /**
      * Create new image info.
@@ -45,7 +44,6 @@ class ImageInfo extends ZMImageInfo
         $this->image_ = $image;
         $this->formattedParameter_ = '';
         $plugin = Runtime::getContainer()->get('pluginService')->getPluginForId('imageHandler2');
-        $this->disableIH2Attributes_ = null !== $plugin && $plugin->get('disableIH2Attributes');
     }
 
     /**
@@ -73,10 +71,6 @@ class ImageInfo extends ZMImageInfo
             $newimg = handle_image('images/'.$this->image_, $this->altText_, SMALL_IMAGE_WIDTH, SMALL_IMAGE_HEIGHT, '');
         } else {
             $newimg = array('images/'.$this->image_, $this->altText_, SMALL_IMAGE_WIDTH, SMALL_IMAGE_HEIGHT, '');
-        }
-
-        if (!$this->disableIH2Attributes_) {
-            $this->formattedParameter_ = $newimg[4];
         }
 
         return $newimg[0];
@@ -109,10 +103,6 @@ class ImageInfo extends ZMImageInfo
             $newimg = array('images/'.$medium, $this->altText_, MEDIUM_IMAGE_WIDTH, MEDIUM_IMAGE_HEIGHT, '');
         }
 
-        if (!$this->disableIH2Attributes_) {
-            $this->formattedParameter_ = $newimg[4];
-        }
-
         return $newimg[0];
     }
 
@@ -130,9 +120,6 @@ class ImageInfo extends ZMImageInfo
 
         $large = $imageBase.$this->container->get('settingsService')->get('imgSuffixLarge').$ext;
         $newimg = handle_image('images/'.$large, $this->altText_, '', '', '');
-        if (!$this->disableIH2Attributes_) {
-            $this->formattedParameter_ = $newimg[4];
-        }
 
         return $newimg[0];
     }
