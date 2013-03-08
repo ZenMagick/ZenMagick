@@ -19,42 +19,42 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 #dashboard {padding:10px;}
-.db-column {float:left;padding-bottom:100px;}
+#dashboard .db-column {float:left;padding-bottom:100px;}
 /* layouts */
-.col3 .db-column {width:33%;}
-.col2 .db-column {width:50%;}
-.col2l #db-column-0 {width:35%;}
-.col2l #db-column-1 {width:65%;}
+#dashboard .col3 .db-column {width:33%;}
+#dashboard .col2 .db-column {width:50%;}
+#dashboard .col2l #db-column-0 {width:35%;}
+#dashboard .col2l #db-column-1 {width:65%;}
 .col2r #db-column-0 {width:65%;}
 .col2r #db-column-1 {width:35%;}
-.portlet {margin:0 1em 1em 0;}
-.portlet .ui-icon-gear {display:none;}
-.gear a.ui-icon-gear {display:inline;}
-.portlet-header {margin:0;padding-bottom:4px;padding-left:0.2em;position:relative;}
-.portlet-header .ui-icon {position:absolute;top:.14em;}
-.portlet-header .ui-icon-closethick {right:.3em;}
-.portlet-header .ui-icon-minusthick, .portlet-header .ui-icon-plusthick {right:1.4em;}
-.portlet-header .ui-icon-gear {right:2.5em;}
-.portlet-grip {text-align:left;}
-.portlet-content {padding:0;}
-.portlet-content p {padding-left:5px;}
-.ui-sortable-placeholder {border:1px dotted black;visibility:visible !important;height:50px !important;}
-.ui-sortable-placeholder * {visibility:hidden;}
+#dashboard .portlet {margin:0 1em 1em 0;}
+#dashboard .portlet .ui-icon-gear {display:none;}
+#dashboard .gear a.ui-icon-gear {display:inline;}
+#dashboard .portlet-header {margin:0;padding-bottom:4px;padding-left:0.2em;position:relative;}
+#dashboard .portlet-header .ui-icon {position:absolute;top:.14em;}
+#dashboard .portlet-header .ui-icon-closethick {right:.3em;}
+#dashboard .portlet-header .ui-icon-minusthick, .portlet-header .ui-icon-plusthick {right:1.4em;}
+#dashboard .portlet-header .ui-icon-gear {right:2.5em;}
+#dashboard .portlet-grip {text-align:left;}
+#dashboard .portlet-content {padding:0;}
+#dashboard .portlet-content p {padding-left:5px;}
+#dashboard .ui-sortable-placeholder {border:1px dotted black;visibility:visible !important;height:50px !important;}
+#dashboard .ui-sortable-placeholder * {visibility:hidden;}
 /* avoid double borders */
-.portlet-content table.grid tr:first-child th, .portlet-content table.grid tr:first-child td {border-top:none;}
-.portlet-content table.grid th:first-child, .portlet-content table.grid td:first-child {border-left:none;}
-.portlet-content table.grid th:last-child, .portlet-content table.grid td:last-child {border-right:none;}
-.portlet-content table.grid tr:last-child th, .portlet-content table.grid tr:last-child td {border-bottom:none;}
+#dashboard .portlet-content table.grid tr:first-child th, .portlet-content table.grid tr:first-child td {border-top:none;}
+#dashboard .portlet-content table.grid th:first-child, .portlet-content table.grid td:first-child {border-left:none;}
+#dashboard .portlet-content table.grid th:last-child, .portlet-content table.grid td:last-child {border-right:none;}
+#dashboard .portlet-content table.grid tr:last-child th, .portlet-content table.grid tr:last-child td {border-bottom:none;}
 
 #grid-list, #widget-list {border:1px solid #777;padding:3px;margin-bottom:5px;text-align:left;}
 #widget-list {min-height:140px;}
 
-h1 {position:relative;}
-h1 .ui-icon {position:absolute;top:7px;right:8px;background-color:white;}
+#dashboard h1 {position:relative;}
+#dashboard h1 .ui-icon {position:absolute;top:7px;right:8px;background-color:white;}
 #widget-box {width:500px;display:none;background-color:#eee;padding:.4em;}
 /*.ui-dialog {overflow:visible;} - makes the portlets visible when dragging out of widget box */
-.widget-box-col {width:49%;float:left;padding:3px 0;}
+#dashboard .widget-box-col {width:49%;float:left;padding:3px 0;}
 /* status messages */
-ul.ui-widget {list-style:none;padding:0;margin:0;}
-ul.ui-widget li {padding:2px;margin:1px 2px;}
-ul.ui-widget .ui-icon {float:left;}
+#dashboard ul.ui-widget {list-style:none;padding:0;margin:0;}
+#dashboard ul.ui-widget li {padding:2px;margin:1px 2px;}
+#dashboard ul.ui-widget .ui-icon {float:left;}
