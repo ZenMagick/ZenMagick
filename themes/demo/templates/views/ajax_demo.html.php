@@ -38,7 +38,6 @@ Depending on your server configuration you might be better of using something di
 
 <?php $resourceManager->jsFile('js/jquery.js', $resourceManager::NOW) ?>
 <?php $resourceManager->jsFile('js/jquery.form.js', $resourceManager::NOW) ?>
-<?php $resourceManager->jsFile('js/json2.js', $resourceManager::NOW) ?>
 
 <label for="msgbox"><strong>Messages</strong></label>
 <div id="msgbox" style="height:1.8em;border:1px solid gray;margin:5px 0 12px;padding:3px;color:red"></div>
