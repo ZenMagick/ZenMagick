@@ -23,19 +23,18 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
   <head>
     <?php echo $this->render('StorefrontBundle::head.html.php'); ?>
-    <?php $resourceManager->cssFile($app->getRequest()->getBaseUrl().'/zenmagick/themes/base/public/css/site.css') ?>
-    <?php $resourceManager->cssFile('css/ie.css', array('prefix' => '<!--[if IE]>', 'suffix' => '<![endif]-->')) ?>
+    <?php
+    // @todo move to asset groups to a configuration file
+    foreach ($view['assetic']->stylesheets(
+            array('bundles/storefront/css/site.css',
+            ),
+            array('cssrewrite')) as $url) {
+            echo '<link rel="stylesheet" href="'.$view->escape($url).'" />';
+    }
+    ?>
+
     <?php $resourceManager->jsFile('js/common.js', $resourceManager::FOOTER) ?>
     <?php $resourceManager->jsFile('//ajax.googleapis.com/ajax/libs/jquery/1.6.1/jquery.min.js', $resourceManager::HEADER) ?>
-    <?php /* give other themes the chance to add to the default CSS without having to copy everything */ ?>
-    <?php if ($resourceResolver->exists("resource:css/theme.css", $templateView::RESOURCE)) { ?>
-        <?php $resourceManager->cssFile('css/theme.css') ?>
-    <?php } ?>
-    <?php $pageCSS = "css/".$view['request']->getRouteId().".css"; ?>
-    <?php /* page specific CSS */ ?>
-    <?php if ($resourceResolver->exists('resource:'.$pageCSS, $templateView::RESOURCE)) { ?>
-        <?php $resourceManager->cssFile($pageCSS) ?>
-    <?php } ?>
     <?php if (!$templateManager->isLeftColEnabled() || !$templateManager->isRightColEnabled()) { ?>
       <style type="text/css" media="screen,projection">
         <?php if (!$templateManager->isLeftColEnabled()) { ?>

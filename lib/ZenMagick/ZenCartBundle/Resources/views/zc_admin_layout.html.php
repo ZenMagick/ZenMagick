@@ -1,5 +1,11 @@
 <?php
-$resourceManager->jsFile('zc_admin.js');
+foreach ($view['assetic']->stylesheets(
+        array('bundles/zencart/zc_admin.css',
+        ),
+        array('cssrewrite')) as $url) {
+        echo '<link rel="stylesheet" href="'.$view->escape($url).'" />';
+}
+
 $adminDir = $view->container->getParameter('zencart.admin_dir');
 $adminWeb = basename($adminDir);
 $zcPage = str_replace('zc_admin_', '',$view['request']->getRouteId()).'.php';

@@ -24,16 +24,15 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
   <head>
     <?php echo $this->render('StorefrontBundle::head.html.php'); ?>
-    <?php $resourceManager->cssFile('css/popup.css') ?>
-    <?php /* give other themes the chance to add to the default CSS without having to copy everything */ ?>
-    <?php if ($resourceResolver->exists('themes.css', $templateView::RESOURCE)) { ?>
-        <?php $resourceManager->cssFile('css/theme.css') ?>
-    <?php } ?>
-    <?php $pageCSS = "css/".$view['request']->getRouteId().".css"; ?>
-    <?php /* page specific CSS */ ?>
-    <?php if ($resourceResolver->exists('resource:'.$pageCSS, $templateView::RESOURCE)) { ?>
-        <?php $resourceManager->cssFile($pageCSS) ?>
-    <?php } ?>
+    <?php
+    // @todo move to asset groups to a configuration file
+    foreach ($view['assetic']->stylesheets(
+            array('bundles/storefront/css/popup.css',
+            ),
+            array('cssrewrite')) as $url) {
+            echo '<link rel="stylesheet" href="'.$view->escape($url).'" />';
+    }
+    ?>
   </head>
 
   <body id="pb_<?php echo $view['request']->getRouteId() ?>">

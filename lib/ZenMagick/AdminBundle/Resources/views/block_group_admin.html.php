@@ -19,7 +19,6 @@
  */
 ?>
 <?php $view->extend('AdminBundle::default_layout.html.php'); ?>
-<?php $resources->cssFile('style/views/block_group_admin.css') ?>
 <?php $admin->title() ?>
 
 <div class="col3">

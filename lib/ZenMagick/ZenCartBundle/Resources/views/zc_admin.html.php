@@ -21,7 +21,13 @@
 <?php $view->extend('AdminBundle::default_layout.html.php'); ?>
 <?php
 $admin->title();
-$resourceManager->cssFile('zc_admin.css');
+foreach ($view['assetic']->stylesheets(
+        array('bundles/zencart/zc_admin.css',
+        ),
+        array('cssrewrite')) as $url) {
+        echo '<link rel="stylesheet" href="'.$view->escape($url).'" />';
+}
+
 $resourceManager->jsFile('zc_admin.js');
 
 $adminDir = $view->container->getParameter('zencart.admin_dir');

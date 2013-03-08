@@ -25,15 +25,22 @@
     <meta charset="<?php echo $view->getCharset() ?>" />
     <title><?php $view['slots']->output('title', _zm('ZenMagick Admin')) ?></title>
     <link rel="shortcut icon" href="<?php echo $this->asUrl('resource:favicon.ico') ?>">
-    <?php $resources->cssFile('style/zenmagick.css') ?>
-    <?php $resources->cssFile('style/jquery-ui/jquery-ui-1.8.15.custom.css') ?>
-    <?php $resources->cssFile('style/jquery.cluetip.css') ?>
-    <?php $resources->cssFile('style/views/'.$view['request']->getRouteId().'.css') ?>
     <?php $resources->jsFile('js/jquery-1.6.2.min.js') ?>
     <?php $resources->jsFile('style/jquery-ui/jquery-ui-1.8.15.custom.min.js') ?>
     <?php $resources->jsFile('js/jquery.form.js') ?>
     <?php $resources->jsFile('js/jquery.cluetip.min.js') ?>
     <?php $resources->jsFile('js/zenmagick.js') ?>
+        <?php
+        // @todo move to asset groups to a configuration file
+        foreach ($view['assetic']->stylesheets(
+                array('bundles/admin/style/*',
+                      'bundles/admin/jquery-ui/jquery-ui-1.8.15.custom.css',
+                   'bundles/admin/style/views/*'
+                ),
+                array('cssrewrite')) as $url) {
+                echo '<link rel="stylesheet" href="'.$view->escape($url).'" />';
+        }
+        ?>
   </head>
   <body id="p-<?php echo $view['request']->getRouteId() ?>">
     <div id="main">
