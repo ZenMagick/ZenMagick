@@ -99,37 +99,6 @@ margin:0;
 .clearBoth {
 	clear: both;
 	}
-body#login{
-margin-top:100px;
-text-align:center;
-}
-body#login .button{
-cursor:pointer;
-padding: 3px;
-margin-top: 10px;
-}
-body#login fieldset{
-margin:0 auto;
-padding:10px;
-width:400px;
-}
-
-.loginLabel {
-	margin-left: 60px;
-	margin-right: 5px;
-	width: 125px;
-	float: left;
-	text-align: right;
-	line-height: 1.5;
-	}
-body#login legend{
-background:#ffffff;
-border:1px solid #224580;
-color:#333333;
-font-size:90%;
-padding:0.2em 0.5em;
-text-align:right;
-}
 checkbox,input,radio,select,textarea,file{
 font-size:11px;
 }
@@ -356,9 +325,6 @@ color:#ff6600;
 }
 .lookupAttention {
   color: #FF0000;
-}
-.clearBoth {
-	clear:both;
 }
 
 div#colone, div#coltwo, div#colthree { padding-top:0; }
