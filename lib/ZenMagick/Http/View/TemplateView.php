@@ -300,17 +300,11 @@ class TemplateView extends ZMObject implements View
     {
         $this->initVariables($request);
 
-        // sort out the actual template and, if a layout is used, the viewTemplate
+        // @todo this (and the previous code) ignores the passed template arg
+        // altogether
         $template = null;
-        $layout = $this->getLayout();
         try {
-            if (!empty($layout)) {
-                $template = $layout;
-                $viewTemplate = $this->getTemplate();
-                $this->setVariable('viewTemplate', $viewTemplate);
-            } else {
-                $template = $this->getTemplate();
-            }
+            $template = $this->getTemplate();
 
             // render
             $output = $this->fetch($template, $variables);
