@@ -56,7 +56,6 @@ class Locales extends ZMObject
                 'short' => 'H:i:s',
                 'long' => 'H:i:s u'
             ),
-            'dir' => 'ltr'
         );
         if ('en_US' == $locale) {
             $this->formats = array(
@@ -70,7 +69,6 @@ class Locales extends ZMObject
                     'short' => 'H:i:s',
                     'long' => 'H:i:s u'
                 ),
-                'dir' => 'ltr'
             );
         }
     }
