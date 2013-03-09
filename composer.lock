@@ -206,12 +206,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/doctrine/common.git",
-                "reference": "e211821c719d33ad2cd1186fafb4dadb5f74d6ed"
+                "reference": "0dc4fe01f056596697c5a91d7201209e8ccbfd58"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/doctrine/common/zipball/e211821c719d33ad2cd1186fafb4dadb5f74d6ed",
-                "reference": "e211821c719d33ad2cd1186fafb4dadb5f74d6ed",
+                "url": "https://api.github.com/repos/doctrine/common/zipball/0dc4fe01f056596697c5a91d7201209e8ccbfd58",
+                "reference": "0dc4fe01f056596697c5a91d7201209e8ccbfd58",
                 "shasum": ""
             },
             "require": {
@@ -233,7 +233,7 @@
                     "Doctrine\\Common\\": "lib/"
                 }
             },
-            "notification-url": "http://packagist.org/downloads/",
+            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "MIT"
             ],
@@ -259,7 +259,7 @@
                 {
                     "name": "Johannes M. Schmitt",
                     "email": "schmittjoh@gmail.com",
-                    "homepage": "https://github.com/schmittjoh",
+                    "homepage": "http://jmsyst.com",
                     "role": "Developer of wrapped JMSSerializerBundle"
                 }
             ],
@@ -272,7 +272,7 @@
                 "persistence",
                 "spl"
             ],
-            "time": "2013-02-19 09:37:33"
+            "time": "2013-03-07 21:30:00"
         },
         {
             "name": "doctrine/data-fixtures",
@@ -1070,12 +1070,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/l3pp4rd/DoctrineExtensions.git",
-                "reference": "a9300c270f30c45eca8604d53b2f4d021526ae5f"
+                "reference": "f3f2c46d48027349280c9a34c681cdfce2e4dfd2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/l3pp4rd/DoctrineExtensions/zipball/a9300c270f30c45eca8604d53b2f4d021526ae5f",
-                "reference": "a9300c270f30c45eca8604d53b2f4d021526ae5f",
+                "url": "https://api.github.com/repos/l3pp4rd/DoctrineExtensions/zipball/f3f2c46d48027349280c9a34c681cdfce2e4dfd2",
+                "reference": "f3f2c46d48027349280c9a34c681cdfce2e4dfd2",
                 "shasum": ""
             },
             "require": {
@@ -1141,7 +1141,7 @@
                 "tree",
                 "uploadable"
             ],
-            "time": "2013-03-07 01:32:18"
+            "time": "2013-03-08 15:28:02"
         },
         {
             "name": "jdorn/sql-formatter",
@@ -1149,12 +1149,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/jdorn/sql-formatter.git",
-                "reference": "d4c4db359863c8f597805076531df627f78f97a8"
+                "reference": "2724ddb7fb79851a557d868a688fc269960bff87"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/jdorn/sql-formatter/zipball/d4c4db359863c8f597805076531df627f78f97a8",
-                "reference": "d4c4db359863c8f597805076531df627f78f97a8",
+                "url": "https://api.github.com/repos/jdorn/sql-formatter/zipball/2724ddb7fb79851a557d868a688fc269960bff87",
+                "reference": "2724ddb7fb79851a557d868a688fc269960bff87",
                 "shasum": ""
             },
             "require": {
@@ -1191,7 +1191,7 @@
                 "highlight",
                 "sql"
             ],
-            "time": "2013-03-06 21:30:30"
+            "time": "2013-03-08 02:26:59"
         },
         {
             "name": "jmikola/insecure-routes-bundle",
@@ -2573,12 +2573,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/symfony.git",
-                "reference": "95444058fe1deb9c477dfc3d1a6acfd74b704c22"
+                "reference": "62f3d2acd5d2ebbb271864fb6b6ddb3e5145cfce"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/symfony/zipball/95444058fe1deb9c477dfc3d1a6acfd74b704c22",
-                "reference": "95444058fe1deb9c477dfc3d1a6acfd74b704c22",
+                "url": "https://api.github.com/repos/symfony/symfony/zipball/62f3d2acd5d2ebbb271864fb6b6ddb3e5145cfce",
+                "reference": "62f3d2acd5d2ebbb271864fb6b6ddb3e5145cfce",
                 "shasum": ""
             },
             "require": {
@@ -2664,7 +2664,7 @@
             "keywords": [
                 "framework"
             ],
-            "time": "2013-03-06 21:43:24"
+            "time": "2013-03-08 13:32:59"
         },
         {
             "name": "twig/extensions",
@@ -2672,12 +2672,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/fabpot/Twig-extensions.git",
-                "reference": "921799aaf05f88af749d72912d6b154dfeb9a03e"
+                "reference": "v1.0.0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/fabpot/Twig-extensions/zipball/921799aaf05f88af749d72912d6b154dfeb9a03e",
-                "reference": "921799aaf05f88af749d72912d6b154dfeb9a03e",
+                "url": "https://api.github.com/repos/fabpot/Twig-extensions/zipball/v1.0.0",
+                "reference": "v1.0.0",
                 "shasum": ""
             },
             "require": {
