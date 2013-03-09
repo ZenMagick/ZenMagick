@@ -19,8 +19,6 @@
  */
 namespace ZenMagick\Http\View;
 
-use Exception;
-use ZenMagick\Base\ZMException;
 use ZenMagick\Base\ZMObject;
 use ZenMagick\Http\Request;
 use ZenMagick\Http\Toolbox\Toolbox;
@@ -302,27 +300,22 @@ class TemplateView extends ZMObject implements View
 
         // @todo this (and the previous code) ignores the passed template arg
         // altogether
-        $template = null;
-        try {
-            $template = $this->getTemplate();
+        $template = $this->getTemplate();
 
-            // render
-            $output = $this->fetch($template, $variables);
+        // render
+        $output = $this->fetch($template, $variables);
 
-            // apply resources...
-            if (null !== ($resources = $this->resourceManager->getResourceContents())) {
-                $output = preg_replace('/<\/head>/', $resources['header'] . '</head>', $output, 1);
-                $output = preg_replace('/<\/body>/', $resources['footer'] . '</body>', $output, 1);
-            }
-            // and resources
-            foreach ($this->resourceManager->getFragments() as $key => $value) {
-                $output = str_replace($key, $value, $output);
-            }
-
-            return $output;
-        } catch (Exception $e) {
-            throw new ZMException('failed to fetch template: '.$template, 0, $e);
+        // apply resources...
+        if (null !== ($resources = $this->resourceManager->getResourceContents())) {
+            $output = preg_replace('/<\/head>/', $resources['header'] . '</head>', $output, 1);
+            $output = preg_replace('/<\/body>/', $resources['footer'] . '</body>', $output, 1);
         }
+        // and resources
+        foreach ($this->resourceManager->getFragments() as $key => $value) {
+            $output = str_replace($key, $value, $output);
+        }
+
+        return $output;
     }
 
     /**
