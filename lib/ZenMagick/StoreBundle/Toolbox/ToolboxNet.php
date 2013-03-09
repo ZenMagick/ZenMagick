@@ -134,6 +134,7 @@ class ToolboxNet extends ToolboxTool
      *
      * @param ZenMagick\StoreBundle\Entity\EZPage an EZPage instance
      * @return string A complete URL for the given ez-page.
+     * @todo create ezpage router loader for SSL links.
      */
     public function ezPage($page)
     {
@@ -148,17 +149,21 @@ class ToolboxNet extends ToolboxTool
             $params['chapter'] = $page->getTocChapter();
         }
 
-        $href = $this->url('page', $params, $page->isSsl());
+        // We are abusing the 3rd generate param to hack up SSL links
+        $router = $this->container->get('router');
+        $href = $router->generate('page', $params, $page->isSsl());
         if (!Toolbox::isEmpty($page->getAltUrl())) {
             $url = parse_url($page->getAltUrl());
             parse_str($url['query'], $query);
             $view = $query['main_page'];
             unset($query['main_page']);
-            $href = $this->url($view, $query, $page->isSsl());
+            $href = $router->generate($view, $query, $page->isSsl());
         } elseif (!Toolbox::isEmpty($page->getAltUrlExternal())) {
             $href = $page->getAltUrlExternal();
         }
-
+        if ($page->isSsl()) {
+            $href = str_replace('http:', 'https:', $href);
+        }
         return $href;
     }
 
