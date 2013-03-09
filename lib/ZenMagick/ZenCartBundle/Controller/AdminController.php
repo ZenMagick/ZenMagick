@@ -91,7 +91,7 @@ class AdminController extends DefaultController
         }
 
         $nativeAdmin = $this->container->getParameter('zencart.admin.native');
-        $view->setTemplate(($nativeAdmin ? 'zc_admin_layout': 'zc_admin') . '.html.php');
+        $view->setTemplate('ZenCartBundle::'.($nativeAdmin ? 'zc_admin_layout': 'zc_admin') . '.html.php');
 
         return $view;
     }
