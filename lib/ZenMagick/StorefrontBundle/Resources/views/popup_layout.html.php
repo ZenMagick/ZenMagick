@@ -32,6 +32,12 @@
             array('cssrewrite')) as $url) {
             echo '<link rel="stylesheet" href="'.$view->escape($url).'" />';
     }
+    foreach ($view['assetic']->javascripts(
+            array('@StorefrontBundle/Resources/public/js/*'
+            ),
+            array()) as $url) {
+            echo '<script src="'.$view->escape($url).'"></script>';
+    }
     ?>
   </head>
 

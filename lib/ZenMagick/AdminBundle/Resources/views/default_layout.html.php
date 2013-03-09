@@ -25,20 +25,28 @@
     <meta charset="<?php echo $view->getCharset() ?>" />
     <title><?php $view['slots']->output('title', _zm('ZenMagick Admin')) ?></title>
     <link rel="shortcut icon" href="<?php echo $this->asUrl('resource:favicon.ico') ?>">
-    <?php $resources->jsFile('js/jquery-1.6.2.min.js') ?>
-    <?php $resources->jsFile('style/jquery-ui/jquery-ui-1.8.15.custom.min.js') ?>
-    <?php $resources->jsFile('js/jquery.form.js') ?>
-    <?php $resources->jsFile('js/jquery.cluetip.min.js') ?>
-    <?php $resources->jsFile('js/zenmagick.js') ?>
         <?php
         // @todo move to asset groups to a configuration file
         foreach ($view['assetic']->stylesheets(
                 array('bundles/admin/style/*',
-                      'bundles/admin/jquery-ui/jquery-ui-1.8.15.custom.css',
+                      'bundles/admin/style/jquery-ui/jquery-ui-1.8.15.custom.css',
                    'bundles/admin/style/views/*'
                 ),
                 array('cssrewrite')) as $url) {
                 echo '<link rel="stylesheet" href="'.$view->escape($url).'" />';
+        }
+        // @todo move some bits to footer
+        foreach ($view['assetic']->javascripts(
+            array('@AdminBundle/Resources/public/js/jquery-1.6.2.min.js',
+                  '@AdminBundle/Resources/public/js/jquery.cluetip.min.js',
+                  '@AdminBundle/Resources/public/js/jquery.form.js',
+                  '@AdminBundle/Resources/public/jquery-ui/jquery-ui-1.8.15.custom.min.js',
+                  '@AdminBundle/Resources/public/js/jquery.form.js',
+                  '@AdminBundle/Resources/public/js/dashboard.js',
+                  '@AdminBundle/Resources/public/js/zenmagick.js',
+            ),
+            array()) as $url) {
+                echo '<script src="'.$view->escape($url).'"></script>';
         }
         ?>
   </head>

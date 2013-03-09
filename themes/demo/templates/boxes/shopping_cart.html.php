@@ -20,7 +20,6 @@
  */
 ?>
 
-<?php $resourceManager->jsFile('js/jquery.js', $resourceManager::FOOTER) ?>
 <?php $resourceManager->jsFile('js/interface.js', $resourceManager::FOOTER) ?>
 
 <script type="text/javascript">

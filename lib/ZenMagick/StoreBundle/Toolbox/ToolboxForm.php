@@ -103,11 +103,6 @@ class ToolboxForm extends ToolboxTool
         if ($hasId && $validator->hasRuleSet($attr['id']) && $settingsService->get('isAutoJSValidation')) {
             echo $validator->toJSString($attr['id']);
 
-            // inline JS to allow PHP
-            if (null != ($view = $this->getView())) {
-                $resourceManager = $view->getResourceManager();
-                $resourceManager->jsFile('resource:js/validation.js', $resourceManager::NOW, true);
-            }
         }
         echo '<form';
         foreach ($attr as $name => $value) {

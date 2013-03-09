@@ -31,7 +31,6 @@
   <?php echo $admin->categoryTree(); ?>
 </div>
 
-<?php $resources->jsFile('js/jquery.jstree.js') ?>
 <script type="text/javascript">
 $(function () {
   $("#category-tree").jstree({

@@ -20,7 +20,6 @@
 ?>
 <?php $view->extend('AdminBundle::default_layout.html.php'); ?>
 
-<?php $resources->jsFile('js/dashboard.js'); ?>
 <script>
   function _db_open_options() {
       $('#widget-box').dialog({

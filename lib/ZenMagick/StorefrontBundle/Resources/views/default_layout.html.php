@@ -32,8 +32,13 @@
             array('cssrewrite')) as $url) {
             echo '<link rel="stylesheet" href="'.$view->escape($url).'" />';
     }
+    // @todo move some bits to footer
+    foreach ($view['assetic']->javascripts(
+        array('@StorefrontBundle/Resources/public/js/*'),
+        array()) as $url) {
+            echo '<script src="'.$view->escape($url).'"></script>';
+    }
     ?>
-    <?php $resourceManager->jsFile('js/common.js', $resourceManager::FOOTER) ?>
     <?php if (!$templateManager->isLeftColEnabled() || !$templateManager->isRightColEnabled()) { ?>
       <style type="text/css" media="screen,projection">
         <?php if (!$templateManager->isLeftColEnabled()) { ?>

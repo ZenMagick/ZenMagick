@@ -22,13 +22,18 @@
 <?php
 $admin->title();
 foreach ($view['assetic']->stylesheets(
-        array('bundles/zencart/zc_admin.css',
-        ),
-        array('cssrewrite')) as $url) {
-        echo '<link rel="stylesheet" href="'.$view->escape($url).'" />';
+    array('bundles/zencart/zc_admin.css',
+    ),
+    array('cssrewrite')) as $url) {
+    echo '<link rel="stylesheet" href="'.$view->escape($url).'" />';
+}
+foreach ($view['assetic']->javascripts(
+    array('@ZenCartBundle/Resources/public/zc_admin.js'
+    ),
+    array()) as $url) {
+    echo '<script src="'.$view->escape($url).'"></script>';
 }
 
-$resourceManager->jsFile('zc_admin.js');
 
 $adminDir = $view->container->getParameter('zencart.admin_dir');
 $adminWeb = basename($adminDir);

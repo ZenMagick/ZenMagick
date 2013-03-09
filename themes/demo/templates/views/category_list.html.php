@@ -20,8 +20,6 @@
  */
 ?>
 <?php $view->extend('StorefrontBundle::default_layout.html.php'); ?>
-<?php $resourceManager->jsFile('js/jquery.js', $resourceManager::NOW) ?>
-<?php $resourceManager->jsFile('js/interface.js', $resourceManager::FOOTER) ?>
 
 <script type="text/javascript">
     // set up drag/drop
