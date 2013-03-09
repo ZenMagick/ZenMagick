@@ -23,7 +23,7 @@ require_once __DIR__.'/../app/AppKernel.php';
 
 // @todo remove context from here altogether!
 $context = 'storefront';
-if (0 === strpos($_SERVER['REQUEST_URI'], '/admin')) {
+if (0 === strpos($_SERVER['REQUEST_URI'], '/admin') || 0 === strpos($_SERVER['REQUEST_URI'], '/app_dev.php/admin')) {
     $context = 'admin';
 }
 $application = new AppKernel('dev', true, $context);
