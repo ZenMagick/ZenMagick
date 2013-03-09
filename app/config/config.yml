@@ -36,8 +36,8 @@ twig:
 
 assetic:
     debug:          "%kernel.debug%"
-    use_controller: true  # @todo default to false when we use env front controllers
-    bundles:        [ ]
+    use_controller: false
+    bundles:        [AdminBundle, StorefrontBundle, ZenCartBundle]
     #java: /usr/bin/java
     filters:
         cssrewrite: ~
