@@ -217,7 +217,7 @@ class TemplateView extends ZMObject implements View
     {
         $filename = $this->getTemplate();
 
-        return $this->resourceResolver->exists($filename);
+        return $this->getEngine()->exists($filename);
     }
 
     /**
