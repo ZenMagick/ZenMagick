@@ -20,7 +20,6 @@
 namespace ZenMagick\Http\View;
 
 use Exception;
-use Symfony\Component\Templating\DelegatingEngine;
 use ZenMagick\Base\ZMException;
 use ZenMagick\Base\ZMObject;
 use ZenMagick\Http\Request;
@@ -227,15 +226,11 @@ class TemplateView extends ZMObject implements View
      * Get the template engine.
      *
      * @return EngineInterface The engine.
+     * @todo inject the engine once it won't cause a circular reference issue.
      */
     protected function getEngine()
     {
-        $engine = new DelegatingEngine();
-        foreach ($this->container->get('containerTagService')->findTaggedServiceIds('zenmagick.http.templates.engine') as $id => $args) {
-            $engine->addEngine($this->container->get($id));
-        }
-
-        return $engine;
+		return $this->container->get('templating');
     }
 
     /**
